@@ -276,6 +276,32 @@ function estimateLevel(log: AdaptiveAnswerLog[]): 0 | ScreeningLevel {
   return best
 }
 
+// Wie summarize, aber über eine flache Log-Liste (z. B. aus persistierten
+// screening_item_results rekonstruiert) — Cluster-Reihenfolge = Erstkontakt.
+// Server-Wahrheit für das result_summary nach einem (ggf. resumten) Lauf.
+export function summarizeLogs(logs: AdaptiveAnswerLog[]): ClusterSummary[] {
+  const order: string[] = []
+  const byCluster = new Map<string, AdaptiveAnswerLog[]>()
+  for (const e of logs) {
+    if (!byCluster.has(e.clusterId)) {
+      order.push(e.clusterId)
+      byCluster.set(e.clusterId, [])
+    }
+    byCluster.get(e.clusterId)?.push(e)
+  }
+  return order.map((clusterId) => {
+    const log = byCluster.get(clusterId) ?? []
+    const correct = log.filter((e) => e.correct).length
+    return {
+      clusterId,
+      answered: log.length,
+      correct,
+      estimatedLevel: estimateLevel(log),
+      mastery: log.length === 0 ? 0 : correct / log.length,
+    }
+  })
+}
+
 // Cluster-Auswertung für Report/Coach (Eingabe für P5 result_summary).
 export function summarize(s: AdaptiveSession): ClusterSummary[] {
   return s.clusterOrder.map((clusterId) => {

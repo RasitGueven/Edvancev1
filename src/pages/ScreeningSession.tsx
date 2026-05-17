@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { JSX } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
@@ -21,8 +22,12 @@ import {
 } from '@/lib/screening/adaptive'
 import {
   buildScreeningAnswer,
+  finishScreeningTest,
   isMcPayload,
   loadActiveScreeningPool,
+  persistScreeningAnswer,
+  resolveScreeningStudentId,
+  startOrResumeScreeningTest,
 } from '@/lib/screening/screeningRuntime'
 import type { ScreeningItem } from '@/types'
 
@@ -39,8 +44,10 @@ const KICKERS = [
 
 export function ScreeningSession(): JSX.Element {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const sessionRef = useRef<AdaptiveSession | null>(null)
   const startedAtRef = useRef<number>(Date.now())
+  const testIdRef = useRef<string | null>(null)
   const initRef = useRef(false)
 
   const [phase, setPhase] = useState<Phase>('loading')
@@ -53,7 +60,18 @@ export function ScreeningSession(): JSX.Element {
   useEffect(() => {
     if (initRef.current) return
     initRef.current = true
-    void loadActiveScreeningPool().then(({ data, error }) => {
+    void (async () => {
+      // Persistenz best effort: scheitert test-start (kein Schüler-Row,
+      // RLS …), läuft das Screening trotzdem in-memory weiter.
+      if (user?.id) {
+        const studentId = await resolveScreeningStudentId(user.id)
+        if (studentId) {
+          const t = await startOrResumeScreeningTest(studentId)
+          testIdRef.current = t.data
+        }
+      }
+
+      const { data, error } = await loadActiveScreeningPool()
       if (error) {
         setErrorMsg(error)
         setPhase('error')
@@ -74,17 +92,20 @@ export function ScreeningSession(): JSX.Element {
       setItem(first)
       startedAtRef.current = Date.now()
       setPhase('running')
-    })
-  }, [])
+    })()
+  }, [user?.id])
 
   function handleNext(): void {
     const session = sessionRef.current
     if (!session || !item) return
     const answer = buildScreeningAnswer(item, { mcIndex, text })
-    submitAnswer(session, answer, Date.now() - startedAtRef.current)
+    const log = submitAnswer(session, answer, Date.now() - startedAtRef.current)
+    const testId = testIdRef.current
+    if (log && testId) void persistScreeningAnswer(testId, log, answer)
 
     const next = isComplete(session) ? null : nextItem(session)
     if (!next) {
+      if (testId) void finishScreeningTest(testId)
       setPhase('done')
       return
     }
