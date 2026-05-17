@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react'
-import { TIERS } from '@/components/edvance/onboarding/constants'
-import type { StepProps } from '@/types'
+import { EmptyState, LoadingPulse } from '@/components/edvance'
+import type { TierStepProps } from '@/types'
 
 const SELECTED_BG = 'color-mix(in srgb, var(--primary) 8%, transparent)'
 const RECOMMENDED_INDEX = 1
@@ -11,17 +11,31 @@ function tierBorder(selected: boolean, isRecommended: boolean): string {
   return 'var(--border)'
 }
 
-export function TierStep({ data, setData }: StepProps): JSX.Element {
+function formatPrice(cents: number): string {
+  return `${(cents / 100).toLocaleString('de-DE')} €/Monat`
+}
+
+export function TierStep({ data, setData, tiers, loading }: TierStepProps): JSX.Element {
+  if (loading) return <LoadingPulse type="list" lines={3} />
+  if (tiers.length === 0) {
+    return (
+      <EmptyState
+        icon="💳"
+        title="Keine Tarife"
+        description="Es sind noch keine Tarife angelegt. Bitte zuerst unter Tarif-Verwaltung anlegen."
+      />
+    )
+  }
   return (
     <div className="flex flex-col gap-4">
-      {TIERS.map((tier, index) => {
-        const selected = data.tier === tier.id
+      {tiers.map((tier, index) => {
+        const selected = data.tier === tier.name
         const isRecommended = index === RECOMMENDED_INDEX
         return (
           <button
             key={tier.id}
             type="button"
-            onClick={() => setData({ ...data, tier: tier.id })}
+            onClick={() => setData({ ...data, tier: tier.name })}
             className="relative flex items-start justify-between rounded-xl border px-5 py-4 text-left transition-all"
             style={{
               borderColor: tierBorder(selected, isRecommended),
@@ -38,7 +52,7 @@ export function TierStep({ data, setData }: StepProps): JSX.Element {
               </span>
             )}
             <div className="flex flex-col gap-1">
-              <span className="font-semibold text-foreground">{tier.label}</span>
+              <span className="font-semibold text-foreground">{tier.name}</span>
               <ul className="mt-1 flex flex-col gap-0.5">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-1.5 text-sm text-muted">
@@ -49,7 +63,7 @@ export function TierStep({ data, setData }: StepProps): JSX.Element {
               </ul>
             </div>
             <div className="flex flex-col items-end gap-2 shrink-0 ml-4">
-              <span className="font-bold text-foreground">{tier.price}</span>
+              <span className="font-bold text-foreground">{formatPrice(tier.price_cents)}</span>
               {selected && (
                 <span
                   className="flex h-6 w-6 items-center justify-center rounded-full"

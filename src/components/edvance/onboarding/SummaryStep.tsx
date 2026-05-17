@@ -1,13 +1,12 @@
-import { MOCK_COACHES } from '@/components/edvance/onboarding/constants'
-import type { OnboardingFormData, SummaryStepProps } from '@/types'
+import type { Coach, OnboardingFormData, SummaryStepProps } from '@/types'
 
 const PLACEHOLDER_DASH = '–'
 const SUCCESS_BG = 'color-mix(in srgb, var(--success) 10%, transparent)'
 const SUCCESS_BORDER = '1px solid color-mix(in srgb, var(--success) 30%, transparent)'
 const ROW_ALT_BG = 'color-mix(in srgb, var(--muted) 5%, transparent)'
 
-function buildRows(data: OnboardingFormData): Array<[string, string]> {
-  const coach = MOCK_COACHES.find((entry) => entry.id === data.coachId)
+function buildRows(data: OnboardingFormData, coaches: Coach[]): Array<[string, string]> {
+  const coach = coaches.find((entry) => entry.id === data.coachId)
   return [
     ['Name', `${data.firstName} ${data.lastName}`],
     ['E-Mail', data.email || PLACEHOLDER_DASH],
@@ -16,12 +15,12 @@ function buildRows(data: OnboardingFormData): Array<[string, string]> {
     ['Schule', data.schoolName || PLACEHOLDER_DASH],
     ['Fächer', data.subjects.length ? data.subjects.join(', ') : PLACEHOLDER_DASH],
     ['Tarif', data.tier || PLACEHOLDER_DASH],
-    ['Coach', coach?.name ?? PLACEHOLDER_DASH],
+    ['Coach', coach?.full_name ?? PLACEHOLDER_DASH],
   ]
 }
 
-export function SummaryStep({ data }: SummaryStepProps): JSX.Element {
-  const rows = buildRows(data)
+export function SummaryStep({ data, coaches }: SummaryStepProps): JSX.Element {
+  const rows = buildRows(data, coaches)
 
   return (
     <div className="flex flex-col gap-4">

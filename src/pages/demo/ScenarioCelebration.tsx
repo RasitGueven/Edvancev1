@@ -1,5 +1,5 @@
 import { useEffect, useState, type JSX } from 'react'
-import { EdvanceBadge, XPBar } from '@/components/edvance'
+import { XPBar } from '@/components/edvance'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'

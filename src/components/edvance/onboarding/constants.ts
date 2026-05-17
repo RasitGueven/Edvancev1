@@ -1,4 +1,4 @@
-import type { CoachOption, OnboardingFormData, SchoolType, TierOption } from '@/types'
+import type { OnboardingFormData, SchoolType } from '@/types'
 
 export const SUBJECTS = ['Mathematik', 'Deutsch', 'Englisch'] as const
 
@@ -14,38 +14,6 @@ export const CLASS_LEVELS = Array.from(
 export const MAX_SUBJECTS_PER_STUDENT = 2
 
 export const STEP_LABELS = ['Stammdaten', 'Fächer', 'Tarif', 'Coach', 'Abschluss'] as const
-
-export const TIERS: TierOption[] = [
-  {
-    id: 'Basic',
-    label: 'Basic',
-    price: '89 €/Monat',
-    features: ['2 Sessions/Woche', 'Basis-Lernpfad', 'Monatlicher Eltern-Report'],
-  },
-  {
-    id: 'Standard',
-    label: 'Standard',
-    price: '129 €/Monat',
-    features: ['3 Sessions/Woche', 'KI-Lernpfad', '2× Eltern-Report/Monat', 'Coach-Chat'],
-  },
-  {
-    id: 'Premium',
-    label: 'Premium',
-    price: '169 €/Monat',
-    features: [
-      'Unbegrenzte Sessions',
-      'Voller KI-Lernpfad',
-      'Wöchentlicher Report',
-      'Prioritäts-Coach',
-      'Fachwechsel flexibel',
-    ],
-  },
-]
-
-export const MOCK_COACHES: CoachOption[] = [
-  { id: 'c2', name: 'Frau Demir' },
-  { id: 'c3', name: 'Herr Kaya' },
-]
 
 export const EMPTY_FORM: OnboardingFormData = {
   firstName: '',

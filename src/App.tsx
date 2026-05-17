@@ -6,6 +6,10 @@ import { CoachDashboard } from '@/pages/coach/CoachDashboard'
 import { ParentDashboard } from '@/pages/parent/ParentDashboard'
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
 import { LambacherPreview } from '@/pages/admin/LambacherPreview'
+import { LeadsPage } from '@/pages/admin/LeadsPage'
+import { TiersPage } from '@/pages/admin/TiersPage'
+import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
+import { IntakePage } from '@/pages/coach/IntakePage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayer } from '@/pages/student/TaskPlayer'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
@@ -55,6 +59,14 @@ export default function App(): JSX.Element {
           }
         />
         <Route
+          path="/coach/intake"
+          element={
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <IntakePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/parent"
           element={
             <ProtectedRoute allowedRoles={['parent']}>
@@ -78,15 +90,57 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin/leads"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+              <LeadsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/tiers"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <TiersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/diagnostics"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <DiagnosticsPage />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="/showcase" element={<DesignShowcase />} />
         <Route path="/demo/widgets" element={<TaskWidgetDemo />} />
         <Route path="/demo/design" element={<DesignDemo />} />
 
-        {/* Diagnose-Engine: zugänglich ohne Login (Tablet-Sicht für Schüler).
+        {/* Diagnose-Engine (lokal, ohne Login – Tablet-Sicht).
             Coach erreicht den Coach-View über ?view=coach. */}
         <Route path="/diagnosis" element={<DiagnosisSession />} />
         <Route path="/diagnosis/result" element={<DiagnosisResult />} />
+
+        {/* Screening: produktisierter, DB-gestützter Lauf (eingeloggt). */}
+        <Route
+          path="/screening"
+          element={
+            <ProtectedRoute allowedRoles={['student', 'coach', 'admin']}>
+              <DiagnosisSession screening />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/screening/result"
+          element={
+            <ProtectedRoute allowedRoles={['student', 'coach', 'admin']}>
+              <DiagnosisResult />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />

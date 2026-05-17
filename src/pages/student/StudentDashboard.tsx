@@ -4,10 +4,15 @@ import { BookOpen, ChevronRight, FileText, FlaskConical, PlayCircle, Search, X, 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
-import { EdvanceBadge, EdvanceCard, XPBar } from '@/components/edvance'
+import { XPBar } from '@/components/edvance'
+import { DashboardTiles } from '@/components/edvance/DashboardTiles'
 import { useAuth } from '@/hooks/useAuth'
 import { getClustersBySubject, getSubjects, getTasksByCluster } from '@/lib/supabase/tasks'
+import { getStudentByProfile } from '@/lib/supabase/students'
+import { getStudentProgress } from '@/lib/supabase/progress'
 import type { SkillCluster, Subject, Task } from '@/types'
+
+const XP_PER_LEVEL = 500
 
 type ContentType = Task['content_type']
 type TypeFilter = 'all' | ContentType
@@ -28,6 +33,27 @@ export function StudentDashboard(): JSX.Element {
   const [clusters, setClusters] = useState<SkillCluster[]>([])
   const [loadingClusters, setLoadingClusters] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
+
+  const [xpTotal, setXpTotal] = useState<number>(0)
+  const [streakDays, setStreakDays] = useState<number>(0)
+  const [level, setLevel] = useState<number>(1)
+
+  useEffect(() => {
+    if (!user) return
+    let cancelled = false
+    void (async () => {
+      const { data: student } = await getStudentByProfile(user.id)
+      if (cancelled || !student) return
+      const { data: progress } = await getStudentProgress(student.id)
+      if (cancelled || !progress) return
+      setXpTotal(progress.xp_total)
+      setStreakDays(progress.streak_days)
+      setLevel(progress.level)
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [user])
 
   const [search, setSearch] = useState<string>('')
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all')
@@ -141,13 +167,18 @@ export function StudentDashboard(): JSX.Element {
 
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold">
               <Flame className="h-3.5 w-3.5 text-[var(--color-moment-gold)]" />
-              5 Tage Streak
+              {streakDays} Tage Streak
             </div>
           </div>
 
           {/* XP-Card mit Glass-Effekt */}
           <div className="glass-dark rounded-[var(--radius-xl)] p-5">
-            <XPBar current={340} max={500} level={4} levelName="Entdecker" />
+            <XPBar
+              current={xpTotal % XP_PER_LEVEL}
+              max={XP_PER_LEVEL}
+              level={level}
+              levelName={`Level ${level}`}
+            />
           </div>
         </div>
       </section>
@@ -159,8 +190,31 @@ export function StudentDashboard(): JSX.Element {
           </Card>
         )}
 
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+          Schnellzugriff
+        </h2>
+        <div className="mb-8">
+          <DashboardTiles
+            tiles={[
+              {
+                to: '/screening',
+                icon: <FlaskConical className="h-5 w-5" />,
+                title: 'Screening starten',
+                description: 'Zeig, was du kannst – wir finden deinen Lernstand',
+              },
+              {
+                to: '#lernpfad',
+                anchor: true,
+                icon: <BookOpen className="h-5 w-5" />,
+                title: 'Lernpfad',
+                description: 'Themen durchsuchen und üben',
+              },
+            ]}
+          />
+        </div>
+
         {/* Search + Filters */}
-        <div className="flex flex-col gap-3">
+        <div id="lernpfad" className="flex flex-col gap-3">
           <div className="relative">
             <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-muted)]" />
             <input

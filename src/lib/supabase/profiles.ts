@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase/client'
-import type { Role, SupabaseResult, UserRole } from '@/types'
+import type { Coach, Role, SupabaseResult, UserRole } from '@/types'
 
 const VALID_ROLES: readonly UserRole[] = ['student', 'parent', 'coach', 'admin']
 
@@ -20,6 +20,22 @@ export async function getProfileRole(userId: string): Promise<SupabaseResult<Rol
     return { data: role, error: null }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Profil konnte nicht geladen werden'
+    return { data: null, error: message }
+  }
+}
+
+// Alle Coaches (profiles.role = 'coach') – ersetzt MOCK_COACHES.
+export async function getCoaches(): Promise<SupabaseResult<Coach[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('id, full_name')
+      .eq('role', 'coach')
+      .order('full_name', { ascending: true })
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as Coach[], error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Coaches konnten nicht geladen werden'
     return { data: null, error: message }
   }
 }

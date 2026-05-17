@@ -1,32 +1,46 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { createContext, useContext, useState, type ReactNode } from 'react'
 import type { BehaviorSnapshot } from '@/types/diagnosis'
-import { mockDiagnosisTasks } from '@/lib/diagnosisMockData'
+import type { RunTask } from '@/types'
 
-const STORAGE_KEY = 'edvance_diagnosis_state_v1'
+// U5c-2: kein localStorage mehr. Lokaler /diagnosis-Modus ist rein
+// in-memory pro Tab; der produktive Pfad ist DB-gestuetzt via /screening
+// (Resume aus screening_tests/behavior_snapshots/screening_ratings).
+export type DiagnosisMode = 'local' | 'db'
 
 export type DiagnosisState = {
   studentName: string
   subject: string
   date: string
   currentIndex: number
-  // pro Task: wartet das System auf Coach-Bewertung?
   awaitingCoachRating: boolean
-  // Array indexed by task position
   snapshots: BehaviorSnapshot[]
+  tasks: RunTask[]
   coachNote: string
   finished: boolean
   startedAt: string | null
+  // U5c: DB-Modus (Screening) – persistierter Lauf statt localStorage
+  mode: DiagnosisMode
+  screeningTestId: string | null
+  // pro Task-Index die behavior_snapshots.id (fuer screening_ratings)
+  snapshotIds: (string | null)[]
+}
+
+type StartArgs = {
+  studentName: string
+  subject: string
+  tasks: RunTask[]
 }
 
 type DiagnosisContextValue = {
   state: DiagnosisState
-  // Student-Aktionen
   submitAnswer: (snapshot: Omit<BehaviorSnapshot, 'coach_rating'>) => void
-  // Coach-Aktionen
   setCoachRating: (rating: 1 | 2 | 3 | 4) => void
   setCoachNote: (note: string) => void
-  // Setup
-  startSession: (studentName: string, subject: string) => void
+  startSession: (args: StartArgs) => void
+  // U5c: DB-gestuetzter Screening-Lauf
+  startScreening: (args: StartArgs & { screeningTestId: string }) => void
+  recordSnapshotId: (index: number, id: string) => void
+  hydrate: (next: DiagnosisState) => void
   resetSession: () => void
 }
 
@@ -37,52 +51,19 @@ const initialState: DiagnosisState = {
   currentIndex: 0,
   awaitingCoachRating: false,
   snapshots: [],
+  tasks: [],
   coachNote: '',
   finished: false,
   startedAt: null,
-}
-
-function loadFromStorage(): DiagnosisState | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return null
-    return JSON.parse(raw) as DiagnosisState
-  } catch {
-    return null
-  }
-}
-
-function saveToStorage(state: DiagnosisState) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-  } catch {
-    /* quota / disabled */
-  }
+  mode: 'local',
+  screeningTestId: null,
+  snapshotIds: [],
 }
 
 const DiagnosisContext = createContext<DiagnosisContextValue | undefined>(undefined)
 
 export function DiagnosisProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<DiagnosisState>(() => loadFromStorage() ?? initialState)
-
-  // Cross-Tab-Sync: lausche auf storage-Events von anderen Tabs
-  useEffect(() => {
-    const handler = (e: StorageEvent) => {
-      if (e.key !== STORAGE_KEY || !e.newValue) return
-      try {
-        setState(JSON.parse(e.newValue) as DiagnosisState)
-      } catch {
-        /* ignore */
-      }
-    }
-    window.addEventListener('storage', handler)
-    return () => window.removeEventListener('storage', handler)
-  }, [])
-
-  // Persistiere bei jedem Update
-  useEffect(() => {
-    saveToStorage(state)
-  }, [state])
+  const [state, setState] = useState<DiagnosisState>(initialState)
 
   const submitAnswer: DiagnosisContextValue['submitAnswer'] = snapshotPartial => {
     setState(prev => {
@@ -102,8 +83,7 @@ export function DiagnosisProvider({ children }: { children: ReactNode }) {
       const cur = updated[idx]
       if (!cur) return prev
       updated[idx] = { ...cur, coach_rating: rating }
-
-      const isLast = idx >= mockDiagnosisTasks.length - 1
+      const isLast = idx >= prev.tasks.length - 1
       return {
         ...prev,
         snapshots: updated,
@@ -117,20 +97,63 @@ export function DiagnosisProvider({ children }: { children: ReactNode }) {
   const setCoachNote: DiagnosisContextValue['setCoachNote'] = note =>
     setState(prev => ({ ...prev, coachNote: note }))
 
-  const startSession: DiagnosisContextValue['startSession'] = (studentName, subject) =>
+  const startSession: DiagnosisContextValue['startSession'] = ({
+    studentName,
+    subject,
+    tasks,
+  }) =>
     setState({
       ...initialState,
       studentName,
       subject,
+      tasks,
       date: new Date().toISOString(),
       startedAt: new Date().toISOString(),
+      mode: 'local',
     })
 
-  const resetSession = () => setState(initialState)
+  const startScreening: DiagnosisContextValue['startScreening'] = ({
+    studentName,
+    subject,
+    tasks,
+    screeningTestId,
+  }) =>
+    setState({
+      ...initialState,
+      studentName,
+      subject,
+      tasks,
+      date: new Date().toISOString(),
+      startedAt: new Date().toISOString(),
+      mode: 'db',
+      screeningTestId,
+      snapshotIds: [],
+    })
+
+  const recordSnapshotId: DiagnosisContextValue['recordSnapshotId'] = (index, id) =>
+    setState(prev => {
+      const ids = [...prev.snapshotIds]
+      ids[index] = id
+      return { ...prev, snapshotIds: ids }
+    })
+
+  const hydrate: DiagnosisContextValue['hydrate'] = next => setState(next)
+
+  const resetSession = () => setState({ ...initialState })
 
   return (
     <DiagnosisContext.Provider
-      value={{ state, submitAnswer, setCoachRating, setCoachNote, startSession, resetSession }}
+      value={{
+        state,
+        submitAnswer,
+        setCoachRating,
+        setCoachNote,
+        startSession,
+        startScreening,
+        recordSnapshotId,
+        hydrate,
+        resetSession,
+      }}
     >
       {children}
     </DiagnosisContext.Provider>

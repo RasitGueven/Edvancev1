@@ -8,6 +8,7 @@ export async function persistBehaviorSnapshot(
   taskId: string,
   userId: string,
   snapshot: Omit<BehaviorSnapshot, 'coach_rating'>,
+  screeningTestId?: string,
 ): Promise<SupabaseResult<{ id: string }>> {
   try {
     const { data, error } = await supabase
@@ -15,6 +16,7 @@ export async function persistBehaviorSnapshot(
       .insert({
         task_id: taskId,
         user_id: userId,
+        screening_test_id: screeningTestId ?? null,
         answer_text: snapshot.answer_text,
         thinking_time_ms: snapshot.thinking_time_ms,
         task_duration_ms: snapshot.task_duration_ms,

@@ -1,12 +1,25 @@
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Avatar } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
-import { MOCK_SESSIONS } from '@/lib/mockData'
+import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { DashboardTiles } from '@/components/edvance/DashboardTiles'
+import { useAuth } from '@/hooks/useAuth'
+import {
+  getSessionStudents,
+  listSessionsForCoach,
+  setAttendance,
+} from '@/lib/supabase/sessions'
+import { listStudentsWithName } from '@/lib/supabase/students'
 import { formatDateLongDe, getInitials } from '@/lib/utils'
-import { CalendarDays, Users, Clock } from 'lucide-react'
-import type { MockSession, SessionStatus } from '@/types'
+import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, Inbox } from 'lucide-react'
+import type {
+  AttendanceStatus,
+  CoachingSession,
+  SessionStatus,
+} from '@/types'
 
 const PLACEHOLDER_DASH = '–'
 const SHADOW_CARD = '0 1px 6px 0 rgba(0,0,0,0.07)'
@@ -20,58 +33,51 @@ const STATUS_BORDER_COLOR: Record<SessionStatus, string> = {
   done: 'border-l-border',
   upcoming: 'border-l-primary',
 }
-
 const STATUS_BG: Record<SessionStatus, string> = {
   active: 'bg-success/5',
   done: 'bg-card',
   upcoming: 'bg-card',
 }
 
-function nextUpcomingTime(sessions: MockSession[]): string {
-  const next = sessions.find((session) => session.status === 'upcoming')
-  return next ? `${next.time} Uhr` : PLACEHOLDER_DASH
+type StudentVM = {
+  student_id: string
+  name: string
+  classLevel: number | null
+  attendance: AttendanceStatus
+}
+type SessionVM = { session: CoachingSession; students: StudentVM[] }
+
+function sessionTime(iso: string): string {
+  return new Date(iso).toLocaleTimeString('de-DE', {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
 }
 
-function totalActiveStudents(sessions: MockSession[]): number {
-  return sessions
-    .filter((session) => session.status === 'active')
-    .reduce((sum, session) => sum + session.students.length, 0)
+function nextUpcomingTime(vms: SessionVM[]): string {
+  const next = vms
+    .filter((v) => v.session.status === 'upcoming')
+    .sort((a, b) => a.session.scheduled_at.localeCompare(b.session.scheduled_at))[0]
+  return next ? `${sessionTime(next.session.scheduled_at)} Uhr` : PLACEHOLDER_DASH
 }
 
-function sessionShadow(status: SessionStatus): string {
-  return status === 'active' ? SHADOW_ACTIVE : SHADOW_CARD
+function totalActiveStudents(vms: SessionVM[]): number {
+  return vms
+    .filter((v) => v.session.status === 'active')
+    .reduce((sum, v) => sum + v.students.length, 0)
 }
 
-function SessionActionButton({ status }: { status: SessionStatus }): JSX.Element | null {
-  if (status === 'active') return <Button>Session öffnen</Button>
-  if (status === 'upcoming') return <Button variant="outline">Vorbereiten</Button>
-  return <Button variant="outline" disabled>Protokoll ansehen</Button>
-}
-
-function AttendanceLegend(): JSX.Element {
-  return (
-    <div className="flex items-center gap-3 text-xs text-muted">
-      <span className="flex items-center gap-1">
-        <span className="h-2.5 w-2.5 rounded-full bg-success inline-block" /> Anwesend
-      </span>
-      <span className="flex items-center gap-1">
-        <span className="h-2.5 w-2.5 rounded-full bg-destructive inline-block" /> Fehlt
-      </span>
-      <span className="flex items-center gap-1">
-        <span className="h-2.5 w-2.5 rounded-full bg-muted inline-block" /> Unbekannt
-      </span>
-    </div>
-  )
-}
-
-type StatCardProps = {
+function StatCard({
+  label,
+  value,
+  icon,
+  iconBackground,
+}: {
   label: string
   value: string | number
   icon: JSX.Element
   iconBackground: string
-}
-
-function StatCard({ label, value, icon, iconBackground }: StatCardProps): JSX.Element {
+}): JSX.Element {
   return (
     <Card style={{ boxShadow: SHADOW_CARD }}>
       <CardContent className="flex items-center gap-4 pt-6">
@@ -90,92 +96,216 @@ function StatCard({ label, value, icon, iconBackground }: StatCardProps): JSX.El
   )
 }
 
-function SessionCard({ session }: { session: MockSession }): JSX.Element {
+function SessionCard({
+  vm,
+  onAttendance,
+}: {
+  vm: SessionVM
+  onAttendance: (studentId: string, a: AttendanceStatus) => void
+}): JSX.Element {
+  const { session, students } = vm
   return (
     <Card
       className={`border-l-4 ${STATUS_BORDER_COLOR[session.status]} ${STATUS_BG[session.status]}`}
-      style={{ boxShadow: sessionShadow(session.status) }}
+      style={{ boxShadow: session.status === 'active' ? SHADOW_ACTIVE : SHADOW_CARD }}
     >
       <CardHeader className="pb-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-3">
-            <span className="text-xl font-bold text-foreground">{session.time} Uhr</span>
+            <span className="text-xl font-bold text-foreground">
+              {sessionTime(session.scheduled_at)} Uhr
+            </span>
             <Badge variant={session.status} />
           </div>
           <div className="flex items-center gap-2 text-sm text-muted">
-            <span>{session.room}</span>
+            <span>{session.room ?? PLACEHOLDER_DASH}</span>
             <span>·</span>
-            <span>{session.students.length} Schüler</span>
+            <span>{students.length} Schüler</span>
           </div>
         </div>
       </CardHeader>
-
       <CardContent>
-        <div className="mb-5 flex flex-wrap gap-3">
-          {session.students.map((student) => (
-            <div key={student.id} className="flex items-center gap-2">
-              <Avatar initials={getInitials(student.name)} attendance={student.attendance} />
-              <div>
-                <p className="text-sm font-medium text-foreground leading-tight">
-                  {student.name.split(' ')[0]}
-                </p>
-                <p className="text-xs text-muted leading-tight">Kl. {student.classLevel}</p>
+        {students.length === 0 ? (
+          <p className="mb-2 text-sm text-muted">Keine Teilnehmer eingetragen.</p>
+        ) : (
+          <div className="mb-5 flex flex-col gap-3">
+            {students.map((s) => (
+              <div key={s.student_id} className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <Avatar initials={getInitials(s.name)} attendance={s.attendance} />
+                  <div>
+                    <p className="text-sm font-medium text-foreground leading-tight">
+                      {s.name.split(' ')[0]}
+                    </p>
+                    <p className="text-xs text-muted leading-tight">
+                      Kl. {s.classLevel ?? PLACEHOLDER_DASH}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-1.5">
+                  <Button
+                    size="sm"
+                    variant={s.attendance === 'present' ? 'default' : 'outline'}
+                    onClick={() => onAttendance(s.student_id, 'present')}
+                  >
+                    Da
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={s.attendance === 'absent' ? 'default' : 'outline'}
+                    onClick={() => onAttendance(s.student_id, 'absent')}
+                  >
+                    Fehlt
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <AttendanceLegend />
-          <div>
-            <SessionActionButton status={session.status} />
+            ))}
           </div>
-        </div>
+        )}
       </CardContent>
     </Card>
   )
 }
 
 export function CoachDashboard(): JSX.Element {
+  const { user } = useAuth()
+  const [vms, setVms] = useState<SessionVM[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const load = (): void => {
+    if (!user) return
+    setLoading(true)
+    void (async () => {
+      const [{ data: sessions, error: sErr }, { data: students }] = await Promise.all([
+        listSessionsForCoach(user.id),
+        listStudentsWithName(),
+      ])
+      if (sErr) {
+        setError(sErr)
+        setLoading(false)
+        return
+      }
+      const nameMap = new Map(
+        (students ?? []).map((st) => [
+          st.id,
+          { name: st.full_name ?? 'Unbenannt', classLevel: st.class_level },
+        ]),
+      )
+      const built: SessionVM[] = []
+      for (const session of sessions ?? []) {
+        const { data: links } = await getSessionStudents(session.id)
+        built.push({
+          session,
+          students: (links ?? []).map((l) => ({
+            student_id: l.student_id,
+            name: nameMap.get(l.student_id)?.name ?? 'Unbenannt',
+            classLevel: nameMap.get(l.student_id)?.classLevel ?? null,
+            attendance: l.attendance,
+          })),
+        })
+      }
+      setVms(built)
+      setLoading(false)
+    })()
+  }
+
+  useEffect(load, [user])
+
+  const onAttendance = async (
+    sessionId: string,
+    studentId: string,
+    a: AttendanceStatus,
+  ): Promise<void> => {
+    const { error: err } = await setAttendance(sessionId, studentId, a)
+    if (err) {
+      setError(err)
+      return
+    }
+    load()
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <EdvanceNavbar subtitle="Coach-Dashboard" sticky />
-
       <main className="mx-auto max-w-4xl px-4 py-8">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground">Guten Tag 👋</h1>
           <p className="mt-0.5 text-sm text-muted">{formatDateLongDe()}</p>
         </div>
 
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+          Schnellzugriff
+        </h2>
+        <div className="mb-8">
+          <DashboardTiles
+            tiles={[
+              {
+                to: '/coach/intake',
+                icon: <ClipboardList className="h-5 w-5" />,
+                title: 'Erstgespräch-Protokoll',
+                description: 'Strukturiertes Erstgespräch erfassen und finalisieren',
+              },
+              {
+                to: '/screening?view=coach',
+                icon: <FlaskConical className="h-5 w-5" />,
+                title: 'Screening (Coach-Sicht)',
+                description: 'Lernstand-Diagnose begleiten und bewerten',
+              },
+              {
+                to: '/admin/leads',
+                icon: <Inbox className="h-5 w-5" />,
+                title: 'Leads',
+                description: 'Interessent:innen erfassen und nachverfolgen',
+              },
+            ]}
+          />
+        </div>
+
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <StatCard
             label="Sessions heute"
-            value={MOCK_SESSIONS.length}
+            value={vms.length}
             icon={<CalendarDays className="h-5 w-5 text-primary" />}
             iconBackground={ICON_BG_PRIMARY}
           />
           <StatCard
             label="Aktive Schüler"
-            value={totalActiveStudents(MOCK_SESSIONS)}
+            value={totalActiveStudents(vms)}
             icon={<Users className="h-5 w-5 text-success" />}
             iconBackground={ICON_BG_SUCCESS}
           />
           <StatCard
             label="Nächste Session"
-            value={nextUpcomingTime(MOCK_SESSIONS)}
+            value={nextUpcomingTime(vms)}
             icon={<Clock className="h-5 w-5 text-warning" />}
             iconBackground={ICON_BG_WARNING}
           />
         </div>
 
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">
-          Heutige Sessions
+          Deine Sessions
         </h2>
-        <div className="flex flex-col gap-4">
-          {MOCK_SESSIONS.map((session) => (
-            <SessionCard key={session.id} session={session} />
-          ))}
-        </div>
+        {error && <p className="mb-3 text-sm text-[var(--destructive)]">{error}</p>}
+        {loading ? (
+          <LoadingPulse type="list" lines={3} />
+        ) : vms.length === 0 ? (
+          <EmptyState
+            icon="📅"
+            title="Keine Sessions"
+            description="Es sind noch keine Sessions für dich angelegt."
+          />
+        ) : (
+          <div className="flex flex-col gap-4">
+            {vms.map((vm) => (
+              <SessionCard
+                key={vm.session.id}
+                vm={vm}
+                onAttendance={(sid, a) => onAttendance(vm.session.id, sid, a)}
+              />
+            ))}
+          </div>
+        )}
       </main>
     </div>
   )

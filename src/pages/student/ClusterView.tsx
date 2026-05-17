@@ -4,31 +4,41 @@ import { ArrowLeft, BookOpen, CheckCircle2, FileText, FlaskConical, PlayCircle }
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { useAuth } from '@/hooks/useAuth'
 import { getClusterById, getTasksByClusterOrdered } from '@/lib/supabase/tasks'
+import { getStudentByProfile } from '@/lib/supabase/students'
+import { getCompletedTaskIds } from '@/lib/supabase/taskProgress'
 import type { SkillCluster, Task } from '@/types'
 
-const PROGRESS_STORAGE_KEY = 'edvance_task_progress_v1'
-
 type ProgressMap = Record<string, true>
-
-function loadProgress(): ProgressMap {
-  try {
-    const raw = localStorage.getItem(PROGRESS_STORAGE_KEY)
-    return raw ? (JSON.parse(raw) as ProgressMap) : {}
-  } catch {
-    return {}
-  }
-}
 
 export function ClusterView(): JSX.Element {
   const { clusterId } = useParams<{ clusterId: string }>()
   const navigate = useNavigate()
+  const { user } = useAuth()
 
   const [cluster, setCluster] = useState<SkillCluster | null>(null)
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
-  const [progress] = useState<ProgressMap>(() => loadProgress())
+  const [progress, setProgress] = useState<ProgressMap>({})
+
+  useEffect(() => {
+    if (!user) return
+    let cancelled = false
+    void (async () => {
+      const { data: student } = await getStudentByProfile(user.id)
+      if (cancelled || !student) return
+      const { data: ids } = await getCompletedTaskIds(student.id)
+      if (cancelled) return
+      const map: ProgressMap = {}
+      for (const id of ids ?? []) map[id] = true
+      setProgress(map)
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [user])
 
   useEffect(() => {
     if (!clusterId) return

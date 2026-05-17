@@ -1,14 +1,15 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDiagnosis } from '@/context/DiagnosisContext'
-import { mockDiagnosisTasks } from '@/lib/diagnosisMockData'
 import {
   averageMetrics,
   buildDiagnosisResult,
   recommendFocus,
 } from '@/lib/behaviorAnalysis'
 import { getClustersBySubject, getSubjects } from '@/lib/supabase/tasks'
+import { completeScreeningTest } from '@/lib/supabase/screening'
 import type { BehaviorAnalysis, BehaviorSnapshot } from '@/types/diagnosis'
+import type { RunTask } from '@/types'
 import { Button } from '@/components/ui/button'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 
@@ -286,15 +287,16 @@ function SkillBar({ cluster, level, label }: { cluster: string; level: number; l
 
 function TaskCard({
   index,
+  task,
   snapshot,
   analysis,
 }: {
   index: number
+  task: RunTask | undefined
   snapshot: BehaviorSnapshot | undefined
   analysis: BehaviorAnalysis | undefined
 }) {
   const [open, setOpen] = useState(false)
-  const task = mockDiagnosisTasks[index]
   if (!task) return null
 
   const signal = analysis ? SIGNAL_LABELS[analysis.mastery_signal] : null
@@ -543,7 +545,7 @@ export function DiagnosisResult() {
   const result = useMemo(
     () =>
       buildDiagnosisResult({
-        tasks: mockDiagnosisTasks,
+        tasks: state.tasks,
         snapshots: state.snapshots,
         studentName: state.studentName,
         subject: state.subject,
@@ -555,6 +557,36 @@ export function DiagnosisResult() {
 
   const { avgConfidence, avgEffort, avgFrustration } = averageMetrics(result.analyses)
   const focus = recommendFocus(result.skill_levels)
+
+  // U5c: Screening-Ergebnis genau einmal persistieren (DB-Modus, fertig).
+  const completedRef = useRef(false)
+  useEffect(() => {
+    if (completedRef.current) return
+    if (state.mode !== 'db' || !state.screeningTestId || !state.finished) return
+    completedRef.current = true
+    void completeScreeningTest(
+      state.screeningTestId,
+      {
+        skill_levels: result.skill_levels,
+        overall_behavior_flags: result.overall_behavior_flags,
+        averages: {
+          confidence: avgConfidence,
+          effort: avgEffort,
+          frustration: avgFrustration,
+        },
+      },
+      state.coachNote,
+    )
+  }, [
+    state.mode,
+    state.screeningTestId,
+    state.finished,
+    state.coachNote,
+    result,
+    avgConfidence,
+    avgEffort,
+    avgFrustration,
+  ])
 
   const completedSnaps = state.snapshots.filter((s): s is BehaviorSnapshot => s != null)
   const hasData = completedSnaps.length > 0
@@ -640,7 +672,7 @@ export function DiagnosisResult() {
             icon={<CheckCircle2 className="h-5 w-5" />}
             label="Gelöste Aufgaben"
             value={`${completedSnaps.length}`}
-            sub={`von ${mockDiagnosisTasks.length}`}
+            sub={`von ${state.tasks.length}`}
             color="var(--primary)"
             bg="color-mix(in srgb, var(--primary) 12%, transparent)"
           />
@@ -768,10 +800,11 @@ export function DiagnosisResult() {
             description="Klick auf eine Aufgabe für Antwort, Musterlösung und Verhaltensdaten"
           />
           <div className="flex flex-col gap-3">
-            {mockDiagnosisTasks.map((_, i) => (
+            {state.tasks.map((t, i) => (
               <TaskCard
                 key={i}
                 index={i}
+                task={t}
                 snapshot={result.snapshots[i]}
                 analysis={result.analyses[i]}
               />
