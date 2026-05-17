@@ -164,6 +164,21 @@ export type RunTask = {
   estimated_minutes: number
 }
 
+// Eingabe fuer manuell angelegte Diagnose-Aufgaben (Admin-Seeding).
+export type DiagnosticTaskInput = {
+  question: string
+  solution?: string | null
+  common_errors?: string | null
+  coach_note?: string | null
+  microskill_id?: string | null
+  cluster_id?: string | null
+  class_level?: number | null
+  difficulty?: number | null
+  input_type?: InputType | null
+  cognitive_type?: CognitiveType | null
+  estimated_minutes?: number | null
+}
+
 export type IntakeStatus = 'draft' | 'final'
 
 export type IntakeSession = {
