@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { EdvanceAppIcon } from '@/components/brand/EdvanceLogo'
 import type { UserRole } from '@/types'
 
 const ROLE_ROUTES: Record<UserRole, string> = {
@@ -60,9 +61,7 @@ export function Login(): JSX.Element {
           <div className="flex flex-col items-center gap-4 mb-8">
             <div className="relative">
               <div className="absolute inset-0 rounded-2xl bg-gradient-gold blur-xl opacity-50" aria-hidden="true" />
-              <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-brand text-2xl font-black text-white shadow-premium-md">
-                E
-              </div>
+              <EdvanceAppIcon size={64} className="relative shadow-premium-md" />
             </div>
 
             <div className="text-center">

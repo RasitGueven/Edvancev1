@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { EdvanceAppIcon } from '@/components/brand/EdvanceLogo'
 import { useAuth } from '@/hooks/useAuth'
 import { cn } from '@/lib/utils'
 
@@ -19,12 +20,7 @@ export function EdvanceNavbar({ subtitle, sticky = false }: EdvanceNavbarProps):
       )}
     >
       <div className="flex items-center gap-3">
-        <div
-          className="flex h-10 w-10 items-center justify-center rounded-xl text-base font-black text-white bg-gradient-brand shadow-glow-primary"
-          aria-hidden="true"
-        >
-          E
-        </div>
+        <EdvanceAppIcon size={40} className="shadow-glow-primary" />
         <div>
           <p className="text-sm font-bold tracking-tight text-[var(--text-primary)] leading-tight">
             Edvance
