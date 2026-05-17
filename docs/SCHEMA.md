@@ -40,6 +40,12 @@ screening_ratings   → id, created_at, behavior_snapshot_id, screening_test_id,
                       (APPEND-ONLY – Coach-Bewertung separat, haelt behavior_snapshots append-only)
 behavior_snapshots  → + screening_test_id (additive nullable FK, Migration 014)
 
+### Adaptive Screening-Item-Bank (Migration 022)
+screening_items        → id, created_at, cluster_id, class_level, topic, skill_code, skill_label, level(1-3), curriculum_seq, input_type(MC|NUMERIC|MATCHING|STEPS_FINAL), prompt, payload(jsonb), canonical(jsonb), check_type(mc_index|numeric|matching_set|normalized), tolerance, typical_errors[], explanation, source, active
+                         (eigene autogradebare Items, getrennt von tasks; nur active sichtbar fuer Schueler)
+screening_item_results → id, created_at, screening_test_id, screening_item_id, cluster_id, level, correct, answer(jsonb), duration_ms
+                         (APPEND-ONLY Auto-Grade-Ergebnis pro Item/Lauf)
+
 ### Tarif / Zuordnung / Fortschritt (Migrationen 015,016,018)
 tiers                  → id, name, price_cents, features(jsonb), sort_order, active (Katalog, seed Basic/Standard/Premium)
 student_subscriptions  → id, created_at, student_id, tier_id, status, started_at, ended_at
@@ -84,6 +90,8 @@ student | parent | coach | admin
 - `screening_tests`: Schueler liest eigene; Eltern lesen eigenes Kind; Coach/Admin alles
 - `screening_ratings`: append-only; Insert Coach/Admin; Lesen eigener Schueler/Eltern/Coach/Admin
 - `behavior_snapshots`: weiterhin append-only (Migration 014 nur additive FK)
+- `screening_items`: Schueler/Coach sehen nur `active=true`; Admin r/w alles (Review/Aktivierung)
+- `screening_item_results`: append-only; Schueler insert/select eigene (via screening_tests), Eltern/Coach/Admin lesen
 - `tiers`: alle authentifizierten lesen; nur Admin schreibt
 - `student_subscriptions` / `student_task_progress`: Schueler eigene; Eltern/Coach/Admin lesen
 - `student_coach`: Zuweisung nur Admin; Coach liest eigene; Schueler/Eltern eigene
@@ -121,6 +129,7 @@ student | parent | coach | admin
 - `migrations/019_gamification.sql`         – student_progress + xp_events (+ Trigger apply_xp_event)
 - `migrations/020_parent_reports.sql`       – Elternreport (draft/published)
 - `migrations/021_provision_student_fn.sql` – atomare Lead->Student-Conversion (nur service_role; via Edge Function provision_student)
+- `migrations/022_screening_items.sql`      – adaptive Screening-Item-Bank + Auto-Grade-Ergebnisse
 
 ## Edge Functions
 
