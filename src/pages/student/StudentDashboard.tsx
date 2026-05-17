@@ -1,16 +1,18 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
-import { Link } from 'react-router-dom'
-import { BookOpen, ChevronRight, FileText, FlaskConical, PlayCircle, Search, X, Flame } from 'lucide-react'
+import { Search, X, Flame } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
-import { XPBar } from '@/components/edvance'
-import { DashboardTiles } from '@/components/edvance/DashboardTiles'
+import { XPBar, EmptyState, LoadingPulse } from '@/components/edvance'
+import { StudentBentoGrid } from '@/components/edvance/StudentWidgetGrid'
+import { ClusterGrid, FilterResults, type ClusterProgress } from '@/pages/student/ClusterGrid'
 import { useAuth } from '@/hooks/useAuth'
 import { getClustersBySubject, getSubjects, getTasksByCluster } from '@/lib/supabase/tasks'
 import { getStudentByProfile } from '@/lib/supabase/students'
 import { getStudentProgress } from '@/lib/supabase/progress'
-import type { SkillCluster, Subject, Task } from '@/types'
+import { getCompletedTaskIds } from '@/lib/supabase/taskProgress'
+import { getLastCluster, saveLastCluster, type LastCluster } from '@/lib/lastCluster'
+import type { SkillCluster, Student, Subject, Task } from '@/types'
 
 const XP_PER_LEVEL = 500
 
@@ -28,23 +30,29 @@ export function StudentDashboard(): JSX.Element {
   const { user } = useAuth()
   const firstName = (user?.email?.split('@')[0] ?? 'Lernender').split('.')[0]
   const displayName = firstName.charAt(0).toUpperCase() + firstName.slice(1)
+
+  const [student, setStudent] = useState<Student | null>(null)
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(null)
   const [clusters, setClusters] = useState<SkillCluster[]>([])
+  const [clusterProgress, setClusterProgress] = useState<ClusterProgress>({})
   const [loadingClusters, setLoadingClusters] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
   const [xpTotal, setXpTotal] = useState<number>(0)
   const [streakDays, setStreakDays] = useState<number>(0)
   const [level, setLevel] = useState<number>(1)
+  const [lastCluster, setLastCluster] = useState<LastCluster | null>(getLastCluster)
 
+  // Student + progress
   useEffect(() => {
     if (!user) return
     let cancelled = false
     void (async () => {
-      const { data: student } = await getStudentByProfile(user.id)
-      if (cancelled || !student) return
-      const { data: progress } = await getStudentProgress(student.id)
+      const { data: s } = await getStudentByProfile(user.id)
+      if (cancelled || !s) return
+      setStudent(s)
+      const { data: progress } = await getStudentProgress(s.id)
       if (cancelled || !progress) return
       setXpTotal(progress.xp_total)
       setStreakDays(progress.streak_days)
@@ -120,6 +128,32 @@ export function StudentDashboard(): JSX.Element {
     }
   }, [isFiltering, allTasks, clusters])
 
+  // Cluster-Fortschritt berechnen sobald student + clusters geladen.
+  useEffect(() => {
+    if (!student || clusters.length === 0) return
+    let cancelled = false
+    void (async () => {
+      const { data: completedIds } = await getCompletedTaskIds(student.id)
+      const completedSet = new Set(completedIds ?? [])
+      const taskResults = await Promise.all(
+        clusters.map((c) => getTasksByCluster(c.id))
+      )
+      if (cancelled) return
+      const prog: ClusterProgress = {}
+      clusters.forEach((c, i) => {
+        const tasks = taskResults[i].data ?? []
+        prog[c.id] = {
+          total: tasks.length,
+          completed: tasks.filter((t) => completedSet.has(t.id)).length,
+        }
+      })
+      setClusterProgress(prog)
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [student, clusters])
+
   const clusterNameById = useMemo(() => {
     const m: Record<string, string> = {}
     for (const c of clusters) m[c.id] = c.name
@@ -140,6 +174,11 @@ export function StudentDashboard(): JSX.Element {
   const clearFilters = (): void => {
     setSearch('')
     setTypeFilter('all')
+  }
+
+  const handleClusterClick = (id: string, name: string): void => {
+    saveLastCluster(id, name)
+    setLastCluster({ id, name })
   }
 
   return (
@@ -190,26 +229,14 @@ export function StudentDashboard(): JSX.Element {
           </Card>
         )}
 
-        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-          Schnellzugriff
-        </h2>
+        {/* Bento-Widget-Grid */}
         <div className="mb-8">
-          <DashboardTiles
-            tiles={[
-              {
-                to: '/screening',
-                icon: <FlaskConical className="h-5 w-5" />,
-                title: 'Screening starten',
-                description: 'Zeig, was du kannst – wir finden deinen Lernstand',
-              },
-              {
-                to: '#lernpfad',
-                anchor: true,
-                icon: <BookOpen className="h-5 w-5" />,
-                title: 'Lernpfad',
-                description: 'Themen durchsuchen und üben',
-              },
-            ]}
+          <StudentBentoGrid
+            xpTotal={xpTotal}
+            streakDays={streakDays}
+            level={level}
+            lastCluster={lastCluster}
+            loading={!student}
           />
         </div>
 
@@ -282,138 +309,23 @@ export function StudentDashboard(): JSX.Element {
             clusterNameById={clusterNameById}
           />
         ) : loadingClusters ? (
-          <p className="mt-6 text-sm text-muted">Lade Themen …</p>
+          <div className="mt-6">
+            <LoadingPulse type="card" />
+          </div>
         ) : clusters.length === 0 ? (
-          <Card className="mt-6">
-            <CardContent className="pt-6 text-center text-sm text-muted">
-              Noch keine Themen verfuegbar. Frag deinen Coach.
-            </CardContent>
-          </Card>
+          <EmptyState
+            icon="📚"
+            title="Noch keine Themen"
+            description="Frag deinen Coach – er richtet deinen Lernpfad ein."
+          />
         ) : (
-          <ClusterGrid clusters={clusters} />
+          <ClusterGrid
+            clusters={clusters}
+            clusterProgress={clusterProgress}
+            onClusterClick={handleClusterClick}
+          />
         )}
       </main>
     </div>
   )
-}
-
-const CLUSTER_TINTS = [
-  { bg: 'var(--color-primary-light)',     fg: 'var(--color-primary)' },
-  { bg: 'var(--color-success-light)',     fg: 'var(--color-success)' },
-  { bg: 'var(--color-warning-light)',     fg: 'var(--color-warning)' },
-  { bg: 'var(--color-info-light)',        fg: 'var(--color-info)' },
-  { bg: 'color-mix(in srgb, var(--xp-gold) 14%, white)', fg: '#9A6B00' },
-]
-
-function ClusterGrid({ clusters }: { clusters: SkillCluster[] }): JSX.Element {
-  return (
-    <div className="mt-6 grid gap-4 sm:grid-cols-2">
-      {clusters.map((c, idx) => {
-        const tint = CLUSTER_TINTS[idx % CLUSTER_TINTS.length]
-        return (
-          <Link
-            key={c.id}
-            to={`/student/cluster/${c.id}`}
-            className="group block rounded-[var(--radius-xl)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-          >
-            <div className="relative h-full overflow-hidden rounded-[var(--radius-xl)] border border-[var(--border)] bg-gradient-surface p-5 shadow-premium-sm transition-all duration-300 group-hover:shadow-premium-lg group-hover:-translate-y-0.5">
-              {/* Decorative blob */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-90"
-                style={{ background: tint.fg }}
-              />
-
-              <div className="relative flex items-start gap-4">
-                <span
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)] shadow-premium-sm"
-                  style={{ background: tint.bg, color: tint.fg }}
-                >
-                  <BookOpen className="h-5 w-5" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-base font-bold tracking-tight text-[var(--text-primary)]">
-                    {c.name}
-                  </p>
-                  <p className="mt-0.5 text-xs text-[var(--text-muted)]">
-                    Klasse {c.class_level_min}
-                    {c.class_level_min !== c.class_level_max && ` – ${c.class_level_max}`}
-                  </p>
-                </div>
-                <ChevronRight className="h-5 w-5 shrink-0 text-[var(--text-muted)] transition-all group-hover:translate-x-0.5 group-hover:text-[var(--color-primary)]" />
-              </div>
-            </div>
-          </Link>
-        )
-      })}
-    </div>
-  )
-}
-
-function FilterResults({
-  loading,
-  tasks,
-  clusterNameById,
-}: {
-  loading: boolean
-  tasks: Task[]
-  clusterNameById: Record<string, string>
-}): JSX.Element {
-  if (loading) {
-    return <p className="mt-6 text-sm text-muted">Suche …</p>
-  }
-  if (tasks.length === 0) {
-    return (
-      <Card className="mt-6">
-        <CardContent className="pt-6 text-center text-sm text-muted">
-          Keine Treffer.
-        </CardContent>
-      </Card>
-    )
-  }
-  return (
-    <div className="mt-6 flex flex-col gap-1.5">
-      <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-muted">
-        {tasks.length} Treffer
-      </p>
-      <Card>
-        <CardContent className="p-0">
-          <ul className="divide-y divide-border">
-            {tasks.slice(0, 50).map((t) => (
-              <li key={t.id}>
-                <Link
-                  to={`/student/task/${t.id}`}
-                  className="flex min-h-[56px] items-center gap-3 px-4 py-3 transition-colors hover:bg-background"
-                >
-                  <RowIcon type={t.content_type} />
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-foreground">
-                      {t.title ?? t.question?.slice(0, 80) ?? `task:${t.id.slice(0, 8)}`}
-                    </p>
-                    {t.cluster_id && clusterNameById[t.cluster_id] && (
-                      <p className="text-xs text-muted">{clusterNameById[t.cluster_id]}</p>
-                    )}
-                  </div>
-                  <ChevronRight className="h-4 w-4 shrink-0 text-muted" />
-                </Link>
-              </li>
-            ))}
-            {tasks.length > 50 && (
-              <li className="px-4 py-2 text-xs text-muted">
-                … und {tasks.length - 50} weitere – Suche praeziser, um sie zu sehen.
-              </li>
-            )}
-          </ul>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
-
-function RowIcon({ type }: { type: ContentType }): JSX.Element {
-  if (type === 'video') return <PlayCircle className="h-5 w-5 shrink-0 text-warning" />
-  if (type === 'article') return <FileText className="h-5 w-5 shrink-0 text-success" />
-  if (type === 'exercise_group' || type === 'course')
-    return <FlaskConical className="h-5 w-5 shrink-0 text-primary" />
-  return <BookOpen className="h-5 w-5 shrink-0 text-primary" />
 }
