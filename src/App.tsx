@@ -5,6 +5,7 @@ import { StudentDashboard } from '@/pages/student/StudentDashboard'
 import { CoachDashboard } from '@/pages/coach/CoachDashboard'
 import { ParentDashboard } from '@/pages/parent/ParentDashboard'
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
+import { OnboardingPage } from '@/pages/admin/OnboardingPage'
 import { LambacherPreview } from '@/pages/admin/LambacherPreview'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { TiersPage } from '@/pages/admin/TiersPage'
@@ -80,6 +81,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/onboarding"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <OnboardingPage />
             </ProtectedRoute>
           }
         />
