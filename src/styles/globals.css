@@ -15,8 +15,8 @@
   --primary-pale: #EBF4FA;
   --primary-shadow: #1a4a73;
 
-  /* Surface — premium-warm neutrals */
-  --background: #FAFAF7;
+  /* Surface — App-Hintergrund + Surfaces (Single Source) */
+  --background: #F8F9FB;
   --surface: #FFFFFF;
   --surface-raised: #FFFFFF;
   --border: #E8E8E5;
