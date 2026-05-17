@@ -230,6 +230,11 @@
     color: var(--brand-navy);
     border-color: var(--xp-gold);
   }
+  .toast-levelup {
+    background: var(--gradient-levelup);
+    color: var(--color-levelup-on);
+    border-color: var(--color-levelup);
+  }
   .toast-warning {
     background-color: var(--warning-light);
     color: var(--warning);

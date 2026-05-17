@@ -24,7 +24,10 @@ export function ScenarioCelebration(): JSX.Element {
       {/* Erklärung */}
       <p className="text-sm text-[var(--text-muted)]">
         Dieser Screen erscheint max. 1× pro Session — ausgelöst durch echten Level-Aufstieg.
-        Hintergrund-Token: <code className="font-mono text-xs">--color-moment-bg</code>
+        Level-Up hat eine eigene Premium-Türkis-Identität (Gradient + Glow), abgesetzt
+        von Alltags-XP (Gold) und Task/Boss (Grün). Tokens:{' '}
+        <code className="font-mono text-xs">--gradient-levelup</code> /{' '}
+        <code className="font-mono text-xs">--color-moment-bg</code>
       </p>
 
       {visible && (
@@ -34,9 +37,9 @@ export function ScenarioCelebration(): JSX.Element {
             key={animKey}
             className="flex h-24 w-24 items-center justify-center rounded-full text-4xl font-black animate-bounce-pop"
             style={{
-              background: 'var(--color-moment-gold)',
-              color: 'var(--color-moment-bg)',
-              boxShadow: '0 0 40px color-mix(in srgb, var(--color-moment-gold) 40%, transparent)',
+              background: 'var(--gradient-levelup)',
+              color: 'var(--color-levelup-on)',
+              boxShadow: 'var(--shadow-glow-levelup)',
             }}
           >
             5
