@@ -21,10 +21,13 @@
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
 
 ## Nächste Schritte
-- Edge Function `provision_student` deployen (Dashboard/CLI)
-- U4: Onboarding-Wizard → echte Persistenz + Lead→Student-Conversion
-- U5c: Screening DB-Persistenz + `/screening`-Route + DB-Resume
-  (ersetzt letzten localStorage `edvance_diagnosis_state_v1`)
-- `feature/real-data-program` nach Verifikation in `dev` mergen
+- Diagnostik-Content seeden (`is_diagnostic=true`) → `/screening` aktiv
+- Browser-Verifikation (U4-Conversion, `/screening`-Flow) durch Rasit
+- PR #16 — Base-Branch klären (`main` vs `dev`, CLAUDE.md §5) + mergen
 - Mathebuch-Import (Lambacher Schweizer 8. Klasse NRW)
 - Home-Quest Flow
+
+## Fertig (Nachtrag Real-Data-Programm)
+- U4: Onboarding + Lead-Konvertierung an `provisionStudent()` (Edge Function live)
+- U5c: `/screening` DB-gestützt + DB-Resume; localStorage komplett raus
+  (außer ThemeContext) — Mock-/localStorage-Entfernung abgeschlossen

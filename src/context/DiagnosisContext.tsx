@@ -1,9 +1,10 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { createContext, useContext, useState, type ReactNode } from 'react'
 import type { BehaviorSnapshot } from '@/types/diagnosis'
 import type { RunTask } from '@/types'
 
-const STORAGE_KEY = 'edvance_diagnosis_state_v1'
-
+// U5c-2: kein localStorage mehr. Lokaler /diagnosis-Modus ist rein
+// in-memory pro Tab; der produktive Pfad ist DB-gestuetzt via /screening
+// (Resume aus screening_tests/behavior_snapshots/screening_ratings).
 export type DiagnosisMode = 'local' | 'db'
 
 export type DiagnosisState = {
@@ -59,56 +60,10 @@ const initialState: DiagnosisState = {
   snapshotIds: [],
 }
 
-function loadFromStorage(): DiagnosisState | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return null
-    const parsed = JSON.parse(raw) as Partial<DiagnosisState>
-    return {
-      ...initialState,
-      ...parsed,
-      tasks: parsed.tasks ?? [],
-      mode: 'local',
-      snapshotIds: parsed.snapshotIds ?? [],
-    }
-  } catch {
-    return null
-  }
-}
-
-function saveToStorage(state: DiagnosisState) {
-  // DB-Modus (Screening) wird in Supabase persistiert, NICHT in localStorage.
-  if (state.mode === 'db') return
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-  } catch {
-    /* quota / disabled */
-  }
-}
-
 const DiagnosisContext = createContext<DiagnosisContextValue | undefined>(undefined)
 
 export function DiagnosisProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<DiagnosisState>(() => loadFromStorage() ?? initialState)
-
-  useEffect(() => {
-    const handler = (e: StorageEvent) => {
-      if (e.key !== STORAGE_KEY || !e.newValue) return
-      try {
-        const next = JSON.parse(e.newValue) as DiagnosisState
-        // Cross-Tab nur fuer lokale Sessions; DB-Laeufe nicht ueberschreiben
-        setState(prev => (prev.mode === 'db' ? prev : next))
-      } catch {
-        /* ignore */
-      }
-    }
-    window.addEventListener('storage', handler)
-    return () => window.removeEventListener('storage', handler)
-  }, [])
-
-  useEffect(() => {
-    saveToStorage(state)
-  }, [state])
+  const [state, setState] = useState<DiagnosisState>(initialState)
 
   const submitAnswer: DiagnosisContextValue['submitAnswer'] = snapshotPartial => {
     setState(prev => {

@@ -53,16 +53,28 @@ auth-User-Anlage (Schüler + Eltern-Invite) → RPC 021 → Cleanup bei Fehler.
   muss installiert sein.
 - ThemeContext bleibt bewusst localStorage (kosmetisch).
 
+## Nachtrag (U4 + U5c erledigt)
+
+- Edge Function `provision_student` deployed (bestätigt).
+- **U4**: AdminDashboard „Jetzt anlegen" und LeadsPage „In Schüler
+  konvertieren" rufen `provisionStudent()` (→ Edge Function → RPC
+  `app_provision_student`). Tarif Name→`tiers.id` gemappt.
+- **U5c**: `/screening`-Route (eingeloggt) DB-gestützt — `createScreeningTest`,
+  Snapshot-Persistenz mit `screening_test_id`, Coach-Rating in
+  `screening_ratings`, `completeScreeningTest` bei Abschluss, DB-Resume
+  via `getActiveScreeningTest`+Snapshots+Ratings (deterministisch über
+  `rebuildRunTasks` aus `generated_test`).
+- **localStorage komplett aus `DiagnosisContext` entfernt** — einziger
+  verbleibender localStorage ist `ThemeContext` (kosmetisch, bewusst).
+  Lokaler `/diagnosis`-Modus ist jetzt rein in-memory pro Tab.
+
 ## Offene Punkte
 
-- **U4 (Onboarding real + Conversion-Wiring)** und **U5c (Screening
-  DB-Persistenz + `/screening`-Route + DB-Resume)** bewusst zurückgestellt:
-  brauchen (a) deployte Edge Function `provision_student`, (b) echte
-  Schüler, (c) geseedeten Diagnostik-Content (`tasks.is_diagnostic=true`).
-  Daher persistiert `DiagnosisContext` weiterhin via localStorage
-  (`edvance_diagnosis_state_v1`) — letzter verbleibender Nicht-Theme-
-  localStorage, wird in U5c auf DB umgestellt.
-- Edge Function muss von Rasit deployed werden (Dashboard „Via Editor"
-  oder `supabase functions deploy provision_student`).
-- Diagnostik-Content-Seeding offen → Screening zeigt bis dahin EmptyState.
-- Branch `feature/real-data-program` → nach Verifikation in `dev` mergen.
+- Diagnostik-Content-Seeding (`tasks.is_diagnostic=true`) weiter offen →
+  `/screening` zeigt bis dahin korrekten EmptyState (lint/build grün,
+  Laufzeit erst mit Content + Browser durch Rasit verifizierbar).
+- PR **#16** (`feature/real-data-program`) — Base ist `main` statt `dev`
+  (Abweichung CLAUDE.md §5; Entscheidung Rasit).
+- Bekannte Limitierung: Zwei-Geräte-Flow (Schüler-Tablet + Coach) hat im
+  DB-Modus keinen Cross-Tab-Sync mehr (vorher localStorage); echtes
+  Realtime ist eigener Folgeschritt.
