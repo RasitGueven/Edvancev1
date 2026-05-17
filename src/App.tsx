@@ -18,6 +18,7 @@ import { ThemePanel } from '@/components/edvance/ThemePanel'
 import { DiagnosisProvider } from '@/context/DiagnosisContext'
 import { DiagnosisSession } from '@/pages/DiagnosisSession'
 import { DiagnosisResult } from '@/pages/DiagnosisResult'
+import { ScreeningSession } from '@/pages/ScreeningSession'
 import { TaskWidgetDemo } from '@/pages/student/TaskWidgetDemo'
 import { DesignDemo } from '@/pages/demo/DesignDemo'
 
@@ -133,12 +134,13 @@ export default function App(): JSX.Element {
         <Route path="/diagnosis" element={<DiagnosisSession />} />
         <Route path="/diagnosis/result" element={<DiagnosisResult />} />
 
-        {/* Screening: produktisierter, DB-gestützter Lauf (eingeloggt). */}
+        {/* Screening: stiller, adaptiver, auto-bewerteter Lauf (eingeloggt).
+            Coach = Beobachter (kein Rating in diesem Flow). */}
         <Route
           path="/screening"
           element={
             <ProtectedRoute allowedRoles={['student', 'coach', 'admin']}>
-              <DiagnosisSession screening />
+              <ScreeningSession />
             </ProtectedRoute>
           }
         />

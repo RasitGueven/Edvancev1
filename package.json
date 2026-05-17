@@ -13,7 +13,8 @@
     "mark:diagnostic": "tsx --env-file=.env scripts/mark-diagnostic.ts",
     "seed:screening-items": "tsx --env-file=.env scripts/seed-screening-items.ts",
     "import:lambacher": "tsx --env-file=.env scripts/import/lambacher.ts",
-    "generate:assets": "tsx --env-file=.env scripts/generate-assets.ts"
+    "generate:assets": "tsx --env-file=.env scripts/generate-assets.ts",
+    "sim:screening": "tsx scripts/screening-sim.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
