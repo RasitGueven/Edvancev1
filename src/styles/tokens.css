@@ -1,6 +1,10 @@
 @layer base {
   :root {
 
+    /* ── TYPOGRAFIE ──────────────────────────────────────────────────────── */
+    /* App-Schrift (Brand). Space Grotesk bleibt nur fuers Logo-Wordmark.    */
+    --font-sans: 'Sora', ui-sans-serif, system-ui;
+
     /* ── PRIMÄR ──────────────────────────────────────────────────────────── */
     --color-primary:              #334D7A;
     --color-primary-hover:        #253D6A;

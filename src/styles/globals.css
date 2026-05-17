@@ -15,8 +15,8 @@
   --primary-pale: #EBF4FA;
   --primary-shadow: #1a4a73;
 
-  /* Surface — premium-warm neutrals */
-  --background: #FAFAF7;
+  /* Surface — App-Hintergrund + Surfaces (Single Source) */
+  --background: #F8F9FB;
   --surface: #FFFFFF;
   --surface-raised: #FFFFFF;
   --border: #E8E8E5;
@@ -80,6 +80,8 @@
 /* Tailwind v4: map CSS variables to utility classes */
 @theme inline {
   /* ── Tokens aus tokens.css ─────────────────────────────────────── */
+  --font-sans:                        var(--font-sans);
+
   --color-primary:                    var(--color-primary);
   --color-primary-hover:              var(--color-primary-hover);
   --color-primary-light:              var(--color-primary-light);
@@ -350,7 +352,7 @@ body {
   margin: 0;
   background-color: var(--background);
   color: var(--text-primary);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

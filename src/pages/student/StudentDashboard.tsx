@@ -222,7 +222,7 @@ export function StudentDashboard(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Suche nach Aufgabe, Video, Artikel …"
-              className="h-12 w-full rounded-xl border border-[var(--border)] bg-white pl-11 pr-11 text-sm shadow-premium-sm focus:border-[var(--color-primary)] focus:shadow-glow-primary focus:outline-none transition-all"
+              className="h-12 w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] pl-11 pr-11 text-sm shadow-premium-sm focus:border-[var(--color-primary)] focus:shadow-glow-primary focus:outline-none transition-all"
             />
             {search && (
               <button
