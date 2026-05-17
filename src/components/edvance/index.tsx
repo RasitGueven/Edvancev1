@@ -60,7 +60,16 @@ export function EdvanceCard({
 
 interface EdvanceBadgeProps {
   children: React.ReactNode
-  variant?: 'primary' | 'success' | 'warning' | 'destructive' | 'muted' | 'xp' | 'streak'
+  variant?:
+    | 'primary'
+    | 'success'
+    | 'warning'
+    | 'destructive'
+    | 'muted'
+    | 'xp'
+    | 'streak'
+    | 'levelup'
+    | 'repair'
   className?: string
 }
 
@@ -84,6 +93,10 @@ export function EdvanceBadge({
       'bg-[var(--xp-gold)] text-[var(--brand-navy)] border border-[var(--xp-gold)] font-bold',
     streak:
       'bg-[var(--streak-orange)] text-white border border-[var(--streak-orange)]',
+    levelup:
+      'bg-[var(--color-levelup)] text-[var(--color-levelup-on)] border border-[var(--color-levelup)] font-bold',
+    repair:
+      'bg-[var(--color-moment-repair)] text-[var(--color-moment-repair-on)] border border-[var(--color-moment-repair)] font-bold',
   }
 
   return (
@@ -481,7 +494,7 @@ export function LoadingPulse({ lines = 3, type = 'list' }: LoadingPulseProps) {
 // ─── ToastBanner ──────────────────────────────────────────────────────────────
 
 interface ToastBannerProps {
-  type: 'success' | 'xp' | 'warning' | 'error'
+  type: 'success' | 'xp' | 'levelup' | 'warning' | 'error'
   message: string
   xpAmount?: number
   onClose?: () => void
@@ -490,6 +503,7 @@ interface ToastBannerProps {
 const TOAST_CLASS: Record<string, string> = {
   success: 'toast-success',
   xp:      'toast-xp',
+  levelup: 'toast-levelup',
   warning: 'toast-warning',
   error:   'toast-error',
 }
@@ -497,6 +511,7 @@ const TOAST_CLASS: Record<string, string> = {
 const TOAST_ICON: Record<string, string> = {
   success: '✓',
   xp:      '🎉',
+  levelup: '⬆️',
   warning: '⚠️',
   error:   '✕',
 }

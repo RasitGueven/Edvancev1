@@ -133,10 +133,19 @@ export function DesignShowcase() {
               },
               { group: 'Gamification',
                 tokens: [
-                  { label: 'XP Gold',       var: '--xp-gold' },
-                  { label: 'Streak Orange', var: '--streak-orange' },
-                  { label: 'Level Purple',  var: '--level-purple' },
-                  { label: 'XP Gold Light', var: '--xp-gold-light' },
+                  { label: 'XP Gold (=Accent)', var: '--xp-gold' },
+                  { label: 'XP Gold Light',     var: '--xp-gold-light' },
+                  { label: 'Streak Orange',     var: '--streak-orange' },
+                ]
+              },
+              { group: 'Emotionale Momente',
+                tokens: [
+                  { label: 'Level-Up',        var: '--color-levelup' },
+                  { label: 'Level-Up Moment', var: '--color-moment-levelup' },
+                  { label: 'Repair (Lila)',   var: '--color-moment-repair' },
+                  { label: 'Erfolg/Boss',     var: '--color-moment-green' },
+                  { label: 'Streak-Verlust',  var: '--color-moment-red' },
+                  { label: 'Moment-Bühne',    var: '--color-moment-bg' },
                 ]
               },
               { group: 'Text & Surface',
