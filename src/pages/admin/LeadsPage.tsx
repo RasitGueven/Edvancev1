@@ -8,6 +8,7 @@ import { EdvanceCard, EdvanceBadge, EmptyState, LoadingPulse } from '@/component
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { CLASS_LEVELS, SCHOOL_TYPES, SUBJECTS } from '@/components/edvance/onboarding/constants'
 import { createLead, listLeads, updateLead } from '@/lib/supabase/leads'
+import { provisionStudent } from '@/lib/supabase/provision'
 import type { Lead, LeadGoal, LeadInput, LeadStatus, SchoolKind } from '@/types'
 
 const STATUS_LABEL: Record<LeadStatus, string> = {
@@ -243,6 +244,7 @@ export function LeadsPage(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
+  const [convertingId, setConvertingId] = useState<string | null>(null)
 
   const load = (): void => {
     setLoading(true)
@@ -261,6 +263,26 @@ export function LeadsPage(): JSX.Element {
     if (next === 'onboarding_scheduled')
       patch.onboarding_scheduled_at = new Date().toISOString()
     const { error: err } = await updateLead(lead.id, patch)
+    if (err) {
+      setError(err)
+      return
+    }
+    load()
+  }
+
+  const convert = async (lead: Lead): Promise<void> => {
+    setConvertingId(lead.id)
+    setError(null)
+    const { error: err } = await provisionStudent({
+      lead_id: lead.id,
+      full_name: lead.full_name,
+      parent_email: lead.contact_email,
+      class_level: lead.class_level,
+      school_type: lead.school_type,
+      school_name: lead.school_name,
+      subjects: lead.subjects,
+    })
+    setConvertingId(null)
     if (err) {
       setError(err)
       return
@@ -339,6 +361,15 @@ export function LeadsPage(): JSX.Element {
                         {action.label}
                       </Button>
                     ))}
+                    {lead.status !== 'converted' && lead.status !== 'rejected' && (
+                      <Button
+                        size="sm"
+                        disabled={convertingId === lead.id}
+                        onClick={() => convert(lead)}
+                      >
+                        {convertingId === lead.id ? 'Konvertiert …' : 'In Schüler konvertieren'}
+                      </Button>
+                    )}
                   </div>
                 )}
               </EdvanceCard>

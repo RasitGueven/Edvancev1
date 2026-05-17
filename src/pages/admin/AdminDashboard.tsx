@@ -14,7 +14,8 @@ import { TierStep } from '@/components/edvance/onboarding/TierStep'
 import { canProceed } from '@/components/edvance/onboarding/validation'
 import { getCoaches } from '@/lib/supabase/profiles'
 import { listTiers } from '@/lib/supabase/subscriptions'
-import type { Coach, OnboardingFormData, TierPlan } from '@/types'
+import { provisionStudent } from '@/lib/supabase/provision'
+import type { Coach, OnboardingFormData, SchoolKind, TierPlan } from '@/types'
 
 const SHADOW_CARD = '0 4px 24px 0 rgba(0,0,0,0.08)'
 const SUCCESS_ICON_BG = 'color-mix(in srgb, var(--success) 15%, transparent)'
@@ -94,6 +95,8 @@ export function AdminDashboard(): JSX.Element {
   const [coachesLoading, setCoachesLoading] = useState<boolean>(true)
   const [tiers, setTiers] = useState<TierPlan[]>([])
   const [tiersLoading, setTiersLoading] = useState<boolean>(true)
+  const [submitting, setSubmitting] = useState<boolean>(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   useEffect(() => {
     let active = true
@@ -114,12 +117,31 @@ export function AdminDashboard(): JSX.Element {
 
   const isLast = step === STEP_LABELS.length - 1
 
-  const handleNext = (): void => {
-    if (isLast) {
-      setDone(true)
+  const handleNext = async (): Promise<void> => {
+    if (!isLast) {
+      setStep((current) => current + 1)
       return
     }
-    setStep((current) => current + 1)
+    setSubmitting(true)
+    setSubmitError(null)
+    const tierId = tiers.find((t) => t.name === data.tier)?.id ?? null
+    const { error } = await provisionStudent({
+      full_name: `${data.firstName} ${data.lastName}`.trim(),
+      parent_email: data.email || null,
+      class_level: data.classLevel ? Number(data.classLevel) : null,
+      school_type: data.schoolType ? (data.schoolType as SchoolKind) : null,
+      school_name: data.schoolName || null,
+      subjects: data.subjects,
+      coach_id: data.coachId || null,
+      tier_id: tierId,
+      lead_id: null,
+    })
+    setSubmitting(false)
+    if (error) {
+      setSubmitError(error)
+      return
+    }
+    setDone(true)
   }
 
   const handleBack = (): void => setStep((current) => current - 1)
@@ -171,13 +193,28 @@ export function AdminDashboard(): JSX.Element {
                 tiersLoading={tiersLoading}
               />
 
+              {submitError && (
+                <p className="mt-4 text-sm text-[var(--destructive)]">{submitError}</p>
+              )}
+
               <div className="mt-8 flex items-center justify-between">
-                <Button variant="outline" onClick={handleBack} disabled={step === STEP_DATA}>
+                <Button
+                  variant="outline"
+                  onClick={handleBack}
+                  disabled={step === STEP_DATA || submitting}
+                >
                   Zurück
                 </Button>
-                <Button onClick={handleNext} disabled={!canProceed(step, data)}>
+                <Button
+                  onClick={handleNext}
+                  disabled={!canProceed(step, data) || submitting}
+                >
                   {isLast ? (
-                    'Jetzt anlegen'
+                    submitting ? (
+                      'Legt an …'
+                    ) : (
+                      'Jetzt anlegen'
+                    )
                   ) : (
                     <span className="flex items-center gap-1.5">
                       Weiter <ChevronRight className="h-4 w-4" />
