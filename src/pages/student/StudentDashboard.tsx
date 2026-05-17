@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { XPBar } from '@/components/edvance'
+import { DashboardTiles } from '@/components/edvance/DashboardTiles'
 import { useAuth } from '@/hooks/useAuth'
 import { getClustersBySubject, getSubjects, getTasksByCluster } from '@/lib/supabase/tasks'
 import { getStudentByProfile } from '@/lib/supabase/students'
@@ -189,8 +190,31 @@ export function StudentDashboard(): JSX.Element {
           </Card>
         )}
 
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+          Schnellzugriff
+        </h2>
+        <div className="mb-8">
+          <DashboardTiles
+            tiles={[
+              {
+                to: '/screening',
+                icon: <FlaskConical className="h-5 w-5" />,
+                title: 'Screening starten',
+                description: 'Zeig, was du kannst – wir finden deinen Lernstand',
+              },
+              {
+                to: '#lernpfad',
+                anchor: true,
+                icon: <BookOpen className="h-5 w-5" />,
+                title: 'Lernpfad',
+                description: 'Themen durchsuchen und üben',
+              },
+            ]}
+          />
+        </div>
+
         {/* Search + Filters */}
-        <div className="flex flex-col gap-3">
+        <div id="lernpfad" className="flex flex-col gap-3">
           <div className="relative">
             <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-muted)]" />
             <input

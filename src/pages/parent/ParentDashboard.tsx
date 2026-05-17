@@ -1,6 +1,8 @@
 import { useEffect, useState, type JSX } from 'react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { User } from 'lucide-react'
 import { EdvanceCard, EdvanceBadge, EmptyState, LoadingPulse } from '@/components/edvance'
+import { DashboardTiles } from '@/components/edvance/DashboardTiles'
 import { useAuth } from '@/hooks/useAuth'
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { getStudentProgress } from '@/lib/supabase/progress'
@@ -66,8 +68,30 @@ export function ParentDashboard(): JSX.Element {
             description="Sobald dein Kind angelegt ist, erscheinen hier Fortschritt und Reports."
           />
         ) : (
-          children.map(({ student, progress, reports }) => (
-            <EdvanceCard key={student.id} className="flex flex-col gap-4 p-6">
+          <>
+            {children.length > 1 && (
+              <>
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+                  Schnellzugriff
+                </h2>
+                <DashboardTiles
+                  tiles={children.map(({ student }) => ({
+                    to: `#child-${student.id}`,
+                    anchor: true,
+                    icon: <User className="h-5 w-5" />,
+                    title: student.full_name ?? 'Unbenannt',
+                    description: 'Fortschritt & Reports ansehen',
+                  }))}
+                />
+              </>
+            )}
+            {children.map(({ student, progress, reports }) => (
+            <div
+              key={student.id}
+              id={`child-${student.id}`}
+              className="scroll-mt-20"
+            >
+            <EdvanceCard className="flex flex-col gap-4 p-6">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-base font-semibold text-[var(--text-primary)]">
                   {student.full_name ?? 'Unbenannt'}
@@ -111,7 +135,9 @@ export function ParentDashboard(): JSX.Element {
                 )}
               </div>
             </EdvanceCard>
-          ))
+            </div>
+          ))}
+          </>
         )}
       </main>
     </div>
