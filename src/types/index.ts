@@ -290,6 +290,60 @@ export type ScreeningRating = {
   coach_id: string | null
 }
 
+// ── Adaptive Screening-Item-Bank (Migration 022) ──────────────────────────────
+
+export type ScreeningLevel = 1 | 2 | 3
+export type ScreeningInputType = 'MC' | 'NUMERIC' | 'MATCHING' | 'STEPS_FINAL'
+export type ScreeningCheckType =
+  | 'mc_index'
+  | 'numeric'
+  | 'matching_set'
+  | 'normalized'
+
+export type ScreeningItem = {
+  id: string
+  created_at: string
+  cluster_id: string
+  class_level: number
+  topic: string
+  skill_code: string
+  skill_label: string
+  level: ScreeningLevel
+  curriculum_seq: number | null
+  input_type: ScreeningInputType
+  prompt: string
+  payload: unknown
+  canonical: unknown
+  check_type: ScreeningCheckType
+  tolerance: number | null
+  typical_errors: string[]
+  explanation: string | null
+  source: string
+  active: boolean
+}
+
+export type ScreeningItemInput = Omit<
+  ScreeningItem,
+  'id' | 'created_at' | 'source' | 'active'
+> & { source?: string; active?: boolean }
+
+export type ScreeningItemResult = {
+  id: string
+  created_at: string
+  screening_test_id: string
+  screening_item_id: string
+  cluster_id: string
+  level: ScreeningLevel
+  correct: boolean
+  answer: unknown
+  duration_ms: number | null
+}
+
+export type ScreeningItemResultInput = Omit<
+  ScreeningItemResult,
+  'id' | 'created_at'
+>
+
 export type CoachingSession = {
   id: string
   created_at: string

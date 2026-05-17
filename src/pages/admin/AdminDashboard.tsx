@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Check, ChevronRight, CreditCard, FlaskConical, Inbox } from 'lucide-react'
+import { Check, ChevronRight, CreditCard, FlaskConical, Inbox, ListChecks } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
@@ -163,6 +163,12 @@ export function AdminDashboard(): JSX.Element {
             className="flex items-center gap-1.5 text-sm font-medium text-[var(--primary)]"
           >
             <FlaskConical className="h-4 w-4" /> Diagnostik-Content
+          </Link>
+          <Link
+            to="/admin/screening-items"
+            className="flex items-center gap-1.5 text-sm font-medium text-[var(--primary)]"
+          >
+            <ListChecks className="h-4 w-4" /> Screening-Items
           </Link>
           <Link
             to="/admin/tiers"
