@@ -20,6 +20,7 @@
 
     /* ── AKZENT ──────────────────────────────────────────────────────────── */
     --color-accent:               #E8A020;
+    --color-accent-light:         #FBEAD0;   /* Badge-BG für Accent/XP */
     --color-accent-celebration:   #F5C842;
 
     /* ── STATUS ──────────────────────────────────────────────────────────── */
@@ -46,6 +47,18 @@
     --color-moment-red:           #E03535;
     --color-moment-bg:            #1A2E4A;
 
+    /* Level-Up = Meilenstein → eigene Premium-Türkis-Identität.            */
+    /* NICHT für Alltags-XP (= Accent-Gold) oder Task/Boss (= moment-green).*/
+    /* color-levelup: ruhige UI/Badge-Variante · moment-levelup: leuchtend  */
+    /* auf Navy-Bühne · levelup-on: dunkler Text-On-Color (WCAG).           */
+    --color-levelup:              #0E9E96;
+    --color-moment-levelup:       #19C9BC;
+    --color-levelup-on:           #04302D;
+
+    /* Streak-Repair = Lila „Power-up" (seltenes Item, kein Status).        */
+    --color-moment-repair:        #8B5CF6;
+    --color-moment-repair-on:     #FFFFFF;
+
     /* ── PREMIUM-ERWEITERUNGEN ────────────────────────────────────────────── */
     /* Tieferer Hero-Navy (Hero-Sections, Page-Headers, Premium-Cards)       */
     --color-hero-navy:            #14213D;
@@ -56,6 +69,8 @@
     --gradient-hero:              linear-gradient(135deg, #14213D 0%, #1F3157 45%, #334D7A 100%);
     --gradient-primary-btn:       linear-gradient(180deg, #3B5A8C 0%, #334D7A 100%);
     --gradient-gold:              linear-gradient(135deg, #F5C842 0%, #E8A020 100%);
+    --gradient-levelup:           linear-gradient(135deg, #1FD3C6 0%, #0B8B85 100%);
+    --gradient-repair:            linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%);
     --gradient-success:           linear-gradient(135deg, #34A35A 0%, #1F6F3A 100%);
     --gradient-surface:           linear-gradient(180deg, #FFFFFF 0%, #FAFAF7 100%);
     --gradient-celebration:       radial-gradient(ellipse at top, #2D4070 0%, #14213D 70%);
@@ -67,6 +82,7 @@
     --shadow-premium-xl:          0 24px 64px rgba(20, 33, 61, 0.14), 0 8px 16px rgba(20, 33, 61, 0.08);
     --shadow-glow-primary:        0 0 0 1px rgba(51, 77, 122, 0.08), 0 8px 32px rgba(51, 77, 122, 0.16);
     --shadow-glow-gold:           0 0 40px rgba(245, 200, 66, 0.32);
+    --shadow-glow-levelup:        0 0 44px rgba(25, 201, 188, 0.36);
     --shadow-inset-card:          inset 0 1px 0 rgba(255, 255, 255, 0.6);
 
   }

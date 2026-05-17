@@ -41,11 +41,12 @@
   --info: #0EA5E9;
   --info-light: #E0F2FE;
 
-  /* Gamification */
-  --xp-gold: #F59E0B;
-  --xp-gold-light: #FEF3C7;
+  /* Gamification — Legacy-Aliase auf die vereinheitlichten Tokens umgebogen
+     (Single Source: tokens.css). Keine eigenen Hex-Werte mehr. */
+  --xp-gold: var(--color-accent);
+  --xp-gold-light: var(--color-accent-light);
   --streak-orange: #EA580C;
-  --level-purple: #7C3AED;
+  --level-purple: var(--color-moment-repair);
 
   /* Spacing Rhythm (4pt grid) */
   --space-1: 4px;
@@ -111,6 +112,12 @@
   --color-moment-green:               var(--color-moment-green);
   --color-moment-red:                 var(--color-moment-red);
   --color-moment-bg:                  var(--color-moment-bg);
+  --color-moment-levelup:             var(--color-moment-levelup);
+  --color-levelup:                    var(--color-levelup);
+  --color-levelup-on:                 var(--color-levelup-on);
+  --color-moment-repair:              var(--color-moment-repair);
+  --color-moment-repair-on:           var(--color-moment-repair-on);
+  --color-accent-light:               var(--color-accent-light);
 
   /* ── Legacy-Aliases (bestehende Komponenten) ───────────────────── */
   --color-primary-foreground:         var(--primary-foreground);
@@ -148,12 +155,15 @@
   .shadow-premium-xl { box-shadow: var(--shadow-premium-xl); }
   .shadow-glow-primary { box-shadow: var(--shadow-glow-primary); }
   .shadow-glow-gold { box-shadow: var(--shadow-glow-gold); }
+  .shadow-glow-levelup { box-shadow: var(--shadow-glow-levelup); }
 
   /* ── Premium gradients ───────────────────────────────────────────────── */
   .bg-gradient-brand        { background: var(--gradient-brand); }
   .bg-gradient-hero         { background: var(--gradient-hero); }
   .bg-gradient-primary-btn  { background: var(--gradient-primary-btn); }
   .bg-gradient-gold         { background: var(--gradient-gold); }
+  .bg-gradient-levelup      { background: var(--gradient-levelup); }
+  .bg-gradient-repair       { background: var(--gradient-repair); }
   .bg-gradient-success      { background: var(--gradient-success); }
   .bg-gradient-surface      { background: var(--gradient-surface); }
   .bg-gradient-celebration  { background: var(--gradient-celebration); }
