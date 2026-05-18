@@ -37,12 +37,22 @@ declare
   v_subj text;
   v_subject_id uuid;
 begin
+  -- Profil kann bereits durch einen auth.users-Trigger (handle_new_user)
+  -- existieren -> upsert statt hartem Insert, damit die RPC nicht an einem
+  -- duplicate-key scheitert und der students-Teil zuverlaessig folgt.
   insert into profiles (id, email, role, full_name)
-  values (p_student_uid, p_student_email, 'student', p_full_name);
+  values (p_student_uid, p_student_email, 'student', p_full_name)
+  on conflict (id) do update
+    set email = excluded.email,
+        role = 'student',
+        full_name = excluded.full_name;
 
   if p_parent_uid is not null then
     insert into profiles (id, email, role, full_name)
-    values (p_parent_uid, p_parent_email, 'parent', null);
+    values (p_parent_uid, p_parent_email, 'parent', null)
+    on conflict (id) do update
+      set email = excluded.email,
+          role = 'parent';
   end if;
 
   insert into students (profile_id, class_level, school_name, school_type)
