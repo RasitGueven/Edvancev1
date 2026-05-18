@@ -1,6 +1,12 @@
 // Edge Function: provision_student
 //
-// Lead -> Student Conversion. Laeuft mit service-role (nicht im Browser).
+// Lead -> Student Conversion. Laeuft privilegiert mit service-role.
+//
+// Autorisierung (fail-closed):
+//   - Server-zu-Server: Bearer == SERVICE_ROLE_KEY -> vertrauenswuerdig
+//   - sonst: gueltiges User-JWT erforderlich, Aufrufer-Profil-Rolle
+//     muss admin|coach sein (kein offener Bypass moeglich)
+//
 // Schritte:
 //   1. auth-User fuer Schueler anlegen (Auth-Admin-API)
 //   2. optional auth-User fuer Elternteil per Invite anlegen
@@ -8,7 +14,8 @@
 //   4. bei RPC-Fehler die angelegten auth-User wieder entfernen (Cleanup)
 //
 // Deploy: supabase functions deploy provision_student
-// (SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY werden vom Runtime injiziert)
+// (SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY + SUPABASE_ANON_KEY
+//  werden vom Runtime injiziert)
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
@@ -64,6 +71,37 @@ Deno.serve(async (req: Request) => {
   const admin = createClient(url, serviceKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   })
+
+  // Autorisierung: Service-Role-Key (Server-zu-Server, vertrauenswuerdig)
+  // ODER eingeloggter User mit Rolle admin|coach. Fail-closed: ohne
+  // gueltige Identitaet / falsche Rolle wird abgebrochen.
+  const authHeader = req.headers.get('Authorization') ?? ''
+  const bearer = authHeader.replace(/^Bearer\s+/i, '').trim()
+  if (bearer !== serviceKey) {
+    const anonKey = Deno.env.get('SUPABASE_ANON_KEY')
+    if (!bearer || !anonKey) {
+      return json(401, { error: 'Nicht authentifiziert' })
+    }
+    const caller = createClient(url, anonKey, {
+      global: { headers: { Authorization: authHeader } },
+      auth: { autoRefreshToken: false, persistSession: false },
+    })
+    const { data: userData, error: userErr } = await caller.auth.getUser()
+    if (userErr || !userData.user) {
+      return json(401, { error: 'Nicht authentifiziert' })
+    }
+    const { data: prof, error: profErr } = await admin
+      .from('profiles')
+      .select('role')
+      .eq('id', userData.user.id)
+      .single()
+    if (profErr || !prof) {
+      return json(403, { error: 'Aufrufer-Profil nicht gefunden' })
+    }
+    if (prof.role !== 'admin' && prof.role !== 'coach') {
+      return json(403, { error: 'Nur Admin/Coach darf konvertieren' })
+    }
+  }
 
   const studentEmail =
     body.student_email && body.student_email.trim() !== ''
