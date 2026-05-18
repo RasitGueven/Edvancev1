@@ -253,6 +253,12 @@ export function CoachDashboard(): JSX.Element {
                 description: 'Lernstand-Diagnose begleiten und bewerten',
               },
               {
+                to: '/coach/screening-results',
+                icon: <ClipboardList className="h-5 w-5" />,
+                title: 'Screening-Ergebnisse',
+                description: 'Abgeschlossene Lernstand-Diagnosen einsehen',
+              },
+              {
                 to: '/admin/leads',
                 icon: <Inbox className="h-5 w-5" />,
                 title: 'Leads',
