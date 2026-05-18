@@ -25,7 +25,14 @@ export async function provisionStudent(
       'provision_student',
       { body: input },
     )
-    if (error) return { data: null, error: error.message }
+    if (error) {
+      let msg = error.message
+      try {
+        const body = await (error as unknown as { context: Response }).context.json() as { error?: string }
+        if (body?.error) msg = body.error
+      } catch { /* behalte generische Meldung */ }
+      return { data: null, error: msg }
+    }
     const sid = (data as { student_id?: string } | null)?.student_id
     if (!sid) {
       const msg = (data as { error?: string } | null)?.error
