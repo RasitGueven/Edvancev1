@@ -8,6 +8,7 @@ export type ProvisionInput = {
   lead_id?: string | null
   full_name: string
   student_email?: string | null
+  student_password?: string | null
   parent_email?: string | null
   class_level?: number | null
   school_type?: SchoolKind | null

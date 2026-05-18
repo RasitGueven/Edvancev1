@@ -30,6 +30,7 @@ type Body = {
   lead_id?: string | null
   full_name: string
   student_email?: string | null
+  student_password?: string | null
   parent_email?: string | null
   class_level?: number | null
   school_type?: string | null
@@ -66,6 +67,13 @@ Deno.serve(async (req: Request) => {
   }
   if (!body.full_name || body.full_name.trim() === '') {
     return json(400, { error: 'full_name erforderlich' })
+  }
+  const customPassword =
+    body.student_password && body.student_password.trim() !== ''
+      ? body.student_password
+      : null
+  if (customPassword && customPassword.length < 6) {
+    return json(400, { error: 'Passwort muss mindestens 6 Zeichen haben' })
   }
 
   const admin = createClient(url, serviceKey, {
@@ -111,7 +119,7 @@ Deno.serve(async (req: Request) => {
   // 1. Schueler-auth-User
   const { data: studentData, error: studentErr } = await admin.auth.admin.createUser({
     email: studentEmail,
-    password: randomPassword(),
+    password: customPassword ?? randomPassword(),
     email_confirm: true,
   })
   if (studentErr || !studentData.user) {

@@ -245,6 +245,8 @@ export function LeadsPage(): JSX.Element {
   const [error, setError] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
   const [convertingId, setConvertingId] = useState<string | null>(null)
+  const [pwLeadId, setPwLeadId] = useState<string | null>(null)
+  const [pw, setPw] = useState('')
 
   const load = (): void => {
     setLoading(true)
@@ -270,7 +272,7 @@ export function LeadsPage(): JSX.Element {
     load()
   }
 
-  const convert = async (lead: Lead): Promise<void> => {
+  const convert = async (lead: Lead, password: string): Promise<void> => {
     setConvertingId(lead.id)
     setError(null)
     const { error: err } = await provisionStudent({
@@ -281,12 +283,15 @@ export function LeadsPage(): JSX.Element {
       school_type: lead.school_type,
       school_name: lead.school_name,
       subjects: lead.subjects,
+      student_password: password,
     })
     setConvertingId(null)
     if (err) {
       setError(err)
       return
     }
+    setPwLeadId(null)
+    setPw('')
     load()
   }
 
@@ -361,15 +366,55 @@ export function LeadsPage(): JSX.Element {
                         {action.label}
                       </Button>
                     ))}
-                    {lead.status !== 'converted' && lead.status !== 'rejected' && (
+                    {lead.status !== 'converted' &&
+                      lead.status !== 'rejected' &&
+                      pwLeadId !== lead.id && (
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            setPwLeadId(lead.id)
+                            setPw('')
+                            setError(null)
+                          }}
+                        >
+                          In Schüler konvertieren
+                        </Button>
+                      )}
+                  </div>
+                )}
+                {pwLeadId === lead.id && (
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor={`pw-${lead.id}`}>
+                      Schüler-Passwort (min. 6 Zeichen) – dem Schüler persönlich mitteilen
+                    </Label>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Input
+                        id={`pw-${lead.id}`}
+                        type="text"
+                        autoComplete="off"
+                        className="max-w-xs"
+                        value={pw}
+                        onChange={(e) => setPw(e.target.value)}
+                      />
                       <Button
                         size="sm"
-                        disabled={convertingId === lead.id}
-                        onClick={() => convert(lead)}
+                        disabled={convertingId === lead.id || pw.length < 6}
+                        onClick={() => convert(lead, pw)}
                       >
-                        {convertingId === lead.id ? 'Konvertiert …' : 'In Schüler konvertieren'}
+                        {convertingId === lead.id ? 'Konvertiert …' : 'Bestätigen'}
                       </Button>
-                    )}
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={convertingId === lead.id}
+                        onClick={() => {
+                          setPwLeadId(null)
+                          setPw('')
+                        }}
+                      >
+                        Abbrechen
+                      </Button>
+                    </div>
                   </div>
                 )}
               </EdvanceCard>
