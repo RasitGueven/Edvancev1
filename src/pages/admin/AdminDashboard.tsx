@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
   BookOpen,
+  CalendarClock,
   CreditCard,
   FlaskConical,
   GraduationCap,
@@ -73,6 +74,14 @@ export function AdminDashboard(): JSX.Element {
             }}
             badge={leadsNew > 0 ? { label: `${leadsNew} neu`, variant: 'warning' } : null}
             loading={loading}
+          />
+          <AdminTile
+            to="/admin/schedule"
+            icon={<CalendarClock className={ICON_CLASS} />}
+            title="Stundenplan"
+            description="Sessions anlegen und Schüler einem Coach-Termin zuweisen."
+            accent="warning"
+            size="wide"
           />
           <AdminTile
             to="/admin/tiers"

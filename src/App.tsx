@@ -8,6 +8,7 @@ import { AdminDashboard } from '@/pages/admin/AdminDashboard'
 import { OnboardingPage } from '@/pages/admin/OnboardingPage'
 import { LambacherPreview } from '@/pages/admin/LambacherPreview'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
+import { SchedulePage } from '@/pages/admin/SchedulePage'
 import { TiersPage } from '@/pages/admin/TiersPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { ScreeningItemsPage } from '@/pages/admin/ScreeningItemsPage'
@@ -116,6 +117,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin', 'coach']}>
               <LeadsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/schedule"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <SchedulePage />
             </ProtectedRoute>
           }
         />
