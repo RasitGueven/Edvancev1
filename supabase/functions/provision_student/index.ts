@@ -1,23 +1,26 @@
 // Edge Function: provision_student
 //
-// Lead -> Student Conversion. Laeuft mit service-role (nicht im Browser).
-// Schritte:
-//   1. auth-User fuer Schueler anlegen (Auth-Admin-API)
-//   2. optional auth-User fuer Elternteil per Invite anlegen
-//   3. atomaren DB-Teil via RPC app_provision_student ausfuehren
-//   4. bei RPC-Fehler die angelegten auth-User wieder entfernen (Cleanup)
+// Lead -> Student Conversion. Neues @supabase/server-Muster (withSupabase).
+// Aufruf aus dem Admin/Coach-Frontend via supabase.functions.invoke
+// (sendet das User-JWT automatisch). Server-zu-Server kann alternativ
+// den Secret-Key nutzen.
 //
-// Deploy: supabase functions deploy provision_student
-// (SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY werden vom Runtime injiziert)
+// Sicherheit:
+//   - auth: ['user','secret'] – User-JWT ODER Secret-Key erforderlich
+//   - User-Modus: Aufrufer-Profil-Rolle muss admin|coach sein
+//   - Secret-Modus: vertrauenswuerdig (Server-zu-Server), kein Rollen-Check
+//
+// Ablauf (privilegiert via ctx.supabaseAdmin):
+//   1. Schueler-auth-User anlegen
+//   2. optional Eltern-auth-User per Invite
+//   3. atomarer DB-Teil via RPC app_provision_student
+//   4. bei RPC-Fehler angelegte auth-User wieder entfernen (Cleanup)
+//
+// Plattform: verify_jwt MUSS aus sein (config.toml) – withSupabase
+// uebernimmt die Auth selbst. Deploy: supabase functions deploy provision_student
 
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers':
-    'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-}
+import 'jsr:@supabase/functions-js/edge-runtime.d.ts'
+import { withSupabase } from 'jsr:@supabase/server@^1'
 
 type Body = {
   lead_id?: string | null
@@ -33,93 +36,120 @@ type Body = {
 }
 
 function json(status: number, payload: unknown): Response {
-  return new Response(JSON.stringify(payload), {
-    status,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-  })
+  return Response.json(payload, { status })
 }
 
 function randomPassword(): string {
   return crypto.randomUUID() + crypto.randomUUID()
 }
 
-Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
-  if (req.method !== 'POST') return json(405, { error: 'Method not allowed' })
+// Der Auth-Modus heisst je nach @supabase/server-Version authType ODER
+// authMode – wir tolerieren beide (siehe Nutzung unten). Der Rest von
+// ctx (supabaseAdmin etc.) wird vom withSupabase-Typ geliefert.
+type AuthModeCtx = { authType?: string; authMode?: string }
 
-  const url = Deno.env.get('SUPABASE_URL')
-  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-  if (!url || !serviceKey) return json(500, { error: 'Service-Config fehlt' })
+export default {
+  fetch: withSupabase(
+    { auth: ['user', 'secret'], cors: true },
+    async (req: Request, ctx): Promise<Response> => {
+      if (req.method !== 'POST') {
+        return json(405, { error: 'Method not allowed' })
+      }
 
-  let body: Body
-  try {
-    body = await req.json()
-  } catch {
-    return json(400, { error: 'Ungueltiger Request-Body' })
-  }
-  if (!body.full_name || body.full_name.trim() === '') {
-    return json(400, { error: 'full_name erforderlich' })
-  }
+      let body: Body
+      try {
+        body = (await req.json()) as Body
+      } catch {
+        return json(400, { error: 'Ungueltiger Request-Body' })
+      }
+      if (!body.full_name || body.full_name.trim() === '') {
+        return json(400, { error: 'full_name erforderlich' })
+      }
 
-  const admin = createClient(url, serviceKey, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  })
+      const admin = ctx.supabaseAdmin
+      if (!admin) {
+        return json(500, { error: 'Service-Client nicht verfuegbar' })
+      }
 
-  const studentEmail =
-    body.student_email && body.student_email.trim() !== ''
-      ? body.student_email.trim()
-      : `student.${crypto.randomUUID()}@edvance.invalid`
+      // Rollen-Check nur im User-Modus (Secret-Key = vertrauenswuerdig).
+      // Falscher Property-Name => Modus !== 'secret' => Check laeuft
+      // (fail-closed): nie ein offener Bypass, nur Secret-Pfad faellt
+      // ggf. zurueck auf den Rollen-Check.
+      const aCtx = ctx as AuthModeCtx
+      const authMode = aCtx.authType ?? aCtx.authMode
+      if (authMode !== 'secret') {
+        const callerId = ctx.userClaims?.sub
+        if (!callerId) return json(401, { error: 'Nicht authentifiziert' })
+        const { data: prof, error: profErr } = await admin
+          .from('profiles')
+          .select('role')
+          .eq('id', callerId)
+          .single()
+        if (profErr || !prof) {
+          return json(403, { error: 'Aufrufer-Profil nicht gefunden' })
+        }
+        if (prof.role !== 'admin' && prof.role !== 'coach') {
+          return json(403, { error: 'Nur Admin/Coach darf konvertieren' })
+        }
+      }
 
-  // 1. Schueler-auth-User
-  const { data: studentData, error: studentErr } = await admin.auth.admin.createUser({
-    email: studentEmail,
-    password: randomPassword(),
-    email_confirm: true,
-  })
-  if (studentErr || !studentData.user) {
-    return json(502, {
-      error: `Schueler-Account: ${studentErr?.message ?? 'unbekannt'}`,
-    })
-  }
-  const { id: studentUid } = studentData.user
+      const studentEmail =
+        body.student_email && body.student_email.trim() !== ''
+          ? body.student_email.trim()
+          : `student.${crypto.randomUUID()}@edvance.invalid`
 
-  // 2. optional Elternteil per Invite
-  let parentUid: string | null = null
-  if (body.parent_email && body.parent_email.trim() !== '') {
-    const { data: parentData, error: parentErr } =
-      await admin.auth.admin.inviteUserByEmail(body.parent_email.trim())
-    if (parentErr || !parentData.user) {
-      await admin.auth.admin.deleteUser(studentUid)
-      return json(502, {
-        error: `Eltern-Account: ${parentErr?.message ?? 'unbekannt'}`,
+      // 1. Schueler-auth-User
+      const { data: studentData, error: studentErr } =
+        await admin.auth.admin.createUser({
+          email: studentEmail,
+          password: randomPassword(),
+          email_confirm: true,
+        })
+      if (studentErr || !studentData.user) {
+        return json(502, {
+          error: `Schueler-Account: ${studentErr?.message ?? 'unbekannt'}`,
+        })
+      }
+      const studentUid = studentData.user.id
+
+      // 2. optional Elternteil per Invite
+      let parentUid: string | null = null
+      if (body.parent_email && body.parent_email.trim() !== '') {
+        const { data: parentData, error: parentErr } =
+          await admin.auth.admin.inviteUserByEmail(body.parent_email.trim())
+        if (parentErr || !parentData.user) {
+          await admin.auth.admin.deleteUser(studentUid)
+          return json(502, {
+            error: `Eltern-Account: ${parentErr?.message ?? 'unbekannt'}`,
+          })
+        }
+        parentUid = parentData.user.id
+      }
+
+      // 3. atomarer DB-Teil
+      const { data, error } = await admin.rpc('app_provision_student', {
+        p_student_uid: studentUid,
+        p_student_email: studentEmail,
+        p_parent_uid: parentUid,
+        p_parent_email: body.parent_email ?? null,
+        p_full_name: body.full_name.trim(),
+        p_class_level: body.class_level ?? null,
+        p_school_type: body.school_type ?? null,
+        p_school_name: body.school_name ?? null,
+        p_subjects: body.subjects ?? [],
+        p_coach_id: body.coach_id ?? null,
+        p_tier_id: body.tier_id ?? null,
+        p_lead_id: body.lead_id ?? null,
       })
-    }
-    const { id: parentIdValue } = parentData.user
-    parentUid = parentIdValue
-  }
 
-  // 3. atomarer DB-Teil
-  const { data, error } = await admin.rpc('app_provision_student', {
-    p_student_uid: studentUid,
-    p_student_email: studentEmail,
-    p_parent_uid: parentUid,
-    p_parent_email: body.parent_email ?? null,
-    p_full_name: body.full_name.trim(),
-    p_class_level: body.class_level ?? null,
-    p_school_type: body.school_type ?? null,
-    p_school_name: body.school_name ?? null,
-    p_subjects: body.subjects ?? [],
-    p_coach_id: body.coach_id ?? null,
-    p_tier_id: body.tier_id ?? null,
-    p_lead_id: body.lead_id ?? null,
-  })
+      // 4. Cleanup bei DB-Fehler (angelegte auth-User entfernen)
+      if (error) {
+        await admin.auth.admin.deleteUser(studentUid)
+        if (parentUid) await admin.auth.admin.deleteUser(parentUid)
+        return json(400, { error: error.message })
+      }
 
-  // 4. Cleanup bei DB-Fehler (auth-User wieder entfernen)
-  if (error) {
-    await admin.auth.admin.deleteUser(studentUid)
-    if (parentUid) await admin.auth.admin.deleteUser(parentUid)
-    return json(400, { error: error.message })
-  }
-
-  return json(200, { student_id: data })
-})
+      return json(200, { student_id: data })
+    },
+  ),
+}

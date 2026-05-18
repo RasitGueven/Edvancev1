@@ -1,0 +1,9 @@
+# Supabase Projekt-Konfiguration (nur Function-relevante Teile gepflegt).
+#
+# provision_student nutzt das @supabase/server-Muster (withSupabase) und
+# uebernimmt die Auth selbst (auth: ['user','secret']). Das Plattform-
+# Gateway darf daher NICHT zusaetzlich verifizieren, sonst kommt der
+# Request nie im Function-Code an (401 vor dem Handler).
+
+[functions.provision_student]
+verify_jwt = false
