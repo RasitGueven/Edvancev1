@@ -135,6 +135,13 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   zuweisen/umhängen/entfernen (`setStudentCoach`, ein aktiver Coach pro
   Schüler). Nutzt vorhandenes `student_coach` + RLS `student_coach_admin_all`,
   kein Schema-Change. Schließt die zuvor identifizierte UI-Lücke.
+- **XP-/Task-Abschluss geschlossen:** `TaskPlayer` persistiert Abschluss nun
+  via RPC `complete_task` (atomar, idempotent, SECURITY DEFINER) → `xp_events`
+  → Trigger rechnet `student_progress` fort; positiver XP-Toast. XP-Gewichtung
+  pro Inhaltstyp/Schwierigkeit admin-konfigurierbar (`/admin/xp-rules`,
+  Tabelle `xp_rules`).
+  **Offen: Migration `026_xp_completion.sql` von Rasit im Supabase SQL-Editor
+  ausführen** (legt `xp_rules` + `complete_task` an).
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →

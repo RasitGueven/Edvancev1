@@ -9,6 +9,7 @@ import {
   ListChecks,
   UserPlus,
   Users,
+  Zap,
 } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import {
@@ -98,6 +99,14 @@ export function AdminDashboard(): JSX.Element {
             icon={<Users className={ICON_CLASS} />}
             title="Coach-Zuordnung"
             description="Schüler ihrem Coach zuweisen oder umhängen."
+            accent="success"
+            size="sm"
+          />
+          <AdminTile
+            to="/admin/xp-rules"
+            icon={<Zap className={ICON_CLASS} />}
+            title="XP-Gewichtung"
+            description="XP pro Aufgabentyp und Schwierigkeit festlegen."
             accent="success"
             size="sm"
           />

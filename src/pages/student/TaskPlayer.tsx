@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { TaskAnswerArea } from '@/components/edvance/tasks/TaskAnswerArea'
+import { ToastBanner } from '@/components/edvance'
 import { useAuth } from '@/hooks/useAuth'
 import { useBehaviorTracker } from '@/hooks/useBehaviorTracker'
 import {
@@ -13,6 +14,7 @@ import {
   getTasksByClusterOrdered,
 } from '@/lib/supabase/tasks'
 import { persistBehaviorSnapshot } from '@/lib/supabase/behavior'
+import { completeTask } from '@/lib/supabase/taskProgress'
 import { MathContent } from '@/lib/render/MathContent'
 import type { SkillCluster, Task } from '@/types'
 
@@ -46,9 +48,11 @@ export function TaskPlayer(): JSX.Element {
 
   const [hintShown, setHintShown] = useState<boolean>(false)
   const [submitted, setSubmitted] = useState<boolean>(false)
+  const [xpToast, setXpToast] = useState<number | null>(null)
 
   const tracker = useBehaviorTracker()
   const startedTaskRef = useRef<string | null>(null)
+  const completedRef = useRef<string | null>(null)
   const { user } = useAuth()
 
   // Task + Cluster + Siblings laden bei taskId-Aenderung.
@@ -62,6 +66,8 @@ export function TaskPlayer(): JSX.Element {
     setSiblings([])
     setHintShown(false)
     setSubmitted(false)
+    setXpToast(null)
+    completedRef.current = null
 
     void (async () => {
       const taskResult = await getTaskById(taskId)
@@ -128,6 +134,22 @@ export function TaskPlayer(): JSX.Element {
     tracker.onHintRequested()
   }
 
+  // Abschluss persistieren (idempotent serverseitig; Ref schuetzt zusaetzlich
+  // vor Doppel-RPC bei Doppelklick im selben Mount). XP-Toast nur bei
+  // Erst-Abschluss – fuer Aufwand/Abschluss, NICHT an Korrektheit gekoppelt.
+  const recordCompletion = async (): Promise<void> => {
+    if (!task || completedRef.current === task.id) return
+    completedRef.current = task.id
+    const { data, error } = await completeTask(task.id)
+    if (error) {
+      console.error('[TaskPlayer] completeTask failed:', error)
+      return
+    }
+    if (data?.newly_completed && data.awarded_xp > 0) {
+      setXpToast(data.awarded_xp)
+    }
+  }
+
   const handleAnswerSubmit = async (answer: string): Promise<void> => {
     if (!task) return
     tracker.onLastKeystroke()
@@ -137,11 +159,15 @@ export function TaskPlayer(): JSX.Element {
       const { error } = await persistBehaviorSnapshot(task.id, user.id, snapshot)
       if (error) console.error('[TaskPlayer] BehaviorSnapshot persist failed:', error, snapshot)
     }
+    await recordCompletion()
   }
 
   const handleTextChange = (v: string): void => { tracker.onChange(v) }
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>): void => { tracker.onKeyDown(e) }
-  const handleAcknowledgeNonExercise = (): void => { setSubmitted(true) }
+  const handleAcknowledgeNonExercise = async (): Promise<void> => {
+    setSubmitted(true)
+    await recordCompletion()
+  }
 
   if (loading) {
     return (
@@ -175,6 +201,14 @@ export function TaskPlayer(): JSX.Element {
   return (
     <div className="min-h-screen bg-background">
       <EdvanceNavbar subtitle={TYPE_LABEL[task.content_type]} />
+      {xpToast != null && (
+        <ToastBanner
+          type="xp"
+          message="Stark gemacht!"
+          xpAmount={xpToast}
+          onClose={() => setXpToast(null)}
+        />
+      )}
       <main className="mx-auto max-w-3xl px-4 py-6">
         {/* Breadcrumb */}
         <div className="mb-4 flex items-center gap-3 text-sm">

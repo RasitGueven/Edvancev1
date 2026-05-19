@@ -11,6 +11,7 @@ import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
 import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
+import { XpRulesPage } from '@/pages/admin/XpRulesPage'
 import { TiersPage } from '@/pages/admin/TiersPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { ScreeningItemsPage } from '@/pages/admin/ScreeningItemsPage'
@@ -152,6 +153,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <AssignmentsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/xp-rules"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <XpRulesPage />
             </ProtectedRoute>
           }
         />

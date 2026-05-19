@@ -384,6 +384,13 @@ export type StudentProgress = {
   last_activity: string | null
 }
 
+export type XpRule = {
+  content_type: string
+  base_xp: number
+  difficulty_multiplier: number
+  updated_at: string
+}
+
 export type XpEvent = {
   id: string
   created_at: string
