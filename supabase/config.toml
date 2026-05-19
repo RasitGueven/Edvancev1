@@ -7,3 +7,9 @@
 
 [functions.provision_student]
 verify_jwt = false
+
+# provision_coach: gleiches Muster – Function verifiziert selbst
+# (Service-Role-Bearer ODER eingeloggter Admin). Gateway darf nicht
+# zusaetzlich pruefen, sonst 401 vor dem Handler.
+[functions.provision_coach]
+verify_jwt = false
