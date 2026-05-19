@@ -11,6 +11,13 @@
 // LLM: Anthropic Messages API, Modell claude-sonnet-4-6.
 // Key: Edge-Function-Secret ANTHROPIC_API_KEY (nie im Repo/Frontend).
 //
+// Kosten-Guardrail (fail-closed, VOR dem bezahlten Call): zaehlt
+// erfolgreiche Generierungen aus parent_report_generations (Migration 027)
+// und blockt mit 429 bei Limit-Ueberschreitung. Limits per Secret
+// nachjustierbar (Default 30/Coach·Tag, 5/Schueler·7T, 3000/Monat global):
+//   PR_COACH_DAILY_LIMIT, PR_STUDENT_WINDOW_DAYS, PR_STUDENT_WINDOW_LIMIT,
+//   PR_GLOBAL_MONTHLY_LIMIT. Anrechnung NUR bei erfolgreichem Call.
+//
 // Deploy: supabase functions deploy generate_parent_report
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
@@ -34,6 +41,14 @@ function json(status: number, payload: unknown): Response {
     status,
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   })
+}
+
+const MODEL = 'claude-sonnet-4-6'
+
+// Kosten-Guardrail-Limits — per Supabase-Secret ohne Redeploy nachjustierbar.
+function intEnv(name: string, fallback: number): number {
+  const v = Number(Deno.env.get(name))
+  return Number.isFinite(v) && v > 0 ? Math.floor(v) : fallback
 }
 
 // Statischer System-Prompt — zuerst gerendert, per cache_control gecacht.
@@ -96,6 +111,8 @@ Deno.serve(async (req: Request) => {
   })
 
   // Autorisierung (fail-closed): Service-Role ODER Admin/Coach-JWT.
+  // callerId = auth-User bei JWT-Pfad; null bei Service-Role (System).
+  let callerId: string | null = null
   const authHeader = req.headers.get('Authorization') ?? ''
   const bearer = authHeader.replace(/^Bearer\s+/i, '').trim()
   if (bearer !== serviceKey) {
@@ -115,10 +132,92 @@ Deno.serve(async (req: Request) => {
     if (!prof || (prof.role !== 'admin' && prof.role !== 'coach')) {
       return json(403, { error: 'Nur Admin/Coach' })
     }
+    callerId = u.user.id
+  }
+
+  const sId = body.student_id
+
+  // ── Kosten-Guardrail (fail-closed, VOR dem bezahlten Anthropic-Call) ──────
+  // Zaehlt erfolgreiche Generierungen aus parent_report_generations. Bei
+  // Limit-Ueberschreitung ODER Zaehl-Fehler: 429 (lieber blocken als
+  // ungebremst Kosten erzeugen).
+  const COACH_DAILY_LIMIT = intEnv('PR_COACH_DAILY_LIMIT', 30)
+  const STUDENT_WINDOW_DAYS = intEnv('PR_STUDENT_WINDOW_DAYS', 7)
+  const STUDENT_WINDOW_LIMIT = intEnv('PR_STUDENT_WINDOW_LIMIT', 5)
+  const GLOBAL_MONTHLY_LIMIT = intEnv('PR_GLOBAL_MONTHLY_LIMIT', 3000)
+
+  const now = new Date()
+  const monthStart = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1),
+  ).toISOString()
+  const dayStart = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
+  ).toISOString()
+  const windowStart = new Date(
+    Date.now() - STUDENT_WINDOW_DAYS * 864e5,
+  ).toISOString()
+
+  const BLOCKED_UNCHECKABLE =
+    'Kosten-Guardrail nicht pruefbar — Generierung vorsorglich blockiert.'
+
+  // Liefert die Trefferzahl seit `since`, optional gefiltert auf eine
+  // Spalte. null = Zaehlfehler (Aufrufer blockt fail-closed).
+  async function genCount(
+    since: string,
+    eq?: { col: string; val: string },
+  ): Promise<number | null> {
+    let q = admin
+      .from('parent_report_generations')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', since)
+    if (eq) q = q.eq(eq.col, eq.val)
+    const { count, error } = await q
+    if (error) {
+      console.error('guardrail count failed:', error.message)
+      return null
+    }
+    return count ?? 0
+  }
+
+  const globalCount = await genCount(monthStart)
+  if (globalCount === null || globalCount >= GLOBAL_MONTHLY_LIMIT) {
+    return json(429, {
+      error:
+        globalCount === null
+          ? BLOCKED_UNCHECKABLE
+          : `Globales Monatslimit fuer Report-Generierung erreicht (${GLOBAL_MONTHLY_LIMIT}). Bitte spaeter erneut versuchen oder Limit anpassen.`,
+    })
+  }
+
+  const studentCount = await genCount(windowStart, {
+    col: 'student_id',
+    val: sId,
+  })
+  if (studentCount === null || studentCount >= STUDENT_WINDOW_LIMIT) {
+    return json(429, {
+      error:
+        studentCount === null
+          ? BLOCKED_UNCHECKABLE
+          : `Limit fuer diesen Schueler erreicht (${STUDENT_WINDOW_LIMIT} in ${STUDENT_WINDOW_DAYS} Tagen). Bitte vorhandenen Entwurf nutzen oder spaeter erneut versuchen.`,
+    })
+  }
+
+  if (callerId) {
+    const coachCount = await genCount(dayStart, {
+      col: 'coach_id',
+      val: callerId,
+    })
+    if (coachCount === null || coachCount >= COACH_DAILY_LIMIT) {
+      return json(429, {
+        error:
+          coachCount === null
+            ? BLOCKED_UNCHECKABLE
+            : `Tageslimit fuer Report-Generierung erreicht (${COACH_DAILY_LIMIT}). Morgen wieder verfuegbar oder Limit anpassen.`,
+      })
+    }
   }
 
   // ── Daten sammeln (service-role) ──────────────────────────────────────────
-  const sId = body.student_id
   const [stuRes, progRes, scrRes, attRes, ivRes] = await Promise.all([
     admin
       .from('students')
@@ -182,7 +281,7 @@ Deno.serve(async (req: Request) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: MODEL,
         max_tokens: 3000,
         system: [
           {
@@ -232,6 +331,19 @@ Deno.serve(async (req: Request) => {
     draft = JSON.parse(textBlock.text)
   } catch {
     return json(502, { error: 'LLM-Antwort war kein gueltiges JSON' })
+  }
+
+  // Kosten-Guardrail: NUR erfolgreiche Generierung anrechnen. Log-Fehler
+  // bricht die User-Antwort nicht ab (nur console.error).
+  try {
+    const { error: logErr } = await admin
+      .from('parent_report_generations')
+      .insert({ coach_id: callerId, student_id: sId, model: MODEL })
+    if (logErr) {
+      console.error('parent_report_generations log failed:', logErr.message)
+    }
+  } catch (err) {
+    console.error('parent_report_generations log threw:', err)
   }
 
   return json(200, { draft })

@@ -154,6 +154,15 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   - Feature-Matrix gegen echten Code-Stand korrigiert (mehrere ⚠️→✅, die
     bereits in Welle 1A/1B erledigt waren).
 
+- **Kosten-Guardrail KI-Elternreport:** Edge-Function
+  `generate_parent_report` blockt jetzt fail-closed **vor** dem bezahlten
+  Anthropic-Call (Limits per Secret: 30/Coach·Tag, 5/Schüler·7T, 3000/Monat
+  global; Anrechnung nur bei Erfolg). Append-only Log `parent_report_generations`
+  (Migration 027). Branch von `dev` (main bewusst nicht angefasst — der große
+  dev→main-Release bleibt eigener Milestone mit Rasit).
+  **Offen: Migration `027_parent_report_generations.sql` von Rasit im
+  Supabase SQL-Editor ausführen** + Function neu deployen.
+
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
   KI-Erklärartikel → Eskalations-Trigger.

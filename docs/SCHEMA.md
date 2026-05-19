@@ -58,6 +58,7 @@ session_students       → session_id, student_id, attendance (PK session_id+stu
 student_progress       → student_id(PK), xp_total, streak_days, level, last_activity (nur via Trigger)
 xp_events              → id, created_at, student_id, task_id, xp, reason (APPEND-ONLY; speist student_progress)
 parent_reports         → id, created_at, student_id, period_start, period_end, summary(jsonb), coach_note, status, published_at
+parent_report_generations → id, created_at, coach_id, student_id, model (APPEND-ONLY; Kosten-Guardrail KI-Report, Migration 027)
 
 ## Beziehungen
 
@@ -99,6 +100,7 @@ student | parent | coach | admin
 - `student_progress`: read-only fuer Clients; Schreiben nur via Security-Definer-Trigger apply_xp_event
 - `xp_events`: append-only; Schueler insert/select eigene; Eltern/Coach/Admin lesen
 - `parent_reports`: Eltern/Schueler lesen nur 'published' eigenes Kind; Coach/Admin r/w
+- `parent_report_generations`: append-only; Insert nur via Service-Role (Edge Function); Coach/Admin nur lesen; Schueler/Eltern kein Zugriff
 
 ### Security-Definer-Helper (nicht-rekursiv, programmweit)
 
@@ -131,6 +133,7 @@ student | parent | coach | admin
 - `migrations/021_provision_student_fn.sql` – atomare Lead->Student-Conversion (nur service_role; via Edge Function provision_student)
 - `migrations/022_screening_items.sql`      – adaptive Screening-Item-Bank + Auto-Grade-Ergebnisse
 - `migrations/023_screening_tests_student_write.sql` – RLS: Schüler insert/update eigene screening_tests (stiller /screening-Lauf)
+- `migrations/027_parent_report_generations.sql` – append-only Log + RLS: Kosten-Guardrail KI-Elternreport
 
 ## Edge Functions
 
@@ -139,3 +142,14 @@ student | parent | coach | admin
   RPC `app_provision_student` (Migration 021). Deploy via
   `supabase functions deploy provision_student`. Aufruf nur ueber
   `src/lib/supabase/provision.ts` (nie direkt aus Komponenten).
+- `supabase/functions/generate_parent_report` – KI-Elternreport-Entwurf
+  (Anthropic, Modell claude-sonnet-4-6). Aufruf nur ueber
+  `src/lib/supabase/generateParentReport.ts`. Deploy via
+  `supabase functions deploy generate_parent_report`.
+  Secrets (Edge-Function, nie im Repo/Frontend):
+  - `ANTHROPIC_API_KEY` – Pflicht, sonst 500 "ANTHROPIC_API_KEY fehlt".
+  - Kosten-Guardrail-Limits (optional, Default in Klammern), zaehlt
+    erfolgreiche Generierungen aus `parent_report_generations`, blockt
+    fail-closed mit 429: `PR_COACH_DAILY_LIMIT` (30),
+    `PR_STUDENT_WINDOW_DAYS` (7), `PR_STUDENT_WINDOW_LIMIT` (5),
+    `PR_GLOBAL_MONTHLY_LIMIT` (3000).
