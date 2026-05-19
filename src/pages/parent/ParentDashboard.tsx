@@ -23,6 +23,13 @@ type ChildVM = {
   nextSession: CoachingSession | null
 }
 
+const REPORT_SECTIONS: [string, string][] = [
+  ['lernfortschritt', 'Lernfortschritt'],
+  ['anwesenheit', 'Anwesenheit'],
+  ['eingriffe', 'Eingriffe'],
+  ['empfehlung', 'Empfehlung'],
+]
+
 export function ParentDashboard(): JSX.Element {
   const { user } = useAuth()
   const [children, setChildren] = useState<ChildVM[]>([])
@@ -156,8 +163,24 @@ export function ParentDashboard(): JSX.Element {
                         {new Date(r.period_start).toLocaleDateString('de-DE')} –{' '}
                         {new Date(r.period_end).toLocaleDateString('de-DE')}
                       </p>
+                      {REPORT_SECTIONS.map(([key, label]) => {
+                        const v = (r.summary as Record<string, unknown> | null)?.[
+                          key
+                        ]
+                        if (typeof v !== 'string' || v.trim() === '') return null
+                        return (
+                          <div key={key} className="mt-2">
+                            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+                              {label}
+                            </p>
+                            <p className="mt-0.5 text-sm leading-relaxed text-[var(--text-secondary)]">
+                              {v}
+                            </p>
+                          </div>
+                        )
+                      })}
                       {r.coach_note && (
-                        <p className="mt-1 text-sm leading-relaxed text-[var(--text-secondary)]">
+                        <p className="mt-2 text-sm italic leading-relaxed text-[var(--text-secondary)]">
                           {r.coach_note}
                         </p>
                       )}

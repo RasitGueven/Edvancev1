@@ -415,6 +415,16 @@ export type ParentReportInput = {
   coach_note?: string | null
 }
 
+// Struktur des KI-Entwurfs (= parent_reports.summary). coach_notiz wird
+// beim Speichern in parent_reports.coach_note abgelegt.
+export type ParentReportDraft = {
+  lernfortschritt: string
+  anwesenheit: string
+  eingriffe: string
+  empfehlung: string
+  coach_notiz: string
+}
+
 // ── Content / Aufgaben-Schema ─────────────────────────────────────────────────
 
 export type ContentType = 'exercise' | 'exercise_group' | 'article' | 'video' | 'course'

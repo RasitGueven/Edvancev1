@@ -13,3 +13,8 @@ verify_jwt = false
 # zusaetzlich pruefen, sonst 401 vor dem Handler.
 [functions.provision_coach]
 verify_jwt = false
+
+# generate_parent_report: verifiziert selbst (Service-Role ODER
+# Admin/Coach-JWT). Gateway-Pruefung aus.
+[functions.generate_parent_report]
+verify_jwt = false

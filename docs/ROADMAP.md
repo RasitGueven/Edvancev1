@@ -71,7 +71,7 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 | Erstgespräch/Intake-Protokoll | ✅ | — |
 | Tages-/Wochenplan (Filter über bestehende Liste) | ⚠️ | UI |
 | Schüler-Kurzprofil pro Session | ✅ | Fortschritt; Klausur/Modus später (Welle 2) |
-| Elternreport schreiben & freigeben | ⚠️ | UI (Schema da) |
+| Elternreport schreiben & freigeben (KI) | ✅ | Edge `generate_parent_report` (Deploy + Secret) |
 | Eingriff-Tracking (Eingegriffen → Dauer → Gelöst) | ✅ | Migration 025 nötig |
 | Home-Quest, Badge/XP-Verwaltung, OCR, Übergabe | ❌ | NEU |
 
@@ -93,7 +93,7 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 |---|---|---|
 | Veröffentlichte Reports + Kind-Fortschritt ansehen | ✅ | — |
 | Nächste Session anzeigen | ⚠️ | UI + RLS-Policy (Migration 024) |
-| Elternreport (KI-generiert, alle 2 Wochen) | ⚠️ | NEU (KI) auf vorhandenem `parent_reports` |
+| Elternreport (KI-generiert, alle 2 Wochen) | ✅ | Coach generiert/editiert/gibt frei; Eltern sehen Abschnitte |
 | Kind-Daten vor Onboarding, HA/Klausur-Upload, Push, Multi-Kind | ❌ | NEU |
 
 ## Welle-Reihenfolge (nach echtem Aufwand neu sortiert)
@@ -123,7 +123,15 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   lazy geladen). Klausurtermine + Modus zurückgestellt (Welle 2 / eigener
   1B-Mittel-Punkt — kein Schema dafür vorhanden).
 
+- **Welle 2 gestartet:** Elternreport KI-gestützt. Edge-Function
+  `generate_parent_report` (claude-sonnet-4-6, structured JSON, fail-closed
+  Auth, Prompt-Caching System-Prompt) sammelt Fortschritt/Screening/
+  Anwesenheit/Eingriffe → Entwurf. Coach editiert in `/coach/reports` und
+  gibt frei; Eltern sehen die Abschnitte. Kein Schema-Change (nutzt
+  vorhandenes `parent_reports`).
+  Offen: `supabase functions deploy generate_parent_report` +
+  `supabase secrets set ANTHROPIC_API_KEY=…`.
+
 ## Aktiver Slice
-- **Welle 1 (1A+1B) abgeschlossen.** Nächster Block: Welle 2 (Elternreport
-  KI-gestützt + Freigabe → Home-Quest → Klausurkalender → KI-Erklärartikel
-  → Eskalations-Trigger) — mit Rasit priorisieren.
+- **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
+  KI-Erklärartikel → Eskalations-Trigger.

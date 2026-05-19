@@ -17,7 +17,7 @@ import {
 } from '@/lib/supabase/interventions'
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { formatDateLongDe } from '@/lib/utils'
-import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, Inbox } from 'lucide-react'
+import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, Inbox, FileText } from 'lucide-react'
 import {
   SessionCard,
   sessionTime,
@@ -257,6 +257,12 @@ export function CoachDashboard(): JSX.Element {
                 icon: <ClipboardList className="h-5 w-5" />,
                 title: 'Screening-Ergebnisse',
                 description: 'Abgeschlossene Lernstand-Diagnosen einsehen',
+              },
+              {
+                to: '/coach/reports',
+                icon: <FileText className="h-5 w-5" />,
+                title: 'Elternreport',
+                description: 'KI-gestützten Report erstellen und freigeben',
               },
               {
                 to: '/admin/leads',

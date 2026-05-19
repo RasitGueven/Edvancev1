@@ -15,6 +15,7 @@ import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { ScreeningItemsPage } from '@/pages/admin/ScreeningItemsPage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
+import { ReportsPage } from '@/pages/coach/ReportsPage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayer } from '@/pages/student/TaskPlayer'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
@@ -78,6 +79,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['coach', 'admin']}>
               <ScreeningResultsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/coach/reports"
+          element={
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <ReportsPage />
             </ProtectedRoute>
           }
         />
