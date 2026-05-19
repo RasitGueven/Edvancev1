@@ -9,6 +9,7 @@ import { OnboardingPage } from '@/pages/admin/OnboardingPage'
 import { LambacherPreview } from '@/pages/admin/LambacherPreview'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
+import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { TiersPage } from '@/pages/admin/TiersPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { ScreeningItemsPage } from '@/pages/admin/ScreeningItemsPage'
@@ -125,6 +126,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <SchedulePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/coaches"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <CoachesPage />
             </ProtectedRoute>
           }
         />

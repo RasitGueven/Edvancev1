@@ -7,6 +7,7 @@ import {
   GraduationCap,
   Inbox,
   ListChecks,
+  UserPlus,
 } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import {
@@ -82,6 +83,14 @@ export function AdminDashboard(): JSX.Element {
             description="Sessions anlegen und Schüler einem Coach-Termin zuweisen."
             accent="warning"
             size="wide"
+          />
+          <AdminTile
+            to="/admin/coaches"
+            icon={<UserPlus className={ICON_CLASS} />}
+            title="Coaches"
+            description="Coach-Accounts anlegen und Zugangsdaten vergeben."
+            accent="success"
+            size="sm"
           />
           <AdminTile
             to="/admin/tiers"

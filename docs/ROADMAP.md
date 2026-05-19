@@ -58,7 +58,7 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 | Aufgaben-Übersicht (nach Fach/Cluster) | ✅ | — |
 | Screening Item Pool | ✅ | — |
 | Aufgaben-**Bulk-Import** | ❌ | NEU |
-| Coach anlegen | ❌ | BE+ (Auth → Rasit-Freigabe) |
+| Coach anlegen | ✅ | Edge-Function `provision_coach` (Deploy nötig) |
 | Stundenplan / Sitzungszuweisung | ⚠️ | UI |
 | Elternreport-Übersicht + Freigabe | ⚠️ | UI |
 | Spotlight-Suche, Quest/Badge-Gesamtübersicht, Coach-KPI, Eskalation | ❌ | NEU |
@@ -107,7 +107,15 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 - **Welle 3:** Gruppen/Community-Badges → Zeitmaschinen-Modus → Coach-KPI →
   globale Spotlight-Suche
 
+## Fortschritt
+- **Welle 1A komplett:** Nächste Session (S+E) · Admin-Stundenplan
+  (`/admin/schedule`) · Coach-Tagesplan-Filter (`/coach`).
+  Offen: Migration 024 (`coaching_sessions_parent_read`, Auth/RLS →
+  Rasit-Freigabe + SQL-Ausführung) — bis dahin sehen Eltern keine Sessions.
+- **Welle 1B gestartet:** Coach anlegen via `/admin/coaches` +
+  Edge-Function `provision_coach` (Admin-only, Admin setzt Passwort).
+  Offen: `supabase functions deploy provision_coach`.
+
 ## Aktiver Slice
-- **Welle 1A · Nächste Session (Schüler + Eltern)** — Migration 024
-  (`coaching_sessions_parent_read`, Auth/RLS → Rasit-Freigabe vor SQL-Ausführung),
-  `listUpcomingSessionsForStudent()` + Karten in Student-/Parent-Dashboard.
+- **Welle 1B · weiter:** Eingriff-Tracking (neue Tabelle + RLS + Coach-UI),
+  danach Schüler-Kurzprofil pro Session.
