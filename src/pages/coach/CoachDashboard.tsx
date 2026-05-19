@@ -54,6 +54,53 @@ function sessionTime(iso: string): string {
   })
 }
 
+type RangeFilter = 'today' | 'week' | 'all'
+
+const RANGE_LABEL: Record<RangeFilter, string> = {
+  today: 'Heute',
+  week: 'Diese Woche',
+  all: 'Alle',
+}
+
+// Y-M-D in Europe/Berlin (DB speichert UTC, CLAUDE.md §10).
+function berlinYMD(iso: string): { y: number; m: number; d: number } {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Berlin',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date(iso))
+  const get = (t: string): number =>
+    Number(parts.find((x) => x.type === t)?.value)
+  return { y: get('year'), m: get('month'), d: get('day') }
+}
+
+// ISO-Kalenderwoche (Mo–So) aus einem Berlin-Datum.
+function isoWeek(y: number, m: number, d: number): { year: number; week: number } {
+  const date = new Date(Date.UTC(y, m - 1, d))
+  const day = (date.getUTCDay() + 6) % 7
+  date.setUTCDate(date.getUTCDate() - day + 3)
+  const firstThursday = new Date(Date.UTC(date.getUTCFullYear(), 0, 4))
+  const fday = (firstThursday.getUTCDay() + 6) % 7
+  firstThursday.setUTCDate(firstThursday.getUTCDate() - fday + 3)
+  const week =
+    1 + Math.round((date.getTime() - firstThursday.getTime()) / (7 * 864e5))
+  return { year: date.getUTCFullYear(), week }
+}
+
+function inRange(
+  iso: string,
+  filter: RangeFilter,
+  now: { y: number; m: number; d: number },
+): boolean {
+  if (filter === 'all') return true
+  const s = berlinYMD(iso)
+  if (filter === 'today') return s.y === now.y && s.m === now.m && s.d === now.d
+  const sw = isoWeek(s.y, s.m, s.d)
+  const nw = isoWeek(now.y, now.m, now.d)
+  return sw.year === nw.year && sw.week === nw.week
+}
+
 function nextUpcomingTime(vms: SessionVM[]): string {
   const next = vms
     .filter((v) => v.session.status === 'upcoming')
@@ -172,6 +219,15 @@ export function CoachDashboard(): JSX.Element {
   const [vms, setVms] = useState<SessionVM[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [range, setRange] = useState<RangeFilter>('today')
+
+  const now = berlinYMD(new Date().toISOString())
+  const todayCount = vms.filter((v) =>
+    inRange(v.session.scheduled_at, 'today', now),
+  ).length
+  const filteredVms = vms.filter((v) =>
+    inRange(v.session.scheduled_at, range, now),
+  )
 
   const load = (): void => {
     if (!user) return
@@ -271,7 +327,7 @@ export function CoachDashboard(): JSX.Element {
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <StatCard
             label="Sessions heute"
-            value={vms.length}
+            value={todayCount}
             icon={<CalendarDays className="h-5 w-5 text-primary" />}
             iconBackground={ICON_BG_PRIMARY}
           />
@@ -289,21 +345,39 @@ export function CoachDashboard(): JSX.Element {
           />
         </div>
 
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">
-          Deine Sessions
-        </h2>
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
+            Deine Sessions · {RANGE_LABEL[range]}
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {(['today', 'week', 'all'] as RangeFilter[]).map((r) => (
+              <Button
+                key={r}
+                size="sm"
+                variant={range === r ? 'default' : 'outline'}
+                onClick={() => setRange(r)}
+              >
+                {RANGE_LABEL[r]}
+              </Button>
+            ))}
+          </div>
+        </div>
         {error && <p className="mb-3 text-sm text-[var(--destructive)]">{error}</p>}
         {loading ? (
           <LoadingPulse type="list" lines={3} />
-        ) : vms.length === 0 ? (
+        ) : filteredVms.length === 0 ? (
           <EmptyState
             icon="📅"
             title="Keine Sessions"
-            description="Es sind noch keine Sessions für dich angelegt."
+            description={
+              range === 'all'
+                ? 'Es sind noch keine Sessions für dich angelegt.'
+                : `Keine Sessions im Zeitraum „${RANGE_LABEL[range]}".`
+            }
           />
         ) : (
           <div className="flex flex-col gap-4">
-            {vms.map((vm) => (
+            {filteredVms.map((vm) => (
               <SessionCard
                 key={vm.session.id}
                 vm={vm}
