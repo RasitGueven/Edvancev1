@@ -131,6 +131,10 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   vorhandenes `parent_reports`).
   Offen: `supabase functions deploy generate_parent_report` +
   `supabase secrets set ANTHROPIC_API_KEY=…`.
+- **Coach↔Schüler-Zuordnung:** `/admin/assignments` — Schüler einem Coach
+  zuweisen/umhängen/entfernen (`setStudentCoach`, ein aktiver Coach pro
+  Schüler). Nutzt vorhandenes `student_coach` + RLS `student_coach_admin_all`,
+  kein Schema-Change. Schließt die zuvor identifizierte UI-Lücke.
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →

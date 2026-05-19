@@ -1,0 +1,172 @@
+import { useEffect, useMemo, useState, type JSX } from 'react'
+import { Link } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import {
+  EdvanceCard,
+  EdvanceBadge,
+  EmptyState,
+  LoadingPulse,
+} from '@/components/edvance'
+import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { listStudentsWithName } from '@/lib/supabase/students'
+import { getCoaches } from '@/lib/supabase/profiles'
+import {
+  listActiveAssignments,
+  setStudentCoach,
+} from '@/lib/supabase/studentCoach'
+import type { Coach, StudentWithName } from '@/types'
+
+const SELECT_CLASS =
+  'h-11 w-full rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm sm:w-64'
+
+export function AssignmentsPage(): JSX.Element {
+  const [students, setStudents] = useState<StudentWithName[]>([])
+  const [coaches, setCoaches] = useState<Coach[]>([])
+  const [assign, setAssign] = useState<Record<string, string>>({})
+  const [query, setQuery] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [savingId, setSavingId] = useState<string | null>(null)
+
+  const load = (): void => {
+    setLoading(true)
+    void Promise.all([
+      listStudentsWithName(),
+      getCoaches(),
+      listActiveAssignments(),
+    ]).then(([s, c, a]) => {
+      setStudents(s.data ?? [])
+      setCoaches(c.data ?? [])
+      const map: Record<string, string> = {}
+      for (const row of a.data ?? []) map[row.student_id] = row.coach_id
+      setAssign(map)
+      setError(s.error ?? c.error ?? a.error)
+      setLoading(false)
+    })
+  }
+
+  useEffect(load, [])
+
+  const coachName = useMemo(() => {
+    const m: Record<string, string> = {}
+    for (const c of coaches) m[c.id] = c.full_name ?? 'Unbenannt'
+    return m
+  }, [coaches])
+
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return students
+    return students.filter((s) =>
+      (s.full_name ?? '').toLowerCase().includes(q),
+    )
+  }, [students, query])
+
+  const change = async (
+    studentId: string,
+    value: string,
+  ): Promise<void> => {
+    const coachId = value === '' ? null : value
+    setSavingId(studentId)
+    setError(null)
+    const { error: e } = await setStudentCoach(studentId, coachId)
+    setSavingId(null)
+    if (e) {
+      setError(e)
+      return
+    }
+    setAssign((prev) => {
+      const next = { ...prev }
+      if (coachId === null) delete next[studentId]
+      else next[studentId] = coachId
+      return next
+    })
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <EdvanceNavbar subtitle="Coach-Zuordnung" sticky />
+      <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
+        <div>
+          <Link
+            to="/admin"
+            className="mb-2 flex items-center gap-1 text-sm text-[var(--text-muted)]"
+          >
+            <ArrowLeft className="h-4 w-4" /> Admin
+          </Link>
+          <h1 className="text-2xl font-bold text-[var(--text-primary)]">
+            Coach ↔ Schüler-Zuordnung
+          </h1>
+          <p className="mt-1 text-sm leading-relaxed text-[var(--text-secondary)]">
+            Jeder Schüler hat genau einen aktiven Coach. Änderung wirkt sofort.
+          </p>
+        </div>
+
+        {error && (
+          <p className="text-sm text-[var(--destructive)]">{error}</p>
+        )}
+
+        <Input
+          placeholder="Schüler suchen …"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+
+        {loading ? (
+          <LoadingPulse type="card" />
+        ) : visible.length === 0 ? (
+          <EmptyState
+            icon="🧑‍🏫"
+            title="Keine Schüler"
+            description="Keine Schüler gefunden."
+          />
+        ) : (
+          <div className="flex flex-col gap-4">
+            {visible.map((s) => {
+              const current = assign[s.id] ?? ''
+              return (
+                <EdvanceCard
+                  key={s.id}
+                  className="flex flex-col gap-3 p-6 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div className="flex flex-col gap-1">
+                    <p className="text-base font-semibold text-[var(--text-primary)]">
+                      {s.full_name ?? 'Unbenannt'}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      {s.class_level && (
+                        <span className="text-xs text-[var(--text-muted)]">
+                          Klasse {s.class_level}
+                        </span>
+                      )}
+                      <EdvanceBadge
+                        variant={current ? 'success' : 'muted'}
+                      >
+                        {current
+                          ? coachName[current] ?? 'Coach'
+                          : 'Kein Coach'}
+                      </EdvanceBadge>
+                    </div>
+                  </div>
+                  <select
+                    className={SELECT_CLASS}
+                    value={current}
+                    disabled={savingId === s.id}
+                    onChange={(e) => void change(s.id, e.target.value)}
+                  >
+                    <option value="">— kein Coach</option>
+                    {coaches.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.full_name ?? 'Unbenannt'}
+                      </option>
+                    ))}
+                  </select>
+                </EdvanceCard>
+              )
+            })}
+          </div>
+        )}
+      </main>
+    </div>
+  )
+}
