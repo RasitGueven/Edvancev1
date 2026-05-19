@@ -59,8 +59,8 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 | Screening Item Pool | ✅ | — |
 | Aufgaben-**Bulk-Import** | ❌ | NEU |
 | Coach anlegen | ✅ | Edge-Function `provision_coach` (Deploy nötig) |
-| Stundenplan / Sitzungszuweisung | ⚠️ | UI |
-| Elternreport-Übersicht + Freigabe | ⚠️ | UI |
+| Stundenplan / Sitzungszuweisung | ✅ | `/admin/schedule` (Welle 1A) |
+| Elternreport-Übersicht + Freigabe | ✅ | `/coach/reports`: Bestehende Reports + Freigeben |
 | Spotlight-Suche, Quest/Badge-Gesamtübersicht, Coach-KPI, Eskalation | ❌ | NEU |
 
 ## Coach
@@ -69,7 +69,7 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 | Schülerübersicht (eigene Sessions) | ✅ | — |
 | Screening-Ergebnisse einsehen | ✅ | — |
 | Erstgespräch/Intake-Protokoll | ✅ | — |
-| Tages-/Wochenplan (Filter über bestehende Liste) | ⚠️ | UI |
+| Tages-/Wochenplan (Filter über bestehende Liste) | ✅ | `/coach` Filter (Welle 1A) |
 | Schüler-Kurzprofil pro Session | ✅ | Fortschritt; Klausur/Modus später (Welle 2) |
 | Elternreport schreiben & freigeben (KI) | ✅ | Edge `generate_parent_report` (Deploy + Secret) |
 | Eingriff-Tracking (Eingegriffen → Dauer → Gelöst) | ✅ | Migration 025 nötig |
@@ -82,8 +82,8 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 | Lernpfad / Cluster starten | ✅ | — |
 | Skill-Tree (Kompetenzen) | ✅ | — |
 | Aufgaben suchen | ✅ | — |
-| Weitermachen (letzter Cluster, localStorage) | ⚠️ | nur Cluster, nicht Task-State |
-| Nächste Session anzeigen | ⚠️ | UI |
+| Weitermachen (DB-abgeleitet, nächste offene Aufgabe) | ✅ | localStorage entfernt |
+| Nächste Session anzeigen | ✅ | Welle 1A |
 | Session-Flow (Check-in→…→Reflexion) | ❌ | NEU (größter Brocken) |
 | Hausaufgaben hochladen | ❌ | NEU (Storage+Tabelle+RLS) |
 | Klausurkalender, KI-Erklärartikel, Lexikon, Badges, Gruppen | ❌ | NEU |
@@ -92,7 +92,7 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 | Feature | Status | Aufwand |
 |---|---|---|
 | Veröffentlichte Reports + Kind-Fortschritt ansehen | ✅ | — |
-| Nächste Session anzeigen | ⚠️ | UI + RLS-Policy (Migration 024) |
+| Nächste Session anzeigen | ✅* | UI fertig (Welle 1A); *Migration 024 ausstehend |
 | Elternreport (KI-generiert, alle 2 Wochen) | ✅ | Coach generiert/editiert/gibt frei; Eltern sehen Abschnitte |
 | Kind-Daten vor Onboarding, HA/Klausur-Upload, Push, Multi-Kind | ❌ | NEU |
 
@@ -142,6 +142,17 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Tabelle `xp_rules`).
   **Offen: Migration `026_xp_completion.sql` von Rasit im Supabase SQL-Editor
   ausführen** (legt `xp_rules` + `complete_task` an).
+
+- **Kleine ⚠️-Lücken geschlossen + Matrix entstaubt:**
+  - Elternreport-Übersicht: `/coach/reports` listet bestehende Reports des
+    gewählten Schülers mit Status (Entwurf/Freigegeben) + „Freigeben" für
+    Entwürfe (`listReportsForStudent`/`publishReport`).
+  - „Weitermachen" jetzt DB-abgeleitet (`getResumePoint`): zuletzt erledigte
+    Aufgabe → Cluster → nächste offene Aufgabe (Deep-Link `/student/task/:id`).
+    `lib/lastCluster.ts` + localStorage entfernt (CLAUDE.md: kein localStorage
+    außer ThemeContext).
+  - Feature-Matrix gegen echten Code-Stand korrigiert (mehrere ⚠️→✅, die
+    bereits in Welle 1A/1B erledigt waren).
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →

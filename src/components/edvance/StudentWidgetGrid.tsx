@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { FlaskConical } from 'lucide-react'
 import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
-import type { LastCluster } from '@/lib/lastCluster'
+import type { ResumePoint } from '@/lib/supabase/resume'
 
 type StudentTileAccent = 'primary' | 'streak' | 'levelup' | 'xp'
 
@@ -15,10 +15,14 @@ const ACCENT_VAR: Record<StudentTileAccent, string> = {
 
 // ─── ContinueTile (2×2 Hero) ─────────────────────────────────────────────────
 
-function ContinueTile({ lastCluster }: { lastCluster: LastCluster | null }): JSX.Element {
-  const to = lastCluster ? `/student/cluster/${lastCluster.id}` : '#lernpfad'
-  const title = lastCluster ? lastCluster.name : 'Lernpfad starten'
-  const eyebrow = lastCluster ? 'Weitermachen' : 'Einstieg'
+function ContinueTile({ resume }: { resume: ResumePoint | null }): JSX.Element {
+  const to = resume
+    ? resume.taskId
+      ? `/student/task/${resume.taskId}`
+      : `/student/cluster/${resume.clusterId}`
+    : '#lernpfad'
+  const title = resume ? resume.clusterName : 'Lernpfad starten'
+  const eyebrow = resume ? 'Weitermachen' : 'Einstieg'
 
   return (
     <Link
@@ -152,7 +156,7 @@ type StudentBentoGridProps = {
   xpTotal: number
   streakDays: number
   level: number
-  lastCluster: LastCluster | null
+  resume: ResumePoint | null
   loading?: boolean
 }
 
@@ -160,12 +164,12 @@ export function StudentBentoGrid({
   xpTotal,
   streakDays,
   level,
-  lastCluster,
+  resume,
   loading = false,
 }: StudentBentoGridProps): JSX.Element {
   return (
     <section className="grid grid-cols-2 gap-4 md:grid-cols-3 md:auto-rows-[minmax(140px,auto)] grid-flow-dense">
-      <ContinueTile lastCluster={lastCluster} />
+      <ContinueTile resume={resume} />
       <StudentStatTile
         accent="streak"
         emoji="🔥"

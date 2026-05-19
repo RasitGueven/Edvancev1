@@ -93,13 +93,11 @@ export function FilterResults({
 type ClusterGridProps = {
   clusters: SkillCluster[]
   clusterProgress: ClusterProgress
-  onClusterClick: (id: string, name: string) => void
 }
 
 export function ClusterGrid({
   clusters,
   clusterProgress,
-  onClusterClick,
 }: ClusterGridProps): JSX.Element {
   return (
     <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -117,7 +115,6 @@ export function ClusterGrid({
           <Link
             key={c.id}
             to={`/student/cluster/${c.id}`}
-            onClick={() => onClusterClick(c.id, c.name)}
             className="group block rounded-[var(--radius-xl)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
           >
             <div className="relative h-full overflow-hidden rounded-[var(--radius-xl)] border border-[var(--border)] bg-gradient-surface p-5 shadow-premium-sm transition-all duration-300 group-hover:shadow-premium-lg group-hover:-translate-y-0.5 min-h-[140px] flex flex-col justify-between">

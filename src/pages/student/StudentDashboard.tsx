@@ -13,7 +13,7 @@ import { getStudentProgress } from '@/lib/supabase/progress'
 import { getCompletedTaskIds } from '@/lib/supabase/taskProgress'
 import { listUpcomingSessionsForStudent } from '@/lib/supabase/sessions'
 import { formatSessionDate } from '@/lib/datetime'
-import { getLastCluster, saveLastCluster, type LastCluster } from '@/lib/lastCluster'
+import { getResumePoint, type ResumePoint } from '@/lib/supabase/resume'
 import type { CoachingSession, SkillCluster, Student, Subject, Task } from '@/types'
 
 const XP_PER_LEVEL = 500
@@ -44,7 +44,7 @@ export function StudentDashboard(): JSX.Element {
   const [xpTotal, setXpTotal] = useState<number>(0)
   const [streakDays, setStreakDays] = useState<number>(0)
   const [level, setLevel] = useState<number>(1)
-  const [lastCluster, setLastCluster] = useState<LastCluster | null>(getLastCluster)
+  const [resume, setResume] = useState<ResumePoint | null>(null)
   const [nextSession, setNextSession] = useState<CoachingSession | null>(null)
   const [sessionLoading, setSessionLoading] = useState<boolean>(true)
 
@@ -56,6 +56,9 @@ export function StudentDashboard(): JSX.Element {
       const { data: s } = await getStudentByProfile(user.id)
       if (cancelled || !s) return
       setStudent(s)
+      void getResumePoint(s.id).then(({ data }) => {
+        if (!cancelled) setResume(data ?? null)
+      })
       const { data: progress } = await getStudentProgress(s.id)
       if (cancelled || !progress) return
       setXpTotal(progress.xp_total)
@@ -195,11 +198,6 @@ export function StudentDashboard(): JSX.Element {
     setTypeFilter('all')
   }
 
-  const handleClusterClick = (id: string, name: string): void => {
-    saveLastCluster(id, name)
-    setLastCluster({ id, name })
-  }
-
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--background)]">
       <EdvanceNavbar subtitle="Mein Lernplan" />
@@ -262,7 +260,7 @@ export function StudentDashboard(): JSX.Element {
             xpTotal={xpTotal}
             streakDays={streakDays}
             level={level}
-            lastCluster={lastCluster}
+            resume={resume}
             loading={!student}
           />
         </div>
@@ -379,7 +377,6 @@ export function StudentDashboard(): JSX.Element {
           <ClusterGrid
             clusters={clusters}
             clusterProgress={clusterProgress}
-            onClusterClick={handleClusterClick}
           />
         )}
       </main>

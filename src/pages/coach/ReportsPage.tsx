@@ -4,12 +4,21 @@ import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
+import {
+  EdvanceBadge,
+  EdvanceCard,
+  EmptyState,
+  LoadingPulse,
+} from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { generateParentReport } from '@/lib/supabase/generateParentReport'
-import { createParentReport, publishReport } from '@/lib/supabase/parentReports'
-import type { ParentReportDraft, StudentWithName } from '@/types'
+import {
+  createParentReport,
+  listReportsForStudent,
+  publishReport,
+} from '@/lib/supabase/parentReports'
+import type { ParentReport, ParentReportDraft, StudentWithName } from '@/types'
 
 const SELECT_CLASS =
   'h-11 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm'
@@ -38,10 +47,38 @@ export function ReportsPage(): JSX.Element {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState<string | null>(null)
+  const [reports, setReports] = useState<ParentReport[]>([])
+  const [reportsLoading, setReportsLoading] = useState(false)
 
   useEffect(() => {
     void listStudentsWithName().then(({ data }) => setStudents(data ?? []))
   }, [])
+
+  const loadReports = (sid: string): void => {
+    if (!sid) {
+      setReports([])
+      return
+    }
+    setReportsLoading(true)
+    void listReportsForStudent(sid).then(({ data }) => {
+      setReports(data ?? [])
+      setReportsLoading(false)
+    })
+  }
+
+  useEffect(() => {
+    loadReports(studentId)
+  }, [studentId])
+
+  const publishExisting = async (id: string): Promise<void> => {
+    setError(null)
+    const { error: err } = await publishReport(id)
+    if (err) {
+      setError(err)
+      return
+    }
+    loadReports(studentId)
+  }
 
   const generate = async (): Promise<void> => {
     if (!studentId) {
@@ -102,6 +139,7 @@ export function ReportsPage(): JSX.Element {
         ? 'Report freigegeben — für die Eltern sichtbar.'
         : 'Als Entwurf gespeichert (für Eltern noch unsichtbar).',
     )
+    loadReports(studentId)
   }
 
   return (
@@ -177,6 +215,50 @@ export function ReportsPage(): JSX.Element {
             </Button>
           </div>
         </EdvanceCard>
+
+        {studentId && (
+          <div className="flex flex-col gap-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+              Bestehende Reports
+            </p>
+            {reportsLoading ? (
+              <LoadingPulse type="card" />
+            ) : reports.length === 0 ? (
+              <EmptyState
+                icon="📭"
+                title="Noch keine Reports"
+                description="Für diesen Schüler wurde noch kein Report erstellt."
+              />
+            ) : (
+              reports.map((r) => (
+                <EdvanceCard
+                  key={r.id}
+                  className="flex flex-wrap items-center justify-between gap-3 p-6"
+                >
+                  <div className="flex flex-col gap-1">
+                    <p className="text-base font-semibold text-[var(--text-primary)]">
+                      {r.period_start} – {r.period_end}
+                    </p>
+                    <EdvanceBadge
+                      variant={
+                        r.status === 'published' ? 'success' : 'warning'
+                      }
+                    >
+                      {r.status === 'published'
+                        ? 'Freigegeben'
+                        : 'Entwurf'}
+                    </EdvanceBadge>
+                  </div>
+                  {r.status !== 'published' && (
+                    <Button onClick={() => publishExisting(r.id)}>
+                      Freigeben
+                    </Button>
+                  )}
+                </EdvanceCard>
+              ))
+            )}
+          </div>
+        )}
 
         {busy && !draft && <LoadingPulse type="card" />}
 
