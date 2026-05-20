@@ -9,10 +9,15 @@ import type { JSX } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
-import { MCWidget } from '@/components/edvance/tasks/MCWidget'
+import {
+  TaskRenderer,
+  buildRawAnswer,
+  isAnswerReady,
+  EMPTY_TASK_STATE,
+  type TaskState,
+} from '@/components/edvance/tasks/TaskRenderer'
 import {
   createAdaptiveSession,
   isComplete,
@@ -23,7 +28,6 @@ import {
 import {
   buildScreeningAnswer,
   finishScreeningTest,
-  isMcPayload,
   loadActiveScreeningPool,
   persistScreeningAnswer,
   resolveScreeningStudentId,
@@ -54,8 +58,7 @@ export function ScreeningSession(): JSX.Element {
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
   const [item, setItem] = useState<ScreeningItem | null>(null)
   const [step, setStep] = useState(1)
-  const [mcIndex, setMcIndex] = useState<number | null>(null)
-  const [text, setText] = useState('')
+  const [taskState, setTaskState] = useState<TaskState>(EMPTY_TASK_STATE)
 
   useEffect(() => {
     if (initRef.current) return
@@ -98,7 +101,8 @@ export function ScreeningSession(): JSX.Element {
   function handleNext(): void {
     const session = sessionRef.current
     if (!session || !item) return
-    const answer = buildScreeningAnswer(item, { mcIndex, text })
+    if (!isAnswerReady(item, taskState)) return
+    const answer = buildScreeningAnswer(item, buildRawAnswer(item, taskState))
     const log = submitAnswer(session, answer, Date.now() - startedAtRef.current)
     const testId = testIdRef.current
     if (log && testId) void persistScreeningAnswer(testId, log, answer)
@@ -110,8 +114,7 @@ export function ScreeningSession(): JSX.Element {
       return
     }
     setItem(next)
-    setMcIndex(null)
-    setText('')
+    setTaskState(EMPTY_TASK_STATE)
     setStep((s) => s + 1)
     startedAtRef.current = Date.now()
   }
@@ -165,29 +168,18 @@ export function ScreeningSession(): JSX.Element {
               {item.prompt}
             </h1>
 
-            {item.check_type === 'mc_index' && isMcPayload(item.payload) ? (
-              <MCWidget
-                options={item.payload.options}
-                selected={mcIndex}
-                onChange={setMcIndex}
-                disabled={false}
-              />
-            ) : (
-              <Input
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Deine Antwort …"
-                autoFocus
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleNext()
-                }}
-              />
-            )}
+            <TaskRenderer
+              item={item}
+              state={taskState}
+              onChange={setTaskState}
+              onEnter={handleNext}
+            />
 
             <Button
               size="lg"
               className="w-full rounded-xl"
               onClick={handleNext}
+              disabled={!isAnswerReady(item, taskState)}
             >
               Weiter
             </Button>

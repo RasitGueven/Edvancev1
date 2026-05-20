@@ -28,6 +28,25 @@ export async function listScreeningItems(opts?: {
   }
 }
 
+// Items per Id-Liste (für die Coach-Rating-Inbox: prompt + Lösungsschema
+// neben der Schüler-Antwort darstellen).
+export async function listScreeningItemsByIds(
+  ids: string[],
+): Promise<SupabaseResult<ScreeningItem[]>> {
+  if (ids.length === 0) return { data: [], error: null }
+  try {
+    const { data, error } = await supabase
+      .from('screening_items')
+      .select('*')
+      .in('id', ids)
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as ScreeningItem[], error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Items konnten nicht geladen werden'
+    return { data: null, error: message }
+  }
+}
+
 // Aktive Items eines Clusters auf einer Stufe (fuer den adaptiven Controller).
 export async function listActiveByClusterLevel(
   clusterId: string,

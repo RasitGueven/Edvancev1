@@ -3,7 +3,7 @@
 // Gesamtwerte. Coach = Beobachter; Punktzahlen hier erlaubt (nicht die
 // §6-Schüler-Regel). Robust bei null/altem/nicht-adaptivem Summary.
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { JSX } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
@@ -13,16 +13,29 @@ import {
   EmptyState,
   LoadingPulse,
   MasteryBar,
+  StatCard,
+  CompetencyRadar,
+  type RadarAxis,
 } from '@/components/edvance'
+import { PendingRatingsInbox } from '@/components/edvance/screening/PendingRatingsInbox'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { Label } from '@/components/ui/label'
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { listCompletedScreeningTests } from '@/lib/supabase/screening'
+import { getResultsForTest } from '@/lib/supabase/screeningItems'
 import { getClustersBySubject, getSubjects } from '@/lib/supabase/tasks'
 import { parseScreeningResult } from '@/lib/screening/screeningResult'
 import { SCREENING_SUBJECT } from '@/lib/screening/screeningRuntime'
+import {
+  computeKpis,
+  formatMedianSeconds,
+} from '@/lib/screening/results/kpis'
 import { formatDateLongDe } from '@/lib/utils'
-import type { ScreeningTest, StudentWithName } from '@/types'
+import type {
+  ScreeningItemResult,
+  ScreeningTest,
+  StudentWithName,
+} from '@/types'
 
 const SELECT_CLASS =
   'h-11 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--text-primary)]'
@@ -42,6 +55,8 @@ export function ScreeningResultsPage(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [results, setResults] = useState<ScreeningItemResult[]>([])
+  const [resultsBusy, setResultsBusy] = useState(false)
 
   useEffect(() => {
     listStudentsWithName().then(({ data, error: err }) => {
@@ -81,15 +96,68 @@ export function ScreeningResultsPage(): JSX.Element {
   const studentLabel = (s: StudentWithName): string =>
     `${s.full_name ?? 'Unbenannt'}${s.class_level ? ` · Kl. ${s.class_level}` : ''}`
 
+  // Wenn ein Test ausgewählt wird, alle Item-Ergebnisse für KPI-Aggregation
+  // nachladen (Median-Dauer, Auto-Grade-Quote, Pending).
+  useEffect(() => {
+    if (!selectedTestId) {
+      setResults([])
+      return
+    }
+    setResultsBusy(true)
+    getResultsForTest(selectedTestId).then(({ data, error: err }) => {
+      setResults(data ?? [])
+      if (err) setError(err)
+      setResultsBusy(false)
+    })
+  }, [selectedTestId])
+
   const selectedTest = tests.find((t) => t.id === selectedTestId) ?? null
   const parsed = selectedTest
     ? parseScreeningResult(selectedTest.result_summary)
     : null
+  const kpis = useMemo(() => computeKpis(results), [results])
+
+  // Median-Dauer pro Cluster — defensiv: bei keinen Daten Map leer lassen.
+  const medianByCluster = useMemo(() => {
+    const buckets = new Map<string, number[]>()
+    for (const r of results) {
+      if (typeof r.duration_ms !== 'number' || r.duration_ms <= 0) continue
+      const arr = buckets.get(r.cluster_id) ?? []
+      arr.push(r.duration_ms)
+      buckets.set(r.cluster_id, arr)
+    }
+    const out = new Map<string, number>()
+    for (const [cid, arr] of buckets) {
+      const sorted = [...arr].sort((a, b) => a - b)
+      const mid = Math.floor(sorted.length / 2)
+      const med =
+        sorted.length % 2 === 0
+          ? Math.round((sorted[mid - 1] + sorted[mid]) / 2)
+          : sorted[mid]
+      out.set(cid, med)
+    }
+    return out
+  }, [results])
+
+  const pendingByCluster = useMemo(() => {
+    const out = new Map<string, number>()
+    for (const r of results) {
+      if (r.correct === null) {
+        out.set(r.cluster_id, (out.get(r.cluster_id) ?? 0) + 1)
+      }
+    }
+    return out
+  }, [results])
+
+  const afbVariant = (
+    afb: 'I' | 'II' | 'III' | null,
+  ): 'muted' | 'success' | 'primary' | 'xp' =>
+    afb === 'I' ? 'success' : afb === 'II' ? 'primary' : afb === 'III' ? 'xp' : 'muted'
 
   return (
     <div className="min-h-screen bg-background">
       <EdvanceNavbar subtitle="Screening-Ergebnisse" sticky />
-      <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
+      <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8">
         <div>
           <Link
             to="/coach"
@@ -179,24 +247,39 @@ export function ScreeningResultsPage(): JSX.Element {
                   />
                 ) : (
                   <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <EdvanceCard className="flex flex-col gap-1 p-6">
-                        <span className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-                          Beantwortet gesamt
-                        </span>
-                        <span className="text-3xl font-bold text-[var(--text-primary)]">
-                          {parsed.overallAnswered}
-                        </span>
-                      </EdvanceCard>
-                      <EdvanceCard className="flex flex-col gap-1 p-6">
-                        <span className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-                          Richtig gesamt
-                        </span>
-                        <span className="text-3xl font-bold text-[var(--text-primary)]">
-                          {parsed.overallPct}%
-                        </span>
-                      </EdvanceCard>
-                    </div>
+                    {resultsBusy ? (
+                      <LoadingPulse type="card" lines={2} />
+                    ) : (
+                      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                        <StatCard
+                          icon="📝"
+                          label="Beantwortet"
+                          value={parsed.overallAnswered}
+                        />
+                        <StatCard
+                          icon="⚡"
+                          label="Trefferquote"
+                          value={`${parsed.overallPct}%`}
+                          color="var(--success)"
+                        />
+                        <StatCard
+                          icon="⏱️"
+                          label="Ø Zeit / Aufgabe"
+                          value={formatMedianSeconds(kpis.medianDurationMs)}
+                          color="var(--info)"
+                        />
+                        <StatCard
+                          icon="🧑‍🏫"
+                          label="Wartet auf Bewertung"
+                          value={kpis.manualPending}
+                          color={
+                            kpis.manualPending > 0
+                              ? 'var(--warning)'
+                              : 'var(--text-muted)'
+                          }
+                        />
+                      </div>
+                    )}
 
                     {parsed.clusters.length === 0 ? (
                       <EmptyState
@@ -205,27 +288,68 @@ export function ScreeningResultsPage(): JSX.Element {
                         description="Der Lauf enthält keine auswertbaren Cluster."
                       />
                     ) : (
-                      parsed.clusters.map((c) => (
-                        <EdvanceCard
-                          key={c.clusterId}
-                          className="flex flex-col gap-3 p-5"
-                        >
-                          <div className="flex flex-wrap items-center justify-between gap-2">
-                            <span className="text-sm font-semibold text-[var(--text-primary)]">
-                              {clusterNames.get(c.clusterId) ?? c.clusterId}
-                            </span>
-                            <EdvanceBadge variant="muted">
-                              Stufe {c.estimatedLevel}
-                            </EdvanceBadge>
-                          </div>
-                          <MasteryBar level={c.displayLevel} showLabel />
-                          <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-[var(--text-secondary)]">
-                            <span>Beantwortet: {c.answered}</span>
-                            <span>Richtig: {c.correct}</span>
-                            <span>Trefferquote: {Math.round(c.mastery * 100)}%</span>
-                          </div>
-                        </EdvanceCard>
-                      ))
+                      <EdvanceCard className="flex flex-col items-center gap-2 p-6">
+                        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+                          Kompetenz-Profil
+                        </h2>
+                        <CompetencyRadar
+                          axes={parsed.clusters.map<RadarAxis>((c) => ({
+                            label: clusterNames.get(c.clusterId) ?? c.clusterId,
+                            value: c.displayLevel,
+                          }))}
+                          max={10}
+                        />
+                      </EdvanceCard>
+                    )}
+
+                    {parsed.clusters.length > 0 && (
+                      <div className="flex flex-col gap-4">
+                        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+                          Kompetenzbereiche
+                        </h2>
+                        {parsed.clusters.map((c) => {
+                          const med = medianByCluster.get(c.clusterId) ?? 0
+                          const pending = pendingByCluster.get(c.clusterId) ?? c.pending
+                          return (
+                            <EdvanceCard
+                              key={c.clusterId}
+                              className="flex flex-col gap-3 p-5"
+                            >
+                              <div className="flex flex-wrap items-center justify-between gap-2">
+                                <span className="text-base font-semibold text-[var(--text-primary)]">
+                                  {clusterNames.get(c.clusterId) ?? c.clusterId}
+                                </span>
+                                <div className="flex flex-wrap items-center gap-2">
+                                  {pending > 0 && (
+                                    <EdvanceBadge variant="warning">
+                                      {pending} offen
+                                    </EdvanceBadge>
+                                  )}
+                                  <EdvanceBadge variant={afbVariant(c.reachedAfb)}>
+                                    {c.reachedAfb ? `AFB ${c.reachedAfb}` : 'unter AFB I'}
+                                  </EdvanceBadge>
+                                </div>
+                              </div>
+                              <MasteryBar level={c.displayLevel} showLabel />
+                              <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-[var(--text-secondary)]">
+                                <span>Beantwortet: {c.answered}</span>
+                                <span>Richtig: {c.correct}</span>
+                                <span>Trefferquote: {Math.round(c.mastery * 100)}%</span>
+                                {med > 0 && (
+                                  <span>Ø Zeit: {formatMedianSeconds(med)}</span>
+                                )}
+                              </div>
+                            </EdvanceCard>
+                          )
+                        })}
+                      </div>
+                    )}
+
+                    {!resultsBusy && (
+                      <PendingRatingsInbox
+                        results={results}
+                        clusterNames={clusterNames}
+                      />
                     )}
                   </>
                 )}

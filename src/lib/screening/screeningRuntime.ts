@@ -37,17 +37,33 @@ export function isMcPayload(p: unknown): p is McPayload {
   )
 }
 
-// Rohwert aus der UI → Antwort-Objekt für gradeScreeningAnswer.
-//  - MC / mc_index:   Index → { index }
-//  - sonst (numeric / normalized / Fallback): Freitext → { value }
-export function buildScreeningAnswer(
-  item: ScreeningItem,
-  raw: { mcIndex: number | null; text: string },
-): unknown {
-  if (item.check_type === 'mc_index') {
-    return { index: raw.mcIndex }
+export type RawAnswer =
+  | { kind: 'mc'; index: number | null }
+  | { kind: 'numeric'; value: string }
+  | { kind: 'open'; text: string }
+  | { kind: 'multistep'; steps: Record<string, string> }
+
+// Rohwert aus der UI → Antwort-Objekt für gradeScreeningAnswer / DB.
+// Shape pro input_type:
+//   MC           → { index }
+//   NUMERIC      → { value }
+//   OPEN/manual  → { text }
+//   MULTI-STEP   → { steps: { '1a': '…', '1b': '…' } }
+export function buildScreeningAnswer(item: ScreeningItem, raw: RawAnswer): unknown {
+  if (raw.kind === 'mc') return { index: raw.index }
+  if (raw.kind === 'numeric') return { value: raw.value.trim() }
+  if (raw.kind === 'multistep') {
+    const steps: Record<string, string> = {}
+    for (const [k, v] of Object.entries(raw.steps)) steps[k] = v.trim()
+    return { steps }
   }
-  return { value: raw.text.trim() }
+  // open: für check_type 'numeric'/'normalized' nimmt der Grader value, für
+  // 'manual' bevorzugt er text — wir liefern beides, damit beides passt.
+  const t = raw.text.trim()
+  if (item.check_type === 'numeric' || item.check_type === 'normalized') {
+    return { value: t }
+  }
+  return { text: t }
 }
 
 // Schüler-Row zum eingeloggten Profil (kann fehlen → Coach/Admin testen

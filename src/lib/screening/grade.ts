@@ -45,13 +45,36 @@ function pairSet(raw: unknown): Set<string> | null {
   return set
 }
 
+// Versucht eine Freitext-/Open-Antwort gegen `accepted` zu matchen (lower-case,
+// trim, Whitespace-collapse, Komma→Punkt). Treffer → true, sonst null
+// (= unentschieden, wartet auf Coach-Rating). Bewusst kein false: ein nicht
+// matchbares Open-Item ist nicht „falsch", sondern braucht manuelles Urteil.
+export function tryAutoGradeOpen(
+  accepted: string[] | null | undefined,
+  rawAnswer: unknown,
+): true | null {
+  if (!Array.isArray(accepted) || accepted.length === 0) return null
+  const a = isObj(rawAnswer)
+    ? norm(rawAnswer.text) ?? norm(rawAnswer.value)
+    : norm(rawAnswer)
+  if (a === null || a === '') return null
+  for (const candidate of accepted) {
+    const c = norm(candidate)
+    if (c !== null && c === a) return true
+  }
+  return null
+}
+
 // Bewertet eine Antwort gegen die kanonische Loesung eines Items.
+// Rückgabe: true/false bei klaren Auto-Grading-Cases, null wenn der Fall
+// manuell (Coach) entschieden werden muss — DB-Spalte `correct` ist nullable.
 export function gradeScreeningAnswer(args: {
   check_type: ScreeningCheckType
   canonical: unknown
   answer: unknown
   tolerance?: number | null
-}): boolean {
+  accepted?: string[] | null
+}): boolean | null {
   const { check_type, canonical, answer } = args
   switch (check_type) {
     case 'mc_index': {
@@ -79,6 +102,15 @@ export function gradeScreeningAnswer(args: {
       const c = isObj(canonical) ? norm(canonical.value) : norm(canonical)
       const a = isObj(answer) ? norm(answer.value) : norm(answer)
       return c !== null && c === a
+    }
+    case 'manual': {
+      // Hybrid: Treffer in akzeptierten Antworten → true; sonst Coach entscheidet.
+      const accepted =
+        args.accepted ??
+        (isObj(canonical) && Array.isArray(canonical.accepted)
+          ? (canonical.accepted as string[])
+          : null)
+      return tryAutoGradeOpen(accepted, answer)
     }
     default:
       return false

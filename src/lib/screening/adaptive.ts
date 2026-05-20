@@ -3,14 +3,19 @@
 // Schritt für Schritt das nächste Item und am Ende eine Cluster-Auswertung.
 // Persistenz/Integration passiert außerhalb (P5).
 //
-// Ablauf: Warm-up-Sweep (1 leichtes Item je Cluster, breit) → Fokus-Treppe
-// je Cluster (Start L2, richtig → +1, falsch → −1; Stopp bei Konvergenz/
-// Kappe/erschöpftem Pool). Intake kann Themen hart ausschließen und Cluster
-// gewichten (mehr Tiefe). Robust: fehlende Stufe/Cluster wird übersprungen,
-// nie ein Crash. Das Kind sieht NIE richtig/falsch (CLAUDE.md §6) — Grading
-// ist hier nur interne Zustandslogik.
+// Ablauf: Warm-up-Sweep (1 AFB-I-Item je Cluster, breit) → Fokus-Treppe je
+// Cluster (Start AFB I, richtig → AFB+1, falsch → AFB−1, null → bleibt;
+// Stopp bei Konvergenz/Kappe/erschöpftem Pool). Intake kann Themen hart
+// ausschließen und Cluster gewichten (mehr Tiefe). Robust: fehlende Stufe/
+// Cluster wird übersprungen, nie ein Crash. Das Kind sieht NIE richtig/falsch
+// (CLAUDE.md §6) — Grading ist hier nur interne Zustandslogik.
+//
+// AFB ↔ level: VERA-Items werden so geseedet, dass `level` numerisch dem AFB
+// entspricht (I=1, II=2, III=3). Legacy-Items ohne `afb`-Spalte nutzen den
+// gleichen numerischen Schwierigkeitsbegriff. `reachedAfb` in der Summary
+// leitet sich aus `estimatedLevel` ab.
 
-import type { ScreeningItem, ScreeningLevel } from '@/types'
+import type { ScreeningAfb, ScreeningItem, ScreeningLevel } from '@/types'
 import { gradeScreeningAnswer } from './grade'
 
 export const RECOMMENDED_BUDGET_MS = 20 * 60 * 1000
@@ -30,7 +35,10 @@ export type AdaptiveAnswerLog = {
   itemId: string
   clusterId: string
   level: ScreeningLevel
-  correct: boolean
+  // null = manuelles Coach-Rating ausstehend (z. B. OPEN ohne Match in
+  // akzeptierte_antworten). Beeinflusst die Treppe nicht — wir bleiben
+  // auf der aktuellen Stufe, statt blind hoch/runter zu gehen.
+  correct: boolean | null
   durationMs: number
 }
 
@@ -38,9 +46,18 @@ export type ClusterSummary = {
   clusterId: string
   answered: number
   correct: number
-  // 0 = scheitert schon an L1; 1–3 = höchste sicher gelöste Stufe.
+  // null = scheitert schon an AFB I (oder kein Treffer dort);
+  // 'I'/'II'/'III' = höchste sicher gelöste Stufe.
+  reachedAfb: ScreeningAfb | null
+  // 0 = scheitert schon an L1; 1–3 = höchste sicher gelöste Stufe (numerisch).
   estimatedLevel: 0 | ScreeningLevel
-  mastery: number // 0..1
+  mastery: number // 0..1 (correct / answered, ignoriert pending)
+  // Items, die auf Coach-Rating warten (correct === null).
+  pending: number
+}
+
+export function levelToAfb(l: 0 | ScreeningLevel): ScreeningAfb | null {
+  return l === 1 ? 'I' : l === 2 ? 'II' : l === 3 ? 'III' : null
 }
 
 type ClusterState = {
@@ -98,7 +115,8 @@ export function createAdaptiveSession(
       clusters.set(it.cluster_id, {
         clusterId: it.cluster_id,
         weighted: false,
-        level: 2,
+        // Focus startet auf AFB I — Schüler bauen sich von unten hoch.
+        level: 1,
         asked: new Set(),
         log: [],
         focusDone: false,
@@ -240,6 +258,7 @@ export function submitAnswer(
     canonical: item.canonical,
     answer,
     tolerance: item.tolerance,
+    accepted: item.akzeptierte_antworten ?? null,
   })
 
   cs.asked.add(item.id)
@@ -256,7 +275,10 @@ export function submitAnswer(
 
   if (s.phase === 'focus') {
     cs.log.push(entry)
-    cs.level = clampLevel(cs.level + (correct ? 1 : -1))
+    // Bei null (manuell offen) Stufe nicht verändern — sonst wandern wir
+    // ohne Signal weiter und entwerten die Treppe.
+    if (correct === true) cs.level = clampLevel(cs.level + 1)
+    else if (correct === false) cs.level = clampLevel(cs.level - 1)
     if (cs.log.length >= focusCap(cs) || converged(cs)) {
       finalizeCluster(cs)
     }
@@ -271,7 +293,7 @@ export function submitAnswer(
 function estimateLevel(log: AdaptiveAnswerLog[]): 0 | ScreeningLevel {
   let best: 0 | ScreeningLevel = 0
   for (const e of log) {
-    if (e.correct && e.level > best) best = e.level
+    if (e.correct === true && e.level > best) best = e.level
   }
   return best
 }
@@ -291,13 +313,18 @@ export function summarizeLogs(logs: AdaptiveAnswerLog[]): ClusterSummary[] {
   }
   return order.map((clusterId) => {
     const log = byCluster.get(clusterId) ?? []
-    const correct = log.filter((e) => e.correct).length
+    const correct = log.filter((e) => e.correct === true).length
+    const pending = log.filter((e) => e.correct === null).length
+    const decided = log.length - pending
+    const estimatedLevel = estimateLevel(log)
     return {
       clusterId,
       answered: log.length,
       correct,
-      estimatedLevel: estimateLevel(log),
-      mastery: log.length === 0 ? 0 : correct / log.length,
+      reachedAfb: levelToAfb(estimatedLevel),
+      estimatedLevel,
+      mastery: decided === 0 ? 0 : correct / decided,
+      pending,
     }
   })
 }
@@ -308,13 +335,18 @@ export function summarize(s: AdaptiveSession): ClusterSummary[] {
     const cs = s.clusters.get(clusterId)
     const log = cs?.log ?? []
     const answered = log.length
-    const correct = log.filter((e) => e.correct).length
+    const correct = log.filter((e) => e.correct === true).length
+    const pending = log.filter((e) => e.correct === null).length
+    const decided = answered - pending
+    const estimatedLevel = estimateLevel(log)
     return {
       clusterId,
       answered,
       correct,
-      estimatedLevel: estimateLevel(log),
-      mastery: answered === 0 ? 0 : correct / answered,
+      reachedAfb: levelToAfb(estimatedLevel),
+      estimatedLevel,
+      mastery: decided === 0 ? 0 : correct / decided,
+      pending,
     }
   })
 }
