@@ -22,6 +22,7 @@ import { ScreeningItemsPage } from '@/pages/admin/ScreeningItemsPage'
 import { ScreeningCoveragePage } from '@/pages/admin/ScreeningCoveragePage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
+import { StudentFocusAreasPage } from '@/pages/coach/StudentFocusAreasPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayer } from '@/pages/student/TaskPlayer'
@@ -85,6 +86,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['coach', 'admin']}>
               <ScreeningResultsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/coach/focus-areas"
+          element={
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <StudentFocusAreasPage />
             </ProtectedRoute>
           }
         />

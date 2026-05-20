@@ -382,6 +382,28 @@ export type ScreeningItemRatingInput = Omit<
   'id' | 'created_at'
 >
 
+export type StudentFocusSource =
+  | 'klassenarbeit'
+  | 'beobachtung'
+  | 'erstgespraech'
+  | 'sonstiges'
+
+export type StudentFocusArea = {
+  id: string
+  created_at: string
+  student_id: string
+  cluster_id: string
+  coach_id: string | null
+  source: StudentFocusSource
+  note: string | null
+  active: boolean
+}
+
+export type StudentFocusAreaInput = Omit<
+  StudentFocusArea,
+  'id' | 'created_at'
+>
+
 export type CoachingSession = {
   id: string
   created_at: string

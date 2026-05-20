@@ -49,6 +49,24 @@ export async function getStudentByProfile(
   }
 }
 
+// Einzelner Schueler per id (RLS gilt).
+export async function getStudent(
+  studentId: string,
+): Promise<SupabaseResult<Student | null>> {
+  try {
+    const { data, error } = await supabase
+      .from('students')
+      .select('*')
+      .eq('id', studentId)
+      .maybeSingle()
+    if (error) return { data: null, error: error.message }
+    return { data: (data as Student | null) ?? null, error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Schueler konnte nicht geladen werden'
+    return { data: null, error: message }
+  }
+}
+
 // Alle Schueler (RLS: nur Coach/Admin sehen alle).
 export async function listStudents(): Promise<SupabaseResult<Student[]>> {
   try {

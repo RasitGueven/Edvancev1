@@ -13,18 +13,42 @@ import {
   getActiveScreeningTest,
   completeScreeningTest,
 } from '@/lib/supabase/screening'
-import { getStudentByProfile } from '@/lib/supabase/students'
-import { summarizeLogs, type AdaptiveAnswerLog } from '@/lib/screening/adaptive'
+import { getStudentByProfile, getStudent } from '@/lib/supabase/students'
+import { listFocusAreasForStudent } from '@/lib/supabase/studentFocusAreas'
+import {
+  summarizeLogs,
+  type AdaptiveAnswerLog,
+  type AdaptiveConfig,
+} from '@/lib/screening/adaptive'
 import type { ScreeningItem, SupabaseResult } from '@/types'
 
 export const SCREENING_SUBJECT = 'Mathematik'
 
 // Nur freigegebene Items. Engine degradiert robust bei leerem Ergebnis
-// (Aufrufer zeigt dann einen freundlichen Leerzustand).
-export async function loadActiveScreeningPool(): Promise<
-  SupabaseResult<ScreeningItem[]>
-> {
-  return listScreeningItems({ active: true })
+// (Aufrufer zeigt dann einen freundlichen Leerzustand). Optional auf die
+// Klassenstufe einschränken — VERA-Items kommen alle mit class_level=8,
+// Edvance-Items aktuell auch klassen-spezifisch geseedet.
+export async function loadActiveScreeningPool(opts?: {
+  classLevel?: number
+}): Promise<SupabaseResult<ScreeningItem[]>> {
+  return listScreeningItems({ active: true, classLevel: opts?.classLevel })
+}
+
+// Adaptive-Config aus Schüler-Stammdaten (Klassenstufe) und Coach-Schwer-
+// punkten (student_focus_areas) ableiten. Ergebnis ist direkt in
+// `createAdaptiveSession` einsetzbar.
+export async function buildAdaptiveConfigForStudent(
+  studentId: string,
+): Promise<{ classLevel: number | null; config: AdaptiveConfig }> {
+  const [{ data: student }, { data: foci }] = await Promise.all([
+    getStudent(studentId),
+    listFocusAreasForStudent(studentId, { active: true }),
+  ])
+  const weightedClusterIds = (foci ?? []).map((f) => f.cluster_id)
+  return {
+    classLevel: student?.class_level ?? null,
+    config: { weightedClusterIds },
+  }
 }
 
 export type McPayload = { type: 'mc'; options: string[]; correct_index?: number }

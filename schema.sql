@@ -928,3 +928,34 @@ alter table screening_items
   add constraint screening_items_iqb_titel_uniq unique (iqb_titel);
 create index if not exists screening_items_quelle_idx
   on screening_items (quelle);
+
+-- ============================================================================
+-- Migration 030 – Student Focus Areas (Coach setzt Schwerpunkte pro Schüler)
+-- ============================================================================
+create table student_focus_areas (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  student_id uuid not null references students (id) on delete cascade,
+  cluster_id uuid not null references skill_clusters (id) on delete cascade,
+  coach_id uuid references profiles (id) on delete set null,
+  source text default 'klassenarbeit',
+  note text,
+  active boolean not null default true
+);
+create index student_focus_areas_student_idx
+  on student_focus_areas (student_id) where active = true;
+create index student_focus_areas_cluster_idx
+  on student_focus_areas (cluster_id) where active = true;
+alter table student_focus_areas enable row level security;
+create policy "student_focus_areas_coach_all" on student_focus_areas
+  for all using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+create policy "student_focus_areas_parent_read" on student_focus_areas
+  for select using (
+    public.get_my_role() = 'parent'
+    and exists (
+      select 1 from students s
+      where s.id = student_focus_areas.student_id
+        and public.is_parent_of_student(s.id)
+    )
+  );

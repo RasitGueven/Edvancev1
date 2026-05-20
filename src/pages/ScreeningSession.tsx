@@ -26,6 +26,7 @@ import {
   type AdaptiveSession,
 } from '@/lib/screening/adaptive'
 import {
+  buildAdaptiveConfigForStudent,
   buildScreeningAnswer,
   finishScreeningTest,
   loadActiveScreeningPool,
@@ -66,15 +67,22 @@ export function ScreeningSession(): JSX.Element {
     void (async () => {
       // Persistenz best effort: scheitert test-start (kein Schüler-Row,
       // RLS …), läuft das Screening trotzdem in-memory weiter.
+      let classLevel: number | null = null
+      let adaptiveConfig = {}
       if (user?.id) {
         const studentId = await resolveScreeningStudentId(user.id)
         if (studentId) {
           const t = await startOrResumeScreeningTest(studentId)
           testIdRef.current = t.data
+          const cfg = await buildAdaptiveConfigForStudent(studentId)
+          classLevel = cfg.classLevel
+          adaptiveConfig = cfg.config
         }
       }
 
-      const { data, error } = await loadActiveScreeningPool()
+      const { data, error } = await loadActiveScreeningPool(
+        classLevel !== null ? { classLevel } : undefined,
+      )
       if (error) {
         setErrorMsg(error)
         setPhase('error')
@@ -85,7 +93,7 @@ export function ScreeningSession(): JSX.Element {
         setPhase('empty')
         return
       }
-      const session = createAdaptiveSession(pool, {})
+      const session = createAdaptiveSession(pool, adaptiveConfig)
       sessionRef.current = session
       const first = nextItem(session)
       if (!first) {

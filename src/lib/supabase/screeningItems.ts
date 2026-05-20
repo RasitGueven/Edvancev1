@@ -8,15 +8,18 @@ import type {
   SupabaseResult,
 } from '@/types'
 
-// Items, optional auf Cluster / aktiv-Status gefiltert.
+// Items, optional auf Cluster / aktiv-Status / Klassenstufe gefiltert.
+// classLevel: exakt-Match (Schüler:innen Klasse 8 bekommen nur class_level=8).
 export async function listScreeningItems(opts?: {
   clusterId?: string
   active?: boolean
+  classLevel?: number
 }): Promise<SupabaseResult<ScreeningItem[]>> {
   try {
     let q = supabase.from('screening_items').select('*')
     if (opts?.clusterId) q = q.eq('cluster_id', opts.clusterId)
     if (opts?.active !== undefined) q = q.eq('active', opts.active)
+    if (opts?.classLevel !== undefined) q = q.eq('class_level', opts.classLevel)
     const { data, error } = await q
       .order('skill_code', { ascending: true })
       .order('level', { ascending: true })

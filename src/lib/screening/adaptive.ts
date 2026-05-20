@@ -26,6 +26,9 @@ export type AdaptiveConfig = {
   // Schwächen/Ziele aus dem Erstgespräch → Cluster werden vorgezogen und
   // tiefer (höhere Fragenkappe) geprüft.
   weightedTopics?: string[]
+  // Schwerpunkte aus Klassenarbeit/Coach (student_focus_areas) — auf
+  // Cluster-Id-Ebene. Wirkt zusätzlich zu weightedTopics.
+  weightedClusterIds?: string[]
   budgetMs?: number
   // Injizierbar für deterministische Tests; default Math.random.
   rng?: () => number
@@ -103,6 +106,7 @@ export function createAdaptiveSession(
 ): AdaptiveSession {
   const excluded = new Set(config.excludedTopics ?? [])
   const weighted = new Set(config.weightedTopics ?? [])
+  const weightedClusters = new Set(config.weightedClusterIds ?? [])
   const rng = config.rng ?? Math.random
 
   const usable = pool.filter((it) => it.active && !excluded.has(it.topic))
@@ -114,7 +118,7 @@ export function createAdaptiveSession(
       clusterOrder.push(it.cluster_id)
       clusters.set(it.cluster_id, {
         clusterId: it.cluster_id,
-        weighted: false,
+        weighted: weightedClusters.has(it.cluster_id),
         // Focus startet auf AFB I — Schüler bauen sich von unten hoch.
         level: 1,
         asked: new Set(),
