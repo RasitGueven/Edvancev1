@@ -330,6 +330,20 @@ export type ScreeningItem = {
   active: boolean
   afb: ScreeningAfb | null
   phase: ScreeningPhase | null
+  // VERA-8 (Migration 029) — optional, nicht-VERA-Items lassen die Felder null.
+  kontext?: string | null
+  teilaufgaben?: ScreeningTeilaufgabe[] | null
+  akzeptierte_antworten?: string[] | null
+}
+
+// Eine Teilaufgabe eines mehrteiligen Items (z. B. „1a", „1b"). Antwort-Format
+// pro Teilaufgabe wird über `input_type` gesteuert — analog zum Top-Level-Item,
+// aber ohne eigene check_type-Logik: die Auswertung läuft über das Eltern-Item.
+export type ScreeningTeilaufgabe = {
+  key: string
+  prompt: string
+  input_type?: 'NUMERIC' | 'OPEN' | null
+  accepted?: string[] | null
 }
 
 export type ScreeningItemInput = Omit<

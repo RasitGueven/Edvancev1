@@ -30,7 +30,10 @@ export type AdaptiveAnswerLog = {
   itemId: string
   clusterId: string
   level: ScreeningLevel
-  correct: boolean
+  // null = manuelles Coach-Rating ausstehend (z. B. OPEN ohne Match in
+  // akzeptierte_antworten). Beeinflusst die Treppe nicht — wir bleiben
+  // auf der aktuellen Stufe, statt blind hoch/runter zu gehen.
+  correct: boolean | null
   durationMs: number
 }
 
@@ -240,6 +243,7 @@ export function submitAnswer(
     canonical: item.canonical,
     answer,
     tolerance: item.tolerance,
+    accepted: item.akzeptierte_antworten ?? null,
   })
 
   cs.asked.add(item.id)
@@ -256,7 +260,10 @@ export function submitAnswer(
 
   if (s.phase === 'focus') {
     cs.log.push(entry)
-    cs.level = clampLevel(cs.level + (correct ? 1 : -1))
+    // Bei null (manuell offen) Stufe nicht verändern — sonst wandern wir
+    // ohne Signal weiter und entwerten die Treppe.
+    if (correct === true) cs.level = clampLevel(cs.level + 1)
+    else if (correct === false) cs.level = clampLevel(cs.level - 1)
     if (cs.log.length >= focusCap(cs) || converged(cs)) {
       finalizeCluster(cs)
     }
@@ -271,7 +278,7 @@ export function submitAnswer(
 function estimateLevel(log: AdaptiveAnswerLog[]): 0 | ScreeningLevel {
   let best: 0 | ScreeningLevel = 0
   for (const e of log) {
-    if (e.correct && e.level > best) best = e.level
+    if (e.correct === true && e.level > best) best = e.level
   }
   return best
 }
@@ -291,7 +298,7 @@ export function summarizeLogs(logs: AdaptiveAnswerLog[]): ClusterSummary[] {
   }
   return order.map((clusterId) => {
     const log = byCluster.get(clusterId) ?? []
-    const correct = log.filter((e) => e.correct).length
+    const correct = log.filter((e) => e.correct === true).length
     return {
       clusterId,
       answered: log.length,
@@ -308,7 +315,7 @@ export function summarize(s: AdaptiveSession): ClusterSummary[] {
     const cs = s.clusters.get(clusterId)
     const log = cs?.log ?? []
     const answered = log.length
-    const correct = log.filter((e) => e.correct).length
+    const correct = log.filter((e) => e.correct === true).length
     return {
       clusterId,
       answered,
