@@ -7,7 +7,25 @@ const DIST = path.resolve(import.meta.dirname, 'dist')
 const ASSETS = path.join(DIST, 'assets')
 const OUT = path.join(DIST, 'edvance-design-demo.html')
 
-const html = await readFile(path.join(DIST, 'index.html'), 'utf8')
+// Vite legt index.html bei root-input ausserhalb des Roots in einen
+// gespiegelten Pfad ab → suchen statt fest verdrahten.
+const findIndexHtml = async (dir) => {
+  const entries = await readdir(dir, { withFileTypes: true })
+  for (const e of entries) {
+    if (e.name === 'index.html' && e.isFile()) return path.join(dir, e.name)
+    if (e.isDirectory() && e.name !== 'assets') {
+      const found = await findIndexHtml(path.join(dir, e.name))
+      if (found) return found
+    }
+  }
+  return null
+}
+const indexPath = await findIndexHtml(DIST)
+if (!indexPath) {
+  console.error('index.html nicht gefunden in', DIST)
+  process.exit(1)
+}
+const html = await readFile(indexPath, 'utf8')
 const files = await readdir(ASSETS)
 
 const read = async (name) =>
