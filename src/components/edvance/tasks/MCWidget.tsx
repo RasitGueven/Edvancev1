@@ -31,11 +31,11 @@ export function MCWidget({ options, selected, onChange, disabled }: Props): JSX.
             ].join(' ')}
           >
             <span
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold"
-              style={{
-                background: active ? 'var(--primary)' : 'var(--primary-pale)',
-                color: active ? '#fff' : 'var(--primary)',
-              }}
+              className={[
+                'flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold',
+                active ? 'text-white' : 'text-primary',
+              ].join(' ')}
+              style={{ background: active ? 'var(--primary)' : 'var(--primary-pale)' }}
             >
               {LETTERS[i] ?? i + 1}
             </span>

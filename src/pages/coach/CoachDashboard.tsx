@@ -26,7 +26,6 @@ import {
 } from '@/pages/coach/SessionCard'
 import type { AttendanceStatus, Intervention } from '@/types'
 
-const SHADOW_CARD = '0 1px 6px 0 rgba(0,0,0,0.07)'
 const ICON_BG_PRIMARY = 'color-mix(in srgb, var(--primary) 12%, transparent)'
 const ICON_BG_SUCCESS = 'color-mix(in srgb, var(--success) 12%, transparent)'
 const ICON_BG_WARNING = 'color-mix(in srgb, var(--warning) 12%, transparent)'
@@ -103,7 +102,7 @@ function StatCard({
   iconBackground: string
 }): JSX.Element {
   return (
-    <Card style={{ boxShadow: SHADOW_CARD }}>
+    <Card className="shadow-card">
       <CardContent className="flex items-center gap-4 pt-6">
         <div
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"

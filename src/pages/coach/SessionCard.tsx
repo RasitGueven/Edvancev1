@@ -15,8 +15,6 @@ import type {
 } from '@/types'
 
 export const PLACEHOLDER_DASH = '–'
-const SHADOW_CARD = '0 1px 6px 0 rgba(0,0,0,0.07)'
-const SHADOW_ACTIVE = '0 2px 12px 0 rgba(15,110,86,0.10)'
 
 const STATUS_BORDER_COLOR: Record<SessionStatus, string> = {
   active: 'border-l-success',
@@ -108,8 +106,7 @@ export function SessionCard({
 
   return (
     <Card
-      className={`border-l-4 ${STATUS_BORDER_COLOR[session.status]} ${STATUS_BG[session.status]}`}
-      style={{ boxShadow: session.status === 'active' ? SHADOW_ACTIVE : SHADOW_CARD }}
+      className={`border-l-4 ${STATUS_BORDER_COLOR[session.status]} ${STATUS_BG[session.status]} ${session.status === 'active' ? 'shadow-active-session' : 'shadow-card'}`}
     >
       <CardHeader className="pb-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
