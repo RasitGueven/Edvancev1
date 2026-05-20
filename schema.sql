@@ -853,3 +853,46 @@ end;
 $$;
 
 grant execute on function public.complete_task(uuid) to authenticated;
+
+-- ============================================================================
+-- Migration 028 – Screening v2: AFB + Phasen + manuelle Coach-Bewertung
+-- (siehe migrations/028_screening_v2.sql)
+-- ============================================================================
+alter table screening_items
+  add column afb text check (afb in ('I','II','III')),
+  add column phase text check (phase in ('sprint','tiefe'));
+alter table screening_items
+  drop constraint screening_items_input_type_check,
+  add constraint screening_items_input_type_check
+    check (input_type in ('MC','NUMERIC','MATCHING','STEPS_FINAL','OPEN'));
+alter table screening_items
+  drop constraint screening_items_check_type_check,
+  add constraint screening_items_check_type_check
+    check (check_type in ('mc_index','numeric','matching_set','normalized','manual'));
+alter table screening_items
+  add constraint screening_items_open_iff_manual
+    check ((input_type = 'OPEN') = (check_type = 'manual'));
+alter table screening_item_results
+  alter column correct drop not null;
+create index screening_items_v2_pool_idx
+  on screening_items (cluster_id, phase, afb)
+  where active = true and afb is not null and phase is not null;
+
+create table screening_item_ratings (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  screening_item_result_id uuid not null
+    references screening_item_results (id) on delete cascade,
+  coach_id uuid references profiles (id) on delete set null,
+  reached_afb text check (reached_afb in ('I','II','III')),
+  note text
+);
+create index screening_item_ratings_result_idx
+  on screening_item_ratings (screening_item_result_id);
+create index screening_item_ratings_coach_idx
+  on screening_item_ratings (coach_id);
+alter table screening_item_ratings enable row level security;
+create policy "screening_item_ratings_coach_insert" on screening_item_ratings
+  for insert with check (public.get_my_role() in ('coach','admin'));
+create policy "screening_item_ratings_coach_read" on screening_item_ratings
+  for select using (public.get_my_role() in ('coach','admin'));

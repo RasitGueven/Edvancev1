@@ -6,6 +6,7 @@ import {
   FlaskConical,
   GraduationCap,
   Inbox,
+  LayoutGrid,
   ListChecks,
   UserPlus,
   Users,
@@ -141,6 +142,14 @@ export function AdminDashboard(): JSX.Element {
               caption: 'Items im Screening-Pool',
             }}
             loading={loading}
+          />
+          <AdminTile
+            to="/admin/screening-coverage"
+            icon={<LayoutGrid className={ICON_CLASS} />}
+            title="Screening-Coverage"
+            description="Lücken im v2-Pool sehen: Cluster × Phase × AFB."
+            accent="repair"
+            size="sm"
           />
           <AdminTile
             to="/admin/lambacher-preview"

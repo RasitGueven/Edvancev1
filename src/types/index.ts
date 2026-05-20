@@ -293,12 +293,20 @@ export type ScreeningRating = {
 // ── Adaptive Screening-Item-Bank (Migration 022) ──────────────────────────────
 
 export type ScreeningLevel = 1 | 2 | 3
-export type ScreeningInputType = 'MC' | 'NUMERIC' | 'MATCHING' | 'STEPS_FINAL'
+export type ScreeningAfb = 'I' | 'II' | 'III'
+export type ScreeningPhase = 'sprint' | 'tiefe'
+export type ScreeningInputType =
+  | 'MC'
+  | 'NUMERIC'
+  | 'MATCHING'
+  | 'STEPS_FINAL'
+  | 'OPEN'
 export type ScreeningCheckType =
   | 'mc_index'
   | 'numeric'
   | 'matching_set'
   | 'normalized'
+  | 'manual'
 
 export type ScreeningItem = {
   id: string
@@ -320,6 +328,8 @@ export type ScreeningItem = {
   explanation: string | null
   source: string
   active: boolean
+  afb: ScreeningAfb | null
+  phase: ScreeningPhase | null
 }
 
 export type ScreeningItemInput = Omit<
@@ -334,13 +344,27 @@ export type ScreeningItemResult = {
   screening_item_id: string
   cluster_id: string
   level: ScreeningLevel
-  correct: boolean
+  correct: boolean | null
   answer: unknown
   duration_ms: number | null
 }
 
 export type ScreeningItemResultInput = Omit<
   ScreeningItemResult,
+  'id' | 'created_at'
+>
+
+export type ScreeningItemRating = {
+  id: string
+  created_at: string
+  screening_item_result_id: string
+  coach_id: string | null
+  reached_afb: ScreeningAfb | null
+  note: string | null
+}
+
+export type ScreeningItemRatingInput = Omit<
+  ScreeningItemRating,
   'id' | 'created_at'
 >
 
