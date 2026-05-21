@@ -1,4 +1,22 @@
+// Matching links → rechts. Linke Items sind Drag-Quellen, rechte Items sind
+// die einzigen Drop-Targets — damit ist „nur links→rechts" strukturell
+// erzwungen, nicht über Konvention. Tap-Fallback (links antippen → rechts
+// antippen) bleibt erhalten. Farbtints zeigen, was zu was gehört.
+
 import { useState, type JSX } from 'react'
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  TouchSensor,
+  useDraggable,
+  useDroppable,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+  type DragStartEvent,
+} from '@dnd-kit/core'
+import { ArrowRight } from 'lucide-react'
 
 export type MatchPairs = Map<number, number> // leftIdx → rightIdx
 
@@ -10,111 +28,326 @@ type Props = {
   disabled: boolean
 }
 
-const TINTS = [
-  { line: 'var(--primary)',      fill: 'color-mix(in srgb, var(--primary) 10%, white)' },
-  { line: 'var(--success)',      fill: 'color-mix(in srgb, var(--success) 10%, white)' },
-  { line: 'var(--warning)',      fill: 'color-mix(in srgb, var(--warning) 10%, white)' },
-  { line: 'var(--level-purple)', fill: 'color-mix(in srgb, var(--level-purple) 10%, white)' },
+const TINTS: { line: string; tintVar: string }[] = [
+  { line: 'var(--color-primary)', tintVar: 'var(--color-primary-light)' },
+  { line: 'var(--color-success)', tintVar: 'var(--color-success-light)' },
+  { line: 'var(--color-gold-warning)', tintVar: 'var(--color-gold-warning-light)' },
+  { line: 'var(--color-primary)', tintVar: 'var(--color-primary-light)' },
 ]
 
-function tintFor(pairIndex: number) {
-  return TINTS[pairIndex % TINTS.length]
-}
+const LEFT_PREFIX = 'L:'
+const RIGHT_PREFIX = 'R:'
 
-export function MatchingWidget({ left, right, pairs, onChange, disabled }: Props): JSX.Element {
-  const [active, setActive] = useState<number | null>(null)
+export function MatchingWidget({
+  left,
+  right,
+  pairs,
+  onChange,
+  disabled,
+}: Props): JSX.Element {
+  const [armed, setArmed] = useState<number | null>(null) // linker Index, falls per Tap armiert
+  const [dragLeft, setDragLeft] = useState<number | null>(null)
 
-  // reverse map: rightIdx → leftIdx
+  // reverse + Insertion-Order für stabile Tint-Zuteilung
   const r2l = new Map<number, number>()
   pairs.forEach((r, l) => r2l.set(r, l))
-
-  // stable color order = insertion order of pairs
-  function colorIndex(leftIdx: number): number {
-    let ci = 0
-    for (const [k] of pairs) {
-      if (k === leftIdx) return ci
-      ci++
-    }
-    return -1
+  const orderL = Array.from(pairs.keys())
+  const tintForLeft = (l: number): { line: string; tintVar: string } | null => {
+    const idx = orderL.indexOf(l)
+    return idx >= 0 ? TINTS[idx % TINTS.length] : null
   }
 
-  function pickLeft(i: number) {
-    if (disabled) return
-    setActive(active === i ? null : i)
-  }
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 6 } }),
+  )
 
-  function pickRight(j: number) {
-    if (disabled) return
-    if (active === null) {
-      if (r2l.has(j)) {
-        const next = new Map(pairs)
-        next.delete(r2l.get(j)!)
-        onChange(next)
-      }
-      return
-    }
+  function pair(l: number, r: number): void {
     const next = new Map(pairs)
-    if (r2l.has(j)) next.delete(r2l.get(j)!) // steal
-    if (next.has(active)) next.delete(active) // replace old
-    next.set(active, j)
-    setActive(null)
+    // andere Slots aufräumen, in denen dieses links oder dieses rechts hing
+    if (next.has(l)) next.delete(l)
+    if (r2l.has(r)) next.delete(r2l.get(r)!)
+    next.set(l, r)
     onChange(next)
   }
 
-  function itemStyle(accent: { line: string; fill: string } | null) {
-    return accent ? { borderColor: accent.line, background: accent.fill } : undefined
+  function unpairLeft(l: number): void {
+    if (!pairs.has(l)) return
+    const next = new Map(pairs)
+    next.delete(l)
+    onChange(next)
   }
 
-  const baseCls =
-    'flex min-h-[44px] w-full cursor-pointer select-none items-center gap-2 rounded-xl border-2 px-3 py-2 text-sm transition-all'
+  function unpairRight(r: number): void {
+    const l = r2l.get(r)
+    if (l === undefined) return
+    unpairLeft(l)
+  }
+
+  function tapLeft(i: number): void {
+    if (disabled) return
+    if (pairs.has(i)) {
+      // Tap auf bereits verknüpftes links → trennen
+      unpairLeft(i)
+      return
+    }
+    setArmed((prev) => (prev === i ? null : i))
+  }
+
+  function tapRight(j: number): void {
+    if (disabled) return
+    if (armed !== null) {
+      pair(armed, j)
+      setArmed(null)
+      return
+    }
+    // Tap auf verknüpftes rechts → trennen
+    if (r2l.has(j)) unpairRight(j)
+  }
+
+  function handleDragStart(e: DragStartEvent): void {
+    const id = String(e.active.id)
+    if (id.startsWith(LEFT_PREFIX)) {
+      setDragLeft(Number(id.slice(LEFT_PREFIX.length)))
+      setArmed(null)
+    }
+  }
+
+  function handleDragEnd(e: DragEndEvent): void {
+    setDragLeft(null)
+    const aId = String(e.active.id)
+    if (!aId.startsWith(LEFT_PREFIX)) return
+    const l = Number(aId.slice(LEFT_PREFIX.length))
+    if (!e.over) {
+      // Drop außerhalb → bestehende Verknüpfung lösen
+      unpairLeft(l)
+      return
+    }
+    const oId = String(e.over.id)
+    if (!oId.startsWith(RIGHT_PREFIX)) return // kann nicht passieren, nur rechte Items sind droppable
+    pair(l, Number(oId.slice(RIGHT_PREFIX.length)))
+  }
+
+  function handleDragCancel(): void {
+    setDragLeft(null)
+  }
+
+  const draggedLeftLabel = dragLeft !== null ? left[dragLeft] : null
 
   return (
-    <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
-      <p className="text-[10px] font-bold uppercase tracking-wider text-muted">Begriff</p>
-      <p className="text-[10px] font-bold uppercase tracking-wider text-muted">
-        {active !== null ? '← hier klicken' : 'Zuordnung'}
-      </p>
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragCancel={handleDragCancel}
+    >
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 gap-y-2">
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+          Begriff
+        </p>
+        <span />
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+          {armed !== null ? '→ Tippe hier' : 'Zuordnung'}
+        </p>
 
-      {left.map((item, i) => {
-        const ci = colorIndex(i)
-        const accent = ci >= 0 ? tintFor(ci) : null
-        const isActive = active === i
-        return (
-          <button
-            key={i}
-            type="button"
-            onClick={() => pickLeft(i)}
-            className={`${baseCls} ${isActive ? 'border-[var(--primary)] bg-[var(--primary-pale)]' : accent ? '' : 'border-[var(--border)] bg-card hover:border-[var(--primary-light)]'}`}
-            style={itemStyle(isActive ? null : accent)}
-          >
-            {accent && (
-              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: accent.line }} />
-            )}
-            <span className="flex-1">{item}</span>
-          </button>
-        )
-      })}
+        {Array.from({ length: Math.max(left.length, right.length) }).map((_, row) => (
+          <Row
+            key={row}
+            leftIdx={row < left.length ? row : null}
+            leftItem={row < left.length ? left[row] : null}
+            rightIdx={row < right.length ? row : null}
+            rightItem={row < right.length ? right[row] : null}
+            armed={armed}
+            pairs={pairs}
+            r2l={r2l}
+            tintForLeft={tintForLeft}
+            disabled={disabled}
+            onTapLeft={tapLeft}
+            onTapRight={tapRight}
+          />
+        ))}
+      </div>
+      <DragOverlay dropAnimation={null}>
+        {draggedLeftLabel !== null ? (
+          <div className="pointer-events-none inline-flex max-w-[16rem] items-center rounded-[var(--radius-md)] border border-[var(--color-primary)] bg-[var(--color-primary-light)] px-3 py-2 text-sm font-medium text-[var(--color-primary)] shadow-lg">
+            {draggedLeftLabel}
+          </div>
+        ) : null}
+      </DragOverlay>
+    </DndContext>
+  )
+}
 
-      {right.map((item, j) => {
-        const lIdx = r2l.get(j)
-        const ci = lIdx !== undefined ? colorIndex(lIdx) : -1
-        const accent = ci >= 0 ? tintFor(ci) : null
-        const isTarget = active !== null && !r2l.has(j)
-        return (
-          <button
-            key={j}
-            type="button"
-            onClick={() => pickRight(j)}
-            className={`${baseCls} ${accent ? '' : isTarget ? 'border-dashed border-[var(--primary)] bg-[var(--primary-pale)]' : 'border-[var(--border)] bg-card hover:border-[var(--primary-light)]'}`}
-            style={itemStyle(accent)}
-          >
-            {accent && (
-              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: accent.line }} />
-            )}
-            <span className="flex-1">{item}</span>
-          </button>
-        )
-      })}
+function Row({
+  leftIdx,
+  leftItem,
+  rightIdx,
+  rightItem,
+  armed,
+  pairs,
+  r2l,
+  tintForLeft,
+  disabled,
+  onTapLeft,
+  onTapRight,
+}: {
+  leftIdx: number | null
+  leftItem: string | null
+  rightIdx: number | null
+  rightItem: string | null
+  armed: number | null
+  pairs: MatchPairs
+  r2l: Map<number, number>
+  tintForLeft: (l: number) => { line: string; tintVar: string } | null
+  disabled: boolean
+  onTapLeft: (l: number) => void
+  onTapRight: (r: number) => void
+}): JSX.Element {
+  const leftTint = leftIdx !== null ? tintForLeft(leftIdx) : null
+  const rightL = rightIdx !== null ? r2l.get(rightIdx) ?? null : null
+  const rightTint = rightL !== null ? tintForLeft(rightL) : null
+  return (
+    <>
+      {leftIdx !== null && leftItem !== null ? (
+        <LeftCell
+          idx={leftIdx}
+          label={leftItem}
+          tint={leftTint}
+          isArmed={armed === leftIdx}
+          disabled={disabled}
+          onTap={() => onTapLeft(leftIdx)}
+        />
+      ) : (
+        <span />
+      )}
+      <ArrowRight
+        className={`h-4 w-4 shrink-0 ${leftTint || armed !== null ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-tertiary)]'}`}
+      />
+      {rightIdx !== null && rightItem !== null ? (
+        <RightCell
+          idx={rightIdx}
+          label={rightItem}
+          tint={rightTint}
+          showDropHint={armed !== null && !r2l.has(rightIdx)}
+          onTap={() => onTapRight(rightIdx)}
+        />
+      ) : (
+        <span />
+      )}
+    </>
+  )
+}
+
+const CELL_BASE =
+  'flex min-h-[48px] w-full select-none items-center gap-2 rounded-[var(--radius-md)] border-2 px-3 py-2 text-sm leading-snug text-[var(--color-text-primary)] transition-colors duration-fast'
+
+function LeftCell({
+  idx,
+  label,
+  tint,
+  isArmed,
+  disabled,
+  onTap,
+}: {
+  idx: number
+  label: string
+  tint: { line: string; tintVar: string } | null
+  isArmed: boolean
+  disabled: boolean
+  onTap: () => void
+}): JSX.Element {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: `${LEFT_PREFIX}${idx}`,
+    disabled,
+  })
+  const style: React.CSSProperties = { touchAction: 'none' }
+  if (tint && !isArmed) {
+    style.borderColor = tint.line
+    style.background = tint.tintVar
+  }
+  return (
+    <div
+      ref={setNodeRef}
+      role="button"
+      tabIndex={0}
+      onClick={onTap}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onTap()
+        }
+      }}
+      {...listeners}
+      {...attributes}
+      style={style}
+      className={`${CELL_BASE} cursor-grab active:cursor-grabbing ${
+        isArmed
+          ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)] shadow-md'
+          : !tint
+            ? 'border-[var(--color-border)] bg-[var(--color-bg-surface)] hover:border-[var(--color-primary)]'
+            : ''
+      } ${isDragging ? 'invisible' : ''}`}
+    >
+      {tint && (
+        <span
+          className="h-2.5 w-2.5 shrink-0 rounded-full"
+          style={{ background: tint.line }}
+        />
+      )}
+      <span className="flex-1">{label}</span>
+    </div>
+  )
+}
+
+function RightCell({
+  idx,
+  label,
+  tint,
+  showDropHint,
+  onTap,
+}: {
+  idx: number
+  label: string
+  tint: { line: string; tintVar: string } | null
+  showDropHint: boolean
+  onTap: () => void
+}): JSX.Element {
+  const { setNodeRef, isOver } = useDroppable({ id: `${RIGHT_PREFIX}${idx}` })
+  const style: React.CSSProperties = {}
+  if (tint) {
+    style.borderColor = tint.line
+    style.background = tint.tintVar
+  }
+  return (
+    <div
+      ref={setNodeRef}
+      role="button"
+      tabIndex={0}
+      onClick={onTap}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onTap()
+        }
+      }}
+      style={style}
+      className={`${CELL_BASE} cursor-pointer ${
+        isOver
+          ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)] shadow-md'
+          : tint
+            ? ''
+            : showDropHint
+              ? 'border-dashed border-[var(--color-primary)] bg-[var(--color-primary-light)]'
+              : 'border-[var(--color-border)] bg-[var(--color-bg-surface)] hover:border-[var(--color-primary)]'
+      }`}
+    >
+      {tint && (
+        <span
+          className="h-2.5 w-2.5 shrink-0 rounded-full"
+          style={{ background: tint.line }}
+        />
+      )}
+      <span className="flex-1">{label}</span>
     </div>
   )
 }

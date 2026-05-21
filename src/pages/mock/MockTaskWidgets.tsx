@@ -7,6 +7,7 @@ import { ArrowLeft } from 'lucide-react'
 import { EdvanceCard } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { MCWidget } from '@/components/edvance/tasks/MCWidget'
+import { MatchingWidget, type MatchPairs } from '@/components/edvance/tasks/MatchingWidget'
 import { NumericWidget } from '@/components/edvance/tasks/NumericWidget'
 import { OpenWidget } from '@/components/edvance/tasks/OpenWidget'
 import { MultiStepWidget } from '@/components/edvance/tasks/MultiStepWidget'
@@ -41,6 +42,7 @@ export function MockTaskWidgets(): JSX.Element {
   const [num, setNum] = useState<string>('')
   const [open, setOpen] = useState<string>('')
   const [steps, setSteps] = useState<Record<string, string>>({})
+  const [match, setMatch] = useState<MatchPairs>(new Map())
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)]">
@@ -75,6 +77,16 @@ export function MockTaskWidgets(): JSX.Element {
             value={open}
             onChange={setOpen}
             kontext="Gegeben ist die Funktion f(x) = 2x + 3. Erkläre, was die Zahl 3 für den Graphen bedeutet."
+          />
+        </Section>
+
+        <Section title="Matching · Drag links → rechts">
+          <MatchingWidget
+            left={['f(x) = 2x', 'f(x) = x²', 'f(x) = √x', 'f(x) = 1/x']}
+            right={['Hyperbel', 'Parabel', 'Gerade durch Ursprung', 'Wurzelfunktion']}
+            pairs={match}
+            onChange={setMatch}
+            disabled={false}
           />
         </Section>
 
