@@ -61,12 +61,15 @@ export function isMcPayload(p: unknown): p is McPayload {
   )
 }
 
+// Jede Variante kann optional eine DataURL-Skizze als Rechenweg-Beleg
+// mitführen — kommt nicht in den Auto-Grader, ist aber als Beleg im
+// Coach-Inbox sichtbar.
 export type RawAnswer =
-  | { kind: 'mc'; index: number | null }
-  | { kind: 'numeric'; value: string }
-  | { kind: 'open'; text: string }
-  | { kind: 'multistep'; steps: Record<string, string> }
-  | { kind: 'slotmap'; slots: Record<string, string | null> }
+  | { kind: 'mc'; index: number | null; drawing?: string | null }
+  | { kind: 'numeric'; value: string; drawing?: string | null }
+  | { kind: 'open'; text: string; drawing?: string | null }
+  | { kind: 'multistep'; steps: Record<string, string>; drawing?: string | null }
+  | { kind: 'slotmap'; slots: Record<string, string | null>; drawing?: string | null }
 
 // Rohwert aus der UI → Antwort-Objekt für gradeScreeningAnswer / DB.
 // Shape pro input_type:
@@ -75,25 +78,31 @@ export type RawAnswer =
 //   OPEN/manual  → { text }
 //   MULTI-STEP   → { steps: { '1a': '…', '1b': '…' } }
 export function buildScreeningAnswer(item: ScreeningItem, raw: RawAnswer): unknown {
-  if (raw.kind === 'mc') return { index: raw.index }
-  if (raw.kind === 'numeric') return { value: raw.value.trim() }
+  // Drawing landet in jeder Variante an derselben Stelle: top-level `drawing`.
+  // Auto-Grader (siehe grade.ts) ignoriert das Feld vollständig.
+  const drawing = raw.drawing ?? null
+  const withDrawing = <T extends object>(obj: T): T & { drawing?: string } =>
+    drawing ? { ...obj, drawing } : obj
+
+  if (raw.kind === 'mc') return withDrawing({ index: raw.index })
+  if (raw.kind === 'numeric') return withDrawing({ value: raw.value.trim() })
   if (raw.kind === 'multistep') {
     const steps: Record<string, string> = {}
     for (const [k, v] of Object.entries(raw.steps)) steps[k] = v.trim()
-    return { steps }
+    return withDrawing({ steps })
   }
   if (raw.kind === 'slotmap') {
     const slots: Record<string, string> = {}
     for (const [k, v] of Object.entries(raw.slots)) if (v) slots[k] = v
-    return { slots }
+    return withDrawing({ slots })
   }
   // open: für check_type 'numeric'/'normalized' nimmt der Grader value, für
   // 'manual' bevorzugt er text — wir liefern beides, damit beides passt.
   const t = raw.text.trim()
   if (item.check_type === 'numeric' || item.check_type === 'normalized') {
-    return { value: t }
+    return withDrawing({ value: t })
   }
-  return { text: t }
+  return withDrawing({ text: t })
 }
 
 // Schüler-Row zum eingeloggten Profil (kann fehlen → Coach/Admin testen

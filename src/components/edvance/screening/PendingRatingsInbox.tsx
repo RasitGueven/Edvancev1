@@ -38,8 +38,24 @@ function answerPreview(raw: unknown): string {
         .map(([k, v]) => `${k}: ${typeof v === 'object' && v !== null ? JSON.stringify(v) : String(v)}`)
         .join(' · ')
     }
+    if (obj.slots && typeof obj.slots === 'object') {
+      return Object.entries(obj.slots as Record<string, unknown>)
+        .map(([k, v]) => `${k} → ${String(v)}`)
+        .join(' · ')
+    }
+    if (typeof obj.index === 'number') return `Auswahl ${obj.index + 1}`
+    // Skizze allein ohne andere Antwort
+    if (typeof obj.drawing === 'string') return '(nur Skizze)'
   }
   return JSON.stringify(raw)
+}
+
+function answerDrawing(raw: unknown): string | null {
+  if (raw && typeof raw === 'object') {
+    const d = (raw as Record<string, unknown>).drawing
+    if (typeof d === 'string' && d.startsWith('data:image/')) return d
+  }
+  return null
 }
 
 export function PendingRatingsInbox({ results, clusterNames }: Props): JSX.Element {
@@ -139,6 +155,21 @@ export function PendingRatingsInbox({ results, clusterNames }: Props): JSX.Eleme
               <p className="mt-1 whitespace-pre-wrap text-sm text-[var(--text-primary)]">
                 {answerPreview(p.answer)}
               </p>
+              {answerDrawing(p.answer) && (
+                <a
+                  href={answerDrawing(p.answer) ?? '#'}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 inline-block"
+                  title="Skizze in voller Größe öffnen"
+                >
+                  <img
+                    src={answerDrawing(p.answer) ?? ''}
+                    alt="Rechenweg-Skizze"
+                    className="max-h-40 rounded border border-[var(--border)] bg-white object-contain"
+                  />
+                </a>
+              )}
             </div>
             <div className="flex flex-wrap gap-2">
               {AFBS.map((afb) => (

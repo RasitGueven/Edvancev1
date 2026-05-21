@@ -9,13 +9,16 @@ import { Eraser } from 'lucide-react'
 type DrawCanvasProps = {
   onChange?: (dataUrl: string | null) => void
   height?: number
+  // Optional vorausgefüllte Skizze (PNG-DataURL) — wird beim Mount als
+  // Hintergrund gezeichnet, weitere Striche bauen darauf auf.
+  initialDataUrl?: string | null
 }
 
 const STROKE_COLOR = '#0F172A'
 const STROKE_WIDTH = 2.5
 const BG_COLOR = '#FFFFFF'
 
-export function DrawCanvas({ onChange, height = 260 }: DrawCanvasProps): JSX.Element {
+export function DrawCanvas({ onChange, height = 260, initialDataUrl }: DrawCanvasProps): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const drawingRef = useRef<boolean>(false)
   const [hasInk, setHasInk] = useState<boolean>(false)
@@ -41,7 +44,15 @@ export function DrawCanvas({ onChange, height = 260 }: DrawCanvasProps): JSX.Ele
     // weisser Hintergrund, damit beim Speichern als PNG nicht transparent
     ctx.fillStyle = BG_COLOR
     ctx.fillRect(0, 0, cssWidth, height)
-  }, [height])
+    if (initialDataUrl) {
+      const img = new Image()
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, cssWidth, height)
+        setHasInk(true)
+      }
+      img.src = initialDataUrl
+    }
+  }, [height, initialDataUrl])
 
   function pos(e: PointerEvent<HTMLCanvasElement>): { x: number; y: number } {
     const canvas = canvasRef.current

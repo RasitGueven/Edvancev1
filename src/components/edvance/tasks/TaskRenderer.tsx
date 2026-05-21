@@ -8,12 +8,14 @@ import { OpenWidget } from './OpenWidget'
 import { MultiStepWidget } from './MultiStepWidget'
 import { ClozeDndWidget, isClozeDndPayload } from './ClozeDndWidget'
 import { TableLabelWidget, isTableLabelPayload } from './TableLabelWidget'
+import { TaskDrawingSlot } from './TaskDrawingSlot'
 
 export type TaskState = {
   mcIndex: number | null
   text: string
   steps: Record<string, string>
   slots: Record<string, string | null>
+  drawing: string | null
 }
 
 export const EMPTY_TASK_STATE: TaskState = {
@@ -21,6 +23,15 @@ export const EMPTY_TASK_STATE: TaskState = {
   text: '',
   steps: {},
   slots: {},
+  drawing: null,
+}
+
+// Drawing macht nur bei freien Antworten Sinn (Rechenweg). Bei MC und
+// allen Zuordnungs-Typen klickt das Kind ohnehin nur — Skizzieren würde
+// nur ablenken. STEPS_FINAL = Multi-Step zählt als frei.
+function showDrawingSlot(item: ScreeningItem): boolean {
+  if (resolveTeilaufgaben(item)) return true
+  return item.input_type === 'NUMERIC' || item.input_type === 'OPEN'
 }
 
 type Props = {
@@ -51,13 +62,14 @@ function slotIds(item: ScreeningItem): string[] {
 }
 
 export function buildRawAnswer(item: ScreeningItem, s: TaskState): RawAnswer {
-  if (item.input_type === 'MC') return { kind: 'mc', index: s.mcIndex }
-  if (item.input_type === 'NUMERIC') return { kind: 'numeric', value: s.text }
+  const drawing = s.drawing ?? null
+  if (item.input_type === 'MC') return { kind: 'mc', index: s.mcIndex, drawing }
+  if (item.input_type === 'NUMERIC') return { kind: 'numeric', value: s.text, drawing }
   if (item.input_type === 'CLOZE_DND' || item.input_type === 'TABLE_LABEL') {
-    return { kind: 'slotmap', slots: s.slots }
+    return { kind: 'slotmap', slots: s.slots, drawing }
   }
-  if (resolveTeilaufgaben(item)) return { kind: 'multistep', steps: s.steps }
-  return { kind: 'open', text: s.text }
+  if (resolveTeilaufgaben(item)) return { kind: 'multistep', steps: s.steps, drawing }
+  return { kind: 'open', text: s.text, drawing }
 }
 
 // Ist die Antwort vollständig genug, dass „Weiter" sinnvoll ist?
@@ -73,9 +85,14 @@ export function isAnswerReady(item: ScreeningItem, s: TaskState): boolean {
   return s.text.trim().length > 0
 }
 
-export function TaskRenderer({ item, state, onChange, onEnter, disabled }: Props): JSX.Element {
-  const teilaufgaben = useMemo(() => resolveTeilaufgaben(item), [item])
-
+function renderWidget(
+  item: ScreeningItem,
+  state: TaskState,
+  onChange: (next: TaskState) => void,
+  onEnter: (() => void) | undefined,
+  disabled: boolean | undefined,
+  teilaufgaben: ScreeningTeilaufgabe[] | null,
+): JSX.Element {
   if (item.input_type === 'CLOZE_DND' && isClozeDndPayload(item.payload)) {
     return (
       <ClozeDndWidget
@@ -88,7 +105,6 @@ export function TaskRenderer({ item, state, onChange, onEnter, disabled }: Props
       />
     )
   }
-
   if (item.input_type === 'TABLE_LABEL' && isTableLabelPayload(item.payload)) {
     return (
       <TableLabelWidget
@@ -101,7 +117,6 @@ export function TaskRenderer({ item, state, onChange, onEnter, disabled }: Props
       />
     )
   }
-
   if (item.input_type === 'MC' && isMcPayload(item.payload)) {
     return (
       <MCWidget
@@ -112,7 +127,6 @@ export function TaskRenderer({ item, state, onChange, onEnter, disabled }: Props
       />
     )
   }
-
   if (teilaufgaben) {
     return (
       <MultiStepWidget
@@ -126,7 +140,6 @@ export function TaskRenderer({ item, state, onChange, onEnter, disabled }: Props
       />
     )
   }
-
   if (item.input_type === 'NUMERIC') {
     return (
       <NumericWidget
@@ -137,9 +150,6 @@ export function TaskRenderer({ item, state, onChange, onEnter, disabled }: Props
       />
     )
   }
-
-  // OPEN (manuell) — auch der Fallback für unbekannte Typen, damit Schüler
-  // wenigstens eine freie Antwort hinterlassen können.
   return (
     <OpenWidget
       value={state.text}
@@ -147,5 +157,21 @@ export function TaskRenderer({ item, state, onChange, onEnter, disabled }: Props
       kontext={item.kontext ?? null}
       disabled={disabled}
     />
+  )
+}
+
+export function TaskRenderer({ item, state, onChange, onEnter, disabled }: Props): JSX.Element {
+  const teilaufgaben = useMemo(() => resolveTeilaufgaben(item), [item])
+  const widget = renderWidget(item, state, onChange, onEnter, disabled, teilaufgaben)
+  if (!showDrawingSlot(item)) return widget
+  return (
+    <div className="flex flex-col gap-4">
+      {widget}
+      <TaskDrawingSlot
+        value={state.drawing}
+        onChange={(dataUrl) => onChange({ ...state, drawing: dataUrl })}
+        disabled={disabled}
+      />
+    </div>
   )
 }

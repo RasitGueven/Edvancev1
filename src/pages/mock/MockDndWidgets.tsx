@@ -8,6 +8,7 @@ import { EdvanceCard } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { ClozeDndWidget, type ClozeDndPayload } from '@/components/edvance/tasks/ClozeDndWidget'
 import { TableLabelWidget, type TableLabelPayload } from '@/components/edvance/tasks/TableLabelWidget'
+import { TaskDrawingSlot } from '@/components/edvance/tasks/TaskDrawingSlot'
 
 const CLOZE: ClozeDndPayload = {
   type: 'cloze-dnd',
@@ -44,6 +45,7 @@ const TABLE: TableLabelPayload = {
 export function MockDndWidgets(): JSX.Element {
   const [clozeSlots, setClozeSlots] = useState<Record<string, string | null>>({})
   const [tableSlots, setTableSlots] = useState<Record<string, string | null>>({})
+  const [drawing, setDrawing] = useState<string | null>(null)
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)]">
@@ -77,6 +79,18 @@ export function MockDndWidgets(): JSX.Element {
               setClozeSlots((prev) => ({ ...prev, [slotId]: chipId }))
             }
           />
+        </EdvanceCard>
+
+        <EdvanceCard className="flex flex-col gap-4 p-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+            Rechenweg-Skizze (optional)
+          </p>
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            Erscheint im Screening unter freien Aufgaben (NUMERIC, OPEN,
+            Multi-Step). Kollabiert per Default — Tap auf „Rechenweg zeichnen"
+            klappt das Canvas auf.
+          </p>
+          <TaskDrawingSlot value={drawing} onChange={setDrawing} />
         </EdvanceCard>
 
         <EdvanceCard className="p-6">
