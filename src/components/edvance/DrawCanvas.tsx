@@ -101,8 +101,7 @@ export function DrawCanvas({ onChange, height = 260 }: DrawCanvasProps): JSX.Ele
           onPointerMove={handleMove}
           onPointerUp={handleUp}
           onPointerCancel={handleUp}
-          className="block touch-none cursor-crosshair"
-          style={{ background: BG_COLOR }}
+          className="block touch-none cursor-crosshair bg-white"
         />
       </div>
       <div className="flex items-center justify-between text-xs">

@@ -11,14 +11,11 @@ export type DashboardTile = {
   anchor?: boolean
 }
 
-const ICON_BG = 'color-mix(in srgb, var(--primary) 12%, transparent)'
-
 function TileBody({ tile }: { tile: DashboardTile }): JSX.Element {
   return (
     <EdvanceCard className="flex h-full items-start gap-4 p-5">
       <span
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-[var(--primary)]"
-        style={{ background: ICON_BG }}
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-[var(--primary)] bg-[color-mix(in_srgb,var(--primary)_12%,transparent)]"
         aria-hidden="true"
       >
         {tile.icon}

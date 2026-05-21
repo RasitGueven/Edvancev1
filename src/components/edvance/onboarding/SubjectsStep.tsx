@@ -39,10 +39,7 @@ export function SubjectsStep({ data, setData }: StepProps): JSX.Element {
             >
               <span className="font-medium text-foreground">{subject}</span>
               {selected && (
-                <span
-                  className="flex h-6 w-6 items-center justify-center rounded-full"
-                  style={{ background: 'var(--primary)' }}
-                >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--primary)]">
                   <Check className="h-3.5 w-3.5 text-white" />
                 </span>
               )}

@@ -44,10 +44,7 @@ export function TierStep({ data, setData, tiers, loading }: TierStepProps): JSX.
             }}
           >
             {isRecommended && (
-              <span
-                className="absolute -top-3 left-4 rounded-full px-2.5 py-0.5 text-xs font-semibold text-white"
-                style={{ background: 'var(--primary)' }}
-              >
+              <span className="absolute -top-3 left-4 rounded-full px-2.5 py-0.5 text-xs font-semibold text-white bg-[var(--primary)]">
                 Empfohlen
               </span>
             )}
@@ -65,10 +62,7 @@ export function TierStep({ data, setData, tiers, loading }: TierStepProps): JSX.
             <div className="flex flex-col items-end gap-2 shrink-0 ml-4">
               <span className="font-bold text-foreground">{formatPrice(tier.price_cents)}</span>
               {selected && (
-                <span
-                  className="flex h-6 w-6 items-center justify-center rounded-full"
-                  style={{ background: 'var(--primary)' }}
-                >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--primary)]">
                   <Check className="h-3.5 w-3.5 text-white" />
                 </span>
               )}

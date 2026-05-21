@@ -43,10 +43,7 @@ export function CoachStep({ data, setData, coaches, loading }: CoachStepProps): 
             </span>
             <span className="font-medium text-foreground">{name}</span>
             {selected && (
-              <span
-                className="ml-auto flex h-6 w-6 items-center justify-center rounded-full"
-                style={{ background: 'var(--primary)' }}
-              >
+              <span className="ml-auto flex h-6 w-6 items-center justify-center rounded-full bg-[var(--primary)]">
                 <Check className="h-3.5 w-3.5 text-white" />
               </span>
             )}
