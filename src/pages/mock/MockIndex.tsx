@@ -32,6 +32,13 @@ const ENTRIES: MockEntry[] = [
       'Lückentext mit Wort-Pool und Tabellen-Beschriftung. Maus, Touch und Tap-Fallback für Drag-faule Geräte.',
     badge: 'Widgets',
   },
+  {
+    href: '/mock/task-widgets',
+    title: 'Basis-Widgets',
+    description:
+      'MC, Zahl, Freitext und Multi-Step im v2-Look — Touch-Targets, Focus-States, Hover-Lift.',
+    badge: 'Widgets',
+  },
 ]
 
 export function MockIndex(): JSX.Element {
