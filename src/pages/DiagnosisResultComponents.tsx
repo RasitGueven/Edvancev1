@@ -33,10 +33,6 @@ export function formatDuration(ms: number) {
   return `${min}m ${sec}s`
 }
 
-export function getInitials(name: string) {
-  return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
-}
-
 // ── RadialGauge ───────────────────────────────────────────────────────────────
 
 export function RadialGauge({
@@ -86,10 +82,7 @@ export function GaugeCard({
     : value > 65 ? color : value > 35 ? 'var(--warning)' : 'var(--destructive)'
 
   return (
-    <div
-      className="flex flex-col items-center rounded-3xl bg-card p-6 text-center"
-      style={{ border: '2px solid var(--border)', borderBottomWidth: '4px' }}
-    >
+    <div className="flex flex-col items-center rounded-3xl bg-card p-6 text-center border-2 border-b-4 border-[var(--border)]">
       <div className="relative">
         <RadialGauge value={value} color={displayColor} />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -116,10 +109,7 @@ export function KpiCard({
   bg: string
 }) {
   return (
-    <div
-      className="rounded-2xl bg-card p-5"
-      style={{ border: '2px solid var(--border)', borderBottomWidth: '4px' }}
-    >
+    <div className="rounded-2xl bg-card p-5 border-2 border-b-4 border-[var(--border)]">
       <div className="flex items-center gap-2.5 mb-3">
         <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: bg, color }}>
           {icon}
@@ -214,7 +204,7 @@ export function MiniMetric({
     ? value > 60 ? 'var(--destructive)' : value > 30 ? 'var(--warning)' : 'var(--success)'
     : value > 65 ? color : value > 35 ? 'var(--warning)' : 'var(--destructive)'
   return (
-    <div className="rounded-lg bg-card p-2 text-center" style={{ border: '1px solid var(--border)' }}>
+    <div className="rounded-lg bg-card p-2 text-center border border-[var(--border)]">
       <p className="text-[9px] font-bold uppercase tracking-wider text-muted">{label}</p>
       <p className="text-base font-black" style={{ color: display }}>{value}</p>
     </div>
@@ -225,10 +215,7 @@ export function MiniMetric({
 
 export function SmallBadge({ icon, text }: { icon?: ReactNode; text: string }) {
   return (
-    <span
-      className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-muted"
-      style={{ background: 'var(--background)', border: '1px solid var(--border)' }}
-    >
+    <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-muted bg-[var(--background)] border border-[var(--border)]">
       {icon}
       {text}
     </span>
@@ -239,10 +226,7 @@ export function SmallBadge({ icon, text }: { icon?: ReactNode; text: string }) {
 
 export function KV({ k, v }: { k: string; v: string }) {
   return (
-    <div
-      className="flex items-center justify-between rounded-lg bg-card px-2.5 py-1.5"
-      style={{ border: '1px solid var(--border)' }}
-    >
+    <div className="flex items-center justify-between rounded-lg bg-card px-2.5 py-1.5 border border-[var(--border)]">
       <span className="text-muted">{k}</span>
       <span className="text-foreground font-black">{v}</span>
     </div>
@@ -261,8 +245,7 @@ export function SectionHeader({
   return (
     <div className="mb-4 flex items-start gap-3">
       <span
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-primary"
-        style={{ background: 'color-mix(in srgb, var(--primary) 10%, transparent)' }}
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-primary bg-[color-mix(in_srgb,var(--primary)_10%,transparent)]"
       >
         {icon}
       </span>
@@ -297,10 +280,7 @@ export function TaskCard({
     : 'var(--border-strong)'
 
   return (
-    <div
-      className="rounded-2xl bg-card overflow-hidden transition-all"
-      style={{ border: '2px solid var(--border)', borderBottomWidth: '4px' }}
-    >
+    <div className="rounded-2xl bg-card overflow-hidden transition-all border-2 border-b-4 border-[var(--border)]">
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
@@ -345,23 +325,16 @@ export function TaskCard({
       </button>
 
       {open && snapshot && analysis && (
-        <div className="border-t-2 border-border p-5" style={{ background: 'var(--background)' }}>
+        <div className="border-t-2 border-border p-5 bg-[var(--background)]">
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
             <div className="lg:col-span-3">
               <p className="text-xs font-bold uppercase tracking-wider text-muted mb-2">Schülerantwort</p>
-              <pre
-                className="whitespace-pre-wrap font-mono text-sm bg-card rounded-xl p-4 leading-relaxed"
-                style={{ border: '2px solid var(--border)' }}
-              >
+              <pre className="whitespace-pre-wrap font-mono text-sm bg-card rounded-xl p-4 leading-relaxed border-2 border-[var(--border)]">
                 {snapshot.answer_text}
               </pre>
               <p className="mt-3 text-xs font-bold uppercase tracking-wider text-muted mb-2">Musterlösung</p>
               <pre
-                className="whitespace-pre-wrap font-mono text-sm rounded-xl p-4 leading-relaxed"
-                style={{
-                  background: 'color-mix(in srgb, var(--success) 6%, transparent)',
-                  border: '2px solid color-mix(in srgb, var(--success) 25%, transparent)',
-                }}
+                className="whitespace-pre-wrap font-mono text-sm rounded-xl p-4 leading-relaxed bg-[color-mix(in_srgb,var(--success)_6%,transparent)] border-2 border-[color-mix(in_srgb,var(--success)_25%,transparent)]"
               >
                 {task.solution}
               </pre>

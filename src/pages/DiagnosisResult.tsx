@@ -23,10 +23,10 @@ import {
   AlertTriangle,
   Pencil,
 } from 'lucide-react'
+import { getInitials } from '@/lib/utils'
 import {
   formatDate,
   formatDuration,
-  getInitials,
   GaugeCard,
   KpiCard,
   FlagTag,
@@ -147,22 +147,15 @@ export function DiagnosisResult() {
       <main className="mx-auto max-w-4xl px-4 py-8 pb-24">
         {/* ── Hero Header ────────────────────────────────────────── */}
         <div
-          className="rounded-3xl p-8 mb-8 overflow-hidden relative"
-          style={{
-            background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%)',
-            border: '2px solid var(--primary-shadow)',
-            borderBottomWidth: '4px',
-          }}
+          className="rounded-3xl p-8 mb-8 overflow-hidden relative border-2 border-b-4 border-[var(--primary-shadow)]"
+          style={{ background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%)' }}
         >
           <div className="absolute -top-12 -right-12 h-48 w-48 rounded-full opacity-10 bg-[var(--surface)]" />
           <div className="absolute -bottom-16 -left-16 h-56 w-56 rounded-full opacity-5 bg-[var(--surface)]" />
 
           <div className="relative flex items-start justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-5">
-              <div
-                className="flex h-20 w-20 items-center justify-center rounded-3xl text-3xl font-black text-primary shrink-0 bg-[var(--surface)]"
-                style={{ borderBottom: '4px solid color-mix(in srgb, white 80%, black)' }}
-              >
+              <div className="flex h-20 w-20 items-center justify-center rounded-3xl text-3xl font-black text-primary shrink-0 bg-[var(--surface)] border-b-4 border-b-[color-mix(in_srgb,white_80%,black)]">
                 {getInitials(result.student_name)}
               </div>
               <div>
@@ -175,10 +168,7 @@ export function DiagnosisResult() {
                 </p>
               </div>
             </div>
-            <span
-              className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-black uppercase tracking-wider"
-              style={{ background: 'color-mix(in srgb, var(--success) 30%, white)', color: 'var(--success-dark)' }}
-            >
+            <span className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-black uppercase tracking-wider bg-[color-mix(in_srgb,var(--success)_30%,white)] text-[var(--success-dark)]">
               <CheckCircle2 className="h-3.5 w-3.5" />
               Abgeschlossen
             </span>
@@ -273,10 +263,7 @@ export function DiagnosisResult() {
           </div>
 
           {result.overall_behavior_flags.length > 0 ? (
-            <div
-              className="rounded-2xl bg-card p-5"
-              style={{ border: '2px solid var(--border)', borderBottomWidth: '4px' }}
-            >
+            <div className="rounded-2xl bg-card p-5 border-2 border-b-4 border-[var(--border)]">
               <div className="flex items-center gap-1.5 mb-3">
                 <ShieldAlert className="h-3.5 w-3.5 text-muted" />
                 <p className="text-xs font-bold uppercase tracking-wider text-muted">Wiederkehrende Muster</p>
@@ -301,10 +288,7 @@ export function DiagnosisResult() {
             label="Mastery-Profil"
             description="Kompetenzstand pro Themengebiet auf einer Skala von 1–10"
           />
-          <div
-            className="rounded-3xl bg-card p-6"
-            style={{ border: '2px solid var(--border)', borderBottomWidth: '4px' }}
-          >
+          <div className="rounded-3xl bg-card p-6 border-2 border-b-4 border-[var(--border)]">
             {result.skill_levels.map(s => (
               <SkillBar key={s.skill_cluster} cluster={s.skill_cluster} level={s.level} label={s.label} />
             ))}
@@ -338,10 +322,7 @@ export function DiagnosisResult() {
             label="Coach-Notiz"
             description="Abschließende Einschätzung in eigenen Worten"
           />
-          <div
-            className="rounded-3xl bg-card p-1.5"
-            style={{ border: '2px solid var(--border)', borderBottomWidth: '4px' }}
-          >
+          <div className="rounded-3xl bg-card p-1.5 border-2 border-b-4 border-[var(--border)]">
             <textarea
               value={state.coachNote}
               onChange={e => setCoachNote(e.target.value)}
@@ -356,10 +337,7 @@ export function DiagnosisResult() {
         <LernplanSection focus={focus} clusterIdFor={clusterIdFor} />
 
         {/* ── Action Footer ──────────────────────────────────────── */}
-        <div
-          className="rounded-2xl bg-card p-5 flex items-center justify-between gap-3 flex-wrap"
-          style={{ border: '2px solid var(--border)', borderBottomWidth: '4px' }}
-        >
+        <div className="rounded-2xl bg-card p-5 flex items-center justify-between gap-3 flex-wrap border-2 border-b-4 border-[var(--border)]">
           <div>
             <p className="text-sm font-black text-foreground">Bereit für die erste Lernsession?</p>
             <p className="text-xs font-semibold text-muted mt-0.5">

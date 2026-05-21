@@ -112,7 +112,7 @@ export function EdvanceLogo({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      style={{ flexShrink: 0 }}
+      className="shrink-0"
     >
       <path
         d={PATHS.spine}
