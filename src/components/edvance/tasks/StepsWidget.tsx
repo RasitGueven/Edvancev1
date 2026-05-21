@@ -20,10 +20,7 @@ export function StepsWidget({ steps, answers, onChange, disabled }: Props): JSX.
     <div className="flex flex-col gap-5">
       {steps.map((step, i) => (
         <div key={i} className="flex gap-3">
-          <span
-            className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
-            style={{ background: 'var(--primary)' }}
-          >
+          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white bg-[var(--primary)]">
             {i + 1}
           </span>
           <div className="flex flex-1 flex-col gap-1.5">

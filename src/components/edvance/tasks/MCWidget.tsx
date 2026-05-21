@@ -33,9 +33,10 @@ export function MCWidget({ options, selected, onChange, disabled }: Props): JSX.
             <span
               className={[
                 'flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold',
-                active ? 'text-white' : 'text-primary',
+                active
+                  ? 'text-white bg-[var(--primary)]'
+                  : 'text-primary bg-[var(--primary-pale)]',
               ].join(' ')}
-              style={{ background: active ? 'var(--primary)' : 'var(--primary-pale)' }}
             >
               {LETTERS[i] ?? i + 1}
             </span>
