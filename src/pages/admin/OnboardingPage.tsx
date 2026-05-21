@@ -17,8 +17,6 @@ import { listTiers } from '@/lib/supabase/subscriptions'
 import { provisionStudent } from '@/lib/supabase/provision'
 import type { Coach, OnboardingFormData, SchoolKind, TierPlan } from '@/types'
 
-const SUCCESS_ICON_BG = 'color-mix(in srgb, var(--success) 15%, transparent)'
-
 const STEP_DATA = 0
 const STEP_SUBJECTS = 1
 const STEP_TIER = 2
@@ -65,10 +63,7 @@ function SuccessState({ data, coaches, onReset }: SuccessStateProps): JSX.Elemen
   return (
     <EdvanceCard variant="hero">
       <div className="flex flex-col items-center gap-5 py-6 text-center">
-        <div
-          className="flex h-20 w-20 items-center justify-center rounded-full"
-          style={{ background: SUCCESS_ICON_BG }}
-        >
+        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--success)_15%,transparent)]">
           <Check className="h-10 w-10 text-white" />
         </div>
         <div className="flex flex-col gap-2">
@@ -159,16 +154,8 @@ export function OnboardingPage(): JSX.Element {
       <EdvanceNavbar subtitle="Admin · Schüler-Onboarding" />
 
       {/* Ambient background blobs */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 top-1/4 h-80 w-80 rounded-full opacity-[0.07] blur-3xl"
-        style={{ background: 'var(--xp-gold)' }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-16 bottom-1/3 h-64 w-64 rounded-full opacity-[0.06] blur-3xl"
-        style={{ background: 'var(--color-primary)' }}
-      />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-1/4 h-80 w-80 rounded-full opacity-[0.07] blur-3xl bg-[var(--xp-gold)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-16 bottom-1/3 h-64 w-64 rounded-full opacity-[0.06] blur-3xl bg-[var(--color-primary)]" />
 
       {/* Hero header band */}
       <div className="bg-gradient-hero noise-overlay">
