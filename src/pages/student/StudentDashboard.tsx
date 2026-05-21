@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import { Search, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { EmptyState, LoadingPulse, EdvanceCard, EdvanceBadge } from '@/components/edvance'
 import { StudentBentoGrid } from '@/components/edvance/StudentWidgetGrid'
@@ -215,9 +214,9 @@ export function StudentDashboard(): JSX.Element {
       <EdvanceNavbar subtitle="Mein Lernplan" />
 
       {/* Ambient background blobs */}
-      <div aria-hidden="true" className="pointer-events-none absolute -right-32 top-1/3 h-96 w-96 rounded-full opacity-[0.07] blur-3xl" style={{ background: 'var(--xp-gold)' }} />
-      <div aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-1/4 h-80 w-80 rounded-full opacity-[0.08] blur-3xl" style={{ background: 'var(--color-levelup)' }} />
-      <div aria-hidden="true" className="pointer-events-none absolute right-1/4 top-2/3 h-64 w-64 rounded-full opacity-[0.06] blur-3xl" style={{ background: 'var(--color-primary)' }} />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-32 top-1/3 h-96 w-96 rounded-full opacity-[0.07] blur-3xl bg-[var(--xp-gold)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-1/4 h-80 w-80 rounded-full opacity-[0.08] blur-3xl bg-[var(--color-levelup)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute right-1/4 top-2/3 h-64 w-64 rounded-full opacity-[0.06] blur-3xl bg-[var(--color-primary)]" />
 
       {/* Hero-Section */}
       <StudentHero
@@ -232,9 +231,9 @@ export function StudentDashboard(): JSX.Element {
 
       <main className="mx-auto max-w-3xl px-4 py-8">
         {error && (
-          <Card className="mb-6">
-            <CardContent className="pt-6 text-sm text-destructive">{error}</CardContent>
-          </Card>
+          <EdvanceCard className="mb-6">
+            <p className="text-sm text-[var(--destructive)]">{error}</p>
+          </EdvanceCard>
         )}
 
         {/* Bento-Widget-Grid */}
