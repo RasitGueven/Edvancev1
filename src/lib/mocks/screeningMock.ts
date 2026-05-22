@@ -39,6 +39,7 @@ const MOCK_CLUSTERS_DATA: ParsedClusterResult[] = [
     reachedAfb: 'III',
     mastery: 0.83,
     displayLevel: 9,
+    confidence: 'high',
   },
   {
     clusterId: 'mock-cluster-funktion',
@@ -49,6 +50,7 @@ const MOCK_CLUSTERS_DATA: ParsedClusterResult[] = [
     reachedAfb: 'II',
     mastery: 0.6,
     displayLevel: 6,
+    confidence: 'medium',
   },
   {
     clusterId: 'mock-cluster-raum',
@@ -59,6 +61,7 @@ const MOCK_CLUSTERS_DATA: ParsedClusterResult[] = [
     reachedAfb: 'I',
     mastery: 0.25,
     displayLevel: 3,
+    confidence: 'low',
   },
   {
     clusterId: 'mock-cluster-daten',
@@ -69,6 +72,7 @@ const MOCK_CLUSTERS_DATA: ParsedClusterResult[] = [
     reachedAfb: 'II',
     mastery: 0.8,
     displayLevel: 7,
+    confidence: 'high',
   },
   {
     clusterId: 'mock-cluster-messen',
@@ -79,6 +83,7 @@ const MOCK_CLUSTERS_DATA: ParsedClusterResult[] = [
     reachedAfb: 'II',
     mastery: 0.66,
     displayLevel: 5,
+    confidence: 'medium',
   },
 ]
 

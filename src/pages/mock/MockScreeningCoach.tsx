@@ -41,6 +41,16 @@ const TONE_BADGE: Record<AfbTone, string> = {
   muted:   'bg-[var(--color-bg-subtle)] text-[var(--color-text-tertiary)]',
 }
 
+function confidenceTone(c: 'low' | 'medium' | 'high'): AfbTone {
+  return c === 'high' ? 'success' : c === 'medium' ? 'muted' : 'gold'
+}
+
+const CONFIDENCE_LABEL: Record<'low' | 'medium' | 'high', string> = {
+  high:   'Konfidenz hoch',
+  medium: 'Konfidenz mittel',
+  low:    'Konfidenz niedrig',
+}
+
 function V2Card({ children, className = '' }: { children: JSX.Element | JSX.Element[]; className?: string }): JSX.Element {
   return (
     <div className={`rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-5 shadow-md ${className}`}>
@@ -160,6 +170,11 @@ export function MockScreeningCoach(): JSX.Element {
                     )}
                     <span className={`inline-flex items-center rounded-sm px-2 py-0.5 text-xs font-medium ${TONE_BADGE[tone]}`}>
                       {c.reachedAfb ? `AFB ${c.reachedAfb}` : 'unter AFB I'}
+                    </span>
+                    <span
+                      className={`inline-flex items-center rounded-sm px-2 py-0.5 text-xs font-medium ${TONE_BADGE[confidenceTone(c.confidence)]}`}
+                    >
+                      {CONFIDENCE_LABEL[c.confidence]}
                     </span>
                   </div>
                 </div>
