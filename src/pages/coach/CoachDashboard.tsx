@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
-import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { DashboardTiles } from '@/components/edvance/DashboardTiles'
 import { useAuth } from '@/hooks/useAuth'
 import {
@@ -25,10 +24,6 @@ import {
   type SessionVM,
 } from '@/pages/coach/SessionCard'
 import type { AttendanceStatus, Intervention } from '@/types'
-
-const ICON_BG_PRIMARY = 'color-mix(in srgb, var(--primary) 12%, transparent)'
-const ICON_BG_SUCCESS = 'color-mix(in srgb, var(--success) 12%, transparent)'
-const ICON_BG_WARNING = 'color-mix(in srgb, var(--warning) 12%, transparent)'
 
 type RangeFilter = 'today' | 'week' | 'all'
 
@@ -90,32 +85,30 @@ function totalActiveStudents(vms: SessionVM[]): number {
     .reduce((sum, v) => sum + v.students.length, 0)
 }
 
-function StatCard({
+function DashStatCard({
   label,
   value,
   icon,
-  iconBackground,
+  iconBg,
 }: {
   label: string
   value: string | number
   icon: JSX.Element
-  iconBackground: string
+  iconBg: string
 }): JSX.Element {
   return (
-    <Card className="shadow-card">
-      <CardContent className="flex items-center gap-4 pt-6">
-        <div
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
-          style={{ backgroundColor: iconBackground }}
-        >
-          {icon}
-        </div>
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-muted">{label}</p>
-          <p className="mt-0.5 text-3xl font-bold text-foreground">{value}</p>
-        </div>
-      </CardContent>
-    </Card>
+    <EdvanceCard className="flex items-center gap-4">
+      <div
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+        style={{ backgroundColor: iconBg }}
+      >
+        {icon}
+      </div>
+      <div>
+        <p className="text-xs font-medium uppercase tracking-wide text-muted">{label}</p>
+        <p className="mt-0.5 text-3xl font-bold text-foreground">{value}</p>
+      </div>
+    </EdvanceCard>
   )
 }
 
@@ -274,23 +267,23 @@ export function CoachDashboard(): JSX.Element {
         </div>
 
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <StatCard
+          <DashStatCard
             label="Sessions heute"
             value={todayCount}
             icon={<CalendarDays className="h-5 w-5 text-primary" />}
-            iconBackground={ICON_BG_PRIMARY}
+            iconBg="color-mix(in srgb, var(--primary) 12%, transparent)"
           />
-          <StatCard
+          <DashStatCard
             label="Aktive Schüler"
             value={totalActiveStudents(vms)}
             icon={<Users className="h-5 w-5 text-success" />}
-            iconBackground={ICON_BG_SUCCESS}
+            iconBg="color-mix(in srgb, var(--success) 12%, transparent)"
           />
-          <StatCard
+          <DashStatCard
             label="Nächste Session"
             value={nextUpcomingTime(vms)}
             icon={<Clock className="h-5 w-5 text-warning" />}
-            iconBackground={ICON_BG_WARNING}
+            iconBg="color-mix(in srgb, var(--warning) 12%, transparent)"
           />
         </div>
 
