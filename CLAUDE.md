@@ -193,3 +193,38 @@ Edvance ist warm, intelligent und ermutigend.
 - ❌ Alerts/Banners die den Content verschieben
 - ❌ `style={{ color: '#...' }}` – immer `style={{ color: 'var(--...)' }}`
 - ❌ Statische `boxShadow` in Inline-Styles – die `shadow-*` Utilities nutzen
+
+## 12. Internationalisierung (i18n) – Nicht verhandelbar
+
+**Grundregel:** Jeder neue Frontend-Code arbeitet ausschließlich über die i18n-Schicht. Keine deutschen (oder anderen sprachabhängigen) Strings hardcodiert in Komponenten, Pages, Hooks oder Utilities. Auch wenn aktuell nur Deutsch ausgeliefert wird – der Code wird so geschrieben, als gäbe es schon mehrere Sprachen.
+
+### Hard Rules
+- **Pflicht-Bibliothek:** `react-i18next` + `i18next` (Standard im Edvance-Stack). Beim Anlegen neuer Komponenten immer `useTranslation()` verwenden.
+- **Source of Truth:** Alle Strings leben in `src/i18n/locales/<lang>/<namespace>.json` (z.B. `src/i18n/locales/de/common.json`, `src/i18n/locales/de/coach.json`). Default-Sprache: `de`. Fallback: `de`.
+- **Namespace-Struktur:** Pro Feature-Bereich ein eigenes Namespace-File (`common`, `student`, `coach`, `parent`, `admin`, `auth`, `errors`). Keine Riesendatei.
+- **Keys:** dot-notation, semantisch nicht textgleich. `tasks.editor.title` statt `aufgabenEditorTitel`. Niemals den deutschen Text als Key.
+- **Pluralisierung:** über die i18n-`count`-Option (`{ count: n }`), nicht manuell mit Ternaries im Code.
+- **Datum/Zeit/Zahlen:** über `Intl.DateTimeFormat` / `Intl.NumberFormat` mit Locale aus `i18n.language`. Niemals manuell formatieren. Timezone-Anzeige weiterhin `Europe/Berlin` (siehe §10).
+- **Variablen-Interpolation:** ausschließlich über `t('key', { name, count })`, keine String-Konkatenation mit `+`.
+- **Reichweite:** gilt für **alles, was Schüler:innen, Coaches oder Eltern sehen** – inklusive Buttons, Tooltips, Toasts, Empty-States, Error-Messages, `aria-label`, `title`-Attribute, Validierungs-Texte, Placeholder.
+
+### Was NICHT in i18n gehört
+- Logger-/Debug-Strings (`console.warn`, Sentry-Tags) – bleiben Englisch im Code.
+- Test-IDs (`data-testid`) – englisch, kein i18n.
+- Datenbank-Inhalte (Aufgaben-Prompts, User-generated Content) – kommen aus Supabase, nicht aus Übersetzungsdateien.
+- Interne Konstanten / Enum-Werte (`'STEPS_FINAL'`, `'admin'`) – nicht übersetzen, sondern beim Anzeigen über i18n mappen (`t('inputType.STEPS_FINAL')`).
+
+### Workflow für Claude bei jeder Code-Aufgabe
+1. **Vor dem Schreiben** prüfen: existiert der String schon in `src/i18n/locales/de/`? Falls ja, Key wiederverwenden.
+2. **Beim Schreiben** Komponenten: `const { t } = useTranslation('namespace');` und alle Strings via `t('key')`.
+3. **Neue Keys** sofort in die passende `de/<namespace>.json` eintragen – kein "TODO später".
+4. **Refactoring-Hinweis:** Findest du hardcodierte deutsche Strings in bestehendem Code beim Editieren? Auslagern, gleichen Commit.
+5. **Mehrere Sprachen:** solange nur `de/` gepflegt wird, sind andere Locale-Ordner leer/optional. Aber die Struktur steht.
+
+### Verbotene Patterns
+- ❌ `<button>Speichern</button>` – immer `<button>{t('common.save')}</button>`
+- ❌ `throw new Error('Aufgabe nicht gefunden')` für User-sichtbare Fehler – Error-Code + i18n-Key
+- ❌ `toast.success('XP erhalten!')` – `toast.success(t('toast.xpEarned'))`
+- ❌ `aria-label="Schließen"` – `aria-label={t('common.close')}`
+- ❌ Deutsche Strings direkt in `placeholder=`, `title=`, `alt=` Attributen
+- ❌ String-Konkatenation à la `\`Hallo \${name}\`` – stattdessen `t('greeting', { name })`
