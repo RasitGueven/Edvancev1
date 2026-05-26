@@ -25,14 +25,12 @@ import { ScreeningItemEditorPage } from '@/pages/admin/ScreeningItemEditorPage'
 import { ScreeningCoveragePage } from '@/pages/admin/ScreeningCoveragePage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
-import { StudentFocusAreasPage } from '@/pages/coach/StudentFocusAreasPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayer } from '@/pages/student/TaskPlayer'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
 import { ThemePanel } from '@/components/edvance/ThemePanel'
 import { DiagnosisProvider } from '@/context/DiagnosisContext'
-import { DiagnosisResult } from '@/pages/DiagnosisResult'
 import { ScreeningSession } from '@/pages/ScreeningSession'
 import { TaskWidgetDemo } from '@/pages/student/TaskWidgetDemo'
 import { DesignDemo } from '@/pages/demo/DesignDemo'
@@ -89,14 +87,6 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['coach', 'admin']}>
               <ScreeningResultsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/coach/focus-areas"
-          element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
-              <StudentFocusAreasPage />
             </ProtectedRoute>
           }
         />
@@ -254,14 +244,6 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['student', 'coach', 'admin']}>
               <ScreeningSession />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/screening/result"
-          element={
-            <ProtectedRoute allowedRoles={['student', 'coach', 'admin']}>
-              <DiagnosisResult />
             </ProtectedRoute>
           }
         />
