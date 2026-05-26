@@ -53,8 +53,8 @@ function CognitiveHero({ type }: { type: CognitiveType }): JSX.Element {
       style={{ backgroundColor: m.accentBg }}
     >
       <span
-        className="flex h-7 w-7 flex-none items-center justify-center rounded-[var(--radius-full)]"
-        style={{ backgroundColor: m.accent, color: 'white' }}
+        className="flex h-7 w-7 flex-none items-center justify-center rounded-[var(--radius-full)] text-white"
+        style={{ backgroundColor: m.accent }}
       >
         {m.icon}
       </span>
@@ -115,8 +115,8 @@ function SubtaskCard({
       style={{ borderLeftColor: tint.accent }}
     >
       <div
-        className="flex h-9 w-9 flex-none items-center justify-center rounded-[var(--radius-full)] text-base font-bold uppercase"
-        style={{ backgroundColor: tint.accent, color: 'white' }}
+        className="flex h-9 w-9 flex-none items-center justify-center rounded-[var(--radius-full)] text-base font-bold uppercase text-white"
+        style={{ backgroundColor: tint.accent }}
         aria-hidden="true"
       >
         {letter}
