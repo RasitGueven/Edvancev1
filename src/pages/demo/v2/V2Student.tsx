@@ -97,7 +97,7 @@ function TaskCard(): JSX.Element {
       {showXp ? (
         <span
           key={tick}
-          className="absolute -top-2 right-4 inline-flex items-center px-2 py-0.5 text-xs font-bold rounded-sm bg-[var(--color-gold-altgold)] text-[#1A0E00] animate-xp-float"
+          className="absolute -top-2 right-4 inline-flex items-center px-2 py-0.5 text-xs font-bold rounded-sm bg-[var(--color-gold-altgold)] text-[var(--color-accent-on)] animate-xp-float"
         >
           +25 XP
         </span>

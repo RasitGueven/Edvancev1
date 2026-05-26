@@ -22,7 +22,7 @@ export function StatCard({
     <EdvanceCard className="group flex items-start gap-4 hover:-translate-y-0.5 transition-transform duration-200">
       <div
         className="flex-none flex items-center justify-center w-12 h-12 rounded-[var(--radius-lg)] text-xl shrink-0 transition-transform duration-200 group-hover:scale-110"
-        style={{ backgroundColor: `color-mix(in srgb, ${color} 14%, white)` }}
+        style={{ backgroundColor: `color-mix(in srgb, ${color} 14%, transparent)` }}
       >
         {icon}
       </div>

@@ -83,7 +83,7 @@ function BadgeRow(): JSX.Element {
         <Pill className="bg-[var(--color-error-exam-light)] text-[var(--color-error-exam)]">error-exam</Pill>
         <Pill className="bg-[var(--color-gold-warning-light)] text-[var(--color-gold-warning)]">warning</Pill>
         {/* XP-Pill: dunkler Text auf Gold, NIE Accent als Textfarbe auf Weiss */}
-        <Pill className="bg-[var(--color-gold-altgold)] text-[#1A0E00]">+25 XP</Pill>
+        <Pill className="bg-[var(--color-gold-altgold)] text-[var(--color-accent-on)]">+25 XP</Pill>
         <Pill className="bg-[var(--color-repair-light)] text-[var(--color-repair)]">streak-repair</Pill>
       </div>
     </Section>
