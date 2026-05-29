@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils'
 
 function StreakPill({ count }: { count: number }): JSX.Element {
   return (
-    <div className="v2-glass-pill px-3 py-1.5 inline-flex items-center gap-1.5 text-white">
+    <div className="glass-pill px-3 py-1.5 inline-flex items-center gap-1.5 text-white">
       <span aria-hidden="true">🔥</span>
       <span className="text-sm font-semibold">{count}</span>
       <span className="text-xs opacity-80">Tage</span>
@@ -21,7 +21,7 @@ function StreakPill({ count }: { count: number }): JSX.Element {
 
 function LevelPill({ level }: { level: number }): JSX.Element {
   return (
-    <div className="v2-glass-pill px-3 py-1.5 inline-flex items-center gap-1.5 text-white">
+    <div className="glass-pill px-3 py-1.5 inline-flex items-center gap-1.5 text-white">
       <span className="text-[10px] uppercase tracking-widest opacity-70">Level</span>
       <span className="text-sm font-bold">{level}</span>
     </div>
@@ -40,7 +40,7 @@ function XpBar({ value, target }: { value: number; target: number }): JSX.Elemen
       </div>
       <div className="bg-white/15 rounded-full h-2 overflow-hidden">
         <div
-          className="v2-xp-bar-fill h-full rounded-full animate-bar-grow"
+          className="xp-bar-fill h-full rounded-full animate-bar-grow"
           style={{ ['--bar-target' as string]: `${pct}%` }}
         />
       </div>
@@ -50,7 +50,7 @@ function XpBar({ value, target }: { value: number; target: number }): JSX.Elemen
 
 function HeroCard(): JSX.Element {
   return (
-    <div className="v2-student-hero v2-light-source overflow-hidden rounded-[var(--radius-lg)] p-6 shadow-lg animate-fly-in">
+    <div className="student-hero light-source overflow-hidden rounded-[var(--radius-lg)] p-6 shadow-lg animate-fly-in">
       <div className="relative">
         <p className="text-[10px] uppercase tracking-widest opacity-70 text-white">Heute</p>
         <h2 className="text-2xl font-bold text-white mt-1">Mathematik · Bruchrechnen</h2>
@@ -59,7 +59,7 @@ function HeroCard(): JSX.Element {
         </p>
         <button
           type="button"
-          className="mt-5 v2-glass-button px-5 py-2.5 rounded-md text-white text-sm font-medium hover:-translate-y-0.5 transition-all duration-base ease-bounce"
+          className="mt-5 glass-button px-5 py-2.5 rounded-md text-white text-sm font-medium hover:-translate-y-0.5 transition-all duration-base ease-bounce"
         >
           Lernpfad starten
         </button>
@@ -143,7 +143,7 @@ export function V2Student(): JSX.Element {
         Schueler-App · lebendig, motivierend. Verlaeufe, Glas, Bounce-Animationen.
       </p>
 
-      <header className={cn('v2-student-header v2-light-source rounded-[var(--radius-lg)] px-5 py-4 shadow-lg overflow-hidden')}>
+      <header className={cn('student-header light-source rounded-[var(--radius-lg)] px-5 py-4 shadow-lg overflow-hidden')}>
         <div className="relative flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div>

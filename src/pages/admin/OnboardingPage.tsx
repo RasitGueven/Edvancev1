@@ -61,7 +61,7 @@ type SuccessStateProps = {
 function SuccessState({ data, coaches, onReset }: SuccessStateProps): JSX.Element {
   const coachName = coaches.find((entry) => entry.id === data.coachId)?.full_name
   return (
-    <EdvanceCard variant="hero">
+    <EdvanceCard variant="hero-student">
       <div className="flex flex-col items-center gap-5 py-6 text-center">
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--color-success)_15%,transparent)]">
           <Check className="h-10 w-10 text-white" />

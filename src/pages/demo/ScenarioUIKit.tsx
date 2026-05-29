@@ -90,10 +90,10 @@ export function ScenarioUIKit(): JSX.Element {
       <EdvanceCard>
         <Section title="EdvanceBadge — Gamification">
           <Row>
-            <EdvanceBadge variant="xp">+20 XP</EdvanceBadge>
-            <EdvanceBadge variant="streak">5 Tage</EdvanceBadge>
+            <EdvanceBadge variant="xp-day">+20 XP</EdvanceBadge>
+            <EdvanceBadge variant="streak-presence">5 Tage</EdvanceBadge>
             <EdvanceBadge variant="primary">FACT</EdvanceBadge>
-            <EdvanceBadge variant="success">Exzellent</EdvanceBadge>
+            <EdvanceBadge variant="mastered">Exzellent</EdvanceBadge>
             <EdvanceBadge variant="warning">Lücke</EdvanceBadge>
             <EdvanceBadge variant="muted">FREE_INPUT</EdvanceBadge>
           </Row>

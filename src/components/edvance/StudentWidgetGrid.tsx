@@ -29,7 +29,7 @@ function ContinueTile({ resume }: { resume: ResumePoint | null }): JSX.Element {
       to={to}
       className="col-span-2 md:row-span-2 block transition-transform duration-200 hover:-translate-y-1"
     >
-      <EdvanceCard variant="hero" className="h-full flex flex-col justify-between min-h-[280px]">
+      <EdvanceCard variant="hero-student" className="h-full flex flex-col justify-between min-h-[280px]">
         <div className="flex items-center gap-2">
           <span className="text-lg" aria-hidden="true">📖</span>
           <span className="text-xs font-semibold uppercase tracking-widest text-white/70">
@@ -154,7 +154,8 @@ function StudentActionTile({
 
 type StudentBentoGridProps = {
   xpTotal: number
-  streakDays: number
+  /** Präsenz-Streak in Wochen (v2 Migration 032). */
+  presenceWeeks: number
   level: number
   resume: ResumePoint | null
   loading?: boolean
@@ -162,7 +163,7 @@ type StudentBentoGridProps = {
 
 export function StudentBentoGrid({
   xpTotal,
-  streakDays,
+  presenceWeeks,
   level,
   resume,
   loading = false,
@@ -173,8 +174,8 @@ export function StudentBentoGrid({
       <StudentStatTile
         accent="streak"
         emoji="🔥"
-        value={streakDays}
-        label="Tage am Stück"
+        value={presenceWeeks}
+        label="Wochen Präsenz"
         loading={loading}
       />
       <StudentStatTile

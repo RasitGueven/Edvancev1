@@ -118,7 +118,7 @@ export function LambacherPreview(): JSX.Element {
     <div className="min-h-screen bg-background">
       <EdvanceNavbar subtitle="Lambacher 8 NRW – Vorschau" />
       <main className="mx-auto max-w-4xl space-y-6 px-4 py-8">
-        <EdvanceCard variant="navy" className="flex flex-col gap-2">
+        <EdvanceCard variant="hero-student" className="flex flex-col gap-2">
           <p className="text-xs font-semibold uppercase tracking-widest opacity-80">
             Mathebuch-Import
           </p>
@@ -165,7 +165,7 @@ export function LambacherPreview(): JSX.Element {
         {loading && <LoadingPulse lines={3} />}
 
         {error && (
-          <EdvanceCard accent="left-destructive">
+          <EdvanceCard accent="exam">
             <p className="text-sm font-semibold text-[var(--color-error-exam)]">Fehler beim Laden</p>
             <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{error}</p>
           </EdvanceCard>

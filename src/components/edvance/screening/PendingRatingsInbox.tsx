@@ -149,7 +149,7 @@ export function PendingRatingsInbox({ results, clusterNames }: Props): JSX.Eleme
                 {clusterName}
               </span>
               {existing ? (
-                <EdvanceBadge variant="success">
+                <EdvanceBadge variant="mastered">
                   Bewertet: AFB {existing.reached_afb}
                 </EdvanceBadge>
               ) : (

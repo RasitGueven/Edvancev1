@@ -41,7 +41,9 @@ export function StudentDashboard(): JSX.Element {
   const [error, setError] = useState<string | null>(null)
 
   const [xpTotal, setXpTotal] = useState<number>(0)
-  const [streakDays, setStreakDays] = useState<number>(0)
+  const [presenceWeeks, setPresenceWeeks] = useState<number>(0)
+  const [homeSessions, setHomeSessions] = useState<number>(0)
+  const [presenceMultiplier, setPresenceMultiplier] = useState<number>(1)
   const [level, setLevel] = useState<number>(1)
   const [resume, setResume] = useState<ResumePoint | null>(null)
   const [nextSession, setNextSession] = useState<CoachingSession | null>(null)
@@ -60,8 +62,9 @@ export function StudentDashboard(): JSX.Element {
       const { data: progress } = await getStudentProgress(s.id)
       if (cancelled || !progress) return
       setXpTotal(progress.xp_total)
-      // v2: streak_days durch presence_streak_weeks ersetzt (Migration 032).
-      setStreakDays(progress.presence_streak_weeks)
+      setPresenceWeeks(progress.presence_streak_weeks)
+      setHomeSessions(progress.home_streak_sessions)
+      setPresenceMultiplier(progress.presence_streak_multiplier)
       setLevel(progress.level)
     })()
     return () => {
@@ -208,14 +211,12 @@ export function StudentDashboard(): JSX.Element {
     <div className="relative min-h-screen overflow-hidden bg-[var(--color-bg-app)]">
       <EdvanceNavbar subtitle="Mein Lernplan" />
 
-      <div aria-hidden="true" className="pointer-events-none absolute -right-32 top-1/3 h-96 w-96 rounded-full opacity-[0.07] blur-3xl bg-[var(--color-accent)]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-1/4 h-80 w-80 rounded-full opacity-[0.08] blur-3xl bg-[var(--color-primary)]" />
-      <div aria-hidden="true" className="pointer-events-none absolute right-1/4 top-2/3 h-64 w-64 rounded-full opacity-[0.06] blur-3xl bg-[var(--color-primary)]" />
-
       <StudentHero
         displayName={displayName}
         xpTotal={xpTotal}
-        streakDays={streakDays}
+        presenceWeeks={presenceWeeks}
+        homeSessions={homeSessions}
+        presenceMultiplier={presenceMultiplier}
         level={level}
       />
 
@@ -231,7 +232,7 @@ export function StudentDashboard(): JSX.Element {
         <div className="mb-8">
           <StudentBentoGrid
             xpTotal={xpTotal}
-            streakDays={streakDays}
+            presenceWeeks={presenceWeeks}
             level={level}
             resume={resume}
             loading={!student}

@@ -43,7 +43,7 @@ export function DesignShowcase() {
     <div className="min-h-full bg-[var(--color-bg-app)] pb-16">
       <div className="px-8 py-10 bg-[var(--color-primary)]">
         <div className="max-w-5xl mx-auto">
-          <EdvanceBadge variant="xp" className="mb-4">Design System v2</EdvanceBadge>
+          <EdvanceBadge variant="xp-day" className="mb-4">Design System v2</EdvanceBadge>
           <h1 className="text-2xl font-bold text-white mt-2">Edvance Design Showcase</h1>
           <p className="text-sm text-[var(--color-primary-light)] mt-1 leading-relaxed max-w-lg">
             Alle Komponenten auf einen Blick – der visuelle Spiegel vor jedem Release.

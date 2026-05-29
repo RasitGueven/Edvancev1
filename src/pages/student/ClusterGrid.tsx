@@ -11,31 +11,32 @@ import type { SkillCluster, Task } from '@/types'
 
 const STATUS_VARIANT: Record<
   ClusterStatusLabel,
-  'success' | 'warning' | 'destructive'
+  'mastered' | 'warning' | 'gap'
 > = {
-  Sicher: 'success',
+  Sicher: 'mastered',
   Erkennbar: 'warning',
-  Lücke: 'destructive',
+  Lücke: 'gap',
 }
 
 export type ClusterProgress = Record<string, { completed: number; total: number }>
 
 type ContentType = Task['content_type']
 
+// v2: Skilltree-Grün-Palette statt hardcoded Tints (siehe Migration-Doku Phase 7).
 const CLUSTER_TINTS = [
-  { bg: 'var(--color-primary-light)',     fg: 'var(--color-primary)' },
-  { bg: 'var(--color-success-light)',     fg: 'var(--color-success)' },
-  { bg: 'var(--color-warning-light)',     fg: 'var(--color-warning)' },
-  { bg: 'var(--color-info-light)',        fg: 'var(--color-info)' },
-  { bg: 'color-mix(in srgb, var(--color-accent) 14%, white)', fg: 'var(--color-accent)' },
+  { bg: 'var(--color-primary-light)',          fg: 'var(--color-primary)' },
+  { bg: 'var(--color-success-skilltree-light)', fg: 'var(--color-success-skilltree)' },
+  { bg: 'var(--color-success-eltern-light)',   fg: 'var(--color-success-eltern)' },
+  { bg: 'var(--color-gold-warning-light)',     fg: 'var(--color-gold-warning)' },
+  { bg: 'var(--color-accent-streak-light)',    fg: 'var(--color-accent-streak)' },
 ]
 
 export function RowIcon({ type }: { type: ContentType }): JSX.Element {
-  if (type === 'video') return <PlayCircle className="h-5 w-5 shrink-0 text-warning" />
-  if (type === 'article') return <FileText className="h-5 w-5 shrink-0 text-success" />
+  if (type === 'video') return <PlayCircle className="h-5 w-5 shrink-0 text-[var(--color-gold-warning)]" />
+  if (type === 'article') return <FileText className="h-5 w-5 shrink-0 text-[var(--color-success-eltern)]" />
   if (type === 'exercise_group' || type === 'course')
-    return <FlaskConical className="h-5 w-5 shrink-0 text-primary" />
-  return <BookOpen className="h-5 w-5 shrink-0 text-primary" />
+    return <FlaskConical className="h-5 w-5 shrink-0 text-[var(--color-primary)]" />
+  return <BookOpen className="h-5 w-5 shrink-0 text-[var(--color-primary)]" />
 }
 
 export function FilterResults({

@@ -54,7 +54,7 @@ export function ScenarioStudent(): JSX.Element {
         <XPBar current={xp} max={500} level={4} levelName="Entdecker" />
         <div className="flex items-center justify-between text-xs text-[var(--color-text-tertiary)]">
           <span>Heutige Session · Kap. 1 Wahrscheinlichkeit</span>
-          <EdvanceBadge variant="streak">5 Tage</EdvanceBadge>
+          <EdvanceBadge variant="streak-presence">5 Tage</EdvanceBadge>
         </div>
       </EdvanceCard>
 
@@ -98,7 +98,7 @@ export function ScenarioStudent(): JSX.Element {
             Daten &amp; Zufall — Kompetenz-Niveau
           </p>
           {isDone && (
-            <EdvanceBadge variant="success">+1 Level</EdvanceBadge>
+            <EdvanceBadge variant="mastered">+1 Level</EdvanceBadge>
           )}
         </div>
         <MasteryBar level={mastery} showLabel size="lg" />

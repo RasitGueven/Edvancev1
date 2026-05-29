@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Avatar } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { LoadingPulse } from '@/components/edvance'
+import { LoadingPulse, StreakPill } from '@/components/edvance'
 import { getStudentProgress } from '@/lib/supabase/progress'
 import { getInitials } from '@/lib/utils'
 import type {
@@ -61,11 +61,21 @@ function StudentProfilePanel({ s }: { s: StudentVM }): JSX.Element {
       {loading ? (
         <LoadingPulse type="list" lines={2} />
       ) : (
-        <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-[var(--color-text-secondary)]">
-          <span>Level {progress?.level ?? 1}</span>
-          <span>{progress?.xp_total ?? 0} XP</span>
-          <span>{progress?.presence_streak_weeks ?? 0} Wochen Präsenz</span>
-          <span>
+        <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--color-text-secondary)]">
+          <span className="font-semibold">Level {progress?.level ?? 1}</span>
+          <span>·</span>
+          <span>{(progress?.xp_total ?? 0).toLocaleString('de-DE')} XP</span>
+          <StreakPill
+            variant="presence"
+            count={progress?.presence_streak_weeks ?? 0}
+            multiplier={progress?.presence_streak_multiplier ?? 1}
+            className="ml-1"
+          />
+          <StreakPill
+            variant="home"
+            count={progress?.home_streak_sessions ?? 0}
+          />
+          <span className="ml-auto">
             Kl. {s.classLevel ?? PLACEHOLDER_DASH}
             {s.schoolType ? ` · ${s.schoolType}` : ''}
           </span>

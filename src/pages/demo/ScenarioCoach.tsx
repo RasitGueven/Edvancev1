@@ -22,7 +22,7 @@ const STUDENTS: Student[] = [
 const STATUS_BADGE: Record<StudentStatus, JSX.Element> = {
   ok:         <EdvanceBadge variant="muted">aktiv</EdvanceBadge>,
   'needs-help': <EdvanceBadge variant="warning">Aufmerksamkeit</EdvanceBadge>,
-  levelup:    <EdvanceBadge variant="xp">Level-Up ✨</EdvanceBadge>,
+  levelup:    <EdvanceBadge variant="xp-day">Level-Up ✨</EdvanceBadge>,
 }
 
 export function ScenarioCoach(): JSX.Element {

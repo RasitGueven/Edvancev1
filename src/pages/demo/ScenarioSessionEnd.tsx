@@ -78,7 +78,7 @@ export function ScenarioSessionEnd(): JSX.Element {
       </EdvanceCard>
 
       {/* Coach-Kommentar */}
-      <EdvanceCard accent="left-primary">
+      <EdvanceCard accent="primary">
         <div className="flex items-start gap-3">
           <EdvanceBadge variant="primary">Coach</EdvanceBadge>
           <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">

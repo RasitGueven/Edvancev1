@@ -92,12 +92,27 @@
   --color-moment-streak-red:          var(--color-moment-streak-red);
   --color-moment-repair-purple:       var(--color-moment-repair-purple);
 
-  /* shadcn-Aliase auf v2-Tokens (für Generic-Komponenten ohne Eigen-Token) */
+  /* shadcn / v1-Tailwind-Aliase auf v2-Tokens (BC für Generic-Komponenten) */
   --color-foreground:                 var(--color-text-primary);
   --color-muted:                      var(--color-text-tertiary);
   --color-card:                       var(--color-bg-surface);
   --color-ring:                       var(--color-primary);
   --color-background:                 var(--color-bg-app);
+  --color-warning:                    var(--color-gold-warning);
+  --color-warning-light:              var(--color-gold-warning-light);
+  --color-destructive:                var(--color-error-exam);
+  --color-destructive-light:          var(--color-error-exam-light);
+  --color-info:                       var(--color-primary);
+  --color-info-light:                 var(--color-primary-light);
+
+  /* Timing & Easing — für Tailwind-Utilities duration-* und ease-* */
+  --transition-duration-instant:      100ms;
+  --transition-duration-fast:         150ms;
+  --transition-duration-base:         200ms;
+  --transition-duration-slow:         350ms;
+  --transition-duration-celebration:  500ms;
+  --ease-bounce:                      cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:                         cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── Shadow & Surface utility classes ───────────────────────────────────────── */
@@ -257,8 +272,8 @@
   to   { transform: translateY(0);   opacity: 1; }
 }
 @keyframes bar-grow {
-  from { transform: scaleX(0); transform-origin: left center; }
-  to   { transform: scaleX(1); transform-origin: left center; }
+  from { width: 0%; }
+  to   { width: var(--bar-target, 100%); }
 }
 
 /* ─── Animation utilities ─────────────────────────────────────────────────────── */

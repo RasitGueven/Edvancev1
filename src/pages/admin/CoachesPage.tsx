@@ -139,7 +139,7 @@ export function CoachesPage(): JSX.Element {
                 <span className="text-base font-semibold text-[var(--color-text-primary)]">
                   {c.full_name ?? 'Unbenannt'}
                 </span>
-                <EdvanceBadge variant="success">Coach</EdvanceBadge>
+                <EdvanceBadge variant="mastered">Coach</EdvanceBadge>
               </EdvanceCard>
             ))}
           </div>

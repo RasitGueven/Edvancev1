@@ -1,7 +1,7 @@
 import { useEffect, useState, type JSX } from 'react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { User } from 'lucide-react'
-import { EdvanceCard, EdvanceBadge, EmptyState, LoadingPulse } from '@/components/edvance'
+import { EdvanceCard, EdvanceBadge, EmptyState, LoadingPulse, StreakPill } from '@/components/edvance'
 import { DashboardTiles } from '@/components/edvance/DashboardTiles'
 import { useAuth } from '@/hooks/useAuth'
 import { listStudentsWithName } from '@/lib/supabase/students'
@@ -124,9 +124,19 @@ export function ParentDashboard(): JSX.Element {
                 </EdvanceBadge>
               </div>
 
-              <div className="flex flex-wrap gap-x-8 gap-y-1 text-sm text-[var(--color-text-secondary)]">
-                <span>{progress?.xp_total ?? 0} XP</span>
-                <span>{progress?.presence_streak_weeks ?? 0} Wochen Präsenz</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <StreakPill
+                  variant="presence"
+                  count={progress?.presence_streak_weeks ?? 0}
+                  multiplier={progress?.presence_streak_multiplier ?? 1}
+                />
+                <StreakPill
+                  variant="home"
+                  count={progress?.home_streak_sessions ?? 0}
+                />
+                <span className="ml-auto text-sm font-semibold text-[var(--color-text-secondary)]">
+                  {(progress?.xp_total ?? 0).toLocaleString('de-DE')} XP
+                </span>
               </div>
 
               <div className="flex flex-col gap-2">

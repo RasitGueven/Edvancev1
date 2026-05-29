@@ -1,23 +1,32 @@
-import { Flame } from 'lucide-react'
-import { XPBar } from '@/components/edvance'
+import { XPBar, StreakPill } from '@/components/edvance'
 
 const XP_PER_LEVEL = 500
 
 interface StudentHeroProps {
   displayName: string
   xpTotal: number
-  streakDays: number
+  /** Präsenz-Streak in Wochen (Migration 032). */
+  presenceWeeks: number
+  /** Home-Streak in Sessions (Migration 032). */
+  homeSessions: number
+  presenceMultiplier?: number
   level: number
 }
 
-export function StudentHero({ displayName, xpTotal, streakDays, level }: StudentHeroProps) {
+/**
+ * Schüler-Hero — student-hero Gradient + light-source Overlay.
+ * Glass-Pill-Streaks NUR auf dieser dunklen Bühne erlaubt (Hard Rule §3).
+ */
+export function StudentHero({
+  displayName,
+  xpTotal,
+  presenceWeeks,
+  homeSessions,
+  presenceMultiplier = 1,
+  level,
+}: StudentHeroProps) {
   return (
-    <section className="relative overflow-hidden student-hero">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full opacity-20 blur-3xl"
-        style={{ background: 'var(--color-gold-altgold)' }}
-      />
+    <section className="relative overflow-hidden student-hero light-source">
       <div className="mx-auto max-w-3xl px-4 py-8 text-white">
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div className="min-w-0">
@@ -30,13 +39,17 @@ export function StudentHero({ displayName, xpTotal, streakDays, level }: Student
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold">
-            <Flame className="h-3.5 w-3.5 text-[var(--color-gold-altgold)]" />
-            {streakDays} Tage Streak
+          <div className="flex flex-col gap-2">
+            <StreakPill
+              variant="presence"
+              count={presenceWeeks}
+              multiplier={presenceMultiplier}
+            />
+            <StreakPill variant="home" count={homeSessions} />
           </div>
         </div>
 
-        <div className="glass-card rounded-[var(--radius-xl)] p-5">
+        <div className="glass-card p-5">
           <XPBar
             current={xpTotal % XP_PER_LEVEL}
             max={XP_PER_LEVEL}

@@ -230,7 +230,7 @@ export function ScreeningResultsPage(): JSX.Element {
                           {formatCompleted(t.completed_at)}
                         </span>
                       </div>
-                      <EdvanceBadge variant="success">Abgeschlossen</EdvanceBadge>
+                      <EdvanceBadge variant="mastered">Abgeschlossen</EdvanceBadge>
                     </EdvanceCard>
                   ))}
                 </div>

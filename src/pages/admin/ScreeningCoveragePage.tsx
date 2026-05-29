@@ -230,7 +230,7 @@ export function ScreeningCoveragePage(): JSX.Element {
             ))}
           </select>
           <div className="flex flex-wrap gap-2">
-            <EdvanceBadge variant="success">{totals.active} aktiv</EdvanceBadge>
+            <EdvanceBadge variant="mastered">{totals.active} aktiv</EdvanceBadge>
             <EdvanceBadge variant="warning">
               {totals.draft} Entwurf
             </EdvanceBadge>

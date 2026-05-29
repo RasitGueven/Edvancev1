@@ -181,7 +181,7 @@ function NavRow(): JSX.Element {
             </button>
           ))}
         </div>
-        <div className="v2-student-header rounded-md p-1 flex gap-1">
+        <div className="student-header rounded-md p-1 flex gap-1">
           {items.map((item, idx) => (
             <button
               key={item}

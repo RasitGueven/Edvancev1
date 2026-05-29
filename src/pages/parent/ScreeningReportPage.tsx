@@ -142,7 +142,7 @@ function ChildReportCard({
   const gaps = [...sorted].reverse().slice(0, 2)
 
   return (
-    <EdvanceCard variant="premium" className="flex flex-col gap-6 p-6">
+    <EdvanceCard variant="default" className="flex flex-col gap-6 p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold text-[var(--color-text-primary)]">
