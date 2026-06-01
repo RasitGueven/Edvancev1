@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
-import { Search, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { EmptyState, LoadingPulse, EdvanceCard, EdvanceBadge } from '@/components/edvance'
 import { StudentBentoGrid } from '@/components/edvance/StudentWidgetGrid'
 import { ClusterGrid, FilterResults, RecommendationBanner, type ClusterProgress } from '@/pages/student/ClusterGrid'
+import { StudentDashboardFilters, TYPE_FILTERS, type TypeFilter } from '@/pages/student/StudentDashboardFilters'
 import { useAuth } from '@/hooks/useAuth'
 import { getClustersBySubject, getSubjects, getTasksByCluster } from '@/lib/supabase/tasks'
 import { getStudentByProfile } from '@/lib/supabase/students'
@@ -17,15 +16,7 @@ import { useScreeningRecommendation } from '@/pages/student/useScreeningRecommen
 import { StudentHero } from '@/pages/student/StudentHero'
 import type { CoachingSession, SkillCluster, Student, Subject, Task } from '@/types'
 
-type ContentType = Task['content_type']
-type TypeFilter = 'all' | ContentType
 
-const TYPE_FILTERS: { value: TypeFilter; label: string }[] = [
-  { value: 'all', label: 'Alle' },
-  { value: 'exercise', label: 'Aufgaben' },
-  { value: 'article', label: 'Artikel' },
-  { value: 'video', label: 'Videos' },
-]
 
 export function StudentDashboard(): JSX.Element {
   const { user } = useAuth()
@@ -268,64 +259,17 @@ export function StudentDashboard(): JSX.Element {
           )}
         </div>
 
-        <div id="lernpfad" className="flex flex-col gap-3">
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-tertiary)]" />
-            <input
-              type="search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Suche nach Aufgabe, Video, Artikel …"
-              className="h-12 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] pl-11 pr-11 text-sm shadow-xs focus:border-[var(--color-primary)]  focus:outline-none transition-all"
-            />
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearch('')}
-                aria-label="Suche leeren"
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted hover:bg-background hover:text-foreground"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            )}
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {TYPE_FILTERS.map((f) => (
-              <Button
-                key={f.value}
-                variant={typeFilter === f.value ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setTypeFilter(f.value)}
-              >
-                {f.label}
-              </Button>
-            ))}
-            {isFiltering && (
-              <button
-                type="button"
-                onClick={clearFilters}
-                className="ml-auto text-xs font-semibold text-muted hover:text-foreground"
-              >
-                Filter zuruecksetzen
-              </button>
-            )}
-          </div>
-        </div>
-
-        {subjects.length > 1 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {subjects.map((s) => (
-              <Button
-                key={s.id}
-                size="sm"
-                variant={s.id === selectedSubjectId ? 'default' : 'outline'}
-                onClick={() => setSelectedSubjectId(s.id)}
-              >
-                {s.name}
-              </Button>
-            ))}
-          </div>
-        )}
+        <StudentDashboardFilters
+          search={search}
+          onSearchChange={setSearch}
+          typeFilter={typeFilter}
+          onTypeFilterChange={setTypeFilter}
+          isFiltering={isFiltering}
+          onClear={clearFilters}
+          subjects={subjects}
+          selectedSubjectId={selectedSubjectId}
+          onSubjectChange={setSelectedSubjectId}
+        />
 
         {isFiltering ? (
           <FilterResults
