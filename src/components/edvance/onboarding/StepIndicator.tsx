@@ -27,12 +27,10 @@ export function StepIndicator({ current }: StepIndicatorProps): JSX.Element {
             <div key={label} className="flex items-center">
               <div className="flex flex-col items-center">
                 <div
-                  className="flex items-center justify-center rounded-full text-sm font-semibold transition-all duration-300"
+                  className={`flex items-center justify-center rounded-full text-sm font-semibold transition-all duration-300 ${active ? 'h-10 w-10' : 'h-9 w-9'}`}
                   style={{
                     background: stepBackground(done, active),
                     color: done || active ? 'white' : 'var(--muted)',
-                    width: active ? '2.5rem' : '2.25rem',
-                    height: active ? '2.5rem' : '2.25rem',
                   }}
                 >
                   {done ? <Check className="h-4 w-4" /> : index + 1}
@@ -58,11 +56,8 @@ export function StepIndicator({ current }: StepIndicatorProps): JSX.Element {
       {/* Overall progress bar */}
       <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-[var(--color-border)]">
         <div
-          className="h-full rounded-full transition-all duration-500"
-          style={{
-            width: `${Math.round(((current + 1) / STEP_LABELS.length) * 100)}%`,
-            background: 'var(--color-primary)',
-          }}
+          className="h-full rounded-full bg-[var(--color-primary)] transition-all duration-500"
+          style={{ width: `${Math.round(((current + 1) / STEP_LABELS.length) * 100)}%` }}
         />
       </div>
     </div>
