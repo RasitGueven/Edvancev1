@@ -7,7 +7,6 @@ import type {
   SupabaseResult,
   Task,
   TaskAsset,
-  TaskCoachMetadata,
 } from '@/types'
 
 // Alle Faecher.
@@ -21,25 +20,6 @@ export async function getSubjects(): Promise<SupabaseResult<Subject[]>> {
     return { data: (data ?? []) as Subject[], error: null }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Faecher konnten nicht geladen werden'
-    return { data: null, error: message }
-  }
-}
-
-// Aufgaben fuer einen einzelnen Microskill (nur aktive).
-export async function getTasksByMicroskill(
-  microskillId: string,
-): Promise<SupabaseResult<Task[]>> {
-  try {
-    const { data, error } = await supabase
-      .from('tasks')
-      .select('*')
-      .eq('microskill_id', microskillId)
-      .eq('is_active', true)
-      .order('difficulty', { ascending: true, nullsFirst: false })
-    if (error) return { data: null, error: error.message }
-    return { data: (data ?? []) as Task[], error: null }
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Aufgaben konnten nicht geladen werden'
     return { data: null, error: message }
   }
 }
@@ -141,25 +121,6 @@ export async function getTaskById(taskId: string): Promise<SupabaseResult<Task |
   }
 }
 
-// Cluster nach Name suchen (z.B. fuer Diagnose → Cluster Mapping).
-export async function getClusterByName(
-  name: string,
-): Promise<SupabaseResult<SkillCluster | null>> {
-  try {
-    const { data, error } = await supabase
-      .from('skill_clusters')
-      .select('*')
-      .eq('name', name)
-      .limit(1)
-      .maybeSingle()
-    if (error) return { data: null, error: error.message }
-    return { data: (data as SkillCluster | null) ?? null, error: null }
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Cluster konnte nicht geladen werden'
-    return { data: null, error: message }
-  }
-}
-
 // Ein einzelnes Cluster per id.
 export async function getClusterById(
   clusterId: string,
@@ -225,24 +186,6 @@ export async function getTasksBySource(
   }
 }
 
-// Tasks ohne Cluster-Zuordnung (cluster_id IS NULL).
-export async function getUnmappedTasks(): Promise<SupabaseResult<Task[]>> {
-  try {
-    const { data, error } = await supabase
-      .from('tasks')
-      .select('*')
-      .is('cluster_id', null)
-      .eq('is_active', true)
-      .order('created_at', { ascending: false })
-    if (error) return { data: null, error: error.message }
-    return { data: (data ?? []) as Task[], error: null }
-  } catch (err) {
-    const message =
-      err instanceof Error ? err.message : 'Tasks ohne Cluster konnten nicht geladen werden'
-    return { data: null, error: message }
-  }
-}
-
 // tasks.assets ueberschreiben (z.B. nach Bild-Upload oder Asset-Remove).
 // Gibt die aktualisierte Task-Reihe zurueck.
 export async function updateTaskAssets(
@@ -260,24 +203,6 @@ export async function updateTaskAssets(
     return { data: data as Task, error: null }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Aufgabe konnte nicht aktualisiert werden'
-    return { data: null, error: message }
-  }
-}
-
-// Coach-Metadaten zu einer Aufgabe (kann fehlen → null).
-export async function getTaskCoachMetadata(
-  taskId: string,
-): Promise<SupabaseResult<TaskCoachMetadata | null>> {
-  try {
-    const { data, error } = await supabase
-      .from('task_coach_metadata')
-      .select('*')
-      .eq('task_id', taskId)
-      .maybeSingle()
-    if (error) return { data: null, error: error.message }
-    return { data: (data as TaskCoachMetadata | null) ?? null, error: null }
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Coach-Metadaten konnten nicht geladen werden'
     return { data: null, error: message }
   }
 }
