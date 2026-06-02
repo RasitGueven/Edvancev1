@@ -3,7 +3,7 @@ import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { EmptyState, LoadingPulse, EdvanceCard, EdvanceBadge } from '@/components/edvance'
 import { StudentBentoGrid } from '@/components/edvance/StudentWidgetGrid'
 import { ClusterGrid, FilterResults, RecommendationBanner, type ClusterProgress } from '@/pages/student/ClusterGrid'
-import { StudentDashboardFilters, TYPE_FILTERS, type TypeFilter } from '@/pages/student/StudentDashboardFilters'
+import { StudentDashboardFilters, type TypeFilter } from '@/pages/student/StudentDashboardFilters'
 import { useAuth } from '@/hooks/useAuth'
 import { getClustersBySubject, getSubjects, getTasksByCluster } from '@/lib/supabase/tasks'
 import { getStudentByProfile } from '@/lib/supabase/students'
@@ -15,7 +15,6 @@ import { getResumePoint, type ResumePoint } from '@/lib/supabase/resume'
 import { useScreeningRecommendation } from '@/pages/student/useScreeningRecommendation'
 import { StudentHero } from '@/pages/student/StudentHero'
 import type { CoachingSession, SkillCluster, Student, Subject, Task } from '@/types'
-
 
 
 export function StudentDashboard(): JSX.Element {

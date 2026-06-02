@@ -285,7 +285,7 @@ function SubCard({
   return (
     <div className="mt-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-4 shadow-card">
       <div className="mb-2 flex items-start gap-3">
-        <div className="grid h-7 w-7 place-items-center rounded-lg bg-[var(--violet,#7c3aed)]/10 font-bold text-[var(--violet,#7c3aed)]">
+        <div className="grid h-7 w-7 place-items-center rounded-lg bg-[var(--color-repair-light)] font-bold text-[var(--color-repair)]">
           {item.key}
         </div>
         <p className="flex-1 pt-0.5 text-sm font-medium leading-relaxed text-[var(--color-text-primary)]">

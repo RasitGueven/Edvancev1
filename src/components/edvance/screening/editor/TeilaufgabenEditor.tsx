@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import type { ScreeningTeilaufgabe } from '@/types'
 
-const NUMERIC_KEY_BG = 'bg-[var(--violet,#7c3aed)]/10 text-[var(--violet,#7c3aed)]'
+const NUMERIC_KEY_BG = 'bg-[var(--color-repair-light)] text-[var(--color-repair)]'
 
 export function TeilaufgabenEditor({
   items,
