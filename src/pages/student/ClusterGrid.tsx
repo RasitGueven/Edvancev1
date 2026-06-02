@@ -106,11 +106,7 @@ export function RecommendationBanner({
     <EdvanceCard className="mt-6 flex flex-wrap items-center justify-between gap-4 p-6">
       <div className="flex items-start gap-3">
         <span
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-lg)]"
-          style={{
-            background: 'var(--color-primary-light)',
-            color: 'var(--color-primary)',
-          }}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-lg)] bg-[var(--color-primary-light)] text-[var(--color-primary)]"
         >
           <Sparkles className="h-5 w-5" />
         </span>
