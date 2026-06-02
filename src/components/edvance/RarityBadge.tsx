@@ -68,11 +68,10 @@ export function RarityBadge({
         aria-label={label ?? rarity}
       >
         <div
-          className="flex items-center justify-center text-white font-bold"
+          className="flex items-center justify-center bg-[var(--color-badge-center)] font-bold text-white"
           style={{
             width: px * 0.74,
             height: px * 0.74,
-            background: 'var(--color-badge-center)',
             borderRadius: form === 'round' ? '9999px' : '6px',
             fontSize: px * 0.32,
           }}
