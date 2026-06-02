@@ -209,8 +209,7 @@ function DraggableChip({
       }}
       {...listeners}
       {...attributes}
-      style={{ touchAction: 'none' }}
-      className={`${base} ${tone} ${isDragging ? 'invisible' : ''}`}
+      className={`touch-none ${base} ${tone} ${isDragging ? 'invisible' : ''}`}
     >
       {chip.label}
     </div>
