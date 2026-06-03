@@ -19,6 +19,13 @@ const ENTRIES: MockEntry[] = [
     badge: 'Schüler',
   },
   {
+    href: '/mock/lernpfad',
+    title: 'Schüler · Lernpfad (Mario-Style)',
+    description:
+      'Verschlungene Level-Map mit Mastery-Knoten, gesperrten Leveln und Avatar-Position. Klick auf das aktive Level startet die Session.',
+    badge: 'Schüler',
+  },
+  {
     href: '/mock/screening-coach',
     title: 'Coach-Auswertung',
     description:
