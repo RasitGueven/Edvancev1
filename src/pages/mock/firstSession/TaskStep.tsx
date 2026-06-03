@@ -1,8 +1,14 @@
 import { useState, type JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard, EdvanceBadge, ToastBanner } from '@/components/edvance'
+import { MCWidget } from '@/components/edvance/tasks/MCWidget'
+import { NumericWidget } from '@/components/edvance/tasks/NumericWidget'
+import { OpenWidget } from '@/components/edvance/tasks/OpenWidget'
+import { MatchingWidget, type MatchPairs } from '@/components/edvance/tasks/MatchingWidget'
+import { MultiStepWidget } from '@/components/edvance/tasks/MultiStepWidget'
 import { cn } from '@/lib/utils'
-import type { MockTask } from '@/lib/mocks/firstSession'
+import type { MockTask, MockTaskMC, MockTaskFreeInput, MockTaskMatching, MockTaskSteps } from '@/lib/mocks/firstSession'
+import type { ScreeningTeilaufgabe } from '@/types'
 
 interface TaskStepProps {
   tasks: MockTask[]
@@ -21,16 +27,39 @@ export function TaskStep({
   const task: MockTask = tasks[taskIndex]
   const isLast = taskIndex === tasks.length - 1
 
-  const [selected, setSelected] = useState<number | null>(null)
   const [submitted, setSubmitted] = useState<boolean>(false)
   const [toastOpen, setToastOpen] = useState<boolean>(false)
+  const [isCorrect, setIsCorrect] = useState<boolean>(false)
 
-  const isCorrect = submitted && selected === task.correctIndex
+  const [mcSelected, setMcSelected] = useState<number | null>(null)
+  const [freeText, setFreeText] = useState<string>('')
+  const [matchingPairs, setMatchingPairs] = useState<MatchPairs>(new Map())
+  const [stepsValues, setStepsValues] = useState<Record<string, string>>({})
 
   const handleSubmit = (): void => {
-    if (selected === null || submitted) return
+    if (submitted) return
+
+    let correct = false
+
+    if (task.inputType === 'MC') {
+      if (mcSelected === null) return
+      correct = mcSelected === (task as MockTaskMC).correctIndex
+    } else if (task.inputType === 'FREE_INPUT') {
+      const answer = freeText.trim()
+      if (!answer) return
+      correct = answer === (task as MockTaskFreeInput).correctAnswer
+    } else if (task.inputType === 'MATCHING') {
+      const taskData = task as MockTaskMatching
+      if (matchingPairs.size !== taskData.left.length) return
+      correct = isMatchingCorrect(matchingPairs, taskData.correctPairs)
+    } else if (task.inputType === 'STEPS') {
+      const taskData = task as MockTaskSteps
+      if (!taskData.steps.every((s) => (stepsValues[s.key] ?? '').trim().length > 0)) return
+      correct = isStepsCorrect(stepsValues, taskData.steps)
+    }
+
     setSubmitted(true)
-    const correct = selected === task.correctIndex
+    setIsCorrect(correct)
     if (correct) {
       setToastOpen(true)
       onSubmit(true, task.xp)
@@ -69,32 +98,41 @@ export function TaskStep({
             {task.question}
           </p>
 
-          <div className="flex flex-col gap-2">
-            {task.options.map((opt, idx) => {
-              const isSelected = selected === idx
-              const isCorrectAnswer = submitted && idx === task.correctIndex
-              return (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => !submitted && setSelected(idx)}
-                  disabled={submitted}
-                  className={cn(
-                    'min-h-[44px] rounded-[var(--radius-md)] border-2 px-4 py-3',
-                    'text-left text-sm font-medium transition-all duration-base ease-bounce',
-                    'disabled:cursor-default',
-                    isCorrectAnswer
-                      ? 'border-[var(--color-success-answer)] bg-[var(--color-success-answer-light)] text-[var(--color-success-answer)]'
-                      : isSelected
-                        ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)] text-[var(--color-primary)]'
-                        : 'border-[var(--color-border)] bg-[var(--color-bg-surface)] text-[var(--color-text-primary)] hover:-translate-y-0.5 hover:shadow-md',
-                  )}
-                >
-                  {opt}
-                </button>
-              )
-            })}
-          </div>
+          {task.inputType === 'MC' && (
+            <MCWidget
+              options={(task as MockTaskMC).options}
+              selected={mcSelected}
+              onChange={setMcSelected}
+              disabled={submitted}
+            />
+          )}
+
+          {task.inputType === 'FREE_INPUT' && (
+            <NumericWidget
+              value={freeText}
+              onChange={setFreeText}
+              disabled={submitted}
+            />
+          )}
+
+          {task.inputType === 'MATCHING' && (
+            <MatchingWidget
+              left={(task as MockTaskMatching).left}
+              right={(task as MockTaskMatching).right}
+              pairs={matchingPairs}
+              onChange={setMatchingPairs}
+              disabled={submitted}
+            />
+          )}
+
+          {task.inputType === 'STEPS' && (
+            <MultiStepWidget
+              steps={convertMockStepsToTeilaufgaben((task as MockTaskSteps).steps)}
+              values={stepsValues}
+              onChange={(key, value) => setStepsValues((prev) => ({ ...prev, [key]: value }))}
+              disabled={submitted}
+            />
+          )}
 
           {submitted && (
             <div
@@ -116,7 +154,7 @@ export function TaskStep({
       <button
         type="button"
         onClick={submitted ? onAdvance : handleSubmit}
-        disabled={!submitted && selected === null}
+        disabled={!submitted && !isAnswerReady(task, { mcSelected, freeText, matchingPairs, stepsValues })}
         className={cn(
           'min-h-[44px] w-full rounded-[var(--radius-lg)] px-6 py-3',
           'text-sm font-semibold text-white shadow-md transition-all duration-base',
@@ -132,4 +170,46 @@ export function TaskStep({
       </button>
     </div>
   )
+}
+
+interface AnswerState {
+  mcSelected: number | null
+  freeText: string
+  matchingPairs: MatchPairs
+  stepsValues: Record<string, string>
+}
+
+function isAnswerReady(task: MockTask, state: AnswerState): boolean {
+  if (task.inputType === 'MC') return state.mcSelected !== null
+  if (task.inputType === 'FREE_INPUT') return state.freeText.trim().length > 0
+  if (task.inputType === 'MATCHING') {
+    return state.matchingPairs.size === (task as MockTaskMatching).left.length
+  }
+  if (task.inputType === 'STEPS') {
+    return (task as MockTaskSteps).steps.every((s) => (state.stepsValues[s.key] ?? '').trim().length > 0)
+  }
+  return false
+}
+
+function isMatchingCorrect(pairs: MatchPairs, correctPairs: [number, number][]): boolean {
+  if (pairs.size !== correctPairs.length) return false
+  for (const [left, right] of pairs.entries()) {
+    const expected = correctPairs.find((p) => p[0] === left)?.[1]
+    if (expected === undefined || expected !== right) return false
+  }
+  return true
+}
+
+function isStepsCorrect(values: Record<string, string>, steps: Array<{ key: string; correctAnswer: string }>): boolean {
+  return steps.every((s) => (values[s.key] ?? '').trim() === s.correctAnswer)
+}
+
+function convertMockStepsToTeilaufgaben(
+  steps: Array<{ key: string; prompt: string; correctAnswer: string }>,
+): ScreeningTeilaufgabe[] {
+  return steps.map((s) => ({
+    key: s.key,
+    prompt: s.prompt,
+    input_type: 'NUMERIC',
+  }))
 }

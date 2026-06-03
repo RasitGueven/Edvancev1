@@ -14,18 +14,44 @@ export interface MockTeacherTopic {
   name: string
 }
 
-export interface MockTask {
+export type MockTask = MockTaskMC | MockTaskFreeInput | MockTaskMatching | MockTaskSteps
+
+interface MockTaskBase {
   id: string
   clusterId: string
   clusterName: string
   question: string
-  options: string[]
-  correctIndex: number
   xp: number
   difficulty: 'I' | 'II' | 'III'
   durationMin: number
-  /** Lehrer-Themen, denen diese Aufgabe zugeordnet ist (für Plan-Filterung). */
   topicIds: string[]
+}
+
+export interface MockTaskMC extends MockTaskBase {
+  inputType: 'MC'
+  options: string[]
+  correctIndex: number
+}
+
+export interface MockTaskFreeInput extends MockTaskBase {
+  inputType: 'FREE_INPUT'
+  correctAnswer: string
+}
+
+export interface MockTaskMatching extends MockTaskBase {
+  inputType: 'MATCHING'
+  left: string[]
+  right: string[]
+  correctPairs: [number, number][]
+}
+
+export interface MockTaskSteps extends MockTaskBase {
+  inputType: 'STEPS'
+  steps: Array<{
+    key: string
+    prompt: string
+    correctAnswer: string
+  }>
 }
 
 export interface MockClusterProgress {
@@ -69,6 +95,7 @@ export const MOCK_TODAY_TASKS: MockTask[] = [
     clusterId: 'mock-cluster-zahl',
     clusterName: 'Zahl & Rechnen',
     question: 'Was ist 3/4 + 1/8?',
+    inputType: 'MC',
     options: ['4/12', '5/8', '7/8', '4/8'],
     correctIndex: 2,
     xp: 20,
@@ -78,49 +105,61 @@ export const MOCK_TODAY_TASKS: MockTask[] = [
   },
   {
     id: 'mock-task-2',
-    clusterId: 'mock-cluster-funktion',
-    clusterName: 'Funktionaler Zusammenhang',
-    question:
-      'Eine lineare Funktion hat die Steigung 2 und schneidet die y-Achse bei 3. Welcher Punkt liegt auf der Geraden?',
-    options: ['(1; 5)', '(2; 3)', '(0; 2)', '(3; 0)'],
-    correctIndex: 0,
-    xp: 30,
-    difficulty: 'II',
-    durationMin: 6,
-    topicIds: ['topic-linear', 'topic-gleichung'],
-  },
-  {
-    id: 'mock-task-3',
     clusterId: 'mock-cluster-zahl',
     clusterName: 'Zahl & Rechnen',
-    question: 'Wie viel sind 15 % von 80?',
-    options: ['8', '12', '15', '20'],
-    correctIndex: 1,
+    question: 'Wie viel sind 15 % von 80? Gib die Antwort ein:',
+    inputType: 'FREE_INPUT',
+    correctAnswer: '12',
     xp: 20,
     difficulty: 'I',
     durationMin: 4,
     topicIds: ['topic-prozent'],
   },
   {
+    id: 'mock-task-3',
+    clusterId: 'mock-cluster-funktion',
+    clusterName: 'Funktionaler Zusammenhang',
+    question:
+      'Ordne die Funktionsgleichungen ihren Steigungen zu:',
+    inputType: 'MATCHING',
+    left: ['f(x) = 2x + 3', 'f(x) = -x + 5', 'f(x) = 3x - 1'],
+    right: ['Steigung 2', 'Steigung 3', 'Steigung -1'],
+    correctPairs: [[0, 0], [1, 2], [2, 1]],
+    xp: 30,
+    difficulty: 'II',
+    durationMin: 6,
+    topicIds: ['topic-linear'],
+  },
+  {
     id: 'mock-task-4',
     clusterId: 'mock-cluster-raum',
     clusterName: 'Raum & Form',
-    question:
-      'In einem Dreieck sind zwei Winkel 45° und 65°. Wie groß ist der dritte Winkel?',
-    options: ['60°', '70°', '80°', '90°'],
-    correctIndex: 1,
-    xp: 20,
-    difficulty: 'I',
-    durationMin: 4,
+    question: 'Bestimme die Winkelberechnung:',
+    inputType: 'STEPS',
+    steps: [
+      {
+        key: '1a',
+        prompt: 'In einem Dreieck sind zwei Winkel 45° und 65°. Welche Winkelsumme haben diese?',
+        correctAnswer: '110',
+      },
+      {
+        key: '1b',
+        prompt: 'Wie groß ist der dritte Winkel?',
+        correctAnswer: '70',
+      },
+    ],
+    xp: 25,
+    difficulty: 'II',
+    durationMin: 5,
     topicIds: ['topic-geometrie'],
   },
   {
     id: 'mock-task-5',
-    clusterId: 'mock-cluster-funktion',
-    clusterName: 'Funktionaler Zusammenhang',
-    question: 'Löse die Gleichung 3x + 7 = 22.',
-    options: ['x = 3', 'x = 5', 'x = 7', 'x = 15'],
-    correctIndex: 1,
+    clusterId: 'mock-cluster-gleichung',
+    clusterName: 'Gleichungen lösen',
+    question: 'Löse die Gleichung: 3x + 7 = 22',
+    inputType: 'FREE_INPUT',
+    correctAnswer: '5',
     xp: 25,
     difficulty: 'II',
     durationMin: 5,
