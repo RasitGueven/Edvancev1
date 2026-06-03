@@ -35,6 +35,7 @@ import { ScreeningSession } from '@/pages/ScreeningSession'
 import { TaskWidgetDemo } from '@/pages/student/TaskWidgetDemo'
 import { DesignDemo } from '@/pages/demo/DesignDemo'
 import { GraphDemo } from '@/pages/demo/GraphDemo'
+import { V3Showcase } from '@/pages/demo/v3/V3Showcase'
 
 export default function App(): JSX.Element {
   return (
@@ -236,6 +237,7 @@ export default function App(): JSX.Element {
         <Route path="/demo/widgets" element={<TaskWidgetDemo />} />
         <Route path="/demo/design" element={<DesignDemo />} />
         <Route path="/demo/graph" element={<GraphDemo />} />
+        <Route path="/demo/v3" element={<V3Showcase />} />
 
         {/* Screening: stiller, adaptiver, auto-bewerteter Lauf (eingeloggt).
             Coach = Beobachter (kein Rating in diesem Flow). */}

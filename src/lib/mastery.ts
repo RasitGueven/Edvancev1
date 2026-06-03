@@ -24,3 +24,33 @@ export function masteryStage(score: number): MasteryStage {
 export function masteryStageFromLevel(level: number): MasteryStage {
   return masteryStage(level * 10)
 }
+
+/**
+ * Stage → CSS-Variable (Token aus tokens.css, nie hardcodierte Farbe).
+ * Reihenfolge & Farben gemäß Midnight-Academy-Spec §03.
+ */
+export const MASTERY_STAGE_COLOR: Record<MasteryStage, string> = {
+  introduced: 'var(--color-mastery-introduced)',
+  developing: 'var(--color-mastery-developing)',
+  progressing: 'var(--color-mastery-progressing)',
+  proficient: 'var(--color-mastery-proficient)',
+  mastered: 'var(--color-mastery-mastered)',
+}
+
+/** Stage → deutsches Label (lokale Konvention: hart-deutsch wie StreakPill). */
+export const MASTERY_STAGE_LABEL: Record<MasteryStage, string> = {
+  introduced: 'Eingeführt',
+  developing: 'In Entwicklung',
+  progressing: 'Fortschritt',
+  proficient: 'Sicher',
+  mastered: 'Gemeistert',
+}
+
+/** Reihenfolge introduced → mastered (für Showcase/Iteration). */
+export const MASTERY_STAGES: MasteryStage[] = [
+  'introduced',
+  'developing',
+  'progressing',
+  'proficient',
+  'mastered',
+]

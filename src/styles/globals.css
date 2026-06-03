@@ -152,11 +152,17 @@
        Nur für Schüler-Flows verwenden. Glaseffekte funktionieren ausschließlich
        auf dieser Bühne (oder Modal-Bühne mit ähnlicher Tiefe). */
   .student-header {
-    background: linear-gradient(135deg, #14213D 0%, #1F3157 45%, #334D7A 100%);
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(255, 255, 255, 0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 80%, rgba(51, 30, 100, 0.25) 0%, transparent 50%),
+      linear-gradient(145deg, #3D5A8A 0%, #334D7A 40%, #263D6A 100%);
     color: var(--color-bg-surface);
   }
   .student-hero {
-    background: linear-gradient(135deg, #14213D 0%, #1F3157 45%, #334D7A 100%);
+    background:
+      radial-gradient(ellipse at 10% 15%, rgba(255, 255, 255, 0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 85%, rgba(20, 10, 60, 0.30) 0%, transparent 50%),
+      linear-gradient(135deg, #3D5A8A 0%, #334D7A 45%, #243960 100%);
     color: var(--color-bg-surface);
     position: relative;
     isolation: isolate;
@@ -185,29 +191,29 @@
   /* ── Glas-Foundations (NUR auf dunklem Hintergrund!) ─────────────────────── */
   /* Hard Rule DESIGN_SYSTEM.md §3: nie auf #F7F7F5 oder #FFFFFF. */
   .glass-pill {
-    background: rgba(255, 255, 255, 0.14);
-    backdrop-filter: blur(14px) saturate(160%);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 0.5px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius-xl);
   }
   .glass-card {
     background: rgba(255, 255, 255, 0.10);
     backdrop-filter: blur(16px) saturate(150%);
     -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 0.5px solid rgba(255, 255, 255, 0.18);
     border-radius: var(--radius-lg);
   }
   .glass-button {
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(12px) saturate(160%);
-    -webkit-backdrop-filter: blur(12px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.26);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px) saturate(160%);
+    -webkit-backdrop-filter: blur(8px) saturate(160%);
+    border: 0.5px solid rgba(255, 255, 255, 0.28);
     color: var(--color-bg-surface);
     transition: background 150ms var(--ease-out);
   }
   .glass-button:hover {
-    background: rgba(255, 255, 255, 0.26);
+    background: rgba(255, 255, 255, 0.24);
   }
 
   /* ── XP-Bar-Fill (Verlauf Altgold → Champagner) ──────────────────────────── */
@@ -262,18 +268,18 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes fly-in-up {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes xp-float {
-  0%   { opacity: 0; transform: translateY(8px); }
-  20%  { opacity: 1; transform: translateY(0); }
-  80%  { opacity: 1; transform: translateY(-12px); }
-  100% { opacity: 0; transform: translateY(-24px); }
+  0%   { opacity: 0; transform: translateY(0) scale(0.8); }
+  30%  { opacity: 1; transform: translateY(-8px) scale(1.1); }
+  70%  { opacity: 1; transform: translateY(-14px) scale(1); }
+  100% { opacity: 0; transform: translateY(-20px) scale(0.9); }
 }
 @keyframes count-up {
-  from { transform: translateY(8px); opacity: 0; }
-  to   { transform: translateY(0);   opacity: 1; }
+  from { transform: translateY(8px) scale(0.9); opacity: 0; }
+  to   { transform: translateY(0) scale(1);     opacity: 1; }
 }
 @keyframes bar-grow {
   from { width: 0%; }
@@ -286,10 +292,10 @@
 .animate-toast-out  { animation: toast-slide-up 200ms var(--ease-out) forwards; }
 .animate-scale-in   { animation: scale-in 200ms var(--ease-out) forwards; }
 .animate-fade-in    { animation: fade-in 300ms var(--ease-out) forwards; }
-.animate-fly-in     { animation: fly-in-up 350ms var(--ease-out) forwards; }
-.animate-xp-float   { animation: xp-float 900ms var(--ease-out) forwards; }
-.animate-count-up   { animation: count-up 250ms var(--ease-out) forwards; }
-.animate-bar-grow   { animation: bar-grow 600ms var(--ease-out) forwards; }
+.animate-fly-in     { animation: fly-in-up 400ms var(--ease-bounce) forwards; }
+.animate-xp-float   { animation: xp-float 1200ms var(--ease-out) forwards; }
+.animate-count-up   { animation: count-up 500ms var(--ease-bounce) forwards; }
+.animate-bar-grow   { animation: bar-grow 800ms var(--ease-bounce) 200ms both; }
 
 /* Mastery bar: CSS transition statt Keyframe — Width-Changes animieren */
 .mastery-bar-fill {
@@ -310,6 +316,11 @@ body,
 body {
   margin: 0;
   background-color: var(--color-bg-app);
+  /* App-BG-Textur (Spec §13): zwei zarte Midnight-Radials auf warmem Off-White */
+  background-image:
+    radial-gradient(ellipse at 10% 10%, rgba(51, 77, 122, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 90%, rgba(51, 77, 122, 0.03) 0%, transparent 40%);
+  background-attachment: fixed;
   color: var(--color-text-primary);
   font-family: var(--font-sans, ui-sans-serif), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -161,6 +161,14 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Migration 027 ausgeführt + verifiziert (RLS/Policy/Indizes) + Function
   deployt ✅.
 
+- **v3 Midnight-Academy Reconciliation** (Branch `feature/v3-design-reconciliation`,
+  Retro 2026-06-03): Audit ergab, dass `tokens.css` bereits ~100% spec-konform war.
+  Angeglichen wurde die *Implementierung* an die verifizierte v1.0-Spec:
+  MasteryBar 4→5 Stufen (API rückwärtskompatibel, `lib/mastery.ts` wiederverwendet),
+  Glas-Effekte, 3-Layer-Student-Gradienten + App-BG-Textur, Animations-Timing
+  (bounce + Scale + Spec-Dauern). Neue Living-Reference `/demo/v3`. TSC + Build grün.
+  Offen: Browser-Check + Merge → `dev`.
+
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
   KI-Erklärartikel → Eskalations-Trigger.
