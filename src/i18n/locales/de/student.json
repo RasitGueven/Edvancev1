@@ -46,6 +46,13 @@
       "durationMin": "{{min}} Min",
       "cta": "Aufgabe 1 starten"
     },
+    "inputType": {
+      "MC": "Auswahl",
+      "FREE_INPUT": "Eingabe",
+      "MATCHING": "Zuordnen",
+      "STEPS": "Schritte",
+      "COORDINATE": "Koordinaten"
+    },
     "task": {
       "progress": "Aufgabe {{current}}/{{total}}",
       "submit": "Antwort prüfen",
@@ -53,7 +60,21 @@
       "finish": "Fertig",
       "feedbackRight": "Stark! Genau das war's.",
       "feedbackTryAgain": "Nicht ganz — schau dir nochmal die Aufgabe an.",
-      "xpToast": "Aufgabe geschafft!"
+      "xpToast": "Aufgabe geschafft!",
+      "coordinateHintLine": "Ziehe die beiden Punkte an die richtige Stelle — die Gerade zeichnet sich von selbst.",
+      "coordinateHintParabola": "Setze den Scheitelpunkt und einen weiteren Punkt — die Parabel entsteht automatisch."
+    },
+    "lernpfad": {
+      "eyebrow": "Dein Lernpfad",
+      "title": "Deine Reise durch Mathe",
+      "subtitle": "Jedes Level ein Thema. Schließe es ab und schalte das nächste frei.",
+      "locked": "Noch gesperrt",
+      "current": "Du bist hier",
+      "done": "Gemeistert",
+      "startSession": "Level starten",
+      "legendDone": "Gemeistert",
+      "legendCurrent": "Aktiv",
+      "legendLocked": "Gesperrt"
     },
     "summary": {
       "headline": "Geschafft!",

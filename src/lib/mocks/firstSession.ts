@@ -14,7 +14,14 @@ export interface MockTeacherTopic {
   name: string
 }
 
-export type MockTask = MockTaskMC | MockTaskFreeInput | MockTaskMatching | MockTaskSteps
+export type MockInputType = 'MC' | 'FREE_INPUT' | 'MATCHING' | 'STEPS' | 'COORDINATE'
+
+export type MockTask =
+  | MockTaskMC
+  | MockTaskFreeInput
+  | MockTaskMatching
+  | MockTaskSteps
+  | MockTaskCoordinate
 
 interface MockTaskBase {
   id: string
@@ -25,6 +32,12 @@ interface MockTaskBase {
   difficulty: 'I' | 'II' | 'III'
   durationMin: number
   topicIds: string[]
+}
+
+/** Punkt im Koordinatensystem (Ganzzahl-Gitter). */
+export interface MockPoint {
+  x: number
+  y: number
 }
 
 export interface MockTaskMC extends MockTaskBase {
@@ -52,6 +65,18 @@ export interface MockTaskSteps extends MockTaskBase {
     prompt: string
     correctAnswer: string
   }>
+}
+
+export interface MockTaskCoordinate extends MockTaskBase {
+  inputType: 'COORDINATE'
+  /** Gerade = 2 Punkte; Parabel = Scheitelpunkt + 1 weiterer Punkt. */
+  shape: 'line' | 'parabola'
+  /** Beschriftungen der zu setzenden Punkte (UI-Hilfe). */
+  pointLabels: string[]
+  /** Start-Positionen der draggable Punkte. */
+  initialPoints: MockPoint[]
+  /** Zielpunkte — Reihenfolge-unabhängig validiert (ganzzahlig). */
+  targetPoints: MockPoint[]
 }
 
 export interface MockClusterProgress {
@@ -165,20 +190,75 @@ export const MOCK_TODAY_TASKS: MockTask[] = [
     durationMin: 5,
     topicIds: ['topic-gleichung'],
   },
+  {
+    id: 'mock-task-6',
+    clusterId: 'mock-cluster-funktion',
+    clusterName: 'Funktionaler Zusammenhang',
+    question: 'Zeichne die Gerade durch die Punkte P(−2|−1) und Q(2|3).',
+    inputType: 'COORDINATE',
+    shape: 'line',
+    pointLabels: ['P', 'Q'],
+    initialPoints: [
+      { x: -3, y: 3 },
+      { x: 3, y: -2 },
+    ],
+    targetPoints: [
+      { x: -2, y: -1 },
+      { x: 2, y: 3 },
+    ],
+    xp: 35,
+    difficulty: 'II',
+    durationMin: 6,
+    topicIds: ['topic-linear'],
+  },
+  {
+    id: 'mock-task-7',
+    clusterId: 'mock-cluster-funktion',
+    clusterName: 'Funktionaler Zusammenhang',
+    question:
+      'Die Parabel y = x² − 2: Setze den Scheitelpunkt S und einen weiteren Punkt P der Parabel.',
+    inputType: 'COORDINATE',
+    shape: 'parabola',
+    pointLabels: ['S', 'P'],
+    initialPoints: [
+      { x: -3, y: 4 },
+      { x: 3, y: 4 },
+    ],
+    targetPoints: [
+      { x: 0, y: -2 },
+      { x: 2, y: 2 },
+    ],
+    xp: 40,
+    difficulty: 'III',
+    durationMin: 7,
+    topicIds: ['topic-linear'],
+  },
 ]
 
 /**
- * Filtert die Tagesaufgaben nach gewählten Lehrer-Themen.
- * Leere Auswahl → alle Aufgaben. Max 3 Aufgaben pro Session.
+ * Wählt die Aufgaben für die Session.
+ *
+ * MOCK: Wir zeigen bewusst **alle Aufgaben-Typen** (MC, Eingabe, Zuordnen,
+ * Schritte, Koordinaten), damit der Flow die volle Bandbreite demonstriert —
+ * unabhängig von den gewählten Lehrer-Themen.
+ *
+ * TODO (Realdaten): Hier gehört ein adaptiver Selector hin, der die *nächste*
+ * Aufgabe anhand von Mastery, Behavior-Snapshots und Lehrer-Themen bestimmt,
+ * statt eine statische Liste auszugeben.
  */
-export function selectTasksForSession(topicIds: string[]): MockTask[] {
-  if (topicIds.length === 0) return MOCK_TODAY_TASKS.slice(0, 3)
-  const matched = MOCK_TODAY_TASKS.filter((t) =>
-    t.topicIds.some((id) => topicIds.includes(id)),
+export function selectTasksForSession(_topicIds: string[]): MockTask[] {
+  // Eine Aufgabe pro Typ — kuratiert für den Demo-Walkthrough.
+  const byType = new Map<MockInputType, MockTask>()
+  for (const task of MOCK_TODAY_TASKS) {
+    if (!byType.has(task.inputType)) byType.set(task.inputType, task)
+  }
+  // Beide Koordinaten-Varianten zusätzlich anhängen (Gerade + Parabel).
+  const coordParabola = MOCK_TODAY_TASKS.find(
+    (t) => t.inputType === 'COORDINATE' && t.shape === 'parabola',
   )
-  // Fallback wenn nichts matcht (z.B. nur Freitext eingegeben): erste 3 Aufgaben.
-  const pool = matched.length > 0 ? matched : MOCK_TODAY_TASKS
-  return pool.slice(0, 3)
+  const ordered = Array.from(byType.values())
+  if (coordParabola && !ordered.includes(coordParabola)) ordered.push(coordParabola)
+  return ordered
 }
 
 export const MOCK_CLUSTER_PROGRESS: MockClusterProgress[] = [
@@ -220,4 +300,24 @@ export const MOCK_HOME_QUEST: MockHomeQuestTask[] = [
 /** Geschätzte Session-Dauer in Minuten, abhängig von ausgewählten Aufgaben. */
 export function sessionMinutes(tasks: MockTask[]): number {
   return tasks.reduce((sum, t) => sum + t.durationMin, 0)
+}
+
+/**
+ * Vergleicht gesetzte Punkte mit den Zielpunkten (reihenfolge-unabhängig,
+ * auf Ganzzahl gerundet). Jeder Zielpunkt muss genau einmal getroffen sein.
+ */
+export function pointsMatchTarget(
+  placed: MockPoint[],
+  target: MockPoint[],
+): boolean {
+  if (placed.length !== target.length) return false
+  const remaining = target.map((p) => ({ x: Math.round(p.x), y: Math.round(p.y) }))
+  for (const p of placed) {
+    const rx = Math.round(p.x)
+    const ry = Math.round(p.y)
+    const idx = remaining.findIndex((t) => t.x === rx && t.y === ry)
+    if (idx === -1) return false
+    remaining.splice(idx, 1)
+  }
+  return remaining.length === 0
 }

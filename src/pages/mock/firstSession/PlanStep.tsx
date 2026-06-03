@@ -47,6 +47,9 @@ export function PlanStep({ tasks, topicsDriven, onStart }: PlanStepProps): JSX.E
                   {task.question}
                 </p>
                 <div className="flex flex-wrap items-center gap-2">
+                  <EdvanceBadge variant="skilltree">
+                    {t(`firstSession.inputType.${task.inputType}`)}
+                  </EdvanceBadge>
                   <EdvanceBadge variant="primary">
                     {t('firstSession.plan.durationMin', { min: task.durationMin })}
                   </EdvanceBadge>

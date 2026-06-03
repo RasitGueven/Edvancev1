@@ -5,8 +5,17 @@ import { MCWidget } from '@/components/edvance/tasks/MCWidget'
 import { NumericWidget } from '@/components/edvance/tasks/NumericWidget'
 import { MatchingWidget, type MatchPairs } from '@/components/edvance/tasks/MatchingWidget'
 import { MultiStepWidget } from '@/components/edvance/tasks/MultiStepWidget'
+import { CoordinateInputWidget, type CoordPoint } from '@/components/edvance/tasks/CoordinateInputWidget'
 import { cn } from '@/lib/utils'
-import type { MockTask, MockTaskMC, MockTaskFreeInput, MockTaskMatching, MockTaskSteps } from '@/lib/mocks/firstSession'
+import {
+  pointsMatchTarget,
+  type MockTask,
+  type MockTaskMC,
+  type MockTaskFreeInput,
+  type MockTaskMatching,
+  type MockTaskSteps,
+  type MockTaskCoordinate,
+} from '@/lib/mocks/firstSession'
 import type { ScreeningTeilaufgabe } from '@/types'
 
 interface TaskStepProps {
@@ -34,6 +43,7 @@ export function TaskStep({
   const [freeText, setFreeText] = useState<string>('')
   const [matchingPairs, setMatchingPairs] = useState<MatchPairs>(new Map())
   const [stepsValues, setStepsValues] = useState<Record<string, string>>({})
+  const [coordPoints, setCoordPoints] = useState<CoordPoint[]>([])
 
   const handleSubmit = (): void => {
     if (submitted) return
@@ -55,6 +65,10 @@ export function TaskStep({
       const taskData = task as MockTaskSteps
       if (!taskData.steps.every((s) => (stepsValues[s.key] ?? '').trim().length > 0)) return
       correct = isStepsCorrect(stepsValues, taskData.steps)
+    } else if (task.inputType === 'COORDINATE') {
+      const taskData = task as MockTaskCoordinate
+      if (coordPoints.length !== taskData.targetPoints.length) return
+      correct = pointsMatchTarget(coordPoints, taskData.targetPoints)
     }
 
     setSubmitted(true)
@@ -85,7 +99,12 @@ export function TaskStep({
             total: tasks.length,
           })}
         </EdvanceBadge>
-        <EdvanceBadge variant="muted">AFB {task.difficulty}</EdvanceBadge>
+        <div className="flex items-center gap-2">
+          <EdvanceBadge variant="skilltree">
+            {t(`firstSession.inputType.${task.inputType}`)}
+          </EdvanceBadge>
+          <EdvanceBadge variant="muted">AFB {task.difficulty}</EdvanceBadge>
+        </div>
       </div>
 
       <EdvanceCard>
@@ -133,6 +152,23 @@ export function TaskStep({
             />
           )}
 
+          {task.inputType === 'COORDINATE' && (
+            <div className="flex flex-col gap-3">
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                {(task as MockTaskCoordinate).shape === 'line'
+                  ? t('firstSession.task.coordinateHintLine')
+                  : t('firstSession.task.coordinateHintParabola')}
+              </p>
+              <CoordinateInputWidget
+                shape={(task as MockTaskCoordinate).shape}
+                initialPoints={(task as MockTaskCoordinate).initialPoints}
+                pointLabels={(task as MockTaskCoordinate).pointLabels}
+                onChange={setCoordPoints}
+                disabled={submitted}
+              />
+            </div>
+          )}
+
           {submitted && (
             <div
               className={cn(
@@ -153,7 +189,7 @@ export function TaskStep({
       <button
         type="button"
         onClick={submitted ? onAdvance : handleSubmit}
-        disabled={!submitted && !isAnswerReady(task, { mcSelected, freeText, matchingPairs, stepsValues })}
+        disabled={!submitted && !isAnswerReady(task, { mcSelected, freeText, matchingPairs, stepsValues, coordPoints })}
         className={cn(
           'min-h-[44px] w-full rounded-[var(--radius-lg)] px-6 py-3',
           'text-sm font-semibold text-white shadow-md transition-all duration-base',
@@ -176,6 +212,7 @@ interface AnswerState {
   freeText: string
   matchingPairs: MatchPairs
   stepsValues: Record<string, string>
+  coordPoints: CoordPoint[]
 }
 
 function isAnswerReady(task: MockTask, state: AnswerState): boolean {
@@ -186,6 +223,9 @@ function isAnswerReady(task: MockTask, state: AnswerState): boolean {
   }
   if (task.inputType === 'STEPS') {
     return (task as MockTaskSteps).steps.every((s) => (state.stepsValues[s.key] ?? '').trim().length > 0)
+  }
+  if (task.inputType === 'COORDINATE') {
+    return state.coordPoints.length === (task as MockTaskCoordinate).targetPoints.length
   }
   return false
 }
