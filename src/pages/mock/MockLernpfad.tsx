@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ArrowLeft } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { LearningPathMap } from '@/components/edvance/LearningPathMap'
+import { LernpfadBackground } from '@/components/edvance/LernpfadBackground'
 import { MOCK_LEARNING_PATH, type LevelStatus } from '@/lib/mocks/lernpfad'
 
 const LEGEND: { status: LevelStatus; color: string; labelKey: string }[] = [
@@ -52,23 +53,27 @@ export function MockLernpfad(): JSX.Element {
         </div>
       </section>
 
-      <main className="mx-auto max-w-2xl px-4 py-10">
-        <LearningPathMap
-          nodes={MOCK_LEARNING_PATH}
-          onSelectNode={handleSelect}
-          labels={{
-            locked: t('firstSession.lernpfad.locked'),
-            current: t('firstSession.lernpfad.current'),
-          }}
-        />
+      <main className="relative mx-auto max-w-2xl px-4 py-10">
+        <LernpfadBackground />
 
-        <div className="mt-8 flex justify-center">
-          <Link
-            to="/mock"
-            className="inline-flex items-center gap-1 text-sm text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]"
-          >
-            <ArrowLeft className="h-4 w-4" /> Mock-Index
-          </Link>
+        <div className="relative z-10">
+          <LearningPathMap
+            nodes={MOCK_LEARNING_PATH}
+            onSelectNode={handleSelect}
+            labels={{
+              locked: t('firstSession.lernpfad.locked'),
+              current: t('firstSession.lernpfad.current'),
+            }}
+          />
+
+          <div className="mt-8 flex justify-center">
+            <Link
+              to="/mock"
+              className="inline-flex items-center gap-1 text-sm text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]"
+            >
+              <ArrowLeft className="h-4 w-4" /> Mock-Index
+            </Link>
+          </div>
         </div>
       </main>
     </div>

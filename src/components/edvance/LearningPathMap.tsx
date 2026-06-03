@@ -19,8 +19,9 @@ const AMPLITUDE = 30 // Auslenkung der Serpentine in %
 function nodeX(i: number): number {
   return 50 + AMPLITUDE * Math.sin(i * 0.9)
 }
-function nodeY(i: number): number {
-  return i * ROW_PX + ROW_PX / 2
+function nodeY(i: number, totalNodes: number): number {
+  // Von unten nach oben: Pfad läuft aufwärts
+  return (totalNodes - 1 - i) * ROW_PX + ROW_PX / 2
 }
 
 export function LearningPathMap({
@@ -34,7 +35,7 @@ export function LearningPathMap({
   const reachedPath: string[] = []
   const lockedPath: string[] = []
   for (let i = 0; i < nodes.length - 1; i++) {
-    const seg = `M ${nodeX(i)} ${nodeY(i)} L ${nodeX(i + 1)} ${nodeY(i + 1)}`
+    const seg = `M ${nodeX(i)} ${nodeY(i, nodes.length)} L ${nodeX(i + 1)} ${nodeY(i + 1, nodes.length)}`
     if (nodes[i + 1].status === 'locked') lockedPath.push(seg)
     else reachedPath.push(seg)
   }
@@ -74,7 +75,7 @@ export function LearningPathMap({
           node={node}
           index={i}
           x={nodeX(i)}
-          y={nodeY(i)}
+          y={nodeY(i, nodes.length)}
           onSelect={() => onSelectNode(node.id)}
           labels={labels}
         />
