@@ -1,4 +1,4 @@
-import React from 'react';
+import type { CSSProperties } from 'react'
 
 // SVG viewBox 0 0 100 100 — alle Paths im Design-Handoff festgelegt.
 const PATHS = {
@@ -21,7 +21,7 @@ interface EdvanceSymbolProps {
   accentColor?: string;
   filled?: boolean;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 export function EdvanceSymbol({
@@ -75,7 +75,7 @@ interface EdvanceLogoProps {
   accentColor?: string;
   symbolRight?: boolean;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 export function EdvanceLogo({
@@ -160,7 +160,7 @@ interface EdvanceAppIconProps {
   borderRadius?: number;
   filled?: boolean;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 export function EdvanceAppIcon({
