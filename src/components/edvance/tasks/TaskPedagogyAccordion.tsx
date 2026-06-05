@@ -42,11 +42,8 @@ function Section({
           </span>
         </span>
         <ChevronRight
-          className="h-4 w-4 transition-transform"
-          style={{
-            color: a.text,
-            transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
-          }}
+          className={`h-4 w-4 transition-transform ${open ? 'rotate-90' : 'rotate-0'}`}
+          style={{ color: a.text }}
         />
       </button>
       {open && (

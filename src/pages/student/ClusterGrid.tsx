@@ -22,7 +22,6 @@ export type ClusterProgress = Record<string, { completed: number; total: number 
 
 type ContentType = Task['content_type']
 
-// v2: Skilltree-Grün-Palette statt hardcoded Tints (siehe Migration-Doku Phase 7).
 const CLUSTER_TINTS = [
   { bg: 'var(--color-primary-light)',          fg: 'var(--color-primary)' },
   { bg: 'var(--color-success-skilltree-light)', fg: 'var(--color-success-skilltree)' },

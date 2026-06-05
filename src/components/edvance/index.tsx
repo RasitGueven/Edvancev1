@@ -11,7 +11,6 @@ export { ToastBanner } from './ToastBanner'
 export { CompetencyRadar } from './CompetencyRadar'
 export type { RadarAxis } from './CompetencyRadar'
 
-// v2 (additiv) — Streak-System, Badge-Rarity, Effekt-Momente
 export { StreakPill } from './StreakPill'
 export type { StreakVariant } from './StreakPill'
 export { RarityBadge } from './RarityBadge'

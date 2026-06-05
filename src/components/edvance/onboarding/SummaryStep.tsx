@@ -1,7 +1,6 @@
 import type { Coach, OnboardingFormData, SummaryStepProps } from '@/types'
 
 const PLACEHOLDER_DASH = '–'
-const ROW_ALT_BG = 'color-mix(in srgb, var(--muted) 5%, transparent)'
 
 function buildRows(data: OnboardingFormData, coaches: Coach[]): Array<[string, string]> {
   const coach = coaches.find((entry) => entry.id === data.coachId)
@@ -27,11 +26,10 @@ export function SummaryStep({ data, coaches }: SummaryStepProps): JSX.Element {
         <p className="mt-0.5 text-muted">Bitte prüfe die Angaben und bestätige das Onboarding.</p>
       </div>
       <div className="rounded-xl border border-border overflow-hidden">
-        {rows.map(([label, value], index) => (
+        {rows.map(([label, value]) => (
           <div
             key={label}
-            className="flex items-center justify-between px-4 py-3 text-sm"
-            style={{ background: index % 2 === 0 ? 'var(--color-bg-surface)' : ROW_ALT_BG }}
+            className="flex items-center justify-between px-4 py-3 text-sm odd:bg-[var(--color-bg-surface)] even:bg-[color-mix(in_srgb,var(--muted)_5%,transparent)]"
           >
             <span className="text-muted font-medium w-28 shrink-0">{label}</span>
             <span className="text-foreground font-semibold text-right">{value}</span>

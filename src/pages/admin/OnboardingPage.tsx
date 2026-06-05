@@ -191,12 +191,7 @@ export function OnboardingPage(): JSX.Element {
         ) : (
           <EdvanceCard className="overflow-hidden p-0">
             {/* Colored card header accent */}
-            <div
-              className="px-6 py-4 text-white"
-              style={{
-                background: 'linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary) 100%)',
-              }}
-            >
+            <div className="px-6 py-4 text-white bg-[var(--color-primary)]">
               <p className="text-xs font-semibold uppercase tracking-widest opacity-70">
                 Schritt {step + 1} · {STEP_LABELS[step]}
               </p>
