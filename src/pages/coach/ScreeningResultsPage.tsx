@@ -286,6 +286,7 @@ export function ScreeningResultsPage(): JSX.Element {
                         {parsed.clusters.map((c) => {
                           const med = medianByCluster.get(c.clusterId) ?? 0
                           const pending = pendingByCluster.get(c.clusterId) ?? c.pending
+                          const conf = confidenceMeta(c.confidence)
                           return (
                             <EdvanceCard
                               key={c.clusterId}
@@ -304,14 +305,9 @@ export function ScreeningResultsPage(): JSX.Element {
                                   <EdvanceBadge variant={afbVariant(c.reachedAfb)}>
                                     {c.reachedAfb ? `AFB ${c.reachedAfb}` : 'unter AFB I'}
                                   </EdvanceBadge>
-                                  {(() => {
-                                    const conf = confidenceMeta(c.confidence)
-                                    return (
-                                      <EdvanceBadge variant={conf.variant}>
-                                        {conf.label}
-                                      </EdvanceBadge>
-                                    )
-                                  })()}
+                                  <EdvanceBadge variant={conf.variant}>
+                                    {conf.label}
+                                  </EdvanceBadge>
                                 </div>
                               </div>
                               <MasteryBar level={c.displayLevel} showLabel />
