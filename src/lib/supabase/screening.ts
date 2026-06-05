@@ -1,9 +1,25 @@
 import { supabase } from '@/lib/supabase/client'
+import { getSubjects, getClustersBySubject } from '@/lib/supabase/tasks'
+import { SCREENING_SUBJECT } from '@/lib/screening/screeningRuntime'
 import type {
   ScreeningTest,
   ScreeningTestInput,
   SupabaseResult,
 } from '@/types'
+
+/**
+ * Lädt clusterNames (id → name) für das Screening-Fach.
+ * Wird in mehreren Coach- und Eltern-Seiten verwendet.
+ */
+export async function getScreeningClusterNames(): Promise<Map<string, string>> {
+  const subs = await getSubjects()
+  const subject = (subs.data ?? []).find((s) => s.name === SCREENING_SUBJECT)
+  if (!subject) return new Map()
+  const cl = await getClustersBySubject(subject.id)
+  const map = new Map<string, string>()
+  for (const c of cl.data ?? []) map.set(c.id, c.name)
+  return map
+}
 // Abgeschlossene Screening-Tests eines Schülers (neueste zuerst) — für
 // die Coach-Ergebnis-Sicht.
 export async function listCompletedScreeningTests(

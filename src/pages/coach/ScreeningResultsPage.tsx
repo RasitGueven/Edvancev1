@@ -15,11 +15,9 @@ import { PendingRatingsInbox } from '@/components/edvance/screening/PendingRatin
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { Label } from '@/components/ui/label'
 import { listStudentsWithName } from '@/lib/supabase/students'
-import { listCompletedScreeningTests } from '@/lib/supabase/screening'
+import { listCompletedScreeningTests, getScreeningClusterNames } from '@/lib/supabase/screening'
 import { getResultsForTest } from '@/lib/supabase/screeningItems'
-import { getClustersBySubject, getSubjects } from '@/lib/supabase/tasks'
 import { parseScreeningResult } from '@/lib/screening/screeningResult'
-import { SCREENING_SUBJECT } from '@/lib/screening/screeningRuntime'
 import {
   computeKpis,
   computeMedianByCluster,
@@ -81,15 +79,7 @@ export function ScreeningResultsPage(): JSX.Element {
 
   useEffect(() => {
     if (clusterNames.size > 0) return
-    void (async () => {
-      const subs = await getSubjects()
-      const subject = (subs.data ?? []).find((s) => s.name === SCREENING_SUBJECT)
-      if (!subject) return
-      const cl = await getClustersBySubject(subject.id)
-      const map = new Map<string, string>()
-      for (const c of cl.data ?? []) map.set(c.id, c.name)
-      setClusterNames(map)
-    })()
+    void getScreeningClusterNames().then(setClusterNames)
   }, [clusterNames])
 
   const selectStudent = (sid: string): void => {

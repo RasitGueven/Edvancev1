@@ -9,13 +9,11 @@ import {
 } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { listStudentsWithName } from '@/lib/supabase/students'
-import { listCompletedScreeningTests } from '@/lib/supabase/screening'
-import { getClustersBySubject, getSubjects } from '@/lib/supabase/tasks'
+import { listCompletedScreeningTests, getScreeningClusterNames } from '@/lib/supabase/screening'
 import {
   parseScreeningResult,
   type ParsedClusterResult,
 } from '@/lib/screening/screeningResult'
-import { SCREENING_SUBJECT } from '@/lib/screening/screeningRuntime'
 import { formatDateLongDe } from '@/lib/utils'
 import type { ScreeningTest, StudentWithName } from '@/types'
 
@@ -61,13 +59,7 @@ export function ScreeningReportPage(): JSX.Element {
         const { data } = await listCompletedScreeningTests(student.id)
         rows.push({ student, test: (data ?? [])[0] ?? null })
       }
-      const subs = await getSubjects()
-      const subject = (subs.data ?? []).find((s) => s.name === SCREENING_SUBJECT)
-      const names = new Map<string, string>()
-      if (subject) {
-        const cl = await getClustersBySubject(subject.id)
-        for (const c of cl.data ?? []) names.set(c.id, c.name)
-      }
+      const names = await getScreeningClusterNames()
       if (!cancelled) {
         setReports(rows)
         setClusterNames(names)
