@@ -4,15 +4,15 @@ import { EdvanceBadge } from '@/components/edvance'
 import { cognitiveTypeLabel, inputTypeLabel } from '@/lib/taskLabels'
 import type { Task } from '@/types'
 
-function difficultyColor(value: number): string {
-  if (value <= 1) return 'var(--color-success)'
-  if (value <= 3) return 'var(--color-primary)'
-  return 'var(--color-gold-warning)'
+function difficultyFillCls(value: number): string {
+  if (value <= 1) return 'bg-[var(--color-success)]'
+  if (value <= 3) return 'bg-[var(--color-primary)]'
+  return 'bg-[var(--color-gold-warning)]'
 }
 
 function DifficultyScale({ value }: { value: number | null }): JSX.Element {
   const v = value ?? 0
-  const fill = difficultyColor(v)
+  const fillCls = difficultyFillCls(v)
   return (
     <span
       className="inline-flex items-center gap-1"
@@ -22,8 +22,7 @@ function DifficultyScale({ value }: { value: number | null }): JSX.Element {
       {[1, 2, 3, 4, 5].map((i) => (
         <span
           key={i}
-          className="h-2 w-2 rounded-full"
-          style={{ backgroundColor: i <= v ? fill : 'var(--color-border)' }}
+          className={`h-2 w-2 rounded-full ${i <= v ? fillCls : 'bg-[var(--color-border)]'}`}
         />
       ))}
     </span>
