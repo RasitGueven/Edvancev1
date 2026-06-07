@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
 import type { AdminStats } from '@/lib/supabase/adminStats'
@@ -6,12 +6,32 @@ import type { AdminStats } from '@/lib/supabase/adminStats'
 type TileAccent = 'primary' | 'success' | 'warning' | 'levelup' | 'repair'
 type TileSize = 'sm' | 'wide' | 'lg'
 
-const ACCENT_VAR: Record<TileAccent, string> = {
-  primary: 'var(--color-primary)',
-  success: 'var(--color-success)',
-  warning: 'var(--color-gold-warning)',
-  levelup: 'var(--color-primary)',
-  repair: 'var(--color-moment-repair-purple)',
+const ACCENT_CLS: Record<TileAccent, { chip: string; text: string; cta: string }> = {
+  primary: {
+    chip: 'bg-[color-mix(in_srgb,var(--color-primary)_14%,white)] text-[var(--color-primary)]',
+    text: 'text-[var(--color-primary)]',
+    cta: 'bg-[var(--color-primary)]',
+  },
+  success: {
+    chip: 'bg-[color-mix(in_srgb,var(--color-success)_14%,white)] text-[var(--color-success)]',
+    text: 'text-[var(--color-success)]',
+    cta: 'bg-[var(--color-success)]',
+  },
+  warning: {
+    chip: 'bg-[color-mix(in_srgb,var(--color-gold-warning)_14%,white)] text-[var(--color-gold-warning)]',
+    text: 'text-[var(--color-gold-warning)]',
+    cta: 'bg-[var(--color-gold-warning)]',
+  },
+  levelup: {
+    chip: 'bg-[color-mix(in_srgb,var(--color-primary)_14%,white)] text-[var(--color-primary)]',
+    text: 'text-[var(--color-primary)]',
+    cta: 'bg-[var(--color-primary)]',
+  },
+  repair: {
+    chip: 'bg-[color-mix(in_srgb,var(--color-moment-repair-purple)_14%,white)] text-[var(--color-moment-repair-purple)]',
+    text: 'text-[var(--color-moment-repair-purple)]',
+    cta: 'bg-[var(--color-moment-repair-purple)]',
+  },
 }
 
 const SIZE_CLASS: Record<TileSize, string> = {
@@ -99,11 +119,7 @@ export function AdminTile({
   cta = null,
   loading = false,
 }: AdminTileProps): JSX.Element {
-  const accentColor = ACCENT_VAR[accent]
-  const chipStyle: CSSProperties = {
-    backgroundColor: `color-mix(in srgb, ${accentColor} 14%, white)`,
-    color: accentColor,
-  }
+  const cls = ACCENT_CLS[accent]
 
   return (
     <Link
@@ -113,8 +129,7 @@ export function AdminTile({
       <EdvanceCard className="flex h-full flex-col justify-between gap-4">
         <div className="flex items-start justify-between gap-3">
           <span
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)]"
-            style={chipStyle}
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)] ${cls.chip}`}
             aria-hidden="true"
           >
             {icon}
@@ -127,10 +142,7 @@ export function AdminTile({
             (loading ? (
               <span className="h-9 w-16 rounded-[var(--radius-md)] bg-[var(--color-border)] animate-skeleton" />
             ) : (
-              <span
-                className="text-3xl font-bold leading-none"
-                style={{ color: accentColor }}
-              >
+              <span className={`text-3xl font-bold leading-none ${cls.text}`}>
                 {stat.value}
               </span>
             ))}
@@ -142,8 +154,7 @@ export function AdminTile({
           </span>
           {cta && (
             <span
-              className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-[var(--radius-full)] px-4 py-2 text-sm font-semibold text-white"
-              style={{ backgroundColor: accentColor }}
+              className={`mt-3 inline-flex w-fit items-center gap-1.5 rounded-[var(--radius-full)] px-4 py-2 text-sm font-semibold text-white ${cls.cta}`}
             >
               {cta}
               <span aria-hidden="true">→</span>
