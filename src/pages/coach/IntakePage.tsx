@@ -18,6 +18,8 @@ import type {
   StudentWithName,
 } from '@/types'
 
+const INPUT_CLS =
+  'h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm'
 const TEXTAREA_CLASS =
   'min-h-[80px] rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 py-2 text-sm text-[var(--color-text-primary)]'
 
@@ -188,7 +190,7 @@ export function IntakePage(): JSX.Element {
               <Label htmlFor="intake-student">Schüler</Label>
               <select
                 id="intake-student"
-                className="h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm"
+                className={INPUT_CLS}
                 value={studentId}
                 onChange={(e) => selectStudent(e.target.value)}
               >
@@ -249,7 +251,7 @@ export function IntakePage(): JSX.Element {
                     <input
                       id="conducted"
                       type="date"
-                      className="h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm"
+                      className={INPUT_CLS}
                       value={form.conducted_at ?? ''}
                       onChange={(e) =>
                         setForm({ ...form, conducted_at: e.target.value })
@@ -280,7 +282,7 @@ export function IntakePage(): JSX.Element {
                     <Label htmlFor="weak">Bekannte Schwächen (kommagetrennt)</Label>
                     <input
                       id="weak"
-                      className="h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm"
+                      className={INPUT_CLS}
                       value={form.known_weak_topics_text}
                       onChange={(e) =>
                         setForm({ ...form, known_weak_topics_text: e.target.value })

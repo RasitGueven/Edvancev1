@@ -7,6 +7,9 @@ import { CLASS_LEVELS, SCHOOL_TYPES, SUBJECTS } from '@/components/edvance/onboa
 import { createLead } from '@/lib/supabase/leads'
 import type { LeadGoal, LeadInput, SchoolKind } from '@/types'
 
+const SELECT_CLS =
+  'h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm'
+
 const GOALS: { value: LeadGoal; label: string }[] = [
   { value: 'IMPROVE_GRADES', label: 'Noten verbessern' },
   { value: 'CLOSE_GAPS', label: 'Lücken schließen' },
@@ -104,7 +107,7 @@ export function LeadCreateForm({ onCreated }: { onCreated: () => void }): JSX.El
           <Label htmlFor="lead-class">Klasse</Label>
           <select
             id="lead-class"
-            className="h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm"
+            className={SELECT_CLS}
             value={form.class_level ?? ''}
             onChange={(e) =>
               setForm({
@@ -125,7 +128,7 @@ export function LeadCreateForm({ onCreated }: { onCreated: () => void }): JSX.El
           <Label htmlFor="lead-schooltype">Schultyp</Label>
           <select
             id="lead-schooltype"
-            className="h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm"
+            className={SELECT_CLS}
             value={form.school_type ?? ''}
             onChange={(e) =>
               setForm({
@@ -146,7 +149,7 @@ export function LeadCreateForm({ onCreated }: { onCreated: () => void }): JSX.El
           <Label htmlFor="lead-goal">Ziel</Label>
           <select
             id="lead-goal"
-            className="h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm"
+            className={SELECT_CLS}
             value={form.goal ?? ''}
             onChange={(e) =>
               setForm({ ...form, goal: (e.target.value || null) as LeadGoal | null })
