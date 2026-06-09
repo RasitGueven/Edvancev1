@@ -1,19 +1,12 @@
 import type { JSX } from 'react'
 import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
 import { AssetList } from '@/lib/render/AssetList'
+import { CONTENT_TYPE_LABELS } from '@/lib/taskLabels'
 import { TaskAssetEditor } from './TaskAssetEditor'
 import { TaskMetaRow } from './TaskMetaRow'
 import { TaskPedagogyAccordion } from './TaskPedagogyAccordion'
 import { TaskQuestionBlock } from './TaskQuestionBlock'
-import type { ContentType, Task } from '@/types'
-
-const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
-  exercise: 'Übung',
-  exercise_group: 'Übungsgruppe',
-  article: 'Artikel',
-  video: 'Video',
-  course: 'Kurs',
-}
+import type { Task } from '@/types'
 
 export function TaskPreviewCard({
   task,

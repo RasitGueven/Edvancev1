@@ -2,7 +2,15 @@
 // Admin-/Coach-Oberflächen nie rohe Codes (FACT, FREE_INPUT, Diff 3)
 // zeigen. In UI immer diese Maps statt der Rohwerte rendern.
 
-import type { CognitiveType, InputType } from '@/types'
+import type { CognitiveType, ContentType, InputType } from '@/types'
+
+export const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
+  exercise: 'Übung',
+  exercise_group: 'Übungsgruppe',
+  article: 'Artikel',
+  video: 'Video',
+  course: 'Kurs',
+}
 
 export const INPUT_TYPE_LABELS: Record<InputType, string> = {
   MC: 'Multiple Choice',

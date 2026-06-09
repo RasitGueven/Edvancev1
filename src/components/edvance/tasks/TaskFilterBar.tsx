@@ -1,5 +1,6 @@
 import type { JSX } from 'react'
 import { Search, X } from 'lucide-react'
+import { CONTENT_TYPE_LABELS } from '@/lib/taskLabels'
 import type { CognitiveType, ContentType } from '@/types'
 
 export interface TaskFilterState {
@@ -29,13 +30,6 @@ export function isFilterActive(state: TaskFilterState): boolean {
 }
 
 const CONTENT_TYPES: ContentType[] = ['exercise', 'exercise_group', 'article', 'video', 'course']
-const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
-  exercise: 'Übung',
-  exercise_group: 'Übungsgruppe',
-  article: 'Artikel',
-  video: 'Video',
-  course: 'Kurs',
-}
 
 const COGNITIVE_TYPES: CognitiveType[] = ['FACT', 'TRANSFER', 'ANALYSIS']
 
