@@ -7,6 +7,12 @@ import {
   MASTERY_STAGE_LABEL,
 } from '@/lib/mastery'
 
+const TRACK_HEIGHTS: Record<string, string> = {
+  sm: 'h-1.5',
+  md: 'h-2.5',
+  lg: 'h-4',
+}
+
 interface MasteryBarProps {
   /** Pädagogisches Niveau 1–10 (Backend-Schema). Genau eines von level/score. */
   level?: number
@@ -40,12 +46,6 @@ export function MasteryBar({ level, score, showLabel = false, size = 'md' }: Mas
       ? 'var(--color-mastery-progressing-bg)'
       : 'var(--color-border)'
 
-  const trackHeights: Record<string, string> = {
-    sm: 'h-1.5',
-    md: 'h-2.5',
-    lg: 'h-4',
-  }
-
   return (
     <div className="flex flex-col gap-1.5">
       {showLabel && (
@@ -61,7 +61,7 @@ export function MasteryBar({ level, score, showLabel = false, size = 'md' }: Mas
       <div
         className={cn(
           'w-full rounded-[var(--radius-full)] overflow-hidden',
-          trackHeights[size],
+          TRACK_HEIGHTS[size],
         )}
         style={{ backgroundColor: trackColor }}
       >
