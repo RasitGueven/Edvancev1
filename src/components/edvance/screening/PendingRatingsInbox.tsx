@@ -142,6 +142,8 @@ export function PendingRatingsInbox({ results, clusterNames }: Props): JSX.Eleme
         const existing = ratings.get(p.id)
         const draft = drafts[p.id] ?? { afb: existing?.reached_afb ?? null, note: existing?.note ?? '' }
         const clusterName = clusterNames.get(p.cluster_id) ?? p.cluster_id
+        const drawing = answerDrawing(p.answer)
+        const uploadPaths = answerUploadPaths(p.answer)
         return (
           <EdvanceCard key={p.id} className="flex flex-col gap-3 p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -168,24 +170,24 @@ export function PendingRatingsInbox({ results, clusterNames }: Props): JSX.Eleme
               <p className="mt-1 whitespace-pre-wrap text-sm text-[var(--color-text-primary)]">
                 {answerPreview(p.answer)}
               </p>
-              {answerDrawing(p.answer) && (
+              {drawing && (
                 <a
-                  href={answerDrawing(p.answer) ?? '#'}
+                  href={drawing}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-2 inline-block"
                   title="Skizze in voller Größe öffnen"
                 >
                   <img
-                    src={answerDrawing(p.answer) ?? ''}
+                    src={drawing}
                     alt="Rechenweg-Skizze"
                     className="max-h-40 rounded border border-[var(--color-border)] bg-white object-contain"
                   />
                 </a>
               )}
-              {answerUploadPaths(p.answer).length > 0 && (
+              {uploadPaths.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-2">
-                  {answerUploadPaths(p.answer).map((path) => {
+                  {uploadPaths.map((path) => {
                     const url = uploadUrls[path]
                     if (!url) {
                       return (
