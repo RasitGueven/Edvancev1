@@ -41,7 +41,6 @@ export function CheckInStep({ onComplete }: CheckInStepProps): JSX.Element {
 
   const advance = (): void => {
     if (sub === 'mood' && mood) {
-      // 😊 = direkt weiter, 😐/😟 = Follow-up Frage
       setSub(mood === 'happy' ? 'exam' : 'mood-reason')
     } else if (sub === 'mood-reason') {
       setSub('exam')
@@ -271,7 +270,7 @@ function TopicsPicker({
       <div className="flex flex-col gap-2">
         <label
           htmlFor="teacher-topics-custom"
-          className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-tertiary)]"
+          className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]"
         >
           {t('firstSession.checkIn.teacherTopics.customLabel')}
         </label>

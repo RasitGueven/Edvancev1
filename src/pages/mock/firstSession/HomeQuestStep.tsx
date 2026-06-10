@@ -47,7 +47,7 @@ export function HomeQuestStep(): JSX.Element {
         {MOCK_HOME_QUEST.map((q) => (
           <EdvanceCard key={q.id} accent="skilltree">
             <div className="flex flex-col gap-2">
-              <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-tertiary)]">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
                 {q.clusterName}
               </p>
               <p className="text-base font-semibold text-[var(--color-text-primary)]">

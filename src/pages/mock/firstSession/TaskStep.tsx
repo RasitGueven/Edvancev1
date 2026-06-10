@@ -109,7 +109,7 @@ export function TaskStep({
 
       <EdvanceCard>
         <div className="flex flex-col gap-5">
-          <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-tertiary)]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
             {task.clusterName}
           </p>
           <p className="text-lg font-semibold text-[var(--color-text-primary)]">

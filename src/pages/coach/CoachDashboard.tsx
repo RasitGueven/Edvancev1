@@ -285,7 +285,7 @@ export function CoachDashboard(): JSX.Element {
         </div>
 
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
             Deine Sessions · {RANGE_LABEL[range]}
           </h2>
           <div className="flex flex-wrap gap-2">

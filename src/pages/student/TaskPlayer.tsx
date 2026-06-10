@@ -313,4 +313,3 @@ export function TaskPlayer(): JSX.Element {
     </div>
   )
 }
-
