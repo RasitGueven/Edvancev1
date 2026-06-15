@@ -2,10 +2,9 @@ import { useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react
 import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { TaskAnswerArea } from '@/components/edvance/tasks/TaskAnswerArea'
-import { ToastBanner, LoadingPulse } from '@/components/edvance'
+import { EdvanceCard, ToastBanner, LoadingPulse } from '@/components/edvance'
 import { useAuth } from '@/hooks/useAuth'
 import { useBehaviorTracker } from '@/hooks/useBehaviorTracker'
 import {
@@ -172,11 +171,9 @@ export function TaskPlayer(): JSX.Element {
       <div className="min-h-screen bg-background">
         <EdvanceNavbar subtitle="Aufgabe" />
         <main className="mx-auto max-w-3xl px-4 py-8">
-          <Card>
-            <CardContent className="pt-6 text-sm text-destructive">
-              {error ?? 'Unbekannter Fehler'}
-            </CardContent>
-          </Card>
+          <EdvanceCard className="text-sm text-destructive">
+            {error ?? 'Unbekannter Fehler'}
+          </EdvanceCard>
           <Button variant="outline" onClick={() => navigate(-1)} className="mt-4">
             <ArrowLeft className="mr-1 h-4 w-4" /> Zurueck
           </Button>
@@ -233,32 +230,28 @@ export function TaskPlayer(): JSX.Element {
           )}
         </div>
 
-        <Card className="mb-4">
-          <CardContent className="pt-6">
-            {task.content_type === 'video' ? (
-              <VideoBlock task={task} />
-            ) : task.content_type === 'exercise_group' || task.content_type === 'course' ? (
-              <UnsupportedBlock type={task.content_type} />
-            ) : (
-              <MathContent text={task.question} />
-            )}
-          </CardContent>
-        </Card>
+        <EdvanceCard className="mb-4">
+          {task.content_type === 'video' ? (
+            <VideoBlock task={task} />
+          ) : task.content_type === 'exercise_group' || task.content_type === 'course' ? (
+            <UnsupportedBlock type={task.content_type} />
+          ) : (
+            <MathContent text={task.question} />
+          )}
+        </EdvanceCard>
 
         {!submitted && task.content_type === 'exercise' && (
-          <Card className="mb-4">
-            <CardContent className="pt-6">
-              <TaskAnswerArea
-                task={task}
-                onSubmit={handleAnswerSubmit}
-                onHintToggle={handleHint}
-                hintShown={hintShown}
-                disabled={submitted}
-                onTextChange={handleTextChange}
-                onKeyDown={handleKeyDown}
-              />
-            </CardContent>
-          </Card>
+          <EdvanceCard className="mb-4">
+            <TaskAnswerArea
+              task={task}
+              onSubmit={handleAnswerSubmit}
+              onHintToggle={handleHint}
+              hintShown={hintShown}
+              disabled={submitted}
+              onTextChange={handleTextChange}
+              onKeyDown={handleKeyDown}
+            />
+          </EdvanceCard>
         )}
 
         {!submitted && (task.content_type === 'video' || task.content_type === 'article') && (
@@ -270,20 +263,18 @@ export function TaskPlayer(): JSX.Element {
         )}
 
         {submitted && (
-          <Card className="mb-4">
-            <CardContent className="flex items-center justify-between gap-4 py-5">
-              <p className="text-sm font-semibold text-foreground">
-                {task.content_type === 'exercise'
-                  ? 'Danke, weiter geht’s.'
-                  : 'Erledigt – weiter geht’s.'}
-              </p>
-              {next && (
-                <Button onClick={goNext} size="lg">
-                  Naechste <ArrowRight className="ml-1 h-4 w-4" />
-                </Button>
-              )}
-            </CardContent>
-          </Card>
+          <EdvanceCard className="mb-4 flex items-center justify-between gap-4 py-5">
+            <p className="text-sm font-semibold text-foreground">
+              {task.content_type === ‘exercise’
+                ? ‘Danke, weiter geht’s.’
+                : ‘Erledigt – weiter geht’s.’}
+            </p>
+            {next && (
+              <Button onClick={goNext} size="lg">
+                Naechste <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
+            )}
+          </EdvanceCard>
         )}
 
         {siblings.length > 0 && (
