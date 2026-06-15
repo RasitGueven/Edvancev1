@@ -2,9 +2,8 @@ import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, BookOpen, CheckCircle2, FileText, FlaskConical, PlayCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
-import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { useAuth } from '@/hooks/useAuth'
 import { getClusterById, getTasksByClusterOrdered } from '@/lib/supabase/tasks'
 import { getStudentByProfile } from '@/lib/supabase/students'
@@ -91,11 +90,9 @@ export function ClusterView(): JSX.Element {
       <div className="min-h-screen bg-background">
         <EdvanceNavbar subtitle="Cluster" />
         <main className="mx-auto max-w-3xl px-4 py-8">
-          <Card>
-            <CardContent className="pt-6 text-sm text-destructive">
-              {error ?? 'Cluster nicht gefunden.'}
-            </CardContent>
-          </Card>
+          <EdvanceCard className="text-sm text-destructive">
+            {error ?? 'Cluster nicht gefunden.'}
+          </EdvanceCard>
           <Button variant="outline" onClick={() => navigate(-1)} className="mt-4">
             <ArrowLeft className="mr-1 h-4 w-4" /> Zurueck
           </Button>
@@ -184,17 +181,15 @@ function Section({
         {icon}
         <h2 className="text-xs font-bold uppercase tracking-widest">{label}</h2>
       </div>
-      <Card>
-        <CardContent className="p-0">
-          <ul className="divide-y divide-border">
-            {tasks.map((t) => (
-              <li key={t.id}>
-                <TaskRow task={t} done={!!progress[t.id]} onClick={() => onClick(t.id)} />
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
+      <EdvanceCard className="p-0 overflow-hidden">
+        <ul className="divide-y divide-border">
+          {tasks.map((t) => (
+            <li key={t.id}>
+              <TaskRow task={t} done={!!progress[t.id]} onClick={() => onClick(t.id)} />
+            </li>
+          ))}
+        </ul>
+      </EdvanceCard>
     </section>
   )
 }
