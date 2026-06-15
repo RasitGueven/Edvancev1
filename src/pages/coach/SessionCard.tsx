@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Avatar } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { LoadingPulse, StreakPill } from '@/components/edvance'
+import { EdvanceCard, LoadingPulse, StreakPill } from '@/components/edvance'
 import { getStudentProgress } from '@/lib/supabase/progress'
 import { getInitials } from '@/lib/utils'
 import type {
@@ -54,7 +54,7 @@ function StudentProfilePanel({ s }: { s: StudentVM }): JSX.Element {
   }, [s.student_id])
 
   return (
-    <div className="mt-1 flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
+    <EdvanceCard variant="subtle" className="mt-1 flex flex-col gap-2 p-4">
       <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         Kurzprofil
       </p>
@@ -82,7 +82,7 @@ function StudentProfilePanel({ s }: { s: StudentVM }): JSX.Element {
           {s.schoolName && <span>{s.schoolName}</span>}
         </div>
       )}
-    </div>
+    </EdvanceCard>
   )
 }
 
