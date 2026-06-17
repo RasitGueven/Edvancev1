@@ -1,4 +1,4 @@
-import { XPBar, StreakPill } from '@/components/edvance'
+import { XPBar, StreakPill, EdvanceCard } from '@/components/edvance'
 
 const XP_PER_LEVEL = 500
 
@@ -49,14 +49,14 @@ export function StudentHero({
           </div>
         </div>
 
-        <div className="glass-card p-5">
+        <EdvanceCard variant="glass" className="p-5">
           <XPBar
             current={xpTotal % XP_PER_LEVEL}
             max={XP_PER_LEVEL}
             level={level}
             levelName={`Level ${level}`}
           />
-        </div>
+        </EdvanceCard>
       </div>
     </section>
   )
