@@ -50,13 +50,13 @@ export function TaskScreen({ state, dispatch }: ScreenProps): JSX.Element {
   const topBar = (
     <div className="mb-6 flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-white/70">
+        <span className="text-sm font-semibold text-warm-72">
           {t('session.task.progress', {
             current: state.taskIndex + 1,
             total: state.taskCount,
           })}
         </span>
-        <span className="rounded-[var(--radius-sm)] bg-white/10 px-2 py-0.5 text-xs font-bold text-white/70">
+        <span className="rounded-[var(--radius-sm)] bg-white/10 px-2 py-0.5 text-xs font-bold text-warm-72">
           {t('session.task.afb', { level: task.afb })}
         </span>
       </div>

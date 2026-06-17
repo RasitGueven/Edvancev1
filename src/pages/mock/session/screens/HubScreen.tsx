@@ -58,16 +58,16 @@ export function HubScreen({ state, dispatch }: ScreenProps): JSX.Element {
     <SessionShell header={header} showExit>
       <div className="flex flex-col gap-6 pt-2">
         <div>
-          <p className="text-eyebrow text-white/55">{t('session.hub.eyebrow')}</p>
-          <h1 className="text-display mt-1 text-2xl text-white">
+          <p className="text-eyebrow text-warm-56">{t('session.hub.eyebrow')}</p>
+          <h1 className="text-display mt-1 text-2xl text-warm">
             {t('session.hub.greeting', { name: student.displayName })}
           </h1>
-          <p className="mt-1 text-sm text-white/70">{t('session.hub.subtitle')}</p>
+          <p className="mt-1 text-sm text-warm-72">{t('session.hub.subtitle')}</p>
         </div>
 
         <HubTile
           emphasis
-          icon={<Rocket className="h-7 w-7 text-white" />}
+          icon={<Rocket className="h-7 w-7" />}
           title={t('session.hub.tileSessionTitle')}
           description={t('session.hub.tileSessionDesc', { topic: MOCK_SESSION_TOPIC.name })}
           onClick={() => dispatch({ type: 'START_SESSION' })}
@@ -75,13 +75,13 @@ export function HubScreen({ state, dispatch }: ScreenProps): JSX.Element {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <HubTile
-            icon={<Route className="h-6 w-6 text-white" />}
+            icon={<Route className="h-6 w-6" />}
             title={t('session.hub.tileProgressTitle')}
             description={t('session.hub.tileProgressDesc')}
             onClick={() => dispatch({ type: 'OPEN_PROGRESS' })}
           />
           <HubTile
-            icon={<Trophy className="h-6 w-6 text-white" />}
+            icon={<Trophy className="h-6 w-6" />}
             title={t('session.hub.tileTrophiesTitle')}
             description={t('session.hub.tileTrophiesDesc')}
             onClick={() => dispatch({ type: 'OPEN_TROPHIES' })}
@@ -90,7 +90,7 @@ export function HubScreen({ state, dispatch }: ScreenProps): JSX.Element {
 
         <HubTile
           disabled
-          icon={<Smile className="h-6 w-6 text-white" />}
+          icon={<Smile className="h-6 w-6" />}
           title={t('session.hub.tileAvatarTitle')}
           description={t('session.hub.avatarLocked')}
         />
@@ -99,7 +99,7 @@ export function HubScreen({ state, dispatch }: ScreenProps): JSX.Element {
           <button
             type="button"
             onClick={() => dispatch({ type: 'OPEN_STREAK_REPAIR' })}
-            className="min-h-[44px] text-xs font-semibold uppercase tracking-widest text-white/45 hover:text-white/70"
+            className="min-h-[44px] text-xs font-semibold uppercase tracking-widest text-warm-42 hover:text-warm-72"
           >
             {t('session.hub.demoStreakLoss')}
           </button>

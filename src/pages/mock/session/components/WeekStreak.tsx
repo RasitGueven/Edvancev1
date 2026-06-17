@@ -32,14 +32,14 @@ export function WeekStreak({ states, popIndex }: WeekStreakProps): JSX.Element {
                 'flex h-8 w-8 items-center justify-center rounded-[var(--radius-full)] border text-[11px] font-bold',
                 filled
                   ? 'border-transparent bg-[var(--color-accent-streak)] text-[var(--color-bg-surface)]'
-                  : 'border-white/30 text-white/60',
-                isToday && !filled && 'border-[var(--color-accent-streak)] text-white',
+                  : 'border-white/30 text-warm-56',
+                isToday && !filled && 'border-[var(--color-accent-streak)] text-warm',
                 popIndex === i && 'animate-count-up',
               )}
             >
               {filled ? <Flame className="h-4 w-4" aria-hidden="true" /> : labels[i]?.[0]}
             </span>
-            <span className="text-[10px] text-white/60">{labels[i]}</span>
+            <span className="text-[10px] text-warm-56">{labels[i]}</span>
           </div>
         )
       })}

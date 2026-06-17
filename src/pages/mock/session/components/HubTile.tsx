@@ -32,16 +32,17 @@ export function HubTile({
       variant="glass"
       onClick={disabled ? undefined : onClick}
       className={cn(
-        'text-white',
-        emphasis ? 'min-h-[148px]' : 'min-h-[112px]',
-        disabled && 'opacity-60',
+        'text-warm',
+        emphasis ? 'min-h-[148px] session-cta' : 'min-h-[112px]',
+        disabled && 'session-card-dimmed',
         className,
       )}
     >
       <div className="flex h-full items-start gap-4">
         <span
           className={cn(
-            'flex shrink-0 items-center justify-center rounded-[var(--radius-lg)] bg-white/15',
+            'flex shrink-0 items-center justify-center rounded-[var(--radius-lg)]',
+            emphasis ? 'session-icon-tile' : 'bg-white/15 text-warm',
             emphasis ? 'h-14 w-14' : 'h-11 w-11',
           )}
           aria-hidden="true"
@@ -54,10 +55,10 @@ export function HubTile({
               {title}
             </h3>
             {!disabled && (
-              <ChevronRight className="h-5 w-5 shrink-0 text-white/70" aria-hidden="true" />
+              <ChevronRight className="h-5 w-5 shrink-0 text-warm-72" aria-hidden="true" />
             )}
           </div>
-          <p className="mt-1 text-sm leading-relaxed text-white/75">{description}</p>
+          <p className="mt-1 text-sm leading-relaxed text-warm-72">{description}</p>
         </div>
       </div>
     </EdvanceCard>

@@ -31,18 +31,18 @@ export function MasteryScreen({ dispatch }: ScreenProps): JSX.Element {
     <SessionShell center maxWidth="md">
       <div className="flex animate-fade-in flex-col gap-6 text-center">
         <div>
-          <p className="text-eyebrow text-white/55">{t('session.mastery.eyebrow')}</p>
-          <h1 className="text-display mt-1 text-3xl text-white">
+          <p className="text-eyebrow text-warm-56">{t('session.mastery.eyebrow')}</p>
+          <h1 className="text-display mt-1 text-3xl text-warm">
             {t('session.mastery.title')}
           </h1>
-          <p className="mt-2 text-base text-white/75">
+          <p className="mt-2 text-base text-warm-72">
             {t('session.mastery.topic', { topic: topic.name })}
           </p>
         </div>
 
-        <EdvanceCard variant="glass" className="text-white">
+        <EdvanceCard variant="glass" className="text-warm">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-white/70">{t('session.mastery.grew')}</span>
+            <span className="text-sm text-warm-72">{t('session.mastery.grew')}</span>
             <span className={cn('text-sm font-bold', STAGE_TEXT[stage])}>
               {MASTERY_STAGE_LABEL[stage]} · {topic.score}%
             </span>
@@ -56,12 +56,12 @@ export function MasteryScreen({ dispatch }: ScreenProps): JSX.Element {
         </EdvanceCard>
 
         {topic.coachGranted ? (
-          <EdvanceCard variant="glass" className="text-white">
+          <EdvanceCard variant="glass" className="text-warm">
             <div className="flex items-center gap-3 text-left">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-full)] bg-[var(--color-mastery-mastered)]">
-                <Check className="h-5 w-5 text-white" aria-hidden="true" />
+                <Check className="h-5 w-5 text-warm" aria-hidden="true" />
               </span>
-              <p className="flex-1 text-sm leading-relaxed text-white/90">
+              <p className="flex-1 text-sm leading-relaxed text-warm">
                 {t('session.mastery.coachConfirmed')}
               </p>
               <span className="flex items-center gap-2">
@@ -70,7 +70,7 @@ export function MasteryScreen({ dispatch }: ScreenProps): JSX.Element {
             </div>
           </EdvanceCard>
         ) : (
-          <p className="text-sm text-white/70">{t('session.mastery.coachPending')}</p>
+          <p className="text-sm text-warm-72">{t('session.mastery.coachPending')}</p>
         )}
 
         <SessionButton block onClick={() => dispatch({ type: 'CONTINUE_FROM_MASTERY' })}>

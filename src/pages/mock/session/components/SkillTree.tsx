@@ -62,7 +62,7 @@ export function SkillTree({ nodes, onSelect }: SkillTreeProps): JSX.Element {
             >
               <span
                 className={cn(
-                  'z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--radius-full)] text-white shadow-md transition-transform duration-200 ease-bounce group-active:scale-95',
+                  'z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--radius-full)] text-warm shadow-md transition-transform duration-200 ease-bounce group-active:scale-95',
                   markerClass(node),
                 )}
               >
@@ -70,11 +70,11 @@ export function SkillTree({ nodes, onSelect }: SkillTreeProps): JSX.Element {
               </span>
               <span className="flex min-w-0 flex-1 items-center justify-between gap-3 rounded-[var(--radius-lg)] bg-white/10 px-4 py-3">
                 <span className="min-w-0">
-                  <span className="block truncate font-semibold text-white">{node.name}</span>
-                  <span className="block text-xs text-white/60">{statusLabel(node, t)}</span>
+                  <span className="block truncate font-semibold text-warm">{node.name}</span>
+                  <span className="block text-xs text-warm-56">{statusLabel(node, t)}</span>
                 </span>
                 {typeof node.score === 'number' && node.status !== 'locked' && (
-                  <span className="shrink-0 text-sm font-bold text-white/80">{node.score}%</span>
+                  <span className="shrink-0 text-sm font-bold text-warm-72">{node.score}%</span>
                 )}
               </span>
             </button>

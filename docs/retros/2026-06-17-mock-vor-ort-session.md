@@ -127,6 +127,35 @@ neutral-positive Variante reduzieren (eine Komponente, ein Ort).
   alle 83 referenzierten i18n-Keys existieren in `de/mock.json`.
 - Review-Agent-Audit gegen die 8 Hard Rules + Design-Regeln durchgeführt.
 
+## Nachtrag: Warm-Dark-Treatment (Folge-Auftrag)
+
+Der erste Render war korrekt, aber zu kalt/flach. Validiertes Wärme-Treatment
+einmal in `globals.css` definiert und über `.session-stage` auf allen dunklen
+Mock-Screens wiederverwendet. **Basis bleibt Brand-Navy** — kein Hue-Shift; die
+Wärme kommt nur aus Licht, Material und Akzenten.
+
+- **Einmal definiert, überall genutzt:** neuer `@layer utilities`-Block in
+  `globals.css` mit `.session-stage` (Basis-Gradient Navy `#2E3E63 → #1E2B49 →
+  #14213D` + Top-Glow + Horizont-Glow + fixe Noise-Textur via `::after`,
+  z-Schichtung: Textur z0 < Inhalt z10 < Header z20), `.session-header`,
+  warme Typo-Utilities `.text-warm[-72/-56/-42]` (Off-White `#F7F5EE`), scoped
+  `.session-stage .glass-card` (luminös/warm), `.session-cta` + `.session-icon-tile`
+  (Gold-Kante/Glow nur am primären CTA), `.session-card-dimmed`.
+- **Komponenten referenzieren nur Klassen** — keine Hex/rgba/Inline-Styles in TSX.
+  Alle `text-white*` → warme Off-White-Utilities ersetzt.
+- **Scope sauber:** alle Overrides sind `.session-stage`-scoped (descendant-
+  Selektoren). Globale `.glass-card`/`.student-hero`/`.glass-button` **unverändert**
+  → Light-Screens (Parent/Coach) und andere Student-Flows unberührt. globals.css-
+  Diff ist rein additiv.
+- **Aufgaben-Screen bleibt leise:** nur globale Warm-Basis + warme Typo, kein Gold-
+  Glow/`.session-cta` auf der Arbeitsfläche (Hard Rule 2). Gold nur auf Hub/Nav/
+  Feier und als Fläche/Kante/Glow — nie Gold-Text auf Hell (Hard Rule 1).
+- **Stellschraube** bei „zu dunkel": nur die Top-Glow-Opazität (`rgba(232,160,32,…)`
+  im `.session-stage`-Background), nie die Grundfarbe.
+- Verifikation: `tsc` (Mock-Dateien sauber), `vite build` grün, 19/19 Tests grün,
+  warme Klassen im gebauten CSS bestätigt, Review-Agent gegen Hard Rules + kritische
+  Korrektur.
+
 ## Offene Punkte / später
 
 - Übernahme in Produktion: Mock-Provider (`src/lib/mocks/session.ts`) durch echte

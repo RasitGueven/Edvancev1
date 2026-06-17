@@ -35,7 +35,7 @@ export function SessionShell({
   const widthClass = MAX_WIDTH[maxWidth]
 
   return (
-    <div className="student-hero relative min-h-screen w-full overflow-x-hidden">
+    <div className="session-stage relative min-h-screen w-full overflow-x-hidden">
       {showExit && (
         <Link
           to="/mock"
@@ -47,7 +47,7 @@ export function SessionShell({
       )}
 
       {header && (
-        <div className="sticky top-0 z-20 border-b border-white/10 bg-[var(--color-navy-deep)]/70 backdrop-blur-md">
+        <div className="session-header sticky top-0 z-20">
           <div className={`mx-auto w-full ${widthClass} px-4 py-3`}>{header}</div>
         </div>
       )}
@@ -55,8 +55,8 @@ export function SessionShell({
       <div
         className={
           center
-            ? 'flex min-h-screen flex-col items-center justify-center px-4 py-10'
-            : 'px-4 py-6'
+            ? 'relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-10'
+            : 'relative z-10 px-4 py-6'
         }
       >
         <div className={`mx-auto w-full ${widthClass}`}>{children}</div>

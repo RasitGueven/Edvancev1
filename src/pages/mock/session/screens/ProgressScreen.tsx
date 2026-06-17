@@ -78,11 +78,11 @@ export function ProgressScreen({ dispatch }: ScreenProps): JSX.Element {
     <SessionShell maxWidth="md" showExit>
       <div className="flex flex-col gap-6">
         <div>
-          <p className="text-eyebrow text-white/55">{t('session.progress.eyebrow')}</p>
-          <h1 className="text-display mt-1 text-3xl text-white">
+          <p className="text-eyebrow text-warm-56">{t('session.progress.eyebrow')}</p>
+          <h1 className="text-display mt-1 text-3xl text-warm">
             {t('session.progress.title')}
           </h1>
-          <p className="mt-2 inline-flex items-center gap-1.5 rounded-[var(--radius-full)] bg-[var(--color-mastery-mastered)] px-3 py-1 text-sm font-bold text-white shadow-md">
+          <p className="mt-2 inline-flex items-center gap-1.5 rounded-[var(--radius-full)] bg-[var(--color-mastery-mastered)] px-3 py-1 text-sm font-bold text-warm shadow-md">
             <Check className="h-4 w-4" aria-hidden="true" />
             {t('session.progress.masteredCount', { count: masteredCount })}
           </p>
@@ -90,7 +90,7 @@ export function ProgressScreen({ dispatch }: ScreenProps): JSX.Element {
 
         <div className="flex flex-wrap gap-x-5 gap-y-2">
           {LEGEND.map((l) => (
-            <span key={l.key} className="flex items-center gap-2 text-xs text-white/70">
+            <span key={l.key} className="flex items-center gap-2 text-xs text-warm-72">
               <span
                 className={cn('h-3 w-3 rounded-[var(--radius-full)]', l.dot)}
                 aria-hidden="true"

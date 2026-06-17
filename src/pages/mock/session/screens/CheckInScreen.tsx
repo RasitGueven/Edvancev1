@@ -20,17 +20,17 @@ export function CheckInScreen({ dispatch }: ScreenProps): JSX.Element {
         <AvatarInitials name={student.fullName} size="lg" />
 
         <div className="flex flex-col gap-3">
-          <p className="text-eyebrow text-white/55">{t('session.checkin.eyebrow')}</p>
-          <h1 className="text-display text-3xl leading-tight text-white">
+          <p className="text-eyebrow text-warm-56">{t('session.checkin.eyebrow')}</p>
+          <h1 className="text-display text-3xl leading-tight text-warm">
             {t('session.checkin.welcome', { name: student.displayName })}
           </h1>
-          <p className="text-base text-white/80">
+          <p className="text-base text-warm-72">
             {t('session.checkin.today', {
               subject: student.subject,
               minutes: student.durationMin,
             })}
           </p>
-          <p className="text-sm text-white/55">{t('session.checkin.hint')}</p>
+          <p className="text-sm text-warm-56">{t('session.checkin.hint')}</p>
         </div>
 
         <SessionButton block onClick={() => dispatch({ type: 'CHECK_IN' })}>

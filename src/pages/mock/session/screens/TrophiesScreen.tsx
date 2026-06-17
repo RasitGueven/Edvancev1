@@ -12,7 +12,7 @@ function EarnedBadge({ badge }: { badge: MockBadge }): JSX.Element {
       <RarityBadge rarity={badge.rarity} form={badge.form} size="md">
         {badge.icon}
       </RarityBadge>
-      <span className="text-xs font-semibold text-white">{badge.name}</span>
+      <span className="text-xs font-semibold text-warm">{badge.name}</span>
     </div>
   )
 }
@@ -26,9 +26,9 @@ function LockedBadge({ badge }: { badge: MockBadge }): JSX.Element {
           ?
         </RarityBadge>
       </div>
-      <span className="text-xs font-semibold text-white/60">{t('session.trophies.lockedName')}</span>
+      <span className="text-xs font-semibold text-warm-56">{t('session.trophies.lockedName')}</span>
       {badge.classHint !== undefined && (
-        <span className="text-[10px] uppercase tracking-wider text-white/40">
+        <span className="text-[10px] uppercase tracking-wider text-warm-42">
           {t('session.trophies.classHint', { grade: badge.classHint })}
         </span>
       )}
@@ -50,14 +50,14 @@ export function TrophiesScreen({ dispatch }: ScreenProps): JSX.Element {
     <SessionShell maxWidth="md" showExit>
       <div className="flex flex-col gap-6">
         <div>
-          <p className="text-eyebrow text-white/55">{t('session.trophies.eyebrow')}</p>
-          <h1 className="text-display mt-1 text-3xl text-white">
+          <p className="text-eyebrow text-warm-56">{t('session.trophies.eyebrow')}</p>
+          <h1 className="text-display mt-1 text-3xl text-warm">
             {t('session.trophies.title')}
           </h1>
         </div>
 
         <section className="flex flex-col gap-4">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-white/55">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-warm-56">
             {t('session.trophies.earnedLabel')}
           </h2>
           <div className="grid grid-cols-3 gap-x-4 gap-y-6">
@@ -69,7 +69,7 @@ export function TrophiesScreen({ dispatch }: ScreenProps): JSX.Element {
 
         {locked.length > 0 && (
           <section className="flex flex-col gap-4">
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-white/55">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-warm-56">
               {t('session.trophies.lockedLabel')}
             </h2>
             <div className="grid grid-cols-3 gap-x-4 gap-y-6">

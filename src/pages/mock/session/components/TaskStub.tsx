@@ -22,7 +22,7 @@ export function TaskStub({ task, answer, onAnswerChange, locked }: TaskStubProps
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-lg font-semibold leading-relaxed text-white">{task.prompt}</p>
+      <p className="text-lg font-semibold leading-relaxed text-warm">{task.prompt}</p>
 
       {task.kind === 'mc' && answer.kind === 'mc' && (
         <div className="flex flex-col gap-3" role="radiogroup" aria-label={task.prompt}>
@@ -40,7 +40,7 @@ export function TaskStub({ task, answer, onAnswerChange, locked }: TaskStubProps
                   'min-h-[44px] w-full rounded-[var(--radius-lg)] border px-4 py-3 text-left text-base transition-[background,transform] duration-200 ease-bounce active:scale-[0.99] disabled:pointer-events-none',
                   selected
                     ? 'border-transparent bg-[var(--color-bg-surface)] font-semibold text-[var(--color-primary)]'
-                    : 'border-white/20 bg-white/10 text-white hover:bg-white/15',
+                    : 'border-white/20 bg-white/10 text-warm hover:bg-white/15',
                 )}
               >
                 {option}
@@ -60,9 +60,9 @@ export function TaskStub({ task, answer, onAnswerChange, locked }: TaskStubProps
             onChange={(e) => onAnswerChange({ kind: 'numeric', raw: e.target.value })}
             placeholder={t('session.task.inputPlaceholder')}
             aria-label={task.prompt}
-            className="min-h-[44px] w-44 rounded-[var(--radius-lg)] border border-white/25 bg-white/10 px-4 text-lg font-semibold text-white placeholder:text-white/40 focus:border-white/60 focus:outline-none disabled:opacity-60"
+            className="min-h-[44px] w-44 rounded-[var(--radius-lg)] border border-white/25 bg-white/10 px-4 text-lg font-semibold text-warm placeholder:text-warm-42 focus:border-white/60 focus:outline-none disabled:opacity-60"
           />
-          {task.unit && <span className="text-base text-white/70">{task.unit}</span>}
+          {task.unit && <span className="text-base text-warm-72">{task.unit}</span>}
         </div>
       )}
 
@@ -75,7 +75,7 @@ export function TaskStub({ task, answer, onAnswerChange, locked }: TaskStubProps
             disabled={locked}
             onChange={(points) => onAnswerChange({ kind: 'coordinate', points })}
           />
-          <p className="text-sm text-white/60">{t('session.task.coordinateHelp')}</p>
+          <p className="text-sm text-warm-56">{t('session.task.coordinateHelp')}</p>
         </div>
       )}
     </div>
