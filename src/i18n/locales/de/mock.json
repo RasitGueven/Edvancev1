@@ -1,0 +1,124 @@
+{
+  "session": {
+    "navSubtitle": "Mock · Vor-Ort-Session",
+    "common": {
+      "back": "Zurück",
+      "backToHub": "Zurück zum Hub",
+      "next": "Weiter",
+      "close": "Schließen",
+      "exit": "Mock verlassen",
+      "level": "Level {{level}}",
+      "xpToNext": "noch {{xp}} XP",
+      "xpUnit": "XP"
+    },
+    "checkin": {
+      "eyebrow": "Check-in",
+      "welcome": "Willkommen zurück, {{name}}.",
+      "today": "Heute: {{subject}} · {{minutes}} Min",
+      "hint": "Setz dich an deinen Platz – wir legen gleich los.",
+      "cta": "Los geht's"
+    },
+    "hub": {
+      "eyebrow": "Dein Tablet",
+      "greeting": "Hi {{name}}",
+      "subtitle": "Wohin möchtest du?",
+      "presenceLabel": "Präsenz-Streak",
+      "weekdays": ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+      "multiplierActive": "XP-Bonus aktiv",
+      "tileSessionTitle": "Session starten",
+      "tileSessionDesc": "Heute: {{topic}}",
+      "tileProgressTitle": "Mein Fortschritt",
+      "tileProgressDesc": "Dein Lernpfad & Skill-Tree",
+      "tileTrophiesTitle": "Trophäen",
+      "tileTrophiesDesc": "Deine Badges & Meilensteine",
+      "tileAvatarTitle": "Avatar",
+      "tileAvatarDesc": "Vor Ort minimal – mehr zuhause",
+      "avatarLocked": "Avatar-Anpassung gibt's in der Home-Welt.",
+      "demoStreakLoss": "Demo: Streak-Verlust zeigen"
+    },
+    "goal": {
+      "eyebrow": "Heutiges Ziel",
+      "title": "{{topic}}",
+      "lastSession": "Letzte Session: {{note}}",
+      "checkpointsLabel": "Das nimmst du dir heute vor",
+      "estimateLabel": "Geschätzt",
+      "estimateValue": "{{count}} Aufgaben · ca. {{minutes}} Min",
+      "masteryLabel": "Dein Stand in diesem Thema",
+      "cta": "Erste Aufgabe"
+    },
+    "task": {
+      "progress": "Aufgabe {{current}}/{{total}}",
+      "afb": "AFB {{level}}",
+      "inputPlaceholder": "Deine Antwort",
+      "coordinateHelp": "Zieh die Punkte an die richtige Stelle.",
+      "check": "Prüfen",
+      "hint": "Hinweis",
+      "retry": "Nochmal versuchen",
+      "continue": "Weiter",
+      "toMastery": "Thema abschließen"
+    },
+    "hint": {
+      "title": "Kleiner Schubs",
+      "stepLabel": "Schritt {{current}} von {{total}}",
+      "more": "Noch ein Hinweis",
+      "done": "Alles klar",
+      "noXpLoss": "Hinweise kosten kein XP – frag ruhig nach."
+    },
+    "feedback": {
+      "correctTitle": "Stark!",
+      "correctBody": "Genau das war's.",
+      "wrongTitle": "Schau nochmal hier",
+      "wrongBody": "Kein Stress – probier es nochmal oder hol dir einen Hinweis.",
+      "xpEarned": "+{{xp}} XP"
+    },
+    "mastery": {
+      "eyebrow": "Mastery-Moment",
+      "title": "Heute kannst du das",
+      "topic": "{{topic}}",
+      "grew": "Dein Stand ist gewachsen.",
+      "coachConfirmed": "Dein Coach hat das heute vor Ort bestätigt.",
+      "coachPending": "Zeig es deinem Coach – nur er kann „Gemeistert\" freigeben.",
+      "cta": "Weiter"
+    },
+    "progress": {
+      "eyebrow": "Mein Weg",
+      "title": "Wo stehe ich",
+      "masteredCount": "{{count}} gemeistert",
+      "legendMastered": "Gemeistert",
+      "legendActive": "In Arbeit",
+      "legendLocked": "Gesperrt",
+      "legendUnknown": "Noch offen",
+      "detailScore": "Kompetenz-Score",
+      "unknownTitle": "Noch nicht erkundet",
+      "unknownBody": "Diese Kompetenz schauen wir uns in einer kommenden Session an.",
+      "lockedTitle": "Noch gesperrt",
+      "lockedBody": "Schließe erst die Themen davor ab.",
+      "cta": "Zurück zum Hub"
+    },
+    "trophies": {
+      "eyebrow": "Anerkennung",
+      "title": "Deine Trophäen",
+      "earnedLabel": "Verdient",
+      "lockedLabel": "In Reichweite",
+      "classHint": "Klasse {{grade}}",
+      "lockedName": "???",
+      "cta": "Zurück zum Hub"
+    },
+    "complete": {
+      "eyebrow": "Session-Abschluss",
+      "title": "Geschafft, {{name}}!",
+      "recapMastered": "Heute gemeistert",
+      "recapPracticed": "Heute geübt",
+      "xpLabel": "Verdiente XP",
+      "streakLabel": "Präsenz-Streak",
+      "streakUpdated": "Diese Woche eingelöst",
+      "coachNoteLabel": "Notiz von {{coach}}",
+      "bridgeTitle": "Bis zur nächsten Session",
+      "bridgeBody": "Deine Home-Quest wartet – kleine Aufgaben für zuhause.",
+      "cta": "Zurück zum Hub"
+    },
+    "streakRepair": {
+      "tokenLabel": "Repair-Token"
+    }
+  }
+}

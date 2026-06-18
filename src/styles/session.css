@@ -1,0 +1,105 @@
+/* ─── Warm-Dark-Treatment (Vor-Ort-Mock · dunkle Schüler-Flächen) ───────────────
+   Wärme entsteht aus Licht, Material und Akzenten — die Basis bleibt Brand-Navy
+   (KRITISCH: kein Hue-Shift Richtung Indigo/Warmton). Einmal hier definiert und
+   über `.session-stage` auf allen Mock-Screens wiederverwendet. Stellschraube bei
+   „zu dunkel": nur die Top-Glow-Opazität, nie die Grundfarbe.
+   Ausgelagert aus globals.css (CLAUDE.md §4: max 400 Zeilen pro Datei). */
+@layer utilities {
+  .session-stage {
+    /* Brand-Navy (unverändert) */
+    --bg-top:    #2E3E63;
+    --bg-mid:    #1E2B49;
+    --bg-bottom: #14213D;
+    /* Warme Off-White-Typo */
+    --session-text:    #F7F5EE;
+    --session-text-72: rgba(247, 245, 238, 0.72);
+    --session-text-56: rgba(247, 245, 238, 0.56);
+    --session-text-42: rgba(247, 245, 238, 0.42);
+    /* Blau-getönte Shadows */
+    --session-sh-md: 0 4px 12px rgba(51, 77, 122, 0.18);
+    --session-sh-lg: 0 10px 30px rgba(51, 77, 122, 0.30);
+
+    position: relative;
+    isolation: isolate;
+    color: var(--session-text);
+    background:
+      /* Top-Glow — warmes Licht von oben */
+      radial-gradient(125% 75% at 50% -12%, rgba(232, 160, 32, 0.18), rgba(232, 160, 32, 0) 46%),
+      /* Horizont-Glow — füllt die Unterkante, kein Void */
+      radial-gradient(110% 60% at 50% 116%, rgba(214, 118, 42, 0.12), rgba(214, 118, 42, 0) 52%),
+      /* Basis-Gradient (Brand-Navy) */
+      linear-gradient(168deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
+    background-attachment: fixed;
+  }
+  /* Feine warme Textur als fixe Ebene — Material statt flaches Void (sehr subtil).
+     Liegt zwischen Basis-Gradient und Inhalt (Inhalt wird per z-10 angehoben). */
+  .session-stage::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  }
+
+  .session-header {
+    background: linear-gradient(180deg, rgba(16, 32, 56, 0.55), rgba(16, 32, 56, 0.18));
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Warme Off-White-Typo-Utilities (nutzen die .session-stage-Variablen). */
+  .text-warm    { color: var(--session-text); }
+  .text-warm-72 { color: var(--session-text-72); }
+  .text-warm-56 { color: var(--session-text-56); }
+  .text-warm-42 { color: var(--session-text-42); }
+
+  /* Glass-Karten im Mock: luminös, warm getönt, klare Elevation. */
+  .session-stage .glass-card {
+    background: linear-gradient(135deg, rgba(255, 252, 245, 0.10), rgba(255, 255, 255, 0.045));
+    border-color: rgba(255, 255, 255, 0.20);
+    border-top-color: rgba(255, 255, 255, 0.28);
+    box-shadow: var(--session-sh-md);
+    transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease;
+  }
+  .session-stage .glass-card:hover {
+    box-shadow: var(--session-sh-lg);
+    transform: translateY(-3px);
+  }
+
+  /* Warmer Ghost-/Glass-Button-Text statt pures Weiß. */
+  .session-stage .glass-button { color: var(--session-text); }
+
+  /* Primär-CTA-Karte (nur Hub/Navigation): angehoben, Gold-Kante + Glow. */
+  .session-stage .glass-card.session-cta {
+    background:
+      radial-gradient(120% 140% at 0% 0%, rgba(232, 160, 32, 0.10), rgba(232, 160, 32, 0) 55%),
+      linear-gradient(135deg, rgba(86, 102, 152, 0.55), rgba(60, 70, 112, 0.42));
+    border: 1px solid rgba(232, 168, 67, 0.30);
+    border-top-color: rgba(255, 242, 214, 0.34);
+    box-shadow: var(--session-sh-lg), 0 0 44px rgba(232, 160, 32, 0.10);
+  }
+  .session-stage .glass-card.session-cta:hover {
+    box-shadow: var(--session-sh-lg), 0 0 60px rgba(232, 160, 32, 0.16);
+    transform: translateY(-3px);
+  }
+
+  /* Gold-getöntes Icon-Tile — nur am primären CTA, nur auf der dunklen Bühne. */
+  .session-stage .session-icon-tile {
+    background: rgba(232, 168, 67, 0.20);
+    color: var(--color-accent);
+    box-shadow: inset 0 0 0 0.5px rgba(232, 168, 67, 0.45);
+  }
+
+  /* Gedimmte, sekundäre Karte (z. B. Avatar). */
+  .session-stage .glass-card.session-card-dimmed {
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(255, 255, 255, 0.10);
+    border-top-color: rgba(255, 255, 255, 0.10);
+    box-shadow: none;
+    opacity: 0.62;
+  }
+}

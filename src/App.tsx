@@ -8,6 +8,7 @@ import { MockTaskWidgets } from '@/pages/mock/MockTaskWidgets'
 import { MockScreeningParent } from '@/pages/mock/MockScreeningParent'
 import { MockFirstSession } from '@/pages/mock/MockFirstSession'
 import { MockLernpfad } from '@/pages/mock/MockLernpfad'
+import { MockSession } from '@/pages/mock/session/MockSession'
 import { StudentDashboard } from '@/pages/student/StudentDashboard'
 import { CoachDashboard } from '@/pages/coach/CoachDashboard'
 import { ParentDashboard } from '@/pages/parent/ParentDashboard'
@@ -232,6 +233,7 @@ export default function App(): JSX.Element {
 
         <Route path="/showcase" element={<DesignShowcase />} />
         <Route path="/mock" element={<MockIndex />} />
+        <Route path="/mock/session" element={<MockSession />} />
         <Route path="/mock/screening-coach" element={<MockScreeningCoach />} />
         <Route path="/mock/screening-parent" element={<MockScreeningParent />} />
         <Route path="/mock/first-session" element={<MockFirstSession />} />

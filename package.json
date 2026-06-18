@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "tsc -b --noEmit",
+    "test:mock": "tsx --test src/lib/mocks/sessionMachine.test.ts src/pages/mock/session/components/taskEval.test.ts",
     "seed:clusters": "tsx --env-file=.env scripts/seed-clusters.ts",
     "seed:taxonomy": "tsx --env-file=.env scripts/seed-taxonomy.ts",
     "mark:diagnostic": "tsx --env-file=.env scripts/mark-diagnostic.ts",

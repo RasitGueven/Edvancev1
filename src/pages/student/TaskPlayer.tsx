@@ -265,9 +265,9 @@ export function TaskPlayer(): JSX.Element {
         {submitted && (
           <EdvanceCard className="mb-4 flex items-center justify-between gap-4 py-5">
             <p className="text-sm font-semibold text-foreground">
-              {task.content_type === ‘exercise’
-                ? ‘Danke, weiter geht’s.’
-                : ‘Erledigt – weiter geht’s.’}
+              {task.content_type === 'exercise'
+                ? 'Danke, weiter geht’s.'
+                : 'Erledigt – weiter geht’s.'}
             </p>
             {next && (
               <Button onClick={goNext} size="lg">
