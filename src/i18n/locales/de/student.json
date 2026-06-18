@@ -1,4 +1,13 @@
 {
+  "dashboard": {
+    "navSubtitle": "Mein Lernplan",
+    "loadError": "Dein Lernplan konnte gerade nicht geladen werden. Versuch es gleich nochmal.",
+    "noProfileTitle": "Kein Schülerprofil",
+    "noProfileBody": "Für deinen Zugang ist noch kein Schülerprofil hinterlegt. Sag deinem Coach Bescheid.",
+    "emptyTitle": "Bald geht's los",
+    "emptyBody": "Sobald dein Coach Fächer und Themen für dich freischaltet, erscheinen sie hier.",
+    "sectionLabel": "Deine Themen"
+  },
   "firstSession": {
     "hero": {
       "eyebrow": "Heute · Erste Session",

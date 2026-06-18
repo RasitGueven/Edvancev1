@@ -69,6 +69,36 @@ export async function getClustersBySubject(
   }
 }
 
+// Alle Cluster der Fächer, die der/die Schüler:in belegt (student_subjects),
+// gefiltert auf die Klassenstufe. Quelle für das Schüler-Dashboard.
+export async function getClustersForStudent(
+  studentId: string,
+  classLevel?: number | null,
+): Promise<SupabaseResult<SkillCluster[]>> {
+  try {
+    const { data: links, error: linkError } = await supabase
+      .from('student_subjects')
+      .select('subject_id')
+      .eq('student_id', studentId)
+    if (linkError) return { data: null, error: linkError.message }
+    const subjectIds = (links ?? []).map(
+      (l) => (l as { subject_id: string }).subject_id,
+    )
+    if (subjectIds.length === 0) return { data: [], error: null }
+
+    let query = supabase.from('skill_clusters').select('*').in('subject_id', subjectIds)
+    if (classLevel != null) {
+      query = query.lte('class_level_min', classLevel).gte('class_level_max', classLevel)
+    }
+    const { data, error } = await query.order('sort_order', { ascending: true })
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as SkillCluster[], error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Cluster konnten nicht geladen werden'
+    return { data: null, error: message }
+  }
+}
+
 // Microskills eines Clusters, sortiert nach sort_order.
 export async function getMicroskillsByCluster(
   clusterId: string,
