@@ -7,7 +7,8 @@
 --
 -- VORAUSSETZUNG: Migrationen 001–036 sind bereits angewendet (insb. existieren
 --   tasks, screening_items, students, microskills, profiles, student_progress,
---   xp_events und die IMMUTABLE-Funktion mastery_stage(numeric) aus 033).
+--   xp_events). Die Funktion mastery_stage(numeric) aus 033 wird unten
+--   selbst-enthaltend mit-angelegt (idempotent), falls sie auf der Ziel-DB fehlt.
 --
 -- ⚠️  Enthält Auth/RLS-Änderungen (037 Trigger-Fn, 040 RLS + FernUSG-Gate) und
 --     eine DATEN-MUTATION (041: Cluster deprecaten, Tasks competency=Mod +
@@ -18,6 +19,34 @@
 -- ============================================================================
 
 begin;
+
+-- ============================================================================
+-- 000 — DEPENDENCY (aus Migration 033): mastery_stage / mastery_stage_from_level
+--   Selbst-enthaltend, weil 040 die generated column stage = mastery_stage(score)
+--   nutzt. Idempotent (create or replace): legt die Funktion nur an, falls sie
+--   auf der Ziel-DB fehlt (z. B. 033 dort nie angewendet). Definition 1:1 aus 033.
+-- ============================================================================
+create or replace function public.mastery_stage(score numeric)
+returns text
+language sql
+immutable
+as $$
+  select case
+    when score >= 85 then 'mastered'
+    when score >= 75 then 'proficient'
+    when score >= 60 then 'progressing'
+    when score >= 40 then 'developing'
+    else 'introduced'
+  end
+$$;
+
+create or replace function public.mastery_stage_from_level(lvl int)
+returns text
+language sql
+immutable
+as $$
+  select public.mastery_stage(lvl * 10.0)
+$$;
 
 -- ============================================================================
 -- 037 — fix apply_xp_event (D-01): streak_days-Bezug entfernen
