@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button'
 import { EmptyState, EdvanceBadge, EdvanceCard } from '@/components/edvance'
 import type { EdvanceBadgeVariant } from '@/components/edvance/EdvanceBadge'
 import { cn } from '@/lib/utils'
-import { STAGE_BG, masteryStageForLevel } from '@/components/student'
+import { STAGE_BG, STAGE_TEXT, masteryStageForLevel } from '@/components/student'
+import { MASTERY_STAGE_LABEL } from '@/lib/mastery'
+import { masteryWidthPct, stageCaption, type MasteryDisplay } from './masteryMatrix'
 import type {
   ClusterStatus,
   ClusterStatusLabel,
@@ -127,6 +129,7 @@ type ClusterGridProps = {
   clusters: SkillCluster[]
   clusterProgress: ClusterProgress
   clusterStatusById?: Record<string, ClusterStatus>
+  clusterMasteryById?: Record<string, MasteryDisplay>
   recommendedClusterId?: string | null
 }
 
@@ -134,6 +137,7 @@ export function ClusterGrid({
   clusters,
   clusterProgress,
   clusterStatusById,
+  clusterMasteryById,
   recommendedClusterId,
 }: ClusterGridProps): JSX.Element {
   return (
@@ -145,6 +149,9 @@ export function ClusterGrid({
         const pct = prog.total > 0 ? Math.round((prog.completed / prog.total) * 100) : 0
         // FernUSG-gedeckelte Stufe — „mastered" erst mit Coach-Bestätigung.
         const stage = status ? masteryStageForLevel(status.displayLevel) : null
+        // Per-Cluster-Mastery aus der Kompetenz-Matrix (Achse A+B aggregiert,
+        // FernUSG-gedeckelt). Eigene Skala — getrennt von XP/Streak (amber).
+        const mastery = clusterMasteryById?.[c.id]
 
         return (
           <Link
@@ -190,6 +197,28 @@ export function ClusterGrid({
               </div>
 
               <div className="mt-4 flex flex-col gap-3">
+                {mastery && (
+                  <div>
+                    <div className="mb-1.5 flex items-center justify-between gap-2">
+                      <p className="text-xs text-warm-56">Kompetenz-Stand</p>
+                      <p className={cn('text-xs font-semibold', STAGE_TEXT[mastery.stage])}>
+                        {MASTERY_STAGE_LABEL[mastery.stage]}
+                      </p>
+                    </div>
+                    <div className="h-2 w-full overflow-hidden rounded-[var(--radius-full)] bg-white/15">
+                      <div
+                        className={cn(
+                          'mastery-bar-fill h-full rounded-[var(--radius-full)]',
+                          STAGE_BG[mastery.stage],
+                        )}
+                        style={{ width: `${masteryWidthPct(mastery.score)}%` }}
+                      />
+                    </div>
+                    {mastery.awaitingConfirmation && (
+                      <p className="mt-1 text-xs text-warm-56">{stageCaption(mastery)}</p>
+                    )}
+                  </div>
+                )}
                 {status && stage && (
                   <div>
                     <p className="mb-1.5 text-xs text-warm-56">Lernstand-Check</p>

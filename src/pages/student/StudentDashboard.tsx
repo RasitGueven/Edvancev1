@@ -5,16 +5,14 @@ import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { useAuth } from '@/hooks/useAuth'
 import { getStudentByProfile } from '@/lib/supabase/students'
 import { getStudentProgress } from '@/lib/supabase/progress'
-import { getClustersForStudent } from '@/lib/supabase/tasks'
+import { getClustersForStudent, getMicroskillsByIds } from '@/lib/supabase/tasks'
+import { getStudentMasteryMatrix } from '@/lib/supabase/competencyMastery'
 import { StudentHero } from './StudentHero'
-import { ClusterGrid, type ClusterProgress } from './ClusterGrid'
-import type { SkillCluster, StudentProgress } from '@/types'
+import { ClusterGrid } from './ClusterGrid'
+import { aggregateMastery, type MasteryDisplay } from './masteryMatrix'
+import type { SkillCluster, StudentCompetencyMastery, StudentProgress } from '@/types'
 
 type LoadState = 'loading' | 'no-profile' | 'error' | 'ready'
-
-// Per-Cluster-Fortschritt ist im Dashboard-MVP noch nicht verdrahtet — die
-// ClusterGrid blendet die Balken bei total=0 sauber aus.
-const NO_PROGRESS: ClusterProgress = {}
 
 export function StudentDashboard(): JSX.Element {
   const { t } = useTranslation('student')
@@ -23,6 +21,8 @@ export function StudentDashboard(): JSX.Element {
   const [state, setState] = useState<LoadState>('loading')
   const [progress, setProgress] = useState<StudentProgress | null>(null)
   const [clusters, setClusters] = useState<SkillCluster[]>([])
+  // Per-Cluster-Mastery aus der Kompetenz-Matrix (eigene Skala, FernUSG-gedeckelt).
+  const [clusterMastery, setClusterMastery] = useState<Record<string, MasteryDisplay>>({})
 
   useEffect(() => {
     if (!user) return
@@ -53,6 +53,32 @@ export function StudentDashboard(): JSX.Element {
       setProgress(progressRes.data ?? null)
       setClusters(clustersRes.data ?? [])
       setState('ready')
+
+      // Per-Cluster-Mastery aus der Matrix nachladen (Best effort, blockiert das
+      // Dashboard nicht). microskill_id → cluster_id über getMicroskillsByIds
+      // auflösen, dann je Cluster FernUSG-gedeckelt aggregieren.
+      const { data: rows } = await getStudentMasteryMatrix(student.id)
+      if (cancelled || !rows || rows.length === 0) return
+      const skillIds = [...new Set(rows.map((r) => r.microskill_id))]
+      const { data: skills } = await getMicroskillsByIds(skillIds)
+      if (cancelled) return
+      const clusterBySkill = new Map(
+        (skills ?? []).map((m) => [m.id, m.cluster_id] as [string, string]),
+      )
+      const rowsByCluster = new Map<string, StudentCompetencyMastery[]>()
+      for (const row of rows) {
+        const cid = clusterBySkill.get(row.microskill_id)
+        if (!cid) continue
+        const list = rowsByCluster.get(cid)
+        if (list) list.push(row)
+        else rowsByCluster.set(cid, [row])
+      }
+      const byCluster: Record<string, MasteryDisplay> = {}
+      for (const [cid, clusterRows] of rowsByCluster) {
+        const display = aggregateMastery(clusterRows)
+        if (display) byCluster[cid] = display
+      }
+      setClusterMastery(byCluster)
     })()
 
     return () => {
@@ -114,7 +140,11 @@ export function StudentDashboard(): JSX.Element {
                   description={t('dashboard.emptyBody')}
                 />
               ) : (
-                <ClusterGrid clusters={clusters} clusterProgress={NO_PROGRESS} />
+                <ClusterGrid
+                  clusters={clusters}
+                  clusterProgress={{}}
+                  clusterMasteryById={clusterMastery}
+                />
               )}
             </main>
           </>
