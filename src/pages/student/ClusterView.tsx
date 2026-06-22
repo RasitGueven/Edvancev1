@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, BookOpen, CheckCircle2, FileText, FlaskConical, PlayCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { ArrowLeft, BookOpen, Check, FileText, FlaskConical, PlayCircle } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
+import { SessionButton } from '@/components/student'
 import { useAuth } from '@/hooks/useAuth'
 import { getClusterById, getTasksByClusterOrdered } from '@/lib/supabase/tasks'
 import { getStudentByProfile } from '@/lib/supabase/students'
@@ -76,27 +76,36 @@ export function ClusterView(): JSX.Element {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="flex min-h-screen flex-col bg-[var(--color-bg-app)]">
         <EdvanceNavbar subtitle="Cluster" />
-        <main className="mx-auto max-w-3xl px-4 py-8">
-          <LoadingPulse />
-        </main>
+        <div className="session-stage flex-1">
+          <main className="mx-auto max-w-3xl px-4 py-8">
+            <LoadingPulse />
+          </main>
+        </div>
       </div>
     )
   }
 
   if (error || !cluster) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="flex min-h-screen flex-col bg-[var(--color-bg-app)]">
         <EdvanceNavbar subtitle="Cluster" />
-        <main className="mx-auto max-w-3xl px-4 py-8">
-          <EdvanceCard className="text-sm text-destructive">
-            {error ?? 'Cluster nicht gefunden.'}
-          </EdvanceCard>
-          <Button variant="outline" onClick={() => navigate(-1)} className="mt-4">
-            <ArrowLeft className="mr-1 h-4 w-4" /> Zurueck
-          </Button>
-        </main>
+        <div className="session-stage flex-1">
+          <main className="mx-auto max-w-3xl px-4 py-8">
+            <EdvanceCard className="text-sm text-destructive">
+              {error ?? 'Cluster nicht gefunden.'}
+            </EdvanceCard>
+            <SessionButton
+              variant="ghost"
+              onClick={() => navigate(-1)}
+              className="mt-4"
+              icon={<ArrowLeft className="h-4 w-4" />}
+            >
+              Zurueck
+            </SessionButton>
+          </main>
+        </div>
       </div>
     )
   }
@@ -105,58 +114,60 @@ export function ClusterView(): JSX.Element {
   const totalExplain = grouped.explain.length
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-screen flex-col bg-[var(--color-bg-app)]">
       <EdvanceNavbar subtitle={cluster.name} />
-      <main className="mx-auto max-w-3xl px-4 py-6">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="mb-3 inline-flex items-center gap-1 text-sm text-muted hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" /> Zurueck
-        </button>
+      <div className="session-stage flex-1">
+        <main className="mx-auto max-w-3xl px-4 py-6">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="mb-3 inline-flex min-h-[44px] items-center gap-1 text-sm font-semibold text-warm-56 hover:text-warm"
+          >
+            <ArrowLeft className="h-4 w-4" /> Zurueck
+          </button>
 
-        <h1 className="text-2xl font-bold text-foreground">{cluster.name}</h1>
-        <p className="mt-1 text-sm text-muted">
-          Klasse {cluster.class_level_min}
-          {cluster.class_level_min !== cluster.class_level_max && ` – ${cluster.class_level_max}`}
-          {' · '}
-          {totalExercises} Aufgaben
-          {totalExplain > 0 && ` · ${totalExplain} Erklaerungen`}
-        </p>
+          <h1 className="text-display text-2xl text-warm">{cluster.name}</h1>
+          <p className="mt-1 text-sm text-warm-72">
+            Klasse {cluster.class_level_min}
+            {cluster.class_level_min !== cluster.class_level_max && ` – ${cluster.class_level_max}`}
+            {' · '}
+            {totalExercises} Aufgaben
+            {totalExplain > 0 && ` · ${totalExplain} Erklaerungen`}
+          </p>
 
-        {tasks.length === 0 ? (
-          <EmptyState
-            icon="📚"
-            title="Noch keine Inhalte"
-            description="Dieser Cluster hat noch keine Aufgaben oder Erklärungen."
-          />
-        ) : (
-          <div className="mt-6 flex flex-col gap-6">
-            <Section
-              icon={<PlayCircle className="h-4 w-4" />}
-              label="Erklaeren"
-              tasks={grouped.explain}
-              progress={progress}
-              onClick={(id) => navigate(`/student/task/${id}`)}
+          {tasks.length === 0 ? (
+            <EmptyState
+              icon="📚"
+              title="Noch keine Inhalte"
+              description="Dieser Cluster hat noch keine Aufgaben oder Erklärungen."
             />
-            <Section
-              icon={<BookOpen className="h-4 w-4" />}
-              label="Ueben"
-              tasks={grouped.practice}
-              progress={progress}
-              onClick={(id) => navigate(`/student/task/${id}`)}
-            />
-            <Section
-              icon={<FlaskConical className="h-4 w-4" />}
-              label="Testen"
-              tasks={grouped.test}
-              progress={progress}
-              onClick={(id) => navigate(`/student/task/${id}`)}
-            />
-          </div>
-        )}
-      </main>
+          ) : (
+            <div className="mt-6 flex flex-col gap-6">
+              <Section
+                icon={<PlayCircle className="h-4 w-4" />}
+                label="Erklaeren"
+                tasks={grouped.explain}
+                progress={progress}
+                onClick={(id) => navigate(`/student/task/${id}`)}
+              />
+              <Section
+                icon={<BookOpen className="h-4 w-4" />}
+                label="Ueben"
+                tasks={grouped.practice}
+                progress={progress}
+                onClick={(id) => navigate(`/student/task/${id}`)}
+              />
+              <Section
+                icon={<FlaskConical className="h-4 w-4" />}
+                label="Testen"
+                tasks={grouped.test}
+                progress={progress}
+                onClick={(id) => navigate(`/student/task/${id}`)}
+              />
+            </div>
+          )}
+        </main>
+      </div>
     </div>
   )
 }
@@ -177,19 +188,17 @@ function Section({
   if (tasks.length === 0) return null
   return (
     <section>
-      <div className="mb-2 flex items-center gap-1.5 text-muted">
+      <div className="mb-2 flex items-center gap-1.5 text-warm-56">
         {icon}
-        <h2 className="text-xs font-bold uppercase tracking-widest">{label}</h2>
+        <h2 className="text-eyebrow">{label}</h2>
       </div>
-      <EdvanceCard className="p-0 overflow-hidden">
-        <ul className="divide-y divide-border">
-          {tasks.map((t) => (
-            <li key={t.id}>
-              <TaskRow task={t} done={!!progress[t.id]} onClick={() => onClick(t.id)} />
-            </li>
-          ))}
-        </ul>
-      </EdvanceCard>
+      <ol className="flex flex-col gap-2">
+        {tasks.map((t) => (
+          <li key={t.id}>
+            <TaskRow task={t} done={!!progress[t.id]} onClick={() => onClick(t.id)} />
+          </li>
+        ))}
+      </ol>
     </section>
   )
 }
@@ -208,19 +217,24 @@ function TaskRow({
     <button
       type="button"
       onClick={onClick}
-      className="flex min-h-[56px] w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-background"
+      className="flex min-h-[56px] w-full items-center gap-3 rounded-[var(--radius-lg)] bg-white/10 px-4 py-3 text-left transition-[transform,background] duration-200 ease-bounce hover:bg-white/15 active:scale-[0.99]"
     >
       {done ? (
-        <CheckCircle2 className="h-5 w-5 shrink-0 text-success" />
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--radius-full)] bg-[var(--color-mastery-proficient)] shadow-md">
+          <Check className="h-4 w-4 text-warm" aria-hidden="true" />
+        </span>
       ) : (
-        <span className="h-5 w-5 shrink-0 rounded-full border-2 border-border-strong" />
+        <span
+          className="h-7 w-7 shrink-0 rounded-[var(--radius-full)] border-2 border-white/30"
+          aria-hidden="true"
+        />
       )}
       <RowIcon type={task.content_type} />
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-foreground">
+        <p className="truncate text-sm font-semibold text-warm">
           {task.title ?? task.question?.slice(0, 80) ?? `task:${task.id.slice(0, 8)}`}
         </p>
-        {subtitle && <p className="text-xs text-muted">{subtitle}</p>}
+        {subtitle && <p className="text-xs text-warm-56">{subtitle}</p>}
       </div>
       {task.content_type === 'exercise' && task.difficulty != null && (
         <DifficultyDots difficulty={task.difficulty} />
@@ -230,11 +244,13 @@ function TaskRow({
 }
 
 function RowIcon({ type }: { type: Task['content_type'] }): JSX.Element {
-  if (type === 'video') return <PlayCircle className="h-5 w-5 shrink-0 text-warning" />
-  if (type === 'article') return <FileText className="h-5 w-5 shrink-0 text-success" />
+  if (type === 'video')
+    return <PlayCircle className="h-5 w-5 shrink-0 text-[var(--color-accent-streak)]" />
+  if (type === 'article')
+    return <FileText className="h-5 w-5 shrink-0 text-[var(--color-success-skilltree)]" />
   if (type === 'exercise_group' || type === 'course')
-    return <FlaskConical className="h-5 w-5 shrink-0 text-primary" />
-  return <BookOpen className="h-5 w-5 shrink-0 text-primary" />
+    return <FlaskConical className="h-5 w-5 shrink-0 text-warm-72" />
+  return <BookOpen className="h-5 w-5 shrink-0 text-warm-72" />
 }
 
 function DifficultyDots({ difficulty }: { difficulty: number }): JSX.Element {
@@ -244,9 +260,7 @@ function DifficultyDots({ difficulty }: { difficulty: number }): JSX.Element {
         <span
           key={i}
           className={`h-1.5 w-1.5 rounded-full ${
-            i <= difficulty
-              ? 'bg-[var(--color-primary)]'
-              : 'bg-[var(--color-neutral-unknown)]'
+            i <= difficulty ? 'bg-white/80' : 'bg-white/20'
           }`}
         />
       ))}

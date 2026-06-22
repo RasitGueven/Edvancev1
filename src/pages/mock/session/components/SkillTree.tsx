@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { MASTERY_STAGE_LABEL, type MasteryStage } from '@/lib/mastery'
 import { displayStage } from '@/lib/mocks/sessionMachine'
 import type { SkillNode } from '@/lib/mocks/session'
-import { STAGE_BG } from './masteryClasses'
+import { STAGE_BG } from '@/components/student'
 
 interface SkillTreeProps {
   nodes: SkillNode[]

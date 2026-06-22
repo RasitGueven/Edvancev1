@@ -14,8 +14,9 @@ interface StudentHeroProps {
 }
 
 /**
- * Schüler-Hero — student-hero Gradient + light-source Overlay.
- * Glass-Pill-Streaks NUR auf dieser dunklen Bühne erlaubt (Hard Rule §3).
+ * Schüler-Hero — Hub-Header der Mock: reitet direkt auf der dunklen
+ * `.session-stage` (Elternseite), warme Off-White-Typo + Glass-XP-Karte.
+ * Glass-Pill-Streaks + Glass-Card NUR auf dieser dunklen Bühne (Hard Rule §3).
  */
 export function StudentHero({
   displayName,
@@ -26,38 +27,36 @@ export function StudentHero({
   level,
 }: StudentHeroProps) {
   return (
-    <section className="relative overflow-hidden student-hero light-source">
-      <div className="mx-auto max-w-3xl px-4 py-8 text-white">
-        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-          <div className="min-w-0">
-            <p className="text-eyebrow opacity-70">Heute · Mein Lernplan</p>
-            <h1 className="text-display text-3xl mt-1.5 leading-none">
-              Hi {displayName} 👋
-            </h1>
-            <p className="mt-2 text-sm opacity-80 max-w-md">
-              Wähle ein Thema oder suche direkt nach einer Aufgabe.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <StreakPill
-              variant="presence"
-              count={presenceWeeks}
-              multiplier={presenceMultiplier}
-            />
-            <StreakPill variant="home" count={homeSessions} />
-          </div>
+    <section className="mx-auto max-w-3xl px-4 pb-2 pt-8 text-warm">
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-eyebrow text-warm-56">Heute · Mein Lernplan</p>
+          <h1 className="text-display mt-1.5 text-3xl leading-none text-warm">
+            Hi {displayName} 👋
+          </h1>
+          <p className="mt-2 max-w-md text-sm text-warm-72">
+            Wähle ein Thema oder suche direkt nach einer Aufgabe.
+          </p>
         </div>
 
-        <EdvanceCard variant="glass" className="p-5">
-          <XPBar
-            current={xpTotal % XP_PER_LEVEL}
-            max={XP_PER_LEVEL}
-            level={level}
-            levelName={`Level ${level}`}
+        <div className="flex flex-col gap-2">
+          <StreakPill
+            variant="presence"
+            count={presenceWeeks}
+            multiplier={presenceMultiplier}
           />
-        </EdvanceCard>
+          <StreakPill variant="home" count={homeSessions} />
+        </div>
       </div>
+
+      <EdvanceCard variant="glass" className="p-5 text-warm">
+        <XPBar
+          current={xpTotal % XP_PER_LEVEL}
+          max={XP_PER_LEVEL}
+          level={level}
+          levelName={`Level ${level}`}
+        />
+      </EdvanceCard>
     </section>
   )
 }

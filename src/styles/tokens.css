@@ -96,6 +96,23 @@
     --color-moment-streak-red:      #E03535;
     --color-moment-repair-purple:   #7B5EA7;
 
+    /* ── BÜHNE / STAGE (dunkle Schüler-Flächen: Mock + echte Surfaces) ───────── */
+    --color-stage-top:              #2E3E63;   /* Bühnen-Gradient oben */
+    --color-stage-mid:              #1E2B49;   /* Bühnen-Gradient mitte */
+    --color-stage-bottom:           var(--color-navy-deep);   /* = #14213D */
+    --color-stage-text:             #F7F5EE;   /* Warmes Off-White (Typo) */
+    --color-stage-overlay:          #102038;   /* Sticky-Header-Overlay (tiefes Navy) */
+    --color-stage-glow-horizon:     #D6762A;   /* Horizont-Glow (warm) */
+    --color-stage-gold-edge:        #E8A867;   /* Gold-Kante an CTA / Icon-Tile */
+    --color-stage-warm-highlight:   #FFF2D6;   /* Warmer Top-Border-Glanz */
+    --color-stage-hero-top:         #3D5A8A;   /* Hero/Header-Verlauf Start */
+    --color-stage-hero-bottom:      #243960;   /* Hero-Verlauf Ende */
+    --color-stage-header-bottom:    #263D6A;   /* Header-Verlauf Ende */
+    --color-stage-hero-depth-a:     #331E64;   /* Hero/Header Tiefe-Radial (Indigo) */
+    --color-stage-hero-depth-b:     #140A3C;   /* Hero Tiefe-Radial (dunkel) */
+    --color-stage-cta-top:          #566698;   /* CTA-Karten-Glas Verlauf oben */
+    --color-stage-cta-bottom:       #3C4670;   /* CTA-Karten-Glas Verlauf unten */
+
     /* ── SCHATTEN (blau getönt, Lichtquelle oben links) ───────── */
     --shadow-xs: 0 1px 3px rgba(51,77,122,0.06), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 12px rgba(51,77,122,0.10), 0 2px 4px rgba(0,0,0,0.05);

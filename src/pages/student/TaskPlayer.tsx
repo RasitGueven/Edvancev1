@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, type JSX, type KeyboardEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { ArrowLeft, ArrowRight, Check, ChevronLeft, ChevronRight } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { TaskAnswerArea } from '@/components/edvance/tasks/TaskAnswerArea'
 import { EdvanceCard, ToastBanner, LoadingPulse } from '@/components/edvance'
+import { SessionButton } from '@/components/student'
 import { useAuth } from '@/hooks/useAuth'
 import { useBehaviorTracker } from '@/hooks/useBehaviorTracker'
 import {
@@ -157,33 +157,42 @@ export function TaskPlayer(): JSX.Element {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="flex min-h-screen flex-col bg-[var(--color-bg-app)]">
         <EdvanceNavbar subtitle="Aufgabe" />
-        <main className="mx-auto max-w-3xl px-4 py-8">
-          <LoadingPulse />
-        </main>
+        <div className="session-stage flex-1">
+          <main className="mx-auto max-w-3xl px-4 py-8">
+            <LoadingPulse />
+          </main>
+        </div>
       </div>
     )
   }
 
   if (error || !task) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="flex min-h-screen flex-col bg-[var(--color-bg-app)]">
         <EdvanceNavbar subtitle="Aufgabe" />
-        <main className="mx-auto max-w-3xl px-4 py-8">
-          <EdvanceCard className="text-sm text-destructive">
-            {error ?? 'Unbekannter Fehler'}
-          </EdvanceCard>
-          <Button variant="outline" onClick={() => navigate(-1)} className="mt-4">
-            <ArrowLeft className="mr-1 h-4 w-4" /> Zurueck
-          </Button>
-        </main>
+        <div className="session-stage flex-1">
+          <main className="mx-auto max-w-3xl px-4 py-8">
+            <EdvanceCard className="text-sm text-destructive">
+              {error ?? 'Unbekannter Fehler'}
+            </EdvanceCard>
+            <SessionButton
+              variant="ghost"
+              onClick={() => navigate(-1)}
+              className="mt-4"
+              icon={<ArrowLeft className="h-4 w-4" />}
+            >
+              Zurueck
+            </SessionButton>
+          </main>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-screen flex-col bg-[var(--color-bg-app)]">
       <EdvanceNavbar subtitle={TYPE_LABEL[task.content_type]} />
       {xpToast != null && (
         <ToastBanner
@@ -193,114 +202,125 @@ export function TaskPlayer(): JSX.Element {
           onClose={() => setXpToast(null)}
         />
       )}
-      <main className="mx-auto max-w-3xl px-4 py-6">
-        <div className="mb-4 flex items-center gap-3 text-sm">
-          <button
-            type="button"
-            onClick={goBack}
-            className="flex items-center gap-1 text-muted hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" /> Zurueck
-          </button>
-          {cluster && (
-            <span className="text-muted">
-              <span className="mx-1">›</span>
-              <span className="text-foreground">{cluster.name}</span>
-            </span>
-          )}
-          {idx >= 0 && siblings.length > 0 && (
-            <span className="ml-auto text-xs font-semibold uppercase tracking-wider text-muted">
-              {idx + 1} / {siblings.length}
-            </span>
-          )}
-        </div>
-
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          <TypeBadge type={task.content_type} />
-          {task.difficulty != null && <DifficultyBadge difficulty={task.difficulty} />}
-          {task.estimated_minutes != null && (
-            <span className="text-xs font-semibold text-muted">
-              ~{task.estimated_minutes} Min
-            </span>
-          )}
-          {task.title && (
-            <span className="ml-2 truncate text-sm font-semibold text-foreground">
-              {task.title}
-            </span>
-          )}
-        </div>
-
-        <EdvanceCard className="mb-4">
-          {task.content_type === 'video' ? (
-            <VideoBlock task={task} />
-          ) : task.content_type === 'exercise_group' || task.content_type === 'course' ? (
-            <UnsupportedBlock type={task.content_type} />
-          ) : (
-            <MathContent text={task.question} />
-          )}
-        </EdvanceCard>
-
-        {!submitted && task.content_type === 'exercise' && (
-          <EdvanceCard className="mb-4">
-            <TaskAnswerArea
-              task={task}
-              onSubmit={handleAnswerSubmit}
-              onHintToggle={handleHint}
-              hintShown={hintShown}
-              disabled={submitted}
-              onTextChange={handleTextChange}
-              onKeyDown={handleKeyDown}
-            />
-          </EdvanceCard>
-        )}
-
-        {!submitted && (task.content_type === 'video' || task.content_type === 'article') && (
-          <div className="mb-4 flex justify-end">
-            <Button onClick={handleAcknowledgeNonExercise} size="lg">
-              {task.content_type === 'video' ? 'Video gesehen ✓' : 'Gelesen ✓'}
-            </Button>
+      {/* Dunkle Task-Bühne: warmes Chrome, dichter Lerninhalt auf soliden
+          Surface-Cards (Hard Rule §3: kein Glass auf Weiß). */}
+      <div className="session-stage flex-1">
+        <main className="mx-auto max-w-3xl px-4 py-6">
+          <div className="mb-4 flex items-center gap-3 text-sm">
+            <button
+              type="button"
+              onClick={goBack}
+              className="flex min-h-[44px] items-center gap-1 text-warm-56 hover:text-warm"
+            >
+              <ArrowLeft className="h-4 w-4" /> Zurueck
+            </button>
+            {cluster && (
+              <span className="text-warm-56">
+                <span className="mx-1">›</span>
+                <span className="text-warm">{cluster.name}</span>
+              </span>
+            )}
+            {idx >= 0 && siblings.length > 0 && (
+              <span className="ml-auto text-xs font-semibold uppercase tracking-wider text-warm-56">
+                {idx + 1} / {siblings.length}
+              </span>
+            )}
           </div>
-        )}
 
-        {submitted && (
-          <EdvanceCard className="mb-4 flex items-center justify-between gap-4 py-5">
-            <p className="text-sm font-semibold text-foreground">
-              {task.content_type === 'exercise'
-                ? 'Danke, weiter geht’s.'
-                : 'Erledigt – weiter geht’s.'}
-            </p>
-            {next && (
-              <Button onClick={goNext} size="lg">
-                Naechste <ArrowRight className="ml-1 h-4 w-4" />
-              </Button>
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <TypeBadge type={task.content_type} />
+            {task.difficulty != null && <DifficultyBadge difficulty={task.difficulty} />}
+            {task.estimated_minutes != null && (
+              <span className="text-xs font-semibold text-warm-56">
+                ~{task.estimated_minutes} Min
+              </span>
+            )}
+            {task.title && (
+              <span className="ml-2 truncate text-sm font-semibold text-warm">
+                {task.title}
+              </span>
+            )}
+          </div>
+
+          <EdvanceCard className="mb-4">
+            {task.content_type === 'video' ? (
+              <VideoBlock task={task} />
+            ) : task.content_type === 'exercise_group' || task.content_type === 'course' ? (
+              <UnsupportedBlock type={task.content_type} />
+            ) : (
+              <MathContent text={task.question} />
             )}
           </EdvanceCard>
-        )}
 
-        {siblings.length > 0 && (
-          <div className="flex items-center justify-between gap-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => prev && navigate(`/student/task/${prev.id}`)}
-              disabled={!prev}
-            >
-              <ChevronLeft className="mr-1 h-4 w-4" /> Vorherige
-            </Button>
-            <span className="text-xs font-semibold text-muted">
-              {idx + 1} von {siblings.length} in {cluster?.name ?? 'diesem Cluster'}
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => next && navigate(`/student/task/${next.id}`)}
-              disabled={!next}
-            >
-              Naechste <ChevronRight className="ml-1 h-4 w-4" />
-            </Button>
-          </div>
-        )}
-      </main>
+          {!submitted && task.content_type === 'exercise' && (
+            <EdvanceCard className="mb-4">
+              <TaskAnswerArea
+                task={task}
+                onSubmit={handleAnswerSubmit}
+                onHintToggle={handleHint}
+                hintShown={hintShown}
+                disabled={submitted}
+                onTextChange={handleTextChange}
+                onKeyDown={handleKeyDown}
+              />
+            </EdvanceCard>
+          )}
+
+          {!submitted && (task.content_type === 'video' || task.content_type === 'article') && (
+            <div className="mb-4 flex justify-end">
+              <SessionButton onClick={handleAcknowledgeNonExercise}>
+                {task.content_type === 'video' ? 'Video gesehen ✓' : 'Gelesen ✓'}
+              </SessionButton>
+            </div>
+          )}
+
+          {/* Neutral-positive Abschluss-Bestätigung — NIE richtig/falsch
+              (FernUSG §6 / Hard Rule §6: kind-seitig kein Korrektheits-Feedback). */}
+          {submitted && (
+            <div className="mb-4 flex items-center justify-between gap-4 rounded-[var(--radius-lg)] bg-white/10 p-4 text-warm">
+              <span className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-full)] bg-white/15">
+                  <Check className="h-5 w-5 text-warm" aria-hidden="true" />
+                </span>
+                <span className="text-sm font-semibold text-warm">
+                  {task.content_type === 'exercise'
+                    ? 'Danke, weiter geht’s.'
+                    : 'Erledigt – weiter geht’s.'}
+                </span>
+              </span>
+              {next && (
+                <SessionButton onClick={goNext}>
+                  Naechste <ArrowRight className="h-4 w-4" />
+                </SessionButton>
+              )}
+            </div>
+          )}
+
+          {siblings.length > 0 && (
+            <div className="flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => prev && navigate(`/student/task/${prev.id}`)}
+                disabled={!prev}
+                className="glass-button inline-flex min-h-[44px] items-center gap-1 rounded-[var(--radius-md)] px-4 text-sm font-semibold disabled:pointer-events-none disabled:opacity-40"
+              >
+                <ChevronLeft className="h-4 w-4" /> Vorherige
+              </button>
+              <span className="text-xs font-semibold text-warm-56">
+                {idx + 1} von {siblings.length} in {cluster?.name ?? 'diesem Cluster'}
+              </span>
+              <button
+                type="button"
+                onClick={() => next && navigate(`/student/task/${next.id}`)}
+                disabled={!next}
+                className="glass-button inline-flex min-h-[44px] items-center gap-1 rounded-[var(--radius-md)] px-4 text-sm font-semibold disabled:pointer-events-none disabled:opacity-40"
+              >
+                Naechste <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+        </main>
+      </div>
     </div>
   )
 }

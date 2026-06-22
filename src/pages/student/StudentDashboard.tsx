@@ -64,57 +64,62 @@ export function StudentDashboard(): JSX.Element {
   const displayName = meta?.full_name ?? user?.email?.split('@')[0] ?? ''
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)]">
+    <div className="flex min-h-screen flex-col bg-[var(--color-bg-app)]">
       <EdvanceNavbar subtitle={t('dashboard.navSubtitle')} />
 
-      {state === 'loading' && (
-        <main className="mx-auto max-w-3xl px-4 py-8">
-          <LoadingPulse type="card" />
-        </main>
-      )}
-
-      {state === 'no-profile' && (
-        <main className="mx-auto max-w-3xl px-4 py-8">
-          <EmptyState
-            icon="🎓"
-            title={t('dashboard.noProfileTitle')}
-            description={t('dashboard.noProfileBody')}
-          />
-        </main>
-      )}
-
-      {state === 'error' && (
-        <main className="mx-auto max-w-3xl px-4 py-8">
-          <EmptyState icon="⚠️" title={t('dashboard.loadError')} description="" />
-        </main>
-      )}
-
-      {state === 'ready' && (
-        <>
-          <StudentHero
-            displayName={displayName}
-            xpTotal={progress?.xp_total ?? 0}
-            level={progress?.level ?? 1}
-            presenceWeeks={progress?.presence_streak_weeks ?? 0}
-            homeSessions={progress?.home_streak_sessions ?? 0}
-            presenceMultiplier={progress?.presence_streak_multiplier ?? 1}
-          />
+      {/* Dunkle „Midnight-Academy"-Bühne unter der Navbar (Hard Rule §3:
+          Glass funktioniert nur hier). Glass-Chrome auf der Bühne, dichte
+          Inhalte auf soliden Surface-Cards. */}
+      <div className="session-stage flex-1">
+        {state === 'loading' && (
           <main className="mx-auto max-w-3xl px-4 py-8">
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-              {t('dashboard.sectionLabel')}
-            </h2>
-            {clusters.length === 0 ? (
-              <EmptyState
-                icon="🌱"
-                title={t('dashboard.emptyTitle')}
-                description={t('dashboard.emptyBody')}
-              />
-            ) : (
-              <ClusterGrid clusters={clusters} clusterProgress={NO_PROGRESS} />
-            )}
+            <LoadingPulse type="card" />
           </main>
-        </>
-      )}
+        )}
+
+        {state === 'no-profile' && (
+          <main className="mx-auto max-w-3xl px-4 py-8">
+            <EmptyState
+              icon="🎓"
+              title={t('dashboard.noProfileTitle')}
+              description={t('dashboard.noProfileBody')}
+            />
+          </main>
+        )}
+
+        {state === 'error' && (
+          <main className="mx-auto max-w-3xl px-4 py-8">
+            <EmptyState icon="⚠️" title={t('dashboard.loadError')} description="" />
+          </main>
+        )}
+
+        {state === 'ready' && (
+          <>
+            <StudentHero
+              displayName={displayName}
+              xpTotal={progress?.xp_total ?? 0}
+              level={progress?.level ?? 1}
+              presenceWeeks={progress?.presence_streak_weeks ?? 0}
+              homeSessions={progress?.home_streak_sessions ?? 0}
+              presenceMultiplier={progress?.presence_streak_multiplier ?? 1}
+            />
+            <main className="mx-auto max-w-3xl px-4 py-8">
+              <h2 className="text-eyebrow text-warm-56">
+                {t('dashboard.sectionLabel')}
+              </h2>
+              {clusters.length === 0 ? (
+                <EmptyState
+                  icon="🌱"
+                  title={t('dashboard.emptyTitle')}
+                  description={t('dashboard.emptyBody')}
+                />
+              ) : (
+                <ClusterGrid clusters={clusters} clusterProgress={NO_PROGRESS} />
+              )}
+            </main>
+          </>
+        )}
+      </div>
     </div>
   )
 }

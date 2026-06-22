@@ -155,15 +155,15 @@
   .student-header {
     background:
       radial-gradient(ellipse at 15% 20%, rgba(255, 255, 255, 0.10) 0%, transparent 55%),
-      radial-gradient(ellipse at 85% 80%, rgba(51, 30, 100, 0.25) 0%, transparent 50%),
-      linear-gradient(145deg, #3D5A8A 0%, #334D7A 40%, #263D6A 100%);
+      radial-gradient(ellipse at 85% 80%, color-mix(in srgb, var(--color-stage-hero-depth-a) 25%, transparent) 0%, transparent 50%),
+      linear-gradient(145deg, var(--color-stage-hero-top) 0%, var(--color-primary) 40%, var(--color-stage-header-bottom) 100%);
     color: var(--color-bg-surface);
   }
   .student-hero {
     background:
       radial-gradient(ellipse at 10% 15%, rgba(255, 255, 255, 0.10) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 85%, rgba(20, 10, 60, 0.30) 0%, transparent 50%),
-      linear-gradient(135deg, #3D5A8A 0%, #334D7A 45%, #243960 100%);
+      radial-gradient(ellipse at 90% 85%, color-mix(in srgb, var(--color-stage-hero-depth-b) 30%, transparent) 0%, transparent 50%),
+      linear-gradient(135deg, var(--color-stage-hero-top) 0%, var(--color-primary) 45%, var(--color-stage-hero-bottom) 100%);
     color: var(--color-bg-surface);
     position: relative;
     isolation: isolate;
@@ -319,8 +319,8 @@ body {
   background-color: var(--color-bg-app);
   /* App-BG-Textur (Spec §13): zwei zarte Midnight-Radials auf warmem Off-White */
   background-image:
-    radial-gradient(ellipse at 10% 10%, rgba(51, 77, 122, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 90% 90%, rgba(51, 77, 122, 0.03) 0%, transparent 40%);
+    radial-gradient(ellipse at 10% 10%, color-mix(in srgb, var(--color-primary) 4%, transparent) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 90%, color-mix(in srgb, var(--color-primary) 3%, transparent) 0%, transparent 40%);
   background-attachment: fixed;
   color: var(--color-text-primary);
   font-family: var(--font-sans, ui-sans-serif), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;

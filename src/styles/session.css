@@ -1,32 +1,34 @@
-/* ─── Warm-Dark-Treatment (Vor-Ort-Mock · dunkle Schüler-Flächen) ───────────────
+/* ─── Warm-Dark-Treatment (dunkle Schüler-Bühne · Mock + echte Surfaces) ────────
    Wärme entsteht aus Licht, Material und Akzenten — die Basis bleibt Brand-Navy
    (KRITISCH: kein Hue-Shift Richtung Indigo/Warmton). Einmal hier definiert und
-   über `.session-stage` auf allen Mock-Screens wiederverwendet. Stellschraube bei
-   „zu dunkel": nur die Top-Glow-Opazität, nie die Grundfarbe.
+   über `.session-stage` auf allen Schüler-Screens (Mock + /student, /cluster,
+   /task) wiederverwendet. Alle Palettenfarben fließen aus tokens.css (Stage-
+   Gruppe + --color-primary/--color-accent); inline bleiben nur weiße Material-
+   Alphas (Glas, Light-Source, Textur) — bewusst, da Material statt Palettenwert.
    Ausgelagert aus globals.css (CLAUDE.md §4: max 400 Zeilen pro Datei). */
 @layer utilities {
   .session-stage {
-    /* Brand-Navy (unverändert) */
-    --bg-top:    #2E3E63;
-    --bg-mid:    #1E2B49;
-    --bg-bottom: #14213D;
-    /* Warme Off-White-Typo */
-    --session-text:    #F7F5EE;
-    --session-text-72: rgba(247, 245, 238, 0.72);
-    --session-text-56: rgba(247, 245, 238, 0.56);
-    --session-text-42: rgba(247, 245, 238, 0.42);
-    /* Blau-getönte Shadows */
-    --session-sh-md: 0 4px 12px rgba(51, 77, 122, 0.18);
-    --session-sh-lg: 0 10px 30px rgba(51, 77, 122, 0.30);
+    /* Brand-Navy (aus Tokens) */
+    --bg-top:    var(--color-stage-top);
+    --bg-mid:    var(--color-stage-mid);
+    --bg-bottom: var(--color-stage-bottom);
+    /* Warme Off-White-Typo (Token + Alpha via color-mix) */
+    --session-text:    var(--color-stage-text);
+    --session-text-72: color-mix(in srgb, var(--color-stage-text) 72%, transparent);
+    --session-text-56: color-mix(in srgb, var(--color-stage-text) 56%, transparent);
+    --session-text-42: color-mix(in srgb, var(--color-stage-text) 42%, transparent);
+    /* Blau-getönte Shadows (aus --color-primary) */
+    --session-sh-md: 0 4px 12px color-mix(in srgb, var(--color-primary) 18%, transparent);
+    --session-sh-lg: 0 10px 30px color-mix(in srgb, var(--color-primary) 30%, transparent);
 
     position: relative;
     isolation: isolate;
     color: var(--session-text);
     background:
-      /* Top-Glow — warmes Licht von oben */
-      radial-gradient(125% 75% at 50% -12%, rgba(232, 160, 32, 0.18), rgba(232, 160, 32, 0) 46%),
+      /* Top-Glow — warmes Licht von oben (aus --color-accent) */
+      radial-gradient(125% 75% at 50% -12%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 46%),
       /* Horizont-Glow — füllt die Unterkante, kein Void */
-      radial-gradient(110% 60% at 50% 116%, rgba(214, 118, 42, 0.12), rgba(214, 118, 42, 0) 52%),
+      radial-gradient(110% 60% at 50% 116%, color-mix(in srgb, var(--color-stage-glow-horizon) 12%, transparent), transparent 52%),
       /* Basis-Gradient (Brand-Navy) */
       linear-gradient(168deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
     background-attachment: fixed;
@@ -45,7 +47,11 @@
   }
 
   .session-header {
-    background: linear-gradient(180deg, rgba(16, 32, 56, 0.55), rgba(16, 32, 56, 0.18));
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-stage-overlay) 55%, transparent),
+      color-mix(in srgb, var(--color-stage-overlay) 18%, transparent)
+    );
     border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -57,13 +63,15 @@
   .text-warm-56 { color: var(--session-text-56); }
   .text-warm-42 { color: var(--session-text-42); }
 
-  /* Glass-Karten im Mock: luminös, warm getönt, klare Elevation. */
+  /* Glass-Karten: luminös, warm getönt, klare Elevation.
+     Weiße/warm-weiße Material-Alphas bleiben inline (kein Palettenwert). */
   .session-stage .glass-card {
     background: linear-gradient(135deg, rgba(255, 252, 245, 0.10), rgba(255, 255, 255, 0.045));
     border-color: rgba(255, 255, 255, 0.20);
     border-top-color: rgba(255, 255, 255, 0.28);
     box-shadow: var(--session-sh-md);
-    transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease;
+    transition: transform var(--duration-base) var(--ease-bounce),
+      box-shadow var(--duration-base) var(--ease-out);
   }
   .session-stage .glass-card:hover {
     box-shadow: var(--session-sh-lg);
@@ -76,22 +84,22 @@
   /* Primär-CTA-Karte (nur Hub/Navigation): angehoben, Gold-Kante + Glow. */
   .session-stage .glass-card.session-cta {
     background:
-      radial-gradient(120% 140% at 0% 0%, rgba(232, 160, 32, 0.10), rgba(232, 160, 32, 0) 55%),
-      linear-gradient(135deg, rgba(86, 102, 152, 0.55), rgba(60, 70, 112, 0.42));
-    border: 1px solid rgba(232, 168, 67, 0.30);
-    border-top-color: rgba(255, 242, 214, 0.34);
-    box-shadow: var(--session-sh-lg), 0 0 44px rgba(232, 160, 32, 0.10);
+      radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 55%),
+      linear-gradient(135deg, color-mix(in srgb, var(--color-stage-cta-top) 55%, transparent), color-mix(in srgb, var(--color-stage-cta-bottom) 42%, transparent));
+    border: 1px solid color-mix(in srgb, var(--color-stage-gold-edge) 30%, transparent);
+    border-top-color: color-mix(in srgb, var(--color-stage-warm-highlight) 34%, transparent);
+    box-shadow: var(--session-sh-lg), 0 0 44px color-mix(in srgb, var(--color-accent) 10%, transparent);
   }
   .session-stage .glass-card.session-cta:hover {
-    box-shadow: var(--session-sh-lg), 0 0 60px rgba(232, 160, 32, 0.16);
+    box-shadow: var(--session-sh-lg), 0 0 60px color-mix(in srgb, var(--color-accent) 16%, transparent);
     transform: translateY(-3px);
   }
 
   /* Gold-getöntes Icon-Tile — nur am primären CTA, nur auf der dunklen Bühne. */
   .session-stage .session-icon-tile {
-    background: rgba(232, 168, 67, 0.20);
+    background: color-mix(in srgb, var(--color-stage-gold-edge) 20%, transparent);
     color: var(--color-accent);
-    box-shadow: inset 0 0 0 0.5px rgba(232, 168, 67, 0.45);
+    box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--color-stage-gold-edge) 45%, transparent);
   }
 
   /* Gedimmte, sekundäre Karte (z. B. Avatar). */
