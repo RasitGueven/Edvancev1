@@ -26,7 +26,7 @@ nummerierten Migration erzeugt werden, gelten A bzw. B als Ausgangsbasis).
 
 | ID | Fundort | Befund | Auswirkung | Behandlung im Freeze |
 |---|---|---|---|---|
-| **D-01** | D (Migr. 019 vs 036) | `apply_xp_event()` liest/schreibt `student_progress.streak_days`; Migr. 036 droppt die Spalte; **keine** spätere Migration definiert die Funktion neu. | **Kritisch:** Beim nächsten `INSERT` in `xp_events` feuert der Trigger und schlägt fehl (`column "streak_days" does not exist`). Damit bricht auch die RPC `complete_task` (insertet `xp_events`). XP-/Task-Abschluss serverseitig defekt. | Nur dokumentiert. In `schema.sql` 1:1 wie im DB-Endzustand wiedergegeben + Warnkommentar. **Kein Fix** (Constraint: keine Runtime-/Logikänderung). Empfehlung: Folge-Migration 037, die `apply_xp_event` ohne `streak_days` neu schreibt. |
+| **D-01** | D (Migr. 019 vs 036) | `apply_xp_event()` liest/schreibt `student_progress.streak_days`; Migr. 036 droppt die Spalte; **keine** spätere Migration definiert die Funktion neu. | **Kritisch:** Beim nächsten `INSERT` in `xp_events` feuert der Trigger und schlägt fehl (`column "streak_days" does not exist`). Damit bricht auch die RPC `complete_task` (insertet `xp_events`). XP-/Task-Abschluss serverseitig defekt. | ✅ **Behoben in Migr. 037** (`037_fix_apply_xp_event.sql`): `apply_xp_event` ohne jede `streak_days`-/Datums-Streak-Logik neu geschrieben. `schema.sql`-Freeze bildet den reparierten Endzustand ab. (Zwei-Streak-Modell presence/home aus 032 bleibt separater Folge-Task.) |
 | **D-11** | D (Migr. 022 vs 029) | `screening_item_results.cluster_id` ist `NOT NULL`; `screening_items.cluster_id` wurde in 029 nullable (VERA-8-Items ohne Cluster). | Ergebnisse zu VERA-Items ohne Cluster lassen sich nicht speichern (NOT-NULL-Verletzung), solange kein Ersatz-Cluster gesetzt wird. | Nur dokumentiert (Endzustand abgebildet). Empfehlung in Folge-Migration prüfen. |
 
 ---
@@ -137,9 +137,9 @@ referenziert, aber nicht erzeugt.
 
 ## 7. Zusammenfassung & Empfehlungen
 
-- **Sofort prüfen (funktional):** **D-01** (kaputter `apply_xp_event`-Trigger) —
-  blockiert XP/Task-Abschluss. Folge-Migration `037_fix_apply_xp_event.sql`
-  empfohlen (außerhalb dieses reinen Doku-Freeze).
+- **Erledigt (funktional):** **D-01** (kaputter `apply_xp_event`-Trigger, der
+  XP/Task-Abschluss blockierte) ist mit `037_fix_apply_xp_event.sql` **behoben**
+  und im `schema.sql`-Freeze abgebildet.
 - **Datenmodell prüfen:** **D-11** (NOT-NULL `cluster_id` auf
   `screening_item_results` vs. VERA-Items ohne Cluster).
 - **Manuell verifizieren:** **D-09** (ist `subjects_name_check` in der Real-DB

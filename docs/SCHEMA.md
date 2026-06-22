@@ -1,11 +1,11 @@
 # Edvance – Datenbankschema
 
 > **Single Source of Truth:** [`schema.sql`](../schema.sql) (konsolidiert am
-> 2026-06-22 aus Basis-Schema + Content-Schema + `migrations/001-036`).
+> 2026-06-22 aus Basis-Schema + Content-Schema + `migrations/001-041`).
 > Dieses Dokument ist 1:1 zu `schema.sql`. Abweichungen der alten Quellen sind
 > in [`DRIFT_REPORT.md`](./DRIFT_REPORT.md) dokumentiert.
 >
-> **Umfang:** 33 Tabellen · 9 Funktionen · 2 Enums · 1 Trigger.
+> **Umfang:** 35 Tabellen · 10 Funktionen · 2 Enums · 2 Trigger.
 > Jede Tabelle hat RLS aktiviert.
 
 ---
@@ -18,7 +18,7 @@ Tabelle. Real heißt es:
 | Vermutet (existiert NICHT) | Realität |
 |---|---|
 | `aufgaben` | Tabelle heißt **`tasks`** (Lern-/Aufgabeninhalte). |
-| `mastery_levels` | **Keine Tabelle.** Mastery ist ein **Level 1..10** (numerisch) + die Funktion **`mastery_stage(score)`** / `mastery_stage_from_level(lvl)`, die auf 5 Frontend-Stufen mappt (`introduced`/`developing`/`progressing`/`proficient`/`mastered`). Microskill-Level wird nicht in einer eigenen Tabelle materialisiert. |
+| `mastery_levels` | **Keine Tabelle dieses Namens.** Die 5 Frontend-Stufen liefert die Funktion **`mastery_stage(score)`** / `mastery_stage_from_level(lvl)` (`introduced`/`developing`/`progressing`/`proficient`/`mastered`). Materialisiert wird Mastery seit Migr. 038-040 in **`student_competency_mastery`** (Matrix Schüler × Mikroskill × Prozesskompetenz; `stage` ist dort eine generated column über `mastery_stage(score)`). |
 | `home_quests` | **NICHT implementiert.** Es gibt keine Quests-Tabelle. Das nächstliegende reale Konstrukt ist der `home_streak`-Teil in `student_progress` (`home_streak_sessions`, `home_streak_last_completed_at`) sowie `student_task_progress`. |
 | `sessions` | Präsenz-Sessions = **`coaching_sessions`** + Teilnahme = **`session_students`**. (Screening-„Läufe" = `screening_tests`, NICHT `sessions`.) |
 
@@ -70,6 +70,18 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 
 ## 4. Inhalte / Aufgaben
 
+> **Zwei-Achsen-Kompetenz-Matrix (seit Migr. 038–040).** Inhalte werden über
+> **zwei unabhängige Achsen** beschrieben:
+> - **Achse A – Inhaltsfeld:** `skill_clusters` (→ `microskills`). *Worüber* eine
+>   Aufgabe geht (z. B. „Algebra & Funktionen").
+> - **Achse B – Prozesskompetenz:** `process_competencies` (6 KMK-Kompetenzen,
+>   `Ope|Mod|Pro|Arg|Kom|Wkz`). *Welche kognitive Tätigkeit* gefordert ist.
+>
+> `tasks.competency_id` / `screening_items.competency_id` tragen Achse B. Mastery
+> wird je (Schüler × Mikroskill × Prozesskompetenz) in `student_competency_mastery`
+> geführt. Der historische Cluster „Sachrechnen & Modellieren" vermischte beide
+> Achsen und ist seit Migr. 041 `is_deprecated` (siehe `MODELLIEREN_REMIGRATION.md`).
+
 ### subjects
 - **Zweck:** Fach.
 - **Spalten:** `id` (PK), `name` (not null, **ohne** CHECK-Constraint — siehe Drift D-09).
@@ -77,10 +89,17 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 - **RLS:** Lesen für alle authentifizierten User.
 
 ### skill_clusters
-- **Zweck:** Themencluster pro Fach. Für Mathematik = 5 KMK-Kompetenzbereiche (klassenstufenübergreifend, Kl. 8–10).
-- **Spalten:** `id` (PK), `subject_id` (FK→`subjects` CASCADE), `name`, `class_level_min`/`class_level_max` (CHECK 5–13), `sort_order`.
+- **Zweck:** Themencluster pro Fach = **Achse A (Inhaltsfeld)**. Für Mathematik = 5 KMK-Kompetenzbereiche (klassenstufenübergreifend, Kl. 8–10).
+- **Spalten:** `id` (PK), `subject_id` (FK→`subjects` CASCADE), `name`, `class_level_min`/`class_level_max` (CHECK 5–13), `sort_order`, `is_deprecated` (bool default false, Migr. 041).
 - **Seed (Migr. 001):** Zahl & Rechnen · Algebra & Funktionen · Geometrie & Messen · Daten & Zufall · Sachrechnen & Modellieren.
+- **`is_deprecated` (Migr. 041):** markiert achsen-vermischte Cluster (aktuell „Sachrechnen & Modellieren"), die **nicht gelöscht**, aber stillgelegt sind.
 - **RLS:** Lesen für alle authentifizierten User.
+
+### process_competencies
+- **Zweck:** **Achse B (Prozesskompetenz)** — die 6 KMK-Prozesskompetenzen als eigene Achse, parallel zu `skill_clusters` (Migr. 038).
+- **Spalten:** `id` (PK), `code` (unique, `Ope|Mod|Pro|Arg|Kom|Wkz`), `name`, `sort_order`.
+- **Seed (Migr. 038):** Operieren · Modellieren · Problemlösen · Argumentieren · Kommunizieren · Werkzeuge nutzen.
+- **RLS:** Lesen für alle authentifizierten User; Schreiben **nur Admin**.
 
 ### microskills
 - **Zweck:** Atomare Lernziele innerhalb eines Clusters (z. B. „M8.TG.01 – Terme vereinfachen").
@@ -90,8 +109,8 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 
 ### tasks
 - **Zweck:** Lern-/Aufgabeninhalte (manuell oder importiert). *(Dies ist „aufgaben".)*
-- **Spalten:** `id` (PK), `microskill_id` (FK→`microskills` SET NULL), `cluster_id` (FK→`skill_clusters` SET NULL), `content_type` (CHECK `exercise|exercise_group|article|video|course`), `title`, `question`, `solution`, `hint`, `common_errors`, `coach_note`, `difficulty` (CHECK 1–5), `estimated_minutes` (default 3), `class_level` (CHECK 5–13), `is_active`, `created_at`, `cognitive_type`, `input_type` (CHECK `MC|FREE_INPUT|STEPS|MATCHING|DRAW`), `is_diagnostic`, `curriculum_ref`, `question_payload` (jsonb), `typical_errors` (text[]), `source` (not null default `unbekannt`), `source_ref`, `assets` (jsonb default `[]`).
-- **Constraints/Indexes:** `tasks_source_ref_unique` UNIQUE (`source`,`source_ref`) (Migr. 008); Indizes für Diagnostic-Pickup, `source`, `assets`.
+- **Spalten:** `id` (PK), `microskill_id` (FK→`microskills` SET NULL), `cluster_id` (FK→`skill_clusters` SET NULL), `content_type` (CHECK `exercise|exercise_group|article|video|course`), `title`, `question`, `solution`, `hint`, `common_errors`, `coach_note`, `difficulty` (CHECK 1–5), `estimated_minutes` (default 3), `class_level` (CHECK 5–13), `is_active`, `created_at`, `cognitive_type`, `input_type` (CHECK `MC|FREE_INPUT|STEPS|MATCHING|DRAW`), `is_diagnostic`, `curriculum_ref`, `question_payload` (jsonb), `typical_errors` (text[]), `source` (not null default `unbekannt`), `source_ref`, `assets` (jsonb default `[]`), `competency_id` (FK→`process_competencies` SET NULL, nullable, **Achse B**, Migr. 039).
+- **Constraints/Indexes:** `tasks_source_ref_unique` UNIQUE (`source`,`source_ref`) (Migr. 008); Indizes für Diagnostic-Pickup, `source`, `assets`, `competency_id`.
 - **Endzustand-Hinweis:** **keine** `serlo_*`-Spalten (von Migr. 006 entfernt).
 - **RLS:** Lesen für alle authentifizierten User; Schreiben **nur Admin**.
 
@@ -143,6 +162,7 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 - **Spalten (Basis 022):** `id`, `created_at`, `cluster_id` (FK→`skill_clusters` CASCADE, **nullable seit 029**), `class_level` (not null, CHECK 5–13), `topic`, `skill_code`, `skill_label`, `level` (CHECK 1–3, nullable seit 029), `curriculum_seq`, `input_type` (not null, CHECK `MC|NUMERIC|MATCHING|STEPS_FINAL|OPEN`), `prompt`, `payload` (jsonb), `canonical` (jsonb, nullable seit 029), `check_type` (not null, CHECK `mc_index|numeric|matching_set|normalized|manual`), `tolerance`, `typical_errors` (text[]), `explanation`, `source` (default `edvance_original`), `active` (default false).
 - **Spalten (028):** `afb` (CHECK `I|II|III`), `phase` (CHECK `sprint|tiefe`); Cross-Constraint `screening_items_open_iff_manual` = (`input_type='OPEN'`) ⇔ (`check_type='manual'`).
 - **Spalten (029 VERA-8):** `iqb_titel` (UNIQUE), `kompetenzfelder` (text[]), `aufgabe_typ`, `teilaufgaben` (jsonb), `kontext`, `loesung_pro_ta` (jsonb), `akzeptierte_antworten` (jsonb), `kodierung`, `kommentar_highlights` (jsonb), `urls` (jsonb), `datei_ext`, `quelle`, `fix_anker` (bool), `meta` (jsonb).
+- **Spalte (Migr. 039):** `competency_id` (FK→`process_competencies` SET NULL, nullable) = **strukturierte Wahrheit der Prozesskompetenz (Achse B)**. `kompetenzfelder` (text[]) bleibt als Legacy/VERA-8-Historie erhalten und wird **nicht** entfernt.
 - **RLS:** authentifizierte lesen nur `active=true`; Coach lesen alles; Admin r/w alles.
 
 ### screening_item_results
@@ -211,14 +231,14 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 ### student_progress
 - **Zweck:** Abgeleiteter Totals-Spiegel pro Schüler. **Nur** via Security-Definer-Trigger `apply_xp_event` geschrieben (kein Client-Write-Policy).
 - **Spalten:** `student_id` (PK, FK CASCADE), `xp_total`, `level`, `last_activity`, `presence_streak_weeks`, `presence_streak_last_week_start`, `presence_streak_multiplier` (numeric(3,2)), `home_streak_sessions`, `home_streak_last_completed_at`.
-- **Endzustand-Hinweis:** `streak_days` wurde von Migr. 036 **gedroppt** (ersetzt durch Zwei-Streak-Modell aus 032).
+- **Endzustand-Hinweis:** `streak_days` wurde von Migr. 036 **gedroppt** (ersetzt durch Zwei-Streak-Modell aus 032). `apply_xp_event` ist seit Migr. 037 ohne `streak_days`-Bezug (D-01-Fix); die presence/home-Streaks pflegt der Trigger noch **nicht** (Folge-Task).
 - **RLS:** Schüler eigene; Eltern/Coach/Admin lesen.
 
 ### xp_events
 - **Zweck:** APPEND-ONLY XP-Vergabe; speist `student_progress` via Trigger.
 - **Spalten:** `id`, `created_at`, `student_id` (FK CASCADE), `task_id` (FK→`tasks` SET NULL), `xp` (not null), `reason`.
 - **RLS:** Schüler insert/select eigene; Eltern/Coach/Admin lesen. **Append-only.**
-- **Trigger:** `xp_events_apply` AFTER INSERT → `apply_xp_event()`. ⚠️ **Funktion ist im Endzustand defekt** (referenziert gedropptes `streak_days`) — siehe Drift **D-01**.
+- **Trigger:** `xp_events_apply` AFTER INSERT → `apply_xp_event()`. ✅ **Repariert in Migr. 037** (ohne `streak_days`) — Drift **D-01** behoben.
 
 ### xp_rules
 - **Zweck:** Admin-konfigurierbare XP-Gewichtung pro `content_type`.
@@ -241,6 +261,12 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 - **Zweck:** Inventory für Streak-Repair-Token (Power-Up).
 - **Spalten:** `student_id` (PK, FK→`students` CASCADE), `tokens`, `earned_total`, `used_total`, `updated_at`.
 - **RLS:** Lesen: eigener Schüler / Coach/Admin; Schreiben: **nur Admin**.
+
+### student_competency_mastery
+- **Zweck:** **Herzstück der Zwei-Achsen-Matrix** (Migr. 040): Mastery-Zustand pro (Schüler × Mikroskill × Prozesskompetenz). *(In `schema.sql` steht die Tabelle in Abschnitt „12b", weil die generated column `stage` die Funktion `mastery_stage` benötigt.)*
+- **Spalten:** PK (`student_id`,`microskill_id`,`competency_id`) — FKs auf `students`/`microskills`/`process_competencies` (alle CASCADE); `score` (numeric(5,2) default 0, CHECK 0–100); `mastered` (bool default false); `mastered_by` (FK→`profiles`); `mastered_at`; `updated_at`; `stage` (**generated** `mastery_stage(score)` STORED).
+- **RLS:** Lesen exakt analog `student_task_progress` (Schüler eigene · Eltern verknüpfte Kinder · Coach/Admin alle). Schreiben (`score`): **nur Coach/Admin** (Messlogik läuft serverseitig/service-role und umgeht RLS ohnehin); kein Schüler-/Eltern-Schreibpfad.
+- **FernUSG-Gate (Trigger `trg_enforce_mastery_gate`, BEFORE INSERT/UPDATE):** `mastered` darf nur von **Coach/Admin** auf `true` gesetzt werden (sonst `raise exception`); beim Gewähren werden `mastered_by = auth.uid()` und `mastered_at = now()` automatisch gesetzt; `updated_at` wird bei jedem Schreibvorgang gesetzt. Das Gate greift trigger-seitig **auch für service-role**.
 
 ---
 
@@ -265,14 +291,17 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 | `get_my_role()` | schema.sql | Rolle ohne RLS lesen |
 | `get_my_student_id()` | 011 | eigene `students.id` |
 | `is_parent_of_student(uuid)` | 011 | Elternschaft prüfen |
-| `apply_xp_event()` | 019 | Trigger-Fn: rechnet `student_progress` fort. ⚠️ defekt (D-01) |
+| `apply_xp_event()` | 019, repariert 037 | Trigger-Fn: rechnet `student_progress` fort. ✅ ohne `streak_days` (D-01 behoben) |
 | `complete_task(uuid)` | 026 | atomarer, idempotenter Task-Abschluss (+XP) |
 | `app_provision_student(…)` | 021 | atomare Lead→Student-Conversion (nur `service_role`) |
 | `calc_presence_multiplier(int)` | 032 | Präsenz-Streak → XP-Multiplikator |
 | `mastery_stage(numeric)` | 033 | Score 0..100 → 5-Stufen-Label |
 | `mastery_stage_from_level(int)` | 033 | Level 1..10 → 5-Stufen-Label |
+| `enforce_mastery_gate()` | 040 | Trigger-Fn: FernUSG-Gate für `student_competency_mastery` (mastered nur Coach/Admin) |
 
-**Trigger:** `xp_events_apply` AFTER INSERT ON `xp_events` → `apply_xp_event()`.
+**Trigger:**
+- `xp_events_apply` AFTER INSERT ON `xp_events` → `apply_xp_event()`.
+- `trg_enforce_mastery_gate` BEFORE INSERT/UPDATE ON `student_competency_mastery` → `enforce_mastery_gate()`.
 
 ## 13. Storage-RLS (`storage.objects`)
 
@@ -283,7 +312,9 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 
 ## 14. Beziehungen (Kurzüberblick)
 
-- `subjects 1—n skill_clusters 1—n microskills 1—n tasks` (Tasks können auch nur am Cluster hängen).
+- `subjects 1—n skill_clusters 1—n microskills 1—n tasks` (Tasks können auch nur am Cluster hängen). **Achse A = Inhaltsfeld.**
+- `process_competencies` (**Achse B**) ← `tasks.competency_id` / `screening_items.competency_id` (beide nullable, SET NULL).
+- `student_competency_mastery` = Matrix `students × microskills × process_competencies` (PK aus allen dreien); `stage` generated über `mastery_stage(score)`.
 - `tasks 1—1 task_coach_metadata` (optional).
 - `microskills.prerequisite_ids[]` → andere `microskills.id`.
 - `profiles 1—1 students`; `parent_student` verknüpft `profiles`(Eltern) ↔ `profiles`(Schüler).
@@ -296,16 +327,18 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 
 - Coach/Admin sehen i. d. R. alles; Eltern nur eigene Kinder (via `parent_student`/`is_parent_of_student`); Schüler nur sich.
 - Append-only-Tabellen (`behavior_snapshots`, `xp_events`, `screening_ratings`, `screening_item_results`, `screening_item_ratings`, `parent_report_generations`) haben bewusst kein update/delete-Policy.
-- Content (`subjects`/`skill_clusters`/`microskills`/`tasks`): Lesen für alle authentifizierten; Schreiben auf `tasks` nur Admin.
+- Content/Referenz (`subjects`/`skill_clusters`/`microskills`/`tasks`/`process_competencies`): Lesen für alle authentifizierten; Schreiben auf `tasks`/`process_competencies` nur Admin.
 - `student_progress`: read-only für Clients; Schreiben nur via Trigger.
+- `student_competency_mastery`: Lesen wie `student_task_progress`; `score`-Schreiben nur Coach/Admin; `mastered` nur via FernUSG-Gate-Trigger (Coach/Admin).
 
 ---
 
 ## 16. SQL-Dateien & Edge Functions
 
-- [`schema.sql`](../schema.sql) — **Single Source of Truth** (konsolidiert 001-036).
+- [`schema.sql`](../schema.sql) — **Single Source of Truth** (konsolidiert 001-041).
 - [`schema_content.sql`](../schema_content.sql) — **DEPRECATED** (Historie; nicht mehr ausführen).
-- `migrations/001_*.sql … 036_*.sql` — chronologische Änderungshistorie (unverändert, nicht editieren).
+- `migrations/001_*.sql … 041_*.sql` — chronologische Änderungshistorie (unverändert, nicht editieren).
+- [`MODELLIEREN_REMIGRATION.md`](./MODELLIEREN_REMIGRATION.md) — Report zur Achsen-Auflösung „Sachrechnen & Modellieren" (Migr. 041; offener Schritt für Lena).
 - [`DRIFT_REPORT.md`](./DRIFT_REPORT.md) — dokumentierte Abweichungen der Altquellen + Type-Drift.
 
 **Edge Functions:**
