@@ -1,4 +1,15 @@
 -- ============================================================================
+-- ⚠️  DEPRECATED — konsolidiert in schema.sql am 2026-06-22
+--
+-- Diese Datei ist NICHT mehr die Wahrheit über den Content-Schema-Stand.
+-- Der vollständige, konsolidierte Endzustand (Basis + Content + Migrationen
+-- 001-036) liegt jetzt in schema.sql (Single Source of Truth). Abweichungen
+-- zwischen dieser Datei und dem realen Stand sind in docs/DRIFT_REPORT.md
+-- dokumentiert (u. a. subjects-CHECK-Constraint, fehlende Felder ab Migr. 010).
+-- Datei bleibt nur zur Historie erhalten — NICHT mehr im Supabase SQL Editor
+-- ausführen.
+-- ============================================================================
+--
 -- Edvance Content Schema (Aufgaben / Cluster / Microskills)
 --
 -- Stand: Migration 009 inklusive (Diagnostic-Felder, Serlo-Removal, source/source_ref,
