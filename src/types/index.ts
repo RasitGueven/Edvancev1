@@ -103,3 +103,10 @@ export type {
   StudentBadge,
   StreakRepairInventory,
 } from './gamification'
+
+export type {
+  CompetencyCode,
+  ProcessCompetency,
+  MasteryStage,
+  StudentCompetencyMastery,
+} from './competency'
