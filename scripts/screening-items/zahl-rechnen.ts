@@ -14,7 +14,7 @@ export type SeedItem = {
   skill_label: string
   level: 1 | 2 | 3
   curriculum_seq: number
-  input_type: 'MC' | 'NUMERIC' | 'MATCHING' | 'STEPS_FINAL'
+  input_type: 'MC' | 'NUMERIC' | 'MATCHING' | 'FREE_TEXT'
   prompt: string
   payload: unknown | null
   canonical: unknown

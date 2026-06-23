@@ -61,6 +61,25 @@ export type {
 } from './session'
 
 export type {
+  AnswerOption,
+  AnswerPayload,
+  CanonicalInputType,
+  StudentAnswer,
+  MCAnswerPayload,
+  NumericAnswerPayload,
+  ShortTextAnswerPayload,
+  TrueFalseAnswerPayload,
+  FreeTextAnswerPayload,
+  MatchingAnswerPayload,
+  ClozeAnswerPayload,
+  ClozeBlank,
+  CoordinateAnswerPayload,
+  CoordinateGrid,
+  CoordinateExpected,
+} from './answerPayload'
+export { isAnswerPayload } from './answerPayload'
+
+export type {
   ContentType,
   CognitiveType,
   InputType,

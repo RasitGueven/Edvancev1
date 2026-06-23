@@ -14,10 +14,13 @@ export const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
 
 export const INPUT_TYPE_LABELS: Record<InputType, string> = {
   MC: 'Multiple Choice',
-  FREE_INPUT: 'Freie Eingabe',
-  STEPS: 'Schritt für Schritt',
+  NUMERIC: 'Zahleneingabe',
+  SHORT_TEXT: 'Kurzantwort',
+  TRUE_FALSE: 'Wahr / Falsch',
+  FREE_TEXT: 'Freitext (Coach-Bewertung)',
   MATCHING: 'Zuordnung',
-  DRAW: 'Zeichnung',
+  CLOZE: 'Lückentext',
+  COORDINATE: 'Koordinatensystem',
 }
 
 export const COGNITIVE_TYPE_LABELS: Record<CognitiveType, string> = {

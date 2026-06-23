@@ -46,11 +46,12 @@ const MICROSKILL_KEYWORDS: Record<string, string[]> = {
 }
 
 // Input-Type Heuristik: Stichworte → Type
-const INPUT_TYPE_RULES: { type: 'MC' | 'STEPS' | 'MATCHING' | 'DRAW'; keywords: string[] }[] = [
+// Kanonischer input_type-Enum (042): STEPS→FREE_TEXT, DRAW→COORDINATE.
+const INPUT_TYPE_RULES: { type: 'MC' | 'FREE_TEXT' | 'MATCHING' | 'COORDINATE'; keywords: string[] }[] = [
   { type: 'MATCHING', keywords: ['ordne zu', 'verbinde', 'ordne ... zu', 'matching'] },
-  { type: 'DRAW', keywords: ['zeichne', 'skizziere', 'trage ein', 'markiere im'] },
+  { type: 'COORDINATE', keywords: ['zeichne', 'skizziere', 'trage ein', 'markiere im'] },
   { type: 'MC', keywords: ['kreuze an', 'welche aussage', 'a) ', 'b) ', 'c) '] },
-  { type: 'STEPS', keywords: ['schritt', 'rechenweg', 'zeige', 'begruende', 'begründe'] },
+  { type: 'FREE_TEXT', keywords: ['schritt', 'rechenweg', 'zeige', 'begruende', 'begründe'] },
 ]
 
 type TaskRow = {
@@ -60,7 +61,7 @@ type TaskRow = {
   cluster_id: string | null
   microskill_id: string | null
   is_diagnostic: boolean
-  input_type: 'MC' | 'FREE_INPUT' | 'STEPS' | 'MATCHING' | 'DRAW' | null
+  input_type: string | null
   difficulty: number | null
 }
 
@@ -107,12 +108,12 @@ function pickMicroskill(
   return null
 }
 
-function pickInputType(task: TaskRow): 'MC' | 'FREE_INPUT' | 'STEPS' | 'MATCHING' | 'DRAW' {
+function pickInputType(task: TaskRow): 'MC' | 'FREE_TEXT' | 'MATCHING' | 'COORDINATE' {
   const text = searchText(task)
   for (const rule of INPUT_TYPE_RULES) {
     if (rule.keywords.some((kw) => text.includes(kw))) return rule.type
   }
-  return 'FREE_INPUT'
+  return 'FREE_TEXT'
 }
 
 async function main(): Promise<void> {
@@ -152,7 +153,7 @@ async function main(): Promise<void> {
     const update: Partial<{
       microskill_id: string
       is_diagnostic: boolean
-      input_type: 'MC' | 'FREE_INPUT' | 'STEPS' | 'MATCHING' | 'DRAW'
+      input_type: 'MC' | 'FREE_TEXT' | 'MATCHING' | 'COORDINATE'
       cognitive_type: 'FACT' | 'TRANSFER' | 'ANALYSIS'
     }> = {}
 

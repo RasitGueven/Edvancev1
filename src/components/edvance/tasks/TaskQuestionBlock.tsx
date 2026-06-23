@@ -72,10 +72,13 @@ type InputCue = { icon: ReactNode; label: string }
 
 const INPUT_CUES: Partial<Record<InputType, InputCue>> = {
   MC: { icon: <ListChecks className="h-3.5 w-3.5" />, label: 'Antwort auswählen' },
-  FREE_INPUT: { icon: <PencilLine className="h-3.5 w-3.5" />, label: 'Antwort eingeben' },
-  STEPS: { icon: <Brain className="h-3.5 w-3.5" />, label: 'Schritt für Schritt lösen' },
+  NUMERIC: { icon: <PencilLine className="h-3.5 w-3.5" />, label: 'Zahl eingeben' },
+  SHORT_TEXT: { icon: <PencilLine className="h-3.5 w-3.5" />, label: 'Kurz antworten' },
+  TRUE_FALSE: { icon: <ListChecks className="h-3.5 w-3.5" />, label: 'Wahr oder falsch' },
+  FREE_TEXT: { icon: <PencilLine className="h-3.5 w-3.5" />, label: 'Antwort eingeben' },
   MATCHING: { icon: <Repeat className="h-3.5 w-3.5" />, label: 'Kärtchen zuordnen' },
-  DRAW: { icon: <Hand className="h-3.5 w-3.5" />, label: 'Skizze zeichnen' },
+  CLOZE: { icon: <Brain className="h-3.5 w-3.5" />, label: 'Lücken füllen' },
+  COORDINATE: { icon: <Hand className="h-3.5 w-3.5" />, label: 'Punkt setzen' },
 }
 
 function InputCueChip({ type }: { type: InputType }): JSX.Element | null {

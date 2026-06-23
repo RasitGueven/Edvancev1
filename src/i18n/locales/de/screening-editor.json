@@ -15,7 +15,7 @@
     "lernpfad": "Lernpfad",
     "beides": "Beides",
     "notPersisted": "Verwendung wird noch nicht in der Datenbank gespeichert – Schema-Migration ausstehend.",
-    "drawWarning": "DRAW im Screening nicht auto-bewertbar – diese Aufgabe wird als manuelles Coach-Rating geführt."
+    "drawWarning": "COORDINATE im Screening nicht auto-bewertbar – diese Aufgabe wird als manuelles Coach-Rating geführt."
   },
   "sections": {
     "aufgabenstellung": "Aufgabenstellung",
@@ -48,10 +48,12 @@
   "inputTypes": {
     "MC": "Multiple Choice",
     "NUMERIC": "Numerisch",
+    "SHORT_TEXT": "Kurzantwort",
+    "TRUE_FALSE": "Wahr / Falsch",
+    "FREE_TEXT": "Freitext",
     "MATCHING": "Zuordnung",
-    "STEPS_FINAL": "Mehrschrittig",
-    "OPEN": "Freitext",
-    "DRAW": "Zeichnen"
+    "CLOZE": "Lückentext",
+    "COORDINATE": "Koordinatensystem"
   },
   "hint": {
     "n": "Hinweis {{n}}",
