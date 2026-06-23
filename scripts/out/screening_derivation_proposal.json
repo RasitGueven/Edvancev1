@@ -3,8 +3,7 @@
     "item_id": "84e18b36-0537-407d-8276-7eee062f02bd",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "cffaa1c8-7a26-45a1-8411-0513786e5a44",
@@ -22,29 +21,26 @@
     "item_id": "70463a7b-5f33-46f9-bae2-5a83cb2abae1",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "03e2327c-c7fb-48ed-a118-8dabe556c5d6",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "a76aa68a-0a0e-40fb-b331-aa9886830ad9",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MATCHING",
-    "reason": "aufgabe_typ=zuordnung; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=zuordnung; Struktur nicht sicher aus Daten baubar → Lena",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "40faaa13-2664-4957-85da-697abadfe360",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "8bf1148a-d2c7-4d3a-9f0d-4858c43cd46a",
@@ -86,15 +82,13 @@
     "item_id": "8479390c-8dfb-445b-97ce-3204c4295763",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "1cd0c49c-d705-44fe-991d-0a48008515c6",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "b2f08873-8551-44d6-9f96-7a3fd21ce3a0",
@@ -112,15 +106,13 @@
     "item_id": "be735971-d918-4e7d-8342-5836c4042ffc",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "4961b20c-1c4a-4f69-8855-906f5e7899f4",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "bbe39a75-847d-4b1c-ab53-8dc77b8f299c",
@@ -151,8 +143,7 @@
     "item_id": "2ae94335-149f-4469-aa6e-04b1c4223d30",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "be3891ae-7854-482d-9975-3dc4d26b2d76",
@@ -182,15 +173,13 @@
     "item_id": "d0b4151f-d6f6-4be0-81be-60ebe524e3d4",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "e4d11f56-9ee5-4e2f-95c3-642e646ba619",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "90d69515-4c57-45be-933f-42f4419bd2ac",
@@ -214,8 +203,7 @@
     "item_id": "7f85dcaf-7473-49d2-a1a5-2189c8cc8c6d",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "2afcb042-ee49-4682-9681-1b53508b8603",
@@ -237,7 +225,7 @@
     "item_id": "96eda407-365d-45a2-a861-e73a86927f30",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -259,8 +247,7 @@
     "item_id": "d54c3739-19c4-4800-83a0-04b75f6ee413",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "235b5913-29ec-4090-a6ce-a92711624726",
@@ -282,15 +269,13 @@
     "item_id": "16b90b54-fa43-4d00-8057-038fc06dffe7",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "a90f2dc7-a97f-457f-b7aa-c9e3508820bb",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "84e1e681-0234-4da3-8de6-73bd7f7bb9ce",
@@ -308,35 +293,32 @@
     "item_id": "c6ab948b-5e41-40c5-bbb0-8bec62341ded",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "66bb1544-e835-42b7-96e0-44ea090da48a",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "45b2720c-0ea1-4db9-8bf7-b4e9a2c43030",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "13c0ec5e-ef37-4e0f-adf9-ef6067499044",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "b7f001e6-17b1-4dd4-ad9d-19f4432d3be9",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -349,29 +331,26 @@
     "item_id": "8df7ad67-bc38-4ee3-b03b-7fb7ca6a8769",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "42c6d14f-44a5-406f-89b7-fc761974600e",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "a3eca93f-cb2e-40ed-b160-fd9ab779d125",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "dd4533c1-47d6-4970-9e9e-bbe66078c8d0",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "bfdf20c0-6b6b-4b24-b8ea-e9c7a68db6af",
@@ -383,8 +362,7 @@
     "item_id": "60a186ba-d6cc-499b-b321-4e81e472a6ad",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "30e923ae-b7a5-42bb-b999-cb87a7dad5cd",
@@ -396,15 +374,13 @@
     "item_id": "3efa0739-95fb-4a99-a624-eaf92df39d06",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "062a6926-383e-45db-993f-e3ea77259a6a",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "5f89602c-43e9-43d9-8e06-9b9944d3effe",
@@ -416,43 +392,38 @@
     "item_id": "6b6c7bb6-54a1-4432-879a-91e43398f583",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "88c95064-542e-4c93-9284-666537f59b2b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "efebb045-9dfe-49ee-bef1-c2b33bb0cc37",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "9f82061a-09f2-4963-a05f-603197c05d60",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "f5c1a4c4-d4d4-476a-bf9f-3bca19f6ab35",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "d252207d-5bcc-47ce-b233-54e37c78f296",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "9780761b-8249-4c88-88a7-edfab72e5148",
@@ -464,71 +435,62 @@
     "item_id": "ca886edd-4976-441b-8225-9218bbb60401",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "ddb50db1-81f4-4b89-b053-a57a98912060",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f71fb054-7ab7-4169-b982-4ba9da70881f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "4151fc1c-7b82-4ec2-8268-ac0b388e1576",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "9149f864-4875-48b6-9f8e-8126a331c8a2",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "c929ec5f-abd1-4a52-b32c-48a15b0ba5af",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "ac1dc9cd-78b5-45f4-8f2e-05878afdbad8",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "e142da0d-12ee-446d-bd08-5b2957e41032",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "15089cd1-0d09-43eb-bde2-fba3169fa095",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "34cefd5b-feb7-43d7-8cbd-e959ec54413d",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "249e2db0-2956-4a9d-a64e-d18da4167b6c",
@@ -540,22 +502,20 @@
     "item_id": "5d1b6da8-d1e5-4318-8287-f614c4be6874",
     "category": "OTHER_TYPE",
     "proposed_input_type": "CLOZE",
-    "reason": "aufgabe_typ=lueckentext; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=lueckentext; Struktur nicht sicher aus Daten baubar → Lena",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "b0164167-1f14-431b-bd37-4099ee89ab7d",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "0e00e7f3-11a0-49f7-8420-238b606a6774",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f02c7c63-c3a6-436e-8614-48fcca16c5d8",
@@ -567,22 +527,19 @@
     "item_id": "c3592760-caf2-46db-a93d-116439b65369",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "7c373a0c-35aa-4925-b927-27827488249f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "c4492bd3-e982-4fff-b25b-509e00e4f15e",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "9f3f9556-b650-4017-b6c3-631edc2511c2",
@@ -594,8 +551,7 @@
     "item_id": "44fd453e-742d-4e56-95a6-0b6c3c484086",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "c3e2bd36-3677-4009-85f9-71f7f09ef1ba",
@@ -607,35 +563,33 @@
     "item_id": "c8fbe37c-c41b-40ac-9077-863555093e2a",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "caf360c0-b9dd-4eff-b198-387e44f9d94b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "83e51a33-72e5-46f0-86f2-25eac2acb48b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "11a37fff-8362-4edd-842e-040970c5e3cd",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_multi; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_multi; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "539f1c32-6cbf-4269-ae85-32877c2fee05",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_multi; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_multi; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -648,22 +602,20 @@
     "item_id": "1e4dfdbd-5278-4011-8620-c7bba12fee4c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "5ee54d5c-d69d-4b4f-b512-b7ff615c8127",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MATCHING",
-    "reason": "aufgabe_typ=zuordnung; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=zuordnung; Struktur nicht sicher aus Daten baubar → Lena",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "a2366455-d2aa-4cb4-9cfe-24090417331d",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "5f04b4ec-dbf2-4695-baee-288e6d245146",
@@ -675,35 +627,34 @@
     "item_id": "212437f5-1a3c-4af4-b8f6-7da50e59e975",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "15d77a75-f120-4982-aee3-6fb72cca952b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "68822a01-c3ae-4e98-9ca8-c18268f12b5c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "0152d1f2-3868-4363-b401-1159e926fedd",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "2e6b175e-e718-40e4-9521-b47e368561c2",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -716,8 +667,7 @@
     "item_id": "35432988-f2f7-4eb4-84a1-c41af3f3fa5c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "694963da-bf68-4dbe-a775-ffe129c5bcbd",
@@ -729,8 +679,7 @@
     "item_id": "a49485b0-90c5-4060-a444-d8cf90a9c798",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f8826b5f-2b6d-4612-b441-d102a4645ce5",
@@ -742,22 +691,19 @@
     "item_id": "e3fd1795-3d59-446c-a474-16ba3f30b508",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "3bcf9b44-273e-41e3-bf16-9db852774b08",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "b8aaa0cf-487c-42c6-bb6d-2aaacfdf2035",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "aaa18883-5fc3-4da0-9f53-e45a87869758",
@@ -815,8 +761,7 @@
     "item_id": "0d240240-28b3-4831-8729-17ba3055ee5b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "a538074b-606b-4720-8b40-89c474fe5fed",
@@ -848,7 +793,7 @@
     "item_id": "892db5ba-4d83-43dd-bd66-56f9cf4cacee",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -891,7 +836,7 @@
     "item_id": "1f07d3d9-fccd-46d9-bdac-72dd81b5f85c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_multi; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_multi; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -904,8 +849,7 @@
     "item_id": "ef7e107e-e22e-43ca-a036-390a5921c86e",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "6b0cabb2-e97f-4af2-bc9f-67e81321d0f5",
@@ -917,21 +861,19 @@
     "item_id": "81430a72-6954-42c7-a80f-803b0e04c230",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "905609e2-3c9c-45d0-9fd2-d0afd9d37b38",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "535f836e-d489-42fe-8e09-dab3bf846e8b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_multi; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_multi; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -953,50 +895,44 @@
     "item_id": "eb408d49-82ea-4dd1-9155-19ee379d82ed",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "bb59b120-b319-4c9a-b6ee-1779d9603d0b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "4a26ee93-8dc4-44a7-9a4d-07eb2d01c2e5",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "b2329b21-0092-4994-ad76-ad42f5de58c0",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "fa437c5d-497e-4294-84d8-4a6c5f4e88dc",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "646522b4-32e4-404a-8968-f370c54ab4ba",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_multi; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_multi; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "efe347bb-8d08-47b2-bbcb-19c55ad5fb6b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "537a2b22-1483-409c-b505-24b3a3feb100",
@@ -1017,22 +953,20 @@
     "item_id": "fa1de7fb-fb08-456b-a7e1-09a547bcc914",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "08e3e2c0-478a-47e2-930a-5c9a9adf487b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "276f2174-d492-49df-b981-8fa969b2b38c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "bc62606d-1571-4c28-82b7-4565a564eeeb",
@@ -1050,8 +984,7 @@
     "item_id": "bfd21eb4-6d0f-4788-9655-8e665074537e",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "4bd9f6b1-e3a0-4ffb-b8f2-098a863f054b",
@@ -1063,43 +996,37 @@
     "item_id": "a5996102-9c6b-4c5b-b211-d366a267c697",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "7a8cc74f-fccc-4b99-bead-fe9988400f11",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "8e7697f1-bc6d-4320-b366-a7775d3953d9",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f14ee637-1251-47e5-9918-f62d3c91804f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "5723bac6-72da-48a2-a66c-a3169a0d5b8d",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "15dd8ed6-0277-4080-b0c4-2aa45361658d",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "e6cb3f3f-3cc0-4664-a957-7707c751e26d",
@@ -1111,22 +1038,19 @@
     "item_id": "71f82e9a-460a-4397-ade8-32d42ff618ca",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "882756e1-73c5-4c1d-8290-b7b7c13d11d3",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "cddb5847-8908-4379-9954-9cea19f0c21f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "5b80e145-7498-49b0-b1a0-28ba780e2cc9",
@@ -1138,8 +1062,7 @@
     "item_id": "897247c6-39c5-40b1-b6bc-02b11146c518",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "3e462371-b4c3-43f6-a3ff-4ca28f99daac",
@@ -1157,7 +1080,7 @@
     "item_id": "6314d039-df89-46d6-9caf-b39c862cfc82",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -1182,14 +1105,13 @@
     "item_id": "d9ee9bcf-a682-4bac-97e1-2447e555ebfb",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "c100204a-ec9d-413c-a43b-1dafb9d72d7c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -1241,8 +1163,7 @@
     "item_id": "e605087c-09d3-40f7-bde5-973daf82dff7",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f93a3e5a-26a6-4ff1-adaf-a7ea60023074",
@@ -1260,22 +1181,19 @@
     "item_id": "cdd1ae6f-aef6-4281-8e43-d7038216295f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "9fda0b04-2683-4eb8-b74e-448ef45698d6",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "87fac401-936c-4c19-9563-351c63e624cd",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "e62eb721-424b-47e3-9c89-504fd1c3b6dc",
@@ -1287,22 +1205,20 @@
     "item_id": "6c328b93-1dc5-42d6-9e7e-986715354e90",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "051ed303-68ae-4b39-bfd9-3bdddf9d15f9",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f6e22b7a-d5f7-4e2f-aed5-8a174f2516fc",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "d3fe5d3f-cbf7-40a7-aece-a12cdd6e533c",
@@ -1332,7 +1248,7 @@
     "item_id": "a4bfc11a-d8bd-477d-9ee0-1565d7fa6ce4",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -1345,15 +1261,14 @@
     "item_id": "b0000214-a8e2-4c9b-96ff-5f32e0aedc08",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "98b2d623-13e2-45a8-b53d-684a1a77e750",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "dbe3c358-c117-4ec4-acb0-356199376b25",
@@ -1371,21 +1286,19 @@
     "item_id": "d60aa7e8-c9f6-42df-a22e-3f1b8da758f2",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "62248599-5232-45a5-8dcf-ca4a9562665f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "587ca2c6-b134-4333-a180-1dd8038431b7",
     "category": "OTHER_TYPE",
     "proposed_input_type": "CLOZE",
-    "reason": "aufgabe_typ=lueckentext; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=lueckentext; Struktur nicht sicher aus Daten baubar → Lena",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -1411,14 +1324,14 @@
     "item_id": "a58fa549-3dfe-4749-850f-06817624c5de",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "3a908a93-29f4-4b90-9653-2a4fee5dad4f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -1431,29 +1344,26 @@
     "item_id": "c09b0a51-8e85-4a67-b21a-ff6c1d3051c7",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f3770e6d-9135-47de-a070-a46b94bbcc19",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f3ec4df6-55ef-4fac-b22d-45cf5205bb2b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "367e83a6-e77b-4536-afec-adb2776eb5ac",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "84280807-9580-4666-afdb-9f4f0032c993",
@@ -1480,7 +1390,7 @@
     "item_id": "4b907a17-4577-4792-b499-96804d732ced",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -1509,64 +1419,58 @@
     "item_id": "c461059e-11e5-4dd0-a9cd-036889a9dc52",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "fdb0bfae-20ba-49d2-b8be-2d049206bf14",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "449be456-3bfc-4032-b743-33b20b431861",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "47705030-7979-43d5-b661-49d552b40655",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "27190f2d-1672-4e6c-a7e1-66d57aaad5c9",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_multi; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_multi; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "50db6699-1891-4bed-a79a-6b1d058ffd9b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "fe73bc96-71d3-4afc-ae62-829210e2425d",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "9f993973-a28d-4115-b3b1-f6714ce903e7",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "845a0ac5-21f8-4345-8987-5dfeab674295",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "8b8d4c53-050a-439a-bc61-11e8d6054e3f",
@@ -1608,43 +1512,37 @@
     "item_id": "363274a4-ef6c-4b7f-895b-0b4216feb948",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f15002e9-1f27-4a96-933e-e4f320c1b037",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "85437792-7c77-4204-9a5f-d8023166e5b0",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "341b2646-b568-430d-904d-e1d2cac45068",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "3b2dcb0d-e743-4bdd-a3fa-41598934cb68",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "a5af8e5b-9573-48fd-ad60-8c4d29eab793",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "10718043-7e40-4962-a2d7-6c122b374fbc",
@@ -1656,22 +1554,19 @@
     "item_id": "9dbcd056-9e8b-4ebd-8fff-06aa303972e7",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "869866b5-db7f-42f5-b29f-7d90ca82d4ea",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "ad3a903e-216c-4420-a3ff-7cafa5ec37ac",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "832883bb-553f-437d-aa73-f79d8285c0a1",
@@ -1717,22 +1612,21 @@
     "item_id": "1be442cb-7275-4e78-b7b1-e78f0a6dcccf",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "6c767c62-4aab-4cb9-80cc-1bc3c2dab2b9",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "725d5c55-0659-491f-938e-1604e4cda06f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "35a23ff8-9829-4de6-baef-d546706eb3a5",
@@ -1744,8 +1638,7 @@
     "item_id": "d5102872-47f6-4139-8ccc-aa0b8be11132",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "6ba55d9d-1d52-4950-8e2e-4b4c63a15941",
@@ -1757,8 +1650,7 @@
     "item_id": "a79e2278-5d55-4816-b0c5-cdbb97924ef2",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "3ecc1ddf-ea20-4cb1-a894-7375500a8c8a",
@@ -1777,15 +1669,13 @@
     "item_id": "3adbceaf-48da-46e5-8dc5-695f4843f339",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "8f1dbdc6-22d0-4eb2-a619-e74c2411e59c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=unvollstaendig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=unvollstaendig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "b26ec182-8fe9-4b96-938b-291230d511f1",
@@ -1797,7 +1687,7 @@
     "item_id": "cc482c19-d6d2-4250-9ac6-b211abdae0bd",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -1816,8 +1706,7 @@
     "item_id": "31b080c4-4432-4d39-9992-79596584e22b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "071bd5af-5542-4c68-871f-b571249fc952",
@@ -1829,14 +1718,13 @@
     "item_id": "64b9d256-779d-498b-a490-ae7d8d172285",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "9144c72f-9276-4a40-9315-bcfc88068b1b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "CLOZE",
-    "reason": "aufgabe_typ=lueckentext; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=lueckentext; Struktur nicht sicher aus Daten baubar → Lena",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -1849,43 +1737,39 @@
     "item_id": "1f297946-022c-4855-a1e8-a4ced72102a8",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "511cbfe3-703d-417a-b6e2-2b573b22cd3b",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "73b8c59d-a0d5-4981-97fd-d16d15304244",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "dea73db2-322e-4c32-a111-8def7cbbc61c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MATCHING",
-    "reason": "aufgabe_typ=zuordnung; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=zuordnung; Struktur nicht sicher aus Daten baubar → Lena",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "46abd068-e21e-49a6-82ed-0b01e6c899e3",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "c5fdaae2-e5c3-4220-a345-4ce70ca9d50c",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "7e5b53f9-4036-4f87-852d-045db6f90ac2",
@@ -1903,29 +1787,25 @@
     "item_id": "1ab21d5f-0c96-4c33-b97b-b731bfe0054a",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "6a423daa-156e-4427-9da9-cd687d10911a",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "ced0d92f-8cff-4b7b-b6de-a1c32142ca07",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "4bc315f2-6b29-495d-bb85-f8b1e687fa4f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "c0f66026-fc50-4ca2-815c-e697f83ffec4",
@@ -1943,22 +1823,19 @@
     "item_id": "1c84250d-0f7f-4343-b25b-6363a80afeff",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "99e51835-6494-4530-927d-62d44a857a1d",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "3ac5b03e-bd8a-4a6f-bc75-7ca09466ee61",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "fb14bf69-27ab-449f-9db5-2af74570c197",
@@ -2000,8 +1877,7 @@
     "item_id": "1455c25f-b8a5-47e9-bf36-1de9db98ac87",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "987ba65d-0fc6-42a2-9bd7-2160245d6734",
@@ -2019,21 +1895,20 @@
     "item_id": "4f5c1478-6f4a-4a02-874f-2fb8bb285746",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MC",
-    "reason": "aufgabe_typ=mc_single; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=mc_single; payload.options/correct fehlt → Anreicherung (Lena/Tool)",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
     "item_id": "d31dfb03-52c2-44ea-885b-6b7b41d1da5f",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "f38239df-b5c5-4884-8c90-44cc6ce784c3",
     "category": "OTHER_TYPE",
     "proposed_input_type": "MATCHING",
-    "reason": "aufgabe_typ=zuordnung; Payload NICHT aus den Quellfeldern baubar",
+    "reason": "aufgabe_typ=zuordnung; Struktur nicht sicher aus Daten baubar → Lena",
     "lena_flag": "OTHER_TYPE_UNBUILDABLE"
   },
   {
@@ -2046,8 +1921,7 @@
     "item_id": "b84c85e8-54e4-4928-8b29-757673b92e25",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "81a6bd50-501e-4872-ae76-176bf32a9276",
@@ -2069,15 +1943,13 @@
     "item_id": "70805bca-edfd-4696-bb9a-2f6443431e91",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "1fceee9b-1034-46b2-bf63-0fea4bb793f7",
     "category": "OTHER_TYPE",
     "proposed_input_type": "FREE_TEXT",
-    "reason": "unbekannter aufgabe_typ=mehrteilig → konservativ FREE_TEXT",
-    "lena_flag": "OTHER_TYPE_UNBUILDABLE"
+    "reason": "aufgabe_typ=mehrteilig: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach"
   },
   {
     "item_id": "7bf049ba-b865-4294-a9ca-a3ada16a6ca8",

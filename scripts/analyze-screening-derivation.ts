@@ -1,5 +1,5 @@
 // ============================================================================
-// READ-ONLY Ableitungs-Analyse für screening_items.
+// READ-ONLY Ableitungs-Analyse für screening_items — v2 (payload-aware).
 //
 // Lauf: tsx --env-file=.env scripts/analyze-screening-derivation.ts
 // (braucht SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY — Service-Role, weil VERA-
@@ -8,8 +8,15 @@
 // Ermittelt, welche screening_items sich VERLÄSSLICH auto-prüfbar typisieren
 // lassen (→ kanonischer input_type + canonical-Payload) und welche FREE_TEXT
 // bleiben müssen. Schreibt:
-//   - docs/SCREENING_DERIVATION.md                (Report für Rasit/Lena)
+//   - docs/SCREENING_DERIVATION.md                    (Report für Rasit/Lena)
 //   - scripts/out/screening_derivation_proposal.json  (Input für Apply-Migration)
+//
+// v2-Verschärfungen:
+//   (a) mehrteilig/sonstige → FREE_TEXT bekommen KEIN Lena-Flag (korrekt coach,
+//       kein Review); nur echte strukturierte Typen + Koordinaten werden geflaggt.
+//   (b) `payload`-Feld wird mitgelesen; für mc_single/mc_multi wird ein MC-
+//       canonical_payload gebaut, WENN payload.options {text,correct} trägt.
+//       MATCHING/CLOZE bleiben bewusst Lena-Flag (Auto-Bau wäre Falsch-Auto-Risiko).
 //
 // ⚠️  ABSOLUT READ-ONLY: nur SELECT, KEINE Mutation, KEINE Migration.
 //     Im Zweifel wird ein Item lieber FREE_TEXT / Lena-Flag als falsch auto.
@@ -36,6 +43,7 @@ type Row = {
   loesung_pro_ta: unknown
   kontext: string | null
   prompt: string | null
+  payload: unknown
 }
 
 type Category =
@@ -61,6 +69,10 @@ type Decision = {
 }
 
 // ── Normalisierung ───────────────────────────────────────────────────────────
+function isObj(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null
+}
+
 function asStringArray(v: unknown): string[] {
   if (Array.isArray(v)) {
     return v
@@ -72,8 +84,8 @@ function asStringArray(v: unknown): string[] {
     const s = v.trim()
     return s ? [s] : []
   }
-  if (v && typeof v === 'object') {
-    return Object.values(v as Record<string, unknown>)
+  if (isObj(v)) {
+    return Object.values(v)
       .map((e) => (typeof e === 'string' ? e.trim() : ''))
       .filter(Boolean)
   }
@@ -82,7 +94,7 @@ function asStringArray(v: unknown): string[] {
 
 function hasUsableLoesung(v: unknown): boolean {
   if (Array.isArray(v)) return v.length > 0
-  if (v && typeof v === 'object') return Object.keys(v as object).length > 0
+  if (isObj(v)) return Object.keys(v).length > 0
   if (typeof v === 'string') return v.trim().length > 0
   return false
 }
@@ -133,6 +145,28 @@ function trueFalseFromAccepted(aa: string[]): boolean | null {
   return null
 }
 
+// (b) MC-canonical_payload aus dem screening payload bauen — NUR wenn die
+// Optionen + ein korrekt-Flag eindeutig drinstehen. Sonst null → Lena-Flag.
+function buildMcFromPayload(payload: unknown, multi: boolean): Record<string, unknown> | null {
+  if (!isObj(payload) || !Array.isArray(payload.options)) return null
+  const opts = payload.options
+  if (opts.length < 2) return null
+  const options: { id: string; label: string }[] = []
+  const correct: string[] = []
+  for (let i = 0; i < opts.length; i++) {
+    const o = opts[i]
+    if (!isObj(o)) return null
+    const label = typeof o.text === 'string' ? o.text : typeof o.label === 'string' ? o.label : null
+    if (!label || !label.trim()) return null
+    const id = String(i)
+    options.push({ id, label: label.trim() })
+    if (o.correct === true) correct.push(id)
+  }
+  if (correct.length === 0) return null // kein korrekt-Flag → nicht raten
+  if (!multi && correct.length !== 1) return null // mc_single muss genau 1 haben
+  return { input_type: 'MC', options, correct }
+}
+
 // ── Klassifikation ───────────────────────────────────────────────────────────
 function classify(row: Row): Decision {
   const at = (row.aufgabe_typ ?? '').toLowerCase().trim()
@@ -144,6 +178,28 @@ function classify(row: Row): Decision {
   const isKurz = at === '' || /kurzantwort|kurz|freie?antwort|offen/.test(at)
   if (!isKurz) {
     const mapped = mapAufgabeTyp(at)
+
+    if (mapped === 'MC') {
+      const multi = /multi/.test(at)
+      const mc = buildMcFromPayload(row.payload, multi)
+      if (mc) {
+        return {
+          ...base,
+          category: 'OTHER_TYPE',
+          proposed_input_type: 'MC',
+          reason: 'MC: options + correct-Flag aus payload baubar → auto',
+          canonical_payload: mc,
+        }
+      }
+      return {
+        ...base,
+        category: 'OTHER_TYPE',
+        proposed_input_type: 'MC',
+        reason: `aufgabe_typ=${at}; payload.options/correct fehlt → Anreicherung (Lena/Tool)`,
+        lena_flag: 'OTHER_TYPE_UNBUILDABLE',
+      }
+    }
+
     if (mapped === 'TRUE_FALSE') {
       const tf = trueFalseFromAccepted(aa)
       if (tf !== null) {
@@ -151,26 +207,36 @@ function classify(row: Row): Decision {
           ...base,
           category: 'OTHER_TYPE',
           proposed_input_type: 'TRUE_FALSE',
-          reason: `aufgabe_typ=${at}; correct aus akzeptierte_antworten ableitbar`,
+          reason: 'correct aus akzeptierte_antworten ableitbar → auto',
           canonical_payload: { input_type: 'TRUE_FALSE', correct: tf },
         }
       }
+      return {
+        ...base,
+        category: 'OTHER_TYPE',
+        proposed_input_type: 'TRUE_FALSE',
+        reason: `aufgabe_typ=${at}; correct nicht eindeutig ableitbar → Lena`,
+        lena_flag: 'OTHER_TYPE_UNBUILDABLE',
+      }
     }
-    if (mapped) {
+
+    if (mapped === 'MATCHING' || mapped === 'CLOZE') {
       return {
         ...base,
         category: 'OTHER_TYPE',
         proposed_input_type: mapped,
-        reason: `aufgabe_typ=${at}; Payload NICHT aus den Quellfeldern baubar`,
+        reason: `aufgabe_typ=${at}; Struktur nicht sicher aus Daten baubar → Lena`,
         lena_flag: 'OTHER_TYPE_UNBUILDABLE',
       }
     }
+
+    // mapped === null → mehrteilig / unvollstaendig / unbekannt → reiner FREE_TEXT,
+    // KEIN Review-Flag (Mehrschritt ist im MVP-Enum bewusst coach-bewertet).
     return {
       ...base,
       category: 'OTHER_TYPE',
       proposed_input_type: 'FREE_TEXT',
-      reason: `unbekannter aufgabe_typ=${at} → konservativ FREE_TEXT`,
-      lena_flag: 'OTHER_TYPE_UNBUILDABLE',
+      reason: `aufgabe_typ=${at || '∅'}: kein kanonischer Auto-Typ (z.B. mehrteilig) → coach`,
     }
   }
 
@@ -244,26 +310,36 @@ function buildReport(rows: Row[], decisions: Decision[]): string {
     byTyp.set(t, e)
   }
 
-  // Kategorie-Counts
   const catCount = new Map<Category, number>()
   for (const d of decisions) catCount.set(d.category, (catCount.get(d.category) ?? 0) + 1)
-  const otherBySub = new Map<string, number>()
-  for (const d of decisions) {
-    if (d.category === 'OTHER_TYPE') {
-      const s = `${d.subtype ?? '∅'} → ${d.proposed_input_type}`
-      otherBySub.set(s, (otherBySub.get(s) ?? 0) + 1)
-    }
-  }
-
-  const autoCount = decisions.filter((d) => !!d.canonical_payload).length
-  const freeCount = total - autoCount
-
   const cat = (c: Category) => catCount.get(c) ?? 0
 
+  // OTHER_TYPE-Subtypen mit Auto/Flagged/FREE_TEXT-Ausgang
+  const otherBySub = new Map<string, number>()
+  for (const d of decisions) {
+    if (d.category !== 'OTHER_TYPE') continue
+    const outcome = d.canonical_payload ? '✓auto' : d.lena_flag ? '⚑Lena' : '→FREE_TEXT'
+    const k = `${d.subtype ?? '∅'} → ${d.proposed_input_type} (${outcome})`
+    otherBySub.set(k, (otherBySub.get(k) ?? 0) + 1)
+  }
+
+  // Aktions-Buckets
+  const autoByType = new Map<string, number>()
+  for (const d of decisions) {
+    if (d.canonical_payload) autoByType.set(d.proposed_input_type, (autoByType.get(d.proposed_input_type) ?? 0) + 1)
+  }
+  const autoTotal = [...autoByType.values()].reduce((a, b) => a + b, 0)
+  const flaggedStructured = decisions.filter((d) => d.lena_flag === 'OTHER_TYPE_UNBUILDABLE').length
+  const coordCount = decisions.filter((d) => d.lena_flag === 'COORDINATE').length
+  const otherFreeText = decisions.filter((d) => d.category === 'OTHER_TYPE' && !d.canonical_payload && !d.lena_flag).length
+  const rubrik = cat('RUBRIK_FREE_TEXT')
+  const noKey = cat('NO_KEY')
+  const coachTotal = total - autoTotal
+
   const L: string[] = []
-  L.push('# Screening-Items — Ableitungs-Analyse (READ-ONLY)')
+  L.push('# Screening-Items — Ableitungs-Analyse (READ-ONLY, v2 payload-aware)')
   L.push('')
-  L.push(`Erzeugt von \`scripts/analyze-screening-derivation.ts\` · **keine** DB-Mutation.`)
+  L.push('Erzeugt von `scripts/analyze-screening-derivation.ts` · **keine** DB-Mutation.')
   L.push(`Gesamt: **${total}** screening_items.`)
   L.push('')
   L.push('## 1. aufgabe_typ-Verteilung')
@@ -283,9 +359,9 @@ function buildReport(rows: Row[], decisions: Decision[]): string {
   }
   L.push('')
   if (otherBySub.size > 0) {
-    L.push('### OTHER_TYPE nach Subtyp')
+    L.push('### OTHER_TYPE nach Subtyp (Ausgang)')
     L.push('')
-    L.push('| aufgabe_typ → Vorschlag | Anzahl |')
+    L.push('| aufgabe_typ → Vorschlag (Ausgang) | Anzahl |')
     L.push('|---|--:|')
     for (const [s, n] of [...otherBySub.entries()].sort((a, b) => b[1] - a[1])) {
       L.push(`| ${s} | ${n} |`)
@@ -293,8 +369,20 @@ function buildReport(rows: Row[], decisions: Decision[]): string {
     L.push('')
   }
 
+  L.push('## 3. Aktions-Buckets (was ist real zu tun)')
+  L.push('')
+  L.push('| Aktion | Items |')
+  L.push('|---|--:|')
+  L.push(`| **Auto JETZT übernehmen** (${[...autoByType.entries()].map(([k, v]) => `${k} ${v}`).join(', ') || '—'}) | **${autoTotal}** |`)
+  L.push(`| Anreicherung/Lena: Payload bauen (strukturierte Typen) | ${flaggedStructured} |`)
+  L.push(`| Lena: COORDINATE-Payload | ${coordCount} |`)
+  L.push(`| bleibt coach: mehrteilig/sonstige → FREE_TEXT (kein Review) | ${otherFreeText} |`)
+  L.push(`| bleibt coach: RUBRIK/offen → FREE_TEXT | ${rubrik} |`)
+  L.push(`| bleibt coach: kein Schlüssel → FREE_TEXT | ${noKey} |`)
+  L.push('')
+
   // Stichproben (10–15 IDs je Kategorie)
-  L.push('## 3. Stichproben (je Kategorie, akzeptierte_antworten zur Prüfung)')
+  L.push('## 4. Stichproben (je Kategorie, akzeptierte_antworten zur Prüfung)')
   for (const c of ['AUTO_SHORT_TEXT', 'RUBRIK_FREE_TEXT', 'COORDINATE_FLAG', 'OTHER_TYPE', 'NO_KEY'] as Category[]) {
     const samples = decisions.filter((d) => d.category === c).slice(0, 15)
     L.push('')
@@ -307,23 +395,26 @@ function buildReport(rows: Row[], decisions: Decision[]): string {
     L.push('| item_id | Vorschlag | akzeptierte_antworten / Grund |')
     L.push('|---|---|---|')
     for (const d of samples) {
+      const tag = d.canonical_payload ? ' ✓auto' : d.lena_flag ? ` ⚑${d.lena_flag}` : ''
       const aa = d.accepted && d.accepted.length > 0 ? JSON.stringify(d.accepted) : `_(${d.reason})_`
       const cell = aa.length > 90 ? `${aa.slice(0, 90)}…` : aa
-      L.push(`| \`${d.item_id.slice(0, 8)}\` | ${d.proposed_input_type}${d.lena_flag ? ` ⚑${d.lena_flag}` : ''} | ${cell.replace(/\|/g, '\\|')} |`)
+      L.push(`| \`${d.item_id.slice(0, 8)}\` | ${d.proposed_input_type}${tag} | ${cell.replace(/\|/g, '\\|')} |`)
     }
   }
 
   L.push('')
-  L.push('## 4. Fazit')
+  L.push('## 5. Fazit')
   L.push('')
-  L.push(`- **Auto-prüfbar nach Anwendung (Screening-Pool):** ${autoCount} Items`)
-  L.push(`  (AUTO_SHORT_TEXT + sicher baubare OTHER_TYPE wie TRUE_FALSE).`)
-  L.push(`- **Bleibt coach-bewertet (FREE_TEXT):** ${freeCount} Items.`)
-  L.push(`- **Lena-Review nötig:** COORDINATE_FLAG = ${cat('COORDINATE_FLAG')}, ` +
-    `OTHER_TYPE-unbaubar = ${decisions.filter((d) => d.lena_flag === 'OTHER_TYPE_UNBUILDABLE').length}.`)
+  L.push(`- **Auto-prüfbar nach Anwendung (Screening-Pool):** ${autoTotal} Items ` +
+    `(${[...autoByType.entries()].map(([k, v]) => `${k} ${v}`).join(', ') || '—'}).`)
+  L.push(`- **Bleibt coach-bewertet (FREE_TEXT):** ${coachTotal} Items.`)
+  L.push(`- **Echter Anreicherungs-Aufwand (Lena/Tool):** ${flaggedStructured} strukturierte ` +
+    `+ ${coordCount} Koordinaten = ${flaggedStructured + coordCount} Items ` +
+    `— NICHT die ${otherFreeText} mehrteiligen (die sind korrekt coach).`)
   L.push('')
   L.push('> Vorschlag ist konservativ: im Zweifel FREE_TEXT/Lena-Flag statt falsch auto.')
-  L.push('> Apply-Migration erst nach Prüfung durch Rasit/Lena.')
+  L.push('> SHORT_TEXT/MC/TRUE_FALSE-Items brauchen in der Apply-Migration check_type ≠ manual')
+  L.push('> (normalized bzw. mc_index). Apply-Migration erst nach Prüfung durch Rasit/Lena.')
   L.push('')
   return L.join('\n')
 }
@@ -333,7 +424,7 @@ async function main(): Promise<void> {
   console.log('▶ Lade screening_items (read-only) …')
   const { data, error } = await supabase
     .from('screening_items')
-    .select('id, input_type, aufgabe_typ, akzeptierte_antworten, loesung_pro_ta, kontext, prompt')
+    .select('id, input_type, aufgabe_typ, akzeptierte_antworten, loesung_pro_ta, kontext, prompt, payload')
   if (error) {
     console.error('Query fehlgeschlagen:', error.message)
     process.exit(1)
@@ -343,7 +434,6 @@ async function main(): Promise<void> {
 
   const decisions = rows.map(classify)
 
-  // Proposal-JSON (nur was die Apply-Migration braucht).
   const proposal = decisions.map((d) => ({
     item_id: d.item_id,
     category: d.category,
@@ -357,15 +447,19 @@ async function main(): Promise<void> {
   writeFileSync('scripts/out/screening_derivation_proposal.json', JSON.stringify(proposal, null, 2))
   writeFileSync('docs/SCREENING_DERIVATION.md', buildReport(rows, decisions))
 
-  // Konsolen-Zusammenfassung.
   const catCount = new Map<Category, number>()
   for (const d of decisions) catCount.set(d.category, (catCount.get(d.category) ?? 0) + 1)
-  const auto = decisions.filter((d) => !!d.canonical_payload).length
+  const autoByType = new Map<string, number>()
+  for (const d of decisions) if (d.canonical_payload) autoByType.set(d.proposed_input_type, (autoByType.get(d.proposed_input_type) ?? 0) + 1)
+  const autoTotal = [...autoByType.values()].reduce((a, b) => a + b, 0)
+
   console.log('\n── Kategorie-Counts ──')
   for (const c of ['AUTO_SHORT_TEXT', 'RUBRIK_FREE_TEXT', 'COORDINATE_FLAG', 'OTHER_TYPE', 'NO_KEY'] as Category[]) {
     console.log(`  ${c.padEnd(18)} ${catCount.get(c) ?? 0}`)
   }
-  console.log(`\n  → auto-prüfbar: ${auto}   coach-bewertet: ${rows.length - auto}`)
+  console.log('\n── Auto-Pool nach Typ ──')
+  for (const [k, v] of autoByType) console.log(`  ${k.padEnd(12)} ${v}`)
+  console.log(`\n  → auto-prüfbar: ${autoTotal}   coach-bewertet: ${rows.length - autoTotal}`)
   console.log('\n✔ geschrieben:')
   console.log('  docs/SCREENING_DERIVATION.md')
   console.log('  scripts/out/screening_derivation_proposal.json')

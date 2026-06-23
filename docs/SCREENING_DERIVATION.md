@@ -1,4 +1,4 @@
-# Screening-Items — Ableitungs-Analyse (READ-ONLY)
+# Screening-Items — Ableitungs-Analyse (READ-ONLY, v2 payload-aware)
 
 Erzeugt von `scripts/analyze-screening-derivation.ts` · **keine** DB-Mutation.
 Gesamt: **299** screening_items.
@@ -27,37 +27,48 @@ Gesamt: **299** screening_items.
 | OTHER_TYPE | 170 | 56.9% |
 | NO_KEY | 81 | 27.1% |
 
-### OTHER_TYPE nach Subtyp
+### OTHER_TYPE nach Subtyp (Ausgang)
 
-| aufgabe_typ → Vorschlag | Anzahl |
+| aufgabe_typ → Vorschlag (Ausgang) | Anzahl |
 |---|--:|
-| mehrteilig → FREE_TEXT | 127 |
-| mc_single → MC | 29 |
-| mc_multi → MC | 6 |
-| zuordnung → MATCHING | 4 |
-| lueckentext → CLOZE | 3 |
-| unvollstaendig → FREE_TEXT | 1 |
+| mehrteilig → FREE_TEXT (→FREE_TEXT) | 127 |
+| mc_single → MC (⚑Lena) | 29 |
+| mc_multi → MC (⚑Lena) | 6 |
+| zuordnung → MATCHING (⚑Lena) | 4 |
+| lueckentext → CLOZE (⚑Lena) | 3 |
+| unvollstaendig → FREE_TEXT (→FREE_TEXT) | 1 |
 
-## 3. Stichproben (je Kategorie, akzeptierte_antworten zur Prüfung)
+## 3. Aktions-Buckets (was ist real zu tun)
+
+| Aktion | Items |
+|---|--:|
+| **Auto JETZT übernehmen** (SHORT_TEXT 14) | **14** |
+| Anreicherung/Lena: Payload bauen (strukturierte Typen) | 42 |
+| Lena: COORDINATE-Payload | 4 |
+| bleibt coach: mehrteilig/sonstige → FREE_TEXT (kein Review) | 128 |
+| bleibt coach: RUBRIK/offen → FREE_TEXT | 30 |
+| bleibt coach: kein Schlüssel → FREE_TEXT | 81 |
+
+## 4. Stichproben (je Kategorie, akzeptierte_antworten zur Prüfung)
 
 ### AUTO_SHORT_TEXT (14)
 
 | item_id | Vorschlag | akzeptierte_antworten / Grund |
 |---|---|---|
-| `1b9cbabd` | SHORT_TEXT | ["5,1"] |
-| `2afcb042` | SHORT_TEXT | ["16 m","0,016 km","160 dm","1600 cm"] |
-| `cda2b3ca` | SHORT_TEXT | ["4","vier","4 ungefärbte Flächen"] |
-| `235b5913` | SHORT_TEXT | ["1,25","1,25 Euro","€ 1,25","1.25 Euro"] |
-| `9a52f2fe` | SHORT_TEXT | ["10/20","1/2","0,5","50%","50 Prozent"] |
-| `b5dd001f` | SHORT_TEXT | ["22","ca. 22","22 mm","2,2 cm","22 Millimeter"] |
-| `a538074b` | SHORT_TEXT | ["x = 20","20"] |
-| `75bbfd96` | SHORT_TEXT | ["5","fünf","5 Ecken"] |
-| `537a2b22` | SHORT_TEXT | ["15","15 cm²","15 Quadratcentimeter"] |
-| `a075b552` | SHORT_TEXT | ["x = -10","-10","x=-10"] |
-| `84280807` | SHORT_TEXT | ["280 ml","280","280 Milliliter"] |
-| `153cef6c` | SHORT_TEXT | ["500 000","500000","fünfhunderttausend","Fünfhunderttausend"] |
-| `e5f100d9` | SHORT_TEXT | ["32 cm²","32","32 cm2"] |
-| `81a6bd50` | SHORT_TEXT | ["30 Euro","30€","€30","30"] |
+| `1b9cbabd` | SHORT_TEXT ✓auto | ["5,1"] |
+| `2afcb042` | SHORT_TEXT ✓auto | ["16 m","0,016 km","160 dm","1600 cm"] |
+| `cda2b3ca` | SHORT_TEXT ✓auto | ["4","vier","4 ungefärbte Flächen"] |
+| `235b5913` | SHORT_TEXT ✓auto | ["1,25","1,25 Euro","€ 1,25","1.25 Euro"] |
+| `9a52f2fe` | SHORT_TEXT ✓auto | ["10/20","1/2","0,5","50%","50 Prozent"] |
+| `b5dd001f` | SHORT_TEXT ✓auto | ["22","ca. 22","22 mm","2,2 cm","22 Millimeter"] |
+| `a538074b` | SHORT_TEXT ✓auto | ["x = 20","20"] |
+| `75bbfd96` | SHORT_TEXT ✓auto | ["5","fünf","5 Ecken"] |
+| `537a2b22` | SHORT_TEXT ✓auto | ["15","15 cm²","15 Quadratcentimeter"] |
+| `a075b552` | SHORT_TEXT ✓auto | ["x = -10","-10","x=-10"] |
+| `84280807` | SHORT_TEXT ✓auto | ["280 ml","280","280 Milliliter"] |
+| `153cef6c` | SHORT_TEXT ✓auto | ["500 000","500000","fünfhunderttausend","Fünfhunderttausend"] |
+| `e5f100d9` | SHORT_TEXT ✓auto | ["32 cm²","32","32 cm2"] |
+| `81a6bd50` | SHORT_TEXT ✓auto | ["30 Euro","30€","€30","30"] |
 
 ### RUBRIK_FREE_TEXT (30)
 
@@ -92,21 +103,21 @@ Gesamt: **299** screening_items.
 
 | item_id | Vorschlag | akzeptierte_antworten / Grund |
 |---|---|---|
-| `84e18b36` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["1/24","1:24","0,0417","4,17%","≈4%","1/18","1:18","0,0556","5,56%","≈5,6%","1","100%","g… |
-| `70463a7b` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["9","neun Nullen","3. Antwortalternative","1000000","1.000.000","1 Million","1 Mio.","100… |
-| `03e2327c` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["5","5,0","Alle Punktzahlen im Bereich [89; 91)","x = 90","89","90","90,5","Note = (Punkt… |
+| `84e18b36` | FREE_TEXT | ["1/24","1:24","0,0417","4,17%","≈4%","1/18","1:18","0,0556","5,56%","≈5,6%","1","100%","g… |
+| `70463a7b` | FREE_TEXT | ["9","neun Nullen","3. Antwortalternative","1000000","1.000.000","1 Million","1 Mio.","100… |
+| `03e2327c` | FREE_TEXT | ["5","5,0","Alle Punktzahlen im Bereich [89; 91)","x = 90","89","90","90,5","Note = (Punkt… |
 | `a76aa68a` | MATCHING ⚑OTHER_TYPE_UNBUILDABLE | ["A","D","B"] |
-| `40faaa13` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["α = 45°, γ = 90°","β = 180° - 3·α","β = 180 - 3α","β = 180 - α - 2α","β = 180° - α - 2α"… |
-| `8479390c` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["26 Frauen und 43 Männer","69 Fahrräder insgesamt","Es sind 26 Fahrräder von Frauen und 4… |
-| `1cd0c49c` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["Schüler des Bistros befragen","Informationen zu Vorlieben/Gewohnheiten sammeln","Stichpr… |
-| `be735971` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["30","30%","0,3 → 30%","0,8","8/10","80/100"] |
-| `4961b20c` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["6,80","6.80 Euro","6,80€","Kästchen 3","Die dritte Option","y = 0,09x + 4,99 (oder äquiv… |
-| `2ae94335` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["12","4 mal 3","4 × 3 = 12","2 Wechselringe und 6 Wechselarmbänder, 3 Wechselringe und 4 … |
-| `d0b4151f` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["12 Würfel","12","3. Kästchen","Option 3","Kästchen drei"] |
-| `e4d11f56` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["Korrekte Anwendung des Dreisatzes auf proportionalen Zusammenhang","Korrekte Erkennung u… |
-| `7f85dcaf` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["Numerisch korrekte Lösung mit gültiger Begründung durch Pfadregel","Baumdiagramm mit kor… |
+| `40faaa13` | FREE_TEXT | ["α = 45°, γ = 90°","β = 180° - 3·α","β = 180 - 3α","β = 180 - α - 2α","β = 180° - α - 2α"… |
+| `8479390c` | FREE_TEXT | ["26 Frauen und 43 Männer","69 Fahrräder insgesamt","Es sind 26 Fahrräder von Frauen und 4… |
+| `1cd0c49c` | FREE_TEXT | ["Schüler des Bistros befragen","Informationen zu Vorlieben/Gewohnheiten sammeln","Stichpr… |
+| `be735971` | FREE_TEXT | ["30","30%","0,3 → 30%","0,8","8/10","80/100"] |
+| `4961b20c` | FREE_TEXT | ["6,80","6.80 Euro","6,80€","Kästchen 3","Die dritte Option","y = 0,09x + 4,99 (oder äquiv… |
+| `2ae94335` | FREE_TEXT | ["12","4 mal 3","4 × 3 = 12","2 Wechselringe und 6 Wechselarmbänder, 3 Wechselringe und 4 … |
+| `d0b4151f` | FREE_TEXT | ["12 Würfel","12","3. Kästchen","Option 3","Kästchen drei"] |
+| `e4d11f56` | FREE_TEXT | ["Korrekte Anwendung des Dreisatzes auf proportionalen Zusammenhang","Korrekte Erkennung u… |
+| `7f85dcaf` | FREE_TEXT | ["Numerisch korrekte Lösung mit gültiger Begründung durch Pfadregel","Baumdiagramm mit kor… |
 | `96eda407` | MC ⚑OTHER_TYPE_UNBUILDABLE | ["0,0612","Antwort 3","Kästchen 3"] |
-| `d54c3739` | FREE_TEXT ⚑OTHER_TYPE_UNBUILDABLE | ["Korrekte Bruchdarstellung mit korrektem Prozentsatz","Nenner = Gesamtzahl gleich großer … |
+| `d54c3739` | FREE_TEXT | ["Korrekte Bruchdarstellung mit korrektem Prozentsatz","Nenner = Gesamtzahl gleich großer … |
 
 ### NO_KEY (81)
 
@@ -128,12 +139,12 @@ Gesamt: **299** screening_items.
 | `90d69515` | FREE_TEXT | _(kein akzeptierte_antworten und kein verwertbares loesung_pro_ta)_ |
 | `c1efb9ad` | FREE_TEXT | _(kein akzeptierte_antworten und kein verwertbares loesung_pro_ta)_ |
 
-## 4. Fazit
+## 5. Fazit
 
-- **Auto-prüfbar nach Anwendung (Screening-Pool):** 14 Items
-  (AUTO_SHORT_TEXT + sicher baubare OTHER_TYPE wie TRUE_FALSE).
+- **Auto-prüfbar nach Anwendung (Screening-Pool):** 14 Items (SHORT_TEXT 14).
 - **Bleibt coach-bewertet (FREE_TEXT):** 285 Items.
-- **Lena-Review nötig:** COORDINATE_FLAG = 4, OTHER_TYPE-unbaubar = 170.
+- **Echter Anreicherungs-Aufwand (Lena/Tool):** 42 strukturierte + 4 Koordinaten = 46 Items — NICHT die 128 mehrteiligen (die sind korrekt coach).
 
 > Vorschlag ist konservativ: im Zweifel FREE_TEXT/Lena-Flag statt falsch auto.
-> Apply-Migration erst nach Prüfung durch Rasit/Lena.
+> SHORT_TEXT/MC/TRUE_FALSE-Items brauchen in der Apply-Migration check_type ≠ manual
+> (normalized bzw. mc_index). Apply-Migration erst nach Prüfung durch Rasit/Lena.
