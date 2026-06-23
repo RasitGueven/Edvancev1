@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edvance · Content-QS &amp; Tagging</title>
+  <style>
+    :root {
+      --bg: #f5f6f8; --card: #ffffff; --border: #e3e6ea; --text: #1f2733;
+      --muted: #6b7280; --accent: #2563eb; --ok: #16a34a; --warn: #d97706;
+      --err: #dc2626; --info: #64748b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 10; display: flex; align-items: center;
+      gap: 16px; padding: 12px 20px; background: #0f172a; color: #fff;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, .18);
+    }
+    .topbar h1 { font-size: 15px; margin: 0; font-weight: 600; }
+    .topbar .spacer { flex: 1; }
+    .topbar .prog, .topbar .count { font-size: 12px; color: #cbd5e1; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #64748b; display: inline-block; }
+    .dot.on { background: #22c55e; } .dot.off { background: #ef4444; }
+    main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .panel {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 18px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(30, 41, 59, .06);
+    }
+    .panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+    input, select, button { font: inherit; }
+    input[type=text], input[type=password], input[type=email], select {
+      padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: #fff; color: var(--text);
+    }
+    select { min-width: 0; }
+    button {
+      padding: 8px 14px; border: 1px solid var(--accent); background: var(--accent); color: #fff;
+      border-radius: 8px; cursor: pointer; font-weight: 600;
+    }
+    button:disabled { opacity: .45; cursor: default; }
+    button.ghost { background: #fff; color: var(--accent); }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+    .row > * { flex: 1 1 160px; }
+    .row .chk { flex: 0 0 auto; flex-direction: row; align-items: center; gap: 6px; color: var(--text); }
+    .conn-msg { margin-top: 10px; font-size: 13px; }
+    .conn-msg.ok { color: var(--ok); } .conn-msg.warn { color: var(--warn); }
+    .conn-msg.err { color: var(--err); }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .card { border: 1px solid var(--border); border-radius: 12px; background: var(--card); padding: 14px 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(30, 41, 59, .05); }
+    .card-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+    .card-head .ttl { font-weight: 600; font-size: 14px; }
+    .card-head .meta { font-size: 12px; color: var(--muted); }
+    .meta .on { color: var(--ok); font-weight: 600; } .meta .off { color: var(--muted); }
+    .prompt { margin: 8px 0; font-size: 13px; color: #374151; white-space: pre-wrap; max-height: 4.5em; overflow: hidden; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+    .badge.error { background: #fee2e2; color: var(--err); }
+    .badge.warn { background: #fef3c7; color: var(--warn); }
+    .badge.info { background: #e2e8f0; color: var(--info); }
+    .badge.ok { background: #dcfce7; color: var(--ok); }
+    .controls { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr auto auto auto; gap: 10px; align-items: end; margin-top: 10px; }
+    .controls .chk { flex-direction: row; align-items: center; gap: 6px; color: var(--text); font-size: 13px; padding-bottom: 8px; }
+    .status { font-size: 12px; color: var(--muted); align-self: center; min-width: 90px; }
+    .status.ok2 { color: var(--ok); } .status.err { color: var(--err); }
+    .empty { text-align: center; color: var(--muted); padding: 40px; }
+    details.help summary { cursor: pointer; color: var(--accent); font-size: 13px; }
+    details.help { margin-bottom: 16px; }
+    details.help ul { margin: 8px 0; padding-left: 20px; font-size: 13px; color: #374151; }
+    code { background: #eef2ff; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+    @media (max-width: 720px) { .controls { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="dot off" id="statusDot"></span>
+    <h1>Edvance · Content-QS &amp; Tagging</h1>
+    <span class="spacer"></span>
+    <span class="prog" id="prog"></span>
+    <span class="count" id="count"></span>
+  </header>
+
+  <main>
+    <details class="help">
+      <summary>Hilfe / Anleitung</summary>
+      <ul>
+        <li>Internes Tool — kein Produkt. Verbindet sich mit Supabase und taggt die <code>screening_items</code>-Itembank.</li>
+        <li><b>URL + anon-Key</b> aus deiner <code>.env</code> (<code>VITE_SUPABASE_URL</code> / <code>VITE_SUPABASE_ANON_KEY</code>). Werden nur lokal im Browser (localStorage) gespeichert, nie im Repo.</li>
+        <li>Login mit <b>Admin</b>-E-Mail/Passwort — nur admin darf schreiben (RLS <code>screening_items_admin_all</code>). Passwort wird <b>nicht</b> gespeichert.</li>
+        <li>Pro Item: <b>Cluster</b> (Achse A), <b>Kompetenz</b> (Achse B), <b>Microskill</b> (feinste Granularität, 043) setzen → <b>Speichern</b>.</li>
+        <li><b>aktiv</b>-Schalter macht ein Item im Screening für Schüler:innen sichtbar — mit Bestätigung.</li>
+        <li>QS-Badges zeigen automatische Qualitäts-Probleme (fehlende Felder, Cluster-Mismatch, unvollständig &amp; aktiv …).</li>
+      </ul>
+    </details>
+
+    <section class="panel" id="conn">
+      <h2>Verbindung</h2>
+      <div class="grid">
+        <label>Supabase URL <input type="text" id="elUrl" placeholder="https://xxxx.supabase.co" autocomplete="off" /></label>
+        <label>anon-Key <input type="password" id="elKey" placeholder="eyJ… (anon, nicht service_role)" autocomplete="off" /></label>
+        <label>Admin E-Mail <input type="email" id="elEmail" placeholder="admin@…" autocomplete="username" /></label>
+        <label>Passwort <input type="password" id="elPw" placeholder="••••••••" autocomplete="current-password" /></label>
+      </div>
+      <div class="row" style="margin-top:12px; flex:0;">
+        <button id="btnConnect" style="flex:0 0 auto;">Verbinden &amp; laden</button>
+        <button id="btnReload" class="ghost" style="flex:0 0 auto;" hidden>Neu laden</button>
+      </div>
+      <div class="conn-msg" id="connMsg"></div>
+    </section>
+
+    <section class="panel" id="filters" hidden>
+      <h2>Filter</h2>
+      <div class="row">
+        <label>Klassenstufe <select id="fClass"><option value="">alle</option></select></label>
+        <label>Cluster <select id="fCluster"><option value="">alle</option></select></label>
+        <label>Kompetenz <select id="fComp"><option value="">alle</option></select></label>
+        <label>Status <select id="fActive"><option value="all">alle</option><option value="active">nur aktiv</option><option value="inactive">nur inaktiv</option></select></label>
+        <label style="flex:2 1 240px;">Suche <input type="text" id="fSearch" placeholder="skill_code, prompt, iqb_titel, topic…" /></label>
+        <label class="chk"><input type="checkbox" id="fUntag" /> nur ohne Microskill</label>
+        <label class="chk"><input type="checkbox" id="fProb" /> nur mit QS-Problemen</label>
+      </div>
+    </section>
+
+    <section id="list"></section>
+  </main>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4'
+
+    let sb = null
+    let allItems = []
+    let itemById = {}, subjectById = {}, clusterById = {}, skillById = {}, compById = {}
+    const cache = { clusters: [], comps: [], skills: [] }
+    const dirty = new Map()
+
+    const $ = (id) => document.getElementById(id)
+    const list = $('list')
+    const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+
+    // ---- Connection ----------------------------------------------------------
+    $('elUrl').value = localStorage.getItem('edvance_tagging_url') || ''
+    $('elKey').value = localStorage.getItem('edvance_tagging_key') || ''
+
+    function setConnMsg(msg, kind) {
+      const el = $('connMsg'); el.textContent = msg; el.className = 'conn-msg' + (kind ? ' ' + kind : '')
+    }
+
+    async function connect() {
+      const url = $('elUrl').value.trim(), key = $('elKey').value.trim()
+      const email = $('elEmail').value.trim(), pw = $('elPw').value
+      if (!url || !key) { setConnMsg('URL und anon-Key sind nötig.', 'err'); return }
+      localStorage.setItem('edvance_tagging_url', url)
+      localStorage.setItem('edvance_tagging_key', key)
+      setConnMsg('verbinde …', '')
+      try {
+        sb = createClient(url, key, { auth: { persistSession: true, storageKey: 'edvance_tagging_auth' } })
+        if (email && pw) {
+          const { error } = await sb.auth.signInWithPassword({ email, password: pw })
+          if (error) throw new Error('Login: ' + error.message)
+        }
+        const { data: { session } } = await sb.auth.getSession()
+        if (!session) throw new Error('Keine Session — bitte Admin-E-Mail und Passwort eingeben.')
+        let role = '?'
+        try { const { data } = await sb.rpc('get_my_role'); if (data) role = data } catch { /* rpc optional */ }
+        const known = role !== '?'
+        const warnRole = known && role !== 'admin' ? ' — ⚠ kein admin: Schreiben scheitert an RLS' : ''
+        setConnMsg(`verbunden als ${session.user.email} (Rolle: ${role})${warnRole}`, !known || role === 'admin' ? 'ok' : 'warn')
+        $('statusDot').className = 'dot on'
+        $('elPw').value = ''
+        await loadAll()
+        $('filters').hidden = false
+        $('btnReload').hidden = false
+      } catch (err) {
+        setConnMsg(err.message, 'err'); $('statusDot').className = 'dot off'
+      }
+    }
+
+    async function loadAll() {
+      list.innerHTML = '<div class="empty">lade …</div>'
+      const [cl, su, co, ms, it] = await Promise.all([
+        sb.from('skill_clusters').select('id,subject_id,name,class_level_min,class_level_max,is_deprecated,sort_order'),
+        sb.from('subjects').select('id,name'),
+        sb.from('process_competencies').select('id,code,name,sort_order').order('sort_order'),
+        sb.from('microskills').select('id,cluster_id,code,name,class_level,sort_order'),
+        sb.from('screening_items')
+          .select('id,cluster_id,competency_id,microskill_id,class_level,topic,skill_code,skill_label,level,input_type,prompt,canonical,check_type,afb,phase,iqb_titel,active')
+          .order('class_level', { ascending: true }).order('skill_code', { ascending: true }).limit(5000),
+      ])
+      for (const r of [cl, su, co, ms, it]) if (r.error) throw new Error(r.error.message)
+      cache.clusters = cl.data || []; cache.comps = co.data || []; cache.skills = ms.data || []
+      subjectById = {}; for (const s of (su.data || [])) subjectById[s.id] = s
+      clusterById = {}; for (const c of cache.clusters) clusterById[c.id] = c
+      skillById = {}; for (const s of cache.skills) skillById[s.id] = s
+      compById = {}; for (const c of cache.comps) compById[c.id] = c
+      allItems = it.data || []
+      itemById = {}; for (const i of allItems) itemById[i.id] = i
+      if (allItems.length >= 5000) setConnMsg('Hinweis: 5000-Limit erreicht — evtl. nicht alle Items geladen.', 'warn')
+      buildFilterOptions()
+      render()
+    }
+
+    // ---- Option builders -----------------------------------------------------
+    function clusterOptionsHTML(current) {
+      const cs = [...cache.clusters].sort((a, b) => {
+        const sa = subjectById[a.subject_id]?.name || '', sb2 = subjectById[b.subject_id]?.name || ''
+        return sa.localeCompare(sb2) || (a.sort_order - b.sort_order) || a.name.localeCompare(b.name)
+      })
+      return '<option value="">— kein Cluster —</option>' + cs.map((c) => {
+        const subj = subjectById[c.subject_id]?.name || '?'
+        const dep = c.is_deprecated ? ' ⚠' : ''
+        const sel = c.id === current ? ' selected' : ''
+        return `<option value="${c.id}"${sel}>${esc(subj)} · ${esc(c.name)} (${c.class_level_min}–${c.class_level_max})${dep}</option>`
+      }).join('')
+    }
+
+    function compOptionsHTML(current) {
+      return '<option value="">— keine Kompetenz —</option>' + cache.comps.map((c) =>
+        `<option value="${c.id}"${c.id === current ? ' selected' : ''}>${esc(c.code)} · ${esc(c.name)}</option>`).join('')
+    }
+
+    function msOptionsHTML(clusterId, current) {
+      if (!clusterId) {
+        const cur = current && skillById[current]
+        return '<option value="">— erst Cluster wählen —</option>' +
+          (cur ? `<option value="${current}" selected>${esc(cur.code)} (anderer Cluster)</option>` : '')
+      }
+      let listMs = cache.skills.filter((s) => s.cluster_id === clusterId)
+      listMs.sort((a, b) => (a.class_level - b.class_level) || (a.sort_order - b.sort_order) || a.code.localeCompare(b.code))
+      if (current && !listMs.some((s) => s.id === current) && skillById[current]) listMs = [skillById[current], ...listMs]
+      return '<option value="">— kein Microskill —</option>' + listMs.map((s) =>
+        `<option value="${s.id}"${s.id === current ? ' selected' : ''}>${esc(s.code)} · ${esc(s.name)} · Kl.${s.class_level}</option>`).join('')
+    }
+
+    // ---- QS checks -----------------------------------------------------------
+    function qs(it) {
+      const e = { ...it, ...(dirty.get(it.id) || {}) }
+      const f = []
+      if (!e.microskill_id) f.push(['warn', 'kein Microskill (043)'])
+      if (!e.competency_id) f.push(['warn', 'keine Kompetenz (Achse B)'])
+      if (!e.cluster_id) f.push(['info', 'kein Cluster (Achse A)'])
+      if (e.microskill_id) {
+        const ms = skillById[e.microskill_id]
+        if (ms && e.cluster_id && ms.cluster_id !== e.cluster_id) f.push(['error', 'Microskill gehört zu anderem Cluster'])
+        if (ms && ms.class_level !== e.class_level) f.push(['info', `Microskill Kl.${ms.class_level} ≠ Item Kl.${e.class_level}`])
+      }
+      if (e.cluster_id && clusterById[e.cluster_id]?.is_deprecated) f.push(['warn', 'Cluster stillgelegt (041)'])
+      if (!e.prompt || !String(e.prompt).trim()) f.push(['error', 'kein Prompt'])
+      if (e.check_type !== 'manual' && e.canonical == null) f.push(['warn', 'keine Auto-Lösung (canonical leer)'])
+      if (!e.afb) f.push(['info', 'AFB fehlt'])
+      if (!e.phase) f.push(['info', 'Phase fehlt'])
+      if (e.active && (!e.afb || !e.phase || !e.cluster_id)) f.push(['error', 'aktiv, aber unvollständig'])
+      return f
+    }
+
+    function badgesHTML(it) {
+      const f = qs(it)
+      return f.length ? f.map(([l, m]) => `<span class="badge ${l}">${esc(m)}</span>`).join('')
+        : '<span class="badge ok">QS ok</span>'
+    }
+
+    // ---- Card rendering ------------------------------------------------------
+    function cardHTML(it) {
+      const e = { ...it, ...(dirty.get(it.id) || {}) }
+      const title = it.skill_code || it.iqb_titel || it.topic || '(ohne Titel)'
+      const prompt = (it.prompt || '').trim()
+      const isDirty = dirty.has(it.id)
+      const activeMeta = e.active ? ' · <span class="on">aktiv</span>' : ' · <span class="off">inaktiv</span>'
+      return `<article class="card" data-id="${it.id}">
+        <div class="card-head">
+          <div class="ttl">${esc(title)}</div>
+          <div class="meta">Kl.${it.class_level} · ${esc(it.input_type)} · ${esc(it.check_type)}${it.level ? ` · L${it.level}` : ''}${activeMeta}</div>
+        </div>
+        ${prompt ? `<div class="prompt">${esc(prompt)}</div>` : ''}
+        <div class="badges" data-badges>${badgesHTML(it)}</div>
+        <div class="controls">
+          <label>Cluster<select data-id="${it.id}" data-field="cluster_id">${clusterOptionsHTML(e.cluster_id)}</select></label>
+          <label>Kompetenz<select data-id="${it.id}" data-field="competency_id">${compOptionsHTML(e.competency_id)}</select></label>
+          <label>Microskill<select data-id="${it.id}" data-field="microskill_id" data-role="ms">${msOptionsHTML(e.cluster_id, e.microskill_id)}</select></label>
+          <label class="chk"><input type="checkbox" data-id="${it.id}" data-field="active" ${e.active ? 'checked' : ''}/> aktiv</label>
+          <button data-id="${it.id}" data-act="save" ${isDirty ? '' : 'disabled'}>Speichern</button>
+          <span class="status" data-status>${isDirty ? 'ungespeichert' : ''}</span>
+        </div>
+      </article>`
+    }
+
+    function refreshCard(id) {
+      const card = list.querySelector(`.card[data-id="${id}"]`)
+      if (!card) return
+      card.querySelector('[data-badges]').innerHTML = badgesHTML(itemById[id])
+      const isDirty = dirty.has(id)
+      card.querySelector('button[data-act="save"]').disabled = !isDirty
+      const st = card.querySelector('[data-status]')
+      st.textContent = isDirty ? 'ungespeichert' : ''
+      st.className = 'status'
+    }
+
+    // ---- Filters + list ------------------------------------------------------
+    function buildFilterOptions() {
+      const levels = [...new Set(allItems.map((i) => i.class_level))].sort((a, b) => a - b)
+      $('fClass').innerHTML = '<option value="">alle</option>' + levels.map((l) => `<option value="${l}">Klasse ${l}</option>`).join('')
+      $('fCluster').innerHTML = '<option value="">alle</option>' + clusterOptionsHTML('').replace('<option value="">— kein Cluster —</option>', '<option value="__none__">— ohne Cluster —</option>')
+      $('fComp').innerHTML = '<option value="">alle</option>' + cache.comps.map((c) => `<option value="${c.id}">${esc(c.code)} · ${esc(c.name)}</option>`).join('')
+    }
+
+    function applyFilters() {
+      const cl = $('fClass').value, cu = $('fCluster').value, co = $('fComp').value
+      const q = $('fSearch').value.trim().toLowerCase(), act = $('fActive').value
+      const onlyUntag = $('fUntag').checked, onlyProb = $('fProb').checked
+      return allItems.filter((it) => {
+        const e = { ...it, ...(dirty.get(it.id) || {}) }
+        if (cl && String(it.class_level) !== cl) return false
+        if (cu === '__none__') { if (e.cluster_id) return false } else if (cu && e.cluster_id !== cu) return false
+        if (co && e.competency_id !== co) return false
+        if (act === 'active' && !e.active) return false
+        if (act === 'inactive' && e.active) return false
+        if (onlyUntag && e.microskill_id) return false
+        if (onlyProb && !qs(it).some(([l]) => l === 'error' || l === 'warn')) return false
+        if (q) {
+          const hay = `${it.skill_code || ''} ${it.skill_label || ''} ${it.iqb_titel || ''} ${it.topic || ''} ${it.prompt || ''}`.toLowerCase()
+          if (!hay.includes(q)) return false
+        }
+        return true
+      })
+    }
+
+    function updateProgress() {
+      const tagged = allItems.filter((i) => ({ ...i, ...(dirty.get(i.id) || {}) }).microskill_id).length
+      const tot = allItems.length || 1
+      $('prog').textContent = allItems.length ? `Microskill getaggt: ${tagged}/${allItems.length} (${Math.round(tagged / tot * 100)}%)` : ''
+    }
+
+    function render() {
+      const items = applyFilters()
+      list.innerHTML = items.length ? items.map(cardHTML).join('') : '<div class="empty">Keine Items für diese Filter.</div>'
+      $('count').textContent = `${items.length} / ${allItems.length} Items`
+      updateProgress()
+    }
+
+    // ---- Edit + save ---------------------------------------------------------
+    list.addEventListener('change', (ev) => {
+      const el = ev.target
+      const id = el.dataset.id, field = el.dataset.field
+      if (!id || !field) return
+      let val = field === 'active' ? el.checked : (el.value || null)
+      if (field === 'active' && val === true) {
+        if (!confirm('Item AKTIV schalten?\n\naktiv = true macht das Item im Screening für Schüler:innen sichtbar (RLS screening_items_read_active). Sicher?')) {
+          el.checked = false; return
+        }
+      }
+      const patch = dirty.get(id) || {}
+      patch[field] = val
+      dirty.set(id, patch)
+      if (field === 'cluster_id') {
+        const card = el.closest('.card')
+        const e = { ...itemById[id], ...patch }
+        card.querySelector('select[data-role="ms"]').innerHTML = msOptionsHTML(val, e.microskill_id)
+      }
+      refreshCard(id)
+      updateProgress()
+    })
+
+    list.addEventListener('click', async (ev) => {
+      const btn = ev.target.closest('button[data-act="save"]')
+      if (!btn) return
+      const id = btn.dataset.id, patch = dirty.get(id)
+      if (!patch) return
+      const e = { ...itemById[id], ...patch }
+      if (e.active && (!e.afb || !e.phase || !e.cluster_id)) {
+        if (!confirm('Item ist aktiv, aber unvollständig (afb/phase/cluster fehlen). Trotzdem speichern?')) return
+      }
+      const st = btn.parentElement.querySelector('[data-status]')
+      btn.disabled = true; st.textContent = 'speichere …'; st.className = 'status'
+      const out = {}
+      for (const k of ['cluster_id', 'competency_id', 'microskill_id', 'active']) if (k in patch) out[k] = patch[k]
+      try {
+        const { error } = await sb.from('screening_items').update(out).eq('id', id)
+        if (error) throw new Error(error.message)
+        Object.assign(itemById[id], out)
+        dirty.delete(id)
+        refreshCard(id); updateProgress()
+        st.textContent = 'gespeichert ✓'; st.className = 'status ok2'
+        setTimeout(() => { if (!dirty.has(id)) refreshCard(id) }, 2500)
+      } catch (err) {
+        st.textContent = 'Fehler: ' + err.message; st.className = 'status err'
+        btn.disabled = false
+      }
+    })
+
+    // ---- Wiring --------------------------------------------------------------
+    $('btnConnect').addEventListener('click', connect)
+    $('btnReload').addEventListener('click', () => {
+      if (dirty.size && !confirm(`${dirty.size} ungespeicherte Änderung(en) gehen verloren. Neu laden?`)) return
+      dirty.clear(); loadAll().catch((err) => setConnMsg(err.message, 'err'))
+    })
+    for (const fid of ['fClass', 'fCluster', 'fComp', 'fActive']) $(fid).addEventListener('change', render)
+    $('fUntag').addEventListener('change', render)
+    $('fProb').addEventListener('change', render)
+    let searchTimer
+    $('fSearch').addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(render, 200) })
+    window.addEventListener('beforeunload', (e) => { if (dirty.size) { e.preventDefault(); e.returnValue = '' } })
+  </script>
+</body>
+</html>
