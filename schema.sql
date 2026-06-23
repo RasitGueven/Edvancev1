@@ -623,6 +623,9 @@ create table screening_items (
   -- Prozesskompetenz. kompetenzfelder (text[], oben) bleibt als Legacy/VERA-8-
   -- Historie erhalten und wird NICHT entfernt.
   competency_id uuid references process_competencies(id) on delete set null,
+  -- Migration 043 (Microskill-Lokalisierung): feinste Inhalts-Granularitaet
+  -- (unterhalb cluster_id); Basis fuer Root-Gap-Walk via microskills.prerequisite_ids.
+  microskill_id uuid references microskills(id) on delete set null,
   constraint screening_items_iqb_titel_uniq unique (iqb_titel)
 );
 
@@ -638,6 +641,8 @@ create index if not exists screening_items_quelle_idx
   on screening_items (quelle);
 create index if not exists screening_items_competency_idx
   on screening_items (competency_id);
+create index if not exists screening_items_microskill_idx
+  on screening_items (microskill_id);
 
 alter table screening_items enable row level security;
 
