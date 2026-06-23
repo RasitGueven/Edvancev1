@@ -1,21 +1,30 @@
 import { useEffect, useState, type JSX } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { ArrowRight, CalendarClock } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { EdvanceCard } from '@/components/edvance/EdvanceCard'
 import { useAuth } from '@/hooks/useAuth'
 import { getStudentByProfile } from '@/lib/supabase/students'
 import { getStudentProgress } from '@/lib/supabase/progress'
 import { getClustersForStudent, getMicroskillsByIds } from '@/lib/supabase/tasks'
 import { getStudentMasteryMatrix } from '@/lib/supabase/competencyMastery'
+import { listUpcomingSessionsForStudent } from '@/lib/supabase/sessions'
 import { StudentHero } from './StudentHero'
 import { ClusterGrid } from './ClusterGrid'
 import { aggregateMastery, type MasteryDisplay } from './masteryMatrix'
-import type { SkillCluster, StudentCompetencyMastery, StudentProgress } from '@/types'
+import type {
+  CoachingSession,
+  SkillCluster,
+  StudentCompetencyMastery,
+  StudentProgress,
+} from '@/types'
 
 type LoadState = 'loading' | 'no-profile' | 'error' | 'ready'
 
 export function StudentDashboard(): JSX.Element {
-  const { t } = useTranslation('student')
+  const { t, i18n } = useTranslation('student')
   const { user } = useAuth()
 
   const [state, setState] = useState<LoadState>('loading')
@@ -23,6 +32,8 @@ export function StudentDashboard(): JSX.Element {
   const [clusters, setClusters] = useState<SkillCluster[]>([])
   // Per-Cluster-Mastery aus der Kompetenz-Matrix (eigene Skala, FernUSG-gedeckelt).
   const [clusterMastery, setClusterMastery] = useState<Record<string, MasteryDisplay>>({})
+  // Nächste Präsenz-Session als Einstieg in den Session-Flow (best effort).
+  const [todaySession, setTodaySession] = useState<CoachingSession | null>(null)
 
   useEffect(() => {
     if (!user) return
@@ -53,6 +64,10 @@ export function StudentDashboard(): JSX.Element {
       setProgress(progressRes.data ?? null)
       setClusters(clustersRes.data ?? [])
       setState('ready')
+
+      // Nächste Präsenz-Session laden (Best effort, blockiert das Dashboard nicht).
+      const { data: sessions } = await listUpcomingSessionsForStudent(student.id)
+      if (!cancelled) setTodaySession(sessions?.[0] ?? null)
 
       // Per-Cluster-Mastery aus der Matrix nachladen (Best effort, blockiert das
       // Dashboard nicht). microskill_id → cluster_id über getMicroskillsByIds
@@ -130,6 +145,38 @@ export function StudentDashboard(): JSX.Element {
               presenceMultiplier={progress?.presence_streak_multiplier ?? 1}
             />
             <main className="mx-auto max-w-3xl px-4 py-8">
+              {todaySession && (
+                <Link to={`/student/session/${todaySession.id}`} className="mb-6 block">
+                  <EdvanceCard
+                    variant="blue-pale"
+                    accent="primary"
+                    className="flex items-center gap-4"
+                  >
+                    <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--color-primary)] text-white">
+                      <CalendarClock className="h-6 w-6" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-eyebrow text-[var(--color-primary)]">
+                        {t('dashboard.todaySession.eyebrow')}
+                      </p>
+                      <p className="text-base font-semibold text-[var(--color-text-primary)]">
+                        {t('dashboard.todaySession.title')}
+                      </p>
+                      <p className="text-sm text-[var(--color-text-secondary)]">
+                        {t('dashboard.todaySession.time', {
+                          time: new Intl.DateTimeFormat(i18n.language, {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            timeZone: 'Europe/Berlin',
+                          }).format(new Date(todaySession.scheduled_at)),
+                        })}
+                      </p>
+                    </div>
+                    <ArrowRight className="h-5 w-5 flex-none text-[var(--color-primary)]" />
+                  </EdvanceCard>
+                </Link>
+              )}
+
               <h2 className="text-eyebrow text-warm-56">
                 {t('dashboard.sectionLabel')}
               </h2>

@@ -127,6 +127,15 @@ Werte beim Einspielen hier eintragen:
    die StepsWidget-vs-Freitext-Unterscheidung im Mock zerstören → bleibt als
    Design-Referenz, bis die echte Registry (Session-A) ihn ersetzt.
 
+7. **Session-A: kein `getSessionById` in der lib.** Der Präsenz-Flow
+   (`/student/session/:id`) löst die Session über
+   `listUpcomingSessionsForStudent` + `find(id)` auf (Foundation-Freeze: keine
+   neue lib-Funktion). Limitierung: laufende Sessions fallen aus dem
+   „upcoming"-Filter (`scheduled_at >= now`); `setAttendance` arbeitet dennoch
+   direkt mit der Route-`id`. Ein dediziertes `getSessionForStudent(sessionId)`
+   wäre sauberer. Ebenso: Session-Aufwärmaufgaben sind Platzhalter-Content, bis
+   `tasks.question_payload` ein `AnswerPayload` trägt (§5 Punkt 5).
+
 ## 6. Verifikation
 
 - `npm run lint` (`tsc -b --noEmit`) grün.
