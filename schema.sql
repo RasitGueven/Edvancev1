@@ -299,7 +299,11 @@ create table tasks (
   created_at timestamptz default now(),
   -- Migration 005 (Diagnostic-Felder)
   cognitive_type text check (cognitive_type in ('FACT','TRANSFER','ANALYSIS')),
-  input_type text check (input_type in ('MC','FREE_INPUT','STEPS','MATCHING','DRAW')),
+  -- input_type-CHECK in 042 auf den kanonischen Enum vereinheitlicht
+  -- (FREE_INPUT/STEPS→FREE_TEXT, DRAW→COORDINATE):
+  input_type text check (input_type in (
+    'MC','NUMERIC','SHORT_TEXT','TRUE_FALSE','FREE_TEXT','MATCHING','CLOZE','COORDINATE'
+  )),
   is_diagnostic boolean default false,
   curriculum_ref text,
   question_payload jsonb,
@@ -577,9 +581,12 @@ create table screening_items (
   skill_label text,
   level smallint check (level in (1, 2, 3)),
   curriculum_seq integer,
-  -- input_type/check_type-CHECK in 028 erweitert (OPEN/manual):
+  -- input_type-CHECK in 042 auf den kanonischen Enum vereinheitlicht
+  -- (STEPS_FINAL/OPEN→FREE_TEXT). check_type bleibt der Grading-Diskriminator.
   input_type text not null check (
-    input_type in ('MC','NUMERIC','MATCHING','STEPS_FINAL','OPEN')
+    input_type in (
+      'MC','NUMERIC','SHORT_TEXT','TRUE_FALSE','FREE_TEXT','MATCHING','CLOZE','COORDINATE'
+    )
   ),
   prompt text,
   payload jsonb,
@@ -592,11 +599,11 @@ create table screening_items (
   explanation text,
   source text not null default 'edvance_original',
   active boolean not null default false,
-  -- Migration 028 (AFB + Phase + Cross-Constraint OPEN <=> manual):
+  -- Migration 028 (AFB + Phase). Cross-Constraint OPEN<=>manual in 042
+  -- entfernt: FREE_TEXT spannt nach der Kanonisierung Auto (normalized) UND
+  -- Coach (manual); die Unterscheidung lebt allein in check_type.
   afb text check (afb in ('I','II','III')),
   phase text check (phase in ('sprint','tiefe')),
-  constraint screening_items_open_iff_manual
-    check ((input_type = 'OPEN') = (check_type = 'manual')),
   -- Migration 029 (VERA-8-Felder; iqb_titel UNIQUE für Seed-Idempotenz):
   iqb_titel text,
   kompetenzfelder text[],

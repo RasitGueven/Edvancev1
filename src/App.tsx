@@ -31,6 +31,7 @@ import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayer } from '@/pages/student/TaskPlayer'
+import { StudentSession } from '@/pages/student/session/StudentSession'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
 import { ThemePanel } from '@/components/edvance/ThemePanel'
 import { DiagnosisProvider } from '@/context/DiagnosisContext'
@@ -67,6 +68,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['student']}>
               <TaskPlayer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/session/:id"
+          element={
+            <ProtectedRoute allowedRoles={['student']}>
+              <StudentSession />
             </ProtectedRoute>
           }
         />

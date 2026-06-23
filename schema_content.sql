@@ -86,7 +86,10 @@ create table tasks (
   created_at timestamptz default now(),
   -- aus Migration 005 (Diagnostic-Felder)
   cognitive_type text check (cognitive_type in ('FACT','TRANSFER','ANALYSIS')),
-  input_type text check (input_type in ('MC','FREE_INPUT','STEPS','MATCHING','DRAW')),
+  -- input_type-CHECK in 042 auf den kanonischen Enum vereinheitlicht:
+  input_type text check (input_type in (
+    'MC','NUMERIC','SHORT_TEXT','TRUE_FALSE','FREE_TEXT','MATCHING','CLOZE','COORDINATE'
+  )),
   is_diagnostic boolean default false,
   curriculum_ref text,
   question_payload jsonb,

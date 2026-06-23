@@ -20,7 +20,7 @@ const MC_OPTIONS = [
 const STEPS: ScreeningTeilaufgabe[] = [
   { key: '1a', prompt: 'Berechne f(2) für f(x) = 2x + 3.', input_type: 'NUMERIC' },
   { key: '1b', prompt: 'Bestimme die Nullstelle der Funktion.', input_type: 'NUMERIC' },
-  { key: '1c', prompt: 'Beschreibe, wie sich der Graph verschiebt, wenn man +3 durch -1 ersetzt.', input_type: 'OPEN' },
+  { key: '1c', prompt: 'Beschreibe, wie sich der Graph verschiebt, wenn man +3 durch -1 ersetzt.', input_type: 'FREE_TEXT' },
 ]
 
 function Section({ title, children }: { title: string; children: JSX.Element }): JSX.Element {

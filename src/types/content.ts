@@ -1,8 +1,11 @@
 // Content, tasks, microskills, clusters.
 
+import type { CanonicalInputType } from './answerPayload'
+
 export type ContentType = 'exercise' | 'exercise_group' | 'article' | 'video' | 'course'
 export type CognitiveType = 'FACT' | 'TRANSFER' | 'ANALYSIS'
-export type InputType = 'MC' | 'FREE_INPUT' | 'STEPS' | 'MATCHING' | 'DRAW'
+// Kanonischer input_type-Enum (Migration 042) — eine Quelle: answerPayload.ts.
+export type InputType = CanonicalInputType
 
 export type Subject = {
   id: string
