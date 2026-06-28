@@ -23,10 +23,14 @@ damit Deep-Links wie `/admin/qs` auch bei direktem Aufruf/Reload laden.
 
 ## 2. Welcher Branch geht live
 
-- Settings → Git → **Production Branch: `main`**.
-- Pushes auf `dev` (und andere Branches) bekommen automatisch eine **Preview-URL** —
-  ideal zum Testen, bevor nach `main` gemergt wird.
-- Passt zur Branch-Strategie: auf `dev` arbeiten, bei Milestones `dev → main` mergen.
+> ⚠️ Wichtig (aktueller Stand): Die ganze aktuelle Arbeit liegt auf **`dev`** —
+> `main` ist deutlich älter (u.a. ohne `vercel.json` und ohne `/admin/qs`). Vercel
+> baut standardmäßig den Default-Branch `main`, sonst landet ein veralteter Stand live.
+
+- **Jetzt / Pre-Launch:** Settings → Git → **Production Branch: `dev`** setzen.
+  Dann spiegelt die Live-URL den aktuellen Stand; jeder `dev`-Push deployt neu.
+- **Später / stabile Releases:** auf **`main`** umstellen und `dev → main` mergen
+  (Branch-Strategie aus CLAUDE.md). Andere Branches bekommen automatisch Preview-URLs.
 
 ## 3. Domain anbinden (Subdomain empfohlen)
 
@@ -61,6 +65,17 @@ QS-Schreiben braucht `role = 'admin'` (RLS-Policy `screening_items_admin_all`).
 `/admin/qs` ist bereits admin-geschützt. Wer auch Login/Landing vor dem Launch
 verstecken will: Vercel → Settings → **Deployment Protection** →
 *Password Protection* oder *Vercel Authentication* (Pro-Feature).
+
+## Troubleshooting
+
+- **Log zeigt `> vite` / „Local: http://localhost:5173" statt eines Builds:**
+  Die Build-Command ist falsch (es läuft `npm run dev`). Fix: Settings →
+  Build & Development Settings → Framework **Vite**, **Build Command = `npm run build`**,
+  Output **`dist`**. Auf `dev` erzwingt `vercel.json` das ohnehin.
+- **Deploy zeigt neue Features (z.B. `/admin/qs`) nicht:** Vercel baut den falschen
+  Branch. Production Branch auf `dev` setzen (s.o.) oder `dev → main` mergen.
+- **404 bei direktem Aufruf von `/admin/qs`:** SPA-Rewrite fehlt — `vercel.json`
+  muss auf dem gebauten Branch liegen (ist auf `dev`).
 
 ## Was ich (Repo) vs. du (Dashboard) machst
 
