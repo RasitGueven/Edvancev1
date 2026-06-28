@@ -26,6 +26,7 @@ import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { ScreeningItemsPage } from '@/pages/admin/ScreeningItemsPage'
 import { ScreeningItemEditorPage } from '@/pages/admin/ScreeningItemEditorPage'
 import { ScreeningCoveragePage } from '@/pages/admin/ScreeningCoveragePage'
+import { QsPage } from '@/pages/admin/QsPage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
@@ -236,6 +237,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <ScreeningCoveragePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/qs"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <QsPage />
             </ProtectedRoute>
           }
         />

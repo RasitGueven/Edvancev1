@@ -54,6 +54,10 @@ export type ScreeningItem = {
   id: string
   created_at: string
   cluster_id: string
+  // Migration 039 (Achse B Prozesskompetenz) + 043 (Achse C Microskill).
+  // Optional/nullable — inhaltliches Tagging ist Content-Arbeit (QS-Tool).
+  competency_id?: string | null
+  microskill_id?: string | null
   class_level: number
   topic: string
   skill_code: string
