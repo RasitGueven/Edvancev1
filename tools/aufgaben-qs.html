@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edvance · Aufgaben-QS &amp; Tagging</title>
+
+<!-- KaTeX (Formel-Rendering) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --brand:#2D6A9F; --brand-dark:#21527D; --brand-soft:#E8F0F7;
+  --ink:#14202B; --ink-2:#1E2E3C; --ink-3:#2A3D4D;
+  --success:#0F6E56; --success-soft:#E3F1EB;
+  --warning:#D97706; --warning-soft:#FBEEDC;
+  --danger:#DC2626; --danger-soft:#FBE3E3;
+  --paper:#FFFFFF; --canvas:#F4F6F8; --line:#E2E8EE; --line-2:#EDF1F5;
+  --text:#1B2733; --muted:#5B6B7A; --muted-2:#8595A3;
+  --shadow:0 1px 2px rgba(20,32,43,.06), 0 8px 24px rgba(20,32,43,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--text); background:var(--canvas); font-size:14px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit; cursor:pointer}
+input,select,textarea{font-family:inherit; font-size:14px; color:var(--text)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#cdd6df;border-radius:8px;border:2px solid var(--canvas)}
+.ink ::-webkit-scrollbar-thumb{background:#34485a;border-color:var(--ink)}
+
+/* ---------- App shell ---------- */
+.app{display:grid; grid-template-rows:auto 1fr; height:100vh}
+.topbar{
+  display:flex; align-items:center; gap:16px; padding:0 18px; height:58px;
+  background:var(--ink); color:#fff; border-bottom:1px solid #0c1620;
+}
+.brand{display:flex; align-items:center; gap:11px; min-width:0}
+.brand .mark{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  background:linear-gradient(150deg,var(--brand),#3E84C0); font-family:"Fraunces",serif;
+  font-weight:600; font-size:18px; color:#fff; flex:none; box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.brand .name{font-family:"Fraunces",serif; font-size:18px; font-weight:600; letter-spacing:.2px}
+.brand .sub{font-size:11px; color:#9fb3c4; margin-top:-2px; letter-spacing:.3px}
+.topbar .spacer{flex:1}
+.counts{display:flex; gap:7px}
+.count{display:flex;align-items:center;gap:6px;font-size:12px;color:#c4d2de;
+  background:#0e1a24;border:1px solid #243646;padding:5px 10px;border-radius:8px}
+.count b{color:#fff;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.dot.draft{background:var(--muted-2)} .dot.review{background:var(--warning)} .dot.approved{background:#34c79a}
+.tbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid #2c4154;background:#16242f;
+  color:#dce6ef;padding:8px 13px;border-radius:9px;font-size:13px;font-weight:500;transition:.15s}
+.tbtn:hover{background:#1d2f3d;border-color:#3a5266}
+.tbtn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.tbtn.primary:hover{background:#3478b0}
+.tbtn svg{width:15px;height:15px}
+.dirty-flag{font-size:12px;color:#ffd9a8;display:none;align-items:center;gap:6px}
+.dirty-flag.on{display:inline-flex}
+.connpill{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#c4d2de;
+  background:#0e1a24;border:1px solid #243646;padding:6px 11px;border-radius:20px;cursor:pointer;transition:.15s}
+.connpill:hover{border-color:#3a5266}
+.connpill .dot{width:9px;height:9px}
+.connpill .dot.off{background:#ef5350}.connpill .dot.on{background:#34c79a}
+
+/* ---------- Main grid ---------- */
+.main{display:grid; grid-template-columns:316px 1fr; min-height:0}
+@media(max-width:1080px){ .main{grid-template-columns:260px 1fr} }
+
+/* ---------- Left rail ---------- */
+.rail{background:var(--ink); color:#cdd9e3; display:flex; flex-direction:column; min-height:0}
+.rail .railhead{padding:14px 14px 10px}
+.search{position:relative}
+.search input{width:100%; background:#0f1c26; border:1px solid #28394a; color:#e7eef4;
+  border-radius:9px; padding:9px 11px 9px 33px; outline:none}
+.search input::placeholder{color:#6e8294}
+.search input:focus{border-color:var(--brand)}
+.search svg{position:absolute; left:10px; top:50%; transform:translateY(-50%); width:15px;height:15px; color:#6e8294}
+.filters{display:flex; gap:6px; padding:0 14px 12px; flex-wrap:wrap}
+.chip{font-size:11.5px; padding:5px 10px; border-radius:20px; border:1px solid #2a3c4d;
+  background:#10202b; color:#9fb3c4; transition:.15s}
+.chip:hover{border-color:#3a5468}
+.chip.active{background:var(--brand-soft); color:var(--brand-dark); border-color:var(--brand-soft); font-weight:600}
+.list{overflow-y:auto; padding:4px 10px 14px; flex:1}
+.empty-rail{color:#6e8294; text-align:center; padding:40px 18px; font-size:13px; line-height:1.7}
+.item{background:#152330; border:1px solid #233646; border-radius:11px; padding:11px 12px; margin-bottom:8px;
+  transition:.13s; position:relative}
+.item:hover{border-color:#39516a; transform:translateY(-1px)}
+.item.sel{border-color:var(--brand); background:#19324a; box-shadow:0 0 0 1px var(--brand)}
+.item .it-top{display:flex; align-items:center; gap:7px; margin-bottom:5px}
+.tag{font-size:10px; font-weight:700; letter-spacing:.4px; text-transform:uppercase; padding:3px 7px; border-radius:6px}
+.tag.vera{background:#11405e; color:#7cc5f0} .tag.task{background:#2d2540; color:#bba6e6}
+.it-id{font-size:11px; color:#7f93a4; margin-left:auto; font-variant-numeric:tabular-nums}
+.it-title{font-size:13px; color:#eaf1f6; font-weight:500; line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.it-meta{display:flex; align-items:center; gap:8px; margin-top:8px; font-size:11px; color:#8298a9}
+.it-meta .afb{background:#0f1d27; border:1px solid #28394a; padding:2px 7px; border-radius:5px; font-weight:600}
+.it-status{display:flex;align-items:center;gap:5px;margin-left:auto}
+.miniflag{margin-left:6px;font-size:11px}
+.miniflag.warn{color:#f3a13a}.miniflag.err{color:#ff6b6b}.miniflag.untag{color:#7cc5f0}
+
+/* ---------- Editor ---------- */
+.editor{overflow-y:auto; min-height:0; background:var(--canvas)}
+.ed-inner{max-width:1180px; margin:0 auto; padding:22px 26px 80px;
+  display:grid; grid-template-columns:1fr 372px; gap:22px; align-items:start}
+@media(max-width:1180px){ .ed-inner{grid-template-columns:1fr} }
+
+.welcome{display:grid;place-items:center;height:100%;text-align:center;padding:40px}
+.welcome .wbox{max-width:480px}
+.welcome h2{font-family:"Fraunces",serif;font-weight:600;font-size:26px;margin:0 0 10px;color:var(--ink)}
+.welcome p{color:var(--muted);margin:0 0 22px;line-height:1.65}
+.welcome .steps{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:18px 20px;box-shadow:var(--shadow)}
+.welcome .steps li{margin:0 0 9px;color:var(--text)} .welcome .steps li:last-child{margin:0}
+.welcome .cta{margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* form column */
+.col-main{display:flex; flex-direction:column; gap:16px; min-width:0}
+.card{background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); overflow:hidden}
+.card > .ch{display:flex; align-items:center; gap:10px; padding:14px 18px; border-bottom:1px solid var(--line-2);
+  cursor:pointer; user-select:none}
+.card > .ch h3{font-family:"Fraunces",serif; font-weight:600; font-size:15.5px; margin:0; color:var(--ink)}
+.card > .ch .num{width:22px;height:22px;border-radius:7px;background:var(--brand-soft);color:var(--brand-dark);
+  font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+.card > .ch .chsub{font-size:11.5px;color:var(--muted);font-weight:400;margin-left:2px}
+.card > .ch .chev{margin-left:auto;color:var(--muted-2);transition:.2s;width:16px;height:16px}
+.card.collapsed > .ch .chev{transform:rotate(-90deg)}
+.card > .cb{padding:16px 18px 18px; display:grid; gap:14px}
+.card.collapsed > .cb{display:none}
+
+/* identity card */
+.idcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px}
+.idrow{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.idrow .titlewrap{flex:1;min-width:220px}
+.statuspick{display:flex;gap:6px}
+.spbtn{border:1px solid var(--line);background:var(--paper);color:var(--muted);padding:7px 12px;border-radius:9px;
+  font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px;transition:.13s}
+.spbtn:hover{border-color:#c8d3dc}
+.spbtn.on.draft{background:#eef1f4;color:#475563;border-color:#dfe5ea}
+.spbtn.on.review{background:var(--warning-soft);color:#9a5408;border-color:#f0d9b6}
+.spbtn.on.approved{background:var(--success-soft);color:var(--success);border-color:#bfe3d6}
+.activerow{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:13px;border-top:1px solid var(--line-2)}
+.switch{position:relative;width:42px;height:24px;flex:none}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#cbd5dd;border-radius:20px;transition:.2s}
+.slider:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.switch input:checked + .slider{background:var(--success)}
+.switch input:checked + .slider:before{transform:translateX(18px)}
+.switch input:disabled + .slider{opacity:.45;cursor:not-allowed}
+.activerow .lbl{font-weight:600;font-size:13px}
+.activerow .hint{font-size:12px;color:var(--muted);margin-left:auto;text-align:right}
+.savebar{display:flex;align-items:center;gap:10px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line-2)}
+.savebar .savestatus{font-size:12px;color:var(--muted)}
+.savebar .savestatus.ok{color:var(--success)}.savebar .savestatus.err{color:var(--danger)}
+
+/* fields */
+.field{display:flex;flex-direction:column;gap:6px}
+.field > label{font-size:12.5px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.field .help{font-size:11.5px;color:var(--muted);font-weight:400;line-height:1.45}
+.req{color:var(--danger);font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:560px){ .grid2,.grid3{grid-template-columns:1fr} }
+input[type=text],input[type=number],input[type=email],input[type=password],select,textarea{
+  width:100%;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:9px 11px;outline:none;transition:.13s}
+input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(45,106,159,.12)}
+textarea{resize:vertical;min-height:74px;line-height:1.55}
+.prfor{font-size:11px;color:var(--muted);margin-top:3px}
+select:disabled{background:#f1f4f7;color:var(--muted-2);cursor:not-allowed}
+select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235B6B7A' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
+
+/* repeatable lists */
+.replist{display:flex;flex-direction:column;gap:8px}
+.repitem{display:flex;gap:8px;align-items:flex-start}
+.repitem .idx{width:22px;height:34px;display:grid;place-items:center;color:var(--muted-2);font-weight:700;font-size:12px;flex:none}
+.repitem textarea,.repitem input{flex:1}
+.repdel{border:1px solid var(--line);background:var(--paper);color:var(--muted-2);width:34px;height:34px;border-radius:8px;flex:none;display:grid;place-items:center;transition:.13s}
+.repdel:hover{border-color:var(--danger);color:var(--danger);background:var(--danger-soft)}
+.addbtn{align-self:flex-start;border:1px dashed #c2cdd6;background:transparent;color:var(--brand-dark);
+  padding:8px 13px;border-radius:9px;font-weight:600;font-size:12.5px;display:flex;align-items:center;gap:6px}
+.addbtn:hover{border-color:var(--brand);background:var(--brand-soft)}
+
+/* misconception structured */
+.mc{border:1px solid var(--line);border-radius:11px;padding:11px;display:grid;gap:8px;background:#fbfcfd}
+.mc .mctop{display:flex;gap:8px}
+.mc .mctop input{flex:1}
+
+/* tags */
+.tags{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.tagchip{background:var(--brand-soft);color:var(--brand-dark);padding:4px 9px;border-radius:7px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.tagchip button{border:none;background:none;color:var(--brand-dark);opacity:.6;font-size:14px;line-height:1;padding:0}
+.tagchip button:hover{opacity:1}
+.taginput{border:1px dashed #c2cdd6;border-radius:7px;padding:5px 9px;min-width:150px;background:transparent}
+
+/* ---------- right column ---------- */
+.col-side{position:sticky; top:22px; display:flex; flex-direction:column; gap:16px}
+@media(max-width:1180px){ .col-side{position:static} }
+.preview{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.preview .ph{padding:12px 16px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:8px}
+.preview .ph h3{font-family:"Fraunces",serif;font-size:14px;margin:0;color:var(--ink)}
+.preview .ph .badge{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--muted);background:#f1f4f7;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.3px}
+.preview .pbody{padding:16px;max-height:320px;overflow-y:auto}
+.pv-q{font-size:14.5px;line-height:1.6;color:var(--text)}
+.pv-ctx{font-size:12.5px;color:var(--muted);font-style:italic;margin-bottom:9px;padding-left:10px;border-left:2px solid var(--line)}
+.pv-sol{margin-top:13px;padding-top:12px;border-top:1px dashed var(--line)}
+.pv-sol .l{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--success);margin-bottom:4px}
+.pv-empty{color:var(--muted-2);font-size:13px;text-align:center;padding:24px 8px}
+
+/* auto-QS panel */
+.qspanel{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.qspanel .ch{padding:13px 16px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:9px}
+.qspanel .ch h3{font-family:"Fraunces",serif;font-size:14px;margin:0;color:var(--ink)}
+.qspanel .ch .cnt{margin-left:auto;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.qsbody{padding:10px 12px;display:flex;flex-direction:column;gap:7px;max-height:240px;overflow-y:auto}
+.qsrow{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.4;padding:7px 9px;border-radius:9px}
+.qsrow.error{background:var(--danger-soft);color:#8f1d1d}
+.qsrow.warn{background:var(--warning-soft);color:#8a4d07}
+.qsrow.info{background:#eef2f6;color:var(--muted)}
+.qsrow .ic{font-weight:800;flex:none}
+.qsok{display:flex;gap:9px;align-items:center;color:var(--success);font-size:13px;font-weight:600;padding:8px 9px}
+
+/* checklist */
+.checklist{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.checklist .ch{padding:13px 16px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:9px}
+.checklist .ch h3{font-family:"Fraunces",serif;font-size:14px;margin:0;color:var(--ink)}
+.checklist .ch .prog{margin-left:auto;font-size:12px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.checklist .ch .prog.done{color:var(--success)}
+.clbody{padding:8px 8px 12px}
+.cli{display:flex;gap:10px;padding:8px 9px;border-radius:9px;cursor:pointer;transition:.1s;align-items:flex-start}
+.cli:hover{background:#f6f8fa}
+.cli input{margin:2px 0 0;width:16px;height:16px;accent-color:var(--success);flex:none;cursor:pointer}
+.cli span{font-size:12.5px;line-height:1.45;color:var(--text)}
+.cli.checked span{color:var(--muted);text-decoration:line-through;text-decoration-color:#bcc7d0}
+.barwrap{height:6px;background:#eef1f4;border-radius:6px;margin:0 16px 12px;overflow:hidden}
+.bar{height:100%;background:linear-gradient(90deg,var(--brand),#3E84C0);transition:.3s;border-radius:6px}
+.bar.full{background:var(--success)}
+
+/* toast */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;padding:12px 20px;border-radius:11px;font-size:13.5px;font-weight:500;
+  box-shadow:0 12px 40px rgba(20,32,43,.3);opacity:0;transition:.25s;pointer-events:none;z-index:80;display:flex;gap:9px;align-items:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{background:var(--success)} .toast.err{background:var(--danger)}
+.hidden{display:none!important}
+
+/* restore banner */
+.restorebar{display:none;align-items:center;gap:12px;background:var(--warning-soft);border-bottom:1px solid #f0d9b6;
+  color:#8a4d07;padding:9px 18px;font-size:13px}
+.restorebar.on{display:flex}
+.restorebar .spacer{flex:1}
+.restorebar button{border:1px solid #e2c490;background:#fff;color:#8a4d07;padding:6px 12px;border-radius:8px;font-weight:600;font-size:12.5px}
+
+/* modal */
+.modal-bg{position:fixed;inset:0;background:rgba(20,32,43,.55);display:none;place-items:center;z-index:60;padding:20px}
+.modal-bg.open{display:grid}
+.modal{background:var(--paper);border-radius:16px;max-width:560px;width:100%;box-shadow:0 24px 70px rgba(0,0,0,.3);overflow:hidden}
+.modal .mh{padding:18px 22px;border-bottom:1px solid var(--line-2)}
+.modal .mh h3{font-family:"Fraunces",serif;font-size:18px;margin:0;color:var(--ink)}
+.modal .mh p{margin:5px 0 0;font-size:12.5px;color:var(--muted)}
+.modal .mb{padding:18px 22px;max-height:62vh;overflow-y:auto;font-size:13.5px;line-height:1.6;color:var(--text)}
+.modal .mb .field{margin-bottom:13px}
+.modal .mb code{background:#f1f4f7;padding:1px 5px;border-radius:4px;font-size:12.5px}
+.modal .mb pre{background:var(--ink);color:#cfe0ee;padding:14px;border-radius:10px;overflow-x:auto;font-size:11.5px;line-height:1.5}
+.modal .mf{padding:14px 22px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.modal .mf .connmsg{font-size:12.5px;color:var(--muted)}
+.modal .mf .connmsg.ok{color:var(--success)}.modal .mf .connmsg.err{color:var(--danger)}.modal .mf .connmsg.warn{color:var(--warning)}
+.btn{border:1px solid var(--line);background:var(--paper);color:var(--text);padding:9px 16px;border-radius:9px;font-weight:600;font-size:13px}
+.btn:hover{border-color:#c8d3dc}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff} .btn.primary:hover{background:#3478b0}
+.section-note{font-size:12px;color:var(--muted);background:#f7f9fb;border:1px solid var(--line-2);border-radius:9px;padding:9px 12px;line-height:1.5}
+.taro{display:flex;flex-direction:column;gap:6px}
+.taro-row{font-size:12.5px;color:var(--ink-2);background:#f7f9fb;border:1px solid var(--line-2);border-radius:8px;padding:7px 11px;line-height:1.4}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="mark">E</div>
+      <div>
+        <div class="name">Aufgaben-QS &amp; Tagging</div>
+        <div class="sub">EDVANCE · Think big, learn smart.</div>
+      </div>
+    </div>
+    <div class="counts">
+      <div class="count"><span class="dot draft"></span><b id="c-draft">0</b> Entwurf</div>
+      <div class="count"><span class="dot review"></span><b id="c-review">0</b> Review</div>
+      <div class="count"><span class="dot approved"></span><b id="c-approved">0</b> Freigegeben</div>
+    </div>
+    <div class="spacer"></div>
+    <span class="dirty-flag" id="dirty">● ungespeicherte Änderungen</span>
+    <span class="connpill" id="connpill" title="Mit Supabase verbinden"><span class="dot off" id="connpill-dot"></span><span id="connpill-txt">Offline</span></span>
+    <button class="tbtn" id="btn-help" title="Hilfe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+    </button>
+    <button class="tbtn" id="btn-import" title="JSON-Datei importieren">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      JSON
+    </button>
+    <button class="tbtn primary" id="btn-export" title="Alle als JSON exportieren">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Export
+    </button>
+    <input type="file" id="file-input" accept=".json,application/json" class="hidden">
+  </div>
+
+  <!-- RESTORE BANNER -->
+  <div class="restorebar" id="restorebar">
+    <span id="restore-txt">Es gibt einen automatisch gespeicherten Stand.</span>
+    <span class="spacer"></span>
+    <button id="restore-yes">Wiederherstellen</button>
+    <button id="restore-no">Verwerfen</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <aside class="rail ink">
+      <div class="railhead">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="search" placeholder="Aufgabe / ID suchen …">
+        </div>
+      </div>
+      <div class="filters" id="filters">
+        <button class="chip active" data-f="all">Alle</button>
+        <button class="chip" data-f="vera">VERA-8</button>
+        <button class="chip" data-f="task">Lern-Aufgabe</button>
+        <button class="chip" data-f="untagged">ohne Microskill</button>
+        <button class="chip" data-f="problems">QS-Probleme</button>
+        <button class="chip" data-f="draft">Entwurf</button>
+        <button class="chip" data-f="review">Review</button>
+        <button class="chip" data-f="approved">Frei</button>
+      </div>
+      <div class="list" id="list">
+        <div class="empty-rail">Noch keine Aufgaben geladen.<br><br>Oben <b>„Verbinden"</b> für die Live-Datenbank<br>oder <b>„JSON"</b> für eine Datei.</div>
+      </div>
+      <div style="padding:10px 14px;border-top:1px solid #233646;display:flex;gap:8px">
+        <button class="tbtn" style="flex:1;justify-content:center" id="btn-connect2">Verbinden</button>
+        <button class="tbtn" style="flex:1;justify-content:center" id="btn-sample">Beispiel</button>
+      </div>
+    </aside>
+
+    <section class="editor" id="editor">
+      <div class="welcome" id="welcome">
+        <div class="wbox">
+          <h2>Willkommen im QS-Werkzeug</h2>
+          <p>Hier prüfst, taggst und gibst du Edvance-Aufgaben frei. Verbinde dich mit der Datenbank, wähle links eine Aufgabe und arbeite sie Feld für Feld durch — die Vorschau und die QS-Prüfung rechts helfen dir dabei.</p>
+          <ol class="steps">
+            <li><b>Verbinden</b> – einmalig Supabase-Zugang eingeben (oder JSON-Datei laden).</li>
+            <li><b>Taggen</b> – Inhaltsfeld, Prozesskompetenz und Microskill setzen.</li>
+            <li><b>Prüfen</b> – QS-Hinweise rechts abarbeiten, Checkliste abhaken.</li>
+            <li><b>Speichern</b> – „In Datenbank speichern" je Aufgabe. (Dein Stand wird zusätzlich automatisch lokal gesichert.)</li>
+          </ol>
+          <div class="cta">
+            <button class="btn primary" id="btn-connect-welcome">Mit Supabase verbinden</button>
+            <button class="btn" id="btn-sample-welcome">Beispieldaten ansehen</button>
+          </div>
+        </div>
+      </div>
+      <div class="ed-inner hidden" id="ed-inner"></div>
+    </section>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- CONNECTION MODAL -->
+<div class="modal-bg" id="conn-modal">
+  <div class="modal">
+    <div class="mh">
+      <h3>Mit Supabase verbinden</h3>
+      <p>Zugang aus deiner <code>.env</code>. Wird nur lokal im Browser gespeichert — niemals im Code. Schreiben braucht einen <b>Admin</b>-Login.</p>
+    </div>
+    <div class="mb">
+      <div class="field"><label>Supabase URL</label><input type="text" id="c-url" placeholder="https://xxxx.supabase.co" autocomplete="off"></div>
+      <div class="field"><label>anon-Key <span class="help">(nicht service_role)</span></label><input type="password" id="c-key" placeholder="eyJ…" autocomplete="off"></div>
+      <div class="field"><label>Admin E-Mail</label><input type="email" id="c-email" placeholder="admin@…" autocomplete="username"></div>
+      <div class="field"><label>Passwort <span class="help">(wird nicht gespeichert)</span></label><input type="password" id="c-pw" placeholder="••••••••" autocomplete="current-password"></div>
+    </div>
+    <div class="mf">
+      <span class="connmsg" id="conn-msg"></span>
+      <span style="flex:1"></span>
+      <button class="btn" id="conn-cancel">Abbrechen</button>
+      <button class="btn primary" id="conn-go">Verbinden &amp; laden</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div class="modal-bg" id="help-modal">
+  <div class="modal">
+    <div class="mh"><h3>Hilfe</h3></div>
+    <div class="mb">
+      <p><b>Zwei Wege, Daten zu laden.</b> <i>Live</i> über „Verbinden" (lädt direkt aus Supabase, Speichern schreibt zurück) — oder <i>Offline</i> über „JSON" (Datei rein, „Export" wieder raus).</p>
+      <p><b>Drei Tagging-Achsen.</b> <b>Inhaltsfeld</b> (Cluster, Achse A), <b>Prozesskompetenz</b> (Achse B: Ope/Mod/Pro/Arg/Kom/Wkz) und <b>Microskill</b> (Achse C, feinste Granularität). Der Microskill bestimmt später den Lernpfad — bitte immer setzen.</p>
+      <p><b>QS-Prüfung rechts</b> zeigt automatisch Probleme (fehlende Felder, Cluster↔Microskill-Mismatch …). Die <b>Checkliste</b> ist deine manuelle Freigabe: erst wenn sie voll ist, lässt sich „Freigegeben" setzen, und erst dann „Aktiv".</p>
+      <p><b>Aktiv</b> heißt: für Schüler:innen im Screening sichtbar. Bitte erst nach vollständiger QS.</p>
+      <p><b>Formeln</b> in LaTeX zwischen Dollarzeichen: <code>$x^2$</code> bzw. <code>$$\frac{3}{4}$$</code>. Die Vorschau rendert live.</p>
+      <p><b>Autosave.</b> Dein Stand wird laufend lokal gesichert; nach einem Reload kannst du ihn wiederherstellen. Das ersetzt aber nicht „In Datenbank speichern".</p>
+    </div>
+    <div class="mf"><span style="flex:1"></span><button class="btn primary" id="help-close">Verstanden</button></div>
+  </div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4'
+
+/* ============================================================
+   Edvance Aufgaben-QS & Tagging
+   - Live-Modus: lädt/speichert screening_items + tasks aus Supabase
+   - Offline-Modus: JSON-Import/-Export
+   - Schema-treu (cluster_id / competency_id / microskill_id, kanonische Enums)
+   - Autosave nach localStorage, automatische QS-Checks
+   ============================================================ */
+
+/* ---------- constants (mirror real schema) ---------- */
+const AFB = { I:"I · Reproduzieren", II:"II · Zusammenhänge", III:"III · Verallgemeinern" };
+const PHASE = { sprint:"Sprint", tiefe:"Tiefe" };
+// canonical input_type enum (Migration 042) — both tables
+const INPUT_TYPES = ["MC","NUMERIC","SHORT_TEXT","TRUE_FALSE","FREE_TEXT","MATCHING","CLOZE","COORDINATE"];
+// check_type (screening_items)
+const CHECK_TYPES = ["mc_index","numeric","matching_set","normalized","manual"];
+const CONTENT_TYPES = ["exercise","exercise_group","article","video","course"];
+const COGNITIVE = ["","FACT","TRANSFER","ANALYSIS"];
+const AUFGABE_TYPEN = ["","kurzantwort","offen","mehrteilig","multiple_choice","zuordnung","lueckentext","wahr_falsch","rechnung","konstruktion"];
+// process_competencies fallback labels (real seed, Migration 038) — used for display; live load overrides ids
+const COMP_FALLBACK = [
+  {code:"Ope",name:"Operieren"},{code:"Mod",name:"Modellieren"},{code:"Pro",name:"Problemlösen"},
+  {code:"Arg",name:"Argumentieren"},{code:"Kom",name:"Kommunizieren"},{code:"Wkz",name:"Werkzeuge nutzen"}
+];
+const VORAUSSETZUNGEN = [
+  "Grundrechenarten","Bruchrechnung","Dezimalzahlen","Negative Zahlen","Runden",
+  "Prozentrechnung","Dreisatz / Verhältnisse","Termumformung","Gleichungen lösen",
+  "Potenzen","Einheiten umrechnen","Koordinatensystem","Lineare Funktionen",
+  "Flächeninhalt","Umfang","Volumen","Maßstab","Diagramme lesen","Zuordnungen","Wahrscheinlichkeit"
+];
+const MISCONCEPTIONS = [
+  ["MC-KUERZEN","Bruch nicht (vollständig) gekürzt"],["MC-GRUNDWERT","Grund- und Prozentwert vertauscht"],
+  ["MC-PROZENTSATZ","Falscher Prozentsatz verwendet"],["MC-VERFAHREN","Falsches Rechenverfahren gewählt"],
+  ["MC-EINHEIT","Einheiten nicht / falsch umgerechnet"],["MC-VORZEICHEN","Vorzeichenfehler"],
+  ["MC-TERMUMFORMUNG","Term falsch umgeformt"],["MC-GLEICHUNG","Äquivalenzumformung fehlerhaft"],
+  ["MC-DEZIMAL","Komma- / Stellenwertfehler"],["MC-ABLESEN","Diagramm / Tabelle falsch abgelesen"],
+  ["MC-RUNDEN","Falsch gerundet"],["MC-FLAECHE-UMFANG","Fläche und Umfang verwechselt"],
+  ["MC-MASSSTAB","Maßstab falsch angewendet"],["MC-DIFFERENZ","Differenz statt Anteil/Produkt gebildet"],
+  ["MC-SONSTIGES","Sonstiger / konzeptueller Fehler"]
+];
+const CHECKLIST = [
+  {id:"text", label:"Aufgabentext vollständig, sauber, fehlerfrei"},
+  {id:"teil", label:"Alle Teilaufgaben vorhanden und korrekt getrennt", vera:true},
+  {id:"loesung", label:"Lösung / akzeptierte Antworten korrekt UND vollständig"},
+  {id:"kodierung", label:"Kodieranweisung eindeutig und anwendbar", vera:true},
+  {id:"cluster", label:"Inhaltsfeld (Cluster) korrekt"},
+  {id:"competency", label:"Prozesskompetenz korrekt"},
+  {id:"microskill", label:"Microskill korrekt gesetzt"},
+  {id:"afb", label:"AFB / Schwierigkeit realistisch"},
+  {id:"klasse", label:"Klassenstufe passt"},
+  {id:"didaktik", label:"Typische Fehler + didaktischer Hinweis plausibel"},
+];
+
+const AUTOSAVE_KEY = "edvance_qs_autosave_v2";
+const LS_URL = "edvance_qs_url", LS_KEY = "edvance_qs_key";
+
+/* ---------- state ---------- */
+let state = { items:[], selectedId:null, filter:"all", search:"", dirty:false, mode:"offline" };
+let sb = null;
+const REF = { clusters:[], comps:[], skills:[], subjectById:{}, clusterById:{}, skillById:{}, compById:{} };
+let katexReady = false, uidc = 1, autosaveTimer = null;
+
+/* ---------- utils ---------- */
+const $ = s => document.querySelector(s);
+const el = (t,c,h) => { const e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e; };
+function uid(){ return "u"+(uidc++); }
+function esc(s){ return (s==null?"":String(s)).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m])); }
+function toast(msg,kind){ const t=$("#toast"); t.className="toast show"+(kind?" "+kind:""); t.textContent=msg;
+  clearTimeout(t._t); t._t=setTimeout(()=>t.className="toast",2800); }
+function markDirty(){ state.dirty=true; $("#dirty").classList.add("on"); scheduleAutosave(); }
+function clearDirty(){ state.dirty=false; $("#dirty").classList.remove("on"); }
+function arr(x){ if(Array.isArray(x)) return x.slice(); if(x==null||x==="") return []; return [x]; }
+function dedupe(a){ return a.filter((v,i)=>a.indexOf(v)===i); }
+function numOrNull(x){ return (x===0||x)? Number(x): null; }
+function linesToArr(s){ return String(s||"").split("\n").map(x=>x.trim()).filter(Boolean); }
+function arrToLines(a){ return arr(a).join("\n"); }
+window.addEventListener("beforeunload",e=>{ if(state.dirty){ e.preventDefault(); e.returnValue=""; }});
+
+function renderMath(node){
+  if(!katexReady||!window.renderMathInElement) return;
+  try{ window.renderMathInElement(node,{delimiters:[
+    {left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}
+  ],throwOnError:false}); }catch(e){}
+}
+
+/* ---------- autosave ---------- */
+function scheduleAutosave(){ clearTimeout(autosaveTimer); autosaveTimer=setTimeout(doAutosave,800); }
+function doAutosave(){
+  try{
+    const slim = state.items.map(({_origRow,...rest})=>rest); // drop bulky original row
+    localStorage.setItem(AUTOSAVE_KEY, JSON.stringify({ items:slim, selectedId:state.selectedId, mode:state.mode, ts:nowISO() }));
+  }catch(e){ /* quota etc. — ignore */ }
+}
+function clearAutosave(){ try{ localStorage.removeItem(AUTOSAVE_KEY); }catch(e){} }
+// new Date() is fine in the browser tool (unlike workflow scripts)
+function nowISO(){ return new Date().toISOString(); }
+
+/* ---------- normalize: DB row OR JSON object -> internal model ---------- */
+function detectType(o){
+  if(o._typ==="vera"||o._typ==="task") return o._typ;
+  if(o.iqb_titel||(o.source&&/VERA/i.test(o.source))||(o.quelle&&/VERA/i.test(o.quelle))||o.check_type!==undefined&&o.kodierung!==undefined) return "vera";
+  if(o.content_type!==undefined||o.question!==undefined||o.difficulty!==undefined) return "task";
+  return o.prompt!==undefined ? "vera" : "task";
+}
+function normalize(o){
+  const typ = detectType(o);
+  const meta = (o.meta && typeof o.meta==="object") ? o.meta : {};
+  const qsMeta = (meta.qs && typeof meta.qs==="object") ? meta.qs : (o._qs || {});
+  const realId = (o.id && /^[0-9a-f]{8}-/.test(String(o.id))) ? o.id : (o._dbId||null); // real uuid PK if present
+  const base = {
+    _uid: uid(), _typ: typ,
+    _dbId: realId,
+    humanId: realId ? (o.skill_code||o.source_ref||"") : (o.id||o.skill_code||o.source_ref||""),
+    qs_status: ["draft","review","approved"].includes(o.qs_status||qsMeta.qs_status)? (o.qs_status||qsMeta.qs_status) : "draft",
+    active: !!(o.active ?? o.is_active ?? false),
+    cluster_id: o.cluster_id || "",
+    competency_id: o.competency_id || "",
+    microskill_id: o.microskill_id || "",
+    class_level: o.class_level ?? o.klasse ?? null,
+    afb: ["I","II","III"].includes(o.afb)? o.afb : "",
+    // QS-only annotations (persisted in screening_items.meta.qs; locally for tasks)
+    checklist: qsMeta.checklist || o._checklist || {},
+    misconceptions: normMc(qsMeta.misconceptions ?? o.misconceptions),
+    voraussetzungen: arr(qsMeta.voraussetzungen ?? o.voraussetzungen),
+    loesungsstrategie: qsMeta.loesungsstrategie ?? o.loesungsstrategie ?? "",
+    typical_errors: Array.isArray(o.typical_errors)? arrToLines(o.typical_errors) : (o.typical_errors ?? ""),
+    explanation: o.explanation ?? o.coach_note ?? "",
+    quelle: o.quelle ?? o.source ?? "",
+    _origRow: o
+  };
+  if(typ==="vera"){
+    Object.assign(base,{
+      iqb_titel: o.iqb_titel ?? o.title ?? "",
+      prompt: o.prompt ?? o.aufgabe_text_clean ?? o.question ?? "",
+      kontext: o.kontext ?? "",
+      topic: o.topic ?? "", skill_code: o.skill_code ?? "", skill_label: o.skill_label ?? "",
+      aufgabe_typ: o.aufgabe_typ ?? "",
+      input_type: INPUT_TYPES.includes(o.input_type)? o.input_type : "FREE_TEXT",
+      check_type: CHECK_TYPES.includes(o.check_type)? o.check_type : "manual",
+      akzeptierte_antworten: normAkz(o),
+      kodierung: o.kodierung ?? "",
+      phase: ["sprint","tiefe"].includes(o.phase)? o.phase : "",
+      level: o.level ?? null,
+      fix_anker: !!o.fix_anker,
+      kompetenzfelder: arr(o.kompetenzfelder),
+      teilaufgaben: arr(o.teilaufgaben),       // read-only display
+      loesung_pro_ta: arr(o.loesung_pro_ta),   // read-only display
+    });
+  } else {
+    Object.assign(base,{
+      title: o.title ?? "",
+      question: o.question ?? o.prompt ?? "",
+      solution: o.solution ?? "",
+      hint: o.hint ?? "",
+      content_type: CONTENT_TYPES.includes(o.content_type)? o.content_type : "exercise",
+      input_type: INPUT_TYPES.includes(o.input_type)? o.input_type : "",
+      difficulty: o.difficulty ?? null,
+      cognitive_type: COGNITIVE.includes(o.cognitive_type)? o.cognitive_type : "",
+      estimated_minutes: o.estimated_minutes ?? null,
+      curriculum_ref: o.curriculum_ref ?? "",
+      is_diagnostic: !!o.is_diagnostic,
+      source_ref: o.source_ref ?? "",
+    });
+  }
+  return base;
+}
+function normAkz(o){
+  let akz = arr(o.akzeptierte_antworten);
+  if(!akz.length && Array.isArray(o.loesung_pro_ta)){
+    const set=[];
+    o.loesung_pro_ta.forEach(ta=>{ arr(ta.akzeptierte_antworten).forEach(a=>{if(!set.includes(a))set.push(a);});
+      if(ta.loesung && !set.includes(ta.loesung)) set.push(ta.loesung); });
+    akz=set;
+  }
+  return akz;
+}
+function normMc(x){ if(!x) return []; if(Array.isArray(x)) return x.map(m=> typeof m==="string"? {code:"",beschreibung:m,trigger:""} : {code:m.code||"",beschreibung:m.beschreibung||m.desc||"",trigger:m.trigger||""}); return []; }
+function taLine(t,los){
+  if(t==null) return "";
+  if(typeof t==="string") return t;
+  if(typeof t==="object"){
+    const nr=t.nr??t.teil??""; const parts=[];
+    if(nr!=="") parts.push("Teil "+nr);
+    if(t.afb_raw||t.afb) parts.push("AFB "+(t.afb_raw||t.afb));
+    const ks=arr(t.allgemeine_kompetenzen); if(ks.length) parts.push(ks.join(", "));
+    const sol = los && los.find && los.find(l=>l && l.nr===t.nr);
+    if(sol && sol.loesung) parts.push("Lösung: "+sol.loesung);
+    return parts.join("  ·  ") || JSON.stringify(t);
+  }
+  return String(t);
+}
+function promptText(i){ return i._typ==="vera"? i.prompt : i.question; }
+function promptIsEmpty(i){ return !String(promptText(i)||"").trim(); }
+
+/* ---------- counts + list ---------- */
+function recount(){
+  let d=0,r=0,a=0;
+  state.items.forEach(i=>{ if(i.qs_status==="approved")a++; else if(i.qs_status==="review")r++; else d++; });
+  $("#c-draft").textContent=d; $("#c-review").textContent=r; $("#c-approved").textContent=a;
+}
+function itemTitle(i){ return i._typ==="vera" ? (i.iqb_titel || i.skill_code || i.prompt || "(ohne Titel)") : (i.title || i.question || "(ohne Titel)"); }
+function listLabel(i){ return i.humanId || (i._dbId? i._dbId.slice(0,8) : "—"); }
+function renderList(){
+  const list=$("#list");
+  if(!state.items.length){ list.innerHTML='<div class="empty-rail">Noch keine Aufgaben geladen.<br><br>Oben <b>„Verbinden"</b> für die Live-Datenbank<br>oder <b>„JSON"</b> für eine Datei.</div>'; return; }
+  let items=state.items.filter(i=>{
+    const f=state.filter;
+    if(f==="vera"&&i._typ!=="vera")return false;
+    if(f==="task"&&i._typ!=="task")return false;
+    if(f==="untagged"&&i.microskill_id)return false;
+    if(f==="problems"&&!qsChecks(i).some(c=>c.lvl==="error"||c.lvl==="warn"))return false;
+    if(["draft","review","approved"].includes(f)&&i.qs_status!==f)return false;
+    if(state.search){ const q=state.search.toLowerCase();
+      if(!((itemTitle(i)+" "+listLabel(i)).toLowerCase().includes(q)))return false; }
+    return true;
+  });
+  list.innerHTML="";
+  if(!items.length){ list.innerHTML='<div class="empty-rail">Keine Treffer für diesen Filter.</div>'; return; }
+  items.forEach(i=>{
+    const it=el("div","item"+(i._uid===state.selectedId?" sel":""));
+    const probs=qsChecks(i);
+    const hasErr=probs.some(c=>c.lvl==="error"), hasWarn=probs.some(c=>c.lvl==="warn");
+    const flag = hasErr? '<span class="miniflag err" title="QS-Fehler">⚠</span>'
+               : hasWarn? '<span class="miniflag warn" title="QS-Hinweis">⚑</span>'
+               : !i.microskill_id? '<span class="miniflag untag" title="kein Microskill">◌</span>' : "";
+    it.innerHTML=`
+      <div class="it-top">
+        <span class="tag ${i._typ}">${i._typ==="vera"?"VERA-8":"Aufgabe"}</span>
+        <span class="it-id">${esc(listLabel(i))}</span>
+      </div>
+      <div class="it-title">${esc(itemTitle(i))}${flag}</div>
+      <div class="it-meta">
+        <span class="afb">AFB ${esc(i.afb||"–")}</span>
+        <span>${esc(REF.clusterById[i.cluster_id]?.name || (i.cluster_id?"…":"kein Cluster"))}</span>
+        <span class="it-status"><span class="dot ${i.qs_status}"></span>${i.qs_status==="approved"?"Frei":i.qs_status==="review"?"Review":"Entwurf"}</span>
+      </div>`;
+    it.onclick=()=>{ state.selectedId=i._uid; renderList(); renderEditor(); };
+    list.appendChild(it);
+  });
+}
+
+/* ---------- automatic QS checks ---------- */
+function qsChecks(i){
+  const out=[];
+  const add=(lvl,msg)=>out.push({lvl,msg});
+  if(promptIsEmpty(i)) add("error", i._typ==="vera"?"Kein Aufgabentext (prompt)":"Keine Aufgabenstellung (question)");
+  if(!i.cluster_id) add("warn","Kein Inhaltsfeld / Cluster (Achse A)");
+  if(!i.competency_id) add("warn","Keine Prozesskompetenz (Achse B)");
+  if(!i.microskill_id) add("warn","Kein Microskill (Achse C, 043)");
+  if(i.microskill_id){
+    const ms=REF.skillById[i.microskill_id];
+    if(ms && i.cluster_id && ms.cluster_id!==i.cluster_id) add("error","Microskill gehört zu anderem Cluster");
+    if(ms && i.class_level!=null && ms.class_level!==i.class_level) add("info",`Microskill Kl.${ms.class_level} ≠ Aufgabe Kl.${i.class_level}`);
+  }
+  if(i.cluster_id && REF.clusterById[i.cluster_id]?.is_deprecated) add("warn","Cluster stillgelegt (041)");
+  if(i.class_level==null) add("warn","Keine Klassenstufe");
+  if(!i.afb) add("info","AFB fehlt");
+  if(i._typ==="vera"){
+    if(i.phase===""||i.phase==null) add("info","Phase (sprint/tiefe) fehlt");
+    if(i.check_type!=="manual" && !i.akzeptierte_antworten.filter(Boolean).length) add("warn","Auto-Grading, aber keine akzeptierten Antworten");
+    if(i.check_type==="manual" && !String(i.kodierung||"").trim()) add("warn","Manuell, aber keine Kodieranweisung");
+  } else {
+    if(!String(i.solution||"").trim()) add("warn","Keine Musterlösung");
+  }
+  if(i.active && (!i.afb || !i.cluster_id || promptIsEmpty(i))) add("error","Aktiv, aber unvollständig");
+  return out;
+}
+
+/* ---------- editor ---------- */
+function cur(){ return state.items.find(i=>i._uid===state.selectedId); }
+function softRefresh(){ renderList(); updatePreview(); updateQs(); updateChecklistUI(); updateActiveGate(); }
+
+function renderEditor(){
+  const i=cur();
+  if(!i){ $("#welcome").classList.remove("hidden"); $("#ed-inner").classList.add("hidden"); return; }
+  $("#welcome").classList.add("hidden");
+  const wrap=$("#ed-inner"); wrap.classList.remove("hidden");
+  const isV=i._typ==="vera";
+
+  wrap.innerHTML=`
+   <div class="col-main">
+    <div class="idcard">
+      <div class="idrow">
+        <div class="titlewrap">
+          <div class="field">
+            <label>${isV?"IQB-Titel":"Titel"} ${isV?'<span class="req">*</span>':''}</label>
+            <input type="text" id="f-title" value="${esc(isV?i.iqb_titel:i.title)}" placeholder="${isV?'Eindeutiger Titel':'Kurzer Titel (optional)'}">
+          </div>
+        </div>
+        <div class="field" style="flex:none">
+          <label>ID / Code</label>
+          <input type="text" id="f-humanId" value="${esc(i.humanId)}" placeholder="${isV?'skill_code':'source_ref'}" style="width:150px">
+          ${i._dbId?`<span class="prfor">DB: ${esc(i._dbId.slice(0,8))}…</span>`:'<span class="prfor">neu (Insert)</span>'}
+        </div>
+        <div class="field" style="flex:none">
+          <label>QS-Status</label>
+          <div class="statuspick">
+            <button class="spbtn draft ${i.qs_status==="draft"?"on":""}" data-st="draft"><span class="dot draft"></span>Entwurf</button>
+            <button class="spbtn review ${i.qs_status==="review"?"on":""}" data-st="review"><span class="dot review"></span>Review</button>
+            <button class="spbtn approved ${i.qs_status==="approved"?"on":""}" data-st="approved"><span class="dot approved"></span>Frei</button>
+          </div>
+        </div>
+      </div>
+      <div class="activerow">
+        <label class="switch"><input type="checkbox" id="f-active" ${i.active?"checked":""} ${i.qs_status!=="approved"?"disabled":""}><span class="slider"></span></label>
+        <span class="lbl">Für Schüler:innen aktiv</span>
+        <span class="hint" id="active-hint"></span>
+      </div>
+      <div class="savebar">
+        <button class="btn primary" id="btn-save" ${state.mode!=="live"?"disabled":""}>In Datenbank speichern</button>
+        <span class="savestatus" id="savestatus">${state.mode!=="live"?"Offline — per Export sichern":""}</span>
+      </div>
+    </div>
+
+    ${section("1","Inhalt / Aufgabe","", inhaltFields(i,isV))}
+    ${section("2","Tagging / Einordnung","Cluster · Kompetenz · Microskill", kompetenzFields(i))}
+    ${section("3","Lösung / Bewertung","", loesungFields(i,isV))}
+    ${section("4","Didaktik / Hinweise","", didaktikFields(i))}
+    ${isV?section("5","Format","", formatFields(i)):""}
+   </div>
+
+   <div class="col-side">
+    <div class="preview">
+      <div class="ph"><h3>Live-Vorschau</h3><span class="badge">${isV?"VERA-8":"Aufgabe"}</span></div>
+      <div class="pbody" id="pv"></div>
+    </div>
+    <div class="qspanel">
+      <div class="ch"><h3>QS-Prüfung</h3><span class="cnt" id="qs-cnt"></span></div>
+      <div class="qsbody" id="qs-body"></div>
+    </div>
+    <div class="checklist">
+      <div class="ch"><h3>Freigabe-Checkliste</h3><span class="prog" id="cl-prog"></span></div>
+      <div class="barwrap"><div class="bar" id="cl-bar"></div></div>
+      <div class="clbody" id="cl-body"></div>
+    </div>
+   </div>`;
+
+  bindEditor(i,isV);
+  buildChecklist(i);
+  updatePreview(); updateQs(); updateActiveGate();
+}
+
+function section(num,title,sub,inner){
+  return `<div class="card"><div class="ch" data-collapse>
+      <span class="num">${num}</span><h3>${title}</h3>${sub?`<span class="chsub">${sub}</span>`:""}
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="cb">${inner}</div></div>`;
+}
+
+/* --- field builders --- */
+function inhaltFields(i,isV){
+  if(isV){
+    const ta=i.teilaufgaben||[];
+    const taBlock = ta.length
+      ? `<div class="taro">`+ta.map(t=>`<div class="taro-row">${esc(taLine(t,i.loesung_pro_ta))}</div>`).join("")+`</div>`
+      : `<div class="prfor">keine Teilaufgaben hinterlegt</div>`;
+    return `
+    <div class="field"><label>Aufgabentext (prompt) <span class="req">*</span><span class="help">– vollständig, sauber, ohne OCR-Fehler. Formeln in $…$</span></label>
+      <textarea id="f-prompt" rows="4">${esc(i.prompt)}</textarea></div>
+    <div class="field"><label>Kontext / Situation</label>
+      <textarea id="f-kontext" rows="2">${esc(i.kontext)}</textarea></div>
+    <div class="grid2">
+      <div class="field"><label>Aufgaben-Typ</label>${selOpts("f-aufgabe_typ",AUFGABE_TYPEN,i.aufgabe_typ)}</div>
+      <div class="field"><label>Teilaufgaben <span class="help">(read-only)</span></label>${taBlock}</div>
+    </div>`;
+  }
+  return `
+  <div class="field"><label>Aufgabenstellung (question) <span class="req">*</span><span class="help">– klar, vollständig, fehlerfrei. Formeln in $…$</span></label>
+    <textarea id="f-question" rows="4">${esc(i.question)}</textarea></div>
+  <div class="grid2">
+    <div class="field"><label>Content-Typ</label>${selOpts("f-content_type",CONTENT_TYPES,i.content_type)}</div>
+    <div class="field"><label>Input-Typ</label>${selOpts("f-input_type",[""].concat(INPUT_TYPES),i.input_type)}</div>
+  </div>`;
+}
+function kompetenzFields(i){
+  const offlineHint = state.mode!=="live"
+    ? `<div class="section-note">Cluster / Kompetenz / Microskill brauchen die Referenzlisten aus der Datenbank. Bitte <b>verbinden</b>, um zu taggen.</div>` : "";
+  return `
+  ${offlineHint}
+  <div class="grid2">
+    <div class="field"><label>Inhaltsfeld / Cluster <span class="help">(Achse A)</span></label>${clusterSelect(i)}</div>
+    <div class="field"><label>Prozesskompetenz <span class="help">(Achse B)</span></label>${compSelect(i)}</div>
+  </div>
+  <div class="field"><label>Microskill <span class="help">(Achse C — feinste Granularität, bestimmt den Lernpfad)</span></label>${skillSelect(i)}</div>
+  <div class="grid3">
+    <div class="field"><label>AFB</label>${selMap("f-afb",AFB,i.afb,true)}</div>
+    <div class="field"><label>Klassenstufe</label><input type="number" id="f-class_level" value="${i.class_level??""}" min="5" max="13"></div>
+    ${i._typ==="vera"
+      ? `<div class="field"><label>Phase</label>${selMap("f-phase",PHASE,i.phase,true)}</div>`
+      : `<div class="field"><label>Schwierigkeit (1–5)</label><input type="number" id="f-difficulty" value="${i.difficulty??""}" min="1" max="5"></div>`}
+  </div>`;
+}
+function loesungFields(i,isV){
+  if(isV){
+    return `
+    <div class="field"><label>Akzeptierte Antworten<span class="help">– ALLE gültigen Schreibweisen/Einheiten. Lücken = falsches Auto-Grading.</span></label></div>
+    ${repList("akzeptierte_antworten",i.akzeptierte_antworten,"z.B. 3/4  oder  0,75","+ Antwort")}
+    <div class="field"><label>Kodieranweisung (Coaches)<span class="help">– eindeutig, anwendbar, deckt Grenzfälle ab</span></label>
+      <textarea id="f-kodierung" rows="3">${esc(i.kodierung)}</textarea></div>
+    <div class="grid2">
+      <div class="field"><label>Check-Type</label>${selOpts("f-check_type",CHECK_TYPES,i.check_type)}
+        <span class="prfor">VERA i.d.R. „manual" – Coach kodiert.</span></div>
+      <div class="field"><label>Input-Typ</label>${selOpts("f-input_type",INPUT_TYPES,i.input_type)}</div>
+    </div>
+    <div class="field"><label style="cursor:pointer"><input type="checkbox" id="f-fix_anker" ${i.fix_anker?"checked":""} style="width:auto;margin-right:7px">Anker-Item (adaptive Logik)</label></div>`;
+  }
+  return `
+  <div class="field"><label>Musterlösung (solution)<span class="help">– korrekt und vollständig. Formeln in $…$</span></label>
+    <textarea id="f-solution" rows="3">${esc(i.solution)}</textarea></div>
+  <div class="field"><label>Hint (Kurz-Hilfe)<span class="help">– hilft, ohne die Lösung zu verraten</span></label>
+    <textarea id="f-hint" rows="2">${esc(i.hint)}</textarea></div>`;
+}
+function didaktikFields(i){
+  return `
+  <div class="field"><label>Typische Fehler<span class="help">– eine pro Zeile</span></label>
+    <textarea id="f-typical_errors" rows="2">${esc(i.typical_errors)}</textarea></div>
+  <div class="field"><label>Strukturierte Fehlvorstellungen<span class="help">– Code wählen, Beschreibung wird vorbefüllt, Auslöser ergänzen</span></label>
+    <div id="mc-list" class="replist"></div>
+    <button class="addbtn" id="add-mc">+ Fehlvorstellung</button></div>
+  <div class="field"><label>Lösungsstrategie (didaktischer Weg)</label>
+    <textarea id="f-loesungsstrategie" rows="2">${esc(i.loesungsstrategie)}</textarea></div>
+  <div class="field"><label>Voraussetzungen (Skills)</label><div class="tags" id="tags-vor"></div></div>
+  <div class="field"><label>Didaktischer Hinweis / Coach-Note</label>
+    <textarea id="f-explanation" rows="2">${esc(i.explanation)}</textarea></div>`;
+}
+function formatFields(i){
+  return `
+  <div class="grid2">
+    <div class="field"><label>Quelle</label><input type="text" id="f-quelle" value="${esc(i.quelle)}" placeholder="z.B. VERA8_IQB"></div>
+    <div class="field"><label>Level (1–3)</label><input type="number" id="f-level" value="${i.level??""}" min="1" max="3"></div>
+  </div>`;
+}
+
+/* selects */
+function selOpts(id,opts,val){ return `<select id="${id}">`+opts.map(o=>`<option value="${esc(o)}" ${o===val?"selected":""}>${o===""?"– bitte wählen –":esc(o)}</option>`).join("")+`</select>`; }
+function selMap(id,map,val,blank){ let h=`<select id="${id}">`; if(blank)h+=`<option value="">– wählen –</option>`;
+  for(const k in map)h+=`<option value="${k}" ${k===val?"selected":""}>${esc(map[k])}</option>`; return h+`</select>`; }
+function clusterSelect(i){
+  const dis = state.mode!=="live"? "disabled":"";
+  let h=`<select id="f-cluster_id" ${dis}><option value="">– kein Cluster –</option>`;
+  REF.clusters.forEach(c=>{ const subj=REF.subjectById[c.subject_id]?.name||"?"; const dep=c.is_deprecated?" ⚠":"";
+    h+=`<option value="${c.id}" ${c.id===i.cluster_id?"selected":""}>${esc(subj)} · ${esc(c.name)} (${c.class_level_min}–${c.class_level_max})${dep}</option>`; });
+  if(i.cluster_id && !REF.clusterById[i.cluster_id]) h+=`<option value="${esc(i.cluster_id)}" selected>${esc(i.cluster_id.slice(0,8))}… (unbekannt)</option>`;
+  return h+`</select>`;
+}
+function compSelect(i){
+  const dis = state.mode!=="live"? "disabled":"";
+  const list = REF.comps.length? REF.comps : COMP_FALLBACK.map(c=>({id:c.code,code:c.code,name:c.name}));
+  let h=`<select id="f-competency_id" ${dis}><option value="">– keine Kompetenz –</option>`;
+  list.forEach(c=>{ h+=`<option value="${c.id}" ${c.id===i.competency_id?"selected":""}>${esc(c.code)} · ${esc(c.name)}</option>`; });
+  return h+`</select>`;
+}
+function skillSelect(i){
+  if(state.mode!=="live") return `<select id="f-microskill_id" disabled><option>– nur live verfügbar –</option></select>`;
+  return `<select id="f-microskill_id" ${(!i.cluster_id)?"disabled":""}>${skillOptionsHtml(i)}</select>`;
+}
+function skillOptionsHtml(i){
+  if(!i.cluster_id) return `<option value="">– erst Cluster wählen –</option>`;
+  let listMs=REF.skills.filter(s=>s.cluster_id===i.cluster_id)
+    .sort((a,b)=>(a.class_level-b.class_level)||(a.sort_order-b.sort_order)||a.code.localeCompare(b.code));
+  if(i.microskill_id && !listMs.some(s=>s.id===i.microskill_id) && REF.skillById[i.microskill_id]) listMs=[REF.skillById[i.microskill_id],...listMs];
+  let h=`<option value="">– kein Microskill –</option>`;
+  listMs.forEach(s=>{ h+=`<option value="${s.id}" ${s.id===i.microskill_id?"selected":""}>${esc(s.code)} · ${esc(s.name)} · Kl.${s.class_level}</option>`; });
+  return h;
+}
+function repList(field,items,ph,addlabel){ return `<div class="replist" data-rep="${field}" data-ph="${esc(ph)}" data-add="${esc(addlabel)}"></div>`; }
+
+/* ---------- bind ---------- */
+function bindEditor(i,isV){
+  document.querySelectorAll("[data-collapse]").forEach(h=>h.onclick=()=>h.closest(".card").classList.toggle("collapsed"));
+  document.querySelectorAll(".spbtn").forEach(b=>b.onclick=()=>{
+    const st=b.dataset.st;
+    if(st==="approved" && !checklistComplete(i)){ toast("Erst alle Checklisten-Punkte abhaken, dann freigeben.","err"); return; }
+    i.qs_status=st; if(st!=="approved")i.active=false; markDirty(); recount(); renderEditor(); renderList();
+  });
+  $("#f-active").onchange=e=>{
+    if(e.target.checked){
+      if(!confirm("Item AKTIV schalten?\n\nAktiv = im Screening für Schüler:innen sichtbar. Sicher?")){ e.target.checked=false; return; }
+    }
+    i.active=e.target.checked; markDirty(); updateActiveGate();
+  };
+  $("#btn-save").onclick=()=>saveItemLive(i);
+
+  const map={
+    "f-humanId":"humanId","f-prompt":"prompt","f-question":"question","f-kontext":"kontext",
+    "f-aufgabe_typ":"aufgabe_typ","f-content_type":"content_type","f-input_type":"input_type","f-check_type":"check_type",
+    "f-cluster_id":"cluster_id","f-competency_id":"competency_id","f-microskill_id":"microskill_id",
+    "f-afb":"afb","f-phase":"phase","f-class_level":"class_level","f-difficulty":"difficulty","f-level":"level",
+    "f-solution":"solution","f-hint":"hint","f-kodierung":"kodierung",
+    "f-typical_errors":"typical_errors","f-loesungsstrategie":"loesungsstrategie","f-explanation":"explanation","f-quelle":"quelle"
+  };
+  Object.entries(map).forEach(([id,fld])=>{
+    const e=document.getElementById(id); if(!e)return;
+    const ev=(e.tagName==="SELECT")?"change":"input";
+    e.addEventListener(ev,()=>{
+      let v=e.value;
+      if(["class_level","difficulty","level"].includes(fld)) v = v===""?null:Number(v);
+      i[fld]=v; markDirty();
+      if(["prompt","question","kontext","solution"].includes(fld)) updatePreview();
+      if(fld==="cluster_id"){ // refresh microskill options scoped to new cluster (keep element + its listener)
+        i.microskill_id="";
+        const sk=$("#f-microskill_id"); if(sk){ sk.innerHTML=skillOptionsHtml(i); sk.disabled=(state.mode!=="live"||!i.cluster_id); }
+        renderList();
+      }
+      if(["afb","cluster_id","competency_id","microskill_id","humanId","qs_status","phase","active"].includes(fld)) renderList();
+      updateQs(); updateActiveGate();
+    });
+  });
+  const tf=$("#f-title"); if(tf){ tf.addEventListener("input",()=>{ if(isV)i.iqb_titel=tf.value; else i.title=tf.value; markDirty(); renderList(); updatePreview(); }); }
+  const fa=$("#f-fix_anker"); if(fa) fa.onchange=()=>{ i.fix_anker=fa.checked; markDirty(); };
+
+  document.querySelectorAll("[data-rep]").forEach(c=>buildRep(c,i));
+  buildMc(i);
+  buildTags("tags-vor","voraussetzungen",i,VORAUSSETZUNGEN);
+}
+
+function buildRep(container,i){
+  const field=container.dataset.rep, ph=container.dataset.ph, addlabel=container.dataset.add;
+  function draw(){
+    container.innerHTML="";
+    (i[field]||[]).forEach((val,idx)=>{
+      const row=el("div","repitem");
+      row.innerHTML=`<div class="idx">${idx+1}</div><textarea rows="1" placeholder="${esc(ph)}">${esc(val)}</textarea>
+        <button class="repdel" title="Entfernen">✕</button>`;
+      const ta=row.querySelector("textarea"); ta.style.minHeight="38px";
+      ta.addEventListener("input",()=>{ i[field][idx]=ta.value; markDirty(); if(field==="akzeptierte_antworten"){updatePreview();updateQs();} });
+      row.querySelector(".repdel").onclick=()=>{ i[field].splice(idx,1); markDirty(); draw(); updateQs(); };
+      container.appendChild(row);
+    });
+    const add=el("button","addbtn",addlabel); add.onclick=()=>{ i[field].push(""); markDirty(); draw(); };
+    container.appendChild(add);
+  }
+  draw();
+}
+function buildMc(i){
+  const c=$("#mc-list"); if(!c)return;
+  function codeOptions(sel){
+    return `<option value="">– Code wählen –</option>`+
+      MISCONCEPTIONS.map(([code,d])=>`<option value="${code}" ${code===sel?"selected":""}>${code} · ${esc(d)}</option>`).join("")+
+      (sel && !MISCONCEPTIONS.some(m=>m[0]===sel)? `<option value="${esc(sel)}" selected>${esc(sel)}</option>`:"");
+  }
+  function draw(){
+    c.innerHTML="";
+    i.misconceptions.forEach((m,idx)=>{
+      const box=el("div","mc");
+      box.innerHTML=`<div class="mctop">
+          <select class="mc-code">${codeOptions(m.code)}</select>
+          <button class="repdel" title="Entfernen">✕</button></div>
+        <input type="text" class="mc-desc" placeholder="Beschreibung der Fehlvorstellung" value="${esc(m.beschreibung)}">
+        <input type="text" class="mc-trig" placeholder="Auslöser / Beispiel (z.B. 6/8 statt 3/4)" value="${esc(m.trigger)}">`;
+      const code=box.querySelector(".mc-code"), desc=box.querySelector(".mc-desc"), trig=box.querySelector(".mc-trig");
+      code.onchange=()=>{ m.code=code.value; const cat=MISCONCEPTIONS.find(x=>x[0]===code.value);
+        if(cat && !desc.value.trim()){ desc.value=cat[1]; m.beschreibung=cat[1]; } markDirty(); };
+      desc.oninput=()=>{m.beschreibung=desc.value;markDirty();};
+      trig.oninput=()=>{m.trigger=trig.value;markDirty();};
+      box.querySelector(".repdel").onclick=()=>{ i.misconceptions.splice(idx,1); markDirty(); draw(); };
+      c.appendChild(box);
+    });
+  }
+  draw();
+  $("#add-mc").onclick=()=>{ i.misconceptions.push({code:"",beschreibung:"",trigger:""}); markDirty(); draw(); };
+}
+function buildTags(elemId,field,i,vocab){
+  const c=document.getElementById(elemId); if(!c)return;
+  function draw(){
+    c.innerHTML="";
+    (i[field]||[]).forEach((t,idx)=>{
+      const chip=el("span","tagchip",`${esc(t)} <button title="Entfernen">✕</button>`);
+      chip.querySelector("button").onclick=()=>{ i[field].splice(idx,1); markDirty(); draw(); };
+      c.appendChild(chip);
+    });
+    const avail=vocab.filter(v=>!(i[field]||[]).includes(v));
+    const sel=el("select","taginput");
+    sel.innerHTML=`<option value="">+ hinzufügen …</option>`+avail.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
+    sel.onchange=()=>{ if(sel.value){ i[field].push(sel.value); markDirty(); draw(); } };
+    c.appendChild(sel);
+  }
+  draw();
+}
+
+/* ---------- preview ---------- */
+function updatePreview(){
+  const i=cur(); const pv=$("#pv"); if(!i||!pv)return;
+  const isV=i._typ==="vera";
+  const q=promptText(i);
+  const sol=isV?(i.akzeptierte_antworten||[]).filter(Boolean).join("  ·  "):i.solution;
+  if(!q && !sol){ pv.innerHTML='<div class="pv-empty">Kein Aufgabentext — bitte nachtragen.</div>'; return; }
+  let h="";
+  if(i.kontext)h+=`<div class="pv-ctx">${esc(i.kontext)}</div>`;
+  h+=`<div class="pv-q">${esc(q||"")}</div>`;
+  if(isV && (i.teilaufgaben||[]).length){
+    h+=`<div style="margin-top:8px">`+i.teilaufgaben.map(t=>`<div class="pv-q" style="margin-top:4px;font-size:12.5px;color:var(--muted)">${esc(taLine(t,i.loesung_pro_ta))}</div>`).join("")+`</div>`;
+  }
+  if(sol)h+=`<div class="pv-sol"><div class="l">${isV?"Akzeptierte Antworten":"Lösung"}</div><div class="pv-q">${esc(sol)}</div></div>`;
+  pv.innerHTML=h; renderMath(pv);
+}
+
+/* ---------- QS panel ---------- */
+function updateQs(){
+  const i=cur(); const body=$("#qs-body"), cnt=$("#qs-cnt"); if(!i||!body)return;
+  const checks=qsChecks(i);
+  const nErr=checks.filter(c=>c.lvl==="error").length, nWarn=checks.filter(c=>c.lvl==="warn").length;
+  if(!checks.length){ body.innerHTML=`<div class="qsok">✓ Keine automatischen Probleme gefunden.</div>`; cnt.textContent=""; cnt.style.color=""; return; }
+  cnt.textContent = nErr? `${nErr} Fehler` : nWarn? `${nWarn} Hinweise` : `${checks.length}`;
+  cnt.style.color = nErr? "var(--danger)" : nWarn? "var(--warning)" : "var(--muted)";
+  const ic={error:"✕",warn:"⚑",info:"ℹ"};
+  body.innerHTML=checks.map(c=>`<div class="qsrow ${c.lvl}"><span class="ic">${ic[c.lvl]}</span><span>${esc(c.msg)}</span></div>`).join("");
+}
+
+/* ---------- checklist ---------- */
+function applicable(i){ return CHECKLIST.filter(c=> c.vera? i._typ==="vera": true ); }
+function buildChecklist(i){
+  const body=$("#cl-body"); if(!body)return;
+  body.innerHTML="";
+  applicable(i).forEach(c=>{
+    const checked=!!i.checklist[c.id];
+    const row=el("label","cli"+(checked?" checked":""));
+    row.innerHTML=`<input type="checkbox" ${checked?"checked":""}><span>${c.label}</span>`;
+    row.querySelector("input").onchange=e=>{ i.checklist[c.id]=e.target.checked; markDirty();
+      row.classList.toggle("checked",e.target.checked); updateChecklistUI(); updateActiveGate(); };
+    body.appendChild(row);
+  });
+  updateChecklistUI();
+}
+function checklistComplete(i){ return applicable(i).every(c=> i.checklist[c.id]); }
+function updateChecklistUI(){
+  const i=cur(); if(!i)return;
+  const app=applicable(i), done=app.filter(c=>i.checklist[c.id]).length;
+  const prog=$("#cl-prog"), bar=$("#cl-bar");
+  if(prog){ prog.textContent=`${done} / ${app.length}`; prog.classList.toggle("done",done===app.length); }
+  if(bar){ const pct=app.length?Math.round(done/app.length*100):0; bar.style.width=pct+"%"; bar.classList.toggle("full",done===app.length); }
+}
+function updateActiveGate(){
+  const i=cur(); if(!i)return;
+  const sw=$("#f-active"), hint=$("#active-hint"); if(!sw)return;
+  if(i.qs_status!=="approved"){ sw.disabled=true; if(i.active){i.active=false;sw.checked=false;} hint.textContent="erst nach Freigabe schaltbar"; }
+  else { sw.disabled=false; hint.textContent=i.active?"sichtbar für Schüler:innen":"freigegeben, aber inaktiv"; }
+}
+
+/* ---------- live: connect / load / save ---------- */
+function openConn(){ $("#c-url").value=localStorage.getItem(LS_URL)||""; $("#c-key").value=localStorage.getItem(LS_KEY)||"";
+  $("#conn-msg").textContent=""; $("#conn-modal").classList.add("open"); }
+function setConnMsg(m,k){ const e=$("#conn-msg"); e.textContent=m; e.className="connmsg"+(k?" "+k:""); }
+function setConnPill(on,txt){ $("#connpill-dot").className="dot "+(on?"on":"off"); $("#connpill-txt").textContent=txt; }
+
+async function doConnect(){
+  const url=$("#c-url").value.trim(), key=$("#c-key").value.trim();
+  const email=$("#c-email").value.trim(), pw=$("#c-pw").value;
+  if(!url||!key){ setConnMsg("URL und anon-Key nötig.","err"); return; }
+  localStorage.setItem(LS_URL,url); localStorage.setItem(LS_KEY,key);
+  setConnMsg("verbinde …","");
+  try{
+    sb=createClient(url,key,{auth:{persistSession:true,storageKey:"edvance_qs_auth"}});
+    if(email&&pw){ const {error}=await sb.auth.signInWithPassword({email,password:pw}); if(error) throw new Error("Login: "+error.message); }
+    const {data:{session}}=await sb.auth.getSession();
+    if(!session) throw new Error("Keine Session — E-Mail/Passwort eingeben.");
+    let role="?"; try{ const {data}=await sb.rpc("get_my_role"); if(data) role=data; }catch{}
+    const known=role!=="?";
+    setConnMsg(`verbunden als ${session.user.email} (Rolle: ${role})${known&&role!=="admin"?" — ⚠ kein admin, Speichern scheitert an RLS":""}`, !known||role==="admin"?"ok":"warn");
+    await loadRef();
+    await loadItems();
+    state.mode="live"; setConnPill(true,"Live");
+    $("#c-pw").value="";
+    setTimeout(()=>$("#conn-modal").classList.remove("open"),700);
+  }catch(err){ setConnMsg(err.message,"err"); }
+}
+async function loadRef(){
+  const [cl,su,co,ms]=await Promise.all([
+    sb.from("skill_clusters").select("id,subject_id,name,class_level_min,class_level_max,is_deprecated,sort_order"),
+    sb.from("subjects").select("id,name"),
+    sb.from("process_competencies").select("id,code,name,sort_order").order("sort_order"),
+    sb.from("microskills").select("id,cluster_id,code,name,class_level,sort_order"),
+  ]);
+  for(const r of [cl,su,co,ms]) if(r.error) throw new Error(r.error.message);
+  REF.clusters=(cl.data||[]).sort((a,b)=>(a.sort_order-b.sort_order));
+  REF.comps=co.data||[]; REF.skills=ms.data||[];
+  REF.subjectById={}; (su.data||[]).forEach(s=>REF.subjectById[s.id]=s);
+  REF.clusterById={}; REF.clusters.forEach(c=>REF.clusterById[c.id]=c);
+  REF.skillById={}; REF.skills.forEach(s=>REF.skillById[s.id]=s);
+  REF.compById={}; REF.comps.forEach(c=>REF.compById[c.id]=c);
+}
+async function loadItems(){
+  const [si,tk]=await Promise.all([
+    sb.from("screening_items").select("id,cluster_id,competency_id,microskill_id,class_level,topic,skill_code,skill_label,level,input_type,prompt,kontext,canonical,check_type,akzeptierte_antworten,kodierung,aufgabe_typ,teilaufgaben,loesung_pro_ta,kompetenzfelder,typical_errors,explanation,afb,phase,iqb_titel,fix_anker,source,quelle,active,meta").order("class_level").limit(5000),
+    sb.from("tasks").select("id,cluster_id,competency_id,microskill_id,class_level,content_type,title,question,solution,hint,coach_note,common_errors,difficulty,cognitive_type,estimated_minutes,curriculum_ref,is_diagnostic,input_type,typical_errors,source,source_ref,is_active").order("class_level").limit(5000),
+  ]);
+  for(const r of [si,tk]) if(r.error) throw new Error(r.error.message);
+  const rows=[...(si.data||[]).map(o=>({...o,_typ:"vera"})),...(tk.data||[]).map(o=>({...o,_typ:"task"}))];
+  state.items=rows.map(normalize);
+  state.selectedId=state.items[0]?._uid||null;
+  clearDirty(); recount(); renderList(); renderEditor();
+  toast(`${state.items.length} Aufgabe(n) aus der DB geladen.`,"ok");
+}
+function toDbPayload(i){
+  const isV=i._typ==="vera";
+  if(isV){
+    const meta=Object.assign({}, (i._origRow&&i._origRow.meta)||{}, { qs:{
+      qs_status:i.qs_status, checklist:i.checklist, misconceptions:i.misconceptions,
+      voraussetzungen:i.voraussetzungen, loesungsstrategie:i.loesungsstrategie||null
+    }});
+    return { table:"screening_items", payload:{
+      iqb_titel:i.iqb_titel||null, prompt:i.prompt||null, kontext:i.kontext||null,
+      aufgabe_typ:i.aufgabe_typ||null, akzeptierte_antworten:i.akzeptierte_antworten,
+      kodierung:i.kodierung||null, check_type:i.check_type, input_type:i.input_type,
+      afb:i.afb||null, phase:i.phase||null, level:i.level, class_level:i.class_level,
+      cluster_id:i.cluster_id||null, competency_id:i.competency_id||null, microskill_id:i.microskill_id||null,
+      typical_errors:linesToArr(i.typical_errors), explanation:i.explanation||null,
+      skill_code:i.humanId||i.skill_code||null, quelle:i.quelle||null, fix_anker:i.fix_anker, active:i.active, meta
+    }};
+  }
+  return { table:"tasks", payload:{
+    title:i.title||null, question:i.question||null, solution:i.solution||null, hint:i.hint||null,
+    content_type:i.content_type||"exercise", input_type:i.input_type||null,
+    difficulty:i.difficulty, cognitive_type:i.cognitive_type||null, class_level:i.class_level,
+    cluster_id:i.cluster_id||null, competency_id:i.competency_id||null, microskill_id:i.microskill_id||null,
+    typical_errors:linesToArr(i.typical_errors), coach_note:i.explanation||null,
+    source_ref:i.humanId||i.source_ref||null, is_active:i.active
+  }};
+}
+async function saveItemLive(i){
+  if(state.mode!=="live"||!sb){ toast("Nicht verbunden.","err"); return; }
+  const st=$("#savestatus"), btn=$("#btn-save");
+  if(i.class_level==null && i._typ==="vera"){ toast("Klassenstufe ist Pflicht (NOT NULL).","err"); return; }
+  btn.disabled=true; st.className="savestatus"; st.textContent="speichere …";
+  try{
+    const {table,payload}=toDbPayload(i);
+    if(i._dbId){
+      const {error}=await sb.from(table).update(payload).eq("id",i._dbId);
+      if(error) throw new Error(error.message);
+    } else {
+      const {data,error}=await sb.from(table).insert(payload).select("id").single();
+      if(error) throw new Error(error.message);
+      i._dbId=data.id;
+    }
+    st.className="savestatus ok"; st.textContent="in DB gespeichert ✓";
+    state.dirty=false; $("#dirty").classList.remove("on"); doAutosave();
+    renderList();
+    setTimeout(()=>{ if(st)st.textContent=""; },2500);
+  }catch(err){ st.className="savestatus err"; st.textContent="Fehler: "+err.message; }
+  finally{ btn.disabled=false; }
+}
+
+/* ---------- import / export (offline) ---------- */
+$("#btn-import").onclick=()=>$("#file-input").click();
+$("#file-input").onchange=e=>{ const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ ingest(JSON.parse(r.result)); }catch(err){ toast("JSON-Fehler: "+err.message,"err"); } e.target.value=""; };
+  r.readAsText(f);
+};
+function ingest(data){
+  let raw=[];
+  if(Array.isArray(data)) raw=data;
+  else if(data && (data.screening_items||data.tasks)) raw=[...(data.screening_items||[]).map(o=>({...o,_typ:"vera"})),...(data.tasks||[]).map(o=>({...o,_typ:"task"}))];
+  else if(data && typeof data==="object") raw=[data];
+  if(!raw.length){ toast("Keine Aufgaben gefunden.","err"); return; }
+  state.items=raw.map(normalize); state.selectedId=state.items[0]?._uid||null;
+  markDirty(); recount(); renderList(); renderEditor();
+  toast(`${state.items.length} Aufgabe(n) geladen.`,"ok");
+}
+$("#btn-export").onclick=()=>{
+  if(!state.items.length){ toast("Nichts zu exportieren.","err"); return; }
+  const out={screening_items:[],tasks:[]};
+  state.items.forEach(i=>{ const {table,payload}=toDbPayload(i); const row=Object.assign({},payload); if(i._dbId)row.id=i._dbId;
+    if(table==="screening_items")out.screening_items.push(row); else out.tasks.push(row); });
+  const blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download=`edvance-aufgaben-${nowISO().slice(0,10)}.json`; a.click(); if(URL.revokeObjectURL)URL.revokeObjectURL(a.href);
+  toast("Export erstellt.","ok");
+};
+
+/* ---------- filters / search / modals ---------- */
+$("#filters").addEventListener("click",e=>{ const b=e.target.closest(".chip"); if(!b)return;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active")); b.classList.add("active");
+  state.filter=b.dataset.f; renderList(); });
+$("#search").addEventListener("input",e=>{ state.search=e.target.value.trim(); renderList(); });
+$("#btn-help").onclick=()=>$("#help-modal").classList.add("open");
+$("#help-close").onclick=()=>$("#help-modal").classList.remove("open");
+[$("#connpill"),$("#btn-connect2"),$("#btn-connect-welcome")].forEach(b=>b&&(b.onclick=openConn));
+$("#conn-go").onclick=doConnect;
+$("#conn-cancel").onclick=()=>$("#conn-modal").classList.remove("open");
+document.querySelectorAll(".modal-bg").forEach(m=>m.addEventListener("click",e=>{ if(e.target===m)m.classList.remove("open"); }));
+
+/* ---------- sample data ---------- */
+function loadSample(){
+  ingest({ screening_items:[{
+      id:"vera8-bruch-03", iqb_titel:"VERA-8 · Brüche kürzen (2019)", skill_code:"bruch-kuerzen",
+      prompt:"Kürze den Bruch $\\frac{6}{8}$ so weit wie möglich.", kontext:"Bereich Bruchrechnung.",
+      akzeptierte_antworten:["3/4","0,75","\\frac{3}{4}"],
+      kodierung:"Richtig = vollständig gekürzter Bruch 3/4 oder 0,75. 6/8 = nicht gekürzt = falsch.",
+      afb:"I", check_type:"manual", input_type:"FREE_TEXT", class_level:8, source:"VERA8_IQB", active:false,
+      typical_errors:["Kürzt gar nicht","Kürzt nur teilweise"],
+      meta:{qs:{qs_status:"review",checklist:{text:true}}}
+    }],
+    tasks:[{ id:"m8-lin-014", title:"Torquote berechnen",
+      question:"Mionel Lessi erzielt $63$ Tore in $45$ Spielen. Berechne die Torquote pro Spiel.",
+      solution:"$\\frac{63}{45} = 1{,}4$ Tore pro Spiel.", hint:"Tore ÷ Spiele.",
+      afb:"II", class_level:8, difficulty:2, cognitive_type:"TRANSFER", content_type:"exercise",
+      input_type:"NUMERIC", source:"KI-generiert", qs_status:"draft" }]
+  });
+  toast("Beispieldaten geladen (Offline).","ok");
+}
+$("#btn-sample").onclick=loadSample;
+$("#btn-sample-welcome").onclick=loadSample;
+
+/* ---------- restore (autosave) ---------- */
+$("#restore-yes").onclick=()=>{
+  try{ const s=JSON.parse(localStorage.getItem(AUTOSAVE_KEY));
+    state.items=s.items||[]; state.selectedId=s.selectedId||state.items[0]?._uid||null; state.mode=s.mode==="live"?"offline":"offline";
+    // re-id to avoid uid collisions
+    state.items.forEach(i=>{ i._uid=uid(); }); if(state.items[0]) state.selectedId=state.items[0]._uid;
+    setConnPill(false,"Offline (wiederhergestellt)");
+    recount(); renderList(); renderEditor(); markDirty();
+    toast(`${state.items.length} Aufgabe(n) wiederhergestellt.`,"ok");
+  }catch(e){ toast("Wiederherstellen fehlgeschlagen.","err"); }
+  $("#restorebar").classList.remove("on");
+};
+$("#restore-no").onclick=()=>{ clearAutosave(); $("#restorebar").classList.remove("on"); };
+
+/* ---------- boot ---------- */
+function boot(){
+  function chk(){ if(window.renderMathInElement){ katexReady=true; updatePreview(); } else setTimeout(chk,120); }
+  chk();
+  try{ const s=JSON.parse(localStorage.getItem(AUTOSAVE_KEY));
+    if(s && Array.isArray(s.items) && s.items.length){
+      $("#restore-txt").textContent=`Automatisch gesicherter Stand vom ${new Date(s.ts).toLocaleString("de-DE")} (${s.items.length} Aufgaben).`;
+      $("#restorebar").classList.add("on");
+    }
+  }catch(e){}
+  recount(); renderList(); renderEditor();
+}
+window.addEventListener("DOMContentLoaded",boot);
+</script>
+</body>
+</html>
