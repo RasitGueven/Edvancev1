@@ -1,13 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from '@/pages/Login'
 import { DesignShowcase } from '@/pages/DesignShowcase'
-import { MockIndex } from '@/pages/mock/MockIndex'
-import { MockScreeningCoach } from '@/pages/mock/MockScreeningCoach'
-import { MockDndWidgets } from '@/pages/mock/MockDndWidgets'
-import { MockTaskWidgets } from '@/pages/mock/MockTaskWidgets'
-import { MockScreeningParent } from '@/pages/mock/MockScreeningParent'
-import { MockFirstSession } from '@/pages/mock/MockFirstSession'
-import { MockLernpfad } from '@/pages/mock/MockLernpfad'
 import { MockSession } from '@/pages/mock/session/MockSession'
 import { StudentDashboard } from '@/pages/student/StudentDashboard'
 import { CoachDashboard } from '@/pages/coach/CoachDashboard'
@@ -250,14 +243,8 @@ export default function App(): JSX.Element {
         />
 
         <Route path="/showcase" element={<DesignShowcase />} />
-        <Route path="/mock" element={<MockIndex />} />
+        <Route path="/mock" element={<Navigate to="/mock/session" replace />} />
         <Route path="/mock/session" element={<MockSession />} />
-        <Route path="/mock/screening-coach" element={<MockScreeningCoach />} />
-        <Route path="/mock/screening-parent" element={<MockScreeningParent />} />
-        <Route path="/mock/first-session" element={<MockFirstSession />} />
-        <Route path="/mock/lernpfad" element={<MockLernpfad />} />
-        <Route path="/mock/dnd-widgets" element={<MockDndWidgets />} />
-        <Route path="/mock/task-widgets" element={<MockTaskWidgets />} />
         <Route path="/demo/widgets" element={<TaskWidgetDemo />} />
         <Route path="/demo/design" element={<DesignDemo />} />
         <Route path="/demo/graph" element={<GraphDemo />} />
