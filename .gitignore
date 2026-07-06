@@ -16,3 +16,9 @@ dist-ssr
 # Import-Pipeline: Roh-JSONs und Run-Logs nicht versionieren
 scripts/import/raw/
 scripts/import/runs/
+
+# Test-/E2E-Artefakte
+coverage
+playwright-report
+test-results
+.playwright
