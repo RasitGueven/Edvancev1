@@ -38,14 +38,10 @@ export type ScreeningRating = {
 export type ScreeningLevel = 1 | 2 | 3
 export type ScreeningAfb = 'I' | 'II' | 'III'
 export type ScreeningPhase = 'sprint' | 'tiefe'
-export type ScreeningInputType =
-  | 'MC'
-  | 'NUMERIC'
-  | 'MATCHING'
-  | 'STEPS_FINAL'
-  | 'OPEN'
-  | 'CLOZE_DND'
-  | 'TABLE_LABEL'
+// Kanonischer input_type-Enum (Migration 042) — identisch zu content.InputType,
+// eine Quelle: answerPayload.ts. Legacy STEPS_FINAL/OPEN→FREE_TEXT,
+// CLOZE_DND→CLOZE, TABLE_LABEL→MATCHING.
+export type ScreeningInputType = import('./answerPayload').CanonicalInputType
 export type ScreeningCheckType =
   | 'mc_index'
   | 'numeric'
@@ -58,6 +54,10 @@ export type ScreeningItem = {
   id: string
   created_at: string
   cluster_id: string
+  // Migration 039 (Achse B Prozesskompetenz) + 043 (Achse C Microskill).
+  // Optional/nullable — inhaltliches Tagging ist Content-Arbeit (QS-Tool).
+  competency_id?: string | null
+  microskill_id?: string | null
   class_level: number
   topic: string
   skill_code: string
@@ -88,7 +88,7 @@ export type ScreeningItem = {
 export type ScreeningTeilaufgabe = {
   key: string
   prompt: string
-  input_type?: 'NUMERIC' | 'OPEN' | null
+  input_type?: 'NUMERIC' | 'FREE_TEXT' | null
   accepted?: string[] | null
 }
 

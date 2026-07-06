@@ -31,7 +31,7 @@ export const EMPTY_TASK_STATE: TaskState = {
 
 function showDrawingSlot(item: ScreeningItem): boolean {
   if (resolveTeilaufgaben(item)) return true
-  return item.input_type === 'NUMERIC' || item.input_type === 'OPEN'
+  return item.input_type === 'NUMERIC' || item.input_type === 'FREE_TEXT'
 }
 
 type Props = {
@@ -51,12 +51,14 @@ function resolveTeilaufgaben(item: ScreeningItem): ScreeningTeilaufgabe[] | null
 }
 
 function slotIds(item: ScreeningItem): string[] {
-  if (item.input_type === 'CLOZE_DND' && isClozeDndPayload(item.payload)) {
+  // CLOZE_DND→CLOZE, TABLE_LABEL→MATCHING (042). Distinkt durch Payload-Guard,
+  // damit „echte" MATCHING-Items (Paare) nicht faelschlich als Slot-Map gelten.
+  if (item.input_type === 'CLOZE' && isClozeDndPayload(item.payload)) {
     return item.payload.segments
       .filter((s): s is { kind: 'blank'; id: string } => s.kind === 'blank')
       .map((s) => s.id)
   }
-  if (item.input_type === 'TABLE_LABEL' && isTableLabelPayload(item.payload)) {
+  if (item.input_type === 'MATCHING' && isTableLabelPayload(item.payload)) {
     return item.payload.rows.map((r) => r.slotId)
   }
   return []
@@ -67,7 +69,10 @@ export function buildRawAnswer(item: ScreeningItem, s: TaskState): RawAnswer {
   const uploads = s.uploads.length > 0 ? s.uploads : undefined
   if (item.input_type === 'MC') return { kind: 'mc', index: s.mcIndex, drawing, uploads }
   if (item.input_type === 'NUMERIC') return { kind: 'numeric', value: s.text, drawing, uploads }
-  if (item.input_type === 'CLOZE_DND' || item.input_type === 'TABLE_LABEL') {
+  if (
+    (item.input_type === 'CLOZE' && isClozeDndPayload(item.payload)) ||
+    (item.input_type === 'MATCHING' && isTableLabelPayload(item.payload))
+  ) {
     return { kind: 'slotmap', slots: s.slots, drawing, uploads }
   }
   if (resolveTeilaufgaben(item)) return { kind: 'multistep', steps: s.steps, drawing, uploads }
@@ -95,7 +100,7 @@ function renderWidget(
   disabled: boolean | undefined,
   teilaufgaben: ScreeningTeilaufgabe[] | null,
 ): JSX.Element {
-  if (item.input_type === 'CLOZE_DND' && isClozeDndPayload(item.payload)) {
+  if (item.input_type === 'CLOZE' && isClozeDndPayload(item.payload)) {
     return (
       <ClozeDndWidget
         payload={item.payload}
@@ -107,7 +112,7 @@ function renderWidget(
       />
     )
   }
-  if (item.input_type === 'TABLE_LABEL' && isTableLabelPayload(item.payload)) {
+  if (item.input_type === 'MATCHING' && isTableLabelPayload(item.payload)) {
     return (
       <TableLabelWidget
         payload={item.payload}

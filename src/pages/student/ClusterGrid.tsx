@@ -1,19 +1,23 @@
-import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { BookOpen, ChevronRight, FileText, FlaskConical, PlayCircle, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { EmptyState, EdvanceBadge, EdvanceCard, MasteryBar } from '@/components/edvance'
+import { EmptyState, EdvanceBadge, EdvanceCard } from '@/components/edvance'
+import type { EdvanceBadgeVariant } from '@/components/edvance/EdvanceBadge'
+import { cn } from '@/lib/utils'
+import { STAGE_BG, STAGE_TEXT, masteryStageForLevel } from '@/components/student'
+import { MASTERY_STAGE_LABEL } from '@/lib/mastery'
+import { masteryWidthPct, stageCaption, type MasteryDisplay } from './masteryMatrix'
 import type {
   ClusterStatus,
   ClusterStatusLabel,
 } from '@/lib/screening/recommendation'
 import type { SkillCluster, Task } from '@/types'
 
-const STATUS_VARIANT: Record<
-  ClusterStatusLabel,
-  'mastered' | 'warning' | 'gap'
-> = {
-  Sicher: 'mastered',
+// FernUSG / Hard Rule §6: „Sicher" (oberste Screening-Stufe) darf NICHT als
+// dauerhaftes „Mastered" erscheinen — auf die proficient-Optik gedeckelt, bis
+// eine Coach-Bestätigung im Backend vorliegt. Reines Visual-Mapping.
+const STATUS_VARIANT: Record<ClusterStatusLabel, EdvanceBadgeVariant> = {
+  Sicher: 'mastery-proficient',
   Erkennbar: 'warning',
   Lücke: 'gap',
 }
@@ -21,14 +25,6 @@ const STATUS_VARIANT: Record<
 export type ClusterProgress = Record<string, { completed: number; total: number }>
 
 type ContentType = Task['content_type']
-
-const CLUSTER_TINTS = [
-  { bg: 'var(--color-primary-light)',          fg: 'var(--color-primary)' },
-  { bg: 'var(--color-success-skilltree-light)', fg: 'var(--color-success-skilltree)' },
-  { bg: 'var(--color-success-eltern-light)',   fg: 'var(--color-success-eltern)' },
-  { bg: 'var(--color-gold-warning-light)',     fg: 'var(--color-gold-warning)' },
-  { bg: 'var(--color-accent-streak-light)',    fg: 'var(--color-accent-streak)' },
-]
 
 export function RowIcon({ type }: { type: ContentType }): JSX.Element {
   if (type === 'video') return <PlayCircle className="h-5 w-5 shrink-0 text-[var(--color-gold-warning)]" />
@@ -48,7 +44,7 @@ export function FilterResults({
   clusterNameById: Record<string, string>
 }): JSX.Element {
   if (loading) {
-    return <p className="mt-6 text-sm text-muted">Suche …</p>
+    return <p className="mt-6 text-sm text-warm-72">Suche …</p>
   }
   if (tasks.length === 0) {
     return (
@@ -59,7 +55,7 @@ export function FilterResults({
   }
   return (
     <div className="mt-6 flex flex-col gap-1.5">
-      <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+      <p className="mb-1 text-eyebrow text-warm-56">
         {tasks.length} Treffer
       </p>
       <div className="rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] shadow-xs overflow-hidden">
@@ -133,6 +129,7 @@ type ClusterGridProps = {
   clusters: SkillCluster[]
   clusterProgress: ClusterProgress
   clusterStatusById?: Record<string, ClusterStatus>
+  clusterMasteryById?: Record<string, MasteryDisplay>
   recommendedClusterId?: string | null
 }
 
@@ -140,53 +137,46 @@ export function ClusterGrid({
   clusters,
   clusterProgress,
   clusterStatusById,
+  clusterMasteryById,
   recommendedClusterId,
 }: ClusterGridProps): JSX.Element {
   return (
     <div className="mt-6 grid gap-4 sm:grid-cols-2">
-      {clusters.map((c, idx) => {
-        const tint = CLUSTER_TINTS[idx % CLUSTER_TINTS.length]
+      {clusters.map((c) => {
         const status = clusterStatusById?.[c.id]
         const isRecommended = recommendedClusterId === c.id
         const prog = clusterProgress[c.id] ?? { completed: 0, total: 0 }
-        const blobStyle: CSSProperties = { background: tint.fg }
-        const iconStyle: CSSProperties = { background: tint.bg, color: tint.fg }
-        const barStyle: CSSProperties = {
-          width: `${prog.total > 0 ? Math.round((prog.completed / prog.total) * 100) : 0}%`,
-          backgroundColor: tint.fg,
-        }
+        const pct = prog.total > 0 ? Math.round((prog.completed / prog.total) * 100) : 0
+        // FernUSG-gedeckelte Stufe — „mastered" erst mit Coach-Bestätigung.
+        const stage = status ? masteryStageForLevel(status.displayLevel) : null
+        // Per-Cluster-Mastery aus der Kompetenz-Matrix (Achse A+B aggregiert,
+        // FernUSG-gedeckelt). Eigene Skala — getrennt von XP/Streak (amber).
+        const mastery = clusterMasteryById?.[c.id]
 
         return (
           <Link
             key={c.id}
             to={`/student/cluster/${c.id}`}
-            className="group block rounded-[var(--radius-xl)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            className="group block rounded-[var(--radius-lg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
           >
             <div
-              className={`relative h-full overflow-hidden rounded-[var(--radius-xl)] border bg-[var(--color-bg-surface)] p-5 shadow-xs transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-0.5 min-h-[140px] flex flex-col justify-between ${
-                isRecommended
-                  ? 'border-[var(--color-primary)] ring-2 ring-[var(--color-primary)]'
-                  : 'border-[var(--color-border)]'
-              }`}
+              className={cn(
+                'glass-card relative flex min-h-[140px] flex-col justify-between p-5 text-warm transition-transform duration-200 ease-bounce group-hover:-translate-y-0.5',
+                isRecommended && 'session-cta',
+              )}
             >
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-90"
-                style={blobStyle}
-              />
-
-              <div className="relative flex items-start gap-4 flex-1">
+              <div className="flex items-start gap-4">
                 <span
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)] shadow-xs"
-                  style={iconStyle}
+                  className={cn(
+                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)]',
+                    isRecommended ? 'session-icon-tile' : 'bg-white/15 text-warm',
+                  )}
                 >
                   <BookOpen className="h-5 w-5" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-base font-bold tracking-tight text-[var(--color-text-primary)]">
-                    {c.name}
-                  </p>
-                  <p className="mt-0.5 text-xs text-[var(--color-text-tertiary)]">
+                  <p className="text-base font-bold tracking-tight text-warm">{c.name}</p>
+                  <p className="mt-0.5 text-xs text-warm-56">
                     Klasse {c.class_level_min}
                     {c.class_level_min !== c.class_level_max && ` – ${c.class_level_max}`}
                   </p>
@@ -203,30 +193,58 @@ export function ClusterGrid({
                     </div>
                   )}
                 </div>
-                <ChevronRight className="h-5 w-5 shrink-0 text-[var(--color-text-tertiary)] transition-all group-hover:translate-x-0.5 group-hover:text-[var(--color-primary)]" />
+                <ChevronRight className="h-5 w-5 shrink-0 text-warm-72 transition-transform group-hover:translate-x-0.5" />
               </div>
 
               <div className="mt-4 flex flex-col gap-3">
-                {status && (
+                {mastery && (
                   <div>
-                    <p className="mb-1.5 text-xs text-[var(--color-text-tertiary)]">
-                      Lernstand-Check
-                    </p>
-                    <MasteryBar level={status.displayLevel} />
+                    <div className="mb-1.5 flex items-center justify-between gap-2">
+                      <p className="text-xs text-warm-56">Kompetenz-Stand</p>
+                      <p className={cn('text-xs font-semibold', STAGE_TEXT[mastery.stage])}>
+                        {MASTERY_STAGE_LABEL[mastery.stage]}
+                      </p>
+                    </div>
+                    <div className="h-2 w-full overflow-hidden rounded-[var(--radius-full)] bg-white/15">
+                      <div
+                        className={cn(
+                          'mastery-bar-fill h-full rounded-[var(--radius-full)]',
+                          STAGE_BG[mastery.stage],
+                        )}
+                        style={{ width: `${masteryWidthPct(mastery.score)}%` }}
+                      />
+                    </div>
+                    {mastery.awaitingConfirmation && (
+                      <p className="mt-1 text-xs text-warm-56">{stageCaption(mastery)}</p>
+                    )}
+                  </div>
+                )}
+                {status && stage && (
+                  <div>
+                    <p className="mb-1.5 text-xs text-warm-56">Lernstand-Check</p>
+                    <div className="h-2 w-full overflow-hidden rounded-[var(--radius-full)] bg-white/15">
+                      <div
+                        className={cn(
+                          'mastery-bar-fill h-full rounded-[var(--radius-full)]',
+                          STAGE_BG[stage],
+                        )}
+                        style={{ width: `${Math.min(100, Math.max(0, status.displayLevel * 10))}%` }}
+                      />
+                    </div>
                   </div>
                 )}
                 {prog.total > 0 && (
-                  <>
-                    <p className="mb-1.5 text-xs text-[var(--color-text-tertiary)]">
+                  <div>
+                    <p className="mb-1.5 text-xs text-warm-56">
                       {prog.completed} von {prog.total} Aufgaben
                     </p>
-                    <div className="h-1.5 w-full overflow-hidden rounded-[var(--radius-full)] bg-[var(--color-border)]">
+                    <div className="h-1.5 w-full overflow-hidden rounded-[var(--radius-full)] bg-white/15">
                       <div
-                        className="h-full rounded-[var(--radius-full)] transition-all duration-500"
-                        style={barStyle}
+                        className="h-full rounded-[var(--radius-full)] bg-[var(--color-accent-streak)] transition-all duration-500"
+                        style={{ width: `${pct}%` }}
                       />
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             </div>

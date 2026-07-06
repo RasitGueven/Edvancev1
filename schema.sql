@@ -5,24 +5,24 @@
 -- Stand / konsolidiert am: 2026-06-22
 -- Abgebildeter Endzustand: Basis-Schema (profiles/students/...) + Content-Schema
 --   (subjects/skill_clusters/microskills/tasks/task_coach_metadata) +
---   migrations/001_*.sql … 036_*.sql in numerischer Reihenfolge angewendet.
+--   migrations/001_*.sql … 041_*.sql in numerischer Reihenfolge angewendet.
 --
 -- Diese Datei ist ab sofort die EINZIGE Wahrheit über den DB-Strukturstand.
--- Sie wurde aus den Migrationen 001-036 abgeleitet (inkl. späterer Drops/Alters,
--- z. B. 006 Serlo-Removal, 028/029 Screening-Lockerungen, 036 drop streak_days).
+-- Sie wurde aus den Migrationen 001-041 abgeleitet (inkl. späterer Drops/Alters,
+-- z. B. 006 Serlo-Removal, 028/029 Screening-Lockerungen, 036 drop streak_days,
+-- 037 XP-Fix, 038-040 Zwei-Achsen-Kompetenz-Matrix, 041 Modellieren-Aufloesung).
 -- schema_content.sql ist DEPRECATED (siehe Kopf jener Datei).
 --
 -- Abweichungen zwischen den alten Quellen (alte schema.sql, schema_content.sql,
 -- alte docs/SCHEMA.md) und den Migrationen sind in docs/DRIFT_REPORT.md
 -- tabellarisch dokumentiert.
 --
--- ⚠️  BEKANNTE INKONSISTENZ (nicht in diesem Freeze gefixt, nur dokumentiert):
---   Die Trigger-Funktion public.apply_xp_event() (Migration 019) liest/schreibt
---   student_progress.streak_days. Diese Spalte wird von Migration 036 gedroppt.
---   Keine spätere Migration definiert die Funktion neu → die Funktion ist im
---   Endzustand auf streak_days bezogen und schlägt beim nächsten INSERT in
---   xp_events fehl. Siehe docs/DRIFT_REPORT.md (D-01). Hier 1:1 wie im
---   effektiven DB-Stand wiedergegeben, NICHT korrigiert.
+-- ✅ D-01 BEHOBEN (Migration 037): Die Trigger-Funktion public.apply_xp_event()
+--   (urspr. Migration 019) referenzierte student_progress.streak_days, das
+--   Migration 036 gedroppt hat → jeder INSERT in xp_events (und damit
+--   complete_task) schlug fehl. Migration 037 schreibt die Funktion ohne jede
+--   streak_days-/Datums-Streak-Logik neu; dieser Freeze bildet den reparierten
+--   Endzustand ab. Siehe docs/DRIFT_REPORT.md (D-01).
 --
 -- Konventionen:
 --   - Timestamps: timestamptz, UTC gespeichert, Anzeige Europe/Berlin (Frontend).
@@ -39,8 +39,8 @@
 
 -- check_function_bodies wie bei pg_dump deaktivieren: erlaubt Vorwärts-
 -- referenzen in Funktionskörpern (z. B. get_my_role() vor profiles) beim
--- Greenfield-Load. Ändert NICHT die Laufzeit-Semantik. Hinweis: der in D-01
--- dokumentierte Defekt von apply_xp_event() bleibt ein RUNTIME-Fehler.
+-- Greenfield-Load. Ändert NICHT die Laufzeit-Semantik. (D-01 ist seit
+-- Migration 037 behoben; apply_xp_event referenziert streak_days nicht mehr.)
 set check_function_bodies = off;
 
 
@@ -219,19 +219,41 @@ create policy "student_subjects_coach_admin_all" on student_subjects
 -- skill_clusters: Themencluster pro Fach. Für Mathematik = 5 KMK-Kompetenz-
 -- bereiche (Seed via Migration 001, siehe Abschnitt 9).
 -- serlo_taxonomy_id wurde von Migration 006 gedroppt (falls vorhanden).
+-- is_deprecated (Migration 041): markiert achsen-vermischte Cluster (z. B.
+-- "Sachrechnen & Modellieren"), die nicht geloescht, aber stillgelegt werden.
 create table skill_clusters (
   id uuid primary key default gen_random_uuid(),
   subject_id uuid references subjects(id) on delete cascade,
   name text not null,
   class_level_min integer not null check (class_level_min between 5 and 13),
   class_level_max integer not null check (class_level_max between 5 and 13),
-  sort_order integer default 0
+  sort_order integer default 0,
+  is_deprecated boolean not null default false
 );
 
 alter table skill_clusters enable row level security;
 
 create policy "authenticated_read_clusters"
   on skill_clusters for select using (auth.role() = 'authenticated');
+
+-- process_competencies (Migration 038): Achse B der Zwei-Achsen-Matrix.
+-- Die 6 KMK-Prozesskompetenzen als eigene Achse (parallel zu skill_clusters =
+-- Achse A / Inhaltsfeld). Referenzdaten; Seed in Abschnitt 14.
+create table process_competencies (
+  id          uuid primary key default gen_random_uuid(),
+  code        text not null unique,        -- Ope|Mod|Pro|Arg|Kom|Wkz
+  name        text not null,               -- interner Klartext
+  sort_order  integer not null
+);
+
+alter table process_competencies enable row level security;
+
+create policy "authenticated_read_process_competencies"
+  on process_competencies for select using (auth.role() = 'authenticated');
+create policy "process_competencies_admin_write"
+  on process_competencies for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
 
 -- microskills: atomare Lernziele innerhalb eines Clusters.
 -- cognitive_type/estimated_minutes/curriculum_ref aus Migration 005.
@@ -277,7 +299,11 @@ create table tasks (
   created_at timestamptz default now(),
   -- Migration 005 (Diagnostic-Felder)
   cognitive_type text check (cognitive_type in ('FACT','TRANSFER','ANALYSIS')),
-  input_type text check (input_type in ('MC','FREE_INPUT','STEPS','MATCHING','DRAW')),
+  -- input_type-CHECK in 042 auf den kanonischen Enum vereinheitlicht
+  -- (FREE_INPUT/STEPS→FREE_TEXT, DRAW→COORDINATE):
+  input_type text check (input_type in (
+    'MC','NUMERIC','SHORT_TEXT','TRUE_FALSE','FREE_TEXT','MATCHING','CLOZE','COORDINATE'
+  )),
   is_diagnostic boolean default false,
   curriculum_ref text,
   question_payload jsonb,
@@ -287,6 +313,8 @@ create table tasks (
   source_ref text,
   -- Migration 009 (Bilder/Abbildungen)
   assets jsonb not null default '[]'::jsonb,
+  -- Migration 039 (Achse B): Prozesskompetenz-Tag (nullable; Backfill = Content)
+  competency_id uuid references process_competencies(id) on delete set null,
   -- Migration 008: echter UNIQUE CONSTRAINT (ersetzt partiellen Index aus 007)
   constraint tasks_source_ref_unique unique (source, source_ref)
 );
@@ -300,6 +328,7 @@ create index if not exists tasks_source_idx on tasks (source);
 create index if not exists tasks_has_assets_idx
   on tasks ((jsonb_array_length(assets) > 0))
   where jsonb_array_length(assets) > 0;
+create index if not exists tasks_competency_idx on tasks (competency_id);
 
 alter table tasks enable row level security;
 
@@ -552,9 +581,12 @@ create table screening_items (
   skill_label text,
   level smallint check (level in (1, 2, 3)),
   curriculum_seq integer,
-  -- input_type/check_type-CHECK in 028 erweitert (OPEN/manual):
+  -- input_type-CHECK in 042 auf den kanonischen Enum vereinheitlicht
+  -- (STEPS_FINAL/OPEN→FREE_TEXT). check_type bleibt der Grading-Diskriminator.
   input_type text not null check (
-    input_type in ('MC','NUMERIC','MATCHING','STEPS_FINAL','OPEN')
+    input_type in (
+      'MC','NUMERIC','SHORT_TEXT','TRUE_FALSE','FREE_TEXT','MATCHING','CLOZE','COORDINATE'
+    )
   ),
   prompt text,
   payload jsonb,
@@ -567,11 +599,11 @@ create table screening_items (
   explanation text,
   source text not null default 'edvance_original',
   active boolean not null default false,
-  -- Migration 028 (AFB + Phase + Cross-Constraint OPEN <=> manual):
+  -- Migration 028 (AFB + Phase). Cross-Constraint OPEN<=>manual in 042
+  -- entfernt: FREE_TEXT spannt nach der Kanonisierung Auto (normalized) UND
+  -- Coach (manual); die Unterscheidung lebt allein in check_type.
   afb text check (afb in ('I','II','III')),
   phase text check (phase in ('sprint','tiefe')),
-  constraint screening_items_open_iff_manual
-    check ((input_type = 'OPEN') = (check_type = 'manual')),
   -- Migration 029 (VERA-8-Felder; iqb_titel UNIQUE für Seed-Idempotenz):
   iqb_titel text,
   kompetenzfelder text[],
@@ -587,6 +619,13 @@ create table screening_items (
   quelle text,
   fix_anker boolean default false,
   meta jsonb,
+  -- Migration 039 (Achse B): competency_id ist die strukturierte Wahrheit der
+  -- Prozesskompetenz. kompetenzfelder (text[], oben) bleibt als Legacy/VERA-8-
+  -- Historie erhalten und wird NICHT entfernt.
+  competency_id uuid references process_competencies(id) on delete set null,
+  -- Migration 043 (Microskill-Lokalisierung): feinste Inhalts-Granularitaet
+  -- (unterhalb cluster_id); Basis fuer Root-Gap-Walk via microskills.prerequisite_ids.
+  microskill_id uuid references microskills(id) on delete set null,
   constraint screening_items_iqb_titel_uniq unique (iqb_titel)
 );
 
@@ -600,6 +639,10 @@ create index screening_items_v2_pool_idx
   where active = true and afb is not null and phase is not null;
 create index if not exists screening_items_quelle_idx
   on screening_items (quelle);
+create index if not exists screening_items_competency_idx
+  on screening_items (competency_id);
+create index if not exists screening_items_microskill_idx
+  on screening_items (microskill_id);
 
 alter table screening_items enable row level security;
 
@@ -1138,47 +1181,30 @@ create policy "prg_coach_admin_read" on parent_report_generations
 -- 12. FUNKTIONEN & TRIGGER (tabellenabhängig)
 -- ============================================================================
 
--- ⚠️  apply_xp_event (Migration 019) – 1:1 wie im DB-Endzustand. Die Funktion
--- referenziert student_progress.streak_days, die Migration 036 gedroppt hat.
--- Keine spätere Migration definiert sie neu → der AFTER-INSERT-Trigger auf
--- xp_events schlägt im Endzustand fehl. Siehe docs/DRIFT_REPORT.md (D-01).
--- NICHT in diesem Freeze korrigiert (Constraint: keine Runtime-/Logikänderung).
+-- apply_xp_event (Migration 019, repariert in Migration 037 = D-01-Fix):
+-- leitet student_progress aus xp_events ab. OHNE streak_days-Bezug (von 036
+-- gedroppt). Das Zwei-Streak-Modell (presence/home, 032) wird hier bewusst
+-- NICHT gepflegt – separater Folge-Task. SECURITY DEFINER, append-only-Quelle.
 create or replace function public.apply_xp_event()
 returns trigger
 language plpgsql
 security definer
 set search_path = public
 as $$
-declare
-  v_last date;
-  v_today date := (now() at time zone 'utc')::date;
-  v_streak integer;
 begin
-  select (last_activity at time zone 'utc')::date, streak_days
-    into v_last, v_streak
-    from student_progress
-    where student_id = new.student_id;
+  perform 1 from student_progress where student_id = new.student_id;
 
   if not found then
     insert into student_progress
-      (student_id, xp_total, streak_days, level, last_activity)
+      (student_id, xp_total, level, last_activity)
     values
-      (new.student_id, new.xp, 1, 1 + (new.xp / 500), now());
+      (new.student_id, new.xp, 1 + (new.xp / 500), now());
     return new;
-  end if;
-
-  if v_last = v_today then
-    v_streak := v_streak;
-  elsif v_last = v_today - 1 then
-    v_streak := v_streak + 1;
-  else
-    v_streak := 1;
   end if;
 
   update student_progress
      set xp_total = xp_total + new.xp,
          level = 1 + ((xp_total + new.xp) / 500),
-         streak_days = v_streak,
          last_activity = now()
    where student_id = new.student_id;
 
@@ -1367,6 +1393,84 @@ $$;
 
 
 -- ============================================================================
+-- 12b. KOMPETENZ-MATRIX (Migrationen 038-040)
+--      student_competency_mastery steht hier (nicht in Abschnitt 10), weil die
+--      generated column stage die oben definierte Funktion mastery_stage(score)
+--      benoetigt. Zwei-Achsen-Matrix: (Schüler × Mikroskill × Prozesskompetenz).
+-- ============================================================================
+
+-- FernUSG-GATE: "mastered" darf strukturell NUR von Coach/Admin gesetzt werden.
+-- Erzwingt das Gate-Trigger-seitig (auch fuer service-role), setzt mastered_by/
+-- _at beim Gewaehren und updated_at bei jedem Schreibvorgang.
+create or replace function public.enforce_mastery_gate()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_was_mastered boolean := false;
+begin
+  new.updated_at := now();
+
+  if tg_op = 'UPDATE' then
+    v_was_mastered := coalesce(old.mastered, false);
+  end if;
+
+  if new.mastered and not v_was_mastered then
+    if public.get_my_role() not in ('coach','admin') then
+      raise exception 'Mastered darf nur durch Coach gesetzt werden (FernUSG)';
+    end if;
+    new.mastered_by := auth.uid();
+    new.mastered_at := now();
+  end if;
+
+  return new;
+end;
+$$;
+
+-- student_competency_mastery: Mastery-Zustand pro (Schüler × Mikroskill ×
+-- Prozesskompetenz). score wird serverseitig/coach gepflegt; stage ist
+-- abgeleitet (mastery_stage). mastered nur via Gate-Trigger (FernUSG).
+create table student_competency_mastery (
+  student_id    uuid not null references students(id) on delete cascade,
+  microskill_id uuid not null references microskills(id) on delete cascade,
+  competency_id uuid not null references process_competencies(id) on delete cascade,
+  score         numeric(5,2) not null default 0 check (score between 0 and 100),
+  mastered      boolean not null default false,
+  mastered_by   uuid references profiles(id),
+  mastered_at   timestamptz,
+  updated_at    timestamptz not null default now(),
+  stage         text generated always as (public.mastery_stage(score)) stored,
+  primary key (student_id, microskill_id, competency_id)
+);
+
+create index student_competency_mastery_student_idx
+  on student_competency_mastery (student_id);
+
+alter table student_competency_mastery enable row level security;
+
+-- Lesen: exakt analog student_task_progress.
+create policy "scm_student_read" on student_competency_mastery
+  for select using (student_id = public.get_my_student_id());
+create policy "scm_parent_read" on student_competency_mastery
+  for select using (public.is_parent_of_student(student_id));
+create policy "scm_coach_admin_read" on student_competency_mastery
+  for select using (public.get_my_role() in ('coach','admin'));
+
+-- Schreiben (score): nur coach/admin. Kein student/parent-Schreibpfad.
+create policy "scm_coach_admin_insert" on student_competency_mastery
+  for insert with check (public.get_my_role() in ('coach','admin'));
+create policy "scm_coach_admin_update" on student_competency_mastery
+  for update using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+
+create trigger trg_enforce_mastery_gate
+  before insert or update on student_competency_mastery
+  for each row execute function public.enforce_mastery_gate();
+
+
+-- ============================================================================
 -- 13. STORAGE-RLS  (Migrationen 010, 031)
 -- ============================================================================
 -- Voraussetzung: Buckets sind in Supabase Studio angelegt:
@@ -1459,6 +1563,17 @@ where s.name = 'Mathematik'
     select 1 from skill_clusters sc
     where sc.subject_id = s.id and sc.name = c.name
   );
+
+-- process_competencies: 6 KMK-Prozesskompetenzen / Achse B (Migration 038).
+insert into process_competencies (code, name, sort_order)
+values
+  ('Ope', 'Operieren',        1),
+  ('Mod', 'Modellieren',      2),
+  ('Pro', 'Problemlösen',     3),
+  ('Arg', 'Argumentieren',    4),
+  ('Kom', 'Kommunizieren',    5),
+  ('Wkz', 'Werkzeuge nutzen', 6)
+on conflict (code) do nothing;
 
 -- tiers (Migration 015)
 insert into tiers (name, price_cents, features, sort_order)

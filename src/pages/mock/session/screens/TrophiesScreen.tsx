@@ -2,7 +2,7 @@ import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RarityBadge } from '@/components/edvance'
 import { SessionShell } from '../components/SessionShell'
-import { SessionButton } from '../components/SessionButton'
+import { SessionButton } from '@/components/student'
 import { MOCK_BADGES, type MockBadge } from '@/lib/mocks/session'
 import type { ScreenProps } from '../screenProps'
 

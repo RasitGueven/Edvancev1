@@ -6,7 +6,69 @@
     "noProfileBody": "Für deinen Zugang ist noch kein Schülerprofil hinterlegt. Sag deinem Coach Bescheid.",
     "emptyTitle": "Bald geht's los",
     "emptyBody": "Sobald dein Coach Fächer und Themen für dich freischaltet, erscheinen sie hier.",
-    "sectionLabel": "Deine Themen"
+    "sectionLabel": "Deine Themen",
+    "todaySession": {
+      "eyebrow": "Heute · Präsenz-Session",
+      "title": "Deine Session ist startklar",
+      "body": "Dein Coach erwartet dich. Starte hier, sobald du da bist.",
+      "cta": "Session starten",
+      "time": "{{time}} Uhr"
+    }
+  },
+  "taskAnswer": {
+    "true": "Wahr",
+    "false": "Falsch",
+    "shortTextPlaceholder": "Kurze Antwort …",
+    "coachGraded": "Dein Coach schaut sich deine Antwort gemeinsam mit dir an.",
+    "fallback": "Aufgabentyp „{{type}}“ wird hier noch nicht unterstützt."
+  },
+  "session": {
+    "loading": "Deine Session wird geladen …",
+    "exit": "Session verlassen",
+    "notFoundTitle": "Session nicht gefunden",
+    "notFoundBody": "Diese Session gehört nicht zu deinem Plan oder ist schon vorbei.",
+    "checkin": {
+      "eyebrow": "Präsenz-Session",
+      "title": "Schön, dass du da bist!",
+      "body": "Sag kurz Bescheid, dass du angekommen bist – dann starten wir gemeinsam.",
+      "cta": "Ich bin da",
+      "saving": "Wird gespeichert …",
+      "room": "Raum {{room}}"
+    },
+    "focus": {
+      "eyebrow": "Heutiger Fokus",
+      "title": "Kurz aufwärmen, dann an den Lernpfad",
+      "body": "Ein paar schnelle Aufgaben bringen dich rein. Es zählt das Mitdenken – nicht die Geschwindigkeit."
+    },
+    "work": {
+      "progress": "Aufgabe {{current}}/{{total}}",
+      "check": "Antwort prüfen",
+      "next": "Weiter",
+      "finish": "Aufwärmen abschließen"
+    },
+    "feedback": {
+      "correct": "Stark gelöst!",
+      "tryAgain": "Gespeichert – das gehst du gleich mit deinem Coach durch.",
+      "coach": "Dein Coach bewertet das in der Session."
+    },
+    "lernpfad": {
+      "title": "Weiter am Lernpfad",
+      "body": "Arbeite jetzt an deinen Themen weiter – dein Coach ist an deiner Seite.",
+      "cta": "Zu meinen Themen"
+    },
+    "mastery": {
+      "note": "Gemeistert bestätigt dein Coach in der Session – nicht das System.",
+      "awaiting_one": "{{count}} Kompetenz ist bereit zur Coach-Bestätigung.",
+      "awaiting_other": "{{count}} Kompetenzen sind bereit zur Coach-Bestätigung."
+    },
+    "complete": {
+      "eyebrow": "Geschafft",
+      "title": "Super Einsatz heute!",
+      "solved_one": "{{count}} Aufwärmaufgabe gemacht",
+      "solved_other": "{{count}} Aufwärmaufgaben gemacht",
+      "body": "Dein Coach hat alles im Blick. Bis zum nächsten Mal!",
+      "cta": "Zur Übersicht"
+    }
   },
   "firstSession": {
     "hero": {

@@ -9,7 +9,9 @@ import type {
   ScreeningTeilaufgabe,
 } from '@/types'
 
-export type EditorInputType = ScreeningInputType | 'DRAW'
+// DRAW war ein Editor-Only-Alias (→ DB 'OPEN'). Seit Migration 042 ist
+// COORDINATE ein kanonischer Wert; der Alias entfaellt.
+export type EditorInputType = ScreeningInputType
 
 export type EditorUsage = 'screening' | 'lernpfad' | 'beides'
 
@@ -41,9 +43,8 @@ export const INPUT_TYPES: EditorInputType[] = [
   'MC',
   'NUMERIC',
   'MATCHING',
-  'STEPS_FINAL',
-  'OPEN',
-  'DRAW',
+  'FREE_TEXT',
+  'COORDINATE',
 ]
 
 export const AFB_OPTIONS: ScreeningAfb[] = ['I', 'II', 'III']
@@ -126,10 +127,8 @@ export function validate(s: FormState): ValidationError | null {
   if (!s.skill_code.trim()) return 'skillCodeMissing'
   if (!s.skill_label.trim()) return 'skillLabelMissing'
   if (!s.topic.trim()) return 'topicMissing'
-  if (s.input_type !== 'DRAW') {
-    if ((s.input_type === 'OPEN') !== (s.check_type === 'manual'))
-      return 'openManualMismatch'
-  }
+  // Cross-Constraint OPEN<=>manual ist mit Migration 042 entfallen: FREE_TEXT
+  // darf jetzt sowohl auto (check_type=normalized) als auch coach (manual) sein.
   if ((s.afb === '') !== (s.phase === '')) return 'afbPhaseMismatch'
   return null
 }
@@ -149,8 +148,7 @@ export function buildInput(
     level: s.level,
     curriculum_seq:
       s.curriculum_seq.trim() === '' ? null : Number(s.curriculum_seq),
-    input_type:
-      s.input_type === 'DRAW' ? 'OPEN' : (s.input_type as ScreeningInputType),
+    input_type: s.input_type,
     prompt: s.prompt.trim(),
     payload,
     canonical,

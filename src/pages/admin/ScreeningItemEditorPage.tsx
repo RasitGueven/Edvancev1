@@ -175,7 +175,7 @@ export function ScreeningItemEditorPage(): JSX.Element {
             <span>{t(`inputTypes.${state.input_type}`)}</span>
           </div>
 
-          {state.input_type === 'DRAW' && state.usage !== 'lernpfad' && (
+          {state.input_type === 'COORDINATE' && state.usage !== 'lernpfad' && (
             <Banner variant="warning">⚠️ {t('usage.drawWarning')}</Banner>
           )}
           <Banner variant="info">ℹ️ {t('usage.notPersisted')}</Banner>

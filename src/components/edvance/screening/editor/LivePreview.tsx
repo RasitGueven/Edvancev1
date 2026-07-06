@@ -142,7 +142,7 @@ function PreviewWidget({
       </div>
     )
   }
-  if (input_type === 'NUMERIC' || input_type === 'STEPS_FINAL') {
+  if (input_type === 'NUMERIC') {
     return (
       <div className="mt-4 flex items-center gap-2">
         <input
@@ -152,7 +152,7 @@ function PreviewWidget({
       </div>
     )
   }
-  if (input_type === 'OPEN') {
+  if (input_type === 'FREE_TEXT') {
     return (
       <textarea
         className="mt-4 min-h-[90px] w-full rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-bg-surface)] p-3 text-sm leading-relaxed outline-none"
@@ -160,7 +160,7 @@ function PreviewWidget({
       />
     )
   }
-  if (input_type === 'DRAW') {
+  if (input_type === 'COORDINATE') {
     return (
       <div className="mt-4 grid h-40 place-items-center rounded-xl border-2 border-dashed border-[var(--color-border)] bg-[var(--color-bg-subtle)] text-[var(--color-text-tertiary)]">
         <div className="text-center">

@@ -35,9 +35,11 @@ export function TaskAnswerArea({
 
   const mc = inputType === 'MC' ? parseMCPayload(payload) : null
   const matching = inputType === 'MATCHING' ? parseMatchingPayload(payload) : null
-  const steps = inputType === 'STEPS' ? parseStepsPayload(payload) : null
+  // STEPS→FREE_TEXT (042): Mehrschritt-Payload jetzt über den Payload-
+  // Diskriminator erkennen, nicht mehr über input_type.
+  const steps = parseStepsPayload(payload)
 
-  // FREE_INPUT / DRAW state
+  // FREE_TEXT / COORDINATE state
   const [mode, setMode] = useState<Mode>('type')
   const [text, setText] = useState('')
   const [drawing, setDrawing] = useState<string | null>(null)
@@ -60,7 +62,7 @@ export function TaskAnswerArea({
     if (inputType === 'MC') return mc !== null && mcSel !== null
     if (inputType === 'MATCHING' && matching)
       return matchPairs.size === matching.pairs.length
-    if (inputType === 'STEPS' && steps)
+    if (steps)
       return steps.steps.every((_, i) => (stepAnswers[i] ?? '').trim().length > 0)
     if (mode === 'draw') return drawing !== null
     return text.trim().length > 0
@@ -70,7 +72,7 @@ export function TaskAnswerArea({
     if (inputType === 'MC') return JSON.stringify({ type: 'mc', selected: mcSel })
     if (inputType === 'MATCHING')
       return JSON.stringify({ type: 'matching', pairs: Object.fromEntries(matchPairs) })
-    if (inputType === 'STEPS') return JSON.stringify({ type: 'steps', answers: stepAnswers })
+    if (steps) return JSON.stringify({ type: 'steps', answers: stepAnswers })
     if (mode === 'draw') return drawing ?? ''
     return text
   }
@@ -100,7 +102,7 @@ export function TaskAnswerArea({
   }
 
   // Shuffle fallback message when payload is missing for structured types
-  if ((inputType === 'MC' && !mc) || (inputType === 'MATCHING' && !matching) || (inputType === 'STEPS' && !steps)) {
+  if ((inputType === 'MC' && !mc) || (inputType === 'MATCHING' && !matching)) {
     return (
       <div className="rounded-xl border-2 border-dashed border-[var(--color-border)] p-4 text-xs text-muted">
         Aufgaben-Payload fehlt für Typ <code className="rounded bg-[var(--color-bg-subtle)] px-1">{inputType}</code> — bitte im Admin nachpflegen.
@@ -110,8 +112,8 @@ export function TaskAnswerArea({
 
   return (
     <form onSubmit={(e) => void handleSubmit(e)} className="flex flex-col gap-3">
-      {/* Mode-Toggle nur für FREE_INPUT / kein input_type */}
-      {(!inputType || inputType === 'FREE_INPUT') && (
+      {/* Mode-Toggle nur für FREE_TEXT / kein input_type */}
+      {(!inputType || inputType === 'FREE_TEXT') && !steps && (
         <div className="flex flex-wrap items-center gap-2">
           <Button type="button" variant={mode === 'type' ? 'default' : 'outline'} size="sm"
             onClick={() => setMode('type')}>
@@ -144,7 +146,7 @@ export function TaskAnswerArea({
         <StepsWidget steps={steps.steps} answers={stepAnswers} onChange={setStepAnswers} disabled={disabled} />
       )}
 
-      {(!inputType || inputType === 'FREE_INPUT') && mode === 'type' && (
+      {(!inputType || inputType === 'FREE_TEXT') && !steps && mode === 'type' && (
         <>
           <textarea
             ref={textareaRef}
@@ -160,11 +162,11 @@ export function TaskAnswerArea({
         </>
       )}
 
-      {(!inputType || inputType === 'FREE_INPUT') && mode === 'draw' && (
+      {(!inputType || inputType === 'FREE_TEXT') && !steps && mode === 'draw' && (
         <DrawCanvas onChange={setDrawing} />
       )}
 
-      {inputType === 'DRAW' && <DrawCanvas onChange={setDrawing} />}
+      {inputType === 'COORDINATE' && <DrawCanvas onChange={setDrawing} />}
 
       {/* Hint + Submit */}
       <div className="flex flex-wrap items-center gap-2">

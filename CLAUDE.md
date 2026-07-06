@@ -228,3 +228,26 @@ Edvance ist warm, intelligent und ermutigend.
 - ❌ `aria-label="Schließen"` – `aria-label={t('common.close')}`
 - ❌ Deutsche Strings direkt in `placeholder=`, `title=`, `alt=` Attributen
 - ❌ String-Konkatenation à la `\`Hallo \${name}\`` – stattdessen `t('greeting', { name })`
+
+## Hard Limits — Parallele Surface-Entwicklung
+
+Das Fundament ist eingefroren (Schema 001–041 + Matrix-Zugriff in src/lib/).
+Surface-Fenster (Student / Coach / Parent) DÜRFEN NICHT:
+- editieren: migrations/**, schema.sql, schema_content.sql,
+  src/lib/supabase/**, src/types/**, src/styles/tokens.css
+- neue geteilte Bausteine anlegen (Schema-Spalte, shared Component,
+  neue lib-/type-Datei) → STOP, das gehört ins Foundation-Fenster.
+Surface-Fenster KONSUMIEREN lib + types, sie ändern sie nicht.
+
+Datei-Disziplin:
+- Ein Owner pro Datei. Vor jedem Commit: git pull.
+- Student-Fenster owns src/pages/student/** + src/styles/** (außer tokens.css).
+- Coach-Fenster   owns src/pages/coach/**.
+- Parent-Fenster  owns src/pages/parent/**.
+
+Design-/Recht-Invarianten (gelten für ALLE Surfaces):
+- Die 8 Hard Rules des Designsystems gelten. Glass nur auf dunklem BG.
+  Student-Sprache (Gradients/Glass/Bounce) leakt NICHT nach Parent/Coach (flat).
+- FernUSG: "Mastered" nur über den Coach-Gate (grantMastery / Coach-Rolle).
+  Kein visuelles Mastered-Label ohne Backend-Bestätigung.
+- Shadows blau-getönt, Radii aus Tokens, keine hardcodierten Hex außer tokens.css.

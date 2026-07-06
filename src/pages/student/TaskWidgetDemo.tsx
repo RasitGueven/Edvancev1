@@ -6,7 +6,6 @@ import { StepsWidget } from '@/components/edvance/tasks/StepsWidget'
 import { DrawCanvas } from '@/components/edvance/DrawCanvas'
 import { MathToolbar } from '@/components/edvance/MathToolbar'
 import { EdvanceCard } from '@/components/edvance/EdvanceCard'
-import type { InputType } from '@/types'
 
 const MC_DEMO = {
   question: 'Ein Würfel wird dreimal geworfen. Was ist die Wahrscheinlichkeit, dass mindestens eine 6 fällt?',
@@ -46,7 +45,10 @@ const DRAW_DEMO = {
   question: 'Zeichne ein Baumdiagramm für zweimaliges Werfen einer Münze (Kopf / Zahl).',
 }
 
-const TYPE_META: Record<InputType, { label: string; color: string }> = {
+// Reine Demo-Sektions-Labels (kein DB-input_type). Entkoppelt vom kanonischen
+// Enum, weil diese Showcase mehrere Widgets unter denselben FREE_TEXT-Typ
+// zusammenfasst (StepsWidget + Freitext). Die echte Registry kommt in Session-A.
+const TYPE_META: Record<string, { label: string; color: string }> = {
   MC: { label: 'Multiple Choice', color: 'var(--color-primary)' },
   MATCHING: { label: 'Zuordnung', color: 'var(--color-primary)' },
   STEPS: { label: 'Rechnen (Schritte)', color: 'var(--color-success)' },
@@ -62,7 +64,7 @@ function Section({
   onSubmit,
   onReset,
 }: {
-  type: InputType
+  type: string
   question: string
   children: JSX.Element
   submitted: boolean

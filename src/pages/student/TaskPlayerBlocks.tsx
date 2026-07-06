@@ -12,23 +12,20 @@ export const TYPE_LABEL: Record<ContentType, string> = {
   course: 'Kurs',
 }
 
-const TYPE_BADGE_CLS: Record<ContentType, string> = {
-  exercise:
-    'bg-[color-mix(in_srgb,var(--color-primary)_12%,transparent)] text-[var(--color-primary)]',
-  exercise_group:
-    'bg-[color-mix(in_srgb,var(--color-primary)_12%,transparent)] text-[var(--color-primary)]',
-  article:
-    'bg-[color-mix(in_srgb,var(--color-success)_12%,transparent)] text-[var(--color-success)]',
-  video:
-    'bg-[color-mix(in_srgb,var(--color-gold-warning)_12%,transparent)] text-[var(--color-gold-warning)]',
-  course:
-    'bg-[color-mix(in_srgb,var(--color-repair)_12%,transparent)] text-[var(--color-repair)]',
+// Auf der dunklen Task-Bühne: Glas-Chip + dark-legible Akzent-Textfarbe je Typ
+// (Token, kein Hardcode). Navy-Primary wäre auf Dunkel unlesbar → warm/akzent.
+const TYPE_BADGE_TEXT: Record<ContentType, string> = {
+  exercise: 'text-warm',
+  exercise_group: 'text-warm',
+  article: 'text-[var(--color-success-skilltree)]',
+  video: 'text-[var(--color-accent-streak)]',
+  course: 'text-[var(--color-gold-champagner)]',
 }
 
 export function TypeBadge({ type }: { type: ContentType }): JSX.Element {
   return (
     <span
-      className={`rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${TYPE_BADGE_CLS[type]}`}
+      className={`rounded-[var(--radius-sm)] bg-white/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${TYPE_BADGE_TEXT[type]}`}
     >
       {TYPE_LABEL[type]}
     </span>
@@ -37,14 +34,12 @@ export function TypeBadge({ type }: { type: ContentType }): JSX.Element {
 
 export function DifficultyBadge({ difficulty }: { difficulty: number }): JSX.Element {
   return (
-    <span className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-muted">
+    <span className="inline-flex items-center gap-1 rounded-[var(--radius-sm)] px-2 py-1 text-xs font-semibold text-warm-72">
       {[1, 2, 3, 4, 5].map((i) => (
         <span
           key={i}
           className={`inline-block h-1.5 w-1.5 rounded-full ${
-            i <= difficulty
-              ? 'bg-[var(--color-primary)]'
-              : 'bg-[var(--color-neutral-unknown)]'
+            i <= difficulty ? 'bg-white/80' : 'bg-white/20'
           }`}
         />
       ))}

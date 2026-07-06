@@ -15,8 +15,9 @@
 //   - Bestehende  -> UPDATE aller Felder AUSSER active (Freigaben bleiben).
 //
 // VERA-Mapping:
-//   - Alle Items kommen als input_type='OPEN' + check_type='manual' rein
-//     (Coach-Kodierung via screening_item_ratings, vgl. Migration 028).
+//   - Alle Items kommen als input_type='FREE_TEXT' + check_type='manual' rein
+//     (kanonisch ab 042, vorher 'OPEN'; Coach-Kodierung via
+//     screening_item_ratings, vgl. Migration 028).
 //   - afb_ki in {1,2,3}  -> afb='I'/'II'/'III' + level=1/2/3, sonst NULL.
 //   - canonical = { accepted: akzeptierte_antworten ?? [] }.
 //   - alles weitere als eigene Spalten; Rohwerte zusaetzlich in meta jsonb.
@@ -54,7 +55,7 @@ type Vera8Item = {
 type ScreeningItemRow = {
   iqb_titel: string
   class_level: number
-  input_type: 'OPEN'
+  input_type: 'FREE_TEXT'
   check_type: 'manual'
   source: string
   quelle: string
@@ -119,7 +120,7 @@ function mapItem(item: Vera8Item): ScreeningItemRow {
   return {
     iqb_titel: item.iqb_titel,
     class_level: item.klasse ?? 8,
-    input_type: 'OPEN',
+    input_type: 'FREE_TEXT',
     check_type: 'manual',
     source: 'VERA8_IQB',
     quelle: item.quelle ?? 'VERA8_IQB',

@@ -103,7 +103,7 @@ function TeilRow({
           />
         </div>
         <div className="inline-flex gap-0.5 rounded-lg bg-[var(--color-bg-subtle)] p-0.5">
-          {(['NUMERIC', 'OPEN'] as const).map((tp) => (
+          {(['NUMERIC', 'FREE_TEXT'] as const).map((tp) => (
             <button
               key={tp}
               type="button"
@@ -144,7 +144,7 @@ function TeilRow({
           onChange={(e) => onUpdate({ prompt: e.target.value })}
           placeholder={t('teil.promptPlaceholder')}
         />
-        {type === 'OPEN' && (
+        {type === 'FREE_TEXT' && (
           <AcceptedList
             items={item.accepted ?? []}
             onChange={(accepted) => onUpdate({ accepted })}
