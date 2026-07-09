@@ -251,3 +251,44 @@ Design-/Recht-Invarianten (gelten für ALLE Surfaces):
 - FernUSG: "Mastered" nur über den Coach-Gate (grantMastery / Coach-Rolle).
   Kein visuelles Mastered-Label ohne Backend-Bestätigung.
 - Shadows blau-getönt, Radii aus Tokens, keine hardcodierten Hex außer tokens.css.
+
+## Autonome Läufe (P00-Foundation)
+
+Autonome Läufe werden über `scripts/claude-auto.sh <spec.md>` gestartet und durch
+Claude-Code-Hooks + CI abgesichert. Grundregeln:
+
+### Marker-Datei `.claude/autonomous`
+- **Mechanik:** `claude-auto.sh` legt `.claude/autonomous` an (via `touch`) und
+  entfernt sie per `trap … EXIT INT TERM` wieder — auch bei Fehler/Abbruch, damit
+  kein verwaister Marker spätere interaktive Sessions ausbremst.
+- **Wirkung:** Die Datei **schaltet die teuren Gates scharf**. Nur wenn sie
+  existiert, läuft das `Stop`-Gate (`.claude/hooks/stop-gate.sh` → `npm run
+  typecheck` + `npm run test`) und blockiert die Fertig-Meldung bei rotem Stand.
+  Ebenso sperrt `guard-paths.sh` dann `src/lib/**`. Interaktive Sessions bleiben
+  ohne Marker schnell.
+- **Nie committen:** `.claude/autonomous` steht in `.gitignore`.
+
+### `ALLOW_MIGRATIONS`-Konvention (Schema-Sessions)
+- Die Schema-Zone (`migrations/`, `schema.sql`, `schema_content.sql` — sowie die
+  Spec-Pfade `supabase/migrations/`, `supabase/schema.sql`) ist per
+  `guard-paths.sh` gesperrt.
+- Bewusste Schema-Arbeit nur mit `ALLOW_MIGRATIONS=1` in der Umgebung der Session
+  (Opt-in). Ohne diese Variable wird jeder Edit an der Schema-Zone blockiert.
+
+### `AUTONOMY_NOTES.md`-Konvention
+- Autonome Läufe **ändern kein** `src/lib/**` und **keine** Schema-Dateien selbst.
+- Gewünschte Lib-/Schema-Änderungen werden stattdessen in `AUTONOMY_NOTES.md`
+  beschrieben (was, warum, betroffene Symbole) und später beaufsichtigt im
+  Foundation-Fenster umgesetzt.
+
+### `claude-auto.sh`-Nutzung
+- Aufruf: `./scripts/claude-auto.sh prompts/<spec>.md`. Bricht ab, wenn der
+  Working Tree nicht sauber ist; legt einen Branch `auto/<spec>-<timestamp>` an.
+- **`--permission-mode acceptEdits` ist der Default** (verifiziert gegen
+  `claude` 2.1.205): Datei-Edits ohne Rückfrage, aber keine Bash-Bypässe.
+- **`bypassPermissions` nur bewusst** für unbeaufsichtigte Läufe in
+  Sandbox/Container — nicht als Default.
+
+### Zielumgebung Windows/WSL
+- Die Hooks + `claude-auto.sh` sind Bash/POSIX und laufen auf Windows **nur unter
+  WSL**, nicht in nativem PowerShell (bash + jq erforderlich).
