@@ -1,0 +1,23 @@
+name: CI
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev]
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      # package-lock.json ist konsistent + eingecheckt (npm ci --dry-run grün),
+      # daher reproduzierbares npm ci statt npm install.
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test
+# E2E (Playwright) bewusst NICHT im CI-Gate — läuft lokal/on-demand, bis
+# Supabase-local im CI steht (separater späterer Spec, P00b-Umfeld).

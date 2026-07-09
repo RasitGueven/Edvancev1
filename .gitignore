@@ -22,3 +22,6 @@ coverage
 playwright-report
 test-results
 .playwright
+
+# Marker-Datei für autonome Läufe (P00) — nie versionieren
+.claude/autonomous
