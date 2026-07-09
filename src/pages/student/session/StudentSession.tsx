@@ -11,6 +11,7 @@ import { getStudentByProfile } from '@/lib/supabase/students'
 import { listUpcomingSessionsForStudent, setAttendance } from '@/lib/supabase/sessions'
 import { getStudentMasteryMatrix } from '@/lib/supabase/competencyMastery'
 import { SessionWork } from './SessionWork'
+import { loadSessionQueue, type SessionTask } from './sessionQueue'
 import type { CoachingSession } from '@/types'
 
 type Phase = 'loading' | 'notfound' | 'checkin' | 'work' | 'complete'
@@ -26,7 +27,9 @@ export function StudentSession(): JSX.Element {
   const [session, setSession] = useState<CoachingSession | null>(null)
   const [awaiting, setAwaiting] = useState(0)
   const [solved, setSolved] = useState(0)
+  const [xp, setXp] = useState(0)
   const [saving, setSaving] = useState(false)
+  const [tasks, setTasks] = useState<SessionTask[]>([])
 
   useEffect(() => {
     if (!user || !id) return
@@ -53,6 +56,10 @@ export function StudentSession(): JSX.Element {
       const { data: rows } = await getStudentMasteryMatrix(student.id)
       if (cancelled) return
       setAwaiting((rows ?? []).filter((r) => !r.mastered && r.score >= 85).length)
+
+      const { data: queue } = await loadSessionQueue(student)
+      if (cancelled) return
+      setTasks(queue ?? [])
 
       setPhase('checkin')
     })()
@@ -124,12 +131,22 @@ export function StudentSession(): JSX.Element {
                 <h1 className="text-xl font-bold text-white">{t('session.focus.title')}</h1>
                 <p className="text-sm leading-relaxed text-warm-56">{t('session.focus.body')}</p>
               </div>
-              <SessionWork
-                onDone={(s) => {
-                  setSolved(s)
-                  setPhase('complete')
-                }}
-              />
+              {tasks.length === 0 ? (
+                <EmptyState
+                  icon="🎉"
+                  title={t('session.work.emptyTitle')}
+                  description={t('session.work.emptyBody')}
+                />
+              ) : (
+                <SessionWork
+                  tasks={tasks}
+                  onDone={({ solved: s, xp: earned }) => {
+                    setSolved(s)
+                    setXp(earned)
+                    setPhase('complete')
+                  }}
+                />
+              )}
             </>
           )}
 
@@ -143,6 +160,11 @@ export function StudentSession(): JSX.Element {
                 <p className="text-sm text-[var(--color-text-secondary)]">
                   {t('session.complete.solved', { count: solved })}
                 </p>
+                {xp > 0 && (
+                  <p className="text-3xl font-bold text-[var(--color-primary)]">
+                    {t('session.complete.xp', { count: xp })}
+                  </p>
+                )}
 
                 <div className="flex flex-col gap-2 rounded-[var(--radius-lg)] border-2 border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
                   <p className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text-primary)]">
