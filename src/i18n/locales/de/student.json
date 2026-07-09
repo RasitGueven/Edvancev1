@@ -44,7 +44,9 @@
       "progress": "Aufgabe {{current}}/{{total}}",
       "check": "Antwort prüfen",
       "next": "Weiter",
-      "finish": "Aufwärmen abschließen"
+      "finish": "Aufgaben abschließen",
+      "emptyTitle": "Alles erledigt",
+      "emptyBody": "Für heute sind keine offenen Aufgaben da. Dein Coach sucht gleich neue für dich raus."
     },
     "feedback": {
       "correct": "Stark gelöst!",
@@ -64,8 +66,10 @@
     "complete": {
       "eyebrow": "Geschafft",
       "title": "Super Einsatz heute!",
-      "solved_one": "{{count}} Aufwärmaufgabe gemacht",
-      "solved_other": "{{count}} Aufwärmaufgaben gemacht",
+      "solved_one": "{{count}} Aufgabe gemacht",
+      "solved_other": "{{count}} Aufgaben gemacht",
+      "xp_one": "+{{count}} XP",
+      "xp_other": "+{{count}} XP",
       "body": "Dein Coach hat alles im Blick. Bis zum nächsten Mal!",
       "cta": "Zur Übersicht"
     }
