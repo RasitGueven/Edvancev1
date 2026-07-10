@@ -1,0 +1,15 @@
+{
+ "slug": "ansichteneinestischs",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Auf einem Tisch befinden sich die Gegenstände Teller, Gabel, Glas und Tasse mit Untertasse. Der Tisch wurde von verschiedenen seitlichen Kamerapositionen A bis D aus fotografiert. Abbildung 1 zeigt die Ansicht von oben.",
+    "benoetigt_bild": true,
+    "hinweis": "Foto der Tischplatte von oben (Abbildung 1) mit Glas, Gabel, Tasse mit Untertasse und Teller; Kamerapositionen A (unten), B (rechts), C (oben), D (links) an den Tischrändern beschriftet."},
+   {"bild": "aufgabe_02.png",
+    "text": "",
+    "benoetigt_bild": true,
+    "hinweis": "Drei seitliche Fotos des gedeckten Tisches (Glas, Teller, Tasse mit Untertasse) aus verschiedenen Kamerapositionen, untereinander angeordnet; kein Text."}
+ ],
+ "_problems": []
+}

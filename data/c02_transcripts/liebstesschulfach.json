@@ -1,0 +1,19 @@
+{
+ "slug": "liebstesschulfach",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Die Schülerinnen und Schüler einer Klassenstufe wurden gefragt, welches der folgenden vier Schulfächer sie am liebsten haben. Jeder durfte nur eines der vier Fächer nennen. Die Tabelle zeigt das Ergebnis der Umfrage.\n\nFach | Deutsch | Englisch | Biologie | Physik\nAnzahl | 11 | 13 | 17 | 9",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Wie groß ist der Anteil der befragten Schülerinnen und Schüler, die eine Naturwissenschaft (Biologie, Physik) am liebsten haben?\n\n☐ 17/9   ☐ 9/17   ☐ 26/50   ☐ 26/100",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Timo sagt: „Man sieht an den Ergebnissen, dass 39 der befragten Schüler Deutsch überhaupt nicht mögen.“\n\nDiese Aussage ist falsch.\n\nBegründe, warum Timo mit dieser Aussage nicht recht hat.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": "Kariertes Antwortfeld für die Begründung."}
+ ],
+ "_problems": []
+}

@@ -1,0 +1,11 @@
+{
+ "slug": "bestimmex",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Es gilt x − 5 = 15.\n\nWelchen Wert hat x?\n\nx = __________",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

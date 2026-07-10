@@ -1,0 +1,15 @@
+{
+ "slug": "zwischenzweizahlen2",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Gib zwei unterschiedliche rationale Zahlen an, die zwischen −4,5 und −3,5 liegen.\n\n__________ und __________",
+    "benoetigt_bild": false,
+    "hinweis": "Zwei Antwortlinien."},
+   {"bild": "aufgabe_02.png",
+    "text": "Wie viele unterschiedliche Zahlen liegen zwischen −4,5 und −3,5?\n\nKreuze an.\n\n☐ 2   ☐ 3   ☐ 9   ☐ 11   ☐ mehr als 11",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

@@ -1,0 +1,19 @@
+{
+ "slug": "ungewoehnlicherspielwuerfel",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Dieser „Spielwürfel“ entstand, indem aus einem würfelförmigen Körper ein Viertel herausgeschnitten wurde. Er wurde aus verschiedenen Ansichten fotografiert.",
+    "benoetigt_bild": true,
+    "hinweis": "Vier Fotos des würfelförmigen Körpers mit herausgeschnittenem Viertel, jeweils aus einer anderen Ansicht; auf den Flächen sind unterschiedlich viele Augen (Punkte) zu sehen."},
+   {"bild": "aufgabe_02.png",
+    "text": "Hier ist ein Netz dieses „Spielwürfels“ skizziert. Man sieht die Außenfläche des Würfels.\n\nWenn das Netz zusammengefaltet ist, soll es so aussehen wie der fotografierte „Spielwürfel“.\n\nZeichne die Punkte, die sich auf den Seitenflächen des „Spielwürfels“ befinden, in das Netz ein.",
+    "benoetigt_bild": true,
+    "hinweis": "Skizze eines leeren Würfelnetzes (Faltnetz des Körpers mit ausgeschnittenem Viertel) ohne eingezeichnete Punkte."},
+   {"bild": "aufgabe_03.png",
+    "text": "Hier wurde noch ein anderes Netz dieses „Spielwürfels“ skizziert. Es fehlt noch die Seitenfläche mit den drei Punkten.\n\nZeichne die fehlende Seitenfläche passend an das Netz.",
+    "benoetigt_bild": true,
+    "hinweis": "Skizze eines Würfelnetzes mit teilweise eingezeichneten Augen (u. a. Flächen mit 1, 2, 3 und 4 Punkten); eine Seitenfläche mit drei Punkten fehlt."}
+ ],
+ "_problems": []
+}

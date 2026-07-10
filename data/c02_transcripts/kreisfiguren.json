@@ -1,0 +1,15 @@
+{
+ "slug": "kreisfiguren",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "In der Abbildung siehst du Figuren, die durch Kreislinien und Strecken begrenzt sind.\n\n[Figur A]   [Figur B]   [Figur C]   [Figur D]",
+    "benoetigt_bild": true,
+    "hinweis": "Auf kariertem Raster vier graue Figuren, die durch Kreislinien und Strecken begrenzt sind: A sternartige/vierzackige Figur, B eine Figur mit zwei nach innen gewölbten Seiten, C ein Kreis, D eine Figur mit teils konkaven und teils konvexen Kreisbögen; darunter Beschriftungen Figur A, Figur B, Figur C, Figur D"},
+   {"bild": "aufgabe_02.png",
+    "text": "Zwei der vier Figuren haben denselben Flächeninhalt. Welche sind das?\n\nFigur __________ und Figur __________ haben denselben Flächeninhalt.",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

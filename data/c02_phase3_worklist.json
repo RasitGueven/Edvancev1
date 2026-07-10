@@ -1,0 +1,322 @@
+[
+ {
+  "slug": "adventskalender",
+  "titel": "Adventskalender",
+  "bilder": [
+   "data/vera8_assets/adventskalender/aufgabe_01.png",
+   "data/vera8_assets/adventskalender/aufgabe_02.png",
+   "data/vera8_assets/adventskalender/aufgabe_03.png",
+   "data/vera8_assets/adventskalender/aufgabe_04.png"
+  ],
+  "fremde_medien": [
+   "vera8_assets/adventskalender/aufgabe_02.png"
+  ]
+ },
+ {
+  "slug": "ansichteneinestischs",
+  "titel": "Ansichten eines Tischs",
+  "bilder": [
+   "data/vera8_assets/ansichteneinestischs/aufgabe_01.png",
+   "data/vera8_assets/ansichteneinestischs/aufgabe_02.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "aufgabenreihen",
+  "titel": "Aufgabenreihen",
+  "bilder": [
+   "data/vera8_assets/aufgabenreihen/aufgabe_01.png",
+   "data/vera8_assets/aufgabenreihen/aufgabe_02.png",
+   "data/vera8_assets/aufgabenreihen/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "bahncard",
+  "titel": "Bahncard",
+  "bilder": [
+   "data/vera8_assets/bahncard/aufgabe_01.png",
+   "data/vera8_assets/bahncard/aufgabe_02.png",
+   "data/vera8_assets/bahncard/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "bestimmex",
+  "titel": "Bestimme x",
+  "bilder": [
+   "data/vera8_assets/bestimmex/aufgabe_01.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "eiscafe",
+  "titel": "Eiscafé",
+  "bilder": [
+   "data/vera8_assets/eiscafe/aufgabe_01.png",
+   "data/vera8_assets/eiscafe/aufgabe_02.png",
+   "data/vera8_assets/eiscafe/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "freibad",
+  "titel": "Freibad",
+  "bilder": [
+   "data/vera8_assets/freibad/aufgabe_01.png",
+   "data/vera8_assets/freibad/aufgabe_02.png",
+   "data/vera8_assets/freibad/aufgabe_03.png"
+  ],
+  "fremde_medien": [
+   "vera8_assets/freibad/aufgabe_02.png"
+  ]
+ },
+ {
+  "slug": "fuellverhalten",
+  "titel": "Füllverhalten",
+  "bilder": [
+   "data/vera8_assets/fuellverhalten/aufgabe_01.png",
+   "data/vera8_assets/fuellverhalten/aufgabe_02.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "geldanlegen",
+  "titel": "Geld anlegen",
+  "bilder": [
+   "data/vera8_assets/geldanlegen/aufgabe_01.png",
+   "data/vera8_assets/geldanlegen/aufgabe_02.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "gesamtkantenlaenge",
+  "titel": "Gesamtkantenlänge",
+  "bilder": [
+   "data/vera8_assets/gesamtkantenlaenge/aufgabe_01.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "innenwinkel2",
+  "titel": "Innenwinkel 2",
+  "bilder": [
+   "data/vera8_assets/innenwinkel2/aufgabe_01.png",
+   "data/vera8_assets/innenwinkel2/aufgabe_02.png",
+   "data/vera8_assets/innenwinkel2/aufgabe_03.png",
+   "data/vera8_assets/innenwinkel2/aufgabe_04.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "jubilaeumsgeschenk",
+  "titel": "Jubiläumsgeschenk",
+  "bilder": [
+   "data/vera8_assets/jubilaeumsgeschenk/aufgabe_01.png",
+   "data/vera8_assets/jubilaeumsgeschenk/aufgabe_02.png",
+   "data/vera8_assets/jubilaeumsgeschenk/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "kreisfiguren",
+  "titel": "Kreisfiguren",
+  "bilder": [
+   "data/vera8_assets/kreisfiguren/aufgabe_01.png",
+   "data/vera8_assets/kreisfiguren/aufgabe_02.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "kugelnziehen",
+  "titel": "Kugeln ziehen",
+  "bilder": [
+   "data/vera8_assets/kugelnziehen/aufgabe_01.png",
+   "data/vera8_assets/kugelnziehen/aufgabe_02.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "liebstesschulfach",
+  "titel": "Liebstes Schulfach",
+  "bilder": [
+   "data/vera8_assets/liebstesschulfach/aufgabe_01.png",
+   "data/vera8_assets/liebstesschulfach/aufgabe_02.png",
+   "data/vera8_assets/liebstesschulfach/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "muckibude",
+  "titel": "Muckibude",
+  "bilder": [
+   "data/vera8_assets/muckibude/aufgabe_01.png",
+   "data/vera8_assets/muckibude/aufgabe_02.png",
+   "data/vera8_assets/muckibude/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "muelltonne",
+  "titel": "Mülltonne",
+  "bilder": [
+   "data/vera8_assets/muelltonne/aufgabe_01.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "pappschachtel",
+  "titel": "Pappschachtel",
+  "bilder": [
+   "data/vera8_assets/pappschachtel/aufgabe_01.png",
+   "data/vera8_assets/pappschachtel/aufgabe_02.png",
+   "data/vera8_assets/pappschachtel/aufgabe_03.png",
+   "data/vera8_assets/pappschachtel/aufgabe_04.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "pinsel",
+  "titel": "Pinsel",
+  "bilder": [
+   "data/vera8_assets/pinsel/aufgabe_01.png",
+   "data/vera8_assets/pinsel/aufgabe_02.png",
+   "data/vera8_assets/pinsel/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "rechteck",
+  "titel": "Rechteck",
+  "bilder": [
+   "data/vera8_assets/rechteck/aufgabe_01.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "rotgelbgruen",
+  "titel": "Rot, gelb, grün",
+  "bilder": [
+   "data/vera8_assets/rotgelbgruen/aufgabe_01.png",
+   "data/vera8_assets/rotgelbgruen/aufgabe_02.png",
+   "data/vera8_assets/rotgelbgruen/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "schluessel",
+  "titel": "Schlüssel",
+  "bilder": [
+   "data/vera8_assets/schluessel/aufgabe_01.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "schulkleidung",
+  "titel": "Schulkleidung",
+  "bilder": [
+   "data/vera8_assets/schulkleidung/aufgabe_01.png",
+   "data/vera8_assets/schulkleidung/aufgabe_02.png",
+   "data/vera8_assets/schulkleidung/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "skalaundzahlen",
+  "titel": "Skala und Zahlen",
+  "bilder": [
+   "data/vera8_assets/skalaundzahlen/aufgabe_01.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "spielwuerfel",
+  "titel": "Spielwürfel",
+  "bilder": [
+   "data/vera8_assets/spielwuerfel/aufgabe_01.png",
+   "data/vera8_assets/spielwuerfel/aufgabe_02.png",
+   "data/vera8_assets/spielwuerfel/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "temperatur",
+  "titel": "Temperatur",
+  "bilder": [
+   "data/vera8_assets/temperatur/aufgabe_01.png",
+   "data/vera8_assets/temperatur/aufgabe_02.png",
+   "data/vera8_assets/temperatur/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "ungewoehnlicherspielwuerfel",
+  "titel": "Ungewöhnlicher Spielwürfel",
+  "bilder": [
+   "data/vera8_assets/ungewoehnlicherspielwuerfel/aufgabe_01.png",
+   "data/vera8_assets/ungewoehnlicherspielwuerfel/aufgabe_02.png",
+   "data/vera8_assets/ungewoehnlicherspielwuerfel/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "verbindungsstrecken",
+  "titel": "Verbindungsstrecken",
+  "bilder": [
+   "data/vera8_assets/verbindungsstrecken/aufgabe_01.png",
+   "data/vera8_assets/verbindungsstrecken/aufgabe_02.png",
+   "data/vera8_assets/verbindungsstrecken/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "wahl",
+  "titel": "Wahl",
+  "bilder": [
+   "data/vera8_assets/wahl/aufgabe_01.png",
+   "data/vera8_assets/wahl/aufgabe_02.png",
+   "data/vera8_assets/wahl/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "werbelotterie",
+  "titel": "Werbelotterie",
+  "bilder": [
+   "data/vera8_assets/werbelotterie/aufgabe_01.png",
+   "data/vera8_assets/werbelotterie/aufgabe_02.png",
+   "data/vera8_assets/werbelotterie/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "wuerfelturm2",
+  "titel": "Würfelturm 2",
+  "bilder": [
+   "data/vera8_assets/wuerfelturm2/aufgabe_01.png",
+   "data/vera8_assets/wuerfelturm2/aufgabe_02.png",
+   "data/vera8_assets/wuerfelturm2/aufgabe_03.png",
+   "data/vera8_assets/wuerfelturm2/aufgabe_04.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "zweitaschenrechner",
+  "titel": "Zwei Taschenrechner",
+  "bilder": [
+   "data/vera8_assets/zweitaschenrechner/aufgabe_01.png",
+   "data/vera8_assets/zweitaschenrechner/aufgabe_02.png",
+   "data/vera8_assets/zweitaschenrechner/aufgabe_03.png"
+  ],
+  "fremde_medien": []
+ },
+ {
+  "slug": "zwischenzweizahlen2",
+  "titel": "Zwischen zwei Zahlen 2",
+  "bilder": [
+   "data/vera8_assets/zwischenzweizahlen2/aufgabe_01.png",
+   "data/vera8_assets/zwischenzweizahlen2/aufgabe_02.png"
+  ],
+  "fremde_medien": []
+ }
+]

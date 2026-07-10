@@ -1,0 +1,11 @@
+{
+ "slug": "gesamtkantenlaenge",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Ein Quader hat die in der Abbildung angegebenen Maße.\n\n[Quader mit Maßen: 4 cm; 2 cm; 5 cm] (nicht maßstabsgerecht)\n\nWie lang sind alle Kanten des Quaders zusammen?\n\nKreuze an.\n\n☐ 11 cm   ☐ 22 cm   ☐ 33 cm   ☐ 44 cm",
+    "benoetigt_bild": true,
+    "hinweis": "Schrägbild eines Quaders mit gestrichelten verdeckten Kanten; beschriftete Kantenmaße 4 cm (Höhe), 5 cm (Breite), 2 cm (Tiefe)."}
+ ],
+ "_problems": []
+}

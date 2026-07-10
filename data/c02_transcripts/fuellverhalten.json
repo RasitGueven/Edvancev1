@@ -1,0 +1,15 @@
+{
+ "slug": "fuellverhalten",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Der abgebildete Standzylinder ist leer und wird gleichmäßig mit Wasser befüllt.\n\nZeichne in das abgebildete Koordinatensystem einen Graphen, der diesen Füllvorgang beschreibt.",
+    "benoetigt_bild": true,
+    "hinweis": "Foto eines Standzylinders und leeres Koordinatensystem (x-Achse: Zeit, y-Achse: Füllhöhe) zum Einzeichnen"},
+   {"bild": "aufgabe_02.png",
+    "text": "Das abgebildete Gefäß ist leer und wird gleichmäßig mit Wasser befüllt, bis es voll ist.\n\nEntscheide, welcher der dargestellten Graphen diesen Füllvorgang am besten beschreibt.\n\nKreuze an.",
+    "benoetigt_bild": true,
+    "hinweis": "Foto eines bauchigen Rundkolbens mit dünnem Hals; vier ankreuzbare Koordinatensysteme (Achsen: Zeit / Füllhöhe) mit verschiedenen Graphen zur Auswahl"}
+ ],
+ "_problems": []
+}
