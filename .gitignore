@@ -18,6 +18,7 @@ coverage
 data/vera8_docs/
 data/vera8_raw/
 data/vera_nachlauf_raw/
+data/vera8_assets/
 dist
 dist-ssr
 node_modules
