@@ -1,0 +1,23 @@
+{
+ "status": {
+  "ready": 144,
+  "doc_pending": 74,
+  "quarantined": 4,
+  "partial": 74,
+  "interaktiv_extern": 2,
+  "keine_quelle": 1
+ },
+ "grounding_quote": {
+  "5/5": 69,
+  "4/5": 138,
+  "1/5": 13,
+  "2/5": 49,
+  "3/5": 26,
+  "0/5": 4
+ },
+ "task_type_ready": {
+  "SHORT_INPUT": 38,
+  "MULTI_PART": 86,
+  "MULTIPLE_CHOICE": 20
+ }
+}

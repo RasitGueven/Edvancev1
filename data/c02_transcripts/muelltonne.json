@@ -1,0 +1,11 @@
+{
+ "slug": "muelltonne",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Ermittle, welches Volumen diese Mülltonne etwa hat.\n\nDiese Mülltonne hat etwa ein Volumen von __________ .\n\nNotiere deinen Lösungsweg.",
+    "benoetigt_bild": true,
+    "hinweis": "Foto: eine Person steht neben einer zweirädrigen Mülltonne an einer Wand; darunter leeres kariertes Antwortfeld"}
+ ],
+ "_problems": []
+}

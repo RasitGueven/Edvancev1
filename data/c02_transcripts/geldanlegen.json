@@ -1,0 +1,15 @@
+{
+ "slug": "geldanlegen",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Hanna legt bei einer Bank 2000 € an. Sie wird in den nächsten drei Jahren nichts von diesem Geld abheben. Jährlich erhält sie 1,8 % Zinsen. Die Zinsen werden mitverzinst.\n\nWie hoch wird ihr Guthaben bei der Bank nach drei Jahren sein?\n\nKreuze den Geldbetrag an, der am besten passt.\n\n☐ 2018 €   ☐ 2036 €   ☐ 2108 €   ☐ 2110 €",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Lily möchte auch Geld anlegen. Der Bankberater teilt ihr mit, dass sie für ihren Geldbetrag innerhalb von vier Jahren insgesamt 150 € Zinsen bekommen würde. Sie überlegt sich: „Dann zahle ich heute einfach 150 € weniger ein. Nach den vier Jahren wird dann der Betrag auf dem Konto sein, den ich im Moment habe.“\n\nHat Lily recht?\n\nKreuze an.\n\n☐ Ja   ☐ Nein\n\nBegründe deine Entscheidung ohne Rechnung.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": "Kariertes Antwortfeld für die Begründung."}
+ ],
+ "_problems": []
+}

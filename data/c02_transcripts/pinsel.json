@@ -1,0 +1,19 @@
+{
+ "slug": "pinsel",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Der Pinsel in Abbildung 1 ist im Maßstab 1 : 3 abgebildet.\n\nAbbildung 1",
+    "benoetigt_bild": true,
+    "hinweis": "Foto/Zeichnung eines Pinsels neben der Beschriftung Abbildung 1; die abgebildete Länge muss gemessen werden"},
+   {"bild": "aufgabe_02.png",
+    "text": "Wie lang ist er in Wirklichkeit?\n\n__________ cm",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Ein anderer Pinsel ist in Wirklichkeit 20 cm lang. Er soll im Maßstab 1 : 4 abgebildet werden.\n\nWelche Abbildung passt am besten?\n\nKreuze an.\n\n☐   ☐   ☐   ☐",
+    "benoetigt_bild": true,
+    "hinweis": "vier untereinander stehende Ankreuzkästchen, jeweils daneben ein unterschiedlich langer/dicker Pinsel als Auswahloption"}
+ ],
+ "_problems": []
+}

@@ -1,0 +1,19 @@
+{
+ "slug": "werbelotterie",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Die Fluggesellschaft Trans American Airways (Kürzel TAA) veranstaltet eine Lotterie als Werbung. Aus einer Trommel werden zufällig nacheinander drei Kugeln mit Buchstaben gezogen.\n\nIn der Trommel gibt es\n\n9 Kugeln mit dem Buchstaben A,\n4 Kugeln mit dem Buchstaben T und\n7 Kugeln mit dem Buchstaben X.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Wie groß ist die Wahrscheinlichkeit, das Kürzel TAA in der richtigen Reihenfolge zu ziehen, wenn die Kugeln nicht zurückgelegt werden?\n\nGib diese Wahrscheinlichkeit an.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Wie groß ist die Wahrscheinlichkeit, das Kürzel TAA in der richtigen Reihenfolge zu ziehen, wenn die Kugeln nach jedem Ziehen zurückgelegt werden?\n\nGib diese Wahrscheinlichkeit an.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

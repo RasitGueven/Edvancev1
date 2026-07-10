@@ -1,0 +1,11 @@
+{
+ "slug": "skalaundzahlen",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Zwei Zahlen sind auf dem obigen Ausschnitt der Zahlengeraden mit einem Pfeil markiert.\n\nTrage die zwei Zahlen in die Kästchen ein.",
+    "benoetigt_bild": true,
+    "hinweis": "Zahlengerade mit Beschriftungen [−2], [−1], [0], [1]; zwei Pfeile markieren Positionen (einer zwischen −2 und −1, einer zwischen 0 und 1) mit je einem leeren Eingabekästchen darunter."}
+ ],
+ "_problems": []
+}

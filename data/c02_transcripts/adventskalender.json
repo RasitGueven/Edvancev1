@@ -1,0 +1,28 @@
+{
+ "slug": "adventskalender",
+ "transkribiert_von": "hub",
+ "teile": [
+  {
+   "bild": "aufgabe_01.png",
+   "text": "Die 24 Schülerinnen und Schüler einer achten Klasse haben für die Adventszeit einen gemeinsamen Adventskalender mit 24 Geschenken angefertigt.\nJeder legt ein Kärtchen mit seinem Namen in einen Lostopf. Ab dem ersten Dezember wird täglich ein Name gezogen, die zugehörige Person erhält das jeweilige Geschenk. Ihr Name kann nun nicht mehr gezogen werden.\nDie Ziehungen für Samstag und Sonntag werden am Montag nachgeholt.\n[Foto eines Stoff-Adventskalenders mit nummerierten Säckchen; Dezember-Kalender als Tabelle Montag–Sonntag mit den Tagen 1–31, Samstage und Sonntage grau hinterlegt]",
+   "benoetigt_bild": true,
+   "hinweis": "Stamm mit Foto und Monatskalender."
+  },
+  {
+   "bild": "aufgabe_03.png",
+   "text": "Jana hat bisher kein Geschenk erhalten. Am Morgen des 07.12., ihrem Geburtstag, überlegt sie, wie wahrscheinlich es ist, dass ihr Name an diesem Tag gezogen wird.\nKreuze die passende Wahrscheinlichkeit an.\n☐ 1/24   ☐ 1/18   ☐ 7/24   ☐ 7/18",
+   "benoetigt_bild": false,
+   "hinweis": "Multiple-Choice; Brüche im Bild als echte Bruchdarstellung."
+  },
+  {
+   "bild": "aufgabe_04.png",
+   "text": "Am 22.12. ist der letzte Schultag. Deshalb werden die Geschenke vom 23. und 24.12. auch am 22.12. verlost. Simon hat bis zu diesem Tag noch kein Geschenk erhalten.\nWie groß ist die Wahrscheinlichkeit, dass er am 22.12. ein Geschenk erhält?\nKreuze an.\n☐ 1/3   ☐ 3/24   ☐ 22/24   ☐ 1",
+   "benoetigt_bild": false,
+   "hinweis": "Multiple-Choice; Brüche im Bild als echte Bruchdarstellung."
+  }
+ ],
+ "_problems": [
+  "fremdes_medium_in_quelle:aufgabe_02.png_zeigt_die_Freibad-Aufgabe",
+  "teilaufgabe_1_prompt_fehlt_in_quelle"
+ ]
+}

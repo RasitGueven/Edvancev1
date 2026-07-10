@@ -1,0 +1,23 @@
+{
+ "slug": "pappschachtel",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Eine Schachtel (siehe Abbildung 1) ist innen 2,5 cm hoch und je 8 cm breit und 8 cm lang.",
+    "benoetigt_bild": true,
+    "hinweis": "Foto einer offenen quadratischen Pappschachtel, die von einer Hand gehalten wird (Abbildung 1)."},
+   {"bild": "aufgabe_02.png",
+    "text": "Wie groß ist das Volumen der Schachtel?\n\nKreuze an.\n\n☐ 18,5 cm³   ☐ 66,5 cm³   ☐ 160 cm³   ☐ 512 cm³",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Man kann eine solche Schachtel aus einer quadratischen Pappe mit der Seitenlänge 13 cm falten. Hierzu muss an jeder der vier Ecken ein Quadrat mit der Seitenlänge x ausgeschnitten werden (siehe Abbildung 2). Dann müssen die Ränder an den gestrichelten Linien nach oben gefaltet und zusammengeklebt werden.",
+    "benoetigt_bild": true,
+    "hinweis": "Skizze eines kreuzförmigen Faltnetzes aus quadratischer Pappe mit gestrichelten Faltlinien; Beschriftungen: [Seitenlänge x], [13 cm], [Abbildung 2 (nicht maßstabsgerecht)]."},
+   {"bild": "aufgabe_04.png",
+    "text": "Wie groß muss die Seitenlänge x sein, damit man die Schachtel aus Abbildung 1 erhält?\n\nKreuze an.\n\n☐ x = 2,5 cm   ☐ x = 5 cm   ☐ x = 8 cm   ☐ x = 10,5 cm",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

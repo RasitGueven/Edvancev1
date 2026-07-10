@@ -1,0 +1,19 @@
+{
+ "slug": "zweitaschenrechner",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Yasmina und David lösen die Aufgabe „Werbeaktion\" mit dem Taschenrechner. Beide haben unterschiedliche Taschenrechner, aber beide drücken jeweils die gleiche Tastenfolge.\n\nTrotzdem sehen sie unterschiedliche Ergebnisse:\n\nAufgabe: Werbeaktion\nWerbeaktion: „20 % mehr zum gleichen Preis.\" Normalerweise sind in der Verpackung 250 g.\nWie viel ist jetzt in der Verpackung?\n\nTastenfolge:\n2 5 0 + 2 0 % =\n\nYasminas Taschenrechner zeigt an: [300]   Davids Taschenrechner zeigt an: [250+20%   250,2]",
+    "benoetigt_bild": true,
+    "hinweis": "Tastenfolge als einzelne Tastensymbole dargestellt; zwei Fotos von Taschenrechner-Displays: Yasmina zeigt 300, David zeigt „250+20%\" und „250,2\""},
+   {"bild": "aufgabe_02.png",
+    "text": "Die Prozenttaste auf beiden Rechnern funktioniert unterschiedlich.\n\nBeschreibe, was die Taschenrechner bei der Eingabe „+ 20 %\" rechnen.\n\nBei Yasmina:\n__________\n\nBei David:\n__________",
+    "benoetigt_bild": false,
+    "hinweis": "leere Kästchengitter als Antwortfelder"},
+   {"bild": "aufgabe_03.png",
+    "text": "Davids Taschenrechner gibt offenbar bezogen auf die Aufgabe „Werbeaktion\" ein falsches Ergebnis an.\n\nGib eine Tastenfolge an, mit der David bei der Aufgabe „Werbeaktion\" das richtige Ergebnis erhält.\nVerwende dazu die Zahlentasten und einige der folgenden Tasten:\n+ − : • , % =\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": "verfügbare Tasten als Symbole (+ − : • , % =); leeres Kästchengitter als Antwortfeld"}
+ ],
+ "_problems": []
+}

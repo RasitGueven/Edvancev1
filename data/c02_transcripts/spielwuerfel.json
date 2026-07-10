@@ -1,0 +1,19 @@
+{
+ "slug": "spielwuerfel",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Man nennt einen Spielwürfel fair, wenn jede seiner Seitenflächen nach einem Wurf mit derselben Wahrscheinlichkeit oben liegen kann. Solche Würfel können unterschiedlich viele Seitenflächen haben.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Die Abbildung zeigt einen fairen 20-seitigen Spielwürfel, dessen Seitenflächen mit den Zahlen von 1 bis 20 beschriftet sind.\n\nGib die Wahrscheinlichkeit dafür an, dass die Zahl 11 geworfen wird.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": "Foto eines 20-seitigen Spielwürfels (Ikosaeder) mit sichtbaren Zahlen"},
+   {"bild": "aufgabe_03.png",
+    "text": "Die folgenden Aussagen beziehen sich auf faire Spielwürfel, deren Seitenflächen alle mit verschiedenen Zahlen beschriftet sind. Es geht um die Wahrscheinlichkeit eine bestimmte Zahl zu würfeln.\n\nPrüfe die Aussagen und kreuze jeweils an.\n\n | wahr | falsch\nJe mehr Seitenflächen es sind, umso größer ist die Wahrscheinlichkeit. | ☐ | ☐\nWenn die gewünschte Zahl lange nicht gewürfelt wurde, ist die Wahrscheinlichkeit beim nächsten Wurf größer als vorher. | ☐ | ☐",
+    "benoetigt_bild": false,
+    "hinweis": "Tabelle mit Spalten wahr/falsch und Ankreuzkästchen"}
+ ],
+ "_problems": []
+}

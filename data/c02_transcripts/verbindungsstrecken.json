@@ -1,0 +1,19 @@
+{
+ "slug": "verbindungsstrecken",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "In der Abbildung sind fünf Punkte A, B, C, D und E gegeben. Jeder der vier Punkte A, B, C, D ist mit jedem anderen der vier Punkte A, B, C, D durch eine Strecke verbunden. So entstehen sechs verschiedene Verbindungsstrecken.",
+    "benoetigt_bild": true,
+    "hinweis": "Zeichnung: fünf Punkte A, B, C, D, E in/auf einem grauen Kreis; die Punkte A, B, C, D sind paarweise durch Strecken verbunden, E ist unverbunden."},
+   {"bild": "aufgabe_02.png",
+    "text": "Wie viele solcher Verbindungsstrecken entstehen zusätzlich, wenn man die Punkte A, B, C, D und E in gleicher Weise verbindet?\n\nDu kannst das in der Zeichnung oben ausprobieren.\n\nEs gibt __________ zusätzliche Verbindungsstrecken.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "20 Punkte liegen verteilt auf einem Kreis. Dann gibt es 190 verschiedene Verbindungsstrecken.\n\nWie viele dieser Verbindungsstrecken gibt es insgesamt, wenn man einen 21. Punkt auf den Kreis hinzunimmt?\n\nEs gibt insgesamt __________ Verbindungsstrecken.",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

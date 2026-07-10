@@ -1,0 +1,19 @@
+{
+ "slug": "muckibude",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Die Grafik zeigt die Mitgliederzahlen des Fitnessvereins „Muckibude“ in den Jahren 2012 bis 2016.\n\n[Säulendiagramm, x-Achse: Jahr, y-Achse: Anzahl der Mitglieder (0 bis 2000): 2012 200; 2013 400; 2014 800; 2015 1200; 2016 1800]",
+    "benoetigt_bild": true,
+    "hinweis": "Säulendiagramm mit fünf Säulen für die Jahre 2012 bis 2016."},
+   {"bild": "aufgabe_02.png",
+    "text": "Wie viele Mitglieder sind von 2013 bis 2014 hinzugekommen?\n\n__________ Mitglieder",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "In welchen Jahren lag die Anzahl der Mitglieder über 1000?\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

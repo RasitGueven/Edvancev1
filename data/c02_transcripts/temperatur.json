@@ -1,0 +1,19 @@
+{
+ "slug": "temperatur",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "In Europa werden Temperaturen in Grad Celsius (°C) angegeben, in den USA in Grad Fahrenheit (°F). Es gibt eine Regel für die Umrechnung:\n\nMultipliziere die Temperatur in °C mit 1,8 und addiere zum Ergebnis 32, dann erhältst du die Temperatur in °F.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Gib die Temperatur 5 °C in der Einheit °F an.\n\n__________ °F",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Gib eine Formel für die Umrechnung von Temperaturen in °C nach °F an. Dabei soll C für Temperaturen in °C stehen und F für Temperaturen in °F.\n\nF = __________",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}
