@@ -4,27 +4,31 @@ import json
 
 items = json.load(open("data/vera8_komplett_enriched.json"))
 
+mit_stamm = sum(1 for i in items if i.get("aufgabe_text"))
+mit_loesung = sum(1 for i in items if i.get("akzeptierte_antworten"))
+mit_fehler = sum(1 for i in items if (i.get("diagnostik") or {}).get("typische_fehler"))
+mit_kod = sum(1 for i in items if (i.get("diagnostik") or {}).get("kodierung"))
+
+print("Items gesamt              : %d" % len(items))
+print("mit Aufgabenstamm         : %d" % mit_stamm)
+print("mit belegter Loesung      : %d" % mit_loesung)
+print("mit typischen Fehlern     : %d" % mit_fehler)
+print("mit Kodierung             : %d" % mit_kod)
+print("benoetigt_bild            : %d" % sum(1 for i in items if i.get("benoetigt_bild")))
+print()
 print("STATUS:", dict(collections.Counter(i["status"] for i in items).most_common()))
-print("GROUNDING:", dict(sorted(collections.Counter(i["grounding_quote"] for i in items).items())))
 print("Stamm-Methode:", dict(collections.Counter(
     (i.get("_grounding", {}).get("aufgabe_text") or {}).get("methode") for i in items)))
-
-partial = [i for i in items if i["status"] == "partial"]
-print("partial: nur_stamm=%d  nur_antworten=%d"
-      % (sum(1 for i in partial if i.get("aufgabe_text") and not i.get("akzeptierte_antworten")),
-         sum(1 for i in partial if i.get("akzeptierte_antworten") and not i.get("aufgabe_text"))))
-print("doc_pending mit belegten Antworten: %d"
-      % sum(1 for i in items if i["status"] == "doc_pending" and i.get("akzeptierte_antworten")))
-
-for status in ("quarantined", "interaktiv_extern", "keine_quelle"):
-    print("%s: %s" % (status, [i["titel"] for i in items if i["status"] == status]))
-
-problems = collections.Counter(p.split(":")[0] for i in items for p in i["_problems"])
-print("\nHaeufigste _problems:")
-for name, n in problems.most_common(14):
-    print("  %3d  %s" % (n, name))
-
-print("\ndoc_pending Items (fuer die Windows-Konvertierung):")
-dp = sorted(i["titel"] for i in items if i["status"] == "doc_pending")
-for i in range(0, len(dp), 4):
-    print("  " + " · ".join(dp[i:i + 4]))
+print()
+dp = [i for i in items if i["status"] == "doc_pending"]
+print("doc_pending                        : %d" % len(dp))
+print("doc_pending mit belegter Loesung   : %d" % sum(1 for i in dp if i.get("akzeptierte_antworten")))
+print("=> Projektion ready nach .doc-Konv.: %d"
+      % (sum(1 for i in items if i["status"] == "ready")
+         + sum(1 for i in dp if i.get("akzeptierte_antworten"))))
+print()
+formel = sum(1 for i in items
+             if "auswertung_loesung_nur_als_formelgrafik" in (i["_problems"] or []))
+print("auswertung_loesung_nur_als_formelgrafik: %d" % formel)
+print("keine_typischen_fehler_belegt          : %d"
+      % sum(1 for i in items if "keine_typischen_fehler_belegt" in (i["_problems"] or [])))

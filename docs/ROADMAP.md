@@ -19,8 +19,17 @@
 
 ## In Arbeit
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
+  - **C02 Grounded Rebuild abgeschlossen** (Retro `RETRO-C02.md`): VERA-Pool neu
+    aufgebaut, jedes Feld mit `_grounding` belegt. **144 `ready`**, 74 `partial`,
+    74 `doc_pending`. Die 216 „fertigen" Items aus C01 waren zu 47 % erfunden und
+    sind ersetzt. Der Aufgabenstamm steckt als Text in den EMF-Vektorgrafiken der
+    `.docx` — 188 Items wörtlich aus der Quelle, kein OCR.
 
 ## Nächste Schritte
+- **`.doc` → `.docx` konvertieren (74 Items, Rasit/LibreOffice unter Windows)**,
+  danach `bash scripts/content/c02_rebuild.sh` → Projektion **208 `ready`**
+- Lena-Review von `data/vera8_review_lena.csv`, Priorität: die 33
+  Vision-Transkripte (`stamm_quelle=vision_transkription`)
 - Diagnostik-Content seeden (`is_diagnostic=true`) → `/screening` aktiv
 - Browser-Verifikation (U4-Conversion, `/screening`-Flow) durch Rasit
 - PR #16 — Base-Branch klären (`main` vs `dev`, CLAUDE.md §5) + mergen
