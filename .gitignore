@@ -1,27 +1,27 @@
-node_modules
-dist
-dist-ssr
-.vite
-*.tsbuildinfo
+
+!.vscode/extensions.json
+# Import-Pipeline: Roh-JSONs und Run-Logs nicht versionieren
+# Marker-Datei für autonome Läufe (P00) — nie versionieren
+# Test-/E2E-Artefakte
 *.local
+*.log
+*.tsbuildinfo
+.DS_Store
+.claude/autonomous
 .env
 .env.local
-
-.DS_Store
-.vscode/*
-!.vscode/extensions.json
 .idea
-*.log
-
-# Import-Pipeline: Roh-JSONs und Run-Logs nicht versionieren
+.playwright
+.vite
+.vscode/*
+coverage
+data/vera8_docs/
+data/vera8_raw/
+data/vera_nachlauf_raw/
+dist
+dist-ssr
+node_modules
+playwright-report
 scripts/import/raw/
 scripts/import/runs/
-
-# Test-/E2E-Artefakte
-coverage
-playwright-report
 test-results
-.playwright
-
-# Marker-Datei für autonome Läufe (P00) — nie versionieren
-.claude/autonomous
