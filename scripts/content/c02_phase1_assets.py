@@ -42,29 +42,28 @@ def natural_key(name):
 
 
 def media_in_document_order(path):
-    """Medien-Namen in Lese-Reihenfolge des Dokuments.
+    """Medien-Namen in Lese-Reihenfolge des *Fliesstextes*.
 
-    Wichtig, weil image1/image2/... die Teilaufgaben-Reihenfolge tragen und eine
-    lexikalische Sortierung 'image10' vor 'image2' einordnen wuerde.
+    Zwei Gruende, nicht einfach word/media/ zu sortieren:
+    1. image1/image2/... tragen die Teilaufgaben-Reihenfolge, aber 'image10'
+       sortiert lexikalisch vor 'image2'.
+    2. word/media/ enthaelt auch Medien, die nur die Kopf-/Fusszeile
+       referenziert (das IQB-Logo) - die gehoeren nicht in die Aufgabe.
     """
-    try:
-        import docx
-        doc = docx.Document(path)
-        rels = doc.part.rels
-        order, seen = [], set()
-        for el in doc.element.body.iter():
-            rid = None
-            if el.tag == A_NS + "blip":
-                rid = el.get(R_NS + "embed")
-            elif el.tag == V_NS + "imagedata":
-                rid = el.get(R_NS + "id")
-            if rid and rid in rels and rid not in seen:
-                seen.add(rid)
-                name = str(rels[rid].target_partname).lstrip("/")
-                order.append(name)
-        return order
-    except Exception:
-        return []
+    import docx
+    doc = docx.Document(path)
+    rels = doc.part.rels
+    order, seen = [], set()
+    for el in doc.element.body.iter():
+        rid = None
+        if el.tag == A_NS + "blip":
+            rid = el.get(R_NS + "embed")
+        elif el.tag == V_NS + "imagedata":
+            rid = el.get(R_NS + "id")
+        if rid and rid in rels and rid not in seen:
+            seen.add(rid)
+            order.append(str(rels[rid].target_part.partname).lstrip("/"))
+    return order
 
 
 def classify(name, data, logo_md5):
@@ -97,6 +96,33 @@ def detect_logo_md5(items):
     return (md5, n) if n > 100 else (None, 0)
 
 
+def fremde_medien(manifest):
+    """Bilder, die byteidentisch in mehreren Aufgaben stecken.
+
+    Die IQB-.docx schleppen vereinzelt Bilder fremder Aufgaben mit (in
+    'adventskalender' steckt eine Freibad-Frage). Ein sha256, der in zwei
+    Aufgaben auftaucht, beweist das - ohne dass jemand die Bilder ansehen muss.
+
+    Der Lizenzblock ist absichtlich in jeder Datei identisch und wird nicht
+    mitgezaehlt, sonst waere jedes Item 'fremd'.
+    """
+    nach_hash = {}
+    for slug, eintrag in manifest.items():
+        for medium in eintrag["medien"]:
+            if medium["typ"] == "license":
+                continue
+            nach_hash.setdefault(medium["sha256"], []).append((slug, medium["pfad"]))
+    treffer = {}
+    for _, vorkommen in nach_hash.items():
+        if len(vorkommen) < 2:
+            continue
+        for slug, pfad in vorkommen:
+            andere = [s for s, _ in vorkommen if s != slug]
+            treffer.setdefault(slug, []).append(
+                {"pfad": pfad, "auch_in": sorted(set(andere))})
+    return treffer
+
+
 def main():
     items = load_items()
     logo_md5, logo_n = detect_logo_md5(items)
@@ -118,10 +144,14 @@ def main():
             continue
 
         with zipfile.ZipFile(path) as zf:
-            names = media_in_document_order(path)
             present = [n for n in zf.namelist() if n.startswith("word/media/")]
-            if sorted(names) != sorted(present):
-                names = sorted(present, key=natural_key)  # Fallback
+            names = [n for n in media_in_document_order(path) if n in present]
+            if not names:
+                # Kein Bild im Fliesstext referenziert -> lieber alles sichten
+                # als still nichts zu extrahieren.
+                names = sorted(present, key=natural_key)
+                stats["ordnung_unbekannt"] = stats.get("ordnung_unbekannt", 0) + 1
+            nicht_referenziert = [n for n in present if n not in names]
             entries, texts = [], []
             out_dir = os.path.join(ASSETS_DIR, slug)
             for idx, name in enumerate(names, 1):
@@ -146,8 +176,13 @@ def main():
                 stats[kind] = stats.get(kind, 0) + 1
 
         manifest[slug] = {"titel": item["titel"], "quelle_datei": os.path.basename(path),
-                          "medien": entries}
+                          "medien": entries,
+                          "nicht_referenziert": [n.split("/")[-1] for n in nicht_referenziert]}
         stems[slug] = {"titel": item["titel"], "teile": texts}
+
+    fremd = fremde_medien(manifest)
+    for slug, treffer in fremd.items():
+        manifest[slug]["fremde_medien"] = treffer
 
     json.dump(manifest, open(MANIFEST, "w"), ensure_ascii=False, indent=1)
     json.dump(stems, open(STEMS, "w"), ensure_ascii=False, indent=1)
@@ -164,6 +199,13 @@ def main():
     print("  mit EMF-Aufgabentext            : %d" % len(mit_text))
     print("  ohne jeden EMF-Text             : %d" % len(ohne_text))
     print("  mit Grafik (Diagramm/Raster)    : %d" % len(grafik))
+    print("  nicht referenzierte Medien      : %d"
+          % sum(len(v["nicht_referenziert"]) for v in manifest.values()))
+    print("\nItems mit fremden (doppelten) Medien: %d" % len(fremd))
+    for slug, treffer in sorted(fremd.items())[:12]:
+        for eintrag in treffer:
+            print("  %-24s %-28s auch in %s"
+                  % (slug[:24], os.path.basename(eintrag["pfad"]), eintrag["auch_in"]))
     print("\n-> %s\n-> %s" % (MANIFEST, STEMS))
 
 

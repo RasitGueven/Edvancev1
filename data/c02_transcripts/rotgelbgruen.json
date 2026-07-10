@@ -1,0 +1,19 @@
+{
+ "slug": "rotgelbgruen",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "In einer Urne liegen drei rote, vier gelbe und fünf grüne Kugeln. Man zieht ohne Hinzusehen eine Kugel aus der Urne und legt sie anschließend wieder zurück.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Mit welcher Wahrscheinlichkeit wird eine grüne Kugel gezogen?\n\nKreuze an.\n\n☐ 1/7   ☐ 5/7   ☐ 1/12   ☐ 5/12",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Gib die Farbe einer Kugel an, für die die Wahrscheinlichkeit gezogen zu werden 1/3 beträgt.\n\n__________\n\nBegründe deine Antwort.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": "Antwortlinie und kariertes Antwortfeld für die Begründung."}
+ ],
+ "_problems": []
+}

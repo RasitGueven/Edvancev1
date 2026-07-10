@@ -1,0 +1,23 @@
+{
+ "slug": "wuerfelturm2",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "In der Abbildung siehst du einen Würfelturm. Der erste Würfel hat die Kantenlänge a. Die darüber stehenden Würfel haben immer die halbe Kantenlänge des jeweils darunter stehenden Würfels.\n\n[Dritter Würfel]   [Zweiter Würfel]   [Erster Würfel]   [a]   [a]   [a]",
+    "benoetigt_bild": true,
+    "hinweis": "räumliche Zeichnung eines Turms aus drei aufeinander gestapelten Würfeln (unten Erster Würfel mit Kanten a, darüber Zweiter Würfel, oben Dritter Würfel)"},
+   {"bild": "aufgabe_02.png",
+    "text": "Gib an, wie oft der zweite Würfel in den ersten passt.\n\n__________ -mal",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Ergänze die Formel für das Gesamtvolumen V dieses Würfelturms. Außer a sollen keine weiteren Variablen benutzt werden.\n\nV = __________",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_04.png",
+    "text": "Zwei weitere kleinere Würfel werden auf die vorhandenen drei Würfel gestapelt. Das heißt, die Kantenlänge dieser Würfel ist ebenfalls jeweils halb so groß wie die des darunter liegenden Würfels.\n\nWie oft passt der fünfte Würfel in den ersten?\n\nKreuze an.\n\n☐ 16-mal   ☐ 64-mal   ☐ 512-mal   ☐ 4096-mal",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

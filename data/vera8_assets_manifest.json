@@ -17,6 +17,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "adventskalender": {
@@ -58,6 +61,17 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
+  ],
+  "fremde_medien": [
+   {
+    "pfad": "vera8_assets/adventskalender/aufgabe_02.png",
+    "auch_in": [
+     "freibad"
+    ]
+   }
   ]
  },
  "ampelkarte": {
@@ -92,6 +106,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "anderelaenderanderenoten": {
@@ -133,6 +150,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "ansichteneinestischs": {
@@ -160,6 +180,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "anteileingeometrischenobjekten": {
@@ -180,6 +203,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "anzahlvonnullen": {
@@ -207,6 +233,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "aufgabenreihen": {
@@ -241,6 +270,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "aussagendreiecke": {
@@ -275,6 +307,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "aussenthermometer": {
@@ -302,6 +337,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "autokauf": {
@@ -322,6 +360,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "bahncard": {
@@ -356,6 +397,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "berechnungenamrechteck": {
@@ -390,6 +434,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "berndunddasbrot": {
@@ -410,6 +457,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "besonderevierecke": {
@@ -430,6 +480,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "bestimmex": {
@@ -450,6 +503,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "bevoelkerungsdichte": {
@@ -484,6 +540,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "bistroumfrage": {
@@ -505,19 +564,22 @@
     "sha256": "f9989cc0cf7538c5066e023cda80dae336121f255dbfd8521e8765516f220724"
    },
    {
-    "pfad": "vera8_assets/bistroumfrage/aufgabe_04.emf",
+    "pfad": "vera8_assets/bistroumfrage/aufgabe_03.emf",
     "quelle": "word/media/image4.emf",
     "typ": "emf_text",
     "bytes": 15228,
     "sha256": "2891e29db5f1deba59c17cc403d41d70337b20ea4e5a0d4773c571df0a86065f"
    },
    {
-    "pfad": "vera8_assets/bistroumfrage/aufgabe_05.emf",
+    "pfad": "vera8_assets/bistroumfrage/aufgabe_04.emf",
     "quelle": "word/media/image5.emf",
     "typ": "license",
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "broetchen": {
@@ -552,6 +614,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "bruchundprozentsatz": {
@@ -572,6 +637,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "butter": {
@@ -592,6 +660,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "colakaesten": {
@@ -626,6 +697,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "croissant": {
@@ -646,6 +720,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "damenuhr": {
@@ -680,6 +757,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "dasistgerundet": {
@@ -700,6 +780,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "parallelogramme": {
@@ -720,6 +803,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "derriese": {
@@ -740,6 +826,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "derstern": {
@@ -760,6 +849,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "divisionvonzahlen": {
@@ -787,6 +879,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "dreieckeergaenzen": {
@@ -807,6 +902,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "dreieckimquadrat": {
@@ -848,6 +946,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "dreieckszahlen": {
@@ -903,6 +1004,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image8.jpeg"
   ]
  },
  "druckmaschinen": {
@@ -937,6 +1041,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "durch1001teilbar": {
@@ -957,6 +1064,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "eckenanpyramiden": {
@@ -977,6 +1087,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "eckenundkanten": {
@@ -997,6 +1110,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "eindeutig": {
@@ -1031,6 +1147,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "einfachegleichung": {
@@ -1051,6 +1170,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "eingefaerbterkoerper": {
@@ -1078,6 +1200,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "eiscafe": {
@@ -1112,6 +1237,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "fahrraeder": {
@@ -1146,6 +1274,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "fahrtrichtunggeradeaus": {
@@ -1180,6 +1311,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "faschingsdeko": {
@@ -1207,6 +1341,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "fehlendezahlen": {
@@ -1241,6 +1378,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "figurauszweidreiecken": {
@@ -1268,6 +1408,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "flaechengleichodernicht": {
@@ -1295,6 +1438,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "flaecheninhalt": {
@@ -1315,6 +1461,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "fliesenfuerdenfussboden": {
@@ -1349,6 +1498,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "freibad": {
@@ -1382,6 +1534,17 @@
     "typ": "license",
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
+   }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
+  ],
+  "fremde_medien": [
+   {
+    "pfad": "vera8_assets/freibad/aufgabe_02.png",
+    "auch_in": [
+     "adventskalender"
+    ]
    }
   ]
  },
@@ -1424,6 +1587,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "freizeitkosten": {
@@ -1444,6 +1610,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "freunde": {
@@ -1485,6 +1654,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "fuehrerschein": {
@@ -1519,6 +1691,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "fuellverhalten": {
@@ -1546,6 +1721,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "fussballtabelle": {
@@ -1587,6 +1765,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "geldanlegen": {
@@ -1614,6 +1795,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "geradenimkoordinatensystem": {
@@ -1641,6 +1825,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "gesamtkantenlaenge": {
@@ -1661,6 +1848,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "geschwindigkeit": {
@@ -1688,6 +1878,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "gewerbezone": {
@@ -1715,6 +1908,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "gewitter": {
@@ -1749,6 +1945,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "gleichungfinden": {
@@ -1783,6 +1982,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "gleichungloesen1": {
@@ -1803,6 +2005,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "gleichungloesen2": {
@@ -1823,6 +2028,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "gleichungloesen3": {
@@ -1843,6 +2051,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "gleichungveraendern": {
@@ -1877,6 +2088,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "glueckssaeckchen": {
@@ -1918,6 +2132,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "grosserwagen": {
@@ -1959,6 +2176,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "gummibaeren": {
@@ -1993,6 +2213,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "gueterverkehr": {
@@ -2027,6 +2250,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "haelfte": {
@@ -2047,6 +2273,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "handygebuehr": {
@@ -2081,6 +2310,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "hauptstaedte": {
@@ -2115,6 +2347,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "hausaufgaben": {
@@ -2149,6 +2384,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "haushaltsabfaelle": {
@@ -2183,6 +2421,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "heizkosten": {
@@ -2210,6 +2451,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "holzwuerfel": {
@@ -2237,6 +2481,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "honigbiene": {
@@ -2257,6 +2504,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "imkreislaufen": {
@@ -2277,6 +2527,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "inliner": {
@@ -2311,6 +2564,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "innenwinkel2": {
@@ -2352,6 +2608,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "internetauktion": {
@@ -2386,6 +2645,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "jeansmitermaessigung": {
@@ -2406,6 +2668,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "jubilaeumsgeschenk": {
@@ -2440,6 +2705,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "dvdplayer": {
@@ -2474,6 +2742,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "kaumeinechance": {
@@ -2508,6 +2779,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "kopfundkoerper": {
@@ -2542,6 +2816,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "koerperfuellen": {
@@ -2569,6 +2846,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "seitenflaechen": {
@@ -2610,6 +2890,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "kreisfiguren": {
@@ -2637,6 +2920,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "kugelnziehen": {
@@ -2664,6 +2950,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "lagederwuerfel": {
@@ -2691,6 +2980,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "lagevonzweigeraden": {
@@ -2711,6 +3003,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "leistungdesmotors": {
@@ -2731,6 +3026,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "liebstesschulfach": {
@@ -2765,6 +3063,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "lohnerhoehung": {
@@ -2792,6 +3093,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "luftballons": {
@@ -2819,6 +3123,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "maedchenanteil": {
@@ -2846,6 +3153,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "massstabsleiste": {
@@ -2866,6 +3176,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "mauerauszahlen": {
@@ -2907,6 +3220,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "maus": {
@@ -2934,6 +3250,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "menschaergeredichnicht": {
@@ -2968,6 +3287,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "messzylinder": {
@@ -2988,6 +3310,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "muckibude": {
@@ -3022,6 +3347,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "muelltonne": {
@@ -3042,6 +3370,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "nachfolgerzahl": {
@@ -3076,6 +3407,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "nagelbrett": {
@@ -3138,6 +3472,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image9.jpeg"
   ]
  },
  "naschkatze": {
@@ -3165,6 +3502,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "nashorn": {
@@ -3192,6 +3532,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "nebenjob": {
@@ -3226,6 +3569,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "niederschlag": {
@@ -3274,6 +3620,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image7.jpeg"
   ]
  },
  "niederschlaege": {
@@ -3315,6 +3664,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "nullkommaacht": {
@@ -3342,6 +3694,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "ohrhaenger": {
@@ -3376,6 +3731,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "osterhase": {
@@ -3410,6 +3768,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "papier": {
@@ -3430,6 +3791,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "pappschachtel": {
@@ -3471,6 +3835,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "parfum": {
@@ -3505,6 +3872,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "parkhaus": {
@@ -3532,6 +3902,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "parlamentswahl": {
@@ -3566,6 +3939,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "passendeschuhe": {
@@ -3600,6 +3976,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "pflaumen": {
@@ -3627,6 +4006,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "pinsel": {
@@ -3661,6 +4043,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "plaettchenziehen": {
@@ -3688,6 +4073,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "prozentanteilschaetzen": {
@@ -3708,6 +4096,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "punkteaufgeraden": {
@@ -3742,6 +4133,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "punktgenau": {
@@ -3776,6 +4170,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "pyramidenbau": {
@@ -3817,6 +4214,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "quadernetz": {
@@ -3837,6 +4237,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "quadernetz2": {
@@ -3857,6 +4260,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "quadernetzvervollstaendigen": {
@@ -3877,6 +4283,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "quadrate": {
@@ -3897,6 +4306,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "quadratimgitter": {
@@ -3917,6 +4329,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "koordinatensystem": {
@@ -3937,6 +4352,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "quadratundraute": {
@@ -3964,6 +4382,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "quadratzeichnen": {
@@ -3984,6 +4405,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "ratenbeimtest": {
@@ -4018,6 +4442,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "rathausuhr": {
@@ -4052,6 +4479,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "rauminhaltvonprismen": {
@@ -4072,6 +4502,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "raeumungsverkauf": {
@@ -4106,6 +4539,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "rauten": {
@@ -4154,6 +4590,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image7.jpeg"
   ]
  },
  "rechteck": {
@@ -4174,6 +4613,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "rechtskurve": {
@@ -4187,6 +4629,9 @@
     "bytes": 385732,
     "sha256": "fe430d9925db55e88a2e6caeb7feaa4cbf0443e5a14bb31b96b3963407e35252"
    }
+  ],
+  "nicht_referenziert": [
+   "image2.jpeg"
   ]
  },
  "reiseverlauf": {
@@ -4214,6 +4659,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "richtigumgeformt": {
@@ -4241,6 +4689,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "rotgelbgruen": {
@@ -4275,6 +4726,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "rubbellose": {
@@ -4309,6 +4763,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "rundfunkgebuehren": {
@@ -4350,6 +4807,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "sauerkraut": {
@@ -4384,6 +4844,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "saeulenhoehe": {
@@ -4418,6 +4881,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "schachtelnpacken": {
@@ -4459,6 +4925,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "schluessel": {
@@ -4479,6 +4948,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "schneekristalle": {
@@ -4499,6 +4971,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "schokoladenbonbons": {
@@ -4533,6 +5008,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "schokoladenpreis": {
@@ -4567,6 +5045,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "schokolinsen": {
@@ -4587,6 +5068,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "schrankbreiten": {
@@ -4614,6 +5098,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "schulkleidung": {
@@ -4648,6 +5135,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "schwarzweisswuerfel": {
@@ -4682,6 +5172,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "skalaundzahlen": {
@@ -4702,6 +5195,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "spielwuerfel": {
@@ -4736,6 +5232,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "sprechstunde": {
@@ -4770,6 +5269,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "stammbruecheuntersuchen": {
@@ -4804,6 +5306,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "steilestrasse": {
@@ -4845,6 +5350,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "sterneundsandkoerner": {
@@ -4872,6 +5380,9 @@
     "bytes": 35856,
     "sha256": "6ff5e1a1c4683275137b72847cf3b46c7f1989f545cfa872776b7c8ce60d5108"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "streckeimkoordinatenkreuz": {
@@ -4906,6 +5417,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "streichholzziehen": {
@@ -4926,6 +5440,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "suchediezahl": {
@@ -4946,6 +5463,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "tabelleausfuellen": {
@@ -4966,6 +5486,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "tankinhalt": {
@@ -4986,6 +5509,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "temperatur": {
@@ -5020,6 +5546,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "temperaturdifferenz": {
@@ -5040,6 +5569,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "thermometer": {
@@ -5067,6 +5599,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "tombolazumschulfest": {
@@ -5101,6 +5636,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "traktor": {
@@ -5128,6 +5666,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "trapezohnesymmetrie": {
@@ -5155,6 +5696,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "trapezvariation": {
@@ -5189,6 +5733,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "treppenmasse": {
@@ -5237,6 +5784,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image7.jpeg"
   ]
  },
  "tropfenderwasserhahn": {
@@ -5271,6 +5821,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "ueberschlagdochmal": {
@@ -5291,6 +5844,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "ueberschlagsrechnung": {
@@ -5311,6 +5867,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "umfangundflaeche": {
@@ -5345,6 +5904,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "unfertigerwuerfel": {
@@ -5379,6 +5941,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "ungewoehnlicherspielwuerfel": {
@@ -5413,6 +5978,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "verbindungsstrecken": {
@@ -5447,6 +6015,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "verlaufdesgraphen": {
@@ -5474,6 +6045,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "verschiedenerechtecke": {
@@ -5515,6 +6089,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "vielebroetchen": {
@@ -5542,6 +6119,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "vonlinkswievonrechts": {
@@ -5576,6 +6156,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "waage": {
@@ -5610,6 +6193,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "wahl": {
@@ -5644,6 +6230,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "wahrscheinlicher": {
@@ -5664,6 +6253,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "werbelotterie": {
@@ -5698,6 +6290,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "werbemarkt": {
@@ -5725,6 +6320,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "wettkampfwaehlen": {
@@ -5752,6 +6350,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "winkelgamma": {
@@ -5772,6 +6373,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "winkelimdreieck": {
@@ -5792,6 +6396,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "winkelmessen": {
@@ -5812,6 +6419,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "winkelwuerfel": {
@@ -5846,6 +6456,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "woliegtc": {
@@ -5873,6 +6486,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "wosinddiepunkte": {
@@ -5907,6 +6523,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "wuerfelnetze": {
@@ -5927,6 +6546,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "wuerfelnmitquader": {
@@ -5961,6 +6583,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "wuerfeloberflaeche": {
@@ -5981,6 +6606,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "wuerfelturm": {
@@ -6022,6 +6650,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "wuerfelturm2": {
@@ -6063,6 +6694,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "zahlenaddieren": {
@@ -6090,6 +6724,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "zahlenstrahl": {
@@ -6117,6 +6754,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "zahlensuche": {
@@ -6137,6 +6777,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "zahlenwuerfel": {
@@ -6178,6 +6821,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "zahlgesucht2": {
@@ -6198,6 +6844,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "zeitangabe": {
@@ -6218,6 +6867,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "zeitumrechnung": {
@@ -6259,6 +6911,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image6.jpeg"
   ]
  },
  "zoobesuch": {
@@ -6286,6 +6941,9 @@
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "zuschauerzahlen": {
@@ -6313,6 +6971,9 @@
     "bytes": 12852,
     "sha256": "bf98a61ab8b72d23af3b31becd1239863f18d707ad8b1810ca7852b3311c5c52"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  },
  "zwanzigprozent": {
@@ -6333,6 +6994,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "zweikreise": {
@@ -6367,6 +7031,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image5.jpeg"
   ]
  },
  "zweitaschenrechner": {
@@ -6381,26 +7048,29 @@
     "sha256": "9ccd459131c4d0afe1f19155003ad4bafec05555b75850dccf61167e0bea53d7"
    },
    {
-    "pfad": "vera8_assets/zweitaschenrechner/aufgabe_03.png",
+    "pfad": "vera8_assets/zweitaschenrechner/aufgabe_02.png",
     "quelle": "word/media/image3.png",
     "typ": "raster",
     "bytes": 64625,
     "sha256": "55c590cc6d55f9ad228069a1bc8aa53ceeeceb25a2014ee4e3f4fac7e373f347"
    },
    {
-    "pfad": "vera8_assets/zweitaschenrechner/aufgabe_04.png",
+    "pfad": "vera8_assets/zweitaschenrechner/aufgabe_03.png",
     "quelle": "word/media/image4.png",
     "typ": "raster",
     "bytes": 54286,
     "sha256": "c1742e70e0618ee84e2b416a0859d17a55a81890ad9189d5d07c3ae9eac5e465"
    },
    {
-    "pfad": "vera8_assets/zweitaschenrechner/aufgabe_05.emf",
+    "pfad": "vera8_assets/zweitaschenrechner/aufgabe_04.emf",
     "quelle": "word/media/image5.emf",
     "typ": "license",
     "bytes": 13516,
     "sha256": "372227d008cc1810a11dec6103d680c108b279f6dac5d2176ab56ccd509cd9ca"
    }
+  ],
+  "nicht_referenziert": [
+   "image2.jpeg"
   ]
  },
  "zweitegerade": {
@@ -6421,6 +7091,9 @@
     "bytes": 13516,
     "sha256": "5c231316c0ba91f42947f41235b850a747e68a95886790495f3f027e45157e0c"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "thermometeranzeigen": {
@@ -6441,6 +7114,9 @@
     "bytes": 13988,
     "sha256": "a0be83520bc889e76284863fdcba5532b32e778166a3291f221b665d82ab21dd"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "zwischenzweizahlen": {
@@ -6461,6 +7137,9 @@
     "bytes": 12380,
     "sha256": "26b847a93e28af7b31acb7c903f2e8b1d082003ed763011c8dd5bcfc6007428a"
    }
+  ],
+  "nicht_referenziert": [
+   "image3.jpeg"
   ]
  },
  "zwischenzweizahlen2": {
@@ -6488,6 +7167,9 @@
     "bytes": 12380,
     "sha256": "14aeb8cf63a7e2cf0d4a89072f47aa99cab7f0b84f92564a75f8aafa2a875e2c"
    }
+  ],
+  "nicht_referenziert": [
+   "image4.jpeg"
   ]
  }
 }

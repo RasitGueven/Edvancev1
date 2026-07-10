@@ -1,0 +1,19 @@
+{
+ "slug": "bahncard",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Wenn man öfter längere Strecken mit dem Zug fährt, lohnt es sich, eine Bahncard zu kaufen. Mit einer Bahncard erhält man ein Jahr lang bei jedem Kauf einer Fahrkarte eine Ermäßigung auf den Normalpreis.\n\nDer Normalpreis für eine Hin- und Rückfahrt auf der Strecke Hamburg-Berlin beträgt insgesamt 140,00 €.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Herr Krause besitzt eine Bahncard 25. Damit erhält er eine Ermäßigung von 25 % auf den Normalpreis.\n\nWie viel muss er für die Hin- und Rückfahrt auf der Strecke Hamburg-Berlin insgesamt bezahlen?\n\nKreuze an.\n\n☐ 25,00 €   ☐ 35,00 €   ☐ 70,00 €   ☐ 105,00 €   ☐ 175,00 €",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Frau Schnell kauft sich eine Bahncard 50. Damit erhält sie eine Ermäßigung von 50 % auf den Normalpreis. Für die Bahncard 50 bezahlt Frau Schnell 230,00 €.\n\nWie oft muss Frau Schnell die Strecke Hamburg-Berlin (Hin- und Rückfahrt) fahren, damit sich der Kauf der Bahncard 50 im Vergleich zum Normalpreis lohnt?\n\nGib das Ergebnis an.\n\nSie muss die Strecke Hamburg-Berlin mindestens __________ -mal hin und zurück fahren.",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

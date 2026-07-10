@@ -1,0 +1,19 @@
+{
+ "slug": "wahl",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Bei einer Wahl erreichten die Parteien A, B, C und D folgende Ergebnisse:\n\n[Säulendiagramm „Wahlergebnisse“: A 33,4 %; B 36,8 %; C 19,8 %; D 6,4 %]",
+    "benoetigt_bild": true,
+    "hinweis": "Säulendiagramm mit Titel „Wahlergebnisse“ und vier Säulen A, B, C, D mit beschrifteten Prozentwerten"},
+   {"bild": "aufgabe_02.png",
+    "text": "Zur Wahl traten auch noch weitere Parteien an, die wegen ihrer geringen Stimmenzahl nicht im Diagramm auftauchen.\n\nWie viel Prozent der Stimmen entfielen insgesamt auf diese weiteren Parteien?\n\nStimmenanteil der weiteren Parteien: __________ %",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "24 Millionen Menschen gingen zur Wahl.\n\nWie viele Menschen haben demnach die Partei A gewählt?\n\nUngefähre Anzahl der Wählerinnen und Wähler der Partei A: __________",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

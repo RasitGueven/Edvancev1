@@ -1,11 +1,16 @@
 """Befund fuer RETRO-C02: Stammen die K-Tags/AFB der Items aus den Dokumenten?
 
 Vergleicht das gespeicherte `teilaufgaben`-Feld (afb, kompetenzstufe) mit den
-Merkmale-Tabellen der Didaktischen Kommentierung. Die K-Tags selbst wurden im
-Item bereits auf NRW-Prozesskompetenzen abgebildet, deshalb wird die
-*Anzahl* der Teilaufgaben, `afb` und `kompetenzstufe` verglichen - Felder, die
-unveraendert aus der Quelle stammen muessten.
+Merkmale-Tabellen der Didaktischen Kommentierung.
+
+WICHTIG: Gegen den *aktuellen* Pool ist der Test tautologisch - Phase 2
+schreibt afb und kompetenzstufe direkt aus der Kommentierung. Aussagekraeftig
+ist nur der Vergleich mit dem Stand VOR dem Rebuild:
+
+    git show e3f3304:data/vera8_komplett_enriched.json > /tmp/vorher.json
+    python3 scripts/content/c02_verify_ktags.py /tmp/vorher.json
 """
+import json
 import os
 import re
 import sys
@@ -29,7 +34,11 @@ def norm_stufe(value):
 stats = Counter()
 beispiele = {"afb_mismatch": [], "stufe_mismatch": [], "anzahl_mismatch": []}
 
-for item in load_items():
+quelle = sys.argv[1] if len(sys.argv) > 1 else None
+items = json.load(open(quelle)) if quelle else load_items()
+print("Vergleich gegen: %s\n" % (quelle or "aktueller Pool (tautologisch!)"))
+
+for item in items:
     path = files_of(item)["kommentierung"]
     quelle = c02_kommentierung.parse(path)["teilaufgaben"]
     eigen = item.get("teilaufgaben") or []

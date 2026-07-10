@@ -23,6 +23,12 @@ AUCH = re.compile(
 ZB = re.compile(r"z\.\s?B\.\s*:?\s*([^\[\]]+?)(?:\)|\]|$)", re.I)
 ZB_SPLIT = re.compile(r",\s+|\s+oder\s+", re.I)
 ODER = re.compile(r"\bODER\b")
+# 'ODER' auf eigener Zeile trennt gleichwertige Musterloesungen.
+ODER_ZEILE = re.compile(r"(?mi)^[\s•]*ODER[\s.]*$")
+# 'UND' auf eigener Zeile bzw. eine geforderte Begruendung: die Antwort besteht
+# aus Wahl + Freitext und ist nicht automatisch korrigierbar.
+UND_ZEILE = re.compile(r"(?mi)^[\s•]*UND[\s.]*$")
+BEGRUENDUNG = re.compile(r"Begründung|nachvollziehbarer Rechenweg|begründe", re.I)
 INTERVALL = re.compile(r"Intervall\s*\[[^\]]+\]")
 
 # Freitext-Loesung: lange, satzartige Antworten sind nicht auto-korrigierbar.
@@ -54,10 +60,11 @@ def _variants(cell, primary):
         return []
     out = []
     for match in AUCH.finditer(cell):
-        out.append(match.group(1).strip())
+        # 'Auch "1 Million" oder "1 Mio." wird akzeptiert' nennt zwei Varianten.
+        out += [t.strip() for t in ZB_SPLIT.split(match.group(1))]
     for match in ZB.finditer(cell):
-        for part in ZB_SPLIT.split(match.group(1)):
-            out.append(part.strip(" .;"))
+        out += [t.strip() for t in ZB_SPLIT.split(match.group(1))]
+    out = [v.strip(" .;\"„“") for v in out]
     return [v for v in out
             if v and len(v) <= MAX_VARIANTE_LEN and re.search(r"\d", v)]
 
@@ -94,20 +101,25 @@ def _teilaufgabe(rows, quelle):
         "_grounding": {"quelle": quelle, "zitat": cell[:400]},
     }
 
-    if not primary:
-        # Zelle ohne Absatztext: der Wert steckt als Formelgrafik darin (Phase 2
-        # praezisiert das, sobald die EMF-Formeln gelesen sind).
+    # 'ODER' auf eigener Zeile trennt gleichwertige Loesungen; bleibt danach
+    # nichts uebrig, stand die Loesung nur als Grafik in der Zelle.
+    segmente = [_primary(seg) for seg in ODER_ZEILE.split(cell)]
+    segmente = [s for s in segmente if s]
+    if not segmente:
         result["_problems"].append("auswertung_zelle_leer")
+        return result
+
+    if UND_ZEILE.search(cell) or BEGRUENDUNG.search(cell):
+        result["_problems"].append("antwort_erfordert_begruendung")
         return result
     if _is_freitext(primary):
         result["_problems"].append("loesung_ist_freitext")
         return result
 
-    kandidaten = [_clean(primary)]
+    kandidaten = [_clean(s) for s in segmente if not _is_freitext(s)]
     kandidaten += [_clean(v) for v in _variants(cell, primary)]
-    for weitere in richtig[1:]:  # 'ODER'-Zeilen: gleichwertige Loesungen
-        alt = _primary(norm_ws(weitere))
-        alt = ODER.sub("", alt).strip()
+    for weitere in richtig[1:]:  # eigene RICHTIG-Zeile: gleichwertige Loesung
+        alt = ODER.sub("", _primary(norm_ws(weitere))).strip()
         if alt and not _is_freitext(alt):
             kandidaten.append(_clean(alt))
 
@@ -116,6 +128,8 @@ def _teilaufgabe(rows, quelle):
     for kandidat in kandidaten:
         if not kandidat or kandidat.lower() in seen:
             continue
+        if kandidat.endswith(":"):
+            continue  # Ueberschrift eines Loesungswegs ('Iterativ:'), keine Antwort
         if not _verbatim(kandidat, quelle_gesamt):
             result["_problems"].append("verworfen_nicht_woertlich:%s" % kandidat[:30])
             continue
@@ -161,4 +175,10 @@ def parse(path):
                 a for a in ta["akzeptierte_antworten"]
                 if a not in vorhanden["akzeptierte_antworten"]]
             vorhanden["_problems"] += ta["_problems"]
+
+    # Eine Verweigerung setzt sich durch: Zusatztabellen ('zu Teilaufgabe 2')
+    # beschreiben Loesungswege und duerfen die Ablehnung nicht ueberstimmen.
+    for ta in tas:
+        if {"antwort_erfordert_begruendung", "loesung_ist_freitext"} & set(ta["_problems"]):
+            ta["akzeptierte_antworten"] = []
     return sorted(tas, key=lambda t: t["nr"])

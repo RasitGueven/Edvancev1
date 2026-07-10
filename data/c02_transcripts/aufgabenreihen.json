@@ -1,0 +1,19 @@
+{
+ "slug": "aufgabenreihen",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Sandra schreibt aufeinanderfolgende ungerade Zahlen auf, beginnend bei 1, und macht diese Aufgabenreihe daraus.\n\n1           = 1\n1 + 3       = 4\n1 + 3 + 5   = 9",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Setze diese Aufgabenreihe passend fort.\n\nSchreibe hierzu die nächsten zwei Rechnungen auf.\n\n__________\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Sebastian setzt die Aufgabenreihe noch weiter fort. Er erhält 61 als Ergebnis.\n\nKann das sein?\n\nKreuze an.\n\n☐ Ja   ☐ Nein\n\nNotiere deinen Lösungsweg.",
+    "benoetigt_bild": false,
+    "hinweis": "Darunter ein leeres kariertes Feld zum Notieren des Lösungswegs."}
+ ],
+ "_problems": []
+}

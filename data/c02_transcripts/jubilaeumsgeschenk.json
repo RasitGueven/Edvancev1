@@ -1,0 +1,19 @@
+{
+ "slug": "jubilaeumsgeschenk",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Frau Lehmann will ihrem Nachbarn zum Jubiläum einen Rosenstrauß schenken. Jede Rose kostet 3 €. Im Blumenladen will sie zusammen mit dem Strauß eine Glückwunschkarte für 2 € kaufen.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "x bezeichnet die Anzahl der Rosen, y bezeichnet den Gesamtpreis in € (Preis der Rosen plus Karte).\n\nGib eine Gleichung an, wie sich y aus x berechnen lässt.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Herr Meier will sich an dem Geschenk zum Jubiläum beteiligen. Er schlägt vor, einen Strauß mit der doppelten Anzahl an Rosen und dazu eine gemeinsame Glückwunschkarte zu kaufen.\n\nVerdoppelt sich dann der Gesamtpreis?\n\nKreuze an.\n\n☐ Ja   ☐ Nein\n\nBegründe deine Entscheidung.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": "Darunter ein leeres kariertes Antwortfeld."}
+ ],
+ "_problems": []
+}

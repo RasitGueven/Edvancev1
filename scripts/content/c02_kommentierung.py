@@ -26,6 +26,8 @@ FEHLER_START = re.compile(
     r"|^Mögliche\s+Schwierigkeiten\s*$", re.I)
 FEHLER_ENDE = re.compile(
     r"^(Anregungen|Literatur|Quellen|Mögliche\s+Weiterführung|Hinweise\s+zur)", re.I)
+# Zwischenueberschrift innerhalb des Fehlerblocks - kein Fehler, nur Gliederung.
+FEHLER_UEBERSCHRIFT = re.compile(r"^(Zu\s+)?Teilaufgabe\s*\d+\s*:?$", re.I)
 
 
 def _row_label(row):
@@ -63,6 +65,8 @@ def _fehler(paras):
             continue
         if aktiv and FEHLER_ENDE.match(text):
             break
+        if aktiv and FEHLER_UEBERSCHRIFT.match(text.strip()):
+            continue
         if aktiv and len(text) > 15:
             out.append(norm_ws(text))
     return out

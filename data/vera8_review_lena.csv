@@ -1,0 +1,300 @@
+titel,status,grounding_quote,task_type,inhaltsfelder,kompetenzen,afb_max,stamm_quelle,bild_pfad,n_antworten,probleme
+20 Prozent,ready,5/5,SHORT_INPUT,arithmetik_algebra,ope,1,emf_text_records,,4,
+700 Milliarden,doc_pending,4/5,SHORT_INPUT,arithmetik_algebra,,1,-,,1,kein_stamm_extrahierbar
+Abstand auf dem Wasser,doc_pending,4/5,SHORT_INPUT,funktionen,,2,-,,1,kein_stamm_extrahierbar
+Adventskalender,quarantined,1/5,MULTI_PART,stochastik,kom|mod,2,vision_transkription,vera8_assets/adventskalender/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; fremdes_medium_in_quelle:aufgabe_02.png_zeigt_die_Freibad-Aufgabe; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_auswertung_zelle_leer; ta3_auswertung_zelle_leer; teilaufgabe_1_prompt_fehlt_in_quelle
+Ampelkarte,ready,5/5,MULTI_PART,funktionen|stochastik,kom|ope,2,emf_text_records,,1,auswertung_loesung_nur_als_formelgrafik; ta1_antwort_ist_satz; ta2_auswertung_zelle_leer
+Andere Länder - andere Noten,ready,4/5,MULTI_PART,funktionen,kom|mod|ope|pro,2,emf_text_records,,2,keine_typischen_fehler_belegt; ta2_antwort_erfordert_begruendung; ta3_loesung_ist_freitext
+Ansichten eines Tischs,partial,2/5,FREE_TEXT,geometrie,kom|mod,1,vision_transkription,vera8_assets/ansichteneinestischs/aufgabe_01.png,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Anteile in geometrischen Objekten,quarantined,2/5,MULTI_PART,,,1,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; ta1_auswertung_zelle_leer; ta_anzahl_inkonsistent
+Anzahl von Nullen,ready,5/5,MULTI_PART,arithmetik_algebra,ope,1,emf_text_records,,4,
+Apfelsaftschorle,doc_pending,2/5,FREE_TEXT,geometrie,,1,-,,0,kein_stamm_extrahierbar; ta1_antwort_erfordert_begruendung
+Aufgabenreihen,partial,2/5,MULTI_PART,arithmetik_algebra,arg|pro,2,vision_transkription,vera8_assets/aufgabenreihen/aufgabe_01.png,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta2_antwort_erfordert_begruendung
+Aussagen zur proportionalen Zuordnung,doc_pending,4/5,SHORT_INPUT,funktionen,,1,-,,1,kein_stamm_extrahierbar
+Aussagen über Dreiecke,ready,5/5,MULTI_PART,geometrie,kom|ope|pro,2,emf_text_records,,2,
+Autokauf,partial,3/5,MULTIPLE_CHOICE,arithmetik_algebra,arg|kom|mod|ope,2,emf_text_records,,0,ta1_antwort_erfordert_begruendung
+Außenthermometer,ready,4/5,MULTI_PART,arithmetik_algebra,ope,1,emf_text_records,,2,keine_typischen_fehler_belegt
+Bahncard,ready,4/5,MULTI_PART,arithmetik_algebra,kom|mod|ope,2,vision_transkription,vera8_assets/bahncard/aufgabe_01.png,1,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Berechne x,doc_pending,4/5,SHORT_INPUT,funktionen,,1,-,,1,kein_stamm_extrahierbar
+Berechnungen am Rechteck,ready,4/5,MULTI_PART,geometrie,ope,1,emf_text_records,,2,keine_typischen_fehler_belegt
+Bernd und das Brot,partial,2/5,FREE_TEXT,geometrie,ope,1,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Besondere Vierecke,ready,4/5,SHORT_INPUT,geometrie,kom|ope,1,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz
+Bestimme x,ready,4/5,SHORT_INPUT,funktionen,ope,1,vision_transkription,vera8_assets/bestimmex/aufgabe_01.png,1,keine_typischen_fehler_belegt
+Bevölkerungsdichte,ready,5/5,MULTI_PART,stochastik,kom,1,emf_text_records,,2,
+Bewege C,doc_pending,4/5,MULTI_PART,geometrie,,2,-,,3,kein_stamm_extrahierbar; ta1_antwort_ist_satz
+Bistroumfrage,partial,2/5,MULTI_PART,stochastik,kom|mod,2,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_antwort_ist_satz; ta2_mc_optionen_nicht_zerlegbar
+Bonbons,doc_pending,4/5,SHORT_INPUT,stochastik,mod,1,-,,1,kein_stamm_extrahierbar
+Brettspiel,doc_pending,4/5,SHORT_INPUT,stochastik,,1,-,,1,kein_stamm_extrahierbar
+Briefmarkenschachteln,doc_pending,4/5,MULTI_PART,geometrie,kom,2,-,,2,kein_stamm_extrahierbar
+Bruch und Prozentsatz,partial,2/5,FREE_TEXT,arithmetik_algebra,ope,1,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Brötchen,ready,4/5,MULTI_PART,arithmetik_algebra,mod|ope|pro,2,emf_text_records,,2,keine_typischen_fehler_belegt
+Butter,ready,4/5,SHORT_INPUT,geometrie,kom|ope,1,emf_text_records,,2,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta1_loesung_ist_intervall
+Chancen,doc_pending,4/5,MULTI_PART,stochastik,,2,-,,1,kein_stamm_extrahierbar; ta1_antwort_ist_satz; ta2_antwort_erfordert_begruendung
+Colakästen,ready,5/5,MULTI_PART,arithmetik_algebra,kom|mod|ope,2,emf_text_records,,4,ta2_antwort_erfordert_begruendung
+Computerspielsucht,doc_pending,4/5,SHORT_INPUT,arithmetik_algebra,,1,-,,1,kein_stamm_extrahierbar
+Croissant,ready,5/5,SHORT_INPUT,arithmetik_algebra,mod|ope,1,emf_text_records,,1,
+Damenuhr,ready,5/5,MULTI_PART,arithmetik_algebra,kom|mod|ope|pro,2,emf_text_records,,1,ta2_loesung_ist_freitext
+Darstellung in Diagrammen,doc_pending,2/5,FREE_TEXT,stochastik,kom,1,-,,0,kein_stamm_extrahierbar; ta1_loesung_ist_freitext
+Das ist gerundet,ready,5/5,SHORT_INPUT,arithmetik_algebra,ope,1,emf_text_records,,1,
+Deckungsgleiche Parallelogramme,partial,3/5,?,geometrie,kom|pro,1,emf_text_records,,0,ta1_auswertung_ohne_konkrete_loesung
+Der Riese,partial,2/5,FREE_TEXT,geometrie,kom|mod|ope|pro,3,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Der Stern,ready,4/5,MULTIPLE_CHOICE,geometrie,kom|ope,2,emf_text_records,,1,keine_typischen_fehler_belegt
+Division von Zahlen,partial,3/5,MULTIPLE_CHOICE,arithmetik_algebra,arg|kom,3,emf_text_records,,0,ta1_antwort_ist_satz; ta1_mc_mehrfachauswahl
+Drehkörper,doc_pending,4/5,SHORT_INPUT,geometrie,,1,-,,1,kein_stamm_extrahierbar
+Dreieck im Quadrat,ready,5/5,MULTI_PART,arithmetik_algebra|funktionen|geometrie,arg|kom|pro,3,emf_text_records,,2,ta3_antwort_erfordert_begruendung
+Dreieck im Rechteck,interaktiv_extern,0/5,?,,,?,-,,0,kein_stamm_extrahierbar; keine_typischen_fehler_belegt
+Dreiecke ergänzen,ready,4/5,SHORT_INPUT,geometrie,kom|pro,1,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz
+Dreieckszahlen,ready,5/5,MULTI_PART,arithmetik_algebra,kom|ope|pro,3,emf_text_records,,5,
+Druckmaschinen,ready,4/5,MULTI_PART,funktionen,mod|ope,1,emf_text_records,,2,keine_typischen_fehler_belegt
+Durch 1001 teilbar,partial,3/5,MULTIPLE_CHOICE,arithmetik_algebra,arg|kom|ope|pro,3,emf_text_records,,0,ta1_antwort_ist_satz; ta1_mc_mehrfachauswahl
+Ecken an Pyramiden,ready,5/5,SHORT_INPUT,geometrie,kom,1,emf_text_records,,1,
+Ecken und Kanten,partial,2/5,FREE_TEXT,geometrie,kom,1,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Eindeutig,ready,4/5,MULTI_PART,funktionen,ope|pro,3,emf_text_records,,1,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_antwort_ist_satz
+Einfache Gleichung,ready,5/5,SHORT_INPUT,funktionen,ope,1,emf_text_records,,1,
+Eingefärbter Körper,ready,4/5,SHORT_INPUT,geometrie,kom|pro,2,emf_text_records,,1,keine_typischen_fehler_belegt
+Eiscafé,ready,4/5,MULTI_PART,funktionen,kom|ope,2,vision_transkription,vera8_assets/eiscafe/aufgabe_01.png,2,keine_typischen_fehler_belegt; ta2_antwort_erfordert_begruendung
+Fahrradcomputer,doc_pending,4/5,MULTI_PART,arithmetik_algebra,,2,-,,1,kein_stamm_extrahierbar; ta2_loesung_ist_freitext
+Fahrradtour,doc_pending,4/5,MULTI_PART,,,2,-,,2,kein_stamm_extrahierbar; ta1_antwort_ist_satz; ta2_loesung_ist_freitext; ta_anzahl_inkonsistent
+Fahrräder,ready,4/5,MULTI_PART,stochastik,kom|mod,3,emf_text_records,,1,keine_typischen_fehler_belegt; ta2_loesung_ist_freitext
+Fahrtrichtung geradeaus,ready,4/5,MULTI_PART,geometrie,kom,1,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Faschingsdeko,ready,4/5,SHORT_INPUT,arithmetik_algebra,pro,1,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz
+Fehlende Zahlen,ready,5/5,MULTI_PART,arithmetik_algebra,ope,1,emf_text_records,,1,ta2_auswertung_ohne_konkrete_loesung
+Fieberthermometer,doc_pending,4/5,MULTI_PART,arithmetik_algebra,kom,1,-,,2,kein_stamm_extrahierbar
+Figur aus zwei Dreiecken,partial,3/5,MULTIPLE_CHOICE,geometrie,arg|kom,3,emf_text_records,,0,ta1_antwort_ist_satz; ta1_mc_mehrfachauswahl
+Fische zählen,doc_pending,4/5,SHORT_INPUT,stochastik,,2,-,,1,kein_stamm_extrahierbar
+Fliesen,doc_pending,4/5,SHORT_INPUT,funktionen,,2,-,,1,kein_stamm_extrahierbar
+Fliesen für den Fußboden,partial,2/5,MULTI_PART,funktionen|geometrie,kom|ope|pro,2,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta2_antwort_ist_satz; ta2_mc_optionen_nicht_zerlegbar
+Flächengleich oder nicht,ready,4/5,MULTI_PART,geometrie,arg|kom|ope,3,emf_text_records,,1,keine_typischen_fehler_belegt; ta2_antwort_erfordert_begruendung
+Flächeninhalt,ready,5/5,SHORT_INPUT,geometrie,kom|ope,1,emf_text_records,,1,
+Freibad,ready,4/5,MULTI_PART,stochastik,kom|ope,3,vision_transkription,vera8_assets/freibad/aufgabe_01.png,1,keine_typischen_fehler_belegt; medium_auch_in_anderer_aufgabe:adventskalender; ta2_antwort_erfordert_begruendung
+Freizeitbeschäftigungen,quarantined,5/5,MULTI_PART,,,1,emf_text_records,,1,ta2_antwort_erfordert_begruendung; ta3_antwort_erfordert_begruendung; ta_anzahl_inkonsistent
+Freizeitkosten,partial,2/5,MULTIPLE_CHOICE,stochastik,arg|kom|pro,2,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Freunde,partial,3/5,MULTI_PART,funktionen,kom,2,emf_text_records,,0,ta1_antwort_ist_satz; ta1_mc_mehrfachauswahl; ta2_antwort_ist_satz; ta2_mc_mehrfachauswahl; ta3_loesung_ist_freitext
+Frühstücksbrötchen,doc_pending,4/5,MULTI_PART,arithmetik_algebra,,1,-,,5,kein_stamm_extrahierbar; ta1_antwort_ist_satz; ta2_antwort_ist_satz; ta3_antwort_erfordert_begruendung
+Fußballtabelle,ready,4/5,MULTI_PART,arithmetik_algebra,arg|kom|mod|pro,2,emf_text_records,,2,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta2_antwort_erfordert_begruendung; ta3_antwort_ist_satz
+Fußleisten,doc_pending,4/5,MULTI_PART,arithmetik_algebra|geometrie,,1,-,,2,kein_stamm_extrahierbar
+Füllverhalten,partial,2/5,MULTI_PART,funktionen,kom|mod,3,vision_transkription,vera8_assets/fuellverhalten/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_loesung_ist_freitext; ta2_auswertung_zelle_leer
+Fünfundvierzig,doc_pending,4/5,SHORT_INPUT,funktionen,,1,-,,1,kein_stamm_extrahierbar
+Geld anlegen,partial,2/5,MULTI_PART,funktionen,arg|kom|mod|ope,3,vision_transkription,vera8_assets/geldanlegen/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_antwort_erfordert_begruendung
+Geometrische Körper erkennen,doc_pending,3/5,SHORT_INPUT,geometrie,kom,1,-,,1,kein_stamm_extrahierbar; keine_typischen_fehler_belegt
+Geraden im Koordinatensystem,ready,4/5,MULTIPLE_CHOICE,funktionen,kom,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Gesamtkantenlänge,partial,1/5,MULTIPLE_CHOICE,geometrie,kom|ope,1,vision_transkription,vera8_assets/gesamtkantenlaenge/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Geschichte zur Graphik,doc_pending,4/5,SHORT_INPUT,funktionen,,2,-,,1,kein_stamm_extrahierbar
+Geschwindigkeitsüberschreitung,ready,5/5,MULTIPLE_CHOICE,funktionen,kom,1,emf_text_records,,1,
+Gewerbezone,ready,5/5,SHORT_INPUT,geometrie,kom|ope,2,emf_text_records,,1,
+Gewitter,ready,5/5,MULTI_PART,funktionen,kom|mod|ope,1,emf_text_records,,2,
+Gleichung finden,ready,5/5,MULTI_PART,funktionen,kom|ope,1,emf_text_records,,1,ta1_antwort_ist_satz; ta1_mc_optionen_nicht_zerlegbar
+Gleichung lösen 1,ready,5/5,SHORT_INPUT,funktionen,ope,1,emf_text_records,,1,
+Gleichung lösen 2,ready,5/5,MULTIPLE_CHOICE,funktionen,ope,1,emf_text_records,,1,
+Gleichung lösen 3,ready,4/5,MULTIPLE_CHOICE,funktionen,ope,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Gleichung verändern,ready,4/5,MULTI_PART,funktionen,ope|pro,2,emf_text_records,,1,keine_typischen_fehler_belegt; ta2_auswertung_zelle_leer
+Gleichungen lösen ist nicht schwierig,doc_pending,4/5,MULTI_PART,funktionen,,3,-,,3,kein_stamm_extrahierbar; ta2_antwort_ist_satz; ta3_antwort_erfordert_begruendung
+Glücksrad,doc_pending,4/5,MULTI_PART,stochastik,,1,-,,1,kein_stamm_extrahierbar; ta2_loesung_ist_freitext
+Glücksrad drehen,doc_pending,4/5,MULTI_PART,stochastik,,2,-,,1,kein_stamm_extrahierbar; ta1_loesung_ist_freitext; ta2_antwort_ist_satz
+Glückssäckchen,ready,4/5,MULTI_PART,stochastik,arg|kom|mod|ope|pro,3,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta2_auswertung_zelle_leer
+Großer Wagen,partial,2/5,MULTI_PART,geometrie,kom,2,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta2_loesung_ist_freitext; ta3_auswertung_ohne_konkrete_loesung
+Gummibären,ready,4/5,MULTI_PART,stochastik,kom|mod|ope,2,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Güterverkehr,ready,5/5,MULTI_PART,funktionen,kom,1,emf_text_records,,2,
+Handygebühr,ready,4/5,MULTI_PART,arithmetik_algebra|funktionen,mod|ope,1,emf_text_records,,1,keine_typischen_fehler_belegt; ta2_antwort_ist_satz; ta2_mc_optionen_nicht_zerlegbar
+Harzwanderung,doc_pending,4/5,MULTI_PART,arithmetik_algebra,kom,2,-,,7,kein_stamm_extrahierbar; ta1_antwort_ist_satz
+Hauptstädte,ready,5/5,MULTI_PART,geometrie,kom|mod|ope|pro,2,emf_text_records,,2,ta1_antwort_ist_satz; ta1_loesung_ist_intervall
+Hausaufgaben,partial,1/5,MULTI_PART,stochastik,kom,2,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_auswertung_zelle_leer
+Haushaltsabfälle,ready,5/5,MULTI_PART,stochastik,kom,1,emf_text_records,,1,ta2_loesung_ist_freitext
+Heizkosten,partial,1/5,MULTIPLE_CHOICE,arithmetik_algebra,mod|ope,2,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Hochrad,doc_pending,4/5,MULTI_PART,funktionen,,2,-,,2,kein_stamm_extrahierbar; ta1_loesung_ist_freitext
+Holzstab,doc_pending,4/5,MULTI_PART,geometrie,,1,-,,6,kein_stamm_extrahierbar
+Holzwürfel,ready,5/5,SHORT_INPUT,arithmetik_algebra,pro,1,emf_text_records,,1,
+Honigbiene,ready,4/5,MULTIPLE_CHOICE,geometrie,mod,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Hälfte,ready,5/5,SHORT_INPUT,arithmetik_algebra,ope,1,emf_text_records,,1,
+Im Kreis laufen,partial,3/5,MULTIPLE_CHOICE,funktionen,kom|mod,2,emf_text_records,,0,ta1_antwort_ist_satz; ta1_mc_position_uneindeutig
+Inliner,partial,3/5,MULTI_PART,funktionen,arg|kom|mod|ope|pro,2,emf_text_records,,0,ta1_loesung_ist_freitext; ta2_antwort_erfordert_begruendung; ta2_mc_mehrfachauswahl
+Innenwinkel,interaktiv_extern,0/5,?,,,?,-,,0,kein_stamm_extrahierbar; keine_typischen_fehler_belegt
+Innenwinkel 2,ready,4/5,MULTI_PART,geometrie,arg|ope,3,vision_transkription,vera8_assets/innenwinkel2/aufgabe_01.png,1,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_antwort_ist_satz; ta3_antwort_erfordert_begruendung
+Internetauktion,ready,4/5,MULTI_PART,stochastik,kom|mod|ope,2,emf_text_records,,2,keine_typischen_fehler_belegt
+Jeans mit Ermäßigung,ready,4/5,MULTIPLE_CHOICE,arithmetik_algebra,mod|ope,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Joggen,doc_pending,4/5,MULTI_PART,funktionen,,2,-,,1,kein_stamm_extrahierbar; ta1_antwort_ist_satz; ta2_loesung_ist_freitext
+Jubiläumsgeschenk,partial,2/5,MULTI_PART,funktionen,arg|mod|ope|pro,2,vision_transkription,vera8_assets/jubilaeumsgeschenk/aufgabe_01.png,0,keine_typischen_fehler_belegt; ta1_loesung_ist_freitext; ta2_antwort_erfordert_begruendung
+Judomatte,doc_pending,4/5,SHORT_INPUT,geometrie,,1,-,,1,kein_stamm_extrahierbar
+Kauf eines DVD-Players,ready,5/5,MULTI_PART,arithmetik_algebra,arg|kom|mod|ope,2,emf_text_records,,1,ta2_antwort_erfordert_begruendung
+Kaum eine Chance,ready,5/5,MULTI_PART,stochastik,arg|kom|mod|ope,2,emf_text_records,,1,ta1_loesung_ist_freitext
+Kopf und Körper,ready,4/5,MULTI_PART,geometrie,kom|ope,1,emf_text_records,,2,keine_typischen_fehler_belegt
+Kraftfutter,doc_pending,4/5,SHORT_INPUT,funktionen,,1,-,,2,kein_stamm_extrahierbar; ta1_antwort_ist_satz
+Kreise färben,doc_pending,4/5,SHORT_INPUT,arithmetik_algebra,,1,-,,1,kein_stamm_extrahierbar; ta1_antwort_ist_satz
+Kreise und Vierecke,doc_pending,4/5,MULTI_PART,geometrie,,3,-,,1,kein_stamm_extrahierbar; ta2_antwort_erfordert_begruendung
+Kreisfiguren,ready,4/5,SHORT_INPUT,geometrie,pro,2,vision_transkription,vera8_assets/kreisfiguren/aufgabe_01.png,2,keine_typischen_fehler_belegt
+Kugeln ziehen,ready,4/5,SHORT_INPUT,stochastik,pro,3,vision_transkription,vera8_assets/kugelnziehen/aufgabe_01.png,1,keine_typischen_fehler_belegt
+Körper füllen,ready,5/5,MULTIPLE_CHOICE,geometrie,kom|ope,1,emf_text_records,,1,
+Körper mit Seitenflächen,ready,5/5,MULTI_PART,geometrie,ope|pro,1,emf_text_records,,2,ta2_loesung_ist_freitext
+Lage der Würfel,partial,3/5,FREE_TEXT,geometrie,kom|pro,3,emf_text_records,,0,ta1_antwort_erfordert_begruendung
+Lage von zwei Geraden,partial,3/5,MULTIPLE_CHOICE,funktionen,arg|kom,2,emf_text_records,,0,ta1_antwort_erfordert_begruendung
+Leistung des Motors,partial,3/5,MULTIPLE_CHOICE,geometrie,kom|ope,1,emf_text_records,,0,ta1_antwort_ist_satz; ta1_mc_optionen_nicht_zerlegbar
+Liebstes Schulfach,partial,2/5,MULTI_PART,stochastik,arg|kom|ope|pro,2,vision_transkription,vera8_assets/liebstesschulfach/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_antwort_erfordert_begruendung
+Linear und proportional,doc_pending,4/5,MULTI_PART,funktionen,,3,-,,1,kein_stamm_extrahierbar; ta2_loesung_ist_freitext
+Lineare Funktionen anwenden,doc_pending,4/5,SHORT_INPUT,funktionen,,2,-,,1,kein_stamm_extrahierbar
+Literberechnungen,doc_pending,4/5,MULTI_PART,arithmetik_algebra,,1,-,,5,kein_stamm_extrahierbar
+Lohnerhöhung,ready,4/5,SHORT_INPUT,arithmetik_algebra,ope,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Luftballons,ready,4/5,MULTIPLE_CHOICE,stochastik,kom|mod,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Mathematikarbeit,doc_pending,4/5,SHORT_INPUT,arithmetik_algebra,,1,-,,1,kein_stamm_extrahierbar
+Mauer aus Zahlen,ready,4/5,MULTI_PART,arithmetik_algebra,ope|pro,2,emf_text_records,,2,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Maus,ready,4/5,MULTIPLE_CHOICE,geometrie,ope,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Maßstabsleiste,ready,4/5,MULTIPLE_CHOICE,funktionen,kom|ope,2,emf_text_records,,1,keine_typischen_fehler_belegt
+Maßstabsrechner,doc_pending,4/5,SHORT_INPUT,funktionen,,1,-,,1,kein_stamm_extrahierbar
+Mensch ärgere dich nicht,partial,2/5,MULTI_PART,stochastik,arg|kom|mod,2,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_antwort_erfordert_begruendung
+Messzylinder,ready,5/5,SHORT_INPUT,geometrie,kom,1,emf_text_records,,1,
+Mitte zwischen Zahlen,doc_pending,4/5,SHORT_INPUT,arithmetik_algebra,,1,-,,1,kein_stamm_extrahierbar
+Muckibude,ready,4/5,MULTI_PART,stochastik,kom,1,vision_transkription,vera8_assets/muckibude/aufgabe_01.png,2,keine_typischen_fehler_belegt
+Mädchenanteil,ready,4/5,MULTIPLE_CHOICE,arithmetik_algebra,ope,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Mülltonne,partial,2/5,FREE_TEXT,geometrie,kom|mod|ope,3,vision_transkription,vera8_assets/muelltonne/aufgabe_01.png,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Nachfolgerzahl,partial,3/5,MULTI_PART,arithmetik_algebra,arg|kom|ope,3,emf_text_records,,0,ta1_loesung_ist_freitext; ta2_antwort_erfordert_begruendung
+Nagelbrett,ready,5/5,MULTI_PART,geometrie,arg|kom|pro,2,emf_text_records,,1,grafik_als_emf_nicht_renderbar; ta2_antwort_erfordert_begruendung
+Naschkatze,ready,5/5,MULTIPLE_CHOICE,stochastik,kom,1,emf_text_records,,1,
+Nashorn,partial,2/5,FREE_TEXT,geometrie,kom|mod|ope,1,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Nebenjob,ready,5/5,MULTI_PART,stochastik,kom|mod|ope|pro,2,emf_text_records,,1,ta2_loesung_ist_freitext
+Niederschlag,ready,4/5,MULTI_PART,stochastik,arg|kom,3,emf_text_records,,3,keine_typischen_fehler_belegt; ta4_antwort_erfordert_begruendung
+Niederschläge,ready,4/5,MULTI_PART,stochastik,kom|ope|pro,1,emf_text_records,,1,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_loesung_ist_freitext; ta2_auswertung_zelle_leer
+Null Komma Acht,ready,4/5,MULTI_PART,arithmetik_algebra,ope,1,emf_text_records,,2,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta2_antwort_ist_satz
+Ohrhänger,partial,3/5,MULTI_PART,funktionen,kom|mod|ope|pro,2,emf_text_records,,0,ta1_antwort_erfordert_begruendung; ta2_antwort_erfordert_begruendung
+Osterhase,ready,5/5,MULTI_PART,arithmetik_algebra,kom|mod|ope,2,emf_text_records,,1,auswertung_loesung_nur_als_formelgrafik; ta2_auswertung_zelle_leer
+Papier,ready,5/5,SHORT_INPUT,funktionen,mod|ope,1,emf_text_records,,1,
+Pappschachtel,partial,1/5,MULTI_PART,geometrie,kom|ope|pro,1,vision_transkription,vera8_assets/pappschachtel/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_auswertung_zelle_leer
+Parfum,ready,4/5,MULTI_PART,geometrie,kom|mod|ope,2,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_loesung_ist_intervall; ta2_antwort_erfordert_begruendung
+Parkhaus,partial,2/5,FREE_TEXT,funktionen,kom|mod|ope,2,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_loesung_ist_freitext
+Parlamentswahl,ready,5/5,MULTI_PART,arithmetik_algebra,kom|ope|pro,2,emf_text_records,,1,ta2_loesung_ist_freitext
+Passende Schuhe,ready,5/5,MULTI_PART,arithmetik_algebra,arg|kom|ope,2,emf_text_records,,1,ta1_antwort_erfordert_begruendung
+Pflaumen,ready,4/5,SHORT_INPUT,funktionen,ope,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Pinsel,ready,4/5,MULTI_PART,funktionen,ope,2,vision_transkription,vera8_assets/pinsel/aufgabe_01.png,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta1_loesung_ist_intervall; ta2_auswertung_zelle_leer
+Plättchen ziehen,partial,2/5,?,stochastik,kom|mod,1,emf_text_records,,0,ta1_auswertung_zelle_leer
+Prozentanteil schätzen,ready,4/5,MULTIPLE_CHOICE,arithmetik_algebra,kom|pro,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Punkt gesucht,doc_pending,4/5,MULTI_PART,geometrie,,3,-,,1,kein_stamm_extrahierbar; ta1_antwort_ist_satz; ta2_loesung_ist_freitext
+Punkte auf Geraden,partial,3/5,MULTI_PART,funktionen,arg|kom|ope,3,emf_text_records,,0,ta1_loesung_ist_freitext; ta2_antwort_erfordert_begruendung; ta3_loesung_ist_freitext
+Punkte im Koordinatensystem,doc_pending,4/5,MULTI_PART,geometrie,,1,-,,2,kein_stamm_extrahierbar; ta1_antwort_ist_satz
+Punktgenau,ready,5/5,MULTI_PART,geometrie,kom,1,emf_text_records,,1,ta2_loesung_ist_freitext
+Pyramidenbau,ready,5/5,SHORT_INPUT,geometrie,kom,1,emf_text_records,,1,grafik_als_emf_nicht_renderbar
+Quader,doc_pending,4/5,MULTI_PART,geometrie,,1,-,,2,kein_stamm_extrahierbar
+Quadernetz,ready,5/5,MULTIPLE_CHOICE,geometrie,kom,2,emf_text_records,,1,
+Quadernetz 2,partial,2/5,MULTIPLE_CHOICE,geometrie,kom|pro,1,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta1_mc_optionen_nicht_zerlegbar
+Quadernetz vervollständigen,ready,5/5,SHORT_INPUT,geometrie,kom|pro,2,emf_text_records,,1,ta1_antwort_ist_satz
+Quadrat im Gitter,ready,4/5,SHORT_INPUT,geometrie,kom|pro,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Quadrat im Koordinatensystem,ready,5/5,MULTIPLE_CHOICE,geometrie,kom|ope|pro,1,emf_text_records,,1,
+Quadrat und Raute,ready,4/5,MULTI_PART,geometrie,kom,2,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_loesung_ist_freitext; ta2_antwort_ist_satz
+Quadrat zeichnen,partial,3/5,FREE_TEXT,geometrie,ope,1,emf_text_records,,0,ta1_loesung_ist_freitext
+Quadratdifferenz,doc_pending,4/5,MULTI_PART,arithmetik_algebra,,3,-,,3,kein_stamm_extrahierbar; ta1_antwort_erfordert_begruendung; ta2_antwort_ist_satz
+Quadrate,partial,2/5,FREE_TEXT,geometrie,kom,1,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_loesung_ist_freitext
+Quadratfläche,doc_pending,2/5,FREE_TEXT,geometrie,,1,-,,0,kein_stamm_extrahierbar; ta1_loesung_ist_freitext
+Rabattaktion,doc_pending,4/5,SHORT_INPUT,arithmetik_algebra,,2,-,,1,kein_stamm_extrahierbar
+Raten beim Test,ready,4/5,MULTI_PART,stochastik,mod|ope,2,emf_text_records,,2,keine_typischen_fehler_belegt
+Rathausuhr,ready,4/5,MULTI_PART,arithmetik_algebra,kom|ope|pro,2,emf_text_records,,2,keine_typischen_fehler_belegt; ta2_antwort_ist_satz
+Rauminhalt von Prismen,ready,5/5,SHORT_INPUT,geometrie,kom,2,emf_text_records,,1,
+Rauten,ready,4/5,MULTI_PART,geometrie,kom|ope|pro,3,emf_text_records,,3,keine_typischen_fehler_belegt; ta2_auswertung_ohne_konkrete_loesung
+Rechenvorteil,doc_pending,2/5,FREE_TEXT,arithmetik_algebra,,1,-,,0,kein_stamm_extrahierbar; ta1_loesung_ist_freitext
+Rechteck,partial,2/5,FREE_TEXT,geometrie,kom,1,vision_transkription,vera8_assets/rechteck/aufgabe_01.png,0,keine_typischen_fehler_belegt; ta1_loesung_ist_freitext
+Rechtskurve,quarantined,0/5,?,funktionen,kom|mod,2,-,,0,auswertung_loesung_nur_als_formelgrafik; kein_stamm_extrahierbar; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Regelmäßige Vielecke,doc_pending,4/5,MULTI_PART,geometrie,,3,-,,3,kein_stamm_extrahierbar; ta1_antwort_ist_satz; ta2_antwort_ist_satz; ta3_antwort_ist_satz
+Reiseverlauf,partial,2/5,MULTI_PART,funktionen,arg|kom|mod,3,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_antwort_erfordert_begruendung
+Restaurantgewinnspiel,doc_pending,4/5,MULTI_PART,stochastik,,2,-,,2,kein_stamm_extrahierbar; ta3_antwort_erfordert_begruendung
+Richtig umgeformt,partial,3/5,MULTI_PART,arithmetik_algebra,ope,1,emf_text_records,,0,ta1_loesung_ist_freitext; ta2_loesung_ist_freitext
+Rollrasen,doc_pending,4/5,MULTI_PART,geometrie,,2,-,,3,kein_stamm_extrahierbar; ta2_antwort_erfordert_begruendung; ta3_loesung_ist_intervall
+Rolltreppe,doc_pending,4/5,MULTI_PART,funktionen,,2,-,,2,kein_stamm_extrahierbar; ta1_antwort_ist_satz; ta1_loesung_ist_intervall; ta2_loesung_ist_intervall; ta3_loesung_ist_freitext
+"Rot, gelb, grün",partial,2/5,MULTI_PART,stochastik,arg|mod,2,vision_transkription,vera8_assets/rotgelbgruen/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_antwort_erfordert_begruendung
+Rubbellose,ready,4/5,MULTI_PART,stochastik,kom|mod|ope,2,emf_text_records,,2,keine_typischen_fehler_belegt
+Rundfunkgebühren,ready,5/5,MULTI_PART,stochastik,kom|mod|pro,3,emf_text_records,,6,ta1_antwort_ist_satz; ta1_loesung_ist_intervall; ta2_antwort_ist_satz; ta3_loesung_ist_freitext
+Räumungsverkauf,partial,2/5,MULTI_PART,arithmetik_algebra,arg|kom|mod|ope,2,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta2_antwort_erfordert_begruendung
+Sauerkraut,ready,5/5,MULTI_PART,funktionen,kom|mod|ope,2,emf_text_records,,1,ta1_loesung_ist_freitext
+Schachteln packen,ready,5/5,MULTI_PART,geometrie,arg|kom|pro,2,emf_text_records,,2,auswertung_loesung_nur_als_formelgrafik; ta3_auswertung_zelle_leer
+Schlüssel,partial,1/5,MULTIPLE_CHOICE,stochastik,kom|mod,1,vision_transkription,vera8_assets/schluessel/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Schneekristalle,partial,3/5,MULTIPLE_CHOICE,geometrie,kom|pro,1,emf_text_records,,0,ta1_antwort_ist_satz; ta1_mc_optionen_nicht_zerlegbar
+Schnittpunkt von Graphen,doc_pending,2/5,FREE_TEXT,funktionen,,1,-,,0,kein_stamm_extrahierbar; ta1_antwort_erfordert_begruendung
+Schokoladenbonbons,partial,3/5,MULTI_PART,stochastik,arg|kom|mod,2,emf_text_records,,0,ta1_auswertung_zelle_leer; ta2_antwort_erfordert_begruendung
+Schokoladenfiguren,doc_pending,4/5,MULTI_PART,arithmetik_algebra,,2,-,,2,kein_stamm_extrahierbar
+Schokoladenpreis,ready,5/5,MULTI_PART,funktionen,kom,1,emf_text_records,,2,
+Schokolinsen,partial,2/5,FREE_TEXT,geometrie,kom|mod|ope,3,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Schrankbreiten,partial,3/5,FREE_TEXT,arithmetik_algebra,kom|pro,2,emf_text_records,,0,ta1_loesung_ist_freitext
+Schulgrundstück,doc_pending,2/5,MULTI_PART,geometrie,,1,-,,0,kein_stamm_extrahierbar; ta1_loesung_ist_freitext; ta2_loesung_ist_freitext
+Schulkleidung,ready,4/5,MULTI_PART,stochastik,kom,3,vision_transkription,vera8_assets/schulkleidung/aufgabe_01.png,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta2_loesung_ist_freitext
+Schulstatistik,doc_pending,3/5,SHORT_INPUT,stochastik,kom,1,-,,1,kein_stamm_extrahierbar; keine_typischen_fehler_belegt
+Schwarz-Weiß-Würfel,partial,3/5,MULTI_PART,stochastik,arg|kom|mod,2,emf_text_records,,0,ta1_auswertung_zelle_leer; ta2_loesung_ist_freitext
+Skala und Zahlen,partial,1/5,?,arithmetik_algebra,kom|ope,2,vision_transkription,vera8_assets/skalaundzahlen/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Spielwürfel,partial,1/5,MULTI_PART,stochastik,kom|mod,3,vision_transkription,vera8_assets/spielwuerfel/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_auswertung_zelle_leer
+Sprechstunde,ready,4/5,MULTI_PART,stochastik,kom,1,emf_text_records,,2,keine_typischen_fehler_belegt
+Stammbrüche untersuchen,ready,4/5,MULTI_PART,arithmetik_algebra,kom|ope|pro,2,emf_text_records,,1,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Steile Straße,ready,4/5,MULTI_PART,arithmetik_algebra,kom|mod|ope|pro,2,emf_text_records,,2,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta1_loesung_ist_intervall; ta2_antwort_ist_satz; ta2_loesung_ist_intervall; ta3_antwort_erfordert_begruendung
+Sterne und Sandkörner,ready,5/5,MULTI_PART,arithmetik_algebra,kom|ope|pro,2,emf_text_records,,2,
+Strecke im Koordinatenkreuz,ready,5/5,MULTI_PART,geometrie,kom|pro,1,emf_text_records,,3,
+Streichholzziehen,ready,4/5,MULTIPLE_CHOICE,stochastik,kom|mod,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Suche die Zahl,ready,5/5,SHORT_INPUT,arithmetik_algebra,ope|pro,1,emf_text_records,,1,
+Säulenhöhe,ready,5/5,MULTI_PART,stochastik,kom|ope|pro,2,emf_text_records,,2,
+Tabelle,doc_pending,4/5,SHORT_INPUT,funktionen,,2,-,,1,kein_stamm_extrahierbar
+Tabelle ausfüllen,partial,1/5,?,funktionen,kom|pro,1,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Tankinhalt,ready,4/5,SHORT_INPUT,funktionen,kom|mod|ope,1,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta1_loesung_ist_intervall
+Temperatur,ready,4/5,MULTI_PART,funktionen,kom|ope,2,vision_transkription,vera8_assets/temperatur/aufgabe_01.png,1,keine_typischen_fehler_belegt; ta2_auswertung_zelle_leer
+Temperaturdifferenz,ready,5/5,SHORT_INPUT,arithmetik_algebra,ope,1,emf_text_records,,1,
+Temperaturen in Frankfurt am Main,doc_pending,4/5,MULTI_PART,stochastik,kom,2,-,,3,kein_stamm_extrahierbar; ta2_antwort_ist_satz
+Thermometer,ready,4/5,MULTI_PART,arithmetik_algebra,kom|mod|ope,1,emf_text_records,,7,keine_typischen_fehler_belegt
+Tombola zum Schulfest,ready,5/5,MULTI_PART,stochastik,kom,1,emf_text_records,,1,ta2_loesung_ist_freitext; ta2_mc_optionen_nicht_zerlegbar
+Traktor,ready,4/5,MULTIPLE_CHOICE,funktionen,ope,2,emf_text_records,,1,keine_typischen_fehler_belegt
+Trapez ohne Symmetrie,partial,1/5,MULTIPLE_CHOICE,geometrie,arg|kom,2,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer
+Trapezvariation,partial,2/5,MULTI_PART,funktionen,arg|kom|ope|pro,3,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta1_mc_optionen_nicht_zerlegbar; ta2_antwort_erfordert_begruendung
+Treppenmaße,ready,5/5,MULTI_PART,arithmetik_algebra|funktionen,arg|kom|mod|ope|pro,2,emf_text_records,,2,auswertung_loesung_nur_als_formelgrafik; ta1_auswertung_zelle_leer; ta3_antwort_erfordert_begruendung
+Tropfender Wasserhahn,ready,4/5,MULTI_PART,funktionen,kom|mod,2,emf_text_records,,1,keine_typischen_fehler_belegt; ta2_antwort_ist_satz; ta2_mc_position_uneindeutig
+Tunnelbohrmaschine,doc_pending,4/5,MULTI_PART,funktionen,,1,-,,1,kein_stamm_extrahierbar; ta1_loesung_ist_freitext; ta2_antwort_ist_satz
+Umfang und Fläche,ready,5/5,MULTI_PART,geometrie,kom|pro,2,emf_text_records,,2,
+Unfertiger Würfel,ready,5/5,MULTI_PART,geometrie,kom|pro,2,emf_text_records,,2,
+Ungewöhnlicher Mittelwert,keine_quelle,0/5,MULTI_PART,,,2,-,,0,kein_stamm_extrahierbar; keine_typischen_fehler_belegt
+Ungewöhnlicher Spielwürfel,ready,4/5,MULTI_PART,geometrie,kom|pro,2,vision_transkription,vera8_assets/ungewoehnlicherspielwuerfel/aufgabe_01.png,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta2_loesung_ist_freitext
+Ungleichung erfüllen,doc_pending,2/5,FREE_TEXT,funktionen,,1,-,,0,kein_stamm_extrahierbar; ta1_loesung_ist_freitext
+Unregelmäßiges Viereck,doc_pending,2/5,FREE_TEXT,geometrie,,3,-,,0,kein_stamm_extrahierbar; ta1_loesung_ist_freitext
+Verbindungsstrecken,ready,4/5,MULTI_PART,arithmetik_algebra,kom|pro,3,vision_transkription,vera8_assets/verbindungsstrecken/aufgabe_01.png,2,keine_typischen_fehler_belegt
+Verkehrszeichen,doc_pending,4/5,MULTI_PART,geometrie,kom,1,-,,4,kein_stamm_extrahierbar
+Verlauf des Graphen,partial,1/5,MULTI_PART,funktionen,kom,3,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_auswertung_zelle_leer
+Verschiedene Rechtecke,partial,2/5,MULTI_PART,funktionen,kom|pro,3,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta2_antwort_erfordert_begruendung; ta3_auswertung_zelle_leer
+Viele Brötchen,partial,3/5,FREE_TEXT,funktionen,kom|mod|ope,1,emf_text_records,,0,ta1_loesung_ist_freitext
+Volumenverkleinerung,doc_pending,4/5,MULTI_PART,funktionen,,2,-,,1,kein_stamm_extrahierbar; ta2_antwort_erfordert_begruendung
+Von links wie von rechts,ready,4/5,MULTI_PART,arithmetik_algebra,pro,2,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Waage,ready,5/5,MULTI_PART,stochastik,ope,1,emf_text_records,,1,auswertung_loesung_nur_als_formelgrafik; ta1_auswertung_zelle_leer
+Wahl,ready,4/5,MULTI_PART,arithmetik_algebra,kom|ope,1,vision_transkription,vera8_assets/wahl/aufgabe_01.png,2,keine_typischen_fehler_belegt; ta2_antwort_ist_satz; ta2_loesung_ist_intervall
+Wahrscheinlicher,partial,3/5,MULTIPLE_CHOICE,stochastik,arg|mod,1,emf_text_records,,0,ta1_antwort_erfordert_begruendung
+Weitsprung,doc_pending,4/5,MULTI_PART,arithmetik_algebra,,3,-,,6,kein_stamm_extrahierbar; ta1_loesung_ist_freitext; ta3_antwort_erfordert_begruendung; ta4_antwort_ist_satz
+Werbelotterie,partial,1/5,MULTI_PART,stochastik,kom|mod|ope,2,vision_transkription,vera8_assets/werbelotterie/aufgabe_01.png,0,keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_auswertung_zelle_leer
+Werbemarkt,partial,2/5,FREE_TEXT,stochastik,kom|mod|pro,3,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Wettkampf wählen,partial,2/5,FREE_TEXT,stochastik,kom|ope,1,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Winkel Gamma,ready,5/5,SHORT_INPUT,geometrie,arg|kom|ope,3,emf_text_records,,1,ta1_antwort_ist_satz
+Winkel im Dreieck,ready,5/5,SHORT_INPUT,geometrie,kom|ope|pro,2,emf_text_records,,1,
+Winkel im Parallelogramm,doc_pending,2/5,FREE_TEXT,geometrie,,3,-,,0,kein_stamm_extrahierbar; ta1_antwort_erfordert_begruendung
+Winkel messen,ready,5/5,SHORT_INPUT,geometrie,kom|ope,1,emf_text_records,,1,ta1_loesung_ist_intervall
+Winkelwürfel,partial,2/5,MULTI_PART,stochastik,kom|mod|ope|pro,2,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta1_mc_position_uneindeutig; ta2_antwort_erfordert_begruendung
+Wo liegt C,partial,2/5,MULTI_PART,geometrie,kom|pro,2,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta2_antwort_erfordert_begruendung
+Wo sind die Punkte,ready,4/5,MULTI_PART,funktionen,kom,1,emf_text_records,,2,keine_typischen_fehler_belegt
+Wundersame Rechenergebnisse,doc_pending,4/5,MULTI_PART,arithmetik_algebra,,3,-,,1,kein_stamm_extrahierbar; ta2_antwort_erfordert_begruendung
+Würfelbau,doc_pending,4/5,SHORT_INPUT,geometrie,kom,1,-,,1,kein_stamm_extrahierbar
+Würfelkörper,doc_pending,4/5,MULTI_PART,geometrie,,1,-,,2,kein_stamm_extrahierbar; ta1_antwort_ist_satz; ta2_antwort_ist_satz
+Würfeln mit Quader,partial,3/5,MULTI_PART,stochastik,kom|mod|ope|pro,3,emf_text_records,,0,ta1_loesung_ist_freitext; ta2_loesung_ist_freitext
+Würfeln mit zwei Würfeln,doc_pending,4/5,MULTI_PART,stochastik,,2,-,,7,kein_stamm_extrahierbar
+Würfelnetze,partial,2/5,MULTIPLE_CHOICE,geometrie,kom,1,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta1_mc_position_uneindeutig
+Würfeloberfläche,partial,2/5,MULTIPLE_CHOICE,geometrie,arg|kom|ope|pro,3,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung
+Würfelturm,ready,4/5,MULTI_PART,funktionen|geometrie,kom|ope|pro,3,emf_text_records,,2,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta2_auswertung_zelle_leer
+Würfelturm 2,ready,4/5,MULTI_PART,funktionen|geometrie,kom|ope|pro,2,vision_transkription,vera8_assets/wuerfelturm2/aufgabe_01.png,1,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta2_auswertung_zelle_leer; ta3_auswertung_zelle_leer
+Zahl gesucht,doc_pending,4/5,SHORT_INPUT,funktionen,,1,-,,1,kein_stamm_extrahierbar
+Zahl gesucht 2,ready,4/5,SHORT_INPUT,arithmetik_algebra,kom,2,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz; ta1_loesung_ist_intervall
+Zahlen addieren,ready,5/5,MULTI_PART,arithmetik_algebra,ope|pro,1,emf_text_records,,3,ta2_antwort_ist_satz
+Zahlen gesucht,doc_pending,4/5,MULTI_PART,arithmetik_algebra,pro,2,-,,5,kein_stamm_extrahierbar
+Zahlenmauer,doc_pending,4/5,MULTI_PART,arithmetik_algebra,pro,1,-,,3,kein_stamm_extrahierbar
+Zahlenstrahl,partial,1/5,MULTI_PART,arithmetik_algebra,kom,1,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_auswertung_zelle_leer; ta2_auswertung_zelle_leer
+Zahlensuche,ready,5/5,SHORT_INPUT,arithmetik_algebra,kom|ope,1,emf_text_records,,1,ta1_antwort_ist_satz
+Zahlensumme,doc_pending,2/5,FREE_TEXT,arithmetik_algebra,,2,-,,0,kein_stamm_extrahierbar; ta1_antwort_erfordert_begruendung
+Zahlenwürfel,ready,5/5,MULTI_PART,stochastik,kom|mod,2,emf_text_records,,5,ta3_antwort_erfordert_begruendung
+Zeitangabe,ready,4/5,SHORT_INPUT,geometrie,ope,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Zeitumrechnung,ready,4/5,MULTI_PART,arithmetik_algebra,kom|ope|pro,3,emf_text_records,,2,keine_typischen_fehler_belegt; ta2_antwort_ist_satz; ta3_loesung_ist_freitext
+Zoobesuch,partial,2/5,MULTIPLE_CHOICE,funktionen,kom|mod,1,emf_text_records,,0,auswertung_loesung_nur_als_formelgrafik; ta1_auswertung_zelle_leer
+Zufallsversuche,doc_pending,4/5,MULTI_PART,stochastik,,3,-,,5,kein_stamm_extrahierbar; ta2_antwort_ist_satz; ta3_antwort_erfordert_begruendung
+Zuschauerzahlen,ready,5/5,MULTI_PART,arithmetik_algebra,arg|kom|ope,3,emf_text_records,,1,ta2_antwort_erfordert_begruendung
+Zwanzig Prozent,ready,4/5,SHORT_INPUT,arithmetik_algebra,ope,1,emf_text_records,,1,keine_typischen_fehler_belegt
+Zwei Kreise,partial,2/5,MULTI_PART,geometrie,arg|kom|pro,3,emf_text_records,,0,keine_typischen_fehler_belegt; ta1_loesung_ist_freitext; ta2_antwort_erfordert_begruendung
+Zwei Taschenrechner,partial,2/5,MULTI_PART,arithmetik_algebra,arg|kom|mod|ope,3,vision_transkription,vera8_assets/zweitaschenrechner/aufgabe_01.png,0,keine_typischen_fehler_belegt; ta1_antwort_erfordert_begruendung; ta2_loesung_ist_freitext
+Zwei Thermometeranzeigen,ready,5/5,SHORT_INPUT,arithmetik_algebra,kom|ope,1,emf_text_records,,1,
+Zweite Gerade,ready,4/5,SHORT_INPUT,funktionen,kom,1,emf_text_records,,1,keine_typischen_fehler_belegt; ta1_antwort_ist_satz
+Zwischen zwei Zahlen,ready,5/5,MULTIPLE_CHOICE,arithmetik_algebra,ope,1,emf_text_records,,1,
+Zwischen zwei Zahlen 2,partial,2/5,MULTI_PART,arithmetik_algebra,pro,1,vision_transkription,vera8_assets/zwischenzweizahlen2/aufgabe_01.png,0,auswertung_loesung_nur_als_formelgrafik; keine_typischen_fehler_belegt; ta1_loesung_ist_freitext; ta2_auswertung_zelle_leer
+Zählung von Fahrzeugen,doc_pending,4/5,SHORT_INPUT,stochastik,kom,1,-,,1,kein_stamm_extrahierbar
+fuehrerschein,ready,4/5,MULTI_PART,stochastik,arg|kom,2,emf_text_records,,1,keine_typischen_fehler_belegt; ta2_antwort_erfordert_begruendung
+Überschlag doch mal,partial,3/5,MULTIPLE_CHOICE,arithmetik_algebra,mod|ope|pro,2,emf_text_records,,0,ta1_antwort_ist_satz; ta1_mc_optionen_nicht_zerlegbar
+Überschlagsrechnung,ready,5/5,MULTIPLE_CHOICE,arithmetik_algebra,pro,1,emf_text_records,,1,

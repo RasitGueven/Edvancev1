@@ -1,0 +1,23 @@
+{
+ "slug": "innenwinkel2",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Zur Erinnerung: In jedem Dreieck beträgt die Summe der drei Innenwinkelgrößen 180°.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Bei einem rechtwinkligen Dreieck ist die Größe des Innenwinkels α gegeben.\n\nErgänze in der Tabelle eine Möglichkeit für die Größen der beiden anderen Innenwinkel β und γ des Dreiecks.\n\nα | β | γ\n20° |  | ",
+    "benoetigt_bild": false,
+    "hinweis": "Tabelle mit Spalten α, β, γ; α = 20°, β und γ leer zum Ausfüllen"},
+   {"bild": "aufgabe_03.png",
+    "text": "Von einem gleichschenkligen Dreieck ist die Größe des Innenwinkels α mit 50° gegeben. Es gibt verschiedene Möglichkeiten, wie groß jeweils die beiden anderen Innenwinkel sein können.\n\nNotiere zwei verschiedene Möglichkeiten in den Tabellen.\n\n1. Möglichkeit:\nα | β | γ\n50° |  | \n\n2. Möglichkeit:\nα | β | γ\n50° |  | ",
+    "benoetigt_bild": false,
+    "hinweis": "Zwei Tabellen mit Spalten α, β, γ; α jeweils 50°, β und γ leer zum Ausfüllen"},
+   {"bild": "aufgabe_04.png",
+    "text": "Es gibt keine gleichseitigen Dreiecke, die rechtwinklig sind.\n\nBegründe die Aussage.\n\n__________",
+    "benoetigt_bild": false,
+    "hinweis": "leeres kariertes Antwortfeld"}
+ ],
+ "_problems": []
+}

@@ -1,0 +1,25 @@
+{
+ "slug": "freibad",
+ "transkribiert_von": "hub",
+ "teile": [
+  {
+   "bild": "aufgabe_01.png",
+   "text": "Das Freibad in Burgdorf wurde am 1. Juni geöffnet. Am 1. Juli begannen die sechs Wochen dauernden Sommerferien. Insgesamt kamen vom 1. Juni bis zum Ende der Sommerferien 35 681 Besucherinnen und Besucher in das Freibad.\nDas Diagramm zeigt die Zahlen der Besucherinnen und Besucher für Juni und für jede Woche der Sommerferien.\n[Säulendiagramm: Anzahl der Besucherinnen und Besucher — Juni 3845; 1. Ferienwoche 2831; 2. Ferienwoche 4074; 3. Ferienwoche 5732; 4. Ferienwoche 4987; 5. Ferienwoche 7710; 6. Ferienwoche 6502]",
+   "benoetigt_bild": true,
+   "hinweis": "Säulendiagramm; die Säulenwerte sind als Zahlen beschriftet und wurden übernommen."
+  },
+  {
+   "bild": "aufgabe_02.png",
+   "text": "Gib an, wie viele Personen das Freibad während der 6 Wochen Sommerferien im Durchschnitt pro Woche besucht haben.\n__________ Personen",
+   "benoetigt_bild": false,
+   "hinweis": ""
+  },
+  {
+   "bild": "aufgabe_03.png",
+   "text": "Im Juni war das Wetter schlecht und das Freibad war an vielen Tagen leer. Aber in den Sommerferien war das Wetter schön und das Freibad hatte viele Besucherinnen und Besucher.\nDie Betreiber des Freibads wollten die Zahlen der Besucherinnen und Besucher für den Juni besser aussehen lassen, als sie tatsächlich sind. Deshalb haben sie im Diagramm einen Trick angewendet.\nErkläre, welchen Trick sie benutzt haben.",
+   "benoetigt_bild": true,
+   "hinweis": "Bezieht sich auf das Säulendiagramm aus dem Stamm; darunter ein leeres Karokästchen-Antwortfeld."
+  }
+ ],
+ "_problems": ["medium_auch_in_anderer_aufgabe:adventskalender"]
+}

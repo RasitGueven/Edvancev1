@@ -1,0 +1,19 @@
+{
+ "slug": "schulkleidung",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "An einer Schule wird über die Einführung einheitlicher Schulkleidung diskutiert. Lisa und Paul haben im Internet eine Studie der Fachhochschule Münster zu diesem Thema gefunden. Dort wurden insgesamt 17 812 Schülerinnen und Schüler befragt.\n\nAuf die Frage „Wärst du bereit, Schulkleidung zu tragen?“ haben 9018 (50,6 %) der Befragten mit „ja“ geantwortet, 8136 (45,7 %) mit „nein“, der Rest hat keine Angaben gemacht.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Stelle die Ergebnisse der Befragung („ja“ / „nein“ / „keine Angaben“) in einem Säulendiagramm dar.",
+    "benoetigt_bild": false,
+    "hinweis": "leeres kariertes Feld zum Zeichnen des Diagramms"},
+   {"bild": "aufgabe_03.png",
+    "text": "Lisa hat die Ergebnisse der Befragung etwas auffälliger dargestellt und dabei ihre persönliche Meinung zu dem Thema einfließen lassen.\n\nLisa ist gegen die Einführung einheitlicher Schulkleidung.\n\nErläutere, warum Lisas Diagramm ihre Meinung betont.",
+    "benoetigt_bild": true,
+    "hinweis": "Dreiecksförmiges Diagramm mit Titel „Bereit, Schulkleidung zu tragen“, y-Achse in 10-%-Schritten von 0 % bis 100 %; unterer Bereich bis ca. 45 % dunkel (Legende „nein“), oberer Teil hell (Legende „ja“); darunter leeres kariertes Antwortfeld"}
+ ],
+ "_problems": []
+}

@@ -59,6 +59,13 @@ def main():
         slug = slug_of(item)
         grounding, problems = {}, []
 
+        # Jeder Lauf baut die Inhaltsfelder neu auf. Ohne dieses Zuruecksetzen
+        # ueberlebt der Stand des Vorlaufs und der Lauf ist nicht reproduzierbar.
+        for feld in ("aufgabe_text", "aufgabe_teile", "akzeptierte_antworten",
+                     "loesung_pro_ta", "diagnostik", "benoetigt_bild",
+                     "bild_pfade", "_formel_kandidaten"):
+            item.pop(feld, None)
+
         # --- Aufgabenstamm (Phase 1) --------------------------------------
         text, teile = stamm(stems, slug)
         if text:

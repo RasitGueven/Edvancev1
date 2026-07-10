@@ -1,0 +1,11 @@
+{
+ "slug": "rechteck",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Es soll ein vierter Punkt C so ergänzt werden, dass das Viereck ABCD ein Rechteck ist.\n\nZeichne diesen Punkt C in das Koordinatensystem ein.",
+    "benoetigt_bild": true,
+    "hinweis": "Koordinatensystem (x 0–6, y 0–5) mit drei eingezeichneten Punkten: A [1|2], D [1|4], B [5|2]"}
+ ],
+ "_problems": []
+}

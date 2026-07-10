@@ -1,0 +1,15 @@
+{
+ "slug": "kugelnziehen",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "In einem Gefäß befinden sich gleich viele rote und blaue Kugeln, die sich nur durch ihre Farbe unterscheiden.",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_02.png",
+    "text": "Es sollen zusätzlich so viele gelbe Kugeln hinzugefügt werden, dass die Wahrscheinlichkeit eine rote Kugel zu ziehen 20 % beträgt.\n\nWie viel mal so viele gelbe wie rote Kugeln müssen in dem Gefäß sein?\n\n__________-mal so viele gelbe Kugeln",
+    "benoetigt_bild": false,
+    "hinweis": ""}
+ ],
+ "_problems": []
+}

@@ -1,0 +1,19 @@
+{
+ "slug": "eiscafe",
+ "transkribiert_von": "agent",
+ "teile": [
+   {"bild": "aufgabe_01.png",
+    "text": "Im Eiscafé Arnoldo kostet jede Kugel Eis 0,80 €.\nEine Portion Sahne kostet 0,50 €.",
+    "benoetigt_bild": false,
+    "hinweis": "Zeichnung einer Eiswaffel mit drei Kugeln"},
+   {"bild": "aufgabe_02.png",
+    "text": "Gina kauft vier Kugeln Eis mit einer Portion Sahne.\n\nWie viel muss Gina bezahlen?\n\n__________ €",
+    "benoetigt_bild": false,
+    "hinweis": ""},
+   {"bild": "aufgabe_03.png",
+    "text": "Im Eiscafé Venezia bezahlt Max für fünf Kugeln Eis ohne Sahne 4,50 €.\n\nIn welchem Eiscafé ist eine Kugel Eis günstiger?\n\nKreuze an.\n\n☐ Eiscafé Arnoldo   ☐ Eiscafé Venezia\n\nNotiere deinen Lösungsweg.",
+    "benoetigt_bild": false,
+    "hinweis": "leeres kariertes Antwortfeld für den Lösungsweg"}
+ ],
+ "_problems": []
+}
