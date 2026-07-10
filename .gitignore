@@ -25,3 +25,4 @@ playwright-report
 scripts/import/raw/
 scripts/import/runs/
 test-results
+__pycache__/
