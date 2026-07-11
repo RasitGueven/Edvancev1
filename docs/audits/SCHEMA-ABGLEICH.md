@@ -108,6 +108,44 @@ Beides sind **Code**-Fehler, keine Schema-Lücken: die DB ist korrekt, der Edge-
 ist gegen ein veraltetes Schema geschrieben. Fix gehört in
 `supabase/functions/generate_parent_report/index.ts` — nicht in eine Migration.
 
+## Der gefährlichste Befund: die Tabellen-Grants fehlten komplett
+
+Beim Neuaufbau aus der Baseline kam heraus: `anon`, `authenticated` und `service_role`
+hatten auf **keiner einzigen** Tabelle in `public` ein SELECT/INSERT/UPDATE/DELETE.
+Eine so gebaute DB ist für die App **tot** — jeder PostgREST-Query endet in
+`permission denied for table …`. Das Schema selbst war dabei völlig korrekt.
+
+**Ursache:** Postgres vergibt Rechte an neuen Tabellen über `ALTER DEFAULT PRIVILEGES`,
+abhängig davon, *wer* die Tabelle anlegt. Im Supabase-Stack gilt:
+
+| Default-Privileges FOR ROLE | anon / authenticated / service_role bekommen |
+|---|---|
+| `supabase_admin` | `arwdDxtm` — volles DML |
+| `postgres` | `Dxtm` — **kein** DML |
+
+Migrationen laufen als **`postgres`**. Also landete jede Tabelle ohne DML-Rechte.
+In der bisherigen Prod-DB fiel das nie auf, weil sie **nie aus Migrationen gebaut**
+wurde — die Rechte kamen dort implizit zustande und standen deshalb auch nie in
+`schema.sql`.
+
+**Das ist der Grund, warum ein Prod-Reset ohne diesen Fund die App zerlegt hätte.**
+Behoben durch `supabase/migrations/20260711120000_api_role_grants.sql` — die setzt die
+Grants *und* die Default-Privileges für künftige Tabellen (sonst hätte jede neue
+Migration denselben Defekt wieder).
+
+Ist-Stand der gebauten DB (`grant`-Zählung über alle Tabellen in `public`):
+
+| Rolle | SELECT | INSERT | UPDATE | DELETE |
+|---|:--:|:--:|:--:|:--:|
+| `anon` | 35 | 0 | 0 | 0 |
+| `authenticated` | 35 | 35 | 35 | 35 |
+| `service_role` | 35 | 35 | 35 | 35 |
+
+`anon` bekommt bewusst **nur** SELECT: es existiert keine einzige anon-Policy, RLS
+liefert ihm also ohnehin keine Zeile (Ausnahme: `badge_catalog`, absichtlich öffentlich).
+Kein anon-Schreibrecht heißt: eine künftige Tabelle, bei der RLS vergessen wird, ist
+nicht sofort welt-beschreibbar.
+
 ## Prod-DB: nicht erreichbar (offen)
 
 Der Ist-Zustand der **echten** Prod-DB konnte **nicht** erhoben werden. Zwei Gründe:

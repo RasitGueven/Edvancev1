@@ -129,3 +129,56 @@ eine bewusste Entscheidung, keine Aufräumaktion.
   RLS und Lese-Funktion — dort fehlt nur der Schreibpfad, keine Migration.
 
 Details und Belege: `docs/audits/KERNSCHLEIFE-GAP-AUDIT.md`.
+
+## P00b+ — Schema-Abgleich & DB-Autonomie (2026-07-11)
+
+Vollständiger Kontext: `docs/audits/SCHEMA-ABGLEICH.md`, `docs/retros/2026-07-11-p00b-plus-db-autonomie.md`.
+
+### 1. `guard-bash.sh` muss angepasst werden (blockiert aktuell den eigenen Flow)
+
+`.claude/hooks/**` ist eine geschützte Zone — der autonome Lauf konnte die Datei
+nicht selbst ändern. Nötig:
+
+- **Entfernen:** das pauschale Muster `'supabase +db +reset'`. Es blockiert den
+  **lokalen** Reset gegen die Docker-DB — also genau den Beweis-Schritt, den
+  `scripts/db/migrate-verify.sh` braucht. Die lokale DB ist wegwerfbar.
+- **Hinzufügen** (Remote bleibt für den Agenten gesperrt):
+  - `supabase\s+([a-z-]+\s+)*db\s+push` → Remote-Apply
+  - `supabase\s.*--linked` → richtet jedes db-Kommando gegen Remote
+  - `--db-url` auf einen nicht-lokalen Host
+  - `supabase\s+db\s+remote\s+commit`
+  - freies `(DROP|TRUNCATE)\s+(TABLE|SCHEMA|DATABASE)` via `psql`/`docker … psql`
+
+Bis das drin ist, läuft `migrate-verify.sh` nur von Hand (Rasit), nicht im Agenten.
+**Solange nicht ändern und `db reset` auch nicht über ein Skript umgehen** — der
+Guard ist die geltende Kontrolle, nicht die Absicht.
+
+### 2. Zwei echte Bugs in `supabase/functions/generate_parent_report/index.ts`
+
+Beim Code↔DB-Abgleich gefunden, **nicht** von diesem Lauf verursacht und bewusst
+nicht mitgefixt (DB-Session, eigener Test/Review nötig). Beide scheitern **still**
+(`?? []` / `?? null`), der Elternbericht degradiert unbemerkt:
+
+- **`index.ts:327`** — `admin.from('clusters')`. Die Tabelle heißt
+  **`skill_clusters`**; `clusters` existiert nirgends. `clusterNames` ist damit
+  immer leer → der Bericht verliert **alle** Cluster-Namen.
+- **`index.ts:304-306`** — `.select('xp_total, streak_days, level')`.
+  `student_progress.streak_days` wurde von Migration 036 gedroppt (ersetzt durch
+  `presence_streak_*` / `home_streak_*`, Migration 032). PostgREST antwortet 400 →
+  XP/Level im Bericht fallen still weg.
+
+Beides sind **Code**-Fehler gegen ein korrektes Schema — kein Migrationsbedarf.
+
+### 3. Stale Pfad-Referenz nach dem Migrations-Umzug
+
+`src/lib/supabase/storage.ts:3` verweist auf `migrations/010_task_assets_storage_rls.sql`.
+Der Pfad ist jetzt `supabase/migrations_archive/20250101000010_task_assets_storage_rls.sql`.
+Nur ein Kommentar, kein Verhalten — `src/lib/**` ist im autonomen Lauf gesperrt.
+
+### 4. `schema.sql` ist jetzt redundant
+
+Die ausführbare Wahrheit ist `supabase/migrations/`. `schema.sql` liegt weiter im
+Root und **driftet ab dem nächsten Migrations-PR**. Entscheidung für Rasit: entweder
+als generiertes Artefakt aus der lokalen DB neu erzeugen (`supabase db dump`) oder
+löschen. Solange es existiert, gilt CLAUDE.md §10 („SQL immer in schema.sql
+dokumentieren") faktisch nicht mehr — auch das gehört angepasst.

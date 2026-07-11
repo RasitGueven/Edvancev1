@@ -74,6 +74,20 @@ select json_build_object(
   'schema_migrations', (
     select coalesce(json_agg(json_build_object('schema', table_schema, 'table', table_name)), '[]'::json)
     from information_schema.tables where table_name = 'schema_migrations'
+  ),
+  -- Tabellen-Grants der API-Rollen. Ohne DML hier ist die DB fuer die App tot
+  -- ("permission denied for table"), egal wie korrekt das Schema aussieht.
+  'grants', (
+    select coalesce(json_agg(g), '[]'::json) from (
+      select grantee,
+             count(distinct table_name) filter (where privilege_type = 'SELECT') as sel,
+             count(distinct table_name) filter (where privilege_type = 'INSERT') as ins,
+             count(distinct table_name) filter (where privilege_type = 'UPDATE') as upd,
+             count(distinct table_name) filter (where privilege_type = 'DELETE') as del
+      from information_schema.role_table_grants
+      where table_schema = 'public' and grantee in ('anon','authenticated','service_role')
+      group by grantee
+    ) g
   )
 ) as ist;
 """
