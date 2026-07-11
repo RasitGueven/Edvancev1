@@ -302,7 +302,7 @@ Deno.serve(async (req: Request) => {
       .single(),
     admin
       .from('student_progress')
-      .select('xp_total, streak_days, level')
+      .select('xp_total, level')
       .eq('student_id', sId)
       .maybeSingle(),
     admin
@@ -324,7 +324,7 @@ Deno.serve(async (req: Request) => {
       .eq('student_id', sId)
       .gte('started_at', body.period_start)
       .lte('started_at', body.period_end),
-    admin.from('clusters').select('id, name'),
+    admin.from('skill_clusters').select('id, name'),
   ])
 
   const clusterNames = new Map<string, string>(
