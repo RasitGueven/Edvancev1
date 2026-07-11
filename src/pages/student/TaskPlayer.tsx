@@ -16,6 +16,7 @@ import { persistBehaviorSnapshot } from '@/lib/supabase/behavior'
 import { completeTask } from '@/lib/supabase/taskProgress'
 import { MathContent } from '@/lib/render/MathContent'
 import type { SkillCluster, Task } from '@/types'
+import { AssetList } from '@/lib/render/AssetList'
 import {
   TypeBadge,
   DifficultyBadge,
@@ -248,7 +249,10 @@ export function TaskPlayer(): JSX.Element {
             ) : task.content_type === 'exercise_group' || task.content_type === 'course' ? (
               <UnsupportedBlock type={task.content_type} />
             ) : (
+              <>
+              {task.assets && task.assets.length > 0 && <AssetList assets={task.assets} />}
               <MathContent text={task.question} />
+            </>
             )}
           </EdvanceCard>
 
