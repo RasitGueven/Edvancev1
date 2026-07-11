@@ -5,7 +5,9 @@ CMD=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
 PATTERNS=(
   'git push[^|;&]*( --force| -f)'
   'rm -rf +(/|~|\$HOME|\.\.)'
-  'supabase +db +reset'
+  'supabase +db +push'
+  'supabase +db +reset[^|;&]*(--linked|--db-url)'
+  'supabase +migration +up[^|;&]*--linked'
   'git +reset +--hard'
   'git +checkout +\.'
   '(DROP|TRUNCATE) +TABLE'
