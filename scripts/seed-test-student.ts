@@ -21,7 +21,14 @@
 //     wenn es noch keins gibt -> zweiter Lauf verdoppelt XP nicht
 //   - Streaks: absolute Werte (UPDATE, nicht additiv)
 
+import { WebSocket as WsWebSocket } from 'ws'
 import { createClient, type SupabaseClient, type User } from '@supabase/supabase-js'
+
+// Node 20 ships no global WebSocket. supabase-js instantiates its Realtime client
+// eagerly in createClient(), which throws without one. Polyfill before that call.
+if (typeof globalThis.WebSocket === 'undefined') {
+  globalThis.WebSocket = WsWebSocket as unknown as typeof globalThis.WebSocket
+}
 
 const DEFAULT_EMAIL = 'test.schueler@edvance.invalid'
 const DEFAULT_PASSWORD = 'Edvance-Test-2026!'
