@@ -19,6 +19,7 @@
     "seed:screening-items": "tsx --env-file=.env scripts/seed-screening-items.ts",
     "seed:vera8": "tsx --env-file=.env scripts/seed_vera8.ts",
     "seed:test-student": "tsx --env-file=.env scripts/seed-test-student.ts",
+    "import:lsa-items": "tsx --env-file=.env scripts/import-lsa-items.ts",
     "import:lambacher": "tsx --env-file=.env scripts/import/lambacher.ts",
     "generate:assets": "tsx --env-file=.env scripts/generate-assets.ts",
     "sim:screening": "tsx scripts/screening-sim.ts"
