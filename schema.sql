@@ -1619,5 +1619,97 @@ insert into public.badge_catalog (id, label, description, rarity, form, klasse, 
 on conflict (id) do nothing;
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (33 Tabellen, 9 Funktionen, 2 Enums, 1 Trigger).
+-- 15. P01 – DATENVERTRAG + LSA
+--     (supabase/migrations/20260712100000_p01_datenvertrag.sql)
+--     Vertragsdokumentation: docs/api/DATENVERTRAG.md
+-- ============================================================================
+--
+-- tasks (additiv, Lenas Metadaten — alles davon ist HARMLOS und darf ans Kind):
+--   status             text not null default 'draft' check (draft|review|ready)
+--                      → Redaktions-Freigabe. Nur 'ready' kommt in den LSA-Pool.
+--                        is_active bleibt unveraendert (Sichtbarkeit im Lernpfad).
+--   competency_content text     – Inhaltsfeld (Lena)
+--   competency_process text     – Prozesskompetenz als Klartext (strukturiert: competency_id)
+--   afb                text check ('I','II','III')
+--   est_duration_sec   int check (10..3600)
+--   unit               text     – Einheit fuer short_input; rein deklarativ, KEINE Umrechnung
+--   dialog_enabled     bool not null default false – Feld fuer den spaeteren Fehler-Dialog
+--   Index: tasks_lsa_pool_idx (status, input_type, afb) where status='ready'
+--   Backfill: status='ready' fuer alle is_active-Zeilen.
+--
+-- task_solutions (1:1-Extension zu tasks) – DIE SERVER-ONLY-ZONE:
+--   task_id pk → tasks(id) on delete cascade
+--   correct_answers jsonb not null default '[]'  – alle akzeptierten Varianten,
+--                                                  explizit gepflegt (keine Einheiten-Magie)
+--   solution        text
+--   hints           jsonb not null default '[]'  – [{level, text}]
+--   coach_hints     jsonb not null default '[]'  – max 3 (CHECK)
+--   typical_errors  jsonb not null default '[]'  – [{error, socratic_question}]
+--   updated_at      timestamptz not null default now()
+--
+--   ⚠️  SICHERHEITSZUSAGE: `revoke all on task_solutions from anon, authenticated`.
+--       RLS ist an, es gibt KEINE Policy fuer die API-Rollen. Der Inhalt ist
+--       ausschliesslich ueber die SECURITY-DEFINER-RPCs erreichbar.
+--       Der REVOKE ist notwendig, weil die default privileges aus
+--       20260711120000_api_role_grants.sql jeder neuen Tabelle sonst
+--       automatisch DML an authenticated geben.
+--       Bewiesen in supabase/tests/inv2_lsa_datenvertrag.test.sql.
+--
+-- lsa_sessions:
+--   id, student_id → students, subject, grade (5..13),
+--   status (in_progress|completed|aborted), item_ids uuid[], started_at,
+--   completed_at, result_summary jsonb
+--   unique (student_id, subject) where status='in_progress'
+--   RLS: coach/admin all, parent read. KEIN Schueler-SELECT — result_summary
+--        enthaelt die Trefferquoten, und das Kind bekommt in der LSA kein
+--        Feedback (CLAUDE §6). Der Schueler sieht seine Session nur durch die RPCs.
+--
+-- lsa_responses (APPEND-ONLY, analog behavior_snapshots):
+--   id, session_id → lsa_sessions, task_id → tasks, response jsonb,
+--   correct boolean, duration_ms int
+--   unique (session_id, task_id)   – ein Item, eine Antwort
+--   RLS: coach/admin + parent read. Kein Schueler-SELECT (die Zeile traegt `correct`).
+--        Kein update-, kein delete-Policy.
+--
+-- Funktionen:
+--   lsa_normalize_answer(text) → text          [immutable]
+--       trim → Whitespace kollabieren → ERSTES Komma zu Punkt → lowercase.
+--       Spiegelt normText() aus src/lib/answer/evaluators.ts (SHORT_TEXT).
+--       Eine Konvention, zwei Orte — nicht zwei Konventionen.
+--   lsa_is_correct(input_type, correct_answers, response) → bool   [immutable]
+--       Bekommt die Loesung als Parameter, liest sie nie selbst → leakt nichts.
+--   lsa_public_assets(jsonb) → jsonb           [immutable]
+--   lsa_question_payload(uuid) → jsonb         [stable, SECURITY DEFINER]
+--       DER Vertrag (§1). Baut aus einer WHITELIST: kind/prompt/assets/options/unit.
+--       Kopiert nie ein bestehendes jsonb durch — eine Loesung kann strukturell
+--       nicht mitrutschen, auch nicht aus tasks.question_payload (das bei
+--       Bestandszeilen die Loesung enthaelt).
+--       kind: input_type MC → 'mc', SHORT_TEXT/NUMERIC → 'short_input'.
+--   lsa_may_act_for(uuid) → bool               [stable, SECURITY DEFINER]
+--   lsa_start(student_id, grade, subject) → jsonb          [SECURITY DEFINER]
+--       Pool: status='ready' + task_solutions mit >=1 Antwort + input_type in
+--       (MC, SHORT_TEXT, NUMERIC) + Fach + class_level <= grade.
+--       Round-Robin ueber (AFB × Kompetenzfeld), Zielumfang ~20 min ueber
+--       est_duration_sec. → {session_id, total_items, item}
+--   lsa_submit(session_id, task_id, response, duration_ms) → jsonb [SEC. DEFINER]
+--       Bewertet serverseitig, gibt {ok, next} zurueck — KEIN Richtig/Falsch.
+--   lsa_hint(session_id, task_id, level) → jsonb           [SECURITY DEFINER]
+--       Hinweise einzeln auf Anfrage (§1), nie vorab im Payload.
+--   lsa_finish(session_id) → jsonb                         [SECURITY DEFINER]
+--       Auswertung + VORSCHLAG (proposal.is_proposal=true, applied=false).
+--       Schreibt KEINEN Lernpfad, KEIN student_focus_areas, KEIN mastered.
+--   lsa_confirm_focus(session_id, cluster_ids) → jsonb     [SECURITY DEFINER]
+--       FernUSG-Gate: nur coach/admin. Erst hier wird aus dem Vorschlag ein
+--       Lernpfad — geschrieben in die BESTEHENDE Tabelle student_focus_areas
+--       (source='lsa'). screening_tests wird bewusst NICHT wiederverwendet:
+--       generate_parent_report liest dessen result_summary-Format.
+--   task_solution_upsert(...) → jsonb                      [SECURITY DEFINER]
+--       Lenas Schreibpfad in die Server-Only-Zone. Nur Admin.
+--
+-- Execute-Grants: Postgres gibt neuen Funktionen automatisch EXECUTE an PUBLIC
+--   (= auch anon). Die Migration nimmt das weg und grantet gezielt an
+--   authenticated/service_role; die internen Helfer nur an service_role.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (36 Tabellen, 20 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================
