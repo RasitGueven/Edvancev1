@@ -182,3 +182,40 @@ Root und **driftet ab dem nächsten Migrations-PR**. Entscheidung für Rasit: en
 als generiertes Artefakt aus der lokalen DB neu erzeugen (`supabase db dump`) oder
 löschen. Solange es existiert, gilt CLAUDE.md §10 („SQL immer in schema.sql
 dokumentieren") faktisch nicht mehr — auch das gehört angepasst.
+
+---
+
+## C03 — LSA-Items-Import (2026-07-12)
+
+### 1. `tasks` hat kein Lizenz-Feld — CC-BY-Attribution hat keinen Ort (rechtlich)
+
+Alle 15 VERA-8-Items stehen unter **CC BY 4.0 (IQB/VERA-8), Attribution
+erforderlich** (`lizenz_status` im Quell-JSON). `tasks` hat `source` / `source_ref`
+(= Quelle), aber **keine Spalte für die Lizenz**. Der Import füllt deshalb
+`source='VERA8_IQB'` + `source_ref=<IQB-UUID>`; der Lizenztext liegt **nirgends** in
+der DB.
+
+- **Was fehlt:** `alter table tasks add column license text` (+ ggf.
+  `attribution text`), Backfill aus `lizenz_status`, und eine Anzeige der
+  Attribution dort, wo das Item gerendert wird.
+- **Warum nicht hier:** Schema-Änderung — Spec §6 verbietet Migration in diesem Lauf.
+- **Dringlichkeit:** Das ist eine Lizenzauflage, keine Nettigkeit. Vor einem
+  öffentlichen Launch mit diesen Items muss die Attribution sichtbar sein.
+
+### 2. `input_type = 'short_input'` existiert nicht — Spec vs. CHECK-Constraint
+
+Spec §3 verlangt `input_type='short_input'`. Das ist **kein erlaubter Spaltenwert**:
+`tasks_input_type_check` lässt nur `MC|NUMERIC|SHORT_TEXT|TRUE_FALSE|FREE_TEXT|
+MATCHING|CLOZE|COORDINATE` zu (gegen die Live-DB verifiziert: Insert wird
+abgewiesen). `'short_input'` ist der Payload-*kind*, den `lsa_question_payload()`
+für jedes Nicht-MC-Item baut — nicht der Diskriminator in der Spalte. Import nutzt
+`NUMERIC` (alle 15 Lösungen sind Zahlen; `lsa_start` lässt `MC|SHORT_TEXT|NUMERIC`
+in den Pool). Kein Handlungsbedarf, aber die Spec-Formulierung ist irreführend.
+
+### 3. `cluster_id` ist faktisch Pflichtfeld für den LSA-Pool
+
+`lsa_start` joint **INNER** auf `skill_clusters` → `subjects`. Ein Item ohne
+`cluster_id` wird nie ausgespielt, ohne dass irgendwo ein Fehler auftaucht. Der
+Import mappt `edvance_matrix.inhaltsfelder` → Cluster-Name. Vorschlag fürs
+Foundation-Fenster: entweder `not null` auf `tasks.cluster_id` für `status='ready'`
+(Partial-Constraint) oder ein Left-Join + explizite Warnung in `lsa_start`.
