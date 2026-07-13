@@ -1,0 +1,132 @@
+{
+  "_doc": "Kuratierte Asset-Auswahl fuer VERA-8. Handgeprueft (visuell, 13.07.2026).",
+  "_warum": "Weder manifest.typ noch lizenz_status taugen zur Auswahl (siehe docs/LIZENZ-IQB.md). 'raster' bedeutet Seitenfragment, nicht Figur: von 34 PNGs sind nur 9 eine Abbildung, 3 gehoeren zu einer Teilaufgabe, der Rest ist reiner Aufgabentext mit Antwortluecken.",
+  "_klassen": {
+    "figure_stem": "Abbildung zum Aufgabenstamm -> gehoert in tasks.assets",
+    "figure_part": "Abbildung, die zu EINER Teilaufgabe gehoert -> Vertrag kann das nicht (siehe _blocker)",
+    "text_fragment": "reiner Aufgabentext/Antwortluecken -> NIEMALS hochladen",
+    "no_figure": "Item hat ueberhaupt keine Abbildung"
+  },
+  "_blocker": {
+    "part_assets_fehlen_im_vertrag": "lsa_question_payload liefert multi_part als {kind,task_id,stem,assets,parts[]}. 'assets' haengt nur am Stamm; parts[] hat {nr,kind,prompt,unit?,options?} und KEIN assets-Feld. Teilaufgaben mit eigener Abbildung (Spielwuerfel-Netze) sind damit nicht ausspielbar. Schema-/Vertragsaenderung noetig -> nicht eigenmaechtig, siehe Bericht.",
+    "bild_als_mc_option": "Pinsel Teilaufgabe 2: die vier Antwortoptionen SIND Bilder. options[] ist {id,label} (Text). Nicht abbildbar.",
+    "text_im_bild": "Jede figure_stem-PNG hat den Stammtext eingebrannt. Der steht auch in question/stem -> doppelte Anzeige. Crop noetig (Text oben, Figur unten), Eiscafe ausgenommen (Figur steht rechts NEBEN dem Text).",
+    "massstab": "Pinsel: Aufgabe verlangt Messen am Bild im Massstab 1:3. Auf responsivem Display ist die Bildgroesse nicht garantiert -> Aufgabe wird unloesbar/falsch. Nicht ausspielen ohne Groessengarantie."
+  },
+  "items": [
+    {
+      "titel": "Freibad", "slug": "freibad",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": true,
+          "alt": "Saeulendiagramm: Besucherzahlen des Freibads fuer Juni und die sechs Ferienwochen (3845, 2831, 4074, 5732, 4987, 7710, 6502).",
+          "hinweis": "Datentraeger. Ohne das Diagramm ist die Aufgabe nicht loesbar." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "text_fragment" }
+      ]
+    },
+    {
+      "titel": "Muckibude", "slug": "muckibude",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": true,
+          "alt": "Saeulendiagramm: Mitgliederzahlen des Fitnessvereins Muckibude 2012 bis 2016 (200, 400, 800, 1200, 1800).",
+          "hinweis": "Datentraeger." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "text_fragment" }
+      ]
+    },
+    {
+      "titel": "Wahl", "slug": "wahl",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": true,
+          "alt": "Saeulendiagramm Wahlergebnisse: Partei A 33,4 %, B 36,8 %, C 19,8 %, D 6,4 %.",
+          "hinweis": "Datentraeger." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "text_fragment" }
+      ]
+    },
+    {
+      "titel": "Verbindungsstrecken", "slug": "verbindungsstrecken",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": true,
+          "alt": "Kreis mit fuenf Punkten A, B, C, D, E; die Punkte A, B, C, D sind paarweise durch sechs Strecken verbunden, E liegt unverbunden.",
+          "hinweis": "Geometrische Vorlage." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "text_fragment" }
+      ]
+    },
+    {
+      "titel": "Wuerfelturm 2", "slug": "wuerfelturm2",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": true,
+          "alt": "Turm aus drei aufeinandergestapelten Wuerfeln; der erste hat die Kantenlaenge a, jeder darueberliegende die halbe Kantenlaenge des darunterliegenden.",
+          "hinweis": "Geometrische Vorlage." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_04.png", "klasse": "text_fragment" }
+      ]
+    },
+    {
+      "titel": "Kreisfiguren", "slug": "kreisfiguren",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": true,
+          "alt": "Vier durch Kreislinien und Strecken begrenzte Figuren A, B, C, D auf Gitterpapier.",
+          "hinweis": "Ohne die Figuren ist die Aufgabe sinnlos." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" }
+      ]
+    },
+    {
+      "titel": "Ungewoehnlicher Spielwuerfel", "slug": "ungewoehnlicherspielwuerfel",
+      "status": "HALT",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": true,
+          "alt": "Vier Fotos eines wuerfelfoermigen Koerpers, aus dem ein Viertel herausgeschnitten wurde, aus verschiedenen Ansichten.",
+          "hinweis": "FOTO, nicht Zeichnung. Lizenzhinweis deckt 'Grafik' — ob das ein Foto einschliesst, ist ungeklaert. Vor Upload klaeren." },
+        { "datei": "aufgabe_02.png", "klasse": "figure_part", "teilaufgabe": 1,
+          "hinweis": "Wuerfelnetz. Teilaufgabe verlangt Einzeichnen der Punkte -> Zeichenaufgabe, nicht auto-bewertbar." },
+        { "datei": "aufgabe_03.png", "klasse": "figure_part", "teilaufgabe": 2,
+          "hinweis": "Zweites Wuerfelnetz. Ebenfalls Zeichenaufgabe." }
+      ]
+    },
+    {
+      "titel": "Pinsel", "slug": "pinsel",
+      "status": "HALT",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": true,
+          "alt": "Foto eines Pinsels, abgebildet im Massstab 1:3 (Abbildung 1).",
+          "hinweis": "MASSSTABSABHAENGIG. Aufgabe verlangt Messen am Bild. Auf responsivem Display nicht garantiert -> nicht ausspielen." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "figure_part", "teilaufgabe": 2,
+          "hinweis": "Die vier MC-Optionen SIND Pinselbilder. options[] ist Text -> im Vertrag nicht darstellbar." }
+      ]
+    },
+    {
+      "titel": "Eiscafe", "slug": "eiscafe",
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "figure_stem", "essenziell": false,
+          "alt": "Eistuete mit drei Kugeln Eis.",
+          "hinweis": "Rein dekorativ, traegt keine Daten. Figur steht RECHTS neben dem Text -> Crop nach Zeilen unmoeglich. Empfehlung: weglassen." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "text_fragment" }
+      ]
+    },
+    {
+      "titel": "Innenwinkel 2", "slug": "innenwinkel2",
+      "keine_abbildung": true,
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "no_figure", "hinweis": "Nur der Merksatz zur Winkelsumme." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_04.png", "klasse": "text_fragment" }
+      ]
+    },
+    {
+      "titel": "Schulkleidung", "slug": "schulkleidung",
+      "keine_abbildung": true,
+      "assets": [
+        { "datei": "aufgabe_01.png", "klasse": "no_figure", "hinweis": "Reiner Fliesstext (Studienbeschreibung)." },
+        { "datei": "aufgabe_02.png", "klasse": "text_fragment" },
+        { "datei": "aufgabe_03.png", "klasse": "text_fragment" }
+      ]
+    }
+  ]
+}
