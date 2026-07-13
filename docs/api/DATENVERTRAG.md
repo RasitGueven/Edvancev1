@@ -1,7 +1,9 @@
 # Datenvertrag: `question_payload` + LSA-RPCs
 
-**Stand:** 2026-07-12 · **Migration:** `supabase/migrations/20260712100000_p01_datenvertrag.sql`
-**Beweis:** `supabase/tests/inv2_lsa_datenvertrag.test.sql` (pgTAP, 17 Assertions)
+**Stand:** 2026-07-13 · **Migrationen:** `20260712100000_p01_datenvertrag.sql` (P01),
+`20260713100000_p02_multipart.sql` (P02 — Multi-Part)
+**Beweis:** `supabase/tests/inv2_lsa_datenvertrag.test.sql` (17 Assertions) +
+`supabase/tests/inv3_lsa_multipart.test.sql` (23 Assertions), beide pgTAP
 
 Dieses Dokument ist die Klammer zwischen Backend (Edvancev1) und der neuen
 React-Native-App. Was hier steht, ist zugesichert. Was hier nicht steht, ist
@@ -16,13 +18,19 @@ Ein diskriminierter Typ. Der Renderer schaltet auf `kind`.
 ```ts
 type Asset = { url: string; alt?: string }
 
+type Part =
+  | { nr: number; kind: 'short_input'; prompt: string; unit?: string }
+  | { nr: number; kind: 'mc'; prompt: string;
+      options: { id: string; label: string }[] }
+
 type QuestionPayload =
   | { kind: 'mc'; task_id: string; prompt: string; assets: Asset[];
       options: { id: string; label: string }[] }
   | { kind: 'short_input'; task_id: string; prompt: string; assets: Asset[];
       unit?: string }
-// Spätere Typen sind in der Struktur vorgesehen, aber NICHT implementiert:
-//   cloze, multi_part
+  | { kind: 'multi_part'; task_id: string; stem: string; assets: Asset[];
+      parts: Part[] }              // P02 — siehe §6
+// Spätere Typen sind in der Struktur vorgesehen, aber NICHT implementiert: cloze
 ```
 
 `kind` wird aus `tasks.input_type` abgeleitet — **`input_type` ist der
@@ -34,6 +42,7 @@ PK von `xp_rules`; es wird hier nicht angefasst):
 | `MC`         | `mc`          |
 | `SHORT_TEXT` | `short_input` |
 | `NUMERIC`    | `short_input` |
+| `MULTI_PART` | `multi_part`  |
 
 `unit` fehlt im Payload, wenn die Aufgabe keine Einheit hat (`jsonb_strip_nulls`) —
 im TS-Typ also optional.
@@ -52,6 +61,11 @@ Das ist wichtig, weil `tasks.question_payload` bei Bestandszeilen das kanonische
 `AnswerPayload` enthält — **inklusive `correct` / `accepted`**. Der Builder liest
 daraus ausschließlich `options[].id` und `options[].label`.
 
+**Die Whitelist gilt rekursiv.** Auch jede Teilaufgabe eines Multi-Part-Items
+wird feldweise gebaut (`lsa_public_parts`) — `correct`, `accepted`, `solution`,
+`hints` können auf keiner Verschachtelungsebene mitrutschen. `inv3` prüft das
+nicht nur strukturell, sondern gegen den **gesamten Payload-Text**.
+
 Hinweise kommen **einzeln auf Anfrage** über `lsa_hint` — nie vorab
 mitgeschickt. Sonst liest das Kind sie im Netzwerk-Tab.
 
@@ -64,7 +78,7 @@ Eine 1:1-Extension-Tabelle zu `tasks`:
 | Feld | Typ | Zweck |
 |---|---|---|
 | `task_id` | uuid PK → tasks | |
-| `correct_answers` | jsonb | **alle** akzeptierten Varianten: `["0,3 m","30 cm","0.3m"]` |
+| `correct_answers` | jsonb | **alle** akzeptierten Varianten: `["0,3 m","30 cm","0.3m"]`.<br>Bei Multi-Part ein **Objekt** mit der Teilaufgaben-Nummer als Schlüssel: `{"1":["20"],"2":["b"]}` — beide Formen koexistieren (§6) |
 | `solution` | text | Musterlösung (nur Coach/Report) |
 | `hints` | jsonb | `[{level:1,text:"…"}, …]` |
 | `coach_hints` | jsonb | max. 3 (CHECK) — was der Coach live nachschicken kann |
@@ -125,23 +139,40 @@ Coach/Admin) — `SECURITY DEFINER` ohne eigene Prüfung wäre ein Loch.
 ### `lsa_start(student_id, grade, subject) → { session_id, total_items, item }`
 
 Pool: `tasks.status = 'ready'` **und** eine `task_solutions`-Zeile mit
-mindestens einer akzeptierten Antwort **und** `input_type in (MC, SHORT_TEXT,
-NUMERIC)` **und** Fach **und** `class_level <= grade`.
-Zielumfang ~20 Minuten (Summe über `est_duration_sec`), gemischt per Round-Robin
-über AFB × Kompetenzfeld. `item` ist ein `QuestionPayload`.
+mindestens einer akzeptierten Antwort (bei Multi-Part: **für jede** Teilaufgabe)
+**und** `input_type in (MC, SHORT_TEXT, NUMERIC, MULTI_PART)` **und** Fach
+**und** `class_level <= grade`.
+
+**Gezogen wird gegen ein Zeitbudget, nicht gegen eine Item-Anzahl** — Summe über
+`est_duration_sec`, Ziel ~20 Minuten, gemischt per Round-Robin über AFB ×
+Kompetenzfeld. Das ist der Grund, warum `est_duration_sec` bei `MULTI_PART` per
+CHECK Pflicht ist: ein Item mit vier Teilaufgaben kostet die Zeit von vier
+Aufgaben. Zöge der Pool blind nach Item-Anzahl, spränge die LSA die 20 Minuten.
+`item` ist ein `QuestionPayload`.
 
 Pro (Schüler, Fach) kann nur **eine** Session `in_progress` sein (Unique-Index).
 
 ### `lsa_submit(session_id, task_id, response, duration_ms) → { ok: true, next: QuestionPayload | null }`
 
 Bewertet **server-seitig** gegen `correct_answers`, speichert Antwort +
-Korrektheit + Dauer in `lsa_responses` (append-only, ein Item = eine Antwort).
+Korrektheit + Dauer in `lsa_responses` (append-only).
 
-**Die Antwort enthält kein `correct`, keinen Score, kein Feedback.** Die LSA ist
-eine Diagnose, kein Übungsmodus — das Kind bekommt kein Richtig/Falsch. Deshalb
-hat der Schüler auch auf `lsa_responses` und `lsa_sessions` **kein SELECT**: die
+`response` je nach `input_type` der **Task** (nicht nach der Form des Payloads):
+
+| `input_type` | `response` |
+|---|---|
+| `MC` | `{ selected: string[] }` |
+| `SHORT_TEXT` / `NUMERIC` | `{ text: string }` bzw. `{ value: … }` |
+| `MULTI_PART` | `{ "1": "20", "2": "b", "3": "16" }` — **eine** Anfrage mit allen Teilantworten |
+
+**Die Antwort enthält kein `correct`, keinen Score, kein Feedback** — auch nicht
+per Teilaufgabe, auch nicht aggregiert, auch nicht als Zähler. Die LSA ist eine
+Diagnose, kein Übungsmodus — das Kind bekommt kein Richtig/Falsch. Deshalb hat
+der Schüler auch auf `lsa_responses` und `lsa_sessions` **kein SELECT**: die
 Zeilen tragen die Korrektheit. Das Frontend darf nichts über Richtigkeit
 anzeigen, weil es nichts darüber erfährt.
+
+`lsa_submit` schreibt **keine `xp_events`** und fasst `student_progress` nicht an.
 
 `next` ist das nächste unbeantwortete Item in Plan-Reihenfolge, sonst `null`
 (= Session durch).
@@ -152,9 +183,14 @@ Genau der angefragte Hinweis-Level. `available: false`, wenn es ihn nicht gibt.
 
 ### `lsa_finish(session_id) → result_summary`
 
+Aggregiert wird **pro Teilaufgabe nach Kompetenz**, nicht pro Item — ein
+Multi-Part-Item mit drei Teilaufgaben liefert drei unabhängige Datenpunkte. Es
+gibt **kein** Item-Gesamtergebnis, keine „2 von 3"-Quote, keinen Item-Score.
+
 ```jsonc
 {
-  "answered": 12,
+  "answered": 12,        // Items (Fortschritt gegen "planned")
+  "answered_parts": 19,  // Datenpunkte — Teilaufgaben zählen einzeln
   "planned": 14,
   "competencies": [ { "competency": "…", "total": 4, "correct": 1,
                       "hit_rate": 0.25, "avg_duration_ms": 41000 } ],
@@ -196,3 +232,78 @@ Tabellen (`lsa_sessions`, `lsa_responses`).
 
 `student_focus_areas` **wird** wiederverwendet: der bestätigte Fokus ist genau
 das, was diese Tabelle schon modelliert.
+
+---
+
+## 6. Multi-Part (P02)
+
+Im VERA-Bestand tragen 86 von 144 `ready`-Items mehrere Teilaufgaben, jede mit
+**eigenen Kompetenzen und eigenem AFB**. Ein Multi-Part-Item mit drei
+Teilaufgaben liefert deshalb drei Kompetenz-Datenpunkte — es ist diagnostisch
+*wertvoller* als ein flaches Item, nicht nur zusätzlich.
+
+### Ein Screen, ein „Weiter"
+
+Stamm oben (inkl. `assets`), darunter alle Teilaufgaben untereinander, **ein**
+„Weiter"-Button — aktiv, sobald alle Teilaufgaben beantwortet sind. Teilaufgabe 2
+baut fachlich auf 1 auf; sequenzielles Durchreichen zerrisse den Zusammenhang,
+und im VERA-Original sieht das Kind ebenfalls ein Blatt.
+
+**Kein Richtig/Falsch, auf keiner Ebene.** Keine Häkchen, keine Farben, kein
+Zwischenfeedback, kein XP, keine Streak während der LSA.
+
+### Der Payload
+
+```jsonc
+{
+  "kind": "multi_part",
+  "task_id": "…",
+  "stem": "Ein Pullover kostet 80 €. Im Schlussverkauf wird er um 20 % reduziert.",
+  "assets": [ … ],
+  "parts": [
+    { "nr": 1, "kind": "short_input", "prompt": "…", "unit": "€" },
+    { "nr": 2, "kind": "mc",          "prompt": "…",
+      "options": [ { "id": "a", "label": "…" }, { "id": "b", "label": "…" } ] },
+    { "nr": 3, "kind": "short_input", "prompt": "…" }
+  ]
+}
+```
+
+`stem` und `parts[].prompt` sind **getrennt**. Ein Multi-Part-Item ohne sauber
+abtrennbaren Stamm ist keines — der Import wird abgewiesen (CHECK, siehe unten).
+Teilaufgaben-`kind` ist auf `short_input` und `mc` beschränkt: nur
+auto-gradebare Typen gehören in eine Diagnose.
+
+### Wo was liegt
+
+| | |
+|---|---|
+| **Struktur** (öffentlich) | `tasks.parts` — `[{nr, kind, prompt, unit?, options?, competency_content?, competency_process?, afb?}]` |
+| **Lösung** (server-only) | `task_solutions.correct_answers` als **Objekt**: `{"1":["20"],"2":["b"]}` |
+
+`tasks.competency_content` / `_process` / `afb` sind **skalar** — einmal pro Item.
+Die Kompetenz je Teilaufgabe konnte das Schema deshalb nicht halten; dafür gibt
+es `tasks.parts`. Ans Kind geht davon nur die Whitelist (`nr`, `kind`, `prompt`,
+`unit`, `options[].id/label`) — `competency_*` und `afb` bleiben im Backend.
+
+`CHECK tasks_multipart_check` ist der Import-Filter als DB-Zusage. Ein
+`MULTI_PART`-Item kommt nur in die Tabelle, wenn es hat:
+mindestens 2 Teilaufgaben · eindeutige `nr` · `kind` nur `short_input`/`mc` ·
+nicht-leeren `prompt` · MC mit ≥2 Optionen · **kein Lösungsfeld in `parts`** ·
+einen nicht-leeren Stamm · ein gesetztes `est_duration_sec`.
+
+### Auswertung
+
+`lsa_responses` bekommt **eine Zeile pro Teilaufgabe** (`part_nr`; `null` bei
+flachen Items). Der alte `unique(session_id, task_id)` hätte die zweite
+Teilaufgabe desselben Items abgewiesen und ist durch
+`unique(session_id, task_id, coalesce(part_nr, 0))` ersetzt.
+
+Bewertet wird je Teilaufgabe über dieselbe Konvention wie bisher
+(`lsa_normalize_answer` / `lsa_is_correct`) — es gibt keine zweite.
+
+`duration_ms` ist bei Multi-Part die Dauer des **gesamten Items** (der Client
+misst nicht pro Teilaufgabe) und steht auf jeder Teilaufgaben-Zeile gleich.
+
+**Flache Items laufen unverändert weiter.** Beide Formen von `correct_answers`
+koexistieren; `inv2` bleibt als Regressionstest grün.
