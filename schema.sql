@@ -1711,5 +1711,94 @@ on conflict (id) do nothing;
 --   authenticated/service_role; die internen Helfer nur an service_role.
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (36 Tabellen, 20 Funktionen, 2 Enums, 1 Trigger).
+-- 16. P02 – MULTI-PART-AUFGABENTYP
+--     (supabase/migrations/20260713100000_p02_multipart.sql)
+--     Vertragsdokumentation: docs/api/DATENVERTRAG.md §6
+-- ============================================================================
+--
+-- Eine Aufgabe, mehrere Teilaufgaben. Jede Teilaufgabe hat einen eigenen
+-- Antworttyp, eine eigene Kompetenz und ein eigenes AFB. Ausgewertet wird PRO
+-- TEILAUFGABE — ein Item mit drei Teilaufgaben liefert drei Kompetenz-Datenpunkte.
+-- Ein Item-Gesamtergebnis gibt es bewusst NICHT (eine "2 von 3"-Quote waere
+-- diagnostisch wertlos).
+--
+-- tasks:
+--   input_type            + 'MULTI_PART' (tasks_input_type_check neu gesetzt;
+--                           Bestand aus 042: MC, NUMERIC, SHORT_TEXT, TRUE_FALSE,
+--                           FREE_TEXT, MATCHING, CLOZE, COORDINATE)
+--   parts   jsonb not null default '[]'
+--           [{nr, kind(short_input|mc), prompt, unit?, options?,
+--             competency_content?, competency_process?, afb?}]
+--           → WARUM eine eigene Spalte: die Teilaufgabe traegt ihre EIGENE
+--             Kompetenz. tasks.competency_content/_process/afb sind skalar (einmal
+--             pro Item) und koennen das nicht halten. Ohne diese Spalte waere die
+--             Kompetenz je Teilaufgabe — der Kern der Diagnostik — verloren.
+--           → Die Loesung liegt NICHT hier, sondern in task_solutions.
+--   Index: tasks_parts_idx (gin) where input_type='MULTI_PART'
+--
+--   CHECK tasks_multipart_check — der Import-Filter als DB-Zusage:
+--     MULTI_PART ⇒ lsa_parts_valid(parts)               (>=2 Teilaufgaben, nr
+--                                                        eindeutig, kind nur
+--                                                        short_input|mc, prompt
+--                                                        nicht leer, MC mit >=2
+--                                                        Optionen, KEIN Loesungsfeld)
+--                  UND question <> ''                    (Stamm ist Pflicht: ein
+--                                                        Multi-Part ohne abtrennbaren
+--                                                        Stamm ist keines → Import
+--                                                        verweigern)
+--                  UND est_duration_sec is not null      (Zeitbudget: vier
+--                                                        Teilaufgaben kosten vier
+--                                                        Aufgaben Zeit — lsa_start
+--                                                        darf das nicht schaetzen)
+--     sonst        ⇒ parts = '[]'
+--
+-- task_solutions:
+--   correct_answers  jsonb — jetzt Array ODER Objekt (CHECK: lsa_answers_valid):
+--     flach:      ["0,3 m","30 cm"]
+--     multi-part: {"1":["20"],"2":["b"],"3":["16"]}   ← Schluessel = Teilaufgaben-nr
+--   Beide Formen koexistieren. Die 14 flachen Bestandsitems brechen nicht.
+--
+-- lsa_responses:
+--   part_nr int (null bei flachen Items, >=1 bei Teilaufgaben)
+--   unique (session_id, task_id) ENTFERNT — sie haette die zweite Teilaufgabe
+--     desselben Items abgewiesen. Ersetzt durch den Unique-INDEX
+--     lsa_responses_once_per_part (session_id, task_id, coalesce(part_nr, 0)).
+--   Eine Zeile PRO TEILAUFGABE. Bestandszeilen: part_nr = null.
+--   duration_ms ist bei Multi-Part die Dauer des GESAMTEN Items (der Client misst
+--     nicht pro Teilaufgabe) und steht deshalb auf jeder Teilaufgaben-Zeile gleich.
+--
+-- Funktionen (neu):
+--   lsa_parts_valid(jsonb) → bool     [immutable]  – Strukturvertrag, steht im CHECK
+--   lsa_answers_valid(jsonb) → bool   [immutable]  – Array|Objekt, steht im CHECK
+--   lsa_public_parts(jsonb) → jsonb   [immutable]  – Whitelist je Teilaufgabe:
+--       nr/kind/prompt/unit/options(id,label). Kein competency_*, kein afb, keine
+--       Loesung — es wird gebaut, nicht durchgereicht.
+--   lsa_part_answer(kind, jsonb) → jsonb [immutable] – uebersetzt die skalare
+--       Teilantwort ("20") in die StudentAnswer-Form ({text}/{selected}), damit
+--       lsa_is_correct die EINZIGE Bewertungskonvention bleibt.
+--   lsa_has_answers(input_type, parts, correct_answers) → bool [immutable]
+--       Pool-Eignung. Bei MULTI_PART braucht JEDE Teilaufgabe eine Loesung.
+--
+-- Funktionen (geaendert):
+--   lsa_question_payload(uuid)  – neuer Zweig MULTI_PART:
+--       { kind:'multi_part', task_id, stem, assets, parts:[…] }
+--       Die Whitelist gilt REKURSIV (pgTAP inv3 prueft den gesamten Payload-Text).
+--   lsa_start(...)              – MULTI_PART im Pool; gezogen wird gegen das
+--       Zeitbudget (Summe est_duration_sec, ~1200 s), nicht gegen eine Item-Anzahl.
+--       Der coalesce-Fallback (estimated_minutes*60, 180) greift nur noch fuer
+--       FLACHE Bestandsitems — MULTI_PART hat est_duration_sec per CHECK.
+--   lsa_submit(...)             – Multi-Part: p_response = {"1":"20","2":"b"}.
+--       Unterschieden wird am input_type der TASK, nicht an der Form des Payloads.
+--       Schreibt eine lsa_responses-Zeile je Teilaufgabe. Die Antwort bleibt
+--       {ok, next} — kein correct, kein Score, kein Zaehler, auf keiner Ebene.
+--   lsa_finish(...)             – result_summary aggregiert ueber TEILAUFGABEN nach
+--       Kompetenz (aus tasks.parts, Fallback auf die Item-Kompetenz bei flachen
+--       Items). Neu: 'answered_parts' (Datenpunkte) neben 'answered' (Items).
+--       Kein Item-Score, keine Item-Quote.
+--
+-- Beweis: supabase/tests/inv3_lsa_multipart.test.sql (pgTAP, 23 Assertions).
+--   inv2 bleibt unveraendert gruen — die flachen Items laufen weiter.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (36 Tabellen, 25 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

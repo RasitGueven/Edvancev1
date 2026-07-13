@@ -16,6 +16,16 @@
   - Tarif-Verwaltung `/admin/tiers` (DB-Katalog statt Hardcode)
   - Diagnose-/Screening-Engine de-mockt (echter Generator + Content)
   - Coach-/Student-/Parent-Dashboard auf Echtdaten; alle Mock-Daten entfernt
+- **LSA-Backend (Lernstandsanalyse), Vertrag steht — `docs/api/DATENVERTRAG.md`:**
+  - **P01 Datenvertrag** (Retro 2026-07-12): `task_solutions` als Server-Only-Zone
+    (kein Grant für anon/authenticated), `lsa_question_payload` baut aus einer
+    Whitelist, RPCs `lsa_start`/`lsa_submit`/`lsa_hint`/`lsa_finish`/
+    `lsa_confirm_focus`. FernUSG-Gate: `lsa_finish` schlägt vor, der Coach setzt.
+  - **P02 Multi-Part** (Retro 2026-07-13): `input_type = 'MULTI_PART'`,
+    `tasks.parts` (Kompetenz + AFB **je Teilaufgabe**), `lsa_responses.part_nr` —
+    eine Zeile pro Teilaufgabe. `result_summary` aggregiert pro Kompetenz, nicht
+    pro Item. Noch **nicht deployt**.
+  - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
@@ -26,6 +36,10 @@
     `.docx` — 188 Items wörtlich aus der Quelle, kein OCR.
 
 ## Nächste Schritte
+- **P02-Migration deployen** (`20260713100000_p02_multipart.sql` — bisher nur lokal verifiziert)
+- **C07: Import der 86 MULTI_PART-Items** (Trefferquote im Bestand ~40 % → Sichtung nötig)
+- **`est_duration_sec` für die 14 LSA-Bestandsitems pflegen (Lena)** — bis dahin
+  schätzt `lsa_start` das Zeitbudget über `estimated_minutes` (Retro 2026-07-13 §2)
 - **`.doc` → `.docx` konvertieren (74 Items, Rasit/LibreOffice unter Windows)**,
   danach `bash scripts/content/c02_rebuild.sh` → Projektion **208 `ready`**
 - Lena-Review von `data/vera8_review_lena.csv`, Priorität: die 33
