@@ -7,6 +7,8 @@ import { CoachDashboard } from '@/pages/coach/CoachDashboard'
 import { ParentDashboard } from '@/pages/parent/ParentDashboard'
 import { ScreeningReportPage as ParentScreeningReportPage } from '@/pages/parent/ScreeningReportPage'
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
+import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
+import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
 import { OnboardingPage } from '@/pages/admin/OnboardingPage'
 import { LambacherPreview } from '@/pages/admin/LambacherPreview'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
@@ -189,6 +191,24 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <DiagnosticsPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Item-Pflege. Coach darf sehen (Lena sichtet), schreiben darf laut RLS
+            und task_solution_upsert nur Admin — die Seiten schalten selbst um. */}
+        <Route
+          path="/admin/authoring"
+          element={
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <AuthoringItemsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/authoring/:id"
+          element={
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <AuthoringEditorPage />
             </ProtectedRoute>
           }
         />

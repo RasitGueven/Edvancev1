@@ -124,6 +124,24 @@ export type {
 } from './gamification'
 
 export type {
+  TaskStatus,
+  Afb,
+  AuthoringInputType,
+  PartKind,
+  PartOption,
+  TaskPart,
+  AuthoringTask,
+  AuthoringTaskPatch,
+  SolutionAnswers,
+  TaskSolution,
+  ItemFlag,
+  AuthoringListItem,
+  AuthoringSchema,
+  GroundingQuote,
+  GroundingRecord,
+} from './authoring'
+
+export type {
   CompetencyCode,
   ProcessCompetency,
   MasteryStage,
