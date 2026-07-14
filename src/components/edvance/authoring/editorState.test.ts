@@ -5,7 +5,7 @@
 // eine, und kein Editor-Feld zeigt sie an. Diese Suite haelt die Tabelle fest.
 
 import { describe, expect, it } from 'vitest'
-import { fromTask, toPatch } from './editorState'
+import { fromTask, toPatch, toSolution } from './editorState'
 import type { AuthoringTask, TaskSolution } from '@/types'
 
 const TABLE = { headers: ['Bestandteil', 'gering'], rows: [['Fett', '< 3 g']] }
@@ -38,6 +38,7 @@ const solution: TaskSolution = {
   exists: true,
   correct_answers: ['16'],
   solution: null,
+  beleg: [{ feld: 'part1.correct_answers', quelle: 'Auswertung.docx', zitat: '16' }],
   hints: [],
   coach_hints: [],
   typical_errors: [],
@@ -73,5 +74,21 @@ describe('toPatch — question_payload', () => {
     const patch = toPatch(fromTask(task(), solution))
     expect(JSON.stringify(patch.question_payload)).not.toContain('16')
     expect(Object.keys(patch.question_payload ?? {})).not.toContain('correct')
+  })
+})
+
+// B01: Der Quellenbeleg ist die Quelle, gegen die gepflegt wird. Waere er Teil des
+// Formulars, koennte ein Speichern ihn ueberschreiben — genau das war der Defekt,
+// solange er im Loesungsfeld wohnte. Er geht rein, er kommt nie raus.
+describe('toSolution — der Beleg ist unzerstoerbar', () => {
+  it('nimmt den Beleg nicht in den FormState auf', () => {
+    const state = fromTask(task(), solution)
+    expect(JSON.stringify(state)).not.toContain('Auswertung.docx')
+  })
+
+  it('schickt den Beleg nicht an task_solution_upsert zurueck', () => {
+    const written = toSolution(fromTask(task(), solution))
+    expect(written).not.toHaveProperty('beleg')
+    expect(JSON.stringify(written)).not.toContain('Auswertung.docx')
   })
 })

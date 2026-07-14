@@ -43,6 +43,7 @@ const NO_SOLUTION: TaskSolution = {
   exists: false,
   correct_answers: [],
   solution: null,
+  beleg: [],
   hints: [],
   coach_hints: [],
   typical_errors: [],

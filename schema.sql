@@ -336,8 +336,14 @@ create index if not exists tasks_competency_idx on tasks (competency_id);
 
 alter table tasks enable row level security;
 
-create policy "authenticated_read_tasks"
-  on tasks for select using (auth.role() = 'authenticated');
+-- B01 (20260714140000): Rolle statt "eingeloggt". auth.role() sagt nur, DASS
+-- jemand eingeloggt ist — nicht WER. Seit C08 liegen 285 draft-Items in der
+-- Tabelle; die alte Policy gab sie jedem Schuelergeraet.
+create policy "read_tasks_by_role"
+  on tasks for select using (
+    public.get_my_role() in ('coach', 'admin')
+    or (public.get_my_role() is not null and status = 'ready')
+  );
 create policy "admin_write_tasks"
   on tasks for all using (
     exists (
@@ -1645,7 +1651,10 @@ on conflict (id) do nothing;
 --   task_id pk → tasks(id) on delete cascade
 --   correct_answers jsonb not null default '[]'  – alle akzeptierten Varianten,
 --                                                  explizit gepflegt (keine Einheiten-Magie)
---   solution        text
+--   solution        text                         – der didaktische LOESUNGSWEG
+--                                                  (Handarbeit). NICHT der Beleg.
+--   beleg           jsonb (B01)                  – die Quellenbelege der Extraktion,
+--                                                  pro Feld: [{feld, gate, quelle, zitat}]
 --   hints           jsonb not null default '[]'  – [{level, text}]
 --   coach_hints     jsonb not null default '[]'  – max 3 (CHECK)
 --   typical_errors  jsonb not null default '[]'  – [{error, socratic_question}]
@@ -1803,6 +1812,46 @@ on conflict (id) do nothing;
 --
 -- Beweis: supabase/tests/inv3_lsa_multipart.test.sql (pgTAP, 23 Assertions).
 --   inv2 bleibt unveraendert gruen — die flachen Items laufen weiter.
+
+-- ============================================================================
+-- 17. B01 – QUELLENBELEG + ROLLENBASIERTE RLS AUF `tasks`
+--     (supabase/migrations/20260714140000_b01_beleg_und_rls.sql)
+-- ============================================================================
+--
+-- task_solutions:
+--   beleg jsonb (nullable, CHECK: array)
+--     [{feld:"part1.correct_answers", gate:"G2", quelle:"Auswertung (RICHTIG-Zelle)",
+--       zitat:"16"}, …] – die Struktur des _grounding aus der Extraktion
+--       (src/types/authoring.ts: GroundingBeleg).
+--     WARUM: C08 hat den Quellenbeleg mangels Zuhause nach `solution` geschrieben —
+--       in das Feld, das den didaktischen Loesungsweg traegt. Wer im Autoren-Tool
+--       einen Loesungsweg schreibt, haette den Beleg ueberschrieben. Zwei Dinge,
+--       zwei Spalten.
+--     Bestandsdaten: die 229 C08-Belege wurden aus `solution` herausgeloest
+--       (Kriterium: der maschinell erzeugte Blockanfang "[<feld …correct_answers>";
+--       Roundtrip-Pruefung, Abbruch statt Heuristik). `solution` steht damit leer
+--       fuer den echten Loesungsweg.
+--
+-- task_solution_get(uuid):   liefert `beleg` mit. Haertung unveraendert: coach/admin.
+-- task_solution_upsert(...): +p_beleg jsonb, und PATCH-Semantik fuer ALLE Parameter —
+--       NULL = "nicht mitgeschickt" = unveraendert. Der Import schreibt den Beleg,
+--       ohne den Loesungsweg zu loeschen; der Editor umgekehrt. Explizit geleert
+--       wird mit '' (solution), 'null'::jsonb (beleg), '[]' (Arrays).
+--       Die alte 6-stellige Signatur ist gedroppt (PostgREST kann zwei
+--       Ueberladungen mit Defaults nicht eindeutig aufloesen).
+--
+-- tasks (RLS):
+--   authenticated_read_tasks  → GEDROPPT (qual: auth.role() = 'authenticated' —
+--                               "eingeloggt" ist keine Rolle).
+--   read_tasks_by_role        → coach/admin lesen alles (Item-Pflege), jede andere
+--                               Rolle nur status='ready'. anon: get_my_role() ist
+--                               NULL → keine Zeile.
+--   admin_write_tasks         → unveraendert.
+--   Die LSA-RPCs sind SECURITY DEFINER und von der Policy nicht betroffen.
+--
+-- Beweis: supabase/tests/inv7_draft_nicht_fuer_schueler.test.sql (pgTAP, 12
+--   Assertions: Schueler sieht nur ready, Coach sieht drafts, Beleg ueber keinen
+--   Weg erreichbar, lsa_start liefert weiterhin Items). inv6 bleibt gruen.
 
 -- ============================================================================
 -- ENDE – konsolidiertes Schema (36 Tabellen, 25 Funktionen, 2 Enums, 1 Trigger).

@@ -217,8 +217,21 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Lösungsbelege gebaut, der Beleg liegt gegatet in `task_solutions.solution`;
   (2) `toPatch` hätte die F01-Tabelle von 54 Items beim ersten Speichern verworfen —
   jetzt read-only durchgereicht.
-  **Offen:** Tabellen-Editor (54 Items), eigenes Beleg-Feld statt
-  `task_solutions.solution` (Migration), Pflege der 138.
+  **Offen:** Tabellen-Editor (54 Items), Pflege der 138.
+
+- **B01 — Quellenbeleg bekommt ein Zuhause + RLS auf `tasks`** (Branch
+  `fix/beleg-und-rls`, Retro `docs/retros/2026-07-14-B01-beleg-und-rls.md`):
+  Migration `20260714140000_b01_beleg_und_rls.sql` (**noch nicht ausgeführt** —
+  Schema-Session mit Rasit). Zwei Blocker vor der ersten Pflegesession:
+  (1) `task_solutions.beleg jsonb` trennt den Quellenbeleg vom didaktischen
+  Lösungsweg — bisher teilten sie sich `solution`, und wer einen Weg schrieb,
+  löschte den Beleg. `task_solution_upsert` patcht jetzt pro Feld, das Tool zeigt
+  den Beleg read-only.
+  (2) `authenticated_read_tasks` (jeder Eingeloggte las jede Zeile, seit C08 also
+  285 Drafts) → `read_tasks_by_role`: coach/admin alles, alle anderen nur `ready`.
+  Beweis: `supabase/tests/inv7_draft_nicht_fuer_schueler.test.sql`.
+  **Blockiert auf Rasit:** Migration im SQL-Editor ausführen, danach
+  `npx supabase test db` (inv6 + inv7).
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →

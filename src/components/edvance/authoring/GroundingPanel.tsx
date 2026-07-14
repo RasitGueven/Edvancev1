@@ -9,15 +9,16 @@
 //
 // NICHT HIER: der Loesungsbeleg. Der Index ist eine statische Datei in public/,
 // also oeffentlich lesbar — auch fuer ein Kind mitten in der LSA (INV-6). Worauf
-// sich die LOESUNG stuetzt, steht deshalb im Loesungsfeld oben (task_solutions.
-// solution, gegated auf Coach/Admin ueber task_solution_get).
+// sich die LOESUNG stuetzt, steht deshalb neben dem Loesungsweg (task_solutions.
+// beleg, gegated auf Coach/Admin ueber task_solution_get — B01).
 
 import { useEffect, useState, type JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AlertTriangle, BookOpen, ChevronDown, ChevronRight, ExternalLink } from 'lucide-react'
 import { EdvanceCard } from '@/components/edvance'
 import { getGrounding, hasGroundingSource } from '@/lib/authoring/grounding'
-import type { GroundingBeleg, GroundingRecord } from '@/types'
+import type { GroundingRecord } from '@/types'
+import { BelegQuote } from './BelegQuote'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
@@ -45,29 +46,6 @@ function WarnList({ title, entries }: { title: string; entries: string[] }): JSX
         </span>
       ))}
     </div>
-  )
-}
-
-function Beleg({ beleg }: { beleg: GroundingBeleg }): JSX.Element {
-  const { t } = useTranslation('authoring')
-  return (
-    <figure className="flex flex-col gap-1 border-l-2 border-[var(--color-border)] pl-3">
-      <figcaption className="text-xs font-semibold text-[var(--color-text-secondary)]">
-        {beleg.feld}
-        {beleg.gate ? ` · ${beleg.gate}` : ''}
-      </figcaption>
-      <blockquote className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-secondary)]">
-        {beleg.zitat}
-      </blockquote>
-      {beleg.hinweis && (
-        <span className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">{beleg.hinweis}</span>
-      )}
-      {beleg.quelle && (
-        <span className="text-xs text-[var(--color-text-tertiary)]">
-          {t('grounding.quelle', { file: beleg.quelle })}
-        </span>
-      )}
-    </figure>
   )
 }
 
@@ -201,7 +179,7 @@ export function GroundingPanel({
                 <Section title={t('grounding.belege')}>
                   <div className="flex flex-col gap-3">
                     {record.belege.map((b, i) => (
-                      <Beleg key={i} beleg={b} />
+                      <BelegQuote key={i} beleg={b} />
                     ))}
                   </div>
                 </Section>

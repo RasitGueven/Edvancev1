@@ -134,6 +134,7 @@ export type {
   AuthoringTaskPatch,
   SolutionAnswers,
   TaskSolution,
+  TaskSolutionPatch,
   ItemFlag,
   AuthoringListItem,
   AuthoringSchema,

@@ -94,12 +94,23 @@ export type SolutionAnswers = string[] | Record<string, string[]>
 export type TaskSolution = {
   exists: boolean
   correct_answers: SolutionAnswers
+  /** Der didaktische LOESUNGSWEG (Handarbeit). Nicht der Beleg — siehe `beleg`. */
   solution: string | null
+  /**
+   * Die Quellenbelege der Extraktion (task_solutions.beleg, B01) — WORAUF sich die
+   * Loesung stuetzt. READ-ONLY im Tool: der Editor zeigt sie an und schickt sie nie
+   * zurueck, damit ein Speichern sie nicht zerstoeren kann. Geschrieben wird der
+   * Beleg allein vom Import (scripts/import-vera8-draft.ts).
+   */
+  beleg: GroundingBeleg[]
   hints: { level?: number; text: string }[]
   coach_hints: string[]
   typical_errors: { error: string; socratic_question?: string }[]
   updated_at?: string
 }
+
+/** Was der Editor an task_solution_upsert schickt — ohne `beleg` (read-only). */
+export type TaskSolutionPatch = Omit<TaskSolution, 'exists' | 'updated_at' | 'beleg'>
 
 /** Ein Pflege-Befund. `blocking` = verhindert den Uebergang nach 'ready'. */
 export type ItemFlag = {

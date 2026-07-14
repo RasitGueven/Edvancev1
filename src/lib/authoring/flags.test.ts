@@ -29,6 +29,7 @@ const baseSolution: TaskSolution = {
   exists: true,
   correct_answers: ['16'],
   solution: '80 m · 0,2 = 16 m',
+  beleg: [],
   hints: [],
   coach_hints: [],
   typical_errors: [{ error: 'Grundwert und Prozentwert vertauscht' }],

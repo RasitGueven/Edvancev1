@@ -17,6 +17,8 @@
 // Hand gepflegt (A01). Aus `klasse: 8` liesse er sich nur raten — 8 ist die
 // Herkunft des Tests, nicht der geprueffte Stoff.
 
+import type { GroundingBeleg } from '@/types'
+
 /** Leitidee → Inhaltsfeld → Cluster. Die Leitidee steht in der Kommentierung. */
 const LEITIDEE_TO_INHALTSFELD: Record<string, string> = {
   '1': 'arithmetik_algebra', // Zahl
@@ -116,9 +118,10 @@ export type Built = {
   processCodes: string[]
   /** Flach: string[]. Multi-Part: {"1": [...]}. null = keine Loesung belegt. */
   answers: string[] | Record<string, string[]> | null
-  /** Der Beleg, auf den sich die Loesung stuetzt. Geht nach task_solutions.solution
-   *  — die Server-Only-Zone, die NUR Coach/Admin ueber task_solution_get sieht. */
-  solutionBeleg: string | null
+  /** Die Belege, auf die sich die Loesung stuetzt. Gehen nach task_solutions.beleg
+   *  (B01) — die Server-Only-Zone, die NUR Coach/Admin ueber task_solution_get sieht.
+   *  NICHT nach .solution: dort wohnt der didaktische Loesungsweg. */
+  belege: GroundingBeleg[]
   /** Was der Import an diesem Item nicht sauber abbilden konnte. Landet im
    *  Beleg-Index und damit im Tool. */
   importFlags: string[]
@@ -196,20 +199,26 @@ export function coveredAssets(assets: V2Asset[]): { kept: V2Asset[]; dropped: V2
   return { kept, dropped }
 }
 
-/** Der Loesungsbeleg als Klartext. Geht NICHT in den oeffentlichen Index —
- *  er nennt die Loesung. */
-function solutionBeleg(item: V2Item): string | null {
+/** Die Loesungsbelege, strukturiert wie im _grounding. Sie gehen nach
+ *  task_solutions.beleg (B01), NICHT nach .solution — dort wohnt der didaktische
+ *  Loesungsweg, den ein Mensch schreibt. In den oeffentlichen Beleg-Index gehen sie
+ *  weiterhin nicht: sie nennen die Loesung. */
+function solutionBelege(item: V2Item): GroundingBeleg[] {
   const g = item._grounding ?? {}
-  const zeilen: string[] = []
+  const belege: GroundingBeleg[] = []
   for (const [feld, beleg] of Object.entries(g)) {
     if (!/correct_answers/.test(feld)) continue
     const zitat = trim(beleg?.zitat)
     if (!zitat) continue
-    const quelle = trim(beleg?.quelle) || 'Quelle unbekannt'
     const gate = trim(beleg?.gate)
-    zeilen.push(`[${feld}${gate ? ` · ${gate}` : ''}] ${quelle}:\n${zitat}`)
+    belege.push({
+      feld,
+      quelle: trim(beleg?.quelle) || 'Quelle unbekannt',
+      ...(gate ? { gate } : {}),
+      zitat,
+    })
   }
-  return zeilen.length ? zeilen.join('\n\n') : null
+  return belege
 }
 
 export function buildItem(item: V2Item): Built {
@@ -327,11 +336,21 @@ export function buildItem(item: V2Item): Built {
 
   if (table) payload.table = table
 
-  const freeTextExpectation =
+  // Der Erwartungshorizont eines Freitext-Items ist auch ein Beleg — nur einer ohne
+  // Auswertungs-Zelle. Er steht bewusst NICHT in correct_answers: lsa_is_correct
+  // wuerde sonst versuchen, daran zu messen.
+  const freeTextExpectation: GroundingBeleg | null =
     item.input_type === 'FREE_TEXT' && parts[0]?.correct_answers?.length
-      ? `Erwartungshorizont (Freitext, nicht auto-korrigierbar):\n${parts[0].correct_answers!.join('\n')}`
+      ? {
+          feld: 'erwartungshorizont',
+          hinweis: 'Freitext, nicht auto-korrigierbar',
+          zitat: parts[0].correct_answers!.join('\n'),
+        }
       : null
-  const beleg = [freeTextExpectation, solutionBeleg(item)].filter(Boolean).join('\n\n') || null
+  const belege: GroundingBeleg[] = [
+    ...(freeTextExpectation ? [freeTextExpectation] : []),
+    ...solutionBelege(item),
+  ]
 
   const row: BuiltRow = {
     source_ref: item.id,
@@ -372,7 +391,7 @@ export function buildItem(item: V2Item): Built {
     inhaltsfeld: feld,
     processCodes,
     answers,
-    solutionBeleg: beleg,
+    belege,
     importFlags: flags,
     droppedParts,
     poolReadyAfterCare,
