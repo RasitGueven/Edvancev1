@@ -1,0 +1,110 @@
+{
+  "item": "rabattaktion",
+  "sources": {
+    "Aufgabe": {
+      "file": "rabattaktion_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "42a431912546e5cf"
+    },
+    "Auswertung": {
+      "file": "rabattaktion_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "20ec9c7fe988ca17"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rabattaktion_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "719a851b2c00510a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rabattaktion/00_doc_image1.emf.png",
+      "tokens": "Eine Firma plant eine Rabattaktion. Dabei sollen die Verkaufspreise (in denen 19% Mehrwertsteuer enthalten ist) so gesenkt werden, dass die Kunden die Mehrwertsteuer von 19% praktisch nicht bezahlen müssen.Welches Schild passt am besten zu dieser Rabattaktion? Kreuze an.",
+      "deterministic_text": "Eine Firma plant eine Rabattaktion. Dabei sollen die Verkaufspreise (in denen 19%\nMehrwertsteuer enthalten ist) so gesenkt werden, dass die Kunden die Mehrwertsteuer von\n19% praktisch nicht bezahlen müssen.\nWelches Schild passt am besten zu dieser Rabattaktion?\nKreuze an.",
+      "table": null,
+      "n_fragments": 20,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Rabattaktion"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Rabattaktion"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Antwortalternative [01] (Fehllösung: 9,5 %): Wird diese",
+      "Antwortalternative gewählt, ist vielleicht erkannt worden, dass der",
+      "Rabatt niedriger als die Mehrwertsteuer von 19% sein muss, um diese",
+      "auszugleichen. Die Entscheidung für den falschen Prozentsatz könnte auf",
+      "Schwierigkeiten hinsichtlich der rechnerischen Umsetzung beruhen (K5)",
+      "• Antwortalternative [03] (Fehllösung: 19 %): Die Wahl dieser",
+      "Antwortalternative deutet auf eine noch nicht gefestigte Grundvorstellung",
+      "zum Prozentbegriff hin. Es scheint nicht erkannt worden zu sein, dass der",
+      "Grundwert durch die Mehrwertsteuer erhöht und demzufolge der Rabatt",
+      "kleiner als 19 % sein muss. So wird die Höhe der Mehrwertsteuer mit der",
+      "Höhe des Rabatts gleichgesetzt.",
+      "• Antwortalternative [04] (Fehllösung: 38 %): Bei der 4. Antwortalternative",
+      "werden die beiden Prozentsätze zusätzlich addiert. Dies könnte darauf",
+      "beruhen, dass die Sachsituation nicht richtig erfasst worden ist (K3).",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung dieser Aufgabe Schwierigkeiten auf, bietet es",
+      "sich an, die Sachsituation zunächst an einem Beispiel zu bearbeiten. Dabei",
+      "können die Schüler die Höhe des zum Ausgleich der Mehrwertsteuer",
+      "notwendigen Rabatts konkret berechnen. Anhand der Zahlen kann nun",
+      "herausgearbeitet werden, warum der Rabatt niedriger als die Mehrwertsteuer",
+      "von 19 % sein muss. Die gewonnenen Einsichten können anschließend anhand",
+      "ähnlicher Aufgaben gefestigt und vertieft werden. In diesem Zusammenhang",
+      "sollten die Schüler immer wieder aufgefordert werden, ihre Antwort nicht",
+      "nur auf rechnerischem Wege zu untermauern, sondern diese auch auf",
+      "begrifflicher Ebene zu erläutern. Hierzu können sie beispielsweise durch",
+      "folgende Aufgabe angeregt werden:"
+    ],
+    "quelle": "rabattaktion_Didaktische_Kommentierung.doc"
+  }
+}

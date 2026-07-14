@@ -1,0 +1,22 @@
+{
+  "item": "plaettchenziehen",
+  "gelesen_aus": [
+    "data/r01_render/plaettchenziehen/00_image1.emf.png",
+    "data/r01_render/plaettchenziehen/01_image2.emf.png"
+  ],
+  "stem": "In einem Gefäß sind – gut gemischt – 20 gleich große Plättchen. Zehn davon sind mit A, die anderen zehn sind mit B beschriftet.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ellen zieht ohne hinzusehen ein Plättchen heraus. Gib die Wahrscheinlichkeit dafür an, dass Ellen ein Plättchen mit einem A zieht.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Antwortzeile lautet 'Die Wahrscheinlichkeit beträgt ______ .' — keine Einheit angegeben."
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "item": "eindeutig",
+  "gelesen_aus": [
+    "data/r01_render/eindeutig/00_image1.emf.png",
+    "data/r01_render/eindeutig/01_image2.emf.png",
+    "data/r01_render/eindeutig/02_image3.emf.png"
+  ],
+  "stem": "Selina und Jasmin üben das Lösen von Gleichungen.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "„Bei den folgenden Gleichungen sehe ich sofort, ohne zu rechnen, ob sie jeweils eine oder keine Lösung haben“, sagt Selina. Entscheide, ob die folgenden Gleichungen eine oder keine Lösung haben. Kreuze jeweils an. (3x + 32 = 17x + 4; x + 32 = x + 4; 3 + 32x = 17 + 4x)",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Es gibt keine Lösung."},
+        {"id": "b", "label": "Es gibt eine Lösung."}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts (Spaltenköpfe der Ankreuztabelle)"
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Für eine weitere Gleichung finden beide Mädchen nicht nur eine, sondern unendlich viele Lösungen. Jasmin sagt: „Es gibt auch Gleichungen mit unendlich vielen Lösungen. In diese kann man für x jede beliebige Zahl einsetzen und es entsteht immer eine wahre Aussage.\" Notiere eine Gleichung, auf die Jasmins Beschreibung zutrifft.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 1 ist eine Ankreuz-Matrix: drei Gleichungszeilen mal zwei Spalten (keine Lösung / eine Lösung). Optionen a/b gelten je Zeile."
+  ]
+}

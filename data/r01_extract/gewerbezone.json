@@ -1,0 +1,117 @@
+{
+  "item": "gewerbezone",
+  "sources": {
+    "Aufgabe": {
+      "file": "gewerbezone_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "b47dee93caa5c947"
+    },
+    "Auswertung": {
+      "file": "gewerbezone_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "8ca5eee5e75cfc05"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gewerbezone_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "212e365084fb84ac"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gewerbezone/00_image1.emf.png",
+      "tokens": "Neben einer Bundesstraße wird mit diesem Plakat für eine neue Gewerbezone geworben.Hinweis: 1ha = 10000m2",
+      "deterministic_text": "Neben einer Bundesstraße wird mit diesem Plakat für eine neue Gewerbezone geworben.\nHinweis: 1ha = 10000m²",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gewerbezone/01_image2.emf.png",
+      "tokens": "Gib an, in wie viele Grundstücke sich die noch verfügbare Fläche höchstens aufteilen lässt.   In höchstens                     Grundstücke.",
+      "deterministic_text": "Gib an, in wie viele Grundstücke sich die noch verfügbare Fläche höchstens aufteilen lässt.\nIn höchstens Grundstücke.",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gewerbezone/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Gewerbezone"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "6"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Gewerbezone"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "6"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es gelingt nicht, die Größenangaben sinnvoll miteinander in Beziehung zu setzen. So berechnen die Schülerinnen und Schüler beispielsweise die Größe der bereits verkauften Grundstücksfläche (Fehllösung: 4), wie die folgende Schülerlösung zeigt (K6).",
+      "Es wird nicht mit der noch zur Verfügung stehenden Grundstücksfläche, sondern mit der gesamten Grundstücksfläche gerechnet (Fehllösung: 14) (K6).",
+      "Es kommt zu Fehlern beim Umrechnen der Angaben in eine gemeinsame Flächeneinheit (K5).",
+      "Die Formulierungen „ab 5000 m2“ und „höchstens ___Grundstücke“ bereitet den Schülerinnen und Schülern Schwierigkeiten (K6). Dies kann dazu führen, dass sie die Anzahl möglicher Grundstücke nicht berechnen, sondern diese nur abschätzen (mögliche Fehllösung: z. B. 5)."
+    ],
+    "quelle": "gewerbezone_Didaktische_Kommentierung.docx"
+  }
+}

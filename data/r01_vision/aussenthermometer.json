@@ -1,0 +1,33 @@
+{
+  "item": "aussenthermometer",
+  "gelesen_aus": [
+    "data/r01_render/aussenthermometer/00_image1.emf.png",
+    "data/r01_render/aussenthermometer/01_image2.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Ein Außenthermometer zeigt -4 °C. Die Außentemperatur steigt um 6 °C an. Wie hoch ist die Außentemperatur danach? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "-10 °C"},
+        {"id": "b", "label": "-2 °C"},
+        {"id": "c", "label": "+2 °C"},
+        {"id": "d", "label": "+10 °C"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ein Außenthermometer zeigt +8 °C und später -2 °C an. Gib an, um wie viel Grad sich die Außentemperatur verändert hat.",
+      "unit": "Grad",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

@@ -1,0 +1,34 @@
+{
+  "item": "rathausuhr",
+  "gelesen_aus": [
+    "data/r01_render/rathausuhr/00_image1.emf.png",
+    "data/r01_render/rathausuhr/01_image2.emf.png",
+    "data/r01_render/rathausuhr/02_image3.emf.png"
+  ],
+  "stem": "Die Rathausuhr hat einen hohen und einen tiefen Glockenton.\nDer hohe Glockenton erklingt\n· zur Viertelstunde einmal,\n· zur halben Stunde zweimal,\n· zur Dreiviertelstunde dreimal und\n· zur ganzen Stunde viermal.\nDer tiefe Glockenton gibt zusätzlich zu jeder vollen Stunde die Uhrzeit an, also um 1 Uhr (oder um 13 Uhr) mit einem Glockenschlag, um 2 Uhr (oder um 14 Uhr) mit zwei Glockenschlägen und so weiter.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie oft erklingt der tiefe Glockenton im Zeitraum von kurz vor 1 Uhr bis kurz nach 4 Uhr? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "4-mal"},
+        {"id": "b", "label": "10-mal"},
+        {"id": "c", "label": "30-mal"},
+        {"id": "d", "label": "40-mal"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Denk dir eine kurze Aufgabe zu den Glockentönen der Rathausuhr aus, deren Ergebnis lautet: 10 Glockenschläge. In deiner Aufgabe sollen sowohl hohe als auch tiefe Glockentöne gezählt werden.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

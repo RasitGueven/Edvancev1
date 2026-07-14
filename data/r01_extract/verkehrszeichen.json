@@ -1,0 +1,222 @@
+{
+  "item": "verkehrszeichen",
+  "sources": {
+    "Aufgabe": {
+      "file": "verkehrszeichen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "1f61e9523548a08f"
+    },
+    "Auswertung": {
+      "file": "verkehrszeichen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "6e7bbfe6b84545db"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "verkehrszeichen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "38579298d0b3e95b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/verkehrszeichen/00_doc_image1.emf.png",
+      "tokens": "Ist das Bild des Verkehrszeichens achsensymmetrisch?Kreuze jeweils an.janein",
+      "deterministic_text": "Ist das Bild des Verkehrszeichens achsensymmetrisch?\nKreuze jeweils an.\nja nein",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Verkehrszeichen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3",
+      "Teilaufgabe 4"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Die gespiegelten Eckpunkte müssen auf den Schnittpunkten\ndes Rasters liegen. Zeichentoleranz diesbezüglich ( 1 mm."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Es müssen alle Spiegelachsen eingezeichnet sein. Die\neinzelnen Achsen dürfen um 1 mm bzw. 3° von ihrer ursprünglichen\nLage abweichen."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Der Fehler kann auch mittels eines anderen Zeichens (z. B.\nKreuz) gekennzeichnet werden. Es kann auch das \"S\" im linken Bild\nmarkiert werden."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Verkehrszeichen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Die gespiegelten Eckpunkte müssen auf den Schnittpunkten\ndes Rasters liegen. Zeichentoleranz diesbezüglich ( 1 mm."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Es müssen alle Spiegelachsen eingezeichnet sein. Die\neinzelnen Achsen dürfen um 1 mm bzw. 3° von ihrer ursprünglichen\nLage abweichen."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 4"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Der Fehler kann auch mittels eines anderen Zeichens (z. B.\nKreuz) gekennzeichnet werden. Es kann auch das \"S\" im linken Bild\nmarkiert werden."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 3
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 4
+      }
+    ],
+    "typische_fehler": [
+      "• Wird die zweite Antwortalternative als richtig bewertet, liegt vermutlich",
+      "eine Verwechslung von Achsen- und Punktsymmetrie vor. Außerdem wurden die",
+      "Graustufen nicht berücksichtigt (K4).",
+      "Weiterarbeit und Förderung",
+      "Sollten bei der Bearbeitung dieser Teilaufgaben Schwierigkeiten auftreten,",
+      "bietet es sich an, die Schülerinnen und Schüler diese im Unterricht mittels",
+      "eines realen Spiegels bearbeiten zu lassen. Dies hilft ihnen, adäquate",
+      "Vorstellungen von den Eigenschaften einer Achsenspiegelung zu entwickeln.",
+      "Mit Blick auf die zweite Teilaufgabe kann dies auch mit Hilfe eines",
+      "dynamischen Geometrieprogramms vertieft werden. Dabei ermöglicht es der",
+      "Zugmodus des Programms, die Ausgangsfigur zu variieren und die Auswirkungen",
+      "auf die Bildfigur sowie die Lage zur Spiegelachse zu analysieren.",
+      "Anschließend können die Eigenschaften einer Achsenspiegelung gesammelt und",
+      "mit denen anderer Abbildungen verglichen werden, wie dies auch in der",
+      "folgenden ergänzenden Aufgabe eingefordert wird:",
+      "Diese Aufgabe erfordert es zu überprüfen, inwiefern sich die Eigenschaften",
+      "einer Achsenspiegelung mit denen einer Drehung um 180° decken bzw. ob beide",
+      "Abbildungen immer zum selben Ergebnis führen. Hierzu ist es zunächst",
+      "erforderlich, die formulierte „All-Aussage“ als solche zu identifizieren,",
+      "wozu das Wort „immer“ in seiner mathematischen Bedeutung richtig erfasst",
+      "werden muss. Sodann kann es hilfreich sein, einzelne Beispiele zu",
+      "betrachten, anhand derer der Umlaufsinn als ausschlaggebendes Kriterium",
+      "herausgearbeitet werden kann. In der anschließenden Argumentation muss nun",
+      "die „All-Aussage“ als falsch ausgewiesen werden. Hierzu kann auf",
+      "allgemeiner Ebene argumentiert oder ein Gegenbeispiel angegeben werden.",
+      "Wird hierbei ein dynamisches Geometrieprogramm genutzt, kann man anhand",
+      "verschiedener Beispiele leicht erkennen, dass die beiden Abbildungen nur in",
+      "Spezialfällen zum selben Ergebnis führen. Hieraus können die Schülerinnen",
+      "und Schüler auch folgern, dass sie eine Fallunterscheidung durchführen",
+      "Weiterführend können im Unterricht auch Verkettungen von Abbildungen",
+      "untersucht werden. Diesbezüglich bieten sich beispielsweise die Verkettung",
+      "zweier Spiegelungen an zueinander parallelen Geraden an, welche durch eine",
+      "Verschiebung ersetzt werden kann. Die folgende Aufgabenstellung könnte",
+      "hierzu genutzt werden:"
+    ],
+    "quelle": "verkehrszeichen_Didaktische_Kommentierung.doc"
+  }
+}

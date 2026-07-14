@@ -1,0 +1,158 @@
+{
+  "item": "hochrad",
+  "sources": {
+    "Aufgabe": {
+      "file": "hochrad_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "d3d71ba52d744905"
+    },
+    "Auswertung": {
+      "file": "hochrad_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "4cf0791aef3b1b1c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "hochrad_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "d8b43b4b76ff7ca3"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/hochrad/00_doc_image1.emf.png",
+      "tokens": "Bei einem Hochrad ist das Vorderrad (Durchmesser: dV= 1,56m) wesentlich größer als das Hinterrad (Durchmesser: dH= 52cm). Bei einer Umdrehung des Vorderrades legt man eine Strecke von etwa 4,90m zurück.Die Abbildung zeigt ein Hochrad (Abb. nicht maßstäblich).",
+      "deterministic_text": "Bei einem Hochrad ist das Vorderrad (Durchmesser: dV= 1,56m)\nwesentlich größer als das Hinterrad (Durchmesser: dH= 52cm). Bei\neiner Umdrehung des Vorderrades legt man eine Strecke von etwa\n4,90m zurück.\nDie Abbildung zeigt ein Hochrad (Abb. nicht maßstäblich).",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      ": Hochrad",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Akzeptiert werden alle Angaben aus dem Intervall [70; 75]m, auch\nmit dem Zusatz „ca.“.\nZ. B.:\n73,5 m"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "7"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n21 (Anzahl der Umdrehungen des Hinterrades, gerundet)"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": ": Hochrad"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Akzeptiert werden alle Angaben aus dem Intervall [70; 75]m, auch\nmit dem Zusatz „ca.“.\nZ. B.:\n73,5 m"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "7"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n21 (Anzahl der Umdrehungen des Hinterrades, gerundet)"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "I",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "II",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1, 2:",
+      "Es wird nicht mit der Umfangsformel, sondern mit der Formel für den",
+      "Flächeninhalt gearbeitet (K5)."
+    ],
+    "quelle": "hochrad_Didaktische_Kommentierung.doc"
+  }
+}

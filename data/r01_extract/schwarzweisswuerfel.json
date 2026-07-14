@@ -1,0 +1,179 @@
+{
+  "item": "schwarzweisswuerfel",
+  "sources": {
+    "Aufgabe": {
+      "file": "schwarzweisswuerfel_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "e752422269d3f8bd"
+    },
+    "Auswertung": {
+      "file": "schwarzweisswuerfel_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "b69cca2b24a6fe8b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schwarzweisswuerfel_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "cbd9337d406a4c95"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schwarzweisswuerfel/00_image1.emf.png",
+      "tokens": "Bei einem fairen Spielwürfel (siehe Abbildung) sind die Seiten mit den Augenzahlen 1 und 6 schwarz gefärbt, die anderen vier Seiten mit den Augenzahlen 2, 3, 4 und 5 sind weiß.Grafik: © IQB",
+      "deterministic_text": "Bei einem fairen Spielwürfel (siehe Abbildung) sind die Seiten mit den Augenzahlen 1 und\n6 schwarz gefärbt, die anderen vier Seiten mit den Augenzahlen 2, 3, 4 und 5 sind weiß.\nGrafik: © IQB",
+      "table": null,
+      "n_fragments": 23,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schwarzweisswuerfel/01_image2.emf.png",
+      "tokens": "Gib an, mit welcher Wahrscheinlichkeit beim Würfeln eine gerade Augenzahl nach oben zeigt.Die Wahrscheinlichkeit beträgt                          .",
+      "deterministic_text": "Gib an, mit welcher Wahrscheinlichkeit beim Würfeln eine gerade Augenzahl nach\noben zeigt.\nDie Wahrscheinlichkeit beträgt .",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schwarzweisswuerfel/02_image3.emf.png",
+      "tokens": "Tim sagt: „Bei diesem Würfel gibt es zwei Ergebnisse: Schwarz und Weiß. Also ist dieWahrscheinlichkeit für Schwarz     .“Erkläre, warum Tim nicht Recht hat. 12",
+      "deterministic_text": "Tim sagt: „Bei diesem Würfel gibt es zwei Ergebnisse: Schwarz und Weiß. Also ist die\n1\nWahrscheinlichkeit für Schwarz .“\n2\nErkläre, warum Tim nicht Recht hat.",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schwarzweisswuerfel/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Schwarz-Weiß-Würfel",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "In einer richtigen Antwort wird die Anzahl der schwarzen bzw. weißen Würfelseiten als ausschlaggebend herausgestellt. Der Begriff Wahrscheinlichkeit muss nicht explizit erwähnt werden.\n\nBeispiele(e)\nEs sind sechs Würfelseiten und von diesen sind vier weiß, also kann die Wahrscheinlichkeit für eine weiße Würfelseite nicht  sein.\nEs sind vier weiße und nur zwei schwarze Seiten."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten. \n\nBeispiel(e)\nTim hat nicht Recht, weil von vier Seiten nur zwei weiß gefärbt sind."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Schwarz-Weiß-Würfel"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "In einer richtigen Antwort wird die Anzahl der schwarzen bzw. weißen Würfelseiten als ausschlaggebend herausgestellt. Der Begriff Wahrscheinlichkeit muss nicht explizit erwähnt werden.\n\nBeispiele(e)\nEs sind sechs Würfelseiten und von diesen sind vier weiß, also kann die Wahrscheinlichkeit für eine weiße Würfelseite nicht  sein.\nEs sind vier weiße und nur zwei schwarze Seiten."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten. \n\nBeispiel(e)\nTim hat nicht Recht, weil von vier Seiten nur zwei weiß gefärbt sind."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematisches Modellieren (K3),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 11.1:",
+      "Statt der Wahrscheinlichkeit wird das Chancenverhältnis 3:3 angegeben.",
+      "Statt der Wahrscheinlichkeit wird die Anzahl an geraden Zahlen angegeben:",
+      "Zu Teilaufgabe 11.2:",
+      "Der Aufgabentext wird nicht korrekt erfasst bzw. der Abbildung werden nur die sichtbaren Würfelseiten entnommen, beispielsweise wird so von nur einer schwarzen Seite ausgegangen, wie folgende Schülerlösung zeigt:",
+      "Das mathematische Modell wird falsch gebildet, da die mathematische Beziehung der Laplace-Wahrscheinlichkeit offenbar nicht verfügbar ist. Dies wird an folgender Schülerlösung deutlich:"
+    ],
+    "quelle": "schwarzweisswuerfel_Didaktische_Kommentierung.docx"
+  }
+}

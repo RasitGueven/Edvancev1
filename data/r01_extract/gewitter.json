@@ -1,0 +1,171 @@
+{
+  "item": "gewitter",
+  "sources": {
+    "Aufgabe": {
+      "file": "gewitter_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "32512a7e3a2852ca"
+    },
+    "Auswertung": {
+      "file": "gewitter_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "8bcd4bd11698a464"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gewitter_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "070bb09cc76f3d52"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gewitter/00_image1.emf.png",
+      "tokens": "Bei einem Gewitter sieht man den Blitz sofort und hört den dazugehörigen Donner erst später. Der Schall des Donners braucht etwa drei Sekunden, um einen Kilometer zurückzulegen.",
+      "deterministic_text": "Bei einem Gewitter sieht man den Blitz sofort und\nhört den dazugehörigen Donner erst später. Der\nSchall des Donners braucht etwa drei Sekunden,\num einen Kilometer zurückzulegen.",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gewitter/01_image2.emf.png",
+      "tokens": "Ein Blitz ist zu sehen. Den Donner hört man nach 4,5 Sekunden. Gib an, wie weit der Blitz ungefähr entfernt ist.    Der Blitz ist ungefähr                   km entfernt.",
+      "deterministic_text": "Ein Blitz ist zu sehen. Den Donner hört man nach 4,5 Sekunden.\nGib an, wie weit der Blitz ungefähr entfernt ist.\nDer Blitz ist ungefähr km entfernt.",
+      "table": null,
+      "n_fragments": 14,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gewitter/02_image3.emf.png",
+      "tokens": "Ein Blitz ist in einer Entfernung von 5,5 Kilometern zu sehen. Nach ungefähr wie vielen Sekunden hört man den Donner? Kreuze an.2,0s5,5s8,5s16,5s",
+      "deterministic_text": "Ein Blitz ist in einer Entfernung von 5,5 Kilometern zu sehen.\nNach ungefähr wie vielen Sekunden hört man den Donner?\nKreuze an.\n2,0s 5,5s 8,5s 16,5s",
+      "table": null,
+      "n_fragments": 26,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gewitter/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Gewitter",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1,5"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Gewitter"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1,5"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Die relevanten Informationen des Aufgabentextes werden nicht korrekt erfasst. Die folgende Schülerlösung lässt vermuten, dass mit der Voraussetzung „eine Sekunde entspricht einem Kilometer“ gerechnet wird (K6).",
+      "Die Zahlenangaben des Aufgabentextes werden unkritisch multipliziert (3 4,5). So ist vermutlich die folgende, exemplarische Schülerlösung zustande gekommen [Fehllösung: 13,5] (K3).",
+      "1. Antwortalternative (Fehllösung: 2 s): Vermutlich wird unkritisch die Anzahl der Kilometer durch 3 dividiert und anschließend gerundet: 5,5 : 3 = 1,833... 2 (K3).",
+      "2. Antwortalternative (Fehllösung: 5,5 s): Es wird mit der falschen Voraussetzung „eine Sekunde entspricht einem Kilometer“ gerechnet (K6).",
+      "3. Antwortalternative (Fehllösung: 8,5 s): Die beiden Zahlenangaben 3 und 5,5 werden unkritisch addiert (K3)."
+    ],
+    "quelle": "gewitter_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "item": "einfachegleichung",
+  "gelesen_aus": ["data/r01_render/einfachegleichung/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gegeben ist die Gleichung 18 − 3x = 12. Gib den Wert für x an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

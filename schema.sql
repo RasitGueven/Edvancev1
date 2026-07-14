@@ -288,7 +288,11 @@ create table tasks (
   ),
   title text,
   question text,
-  solution text,
+  -- `solution` GEDROPPT in 20260714120000 (T1b). Die Loesung lebt ausschliesslich
+  -- in task_solutions (Server-Only-Zone, kein Grant fuer anon/authenticated).
+  -- Auf `tasks` darf JEDER eingeloggte Nutzer lesen — eine Loesungsspalte hier
+  -- war fuer jede:n Schueler:in per select=* abrufbar. Ebenso verboten: Loesungs-
+  -- felder in question_payload, siehe CHECK tasks_question_payload_no_solution.
   hint text,
   common_errors text,
   coach_note text,
@@ -332,8 +336,14 @@ create index if not exists tasks_competency_idx on tasks (competency_id);
 
 alter table tasks enable row level security;
 
-create policy "authenticated_read_tasks"
-  on tasks for select using (auth.role() = 'authenticated');
+-- B01 (20260714140000): Rolle statt "eingeloggt". auth.role() sagt nur, DASS
+-- jemand eingeloggt ist — nicht WER. Seit C08 liegen 285 draft-Items in der
+-- Tabelle; die alte Policy gab sie jedem Schuelergeraet.
+create policy "read_tasks_by_role"
+  on tasks for select using (
+    public.get_my_role() in ('coach', 'admin')
+    or (public.get_my_role() is not null and status = 'ready')
+  );
 create policy "admin_write_tasks"
   on tasks for all using (
     exists (
@@ -1619,5 +1629,230 @@ insert into public.badge_catalog (id, label, description, rarity, form, klasse, 
 on conflict (id) do nothing;
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (33 Tabellen, 9 Funktionen, 2 Enums, 1 Trigger).
+-- 15. P01 – DATENVERTRAG + LSA
+--     (supabase/migrations/20260712100000_p01_datenvertrag.sql)
+--     Vertragsdokumentation: docs/api/DATENVERTRAG.md
+-- ============================================================================
+--
+-- tasks (additiv, Lenas Metadaten — alles davon ist HARMLOS und darf ans Kind):
+--   status             text not null default 'draft' check (draft|review|ready)
+--                      → Redaktions-Freigabe. Nur 'ready' kommt in den LSA-Pool.
+--                        is_active bleibt unveraendert (Sichtbarkeit im Lernpfad).
+--   competency_content text     – Inhaltsfeld (Lena)
+--   competency_process text     – Prozesskompetenz als Klartext (strukturiert: competency_id)
+--   afb                text check ('I','II','III')
+--   est_duration_sec   int check (10..3600)
+--   unit               text     – Einheit fuer short_input; rein deklarativ, KEINE Umrechnung
+--   dialog_enabled     bool not null default false – Feld fuer den spaeteren Fehler-Dialog
+--   Index: tasks_lsa_pool_idx (status, input_type, afb) where status='ready'
+--   Backfill: status='ready' fuer alle is_active-Zeilen.
+--
+-- task_solutions (1:1-Extension zu tasks) – DIE SERVER-ONLY-ZONE:
+--   task_id pk → tasks(id) on delete cascade
+--   correct_answers jsonb not null default '[]'  – alle akzeptierten Varianten,
+--                                                  explizit gepflegt (keine Einheiten-Magie)
+--   solution        text                         – der didaktische LOESUNGSWEG
+--                                                  (Handarbeit). NICHT der Beleg.
+--   beleg           jsonb (B01)                  – die Quellenbelege der Extraktion,
+--                                                  pro Feld: [{feld, gate, quelle, zitat}]
+--   hints           jsonb not null default '[]'  – [{level, text}]
+--   coach_hints     jsonb not null default '[]'  – max 3 (CHECK)
+--   typical_errors  jsonb not null default '[]'  – [{error, socratic_question}]
+--   updated_at      timestamptz not null default now()
+--
+--   ⚠️  SICHERHEITSZUSAGE: `revoke all on task_solutions from anon, authenticated`.
+--       RLS ist an, es gibt KEINE Policy fuer die API-Rollen. Der Inhalt ist
+--       ausschliesslich ueber die SECURITY-DEFINER-RPCs erreichbar.
+--       Der REVOKE ist notwendig, weil die default privileges aus
+--       20260711120000_api_role_grants.sql jeder neuen Tabelle sonst
+--       automatisch DML an authenticated geben.
+--       Bewiesen in supabase/tests/inv2_lsa_datenvertrag.test.sql.
+--
+-- lsa_sessions:
+--   id, student_id → students, subject, grade (5..13),
+--   status (in_progress|completed|aborted), item_ids uuid[], started_at,
+--   completed_at, result_summary jsonb
+--   unique (student_id, subject) where status='in_progress'
+--   RLS: coach/admin all, parent read. KEIN Schueler-SELECT — result_summary
+--        enthaelt die Trefferquoten, und das Kind bekommt in der LSA kein
+--        Feedback (CLAUDE §6). Der Schueler sieht seine Session nur durch die RPCs.
+--
+-- lsa_responses (APPEND-ONLY, analog behavior_snapshots):
+--   id, session_id → lsa_sessions, task_id → tasks, response jsonb,
+--   correct boolean, duration_ms int
+--   unique (session_id, task_id)   – ein Item, eine Antwort
+--   RLS: coach/admin + parent read. Kein Schueler-SELECT (die Zeile traegt `correct`).
+--        Kein update-, kein delete-Policy.
+--
+-- Funktionen:
+--   lsa_normalize_answer(text) → text          [immutable]
+--       trim → Whitespace kollabieren → ERSTES Komma zu Punkt → lowercase.
+--       War der Spiegel von normText() aus src/lib/answer/evaluators.ts —
+--       die Datei ist mit der Vite-Session weg (T1b). Die Normalisierung lebt
+--       jetzt NUR noch hier: eine Konvention, ein Ort.
+--   lsa_is_correct(input_type, correct_answers, response) → bool   [immutable]
+--       Bekommt die Loesung als Parameter, liest sie nie selbst → leakt nichts.
+--   lsa_public_assets(jsonb) → jsonb           [immutable]
+--   lsa_question_payload(uuid) → jsonb         [stable, SECURITY DEFINER]
+--       DER Vertrag (§1). Baut aus einer WHITELIST: kind/prompt/assets/options/unit.
+--       Kopiert nie ein bestehendes jsonb durch — eine Loesung kann strukturell
+--       nicht mitrutschen, auch nicht aus tasks.question_payload (das bei
+--       Bestandszeilen die Loesung enthaelt).
+--       kind: input_type MC → 'mc', SHORT_TEXT/NUMERIC → 'short_input'.
+--   lsa_may_act_for(uuid) → bool               [stable, SECURITY DEFINER]
+--   lsa_start(student_id, grade, subject) → jsonb          [SECURITY DEFINER]
+--       Pool: status='ready' + task_solutions mit >=1 Antwort + input_type in
+--       (MC, SHORT_TEXT, NUMERIC) + Fach + class_level <= grade.
+--       Round-Robin ueber (AFB × Kompetenzfeld), Zielumfang ~20 min ueber
+--       est_duration_sec. → {session_id, total_items, item}
+--   lsa_submit(session_id, task_id, response, duration_ms) → jsonb [SEC. DEFINER]
+--       Bewertet serverseitig, gibt {ok, next} zurueck — KEIN Richtig/Falsch.
+--   lsa_hint(session_id, task_id, level) → jsonb           [SECURITY DEFINER]
+--       Hinweise einzeln auf Anfrage (§1), nie vorab im Payload.
+--   lsa_finish(session_id) → jsonb                         [SECURITY DEFINER]
+--       Auswertung + VORSCHLAG (proposal.is_proposal=true, applied=false).
+--       Schreibt KEINEN Lernpfad, KEIN student_focus_areas, KEIN mastered.
+--   lsa_confirm_focus(session_id, cluster_ids) → jsonb     [SECURITY DEFINER]
+--       FernUSG-Gate: nur coach/admin. Erst hier wird aus dem Vorschlag ein
+--       Lernpfad — geschrieben in die BESTEHENDE Tabelle student_focus_areas
+--       (source='lsa'). screening_tests wird bewusst NICHT wiederverwendet:
+--       generate_parent_report liest dessen result_summary-Format.
+--   task_solution_upsert(...) → jsonb                      [SECURITY DEFINER]
+--       Lenas Schreibpfad in die Server-Only-Zone. Nur Admin.
+--
+-- Execute-Grants: Postgres gibt neuen Funktionen automatisch EXECUTE an PUBLIC
+--   (= auch anon). Die Migration nimmt das weg und grantet gezielt an
+--   authenticated/service_role; die internen Helfer nur an service_role.
+
+-- ============================================================================
+-- 16. P02 – MULTI-PART-AUFGABENTYP
+--     (supabase/migrations/20260713100000_p02_multipart.sql)
+--     Vertragsdokumentation: docs/api/DATENVERTRAG.md §6
+-- ============================================================================
+--
+-- Eine Aufgabe, mehrere Teilaufgaben. Jede Teilaufgabe hat einen eigenen
+-- Antworttyp, eine eigene Kompetenz und ein eigenes AFB. Ausgewertet wird PRO
+-- TEILAUFGABE — ein Item mit drei Teilaufgaben liefert drei Kompetenz-Datenpunkte.
+-- Ein Item-Gesamtergebnis gibt es bewusst NICHT (eine "2 von 3"-Quote waere
+-- diagnostisch wertlos).
+--
+-- tasks:
+--   input_type            + 'MULTI_PART' (tasks_input_type_check neu gesetzt;
+--                           Bestand aus 042: MC, NUMERIC, SHORT_TEXT, TRUE_FALSE,
+--                           FREE_TEXT, MATCHING, CLOZE, COORDINATE)
+--   parts   jsonb not null default '[]'
+--           [{nr, kind(short_input|mc), prompt, unit?, options?,
+--             competency_content?, competency_process?, afb?}]
+--           → WARUM eine eigene Spalte: die Teilaufgabe traegt ihre EIGENE
+--             Kompetenz. tasks.competency_content/_process/afb sind skalar (einmal
+--             pro Item) und koennen das nicht halten. Ohne diese Spalte waere die
+--             Kompetenz je Teilaufgabe — der Kern der Diagnostik — verloren.
+--           → Die Loesung liegt NICHT hier, sondern in task_solutions.
+--   Index: tasks_parts_idx (gin) where input_type='MULTI_PART'
+--
+--   CHECK tasks_multipart_check — der Import-Filter als DB-Zusage:
+--     MULTI_PART ⇒ lsa_parts_valid(parts)               (>=2 Teilaufgaben, nr
+--                                                        eindeutig, kind nur
+--                                                        short_input|mc, prompt
+--                                                        nicht leer, MC mit >=2
+--                                                        Optionen, KEIN Loesungsfeld)
+--                  UND question <> ''                    (Stamm ist Pflicht: ein
+--                                                        Multi-Part ohne abtrennbaren
+--                                                        Stamm ist keines → Import
+--                                                        verweigern)
+--                  UND est_duration_sec is not null      (Zeitbudget: vier
+--                                                        Teilaufgaben kosten vier
+--                                                        Aufgaben Zeit — lsa_start
+--                                                        darf das nicht schaetzen)
+--     sonst        ⇒ parts = '[]'
+--
+-- task_solutions:
+--   correct_answers  jsonb — jetzt Array ODER Objekt (CHECK: lsa_answers_valid):
+--     flach:      ["0,3 m","30 cm"]
+--     multi-part: {"1":["20"],"2":["b"],"3":["16"]}   ← Schluessel = Teilaufgaben-nr
+--   Beide Formen koexistieren. Die 14 flachen Bestandsitems brechen nicht.
+--
+-- lsa_responses:
+--   part_nr int (null bei flachen Items, >=1 bei Teilaufgaben)
+--   unique (session_id, task_id) ENTFERNT — sie haette die zweite Teilaufgabe
+--     desselben Items abgewiesen. Ersetzt durch den Unique-INDEX
+--     lsa_responses_once_per_part (session_id, task_id, coalesce(part_nr, 0)).
+--   Eine Zeile PRO TEILAUFGABE. Bestandszeilen: part_nr = null.
+--   duration_ms ist bei Multi-Part die Dauer des GESAMTEN Items (der Client misst
+--     nicht pro Teilaufgabe) und steht deshalb auf jeder Teilaufgaben-Zeile gleich.
+--
+-- Funktionen (neu):
+--   lsa_parts_valid(jsonb) → bool     [immutable]  – Strukturvertrag, steht im CHECK
+--   lsa_answers_valid(jsonb) → bool   [immutable]  – Array|Objekt, steht im CHECK
+--   lsa_public_parts(jsonb) → jsonb   [immutable]  – Whitelist je Teilaufgabe:
+--       nr/kind/prompt/unit/options(id,label). Kein competency_*, kein afb, keine
+--       Loesung — es wird gebaut, nicht durchgereicht.
+--   lsa_part_answer(kind, jsonb) → jsonb [immutable] – uebersetzt die skalare
+--       Teilantwort ("20") in die StudentAnswer-Form ({text}/{selected}), damit
+--       lsa_is_correct die EINZIGE Bewertungskonvention bleibt.
+--   lsa_has_answers(input_type, parts, correct_answers) → bool [immutable]
+--       Pool-Eignung. Bei MULTI_PART braucht JEDE Teilaufgabe eine Loesung.
+--
+-- Funktionen (geaendert):
+--   lsa_question_payload(uuid)  – neuer Zweig MULTI_PART:
+--       { kind:'multi_part', task_id, stem, assets, parts:[…] }
+--       Die Whitelist gilt REKURSIV (pgTAP inv3 prueft den gesamten Payload-Text).
+--   lsa_start(...)              – MULTI_PART im Pool; gezogen wird gegen das
+--       Zeitbudget (Summe est_duration_sec, ~1200 s), nicht gegen eine Item-Anzahl.
+--       Der coalesce-Fallback (estimated_minutes*60, 180) greift nur noch fuer
+--       FLACHE Bestandsitems — MULTI_PART hat est_duration_sec per CHECK.
+--   lsa_submit(...)             – Multi-Part: p_response = {"1":"20","2":"b"}.
+--       Unterschieden wird am input_type der TASK, nicht an der Form des Payloads.
+--       Schreibt eine lsa_responses-Zeile je Teilaufgabe. Die Antwort bleibt
+--       {ok, next} — kein correct, kein Score, kein Zaehler, auf keiner Ebene.
+--   lsa_finish(...)             – result_summary aggregiert ueber TEILAUFGABEN nach
+--       Kompetenz (aus tasks.parts, Fallback auf die Item-Kompetenz bei flachen
+--       Items). Neu: 'answered_parts' (Datenpunkte) neben 'answered' (Items).
+--       Kein Item-Score, keine Item-Quote.
+--
+-- Beweis: supabase/tests/inv3_lsa_multipart.test.sql (pgTAP, 23 Assertions).
+--   inv2 bleibt unveraendert gruen — die flachen Items laufen weiter.
+
+-- ============================================================================
+-- 17. B01 – QUELLENBELEG + ROLLENBASIERTE RLS AUF `tasks`
+--     (supabase/migrations/20260714140000_b01_beleg_und_rls.sql)
+-- ============================================================================
+--
+-- task_solutions:
+--   beleg jsonb (nullable, CHECK: array)
+--     [{feld:"part1.correct_answers", gate:"G2", quelle:"Auswertung (RICHTIG-Zelle)",
+--       zitat:"16"}, …] – die Struktur des _grounding aus der Extraktion
+--       (src/types/authoring.ts: GroundingBeleg).
+--     WARUM: C08 hat den Quellenbeleg mangels Zuhause nach `solution` geschrieben —
+--       in das Feld, das den didaktischen Loesungsweg traegt. Wer im Autoren-Tool
+--       einen Loesungsweg schreibt, haette den Beleg ueberschrieben. Zwei Dinge,
+--       zwei Spalten.
+--     Bestandsdaten: die 229 C08-Belege wurden aus `solution` herausgeloest
+--       (Kriterium: der maschinell erzeugte Blockanfang "[<feld …correct_answers>";
+--       Roundtrip-Pruefung, Abbruch statt Heuristik). `solution` steht damit leer
+--       fuer den echten Loesungsweg.
+--
+-- task_solution_get(uuid):   liefert `beleg` mit. Haertung unveraendert: coach/admin.
+-- task_solution_upsert(...): +p_beleg jsonb, und PATCH-Semantik fuer ALLE Parameter —
+--       NULL = "nicht mitgeschickt" = unveraendert. Der Import schreibt den Beleg,
+--       ohne den Loesungsweg zu loeschen; der Editor umgekehrt. Explizit geleert
+--       wird mit '' (solution), 'null'::jsonb (beleg), '[]' (Arrays).
+--       Die alte 6-stellige Signatur ist gedroppt (PostgREST kann zwei
+--       Ueberladungen mit Defaults nicht eindeutig aufloesen).
+--
+-- tasks (RLS):
+--   authenticated_read_tasks  → GEDROPPT (qual: auth.role() = 'authenticated' —
+--                               "eingeloggt" ist keine Rolle).
+--   read_tasks_by_role        → coach/admin lesen alles (Item-Pflege), jede andere
+--                               Rolle nur status='ready'. anon: get_my_role() ist
+--                               NULL → keine Zeile.
+--   admin_write_tasks         → unveraendert.
+--   Die LSA-RPCs sind SECURITY DEFINER und von der Policy nicht betroffen.
+--
+-- Beweis: supabase/tests/inv7_draft_nicht_fuer_schueler.test.sql (pgTAP, 12
+--   Assertions: Schueler sieht nur ready, Coach sieht drafts, Beleg ueber keinen
+--   Weg erreichbar, lsa_start liefert weiterhin Items). inv6 bleibt gruen.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (36 Tabellen, 25 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

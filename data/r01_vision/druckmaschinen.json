@@ -1,0 +1,29 @@
+{
+  "item": "druckmaschinen",
+  "gelesen_aus": [
+    "data/r01_render/druckmaschinen/00_image1.emf.png",
+    "data/r01_render/druckmaschinen/01_image2.emf.png",
+    "data/r01_render/druckmaschinen/02_image3.emf.png"
+  ],
+  "stem": "Eine moderne Druckmaschine kann in vier Stunden 60000 Bögen Papier bedrucken.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Mit einer solchen Druckmaschine werden 90000 Bögen Papier bedruckt. Gib an, wie lange dies dauert.",
+      "unit": "Stunden",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Bei einem Druckauftrag von insgesamt 60000 Bögen Papier drucken zwei solcher Druckmaschinen gleichzeitig. Gib an, wie lange dies dauert.",
+      "unit": "Stunden",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

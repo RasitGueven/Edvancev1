@@ -1,0 +1,180 @@
+{
+  "item": "colakaesten",
+  "sources": {
+    "Aufgabe": {
+      "file": "colakaesten_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "2790824e5e7fb644"
+    },
+    "Auswertung": {
+      "file": "colakaesten_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "2ef3e9d8be904423"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "colakaesten_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "a9682a7f45ccb846"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/colakaesten/00_image1.emf.png",
+      "tokens": "Ein Getränkemarkt hat Cola im Angebot:Ein Kasten mit 12 Flaschen kostet 6,66€. Hinzu kommen 3,30€ Pfand.Man bekommt die 3,30€ Pfand zurück, wenn man einen Kasten mit 12 leeren Flaschen zurückbringt. Für eine einzelne leere Flasche erhält man 0,15€ zurück.",
+      "deterministic_text": "Ein Getränkemarkt hat Cola im Angebot:\nEin Kasten mit 12 Flaschen kostet 6,66€. Hinzu kommen 3,30€ Pfand.\nMan bekommt die 3,30€ Pfand zurück, wenn man einen Kasten mit 12 leeren Flaschen\nzurückbringt. Für eine einzelne leere Flasche erhält man 0,15€ zurück.",
+      "table": null,
+      "n_fragments": 33,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/colakaesten/01_image2.emf.png",
+      "tokens": "Tom bringt nur den Kasten (ohne Flaschen) zurück.Gib an, wie viel Geld er zurückbekommt.€",
+      "deterministic_text": "Tom bringt nur den Kasten (ohne Flaschen) zurück.\nGib an, wie viel Geld er zurückbekommt.\n€",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/colakaesten/02_image3.emf.png",
+      "tokens": "Herr Melzer bringt 3 Kästen mit jeweils 12 leeren Colaflaschen zum Getränkemarkt und nimmt einen vollen Kasten Cola aus dem Angebot mit.Welche Aussage ist richtig?Herr Melzer bekommt noch Geld zurück.Kreuze an.Herr Melzer muss an der Kasse noch etwas bezahlen.Begründe mit einer Rechnung.",
+      "deterministic_text": "Herr Melzer bringt 3 Kästen mit jeweils 12 leeren Colaflaschen zum Getränkemarkt\nund nimmt einen vollen Kasten Cola aus dem Angebot mit.\nWelche Aussage ist richtig?\nKreuze an.\nHerr Melzer muss an der Kasse noch etwas bezahlen.\nHerr Melzer bekommt noch Geld zurück.\nBegründe mit einer Rechnung.",
+      "table": null,
+      "n_fragments": 17,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/colakaesten/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Colakästen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1,50 €\n[Anm.: Auch andere Schreibweisen diese Betrages werden akzeptiert, wie z. B. \"Ein Euro 50\" oder \"1 € 50 ct\".]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "\"Herr Melzer muss an der Kasse noch etwas bezahlen.\" ist angekreuzt.\n\nUND\n\nDie Rechnung lässt einen Vergleich der beiden Beträge 9,90 € und 9,96 € erkennen.\n[Anm: Anstelle eines Vergleichs kann auch die Differenz beider Beträge (0,06 € bzw. 6 Cent) notiert werden.]\n\nBeispiel(e)\nDas Pfand für den neuen Kasten hebt das Pfand von einem alten Kasten auf. Für zwei leere Kästen bekommt er 6,60 € zurück, er muss aber 6,66 € bezahlen.\n3  3,30  € = 9,90 € (Betrag, den Herr Melzer bei Rückgabe von 3 leeren Kästen erhalten würde.)\n6,66 € + 3,30 € = 9,96 € (Betrag, den Herr Melzer für einen vollen Kasten Cola plus Pfand bezahlen müsste.)\n[Anm.: Die Erläuterungen in den Klammern sind nicht Teil der erwarteten Lösung.]\n(Grenzfall)\n3 Kästen Cola bringen 9,90 €, d. h. er muss noch 6 Cent bezahlen."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nDrei Kästen reichen nicht aus, um einen Kasten mit 12 vollen Colaflaschen zu kaufen.\n[Anm.: fehlende Rechnung]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Colakästen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1,50 €\n[Anm.: Auch andere Schreibweisen diese Betrages werden akzeptiert, wie z. B. \"Ein Euro 50\" oder \"1 € 50 ct\".]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "\"Herr Melzer muss an der Kasse noch etwas bezahlen.\" ist angekreuzt.\n\nUND\n\nDie Rechnung lässt einen Vergleich der beiden Beträge 9,90 € und 9,96 € erkennen.\n[Anm: Anstelle eines Vergleichs kann auch die Differenz beider Beträge (0,06 € bzw. 6 Cent) notiert werden.]\n\nBeispiel(e)\nDas Pfand für den neuen Kasten hebt das Pfand von einem alten Kasten auf. Für zwei leere Kästen bekommt er 6,60 € zurück, er muss aber 6,66 € bezahlen.\n3  3,30  € = 9,90 € (Betrag, den Herr Melzer bei Rückgabe von 3 leeren Kästen erhalten würde.)\n6,66 € + 3,30 € = 9,96 € (Betrag, den Herr Melzer für einen vollen Kasten Cola plus Pfand bezahlen müsste.)\n[Anm.: Die Erläuterungen in den Klammern sind nicht Teil der erwarteten Lösung.]\n(Grenzfall)\n3 Kästen Cola bringen 9,90 €, d. h. er muss noch 6 Cent bezahlen."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nDrei Kästen reichen nicht aus, um einen Kasten mit 12 vollen Colaflaschen zu kaufen.\n[Anm.: fehlende Rechnung]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 5.1:",
+      "Es wird angegeben, dass Tom 3,30 € zurückbekommt. Dies entspricht dem Pfandbetrag für die vollständige Kiste. Es wird nicht berücksichtigt, dass die Flaschen nicht zurückgegeben werden. Dies deutet auf Schwierigkeiten im Umgang mit dem überbestimmten Text hin (Fehllösung: 3,30 €):",
+      "Der Pfandbetrag für eine vollständige Kiste wird mit dem separat berechneten Pfandbetrag der enthaltenen Flaschen addiert. Die Übersetzung in die Welt der Mathematik sowie die Wahl des mathematischen Modells scheinen demnach Schwierigkeiten zu bereiten. Auch Defizite im Umgang mit überbestimmten Texten können zu dieser Fehllösung führen. So scheint das zielgerichtete Entnehmen von Informationen aus einem komplexen Text Schwierigkeiten zu bereiten (Fehllösung: 5,10 €).",
+      "Die Schülerinnen und Schüler rechnen 6,66 € + 0,15 € und erhalten 6,81 €. Sie scheinen Schwierigkeiten zu haben, die Sachsituation richtig zu erfassen und mit Hilfe der Mathematik zu beschreiben bzw. zu bearbeiten. Stattdessen werden nur zwei der gegebenen Zahlen rechnerisch verknüpft. Die folgende Schülerlösung illustriert diesen Fehler.",
+      "Zu Teilaufgabe 5.2:",
+      "Es wird davon ausgegangen, dass Herr Melzer nichts mehr bezahlen muss, sondern stattdessen 3,24 € zurückbekommt. Dies wird rechnerisch nachgewiesen, indem die Kosten für den Colakasten dem aufgrund des Pfands zurückerstatteten Betrag gegenübergestellt werden. Dabei wird das Pfand für die Kiste Cola aus dem Angebot vernachlässigt, wie die folgende Schülerlösung zeigt. Dies kann auf Schwierigkeiten im Umgang mit dem überbestimmten Text bzw. mit der Sachsituation zurückgeführt werden."
+    ],
+    "quelle": "colakaesten_Didaktische_Kommentierung.docx"
+  }
+}

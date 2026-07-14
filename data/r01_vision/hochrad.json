@@ -1,0 +1,13 @@
+{
+  "item": "hochrad",
+  "gelesen_aus": [
+    "data/r01_render/hochrad/00_doc_image1.emf.png"
+  ],
+  "stem": "Bei einem Hochrad ist das Vorderrad (Durchmesser: d_V = 1,56 m) wesentlich größer als das Hinterrad (Durchmesser: d_H = 52 cm). Bei einer Umdrehung des Vorderrades legt man eine Strecke von etwa 4,90 m zurück.\nDie Abbildung zeigt ein Hochrad (Abb. nicht maßstäblich).",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält nur den Stamm mit der Hochrad-Abbildung — keine Teilaufgaben/Prompts sichtbar. Die Auswertung kennt 3 Teilaufgaben; deren Text steht nicht in diesem PNG (vermutlich im Fließtext des Dokuments, nicht im EMF). parts bleibt daher leer statt geraten.",
+    "d_V und d_H stehen im Bild mit tiefgestelltem V bzw. H."
+  ]
+}

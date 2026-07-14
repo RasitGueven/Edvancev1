@@ -1,0 +1,210 @@
+{
+  "item": "quadratdifferenz",
+  "sources": {
+    "Aufgabe": {
+      "file": "quadratdifferenz_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "938a423f382dabeb"
+    },
+    "Auswertung": {
+      "file": "quadratdifferenz_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "6adb45b515701da6"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "quadratdifferenz_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "baf6e4ef473c615a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/quadratdifferenz/00_doc_image1.emf.png",
+      "tokens": "Hans und Karin wollen die Differenz 52-42berechnen.Karin sagt: „Das ist bei zwei aufeinanderfolgenden Zahlen ganz einfach. Das Ergebnis ist die Summe der beiden Zahlen 5 und 4. Und das ist 9.“ Hans ist erstaunt: „Tatsächlich, es stimmt: 52-42= 25 -16 = 9.“",
+      "deterministic_text": "Hans und Karin wollen die Differenz 5²-4²berechnen.\nKarin sagt: „Das ist bei zwei aufeinanderfolgenden Zahlen ganz einfach. Das Ergebnis ist die\nSumme der beiden Zahlen 5 und 4. Und das ist 9.“\nHans ist erstaunt: „Tatsächlich, es stimmt: 5²-4²= 25 -16 = 9.“",
+      "table": null,
+      "n_fragments": 41,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Quadratdifferenz",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Sowohl Summe als auch Differenz müssen korrekt berechnet werden:\n12+11=23 UND 144-121=23\nz. B.\n23\nUND\n144-121=23\nAnm.: Die Summenbildung muss nicht explizit nochmals notiert\nwerden. Es genügt die Angabe der Differenz 144-121."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen\nAntworten.\nz. B. (Grenzfall)\n____________ (ohne Eintrag)\n144-121 = 23"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (13 und 14) UND richtige Rechnung zur\nÜberprüfung.\nz. B.\n13, 14\nDie Zahlen sind richtig, denn 14[pic]-13[pic]=196-169=27$\nAnm.:  Der Ausdruck „196 – 169“ muss nicht explizit in der\nGleichung auftauchen.\nODER (Grenzfall)\n14[pic] und 13[pic] werden als Zahlen genannt, die Rechnung zur\nÜberprüfung wird jedoch richtig durchgeführt.\nODER (Grenzfall)\n196 und 169 werden als Zahlen genannt, die Rechnung zur\nÜberprüfung wird jedoch richtig durchgeführt."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen\nAntworten.\nz. B.\n14[pic] und 13[pic] werden als Zahlen genannt, die Rechnung zur\nÜberprüfung fehlt."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIGRICHTIG",
+            "[pic]\nAnm.: Der Ausdruck [pic] muss nicht in der Lösung angegeben\nwerden.\nODER\n[pic]\nODER\n[pic]\nODER\nZeichnerisch\n[pic]\nDer Flächeninhalt der schraffierten Fläche lässt sich auf zwei\nArten berechnen:\nA = a2 - b2\nA = 1(a + 1((a - 1) = 1(a + 1(b\nAlso gilt: a2 - b2 = a + b\nODER (Grenzfall)\nSind alle Umformungen korrekt durchgeführt, wurde aber (a-1) am\nEnde nicht durch b ersetzt, ist dies trotzdem als richtig zu\nbewerten.\nBeispiel:\n[pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen\nAntworten, insbesondere, wenn die Gültigkeit mittels eines\nZahlenbeispiels geprüft wird.\nz. B.\n32-22=5; 2+3=5"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Quadratdifferenz"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Sowohl Summe als auch Differenz müssen korrekt berechnet werden:\n12+11=23 UND 144-121=23\nz. B.\n23\nUND\n144-121=23\nAnm.: Die Summenbildung muss nicht explizit nochmals notiert\nwerden. Es genügt die Angabe der Differenz 144-121."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen\nAntworten.\nz. B. (Grenzfall)\n____________ (ohne Eintrag)\n144-121 = 23"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (13 und 14) UND richtige Rechnung zur\nÜberprüfung.\nz. B.\n13, 14\nDie Zahlen sind richtig, denn 14[pic]-13[pic]=196-169=27$\nAnm.:  Der Ausdruck „196 – 169“ muss nicht explizit in der\nGleichung auftauchen.\nODER (Grenzfall)\n14[pic] und 13[pic] werden als Zahlen genannt, die Rechnung zur\nÜberprüfung wird jedoch richtig durchgeführt.\nODER (Grenzfall)\n196 und 169 werden als Zahlen genannt, die Rechnung zur\nÜberprüfung wird jedoch richtig durchgeführt."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen\nAntworten.\nz. B.\n14[pic] und 13[pic] werden als Zahlen genannt, die Rechnung zur\nÜberprüfung fehlt."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIGRICHTIG",
+            "[pic]\nAnm.: Der Ausdruck [pic] muss nicht in der Lösung angegeben\nwerden.\nODER\n[pic]\nODER\n[pic]\nODER\nZeichnerisch\n[pic]\nDer Flächeninhalt der schraffierten Fläche lässt sich auf zwei\nArten berechnen:\nA = a2 - b2\nA = 1(a + 1((a - 1) = 1(a + 1(b\nAlso gilt: a2 - b2 = a + b\nODER (Grenzfall)\nSind alle Umformungen korrekt durchgeführt, wurde aber (a-1) am\nEnde nicht durch b ersetzt, ist dies trotzdem als richtig zu\nbewerten.\nBeispiel:\n[pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen\nAntworten, insbesondere, wenn die Gültigkeit mittels eines\nZahlenbeispiels geprüft wird.\nz. B.\n32-22=5; 2+3=5"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "5",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "• Statt der Differenz 122 - 112 wird nur die Differenz 12 – 11 berechnet",
+      "[Fehllösung: 1] (K6).",
+      "• Die berechneten Quadratzahlen sind falsch [Fehllösungen: 24, 22] (K5).",
+      "• Statt der Summe der Zahlen 12 und 11 wird deren Differenz berechnet (K6).",
+      "• Das von Karin beschriebene Vorgehen kann nicht nachvollzogen werden.",
+      "Statt auch die Summe der beiden aufeinanderfolgenden Zahlen zu berechnen,",
+      "wird nur die von Horst durchgeführte Vorgehensweise angewandt (K6).",
+      "• Zwar ergibt die Summe der beiden Zahlen oder aber die Differenz ihrer",
+      "Quadrate 27, doch handelt es sich nicht um zwei aufeinanderfolgende",
+      "Zahlen (K2 und K6).",
+      "• Es kommt zu Fehlern beim Quadrieren (K5).",
+      "• Die Rechenregel wird durch die Angabe nur eines zutreffenden Beispiels",
+      "begründet. Den Schülerinnen und Schülern scheint somit nicht klar zu",
+      "sein, dass es zur Begründung einer Allaussage nicht ausreicht, ein",
+      "Beispiel anzugeben (K1).",
+      "• Die einzelnen Umformungsschritte sind korrekt, doch wird der für b",
+      "verwendete Ausdruck (a - 1) am Ende der Umformung nicht durch b ersetzt",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung von Teilaufgabe 3 Schwierigkeiten auf, kann den",
+      "Schülerinnen und Schülern beispielsweise die folgende Abbildung zur",
+      "Verfügung gestellt werden, um die Terme sowie einzelne notwendige",
+      "Umformungsschritte geometrisch zu deuten.",
+      "So können anhand der Abbildung die beiden Terme a2 - b2 und a∙1+b∙1 leicht",
+      "abgelesen und farblich veranschaulicht werden. Sie beschreiben jeweils",
+      "dieselbe Fläche, so dass sich hieraus a2 - b2 = a∙1+b∙1 = a+b für b = a - 1",
+      "folgern lässt. Sollten die Schüler von selbst keine Verbindung zwischen der",
+      "Rechenregel und dieser Abbildung herstellen können, können sie aufgefordert",
+      "werden, die Variablen zunächst einmal durch konkrete natürliche Zahlen zu",
+      "ersetzen und die Größe der schraffierten Fläche zu berechnen. Das",
+      "Beschreiben von Flächen mittels Termen und Gleichungen kann leicht in",
+      "Verbindung mit der Einführung oder der Wiederholung der Binomischen Formeln",
+      "Des Weiteren liegt es nahe, den Schülerinnen und Schülern anhand dieser",
+      "Aufgabe den wichtigen Unterschied zwischen einer All-Aussage und einer",
+      "Existenz-Aussage vor Augen zu führen und die Bedeutung von Beispielen zu",
+      "ihrer Begründung zu thematisieren (ein Beispiel reicht zwar zur Begründung",
+      "einer Existenz-Aussage, nicht jedoch zur Begründung einer All-Aussage).",
+      "Geeignete Aufgaben hierzu sowie weitere Hinweise zum Aufbau der Kompetenz",
+      "„mathematisch Argumentieren“ im Unterricht können dem allgemeinen Kapitel",
+      "zu den Vergleichsarbeiten 2010 entnommen werden."
+    ],
+    "quelle": "quadratdifferenz_Didaktische_Kommentierung.doc"
+  }
+}

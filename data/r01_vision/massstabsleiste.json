@@ -1,0 +1,24 @@
+{
+  "item": "massstabsleiste",
+  "gelesen_aus": ["data/r01_render/massstabsleiste/00_image1.emf.png"],
+  "stem": "Auf einer Karte im Atlas befindet sich diese Maßstabsleiste.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welcher Maßstab passt dazu? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1 : 500"},
+        {"id": "b", "label": "1 : 5000"},
+        {"id": "c", "label": "1 : 50000"},
+        {"id": "d", "label": "1 : 500000"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Abbildung (Maßstabsleiste) trägt die Beschriftungen '1 cm' mit Doppelpfeil über dem ersten Abschnitt sowie die Skala 0, 500, 1000, 1500, 2000 mit der Einheit 'm'. Diese Beschriftungen habe ich als Abbildungs-Beschriftung gewertet und nicht in den Stamm übernommen."
+  ]
+}

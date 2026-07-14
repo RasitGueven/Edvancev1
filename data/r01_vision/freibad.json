@@ -1,0 +1,32 @@
+{
+  "item": "freibad",
+  "gelesen_aus": [
+    "data/r01_render/freibad/00_image1.png",
+    "data/r01_render/freibad/01_image2.png",
+    "data/r01_render/freibad/02_image3.png"
+  ],
+  "stem": "Das Freibad in Burgdorf wurde am 1. Juni geöffnet. Am 1. Juli begannen die sechs Wochen dauernden Sommerferien. Insgesamt kamen vom 1. Juni bis zum Ende der Sommerferien 35 681 Besucherinnen und Besucher in das Freibad. Das Diagramm zeigt die Zahlen der Besucherinnen und Besucher für Juni und für jede Woche der Sommerferien.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viele Personen das Freibad während der 6 Wochen Sommerferien im Durchschnitt pro Woche besucht haben.",
+      "unit": "Personen",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Im Juni war das Wetter schlecht und das Freibad war an vielen Tagen leer. Aber in den Sommerferien war das Wetter schön und das Freibad hatte viele Besucherinnen und Besucher. Die Betreiber des Freibads wollten die Zahlen der Besucherinnen und Besucher für den Juni besser aussehen lassen, als sie tatsächlich sind. Deshalb haben sie im Diagramm einen Trick angewendet. Erkläre, welchen Trick sie benutzt haben.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Rasterbild: Im Stamm steht die Besucherzahl mit Zifferngruppen-Abstand (35 681); ob im Original ein schmales Leerzeichen oder gar kein Trennzeichen steht, ist aus dem Pixelbild nicht sicher zu entscheiden.",
+    "Das Säulendiagramm (Juni 3845; 1.-6. Ferienwoche: 2831, 4074, 5732, 4987, 7710, 6502; y-Achse 0-9000) gehört zum Stamm, wurde aber nicht als Text übernommen."
+  ]
+}

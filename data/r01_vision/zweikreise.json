@@ -1,0 +1,48 @@
+{
+  "item": "zweikreise",
+  "gelesen_aus": [
+    "data/r01_render/zweikreise/00_image1.emf.png",
+    "data/r01_render/zweikreise/01_image2.emf.png",
+    "data/r01_render/zweikreise/02_image3.emf.png"
+  ],
+  "stem": "In der Abbildung ist A der Mittelpunkt des Kreises K₁ und B der Mittelpunkt des Kreises K₂. Beide Kreise haben den gleichen Radius r = |AB|.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Prüfe jeweils, ob die folgenden Aussagen auf diese Figur zutreffen oder nicht. Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Alle Winkel im Dreieck ABH sind gleich groß. — wahr"},
+        {"id": "b", "label": "Alle Winkel im Dreieck ABH sind gleich groß. — falsch"},
+        {"id": "c", "label": "Das Dreieck BFH ist gleichseitig. — wahr"},
+        {"id": "d", "label": "Das Dreieck BFH ist gleichseitig. — falsch"},
+        {"id": "e", "label": "Das Dreieck DFH ist gleichschenklig. — wahr"},
+        {"id": "f", "label": "Das Dreieck DFH ist gleichschenklig. — falsch"},
+        {"id": "g", "label": "Im Dreieck AHD sind alle drei Winkel unterschiedlich groß. — wahr"},
+        {"id": "h", "label": "Im Dreieck AHD sind alle drei Winkel unterschiedlich groß. — falsch"},
+        {"id": "i", "label": "Der Winkel α beträgt 60°. — wahr"},
+        {"id": "j", "label": "Der Winkel α beträgt 60°. — falsch"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts, oben nach unten (je Zeile: wahr, falsch)"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Sonja behauptet: „Der Flächeninhalt des großen Dreiecks DFH ist dreimal so groß wie der Flächeninhalt des kleinen Dreiecks ABH.\" Hat sie recht? Kreuze an. Begründe deine Antwort.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 1 ist eine wahr/falsch-Tabelle mit 5 Aussagen; als ein mc-Part mit 10 Kästchen in Lesereihenfolge (je Zeile wahr, falsch) erfasst. stem_tabelle_erwartet gesetzt.",
+    "Der Winkel in der Abbildung ist mit einem kleinen 'a' beschriftet; laut Aussage in der Tabelle 'Der Winkel a beträgt 60°' — vermutlich griechisch α (alpha). Ich habe α gesetzt; im Bild ist die Glyphe nicht eindeutig von 'a' zu unterscheiden.",
+    "Teilaufgabe 2 verlangt zusätzlich eine schriftliche Begründung (Karokasten) neben dem Ankreuzen.",
+    "Punktbeschriftungen D, A, B, F, G, H, K₁, K₂ und '(nicht maßstabsgerecht)' gehören zur Abbildung."
+  ]
+}

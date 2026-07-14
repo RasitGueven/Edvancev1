@@ -1,0 +1,19 @@
+{
+  "item": "flaecheninhalt",
+  "gelesen_aus": ["data/r01_render/flaecheninhalt/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib den Flächeninhalt dieser Figur an. Der Flächeninhalt beträgt __________ cm².",
+      "unit": "cm²",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Abbildung: Rechteck mit den Beschriftungen '3 cm' (Höhe, rechts) und '5 cm' (Breite, unten), darunter der Hinweis '(nicht maßstabsgerecht)'."
+  ]
+}

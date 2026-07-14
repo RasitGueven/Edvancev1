@@ -1,0 +1,159 @@
+{
+  "item": "gluecksraddrehen",
+  "sources": {
+    "Aufgabe": {
+      "file": "gluecksraddrehen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "610cdc4b3f7c5b2f"
+    },
+    "Auswertung": {
+      "file": "gluecksraddrehen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "e1525577fc8bd950"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gluecksraddrehen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "383b3581f6c18ccb"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gluecksraddrehen/00_doc_image1.emf.png",
+      "tokens": "Für eine Verlosung wurde ein Glücksrad entworfen. Es hat sechs verschieden große Sektoren, die mit den Buchstaben A, B, C, D, E und F beschriftet sind.Beim Drehen des Glücksrades treten diese Ergebnisse mit folgenden Wahrscheinlichkeiten pein:ErgebnispABCDEF11811213161419",
+      "deterministic_text": "Für eine Verlosung wurde ein Glücksrad entworfen. Es hat sechs verschieden große\nSektoren, die mit den Buchstaben A, B, C, D, E und F beschriftet sind.\nBeim Drehen des Glücksrades treten diese Ergebnisse mit folgenden Wahrscheinlichkeiten p\nein:\nErgebnis A B C D E F\np 1 1 1 1 1 1\n1812 3 6 4 9",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Glücksrad drehen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe des richtigen Winkels des Sektors C UND dessen Darstellung\nim Glücksrad.\nAnmerkungen:\n• Wird der Sektor C nicht beschriftet, wird dennoch Code 1\nvergeben.\n• Sektor C kann auch neben Sektor A gezeichnet werden.\n• Sektor C kann auch an anderen Stellen im Kreis eingezeichnet\nwerden\n[pic]\nZeichentoleranz: ( 2°\n[pic]\nODER (Grenzfall)\nDer Winkel wird korrekt eingezeichnet, es fehlt jedoch das\nGradmaß in der Tabelle."
+          ],
+          [
+            "FALSCH",
+            "Alle fehlerhaften oder falschen Antworten.\nz. B.\nDer Winkel wird korrekt angegeben, jedoch wurde er nicht\neingezeichnet."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Anzahl der Lose mit dem Buchstaben C: 180 (Lose)\nAnzahl der Lose mit dem Buchstaben D: 90 (Lose)"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Glücksrad drehen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe des richtigen Winkels des Sektors C UND dessen Darstellung\nim Glücksrad.\nAnmerkungen:\n• Wird der Sektor C nicht beschriftet, wird dennoch Code 1\nvergeben.\n• Sektor C kann auch neben Sektor A gezeichnet werden.\n• Sektor C kann auch an anderen Stellen im Kreis eingezeichnet\nwerden\n[pic]\nZeichentoleranz: ( 2°\n[pic]\nODER (Grenzfall)\nDer Winkel wird korrekt eingezeichnet, es fehlt jedoch das\nGradmaß in der Tabelle."
+          ],
+          [
+            "FALSCH",
+            "Alle fehlerhaften oder falschen Antworten.\nz. B.\nDer Winkel wird korrekt angegeben, jedoch wurde er nicht\neingezeichnet."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Anzahl der Lose mit dem Buchstaben C: 180 (Lose)\nAnzahl der Lose mit dem Buchstaben D: 90 (Lose)"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Das Errechnen der Winkelgröße gelingt nicht, u.a. aufgrund von",
+      "Schwierigkeiten mit dem Bruchrechnen (K5).",
+      "• Die Winkelgröße wird korrekt errechnet, jedoch nicht korrekt",
+      "eingezeichnet (K4).",
+      "• Die Übertragung in den anderen Kontext gelingt nicht. Dabei werden die",
+      "Losanzahlen z. B. mit Bezug zu 360° als Ganzes errechnet [Fehllösung: C:",
+      "120 Lose, D: 60 Lose] (K3).",
+      "Weiterarbeit und Förderung",
+      "Ausgehend von dieser Aufgabe können weitere Kontexte überlegt werden, die",
+      "dem Modell der Laplace-Wahrscheinlichkeit genügen. Alternativ können die",
+      "Schülerinnen und Schüler begründet entscheiden, ob in anderen gegebenen",
+      "Kontexten jeweils das Modell der Laplace-Wahrscheinlichkeit zur Anwendung",
+      "kommen kann. Dazu eignet sich die folgende Aufgabe, die ggfs. auch ohne den",
+      "Begriff des Laplace-Experiments formuliert werden kann:",
+      "Prüfe jeweils, ob die folgenden Zufallsexperimente Laplace-Experimente",
+      "sind. Begründe deine Antwort.",
+      "- Werfen einer Münze",
+      "- Ziehung der Lottozahlen",
+      "- Torwandschießen mit einem Fußball",
+      "- Zweimaliges Werfen einer Münze",
+      "Teilaufgabe 2 lässt sich derart variieren, dass man erfragt, mit welchen",
+      "Gesamtanzahlen von Losen sich die angegebenen Wahrscheinlichkeiten",
+      "überhaupt exakt realisieren lassen. Zusätzlich kann überlegt werden, wie",
+      "groß eine solche Anzahl mindestens sein muss. Sollte diese Fragestellung zu",
+      "offen sein, kann man auch folgende Aufgaben stellen:",
+      "a) Kann das Glücksrad auch durch einen Eimer mit 180 Losen (mit 270",
+      "Losen) ersetzt werden?",
+      "b) Wie viele Lose müssen mindestens im Eimer sein, damit alle Ergebnisse",
+      "mit genau den gegebenen Wahrscheinlichkeiten eintreten können?",
+      "c) Welche Eigenschaft müssen die möglichen Gesamtzahlen der Lose",
+      "Weitere unterrichtliche Hinweise können den didaktischen Kommentaren zu",
+      "den Aufgaben „Chancen“ und „Zufallsversuche“ entnommen werden. Zudem",
+      "vergleiche man auch den didaktischen Kommentar zur Aufgabe „Glücksrad“ aus"
+    ],
+    "quelle": "gluecksraddrehen_Didaktische_Kommentierung.doc"
+  }
+}

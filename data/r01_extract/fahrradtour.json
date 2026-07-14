@@ -1,0 +1,408 @@
+{
+  "item": "fahrradtour",
+  "sources": {
+    "Aufgabe": {
+      "file": "fahrradtour_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "7e144daf7d3bb35a"
+    },
+    "Auswertung": {
+      "file": "fahrradtour_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "b9046af5036864f6"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fahrradtour_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "594b661a0c6ed00f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fahrradtour/00_doc_image1.emf.png",
+      "tokens": "Max und Julia haben in den Ferien eine Radtour von Passau nach Wien unternommen. Die Längen ihrer Tagesetappen hat Julia in diesem Säulendiagramm dargestellt. Max verrät einem Freund: „Weil Julia einen sportlichen Eindruck machen will, hat sie die Säule für den letzten Tag einfach weggelassen. Am letzten Tag sind wir nämlich nur 20km gefahren.“Tagkmpro Tag gefahrene Kilometerpro Tag gefahrene Kilometer456341685558010203040506070801234567Tagkm",
+      "deterministic_text": "Max und Julia haben in den Ferien eine Radtour von Passau nach Wien unternommen. Die\nLängen ihrer Tagesetappen hat Julia in diesem Säulendiagramm dargestellt. Max verrät\neinem Freund: „Weil Julia einen sportlichen Eindruck machen will, hat sie die Säule für den\nletzten Tag einfach weggelassen. Am letzten Tag sind wir nämlich nur 20km gefahren.“\npro Tag gefahrene Kilometer\npro Tag gefahrene Kilometer\n80\n68\n70 63\n55 58\n60\n50 45 41\n40\nkmm30\nk\n20\n10\n0\n1 2 3 4 5 6 7\nTag\nTag",
+      "table": {
+        "header": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "pro Tag gefahrene Kilometer pro Tag gefahrene Kilometer",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "80",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "70",
+            "",
+            "",
+            "",
+            "",
+            "63",
+            "",
+            "",
+            "",
+            "",
+            "68",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "58",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "60",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "55",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "45",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "50",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "41",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "40",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "kmmk",
+            "30",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "20 10 0",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "1",
+            "",
+            "",
+            "2",
+            "",
+            "3",
+            "",
+            "Tag",
+            "4",
+            "",
+            "",
+            "5",
+            "",
+            "",
+            "6",
+            "7",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "Tag",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 47,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Fahrradtour",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die ergänzte Säule muss eine Fahrstrecke von 20 km\nveranschaulichen.\nSäulenbreite und Beschriftung der Säule sind zu vernachlässigen.\nZeichentoleranz bezüglich der Höhe ( 1mm."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "50 (ODER 50 km oder ca. 50 ODER ca. 50 km ODER Angaben in anderer\nLängeneinheit mit passender Maßzahl)"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Fahrradtour"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die ergänzte Säule muss eine Fahrstrecke von 20 km\nveranschaulichen.\nSäulenbreite und Beschriftung der Säule sind zu vernachlässigen.\nZeichentoleranz bezüglich der Höhe ( 1mm."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "50 (ODER 50 km oder ca. 50 ODER ca. 50 km ODER Angaben in anderer\nLängeneinheit mit passender Maßzahl)"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "III",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Das Einzeichnen der siebten Säule unterbleibt, da die zugrunde liegende",
+      "Information nicht aus dem Text entnommen wird (K6).",
+      "Die siebte Säule wird mit falscher Höhe eingezeichnet (K4).",
+      "Lediglich die Gesamtlänge der Fahrtstrecke wird angegeben (Fehllösung 350",
+      "Die Mittelwertbildung gelingt (rechnerisch) nicht, da die Vorrangregeln bei",
+      "der Division durch 7, z. B. wegen fehlender Klammern, missachtet werden",
+      "(Fehllösung: ca. 330 km) (K5).",
+      "▪ 1. Antwortalternative wurde angekreuzt: Der Mittelwert 10 km wird",
+      "fälschlich auf die sieben Tage verteilt (K3).",
+      "▪ 3. Antwortalternative wurde angekreuzt: Die Gesamtverlängerung wird (da",
+      "im Diagramm 6 Tage gegeben sind) mit 60 km errechnet und vermutlich",
+      "anschließend halbiert, da „Mittel“ nur als „Division durch 2“ gedeutet",
+      "▪ 4. Antwortalternative wurde angekreuzt: Die Unterscheidung zwischen der",
+      "Gesamtverlängerung der Fahrtstrecke und der mittleren täglichen",
+      "Fahrtstrecke gelingt nicht. Dieser Fehler tritt auch bei der 5.",
+      "Antwortalternative auf, allerdings wird im vorliegenden Fall zusätzlich",
+      "der siebte Tag missachtet (K6 und K3).",
+      "▪ 5. Antwortalternative wurde angekreuzt: Lediglich die",
+      "Gesamtverlängerung der Fahrtstrecke wird errechnet (K3)."
+    ],
+    "quelle": "fahrradtour_Didaktische_Kommentierung.doc"
+  }
+}

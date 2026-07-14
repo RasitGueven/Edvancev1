@@ -1,0 +1,88 @@
+{
+  "item": "fischezaehlen",
+  "sources": {
+    "Aufgabe": {
+      "file": "fischezaehlen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "dbd8ed01ef619fbb"
+    },
+    "Auswertung": {
+      "file": "fischezaehlen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "9a4b2b2c287c25de"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fischezaehlen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "f46e5ae892a9ac7f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fischezaehlen/00_doc_image1.emf.png",
+      "tokens": "In einem großen Teich soll die Anzahl der Fische abgeschätzt werden. Dazu werden aus dem Teich 250 Fische gefangen, mit einem roten Punkt gekennzeichnet und wieder in den Teich freigelassen. Die Wahrscheinlichkeit, einen gekennzeichneten Fisch zu fangen, ist nunAnzahlderFischemitrotemPunkt250p(FischmitrotemPunktfangen)==AnzahlallerFische(markierteundnichtmarkierte)xx: Gesamtzahl der Fische im Teich",
+      "deterministic_text": "In einem großen Teich soll die Anzahl der Fische abgeschätzt werden. Dazu werden aus dem\nTeich 250 Fische gefangen, mit einem roten Punkt gekennzeichnet und wieder in den Teich\nfreigelassen. Die Wahrscheinlichkeit, einen gekennzeichneten Fisch zu fangen, ist nun\np(FischmitrotemPunktfangen)==AnzahlderFischemitrotemPunkt250\nAnzahlallerFische(markierteundnichtmarkierte)x\nx: Gesamtzahl der Fische im Teich",
+      "table": null,
+      "n_fragments": 23,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Fische zählen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2000"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Fische zählen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2000"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "V",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es wird nicht erkannt, dass die beiden Verhältnisse 250/x und 50/400 gleich",
+      "sein müssen, so dass keine geeignete Gleichung aufgestellt werden kann",
+      "Die aufgestellte Gleichung kann nicht richtig nach x (Gesamtzahl der Fische",
+      "in einem Teich) umgeformt werden (K5)."
+    ],
+    "quelle": "fischezaehlen_Didaktische_Kommentierung.doc"
+  }
+}

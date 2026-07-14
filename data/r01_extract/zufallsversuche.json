@@ -1,0 +1,245 @@
+{
+  "item": "zufallsversuche",
+  "sources": {
+    "Aufgabe": {
+      "file": "zufallsversuche_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "3c0a5843a0c26e9f"
+    },
+    "Auswertung": {
+      "file": "zufallsversuche_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "858b29f101e6efd5"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zufallsversuche_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "1f50ff5ef6cb6581"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zufallsversuche/00_doc_image1.emf.png",
+      "tokens": "Mit einem 12-seitigen Spielwürfel werden Zufallsversuche durchgeführt. Die Seiten dieses Würfels sind mit den Zahlen 1 bis 12 beschriftet.",
+      "deterministic_text": "Mit einem 12-seitigen Spielwürfel werden Zufallsversuche durchgeführt.\nDie Seiten dieses Würfels sind mit den Zahlen 1 bis 12 beschriftet.",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Zufallsversuche",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3",
+      "Teilaufgabe 4"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Die Tabelle muss vollständig ausgefüllt sein."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtig ist die Beschreibung eines Ereignisses mit nur drei\nErgebnissen. Diese müssen nicht genannt werden.\nz. B.\nDie Augenzahl ist kleiner als 4.\nODER\nDer Würfel zeigt eine 5, 6 oder eine 11.\nODER\nDie Augenzahl ist zweistellig.\nODER\nDie Augenzahl ist durch 4 teilbar."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Häufigste Augensumme (13) UND richtige Begründung unter Verweis\nauf deren relative/absolute Häufigkeit in Abgrenzung zur\nrelativen/absoluten Häufigkeit der anderen möglichen Augensummen.\nz. B.\nDie Augensumme 13 ist am häufigsten, da sie in 12 von 144\nKombinationen fällt. Für alle anderen Augensummen gibt es weniger\nKombinationsmöglichkeiten (siehe Übersicht)."
+          ],
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Die Tabelle muss nicht vollständig sein, wenn daraus\nhervorgeht, dass die 13 als Diagonale in jeder Spalte und Zeile\nvorkommt. Alternativ könnte der Ergebnisraum auch mittels eines\nverkürzten Baumdiagramms dargestellt werden.\nODER\nDie Argumentation über Symmetrie: Mögliche Augensummen sind 2, 3,\n..., 24. Die Zahl in der Mitte kommt am häufigsten vor. Dies ist\ndie 13.\nAnm.: Diese Lösung muss keine tabellarische Übersicht aller\nmöglichen Ergebnisse aufweisen.\nODER\nDie Zahl des 1. Würfels kann mit 12 verschiedenen Zahlen des 2.\nWürfels kombiniert werden. Die 2 ist dabei die kleinste\nAugensumme, die 24 die größte Augensumme. Die 13 ist dabei die\nhäufigste Augensumme. Dies liegt daran, dass egal welche Zahl der\n1. Würfel zeigt, der 2. Würfel immer eine passende Augenzahl\nzeigen kann, so dass sich als Summe 13 ergibt. Dies ist bei den\nanderen Zahlen nicht der Fall. Denn zeigt der 1. Würfel z. B.\neine 12, dann kann niemals eine Augensumme kleiner als 13\nherauskommen. Zeigt der 1. Würfel hingegen eine 1, kann keine\nAugensumme größer als 13 herauskommen. Die Augensumme 13 ist bei\nbeiden Fällen aber möglich."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nz. B.\nDie Augensumme 13 ist am häufigsten, da es am meisten\nKombinationen mit dieser Augensumme gibt.\nAnm.: Begründung fehlt. (Ohne Bezug auf eine Tabelle.)\nODER\nDie häufigste Augensumme ergibt sich immer nach dem Muster n + 1.\nAlso ist 13 die häufigste Augensumme.\nAnm.: Das Muster n + 1 wird nicht begründet bzw. erläutert."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Zufallsversuche"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Die Tabelle muss vollständig ausgefüllt sein."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtig ist die Beschreibung eines Ereignisses mit nur drei\nErgebnissen. Diese müssen nicht genannt werden.\nz. B.\nDie Augenzahl ist kleiner als 4.\nODER\nDer Würfel zeigt eine 5, 6 oder eine 11.\nODER\nDie Augenzahl ist zweistellig.\nODER\nDie Augenzahl ist durch 4 teilbar."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Häufigste Augensumme (13) UND richtige Begründung unter Verweis\nauf deren relative/absolute Häufigkeit in Abgrenzung zur\nrelativen/absoluten Häufigkeit der anderen möglichen Augensummen.\nz. B.\nDie Augensumme 13 ist am häufigsten, da sie in 12 von 144\nKombinationen fällt. Für alle anderen Augensummen gibt es weniger\nKombinationsmöglichkeiten (siehe Übersicht)."
+          ],
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Die Tabelle muss nicht vollständig sein, wenn daraus\nhervorgeht, dass die 13 als Diagonale in jeder Spalte und Zeile\nvorkommt. Alternativ könnte der Ergebnisraum auch mittels eines\nverkürzten Baumdiagramms dargestellt werden.\nODER\nDie Argumentation über Symmetrie: Mögliche Augensummen sind 2, 3,\n..., 24. Die Zahl in der Mitte kommt am häufigsten vor. Dies ist\ndie 13.\nAnm.: Diese Lösung muss keine tabellarische Übersicht aller\nmöglichen Ergebnisse aufweisen.\nODER\nDie Zahl des 1. Würfels kann mit 12 verschiedenen Zahlen des 2.\nWürfels kombiniert werden. Die 2 ist dabei die kleinste\nAugensumme, die 24 die größte Augensumme. Die 13 ist dabei die\nhäufigste Augensumme. Dies liegt daran, dass egal welche Zahl der\n1. Würfel zeigt, der 2. Würfel immer eine passende Augenzahl\nzeigen kann, so dass sich als Summe 13 ergibt. Dies ist bei den\nanderen Zahlen nicht der Fall. Denn zeigt der 1. Würfel z. B.\neine 12, dann kann niemals eine Augensumme kleiner als 13\nherauskommen. Zeigt der 1. Würfel hingegen eine 1, kann keine\nAugensumme größer als 13 herauskommen. Die Augensumme 13 ist bei\nbeiden Fällen aber möglich."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nz. B.\nDie Augensumme 13 ist am häufigsten, da es am meisten\nKombinationen mit dieser Augensumme gibt.\nAnm.: Begründung fehlt. (Ohne Bezug auf eine Tabelle.)\nODER\nDie häufigste Augensumme ergibt sich immer nach dem Muster n + 1.\nAlso ist 13 die häufigste Augensumme.\nAnm.: Das Muster n + 1 wird nicht begründet bzw. erläutert."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 4"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 3
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "3",
+        "nr": 4
+      }
+    ],
+    "typische_fehler": [
+      "• Die Unterscheidung von „Ereignis“ und „Ergebnis“ gelingt nicht (K6).",
+      "• Fachsprachliche Begriffe werden falsch angewendet. Zum Beispiel wird",
+      "„kleiner als“ mit „kleiner oder gleich“ verwechselt [Fehllösung 1, 2, 3,",
+      "• Die drei Ergebnisse werden richtig angegeben, aber es wird kein Ereignis",
+      "hierzu beschrieben. Möglicherweise können die Begriffe „Ereignis“ und",
+      "„Ergebnis“ nicht unterschieden werden (K6).",
+      "• Es werden drei Ereignisse beschrieben. Die Anzahl der zugehörigen",
+      "Ergebnisse wird dabei nicht beachtet (K6).",
+      "• Ein Ereignis wird beschrieben, es hat aber nicht genau drei Ergebnisse",
+      "• Die Argumentation ist unvollständig. Dies zeigt die folgende",
+      "Schülerlösung exemplarisch. In dieser wird zwar erklärt, wie „13“",
+      "zustande kommt, doch es fehlt die Begründung, warum diese Summe am",
+      "häufigsten vorkommt. (K1).",
+      "• Es gelingt nicht, eine strukturgleiche Tabelle für einen 12-seitigen",
+      "Würfel zu erstellen oder die Ergebnisse in einer anderen Form",
+      "ausschöpfend zu erfassen (K2).",
+      "• Die aufgestellte Tabelle ist fehlerhaft und es wird z. B. eine Spalte",
+      "(eine Zeile) vergessen (K4).",
+      "• 1. Antwortalternative (Fehllösung: 2n): Irrtümlich wird angenommen, dass",
+      "die häufigste Augensumme durch Verdopplung der größtmöglichen Augenzahl",
+      "eines Würfels entsteht.",
+      "• 2. Antwortalternative (Fehllösung: n[pic]n): Dieser Term beschreibt die",
+      "Anzahl aller Augensummen, wobei nicht auf Gleichheiten geachtet wird.",
+      "• 4. Alternative (Fehllösung: n+2): Da es zwei n-seitige Würfel sind, wird",
+      "irrtümlich angenommen, dass die häufigste Augensumme um 2 größer ist als",
+      "die Anzahl n der Seitenflächen. Oder die Variable n und die Zahl 2 werden",
+      "vordergründig kombiniert.",
+      "Weiterarbeit und Förderung",
+      "Die erfolgreiche Bearbeitung der Aufgabe „Zufallsversuche“ erfordert ein",
+      "Verständnis grundlegender Begriffe wie Zufallsversuch, Ereignis und",
+      "Diese Aufgabe bietet die Gelegenheit, Problemlösestrategien bewusst",
+      "anzuwenden. Hierzu gehört zum einen das systematische Probieren als",
+      "Lösungsstrategie. Zum anderen gehört dazu die Strategie der",
+      "Analogiebildung, um Vorgehensweisen mit vertrauten Objekten auf weniger",
+      "vertraute – wie einen 12-seitigen Würfel – zu übertragen. In diesem",
+      "Zusammenhang bietet sich auch der explizite Umgang mit tabellarischen",
+      "Darstellungen an, um (schriftliche) Überlegungen zu systematisieren.",
+      "Insbesondere die Teilaufgaben 1 und 2 können schon in den ersten Stunden",
+      "zur elementaren Stochastik im Unterricht eingesetzt werden. Das reale",
+      "Würfeln mit einem 6- bzw. einem 12-seitigen Würfel kann den Einstieg in die",
+      "Aufgabenstellung erleichtern.",
+      "Bereitet die in Teilaufgabe 4 geforderte Verallgemeinerung Schwierigkeiten,",
+      "so können zunächst Überlegungen zu Augensummen weiterer konkreter Würfel",
+      "angestellt werden. Dies kann etwa am Beispiel 8-, 10- oder 20-seitiger",
+      "Würfel geschehen. Insbesondere kann auch mit einem Tetraederwürfel",
+      "gearbeitet werden, dessen vier Seiten es in besonderer Weise erlauben, sich",
+      "zügig einen vollständigen Überblick über die möglichen Augensummen zu",
+      "verschaffen. Gelingt die Benennung der häufigsten Augensumme an mehreren",
+      "konkreten Würfeln, so kann die zugrunde liegende Struktur einfacher auf",
+      "einen n-seitigen Würfel übertragen werden.",
+      "Man vergleiche hierzu auch die didaktischen Kommentare zu den Aufgaben",
+      "„Chancen“ und „Glücksrad drehen“, aber auch den didaktischen Kommentar zur",
+      "Aufgabe „Würfeln mit zwei Würfeln“ aus VERA-8 2011."
+    ],
+    "quelle": "zufallsversuche_Didaktische_Kommentierung.doc"
+  }
+}

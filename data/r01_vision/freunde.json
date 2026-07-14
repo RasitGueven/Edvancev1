@@ -1,0 +1,63 @@
+{
+  "item": "freunde",
+  "gelesen_aus": [
+    "data/r01_render/freunde/00_image1.emf.png",
+    "data/r01_render/freunde/01_image2.emf.png",
+    "data/r01_render/freunde/02_image3.emf.png",
+    "data/r01_render/freunde/03_image4.emf.png"
+  ],
+  "stem": "Alex (A), Bastian (B), Can (C) und Daniel (D) sind Freunde. Das Diagramm zeigt Informationen zu ihrer Körpergröße und zu ihrem Alter.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wer ist der Älteste in der Gruppe? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Alex"},
+        {"id": "b", "label": "Bastian"},
+        {"id": "c", "label": "Can"},
+        {"id": "d", "label": "Daniel"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Wer ist der Kleinste in der Gruppe? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Alex"},
+        {"id": "b", "label": "Bastian"},
+        {"id": "c", "label": "Can"},
+        {"id": "d", "label": "Daniel"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Die folgende Tabelle enthält Aussagen über Alex, Bastian, Can und Daniel. Prüfe, ob die Aussagen durch das Diagramm bestätigt werden. Kreuze jeweils an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "trifft zu"},
+        {"id": "b", "label": "trifft nicht zu"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts (Spaltenüberschriften der Tabelle)"
+    },
+    {
+      "nr": 4,
+      "kind": "free_text",
+      "prompt": "Erol (E) ist Cans Bruder. Er ist jünger und kleiner als Can. Zeichne in das gegebene Diagramm eine Möglichkeit ein, wo der Punkt für Erol (E) liegen kann.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Widerspruch zur Auswertung: Das Bild zeigt 4 Teilaufgaben (Ältester / Kleinster / Aussagentabelle / Erol einzeichnen), die Queue nennt 3. Ich folge dem Bild.",
+    "Tabelle in Teilaufgabe 3 mit zwei Aussagezeilen: 'Die zwei Kleinsten sind auch die zwei Jüngsten.' und 'Weder der Älteste noch der Jüngste sind der Kleinste oder der Größte.'; Spalten 'trifft zu' / 'trifft nicht zu'.",
+    "Das Streudiagramm (x = Alter, y = Körpergröße) trägt nur die vier Punkte A, B, C, D ohne Achsenskalierung."
+  ]
+}

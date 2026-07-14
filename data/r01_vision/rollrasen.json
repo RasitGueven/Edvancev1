@@ -1,0 +1,10 @@
+{
+  "item": "rollrasen",
+  "gelesen_aus": ["data/r01_render/rollrasen/00_doc_image1.emf.png"],
+  "stem": "Herr Klie hat eine Gartenbaufirma und gestaltet einen Teil seines Firmengeländes in eine Rasenfläche um. Diese neue Rasenfläche ist 11 m lang und 10,5 m breit.\nAus Zeitgründen verwendet Herr Klie Rollrasen (siehe Fotos 1 und 2). Als Rollrasen bezeichnet man fertigen Rasen, der in rechteckige Stücke geschnitten und dann zum Transport aufgerollt wird.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält ausschließlich den Einleitungstext und die Bildunterschriften 'Foto 1' und 'Foto 2'. Die Teilaufgaben selbst sind in keinem Bild sichtbar. Die Auswertung nennt 3 Teilaufgaben — ich kann keine davon lesen und lasse parts daher leer, statt zu raten."
+  ]
+}

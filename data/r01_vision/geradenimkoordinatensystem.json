@@ -1,0 +1,28 @@
+{
+  "item": "geradenimkoordinatensystem",
+  "gelesen_aus": [
+    "data/r01_render/geradenimkoordinatensystem/00_image1.emf.png",
+    "data/r01_render/geradenimkoordinatensystem/01_image2.emf.png"
+  ],
+  "stem": "Die Abbildung zeigt die Gerade mit der Gleichung y = ½x − 2",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "An welcher Stelle schneidet die Gerade die x-Achse? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "x = -2"},
+        {"id": "b", "label": "x = 0"},
+        {"id": "c", "label": "x = 4"},
+        {"id": "d", "label": "x = 5"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Gleichung steht im Bild als Bruch mit Zähler 1 über Nenner 2 (y = 1/2 · x − 2); ich habe sie als '½x' notiert.",
+    "Die Queue meldet hat_tabelle_im_emf=true, im Bild ist aber keine Tabelle, sondern nur das Koordinatengitter der Abbildung — daher stem_tabelle_erwartet=false."
+  ]
+}

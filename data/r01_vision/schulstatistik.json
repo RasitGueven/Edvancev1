@@ -1,0 +1,10 @@
+{
+  "item": "schulstatistik",
+  "gelesen_aus": ["data/r01_render/schulstatistik/00_doc_image1.emf.png"],
+  "stem": "Im Diagramm ist dargestellt, wie viele Schulen es im Schuljahr 2008/2009 in Sachsen-Anhalt gab. Es werden vier Schulformen unterschieden.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das Bild zeigt Einleitungstext + Balkendiagramm ('Schulen in Sachsen-Anhalt', Kategorien Gesamtschulen 3/6, Gymnasien 13/69, Sekundarschulen 13/166, Grundschulen 39/520, Legende: staatliche Schulen / Schulen in freier Trägerschaft). Die Auswertung kennt 1 Teilaufgabe — die eigentliche Fragestellung ist im Bild NICHT enthalten. Prompt daher nicht gesetzt."
+  ]
+}

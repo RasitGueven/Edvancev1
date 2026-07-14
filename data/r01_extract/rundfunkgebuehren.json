@@ -1,0 +1,359 @@
+{
+  "item": "rundfunkgebuehren",
+  "sources": {
+    "Aufgabe": {
+      "file": "rundfunkgebuehren_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "a58904bf4d3df935"
+    },
+    "Auswertung": {
+      "file": "rundfunkgebuehren_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "d4b92ace128c7723"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rundfunkgebuehren_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "01c22056299eb4e5"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rundfunkgebuehren/00_image1.emf.png",
+      "tokens": "InderfolgendenAbbildungistdieEntwicklungdermonatlichenRundfunkgebühren, dieeinHaushaltbezahlenmuss,seitdemJahr1953dargestellt.DieAbbildung 1 zeigt,wannesGebührenerhöhungengabundwiehochdanachdieGebührenwaren.Rundfunkgebühren in DeutschlandAbbildung 1HerrKunzehatsichgenauermitdenDatenbefasstundvielgerechnet.Seine Ergebnisse haterineinerTabelleaufgeschrieben.Allerdingshaterin der Kopfzeilenicht alle fünf Spalteninhaltlichbeschriftet.Zudemstehenin einigenFeldern Fragezeichen statt Daten.JahrDifferenzSpalte3Spalte4Spalte51953-3,60€--1970174,30€0,70€0,04€197445,40€1,10€0,28€19795?1,30€0,26€198348,30€1,60€0,40€1988?8,50€0,20€0,04€199029,70€1,20€0,60€?212,20€2,50€1,25€1997514,40€2,20€0,44€2001416,10€?0,43€2005417,00€0,90€0,23€2009417,90€0,90€?Grafik: © IQBTabelle: © IQB0 €2 €4 €6 €8 €10 €12 €14 €16 €18 €20 €195319701974197919831988199019921997200120052009",
+      "deterministic_text": "InderfolgendenAbbildungistdieEntwicklungdermonatlichenRundfunkgebühren,\ndieeinHaushaltbezahlenmuss,seitdemJahr1953dargestellt.DieAbbildung 1\nzeigt,wannesGebührenerhöhungengabundwiehochdanachdieGebührenwaren.\n20 € Rundfunkgebühren in Deutschland\n18 €\n16 €\n14 €\n12 €\n10 €\n8 €\n6 €\n4 €\n2 €\n0 €\n195319701974197919831988199019921997200120052009\nAbbildung 1\nGrafik: © IQB\nHerrKunzehatsichgenauermitdenDatenbefasstundvielgerechnet.Seine Ergebnisse\nhaterineinerTabelleaufgeschrieben.Allerdingshaterin der Kopfzeilenicht alle fünf\nSpalteninhaltlichbeschriftet.Zudemstehenin einigenFeldern Fragezeichen statt Daten.\nJahr DifferenzSpalte3 Spalte4 Spalte5\n1953 - 3,60€ - -\n1970 17 4,30€ 0,70€ 0,04€\n1974 4 5,40€ 1,10€ 0,28€\n1979 5 ? 1,30€ 0,26€\n1983 4 8,30€ 1,60€ 0,40€\n1988 ? 8,50€ 0,20€ 0,04€\n1990 2 9,70€ 1,20€ 0,60€\n? 2 12,20€ 2,50€ 1,25€\n1997 5 14,40€ 2,20€ 0,44€\n2001 4 16,10€ ? 0,43€\n2005 4 17,00€ 0,90€ 0,23€\n2009 4 17,90€ 0,90€ ?\nTabelle: © IQB",
+      "table": {
+        "header": [
+          "Jahr",
+          "Differenz",
+          "Spalte3",
+          "Spalte4",
+          "Spalte5",
+          ""
+        ],
+        "rows": [
+          [
+            "1953",
+            "-",
+            "3,60€",
+            "-",
+            "-",
+            ""
+          ],
+          [
+            "1970",
+            "17",
+            "4,30€",
+            "0,70€",
+            "0,04€",
+            ""
+          ],
+          [
+            "1974",
+            "4",
+            "5,40€",
+            "1,10€",
+            "0,28€",
+            ""
+          ],
+          [
+            "1979",
+            "5",
+            "?",
+            "1,30€",
+            "0,26€",
+            ""
+          ],
+          [
+            "1983",
+            "4",
+            "8,30€",
+            "1,60€",
+            "0,40€",
+            ""
+          ],
+          [
+            "1988",
+            "?",
+            "8,50€",
+            "0,20€",
+            "0,04€",
+            ""
+          ],
+          [
+            "1990",
+            "2",
+            "9,70€",
+            "1,20€",
+            "0,60€",
+            ""
+          ],
+          [
+            "?",
+            "2",
+            "12,20€",
+            "2,50€",
+            "1,25€",
+            ""
+          ],
+          [
+            "1997",
+            "5",
+            "14,40€",
+            "2,20€",
+            "0,44€",
+            ""
+          ],
+          [
+            "2001",
+            "4",
+            "16,10€",
+            "?",
+            "0,43€",
+            ""
+          ],
+          [
+            "2005",
+            "4",
+            "17,00€",
+            "0,90€",
+            "0,23€",
+            ""
+          ],
+          [
+            "2009",
+            "4",
+            "17,90€",
+            "0,90€",
+            "?",
+            ""
+          ],
+          [
+            "Tabelle: © IQB",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 279,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rundfunkgebuehren/01_image2.emf.png",
+      "tokens": "Gib die Daten an, die in den Spalten 1, 2 und 3 fehlen.In der Spalte 1 fehlt.In der Spalte 2 fehlt.In der Spalte 3 fehlt.",
+      "deterministic_text": "Gib die Daten an, die in den Spalten 1, 2 und 3 fehlen.\nIn der Spalte 1 fehlt .\nIn der Spalte 2 fehlt .\nIn der Spalte 3 fehlt .",
+      "table": null,
+      "n_fragments": 22,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rundfunkgebuehren/02_image3.emf.png",
+      "tokens": "Die Daten in den Spalten 4 und 5 lassen sich nicht direkt aus der Abbildung ablesen. Sie müssen erst errechnet werden.Gib die Daten an, die in diesen beiden Spalten fehlen.In der Spalte 4 fehlt.In der Spalte 5 fehlt.",
+      "deterministic_text": "Die Daten in den Spalten 4 und 5 lassen sich nicht direkt aus der Abbildung ablesen.\nSie müssen erst errechnet werden.\nGib die Daten an, die in diesen beiden Spalten fehlen.\nIn der Spalte 4 fehlt .\nIn der Spalte 5 fehlt .",
+      "table": null,
+      "n_fragments": 20,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rundfunkgebuehren/03_image4.emf.png",
+      "tokens": "Herr Kunze hat die Daten aus Abbildung 1 in einer zweiten Abbildung dargestellt.202020102000199019801970196019500€2€4€6€10€12€14€16€18€20€8€Abbildung 2Nenne zwei Unterschiede, die Abbildung 2 gegenüber Abbildung 1 hat.Unterschied 1:Unterschied 2:Nenne einen Vorteil, den Abbildung 2 im Vergleich zu Abbildung 1 hat. (Du darfst auch einen der beiden Unterschiede nutzen.)Grafik: © IQB",
+      "deterministic_text": "Herr Kunze hat die Daten aus Abbildung 1 in einer zweiten Abbildung dargestellt.\n20€\n18€\n16€\n14€\n12€\n10€\n8€\n6€\n4€\n2€\n0€ Abbildung 2\n1950 1960 1970 1980 1990 2000 2010 2020\nGrafik: © IQB\nNenne zwei Unterschiede, die Abbildung 2 gegenüber Abbildung 1 hat.\nUnterschied 1:\nUnterschied 2:\nNenne einen Vorteil, den Abbildung 2 im Vergleich zu Abbildung 1 hat. (Du darfst\nauch einen der beiden Unterschiede nutzen.)",
+      "table": null,
+      "n_fragments": 64,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rundfunkgebuehren/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Rundfunkgebühren",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "In Spalte 1 fehlt 1992.\n\nIn Spalte 2 fehlt 5.\n\nIn Spalte 3 fehlt 6,70 Euro.  Lösungen aus dem Intervall [6,20; 6,80] Euro sind richtig.\n\n[Anm.: Die fehlenden Daten können auch in der Tabelle notiert werden.\nIn Spalte 1 kann auch \"92\" ergänzt werden.\nWird für den fehlenden Wert in Spalte 3 nur \"6,70\" oder \"6,7\" angegeben (\"EUR\" fehlt), wird dies als richtig gewertet. Angaben in anderer Einheit sind richtig, sofern diese angegeben ist.\nFür den Wert in Spalte 3 ist ein Lösungsintervall angegeben, da die Lösung i. d. R. aus dem Diagramm abgelesen wird und erst ab Item 02 eine Auseinandersetzung mit Spalte 4, mithilfe derer der exakte Wert angegeben werden kann, erforderlich ist.]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nEiner der drei Einträge fehlt oder ist falsch."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "In Spalte 4 fehlt 1,70 Euro.\n\nIn Spalte 5 fehlt 0,23 Euro. (Lösungsintervall: [0,22;0,23] Euro)\n\n[Anm.: Werden die fehlenden Werte nur z. B. mit \"1,70\" oder \"1,7\" angegeben (\"EUR\" fehlt), wird dies als richtig gewertet. \nAngaben in anderer Einheit sind richtig, sofern diese angegeben ist (z. B. 23 ct).]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nEiner der beiden Einträge fehlt oder ist falsch."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Für die Bewertung als richtig genügt die Angabe eines Vorteils. Die Unterschiede werden nicht bewertet.\n\nDie genannten Unterschiede können rein beschreibend sein und sich auf die Art der Darstellung beziehen, können aber auch wertend sein, indem Vorteile benannt werden, die Abbildung 2 gegenüber Abbildung 1 aufweist.\nDie genannten Unterschiede gehen nicht in die Bewertung ein, es sei denn, hier wird bereits ein Vorteil erwähnt. \n[Anm.: Die Aufgabenstellung fordert zur Nennung von zwei Unterschieden auf, um das Eindenken in die Abbildung zu erleichtern.]\n\nMögliche Vorteile, die genannt werden können:\nAbbildung 2 stellt die zeitliche Entwicklung der Gebühren besser (übersichtlicher) dar.\nMan hat regelmäßige Zeitabstände und ein Graph ist übersichtlicher. \nMan kann deutlich die Veränderung (den Preisunterschied) sehen. \nMan kann den Verlauf der steigenden Preise nachvollziehen. \nAbbildung 2 ist geeigneter, da man in ihr den Verlauf der Rundfunkgebühren besser sehen kann. (ODER Man kann den Verlauf der Gebühren viel besser erkennen.)\nEr hat einen besseren Maßstab und ist übersichtlicher. \nMan sieht genau die Steigung im Vergleich mit den anderen Jahren.\nAbbildung 2 kann als Funktionsgraph aufgefasst werden.\nIn der Abbildung 2 kann man einen Graphen zeichnen. Somit kann man genauer erkennen, wie viel es gestiegen ist.\nMan sieht besser, wie es gestiegen ist.\nMan kann sich leichter vorstellen, wie schnell die Gebühren pro Jahr steigen.\nDie Jahressprünge sind gleich.\nDurch die regelmäßigen Jahresangaben kann man besser erkennen, wie sich die Gebühren verändert haben."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nAbbildung 2 ist übersichtlicher. \nPunkte kann man besser ablesen.\nOhne Balken ist es übersichtlicher. \nMan kann eine Gerade zeichnen. \nDie Abbildung 2 ist anschaulicher, weil nicht sehr viele Daten dort stehen, die leicht durcheinander bringen.\nAbbildung 2 hat andere Jahreszahlen. (ODER Es sind andere Jahreszahlen.)\nMan kann erkennen, dass die Werte ansteigen.\n(Grenzfall)\nEs ist übersichtlicher und geht bis 2010, ist also viel praktischer. \n[Anm.: Unklar bleibt, was übersichtlicher ist.]\n(Grenzfall)\nMan kann die Werte in Abbildung 2 besser ablesen als in Abbildung 1.\n[Anm.: Unklar bleibt, dass insbesondere die Entwicklung der Gebührenerhöhungen besser erkennbar ist.]\nMan sieht nicht nur, wann die Gebühren gestiegen sind, sondern auch, wie sie in zehn Jahren gestiegen sind.\n[Anm.: Dies sieht man auch in der anderen Abbildung]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Rundfunkgebühren"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "In Spalte 1 fehlt 1992.\n\nIn Spalte 2 fehlt 5.\n\nIn Spalte 3 fehlt 6,70 Euro.  Lösungen aus dem Intervall [6,20; 6,80] Euro sind richtig.\n\n[Anm.: Die fehlenden Daten können auch in der Tabelle notiert werden.\nIn Spalte 1 kann auch \"92\" ergänzt werden.\nWird für den fehlenden Wert in Spalte 3 nur \"6,70\" oder \"6,7\" angegeben (\"EUR\" fehlt), wird dies als richtig gewertet. Angaben in anderer Einheit sind richtig, sofern diese angegeben ist.\nFür den Wert in Spalte 3 ist ein Lösungsintervall angegeben, da die Lösung i. d. R. aus dem Diagramm abgelesen wird und erst ab Item 02 eine Auseinandersetzung mit Spalte 4, mithilfe derer der exakte Wert angegeben werden kann, erforderlich ist.]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nEiner der drei Einträge fehlt oder ist falsch."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "In Spalte 4 fehlt 1,70 Euro.\n\nIn Spalte 5 fehlt 0,23 Euro. (Lösungsintervall: [0,22;0,23] Euro)\n\n[Anm.: Werden die fehlenden Werte nur z. B. mit \"1,70\" oder \"1,7\" angegeben (\"EUR\" fehlt), wird dies als richtig gewertet. \nAngaben in anderer Einheit sind richtig, sofern diese angegeben ist (z. B. 23 ct).]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nEiner der beiden Einträge fehlt oder ist falsch."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Für die Bewertung als richtig genügt die Angabe eines Vorteils. Die Unterschiede werden nicht bewertet.\n\nDie genannten Unterschiede können rein beschreibend sein und sich auf die Art der Darstellung beziehen, können aber auch wertend sein, indem Vorteile benannt werden, die Abbildung 2 gegenüber Abbildung 1 aufweist.\nDie genannten Unterschiede gehen nicht in die Bewertung ein, es sei denn, hier wird bereits ein Vorteil erwähnt. \n[Anm.: Die Aufgabenstellung fordert zur Nennung von zwei Unterschieden auf, um das Eindenken in die Abbildung zu erleichtern.]\n\nMögliche Vorteile, die genannt werden können:\nAbbildung 2 stellt die zeitliche Entwicklung der Gebühren besser (übersichtlicher) dar.\nMan hat regelmäßige Zeitabstände und ein Graph ist übersichtlicher. \nMan kann deutlich die Veränderung (den Preisunterschied) sehen. \nMan kann den Verlauf der steigenden Preise nachvollziehen. \nAbbildung 2 ist geeigneter, da man in ihr den Verlauf der Rundfunkgebühren besser sehen kann. (ODER Man kann den Verlauf der Gebühren viel besser erkennen.)\nEr hat einen besseren Maßstab und ist übersichtlicher. \nMan sieht genau die Steigung im Vergleich mit den anderen Jahren.\nAbbildung 2 kann als Funktionsgraph aufgefasst werden.\nIn der Abbildung 2 kann man einen Graphen zeichnen. Somit kann man genauer erkennen, wie viel es gestiegen ist.\nMan sieht besser, wie es gestiegen ist.\nMan kann sich leichter vorstellen, wie schnell die Gebühren pro Jahr steigen.\nDie Jahressprünge sind gleich.\nDurch die regelmäßigen Jahresangaben kann man besser erkennen, wie sich die Gebühren verändert haben."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nAbbildung 2 ist übersichtlicher. \nPunkte kann man besser ablesen.\nOhne Balken ist es übersichtlicher. \nMan kann eine Gerade zeichnen. \nDie Abbildung 2 ist anschaulicher, weil nicht sehr viele Daten dort stehen, die leicht durcheinander bringen.\nAbbildung 2 hat andere Jahreszahlen. (ODER Es sind andere Jahreszahlen.)\nMan kann erkennen, dass die Werte ansteigen.\n(Grenzfall)\nEs ist übersichtlicher und geht bis 2010, ist also viel praktischer. \n[Anm.: Unklar bleibt, was übersichtlicher ist.]\n(Grenzfall)\nMan kann die Werte in Abbildung 2 besser ablesen als in Abbildung 1.\n[Anm.: Unklar bleibt, dass insbesondere die Entwicklung der Gebührenerhöhungen besser erkennbar ist.]\nMan sieht nicht nur, wann die Gebühren gestiegen sind, sondern auch, wie sie in zehn Jahren gestiegen sind.\n[Anm.: Dies sieht man auch in der anderen Abbildung]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 13.1:",
+      "Der Zusammenhang zwischen dem Diagramm und der Tabelle kann nicht hergestellt werden. Insbesondere die nicht direkt aus dem Diagramm ablesbare Differenz zwischen den Jahreszahlen kann nicht angegeben werden oder die Differenz wird gar nicht auf die Jahreszahlen bezogen, sondern auf Gebührenerhöhungen, wie folgende Schülerlösungen zeigen:",
+      "Zu Teilaufgabe 13.2:",
+      "Die Schülerinnen und Schüler erkennen, dass sich die in Spalte 4 anzugebende Gebührenerhöhung aus den in Spalte 3 angegebenen Gebühren ergibt, ordnen diese jedoch dem Vorjahr zu, wie folgende Schülerlösung zeigt:",
+      "Zu Teilaufgabe 13.3:",
+      "Die Schülerinnen und Schüler erkennen keine relevanten Unterschiede, wie folgende Schülerlösung zeigt, und können somit auch keine Vorteile benennen:",
+      "Die Schülerinnen und Schüler erkennen als Unterschied die maßstäbliche Anordnung der Jahreszahlen, können daraus aber keinen Vorteil herleiten, wie die folgenden Schülerlösungen zeigen:"
+    ],
+    "quelle": "rundfunkgebuehren_Didaktische_Kommentierung.docx"
+  }
+}

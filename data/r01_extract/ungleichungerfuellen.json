@@ -1,0 +1,108 @@
+{
+  "item": "ungleichungerfuellen",
+  "sources": {
+    "Aufgabe": {
+      "file": "ungleichungerfuellen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "2a3ac9e9d696305e"
+    },
+    "Auswertung": {
+      "file": "ungleichungerfuellen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "b8dbe172da63515b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "ungleichungerfuellen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "39445ee7e69f268f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ungleichungerfuellen/00_doc_image1.emf.png",
+      "tokens": "Gib drei natürliche Zahlen für z an, so dass die Ungleichung erfüllt ist.",
+      "deterministic_text": "Gib drei natürliche Zahlen für z an, so dass die Ungleichung erfüllt ist.",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Ungleichung erfüllen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe von drei der Zahlen 0, 1, 2, 3, 4, 5."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Ungleichung erfüllen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe von drei der Zahlen 0, 1, 2, 3, 4, 5."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Die Subtraktion von 7 wird nur auf der linken Seite der Ungleichung",
+      "durchgeführt [Fehllösung: z < 13; demnach z. B.: z = 12, z = 11, z = 10]",
+      "• Das Relationszeichen wird als „ist größer als“ gedeutet. Als mögliche",
+      "Zahlen für z werden demnach z. B. 14, 15, 16 angegebenen (K5).",
+      "• Das Relationszeichen wird wie bei Gleichungen als Gleichheitszeichen",
+      "aufgefasst. Somit wird als mögliche Zahl für z nur die Zahl 6 notiert",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Aufgabe Schwierigkeiten auf, bietet es sich an, den",
+      "Schülerinnen und Schülern die Ergebnismenge der Ungleichung anhand einer",
+      "Zahlengeraden zu veranschaulichen. In diesen Zusammenhang können auch",
+      "Aufgaben integriert werden, welche es erforderlich machen, die zur",
+      "Darstellung an der Zahlengeraden gehörige Ergebnismenge in formaler",
+      "Schreibweise anzugeben. Alternativ ist es denkbar, die Schülerinnen und",
+      "Schüler eine Zuordnung von zeichnerischen Darstellungen, Ungleichungen und",
+      "formal angegebenen Ergebnismengen vornehmen zu lassen. Auch eine",
+      "Beschreibung verschiedener Ergebnismengen in natürlicher Sprache kann",
+      "eingefordert werden.",
+      "Eine denkbare Aufgabe wäre z. B. die Folgende:",
+      "In Ergänzung hierzu ist es naheliegend, den Schülerinnen und Schüler",
+      "Sachkontexte zu den Ungleichungen anzugeben oder aber zu Sachkontexten die",
+      "entsprechenden Ungleichungen aufstellen zu lassen.",
+      "Zumindest die leistungsstärkeren Schüler sollten sich auch mit",
+      "Ungleichungen beschäftigen, bei denen das Relationszeichen bei bestimmten",
+      "Umformungsschritten „umgedreht“ werden muss, wie beispielsweise 5 – 3z >"
+    ],
+    "quelle": "ungleichungerfuellen_Didaktische_Kommentierung.doc"
+  }
+}

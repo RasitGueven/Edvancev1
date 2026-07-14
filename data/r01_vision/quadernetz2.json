@@ -1,0 +1,25 @@
+{
+  "item": "quadernetz2",
+  "gelesen_aus": ["data/r01_render/quadernetz2/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche der folgenden Abbildungen zeigt das Netz eines Quaders?\nKreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": ""},
+        {"id": "b", "label": ""},
+        {"id": "c", "label": ""},
+        {"id": "d", "label": ""}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Die vier Optionen sind reine Grafiken (Netz-Skizzen) ohne Text; die Labels bleiben deshalb leer. Reihenfolge: 4 Ankreuzkästchen untereinander, jeweils links neben der Netz-Skizze.",
+    "Beschreibung der Skizzen (nur zur Orientierung, nicht als Label): a) obere Reihe aus 5 Rechtecken nebeneinander + 1 Rechteck darunter links; b) zwei Reihen zu je 3 Rechtecken, versetzt; c) obere Reihe aus 4 Rechtecken + 2 Rechtecke untereinander links; d) obere Reihe aus 4 Rechtecken, 1 Rechteck darüber, 1 Rechteck darunter links."
+  ]
+}

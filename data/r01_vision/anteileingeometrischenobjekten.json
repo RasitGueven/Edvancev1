@@ -1,0 +1,20 @@
+{
+  "item": "anteileingeometrischenobjekten",
+  "gelesen_aus": ["data/r01_render/anteileingeometrischenobjekten/00_image1.emf.png"],
+  "stem": "Welche Anteile sind grau gefärbt?",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Trage jeweils einen passenden Bruch und einen passenden Prozentsatz in die Tabelle ein.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Tabelle hat die Kopfzeile (leer | 'gefärbter Anteil als Bruch' | 'gefärbter Anteil als Prozentsatz') und 4 Datenzeilen; die erste Datenzeile ist als Beispiel mit 3/4 und 75 % vorbelegt.",
+    "Die Figuren in der ersten Tabellenspalte sind im Rendering nur teilweise sichtbar: die oberen zwei Zeilen zeigen keine Figur (vermutlich Grafik fehlt im Rendering), die unteren zwei Zeilen zeigen ein waagerecht bzw. senkrecht gestreiftes Rechteck; die Graufärbung ist im Rendering nicht erkennbar."
+  ]
+}

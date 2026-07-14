@@ -1,0 +1,48 @@
+{
+  "item": "zahlenwuerfel",
+  "gelesen_aus": [
+    "data/r01_render/zahlenwuerfel/00_image1.emf.png",
+    "data/r01_render/zahlenwuerfel/01_image2.emf.png",
+    "data/r01_render/zahlenwuerfel/02_image3.emf.png",
+    "data/r01_render/zahlenwuerfel/03_image4.emf.png"
+  ],
+  "stem": "Der faire Würfel im Foto hat 30 gleich große Seitenflächen. Diese sind mit den Zahlen 1 bis 30 beschriftet.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Wie groß ist die Wahrscheinlichkeit, dass die Zahl 9 geworfen wird? Ergänze: Die Wahrscheinlichkeit beträgt … .",
+      "unit": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Wie groß ist die Wahrscheinlichkeit, eine ungerade Zahl zu werfen? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1/30"},
+        {"id": "b", "label": "1/15"},
+        {"id": "c", "label": "1/2"},
+        {"id": "d", "label": "Das kann man nicht berechnen, ohne zu wissen, wie häufig gewürfelt wird."}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Stefan hat diesen Würfel 29-mal geworfen. Dabei ist kein einziges Mal die Zahl 2 gefallen. Er sagt: „Beim nächsten Wurf fällt mit Sicherheit die 2, da bei 30 Würfen jede Zahl einmal fallen muss.“ Hat Stefan Recht? Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Optionen in Teilaufgabe 2 sind im Bild als zweistöckige Brüche gesetzt (Zähler 1 über Nenner 30 bzw. 15 bzw. 2). Ich habe sie als '1/30', '1/15', '1/2' notiert — es gibt kein Unicode-Einzelzeichen dafür; der Bruchcharakter bleibt inhaltlich erhalten.",
+    "Teilaufgabe 3 ist gemischt (Ankreuzen Ja/Nein + freie Begründung); ich führe sie als mc und habe den Begründungsauftrag in den Prompt aufgenommen.",
+    "Das im Stamm erwähnte Foto des Würfels ist im gelieferten Rendering nicht enthalten."
+  ]
+}

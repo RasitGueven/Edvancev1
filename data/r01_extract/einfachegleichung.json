@@ -1,0 +1,103 @@
+{
+  "item": "einfachegleichung",
+  "sources": {
+    "Aufgabe": {
+      "file": "einfachegleichung_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "2ccd7a8ba56e6b2b"
+    },
+    "Auswertung": {
+      "file": "einfachegleichung_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "45411892a5403f6e"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "einfachegleichung_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "19efc4a873669949"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/einfachegleichung/00_image1.emf.png",
+      "tokens": "Gegeben ist die Gleichung                    .Gib den Wert für x an.x=−=18312x",
+      "deterministic_text": "Gegeben ist die Gleichung 18312−=x.\nGib den Wert für x an.\nx=",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/einfachegleichung/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Einfache Gleichung"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Einfache Gleichung"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Beim Ausführen des Routineverfahrens gelingt die Auswahl der erforderlichen Operationen nicht (K5). Beispielsweise wird im zweiten Umformungsschritt nicht durch -3 dividiert, sondern durch die Gegenzahl, und folgerichtig -2 als Wert der Variable x ermittelt, wie die erste Schülerlösung zeigt:",
+      "Die zweite Schülerlösung zeigt, dass im zweiten Umformungsschritt fälschlich die additive statt die multiplikative Umkehroperation angewandt wird (Fehllösung -3):",
+      "Passende Umformungsschritte werden ausgewählt (hier: „-18“ bzw. „:(-3)“, jedoch nicht auf die gesamte Gleichung angewendet (K5), wie die dritte Schülerlösung exemplarisch zeigt:"
+    ],
+    "quelle": "einfachegleichung_Didaktische_Kommentierung.docx"
+  }
+}

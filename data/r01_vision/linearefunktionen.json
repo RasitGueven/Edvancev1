@@ -1,0 +1,17 @@
+{
+  "item": "linearefunktionen",
+  "gelesen_aus": ["data/r01_render/linearefunktionen/00_doc_image1.emf.png"],
+  "stem": "Im Folgenden sind Sachsituationen beschrieben, bei denen jeweils eine Größe einer anderen zugeordnet ist. Diese Zuordnungen lassen sich durch Gleichungen darstellen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Ordne jeder Sachsituation die passende Gleichung zu, indem du sie jeweils verbindest.\nSachsituationen (von oben nach unten):\n1. Herr Hinze kauft einen Rosenstrauß. Eine Rose kostet 2 €. Im Blumenladen wird für das Binden des Straußes zusätzlich 0,50 € berechnet.\n2. Florian verkauft auf dem Bücherbasar seine alten Comics für je 2 €. Von seinen Einnahmen muss er 5 € Standgebühr bezahlen. Trotzdem erwartet er, dass er einen guten Gewinn macht.\n3. Sven leiht sich im Urlaub ein Fahrrad. Er muss eine Grundgebühr von 2 € bezahlen und zusätzlich pro Tag eine Leihgebühr von 5 €.\n4. Frau Meier kauft für eine Bastelarbeit farbige Pappe. Jeder Bogen kostet 0,50 €. Außerdem kauft sie eine Tube Spezialkleber für 2,00 €.\nGleichungen (von oben nach unten): y = 0,5x + 2 | y = 2x − 5 | y = 2x + 0,5 | y = 5x + 2",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Zuordnungsaufgabe (Verbinden): Die vier Sachsituationen stehen links, die vier Gleichungen rechts. Die Reihenfolge ist die visuelle von oben nach unten."
+  ]
+}

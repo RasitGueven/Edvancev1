@@ -1,0 +1,35 @@
+{
+  "item": "bistroumfrage",
+  "gelesen_aus": [
+    "data/r01_render/bistroumfrage/00_image1.emf.png",
+    "data/r01_render/bistroumfrage/01_image2.emf.png",
+    "data/r01_render/bistroumfrage/02_image4.emf.png"
+  ],
+  "stem": "Die Klasse 8a plant eine statistische Untersuchung zum Kaufverhalten im Schulbistro.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Bevor die statistische Untersuchung durchgeführt wird, soll mithilfe von Planungskarten ein allgemeiner Ablaufplan erstellt werden.\nAblaufplan: 1 „Wir haben ein Problem zu lösen.\" — 2 (leer) — 3 (leer) — 4 „Wir stellen die Untersuchungsergebnisse dar (Tabelle, Diagramm).\" — 5 (leer) — 6 „Wir formulieren Antworten auf das Untersuchungsproblem.\"\nOrdne die folgenden Planungskarten der richtigen Stelle im Ablaufplan zu. Schreibe dazu die entsprechenden Nummern in die Kreise auf den Planungskarten.\nPlanungskarten: „Wir führen eine Befragung durch.\" — „Wir interpretieren die Untersuchungsergebnisse.\" — „Wir überlegen uns geeignete Fragen.\"",
+      "unit": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Ein Ziel der Untersuchung soll es sein, die Wochentage mit dem höchsten Getränkeumsatz herauszufinden. Dazu wird eine Umfrage vor der Eröffnung des Bistros durchgeführt. Welche Frage passt zum Ziel der Umfrage? Kreuze eine der folgenden Fragen an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Würdest du im Bistro Getränke kaufen?"},
+        {"id": "b", "label": "An welchen Wochentagen würdest du im Bistro einkaufen?"},
+        {"id": "c", "label": "Wie viele Getränke würdest du in einer Woche im Bistro kaufen?"},
+        {"id": "d", "label": "An welchen Wochentagen würdest du im Bistro Getränke kaufen?"}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 1 (Ablaufplan) ist eine Zuordnungsaufgabe mit Grafik; die leeren Kästen 2, 3 und 5 sind im Bild leer — Text dort nur aus den Planungskarten zu ergänzen.",
+    "Bei Teilaufgabe 2 überlappt die vierte Option teilweise mit einem Rahmen am unteren Bildrand; gelesen als 'An welchen Wochentagen würdest du im Bistro Getränke kaufen?'"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "item": "messzylinder",
+  "sources": {
+    "Aufgabe": {
+      "file": "messzylinder_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "0f501486fe9eb52d"
+    },
+    "Auswertung": {
+      "file": "messzylinder_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "0644a44eecb968c6"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "messzylinder_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "3247e34aebb6bb60"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/messzylinder/00_image1.emf.png",
+      "tokens": "Abbildung 1100200300400500mlGrafik: © IQBGib an, wie viel Flüssigkeit sich in diesem Messzylinder befindet.ml",
+      "deterministic_text": "500ml\n400\n300\n200\n100\nAbbildung 1\nGrafik: © IQB\nGib an, wie viel Flüssigkeit sich in diesem Messzylinder befindet.\nml",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/messzylinder/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Messzylinder"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "280"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Messzylinder"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "280"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es entstehen Fehler beim Ablesen der Skala des Messzylinders:",
+      "Die vorgegebene Skalierung wird nicht korrekt erfasst, beispielsweise wird ab korrekt abgelesenen 200 ml für einen Skalastrich 1 ml angenommen:"
+    ],
+    "quelle": "messzylinder_Didaktische_Kommentierung.docx"
+  }
+}

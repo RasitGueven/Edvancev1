@@ -1,0 +1,164 @@
+{
+  "item": "rotgelbgruen",
+  "sources": {
+    "Aufgabe": {
+      "file": "rotgelbgruen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "5566b0786029d28f"
+    },
+    "Auswertung": {
+      "file": "rotgelbgruen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "b7d2517832f82c70"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rotgelbgruen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "8301fb4075871921"
+    }
+  },
+  "flags": [
+    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/rotgelbgruen/00_image1.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/rotgelbgruen/01_image2.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/rotgelbgruen/02_image3.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rotgelbgruen/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Rot, gelb, grün",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Gelb\n\nUND\n\nBegründung, bei der auf den relativen Anteil der gelben Kugeln an der Gesamtzahl der Kugeln verwiesen wird.\n\nBeispiel(e)\n4 aus 12 Kugeln\nGrenzfall\nDie gelben Kugeln machen in der Urne ein Drittel aus."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Rot, gelb, grün"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Gelb\n\nUND\n\nBegründung, bei der auf den relativen Anteil der gelben Kugeln an der Gesamtzahl der Kugeln verwiesen wird.\n\nBeispiel(e)\n4 aus 12 Kugeln\nGrenzfall\nDie gelben Kugeln machen in der Urne ein Drittel aus."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3)",
+        "k_tags": [
+          "K3"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1)\nMathematisch modellieren (K3)",
+        "k_tags": [
+          "K1",
+          "K3"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "rotgelbgruen_Didaktische_Kommentierung.docx"
+  }
+}

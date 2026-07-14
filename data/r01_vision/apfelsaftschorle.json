@@ -1,0 +1,11 @@
+{
+  "item": "apfelsaftschorle",
+  "gelesen_aus": ["data/r01_render/apfelsaftschorle/00_doc_image1.emf.png"],
+  "stem": "Zur Herstellung einer Apfelsaftschorle mischt man vier fünftel Liter Apfelsaft mit einem halben Liter Mineralwasser.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Im gerenderten Bild steht ausschliesslich der Stamm — es ist kein Fragetext, kein Eingabefeld und kein Ankreuzkasten sichtbar. Die Auswertung kennt 1 Teilaufgabe; deren Prompt ist im Bild nicht vorhanden (vermutlich Fliesstext des Dokuments ausserhalb der EMF-Grafik). Prompt daher leer gelassen.",
+    "Die Bruchangaben stehen im Bild ausgeschrieben als Wörter ('vier fünftel Liter', 'einem halben Liter'), nicht als Ziffernbrüche — so übernommen."
+  ]
+}

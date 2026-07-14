@@ -1,0 +1,143 @@
+{
+  "item": "tunnelbohrmaschine",
+  "sources": {
+    "Aufgabe": {
+      "file": "tunnelbohrmaschine_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "0eed478a5461f51d"
+    },
+    "Auswertung": {
+      "file": "tunnelbohrmaschine_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "fac781bd6f660a48"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "tunnelbohrmaschine_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "070d84e3dfd7456a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/tunnelbohrmaschine/00_doc_image1.emf.png",
+      "tokens": "Die Tunnelbohrmaschine VERA (Von der Elbe Richtung Alster) begann am 15. Mai 2008 mit dem Ausbohren des Fahrtunnels für die neue Hamburger U-Bahnlinie U4.Diese Tunnelbohrmaschine schafft durchschnittlich 10m Tunnellänge in 24 Stunden.Für den Bau dieses Tunnels sind bei pausenlosem Betrieb vierzig Wochen (also 280 Tage) angesetzt.",
+      "deterministic_text": "Die Tunnelbohrmaschine VERA\n(Von der Elbe Richtung Alster)\nbegann am 15. Mai 2008 mit dem\nAusbohren des Fahrtunnels für die\nneue Hamburger U-Bahnlinie U4.\nDiese Tunnelbohrmaschine schafft\ndurchschnittlich 10m Tunnellänge\nin 24 Stunden.\nFür den Bau dieses Tunnels sind\nbei pausenlosem Betrieb vierzig\nWochen (also 280 Tage)\nangesetzt.",
+      "table": null,
+      "n_fragments": 41,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Tunnelbohrmaschine",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Der Tunnel wird etwa 2,8 km (gerundet 3 km)lang.\nAnm.: Akzeptiert wird auch die Angabe 2800 m (gerundet 3000 m),\nsofern die Einheit m angegeben ist."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nz. B.\n2800"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "VERA müsste am Tag 14 m Tunnel schaffen.\nAnm.: Akzeptiert werden auch die Angaben in anderer Einheit,\nsofern diese dann angegeben ist.\nODER (Grenzfall)\nDer Schüler hat in Teilaufgabe 1 ein falsches Ergebnis und\nberechnet\n(falsches Ergebnis aus Teilaufgabe 1) : 200 richtig."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Tunnelbohrmaschine"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Der Tunnel wird etwa 2,8 km (gerundet 3 km)lang.\nAnm.: Akzeptiert wird auch die Angabe 2800 m (gerundet 3000 m),\nsofern die Einheit m angegeben ist."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nz. B.\n2800"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "VERA müsste am Tag 14 m Tunnel schaffen.\nAnm.: Akzeptiert werden auch die Angaben in anderer Einheit,\nsofern diese dann angegeben ist.\nODER (Grenzfall)\nDer Schüler hat in Teilaufgabe 1 ein falsches Ergebnis und\nberechnet\n(falsches Ergebnis aus Teilaufgabe 1) : 200 richtig."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1, 2:",
+      "• Es kommt zur Schwierigkeiten im Umgang mit den Einheiten. Statt 2,8 km",
+      "wird z. B. 28 km angegeben, wodurch oft auch die zweite Teilaufgabe",
+      "falsch gelöst wird [Fehllösung: 140 m] (K5).",
+      "• Die unterschiedlichen Einheiten werden nicht beachtet. Es wird nicht",
+      "daran gedacht, dass 24 Stunden einem Tag entsprechen, so dass die",
+      "Arbeitsdauer bei der Rechnung doppelt berücksichtigt wird und zur Lösung",
+      "24·280·10 = 67 200 m = 67,2 km führt (K6).",
+      "Weiterarbeit und Förderung",
+      "Die Herausforderung der Aufgabe liegt unter anderem darin, den Aufgabentext",
+      "inhaltlich richtig zu erfassen und anschließend ein proportionales oder",
+      "antiproportionales Modell aufzustellen und dieses zu nutzen. Treten",
+      "diesbezüglich Schwierigkeiten auf, bietet es sich an, die verschiedenen",
+      "Zuordnungen im Unterricht erneut aufzugreifen und deren Merkmale",
+      "herauszuarbeiten, auch um sie voneinander abzugrenzen.",
+      "Hinweise, wie dies im Unterricht geschehen kann, können dem Didaktischen",
+      "Kommentar zur Aufgabe „Kraftfutter“ entnommen werden."
+    ],
+    "quelle": "tunnelbohrmaschine_Didaktische_Kommentierung.doc"
+  }
+}

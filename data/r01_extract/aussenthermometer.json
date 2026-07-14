@@ -1,0 +1,149 @@
+{
+  "item": "aussenthermometer",
+  "sources": {
+    "Aufgabe": {
+      "file": "aussenthermometer_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "23e2bf238b16582a"
+    },
+    "Auswertung": {
+      "file": "aussenthermometer_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "5c4dd62c14b73a9e"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "aussenthermometer_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "82d021d1825a5efd"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aussenthermometer/00_image1.emf.png",
+      "tokens": "Ein Außenthermometer zeigt -4°C. Die Außentemperatur steigt um 6°Can. Wie hoch ist die Außentemperatur danach?Kreuze an. -10°C-2°C+2°C+10°C",
+      "deterministic_text": "Ein Außenthermometer zeigt -4°C. Die Außentemperatur steigt um 6°Can.\nWie hoch ist die Außentemperatur danach?\nKreuze an.\n-10°C -2°C +2°C +10°C",
+      "table": null,
+      "n_fragments": 26,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aussenthermometer/01_image2.emf.png",
+      "tokens": "Ein Außenthermometer zeigt +8°Cund später -2°Can. Gib an, um wie viel Grad sich die Außentemperatur verändert hat.Grad",
+      "deterministic_text": "Ein Außenthermometer zeigt +8°Cund später -2°Can.\nGib an, um wie viel Grad sich die Außentemperatur verändert hat.\nGrad",
+      "table": null,
+      "n_fragments": 15,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aussenthermometer/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Außenthermometer",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "10 ODER -10\n\n[Anm.: Lösungen wie ca. 10 oder mindestens 10 sind im Sinne des Kontexts ebenfalls erlaubt.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Außenthermometer"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "10 ODER -10\n\n[Anm.: Lösungen wie ca. 10 oder mindestens 10 sind im Sinne des Kontexts ebenfalls erlaubt.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "aussenthermometer_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "item": "handygebuehr",
+  "sources": {
+    "Aufgabe": {
+      "file": "handygebuehr_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "f76ffbd7bfcbcd4d"
+    },
+    "Auswertung": {
+      "file": "handygebuehr_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "26d8e268d575bfa8"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "handygebuehr_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "c0ee58a021d6c906"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/handygebuehr/00_image1.emf.png",
+      "tokens": "Inas Handyanbieter verlangt eine Grundgebühr von 5 Euro im Monat und zusätzlich 9 Cent pro Gesprächsminute.",
+      "deterministic_text": "Inas Handyanbieter verlangt eine Grundgebühr von 5 Euro im Monat und zusätzlich\n9 Cent pro Gesprächsminute.",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/handygebuehr/01_image2.emf.png",
+      "tokens": "Ina hatte im Januar 20 Gesprächsminuten.Gib an, wie viel sie einschließlich der Grundgebühr bezahlen muss.€",
+      "deterministic_text": "Ina hatte im Januar 20 Gesprächsminuten.\nGib an, wie viel sie einschließlich der Grundgebühr bezahlen muss.\n€",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/handygebuehr/02_image3.emf.png",
+      "tokens": "Die Höhe der monatlichen Telefonrechnung lässt sich mit einer Gleichung ermitteln. Dabei wird der Preis y(in Euro) in Abhängigkeit von der Anzahl x der Gesprächsminuten berechnet. Kreuze die passende Gleichung an.=⋅+0,095xy=⋅+50,09xy=⋅+50,09yx=⋅+0,095yx",
+      "deterministic_text": "Die Höhe der monatlichen Telefonrechnung lässt sich mit einer Gleichung ermitteln.\nDabei wird der Preis y(in Euro) in Abhängigkeit von der Anzahl x der\nGesprächsminuten berechnet.\nKreuze die passende Gleichung an.\nxy=⋅+0,095 xy=⋅+50,09 yx=⋅+0,095 yx=⋅+50,09",
+      "table": null,
+      "n_fragments": 26,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/handygebuehr/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Handygebühr",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "6,80"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Handygebühr"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "6,80"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "handygebuehr_Didaktische_Kommentierung.docx"
+  }
+}

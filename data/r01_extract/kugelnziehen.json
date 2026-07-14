@@ -1,0 +1,113 @@
+{
+  "item": "kugelnziehen",
+  "sources": {
+    "Aufgabe": {
+      "file": "kugelnziehen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "e58c74f401d07eb9"
+    },
+    "Auswertung": {
+      "file": "kugelnziehen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "3564959a5327c976"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "kugelnziehen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "7644d0848de98708"
+    }
+  },
+  "flags": [
+    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/kugelnziehen/00_image1.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/kugelnziehen/01_image2.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kugelnziehen/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Kugeln ziehen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Kugeln ziehen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "kugelnziehen_Didaktische_Kommentierung.docx"
+  }
+}

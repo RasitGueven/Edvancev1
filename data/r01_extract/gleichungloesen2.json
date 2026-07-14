@@ -1,0 +1,104 @@
+{
+  "item": "gleichungloesen2",
+  "sources": {
+    "Aufgabe": {
+      "file": "gleichungloesen2_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "a7740223bf73e920"
+    },
+    "Auswertung": {
+      "file": "gleichungloesen2_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "45c2851bb5c4f93b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gleichungloesen2_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "31843ac2b17130a3"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungloesen2/00_image1.emf.png",
+      "tokens": "Welche Lösung hat die Gleichung 16 –6x = 14?Kreuze an.x = -5x =  x = x = 3x = 4−1313",
+      "deterministic_text": "Welche Lösung hat die Gleichung 16 –6x = 14?\nKreuze an.\nx = -5 x = −1 x = 1 x = 3 x = 4\n3 3",
+      "table": null,
+      "n_fragments": 29,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungloesen2/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Gleichung lösen 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Gleichung lösen 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "1. Antwortalternative (Fehllösung: -5): Anstatt 16 zu subtrahieren, wird 16 zu 14 addiert und die Summe 30 anschließend durch -6 dividiert (K5).",
+      "2. Antwortalternative (Fehllösung: -1/3): Beim Dividieren durch -6 kommt es zu einem Vorzeichenfehler (K5).",
+      "4. Antwortalternative (Fehllösung 3): Im letzten Rechenschritt werden Divisor und Dividend vertauscht (K5).",
+      "5. Antwortalternative (Fehllösung: 4): Im letzten Rechenschritt wird 6 addiert (K5)."
+    ],
+    "quelle": "gleichungloesen2_Didaktische_Kommentierung.docx"
+  }
+}

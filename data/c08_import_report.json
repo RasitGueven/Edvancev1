@@ -1,0 +1,252 @@
+{
+  "quelle": "data/vera8_v2.json",
+  "modus": "write",
+  "bestand_in_db": {
+    "ready": 14,
+    "draft": 285
+  },
+  "items_gesamt": 299,
+  "angelegt": 0,
+  "uebersprungen_vorhanden": 299,
+  "loesungen_gesetzt": 0,
+  "fehler": [],
+  "nach_pflege_pool_faehig": 138,
+  "nach_pflege_pool_faehig_items": [
+    "20 Prozent",
+    "700 Milliarden",
+    "Ansichten eines Tischs",
+    "Autokauf",
+    "Berechne x",
+    "Bernd und das Brot",
+    "Bestimme x",
+    "Bevölkerungsdichte",
+    "Bonbons",
+    "Bruch und Prozentsatz",
+    "Brötchen",
+    "Butter",
+    "Colakästen",
+    "Computerspielsucht",
+    "Croissant",
+    "Darstellung in Diagrammen",
+    "Das ist gerundet",
+    "Der Riese",
+    "Der Stern",
+    "Division von Zahlen",
+    "Drehkörper",
+    "Dreieckszahlen",
+    "Druckmaschinen",
+    "Durch 1001 teilbar",
+    "Ecken an Pyramiden",
+    "Ecken und Kanten",
+    "Einfache Gleichung",
+    "Eingefärbter Körper",
+    "Eiscafé",
+    "Fehlende Zahlen",
+    "Figur aus zwei Dreiecken",
+    "Fische zählen",
+    "Fliesen",
+    "Flächeninhalt",
+    "Freizeitkosten",
+    "Fünfundvierzig",
+    "Geometrische Körper erkennen",
+    "Geraden im Koordinatensystem",
+    "Geschichte zur Graphik",
+    "Geschwindigkeitsüberschreitung",
+    "Gewerbezone",
+    "Gewitter",
+    "Gleichung finden",
+    "Gleichung lösen 1",
+    "Gleichung lösen 2",
+    "Gleichung lösen 3",
+    "Gleichung verändern",
+    "Güterverkehr",
+    "Hauptstädte",
+    "Haushaltsabfälle",
+    "Holzstab",
+    "Holzwürfel",
+    "Honigbiene",
+    "Hälfte",
+    "Im Kreis laufen",
+    "Internetauktion",
+    "Jeans mit Ermäßigung",
+    "Judomatte",
+    "Kauf eines DVD-Players",
+    "Kopf und Körper",
+    "Kraftfutter",
+    "Kreisfiguren",
+    "Kugeln ziehen",
+    "Körper füllen",
+    "Lage der Würfel",
+    "Lage von zwei Geraden",
+    "Leistung des Motors",
+    "Literberechnungen",
+    "Lohnerhöhung",
+    "Luftballons",
+    "Mathematikarbeit",
+    "Maus",
+    "Maßstabsleiste",
+    "Messzylinder",
+    "Mitte zwischen Zahlen",
+    "Muckibude",
+    "Mädchenanteil",
+    "Naschkatze",
+    "Nashorn",
+    "Niederschlag",
+    "Ohrhänger",
+    "Papier",
+    "Parfum",
+    "Passende Schuhe",
+    "Pflaumen",
+    "Prozentanteil schätzen",
+    "Pyramidenbau",
+    "Quadernetz",
+    "Quadernetz 2",
+    "Quadrat im Gitter",
+    "Quadrat im Koordinatensystem",
+    "Quadratfläche",
+    "Rabattaktion",
+    "Raten beim Test",
+    "Rauminhalt von Prismen",
+    "Rauten",
+    "Rubbellose",
+    "Räumungsverkauf",
+    "Schneekristalle",
+    "Schnittpunkt von Graphen",
+    "Schokoladenpreis",
+    "Schrankbreiten",
+    "Sprechstunde",
+    "Steile Straße",
+    "Sterne und Sandkörner",
+    "Strecke im Koordinatenkreuz",
+    "Streichholzziehen",
+    "Suche die Zahl",
+    "Säulenhöhe",
+    "Tabelle",
+    "Tankinhalt",
+    "Temperaturdifferenz",
+    "Traktor",
+    "Trapezvariation",
+    "Unfertiger Würfel",
+    "Ungleichung erfüllen",
+    "Verbindungsstrecken",
+    "Von links wie von rechts",
+    "Wahl",
+    "Wahrscheinlicher",
+    "Werbemarkt",
+    "Wettkampf wählen",
+    "Winkel Gamma",
+    "Winkel im Parallelogramm",
+    "Winkel messen",
+    "Winkelwürfel",
+    "Würfeloberfläche",
+    "Zahl gesucht",
+    "Zahl gesucht 2",
+    "Zahlensumme",
+    "Zahlenwürfel",
+    "Zeitangabe",
+    "Zwanzig Prozent",
+    "Zwei Thermometeranzeigen",
+    "Zwischen zwei Zahlen",
+    "fuehrerschein",
+    "Überschlag doch mal",
+    "Überschlagsrechnung"
+  ],
+  "typen": [
+    {
+      "input_type": "NUMERIC",
+      "n": 26
+    },
+    {
+      "input_type": "SHORT_TEXT",
+      "n": 34
+    },
+    {
+      "input_type": "null",
+      "n": 95
+    },
+    {
+      "input_type": "MULTI_PART",
+      "n": 69
+    },
+    {
+      "input_type": "FREE_TEXT",
+      "n": 23
+    },
+    {
+      "input_type": "MC",
+      "n": 52
+    }
+  ],
+  "import_flags": [
+    {
+      "flag": "IMPORT: 1 Abbildung(en) weggelassen",
+      "n": 103
+    },
+    {
+      "flag": "IMPORT: est_duration_sec = 180s (90s je Teilaufgabe) ist ein Platzhalter",
+      "n": 55
+    },
+    {
+      "flag": "IMPORT: 2 Teilaufgabe(n) nicht gespeichert",
+      "n": 49
+    },
+    {
+      "flag": "IMPORT: Tabelle verletzt den F01-Vertrag (ragged rows / Nicht-Strings)",
+      "n": 45
+    },
+    {
+      "flag": "IMPORT: keine Teilaufgabe gelesen",
+      "n": 34
+    },
+    {
+      "flag": "IMPORT: 3 Abbildung(en) weggelassen",
+      "n": 23
+    },
+    {
+      "flag": "IMPORT: 2 Abbildung(en) weggelassen",
+      "n": 15
+    },
+    {
+      "flag": "IMPORT: est_duration_sec = 270s (90s je Teilaufgabe) ist ein Platzhalter",
+      "n": 10
+    },
+    {
+      "flag": "IMPORT: 3 Teilaufgabe(n) nicht gespeichert",
+      "n": 9
+    },
+    {
+      "flag": "IMPORT: mehrere Leitideen im Item",
+      "n": 7
+    },
+    {
+      "flag": "IMPORT: keine Loesung belegt",
+      "n": 6
+    },
+    {
+      "flag": "IMPORT: est_duration_sec = 360s (90s je Teilaufgabe) ist ein Platzhalter",
+      "n": 3
+    },
+    {
+      "flag": "IMPORT: MC ohne verwertbare Optionen",
+      "n": 2
+    },
+    {
+      "flag": "IMPORT: 4 Teilaufgabe(n) nicht gespeichert",
+      "n": 2
+    },
+    {
+      "flag": "IMPORT: 4 Abbildung(en) weggelassen",
+      "n": 2
+    },
+    {
+      "flag": "IMPORT: est_duration_sec = 450s (90s je Teilaufgabe) ist ein Platzhalter",
+      "n": 1
+    },
+    {
+      "flag": "IMPORT: 5 Teilaufgabe(n) nicht gespeichert",
+      "n": 1
+    }
+  ],
+  "items_mit_extraktions_flags": 253,
+  "assets_uebernommen": 380
+}

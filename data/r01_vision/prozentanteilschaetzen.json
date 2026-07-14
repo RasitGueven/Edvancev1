@@ -1,0 +1,25 @@
+{
+  "item": "prozentanteilschaetzen",
+  "gelesen_aus": ["data/r01_render/prozentanteilschaetzen/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie viel Prozent der Kreisfläche sind grau gefärbt? Schätze und kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "20 %"},
+        {"id": "b", "label": "30 %"},
+        {"id": "c", "label": "50 %"},
+        {"id": "d", "label": "70 %"},
+        {"id": "e", "label": "80 %"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die zugehörige Abbildung (Kreis mit grau gefärbtem Anteil) ist im Render nicht enthalten; nur Frage und Ankreuzkästchen sind sichtbar."
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "item": "werbemarkt",
+  "sources": {
+    "Aufgabe": {
+      "file": "werbemarkt_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "ada9dd33d6f5507b"
+    },
+    "Auswertung": {
+      "file": "werbemarkt_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "54212bd198e38a6f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "werbemarkt_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "46e07d88af651b0e"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/werbemarkt/00_image1.emf.png",
+      "tokens": "Die folgende Grafik stellt die Gesamtausgaben für Werbung in den Jahren 2010 bis 2015 dar.0,05,010,015,020,025,0201020112012201320142015in Mrd. Euro",
+      "deterministic_text": "Die folgende Grafik stellt die Gesamtausgaben für Werbung in den Jahren 2010 bis 2015\ndar.\n25,0\n20,0\n15,0\n10,0\nin Mrd. Euro\n5,0\n0,0\n2010 2011 2012 2013 2014 2015",
+      "table": {
+        "header": [
+          "25,0",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "20,0",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "15,0 10,0 in Mrd. Euro 5,0 0,0",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "2010",
+            "",
+            "2011",
+            "",
+            "2012",
+            "",
+            "2013",
+            "",
+            "2014",
+            "",
+            "2015",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 19,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/werbemarkt/01_image2.emf.png",
+      "tokens": "Nimm an, dass sich die Gesamtausgaben für Werbung in den nächsten Jahren ähnlich weiterentwickeln.Gib unter dieser Voraussetzung eine Prognose ab, wie hoch die Gesamtausgaben für Werbung im Jahr 2018 ungefähr sein werden. Ungefähre Höhe der Gesamtausgaben für Werbung im Jahr 2018:                 Mrd.€Notiere deinen Lösungsweg.",
+      "deterministic_text": "Nimm an, dass sich die Gesamtausgaben für Werbung in den nächsten Jahren\nähnlich weiterentwickeln.\nGib unter dieser Voraussetzung eine Prognose ab, wie hoch die Gesamtausgaben für\nWerbung im Jahr 2018 ungefähr sein werden.\nUngefähre Höhe der Gesamtausgaben für Werbung im Jahr 2018: Mrd.€\nNotiere deinen Lösungsweg.",
+      "table": null,
+      "n_fragments": 20,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/werbemarkt/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Werbemarkt"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [24; 28]\n\nUND\n\nÜberlegungen, bei denen die kontinuierliche und fast gleichmäßige Zunahme der Werbeausgaben in den Jahren 2010 bis 2015 auf die folgenden drei Jahre bis 2018 fortgesetzt wird.\n\nBeispiel(e)\nDie Aufwendungen im Werbebereich sind in 5 Jahren um etwas mehr als 5 Mrd. € gestiegen. Das sind pro Jahr ungefähr 1 Mrd. €. Im Jahr 2018 werden dann also etwa 25 Mrd. € für Werbung aufgewendet.\nDie Zunahme der Aufwendungen im Werbebereich ist fast linear. Wenn man die Säulenspitzen mit einer Strecke verbindet und diese entsprechend verlängert, kann man die Werbekosten für das Jahr am Diagramm ablesen. Sie betragen im Jahr 2018 etwa 25 Mrd. €."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Werbemarkt"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [24; 28]\n\nUND\n\nÜberlegungen, bei denen die kontinuierliche und fast gleichmäßige Zunahme der Werbeausgaben in den Jahren 2010 bis 2015 auf die folgenden drei Jahre bis 2018 fortgesetzt wird.\n\nBeispiel(e)\nDie Aufwendungen im Werbebereich sind in 5 Jahren um etwas mehr als 5 Mrd. € gestiegen. Das sind pro Jahr ungefähr 1 Mrd. €. Im Jahr 2018 werden dann also etwa 25 Mrd. € für Werbung aufgewendet.\nDie Zunahme der Aufwendungen im Werbebereich ist fast linear. Wenn man die Säulenspitzen mit einer Strecke verbindet und diese entsprechend verlängert, kann man die Werbekosten für das Jahr am Diagramm ablesen. Sie betragen im Jahr 2018 etwa 25 Mrd. €."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMathematisch modellieren (K3)\nMathematische Darstellungen verwenden (K4)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "werbemarkt_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "item": "raeumungsverkauf",
+  "gelesen_aus": [
+    "data/r01_render/raeumungsverkauf/00_image1.emf.png",
+    "data/r01_render/raeumungsverkauf/01_image2.emf.png",
+    "data/r01_render/raeumungsverkauf/02_image3.emf.png"
+  ],
+  "stem": "Häufig wird ein Räumungsverkauf durchgeführt, wenn ein Geschäft umgebaut oder geschlossen wird. Dabei werden Waren billig angeboten und ihre Preise oft sogar mehrfach reduziert.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Der Preis der Jeans wird reduziert (siehe Abbildung 2). Tina hat 50 €. Kann sie sich davon diese Jeans kaufen? Kreuze an. Gib deinen Lösungsweg an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "In den letzten Tagen eines Räumungsverkaufs sagt der Geschäftsführer: „Um die Lager leer zu bekommen, senken wir die bereits um 25 % reduzierten Preise nochmals um 25 % gegenüber den schon reduzierten Preisen“ (siehe Abbildung 3). Überprüfe, ob der Endpreis der Jacke zur Aussage des Geschäftsführers passt. Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Abbildung 2 (Preisschild Jeans) trägt die Beschriftungen '64 €' und '-25 %'; Abbildung 3 (Preisschild Jacke) 'vorher 120 €' / 'jetzt 69 €'. Diese Werte stehen nur in den Grafiken, nicht im Fließtext — sie sind zum Lösen aber notwendig.",
+    "Beide Teilaufgaben kombinieren Ankreuzen (Ja/Nein) mit einer freien Begründung/Rechnung im Kästchenraster; hier jeweils als MC modelliert."
+  ]
+}

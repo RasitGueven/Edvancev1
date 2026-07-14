@@ -1,0 +1,24 @@
+{
+  "item": "honigbiene",
+  "gelesen_aus": ["data/r01_render/honigbiene/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie lang ist diese Biene ungefähr? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1,5 mm"},
+        {"id": "b", "label": "1,5 cm"},
+        {"id": "c", "label": "1,5 dm"},
+        {"id": "d", "label": "1,5 m"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Der Prompt verweist auf 'diese Biene' — die zugehörige Abbildung der Biene ist in den gerenderten PNGs nicht enthalten (das zweite Bild der Aufgabe ist nur der IQB-Copyright-Hinweis)."
+  ]
+}

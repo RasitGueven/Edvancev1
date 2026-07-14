@@ -1,0 +1,32 @@
+{
+  "item": "fahrtrichtunggeradeaus",
+  "gelesen_aus": [
+    "data/r01_render/fahrtrichtunggeradeaus/00_image1.emf.png",
+    "data/r01_render/fahrtrichtunggeradeaus/01_image2.emf.png",
+    "data/r01_render/fahrtrichtunggeradeaus/02_image3.emf.png"
+  ],
+  "stem": "Dieses Verkehrszeichen zeigt an: „Vorgeschriebene Fahrtrichtung - geradeaus“.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne eine Symmetrieachse in das Bild ein.",
+      "unit": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Wie viele Symmetrieachsen hat dieses Verkehrszeichen insgesamt? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1"},
+        {"id": "b", "label": "2"},
+        {"id": "c", "label": "3"},
+        {"id": "d", "label": "4"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

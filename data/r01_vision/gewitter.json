@@ -1,0 +1,32 @@
+{
+  "item": "gewitter",
+  "gelesen_aus": [
+    "data/r01_render/gewitter/00_image1.emf.png",
+    "data/r01_render/gewitter/01_image2.emf.png",
+    "data/r01_render/gewitter/02_image3.emf.png"
+  ],
+  "stem": "Bei einem Gewitter sieht man den Blitz sofort und hört den dazugehörigen Donner erst später. Der Schall des Donners braucht etwa drei Sekunden, um einen Kilometer zurückzulegen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ein Blitz ist zu sehen. Den Donner hört man nach 4,5 Sekunden. Gib an, wie weit der Blitz ungefähr entfernt ist.\nDer Blitz ist ungefähr ______ km entfernt.",
+      "unit": "km"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Ein Blitz ist in einer Entfernung von 5,5 Kilometern zu sehen. Nach ungefähr wie vielen Sekunden hört man den Donner? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "2,0 s"},
+        {"id": "b", "label": "5,5 s"},
+        {"id": "c", "label": "8,5 s"},
+        {"id": "d", "label": "16,5 s"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

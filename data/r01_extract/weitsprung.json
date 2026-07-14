@@ -1,0 +1,322 @@
+{
+  "item": "weitsprung",
+  "sources": {
+    "Aufgabe": {
+      "file": "weitsprung_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "fbec0d0cce77e6b5"
+    },
+    "Auswertung": {
+      "file": "weitsprung_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "eeb13281aae1f12f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "weitsprung_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "df58a99bc15e7b8d"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/weitsprung/00_doc_image1.emf.png",
+      "tokens": "In der Klasse 8a wird im Sportunterricht Weitsprung trainiert. Jeder Schüler hat drei Versuche. Die Sportlehrerin gibt die drei Sprungweiten in ein Tabellenkalkulationsprogramm ein und lässt für jeden Schüler die mittlere Weite berechnen. So sieht die Tabelle für die zehn Mädchen der Klasse aus:NameMüllerFrauensteinYilmazOstrovskiBerghoffSchulteKaufmannLiMeierHombergJacquelineChantalEmineAnnaDilaraLisaSaraXin XinVanessaEva-MariaVorname4,104,203,904,573,203,564,244,203,153,523,864,533,754,624,523,854,324,253,252,203,924,124,102,703,653,994,414,323,473,703,964,2833333333,9166666673,9633333333,793,84,3233333334,2566666673,293,14Sprung 1 (in m)Sprung 2 (in m)Sprung 3 (in m)mittlere Weite (in m)",
+      "deterministic_text": "In der Klasse 8a wird im Sportunterricht Weitsprung trainiert. Jeder Schüler hat drei Versuche.\nDie Sportlehrerin gibt die drei Sprungweiten in ein Tabellenkalkulationsprogramm ein und\nlässt für jeden Schüler die mittlere Weite berechnen.\nSo sieht die Tabelle für die zehn Mädchen der Klasse aus:\nName Vorname Sprung 1 (in m)Sprung 2 (in m)Sprung 3 (in m)mittlere Weite (in m)\nMüller Jacqueline 4,10 3,86 3,92 3,96\nFrauensteinChantal 4,20 4,53 4,12 4,283333333\nYilmaz Emine 3,90 3,75 4,10 3,916666667\nOstrovskiAnna 4,57 4,62 2,70 3,963333333\nBerghoff Dilara 3,20 4,52 3,65 3,79\nSchulte Lisa 3,56 3,85 3,99 3,8\nKaufmann Sara 4,24 4,32 4,41 4,323333333\nLi Xin Xin 4,20 4,25 4,32 4,256666667\nMeier Vanessa 3,15 3,25 3,47 3,29\nHomberg Eva-Maria 3,52 2,20 3,70 3,14",
+      "table": {
+        "header": [
+          "Name",
+          "Vorname",
+          "Sprung 1 (in m)",
+          "Sprung 2 (in m)",
+          "Sprung 3 (in m)",
+          "mittlere Weite (in m)",
+          ""
+        ],
+        "rows": [
+          [
+            "Müller",
+            "Jacqueline",
+            "4,10",
+            "3,86",
+            "3,92",
+            "3,96",
+            ""
+          ],
+          [
+            "Frauenstein",
+            "Chantal",
+            "4,20",
+            "4,53",
+            "4,12",
+            "4,283333333",
+            ""
+          ],
+          [
+            "Yilmaz",
+            "Emine",
+            "3,90",
+            "3,75",
+            "4,10",
+            "3,916666667",
+            ""
+          ],
+          [
+            "Ostrovski",
+            "Anna",
+            "4,57",
+            "4,62",
+            "2,70",
+            "3,963333333",
+            ""
+          ],
+          [
+            "Berghoff",
+            "Dilara",
+            "3,20",
+            "4,52",
+            "3,65",
+            "3,79",
+            ""
+          ],
+          [
+            "Schulte",
+            "Lisa",
+            "3,56",
+            "3,85",
+            "3,99",
+            "3,8",
+            ""
+          ],
+          [
+            "Kaufmann",
+            "Sara",
+            "4,24",
+            "4,32",
+            "4,41",
+            "4,323333333",
+            ""
+          ],
+          [
+            "Li",
+            "Xin Xin",
+            "4,20",
+            "4,25",
+            "4,32",
+            "4,256666667",
+            ""
+          ],
+          [
+            "Meier",
+            "Vanessa",
+            "3,15",
+            "3,25",
+            "3,47",
+            "3,29",
+            ""
+          ],
+          [
+            "Homberg",
+            "Eva-Maria",
+            "3,52",
+            "2,20",
+            "3,70",
+            "3,14",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 174,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Weitsprung",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3",
+      "Teilaufgabe 4"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Eine Beschreibung, wie man den Mittelwert berechnet. Dies kann\nrechnerisch (auch an einem konkreten Beispiel) oder verbal\nbeschreibend erfolgen.\nZ.B.:\nIch addiere alle 3 Weiten und dividiere das Ergebnis dann durch\ndrei.\nODER\nIch nehme den ersten Wert geteilt durch drei plus den zweiten\nWert geteilt durch drei plus den dritten Wert geteilt durch drei.\nODER\nMan zählt 4,10; 3,86 und 3,92 zusammen und teilt das Ganze dann\ndurch drei.\nODER\nMan zählt die Werte in den Spalten C, D, E zusammen und teilt sie\ndann durch 3.\nODER\n[pic]\nODER (Grenzfall)\nMan bildet das arithmetische Mittel der Spalten C, D und E."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ.B.:\nMan zählt 4,10; 3,86 und 3,92 zusammen."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nODER\n[pic]\nODER\n(C2 + D2 + E2) : 3\nODER\n(C2 + D2 + E2)/3\nODER\n=MITTELWERT(C:E)\nODER\n=MITTELWERT(C;D;E)\nAnm.: Syntaxfehler sollen nicht gewertet werden."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n[pic]\nODER\nC2 + D2 + E2 : 3"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2 Nachkommastellen werden als richtig gewertet UND angemessene\nBegründung.\nZ. B.:\nDa man Sprünge höchstens auf cm genau misst, sind zwei\nNachkommastellen ausreichend.\nODER\nDa nur auf zwei Nachkommastellen genau gemessen wurde, sind in\nSpalte F auch nur (höchstens) zwei Nachkommastellen sinnvoll.\nAnm.: Auch richtig, wenn analog mit der gemessenen Maßeinheit\n„cm“ argumentiert wurde.\nODER\nIn den Spalten C, D und E wurden nur 2 Stellen gemessen.\nODER\nBei Sprüngen haben die Millimeter keine Bedeutung mehr. So genau\nkann man gar nicht messen.\nODER (Grenzfall)\nMan kann (mit einem Maßband) nur auf zwei Nachkommastellen genau\nmessen.\nODER (Grenzfall)\n1 Nachkommastelle wird auch als richtig gewertet, wenn eine\nangemessene Begründung gegeben wird."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ.B.:\n2 Nachkommastellen, mehr können nicht angezeigt werden.\nODER\nMit zwei Nachkommastellen ist es am übersichtlichsten.\nODER\nRestliche Ziffern sind unnötig."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ein nachvollziehbares Argument dafür, dass Anna die beste\nWeitspringerin der Klasse ist, wird gegeben.\nAnm.: Vereinfachend darf angenommen werden, dass Sara, falls sie\nnicht die Beste ist, zumindest als zweitbeste angesehen werden\ndarf. Daher reicht auch ein direkter Vergleich mit Sara aus\n(statt eines Vergleichs mit den Schülern der ganzen Klasse).\nZ. B.:\nAnna ist die beste, da sie den weitesten Sprung von allen hat.\nODER\nAnna ist besser, da sie zweimal am weitesten gesprungen ist (bzw.\nweiter als Sara) und nur beim dritten Sprung schlecht\nabgeschnitten hat.\nODER\nSara ist NUR in der mittleren Weite besser als Anna.\nODER\nAnna ist einmal 4,62 m gesprungen."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nAnna hat nur einen schlechten Sprung.\nODER\nSara ist besser als Anna.\nODER\nSara ist besser, weil ihre mittlere Weite besser ist.\nODER\nAnna ist IMMER weiter als Sara gesprungen.\nODER\nAnna ist nicht die beste Weitspringerin, denn sie ist im dritten\nSprung nur 2,70 m weit gesprungen.\nODER\nAnna ist nicht die beste Weitspringerin, da sie im Mittel nicht\nso weit wie\nz. B. Sara gesprungen ist."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Weitsprung"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Eine Beschreibung, wie man den Mittelwert berechnet. Dies kann\nrechnerisch (auch an einem konkreten Beispiel) oder verbal\nbeschreibend erfolgen.\nZ.B.:\nIch addiere alle 3 Weiten und dividiere das Ergebnis dann durch\ndrei.\nODER\nIch nehme den ersten Wert geteilt durch drei plus den zweiten\nWert geteilt durch drei plus den dritten Wert geteilt durch drei.\nODER\nMan zählt 4,10; 3,86 und 3,92 zusammen und teilt das Ganze dann\ndurch drei.\nODER\nMan zählt die Werte in den Spalten C, D, E zusammen und teilt sie\ndann durch 3.\nODER\n[pic]\nODER (Grenzfall)\nMan bildet das arithmetische Mittel der Spalten C, D und E."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ.B.:\nMan zählt 4,10; 3,86 und 3,92 zusammen."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nODER\n[pic]\nODER\n(C2 + D2 + E2) : 3\nODER\n(C2 + D2 + E2)/3\nODER\n=MITTELWERT(C:E)\nODER\n=MITTELWERT(C;D;E)\nAnm.: Syntaxfehler sollen nicht gewertet werden."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n[pic]\nODER\nC2 + D2 + E2 : 3"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2 Nachkommastellen werden als richtig gewertet UND angemessene\nBegründung.\nZ. B.:\nDa man Sprünge höchstens auf cm genau misst, sind zwei\nNachkommastellen ausreichend.\nODER\nDa nur auf zwei Nachkommastellen genau gemessen wurde, sind in\nSpalte F auch nur (höchstens) zwei Nachkommastellen sinnvoll.\nAnm.: Auch richtig, wenn analog mit der gemessenen Maßeinheit\n„cm“ argumentiert wurde.\nODER\nIn den Spalten C, D und E wurden nur 2 Stellen gemessen.\nODER\nBei Sprüngen haben die Millimeter keine Bedeutung mehr. So genau\nkann man gar nicht messen.\nODER (Grenzfall)\nMan kann (mit einem Maßband) nur auf zwei Nachkommastellen genau\nmessen.\nODER (Grenzfall)\n1 Nachkommastelle wird auch als richtig gewertet, wenn eine\nangemessene Begründung gegeben wird."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ.B.:\n2 Nachkommastellen, mehr können nicht angezeigt werden.\nODER\nMit zwei Nachkommastellen ist es am übersichtlichsten.\nODER\nRestliche Ziffern sind unnötig."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 4"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ein nachvollziehbares Argument dafür, dass Anna die beste\nWeitspringerin der Klasse ist, wird gegeben.\nAnm.: Vereinfachend darf angenommen werden, dass Sara, falls sie\nnicht die Beste ist, zumindest als zweitbeste angesehen werden\ndarf. Daher reicht auch ein direkter Vergleich mit Sara aus\n(statt eines Vergleichs mit den Schülern der ganzen Klasse).\nZ. B.:\nAnna ist die beste, da sie den weitesten Sprung von allen hat.\nODER\nAnna ist besser, da sie zweimal am weitesten gesprungen ist (bzw.\nweiter als Sara) und nur beim dritten Sprung schlecht\nabgeschnitten hat.\nODER\nSara ist NUR in der mittleren Weite besser als Anna.\nODER\nAnna ist einmal 4,62 m gesprungen."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nAnna hat nur einen schlechten Sprung.\nODER\nSara ist besser als Anna.\nODER\nSara ist besser, weil ihre mittlere Weite besser ist.\nODER\nAnna ist IMMER weiter als Sara gesprungen.\nODER\nAnna ist nicht die beste Weitspringerin, denn sie ist im dritten\nSprung nur 2,70 m weit gesprungen.\nODER\nAnna ist nicht die beste Weitspringerin, da sie im Mittel nicht\nso weit wie\nz. B. Sara gesprungen ist."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "III",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "V",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "V",
+        "nr": 3
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "II",
+        "nr": 4
+      }
+    ],
+    "typische_fehler": [
+      "Zur Berechnung der mittleren Weite werden die einzelnen Größen falsch",
+      "miteinander verbunden, wie die folgende Schülerlösung beispielhaft belegt",
+      "Bei der Angabe der Formel werden die Regeln für den Umgang mit Klammern",
+      "nicht berücksichtigt, wie folgende Schülerlösung verdeutlicht (K5).",
+      "Anhand der beiden folgenden Schülerlösungen wird deutlich, dass der Sinn",
+      "der Anzahl der Nachkommastellen nicht hinterfragt wird (K3 oder K5).",
+      "Die folgende Schülerlösung legt zwei Interpretationen nahe.",
+      "So können falsche (oder keine) Vorstellung vom Begriff der mittleren Weite",
+      "vorliegen, da diese mit dem Ergebnis des zweiten Sprungs gleichgesetzt wird",
+      "und Anna demnach besser als Sara ist (K3). Andererseits könnte aber",
+      "vielleicht auch eine durchaus richtige Einsicht unverständlich",
+      "wiedergegeben worden sein (K6)."
+    ],
+    "quelle": "weitsprung_Didaktische_Kommentierung.doc"
+  }
+}

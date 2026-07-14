@@ -1,0 +1,17 @@
+{
+  "item": "700milliarden",
+  "gelesen_aus": ["data/r01_render/700milliarden/00_doc_image1.emf.png"],
+  "stem": "Eric hört in den Nachrichten, dass in den USA über einen Kredit von 700 Milliarden Dollar zur Behebung einer akuten Finanzkrise diskutiert wird.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Schreibe diese Zahl in Ziffern.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

@@ -1,0 +1,104 @@
+{
+  "item": "imkreislaufen",
+  "sources": {
+    "Aufgabe": {
+      "file": "imkreislaufen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "4637b1bbac4c0f7c"
+    },
+    "Auswertung": {
+      "file": "imkreislaufen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "253c2dbe53e5aecf"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "imkreislaufen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "33e48feda34f560e"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/imkreislaufen/00_image1.emf.png",
+      "tokens": "Paul läuft im Abstand von ungefähr einem Meter um ein kreisrundes Iglu herum. Welcher Graph passt am besten, um diese Bewegung darzustellen?Kreuze an.d:Entfernung zum Startpunkt (Luftlinie)t:benötigte Zeittdtdtdtd",
+      "deterministic_text": "Paul läuft im Abstand von ungefähr einem Meter um ein kreisrundes Iglu herum.\nWelcher Graph passt am besten, um diese Bewegung darzustellen?\nKreuze an.\nd:Entfernung zum Startpunkt (Luftlinie)\nt: benötigte Zeit\nd d\nt t\nd d\nt t",
+      "table": null,
+      "n_fragments": 25,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/imkreislaufen/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Im Kreis laufen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. (links unten) Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Im Kreis laufen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. (links unten) Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K3",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "1. Antwortalternative: Dieser Graph stellt eine Bewegung dar, bei der der Abstand vom Startpunkt zunächst gleichmäßig zunimmt und ab der Hälfte der Zeit abrupt und dann gleichmäßig wieder abnimmt (K3 und K4).",
+      "2. Antwortalternative: Dieser Darstellung liegt der sog. Graph-als-Bild-Fehler zugrunde. Die dargestellte Relation wird irrtümlich als der Weg um das Iglu herum gedeutet (K3 und K4).",
+      "4. Antwortalternative: Die dargestellte Relation zeigt vier aneinandergesetzte Viertelkreise, die als Teilstücke des Weges um das Iglu herum fehlgedeutet werden (K3 und K4)."
+    ],
+    "quelle": "imkreislaufen_Didaktische_Kommentierung.docx"
+  }
+}

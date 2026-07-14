@@ -1,0 +1,25 @@
+{
+  "item": "schluessel",
+  "gelesen_aus": ["data/r01_render/schluessel/00_image1.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Andrea hat an ihrem Schlüsselbund vier Schlüssel, die sehr ähnlich aussehen. Nur einer dieser Schlüssel passt in das Schloss ihrer Haustür. Wie groß ist die Wahrscheinlichkeit, dass die Haustür mit dem ersten Schlüssel aufgeht, den sie zufällig probiert? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "0"},
+        {"id": "b", "label": "¼"},
+        {"id": "c", "label": "⅓"},
+        {"id": "d", "label": "½"},
+        {"id": "e", "label": "¾"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Rasterbild (nur_raster): die Optionen sind als gesetzte Brüche (Zähler über Nenner) dargestellt; ich habe sie als ¼, ⅓, ½, ¾ übernommen."
+  ]
+}

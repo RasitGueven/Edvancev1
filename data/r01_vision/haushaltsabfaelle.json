@@ -1,0 +1,29 @@
+{
+  "item": "haushaltsabfaelle",
+  "gelesen_aus": [
+    "data/r01_render/haushaltsabfaelle/00_image1.emf.png",
+    "data/r01_render/haushaltsabfaelle/01_image2.emf.png",
+    "data/r01_render/haushaltsabfaelle/02_image3.emf.png"
+  ],
+  "stem": "Das Diagramm informiert über die Haushaltsabfälle, die im Jahr 2009 in den einzelnen Bundesländern pro Einwohner anfielen. Dabei ist im Diagramm jedem Bundesland eine Nummer zugeordnet (vgl. Tabelle).",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "In welchem Bundesland gab es die wenigsten Haushaltsabfälle pro Einwohner? Ergänze: Das Bundesland heißt …",
+      "unit": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viele Haushaltsabfälle in Rheinland-Pfalz pro Einwohner anfielen.",
+      "unit": "kg"
+    }
+  ],
+  "unsicher": [
+    "Die y-Achsenbeschriftung des Säulendiagramms ist im Rendering vertikal ineinandergeschoben und nicht sicher lesbar (vermutlich 'Haushaltsabfälle pro Einwohner in kg'); ich habe sie nicht übernommen.",
+    "Die Nummern-Zuordnungstabelle (1 = Baden-Württemberg … 16 = Thüringen) und die Beschriftungen 'Grafik: © IQB …' bzw. 'Tabelle: © IQB' sind Abbildungsinhalt/Quelle, nicht Stamm.",
+    "Bei Teilaufgabe 1 steht der Lückensatz 'Das Bundesland heißt ……….' als Eingabefeld; ich habe ihn als Teil des Prompts belassen, weil er den Antwortsatz vorgibt."
+  ]
+}

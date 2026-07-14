@@ -1,0 +1,20 @@
+{
+  "item": "fischezaehlen",
+  "gelesen_aus": ["data/r01_render/fischezaehlen/00_doc_image1.emf.png"],
+  "stem": "In einem großen Teich soll die Anzahl der Fische abgeschätzt werden. Dazu werden aus dem Teich 250 Fische gefangen, mit einem roten Punkt gekennzeichnet und wieder in den Teich freigelassen. Die Wahrscheinlichkeit, einen gekennzeichneten Fisch zu fangen, ist nun\np(Fisch mit rotem Punkt fangen) = Anzahl der Fische mit rotem Punkt / Anzahl aller Fische (markierte und nicht markierte) = 250/x\nx: Gesamtzahl der Fische im Teich",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Der eigentliche Frage-/Arbeitsauftrag (Prompt) ist im gerenderten Bild nicht enthalten — das Bild endet nach der Formel und der Legende 'x: Gesamtzahl der Fische im Teich'. Prompt daher leer gelassen; er steht vermutlich als Fließtext außerhalb der Grafik.",
+    "Der Bruch in der Formel ist im Bild als echter Bruchstrich gesetzt (Zähler/Nenner übereinander); hier linear mit '/' notiert."
+  ]
+}

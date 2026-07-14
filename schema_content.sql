@@ -148,8 +148,13 @@ create policy "authenticated_read_clusters"
 create policy "authenticated_read_microskills"
   on microskills for select using (auth.role() = 'authenticated');
 
-create policy "authenticated_read_tasks"
-  on tasks for select using (auth.role() = 'authenticated');
+-- B01 (20260714140000): Schueler/Eltern sehen nur freigegebene Items, coach/admin
+-- alles (Item-Pflege). Rolle ueber get_my_role(), nicht ueber auth.role().
+create policy "read_tasks_by_role"
+  on tasks for select using (
+    public.get_my_role() in ('coach', 'admin')
+    or (public.get_my_role() is not null and status = 'ready')
+  );
 
 create policy "coaches_read_task_metadata"
   on task_coach_metadata for select using (

@@ -1,0 +1,111 @@
+{
+  "item": "wahrscheinlicher",
+  "sources": {
+    "Aufgabe": {
+      "file": "wahrscheinlicher_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "6333b04efe205878"
+    },
+    "Auswertung": {
+      "file": "wahrscheinlicher_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "39ecbfc0631bb228"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "wahrscheinlicher_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "82dee4bb04b64ebc"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wahrscheinlicher/00_image1.emf.png",
+      "tokens": "Welches der beiden Ereignisse hat die höhere Wahrscheinlichkeit? Kreuze an.Beim einmaligen Werfen eines Spielwürfels fällt eine Sechs.Beim einmaligen Werfen einer Münze liegt „Kopf“ oben.Begründe deine Entscheidung.",
+      "deterministic_text": "Welches der beiden Ereignisse hat die höhere Wahrscheinlichkeit?\nKreuze an.\nBeim einmaligen Werfen eines Spielwürfels fällt eine Sechs.\nBeim einmaligen Werfen einer Münze liegt „Kopf“ oben.\nBegründe deine Entscheidung.",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wahrscheinlicher/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Wahrscheinlicher"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Beim einmaligen Werfen einer Münze liegt \"Kopf\" oben.\n\nUND \n\nBegründung mit \n - Verweis auf die Wahrscheinlichkeiten beider Ereignisse oder\n - Vergleich der Anzahlen der möglichen Ergebnisse. \n[Anm.: Für p(Kopf) werden alle zu 1/2 wertgleichen Angaben akzeptiert, für p(6) alle Werte aus dem Intervall [0,15; 0,18].]\n\nBeispiel(e)\n• Die Wahrscheinlichkeit eine Sechs zu würfeln beträgt . Die Wahrscheinlichkeit, dass beim Münzwurf \"Kopf\" oben liegt, beträgt . \n• In beiden Fällen ist nur ein Ergebnis günstig. Beim Würfel sind sechs Ergebnisse möglich, bei der Münze nur zwei. Demnach ist die Wahrscheinlichkeit, eine Sechs zu würfeln, kleiner als die Wahrscheinlichkeit für \"Kopf\".\n• (Grenzfall)\nWeil es beim Würfel sogar sechs mögliche Ergebnisse gibt.\n[Anm.: \"Sogar\" lässt vermuten, dass ein Vergleich der beiden Ergebnismengen stattgefunden hat und die Abhängigkeit der Wahrscheinlichkeit von der Mächtigkeit des Ergebnisraums erkannt wurde.]\n• (Grenzfall)\nWeil es bei der Münze nur zwei Seiten gibt."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\n• Beim einmaligen Werfen einer Münze liegt \"Kopf\" oben.\nBegründung:\nDenn eine Sechs fällt nur ganz selten.\n[Anm.: Hier wird nur mit \"Lebenserfahrung\" argumentiert.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Wahrscheinlicher"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Beim einmaligen Werfen einer Münze liegt \"Kopf\" oben.\n\nUND \n\nBegründung mit \n - Verweis auf die Wahrscheinlichkeiten beider Ereignisse oder\n - Vergleich der Anzahlen der möglichen Ergebnisse. \n[Anm.: Für p(Kopf) werden alle zu 1/2 wertgleichen Angaben akzeptiert, für p(6) alle Werte aus dem Intervall [0,15; 0,18].]\n\nBeispiel(e)\n• Die Wahrscheinlichkeit eine Sechs zu würfeln beträgt . Die Wahrscheinlichkeit, dass beim Münzwurf \"Kopf\" oben liegt, beträgt . \n• In beiden Fällen ist nur ein Ergebnis günstig. Beim Würfel sind sechs Ergebnisse möglich, bei der Münze nur zwei. Demnach ist die Wahrscheinlichkeit, eine Sechs zu würfeln, kleiner als die Wahrscheinlichkeit für \"Kopf\".\n• (Grenzfall)\nWeil es beim Würfel sogar sechs mögliche Ergebnisse gibt.\n[Anm.: \"Sogar\" lässt vermuten, dass ein Vergleich der beiden Ergebnismengen stattgefunden hat und die Abhängigkeit der Wahrscheinlichkeit von der Mächtigkeit des Ergebnisraums erkannt wurde.]\n• (Grenzfall)\nWeil es bei der Münze nur zwei Seiten gibt."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\n• Beim einmaligen Werfen einer Münze liegt \"Kopf\" oben.\nBegründung:\nDenn eine Sechs fällt nur ganz selten.\n[Anm.: Hier wird nur mit \"Lebenserfahrung\" argumentiert.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematisch modellieren (K3)",
+        "k_tags": [
+          "K1",
+          "K3"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Die ermittelten Wahrscheinlichkeiten 1/6 und 1/2 können aufgrund ihrer Darstellung als Brüche mit unterschiedlichen Nennern nicht verglichen werden (K5).",
+      "Aufgrund fehlender oder nicht aktivierbarer Vorstellungen zum Wahrscheinlichkeitsbegriff wird alleine auf der Basis von Alltagswissen bzw. -erfahrungen argumentiert, was die folgenden drei Schülerlösungen exemplarisch illustrieren (K3)."
+    ],
+    "quelle": "wahrscheinlicher_Didaktische_Kommentierung.docx"
+  }
+}

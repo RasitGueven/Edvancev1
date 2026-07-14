@@ -1,0 +1,10 @@
+{
+  "item": "linearundproportional",
+  "gelesen_aus": ["data/r01_render/linearundproportional/00_doc_image1.emf.png"],
+  "stem": "Eine proportionale Funktion kann im Koordinatensystem durch eine Gerade dargestellt werden, die durch den Punkt (0|0) verläuft. Jede lineare Funktion kann durch eine Funktionsgleichung der Form y = mx + b beschrieben werden.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das Bild enthält nur die beiden Aussagesätze — keine Frage, keine Optionen, kein Eingabefeld. Die Auswertung kennt 2 Teilaufgaben; deren Prompts sind im gerenderten Bild nicht vorhanden. Parts daher leer."
+  ]
+}

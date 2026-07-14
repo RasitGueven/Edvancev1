@@ -1,0 +1,163 @@
+{
+  "item": "pinsel",
+  "sources": {
+    "Aufgabe": {
+      "file": "pinsel_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "b7449ef6dfb93400"
+    },
+    "Auswertung": {
+      "file": "pinsel_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "d248632ce4512a32"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "pinsel_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "22556391f0d18995"
+    }
+  },
+  "flags": [
+    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/pinsel/00_image1.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/pinsel/01_image2.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/pinsel/02_image3.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pinsel/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Pinsel",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [17,4; 18,6]\n\n[Anm.: Die Abbildungen und damit die Länge der Pinsel können abhängig vom Druck variieren. Daher kann das Lösungsintervall abweichen]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Pinsel"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [17,4; 18,6]\n\n[Anm.: Die Abbildungen und damit die Länge der Pinsel können abhängig vom Druck variieren. Daher kann das Lösungsintervall abweichen]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "pinsel_Didaktische_Kommentierung.docx"
+  }
+}

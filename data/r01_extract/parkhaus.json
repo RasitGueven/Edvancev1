@@ -1,0 +1,140 @@
+{
+  "item": "parkhaus",
+  "sources": {
+    "Aufgabe": {
+      "file": "parkhaus_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "487f5d413393bfa6"
+    },
+    "Auswertung": {
+      "file": "parkhaus_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "3275c3b5546acd6c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "parkhaus_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "79eb4ff6ccdc2802"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parkhaus/00_image1.emf.png",
+      "tokens": "In einem Parkhaus gelten folgende Parkgebühren:bis 2 Stundenbis 3 Stundenbis 4 Stundenjede weitere angefangene Stundeab neun Stunden gleichbleibend4,00 €5,50 €7,00 €1,00 € 13,00 €ParkzeitGebühr",
+      "deterministic_text": "In einem Parkhaus gelten folgende Parkgebühren:\nParkzeit Gebühr\nbis 2 Stunden 4,00 €\nbis 3 Stunden 5,50 €\nbis 4 Stunden 7,00 €\njede weitere angefangene Stunde 1,00 €\nab neun Stunden gleichbleibend 13,00 €",
+      "table": {
+        "header": [
+          "Parkzeit",
+          "Gebühr"
+        ],
+        "rows": [
+          [
+            "bis 2 Stunden",
+            "4,00 €"
+          ],
+          [
+            "bis 3 Stunden",
+            "5,50 €"
+          ],
+          [
+            "bis 4 Stunden",
+            "7,00 €"
+          ],
+          [
+            "jede weitere angefangene Stunde",
+            "1,00 €"
+          ],
+          [
+            "ab neun Stunden gleichbleibend",
+            "13,00 €"
+          ]
+        ]
+      },
+      "n_fragments": 35,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parkhaus/01_image2.emf.png",
+      "tokens": "123546789101112131235467891011Gebühren in €Parkzeit in StundenDie Parkgebühren für 0 bis 11 Stunden sollen grafisch dargestellt werden. Das Diagramm wurde schon begonnen.Ergänze das Diagramm.",
+      "deterministic_text": "Die Parkgebühren für 0 bis 11 Stunden sollen grafisch dargestellt werden.\nDas Diagramm wurde schon begonnen.\nErgänze das Diagramm.\nGebühren\nin €\n13\n12\n11\n10\n9\n8\n7\n6\n5\n4\n3\n2\n1 Parkzeit in\nStunden\n1 2 3 4 5 6 7 8 9 10 11",
+      "table": null,
+      "n_fragments": 38,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parkhaus/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Parkhaus"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[Anm.: Als Grenzfall ist das Diagramm auch ohne Kennzeichnung der Intervallgrenzen (leere und gefüllte Kreise) zu akzeptieren.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Parkhaus"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[Anm.: Als Grenzfall ist das Diagramm auch ohne Kennzeichnung der Intervallgrenzen (leere und gefüllte Kreise) zu akzeptieren.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "parkhaus_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "item": "tabelle",
+  "sources": {
+    "Aufgabe": {
+      "file": "tabelle_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "ec14aed04a02b843"
+    },
+    "Auswertung": {
+      "file": "tabelle_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "6941c1d68fac2472"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "tabelle_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "9b5be5ce0079de7c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/tabelle/00_doc_image1.emf.png",
+      "tokens": "Die Tabelle zeigt einen Zusammenhang zwischen a und b.ab233547Welche der folgenden Gleichungen passt zu diesem Zusammenhang?Kreuze an.b = a + 1 a = b -2 b = 2a-1 b =     ‧a32a = b + 2 ",
+      "deterministic_text": "Die Tabelle zeigt einen Zusammenhang zwischen a und b.\na 2 3 4\nb 3 5 7\nWelche der folgenden Gleichungen passt zu diesem Zusammenhang?\nKreuze an.\nb = a + 1 a = b -2 b = 2a-1 b = 3‧a a = b + 2\n2",
+      "table": null,
+      "n_fragments": 44,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Tabelle"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Tabelle"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Antwortalternativen [01, 02, 04]: Eine dieser Gleichungen wird gewählt,",
+      "wenn nur das erste bzw. das zweite Wertepaar aus der Tabelle hinsichtlich",
+      "der Abhängigkeit von a und b betrachtet worden ist. Demnach scheint die",
+      "Zuordnungs-Vorstellung, nach welcher ein ganzer Bereich zu betrachten",
+      "ist, noch nicht genügend gefestigt zu sein.",
+      "• Antwortalternative [05]: Wird diese Gleichung gewählt, scheint nur die",
+      "Entwicklung von b analysiert worden zu sein (K2 und K4).",
+      "Weiterarbeit und Förderung",
+      "Treten bei dieser Aufgabe Schwierigkeiten auf, ist es naheliegend, die",
+      "Gleichungen in einem Koordinatensystem darstellen zu lassen. Im Folgenden",
+      "können die Schüler prüfen, auf welcher der Geraden die einzelnen Punkte",
+      "liegen und hierdurch die passende Gleichung ausfindig machen. Gleichzeitig",
+      "kann der Zusammenhang zwischen a und b farblich veranschaulicht und die",
+      "Bedeutung von Steigung und y-Achsenabschnitt wiederholt werden.",
+      "Alternativ kann ebenso versucht werden, den Zusammenhang von a und b",
+      "mittels eines Punktemusters zu veranschaulichen.",
+      "Dies könnte folgendermaßen aussehen:",
+      "(a) 1 2 3 4 …",
+      "(b) …",
+      "In einem nächsten Schritt können die Schüler aufgefordert werden, das",
+      "Punktemuster für die 5te, 6te oder 10te Figur fortzusetzen. Dabei sollte",
+      "ihnen auffallen, wie viele Punkte jeweils zu ergänzen sind. Hieraus lässt",
+      "sich nun eine Art Rekursionsformel erstellen, mit deren Hilfe man mittels",
+      "der Anzahl der Punkte in der (n-1)-ten Figur die Anzahl der Punkte in der n-",
+      "ten Figur berechnen kann. Anschließend kann versucht werden, eine",
+      "geschlossene Formel zu erarbeiten, indem der Zusammenhang zwischen a und b",
+      "analysiert wird. Dabei können Fragen wie „Wie viele Punkte kommen von",
+      "Muster zu Muster hinzu?“, „Wie viele Zweierpäckchen sind jeweils",
+      "vorhanden?“ oder „Wie viele Punkte fehlen bis zum nächsten Zweierpäckchen?“",
+      "bzw. „Wie kann das erste Muster mit Hilfe eines Zweierpäckchens dargestellt",
+      "werden?“ zielführend sein."
+    ],
+    "quelle": "tabelle_Didaktische_Kommentierung.doc"
+  }
+}

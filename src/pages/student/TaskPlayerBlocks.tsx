@@ -1,5 +1,4 @@
 import type { JSX } from 'react'
-import { MathContent } from '@/lib/render/MathContent'
 import type { Task } from '@/types'
 
 type ContentType = Task['content_type']
@@ -47,6 +46,9 @@ export function DifficultyBadge({ difficulty }: { difficulty: number }): JSX.Ele
   )
 }
 
+// `tasks.solution` wird hier bewusst NICHT gerendert: die Spalte ist die
+// Loesung (Server-Only-Zone, siehe task_solutions) und hat auf einer
+// Schueler-Flaeche nichts zu suchen — auch nicht als Video-Beitext.
 export function VideoBlock({ task }: { task: Task }): JSX.Element {
   const url = task.question
   if (!url) return <p className="text-sm text-muted">– kein Video-Link –</p>
@@ -60,7 +62,6 @@ export function VideoBlock({ task }: { task: Task }): JSX.Element {
       >
         {task.title ?? 'Video oeffnen'}
       </a>
-      {task.solution && <MathContent text={task.solution} />}
     </div>
   )
 }

@@ -1,0 +1,19 @@
+{
+  "item": "quadratzeichnen",
+  "gelesen_aus": ["data/r01_render/quadratzeichnen/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne ein Quadrat mit der Seitenlänge 5 cm.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Unter der Aufgabe steht ein großes leeres Zeichenfeld (Rahmen). Die Antwort ist eine Zeichnung; kind 'free_text' ist die nächstliegende Kategorie im Schema, ein Zeichen-Format gibt es nicht."
+  ]
+}

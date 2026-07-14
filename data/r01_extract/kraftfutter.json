@@ -1,0 +1,117 @@
+{
+  "item": "kraftfutter",
+  "sources": {
+    "Aufgabe": {
+      "file": "kraftfutter_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "f28fc3fd1e8cf4ef"
+    },
+    "Auswertung": {
+      "file": "kraftfutter_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "3f8ce9f19b64fb67"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "kraftfutter_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "c377619404fac1ab"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kraftfutter/00_doc_image1.emf.png",
+      "tokens": "Im Zoo bekommen die Nashörner Kraftfutter. Der Kraftfuttervorrat reicht für fünf Nashörner sechs Wochen.Gib an, wie lange die gleiche Menge Kraftfutter für 10 Nashörner reicht.Das Kraftfutter reicht                   Tage. ",
+      "deterministic_text": "Im Zoo bekommen die Nashörner Kraftfutter. Der Kraftfuttervorrat reicht für fünf Nashörner\nsechs Wochen.\nGib an, wie lange die gleiche Menge Kraftfutter für 10 Nashörner reicht.\nDas Kraftfutter reicht Tage.",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Kraftfutter"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Das Kraftfutter reicht 21 Tage.\nAnm.: Auch die Antwort 3 Wochen wird akzeptiert."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Kraftfutter"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Das Kraftfutter reicht 21 Tage.\nAnm.: Auch die Antwort 3 Wochen wird akzeptiert."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Es wird nicht erkannt, dass es sich um eine antiproportionale Zuordnung",
+      "handelt. Statt-dessen wird mit einer proportionalen Zuordnung gearbeitet",
+      "[Fehllösung 12 Wochen] (K3).",
+      "• Das Ergebnis wird nicht in der Einheit Tage, sondern in Wochen angegeben",
+      "[Fehllösung: 3 Wochen] (K6).",
+      "• Die Angaben des Textes werden falsch miteinander in Beziehung gesetzt. So",
+      "wird beispielsweise 10 ∙ 6 = 60 gerechnet und das Ergebnis als Reichweite",
+      "des Kraftfuttervorrats interpretiert (K3 und K6). Dies zeigt die folgende",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung der Aufgabe Schwierigkeiten auf, können die",
+      "verschiedenen Zuordnungstypen noch einmal aufgegriffen und deutlich",
+      "voneinander abgegrenzt werden. Hierzu bietet es sich an, die Schülerinnen",
+      "und Schüler in Kleingruppen eine Aufgabe zu proportionalen, eine zu",
+      "antiproportionalen oder eine zu sonstigen Zuordnungen bearbeiten zu lassen.",
+      "Die Ergebnisse der Kleingruppenarbeit können im Plenum präsentiert und",
+      "diskutiert werden, wodurch die Kompetenz Kommunizieren an Bedeutung",
+      "gewinnt. In diesem Zusammenhang bietet es sich an, die Schülerinnen und",
+      "Schüler anhand ihrer Aufgabe bzw. deren Lösung die Eigenschaften der",
+      "jeweiligen Zuordnung herausarbeiten und veranschaulichen zu lassen. Dabei",
+      "können auch der Graph gezeichnet, die Rechenvorschrift der jeweiligen",
+      "Aufgabe angegeben oder weitere passende Beispiele beschrieben werden. Die",
+      "Merkmale des jeweiligen Zuordnungstyps können beispielsweise mittels eines",
+      "Lückentextes für die Schülerhefte festgehalten werden. Ein solcher",
+      "Lückentext zu proportionalen Zuordnungen könnte folgendermaßen aussehen:",
+      "Nachdem die Eigenschaften der verschiedenen Zuordnungstypen",
+      "herausgearbeitet worden sind, bietet es sich an, Entscheidungsaufgaben zu",
+      "behandeln, d. h. die Schülerinnen und Schüler müssen bei gegebener",
+      "Zuordnung entscheiden, um welchen Zuordnungstyp es sich handelt und dies",
+      "begründen. Dies ermöglicht es, zu überprüfen, inwiefern die Eigenschaften",
+      "wirklich verstanden wurden, und die Kompetenz mathematisch Argumentieren in",
+      "den Unterricht einzubinden. Um auf die verschiedenen Eigenschaften zu",
+      "sprechen zu kommen, können die Zuordnungen in verbaler Form, mittels einer",
+      "Tabelle oder auch eines Graphen vor-gegeben werden."
+    ],
+    "quelle": "kraftfutter_Didaktische_Kommentierung.doc"
+  }
+}

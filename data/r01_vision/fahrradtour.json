@@ -1,0 +1,12 @@
+{
+  "item": "fahrradtour",
+  "gelesen_aus": ["data/r01_render/fahrradtour/00_doc_image1.emf.png"],
+  "stem": "Max und Julia haben in den Ferien eine Radtour von Passau nach Wien unternommen. Die Längen ihrer Tagesetappen hat Julia in diesem Säulendiagramm dargestellt. Max verrät einem Freund: „Weil Julia einen sportlichen Eindruck machen will, hat sie die Säule für den letzten Tag einfach weggelassen. Am letzten Tag sind wir nämlich nur 20 km gefahren.“",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Im Bild stehen nur der Stamm und das Säulendiagramm — kein Fragetext, kein Eingabefeld, kein Ankreuzkasten. Die Auswertung kennt 3 Teilaufgaben; deren Prompts sind im gerenderten Bild nicht enthalten. Parts daher leer.",
+    "Säulendiagramm 'pro Tag gefahrene Kilometer', y-Achse km (0–80), x-Achse Tag 1–7; beschriftete Werte: Tag 1 = 45, Tag 2 = 63, Tag 3 = 41, Tag 4 = 68, Tag 5 = 55, Tag 6 = 58; für Tag 7 fehlt die Säule.",
+    "Queue meldet hat_tabelle_im_emf=true; im Bild ist keine Tabelle, sondern ein Säulendiagramm mit Gitterlinien — stem_tabelle_erwartet daher false."
+  ]
+}

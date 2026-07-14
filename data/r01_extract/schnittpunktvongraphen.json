@@ -1,0 +1,100 @@
+{
+  "item": "schnittpunktvongraphen",
+  "sources": {
+    "Aufgabe": {
+      "file": "schnittpunktvongraphen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "cc5c7e6b56829e1d"
+    },
+    "Auswertung": {
+      "file": "schnittpunktvongraphen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "710404e936fa48d6"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schnittpunktvongraphen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "4640bd4854546449"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schnittpunktvongraphen/00_doc_image1.emf.png",
+      "tokens": "Zwei lineare Funktionen g und f haben die Funktionsgleichungenund   . Gib die Koordinaten des Schnittpunkts der Graphen beider Funktionen an.=−()21gxx=−+()2fxxDie beiden Graphen schneiden sich im Punkt  S (     |     ).",
+      "deterministic_text": "Zwei lineare Funktionen g und f haben die Funktionsgleichungengxx()21=−\nund fxx()2=−+ .\nGib die Koordinaten des Schnittpunkts der Graphen beider Funktionen an.\nDie beiden Graphen schneiden sich im Punkt S ( | ).",
+      "table": null,
+      "n_fragments": 19,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Schnittpunkt von Graphen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die beiden Graphen schneiden sich im Punkt S( 1\nAnmerkung:\nDer inhaltliche Kern dieses Items ist die Idee des Gleichsetzens.\nOb dies rechnerisch oder zeichnerisch geschieht, ist unerheblich.\nDies begründet die Auswahl der Grenzfälle.\nMögliche Lösungen:\nDer Schnittpunkt hat die Koordinaten x = 1 und y = 1.\nODER (Grenzfall)\nBeide Graphen werden richtig in ein Koordinatensystem gezeichnet\nund der Schnittpunkt ist erkennbar. Die Koordinaten des\nSchnittpunkts werden z. B. durch gestrichelte Linien zu den\nAchsen angedeutet, aber nicht explizit angegeben.\nODER (Grenzfall)\nDie Koordinaten des Schnittpunkts werden errechnet, aber nicht\nexplizit nach Abschluss der Rechnung angegeben.\nODER (Grenzfall)\nDie Geraden werden richtig in ein Koordinatensystem\neingezeichnet, die Koordinaten des Schnittpunkts jedoch falsch\nabgelesen.\nODER (Grenzfall)\nEine der beiden Geraden wird falsch in ein Koordinatensystem\neingezeichnet und die Koordinaten des Schnittpunkts werden\nfolgerichtig angegeben.\nODER (Grenzfall)\nBei der rechnerischen Bestimmung der Koordinaten des\nSchnittpunkts unterläuft ein Fehler, die Koordinaten des\nSchnittpunkts werden folgerichtig angegeben.",
+            "1 )."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\nBeide Geraden werden falsch in ein Koordinatensystem\neingezeichnet und die Koordinaten des Schnittpunkts werden\nfolgerichtig abgelesen."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Schnittpunkt von Graphen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die beiden Graphen schneiden sich im Punkt S( 1\nAnmerkung:\nDer inhaltliche Kern dieses Items ist die Idee des Gleichsetzens.\nOb dies rechnerisch oder zeichnerisch geschieht, ist unerheblich.\nDies begründet die Auswahl der Grenzfälle.\nMögliche Lösungen:\nDer Schnittpunkt hat die Koordinaten x = 1 und y = 1.\nODER (Grenzfall)\nBeide Graphen werden richtig in ein Koordinatensystem gezeichnet\nund der Schnittpunkt ist erkennbar. Die Koordinaten des\nSchnittpunkts werden z. B. durch gestrichelte Linien zu den\nAchsen angedeutet, aber nicht explizit angegeben.\nODER (Grenzfall)\nDie Koordinaten des Schnittpunkts werden errechnet, aber nicht\nexplizit nach Abschluss der Rechnung angegeben.\nODER (Grenzfall)\nDie Geraden werden richtig in ein Koordinatensystem\neingezeichnet, die Koordinaten des Schnittpunkts jedoch falsch\nabgelesen.\nODER (Grenzfall)\nEine der beiden Geraden wird falsch in ein Koordinatensystem\neingezeichnet und die Koordinaten des Schnittpunkts werden\nfolgerichtig angegeben.\nODER (Grenzfall)\nBei der rechnerischen Bestimmung der Koordinaten des\nSchnittpunkts unterläuft ein Fehler, die Koordinaten des\nSchnittpunkts werden folgerichtig angegeben.",
+            "1 )."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\nBeide Geraden werden falsch in ein Koordinatensystem\neingezeichnet und die Koordinaten des Schnittpunkts werden\nfolgerichtig abgelesen."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "V",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Beim Zeichnen der beiden zugehörigen Geraden werden Steigung und y-",
+      "Achsenabschnitt verwechselt (K5).",
+      "Beim Ablesen des Schnittpunkts werden die x- und y-Koordinate vertauscht",
+      "Es wird nicht erkannt, dass die Steigung der Geraden zur Funktionsgleichung",
+      "f(x) = -x + 2 negativ ist bzw. der Transfer von symbolischer in graphische",
+      "Darstellungsform gelingt nicht, wie die folgende Schülerlösung zeigt (K5"
+    ],
+    "quelle": "schnittpunktvongraphen_Didaktische_Kommentierung.doc"
+  }
+}

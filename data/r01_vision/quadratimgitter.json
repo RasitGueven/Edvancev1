@@ -1,0 +1,21 @@
+{
+  "item": "quadratimgitter",
+  "gelesen_aus": [
+    "data/r01_render/quadratimgitter/00_image1.emf.png"
+  ],
+  "stem": "Auf das Gitterpapier ist ein Quadrat gezeichnet. 1 Kästchen entspricht dabei 1 cm².",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib den Flächeninhalt des Quadrats an. Du darfst auch Hilfslinien einzeichnen.",
+      "unit": "cm²",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Abbildung (schräg im Gitter liegendes Quadrat) trägt die Beschriftungen '1 cm' (Kästchenbreite) und '(nicht maßstabsgerecht)'; beide sind als Abbildungsbeschriftung nicht in den Stamm übernommen."
+  ]
+}

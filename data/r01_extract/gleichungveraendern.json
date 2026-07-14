@@ -1,0 +1,162 @@
+{
+  "item": "gleichungveraendern",
+  "sources": {
+    "Aufgabe": {
+      "file": "gleichungveraendern_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "194c372b95439740"
+    },
+    "Auswertung": {
+      "file": "gleichungveraendern_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "a25e26cfe14ab4c2"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gleichungveraendern_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "8547473614d92315"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungveraendern/00_image1.emf.png",
+      "tokens": "Gegeben ist die Gleichung            .2414x⋅+=",
+      "deterministic_text": "Gegeben ist die Gleichung2414⋅+=x .",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungveraendern/01_image2.emf.png",
+      "tokens": "Welche Lösung hat die Gleichung?Kreuze an.3571012",
+      "deterministic_text": "Welche Lösung hat die Gleichung?\nKreuze an.\n3 5 7 10 12",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungveraendern/02_image3.emf.png",
+      "tokens": "Verändere in der Gleichung genau eine der drei Zahlen 2, 4 oder 14 so, dass die veränderte Gleichung die Lösung x= 9 hat.Gib eine passende neue Gleichung an.",
+      "deterministic_text": "Verändere in der Gleichung genau eine der drei Zahlen 2, 4 oder 14 so, dass die\nveränderte Gleichung die Lösung x= 9 hat.\nGib eine passende neue Gleichung an.",
+      "table": null,
+      "n_fragments": 17,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungveraendern/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Gleichung verändern",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "ODER\n\n\n\nODER"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Gleichung verändern"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "ODER\n\n\n\nODER"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "gleichungveraendern_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "item": "massstabsrechner",
+  "gelesen_aus": ["data/r01_render/massstabsrechner/00_doc_image1.emf.png"],
+  "stem": "Ein Maßstab gibt das Größenverhältnis von Bild zu Original an. Solche Maßstäbe findet man z. B. auf Landkarten und in Modellzeichnungen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält nur den Einleitungstext. Die Auswertung kennt 1 Teilaufgabe — im Bild ist kein Prompt und kein Eingabefeld sichtbar. Nichts geraten."
+  ]
+}

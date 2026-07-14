@@ -1,0 +1,102 @@
+{
+  "item": "haelfte",
+  "sources": {
+    "Aufgabe": {
+      "file": "haelfte_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "4e8105100e03fecd"
+    },
+    "Auswertung": {
+      "file": "haelfte_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "c7f4c60e7c0144e1"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "haelfte_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "b59ab9be83655f87"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/haelfte/00_image1.emf.png",
+      "tokens": "Wie viel ist die Hälfte von 1 Million?Schreibe dein Ergebnis in Ziffern.",
+      "deterministic_text": "Wie viel ist die Hälfte von 1 Million?\nSchreibe dein Ergebnis in Ziffern.",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/haelfte/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Hälfte"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "500 000"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Hälfte"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "500 000"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es ist unklar, wie viele Nullen eine Million hat. In der Folge gelingt das Halbieren dieser Zahl nicht und das Ergebnis besteht aus der Ziffer 5 und „einigen Nullen“, wie die zwei folgenden Schülerlösungen beispielhaft zeigen:",
+      "Die Zahl 1 Million wird korrekt in Ziffernschreibweise notiert, aber das Halbieren dieser Zahl unterbleibt oder gelingt nicht (K5), wie die dritte Schülerlösung zeigt:"
+    ],
+    "quelle": "haelfte_Didaktische_Kommentierung.docx"
+  }
+}

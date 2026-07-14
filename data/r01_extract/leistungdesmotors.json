@@ -1,0 +1,103 @@
+{
+  "item": "leistungdesmotors",
+  "sources": {
+    "Aufgabe": {
+      "file": "leistungdesmotors_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "d6f74b65e8d64749"
+    },
+    "Auswertung": {
+      "file": "leistungdesmotors_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "9bd380127bc25739"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "leistungdesmotors_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "2938816a129a613f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/leistungdesmotors/00_image1.emf.png",
+      "tokens": "Die Leistung von Fahrzeugmotoren wurde früher in PS angegeben. Mittlerweile wird sie in kW angegeben. 1kW sind etwa 1,36PS.  Auto A hat eine Motorleistung von 89kW.Auto B hat eine Motorleistung von 109PS.Welches Auto hat eine größere Motorleistung?Kreuze an.Auto AAuto BDie Motorleistung beider Autos ist gleich.",
+      "deterministic_text": "Die Leistung von Fahrzeugmotoren wurde früher in PS angegeben. Mittlerweile wird\nsie in kW angegeben. 1kW sind etwa 1,36PS.\nAuto A hat eine Motorleistung von 89kW.\nAuto B hat eine Motorleistung von 109PS.\nWelches Auto hat eine größere Motorleistung?\nKreuze an.\nAuto A\nAuto B\nDie Motorleistung beider Autos ist gleich.",
+      "table": null,
+      "n_fragments": 28,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/leistungdesmotors/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Leistung des Motors"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Leistung des Motors"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative [02] (Fehllösung: Auto B):",
+      "Wird diese Antwortalternative angekreuzt, kann dies auf Schwierigkeiten beim Textverständnis hindeuten. So ist eventuell nicht erfasst worden, dass die Motorleistung der beiden Fahrzeuge in zwei verschiedenen Einheiten angegeben ist. Der Größenvergleich ist somit ohne vorherige Umwandlung in dieselbe Einheit durchgeführt worden."
+    ],
+    "quelle": "leistungdesmotors_Didaktische_Kommentierung.docx"
+  }
+}

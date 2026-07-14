@@ -1,0 +1,320 @@
+{
+  "item": "schachtelnpacken",
+  "sources": {
+    "Aufgabe": {
+      "file": "schachtelnpacken_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "1c364e7922799adb"
+    },
+    "Auswertung": {
+      "file": "schachtelnpacken_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "84d49678eb1f3ffb"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schachtelnpacken_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "ef51341a38c89291"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schachtelnpacken/00_image1.emf.png",
+      "tokens": "Zu einer Verpackungsserie gehören verschieden große würfelförmige Schachteln. Die Kantenlänge der kleinen Schachtel beträgt 5cm. Die Kanten der mittleren Schachtel sind 1cm länger als die doppelte Kantenlänge der kleinen Schachtel, und die Kanten der großen Schachtel sind 1cm länger als die doppelte Kantenlänge der mittleren Schachtel.(nicht maßstabsgerecht)kleine Schachtel         mittlere Schachtel                          große Schachtel",
+      "deterministic_text": "kleine Schachtel mittlere Schachtel große Schachtel\n(nicht maßstabsgerecht)\nZu einer Verpackungsserie gehören verschieden große würfelförmige Schachteln. Die\nKantenlänge der kleinen Schachtel beträgt 5cm. Die Kanten der mittleren Schachtel sind 1cm\nlänger als die doppelte Kantenlänge der kleinen Schachtel, und die Kanten der großen\nSchachtel sind 1cm länger als die doppelte Kantenlänge der mittleren Schachtel.",
+      "table": null,
+      "n_fragments": 21,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schachtelnpacken/01_image2.emf.png",
+      "tokens": "Gib die Kantenlängen der beiden anderen Schachteln an.   Mittlere Schachtel:                      cm   Große Schachtel:                       cm",
+      "deterministic_text": "Gib die Kantenlängen der beiden anderen Schachteln an.\nMittlere Schachtel: cm\nGroße Schachtel: cm",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schachtelnpacken/02_image3.emf.png",
+      "tokens": "Wie viele der kleinen Schachteln passen höchstens in die große Schachtel?Kreuze an.412162764",
+      "deterministic_text": "Wie viele der kleinen Schachteln passen höchstens in die große Schachtel?\nKreuze an.\n4 12 16 27 64",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schachtelnpacken/03_image4.emf.png",
+      "tokens": "Die Serie wird um eine vierte Schachtel, eine „Riesenschachtel“, erweitert. Ihre Kantenlänge ist 1cm länger als die doppelte Kantenlänge der großen Schachtel. Es sollen so viele kleine Schachteln wie möglich in die Riesenschachtel gepackt werden. Drei Schülerinnen haben aufgeschrieben, wie sie deren Anzahl berechnet haben.Kreuze jeweils an, ob die Argumentation richtig ist.richtigfalschDie Kantenlänge wird dreimal verdoppelt. Also passen jetzt 2 × 2 × 2 = 8 kleine Schachteln nebeneinander, und das in Länge, Breite und Höhe. Also passen 8 × 8 × 8 = 512 kleine Schachteln in die Riesenschachtel.Die Riesenschachtel hat eine Kantenlänge von 47cm. Da passen 9 kleine Schachteln nebeneinander. Also passen 9 × 9 × 9 = 729 kleine Schachteln in die Riesenschachtel.Die Riesenschachtel hat ein Volumen von (47cm)3= 103823cm3. Die kleine Schachtel hat ein Volumen von (5cm)3= 125cm3. Es passen also 103823 : 125, d.h. 830 kleine Schachteln in die Riesenschachtel.LisaFriedaErika",
+      "deterministic_text": "Die Serie wird um eine vierte Schachtel, eine „Riesenschachtel“, erweitert. Ihre Kantenlänge\nist 1cm länger als die doppelte Kantenlänge der großen Schachtel. Es sollen so viele kleine\nSchachteln wie möglich in die Riesenschachtel gepackt werden. Drei Schülerinnen haben\naufgeschrieben, wie sie deren Anzahl berechnet haben.\nKreuze jeweils an, ob die Argumentation richtig ist.\nrichtig falsch\nDie Kantenlänge wird dreimal verdoppelt. Also\npassen jetzt 2 × 2 × 2 = 8 kleine Schachteln\nLisa nebeneinander, und das in Länge, Breite und Höhe.\nAlso passen 8 × 8 × 8 = 512 kleine Schachteln in die\nRiesenschachtel.\nDie Riesenschachtel hat eine Kantenlänge von\nFrieda47cm. Da passen 9 kleine Schachteln\nnebeneinander. Also passen 9 × 9 × 9 = 729 kleine\nSchachteln in die Riesenschachtel.\nDie Riesenschachtel hat ein Volumen von\n(47cm)³= 103823cm³. Die kleine Schachtel hat ein\nErika Volumen von (5cm)³= 125cm³. Es passen also\n103823 : 125, d.h. 830 kleine Schachteln in die\nRiesenschachtel.",
+      "table": {
+        "header": [
+          "",
+          "",
+          "richtig",
+          "",
+          "",
+          "falsch",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "Die Kantenlänge wird dreimal verdoppelt. Also passen jetzt 2 × 2 × 2 = 8 kleine Schachteln",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Lisa",
+            "nebeneinander, und das in Länge, Breite und Höhe.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Also passen 8 × 8 × 8 = 512 kleine Schachteln in die Riesenschachtel.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Die Riesenschachtel hat eine Kantenlänge von 47cm. Da passen 9 kleine Schachteln",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Frieda",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "nebeneinander. Also passen 9 × 9 × 9 = 729 kleine Schachteln in die Riesenschachtel.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Die Riesenschachtel hat ein Volumen von (47cm)³= 103823cm³. Die kleine Schachtel hat ein",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Erika",
+            "Volumen von (5cm)³= 125cm³. Es passen also",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "103823 : 125, d.h. 830 kleine Schachteln in die Riesenschachtel.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 114,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schachtelnpacken/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Schachteln packen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Mittlere Schachtel:  11\nGroße Schachtel:  23"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "5. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Schachteln packen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Mittlere Schachtel:  11\nGroße Schachtel:  23"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "5. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nProbleme mathematisch lösen (K2),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K2",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Relevante Informationen zur mathematischen Aussage „1 cm länger als die doppelte Kantenlänge“ werden nicht erfasst bzw. können nicht korrekt angewendet werden. Z. B. werden die Kantenlängen jeweils nur verdoppelt [Fehllösungen: 10 cm, 20 cm] oder die Kantenlänger der mittleren Schachtel wird um 1 cm vergrößert und die der großen Schachtel dann verdoppelt [Fehllösungen: 6 cm, 12 cm], wie die abgebildete Schülerlösung zeigt (K6).",
+      "1. Antwortalternative (Fehllösung: 4): Es wird vermutlich nur betrachtet, wievielmal die kleine Schachtel in die Seitenlänge der großen Schachtel passt (K2).",
+      "2. Antwortalternative (Fehllösung: 12): Vermutlich wird richtig überlegt, dass die Seitenlänge der kleinen Schachtel viermal in die Seitenlänge der großen Schachtel passt; die Anzahl wird dann aber mit dem Faktor 3 multipliziert, anstatt korrekt mit der Hochzahl 3 potenziert zu werden (K2).",
+      "3. Antwortalternative (Fehllösung: 16): Es wird vermutlich nur betrachtet, wievielmal die kleine Schachtel auf die Fläche der großen Schachtel passt: 4 4 (K2).",
+      "4. Antwortalternative (Fehllösung: 27): Der Sachverhalt wird derart fehlgedeutet, dass bei jedem Übergang zu einem größeren Würfel einer pro Kante dazukommt, so dass insgesamt 33 kleine Würfel in den großen passen (K2).",
+      "1. Antwortalternative (Fehllösung von Lisa): Lisa bezieht sich in ihren Überlegungen ausschließlich auf das Verdoppeln der Kantenlängen und vernachlässigt hier die jeweils hinzukommenden 1 cm (K1).",
+      "3. Antwortalternative (Fehllösung von Erika): Erika berechnet nur den Quotienten der Volumina der beiden Schachteln und lässt dabei unberücksichtigt, dass es sich um kleine gestapelte Schachteln handelt, welche die Riesenschachtel nicht vollständig ausfüllen können, da 5 kein Teiler von 47 ist (K1)."
+    ],
+    "quelle": "schachtelnpacken_Didaktische_Kommentierung.docx"
+  }
+}

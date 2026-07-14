@@ -1,0 +1,95 @@
+{
+  "item": "brettspiel",
+  "sources": {
+    "Aufgabe": {
+      "file": "brettspiel_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "3a48fa228bf7d37c"
+    },
+    "Auswertung": {
+      "file": "brettspiel_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "ef95a9c761cea3f1"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "brettspiel_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "9db179ef2309b0f7"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/brettspiel/00_doc_image1.emf.png",
+      "tokens": "Bei einem Brettspiel wird ein sechsseitiger Spielwürfel mit den Zahlen von 1 bis 6 verwendet. Der Spielstein darf immer um genau so viele Felder weitergeschoben werden, wie die Augenzahl beim einmaligen Werfen des Würfels anzeigt.",
+      "deterministic_text": "Bei einem Brettspiel wird ein sechsseitiger Spielwürfel mit den Zahlen von 1 bis\n6 verwendet. Der Spielstein darf immer um genau so viele Felder\nweitergeschoben werden, wie die Augenzahl beim einmaligen Werfen des\nWürfels anzeigt.",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Brettspiel"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Brettspiel"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "1. Antwortalternative wurde angekreuzt: Es ist naheliegend, dass die zu",
+      "werfende Zahl „Fünf“ fälschlich als Anzahl der Elemente des Ergebnisraumes",
+      "aufgefasst wird (K3 und K5).",
+      "3. Antwortalternative wurde angekreuzt: Diese Alternative entspricht der",
+      "Wahrscheinlichkeit für das Gegenereignis. Diese Antwort könnte auf",
+      "Schwierigkeiten im Textverständnis hinweisen (K6 oder K3).",
+      "4. Antwortalternative wurde angekreuzt: Der Wahrscheinlichkeitsbegriff",
+      "scheint noch nicht verinnerlicht worden zu sein, weil die Zahl „Fünf“ mit",
+      "der Wahrscheinlichkeit, diese Zahl zu werfen, gleichgesetzt wird (K3).",
+      "Eventuell ist dies auch ein Resultat von oberflächlichem Lesen (Was ist",
+      "gefragt? K5 und K6)."
+    ],
+    "quelle": "brettspiel_Didaktische_Kommentierung.doc"
+  }
+}

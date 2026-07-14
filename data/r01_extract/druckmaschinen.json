@@ -1,0 +1,163 @@
+{
+  "item": "druckmaschinen",
+  "sources": {
+    "Aufgabe": {
+      "file": "druckmaschinen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "e81167632c444df7"
+    },
+    "Auswertung": {
+      "file": "druckmaschinen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "2924746ad6bd1c73"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "druckmaschinen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "d44a17b541a4c599"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/druckmaschinen/00_image1.emf.png",
+      "tokens": "Eine moderne Druckmaschine kann in vier Stunden 60000 Bögen Papier bedrucken.",
+      "deterministic_text": "Eine moderne Druckmaschine kann in vier Stunden 60000 Bögen Papier bedrucken.",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/druckmaschinen/01_image2.emf.png",
+      "tokens": "Mit einer solchen Druckmaschine werden 90000 Bögen Papier bedruckt.Gib an, wie lange dies dauert.Stunden",
+      "deterministic_text": "Mit einer solchen Druckmaschine werden 90000 Bögen Papier bedruckt.\nGib an, wie lange dies dauert.\nStunden",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/druckmaschinen/02_image3.emf.png",
+      "tokens": "Bei einem Druckauftrag von insgesamt 60000 Bögen Papier drucken zwei solcher Druckmaschinen gleichzeitig.Gib an, wie lange dies dauert.Stunden",
+      "deterministic_text": "Bei einem Druckauftrag von insgesamt 60000 Bögen Papier drucken zwei solcher\nDruckmaschinen gleichzeitig.\nGib an, wie lange dies dauert.\nStunden",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/druckmaschinen/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Druckmaschinen",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "6"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Druckmaschinen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "6"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "druckmaschinen_Didaktische_Kommentierung.docx"
+  }
+}

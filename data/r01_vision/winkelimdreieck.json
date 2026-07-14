@@ -1,0 +1,22 @@
+{
+  "item": "winkelimdreieck",
+  "gelesen_aus": [
+    "data/r01_render/winkelimdreieck/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ein Dreieck hat die Innenwinkel α, β und γ. Es gilt: β ist doppelt so groß wie α. γ ist dreimal so groß wie α. Gib an, wie groß der Winkel γ ist.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die griechischen Winkelbuchstaben erscheinen im Render als lateinische 'a', 'b', 'g' (Symbol-Font-Artefakt); gelesen als α, β, γ. Falls die Pipeline gegen den Zeichenvorrat prüft, können dort a/b/g stehen.",
+    "Das Eingabefeld lautet 'γ = ______'; eine Einheit (°) ist nicht ausgeschrieben, daher unit=null."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "item": "freizeitbeschaeftigungen",
+  "gelesen_aus": [
+    "data/r01_render/freizeitbeschaeftigungen/00_image1.emf.png",
+    "data/r01_render/freizeitbeschaeftigungen/01_image2.emf.png",
+    "data/r01_render/freizeitbeschaeftigungen/02_image3.emf.png",
+    "data/r01_render/freizeitbeschaeftigungen/03_image4.emf.png"
+  ],
+  "stem": "Bei einer Befragung in den Klassenstufen 7 und 8 gaben alle Schülerinnen und Schüler ihre beliebteste Freizeitbeschäftigung an. Abbildung 1 zeigt das Ergebnis dieser Befragung.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viele Schülerinnen und Schüler aus beiden Klassenstufen insgesamt befragt wurden.",
+      "unit": "Schülerinnen und Schüler",
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ergänze die beiden folgenden Sätze jeweils durch eine passende Freizeitbeschäftigung.\n__________ war in Klassenstufe 7 beliebter als in Klassenstufe 8.\n__________ war in Klassenstufe 8 beliebter als in Klassenstufe 7.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Abbildung 2 zeigt Säulen zu den Freizeitbeschäftigungen „Musik“, „Sport“ und „Computer“. Diese Säulen ergeben sich aus den Angaben in Abbildung 1. Beachte, dass einige Säulen nach unten zeigen.\nBeschreibe, was die Säulen in Abbildung 2 bedeuten, und ergänze die fehlenden Säulen für „Kino“ und „Theater“.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Abbildung 1 (Säulendiagramm 'Beliebteste Freizeitbeschäftigungen', Achse 'Anzahl' 0–40): Musik 21/15, Sport 36/32, Computer 26/36, Kino 12/10, Theater 5/7 (jeweils Klassenstufe 7 / Klassenstufe 8). Abbildung 2 (Achse -8 bis 12): Musik ≈ -6, Sport ≈ -4, Computer ≈ +10. Die Werte in Abbildung 2 sind aus der Geometrie abgelesen, nicht beschriftet."
+  ]
+}

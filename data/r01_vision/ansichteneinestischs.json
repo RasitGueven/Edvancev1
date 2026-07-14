@@ -1,0 +1,23 @@
+{
+  "item": "ansichteneinestischs",
+  "gelesen_aus": [
+    "data/r01_render/ansichteneinestischs/00_image1.png",
+    "data/r01_render/ansichteneinestischs/01_image2.png"
+  ],
+  "stem": "Auf einem Tisch befinden sich die Gegenstände Teller, Gabel, Glas und Tasse mit Untertasse. Der Tisch wurde von verschiedenen seitlichen Kamerapositionen A bis D aus fotografiert. Abbildung 1 zeigt die Ansicht von oben.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Der eigentliche Frage-/Arbeitsauftrag der Teilaufgabe steht in keinem der beiden gerenderten Bilder. Bild 1 zeigt nur den Einleitungstext und die Ansicht von oben (Abbildung 1, Kamerapositionen A bis D). Bild 2 zeigt drei seitliche Fotografien untereinander, ganz ohne Beschriftung/Nummerierung und ohne Fragetext. Prompt daher leer gelassen (Rasterbild, kein Zeichenvorrat zur Kontrolle).",
+    "Unklar, ob die drei Fotos in Bild 2 im Original nummeriert/beschriftet sind (z. B. Abbildung 2/3/4) — im Rendering ist keine Beschriftung sichtbar."
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "item": "nebenjob",
+  "sources": {
+    "Aufgabe": {
+      "file": "nebenjob_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "b8e32f2c5b432d16"
+    },
+    "Auswertung": {
+      "file": "nebenjob_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "4cce05fd1dbacdd4"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "nebenjob_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "179858fb83c476f6"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nebenjob/00_image1.emf.png",
+      "tokens": "Leon hat einen Nebenjob. Er verdient in einer Stunde 12 Euro.Leon bekommt seinen Verdienst wöchentlich ausgezahlt.",
+      "deterministic_text": "Leon hat einen Nebenjob. Er verdient in einer Stunde 12 Euro.\nLeon bekommt seinen Verdienst wöchentlich ausgezahlt.",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nebenjob/01_image2.emf.png",
+      "tokens": "Im Monat Juli hat Leon folgende Auszahlungen erhalten:1. Woche:  168 Euro2. Woche:  132 Euro3. Woche:  180 Euro4. Woche:  144 EuroGib an, wie viel Euro er im Juli durchschnittlich pro Woche erhalten hat.Leon hat durchschnittlichEuro pro Woche erhalten.",
+      "deterministic_text": "Im Monat Juli hat Leon folgende Auszahlungen erhalten:\n1. Woche: 168 Euro\n2. Woche: 132 Euro\n3. Woche: 180 Euro\n4. Woche: 144 Euro\nGib an, wie viel Euro er im Juli durchschnittlich pro Woche erhalten hat.\nLeon hat durchschnittlich Euro pro Woche erhalten.",
+      "table": null,
+      "n_fragments": 33,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nebenjob/02_image3.emf.png",
+      "tokens": "In seinem letzten Nebenjob bekam Leon bei gleichem Stundenlohn 5-mal seinen Verdienst ausgezahlt. Alle Auszahlungen waren unterschiedlich.Stelle eine Liste mit möglichen Arbeitsstunden zusammen, sodass Leon in diesen 5 Wochen auf einen durchschnittlichen Verdienst von 168 Euro pro Woche kommt.Fülle die Liste aus.Denk daran: Alle fünf Auszahlungen müssen unterschiedlich sein!Leons letzter Arbeitsmonat1. Woche:2. Woche:3. Woche:4. Woche:5. Woche:Anzahl der ArbeitsstundenVerdienst in EuroDurchschnittlicher Verdienst pro Woche:168 Euro",
+      "deterministic_text": "In seinem letzten Nebenjob bekam Leon bei gleichem Stundenlohn 5-mal seinen\nVerdienst ausgezahlt. Alle Auszahlungen waren unterschiedlich.\nStelle eine Liste mit möglichen Arbeitsstunden zusammen, sodass Leon in diesen\n5 Wochen auf einen durchschnittlichen Verdienst von 168 Euro pro Woche kommt.\nFülle die Liste aus.\nDenk daran: Alle fünf Auszahlungen müssen unterschiedlich sein!\nLeons letzter Arbeitsmonat\nAnzahl der Verdienst in Euro\nArbeitsstunden\n1. Woche:\nDurchschnittlicher\n2. Woche: Verdienst pro Woche:\n3. Woche: 168 Euro\n4. Woche:\n5. Woche:",
+      "table": {
+        "header": [
+          "",
+          "",
+          "Leons letzter Arbeitsmonat",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "Anzahl der Arbeitsstunden",
+            "Verdienst in Euro",
+            "",
+            ""
+          ],
+          [
+            "",
+            "1. Woche:",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "2. Woche:",
+            "",
+            "",
+            "Durchschnittlicher Verdienst pro Woche:",
+            ""
+          ],
+          [
+            "",
+            "3. Woche:",
+            "",
+            "",
+            "168 Euro",
+            ""
+          ],
+          [
+            "",
+            "4. Woche:",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "5. Woche:",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 51,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nebenjob/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Nebenjob",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "156"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die Lösung ist richtig, wenn beide Spalten ohne Dopplungen komplett ausgefüllt sind und im Mittel 168 € pro Woche verdient werden.\n\nBeispiel(e)"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Nebenjob"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "156"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die Lösung ist richtig, wenn beide Spalten ohne Dopplungen komplett ausgefüllt sind und im Mittel 168 € pro Woche verdient werden.\n\nBeispiel(e)"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 12.1:",
+      "Lediglich die Summe der vier Auszahlungen wird ermittelt, ohne dann den Durchschnitt zu errechnen. Dies führt zur Fehllösung „624 €“.",
+      "Eine Deutung von „Durchschnitt“ im umgangssprachlichen Sinne als „etwa“ (K3) führt u. a. zu der nur überschlägig ermittelten Lösung „150 €“, wie die folgende Schülerlösung zeigt:",
+      "Zu Teilaufgabe 12.2:",
+      "Die Höhen der wöchentlichen Auszahlungen werden variiert, ohne dabei den durchschnittlichen Verdienst von 168 € zu berücksichtigen.",
+      "Die wöchentlichen Verdienste werden so variiert, dass sich als Spaltensumme 168 € ergibt, nicht jedoch der vorgegebene durchschnittliche Verdienst pro Woche bei festem Stundenlohn, wie die folgende Schülerlösung zeigt:"
+    ],
+    "quelle": "nebenjob_Didaktische_Kommentierung.docx"
+  }
+}

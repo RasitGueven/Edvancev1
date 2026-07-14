@@ -1,0 +1,111 @@
+{
+  "item": "pflaumen",
+  "sources": {
+    "Aufgabe": {
+      "file": "pflaumen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "0015db791c19b09a"
+    },
+    "Auswertung": {
+      "file": "pflaumen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "2b535a584393e607"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "pflaumen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "5cc232f405feb7b1"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pflaumen/00_image1.emf.png",
+      "tokens": "1kg Pflaumen kostet 1,90€.",
+      "deterministic_text": "1kg Pflaumen kostet 1,90€.",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pflaumen/01_image2.emf.png",
+      "tokens": "Gib an, wie viel 500g Pflaumen kosten. €",
+      "deterministic_text": "Gib an, wie viel 500g Pflaumen kosten.\n€",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pflaumen/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Pflaumen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "0,95"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Pflaumen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "0,95"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "pflaumen_Didaktische_Kommentierung.docx"
+  }
+}

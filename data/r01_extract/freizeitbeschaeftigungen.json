@@ -1,0 +1,216 @@
+{
+  "item": "freizeitbeschaeftigungen",
+  "sources": {
+    "Aufgabe": {
+      "file": "freizeitbeschaeftigungen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "4232730a4798466e"
+    },
+    "Auswertung": {
+      "file": "freizeitbeschaeftigungen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "2d1dad9b6c9c51a0"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "freizeitbeschaeftigungen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "9e9f7cf21991bbf6"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freizeitbeschaeftigungen/00_image1.emf.png",
+      "tokens": "Bei einer Befragung in den Klassenstufen 7 und 8 gaben alle Schülerinnen und Schüler ihre beliebteste Freizeitbeschäftigung an. Abbildung 1 zeigt das Ergebnis dieser Befragung.Abbildung 1211536322636121057Beliebteste FreizeitbeschäftigungenFreizeitbeschäftigungMusikSportComputerKinoTheaterAnzahl0510152025303540Klassenstufe 7Klassenstufe 8Grafik: © IQB",
+      "deterministic_text": "Bei einer Befragung in den Klassenstufen 7 und 8 gaben alle Schülerinnen und Schüler\nihre beliebteste Freizeitbeschäftigung an. Abbildung 1 zeigt das Ergebnis dieser\nBefragung.\nBeliebteste Freizeitbeschäftigungen\n40\n36 36\n35\n32\n30\n26\n25\nlh\na 21\nz20\nn\nA\n15\n15\n12\n10\n10\n7\n5\n5\n0\nMusik Sport Computer Kino Theater\nFreizeitbeschäftigung\nKlassenstufe 7 Klassenstufe 8 Abbildung 1\nGrafik: © IQB",
+      "table": null,
+      "n_fragments": 53,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freizeitbeschaeftigungen/01_image2.emf.png",
+      "tokens": "Gib an, wie viele Schülerinnen und Schüler aus beiden Klassenstufen insgesamt befragt wurden.Schülerinnen und Schüler",
+      "deterministic_text": "Gib an, wie viele Schülerinnen und Schüler aus beiden Klassenstufen insgesamt\nbefragt wurden.\nSchülerinnen und Schüler",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freizeitbeschaeftigungen/02_image3.emf.png",
+      "tokens": "Ergänze die beiden folgenden Sätze jeweils durch eine passende Freizeitbeschäftigung.war in Klassenstufe 7 beliebter als in Klassenstufe 8.war in Klassenstufe 8 beliebter als in Klassenstufe 7.",
+      "deterministic_text": "Ergänze die beiden folgenden Sätze jeweils durch eine passende\nFreizeitbeschäftigung.\nwar in Klassenstufe 7 beliebter als in Klassenstufe 8.\nwar in Klassenstufe 8 beliebter als in Klassenstufe 7.",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freizeitbeschaeftigungen/03_image4.emf.png",
+      "tokens": "Abbildung 2Freizeitbeschäftigung024681012Anzahl-2-4-6-8MusikSportComputerKinoTheaterAbbildung 2 zeigt Säulen zu den Freizeitbeschäftigungen „Musik“, „Sport“ und „Computer“. Diese Säulen ergeben sich aus den Angaben in Abbildung 1. Beachte, dass einige Säulen nach unten zeigen.Beschreibe, was die Säulen in Abbildung 2 bedeuten, und ergänze die fehlenden Säulen für „Kino“ und „Theater“.Grafik: © IQB",
+      "deterministic_text": "12\n10\n8\n6\n4\nl\nha\nzn2\nA Musik Sport\n0\nComputer Kino Theater\n-2\n-4\n-6\nFreizeitbeschäftigung Abbildung 2\n-8\nGrafik: © IQB\nAbbildung 2 zeigt Säulen zu den Freizeitbeschäftigungen „Musik“, „Sport“ und\n„Computer“. Diese Säulen ergeben sich aus den Angaben in Abbildung 1. Beachte,\ndass einige Säulen nach unten zeigen.\nBeschreibe, was die Säulen in Abbildung 2 bedeuten, und ergänze die fehlenden\nSäulen für „Kino“ und „Theater“.",
+      "table": null,
+      "n_fragments": 55,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freizeitbeschaeftigungen/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Freizeitbeschäftigungen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "200"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Musik ODER Sport ODER Kino\n\nUND\n\nComputer ODER Theater"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ergänzung der fehlenden Säulen mit den folgenden Werten:\nKino: -2\nTheater: +2\n \n\nUND\n\nBeschreibung: Darstellung der Differenz zwischen Nennungsanzahl in 8. und 7. Klassenstufe. \n\nBeispiel(e)\nAnzahl Nennungen in Klasse 8 - Anzahl Nennungen in Klasse 7\n(Grenzfall)\nDie Differenz wird nur in eine Richtung (Zunahme oder Abnahme) beschrieben."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Freizeitbeschäftigungen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "200"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Musik ODER Sport ODER Kino\n\nUND\n\nComputer ODER Theater"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ergänzung der fehlenden Säulen mit den folgenden Werten:\nKino: -2\nTheater: +2\n \n\nUND\n\nBeschreibung: Darstellung der Differenz zwischen Nennungsanzahl in 8. und 7. Klassenstufe. \n\nBeispiel(e)\nAnzahl Nennungen in Klasse 8 - Anzahl Nennungen in Klasse 7\n(Grenzfall)\nDie Differenz wird nur in eine Richtung (Zunahme oder Abnahme) beschrieben."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematische Darstellungen verwenden (K4),\n Mathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 14.1:",
+      "Der Darstellung kann die Gesamtanzahl der Befragten nicht entnommen werden. So wird für die Gesamtanzahl beispielsweise der höchste Wert des Diagramms entnommen oder die jeweils höchsten Werte der Jahrgangsstufen werden addiert, wie folgende Schülerlösungen zeigen:",
+      "Zu Teilaufgabe 14.2:",
+      "Die Aussage des Diagramms kann nicht in natürliche Sprache übertragen werden. Dies kann ursächlich durch Textverständnisprobleme oder einen nicht reflektierten Umgang mit der eigenen Aussage hervorgerufen werden, wie insbesondere folgende Schülerlösung zeigt:",
+      "Zu Teilaufgabe 14.3:",
+      "Es wird kein Bezug zwischen beiden Diagrammen hergestellt. Insbesondere wird die Bedeutung des positiven und des negativen Bereichs des zweiten Diagramms nicht erfasst:",
+      "Die Schülerinnen und Schüler erkennen und erfassen den Zusammenhang zwischen beiden Diagrammen zwar, können ihn aber nicht für die eigene Darstellung nutzen:"
+    ],
+    "quelle": "freizeitbeschaeftigungen_Didaktische_Kommentierung.docx"
+  }
+}

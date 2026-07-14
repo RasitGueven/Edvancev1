@@ -1,0 +1,102 @@
+{
+  "item": "wuerfeloberflaeche",
+  "sources": {
+    "Aufgabe": {
+      "file": "wuerfeloberflaeche_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "74b63d776d495763"
+    },
+    "Auswertung": {
+      "file": "wuerfeloberflaeche_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "ddbe3c1b7cca6438"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "wuerfeloberflaeche_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "fac869bcb4bb0d24"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfeloberflaeche/00_image1.emf.png",
+      "tokens": "Verkleinert man die Kantenlänge eines Würfels, verkleinert sich auch die Größe seiner Oberfläche. Die Kantenlänge eines Würfels wird halbiert.Um wie viel Prozent verkleinert sich die Größe seiner Oberfläche?Kreuze an.Begründe deine Antwort.um 25%um 50%um 75%um 87,5%",
+      "deterministic_text": "Verkleinert man die Kantenlänge eines Würfels, verkleinert sich auch die Größe seiner\nOberfläche.\nDie Kantenlänge eines Würfels wird halbiert.\nUm wie viel Prozent verkleinert sich die Größe seiner Oberfläche?\nKreuze an.\num 25% um 50% um 75% um 87,5%\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 27,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfeloberflaeche/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Würfeloberfläche"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "um 75 %\n\nUND\n\n(Begründung der Antwort (algebraisch, zeichnerisch, paradigmatisch, iterativ, inhaltlich)\nODER\nan einem konkreten Beispiel.)\n\nBeispiel(e)\nEin Würfel mit Kantenlänge a hat einen Oberflächeninhalt von . Mit Kantenlänge  ergibt sich als neuer Oberflächeninhalt . Also verringert sich der Oberflächeninhalt um .\nAls Begründung wird auch eine Skizze akzeptiert, aus der hervorgeht, dass der Flächeninhalt jeder Seitenfläche auf ein Viertel schrumpft.\n \n[Anm.: Die Berechnung der Teilfläche ist nicht erforderlich.]\nWenn die Längen halbiert werden, werden die Flächeninhalte geviertelt. Also fällt  des Flächeninhalts weg."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Würfeloberfläche"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "um 75 %\n\nUND\n\n(Begründung der Antwort (algebraisch, zeichnerisch, paradigmatisch, iterativ, inhaltlich)\nODER\nan einem konkreten Beispiel.)\n\nBeispiel(e)\nEin Würfel mit Kantenlänge a hat einen Oberflächeninhalt von . Mit Kantenlänge  ergibt sich als neuer Oberflächeninhalt . Also verringert sich der Oberflächeninhalt um .\nAls Begründung wird auch eine Skizze akzeptiert, aus der hervorgeht, dass der Flächeninhalt jeder Seitenfläche auf ein Viertel schrumpft.\n \n[Anm.: Die Berechnung der Teilfläche ist nicht erforderlich.]\nWenn die Längen halbiert werden, werden die Flächeninhalte geviertelt. Also fällt  des Flächeninhalts weg."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematisches Argumentieren (K1),\nProbleme mathematisch lösen (K2),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K2",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "wuerfeloberflaeche_Didaktische_Kommentierung.docx"
+  }
+}

@@ -16,6 +16,16 @@
   - Tarif-Verwaltung `/admin/tiers` (DB-Katalog statt Hardcode)
   - Diagnose-/Screening-Engine de-mockt (echter Generator + Content)
   - Coach-/Student-/Parent-Dashboard auf Echtdaten; alle Mock-Daten entfernt
+- **LSA-Backend (Lernstandsanalyse), Vertrag steht — `docs/api/DATENVERTRAG.md`:**
+  - **P01 Datenvertrag** (Retro 2026-07-12): `task_solutions` als Server-Only-Zone
+    (kein Grant für anon/authenticated), `lsa_question_payload` baut aus einer
+    Whitelist, RPCs `lsa_start`/`lsa_submit`/`lsa_hint`/`lsa_finish`/
+    `lsa_confirm_focus`. FernUSG-Gate: `lsa_finish` schlägt vor, der Coach setzt.
+  - **P02 Multi-Part** (Retro 2026-07-13): `input_type = 'MULTI_PART'`,
+    `tasks.parts` (Kompetenz + AFB **je Teilaufgabe**), `lsa_responses.part_nr` —
+    eine Zeile pro Teilaufgabe. `result_summary` aggregiert pro Kompetenz, nicht
+    pro Item. Noch **nicht deployt**.
+  - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
@@ -26,6 +36,10 @@
     `.docx` — 188 Items wörtlich aus der Quelle, kein OCR.
 
 ## Nächste Schritte
+- **P02-Migration deployen** (`20260713100000_p02_multipart.sql` — bisher nur lokal verifiziert)
+- **C07: Import der 86 MULTI_PART-Items** (Trefferquote im Bestand ~40 % → Sichtung nötig)
+- **`est_duration_sec` für die 14 LSA-Bestandsitems pflegen (Lena)** — bis dahin
+  schätzt `lsa_start` das Zeitbudget über `estimated_minutes` (Retro 2026-07-13 §2)
 - **`.doc` → `.docx` konvertieren (74 Items, Rasit/LibreOffice unter Windows)**,
   danach `bash scripts/content/c02_rebuild.sh` → Projektion **208 `ready`**
 - Lena-Review von `data/vera8_review_lena.csv`, Priorität: die 33
@@ -177,6 +191,47 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Glas-Effekte, 3-Layer-Student-Gradienten + App-BG-Textur, Animations-Timing
   (bounce + Scale + Spec-Dauern). Neue Living-Reference `/demo/v3`. TSC + Build grün.
   Offen: Browser-Check + Merge → `dev`.
+
+- **A01 — Autoren-Tool für die Item-Pflege** (Branch `feat/A01-autorentool`,
+  Retro `docs/retros/RETRO-A01.md`): `/admin/authoring` — Liste (Filter über
+  Status/Fach/Kompetenz/AFB/Befunde/Asset/Tabelle), Editor (Stamm, Teilaufgaben,
+  Tags inkl. **Stoffanker**, Assets mit Alt-Text, Lösung via
+  `task_solution_upsert`), Live-Vorschau in der Kind-Ansicht, Freigabe-Gate
+  `draft → review → ready` mit Prüfer + Zeitstempel. Read-only-Quellenbeleg
+  (`_grounding`) neben dem Editor. Zugriff coach/admin, Schreiben nur Admin.
+  TSC + Lint + 85 Tests + Build grün.
+  **Blockiert auf Rasit:** `docs/schema/A01-authoring.proposal.sql` prüfen und
+  ausführen (3 additive Felder/RPCs — Stoffanker, Lösungs-Lesepfad,
+  Freigabe-Audit). Bis dahin läuft das Tool im Degraded-Modus. Danach: `lsa_start`
+  auf `curriculum_grade` umstellen (eigener PR, **nach** der Pflege).
+
+- **C08 — Neuextraktion als Draft im Autoren-Tool** (Branch `feat/C08-import-draft`,
+  Retro `docs/retros/2026-07-14-C08-import-draft.md`): alle 299 Items aus
+  `data/vera8_v2.json` sind als `draft` in `tasks` — **285 neu**, die 14 aus C03
+  (`ready`) unangetastet. Lösungen ausschließlich über `task_solution_upsert`,
+  kein `curriculum_grade` (Handarbeit), keine Lösung im `question_payload`.
+  Idempotent über `(source, source_ref)`. **138 wären nach der Pflege pool-fähig**
+  (es fehlen nur Stoffanker + Alt-Texte).
+  Zwei Funde: (1) `public/authoring/grounding-vera8.json` wird **ohne Auth**
+  ausgeliefert und enthielt die Lösungszitate von 209 Items — jetzt ohne
+  Lösungsbelege gebaut, der Beleg liegt gegatet in `task_solutions.solution`;
+  (2) `toPatch` hätte die F01-Tabelle von 54 Items beim ersten Speichern verworfen —
+  jetzt read-only durchgereicht.
+  **Offen:** Tabellen-Editor (54 Items), Pflege der 138.
+
+- **B01 — Quellenbeleg bekommt ein Zuhause + RLS auf `tasks`** (Branch
+  `fix/beleg-und-rls`, Retro `docs/retros/2026-07-14-B01-beleg-und-rls.md`):
+  Migration `20260714140000_b01_beleg_und_rls.sql` (**noch nicht ausgeführt** —
+  Schema-Session mit Rasit). Zwei Blocker vor der ersten Pflegesession:
+  (1) `task_solutions.beleg jsonb` trennt den Quellenbeleg vom didaktischen
+  Lösungsweg — bisher teilten sie sich `solution`, und wer einen Weg schrieb,
+  löschte den Beleg. `task_solution_upsert` patcht jetzt pro Feld, das Tool zeigt
+  den Beleg read-only.
+  (2) `authenticated_read_tasks` (jeder Eingeloggte las jede Zeile, seit C08 also
+  285 Drafts) → `read_tasks_by_role`: coach/admin alles, alle anderen nur `ready`.
+  Beweis: `supabase/tests/inv7_draft_nicht_fuer_schueler.test.sql`.
+  **Blockiert auf Rasit:** Migration im SQL-Editor ausführen, danach
+  `npx supabase test db` (inv6 + inv7).
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →

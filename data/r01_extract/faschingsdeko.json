@@ -1,0 +1,111 @@
+{
+  "item": "faschingsdeko",
+  "sources": {
+    "Aufgabe": {
+      "file": "faschingsdeko_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "afa7bde7e0b25761"
+    },
+    "Auswertung": {
+      "file": "faschingsdeko_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "2ea1d92fb1f7cde0"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "faschingsdeko_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "3b978b19f5bef07d"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/faschingsdeko/00_image1.emf.png",
+      "tokens": "Die Schülerinnen und Schüler der Klasse 8a wollen für ihre Faschingsfeier Kreppband zur Dekoration verwenden. Das Kreppband wird in Packungen mit jeweils 4 verschiedenen Farben angeboten:  weiß (w), rot (r), blau (b) und grün (g).",
+      "deterministic_text": "Die Schülerinnen und Schüler der Klasse 8a wollen für ihre Faschingsfeier Kreppband zur\nDekoration verwenden. Das Kreppband wird in Packungen mit jeweils 4 verschiedenen\nFarben angeboten: weiß (w), rot (r), blau (b) und grün (g).",
+      "table": null,
+      "n_fragments": 28,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/faschingsdeko/01_image2.emf.png",
+      "tokens": "Es sollen immer 2 Kreppbänder verschiedener Farben zu Girlanden zusammengedreht werden.Schreibe alle möglichen Farbkombinationen auf.",
+      "deterministic_text": "Es sollen immer 2 Kreppbänder verschiedener Farben zu Girlanden\nzusammengedreht werden.\nSchreibe alle möglichen Farbkombinationen auf.",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/faschingsdeko/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Faschingsdeko"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe aller sechs Farbkombinationen.\n[Anm.: Die Aufgabe ist ebenfalls richtig, wenn 12 Kombinationen (wr  rw) angegeben werden. Die Kombinationen können auch in anderer Form, z.B. weiß-rot, notiert werden.]\n\nBeispiel(e)\nweiß-rot, weiß-blau, weiß-grün, rot-blau, rot-grün, blau-grün"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Faschingsdeko"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe aller sechs Farbkombinationen.\n[Anm.: Die Aufgabe ist ebenfalls richtig, wenn 12 Kombinationen (wr  rw) angegeben werden. Die Kombinationen können auch in anderer Form, z.B. weiß-rot, notiert werden.]\n\nBeispiel(e)\nweiß-rot, weiß-blau, weiß-grün, rot-blau, rot-grün, blau-grün"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "faschingsdeko_Didaktische_Kommentierung.docx"
+  }
+}

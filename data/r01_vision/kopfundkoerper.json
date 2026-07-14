@@ -1,0 +1,29 @@
+{
+  "item": "kopfundkoerper",
+  "gelesen_aus": [
+    "data/r01_render/kopfundkoerper/00_image1.emf.png",
+    "data/r01_render/kopfundkoerper/01_image2.emf.png",
+    "data/r01_render/kopfundkoerper/02_image3.emf.png"
+  ],
+  "stem": "Als Faustregel sagt man, dass bei Babys die Länge des Kopfes zur gesamten Körpergröße ungefähr im Verhältnis 1:4 steht. Beim Erwachsenen dagegen ist dieses Verhältnis ungefähr 1:8.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ein Baby hat eine Kopflänge von 12 cm. Gib seine ungefähre Körpergröße an.",
+      "unit": "cm",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ein Erwachsener hat eine Körpergröße von 1,84 m. Gib die ungefähre Länge seines Kopfes an.",
+      "unit": "cm",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

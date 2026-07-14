@@ -263,6 +263,11 @@ export async function updateTaskDiagnostic(
 }
 
 // Neue Diagnose-Aufgabe manuell anlegen (Admin-Seeding).
+//
+// Die Loesung geht NICHT in `tasks` — die Spalte `tasks.solution` gibt es seit
+// T1b (20260714120000) nicht mehr, weil auf `tasks` jeder eingeloggte Nutzer
+// lesen darf. Der einzige Schreibpfad in die Server-Only-Zone ist die RPC
+// `task_solution_upsert` (wie in scripts/import-lsa-items.ts).
 export async function createDiagnosticTask(
   input: DiagnosticTaskInput,
 ): Promise<SupabaseResult<Task>> {
@@ -278,7 +283,6 @@ export async function createDiagnosticTask(
         cluster_id: input.cluster_id ?? null,
         class_level: input.class_level ?? null,
         question: input.question,
-        solution: input.solution ?? null,
         common_errors: input.common_errors ?? null,
         coach_note: input.coach_note ?? null,
         difficulty: input.difficulty ?? null,
@@ -289,7 +293,22 @@ export async function createDiagnosticTask(
       .select('*')
       .single()
     if (error) return { data: null, error: error.message }
-    return { data: data as Task, error: null }
+
+    const task = data as Task
+
+    if (input.solution) {
+      const { error: solutionError } = await supabase.rpc('task_solution_upsert', {
+        p_task_id: task.id,
+        p_solution: input.solution,
+      })
+      // Die Aufgabe steht, die Loesung fehlt — das muss sichtbar sein, sonst
+      // legt Lena eine Aufgabe an, die niemand bewerten kann.
+      if (solutionError) {
+        return { data: null, error: `Aufgabe angelegt, aber Loesung nicht gespeichert: ${solutionError.message}` }
+      }
+    }
+
+    return { data: task, error: null }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Aufgabe konnte nicht angelegt werden'
     return { data: null, error: message }

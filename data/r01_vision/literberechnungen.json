@@ -1,0 +1,22 @@
+{
+  "item": "literberechnungen",
+  "gelesen_aus": [
+    "data/r01_render/literberechnungen/00_doc_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viel ¾ von 10 Liter sind.",
+      "unit": "Liter",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Der Bruch ist im Bild als gesetzter Bruch (Zähler 3 über Nenner 4) dargestellt; ich habe ihn als ¾ übernommen.",
+    "Die Auswertung nennt 2 Teilaufgaben, im Bild ist nur 1 Teilaufgabe sichtbar. Ich folge dem Bild."
+  ]
+}

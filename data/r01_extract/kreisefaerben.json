@@ -1,0 +1,119 @@
+{
+  "item": "kreisefaerben",
+  "sources": {
+    "Aufgabe": {
+      "file": "kreisefaerben_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "62a0d4949b89ba9e"
+    },
+    "Auswertung": {
+      "file": "kreisefaerben_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "29fe1534ac688754"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "kreisefaerben_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "87b376cbbbc6b6bb"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kreisefaerben/00_doc_image1.emf.png",
+      "tokens": "Färbe 20% dieser Kreise ein.",
+      "deterministic_text": "Färbe 20% dieser Kreise ein.",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Kreise färben"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Insgesamt sind 3 ganze Kreise eingefärbt. (Dabei können auch\nBruchteile gefärbt werden.)"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Kreise färben"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Insgesamt sind 3 ganze Kreise eingefärbt. (Dabei können auch\nBruchteile gefärbt werden.)"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Die Übersetzung des Prozentsatzes 20 % in einen Bruch, z. B. in 20/100,",
+      "gelingt nicht (K5).",
+      "• 20 % wird als [pic] gedeutet und die Hälfte der Kreise wird eingefärbt",
+      "Weiterarbeit und Förderung",
+      "Diese einfache Darstellung lässt vielfältige Lösungswege zu und erlaubt die",
+      "Kombination zeichnerischer und konkret handelnder Ansätze.",
+      "Vereinfachend könnte zunächst eine Darstellung mit 100 Kreisen gewählt",
+      "werden (alternativ: ein Hunderterfeld), von denen 20 % zu färben sind.",
+      "Durch Anwendung der Hundertstel-Vorstellung kann 20 % in 20/100 übersetzt",
+      "werden, was bedeutet, dass 20 der 100 Kreise zu färben sind.",
+      "Gelingt die Übersetzung in einen Hundertstelbruch ohne Schwierigkeiten,",
+      "kann im nächsten Schritt die Anzahl der gegebenen Kreise variiert und z. B.",
+      "auf 50 reduziert werden. Nun kann man auch funktional überlegen: „Wie",
+      "verändert sich (bei gleichbleibendem Prozentsatz) die Anzahl der zu",
+      "färbenden Kreise, wenn die Grundmenge halbiert wird?“.",
+      "Eine weitere Möglichkeit besteht darin, 1/5 als andere Darstellung von 20 %",
+      "auf die Figur anzuwenden. So kann die gegebene Figur in fünf gleichgroße",
+      "Teilmengen mit je drei Kreisen unterteilt werden, von denen eine farbig",
+      "markiert wird. Zumindest gedanklich ließe sich diese Aufgabe auch lösen,",
+      "indem von jedem Kreis 1/5 gefärbt wird. Oder es kann einfach jeder fünfte",
+      "Kreis gefärbt werden, wobei zu problematisieren wäre, bei welchen",
+      "Grundmengen eine solche Strategie tragfähig ist (Mögliche Frage:",
+      "„Funktioniert diese Strategie auch bei 30 Kreisen, bei 40 Kreisen, bei …",
+      "Kreisen?“, oder allgemeiner: „Welche Eigenschaft muss die Anzahl der Kreise",
+      "erfüllen, damit – bei gegebenem Prozentsatz – die gesuchte Anzahl Kreise",
+      "durch Abzählen ermittelt werden kann?“).",
+      "Diese Aufgabe bietet auch die Möglichkeit, Umkehraufgaben zur gegebenen",
+      "Frage zu behandeln und schließlich alle drei Grundaufgaben der",
+      "Prozentrechnung mithilfe einer solchen Darstellung zu thematisieren",
+      "(Grundwert, Prozentsatz oder Prozentwert ist gesucht). Insbesondere kann",
+      "bei fehlerhaften Lösungen der obigen Aufgabe gefragt werden, welcher",
+      "Prozentsatz – anstelle des geforderten – dargestellt ist.",
+      "Schließlich kann diese Aufgabe auch Anlass geben, grundlegende",
+      "Fertigkeiten, wie das Umwandeln eines Prozentsatzes in einen",
+      "Hundertstelbruch, einen gekürzten Bruch und einen Dezimalbruch zu üben."
+    ],
+    "quelle": "kreisefaerben_Didaktische_Kommentierung.doc"
+  }
+}

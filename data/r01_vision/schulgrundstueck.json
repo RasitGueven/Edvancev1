@@ -1,0 +1,13 @@
+{
+  "item": "schulgrundstueck",
+  "gelesen_aus": [
+    "data/r01_render/schulgrundstueck/00_doc_image1.emf.png"
+  ],
+  "stem": "Die Abbildung zeigt das Luftbild einer Schule. Darauf sind das Schulgrundstück (schwarz umrandet) und die Schulgebäude zu sehen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält nur den Stamm plus die Grundstücksskizze (Beschriftungen 'a' im Inneren und ein Maßstab '10 m'). Die 2 Teilaufgaben laut Auswertung stehen nicht in diesem PNG — parts bleibt leer statt geraten.",
+    "Die Skizze zeigt nur den Umriss; die im Text erwähnten Schulgebäude sind im Render nicht sichtbar (evtl. Rasterebene fehlt)."
+  ]
+}

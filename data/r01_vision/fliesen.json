@@ -1,0 +1,21 @@
+{
+  "item": "fliesen",
+  "gelesen_aus": [
+    "data/r01_render/fliesen/00_doc_image1.emf.png"
+  ],
+  "stem": "Zum Fliesen eines Badezimmers werden 50 Platten mit einer Größe von jeweils 0,16 m² benötigt.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Der Besitzer entschließt sich dann aber doch, Fliesen der Größe 0,2 m² verlegen zu lassen. Gib an, wie viele Fliesen jetzt mindestens nötig sind.",
+      "unit": "Fliesen",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Hochzahl in '0,16 m²' und '0,2 m²' ist im Rendering oben abgeschnitten; aus dem Kontext (Flächen) als m² gelesen."
+  ]
+}

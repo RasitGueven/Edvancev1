@@ -1,0 +1,242 @@
+{
+  "item": "sauerkraut",
+  "sources": {
+    "Aufgabe": {
+      "file": "sauerkraut_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "5351d47586dff40a"
+    },
+    "Auswertung": {
+      "file": "sauerkraut_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "6ef771958bf87466"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "sauerkraut_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "6209d55e32616208"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/sauerkraut/00_image1.emf.png",
+      "tokens": "Sauerkraut wird aus Weißkohl hergestellt. Während der Herstellung werden Milchsäure-bakterien zugegeben, die sich täglich um 70% gegenüber der Vortagsmenge vermehren.Zu Beginn der Produktion werden dem Weißkohl 50g Bakterien zugegeben.",
+      "deterministic_text": "Sauerkraut wird aus Weißkohl hergestellt. Während der Herstellung werden Milchsäure-\nbakterien zugegeben, die sich täglich um 70% gegenüber der Vortagsmenge vermehren.\nZu Beginn der Produktion werden dem Weißkohl 50g Bakterien zugegeben.",
+      "table": null,
+      "n_fragments": 15,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/sauerkraut/01_image2.emf.png",
+      "tokens": "Felix sagt: „Also kommen täglich 35g Bakterien dazu.“Nimm Stellung zu dieser Aussage.",
+      "deterministic_text": "Felix sagt: „Also kommen täglich 35g Bakterien dazu.“\nNimm Stellung zu dieser Aussage.",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/sauerkraut/02_image3.emf.png",
+      "tokens": "Ulla möchte für verschiedene Tage die Bakterienmenge mit Hilfe eines Tabellenkalkulationsprogramms errechnen. Für diese Berechnungen trägt sie in einzelne Zellen der Tabelle Formeln ein. Dabei verwendet sie für jede Zelle eine Adresse, z.B. B2 oder D4. In der Tabelle sind bereits solche Formeln enthalten. In welcher Spalte sind die richtigen Formeln eingetragen?Kreuze an. 123456Anzahl der TageA01234BCDEMenge der Bakterien (in g)Menge der Bakterien (in g)Menge der Bakterien (in g)Menge der Bakterien (in g)50505050=B2+0,7=B3+0,7=B4+0,7=B5+0,7=C2+35=C3+35=C4+35=C5+35=D2*1,7=D3*1,7=D4*1,7=D5*1,7=E2*0,7=E3*0,7=E4*0,7=E5*0,7",
+      "deterministic_text": "Ulla möchte für verschiedene Tage die Bakterienmenge mit Hilfe eines\nTabellenkalkulationsprogramms errechnen. Für diese Berechnungen trägt sie in\neinzelne Zellen der Tabelle Formeln ein. Dabei verwendet sie für jede Zelle eine\nAdresse, z.B. B2 oder D4.\nIn der Tabelle sind bereits solche Formeln enthalten.\nIn welcher Spalte sind die richtigen Formeln eingetragen?\nKreuze an.\nA B C D E\n1 Anzahl der Menge der Menge der Menge der Menge der\nTage Bakterien (in g)Bakterien (in g)Bakterien (in g)Bakterien (in g)\n2 0 50 50 50 50\n3 1 =B2+0,7 =C2+35 =D2*1,7 =E2*0,7\n4 2 =B3+0,7 =C3+35 =D3*1,7 =E3*0,7\n5 3 =B4+0,7 =C4+35 =D4*1,7 =E4*0,7\n6 4 =B5+0,7 =C5+35 =D5*1,7 =E5*0,7",
+      "table": {
+        "header": [
+          "",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "rows": [
+          [
+            "1",
+            "Anzahl der Tage",
+            "Menge der Bakterien (in g)",
+            "Menge der Bakterien (in g)",
+            "Menge der Bakterien (in g)",
+            "Menge der Bakterien (in g)"
+          ],
+          [
+            "2",
+            "0",
+            "50",
+            "50",
+            "50",
+            "50"
+          ],
+          [
+            "3",
+            "1",
+            "=B2+0,7",
+            "=C2+35",
+            "=D2*1,7",
+            "=E2*0,7"
+          ],
+          [
+            "4",
+            "2",
+            "=B3+0,7",
+            "=C3+35",
+            "=D3*1,7",
+            "=E3*0,7"
+          ],
+          [
+            "5",
+            "3",
+            "=B4+0,7",
+            "=C4+35",
+            "=D4*1,7",
+            "=E4*0,7"
+          ],
+          [
+            "6",
+            "4",
+            "=B5+0,7",
+            "=C5+35",
+            "=D5*1,7",
+            "=E5*0,7"
+          ]
+        ]
+      },
+      "n_fragments": 170,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/sauerkraut/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Sauerkraut",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Aus der Antwort muss ersichtlich werden, dass Felix nicht berücksichtigt, dass die jeweils hinzugekommenen Bakterien sich auch vermehren. \n[Anm.: Es muss nicht explizit festgestellt werden, dass falsch argumentiert wird.]\n\nBeispiel(e)\nFelix denkt, dass jeden Tag 70 % der anfänglich zugegebenen Bakterienmenge hinzukommen.\nDas ist falsch, denn 35 g stimmen nur am ersten Tag.\nFelix hat nicht Recht. Am ersten Tag kommen 35 g hinzu. Danach kommen aber immer mehr Bakterien hinzu."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nFelix hat nicht Recht. \n[Anm.: Eine Erläuterung dieser Aussage fehlt.]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Sauerkraut"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Aus der Antwort muss ersichtlich werden, dass Felix nicht berücksichtigt, dass die jeweils hinzugekommenen Bakterien sich auch vermehren. \n[Anm.: Es muss nicht explizit festgestellt werden, dass falsch argumentiert wird.]\n\nBeispiel(e)\nFelix denkt, dass jeden Tag 70 % der anfänglich zugegebenen Bakterienmenge hinzukommen.\nDas ist falsch, denn 35 g stimmen nur am ersten Tag.\nFelix hat nicht Recht. Am ersten Tag kommen 35 g hinzu. Danach kommen aber immer mehr Bakterien hinzu."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nFelix hat nicht Recht. \n[Anm.: Eine Erläuterung dieser Aussage fehlt.]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisch Modellieren (K3),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 14.1:",
+      "Die Aussage wird für den ersten Tag überprüft und als richtig ausgewiesen. Der sich ändernde Grundwert wird nicht erkannt. Demnach wird davon ausgegangen, dass tatsächlich jeden Tag 35 g Bakterien hinzukommen, wie die folgende Schülerlösung zeigt:",
+      "Die Informationen des Textes können inhaltlich nicht richtig erfasst werden, wie die folgende Schülerlösung veranschaulicht:",
+      "Die Prozent-Angaben werden als separater Größenbereich aufgefasst und können nicht mit den Gewichtsangaben in Verbindung gebracht werden, wie die folgende Schülerlösung zeigt. Es gelingt somit keine adäquate Modellierung (K3). Dies deutet auf noch ungenügend ausgebildete Vorstellungen zum Prozentbegriff hin:",
+      "Zu Teilaufgabe 14.2:",
+      "Antwortalternative [B], [C]:",
+      "Wird eine dieser beiden Antwortalternativen angekreuzt, wird offenbar davon ausgegangen, dass es sich bei der Bakterienvermehrung um einen linearen Wachstumsprozess handelt. Der sich jeweils verändernde Grundwert wird nicht in die Überlegungen einbezogen, so dass der Sachsituation ein falsches Modell zugeordnet wird.",
+      "Antwortalternative [D]:",
+      "Hinter dieser Antwortalternative verbirgt sich ein exponentieller Zerfall, welcher der Sachsituation nicht entspricht. Die Umsetzung des prozentualen Wachstums in einen Wachstumsfaktor ist hier nicht gelungen, denn der jeweils vorhandene Bakterienbestand ist bei dieser Modellierung nicht berücksichtigt worden."
+    ],
+    "quelle": "sauerkraut_Didaktische_Kommentierung.docx"
+  }
+}

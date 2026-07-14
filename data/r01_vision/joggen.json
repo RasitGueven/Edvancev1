@@ -1,0 +1,10 @@
+{
+  "item": "joggen",
+  "gelesen_aus": ["data/r01_render/joggen/00_doc_image1.emf.png"],
+  "stem": "Die ideale Trainingsbelastung\nRechnen Sie 200 minus Lebensalter. Das ergibt den Maximalpuls. Beim Training sollte man mindestens 65 % vom Maximalpuls erreichen, aber auch nicht mehr als 85 %.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das Bild enthält nur den umrahmten Infokasten 'Die ideale Trainingsbelastung'. Keine Teilaufgaben-Prompts sichtbar, obwohl die Auswertung 2 Teilaufgaben kennt — deren Fragetexte stehen nicht in diesem EMF."
+  ]
+}

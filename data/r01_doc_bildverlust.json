@@ -1,0 +1,452 @@
+{
+ "befund": "ole.media_in_doc() extrahiert pro .doc nur EIN Bild. VERA8 legt jede Teilaufgabe als eigenes eingebettetes Bild ab — die Fragen bleiben in der Datei liegen und erreichen die Vision-Stufe nie.",
+ "doc_items_geprueft": 74,
+ "doc_items_mit_verlust": 74,
+ "bilder_verloren": 178,
+ "items": [
+  {
+   "item": "700milliarden",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "abstandaufdemwasser",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "apfelsaftschorle",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "aussagenzurprop",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "berechnex",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "bewegec",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "bonbons",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "brettspiel",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "briefmarkenschachteln",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "chancen",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "computerspielsucht",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "darstellungindiagrammen",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "drehkoerper",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "fahrradcomputer",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "fahrradtour",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "fieberthermometer",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "fischezaehlen",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "fliesen",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "fruehstuecksbroetchen",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "fuenfundvierzig",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "fussleisten",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "geometrischekoerper",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "geschichtezurgraphik",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "gleichungenloesenistni",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "gluecksrad",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "gluecksraddrehen",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "harzwanderung",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "hochrad",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "holzstab",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "joggen",
+   "bilder_im_dokument": 6,
+   "bilder_extrahiert": 1,
+   "verloren": 5
+  },
+  {
+   "item": "judomatte",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "kraftfutter",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "kreisefaerben",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "kreiseundvierecke",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "linearefunktionen",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "linearundproportional",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "literberechnungen",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "massstabsrechner",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "mathematikarbeit",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "mittezwischenzahlen",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "punkteimkoordinatensystem",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "punktgesucht",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "quader",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "quadratdifferenz",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "quadratflaeche",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "rabattaktion",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "rechenvorteil",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "regelmaessigevielecke",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "restaurantgewinnspiel",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "rollrasen",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "rolltreppe",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "schnittpunktvongraphen",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "schokoladenfiguren",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "schulgrundstueck",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "schulstatistik",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "tabelle",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "temperaturen",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "tunnelbohrmaschine",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "ungleichungerfuellen",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "unregelmaessigesviereck",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "verkehrszeichen",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "volumenverkleinerung",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "weitsprung",
+   "bilder_im_dokument": 6,
+   "bilder_extrahiert": 1,
+   "verloren": 5
+  },
+  {
+   "item": "winkelimparallelogramm",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "wuerfelbau",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "wuerfelkoerper",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "wuerfelnmitzweiwuerfeln",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "wundersamerechenergebnisse",
+   "bilder_im_dokument": 4,
+   "bilder_extrahiert": 1,
+   "verloren": 3
+  },
+  {
+   "item": "zaehlungvonfahrzeugen",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "zahlengesucht",
+   "bilder_im_dokument": 3,
+   "bilder_extrahiert": 1,
+   "verloren": 2
+  },
+  {
+   "item": "zahlenmauer",
+   "bilder_im_dokument": 5,
+   "bilder_extrahiert": 1,
+   "verloren": 4
+  },
+  {
+   "item": "zahlensumme",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "zahlgesucht",
+   "bilder_im_dokument": 2,
+   "bilder_extrahiert": 1,
+   "verloren": 1
+  },
+  {
+   "item": "zufallsversuche",
+   "bilder_im_dokument": 6,
+   "bilder_extrahiert": 1,
+   "verloren": 5
+  }
+ ]
+}

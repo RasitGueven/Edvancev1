@@ -1,0 +1,18 @@
+{
+  "item": "pflaumen",
+  "gelesen_aus": [
+    "data/r01_render/pflaumen/00_image1.emf.png",
+    "data/r01_render/pflaumen/01_image2.emf.png"
+  ],
+  "stem": "1 kg Pflaumen kostet 1,90 €.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viel 500 g Pflaumen kosten.",
+      "unit": "€"
+    }
+  ],
+  "unsicher": []
+}

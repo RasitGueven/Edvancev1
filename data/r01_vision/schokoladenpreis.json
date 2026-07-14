@@ -1,0 +1,37 @@
+{
+  "item": "schokoladenpreis",
+  "gelesen_aus": [
+    "data/r01_render/schokoladenpreis/00_image1.emf.png",
+    "data/r01_render/schokoladenpreis/01_image2.emf.png",
+    "data/r01_render/schokoladenpreis/02_image3.emf.png"
+  ],
+  "stem": "Ein Laden verkauft selbstgemachte Schokolade. Beispiele aus dem Angebot: Es gibt keine Sonderangebote.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Für eine Schokoladensorte ist in diesem Schaubild die Zuordnung der zwei Größen Schokoladenmenge (in g) → Schokoladenpreis (in €) dargestellt. Das folgende Wertepaar ist mit zwei gestrichelten Linien gekennzeichnet: 200 g → 3,00 €. Ein weiteres Wertepaar ist ebenfalls mit einer gestrichelten Linie hervorgehoben. Ergänze die fehlenden Angaben.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Um welche Schokoladensorte aus dem Angebot des Schokoladenladens handelt es sich bei dem Schaubild aus Teilaufgabe 1? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Dunkle Schokolade"},
+        {"id": "b", "label": "Weiße Schokolade"},
+        {"id": "c", "label": "Milchschokolade"},
+        {"id": "d", "label": "Gefüllte Schokolade"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Der Stamm enthält eine Tabelle (Schokoladensorte / Preis für 100 g: Dunkle Schokolade 1,50 €, Weiße Schokolade 1,40 €, Milchschokolade 1,10 €, Gefüllte Schokolade 2,10 €) — nicht abgetippt, stem_tabelle_erwartet=true. Der Satz 'Es gibt keine Sonderangebote.' steht im Bild UNTER der Tabelle.",
+    "Das Zuordnungszeichen im Bild ist als 'à' gerendert (Symbolfont-Artefakt); gemeint ist ein Pfeil '→'. In der Antwortzeile von Teilaufgabe 1 sind zwei Eingabefelder ('____ g → ____ €')."
+  ]
+}

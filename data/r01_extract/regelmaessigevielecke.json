@@ -1,0 +1,170 @@
+{
+  "item": "regelmaessigevielecke",
+  "sources": {
+    "Aufgabe": {
+      "file": "regelmaessigevielecke_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "1ec5f95f1788a5e4"
+    },
+    "Auswertung": {
+      "file": "regelmaessigevielecke_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "1aeb13820063af60"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "regelmaessigevielecke_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "a5c080c0951cde36"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/regelmaessigevielecke/00_doc_image1.emf.png",
+      "tokens": "Zeichne in dem gegebenen gleichseitigen Dreieck alle Symmetrieachsen ein.ABC",
+      "deterministic_text": "Zeichne in dem gegebenen gleichseitigen Dreieck alle Symmetrieachsen ein.\nC\nA B",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Regelmäßige Vielecke",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die Lösung ist richtig, wenn alle drei Symmetrieachsen\neingezeichnet sind\n[pic]\nAnm.: Hinsichtlich der Lage der einzelnen Spiegelachsen ist\ndarauf zu achten, dass diese senkrecht auf der Strecke zwischen\nden beiden jeweiligen Punkten stehen (1° Abweichung ist hierbei\nnoch akzeptabel) und durch den dritten Punkt verlaufen."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\n[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die Lösung ist richtig, wenn alle vier Symmetrieachsen\neingezeichnet sind.\n[pic]\nAnm.:\nHinsichtlich der horizontal bzw. vertikal verlaufenden\nSpiegelachsen ist darauf zu achten, dass diese senkrecht auf den\nbeiden gegenüberliegenden Seiten des Quadrats stehen und durch\nderen Mittelpunkte verlaufen. Die beiden diagonal verlaufenden\nSpiegelachsen müssen durch die beiden gegenüberliegenden\nEckpunkte des Quadrats gehen. Bei einer Parallelverschiebung darf\ndie vertikale und horizontale Spiegelachse maximal um ( 1 mm von\nder richtigen Lage abweichen. Bei „leichten Schieflagen“ ist 1°\nAbweichung zu akzeptieren."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\n[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe der richtigen Symmetrieachsen-Anzahlen:\nFünfeck: 5 UND\nSechseck: 6 UND\n27-Eck: 27"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Regelmäßige Vielecke"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die Lösung ist richtig, wenn alle drei Symmetrieachsen\neingezeichnet sind\n[pic]\nAnm.: Hinsichtlich der Lage der einzelnen Spiegelachsen ist\ndarauf zu achten, dass diese senkrecht auf der Strecke zwischen\nden beiden jeweiligen Punkten stehen (1° Abweichung ist hierbei\nnoch akzeptabel) und durch den dritten Punkt verlaufen."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\n[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die Lösung ist richtig, wenn alle vier Symmetrieachsen\neingezeichnet sind.\n[pic]\nAnm.:\nHinsichtlich der horizontal bzw. vertikal verlaufenden\nSpiegelachsen ist darauf zu achten, dass diese senkrecht auf den\nbeiden gegenüberliegenden Seiten des Quadrats stehen und durch\nderen Mittelpunkte verlaufen. Die beiden diagonal verlaufenden\nSpiegelachsen müssen durch die beiden gegenüberliegenden\nEckpunkte des Quadrats gehen. Bei einer Parallelverschiebung darf\ndie vertikale und horizontale Spiegelachse maximal um ( 1 mm von\nder richtigen Lage abweichen. Bei „leichten Schieflagen“ ist 1°\nAbweichung zu akzeptieren."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\n[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe der richtigen Symmetrieachsen-Anzahlen:\nFünfeck: 5 UND\nSechseck: 6 UND\n27-Eck: 27"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form(L3)",
+        "afb_raw": "I",
+        "afb": 1,
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form(L3)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "II",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Raum und Form(L3)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "IV",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1: Es wird lediglich die vertikal verlaufende Spiegelachse",
+      "eingezeichnet (K4).",
+      "Zu Teilaufgabe 2: Als Spiegelachsen werden nur die Mittelsenkrechten der",
+      "vier Seiten eingezeichnet. Die Diagonalen des Quadrates werden",
+      "vernachlässigt (K4).",
+      "Zu Teilaufgabe 3: Die Anzahl der Spiegelachsen beim Fünfeck und beim",
+      "Sechseck werden nicht korrekt notiert und die Regelmäßigkeit wird so nicht",
+      "erkannt. Die Anzahl der Spiegelachsen bei einem 27-Eck wird dann gar nicht"
+    ],
+    "quelle": "regelmaessigevielecke_Didaktische_Kommentierung.doc"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "item": "aufgabenreihen",
+  "gelesen_aus": [
+    "data/r01_render/aufgabenreihen/00_image1.png",
+    "data/r01_render/aufgabenreihen/01_image2.png",
+    "data/r01_render/aufgabenreihen/02_image3.png"
+  ],
+  "stem": "Sandra schreibt aufeinanderfolgende ungerade Zahlen auf, beginnend bei 1, und macht diese Aufgabenreihe daraus.\n1 = 1\n1 + 3 = 4\n1 + 3 + 5 = 9",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Setze diese Aufgabenreihe passend fort. Schreibe hierzu die nächsten zwei Rechnungen auf.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Sebastian setzt die Aufgabenreihe noch weiter fort. Er erhält 61 als Ergebnis. Kann das sein? Kreuze an. Notiere deinen Lösungsweg.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Rasterbild (nur_raster: true) — kein Zeichenvorrat zur Gegenprüfung vorhanden; Text wurde rein visuell gelesen.",
+    "Teilaufgabe 2 verlangt zusätzlich zum Ankreuzen einen Lösungsweg (kariertes Antwortfeld). Sie ist als 'mc' erfasst, enthält aber faktisch einen Free-Text-Anteil."
+  ]
+}

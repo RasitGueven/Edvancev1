@@ -1,0 +1,240 @@
+{
+  "item": "punkteaufgeraden",
+  "sources": {
+    "Aufgabe": {
+      "file": "punkteaufgeraden_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "171e64dbe1cec56c"
+    },
+    "Auswertung": {
+      "file": "punkteaufgeraden_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "f43908cb5387a079"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "punkteaufgeraden_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "022c55248c743914"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/punkteaufgeraden/00_image1.emf.png",
+      "tokens": "Weise nach: Der Punkt A(4 | 3 )liegt auf der Geraden mit der Gleichung                  . =−332yx",
+      "deterministic_text": "Weise nach: Der Punkt A(4 | 3 )liegt auf der Geraden mit der Gleichung 3.\nyx=−3\n2",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/punkteaufgeraden/01_image2.emf.png",
+      "tokens": "Gegeben sind die drei Punkte P1 (2 | 1 ), P2 (4 | 0 )und P3 (7 | -2 ).Liegen alle drei Punkte auf einer Geraden? Begründe deine Antwort.JaNein",
+      "deterministic_text": "Gegeben sind die drei Punkte P1 (2 | 1 ), P2 (4 | 0 )und P3 (7 | -2 ).\nLiegen alle drei Punkte auf einer Geraden?\nJa Nein\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 32,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/punkteaufgeraden/02_image3.emf.png",
+      "tokens": "Gegeben ist eine lineare Funktion mit der Gleichung                  . Erkläre, wie sich die Lage der Geraden verändert, wenn b variiert wird.=+ymxb",
+      "deterministic_text": "Gegeben ist eine lineare Funktion mit der Gleichung ymxb=+.\nErkläre, wie sich die Lage der Geraden verändert, wenn b variiert wird.",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/punkteaufgeraden/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Punkte auf Geraden",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "zu Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Es kann eine Rechnung (Punktprobe) durchgeführt oder inhaltliche Überlegungen unter Verwendung des y-Achsenabschnitts und der Steigung dargelegt werden. \n\nBeispiel(e)\n• \n \nAlso liegt der Punkt auf der Geraden.\n• Die Gerade schneidet die y-Achse im Punkt ( 0 | -3 ). Bewegt man sich von diesem Punkt aus gemäß der Steigung schrittweise nach rechts, erreicht man auch den Punkt A ( 4 | 3 ).\n•   4 - 3 = 3"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• Der Punkt A liegt auf der Geraden mit der Gleichung.\n• Ja, denn die Punktprobe stimmt.\n[Anm.: Nachweis fehlt]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung\nZur Begründung kann rechnerisch eine Geradengleichung mithilfe zweier Punkte bestimmt und damit überprüft werden, ob der dritte Punkt ebenfalls auf dieser Geraden liegt. Alternativ kann die Begründung auch durch ein gedankliches Abschreiten von Punkt zu Punkt im Koordinatensystem und dessen Darlegung oder eine Zeichnung (Skizze ausreichend) erfolgen. \n\nBeispiel(e) für rechnerische Begründungen\n• aus P1 und P2 Geradengleichung bilden: \ny = - x + 2\nund x-Wert von P3 einsetzen:\ny = -   7 + 2\ny = - 1,5  - 2\n\nBeispiel(e) für zeichnerische Begründungen\n• \n\n[Anm.: Eine Skizze ohne eingezeichnete Gerade ist ebenfalls als richtig zu werten, wenn \"Nein\" angekreuzt wurde.]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Beispiel(e) für Begründungen mit Bezug zu der Schrittfolge im Koordinatensystem:\n• Die Punkte P1 und P2 liegen auf einer Geraden. Um von P1 zu P2 zu kommen, gehe ich zwei Schritte nach rechts und einen Schritt nach unten. Mit einer entsprechenden Schrittfolge gelange ich dann von P2 aber nicht zu P3. Also liegt Punkt P3 nicht auf dieser Geraden.\n• Geht man von P1 zu P2, so geht man zwei Einheiten nach rechts und eine nach unten. Von P2 zu P3 geht man drei Einheiten nach rechts, also anderthalb mal so weit wie von P1 zu P2. Um von P2 zu P3 zu gelangen, müsste man, wenn alle drei Punkte auf derselben Geraden liegen würden, ebenfalls anderthalb mal so weit von P2 aus nach unten gehen. Man geht aber zwei Einheiten nach unten statt nur anderthalb. Also liegen die drei Punkte nicht auf derselben Geraden. \n• Die Punkte P1, P2 und P3 liegen nicht auf einer Geraden, da die Schrittfolge im Koordinatensystem von Punkt zu Punkt nicht identisch ist."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• Drei Punkte können niemals auf einer Geraden liegen."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die Lageveränderung der Geraden wird richtig beschrieben (Gerade wird parallel verschoben). Dabei muss deutlich werden, dass sich der\ny-Achsenabschnitt ändert.\n\nBeispiel(e)\n• Wenn b verändert wird, wird die ursprüngliche Gerade parallel verschoben. Wird b größer, wird die Gerade in positive Richtung verschoben, wird b kleiner, wird die Gerade in negative Richtung verschoben.\n• Die Gerade wird (parallel) verschoben. \n• Die Gerade wird nach oben oder unten verschoben\n[Anm.: Beide Richtungen müssen genannt werden, auch die Richtungsangaben links und rechts sind statthaft.]\n• Der y-Achsenabschnitt der Geraden ändert sich. Die Steigung nicht."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Punkte auf Geraden"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Es kann eine Rechnung (Punktprobe) durchgeführt oder inhaltliche Überlegungen unter Verwendung des y-Achsenabschnitts und der Steigung dargelegt werden. \n\nBeispiel(e)\n• \n \nAlso liegt der Punkt auf der Geraden.\n• Die Gerade schneidet die y-Achse im Punkt ( 0 | -3 ). Bewegt man sich von diesem Punkt aus gemäß der Steigung schrittweise nach rechts, erreicht man auch den Punkt A ( 4 | 3 ).\n•   4 - 3 = 3"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• Der Punkt A liegt auf der Geraden mit der Gleichung.\n• Ja, denn die Punktprobe stimmt.\n[Anm.: Nachweis fehlt]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung\nZur Begründung kann rechnerisch eine Geradengleichung mithilfe zweier Punkte bestimmt und damit überprüft werden, ob der dritte Punkt ebenfalls auf dieser Geraden liegt. Alternativ kann die Begründung auch durch ein gedankliches Abschreiten von Punkt zu Punkt im Koordinatensystem und dessen Darlegung oder eine Zeichnung (Skizze ausreichend) erfolgen. \n\nBeispiel(e) für rechnerische Begründungen\n• aus P1 und P2 Geradengleichung bilden: \ny = - x + 2\nund x-Wert von P3 einsetzen:\ny = -   7 + 2\ny = - 1,5  - 2\n\nBeispiel(e) für zeichnerische Begründungen\n• \n\n[Anm.: Eine Skizze ohne eingezeichnete Gerade ist ebenfalls als richtig zu werten, wenn \"Nein\" angekreuzt wurde.]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "zu Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Beispiel(e) für Begründungen mit Bezug zu der Schrittfolge im Koordinatensystem:\n• Die Punkte P1 und P2 liegen auf einer Geraden. Um von P1 zu P2 zu kommen, gehe ich zwei Schritte nach rechts und einen Schritt nach unten. Mit einer entsprechenden Schrittfolge gelange ich dann von P2 aber nicht zu P3. Also liegt Punkt P3 nicht auf dieser Geraden.\n• Geht man von P1 zu P2, so geht man zwei Einheiten nach rechts und eine nach unten. Von P2 zu P3 geht man drei Einheiten nach rechts, also anderthalb mal so weit wie von P1 zu P2. Um von P2 zu P3 zu gelangen, müsste man, wenn alle drei Punkte auf derselben Geraden liegen würden, ebenfalls anderthalb mal so weit von P2 aus nach unten gehen. Man geht aber zwei Einheiten nach unten statt nur anderthalb. Also liegen die drei Punkte nicht auf derselben Geraden. \n• Die Punkte P1, P2 und P3 liegen nicht auf einer Geraden, da die Schrittfolge im Koordinatensystem von Punkt zu Punkt nicht identisch ist."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• Drei Punkte können niemals auf einer Geraden liegen."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die Lageveränderung der Geraden wird richtig beschrieben (Gerade wird parallel verschoben). Dabei muss deutlich werden, dass sich der\ny-Achsenabschnitt ändert.\n\nBeispiel(e)\n• Wenn b verändert wird, wird die ursprüngliche Gerade parallel verschoben. Wird b größer, wird die Gerade in positive Richtung verschoben, wird b kleiner, wird die Gerade in negative Richtung verschoben.\n• Die Gerade wird (parallel) verschoben. \n• Die Gerade wird nach oben oder unten verschoben\n[Anm.: Beide Richtungen müssen genannt werden, auch die Richtungsangaben links und rechts sind statthaft.]\n• Der y-Achsenabschnitt der Geraden ändert sich. Die Steigung nicht."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K1",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Ein zeichnerischer Nachweis kann aufgrund nicht aktivierbarerer Kenntnisse zum Zeichnen von Graphen linearer Funktionen nicht geleistet werden (K5).",
+      "Ein zeichnerischer Nachweis kann aufgrund nicht aktivierbarer Kenntnisse zum Umgang mit Punkten im Koordinatensystem nicht geleistet werden; der Punkt A wird falsch eingetragen (K5).",
+      "Als Begründung wird nur auf die (nicht wiedergegebene) Zeichnung verwiesen, die Darstellung des Nachweises fehlt. Dies zeigt die folgende Schülerlösung (K1).",
+      "Zu ungenaue oder zu kleine Zeichnungen führen zu falschen Schlussfolgerungen, wie die folgende Schülerlösung demonstriert (K4).",
+      "Die Bedeutungen der Variablen m und b werden verwechselt, so dass b fälschlich als die Steigung der Geraden angesehen wird. Dies zeigt exemplarisch die folgende Schülerlösung (K5)."
+    ],
+    "quelle": "punkteaufgeraden_Didaktische_Kommentierung.docx"
+  }
+}

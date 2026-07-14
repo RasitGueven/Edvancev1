@@ -1,0 +1,121 @@
+{
+  "item": "bonbons",
+  "sources": {
+    "Aufgabe": {
+      "file": "bonbons_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "e1223e2f05debe56"
+    },
+    "Auswertung": {
+      "file": "bonbons_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "63889704a9d35403"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "bonbons_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "b5fa2fd4d297e740"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/bonbons/00_doc_image1.emf.png",
+      "tokens": "In einer Tüte sind zwei grüne, ein gelbes, zwei weiße, ein orangefarbenes und vier rote Bonbons. Jan greift ohne hinzusehen ein Bonbon aus der Tüte. Mit welcher Wahrscheinlichkeit ist es rot?Kreuze an.461241015110",
+      "deterministic_text": "In einer Tüte sind zwei grüne, ein gelbes, zwei weiße, ein orangefarbenes und vier rote\nBonbons. Jan greift ohne hinzusehen ein Bonbon aus der Tüte.\nMit welcher Wahrscheinlichkeit ist es rot?\nKreuze an.\n1 1 4 1 4\n10 5 10 2 6",
+      "table": null,
+      "n_fragments": 25,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Bonbons"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Bonbons"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3)",
+        "k_tags": [
+          "K3"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• 1. Antwortalternative (Fehllösung [pic]): Dies ist die",
+      "Wahrscheinlichkeit, wenn eins von zehn Bonbons gezogen wird. Demnach",
+      "scheint nicht erfasst worden zu sein, dass es mehr als ein rotes Bonbon",
+      "• 2. Antwortalternative (Fehllösung [pic]): Die Wahrscheinlichkeit von",
+      "[pic] entspricht der Wahrscheinlichkeit, ein grünes bzw. ein weißes",
+      "Bonbon zu ziehen. Die Wahl dieser Antwortalternative könnte entweder auf",
+      "unaufmerksames Lesen (K6) oder auf falsches Rechnen hinweisen (K5).",
+      "• 4. Antwortalternative (Fehllösung [pic]): Die Wahl dieser",
+      "Antwortalternativen, könnte auf ungenügend ausgebildeten Vorstellungen",
+      "zur Laplace-Wahrscheinlichkeit beruhen. Zugrunde liegen könnte die",
+      "Fehlvorstellung, dass es um die gleichberechtigte Alternative „rot oder",
+      "nicht-rot“ geht (K3).",
+      "• 5. Antwortalternative (Fehllösung [pic]): Hinter dieser",
+      "Antwortalternative verbirgt sich die Überlegung, dass es vier rote und",
+      "sechs andersfarbige Bonbons in der Tüte gibt. Es wird demnach das",
+      "Chancenverhältnis 4 zu 6 abgeleitet und mit der gesuchten",
+      "Wahrscheinlichkeit verwechselt (K3).",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Aufgabe Schwierigkeiten auf, kann die Sachsituation im",
+      "Unterricht leicht simuliert bzw. auf ein Urnenmodell übertragen werden. In",
+      "diesem Zusammenhang ist es durchaus denkbar, zunächst absolute und",
+      "anschließend relative Häufigkeiten bestimmen zu lassen, bevor Fragen zur",
+      "Wahrscheinlichkeit thematisiert werden. Diesbezüglich können weitere",
+      "Fragen, wie „Mit welcher Wahrscheinlichkeit ist das gezogene Bonbon grün?“",
+      "ergänzt werden. Weiterführend können die Fälle „mit zurücklegen“ und „ohne",
+      "Zurücklegen“ unter-schieden und die Veränderungen bei den",
+      "Wahrscheinlichkeiten analysiert werden. Denkbar ist auch, den",
+      "Zufallsversuch zu einem zweistufigen Zufallsversuch zu erweitern, indem",
+      "nacheinander zwei Bonbons gezogen werden.",
+      "Im Sinne des operativen Durcharbeitens können die Schülerinnen und Schüler",
+      "anschließend aufgefordert werden, die Anzahl der Bonbons in der Tüte so zu",
+      "verändern, dass eine vorgegebene Wahrscheinlichkeit für das Ziehen eines",
+      "gelben Bonbons erfüllt ist."
+    ],
+    "quelle": "bonbons_Didaktische_Kommentierung.doc"
+  }
+}

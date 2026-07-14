@@ -1,0 +1,158 @@
+{
+  "item": "harzwanderung",
+  "sources": {
+    "Aufgabe": {
+      "file": "harzwanderung_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "7851189678eda14c"
+    },
+    "Auswertung": {
+      "file": "harzwanderung_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "7f8b79be4c033482"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "harzwanderung_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "63afa96dccd86dd7"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/harzwanderung/00_doc_image1.emf.png",
+      "tokens": "Peter und Markus planen eine Wanderung durch den Harz.",
+      "deterministic_text": "Peter und Markus planen eine Wanderung\ndurch den Harz.",
+      "table": null,
+      "n_fragments": 3,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Harzwanderung",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Stolberg [pic] Harzgerode [pic] Gernrode  [pic] Thale  [pic]\nHalberstadt\nODER\nStolberg [pic] Harzgerode [pic] Gernrode  [pic] Quedlinburg\n[pic] Halberstadt\nODER\nStolberg [pic] Harzgerode [pic] Gernrode  [pic] Blankenburg\n[pic] Halberstadt\nODER\nStolberg [pic] Güntersberge [pic] Gernrode  [pic] Thale  [pic]\nHalberstadt\nODER\nStolberg [pic] Güntersberge [pic] Gernrode  [pic] Quedlinburg\n[pic] Halberstadt\nODER\nStolberg [pic] Güntersberge [pic] Gernrode  [pic] Blankenburg\n[pic] Halberstadt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "6 verschiedene Wanderrouten"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Harzwanderung"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Stolberg [pic] Harzgerode [pic] Gernrode  [pic] Thale  [pic]\nHalberstadt\nODER\nStolberg [pic] Harzgerode [pic] Gernrode  [pic] Quedlinburg\n[pic] Halberstadt\nODER\nStolberg [pic] Harzgerode [pic] Gernrode  [pic] Blankenburg\n[pic] Halberstadt\nODER\nStolberg [pic] Güntersberge [pic] Gernrode  [pic] Thale  [pic]\nHalberstadt\nODER\nStolberg [pic] Güntersberge [pic] Gernrode  [pic] Quedlinburg\n[pic] Halberstadt\nODER\nStolberg [pic] Güntersberge [pic] Gernrode  [pic] Blankenburg\n[pic] Halberstadt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "6 verschiedene Wanderrouten"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Zwar wird eine richtige Route markiert, aber die Übertragung der",
+      "Ortsnamen in den Lückentext gelingt nicht, wie die folgende Schülerlösung",
+      "• Schüler und Schülerinnen variieren nur die Anzahl aller Wege vor bzw.",
+      "nach der Abzweigung [Fehllösungen 2 bzw. 3] (K2).",
+      "• Es wird bloß die Anzahl aller Teilstrecken in der Grafik angegeben",
+      "[Fehllösung 10] (K2).",
+      "Weiterarbeit und Förderung",
+      "Dieser Aufgabe liegt eine für den Mathematikunterricht eher untypische,",
+      "aber dennoch zugängliche Darstellung zugrunde.",
+      "Bereitet der Umgang mit dieser Darstellung Probleme, kann zunächst die",
+      "Bedeutung der Verbindungslinien und der Punkte im Kontext thematisiert",
+      "werden. Anschließend kann man die Schülerinnen und Schülern auffordern,",
+      "sich mit Teilen dieser Darstellung auseinanderzusetzen. Dazu bietet es sich",
+      "an, sich ganz konkret in die beschriebene Situation hineinzuversetzen. Dies",
+      "kann etwa mit folgender Aufforderung geschehen:",
+      "„Stell Dir vor du bist in Stolberg. Du willst nach Gernrode laufen. Durch",
+      "welchen Ort führt der Weg dorthin?“",
+      "„Nach einiger Zeit bist Du in Thale angekommen. In welchem Ort warst Du",
+      "In beide Fragestellungen geht ein, dass Entscheidungen über zu wählende",
+      "Routen zu treffen sind. Die erste Fragestellung kann dahingehend erweitert",
+      "werden, dass man nach der Anzahl der Möglichkeiten fragt, nach Gernrode zu",
+      "Eine vertiefende Auseinandersetzung mit dieser Art Darstellung kann auch",
+      "von der Bedeutung der verschiedenen Punkte ausgehen. So bietet der",
+      "Ausgangsort Stolberg zwei Möglichkeiten, den weiteren Weg zu wählen,",
+      "während andere Orte keine zweite Möglichkeit bieten. Ist dieser Unterschied",
+      "deutlich, kann man die Schülerinnen und Schüler fragen, was in Gernrode",
+      "bezüglich der Wanderroute(n) passieren kann.",
+      "Alternativ zu dieser bereits deutlich mathematisierten Darstellung kann man",
+      "auch mit realen Landkarten arbeiten und darin Routen zusammenstellen",
+      "lassen. Zudem können, als thematische Erweiterung solcher Darstellungen,",
+      "Streckenpläne von Bussen oder U- bzw. S-Bahnen hinzugenommen werden, die",
+      "nach einem ähnlichen Prinzip aufgebaut sind. Vor allem das systematische",
+      "Erfassen mehrerer bzw. aller Möglichkeiten lässt sich an solchen Beispielen",
+      "üben, um so einen Beitrag zum Aufbau der Kompetenz „Probleme mathematisch",
+      "lösen“ zu leisten (vgl. hierzu auch das allgemeine Kapitel zur Kompetenz",
+      "„Probleme mathematisch lösen“)."
+    ],
+    "quelle": "harzwanderung_Didaktische_Kommentierung.doc"
+  }
+}

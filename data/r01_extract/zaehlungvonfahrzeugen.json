@@ -1,0 +1,109 @@
+{
+  "item": "zaehlungvonfahrzeugen",
+  "sources": {
+    "Aufgabe": {
+      "file": "zaehlungvonfahrzeugen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "7d81a2a8f53dc7bf"
+    },
+    "Auswertung": {
+      "file": "zaehlungvonfahrzeugen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "9a814c96a73f2ca2"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zaehlungvonfahrzeugen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "c15205928fe77574"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zaehlungvonfahrzeugen/00_doc_image1.emf.png",
+      "tokens": "Eine Schülergruppe hat 500 Fahrzeuge beobachtet und gezählt. Ihre Ergebnisse haben die Schülerinnen und Schüler in folgender Tabelle dargestellt:FahrzeugartPKWLKWMotorräder/MofasAnzahl 30012060Bus und andere20",
+      "deterministic_text": "Eine Schülergruppe hat 500 Fahrzeuge beobachtet und gezählt. Ihre Ergebnisse haben die\nSchülerinnen und Schüler in folgender Tabelle dargestellt:\nFahrzeugart PKW LKW Motorräder/Mofas Bus und andere\nAnzahl 300 120 60 20",
+      "table": null,
+      "n_fragments": 19,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Zählung von Fahrzeugen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Zeichnung\n[pic]\nAnm.:\n• Zulässige Abweichung der Höhen der Säulen: (1 mm.\n• Die Säulen dürfen unterschiedlich breit sein.\n• Die Säulen dürfen durch Striche dargestellt werden."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten, z. B. wenn eine Säule zu ungenau\ngezeichnet wurde oder vollständig fehlt."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Zählung von Fahrzeugen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Zeichnung\n[pic]\nAnm.:\n• Zulässige Abweichung der Höhen der Säulen: (1 mm.\n• Die Säulen dürfen unterschiedlich breit sein.\n• Die Säulen dürfen durch Striche dargestellt werden."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten, z. B. wenn eine Säule zu ungenau\ngezeichnet wurde oder vollständig fehlt."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Die 20er-Einteilung der zweiten Achse wird missachtet. Demzufolge wird",
+      "beispielsweise die Säule für LKW 12 Kästchenlängen hoch eingezeichnet",
+      "[bzw. Motorräder/Mofas: 6 Kästchenlängen, Bus und andere: 2",
+      "Kästchenlängen] (K4).",
+      "Weiterarbeit und Förderung",
+      "Die den Schülerinnen und Schülern prinzipiell wohlvertraute Übertragung von",
+      "tabellarisch gegebenen Daten in ein Diagramm kann Schwierigkeiten bereiten,",
+      "wenn die Einteilung der zweiten Achse nicht beachtet wird. Um dieser",
+      "Schwierigkeit entgegenzuwirken, bietet sich die regelmäßige Variation von",
+      "Achseneinteilungen an. Des Weiteren können vor dem Eintragen der Säulen",
+      "Ableseübungen durchgeführt werden.",
+      "Man vergleiche hierzu auch die didaktischen Kommentare zu den Aufgaben",
+      "„Temperaturen in Frankfurt am Main“ und „Darstellung in Diagrammen“."
+    ],
+    "quelle": "zaehlungvonfahrzeugen_Didaktische_Kommentierung.doc"
+  }
+}

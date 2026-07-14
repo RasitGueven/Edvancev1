@@ -1,0 +1,17 @@
+{
+  "item": "20prozent",
+  "gelesen_aus": ["data/r01_render/20prozent/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Berechne 20 % von 80 m.",
+      "unit": "m",
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

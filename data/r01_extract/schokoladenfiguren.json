@@ -1,0 +1,136 @@
+{
+  "item": "schokoladenfiguren",
+  "sources": {
+    "Aufgabe": {
+      "file": "schokoladenfiguren_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "40241658d5eb9a4c"
+    },
+    "Auswertung": {
+      "file": "schokoladenfiguren_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "b97dd8abf23cdc68"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schokoladenfiguren_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "e530225660ffddfc"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schokoladenfiguren/00_doc_image1.emf.png",
+      "tokens": "In der Zeitung war über die Produktion von Schokoladenfiguren zu lesen:Das Kreisdiagramm zeigt die Anteile der Weihnachtsmänner und Osterhasen an der Produktion dieser Schokoladenfiguren.57%43%43%57%Osterhasen davon 10% dunkle Schokolade 90% Milchschokolade Weihnachtsmänner„Der Osterhase liegt deutlich vor dem Weihnachtsmann: Schätzungsweise 100 Millionen Hasen wurden im Jahr 2008 zum Osterfest produziert.“",
+      "deterministic_text": "In der Zeitung war über die Produktion von Schokoladenfiguren zu lesen:\n„Der Osterhase liegt deutlich vor dem Weihnachtsmann:\nSchätzungsweise 100 Millionen Hasen wurden im Jahr 2008 zum Osterfest produziert.“\nDas Kreisdiagramm zeigt die Anteile der Weihnachtsmänner und Osterhasen an der\nProduktion dieser Schokoladenfiguren.\nWeihnachtsmänner\n57%\n% Osterhasen\n3\n4 %\n7 davon\n5\n10% dunkle Schokolade\n43%\n90% Milchschokolade",
+      "table": null,
+      "n_fragments": 33,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Schokoladenfiguren",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "10 000 000 ODER 10 Millionen"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Schokoladenfiguren"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "10 000 000 ODER 10 Millionen"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "IV",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "II",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Im Aufgabentext wird überlesen, dass die Anzahl der Osterhasen und nicht",
+      "die Gesamtzahl aller Schokoladenfiguren gegeben ist. Dies führt zur",
+      "Fehllösung 5.700.000 (K6).",
+      "Die Begriffe Anzahl und Anteil werden verwechselt, so dass sich z. B. die",
+      "Fehllösung 90 Millionen ergibt (K6).",
+      "▪ 1. Antwortalternative wurde angekreuzt: Die Anzahl der im Aufgabentext",
+      "genannten Hasen wird mit der gesuchten Gesamtzahl der Schokoladenfiguren",
+      "verwechselt. Möglicherweise wird der Begriff „insgesamt“ missachtet (K6).",
+      "▪ 2. Antwortalternative wurde angekreuzt: Es wird unkritisch angenommen,",
+      "dass die Anzahl der Schokoladenfiguren „etwas höher“ sein muss (K6).",
+      "▪ 3. Antwortalternative wurde angekreuzt: Die Anzahl der Weihnachtsmänner",
+      "wird mit ca. 75 Millionen richtig errechnet, anschließend jedoch",
+      "unkritisch verdoppelt. Dabei wird nicht berücksichtigt, dass die Anteile",
+      "beider Schokoladenfiguren an der Produktion nicht gleich sind (K2).",
+      "▪ 5. Antwortalternative wurde angekreuzt: Es wird fälschlich angenommen,",
+      "dass sich die Produktion der Schokoladenfiguren je zur Hälfte auf die",
+      "Osterhasen und die Weihnachtsmänner aufteilt. Folglich wird die gegebene",
+      "Anzahl der Osterhasen einfach verdoppelt (K6 und K2)."
+    ],
+    "quelle": "schokoladenfiguren_Didaktische_Kommentierung.doc"
+  }
+}

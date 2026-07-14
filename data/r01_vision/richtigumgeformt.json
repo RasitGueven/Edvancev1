@@ -1,0 +1,27 @@
+{
+  "item": "richtigumgeformt",
+  "gelesen_aus": [
+    "data/r01_render/richtigumgeformt/00_image1.emf.png",
+    "data/r01_render/richtigumgeformt/01_image2.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Wandle den Term 2x + 4a in ein Produkt der Form ……… · ( ……… ) um.",
+      "unit": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Multipliziere den Term 4k · (2k − m) aus.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "In Teilaufgabe 1 stehen die beiden Punktlinien mitten im Satz ('Produkt der Form ___ · ( ___ ) um.'); sie sind Eingabefelder, ich habe die Satzstruktur mit Auslassungspunkten erhalten.",
+    "Das Zeichen zwischen 2k und m in Teilaufgabe 2 lese ich als Minuszeichen (−); ob im Quelltext Bindestrich oder Minus steht, ist aus dem Bild nicht entscheidbar."
+  ]
+}

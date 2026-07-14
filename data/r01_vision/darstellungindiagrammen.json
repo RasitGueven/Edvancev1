@@ -1,0 +1,20 @@
+{
+  "item": "darstellungindiagrammen",
+  "gelesen_aus": ["data/r01_render/darstellungindiagrammen/00_doc_image1.emf.png"],
+  "stem": "Die Firma Fruktia stellt die Umsätze ihres neuen Zitronengetränks in einem Diagramm dar.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "In welchem Jahr sind 65 Millionen Flaschen verkauft worden? Vervollständige den Satz: Im Jahr ________ sind 65 Millionen Flaschen verkauft worden.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das Balkendiagramm ('Zitronengetränk-Umsatz', y-Achse 'Anzahl verkaufter Flaschen (in Mio.)' 0–100, x-Achse Jahre 2007–2010) ist Abbildung, nicht Stammtext — ich habe die Achsenbeschriftungen nicht in den Stamm übernommen.",
+    "Die Lückenzeile 'Im Jahr ____ sind 65 Millionen Flaschen verkauft worden.' ist zugleich Eingabefeld; ich habe sie im Prompt gelassen, weil sie die Antwortform vorgibt."
+  ]
+}

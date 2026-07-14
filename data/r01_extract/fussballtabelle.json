@@ -1,0 +1,213 @@
+{
+  "item": "fussballtabelle",
+  "sources": {
+    "Aufgabe": {
+      "file": "fussballtabelle_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "22d2b03ab43626d4"
+    },
+    "Auswertung": {
+      "file": "fussballtabelle_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "1ac134591f00d7c3"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fussballtabelle_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "b535c057ed690c2b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fussballtabelle/00_image1.emf.png",
+      "tokens": "Bei Fußball-Meisterschaftsspielen gilt:Für einen Sieg erhält eine Mannschaft drei Punkte, für ein Unentschieden einen Punkt, für Niederlagen gibt es keinen Punkt.Die Punkte aller Spiele einer Mannschaft werden addiert.P12345678910111213VereinBorussia MʼGladbachVfL WolfsburgBayern MünchenBayer 04 LeverkusenBorussia DortmundWerder BremenFSV Mainz 05FC Augsburg1. FC KölnSchalke 04Eintracht FrankfurtSC FreiburgVfB StuttgartSp17171717171717171717171717S12101110976645555U3513454496554N2254457746778TD28 : 1039 : 2139 : 1434 : 1729 : 1624 : 2626 : 2421 : 2117 : 1714 : 1922 : 2819 : 2222 : 28P39353433312622222121201919",
+      "deterministic_text": "P Verein Sp S U N TD P\nBei Fußball-Meisterschaftsspielen gilt: 1Borussia MʼGladbach 17 12 3 2 28 : 10 39\n2VfL Wolfsburg 17 10 5 2 39 : 21 35\nFür einen Sieg erhält eine Mannschaft drei 3Bayern München 17 11 1 5 39 : 14 34\nPunkte, für ein Unentschieden einen Punkt, 4Bayer 04 Leverkusen 17 10 3 4 34 : 17 33\nfür Niederlagen gibt es keinen Punkt. 5Borussia Dortmund 17 9 4 4 29 : 16 31\n6Werder Bremen 17 7 5 5 24 : 26 26\nDie Punkte aller Spiele einer Mannschaft 7FSV Mainz 05 17 6 4 7 26 : 24 22\n8FC Augsburg 17 6 4 7 21 : 21 22\nwerden addiert. 91. FC Köln 17 4 9 4 17 : 17 21\n10Schalke 04 17 5 6 6 14 : 19 21\n11Eintracht Frankfurt17 5 5 7 22 : 28 20\n12SC Freiburg 17 5 5 7 19 : 22 19\n13VfB Stuttgart 17 5 4 8 22 : 28 19",
+      "table": null,
+      "n_fragments": 160,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fussballtabelle/01_image2.emf.png",
+      "tokens": "Die Saison hat gerade begonnen. Eine Mannschaft hat bisher zweimal gespielt. Wie viele Punkte kann diese Mannschaft haben? Gib alle Möglichkeiten an.",
+      "deterministic_text": "Die Saison hat gerade begonnen. Eine Mannschaft hat bisher zweimal gespielt.\nWie viele Punkte kann diese Mannschaft haben?\nGib alle Möglichkeiten an.",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fussballtabelle/02_image3.emf.png",
+      "tokens": "Begründe, warum eine Mannschaft nach drei Spielen nicht acht Punkte haben kann.",
+      "deterministic_text": "Begründe, warum eine Mannschaft nach drei Spielen nicht acht Punkte haben kann.",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fussballtabelle/03_image4.emf.png",
+      "tokens": "Nach 14 Spielen hat eine Mannschaft 26 Punkte. Wie viele Spiele könnte diese Mannschaft gewonnen haben?Nenne alle Möglichkeiten. ",
+      "deterministic_text": "Nach 14 Spielen hat eine Mannschaft 26 Punkte.\nWie viele Spiele könnte diese Mannschaft gewonnen haben?\nNenne alle Möglichkeiten.",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fussballtabelle/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Fußballtabelle",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:",
+      "Teilaufgabe 3:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe aller Möglichkeiten: 0, 1, 2, 3, 4, 6 Punkte\n\n[Anm.: Die Antwort wird auch als richtig gewertet, wenn die Zahlen  0, 1, 2, 3, 4, 6 ohne \"Punkte\" genannt werden.]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Begründung, mit der gezeigt wird, dass nach drei Spielen nicht die Summe von 8 Punkten entstehen kann, wenn eine Mannschaft pro Spiel jeweils 0, 1 oder 3 Punkte erhält.\n\nBeispiel(e)\nMit drei Siegen hätte sie bereits mehr als 8 Punkte erhalten. Die Mannschaft müsste also zwei Spiele gewonnen haben. Dann bleiben für das dritte Spiel noch 2 Punkte übrig. Diese können in einem Spiel jedoch nicht erreicht werden. \nBei zwei gewonnenen Spielen erhält die Mannschaft 6 Punkte. Für die zwei noch fehlenden Punkte benötigt die Mannschaft noch mindestens zwei weitere Spiele, die unentschieden ausgehen müssten. Das sind aber vier statt drei Spiele. Bei einem weiteren Sieg hätte die Mannschaft bereits neun Punkte erreicht."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe aller Möglichkeiten: 6, 7, 8 Spiele\n\n[Anm.: Die Antwort wird auch als richtig gewertet, wenn die Zahlen 6, 7, 8 ohne \"Spiele\" genannt werden.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Fußballtabelle"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe aller Möglichkeiten: 0, 1, 2, 3, 4, 6 Punkte\n\n[Anm.: Die Antwort wird auch als richtig gewertet, wenn die Zahlen  0, 1, 2, 3, 4, 6 ohne \"Punkte\" genannt werden.]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Begründung, mit der gezeigt wird, dass nach drei Spielen nicht die Summe von 8 Punkten entstehen kann, wenn eine Mannschaft pro Spiel jeweils 0, 1 oder 3 Punkte erhält.\n\nBeispiel(e)\nMit drei Siegen hätte sie bereits mehr als 8 Punkte erhalten. Die Mannschaft müsste also zwei Spiele gewonnen haben. Dann bleiben für das dritte Spiel noch 2 Punkte übrig. Diese können in einem Spiel jedoch nicht erreicht werden. \nBei zwei gewonnenen Spielen erhält die Mannschaft 6 Punkte. Für die zwei noch fehlenden Punkte benötigt die Mannschaft noch mindestens zwei weitere Spiele, die unentschieden ausgehen müssten. Das sind aber vier statt drei Spiele. Bei einem weiteren Sieg hätte die Mannschaft bereits neun Punkte erreicht."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe aller Möglichkeiten: 6, 7, 8 Spiele\n\n[Anm.: Die Antwort wird auch als richtig gewertet, wenn die Zahlen 6, 7, 8 ohne \"Spiele\" genannt werden.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMathematisch modellieren (K3)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisch argumentieren (K1)\nProbleme mathematisch lösen (K2)\nMathematisch modellieren (K3)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K2",
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMathematisch modellieren (K3)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "fussballtabelle_Didaktische_Kommentierung.docx"
+  }
+}

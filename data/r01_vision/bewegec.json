@@ -1,0 +1,11 @@
+{
+  "item": "bewegec",
+  "gelesen_aus": ["data/r01_render/bewegec/00_doc_image1.emf.png"],
+  "stem": "Mit einer Geometrie-Software wurde Folgendes konstruiert:\neine Strecke AB, dazu die Mittelsenkrechte m und ein Punkt C auf m. C wird mit A und B verbunden, um das Dreieck ABC zu erhalten.\nDer Punkt C wird auf der Mittelsenkrechten m nach unten bewegt. In der Zeichnung siehst du zwei Beispiele mit verschiedenen Positionen von C:",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Im Bild sind keine Teilaufgaben-Prompts sichtbar — es endet nach den zwei Dreiecks-Zeichnungen (links Winkel 35° bei C, rechts 45° bei C, jeweils mit A, M, B und Mittelsenkrechter m). Die Auswertung kennt 2 Teilaufgaben; deren Fragetexte stehen nicht in diesem EMF.",
+    "AB ist im Bild mit Überstrich gesetzt (Streckenzeichen); im Stamm als 'AB' ohne Überstrich übernommen."
+  ]
+}

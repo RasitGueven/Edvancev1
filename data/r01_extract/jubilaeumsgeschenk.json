@@ -1,0 +1,173 @@
+{
+  "item": "jubilaeumsgeschenk",
+  "sources": {
+    "Aufgabe": {
+      "file": "jubilaeumsgeschenk_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "c00770f10c9944a7"
+    },
+    "Auswertung": {
+      "file": "jubilaeumsgeschenk_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "2d12f28f0f8069c5"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "jubilaeumsgeschenk_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "14d219ab3e624076"
+    }
+  },
+  "flags": [
+    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/jubilaeumsgeschenk/00_image1.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/jubilaeumsgeschenk/01_image2.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/jubilaeumsgeschenk/02_image3.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/jubilaeumsgeschenk/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Jubiläumsgeschenk",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[Anm.: Auch die (teilweise) Angabe von Einheiten in der Gleichung ist zulässig.]\n\nGrenzfall"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND \n\nBegründung, in welcher daraufhin hingewiesen wird, dass sich der Preis für die Rosen zwar verdoppelt, der Preis für die Karte jedoch nicht und sich deshalb auch die Summe nicht verdoppelt.\n[Anm.: Die Argumentation kann auch beispielgebunden erfolgen. D. h. anhand eines Beispiels kann gezeigt werden, dass die Behauptung nicht stimmt.]\n\nBeispiel(e)\nDer Preis für die Rosen ohne Karte verdoppelt sich, aber der Preis für die Karte bleibt gleich. Deshalb verdoppelt sich der Gesamtpreis nicht.\nWenn eine Rose 3 € und die Karte 2 €  kostet, dann kostet ein Strauß aus 10 Rosen mit Karte 32 €. Ein Strauß aus 20 Rosen mit Karte kostet 62 €. Das ist keine Verdoppelung des Gesamtpreises.\n\nGrenzfall\nNein, der Preis verdoppelt sich nicht, da man auch die Karte berücksichtigen muss.\n[Anm.: Zwar wird nicht direkt darauf verwiesen, dass sich der Preis der Karte nicht verdoppelt, doch ist dies laut Aufgabentext auch nicht der Fall. Die Karte scheint als ausschlaggebend erkannt worden zu sein.]"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nNein, der Preis verdoppelt sich nicht. Man bekommt sicher Mengenrabatt."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Jubiläumsgeschenk"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[Anm.: Auch die (teilweise) Angabe von Einheiten in der Gleichung ist zulässig.]\n\nGrenzfall"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND \n\nBegründung, in welcher daraufhin hingewiesen wird, dass sich der Preis für die Rosen zwar verdoppelt, der Preis für die Karte jedoch nicht und sich deshalb auch die Summe nicht verdoppelt.\n[Anm.: Die Argumentation kann auch beispielgebunden erfolgen. D. h. anhand eines Beispiels kann gezeigt werden, dass die Behauptung nicht stimmt.]\n\nBeispiel(e)\nDer Preis für die Rosen ohne Karte verdoppelt sich, aber der Preis für die Karte bleibt gleich. Deshalb verdoppelt sich der Gesamtpreis nicht.\nWenn eine Rose 3 € und die Karte 2 €  kostet, dann kostet ein Strauß aus 10 Rosen mit Karte 32 €. Ein Strauß aus 20 Rosen mit Karte kostet 62 €. Das ist keine Verdoppelung des Gesamtpreises.\n\nGrenzfall\nNein, der Preis verdoppelt sich nicht, da man auch die Karte berücksichtigen muss.\n[Anm.: Zwar wird nicht direkt darauf verwiesen, dass sich der Preis der Karte nicht verdoppelt, doch ist dies laut Aufgabentext auch nicht der Fall. Die Karte scheint als ausschlaggebend erkannt worden zu sein.]"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nNein, der Preis verdoppelt sich nicht. Man bekommt sicher Mengenrabatt."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1)\nProbleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K1",
+          "K2"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "jubilaeumsgeschenk_Didaktische_Kommentierung.docx"
+  }
+}

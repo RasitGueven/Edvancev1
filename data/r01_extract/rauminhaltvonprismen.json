@@ -1,0 +1,103 @@
+{
+  "item": "rauminhaltvonprismen",
+  "sources": {
+    "Aufgabe": {
+      "file": "rauminhaltvonprismen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "db218af989589123"
+    },
+    "Auswertung": {
+      "file": "rauminhaltvonprismen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "b1f998169a4aee64"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rauminhaltvonprismen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "af00a2beee2f049c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rauminhaltvonprismen/00_image1.emf.png",
+      "tokens": "16cma = 10cmaG = 100cm216cmKörper AKörper BDie Rauminhalte der zwei Körper A und B sollen verglichen werden, ohne die beiden Rauminhalte jedoch konkret auszurechnen. Die Grundfläche von Körper A ist ein Quadrat mit 10cm Kantenlänge, die Grundfläche G von Körper B ist ein Sechseck mit 100cm2Flächeninhalt.Welche der folgenden Aussagen ist richtig? Der Rauminhalt von Körper A ist größer als der Rauminhalt von Körper B.Der Rauminhalt von Körper A ist gleich dem Rauminhalt von Körper B.Der Rauminhalt von Körper A ist kleiner als der Rauminhalt von Körper B.Man kann die Rauminhalte der zwei Körper nur vergleichen, indem man sie konkret ausrechnet.Grafik: © IQB",
+      "deterministic_text": "Körper A Körper B\nmc mc\n61 61\na\na = 10cm G = 100cm²\nGrafik: © IQB\nDie Rauminhalte der zwei Körper A und B sollen verglichen werden, ohne die beiden\nRauminhalte jedoch konkret auszurechnen. Die Grundfläche von Körper A ist ein\nQuadrat mit 10cm Kantenlänge, die Grundfläche G von Körper B ist ein Sechseck mit\n100cm²Flächeninhalt.\nWelche der folgenden Aussagen ist richtig?\nDer Rauminhalt von Körper A ist größer als der Rauminhalt von Körper B.\nDer Rauminhalt von Körper A ist gleich dem Rauminhalt von Körper B.\nDer Rauminhalt von Körper A ist kleiner als der Rauminhalt von Körper B.\nMan kann die Rauminhalte der zwei Körper nur vergleichen, indem man sie\nkonkret ausrechnet.",
+      "table": null,
+      "n_fragments": 73,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rauminhaltvonprismen/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Rauminhalt von Prismen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Rauminhalt von Prismen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4), \nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Die identischen Grundflächen bzw. Höhen der Körper werden nicht erkannt bzw. die formale Berechnung des Rauminhalts über die Multiplikation der Grundfläche mit der Höhe ist nicht präsent. Somit wird geschlussfolgert, dass ein Vergleich der Rauminhalte ohne konkrete Berechnung nicht möglich ist:",
+      "Die Schülerinnen und Schüler orientieren sich am optischen Anschein, einer der Körper sei größer (dies gilt zumeist für Körper A):"
+    ],
+    "quelle": "rauminhaltvonprismen_Didaktische_Kommentierung.docx"
+  }
+}

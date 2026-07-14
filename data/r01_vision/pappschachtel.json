@@ -1,0 +1,43 @@
+{
+  "item": "pappschachtel",
+  "gelesen_aus": [
+    "data/r01_render/pappschachtel/00_image1.png",
+    "data/r01_render/pappschachtel/01_image2.png",
+    "data/r01_render/pappschachtel/02_image3.png",
+    "data/r01_render/pappschachtel/03_image4.png"
+  ],
+  "stem": "Eine Schachtel (siehe Abbildung 1) ist innen 2,5 cm hoch und je 8 cm breit und 8 cm lang.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist das Volumen der Schachtel? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "18,5 cm³"},
+        {"id": "b", "label": "66,5 cm³"},
+        {"id": "c", "label": "160 cm³"},
+        {"id": "d", "label": "512 cm³"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Man kann eine solche Schachtel aus einer quadratischen Pappe mit der Seitenlänge 13 cm falten. Hierzu muss an jeder der vier Ecken ein Quadrat mit der Seitenlänge x ausgeschnitten werden (siehe Abbildung 2). Dann müssen die Ränder an den gestrichelten Linien nach oben gefaltet und zusammengeklebt werden. Wie groß muss die Seitenlänge x sein, damit man die Schachtel aus Abbildung 1 erhält? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "x = 2,5 cm"},
+        {"id": "b", "label": "x = 5 cm"},
+        {"id": "c", "label": "x = 8 cm"},
+        {"id": "d", "label": "x = 10,5 cm"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Rasterbilder (nur_raster): Text war durchgehend scharf lesbar; die Hochstellung bei cm³ ist im Bild als hochgestellte 3 gesetzt, ich schreibe cm³.",
+    "'Abbildung 1', 'Abbildung 2 (nicht maßstabsgerecht)' sowie die Maßangaben '13 cm' und 'x' in der Skizze sind Abbildungsbeschriftungen, nicht Stamm."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "item": "anzahlvonnullen",
+  "gelesen_aus": [
+    "data/r01_render/anzahlvonnullen/00_image1.emf.png",
+    "data/r01_render/anzahlvonnullen/01_image2.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie viele Nullen hat eine Milliarde, wenn man diese Zahl mit Ziffern schreibt? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "6"},
+        {"id": "b", "label": "7"},
+        {"id": "c", "label": "9"},
+        {"id": "d", "label": "10"},
+        {"id": "e", "label": "12"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ergänze den fehlenden Wert.\n1000 · ______ = 1 Milliarde",
+      "unit": null
+    }
+  ],
+  "unsicher": []
+}

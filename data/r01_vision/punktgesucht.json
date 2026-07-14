@@ -1,0 +1,21 @@
+{
+  "item": "punktgesucht",
+  "gelesen_aus": ["data/r01_render/punktgesucht/00_doc_image1.emf.png"],
+  "stem": "Gegeben sind die Punkte A, B und D in dem abgebildeten Koordinatensystem.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Gesucht ist ein Punkt P, der\n- von den Punkten A und B den gleichen Abstand hat und\n- von dem Punkt D den Abstand d von 5 Längeneinheiten hat.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Widerspruch zur Auswertung (n=2): Im gerenderten Bild ist nur EINE Aufgabenstellung sichtbar (die Beschreibung von Punkt P). Die eigentlichen Arbeitsanweisungen (z. B. 'Zeichne P ein' / 'Gib die Koordinaten von P an') sind im Bild nicht zu sehen — vermutlich stehen sie ausserhalb dieser Grafik. Ich habe nichts ergänzt.",
+    "Die Punktlagen im Koordinatensystem lese ich als A(1|4), B(5|4) und D(6|7); die Ablesung von D ist unsicher (Marker steht zwischen den Gitterlinien).",
+    "Queue meldet hat_tabelle_im_emf=true; im Bild ist nur das Koordinatengitter, keine Tabelle."
+  ]
+}

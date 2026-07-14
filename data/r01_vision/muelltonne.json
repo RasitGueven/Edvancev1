@@ -1,0 +1,18 @@
+{
+  "item": "muelltonne",
+  "gelesen_aus": ["data/r01_render/muelltonne/00_image1.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Ermittle, welches Volumen diese Mülltonne etwa hat.\nDiese Mülltonne hat etwa ein Volumen von ______.\nNotiere deinen Lösungsweg.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Rasterbild (nur_raster): Text ist gut lesbar, aber es gibt keinen Zeichenvorrat zur Gegenprüfung.",
+    "Das Foto (Person neben Mülltonne an einer Wand) trägt keine Maßangaben; die Einheit des Eingabefelds ist nicht vorgegeben, daher unit = null."
+  ]
+}

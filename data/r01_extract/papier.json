@@ -1,0 +1,104 @@
+{
+  "item": "papier",
+  "sources": {
+    "Aufgabe": {
+      "file": "papier_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "8ad5ac57e827ce84"
+    },
+    "Auswertung": {
+      "file": "papier_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "343367d9d48cbad6"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "papier_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "a29d08a488071515"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/papier/00_image1.emf.png",
+      "tokens": "500 Blatt einer Papiersorte sind 55mm hoch.Gib an, wie hoch 200 Blatt dieser Papiersorte sind.      mm",
+      "deterministic_text": "500 Blatt einer Papiersorte sind 55mm hoch.\nGib an, wie hoch 200 Blatt dieser Papiersorte sind.\nmm",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/papier/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Papier"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "22 (ODER ca. 22)\n\n[Anm.: Angaben in anderen Maßeinheiten mit passender Maßzahl werden auch als richtig gewertet.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Papier"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "22 (ODER ca. 22)\n\n[Anm.: Angaben in anderen Maßeinheiten mit passender Maßzahl werden auch als richtig gewertet.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Der Proportionalansatz (hier: Dreisatz) wird zwar erkannt, jedoch gelingt anschließend dessen rechnerische Ausführung nicht (K5), wie die Schülerlösung zeigt. Auch Einheiten werden dabei ohne erkennbaren Bezug zum Kontext gebraucht. Weitere Fehllösungen, denen diese Schwierigkeit zugrunde liegt, sind z. B. 1818 mm sowie 18,18 mm:",
+      "Der Aufgabentext wird nur oberflächlich gelesen und es wird mit 50 mm statt mit 55 mm gerechnet, was zur Fehllösung 20 mm führt.",
+      "Der rechnerische Proportionalansatz wird nur in Teilen ausgerechnet (K5). Dies führt insbesondere zur Fehllösung 11000 mm, aber auch „ähnliche“ Ergebnisse, wie z. B. 1100 mm, sind dann möglich. Ein kritischer Rückbezug der errechneten Ergebnisse auf die Sachsituation ist nicht erkennbar (K3)."
+    ],
+    "quelle": "papier_Didaktische_Kommentierung.docx"
+  }
+}

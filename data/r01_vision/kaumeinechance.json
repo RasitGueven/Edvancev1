@@ -1,0 +1,34 @@
+{
+  "item": "kaumeinechance",
+  "gelesen_aus": [
+    "data/r01_render/kaumeinechance/00_image1.emf.png",
+    "data/r01_render/kaumeinechance/01_image2.emf.png",
+    "data/r01_render/kaumeinechance/02_image3.emf.png"
+  ],
+  "stem": "Enrico, Pauline und Tobias spielen ein Brettspiel, bei dem ein Spieler erst dann weitergehen darf, wenn er mit einem normalen Spielwürfel eine Sechs geworfen hat.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib die Wahrscheinlichkeit an, mit der Enrico bei seinem ersten Wurf eine Sechs wirft:",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Enrico prahlt, er habe ein System gefunden, mit dem beim Würfeln das Ergebnis des nächsten Wurfs vorhergesagt werden kann. Pauline widerspricht und sagt: „Das kann nicht sein. Es gibt kein System, mit dem man das Ergebnis des nächsten Wurfs vorhersagen kann.“ Wie kann Pauline argumentieren? Kreuze die richtige Aussage an. Das Ergebnis des nächsten Wurfs beim Würfeln lässt sich nicht ermitteln, weil …",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "… das Rechenverfahren dafür viel zu kompliziert ist."},
+        {"id": "b", "label": "… man nicht weiß, was vorher gewürfelt wurde."},
+        {"id": "c", "label": "… die Wahrscheinlichkeit für jedes Ergebnis bei jedem Wurf gleich groß ist."},
+        {"id": "d", "label": "… man nicht weiß, wie oft vorher schon gewürfelt wurde."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": []
+}

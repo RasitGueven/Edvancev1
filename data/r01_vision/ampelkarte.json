@@ -1,0 +1,35 @@
+{
+  "item": "ampelkarte",
+  "gelesen_aus": [
+    "data/r01_render/ampelkarte/00_image1.emf.png",
+    "data/r01_render/ampelkarte/01_image2.emf.png",
+    "data/r01_render/ampelkarte/02_image3.emf.png"
+  ],
+  "stem": "Lebensmittel enthalten unter anderem Fett, gesättigte Fettsäuren, Zucker und Salz zu unterschiedlich hohen Anteilen. Die drei Farben der sogenannten Ampelkarte sollen helfen, die Höhe der jeweiligen Anteile einzustufen.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Der folgenden Tabelle ist zu entnehmen, wann ein Anteil als gering, mittel oder hoch einzustufen ist. Alle Angaben beziehen sich auf 100 g des Lebensmittels. Sandra findet auf einer Dose Nüsse folgende Angaben (pro 100 g): Fett 50,8 g; davon gesättigte Fettsäuren 14 g; Zucker 5,8 g; Salz 0,13 g. Gib an, wie die Ampelkarte für die einzelnen Bestandteile dieser Nüsse gefärbt werden müsste. (Fett, gesättigte Fettsäure, Zucker, Salz)",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Für Getränke gelten sogar nur halbe Werte im Vergleich zur Tabelle in Teilaufgabe 1. Alle Angaben beziehen sich auf 100 ml des Getränks. Prüfe, ob der Zuckeranteil der folgenden Getränke hoch ist. Kreuze jeweils an. (Orangensaft: 100 ml enthalten 9,3 g Zucker; Apfelschorle: 200 ml enthalten 10,6 g Zucker; Cola: ein Glas (250 ml) enthält 27 g Zucker)",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "ja"},
+        {"id": "b", "label": "nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts (Spaltenköpfe der Ankreuztabelle)"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 1 enthält vier Eingabefelder ('Farbe: ____' für Fett, gesättigte Fettsäure, Zucker, Salz) — als ein short_input-Part mit vier Feldern modelliert.",
+    "Teilaufgabe 2 ist eine Ankreuz-Matrix: drei Zeilen (Orangensaft, Apfelschorle, Cola) mal zwei Spalten (ja/nein). Die Optionen a=ja, b=nein gelten je Zeile, nicht als einmalige Auswahl."
+  ]
+}

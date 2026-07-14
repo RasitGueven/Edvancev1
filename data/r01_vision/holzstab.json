@@ -1,0 +1,19 @@
+{
+  "item": "holzstab",
+  "gelesen_aus": ["data/r01_render/holzstab/00_doc_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ein 3 m langer Holzstab wird in zwei gleich lange Teile zersägt. Gib an, wie lang jedes Teil ist.",
+      "unit": "m",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Auswertung kennt 2 Teilaufgaben; im gerenderten Bild ist nur eine Teilaufgabe sichtbar (3-m-Stab in zwei Teile, Antwortfeld mit Einheit 'm'). Eine zweite Teilaufgabe ist im Bild nicht vorhanden — der Render wirkt unten abgeschnitten. Ich folge dem Bild und ergänze nichts."
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "item": "nashorn",
+  "sources": {
+    "Aufgabe": {
+      "file": "nashorn_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "880febf358bc758c"
+    },
+    "Auswertung": {
+      "file": "nashorn_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "29230c95a35cff45"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "nashorn_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "43dad2b9a5f34c0f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nashorn/00_image1.emf.png",
+      "tokens": "Dieses Foto wurde kurz nach der Geburt eines Nashornbabys im Budapester Zoo aufgenommen.Grafik: Bela Szandelszky, © AP / © dpa Picture-Alliance GmbH",
+      "deterministic_text": "Dieses Foto wurde kurz nach der Geburt eines Nashornbabys im Budapester Zoo\naufgenommen.\nGrafik: Bela Szandelszky, © AP / © dpa Picture-Alliance GmbH",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nashorn/01_image2.emf.png",
+      "tokens": "Das Nashornbaby hatte zu diesem Zeitpunkt eine Schulterhöhe von 60cm (im Bild als Doppelpfeil eingezeichnet). Welche Länge hatte das Nashornbaby zu diesem Zeitpunkt (von der Nase bis zum Hinterteil)?Länge: Notiere deinen Lösungsweg.",
+      "deterministic_text": "Das Nashornbaby hatte zu diesem Zeitpunkt eine Schulterhöhe von 60cm (im Bild als\nDoppelpfeil eingezeichnet).\nWelche Länge hatte das Nashornbaby zu diesem Zeitpunkt (von der Nase bis zum\nHinterteil)?\nLänge:\nNotiere deinen Lösungsweg.",
+      "table": null,
+      "n_fragments": 17,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nashorn/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Nashorn"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "eine Länge aus dem Intervall [75 cm; 110 cm]\n\nUND\n\nLösungsweg, bei dem aus dem Verhältnis von Schulterhöhe zu horizontalen Längen von der gegebenen Schulterhöhe von 60 cm auf die Gesamtlänge des Nashorn-Babys geschlossen wird.\n\nBeispiel(e)\nDas Verhältnis von Schulterhöhe zur Länge des Nashorn-Babys ist auf dem Foto etwa 2 zu 3. Bei einer Schulterhöhe von 60 cm muss das Nashorn-Baby dann etwa 90 cm lang sein.\nDer Rumpf des Nashorn-Babys ist etwa 60 cm lang. Für den Hals und den Kopf müssen ungefähr noch einmal 20 cm (ein Drittel von 60 cm) dazugerechnet werden. Das Nashorn-Baby ist somit ungefähr 80 cm lang.\nDer Pfeil auf dem Foto ist ungefähr so lang wie zwei meiner Finger breit sind. Die Länge des Babys auf dem Foto entspricht etwa drei Fingerbreiten. Also ist das Baby etwa 90 cm lang. \nGegenüberstellung: \n     \nDas Nashornbaby ist etwa 84 cm lang.\nVom Po bis zum Hals sind es 60 cm. Somit ist der Kopf 30 cm lang, also das gesamte Nashorn 90 cm.\n\n[Anm.: Wird die Länge der Pfeile nicht von Spitze zu Spitze, sondern nur die Strecke zwischen den Enden gemessen, ergibt sich eine Länge von ca. 1,7 cm. Wird mit diesem Messfehler folgerichtig weitergerechnet, so kann die Aufgabe als richtig bewertet werden.]"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nDas Nashorn-Baby ist etwa 90 cm lang.\nDas Nashorn-Baby ist etwa 90 cm lang, da anhand des Fotos zu erkennen ist, dass die Schulterhöhe kleiner ist als die Körperlänge des Babys.\n60 cm abmessen und das Nashorn abmessen."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Nashorn"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "eine Länge aus dem Intervall [75 cm; 110 cm]\n\nUND\n\nLösungsweg, bei dem aus dem Verhältnis von Schulterhöhe zu horizontalen Längen von der gegebenen Schulterhöhe von 60 cm auf die Gesamtlänge des Nashorn-Babys geschlossen wird.\n\nBeispiel(e)\nDas Verhältnis von Schulterhöhe zur Länge des Nashorn-Babys ist auf dem Foto etwa 2 zu 3. Bei einer Schulterhöhe von 60 cm muss das Nashorn-Baby dann etwa 90 cm lang sein.\nDer Rumpf des Nashorn-Babys ist etwa 60 cm lang. Für den Hals und den Kopf müssen ungefähr noch einmal 20 cm (ein Drittel von 60 cm) dazugerechnet werden. Das Nashorn-Baby ist somit ungefähr 80 cm lang.\nDer Pfeil auf dem Foto ist ungefähr so lang wie zwei meiner Finger breit sind. Die Länge des Babys auf dem Foto entspricht etwa drei Fingerbreiten. Also ist das Baby etwa 90 cm lang. \nGegenüberstellung: \n     \nDas Nashornbaby ist etwa 84 cm lang.\nVom Po bis zum Hals sind es 60 cm. Somit ist der Kopf 30 cm lang, also das gesamte Nashorn 90 cm.\n\n[Anm.: Wird die Länge der Pfeile nicht von Spitze zu Spitze, sondern nur die Strecke zwischen den Enden gemessen, ergibt sich eine Länge von ca. 1,7 cm. Wird mit diesem Messfehler folgerichtig weitergerechnet, so kann die Aufgabe als richtig bewertet werden.]"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nDas Nashorn-Baby ist etwa 90 cm lang.\nDas Nashorn-Baby ist etwa 90 cm lang, da anhand des Fotos zu erkennen ist, dass die Schulterhöhe kleiner ist als die Körperlänge des Babys.\n60 cm abmessen und das Nashorn abmessen."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "nashorn_Didaktische_Kommentierung.docx"
+  }
+}

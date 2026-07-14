@@ -1,0 +1,139 @@
+{
+  "item": "pyramidenbau",
+  "sources": {
+    "Aufgabe": {
+      "file": "pyramidenbau_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "72d8151d265890f9"
+    },
+    "Auswertung": {
+      "file": "pyramidenbau_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "231fafc2737710c7"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "pyramidenbau_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "3fd603722f76019b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pyramidenbau/00_image1.emf.png",
+      "tokens": "In einem Magnetbaukasten befinden sich magnetische Stäbe und Kugeln. Mario baut damit Pyramiden und ihre Netze. Für jede Kante nimmt er einen Magnetstab. Abbildung 1 zeigt eine Pyramide mit dreieckiger Grundfläche. In Abbildung 2 wurde mit Stäben und Kugeln das Netz dieser Pyramide gelegt. ",
+      "deterministic_text": "In einem Magnetbaukasten befinden sich magnetische Stäbe und Kugeln. Mario baut\ndamit Pyramiden und ihre Netze. Für jede Kante nimmt er einen Magnetstab.\nAbbildung 1 zeigt eine Pyramide mit dreieckiger Grundfläche. In Abbildung 2 wurde mit\nStäben und Kugeln das Netz dieser Pyramide gelegt.",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pyramidenbau/01_image2.emf.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pyramidenbau/02_image3.emf.png",
+      "tokens": "Foto: © IQBAbbildung 1Abbildung 2Foto: © IQB",
+      "deterministic_text": "Foto: © IQB Foto: © IQB\nAbbildung 1 Abbildung 2",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pyramidenbau/03_image4.emf.png",
+      "tokens": "Das Netz aus Abbildung 2 soll zu der Pyramide aus Abbildung 1 „zusammengeklappt“ werden. Gib an, wie viele Stäbe und wie viele Kugeln dazu entfernt werden müssen.StäbeKugeln",
+      "deterministic_text": "Das Netz aus Abbildung 2 soll zu der Pyramide aus Abbildung 1 „zusammengeklappt“\nwerden.\nGib an, wie viele Stäbe und wie viele Kugeln dazu entfernt werden müssen.\nStäbe Kugeln",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/pyramidenbau/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Pyramidenbau"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3 Stäbe\n2 Kugeln"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Pyramidenbau"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3 Stäbe\n2 Kugeln"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Die Schülerinnen und Schüler berücksichtigen nicht, dass an der Spitze der Pyramide auch eine Kugel benötigt wird (Fehllösung: 3 Stäbe, 3 Kugeln).",
+      "Das Netz wird gedanklich nicht zu einer Pyramide zusammen gefaltet. Die Schülerinnen und Schüler zählen lediglich die Anzahl der vorhandenen Stäbe und Kugeln, wie die folgende Schülerlösung zeigt:",
+      "Die Schülerinnen und Schüler entscheiden sich für die richtige Anzahl an Kugeln (2 Kugeln). Allerdings erkennen sie nicht, dass sich an drei Seiten je zwei der Stäbe überlappen. Dies veranschaulicht die folgende Schülerlösung:"
+    ],
+    "quelle": "pyramidenbau_Didaktische_Kommentierung.docx"
+  }
+}

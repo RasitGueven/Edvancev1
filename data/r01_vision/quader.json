@@ -1,0 +1,12 @@
+{
+  "item": "quader",
+  "gelesen_aus": ["data/r01_render/quader/00_doc_image1.emf.png"],
+  "stem": "Die Abbildung zeigt einen Holzquader.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Im einzigen gerenderten Bild steht NUR der Stammsatz 'Die Abbildung zeigt einen Holzquader.' plus die Skizze (Maße 5 cm Breite, 4 cm Tiefe, 6 cm Höhe; Hinweis '(Abbildung nicht maßstabstreu)'). Die Prompts der Teilaufgaben sind im Bild nicht enthalten.",
+    "Widerspruch zur Auswertung: sie kennt 2 Teilaufgaben, im Bild ist keine einzige Teilaufgabe sichtbar. parts bleibt deshalb leer statt geraten.",
+    "Die Höhenangabe ist im Bild vertikal gesetzt und liest sich als '6 cm'; die Tiefenangabe schräg als '4 cm'."
+  ]
+}

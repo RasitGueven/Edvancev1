@@ -1,0 +1,145 @@
+{
+  "item": "bewegec",
+  "sources": {
+    "Aufgabe": {
+      "file": "bewegec_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "095ebfc3e8438505"
+    },
+    "Auswertung": {
+      "file": "bewegec_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "e7f7674ede5969cb"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "bewegec_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "021784fa79534d32"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/bewegec/00_doc_image1.emf.png",
+      "tokens": "Mit einer Geometrie-Software wurde Folgendes konstruiert: eine Strecke AB, dazu die Mittelsenkrechte m und ein Punkt C auf m. C wird mit A und B verbunden, um das Dreieck ABC zu erhalten.Der Punkt C wird auf der Mittelsenkrechten m nach unten bewegt. In der Zeichnung siehst du zwei Beispiele mit verschiedenen Positionen von C:ABCmM35°ACmM45°B",
+      "deterministic_text": "Mit einer Geometrie-Software wurde Folgendes konstruiert:\neine Strecke AB, dazu die Mittelsenkrechte m und ein Punkt C auf m. C wird mit A und B\nverbunden, um das Dreieck ABC zu erhalten.\nDer Punkt C wird auf der Mittelsenkrechten m nach unten bewegt. In der Zeichnung siehst du\nzwei Beispiele mit verschiedenen Positionen von C:\nm m\nC\n35°\nC\n45°\nA M B A M B",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Bewege C",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Konstruktion des Punktes C, so dass das entstehende\nDreieck ABC gleichseitig ist. Dies kann beispielsweise auf\nfolgende Art und Weise geschehen:\nDie Position von C lässt sich als Schnittpunkt eines Kreises um A\nund eines Kreises um B, jeweils mit Radius [pic], bestimmen.\nODER\nIn A und in B werden 60°-Winkel an die Strecke [pic]abgetragen. C\nist der Schnittpunkt der beiden freien Schenkel.\nODER\nIn A oder in B wird ein 60°-Winkel an die Strecke [pic]\nangetragen. C ist der Schnittpunkt des zugehörigen freien\nSchenkels und der Mittelsenkrechte m.\nEine Beschreibung der Konstruktion ist jedoch nicht erforderlich.\nDie fehlenden Maße müssen nicht eingetragen werden. Eine\nBeschriftung des Punktes C, der Winkel oder der Seiten des\nDreiecks ist nicht erforderlich.\nZeichentoleranz ( 2 mm bzw. ( 1°\n[pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Konstruktionen.\nZ. B.:\nKonstruktion des Punktes C, ohne dass dieser mit den beiden\nanderen Punkten A und B verbunden wird.\nODER\nEs wird ein gleichschenkliges Dreieck konstruiert.\nODER\nEine (mit Maßen beschriftete) aber falsche Skizze wird\nangefertigt."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nAnmerkungen:\n• Die erforderliche Zeichengenauigkeit für die Position von C auf\nm beträgt\n( 2 mm. Eine Beschriftung des Punktes C ist nicht erforderlich.\n• Punkt C kann auch unterhalb von M eingezeichnet werden."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Lösungen.\nZ. B. jene Konstruktion, bei der die Basiswinkel jeweils 48° groß\nsind (Größe Basiswinkel = 180° - 132°)"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Bewege C"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Konstruktion des Punktes C, so dass das entstehende\nDreieck ABC gleichseitig ist. Dies kann beispielsweise auf\nfolgende Art und Weise geschehen:\nDie Position von C lässt sich als Schnittpunkt eines Kreises um A\nund eines Kreises um B, jeweils mit Radius [pic], bestimmen.\nODER\nIn A und in B werden 60°-Winkel an die Strecke [pic]abgetragen. C\nist der Schnittpunkt der beiden freien Schenkel.\nODER\nIn A oder in B wird ein 60°-Winkel an die Strecke [pic]\nangetragen. C ist der Schnittpunkt des zugehörigen freien\nSchenkels und der Mittelsenkrechte m.\nEine Beschreibung der Konstruktion ist jedoch nicht erforderlich.\nDie fehlenden Maße müssen nicht eingetragen werden. Eine\nBeschriftung des Punktes C, der Winkel oder der Seiten des\nDreiecks ist nicht erforderlich.\nZeichentoleranz ( 2 mm bzw. ( 1°\n[pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Konstruktionen.\nZ. B.:\nKonstruktion des Punktes C, ohne dass dieser mit den beiden\nanderen Punkten A und B verbunden wird.\nODER\nEs wird ein gleichschenkliges Dreieck konstruiert.\nODER\nEine (mit Maßen beschriftete) aber falsche Skizze wird\nangefertigt."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nAnmerkungen:\n• Die erforderliche Zeichengenauigkeit für die Position von C auf\nm beträgt\n( 2 mm. Eine Beschriftung des Punktes C ist nicht erforderlich.\n• Punkt C kann auch unterhalb von M eingezeichnet werden."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Lösungen.\nZ. B. jene Konstruktion, bei der die Basiswinkel jeweils 48° groß\nsind (Größe Basiswinkel = 180° - 132°)"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "III",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "V",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Die charakteristischen Eigenschaften von gleichseitigen bzw.",
+      "gleichschenkligen Dreiecken sind nicht vertraut (K4 und K5).",
+      "Wie die folgende Schülerlösung zeigt, werden die Eckpunkte A und B einfach",
+      "mit dem „Endpunkt“ der gegebenen Mittelsenkrechten zu [pic] verbunden. Dies",
+      "lässt vermuten, dass die Aufgabe bzw. zumindest ihre Dynamik nicht erfasst",
+      "Der Winkel bei C von 132° wird direkt zur Konstruktion des Dreiecks",
+      "genutzt. Er wird jedoch bei A abgetragen, so dass der Punkt C nicht mehr",
+      "auf m liegt, wie die folgende Lösung veranschaulicht (K6).",
+      "Die Angabe 132° wird als Winkelsumme im Dreieck aufgefasst und gleichmäßig",
+      "auf die drei Innenwinkel eines Dreiecks verteilt. Derartige Lösungen deuten",
+      "darauf hin, dass die Aufgabenstellung unkritisch gelesen wurde."
+    ],
+    "quelle": "bewegec_Didaktische_Kommentierung.doc"
+  }
+}

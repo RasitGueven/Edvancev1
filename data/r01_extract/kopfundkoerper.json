@@ -1,0 +1,163 @@
+{
+  "item": "kopfundkoerper",
+  "sources": {
+    "Aufgabe": {
+      "file": "kopfundkoerper_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "2cc9a641d069f9d2"
+    },
+    "Auswertung": {
+      "file": "kopfundkoerper_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "18c4321a10f79374"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "kopfundkoerper_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "d485d092d6e9b269"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kopfundkoerper/00_image1.emf.png",
+      "tokens": "Als Faustregel sagt man, dass bei Babys die Länge des Kopfes zur gesamten Körpergröße ungefähr im Verhältnis 1:4 steht. Beim Erwachsenen dagegen ist dieses Verhältnis ungefähr 1:8.41",
+      "deterministic_text": "Als Faustregel sagt man, dass bei Babys die Länge des Kopfes zur 1\ngesamten Körpergröße ungefähr im Verhältnis 1:4 steht. Beim\nErwachsenen dagegen ist dieses Verhältnis ungefähr 1:8.\n4",
+      "table": null,
+      "n_fragments": 17,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kopfundkoerper/01_image2.emf.png",
+      "tokens": "Ein Baby hat eine Kopflänge von 12cm. Gib seine ungefähre Körpergröße an.Körpergröße:cm",
+      "deterministic_text": "Ein Baby hat eine Kopflänge von 12cm.\nGib seine ungefähre Körpergröße an.\nKörpergröße: cm",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kopfundkoerper/02_image3.emf.png",
+      "tokens": "Ein Erwachsener hat eine Körpergröße von 1,84m. Gib die ungefähre Länge seines Kopfes an.Länge des Kopfes:cm",
+      "deterministic_text": "Ein Erwachsener hat eine Körpergröße von 1,84m.\nGib die ungefähre Länge seines Kopfes an.\nLänge des Kopfes: cm",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kopfundkoerper/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Kopf und Körper",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "48"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "23"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Kopf und Körper"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "48"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "23"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "kopfundkoerper_Didaktische_Kommentierung.docx"
+  }
+}

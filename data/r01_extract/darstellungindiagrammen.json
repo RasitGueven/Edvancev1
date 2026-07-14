@@ -1,0 +1,134 @@
+{
+  "item": "darstellungindiagrammen",
+  "sources": {
+    "Aufgabe": {
+      "file": "darstellungindiagrammen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "51dd431668b75aac"
+    },
+    "Auswertung": {
+      "file": "darstellungindiagrammen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "f28d8e1716f92e61"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "darstellungindiagrammen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "a1a97b36df79bc8c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/darstellungindiagrammen/00_doc_image1.emf.png",
+      "tokens": "Die Firma Fruktia stellt die Umsätze ihres neuen Zitronengetränks in einem Diagramm dar. Zitronengetränk-Umsatz01020304050607080901002007200820092010Anzahl verkaufter Flaschen (in Mio.)In welchem Jahr sind 65 Millionen Flaschen verkauft worden?Vervollständige den Satz.    Im Jahr                        sind 65 Millionen Flaschen verkauft worden.",
+      "deterministic_text": "Die Firma Fruktia stellt die Umsätze ihres neuen Zitronengetränks in einem Diagramm dar.\nZitronengetränk-Umsatz\nAnzahl verkaufter Flaschen\n(in Mio.)\n100\n90\n80\n70\n60\n50\n40\n30\n20\n10\n0\n2007 2008 2009 2010\nIn welchem Jahr sind 65 Millionen Flaschen verkauft worden?\nVervollständige den Satz.\nIm Jahr sind 65 Millionen Flaschen verkauft worden.",
+      "table": null,
+      "n_fragments": 34,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Darstellung in Diagrammen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Im Jahr 2009 sind 65 Millionen Flaschen verkauft worden."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Darstellung in Diagrammen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Im Jahr 2009 sind 65 Millionen Flaschen verkauft worden."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Die angegebene Flaschenzahl wird verkehrt auf der zweiten Achse abgelesen",
+      "und demzufolge wird ein falsches Jahr angegeben (K4).",
+      "Weiterarbeit und Förderung",
+      "Diese Aufgabe bietet die Gelegenheit, neben dem Ablesen aus Diagrammen",
+      "besonders deren zielgerichtetes Erstellen zu üben oder auch Manipulationen",
+      "an ihnen zu thematisieren. Mit diesen Tätigkeiten lässt sich ein Beitrag zu",
+      "einem verständigen Umgang mit Diagrammen bzw. zu deren Interpretation",
+      "Bereitet das Ablesen aus Diagrammen noch Schwierigkeiten, so kann dies",
+      "anhand verschiedener vorgegebener Diagramme zu inner- und",
+      "außermathematischen Kontexten wiederholt werden. Entsprechende grundlegende",
+      "Ableseübungen können von der ersten und von der zweiten Achse eines",
+      "Diagramms ausgehen. Ergänzend lassen sich mathematikhaltige Fragen",
+      "formulieren, um dann zu prüfen und zu begründen, ob sich diese mithilfe des",
+      "Diagramms beantworten lassen.",
+      "Ein stärkerer Fokus auf das Erstellen von Diagrammen sensibilisiert",
+      "nochmals für geeignete Achseneinteilungen. Geht man von einem festen",
+      "Datensatz aus und verwendet ein Tabellenkalkulationsprogramm, so lassen",
+      "sich auf einfache Weise mehrere Säulendiagramme mit unterschiedlichen",
+      "Achseneinteilungen (z. B. in 10er, 50er, 10er, 1000-Schritten) erstellen.",
+      "Steht kein solches Programm zur Verfügung, kann man mehrere Diagramme zum",
+      "selben Datensatz vorbereiten und den Schülerinnen und Schülern als Kopie",
+      "geben. Anschließend lassen sich die verschiedenen Diagramme bzgl. ihrer",
+      "Ableseeigenschaften vergleichen.",
+      "Ein solcher Vergleich ergibt sich häufig sogar in natürlicher Weise, wenn",
+      "die Daten zuvor selbst gesammelt und dann arbeitsteilig ausgewertet werden.",
+      "Insbesondere das Beschreiben von Diagrammen trainiert auch die Kompetenz",
+      "„Kommunizieren“, da hierfür sprachliche Mittel und fachsprachliche Begriffe",
+      "benötigt werden.",
+      "Auch Manipulationen von Diagrammen lassen sich am Beispiel der folgenden",
+      "weiterführen-den Teilaufgabe behandeln, deren Bearbeitung die",
+      "reflektierende Bewertung eines Dia-gramms erfordert:",
+      "In dieser weiterführenden Teilaufgabe vergleichen die Schülerinnen und",
+      "Schüler zwei verschiedene Diagramme zum selben Sachverhalt miteinander.",
+      "Anschließend ist eine mathematikhaltige Erläuterung jener Gründe zu geben,",
+      "die eine Wahl des zweiten Diagramms nahelegen. Dies kann für die",
+      "manipulative Wirkung verkürzter Achsen sensibilisieren, denn bekanntlich",
+      "lassen sich so – wie hier – zum Beispiel Zuwächse optisch größer",
+      "Vielfach bietet auch die Lektüre von Zeitungen oder von Werbeunterlagen",
+      "Gelegenheit, solche interessensgeleitet erstellte – oder gar manipulierte –",
+      "Diagramme zu analysieren. Alternativ kann man Schülerinnen und Schüler dazu",
+      "auffordern, selbst Diagramme in eine gewisse Richtung zu manipulieren, z.",
+      "B. so, dass Anstiege besonders deutlich betont werden oder negative",
+      "Entwicklungen weniger dramatisch erscheinen.",
+      "Man vergleiche hierzu auch die Didaktischen Kommentare zu den Aufgaben",
+      "„Schulstatistik“ und „Temperaturen in Frankfurt am Main“, aber auch jene zu",
+      "den Aufgaben „Schulkleidung“ und „Tarifvergleich“ aus VERA-8 2011."
+    ],
+    "quelle": "darstellungindiagrammen_Didaktische_Kommentierung.doc"
+  }
+}

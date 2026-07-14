@@ -1,0 +1,21 @@
+{
+  "item": "besonderevierecke",
+  "gelesen_aus": [
+    "data/r01_render/besonderevierecke/00_image1.emf.png"
+  ],
+  "stem": "Es soll ein Rechteck gezeichnet werden. Eine Seite ist bereits eingezeichnet.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Vervollständige diese zu einem Rechteck. Zeichne mit Geodreieck, Lineal oder Zirkel.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Zeichenaufgabe im Karogitter (eine schräge Strecke ist vorgegeben) — die Antwort ist eine Konstruktion, kein Text; als free_text modelliert."
+  ]
+}

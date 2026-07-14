@@ -1,0 +1,36 @@
+{
+  "item": "gleichungfinden",
+  "gelesen_aus": [
+    "data/r01_render/gleichungfinden/00_image1.emf.png",
+    "data/r01_render/gleichungfinden/01_image2.emf.png",
+    "data/r01_render/gleichungfinden/02_image3.emf.png"
+  ],
+  "stem": "Eine Zahl n wird mit 5 multipliziert. Von diesem Produkt wird 7 subtrahiert. Die Differenz ist 38.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche der folgenden Gleichungen entspricht dieser Rechnung? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "5n + 7 = 38"},
+        {"id": "b", "label": "5n – 7 = 38"},
+        {"id": "c", "label": "5n · 7 = 38"},
+        {"id": "d", "label": "5 (n – 7) = 38"}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Gib an, wie groß n ist.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die 4. Option '5 (n – 7) = 38' wird im Rendering von einem Rahmen/Kasten überlagert; Klammern und Vorzeichen sind aber noch lesbar."
+  ]
+}

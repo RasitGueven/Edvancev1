@@ -1,0 +1,157 @@
+{
+  "item": "anzahlvonnullen",
+  "sources": {
+    "Aufgabe": {
+      "file": "anzahlvonnullen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "8622b76e63153ce9"
+    },
+    "Auswertung": {
+      "file": "anzahlvonnullen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "9472952260a41866"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "anzahlvonnullen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "f27ff3799ba1b479"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/anzahlvonnullen/00_image1.emf.png",
+      "tokens": "Wie viele Nullen hat eine Milliarde, wenn man diese Zahl mit Ziffern schreibt?Kreuze an.6791012",
+      "deterministic_text": "Wie viele Nullen hat eine Milliarde, wenn man diese Zahl mit Ziffern schreibt?\nKreuze an.\n6 7 9 10 12",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/anzahlvonnullen/01_image2.emf.png",
+      "tokens": "Ergänze den fehlenden Wert. 1000 ·                                  =  1 Milliarde",
+      "deterministic_text": "Ergänze den fehlenden Wert.\n1000 · = 1 Milliarde",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/anzahlvonnullen/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Anzahl von Nullen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1 000 000\n[Anm.: Statt Ziffern kann auch \"1 Million\" oder \"1 Mio.\" geschrieben werden.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Anzahl von Nullen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1 000 000\n[Anm.: Statt Ziffern kann auch \"1 Million\" oder \"1 Mio.\" geschrieben werden.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "1. Antwortalternative (Fehllösung: 6): Es wird fälschlicherweise die Anzahl der Nullen für 1 Million gewählt (K5).",
+      "2. Antwortalternative (Fehllösung: 7): Die Fehllösungen der 1. und 4. Antwortalternative werden kombiniert (K5).",
+      "3. Antwortalternative (Fehllösung: 10): Es wird statt der Anzahl der Nullen unkorrekt die Anzahl der Ziffern der Zahl gewählt (K5).",
+      "4. Antwortalternative (Fehllösung: 12): Es wird fälschlicherweise die Anzahl der Nullen für 1 Billion gewählt (K5).",
+      "Die Anzahl der Nullen des zweiten Faktors ist nicht korrekt, was darauf hindeutet, dass das Stellenwertsystem nicht abrufbar ist bzw. der Bereich der großen Zahlen, welcher den Schülerinnen und Schülern im Unterricht und im Alltag seltener begegnet, nicht adäquat fortgesetzt werden kann (K5).",
+      "Die Aufgabe wurde falsch interpretiert; der Punkt hinter der Zahl 1000 wurde nicht als Multiplikationszeichen erkannt, sondern als Bündelungszeichen gedeutet, wie die folgende Schülerlösung demonstriert.",
+      "Der Punkt hinter der Zahl 1000 wurde nicht als Multiplikationszeichen erkannt, sondern fälschlicherweise als Additionszeichen gedeutet, wie die folgende Schülerlösung vermuten lässt [Fehllösung: 999 999 000]."
+    ],
+    "quelle": "anzahlvonnullen_Didaktische_Kommentierung.docx"
+  }
+}

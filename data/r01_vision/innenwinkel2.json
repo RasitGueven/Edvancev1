@@ -1,0 +1,40 @@
+{
+  "item": "innenwinkel2",
+  "gelesen_aus": [
+    "data/r01_render/innenwinkel2/00_image1.png",
+    "data/r01_render/innenwinkel2/01_image2.png",
+    "data/r01_render/innenwinkel2/02_image3.png",
+    "data/r01_render/innenwinkel2/03_image4.png"
+  ],
+  "stem": "Zur Erinnerung: In jedem Dreieck beträgt die Summe der drei Innenwinkelgrößen 180°.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Bei einem rechtwinkligen Dreieck ist die Größe des Innenwinkels α gegeben. Ergänze in der Tabelle eine Möglichkeit für die Größen der beiden anderen Innenwinkel β und γ des Dreiecks. (Tabelle: α = 20°, β = ?, γ = ?)",
+      "unit": "°",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Von einem gleichschenkligen Dreieck ist die Größe des Innenwinkels α mit 50° gegeben. Es gibt verschiedene Möglichkeiten, wie groß jeweils die beiden anderen Innenwinkel sein können. Notiere zwei verschiedene Möglichkeiten in den Tabellen. (1. Möglichkeit: α = 50°, β = ?, γ = ?; 2. Möglichkeit: α = 50°, β = ?, γ = ?)",
+      "unit": "°",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Es gibt keine gleichseitigen Dreiecke, die rechtwinklig sind. Begründe die Aussage.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Rasterbild ohne Zeichenvorrat: In Teilaufgabe 1 und 2 stehen Antworttabellen (Kopfzeile α | β | γ) im Bild; sie gehören zu den Teilaufgaben, nicht zum Stamm, daher stem_tabelle_erwartet: false trotz sichtbarer Raster."
+  ]
+}

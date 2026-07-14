@@ -1,0 +1,22 @@
+{
+  "item": "freizeitkosten",
+  "gelesen_aus": ["data/r01_render/freizeitkosten/00_image1.emf.png"],
+  "stem": "Betty hat sechs Monate lang notiert, wie viel Geld sie für ihre Freizeitaktivitäten ausgegeben hat.\n(Tabelle: Monat — Januar, Februar, März, April, Mai, Juni; Ausgaben in € — 31, 31, 20, 28, 30, 40)\nSie hat ausgerechnet, dass sie in diesen sechs Monaten durchschnittlich 30 € pro Monat ausgegeben hat.\nDennis sagt: „Die Arbeit hättest du dir sparen können. Das arithmetische Mittel liegt ja in jedem Fall immer genau in der Mitte zwischen dem kleinsten und dem größten Wert, bei deinen Zahlen also genau zwischen 20 und 40.\"",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Hat Dennis Recht? Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Aufgabe kombiniert Ankreuzen (Ja/Nein) und eine schriftliche Begründung im Kästchenfeld; die Auswertung kennt 1 Teilaufgabe, das Bild zeigt beides in einer Teilaufgabe."
+  ]
+}

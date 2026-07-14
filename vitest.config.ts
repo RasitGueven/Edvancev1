@@ -13,15 +13,15 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['src/test/setup.ts'],
-    include: ['src/**/*.test.{ts,tsx}'],
+    // scripts/: der Import-Bau (C08) spiegelt die DB-Vertraege (lsa_parts_valid,
+    // lsa_table_valid) — er wird getestet wie Produktivcode, nicht wie ein Skript.
+    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.ts'],
     exclude: [
       'node_modules',
       'dist',
       // Legacy node:test suites — executed via `npm run test:mock`, not vitest.
       'src/lib/mocks/sessionMachine.test.ts',
       'src/pages/mock/session/components/taskEval.test.ts',
-      'src/lib/answer/evaluators.test.ts',
-      'src/components/edvance/tasks/answer/answerState.test.ts',
     ],
   },
 })

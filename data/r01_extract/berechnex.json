@@ -1,0 +1,105 @@
+{
+  "item": "berechnex",
+  "sources": {
+    "Aufgabe": {
+      "file": "berechnex_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "58710329e4af2f7c"
+    },
+    "Auswertung": {
+      "file": "berechnex_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "74358cf3802f6f67"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "berechnex_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "fb539c639aa1266a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/berechnex/00_doc_image1.emf.png",
+      "tokens": "Gegeben ist die Gleichung 8x = 72.Berechne x.x=",
+      "deterministic_text": "Gegeben ist die Gleichung 8x = 72.\nBerechne x.\nx=",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Berechne x"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "x = 9"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Berechne x"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "x = 9"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Die multiplikative Struktur von 8x wird nicht erkannt, und es wird 8",
+      "subtrahiert, um x zu isolieren, wie die folgende Schülerlösung",
+      "illustriert [Fehllösung x=64] (K5).",
+      "• Die Struktur der Gleichung wird fehlgedeutet, indem angenommen wird, dass",
+      "das Produkt aus 8 und 72 gesucht ist. Dies zeigt die nächste",
+      "Schülerlösung [Fehllösung x=576] (K5).",
+      "Weiterarbeit und Förderung",
+      "Fehler beim Lösen solch syntaktisch einfacher Gleichungen haben häufig ihre",
+      "Ursache im gedankenlosen Operieren mit deren Zahlen bzw. Variablen. Diese",
+      "Gleichung ist besonders geeignet, das systematische Probieren als",
+      "gleichberechtigte Herangehensweise beim Lösen von Gleichungen zu betonen.",
+      "Dies betont die Bedeutung von x als Platzhalter, und es kann zunächst",
+      "begründet überlegt werden, dass die gesuchte Zahl kleiner als 10 und größer",
+      "als 5 sein muss. Alternativ kann diese Gleichung inhaltlich gelöst werden,",
+      "indem überlegt wird, dass die gesuchte Zahl ja der achte Teil von 72 ist.",
+      "Bei klassischen Umformungsfehlern wie den zuvor beschriebenen können die",
+      "Schülerinnen und Schüler zudem eine Gleichung aufstellen, zu der eine",
+      "gezeigte falsche Lösung passt (Prinzip: Jede falsche Lösung einer",
+      "Mathematikaufgabe ist richtige Lösung einer anderen, verwandten Aufgabe).",
+      "Man vergleiche hierzu auch die didaktischen Kommentare zu den Aufgaben",
+      "„Zahlen gesucht“ und „Zahl gesucht“."
+    ],
+    "quelle": "berechnex_Didaktische_Kommentierung.doc"
+  }
+}

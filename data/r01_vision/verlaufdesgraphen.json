@@ -1,0 +1,36 @@
+{
+  "item": "verlaufdesgraphen",
+  "gelesen_aus": [
+    "data/r01_render/verlaufdesgraphen/00_image1.emf.png",
+    "data/r01_render/verlaufdesgraphen/01_image2.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Prüfe, ob die Aussagen über die Gerade y = 5x − 5 wahr oder falsch sind. Kreuze jeweils an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "wahr"},
+        {"id": "b", "label": "falsch"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts (Spaltenköpfe wahr/falsch)"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Prüfe, ob die Aussagen über die Gerade y = mx + n wahr oder falsch sind, wenn m < 0 und n ≠ 0. Kreuze jeweils an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "wahr"},
+        {"id": "b", "label": "falsch"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts (Spaltenköpfe wahr/falsch)"
+    }
+  ],
+  "unsicher": [
+    "Beide Teilaufgaben sind Wahr/Falsch-Raster mit je 3 Aussagezeilen. Teil 1: '… verläuft durch den Koordinatenursprung (0 | 0).', '… hat eine positive Steigung.', '… schneidet die x-Achse im Punkt (5 | 0).' Teil 2: '… verläuft durch den Koordinatenursprung (0 | 0).', '… hat eine positive Steigung.', '… schneidet die y-Achse im Punkt (0 | n).' Die Zeilen selbst wurden nicht in options übernommen (stem_tabelle_erwartet = true); options enthalten nur die Spaltenköpfe."
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "item": "parlamentswahl",
+  "sources": {
+    "Aufgabe": {
+      "file": "parlamentswahl_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "cf3c00665505fa4e"
+    },
+    "Auswertung": {
+      "file": "parlamentswahl_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "f3dce7c5cfd0a089"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "parlamentswahl_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "59937e86dca271d8"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parlamentswahl/00_image1.emf.png",
+      "tokens": "Bei einer Parlamentswahl wurden in einem Wahlbezirk 12650 gültige Stimmen abgegeben. Davon fielen 42% auf den Kandidaten Herrn Aal.",
+      "deterministic_text": "Bei einer Parlamentswahl wurden in einem Wahlbezirk 12650 gültige Stimmen\nabgegeben. Davon fielen 42% auf den Kandidaten Herrn Aal.",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parlamentswahl/01_image2.emf.png",
+      "tokens": "Gib die Anzahl der Stimmen an, die Herr Aal bei dieser Wahl bekam.Stimmen",
+      "deterministic_text": "Gib die Anzahl der Stimmen an, die Herr Aal bei dieser Wahl bekam.\nStimmen",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parlamentswahl/02_image3.emf.png",
+      "tokens": "Herr Aal kandidiert vier Jahre später auch bei der nächsten Wahl.Diesmal bekommt er allerdings weniger Stimmen als vor vier Jahren. Trotzdem hat sich sein Stimmanteil auf 44% erhöht.Nenne eine mögliche Ursache, warum dies so sein kann.",
+      "deterministic_text": "Herr Aal kandidiert vier Jahre später auch bei der nächsten Wahl.\nDiesmal bekommt er allerdings weniger Stimmen als vor vier Jahren. Trotzdem hat\nsich sein Stimmanteil auf 44% erhöht.\nNenne eine mögliche Ursache, warum dies so sein kann.",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parlamentswahl/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Parlamentswahl",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "5313 Stimmen"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Lösungen, bei denen deutlich wird, dass die Grundgesamtheit (die Anzahl der abgegebenen gültigen Stimmen) möglicherweise kleiner geworden ist.\n\nBeispiel(e)\nWahrscheinlich haben in diesem Jahr insgesamt weniger Bürger eine Stimme abgegeben.\nMöglicherweise ist die Anzahl ungültiger Stimmen in diesem Jahr größer als vor vier Jahren.\nVielleicht hat sich die Größe des Wahlbezirks verkleinert.\nAuch richtig: Weil Bürger aus dem Wahlbezirk weggezogen sind."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nWahrscheinlich gab es diesmal weniger Gegenkandidaten.\n[Anm.: Die Anzahl der Kandidaten wirkt sich zwar wahrscheinlich auf das Wahlergebnis aus, ist aber keine Erklärung dafür, dass bei weniger Stimmen trotzdem eine höhere Prozentzahl der Gesamtanzahl an Stimmen erreicht wurde.]\nWahrscheinlich haben in diesem Jahr insgesamt mehr Bürger eine Stimme abgegeben.\n[Anm.:  Hätten insgesamt mehr Bürger ihre Stimme abgegeben, dann hätten bei der höheren Prozentzahl auch mehr Bürger Herrn Aal ihre Stimme geben müssen als vor vier Jahren.]\nDie Wähler haben (auch) den anderen Kandidaten weniger Stimmen gegeben.\n[Anm.: Damit erhöht sich nicht notwendigerweise der Prozentsatz der Stimmen für Herrn Aal.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Parlamentswahl"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "5313 Stimmen"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Lösungen, bei denen deutlich wird, dass die Grundgesamtheit (die Anzahl der abgegebenen gültigen Stimmen) möglicherweise kleiner geworden ist.\n\nBeispiel(e)\nWahrscheinlich haben in diesem Jahr insgesamt weniger Bürger eine Stimme abgegeben.\nMöglicherweise ist die Anzahl ungültiger Stimmen in diesem Jahr größer als vor vier Jahren.\nVielleicht hat sich die Größe des Wahlbezirks verkleinert.\nAuch richtig: Weil Bürger aus dem Wahlbezirk weggezogen sind."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nWahrscheinlich gab es diesmal weniger Gegenkandidaten.\n[Anm.: Die Anzahl der Kandidaten wirkt sich zwar wahrscheinlich auf das Wahlergebnis aus, ist aber keine Erklärung dafür, dass bei weniger Stimmen trotzdem eine höhere Prozentzahl der Gesamtanzahl an Stimmen erreicht wurde.]\nWahrscheinlich haben in diesem Jahr insgesamt mehr Bürger eine Stimme abgegeben.\n[Anm.:  Hätten insgesamt mehr Bürger ihre Stimme abgegeben, dann hätten bei der höheren Prozentzahl auch mehr Bürger Herrn Aal ihre Stimme geben müssen als vor vier Jahren.]\nDie Wähler haben (auch) den anderen Kandidaten weniger Stimmen gegeben.\n[Anm.: Damit erhöht sich nicht notwendigerweise der Prozentsatz der Stimmen für Herrn Aal.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 10.1:",
+      "Grund- und Prozentwert werden vertauscht, sodass die 12650 Stimmen als Prozentwert gedeutet und entsprechend der Grundwert berechnet wird, sodass (gerundet) 30119 Stimmen angegeben werden (42% von 30119 Stimmen ergeben 12650 Stimmen).",
+      "Die Hundertstel-Vorstellung ist nicht präsent und so werden die abgegebenen Stimmen durch 42 geteilt, wie folgende Schülerlösung zeigt:",
+      "Zu Teilaufgabe 10.2:",
+      "Der höhere Prozentsatz wird mit einer größeren Anzahl an Menschen, die wählen gehen, verbunden:",
+      "Der Aufgabentext wird nicht vollständig erfasst. Es wird beispielsweise lediglich der gestiegene Prozentsatz beachtet, nicht aber die Tatsache, dass weniger Stimmen errungen wurden:"
+    ],
+    "quelle": "parlamentswahl_Didaktische_Kommentierung.docx"
+  }
+}

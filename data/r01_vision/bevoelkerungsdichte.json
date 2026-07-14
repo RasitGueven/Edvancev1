@@ -1,0 +1,29 @@
+{
+  "item": "bevoelkerungsdichte",
+  "gelesen_aus": [
+    "data/r01_render/bevoelkerungsdichte/00_image1.emf.png",
+    "data/r01_render/bevoelkerungsdichte/01_image2.emf.png",
+    "data/r01_render/bevoelkerungsdichte/02_image3.emf.png"
+  ],
+  "stem": "Die Tabelle zeigt die Bevölkerungsdichte in den deutschen Bundesländern am 31.12.2009.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib das Bundesland an, in dem die Bevölkerungsdichte am 31.12.2009 fast 400 Einwohner pro km² betrug.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Gib die Differenz zwischen dem größten und dem kleinsten Wert der Bevölkerungsdichte an (Spannweite).",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

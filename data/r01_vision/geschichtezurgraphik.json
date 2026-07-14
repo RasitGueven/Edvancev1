@@ -1,0 +1,24 @@
+{
+  "item": "geschichtezurgraphik",
+  "gelesen_aus": ["data/r01_render/geschichtezurgraphik/00_doc_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Eine der folgenden Beschreibungen wurde hier graphisch dargestellt. Kreuze die Beschreibung an, die zu der Graphik passt.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Paula und Sepp machen eine Bergtour. Zuerst steigt der Weg nur wenig an und die beiden kommen gut voran. Dann ist der Weg eine Zeit lang eben. Zum Schluss ist der Weg bis zum Gipfel ziemlich steil und Paula und Sepp kommen nur langsam voran."},
+        {"id": "b", "label": "Herr Heuer kauft Aktien. Zuerst steigt der Wert der Aktien. Dann bleibt er eine Zeit lang konstant. Schließlich steigt der Wert steil an und Herr Heuer könnte die Aktien mit Gewinn verkaufen."},
+        {"id": "c", "label": "Lisa und Sven machen eine Radtour. Nach einiger Zeit hat Sven eine Panne und sie müssen sein Rad reparieren. Für den Rest der Strecke fahren beide mit höherer Geschwindigkeit, um die versäumte Zeit aufzuholen."},
+        {"id": "d", "label": "Lars ist auf dem Weg zur Schule. Unterwegs fällt ihm ein, dass er seinen Taschenrechner vergessen hat, den er für die Mathearbeit braucht. Er läuft zurück nach Hause, nimmt den Taschenrechner und muss sich jetzt beeilen, um pünktlich zur Schule zu kommen."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Über den Antwortoptionen steht die Graphik (Achsen 'Strecke in km' und 'Zeit in Stunden', Nullpunkt '0'); Achsenbeschriftungen sind Abbildung, nicht Stamm."
+  ]
+}

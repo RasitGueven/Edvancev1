@@ -1,0 +1,95 @@
+{
+  "item": "quadratflaeche",
+  "sources": {
+    "Aufgabe": {
+      "file": "quadratflaeche_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "ed04b394f07818f7"
+    },
+    "Auswertung": {
+      "file": "quadratflaeche_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "1d3c2748e6e72cd7"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "quadratflaeche_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "bd81218292c65c48"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/quadratflaeche/00_doc_image1.emf.png",
+      "tokens": "Bestimme den Flächeninhalt des gegebenen Quadrats.Gib dein Ergebnis an.",
+      "deterministic_text": "Bestimme den Flächeninhalt des gegebenen Quadrats.\nGib dein Ergebnis an.",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Quadratfläche"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Der ermittelte Flächeninhalt liegt im Intervall [25; 27,04] cm2.\nDie Einheit des Ergebnisses ist anzugeben. Angaben in anderen\nEinheiten mit passender Maßzahl sind zulässig.\nAnmerkungen:\n• Die oben angegebene Lösung bezieht sich auf 5,1 cm Sollmaß der\nQuadratseitenlänge. Die Lösung ist bei drucktechnischen\nAbweichungen  anzupassen.\n• Zulässige Toleranz beim Messen der Seitenlängen des Quadrats: (\n1 mm."
+          ],
+          [
+            "FALSCH",
+            "Alle Ergebnisse außerhalb des angegebenen Intervalls.\nFalsch sind auch Ergebnisse mit richtiger Maßzahl und falscher\noder fehlender Einheit, z. B. 25 cm oder 26,01."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Quadratfläche"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Der ermittelte Flächeninhalt liegt im Intervall [25; 27,04] cm2.\nDie Einheit des Ergebnisses ist anzugeben. Angaben in anderen\nEinheiten mit passender Maßzahl sind zulässig.\nAnmerkungen:\n• Die oben angegebene Lösung bezieht sich auf 5,1 cm Sollmaß der\nQuadratseitenlänge. Die Lösung ist bei drucktechnischen\nAbweichungen  anzupassen.\n• Zulässige Toleranz beim Messen der Seitenlängen des Quadrats: (\n1 mm."
+          ],
+          [
+            "FALSCH",
+            "Alle Ergebnisse außerhalb des angegebenen Intervalls.\nFalsch sind auch Ergebnisse mit richtiger Maßzahl und falscher\noder fehlender Einheit, z. B. 25 cm oder 26,01."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "II",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es wird nicht der Flächeninhalt, sondern der Umfang des Quadrates",
+      "ermittelt, was an mangelnden Vorstellungen zu den beiden Begriffen",
+      "Flächeninhalt und Umfang liegen kann."
+    ],
+    "quelle": "quadratflaeche_Didaktische_Kommentierung.doc"
+  }
+}

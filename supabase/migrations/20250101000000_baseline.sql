@@ -1,0 +1,1554 @@
+-- ============================================================================
+-- Edvance – KONSOLIDIERTE BASELINE (Struktur)
+--
+-- Generiert von scripts/db/build_baseline.py aus schema.sql — NICHT von Hand
+-- editieren. Aenderungen am Schema laufen ab jetzt als NEUE Migration daneben
+-- (siehe docs/runbooks/DB-MIGRATIONEN.md).
+--
+-- Diese Datei bildet den Struktur-Endstand ab, den frueher die haendisch
+-- angewendete schema.sql + migrations/001..043 zusammen ergaben. Die 43
+-- historischen Inkremente liegen unter supabase/migrations_archive/ und werden
+-- BEWUSST NICHT MEHR AUSGEFUEHRT: sie setzen ein Basis-Schema voraus, das nie
+-- als Migration existierte (Migration 001 loescht aus skill_clusters, das keine
+-- Migration anlegt) — ein Replay bricht sofort ab.
+--
+-- Seed-/Katalogdaten stehen in supabase/seed.sql.
+-- ============================================================================
+
+-- ============================================================================
+-- Edvance – Konsolidiertes Datenbankschema (SINGLE SOURCE OF TRUTH)
+-- ============================================================================
+--
+-- Stand / konsolidiert am: 2026-06-22
+-- Abgebildeter Endzustand: Basis-Schema (profiles/students/...) + Content-Schema
+--   (subjects/skill_clusters/microskills/tasks/task_coach_metadata) +
+--   migrations/001_*.sql … 041_*.sql in numerischer Reihenfolge angewendet.
+--
+-- Diese Datei ist ab sofort die EINZIGE Wahrheit über den DB-Strukturstand.
+-- Sie wurde aus den Migrationen 001-041 abgeleitet (inkl. späterer Drops/Alters,
+-- z. B. 006 Serlo-Removal, 028/029 Screening-Lockerungen, 036 drop streak_days,
+-- 037 XP-Fix, 038-040 Zwei-Achsen-Kompetenz-Matrix, 041 Modellieren-Aufloesung).
+-- schema_content.sql ist DEPRECATED (siehe Kopf jener Datei).
+--
+-- Abweichungen zwischen den alten Quellen (alte schema.sql, schema_content.sql,
+-- alte docs/SCHEMA.md) und den Migrationen sind in docs/DRIFT_REPORT.md
+-- tabellarisch dokumentiert.
+--
+-- ✅ D-01 BEHOBEN (Migration 037): Die Trigger-Funktion public.apply_xp_event()
+--   (urspr. Migration 019) referenzierte student_progress.streak_days, das
+--   Migration 036 gedroppt hat → jeder INSERT in xp_events (und damit
+--   complete_task) schlug fehl. Migration 037 schreibt die Funktion ohne jede
+--   streak_days-/Datums-Streak-Logik neu; dieser Freeze bildet den reparierten
+--   Endzustand ab. Siehe docs/DRIFT_REPORT.md (D-01).
+--
+-- Konventionen:
+--   - Timestamps: timestamptz, UTC gespeichert, Anzeige Europe/Berlin (Frontend).
+--   - RLS: jede Tabelle hat RLS aktiviert; Policies stehen direkt bei der Tabelle.
+--   - Security-Definer-Helper get_my_role()/get_my_student_id()/
+--     is_parent_of_student() werden zuerst angelegt (Policies hängen daran).
+--   - Append-only-Tabellen haben bewusst KEINE update/delete-Policy.
+--
+-- Ausführungsreihenfolge in dieser Datei: Enums → Helper-Funktionen → Tabellen
+-- (in Abhängigkeitsreihenfolge, RLS inline) → übrige Funktionen/Trigger →
+-- Storage-RLS → Seed-/Katalogdaten.
+-- ============================================================================
+
+
+-- check_function_bodies wie bei pg_dump deaktivieren: erlaubt Vorwärts-
+-- referenzen in Funktionskörpern (z. B. get_my_role() vor profiles) beim
+-- Greenfield-Load. Ändert NICHT die Laufzeit-Semantik. (D-01 ist seit
+-- Migration 037 behoben; apply_xp_event referenziert streak_days nicht mehr.)
+set check_function_bodies = off;
+
+
+-- ============================================================================
+-- 1. ENUMS  (Migration 034)
+-- ============================================================================
+
+do $$
+begin
+  if not exists (select 1 from pg_type where typname = 'badge_rarity') then
+    create type public.badge_rarity as enum ('bronze','silver','gold','platinum');
+  end if;
+  if not exists (select 1 from pg_type where typname = 'badge_form') then
+    create type public.badge_form as enum ('round','shield');
+  end if;
+end$$;
+
+
+-- ============================================================================
+-- 2. SECURITY-DEFINER-HELPER  (nicht-rekursiv, von RLS-Policies genutzt)
+--    get_my_role: schema.sql · get_my_student_id/is_parent_of_student: Migr. 011
+-- ============================================================================
+
+create or replace function public.get_my_role()
+returns text
+language sql
+security definer
+stable
+set search_path = public
+as $$
+  select role from profiles where id = auth.uid() limit 1;
+$$;
+
+create or replace function public.get_my_student_id()
+returns uuid
+language sql
+security definer
+stable
+set search_path = public
+as $$
+  select id from students where profile_id = auth.uid() limit 1;
+$$;
+
+create or replace function public.is_parent_of_student(p_student_id uuid)
+returns boolean
+language sql
+security definer
+stable
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from parent_student ps
+    where ps.parent_id = auth.uid()
+      and ps.student_id in (
+        select profile_id from students where id = p_student_id
+      )
+  );
+$$;
+
+
+-- ============================================================================
+-- 3. AUTH & PERSONEN  (schema.sql)
+-- ============================================================================
+
+-- profiles: erweitert Supabase Auth (auth.users). Rollen-Hierarchie:
+-- admin > coach > parent > student.
+create table profiles (
+  id uuid references auth.users on delete cascade primary key,
+  email text not null,
+  role text not null check (role in ('student','parent','coach','admin')),
+  full_name text,
+  created_at timestamptz default now()
+);
+
+alter table profiles enable row level security;
+
+create policy "users_see_own_profile" on profiles
+  for select using (auth.uid() = id);
+
+create policy "coaches_admins_see_all_profiles" on profiles
+  for select using (public.get_my_role() in ('coach','admin'));
+
+-- Policy "parents_see_own_children" referenziert parent_student und wird daher
+-- erst NACH dessen CREATE TABLE angelegt (siehe unten).
+
+-- students: Schülerdetails (1:1 zu einem Profil mit role='student').
+create table students (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid references profiles(id) on delete cascade,
+  class_level integer check (class_level between 5 and 13),
+  school_name text,
+  school_type text check (
+    school_type in ('Gymnasium','Gesamtschule','Realschule','Hauptschule')
+  )
+);
+
+alter table students enable row level security;
+
+-- RLS-Policies seit Migration 011 (vorher RLS aktiv, aber policy-los = deny).
+create policy "students_select_own" on students
+  for select using (profile_id = auth.uid());
+create policy "students_parents_read" on students
+  for select using (public.is_parent_of_student(id));
+create policy "students_coach_admin_all" on students
+  for all
+  using (public.get_my_role() in ('coach', 'admin'))
+  with check (public.get_my_role() in ('coach', 'admin'));
+
+-- parent_student: Eltern-Kind-Verknüpfung.
+-- ⚠️  student_id referenziert profiles(id) – NICHT students(id).
+create table parent_student (
+  parent_id uuid references profiles(id) on delete cascade,
+  student_id uuid references profiles(id) on delete cascade,
+  primary key (parent_id, student_id)
+);
+
+alter table parent_student enable row level security;
+
+create policy "parent_student_parent_read" on parent_student
+  for select using (parent_id = auth.uid());
+create policy "parent_student_student_read" on parent_student
+  for select using (student_id = auth.uid());
+create policy "parent_student_coach_admin_all" on parent_student
+  for all
+  using (public.get_my_role() in ('coach', 'admin'))
+  with check (public.get_my_role() in ('coach', 'admin'));
+
+-- profiles-Policy, die parent_student braucht (Eltern sehen ihre Kinder).
+create policy "parents_see_own_children" on profiles
+  for select using (
+    exists (
+      select 1 from parent_student ps
+      where ps.parent_id = auth.uid() and ps.student_id = id
+    )
+  );
+
+
+-- ============================================================================
+-- 4. INHALTE / AUFGABEN  (schema_content.sql + Migr. 001,002,004,005,006,007,008,009)
+-- ============================================================================
+
+-- subjects: Fach. Effektiver Stand OHNE name-CHECK-Constraint:
+-- schema.sql legte name mit CHECK (Mathematik|Deutsch|Englisch) an, das
+-- Content-Schema droppt ihn explizit (subjects_name_check). Siehe DRIFT D-09.
+-- serlo_id wurde von Migration 006 gedroppt (falls vorhanden).
+create table subjects (
+  id uuid primary key default gen_random_uuid(),
+  name text not null
+);
+
+alter table subjects enable row level security;
+
+create policy "authenticated_read_subjects"
+  on subjects for select using (auth.role() = 'authenticated');
+
+-- student_subjects: Schüler-Fach-Verknüpfung (m:n). Basis-Tabelle (schema.sql),
+-- RLS-Policies seit Migration 011. Steht hier nach subjects wegen FK-Reihenfolge.
+create table student_subjects (
+  student_id uuid references students(id) on delete cascade,
+  subject_id uuid references subjects(id) on delete cascade,
+  primary key (student_id, subject_id)
+);
+
+alter table student_subjects enable row level security;
+
+create policy "student_subjects_select_own" on student_subjects
+  for select using (student_id = public.get_my_student_id());
+create policy "student_subjects_parents_read" on student_subjects
+  for select using (public.is_parent_of_student(student_id));
+create policy "student_subjects_coach_admin_all" on student_subjects
+  for all
+  using (public.get_my_role() in ('coach', 'admin'))
+  with check (public.get_my_role() in ('coach', 'admin'));
+
+-- skill_clusters: Themencluster pro Fach. Für Mathematik = 5 KMK-Kompetenz-
+-- bereiche (Seed via Migration 001, siehe Abschnitt 9).
+-- serlo_taxonomy_id wurde von Migration 006 gedroppt (falls vorhanden).
+-- is_deprecated (Migration 041): markiert achsen-vermischte Cluster (z. B.
+-- "Sachrechnen & Modellieren"), die nicht geloescht, aber stillgelegt werden.
+create table skill_clusters (
+  id uuid primary key default gen_random_uuid(),
+  subject_id uuid references subjects(id) on delete cascade,
+  name text not null,
+  class_level_min integer not null check (class_level_min between 5 and 13),
+  class_level_max integer not null check (class_level_max between 5 and 13),
+  sort_order integer default 0,
+  is_deprecated boolean not null default false
+);
+
+alter table skill_clusters enable row level security;
+
+create policy "authenticated_read_clusters"
+  on skill_clusters for select using (auth.role() = 'authenticated');
+
+-- process_competencies (Migration 038): Achse B der Zwei-Achsen-Matrix.
+-- Die 6 KMK-Prozesskompetenzen als eigene Achse (parallel zu skill_clusters =
+-- Achse A / Inhaltsfeld). Referenzdaten; Seed in Abschnitt 14.
+create table process_competencies (
+  id          uuid primary key default gen_random_uuid(),
+  code        text not null unique,        -- Ope|Mod|Pro|Arg|Kom|Wkz
+  name        text not null,               -- interner Klartext
+  sort_order  integer not null
+);
+
+alter table process_competencies enable row level security;
+
+create policy "authenticated_read_process_competencies"
+  on process_competencies for select using (auth.role() = 'authenticated');
+create policy "process_competencies_admin_write"
+  on process_competencies for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+
+-- microskills: atomare Lernziele innerhalb eines Clusters.
+-- cognitive_type/estimated_minutes/curriculum_ref aus Migration 005.
+create table microskills (
+  id uuid primary key default gen_random_uuid(),
+  cluster_id uuid references skill_clusters(id) on delete cascade,
+  code text not null unique,
+  name text not null,
+  description text,
+  class_level integer not null check (class_level between 5 and 13),
+  prerequisite_ids uuid[] default '{}',
+  sort_order integer default 0,
+  cognitive_type text check (cognitive_type in ('FACT','TRANSFER','ANALYSIS')),
+  estimated_minutes integer,
+  curriculum_ref text
+);
+
+alter table microskills enable row level security;
+
+create policy "authenticated_read_microskills"
+  on microskills for select using (auth.role() = 'authenticated');
+
+-- tasks: Lern-/Aufgabeninhalte. Endzustand nach Serlo-Removal (006):
+-- KEINE serlo_*-Spalten mehr. Diagnostic-Felder aus 005, source/source_ref
+-- aus 007 (+ UNIQUE aus 008), assets aus 009.
+create table tasks (
+  id uuid primary key default gen_random_uuid(),
+  microskill_id uuid references microskills(id) on delete set null,
+  cluster_id uuid references skill_clusters(id) on delete set null,
+  content_type text not null check (
+    content_type in ('exercise','exercise_group','article','video','course')
+  ),
+  title text,
+  question text,
+  solution text,
+  hint text,
+  common_errors text,
+  coach_note text,
+  difficulty integer check (difficulty between 1 and 5),
+  estimated_minutes integer default 3,
+  class_level integer check (class_level between 5 and 13),
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  -- Migration 005 (Diagnostic-Felder)
+  cognitive_type text check (cognitive_type in ('FACT','TRANSFER','ANALYSIS')),
+  -- input_type-CHECK in 042 auf den kanonischen Enum vereinheitlicht
+  -- (FREE_INPUT/STEPS→FREE_TEXT, DRAW→COORDINATE):
+  input_type text check (input_type in (
+    'MC','NUMERIC','SHORT_TEXT','TRUE_FALSE','FREE_TEXT','MATCHING','CLOZE','COORDINATE'
+  )),
+  is_diagnostic boolean default false,
+  curriculum_ref text,
+  question_payload jsonb,
+  typical_errors text[],
+  -- Migration 007 (Quelle + Idempotenz-Referenz)
+  source text not null default 'unbekannt',
+  source_ref text,
+  -- Migration 009 (Bilder/Abbildungen)
+  assets jsonb not null default '[]'::jsonb,
+  -- Migration 039 (Achse B): Prozesskompetenz-Tag (nullable; Backfill = Content)
+  competency_id uuid references process_competencies(id) on delete set null,
+  -- Migration 008: echter UNIQUE CONSTRAINT (ersetzt partiellen Index aus 007)
+  constraint tasks_source_ref_unique unique (source, source_ref)
+);
+
+create index if not exists tasks_diagnostic_idx
+  on tasks (is_diagnostic) where is_diagnostic = true;
+create index if not exists tasks_microskill_diagnostic_idx
+  on tasks (microskill_id, is_diagnostic, difficulty)
+  where is_diagnostic = true;
+create index if not exists tasks_source_idx on tasks (source);
+create index if not exists tasks_has_assets_idx
+  on tasks ((jsonb_array_length(assets) > 0))
+  where jsonb_array_length(assets) > 0;
+create index if not exists tasks_competency_idx on tasks (competency_id);
+
+alter table tasks enable row level security;
+
+create policy "authenticated_read_tasks"
+  on tasks for select using (auth.role() = 'authenticated');
+create policy "admin_write_tasks"
+  on tasks for all using (
+    exists (
+      select 1 from profiles p
+      where p.id = auth.uid() and p.role = 'admin'
+    )
+  );
+
+-- task_coach_metadata: optionale Coach-Hinweise pro Aufgabe.
+-- ⚠️  Nur Read-Policy (coach/admin); kein Write-Policy → mit aktiver RLS
+-- ist kein Client-Write möglich. Siehe DRIFT D-10.
+create table task_coach_metadata (
+  id uuid primary key default gen_random_uuid(),
+  task_id uuid references tasks(id) on delete cascade,
+  typical_errors text,
+  observation_hints text,
+  intervention_triggers text,
+  updated_at timestamptz default now()
+);
+
+alter table task_coach_metadata enable row level security;
+
+create policy "coaches_read_task_metadata"
+  on task_coach_metadata for select using (
+    exists (
+      select 1 from profiles p
+      where p.id = auth.uid() and p.role in ('coach','admin')
+    )
+  );
+
+
+-- ============================================================================
+-- 5. BEHAVIOR-TRACKING  (Migration 003; FK screening_test_id via Migration 014)
+-- ============================================================================
+
+-- behavior_snapshots: APPEND-ONLY Roh-Verhaltensdaten pro Submit.
+-- Spalten 1:1 zu src/types/diagnosis.ts (BehaviorSnapshot, Capture-Seite).
+create table if not exists behavior_snapshots (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references profiles(id) on delete cascade,
+  task_id uuid references tasks(id) on delete cascade,
+  submitted_at timestamptz default now(),
+  answer_text text,
+  thinking_time_ms integer,
+  task_duration_ms integer,
+  revision_count integer,
+  rewrite_count integer,
+  hint_used boolean,
+  hint_request_time_ms integer,
+  answer_length integer,
+  time_after_completion_ms integer
+  -- screening_test_id wird nach screening_tests per ALTER ergänzt (Migration 014).
+);
+
+create index if not exists behavior_snapshots_user_task_idx
+  on behavior_snapshots (user_id, task_id);
+create index if not exists behavior_snapshots_submitted_idx
+  on behavior_snapshots (submitted_at desc);
+
+alter table behavior_snapshots enable row level security;
+
+-- Append-only: KEIN UPDATE, KEIN DELETE Policy.
+create policy "users_insert_own_snapshots" on behavior_snapshots
+  for insert with check (auth.uid() = user_id);
+create policy "users_see_own_snapshots" on behavior_snapshots
+  for select using (auth.uid() = user_id);
+create policy "coaches_admins_see_all_snapshots" on behavior_snapshots
+  for select using (public.get_my_role() in ('coach', 'admin'));
+
+
+-- ============================================================================
+-- 6. ERSTGESPRÄCH (LEAD-FUNNEL)  (Migrationen 012, 013)
+-- ============================================================================
+
+-- leads: Erstkontakt VOR Account (Stufe A). Interne PII, nur Coach/Admin.
+create table leads (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  full_name text not null,
+  contact_email text,
+  contact_phone text,
+  class_level integer check (class_level between 5 and 13),
+  school_type text check (
+    school_type in ('Gymnasium','Gesamtschule','Realschule','Hauptschule')
+  ),
+  school_name text,
+  subjects text[] default '{}',
+  goal text check (goal in ('IMPROVE_GRADES','CLOSE_GAPS','EXAM_PREP','GENERAL')),
+  known_weak_topics text[] default '{}',
+  source text,
+  status text not null default 'new' check (
+    status in ('new','contacted','onboarding_scheduled','converted','rejected')
+  ),
+  owner_id uuid references profiles (id) on delete set null,
+  notes text,
+  converted_student_id uuid references students (id) on delete set null,
+  contacted_at timestamptz,
+  onboarding_scheduled_at timestamptz
+);
+
+create index leads_status_idx on leads (status);
+create index leads_owner_idx on leads (owner_id);
+
+alter table leads enable row level security;
+
+create policy "leads_coach_admin_all" on leads
+  for all
+  using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+
+-- intake_sessions: strukturiertes Erstgespräch-Protokoll am Schüler (Stufe B).
+create table intake_sessions (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  student_id uuid not null references students (id) on delete cascade,
+  lead_id uuid references leads (id) on delete set null,
+  coach_id uuid references profiles (id) on delete set null,
+  conducted_at timestamptz,
+  goals text,
+  motivation text,
+  learning_history text,
+  parent_expectations text,
+  known_weak_topics text[] default '{}',
+  agreed_next_steps text,
+  notes text,
+  status text not null default 'draft' check (status in ('draft','final'))
+);
+
+create index intake_sessions_student_idx on intake_sessions (student_id);
+
+alter table intake_sessions enable row level security;
+
+create policy "intake_sessions_coach_admin_all" on intake_sessions
+  for all
+  using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+create policy "intake_sessions_parent_read" on intake_sessions
+  for select using (public.is_parent_of_student(student_id));
+
+
+-- ============================================================================
+-- 7. SCREENING  (Migrationen 014, 022, 023, 028, 029)
+-- ============================================================================
+
+-- screening_tests: mutables Aggregat pro (Schüler, Fach); max. 1 aktiver Lauf.
+create table screening_tests (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  student_id uuid not null references students (id) on delete cascade,
+  subject text not null,
+  status text not null default 'in_progress' check (
+    status in ('in_progress','completed','aborted')
+  ),
+  coach_id uuid references profiles (id) on delete set null,
+  coach_note text,
+  generated_test jsonb,
+  generated_test_version smallint not null default 1,
+  result_summary jsonb,
+  estimated_total_minutes integer,
+  started_at timestamptz,
+  completed_at timestamptz
+);
+
+create index screening_tests_student_idx on screening_tests (student_id);
+create index screening_tests_status_idx on screening_tests (status);
+create unique index screening_tests_active_unique
+  on screening_tests (student_id, subject)
+  where status = 'in_progress';
+
+alter table screening_tests enable row level security;
+
+create policy "screening_tests_select_own" on screening_tests
+  for select using (student_id = public.get_my_student_id());
+create policy "screening_tests_parent_read" on screening_tests
+  for select using (public.is_parent_of_student(student_id));
+create policy "screening_tests_coach_admin_all" on screening_tests
+  for all
+  using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+-- Migration 023: Schüler-Self-Service-Write (stiller, adaptiver /screening-Lauf).
+create policy "screening_tests_student_insert" on screening_tests
+  for insert
+  with check (student_id = public.get_my_student_id());
+create policy "screening_tests_student_update" on screening_tests
+  for update
+  using (student_id = public.get_my_student_id())
+  with check (student_id = public.get_my_student_id());
+
+-- behavior_snapshots: additiver FK auf den Screening-Lauf (Migration 014).
+alter table behavior_snapshots
+  add column screening_test_id uuid
+    references screening_tests (id) on delete cascade;
+create index behavior_snapshots_screening_idx
+  on behavior_snapshots (screening_test_id);
+
+-- screening_ratings: APPEND-ONLY Coach-Bewertung pro behavior_snapshot/Lauf.
+create table screening_ratings (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  behavior_snapshot_id uuid not null
+    references behavior_snapshots (id) on delete cascade,
+  screening_test_id uuid not null
+    references screening_tests (id) on delete cascade,
+  rating smallint not null check (rating in (1,2,3,4)),
+  coach_id uuid references profiles (id) on delete set null
+);
+
+create index screening_ratings_snapshot_idx
+  on screening_ratings (behavior_snapshot_id);
+create index screening_ratings_test_idx
+  on screening_ratings (screening_test_id);
+
+alter table screening_ratings enable row level security;
+
+-- Append-only: KEIN update-, KEIN delete-Policy.
+create policy "screening_ratings_coach_insert" on screening_ratings
+  for insert with check (public.get_my_role() in ('coach','admin'));
+create policy "screening_ratings_coach_admin_read" on screening_ratings
+  for select using (public.get_my_role() in ('coach','admin'));
+create policy "screening_ratings_student_read" on screening_ratings
+  for select using (
+    screening_test_id in (
+      select id from screening_tests
+      where student_id = public.get_my_student_id()
+    )
+  );
+create policy "screening_ratings_parent_read" on screening_ratings
+  for select using (
+    screening_test_id in (
+      select id from screening_tests
+      where public.is_parent_of_student(student_id)
+    )
+  );
+
+-- screening_items: eigene Itembank. Endzustand nach 028 (afb/phase, OPEN/manual)
+-- und 029 (VERA-8-Lockerung: viele Spalten nullable, VERA-Felder + iqb_titel).
+create table screening_items (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  -- 022 NOT NULL → 029 nullable (VERA-Items haben keinen Cluster):
+  cluster_id uuid references skill_clusters (id) on delete cascade,
+  class_level integer not null check (class_level between 5 and 13),
+  topic text,
+  skill_code text,
+  skill_label text,
+  level smallint check (level in (1, 2, 3)),
+  curriculum_seq integer,
+  -- input_type-CHECK in 042 auf den kanonischen Enum vereinheitlicht
+  -- (STEPS_FINAL/OPEN→FREE_TEXT). check_type bleibt der Grading-Diskriminator.
+  input_type text not null check (
+    input_type in (
+      'MC','NUMERIC','SHORT_TEXT','TRUE_FALSE','FREE_TEXT','MATCHING','CLOZE','COORDINATE'
+    )
+  ),
+  prompt text,
+  payload jsonb,
+  canonical jsonb,
+  check_type text not null check (
+    check_type in ('mc_index','numeric','matching_set','normalized','manual')
+  ),
+  tolerance numeric,
+  typical_errors text[] default '{}',
+  explanation text,
+  source text not null default 'edvance_original',
+  active boolean not null default false,
+  -- Migration 028 (AFB + Phase). Cross-Constraint OPEN<=>manual in 042
+  -- entfernt: FREE_TEXT spannt nach der Kanonisierung Auto (normalized) UND
+  -- Coach (manual); die Unterscheidung lebt allein in check_type.
+  afb text check (afb in ('I','II','III')),
+  phase text check (phase in ('sprint','tiefe')),
+  -- Migration 029 (VERA-8-Felder; iqb_titel UNIQUE für Seed-Idempotenz):
+  iqb_titel text,
+  kompetenzfelder text[],
+  aufgabe_typ text,
+  teilaufgaben jsonb,
+  kontext text,
+  loesung_pro_ta jsonb,
+  akzeptierte_antworten jsonb,
+  kodierung text,
+  kommentar_highlights jsonb,
+  urls jsonb,
+  datei_ext text,
+  quelle text,
+  fix_anker boolean default false,
+  meta jsonb,
+  -- Migration 039 (Achse B): competency_id ist die strukturierte Wahrheit der
+  -- Prozesskompetenz. kompetenzfelder (text[], oben) bleibt als Legacy/VERA-8-
+  -- Historie erhalten und wird NICHT entfernt.
+  competency_id uuid references process_competencies(id) on delete set null,
+  -- Migration 043 (Microskill-Lokalisierung): feinste Inhalts-Granularitaet
+  -- (unterhalb cluster_id); Basis fuer Root-Gap-Walk via microskills.prerequisite_ids.
+  microskill_id uuid references microskills(id) on delete set null,
+  constraint screening_items_iqb_titel_uniq unique (iqb_titel)
+);
+
+create index screening_items_cluster_idx on screening_items (cluster_id);
+create index screening_items_active_idx on screening_items (active);
+create index screening_items_cluster_level_idx
+  on screening_items (cluster_id, level) where active = true;
+create index screening_items_skill_idx on screening_items (skill_code);
+create index screening_items_v2_pool_idx
+  on screening_items (cluster_id, phase, afb)
+  where active = true and afb is not null and phase is not null;
+create index if not exists screening_items_quelle_idx
+  on screening_items (quelle);
+create index if not exists screening_items_competency_idx
+  on screening_items (competency_id);
+create index if not exists screening_items_microskill_idx
+  on screening_items (microskill_id);
+
+alter table screening_items enable row level security;
+
+create policy "screening_items_read_active" on screening_items
+  for select using (auth.role() = 'authenticated' and active = true);
+create policy "screening_items_admin_all" on screening_items
+  for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+create policy "screening_items_coach_read" on screening_items
+  for select using (public.get_my_role() in ('coach','admin'));
+
+-- screening_item_results: APPEND-ONLY Ergebnis pro Item/Lauf.
+-- correct in 028 nullable (offene Items haben zur Insert-Zeit kein Auto-Grade).
+-- ⚠️  cluster_id bleibt NOT NULL, obwohl screening_items.cluster_id nullable
+--     wurde (029) → VERA-Items ohne Cluster siehe DRIFT D-11.
+create table screening_item_results (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  screening_test_id uuid not null
+    references screening_tests (id) on delete cascade,
+  screening_item_id uuid not null
+    references screening_items (id) on delete cascade,
+  cluster_id uuid not null references skill_clusters (id) on delete cascade,
+  level smallint not null check (level in (1, 2, 3)),
+  correct boolean,
+  answer jsonb,
+  duration_ms integer
+);
+
+create index screening_item_results_test_idx
+  on screening_item_results (screening_test_id);
+
+alter table screening_item_results enable row level security;
+
+-- Append-only: KEIN update-, KEIN delete-Policy.
+create policy "screening_item_results_insert_own" on screening_item_results
+  for insert with check (
+    screening_test_id in (
+      select id from screening_tests
+      where student_id = public.get_my_student_id()
+    )
+  );
+create policy "screening_item_results_select_own" on screening_item_results
+  for select using (
+    screening_test_id in (
+      select id from screening_tests
+      where student_id = public.get_my_student_id()
+    )
+  );
+create policy "screening_item_results_parent_read" on screening_item_results
+  for select using (
+    screening_test_id in (
+      select id from screening_tests
+      where public.is_parent_of_student(student_id)
+    )
+  );
+create policy "screening_item_results_coach_admin_read" on screening_item_results
+  for select using (public.get_my_role() in ('coach','admin'));
+
+-- screening_item_ratings: APPEND-ONLY manuelle Coach-Bewertung offener Items
+-- (Migration 028). Schüler/Eltern lesen NICHT direkt (CLAUDE §6).
+create table screening_item_ratings (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  screening_item_result_id uuid not null
+    references screening_item_results (id) on delete cascade,
+  coach_id uuid references profiles (id) on delete set null,
+  reached_afb text check (reached_afb in ('I','II','III')),
+  note text
+);
+
+create index screening_item_ratings_result_idx
+  on screening_item_ratings (screening_item_result_id);
+create index screening_item_ratings_coach_idx
+  on screening_item_ratings (coach_id);
+
+alter table screening_item_ratings enable row level security;
+
+-- Append-only: KEIN update-/delete-Policy.
+create policy "screening_item_ratings_coach_insert" on screening_item_ratings
+  for insert with check (public.get_my_role() in ('coach','admin'));
+create policy "screening_item_ratings_coach_read" on screening_item_ratings
+  for select using (public.get_my_role() in ('coach','admin'));
+
+
+-- ============================================================================
+-- 8. TARIF / ZUORDNUNG / FOKUS  (Migrationen 015, 016, 030)
+-- ============================================================================
+
+-- tiers: Tarif-Katalog (Seed Basic/Standard/Premium in Abschnitt 9).
+create table tiers (
+  id uuid primary key default gen_random_uuid(),
+  name text not null unique,
+  price_cents integer not null,
+  features jsonb not null default '[]'::jsonb,
+  sort_order integer not null default 0,
+  active boolean not null default true
+);
+
+alter table tiers enable row level security;
+
+create policy "tiers_authenticated_read" on tiers
+  for select using (auth.role() = 'authenticated');
+create policy "tiers_admin_write" on tiers
+  for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+
+-- student_subscriptions: gewählter Tarif pro Schüler.
+create table student_subscriptions (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  student_id uuid not null references students (id) on delete cascade,
+  tier_id uuid not null references tiers (id),
+  status text not null default 'active' check (
+    status in ('active','paused','cancelled')
+  ),
+  started_at timestamptz default now(),
+  ended_at timestamptz
+);
+
+create index student_subscriptions_student_idx
+  on student_subscriptions (student_id);
+
+alter table student_subscriptions enable row level security;
+
+create policy "student_subscriptions_select_own" on student_subscriptions
+  for select using (student_id = public.get_my_student_id());
+create policy "student_subscriptions_parent_read" on student_subscriptions
+  for select using (public.is_parent_of_student(student_id));
+create policy "student_subscriptions_coach_admin_all" on student_subscriptions
+  for all
+  using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+
+-- student_coach: Schüler<->Coach-Zuordnung (Zuweisung = Admin-Aufgabe).
+create table student_coach (
+  student_id uuid not null references students (id) on delete cascade,
+  coach_id uuid not null references profiles (id) on delete cascade,
+  assigned_at timestamptz default now(),
+  active boolean not null default true,
+  primary key (student_id, coach_id)
+);
+
+create index student_coach_coach_idx on student_coach (coach_id);
+
+alter table student_coach enable row level security;
+
+create policy "student_coach_select_own" on student_coach
+  for select using (student_id = public.get_my_student_id());
+create policy "student_coach_parent_read" on student_coach
+  for select using (public.is_parent_of_student(student_id));
+create policy "student_coach_coach_read" on student_coach
+  for select using (coach_id = auth.uid());
+create policy "student_coach_admin_all" on student_coach
+  for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+
+-- student_focus_areas: Coach/Admin setzt Schwerpunkte (gewichtet die Engine).
+create table student_focus_areas (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  student_id uuid not null references students (id) on delete cascade,
+  cluster_id uuid not null references skill_clusters (id) on delete cascade,
+  coach_id uuid references profiles (id) on delete set null,
+  source text default 'klassenarbeit',
+  note text,
+  active boolean not null default true
+);
+
+create index student_focus_areas_student_idx
+  on student_focus_areas (student_id) where active = true;
+create index student_focus_areas_cluster_idx
+  on student_focus_areas (cluster_id) where active = true;
+
+alter table student_focus_areas enable row level security;
+
+create policy "student_focus_areas_coach_all" on student_focus_areas
+  for all using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+create policy "student_focus_areas_parent_read" on student_focus_areas
+  for select using (
+    public.get_my_role() = 'parent'
+    and exists (
+      select 1 from students s
+      where s.id = student_focus_areas.student_id
+        and public.is_parent_of_student(s.id)
+    )
+  );
+
+
+-- ============================================================================
+-- 9. SESSION-BETRIEB  (Migrationen 017, 024, 025)
+-- ============================================================================
+
+-- coaching_sessions: geplante/laufende Präsenz-Sessions eines Coaches.
+create table coaching_sessions (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  coach_id uuid not null references profiles (id) on delete cascade,
+  room text,
+  scheduled_at timestamptz not null,
+  status text not null default 'upcoming' check (
+    status in ('upcoming','active','done')
+  )
+);
+
+-- session_students: Anwesenheit pro Schüler in einer Session.
+create table session_students (
+  session_id uuid not null
+    references coaching_sessions (id) on delete cascade,
+  student_id uuid not null references students (id) on delete cascade,
+  attendance text not null default 'unknown' check (
+    attendance in ('present','absent','unknown')
+  ),
+  primary key (session_id, student_id)
+);
+
+create index coaching_sessions_coach_idx on coaching_sessions (coach_id);
+create index coaching_sessions_scheduled_idx
+  on coaching_sessions (scheduled_at);
+create index session_students_student_idx
+  on session_students (student_id);
+
+alter table coaching_sessions enable row level security;
+alter table session_students enable row level security;
+
+create policy "coaching_sessions_coach_rw" on coaching_sessions
+  for all
+  using (coach_id = auth.uid())
+  with check (coach_id = auth.uid());
+create policy "coaching_sessions_admin_all" on coaching_sessions
+  for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+create policy "coaching_sessions_student_read" on coaching_sessions
+  for select using (
+    id in (
+      select session_id from session_students
+      where student_id = public.get_my_student_id()
+    )
+  );
+-- Migration 024: Eltern lesen Sessions des eigenen Kindes (RLS-Lücke aus 017).
+create policy "coaching_sessions_parent_read" on coaching_sessions
+  for select using (
+    id in (
+      select ss.session_id
+      from session_students ss
+      where public.is_parent_of_student(ss.student_id)
+    )
+  );
+
+create policy "session_students_select_own" on session_students
+  for select using (student_id = public.get_my_student_id());
+create policy "session_students_parent_read" on session_students
+  for select using (public.is_parent_of_student(student_id));
+create policy "session_students_coach_rw" on session_students
+  for all
+  using (
+    session_id in (
+      select id from coaching_sessions where coach_id = auth.uid()
+    )
+  )
+  with check (
+    session_id in (
+      select id from coaching_sessions where coach_id = auth.uid()
+    )
+  );
+create policy "session_students_admin_all" on session_students
+  for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+
+-- interventions: Eingriff-Tracking (eine veränderbare Zeile pro Vorgang;
+-- Dauer = resolved_at - started_at, nie gespeichert). Schüler: kein Zugriff.
+create table interventions (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  session_id uuid not null references coaching_sessions (id) on delete cascade,
+  student_id uuid not null references students (id) on delete cascade,
+  coach_id uuid not null references profiles (id) on delete cascade,
+  started_at timestamptz not null default now(),
+  resolved_at timestamptz,
+  note text
+);
+
+create index interventions_session_idx on interventions (session_id);
+create index interventions_student_idx on interventions (student_id);
+
+alter table interventions enable row level security;
+
+create policy "interventions_coach_rw" on interventions
+  for all
+  using (
+    session_id in (
+      select id from coaching_sessions where coach_id = auth.uid()
+    )
+  )
+  with check (
+    session_id in (
+      select id from coaching_sessions where coach_id = auth.uid()
+    )
+  );
+create policy "interventions_admin_all" on interventions
+  for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+create policy "interventions_parent_read" on interventions
+  for select using (public.is_parent_of_student(student_id));
+
+
+-- ============================================================================
+-- 10. FORTSCHRITT & GAMIFICATION  (Migr. 018, 019, 026, 032, 034, 035, 036)
+-- ============================================================================
+
+-- student_task_progress: Aufgaben-Abschluss (ersetzt localStorage).
+create table student_task_progress (
+  student_id uuid not null references students (id) on delete cascade,
+  task_id uuid not null references tasks (id) on delete cascade,
+  completed_at timestamptz default now(),
+  primary key (student_id, task_id)
+);
+
+create index student_task_progress_student_idx
+  on student_task_progress (student_id);
+
+alter table student_task_progress enable row level security;
+
+create policy "student_task_progress_own_rw" on student_task_progress
+  for all
+  using (student_id = public.get_my_student_id())
+  with check (student_id = public.get_my_student_id());
+create policy "student_task_progress_parent_read" on student_task_progress
+  for select using (public.is_parent_of_student(student_id));
+create policy "student_task_progress_coach_admin_read" on student_task_progress
+  for select using (public.get_my_role() in ('coach','admin'));
+
+-- student_progress: abgeleiteter Totals-Spiegel (nur via Trigger geschrieben).
+-- Endzustand: streak_days von Migration 036 GEDROPPT; Zwei-Streak-Modell aus
+-- Migration 032 ist aktiv (presence_* / home_*).
+create table student_progress (
+  student_id uuid primary key references students (id) on delete cascade,
+  xp_total integer not null default 0,
+  level integer not null default 1,
+  last_activity timestamptz,
+  -- Migration 032 (Zwei-Streak-Modell):
+  presence_streak_weeks integer not null default 0,
+  presence_streak_last_week_start timestamptz,
+  presence_streak_multiplier numeric(3,2) not null default 1.00,
+  home_streak_sessions integer not null default 0,
+  home_streak_last_completed_at timestamptz
+);
+
+alter table student_progress enable row level security;
+
+create policy "student_progress_select_own" on student_progress
+  for select using (student_id = public.get_my_student_id());
+create policy "student_progress_parent_read" on student_progress
+  for select using (public.is_parent_of_student(student_id));
+create policy "student_progress_coach_admin_read" on student_progress
+  for select using (public.get_my_role() in ('coach','admin'));
+
+-- xp_events: APPEND-ONLY XP-Vergabe; speist student_progress via Trigger.
+create table xp_events (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  student_id uuid not null references students (id) on delete cascade,
+  task_id uuid references tasks (id) on delete set null,
+  xp integer not null,
+  reason text
+);
+
+create index xp_events_student_idx on xp_events (student_id);
+
+alter table xp_events enable row level security;
+
+-- Append-only: KEIN update-, KEIN delete-Policy.
+create policy "xp_events_insert_own" on xp_events
+  for insert with check (student_id = public.get_my_student_id());
+create policy "xp_events_select_own" on xp_events
+  for select using (student_id = public.get_my_student_id());
+create policy "xp_events_parent_read" on xp_events
+  for select using (public.is_parent_of_student(student_id));
+create policy "xp_events_coach_admin_read" on xp_events
+  for select using (public.get_my_role() in ('coach','admin'));
+
+-- xp_rules: admin-konfigurierbare XP-Gewichtung pro content_type (Seed unten).
+create table xp_rules (
+  content_type text primary key,
+  base_xp integer not null default 0,
+  difficulty_multiplier integer not null default 0,
+  updated_at timestamptz not null default now()
+);
+
+alter table xp_rules enable row level security;
+
+create policy "xp_rules_admin_all" on xp_rules
+  for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+create policy "xp_rules_staff_read" on xp_rules
+  for select using (public.get_my_role() in ('coach', 'admin'));
+
+-- badge_catalog: Badge-Definitionen (Seed = 10 regulär + 3 Platin, unten).
+create table if not exists public.badge_catalog (
+  id          text primary key,
+  label       text not null,
+  description text,
+  rarity      public.badge_rarity not null,
+  form        public.badge_form   not null default 'round',
+  klasse      int,
+  trigger     text,
+  created_at  timestamptz not null default now()
+);
+
+alter table public.badge_catalog enable row level security;
+
+create policy "badge_catalog_read_all"
+  on public.badge_catalog for select using (true);
+create policy "badge_catalog_admin_write"
+  on public.badge_catalog for all
+  using (public.get_my_role() = 'admin')
+  with check (public.get_my_role() = 'admin');
+
+-- student_badges: verliehene Badges pro Schüler.
+create table if not exists public.student_badges (
+  student_id   uuid not null references public.students(id) on delete cascade,
+  badge_id     text not null references public.badge_catalog(id),
+  awarded_at   timestamptz not null default now(),
+  primary key (student_id, badge_id)
+);
+
+alter table public.student_badges enable row level security;
+
+create policy "student_badges_self_read"
+  on public.student_badges for select
+  using (
+    student_id in (select id from public.students where profile_id = auth.uid())
+    or public.get_my_role() in ('coach','admin')
+    or exists (
+      select 1 from public.parent_student ps
+      where ps.student_id = public.student_badges.student_id
+        and ps.parent_id  = auth.uid()
+    )
+  );
+create policy "student_badges_admin_write"
+  on public.student_badges for all
+  using (public.get_my_role() in ('admin','coach'))
+  with check (public.get_my_role() in ('admin','coach'));
+
+-- streak_repair_inventory: Inventory für Streak-Repair-Token.
+create table if not exists public.streak_repair_inventory (
+  student_id   uuid primary key references public.students(id) on delete cascade,
+  tokens       int not null default 0,
+  earned_total int not null default 0,
+  used_total   int not null default 0,
+  updated_at   timestamptz not null default now()
+);
+
+alter table public.streak_repair_inventory enable row level security;
+
+create policy "streak_repair_self_read"
+  on public.streak_repair_inventory for select
+  using (
+    student_id in (select id from public.students where profile_id = auth.uid())
+    or public.get_my_role() in ('coach','admin')
+  );
+create policy "streak_repair_admin_write"
+  on public.streak_repair_inventory for all
+  using (public.get_my_role() in ('admin'))
+  with check (public.get_my_role() in ('admin'));
+
+
+-- ============================================================================
+-- 11. ELTERNREPORT  (Migrationen 020, 027)
+-- ============================================================================
+
+-- parent_reports: kuratierter Report (draft -> published). Eltern/Schüler
+-- sehen NUR 'published' des eigenen Kindes/von sich.
+create table parent_reports (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  student_id uuid not null references students (id) on delete cascade,
+  period_start date not null,
+  period_end date not null,
+  summary jsonb,
+  coach_note text,
+  status text not null default 'draft' check (status in ('draft','published')),
+  published_at timestamptz
+);
+
+create index parent_reports_student_idx on parent_reports (student_id);
+
+alter table parent_reports enable row level security;
+
+create policy "parent_reports_parent_read" on parent_reports
+  for select using (
+    status = 'published' and public.is_parent_of_student(student_id)
+  );
+create policy "parent_reports_student_read" on parent_reports
+  for select using (
+    status = 'published' and student_id = public.get_my_student_id()
+  );
+create policy "parent_reports_coach_admin_all" on parent_reports
+  for all
+  using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+
+-- parent_report_generations: APPEND-ONLY Log jeder erfolgreichen KI-Generierung
+-- (Kosten-Guardrail). Insert NUR via Service-Role aus der Edge Function
+-- (umgeht RLS); daher KEIN insert/update/delete-Policy. coach_id ohne FK.
+create table parent_report_generations (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  coach_id uuid,
+  student_id uuid not null references students (id) on delete cascade,
+  model text
+);
+
+create index parent_report_gen_coach_idx
+  on parent_report_generations (coach_id, created_at);
+create index parent_report_gen_student_idx
+  on parent_report_generations (student_id, created_at);
+create index parent_report_gen_created_idx
+  on parent_report_generations (created_at);
+
+alter table parent_report_generations enable row level security;
+
+create policy "prg_coach_admin_read" on parent_report_generations
+  for select using (public.get_my_role() in ('coach', 'admin'));
+
+
+-- ============================================================================
+-- 12. FUNKTIONEN & TRIGGER (tabellenabhängig)
+-- ============================================================================
+
+-- apply_xp_event (Migration 019, repariert in Migration 037 = D-01-Fix):
+-- leitet student_progress aus xp_events ab. OHNE streak_days-Bezug (von 036
+-- gedroppt). Das Zwei-Streak-Modell (presence/home, 032) wird hier bewusst
+-- NICHT gepflegt – separater Folge-Task. SECURITY DEFINER, append-only-Quelle.
+create or replace function public.apply_xp_event()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  perform 1 from student_progress where student_id = new.student_id;
+
+  if not found then
+    insert into student_progress
+      (student_id, xp_total, level, last_activity)
+    values
+      (new.student_id, new.xp, 1 + (new.xp / 500), now());
+    return new;
+  end if;
+
+  update student_progress
+     set xp_total = xp_total + new.xp,
+         level = 1 + ((xp_total + new.xp) / 500),
+         last_activity = now()
+   where student_id = new.student_id;
+
+  return new;
+end;
+$$;
+
+create trigger xp_events_apply
+  after insert on xp_events
+  for each row execute function public.apply_xp_event();
+
+-- complete_task (Migration 026): atomare, idempotente Abschluss-RPC.
+-- Cheat-sicher: Server leitet XP aus xp_rules + tasks ab. Idempotent: XP nur
+-- bei NEUER Progress-Zeile. (Löst über xp_events den Trigger oben aus.)
+create or replace function public.complete_task(p_task_id uuid)
+returns table (newly_completed boolean, awarded_xp integer)
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_student uuid;
+  v_ins integer;
+  v_xp integer;
+begin
+  v_student := public.get_my_student_id();
+  if v_student is null then
+    return;
+  end if;
+
+  insert into student_task_progress (student_id, task_id)
+  values (v_student, p_task_id)
+  on conflict (student_id, task_id) do nothing;
+  get diagnostics v_ins = row_count;
+
+  if v_ins = 0 then
+    return query select false, 0;
+    return;
+  end if;
+
+  select r.base_xp + r.difficulty_multiplier * coalesce(t.difficulty, 0)
+    into v_xp
+    from tasks t
+    join xp_rules r on r.content_type = t.content_type
+   where t.id = p_task_id;
+
+  v_xp := coalesce(v_xp, 0);
+
+  if v_xp > 0 then
+    insert into xp_events (student_id, task_id, xp, reason)
+    values (v_student, p_task_id, v_xp, 'Aufgabe abgeschlossen');
+  end if;
+
+  return query select true, v_xp;
+end;
+$$;
+
+grant execute on function public.complete_task(uuid) to authenticated;
+
+-- app_provision_student (Migration 021): atomare Lead->Student-Conversion.
+-- Nur via Edge Function provision_student (service_role) aufrufbar.
+create or replace function public.app_provision_student(
+  p_student_uid uuid,
+  p_student_email text,
+  p_parent_uid uuid,
+  p_parent_email text,
+  p_full_name text,
+  p_class_level integer,
+  p_school_type text,
+  p_school_name text,
+  p_subjects text[],
+  p_coach_id uuid,
+  p_tier_id uuid,
+  p_lead_id uuid
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_student_id uuid;
+  v_subj text;
+  v_subject_id uuid;
+begin
+  insert into profiles (id, email, role, full_name)
+  values (p_student_uid, p_student_email, 'student', p_full_name)
+  on conflict (id) do update
+    set email = excluded.email,
+        role = 'student',
+        full_name = excluded.full_name;
+
+  if p_parent_uid is not null then
+    insert into profiles (id, email, role, full_name)
+    values (p_parent_uid, p_parent_email, 'parent', null)
+    on conflict (id) do update
+      set email = excluded.email,
+          role = 'parent';
+  end if;
+
+  insert into students (profile_id, class_level, school_name, school_type)
+  values (p_student_uid, p_class_level, p_school_name, p_school_type)
+  returning id into v_student_id;
+
+  if p_parent_uid is not null then
+    insert into parent_student (parent_id, student_id)
+    values (p_parent_uid, p_student_uid);
+  end if;
+
+  if p_subjects is not null then
+    foreach v_subj in array p_subjects loop
+      select id into v_subject_id from subjects where name = v_subj;
+      if v_subject_id is null then
+        raise exception 'Fach unbekannt: %', v_subj;
+      end if;
+      insert into student_subjects (student_id, subject_id)
+      values (v_student_id, v_subject_id);
+    end loop;
+  end if;
+
+  if p_coach_id is not null then
+    insert into student_coach (student_id, coach_id)
+    values (v_student_id, p_coach_id);
+  end if;
+
+  if p_tier_id is not null then
+    insert into student_subscriptions (student_id, tier_id)
+    values (v_student_id, p_tier_id);
+  end if;
+
+  if p_lead_id is not null then
+    update leads
+       set status = 'converted',
+           converted_student_id = v_student_id
+     where id = p_lead_id;
+  end if;
+
+  return v_student_id;
+end;
+$$;
+
+revoke all on function public.app_provision_student(
+  uuid,text,uuid,text,text,integer,text,text,text[],uuid,uuid,uuid
+) from public, anon, authenticated;
+grant execute on function public.app_provision_student(
+  uuid,text,uuid,text,text,integer,text,text,text[],uuid,uuid,uuid
+) to service_role;
+
+-- calc_presence_multiplier (Migration 032): Präsenz-Streak -> XP-Multiplikator.
+create or replace function public.calc_presence_multiplier(weeks int)
+returns numeric(3,2)
+language sql
+immutable
+as $$
+  select case
+    when weeks >= 8 then 1.30
+    when weeks >= 5 then 1.20
+    when weeks >= 3 then 1.10
+    else 1.00
+  end::numeric(3,2)
+$$;
+
+-- mastery_stage (Migration 033): Score (0..100) -> 5-Stufen-Label.
+-- Mastery bleibt in der DB als Level 1..10; diese Funktion mappt aufs Frontend.
+create or replace function public.mastery_stage(score numeric)
+returns text
+language sql
+immutable
+as $$
+  select case
+    when score >= 85 then 'mastered'
+    when score >= 75 then 'proficient'
+    when score >= 60 then 'progressing'
+    when score >= 40 then 'developing'
+    else 'introduced'
+  end
+$$;
+
+create or replace function public.mastery_stage_from_level(lvl int)
+returns text
+language sql
+immutable
+as $$
+  select public.mastery_stage(lvl * 10.0)
+$$;
+
+
+-- ============================================================================
+-- 12b. KOMPETENZ-MATRIX (Migrationen 038-040)
+--      student_competency_mastery steht hier (nicht in Abschnitt 10), weil die
+--      generated column stage die oben definierte Funktion mastery_stage(score)
+--      benoetigt. Zwei-Achsen-Matrix: (Schüler × Mikroskill × Prozesskompetenz).
+-- ============================================================================
+
+-- FernUSG-GATE: "mastered" darf strukturell NUR von Coach/Admin gesetzt werden.
+-- Erzwingt das Gate-Trigger-seitig (auch fuer service-role), setzt mastered_by/
+-- _at beim Gewaehren und updated_at bei jedem Schreibvorgang.
+create or replace function public.enforce_mastery_gate()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_was_mastered boolean := false;
+begin
+  new.updated_at := now();
+
+  if tg_op = 'UPDATE' then
+    v_was_mastered := coalesce(old.mastered, false);
+  end if;
+
+  if new.mastered and not v_was_mastered then
+    if public.get_my_role() not in ('coach','admin') then
+      raise exception 'Mastered darf nur durch Coach gesetzt werden (FernUSG)';
+    end if;
+    new.mastered_by := auth.uid();
+    new.mastered_at := now();
+  end if;
+
+  return new;
+end;
+$$;
+
+-- student_competency_mastery: Mastery-Zustand pro (Schüler × Mikroskill ×
+-- Prozesskompetenz). score wird serverseitig/coach gepflegt; stage ist
+-- abgeleitet (mastery_stage). mastered nur via Gate-Trigger (FernUSG).
+create table student_competency_mastery (
+  student_id    uuid not null references students(id) on delete cascade,
+  microskill_id uuid not null references microskills(id) on delete cascade,
+  competency_id uuid not null references process_competencies(id) on delete cascade,
+  score         numeric(5,2) not null default 0 check (score between 0 and 100),
+  mastered      boolean not null default false,
+  mastered_by   uuid references profiles(id),
+  mastered_at   timestamptz,
+  updated_at    timestamptz not null default now(),
+  stage         text generated always as (public.mastery_stage(score)) stored,
+  primary key (student_id, microskill_id, competency_id)
+);
+
+create index student_competency_mastery_student_idx
+  on student_competency_mastery (student_id);
+
+alter table student_competency_mastery enable row level security;
+
+-- Lesen: exakt analog student_task_progress.
+create policy "scm_student_read" on student_competency_mastery
+  for select using (student_id = public.get_my_student_id());
+create policy "scm_parent_read" on student_competency_mastery
+  for select using (public.is_parent_of_student(student_id));
+create policy "scm_coach_admin_read" on student_competency_mastery
+  for select using (public.get_my_role() in ('coach','admin'));
+
+-- Schreiben (score): nur coach/admin. Kein student/parent-Schreibpfad.
+create policy "scm_coach_admin_insert" on student_competency_mastery
+  for insert with check (public.get_my_role() in ('coach','admin'));
+create policy "scm_coach_admin_update" on student_competency_mastery
+  for update using (public.get_my_role() in ('coach','admin'))
+  with check (public.get_my_role() in ('coach','admin'));
+
+create trigger trg_enforce_mastery_gate
+  before insert or update on student_competency_mastery
+  for each row execute function public.enforce_mastery_gate();
+
+
+-- ============================================================================
+-- 13. STORAGE-RLS  (Migrationen 010, 031)
+-- ============================================================================
+-- Voraussetzung: Buckets sind in Supabase Studio angelegt:
+--   - 'task-assets'       (public)  – Bilder/Abbildungen für tasks.assets
+--   - 'screening-uploads' (privat)  – Foto-Uploads (Handschrift/PII), Signed URL
+
+-- task-assets: Admins schreiben; Lesen ist public (Bucket-Setting).
+create policy "admin_insert_task_assets"
+on storage.objects for insert to authenticated
+with check (
+  bucket_id = 'task-assets'
+  and public.get_my_role() = 'admin'
+);
+create policy "admin_update_task_assets"
+on storage.objects for update to authenticated
+using (
+  bucket_id = 'task-assets'
+  and public.get_my_role() = 'admin'
+);
+create policy "admin_delete_task_assets"
+on storage.objects for delete to authenticated
+using (
+  bucket_id = 'task-assets'
+  and public.get_my_role() = 'admin'
+);
+
+-- screening-uploads: privat. Pfad-Konvention {student_id}/{timestamp}-{rand}.{ext}.
+create policy "screening_uploads_insert_own_student"
+on storage.objects for insert to authenticated
+with check (
+  bucket_id = 'screening-uploads'
+  and (storage.foldername(name))[1] = public.get_my_student_id()::text
+);
+create policy "screening_uploads_select_own_student"
+on storage.objects for select to authenticated
+using (
+  bucket_id = 'screening-uploads'
+  and (storage.foldername(name))[1] = public.get_my_student_id()::text
+);
+create policy "screening_uploads_delete_own_student"
+on storage.objects for delete to authenticated
+using (
+  bucket_id = 'screening-uploads'
+  and (storage.foldername(name))[1] = public.get_my_student_id()::text
+);
+create policy "screening_uploads_select_parent"
+on storage.objects for select to authenticated
+using (
+  bucket_id = 'screening-uploads'
+  and public.get_my_role() = 'parent'
+  and public.is_parent_of_student(((storage.foldername(name))[1])::uuid)
+);
+create policy "screening_uploads_select_coach_admin"
+on storage.objects for select to authenticated
+using (
+  bucket_id = 'screening-uploads'
+  and public.get_my_role() in ('coach','admin')
+);
+create policy "screening_uploads_delete_admin"
+on storage.objects for delete to authenticated
+using (
+  bucket_id = 'screening-uploads'
+  and public.get_my_role() = 'admin'
+);

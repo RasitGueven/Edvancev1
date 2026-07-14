@@ -1,0 +1,176 @@
+{
+  "item": "rollrasen",
+  "sources": {
+    "Aufgabe": {
+      "file": "rollrasen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "5a391ccd183c2e06"
+    },
+    "Auswertung": {
+      "file": "rollrasen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "35f65aa743e77dde"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rollrasen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "5ec468a8efa1c1a0"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rollrasen/00_doc_image1.emf.png",
+      "tokens": "Herr Klie hat eine Gartenbaufirma und gestaltet einen Teil seines Firmengeländes in eine Rasenfläche um. Diese neue Rasenfläche ist 11m lang und 10,5m breit.Aus Zeitgründen verwendet Herr Klie Rollrasen (siehe Fotos 1 und 2). Als Rollrasen bezeich-net man fertigen Rasen, der in rechteckige Stücke geschnitten und dann zum Transport aufgerollt wird. Foto 1Foto 2",
+      "deterministic_text": "Herr Klie hat eine Gartenbaufirma und gestaltet einen Teil seines Firmengeländes in eine\nRasenfläche um. Diese neue Rasenfläche ist 11m lang und 10,5m breit.\nAus Zeitgründen verwendet Herr Klie Rollrasen (siehe Fotos 1 und 2). Als Rollrasen bezeich-\nnet man fertigen Rasen, der in rechteckige Stücke geschnitten und dann zum Transport\naufgerollt wird.\nFoto 1 Foto 2",
+      "table": null,
+      "n_fragments": 29,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Rollrasen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "115,5 m2 (auch 116 m2 wird akzeptiert)"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtiges Ergebnis (97 Streifen) UND nachvollziehbarer Rechenweg.\nDieser kann auch mittels einer Zeichnung dargestellt werden.\nZ. B.:\n97 Streifen\nDie rechteckige Fläche ist 11 m lang und 10,5 m breit. Wenn ich\ndiese der Länge nach mit ganzen Streifen auslege, dann benötige\nich 85 Streifen. Dabei bleibt eine Fläche von 11 m x 0,3 m frei.\nUm diese auszulegen, benötige ich noch einmal etwa 3 Streifen.\nAußerdem bleibt eine Fläche von 10,5 m x 1 m frei. Um diese\nFläche auszulegen, benötige ich etwa 8 Streifen. Insgesamt\nbenötige ich also etwa 97 Streifen."
+          ],
+          [
+            "RICHTIG",
+            "ODER\n[pic]\nÜbrig bleibt:\n[pic]\nInsgesamt brauche ich etwas 96 Streifen."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nOrdne ich die Streifen parallel zur Breite von 10,5 m an,\nbenötige ich ca. 18 Reihen. Für jede Reihe sind mindestens 5\nStreifen nötig. D. h. ich benötige 90 Streifen."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ca. 227 kg\nAkzeptiert werden alle Ergebnisse im Intervall [225; 230] kg."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n1080 kg (Die Dicke des Rollrasens wurde nicht berücksichtigt.)"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Rollrasen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "115,5 m2 (auch 116 m2 wird akzeptiert)"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtiges Ergebnis (97 Streifen) UND nachvollziehbarer Rechenweg.\nDieser kann auch mittels einer Zeichnung dargestellt werden.\nZ. B.:\n97 Streifen\nDie rechteckige Fläche ist 11 m lang und 10,5 m breit. Wenn ich\ndiese der Länge nach mit ganzen Streifen auslege, dann benötige\nich 85 Streifen. Dabei bleibt eine Fläche von 11 m x 0,3 m frei.\nUm diese auszulegen, benötige ich noch einmal etwa 3 Streifen.\nAußerdem bleibt eine Fläche von 10,5 m x 1 m frei. Um diese\nFläche auszulegen, benötige ich etwa 8 Streifen. Insgesamt\nbenötige ich also etwa 97 Streifen."
+          ],
+          [
+            "RICHTIG",
+            "ODER\n[pic]\nÜbrig bleibt:\n[pic]\nInsgesamt brauche ich etwas 96 Streifen."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nOrdne ich die Streifen parallel zur Breite von 10,5 m an,\nbenötige ich ca. 18 Reihen. Für jede Reihe sind mindestens 5\nStreifen nötig. D. h. ich benötige 90 Streifen."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ca. 227 kg\nAkzeptiert werden alle Ergebnisse im Intervall [225; 230] kg."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n1080 kg (Die Dicke des Rollrasens wurde nicht berücksichtigt.)"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "IV",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "V",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Es wird lediglich das Volumen bzw. anschließend das Gewicht eines",
+      "Rollrasenstreifens berechnet (K6).",
+      "Ein Rollrasenstreifen wird nicht als Quader modelliert, sondern als",
+      "Rechteckfläche aufgefasst. Der berechnete Flächeninhalt wird somit weiter",
+      "verwendet, um das Gewicht eines Rollrasenstreifens zu berechnen (K3)."
+    ],
+    "quelle": "rollrasen_Didaktische_Kommentierung.doc"
+  }
+}

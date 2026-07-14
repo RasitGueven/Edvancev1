@@ -1,0 +1,123 @@
+{
+  "item": "zahlensumme",
+  "sources": {
+    "Aufgabe": {
+      "file": "zahlensumme_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "b034847b0e97a529"
+    },
+    "Auswertung": {
+      "file": "zahlensumme_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "4fe16f6519240828"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zahlensumme_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "97cb4801097d33fd"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlensumme/00_doc_image1.emf.png",
+      "tokens": "Lässt sich jede natürliche Zahl, die größer als 5 ist, als Summe aus drei aufeinanderfolgenden natürlichen Zahlen darstellen? Begründe deine Entscheidung.JaNeinKreuze an.",
+      "deterministic_text": "Lässt sich jede natürliche Zahl, die größer als 5 ist, als Summe aus drei aufeinanderfolgenden\nnatürlichen Zahlen darstellen?\nKreuze an.\nJa Nein\nBegründe deine Entscheidung.",
+      "table": null,
+      "n_fragments": 15,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Zahlensumme"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIGRICHTIG",
+            "Richtige Antwort (Nein) UND richtige Begründung, auch durch\nAngabe eines begründeten Gegenbeispiels.\nz. B.\n[pic]    [pic]    [pic]\nWenn a ein Vielfaches von 3 ist, dann ist n eine natürliche Zahl.\nEs können also nur Zahlen, die durch drei teilbar sind, als Summe\nvon drei aufeinanderfolgenden Zahlen dargestellt werden.\nODER (Gegenbeispiel)\nEs gilt: 1+2+3=6.\nDie nächste solche Summe ist: 2+3+4=9.\nAlso lassen sich die Zahlen 7 und 8 nicht als Summe von drei\naufeinanderfolgenden Zahlen darstellen. Somit geht es nicht bei\nallen natürlichen Zahlen.\nODER (Gegenbeispiel)\nDie Summe von drei aufeinanderfolgenden Zahlen soll 14 sein:\n[pic]   [pic]   [pic]\n[pic] oder [pic] oder 4,67 ist keine natürliche Zahl. Also geht\nes nicht bei allen natürlichen Zahlen.\nODER (inhaltlich)\nBildet man die Summe von drei Nachbarzahlen, so ist das dasselbe,\nwie wenn man die mittlere Zahl mit 3 multipliziert. Hierdurch\nlassen sich aber nur Zahlen, die durch drei teilbar sind,\ndarstellen.\nODER (zeichnerisch)\n[pic]\nDie darstellbaren Summen sind also immer nur Vielfache von 3."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen\nAntworten.\nz. B.\nNein. Sind die Zahlen größer drei, benötigt man auch mehr als\ndrei Zahlen.\nODER\nNur Angabe einer Zahl ohne Begründung. (z. B. Bei 7 geht es\nnicht)."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Zahlensumme"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIGRICHTIG",
+            "Richtige Antwort (Nein) UND richtige Begründung, auch durch\nAngabe eines begründeten Gegenbeispiels.\nz. B.\n[pic]    [pic]    [pic]\nWenn a ein Vielfaches von 3 ist, dann ist n eine natürliche Zahl.\nEs können also nur Zahlen, die durch drei teilbar sind, als Summe\nvon drei aufeinanderfolgenden Zahlen dargestellt werden.\nODER (Gegenbeispiel)\nEs gilt: 1+2+3=6.\nDie nächste solche Summe ist: 2+3+4=9.\nAlso lassen sich die Zahlen 7 und 8 nicht als Summe von drei\naufeinanderfolgenden Zahlen darstellen. Somit geht es nicht bei\nallen natürlichen Zahlen.\nODER (Gegenbeispiel)\nDie Summe von drei aufeinanderfolgenden Zahlen soll 14 sein:\n[pic]   [pic]   [pic]\n[pic] oder [pic] oder 4,67 ist keine natürliche Zahl. Also geht\nes nicht bei allen natürlichen Zahlen.\nODER (inhaltlich)\nBildet man die Summe von drei Nachbarzahlen, so ist das dasselbe,\nwie wenn man die mittlere Zahl mit 3 multipliziert. Hierdurch\nlassen sich aber nur Zahlen, die durch drei teilbar sind,\ndarstellen.\nODER (zeichnerisch)\n[pic]\nDie darstellbaren Summen sind also immer nur Vielfache von 3."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen\nAntworten.\nz. B.\nNein. Sind die Zahlen größer drei, benötigt man auch mehr als\ndrei Zahlen.\nODER\nNur Angabe einer Zahl ohne Begründung. (z. B. Bei 7 geht es\nnicht)."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Es wird nicht bedacht, dass es sich um aufeinanderfolgende Zahlen handeln",
+      "muss. Stattdessen werden beliebige Zahlen zur Darstellung verwendet, wie",
+      "die folgende Schülerlösung zeigt (K6).",
+      "• Die Aussage wird anhand eines einzigen Beispiels als richtig ausgewiesen.",
+      "Es wird nicht erkannt, dass ein einziges richtiges Beispiel nicht",
+      "ausreicht, um die Gültigkeit einer All-Aussage nachzuweisen (K1). Dies",
+      "veranschaulicht die folgende Schülerlösung.",
+      "• Die folgende Schülerlösung zeigt, dass zwar die richtige allgemeine",
+      "Gleichung aufgestellt wird, diese jedoch nicht genutzt wird, um die",
+      "Allgemeingültigkeit der Aussage zu überprüfen (K1).",
+      "Weiterarbeit und Förderung",
+      "Kommt es bei der Aufgabe zu Schwierigkeiten, kann zunächst beispielsweise",
+      "die folgende Aufgabe behandelt werden, um die Schüler an den Problemkontext",
+      "„Summe aufeinanderfolgender Zahlen“ heranzuführen.",
+      "Auch zur Bearbeitung dieser Aufgabe ist zunächst der Text zu lesen, wobei",
+      "die Aussage „drei aufeinanderfolgende Zahlen“ inhaltlich richtig erfasst",
+      "werden muss. Anschließend ist diese Aussage in natürlicher Sprache in Bezug",
+      "zu setzen zur angegebenen formalen Gleichung mit der Variablen n, wobei n",
+      "als mittlere der drei Zahlen zu identifizieren ist. Diese Erfahrungen",
+      "können den Schülern dann bei der Bearbeitung der gestellten Aufgabe helfen,",
+      "da sie die dort allgemein zu begründende mathematische Aussage bereits",
+      "inhaltlich erfasst haben und den angegebenen Term nutzen können.",
+      "Kommt es bei einer dieser beiden Aufgaben zu Schwierigkeiten hinsichtlich",
+      "des Wechselns zwischen der symbolischen Sprache und der natürlichen",
+      "Sprache, können im Unterricht zunächst Aufgaben behandelt werden, in denen",
+      "beispielsweise gegebene Texte und Gleichungen einander zugeordnet werden",
+      "müssen. Denkbar ist auch das Aufstellen von Termen bzw. Gleichungen zu",
+      "vorgegebenen Texten oder deren Beschreibung mit Hilfe der natürlichen",
+      "Sprache. Dabei ist es wichtig, die Bedeutung auftretender mathematischer",
+      "Begriffe wie z. B. „Summe“, „dividieren“ oder „Quadrat“ zu thematisieren",
+      "und die Reihenfolge der einzelnen Operationen herauszuarbeiten."
+    ],
+    "quelle": "zahlensumme_Didaktische_Kommentierung.doc"
+  }
+}

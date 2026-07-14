@@ -1,0 +1,111 @@
+{
+  "item": "lohnerhoehung",
+  "sources": {
+    "Aufgabe": {
+      "file": "lohnerhoehung_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "48d04e95b33a30a2"
+    },
+    "Auswertung": {
+      "file": "lohnerhoehung_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "5669e46e9ab0ea01"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "lohnerhoehung_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "1be59fc5548e7534"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/lohnerhoehung/00_image1.emf.png",
+      "tokens": "Eine Werbefirma erhöht den Lohn für das Verteilen von 500 Werbeprospektenvon 5,00€ auf 5,50€.",
+      "deterministic_text": "Eine Werbefirma erhöht den Lohn für das Verteilen von 500 Werbeprospekten\nvon 5,00€ auf 5,50€.",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/lohnerhoehung/01_image2.emf.png",
+      "tokens": "Gib an, um wie viel Prozent der Lohn erhöht wird.Der Lohn wird um                 % erhöht.",
+      "deterministic_text": "Gib an, um wie viel Prozent der Lohn erhöht wird.\nDer Lohn wird um % erhöht.",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/lohnerhoehung/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Lohnerhöhung"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "10"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Lohnerhöhung"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "10"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "lohnerhoehung_Didaktische_Kommentierung.docx"
+  }
+}

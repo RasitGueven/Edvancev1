@@ -1,0 +1,41 @@
+{
+  "item": "fussballtabelle",
+  "gelesen_aus": [
+    "data/r01_render/fussballtabelle/00_image1.emf.png",
+    "data/r01_render/fussballtabelle/01_image2.emf.png",
+    "data/r01_render/fussballtabelle/02_image3.emf.png",
+    "data/r01_render/fussballtabelle/03_image4.emf.png"
+  ],
+  "stem": "Bei Fußball-Meisterschaftsspielen gilt:\n\nFür einen Sieg erhält eine Mannschaft drei Punkte, für ein Unentschieden einen Punkt, für Niederlagen gibt es keinen Punkt.\n\nDie Punkte aller Spiele einer Mannschaft werden addiert.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Die Saison hat gerade begonnen. Eine Mannschaft hat bisher zweimal gespielt. Wie viele Punkte kann diese Mannschaft haben? Gib alle Möglichkeiten an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe, warum eine Mannschaft nach drei Spielen nicht acht Punkte haben kann.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Nach 14 Spielen hat eine Mannschaft 26 Punkte. Wie viele Spiele könnte diese Mannschaft gewonnen haben? Nenne alle Möglichkeiten.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Rechts neben dem Stamm steht eine Tabelle (Bundesliga-Tabelle) mit den Spalten P | Verein | Sp | S | U | N | TD | P und 13 Zeilen (1 Borussia M'Gladbach … 13 VfB Stuttgart). Die Queue meldet hat_tabelle_im_emf=false, im Bild ist die Tabelle jedoch klar als Raster vorhanden — ich setze stem_tabelle_erwartet=true.",
+    "Ob der Stamm-Satz mit ':' oder '.' endet ('Bei Fußball-Meisterschaftsspielen gilt') ist im Render nicht eindeutig lesbar."
+  ]
+}

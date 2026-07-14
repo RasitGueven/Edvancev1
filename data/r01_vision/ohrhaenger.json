@@ -1,0 +1,30 @@
+{
+  "item": "ohrhaenger",
+  "gelesen_aus": [
+    "data/r01_render/ohrhaenger/00_image1.emf.png",
+    "data/r01_render/ohrhaenger/01_image2.emf.png",
+    "data/r01_render/ohrhaenger/02_image3.emf.png"
+  ],
+  "stem": "Janina biegt Ohrhänger aus Silberdraht, die aus einem oberen und einem unteren Teil bestehen. Den oberen Teil macht Janina immer 3 cm lang, der untere Teil hat immer die Form eines gleichseitigen Dreiecks (siehe Abbildung).",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Das gleichseitige Dreieck hat eine Seitenlänge von 5 cm. Wie viele solche Ohrhänger kann Janina mit 90 cm Silberdraht herstellen? Schreibe deinen Lösungsweg auf.",
+      "unit": "Ohrhänger",
+      "options": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Aus weiteren 90 cm Silberdraht biegt Janina nun 6 andere Ohrhänger. Diese sind alle gleich groß. Der obere Teil ist wieder 3 cm lang und der untere Teil ist wieder ein gleichseitiges Dreieck. Wie lang ist eine Dreiecksseite, wenn kein Silberdraht übrig bleiben soll? Schreibe deinen Lösungsweg auf.",
+      "unit": "cm",
+      "options": null
+    }
+  ],
+  "unsicher": [
+    "Beide Teilaufgaben verlangen zusätzlich einen Lösungsweg im Karokasten; erfasst als short_input mit Einheit, der Lösungsweg-Satz steht im Prompt.",
+    "Abbildungsbeschriftungen '3 cm' und '(nicht maßstabsgerecht)' gehören zur Grafik, nicht zum Stamm."
+  ]
+}

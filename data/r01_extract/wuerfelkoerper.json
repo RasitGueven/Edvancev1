@@ -1,0 +1,137 @@
+{
+  "item": "wuerfelkoerper",
+  "sources": {
+    "Aufgabe": {
+      "file": "wuerfelkoerper_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "119630ab24913c74"
+    },
+    "Auswertung": {
+      "file": "wuerfelkoerper_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "27be355a84406eb2"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "wuerfelkoerper_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "1f9e4bc5e6972c9f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfelkoerper/00_doc_image1.emf.png",
+      "tokens": "Ein Würfel ist aus lauter kleinen Würfeln zusammengesetzt (siehe Bild). Jeder der kleinen Würfel hat ein Volumen von 1cm3.(Abbildung nicht maßstabsgerecht)",
+      "deterministic_text": "Ein Würfel ist aus lauter kleinen Würfeln zusammengesetzt (siehe\nBild). Jeder der kleinen Würfel hat ein Volumen von 1cm³.\n(Abbildung nicht maßstabsgerecht)",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Würfelkörper",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Das Volumen des großen Würfels beträgt 27 cm3"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die Oberfläche des großen Würfels beträgt 54 cm2"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Würfelkörper"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Das Volumen des großen Würfels beträgt 27 cm3"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die Oberfläche des großen Würfels beträgt 54 cm2"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1, 2:",
+      "• Es werden nur die sichtbaren Würfelchen gezählt und deren Anzahl mit dem",
+      "Volumen bzw. dem Oberflächeninhalt des großen Würfels gleichgesetzt.",
+      "Während diese falsche Strategie bei Teilaufgabe 1 zum richtigen Ergebnis",
+      "führt, ist dies bei Teilaufgabe 2 nicht der Fall [Fehllösung: 27 cm3 bzw.",
+      "Weiterarbeit und Förderung",
+      "Soll auf diese Aufgabe aufgrund von Schwierigkeiten bei ihrer Bearbeitung",
+      "noch einmal im Unterricht eingegangen werden, bietet es sich an, den Würfel",
+      "konkret nachbauen zu lassen. Dies ermöglicht den Schülern, seine",
+      "Zusammensetzung noch besser zu erkennen und die richtige Anzahl an",
+      "Würfelchen zu ermitteln, um das Volumen bzw. den Oberflächeninhalt des",
+      "Würfels zu bestimmen. Weiterführend könnten die Schülerinnen und Schüler",
+      "neue Körper bauen, deren Oberfläche und Volumen von den Mitschülern zu",
+      "bestimmen ist. Dabei sollten auch andere Körper als Würfel und Quader",
+      "vorkommen. Fordert man die Schüler auf, drei Körper mit demselben Volumen",
+      "bzw. gleich großer Oberfläche zu bauen, kann auch die Kompetenz Probleme",
+      "lösen in höherem Maße ins Spiel kommen. Noch schwieriger wird es, wenn",
+      "Volumen und Oberfläche eines Körpers festgelegt sind. Eine mögliche Aufgabe",
+      "hierzu ist die folgende:"
+    ],
+    "quelle": "wuerfelkoerper_Didaktische_Kommentierung.doc"
+  }
+}

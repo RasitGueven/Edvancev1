@@ -1,0 +1,94 @@
+{
+  "item": "judomatte",
+  "sources": {
+    "Aufgabe": {
+      "file": "judomatte_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "4ed4b1a6a26563fe"
+    },
+    "Auswertung": {
+      "file": "judomatte_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "491226284c931d7b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "judomatte_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "0c2509b7e0ac04fa"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/judomatte/00_doc_image1.emf.png",
+      "tokens": "Bei den Olympischen Spielen wird der Judokampf innerhalb einer 8 m x 8 m großen quadratischen Kampfzone ausgetragen.Wie groß ist diese? Kreuze an. 8 m216 m232 m264 m2256 m2",
+      "deterministic_text": "Bei den Olympischen Spielen wird der Judokampf innerhalb einer 8 m x 8 m\ngroßen quadratischen Kampfzone ausgetragen.\nWie groß ist diese?\nKreuze an.\n8 m² 16 m² 32 m² 64 m² 256 m²",
+      "table": null,
+      "n_fragments": 26,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Judomatte"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Judomatte"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "▪ 1. Antwortalternative wurde angekreuzt: Vermutlich wird die",
+      "Schreibweise „8 m2“ mit der Schreibweise „8m x 8m“ im Text und somit auch",
+      "mit dem zu ermittelnden Flächeninhalt gleichgesetzt.",
+      "▪ 2. Antwortalternative wurde angekreuzt: Es ist naheliegend, dass die im",
+      "Text enthaltenen Zahlen einfach addiert werden, ohne passende",
+      "Grundvorstellungen zu aktivieren.",
+      "▪ 3. Antwortalternative wurde angekreuzt: Vermutlich wird statt des",
+      "Flächeninhalts der Umfang des Quadrats (32 m) berechnet.",
+      "▪ 5. Antwortalternative wurde angekreuzt: Es könnte eine Fehlvorstellung",
+      "über das gegebene Quadrat vorliegen (Seitenlänge 8m + 8 m)."
+    ],
+    "quelle": "judomatte_Didaktische_Kommentierung.doc"
+  }
+}

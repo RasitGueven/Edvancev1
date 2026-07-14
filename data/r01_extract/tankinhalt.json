@@ -1,0 +1,101 @@
+{
+  "item": "tankinhalt",
+  "sources": {
+    "Aufgabe": {
+      "file": "tankinhalt_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "4eaef3f17764ce48"
+    },
+    "Auswertung": {
+      "file": "tankinhalt_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "32fcb7ae59d31614"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "tankinhalt_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "8be9e5ece0004fe0"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/tankinhalt/00_image1.emf.png",
+      "tokens": "Der Bordcomputer eines Autos zeigt während der Fahrt den aktuellen Durchschnittsverbrauch in Liter pro 100km an (l/100km).Er zeigt auch an, wie viele Kilometer man noch fahren kann, bis der Tank leer ist. Diese Entfernung errechnet der Bordcomputer fortlaufend neu. Er berücksichtigt dabei den aktuellen Durchschnittsverbrauch und den aktuellen Tankinhalt.Berechne mithilfe der angezeigten Daten, wie viele Liter Kraftstoff in diesem Moment noch ungefähr im Tank sind.In diesem Moment sind ca.Liter Kraftstoff im Tank.",
+      "deterministic_text": "Der Bordcomputer eines Autos zeigt während der Fahrt den aktuellen\nDurchschnittsverbrauch in Liter pro 100km an (l/100km).\nEr zeigt auch an, wie viele Kilometer man noch fahren kann, bis der Tank leer ist.\nDiese Entfernung errechnet der Bordcomputer fortlaufend neu. Er berücksichtigt dabei\nden aktuellen Durchschnittsverbrauch und den aktuellen Tankinhalt.\nBerechne mithilfe der angezeigten Daten, wie viele Liter Kraftstoff in diesem Moment\nnoch ungefähr im Tank sind.\nIn diesem Moment sind ca. Liter Kraftstoff im Tank.",
+      "table": null,
+      "n_fragments": 30,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/tankinhalt/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Tankinhalt"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [49; 50]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Tankinhalt"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [49; 50]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "tankinhalt_Didaktische_Kommentierung.docx"
+  }
+}

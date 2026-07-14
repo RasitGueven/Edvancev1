@@ -1,0 +1,19 @@
+{
+  "item": "papier",
+  "gelesen_aus": [
+    "data/r01_render/papier/00_image1.emf.png"
+  ],
+  "stem": "500 Blatt einer Papiersorte sind 55 mm hoch.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie hoch 200 Blatt dieser Papiersorte sind.",
+      "unit": "mm",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}
