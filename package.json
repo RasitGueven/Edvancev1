@@ -20,6 +20,8 @@
     "seed:vera8": "tsx --env-file=.env scripts/seed_vera8.ts",
     "seed:test-student": "tsx --env-file=.env scripts/seed-test-student.ts",
     "import:lsa-items": "tsx --env-file=.env scripts/import-lsa-items.ts",
+    "import:vera8-draft": "tsx --env-file=.env scripts/import-vera8-draft.ts",
+    "build:grounding": "tsx scripts/build-grounding-index.ts",
     "import:lambacher": "tsx --env-file=.env scripts/import/lambacher.ts",
     "generate:assets": "tsx --env-file=.env scripts/generate-assets.ts",
     "assets:upload": "tsx --env-file=.env scripts/upload-task-assets.ts",

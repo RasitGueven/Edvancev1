@@ -205,6 +205,21 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Freigabe-Audit). Bis dahin läuft das Tool im Degraded-Modus. Danach: `lsa_start`
   auf `curriculum_grade` umstellen (eigener PR, **nach** der Pflege).
 
+- **C08 — Neuextraktion als Draft im Autoren-Tool** (Branch `feat/C08-import-draft`,
+  Retro `docs/retros/2026-07-14-C08-import-draft.md`): alle 299 Items aus
+  `data/vera8_v2.json` sind als `draft` in `tasks` — **285 neu**, die 14 aus C03
+  (`ready`) unangetastet. Lösungen ausschließlich über `task_solution_upsert`,
+  kein `curriculum_grade` (Handarbeit), keine Lösung im `question_payload`.
+  Idempotent über `(source, source_ref)`. **138 wären nach der Pflege pool-fähig**
+  (es fehlen nur Stoffanker + Alt-Texte).
+  Zwei Funde: (1) `public/authoring/grounding-vera8.json` wird **ohne Auth**
+  ausgeliefert und enthielt die Lösungszitate von 209 Items — jetzt ohne
+  Lösungsbelege gebaut, der Beleg liegt gegatet in `task_solutions.solution`;
+  (2) `toPatch` hätte die F01-Tabelle von 54 Items beim ersten Speichern verworfen —
+  jetzt read-only durchgereicht.
+  **Offen:** Tabellen-Editor (54 Items), eigenes Beleg-Feld statt
+  `task_solutions.solution` (Migration), Pflege der 138.
+
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
   KI-Erklärartikel → Eskalations-Trigger.

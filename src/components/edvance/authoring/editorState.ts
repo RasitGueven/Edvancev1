@@ -43,6 +43,14 @@ export type FormState = {
   assets: TaskAsset[]
   /** Optionen bei flachem MC (liegen in tasks.question_payload.options). */
   mcOptions: PartOption[]
+  /**
+   * Die Aufgaben-Tabelle (tasks.question_payload.table, F01). Der Editor kann sie
+   * heute nicht BEARBEITEN — aber er darf sie auch nicht verlieren: toPatch baut
+   * question_payload bei jedem Speichern neu, und ohne dieses Feld waere die Tabelle
+   * nach dem ersten Speichern weg (54 Items der VERA-Extraktion haben eine).
+   * Read-only durchgereicht, bis es einen Tabellen-Editor gibt.
+   */
+  table: unknown | null
   /** Akzeptierte Antworten bei flachem Item. */
   answers: string[]
   /** Akzeptierte Antworten je Teilaufgabe: { "1": ["20"] }. */
@@ -53,11 +61,16 @@ export type FormState = {
   typicalErrors: TypicalError[]
 }
 
+// FREE_TEXT ist nicht auto-korrigierbar und kommt nie in den LSA-Pool (lsa_has_answers
+// verlangt correct_answers). Es steht trotzdem hier: der VERA-Import (C08) hat 23
+// Freitext-Items als draft angelegt, und ein Typ, den der Editor nicht anzeigen kann,
+// ist ein Typ, den der Pfleger versehentlich ueberschreibt.
 export const INPUT_TYPES: AuthoringInputType[] = [
   'SHORT_TEXT',
   'NUMERIC',
   'MC',
   'MULTI_PART',
+  'FREE_TEXT',
 ]
 
 export const AFB_VALUES: Afb[] = ['I', 'II', 'III']
@@ -69,6 +82,11 @@ function optionsFromPayload(payload: unknown): PartOption[] {
   if (!payload || typeof payload !== 'object') return []
   const opts = (payload as { options?: unknown }).options
   return Array.isArray(opts) ? (opts as PartOption[]) : []
+}
+
+function tableFromPayload(payload: unknown): unknown | null {
+  if (!payload || typeof payload !== 'object') return null
+  return (payload as { table?: unknown }).table ?? null
 }
 
 function splitAnswers(answers: SolutionAnswers): {
@@ -95,6 +113,7 @@ export function fromTask(task: AuthoringTask, solution: TaskSolution): FormState
     parts: task.parts.map((p) => ({ ...p })),
     assets: task.assets.map((a) => ({ ...a })),
     mcOptions: optionsFromPayload(task.question_payload),
+    table: tableFromPayload(task.question_payload),
     answers: flat,
     partAnswers: byPart,
     solutionText: solution.solution ?? '',
@@ -128,11 +147,24 @@ export function toPatch(state: FormState): AuthoringTaskPatch {
     // tasks_multipart_check verlangt parts = '[]' bei flachen Items.
     parts: multi ? normalizeParts(state.parts) : [],
     assets: state.assets.filter((a) => a.url.trim() !== ''),
-    question_payload:
-      state.input_type === 'MC'
-        ? { input_type: 'MC', options: state.mcOptions.filter((o) => o.label.trim() !== '') }
-        : null,
+    question_payload: buildPayload(state),
   }
+}
+
+/**
+ * question_payload wird bei jedem Speichern NEU gebaut — aus einer Whitelist, nie
+ * durchgereicht (dieselbe Zusage wie lsa_question_payload). Genau zwei Dinge duerfen
+ * drin stehen: die MC-Optionen und die Tabelle (F01). Keine Loesung — der CHECK
+ * tasks_question_payload_no_solution wuerde sie ohnehin abweisen.
+ */
+function buildPayload(state: FormState): Record<string, unknown> | null {
+  const payload: Record<string, unknown> = {}
+  if (state.input_type === 'MC') {
+    payload.input_type = 'MC'
+    payload.options = state.mcOptions.filter((o) => o.label.trim() !== '')
+  }
+  if (state.table) payload.table = state.table
+  return Object.keys(payload).length > 0 ? payload : null
 }
 
 /** Nummern luecklos und aufsteigend — lsa_parts_valid verlangt eindeutige nr >= 1. */

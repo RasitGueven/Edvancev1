@@ -1,49 +1,97 @@
 // Der Quellenbeleg — READ-ONLY.
 //
 // Das ist die Stelle, an der die Pflege aufhoert zu raten. Was stand im
-// Original-Aufgabenblatt? Was in der Auswertungsanleitung? Was in der
-// didaktischen Kommentierung? Ein Zitat mit Dateinamen, sonst nichts.
+// Original-Aufgabenblatt? Was hat die Extraktion selbst als unsicher markiert?
+// Was konnte der Import nicht uebernehmen? Ein Zitat mit Dateinamen, sonst nichts.
 //
-// Nichts hier ist editierbar, und nichts davon wird gespeichert. Der Beleg ist
-// die Quelle, gegen die geprueft wird — waere er aenderbar, waere er keine.
+// Nichts hier ist editierbar, und nichts davon wird gespeichert. Der Beleg ist die
+// Quelle, gegen die geprueft wird — waere er aenderbar, waere er keine.
+//
+// NICHT HIER: der Loesungsbeleg. Der Index ist eine statische Datei in public/,
+// also oeffentlich lesbar — auch fuer ein Kind mitten in der LSA (INV-6). Worauf
+// sich die LOESUNG stuetzt, steht deshalb im Loesungsfeld oben (task_solutions.
+// solution, gegated auf Coach/Admin ueber task_solution_get).
 
 import { useEffect, useState, type JSX } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BookOpen, ChevronDown, ChevronRight, ExternalLink } from 'lucide-react'
+import { AlertTriangle, BookOpen, ChevronDown, ChevronRight, ExternalLink } from 'lucide-react'
 import { EdvanceCard } from '@/components/edvance'
 import { getGrounding, hasGroundingSource } from '@/lib/authoring/grounding'
-import type { GroundingQuote, GroundingRecord } from '@/types'
+import type { GroundingBeleg, GroundingRecord } from '@/types'
 
-function Quote({ quote }: { quote: GroundingQuote }): JSX.Element {
-  const { t } = useTranslation('authoring')
-  return (
-    <figure className="flex flex-col gap-1 border-l-2 border-[var(--color-border)] pl-3">
-      <blockquote className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-secondary)]">
-        {quote.zitat}
-      </blockquote>
-      <figcaption className="text-xs text-[var(--color-text-tertiary)]">
-        {t('grounding.quelle', { file: quote.quelle })}
-      </figcaption>
-    </figure>
-  )
-}
-
-function QuoteGroup({
-  title,
-  quotes,
-}: {
-  title: string
-  quotes: GroundingQuote[] | undefined
-}): JSX.Element | null {
-  if (!quotes || quotes.length === 0) return null
+function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
     <div className="flex flex-col gap-2">
       <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         {title}
       </span>
-      {quotes.map((q, i) => (
-        <Quote key={i} quote={q} />
+      {children}
+    </div>
+  )
+}
+
+/** Flags sind kein Schmuck: sie sind der Grund, warum das Item noch draft ist. */
+function WarnList({ title, entries }: { title: string; entries: string[] }): JSX.Element | null {
+  if (entries.length === 0) return null
+  return (
+    <div className="flex flex-col gap-1 rounded-[var(--radius-md)] bg-[var(--color-gold-warning)]/10 p-3">
+      <span className="flex items-center gap-2 text-xs font-semibold text-[var(--color-gold-warning)]">
+        <AlertTriangle className="h-3.5 w-3.5" />
+        {title}
+      </span>
+      {entries.map((e, i) => (
+        <span key={i} className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
+          {e}
+        </span>
       ))}
+    </div>
+  )
+}
+
+function Beleg({ beleg }: { beleg: GroundingBeleg }): JSX.Element {
+  const { t } = useTranslation('authoring')
+  return (
+    <figure className="flex flex-col gap-1 border-l-2 border-[var(--color-border)] pl-3">
+      <figcaption className="text-xs font-semibold text-[var(--color-text-secondary)]">
+        {beleg.feld}
+        {beleg.gate ? ` · ${beleg.gate}` : ''}
+      </figcaption>
+      <blockquote className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-secondary)]">
+        {beleg.zitat}
+      </blockquote>
+      {beleg.hinweis && (
+        <span className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">{beleg.hinweis}</span>
+      )}
+      {beleg.quelle && (
+        <span className="text-xs text-[var(--color-text-tertiary)]">
+          {t('grounding.quelle', { file: beleg.quelle })}
+        </span>
+      )}
+    </figure>
+  )
+}
+
+function RohTabelle({ table }: { table: NonNullable<GroundingRecord['tabelle_roh']> }): JSX.Element {
+  const headers = table.headers ?? table.header ?? []
+  const rows = table.rows ?? []
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full border-collapse text-xs">
+        <tbody>
+          {[headers, ...rows].map((row, r) => (
+            <tr key={r}>
+              {row.map((cell, c) => (
+                <td
+                  key={c}
+                  className="border border-[var(--color-border)] px-2 py-1 text-[var(--color-text-secondary)]"
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
@@ -79,8 +127,6 @@ export function GroundingPanel({
   // haben. Dann verschwindet das Panel ganz, statt "kein Beleg" zu behaupten.
   if (!available) return null
 
-  const g = record?.grounding
-
   return (
     <EdvanceCard className="flex flex-col gap-4 p-6">
       <button
@@ -102,69 +148,79 @@ export function GroundingPanel({
 
       {open && (
         <div className="flex flex-col gap-4">
-          <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
-            {t('grounding.hint')}
-          </p>
+          <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">{t('grounding.hint')}</p>
 
-          {!loaded && (
-            <p className="text-sm text-[var(--color-text-tertiary)]">…</p>
-          )}
+          {!loaded && <p className="text-sm text-[var(--color-text-tertiary)]">…</p>}
 
           {loaded && !record && (
-            <p className="text-sm text-[var(--color-text-tertiary)]">
-              {t('grounding.unavailable')}
-            </p>
+            <p className="text-sm text-[var(--color-text-tertiary)]">{t('grounding.unavailable')}</p>
           )}
 
           {record && (
             <>
-              {record.problems && record.problems.length > 0 && (
-                <div className="flex flex-col gap-1 rounded-[var(--radius-md)] bg-[var(--color-gold-warning)]/10 p-3">
-                  <span className="text-xs font-semibold text-[var(--color-gold-warning)]">
-                    {t('grounding.problems')}
-                  </span>
-                  {record.problems.map((p, i) => (
-                    <span key={i} className="text-sm text-[var(--color-text-secondary)]">
-                      {p}
-                    </span>
+              <WarnList title={t('grounding.importFlags')} entries={record.import_flags ?? []} />
+              <WarnList title={t('grounding.flags')} entries={record.flags ?? []} />
+              <WarnList title={t('grounding.problems')} entries={record.problems ?? []} />
+
+              {record.teilaufgaben_roh && record.teilaufgaben_roh.length > 0 && (
+                <Section title={t('grounding.rohteile')}>
+                  <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+                    {t('grounding.rohteileHint')}
+                  </p>
+                  {record.teilaufgaben_roh.map((p) => (
+                    <div
+                      key={p.nr}
+                      className="flex flex-col gap-1 border-l-2 border-[var(--color-border)] pl-3"
+                    >
+                      <span className="text-xs font-semibold text-[var(--color-text-secondary)]">
+                        {t('grounding.rohteil', { nr: p.nr, kind: p.kind })}
+                      </span>
+                      <span className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                        {p.prompt}
+                      </span>
+                      {p.options && p.options.length > 0 && (
+                        <span className="text-xs text-[var(--color-text-tertiary)]">
+                          {p.options.map((o) => `${o.id}) ${o.label}`).join('   ')}
+                        </span>
+                      )}
+                    </div>
                   ))}
-                </div>
+                </Section>
               )}
 
-              <QuoteGroup
-                title={t('grounding.originalText')}
-                quotes={g?.aufgabe_text ? [g.aufgabe_text] : undefined}
-              />
-              <QuoteGroup
-                title={t('grounding.acceptedAnswers')}
-                quotes={g?.akzeptierte_antworten}
-              />
-              <QuoteGroup title={t('grounding.parts')} quotes={g?.teilaufgaben} />
-              <QuoteGroup
-                title={t('grounding.coding')}
-                quotes={g?.kodierung ? [g.kodierung] : undefined}
-              />
-              <QuoteGroup
-                title={t('grounding.typicalErrors')}
-                quotes={g?.typische_fehler ? [g.typische_fehler] : undefined}
-              />
+              {record.tabelle_roh && (
+                <Section title={t('grounding.rohtabelle')}>
+                  <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+                    {t('grounding.rohtabelleHint')}
+                  </p>
+                  <RohTabelle table={record.tabelle_roh} />
+                </Section>
+              )}
+
+              {record.belege && record.belege.length > 0 && (
+                <Section title={t('grounding.belege')}>
+                  <div className="flex flex-col gap-3">
+                    {record.belege.map((b, i) => (
+                      <Beleg key={i} beleg={b} />
+                    ))}
+                  </div>
+                </Section>
+              )}
+
+              <p className="rounded-[var(--radius-md)] bg-[var(--color-bg-app)] p-3 text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+                {t('grounding.solutionElsewhere')}
+              </p>
 
               {record.lizenz_status && (
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                    {t('grounding.license')}
-                  </span>
+                <Section title={t('grounding.license')}>
                   <span className="text-xs leading-relaxed text-[var(--color-text-secondary)]">
                     {record.lizenz_status}
                   </span>
-                </div>
+                </Section>
               )}
 
               {record.iqb_urls && Object.keys(record.iqb_urls).length > 0 && (
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                    {t('grounding.sources')}
-                  </span>
+                <Section title={t('grounding.sources')}>
                   {Object.entries(record.iqb_urls).map(([key, url]) => (
                     <a
                       key={key}
@@ -177,7 +233,7 @@ export function GroundingPanel({
                       <ExternalLink className="h-3 w-3" />
                     </a>
                   ))}
-                </div>
+                </Section>
               )}
             </>
           )}
