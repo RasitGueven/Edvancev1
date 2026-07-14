@@ -1854,5 +1854,47 @@ on conflict (id) do nothing;
 --   Weg erreichbar, lsa_start liefert weiterhin Items). inv6 bleibt gruen.
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (36 Tabellen, 25 Funktionen, 2 Enums, 1 Trigger).
+-- 18. A02 – SCHUELER-VORSCHAU IM AUTOREN-TOOL
+--     (supabase/migrations/20260714150000_a02_vorschau.sql)
+-- ============================================================================
+--
+-- task_preview_payload(p_task_id uuid, p_draft jsonb default null) → jsonb
+--   [volatile, SECURITY DEFINER, set search_path = public]
+--   Rolle: coach/admin (Body-Check, errcode 42501). revoke from public,
+--          grant to authenticated, service_role.
+--
+--   WAS SIE IST: ein Tor vor lsa_question_payload — kein zweiter Builder. Der Body
+--     ruft `public.lsa_question_payload(p_task_id)` auf und gibt dessen Ergebnis
+--     unveraendert zurueck. Dieselbe Funktion, dieselbe Whitelist, dieselbe
+--     Wahrheit; nur ohne LSA-Session, damit die Vorschau ein EINZELNES Item bauen
+--     kann. lsa_question_payload selbst bleibt unberuehrt.
+--
+--   WARUM UEBERHAUPT: die Vorschau im Autoren-Tool hat den Payload bisher im
+--     Frontend nachgebaut. Sie zeigte damit, was der Editor denkt — nicht, was das
+--     Kind sieht. F01 (die Aufgaben-Tabelle) ist genau daran vorbeigelaufen: der
+--     Server lieferte sie, die Vorschau kannte sie nicht.
+--
+--   p_draft (der ungespeicherte Formularstand): wird in einer PL/pgSQL-
+--     Subtransaktion auf die Zeile gespielt, lsa_question_payload baut daraus, und
+--     die Subtransaktion wird per `raise ... errcode = 'ED001'` ZURUECKGEROLLT (die
+--     PL/pgSQL-Variable ueberlebt den Abbruch, die Zeilenaenderung nicht). Die
+--     Alternative waere gewesen, den Entwurf im Frontend zu bauen — also die zweite
+--     Wahrheit durch die Hintertuer. Uebernommen werden nur die sechs Spalten, die
+--     der Builder ueberhaupt liest: question, input_type, unit, parts, assets,
+--     question_payload.
+--     Folge mit Ansage: die CHECKs auf `tasks` feuern auf dem Entwurf mit. Ein
+--     Entwurf, der nicht speicherbar waere, ist auch nicht vorschaubar (23514).
+--
+-- Beweis: supabase/tests/inv8_vorschau_ohne_loesung.test.sql (pgTAP, 16 Assertions):
+--   Schueler-Kontext → permission denied (Lese- UND Entwurfspfad, damit die
+--   Vorschau dem Schueler kein UPDATE schenkt); anon hat nicht mal das Grant;
+--   task_preview_payload(id) = lsa_question_payload(id) als Gleichheit (nicht als
+--   Feldliste — sonst faellt das naechste Vertragsfeld wieder durch); der Payload
+--   traegt REKURSIV kein Loesungsfeld (pg_temp.all_keys steigt in parts und table
+--   hinab), obwohl der Sentinel als `accepted` neben der Tabelle im selben
+--   question_payload liegt; und die tasks-Zeile ist nach einem Entwurfs-Aufruf
+--   unveraendert.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (36 Tabellen, 26 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

@@ -132,13 +132,19 @@ export function AuthoringEditorPage(): JSX.Element {
     [state, baseline],
   )
 
-  // Flags und Vorschau laufen ueber den DRAFT — den Stand, der gespeichert wuerde.
-  // Gegen den Server-Stand zu pruefen hiesse, die Aenderung zu ignorieren, die der
-  // Pfleger gerade gemacht hat.
+  // Flags laufen ueber den DRAFT — den Stand, der gespeichert wuerde. Gegen den
+  // Server-Stand zu pruefen hiesse, die Aenderung zu ignorieren, die der Pfleger
+  // gerade gemacht hat.
   const flags = useMemo(() => {
     if (!task || !state || !schema) return []
     return computeFlags(draftTask(state, task), draftSolution(state, beleg), schema.hasStoffanker)
   }, [task, state, schema, beleg])
+
+  // Die Vorschau bekommt denselben Draft — aber sie BAUT nicht daraus. Sie schickt
+  // ihn an task_preview_payload, und der Server baut mit lsa_question_payload. Was
+  // hier rausgeht, ist exakt das, was ein Speichern schriebe (toPatch) — nicht mehr
+  // und nicht weniger.
+  const previewDraft = useMemo(() => (state ? toPatch(state) : null), [state])
 
   const blockingCount = flags.filter((f) => f.blocking).length
 
@@ -307,7 +313,9 @@ export function AuthoringEditorPage(): JSX.Element {
           </div>
 
           <div className="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
-            <AuthoringPreview state={state} />
+            {id && previewDraft && (
+              <AuthoringPreview taskId={id} draft={previewDraft} dirty={dirty} />
+            )}
 
             <Section title={t('sections.flags')}>
               <FlagList flags={flags} />

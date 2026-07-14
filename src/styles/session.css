@@ -57,6 +57,24 @@
     -webkit-backdrop-filter: blur(10px);
   }
 
+  /* Schüler-Vorschau im Autoren-Tool (A02): dieselbe Bühne, aber in einem Rahmen
+     statt im Vollbild. `.session-stage` direkt zu verwenden wäre falsch — sein
+     Basis-Gradient ist `background-attachment: fixed` und seine Textur-Ebene ist
+     `position: fixed`: beide beziehen sich auf den VIEWPORT und würden das
+     Admin-Fenster hinter dem Panel mit einfärben. Gleiche Tokens, gleiche
+     Typo-Utilities (text-warm*), nur lokal gebunden. */
+  .preview-stage {
+    --session-text:    var(--color-stage-text);
+    --session-text-72: color-mix(in srgb, var(--color-stage-text) 72%, transparent);
+    --session-text-56: color-mix(in srgb, var(--color-stage-text) 56%, transparent);
+    --session-text-42: color-mix(in srgb, var(--color-stage-text) 42%, transparent);
+
+    color: var(--session-text);
+    background:
+      radial-gradient(125% 75% at 50% -12%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 46%),
+      linear-gradient(168deg, var(--color-stage-top) 0%, var(--color-stage-mid) 60%, var(--color-stage-bottom) 100%);
+  }
+
   /* Warme Off-White-Typo-Utilities (nutzen die .session-stage-Variablen). */
   .text-warm    { color: var(--session-text); }
   .text-warm-72 { color: var(--session-text-72); }

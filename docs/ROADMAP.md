@@ -245,6 +245,28 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   **Blockiert auf Rasit:** Migration im SQL-Editor ausführen, danach
   `npx supabase test db` (inv6 + inv7).
 
+- **A02 — Schüler-Vorschau im Autoren-Tool** (Branch `feat/A02-schueler-vorschau`,
+  Retro `docs/retros/2026-07-14-A02-schueler-vorschau.md`): Migration
+  `20260714150000_a02_vorschau.sql` (**noch nicht ausgeführt** — Schema-Session mit
+  Rasit). Der Pfleger sieht neben dem Editor, wie die Aufgabe auf dem Tablet
+  aussieht: Stamm, Bild + Alt-Text, Tabelle (F01), Multi-Part (P02), MC, Einheit.
+  Nicht interaktiv. Der Punkt ist **eine Wahrheit**: die neue RPC
+  `task_preview_payload` ruft intern `lsa_question_payload` auf — dieselbe Funktion,
+  nicht dieselbe Logik. Die alte Vorschau baute den Payload im Frontend nach und war
+  seit F01 still falsch (die Tabelle kam serverseitig an und wurde nie gerendert).
+  Der ungespeicherte Entwurf wird serverseitig in einer zurückgerollten
+  Subtransaktion gebaut (statt im Client) und sichtbar als „Ungespeichert" markiert.
+  Härtung wie A01/B01: coach/admin im Body, revoke/grant. Beweis:
+  `supabase/tests/inv8_vorschau_ohne_loesung.test.sql` (16 Assertions — Schüler
+  `permission denied` auf beiden Pfaden, Identität mit `lsa_question_payload`,
+  rekursiv keine Lösung bis in `parts`/`table`, Zeile nach Entwurfs-Aufruf
+  unverändert).
+  **Blockiert auf Rasit:** Migration im SQL-Editor ausführen, danach
+  `npx supabase test db`. Bis dahin Degraded-Modus (Hinweis statt Vorschau).
+  **Offen:** `TaskPlayer` liest weiterhin die `tasks`-Zeile direkt statt
+  `lsa_question_payload` — `parts`/`table` rendert er bis heute nicht. Die zwei
+  Wahrheiten sind damit nicht weg, sie sind verschoben.
+
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
   KI-Erklärartikel → Eskalations-Trigger.
