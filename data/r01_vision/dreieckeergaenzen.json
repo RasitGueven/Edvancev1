@@ -1,0 +1,20 @@
+{
+  "item": "dreieckeergaenzen",
+  "gelesen_aus": [
+    "data/r01_render/dreieckeergaenzen/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Ergänze das gegebene Dreieck zu zwei verschiedenen Parallelogrammen.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Der Prompt liegt im Bild über dem Karogitter und ist dadurch leicht überlagert; ich lese ihn als 'Ergänze das gegebene Dreieck zu zwei verschiedenen Parallelogrammen.' — das Schluss-Satzzeichen ist durch die Gitterlinie nicht eindeutig.",
+    "Das Karogitter ist Zeichenfläche (Zeichenaufgabe), keine Tabelle."
+  ]
+}

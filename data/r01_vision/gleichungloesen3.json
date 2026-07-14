@@ -1,0 +1,25 @@
+{
+  "item": "gleichungloesen3",
+  "gelesen_aus": [
+    "data/r01_render/gleichungloesen3/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Zahl ist Lösung der Gleichung 2x - 4 = 6? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1"},
+        {"id": "b", "label": "3"},
+        {"id": "c", "label": "5"},
+        {"id": "d", "label": "8"},
+        {"id": "e", "label": "10"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

@@ -1,0 +1,163 @@
+{
+  "item": "broetchen",
+  "sources": {
+    "Aufgabe": {
+      "file": "broetchen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "dbc090d1b7930a62"
+    },
+    "Auswertung": {
+      "file": "broetchen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "1735de737480724a"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "broetchen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "a984563966693e72"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/broetchen/00_image1.emf.png",
+      "tokens": "Marcus hat im Sonderangebot 3 Brötchen für insgesamt 95Cent gekauft. Ein einzelnes Brötchen kostet 40Cent.",
+      "deterministic_text": "Marcus hat im Sonderangebot 3 Brötchen für insgesamt 95Cent gekauft.\nEin einzelnes Brötchen kostet 40Cent.",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/broetchen/01_image2.emf.png",
+      "tokens": "Gib an, wie viel Cent Marcus bei seinem Einkauf im Vergleich zu einem Kauf von drei einzelnen Brötchen gespart hat.Cent",
+      "deterministic_text": "Gib an, wie viel Cent Marcus bei seinem Einkauf im Vergleich zu einem Kauf von drei\neinzelnen Brötchen gespart hat.\nCent",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/broetchen/02_image3.emf.png",
+      "tokens": "Frau Schwarz will 10 Brötchen kaufen.Bei welcher Variante zahlt sie am wenigsten?Kreuze an.Frau Schwarz kauft…… 10 Brötchen zum Einzelpreis.… 4 mal 3 Brötchen im Sonderangebot.… 3 mal 3 Brötchen im Sonderangebot und 1 Brötchen zum Einzelpreis.… 2 mal 3 Brötchen im Sonderangebot und 4 Brötchen zum Einzelpreis.",
+      "deterministic_text": "Frau Schwarz will 10 Brötchen kaufen.\nBei welcher Variante zahlt sie am wenigsten?\nKreuze an.\nFrau Schwarz kauft…\n… 10 Brötchen zum Einzelpreis.\n… 4 mal 3 Brötchen im Sonderangebot.\n… 3 mal 3 Brötchen im Sonderangebot und 1 Brötchen zum Einzelpreis.\n… 2 mal 3 Brötchen im Sonderangebot und 4 Brötchen zum Einzelpreis.",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/broetchen/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Brötchen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "25"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Brötchen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "25"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "broetchen_Didaktische_Kommentierung.docx"
+  }
+}

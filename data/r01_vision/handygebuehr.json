@@ -1,0 +1,34 @@
+{
+  "item": "handygebuehr",
+  "gelesen_aus": [
+    "data/r01_render/handygebuehr/00_image1.emf.png",
+    "data/r01_render/handygebuehr/01_image2.emf.png",
+    "data/r01_render/handygebuehr/02_image3.emf.png"
+  ],
+  "stem": "Inas Handyanbieter verlangt eine Grundgebühr von 5 Euro im Monat und zusätzlich 9 Cent pro Gesprächsminute.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ina hatte im Januar 20 Gesprächsminuten.\nGib an, wie viel sie einschließlich der Grundgebühr bezahlen muss.",
+      "unit": "€",
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Die Höhe der monatlichen Telefonrechnung lässt sich mit einer Gleichung ermitteln. Dabei wird der Preis y (in Euro) in Abhängigkeit von der Anzahl x der Gesprächsminuten berechnet.\nKreuze die passende Gleichung an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "x = 0,09 · y + 5"},
+        {"id": "b", "label": "x = 5 · y + 0,09"},
+        {"id": "c", "label": "y = 0,09 · x + 5"},
+        {"id": "d", "label": "y = 5 · x + 0,09"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

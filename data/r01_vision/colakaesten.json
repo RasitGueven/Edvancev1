@@ -1,0 +1,34 @@
+{
+  "item": "colakaesten",
+  "gelesen_aus": [
+    "data/r01_render/colakaesten/00_image1.emf.png",
+    "data/r01_render/colakaesten/01_image2.emf.png",
+    "data/r01_render/colakaesten/02_image3.emf.png"
+  ],
+  "stem": "Ein Getränkemarkt hat Cola im Angebot: Ein Kasten mit 12 Flaschen kostet 6,66 €. Hinzu kommen 3,30 € Pfand. Man bekommt die 3,30 € Pfand zurück, wenn man einen Kasten mit 12 leeren Flaschen zurückbringt. Für eine einzelne leere Flasche erhält man 0,15 € zurück.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Tom bringt nur den Kasten (ohne Flaschen) zurück. Gib an, wie viel Geld er zurückbekommt.",
+      "unit": "€",
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Herr Melzer bringt 3 Kästen mit jeweils 12 leeren Colaflaschen zum Getränkemarkt und nimmt einen vollen Kasten Cola aus dem Angebot mit. Welche Aussage ist richtig? Kreuze an. Begründe mit einer Rechnung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Herr Melzer muss an der Kasse noch etwas bezahlen."},
+        {"id": "b", "label": "Herr Melzer bekommt noch Geld zurück."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Teil 2 verlangt zusätzlich zur Ankreuzoption eine schriftliche Begründung mit Rechnung (Kästchenraster im Bild); in der Struktur ist das als eine MC-Teilaufgabe mit Begründungsaufforderung abgebildet."
+  ]
+}

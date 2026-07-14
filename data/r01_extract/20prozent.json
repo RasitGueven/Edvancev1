@@ -3,16 +3,51 @@
   "sources": {
     "Aufgabe": {
       "file": "20prozent_Aufgabe.docx",
+      "format": "docx",
       "sha256_16": "848a384751c35774"
     },
     "Auswertung": {
       "file": "20prozent_Auswertung.docx",
+      "format": "docx",
       "sha256_16": "cceef2c62da65e23"
     },
     "Didaktische_Kommentierung": {
       "file": "20prozent_Didaktische_Kommentierung.docx",
+      "format": "docx",
       "sha256_16": "ebcaf01c576946e4"
     }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/20prozent/00_image1.emf.png",
+      "tokens": "Berechne 20% von 80m.m",
+      "deterministic_text": "Berechne 20% von 80m.\nm",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/20prozent/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
   },
   "stufe1_auswertung": {
     "paragraphs": [
@@ -27,32 +62,44 @@
           ]
         ]
       }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – 20 Prozent"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "16\n[Anm.: Auch Angaben in anderer Einheit werden akzeptiert, sofern die Einheit und die entsprechende Maßzahl angegeben sind (z. B. 0,016 km, 160 dm, 1600 cm).]"
+          ]
+        ]
+      }
     ]
   },
-  "stufe1_aufgabe_docx": {
-    "paragraphs": [
-      "20 Prozent"
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
     ],
-    "tables": []
-  },
-  "stufe2_aufgabe_emf": [
-    {
-      "idx": 0,
-      "emf": "image1.emf",
-      "png": "data/r01_render/20prozent/00_image1.emf.png",
-      "tokens": "Berechne 20% von 80m.m",
-      "deterministic_text": "Berechne 20% von 80m.\nm",
-      "table": null,
-      "n_fragments": 8
-    },
-    {
-      "idx": 1,
-      "emf": "image2.emf",
-      "png": "data/r01_render/20prozent/01_image2.emf.png",
-      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
-      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
-      "table": null,
-      "n_fragments": 36
-    }
-  ]
+    "typische_fehler": [
+      "Grund- und Prozentwert werden vertauscht, so dass die 80 m als Prozentwert gedeutet und entsprechend der Grundwert berechnet wird [Fehllösung: 400 m] (K5).",
+      "Das Verfahren zur Berechnung des Prozentsatzes wird falsch ausgeführt, indem 80 ÷ 20 gerechnet wird [Fehllösung: 4 m] (K5).",
+      "Es werden 20 % von 100 m berechnet, vermutlich weil 80 m 100 % zugeordnet wird und dann die Einheiten gedanklich vertauscht werden [Fehllösung: 20 m] (K5).",
+      "Anstatt 20 % werden 80 % von 80 m berechnet [Fehllösung: 64 m] (K5).",
+      "Unkritisch wird die Differenz zwischen den Zahlen 80 und 20 gebildet [Fehllösung: 60 m] (K5)."
+    ],
+    "quelle": "20prozent_Didaktische_Kommentierung.docx"
+  }
 }

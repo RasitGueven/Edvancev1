@@ -1,0 +1,20 @@
+{
+  "item": "quadratflaeche",
+  "gelesen_aus": [
+    "data/r01_render/quadratflaeche/00_doc_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Bestimme den Flächeninhalt des gegebenen Quadrats. Gib dein Ergebnis an.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Das abgebildete Quadrat trägt keine Maßangabe — die Seitenlänge muss offenbar gemessen werden. Es ist im Bild keine Einheit am Antwortfeld angegeben, daher unit = null.",
+    "Unter 'Gib dein Ergebnis an.' steht nur eine Antwortlinie in einem Kasten, kein weiterer Text."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "item": "divisionvonzahlen",
+  "gelesen_aus": [
+    "data/r01_render/divisionvonzahlen/00_image1.emf.png",
+    "data/r01_render/divisionvonzahlen/01_image2.emf.png"
+  ],
+  "stem": "Eine ganze Zahl ist durch eine andere ganze Zahl teilbar, wenn bei der Division kein Rest bleibt.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Entscheide jeweils, ob die Aussage wahr oder falsch ist. Kreuze jeweils an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "wahr"},
+        {"id": "b", "label": "falsch"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts (Spaltenüberschriften der Tabelle)"
+    }
+  ],
+  "unsicher": [
+    "Es ist eine Kreuztabelle: Kopfzeile 'Eine mehrziffrige Zahl ist immer durch 4 teilbar, wenn…' mit den Spalten 'wahr' / 'falsch'; vier Aussagezeilen (… sie zweimal nacheinander jeweils durch 2 teilbar ist. / … die letzte Ziffer eine 4 oder eine 8 ist. / … sie eine gerade Zahl ist. / … die aus den letzten beiden Ziffern gebildete Zahl durch 4 teilbar ist.). Die Optionen wahr/falsch gelten pro Zeile, nicht als Einfachauswahl."
+  ]
+}

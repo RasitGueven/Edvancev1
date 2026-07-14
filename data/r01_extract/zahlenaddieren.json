@@ -1,0 +1,166 @@
+{
+  "item": "zahlenaddieren",
+  "sources": {
+    "Aufgabe": {
+      "file": "zahlenaddieren_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "faa601d45c1c91a6"
+    },
+    "Auswertung": {
+      "file": "zahlenaddieren_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "a5e7870481abdd8e"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zahlenaddieren_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "566f0268f65cc820"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenaddieren/00_image1.emf.png",
+      "tokens": "Die Summe von zwei ganzen Zahlen, die beide größer als 0 sind, soll 8 ergeben.Schreibe alle Möglichkeiten auf, wie diese Summe gebildet werden kann.",
+      "deterministic_text": "Die Summe von zwei ganzen Zahlen, die beide größer als 0 sind, soll 8 ergeben.\nSchreibe alle Möglichkeiten auf, wie diese Summe gebildet werden kann.",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenaddieren/01_image2.emf.png",
+      "tokens": "Nun geht es um Bruchzahlen, die größer als 0 sind.Die Summe von zwei solchen Bruchzahlen soll     ergeben.Schreibe ein Beispiel auf, wie die Summe gebildet werden kann. Die Brüche müssen dabei vollständig gekürzt sein.18",
+      "deterministic_text": "Nun geht es um Bruchzahlen, die größer als 0 sind.\n1\nDie Summe von zwei solchen Bruchzahlen soll ergeben.\n8\nSchreibe ein Beispiel auf, wie die Summe gebildet werden kann. Die Brüche müssen\ndabei vollständig gekürzt sein.",
+      "table": null,
+      "n_fragments": 19,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenaddieren/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Zahlen addieren",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1 + 7; 2 + 6; 3 + 5; 4 + 4\n\n[Anm.: Die Reihenfolge der Summanden spielt keine Rolle, auch können\n7 + 1, 6 + 2 und 5 + 3 noch zusätzlich genannt werden.]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nwenn 0 + 8 als Möglichkeit genannt wird."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Bruchzahlen, deren Summe  ergibt.\n\nBeispiel(e)"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Zahlen addieren"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1 + 7; 2 + 6; 3 + 5; 4 + 4\n\n[Anm.: Die Reihenfolge der Summanden spielt keine Rolle, auch können\n7 + 1, 6 + 2 und 5 + 3 noch zusätzlich genannt werden.]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nwenn 0 + 8 als Möglichkeit genannt wird."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Bruchzahlen, deren Summe  ergibt.\n\nBeispiel(e)"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1.1:",
+      "Wie die folgende Schülerlösung zeigt, werden nicht alle möglichen Summen gefunden, was auf eine fehlende Systematik (K2) hinweist:",
+      "Wie die folgende Schülerlösung belegt, wird die Summe als Lösungsmöglichkeit hinzugenommen. Dies deutet darauf hin, dass die Aufgabenstellung nur oberflächlich gelesen wurde:",
+      "Zu Teilaufgabe 1.2:",
+      "Die angegebenen Brüche sind nicht vollständig gekürzt. Dies kann unter anderem auf nicht hinreichend sorgfältiges Lesen zurückgeführt werden.",
+      "Wie die folgende Schülerlösung zeigt, kommt es zu Schwierigkeiten bei der Addition von Brüchen (K5). So werden jeweils die Zähler und die Nenner miteinander addiert:",
+      "Wie die folgenden Schülerlösungen verdeutlichen, werden keine Summen, sondern Differenzen bzw. Produkte angegeben:"
+    ],
+    "quelle": "zahlenaddieren_Didaktische_Kommentierung.docx"
+  }
+}

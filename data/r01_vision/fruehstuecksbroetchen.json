@@ -1,0 +1,29 @@
+{
+  "item": "fruehstuecksbroetchen",
+  "gelesen_aus": [
+    "data/r01_render/fruehstuecksbroetchen/00_doc_image1.emf.png"
+  ],
+  "stem": "Angelika kauft sechs normale Brötchen zu je 0,35 € und vier Körnerbrötchen zu je 0,45 €.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viel sie insgesamt bezahlen muss.",
+      "unit": "€",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Schreibe deinen Rechenweg auf.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Auswertung nennt 3 Teilaufgaben, im Bild sind nur 2 erkennbar (Ergebnis in € + Rechenweg im Karofeld). Ich folge dem Bild."
+  ]
+}

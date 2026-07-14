@@ -1,0 +1,189 @@
+{
+  "item": "rolltreppe",
+  "sources": {
+    "Aufgabe": {
+      "file": "rolltreppe_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "54ca930f09abccaa"
+    },
+    "Auswertung": {
+      "file": "rolltreppe_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "bc547b6257984273"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rolltreppe_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "d63e932fedf05c4a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rolltreppe/00_doc_image1.emf.png",
+      "tokens": "In einer U-Bahn-Station befindet sich einer der Bahnsteige genau 21m unter Straßenniveau. Nach oben gelangt man mit einer Rolltreppe. Monika stellt sich unten auf diese Rolltreppe und lässt sich einfach hochfahren.Das folgende Zeit-Höhen-Diagramm stellt dar, wie tief sie zu jedem Zeitpunkt noch unter der Erde (dem Straßenniveau) ist.Monika3m0m-3m-6m-15m-18m-21m-24mHöhe-12m-9mStraßenniveau0,5min1,0min1,5min2,0minZeitBahnsteigniveau",
+      "deterministic_text": "In einer U-Bahn-Station befindet sich einer der Bahnsteige genau\n21m unter Straßenniveau. Nach oben gelangt man mit einer\nRolltreppe.\nMonika stellt sich unten auf diese Rolltreppe und lässt sich einfach\nhochfahren.\nDas folgende Zeit-Höhen-Diagramm stellt dar, wie tief sie zu jedem\nZeitpunkt noch unter der Erde (dem Straßenniveau) ist.\nHöhe\n3m\nStraßenniveau Zeit\n0m\n0,5min 1,0min 1,5min 2,0min\n-3m\n-6m\n-9m\nMonika\n-12m\n-15m\n-18m\n-21m Bahnsteigniveau\n-24m",
+      "table": null,
+      "n_fragments": 76,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Rolltreppe",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nach einer Minute Rolltreppenfahrt ist Monika noch 10,5 m\nunterhalb des Straßenniveaus.\nAnm.: Höhenangaben aus dem Intervall [10;11] sind zu akzeptieren.\nODER (Grenzfall)\n-10,5 m"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1,4 min\nAkzeptiert werden aus der Graphik abgelesene und berechnete\nLösungen im Intervall [1,375 min; 1,5 min].\nAnm.: Die entsprechende Angabe der Zeit in anderer Einheit ist\nzulässig, sofern dann die gewählte Einheit angegeben ist."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Akzeptiert werden alle Graphen, deren erster Abschnitt bis zur\nhalben Höhe (10,5 m) unter dem Straßenniveau steiler ist als\nMonikas Graph, da Sven schneller als die Rolltreppe ist und der\nzweite Abschnitt des Graphen parallel zu Monikas Graphen\nverläuft. Der erste Abschnitt muss nicht linear sein.\nz. B.\n[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Rolltreppe"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nach einer Minute Rolltreppenfahrt ist Monika noch 10,5 m\nunterhalb des Straßenniveaus.\nAnm.: Höhenangaben aus dem Intervall [10;11] sind zu akzeptieren.\nODER (Grenzfall)\n-10,5 m"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1,4 min\nAkzeptiert werden aus der Graphik abgelesene und berechnete\nLösungen im Intervall [1,375 min; 1,5 min].\nAnm.: Die entsprechende Angabe der Zeit in anderer Einheit ist\nzulässig, sofern dann die gewählte Einheit angegeben ist."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Akzeptiert werden alle Graphen, deren erster Abschnitt bis zur\nhalben Höhe (10,5 m) unter dem Straßenniveau steiler ist als\nMonikas Graph, da Sven schneller als die Rolltreppe ist und der\nzweite Abschnitt des Graphen parallel zu Monikas Graphen\nverläuft. Der erste Abschnitt muss nicht linear sein.\nz. B.\n[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "• Die Position Monikas wird mittels einer negativen Zahl (z. B. -10,5)",
+      "angegeben. Es wird nicht reflektiert, dass das Minuszeichen im",
+      "„unterhalb“ steckt (K6).",
+      "• Es wird nicht darauf geachtet, dass Monika 15 m höher als das",
+      "Bahnsteigniveau sein soll. Stattdessen wird die Zeit angegeben, welche",
+      "verstreicht, bis Monika auf einer Höhe von 15 m unterhalb des",
+      "Straßenniveaus ist (Fehllösung 0,6 min; K6).",
+      "• Der erste Abschnitt des Graphen zu Svens Bewegung verläuft nicht steiler",
+      "als der Graph zu Monikas Fahrt mit der Rolltreppe. D. h. das Mitlaufen",
+      "von Sven auf der Rolltreppe wurde hinsichtlich der Geschwindigkeit nicht",
+      "richtig dargestellt (K3 und K4).",
+      "• Die Bewegung der Rolltreppe wird vernachlässigt. So wird die Phase, in",
+      "der sich Sven nicht mehr aktiv fortbewegt, sondern nur mit der Rolltreppe",
+      "mitfährt, teilweise durch einen waagrechten Abschnitt im Graphen",
+      "veranschaulicht (K3 und K4). Dies zeigt die folgende Schülerlösung.",
+      "• Svens Bewegung ändert sich nicht nach der Hälfte der Strecke, sondern",
+      "etwa nach der Hälfte der Zeit. Demnach ist der erste Abschnitt des",
+      "Graphen, in welchem Sven schneller als Monika unterwegs ist, zu lang (K4",
+      "und K6). Dies veranschaulicht die folgende Schülerlösung.",
+      "• Es wird vernachlässigt, dass Sven ab der Hälfte der Strecke nur mit der",
+      "Rolltreppe mitfährt. Demzufolge ändert sich die Steigung des Graphen zu",
+      "Svens Bewegungsablauf nicht (K3). Dies illustriert die folgende",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung der Aufgabe Schwierigkeiten auf, wird dies",
+      "wahrscheinlich primär bei Teilaufgabe 3 der Fall sein. So bietet es sich",
+      "an, diese Teilaufgabe im Unterricht aufzugreifen und in diesem Rahmen auch",
+      "Fehler, die bei den anderen beiden Teilaufgaben gemacht wurden,",
+      "anzusprechen. Hierzu können die Schülerinnen und Schüler beispielsweise mit",
+      "fehlerhaften Graphen konfrontiert und aufgefordert werden, diese zu",
+      "berichtigen. Zur Übung kann auch eine Parallel-Aufgabe zur Fortbewegung mit",
+      "einem unterirdischen Fahrstuhl konstruiert werden. Diese könnte",
+      "beispielsweise folgendermaßen aussehen.",
+      "Auch weitere Aufgaben mit Graphen von Bewegungsvorgängen tragen zu einem",
+      "tieferen Verständnis bei, z. B. das Hissen einer Fahne oder ein Sprung vom",
+      "3-m-Brett im Schwimmbad. Dabei kann auch der bekannte Fehler thematisiert",
+      "werden (der auch bei der Rolltreppenaufgabe naheliegt), nämlich dass der",
+      "Graph mit der realen Situation verwechselt wird.",
+      "Umgekehrt können den Schülerinnen und Schülern Graphen ausgehändigt werden,",
+      "zu denen Bewegungsgeschichten zu erstellen sind. Hierzu eignen sich",
+      "beispielsweise die Kontexte „Schulweg“, „Autofahrt“ oder „Fahrradtour“.",
+      "Zur weiteren Übung eignet sich auch die Aufgabe „Geschichte zur Graphik“",
+      "(vgl. hierzu den entsprechenden didaktischen Kommentar aus VERA-8 2012)."
+    ],
+    "quelle": "rolltreppe_Didaktische_Kommentierung.doc"
+  }
+}

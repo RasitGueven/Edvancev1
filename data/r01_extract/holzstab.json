@@ -1,0 +1,136 @@
+{
+  "item": "holzstab",
+  "sources": {
+    "Aufgabe": {
+      "file": "holzstab_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "cd3d3cfadc4b38d4"
+    },
+    "Auswertung": {
+      "file": "holzstab_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "ea5ffa8c382225b6"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "holzstab_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "0ebfd46339cab694"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/holzstab/00_doc_image1.emf.png",
+      "tokens": "Ein 3m langer Holzstab wird in zwei gleich lange Teile zersägt.Gib an, wie lang jedes Teil ist.m",
+      "deterministic_text": "Ein 3m langer Holzstab wird in zwei gleich lange Teile zersägt.\nGib an, wie lang jedes Teil ist.\nm",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Holzstab",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1,5\nAnm.: Akzeptiert werden auch alle anderen wertgleichen Angaben,\nz. B. 3/2 oder 6/4."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n150"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1,5\nAnm.: Akzeptiert werden auch alle anderen wertgleichen Angaben,\nz. B. 3/2 oder 6/4."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n150"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Holzstab"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1,5\nAnm.: Akzeptiert werden auch alle anderen wertgleichen Angaben,\nz. B. 3/2 oder 6/4."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n150"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1,5\nAnm.: Akzeptiert werden auch alle anderen wertgleichen Angaben,\nz. B. 3/2 oder 6/4."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n150"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "II",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe2: Es wird nur ein Viertel von 2 m berechnet, d. h. das",
+      "„nicht“ wird übersehen (K6)."
+    ],
+    "quelle": "holzstab_Didaktische_Kommentierung.doc"
+  }
+}

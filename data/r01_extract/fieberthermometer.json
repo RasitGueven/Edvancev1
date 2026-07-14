@@ -1,0 +1,187 @@
+{
+  "item": "fieberthermometer",
+  "sources": {
+    "Aufgabe": {
+      "file": "fieberthermometer_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "4d1a79d27dfa3ba9"
+    },
+    "Auswertung": {
+      "file": "fieberthermometer_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "f1fd478043047baa"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fieberthermometer_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "277c272c78542673"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fieberthermometer/00_doc_image1.emf.png",
+      "tokens": "3536373839404142Die Abbildung zeigt ein Fieberthermometer. Die schwarze dicke Linie zeigt die gemessene Körpertemperatur in Grad Celsius an.",
+      "deterministic_text": "Die Abbildung zeigt ein Fieberthermometer. Die schwarze dicke Linie zeigt die gemessene\nKörpertemperatur in Grad Celsius an.\n36 38 40 42\n35 37 39 41",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Fieberthermometer",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "36,8 °C"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "40,2 °C"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Fieberthermometer"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "36,8 °C"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "40,2 °C"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Die Temperatur wird ungenau abgelesen [Fehllösung z. B. 36,6 °C] (K4).",
+      "• Der Skalierung wird eine Hundertsteleinteilung zugrunde gelegt",
+      "[Fehllösung 36,08 °C] (K4).",
+      "• Der mittige Strich zwischen 36 °C und 37 °C wird missachtet, sodass",
+      "36,5 °C mit 36,0 °C verwechselt wird [Fehllösung 36,3 °C] (K4).",
+      "• Die Maßzahlen werden subtrahiert. Möglicherweise wird „steigt an“ mit",
+      "„fällt um“ verwechselt [Fehllösung 35,6 °C] (K5).",
+      "Weiterarbeit und Förderung",
+      "Bereitet das Ablesen der Temperatur vom Fieberthermometer Schwierigkeiten,",
+      "so kann dies an anderen Skalen, die ebenfalls nicht digital sind, geübt",
+      "werden. Hierzu bieten sich u. a. Tankanzeigen, Küchenwaagen oder Skalen,",
+      "die Füllstände anzeigen, an. Im Sinne des operativen Durcharbeitens können",
+      "wechselseitig sowohl Werte von Skalen abgelesen als auch auf diesen",
+      "eingetragen werden, wobei der Detaillierungsgrad der einzelnen Skalen",
+      "variiert werden kann. Man vergleiche hierzu etwa auch den didaktischen",
+      "Kommentar zur Aufgabe „Milchmenge“ aus VERA-8 2010.",
+      "Gelingt in Teilaufgabe 2 die Deutung der die Temperaturänderung",
+      "beschreibenden fachsprachlichen Begriffe nicht, so können diese zunächst",
+      "bewusst gemacht und ihre Bedeutung graphisch am Fieberthermometer",
+      "veranschaulicht werden. Auch ein Kontrastieren mit verwandten Begriffen, z.",
+      "B. mit „fällt um“, liegt nahe. Diese Teilaufgabe kann ebenfalls im Sinne",
+      "des operativen Durcharbeitens variiert werden, indem je zwei der drei",
+      "Angaben Anfangszustand, Temperaturänderung und Endzustand genannt werden.",
+      "Die jeweils zugehörigen Rechnungen können dann aufgestellt, im Sachkontext",
+      "verbalisiert und schließlich rechnerisch und/oder graphisch gelöst werden,",
+      "wobei sich der Schwierigkeitsgrad durch die Hinzunahme negativer",
+      "Temperaturen auch erhöhen lässt. Alternativ können auch je zwei dieser drei",
+      "Angaben am Thermometer visualisiert, passende Situationen daran",
+      "verbalisiert und in Rechnungen übersetzt werden.",
+      "Einige solcher Aufgaben seien nachfolgend exemplarisch genannt:",
+      "- Zu einem anderen Zeitpunkt beträgt die Körpertemperatur 37,9 °C. Sie",
+      "fällt dann um 2,3 °C. Gib an, wie viel °C die Temperatur anschließend",
+      "- Ein Außenthermometer zeigt morgens 15 °C. Gegen Mittag zeigt es",
+      "a) Beschreibe die Temperaturänderung in Worten.",
+      "b) Skizziere ein Thermometer. Trage beide Temperaturen darauf ein und",
+      "kennzeichne die Temperaturänderung.",
+      "- An einem heißen Tag fällt die Temperatur nach einem Gewitter um 11 °C",
+      "und beträgt anschließend nur noch 18 °C. Ermittle die Temperatur vor",
+      "- Veranschauliche folgende Situation an der Anzeige des Heizöltanks (s.",
+      "Abbildung): Im Tank befinden sich noch ungefähr 600 Liter. Beim",
+      "Betanken werden 2300 Liter eingefüllt. Kennzeichne die Veränderung und",
+      "markiere zusätzlich den neuen Füllstand.",
+      "Als Erweiterung von Teilaufgabe 2 kann auch die Aufgabe „Außenthermometer“",
+      "VERA-8 2010 behandelt werden (vgl. auch den didaktischen Kommentar hierzu).",
+      "In der folgenden weiteren Teilaufgabe von „Fieberthermometer“ wird eine",
+      "Funktion als Mittel zur Beschreibung eines quantitativen Zusammenhangs",
+      "genutzt. Sie ist geeignet, die hier gegebene Aufgabe inhaltlich",
+      "Die Unterscheidung proportionaler und linearer funktionaler Zusammenhänge",
+      "kann anhand der jeweiligen Funktionsterme und durch Gegenüberstellung der",
+      "zugehörigen Funktionsgraphen geschehen, um so die Bedeutung des",
+      "Absolutglieds und der Steigung der Geraden zu thematisieren. Häufig",
+      "vernachlässigen Schülerinnen und Schüler den Faktor vor C, was zur",
+      "Fehllösung 40 °C + 32 °C = 72 °C führt. Oft ergeben sich aber auch Probleme",
+      "auf technischer Ebene, etwa indem nach dem Einsetzen der gegebenen",
+      "Temperatur das Malzeichen als Pluszeichen fehlgedeutet wird. Dies führt zu",
+      "[pic]°C + 40 °C + 32 °C = 73,8 °C.",
+      "Besonders die Auswirkungen des ersten beschriebenen typischen Fehlers",
+      "(Fehllösung 72 °C) können am Graphen besprochen werden. Würde der Faktor",
+      "[pic] keine Rolle spielen, so würden sich alle in °C angegebenen",
+      "Temperaturen um 40 °C von den in Fahrenheit umgerechneten Temperaturen",
+      "unterscheiden. Dass dies nicht so ist, lässt sich schon anhand eines",
+      "Gegenbeispiels, z. B. für 0 °C, zeigen.",
+      "Wird diese Teilaufgabe als inhaltliche Erweiterung hinzugenommen, bieten",
+      "sich auch Verknüpfungen zur Aufgabe „Lineare Funktionen anwenden“ an (vgl.",
+      "auch den didaktischen Kommentar hierzu)."
+    ],
+    "quelle": "fieberthermometer_Didaktische_Kommentierung.doc"
+  }
+}

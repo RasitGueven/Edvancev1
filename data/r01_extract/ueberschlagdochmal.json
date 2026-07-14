@@ -1,0 +1,105 @@
+{
+  "item": "ueberschlagdochmal",
+  "sources": {
+    "Aufgabe": {
+      "file": "ueberschlagdochmal_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "a49c5faa4ef03d75"
+    },
+    "Auswertung": {
+      "file": "ueberschlagdochmal_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "6758c24a1dc9853c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "ueberschlagdochmal_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "3073f4af128f9ccc"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ueberschlagdochmal/00_image1.emf.png",
+      "tokens": "Max meint, dass er ziemlich viel Zeit in der Schule verbringt. Er fragt sich, wie viele Unterrichtsstunden es in acht Schuljahren wohl schon waren.Welche Zahl passt am besten?Kreuze an.ca. 1000 Unterrichtsstundenca. 10000 Unterrichtsstundenca. 100000 Unterrichtsstundenca. 1000000 Unterrichtsstunden",
+      "deterministic_text": "Max meint, dass er ziemlich viel Zeit in der Schule verbringt. Er fragt sich, wie viele\nUnterrichtsstunden es in acht Schuljahren wohl schon waren.\nWelche Zahl passt am besten?\nKreuze an.\nca. 1000 Unterrichtsstunden\nca. 10000 Unterrichtsstunden\nca. 100000 Unterrichtsstunden\nca. 1000000 Unterrichtsstunden",
+      "table": null,
+      "n_fragments": 33,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ueberschlagdochmal/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Überschlag doch mal"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Überschlag doch mal"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Das mathematische Modell wird nicht korrekt gebildet, weil die Wochenstunden und Ferienzeiten außer Acht gelassen werden, wie beispielsweise: 6 (Unterrichtsstunden pro Tag) mal 7 (Tage pro Woche) mal 52 (Wochen pro Jahr) mal 8.",
+      "Das mathematische Modell wird nicht korrekt gebildet, weil lediglich die Unterrichtsstunden in Bezug auf einen Schulmonat oder ein Schuljahr überschlagen werden: 6 (Unterrichtsstunden pro Tag) mal 5 (Schultage pro Woche) mal 4 (Wochen pro Monat).",
+      "Die multiplikative Struktur wird nicht erkannt und die Schülerinnen und Schüler können unter Verwendung anderer Operationen (zumeist Addition) nicht zu einem passenden Ergebnis finden. So wird bezüglich der Modellierung auch die Frage nach der Plausibilität etwaiger Ergebnisse nicht gestellt."
+    ],
+    "quelle": "ueberschlagdochmal_Didaktische_Kommentierung.docx"
+  }
+}

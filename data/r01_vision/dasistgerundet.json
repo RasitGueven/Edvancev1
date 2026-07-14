@@ -1,0 +1,21 @@
+{
+  "item": "dasistgerundet",
+  "gelesen_aus": [
+    "data/r01_render/dasistgerundet/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Runde die Zahl 5,143 auf eine Stelle nach dem Komma.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das Eingabefeld ist als \"5,143 ≈ ................\" vorgegeben; das wurde als Feld-Label gewertet und nicht in den Prompt übernommen."
+  ]
+}

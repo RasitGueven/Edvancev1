@@ -1,0 +1,163 @@
+{
+  "item": "ratenbeimtest",
+  "sources": {
+    "Aufgabe": {
+      "file": "ratenbeimtest_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "bad594dd2596ce95"
+    },
+    "Auswertung": {
+      "file": "ratenbeimtest_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "d88d990513fd8d8c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "ratenbeimtest_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "42d3fc1f76a9d78f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ratenbeimtest/00_image1.emf.png",
+      "tokens": "Christian beantwortet in einem Test alle vier Fragen nur durch Raten. Zu jeder Frage gibt es vier Antworten, von denen immer nur eine richtig ist.",
+      "deterministic_text": "Christian beantwortet in einem Test alle vier Fragen nur durch Raten. Zu jeder Frage gibt\nes vier Antworten, von denen immer nur eine richtig ist.",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ratenbeimtest/01_image2.emf.png",
+      "tokens": "Wie groß ist die Wahrscheinlichkeit dafür, dass Christian bei der ersten Frage die richtige Antwort ankreuzt?Gib dein Ergebnis an.",
+      "deterministic_text": "Wie groß ist die Wahrscheinlichkeit dafür, dass Christian bei der ersten Frage die\nrichtige Antwort ankreuzt?\nGib dein Ergebnis an.",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ratenbeimtest/02_image3.emf.png",
+      "tokens": "Wie groß ist die Wahrscheinlichkeit ungefähr, dass Christian bei allen vier Fragen des Tests die richtigen Antworten ankreuzt?Kreuze an.ca. 25%ca. 4%ca. 2,5%ca. 0,4%",
+      "deterministic_text": "Wie groß ist die Wahrscheinlichkeit ungefähr, dass Christian bei allen vier Fragen des\nTests die richtigen Antworten ankreuzt?\nKreuze an.\nca. 25% ca. 4% ca. 2,5% ca. 0,4%",
+      "table": null,
+      "n_fragments": 27,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ratenbeimtest/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Raten beim Test",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "0,25"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Raten beim Test"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "0,25"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Modellieren (K3), \nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Modellieren (K3), \nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "ratenbeimtest_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "item": "naschkatze",
+  "sources": {
+    "Aufgabe": {
+      "file": "naschkatze_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "33bf5226e1c9f11d"
+    },
+    "Auswertung": {
+      "file": "naschkatze_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "0fc817c884805dae"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "naschkatze_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "29141af66d3cf0d6"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/naschkatze/00_image1.emf.png",
+      "tokens": "Kirsten hat mit ihrem neu eröffneten Café „Naschkatze“ Erfolg, denn der Umsatz steigert sich im ersten Geschäftsjahr von Quartal zu Quartal.Grafik: © IQBCaféNaschkatze0200040006000800010000120001400016000180004. Quartal3. Quartal2. Quartal1. QuartalUmsatz in EuroGrafik: © IQB",
+      "deterministic_text": "Kirsten hat mit ihrem neu eröffneten Café „Naschkatze“ Erfolg, denn der Umsatz steigert\nsich im ersten Geschäftsjahr von Quartal zu Quartal.\n18000 Café\n16000\n14000\nor\nu12000\nE\nni10000\nzt 8000\nas\nm 6000\nU Naschkatze\n4000\n2000 Grafik: © IQB\n0\n1. Quartal 2. Quartal 3. Quartal 4. Quartal\nGrafik: © IQB",
+      "table": null,
+      "n_fragments": 54,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/naschkatze/01_image2.emf.png",
+      "tokens": "In welchem Quartal betrug der Umsatz 14000 Euro? Kreuze an.1. Quartal2. Quartal3. Quartal4. Quartal",
+      "deterministic_text": "In welchem Quartal betrug der Umsatz 14000 Euro?\nKreuze an.\n1. Quartal 2. Quartal 3. Quartal 4. Quartal",
+      "table": null,
+      "n_fragments": 19,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/naschkatze/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Naschkatze"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Naschkatze"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Wird eine der anderen Antwortalternativen angekreuzt, liegt vermutlich ein Ablesefehler vor."
+    ],
+    "quelle": "naschkatze_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "item": "damenuhr",
+  "gelesen_aus": [
+    "data/r01_render/damenuhr/00_image1.emf.png",
+    "data/r01_render/damenuhr/01_image2.emf.png",
+    "data/r01_render/damenuhr/02_image3.emf.png"
+  ],
+  "stem": "Ein Versandhaus bietet eine Damenuhr an, deren Uhrengehäuse mit vier verschiedenen Wechselringen und vier verschiedenen Wechselarmbändern kombiniert werden kann (siehe Abbildung).",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Auf wie viele verschiedene Arten kann das Uhrengehäuse mit den vier verschiedenen Wechselringen und den vier verschiedenen Wechselarmbändern kombiniert werden? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "4"},
+        {"id": "b", "label": "8"},
+        {"id": "c", "label": "9"},
+        {"id": "d", "label": "16"},
+        {"id": "e", "label": "unendlich viele"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Bei einer anderen Damenuhr soll das Uhrengehäuse ebenfalls mit verschiedenen Wechselringen und verschiedenen Wechselarmbändern kombiniert werden. Dabei sollen genau 12 Kombinationen möglich sein. Wie viele Wechselringe und wie viele Wechselarmbänder muss man dazu anbieten? Gib alle Möglichkeiten an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Werbe-Abbildung in image1 enthält doppelt übereinander gerenderten Text ('Ein goldfarbenes Uhrengehäuse mit weißem Zifferblatt und ganggenauem Quartzwerk.', '4 schmuckvolle Wechselringe zum Austauschen.', '4 Wechselarmbänder in 4 aktuellen Farben: Schwarz, Braun, Rot, Beige'); als Abbildungs-Beschriftung nicht in den Stamm übernommen."
+  ]
+}

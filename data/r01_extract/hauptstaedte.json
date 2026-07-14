@@ -1,0 +1,172 @@
+{
+  "item": "hauptstaedte",
+  "sources": {
+    "Aufgabe": {
+      "file": "hauptstaedte_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "a561b967d3b696d5"
+    },
+    "Auswertung": {
+      "file": "hauptstaedte_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "e13fccc0db35c3d3"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "hauptstaedte_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "7afcafca77a6c9de"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/hauptstaedte/00_image1.emf.png",
+      "tokens": "Die Karte zeigt die europäischen Hauptstädte. In der linken unteren Ecke ist der Maßstab dieser Karte angegeben.Grafik: © IQBReykjavikPragMoskauHelsinkiTallinnRigaWilnaMinskKiewChişinăuBukarestSofiaBelgradWarschauKopenhagenBerlinBratislavaBudapestZagrebAnkaraSkopjeAthenTiranaPodgoricaSarajevoRom, VatikanstadtVallettaSan MarinoMonacoLjublianaAndorra La VellaMadridBernVaduzLuxemburgBrüsselParisLondonAmsterdamDublinStockholmOsloWienLissabonNikosia1cm ≙ 360km",
+      "deterministic_text": "Die Karte zeigt die europäischen Hauptstädte. In der linken unteren Ecke ist der\nMaßstab dieser Karte angegeben.\nReykjavik\nHelsinki\nOslo Stockholm\nTallinn\nRiga Moskau\nDublin Kopenhagen\nWilna\nAmsterdam\nLondon Minsk\nBerlin Warschau\nBrüssel\nKiew\nParis Luxemburg Prag\nBratislava\nBern Vaduz Wien Chişinău\nBudapest\nLjubliana\nZagreb\nBelgradBukarest\nSan Marino\nAndorra La Monaco\nLissabon Madrid Vella Sarajevo\nSofia\nPodgorica\nRom, Vatikanstadt Skopje\nTirana Ankara\nAthen\n1cm ≙ 360km Nikosia\nValletta\nGrafik: © IQB",
+      "table": null,
+      "n_fragments": 65,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/hauptstaedte/01_image2.emf.png",
+      "tokens": "Gib an, wie lang die Strecke (Luftlinie) zwischen Berlin und Athen in der Wirklichkeit ist.  km",
+      "deterministic_text": "Gib an, wie lang die Strecke (Luftlinie) zwischen Berlin und Athen in der Wirklichkeit\nist.\nkm",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/hauptstaedte/02_image3.emf.png",
+      "tokens": "Welche der folgenden Hauptstädte ist etwa 1100km von Berlin entfernt? Kreuze an.ReykjavikLuxemburgHelsinkiWilna",
+      "deterministic_text": "Welche der folgenden Hauptstädte ist etwa 1100km von Berlin entfernt?\nKreuze an.\nReykjavik Luxemburg Helsinki Wilna",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/hauptstaedte/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Hauptstädte",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Maßzahl aus dem Intervall [1750;1950]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Hauptstädte"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Maßzahl aus dem Intervall [1750;1950]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "1b",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 24.1:",
+      "Es kommt zu Messfehlern. Dies deutet auf Schwierigkeiten im Umgang mit dem Messgerät oder in der Arbeit mit der Karte hin.",
+      "Als Entfernungsangabe wird der Messwert notiert. Die Bedeutung des Maßstabs als Verhältnis der Entfernungen in Karte und Wirklichkeit scheint nicht erfasst worden zu sein. Dies veranschaulicht die folgende Schülerlösung:",
+      "Zu Teilaufgabe 24.2:",
+      "Die Entfernungsangabe kann nicht maßstabsgerecht umgerechnet werden. Dies deutet auf Schwierigkeiten im flexiblen Umgang mit dem Maßstab hin."
+    ],
+    "quelle": "hauptstaedte_Didaktische_Kommentierung.docx"
+  }
+}

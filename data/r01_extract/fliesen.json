@@ -1,0 +1,86 @@
+{
+  "item": "fliesen",
+  "sources": {
+    "Aufgabe": {
+      "file": "fliesen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "0dbada71360d0315"
+    },
+    "Auswertung": {
+      "file": "fliesen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "e916830d8eb33b2d"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fliesen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "18f69ed30d11cf71"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fliesen/00_doc_image1.emf.png",
+      "tokens": "Zum Fliesen eines Badezimmers werden 50 Platten mit einer Größe von jeweils 0,16m2benötigt. Der Besitzer entschließt sich dann aber doch, Fliesen der Größe 0,2m2verlegen zu lassen. Gib an, wie viele Fliesen jetzt mindestens nötig sind.Fliesen",
+      "deterministic_text": "Zum Fliesen eines Badezimmers werden 50 Platten mit einer Größe von jeweils 0,16m²\nbenötigt.\nDer Besitzer entschließt sich dann aber doch, Fliesen der Größe 0,2m²verlegen zu lassen.\nGib an, wie viele Fliesen jetzt mindestens nötig sind.\nFliesen",
+      "table": null,
+      "n_fragments": 25,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Fliesen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "40"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Fliesen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "40"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "III",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Der Dreisatz wird anders herum angewendet bzw. es wird mit einem falschen",
+      "Faktor multipliziert (insb. mit dem Faktor 0,2/0,16 – K5)."
+    ],
+    "quelle": "fliesen_Didaktische_Kommentierung.doc"
+  }
+}

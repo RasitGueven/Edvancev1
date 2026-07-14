@@ -1,0 +1,37 @@
+{
+  "item": "aussagendreiecke",
+  "gelesen_aus": [
+    "data/r01_render/aussagendreiecke/00_image1.emf.png",
+    "data/r01_render/aussagendreiecke/01_image2.emf.png",
+    "data/r01_render/aussagendreiecke/02_image3.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "In einem Dreieck mit den Winkeln a, b und g sind b = 45° und g = 2 × a. Wie groß ist a? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "45°"},
+        {"id": "b", "label": "67,5°"},
+        {"id": "c", "label": "90°"},
+        {"id": "d", "label": "135°"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "In einem Dreieck mit den Winkeln a, b und g gilt g = 2 × a. Gib einen allgemeinen Term an, mit dessen Hilfe man die Größe von b in Abhängigkeit von a berechnen kann.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Die Winkelnamen erscheinen im Bild als lateinische Buchstaben a, b, g — mit hoher Wahrscheinlichkeit sind es Symbol-Font-Griechen (alpha, beta, gamma). Ich habe die Glyphen so übernommen, wie sie im Bild stehen (a, b, g), nicht als α/β/γ interpretiert.",
+    "Das Multiplikationszeichen in 'g = 2 × a' wird als schmales Kreuz/Malzeichen gerendert; die exakte Codierung im Quelltext ist unklar.",
+    "Das Dreiecksbild (00_image1) ist reine Abbildung (Ecken A, B, C, Seiten a, b, c, Winkel a, b, g, Beschriftung '(nicht maßstabsgerecht)') — kein Stammtext vorhanden, daher stem leer.",
+    "Bild 01 zeigt unter den Optionen ein leeres Rechteck (Antwortkasten), Bild 02 ebenfalls — beide sind Eingabefelder, kein Prompt."
+  ]
+}

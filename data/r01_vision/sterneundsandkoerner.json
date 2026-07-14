@@ -1,0 +1,29 @@
+{
+  "item": "sterneundsandkoerner",
+  "gelesen_aus": [
+    "data/r01_render/sterneundsandkoerner/00_image1.emf.png",
+    "data/r01_render/sterneundsandkoerner/01_image2.emf.png",
+    "data/r01_render/sterneundsandkoerner/02_image3.emf.png"
+  ],
+  "stem": "Für große Zahlen gibt es Zahlwörter. Diese heißen, der Reihe nach notiert: Tausend, Million, Milliarde, Billion, Billiarde, Trillion, Trilliarde, Quadrillion und so weiter. Der Faktor zum nächstgrößeren Zahlwort ist dabei immer 1000.\nIm folgenden Artikel der Zeitung „Der Tagesspiegel\" wird ein solches Zahlwort verwendet. Darin heißt es:\n„Es gibt viel mehr Sterne im All als Sandkörner auf der Erde. Das haben australische Astronomen ausgerechnet. Sie schauten sich mit Fernrohren einen kleinen Teil des Himmels an und schätzten auf dieser Grundlage die Zahl der Sterne. Sie kamen auf 70 Trilliarden Sterne. Damit ist die Anzahl der Sterne im All zehnmal so groß wie die der Sandkörner auf der Erde.\"",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viele Sterne es laut Zeitungsartikel gibt.\n______ Sterne\nNotiere, wie viele Nullen diese Zahl insgesamt hat.\n______ Nullen",
+      "unit": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ein Ausschreiben sehr großer Zahlen in Ziffern kann unübersichtlich sein. Deshalb wird beim Schreiben solcher Zahlen oftmals eine Zehnerpotenz 10ⁿ verwendet. Der Wert der Hochzahl n gibt die Anzahl der Stellen an, um die das Komma des Faktors vor der Zehnerpotenz verschoben wird.\nBeispiel: Es ist 1000 = 1 · 10³. Man kann also 5000 als 5 · 10³ schreiben. Entsprechend kann man die Zahl 3217 als 3,217 · 10³ schreiben.\nErgänze im folgenden Beispiel die in der Zehnerpotenz fehlende Hochzahl.\n70 Trilliarden = 7 · 10^___",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 1 enthält zwei Eingabefelder ('… Sterne' und '… Nullen'); die Auswertung kennt insgesamt 2 Teilaufgaben, daher habe ich beide Felder zu Teilaufgabe 1 zusammengefasst und die Zehnerpotenz-Aufgabe als Teilaufgabe 2 gezählt. Möglich ist auch eine Zählung als 3 Prompts.",
+    "Im Zeitungszitat fehlen im Rendering an mehreren Stellen die Satzendpunkte ('auf der ErdeDas', 'ausgerechnet Sie', 'SterneSie', 'Sterne Damit'); ich habe die Satzgrenzen sinngemäß gesetzt.",
+    "Quellenangabe unter dem Zitat: 'Quelle: © Dr. Hartmut Wewetzer, Gibt es mehr Sterne im All als Sandkörner auf der Erde?, aus: Der Tagesspiegel, Berlin, Nr. 21043 (2011), S. 14.' — nicht Teil des Stamms."
+  ]
+}

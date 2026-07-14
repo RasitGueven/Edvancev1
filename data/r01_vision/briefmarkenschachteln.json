@@ -1,0 +1,20 @@
+{
+  "item": "briefmarkenschachteln",
+  "gelesen_aus": [
+    "data/r01_render/briefmarkenschachteln/00_doc_image1.emf.png"
+  ],
+  "stem": "Martin sammelt neuerdings Briefmarken. Er will sie vorläufig in kleinen, selbst gebastelten Schachteln aufbewahren.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Hier sind Netze für weitere Schachteln. Vor dem Zusammenkleben beschriftet sie Martin. Vervollständige die Beschriftung.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Die Auswertung kennt 2 Teilaufgaben, im gerenderten Bild ist nur EIN Arbeitsauftrag lesbar ('Vervollständige die Beschriftung.'). Vermutlich gehören zwei Schachtelnetze (a/b) dazu, die im gelieferten PNG nicht enthalten sind — ich folge dem Bild und melde den Widerspruch.",
+    "Das PNG zeigt eine Schachtel-Abbildung, auf deren Feldern die Buchstaben I T A L I E N stehen; das ist Abbildungsinhalt, kein Stammtext. Die eigentlichen Netze zum Beschriften sind im Bild nicht sichtbar."
+  ]
+}

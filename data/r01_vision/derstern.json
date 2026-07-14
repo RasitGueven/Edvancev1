@@ -1,0 +1,24 @@
+{
+  "item": "derstern",
+  "gelesen_aus": ["data/r01_render/derstern/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist der Flächeninhalt des abgebildeten Sterns? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "7 cm²"},
+        {"id": "b", "label": "12 cm²"},
+        {"id": "c", "label": "16 cm²"},
+        {"id": "d", "label": "20 cm²"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Über der Frage steht eine Rasterzeichnung eines Sterns in einem Gitter mit Maßstabsangaben '1 cm' (waagerecht und senkrecht) und dem Hinweis '(nicht maßstabsgerecht)'; die Zeichnung selbst ist nicht als Text erfasst."
+  ]
+}

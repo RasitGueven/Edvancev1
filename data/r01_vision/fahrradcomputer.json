@@ -1,0 +1,10 @@
+{
+  "item": "fahrradcomputer",
+  "gelesen_aus": ["data/r01_render/fahrradcomputer/00_doc_image1.emf.png"],
+  "stem": "Anna hat einen Fahrradcomputer an ihrem Fahrrad.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Widerspruch zur Auswertung: Das einzige gerenderte Bild enthält nur den Einleitungssatz und die Bildunterschrift 'Foto: © IQB' (das Foto selbst ist eine Rastergrafik ohne Text). Es sind KEINE Teilaufgaben/Prompts/Optionen sichtbar, die Auswertung kennt aber 2 Teilaufgaben. Die Teilaufgabentexte stehen vermutlich außerhalb dieses EMF (Fließtext im Dokument) und konnten nicht gelesen werden."
+  ]
+}

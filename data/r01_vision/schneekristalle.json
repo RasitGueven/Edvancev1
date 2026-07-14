@@ -1,0 +1,26 @@
+{
+  "item": "schneekristalle",
+  "gelesen_aus": [
+    "data/r01_render/schneekristalle/00_image1.emf.png"
+  ],
+  "stem": "Hier ist ein Schneekristall abgebildet.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie viele Symmetrieachsen hat dieser Schneekristall (von kleinen Abweichungen abgesehen)? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "3"},
+        {"id": "b", "label": "4"},
+        {"id": "c", "label": "6"},
+        {"id": "d", "label": "12"}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Die im Stamm erwähnte Abbildung des Schneekristalls ist im Rendering nicht sichtbar (nur Text und Ankreuzkästchen); zwischen den Optionen sind große Leerräume, wo vermutlich das Bild liegt."
+  ]
+}

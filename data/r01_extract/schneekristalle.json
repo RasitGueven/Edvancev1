@@ -1,0 +1,104 @@
+{
+  "item": "schneekristalle",
+  "sources": {
+    "Aufgabe": {
+      "file": "schneekristalle_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "7a8173e6686384bc"
+    },
+    "Auswertung": {
+      "file": "schneekristalle_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "26b43131966b6939"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schneekristalle_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "db8c6448876b2fb6"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schneekristalle/00_image1.emf.png",
+      "tokens": "Hier ist ein Schneekristall abgebildet. Wie viele Symmetrieachsen hat dieser Schneekristall (von kleinen Abweichungen abgesehen)?Kreuze an.34612",
+      "deterministic_text": "Hier ist ein Schneekristall abgebildet.\nWie viele Symmetrieachsen hat dieser Schneekristall\n(von kleinen Abweichungen abgesehen)?\nKreuze an.\n3\n4\n6\n12",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schneekristalle/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Schneekristalle"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Schneekristalle"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "1. Antwortalternative: Vermutlich werden nur die großen Zacken des Schneekristalls beachtet (K4).",
+      "2. Antwortalternative: Es werden wohl nur die horizontale und die vertikale Symmetrieachse „gesehen“ (K4).",
+      "4. Antwortalternative: Die Lage der Symmetrieachsen wird wohl richtig erkannt. Vermutlich werden die Symmetrieachsen jedoch nur bis zum Mittelpunkt des Schneekristalls gedacht und daher ihre Anzahl fälschlich verdoppelt (K2 oder K4)."
+    ],
+    "quelle": "schneekristalle_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "item": "rechteck",
+  "gelesen_aus": ["data/r01_render/rechteck/00_image1.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Es soll ein vierter Punkt C so ergänzt werden, dass das Viereck ABCD ein Rechteck ist.\nZeichne diesen Punkt C in das Koordinatensystem ein.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Rasterbild-Item: rein visuell gelesen, kein Zeichenvorrat zur Gegenprüfung.",
+    "Im Koordinatensystem (x 0–6, y 0–5) sind eingezeichnet: A(1|2), B(5|2), D(1|4). Die Zeichenaufgabe ist eine Konstruktionsaufgabe, kein Texteingabefeld — als free_text geführt."
+  ]
+}

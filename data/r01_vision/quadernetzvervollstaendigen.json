@@ -1,0 +1,17 @@
+{
+  "item": "quadernetzvervollstaendigen",
+  "gelesen_aus": ["data/r01_render/quadernetzvervollstaendigen/00_image1.emf.png"],
+  "stem": "Dieses Netz eines Quaders ist unvollständig. Es gibt mehrere Möglichkeiten, dieses unvollständige Netz zu einem vollständigen Quadernetz zu ergänzen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Ergänze in der Zeichnung fehlende Flächen, so dass ein vollständiges Quadernetz entsteht.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Unter dem Text steht ein Kästchenraster (Zeichenfläche). Das unvollständige Quadernetz selbst ist im Rendering nicht erkennbar — nur das leere Karogitter; die vorgegebenen Flächen konnte ich nicht sehen."
+  ]
+}

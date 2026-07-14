@@ -1,0 +1,19 @@
+{
+  "item": "eckenundkanten",
+  "gelesen_aus": ["data/r01_render/eckenundkanten/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ergänze die Tabelle.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Tabelle hat die Spalten 'Gesamtzahl der Ecken' und 'Gesamtzahl der Kanten' sowie die Zeilen 'Quader' (mit Schrägbild, Kanten bereits mit 12 vorgegeben) und 'Pyramide mit viereckiger Grundfläche' (mit Schrägbild, Ecken bereits mit 5 vorgegeben). Zu ergänzen sind also zwei Zellen (Quader-Ecken, Pyramide-Kanten)."
+  ]
+}

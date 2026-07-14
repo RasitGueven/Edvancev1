@@ -1,0 +1,32 @@
+{
+  "item": "tombolazumschulfest",
+  "gelesen_aus": [
+    "data/r01_render/tombolazumschulfest/00_image1.emf.png",
+    "data/r01_render/tombolazumschulfest/01_image2.emf.png",
+    "data/r01_render/tombolazumschulfest/02_image3.emf.png"
+  ],
+  "stem": "Bei einer Tombola auf einem Schulfest befinden sich 200 Lose in einem Gefäß. Davon sind 70 kleine Gewinne, 30 mittlere Gewinne und 10 Hauptgewinne. Der Rest sind Nieten.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, bei wie vielen Losen es sich um Nieten handelt.",
+      "unit": "Nieten",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Zeichne die Anteile der vier Losarten in dieses Streifendiagramm ein. Beschrifte die Anteile.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 1 hat als Eingabefeld den Lückensatz 'Es gibt .......... Nieten.'; ich habe 'Nieten' als unit gesetzt.",
+    "Teilaufgabe 2 verlangt eine Zeichnung in ein leeres Kästchenraster (Streifendiagramm) — kind 'free_text' ist die nächstliegende Kategorie, eigentlich ist es eine Zeichenaufgabe."
+  ]
+}

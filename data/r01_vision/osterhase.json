@@ -1,0 +1,37 @@
+{
+  "item": "osterhase",
+  "gelesen_aus": [
+    "data/r01_render/osterhase/00_image1.emf.png",
+    "data/r01_render/osterhase/01_image2.emf.png",
+    "data/r01_render/osterhase/02_image3.emf.png"
+  ],
+  "stem": "Das Bild zeigt drei unterschiedlich große Schokoladenosterhasen. Der kleine Osterhase wiegt 25 g, der mittlere Osterhase wiegt 100 g und der große Osterhase wiegt 1000 g.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "1 cm³ Schokolade wiegt 1,3 g. Der große Osterhase wird geschmolzen. Gib an, wie viel cm³ Schokolade dabei ungefähr entstehen. Es entstehen ungefähr __________ cm³ Schokolade.",
+      "unit": "cm³",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Die nachfolgende Tabelle enthält Aussagen über die drei Schokoladenosterhasen. Kreuze jeweils an, ob die Aussage wahr oder falsch ist.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Der kleine Osterhase wiegt ein Viertel des mittleren Osterhasen."},
+        {"id": "b", "label": "Der mittlere Osterhase wiegt das Vierfache des kleinen Osterhasen."},
+        {"id": "c", "label": "Das Gewicht des großen Osterhasen entspricht 400 % des Gewichts des kleinen Osterhasen."},
+        {"id": "d", "label": "Aus dem großen Osterhasen könnte man 10 mittlere Osterhasen machen."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten (Zeilen der wahr/falsch-Tabelle)"
+    }
+  ],
+  "unsicher": [
+    "Teil 2 ist eine wahr/falsch-Matrix: pro Aussage je ein Kästchen 'wahr' und 'falsch' (Spalten in dieser Reihenfolge). Die options oben sind die AUSSAGEN (Zeilen), nicht einzelne Ankreuzoptionen — die Auswertung muss pro Zeile wahr/falsch abzählen.",
+    "Reihenfolge der Teilaufgaben aus der Datei-/Bildreihenfolge übernommen (erst cm³-Aufgabe, dann wahr/falsch-Tabelle); falls die Auswertung die Tabelle als Teil 1 führt, sind die Nummern zu tauschen."
+  ]
+}

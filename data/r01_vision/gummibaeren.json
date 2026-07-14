@@ -1,0 +1,35 @@
+{
+  "item": "gummibaeren",
+  "gelesen_aus": [
+    "data/r01_render/gummibaeren/00_image1.emf.png",
+    "data/r01_render/gummibaeren/01_image2.emf.png",
+    "data/r01_render/gummibaeren/02_image3.emf.png"
+  ],
+  "stem": "Nach Herstellerangaben werden vor dem Abfüllen von Gummibären in Tüten die Bären folgendermaßen durchgemischt:\nJe ein Sechstel grüne, gelbe, weiße und orangefarbene Bären und ein Drittel rote Bären.\nDie Hälfte der roten Bären schmeckt nach Erdbeere, die andere Hälfte nach Himbeere.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Jan greift sich mit geschlossenen Augen einen Gummibären aus einer frisch geöffneten Tüte. Mit welcher Wahrscheinlichkeit hat er Himbeergeschmack?",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Fünf Gummibären wiegen 10 g. Kreuze an, wie viele grüne Gummibären sich etwa in einer 1000 g-Dose befinden.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "20"},
+        {"id": "b", "label": "60"},
+        {"id": "c", "label": "80"},
+        {"id": "d", "label": "160"},
+        {"id": "e", "label": "330"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

@@ -1,0 +1,94 @@
+{
+  "item": "computerspielsucht",
+  "sources": {
+    "Aufgabe": {
+      "file": "computerspielsucht_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "9018a07913b7f34d"
+    },
+    "Auswertung": {
+      "file": "computerspielsucht_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "c04eb1a332f4bfca"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "computerspielsucht_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "6ea27cc249fd2af1"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/computerspielsucht/00_doc_image1.emf.png",
+      "tokens": "Nach einer Untersuchung der Universität Koblenz-Landau zeigt jeder neunte Jugendliche ein krankhaftes Computerspielverhalten.Wie viel Prozent der Jugendlichen sind das? Kreuze den Prozentsatz an, der am besten passt. ca. 9%ca. 11%ca. 12%ca. 90%",
+      "deterministic_text": "Nach einer Untersuchung der Universität Koblenz-Landau zeigt jeder neunte Jugendliche ein\nkrankhaftes Computerspielverhalten.\nWie viel Prozent der Jugendlichen sind das?\nKreuze den Prozentsatz an, der am besten passt.\nca. 9% ca. 11% ca. 12% ca. 90%",
+      "table": null,
+      "n_fragments": 27,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Computerspielsucht"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Computerspielsucht"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "IV",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "▪ 1. Antwortalternative wurde angekreuzt: Die Aussage „jeder neunte“ wird",
+      "als 1/9 gedeutet und dann fehlerhaft in 9 % übersetzt, wie die folgende",
+      "Schülerlösung zeigt (K5).",
+      "▪ 3. Antwortalternative wurde angekreuzt: Hier ist vermutlich fehlerhaft",
+      "gerundet worden (K5).",
+      "▪ 4. Antwortalternative wurde angekreuzt: Es ist denkbar, dass „jeder",
+      "neunte“ übersetzt wird in 9 von 10, also 90 von 100 Jugendlichen und",
+      "somit in 90% (K5). Die Entscheidung für diese Wahl kann auch auf der",
+      "Berechnung des ungefähren Anteils der Jugendlichen ohne krankhaftes",
+      "Computerspielverhalten basieren (K6)."
+    ],
+    "quelle": "computerspielsucht_Didaktische_Kommentierung.doc"
+  }
+}

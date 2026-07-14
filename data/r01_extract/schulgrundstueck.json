@@ -1,0 +1,135 @@
+{
+  "item": "schulgrundstueck",
+  "sources": {
+    "Aufgabe": {
+      "file": "schulgrundstueck_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "eae6e53f7e691d21"
+    },
+    "Auswertung": {
+      "file": "schulgrundstueck_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "96b97edd0096fcc0"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schulgrundstueck_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "07f02f2e5cbd0be1"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schulgrundstueck/00_doc_image1.emf.png",
+      "tokens": "Die Abbildung zeigt das Luftbild einer Schule. Darauf sind das Schulgrundstück (schwarz umrandet) und die Schulgebäude zu sehen.a10 m",
+      "deterministic_text": "Die Abbildung zeigt das Luftbild einer Schule.\nDarauf sind das Schulgrundstück (schwarz\numrandet) und die Schulgebäude zu sehen.\na\n10 m",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Schulgrundstück",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Länge a dieses Schulgebäudes aus dem Intervall [64; 100] m."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Länge der Strecke aus dem Intervall [4; 7] cm."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Schulgrundstück"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Länge a dieses Schulgebäudes aus dem Intervall [64; 100] m."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Länge der Strecke aus dem Intervall [4; 7] cm."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Es wird nur der im Bild gemessene Wert angegeben. Die wirkliche Länge",
+      "wird nicht berechnet, d. h. der Maßstab kann entweder nicht abgelesen",
+      "oder aber nicht eingesetzt werden (K6 oder K4).",
+      "Zu Teilaufgabe 1, 2:",
+      "• Es wird davon ausgegangen, dass 1 cm im Bild in Wirklichkeit 10 m sind.",
+      "Dies könnte dadurch zustande gekommen sein, dass die Abbildung nur",
+      "oberflächlich betrachtet und der gegebenen Strecke einfach eine Länge von",
+      "1 cm zugewiesen wurde, weil dies eine häufig im Unterricht verwendete",
+      "Angabe ist [Fehllösungen: 45 m bzw. 10 cm] (K4).",
+      "• Es kommt zu Umrechnungsfehlern zwischen den Einheiten Millimeter und",
+      "Zentimeter, welche sich auf den verwendeten Maßstab auswirken. So wird z.",
+      "B. angenommen, dass 10 m = 10 000 mm seien, woraus sich ein Maßstab von 5",
+      ": 10 000 ergibt (K5).",
+      "Weiterarbeit und Förderung",
+      "Unterrichtliche Hinweise zur Arbeit mit dem Maßstabsbegriff können dem",
+      "Didaktischen Kommentar zur Aufgabe „Maßstabsrechner“ entnommen werden,",
+      "welche auch als Vorbereitung auf die Aufgabe „Schulgrundstück“ genutzt"
+    ],
+    "quelle": "schulgrundstueck_Didaktische_Kommentierung.doc"
+  }
+}

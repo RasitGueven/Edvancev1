@@ -1,0 +1,219 @@
+{
+  "item": "seitenflaechen",
+  "sources": {
+    "Aufgabe": {
+      "file": "seitenflaechen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "88fff71cfa39f08a"
+    },
+    "Auswertung": {
+      "file": "seitenflaechen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "b7259151d12c8165"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "seitenflaechen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "5ac41a0b2c7cee61"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/seitenflaechen/00_image1.emf.png",
+      "tokens": "Im Folgenden werden nur Körper betrachtet, deren Oberfläche aus ebenen Vielecken besteht.  Es gibt also keine gebogenen oder gewölbten Flächen. ",
+      "deterministic_text": "Im Folgenden werden nur Körper betrachtet, deren Oberfläche aus ebenen Vielecken besteht.\nEs gibt also keine gebogenen oder gewölbten Flächen.",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/seitenflaechen/01_image2.emf.png",
+      "tokens": "Aus wie vielen Flächen besteht die Oberfläche eines Quaders?Die Oberfläche eines Quaders besteht aus                     Flächen.",
+      "deterministic_text": "Aus wie vielen Flächen besteht die Oberfläche eines Quaders?\nDie Oberfläche eines Quaders besteht aus Flächen.",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/seitenflaechen/02_image3.emf.png",
+      "tokens": "Nenne einen Körper, dessen Oberfläche aus genau fünf Flächen besteht. Wenn du die Bezeichnung des Körpers nicht kennst, kannst du ihn auch skizzieren.                                                               oder Skizze:",
+      "deterministic_text": "Nenne einen Körper, dessen Oberfläche aus genau fünf Flächen besteht. Wenn du die\nBezeichnung des Körpers nicht kennst, kannst du ihn auch skizzieren.\noder Skizze:",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/seitenflaechen/03_image4.emf.png",
+      "tokens": "Es soll ein Körper konstruiert werden, dessen Oberfläche aus genau vier Flächen besteht. Welche Form haben diese Flächen? Kreuze an.Alle vier Flächen sind...… dreieckig.… rechteckig.… quadratisch.… fünfeckig.",
+      "deterministic_text": "Es soll ein Körper konstruiert werden, dessen Oberfläche aus genau vier Flächen besteht.\nWelche Form haben diese Flächen?\nKreuze an.\nAlle vier Flächen sind...\n… dreieckig. … rechteckig. … quadratisch. … fünfeckig.",
+      "table": null,
+      "n_fragments": 18,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/seitenflaechen/04_image5.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Köper mit Seitenflächen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "6"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtig sind Lösungen, in denen ein Körper genannt, eindeutig beschrieben oder skizziert wird, dessen Oberfläche aus fünf Flächen besteht.\n\nBeispiel(e)\n• Pyramide mit viereckiger Grundfläche\n• Prisma mit dreieckiger Grundfläche\n• Pyramidenstumpf mit dreieckiger Grundfläche, dabei muss die liegende dreieckige Schnittfläche nicht parallel zur Grundfläche verlaufen\n• \n\n• \n\n[Anm.: Handskizzen gelten als richtig, wenn die Form eindeutig zu erkennen ist.]\n• (Grenzfall)\nToblerone(-Packung)"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten. \n\nBeispiel(e)\n• Pyramide (ohne weitere Beschreibung)  \n• Prisma (ohne weitere Beschreibung)\n• Lösungen, in denen ein Gegenstand genannt wird, der die entsprechende Form hat oder haben kann, sind falsch.\nWie: Zelt, Dach, Kirchturmdach"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Köper mit Seitenflächen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "6"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtig sind Lösungen, in denen ein Körper genannt, eindeutig beschrieben oder skizziert wird, dessen Oberfläche aus fünf Flächen besteht.\n\nBeispiel(e)\n• Pyramide mit viereckiger Grundfläche\n• Prisma mit dreieckiger Grundfläche\n• Pyramidenstumpf mit dreieckiger Grundfläche, dabei muss die liegende dreieckige Schnittfläche nicht parallel zur Grundfläche verlaufen\n• \n\n• \n\n[Anm.: Handskizzen gelten als richtig, wenn die Form eindeutig zu erkennen ist.]\n• (Grenzfall)\nToblerone(-Packung)"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten. \n\nBeispiel(e)\n• Pyramide (ohne weitere Beschreibung)  \n• Prisma (ohne weitere Beschreibung)\n• Lösungen, in denen ein Gegenstand genannt wird, der die entsprechende Form hat oder haben kann, sind falsch.\nWie: Zelt, Dach, Kirchturmdach"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Die Grundfläche (Standfläche) bzw. die nicht sichtbaren Seitenflächen werden beim Zählen vernachlässigt (Fehllösung z. B.: 5).",
+      "Die Beschreibung des angegebenen Körpers ist unvollständig (Fehllösung z. B.: Pyramide) (Defizit bzgl. K5).",
+      "Es wird nur der Name eines Alltagsgegenstandes angegeben (Fehllösung z. B.: Kirchendach) (Defizit bzgl. K5).",
+      "2. Antwortalternative (Fehllösung: rechteckig) und 3. Antwortalternative (Fehllösung: quadratisch): Die Information viereckig wird mit der Anzahl an Ecken/ Kanten einer Teilfläche gleichgesetzt."
+    ],
+    "quelle": "seitenflaechen_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "item": "niederschlag",
+  "sources": {
+    "Aufgabe": {
+      "file": "niederschlag_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "8261b1c6e0435692"
+    },
+    "Auswertung": {
+      "file": "niederschlag_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "5ee871056215621e"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "niederschlag_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "0ff63d324b9b893c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/niederschlag/00_image1.emf.png",
+      "tokens": "Die Abbildung zeigt ein Klimadiagramm für Halle an der Saale für das Jahr 2012. Die Säulen im Diagramm zeigen, wie viel Niederschlag in jedem Monat fiel. Die Punkte zeigen die durchschnittlichen Temperaturen für jeden Monat.JanFebMärAprMaiJunJulAugSepOktNovDez010203040506070800481216202428323640Temperatur in °CNiederschlag in mmKlimadiagramm Halle an der SaaleDaten: Deutscher Wetterdienst, 2012",
+      "deterministic_text": "Die Abbildung zeigt ein Klimadiagramm für Halle an der Saale für das Jahr 2012. Die\nSäulen im Diagramm zeigen, wie viel Niederschlag in jedem Monat fiel. Die Punkte zeigen\ndie durchschnittlichen Temperaturen für jeden Monat.\nKlimadiagramm Halle an der Saale\n80\n40\n70 36\n60 32\n28T\nm em\nm50 p\nni 24e\ng ra\nal40 20tu\nhc r\nsr 16in\ne30 °\nd C\nei 12\nN20\n8\n10 4\n0 0\nJan Feb Mär Apr Mai Jun Jul Aug Sep Okt Nov Dez\nDaten: Deutscher Wetterdienst, 2012",
+      "table": null,
+      "n_fragments": 83,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/niederschlag/01_image2.emf.png",
+      "tokens": "Gib an, in welchem Monat die durchschnittliche Temperatur in Halle an der Saale am niedrigsten war.",
+      "deterministic_text": "Gib an, in welchem Monat die durchschnittliche Temperatur in Halle an der Saale am\nniedrigsten war.",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/niederschlag/02_image3.emf.png",
+      "tokens": "Gib die Spannweite (das ist die Differenz des größten und kleinsten Wertes) der durchschnittlichen Temperaturen an.Welcher Wert passt am besten?Kreuze an. 10°C18°C25°C32°C",
+      "deterministic_text": "Gib die Spannweite (das ist die Differenz des größten und kleinsten Wertes) der\ndurchschnittlichen Temperaturen an.\nWelcher Wert passt am besten?\nKreuze an.\n10°C 18°C 25°C 32°C",
+      "table": null,
+      "n_fragments": 23,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/niederschlag/03_image4.emf.png",
+      "tokens": "Gib an, in welchem Monat in Halle an der Saale am meisten Niederschlag fiel.",
+      "deterministic_text": "Gib an, in welchem Monat in Halle an der Saale am meisten Niederschlag fiel.",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/niederschlag/04_image5.emf.png",
+      "tokens": "Kann man anhand dieses Diagramms sagen, dass für Halle an der Saale im Laufe des Monats Juli die höchste Tagestemperatur des Jahres 2012 gemessen wurde?JaNeinKreuze an.Begründe deine Antwort.",
+      "deterministic_text": "Kann man anhand dieses Diagramms sagen, dass für Halle an der Saale im Laufe\ndes Monats Juli die höchste Tagestemperatur des Jahres 2012 gemessen wurde?\nKreuze an.\nJa Nein\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 5,
+      "emf": "image6.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/niederschlag/05_image6.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Niederschlag",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:",
+      "Teilaufgabe 3:",
+      "Teilaufgabe 4:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Januar"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Juni"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung, auch beispielgebunden, dass man ausgehend von monatlichen Durchschnittswerten nicht auf die einzelnen Daten schließen kann.\n\nBeispiel(e)\nMan kann in einem Monat den heißesten Tag haben, der Rest sind nur kalte Tage.\nIm Juli betrug die Durchschnittstemperatur 18° C, im Mai 16° C. Nimmt man nun an, dass einer Durchschnittstemperatur nur zwei Daten zugrunde liegen, könnten dies im Juli 19° C und 17° C gewesen sein und im Mai\n20° C und 12° C. \n[Anm.: Es muss nicht explizit gesagt werden, dass 20>19 ist.] \nÜbereinstimmenden Durchschnittswerten können sehr unterschiedliche Werte zugrunde liegen. Bei nur zwei Daten und einem Durchschnitt von z. B. 25° C könnten dies zweimal 25° C sein oder 40° C und 10° C.\n[Anm.: Hier wird nicht mit konkreten Werten aus dem Diagramm argumentiert. Es genügt auch, wenn ein Hinweis auf die Durchschnittstemperatur gegeben wird.]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nNein, z. B. 20° C im Mai und 19° C im Juni.\n[Anm.: Der Bezug zu den monatlichen Durchschnittswerten bleibt unklar.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Niederschlag"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Januar"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Juni"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 4:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung, auch beispielgebunden, dass man ausgehend von monatlichen Durchschnittswerten nicht auf die einzelnen Daten schließen kann.\n\nBeispiel(e)\nMan kann in einem Monat den heißesten Tag haben, der Rest sind nur kalte Tage.\nIm Juli betrug die Durchschnittstemperatur 18° C, im Mai 16° C. Nimmt man nun an, dass einer Durchschnittstemperatur nur zwei Daten zugrunde liegen, könnten dies im Juli 19° C und 17° C gewesen sein und im Mai\n20° C und 12° C. \n[Anm.: Es muss nicht explizit gesagt werden, dass 20>19 ist.] \nÜbereinstimmenden Durchschnittswerten können sehr unterschiedliche Werte zugrunde liegen. Bei nur zwei Daten und einem Durchschnitt von z. B. 25° C könnten dies zweimal 25° C sein oder 40° C und 10° C.\n[Anm.: Hier wird nicht mit konkreten Werten aus dem Diagramm argumentiert. Es genügt auch, wenn ein Hinweis auf die Durchschnittstemperatur gegeben wird.]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nNein, z. B. 20° C im Mai und 19° C im Juni.\n[Anm.: Der Bezug zu den monatlichen Durchschnittswerten bleibt unklar.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 3
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Argumentieren (K1),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K1",
+          "K4"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 4
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "niederschlag_Didaktische_Kommentierung.docx"
+  }
+}

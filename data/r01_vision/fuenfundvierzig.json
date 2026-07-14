@@ -1,0 +1,21 @@
+{
+  "item": "fuenfundvierzig",
+  "gelesen_aus": [
+    "data/r01_render/fuenfundvierzig/00_doc_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Bestimme die fehlende Zahl.\n6 · ☐ + 3 = 45",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das Eingabefeld ist ein leeres Quadrat in der Gleichung; ich habe es als ☐ notiert."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "item": "wahrscheinlicher",
+  "gelesen_aus": [
+    "data/r01_render/wahrscheinlicher/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welches der beiden Ereignisse hat die höhere Wahrscheinlichkeit? Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Beim einmaligen Werfen eines Spielwürfels fällt eine Sechs."},
+        {"id": "b", "label": "Beim einmaligen Werfen einer Münze liegt „Kopf“ oben."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Die Optionen stehen untereinander (nicht nebeneinander); Reihenfolge daher von oben nach unten.",
+    "Unter den Ankreuzkästchen folgt 'Begründe deine Entscheidung.' mit einem karierten Schreibfeld. Die Auswertung kennt nur 1 Teilaufgabe — ich habe die Begründung deshalb in denselben Prompt genommen statt eine zweite Teilaufgabe zu erfinden."
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "item": "autokauf",
+  "sources": {
+    "Aufgabe": {
+      "file": "autokauf_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "7674354ea67a081b"
+    },
+    "Auswertung": {
+      "file": "autokauf_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "30588c2ace86bf37"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "autokauf_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "3ae78fe0b5f8fe7b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/autokauf/00_image1.emf.png",
+      "tokens": "Herr Berger möchte ein neues Auto kaufen. Nach Angabe des Händlers soll es ohne Mehrwertsteuer 19900€ kosten. Herrn Berger ist dies zu teuer, und so handelt er mit dem Händler eine Preisermäßigung von 12% aus. Zu dem ermäßigten Preis kommen dann noch 19% Mehrwertsteuer hinzu. Herr Berger rechnet einfach: 19900€ zuzüglich 7%. Liefert diese Rechnung das richtige Ergebnis?JaNeinKreuze an.Begründe deine Antwort.",
+      "deterministic_text": "Herr Berger möchte ein neues Auto kaufen. Nach Angabe des Händlers soll es ohne\nMehrwertsteuer 19900€ kosten. Herrn Berger ist dies zu teuer, und so handelt er mit\ndem Händler eine Preisermäßigung von 12% aus. Zu dem ermäßigten Preis kommen\ndann noch 19% Mehrwertsteuer hinzu.\nHerr Berger rechnet einfach: 19900€ zuzüglich 7%.\nLiefert diese Rechnung das richtige Ergebnis?\nKreuze an.\nJa Nein\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 37,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/autokauf/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Autokauf"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nRichtige Begründung auf rechnerischer Ebene, indem Herrn Bergers Rechnung mit der korrekten Rechnung verglichen wird, oder auf inhaltlicher Ebene durch den Verweis auf die sich unterscheidenden Grundwerte. \n\n[Anm.: Die Rechnung muss nicht vollständig angegeben werden.]\n\nBeispiel(e)\nHerr Berger rechnet: 19 900 €  1,07 € = 21 293 €\nRechnet er jedoch zunächst den Rabatt ab und dann die Mehrwertsteuer hinzu, ergibt sich ein Preis von 20839,28 €.\nHerrn Bergers Rechnung ist demnach falsch.\nDa sich die Prozentsätze auf unterschiedliche Grundwerte beziehen, kann Herr Berger nicht wie angegeben rechnen.\nBei Herrn Bergers Vorgehen ergibt sich ein Faktor von 1,07, richtig wäre jedoch 1,0472 als Produkt aus 0,88 und 1,19. Herrn Bergers Vorgehen ist demnach falsch."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nHerr Berger rechnet falsch.\n[Anm.: Begründung fehlt.]\nHerr Berger rechnet richtig, denn 19 % - 12 % sind 7 %."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Autokauf"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nRichtige Begründung auf rechnerischer Ebene, indem Herrn Bergers Rechnung mit der korrekten Rechnung verglichen wird, oder auf inhaltlicher Ebene durch den Verweis auf die sich unterscheidenden Grundwerte. \n\n[Anm.: Die Rechnung muss nicht vollständig angegeben werden.]\n\nBeispiel(e)\nHerr Berger rechnet: 19 900 €  1,07 € = 21 293 €\nRechnet er jedoch zunächst den Rabatt ab und dann die Mehrwertsteuer hinzu, ergibt sich ein Preis von 20839,28 €.\nHerrn Bergers Rechnung ist demnach falsch.\nDa sich die Prozentsätze auf unterschiedliche Grundwerte beziehen, kann Herr Berger nicht wie angegeben rechnen.\nBei Herrn Bergers Vorgehen ergibt sich ein Faktor von 1,07, richtig wäre jedoch 1,0472 als Produkt aus 0,88 und 1,19. Herrn Bergers Vorgehen ist demnach falsch."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nHerr Berger rechnet falsch.\n[Anm.: Begründung fehlt.]\nHerr Berger rechnet richtig, denn 19 % - 12 % sind 7 %."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es wird nicht erkannt, worauf man die Prozentangaben anwenden muss, d.h. das mathematische Modell mit zu vergleichenden erhöhten bzw. verminderten Grundwerten wird nicht korrekt aufgestellt:",
+      "Die unterschiedlichen Grundwerte werden nicht erkannt und es wird fälschlich gefolgert, dass ein Rabatt von 12% und eine gleichzeitige Erhöhung um 19% tatsächlich einem um 7% erhöhten Grundwert gleichkommt:",
+      "Die Aufgabenstellung wird nicht korrekt oder vollständig erfasst, u.a. weil die Anforderungen an das sinnentnehmende Lesen nicht bewältigt werden:"
+    ],
+    "quelle": "autokauf_Didaktische_Kommentierung.docx"
+  }
+}

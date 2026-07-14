@@ -1,0 +1,111 @@
+{
+  "item": "traktor",
+  "sources": {
+    "Aufgabe": {
+      "file": "traktor_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "290b83d287db9596"
+    },
+    "Auswertung": {
+      "file": "traktor_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "fd90c2b5f0709404"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "traktor_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "c2c084a5422b5c17"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/traktor/00_image1.emf.png",
+      "tokens": "Von einem Traktor werden Spielzeugmodelle in den folgenden Maßstäben hergestellt:1 :1 :1 :1 :120875032",
+      "deterministic_text": "Von einem Traktor werden Spielzeugmodelle in\nden folgenden Maßstäben hergestellt:\n1 :120\n1 : 87\n1 : 50\n1 : 32",
+      "table": null,
+      "n_fragments": 15,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/traktor/01_image2.emf.png",
+      "tokens": "Bei welchem Maßstab ist das Modell am kleinsten?Kreuze an.1 : 1201 : 871 : 501 : 32",
+      "deterministic_text": "Bei welchem Maßstab ist das Modell am kleinsten?\nKreuze an.\n1 : 120 1 : 87 1 : 50 1 : 32",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/traktor/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Traktor"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Traktor"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "traktor_Didaktische_Kommentierung.docx"
+  }
+}

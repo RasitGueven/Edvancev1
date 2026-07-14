@@ -1,0 +1,20 @@
+{
+  "item": "parkhaus",
+  "gelesen_aus": [
+    "data/r01_render/parkhaus/00_image1.emf.png",
+    "data/r01_render/parkhaus/01_image2.emf.png"
+  ],
+  "stem": "In einem Parkhaus gelten folgende Parkgebühren:\n(Tabelle: Parkzeit | Gebühr — bis 2 Stunden | 4,00 €; bis 3 Stunden | 5,50 €; bis 4 Stunden | 7,00 €; jede weitere angefangene Stunde | 1,00 €; ab neun Stunden gleichbleibend | 13,00 €)",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Die Parkgebühren für 0 bis 11 Stunden sollen grafisch dargestellt werden. Das Diagramm wurde schon begonnen.\nErgänze das Diagramm.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Das Koordinatensystem ist beschriftet mit 'Gebühren in €' (y-Achse, 1 bis 13) und 'Parkzeit in Stunden' (x-Achse, 1 bis 11); es ist eine Zeichenaufgabe im Diagramm, kein Texteingabefeld."
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "item": "schulkleidung",
+  "sources": {
+    "Aufgabe": {
+      "file": "schulkleidung_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "5d871ea4270042db"
+    },
+    "Auswertung": {
+      "file": "schulkleidung_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "fb21ac1789454f13"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schulkleidung_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "4ac9ad52c4c4cc00"
+    }
+  },
+  "flags": [
+    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/schulkleidung/00_image1.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/schulkleidung/01_image2.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/schulkleidung/02_image3.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schulkleidung/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Schulkleidung",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ein Säulendiagramm ist gezeichnet, in dem:\ndie drei Säulen für \"ja\", \"nein\" und \"keine Angaben\" in demselben Maßstab gezeichnet sind und jeweils die richtige Höhe haben,\ndie Säulen bzw. die Hochachse nachvollziehbar beschriftet ist (auf der Hochachse genügt dabei die Angabe eines Wertes)\n[Anm.: 658 der Befragten haben keine Angaben gemacht (Auch: 3,7 % von 17812  659 wird akzeptiert.). Im Säulendiagramm können Absolut- oder Prozentangaben dargestellt werden. Die Angabe der Überschrift des Diagramms ist nicht zwingend erforderlich.]\n\nBeispiel(e)\nMit absoluten Zahlen:\n \nMit Prozent: \n \nGrenzfälle\nStatt eines Säulen- wird ein Balkendiagramm gezeichnet (waagerechte Ausrichtung der drei Säulen).\nStatt Säulen werden Striche gezeichnet.\nNur zwei von drei Säulen werden beschriftet."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten\n\nBeispiel(e)\nEine Säule wird nicht dargestellt.\nJegliche Beschriftung fehlt.\nDer Maßstab der drei Säulen stimmt nicht überein.\nStatt eines Säulen- wird ein Streifendiagramm gezeichnet."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Eine Erläuterung, in der herausgestellt wird, dass sich die Prozentangaben nur auf die Höhe beziehen, aber durch die Darstellung als Dreieck der untere Teil der Figur (das Trapez) optisch stärker betont wird.\n\n[Anm.: Die Lösung ist auch richtig, wenn analog mit der oberen kleineren Teilfläche argumentiert wird. Ebenso ist auch eine räumliche Interpretation der Figur (z. B. als Pyramide) zulässig.]\n\nBeispiel(e)\nZwar entsprechen die Höhen der beiden Teilfiguren (Dreieck und Trapez) den Umfrageergebnissen, die Flächeninhalte jedoch nicht. Der Flächeninhalt des Trapezes ist größer, so dass man leicht denken kann, dass die Antwort \"nein\" deutlich überwiegt. \nDas Dreieck ist unten breiter, deshalb sieht es so aus, als ob das Dunkle mehr wäre. Oben wird es schmaler und das Helle sieht weniger aus.\nSie hat \"nein\" als Unterteil des Dreiecks genommen, welches dann breiter und auffälliger ist.\nSie hat den unteren Teil der \"Säule\" breiter dargestellt, der dadurch größer wirkt.\nWeil die Pyramide unten sehr dick und breit ist, sieht das aus, als ob sehr viele Schüler dagegen sind.\nGrenzfälle\nWeil das unten mehr aussieht.\nWeil die Fläche für \"nein\" größer ist.\nLisas Position wird durch die unterschiedlich großen Flächeninhalte beider Teilfiguren verdeutlicht.\nSie hat für die Prozentzahl für \"nein\" die untere Hälfte der Pyramide gewählt, so sieht es mehr aus, weil es mehr Volumen hat."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nDie beiden Teilfiguren entsprechen nicht den Umfragedaten.\nLisa wählt verschiedene Farben. Der dunklere Ton tritt deutlicher hervor.\nSie hat das Dreieck in zwei Teile geteilt. Der helle Teil soll \"ja\" bedeuten, der dunkle \"nein\".\n\"Nein\" wird betont, weil sie es nach unten gestellt hat.\nSie hat ihre Meinung in Prozenten dargestellt.\nSie zeigt, dass nicht 100 % an der Befragung teilgenommen haben und deshalb nicht genau gesagt werden kann, wer will und wer nicht."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Schulkleidung"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ein Säulendiagramm ist gezeichnet, in dem:\ndie drei Säulen für \"ja\", \"nein\" und \"keine Angaben\" in demselben Maßstab gezeichnet sind und jeweils die richtige Höhe haben,\ndie Säulen bzw. die Hochachse nachvollziehbar beschriftet ist (auf der Hochachse genügt dabei die Angabe eines Wertes)\n[Anm.: 658 der Befragten haben keine Angaben gemacht (Auch: 3,7 % von 17812  659 wird akzeptiert.). Im Säulendiagramm können Absolut- oder Prozentangaben dargestellt werden. Die Angabe der Überschrift des Diagramms ist nicht zwingend erforderlich.]\n\nBeispiel(e)\nMit absoluten Zahlen:\n \nMit Prozent: \n \nGrenzfälle\nStatt eines Säulen- wird ein Balkendiagramm gezeichnet (waagerechte Ausrichtung der drei Säulen).\nStatt Säulen werden Striche gezeichnet.\nNur zwei von drei Säulen werden beschriftet."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten\n\nBeispiel(e)\nEine Säule wird nicht dargestellt.\nJegliche Beschriftung fehlt.\nDer Maßstab der drei Säulen stimmt nicht überein.\nStatt eines Säulen- wird ein Streifendiagramm gezeichnet."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Eine Erläuterung, in der herausgestellt wird, dass sich die Prozentangaben nur auf die Höhe beziehen, aber durch die Darstellung als Dreieck der untere Teil der Figur (das Trapez) optisch stärker betont wird.\n\n[Anm.: Die Lösung ist auch richtig, wenn analog mit der oberen kleineren Teilfläche argumentiert wird. Ebenso ist auch eine räumliche Interpretation der Figur (z. B. als Pyramide) zulässig.]\n\nBeispiel(e)\nZwar entsprechen die Höhen der beiden Teilfiguren (Dreieck und Trapez) den Umfrageergebnissen, die Flächeninhalte jedoch nicht. Der Flächeninhalt des Trapezes ist größer, so dass man leicht denken kann, dass die Antwort \"nein\" deutlich überwiegt. \nDas Dreieck ist unten breiter, deshalb sieht es so aus, als ob das Dunkle mehr wäre. Oben wird es schmaler und das Helle sieht weniger aus.\nSie hat \"nein\" als Unterteil des Dreiecks genommen, welches dann breiter und auffälliger ist.\nSie hat den unteren Teil der \"Säule\" breiter dargestellt, der dadurch größer wirkt.\nWeil die Pyramide unten sehr dick und breit ist, sieht das aus, als ob sehr viele Schüler dagegen sind.\nGrenzfälle\nWeil das unten mehr aussieht.\nWeil die Fläche für \"nein\" größer ist.\nLisas Position wird durch die unterschiedlich großen Flächeninhalte beider Teilfiguren verdeutlicht.\nSie hat für die Prozentzahl für \"nein\" die untere Hälfte der Pyramide gewählt, so sieht es mehr aus, weil es mehr Volumen hat."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\nDie beiden Teilfiguren entsprechen nicht den Umfragedaten.\nLisa wählt verschiedene Farben. Der dunklere Ton tritt deutlicher hervor.\nSie hat das Dreieck in zwei Teile geteilt. Der helle Teil soll \"ja\" bedeuten, der dunkle \"nein\".\n\"Nein\" wird betont, weil sie es nach unten gestellt hat.\nSie hat ihre Meinung in Prozenten dargestellt.\nSie zeigt, dass nicht 100 % an der Befragung teilgenommen haben und deshalb nicht genau gesagt werden kann, wer will und wer nicht."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "schulkleidung_Didaktische_Kommentierung.docx"
+  }
+}

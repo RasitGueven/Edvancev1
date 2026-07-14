@@ -1,0 +1,104 @@
+{
+  "item": "zahlgesucht",
+  "sources": {
+    "Aufgabe": {
+      "file": "zahlgesucht_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "91cd4b5b287b6b6b"
+    },
+    "Auswertung": {
+      "file": "zahlgesucht_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "3504e8e86182fb6c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zahlgesucht_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "c48d89ec3eefc672"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlgesucht/00_doc_image1.emf.png",
+      "tokens": "Wenn 9x= 6,3 ; dann ist x= ?Kreuze an.70,070,770",
+      "deterministic_text": "Wenn 9x= 6,3 ; dann ist x= ?\nKreuze an.\n7 0,07 0,7 70",
+      "table": null,
+      "n_fragments": 22,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Zahl gesucht"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Zahl gesucht"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• 1. Antwortalternative (Fehllösung: 7): Vermutlich wird zunächst",
+      "vereinfachend im Kopf 63 durch 9 dividiert, und es wird anschließend",
+      "vergessen, im Quotient das Komma zu setzen (K5).",
+      "• 2. Antwortalternative (Fehllösung: 0,07): Nach der Division unterläuft",
+      "ein Stellenwertfehler, und das Komma wird im Ergebnis fälschlich „nach",
+      "links“ verschoben (K5).",
+      "• 4. Antwortalternative (Fehllösung: 70): Nach der Division unterläuft ein",
+      "Stellenwertfehler, und das Komma wird im Ergebnis fälschlich „nach",
+      "rechts“ verschoben (K5).",
+      "Weiterarbeit und Förderung",
+      "Diese einfache Aufgabe bietet eine gute Gelegenheit, bereits vor ihrer",
+      "exakten Lösung Überlegungen zur Größenordnung des Ergebnisses anzustellen",
+      "und zusätzlich, nach der Rechnung, Proben bzw. Umkehrrechnungen zu",
+      "So kann überlegt werden, dass eine unbekannte und mit 9 multiplizierte Zahl",
+      "selbst kleiner als 1 sein muss, wenn das Produkt 6,3 beträgt. Diese",
+      "Überlegung kann helfen, die Lösungen 7 und 70 als fehlerhaft zu",
+      "identifizieren. Andererseits hilft eine (auch überschlägige) Rechnung, das",
+      "Ergebnis 0,07 als fehlerhaft zu identifizieren.",
+      "Man vergleiche hierzu auch die didaktischen Kommentare zu den Aufgaben",
+      "„Zahlen gesucht“ und „Berechne x“."
+    ],
+    "quelle": "zahlgesucht_Didaktische_Kommentierung.doc"
+  }
+}

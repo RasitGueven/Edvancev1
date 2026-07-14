@@ -1,0 +1,24 @@
+{
+  "item": "rabattaktion",
+  "gelesen_aus": ["data/r01_render/rabattaktion/00_doc_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Eine Firma plant eine Rabattaktion. Dabei sollen die Verkaufspreise (in denen 19 % Mehrwertsteuer enthalten ist) so gesenkt werden, dass die Kunden die Mehrwertsteuer von 19 % praktisch nicht bezahlen müssen.\nWelches Schild passt am besten zu dieser Rabattaktion?",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": ""},
+        {"id": "b", "label": ""},
+        {"id": "c", "label": ""},
+        {"id": "d", "label": ""}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die 4 Antwortoptionen sind Schilder-Grafiken: im gerenderten Bild sind es 4 LEERE Rechtecke (Bildinhalt nicht mitgerendert). Über jedem Rechteck steht ein Ankreuzkästchen. Anzahl (4) und Reihenfolge (links nach rechts) sind sicher, die Beschriftungen konnte ich NICHT lesen — Labels bewusst leer gelassen."
+  ]
+}

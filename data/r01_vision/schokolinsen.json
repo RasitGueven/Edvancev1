@@ -1,0 +1,21 @@
+{
+  "item": "schokolinsen",
+  "gelesen_aus": [
+    "data/r01_render/schokolinsen/00_image1.emf.png"
+  ],
+  "stem": "Auf dem Foto siehst du sehr viele Schokolinsen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Schätze, wie viele Schokolinsen auf diesem Foto abgebildet sind. Du kannst dafür eine der abgebildeten Figuren verwenden. Ergänze: Das Foto zeigt etwa … Schokolinsen. Beschreibe dein Vorgehen.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Das eigentliche Foto der Schokolinsen ist im gerenderten PNG leer (weiße Fläche) — die Abbildung ist im EMF nicht enthalten oder nicht gerendert worden.",
+    "Die Teilaufgabe kombiniert Schätzwert (Lückensatz) und freie Beschreibung; ich führe sie als eine free_text-Teilaufgabe (passend zu n=1 laut Auswertung).",
+    "Das Karogitter unten ist Schreibfläche, keine Tabelle."
+  ]
+}

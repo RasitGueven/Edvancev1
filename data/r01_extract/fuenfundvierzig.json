@@ -1,0 +1,86 @@
+{
+  "item": "fuenfundvierzig",
+  "sources": {
+    "Aufgabe": {
+      "file": "fuenfundvierzig_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "b5ae52372a342db5"
+    },
+    "Auswertung": {
+      "file": "fuenfundvierzig_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "1477db6caef6bc63"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fuenfundvierzig_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "9212c3f14ef53588"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fuenfundvierzig/00_doc_image1.emf.png",
+      "tokens": "Bestimme die fehlende Zahl.    6 ‧         + 3 =  45",
+      "deterministic_text": "Bestimme die fehlende Zahl.\n6 ‧ + 3 = 45",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Fünfundvierzig"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "7"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Fünfundvierzig"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "7"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es sind mehrere Rechenfehler denkbar, z. B. dass lediglich 45 durch 6",
+      "dividiert wird (K5)."
+    ],
+    "quelle": "fuenfundvierzig_Didaktische_Kommentierung.doc"
+  }
+}

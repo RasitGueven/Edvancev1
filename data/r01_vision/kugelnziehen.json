@@ -1,0 +1,23 @@
+{
+  "item": "kugelnziehen",
+  "gelesen_aus": [
+    "data/r01_render/kugelnziehen/00_image1.png",
+    "data/r01_render/kugelnziehen/01_image2.png"
+  ],
+  "stem": "In einem Gefäß befinden sich gleich viele rote und blaue Kugeln, die sich nur durch ihre Farbe unterscheiden.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Es sollen zusätzlich so viele gelbe Kugeln hinzugefügt werden, dass die Wahrscheinlichkeit eine rote Kugel zu ziehen 20 % beträgt. Wie viel mal so viele gelbe wie rote Kugeln müssen in dem Gefäß sein?",
+      "unit": "-mal so viele gelbe Kugeln",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Rasterbild (nur_raster): Text nur aus Pixeln gelesen, kein Zeichenvorrat zum Gegenprüfen.",
+    "Das Eingabefeld lautet '__________-mal so viele gelbe Kugeln'; ich habe den Zusatz als unit uebernommen, obwohl es streng genommen keine Einheit, sondern ein Feld-Label ist."
+  ]
+}

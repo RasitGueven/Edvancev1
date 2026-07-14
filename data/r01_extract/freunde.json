@@ -1,0 +1,255 @@
+{
+  "item": "freunde",
+  "sources": {
+    "Aufgabe": {
+      "file": "freunde_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "3b8d865b659a7eed"
+    },
+    "Auswertung": {
+      "file": "freunde_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "599f42d93deaf9c0"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "freunde_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "f6b5d0d0aada002b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freunde/00_image1.emf.png",
+      "tokens": "Alex (A), Bastian (B), Can (C) und Daniel (D) sind Freunde. Das Diagramm zeigt Informationen zu ihrer Körpergröße und zu ihrem Alter.AlterKörpergrößeABCD",
+      "deterministic_text": "Alex (A), Bastian (B), Can (C) und Daniel (D) sind Freunde.\nDas Diagramm zeigt Informationen zu ihrer Körpergröße und zu ihrem Alter.\nKörpergröße\nB\nC\nD\nA\nAlter",
+      "table": null,
+      "n_fragments": 28,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freunde/01_image2.emf.png",
+      "tokens": "Wer ist der Älteste in der Gruppe?Kreuze an. AlexBastianCanDanielWer ist der Kleinste in der Gruppe? Kreuze an.AlexBastianCanDaniel",
+      "deterministic_text": "Wer ist der Älteste in der Gruppe?\nKreuze an.\nAlex Bastian Can Daniel\nWer ist der Kleinste in der Gruppe?\nKreuze an.\nAlex Bastian Can Daniel",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freunde/02_image3.emf.png",
+      "tokens": "Die folgende Tabelle enthält Aussagen über Alex, Bastian, Can und Daniel.Prüfe, ob die Aussagen durch das Diagramm bestätigt werden. Kreuze jeweils an.trifft zutrifft nicht zuDie zwei Kleinsten sind auch die zwei Jüngsten.Weder der Älteste noch der Jüngste sind der Kleinste oder der Größte.",
+      "deterministic_text": "Die folgende Tabelle enthält Aussagen über Alex, Bastian, Can und Daniel.\nPrüfe, ob die Aussagen durch das Diagramm bestätigt werden.\nKreuze jeweils an.\ntrifft nicht\ntrifft zu\nzu\nDie zwei Kleinsten sind auch die zwei Jüngsten.\nWeder der Älteste noch der Jüngste sind der Kleinste\noder der Größte.",
+      "table": {
+        "header": [
+          "",
+          "trifft zu",
+          "",
+          "",
+          "trifft nicht",
+          "zu",
+          ""
+        ],
+        "rows": [
+          [
+            "Die zwei Kleinsten sind auch die zwei Jüngsten.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Weder der Älteste noch der Jüngste sind der Kleinste",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "oder der Größte.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 20,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freunde/03_image4.emf.png",
+      "tokens": "Erol (E) ist Cans Bruder. Er ist jünger und kleiner als Can.Zeichne in das gegebene Diagramm eine Möglichkeit ein, wo der Punkt für Erol (E) liegen kann. ",
+      "deterministic_text": "Erol (E) ist Cans Bruder. Er ist jünger und kleiner als Can.\nZeichne in das gegebene Diagramm eine Möglichkeit ein, wo der Punkt für Erol (E)\nliegen kann.",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freunde/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Freunde",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Beide Kreuze sind richtig gesetzt.\n\nDer Älteste in der Gruppe ist:\n \nDer Kleinste in der Gruppe ist:"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Beide Kreuze sind richtig gesetzt."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Der Punkt für Erol (E) liegt links und unterhalb von Punkt C.\n[Anm.: Dieser Punkt muss nicht beschriftet werden.]\n\nBeispiel(e)\nMöglich ist auch eine allgemeine Lösung:"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Freunde"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Beide Kreuze sind richtig gesetzt.\n\nDer Älteste in der Gruppe ist:\n \nDer Kleinste in der Gruppe ist:"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Beide Kreuze sind richtig gesetzt."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Der Punkt für Erol (E) liegt links und unterhalb von Punkt C.\n[Anm.: Dieser Punkt muss nicht beschriftet werden.]\n\nBeispiel(e)\nMöglich ist auch eine allgemeine Lösung:"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "1b",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "1a",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 15.1:",
+      "Antwortalternativen [01, 02, 03 bzw. 04] (jeweilige Fehllösungen: Alex, Bastian, Can bzw. Daniel): Die Bedeutung der x- und y-Koordinate im Kontext scheint nicht klar zu sein. Es handelt sich bei Alex um den Kleinsten, bei Bastian um den Größten, bei Can um den Jüngsten und bei Daniel um den Ältesten.",
+      "Zu Teilaufgabe 15.2:",
+      "Fehllösung (Trifft zu): Wird die Aussage als richtig bewertet, deutet dies darauf hin, dass aus der Entfernung der Punkte von der zweiten Achse keine Information zum Alter der Kinder abgeleitet werden kann. Alternativ können auch Schwierigkeiten im Textverständnis dazu geführt haben, dass nicht beide Bedingungen (Kleinsten/ Jüngsten) bzw. nicht deren Zusammenhang erkannt wurden.",
+      "Fehllösung (Trifft nicht zu): Aufgrund der Formulierung „weder – noch“ kann es zu Verständnisschwierigkeiten bei den zu berücksichtigenden Bedingungen kommen, oder es liegen Verständnisprobleme beim Interpretieren des Diagramms vor. Letzteres kann natürlich bei allen Teilaufgaben zu Fehllösungen führen.",
+      "Zu Teilaufgabe 15.3:",
+      "Es werden nicht beide Bedingungen berücksichtigt, wie die abgebildete Schülerlösung zeigt. So ist Erol hier zwar kleiner, jedoch älter als Can. Derartige Fehler könnten auf Schwierigkeiten bei der inhaltlichen Erfassung des Wortes „und“ im Sinne von „sowohl als auch“ liegen:"
+    ],
+    "quelle": "freunde_Didaktische_Kommentierung.docx"
+  }
+}

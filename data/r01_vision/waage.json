@@ -1,0 +1,28 @@
+{
+  "item": "waage",
+  "gelesen_aus": [
+    "data/r01_render/waage/00_image1.emf.png",
+    "data/r01_render/waage/01_image2.emf.png",
+    "data/r01_render/waage/02_image3.emf.png"
+  ],
+  "stem": "Beim Wiegen von 9 Schülern einer Klasse wurden folgende Gewichte notiert:",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Die Gewichte sollen nach ihrer Größe geordnet werden. Ergänze: 54 kg   ___ kg   ___ kg   56 kg   57 kg   ___ kg   ___ kg   ___ kg   69 kg",
+      "unit": "kg"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Gib den Gewichtsunterschied zwischen dem schwersten und dem leichtesten Schüler an.",
+      "unit": "kg"
+    }
+  ],
+  "unsicher": [
+    "Die Queue meldet 'hat_tabelle_im_emf: false'; im Bild 00 steht aber sehr wohl ein Raster mit Kopfzeile 'Schüler | A … I' und 'Gewicht | 56 kg … 54 kg'. Ich setze stem_tabelle_erwartet daher auf true.",
+    "In Teilaufgabe 1 stehen 9 Positionen in einer Reihe, davon 5 leer (Eingabefelder). Ich habe die vorgegebenen Werte (54, 56, 57, 69 kg) und die Lücken in visueller Reihenfolge in den Prompt übernommen."
+  ]
+}

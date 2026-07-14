@@ -1,0 +1,30 @@
+{
+  "item": "figurauszweidreiecken",
+  "gelesen_aus": [
+    "data/r01_render/figurauszweidreiecken/00_image1.emf.png",
+    "data/r01_render/figurauszweidreiecken/01_image2.emf.png"
+  ],
+  "stem": "Gegeben ist eine Figur aus zwei Dreiecken.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Sind die beiden Winkel a und d gleich groß?\nKreuze jeweils an, ob die Aussagen und deren Begründungen richtig oder falsch sind.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "… gleich groß, denn die beiden Dreiecke sind kongruent."},
+        {"id": "b", "label": "… gleich groß, denn b und g sind Scheitelwinkel und daher gleich groß. Außerdem ist a + b = 90° und es ist g + d = 90°. Also ist a = 90° - b = 90° - g = d."},
+        {"id": "c", "label": "… nicht gleich groß, denn in einem kleineren Dreieck ist auch der entsprechende Winkel kleiner."},
+        {"id": "d", "label": "… gleich groß, denn beide Winkel haben einen Schenkel gemeinsam und ihre beiden anderen Schenkel verlaufen parallel zueinander. a und d sind also Wechselwinkel an parallelen Geraden"},
+        {"id": "e", "label": "… nicht gleich groß, denn b und g sind nicht gleich groß."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten (Tabellenzeilen)"
+    }
+  ],
+  "unsicher": [
+    "Die Winkelbezeichnungen sind im Bild als lateinische Buchstaben a, b, g, d gerendert (Symbol-Font ohne Glyph-Mapping). Inhaltlich sind es mit hoher Wahrscheinlichkeit die griechischen Winkel α, β, γ, δ. Ich habe bewusst NICHT ersetzt, sondern das Gelesene übernommen.",
+    "Tabellen-Kopfzelle links lautet 'Die beiden Winkel a und d sind …', die Optionen sind die Fortsetzungen. Spaltenreihenfolge: [richtig, falsch].",
+    "Zeichnung (image1) trägt nur Winkel-Labels a, b, g, d und rechte-Winkel-Punkte, keine Maße."
+  ]
+}

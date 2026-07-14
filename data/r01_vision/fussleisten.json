@@ -1,0 +1,10 @@
+{
+  "item": "fussleisten",
+  "gelesen_aus": ["data/r01_render/fussleisten/00_doc_image1.emf.png"],
+  "stem": "Ein Zimmer, das 4 m lang und 5 m breit ist, soll renoviert werden. Die Renovierung ist fast beendet und nur die Fußleisten fehlen noch.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält nur den Einleitungstext. Die Auswertung kennt 2 Teilaufgaben — im Bild sind keine Prompts/Optionen sichtbar. Nichts geraten."
+  ]
+}

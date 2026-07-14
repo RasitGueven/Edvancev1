@@ -1,0 +1,96 @@
+{
+  "item": "700milliarden",
+  "sources": {
+    "Aufgabe": {
+      "file": "700milliarden_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "45814ef2a94e2b35"
+    },
+    "Auswertung": {
+      "file": "700milliarden_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "93a4c95e13714482"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "700milliarden_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "58de8bc7fb79c51a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/700milliarden/00_doc_image1.emf.png",
+      "tokens": "Eric hört in den Nachrichten, dass in den USA über einen Kredit von 700 Milliarden Dollar zur Behebung einer akuten Finanzkrise diskutiert wird. Schreibe diese Zahl in Ziffern.",
+      "deterministic_text": "Eric hört in den Nachrichten, dass in den USA über einen Kredit von 700 Milliarden Dollar zur\nBehebung einer akuten Finanzkrise diskutiert wird.\nSchreibe diese Zahl in Ziffern.",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "700 Milliarden"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "700 000 000 000"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n7 ( 1011"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "700 Milliarden"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "700 000 000 000"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n7 ( 1011"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "III",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Die Anzahl der Nullen ist nicht korrekt, was darauf hindeutet, dass das",
+      "Stellenwertsystem nicht abrufbar ist bzw. für den Bereich der großen",
+      "Zahlen, welche den Schülerinnen und Schülern im Unterricht und im Alltag",
+      "seltener begegnen, nicht sinnvoll fortgesetzt werden kann."
+    ],
+    "quelle": "700milliarden_Didaktische_Kommentierung.doc"
+  }
+}

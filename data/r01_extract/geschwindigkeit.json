@@ -1,0 +1,159 @@
+{
+  "item": "geschwindigkeit",
+  "sources": {
+    "Aufgabe": {
+      "file": "geschwindigkeit_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "bdffe37064c86ee7"
+    },
+    "Auswertung": {
+      "file": "geschwindigkeit_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "187ed124929332fc"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "geschwindigkeit_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "1ba1ca08a644f5fe"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/geschwindigkeit/00_image1.emf.png",
+      "tokens": "Für Geschwindigkeitsüberschreitungen (d.h. für zu schnelles Fahren) innerhalb von Ortschaften gelten neue Bußgelder. Geschwindigkeitsüberschreitungbisherjetzt50€80€um 21 bis 25km/h60€100€um 26 bis 30km/h100€160€um 31 bis 40km/h125€200€um 41 bis 50km/h175€280€um 51 bis 60km/h300€480€um 61 bis 70km/h425€760€über 70km/h",
+      "deterministic_text": "Für Geschwindigkeitsüberschreitungen (d.h. für zu schnelles Fahren) innerhalb von Ortschaften\ngelten neue Bußgelder.\nGeschwindigkeitsüberschreitung bisher jetzt\num 21 bis 25km/h 50€ 80€\num 26 bis 30km/h 60€ 100€\num 31 bis 40km/h 100€ 160€\num 41 bis 50km/h 125€ 200€\num 51 bis 60km/h 175€ 280€\num 61 bis 70km/h 300€ 480€\nüber 70km/h 425€ 760€",
+      "table": {
+        "header": [
+          "Geschwindigkeitsüberschreitung",
+          "bisher",
+          "jetzt"
+        ],
+        "rows": [
+          [
+            "um 21 bis 25km/h",
+            "50€",
+            "80€"
+          ],
+          [
+            "um 26 bis 30km/h",
+            "60€",
+            "100€"
+          ],
+          [
+            "um 31 bis 40km/h",
+            "100€",
+            "160€"
+          ],
+          [
+            "um 41 bis 50km/h",
+            "125€",
+            "200€"
+          ],
+          [
+            "um 51 bis 60km/h",
+            "175€",
+            "280€"
+          ],
+          [
+            "um 61 bis 70km/h",
+            "300€",
+            "480€"
+          ],
+          [
+            "über 70km/h",
+            "425€",
+            "760€"
+          ]
+        ]
+      },
+      "n_fragments": 89,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/geschwindigkeit/01_image2.emf.png",
+      "tokens": "Jemand fährt in der Innenstadt mit einer Geschwindigkeit von 58km/h, obwohl dort nur 30km/h erlaubt sind. Mit welchem Bußgeld ist jetzt zu rechnen?Kreuze an.60€100€175€280€",
+      "deterministic_text": "Jemand fährt in der Innenstadt mit einer Geschwindigkeit von 58km/h, obwohl dort nur 30km/h\nerlaubt sind.\nMit welchem Bußgeld ist jetzt zu rechnen?\nKreuze an.\n60€ 100€ 175€ 280€",
+      "table": null,
+      "n_fragments": 25,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/geschwindigkeit/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Geschwindigkeitsüberschreitung"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Geschwindigkeitsüberschreitung"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative: Die Höhe der Geschwindigkeitsüberschreitung (28 km/h) wird korrekt errechnet. Die Höhe des Bußgeldes wird jedoch in der Spalte „bisher“ abgelesen (K4).",
+      "Antwortalternative: Die gefahrene Geschwindigkeit und die Höhe der Geschwindigkeitsüberschreitung werden irrtümlich gleichgesetzt. Zudem wird die Höhe des Bußgeldes fälschlich in der Spalte „bisher“ abgelesen (K6 und K4).",
+      "Antwortalternative: Die gefahrene Geschwindigkeit und die Höhe der Geschwindigkeitsüberschreitung werden irrtümlich gleichgesetzt. Die Höhe des Bußgeldes wird folgerichtig in der Spalte „jetzt“ abgelesen (K6)."
+    ],
+    "quelle": "geschwindigkeit_Didaktische_Kommentierung.docx"
+  }
+}

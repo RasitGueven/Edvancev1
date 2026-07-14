@@ -1,0 +1,343 @@
+{
+  "item": "aussagenzurprop",
+  "sources": {
+    "Aufgabe": {
+      "file": "aussagenzurprop_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "8252fb40fa2e7683"
+    },
+    "Auswertung": {
+      "file": "aussagenzurprop_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "b82010f1d207a131"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "aussagenzurprop_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "3e508e83d9fea93d"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aussagenzurprop/00_doc_image1.emf.png",
+      "tokens": "Die Abbildung zeigt den Graphen einer proportionalen Zuordnung. 10203040506070801020304050607080xy0",
+      "deterministic_text": "Die Abbildung zeigt den Graphen einer proportionalen Zuordnung.\ny\n80\n70\n60\n50\n40\n30\n20\n10\nx\n0 10 20 30 40 50 60 70 80",
+      "table": {
+        "header": [
+          "",
+          "y",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "80",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "70",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "60",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "50",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "40",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "30",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "20",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "10",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "x"
+          ],
+          [
+            "0",
+            "",
+            "",
+            "10",
+            "",
+            "20",
+            "",
+            "30",
+            "",
+            "40",
+            "",
+            "50",
+            "",
+            "60",
+            "",
+            "70",
+            "",
+            "80",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 21,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Aussagen zur proportionalen Zuordnung"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Aussagen zur proportionalen Zuordnung"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative 2, 3 oder 4 wurde angekreuzt: Es wird entweder nicht",
+      "richtig am Graphen abgelesen oder der proportionale Zusammenhang wird",
+      "begrifflich nicht richtig ausgewertet."
+    ],
+    "quelle": "aussagenzurprop_Didaktische_Kommentierung.doc"
+  }
+}

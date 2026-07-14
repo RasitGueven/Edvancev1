@@ -1,0 +1,31 @@
+{
+  "item": "quadratundraute",
+  "gelesen_aus": [
+    "data/r01_render/quadratundraute/00_image1.emf.png",
+    "data/r01_render/quadratundraute/01_image2.emf.png"
+  ],
+  "stem": "Gegeben ist eine Gerade, die durch den Ursprung eines Koordinatensystems verläuft.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Ein Stück dieser Geraden soll eine Diagonale in einem Quadrat ABCD sein. A und C sollen auf der Geraden liegen. Zeichne ein solches Quadrat ein.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Es soll eine Raute (Rhombus) APCQ gezeichnet werden, die kein Quadrat ist. A und C sollen wieder auf der Geraden liegen. Zeichne eine solche Raute ein.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Beide Teilaufgaben sind Zeichenaufgaben in einem Koordinatensystem (Gitter mit x/y-Achse, Gerade y = x durch den Ursprung). Das Gitter ist kein Tabellenraster — stem_tabelle_erwartet: false, obwohl die Queue hat_tabelle_im_emf: true meldet (das ist das Koordinatengitter).",
+    "Der Stammsatz steht in beiden Bildern wiederholt oberhalb der jeweiligen Teilaufgabe."
+  ]
+}

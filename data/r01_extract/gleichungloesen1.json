@@ -1,0 +1,104 @@
+{
+  "item": "gleichungloesen1",
+  "sources": {
+    "Aufgabe": {
+      "file": "gleichungloesen1_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "3065a9ad13f96aad"
+    },
+    "Auswertung": {
+      "file": "gleichungloesen1_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "419c32fea270aed5"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gleichungloesen1_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "d32c0dde8e2b1cb6"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungloesen1/00_image1.emf.png",
+      "tokens": "Löse die Gleichung                 .+=−46x",
+      "deterministic_text": "Löse die Gleichung 46+=−x.",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungloesen1/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Gleichung lösen 1"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "-10"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Gleichung lösen 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "-10"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Der Algorithmus zur Lösung der Gleichung wird falsch ausgeführt. Anstatt 4 auf beiden Seiten zu subtrahieren, wird 4 addiert. Dies illustriert die folgende Schülerlösung [Fehllösung: x  2] (K5).",
+      "Der Algorithmus zur Lösung der Gleichung wird falsch ausgeführt. Beim Subtrahieren der Zahl 4 wird das negative Vorzeichen der Zahl 6 nicht berücksichtigt [Fehllösung: x = 2] (K5).",
+      "Der Algorithmus zur Lösung der Gleichung wird falsch ausgeführt. Die Zahl 4 wird auf beiden Seiten der Gleichung subtrahiert, beim Ergebnis auf der rechten Seite jedoch das negative Vorzeichen nicht berücksichtigt, wie die folgende Schülerlösung zeigt [Fehllösung: x = 10] (K5).",
+      "Die zu lösende Gleichung wird nicht korrekt übertragen, was die letzte Schülerlösung zeigt."
+    ],
+    "quelle": "gleichungloesen1_Didaktische_Kommentierung.docx"
+  }
+}

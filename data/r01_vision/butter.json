@@ -1,0 +1,19 @@
+{
+  "item": "butter",
+  "gelesen_aus": ["data/r01_render/butter/00_image1.emf.png"],
+  "stem": "Petra braucht ein kleines Stück Butter zum Kuchenbacken.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viel Butter sie ungefähr von diesem 250-g-Stück abgeteilt hat.",
+      "unit": "g",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Zwischen Stamm und Frage steht im Original eine Abbildung (Butterstück mit abgeteiltem Teil); im Render ist dieser Bereich leer/nicht sichtbar. Der Anteil, der abgeteilt wurde, ist aus dem Bild nicht ablesbar."
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "item": "apfelsaftschorle",
+  "sources": {
+    "Aufgabe": {
+      "file": "apfelsaftschorle_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "ed4eea40c3271738"
+    },
+    "Auswertung": {
+      "file": "apfelsaftschorle_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "d126ca414210367f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "apfelsaftschorle_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "0c4d040b6414a89f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/apfelsaftschorle/00_doc_image1.emf.png",
+      "tokens": "Zur Herstellung einer Apfelsaftschorle mischt man vier fünftel Liter Apfelsaft mit einem halben     Liter Mineralwasser. ",
+      "deterministic_text": "Zur Herstellung einer Apfelsaftschorle mischt man vier fünftel Liter Apfelsaft mit einem halben\nLiter Mineralwasser.",
+      "table": null,
+      "n_fragments": 3,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Apfelsaftschorle"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (Ja) UND angemessene rechnerische oder verbale\nBegründung bzw. durch den Verweis auf das ermittelte\nGesamtvolumen von 1300 ml (oder richtige Angabe in anderer\nEinheit).\nz. B.\nJa, die Apfelsaftschorle passt in das Gefäß, denn insgesamt\nergibt sich ein Volumen von 1,3 Liter."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Apfelsaftschorle"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (Ja) UND angemessene rechnerische oder verbale\nBegründung bzw. durch den Verweis auf das ermittelte\nGesamtvolumen von 1300 ml (oder richtige Angabe in anderer\nEinheit).\nz. B.\nJa, die Apfelsaftschorle passt in das Gefäß, denn insgesamt\nergibt sich ein Volumen von 1,3 Liter."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Die Menge der hergestellten Apfelsaftschorle wird falsch berechnet. Statt",
+      "der korrekten Bruch-Addition werden jeweils Zähler und Nenner addiert",
+      "[Fehllösung: [pic] Liter Apfelsaft-schorle] (K5).",
+      "• Es kommt zu Fehlern bei der Umrechnung des Volumens der Apfelsaftschorle",
+      "in einen Dezimalbruch [Fehllösung z. B.: 130 ml Apfelsaftschorle] (K5).",
+      "• In der Begründung wird lediglich gesagt, dass das Fassungsvermögen der",
+      "Flasche aus-reicht, ohne auf die durchgeführte Rechnung bzw. den",
+      "Größenvergleich einzugehen (K1 oder K6). Dies zeigt die folgende",
+      "Weiterarbeit und Förderung",
+      "Kommt es bei der Aufgabe zu Fehlern, sind diese höchstwahrscheinlich auf",
+      "Schwierigkeiten im Umgang mit Brüchen zurückzuführen. Sie können auf",
+      "ungenügend ausgebildeten Grundvorstellungen zu Bruchteilen sowie deren",
+      "Größenvergleich oder Addition im Kontext einer Realsituation beruhen.",
+      "Aus diesem Grund bietet es sich zunächst an, die Aufgabe praktisch zu",
+      "lösen, indem tat-sächlich Apfelsaftschorle nach der angegebenen",
+      "Beschreibung hergestellt wird. Dies ermöglicht den Schülern einen",
+      "handelnden Zugang zur Thematik und lässt sie gegebenenfalls ihren Fehler",
+      "selbstständig entdecken bzw. berichtigen.",
+      "Zusätzlich oder alternativ kann die Aufgabe auf zeichnerischer Ebene",
+      "bearbeitet werden, indem die zu mischenden Mengen jeweils mittels eines",
+      "Rechtecks veranschaulicht werden.",
+      "Anhand dieser Veranschaulichung können die Schülerinnen und Schüler",
+      "selbstständig erkennen, dass die beiden Bruchteile nicht einfach addiert",
+      "werden können, da ihre Nenner verschieden sind und diese demnach zunächst",
+      "vereinheitlicht werden müssen. Dies kann leicht durch eine Verfeinerung der",
+      "Einteilung in Zehntel geschehen. Werden die zu mischenden Mengen nun",
+      "zusammengefügt, kann leicht überprüft werden, ob die eineinhalb Liter",
+      "Flasche ausreicht. In diesem Zusammenhang bietet es sich auch an",
+      "herauszuarbeiten, dass zur Beantwortung dieser Frage lediglich geprüft",
+      "werden muss, ob [pic] < 1 gilt. Auch dies kann unter Rückgriff auf eine",
+      "zeichnerische Darstellung geschehen. Hierauf aufbauend kann die Darstellung",
+      "natürlicher Zahlen als Bruch wiederholt werden."
+    ],
+    "quelle": "apfelsaftschorle_Didaktische_Kommentierung.doc"
+  }
+}

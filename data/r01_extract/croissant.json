@@ -1,0 +1,103 @@
+{
+  "item": "croissant",
+  "sources": {
+    "Aufgabe": {
+      "file": "croissant_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "e127376f7cfc3348"
+    },
+    "Auswertung": {
+      "file": "croissant_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "ae02d59f4f89d7fb"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "croissant_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "f9fa024489e8c0f2"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/croissant/00_image1.emf.png",
+      "tokens": "Marc tankt für 43,80€. Im Tankstellenladen kauft er noch ein Schoko-Croissant. Er bezahlt beides mit einem 50€-Schein und bekommt 4,95€ zurück.Gib an, wie teuer das Schoko-Croissant ist.€",
+      "deterministic_text": "Marc tankt für 43,80€. Im Tankstellenladen kauft er noch ein Schoko-Croissant.\nEr bezahlt beides mit einem 50€-Schein und bekommt 4,95€ zurück.\nGib an, wie teuer das Schoko-Croissant ist.\n€",
+      "table": null,
+      "n_fragments": 27,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/croissant/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Croissant"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1,25"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Croissant"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1,25"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Das mathematische Modell wird nicht korrekt aufgestellt, beispielsweise wird nicht der gesuchte Preis des Croissants berechnet, sondern die Differenz zwischen 50 Euro und den Tankkosten:",
+      "Routineverfahren werden (schriftlich oder im Kopf) nicht korrekt ausgeführt:"
+    ],
+    "quelle": "croissant_Didaktische_Kommentierung.docx"
+  }
+}

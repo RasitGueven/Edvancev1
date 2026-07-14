@@ -1,0 +1,38 @@
+{
+  "item": "fliesenfuerdenfussboden",
+  "gelesen_aus": [
+    "data/r01_render/fliesenfuerdenfussboden/00_image1.emf.png",
+    "data/r01_render/fliesenfuerdenfussboden/01_image2.emf.png",
+    "data/r01_render/fliesenfuerdenfussboden/02_image3.emf.png"
+  ],
+  "stem": "Eine 1 m² große Teilfläche eines Bades soll mit quadratischen Fliesen unterschiedlicher Größe ausgelegt werden (siehe Bild). Die Fliesen sollen so liegen, dass ihre Kanten direkt aneinanderstoßen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib die Seitenlänge jeder Fliesenart (groß, mittel, klein) an.",
+      "unit": "cm",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Der Rest des Bades soll mit quadratischen Fliesen ausgelegt werden, die alle dieselbe Größe haben. Dabei kann man zwischen zwei Fliesengrößen wählen. Die Seiten der kleineren Fliesen sind halb so lang wie die Seiten der größeren Fliesen. Welche der folgenden Aussagen ist richtig? Kreuze an. Verwendet man nur die kleineren Fliesen, so benötigt man im Vergleich zu den größeren Fliesen...",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "… halb so viele."},
+        {"id": "b", "label": "… genauso viele."},
+        {"id": "c", "label": "… doppelt so viele."},
+        {"id": "d", "label": "… viermal so viele."}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 1 hat drei Eingabezeilen (Seitenlänge einer großen / mittleren / kleinen Fliese: ...... cm); die Auswertung kennt insgesamt nur 2 Teilaufgaben, daher habe ich die drei Zeilen als eine Teilaufgabe mit unit 'cm' geführt.",
+    "In der Abbildung stehen die Beschriftungen 'groß', 'mittel', 'klein' sowie die Maße '1 m' (Höhe und Breite) — Abbildungsbeschriftungen, nicht Stammtext.",
+    "Im Bild fehlen am Ende zweier Sätze in Teilaufgabe 2 die Punkte ('...wählen Die', '...größeren Fliesen'); ich habe sie im Prompt ergänzt."
+  ]
+}

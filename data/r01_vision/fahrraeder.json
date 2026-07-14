@@ -1,0 +1,33 @@
+{
+  "item": "fahrraeder",
+  "gelesen_aus": [
+    "data/r01_render/fahrraeder/00_image1.emf.png",
+    "data/r01_render/fahrraeder/01_image2.emf.png",
+    "data/r01_render/fahrraeder/02_image3.emf.png"
+  ],
+  "stem": "An einem Morgen notiert Marko in einer Strichliste, wie viele Frauen und wie viele Männer ihr Fahrrad am Bahnhof abstellen.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Wie viele Frauen und Männer sind es insgesamt, die ihr Fahrrad abstellen?",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Formuliere selbst eine Aufgabe, die man mit den Angaben in der Tabelle lösen kann. Du musst die Aufgabe nicht lösen.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Im Stamm-Bild steht eine Tabelle mit den Spalten 'Frauen' und 'Männer', deren Zellen eine Strichliste (Tally-Striche als Linien, kein Text) enthalten. Die Queue meldet hat_tabelle_im_emf: false — Widerspruch; stem_tabelle_erwartet wurde nach Bildbefund auf true gesetzt.",
+    "Die Anzahl der Striche ist nur bildlich (Linien) codiert und wurde bewusst NICHT abgetippt; die Zahlenwerte für Frauen und Männer sind damit nicht sicher bestimmbar.",
+    "Teilaufgabe 1 hat als Eingabezeile 'Es sind insgesamt ........... Frauen und Männer.' — Feldlabel, kein Prompt-Bestandteil."
+  ]
+}

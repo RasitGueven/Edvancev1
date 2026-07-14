@@ -1,0 +1,144 @@
+{
+  "item": "geometrischekoerper",
+  "sources": {
+    "Aufgabe": {
+      "file": "geometrischekoerper_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "f470089d5eecbf75"
+    },
+    "Auswertung": {
+      "file": "geometrischekoerper_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "6fecb7444d4d2a55"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "geometrischekoerper_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "97b21aa9a6fe7e16"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/geometrischekoerper/00_doc_image1.emf.png",
+      "tokens": "In der nachfolgenden Tabelle sind Körper benannt.Prüfe, ob diese in der Abbildung zu sehen sind.Kreuze jeweils an.janeinZylinderQuaderPyramideKegelKugel",
+      "deterministic_text": "In der nachfolgenden Tabelle sind Körper benannt.\nPrüfe, ob diese in der Abbildung zu sehen sind.\nKreuze jeweils an.\nja nein\nZylinder\nQuader\nPyramide\nKegel\nKugel",
+      "table": {
+        "header": [
+          "",
+          "",
+          "ja",
+          "",
+          "nein",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "Zylinder",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Quader",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Pyramide",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Kegel",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Kugel",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 15,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Geometrische Körper erkennen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Geometrische Körper erkennen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "geometrischekoerper_Didaktische_Kommentierung.doc"
+  }
+}

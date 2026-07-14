@@ -1,0 +1,99 @@
+{
+  "item": "gleichungloesen3",
+  "sources": {
+    "Aufgabe": {
+      "file": "gleichungloesen3_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "a0294eafe23603de"
+    },
+    "Auswertung": {
+      "file": "gleichungloesen3_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "155ba4d326349e8d"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gleichungloesen3_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "37813682eec1f577"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungloesen3/00_image1.emf.png",
+      "tokens": "Welche Zahl ist Lösung der Gleichung 2x- 4 = 6? Kreuze an.135810",
+      "deterministic_text": "Welche Zahl ist Lösung der Gleichung 2x- 4 = 6?\nKreuze an.\n1 3 5 8 10",
+      "table": null,
+      "n_fragments": 15,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungloesen3/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Gleichung lösen 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Gleichung lösen 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "gleichungloesen3_Didaktische_Kommentierung.docx"
+  }
+}

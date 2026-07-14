@@ -1,0 +1,156 @@
+{
+  "item": "richtigumgeformt",
+  "sources": {
+    "Aufgabe": {
+      "file": "richtigumgeformt_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "25c822136da7d5dd"
+    },
+    "Auswertung": {
+      "file": "richtigumgeformt_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "4bae97f44bbeebfd"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "richtigumgeformt_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "95c09b64a46a1846"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/richtigumgeformt/00_image1.emf.png",
+      "tokens": "Wandle den Term 2x+ 4a in ein Produkt der Form· () um.",
+      "deterministic_text": "Wandle den Term 2x+ 4a in ein Produkt der Form · ( ) um.",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/richtigumgeformt/01_image2.emf.png",
+      "tokens": "Multipliziere den Term 4k·(2k–m) aus.4k·(2k–m) = ",
+      "deterministic_text": "Multipliziere den Term 4k·(2k–m) aus.\n4k·(2k–m) =",
+      "table": null,
+      "n_fragments": 21,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/richtigumgeformt/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Richtig umgeformt",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Jede Lösung, die nach Ausmultiplizieren wieder den ursprünglichen Term ergibt.\n\nBeispiel(e)"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[Anm.: Die Lösung ist auch richtig, wenn nicht so weit wie möglich vereinfacht wurde.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Richtig umgeformt"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Jede Lösung, die nach Ausmultiplizieren wieder den ursprünglichen Term ergibt.\n\nBeispiel(e)"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[Anm.: Die Lösung ist auch richtig, wenn nicht so weit wie möglich vereinfacht wurde.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 2.1:",
+      "Ein gemeinsamer Faktor wird identifiziert, jedoch nur aus dem ersten Summanden ausgeklammert (K5), wie die folgende Schülerlösung zeigt:",
+      "Vorrangregeln werden nicht beachtet und Koeffizienten sowie Variablen werden jeweils für sich genommen zusammengefasst (K5), wie die zweite Schülerlösung zeigt:",
+      "Zu Teilaufgabe 2.2:",
+      "Der Faktor vor der Klammer wird lediglich auf den ersten Summanden in der Klammer angewendet (K5), wie die folgende Schülerlösung illustriert:",
+      "Die Multiplikation gleicher Variabler gelingt nicht (K5), sodass die Variablen k und m bei der Multiplikation mit k unterschiedlich behandelt werden, wie die folgende Schülerlösung zeigt:"
+    ],
+    "quelle": "richtigumgeformt_Didaktische_Kommentierung.docx"
+  }
+}

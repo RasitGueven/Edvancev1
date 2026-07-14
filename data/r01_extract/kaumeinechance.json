@@ -1,0 +1,168 @@
+{
+  "item": "kaumeinechance",
+  "sources": {
+    "Aufgabe": {
+      "file": "kaumeinechance_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "6a55d9222aaa7e06"
+    },
+    "Auswertung": {
+      "file": "kaumeinechance_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "8895944f262f5ab5"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "kaumeinechance_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "5b579660a6968caf"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kaumeinechance/00_image1.emf.png",
+      "tokens": "Enrico, Pauline und Tobias spielen ein Brettspiel, bei dem ein Spieler erst dann weitergehen darf, wenn er mit einem normalen Spielwürfel eine Sechs geworfen hat.",
+      "deterministic_text": "Enrico, Pauline und Tobias spielen ein Brettspiel, bei dem ein Spieler erst dann weitergehen\ndarf, wenn er mit einem normalen Spielwürfel eine Sechs geworfen hat.",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kaumeinechance/01_image2.emf.png",
+      "tokens": "Gib die Wahrscheinlichkeit an, mit der Enrico bei seinem ersten Wurf eine Sechs wirft:",
+      "deterministic_text": "Gib die Wahrscheinlichkeit an, mit der Enrico bei seinem ersten Wurf eine Sechs wirft:",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kaumeinechance/02_image3.emf.png",
+      "tokens": "Enrico prahlt, er habe ein System gefunden, mit dem beim Würfeln das Ergebnis des nächsten Wurfs vorhergesagt werden kann.Pauline widerspricht und sagt: „Das kann nicht sein. Es gibt kein System, mit dem man das Ergebnis des nächsten Wurfs vorhersagen kann.“Wie kann Pauline argumentieren?Kreuze die richtige Aussage an.Das Ergebnis des nächsten Wurfs beim Würfeln lässt sich nicht ermitteln, weil...… das Rechenverfahren dafür viel zu kompliziert ist.… man nicht weiß, was vorher gewürfelt wurde.… die Wahrscheinlichkeit für jedes Ergebnis bei jedem Wurf gleich groß ist.… man nicht weiß, wie oft vorher schon gewürfelt wurde.",
+      "deterministic_text": "Enrico prahlt, er habe ein System gefunden, mit dem beim Würfeln das Ergebnis des\nnächsten Wurfs vorhergesagt werden kann.\nPauline widerspricht und sagt: „Das kann nicht sein. Es gibt kein System, mit dem man das\nErgebnis des nächsten Wurfs vorhersagen kann.“\nWie kann Pauline argumentieren?\nKreuze die richtige Aussage an.\nDas Ergebnis des nächsten Wurfs beim Würfeln lässt sich nicht ermitteln, weil...\n… das Rechenverfahren dafür viel zu kompliziert ist.\n… man nicht weiß, was vorher gewürfelt wurde.\n… die Wahrscheinlichkeit für jedes Ergebnis bei jedem Wurf gleich groß ist.\n… man nicht weiß, wie oft vorher schon gewürfelt wurde.",
+      "table": null,
+      "n_fragments": 37,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kaumeinechance/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Kaum eine Chance",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[Anm.: Akzeptiert werden alle Werte im Intervall [0,16; 0,17] sowie die entsprechenden Prozentangaben.]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Kaum eine Chance"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[Anm.: Akzeptiert werden alle Werte im Intervall [0,16; 0,17] sowie die entsprechenden Prozentangaben.]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematisch modellieren (K3),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "1A",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Statt der Wahrscheinlichkeit wird das Chancenverhältnis 1:5 angegeben (K3).",
+      "1. Antwortalternative: Wird diese Antwortalternative gewählt, verbirgt sich dahinter wahrscheinliche eine falsche Vorstellung von Zufallsphänomenen, deren Ausgang prinzipiell nicht berechnen kann.",
+      "2. und 4. Antwortalternative: Die Unabhängigkeit der einzelnen Würfe wird nicht erkannt, weshalb der Ausgang des vorangegangenen Wurfs bzw. die Anzahl der vorangegangenen Würfe als ausschlaggebend betrachtet werden."
+    ],
+    "quelle": "kaumeinechance_Didaktische_Kommentierung.docx"
+  }
+}

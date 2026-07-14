@@ -1,0 +1,23 @@
+{
+  "item": "leistungdesmotors",
+  "gelesen_aus": [
+    "data/r01_render/leistungdesmotors/00_image1.emf.png"
+  ],
+  "stem": "Die Leistung von Fahrzeugmotoren wurde früher in PS angegeben. Mittlerweile wird sie in kW angegeben. 1 kW sind etwa 1,36 PS.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Auto A hat eine Motorleistung von 89 kW. Auto B hat eine Motorleistung von 109 PS. Welches Auto hat eine größere Motorleistung? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Auto A"},
+        {"id": "b", "label": "Auto B"},
+        {"id": "c", "label": "Die Motorleistung beider Autos ist gleich."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": []
+}

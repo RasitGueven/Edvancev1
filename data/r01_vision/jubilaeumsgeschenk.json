@@ -1,0 +1,33 @@
+{
+  "item": "jubilaeumsgeschenk",
+  "gelesen_aus": [
+    "data/r01_render/jubilaeumsgeschenk/00_image1.png",
+    "data/r01_render/jubilaeumsgeschenk/01_image2.png",
+    "data/r01_render/jubilaeumsgeschenk/02_image3.png"
+  ],
+  "stem": "Frau Lehmann will ihrem Nachbarn zum Jubiläum einen Rosenstrauß schenken. Jede Rose kostet 3 €. Im Blumenladen will sie zusammen mit dem Strauß eine Glückwunschkarte für 2 € kaufen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "x bezeichnet die Anzahl der Rosen, y bezeichnet den Gesamtpreis in € (Preis der Rosen plus Karte).\nGib eine Gleichung an, wie sich y aus x berechnen lässt.",
+      "unit": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Herr Meier will sich an dem Geschenk zum Jubiläum beteiligen. Er schlägt vor, einen Strauß mit der doppelten Anzahl an Rosen und dazu eine gemeinsame Glückwunschkarte zu kaufen.\nVerdoppelt sich dann der Gesamtpreis? Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Rasterbild (nur_raster): Text ist gut lesbar, aber es gibt keinen Zeichenvorrat zur Gegenprüfung.",
+    "Teilaufgabe 2 kombiniert Ankreuzen (Ja/Nein) und eine schriftliche Begründung im Kästchenfeld."
+  ]
+}

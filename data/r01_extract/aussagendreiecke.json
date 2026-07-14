@@ -1,0 +1,181 @@
+{
+  "item": "aussagendreiecke",
+  "sources": {
+    "Aufgabe": {
+      "file": "aussagendreiecke_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "05571943c5ec8096"
+    },
+    "Auswertung": {
+      "file": "aussagendreiecke_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "b899333be0a2fe6c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "aussagendreiecke_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "1f8abe653f778a98"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aussagendreiecke/00_image1.emf.png",
+      "tokens": "ABCabcabg   (nicht maßstabsgerecht)",
+      "deterministic_text": "C\ng\na\nb\nb\nB\na c\nA\n(nicht maßstabsgerecht)",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aussagendreiecke/01_image2.emf.png",
+      "tokens": "In einem Dreieck mit den Winkeln a, b undgsind b= 45° und g= 2 ×a.Wie groß ist a?Kreuze an.45°67,5°90°135°",
+      "deterministic_text": "In einem Dreieck mit den Winkeln a, b undgsind b= 45° und g= 2 ×a.\nWie groß ist a?\nKreuze an.\n45° 67,5° 90° 135°",
+      "table": null,
+      "n_fragments": 32,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aussagendreiecke/02_image3.emf.png",
+      "tokens": "In einem Dreieck mit den Winkeln a, b undg gilt g= 2 ×a.Gib einen allgemeinen Term an, mit dessen Hilfe man die Größe von b in Abhängigkeit von a  berechnen kann.b  =",
+      "deterministic_text": "In einem Dreieck mit den Winkeln a, b undg gilt g= 2 ×a.\nGib einen allgemeinen Term an, mit dessen Hilfe man die Größe von b in Abhängigkeit von a\nberechnen kann.\nb =",
+      "table": null,
+      "n_fragments": 23,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aussagendreiecke/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Aussagen über Dreiecke",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtiger Term\n\nBeispiel(e)\n•  = 180 - 3  \n•  = 180 -  - 2\n[Anm.: Hier wurde zwar nicht zusammengefasst, aber das Bildungsgesetz wurde korrekt erkannt.]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n•  =  + 2\n•  = 180 -  - \n[Anm.: Dies ist der allgemeine Term. Hier wird nicht die reine Abhängigkeit von  angegeben.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Aussagen über Dreiecke"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtiger Term\n\nBeispiel(e)\n•  = 180 - 3  \n•  = 180 -  - 2\n[Anm.: Hier wurde zwar nicht zusammengefasst, aber das Bildungsgesetz wurde korrekt erkannt.]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n•  =  + 2\n•  = 180 -  - \n[Anm.: Dies ist der allgemeine Term. Hier wird nicht die reine Abhängigkeit von  angegeben.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Messen (L2)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative (Fehllösung: 67,5°): Der Winkel wird nicht beachtet; so ergibt sich 45°  2  180° als zu lösende Gleichung (K5).",
+      "Antwortalternative (Fehllösung: 90°): Vermutlich wird zunächst richtig berechnet und durch die Gleichung  2 unkritisch verdoppelt (K2).",
+      "Antwortalternative (Fehllösung: 135°): Es wird einfach die Differenz zwischen der bekannten Winkelgröße von und der Winkelsumme von 180° gebildet (K2).",
+      "Es wird kein Bezug zur Größe der Innenwinkelsumme hergestellt, so dass zu vermuten ist, dass das Wissen darüber nicht aktiviert (K5) oder kein vollständiger Bearbeitungsansatz gefunden werden konnte (K2). Dies demonstriert die folgende Schülerlösung.",
+      "Es wurde ein falscher Wert für die Größe der Innenwinkelsumme verwendet [Fehllösung:  360°  3 ] (K5).",
+      "Der Term wird nicht in Abhängigkeit von dargestellt, was auf Nichtverständnis der Begrifflichkeit „in Abhängigkeit von“ (K6) oder auf fehlende strategische Fähigkeiten (K2) zurückgeführt werden kann [Fehllösung:  180°  ( + )].",
+      "Es wird mit den Angaben aus Teilaufgabe 1 , und konkret berechnet, wie die folgende Schülerlösung zeigt (K6).",
+      "Die Gleichung wird fehlerhaft umgestellt oder der Term wird z. B. durch vergessene Klammern bzw. falsche Rechenzeichen fehlerhaft dargestellt, wie die folgende Schülerlösung demonstriert (K5)."
+    ],
+    "quelle": "aussagendreiecke_Didaktische_Kommentierung.docx"
+  }
+}

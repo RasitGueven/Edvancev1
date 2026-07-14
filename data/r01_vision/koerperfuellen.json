@@ -1,0 +1,29 @@
+{
+  "item": "koerperfuellen",
+  "gelesen_aus": [
+    "data/r01_render/koerperfuellen/00_image1.emf.png",
+    "data/r01_render/koerperfuellen/01_image2.emf.png"
+  ],
+  "stem": "Ein Quader, dessen Kanten hier dick gezeichnet sind, ist mit einigen kleinen 1-cm³-Würfeln gefüllt.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist das Volumen des Quaders insgesamt? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "14 cm³"},
+        {"id": "b", "label": "16 cm³"},
+        {"id": "c", "label": "74 cm³"},
+        {"id": "d", "label": "90 cm³"},
+        {"id": "e", "label": "126 cm³"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Queue meldet 'hat_tabelle_im_emf: true'; im Bild ist keine Datentabelle zu sehen — nur der Rahmen des Antwort-/Optionskastens und die Quaderzeichnung. Ich setze stem_tabelle_erwartet daher auf false.",
+    "Die Maßangaben '1 cm / 1 cm / 1 cm' am Einheitswürfel und 'Grafik: © IQB' sind Abbildungsbeschriftung, nicht Stamm."
+  ]
+}

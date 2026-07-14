@@ -85,10 +85,18 @@ def render_emf(data, out_png):
     return str(out_png), img.width, img.height
 
 
-def emfs_in_docx(docx_path):
-    """EMFs in Dokumentreihenfolge (nach Relationship-ID im document.xml).
+MEDIA = (".emf", ".wmf", ".png", ".jpeg", ".jpg", ".gif", ".bmp")
+
+
+def media_in_docx(docx_path):
+    """Bilder in Dokumentreihenfolge (nach Relationship-ID im document.xml).
 
     Reihenfolge ist inhaltlich relevant: Stamm, dann Abbildung, dann Teilaufgabe.
+
+    Nicht nur EMF: ein Teil der Items traegt den Aufgabentext als *Rasterbild*
+    (PNG) im Dokument. Fuer die Vision ist das dieselbe Quelle — fuer das
+    Grounding nicht: ein Raster hat keinen Zeichenvorrat, an dem sich eine
+    Lesung pruefen liesse (siehe pipeline.py / G1).
     """
     import re
     z = zipfile.ZipFile(docx_path)
@@ -98,12 +106,18 @@ def emfs_in_docx(docx_path):
     out, seen = [], set()
     for rid in re.findall(r'r:(?:embed|id)="([^"]+)"', doc):
         tgt = rid2tgt.get(rid, "")
-        if not tgt.lower().endswith(".emf") or rid in seen:
+        ext = "." + tgt.rsplit(".", 1)[-1].lower() if "." in tgt else ""
+        if ext not in MEDIA or rid in seen:
             continue
         seen.add(rid)
         name = "word/" + tgt.lstrip("/") if not tgt.startswith("word/") else tgt
         try:
-            out.append((tgt.split("/")[-1], z.read(name)))
+            out.append((tgt.split("/")[-1], ext.lstrip("."), z.read(name)))
         except KeyError:
             pass
     return out
+
+
+def emfs_in_docx(docx_path):
+    """Nur die EMFs — Rueckwaertskompatibilitaet fuer extract.py (Kalibrierlauf)."""
+    return [(n, b) for n, e, b in media_in_docx(docx_path) if e == "emf"]

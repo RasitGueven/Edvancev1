@@ -1,0 +1,23 @@
+{
+  "item": "gewerbezone",
+  "gelesen_aus": [
+    "data/r01_render/gewerbezone/00_image1.emf.png",
+    "data/r01_render/gewerbezone/01_image2.emf.png"
+  ],
+  "stem": "Neben einer Bundesstraße wird mit diesem Plakat für eine neue Gewerbezone geworben.\nHinweis: 1 ha = 10 000 m²",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, in wie viele Grundstücke sich die noch verfügbare Fläche höchstens aufteilen lässt.",
+      "unit": "Grundstücke",
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das im Stamm erwähnte Plakat ist in den gerenderten Bildern nicht enthalten — die Zahlenangaben des Plakats (Gesamtfläche, bereits vergebene Fläche, Grundstücksgröße) kann ich nicht lesen.",
+    "Antwortsatz-Vorlage im Bild: 'In höchstens ______ Grundstücke.' plus ein Kasten für den Lösungsweg."
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "item": "chancen",
+  "gelesen_aus": ["data/r01_render/chancen/00_doc_image1.emf.png"],
+  "stem": "Für ein Schulfest baut eine Klasse Glücksräder. Die Besucher gewinnen beim Drehen der Glücksräder, wenn der Zeiger auf ein graues Feld zeigt.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält NUR den Einleitungstext. Die Auswertung kennt 2 Teilaufgaben — im Bild ist keine einzige Teilaufgabe, kein Prompt und keine Option sichtbar. Prompts/Optionen konnten daher nicht gelesen werden (vermutlich liegen sie ausserhalb des gerenderten EMF, z.B. als Glücksrad-Grafiken/Body-Text)."
+  ]
+}

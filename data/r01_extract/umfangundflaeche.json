@@ -1,0 +1,170 @@
+{
+  "item": "umfangundflaeche",
+  "sources": {
+    "Aufgabe": {
+      "file": "umfangundflaeche_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "113a2b0fc40007ec"
+    },
+    "Auswertung": {
+      "file": "umfangundflaeche_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "f86062f98b89eeda"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "umfangundflaeche_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "5fb91b71290bdb49"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/umfangundflaeche/00_image1.emf.png",
+      "tokens": "1cm1cm",
+      "deterministic_text": "1cm\n1cm",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/umfangundflaeche/01_image2.emf.png",
+      "tokens": "Gib an, wie lang der Umfang der dick umrandeten Figur ist.cm",
+      "deterministic_text": "Gib an, wie lang der Umfang der dick umrandeten Figur ist.\ncm",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/umfangundflaeche/02_image3.emf.png",
+      "tokens": "Gib den Flächeninhalt der dick umrandeten Figur an.cm2",
+      "deterministic_text": "Gib den Flächeninhalt der dick umrandeten Figur an.\ncm²",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/umfangundflaeche/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Umfang und Fläche",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "36"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "45"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Umfang und Fläche"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "36"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "45"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 25.1:",
+      "Es entstehen Abzählfehler bzw. es werden einige Seiten der Figur nicht mitgezählt:",
+      "Die vorgegebene Länge in der Darstellung wird nicht beachtet und die Seitenlänge des kleinen Quadrats wird fälschlich übernommen:",
+      "Zu Teilaufgabe 25.2:",
+      "Die Berechnung des Flächeninhalts wird durch Anwendung einer falschen Formel fehlerhaft ausgeführt, beispielsweise wird der Flächeninhalt als das Doppelte des Umfangs ermittelt oder dem Umfang gleichgesetzt:",
+      "Insbesondere bei der Zerlegung der Figur in 5 Teilquadrate wird das mittlere Teilquadrat vergessen.",
+      "Es entstehen Fehler bei der Bestimmung der Länge bzw. Breite bei der Zerlegung in Quadrate und Rechteck."
+    ],
+    "quelle": "umfangundflaeche_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "item": "berechnex",
+  "gelesen_aus": ["data/r01_render/berechnex/00_doc_image1.emf.png"],
+  "stem": "Gegeben ist die Gleichung 8x = 72.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Berechne x.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

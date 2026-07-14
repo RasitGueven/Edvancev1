@@ -1,0 +1,116 @@
+{
+  "item": "winkelimparallelogramm",
+  "sources": {
+    "Aufgabe": {
+      "file": "winkelimparallelogramm_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "a9a71b4cfce93d19"
+    },
+    "Auswertung": {
+      "file": "winkelimparallelogramm_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "b7e0f230109c55e7"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "winkelimparallelogramm_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "c960a30261bdf910"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/winkelimparallelogramm/00_doc_image1.emf.png",
+      "tokens": "Das dargestellte Viereck ABCD ist ein Parallelogramm. Die Seite CD dieses Parallelogramms wird gedanklich auf der Geraden h hin und her verschoben. Dabei bleibt die Seite CD immer auf der Geraden h. Die Lage der Seite ABverändert sich nicht.ABCDhga",
+      "deterministic_text": "Das dargestellte Viereck ABCD ist ein Parallelogramm.\nDie Seite CD dieses Parallelogramms wird gedanklich auf der Geraden h hin und her\nverschoben. Dabei bleibt die Seite CD immer auf der Geraden h. Die Lage der Seite AB\nverändert sich nicht.\nD C h\na g\nA B",
+      "table": null,
+      "n_fragments": 25,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Winkel im Parallelogramm"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Der Umfang des Parallelogramms ist für ( = 90° am kleinsten.\nUND Angabe einer Begründung, in der die systematische Variation\ndes Winkels ( deutlich wird und der Zusammenhang zwischen der\nGröße des Winkels ( und der Länge des Umfangs erläutert wird.\nDabei müssen mind. die beiden Fälle ( < 90° und ( = 90° (( > 90°\noptional) betrachtet werden. Alternativ kann auch über den\nAbstand zweier Punkte und dessen Definition argumentiert werden.\nAnm.: Es muss deutlich werden, dass der Umfang berücksichtigt\nwurde.\nMögliche Überlegungen:\nZ. B.:\nVerschiebt man die Seite [pic] immer weiter nach links, wird der\nUmfang des Parallelogramms erst kürzer und nach ( = 90° wieder\nlänger. Bei ( = 90° ist der Umfang am kürzesten, denn dann sind\ndie Seiten [pic] und [pic] genauso lang wie der Abstand der\nParallelen.\nODER\nBei ( = 90° ist der Umfang am kleinsten, denn dann ist die Länge\nder beiden Seiten [pic] und [pic] gleich dem Abstand der\nParallelen und der Abstand zweier Punkte ist deren kürzeste\nVerbindung.\nODER (Grenzfall)\nAlle diese Parallelogramme haben denselben Flächeninhalt (muss\nnicht weiter begründet werden). Unter allen diesen\nParallelogrammen hat jenes, das ein Rechteck ist, den kleinsten\nUmfang. Also ist der gesuchte Winkel 90° groß.\nODER (Grenzfall)\nLässt man [pic] auf der Parallelen h liegen und macht [pic] (und\ndamit auch [pic]) kürzer, so wird ( größer. Wenn [pic] (und\n[pic]) am kürzesten sind, ist\n( = 90°. Verlängert man [pic] (und damit auch [pic]) in die\nandere Richtung, vergrößert sich ( wieder.\nAnmerkung: Hier wird zwar nichts über [pic] und [pic] bzw. über\nden Umfang des Parallelogramms ausgesagt, aber es ist erkennbar,\ndass sich dieser in Abhängigkeit der Größe des Winkels (\nverändert.\nODER (Grenzfall)\nJe spitzer (stumpfer) ( ist, umso größer ist der Umfang des\nParallelogramms. Also ist er in der Mitte am kleinsten. Dies ist\nbei ( = 90° der Fall."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nVerschiebt man die Seite [pic] immer weiter nach links, wird der\nUmfang des Parallelogramms kürzer. Am kürzesten ist er bei ( =\n90°.\nODER\nMan muss [pic] so lange verschieben bis ein Rechteck entstanden\nist.\nODER\nIch habe gemessen.\nODER\nWeil bei 90° die Seiten [pic] und [pic] am kürzesten sind.\nAnm.: Eine Begründung fehlt.\nODER\n90° ist der direkte Weg zu [pic]."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Winkel im Parallelogramm"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Der Umfang des Parallelogramms ist für ( = 90° am kleinsten.\nUND Angabe einer Begründung, in der die systematische Variation\ndes Winkels ( deutlich wird und der Zusammenhang zwischen der\nGröße des Winkels ( und der Länge des Umfangs erläutert wird.\nDabei müssen mind. die beiden Fälle ( < 90° und ( = 90° (( > 90°\noptional) betrachtet werden. Alternativ kann auch über den\nAbstand zweier Punkte und dessen Definition argumentiert werden.\nAnm.: Es muss deutlich werden, dass der Umfang berücksichtigt\nwurde.\nMögliche Überlegungen:\nZ. B.:\nVerschiebt man die Seite [pic] immer weiter nach links, wird der\nUmfang des Parallelogramms erst kürzer und nach ( = 90° wieder\nlänger. Bei ( = 90° ist der Umfang am kürzesten, denn dann sind\ndie Seiten [pic] und [pic] genauso lang wie der Abstand der\nParallelen.\nODER\nBei ( = 90° ist der Umfang am kleinsten, denn dann ist die Länge\nder beiden Seiten [pic] und [pic] gleich dem Abstand der\nParallelen und der Abstand zweier Punkte ist deren kürzeste\nVerbindung.\nODER (Grenzfall)\nAlle diese Parallelogramme haben denselben Flächeninhalt (muss\nnicht weiter begründet werden). Unter allen diesen\nParallelogrammen hat jenes, das ein Rechteck ist, den kleinsten\nUmfang. Also ist der gesuchte Winkel 90° groß.\nODER (Grenzfall)\nLässt man [pic] auf der Parallelen h liegen und macht [pic] (und\ndamit auch [pic]) kürzer, so wird ( größer. Wenn [pic] (und\n[pic]) am kürzesten sind, ist\n( = 90°. Verlängert man [pic] (und damit auch [pic]) in die\nandere Richtung, vergrößert sich ( wieder.\nAnmerkung: Hier wird zwar nichts über [pic] und [pic] bzw. über\nden Umfang des Parallelogramms ausgesagt, aber es ist erkennbar,\ndass sich dieser in Abhängigkeit der Größe des Winkels (\nverändert.\nODER (Grenzfall)\nJe spitzer (stumpfer) ( ist, umso größer ist der Umfang des\nParallelogramms. Also ist er in der Mitte am kleinsten. Dies ist\nbei ( = 90° der Fall."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nVerschiebt man die Seite [pic] immer weiter nach links, wird der\nUmfang des Parallelogramms kürzer. Am kürzesten ist er bei ( =\n90°.\nODER\nMan muss [pic] so lange verschieben bis ein Rechteck entstanden\nist.\nODER\nIch habe gemessen.\nODER\nWeil bei 90° die Seiten [pic] und [pic] am kürzesten sind.\nAnm.: Eine Begründung fehlt.\nODER\n90° ist der direkte Weg zu [pic]."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "V",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Die Parallelogrammseite wird nur so lange gedanklich nach links verschoben,",
+      "bis ( = 90° ist. Der Fall ( > 90° wird nicht erkennbar berücksichtigt, d.",
+      "h. der „symmetrische Fall“ fehlt. Ein solches Defizit im systematischen",
+      "Variieren der gegebenen Situation illustriert diese Schülerlösung (K2).",
+      "Die Abhängigkeit der Länge des Umfangs von der Winkelgröße ( wird nicht",
+      "erkannt. Möglicherweise ist eine Verwechslung mit der Invarianz des",
+      "Flächeninhalts die Ursache (K1).",
+      "Das Erkennen des Rechteckes als besonderes Parallelogramm gelingt nicht,",
+      "wie die nachfolgende Schülerlösung zeigt (vermutlich liegt eine",
+      "Fehlvorstellung vom Parallelogramm-Begriff vor). Zudem fehlt hier die",
+      "Vorstellung einer kontinuierlichen Veränderung des Winkels (Was bedeutet „(",
+      "Es ist nicht bewusst, dass Geraden unbegrenzt sind. Infolgedessen wird die",
+      "Parallelogrammseite nur in einem eingeschränkten Bereich hin und her",
+      "verschoben. Im Extremfall wird die Winkelgröße ( am linken und am rechten",
+      "„Ende“ von h gemessen und es wird dann fälschlich der Fall maximalen",
+      "Umfangs betrachtet, wie die nächste Schülerlösung zeigt (K2).",
+      "Der Umgang mit der Bedingung für die Verschiebung der Parallelogrammseite",
+      "bereitet Probleme. Im einen Fall wird die Veränderlichkeit der Seitenlängen",
+      "von [pic] und [pic] bzw. die Konstanz der Höhe h nicht erkannt. Dies führt",
+      "zu dem Fehlschluss, dass die Parallelogrammseite nicht wie gefordert auf",
+      "der Geraden h verschoben werden kann. Infolgedessen wird die Aufgabe als",
+      "unlösbar betrachtet. Im anderen Fall führt diese Schwierigkeit zu einem",
+      "entarteten Parallelogramm als Lösung mit (=0°. Letzteres zeigt die",
+      "nachfolgende Schülerlösung exemplarisch (K1)."
+    ],
+    "quelle": "winkelimparallelogramm_Didaktische_Kommentierung.doc"
+  }
+}

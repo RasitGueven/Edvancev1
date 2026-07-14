@@ -1,0 +1,188 @@
+{
+  "item": "gleichungenloesenistni",
+  "sources": {
+    "Aufgabe": {
+      "file": "gleichungenloesenistni_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "590f96002f53c795"
+    },
+    "Auswertung": {
+      "file": "gleichungenloesenistni_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "e5165ae1a367e571"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gleichungenloesenistni_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "45b5a1b8cdd5bb05"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungenloesenistni/00_doc_image1.emf.png",
+      "tokens": "Gleichungen können auf verschiedene Arten gelöst werden.",
+      "deterministic_text": "Gleichungen können auf verschiedene Arten gelöst werden.",
+      "table": null,
+      "n_fragments": 2,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Gleichungen lösen ist nicht schwierig",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die Lösung ist richtig, wenn die Gleichung erkennbar durch\nUmformen gelöst wurde.\nZ. B.:\n7x-14 = 38\n7x = 52\nx = [pic]\nODER\n7x = 52\nx = [pic]\nAnmerkungen:\n• Akzeptiert wird auch 7[pic]ODER ( 7,4 ODER jedes andere korrekt\ngerundete Ergebnis.\n• Die einzelnen Umformungsschritte müssen mathematisch richtig\nsein, ihre Reihenfolge ist beliebig.\n• Wird nach einem Rechenfehler folgerichtig weitergerechnet, wird\ndie Aufgabe als richtig gewertet.\n• Wird mit der Aufgabe 7x - 14 = 42 korrekt gerechnet, wird die\nAufgabe als richtig gewertet."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nAnm.: Wird ein Umformungsfehler gemacht, wird die Aufgabe als\n„Falsch“ gewertet.\nODER\nEs wird richtig , jedoch nicht zu Ende gerechnet,\nz. B. 7x = 52\nx ="
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe von je zwei Gleichungen, die sich leicht durch Probieren\nbzw. besser durch Umformen lösen lassen.\nUND\nDarlegung einer nachvollziehbaren Erklärung, warum Probieren bzw.\nUmformen die besser geeignete Lösungsmethode ist. Dabei muss\ndarauf verwiesen werden, dass das Lösen durch Probieren dann\nnicht mehr sinnvoll ist, wenn in längeren Gleichungen\n„schwierige“ Rechnungen erforderlich sind und der Wert für x\nnicht mit wenigen Probierschritten gefunden werden kann oder wenn\ndie Lösung nicht ganzzahlig ist.\nAnm.: Die Erläuterungen lassen ggf. erst im Zusammenhang mit den\nGleichungen erkennen, dass die Systematik erkannt wurde.\nZ. B.\nProbieren                                     Umformen\n1. Gleichung: 25 = 2x + 5               1. Gleichung: 11x + 8,5 =\n24x - 3,2\n2. Gleichung: a + a = 4                   2. Gleichung: 3x + 4 -\nx = 21 + 4x\nDie linken beiden Gleichungen können aufgrund der einfachen\nZahlen, die es möglich machen im Kopf zu rechnen, leicht durch\nProbieren gelöst werden. Hinzu kommt, dass nur auf einer Seite\ndes Gleichheitszeichens Variablen stehen. Die rechten beiden\nGleichungen sind länger und weisen größere Zahlen bzw.\nKommazahlen auf. Auch Brüche wären denkbar. Außerdem sind auf\nbeiden Seiten des Gleichheitszeichens Glieder mit Variablen zu\nfinden.\nODER\nProbieren                                  Umformen\n1. Gleichung: 20 = 4x                 1. Gleichung: 6b + 18 =\n2[pic] b - 3\n2. Gleichung: 4a = 4                   2. Gleichung: 3x + 4 - x =\n10[pic]\nDie Gleichungen auf der rechten Seite sind nicht so einfach durch\nProbieren zu lösen wie die beiden anderen Gleichungen, da sie\nBrüche enthalten."
+          ],
+          [
+            "RICHTIG",
+            "ODER (Grenzfall)\nProbieren                                       Umformen\n1. Gleichung: x + x = 20                   1. Gleichung: 7x - 15\n= 23\n2. Gleichung: x + x = 26                   2. Gleichung: 7x - 16\n= 23\nAnm.: In beiden Fällen werden je zwei strukturell gleiche\nBeispiele angegeben, die sich nur minimal unterscheiden, dennoch\naber den Vorgaben genügen.\nODER\n„Beim Probieren sieht man es gleich, was rauskommt. Beim Umformen\nmuss man schon rechnen.“, sofern passende illustrierende\nBeispiele angegeben sind."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten, insbesondere Antworten mit fehlender,\nfehlerhafter oder falscher Begründung.\nZ. B.:\nNur einfache Gleichungen können durch Probieren gelöst werden,\nkomplizierte Gleichungen nicht.\nAnm.: In dieser Erklärung wird zwar auf die Komplexität der\nGleichungen verwiesen, jedoch nicht genauer erläutert, worauf\ndiese beruht.\nODER\nWenn man sich sicher sein möchte, dass die Gleichung richtig\ngelöst ist, sollte man sie immer durch Umformen lösen.\nAnm.: Es wird kein Bezug zu den strukturellen Gegebenheiten der\nGleichungen hergestellt.\nODER\nWenn man gut im Kopf rechnen kann, kann man alle Gleichungen\nleicht durch Probieren lösen.\nAnm.: Es wird kein Bezug zu den strukturellen Gegebenheiten der\nGleichungen hergestellt."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Gleichungen lösen ist nicht schwierig"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die Lösung ist richtig, wenn die Gleichung erkennbar durch\nUmformen gelöst wurde.\nZ. B.:\n7x-14 = 38\n7x = 52\nx = [pic]\nODER\n7x = 52\nx = [pic]\nAnmerkungen:\n• Akzeptiert wird auch 7[pic]ODER ( 7,4 ODER jedes andere korrekt\ngerundete Ergebnis.\n• Die einzelnen Umformungsschritte müssen mathematisch richtig\nsein, ihre Reihenfolge ist beliebig.\n• Wird nach einem Rechenfehler folgerichtig weitergerechnet, wird\ndie Aufgabe als richtig gewertet.\n• Wird mit der Aufgabe 7x - 14 = 42 korrekt gerechnet, wird die\nAufgabe als richtig gewertet."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nAnm.: Wird ein Umformungsfehler gemacht, wird die Aufgabe als\n„Falsch“ gewertet.\nODER\nEs wird richtig , jedoch nicht zu Ende gerechnet,\nz. B. 7x = 52\nx ="
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe von je zwei Gleichungen, die sich leicht durch Probieren\nbzw. besser durch Umformen lösen lassen.\nUND\nDarlegung einer nachvollziehbaren Erklärung, warum Probieren bzw.\nUmformen die besser geeignete Lösungsmethode ist. Dabei muss\ndarauf verwiesen werden, dass das Lösen durch Probieren dann\nnicht mehr sinnvoll ist, wenn in längeren Gleichungen\n„schwierige“ Rechnungen erforderlich sind und der Wert für x\nnicht mit wenigen Probierschritten gefunden werden kann oder wenn\ndie Lösung nicht ganzzahlig ist.\nAnm.: Die Erläuterungen lassen ggf. erst im Zusammenhang mit den\nGleichungen erkennen, dass die Systematik erkannt wurde.\nZ. B.\nProbieren                                     Umformen\n1. Gleichung: 25 = 2x + 5               1. Gleichung: 11x + 8,5 =\n24x - 3,2\n2. Gleichung: a + a = 4                   2. Gleichung: 3x + 4 -\nx = 21 + 4x\nDie linken beiden Gleichungen können aufgrund der einfachen\nZahlen, die es möglich machen im Kopf zu rechnen, leicht durch\nProbieren gelöst werden. Hinzu kommt, dass nur auf einer Seite\ndes Gleichheitszeichens Variablen stehen. Die rechten beiden\nGleichungen sind länger und weisen größere Zahlen bzw.\nKommazahlen auf. Auch Brüche wären denkbar. Außerdem sind auf\nbeiden Seiten des Gleichheitszeichens Glieder mit Variablen zu\nfinden.\nODER\nProbieren                                  Umformen\n1. Gleichung: 20 = 4x                 1. Gleichung: 6b + 18 =\n2[pic] b - 3\n2. Gleichung: 4a = 4                   2. Gleichung: 3x + 4 - x =\n10[pic]\nDie Gleichungen auf der rechten Seite sind nicht so einfach durch\nProbieren zu lösen wie die beiden anderen Gleichungen, da sie\nBrüche enthalten."
+          ],
+          [
+            "RICHTIG",
+            "ODER (Grenzfall)\nProbieren                                       Umformen\n1. Gleichung: x + x = 20                   1. Gleichung: 7x - 15\n= 23\n2. Gleichung: x + x = 26                   2. Gleichung: 7x - 16\n= 23\nAnm.: In beiden Fällen werden je zwei strukturell gleiche\nBeispiele angegeben, die sich nur minimal unterscheiden, dennoch\naber den Vorgaben genügen.\nODER\n„Beim Probieren sieht man es gleich, was rauskommt. Beim Umformen\nmuss man schon rechnen.“, sofern passende illustrierende\nBeispiele angegeben sind."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten, insbesondere Antworten mit fehlender,\nfehlerhafter oder falscher Begründung.\nZ. B.:\nNur einfache Gleichungen können durch Probieren gelöst werden,\nkomplizierte Gleichungen nicht.\nAnm.: In dieser Erklärung wird zwar auf die Komplexität der\nGleichungen verwiesen, jedoch nicht genauer erläutert, worauf\ndiese beruht.\nODER\nWenn man sich sicher sein möchte, dass die Gleichung richtig\ngelöst ist, sollte man sie immer durch Umformen lösen.\nAnm.: Es wird kein Bezug zu den strukturellen Gegebenheiten der\nGleichungen hergestellt.\nODER\nWenn man gut im Kopf rechnen kann, kann man alle Gleichungen\nleicht durch Probieren lösen.\nAnm.: Es wird kein Bezug zu den strukturellen Gegebenheiten der\nGleichungen hergestellt."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "IV",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "▪ 1. Antwortalternative wurde angekreuzt: Beim Einsetzen wird 14 addiert,",
+      "statt zu subtrahieren (K5).",
+      "▪ 3. Antwortalternative wurde angekreuzt: Beim kalkülmäßigen Lösen werden",
+      "nur Teile der Gleichung durch 7 dividiert, und als Zwischenschritt ergibt",
+      "sich x – 14 = 6. Diese Gleichung wird dann folgerichtig weiter gelöst",
+      "▪ 4. Antwortalternative wurde angekreuzt: Beim kalkülmäßigen Lösen wird",
+      "bei der Division durch 7 nur die linke Seite der Gleichung beachtet. Die",
+      "erhaltene Gleichung x – 2 = 42 wird dann folgerichtig gelöst (K5).",
+      "▪ 5. Antwortalternative wurde angekreuzt: Beim Einsetzen wird der Faktor",
+      "7 nicht beachtet (56 – 14 = 42; K5).",
+      "Unter Missachtung von Umformungsregeln wird beispielsweise nicht durch 7",
+      "dividiert, sondern es wird „nur“ auf der linken Seite 7 subtrahiert",
+      "(Fehllösung: x = 45) (K5).",
+      "Um „-14 wegzukriegen“, wird fälschlich 14 subtrahiert statt addiert. Bei",
+      "folgerichtigem Weiterrechnen ergibt sich als Fehllösung [pic] oder ≈3,4",
+      "Zu beiden Verfahren werden passende Gleichungen angegeben, jedoch die",
+      "Formulierung der Erklärung bereitet Schwierigkeiten. Dies zeigt der",
+      "folgende Auszug aus einer Schülerlösung (K6)."
+    ],
+    "quelle": "gleichungenloesenistni_Didaktische_Kommentierung.doc"
+  }
+}

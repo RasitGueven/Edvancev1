@@ -1,0 +1,28 @@
+{
+  "item": "maus",
+  "gelesen_aus": [
+    "data/r01_render/maus/00_image1.emf.png",
+    "data/r01_render/maus/01_image2.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Hier stimmt die Größenangabe nicht: „Mäuse wiegen im Durchschnitt 40 Tonnen.“ Welche der folgenden Maßeinheiten passt hier zur Maßzahl 40? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Kilogramm (kg)"},
+        {"id": "b", "label": "Gramm (g)"},
+        {"id": "c", "label": "Milligramm (mg)"},
+        {"id": "d", "label": "Mikrogramm (µg)"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "00_image1.emf.png enthält nur die Bildquelle ('Foto: Holger Meinig' + URL) — als Abbildungs-Beschriftung nicht in den Stamm übernommen.",
+    "Option d ist im Bild angeschnitten gerendert; ich lese 'Mikrogramm (µg)', das Symbol im Klammerausdruck ist nicht 100 % scharf (µg vs. mg)."
+  ]
+}

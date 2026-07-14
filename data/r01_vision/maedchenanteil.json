@@ -1,0 +1,27 @@
+{
+  "item": "maedchenanteil",
+  "gelesen_aus": [
+    "data/r01_render/maedchenanteil/00_image1.emf.png",
+    "data/r01_render/maedchenanteil/01_image2.emf.png"
+  ],
+  "stem": "In der Klasse 7a sind 8 Mädchen und 15 Jungen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist der Anteil der Mädchen in der gesamten Klasse 7a? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "8/23"},
+        {"id": "b", "label": "8/15"},
+        {"id": "c", "label": "15/8"},
+        {"id": "d", "label": "23/8"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Optionen stehen als echte Brüche (Zähler über Nenner); ich habe sie inline als 8/23, 8/15, 15/8, 23/8 notiert."
+  ]
+}

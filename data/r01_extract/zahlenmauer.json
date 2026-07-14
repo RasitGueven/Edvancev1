@@ -1,0 +1,200 @@
+{
+  "item": "zahlenmauer",
+  "sources": {
+    "Aufgabe": {
+      "file": "zahlenmauer_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "47d8dbb10d97b9d5"
+    },
+    "Auswertung": {
+      "file": "zahlenmauer_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "6f495089cf783674"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zahlenmauer_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "cf0ede86ddc2483d"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenmauer/00_doc_image1.emf.png",
+      "tokens": "Zahlenmauern sind aus Steinen gebaut. Dabei steht in jedem Stein die Summe der beiden darunter liegenden Steine. Beispiel:18513",
+      "deterministic_text": "Zahlenmauern sind aus Steinen gebaut.\nDabei steht in jedem Stein die Summe der beiden darunter liegenden Steine.\nBeispiel:\n18\n5 13",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Zahlenmauer",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen fehlerhaften, unvollständigen oder falschen\nAntworten. Insbesondere, wenn nur zwei statt drei Steine richtig\nausgefüllt wurden."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "x = 20\nAnm.:  Die Steine der Zahlenmauer müssen nicht ausgefüllt werden."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "x = 3000\nAnm.:  Die Steine der Zahlenmauer müssen nicht ausgefüllt werden."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Zahlenmauer"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen fehlerhaften, unvollständigen oder falschen\nAntworten. Insbesondere, wenn nur zwei statt drei Steine richtig\nausgefüllt wurden."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "x = 20\nAnm.:  Die Steine der Zahlenmauer müssen nicht ausgefüllt werden."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "x = 3000\nAnm.:  Die Steine der Zahlenmauer müssen nicht ausgefüllt werden."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgaben 1 und 2:",
+      "• Es werden nur die Steine, deren Zahlen mittels Additionen berechnet",
+      "werden können, ausgefüllt. Das Aufstellen und Berechnen von",
+      "Umkehraufgaben im Sinne des Rück-wärtsarbeitens gelingt nicht (K2).",
+      "Zu Teilaufgaben 2 und 3:",
+      "• Das Bildungsgesetz wurde nicht richtig erfasst, wie die folgende",
+      "Schülerlösung zeigt. Zwar ergibt sich die Zahl 15 aus der Summe der",
+      "beiden darunter stehenden Zahlen, doch passen diese nicht mehr zu den",
+      "Zahlen der untersten Reihe (L2). Die Schülerlösung legt vielmehr nahe,",
+      "dass die Zahlen der freien Steine so gewählt wurden, dass die Summe aller",
+      "Zahlen der Zielzahl entspricht.",
+      "• Der Umgang mit negativen Zahlen bereitet Probleme, so dass es bei deren",
+      "Addition und Subtraktion zu Fehlern (und dann zu Folgefehlern) kommt",
+      "(K5). Diese Schwierigkeit wird durch die folgende Schülerlösung",
+      "veranschaulicht.",
+      "• Statt der Gleichung 4x = 12000 wird die Gleichung x4 = 12000 aufgestellt",
+      "und gelöst [Fehllösung: 10,466351…] (K2 und K5).",
+      "• Es ist nicht klar, dass die Variable x stets für dieselbe Zahl stehen",
+      "muss (K5). So werden unter passender Berücksichtigung des",
+      "Bildungsprinzips verschiedene Zahlen eingesetzt, wie die folgende",
+      "Schülerlösung zeigt.",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung dieser Aufgabe Schwierigkeiten auf, können",
+      "zunächst Zahlenmauern, bei denen lediglich vorwärts gearbeitet werden muss,",
+      "behandelt werden. Bei Zahlenmauern, die auch ein rückwärtsgerichtetes",
+      "Arbeiten erforderlich machen, können den Schülern richtige und falsche",
+      "Rechenterme an die Hand gegeben werden. Hierdurch können sie selbständig",
+      "erkennen, dass bei manchen Steinen nur die Umkehraufgabe zum richtigen",
+      "Ergebnis führt. Weitere Informationen zum Vorwärts- und Rückwärtsarbeiten",
+      "können dem allgemeinen Kapitel zur Kompetenz „Probleme mathematisch lösen“",
+      "entnommen werden.",
+      "Weiterführend können Zahlenmauern zu anderen Grundrechenarten in den",
+      "Unterricht eingebunden werden. Dabei ist es denkbar, dass die Schülerinnen",
+      "und Schüler eigene Zahlenmauern entwickeln und diese dann von einer",
+      "Mitschülerin oder einem Mitschüler bearbeitet werden. Je nach Altersstufe",
+      "und Leistungsstand kann dabei auch umfassender mit Variablen bzw. Termen",
+      "gearbeitet werden. Eine mögliche weiterführende Aufgabe hierzu ist",
+      "beispielsweise die folgende:",
+      "Man vergleiche hierzu auch die didaktischen Kommentare zu den Aufgaben",
+      "„Zahlen gesucht“, „Zahl gesucht“ und „Berechne x“.",
+      "-----------------------"
+    ],
+    "quelle": "zahlenmauer_Didaktische_Kommentierung.doc"
+  }
+}

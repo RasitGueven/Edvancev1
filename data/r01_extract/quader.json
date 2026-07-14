@@ -1,0 +1,161 @@
+{
+  "item": "quader",
+  "sources": {
+    "Aufgabe": {
+      "file": "quader_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "99aea6b34b6b483f"
+    },
+    "Auswertung": {
+      "file": "quader_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "a51c36ee3dc70426"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "quader_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "4b5f1561f02cfc74"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/quader/00_doc_image1.emf.png",
+      "tokens": "Die Abbildung zeigt einen Holzquader.5cm4cm6cm(Abbildung nicht maßstabstreu)",
+      "deterministic_text": "Die Abbildung zeigt einen Holzquader.\nmc\n6\ncm\n(Abbildung nicht maßstabstreu) 4\n5cm",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Quader",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "V = 120 cm3"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Quader"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "V = 120 cm3"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Die angegebenen Längen der einzelnen Kanten werden addiert [Fehllösung:",
+      "• Es wird der Oberflächeninhalt und nicht das Volumen berechnet",
+      "[Fehllösung: 148 cm2] (K5)",
+      "• 1. Antwortalternative (Fehllösung: 45 cm2): Die Längen der sechs",
+      "sichtbaren Kanten wurden addiert (K5).",
+      "• 2. Antwortalternative (Fehllösung: 74 cm2): Dies ist die Summe der",
+      "Flächeninhalte der drei abgebildeten Seitenflächen des Würfels (K4).",
+      "• 3. Antwortalternative (Fehllösung: 120 cm2): Dies ist die Summe der",
+      "Flächeninhalte der Vorder- und der Rückseite (K4).",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung der Teilaufgaben Schwierigkeiten auf, bietet es",
+      "sich an, das Volumen und die Oberfläche handelsüblicher Verpackungen",
+      "berechnen zu lassen. Die Verpackungen können bei Bedarf leicht in ihre",
+      "Netze auseinander gefaltet werden, so dass die Zusammensetzung der Netze",
+      "aus einzelnen rechteckigen Teilflächen veranschaulicht und die Formel zur",
+      "Berechnung des Oberflächeninhalts erneut hergeleitet werden kann.",
+      "Um den Begriff des Volumens zu verdeutlichen, können diese Körper mit",
+      "Wasser oder Sand gefüllt oder aber mit Kubikzentimeterwürfelchen ausgelegt",
+      "werden. Dies ermöglicht den Schülerinnen und Schülern (erneut) einen",
+      "handelnden Zugang zum Volumenbegriff, wodurch zum Aufbau adäquater",
+      "Grundvorstellungen beigetragen wird. Analog kann auch der",
+      "Oberflächenbegriff verdeutlicht werden.",
+      "Weiterführend kann man im Unterricht leicht z. B. auch den Zusammenhang",
+      "zwischen dem Volumen eines Quaders und dem einer Pyramide bei gleich großer",
+      "Grundfläche und Höhe thematisieren. Anhand konkreter Beispiele können die",
+      "Schülerinnen und Schüler selbstständig entdecken, dass bei gleich großer",
+      "Grundfläche und Höhe das Volumen eines Quaders dreimal so groß ist wie das",
+      "Volumen einer Pyramide. In diesem Zusammenhang bietet es sich nun an, die",
+      "Situation operativ durchzuarbeiten und z. B. nach dem Verhältnis der Höhe",
+      "einer Pyramide und eines Quaders bei gleich großer Grundflächen und",
+      "Volumina zu fragen. Dies ermöglicht beispielsweise die folgende Aufgabe:",
+      "Zur Bearbeitung dieser Aufgabe kann es hilfreich sein, zunächst",
+      "Zahlenbeispiele zu betrachten, anhand derer die Schülerinnen und Schüler",
+      "das Verhältnis selbständig entdecken können. In der sich anschließenden",
+      "Verallgemeinerung kann dann unter Rückgriff auf die bereits gesammelten",
+      "Kenntnisse eine allgemeine Begründung formuliert werden. Treten bezüglich",
+      "der Argumentation Schwierigkeiten auf, kann den Schülern auch ein Art",
+      "Lückentext zur Verfügung gestellt oder aber eine Reihe von geeigneten",
+      "Stichworten zum Formulieren der Argumentation an die Hand gegeben werden.",
+      "Ein solcher Text könnte folgendermaßen aussehen:",
+      "Weitere Hinweise zum Aufbau der Kompetenz „mathematisch Argumentieren“ im",
+      "Unterricht können dem Allgemeinen Kapitel zum mathematischen Argumentieren",
+      "der Vergleichsarbeiten 2010 entnommen werden."
+    ],
+    "quelle": "quader_Didaktische_Kommentierung.doc"
+  }
+}

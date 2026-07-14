@@ -1,0 +1,19 @@
+{
+  "item": "rechenvorteil",
+  "gelesen_aus": [
+    "data/r01_render/rechenvorteil/00_doc_image1.emf.png"
+  ],
+  "stem": "4 · 3,15 · 25 =",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Wie kann Susanne einen Rechenvorteil nutzen, um diese Aufgabe ohne Nebenrechnung oder Taschenrechner zu lösen? Rechne vor.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

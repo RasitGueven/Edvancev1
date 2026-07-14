@@ -1,0 +1,205 @@
+{
+  "item": "fahrradcomputer",
+  "sources": {
+    "Aufgabe": {
+      "file": "fahrradcomputer_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "f00148248b71f68b"
+    },
+    "Auswertung": {
+      "file": "fahrradcomputer_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "c624d8fc6c15c34a"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fahrradcomputer_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "f8c3fa3c75175d18"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fahrradcomputer/00_doc_image1.emf.png",
+      "tokens": "Anna hat einen Fahrradcomputer an ihrem Fahrrad.Foto: © IQB",
+      "deterministic_text": "Anna hat einen Fahrradcomputer an ihrem Fahrrad.\nFoto: © IQB",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Fahrradcomputer",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (32) UND richtige Beschreibung des Lösungsweges,\nin der folgende Aspekte enthalten sind:\n• Anna ist 45 min 16 km/h gefahren. Sie hat dabei einen Weg von\n12 km (0,75h ( 16km/h) zurückgelegt.\n• Insgesamt sind 12 km + 8 km = 20 km zu fahren.\n• Da die Durchschnittsgeschwindigkeit für die Gesamtstrecke 20\nkm/h betragen soll, hat sie für die verbleibenden 8 km noch eine\nViertelstunde Zeit.\n• D. h. sie müsste durchschnittlich so schnell fahren, dass sie\nin einer Stunde 32 km schaffen würde.\nODER\n• 16 km/h Durchschnittsgeschwindigkeit bedeutet, dass Anna in 45\nMinuten 12 Kilometer gefahren ist.\n• Insgesamt sind also 20 km zu fahren.\n• Sie hat somit für die restlichen 8 Kilometer noch 15 Minuten\nZeit.\n• Diese muss sie mit einer Geschwindigkeit von 32 km/h fahren."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nz. B.\nAnna muss auf der Reststrecke durchschnittlich 32 km/h fahren,\nweil sie schneller sein muss als auf den ersten 12 Kilometern,\ndenn sie hat nur 15 Minuten Zeit."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Fahrradcomputer"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (32) UND richtige Beschreibung des Lösungsweges,\nin der folgende Aspekte enthalten sind:\n• Anna ist 45 min 16 km/h gefahren. Sie hat dabei einen Weg von\n12 km (0,75h ( 16km/h) zurückgelegt.\n• Insgesamt sind 12 km + 8 km = 20 km zu fahren.\n• Da die Durchschnittsgeschwindigkeit für die Gesamtstrecke 20\nkm/h betragen soll, hat sie für die verbleibenden 8 km noch eine\nViertelstunde Zeit.\n• D. h. sie müsste durchschnittlich so schnell fahren, dass sie\nin einer Stunde 32 km schaffen würde.\nODER\n• 16 km/h Durchschnittsgeschwindigkeit bedeutet, dass Anna in 45\nMinuten 12 Kilometer gefahren ist.\n• Insgesamt sind also 20 km zu fahren.\n• Sie hat somit für die restlichen 8 Kilometer noch 15 Minuten\nZeit.\n• Diese muss sie mit einer Geschwindigkeit von 32 km/h fahren."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nz. B.\nAnna muss auf der Reststrecke durchschnittlich 32 km/h fahren,\nweil sie schneller sein muss als auf den ersten 12 Kilometern,\ndenn sie hat nur 15 Minuten Zeit."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• 1. Antwortalternative (Fehllösung: 4,5 km/h): Die beiden Zahlangaben",
+      "„halbe“ und „9“ werden als „ km/h“ gedeutet (K3).",
+      "• 2. Antwortalternative (Fehllösung: 9 km/h): Die Nichtbeachtung der",
+      "Zahlangabe „halbe“ resultiert in der Fehldeutung, dass 9 km in einer",
+      "Stunde zurückgelegt wurden (K6).",
+      "• 4. Antwortalternative (Fehllösung: 20 km/h): Vermutlich wird einfach eine",
+      "plausible Größenangabe gewählt, ohne zu rechnen.",
+      "• Die angegebenen Durchschnittsgeschwindigkeiten werden mit der noch zu",
+      "fahrenden Distanz verwechselt. Dabei unterbleibt dann auch die",
+      "Überlegung, dass die gesuchte Geschwindigkeit höher als die bisherige",
+      "sein muss, wie die folgende Schülerlösung illustriert [Fehllösung 20 km/h",
+      "- 16 km/h = 4 km/h] (K3).",
+      "• Ein Vergleich der bisherigen mit der angestrebten",
+      "Durchschnittsgeschwindigkeit ergibt eine Differenz von 4 km/h. Irrtümlich",
+      "wird angenommen, dass die angestrebte Durchschnittsgeschwindigkeit von 20",
+      "km/h um diese Differenz zu erhöhen ist, um einen „Ausgleich“ zu erzielen,",
+      "wie die zweite Schülerlösung zeigt. Auch eine Berechnung des",
+      "arithmetischen Mittels führt auf dieselbe Fehllösung, wie die dritte",
+      "Schülerlösung verdeutlicht [Fehllösung 24 km/h] (K3).",
+      "Weiterarbeit und Förderung",
+      "Die beiden wesentlichen Schwierigkeiten bei dieser Aufgabe bestehen im",
+      "Verständnis des Begriffs der Durchschnittsgeschwindigkeit sowie im Umgang",
+      "mit gewichteten Mittelwerten.",
+      "Im ersten Fall können Protokolle tatsächlich gefahrener Geschwindigkeiten",
+      "angefertigt und anschließend ausgewertet werden. Sollte das Sammeln realer",
+      "Daten nicht möglich sein, kann man beispielsweise mit der folgenden",
+      "vereinfachten Realsituation arbeiten, in der zwei unterschiedliche",
+      "Geschwindigkeiten gefahren werden, wobei Aspekte der Beschleunigung hier",
+      "zunächst bewusst vernachlässigt werden. Eine mögliche Aufgabe könnte",
+      "Ein Auto fährt zweimal 30 min mit wechselnden Geschwindigkeiten.",
+      "a) In den ersten 30 min fährt das Auto mit 30 km/h, in den zweiten 30",
+      "min fährt es mit 50 km/h.",
+      "Welche Distanz legt das Auto insgesamt zurück?",
+      "Ermittle die durchschnittliche Geschwindigkeit des Autos.",
+      "Mit Teilaufgabe a) kann ein Bewusstsein für die zu berücksichtigenden",
+      "Zeitabschnitte gefördert werden. Dies kann auch in die folgende Umkehrfrage",
+      "b) Die Durchschnittsgeschwindigkeit soll insgesamt 45 km/h betragen.",
+      "Ermittle zwei mögliche Geschwindigkeiten, die das Auto jeweils für",
+      "eine Dauer von 60 min gefahren sein könnte.",
+      "Die Anwendung des arithmetischen Mittels führt zur Lösung der Fragen a) und",
+      "b). Um einer unkritischen Anwendung des arithmetischen Mittels vorzubauen,",
+      "eignet sich eine Gegen-überstellung mit dem harmonischen Mittel, mit dem",
+      "bekanntlich bei unterschiedlich langen Zeiträumen die",
+      "Durchschnittsgeschwindigkeit ermittelt werden kann. Variiert man in",
+      "Teilaufgabe a) die Zeiten und behält die jeweils gefahrenen",
+      "Geschwindigkeiten bei, so kann die folgende Teilaufgabe c) gestellt werden:",
+      "c) Ein Auto fährt 20 min mit 30 km/h und weitere 40 min mit 50 km/h.",
+      "Ermittle die durchschnittliche Geschwindigkeit des Autos.",
+      "Bei der Lösung dieser Teilaufgabe muss das harmonische Mittel nicht",
+      "notwendig explizit thematisiert werden. Es genügt zu reflektieren, welche",
+      "Auswirkungen die Änderung der beiden Zeiträume hat. In einer Erweiterung",
+      "kann zusätzlich begründet werden, warum die Durchschnittsgeschwindigkeit in",
+      "c) - das harmonische Mittel - in diesem Beispiel kleiner als die",
+      "Durchschnittsgeschwindigkeit in a) - das arithmetische Mittel - ist.",
+      "Alle drei Varianten dieser Aufgabe legen eine Veranschaulichung durch eine",
+      "Strecke als informative Skizze nahe (vgl. hierzu auch das allgemeine",
+      "Kapitel zur Kompetenz „Probleme mathematisch lösen“). In dieser können die",
+      "einzelnen Streckenabschnitte mit den jeweils zugehörigen Größen beschriftet",
+      "werden. Dies erleichtert auch eine Begründung der errechneten",
+      "Durchschnittsgeschwindigkeiten.",
+      "Eine zusätzliche, stärker funktionale Betrachtung des Sachverhalts erlaubt",
+      "einen Vergleich beider Vorgehensweisen. So kann Teilaufgabe 2.2 auch",
+      "graphisch gelöst werden, indem alle Angaben in ein Koordinatensystem",
+      "eingetragen werden. Anhand einer ersten Gerade mit der Steigung",
+      "16 km/60 min kann abgelesen werden, dass nach 45 min erst 12 km",
+      "zurückgelegt wurden, so erhält man den Punkt P(45|12). Die angestrebte",
+      "Durchschnittsgeschwindigkeit von 20 km/h in der Deutung „20 km pro 60 min“",
+      "führt zu einem zweiten Punkt E mit den Koordinaten E(60|20). Verbindet man",
+      "nun die Punkte P und E, kann man als Differenz der Funktionswerte direkt",
+      "die noch zu fahrende Distanz von 8 km ablesen. Analog lässt sich die dafür",
+      "benötigte Zeit mit 15 min ablesen. Deutet man nun die Steigung als die noch",
+      "zu fahrende Durchschnittsgeschwindigkeit von 8 km/15 min, so führt der",
+      "Schluss auf eine volle Stunde zu den gesuchten 32 km/h.",
+      "Eine Reflexion dieser Lösung zeigt im Rückblick nochmals, dass auf",
+      "unterschiedlich lang gefahrene (Durchschnitts-)Geschwindigkeiten das",
+      "arithmetische Mittel nicht angewendet werden darf, sondern dass eine",
+      "Gewichtung nötig ist.",
+      "Man vergleiche hierzu auch den didaktischen Kommentar zur Aufgabe",
+      "„Fahrradtour“ aus VERA-8 2011, in der es auch um einen Durchschnitt geht."
+    ],
+    "quelle": "fahrradcomputer_Didaktische_Kommentierung.doc"
+  }
+}

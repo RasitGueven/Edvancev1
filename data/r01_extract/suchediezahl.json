@@ -1,0 +1,102 @@
+{
+  "item": "suchediezahl",
+  "sources": {
+    "Aufgabe": {
+      "file": "suchediezahl_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "9285498dacdd3acf"
+    },
+    "Auswertung": {
+      "file": "suchediezahl_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "fc85dfd2d38f44ac"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "suchediezahl_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "ab2f4b5f837cbfae"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/suchediezahl/00_image1.emf.png",
+      "tokens": "Schreibe die richtigen Zahlen in die Kästchen.5 ×= 103 ×= 247 ×= 21",
+      "deterministic_text": "Schreibe die richtigen Zahlen in die Kästchen.\n5 × = 10 3 × = 24 7 × = 21",
+      "table": null,
+      "n_fragments": 14,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/suchediezahl/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Suche die Zahl"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "5   = 10  3     = 24  7   = 21"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Suche die Zahl"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "5   = 10  3     = 24  7   = 21"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es treten „Flüchtigkeitsfehler“ in Erscheinung, die vermutlich auf schnelles, unkritisches Arbeiten zurückzuführen sind, wie die folgende Schülerlösung (2. und 3. Aufgabe) zeigt (K5)."
+    ],
+    "quelle": "suchediezahl_Didaktische_Kommentierung.docx"
+  }
+}

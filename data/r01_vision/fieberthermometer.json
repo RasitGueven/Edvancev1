@@ -1,0 +1,12 @@
+{
+  "item": "fieberthermometer",
+  "gelesen_aus": ["data/r01_render/fieberthermometer/00_doc_image1.emf.png"],
+  "stem": "Die Abbildung zeigt ein Fieberthermometer. Die schwarze dicke Linie zeigt die gemessene Körpertemperatur in Grad Celsius an.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das gerenderte Bild enthält nur den Stamm und die Skalenbeschriftung des Thermometers (Zahlen 35, 36, 37, 38, 39, 40, 41, 42 in zwei versetzten Zeilen). Der eigentliche Thermometer-Balken und die dicke schwarze Messlinie sind im Render nicht sichtbar (Bild wirkt unten abgeschnitten).",
+    "Es ist im Bild KEIN Aufgabentext/Prompt und kein Antwortfeld zu erkennen. Die Auswertung kennt 2 Teilaufgaben — ich kann 0 Teilaufgaben lesen. Prompts bewusst leer gelassen statt geraten.",
+    "Ablesbarer Messwert nicht bestimmbar, da die Messlinie nicht sichtbar ist."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "item": "ueberschlagsrechnung",
+  "gelesen_aus": [
+    "data/r01_render/ueberschlagsrechnung/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Das Ergebnis von 91 · 88 soll durch eine Überschlagsrechnung im Kopf annähernd ermittelt werden. Welche Überschlagsrechnung eignet sich dafür am besten? Kreuze an.\n91 · 88 ≈",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "80 · 80"},
+        {"id": "b", "label": "90 · 90"},
+        {"id": "c", "label": "90 · 80"},
+        {"id": "d", "label": "91 · 85"},
+        {"id": "e", "label": "100 · 90"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

@@ -1,0 +1,165 @@
+{
+  "item": "fehlendezahlen",
+  "sources": {
+    "Aufgabe": {
+      "file": "fehlendezahlen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "ee334da03910a072"
+    },
+    "Auswertung": {
+      "file": "fehlendezahlen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "830c9ba88e92f2f9"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fehlendezahlen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "68e7d09ecd02cf14"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fehlendezahlen/00_image1.emf.png",
+      "tokens": "Trage jeweils die fehlende Zahl in das Kästchen.",
+      "deterministic_text": "Trage jeweils die fehlende Zahl in das Kästchen.",
+      "table": null,
+      "n_fragments": 2,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fehlendezahlen/01_image2.emf.png",
+      "tokens": "+ 9 = 4 ",
+      "deterministic_text": "+ 9 = 4",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fehlendezahlen/02_image3.emf.png",
+      "tokens": "    4 +=-17",
+      "deterministic_text": "4 + =-17",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fehlendezahlen/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Fehlende Zahlen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "-5"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "(-21)\n\nODER\n\n(Grenzfall)\n -21"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Fehlende Zahlen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "-5"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "(-21)\n\nODER\n\n(Grenzfall)\n -21"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgaben 1, 2:",
+      "Es kommt zu einem Vorzeichenfehler, oder es wird in Teilaufgabe 1 gedanklich die umgekehrte Gleichung +4 9 bzw. in Teilaufgabe 2 die Gleichung - 17  4 gelöst (Fehllösung: 5 bzw. 21) (K5).",
+      "Fehlerhafterweise wird der Term 9  4 bzw. 17  4 berechnet und ggfs. das Ergebnis\n13 noch mit einem negativen Vorzeichen versehen (Fehllösungen: 13 bzw. 13) (K5)."
+    ],
+    "quelle": "fehlendezahlen_Didaktische_Kommentierung.docx"
+  }
+}

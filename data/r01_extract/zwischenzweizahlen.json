@@ -1,0 +1,102 @@
+{
+  "item": "zwischenzweizahlen",
+  "sources": {
+    "Aufgabe": {
+      "file": "zwischenzweizahlen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "e6ae41be46ada2ef"
+    },
+    "Auswertung": {
+      "file": "zwischenzweizahlen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "26e290cb3b54c841"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zwischenzweizahlen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "6f9af31cfb64f92b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zwischenzweizahlen/00_image1.emf.png",
+      "tokens": "Welche der folgenden Zahlen liegt zwischen 0,06 und 0,07?Kreuze an.0,000620,00620,0620,62",
+      "deterministic_text": "Welche der folgenden Zahlen liegt zwischen 0,06 und 0,07?\nKreuze an.\n0,00062 0,0062 0,062 0,62",
+      "table": null,
+      "n_fragments": 23,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zwischenzweizahlen/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Zwischen zwei Zahlen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Zwischen zwei Zahlen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative [01, 02] (Fehllösung: 0,00062 bzw. 0,0062): Werden diese Antwort-alternativen angekreuzt kann es darauf hindeuten, dass das Intervall der Aufgabenstellung nicht richtig erkannt worden ist. Auch denkbar ist, dass die Bedeutung der Stellen nicht klar bzw. dieses Wissen nicht abrufbar ist.",
+      "Antwortalternative [04] (Fehllösung: 0,62): Eventuell wird die Möglichkeit, Endnullen „abzuhängen“, hier fälschlich auf die Stelle der Zehntel angewendet."
+    ],
+    "quelle": "zwischenzweizahlen_Didaktische_Kommentierung.docx"
+  }
+}

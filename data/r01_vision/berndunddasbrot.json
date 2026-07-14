@@ -1,0 +1,19 @@
+{
+  "item": "berndunddasbrot",
+  "gelesen_aus": ["data/r01_render/berndunddasbrot/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Fülle den Lückentext sinnvoll aus. Verwende 500 g, 5 kg sowie 55,5 kg jeweils einmal.\n\nBernd geht in die 6. Klasse. Seine volle Schultasche wiegt __________. Auf dem Heimweg von der Schule kauft er ein Brot, das __________ wiegt. Bernd stellt sich mit seiner vollen Schultasche und dem Brot auf die Waage. Die Waage zeigt __________ an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Lückentext mit DREI Lücken, die Auswertung kennt nur 1 Teilaufgabe — ich habe alle drei Lücken als eine Teilaufgabe (Lückentext) gefasst, so wie das Bild sie zeigt."
+  ]
+}

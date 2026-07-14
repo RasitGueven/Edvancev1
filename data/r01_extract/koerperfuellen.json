@@ -1,0 +1,178 @@
+{
+  "item": "koerperfuellen",
+  "sources": {
+    "Aufgabe": {
+      "file": "koerperfuellen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "c66e81955e91752a"
+    },
+    "Auswertung": {
+      "file": "koerperfuellen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "4382467d86a52263"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "koerperfuellen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "b22e87f25a2da004"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/koerperfuellen/00_image1.emf.png",
+      "tokens": "Ein Quader, dessen Kanten hier dick gezeichnet sind, ist mit einigen kleinen 1-cm3-Würfeln gefüllt.1cm1cm1cmGrafik: © IQB",
+      "deterministic_text": "Ein Quader, dessen Kanten hier dick gezeichnet sind, ist mit einigen kleinen\n1-cm³-Würfeln gefüllt.\n1cm\n1cm\n1cm\nGrafik: © IQB",
+      "table": {
+        "header": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "1cm"
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "1cm"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "1cm",
+            ""
+          ],
+          [
+            "Grafik",
+            "",
+            ": © IQB",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 21,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/koerperfuellen/01_image2.emf.png",
+      "tokens": "Wie groß ist das Volumen des Quaders insgesamt?Kreuze an.14cm316cm374cm390cm3126cm3",
+      "deterministic_text": "Wie groß ist das Volumen des Quaders insgesamt?\nKreuze an.\n14cm³ 16cm³ 74cm³ 90cm³ 126cm³",
+      "table": null,
+      "n_fragments": 19,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/koerperfuellen/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Körper füllen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Körper füllen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K4",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Die Anzahl der Würfel in Länge, Breite und Höhe wird addiert anstatt multipliziert, d. h. das Routineverfahren zur Volumenbestimmung wird nicht korrekt ausgeführt und das Volumen wird fälschlich mit 14 Kubikzentimeter angegeben (Kästchen 1 wird angekreuzt).",
+      "Es wird nur die Würfelanzahl einer Ebene betrachtet und dabei werden entweder die Länge oder die Höhe des Quaders außer Acht gelassen. Dabei wird die Würfelanzahl einer Ebene nicht genau bestimmt, sondern es wird nur davon ausgegangen, dass das Volumen gering sein muss (Kästchen 1 oder Kästchen 2 wird angekreuzt)."
+    ],
+    "quelle": "koerperfuellen_Didaktische_Kommentierung.docx"
+  }
+}

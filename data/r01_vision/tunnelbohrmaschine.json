@@ -1,0 +1,12 @@
+{
+  "item": "tunnelbohrmaschine",
+  "gelesen_aus": [
+    "data/r01_render/tunnelbohrmaschine/00_doc_image1.emf.png"
+  ],
+  "stem": "Die Tunnelbohrmaschine VERA (Von der Elbe Richtung Alster) begann am 15. Mai 2008 mit dem Ausbohren des Fahrtunnels für die neue Hamburger U-Bahnlinie U4. Diese Tunnelbohrmaschine schafft durchschnittlich 10 m Tunnellänge in 24 Stunden. Für den Bau dieses Tunnels sind bei pausenlosem Betrieb vierzig Wochen (also 280 Tage) angesetzt.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält ausschließlich den Stammtext. Es sind KEINE Teilaufgaben/Prompts im Bild zu sehen, die Auswertung kennt aber 2 Teilaufgaben. Ich folge dem Bild und lasse parts leer, statt Fragen zu erfinden. Die Arbeitsaufträge liegen offenbar außerhalb dieses EMF."
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "item": "wuerfelkoerper",
+  "gelesen_aus": [
+    "data/r01_render/wuerfelkoerper/00_doc_image1.emf.png"
+  ],
+  "stem": "Ein Würfel ist aus lauter kleinen Würfeln zusammengesetzt (siehe Bild). Jeder der kleinen Würfel hat ein Volumen von 1 cm³.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält nur den Stammtext und die Würfelzeichnung. Es sind KEINE Teilaufgaben/Prompts sichtbar, die Auswertung kennt aber 2 Teilaufgaben. Ich folge dem Bild und lasse parts leer, statt Fragen zu erfinden.",
+    "'(Abbildung nicht maßstabsgerecht)' ist Abbildungsbeschriftung, nicht Stamm."
+  ]
+}

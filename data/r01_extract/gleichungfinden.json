@@ -1,0 +1,172 @@
+{
+  "item": "gleichungfinden",
+  "sources": {
+    "Aufgabe": {
+      "file": "gleichungfinden_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "04c5eabc7f8d0d1d"
+    },
+    "Auswertung": {
+      "file": "gleichungfinden_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "5fac3cc170195e1c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gleichungfinden_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "de09f95691699868"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungfinden/00_image1.emf.png",
+      "tokens": "Eine Zahl n wird mit 5 multipliziert. Von diesem Produkt wird 7 subtrahiert. Die Differenz ist 38.",
+      "deterministic_text": "Eine Zahl n wird mit 5 multipliziert. Von diesem Produkt wird 7 subtrahiert.\nDie Differenz ist 38.",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungfinden/01_image2.emf.png",
+      "tokens": "Welche der folgenden Gleichungen entspricht dieser Rechnung?Kreuze an.5n+7 = 385n–7 = 385n· 7 = 385 (n–7) = 38",
+      "deterministic_text": "Welche der folgenden Gleichungen entspricht dieser Rechnung?\nKreuze an.\n5n+7 = 38\n5n–7 = 38\n5n· 7 = 38\n5 (n–7) = 38",
+      "table": null,
+      "n_fragments": 29,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungfinden/02_image3.emf.png",
+      "tokens": "Gib an, wie groß n ist.n= ",
+      "deterministic_text": "Gib an, wie groß n ist.\nn=",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gleichungfinden/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Gleichung finden",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "9"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Gleichung finden"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "9"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 12.1:",
+      "Die Begrifflichkeiten der Rechenoperationen können nicht abgerufen und auf die symbolische Ebene übertragen werden:",
+      "Subtraktion und Addition werden verwechselt (Kästchen 1 wird angekreuzt)",
+      "Subtraktion und Multiplikation werden verwechselt (Kästchen 3 wird angekreuzt)",
+      "Die Reihenfolge der Rechenoperationen kann nicht in eine Gleichung übertragen werden (Kästchen 4 wird angekreuzt).",
+      "Zu Teilaufgabe 12.2:",
+      "Der Algorithmus zur Lösung der Gleichung wird falsch ausgeführt. Anstatt 7 auf beiden Seiten zu addieren, wird dies nur auf der linken Seite gemacht, wie folgende Schülerlösung zeigt:",
+      "Der Algorithmus zur Lösung der Gleichung wird nicht ausgeführt. Statt dessen wird die gesamte linke Seite als n angesehen:",
+      "Der Algorithmus zur Lösung der Gleichung wird falsch ausgeführt, indem beispielsweise nicht durch 5 dividiert wird:"
+    ],
+    "quelle": "gleichungfinden_Didaktische_Kommentierung.docx"
+  }
+}

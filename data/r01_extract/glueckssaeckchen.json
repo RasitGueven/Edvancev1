@@ -1,0 +1,211 @@
+{
+  "item": "glueckssaeckchen",
+  "sources": {
+    "Aufgabe": {
+      "file": "glueckssaeckchen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "de742eb6cbf93f3a"
+    },
+    "Auswertung": {
+      "file": "glueckssaeckchen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "9e63690ec9a48589"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "glueckssaeckchen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "0b1387aba1d85953"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/glueckssaeckchen/00_image1.emf.png",
+      "tokens": "Bei einem Glücksspiel darf man sich von den drei Säckchen A, B, C eines auswählen. Unter den einzelnen Säckchen siehst du, mit welchen Kugeln sie gefüllt werden. In jedem Säckchen befinden sich dann schwarze und weiße Kugeln. Man zieht ohne hinzusehen aus seinem ausgewählten Säckchen eine Kugel; ist sie weiß, hat man gewonnen, ist sie schwarz, hat man verloren.BCA",
+      "deterministic_text": "A B C\nBei einem Glücksspiel darf man sich von den drei Säckchen A, B, C eines auswählen.\nUnter den einzelnen Säckchen siehst du, mit welchen Kugeln sie gefüllt werden. In jedem\nSäckchen befinden sich dann schwarze und weiße Kugeln. Man zieht ohne hinzusehen\naus seinem ausgewählten Säckchen eine Kugel; ist sie weiß, hat man gewonnen, ist sie\nschwarz, hat man verloren.",
+      "table": null,
+      "n_fragments": 28,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/glueckssaeckchen/01_image2.emf.png",
+      "tokens": "Bei welchem Säckchen ist die Wahrscheinlichkeit zu gewinnen am größten?Kreuze an.Begründe deine Entscheidung.ABC",
+      "deterministic_text": "Bei welchem Säckchen ist die Wahrscheinlichkeit zu gewinnen am größten?\nKreuze an.\nA B C\nBegründe deine Entscheidung.",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/glueckssaeckchen/02_image3.emf.png",
+      "tokens": "Die Kugeln der drei Säckchen werden alle in einen größeren Sack zusammengeschüttet.Nun wird aus diesem größeren Sack eine Kugel gezogen.Wie groß ist jetzt die Wahrscheinlichkeit zu gewinnen?",
+      "deterministic_text": "Die Kugeln der drei Säckchen werden alle in einen größeren Sack\nzusammengeschüttet.\nNun wird aus diesem größeren Sack eine Kugel gezogen.\nWie groß ist jetzt die Wahrscheinlichkeit zu gewinnen?",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/glueckssaeckchen/03_image4.emf.png",
+      "tokens": "Zwei andere Säckchen sind jeweils mit mKugeln gefüllt. Im ersten Säckchen befinden sich n1weiße Kugeln, im zweiten Säckchen n2weiße Kugeln. Der Inhalt der beiden Säckchen wird wieder in einen großen Sack zusammengeschüttet und es wird aus dem großen Sack eine Kugel gezogen.Welcher Term gibt die Wahrscheinlichkeit an, mit der man gewinnt? Kreuze an.12nnm2+⋅12nnm2⋅⋅+12nnm12nnm⋅",
+      "deterministic_text": "Zwei andere Säckchen sind jeweils mit mKugeln gefüllt. Im ersten Säckchen befinden\nsich n1weiße Kugeln, im zweiten Säckchen n2weiße Kugeln. Der Inhalt der beiden\nSäckchen wird wieder in einen großen Sack zusammengeschüttet und es wird aus\ndem großen Sack eine Kugel gezogen.\nWelcher Term gibt die Wahrscheinlichkeit an, mit der man gewinnt?\nKreuze an.\nnn12+ nn12⋅ nn12⋅ nn12+\nm m 2⋅m 2⋅m",
+      "table": null,
+      "n_fragments": 45,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/glueckssaeckchen/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Glückssäckchen",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:",
+      "Teilaufgabe 3:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "A\n\nUND\n\nBegründung mit vergleichendem Bezug auf die Anteile weißer Kugeln in den Säckchen, der bei A am höchsten ist.\n\nBeispiel(e)\nDer Anteil der weißen Kugeln ist bei Beutel A am höchsten, nämlich 50 %, bei B sind es nur 40 % und bei C nur 42,8 %.\nBei Beutel A sind es genauso viele weiße wie schwarze Kugeln. Bei den beiden anderen Säckchen sind es mehr schwarze als weiße Kugeln.\nIn A sind mehr weiße Kugeln als in B, aber gleich viele schwarze Kugeln. Die Wahrscheinlichkeit zu gewinnen ist bei A also größer als bei B. In A sind gleich viele weiße Kugeln wie in C, jedoch weniger schwarze Kugeln. Die Wahrscheinlichkeit zu gewinnen ist bei A also größer als bei C.\n(Grenzfall)\nA: , B: , C: ; ohne Anmerkung zum Vergleich"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Glückssäckchen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "A\n\nUND\n\nBegründung mit vergleichendem Bezug auf die Anteile weißer Kugeln in den Säckchen, der bei A am höchsten ist.\n\nBeispiel(e)\nDer Anteil der weißen Kugeln ist bei Beutel A am höchsten, nämlich 50 %, bei B sind es nur 40 % und bei C nur 42,8 %.\nBei Beutel A sind es genauso viele weiße wie schwarze Kugeln. Bei den beiden anderen Säckchen sind es mehr schwarze als weiße Kugeln.\nIn A sind mehr weiße Kugeln als in B, aber gleich viele schwarze Kugeln. Die Wahrscheinlichkeit zu gewinnen ist bei A also größer als bei B. In A sind gleich viele weiße Kugeln wie in C, jedoch weniger schwarze Kugeln. Die Wahrscheinlichkeit zu gewinnen ist bei A also größer als bei C.\n(Grenzfall)\nA: , B: , C: ; ohne Anmerkung zum Vergleich"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisch argumentieren (K1)\nProbleme mathematisch lösen (K2)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K2",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "glueckssaeckchen_Didaktische_Kommentierung.docx"
+  }
+}

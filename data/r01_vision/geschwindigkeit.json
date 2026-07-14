@@ -1,0 +1,25 @@
+{
+  "item": "geschwindigkeit",
+  "gelesen_aus": [
+    "data/r01_render/geschwindigkeit/00_image1.emf.png",
+    "data/r01_render/geschwindigkeit/01_image2.emf.png"
+  ],
+  "stem": "Für Geschwindigkeitsüberschreitungen (d. h. für zu schnelles Fahren) innerhalb von Ortschaften gelten neue Bußgelder.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Jemand fährt in der Innenstadt mit einer Geschwindigkeit von 58 km/h, obwohl dort nur 30 km/h erlaubt sind. Mit welchem Bußgeld ist jetzt zu rechnen? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "60 €"},
+        {"id": "b", "label": "100 €"},
+        {"id": "c", "label": "175 €"},
+        {"id": "d", "label": "280 €"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

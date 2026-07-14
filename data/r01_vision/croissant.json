@@ -1,0 +1,17 @@
+{
+  "item": "croissant",
+  "gelesen_aus": ["data/r01_render/croissant/00_image1.emf.png"],
+  "stem": "Marc tankt für 43,80 €. Im Tankstellenladen kauft er noch ein Schoko-Croissant. Er bezahlt beides mit einem 50 €-Schein und bekommt 4,95 € zurück.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie teuer das Schoko-Croissant ist.",
+      "unit": "€",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

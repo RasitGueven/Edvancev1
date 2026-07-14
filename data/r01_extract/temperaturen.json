@@ -1,0 +1,184 @@
+{
+  "item": "temperaturen",
+  "sources": {
+    "Aufgabe": {
+      "file": "temperaturen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "3861bd4c000afdeb"
+    },
+    "Auswertung": {
+      "file": "temperaturen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "1e8ee681186e82fa"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "temperaturen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "dbaf52b5251d0aa2"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/temperaturen/00_doc_image1.emf.png",
+      "tokens": "Die Tabelle und das Diagramm zeigen für Frankfurt am Main die langjährigen Durchschnitts-temperaturen der einzelnen Monate in °C.MonateJan.Feb.MärzDurchschnitts-temperatur in °C1,62,36,2Apr.Mai9,514,2Juni17,2JuliAug.19,4Sep.Okt.Nov.19,014,89,8Dez.2,70123456789101112131415161718192021Jan.Feb.MärzApr.MaiJuniJuliAug.Sep.Okt.Nov.Dez.MonateDurchschnittstemperatur in °C",
+      "deterministic_text": "Die Tabelle und das Diagramm zeigen für Frankfurt am Main die langjährigen Durchschnitts-\ntemperaturen der einzelnen Monate in °C.\nMonate Jan.Feb.März Apr.Mai Juni JuliAug.Sep.Okt.Nov.Dez.\nDurchschnitts- 1,6 2,3 6,2 9,5 14,217,2 19,419,014,8 9,8 2,7\ntemperatur in °C\n21\n20\n19\nC18\n°17\nni16\nru15\nta14\nre13\np12\nme11\nts10\ntti\nn9\nhc8\nsh7\ncr6\nu5\nD4\n3\n2\n1\n0\nJan. Feb. März Apr. Mai Juni Juli Aug. Sep. Okt. Nov. Dez.\nMonate",
+      "table": null,
+      "n_fragments": 133,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Temperaturen in Frankfurt am Main",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "5 (oder 5,0).\nAnm.: Wird das Gradzeichen zusätzlich angegeben, ist die Lösung\ndennoch als richtig zu kodieren."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "In das Diagramm wurde der fehlende Punkt bei 19,0 °C\neingezeichnet.\nZeichentoleranz: ( 1 mm"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Temperaturen in Frankfurt am Main"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "5 (oder 5,0).\nAnm.: Wird das Gradzeichen zusätzlich angegeben, ist die Lösung\ndennoch als richtig zu kodieren."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "In das Diagramm wurde der fehlende Punkt bei 19,0 °C\neingezeichnet.\nZeichentoleranz: ( 1 mm"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "• Die Durchschnittstemperatur im Monat November wird falsch abgelesen",
+      "[Fehllösungen 4 °C bzw. 6 °C] (K4).",
+      "• Die Durchschnittstemperatur im Monat August wird an der falschen Stelle",
+      "eingetragen (K4).",
+      "• Die Durchschnittstemperatur im Monat August wird durch graphische",
+      "Interpolation der Temperaturen im Juli und September ermittelt, und der",
+      "in der Tabelle gegebene Wert wird außer Acht gelassen (K4).",
+      "• Die kombinierte Deutung der mathematikhaltigen Begriffe „Unterschied“,",
+      "„tiefsten“ und „höchsten“ in der dritten Aussage bereitet Probleme (K6).",
+      "Weiterarbeit und Förderung",
+      "Bereitet der Umgang mit den fachsprachlichen Begriffen Probleme, kann man",
+      "die Schülerinnen und Schüler dazu auffordern, weitere Aussagen zu diesem",
+      "Graphen zu formulieren. Weiterhin kann man sie auffordern, Fragen zu",
+      "stellen, die man anhand der gegebenen Daten beantworten kann oder auch",
+      "nicht beantworten kann und lässt dies auch begründen.",
+      "Die folgenden Aufforderungen bieten sich hier an:",
+      "- Formuliere weitere Aussagen, die zu diesem Diagramm passen.",
+      "- Formuliere eine Aufgabe, die man mithilfe dieses Diagramms (mithilfe",
+      "der Tabelle) beantworten kann.",
+      "- Formuliere eine Aufgabe, die man mithilfe dieses Diagramms (mithilfe",
+      "der Tabelle) nicht beantworten kann. Gib dabei an, welche Information",
+      "Dieser Kontext bietet auch die Gelegenheit, die Bedeutung von",
+      "„Durchschnittstemperaturen“ zu thematisieren, die in der vorliegenden",
+      "Aufgabe faktisch keine Rolle spielen. Insbesondere Fehllösungen zu",
+      "Teilaufgabe 2 können hierfür als Anlass genommen werden, da man allein aus",
+      "der Darstellung der diskreten Punkte nicht schlussfolgern kann, wie sich",
+      "die Temperatur zwischen zwei Monaten (gedacht als Zeitpunkte) verhält. Dies",
+      "kann auch zum Anlass genommen werden zu überlegen, unter welchen",
+      "Voraussetzungen man einen Graphen überhaupt „durchzeichnen“ darf."
+    ],
+    "quelle": "temperaturen_Didaktische_Kommentierung.doc"
+  }
+}

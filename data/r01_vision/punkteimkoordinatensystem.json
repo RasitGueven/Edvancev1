@@ -1,0 +1,28 @@
+{
+  "item": "punkteimkoordinatensystem",
+  "gelesen_aus": ["data/r01_render/punkteimkoordinatensystem/00_doc_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das einzige Bild ist eine reine Abbildung: ein Koordinatensystem (x von 1 bis 13, y von -2 bis 13) mit den eingezeichneten Punkten A(3|4), B(8|5), C(4|9); A ist mit B und mit C durch Strecken verbunden. Es ist KEIN Aufgabentext, kein Stamm und kein Prompt im Bild — die beiden laut Auswertung vorhandenen Teilaufgaben stehen nicht in der Grafik.",
+    "Queue meldet hat_tabelle_im_emf=true; das Raster im Bild ist jedoch das Gitternetz des Koordinatensystems, KEINE Datentabelle. stem_tabelle_erwartet deshalb auf false gesetzt — eine deterministische Tabellenrekonstruktion wäre hier falsch."
+  ]
+}

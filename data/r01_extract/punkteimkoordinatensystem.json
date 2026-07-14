@@ -1,0 +1,427 @@
+{
+  "item": "punkteimkoordinatensystem",
+  "sources": {
+    "Aufgabe": {
+      "file": "punkteimkoordinatensystem_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "9b1983a54fda3f3b"
+    },
+    "Auswertung": {
+      "file": "punkteimkoordinatensystem_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "adc30fc59a7ea55f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "punkteimkoordinatensystem_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "49736f42503d0027"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/punkteimkoordinatensystem/00_doc_image1.emf.png",
+      "tokens": "2468101224681012ACB357911131135791113-1-2yx",
+      "deterministic_text": "y\n13\n12\n11\n10\n9 C\n8\n7\n6\n5\nB\n4\nA\n3\n2\n1\n1 2 3 4 5 6 7 8 9 10111213x\n-1\n-2",
+      "table": {
+        "header": [
+          "",
+          "y",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "13",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "12",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "11",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "10",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "9",
+            "",
+            "",
+            "",
+            "C",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "8",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "7",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "6 5",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "B",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "4",
+            "",
+            "",
+            "A",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "3",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "2",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "-1",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "x"
+          ],
+          [
+            "",
+            "-2",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 35,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Punkte im Koordinatensystem",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Zeichnung und richtige Angabe der Koordinaten des\nPunktes (9\n[pic]\nToleranz: jeweils ( 0,1 sowohl bei der x-Koordinate als auch bei\nder y-Koordinate\nAnm.:\nGrenzfälle für „Richtig“:\n(1) Der gesuchte Punkt wird richtig eingezeichnet und dessen\nKoordinaten richtig angegeben. Die fehlenden Seiten der Raute\nwerden jedoch nicht ergänzt.\n(2) Der gesuchte Punkt wird richtig eingezeichnet und mit den\nbereits vorhandenen Punkten zu einer Raute ergänzt. Die x- und\ny-Koordinate werden jedoch vertauscht."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen, unvollständigen, fehlerhaften oder falschen\nAntworten."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nDie Spiegelachse muss durch die Punkte A (3\n(9\nbenannt werden.\nAnmerkungen:\n• Wenn beide Symmetrieachsen eingezeichnet sind, wird dies auch\nals richtig gewertet.\n• Akzeptiert werden sowohl bei der x-Koordinate als auch bei der\ny-Koordinate Abweichungen ( 2 mm."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Punkte im Koordinatensystem"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Zeichnung und richtige Angabe der Koordinaten des\nPunktes (9\n[pic]\nToleranz: jeweils ( 0,1 sowohl bei der x-Koordinate als auch bei\nder y-Koordinate\nAnm.:\nGrenzfälle für „Richtig“:\n(1) Der gesuchte Punkt wird richtig eingezeichnet und dessen\nKoordinaten richtig angegeben. Die fehlenden Seiten der Raute\nwerden jedoch nicht ergänzt.\n(2) Der gesuchte Punkt wird richtig eingezeichnet und mit den\nbereits vorhandenen Punkten zu einer Raute ergänzt. Die x- und\ny-Koordinate werden jedoch vertauscht."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen, unvollständigen, fehlerhaften oder falschen\nAntworten."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nDie Spiegelachse muss durch die Punkte A (3\n(9\nbenannt werden.\nAnmerkungen:\n• Wenn beide Symmetrieachsen eingezeichnet sind, wird dies auch\nals richtig gewertet.\n• Akzeptiert werden sowohl bei der x-Koordinate als auch bei der\ny-Koordinate Abweichungen ( 2 mm."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "II",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "III",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Die Eigenschaften einer Raute sind nicht bekannt. Stattdessen werden z. B.",
+      "die Eigenschaften eines Drachenvierecks genutzt (naheliegende Fehllösung",
+      "z. B. (8/9); K2).",
+      "Die x- und die y-Koordinate werden verwechselt (K5 und K4).",
+      "Die eingezeichnete Achse verläuft zwar durch den Mittelpunkt der Strecke",
+      "[pic], ist zu dieser jedoch nicht senkrecht, d. h. sie verläuft nicht",
+      "durch den Punkt A. Oder die eingezeichnete Achse verläuft zwar durch den",
+      "Punkt A, steht aber nicht senkrecht zur Strecke [pic], d. h. sie verläuft",
+      "nicht durch deren Mittelpunkt (Vorstellung zum Spiegeln einer Figur im",
+      "Sinne eines „Klappens/ Faltens“, K4)."
+    ],
+    "quelle": "punkteimkoordinatensystem_Didaktische_Kommentierung.doc"
+  }
+}

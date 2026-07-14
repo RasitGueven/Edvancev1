@@ -1,0 +1,19 @@
+{
+  "item": "schnittpunktvongraphen",
+  "gelesen_aus": ["data/r01_render/schnittpunktvongraphen/00_doc_image1.emf.png"],
+  "stem": "Zwei lineare Funktionen g und f haben die Funktionsgleichungen g(x) = 2x − 1 und f(x) = −x + 2.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib die Koordinaten des Schnittpunkts der Graphen beider Funktionen an.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Antwortsatz-Vorlage im Kasten: 'Die beiden Graphen schneiden sich im Punkt S (__ | __).' — als Eingabefeld gewertet, nicht als Prompt."
+  ]
+}

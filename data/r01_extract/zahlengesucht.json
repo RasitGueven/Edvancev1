@@ -1,0 +1,180 @@
+{
+  "item": "zahlengesucht",
+  "sources": {
+    "Aufgabe": {
+      "file": "zahlengesucht_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "963d815d60a4c7de"
+    },
+    "Auswertung": {
+      "file": "zahlengesucht_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "8b6e161592b62dc1"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zahlengesucht_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "fa9bb8b7466cbda7"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlengesucht/00_doc_image1.emf.png",
+      "tokens": "Schreibe alle dreistelligen Zahlen auf, die aus den Ziffern 1, 2 und 3 gebildet werden können. In keiner der Zahlen darf eine dieser Ziffern mehrfach vorkommen.",
+      "deterministic_text": "Schreibe alle dreistelligen Zahlen auf, die aus den Ziffern 1, 2 und 3 gebildet werden können.\nIn keiner der Zahlen darf eine dieser Ziffern mehrfach vorkommen.",
+      "table": null,
+      "n_fragments": 14,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Zahlen gesucht",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "123; 132; 213; 231; 312; 321\nAnm.: Die Reihenfolge der Zahlentupel ist irrelevant."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "120\nODER\n5!\nODER\n5 ( 4 ( 3 ( 2 ( 1\nODER\n24 ( 5"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Zahlen gesucht"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "123; 132; 213; 231; 312; 321\nAnm.: Die Reihenfolge der Zahlentupel ist irrelevant."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "120\nODER\n5!\nODER\n5 ( 4 ( 3 ( 2 ( 1\nODER\n24 ( 5"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Es wird nur die Anzahl 6 aller Permutationen notiert. Die Zahlen selbst",
+      "werden nicht an-gegeben.",
+      "Zu Teilaufgabe 1, 2:",
+      "• Es werden verschiedene Zahlenkombinationen mit den angegebenen Ziffern",
+      "notiert, ohne jedoch auf die Einschränkung hinsichtlich der Stellenanzahl",
+      "oder des Zahlenbereichs zu achten. So wird beispielsweise 12,3 als Zahl",
+      "• Es werden Permutationen vergessen oder aber doppelt aufgezählt (K2).",
+      "• Die Ziffer 5 wird als Anzahl möglicher neuer Zifferkombinationen",
+      "aufgefasst und somit zu den 24 verschiedenen Zahlen bei vier Ziffern",
+      "addiert (Fehllösung 29; K2)",
+      "• Die Anzahl möglicher Kombinationen wird mit 30 angegeben. Dies kann auf",
+      "verschiedenen Überlegungen basieren.",
+      "▪ Vermutlich verbirgt sich dahinter die Überlegung, dass es pro",
+      "Ziffer 6 verschiedene Kombinationsmöglichkeiten gibt (24 : 4 =",
+      "6). Demzufolge gibt es bei 5 verschiedenen Ziffern insgesamt 30",
+      "verschiedene Zahlen, wie die folgende Schülerlösung illustriert",
+      "▪ Es wird festgestellt, dass sich die Anzahl der Möglichkeiten",
+      "bei vier statt drei Ziffern vervierfacht. Daraus wird",
+      "geschlossen, dass es nun bei fünf Ziffern fünfmal so viele sein",
+      "müssen. Fälschlicherweise wird nun jedoch als Ausgangspunkt die",
+      "6 statt der 24 verwendet und 5 [pic] 6 = 30 gerechnet (K2).",
+      "Weiterarbeit und Förderung",
+      "Schwierigkeiten beim Lösen der Aufgabe können sicherlich des Öfteren auf",
+      "noch zu geringe Erfahrungen beim Lösen mathematischer Probleme",
+      "zurückgeführt werden. Aus diesem Grund bietet es sich an, die Aufgabe in",
+      "Kleingruppen bearbeiten zu lassen, so dass sich die Schülerinnen und",
+      "Schüler gegenseitig helfen können. Dabei können beispielsweise Tippkarten",
+      "zur Verfügung gestellt werden, um als Lehrkraft Zeit zur Beobachtung und",
+      "Unterstützung der einzelnen Gruppen nach dem Prinzip der minimalen",
+      "Intervention zu haben. Auf den Tippkarten könnten beispielsweise folgende",
+      "Hinweise stehen:",
+      "1. Legt euch eine Tabelle nach folgendem Muster an.",
+      "2. Notiert verschiedene Zahlenkombinationen. Versucht sie nach einem",
+      "bestimmten Kriterium zu sortieren. Welche Zahlenkombinationen fehlen euch",
+      "3. Übertragt das Problem auf einen anderen Kontext. z. B. das dreimalige",
+      "Ziehen einer Kugel mit den Ziffern 1, 2, 3 aus einer Urne ohne",
+      "Werden die Arbeitsergebnisse der Kleingruppen anschließend im Plenum",
+      "vorgestellt, können die verschiedenen Herangehensweisen sowie die genutzten",
+      "Hilfsmittel herausgearbeitet und zusammengestellt werden. Dabei sollte",
+      "zunächst das systematische Notieren der verschiedenen Zahlenkombinationen",
+      "angesprochen werden. Dies kann unter Rückgriff auf eine Tabelle oder auch",
+      "auf ein Baumdiagramm erfolgen. Im Anschluss an dieses Vorgehen kann leicht",
+      "überlegt werden, wie viele Plätze für die einzelnen Ziffern zur Verfügung",
+      "stehen und durch welche Rechnung sich die Anzahl möglicher Zahlen ermitteln",
+      "lässt. Hierauf aufbauend kann nun betrachtet werden, wie sich die Anzahl an",
+      "Zahlenkombinationen durch das Hinzu-fügen einer weiteren Ziffer verändert."
+    ],
+    "quelle": "zahlengesucht_Didaktische_Kommentierung.doc"
+  }
+}

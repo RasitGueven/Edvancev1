@@ -1,0 +1,23 @@
+{
+  "item": "lagevonzweigeraden",
+  "gelesen_aus": ["data/r01_render/lagevonzweigeraden/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Gegeben sind zwei Geraden durch die folgenden Gleichungen:\n1) y = 4x + 3\n2) y = 4x − 3\nWelche Lage haben diese Geraden zueinander? Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Die Geraden verlaufen parallel zueinander."},
+        {"id": "b", "label": "Die Geraden schneiden sich in einem Punkt."},
+        {"id": "c", "label": "Die Geraden sind identisch."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Das Item verlangt zwei Handlungen (Ankreuzen + Begründen) in einer Teilaufgabe; die Auswertung kennt 1 Teilaufgabe, daher als eine mc-Teilaufgabe mit Begründungsaufforderung im Prompt geführt."
+  ]
+}

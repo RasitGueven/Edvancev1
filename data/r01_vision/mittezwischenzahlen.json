@@ -1,0 +1,19 @@
+{
+  "item": "mittezwischenzahlen",
+  "gelesen_aus": [
+    "data/r01_render/mittezwischenzahlen/00_doc_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, welche Zahl genau in der Mitte der beiden Zahlen 6,06 und 6,6 liegt.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

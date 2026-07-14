@@ -1,0 +1,39 @@
+{
+  "item": "geldanlegen",
+  "gelesen_aus": [
+    "data/r01_render/geldanlegen/00_image1.png",
+    "data/r01_render/geldanlegen/01_image2.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Hanna legt bei einer Bank 2000 € an. Sie wird in den nächsten drei Jahren nichts von diesem Geld abheben. Jährlich erhält sie 1,8 % Zinsen. Die Zinsen werden mitverzinst. Wie hoch wird ihr Guthaben bei der Bank nach drei Jahren sein? Kreuze den Geldbetrag an, der am besten passt.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "2018 €"},
+        {"id": "b", "label": "2036 €"},
+        {"id": "c", "label": "2108 €"},
+        {"id": "d", "label": "2110 €"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Lily möchte auch Geld anlegen. Der Bankberater teilt ihr mit, dass sie für ihren Geldbetrag innerhalb von vier Jahren insgesamt 150 € Zinsen bekommen würde. Sie überlegt sich: „Dann zahle ich heute einfach 150 € weniger ein. Nach den vier Jahren wird dann der Betrag auf dem Konto sein, den ich im Moment habe.“ Hat Lily recht? Kreuze an. Begründe deine Entscheidung ohne Rechnung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Rasterbild (nur_raster): Text wurde aus dem Pixelbild gelesen, kein Zeichenvorrat zur Gegenprüfung.",
+    "Teil 2 verlangt zusätzlich eine freie Begründung im Kästchenraster; hier als MC-Teilaufgabe mit Begründungsaufforderung modelliert."
+  ]
+}

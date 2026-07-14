@@ -1,0 +1,115 @@
+{
+  "item": "plaettchenziehen",
+  "sources": {
+    "Aufgabe": {
+      "file": "plaettchenziehen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "2731441f910f28c0"
+    },
+    "Auswertung": {
+      "file": "plaettchenziehen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "9c473dc616158834"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "plaettchenziehen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "380b3581c27b2c11"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/plaettchenziehen/00_image1.emf.png",
+      "tokens": "In einem Gefäß sind – gut gemischt –20 gleich große Plättchen. Zehn davon sind mit A, die anderen zehn sind mit B beschriftet. ",
+      "deterministic_text": "In einem Gefäß sind – gut gemischt –20 gleich große Plättchen. Zehn davon sind mit A, die\nanderen zehn sind mit B beschriftet.",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/plaettchenziehen/01_image2.emf.png",
+      "tokens": "Ellen zieht ohne hinzusehen ein Plättchen heraus.Gib die Wahrscheinlichkeit dafür an, dass Ellen ein Plättchen mit einem A zieht.Die Wahrscheinlichkeit beträgt       .",
+      "deterministic_text": "Ellen zieht ohne hinzusehen ein Plättchen heraus.\nGib die Wahrscheinlichkeit dafür an, dass Ellen ein Plättchen mit einem A zieht.\nDie Wahrscheinlichkeit beträgt .",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/plaettchenziehen/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Plättchen ziehen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Plättchen ziehen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es wird missachtet, dass insgesamt 10 der 20 Plättchen mit A beschriftet sind. Die so fehlerhaft ermittelte Lösung beschreibt die Wahrscheinlichkeit dafür, ein bestimmtes Plättchen aus dem Behälter zu ziehen [Fehllösung: ] (K6).",
+      "Es wird irrtümlich die Wahrscheinlichkeit dafür bestimmt, ein bestimmtes der 10 mit A beschrifteten Plättchen zu ziehen. Die übrigen, mit B beschrifteten Plättchen werden missachtet [Fehllösung: ] (K3)."
+    ],
+    "quelle": "plaettchenziehen_Didaktische_Kommentierung.docx"
+  }
+}

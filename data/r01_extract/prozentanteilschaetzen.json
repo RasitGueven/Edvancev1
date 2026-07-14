@@ -1,0 +1,100 @@
+{
+  "item": "prozentanteilschaetzen",
+  "sources": {
+    "Aufgabe": {
+      "file": "prozentanteilschaetzen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "af204d735f0b84d6"
+    },
+    "Auswertung": {
+      "file": "prozentanteilschaetzen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "cfb2ad763a1df6c9"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "prozentanteilschaetzen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "5f4b9d8764849f34"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/prozentanteilschaetzen/00_image1.emf.png",
+      "tokens": "Wie viel Prozent der Kreisfläche sind grau gefärbt?Schätze und kreuze an.20%30%50%70%80%",
+      "deterministic_text": "Wie viel Prozent der Kreisfläche sind grau gefärbt?\nSchätze und kreuze an.\n20% 30% 50% 70% 80%",
+      "table": null,
+      "n_fragments": 14,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/prozentanteilschaetzen/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Prozentanteil schätzen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "5. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Prozentanteil schätzen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "5. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "prozentanteilschaetzen_Didaktische_Kommentierung.docx"
+  }
+}

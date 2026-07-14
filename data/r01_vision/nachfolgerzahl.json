@@ -1,0 +1,34 @@
+{
+  "item": "nachfolgerzahl",
+  "gelesen_aus": [
+    "data/r01_render/nachfolgerzahl/00_image1.emf.png",
+    "data/r01_render/nachfolgerzahl/01_image2.emf.png",
+    "data/r01_render/nachfolgerzahl/02_image3.emf.png"
+  ],
+  "stem": "Frank behauptet: „Wähle eine natürliche Zahl und bilde ihre Nachfolgerzahl. Quadriere beide Zahlen und ziehe das kleinere Ergebnis vom größeren ab. Dann erhältst du die Summe der beiden ursprünglich gewählten Zahlen.“",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Überprüfe Franks Behauptung mit den beiden Zahlen 12 und 13.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Stimmt Franks Behauptung auch für zwei beliebige aufeinander folgende natürliche Zahlen? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2 verlangt zusätzlich zum Ankreuzen eine Begründung: unter den Kästchen steht 'Begründe deine Antwort.' mit einem karierten Freitextfeld. Ob die Auswertung Ankreuzen + Begründung als eine oder zwei Teilaufgaben zählt, kann ich dem Bild nicht entnehmen."
+  ]
+}

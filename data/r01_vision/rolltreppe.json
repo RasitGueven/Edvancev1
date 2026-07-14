@@ -1,0 +1,12 @@
+{
+  "item": "rolltreppe",
+  "gelesen_aus": [
+    "data/r01_render/rolltreppe/00_doc_image1.emf.png"
+  ],
+  "stem": "In einer U-Bahn-Station befindet sich einer der Bahnsteige genau 21 m unter Straßenniveau. Nach oben gelangt man mit einer Rolltreppe.\nMonika stellt sich unten auf diese Rolltreppe und lässt sich einfach hochfahren.\nDas folgende Zeit-Höhen-Diagramm stellt dar, wie tief sie zu jedem Zeitpunkt noch unter der Erde (dem Straßenniveau) ist.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält nur den Stamm plus das Zeit-Höhen-Diagramm (Achsen 'Höhe' von 3 m bis -24 m, 'Zeit' mit 0,5 min / 1,0 min / 1,5 min / 2,0 min; Beschriftungen 'Straßenniveau', 'Bahnsteigniveau', Gerade 'Monika'). Die 3 Teilaufgaben laut Auswertung stehen nicht in diesem PNG — parts bleibt leer statt geraten."
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "item": "volumenverkleinerung",
+  "sources": {
+    "Aufgabe": {
+      "file": "volumenverkleinerung_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "f51c78bbcede78d1"
+    },
+    "Auswertung": {
+      "file": "volumenverkleinerung_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "5bda1fb6861af016"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "volumenverkleinerung_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "94fbe416aea7454d"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/volumenverkleinerung/00_doc_image1.emf.png",
+      "tokens": "Ein Würfel wird verkleinert. Das Volumen des neuen Würfels ist um ca. 27% geringer als das Volumen des ursprünglichen Würfels.",
+      "deterministic_text": "Ein Würfel wird verkleinert. Das Volumen des neuen Würfels ist um ca. 27% geringer als das\nVolumen des ursprünglichen Würfels.",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Volumenverkleinerung",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Begründung mittels einer allgemeinen Rechnung, einer\nBeispielrechnung oder einer eher begrifflichen Argumentation, in\nwelcher Bezug auf die aus der Veränderung des Volumens folgende\nVeränderung der Kantenlänge und damit der Oberflächengröße des\nWürfels genommen wird. Auch eine Ausschlussargumentation kann\ngegeben werden.\nz. B.\nAllgemeine Rechnung:\n27 % Verringerung des Volumens bedeutet eine Multiplikation des\nVolumens mit 0,73, das entspricht einer Multiplikation der\nKantenlängen mit [pic] und damit einer Multiplikation der\nOberflächengröße mit [pic] , also einer Verringerung um 19 %.\nODER\nWenn das Volumen um 27 % verringert wird, muss die Kantenlänge\ndes Würfels mit [pic] 0,9 multipliziert werden und die Oberfläche\nmit 0,81. Also bleibt von der ursprünglichen Oberfläche noch 81 %\nübrig.\nODER\nVolumen: [pic]Oberfläche:\n[pic]\nAlso: 100 % - 81 % = 19 %"
+          ],
+          [
+            "RICHTIG",
+            "ODER\nAusschlussargumentation\nDie richtige Lösung muss kleiner als 27 % sein,da sich der\nOberflächeninhalt weniger verkleinert als das Volumen\n(quadratisch versus kubisch- das muss aber nicht angegeben\nwerden!)\n27 % und 47 % können daher nicht richtig sein.\n9 % ist zu klein, weil dies nur der zugehörigen\nLängenverringerung entspräche, denn [pic]\nODER\nBeispielrechnung\nWenn der ursprüngliche Würfel eine Kantenlänge von 10 cm hat,\ndann hat er ein Volumen 1000 cm3, der verkleinerte Würfel hat\ndann ein Volumen von 730 cm3 und damit eine Kantenlänge 9 cm\n([pic]).\nDer ursprüngliche Würfel hat eine Oberflächengröße von 600 cm2,\nder verkleinerte hat eine Oberflächengröße von  6 ( 81 cm2 = 486\ncm2. Das entspricht einer prozentualen Verringerung von 19 %\n([pic])."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Begründungen.\nz. B.\nDa das Volumen um 27 % verringert wird, verringert sich auch die\nOberfläche um 27 %, denn es handelt sich um denselben Würfel."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Volumenverkleinerung"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Begründung mittels einer allgemeinen Rechnung, einer\nBeispielrechnung oder einer eher begrifflichen Argumentation, in\nwelcher Bezug auf die aus der Veränderung des Volumens folgende\nVeränderung der Kantenlänge und damit der Oberflächengröße des\nWürfels genommen wird. Auch eine Ausschlussargumentation kann\ngegeben werden.\nz. B.\nAllgemeine Rechnung:\n27 % Verringerung des Volumens bedeutet eine Multiplikation des\nVolumens mit 0,73, das entspricht einer Multiplikation der\nKantenlängen mit [pic] und damit einer Multiplikation der\nOberflächengröße mit [pic] , also einer Verringerung um 19 %.\nODER\nWenn das Volumen um 27 % verringert wird, muss die Kantenlänge\ndes Würfels mit [pic] 0,9 multipliziert werden und die Oberfläche\nmit 0,81. Also bleibt von der ursprünglichen Oberfläche noch 81 %\nübrig.\nODER\nVolumen: [pic]Oberfläche:\n[pic]\nAlso: 100 % - 81 % = 19 %"
+          ],
+          [
+            "RICHTIG",
+            "ODER\nAusschlussargumentation\nDie richtige Lösung muss kleiner als 27 % sein,da sich der\nOberflächeninhalt weniger verkleinert als das Volumen\n(quadratisch versus kubisch- das muss aber nicht angegeben\nwerden!)\n27 % und 47 % können daher nicht richtig sein.\n9 % ist zu klein, weil dies nur der zugehörigen\nLängenverringerung entspräche, denn [pic]\nODER\nBeispielrechnung\nWenn der ursprüngliche Würfel eine Kantenlänge von 10 cm hat,\ndann hat er ein Volumen 1000 cm3, der verkleinerte Würfel hat\ndann ein Volumen von 730 cm3 und damit eine Kantenlänge 9 cm\n([pic]).\nDer ursprüngliche Würfel hat eine Oberflächengröße von 600 cm2,\nder verkleinerte hat eine Oberflächengröße von  6 ( 81 cm2 = 486\ncm2. Das entspricht einer prozentualen Verringerung von 19 %\n([pic])."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Begründungen.\nz. B.\nDa das Volumen um 27 % verringert wird, verringert sich auch die\nOberfläche um 27 %, denn es handelt sich um denselben Würfel."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Antwortalternative 1 (Fehllösung 9 %): Dieser Prozentsatz entspricht der",
+      "Kanten-verkleinerung des Würfels, sodass die Schülerinnen und Schüler",
+      "eventuell die Anwendung auf die Würfeloberfläche vergessen haben. Wird",
+      "diese Antwortalternative gewählt, könnten die Schülerinnen und Schüler",
+      "eventuell auch die Verkleinerung des Volumens um 27 % gleichmäßig auf die",
+      "drei Kanten des Würfel, deren Längen zur Berechnung des Volumens",
+      "miteinander multipliziert werden, verteilt haben (K2 und K5).",
+      "• Antwortalternative 3 (Fehllösung 27 %): Die Wahl dieser",
+      "Antwortalternative deutet darauf hin, dass die Schülerinnen und Schüler",
+      "den Wert zur Verringerung des Volumens direkt auf den Oberflächeninhalt",
+      "übertragen haben. Dies könnte auf ungenügend ausgebildeten",
+      "Grundvorstellungen beruhen, wodurch ihnen die Abhängigkeit beider Größen",
+      "von der jeweiligen Kantenlänge und deren unterschiedliche Berechnung",
+      "nicht klar genug ist (K2 und K5).",
+      "• Antwortalternative 4 (Fehllösung 47 %): Wird diese Antwortalternative",
+      "gewählt, haben die Schülerinnen und Schüler vermutlich den",
+      "Volumenverkleinerungsfaktor statt den Kantenverkleinerungsfaktor",
+      "quadriert [Fehllösung: 0,732 = 0,53].",
+      "• Die Veränderung der Kantenlänge wird nicht richtig berechnet. Statt die",
+      "dritte Wurzel zu ziehen, wird durch drei dividiert, wie die folgende",
+      "Schülerlösung zeigt (K5).",
+      "Neben der fehlerhaften Berechnung der Kantenlänge fehlen weitere",
+      "Lösungsschritte, aus denen die Veränderung des Oberflächeninhalts",
+      "• Bezüglich der Berechnung des Volumen und des Oberflächeninhalts liegen",
+      "Fehlvorstellungen vor, welche zur Lösung der Aufgabe genutzt werden. Z.",
+      "B. wird davon ausgegangen, dass das Volumen der dreifachen Seitenlänge",
+      "und der Oberflächeninhalt der zweifachen Seitenlänge entsprechen, wie die",
+      "folgende Schülerlösung zeigt.",
+      "• Es wird kein richtiger Zusammenhang zwischen dem verkleinerten Volumen,",
+      "der hierdurch veränderten Kantenlänge und der Größe der Oberfläche",
+      "hergestellt. Die Veränderung des Volumens wird direkt auf die Oberfläche",
+      "übertragen. Die Abhängigkeit von der Seitenfläche sowie die",
+      "unterschiedlichen Dimensionen beider Größen werden nicht erkannt, wie die",
+      "folgende Schülerlösung zeigt (K6).",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung der Aufgabe Schwierigkeiten auf, können diese",
+      "auf ungenügend ausgebildete Grundvorstellungen zum Volumen- und zum",
+      "Oberflächeninhaltsbegriff beruhen. Um derartige Schwierigkeiten",
+      "aufzufangen, ist es naheliegend, den Schülerinnen verschiedene Materialien",
+      "zum Bau eines Würfels zur Verfügung zu stellen. Hierzu eignen sich",
+      "beispielsweise Klickis, Knete und Zahnstocher oder Pappbögen. Anhand der",
+      "gebauten Würfel können Volumen und Oberflächeninhalt veranschaulicht und",
+      "deren Berechnung wiederholt werden. Auch die Abhängigkeit beider Größen von",
+      "der Kantenlänge kann dabei thematisiert werden. Hierzu bieten sich",
+      "Fragestellungen an wie z. B.: „Wie verändert sich das Volumen des Würfels,",
+      "wenn die Länge aller Kanten verdoppelt wird?“ oder „Wie verändert sich der",
+      "Oberflächeninhalt des Quaders, wenn die Länge aller Kanten verdreifacht",
+      "wird?“. Zur Veranschaulichung der Veränderung können die gebauten Würfel",
+      "(sofern eine feste Kantenlänge vorgegeben wurde) problemlos neben- bzw.",
+      "übereinander gestapelt werden bzw. in ihr Netz zerlegt werden.",
+      "Eine weitere Schwierigkeit der Aufgabe beruht darauf, sich eine eigene",
+      "Strategie zurechtlegen zu müssen. Hierbei können die Schülerinnen und",
+      "Schüler auf vielfältige Weise unterstützt werden. Zum einen ist es denkbar,",
+      "das Problem in geeignete Teilprobleme zu zerlegen und beispielsweise",
+      "zunächst nach der Kantenlänge des verkleinerten Würfels zu fragen. Zum",
+      "anderen können den Schülerinnen und Schülern eine Reihe an unsortierten",
+      "Leitfragen und Hinweise an die Hand gegeben werden, um das Problem",
+      "möglichst selbstständig zu lösen. Mögliche unterstützende Fragen könnten",
+      "beispielsweise sein: „Welches Volumen hat der verbleibende Würfel?“, „Von",
+      "welchem Maß sind sowohl das Volumen als auch die Oberfläche abhängig“? oder",
+      "„Wie kannst du die Kantenlänge des verbleibenden Würfels berechnen?“.",
+      "Ausgehend von dem konkreten Beispiel dieser Volumenverkleinerung um 27 %",
+      "können sich auch verallgemeinernde Überlegungen zu einer",
+      "Volumenverkleinerung um a % anschließen. Hierzu ist es sicherlich ratsam,",
+      "weitere konkrete Beispiele (ggf. auch unter Einsatz eines",
+      "Computerprogramms) zu betrachten, bevor diese verallgemeinert werden"
+    ],
+    "quelle": "volumenverkleinerung_Didaktische_Kommentierung.doc"
+  }
+}

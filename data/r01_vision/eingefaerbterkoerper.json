@@ -1,0 +1,20 @@
+{
+  "item": "eingefaerbterkoerper",
+  "gelesen_aus": [
+    "data/r01_render/eingefaerbterkoerper/00_image1.emf.png",
+    "data/r01_render/eingefaerbterkoerper/01_image2.emf.png"
+  ],
+  "stem": "Der dargestellte Körper besteht aus drei gleich großen Würfeln. Dieser Körper wird vollständig in Farbe getaucht.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Nach dem Färben wird der Körper wieder in die einzelnen Würfel zerlegt. Gib an, wie viele Seitenflächen insgesamt ungefärbt sind.",
+      "unit": "Seitenflächen",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

@@ -1,0 +1,162 @@
+{
+  "item": "geldanlegen",
+  "sources": {
+    "Aufgabe": {
+      "file": "geldanlegen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "4b3913a88c343c50"
+    },
+    "Auswertung": {
+      "file": "geldanlegen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "59e1c4e9ef7c7def"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "geldanlegen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "10a422357e267fa6"
+    }
+  },
+  "flags": [
+    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/geldanlegen/00_image1.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/geldanlegen/01_image2.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/geldanlegen/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Geld anlegen",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung, die darauf  beruht, dass sich bei geändertem Grundwert auch der Prozentwert ändert.\n\nBeispiel(e)\nDer Betrag, den sie auf ihr Konto einzahlen möchte, ist um 150 € geringer. Also erhält sie für diese 150 € auch keine Zinsen. Sie bekommt also insgesamt weniger Zinsen, als wenn sie den gesamten Betrag zur Bank bringt. Deshalb ist ihr Guthaben am Ende geringer.\nZahlt man weniger ein, erhält man weniger Zinsen.\nDer Grundwert verringert sich, also auch die Zinsen."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten \n\nBeispiel(e)\nSie erhält nicht die gleichen Zinsen."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Geld anlegen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung, die darauf  beruht, dass sich bei geändertem Grundwert auch der Prozentwert ändert.\n\nBeispiel(e)\nDer Betrag, den sie auf ihr Konto einzahlen möchte, ist um 150 € geringer. Also erhält sie für diese 150 € auch keine Zinsen. Sie bekommt also insgesamt weniger Zinsen, als wenn sie den gesamten Betrag zur Bank bringt. Deshalb ist ihr Guthaben am Ende geringer.\nZahlt man weniger ein, erhält man weniger Zinsen.\nDer Grundwert verringert sich, also auch die Zinsen."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten \n\nBeispiel(e)\nSie erhält nicht die gleichen Zinsen."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1)\nMathematisch modellieren (K3)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "geldanlegen_Didaktische_Kommentierung.docx"
+  }
+}

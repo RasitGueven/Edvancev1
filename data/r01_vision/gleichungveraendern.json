@@ -1,0 +1,35 @@
+{
+  "item": "gleichungveraendern",
+  "gelesen_aus": [
+    "data/r01_render/gleichungveraendern/00_image1.emf.png",
+    "data/r01_render/gleichungveraendern/01_image2.emf.png",
+    "data/r01_render/gleichungveraendern/02_image3.emf.png"
+  ],
+  "stem": "Gegeben ist die Gleichung 2 · x + 4 = 14",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Lösung hat die Gleichung? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "3"},
+        {"id": "b", "label": "5"},
+        {"id": "c", "label": "7"},
+        {"id": "d", "label": "10"},
+        {"id": "e", "label": "12"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Verändere in der Gleichung genau eine der drei Zahlen 2, 4 oder 14 so, dass die veränderte Gleichung die Lösung x = 9 hat. Gib eine passende neue Gleichung an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}
