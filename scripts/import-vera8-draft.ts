@@ -107,7 +107,7 @@ async function importOne(
 
   if (!write) {
     stats.created += 1
-    if (b.answers || b.solutionBeleg) stats.solutions += 1
+    if (b.answers || b.belege.length) stats.solutions += 1
     return 'created'
   }
 
@@ -117,11 +117,16 @@ async function importOne(
   stats.created += 1
 
   // Loesung ausschliesslich ueber die RPC — task_solutions hat bewusst kein Grant.
-  if (b.answers || b.solutionBeleg) {
+  //
+  // p_solution wird NICHT mitgeschickt: seit B01 traegt `solution` den didaktischen
+  // Loesungsweg (Handarbeit), und der Beleg hat mit `beleg` sein eigenes Feld. Die
+  // RPC patcht pro Feld — ein Parameter, der fehlt, bleibt unveraendert. Der Import
+  // kann einen von Hand geschriebenen Loesungsweg also nicht mehr ueberschreiben.
+  if (b.answers || b.belege.length) {
     const { error: rpcErr } = await sb.rpc('task_solution_upsert', {
       p_task_id: taskId,
       p_correct_answers: b.answers ?? [],
-      p_solution: b.solutionBeleg,
+      p_beleg: b.belege,
     })
     if (rpcErr) throw new Error(`task_solution_upsert: ${rpcErr.message}`)
     stats.solutions += 1

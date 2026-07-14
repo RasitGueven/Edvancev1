@@ -6,6 +6,13 @@
 // stehen im _grounding der didaktischen Kommentierung und wollen von dort
 // uebernommen werden, nicht erfunden.
 //
+// ZWEI DINGE, DIE NICHT DASSELBE SIND (B01):
+//   beleg    — WORAUF sich die Loesung stuetzt: das woertliche Zitat aus der
+//              IQB-Auswertung. Kommt aus der Extraktion, read-only, unzerstoerbar
+//              (er steht nicht im FormState, also kann Speichern ihn nicht fassen).
+//   solution — DER LOESUNGSWEG, den ein Mensch schreibt. Editierbar.
+// Bis B01 teilten sich beide ein Feld, und wer den Weg schrieb, loeschte den Beleg.
+//
 // Coach-Hinweise: maximal drei (DB-CHECK). Wer mehr braucht, hat das Item nicht
 // verstanden.
 
@@ -14,20 +21,35 @@ import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { TEXTAREA_MD } from '@/lib/formStyles'
+import type { GroundingBeleg } from '@/types'
+import { BelegQuote } from './BelegQuote'
 import { AddButton, Field, IconButton, StringList } from './ui'
 import type { FormState, Hint, TypicalError } from './editorState'
 
 export function PedagogySection({
   state,
   set,
+  beleg,
 }: {
   state: FormState
   set: <K extends keyof FormState>(key: K, value: FormState[K]) => void
+  /** Der Quellenbeleg aus task_solutions.beleg. READ-ONLY. */
+  beleg: GroundingBeleg[]
 }): JSX.Element {
   const { t } = useTranslation('authoring')
 
   return (
     <div className="flex flex-col gap-4">
+      {beleg.length > 0 && (
+        <Field label={t('fields.solutionBeleg')} hint={t('fields.solutionBelegHint')}>
+          <div className="flex flex-col gap-3 rounded-[var(--radius-md)] bg-[var(--color-bg-app)] p-4">
+            {beleg.map((b, i) => (
+              <BelegQuote key={i} beleg={b} />
+            ))}
+          </div>
+        </Field>
+      )}
+
       <Field label={t('fields.solutionText')}>
         <textarea
           className={`${TEXTAREA_MD} w-full`}

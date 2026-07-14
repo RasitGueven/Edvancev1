@@ -51,7 +51,7 @@ import {
   type AuthoringCluster,
 } from '@/lib/supabase/taskAuthoring'
 import { useAuth } from '@/hooks/useAuth'
-import type { AuthoringSchema, AuthoringTask, TaskStatus } from '@/types'
+import type { AuthoringSchema, AuthoringTask, GroundingBeleg, TaskStatus } from '@/types'
 
 export function AuthoringEditorPage(): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -61,6 +61,9 @@ export function AuthoringEditorPage(): JSX.Element {
 
   const [task, setTask] = useState<AuthoringTask | null>(null)
   const [state, setState] = useState<FormState | null>(null)
+  // Der Quellenbeleg lebt BEWUSST neben dem FormState, nicht darin: was nicht im
+  // Formular steht, kann ein Speichern nicht ueberschreiben (B01).
+  const [beleg, setBeleg] = useState<GroundingBeleg[]>([])
   const [baseline, setBaseline] = useState<FormState | null>(null)
   const [schema, setSchema] = useState<AuthoringSchema | null>(null)
   const [clusters, setClusters] = useState<AuthoringCluster[]>([])
@@ -101,6 +104,7 @@ export function AuthoringEditorPage(): JSX.Element {
     setTask(taskRes.data)
     setState(form)
     setBaseline(form)
+    setBeleg(solutionRes.data.beleg)
 
     if (taskRes.data.reviewed_by) {
       const names = await getReviewerNames([taskRes.data.reviewed_by])
@@ -133,8 +137,8 @@ export function AuthoringEditorPage(): JSX.Element {
   // Pfleger gerade gemacht hat.
   const flags = useMemo(() => {
     if (!task || !state || !schema) return []
-    return computeFlags(draftTask(state, task), draftSolution(state), schema.hasStoffanker)
-  }, [task, state, schema])
+    return computeFlags(draftTask(state, task), draftSolution(state, beleg), schema.hasStoffanker)
+  }, [task, state, schema, beleg])
 
   const blockingCount = flags.filter((f) => f.blocking).length
 
@@ -292,7 +296,7 @@ export function AuthoringEditorPage(): JSX.Element {
             </Section>
 
             <Section title={t('sections.pedagogy')}>
-              <PedagogySection state={state} set={set} />
+              <PedagogySection state={state} set={set} beleg={beleg} />
             </Section>
 
             <Section title={t('sections.assets')}>

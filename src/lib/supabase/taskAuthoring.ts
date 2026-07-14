@@ -17,9 +17,11 @@ import type {
   AuthoringSchema,
   AuthoringTask,
   AuthoringTaskPatch,
+  GroundingBeleg,
   SolutionAnswers,
   SupabaseResult,
   TaskSolution,
+  TaskSolutionPatch,
 } from '@/types'
 
 /** PostgREST, wenn die RPC nicht existiert. */
@@ -167,6 +169,7 @@ const EMPTY_SOLUTION: TaskSolution = {
   exists: false,
   correct_answers: [],
   solution: null,
+  beleg: [],
   hints: [],
   coach_hints: [],
   typical_errors: [],
@@ -193,6 +196,9 @@ export async function getTaskSolution(
         exists: row.exists === true,
         correct_answers: (row.correct_answers ?? []) as SolutionAnswers,
         solution: row.solution ?? null,
+        // Fehlt die Spalte noch (DB vor B01), liefert die RPC kein `beleg` — dann
+        // bleibt das Panel im Editor einfach leer. Kein Sonderfall, kein Banner.
+        beleg: (row.beleg ?? []) as GroundingBeleg[],
         hints: row.hints ?? [],
         coach_hints: row.coach_hints ?? [],
         typical_errors: row.typical_errors ?? [],
@@ -206,19 +212,24 @@ export async function getTaskSolution(
 }
 
 /**
- * Schreibt die Loesung. task_solution_upsert ersetzt ALLE sechs Felder bei jedem
- * Aufruf — es gibt kein partielles Patchen. Der Aufrufer muss das vollstaendige
- * Objekt schicken, auch die Felder, die er nicht angefasst hat.
+ * Schreibt die Loesung — OHNE den Quellenbeleg.
+ *
+ * task_solution_upsert patcht seit B01 pro Feld: ein Parameter, der nicht
+ * mitgeschickt wird, bleibt in der DB unveraendert. Genau deshalb steht `beleg`
+ * hier nicht — das Tool kann ihn anzeigen, aber strukturell nicht zerstoeren.
+ *
+ * `p_solution` geht bewusst als Leerstring statt als null raus: null hiesse
+ * "unveraendert", und der Pfleger koennte einen Loesungsweg nie wieder leeren.
  */
 export async function upsertTaskSolution(
   taskId: string,
-  solution: Omit<TaskSolution, 'exists' | 'updated_at'>,
+  solution: TaskSolutionPatch,
 ): Promise<SupabaseResult<true>> {
   try {
     const { error } = await supabase.rpc('task_solution_upsert', {
       p_task_id: taskId,
       p_correct_answers: solution.correct_answers,
-      p_solution: solution.solution,
+      p_solution: solution.solution ?? '',
       p_hints: solution.hints,
       p_coach_hints: solution.coach_hints,
       p_typical_errors: solution.typical_errors,

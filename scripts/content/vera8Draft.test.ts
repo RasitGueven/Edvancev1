@@ -89,7 +89,8 @@ describe('flache Items', () => {
     expect(b.row.input_type).toBe('FREE_TEXT')
     // lsa_is_correct wuerde sonst versuchen, Freitext zu messen.
     expect(b.answers).toBeNull()
-    expect(b.solutionBeleg).toContain('Erwartungshorizont')
+    expect(b.belege[0]?.feld).toBe('erwartungshorizont')
+    expect(b.belege[0]?.zitat).toContain('Begruendung')
     expect(b.poolReadyAfterCare).toBe(false)
   })
 })
@@ -213,9 +214,24 @@ describe('Was der Import NICHT tut', () => {
         },
       }),
     )
-    expect(b.solutionBeleg).toContain('Auswertung.docx')
-    expect(b.solutionBeleg).toContain('16')
+    expect(b.belege).toEqual([
+      { feld: 'part1.correct_answers', quelle: 'Auswertung.docx', gate: 'G2', zitat: '16' },
+    ])
     // Der Prompt-Beleg ist kein Loesungsbeleg — er bleibt im oeffentlichen Index.
-    expect(b.solutionBeleg).not.toContain('Aufgabe.docx')
+    expect(JSON.stringify(b.belege)).not.toContain('Aufgabe.docx')
+  })
+
+  // B01: der Beleg hat ein eigenes Feld. Landete er wieder in `solution`, wuerde der
+  // erste von Hand geschriebene Loesungsweg ihn ueberschreiben — genau der Defekt,
+  // den C08 offen gelassen hat.
+  it('traegt den Beleg strukturiert, nie als Loesungstext', () => {
+    const b = buildItem(
+      item({
+        parts: [shortPart()],
+        _grounding: { 'part1.correct_answers': { quelle: 'Auswertung.docx', zitat: '16' } },
+      }),
+    )
+    expect(b).not.toHaveProperty('solutionBeleg')
+    expect(b.belege[0]).toEqual({ feld: 'part1.correct_answers', quelle: 'Auswertung.docx', zitat: '16' })
   })
 })

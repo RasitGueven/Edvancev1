@@ -17,11 +17,13 @@ import type {
   AuthoringInputType,
   AuthoringTask,
   AuthoringTaskPatch,
+  GroundingBeleg,
   PartOption,
   SolutionAnswers,
   TaskAsset,
   TaskPart,
   TaskSolution,
+  TaskSolutionPatch,
 } from '@/types'
 
 export type Hint = { level?: number; text: string }
@@ -187,13 +189,16 @@ export function normalizeParts(parts: TaskPart[]): TaskPart[] {
 }
 
 /**
- * Was an task_solution_upsert geht. Die RPC ersetzt ALLE Felder bei jedem Aufruf —
- * hier steht deshalb immer das vollstaendige Objekt, nie ein Patch.
+ * Was an task_solution_upsert geht.
+ *
+ * OHNE `beleg` — der Quellenbeleg steht bewusst nicht im FormState (B01). Er ist
+ * die Quelle, gegen die gepflegt wird; waere er Teil des Formulars, koennte ein
+ * Speichern ihn ueberschreiben. Er wird gelesen, angezeigt, nie zurueckgeschickt.
  *
  * Die Antwortform folgt dem input_type der TASK, nicht dem, was gerade im State
  * liegt: flach → Array, Multi-Part → { "<nr>": [...] } (P02, lsa_answers_valid).
  */
-export function toSolution(state: FormState): Omit<TaskSolution, 'exists' | 'updated_at'> {
+export function toSolution(state: FormState): TaskSolutionPatch {
   const multi = isMultiPart(state)
   const clean = (arr: string[]): string[] => arr.map((a) => a.trim()).filter((a) => a !== '')
 
@@ -239,6 +244,7 @@ export function draftTask(state: FormState, base: AuthoringTask): AuthoringTask 
   }
 }
 
-export function draftSolution(state: FormState): TaskSolution {
-  return { ...toSolution(state), exists: true }
+/** `beleg` kommt vom Server durchgereicht — er entsteht nie im Formular. */
+export function draftSolution(state: FormState, beleg: GroundingBeleg[] = []): TaskSolution {
+  return { ...toSolution(state), beleg, exists: true }
 }
