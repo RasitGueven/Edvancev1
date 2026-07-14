@@ -192,6 +192,19 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   (bounce + Scale + Spec-Dauern). Neue Living-Reference `/demo/v3`. TSC + Build grün.
   Offen: Browser-Check + Merge → `dev`.
 
+- **A01 — Autoren-Tool für die Item-Pflege** (Branch `feat/A01-autorentool`,
+  Retro `docs/retros/RETRO-A01.md`): `/admin/authoring` — Liste (Filter über
+  Status/Fach/Kompetenz/AFB/Befunde/Asset/Tabelle), Editor (Stamm, Teilaufgaben,
+  Tags inkl. **Stoffanker**, Assets mit Alt-Text, Lösung via
+  `task_solution_upsert`), Live-Vorschau in der Kind-Ansicht, Freigabe-Gate
+  `draft → review → ready` mit Prüfer + Zeitstempel. Read-only-Quellenbeleg
+  (`_grounding`) neben dem Editor. Zugriff coach/admin, Schreiben nur Admin.
+  TSC + Lint + 85 Tests + Build grün.
+  **Blockiert auf Rasit:** `docs/schema/A01-authoring.proposal.sql` prüfen und
+  ausführen (3 additive Felder/RPCs — Stoffanker, Lösungs-Lesepfad,
+  Freigabe-Audit). Bis dahin läuft das Tool im Degraded-Modus. Danach: `lsa_start`
+  auf `curriculum_grade` umstellen (eigener PR, **nach** der Pflege).
+
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
   KI-Erklärartikel → Eskalations-Trigger.

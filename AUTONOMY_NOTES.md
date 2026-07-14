@@ -219,3 +219,49 @@ in den Pool). Kein Handlungsbedarf, aber die Spec-Formulierung ist irreführend.
 Import mappt `edvance_matrix.inhaltsfelder` → Cluster-Name. Vorschlag fürs
 Foundation-Fenster: entweder `not null` auf `tasks.cluster_id` für `status='ready'`
 (Partial-Constraint) oder ein Left-Join + explizite Warnung in `lsa_start`.
+
+---
+
+## A01 — Autoren-Tool für die Item-Pflege (2026-07-14)
+
+Branch `feat/A01-autorentool`. Vollständige Begründung in `docs/retros/RETRO-A01.md`.
+
+### 1. Drei fehlende Schema-Felder — Vorschlag liegt, nicht ausgeführt
+
+Der Auftrag verbot eigenmächtiges Migrieren. Die additive Migration liegt deshalb in
+**`docs/schema/A01-authoring.proposal.sql`** (bewusst *nicht* in
+`supabase/migrations/` — dort würde sie bei einem `db push` still mitlaufen):
+
+- `tasks.curriculum_grade` — der **Stoffanker**. `class_level` ist der Herkunfts-
+  jahrgang (VERA ⇒ überall `8`), aber `lsa_start` filtert bereits
+  `coalesce(t.class_level, p_grade) <= p_grade` und liest die Spalte damit
+  *semantisch* als Stoffanker. Solange dort `8` steht, ist Klasse-7-Stoff für eine
+  Klasse-7-LSA unsichtbar. **Das ist ein stiller Pool-Fehler, kein Kosmetikthema.**
+- `task_solution_get(uuid)` — es gibt **keinen Lesepfad** zu `task_solutions`
+  (kein Grant, nur `task_solution_upsert`). Ohne ihn kann ein Pflege-Tool die
+  bestehende Lösung nur blind überschreiben.
+- `tasks.reviewed_by` / `reviewed_at` + `task_status_set(uuid, text)` — Freigabe-
+  Audit. Der Stempel muss aus `auth.uid()` kommen, nicht aus dem Request-Body.
+
+**Betroffene Symbole:** `tasks`, `task_solutions`, `lsa_start`, `lsa_has_answers`.
+**Nachlauf:** `lsa_start` auf `coalesce(t.curriculum_grade, t.class_level, p_grade)`
+umstellen — **erst nach** der Pflege, sonst mischt ein halb gepflegter Pool zwei
+Bedeutungen in einer Abfrage.
+
+Bis zur Ausführung läuft das Tool im Degraded-Modus (`probeAuthoringSchema()`
+fragt die DB, statt zu raten) und sagt im UI, was es nicht kann.
+
+### 2. `<Button asChild>` ist kaputt — im geteilten Baustein, nicht gefixt
+
+`src/components/ui/button.tsx` rendert immer `{loading && <Spinner/>}{children}`.
+Mit `asChild` sieht Radix' `Slot` darin **zwei** Kinder und wirft
+`React.Children.only expected to receive a single React element child` — also
+**immer**, nicht nur während `loading`. Gefunden vom Smoke-Test der Pflege-Liste.
+
+- **Warum nicht hier gefixt:** `src/components/ui/**` ist geteilter Baustein; der Fix
+  (bei `asChild` die children direkt durchreichen, ohne Spinner-Slot) berührt jeden
+  künftigen Aufrufer und gehört ins Foundation-Fenster.
+- **Umgehung im A01-Code:** `buttonVariants({…})` als `className` auf dem `<Link>`
+  (shadcn-idiomatisch, kein Slot).
+- **Betroffene Symbole:** `Button` (`asChild`-Pfad), jeder künftige
+  `<Button asChild><Link/></Button>`.
