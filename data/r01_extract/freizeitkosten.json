@@ -1,0 +1,101 @@
+{
+  "item": "freizeitkosten",
+  "sources": {
+    "Aufgabe": {
+      "file": "freizeitkosten_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "74e96ecccdc8fca1"
+    },
+    "Auswertung": {
+      "file": "freizeitkosten_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "a9ed33a6f2fd47d0"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "freizeitkosten_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "7dd3da3fe3d733c3"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freizeitkosten/00_image1.emf.png",
+      "tokens": "Betty hat sechs Monate lang notiert, wie viel Geld sie für ihre Freizeitaktivitäten ausgegeben hat.Sie hat ausgerechnet, dass sie in diesen sechs Monaten durchschnittlich 30€ pro Monat ausgegeben hat. Dennis sagt: „Die Arbeit hättest du dir sparen können. Das arithmetische Mittel liegt ja in jedem Fall immer genau in der Mitte zwischen dem kleinsten und dem größten Wert, bei deinen Zahlen also genau zwischen 20 und 40.“Hat Dennis Recht?JaNeinKreuze an.Begründe deine Entscheidung.Ausgaben in €Monat31Januar31Februar20März28April30Mai40Juni",
+      "deterministic_text": "Betty hat sechs Monate lang notiert, wie viel Geld sie für ihre Freizeitaktivitäten\nausgegeben hat.\nMonat Januar Februar März April Mai Juni\nAusgaben in € 31 31 20 28 30 40\nSie hat ausgerechnet, dass sie in diesen sechs Monaten durchschnittlich 30€ pro\nMonat ausgegeben hat.\nDennis sagt: „Die Arbeit hättest du dir sparen können. Das arithmetische Mittel liegt ja\nin jedem Fall immer genau in der Mitte zwischen dem kleinsten und dem größten\nWert, bei deinen Zahlen also genau zwischen 20 und 40.“\nHat Dennis Recht?\nKreuze an.\nJa Nein\nBegründe deine Entscheidung.",
+      "table": null,
+      "n_fragments": 48,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/freizeitkosten/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Freizeitkosten"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung, zum Beispiel durch Angabe eines Gegenbeispiels.\n\nBeispiel(e)\nWenn Betty im Februar 49 € ausgegeben hätte, dann läge das arithmetische Mittel bei 33 €. Das ist aber nicht exakt die Mitte zwischen 20 und 49."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Freizeitkosten"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung, zum Beispiel durch Angabe eines Gegenbeispiels.\n\nBeispiel(e)\nWenn Betty im Februar 49 € ausgegeben hätte, dann läge das arithmetische Mittel bei 33 €. Das ist aber nicht exakt die Mitte zwischen 20 und 49."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Argumentieren (K1),\nProbleme mathematisch lösen (K2),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K2",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "freizeitkosten_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "item": "gleichungenloesenistni",
+  "gelesen_aus": ["data/r01_render/gleichungenloesenistni/00_doc_image1.emf.png"],
+  "stem": "Gleichungen können auf verschiedene Arten gelöst werden.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das Bild enthält nur diesen einen Satz — keine Teilaufgabe, kein Prompt, keine Optionen, kein Eingabefeld. Die Auswertung kennt 3 Teilaufgaben; deren Texte sind im gerenderten Bild nicht vorhanden. Parts daher leer."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "item": "gluecksraddrehen",
+  "gelesen_aus": ["data/r01_render/gluecksraddrehen/00_doc_image1.emf.png"],
+  "stem": "Für eine Verlosung wurde ein Glücksrad entworfen. Es hat sechs verschieden große Sektoren, die mit den Buchstaben A, B, C, D, E und F beschriftet sind.\nBeim Drehen des Glücksrades treten diese Ergebnisse mit folgenden Wahrscheinlichkeiten p ein:",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Im Bild sind KEINE Teilaufgaben/Prompts sichtbar — nur Stamm und die Wahrscheinlichkeitstabelle. Die Auswertung nennt 2 Teilaufgaben; deren Text steht nicht in der Grafik. Prompts daher leer.",
+    "Die Tabelle enthält Ergebnis A–F mit p = 1/18, 1/12, 1/3, 1/6, 1/4, 1/9 (echte Bruchdarstellung mit Bruchstrich). Queue meldet hat_tabelle_im_emf=false, im Bild ist aber eindeutig ein Tabellenraster — stem_tabelle_erwartet auf true gesetzt."
+  ]
+}

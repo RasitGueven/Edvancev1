@@ -1,0 +1,139 @@
+{
+  "item": "linearundproportional",
+  "sources": {
+    "Aufgabe": {
+      "file": "linearundproportional_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "23818296b22c4819"
+    },
+    "Auswertung": {
+      "file": "linearundproportional_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "5b125eac80b4f716"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "linearundproportional_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "e08f369e3d22d9c0"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/linearundproportional/00_doc_image1.emf.png",
+      "tokens": "Eine proportionale Funktion kann im Koordinatensystem durch eine Gerade dargestellt werden, die durch den Punkt (0|0) verläuft. Jede lineare Funktion kann durch eine Funktionsgleichung der Form    beschrieben werden.=+ymxb",
+      "deterministic_text": "Eine proportionale Funktion kann im Koordinatensystem durch eine Gerade dargestellt\nwerden, die durch den Punkt (0|0) verläuft.\nJede lineare Funktion kann durch eine Funktionsgleichung der Form ymxb=+ beschrieben\nwerden.",
+      "table": null,
+      "n_fragments": 17,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Linear und proportional",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Wenn bereits 4 von 5 Kreuzen richtig gesetzt wurden.\n[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Linear und proportional"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Wenn bereits 4 von 5 Kreuzen richtig gesetzt wurden.\n[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "IV",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "V",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "▪ 1. Zeile: nein wurde angekreuzt: Die Deutung der Grundgebühr und der",
+      "Gebühren für die verbrauchten Kilowattstunden im durch eine",
+      "Funktionsgleichung gegebenen linearen Modell gelingt nicht (K3).",
+      "▪ 2. Zeile: nein wurde angekreuzt: Die vorliegende proportionale Funktion",
+      "wird nicht als Spezialfall einer linearen Funktion erkannt (K3).",
+      "▪ 3. Zeile: ja wurde angekreuzt: Es wird nicht erkannt, dass eine",
+      "Zinseszinssituation vorliegt. Möglicherweise wird der zweite Satz",
+      "überlesen (K3, und K6).",
+      "▪ 1. Zeile: falsch wurde angekreuzt: Die Quotientengleichheit als (sogar",
+      "charakteristische) Eigenschaft einer proportionalen Funktion wird nicht",
+      "▪ 2. Zeile: falsch wurde angekreuzt: Die Richtung der Argumentation wird",
+      "missachtet. Es wird nicht erkannt, dass eine proportionale Funktion ein",
+      "Sonderfall einer linearen Funktion ist (K1).",
+      "▪ 3. Zeile: richtig wurde angekreuzt: Die Bedeutung des Allquantors",
+      "„Jede“ wird vernachlässigt. Möglicherweise wird die vorliegende Aussage",
+      "mit der vorangehenden verwechselt ( K6 und K1).",
+      "▪ 4. Zeile: richtig wurde angekreuzt: Bei dieser Fehllösung wird eine",
+      "proportionale Funktion mit einer antiproportionalen verwechselt (K6 und",
+      "▪ 5. Zeile: richtig wurde angekreuzt: Die Vorstellung vom Verlauf einer",
+      "Geraden als Graph einer linearen Funktion ist verengt, da nur positive",
+      "Steigungen als zulässige Werte angenommen werden (K5)."
+    ],
+    "quelle": "linearundproportional_Didaktische_Kommentierung.doc"
+  }
+}

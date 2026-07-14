@@ -1,0 +1,35 @@
+{
+  "item": "eiscafe",
+  "gelesen_aus": [
+    "data/r01_render/eiscafe/00_image1.png",
+    "data/r01_render/eiscafe/01_image2.png",
+    "data/r01_render/eiscafe/02_image3.png"
+  ],
+  "stem": "Im Eiscafé Arnoldo kostet jede Kugel Eis 0,80 €.\nEine Portion Sahne kostet 0,50 €.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gina kauft vier Kugeln Eis mit einer Portion Sahne.\nWie viel muss Gina bezahlen?",
+      "unit": "€",
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Im Eiscafé Venezia bezahlt Max für fünf Kugeln Eis ohne Sahne 4,50 €.\nIn welchem Eiscafé ist eine Kugel Eis günstiger?\nKreuze an.\nNotiere deinen Lösungsweg.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Eiscafé Arnoldo"},
+        {"id": "b", "label": "Eiscafé Venezia"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Rasterbild-Item: Text wurde rein visuell gelesen, kein Zeichenvorrat zur Gegenprüfung.",
+    "Teil 2 verlangt neben dem Ankreuzen zusätzlich einen Lösungsweg (kariertes Feld); der Teil ist damit gemischt mc + free_text, ich habe ihn als 'mc' geführt."
+  ]
+}

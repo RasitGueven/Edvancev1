@@ -1,0 +1,116 @@
+{
+  "item": "zoobesuch",
+  "sources": {
+    "Aufgabe": {
+      "file": "zoobesuch_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "4d6ff37461be5635"
+    },
+    "Auswertung": {
+      "file": "zoobesuch_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "32d405074391ba8a"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zoobesuch_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "34392cce3a820112"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zoobesuch/00_image1.emf.png",
+      "tokens": "Susann fährt mit dem Fahrrad zügig zum Zoo. Am Eingang muss sie einige Zeit warten, um eine Eintrittskarte zu kaufen. Dann geht sie zu Fuß weiter durch den Zoo.",
+      "deterministic_text": "Susann fährt mit dem Fahrrad zügig zum Zoo. Am Eingang muss sie einige Zeit warten,\num eine Eintrittskarte zu kaufen. Dann geht sie zu Fuß weiter durch den Zoo.",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zoobesuch/01_image2.emf.png",
+      "tokens": "Welches Diagramm passt am besten zu diesem Vorgang? Kreuze an. ZeitWegZeitWegZeitWegZeitWeg",
+      "deterministic_text": "Welches Diagramm passt am besten zu diesem Vorgang?\nKreuze an.\nWeg Weg\nZeit Zeit\nWeg Weg\nZeit Zeit",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zoobesuch/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Zoobesuch"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Zoobesuch"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Für die Wartezeit wird erkannt, dass ein Wert gleich bleiben muss, dieser wird aber für die Zeit angenommen und entsprechend werden die Graphen 1 oder 3 als passend ausgewählt.",
+      "Es wird nicht erkannt, dass der Graph beim Laufen zu Fuß flacher verlaufen muss als bei der Fahrt mit dem Fahrrad und entsprechend wird Graph 4 als passend ausgewählt."
+    ],
+    "quelle": "zoobesuch_Didaktische_Kommentierung.docx"
+  }
+}

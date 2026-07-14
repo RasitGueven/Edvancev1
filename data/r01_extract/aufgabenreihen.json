@@ -1,0 +1,164 @@
+{
+  "item": "aufgabenreihen",
+  "sources": {
+    "Aufgabe": {
+      "file": "aufgabenreihen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "a89012ee283bdc36"
+    },
+    "Auswertung": {
+      "file": "aufgabenreihen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "623b0187ec579706"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "aufgabenreihen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "50ec89e5fe7472e2"
+    }
+  },
+  "flags": [
+    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/aufgabenreihen/00_image1.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/aufgabenreihen/01_image2.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/aufgabenreihen/02_image3.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/aufgabenreihen/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Aufgabenreihen",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1 + 3 + 5 + 7 = 16\n\nUND\n\n1 + 3 + 5 + 7 + 9 = 25"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nLösungsweg, aus welchem hervorgeht, dass durch Addition aller ungeraden positiven Zahlen beginnend mit 1 nicht die Summe 61 entstehen kann, oder darauf verwiesen wird, dass 61 keine Quadratzahl ist.\n\nBeispiel(e)\n1 + 3 + 5 + 7 + 9 + 11 + 13 = 49\n1 + 3 + 5 + 7 + 9 + 11 + 13 + 15 = 64\nGrenzfall\nNein es passt nicht, es kommen 64 raus.\n\n[Anm.: Das Ergebnis ist auch als richtig zu werten, wenn die Ergebnisse der beiden Rechnungen (16 und 25) nicht angegeben werden.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Aufgabenreihen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1 + 3 + 5 + 7 = 16\n\nUND\n\n1 + 3 + 5 + 7 + 9 = 25"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nLösungsweg, aus welchem hervorgeht, dass durch Addition aller ungeraden positiven Zahlen beginnend mit 1 nicht die Summe 61 entstehen kann, oder darauf verwiesen wird, dass 61 keine Quadratzahl ist.\n\nBeispiel(e)\n1 + 3 + 5 + 7 + 9 + 11 + 13 = 49\n1 + 3 + 5 + 7 + 9 + 11 + 13 + 15 = 64\nGrenzfall\nNein es passt nicht, es kommen 64 raus.\n\n[Anm.: Das Ergebnis ist auch als richtig zu werten, wenn die Ergebnisse der beiden Rechnungen (16 und 25) nicht angegeben werden.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1)\nProbleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K1",
+          "K2"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "aufgabenreihen_Didaktische_Kommentierung.docx"
+  }
+}

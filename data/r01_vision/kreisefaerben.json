@@ -1,0 +1,19 @@
+{
+  "item": "kreisefaerben",
+  "gelesen_aus": ["data/r01_render/kreisefaerben/00_doc_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Färbe 20 % dieser Kreise ein.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die zugehörige Kreis-Abbildung ist im gerenderten Bild nicht enthalten (nur der Aufgabensatz). Aufgabentyp ist eigentlich eine Zeichen-/Markieraufgabe; als free_text eingeordnet, da kein Ankreuzraster erkennbar ist."
+  ]
+}

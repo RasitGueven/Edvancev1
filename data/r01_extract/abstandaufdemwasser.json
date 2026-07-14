@@ -1,0 +1,94 @@
+{
+  "item": "abstandaufdemwasser",
+  "sources": {
+    "Aufgabe": {
+      "file": "abstandaufdemwasser_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "3cdb02b32407c98b"
+    },
+    "Auswertung": {
+      "file": "abstandaufdemwasser_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "531321833607ada1"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "abstandaufdemwasser_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "28edddb4c43ca1d3"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/abstandaufdemwasser/00_doc_image1.emf.png",
+      "tokens": "Ein Schiff fährt mit gleichbleibender Geschwindigkeit aus einem Hafen an einem Leuchtturm vorbei. Der nachstehenden Abbildung kann man entnehmen, wie viele Minuten es vom Ablegen bis zu den markierten Positionen braucht.Leuchtturm5 min10 min15 min20 min25 min30 min35 min2  kmHafen",
+      "deterministic_text": "Ein Schiff fährt mit gleichbleibender Geschwindigkeit aus einem Hafen an einem Leuchtturm\nvorbei. Der nachstehenden Abbildung kann man entnehmen, wie viele Minuten es vom\nAblegen bis zu den markierten Positionen braucht.\nLeuchtturm 35 min\n30 min\n25 min\n20 min\n15 min\n10 min\n5 min\nHafen 2 km",
+      "table": null,
+      "n_fragments": 26,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Abstand auf dem Wasser"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Abstand auf dem Wasser"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "IV",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "▪ 1. Antwortalternative wurde angekreuzt: Es ist zu vermuten, dass der",
+      "Bezug zum Leuchtturm nicht erkannt bzw. allgemeiner die Aufgabenstellung",
+      "nicht verstanden wurde (K3 bzw. K6).",
+      "▪ 2. Antwortalternative wurde angekreuzt: Zwar wird erkannt, dass es",
+      "einen kleinsten Abstand gibt, dieser wird jedoch zeitlich falsch",
+      "verortet; auch die zu kleine Minimalentfernung findet keine Beachtung",
+      "▪ 4. Antwortalternative wurde angekreuzt: Dies deutet entweder darauf",
+      "hin, dass die Entfernung des Schiffes zum Hafen in Abhängigkeit der",
+      "Fahrzeit betrachtet wurde, oder dass der Graph und der in der Abbildung",
+      "gegebene Weg gleichgesetzt wurden (K3 und K4)."
+    ],
+    "quelle": "abstandaufdemwasser_Didaktische_Kommentierung.doc"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "item": "bahncard",
+  "gelesen_aus": [
+    "data/r01_render/bahncard/00_image1.png",
+    "data/r01_render/bahncard/01_image2.png",
+    "data/r01_render/bahncard/02_image3.png"
+  ],
+  "stem": "Wenn man öfter längere Strecken mit dem Zug fährt, lohnt es sich, eine Bahncard zu kaufen. Mit einer Bahncard erhält man ein Jahr lang bei jedem Kauf einer Fahrkarte eine Ermäßigung auf den Normalpreis.\nDer Normalpreis für eine Hin- und Rückfahrt auf der Strecke Hamburg-Berlin beträgt insgesamt 140,00 €.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Herr Krause besitzt eine Bahncard 25. Damit erhält er eine Ermäßigung von 25 % auf den Normalpreis.\nWie viel muss er für die Hin- und Rückfahrt auf der Strecke Hamburg-Berlin insgesamt bezahlen?",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "25,00 €"},
+        {"id": "b", "label": "35,00 €"},
+        {"id": "c", "label": "70,00 €"},
+        {"id": "d", "label": "105,00 €"},
+        {"id": "e", "label": "175,00 €"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Frau Schnell kauft sich eine Bahncard 50. Damit erhält sie eine Ermäßigung von 50 % auf den Normalpreis. Für die Bahncard 50 bezahlt Frau Schnell 230,00 €.\nWie oft muss Frau Schnell die Strecke Hamburg-Berlin (Hin- und Rückfahrt) fahren, damit sich der Kauf der Bahncard 50 im Vergleich zum Normalpreis lohnt?",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2: Das Eingabefeld steht im Satz 'Sie muss die Strecke Hamburg-Berlin mindestens ____-mal hin und zurück fahren.' Die Antwort ist eine Anzahl (Einheit im Bild als '-mal' Teil des Satzes, nicht als Einheitslabel)."
+  ]
+}

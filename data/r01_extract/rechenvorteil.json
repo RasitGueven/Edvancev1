@@ -1,0 +1,94 @@
+{
+  "item": "rechenvorteil",
+  "sources": {
+    "Aufgabe": {
+      "file": "rechenvorteil_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "e379f9a878678a1f"
+    },
+    "Auswertung": {
+      "file": "rechenvorteil_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "9e1ae194bb58ec5b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rechenvorteil_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "346e7fb5c787f587"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rechenvorteil/00_doc_image1.emf.png",
+      "tokens": "4 ·3,15 ·25 =Wie kann Susanne einen Rechenvorteil nutzen, um diese Aufgabe ohne Nebenrechnung oder Taschenrechner zu lösen?Rechne vor.",
+      "deterministic_text": "4 ·3,15 ·25 =\nWie kann Susanne einen Rechenvorteil nutzen, um diese Aufgabe ohne Nebenrechnung oder\nTaschenrechner zu lösen?\nRechne vor.",
+      "table": null,
+      "n_fragments": 15,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Rechenvorteil"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Eine Berechnung (oder Beschreibung), die erkennen lässt, dass\nzunächst 4 mit 25 multipliziert wird. Das Endergebnis muss dabei\nnicht berechnet werden.\nZ. B.:\n4 ( 25 ( 3,15\nODER\nSusanne rechnet erst 4 mal 25 und das Ergebnis dann mal 3,15.\nODER\n100 ( 3,15"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\nSusanne rechnet: 4 ( 3 ( 25"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Rechenvorteil"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Eine Berechnung (oder Beschreibung), die erkennen lässt, dass\nzunächst 4 mit 25 multipliziert wird. Das Endergebnis muss dabei\nnicht berechnet werden.\nZ. B.:\n4 ( 25 ( 3,15\nODER\nSusanne rechnet erst 4 mal 25 und das Ergebnis dann mal 3,15.\nODER\n100 ( 3,15"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\nSusanne rechnet: 4 ( 3 ( 25"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "II",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Der Aspekt des Rechenvorteils bleibt unberücksichtigt. Die Rechnung wird",
+      "von links nach rechts schriftlich notiert (K2)."
+    ],
+    "quelle": "rechenvorteil_Didaktische_Kommentierung.doc"
+  }
+}

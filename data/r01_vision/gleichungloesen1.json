@@ -1,0 +1,20 @@
+{
+  "item": "gleichungloesen1",
+  "gelesen_aus": [
+    "data/r01_render/gleichungloesen1/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Löse die Gleichung 4 + x = −6.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Das Vorzeichen vor der 6 ist ein kurzer waagerechter Strich; ich lese ihn als Minuszeichen (−6). Ob im Quelltext ein Bindestrich, ein Gedankenstrich oder ein echtes Minuszeichen steht, ist aus dem Bild nicht entscheidbar.",
+    "Unter dem Prompt steht ein Karogitter als Rechenfläche — keine Tabelle."
+  ]
+}

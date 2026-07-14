@@ -1,0 +1,97 @@
+{
+  "item": "mathematikarbeit",
+  "sources": {
+    "Aufgabe": {
+      "file": "mathematikarbeit_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "f003be0c1eba272f"
+    },
+    "Auswertung": {
+      "file": "mathematikarbeit_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "4e4d296cfea2b8b7"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "mathematikarbeit_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "09ab015c688f9f5c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/mathematikarbeit/00_doc_image1.emf.png",
+      "tokens": "Rolf sagt: „In der letzten Mathematikarbeit habe ich 48 von 60 Punkten erreicht, das sind .............  der Gesamtpunktzahl.“ Welcher der folgenden Prozentsätze muss eingesetzt werden? Kreuze an.12%12,5%48%60%80%",
+      "deterministic_text": "Rolf sagt: „In der letzten Mathematikarbeit habe ich 48 von 60 Punkten erreicht, das sind\n............. der Gesamtpunktzahl.“\nWelcher der folgenden Prozentsätze muss eingesetzt werden?\nKreuze an.\n12% 12,5% 48% 60% 80%",
+      "table": null,
+      "n_fragments": 29,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Mathematikarbeit"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Mathematikarbeit"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "▪ 1. Antwortalternative wurde angekreuzt: Der gesuchte Prozentsatz wird",
+      "mit der Differenz zwischen der Gesamtpunktzahl und der erreichten",
+      "Punktzahl gleichgesetzt. Dies legt nahe, dass keine adäquate Prozent-",
+      "Vorstellung entwickelt ist.",
+      "▪ 2. Antwortalternative wurde angekreuzt: Hier wird vermutlich ein",
+      "falsches Verhältnis gebildet: 60 : 48 = 1,25 und dann in eine geeignet",
+      "erscheinende Prozentangabe umgerechnet.",
+      "▪ 3. Antwortalternative wurde angekreuzt: Hier wird der gesuchte",
+      "Prozentsatz mit der absolut erreichten Punktzahl gleichgesetzt. Auch dies",
+      "deutet auf eine nicht adäquat entwickelte Prozent-Vorstellung hin.",
+      "▪ 4. Antwortalternative wurde angekreuzt: Die Gesamtpunktzahl wird mit",
+      "dem gesuchten Prozentsatz gleichgesetzt, was darauf hindeutet, dass der",
+      "Text unkritisch gelesen worden ist."
+    ],
+    "quelle": "mathematikarbeit_Didaktische_Kommentierung.doc"
+  }
+}

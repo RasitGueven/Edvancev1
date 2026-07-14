@@ -1,0 +1,34 @@
+{
+  "item": "menschaergeredichnicht",
+  "gelesen_aus": [
+    "data/r01_render/menschaergeredichnicht/00_image1.emf.png",
+    "data/r01_render/menschaergeredichnicht/01_image2.emf.png",
+    "data/r01_render/menschaergeredichnicht/02_image3.emf.png"
+  ],
+  "stem": "Beim Brettspiel „Mensch ärgere dich nicht“ muss ein Spieler mit einem Spielwürfel eine Sechs werfen, um eine Spielfigur auf den Startpunkt setzen zu dürfen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Meistens muss ein Spieler mehrmals würfeln, bevor er starten kann. Gib die Wahrscheinlichkeit an, dass ein Spieler gleich beim ersten Würfeln eine Sechs hat.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Tom meint, dass sehr selten eine Sechs gewürfelt wird, und möchte deshalb die Spielregeln abwandeln. Er schlägt vor, dass statt einer Sechs eine Eins gewürfelt werden muss, damit eine Spielfigur auf den Startpunkt gesetzt werden kann. Ändert sich durch Toms Vorschlag die Wahrscheinlichkeit dafür, eine Spielfigur auf den Startpunkt setzen zu können? Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2 kombiniert Ankreuzen (Ja/Nein) mit einer schriftlichen Begründung im Karofeld; als mc mit Begründungs-Zusatz im Prompt geführt."
+  ]
+}

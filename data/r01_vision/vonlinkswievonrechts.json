@@ -1,0 +1,36 @@
+{
+  "item": "vonlinkswievonrechts",
+  "gelesen_aus": [
+    "data/r01_render/vonlinkswievonrechts/00_image1.emf.png",
+    "data/r01_render/vonlinkswievonrechts/01_image2.emf.png",
+    "data/r01_render/vonlinkswievonrechts/02_image3.emf.png"
+  ],
+  "stem": "252 und 4774 sind natürliche Zahlen, die von links und rechts gelesen gleich sind. Zahlen mit dieser Eigenschaft heißen Palindromzahlen. Dabei darf die erste und letzte Ziffer keine Null sein. 252 ist zum Beispiel eine 3-stellige Palindromzahl und 4774 eine 4-stellige Palindromzahl.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ergänze die Zahl 38 zu einer 4-stelligen Palindromzahl und zu einer 5-stelligen Palindromzahl.",
+      "unit": null,
+      "options": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Wie viele verschiedene 4-stellige Palindromzahlen gibt es? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "16"},
+        {"id": "b", "label": "72"},
+        {"id": "c", "label": "81"},
+        {"id": "d", "label": "90"},
+        {"id": "e", "label": "100"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 1 hat zwei Eingabezeilen (4-stellige und 5-stellige Palindromzahl) in einem Part; sie stehen als 'Ergänze die Zahl 38 zu einer / 4-stelligen Palindromzahl: ...... / und zu einer / 5-stelligen Palindromzahl: ...... .'"
+  ]
+}

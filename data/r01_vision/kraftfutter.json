@@ -1,0 +1,19 @@
+{
+  "item": "kraftfutter",
+  "gelesen_aus": ["data/r01_render/kraftfutter/00_doc_image1.emf.png"],
+  "stem": "Im Zoo bekommen die Nashörner Kraftfutter. Der Kraftfuttervorrat reicht für fünf Nashörner sechs Wochen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie lange die gleiche Menge Kraftfutter für 10 Nashörner reicht.",
+      "unit": "Tage",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das Antwortfeld ist als Satz mit Lücke formuliert: 'Das Kraftfutter reicht ________ Tage.' — ich habe die Einheit 'Tage' nach unit übernommen und den Lückensatz nicht als Prompt gewertet."
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "item": "dvdplayer",
+  "sources": {
+    "Aufgabe": {
+      "file": "dvdplayer_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "2ccc1ca7a8be263b"
+    },
+    "Auswertung": {
+      "file": "dvdplayer_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "7869a56518aa79df"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "dvdplayer_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "cf49eee5092bc34f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/dvdplayer/00_image1.emf.png",
+      "tokens": "In einem Online-Shop im Internet ist ein Angebot für einen tragbaren DVD-Player zu finden. Der ursprüngliche Preis dieses DVD-Players von 99,99€ wird um 20% reduziert. Wenn man den Rechnungsbetrag vom Bankkonto abbuchen lässt, bekommt man auf diesen reduzierten Preis nochmal einen Rabatt von 5%.",
+      "deterministic_text": "In einem Online-Shop im Internet ist ein Angebot für einen tragbaren DVD-Player zu finden.\nDer ursprüngliche Preis dieses DVD-Players von 99,99€ wird um 20% reduziert.\nWenn man den Rechnungsbetrag vom Bankkonto abbuchen lässt, bekommt man auf diesen\nreduzierten Preis nochmal einen Rabatt von 5%.",
+      "table": null,
+      "n_fragments": 23,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/dvdplayer/01_image2.emf.png",
+      "tokens": "Gib den Preis für den DVD-Player an, wenn man ihn ohne Abbuchung vom Bankkonto bezahlt. Runde auf ganze Cent.€",
+      "deterministic_text": "Gib den Preis für den DVD-Player an, wenn man ihn ohne Abbuchung vom Bankkonto\nbezahlt. Runde auf ganze Cent.\n€",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/dvdplayer/02_image3.emf.png",
+      "tokens": "Es wird behauptet: „Statt zunächst den Preisnachlass von 20% und anschließend den Rabatt von 5% abzuziehen, kann man auch einmalig 25% vom Preis des DVD-Players abziehen!“ Ist diese Behauptung richtig?Begründe deine Antwort.JaNeinKreuze an.",
+      "deterministic_text": "Es wird behauptet: „Statt zunächst den Preisnachlass von 20% und anschließend den Rabatt\nvon 5% abzuziehen, kann man auch einmalig 25% vom Preis des DVD-Players abziehen!“\nIst diese Behauptung richtig?\nKreuze an.\nJa Nein\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 27,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/dvdplayer/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Kauf eines DVD-Players",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "79,99 \n\nODER \n\n(Grenzfall)\n80"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n  \nUND\n \nRichtige Begründung, in welcher darauf verwiesen wird, dass sich der Preisnachlass von 20 % und der Rabatt von 5 % auf unterschiedliche Grundwerte beziehen.\n[Anm.: Auch das Berechnen des jeweils zu zahlenden Betrages wird akzeptiert. Es können auch gerundete Werte verwendet werden. Die Lösung wird auch akzeptiert, wenn bei den Zwischenergebnissen mit aufgerundeten Werten weitergerechnet wird.]\n\nBeispiel(e)\n• Der Preisnachlass von 20 % bezieht sich auf den Grundwert 99,99 .\nDer Rabatt von 5 % bezieht sich dann jedoch auf einen niedrigeren Grundwert. \n• Erst 20 %, dann 5 %:\n0,80  99,99  = 79,99  dann 0,95  79,99  = 75,99 \nSogleich 25 %:\n0,75  99,99  = 74,99 \n(Stimmt nicht überein!)\n• Alternative Berechnungsmethoden, z. B. \"Dreisatz\""
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\n• Ja, man kann die beiden Prozentsätze addieren, da sie sich auf denselben Preis beziehen.\n• (Grenzfall)\nNein, denn wenn ich gleich 25 % abziehe, ist dies mehr als wenn ich zunächst nur 20 % und dann 5 % abziehe.\n[Anm.: Hier wird nicht erläutert, worauf diese Tatsache beruht.]\n• (Grenzfall)\nDie beiden Grundwerte sind verschieden!"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Kauf eines DVD-Players"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "79,99 \n\nODER \n\n(Grenzfall)\n80"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n  \nUND\n \nRichtige Begründung, in welcher darauf verwiesen wird, dass sich der Preisnachlass von 20 % und der Rabatt von 5 % auf unterschiedliche Grundwerte beziehen.\n[Anm.: Auch das Berechnen des jeweils zu zahlenden Betrages wird akzeptiert. Es können auch gerundete Werte verwendet werden. Die Lösung wird auch akzeptiert, wenn bei den Zwischenergebnissen mit aufgerundeten Werten weitergerechnet wird.]\n\nBeispiel(e)\n• Der Preisnachlass von 20 % bezieht sich auf den Grundwert 99,99 .\nDer Rabatt von 5 % bezieht sich dann jedoch auf einen niedrigeren Grundwert. \n• Erst 20 %, dann 5 %:\n0,80  99,99  = 79,99  dann 0,95  79,99  = 75,99 \nSogleich 25 %:\n0,75  99,99  = 74,99 \n(Stimmt nicht überein!)\n• Alternative Berechnungsmethoden, z. B. \"Dreisatz\""
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\n• Ja, man kann die beiden Prozentsätze addieren, da sie sich auf denselben Preis beziehen.\n• (Grenzfall)\nNein, denn wenn ich gleich 25 % abziehe, ist dies mehr als wenn ich zunächst nur 20 % und dann 5 % abziehe.\n[Anm.: Hier wird nicht erläutert, worauf diese Tatsache beruht.]\n• (Grenzfall)\nDie beiden Grundwerte sind verschieden!"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematisch modellieren (K3),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Die Aufgabenstellung wird nicht richtig erfasst, so dass der Preis des DVD-Players berechnet wird, wenn man mit Abbuchung vom Bankkonto bezahlt [Fehllösung: 75,99 €] (K6).",
+      "Anstelle des reduzierten Preises wird die Höhe des Rabatts berechnet [Fehllösung: 19,99 €] (K6).",
+      "Es wird keine Begründung gegeben, sondern nur die Behauptung aufgeschrieben, wie die folgende Schülerlösung demonstriert (K1)."
+    ],
+    "quelle": "dvdplayer_Didaktische_Kommentierung.docx"
+  }
+}

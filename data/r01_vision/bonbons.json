@@ -1,0 +1,25 @@
+{
+  "item": "bonbons",
+  "gelesen_aus": ["data/r01_render/bonbons/00_doc_image1.emf.png"],
+  "stem": "In einer Tüte sind zwei grüne, ein gelbes, zwei weiße, ein orangefarbenes und vier rote Bonbons. Jan greift ohne hinzusehen ein Bonbon aus der Tüte.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Mit welcher Wahrscheinlichkeit ist es rot?",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1/10"},
+        {"id": "b", "label": "1/5"},
+        {"id": "c", "label": "4/10"},
+        {"id": "d", "label": "1/2"},
+        {"id": "e", "label": "4/6"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die fünf Optionen stehen im Bild als gestapelte Brüche (Zähler über Bruchstrich über Nenner) unter den Ankreuzkästchen; ich habe sie als 'Zähler/Nenner' notiert."
+  ]
+}

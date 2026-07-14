@@ -1,0 +1,65 @@
+{
+  "item": "dreieckszahlen",
+  "gelesen_aus": [
+    "data/r01_render/dreieckszahlen/00_image1.emf.png",
+    "data/r01_render/dreieckszahlen/01_image2.emf.png",
+    "data/r01_render/dreieckszahlen/02_image3.emf.png",
+    "data/r01_render/dreieckszahlen/03_image4.emf.png",
+    "data/r01_render/dreieckszahlen/04_image5.emf.png",
+    "data/r01_render/dreieckszahlen/05_image6.emf.png"
+  ],
+  "stem": "Zahlen, die sich aus der Summe aufeinanderfolgender natürlicher Zahlen ergeben, heißen Dreieckszahlen.\nDreieckszahlen, beginnend mit der 1, lassen sich veranschaulichen, indem man Plättchen in Dreiecksform legt.\nAbbildung 1 zeigt die Dreieckszahl 10, denn hierfür benötigt man 10 Plättchen.\nMan rechnet so: 1 + 2 + 3 + 4 = 10.\nDie Dreieckszahlen heißen D₁, D₂ … In der folgenden Tabelle sind die ersten vier dargestellt:",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib die beiden nächsten Dreieckszahlen D₅ und D₆ an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Welche Zahl muss man zur Dreieckszahl D₁₀ addieren, um die Dreieckszahl D₁₁ zu erhalten? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "6"},
+        {"id": "b", "label": "9"},
+        {"id": "c", "label": "10"},
+        {"id": "d", "label": "11"},
+        {"id": "e", "label": "12"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Gib eine Formel an, mit der man eine beliebige Dreieckszahl Dₙ aus deren Vorgängerdreieckszahl Dₙ₋₁ berechnen kann.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 4,
+      "kind": "short_input",
+      "prompt": "Peter möchte eine Formel entwickeln, mit der man eine Dreieckszahl Dₙ berechnen kann, ohne den Vorgänger zu kennen. Hierzu legt er zwei Darstellungen der Dreieckszahl D₃ so nebeneinander, dass 3 Reihen mit jeweils 4 Plättchen entstehen. Er rechnet dann: D₃ = (3 · 4) / 2 = 6. Gib an, wie man die Dreieckszahl D₄ ebenso direkt berechnen kann.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 5,
+      "kind": "short_input",
+      "prompt": "Gib eine Formel an, mit der man eine Dreieckszahl Dₙ direkt berechnen kann, ohne den Vorgänger zu kennen.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "In Teilaufgabe 4 steht die Rechnung als echter Bruch (Zähler 3 · 4, Nenner 2); ich habe sie inline als (3 · 4) / 2 geschrieben.",
+    "Teilaufgaben 1, 3, 4, 5 sind Eingabezeilen (D₅ = ___, D₆ = ___, Dₙ = ___, D₄ = ___); ob sie als short_input oder free_text (Formel) gelten, ist Auslegungssache."
+  ]
+}

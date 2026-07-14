@@ -1,0 +1,22 @@
+{
+  "item": "zahlgesucht2",
+  "gelesen_aus": [
+    "data/r01_render/zahlgesucht2/00_image1.emf.png"
+  ],
+  "stem": "Gegeben ist ein Zahlenstrahl.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Auf welche Zahl zeigt der Pfeil ungefähr? Schreibe die Zahl in das Kästchen.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Der Zahlenstrahl trägt nur die Beschriftungen 0 und 1 000 000; der Pfeil zeigt auf eine Position dazwischen (grob im ersten Fünftel), die genaue Stelle ist im Render nicht sicher ablesbar. Das Kästchen darüber ist das Eingabefeld.",
+    "Die Zeichnung überlagert im Render teilweise den Aufgabentext — Achsenskalierung/Zwischenmarken nicht sicher lesbar."
+  ]
+}

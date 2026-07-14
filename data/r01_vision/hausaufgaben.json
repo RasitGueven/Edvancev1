@@ -1,0 +1,32 @@
+{
+  "item": "hausaufgaben",
+  "gelesen_aus": [
+    "data/r01_render/hausaufgaben/00_image1.emf.png",
+    "data/r01_render/hausaufgaben/01_image2.emf.png",
+    "data/r01_render/hausaufgaben/02_image3.emf.png"
+  ],
+  "stem": "Alle zwölf Schülerinnen und Schüler eines Kurses haben die Zeit gemessen, die sie für die Hausaufgaben in Mathematik bzw. Deutsch benötigten. In der nächsten Unterrichtsstunde wird gefragt, wie viel Zeit jeder brauchte.\nDabei ergeben sich folgende Listen (Arbeitszeiten in Minuten):\nMathematik: 15; 20; 25; 20; 15; 17; 20; 20; 25; 20; 20; 15\nDeutsch: 15; 18; 24; 20; 24; 24; 18; 24; 24; 18; 20; 24",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Die Arbeitszeiten für die Hausaufgaben in Mathematik sollen in einer Häufigkeitstabelle dargestellt werden. Ergänze die Tabelle.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Das Kreisdiagramm zeigt die Häufigkeitsverteilung der Arbeitszeiten für die Hausaufgaben in Deutsch. Ordne die Arbeitszeiten den Kreisausschnitten zu.",
+      "unit": "min",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Häufigkeitstabelle zu Teilaufgabe 1 steht im Bild von Teilaufgabe 1 (Kopfzeile 'Arbeitszeiten in Minuten' 15 | 17 | 20 | 25, Zeile 'Häufigkeit' mit vorgegebener 3 unter 15). Die Queue meldet hat_tabelle_im_emf: false — Widerspruch; stem_tabelle_erwartet nach Bildbefund auf true gesetzt.",
+    "Teilaufgabe 2: Das Kreisdiagramm ist im Rendering unvollständig (nur die Radien/Sektorlinien und die Beschriftungslinien sind sichtbar, der Kreisumriss fehlt). Es gibt vier Beschriftungsfelder '.......... min'; ihre Sektor-Zuordnung ist aus dem Rendering nicht sicher ablesbar."
+  ]
+}

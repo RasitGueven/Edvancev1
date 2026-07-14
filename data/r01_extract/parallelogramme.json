@@ -1,0 +1,103 @@
+{
+  "item": "parallelogramme",
+  "sources": {
+    "Aufgabe": {
+      "file": "parallelogramme_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "19b30edde2098eca"
+    },
+    "Auswertung": {
+      "file": "parallelogramme_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "349cc4b04155794d"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "parallelogramme_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "102dc428a3679186"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parallelogramme/00_image1.emf.png",
+      "tokens": "Zeichne eine Gerade so durch das gegebene Parallelogramm, dass zwei zueinander deckungsgleiche Parallelogramme entstehen.",
+      "deterministic_text": "Zeichne eine Gerade so durch das gegebene Parallelogramm, dass zwei zueinander\ndeckungsgleiche Parallelogramme entstehen.",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/parallelogramme/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Deckungsgleiche Parallelogramme"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "ODER\n\n\n\nDie Gerade muss durch die Seitenmitten zweier gegenüberliegender Seiten verlaufen.\nZeichentoleranz:   2 mm"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Deckungsgleiche Parallelogramme"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "ODER\n\n\n\nDie Gerade muss durch die Seitenmitten zweier gegenüberliegender Seiten verlaufen.\nZeichentoleranz:   2 mm"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Das Parallelogramm wird in zwei andere deckungsgleiche Figuren zerlegt. Dies können z. B. zwei Dreiecke sein, wie die erste Schülerlösung zeigt, oder zwei Trapeze, wie die zweite Schülerlösung illustriert (K6 und K2)."
+    ],
+    "quelle": "parallelogramme_Didaktische_Kommentierung.docx"
+  }
+}

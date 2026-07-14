@@ -1,0 +1,23 @@
+{
+  "item": "lagederwuerfel",
+  "gelesen_aus": [
+    "data/r01_render/lagederwuerfel/00_image1.emf.png",
+    "data/r01_render/lagederwuerfel/01_image2.emf.png"
+  ],
+  "stem": "Die Abbildung zeigt vier Spielwürfel, die alle in der gleichen Weise beschriftet sind. Die Augenzahlen gegenüberliegender Seiten ergänzen sich immer zu 7. Daher liegen jeweils die Augenzahlen 1 und 6 einander räumlich gegenüber, die Augenzahlen 2 und 5 sowie 3 und 4 ebenfalls.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Diejenigen Seitenflächen dieser Spielwürfel, die sich vollständig berühren, haben immer die gleiche Augenzahl. Einige Augenzahlen fehlen in der Abbildung. Gib an, welche Augenzahl auf der grauen Seitenfläche fehlt. Schreibe die einzelnen Schritte auf, wie du zu deiner Lösung gekommen bist.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Abbildung der vier Würfel ist im Rendering nur als Strichzeichnung sichtbar — weder Augenzahlen noch die graue Seitenfläche sind erkennbar. Welche Augenzahlen im Original eingezeichnet sind, kann ich nicht lesen.",
+    "Das Eingabefeld lautet 'Auf der grauen Seitenfläche fehlt die Augenzahl ____.'; zusätzlich wird ein Rechenweg im Karofeld verlangt (Auswertung kennt nur 1 Teilaufgabe, daher als ein Part geführt)."
+  ]
+}

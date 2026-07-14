@@ -1,0 +1,10 @@
+{
+  "item": "gluecksrad",
+  "gelesen_aus": ["data/r01_render/gluecksrad/00_doc_image1.emf.png"],
+  "stem": "Ein Glücksrad besteht aus drei Feldern: einem roten, einem grünen und einem blauen Feld.\nBei 180 Drehungen wies der Zeiger nach dem Stillstand des Glücksrades 66-mal auf das rote Feld und 54-mal auf das grüne Feld.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält nur den Einleitungstext plus die Glücksrad-Skizze (Beschriftungen 'grün', 'blau', 'rot' — Abbildungslabels, nicht Stamm). Die Auswertung kennt 2 Teilaufgaben; im Bild sind keine Prompts/Optionen sichtbar. Nichts geraten."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "item": "gesamtkantenlaenge",
+  "gelesen_aus": [
+    "data/r01_render/gesamtkantenlaenge/00_image1.png"
+  ],
+  "stem": "Ein Quader hat die in der Abbildung angegebenen Maße.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie lang sind alle Kanten des Quaders zusammen? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "11 cm"},
+        {"id": "b", "label": "22 cm"},
+        {"id": "c", "label": "33 cm"},
+        {"id": "d", "label": "44 cm"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Rasterbild: Die Quaderabbildung ist mit 4 cm (Höhe), 5 cm (Breite/vorne unten) und 2 cm (Tiefe) beschriftet, dazu der Hinweis '(nicht maßstabsgerecht)'. Die Maße stehen als Abbildungs-Beschriftung, nicht im Stammtext."
+  ]
+}

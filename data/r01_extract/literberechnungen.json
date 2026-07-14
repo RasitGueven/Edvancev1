@@ -1,0 +1,140 @@
+{
+  "item": "literberechnungen",
+  "sources": {
+    "Aufgabe": {
+      "file": "literberechnungen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "d33971622eab3b24"
+    },
+    "Auswertung": {
+      "file": "literberechnungen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "7223deb03291e29f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "literberechnungen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "cf78c901a5e37164"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/literberechnungen/00_doc_image1.emf.png",
+      "tokens": "Gib an, wie viel      von 10 Liter sind.43Liter",
+      "deterministic_text": "3\nGib an, wie viel von 10 Liter sind.\n4\nLiter",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Literberechnungen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "7,5 Liter\nAnm.: Alle wertgleichen Angaben werden akzeptiert, z. B. 7 1/2\nLiter oder\n15/2 Liter."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n0,75\nODER\n75 Liter"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "9 Liter\nAnm.: Alle wertgleichen Angaben werden akzeptiert, z. B. 18/2\nLiter."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n90\nODER\n3"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Literberechnungen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "7,5 Liter\nAnm.: Alle wertgleichen Angaben werden akzeptiert, z. B. 7 1/2\nLiter oder\n15/2 Liter."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n0,75\nODER\n75 Liter"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "9 Liter\nAnm.: Alle wertgleichen Angaben werden akzeptiert, z. B. 18/2\nLiter."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n90\nODER\n3"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "III",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1, 2:",
+      "Die Bedeutung des Zählers und des Nenner wird vertauscht. So wird bei",
+      "Teilaufgabe 1 beispielsweise durch 3 dividiert und dann mit 4 multipliziert",
+      "„Von“ wird als wegnehmen gedeutet, so dass 6 - [pic] = 5 [pic] gerechnet",
+      "Es wird fälschlich die Größe des Anteils berechnet, d. h. [pic] von 6",
+      "Litern bestimmt (K2)."
+    ],
+    "quelle": "literberechnungen_Didaktische_Kommentierung.doc"
+  }
+}

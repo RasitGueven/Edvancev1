@@ -29,3 +29,6 @@ scripts/import/raw/
 scripts/import/runs/
 test-results
 __pycache__/
+
+# R01: gerenderte EMF->PNG Zwischenbilder (41MB, via scripts/content/r01/render.py reproduzierbar)
+data/r01_render/

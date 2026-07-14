@@ -1,0 +1,30 @@
+{
+  "item": "woliegtc",
+  "gelesen_aus": [
+    "data/r01_render/woliegtc/00_image1.emf.png",
+    "data/r01_render/woliegtc/01_image2.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ergänze einen Punkt C₁ im Koordinatensystem so, dass ein Dreieck ABC₁ mit einem rechten Winkel in Punkt C₁ entsteht. Gib die Koordinaten des Punktes C₁ an, den du eingezeichnet hast.",
+      "unit": null,
+      "options": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ergänze einen Punkt C₂ im Koordinatensystem so, dass ein rechtwinkliges Dreieck ABC₂ entsteht. Jetzt soll der rechte Winkel in Punkt B liegen. Gib die Koordinaten des Punktes C₂ an, den du eingezeichnet hast.",
+      "unit": null,
+      "options": null
+    }
+  ],
+  "unsicher": [
+    "Kein gemeinsamer Einleitungstext im Bild — beide Teilaufgaben starten direkt mit ihrer Anweisung. Punkte A und B sind nur im Koordinatensystem eingezeichnet (A bei ca. (3|7), B bei ca. (6|1)), ihre Koordinaten stehen nirgends als Text.",
+    "Das Raster in beiden Bildern ist ein Koordinatensystem, keine Datentabelle — stem_tabelle_erwartet daher false, obwohl die Queue hat_tabelle_im_emf=true meldet.",
+    "Eingabefeld je Teilaufgabe: 'C₁ ( ...... | ...... )' bzw. 'C₂ ( ...... | ...... )' — Feld-Label, nicht Prompt."
+  ]
+}

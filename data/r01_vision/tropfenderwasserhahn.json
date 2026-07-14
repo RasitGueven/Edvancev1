@@ -1,0 +1,37 @@
+{
+  "item": "tropfenderwasserhahn",
+  "gelesen_aus": [
+    "data/r01_render/tropfenderwasserhahn/00_image1.emf.png",
+    "data/r01_render/tropfenderwasserhahn/01_image2.emf.png",
+    "data/r01_render/tropfenderwasserhahn/02_image3.emf.png"
+  ],
+  "stem": "Bei Familie Rector tropft seit einigen Tagen ein undichter Wasserhahn.\nBen, der Sohn der Familie, will untersuchen, wie viel Wasser dabei verloren geht. Er fängt das gleichmäßig tropfende Wasser in einem Messbecher auf.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ben sieht ab und zu nach, wie viel Wasser inzwischen im Messbecher ist. Die Tabelle zeigt Bens Messergebnisse. Gib an, wie viel Wasser nach zwei Stunden im Messbecher war.",
+      "unit": "cm³",
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Welches Diagramm stellt die verlorene Wassermenge in Abhängigkeit von der Zeit am besten dar? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Diagramm oben links: Wassermenge in cm³ über Zeit in h, Gerade steigt vom Ursprung gleichmäßig an"},
+        {"id": "b", "label": "Diagramm oben rechts: Wassermenge in cm³ über Zeit in h, Gerade fällt gleichmäßig von einem hohen Startwert bis auf die Zeitachse"},
+        {"id": "c", "label": "Diagramm unten links: Wassermenge in cm³ über Zeit in h, kurze flach ansteigende Strecke knapp über der Zeitachse"},
+        {"id": "d", "label": "Diagramm unten rechts: Wassermenge in cm³ über Zeit in h, kurze steil fallende Strecke direkt unterhalb der Achsenspitze"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts, oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Die vier MC-Optionen in Teilaufgabe 2 sind reine Diagramm-Skizzen ohne eigenen Optionstext. Die 'label'-Texte sind meine Beschreibung der Kurvenverläufe, kein Quelltext — sie werden gegen den Zeichenvorrat nicht bestehen. Die Reihenfolge a–d entspricht der visuellen Anordnung (oben links, oben rechts, unten links, unten rechts).",
+    "Bild 1 enthält eine unvollständig gerenderte Zeichnung (Wasserhahn/Messbecher) ohne Text."
+  ]
+}

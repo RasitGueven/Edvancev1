@@ -1,0 +1,42 @@
+{
+  "item": "anderelaenderanderenoten",
+  "gelesen_aus": [
+    "data/r01_render/anderelaenderanderenoten/00_image1.emf.png",
+    "data/r01_render/anderelaenderanderenoten/01_image2.emf.png",
+    "data/r01_render/anderelaenderanderenoten/02_image3.emf.png",
+    "data/r01_render/anderelaenderanderenoten/03_image4.emf.png"
+  ],
+  "stem": "In der Schweiz wird - anders als in Deutschland - eine sehr gute Leistung mit 6 benotet, und für eine sehr schlechte Leistung bekommt man die Note 1.\n\nSo wird in einigen Schweizer Schulen die Note für eine Mathematikarbeit mit folgender Formel berechnet:\n\nNote = (Erreichte Punktzahl / Maximalpunktzahl) · 5 + 1\n\nDie berechnete Note wird auf eine Stelle nach dem Komma gerundet, d.h. es gibt beispielsweise auch die Note 3,6.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "In einer Mathematikarbeit mit einer Maximalzahl von 50 Punkten wurden 30 Punkte erreicht. Gib an, welche Note in der Schweiz bei Anwendung der Formel erteilt wird.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "In einer anderen Mathematikarbeit können maximal 100 Punkte erreicht werden. Ein Schüler bekommt nach der Formel die Note 5,5. Welche Punktzahl kann er erreicht haben? Gib eine mögliche Punktzahl an. Notiere deinen Lösungsweg.",
+      "unit": "Punkte",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "In den Niederlanden werden sogar die Noten 1 bis 10 vergeben. Die schlechteste Note ist die 1, die beste Note ist die 10. Stelle für die Niederlande eine Formel auf, mit der sich die Note aus der erreichten Punktzahl und der Maximalpunktzahl errechnen lässt.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Formel im Stamm steht als Bruchdarstellung (Zähler 'Erreichte Punktzahl', Nenner 'Maximalpunktzahl', dahinter '· 5 + 1'); ich habe sie linearisiert als 'Note = (Erreichte Punktzahl / Maximalpunktzahl) · 5 + 1'.",
+    "Teilaufgabe 2 enthält zwei Eingabefelder ('.......... Punkte' und ein Kästchen für den Lösungsweg); ich habe sie als eine Teilaufgabe geführt, damit die Zahl 3 der Auswertung passt.",
+    "Teilaufgabe 3 hat als Eingabefeld 'Note = ..........'; das ist Feld-Label, nicht Prompt."
+  ]
+}

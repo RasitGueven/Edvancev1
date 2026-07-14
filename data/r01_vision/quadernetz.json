@@ -1,0 +1,24 @@
+{
+  "item": "quadernetz",
+  "gelesen_aus": [
+    "data/r01_render/quadernetz/00_image1.emf.png"
+  ],
+  "stem": "Aus dem Netz eines Körpers kann man diesen zusammenfalten, ohne das Netz vorher auseinanderzuschneiden.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Kreuze jeweils an, ob es sich um das Netz eines Quaders handelt.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "ja"},
+        {"id": "b", "label": "nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts (Spaltenköpfe der Ja/Nein-Tabelle)"
+    }
+  ],
+  "unsicher": [
+    "Es ist ein Ja/Nein-Raster mit VIER Zeilen; jede Zeile zeigt eine gezeichnete Netz-Figur (kein Text). Die vier Zeilen-Stimuli lassen sich nicht als Text wiedergeben. Die Auswertung nennt 1 Teilaufgabe — passt zu einem Item mit 4 Ja/Nein-Zeilen, aber die Optionen hier sind nur die Spaltenköpfe ja/nein, nicht die vier Zeilen."
+  ]
+}

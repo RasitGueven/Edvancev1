@@ -1,0 +1,130 @@
+{
+  "item": "geschichtezurgraphik",
+  "sources": {
+    "Aufgabe": {
+      "file": "geschichtezurgraphik_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "f8b583d4aec4796f"
+    },
+    "Auswertung": {
+      "file": "geschichtezurgraphik_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "3d9cc7565ae4ecb4"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "geschichtezurgraphik_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "8956f9add0f6972c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/geschichtezurgraphik/00_doc_image1.emf.png",
+      "tokens": "Eine der folgenden Beschreibungen wurde hier graphisch dargestellt. Kreuze die Beschreibung an, die zu der Graphik passt.0Paula und Sepp machen eine Bergtour. Zuerst steigt der Weg nur wenig an und die beiden kommen gut voran. Dann ist der Weg eine Zeit lang eben. Zum Schluss ist der Weg bis zum Gipfel ziemlich steil und Paula und Sepp kommen nur langsam voran.Herr Heuer kauft Aktien. Zuerst steigt der Wert der Aktien. Dann bleibt er eine Zeit lang konstant. Schließlich steigt der Wert steil an und Herr Heuer könnte die Aktien mit Gewinn verkaufen.Lars ist auf dem Weg zur Schule. Unterwegs fällt ihm ein, dass er seinen Taschenrechner vergessen hat, den er für die Mathearbeit braucht. Er läuft zurück nach Hause, nimmt den Taschenrechner und muss sich jetzt beeilen, um pünktlich zur Schule zu kommen.Lisa und Sven machen eine Radtour. Nach einiger Zeit hat Sven eine Panne und sie müssen sein Rad reparieren. Für den Rest der Strecke fahren beide mit höherer Geschwindigkeit, um die versäumte Zeit aufzuholen.Strecke in kmZeit in Stunden",
+      "deterministic_text": "Strecke in km\n0 Zeit in Stunden\nEine der folgenden Beschreibungen wurde hier graphisch dargestellt.\nKreuze die Beschreibung an, die zu der Graphik passt.\nPaula und Sepp machen eine Bergtour. Zuerst steigt der Weg nur wenig an\nund die beiden kommen gut voran. Dann ist der Weg eine Zeit lang eben.\nZum Schluss ist der Weg bis zum Gipfel ziemlich steil und Paula und Sepp\nkommen nur langsam voran.\nHerr Heuer kauft Aktien. Zuerst steigt der Wert der Aktien. Dann bleibt er\neine Zeit lang konstant. Schließlich steigt der Wert steil an und Herr Heuer\nkönnte die Aktien mit Gewinn verkaufen.\nLisa und Sven machen eine Radtour. Nach einiger Zeit hat Sven eine\nPanne und sie müssen sein Rad reparieren. Für den Rest der Strecke\nfahren beide mit höherer Geschwindigkeit, um die versäumte Zeit\naufzuholen.\nLars ist auf dem Weg zur Schule. Unterwegs fällt ihm ein, dass er seinen\nTaschenrechner vergessen hat, den er für die Mathearbeit braucht. Er läuft\nzurück nach Hause, nimmt den Taschenrechner und muss sich jetzt\nbeeilen, um pünktlich zur Schule zu kommen.",
+      "table": null,
+      "n_fragments": 57,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Geschichte zur Graphik"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Geschichte zur Graphik"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Antwortalternative [01]: Wird diese Antwortalternative gewählt, liegt",
+      "offensichtlich eine Verwechslung des Verlaufs der Strecke (Weg steigt an,",
+      "Weg ist eben, Weg steigt an) mit dem zugehörigen Graphen vor (K3 und K4).",
+      "• Antwortalternative [02]: Wird diese Antwortalternative gewählt, scheinen",
+      "die Schülerinnen und Schüler nicht auf die gegebenen Größenbereiche der",
+      "dargestellten funktionalen Zusammenhänge geachtet zu haben (im Graphen",
+      "die zurückgelegte Strecke in km, im Text der Gewinn in Euro) (K4 und K6).",
+      "• Antwortalternative [03]: Wird diese Antwortalternative als richtig",
+      "bewertet, scheint zwar der Aspekt der wechselnden Geschwindigkeit richtig",
+      "erfasst worden zu sein, doch wird der konstante Abschnitt des Graphen",
+      "fälschlicherweise als „nach Hause laufen“ interpretiert (K3 und K4).",
+      "Weiterarbeit und Förderung",
+      "Kommt es bei der Aufgabe zu Schwierigkeiten, bietet es sich an, den",
+      "Schülerinnen und Schülern im Unterricht vier verschiedene, zu den vier",
+      "gegebenen Sachsituationen passende Graphen zur Verfügung zu stellen und sie",
+      "aufzufordern, diese begründet den Situationen zu zuordnen. Dabei können sie",
+      "notfalls nach dem Ausschlussprinzip vorgehen und sich dabei die",
+      "Auswirkungen einer Bewegung auf den Verlauf des Graphen ins Gedächtnis",
+      "rufen. Spätestens in der anschließenden Besprechung der Arbeitsergebnisse",
+      "sollte noch einmal her-ausgearbeitet werden, welche Bedeutung ein",
+      "steigender, fallender oder konstant verlaufender Abschnitt des Graphen",
+      "jeweils hat. Alternativ oder weiterführend ist es auch denkbar, die",
+      "Schülerinnen und Schüler den abgebildeten Graphen so verändern zu lassen,",
+      "dass er zu einer der anderen Sachsituationen passt. Dies könnte",
+      "beispielsweise geschehen, indem der konstant verlaufende Abschnitt fallend",
+      "gezeichnet und die Beschriftung der zweiten Achse in „zurückgelegte",
+      "Entfernung“ abgeändert wird.",
+      "Zur Vertiefung der erworbenen Inhalte und zur Förderung des Kommunizierens",
+      "im Unterricht können die Schülerinnen und Schüler aufgefordert werden, zu",
+      "einem Graphen eine passende Bewegungsgeschichte zu schreiben oder zu einer",
+      "vorgegebenen Geschichte den richtigen Graphen zu zeichnen. Diesbezüglich",
+      "bietet sich die Arbeit in Tandems an, d. h. ein Schüler schreibt die",
+      "Geschichte und ein Mitschüler zeichnet den Graphen hierzu. Dabei zeigt",
+      "sich, dass Graph und Geschichte genaue Informationen enthalten müssen, um",
+      "in die jeweilige Darstellungsform übertragen werden zu können.",
+      "Die folgende Geschichte wurde von einer Siebtklässlerin zu dem –",
+      "mittlerweile recht bekannten – Badewannen-Graphen geschrieben (vgl. Sinus-",
+      "Materialien Hessen). In ihrer Geschichte wird jeder einzelne Abschnitt des",
+      "Graphen mit Leben gefüllt. Lediglich die zu Beginn wechselnde Steigung wird",
+      "dabei nicht deutlich genug berücksichtigt. Zur Kontrolle könnte ein",
+      "Mitschüler wiederum den passenden Graphen zeichnen und diesen dann mit der",
+      "Vorlage vergleichen. Dies ist jedoch aufgrund fehlender Wertepaare nicht",
+      "Graphen können Geschichten erzählen und Situationen beschreiben. Dieser",
+      "Graph beschreibt den Wasserstand in einer Badewanne.",
+      "Zur weiteren Übung eignet sich auch die Aufgabe „Rolltreppe“ (vgl. hierzu",
+      "den entsprechenden didaktischen Kommentar aus VERA 2012)."
+    ],
+    "quelle": "geschichtezurgraphik_Didaktische_Kommentierung.doc"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "item": "fussleisten",
+  "sources": {
+    "Aufgabe": {
+      "file": "fussleisten_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "c3b3c477a28999ad"
+    },
+    "Auswertung": {
+      "file": "fussleisten_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "329340243000f000"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fussleisten_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "8b08aaba50747132"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fussleisten/00_doc_image1.emf.png",
+      "tokens": "Ein Zimmer, das 4m lang und 5m breit ist, soll renoviert werden. Die Renovierung ist fast beendet und nur die Fußleisten fehlen noch. ",
+      "deterministic_text": "Ein Zimmer, das 4m lang und 5m breit ist, soll renoviert werden. Die Renovierung ist fast\nbeendet und nur die Fußleisten fehlen noch.",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Fußleisten",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "8 (Fußleisten)"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n7,2 Fußleisten\nODER\n7 Fußleisten"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "36"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Fußleisten"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "8 (Fußleisten)"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n7,2 Fußleisten\nODER\n7 Fußleisten"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "36"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "III",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "II",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Statt des Umfangs wird der Flächeninhalt berechnet. Dies weist auf Defizite",
+      "bezüglich der Grundvorstellungen zum Umfangs- und Flächeninhaltsbegriff",
+      "Die Breite der Tür wird mit einem fiktiven Maß berücksichtigt. Eine",
+      "derartige genauere Modellierung ist zwar wünschenswert, jedoch nur bei",
+      "gleichzeitiger Berücksichtigung des Verschnittes zweckmäßig (K3).",
+      "Es wird nicht die Zahl der benötigten Fußleisten bei 30 m berechnet,",
+      "sondern stattdessen mit der in Teilaufgabe 1 berechneten Anzahl an",
+      "Fußleisten weiter gearbeitet."
+    ],
+    "quelle": "fussleisten_Didaktische_Kommentierung.doc"
+  }
+}

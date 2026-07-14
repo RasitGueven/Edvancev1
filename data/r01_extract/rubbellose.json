@@ -1,0 +1,188 @@
+{
+  "item": "rubbellose",
+  "sources": {
+    "Aufgabe": {
+      "file": "rubbellose_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "a54a80ce54a038fd"
+    },
+    "Auswertung": {
+      "file": "rubbellose_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "9f622ec67562247d"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rubbellose_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "df826b977fa0994d"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rubbellose/00_image1.emf.png",
+      "tokens": "Eine Bäckerei führt zur Fußball-EM eine Verlosung durch. Während der 25 Spieltage bekommt jeder Kunde beim Einkauf ein Los mit drei Rubbelfeldern. Nach dem Freirubbeln sieht man auf jedem Feld entweder ein Fußballbild oder einen freien Kreis.Es gilt folgender Gewinnplan:Die Bäckerei lässt 7500 Lose drucken. 25 davon haben 3 Fußballbilder.Rubbelfelder3 FußballbilderGewinnein echter Fußball2 Fußballbilder, 1 freier Kreis1 Fußballbild, 2 freie Kreiseeine Autofahneein Fußballbrötchen3 freie Kreisekein Gewinn",
+      "deterministic_text": "Eine Bäckerei führt zur Fußball-EM eine Verlosung durch. Während der 25 Spieltage\nbekommt jeder Kunde beim Einkauf ein Los mit drei Rubbelfeldern.\nNach dem Freirubbeln sieht man auf jedem Feld entweder ein Fußballbild oder einen\nfreien Kreis.\nEs gilt folgender Gewinnplan:\nRubbelfelder Gewinn\n3 Fußballbilder ein echter Fußball\n2 Fußballbilder, 1 freier Kreiseine Autofahne\n1 Fußballbild, 2 freie Kreise ein Fußballbrötchen\n3 freie Kreise kein Gewinn\nDie Bäckerei lässt 7500 Lose drucken. 25 davon haben 3 Fußballbilder.",
+      "table": {
+        "header": [
+          "Rubbelfelder",
+          "Gewinn"
+        ],
+        "rows": [
+          [
+            "3 Fußballbilder",
+            "ein echter Fußball"
+          ],
+          [
+            "2 Fußballbilder, 1 freier Kreis",
+            "eine Autofahne"
+          ],
+          [
+            "1 Fußballbild, 2 freie Kreise",
+            "ein Fußballbrötchen"
+          ],
+          [
+            "3 freie Kreise",
+            "kein Gewinn"
+          ]
+        ]
+      },
+      "n_fragments": 43,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rubbellose/01_image2.emf.png",
+      "tokens": "Der erste Kunde bekommt ein Los. Mit welcher Wahrscheinlichkeit gewinnt er einen echten Fußball?Kreuze an.13325125130017500",
+      "deterministic_text": "Der erste Kunde bekommt ein Los.\nMit welcher Wahrscheinlichkeit gewinnt er einen echten Fußball?\nKreuze an.\n1 3 1 1 1\n3 25 25 300 7500",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rubbellose/02_image3.emf.png",
+      "tokens": "Die Wahrscheinlichkeit für den ersten Kunden, eine Autofahne zu gewinnen, beträgt       .          der Autofahnen sind Deutschlandfahnen,      sind Fahnen andererLänder.Gib an, wie viele Deutschlandfahnen verlost werden.       Es werden                    Deutschlandfahnen verlost.1251323",
+      "deterministic_text": "Die Wahrscheinlichkeit für den ersten Kunden, eine Autofahne zu gewinnen,\n1 1 2\nbeträgt . der Autofahnen sind Deutschlandfahnen, sind Fahnen anderer\n25 3 3\nLänder.\nGib an, wie viele Deutschlandfahnen verlost werden.\nEs werden Deutschlandfahnen verlost.",
+      "table": null,
+      "n_fragments": 23,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rubbellose/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Rubbellose",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "100"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Rubbellose"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "100"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit symbolischen/ formalen/ technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Modellieren (K3), \nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "rubbellose_Didaktische_Kommentierung.docx"
+  }
+}

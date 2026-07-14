@@ -1,0 +1,208 @@
+{
+  "item": "nachfolgerzahl",
+  "sources": {
+    "Aufgabe": {
+      "file": "nachfolgerzahl_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "caf6732025c73d45"
+    },
+    "Auswertung": {
+      "file": "nachfolgerzahl_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "78d07f7f706a426f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "nachfolgerzahl_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "4f8e78e252ab6799"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nachfolgerzahl/00_image1.emf.png",
+      "tokens": "Frank behauptet: „Wähle eine natürliche Zahl und bilde ihre Nachfolgerzahl. Quadriere beide Zahlen und ziehe das kleinere Ergebnis vom größeren ab. Dann erhältst du die Summe der beiden ursprünglich gewählten Zahlen.“",
+      "deterministic_text": "Frank behauptet:\n„Wähle eine natürliche Zahl und bilde ihre Nachfolgerzahl. Quadriere beide Zahlen und ziehe\ndas kleinere Ergebnis vom größeren ab. Dann erhältst du die Summe der beiden ursprünglich\ngewählten Zahlen.“",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nachfolgerzahl/01_image2.emf.png",
+      "tokens": "Überprüfe Franks Behauptung mit den beiden Zahlen 12 und 13.",
+      "deterministic_text": "Überprüfe Franks Behauptung mit den beiden Zahlen 12 und 13.",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nachfolgerzahl/02_image3.emf.png",
+      "tokens": "Begründe deine Antwort.JaNeinStimmt Franks Behauptung auch für zwei beliebige aufeinander folgende natürliche Zahlen? Kreuze an.",
+      "deterministic_text": "Stimmt Franks Behauptung auch für zwei beliebige aufeinander folgende natürliche Zahlen?\nKreuze an.\nJa Nein\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nachfolgerzahl/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Nachfolgerzahl",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "zu Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Aus der Antwort muss deutlich werden, dass Franks Behauptung anhand der Zahlen 12 und 13 rechnerisch überprüft wird. In diesem Zusammenhang muss der Term  bzw.  konkret verwendet werden.\n\nBeispiel(e)\n• \n• \n\n• \n•"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten, bei denen nicht alle Schritte der Angaben im einleitenden Text hinreichend berücksichtigt wurden.\n\nBeispiel(e)\n• Es findet kein Vergleich zwischen den Termen  und  statt."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "„Ja“\n\nUND\n\nangemessene Begründung.\n\nAlgebraisch:\n\nODER\n\nODER\nZeichnerisch:\n\nIn einer Zeichnung muss die Verallgemeinerung in irgendeiner Form deutlich werden!"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "ODER\nIterativ:\n\nDie Differenz der Quadrate (linke Spalte) sowie auch die Summe der Ausgangszahlen (rechte Spalte) sind jeweils identisch.\nODER\nParadigmatisch:\nWähle z. B. die beiden Zahlen 2 und 3.\n\nHierbei wird mit einem konkreten Beispiel operiert, wobei jedoch durch die Termstrukturen die grundlegende allgemeine Struktur erkennbar wird. Daran kann man erkennen, dass dies bei allen weiteren Beispielen ebenso gilt."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten, insbesondere solche, bei denen die Behauptung lediglich an weiteren konkreten Beispielen überprüft wird, ein Schluss auf die allgemeine Struktur jedoch unterbleibt.\n\nBeispiel(e)\n•  und . Also stimmt es.\n[Anm.: Bei diesem Beispiel für Code 0 wird im Gegensatz zur paradigmatischen Begründung, wie sie in Code 1 angegeben ist, nicht deutlich, dass die Wahl der konkreten Zahlen 2 und ihres Nachfolgers 3 beliebig ist, und zudem ist die zugrundeliegende allgemeine Termstruktur nicht erkennbar. Stünde bei der Lösung zusätzlich \"z. B.\" bei den zwei gewählten Zahlen, so wäre die Lösung als richtig zu kodieren.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Nachfolgerzahl"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Aus der Antwort muss deutlich werden, dass Franks Behauptung anhand der Zahlen 12 und 13 rechnerisch überprüft wird. In diesem Zusammenhang muss der Term  bzw.  konkret verwendet werden.\n\nBeispiel(e)\n• \n• \n\n• \n•"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten, bei denen nicht alle Schritte der Angaben im einleitenden Text hinreichend berücksichtigt wurden.\n\nBeispiel(e)\n• Es findet kein Vergleich zwischen den Termen  und  statt."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "„Ja“\n\nUND\n\nangemessene Begründung.\n\nAlgebraisch:\n\nODER\n\nODER\nZeichnerisch:\n\nIn einer Zeichnung muss die Verallgemeinerung in irgendeiner Form deutlich werden!"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "zu Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "ODER\nIterativ:\n\nDie Differenz der Quadrate (linke Spalte) sowie auch die Summe der Ausgangszahlen (rechte Spalte) sind jeweils identisch.\nODER\nParadigmatisch:\nWähle z. B. die beiden Zahlen 2 und 3.\n\nHierbei wird mit einem konkreten Beispiel operiert, wobei jedoch durch die Termstrukturen die grundlegende allgemeine Struktur erkennbar wird. Daran kann man erkennen, dass dies bei allen weiteren Beispielen ebenso gilt."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten, insbesondere solche, bei denen die Behauptung lediglich an weiteren konkreten Beispielen überprüft wird, ein Schluss auf die allgemeine Struktur jedoch unterbleibt.\n\nBeispiel(e)\n•  und . Also stimmt es.\n[Anm.: Bei diesem Beispiel für Code 0 wird im Gegensatz zur paradigmatischen Begründung, wie sie in Code 1 angegeben ist, nicht deutlich, dass die Wahl der konkreten Zahlen 2 und ihres Nachfolgers 3 beliebig ist, und zudem ist die zugrundeliegende allgemeine Termstruktur nicht erkennbar. Stünde bei der Lösung zusätzlich \"z. B.\" bei den zwei gewählten Zahlen, so wäre die Lösung als richtig zu kodieren.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Ein Vergleich zwischen den Termen 132 – 122 und 13 + 12 wird nicht hergestellt, wie die folgende Schülerlösung zeigt (K6).",
+      "Der Begriff „quadrieren“ wird nicht angewendet, wie die folgende Schülerlösung verdeutlicht (K5).",
+      "Aufgrund von Verständnisschwierigkeiten hinsichtlich der Aufgabenstellung werden zunächst die Nachfolgerzahlen von 12 und 13 gebildet und anschließend mit diesen entsprechend operiert, wie die folgende Schülerlösung illustriert (K6).",
+      "Die Rechenregel wird durch die Angabe nur eines weiteren zutreffenden Beispiels begründet. Diesen Schülerinnen und Schülern scheint nicht klar zu sein, dass es zur Begründung einer Allaussage nicht ausreicht, nur Beispiele anzugeben (K1). Dies zeigt folgende Schülerlösung:",
+      "Die Argumentation basiert auf bloßem Probieren anhand von Beispielen, wie die zweite Schülerlösung zeigt (K1)."
+    ],
+    "quelle": "nachfolgerzahl_Didaktische_Kommentierung.docx"
+  }
+}

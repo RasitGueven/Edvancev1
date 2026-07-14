@@ -1,0 +1,31 @@
+{
+  "item": "parlamentswahl",
+  "gelesen_aus": [
+    "data/r01_render/parlamentswahl/00_image1.emf.png",
+    "data/r01_render/parlamentswahl/01_image2.emf.png",
+    "data/r01_render/parlamentswahl/02_image3.emf.png"
+  ],
+  "stem": "Bei einer Parlamentswahl wurden in einem Wahlbezirk 12 650 gültige Stimmen abgegeben. Davon fielen 42 % auf den Kandidaten Herrn Aal.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib die Anzahl der Stimmen an, die Herr Aal bei dieser Wahl bekam.",
+      "unit": "Stimmen",
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Herr Aal kandidiert vier Jahre später auch bei der nächsten Wahl. Diesmal bekommt er allerdings weniger Stimmen als vor vier Jahren. Trotzdem hat sich sein Stimmanteil auf 44 % erhöht. Nenne eine mögliche Ursache, warum dies so sein kann.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Bild 2 und 3 enthalten karierte Antwortflächen (Schreibfelder), keine Datentabelle — daher stem_tabelle_erwartet false."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "item": "traktor",
+  "gelesen_aus": [
+    "data/r01_render/traktor/00_image1.emf.png",
+    "data/r01_render/traktor/01_image2.emf.png"
+  ],
+  "stem": "Von einem Traktor werden Spielzeugmodelle in den folgenden Maßstäben hergestellt: 1 : 120, 1 : 87, 1 : 50, 1 : 32",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Bei welchem Maßstab ist das Modell am kleinsten? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1 : 120"},
+        {"id": "b", "label": "1 : 87"},
+        {"id": "c", "label": "1 : 50"},
+        {"id": "d", "label": "1 : 32"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die vier Maßstäbe stehen im Stamm als untereinander stehende Zeilen (1 : 120 / 1 : 87 / 1 : 50 / 1 : 32); hier zu einer Zeile zusammengefasst."
+  ]
+}

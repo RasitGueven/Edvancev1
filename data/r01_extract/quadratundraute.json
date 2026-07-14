@@ -1,0 +1,437 @@
+{
+  "item": "quadratundraute",
+  "sources": {
+    "Aufgabe": {
+      "file": "quadratundraute_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "5cf584db6d920322"
+    },
+    "Auswertung": {
+      "file": "quadratundraute_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "b1fdd60451b6f18d"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "quadratundraute_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "470a48ca98cb48da"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/quadratundraute/00_image1.emf.png",
+      "tokens": "Gegeben ist eine Gerade, die durch den Ursprung eines Koordinatensystems verläuft.Ein Stück dieser Geraden soll eine Diagonale in einem Quadrat ABCD sein. A und C sollen auf der Geraden liegen.Zeichne ein solches Quadrat ein.12345671234567yx",
+      "deterministic_text": "Gegeben ist eine Gerade, die durch den Ursprung eines Koordinatensystems verläuft.\nEin Stück dieser Geraden soll eine Diagonale in einem Quadrat ABCD sein.\nA und C sollen auf der Geraden liegen.\nZeichne ein solches Quadrat ein.\ny\n7\n6\n5\n4\n3\n2\n1\n1 2 3 4 5 6 7 x",
+      "table": {
+        "header": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ".",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "y",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "7",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "6",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "5",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "",
+            "x",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 31,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/quadratundraute/01_image2.emf.png",
+      "tokens": "Gegeben ist eine Gerade, die durch den Ursprung eines Koordinatensystems verläuft.Es soll eine Raute (Rhombus) APCQ gezeichnet werden, die kein Quadrat ist. A und C sollen wieder auf der Geraden liegen. Zeichne eine solche Raute ein.12345671234567yx",
+      "deterministic_text": "Gegeben ist eine Gerade, die durch den Ursprung eines Koordinatensystems verläuft.\nEs soll eine Raute (Rhombus) APCQ gezeichnet werden, die kein Quadrat ist.\nA und C sollen wieder auf der Geraden liegen.\nZeichne eine solche Raute ein.\ny\n7\n6\n5\n4\n3\n2\n1\n1 2 3 4 5 6 7 x",
+      "table": {
+        "header": [
+          "Zeichne eine solche Raute ein",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ".",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "y",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "7",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "6",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "5",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "4",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "3",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "2",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "",
+            "x",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 36,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/quadratundraute/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Quadrat und Raute",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ein eingezeichnetes Quadrat, wobei  eine Diagonale des Quadrats ist.\n[Anm.: Die Eckpunkte müssen nicht markiert oder bezeichnet.]\n\nBeispiel(e)"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Eine eingezeichnete Raute (Rhombus)\n[Anm.: Die Eckpunkte müssen nicht markiert oder bezeichnet.]\n\nBeispiel(e)"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Quadrat und Raute"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ein eingezeichnetes Quadrat, wobei  eine Diagonale des Quadrats ist.\n[Anm.: Die Eckpunkte müssen nicht markiert oder bezeichnet.]\n\nBeispiel(e)"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Eine eingezeichnete Raute (Rhombus)\n[Anm.: Die Eckpunkte müssen nicht markiert oder bezeichnet.]\n\nBeispiel(e)"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "quadratundraute_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "item": "winkelimdreieck",
+  "sources": {
+    "Aufgabe": {
+      "file": "winkelimdreieck_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "f941fc9ee98ddc2b"
+    },
+    "Auswertung": {
+      "file": "winkelimdreieck_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "4266c9b63a73e16c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "winkelimdreieck_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "230fd1d21e279eb6"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/winkelimdreieck/00_image1.emf.png",
+      "tokens": "Ein Dreieck hat die Innenwinkel a, b und g. Es gilt:bist doppelt so groß wie a.gist dreimal so groß wie a.Gib an, wie groß der Winkel g ist.g =",
+      "deterministic_text": "Ein Dreieck hat die Innenwinkel a, b und g.\nEs gilt:bist doppelt so groß wie a.\ngist dreimal so groß wie a.\nGib an, wie groß der Winkel g ist.\ng =",
+      "table": null,
+      "n_fragments": 25,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/winkelimdreieck/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Winkel im Dreieck"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "90°"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Winkel im Dreieck"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "90°"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Als Lösung wird nicht wie gefordert die Größe des Winkels , sondern lediglich die in der Aufgabenstellung genannte Beziehung zwischen den beiden Winkeln und wiedergegeben (K2), wie die folgende Schülerlösung zeigt:",
+      "Die Winkelsumme im Dreieck wird fälschlich mit 360° angenommen (K5) und folglich wird für 180° errechnet.",
+      "Das Abarbeiten der Teilprobleme gelingt nicht (K2). Lediglich die Größe des Winkels \n wird als Zwischenergebnis ermittelt und irrtümlich mit der Größe des Winkels \n gleichgesetzt, wie die folgende Schülerlösung zeigt:"
+    ],
+    "quelle": "winkelimdreieck_Didaktische_Kommentierung.docx"
+  }
+}

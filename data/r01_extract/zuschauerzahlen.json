@@ -1,0 +1,163 @@
+{
+  "item": "zuschauerzahlen",
+  "sources": {
+    "Aufgabe": {
+      "file": "zuschauerzahlen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "0ace7f6d410f9ded"
+    },
+    "Auswertung": {
+      "file": "zuschauerzahlen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "d8030113d04e15b5"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zuschauerzahlen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "9014fadbfc5a5e2f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zuschauerzahlen/00_image1.emf.png",
+      "tokens": "Zu einem Fußballspiel kamen 48548 Zuschauer. Runde diese Zahl auf Tausender.",
+      "deterministic_text": "Zu einem Fußballspiel kamen 48548 Zuschauer.\nRunde diese Zahl auf Tausender.",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zuschauerzahlen/01_image2.emf.png",
+      "tokens": "An einem bestimmten Bundesliga-Spieltag wurden für die 9 Spiele die folgenden Zuschauerzahlen gemeldet: 24000, 61673, 39000, 24487, 51500, 29313, 54057, 31000 und 48548.Günther sagt: „An diesem Spieltag waren insgesamt 363578 Zuschauer in den Stadien.“Sabine meint: „Das kann man bestimmt nicht so genau sagen, weil …“.Ergänze die Argumentation von Sabine.",
+      "deterministic_text": "An einem bestimmten Bundesliga-Spieltag wurden für die 9 Spiele die folgenden\nZuschauerzahlen gemeldet:\n24000, 61673, 39000, 24487, 51500, 29313, 54057, 31000 und 48548.\nGünther sagt: „An diesem Spieltag waren insgesamt 363578 Zuschauer in den Stadien.“\nSabine meint: „Das kann man bestimmt nicht so genau sagen, weil …“.\nErgänze die Argumentation von Sabine.",
+      "table": null,
+      "n_fragments": 50,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zuschauerzahlen/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Zuschauerzahlen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "49 000"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die Begründung muss darauf eingehen, dass bei einigen Vereinen die Zahlen sehr wahrscheinlich gerundet sind und es daher nicht möglich ist, die Gesamtzuschauerzahlen auf Einer genau anzugeben.\n[Anm.: auf-, abgerundet und gerundet ist richtig; auch mit: meistens, oft, immer, alle, manchmal etc.]\n\nBeispiel(e)\n• ...weil manche Zahlen gerundet wurden und manche nicht. Denn es sind bestimmt nicht genau 24 000, 39 000, 51 500 oder 31 000 Zuschauer bei diesen Spielen gewesen. Also kann man daher diese Zahlen nicht alle addieren. Um genaue Werte zu erhalten, müsste man zu den gerundeten Zahlen die genauen Zahlenwerte bekommen.\n• ...weil einige Zuschauerzahlen gerundet wurden. Man kann also nur einen gerundeten Wert ausrechnen und nicht die genaue Zuschauerzahl.\n• (Grenzfall)\n...weil einige Zuschauerzahlen davon wahrscheinlich gerundet sind.\n• (Grenzfall)\n...weil manche Zahlen geschätzt wurden."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• ... weil mehrere Zuschauerzahlen gemeldet worden sind, und zwar sehr unterschiedliche.\n• (Grenzfall)\nDie Zahlen sind zu ungenau.\n[Anm.: Hier wird die Rundung als Quelle der Ungenauigkeit nicht spezifiziert.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Zuschauerzahlen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "49 000"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die Begründung muss darauf eingehen, dass bei einigen Vereinen die Zahlen sehr wahrscheinlich gerundet sind und es daher nicht möglich ist, die Gesamtzuschauerzahlen auf Einer genau anzugeben.\n[Anm.: auf-, abgerundet und gerundet ist richtig; auch mit: meistens, oft, immer, alle, manchmal etc.]\n\nBeispiel(e)\n• ...weil manche Zahlen gerundet wurden und manche nicht. Denn es sind bestimmt nicht genau 24 000, 39 000, 51 500 oder 31 000 Zuschauer bei diesen Spielen gewesen. Also kann man daher diese Zahlen nicht alle addieren. Um genaue Werte zu erhalten, müsste man zu den gerundeten Zahlen die genauen Zahlenwerte bekommen.\n• ...weil einige Zuschauerzahlen gerundet wurden. Man kann also nur einen gerundeten Wert ausrechnen und nicht die genaue Zuschauerzahl.\n• (Grenzfall)\n...weil einige Zuschauerzahlen davon wahrscheinlich gerundet sind.\n• (Grenzfall)\n...weil manche Zahlen geschätzt wurden."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• ... weil mehrere Zuschauerzahlen gemeldet worden sind, und zwar sehr unterschiedliche.\n• (Grenzfall)\nDie Zahlen sind zu ungenau.\n[Anm.: Hier wird die Rundung als Quelle der Ungenauigkeit nicht spezifiziert.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Die Zahl wird nicht auf Tausender gerundet. Stattdessen wird die Tausenderstelle als für die Rundung ausschlaggebende Stelle identifiziert und die Zahl auf Zehntausender gerundet (Fehllösung: 50 000) (K5).",
+      "Es wird fehlerhafterweise ab- statt aufgerundet (Fehllösung: 48 000) (K5).",
+      "Es wird nicht erkannt, dass einige der angegebenen Zahlen gerundet wurden und die genaue Zuschauerzahl somit nicht berechnet werden kann (K5).",
+      "In der Begründung wird mit Alltagswissen argumentiert. So wird beispielsweise darauf verwiesen, dass die Zahlen zu unterschiedlich sind und demnach nicht richtig sein können (K1)."
+    ],
+    "quelle": "zuschauerzahlen_Didaktische_Kommentierung.docx"
+  }
+}

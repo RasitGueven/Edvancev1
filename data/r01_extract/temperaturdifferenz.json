@@ -1,0 +1,102 @@
+{
+  "item": "temperaturdifferenz",
+  "sources": {
+    "Aufgabe": {
+      "file": "temperaturdifferenz_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "4f88faca2d98acec"
+    },
+    "Auswertung": {
+      "file": "temperaturdifferenz_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "476d9b046cd4a506"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "temperaturdifferenz_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "8595944ae55012b7"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/temperaturdifferenz/00_image1.emf.png",
+      "tokens": "An einem Herbsttag misst Tim morgens im Garten eine Temperatur von -1°C.Am Nachmittag beträgt die Temperatur an der gleichen Stelle 18°C.Gib an, um wie viel Grad Celsius die Temperatur angestiegen ist.Die Temperatur ist um°C gestiegen.",
+      "deterministic_text": "An einem Herbsttag misst Tim morgens im Garten eine Temperatur von -1°C.\nAm Nachmittag beträgt die Temperatur an der gleichen Stelle 18°C.\nGib an, um wie viel Grad Celsius die Temperatur angestiegen ist.\nDie Temperatur ist um °C gestiegen.",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/temperaturdifferenz/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Temperaturdifferenz"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "19"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Temperaturdifferenz"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "19"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Der Unterschied zwischen beiden Temperaturangaben wird fälschlich durch Differenzbildung der Beträge ermittelt (K5) (Fehllösung 17 °C).",
+      "Die Temperatur am Nachmittag wird mit dem Temperaturanstieg gleichgesetzt und die Temperatur am Morgen bleibt unberücksichtigt, wie die folgende Schülerlösung zeigt:"
+    ],
+    "quelle": "temperaturdifferenz_Didaktische_Kommentierung.docx"
+  }
+}

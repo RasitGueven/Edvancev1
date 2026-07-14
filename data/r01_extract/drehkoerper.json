@@ -1,0 +1,89 @@
+{
+  "item": "drehkoerper",
+  "sources": {
+    "Aufgabe": {
+      "file": "drehkoerper_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "b04b12e5ffaf1aac"
+    },
+    "Auswertung": {
+      "file": "drehkoerper_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "1131e1ffd4608178"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "drehkoerper_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "921b14320463b38c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/drehkoerper/00_doc_image1.emf.png",
+      "tokens": "Ein Körper, der aus fünf gleich großen Würfeln besteht, wird gedreht.",
+      "deterministic_text": "Ein Körper, der aus fünf gleich großen Würfeln besteht, wird gedreht.",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Drehkörper"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Drehkörper"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form(L3)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative 1, 2 oder 3 wurde angekreuzt: Dies deutet auf Schwächen",
+      "hinsichtlich des räumlichen Vorstellungsvermögens hin. Dabei sind",
+      "insbesondere die Alternativen 2 und 3 diagnostisch interessant, weil der",
+      "hier abgebildete Körper durch räumliche Ebenenspiegelung des gegebenen",
+      "Körpers entsteht."
+    ],
+    "quelle": "drehkoerper_Didaktische_Kommentierung.doc"
+  }
+}

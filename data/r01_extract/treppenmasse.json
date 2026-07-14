@@ -1,0 +1,315 @@
+{
+  "item": "treppenmasse",
+  "sources": {
+    "Aufgabe": {
+      "file": "treppenmasse_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "f2cb57d90a593fed"
+    },
+    "Auswertung": {
+      "file": "treppenmasse_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "f01d37a6f06b2df3"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "treppenmasse_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "33197cf7a944db56"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/treppenmasse/00_image1.emf.png",
+      "tokens": "Man muss jeden Tag viele verschiedenartige Treppen überwinden. Damit man das Treppensteigen als angenehm empfindet, orientieren sich Treppenbauer an der folgenden Schrittmaßregel (siehe Abbildung):Schrittmaßregel:⋅+=263cmhbAuftrittbTritthöhe h(nicht maßstabsgerecht)",
+      "deterministic_text": "Man muss jeden Tag viele verschiedenartige\nTreppen überwinden. Damit man das\nTreppensteigen als angenehm empfindet,\norientieren sich Treppenbauer an der folgenden\nSchrittmaßregel (siehe Abbildung):\nSchrittmaßregel:263cm⋅+=hb\nTritthöhe h\nAuftrittb\n(nicht maßstabsgerecht)",
+      "table": null,
+      "n_fragments": 23,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/treppenmasse/01_image2.emf.png",
+      "tokens": "In der folgenden Tabelle sind die Maße von zwei Treppen angegeben.janeinBei Treppe 1 ist die Schrittmaßregel erfüllt.Bei Treppe 2 ist die Schrittmaßregel erfüllt.Treppe 212cmTreppe 119cmTritthöhe  hKreuze jeweils an, ob die Schrittmaßregel erfüllt ist. Begründe deine Antwort durch eine Rechnung.Rechnung39cm44cmAuftritt  b",
+      "deterministic_text": "In der folgenden Tabelle sind die Maße von zwei Treppen angegeben.\nTreppe 1 Treppe 2\nTritthöhe h 19cm 12cm\nAuftritt b 44cm 39cm\nKreuze jeweils an, ob die Schrittmaßregel erfüllt ist.\nBegründe deine Antwort durch eine Rechnung.\nja nein Rechnung\nBei Treppe 1 ist die Schrittmaßregel erfüllt.\nBei Treppe 2 ist die Schrittmaßregel erfüllt.",
+      "table": {
+        "header": [
+          "",
+          "",
+          "ja",
+          "",
+          "nein",
+          "",
+          "",
+          "Rechnung"
+        ],
+        "rows": [
+          [
+            "Bei Treppe 1 ist die Schrittmaßregel erfüllt.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Bei Treppe 2 ist die Schrittmaßregel erfüllt.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 35,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/treppenmasse/02_image3.emf.png",
+      "tokens": "Eine Wohnhaustreppe hat einen Auftritt von b= 27cm. Gib die Tritthöhe gemäß der Schrittmaßregel an.h=                   cm",
+      "deterministic_text": "Eine Wohnhaustreppe hat einen Auftritt von b= 27cm.\nGib die Tritthöhe gemäß der Schrittmaßregel an.\nh= cm",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/treppenmasse/03_image4.emf.png",
+      "tokens": "Beim Bau einer Treppe soll die Schrittmaßregel                             beachtet werden.Peter behauptet: „Es gilt dann: Je kleiner die Tritthöhe h, desto größer der Auftritt b.“Hat Peter Recht?Begründe deine Antwort.JaNeinKreuze an.⋅+=263cmhb",
+      "deterministic_text": "Beim Bau einer Treppe soll die Schrittmaßregel beachtet werden263cm⋅+=hb .\nPeter behauptet: „Es gilt dann: Je kleiner die Tritthöhe h, desto größer der Auftritt b.“\nHat Peter Recht?\nKreuze an.\nJa Nein\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 24,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/treppenmasse/04_image5.emf.png",
+      "tokens": "Eine Treppe hat eine Steigung von 45°. Die Schrittmaßregel                             ist erfüllt. Gib an, welche Maße die Tritthöhe h und der Auftritt b dann haben müssen.⋅+=263cmhbTritthöhe h:cmAuftritt b: cm",
+      "deterministic_text": "Eine Treppe hat eine Steigung von 45°. Die Schrittmaßregel ist erfüllt263cm⋅+=hb .\nGib an, welche Maße die Tritthöhe h und der Auftritt b dann haben müssen.\nTritthöhe h: cm\nAuftritt b: cm",
+      "table": null,
+      "n_fragments": 25,
+      "is_license": false
+    },
+    {
+      "idx": 5,
+      "emf": "image6.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/treppenmasse/05_image6.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Treppenmaße",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3",
+      "Teilaufgabe 4"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "ODER\n\nODER"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• (Grenzfall) \nSchüler hat Auftritt und Höhe verwechselt, Überprüfung aber richtig durchgeführt und entsprechende Folgerungen gezogen."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "18"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ja\n\nUND \n\nrichtige Begründung, in welcher darauf verwiesen wird, dass bei Verkleinerung von h der Summand b größer werden muss, um die Summe 63 zu erhalten. \n\nBeispiel(e)\n• Die Summe aus den beiden Summanden 2h und b soll konstant 63 cm bleiben. Verkleinert man h, dann verkleinert sich auch 2h, der Summand b muss dann vergrößert werden.\n• b = 63 - 2  h: Wenn h kleiner wird, wird die Differenz 63 - 2h größer.\n• Immer wenn h um 1 cm kleiner wird, muss b um 2 cm größer werden.\n• Wenn beide Maße kleiner werden, dann kann das Ergebnis nicht gleich bleiben."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\n• Wenn h kleiner wird muss b größer werden \n[Anm.: Begründung fehlt]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Tritthöhe h: 21 cm\nAuftritt b: 21 cm"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Treppenmaße"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "ODER\n\nODER"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• (Grenzfall) \nSchüler hat Auftritt und Höhe verwechselt, Überprüfung aber richtig durchgeführt und entsprechende Folgerungen gezogen."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "18"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ja\n\nUND \n\nrichtige Begründung, in welcher darauf verwiesen wird, dass bei Verkleinerung von h der Summand b größer werden muss, um die Summe 63 zu erhalten. \n\nBeispiel(e)\n• Die Summe aus den beiden Summanden 2h und b soll konstant 63 cm bleiben. Verkleinert man h, dann verkleinert sich auch 2h, der Summand b muss dann vergrößert werden.\n• b = 63 - 2  h: Wenn h kleiner wird, wird die Differenz 63 - 2h größer.\n• Immer wenn h um 1 cm kleiner wird, muss b um 2 cm größer werden.\n• Wenn beide Maße kleiner werden, dann kann das Ergebnis nicht gleich bleiben."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\n• Wenn h kleiner wird muss b größer werden \n[Anm.: Begründung fehlt]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 4"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Tritthöhe h: 21 cm\nAuftritt b: 21 cm"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematisch modellieren (K3),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 3
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisch modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 4
+      }
+    ],
+    "typische_fehler": [
+      "Die aufgestellte Gleichung wird fehlerhaft umgeformt, wie die folgende Schülerlösung zeigt (K5).",
+      "Die aufgestellte Gleichung wird nicht vollständig nach h aufgelöst, sondern 2h wird als Ergebnis gedeutet [Fehllösung: h = 36 cm] (K5).",
+      "Die Variablen h und b werden vertauscht, so dass die Gleichung 2 27 + b = 63 gelöst wird [Fehllösung: h = 9 cm] (K5)",
+      "Es kann keine oder nur eine unzureichende Begründung gegeben werden, wie die folgende Schülerlösung demonstriert (K1).",
+      "Es wird kein Zusammenhang zwischen der gegebenen Steigung und der Schrittmaßregel hergestellt, so dass einfach mit selbst gewählten Maßen operiert wird, wie die folgenden Schülerlösungen zeigen (K3 und K2)."
+    ],
+    "quelle": "treppenmasse_Didaktische_Kommentierung.docx"
+  }
+}

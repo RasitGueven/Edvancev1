@@ -1,0 +1,254 @@
+{
+  "item": "osterhase",
+  "sources": {
+    "Aufgabe": {
+      "file": "osterhase_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "ed0d6e804ff9e4d1"
+    },
+    "Auswertung": {
+      "file": "osterhase_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "4dc138a5b5ce0593"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "osterhase_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "9043045884ee5fc1"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/osterhase/00_image1.emf.png",
+      "tokens": "Das Bild zeigt drei unterschiedlich große Schokoladenosterhasen. Der kleine Osterhase wiegt 25g, der mittlere Osterhase wiegt 100g und der große Osterhase wiegt 1000g.",
+      "deterministic_text": "Das Bild zeigt drei unterschiedlich große\nSchokoladenosterhasen. Der kleine Osterhase wiegt\n25g, der mittlere Osterhase wiegt 100g und der große\nOsterhase wiegt 1000g.",
+      "table": null,
+      "n_fragments": 14,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/osterhase/01_image2.emf.png",
+      "tokens": "1cm3Schokolade wiegt 1,3g. Der große Osterhase wird geschmolzen. Gib an, wie viel cm3Schokolade dabei ungefähr entstehen.   Es entstehen ungefähr                           cm3Schokolade.",
+      "deterministic_text": "1cm³Schokolade wiegt 1,3g. Der große Osterhase wird geschmolzen.\nGib an, wie viel cm³Schokolade dabei ungefähr entstehen.\nEs entstehen ungefähr cm³Schokolade.",
+      "table": null,
+      "n_fragments": 21,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/osterhase/02_image3.emf.png",
+      "tokens": "Die nachfolgende Tabelle enthält Aussagen über die drei Schokoladenosterhasen.Kreuze jeweils an, ob die Aussage wahr oder falsch ist.wahrfalschDer kleine Osterhase wiegt ein Viertel des mittleren Osterhasen.Der mittlere Osterhase wiegt das Vierfache des kleinen Osterhasen.Das Gewicht des großen Osterhasen entspricht 400% des Gewichts des kleinen Osterhasen.Aus dem großen Osterhasen könnte man 10 mittlere Osterhasen machen.",
+      "deterministic_text": "Die nachfolgende Tabelle enthält Aussagen über die drei Schokoladenosterhasen.\nKreuze jeweils an, ob die Aussage wahr oder falsch ist.\nwahr falsch\nDer kleine Osterhase wiegt ein Viertel des mittleren\nOsterhasen.\nDer mittlere Osterhase wiegt das Vierfache des kleinen\nOsterhasen.\nDas Gewicht des großen Osterhasen entspricht 400% des\nGewichts des kleinen Osterhasen.\nAus dem großen Osterhasen könnte man 10 mittlere\nOsterhasen machen.",
+      "table": {
+        "header": [
+          "",
+          "wahr",
+          "",
+          "",
+          "falsch",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "Der kleine Osterhase wiegt ein Viertel des mittleren",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Osterhasen.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Der mittlere Osterhase wiegt das Vierfache des kleinen",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Osterhasen.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Das Gewicht des großen Osterhasen entspricht 400% des",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Gewichts des kleinen Osterhasen.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Aus dem großen Osterhasen könnte man 10 mittlere",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Osterhasen machen.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 25,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/osterhase/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Osterhase",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "769 ODER 769,2 ODER 770"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Osterhase"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "769 ODER 769,2 ODER 770"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Die Beziehung zwischen den beiden Größenbereichen wird nicht richtig erfasst. So wird fehlerhafterweise 1000 g 1,3 cm3 gerechnet wird. Dies kann auf Schwierigkeiten hinsichtlich des Kommunizierens oder auf fehlende Vorstellungen zur Proportionalität hindeuten (Fehllösung: 1300 cm3) (K6).",
+      "1.- 4. Antwortalternative: Bei allen vier Antwortalternativen kann es aufgrund von Defizite beim Kommunizieren dazu kommen, dass die falschen Größen miteinander in Beziehung gesetzt werden (K6).",
+      "Antwortalternative (Fehllösung: falsch wird angekreuzt): Wird hier falsch angekreuzt, deutet dies auf Probleme bei der Anteilsvorstellung bzw. dessen Berechnung hin (K5).",
+      "Antwortalternative (Fehllösung: falsch wird angekreuzt): Eine Fehlentscheidung bei dieser Antwortalternative kann auf Probleme bei der Vervielfachungsvorstellung hinweisen.",
+      "Antwortalternative (Fehllösung: wahr wird angekreuzt): Es deutet sich eine Fehlvorstellung zum Prozentbegriff an. Evtl. gibt es einen Zusammenhang mit der Fehllösung bzgl. der 2. Antwortalternative."
+    ],
+    "quelle": "osterhase_Didaktische_Kommentierung.docx"
+  }
+}

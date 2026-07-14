@@ -1,0 +1,28 @@
+{
+  "item": "naschkatze",
+  "gelesen_aus": [
+    "data/r01_render/naschkatze/00_image1.emf.png",
+    "data/r01_render/naschkatze/01_image2.emf.png"
+  ],
+  "stem": "Kirsten hat mit ihrem neu eröffneten Café „Naschkatze“ Erfolg, denn der Umsatz steigert sich im ersten Geschäftsjahr von Quartal zu Quartal.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "In welchem Quartal betrug der Umsatz 14 000 Euro? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1. Quartal"},
+        {"id": "b", "label": "2. Quartal"},
+        {"id": "c", "label": "3. Quartal"},
+        {"id": "d", "label": "4. Quartal"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die y-Achsenbeschriftung des Säulendiagramms ist im Rendering vertikal ineinandergeschoben und nicht sicher lesbar (vermutlich 'Umsatz in Euro'); nicht übernommen.",
+    "Die Beschriftungen 'Café / Naschkatze' auf dem Schild und 'Grafik: © IQB' sind Abbildungsinhalt, nicht Stamm."
+  ]
+}

@@ -1,0 +1,362 @@
+{
+  "item": "streckeimkoordinatenkreuz",
+  "sources": {
+    "Aufgabe": {
+      "file": "streckeimkoordinatenkreuz_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "6568728ad02b2e66"
+    },
+    "Auswertung": {
+      "file": "streckeimkoordinatenkreuz_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "aa1630691883936f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "streckeimkoordinatenkreuz_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "fea988bf8aa854f5"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/streckeimkoordinatenkreuz/00_image1.emf.png",
+      "tokens": "In einem Koordinatensystem ist die Streckegegeben.AD-112345-112345xyDA",
+      "deterministic_text": "In einem Koordinatensystem ist die StreckeADgegeben.\ny\n5\n4\n3\nD\n2\n1 A\nx\n-1 1 2 3 4 5\n-1",
+      "table": {
+        "header": [
+          "",
+          "",
+          "",
+          "y",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "5",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "4",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "3",
+            "",
+            "",
+            "",
+            "D",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "2",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "A",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "x",
+            "",
+            ""
+          ],
+          [
+            "",
+            "-1",
+            "",
+            "",
+            "",
+            "1",
+            "",
+            "2",
+            "",
+            "3",
+            "",
+            "4",
+            "",
+            "5",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "-1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 22,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/streckeimkoordinatenkreuz/01_image2.emf.png",
+      "tokens": "Die Streckesoll eine Seite des Quadrats ABCD sein.Gib die Koordinaten der zwei Punkte B und C des Quadrats an.B (        |        )C(        |        )AD",
+      "deterministic_text": "Die StreckeADsoll eine Seite des Quadrats ABCD sein.\nGib die Koordinaten der zwei Punkte B und C des Quadrats an.\nB ( | ) C( | )",
+      "table": null,
+      "n_fragments": 20,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/streckeimkoordinatenkreuz/02_image3.emf.png",
+      "tokens": "Die Streckesoll an der y-Achse gespiegelt werden.Gib die Koordinaten der beiden Spiegelpunkte an.A’ (        |        )D’ (        |        )AD",
+      "deterministic_text": "Die StreckeADsoll an der y-Achse gespiegelt werden.\nGib die Koordinaten der beiden Spiegelpunkte an.\nA’ ( | ) D’ ( | )",
+      "table": null,
+      "n_fragments": 18,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/streckeimkoordinatenkreuz/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Strecke im Koordinatenkreuz",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "B ( 4,5 | 2,5 )   C ( 3 | 4 ) \n(Grenzfall)\n B ( 3 | 4 )   C ( 4,5 | 2,5 )\n\nODER\n\nB ( 1,5 | - 0,5 )   C ( 0 | 1 ) \n(Grenzfall)\nB ( 0 | 1 )   C ( 1,5 | - 0,5 )"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "A' (- 3 | 1 )   D' ( - 1,5 | 2,5 )"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Strecke im Koordinatenkreuz"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "B ( 4,5 | 2,5 )   C ( 3 | 4 ) \n(Grenzfall)\n B ( 3 | 4 )   C ( 4,5 | 2,5 )\n\nODER\n\nB ( 1,5 | - 0,5 )   C ( 0 | 1 ) \n(Grenzfall)\nB ( 0 | 1 )   C ( 1,5 | - 0,5 )"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "A' (- 3 | 1 )   D' ( - 1,5 | 2,5 )"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 19.1",
+      "Die Strecke wird zu einem Rechteck ergänzt. Dies kann darauf hin deuten, dass Rechteck und Quadrat im Unterricht nicht genügend voneinander abgegrenzt worden sind.",
+      "Die x- und y-Koordinaten werden vertauscht. Dieser Fehler deutet auf zu wenig Vertrautheit in der Arbeit mit dem Koordinatensystem hin.",
+      "Zu Teilaufgabe 19.2",
+      "Die Strecke wird nicht an der y-Achse, sondern an der x-Achse gespiegelt.",
+      "Die x- und y-Koordinaten werden vertauscht."
+    ],
+    "quelle": "streckeimkoordinatenkreuz_Didaktische_Kommentierung.docx"
+  }
+}

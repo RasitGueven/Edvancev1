@@ -1,0 +1,27 @@
+{
+  "item": "kreiseundvierecke",
+  "gelesen_aus": ["data/r01_render/kreiseundvierecke/00_doc_image1.emf.png"],
+  "stem": "Gegeben ist jeweils ein Kreis mit dem Radius r = 3 cm.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält nur den Stammsatz; die beiden laut Auswertung vorhandenen Teilaufgaben (Prompts, Abbildungen der Kreise/Vierecke) sind im Bild nicht enthalten. Prompts daher leer."
+  ]
+}

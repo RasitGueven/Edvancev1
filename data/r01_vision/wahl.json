@@ -1,0 +1,32 @@
+{
+  "item": "wahl",
+  "gelesen_aus": [
+    "data/r01_render/wahl/00_image1.png",
+    "data/r01_render/wahl/01_image2.png",
+    "data/r01_render/wahl/02_image3.png"
+  ],
+  "stem": "Bei einer Wahl erreichten die Parteien A, B, C und D folgende Ergebnisse:",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Zur Wahl traten auch noch weitere Parteien an, die wegen ihrer geringen Stimmenzahl nicht im Diagramm auftauchen. Wie viel Prozent der Stimmen entfielen insgesamt auf diese weiteren Parteien?",
+      "unit": "%",
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "24 Millionen Menschen gingen zur Wahl. Wie viele Menschen haben demnach die Partei A gewählt?",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Der Stamm verweist auf ein Säulendiagramm 'Wahlergebnisse' (A 33,4 %, B 36,8 %, C 19,8 %, D 6,4 %); das Diagramm ist eine Grafik, keine Tabelle — stem_tabelle_erwartet daher false.",
+    "nur_raster: Text stammt aus Pixelbildern, kein Zeichenvorrat zur Gegenprüfung vorhanden."
+  ]
+}

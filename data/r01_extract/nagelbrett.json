@@ -1,0 +1,236 @@
+{
+  "item": "nagelbrett",
+  "sources": {
+    "Aufgabe": {
+      "file": "nagelbrett_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "f58a019ddea7012c"
+    },
+    "Auswertung": {
+      "file": "nagelbrett_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "a77e85556156d7e8"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "nagelbrett_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "1270626f4fbcf863"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nagelbrett/00_image1.emf.png",
+      "tokens": "Die Abbildung 1 zeigt ein Nagelbrett („Geobrett“).Der Abstand der benachbarten Nägel auf dem Brett beträgt 2cm.Man kann mit Hilfe eines Gummirings verschiedene Figuren spannen. Dabei sollen jetzt nur Rechtecke gespannt werden, deren Seiten parallel zu den Brettkanten sind.Die Abbildung 2 zeigt als Beispiel ein Quadrat mit einem Flächeninhalt von 16cm2.",
+      "deterministic_text": "Die Abbildung 1 zeigt ein Nagelbrett („Geobrett“).\nDer Abstand der benachbarten Nägel auf dem Brett beträgt 2cm.\nMan kann mit Hilfe eines Gummirings verschiedene Figuren spannen. Dabei sollen jetzt\nnur Rechtecke gespannt werden, deren Seiten parallel zu den Brettkanten sind.\nDie Abbildung 2 zeigt als Beispiel ein Quadrat mit einem Flächeninhalt von 16cm².",
+      "table": null,
+      "n_fragments": 24,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nagelbrett/01_image2.emf.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nagelbrett/02_image3.emf.png",
+      "tokens": "Foto: © IQBAbbildung 1Abbildung 2Foto: © IQB",
+      "deterministic_text": "Foto: © IQB Foto: © IQB\nAbbildung 1 Abbildung 2",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nagelbrett/03_image4.emf.png",
+      "tokens": "Es soll ein Rechteck mit einem Flächeninhalt von 48cm2entstehen.Zeichne in die Abbildung 3 ein, wie der Gummiring gespannt werden kann.",
+      "deterministic_text": "Es soll ein Rechteck mit einem Flächeninhalt von 48cm²entstehen.\nZeichne in die Abbildung 3 ein, wie der Gummiring gespannt werden kann.",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nagelbrett/04_image5.emf.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 5,
+      "emf": "image6.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nagelbrett/05_image6.emf.png",
+      "tokens": "Abbildung 3Foto: © IQB",
+      "deterministic_text": "Foto: © IQB\nAbbildung 3",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 6,
+      "emf": "image7.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nagelbrett/06_image7.emf.png",
+      "tokens": "Kann man auf diesem Nagelbrett ein Rechteck von 18cm2spannen?JaNeinKreuze an.Begründe deine Antwort.",
+      "deterministic_text": "Kann man auf diesem Nagelbrett ein Rechteck von 18cm²spannen?\nKreuze an.\nJa Nein\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 7,
+      "emf": "image8.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/nagelbrett/07_image8.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Nagelbrett",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Beispiel(e)\n \n\n\noder eine andere Darstellung mit den Seitenlängen 6 cm und 8 cm (mit Nägeln als Ecken)."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Zeichnungen.\n\nBeispiel(e)\nSchräg liegendes Rechteck mit 48 cm2 Flächeninhalt, obwohl in der Aufgabenstellung \"parallel zu den Seitenkanten\" gefordert wird."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung, in der dargelegt wird, dass 18 nicht so in zwei Faktoren zerlegt werden kann, dass beide Faktoren jeweils durch 2 teilbar sind. \n[Anm.: Alternativ kann in der Begründung direkt Bezug auf die Anordnung der Nägel genommen werden.] \n   \nBeispiel(e)\nBeide Seitenlängen des Rechtecks müssten aufgrund der Anordnung der Nägel Vielfache von 2 cm sein. Dies ist bei einem Flächeninhalt von 18 cm2 nicht möglich, weil 18 nicht durch 4 teilbar ist.\nWeil man 18 nicht durch 4 teilen kann\nWeil man bei 18 cm2 ungerade Abstände braucht und nicht immer 2 cm Abstände\nWeil man 18 cm2 mit 2 cm x 9 cm oder 3 cm x 6 cm erhält und 9 cm und 3 cm sind keine Vielfache von 2 cm.\n[Anm.: Die beiden Kombinationen 3 - 6 und 2 - 9 müssen genannt werden; 1 - 18 darf fehlen.]\nBei diesem Brett kann man nur Rechtecke mit den Flächeninhalten von 4, 8, 12, 16, 24, 32, 36, 48 und 64 cm2 spannen.\n[Anm.: Hier wird über die Flächeninhalte der spannbaren Rechtecke argumentiert.]\nDas nächst größere Rechteck nach 16 cm2 hätte den Flächeninhalt 24 cm2. 18 cm2 geht also nicht."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nAntworten, die keinen Bezug zum nächst größeren Rechteck haben \nAntworten, die einfach nur die Unmöglichkeit konstatieren, z.B. \"Es geht nicht, da es keinen Platz auf dem Brett für ein solches Rechteck gibt.\"\nWeil man auf dem Nagelbrett immer nur gerade Zahlen hat\nWeil man 18 cm2 mit 2 cm x 9 cm erhält und 9 cm passen nicht auf das Brett\nMan darf für die Längen nur Zahlen aus der Zweierreihe nehmen"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Nagelbrett"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Beispiel(e)\n \n\n\noder eine andere Darstellung mit den Seitenlängen 6 cm und 8 cm (mit Nägeln als Ecken)."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Zeichnungen.\n\nBeispiel(e)\nSchräg liegendes Rechteck mit 48 cm2 Flächeninhalt, obwohl in der Aufgabenstellung \"parallel zu den Seitenkanten\" gefordert wird."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND\n\nBegründung, in der dargelegt wird, dass 18 nicht so in zwei Faktoren zerlegt werden kann, dass beide Faktoren jeweils durch 2 teilbar sind. \n[Anm.: Alternativ kann in der Begründung direkt Bezug auf die Anordnung der Nägel genommen werden.] \n   \nBeispiel(e)\nBeide Seitenlängen des Rechtecks müssten aufgrund der Anordnung der Nägel Vielfache von 2 cm sein. Dies ist bei einem Flächeninhalt von 18 cm2 nicht möglich, weil 18 nicht durch 4 teilbar ist.\nWeil man 18 nicht durch 4 teilen kann\nWeil man bei 18 cm2 ungerade Abstände braucht und nicht immer 2 cm Abstände\nWeil man 18 cm2 mit 2 cm x 9 cm oder 3 cm x 6 cm erhält und 9 cm und 3 cm sind keine Vielfache von 2 cm.\n[Anm.: Die beiden Kombinationen 3 - 6 und 2 - 9 müssen genannt werden; 1 - 18 darf fehlen.]\nBei diesem Brett kann man nur Rechtecke mit den Flächeninhalten von 4, 8, 12, 16, 24, 32, 36, 48 und 64 cm2 spannen.\n[Anm.: Hier wird über die Flächeninhalte der spannbaren Rechtecke argumentiert.]\nDas nächst größere Rechteck nach 16 cm2 hätte den Flächeninhalt 24 cm2. 18 cm2 geht also nicht."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\nAntworten, die keinen Bezug zum nächst größeren Rechteck haben \nAntworten, die einfach nur die Unmöglichkeit konstatieren, z.B. \"Es geht nicht, da es keinen Platz auf dem Brett für ein solches Rechteck gibt.\"\nWeil man auf dem Nagelbrett immer nur gerade Zahlen hat\nWeil man 18 cm2 mit 2 cm x 9 cm erhält und 9 cm passen nicht auf das Brett\nMan darf für die Längen nur Zahlen aus der Zweierreihe nehmen"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2), \nMathematische Darstellungen verwenden (K4), \nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematisch argumentieren (K1), \nProbleme mathematisch lösen (K2), \nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K1",
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 25.1:",
+      "Der Aufgabentext wird nicht vollständig erfasst, beispielsweise werden 2 cm für eine Kästchenlänge angenommen anstatt für den Abstand zwischen zwei Nägeln.",
+      "Die Seitenlängen werden nicht korrekt ermittelt.",
+      "Zu Teilaufgabe 25.2:",
+      "Die Schülerinnen und Schüler bestimmen mögliche Seitenlängen eines Rechtecks mit einem Flächeninhalt von 18 Quadratzentimetern, lassen jedoch außer Acht, ob dieses auch auf dem vorgegebenen Nagelbrett darstellbar ist, wie folgende Schülerlösung zeigt:",
+      "Die Schülerinnen und Schüler verwechseln den Begriff des Flächeninhalts mit dem der Seitenlänge des Rechtecks. Dies könnte die mögliche Ursache folgender Fehllösung sein:"
+    ],
+    "quelle": "nagelbrett_Didaktische_Kommentierung.docx"
+  }
+}

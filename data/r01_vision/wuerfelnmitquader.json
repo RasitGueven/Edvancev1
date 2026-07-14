@@ -1,0 +1,33 @@
+{
+  "item": "wuerfelnmitquader",
+  "gelesen_aus": [
+    "data/r01_render/wuerfelnmitquader/00_image1.emf.png",
+    "data/r01_render/wuerfelnmitquader/01_image2.emf.png",
+    "data/r01_render/wuerfelnmitquader/02_image3.emf.png"
+  ],
+  "stem": "Auf die Seitenflächen eines Quaders werden die Augenzahlen 1 bis 6 geschrieben. Nach 1000-fachem Werfen des Quaders ergab sich folgende Häufigkeitstabelle für die oben liegenden Augenzahlen:",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Das Netz dieses Quaders sieht wie hier abgebildet aus. Wie könnten die Augenzahlen 1 bis 6 auf dem Quader verteilt sein (vgl. Tabelle 1)? Trage eine Möglichkeit in das Netz ein.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Was ist die beste Schätzung für die Wahrscheinlichkeiten der sechs Augenzahlen beim Werfen dieses Quaders? Beachte dabei die Symmetrie des Quaders. Trage die sechs Werte in die folgende Tabelle ein. Orientiere dich an Tabelle 1.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Der Stamm enthält 'Tabelle 1' (Augenzahl 1–6, absolute Häufigkeit 242 / 75 / 179 / 161 / 87 / 256). Die Queue meldet hat_tabelle_im_emf: false — ich folge dem Bild und setze stem_tabelle_erwartet: true.",
+    "Teilaufgabe 2 enthält eine eigene leere Tabelle (Augenzahl 1–6 / Wahrscheinlichkeit).",
+    "In Bild 2 ist das Quadernetz nur als einzelnes leeres Rechteck gerendert — die restlichen Netzflächen fehlen im Render."
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "item": "rechtskurve",
+  "sources": {
+    "Aufgabe": {
+      "file": "rechtskurve_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "e206ed27e16279cb"
+    },
+    "Auswertung": {
+      "file": "rechtskurve_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "7bb963ded6834ffb"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "rechtskurve_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "93295a262cbde240"
+    }
+  },
+  "flags": [
+    "kein Inhaltsbild -> kein Stamm extrahierbar"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/rechtskurve/00_image1.emf.png",
+      "tokens": "Ein Motorradfahrer durchfährt eine enge Rechtskurve. Er bremst vor der Kurve etwas ab, fährt mit konstanter Geschwindigkeit durch die Kurve und wird dann wieder schneller.GeschwindigkeitZeitGeschwindigkeitZeitGeschwindigkeitZeitGeschwindigkeitZeitWelches der folgenden vier Geschwindigkeit-Zeit-Diagramme passt am besten zu dieser Bewegung? Kreuze an.Copyright Grafik: Xavier, M. Moto Biker [Fotografie]. Adobe Stock. https://stock.adobe.com/de/images/moto-biker/45659088Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY).Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "deterministic_text": "Ein Motorradfahrer durchfährt eine enge Rechtskurve. Er\nbremst vor der Kurve etwas ab, fährt mit konstanter\nGeschwindigkeit durch die Kurve und wird dann wieder\nschneller.\nCopyright Grafik: Xavier, M. Moto Biker[Fotografie]. Adobe Stock. https://stock.adobe.com/de/images/moto-biker/45659088\nCopyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode\nWelches der folgenden vier Geschwindigkeit-Zeit-Diagramme passt am besten zu\ndieser Bewegung?\nKreuze an.\nGeschwindigkeit Geschwindigkeit\nZeit Zeit\nGeschwindigkeit Geschwindigkeit\nZeit Zeit",
+      "table": null,
+      "n_fragments": 91,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Ein Motorradfahrer durchfährt eine enge Rechtskurve. Er bremst vor der Kurve etwas ab, fährt mit konstanter Geschwindigkeit durch die Kurve und wird dann wieder schneller.GeschwindigkeitZeitGeschwindigkeitZeitGeschwindigkeitZeitGeschwindigkeitZeitWelches der folgenden vier Geschwindigkeit-Zeit-Diagramme passt am besten zu dieser Bewegung? Kreuze an.Copyright Grafik: Xavier, M. Moto Biker [Fotografie]. Adobe Stock. https://stock.adobe.com/de/images/moto-biker/45659088Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY).Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Rechtskurve"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Rechtskurve"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K3",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "rechtskurve_Didaktische_Kommentierung.docx"
+  }
+}

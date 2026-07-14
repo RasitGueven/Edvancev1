@@ -1,0 +1,121 @@
+{
+  "item": "linearefunktionen",
+  "sources": {
+    "Aufgabe": {
+      "file": "linearefunktionen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "fd07d210b54b8921"
+    },
+    "Auswertung": {
+      "file": "linearefunktionen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "78a2d3d11bda5004"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "linearefunktionen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "735586b608c9c748"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/linearefunktionen/00_doc_image1.emf.png",
+      "tokens": "Im Folgenden sind Sachsituationen beschrieben, bei denen jeweils eine Größe einer anderen zugeordnet ist. Diese Zuordnungen lassen sich durch Gleichungen darstellen.Ordne jeder Sachsituation die passende Gleichung zu, indem du sie jeweils verbindest.Herr Hinze kauft einen Rosenstrauß. Eine Rose kostet 2€. Im Blumenladen wird für das Binden des Straußes zusätzlich 0,50€ berechnet.Florian verkauft auf dem Bücherbasar seine alten Comics für je 2€. Von seinen Einnahmen muss er 5€ Standge-bühr bezahlen. Trotzdem erwartet er, dass er einen guten Gewinn macht.Sven leiht sich im Urlaub ein Fahrrad. Er muss eine Grundgebühr von 2€ bezahlen und zusätzlich pro Tag eine Leihgebühr von 5€.Frau Meier kauft für eine Bastelarbeit farbige Pappe. Jeder Bogen kostet 0,50€. Außerdem kauft sie eine Tube Spezialkleber für 2,00€.=+0,52yx=−25yx=+20,5yx=+52yx",
+      "deterministic_text": "Im Folgenden sind Sachsituationen beschrieben, bei denen jeweils eine Größe einer anderen\nzugeordnet ist. Diese Zuordnungen lassen sich durch Gleichungen darstellen.\nOrdne jeder Sachsituation die passende Gleichung zu, indem du sie jeweils verbindest.\nHerr Hinze kauft einen Rosenstrauß. Eine Rose kostet 2€.\nIm Blumenladen wird für das Binden des Straußes yx=+0,52\nzusätzlich 0,50€ berechnet.\nFlorian verkauft auf dem Bücherbasar seine alten Comics\nfür je 2€. Von seinen Einnahmen muss er 5€ Standge- yx=−25\nbühr bezahlen. Trotzdem erwartet er, dass er einen guten\nGewinn macht.\nSven leiht sich im Urlaub ein Fahrrad. Er muss eine\nGrundgebühr von 2€ bezahlen und zusätzlich pro Tag eine\nLeihgebühr von 5€. yx=+20,5\nFrau Meier kauft für eine Bastelarbeit farbige Pappe. Jeder\nBogen kostet 0,50€. Außerdem kauft sie eine Tube yx=+52\nSpezialkleber für 2,00€.",
+      "table": null,
+      "n_fragments": 78,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Lineare Funktionen anwenden"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Die Lösung ist nur richtig, wenn alle Zuordnungen richtig\nsind."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Lineare Funktionen anwenden"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: Die Lösung ist nur richtig, wenn alle Zuordnungen richtig\nsind."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Die Deutung mathematikhaltiger Begriffe gelingt nicht. Insbesondere wird",
+      "nicht erkannt, ob angegebene feste Zusatzkosten zu den beschriebenen",
+      "Ausgaben hinzukommen oder ob diese von beschriebenen Einnahmen",
+      "abzurechnen sind (K6).",
+      "Weiterarbeit und Förderung",
+      "Viele Schwierigkeiten der vorliegenden Aufgabe haben ihre Ursache in den",
+      "erforderlichen Übersetzungsprozessen zwischen den in Worten beschriebenen",
+      "Realsituationen und der Mathematik. Dieser Wechsel in beide Richtungen ist",
+      "der Kern des Modellierens (vgl. hierzu auch das allgemeine Kapitel zur",
+      "Kompetenz „Mathematisches Modellieren“ in VERA-8 2009) und kann bewusst zum",
+      "Gegenstand des Unterrichts gemacht werden. Da dieser Wechsel häufig das",
+      "Erkennen mathematikhaltiger Begriffe aus der Alltagssprache erfordert, kann",
+      "man beschriebene Sachsituationen zunächst daraufhin analysieren. Des",
+      "Weiteren kann man sich die betreffenden Situationen ähnlich wie in einem",
+      "Rollenspiel stets konkret vorstellen. Beispielsweise lässt sich überlegen,",
+      "wie Herr Hinze beim Kauf von fünf, zehn oder mehr Rosen jeweils den zu",
+      "zahlenden Preis berechnen müsste. Daraus lässt sich dann ableiten, welchem",
+      "Aufbau eine passende Gleichung genügen muss.",
+      "Bereitet in den Gleichungen das Erkennen der Bedeutung von x und y",
+      "Schwierigkeiten, kann ergänzend die folgende innermathematische Aufgabe",
+      "bearbeitet werden, um zu verdeutlichen, dass y jeweils für einen Gesamtwert",
+      "steht. Darauf aufbauend kann dann wieder eine Sachsituation konstruiert",
+      "werden, bei der deutlich wird, dass die Variable x für eine veränderliche",
+      "Größe steht und die Variable y für einen Gesamtwert.",
+      "Zur Vertiefung kann auch die folgende Aufgabe bearbeitet werden. In dieser",
+      "ist ein mathematisches Modell in Form einer Gleichung gegeben, und eine",
+      "passende Sachsituation ist zu überlegen. Dies kehrt die sonst oft übliche",
+      "Denkrichtung um und kann einen Beitrag zum verständigen Umgang mit solchen",
+      "Gleichungen leisten.",
+      "Mit dieser Aufgabe kann das Übersetzen eines Modells (zurück) in die",
+      "Realität geübt werden. Dazu können zunächst verschiedene Kontexte überlegt",
+      "werden, die einer solchen Struktur genügen. Im nächsten Schritt kann man",
+      "die Schülerinnen und Schüler auffordern, die einzelnen Summanden des",
+      "Funktionsterms in den jeweiligen Kontexten zu deuten.",
+      "Man vergleiche hierzu auch den didaktischen Kommentar zur Aufgabe",
+      "„Fieberthermometer“, in der u. a. in einer weiterführenden Aufgabe eine",
+      "Funktionsgleichung in einer Sachsituation zu deuten ist."
+    ],
+    "quelle": "linearefunktionen_Didaktische_Kommentierung.doc"
+  }
+}

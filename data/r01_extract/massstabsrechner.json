@@ -1,0 +1,112 @@
+{
+  "item": "massstabsrechner",
+  "sources": {
+    "Aufgabe": {
+      "file": "massstabsrechner_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "ab63e2774a721db1"
+    },
+    "Auswertung": {
+      "file": "massstabsrechner_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "463f4df5b24bfcfe"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "massstabsrechner_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "f07dfd62d3701802"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/massstabsrechner/00_doc_image1.emf.png",
+      "tokens": "Ein Maßstab gibt das Größenverhältnis von Bild zu Original an. Solche Maßstäbe findet man z.B. auf Landkarten und in Modellzeichnungen.",
+      "deterministic_text": "Ein Maßstab gibt das Größenverhältnis von Bild zu Original an. Solche Maßstäbe findet man\nz.B. auf Landkarten und in Modellzeichnungen.",
+      "table": null,
+      "n_fragments": 9,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Maßstabsrechner"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Maßstabsrechner"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• 1. Antwortalternative (Fehllösung 3 km): Hinter dieser Antwortalternative",
+      "verbirgt sich wahrscheinlich die Deutung des Maßstabs in Zentimetern",
+      "sowie Umwandlung der",
+      "300 000 cm in Kilometer. Die auf der Landkarte gemessene Strecke von",
+      "15 cm wurde nicht als bedeutsam aufgefasst (K6).",
+      "• 2. Antwortalternative (Fehllösung 15 km): Bei der Wahl dieser",
+      "Antwortalternative sind vermutlich die 15 cm vordergründig in 15 km",
+      "transformiert worden (K6).",
+      "• 3. Antwortalternative (Fehllösung 20 km): Die Wahl dieser",
+      "Antwortalternative deutet darauf hin, dass vordergründig 300 durch 15",
+      "dividiert worden ist (K3).",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung der Aufgabe Schwierigkeiten auf, könnte dies",
+      "darauf zurückzuführen sein, dass die Vorstellungen zum Maßstabsbegriff noch",
+      "zu vage sind. Demnach sollten weitere Aufgaben ähnlicher Art im Unterricht",
+      "behandelt werden. Werden dabei handelnde und zeichnerische Aktivitäten",
+      "eingebunden, können die Schülerinnen und Schüler ihre Grundvorstellungen",
+      "zum Maßstabsbegriff auf vielfältige Weise verbessern. Hierzu können sie",
+      "beispielsweise aufgefordert werden, einen maßstabsgerechten Lageplan ihres",
+      "Zimmers anzufertigen und die hierzu notwendigen Maße zu messen. Auch",
+      "Lagepläne der Schule – beispielsweise im Rahmen eines Schulfests etc. –",
+      "können angefertigt und dann auch genutzt werden. Alternativ können sie die",
+      "Länge ihres Schulweges zunächst auf einer Karte ermitteln und anschließend",
+      "mittels des angegebenen Maßstabes dessen reale Länge berechnen.",
+      "Weiterführend können Aufgaben behandelt werden, bei denen der Maßstab",
+      "angegeben werden muss. Besonders gut eignen sich hierfür Tierfotos oder",
+      "Modelle, deren wirkliche Größe ermittelt werden muss. Auch Karten können",
+      "eingesetzt werden. Eine mögliche Aufgabe hierzu ist beispielsweise die"
+    ],
+    "quelle": "massstabsrechner_Didaktische_Kommentierung.doc"
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "item": "zeitumrechnung",
+  "sources": {
+    "Aufgabe": {
+      "file": "zeitumrechnung_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "8cd38e36387b2b3a"
+    },
+    "Auswertung": {
+      "file": "zeitumrechnung_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "aee9b02f1db4d5de"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zeitumrechnung_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "840c8172d84c0c02"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zeitumrechnung/00_image1.emf.png",
+      "tokens": "Meistens -z.B. auf einer Stoppuhr -gibt man eine Zeitspanne in Stunden, MinutenundSekunden an. Zum Rechnen ist es aber oft praktischer, die Zeit als Dezimalzahl in Stunden anzugeben. Ein Beispiel: 1,5 Stunden bedeutet 1 Stunde und 30 Minuten.",
+      "deterministic_text": "Meistens -z.B. auf einer Stoppuhr -gibt man eine Zeitspanne in Stunden, Minutenund\nSekunden an.\nZum Rechnen ist es aber oft praktischer, die Zeit als Dezimalzahl in Stunden anzugeben.\nEin Beispiel: 1,5 Stunden bedeutet 1 Stunde und 30 Minuten.",
+      "table": null,
+      "n_fragments": 33,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zeitumrechnung/01_image2.emf.png",
+      "tokens": "Wie lautet das Ergebnis der Umwandlung für die Zeitspanne „1 Stunde und 45 Minuten“? Kreuze an. 1,45 Stunden1,65 Stunden1,75 Stunden1,85 Stunden",
+      "deterministic_text": "Wie lautet das Ergebnis der Umwandlung für die Zeitspanne „1 Stunde und 45\nMinuten“?\nKreuze an.\n1,45 Stunden 1,65 Stunden 1,75 Stunden 1,85 Stunden",
+      "table": null,
+      "n_fragments": 24,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zeitumrechnung/02_image3.emf.png",
+      "tokens": "Hier wird eine Zeitspanne als Dezimalzahl in Stunden angegeben:t= 3,65 StundenRechne diese Zeitspanne in Stunden und Minuten um.Gib das Ergebnis an.t=  Stunden und  Minuten",
+      "deterministic_text": "Hier wird eine Zeitspanne als Dezimalzahl in Stunden angegeben:\nt= 3,65 Stunden\nRechne diese Zeitspanne in Stunden und Minuten um.\nGib das Ergebnis an.\nt= Stunden und Minuten",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zeitumrechnung/03_image4.emf.png",
+      "tokens": "Gegeben ist allgemein eine Zeitspanne als Dezimalzahl in Stunden:  t= a,b Stunden. Zum Beispiel hat dann bei t= 23,71 Stunden a den Wert 23 und b den Wert 71.Jede Angabe t= a,b Stunden kann dann in Stunden und Minuten umgerechnet werden.Beschreibe unter Verwendung von a und b den Rechenweg, den man gehen muss, um eine solche Umrechnung durchzuführen.",
+      "deterministic_text": "Gegeben ist allgemein eine Zeitspanne als Dezimalzahl in Stunden: t= a,b Stunden.\nZum Beispiel hat dann bei t= 23,71 Stunden a den Wert 23 und b den Wert 71.\nJede Angabe t= a,b Stunden kann dann in Stunden und Minuten umgerechnet\nwerden.\nBeschreibe unter Verwendung von a und b den Rechenweg, den man gehen muss,\num eine solche Umrechnung durchzuführen.",
+      "table": null,
+      "n_fragments": 43,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zeitumrechnung/04_image5.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Zeitumrechnung",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "t = 3 Stunden und 39 Minuten"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Beschreibung eines Rechenwegs, in welchem dargelegt wird, dass a die Anzahl der Stunden und 0,b   60 die Anzahl der Minuten angeben.\n\nBeispiel(e)\na = Stunden\n0,b  60 = Minuten \nODER \n60 : 100  b = Minuten (für zweistellige b). Der Hinweis auf die Zweistelligkeit von b wird nicht verlangt.\na gibt die Anzahl der Stunden an. Die Minuten erhält man, wenn man 0,b mit 60 multipliziert.\nGrenzfall:\nDie Umrechnung kann auch anhand des gegebenen Beispiels oder eines anderen Beispiels durchgeführt werden. Dabei muss der Rechenweg erkennbar sein."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Zeitumrechnung"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "t = 3 Stunden und 39 Minuten"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Beschreibung eines Rechenwegs, in welchem dargelegt wird, dass a die Anzahl der Stunden und 0,b   60 die Anzahl der Minuten angeben.\n\nBeispiel(e)\na = Stunden\n0,b  60 = Minuten \nODER \n60 : 100  b = Minuten (für zweistellige b). Der Hinweis auf die Zweistelligkeit von b wird nicht verlangt.\na gibt die Anzahl der Stunden an. Die Minuten erhält man, wenn man 0,b mit 60 multipliziert.\nGrenzfall:\nDie Umrechnung kann auch anhand des gegebenen Beispiels oder eines anderen Beispiels durchgeführt werden. Dabei muss der Rechenweg erkennbar sein."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K2",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "5",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "zeitumrechnung_Didaktische_Kommentierung.docx"
+  }
+}

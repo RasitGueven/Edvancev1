@@ -1,0 +1,22 @@
+{
+  "item": "autokauf",
+  "gelesen_aus": ["data/r01_render/autokauf/00_image1.emf.png"],
+  "stem": "Herr Berger möchte ein neues Auto kaufen. Nach Angabe des Händlers soll es ohne Mehrwertsteuer 19900 € kosten. Herrn Berger ist dies zu teuer, und so handelt er mit dem Händler eine Preisermäßigung von 12 % aus. Zu dem ermäßigten Preis kommen dann noch 19 % Mehrwertsteuer hinzu.\n\nHerr Berger rechnet einfach: 19900 € zuzüglich 7 %.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Liefert diese Rechnung das richtige Ergebnis? Kreuze an. Begründe deine Antwort.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Das Bild zeigt neben den Ankreuzkästchen (Ja/Nein) zusätzlich die Aufforderung 'Begründe deine Antwort.' mit einem freien Schreibfeld. Die Auswertung kennt nur 1 Teilaufgabe, daher habe ich Ankreuzen und Begründung zu einer Teilaufgabe zusammengefasst; strukturell wären es zwei Antwortformate (mc + free_text)."
+  ]
+}

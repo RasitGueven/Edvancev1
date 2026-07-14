@@ -1,0 +1,33 @@
+{
+  "item": "fuehrerschein",
+  "gelesen_aus": [
+    "data/r01_render/fuehrerschein/00_image1.emf.png",
+    "data/r01_render/fuehrerschein/01_image2.emf.png",
+    "data/r01_render/fuehrerschein/02_image3.emf.png"
+  ],
+  "stem": "Einen Führerschein zu bekommen, ist nicht einfach. Die Tabelle gibt für die einzelnen Bundesländer an, wie viel Prozent der Theorie-Prüfungen und wie viel Prozent der Praxis-Prüfungen im Jahr 2009 nicht bestanden wurden.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie viel Prozent der Praxis-Prüfungen im Saarland 2009 nicht bestanden wurden.",
+      "unit": "%"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Überprüfe folgende Aussage anhand der Tabelle: „2009 war in jedem Bundesland die Durchfallquote in der Theorie-Prüfung höher als in der praktischen Prüfung.“ Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Die Aussage ist korrekt."},
+        {"id": "b", "label": "Die Aussage ist falsch."}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2 ist gemischt: Ankreuzen (2 Kästchen) UND freie Begründung auf Linien. Ich habe sie als eine mc-Teilaufgabe geführt (passend zu n=2 laut Auswertung) und den Begründungsauftrag in den Prompt aufgenommen.",
+    "Die Zeile 'Daten: Kraftfahrt-Bundesamt, KBA, 2009' unter der Tabelle ist Quellenangabe, nicht Stamm."
+  ]
+}

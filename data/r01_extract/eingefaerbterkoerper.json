@@ -1,0 +1,112 @@
+{
+  "item": "eingefaerbterkoerper",
+  "sources": {
+    "Aufgabe": {
+      "file": "eingefaerbterkoerper_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "715d399950168d9a"
+    },
+    "Auswertung": {
+      "file": "eingefaerbterkoerper_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "da8f151526f4015c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "eingefaerbterkoerper_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "321803469dabe59a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/eingefaerbterkoerper/00_image1.emf.png",
+      "tokens": "Der dargestellte Körper besteht aus drei gleich großen Würfeln.Dieser Körper wird vollständig in Farbe getaucht.",
+      "deterministic_text": "Der dargestellte Körper besteht aus drei gleich großen Würfeln.\nDieser Körper wird vollständig in Farbe getaucht.",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/eingefaerbterkoerper/01_image2.emf.png",
+      "tokens": "Nach dem Färben wird der Körper wieder in die einzelnen Würfel zerlegt. Gib an, wie viele Seitenflächen insgesamt ungefärbt sind. Seitenflächen",
+      "deterministic_text": "Nach dem Färben wird der Körper wieder in die einzelnen Würfel zerlegt.\nGib an, wie viele Seitenflächen insgesamt ungefärbt sind.\nSeitenflächen",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/eingefaerbterkoerper/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Eingefärbter Körper"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Eingefärbter Körper"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "eingefaerbterkoerper_Didaktische_Kommentierung.docx"
+  }
+}

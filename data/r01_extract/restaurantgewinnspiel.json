@@ -1,0 +1,193 @@
+{
+  "item": "restaurantgewinnspiel",
+  "sources": {
+    "Aufgabe": {
+      "file": "restaurantgewinnspiel_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "c3032f531c99029e"
+    },
+    "Auswertung": {
+      "file": "restaurantgewinnspiel_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "5f4851e53d554c47"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "restaurantgewinnspiel_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "1bac410de0aae092"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/restaurantgewinnspiel/00_doc_image1.emf.png",
+      "tokens": "Jedes Jahr in der Weihnachtszeit veranstaltet ein Restaurant ein Gewinnspiel. Der Wirt füllt dazu 100 Kugeln mit den Nummern 1 bis 100 in ein undurchsichtiges Gefäß und deckt dieses mit einem Tuch ab. Ein Gast, der die Rechnung bekommt, muss eine Zahl zwischen 1 und 100 nennen und dann, ohne hinzusehen, eine Kugel ziehen. Er zeigt dem Wirt die Nummer auf der Kugel und legt die Kugel wieder in das Gefäß zurück.",
+      "deterministic_text": "Jedes Jahr in der Weihnachtszeit veranstaltet ein Restaurant ein Gewinnspiel. Der Wirt füllt\ndazu 100 Kugeln mit den Nummern 1 bis 100 in ein undurchsichtiges Gefäß und deckt dieses\nmit einem Tuch ab. Ein Gast, der die Rechnung bekommt, muss eine Zahl zwischen 1 und\n100 nennen und dann, ohne hinzusehen, eine Kugel ziehen. Er zeigt dem Wirt die Nummer\nauf der Kugel und legt die Kugel wieder in das Gefäß zurück.",
+      "table": null,
+      "n_fragments": 29,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Restaurantgewinnspiel",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "„Nein“ wird angekreuzt UND in der Begründung wird auf die sich\nnicht verändernde Ausgangssituation, warum jeder Gast dieselbe\nGewinnwahrscheinlichkeit hat, Bezug genommen.\nZ. B.:\nDies ist so, weil immer die gleichen 100 Kugeln im Behälter sind.\nDamit ist die Wahrscheinlichkeit zu gewinnen bei jedem Gast\ngleich.\nODER\nDies ist so, weil die Kugeln immer wieder zurückgelegt werden und\ndie nächste Kugel nicht weiß, welche vorher gezogen wurde. („Der\nZufall hat kein Gedächtnis.“)\nODER\nEs bleiben immer gleich viele Kugeln im Behälter. Also bleibt die\nWahrscheinlichkeit immer unverändert.\nODER\nEs stimmt nicht, da er auch keine anderen Bedingungen hat als die\nanderen, die nicht gewonnen haben."
+          ],
+          [
+            "RICHTIG",
+            "ODER\nDas stimmt nicht, da die Gewinnwahrscheinlichkeit für jeden Gast\n1 % beträgt, egal ob schon viele verloren haben.\nODER\nWeil die Kugel immer wieder zurückgelegt wird.\nODER (Grenzfall)\nEs hat nichts damit zu tun, ob heute schon jemand gewonnen hat."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten,\nZ. B.:\nDer Gast hat nicht Recht, weil die Wahrscheinlichkeit immer\ngleich bleibt.\nAnm.: Ausführungen, warum die Wahrscheinlichkeit unverändert\nbleibt, fehlen. Wäre die Wahrscheinlichkeit mit 1 % genauer\nspezifiziert, wird die Aufgabe als richtig gewertet.\nODER\nDie Behauptung ist falsch, weil die Kugeln immer neu gemischt\nwerden, die Chancen also für jeden gleich sind.\nAnm.: Ausführungen, warum die Wahrscheinlichkeit unverändert\nbleibt, fehlen.\nODER\nMan weiß ja nicht, wie viele Gäste da waren, vielleicht waren es\nnur zwei, dann ist die Chance sehr gering.\nODER\nEr hat Recht, weil sich durch viele Fehlzüge die Chance zu\ngewinnen erhöht.\nODER\nEs ist Zufall, ob man gewinnt oder nicht.\nODER\nEs ist sehr unwahrscheinlich, dass der Gast etwas gewinnt."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Restaurantgewinnspiel"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "„Nein“ wird angekreuzt UND in der Begründung wird auf die sich\nnicht verändernde Ausgangssituation, warum jeder Gast dieselbe\nGewinnwahrscheinlichkeit hat, Bezug genommen.\nZ. B.:\nDies ist so, weil immer die gleichen 100 Kugeln im Behälter sind.\nDamit ist die Wahrscheinlichkeit zu gewinnen bei jedem Gast\ngleich.\nODER\nDies ist so, weil die Kugeln immer wieder zurückgelegt werden und\ndie nächste Kugel nicht weiß, welche vorher gezogen wurde. („Der\nZufall hat kein Gedächtnis.“)\nODER\nEs bleiben immer gleich viele Kugeln im Behälter. Also bleibt die\nWahrscheinlichkeit immer unverändert.\nODER\nEs stimmt nicht, da er auch keine anderen Bedingungen hat als die\nanderen, die nicht gewonnen haben."
+          ],
+          [
+            "RICHTIG",
+            "ODER\nDas stimmt nicht, da die Gewinnwahrscheinlichkeit für jeden Gast\n1 % beträgt, egal ob schon viele verloren haben.\nODER\nWeil die Kugel immer wieder zurückgelegt wird.\nODER (Grenzfall)\nEs hat nichts damit zu tun, ob heute schon jemand gewonnen hat."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten,\nZ. B.:\nDer Gast hat nicht Recht, weil die Wahrscheinlichkeit immer\ngleich bleibt.\nAnm.: Ausführungen, warum die Wahrscheinlichkeit unverändert\nbleibt, fehlen. Wäre die Wahrscheinlichkeit mit 1 % genauer\nspezifiziert, wird die Aufgabe als richtig gewertet.\nODER\nDie Behauptung ist falsch, weil die Kugeln immer neu gemischt\nwerden, die Chancen also für jeden gleich sind.\nAnm.: Ausführungen, warum die Wahrscheinlichkeit unverändert\nbleibt, fehlen.\nODER\nMan weiß ja nicht, wie viele Gäste da waren, vielleicht waren es\nnur zwei, dann ist die Chance sehr gering.\nODER\nEr hat Recht, weil sich durch viele Fehlzüge die Chance zu\ngewinnen erhöht.\nODER\nEs ist Zufall, ob man gewinnt oder nicht.\nODER\nEs ist sehr unwahrscheinlich, dass der Gast etwas gewinnt."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "IV",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "V",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "III",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "▪ 1. Zeile: falsch wurde angekreuzt: Ein Missachten von",
+      "„durchschnittlich“ oder eine Fehlvorstellung vom",
+      "Wahrscheinlichkeitsbegriff kann zur Fehldeutung dieser Häufigkeitsaussage",
+      "▪ 2. Zeile: richtig wurde angekreuzt: Die vorliegende Deutung als",
+      "Häufigkeit wird mit einer Fehldeutung der Wahrscheinlichkeit verknüpft.",
+      "Dabei wird die Zufälligkeit des Ereignisses missachtet (K3).",
+      "▪ 3. Zeile: falsch ist angekreuzt: Die Modellierung der Situation mit",
+      "einer Gewinnwahrscheinlichkeit von 1 % gelingt nicht (K3).",
+      "▪ 4. Zeile: richtig wurde angekreuzt: Die Sicherheit des Eintretens eines",
+      "Ereignisses wird überschätzt (K3), oder die Aussage wird falsch",
+      "verstanden (K6).",
+      "▪ 1. Antwortalternative wurde angekreuzt: Die „Glücksziffer 7“ wird mit",
+      "der Anzahl der günstigen Ergebnisse verwechselt (K3).",
+      "▪ 2. Antwortalternative wurde angekreuzt: Beim Zählen der günstigen",
+      "Ergebnisse werden nur die Zahlen 7, 17, 27, 37, …, 87, 97 berücksichtigt",
+      "▪ 4. Antwortalternative wurde angekreuzt: Beim Ermitteln der Anzahl der",
+      "günstigen Ergebnisse 7, 17,…, 70, 71, … 78, 79, 87, 97 wird die Zahl 77",
+      "doppelt gezählt (K2).",
+      "▪ 5. Antwortalternative wurde angekreuzt: Der Bruch wird bezüglich der",
+      "Anzahl der Ziffern als „Günstige durch Mögliche“ gedeutet (K3, K6).",
+      "Es wird erkannt, dass die Aussage des Gastes falsch ist. Die Begründung ist",
+      "jedoch lückenhaft, da nicht ausreichend Bezug auf die konkrete",
+      "Gewinnsituation genommen wird (K1).",
+      "Die vorliegende Situation wird fehlerhaft als „Ziehen ohne Zurücklegen“",
+      "gedeutet, wie diese Schülerlösung exemplarisch zeigt (K3).",
+      "Die Deutung des Wahrscheinlichkeitsbegriffes gelingt nicht, d. h. die",
+      "Zufälligkeit des Ziehens wird nicht erkannt (s. nächste Schülerlösung)",
+      "Das Modellieren der Gewinnsituation gelingt nicht. Beispielsweise wird",
+      "diese mit der Situation verwechselt, dass ein Gast sich eine Gewinnzahl",
+      "überlegen muss und er nur dann gewinnt, wenn diese Zahl auch gezogen wird"
+    ],
+    "quelle": "restaurantgewinnspiel_Didaktische_Kommentierung.doc"
+  }
+}

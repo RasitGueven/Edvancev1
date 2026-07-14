@@ -1,0 +1,212 @@
+{
+  "item": "joggen",
+  "sources": {
+    "Aufgabe": {
+      "file": "joggen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "ace027f198001c05"
+    },
+    "Auswertung": {
+      "file": "joggen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "0bf2ae6ae68fd3fc"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "joggen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "0680e5f89be08d74"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/joggen/00_doc_image1.emf.png",
+      "tokens": "Die ideale TrainingsbelastungRechnen Sie 200 minus Lebensalter. Das ergibt den Maximalpuls. Beim Training sollte man mindestens 65% vom Maximalpuls erreichen, aber auch nicht mehr als 85%.",
+      "deterministic_text": "Die ideale Trainingsbelastung\nRechnen Sie 200 minus Lebensalter. Das ergibt den Maximalpuls. Beim Training sollte man\nmindestens 65% vom Maximalpuls erreichen, aber auch nicht mehr als 85%.",
+      "table": null,
+      "n_fragments": 16,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Joggen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Trainingspuls: mindestens:  108       höchstens:  140\nODER (Grenzfall)\nTrainingspuls: mindestens:  107       höchstens:  141"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nz. B.\nnicht gerundete Werte: 107,25; 140,25"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ein Term für die untere Grenze des Trainingspulses wird angegeben\n(x steht für Lebensalter in Jahren).\nAnm.: Statt x kann jede beliebige Variable verwendet werden.\n0,65 ( (200 - x)\nODER\n65/100 ( (200 - x)\nODER\n65 % ( (200 - x)\nODER (Grenzfall)\nuntere Grenze: 200 - x = y; Puls = y ( 65 : 100"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nz. B.\n200 - x ( 65/100\nODER\n(200 - x ) ( 65 und (200 - x ) ( 85\nODER\n(200 - 35 ) ( 65/100\nODER\nx ( 65 %"
+          ],
+          [
+            "RICHTIG",
+            "Richtige Formel, die die Zelladresse A4 bzw. einen Verweis auf\ndas Lebensalter enthält. Auch Formeln, die direkt in die Tabelle\n(auch ohne Gleichheitszeichen oder mit einem anderen Mal-Zeichen,\nz. B. \"*\") eingetragen sind, werden als richtig gewertet.\nz. B.\nD4: = 0,85 ( (200 - A4)\nODER\nD4: = 85/100 ( (200 - A4)\nODER\nD4: = 85 % ( (200 - A4)\nODER (Grenzfall)\nkeine Angabe für D4, aber in der Tabelle stehen in den freien\nZellen in Spalte D die richtigen Formeln, also\nD5: = 0,85 ( (200 - A5); D6: = 0,85 ( (200 - A6) usw.\nODER (Grenzfall)\nD4: = 0,85 ( (200-x)\nAnm.: Hier wurde statt der Zelladresse die oft gebräuchliche\nVariable x notiert.\nODER (Grenzfall)\nD4: = B4*0,85"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nz. B.\nEs ist ein falscher Term angegeben.\nODER\nDer Term enthält keine Variablen: D4: = (200 -15) * 85 : 100"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Joggen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Trainingspuls: mindestens:  108       höchstens:  140\nODER (Grenzfall)\nTrainingspuls: mindestens:  107       höchstens:  141"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nz. B.\nnicht gerundete Werte: 107,25; 140,25"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ein Term für die untere Grenze des Trainingspulses wird angegeben\n(x steht für Lebensalter in Jahren).\nAnm.: Statt x kann jede beliebige Variable verwendet werden.\n0,65 ( (200 - x)\nODER\n65/100 ( (200 - x)\nODER\n65 % ( (200 - x)\nODER (Grenzfall)\nuntere Grenze: 200 - x = y; Puls = y ( 65 : 100"
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nz. B.\n200 - x ( 65/100\nODER\n(200 - x ) ( 65 und (200 - x ) ( 85\nODER\n(200 - 35 ) ( 65/100\nODER\nx ( 65 %"
+          ],
+          [
+            "RICHTIG",
+            "Richtige Formel, die die Zelladresse A4 bzw. einen Verweis auf\ndas Lebensalter enthält. Auch Formeln, die direkt in die Tabelle\n(auch ohne Gleichheitszeichen oder mit einem anderen Mal-Zeichen,\nz. B. \"*\") eingetragen sind, werden als richtig gewertet.\nz. B.\nD4: = 0,85 ( (200 - A4)\nODER\nD4: = 85/100 ( (200 - A4)\nODER\nD4: = 85 % ( (200 - A4)\nODER (Grenzfall)\nkeine Angabe für D4, aber in der Tabelle stehen in den freien\nZellen in Spalte D die richtigen Formeln, also\nD5: = 0,85 ( (200 - A5); D6: = 0,85 ( (200 - A6) usw.\nODER (Grenzfall)\nD4: = 0,85 ( (200-x)\nAnm.: Hier wurde statt der Zelladresse die oft gebräuchliche\nVariable x notiert.\nODER (Grenzfall)\nD4: = B4*0,85"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nz. B.\nEs ist ein falscher Term angegeben.\nODER\nDer Term enthält keine Variablen: D4: = (200 -15) * 85 : 100"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1, 2, 3:",
+      "• Es wird die jeweils falsche Grenze betrachtet (K6).",
+      "• Das Lebensalter bleibt unberücksichtigt. Als unterer Wert ergibt sich",
+      "demnach ein Puls von 130 und als oberer Wert ein Puls von 170 (K3 und",
+      "Zu Teilaufgabe 1, 3:",
+      "• Die unterschiedliche Bedeutung der Begriffe „Maximalpuls“ und „untere",
+      "Grenze“ wird nicht erfasst (K6).",
+      "Zu Teilaufgabe 2, 3:",
+      "• Die Klammern werden vergessen. Als Term wird somit beispielsweise",
+      "0,65 · 200 - x angegeben (K5).",
+      "• Der Prozentsatz von z. B. 65 % kann nicht sinnvoll in den Term integriert",
+      "werden, was auf einer ungenügend ausgebildeten Operatorvorstellung",
+      "beruhen könnte. Als Lösungen wird beispielsweise 65·(200 – x) angegeben",
+      "• Es wird kein Term bzw. keine Formel mit Variablen, sondern ein konkretes",
+      "Rechenbeispiel notiert, wie die folgende Schülerlösung zeigt. Dies lässt",
+      "vermuten, dass Schwierigkeiten bestehen, den in natürlicher Sprache",
+      "beschriebenen Zusammenhang formal darzustellen (K6). Zudem zeigt diese",
+      "Schülerlösung ein verbreitetes Defizit bei der korrekten Verwendung des",
+      "Gleichheitszeichens.",
+      "Weiterarbeit und Förderung",
+      "Treten bei der Bearbeitung der Aufgabe Schwierigkeiten auf, können diese",
+      "häufig auf die angegebene Faustformel für eine ideale Trainingsbelastung",
+      "zurückgeführt werden. Diese ist aufgrund der verschiedenen – meist",
+      "unbekannten – Begriffe sicher nicht nur schwer inhaltlich zu erfassen,",
+      "sondern auch in ein geeignetes mathematisches Modell zu übertragen.",
+      "Aus diesem Grund kann es hilfreich sein, den Schülerinnen und Schülern",
+      "zunächst Aufgaben zu stellen, die sie auffordern, einfache",
+      "Proportionalitätsüberlegungen in dem gewählten Kontext durchzuführen und",
+      "sich diesem hierdurch anzunähern. Hierzu kann beispielsweise die folgende",
+      "Aufgabe verwendet werden.",
+      "Im weiteren Verlauf des Unterrichts ist es sicher hilfreich, zunächst die",
+      "Faustformel inhaltlich zu besprechen und dabei insbesondere die Begriffe",
+      "„Maximalpuls“ sowie „untere“ und „obere Grenze“ abzuklären.",
+      "Anschließend bietet es sich an, die Schülerinnen und Schüler ihren Puls",
+      "bestimmen und die beiden Grenzwerte für Ihren eigenen Puls berechnen zu",
+      "lassen. Wird das Vorgehen hierzu von den Schülerinnen und Schülern im",
+      "Plenum vorgestellt, kann zusätzlich die Kompetenz „mathematisch",
+      "Kommunizieren“ gefördert werden (siehe auch allgemeines Kapitel VERA-8",
+      "2011). Ausgehend von den Ergebnissen kann anschließend das Vorgehen zur",
+      "Berechnung der Grenzwerte verallgemeinert und mittels Termen und",
+      "Gleichungen beschrieben werden."
+    ],
+    "quelle": "joggen_Didaktische_Kommentierung.doc"
+  }
+}

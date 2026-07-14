@@ -1,0 +1,243 @@
+{
+  "item": "zahlenwuerfel",
+  "sources": {
+    "Aufgabe": {
+      "file": "zahlenwuerfel_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "ed71f91e7fb25913"
+    },
+    "Auswertung": {
+      "file": "zahlenwuerfel_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "543098b89cad2e90"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zahlenwuerfel_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "124a33d9c1e6af77"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenwuerfel/00_image1.emf.png",
+      "tokens": "Der faire Würfel im Foto hat 30 gleich große Seitenflächen. Diese sind mit den Zahlen 1 bis 30 beschriftet. ",
+      "deterministic_text": "Der faire Würfel im Foto hat 30 gleich große Seitenflächen.\nDiese sind mit den Zahlen 1 bis 30 beschriftet.",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenwuerfel/01_image2.emf.png",
+      "tokens": "Wie groß ist die Wahrscheinlichkeit, dass die Zahl 9 geworfen wird?    Die Wahrscheinlichkeit beträgt                  .",
+      "deterministic_text": "Wie groß ist die Wahrscheinlichkeit, dass die Zahl 9 geworfen wird?\nDie Wahrscheinlichkeit beträgt .",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenwuerfel/02_image3.emf.png",
+      "tokens": "Wie groß ist die Wahrscheinlichkeit, eine ungerade Zahl zu werfen? Kreuze an.13012115Das kann man nicht berechnen, ohne zu wissen, wie häufig gewürfelt wird.",
+      "deterministic_text": "Wie groß ist die Wahrscheinlichkeit, eine ungerade Zahl zu werfen?\nKreuze an.\n1 1 1 Das kann man nicht\n30 15 2 berechnen, ohne zu\nwissen, wie häufig\ngewürfelt wird.",
+      "table": null,
+      "n_fragments": 21,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenwuerfel/03_image4.emf.png",
+      "tokens": "Stefan hat diesen Würfel 29-mal geworfen. Dabei ist kein einziges Mal die Zahl 2 gefallen.Er sagt: „Beim nächsten Wurf fällt mit Sicherheit die 2, da bei 30 Würfen jede Zahl einmal fallen muss.“ Hat Stefan Recht?Begründe deine Entscheidung.JaNeinKreuze an.",
+      "deterministic_text": "Stefan hat diesen Würfel 29-mal geworfen. Dabei ist kein einziges Mal die Zahl 2 gefallen.\nEr sagt: „Beim nächsten Wurf fällt mit Sicherheit die 2, da bei 30 Würfen jede Zahl einmal\nfallen muss.“\nHat Stefan Recht?\nKreuze an.\nJa Nein\nBegründe deine Entscheidung.",
+      "table": null,
+      "n_fragments": 28,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlenwuerfel/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Zahlenwürfel",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3",
+      "zu Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "(oder gleichwertige Angabe, wie z. B.  3, %)\n[Anm.: Auch gerundete und mit \"etwa\" versehene Angaben sind richtig,  z. B. \"etwa 3 %\" oder \"etwa 0,03\" oder \"etwa 3,3 %\".]\n\nBeispiel(e)\n• (Grenzfall)\n3,3 % (oder \"3 %\" oder \"0,03\")"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• 1:29 (Chancenverhältnis)"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND \n\neine Antwort, in welcher auf einen der folgenden Aspekte Bezug genommen wird:\n - Unabhängigkeit der einzelnen Würfe oder\n - Gleichwahrscheinlichkeit aller Ergebnisse oder \n - Zufälligkeit der Ergebnisse oder \n - Analogie zum Ziehen mit Zurücklegen. \n[Anm.: Wird in der Antwort der Begriff \"Wahrscheinlichkeit\" mit dem Begriff \"Chance\" verwechselt, wird die Aufgabe als richtig gewertet.]\n\nBeispiel(e)\n• Beim nächsten Wurf fällt jede der 30 Zahlen mit derselben Wahrscheinlichkeit (also auch die 2).\n• Keine der Zahlen ist bevorzugt. \n• Bei jedem Wurf kann jede der Zahlen fallen. \n• Der Würfel hat kein Gedächtnis (und weiß nicht, dass die Zahl 2 noch \"fehlt\").\n• (Grenzfall)\n\"Er hat nicht Recht, denn eine Zahl kann auch zweimal fallen.\"\n[Anm.: Die Zufälligkeit eines einzelnen Ergebnisses scheint erkannt worden zu sein, aber hier wurde überlesen, dass die Zahl 2 bisher noch gar nicht gefallen war.]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\n• Stefan hat Recht, denn nach 29 Würfen ist nur noch die 2 übrig."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Zahlenwürfel"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "(oder gleichwertige Angabe, wie z. B.  3, %)\n[Anm.: Auch gerundete und mit \"etwa\" versehene Angaben sind richtig,  z. B. \"etwa 3 %\" oder \"etwa 0,03\" oder \"etwa 3,3 %\".]\n\nBeispiel(e)\n• (Grenzfall)\n3,3 % (oder \"3 %\" oder \"0,03\")"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\n\nBeispiel(e)\n• 1:29 (Chancenverhältnis)"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Nein\n\nUND \n\neine Antwort, in welcher auf einen der folgenden Aspekte Bezug genommen wird:\n - Unabhängigkeit der einzelnen Würfe oder\n - Gleichwahrscheinlichkeit aller Ergebnisse oder \n - Zufälligkeit der Ergebnisse oder \n - Analogie zum Ziehen mit Zurücklegen. \n[Anm.: Wird in der Antwort der Begriff \"Wahrscheinlichkeit\" mit dem Begriff \"Chance\" verwechselt, wird die Aufgabe als richtig gewertet.]\n\nBeispiel(e)\n• Beim nächsten Wurf fällt jede der 30 Zahlen mit derselben Wahrscheinlichkeit (also auch die 2).\n• Keine der Zahlen ist bevorzugt. \n• Bei jedem Wurf kann jede der Zahlen fallen. \n• Der Würfel hat kein Gedächtnis (und weiß nicht, dass die Zahl 2 noch \"fehlt\").\n• (Grenzfall)\n\"Er hat nicht Recht, denn eine Zahl kann auch zweimal fallen.\"\n[Anm.: Die Zufälligkeit eines einzelnen Ergebnisses scheint erkannt worden zu sein, aber hier wurde überlesen, dass die Zahl 2 bisher noch gar nicht gefallen war.]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "zu Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\n\nBeispiel(e)\n• Stefan hat Recht, denn nach 29 Würfen ist nur noch die 2 übrig."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),",
+        "k_tags": [
+          "K3"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),",
+        "k_tags": [
+          "K3"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "1A",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Das Ereignis „eine 9 fällt“ wird mit „9 Günstige“ verwechselt [Fehllösung: ] (K3).",
+      "Antwortalternative (Fehllösung ). Irrtümlich wird die Wahrscheinlichkeit ermittelt, eine beliebige, aber feste ungerade Zahl zu ermitteln (K3).",
+      "Antwortalternative (Fehllösung ). Die Anzahl ungerader Zahlen im Ergebnisraum wird korrekt ermittelt. Diese Anzahl (15) wird dann bei der Quotientenbildung „Günstige durch Mögliche“ mit der Anzahl der Möglichen verwechselt (K3).",
+      "Alternative (Fehllösung „Das kann man nicht berechnen …“). Vermutlich werden relative Häufigkeit und Wahrscheinlichkeit miteinander verwechselt (K3).",
+      "Es wird nicht erkannt, dass bei einem fairen „Würfel“ jede Seite dieselbe Wahrscheinlichkeit hat zu fallen, unabhängig davon, wie oft der „Würfel“ bereits geworfen wurde. Dies illustriert die folgende Schülerlösung (K3)."
+    ],
+    "quelle": "zahlenwuerfel_Didaktische_Kommentierung.docx"
+  }
+}

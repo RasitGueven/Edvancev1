@@ -1,0 +1,17 @@
+{
+  "item": "temperaturdifferenz",
+  "gelesen_aus": ["data/r01_render/temperaturdifferenz/00_image1.emf.png"],
+  "stem": "An einem Herbsttag misst Tim morgens im Garten eine Temperatur von -1 °C. Am Nachmittag beträgt die Temperatur an der gleichen Stelle 18 °C.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, um wie viel Grad Celsius die Temperatur angestiegen ist.",
+      "unit": "°C",
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

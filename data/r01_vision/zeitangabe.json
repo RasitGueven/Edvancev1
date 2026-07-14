@@ -1,0 +1,22 @@
+{
+  "item": "zeitangabe",
+  "gelesen_aus": ["data/r01_render/zeitangabe/00_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie viele Minuten sind 2½ Stunden?",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "60 min"},
+        {"id": "b", "label": "90 min"},
+        {"id": "c", "label": "150 min"},
+        {"id": "d", "label": "250 min"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

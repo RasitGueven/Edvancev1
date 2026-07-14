@@ -1,0 +1,175 @@
+{
+  "item": "ohrhaenger",
+  "sources": {
+    "Aufgabe": {
+      "file": "ohrhaenger_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "6cac4dbec60bfe41"
+    },
+    "Auswertung": {
+      "file": "ohrhaenger_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "37cf4ead4d729f45"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "ohrhaenger_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "72cd4b05561095c5"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ohrhaenger/00_image1.emf.png",
+      "tokens": "Janina biegt Ohrhänger aus Silberdraht, die aus einem oberen und einem unteren Teil bestehen. Den oberen Teil macht Janina immer 3cm lang, der untere Teil hat immer die Form eines gleichseitigen Dreiecks (siehe Abbildung). 3cm(nicht maßstabsgerecht)",
+      "deterministic_text": "Janina biegt Ohrhänger aus Silberdraht, die aus einem\noberen und einem unteren Teil bestehen. Den oberen 3cm\nTeil macht Janina immer 3cm lang, der untere Teil hat\nimmer die Form eines gleichseitigen Dreiecks\n(siehe Abbildung).\n(nicht maßstabsgerecht)",
+      "table": null,
+      "n_fragments": 20,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ohrhaenger/01_image2.emf.png",
+      "tokens": "Das gleichseitige Dreieck hat eine Seitenlänge von 5cm.Wie viele solche Ohrhänger kann Janina mit 90cm Silberdraht herstellen?             Ohrhänger Schreibe deinen Lösungsweg auf.",
+      "deterministic_text": "Das gleichseitige Dreieck hat eine Seitenlänge von 5cm.\nWie viele solche Ohrhänger kann Janina mit 90cm Silberdraht herstellen?\nOhrhänger\nSchreibe deinen Lösungsweg auf.",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ohrhaenger/02_image3.emf.png",
+      "tokens": "Aus weiteren 90cm Silberdraht biegt Janina nun 6 andere Ohrhänger. Diese sind alle gleich groß. Der obere Teil ist wieder 3cm lang und der untere Teil ist wieder ein gleichseitiges Dreieck.Wie lang ist eine Dreiecksseite, wenn kein Silberdraht übrig bleiben soll?                                  cmSchreibe deinen Lösungsweg auf.",
+      "deterministic_text": "Aus weiteren 90cm Silberdraht biegt Janina nun 6 andere Ohrhänger. Diese sind alle\ngleich groß. Der obere Teil ist wieder 3cm lang und der untere Teil ist wieder ein\ngleichseitiges Dreieck.\nWie lang ist eine Dreiecksseite, wenn kein Silberdraht übrig bleiben soll?\ncm\nSchreibe deinen Lösungsweg auf.",
+      "table": null,
+      "n_fragments": 21,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ohrhaenger/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Ohrhänger",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "5 \n\nUND \n\nLösungsweg, der den Drahtbedarf für einen Ohrhänger (18 cm) und die Gesamtlänge des Drahts (90 cm) berücksichtigt.\n\nBeispiel(e)\n\n\n\n(Grenzfall)\n\n(Grenzfall)"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4\n\nUND \n\nLösungsweg, bei dem mittels des Drahtbedarfs für einen Ohrhänger (12 cm + 3 cm) die Länge einer Dreiecksseite (4 cm) errechnet wird.\n\nODER\n\nEs wird nachgewiesen, dass bei einer Länge der Dreiecksseiten von 4 cm für 6 Ohrhänger exakt 90 cm Draht verbraucht werden.\n\nBeispiel(e)"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Ohrhänger"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "5 \n\nUND \n\nLösungsweg, der den Drahtbedarf für einen Ohrhänger (18 cm) und die Gesamtlänge des Drahts (90 cm) berücksichtigt.\n\nBeispiel(e)\n\n\n\n(Grenzfall)\n\n(Grenzfall)"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4\n\nUND \n\nLösungsweg, bei dem mittels des Drahtbedarfs für einen Ohrhänger (12 cm + 3 cm) die Länge einer Dreiecksseite (4 cm) errechnet wird.\n\nODER\n\nEs wird nachgewiesen, dass bei einer Länge der Dreiecksseiten von 4 cm für 6 Ohrhänger exakt 90 cm Draht verbraucht werden.\n\nBeispiel(e)"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 21.1:",
+      "Der Aufbau der Ohrhänger bleibt gänzlich unberücksichtigt (K3) und die Gesamtlänge des Drahts (90 cm) wird lediglich durch 5 cm dividiert. Dies führt zur Fehllösung „18 Ohrhänger“, wie die erste Schülerlösung zeigt:",
+      "Lediglich der untere Teil des Ohrhängers wird im Modell berücksichtigt (K3), was folgerichtig die Fehllösung „6 Ohrhänger“ ergibt, wie die zweite Schülerlösung zeigt:",
+      "Die Seitenlänge des gleichseitigen Dreiecks wird mit dessen Umfang verwechselt. Folglich wird „11 Ohrhänger“ errechnet, wie die dritte Schülerlösung illustriert:",
+      "Ein Teil der gegebenen Längenangaben wird ohne erkennbare Beachtung der Realsituation miteinander verrechnet, was u.a. zur Fehllösung „450 Ohrhänger“ führt. Auch eine Plausibilitätsprüfung des errechneten Ergebnisses im Kontext unterbleibt dabei (K3), wie die vierte Schülerlösung zeigt:",
+      "Zu Teilaufgabe 21.2:",
+      "Der Aufbau der Ohrhänger wird nur unvollständig berücksichtigt und das Abarbeiten der Teilprobleme gelingt nicht vollständig. Im ersten Zwischenschritt wird die Länge des für jeden Ohrhänger zur Verfügung stehenden Drahtes richtig errechnet. Anschließend wird jedoch nur der untere Teil des Ohrhängers in die Rechnung einbezogen. Dies führt zur Fehllösung „5 cm“, wie die folgende Schülerlösung zeigt:",
+      "Die Zerlegung in mehrere Teilprobleme bzw. deren Abarbeiten gelingt nicht (K2) und so wird beispielsweise nur die Anzahl der Ohrhänger in der Rechnung berücksichtigt. Auch eine kritische Prüfung des rechnerischen Ergebnisses „15“ im Realkontext (K3) unterbleibt offenbar, wie diese Schülerlösung deutlich macht:"
+    ],
+    "quelle": "ohrhaenger_Didaktische_Kommentierung.docx"
+  }
+}

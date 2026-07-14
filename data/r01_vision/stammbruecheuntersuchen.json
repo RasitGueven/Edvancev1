@@ -1,0 +1,37 @@
+{
+  "item": "stammbruecheuntersuchen",
+  "gelesen_aus": [
+    "data/r01_render/stammbruecheuntersuchen/00_image1.emf.png",
+    "data/r01_render/stammbruecheuntersuchen/01_image2.emf.png",
+    "data/r01_render/stammbruecheuntersuchen/02_image3.emf.png"
+  ],
+  "stem": "Ein Bruch mit einer 1 im Zähler und einer beliebigen natürlichen Zahl größer 0 im Nenner heißt Stammbruch. 1/17 ist ein Beispiel für einen Stammbruch.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Stammbrüche sollen nun der Größe nach geordnet werden. Ergänze die folgende Tabelle. Ein Beispiel ist bereits eingetragen.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Wie viele Stammbrüche sind kleiner als 1/10? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "8"},
+        {"id": "b", "label": "9"},
+        {"id": "c", "label": "10"},
+        {"id": "d", "label": "unendlich viele"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Brüche sind im Bild als echte Bruchstriche (Zähler über Nenner) gesetzt; hier als 1/17 bzw. 1/10 geschrieben, da es dafür keine Unicode-Einzelzeichen gibt.",
+    "Teilaufgabe 1 ist eine Tabellen-Ergänzung (Spalten: nächstkleinerer Stammbruch | Stammbruch | nächstgrößerer Stammbruch; Beispielzeile 1/4 | 1/3 | 1/2; zu ergänzende Zeilen mit 1/4 in der Mitte und 1/100 rechts). Die Tabelle selbst wurde nicht abgetippt (stem_tabelle_erwartet = true)."
+  ]
+}

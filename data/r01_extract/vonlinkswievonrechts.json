@@ -1,0 +1,161 @@
+{
+  "item": "vonlinkswievonrechts",
+  "sources": {
+    "Aufgabe": {
+      "file": "vonlinkswievonrechts_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "0793947acb41b557"
+    },
+    "Auswertung": {
+      "file": "vonlinkswievonrechts_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "ab59f300fb868806"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "vonlinkswievonrechts_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "d77592d534d6fc2c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/vonlinkswievonrechts/00_image1.emf.png",
+      "tokens": "252 und 4774 sind natürliche Zahlen, die von links und rechts gelesen gleich sind. Zahlen mit dieser Eigenschaft heißen Palindromzahlen. Dabei darf die erste und letzte Ziffer keine Null sein. 252 ist zum Beispiel eine 3-stellige Palindromzahl und 4774 eine 4-stellige Palindromzahl.",
+      "deterministic_text": "252 und 4774 sind natürliche Zahlen, die von links und rechts gelesen gleich sind. Zahlen\nmit dieser Eigenschaft heißen Palindromzahlen. Dabei darf die erste und letzte Ziffer keine\nNull sein. 252 ist zum Beispiel eine 3-stellige Palindromzahl und 4774 eine 4-stellige\nPalindromzahl.",
+      "table": null,
+      "n_fragments": 25,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/vonlinkswievonrechts/01_image2.emf.png",
+      "tokens": "Ergänze die Zahl 38 zu einer4-stelligen Palindromzahl:und zu einer5-stelligen Palindromzahl:.",
+      "deterministic_text": "Ergänze die Zahl 38 zu einer\n4-stelligen Palindromzahl:\nund zu einer\n5-stelligen Palindromzahl: .",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/vonlinkswievonrechts/02_image3.emf.png",
+      "tokens": "Wie viele verschiedene 4-stellige Palindromzahlen gibt es?Kreuze an.16728190100",
+      "deterministic_text": "Wie viele verschiedene 4-stellige Palindromzahlen gibt es?\nKreuze an.\n16 72 81 90 100",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/vonlinkswievonrechts/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Von links wie von rechts",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe einer 4-stelligen Palindromzahl:\n3883 ODER 8338\n\nUND\n\nAngabe einer 5-stelligen Palindromzahl:\n\nBeispiel(e)\n48384\n\n[Anm.: Auf welchen der 5 Stellen der Palindromzahl die vorgegebene \"38\" steht, ist unerheblich, z. B. 38183 oder 13831 oder 18381.]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Von links wie von rechts"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe einer 4-stelligen Palindromzahl:\n3883 ODER 8338\n\nUND\n\nAngabe einer 5-stelligen Palindromzahl:\n\nBeispiel(e)\n48384\n\n[Anm.: Auf welchen der 5 Stellen der Palindromzahl die vorgegebene \"38\" steht, ist unerheblich, z. B. 38183 oder 13831 oder 18381.]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "vonlinkswievonrechts_Didaktische_Kommentierung.docx"
+  }
+}

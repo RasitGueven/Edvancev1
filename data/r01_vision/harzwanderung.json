@@ -1,0 +1,10 @@
+{
+  "item": "harzwanderung",
+  "gelesen_aus": ["data/r01_render/harzwanderung/00_doc_image1.emf.png"],
+  "stem": "Peter und Markus planen eine Wanderung durch den Harz.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Widerspruch zur Auswertung: Das einzige gerenderte Bild enthält nur den Einleitungssatz. Es sind KEINE Teilaufgaben, Prompts oder Optionen sichtbar, die Auswertung kennt aber 2 Teilaufgaben. Die Teilaufgabentexte liegen offenbar außerhalb dieses EMF."
+  ]
+}

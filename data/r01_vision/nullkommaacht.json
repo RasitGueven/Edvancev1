@@ -1,0 +1,31 @@
+{
+  "item": "nullkommaacht",
+  "gelesen_aus": [
+    "data/r01_render/nullkommaacht/00_image1.emf.png",
+    "data/r01_render/nullkommaacht/01_image2.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ergänze jeweils die fehlende Zahl so, dass die Gleichung stimmt.\n8 : ☐ = 0,8\n0,8 : ☐ = 0,8",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ergänze jeweils die fehlende Zahl so, dass die Gleichung stimmt.\n☐ : 8 = 0,8\n☐ : 0,8 = 0,8",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Jede der 2 Teilaufgaben enthält im Bild ZWEI Gleichungen mit je einem Leerkästchen (also 4 Eingabefelder insgesamt). Die Kästchen sind hier als ☐ dargestellt.",
+    "Der Einleitungssatz 'Ergänze jeweils die fehlende Zahl so, dass die Gleichung stimmt.' steht in BEIDEN Bildern identisch; unklar, ob er im Original nur einmal als gemeinsamer Stamm vorkommt."
+  ]
+}

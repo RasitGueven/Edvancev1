@@ -1,0 +1,34 @@
+{
+  "item": "dvdplayer",
+  "gelesen_aus": [
+    "data/r01_render/dvdplayer/00_image1.emf.png",
+    "data/r01_render/dvdplayer/01_image2.emf.png",
+    "data/r01_render/dvdplayer/02_image3.emf.png"
+  ],
+  "stem": "In einem Online-Shop im Internet ist ein Angebot für einen tragbaren DVD-Player zu finden. Der ursprüngliche Preis dieses DVD-Players von 99,99 € wird um 20 % reduziert. Wenn man den Rechnungsbetrag vom Bankkonto abbuchen lässt, bekommt man auf diesen reduzierten Preis nochmal einen Rabatt von 5 %.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib den Preis für den DVD-Player an, wenn man ihn ohne Abbuchung vom Bankkonto bezahlt. Runde auf ganze Cent.",
+      "unit": "€",
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Es wird behauptet: „Statt zunächst den Preisnachlass von 20 % und anschließend den Rabatt von 5 % abzuziehen, kann man auch einmalig 25 % vom Preis des DVD-Players abziehen!“ Ist diese Behauptung richtig? Kreuze an. Begründe deine Antwort.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teil 2 kombiniert Ankreuzen (Ja/Nein) mit einer freien Begründung im Kästchenraster; hier als eine MC-Teilaufgabe modelliert."
+  ]
+}

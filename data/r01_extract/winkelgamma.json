@@ -1,0 +1,106 @@
+{
+  "item": "winkelgamma",
+  "sources": {
+    "Aufgabe": {
+      "file": "winkelgamma_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "2c45aaf7a654ca59"
+    },
+    "Auswertung": {
+      "file": "winkelgamma_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "9cf3a759363f92c5"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "winkelgamma_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "a066bd0804d12551"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/winkelgamma/00_image1.emf.png",
+      "tokens": "In diesem Dreieck sind die Strecken      ,       und       gleich lang. AMMBMCABMxxxbaabg1g2C(nicht maßstabsgerecht) Niki behauptet: „Dann ist g = g1+ g2 ein rechter Winkel.“Dazu will sie einen Beweis in der Klasse vortragen. Sie hat ihre Argumentations-schritte auf Karteikarten notiert, die sie der Reihe nach an die Tafel heften will.Hier sind die noch nicht sortierten Karten:Bringe alle Argumentationskarten für Nikis Vortrag in eine logisch richtige Reihenfolge.Trage hierzu die restlichen Kartennummern in der Reihenfolge des Vortrags ein:K1K7K5K1K5K2K6a + b + g = 180°g1+ g2+ g1+ g2= 180°Zusammenfassen:g= g1+ g2Einsetzen in den Winkelsummen-satz für Dreiecke:AMC und MBC sind gleich-schenklige Dreiecke.K3K7K4K8a =g1undb= g22g1+ 2g2= 180°Û g1+ g2= 90°Û g= 90°   ist genausolang wie       undwie       , also gilt:Daraus folgt, dass die Basiswinkel gleich groß sind, also:MCAMBM",
+      "deterministic_text": "In diesem Dreieck sind die Strecken AM, MBund gleich langMC .\nC\ng¹g2\nb a\nx\na b\nA x M x B\n(nicht maßstabsgerecht)\nNiki behauptet: „Dann ist g = g1+ g2 ein rechter Winkel.“\nDazu will sie einen Beweis in der Klasse vortragen. Sie hat ihre Argumentations-\nschritte auf Karteikarten notiert, die sie der Reihe nach an die Tafel heften will.\nHier sind die noch nicht sortierten Karten:\nK1 K2 AMC und MBC K3 2g1+ 2g2= 180°K4 Daraus folgt,\ng= g+ g sind gleich- Û g+ g= 90° dass die\n¹² schenklige ¹² Basiswinkel gleich\nDreiecke. Û g= 90° groß sind, also:\nK5 Einsetzen in den K6 a + b + g = 180°K7MC ist genauso K8 a =g1\nWinkelsummen- g1+ g2+ g1+ g2 lang wie undAM und\nsatz für = 180°\nDreiecke: Zusammenfassen: wie BM, also gilt: b= g²\nBringe alle Argumentationskarten für Nikis Vortrag in eine logisch richtige Reihenfolge.\nTrage hierzu die restlichen Kartennummern in der Reihenfolge des Vortrags ein:\nK1 K7 K5",
+      "table": null,
+      "n_fragments": 169,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/winkelgamma/01_image2.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Winkel Gamma"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die korrekte Reihenfolge der Karten wird notiert:"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Winkel Gamma"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die korrekte Reihenfolge der Karten wird notiert:"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematische Darstellungen verwenden (K4),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K4",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Das für den Beweis nötige Fachwissen zur Innenwinkelsumme eines Dreiecks oder zu den Eigenschaften gleichschenkliger Dreiecke fehlt, so dass einige Beweiskärtchen inhaltlich nicht richtig erfasst werden können.",
+      "Einzelne Beweisschritte werden vertauscht. Dies bezieht sich insbesondere auf die Voraussetzung und die Folgerung und wird durch die folgende Schülerlösung veranschaulicht:",
+      "Die formale Schreibweise einzelner Kärtchen bereitet Schwierigkeiten, weshalb deren Inhalte und Beweisschritte inhaltlich nicht richtig erfasst werden können."
+    ],
+    "quelle": "winkelgamma_Didaktische_Kommentierung.docx"
+  }
+}

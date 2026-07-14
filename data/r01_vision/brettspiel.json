@@ -1,0 +1,22 @@
+{
+  "item": "brettspiel",
+  "gelesen_aus": [
+    "data/r01_render/brettspiel/00_doc_image1.emf.png"
+  ],
+  "stem": "Bei einem Brettspiel wird ein sechsseitiger Spielwürfel mit den Zahlen von 1 bis 6 verwendet. Der Spielstein darf immer um genau so viele Felder weitergeschoben werden, wie die Augenzahl beim einmaligen Werfen des Würfels anzeigt.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält ausschließlich den Einleitungstext (Stamm). Die eigentliche Frage/Teilaufgabe ist im Bild NICHT sichtbar — prompt daher leer gelassen.",
+    "kind der Teilaufgabe 1 ist nicht bestimmbar (kein Prompt, keine Optionen, kein Eingabefeld sichtbar); 'free_text' ist nur ein Platzhalter."
+  ]
+}

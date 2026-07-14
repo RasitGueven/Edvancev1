@@ -1,0 +1,59 @@
+{
+  "item": "niederschlag",
+  "gelesen_aus": [
+    "data/r01_render/niederschlag/00_image1.emf.png",
+    "data/r01_render/niederschlag/01_image2.emf.png",
+    "data/r01_render/niederschlag/02_image3.emf.png",
+    "data/r01_render/niederschlag/03_image4.emf.png",
+    "data/r01_render/niederschlag/04_image5.emf.png"
+  ],
+  "stem": "Die Abbildung zeigt ein Klimadiagramm für Halle an der Saale für das Jahr 2012. Die Säulen im Diagramm zeigen, wie viel Niederschlag in jedem Monat fiel. Die Punkte zeigen die durchschnittlichen Temperaturen für jeden Monat.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, in welchem Monat die durchschnittliche Temperatur in Halle an der Saale am niedrigsten war.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Gib die Spannweite (das ist die Differenz des größten und kleinsten Wertes) der durchschnittlichen Temperaturen an.\nWelcher Wert passt am besten?",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "10 °C"},
+        {"id": "b", "label": "18 °C"},
+        {"id": "c", "label": "25 °C"},
+        {"id": "d", "label": "32 °C"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Gib an, in welchem Monat in Halle an der Saale am meisten Niederschlag fiel.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Kann man anhand dieses Diagramms sagen, dass für Halle an der Saale im Laufe des Monats Juli die höchste Tagestemperatur des Jahres 2012 gemessen wurde?\nBegründe deine Antwort.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 4 ist zweiteilig: Ankreuzen (Ja/Nein) PLUS 'Begründe deine Antwort.' mit Schreibraster. Ich habe sie als eine Teilaufgabe (mc) geführt, damit die von der Auswertung erwarteten 4 Teilaufgaben herauskommen; der Begründungsteil steckt im Prompt.",
+    "Reihenfolge der Teilaufgaben folgt der Bildreihenfolge (image2..image5): Monat kälteste Temperatur, Spannweite, Monat meister Niederschlag, Juli-Begründung.",
+    "Diagramm-Achsenbeschriftungen sind im EMF vertikal verschränkt gerendert ('Niederschlag in mm' links, 'Temperatur in °C' rechts) — als Abbildungsbeschriftung nicht in den Stamm übernommen. Ebenso 'Daten: Deutscher Wetterdienst, 2012'."
+  ]
+}

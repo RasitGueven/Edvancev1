@@ -1,0 +1,41 @@
+{
+  "item": "rundfunkgebuehren",
+  "gelesen_aus": [
+    "data/r01_render/rundfunkgebuehren/00_image1.emf.png",
+    "data/r01_render/rundfunkgebuehren/01_image2.emf.png",
+    "data/r01_render/rundfunkgebuehren/02_image3.emf.png",
+    "data/r01_render/rundfunkgebuehren/03_image4.emf.png"
+  ],
+  "stem": "In der folgenden Abbildung ist die Entwicklung der monatlichen Rundfunkgebühren, die ein Haushalt bezahlen muss, seit dem Jahr 1953 dargestellt. Die Abbildung 1 zeigt, wann es Gebührenerhöhungen gab und wie hoch danach die Gebühren waren.\nHerr Kunze hat sich genauer mit den Daten befasst und viel gerechnet. Seine Ergebnisse hat er in einer Tabelle aufgeschrieben. Allerdings hat er in der Kopfzeile nicht alle fünf Spalten inhaltlich beschriftet. Zudem stehen in einigen Feldern Fragezeichen statt Daten.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib die Daten an, die in den Spalten 1, 2 und 3 fehlen.\nIn der Spalte 1 fehlt …\nIn der Spalte 2 fehlt …\nIn der Spalte 3 fehlt …",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Die Daten in den Spalten 4 und 5 lassen sich nicht direkt aus der Abbildung ablesen. Sie müssen erst errechnet werden. Gib die Daten an, die in diesen beiden Spalten fehlen.\nIn der Spalte 4 fehlt …\nIn der Spalte 5 fehlt …",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Herr Kunze hat die Daten aus Abbildung 1 in einer zweiten Abbildung dargestellt. Nenne zwei Unterschiede, die Abbildung 2 gegenüber Abbildung 1 hat.\nUnterschied 1: …\nUnterschied 2: …\nNenne einen Vorteil, den Abbildung 2 im Vergleich zu Abbildung 1 hat. (Du darfst auch einen der beiden Unterschiede nutzen.)",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die Tabelle im Stamm hat die Kopfzeile 'Jahr | Differenz | Spalte 3 | Spalte 4 | Spalte 5' mit Fragezeichen in einzelnen Feldern (u. a. Spalte 3/1979, Differenz/1988, Jahr-Zelle zwischen 1990 und 1997, Spalte 4/2001, Spalte 5/2009).",
+    "Abbildung 2 in Teil 3 ist ein LEERES Koordinatensystem (x: 1950–2020, y: 0 €–20 €) — die Daten sind darin nicht eingezeichnet. Unklar, ob die Punkte/Linien im Original-EMF vorhanden sind und beim Rendern verloren gingen."
+  ]
+}

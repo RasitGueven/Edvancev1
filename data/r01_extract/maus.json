@@ -1,0 +1,111 @@
+{
+  "item": "maus",
+  "sources": {
+    "Aufgabe": {
+      "file": "maus_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "58feff5a568bbd78"
+    },
+    "Auswertung": {
+      "file": "maus_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "9f82b8f4563944a0"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "maus_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "12c8125f98af4cc6"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/maus/00_image1.emf.png",
+      "tokens": " Foto: Holger Meinig http://www.guetersloh.de/Z3VldGVyc2xvaGQ0Y21zOjU2ODcy.x4s ",
+      "deterministic_text": "Foto: Holger Meinig\nhttp://www.guetersloh.de/Z3VldGVyc2xvaGQ0Y21zOjU2ODcy.x4s",
+      "table": null,
+      "n_fragments": 26,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/maus/01_image2.emf.png",
+      "tokens": "Hier stimmt die Größenangabe nicht: „Mäuse wiegen im Durchschnitt 40 Tonnen.“Welche der folgenden Maßeinheiten passt hier zur Maßzahl 40? Kreuze an.Kilogramm (kg)Gramm (g)Milligramm (mg)Mikrogramm (mg)",
+      "deterministic_text": "Hier stimmt die Größenangabe nicht: „Mäuse wiegen im Durchschnitt 40 Tonnen.“\nWelche der folgenden Maßeinheiten passt hier zur Maßzahl 40?\nKreuze an.\nKilogramm (kg) Gramm (g) Milligramm (mg) Mikrogramm (mg)",
+      "table": null,
+      "n_fragments": 29,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/maus/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Maus"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Maus"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "maus_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "item": "mittezwischenzahlen",
+  "sources": {
+    "Aufgabe": {
+      "file": "mittezwischenzahlen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "337027d4097fca35"
+    },
+    "Auswertung": {
+      "file": "mittezwischenzahlen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "14a6f3bb4c4a74f2"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "mittezwischenzahlen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "e9ac381255aa5c6b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/mittezwischenzahlen/00_doc_image1.emf.png",
+      "tokens": "Gib an, welche Zahl genau in der Mitte der beiden Zahlen 6,06 und 6,6 liegt.",
+      "deterministic_text": "Gib an, welche Zahl genau in der Mitte der beiden Zahlen 6,06 und 6,6 liegt.",
+      "table": null,
+      "n_fragments": 12,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Mitte zwischen Zahlen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "6,33"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Mitte zwischen Zahlen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "6,33"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "III",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Die Bedingung „genau in der Mitte“ wird nicht richtig gedeutet,",
+      "infolgedessen wird eine andere Zahl zwischen den gegebenen berechnet."
+    ],
+    "quelle": "mittezwischenzahlen_Didaktische_Kommentierung.doc"
+  }
+}

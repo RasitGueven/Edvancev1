@@ -1,0 +1,102 @@
+{
+  "item": "quadratzeichnen",
+  "sources": {
+    "Aufgabe": {
+      "file": "quadratzeichnen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "b5cca61a906ac683"
+    },
+    "Auswertung": {
+      "file": "quadratzeichnen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "59968f6c33e31875"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "quadratzeichnen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "1fa3c733de590f4c"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/quadratzeichnen/00_image1.emf.png",
+      "tokens": "Zeichne ein Quadrat mit der Seitenlänge 5cm.",
+      "deterministic_text": "Zeichne ein Quadrat mit der Seitenlänge 5cm.",
+      "table": null,
+      "n_fragments": 4,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/quadratzeichnen/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Quadrat zeichnen"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Quadrat mit der Seitenlänge 5 cm, welches nicht freihändig gezeichnet ist. \n[Anm.: Zeichentoleranz  1 mm und  1°\nEtwaige Bezeichnungen des Quadrats gehen nicht in die Kodierung ein.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Quadrat zeichnen"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Quadrat mit der Seitenlänge 5 cm, welches nicht freihändig gezeichnet ist. \n[Anm.: Zeichentoleranz  1 mm und  1°\nEtwaige Bezeichnungen des Quadrats gehen nicht in die Kodierung ein.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mit symbolischen/formalen/technischen Elementen umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Es wird kein Quadrat sondern ein Rechteck gezeichnet. Dies lässt vermuten, dass den Schülerinnen und Schülern die Eigenschaften eines Quadrates nicht geläufig sind (K5).",
+      "Einer oder mehrere der vier Winkel sind nicht 90° groß, was auf Schwierigkeiten beim Zeichnen hinweisen könnte (K5)."
+    ],
+    "quelle": "quadratzeichnen_Didaktische_Kommentierung.docx"
+  }
+}

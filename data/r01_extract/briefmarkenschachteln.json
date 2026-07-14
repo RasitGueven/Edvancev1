@@ -1,0 +1,167 @@
+{
+  "item": "briefmarkenschachteln",
+  "sources": {
+    "Aufgabe": {
+      "file": "briefmarkenschachteln_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "326d8a3aad43997e"
+    },
+    "Auswertung": {
+      "file": "briefmarkenschachteln_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "a443fa251977a793"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "briefmarkenschachteln_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "44dabab4db5d9b99"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/briefmarkenschachteln/00_doc_image1.emf.png",
+      "tokens": "Martin sammelt neuerdings Briefmarken. Er will sie vorläufig in kleinen, selbst gebastelten Schachteln aufbewahren. Hier sind Netze für weitere Schachteln. Vor dem Zusammenkleben beschriftet sie Martin. Vervollständige die Beschriftung.",
+      "deterministic_text": "Martin sammelt neuerdings Briefmarken. Er will sie vorläufig in kleinen, selbst gebastelten\nSchachteln aufbewahren.\nHier sind Netze für weitere Schachteln. Vor dem Zusammenkleben beschriftet sie Martin.\nVervollständige die Beschriftung.",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Briefmarkenschachteln",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nODER\n[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Lösungen (Insbesondere Buchstaben in falscher\nAusrichtung)."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Briefmarkenschachteln"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nODER\n[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Lösungen (Insbesondere Buchstaben in falscher\nAusrichtung)."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1, 2:",
+      "Die folgenden Schwierigkeiten und Fehler sind wahrscheinlich alle auf ein",
+      "noch nicht ausreichend gut entwickeltes räumliches Vorstellungsvermögen",
+      "• Es wird nicht erkannt, dass es sich bei der fett umrandeten Fläche um die",
+      "Bodenfläche handelt. Diese wird demzufolge ebenfalls beschriftet.",
+      "• Es werden die falschen Seitenflächen beschriftet.",
+      "• Die richtige Seitenfläche wird in der falschen Richtung beschriftet, was",
+      "die folgende Schülerlösung exemplarisch veranschaulicht.",
+      "Weiterarbeit und Förderung",
+      "Um das räumliche Vorstellungsvermögen der Schülerinnen und Schüler zu",
+      "fördern, können die Briefmarkenschachteln im Unterricht leicht aus den",
+      "gegebenen Netzen nachgebaut und dann richtig beschriftet werden. Vertiefend",
+      "ist es denkbar, weitere Beschriftungen einzufordern oder aber diesen",
+      "Aufgabentyp auf andere Körper (z. B. Pyramide) zu übertragen.",
+      "Weiterführend können Aufgaben zum Würfel oder Quader behandelt werden, in",
+      "welchen nach allen möglichen Netzen gefragt wird. Sie erfordern neben der",
+      "Arbeit mit mathematischen Darstellungen (K4) auch das Lösen mathematischer",
+      "Probleme (K2) und das Begründen der gefundenen Anzahl an Netzen (K1), so",
+      "dass weitere Kompetenzen gefördert werden können. Derartige Aufgaben bieten",
+      "sich hierzu besonders an, da sie auf handelnder und auf zeichnerischer",
+      "Ebene gelöst werden können und demnach vielen Schülerinnen und Schülern",
+      "einen Zugang ermöglichen. Dabei bietet sich neben der Arbeit mit Pappe oder",
+      "Papier auch der Einsatz von Klickis an, aus denen verschiedene Netze",
+      "nachgebaut werden können.",
+      "Diese Aufgabe bietet auch die Möglichkeit, Umkehraufgaben zur gegebenen",
+      "Frage zu behandeln und schließlich alle drei Grundaufgaben der",
+      "Prozentrechnung mithilfe einer solchen Darstellung zu thematisieren",
+      "(Grundwert, Prozentsatz oder Prozentwert ist gesucht). Insbesondere kann",
+      "bei fehlerhaften Lösungen der obigen Aufgabe gefragt werden, welcher",
+      "Prozentsatz – anstelle des geforderten – dargestellt ist.",
+      "Schließlich kann diese Aufgabe auch Anlass geben, grundlegende",
+      "Fertigkeiten, wie das Umwandeln eines Prozentsatzes in einen",
+      "Hundertstelbruch, einen gekürzten Bruch und einen Dezimalbruch zu üben."
+    ],
+    "quelle": "briefmarkenschachteln_Didaktische_Kommentierung.doc"
+  }
+}

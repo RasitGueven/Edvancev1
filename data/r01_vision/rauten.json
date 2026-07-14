@@ -1,0 +1,56 @@
+{
+  "item": "rauten",
+  "gelesen_aus": [
+    "data/r01_render/rauten/00_image1.emf.png",
+    "data/r01_render/rauten/01_image2.emf.png",
+    "data/r01_render/rauten/02_image3.emf.png",
+    "data/r01_render/rauten/03_image4.emf.png",
+    "data/r01_render/rauten/04_image5.emf.png"
+  ],
+  "stem": "Die Eckpunkte Dx der Rauten AxBxCxDx wandern auf der Geraden g mit der Gleichung y = x. Dabei gilt immer:\n· Die Diagonalen AxCx dieser Rauten sind 2 cm lang.\n· Die Punkte Bx liegen auf der x-Achse und haben jeweils die gleiche x-Koordinate wie die Punkte Dx.\nIm Koordinatensystem sind zwei solche Rauten dargestellt, zu x = 4 und zu x = 7.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Wie groß ist der Flächeninhalt der Raute A₄B₄C₄D₄?",
+      "unit": "cm²",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Die Raute AxBxCxDx hat einen Flächeninhalt von 10 cm². Gib die Koordinaten des zugehörigen Punktes Dx an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Für welchen Wert von x ist die Raute AxBxCxDx gleichzeitig ein Quadrat? Gib den x-Wert an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Wie groß ist allgemein der Flächeninhalt der Raute AxBxCxDx? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "0,25x cm²"},
+        {"id": "b", "label": "0,5x cm²"},
+        {"id": "c", "label": "x cm²"},
+        {"id": "d", "label": "2x cm²"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Indizes stehen im Bild tiefgestellt (A_x, B_x, C_x, D_x bzw. A₄B₄C₄D₄); ich habe sie im Fließtext als 'Ax…' geschrieben und in Teil 1 mit Unicode-Subskripten.",
+    "Die Queue meldet 'hat_tabelle_im_emf: true'; im Bild ist aber keine Datentabelle, sondern das Koordinatengitter (Achsen x/y, Skalen 0,1,5,10, Gerade g, Kästchen '1 cm'). Deshalb stem_tabelle_erwartet: false.",
+    "Das Eingabefeld in Teilaufgabe 2 lautet 'Dx ( ..... | ..... )' — Feld-Label, nicht Prompt; unit daher null."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "item": "inliner",
+  "gelesen_aus": [
+    "data/r01_render/inliner/00_image1.emf.png",
+    "data/r01_render/inliner/01_image2.emf.png",
+    "data/r01_render/inliner/02_image3.emf.png"
+  ],
+  "stem": "Lara umrundet auf Inline-Skates einen See. Sie startet vom Parkplatz aus und braucht für die 12 km bis zum Eiscafé 40 Minuten. Im Eiscafé macht Lara 30 min Pause. Anschließend fährt sie mit einer Geschwindigkeit von 12 km/h weiter und ist nach einer halben Stunde wieder am Parkplatz.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne in das folgende Koordinatensystem ein Zeit-Weg-Diagramm für Laras Seeumrundung.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Paul startet mit seinem Fahrrad 40 Minuten später als Lara auf dem Parkplatz. Er fährt die gleiche Runde um den See wie Lara. Paul fährt mit einer Durchschnittsgeschwindigkeit von 28 km/h. Ist Lara noch im Eiscafe, wenn Paul dort ankommt? Kreuze an. Begründe deine Entscheidung.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Geschwindigkeiten stehen im Bild als Bruch km/h (km über h); ich habe sie als '12 km/h' bzw. '28 km/h' notiert.",
+    "Teil 2 kombiniert Ankreuzen (Ja/Nein) UND eine Begründung im karierten Feld — ich habe kind=mc gesetzt und die Begründungsaufforderung im Prompt belassen.",
+    "Teil 1 ist eine Zeichenaufgabe im Koordinatensystem (Achsen: 'gefahrene Strecke (in km)' 0–20, 'Zeit (in min)' 0–140), kein Textfeld; als free_text gefasst.",
+    "Queue meldet hat_tabelle_im_emf=true; im Bild sind nur Koordinatengitter/Kästchenpapier, keine Tabelle."
+  ]
+}

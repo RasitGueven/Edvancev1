@@ -1,0 +1,540 @@
+{
+  "item": "grosserwagen",
+  "sources": {
+    "Aufgabe": {
+      "file": "grosserwagen_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "34c877d20d944783"
+    },
+    "Auswertung": {
+      "file": "grosserwagen_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "b18ea548b69c9bc1"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "grosserwagen_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "bc88bcba146e16e5"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/grosserwagen/00_image1.emf.png",
+      "tokens": "Gregor zeichnet 6 Sterne, die zum Sternbild „Großer Wagen“ gehören, vereinfacht in ein Koordinatensystem.135-1-3-5135-1-3-5yx1. Stern2. Stern3. Stern4. Stern5. Stern6. Stern",
+      "deterministic_text": "Gregor zeichnet 6 Sterne, die zum Sternbild „Großer Wagen“ gehören, vereinfacht in ein\nKoordinatensystem.\ny\n5\n3\n1. Stern\n5. Stern 4. Stern\n6. Stern 1\n-5 -3 -1 1 3 5 x\n-1².Sterⁿ\n3. Stern\n-3\n-5",
+      "table": {
+        "header": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "y",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "5",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "3",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "1. Stern",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "5. Stern",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "4.",
+            "Stern",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "6.",
+            "Stern",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "x"
+          ],
+          [
+            "",
+            "",
+            "",
+            "-5",
+            "",
+            "",
+            "",
+            "-3",
+            "",
+            "",
+            "",
+            "-1",
+            "",
+            "",
+            "",
+            "1",
+            "",
+            "",
+            "",
+            "3",
+            "",
+            "",
+            "2. Stern",
+            "5",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-1",
+            "",
+            "",
+            "",
+            "3.",
+            "Stern",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-3",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "-5",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 47,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/grosserwagen/01_image2.emf.png",
+      "tokens": "Gregor notiert:„Zu diesem Sternbild gehören die Sterne mit den Koordinaten1. Stern(   4 |   2 ),2. Stern (  4 | -0,5 ),3. Stern(1 | ), 4. Stern ( |    1   ),5. Stern( -3 |   1 ), 6. Stern (  |         ).“Vervollständige die Koordinaten der Sterne.",
+      "deterministic_text": "Gregor notiert:\n„Zu diesem Sternbild gehören die Sterne mit den Koordinaten\n1. Stern( 4 | 2 ), 2. Stern ( 4 | -0,5 ),\n3. Stern(1 | ), 4. Stern ( | 1 ),\n5. Stern( -3 | 1 ), 6. Stern ( | ).“\nVervollständige die Koordinaten der Sterne.",
+      "table": null,
+      "n_fragments": 59,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/grosserwagen/02_image3.emf.png",
+      "tokens": "Gregor zeichnet noch einen Stern ein, der zum Sternbild „Großer Wagen“ gehört. Dieser Stern hat die Koordinaten:7. Stern( -6 | -1 ).Zeichne diesen Stern in das Koordinatensystem ein und verbinde ihn mit dem6. Stern.",
+      "deterministic_text": "Gregor zeichnet noch einen Stern ein, der zum Sternbild „Großer Wagen“ gehört.\nDieser Stern hat die Koordinaten:7. Stern( -6 | -1 ).\nZeichne diesen Stern in das Koordinatensystem ein und verbinde ihn mit dem\n6. Stern.",
+      "table": null,
+      "n_fragments": 21,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/grosserwagen/03_image4.emf.png",
+      "tokens": "Verlängert man die gedachte Verbindungslinie zwischen dem 2. und dem 1. Stern des „Großen Wagens“ vom 1. Stern aus um das Fünffache nach oben, findet man den Polarstern.Schreibe die Koordinaten auf, die der Polarstern in Gregors Koordinatensystem hätte.Hinweis: Man kann den Stern nicht mehr in das Koordinatensystem einzeichnen.Polarstern ( |        )",
+      "deterministic_text": "Verlängert man die gedachte Verbindungslinie zwischen dem 2. und dem 1. Stern des\n„Großen Wagens“ vom 1. Stern aus um das Fünffache nach oben, findet man den\nPolarstern.\nSchreibe die Koordinaten auf, die der Polarstern in Gregors Koordinatensystem hätte.\nHinweis: Man kann den Stern nicht mehr in das Koordinatensystem einzeichnen.\nPolarstern ( | )",
+      "table": null,
+      "n_fragments": 27,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/grosserwagen/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Großer Wagen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Stern ( 1 | -1 )\n\nUND\n\n4. Stern ( 0 | 1 )\n\nUND\n\n6. Stern ( -5 | 0,5 )"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[Anm.: Auch richtig ist, wenn nur der Stern an der richtigen Stelle eingezeichnet wurde (ohne Beschriftung \"7. Stern\" und Verbindung zum 6. Stern).]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "( 4 | 14,5 )"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Großer Wagen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Stern ( 1 | -1 )\n\nUND\n\n4. Stern ( 0 | 1 )\n\nUND\n\n6. Stern ( -5 | 0,5 )"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[Anm.: Auch richtig ist, wenn nur der Stern an der richtigen Stelle eingezeichnet wurde (ohne Beschriftung \"7. Stern\" und Verbindung zum 6. Stern).]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "( 4 | 14,5 )"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "grosserwagen_Didaktische_Kommentierung.docx"
+  }
+}

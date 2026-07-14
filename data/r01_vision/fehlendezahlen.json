@@ -1,0 +1,31 @@
+{
+  "item": "fehlendezahlen",
+  "gelesen_aus": [
+    "data/r01_render/fehlendezahlen/00_image1.emf.png",
+    "data/r01_render/fehlendezahlen/01_image2.emf.png",
+    "data/r01_render/fehlendezahlen/02_image3.emf.png"
+  ],
+  "stem": "Trage jeweils die fehlende Zahl in das Kästchen.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "☐ + 9 = 4",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "4 + ☐ = -17",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Die beiden Gleichungen enthalten je ein leeres Rechteck als Eingabefeld; ich habe es als ☐ notiert."
+  ]
+}

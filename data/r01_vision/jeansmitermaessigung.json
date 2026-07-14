@@ -1,0 +1,25 @@
+{
+  "item": "jeansmitermaessigung",
+  "gelesen_aus": [
+    "data/r01_render/jeansmitermaessigung/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "In einem Kaufhaus wird eine Jeans mit 20 % Ermäßigung angeboten. Der neue Preis beträgt nun 48,00 €. Wie teuer war die Jeans vorher? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "38,40 €"},
+        {"id": "b", "label": "48,20 €"},
+        {"id": "c", "label": "57,60 €"},
+        {"id": "d", "label": "60,00 €"},
+        {"id": "e", "label": "68,00 €"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

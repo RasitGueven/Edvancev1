@@ -1,0 +1,25 @@
+{
+  "item": "pyramidenbau",
+  "gelesen_aus": [
+    "data/r01_render/pyramidenbau/00_image1.emf.png",
+    "data/r01_render/pyramidenbau/01_image2.emf.png",
+    "data/r01_render/pyramidenbau/02_image3.emf.png",
+    "data/r01_render/pyramidenbau/03_image4.emf.png"
+  ],
+  "stem": "In einem Magnetbaukasten befinden sich magnetische Stäbe und Kugeln. Mario baut damit Pyramiden und ihre Netze. Für jede Kante nimmt er einen Magnetstab. Abbildung 1 zeigt eine Pyramide mit dreieckiger Grundfläche. In Abbildung 2 wurde mit Stäben und Kugeln das Netz dieser Pyramide gelegt.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Das Netz aus Abbildung 2 soll zu der Pyramide aus Abbildung 1 „zusammengeklappt“ werden. Gib an, wie viele Stäbe und wie viele Kugeln dazu entfernt werden müssen.",
+      "unit": "Stäbe / Kugeln",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "image2 ist im Rendering vollständig leer (die Fotos zu Abbildung 1 und Abbildung 2 fehlen); nur die Bildunterschriften 'Abbildung 1' / 'Abbildung 2' mit 'Foto: © IQB' sind sichtbar.",
+    "Teilaufgabe 1 hat zwei Eingabefelder ('_____ Stäbe' und '_____ Kugeln'); unit als kombiniertes Feld notiert."
+  ]
+}

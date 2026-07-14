@@ -1,0 +1,21 @@
+{
+  "item": "parallelogramme",
+  "gelesen_aus": [
+    "data/r01_render/parallelogramme/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne eine Gerade so durch das gegebene Parallelogramm, dass zwei zueinander deckungsgleiche Parallelogramme entstehen.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Zeichenaufgabe auf Karopapier: Das gegebene Parallelogramm ist im Rendering nur teilweise sichtbar (zwei schräge Seiten auf dem Gitter, die waagerechten Seiten sind nicht erkennbar). Als Antwortformat gibt es kein Textfeld — 'free_text' ist ein Behelf für eine Konstruktions-/Zeichenaufgabe."
+  ]
+}

@@ -1,0 +1,373 @@
+{
+  "item": "zweikreise",
+  "sources": {
+    "Aufgabe": {
+      "file": "zweikreise_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "4e12ea8b70fd7512"
+    },
+    "Auswertung": {
+      "file": "zweikreise_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "c4d45a62089283d4"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zweikreise_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "20db30225a1b2c4e"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zweikreise/00_image1.emf.png",
+      "tokens": "In der Abbildung ist Ader Mittelpunkt des Kreises K1und Bder Mittelpunkt des Kreises K2. Beide Kreise haben den gleichen Radius               .= ||rABABGHDFaK1K2(nicht maßstabsgerecht)",
+      "deterministic_text": "In der Abbildung ist Ader Mittelpunkt des Kreises K1und Bder Mittelpunkt des Kreises K2.\nBeide Kreise haben den gleichen Radius rAB= ||.\nH\nK1 K2\nD a F\nA B\nG\n(nicht maßstabsgerecht)",
+      "table": {
+        "header": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "K",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "H",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "K",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "2",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "D",
+            "",
+            "",
+            "",
+            "",
+            "a",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "F",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "A",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "B",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "G",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 30,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zweikreise/01_image2.emf.png",
+      "tokens": "Prüfe jeweils, ob die folgenden Aussagen auf diese Figur zutreffen oder nicht.Kreuze an.Alle Winkel im Dreieck ABHsind gleich groß.wahrfalschDas Dreieck BFH ist gleichseitig.Das Dreieck DFHist gleichschenklig.AussageIm DreieckAHDsindalledreiWinkelunterschiedlichgroß.Der Winkel abeträgt 60°.",
+      "deterministic_text": "Prüfe jeweils, ob die folgenden Aussagen auf diese Figur zutreffen oder nicht.\nKreuze an.\nAussage wahr falsch\nAlle Winkel im Dreieck ABHsind gleich groß.\nDas Dreieck BFH ist gleichseitig.\nDas Dreieck DFHist gleichschenklig.\nIm DreieckAHDsindalledreiWinkelunterschiedlich\ngroß.\nDer Winkel abeträgt 60°.",
+      "table": {
+        "header": [
+          "Aussage",
+          "wahr",
+          "",
+          "",
+          "falsch",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "Alle Winkel im Dreieck ABHsind gleich groß.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Das Dreieck BFH ist gleichseitig.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Das Dreieck DFHist gleichschenklig.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Im DreieckAHDsindalledreiWinkelunterschiedlich",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "groß.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Der Winkel abeträgt 60°.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 36,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zweikreise/02_image3.emf.png",
+      "tokens": "Sonja behauptet: „Der Flächeninhalt des großen Dreiecks DFHist dreimal so groß wie der Flächeninhalt des kleinen Dreiecks ABH.“Hat sie recht? JaNeinKreuze an.Begründe deine Antwort.",
+      "deterministic_text": "Sonja behauptet: „Der Flächeninhalt des großen Dreiecks DFHist dreimal so groß wie\nder Flächeninhalt des kleinen Dreiecks ABH.“\nHat sie recht?\nKreuze an.\nJa Nein\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 17,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zweikreise/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Zwei Kreise",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[Anm.: Ein Punkt wird bereits vergeben, wenn 4 der 5 Kreuze richtig gesetzt wurden.]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ja\n\nUND\n\nBegründung, die auf die gleiche Höhe beider Dreiecke und die dreifache Länge der Grundseite des Dreiecks  im Vergleich zur Grundseite des Dreiecks  abzielt.\n\nBeispiel(e)\nDie beiden Dreiecke haben die gleiche Höhe, aber bei einem Dreieck ist die Grundseite dreimal länger.\n ;"
+          ],
+          [
+            "FALSCH",
+            "Antworten mit fehlender oder unvollständiger Begründung.\n\nBeispiel(e)\nDie drei Grundseiten ,  und  sind jeweils gleich lang und ergeben zusammen die Grundseite .\n\n[Anm.: Hier fehlt der Bezug zu den Höhen.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Zwei Kreise"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[Anm.: Ein Punkt wird bereits vergeben, wenn 4 der 5 Kreuze richtig gesetzt wurden.]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ja\n\nUND\n\nBegründung, die auf die gleiche Höhe beider Dreiecke und die dreifache Länge der Grundseite des Dreiecks  im Vergleich zur Grundseite des Dreiecks  abzielt.\n\nBeispiel(e)\nDie beiden Dreiecke haben die gleiche Höhe, aber bei einem Dreieck ist die Grundseite dreimal länger.\n ;"
+          ],
+          [
+            "FALSCH",
+            "Antworten mit fehlender oder unvollständiger Begründung.\n\nBeispiel(e)\nDie drei Grundseiten ,  und  sind jeweils gleich lang und ergeben zusammen die Grundseite .\n\n[Anm.: Hier fehlt der Bezug zu den Höhen.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMathematische Darstellungen verwenden (K4)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Mathematisch argumentieren (K1)\nProbleme mathematisch lösen (K2)\nMathematische Darstellungen verwenden (K4)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K2",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "zweikreise_Didaktische_Kommentierung.docx"
+  }
+}

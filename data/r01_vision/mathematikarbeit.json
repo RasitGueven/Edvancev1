@@ -1,0 +1,23 @@
+{
+  "item": "mathematikarbeit",
+  "gelesen_aus": ["data/r01_render/mathematikarbeit/00_doc_image1.emf.png"],
+  "stem": "Rolf sagt: „In der letzten Mathematikarbeit habe ich 48 von 60 Punkten erreicht, das sind ………… der Gesamtpunktzahl.“",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welcher der folgenden Prozentsätze muss eingesetzt werden? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "12 %"},
+        {"id": "b", "label": "12,5 %"},
+        {"id": "c", "label": "48 %"},
+        {"id": "d", "label": "60 %"},
+        {"id": "e", "label": "80 %"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": []
+}

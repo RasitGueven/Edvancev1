@@ -1,0 +1,41 @@
+{
+  "item": "grosserwagen",
+  "gelesen_aus": [
+    "data/r01_render/grosserwagen/00_image1.emf.png",
+    "data/r01_render/grosserwagen/01_image2.emf.png",
+    "data/r01_render/grosserwagen/02_image3.emf.png",
+    "data/r01_render/grosserwagen/03_image4.emf.png"
+  ],
+  "stem": "Gregor zeichnet 6 Sterne, die zum Sternbild „Großer Wagen“ gehören, vereinfacht in ein Koordinatensystem.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gregor notiert: „Zu diesem Sternbild gehören die Sterne mit den Koordinaten 1. Stern ( 4 | 2 ), 2. Stern ( 4 | -0,5 ), 3. Stern ( 1 | ____ ), 4. Stern ( ____ | 1 ), 5. Stern ( -3 | 1 ), 6. Stern ( ____ | ____ ).“ Vervollständige die Koordinaten der Sterne.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Gregor zeichnet noch einen Stern ein, der zum Sternbild „Großer Wagen“ gehört. Dieser Stern hat die Koordinaten: 7. Stern ( -6 | -1 ). Zeichne diesen Stern in das Koordinatensystem ein und verbinde ihn mit dem 6. Stern.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Verlängert man die gedachte Verbindungslinie zwischen dem 2. und dem 1. Stern des „Großen Wagens“ vom 1. Stern aus um das Fünffache nach oben, findet man den Polarstern. Schreibe die Koordinaten auf, die der Polarstern in Gregors Koordinatensystem hätte. Hinweis: Man kann den Stern nicht mehr in das Koordinatensystem einzeichnen.\n\nPolarstern ( ____ | ____ )",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Teil 2 ist eine Zeichenaufgabe im Koordinatensystem (kein Textfeld) — als free_text gefasst, weil kein passenderer kind existiert.",
+    "Queue meldet hat_tabelle_im_emf=true; im Bild ist nur das Koordinatengitter zu sehen, keine Tabelle."
+  ]
+}

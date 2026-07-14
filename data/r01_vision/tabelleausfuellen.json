@@ -1,0 +1,22 @@
+{
+  "item": "tabelleausfuellen",
+  "gelesen_aus": [
+    "data/r01_render/tabelleausfuellen/00_image1.emf.png"
+  ],
+  "stem": "Die Tabelle zeigt eine proportionale Zuordnung.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ergänze den fehlenden Wert.",
+      "unit": "€",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Im Bild steht ein Raster (Zeile 'Masse in kg': 3 / 4 / 6 / 8; Zeile 'Preis in €': 15 / 20 / 30 / leer). Die Queue meldet hat_tabelle_im_emf: false — ich folge dem Bild und setze stem_tabelle_erwartet: true.",
+    "Die Einheit steht in der Zeilenüberschrift 'Preis in €', nicht am Eingabefeld selbst."
+  ]
+}

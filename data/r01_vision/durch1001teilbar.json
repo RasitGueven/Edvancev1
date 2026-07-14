@@ -1,0 +1,26 @@
+{
+  "item": "durch1001teilbar",
+  "gelesen_aus": ["data/r01_render/durch1001teilbar/00_image1.emf.png"],
+  "stem": "Peter behauptet: „Wenn man eine dreistellige Zahl zweimal hintereinander aufschreibt, dann entsteht eine sechsstellige Zahl, die immer durch 1001 teilbar ist.\"\nBeispiel: 243243 : 1001 = 243",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welches Argument kann Peter verwenden, um seine Behauptung zu begründen?\nKreuze jeweils an, ob das Argument geeignet ist oder nicht.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Alle sechsstelligen Zahlen sind durch 1001 teilbar, denn diese sind alle größer als 1001."},
+        {"id": "b", "label": "Alle sechsstelligen Zahlen sind durch 1000 teilbar. Außerdem sind alle sechsstelligen Zahlen durch 1 teilbar. Also sind sie auch durch 1001 teilbar."},
+        {"id": "c", "label": "Die sechsstellige Zahl ist durch 1001 teilbar, da ihre Bildung nach dem folgenden Muster erfolgt: abc · 1001 = abc · 1000 + abc · 1 = abc000 + abc = abcabc"},
+        {"id": "d", "label": "Die sechsstellige Zahl ist durch 1001 teilbar, weil in 1001 nur Nullen und Einsen enthalten sind."},
+        {"id": "e", "label": "Die sechsstellige Zahl ist durch 1001 teilbar, weil sie so entsteht, dass die dreistellige Zahl mit 1000 multipliziert und dann die dreistellige Zahl zum Ergebnis addiert wird."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten (Tabellenzeilen)"
+    }
+  ],
+  "unsicher": [
+    "Matrix-/Rasteraufgabe: Jede der 5 Zeilen wird einzeln als 'geeignet' / 'nicht geeignet' angekreuzt (2 Spalten). Die Optionen oben sind die Zeilen in visueller Reihenfolge; die Spaltenreihenfolge ist [geeignet, nicht geeignet].",
+    "Die 5. Zeile wird am unteren Bildrand vom nachfolgenden Rahmen leicht überlappt; Text scheint dennoch vollständig ('… zum Ergebnis addiert wird.')."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "item": "trapezvariation",
+  "gelesen_aus": [
+    "data/r01_render/trapezvariation/00_image1.emf.png",
+    "data/r01_render/trapezvariation/01_image2.emf.png",
+    "data/r01_render/trapezvariation/02_image3.emf.png"
+  ],
+  "stem": "Den Flächeninhalt A eines Trapezes kann man mit folgender Formel berechnen:\nA = (a + c) · h / 2\n(Skizze: Trapez ABCD mit Grundseite a, Parallelseite c und Höhe h)",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie verändert sich der Flächeninhalt, wenn man die Höhe h verdoppelt (a und c aber konstant bleiben)? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Der Flächeninhalt wird quadriert."},
+        {"id": "b", "label": "Der Flächeninhalt wird verdoppelt."},
+        {"id": "c", "label": "Der Flächeninhalt wird um 2 größer."},
+        {"id": "d", "label": "Ohne konkrete Werte kann man diese Frage nicht beantworten."}
+      ],
+      "options_reihenfolge": "visuell von oben nach unten"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Die Höhe h soll sich nicht verändern. Kann man dann die Längen der Seiten a und c so verändern, dass der Flächeninhalt des Trapezes gleich bleibt? Kreuze an. Begründe deine Antwort.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Bruchformel steht im Bild zweizeilig: Zähler (a + c) · h über Nenner 2; ich habe sie einzeilig als '(a + c) · h / 2' notiert.",
+    "Teilaufgabe 2 kombiniert Ankreuzen und eine schriftliche Begründung."
+  ]
+}

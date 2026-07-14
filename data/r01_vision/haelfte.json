@@ -1,0 +1,19 @@
+{
+  "item": "haelfte",
+  "gelesen_aus": [
+    "data/r01_render/haelfte/00_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Wie viel ist die Hälfte von 1 Million? Schreibe dein Ergebnis in Ziffern.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": []
+}

@@ -1,0 +1,174 @@
+{
+  "item": "schokoladenbonbons",
+  "sources": {
+    "Aufgabe": {
+      "file": "schokoladenbonbons_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "833e6d746a109041"
+    },
+    "Auswertung": {
+      "file": "schokoladenbonbons_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "fe00f08c010bcb4a"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schokoladenbonbons_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "b739afc0b676119e"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schokoladenbonbons/00_image1.emf.png",
+      "tokens": "In einer Bonbondose befinden sich 10 Schokoladenbonbons. Sie sehen von außen alle gleich aus. 5 dieser Bonbons sind mit Vollmilchschokolade, 3 mit dunkler Schokolade und 2 mit weißer Schokolade gefüllt.",
+      "deterministic_text": "In einer Bonbondose befinden sich 10 Schokoladenbonbons. Sie sehen von außen alle\ngleich aus. 5 dieser Bonbons sind mit Vollmilchschokolade, 3 mit dunkler Schokolade und\n2 mit weißer Schokolade gefüllt.",
+      "table": null,
+      "n_fragments": 15,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schokoladenbonbons/01_image2.emf.png",
+      "tokens": "Gib die Wahrscheinlichkeit dafür an, bei der ersten Entnahme ein Bonbon mit weißer Schokoladenfüllung zu bekommen.",
+      "deterministic_text": "Gib die Wahrscheinlichkeit dafür an, bei der ersten Entnahme ein Bonbon mit weißer\nSchokoladenfüllung zu bekommen.",
+      "table": null,
+      "n_fragments": 5,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schokoladenbonbons/02_image3.emf.png",
+      "tokens": "In einer zweiten Bonbondose sind 7 Bonbons mit Vollmilchschokolade, 3 mit dunkler Schokolade und 4 mit weißer Schokolade gefüllt. Bei welcher Bonbondose ist die Wahrscheinlichkeit größer, bei der ersten Entnahme ein Bonbon mit dunkler Schokolade zu erhalten?Kreuze an.Bonbondose 1Bonbondose 2Die Wahrscheinlichkeit ist beide Male gleich.Begründe deine Antwort.",
+      "deterministic_text": "In einer zweiten Bonbondose sind 7 Bonbons mit Vollmilchschokolade, 3 mit dunkler\nSchokolade und 4 mit weißer Schokolade gefüllt.\nBei welcher Bonbondose ist die Wahrscheinlichkeit größer, bei der ersten Entnahme\nein Bonbon mit dunkler Schokolade zu erhalten?\nKreuze an.\nBonbondose 1 Bonbondose 2 Die Wahrscheinlichkeit ist\nbeide Male gleich.\nBegründe deine Antwort.",
+      "table": null,
+      "n_fragments": 26,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schokoladenbonbons/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Schokoladenbonbons",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Bonbondose 1\n\nUND\n\nkorrekte Begründung, bei der die Wahrscheinlichkeiten, ein Bonbon mit dunkler Schokolade aus einer der beiden Dosen zu ziehen, verglichen werden.\n\nBeispiel(e)\n3 von 10 ist mehr als 3 von 14.\n1. Dose: insgesamt 10 Bonbons, davon 3 mit dunkler Schokolade, also:\n\n2. Dose insgesamt 14 Bonbons, davon 3 mit dunkler Schokolade, also:\n\nDa 30 % > 21 %, ist die Wahrscheinlichkeit in der ersten Dose höher."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Schokoladenbonbons"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Bonbondose 1\n\nUND\n\nkorrekte Begründung, bei der die Wahrscheinlichkeiten, ein Bonbon mit dunkler Schokolade aus einer der beiden Dosen zu ziehen, verglichen werden.\n\nBeispiel(e)\n3 von 10 ist mehr als 3 von 14.\n1. Dose: insgesamt 10 Bonbons, davon 3 mit dunkler Schokolade, also:\n\n2. Dose insgesamt 14 Bonbons, davon 3 mit dunkler Schokolade, also:\n\nDa 30 % > 21 %, ist die Wahrscheinlichkeit in der ersten Dose höher."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisches Modellieren (K3)",
+        "k_tags": [
+          "K3"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematisches Modellieren (K3),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 16.1:",
+      "Es wird die Wahrscheinlichkeit für das Ziehen eines Bonbons angegeben (Fehllösung:). Anscheinend wird nicht erfasst, dass es zwei Bonbons mit weißer Schokolade gibt.",
+      "Als Ergebnis wird die Wahrscheinlichkeit, ein Bonbon mit Vollmilchschokolade oder ein Bonbon mit dunkler Schokolade zu ziehen, angegeben. Dieser Fehler entsteht u.a., wenn unaufmerksam gelesen wurde.",
+      "Es wird nicht die Wahrscheinlichkeit, ein weißes Bonbon zu ziehen, angegeben, sondern das zugehörige Chancenverhältnis 2 zu 8. Es scheint somit eine inadäquate Modellierung gewählt worden zu sein, wie die folgende Schülerlösung belegt:",
+      "Zu Teilaufgabe 16.2:",
+      "Zwar ist die Antwort richtig, doch erfolgt die Begründung auf rein sachbezogener Ebene, ohne mathematische Zusammenhänge zu nutzen. So wird beispielsweise nur global auf die Anzahl der Bonbonsorten verwiesen, wie die folgende Schülerlösung zeigt:",
+      "Zur Bearbeitung der Aufgabe wird lediglich die Mächtigkeit der Ergebnismengen (die Anzahlen der „möglichen“ Ergebnisse) miteinander verglichen, wie die folgende Schülerlösung dokumentiert. Es fehlt hier ein Bezug auf dieselbe Anzahl von dunklen Bonbons (die „günstigen“ Ergebnisse):",
+      "Es werden nicht die Wahrscheinlichkeiten, sondern nur die (identischen) Anzahlen der „günstigen“ Ergebnisse miteinander verglichen. Es fehlt ein Bezug auf die jeweiligen Ergebnismengen. Dies kann auf noch ungenügend ausgebildete Grundvorstellungen zur Anteilsvorstellung bzw. zur Laplace-Wahrscheinlichkeit hindeuten. Die folgende Schülerlösung zeigt diesen Fehler:",
+      "Es wird davon ausgegangen, dass die Wahrscheinlichkeit, ein dunkles Bonbons zu ziehen, bei der zweiten Dose größer ist, da in dieser mehr Bonbons enthalten sind. Diesen Schülerinnen und Schülern scheint nicht klar zu sein, dass bei steigender Bonbonanzahl und gleichbleibender Anzahl dunkler Bonbons die Wahrscheinlichkeit ein solches zu ziehen kleiner wird.",
+      "Bei der zweiten Bonbondose wird die Mächtigkeit der Ergebnismenge falsch ermittelt. Es wird davon ausgegangen, dass ebenfalls 10 Bonbons enthalten und davon 3 mit dunkler Schokolade gefüllt sind. Aufgrund dieses Fehlers, welcher auf ungenaues Lesen hindeutet, werden beide Dosen als gleich „günstig“ beurteilt."
+    ],
+    "quelle": "schokoladenbonbons_Didaktische_Kommentierung.docx"
+  }
+}

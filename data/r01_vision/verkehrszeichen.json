@@ -1,0 +1,68 @@
+{
+  "item": "verkehrszeichen",
+  "gelesen_aus": ["data/r01_render/verkehrszeichen/00_doc_image1.emf.png"],
+  "stem": "Ist das Bild des Verkehrszeichens achsensymmetrisch? Kreuze jeweils an.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "ja"},
+        {"id": "b", "label": "nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "ja"},
+        {"id": "b", "label": "nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "ja"},
+        {"id": "b", "label": "nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "ja"},
+        {"id": "b", "label": "nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 5,
+      "kind": "mc",
+      "prompt": "",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "ja"},
+        {"id": "b", "label": "nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die linke Spalte der Tabelle (die eigentlichen Verkehrszeichen-Bilder) ist im gerenderten EMF LEER — die Zeichenbilder fehlen. Ich kann daher zu keiner Zeile einen Prompt angeben; alle prompts bleiben leer.",
+    "Widerspruch zur Auswertung: sie kennt 4 Teilaufgaben, im Bild sind 5 Ankreuzzeilen (je ja/nein) unter der Kopfzeile. Ich folge dem Bild mit 5 parts.",
+    "Da die Bild-Spalte leer ist, sind die parts nur über ihre Zeilenposition identifizierbar; ohne die Zeichen ist eine Zuordnung zur Auswertung riskant."
+  ]
+}

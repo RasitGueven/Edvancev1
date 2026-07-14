@@ -1,0 +1,151 @@
+{
+  "item": "wundersamerechenergebnisse",
+  "sources": {
+    "Aufgabe": {
+      "file": "wundersamerechenergebnisse_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "39cd4a5a1ddf448d"
+    },
+    "Auswertung": {
+      "file": "wundersamerechenergebnisse_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "07969439ce4758eb"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "wundersamerechenergebnisse_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "2c040744d44c9bea"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wundersamerechenergebnisse/00_doc_image1.emf.png",
+      "tokens": "Simone multipliziert einstellige, zweistellige bzw. dreistellige Zahlen mit den Faktoren 11, 101 und 1001. Sie wundert sich über die Rechenergebnisse, die sie erhält:(1)7 ‧11 = 775 ‧ 11 = 55(2)      38 ‧101 = 3838          45 ‧ 101 = 4545(3)  306 ‧ 1001 = 306306      692 ‧ 1001 = 692692",
+      "deterministic_text": "Simone multipliziert einstellige, zweistellige bzw. dreistellige Zahlen mit den Faktoren 11, 101\nund 1001. Sie wundert sich über die Rechenergebnisse, die sie erhält:\n(1) 7 ‧11 = 77 5 ‧ 11 = 55\n(2) 38 ‧101 = 3838 45 ‧ 101 = 4545\n(3) 306 ‧ 1001 = 306306 692 ‧ 1001 = 692692",
+      "table": null,
+      "n_fragments": 54,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Wundersame Rechenergebnisse",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Z. B. 6573 ( 10001 = 65736573         1085 ( 10001 = 10851085\nAnm.: Statt 6573 und 1085 können auch beliebige andere\nvierstellige Zahlen gewählt werden. Das jeweilige Produkt muss\nzwei sich wiederholende Ziffernfolgen des von 10001 verschiedenen\nFaktors aufweisen.\nAuch die Angabe zweier Aufgaben derart: 12345 ( 100001 =\n1234512345 wird akzeptiert. Hier wurde die Anzahl der Nullen\nnicht um 1 erhöht, sondern verdoppelt.\nWird das Bildungsgesetz z. B. in der Form ABCD ( 10001 = ABCDABCD\nnotiert, ist dies auch richtig."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n657 ( 1001 = 657657          275 ( 1001 = 275275"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Ergänzung des Textes in der Form:\n„Wenn man eine dreistellige Zahl mit 1001 multipliziert, dann\nerhält man das Ergebnis, indem man die Ausgangszahl zweimal\nhintereinander schreibt (und als sechsstellige Zahl\ninterpretiert).“\nUND\nRichtige allgemeine Begründung der Aussage unter Bezug auf die\nAuswirkungen einer Multiplikation mit 1000 auf den Stellenwert\nder einzelnen Ziffern sowie die anschließende Addition der\ngegebenen Zahl.\nAnmerkungen:\n• Der Stellenwert der einzelnen Ziffern bzw. deren Veränderung\nmuss dabei nicht angegeben werden.\n• Die Begründung kann in algebraischer oder verbal beschreibender\nForm erfolgen.\n• Der Fokus liegt auf der Richtigkeit der Begründung.\nZ. B.:\n[pic]\nDie Ziffern xyz wiederholen sich."
+          ],
+          [
+            "RICHTIG",
+            "ODER\nStatt eine Zahl mit 1001 zu multiplizieren, kann man die Zahl\nauch mit 1000 multiplizieren und zum Ergebnis diese Zahl noch\neinmal addieren.\nDabei erhält man als Ergebnis nichts Anderes als zweimal die\ngegebene Zahl hintereinander geschrieben, da bei der\nMultiplikation mit 1000 drei Nullen angehängt werden. Diese\nwerden bei der Addition der gegebenen Zahl durch deren Ziffern\n„ersetzt“.\nODER\nWenn man eine beliebige dreistellige Zahl mit 1001 malnimmt,\nrechnet man immer\n[pic]\nAnm.: Obwohl der explizite Hinweis 1001 = 1000 + 1 fehlt.\nODER (Grenzfall)\nEs gilt n ( 1001 = n ( 1000 + n ( 1\nn ist eine beliebige dreistellige Zahl\nAnm.: Das allgemeine Prinzip wurde offensichtlich verstanden. Es\nfehlt aber die explizite Feststellung, dass n ( 1000 das n an die\n4. - 6. Stelle von rechts hinbringt und dadurch rechts davon den\nPlatz für n lässt."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nWenn man die 1001 auseinander nimmt und die dreistellige Zahl\nschriftlich multipliziert, sieht man die Behauptung nach der\nanschließenden Addition.\nODER (Grenzfall)\n123 ( 1001 = 123123\nWeil die Zahl 123 1001-mal multipliziert wurde, erhält man das\nErgebnis 123123, aber wenn man das Ergebnis nur 1000-mal\nmultipliziert, erhält man 123000.\nAnm.: Hier fehlt der Hinweis, dass rechts von 1000 ( Zahl die\nZahl hinpasst. Diese Begründung ist nur beispielbezogen und\nletztlich stehen nur Rechnungen da, d. h. eine Verallgemeinerung\nist nicht erkennbar."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Wundersame Rechenergebnisse"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Z. B. 6573 ( 10001 = 65736573         1085 ( 10001 = 10851085\nAnm.: Statt 6573 und 1085 können auch beliebige andere\nvierstellige Zahlen gewählt werden. Das jeweilige Produkt muss\nzwei sich wiederholende Ziffernfolgen des von 10001 verschiedenen\nFaktors aufweisen.\nAuch die Angabe zweier Aufgaben derart: 12345 ( 100001 =\n1234512345 wird akzeptiert. Hier wurde die Anzahl der Nullen\nnicht um 1 erhöht, sondern verdoppelt.\nWird das Bildungsgesetz z. B. in der Form ABCD ( 10001 = ABCDABCD\nnotiert, ist dies auch richtig."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n657 ( 1001 = 657657          275 ( 1001 = 275275"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Ergänzung des Textes in der Form:\n„Wenn man eine dreistellige Zahl mit 1001 multipliziert, dann\nerhält man das Ergebnis, indem man die Ausgangszahl zweimal\nhintereinander schreibt (und als sechsstellige Zahl\ninterpretiert).“\nUND\nRichtige allgemeine Begründung der Aussage unter Bezug auf die\nAuswirkungen einer Multiplikation mit 1000 auf den Stellenwert\nder einzelnen Ziffern sowie die anschließende Addition der\ngegebenen Zahl.\nAnmerkungen:\n• Der Stellenwert der einzelnen Ziffern bzw. deren Veränderung\nmuss dabei nicht angegeben werden.\n• Die Begründung kann in algebraischer oder verbal beschreibender\nForm erfolgen.\n• Der Fokus liegt auf der Richtigkeit der Begründung.\nZ. B.:\n[pic]\nDie Ziffern xyz wiederholen sich."
+          ],
+          [
+            "RICHTIG",
+            "ODER\nStatt eine Zahl mit 1001 zu multiplizieren, kann man die Zahl\nauch mit 1000 multiplizieren und zum Ergebnis diese Zahl noch\neinmal addieren.\nDabei erhält man als Ergebnis nichts Anderes als zweimal die\ngegebene Zahl hintereinander geschrieben, da bei der\nMultiplikation mit 1000 drei Nullen angehängt werden. Diese\nwerden bei der Addition der gegebenen Zahl durch deren Ziffern\n„ersetzt“.\nODER\nWenn man eine beliebige dreistellige Zahl mit 1001 malnimmt,\nrechnet man immer\n[pic]\nAnm.: Obwohl der explizite Hinweis 1001 = 1000 + 1 fehlt.\nODER (Grenzfall)\nEs gilt n ( 1001 = n ( 1000 + n ( 1\nn ist eine beliebige dreistellige Zahl\nAnm.: Das allgemeine Prinzip wurde offensichtlich verstanden. Es\nfehlt aber die explizite Feststellung, dass n ( 1000 das n an die\n4. - 6. Stelle von rechts hinbringt und dadurch rechts davon den\nPlatz für n lässt."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nWenn man die 1001 auseinander nimmt und die dreistellige Zahl\nschriftlich multipliziert, sieht man die Behauptung nach der\nanschließenden Addition.\nODER (Grenzfall)\n123 ( 1001 = 123123\nWeil die Zahl 123 1001-mal multipliziert wurde, erhält man das\nErgebnis 123123, aber wenn man das Ergebnis nur 1000-mal\nmultipliziert, erhält man 123000.\nAnm.: Hier fehlt der Hinweis, dass rechts von 1000 ( Zahl die\nZahl hinpasst. Diese Begründung ist nur beispielbezogen und\nletztlich stehen nur Rechnungen da, d. h. eine Verallgemeinerung\nist nicht erkennbar."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "IV",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "V",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Die Mustererkennung gelingt nicht. Zum Beispiel wird nicht erkannt, dass im",
+      "zweiten Faktor je Zeile eine weitere Null „innerhalb“ des Faktors",
+      "hinzukommt (K2).",
+      "Statt einer allgemeinen Begründung wird nur das Muster aus Teilaufgabe 1",
+      "erneut beschrieben, entweder beispielbezogen oder mit Variablen, während",
+      "die Begründungsnotwendigkeit nicht erkannt wird. Dies zeigen die beiden",
+      "folgenden Schülerlösungen (K1).",
+      "Der Kern der Begründung, nämlich die Ursache für die Ziffernwiederholung,",
+      "wird nicht genannt. Dies wird in der zweiten Schülerlösung deutlich (K1)."
+    ],
+    "quelle": "wundersamerechenergebnisse_Didaktische_Kommentierung.doc"
+  }
+}

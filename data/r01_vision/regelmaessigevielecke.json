@@ -1,0 +1,17 @@
+{
+  "item": "regelmaessigevielecke",
+  "gelesen_aus": ["data/r01_render/regelmaessigevielecke/00_doc_image1.emf.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne in dem gegebenen gleichseitigen Dreieck alle Symmetrieachsen ein.",
+      "unit": null
+    }
+  ],
+  "unsicher": [
+    "Widerspruch zur Auswertung: Das Bild zeigt nur EINE Teilaufgabe (Symmetrieachsen im gleichseitigen Dreieck ABC einzeichnen), die Auswertung kennt 3 Teilaufgaben. Die weiteren Teilaufgaben stehen offenbar außerhalb dieses EMF und konnten nicht gelesen werden."
+  ]
+}

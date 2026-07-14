@@ -1,0 +1,363 @@
+{
+  "item": "punktgesucht",
+  "sources": {
+    "Aufgabe": {
+      "file": "punktgesucht_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "f2935c72c7127095"
+    },
+    "Auswertung": {
+      "file": "punktgesucht_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "d58bab20c6aa64f3"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "punktgesucht_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "47f675c15b6a1ab5"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/punktgesucht/00_doc_image1.emf.png",
+      "tokens": "Gegeben sind die Punkte A, B und D in dem abgebildeten Koordinatensystem.Gesucht ist ein Punkt P, der -von den Punkten A und B den gleichen Abstand hat und-von dem Punkt D den Abstand d von 5 Längeneinheiten hat.246810122468101200xyABD",
+      "deterministic_text": "Gegeben sind die Punkte A, B und D in dem abgebildeten Koordinatensystem.\nGesucht ist ein Punkt P, der\n-von den Punkten A und B den gleichen Abstand hat und\n-von dem Punkt D den Abstand d von 5 Längeneinheiten hat.\ny\n12\n10\n8\n6 D\n4\nA B\n2\n0\n0 2 4 6 8 10 12 x",
+      "table": {
+        "header": [
+          "",
+          "y",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "12",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "10",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "8",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "D",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "6",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            "",
+            "A",
+            "",
+            "",
+            "",
+            "B",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "0",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "x"
+          ],
+          [
+            "",
+            "0",
+            "",
+            "2",
+            "",
+            "4",
+            "",
+            "6",
+            "",
+            "8",
+            "",
+            "10",
+            "",
+            "12",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 47,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Punkt gesucht",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Konstruktion UND Angabe eines richtigen Punktes:\nP ( 3\n[pic]\nZeichentoleranz bezüglich der x- und y-Koordinate des Punktes P (\n1 mm.\nAnm.: Der Kreis um Punkt D muss nicht vollständig gezeichnet\nwerden. Es genügt, den Kreisbogen so lang zu zeichnen, dass er\nzumindest einmal die Mittelsenkrechte von AB schneidet."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe eines Beispiels für d, so dass sich keine Lösung ergibt (d\n< 4 Längeneinheiten).\nz. B.\nd = kleiner als 4  Längeneinheiten\nODER\nd = 3 Längeneinheiten"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nz. B.\nd = 5 Längeneinheiten"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Punkt gesucht"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Konstruktion UND Angabe eines richtigen Punktes:\nP ( 3\n[pic]\nZeichentoleranz bezüglich der x- und y-Koordinate des Punktes P (\n1 mm.\nAnm.: Der Kreis um Punkt D muss nicht vollständig gezeichnet\nwerden. Es genügt, den Kreisbogen so lang zu zeichnen, dass er\nzumindest einmal die Mittelsenkrechte von AB schneidet."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe eines Beispiels für d, so dass sich keine Lösung ergibt (d\n< 4 Längeneinheiten).\nz. B.\nd = kleiner als 4  Längeneinheiten\nODER\nd = 3 Längeneinheiten"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nz. B.\nd = 5 Längeneinheiten"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Die Koordinaten des Schnittpunkts bzw. der Schnittpunkte werden",
+      "vertauscht [Fehllösung (4|3) bzw. (10|3] (K5).",
+      "• Nur eine der beiden Teilkonstruktionen gelingt, beispielsweise da die",
+      "Mittelsenkrechte nicht als Gerade gedeutet wird, so dass sich kein",
+      "Schnittpunkt mit dem Kreis(bogen) ergibt (K2 und K4).",
+      "• Die Achseneinteilung wird missachtet [Fehllösungen (2,5|4) bzw. (2,5|10)]",
+      "• Es wird nicht erkannt, dass d echt kleiner als 4 LE sein muss [Fehllösung",
+      "d = 4 LE] (K6 oder K2).",
+      "• Die Mittelsenkrechte wird nicht als Gerade, sondern als „kurze Strecke“",
+      "gedeutet. Der Radius d wird dementsprechend so groß gewählt, dass die",
+      "Punkte A und B sowie die „Mittelsenkrechte“ vollständig im Inneren des",
+      "zugehörigen Kreises liegen [Fehllösung z. B. d = 14 LE] (K2, K4).",
+      "Weiterarbeit und Förderung",
+      "Die Bearbeitung dieser Aufgabe bietet Gelegenheit, geometrische Begriffe zu",
+      "vertiefen und Grundkonstruktionen zu üben, auch unter eventuellem Einsatz",
+      "eines dynamischen Geometrieprogramms. Zusätzlich können Argumentationen an",
+      "den sich ergebenden Figuren durchgeführt werden.",
+      "Einigen der beschriebenen Schwierigkeiten kann mit kleineren Übungen",
+      "begegnet werden. Das Ablesen von Koordinaten kann an Koordinatensystemen",
+      "wiederholt werden, deren Achsen ebenfalls nicht mit 1 LE pro Einheit",
+      "skaliert sind. Um beide Bearbeitungsrichtungen zu berücksichtigen, können",
+      "zusätzlich Punkte hierin eingezeichnet werden.",
+      "Wird die Mittelsenkrechte nicht als Gerade aufgefasst, kann diese mit einer",
+      "Höhe im Dreieck kontrastiert werden. Diese Gegenüberstellung macht nochmals",
+      "den Unterschied zwischen einer Geraden und einer Strecke deutlich.",
+      "Vertiefend können die geometrischen Eigenschaften des Schnittpunkts der",
+      "Mittelsenkrechten in einem Dreieck behandelt werden. Dies verdeutlicht",
+      "zusätzlich die Geradeneigenschaft, da der Schnittpunkt der",
+      "Mittelsenkrechten bekanntlich auch außerhalb des Dreiecks liegen kann.",
+      "Ausgehend von der gegebenen Konstruktion können weitergehende Aufgaben",
+      "gestellt werden, z. B.:",
+      "• Der Kreis um D soll die Mittelsenkrechte ober- und unterhalb von AB",
+      "schneiden. Wie muss dann d gewählt werden?",
+      "• Welchen minimalen Abstand hat der Kreis von der y-Achse?",
+      "Man vergleiche hierzu auch den didaktischen Kommentar zur Aufgabe „Bewege",
+      "C“ aus VERA-8 2011."
+    ],
+    "quelle": "punktgesucht_Didaktische_Kommentierung.doc"
+  }
+}

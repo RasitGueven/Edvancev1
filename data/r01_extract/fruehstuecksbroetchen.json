@@ -1,0 +1,176 @@
+{
+  "item": "fruehstuecksbroetchen",
+  "sources": {
+    "Aufgabe": {
+      "file": "fruehstuecksbroetchen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "03affa94ac7e34ec"
+    },
+    "Auswertung": {
+      "file": "fruehstuecksbroetchen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "688f63ebebcaeba8"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "fruehstuecksbroetchen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "8d58ec7c5df9a015"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/fruehstuecksbroetchen/00_doc_image1.emf.png",
+      "tokens": "Angelika kauft sechs normale Brötchen zu je 0,35€ und vier Körnerbrötchen zu je 0,45€. Gib an, wie viel sie insgesamt bezahlen muss. Schreibe deinen Rechenweg auf.€",
+      "deterministic_text": "Angelika kauft sechs normale Brötchen zu je 0,35€ und vier Körnerbrötchen zu je 0,45€.\nGib an, wie viel sie insgesamt bezahlen muss.\n€\nSchreibe deinen Rechenweg auf.",
+      "table": null,
+      "n_fragments": 17,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Frühstücksbrötchen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe des richtigen Preises 3,90 (€) und Darlegung des\nRechenweges. Dies kann in rechnerischer oder verbal\nbeschreibender Form erfolgen.\nZ. B.:\n6 ( 0,35 € + 4( 0,45 € = 3,90 €\nODER\n3,90 €\nIch habe 6 mal 0,35 € und 4 mal 0,45 € gerechnet. Die Ergebnisse\nhabe ich dann zusammengerechnet."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n3,90 € (Rechenweg fehlt)\nODER\n4,10 €\nIch habe 4 mal 0,35 € plus 6 mal 0,45 € gerechnet."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe des richtigen Betrags 3,25 (€) und Darlegung des\nLösungsweges. Dies kann in rechnerischer oder verbal\nbeschreibender Form erfolgen.\nZ. B.:\n5 € - 5 ( 0,35 € = 3,25 €\nODER\n3,25 €\nIch habe von den 5 € den Preis der fünf Brötchen abgezogen.\nODER\n3,25 €\nIch habe 5 mal 0,35 € gerechnet und das Ergebnis von den 5 €\nabgezogen."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nODER\n3,25 €\nIch habe fünfmal 0,35 € gerechnet und dann 5 € abgezogen.\nODER\n3,25 € (Rechenweg fehlt)\nODER\n1,75 €"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (Ja) UND Begründung der Antwort durch Verweis\nauf den zur Verfügung stehenden Betrag und den Preis der\nBrötchen.\nZ. B.:\nJa, die 10 € reichen, da die Brötchen zusammen 9,60 € kosten.\nODER\nJa, die 10 € reichen, denn es bleiben 40 Cent übrig.\nODER\n12 ( 0,35 € = 4,20 € und 12 ( 0,45 € = 5,40 €. 4,20 € + 5,40 € =\n9,60 €\nODER\nIst der Ansatz korrekt und liegt jedoch ein „kleiner\nRechenfehler“ vor, wird die Aufgabe als „Richtig“ gewertet."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nJa, das Geld reicht. Die Brötchen kosten weniger als 10 €."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Frühstücksbrötchen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe des richtigen Preises 3,90 (€) und Darlegung des\nRechenweges. Dies kann in rechnerischer oder verbal\nbeschreibender Form erfolgen.\nZ. B.:\n6 ( 0,35 € + 4( 0,45 € = 3,90 €\nODER\n3,90 €\nIch habe 6 mal 0,35 € und 4 mal 0,45 € gerechnet. Die Ergebnisse\nhabe ich dann zusammengerechnet."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nZ. B.:\n3,90 € (Rechenweg fehlt)\nODER\n4,10 €\nIch habe 4 mal 0,35 € plus 6 mal 0,45 € gerechnet."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe des richtigen Betrags 3,25 (€) und Darlegung des\nLösungsweges. Dies kann in rechnerischer oder verbal\nbeschreibender Form erfolgen.\nZ. B.:\n5 € - 5 ( 0,35 € = 3,25 €\nODER\n3,25 €\nIch habe von den 5 € den Preis der fünf Brötchen abgezogen.\nODER\n3,25 €\nIch habe 5 mal 0,35 € gerechnet und das Ergebnis von den 5 €\nabgezogen."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen Antworten.\nODER\n3,25 €\nIch habe fünfmal 0,35 € gerechnet und dann 5 € abgezogen.\nODER\n3,25 € (Rechenweg fehlt)\nODER\n1,75 €"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (Ja) UND Begründung der Antwort durch Verweis\nauf den zur Verfügung stehenden Betrag und den Preis der\nBrötchen.\nZ. B.:\nJa, die 10 € reichen, da die Brötchen zusammen 9,60 € kosten.\nODER\nJa, die 10 € reichen, denn es bleiben 40 Cent übrig.\nODER\n12 ( 0,35 € = 4,20 € und 12 ( 0,45 € = 5,40 €. 4,20 € + 5,40 € =\n9,60 €\nODER\nIst der Ansatz korrekt und liegt jedoch ein „kleiner\nRechenfehler“ vor, wird die Aufgabe als „Richtig“ gewertet."
+          ],
+          [
+            "FALSCH",
+            "Alle unvollständigen, fehlerhaften oder falschen Antworten.\nZ. B.:\nJa, das Geld reicht. Die Brötchen kosten weniger als 10 €."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 1 und 3:",
+      "Die Preis- und Stückangaben des Textes (Anzahl der Brötchen, Preis pro",
+      "Brötchen) werden falsch kombiniert (bei [3] K6).",
+      "Es wird lediglich der zu zahlende Preis berechnet, was daraufhin deutet,",
+      "dass die Aufgabenstellung nur oberflächlich gelesen wurde (K6)."
+    ],
+    "quelle": "fruehstuecksbroetchen_Didaktische_Kommentierung.doc"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "item": "bestimmex",
+  "gelesen_aus": ["data/r01_render/bestimmex/00_image1.png"],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Es gilt x − 5 = 15. Welchen Wert hat x?",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Rasterbild (nur_raster): Text ist gut lesbar; das Minuszeichen in 'x − 5' lese ich als Minus, nicht als Bindestrich.",
+    "'x = ..........' unter der Frage ist Eingabefeld, nicht Prompt."
+  ]
+}

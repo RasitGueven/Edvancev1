@@ -1,0 +1,22 @@
+{
+  "item": "bruchundprozentsatz",
+  "gelesen_aus": [
+    "data/r01_render/bruchundprozentsatz/00_image1.emf.png"
+  ],
+  "stem": "In der Tabelle stehen Prozentsätze und zugehörige Dezimalbrüche.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Vervollständige die Tabelle.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Im Bild steht ein Raster (Zeilen 'Prozentsatz' 50 % / …… % / 80 % und 'Dezimalbruch' 0,5 / 0,3 / ……). Die Queue meldet hat_tabelle_im_emf: false — ich folge dem Bild und setze stem_tabelle_erwartet: true.",
+    "Es sind zwei Lücken zu füllen (Prozentsatz-Spalte 3 bzw. Dezimalbruch-Spalte 4); die Auswertung kennt nur 1 Teilaufgabe — vermutlich eine Teilaufgabe mit zwei Eingabefeldern."
+  ]
+}

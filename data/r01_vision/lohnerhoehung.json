@@ -1,0 +1,20 @@
+{
+  "item": "lohnerhoehung",
+  "gelesen_aus": [
+    "data/r01_render/lohnerhoehung/00_image1.emf.png",
+    "data/r01_render/lohnerhoehung/01_image2.emf.png"
+  ],
+  "stem": "Eine Werbefirma erhöht den Lohn für das Verteilen von 500 Werbeprospekten von 5,00 € auf 5,50 €.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, um wie viel Prozent der Lohn erhöht wird. Ergänze: Der Lohn wird um … % erhöht.",
+      "unit": "%"
+    }
+  ],
+  "unsicher": [
+    "Der Lückensatz 'Der Lohn wird um ……… % erhöht.' ist das Eingabefeld; ich habe ihn im Prompt belassen, weil er den Antwortsatz vorgibt. Einheit steht zusätzlich in unit."
+  ]
+}

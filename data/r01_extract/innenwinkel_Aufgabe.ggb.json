@@ -1,0 +1,22 @@
+{
+  "item": "innenwinkel_Aufgabe.ggb",
+  "sources": {},
+  "flags": [
+    "keine Aufgaben-Datei",
+    "kein Inhaltsbild -> kein Stamm extrahierbar",
+    "keine Auswertungstabelle -> keine Loesung belegbar",
+    "keine Didaktische Kommentierung -> AFB/Kompetenzen fehlen"
+  ],
+  "stufe2_aufgabe_emf": [],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [],
+    "tables": [],
+    "blocks": []
+  },
+  "stufe1_kommentierung": null
+}

@@ -1,0 +1,22 @@
+{
+  "item": "drehkoerper",
+  "gelesen_aus": [
+    "data/r01_render/drehkoerper/00_doc_image1.emf.png"
+  ],
+  "stem": "Ein Körper, der aus fünf gleich großen Würfeln besteht, wird gedreht.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Das gerenderte Bild enthält nur den Einleitungssatz und die Zeichnung des Würfelkörpers (5 Würfel in Schrägbild). Die Frage/Teilaufgabe und eventuelle Antwortoptionen sind im Bild NICHT sichtbar — prompt und options daher leer.",
+    "kind der Teilaufgabe 1 ist geraten (Drehkörper-Aufgaben sind typischerweise Ankreuzaufgaben); nicht aus dem Bild belegbar."
+  ]
+}

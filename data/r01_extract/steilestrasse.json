@@ -1,0 +1,213 @@
+{
+  "item": "steilestrasse",
+  "sources": {
+    "Aufgabe": {
+      "file": "steilestrasse_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "159731dc6aaff303"
+    },
+    "Auswertung": {
+      "file": "steilestrasse_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "b6a918de89b5431f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "steilestrasse_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "b42112cb645365cc"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/steilestrasse/00_image1.emf.png",
+      "tokens": "Das Verkehrszeichen in Abbildung1 gibt an, dass die Straße dort ein Gefälle von 12% hat. Ein Gefälle von 12% bedeutet, dass zwischen zwei Orten ein Höhenunterschied von 12m besteht, wenn die zugehörige Horizontalstrecke 100m lang ist (siehe Abbildung2).Abbildung 1Abbildung 2(nicht maßstabsgerecht)Ort AOrt B100m Horizontalstrecke12m12% Gefälle",
+      "deterministic_text": "Das Verkehrszeichen in Abbildung1 gibt an, dass die Straße dort\nein Gefälle von 12% hat. Ein Gefälle von 12% bedeutet, dass\nzwischen zwei Orten ein Höhenunterschied von 12m besteht,\nwenn die zugehörige Horizontalstrecke 100m lang ist (siehe\nAbbildung2).\nOrt A Abbildung 1\n12%\nGefäl\n12m le\nOrt B Abbildung 2\n100m Horizontalstrecke (nicht maßstabsgerecht)",
+      "table": null,
+      "n_fragments": 52,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/steilestrasse/01_image2.emf.png",
+      "tokens": "Die Straße „An der Steilen Wand“ in der sächsischen Stadt Meerane hat ein Gefälle von 13%. Die Horizontalstrecke zwischen dem Beginn dieses Gefälles und dessen Ende beträgt ca. 250m.Wie groß ist der Höhenunterschied, der auf diesem Straßenstück überwunden wird? Der Höhenunterschied beträgt ca.m.",
+      "deterministic_text": "Die Straße „An der Steilen Wand“ in der sächsischen Stadt Meerane hat ein Gefälle\nvon 13%. Die Horizontalstrecke zwischen dem Beginn dieses Gefälles und dessen\nEnde beträgt ca. 250m.\nWie groß ist der Höhenunterschied, der auf diesem Straßenstück überwunden wird?\nDer Höhenunterschied beträgt ca. m.",
+      "table": null,
+      "n_fragments": 18,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/steilestrasse/02_image3.emf.png",
+      "tokens": "Die steilste Straße der Welt liegt in Neuseeland und heißt „Baldwin Street“. Ein sehr steiler Abschnitt der Straße überwindet bei einer Horizontalstrecke von 154m einen Höhenunterschied von 47m. Wie viel Prozent Gefälle hat die Straße auf diesem Abschnitt?Das Gefälle beträgt ca. %.",
+      "deterministic_text": "Die steilste Straße der Welt liegt in Neuseeland und heißt „Baldwin Street“. Ein sehr\nsteiler Abschnitt der Straße überwindet bei einer Horizontalstrecke von 154m einen\nHöhenunterschied von 47m.\nWie viel Prozent Gefälle hat die Straße auf diesem Abschnitt?\nDas Gefälle beträgt ca. %.",
+      "table": null,
+      "n_fragments": 15,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/steilestrasse/03_image4.emf.png",
+      "tokens": "Steigungen oder Gefälle werden manchmal nicht in Prozent wie in Abbildung1, sondern durch die Größe des Winkels (siehe Abbildung3) beschrieben.aGib die Größe des Winkels aan, der zu 100% Gefälle gehört.a=°Notiere deinen Lösungsweg.Abbildung 3(nicht maßstabsgerecht)Ort AOrt B",
+      "deterministic_text": "Steigungen oder Gefälle werden manchmal nicht in Prozent wie in Abbildung1,\nsondern durch die Größe des Winkels (siehe Abbildung3) beschrieben.\nOrt A\na Ort B Abbildung 3\n(nicht maßstabsgerecht)\nGib die Größe des Winkels aan, der zu 100% Gefälle gehört.\na= °\nNotiere deinen Lösungsweg.",
+      "table": null,
+      "n_fragments": 32,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/steilestrasse/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Steile Straße",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:",
+      "Teilaufgabe 3:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [32; 33]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [30; 31]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "45\n\nUND\n\nLösungsweg, bei dem der Winkel 45 berechnet oder argumentativ bzw. zeichnerisch hergeleitet wird.\n\nBeispiel(e)\nAus 100 % Höhenunterschied folgt, dass das Dreieck gleichschenklig ist. Daraus folgt .\nDer Schüler zeichnet ein rechtwinkliges Dreieck bei dem An- und Gegenkathete gleich lang sind und misst den Winkel nach.\n\n\n[Anm.: Das Beispiel zur Lösung mittels der Tangensfunktion dient nur der Korrektur und ist nicht Teil der erwarteten Lösung.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Steile Straße"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [32; 33]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "eine Zahl aus dem Intervall [30; 31]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "45\n\nUND\n\nLösungsweg, bei dem der Winkel 45 berechnet oder argumentativ bzw. zeichnerisch hergeleitet wird.\n\nBeispiel(e)\nAus 100 % Höhenunterschied folgt, dass das Dreieck gleichschenklig ist. Daraus folgt .\nDer Schüler zeichnet ein rechtwinkliges Dreieck bei dem An- und Gegenkathete gleich lang sind und misst den Winkel nach.\n\n\n[Anm.: Das Beispiel zur Lösung mittels der Tangensfunktion dient nur der Korrektur und ist nicht Teil der erwarteten Lösung.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMathematische Darstellungen verwenden (K4) \nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMathematische Darstellungen verwenden (K4)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5) \nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMathematische Darstellungen verwenden (K4)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "steilestrasse_Didaktische_Kommentierung.docx"
+  }
+}

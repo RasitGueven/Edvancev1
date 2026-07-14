@@ -1,0 +1,33 @@
+{
+  "item": "schokoladenbonbons",
+  "gelesen_aus": [
+    "data/r01_render/schokoladenbonbons/00_image1.emf.png",
+    "data/r01_render/schokoladenbonbons/01_image2.emf.png",
+    "data/r01_render/schokoladenbonbons/02_image3.emf.png"
+  ],
+  "stem": "In einer Bonbondose befinden sich 10 Schokoladenbonbons. Sie sehen von außen alle gleich aus. 5 dieser Bonbons sind mit Vollmilchschokolade, 3 mit dunkler Schokolade und 2 mit weißer Schokolade gefüllt.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib die Wahrscheinlichkeit dafür an, bei der ersten Entnahme ein Bonbon mit weißer Schokoladenfüllung zu bekommen.",
+      "unit": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "In einer zweiten Bonbondose sind 7 Bonbons mit Vollmilchschokolade, 3 mit dunkler Schokolade und 4 mit weißer Schokolade gefüllt.\nBei welcher Bonbondose ist die Wahrscheinlichkeit größer, bei der ersten Entnahme ein Bonbon mit dunkler Schokolade zu erhalten? Kreuze an. Begründe deine Antwort.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Bonbondose 1"},
+        {"id": "b", "label": "Bonbondose 2"},
+        {"id": "c", "label": "Die Wahrscheinlichkeit ist beide Male gleich."}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2 kombiniert Ankreuzen und eine schriftliche Begründung im Kästchenfeld."
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "item": "wuerfelnmitzweiwuerfeln",
+  "sources": {
+    "Aufgabe": {
+      "file": "wuerfelnmitzweiwuerfeln_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "12f1075a8ef2d1ec"
+    },
+    "Auswertung": {
+      "file": "wuerfelnmitzweiwuerfeln_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "f2768340d4f0e329"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "wuerfelnmitzweiwuerfeln_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "34f9c318270714e7"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfelnmitzweiwuerfeln/00_doc_image1.emf.png",
+      "tokens": "Für eine Verlosung wurde das Glücksspiel „Würfeln mit zwei Würfeln“ ausgewählt.In der folgenden Liste sind alle möglichen Ergebnisse beim Würfeln mit zwei Würfeln angegeben:(1,1)  (1,2)  (1,3)  (1,4)  (1,5)  (1,6)(2,1)  (2,2)  (2,3)  (2,4)  (2,5)  (2,6) (3,1)  (3,2)  (3,3)  (3,4)  (3,5)  (3,6)(4,1)  (4,2)  (4,3)  (4,4)  (4,5)  (4,6)(5,1)  (5,2)  (5,3)  (5,4)  (5,5)  (5,6)(6,1)  (6,2)  (6,3)  (6,4)  (6,5)  (6,6)",
+      "deterministic_text": "Für eine Verlosung wurde das Glücksspiel „Würfeln mit zwei Würfeln“\nausgewählt.\nIn der folgenden Liste sind alle möglichen Ergebnisse beim Würfeln mit zwei\nWürfeln angegeben:\n(1,1) (1,2) (1,3) (1,4) (1,5) (1,6)\n(2,1) (2,2) (2,3) (2,4) (2,5) (2,6)\n(3,1) (3,2) (3,3) (3,4) (3,5) (3,6)\n(4,1) (4,2) (4,3) (4,4) (4,5) (4,6)\n(5,1) (5,2) (5,3) (5,4) (5,5) (5,6)\n(6,1) (6,2) (6,3) (6,4) (6,5) (6,6)",
+      "table": null,
+      "n_fragments": 156,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Würfeln mit zwei Würfeln",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2",
+      "Teilaufgabe 3"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "(1,5), (5,1), (2,4), (4,2), (3,3)\nDie Ergebnisse können auch in anderer Reihenfolge oder anderer\nDarstellungsform angegeben werden, z. B. durch Einkreisen der\nzugehörigen „Würfe“ o. ä.\nZ. B.:\n1 und 5, 2 und 4, zweimal die drei, 4 und 2, 5 und 1"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]  (alle gleichwertigen Darstellungen erlaubt)\nZ. B.:\n[pic]\nODER\n[pic]\nODER\nCa. 17 %"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Würfeln mit zwei Würfeln"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "(1,5), (5,1), (2,4), (4,2), (3,3)\nDie Ergebnisse können auch in anderer Reihenfolge oder anderer\nDarstellungsform angegeben werden, z. B. durch Einkreisen der\nzugehörigen „Würfe“ o. ä.\nZ. B.:\n1 und 5, 2 und 4, zweimal die drei, 4 und 2, 5 und 1"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]  (alle gleichwertigen Darstellungen erlaubt)\nZ. B.:\n[pic]\nODER\n[pic]\nODER\nCa. 17 %"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "II",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "IV",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "IV",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [
+      "Die Schülerinnen und Schüler notieren alle Ergebnisse, in denen die „6“",
+      "vorkommt, wobei z. B. die Ergebnisse (3,6) und (6,3) nicht unterschieden",
+      "werden. Eine derartige Lösung lässt vermuten, dass die Aufgabenstellung nur",
+      "oberflächlich gelesen wurde oder aber der Begriff „Würfelsumme“ nicht",
+      "geläufig ist (K6).",
+      "Wie die folgende Schülerlösung nahelegt, wird die Wahrscheinlichkeit für",
+      "das Ereignis „Die Würfelsumme ist kleiner als Vier“ berechnet, was darauf",
+      "hindeutet, dass die Bedeutung des Wortes „oder“ nicht erfasst worden ist",
+      "und demnach Probleme auf sprachlicher Ebene vorliegen (vgl. hierzu auch",
+      "Modul D zur Kompetenz Kommunizieren) (K6).",
+      "1., 3. oder 4. Antwortalternative wurde angekreuzt: Die Strukturähnlichkeit",
+      "der beiden Ereignisse „Die Würfelsumme ist genau 5“ und „Die Würfelsumme",
+      "ist genau 9“ wird nicht erkannt und es liegen Abzähl- oder",
+      "Textverständnisfehler vor (K5 oder K6)."
+    ],
+    "quelle": "wuerfelnmitzweiwuerfeln_Didaktische_Kommentierung.doc"
+  }
+}

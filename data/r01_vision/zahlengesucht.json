@@ -1,0 +1,20 @@
+{
+  "item": "zahlengesucht",
+  "gelesen_aus": [
+    "data/r01_render/zahlengesucht/00_doc_image1.emf.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Schreibe alle dreistelligen Zahlen auf, die aus den Ziffern 1, 2 und 3 gebildet werden können. In keiner der Zahlen darf eine dieser Ziffern mehrfach vorkommen.",
+      "unit": null,
+      "options": null
+    }
+  ],
+  "unsicher": [
+    "Widerspruch zur Auswertung: dort 2 Teilaufgaben, im einzigen gerenderten Bild ist nur 1 Teilaufgabe zu sehen (Schreiblinie in einem Kasten). Eine zweite Teilaufgabe ist im Render nicht enthalten; sie wird nicht geraten."
+  ]
+}

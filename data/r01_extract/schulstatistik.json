@@ -1,0 +1,87 @@
+{
+  "item": "schulstatistik",
+  "sources": {
+    "Aufgabe": {
+      "file": "schulstatistik_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "fa0c37c39d952768"
+    },
+    "Auswertung": {
+      "file": "schulstatistik_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "6f638040ce450976"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "schulstatistik_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "e9aaff9b14df9279"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/schulstatistik/00_doc_image1.emf.png",
+      "tokens": "Im Diagramm ist dargestellt, wie viele Schulen es im Schuljahr 2008/2009 in Sachsen-Anhalt gab. Es werden vier Schulformen unterschieden.Schulen in Sachsen-Anhalt52016669639131330100200300400500600GrundschulenSekundarschulenGymnasienGesamtschulenstaatliche SchulenSchulen in freier Trägerschaft",
+      "deterministic_text": "Im Diagramm ist dargestellt, wie viele Schulen es im Schuljahr 2008/2009 in Sachsen-Anhalt\ngab. Es werden vier Schulformen unterschieden.\nSchulen in Sachsen-Anhalt\nGesamtschulen 3\n6\nGymnasien 13\n69\nSekundarschulen 13\n166\nGrundschulen 39\n520\n0 100 200 300 400 500 600\nstaatliche Schulen Schulen in freier Trägerschaft",
+      "table": null,
+      "n_fragments": 37,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Schulstatistik"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Schulstatistik"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "schulstatistik_Didaktische_Kommentierung.doc"
+  }
+}

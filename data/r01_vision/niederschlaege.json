@@ -1,0 +1,45 @@
+{
+  "item": "niederschlaege",
+  "gelesen_aus": [
+    "data/r01_render/niederschlaege/00_image1.emf.png",
+    "data/r01_render/niederschlaege/01_image2.emf.png",
+    "data/r01_render/niederschlaege/02_image3.emf.png",
+    "data/r01_render/niederschlaege/03_image4.emf.png"
+  ],
+  "stem": "Diese Übersicht konnte man Anfang des Jahres 2012 der Zeitung entnehmen.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib einen Monat an, in dem die Niederschlagsmenge unter der durchschnittlichen monatlichen Niederschlagsmenge lag.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Entscheide anhand des Diagramms, ob die folgenden Aussagen wahr oder falsch sind. Kreuze jeweils an.\n1. Es gab einen Monat ohne Niederschlag.\n2. In mehr als der Hälfte der Monate regnete es weniger als im Durchschnitt.\n3. In den Monaten Juli, August und September regnete es zusammen mehr als im gesamten Rest des Jahres.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "wahr"},
+        {"id": "b", "label": "falsch"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts (Spalten der Wahr/Falsch-Matrix)"
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Gib die Spannweite (den Unterschied zwischen größtem und kleinstem Wert) der monatlichen Niederschlagsmengen an.",
+      "unit": "Liter pro Quadratmeter",
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2 ist eine Wahr/Falsch-Matrix mit 3 Aussagezeilen und 2 Spalten (wahr | falsch), also 3 Ankreuz-Entscheidungen in einer Teilaufgabe. Das Schema kennt dafür kein eigenes kind — ich habe die drei Aussagen in den Prompt genommen und wahr/falsch als Optionen gesetzt.",
+    "Der Stamm besteht im Bild aus einem Säulendiagramm 'Niederschlagsmenge im Jahr 2011 in Schwerin' (Werte in visueller Reihenfolge Januar–Dezember: 34,4 / 46,2 / 19,2 / 15 / 38,2 / 76,9 / 146,5 / 137 / 52,6 / 28,6 / 3,8 / 103,2; Legendenkasten: 'Durchschnittliche monatliche Niederschlagsmenge: 58,5 Liter pro Quadratmeter'; Quelle 'Daten: Deutscher Wetterdienst, 2012'). Die Monatsbeschriftungen der x-Achse sind im Render vertikal ineinander verschränkt und nur schwer lesbar; die Zuordnung Wert→Monat habe ich daher nicht in den Stamm geschrieben.",
+    "stem_tabelle_erwartet=true bezieht sich auf die Wahr/Falsch-Tabelle in Teilaufgabe 2 — der Stamm selbst ist ein Diagramm, keine Tabelle."
+  ]
+}

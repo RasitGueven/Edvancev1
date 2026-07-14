@@ -1,0 +1,159 @@
+{
+  "item": "sterneundsandkoerner",
+  "sources": {
+    "Aufgabe": {
+      "file": "sterneundsandkoerner_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "45c1c04706a41215"
+    },
+    "Auswertung": {
+      "file": "sterneundsandkoerner_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "eecdfc1e0a27bf4f"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "sterneundsandkoerner_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "87441964ba716658"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/sterneundsandkoerner/00_image1.emf.png",
+      "tokens": "Für große Zahlen gibt es Zahlwörter. Diese heißen, der Reihe nach notiert:Tausend, Million, Milliarde, Billion, Billiarde, Trillion, Trilliarde, Quadrillion und so weiter. Der Faktor zum nächstgrößeren Zahlwort ist dabei immer 1000.Im folgenden Artikel der Zeitung „Der Tagesspiegel“ wird ein solches Zahlwort verwendet. Darin heißt es:„Es gibt viel mehr Sterne im All als Sandkörner auf der Erde. Das haben australische Astronomen ausgerechnet. Sie schauten sich mit Fernrohren einen kleinen Teil des Himmels an und schätzten auf dieser Grundlage die Zahl der Sterne. Sie kamen auf 70Trilliarden Sterne. Damit ist die Anzahl der Sterne im All zehnmal so groß wie die der Sandkörner auf der Erde.“Quelle: © Dr. Hartmut Wewetzer, Gibt es mehr Sterne im All als Sandkörner auf der Erde?, aus: Der Tagesspiegel, Berlin; Nr. 21043 (2011), S. 14.",
+      "deterministic_text": "Für große Zahlen gibt es Zahlwörter. Diese heißen, der Reihe nach notiert:\nTausend, Million, Milliarde, Billion, Billiarde, Trillion, Trilliarde, Quadrillion und so weiter.\nDer Faktor zum nächstgrößeren Zahlwort ist dabei immer 1000.\nIm folgenden Artikel der Zeitung „Der Tagesspiegel“ wird ein solches Zahlwort verwendet.\nDarin heißt es:\n„Es gibt viel mehr Sterne im All als Sandkörner auf der Erde. Das haben australische\nAstronomen ausgerechnet. Sie schauten sich mit Fernrohren einen kleinen Teil des\nHimmels an und schätzten auf dieser Grundlage die Zahl der Sterne. Sie kamen auf\n70Trilliarden Sterne. Damit ist die Anzahl der Sterne im All zehnmal so groß wie die der\nSandkörner auf der Erde.“\nQuelle: © Dr. Hartmut Wewetzer, Gibt es mehr Sterne im All als Sandkörner auf der Erde?, aus: Der Tagesspiegel, Berlin; Nr. 21043 (2011), S. 14.",
+      "table": null,
+      "n_fragments": 70,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/sterneundsandkoerner/01_image2.emf.png",
+      "tokens": "Gib an, wie viele Sterne es laut Zeitungsartikel gibt.                                                                    SterneNotiere, wie viele Nullen diese Zahl insgesamt hat.Nullen",
+      "deterministic_text": "Gib an, wie viele Sterne es laut Zeitungsartikel gibt.\nSterne\nNotiere, wie viele Nullen diese Zahl insgesamt hat.\nNullen",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/sterneundsandkoerner/02_image3.emf.png",
+      "tokens": "Ein Ausschreiben sehr großer Zahlen in Ziffern kann unübersichtlich sein. Deshalb wird beim Schreiben solcher Zahlen oftmals eine Zehnerpotenz       verwendet. Der Wert der Hochzahl n gibt die Anzahl der Stellen an, um die das Komma des Faktors vor der Zehnerpotenz verschoben wird. Beispiel:Es ist 1000 = 1 · 103. Man kann also 5000 als 5 · 103schreiben. Entsprechend kann man die Zahl 3217 als 3,217·103schreiben. Ergänze im folgenden Beispiel die in der Zehnerpotenz fehlende Hochzahl.  70 Trilliarden = 7 · 1010n",
+      "deterministic_text": "Ein Ausschreiben sehr großer Zahlen in Ziffern kann unübersichtlich sein. Deshalb\nwird beim Schreiben solcher Zahlen oftmals eine Zehnerpotenz verwendet10ⁿ . Der\nWert der Hochzahl n gibt die Anzahl der Stellen an, um die das Komma des Faktors\nvor der Zehnerpotenz verschoben wird.\nBeispiel:\nEs ist 1000 = 1 · 10³.\nMan kann also 5000 als 5 · 10³schreiben. Entsprechend kann man die Zahl 3217 als\n3,217·10³schreiben.\nErgänze im folgenden Beispiel die in der Zehnerpotenz fehlende Hochzahl.\n70 Trilliarden = 7 · 10",
+      "table": null,
+      "n_fragments": 53,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Sterne und Sandkörner",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "70 Trilliarden UND 22\n[Anm.: Das Zahlwort kann auch in Ziffern geschrieben werden.]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "22"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Sterne und Sandkörner"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "70 Trilliarden UND 22\n[Anm.: Das Zahlwort kann auch in Ziffern geschrieben werden.]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "22"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 4.1:",
+      "Die Null der Zahl 70 wird bei der Angabe der Gesamtnullen vernachlässigt (Fehllösung: 21), wie die folgende Schülerlösung zeigt. Vermutlich fassen die Schülerinnen und Schüler die Angabe 70 und die Angabe Trilliarden als zwei getrennte Zahlen auf:",
+      "Es wird nicht verstanden, dass die Zahl 70 Trilliarden in Ziffern geschrieben werden soll. Somit wird lediglich die Null der Zahl 70 als solche genannt (Fehllösung: 1).",
+      "Die Schülerinnen und Schüler notieren die Anzahl der Nullen bei der Zahl 70 Trillionen (Fehllösung: 19). Dies kann auf einen Fehler beim Ermitteln der Anzahl der Faktoren 1000 zurückgehen und lässt vermuten, dass wenig Erfahrung im Umgang mit derartig großen Zahlen vorliegt. Statt Nullen werden nur Nullen notiert, also eine Tausendergruppe vernachlässigt. Die folgende Schülerlösung zeigt diesen Fehler:",
+      "Zu Teilaufgabe 4.2:",
+      "Die Null der Zahl 70 wird vernachlässigt. Als Exponent der Zehnerpotenz wird demnach 21 angegeben:"
+    ],
+    "quelle": "sterneundsandkoerner_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "item": "ueberschlagsrechnung",
+  "sources": {
+    "Aufgabe": {
+      "file": "ueberschlagsrechnung_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "0224d75006368342"
+    },
+    "Auswertung": {
+      "file": "ueberschlagsrechnung_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "35ca3a7894c77621"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "ueberschlagsrechnung_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "f2472898a5edaf6f"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ueberschlagsrechnung/00_image1.emf.png",
+      "tokens": "Das Ergebnis von 91·88 soll durch eine Überschlagsrechnung im Kopf annähernd ermittelt werden.Welche Überschlagsrechnung eignet sich dafür am besten?Kreuze an.91·88 80·8090·9090·8091·85100·90≈",
+      "deterministic_text": "Das Ergebnis von 91·88 soll durch eine Überschlagsrechnung im Kopf annähernd ermittelt\nwerden.\nWelche Überschlagsrechnung eignet sich dafür am besten?\nKreuze an.\n91·88 ≈\n80·80 90·90 90·80 91·85 100·90",
+      "table": null,
+      "n_fragments": 30,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ueberschlagsrechnung/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Überschlagsrechnung"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Überschlagsrechnung"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "2. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Zahl (L1)",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)",
+        "k_tags": [
+          "K2"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1A",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative (Fehllösung: 80 80): Die Idee des Überschlags ist bekannt; allerdings sind die gewählten Faktoren nicht optimal, da sie zu klein sind (K2).",
+      "Antwortalternative (Fehllösung: 90 80): Die gewählten Faktoren sind nicht optimal, da zweimal abgerundet wird (K2).",
+      "Antwortalternative (Fehllösung: 91 85): Die Idee des Überschlags wird nicht berücksichtigt. Mit den gewählten Zahlen kann nicht einfach im Kopf gerechnet werden. Die Wahl dieser Antwortalternative lässt vermuten, dass unkritisch das Ergebnis mit der scheinbar kleinsten Differenz zu 91 88 ausgewählt wird.",
+      "Antwortalternative (Fehllösung: 100 90): Die gewählten Faktoren sind nicht optimal, da zweimal aufgerundet wird (K2)."
+    ],
+    "quelle": "ueberschlagsrechnung_Didaktische_Kommentierung.docx"
+  }
+}

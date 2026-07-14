@@ -1,0 +1,130 @@
+{
+  "item": "gluecksrad",
+  "sources": {
+    "Aufgabe": {
+      "file": "gluecksrad_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "865fff9b090f0d4c"
+    },
+    "Auswertung": {
+      "file": "gluecksrad_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "0f6db60905a85b79"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "gluecksrad_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "50565cb4df521ad2"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/gluecksrad/00_doc_image1.emf.png",
+      "tokens": "Ein Glücksrad besteht aus drei Feldern: einem roten, einem grünen und einem blauen Feld.Bei 180 Drehungen wies der Zeiger nach dem Stillstand des Glücksrades 66-mal auf das rote Feld und 54-mal auf das grüne Feld.rotgrünblau",
+      "deterministic_text": "Ein Glücksrad besteht aus drei Feldern: einem roten, einem grünen\nund einem blauen Feld.\nblau\nBei 180 Drehungen wies der Zeiger nach dem Stillstand des grün\nGlücksrades 66-mal auf das rote Feld und 54-mal auf das grüne\nFeld.\nrot",
+      "table": null,
+      "n_fragments": 22,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Glücksrad",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Etwa die Hälfte der eingezeichneten Sektoren ist grün gefärbt.\nRichtig ist dabei auch, wenn das Glücksrad in vier Viertel, sechs\nSechstel etc. eingeteilt wird, von denen jeweils die Hälfte\n„grün“ markiert oder entsprechend beschriftet wird."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Glücksrad"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Etwa die Hälfte der eingezeichneten Sektoren ist grün gefärbt.\nRichtig ist dabei auch, wenn das Glücksrad in vier Viertel, sechs\nSechstel etc. eingeteilt wird, von denen jeweils die Hälfte\n„grün“ markiert oder entsprechend beschriftet wird."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "I",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "II",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "▪ 1. Antwortalternative wurde angekreuzt: Die Anzahl der Drehungen „blau“",
+      "wird zunächst vermutlich richtig berechnet, das Ergebnis wird dann aber",
+      "zu den bereits erfolgten Drehungen addiert. (K3).",
+      "▪ 2. Antwortalternative wurde angekreuzt: Hier wird offenbar die",
+      "Gesamtzahl der Drehungen „rot“ und „grün“ berechnet (K3).",
+      "▪ 4. Antwortalternative wurde angekreuzt: Die Prognose über den Ausgangs",
+      "eines Zufallsversuchs wird mit der Analyse eines bereits abgeschlossenen",
+      "Zufallsversuchs, wie er hier vorliegt, verwechselt.",
+      "Das blaue Feld wird vernachlässigt. Es wird gefolgert, dass das rote und",
+      "das grüne Feld gleich groß sein müssen, damit der Zeiger bei jeder zweiten",
+      "Umdrehung auf dem grünen Feld stehen bleibt. Dies zeigt die folgende",
+      "Schülerlösung (K3)."
+    ],
+    "quelle": "gluecksrad_Didaktische_Kommentierung.doc"
+  }
+}

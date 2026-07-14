@@ -1,0 +1,41 @@
+{
+  "item": "nagelbrett",
+  "gelesen_aus": [
+    "data/r01_render/nagelbrett/00_image1.emf.png",
+    "data/r01_render/nagelbrett/01_image2.emf.png",
+    "data/r01_render/nagelbrett/02_image3.emf.png",
+    "data/r01_render/nagelbrett/03_image4.emf.png",
+    "data/r01_render/nagelbrett/04_image5.emf.png",
+    "data/r01_render/nagelbrett/05_image6.emf.png",
+    "data/r01_render/nagelbrett/06_image7.emf.png"
+  ],
+  "stem": "Die Abbildung 1 zeigt ein Nagelbrett („Geobrett“).\nDer Abstand der benachbarten Nägel auf dem Brett beträgt 2 cm.\nMan kann mit Hilfe eines Gummirings verschiedene Figuren spannen. Dabei sollen jetzt nur Rechtecke gespannt werden, deren Seiten parallel zu den Brettkanten sind.\nDie Abbildung 2 zeigt als Beispiel ein Quadrat mit einem Flächeninhalt von 16 cm².",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Es soll ein Rechteck mit einem Flächeninhalt von 48 cm² entstehen. Zeichne in die Abbildung 3 ein, wie der Gummiring gespannt werden kann.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Kann man auf diesem Nagelbrett ein Rechteck von 18 cm² spannen? Kreuze an. Begründe deine Antwort.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Ja"},
+        {"id": "b", "label": "Nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Bilddateien 01_image2.emf.png und 04_image5.emf.png sind komplett weiß gerendert — es sind die Fotos des Nagelbretts (Abbildung 1 / Abbildung 2 bzw. Abbildung 3), die beim Rendern nicht mitkamen. Der geometrische Inhalt (Anzahl der Nagelreihen/-spalten) ist daher NICHT ablesbar.",
+    "Teilaufgabe 1 ist eine Zeichenaufgabe (Einzeichnen in Abbildung 3), kein Textfeld; als 'free_text' erfasst.",
+    "Teilaufgabe 2 verlangt zusätzlich zum Ankreuzen eine Begründung im Karofeld; als 'mc' erfasst, enthält aber einen Free-Text-Anteil.",
+    "Bildunterschriften 'Foto: © IQB', 'Abbildung 1/2/3' wurden nicht in den Stamm übernommen."
+  ]
+}

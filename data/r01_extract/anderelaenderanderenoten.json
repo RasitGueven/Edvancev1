@@ -1,0 +1,210 @@
+{
+  "item": "anderelaenderanderenoten",
+  "sources": {
+    "Aufgabe": {
+      "file": "anderelaenderanderenoten_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "434b7028182dbcd2"
+    },
+    "Auswertung": {
+      "file": "anderelaenderanderenoten_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "7e48fd8b3026834a"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "anderelaenderanderenoten_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "a3e07bba9442f868"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/anderelaenderanderenoten/00_image1.emf.png",
+      "tokens": "In der Schweiz wird -anders als in Deutschland -eine sehr gute Leistung mit 6 benotet, und für eine sehr schlechte Leistung bekommt man die Note 1.So wird in einigen Schweizer Schulen die Note für eine Mathematikarbeit mit folgender Formel berechnet:Note =Die berechnete Note wird auf eine Stelle nach dem Komma gerundet, d.h. es gibt beispielsweise auch die Note 3,6.⋅+Erreichte Punktzahl51Maximalpunktzahl",
+      "deterministic_text": "In der Schweiz wird -anders als in Deutschland -eine sehr gute Leistung mit 6 benotet,\nund für eine sehr schlechte Leistung bekommt man die Note 1.\nSo wird in einigen Schweizer Schulen die Note für eine Mathematikarbeit mit folgender\nFormel berechnet:\nErreichte Punktzahl\nNote = ⋅+51\nMaximalpunktzahl\nDie berechnete Note wird auf eine Stelle nach dem Komma gerundet, d.h. es gibt\nbeispielsweise auch die Note 3,6.",
+      "table": null,
+      "n_fragments": 32,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/anderelaenderanderenoten/01_image2.emf.png",
+      "tokens": "In einer Mathematikarbeit mit einer Maximalzahl von 50 Punkten wurden 30 Punkte erreicht.Gib an, welche Note in der Schweiz bei Anwendung der Formel erteilt wird.Note:",
+      "deterministic_text": "In einer Mathematikarbeit mit einer Maximalzahl von 50 Punkten wurden 30 Punkte\nerreicht.\nGib an, welche Note in der Schweiz bei Anwendung der Formel erteilt wird.\nNote:",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/anderelaenderanderenoten/02_image3.emf.png",
+      "tokens": "In einer anderen Mathematikarbeit können maximal 100 Punkte erreicht werden. Ein Schüler bekommt nach der Formel die Note 5,5.Welche Punktzahl kann er erreicht haben?Gib eine mögliche Punktzahl an. PunkteNotiere deinen Lösungsweg.  ",
+      "deterministic_text": "In einer anderen Mathematikarbeit können maximal 100 Punkte erreicht werden. Ein\nSchüler bekommt nach der Formel die Note 5,5.\nWelche Punktzahl kann er erreicht haben?\nGib eine mögliche Punktzahl an.\nPunkte\nNotiere deinen Lösungsweg.",
+      "table": null,
+      "n_fragments": 17,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/anderelaenderanderenoten/03_image4.emf.png",
+      "tokens": "In den Niederlanden werden sogar die Noten 1 bis 10 vergeben. Die schlechteste Note ist die 1, die beste Note ist die 10.Stelle für die Niederlande eine Formel auf, mit der sich die Note aus der erreichten Punktzahl und der Maximalpunktzahl errechnen lässt.Note =",
+      "deterministic_text": "In den Niederlanden werden sogar die Noten 1 bis 10 vergeben. Die schlechteste\nNote ist die 1, die beste Note ist die 10.\nStelle für die Niederlande eine Formel auf, mit der sich die Note aus der erreichten\nPunktzahl und der Maximalpunktzahl errechnen lässt.\nNote =",
+      "table": null,
+      "n_fragments": 20,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/anderelaenderanderenoten/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Andere Länder - andere Noten",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:",
+      "Teilaufgabe 3:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4\n\nODER\n\n4,0"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Alle Punktzahlen, die größer oder gleich 89 und kleiner als 91 sind\n\nUND\n\npassender Lösungsweg.\n\nBeispiel(e)\n5,5 =   5 + 1\nErreichte Punktzahl = 90\n5,5  =   5 + 1; x = 90\nIch habe es probiert. Ein passender Wert ist 89, denn \n  5 + 1 = 5,45. Das ist gerundet 5,5."
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe einer Formel, die für die Maximalpunktzahl den Wert 10 und \nfür 0 Punkte den Wert 1 ergibt.\n\nBeispiel(e)"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Andere Länder - andere Noten"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4\n\nODER\n\n4,0"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Alle Punktzahlen, die größer oder gleich 89 und kleiner als 91 sind\n\nUND\n\npassender Lösungsweg.\n\nBeispiel(e)\n5,5 =   5 + 1\nErreichte Punktzahl = 90\n5,5  =   5 + 1; x = 90\nIch habe es probiert. Ein passender Wert ist 89, denn \n  5 + 1 = 5,45. Das ist gerundet 5,5."
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe einer Formel, die für die Maximalpunktzahl den Wert 10 und \nfür 0 Punkte den Wert 1 ergibt.\n\nBeispiel(e)"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2),\nMathematisches Modellieren (K3),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K3",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "anderelaenderanderenoten_Didaktische_Kommentierung.docx"
+  }
+}

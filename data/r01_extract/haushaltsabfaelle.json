@@ -1,0 +1,234 @@
+{
+  "item": "haushaltsabfaelle",
+  "sources": {
+    "Aufgabe": {
+      "file": "haushaltsabfaelle_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "3995651da67bad50"
+    },
+    "Auswertung": {
+      "file": "haushaltsabfaelle_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "ae0f95bc90c4946c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "haushaltsabfaelle_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "ee902fa5269e233a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/haushaltsabfaelle/00_image1.emf.png",
+      "tokens": "Das Diagramm informiert über die Haushaltsabfälle, die im Jahr 2009 in den einzelnen Bundesländern pro Einwohner anfielen. Dabei ist im Diagramm jedem Bundesland eine Nummer zugeordnet (vgl. Tabelle).1Baden-Württemberg2Bayern3Berlin4Brandenburg5Bremen6Hamburg7Hessen8Mecklenburg-Vorpommern9Niedersachsen10Nordrhein-Westfalen11Rheinland-Pfalz12Saarland13Sachsen14Sachsen-Anhalt15Schleswig-Holstein16ThüringenBundesländer (siehe Liste)Haushaltsabfälle pro Einwohner in kg123456789101112131415160100200300400500600Grafik: © IQB, basierend auf Daten der Statistischen Ämter des Bundes und der LänderTabelle : © IQB",
+      "deterministic_text": "Das Diagramm informiert über die Haushaltsabfälle, die im Jahr 2009 in den einzelnen\nBundesländern pro Einwohner anfielen. Dabei ist im Diagramm jedem Bundesland eine\nNummer zugeordnet (vgl. Tabelle).\n600\n1 Baden-Württemberg\ng 2 Bayern\nk 3 Berlin\nni⁵⁰⁰\nre 4 Brandenburg\nn 5 Bremen\nho\nw⁴⁰⁰ 6 Hamburg\nni\nE 7 Hessen\nor 8 Mecklenburg-Vorpommern\np300\nel 9 Niedersachsen\nlä\nf 10 Nordrhein-Westfalen\nba\ns²⁰⁰ 11 Rheinland-Pfalz\ntl\na 12 Saarland\nhs\nu 13 Sachsen\na¹⁰⁰ 14 Sachsen-Anhalt\nH\n15 Schleswig-Holstein\n16 Thüringen\n0\n¹²³⁴⁵⁶⁷⁸⁹¹⁰¹¹¹²¹³¹⁴¹⁵¹⁶ Tabelle : © IQB\nBundesländer (siehe Liste)\nGrafik: © IQB, basierend auf Daten der Statistischen Ämter des Bundes und\nder Länder",
+      "table": {
+        "header": [
+          "1",
+          "Baden-Württemberg"
+        ],
+        "rows": [
+          [
+            "2",
+            "Bayern"
+          ],
+          [
+            "3",
+            "Berlin"
+          ],
+          [
+            "4",
+            "Brandenburg"
+          ],
+          [
+            "5",
+            "Bremen"
+          ],
+          [
+            "6",
+            "Hamburg"
+          ],
+          [
+            "7",
+            "Hessen"
+          ],
+          [
+            "8",
+            "Mecklenburg-Vorpommern"
+          ],
+          [
+            "9",
+            "Niedersachsen"
+          ],
+          [
+            "10",
+            "Nordrhein-Westfalen"
+          ],
+          [
+            "11",
+            "Rheinland-Pfalz"
+          ],
+          [
+            "12",
+            "Saarland"
+          ],
+          [
+            "13",
+            "Sachsen"
+          ],
+          [
+            "14",
+            "Sachsen-Anhalt"
+          ],
+          [
+            "15",
+            "Schleswig-Holstein"
+          ],
+          [
+            "16",
+            "Thüringen"
+          ]
+        ]
+      },
+      "n_fragments": 130,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/haushaltsabfaelle/01_image2.emf.png",
+      "tokens": "Das Bundesland heißt       .In welchem Bundesland gab es die wenigsten Haushaltsabfälle pro Einwohner?Ergänze.",
+      "deterministic_text": "In welchem Bundesland gab es die wenigsten Haushaltsabfälle pro Einwohner?\nErgänze.\nDas Bundesland heißt .",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/haushaltsabfaelle/02_image3.emf.png",
+      "tokens": "Gib an, wie viele Haushaltsabfälle in Rheinland-Pfalz pro Einwohner anfielen.kg",
+      "deterministic_text": "Gib an, wie viele Haushaltsabfälle in Rheinland-Pfalz pro Einwohner anfielen.\nkg",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/haushaltsabfaelle/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Haushaltsabfälle",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Sachsen"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Jede Zahl im Bereich [505;520], auch wenn diese in der angegebenen Genauigkeit nicht ablesbar sein mag."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Haushaltsabfälle"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Sachsen"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Jede Zahl im Bereich [505;520], auch wenn diese in der angegebenen Genauigkeit nicht ablesbar sein mag."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "5. Daten und Zufall",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1a",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Zu Teilaufgabe 12.1:",
+      "Es wird nicht das Bundesland mit dem wenigsten Haushaltsmüll pro Einwohner angegeben, sondern das Bundesland mit der größten Menge an Haushaltsmüll pro Einwohner, was auf ungenaues Lesen hindeutet. Die folgende Schülerlösung dokumentiert diesen Fehler:",
+      "Zu Teilaufgabe 12.2:",
+      "Wie die folgende Schülerlösung zeigt, wird die Menge an Haushaltsmüll pro Einwohner in Rheinland-Pfalz zu ungenau angegeben. Dies kann auf Schwierigkeiten beim Ablesen der Werte zurückgeführt werden (Interpolation!):",
+      "Die Bedeutung der ersten Achse wird nicht erfasst. So wird ihre Beschriftung mit Kilogrammangaben gleich gesetzt, wie die folgende Schülerlösung belegt:"
+    ],
+    "quelle": "haushaltsabfaelle_Didaktische_Kommentierung.docx"
+  }
+}

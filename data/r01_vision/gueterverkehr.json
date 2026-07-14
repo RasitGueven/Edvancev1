@@ -1,0 +1,35 @@
+{
+  "item": "gueterverkehr",
+  "gelesen_aus": [
+    "data/r01_render/gueterverkehr/00_image1.emf.png",
+    "data/r01_render/gueterverkehr/01_image2.emf.png",
+    "data/r01_render/gueterverkehr/02_image3.emf.png"
+  ],
+  "stem": "Das Diagramm stellt für verschiedene Transportmittel den Zusammenhang zwischen den Kosten einer transportierten Tonne Ware und der Länge des Transportweges dar. Die Graphen gehen auch für Transportwege über 500 km so weiter.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Eine Tonne Ware soll 400 km transportiert werden. Gib an, wie teuer dieser Transport mit der Bahn ist.",
+      "unit": "€",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Gib für einen Transportweg von 50 km das günstigste Transportmittel an. Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "LKW"},
+        {"id": "b", "label": "Bahn"},
+        {"id": "c", "label": "Binnenschiff"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Queue meldet 'hat_tabelle_im_emf: true'; im Bild ist aber keine Tabelle, sondern ein Koordinatensystem auf Millimeterraster (Achsen: 'Kosten je Tonne in €' / 'Länge des Transportweges in km', Graphen LKW, Bahn, Binnenschiff). Daher stem_tabelle_erwartet: false."
+  ]
+}

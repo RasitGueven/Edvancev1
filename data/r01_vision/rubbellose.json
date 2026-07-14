@@ -1,0 +1,40 @@
+{
+  "item": "rubbellose",
+  "gelesen_aus": [
+    "data/r01_render/rubbellose/00_image1.emf.png",
+    "data/r01_render/rubbellose/01_image2.emf.png",
+    "data/r01_render/rubbellose/02_image3.emf.png"
+  ],
+  "stem": "Eine Bäckerei führt zur Fußball-EM eine Verlosung durch. Während der 25 Spieltage bekommt jeder Kunde beim Einkauf ein Los mit drei Rubbelfeldern.\nNach dem Freirubbeln sieht man auf jedem Feld entweder ein Fußballbild oder einen freien Kreis.\nEs gilt folgender Gewinnplan:\nDie Bäckerei lässt 7500 Lose drucken. 25 davon haben 3 Fußballbilder.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Der erste Kunde bekommt ein Los.\nMit welcher Wahrscheinlichkeit gewinnt er einen echten Fußball?",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "1/3"},
+        {"id": "b", "label": "3/25"},
+        {"id": "c", "label": "1/25"},
+        {"id": "d", "label": "1/300"},
+        {"id": "e", "label": "1/7500"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Die Wahrscheinlichkeit für den ersten Kunden, eine Autofahne zu gewinnen, beträgt 1/25. 1/3 der Autofahnen sind Deutschlandfahnen, 2/3 sind Fahnen anderer Länder.\nGib an, wie viele Deutschlandfahnen verlost werden.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Alle Brüche stehen im Bild als echte Brüche mit Bruchstrich (Zähler über Nenner). Ich habe sie als 1/3, 3/25, 1/25, 1/300, 1/7500 bzw. 1/25, 1/3, 2/3 geschrieben — Zähler und Nenner sind sicher gelesen, aber die Schreibweise mit Schrägstrich ist meine Notation, kein Zeichen aus der Quelle.",
+    "Der Gewinnplan im Stamm ist eine Tabelle (Spalten 'Rubbelfelder' / 'Gewinn': 3 Fußballbilder → ein echter Fußball; 2 Fußballbilder, 1 freier Kreis → eine Autofahne; 1 Fußballbild, 2 freie Kreise → ein Fußballbrötchen; 3 freie Kreise → kein Gewinn). Nicht abgetippt, stem_tabelle_erwartet=true.",
+    "In image1 gibt es ein leeres Rechteck (Los-Abbildung), deren Inhalt nicht mitgerendert wurde.",
+    "Eingabefeld Teilaufgabe 2 ist im Satz 'Es werden ____ Deutschlandfahnen verlost.' eingebettet."
+  ]
+}

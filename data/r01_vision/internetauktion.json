@@ -1,0 +1,32 @@
+{
+  "item": "internetauktion",
+  "gelesen_aus": [
+    "data/r01_render/internetauktion/00_image1.emf.png",
+    "data/r01_render/internetauktion/01_image2.emf.png",
+    "data/r01_render/internetauktion/02_image3.emf.png"
+  ],
+  "stem": "Bei einer Internetauktion beobachtet Rolf die Preisentwicklung für Notebooks. Insgesamt werden neun Notebooks des gleichen Typs versteigert.\n\nRolf hat sich folgende Endpreise für die Notebooks aufgeschrieben:",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Wie groß ist der Preisunterschied zwischen dem teuersten und dem billigsten Notebook?",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Gib den durchschnittlichen Preis der neun Notebooks an.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Tabelle im Bild: Spalten 'Auktionsnummer' / 'Endpreis', Zeilen 1–9 mit 390 €, 422 €, 394 €, 355 €, 449 €, 396 €, 380 €, 423 €, 373 € — laut Spec rekonstruiert die Pipeline die Tabelle selbst.",
+    "Die Eingabefelder bei beiden Teilaufgaben tragen keine sichtbare Einheit (nur Punktlinie), daher unit=null, obwohl die Antwort in € erwartet wird."
+  ]
+}

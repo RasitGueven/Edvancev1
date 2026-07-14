@@ -1,0 +1,2657 @@
+{
+ "20prozent": {
+  "pngs": [
+   "data/r01_render/20prozent/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "700milliarden": {
+  "pngs": [
+   "data/r01_render/700milliarden/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "abstandaufdemwasser": {
+  "pngs": [
+   "data/r01_render/abstandaufdemwasser/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "adventskalender": {
+  "pngs": [
+   "data/r01_render/adventskalender/00_image1.png",
+   "data/r01_render/adventskalender/01_image2.png",
+   "data/r01_render/adventskalender/02_image3.png",
+   "data/r01_render/adventskalender/03_image4.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "ampelkarte": {
+  "pngs": [
+   "data/r01_render/ampelkarte/00_image1.emf.png",
+   "data/r01_render/ampelkarte/01_image2.emf.png",
+   "data/r01_render/ampelkarte/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "anderelaenderanderenoten": {
+  "pngs": [
+   "data/r01_render/anderelaenderanderenoten/00_image1.emf.png",
+   "data/r01_render/anderelaenderanderenoten/01_image2.emf.png",
+   "data/r01_render/anderelaenderanderenoten/02_image3.emf.png",
+   "data/r01_render/anderelaenderanderenoten/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "ansichteneinestischs": {
+  "pngs": [
+   "data/r01_render/ansichteneinestischs/00_image1.png",
+   "data/r01_render/ansichteneinestischs/01_image2.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "anteileingeometrischenobjekten": {
+  "pngs": [
+   "data/r01_render/anteileingeometrischenobjekten/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "anzahlvonnullen": {
+  "pngs": [
+   "data/r01_render/anzahlvonnullen/00_image1.emf.png",
+   "data/r01_render/anzahlvonnullen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "apfelsaftschorle": {
+  "pngs": [
+   "data/r01_render/apfelsaftschorle/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "aufgabenreihen": {
+  "pngs": [
+   "data/r01_render/aufgabenreihen/00_image1.png",
+   "data/r01_render/aufgabenreihen/01_image2.png",
+   "data/r01_render/aufgabenreihen/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "aussagendreiecke": {
+  "pngs": [
+   "data/r01_render/aussagendreiecke/00_image1.emf.png",
+   "data/r01_render/aussagendreiecke/01_image2.emf.png",
+   "data/r01_render/aussagendreiecke/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "aussagenzurprop": {
+  "pngs": [
+   "data/r01_render/aussagenzurprop/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "aussenthermometer": {
+  "pngs": [
+   "data/r01_render/aussenthermometer/00_image1.emf.png",
+   "data/r01_render/aussenthermometer/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "autokauf": {
+  "pngs": [
+   "data/r01_render/autokauf/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "bahncard": {
+  "pngs": [
+   "data/r01_render/bahncard/00_image1.png",
+   "data/r01_render/bahncard/01_image2.png",
+   "data/r01_render/bahncard/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "berechnex": {
+  "pngs": [
+   "data/r01_render/berechnex/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "berechnungenamrechteck": {
+  "pngs": [
+   "data/r01_render/berechnungenamrechteck/00_image1.emf.png",
+   "data/r01_render/berechnungenamrechteck/01_image2.emf.png",
+   "data/r01_render/berechnungenamrechteck/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "berndunddasbrot": {
+  "pngs": [
+   "data/r01_render/berndunddasbrot/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "besonderevierecke": {
+  "pngs": [
+   "data/r01_render/besonderevierecke/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "bestimmex": {
+  "pngs": [
+   "data/r01_render/bestimmex/00_image1.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "bevoelkerungsdichte": {
+  "pngs": [
+   "data/r01_render/bevoelkerungsdichte/00_image1.emf.png",
+   "data/r01_render/bevoelkerungsdichte/01_image2.emf.png",
+   "data/r01_render/bevoelkerungsdichte/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "bewegec": {
+  "pngs": [
+   "data/r01_render/bewegec/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "bistroumfrage": {
+  "pngs": [
+   "data/r01_render/bistroumfrage/00_image1.emf.png",
+   "data/r01_render/bistroumfrage/01_image2.emf.png",
+   "data/r01_render/bistroumfrage/02_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "bonbons": {
+  "pngs": [
+   "data/r01_render/bonbons/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "brettspiel": {
+  "pngs": [
+   "data/r01_render/brettspiel/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "briefmarkenschachteln": {
+  "pngs": [
+   "data/r01_render/briefmarkenschachteln/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "broetchen": {
+  "pngs": [
+   "data/r01_render/broetchen/00_image1.emf.png",
+   "data/r01_render/broetchen/01_image2.emf.png",
+   "data/r01_render/broetchen/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "bruchundprozentsatz": {
+  "pngs": [
+   "data/r01_render/bruchundprozentsatz/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "butter": {
+  "pngs": [
+   "data/r01_render/butter/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "chancen": {
+  "pngs": [
+   "data/r01_render/chancen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "colakaesten": {
+  "pngs": [
+   "data/r01_render/colakaesten/00_image1.emf.png",
+   "data/r01_render/colakaesten/01_image2.emf.png",
+   "data/r01_render/colakaesten/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "computerspielsucht": {
+  "pngs": [
+   "data/r01_render/computerspielsucht/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "croissant": {
+  "pngs": [
+   "data/r01_render/croissant/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "damenuhr": {
+  "pngs": [
+   "data/r01_render/damenuhr/00_image1.emf.png",
+   "data/r01_render/damenuhr/01_image2.emf.png",
+   "data/r01_render/damenuhr/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "darstellungindiagrammen": {
+  "pngs": [
+   "data/r01_render/darstellungindiagrammen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "dasistgerundet": {
+  "pngs": [
+   "data/r01_render/dasistgerundet/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "derriese": {
+  "pngs": [
+   "data/r01_render/derriese/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "derstern": {
+  "pngs": [
+   "data/r01_render/derstern/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "divisionvonzahlen": {
+  "pngs": [
+   "data/r01_render/divisionvonzahlen/00_image1.emf.png",
+   "data/r01_render/divisionvonzahlen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "drehkoerper": {
+  "pngs": [
+   "data/r01_render/drehkoerper/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "dreieckeergaenzen": {
+  "pngs": [
+   "data/r01_render/dreieckeergaenzen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "dreieckimquadrat": {
+  "pngs": [
+   "data/r01_render/dreieckimquadrat/00_image1.emf.png",
+   "data/r01_render/dreieckimquadrat/01_image2.emf.png",
+   "data/r01_render/dreieckimquadrat/02_image3.emf.png",
+   "data/r01_render/dreieckimquadrat/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "dreieckszahlen": {
+  "pngs": [
+   "data/r01_render/dreieckszahlen/00_image1.emf.png",
+   "data/r01_render/dreieckszahlen/01_image2.emf.png",
+   "data/r01_render/dreieckszahlen/02_image3.emf.png",
+   "data/r01_render/dreieckszahlen/03_image4.emf.png",
+   "data/r01_render/dreieckszahlen/04_image5.emf.png",
+   "data/r01_render/dreieckszahlen/05_image6.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 5,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "druckmaschinen": {
+  "pngs": [
+   "data/r01_render/druckmaschinen/00_image1.emf.png",
+   "data/r01_render/druckmaschinen/01_image2.emf.png",
+   "data/r01_render/druckmaschinen/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "durch1001teilbar": {
+  "pngs": [
+   "data/r01_render/durch1001teilbar/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "dvdplayer": {
+  "pngs": [
+   "data/r01_render/dvdplayer/00_image1.emf.png",
+   "data/r01_render/dvdplayer/01_image2.emf.png",
+   "data/r01_render/dvdplayer/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "eckenanpyramiden": {
+  "pngs": [
+   "data/r01_render/eckenanpyramiden/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "eckenundkanten": {
+  "pngs": [
+   "data/r01_render/eckenundkanten/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "eindeutig": {
+  "pngs": [
+   "data/r01_render/eindeutig/00_image1.emf.png",
+   "data/r01_render/eindeutig/01_image2.emf.png",
+   "data/r01_render/eindeutig/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "einfachegleichung": {
+  "pngs": [
+   "data/r01_render/einfachegleichung/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "eingefaerbterkoerper": {
+  "pngs": [
+   "data/r01_render/eingefaerbterkoerper/00_image1.emf.png",
+   "data/r01_render/eingefaerbterkoerper/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "eiscafe": {
+  "pngs": [
+   "data/r01_render/eiscafe/00_image1.png",
+   "data/r01_render/eiscafe/01_image2.png",
+   "data/r01_render/eiscafe/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "fahrradcomputer": {
+  "pngs": [
+   "data/r01_render/fahrradcomputer/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fahrradtour": {
+  "pngs": [
+   "data/r01_render/fahrradtour/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "fahrraeder": {
+  "pngs": [
+   "data/r01_render/fahrraeder/00_image1.emf.png",
+   "data/r01_render/fahrraeder/01_image2.emf.png",
+   "data/r01_render/fahrraeder/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fahrtrichtunggeradeaus": {
+  "pngs": [
+   "data/r01_render/fahrtrichtunggeradeaus/00_image1.emf.png",
+   "data/r01_render/fahrtrichtunggeradeaus/01_image2.emf.png",
+   "data/r01_render/fahrtrichtunggeradeaus/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "faschingsdeko": {
+  "pngs": [
+   "data/r01_render/faschingsdeko/00_image1.emf.png",
+   "data/r01_render/faschingsdeko/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fehlendezahlen": {
+  "pngs": [
+   "data/r01_render/fehlendezahlen/00_image1.emf.png",
+   "data/r01_render/fehlendezahlen/01_image2.emf.png",
+   "data/r01_render/fehlendezahlen/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fieberthermometer": {
+  "pngs": [
+   "data/r01_render/fieberthermometer/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "figurauszweidreiecken": {
+  "pngs": [
+   "data/r01_render/figurauszweidreiecken/00_image1.emf.png",
+   "data/r01_render/figurauszweidreiecken/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "fischezaehlen": {
+  "pngs": [
+   "data/r01_render/fischezaehlen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "flaechengleichodernicht": {
+  "pngs": [
+   "data/r01_render/flaechengleichodernicht/00_image1.emf.png",
+   "data/r01_render/flaechengleichodernicht/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "flaecheninhalt": {
+  "pngs": [
+   "data/r01_render/flaecheninhalt/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fliesen": {
+  "pngs": [
+   "data/r01_render/fliesen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fliesenfuerdenfussboden": {
+  "pngs": [
+   "data/r01_render/fliesenfuerdenfussboden/00_image1.emf.png",
+   "data/r01_render/fliesenfuerdenfussboden/01_image2.emf.png",
+   "data/r01_render/fliesenfuerdenfussboden/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "freibad": {
+  "pngs": [
+   "data/r01_render/freibad/00_image1.png",
+   "data/r01_render/freibad/01_image2.png",
+   "data/r01_render/freibad/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "freizeitbeschaeftigungen": {
+  "pngs": [
+   "data/r01_render/freizeitbeschaeftigungen/00_image1.emf.png",
+   "data/r01_render/freizeitbeschaeftigungen/01_image2.emf.png",
+   "data/r01_render/freizeitbeschaeftigungen/02_image3.emf.png",
+   "data/r01_render/freizeitbeschaeftigungen/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "freizeitkosten": {
+  "pngs": [
+   "data/r01_render/freizeitkosten/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "freunde": {
+  "pngs": [
+   "data/r01_render/freunde/00_image1.emf.png",
+   "data/r01_render/freunde/01_image2.emf.png",
+   "data/r01_render/freunde/02_image3.emf.png",
+   "data/r01_render/freunde/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "fruehstuecksbroetchen": {
+  "pngs": [
+   "data/r01_render/fruehstuecksbroetchen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fuehrerschein": {
+  "pngs": [
+   "data/r01_render/fuehrerschein/00_image1.emf.png",
+   "data/r01_render/fuehrerschein/01_image2.emf.png",
+   "data/r01_render/fuehrerschein/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "fuellverhalten": {
+  "pngs": [
+   "data/r01_render/fuellverhalten/00_image1.png",
+   "data/r01_render/fuellverhalten/01_image2.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "fuenfundvierzig": {
+  "pngs": [
+   "data/r01_render/fuenfundvierzig/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fussballtabelle": {
+  "pngs": [
+   "data/r01_render/fussballtabelle/00_image1.emf.png",
+   "data/r01_render/fussballtabelle/01_image2.emf.png",
+   "data/r01_render/fussballtabelle/02_image3.emf.png",
+   "data/r01_render/fussballtabelle/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "fussleisten": {
+  "pngs": [
+   "data/r01_render/fussleisten/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "geldanlegen": {
+  "pngs": [
+   "data/r01_render/geldanlegen/00_image1.png",
+   "data/r01_render/geldanlegen/01_image2.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "geometrischekoerper": {
+  "pngs": [
+   "data/r01_render/geometrischekoerper/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "geradenimkoordinatensystem": {
+  "pngs": [
+   "data/r01_render/geradenimkoordinatensystem/00_image1.emf.png",
+   "data/r01_render/geradenimkoordinatensystem/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "gesamtkantenlaenge": {
+  "pngs": [
+   "data/r01_render/gesamtkantenlaenge/00_image1.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "geschichtezurgraphik": {
+  "pngs": [
+   "data/r01_render/geschichtezurgraphik/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "geschwindigkeit": {
+  "pngs": [
+   "data/r01_render/geschwindigkeit/00_image1.emf.png",
+   "data/r01_render/geschwindigkeit/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "gewerbezone": {
+  "pngs": [
+   "data/r01_render/gewerbezone/00_image1.emf.png",
+   "data/r01_render/gewerbezone/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gewitter": {
+  "pngs": [
+   "data/r01_render/gewitter/00_image1.emf.png",
+   "data/r01_render/gewitter/01_image2.emf.png",
+   "data/r01_render/gewitter/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gleichungenloesenistni": {
+  "pngs": [
+   "data/r01_render/gleichungenloesenistni/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gleichungfinden": {
+  "pngs": [
+   "data/r01_render/gleichungfinden/00_image1.emf.png",
+   "data/r01_render/gleichungfinden/01_image2.emf.png",
+   "data/r01_render/gleichungfinden/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gleichungloesen1": {
+  "pngs": [
+   "data/r01_render/gleichungloesen1/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gleichungloesen2": {
+  "pngs": [
+   "data/r01_render/gleichungloesen2/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gleichungloesen3": {
+  "pngs": [
+   "data/r01_render/gleichungloesen3/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gleichungveraendern": {
+  "pngs": [
+   "data/r01_render/gleichungveraendern/00_image1.emf.png",
+   "data/r01_render/gleichungveraendern/01_image2.emf.png",
+   "data/r01_render/gleichungveraendern/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gluecksrad": {
+  "pngs": [
+   "data/r01_render/gluecksrad/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "gluecksraddrehen": {
+  "pngs": [
+   "data/r01_render/gluecksraddrehen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "glueckssaeckchen": {
+  "pngs": [
+   "data/r01_render/glueckssaeckchen/00_image1.emf.png",
+   "data/r01_render/glueckssaeckchen/01_image2.emf.png",
+   "data/r01_render/glueckssaeckchen/02_image3.emf.png",
+   "data/r01_render/glueckssaeckchen/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "grosserwagen": {
+  "pngs": [
+   "data/r01_render/grosserwagen/00_image1.emf.png",
+   "data/r01_render/grosserwagen/01_image2.emf.png",
+   "data/r01_render/grosserwagen/02_image3.emf.png",
+   "data/r01_render/grosserwagen/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "gueterverkehr": {
+  "pngs": [
+   "data/r01_render/gueterverkehr/00_image1.emf.png",
+   "data/r01_render/gueterverkehr/01_image2.emf.png",
+   "data/r01_render/gueterverkehr/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "gummibaeren": {
+  "pngs": [
+   "data/r01_render/gummibaeren/00_image1.emf.png",
+   "data/r01_render/gummibaeren/01_image2.emf.png",
+   "data/r01_render/gummibaeren/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "haelfte": {
+  "pngs": [
+   "data/r01_render/haelfte/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "handygebuehr": {
+  "pngs": [
+   "data/r01_render/handygebuehr/00_image1.emf.png",
+   "data/r01_render/handygebuehr/01_image2.emf.png",
+   "data/r01_render/handygebuehr/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "harzwanderung": {
+  "pngs": [
+   "data/r01_render/harzwanderung/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "hauptstaedte": {
+  "pngs": [
+   "data/r01_render/hauptstaedte/00_image1.emf.png",
+   "data/r01_render/hauptstaedte/01_image2.emf.png",
+   "data/r01_render/hauptstaedte/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "hausaufgaben": {
+  "pngs": [
+   "data/r01_render/hausaufgaben/00_image1.emf.png",
+   "data/r01_render/hausaufgaben/01_image2.emf.png",
+   "data/r01_render/hausaufgaben/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "haushaltsabfaelle": {
+  "pngs": [
+   "data/r01_render/haushaltsabfaelle/00_image1.emf.png",
+   "data/r01_render/haushaltsabfaelle/01_image2.emf.png",
+   "data/r01_render/haushaltsabfaelle/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "heizkosten": {
+  "pngs": [
+   "data/r01_render/heizkosten/00_image1.emf.png",
+   "data/r01_render/heizkosten/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "hochrad": {
+  "pngs": [
+   "data/r01_render/hochrad/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "holzstab": {
+  "pngs": [
+   "data/r01_render/holzstab/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "holzwuerfel": {
+  "pngs": [
+   "data/r01_render/holzwuerfel/00_image1.emf.png",
+   "data/r01_render/holzwuerfel/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "honigbiene": {
+  "pngs": [
+   "data/r01_render/honigbiene/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "imkreislaufen": {
+  "pngs": [
+   "data/r01_render/imkreislaufen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "inliner": {
+  "pngs": [
+   "data/r01_render/inliner/00_image1.emf.png",
+   "data/r01_render/inliner/01_image2.emf.png",
+   "data/r01_render/inliner/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "innenwinkel2": {
+  "pngs": [
+   "data/r01_render/innenwinkel2/00_image1.png",
+   "data/r01_render/innenwinkel2/01_image2.png",
+   "data/r01_render/innenwinkel2/02_image3.png",
+   "data/r01_render/innenwinkel2/03_image4.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "internetauktion": {
+  "pngs": [
+   "data/r01_render/internetauktion/00_image1.emf.png",
+   "data/r01_render/internetauktion/01_image2.emf.png",
+   "data/r01_render/internetauktion/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "jeansmitermaessigung": {
+  "pngs": [
+   "data/r01_render/jeansmitermaessigung/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "joggen": {
+  "pngs": [
+   "data/r01_render/joggen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "jubilaeumsgeschenk": {
+  "pngs": [
+   "data/r01_render/jubilaeumsgeschenk/00_image1.png",
+   "data/r01_render/jubilaeumsgeschenk/01_image2.png",
+   "data/r01_render/jubilaeumsgeschenk/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "judomatte": {
+  "pngs": [
+   "data/r01_render/judomatte/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "kaumeinechance": {
+  "pngs": [
+   "data/r01_render/kaumeinechance/00_image1.emf.png",
+   "data/r01_render/kaumeinechance/01_image2.emf.png",
+   "data/r01_render/kaumeinechance/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "koerperfuellen": {
+  "pngs": [
+   "data/r01_render/koerperfuellen/00_image1.emf.png",
+   "data/r01_render/koerperfuellen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "koordinatensystem": {
+  "pngs": [
+   "data/r01_render/koordinatensystem/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "kopfundkoerper": {
+  "pngs": [
+   "data/r01_render/kopfundkoerper/00_image1.emf.png",
+   "data/r01_render/kopfundkoerper/01_image2.emf.png",
+   "data/r01_render/kopfundkoerper/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "kraftfutter": {
+  "pngs": [
+   "data/r01_render/kraftfutter/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "kreisefaerben": {
+  "pngs": [
+   "data/r01_render/kreisefaerben/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "kreiseundvierecke": {
+  "pngs": [
+   "data/r01_render/kreiseundvierecke/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "kreisfiguren": {
+  "pngs": [
+   "data/r01_render/kreisfiguren/00_image1.png",
+   "data/r01_render/kreisfiguren/01_image2.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "kugelnziehen": {
+  "pngs": [
+   "data/r01_render/kugelnziehen/00_image1.png",
+   "data/r01_render/kugelnziehen/01_image2.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "lagederwuerfel": {
+  "pngs": [
+   "data/r01_render/lagederwuerfel/00_image1.emf.png",
+   "data/r01_render/lagederwuerfel/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "lagevonzweigeraden": {
+  "pngs": [
+   "data/r01_render/lagevonzweigeraden/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "leistungdesmotors": {
+  "pngs": [
+   "data/r01_render/leistungdesmotors/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "liebstesschulfach": {
+  "pngs": [
+   "data/r01_render/liebstesschulfach/00_image1.png",
+   "data/r01_render/liebstesschulfach/01_image2.png",
+   "data/r01_render/liebstesschulfach/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "linearefunktionen": {
+  "pngs": [
+   "data/r01_render/linearefunktionen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "linearundproportional": {
+  "pngs": [
+   "data/r01_render/linearundproportional/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "literberechnungen": {
+  "pngs": [
+   "data/r01_render/literberechnungen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "lohnerhoehung": {
+  "pngs": [
+   "data/r01_render/lohnerhoehung/00_image1.emf.png",
+   "data/r01_render/lohnerhoehung/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "luftballons": {
+  "pngs": [
+   "data/r01_render/luftballons/00_image1.emf.png",
+   "data/r01_render/luftballons/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "maedchenanteil": {
+  "pngs": [
+   "data/r01_render/maedchenanteil/00_image1.emf.png",
+   "data/r01_render/maedchenanteil/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "massstabsleiste": {
+  "pngs": [
+   "data/r01_render/massstabsleiste/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "massstabsrechner": {
+  "pngs": [
+   "data/r01_render/massstabsrechner/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "mathematikarbeit": {
+  "pngs": [
+   "data/r01_render/mathematikarbeit/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "mauerauszahlen": {
+  "pngs": [
+   "data/r01_render/mauerauszahlen/00_image1.emf.png",
+   "data/r01_render/mauerauszahlen/01_image2.emf.png",
+   "data/r01_render/mauerauszahlen/02_image3.emf.png",
+   "data/r01_render/mauerauszahlen/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "maus": {
+  "pngs": [
+   "data/r01_render/maus/00_image1.emf.png",
+   "data/r01_render/maus/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "menschaergeredichnicht": {
+  "pngs": [
+   "data/r01_render/menschaergeredichnicht/00_image1.emf.png",
+   "data/r01_render/menschaergeredichnicht/01_image2.emf.png",
+   "data/r01_render/menschaergeredichnicht/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "messzylinder": {
+  "pngs": [
+   "data/r01_render/messzylinder/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "mittezwischenzahlen": {
+  "pngs": [
+   "data/r01_render/mittezwischenzahlen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "muckibude": {
+  "pngs": [
+   "data/r01_render/muckibude/00_image1.png",
+   "data/r01_render/muckibude/01_image2.png",
+   "data/r01_render/muckibude/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "muelltonne": {
+  "pngs": [
+   "data/r01_render/muelltonne/00_image1.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "nachfolgerzahl": {
+  "pngs": [
+   "data/r01_render/nachfolgerzahl/00_image1.emf.png",
+   "data/r01_render/nachfolgerzahl/01_image2.emf.png",
+   "data/r01_render/nachfolgerzahl/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "nagelbrett": {
+  "pngs": [
+   "data/r01_render/nagelbrett/00_image1.emf.png",
+   "data/r01_render/nagelbrett/01_image2.emf.png",
+   "data/r01_render/nagelbrett/02_image3.emf.png",
+   "data/r01_render/nagelbrett/03_image4.emf.png",
+   "data/r01_render/nagelbrett/04_image5.emf.png",
+   "data/r01_render/nagelbrett/05_image6.emf.png",
+   "data/r01_render/nagelbrett/06_image7.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "naschkatze": {
+  "pngs": [
+   "data/r01_render/naschkatze/00_image1.emf.png",
+   "data/r01_render/naschkatze/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "nashorn": {
+  "pngs": [
+   "data/r01_render/nashorn/00_image1.emf.png",
+   "data/r01_render/nashorn/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "nebenjob": {
+  "pngs": [
+   "data/r01_render/nebenjob/00_image1.emf.png",
+   "data/r01_render/nebenjob/01_image2.emf.png",
+   "data/r01_render/nebenjob/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "niederschlaege": {
+  "pngs": [
+   "data/r01_render/niederschlaege/00_image1.emf.png",
+   "data/r01_render/niederschlaege/01_image2.emf.png",
+   "data/r01_render/niederschlaege/02_image3.emf.png",
+   "data/r01_render/niederschlaege/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "niederschlag": {
+  "pngs": [
+   "data/r01_render/niederschlag/00_image1.emf.png",
+   "data/r01_render/niederschlag/01_image2.emf.png",
+   "data/r01_render/niederschlag/02_image3.emf.png",
+   "data/r01_render/niederschlag/03_image4.emf.png",
+   "data/r01_render/niederschlag/04_image5.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 4,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "nullkommaacht": {
+  "pngs": [
+   "data/r01_render/nullkommaacht/00_image1.emf.png",
+   "data/r01_render/nullkommaacht/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "ohrhaenger": {
+  "pngs": [
+   "data/r01_render/ohrhaenger/00_image1.emf.png",
+   "data/r01_render/ohrhaenger/01_image2.emf.png",
+   "data/r01_render/ohrhaenger/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "osterhase": {
+  "pngs": [
+   "data/r01_render/osterhase/00_image1.emf.png",
+   "data/r01_render/osterhase/01_image2.emf.png",
+   "data/r01_render/osterhase/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "papier": {
+  "pngs": [
+   "data/r01_render/papier/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "pappschachtel": {
+  "pngs": [
+   "data/r01_render/pappschachtel/00_image1.png",
+   "data/r01_render/pappschachtel/01_image2.png",
+   "data/r01_render/pappschachtel/02_image3.png",
+   "data/r01_render/pappschachtel/03_image4.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "parallelogramme": {
+  "pngs": [
+   "data/r01_render/parallelogramme/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "parfum": {
+  "pngs": [
+   "data/r01_render/parfum/00_image1.emf.png",
+   "data/r01_render/parfum/01_image2.emf.png",
+   "data/r01_render/parfum/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "parkhaus": {
+  "pngs": [
+   "data/r01_render/parkhaus/00_image1.emf.png",
+   "data/r01_render/parkhaus/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "parlamentswahl": {
+  "pngs": [
+   "data/r01_render/parlamentswahl/00_image1.emf.png",
+   "data/r01_render/parlamentswahl/01_image2.emf.png",
+   "data/r01_render/parlamentswahl/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "passendeschuhe": {
+  "pngs": [
+   "data/r01_render/passendeschuhe/00_image1.emf.png",
+   "data/r01_render/passendeschuhe/01_image2.emf.png",
+   "data/r01_render/passendeschuhe/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "pflaumen": {
+  "pngs": [
+   "data/r01_render/pflaumen/00_image1.emf.png",
+   "data/r01_render/pflaumen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "pinsel": {
+  "pngs": [
+   "data/r01_render/pinsel/00_image1.png",
+   "data/r01_render/pinsel/01_image2.png",
+   "data/r01_render/pinsel/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "plaettchenziehen": {
+  "pngs": [
+   "data/r01_render/plaettchenziehen/00_image1.emf.png",
+   "data/r01_render/plaettchenziehen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "prozentanteilschaetzen": {
+  "pngs": [
+   "data/r01_render/prozentanteilschaetzen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "punkteaufgeraden": {
+  "pngs": [
+   "data/r01_render/punkteaufgeraden/00_image1.emf.png",
+   "data/r01_render/punkteaufgeraden/01_image2.emf.png",
+   "data/r01_render/punkteaufgeraden/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "punkteimkoordinatensystem": {
+  "pngs": [
+   "data/r01_render/punkteimkoordinatensystem/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "punktgenau": {
+  "pngs": [
+   "data/r01_render/punktgenau/00_image1.emf.png",
+   "data/r01_render/punktgenau/01_image2.emf.png",
+   "data/r01_render/punktgenau/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "punktgesucht": {
+  "pngs": [
+   "data/r01_render/punktgesucht/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "pyramidenbau": {
+  "pngs": [
+   "data/r01_render/pyramidenbau/00_image1.emf.png",
+   "data/r01_render/pyramidenbau/01_image2.emf.png",
+   "data/r01_render/pyramidenbau/02_image3.emf.png",
+   "data/r01_render/pyramidenbau/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "quader": {
+  "pngs": [
+   "data/r01_render/quader/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "quadernetz": {
+  "pngs": [
+   "data/r01_render/quadernetz/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "quadernetz2": {
+  "pngs": [
+   "data/r01_render/quadernetz2/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "quadernetzvervollstaendigen": {
+  "pngs": [
+   "data/r01_render/quadernetzvervollstaendigen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "quadratdifferenz": {
+  "pngs": [
+   "data/r01_render/quadratdifferenz/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "quadrate": {
+  "pngs": [
+   "data/r01_render/quadrate/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "quadratflaeche": {
+  "pngs": [
+   "data/r01_render/quadratflaeche/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "quadratimgitter": {
+  "pngs": [
+   "data/r01_render/quadratimgitter/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "quadratundraute": {
+  "pngs": [
+   "data/r01_render/quadratundraute/00_image1.emf.png",
+   "data/r01_render/quadratundraute/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "quadratzeichnen": {
+  "pngs": [
+   "data/r01_render/quadratzeichnen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "rabattaktion": {
+  "pngs": [
+   "data/r01_render/rabattaktion/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "raeumungsverkauf": {
+  "pngs": [
+   "data/r01_render/raeumungsverkauf/00_image1.emf.png",
+   "data/r01_render/raeumungsverkauf/01_image2.emf.png",
+   "data/r01_render/raeumungsverkauf/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "ratenbeimtest": {
+  "pngs": [
+   "data/r01_render/ratenbeimtest/00_image1.emf.png",
+   "data/r01_render/ratenbeimtest/01_image2.emf.png",
+   "data/r01_render/ratenbeimtest/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "rathausuhr": {
+  "pngs": [
+   "data/r01_render/rathausuhr/00_image1.emf.png",
+   "data/r01_render/rathausuhr/01_image2.emf.png",
+   "data/r01_render/rathausuhr/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "rauminhaltvonprismen": {
+  "pngs": [
+   "data/r01_render/rauminhaltvonprismen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "rauten": {
+  "pngs": [
+   "data/r01_render/rauten/00_image1.emf.png",
+   "data/r01_render/rauten/01_image2.emf.png",
+   "data/r01_render/rauten/02_image3.emf.png",
+   "data/r01_render/rauten/03_image4.emf.png",
+   "data/r01_render/rauten/04_image5.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 4,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "rechenvorteil": {
+  "pngs": [
+   "data/r01_render/rechenvorteil/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "rechteck": {
+  "pngs": [
+   "data/r01_render/rechteck/00_image1.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "regelmaessigevielecke": {
+  "pngs": [
+   "data/r01_render/regelmaessigevielecke/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "reiseverlauf": {
+  "pngs": [
+   "data/r01_render/reiseverlauf/00_image1.emf.png",
+   "data/r01_render/reiseverlauf/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "restaurantgewinnspiel": {
+  "pngs": [
+   "data/r01_render/restaurantgewinnspiel/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "richtigumgeformt": {
+  "pngs": [
+   "data/r01_render/richtigumgeformt/00_image1.emf.png",
+   "data/r01_render/richtigumgeformt/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "rollrasen": {
+  "pngs": [
+   "data/r01_render/rollrasen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "rolltreppe": {
+  "pngs": [
+   "data/r01_render/rolltreppe/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "rotgelbgruen": {
+  "pngs": [
+   "data/r01_render/rotgelbgruen/00_image1.png",
+   "data/r01_render/rotgelbgruen/01_image2.png",
+   "data/r01_render/rotgelbgruen/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "rubbellose": {
+  "pngs": [
+   "data/r01_render/rubbellose/00_image1.emf.png",
+   "data/r01_render/rubbellose/01_image2.emf.png",
+   "data/r01_render/rubbellose/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "rundfunkgebuehren": {
+  "pngs": [
+   "data/r01_render/rundfunkgebuehren/00_image1.emf.png",
+   "data/r01_render/rundfunkgebuehren/01_image2.emf.png",
+   "data/r01_render/rundfunkgebuehren/02_image3.emf.png",
+   "data/r01_render/rundfunkgebuehren/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "saeulenhoehe": {
+  "pngs": [
+   "data/r01_render/saeulenhoehe/00_image1.emf.png",
+   "data/r01_render/saeulenhoehe/01_image2.emf.png",
+   "data/r01_render/saeulenhoehe/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "sauerkraut": {
+  "pngs": [
+   "data/r01_render/sauerkraut/00_image1.emf.png",
+   "data/r01_render/sauerkraut/01_image2.emf.png",
+   "data/r01_render/sauerkraut/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "schachtelnpacken": {
+  "pngs": [
+   "data/r01_render/schachtelnpacken/00_image1.emf.png",
+   "data/r01_render/schachtelnpacken/01_image2.emf.png",
+   "data/r01_render/schachtelnpacken/02_image3.emf.png",
+   "data/r01_render/schachtelnpacken/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "schluessel": {
+  "pngs": [
+   "data/r01_render/schluessel/00_image1.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "schneekristalle": {
+  "pngs": [
+   "data/r01_render/schneekristalle/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "schnittpunktvongraphen": {
+  "pngs": [
+   "data/r01_render/schnittpunktvongraphen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "schokoladenbonbons": {
+  "pngs": [
+   "data/r01_render/schokoladenbonbons/00_image1.emf.png",
+   "data/r01_render/schokoladenbonbons/01_image2.emf.png",
+   "data/r01_render/schokoladenbonbons/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "schokoladenfiguren": {
+  "pngs": [
+   "data/r01_render/schokoladenfiguren/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "schokoladenpreis": {
+  "pngs": [
+   "data/r01_render/schokoladenpreis/00_image1.emf.png",
+   "data/r01_render/schokoladenpreis/01_image2.emf.png",
+   "data/r01_render/schokoladenpreis/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "schokolinsen": {
+  "pngs": [
+   "data/r01_render/schokolinsen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "schrankbreiten": {
+  "pngs": [
+   "data/r01_render/schrankbreiten/00_image1.emf.png",
+   "data/r01_render/schrankbreiten/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "schulgrundstueck": {
+  "pngs": [
+   "data/r01_render/schulgrundstueck/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "schulkleidung": {
+  "pngs": [
+   "data/r01_render/schulkleidung/00_image1.png",
+   "data/r01_render/schulkleidung/01_image2.png",
+   "data/r01_render/schulkleidung/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "schulstatistik": {
+  "pngs": [
+   "data/r01_render/schulstatistik/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "schwarzweisswuerfel": {
+  "pngs": [
+   "data/r01_render/schwarzweisswuerfel/00_image1.emf.png",
+   "data/r01_render/schwarzweisswuerfel/01_image2.emf.png",
+   "data/r01_render/schwarzweisswuerfel/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "seitenflaechen": {
+  "pngs": [
+   "data/r01_render/seitenflaechen/00_image1.emf.png",
+   "data/r01_render/seitenflaechen/01_image2.emf.png",
+   "data/r01_render/seitenflaechen/02_image3.emf.png",
+   "data/r01_render/seitenflaechen/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "skalaundzahlen": {
+  "pngs": [
+   "data/r01_render/skalaundzahlen/00_image1.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "spielwuerfel": {
+  "pngs": [
+   "data/r01_render/spielwuerfel/00_image1.png",
+   "data/r01_render/spielwuerfel/01_image2.png",
+   "data/r01_render/spielwuerfel/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "sprechstunde": {
+  "pngs": [
+   "data/r01_render/sprechstunde/00_image1.emf.png",
+   "data/r01_render/sprechstunde/01_image2.emf.png",
+   "data/r01_render/sprechstunde/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "stammbruecheuntersuchen": {
+  "pngs": [
+   "data/r01_render/stammbruecheuntersuchen/00_image1.emf.png",
+   "data/r01_render/stammbruecheuntersuchen/01_image2.emf.png",
+   "data/r01_render/stammbruecheuntersuchen/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "steilestrasse": {
+  "pngs": [
+   "data/r01_render/steilestrasse/00_image1.emf.png",
+   "data/r01_render/steilestrasse/01_image2.emf.png",
+   "data/r01_render/steilestrasse/02_image3.emf.png",
+   "data/r01_render/steilestrasse/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "sterneundsandkoerner": {
+  "pngs": [
+   "data/r01_render/sterneundsandkoerner/00_image1.emf.png",
+   "data/r01_render/sterneundsandkoerner/01_image2.emf.png",
+   "data/r01_render/sterneundsandkoerner/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "streckeimkoordinatenkreuz": {
+  "pngs": [
+   "data/r01_render/streckeimkoordinatenkreuz/00_image1.emf.png",
+   "data/r01_render/streckeimkoordinatenkreuz/01_image2.emf.png",
+   "data/r01_render/streckeimkoordinatenkreuz/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "streichholzziehen": {
+  "pngs": [
+   "data/r01_render/streichholzziehen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "suchediezahl": {
+  "pngs": [
+   "data/r01_render/suchediezahl/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "tabelle": {
+  "pngs": [
+   "data/r01_render/tabelle/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "tabelleausfuellen": {
+  "pngs": [
+   "data/r01_render/tabelleausfuellen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "tankinhalt": {
+  "pngs": [
+   "data/r01_render/tankinhalt/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "temperatur": {
+  "pngs": [
+   "data/r01_render/temperatur/00_image1.png",
+   "data/r01_render/temperatur/01_image2.png",
+   "data/r01_render/temperatur/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "temperaturdifferenz": {
+  "pngs": [
+   "data/r01_render/temperaturdifferenz/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "temperaturen": {
+  "pngs": [
+   "data/r01_render/temperaturen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "thermometer": {
+  "pngs": [
+   "data/r01_render/thermometer/00_image1.emf.png",
+   "data/r01_render/thermometer/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "thermometeranzeigen": {
+  "pngs": [
+   "data/r01_render/thermometeranzeigen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "tombolazumschulfest": {
+  "pngs": [
+   "data/r01_render/tombolazumschulfest/00_image1.emf.png",
+   "data/r01_render/tombolazumschulfest/01_image2.emf.png",
+   "data/r01_render/tombolazumschulfest/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "traktor": {
+  "pngs": [
+   "data/r01_render/traktor/00_image1.emf.png",
+   "data/r01_render/traktor/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "trapezohnesymmetrie": {
+  "pngs": [
+   "data/r01_render/trapezohnesymmetrie/00_image1.emf.png",
+   "data/r01_render/trapezohnesymmetrie/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "trapezvariation": {
+  "pngs": [
+   "data/r01_render/trapezvariation/00_image1.emf.png",
+   "data/r01_render/trapezvariation/01_image2.emf.png",
+   "data/r01_render/trapezvariation/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "treppenmasse": {
+  "pngs": [
+   "data/r01_render/treppenmasse/00_image1.emf.png",
+   "data/r01_render/treppenmasse/01_image2.emf.png",
+   "data/r01_render/treppenmasse/02_image3.emf.png",
+   "data/r01_render/treppenmasse/03_image4.emf.png",
+   "data/r01_render/treppenmasse/04_image5.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 4,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "tropfenderwasserhahn": {
+  "pngs": [
+   "data/r01_render/tropfenderwasserhahn/00_image1.emf.png",
+   "data/r01_render/tropfenderwasserhahn/01_image2.emf.png",
+   "data/r01_render/tropfenderwasserhahn/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "tunnelbohrmaschine": {
+  "pngs": [
+   "data/r01_render/tunnelbohrmaschine/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "ueberschlagdochmal": {
+  "pngs": [
+   "data/r01_render/ueberschlagdochmal/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "ueberschlagsrechnung": {
+  "pngs": [
+   "data/r01_render/ueberschlagsrechnung/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "umfangundflaeche": {
+  "pngs": [
+   "data/r01_render/umfangundflaeche/00_image1.emf.png",
+   "data/r01_render/umfangundflaeche/01_image2.emf.png",
+   "data/r01_render/umfangundflaeche/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "unfertigerwuerfel": {
+  "pngs": [
+   "data/r01_render/unfertigerwuerfel/00_image1.emf.png",
+   "data/r01_render/unfertigerwuerfel/01_image2.emf.png",
+   "data/r01_render/unfertigerwuerfel/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "ungewoehnlicherspielwuerfel": {
+  "pngs": [
+   "data/r01_render/ungewoehnlicherspielwuerfel/00_image1.png",
+   "data/r01_render/ungewoehnlicherspielwuerfel/01_image2.png",
+   "data/r01_render/ungewoehnlicherspielwuerfel/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "ungleichungerfuellen": {
+  "pngs": [
+   "data/r01_render/ungleichungerfuellen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "unregelmaessigesviereck": {
+  "pngs": [
+   "data/r01_render/unregelmaessigesviereck/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "verbindungsstrecken": {
+  "pngs": [
+   "data/r01_render/verbindungsstrecken/00_image1.png",
+   "data/r01_render/verbindungsstrecken/01_image2.png",
+   "data/r01_render/verbindungsstrecken/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "verkehrszeichen": {
+  "pngs": [
+   "data/r01_render/verkehrszeichen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 4,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "verlaufdesgraphen": {
+  "pngs": [
+   "data/r01_render/verlaufdesgraphen/00_image1.emf.png",
+   "data/r01_render/verlaufdesgraphen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "verschiedenerechtecke": {
+  "pngs": [
+   "data/r01_render/verschiedenerechtecke/00_image1.emf.png",
+   "data/r01_render/verschiedenerechtecke/01_image2.emf.png",
+   "data/r01_render/verschiedenerechtecke/02_image3.emf.png",
+   "data/r01_render/verschiedenerechtecke/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "vielebroetchen": {
+  "pngs": [
+   "data/r01_render/vielebroetchen/00_image1.emf.png",
+   "data/r01_render/vielebroetchen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "volumenverkleinerung": {
+  "pngs": [
+   "data/r01_render/volumenverkleinerung/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "vonlinkswievonrechts": {
+  "pngs": [
+   "data/r01_render/vonlinkswievonrechts/00_image1.emf.png",
+   "data/r01_render/vonlinkswievonrechts/01_image2.emf.png",
+   "data/r01_render/vonlinkswievonrechts/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "waage": {
+  "pngs": [
+   "data/r01_render/waage/00_image1.emf.png",
+   "data/r01_render/waage/01_image2.emf.png",
+   "data/r01_render/waage/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "wahl": {
+  "pngs": [
+   "data/r01_render/wahl/00_image1.png",
+   "data/r01_render/wahl/01_image2.png",
+   "data/r01_render/wahl/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "wahrscheinlicher": {
+  "pngs": [
+   "data/r01_render/wahrscheinlicher/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "weitsprung": {
+  "pngs": [
+   "data/r01_render/weitsprung/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 4,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "werbelotterie": {
+  "pngs": [
+   "data/r01_render/werbelotterie/00_image1.png",
+   "data/r01_render/werbelotterie/01_image2.png",
+   "data/r01_render/werbelotterie/02_image3.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "werbemarkt": {
+  "pngs": [
+   "data/r01_render/werbemarkt/00_image1.emf.png",
+   "data/r01_render/werbemarkt/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "wettkampfwaehlen": {
+  "pngs": [
+   "data/r01_render/wettkampfwaehlen/00_image1.emf.png",
+   "data/r01_render/wettkampfwaehlen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "winkelgamma": {
+  "pngs": [
+   "data/r01_render/winkelgamma/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "winkelimdreieck": {
+  "pngs": [
+   "data/r01_render/winkelimdreieck/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "winkelimparallelogramm": {
+  "pngs": [
+   "data/r01_render/winkelimparallelogramm/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "winkelmessen": {
+  "pngs": [
+   "data/r01_render/winkelmessen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "winkelwuerfel": {
+  "pngs": [
+   "data/r01_render/winkelwuerfel/00_image1.emf.png",
+   "data/r01_render/winkelwuerfel/01_image2.emf.png",
+   "data/r01_render/winkelwuerfel/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "woliegtc": {
+  "pngs": [
+   "data/r01_render/woliegtc/00_image1.emf.png",
+   "data/r01_render/woliegtc/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "wosinddiepunkte": {
+  "pngs": [
+   "data/r01_render/wosinddiepunkte/00_image1.emf.png",
+   "data/r01_render/wosinddiepunkte/01_image2.emf.png",
+   "data/r01_render/wosinddiepunkte/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "wuerfelbau": {
+  "pngs": [
+   "data/r01_render/wuerfelbau/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "wuerfelkoerper": {
+  "pngs": [
+   "data/r01_render/wuerfelkoerper/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "wuerfelnetze": {
+  "pngs": [
+   "data/r01_render/wuerfelnetze/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "wuerfelnmitquader": {
+  "pngs": [
+   "data/r01_render/wuerfelnmitquader/00_image1.emf.png",
+   "data/r01_render/wuerfelnmitquader/01_image2.emf.png",
+   "data/r01_render/wuerfelnmitquader/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "wuerfelnmitzweiwuerfeln": {
+  "pngs": [
+   "data/r01_render/wuerfelnmitzweiwuerfeln/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "wuerfeloberflaeche": {
+  "pngs": [
+   "data/r01_render/wuerfeloberflaeche/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "wuerfelturm": {
+  "pngs": [
+   "data/r01_render/wuerfelturm/00_image1.emf.png",
+   "data/r01_render/wuerfelturm/01_image2.emf.png",
+   "data/r01_render/wuerfelturm/02_image3.emf.png",
+   "data/r01_render/wuerfelturm/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "wuerfelturm2": {
+  "pngs": [
+   "data/r01_render/wuerfelturm2/00_image1.png",
+   "data/r01_render/wuerfelturm2/01_image2.png",
+   "data/r01_render/wuerfelturm2/02_image3.png",
+   "data/r01_render/wuerfelturm2/03_image4.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "wundersamerechenergebnisse": {
+  "pngs": [
+   "data/r01_render/wundersamerechenergebnisse/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zaehlungvonfahrzeugen": {
+  "pngs": [
+   "data/r01_render/zaehlungvonfahrzeugen/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zahlenaddieren": {
+  "pngs": [
+   "data/r01_render/zahlenaddieren/00_image1.emf.png",
+   "data/r01_render/zahlenaddieren/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zahlengesucht": {
+  "pngs": [
+   "data/r01_render/zahlengesucht/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zahlenmauer": {
+  "pngs": [
+   "data/r01_render/zahlenmauer/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zahlenstrahl": {
+  "pngs": [
+   "data/r01_render/zahlenstrahl/00_image1.emf.png",
+   "data/r01_render/zahlenstrahl/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zahlensuche": {
+  "pngs": [
+   "data/r01_render/zahlensuche/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "zahlensumme": {
+  "pngs": [
+   "data/r01_render/zahlensumme/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zahlenwuerfel": {
+  "pngs": [
+   "data/r01_render/zahlenwuerfel/00_image1.emf.png",
+   "data/r01_render/zahlenwuerfel/01_image2.emf.png",
+   "data/r01_render/zahlenwuerfel/02_image3.emf.png",
+   "data/r01_render/zahlenwuerfel/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zahlgesucht": {
+  "pngs": [
+   "data/r01_render/zahlgesucht/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zahlgesucht2": {
+  "pngs": [
+   "data/r01_render/zahlgesucht2/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zeitangabe": {
+  "pngs": [
+   "data/r01_render/zeitangabe/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zeitumrechnung": {
+  "pngs": [
+   "data/r01_render/zeitumrechnung/00_image1.emf.png",
+   "data/r01_render/zeitumrechnung/01_image2.emf.png",
+   "data/r01_render/zeitumrechnung/02_image3.emf.png",
+   "data/r01_render/zeitumrechnung/03_image4.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 3,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zoobesuch": {
+  "pngs": [
+   "data/r01_render/zoobesuch/00_image1.emf.png",
+   "data/r01_render/zoobesuch/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zufallsversuche": {
+  "pngs": [
+   "data/r01_render/zufallsversuche/00_doc_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 4,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zuschauerzahlen": {
+  "pngs": [
+   "data/r01_render/zuschauerzahlen/00_image1.emf.png",
+   "data/r01_render/zuschauerzahlen/01_image2.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zwanzigprozent": {
+  "pngs": [
+   "data/r01_render/zwanzigprozent/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zweikreise": {
+  "pngs": [
+   "data/r01_render/zweikreise/00_image1.emf.png",
+   "data/r01_render/zweikreise/01_image2.emf.png",
+   "data/r01_render/zweikreise/02_image3.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "zweitaschenrechner": {
+  "pngs": [
+   "data/r01_render/zweitaschenrechner/00_image1.png",
+   "data/r01_render/zweitaschenrechner/01_image3.png",
+   "data/r01_render/zweitaschenrechner/02_image4.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ },
+ "zweitegerade": {
+  "pngs": [
+   "data/r01_render/zweitegerade/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": true,
+  "nur_raster": false
+ },
+ "zwischenzweizahlen": {
+  "pngs": [
+   "data/r01_render/zwischenzweizahlen/00_image1.emf.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 1,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": false
+ },
+ "zwischenzweizahlen2": {
+  "pngs": [
+   "data/r01_render/zwischenzweizahlen2/00_image1.png",
+   "data/r01_render/zwischenzweizahlen2/01_image2.png"
+  ],
+  "n_teilaufgaben_laut_auswertung": 2,
+  "hat_tabelle_im_emf": false,
+  "nur_raster": true
+ }
+}

@@ -1,0 +1,248 @@
+{
+  "item": "figurauszweidreiecken",
+  "sources": {
+    "Aufgabe": {
+      "file": "figurauszweidreiecken_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "23c38d4fae040dde"
+    },
+    "Auswertung": {
+      "file": "figurauszweidreiecken_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "74c0b15e4e66b285"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "figurauszweidreiecken_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "ebe619c37893045e"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/figurauszweidreiecken/00_image1.emf.png",
+      "tokens": "Gegeben ist eine Figur aus zwei Dreiecken.abgd‧‧",
+      "deterministic_text": "Gegeben ist eine Figur aus zwei Dreiecken. d\ng ‧\n‧ b\na",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/figurauszweidreiecken/01_image2.emf.png",
+      "tokens": "Sind die beiden Winkel a und d gleich groß?Kreuze jeweils an, ob die Aussagen und deren Begründungen richtig oder falsch sind.… gleich groß, denn die beiden Dreiecke sind kongruent.richtigfalsch… gleich groß, denn b und g sind Scheitelwinkel und daher gleich groß. Außerdem ist a+ b= 90° und es istg+d= 90°. Also ist a= 90° -b= 90° -g=d.… nicht gleich groß, denn in einem kleineren Dreieck ist auch der entsprechende Winkel kleiner.Die beiden Winkel a und d sind ...… gleich groß, denn beide Winkel haben einen Schenkel gemeinsam und ihre beiden anderen Schenkel verlaufen parallel zueinander. a und d sind also Wechselwinkel an parallelen Geraden.… nicht gleich groß, denn b und g sind nicht gleich groß.",
+      "deterministic_text": "Sind die beiden Winkel a und d gleich groß?\nKreuze jeweils an, ob die Aussagen und deren Begründungen richtig oder falsch sind.\nDie beiden Winkel a und d sind ... richtig falsch\n… gleich groß, denn die beiden Dreiecke sind\nkongruent.\n… gleich groß, denn b und g sind Scheitelwinkel und\ndaher gleich groß. Außerdem ist a+ b= 90° und es ist\ng+d= 90°. Also ist a= 90° -b= 90° -g=d.\n… nicht gleich groß, denn in einem kleineren Dreieck ist\nauch der entsprechende Winkel kleiner.\n… gleich groß, denn beide Winkel haben einen\nSchenkel gemeinsam und ihre beiden anderen\nSchenkel verlaufen parallel zueinander. a und d sind\nalso Wechselwinkel an parallelen Geraden.\n… nicht gleich groß, denn b und g sind nicht gleich groß.",
+      "table": {
+        "header": [
+          "",
+          "Die beiden Winkel a und d sind ...",
+          "richtig",
+          "",
+          "",
+          "falsch",
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "… gleich groß, denn die beiden Dreiecke sind",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "kongruent.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "… gleich groß, denn b und g sind Scheitelwinkel und",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "daher gleich groß. Außerdem ist a+ b= 90° und es ist",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "g+d= 90°. Also ist a= 90° -b= 90° -g=d.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "… nicht gleich groß, denn in einem kleineren Dreieck ist",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "auch der entsprechende Winkel kleiner.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "… gleich groß, denn beide Winkel haben einen Schenkel gemeinsam und ihre beiden anderen",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Schenkel verlaufen parallel zueinander. a und d sind also Wechselwinkel an parallelen Geraden.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "… nicht gleich groß, denn b und g sind nicht gleich groß.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 86,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/figurauszweidreiecken/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Figur aus zwei Dreiecken"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4 der 5 Kreuze sind richtig gesetzt."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Figur aus zwei Dreiecken"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4 der 5 Kreuze sind richtig gesetzt."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "2. Messen",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K1",
+          "K4",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative [01] (Fehllösung: richtig):",
+      "Wird diese Antwortalternative fälschlicherweise als richtig bewertet, kann es daran liegen, dass der Begriff „kongruent“ inhaltlich nicht richtig erfasst worden ist bzw. dieser mit dem Begriff „ähnlich“ verwechselt wird.",
+      "Antwortalternative [02] (Fehllösung: falsch):",
+      "Die falsche Beurteilung dieser Antwortalternative kann auf mangelnde Fachkenntnisse hinweisen. Insbesondere der Begriff „Scheitelwinkel“ sowie die Innenwinkelsumme im Dreieck könnten hierbei Probleme bereitet haben. Der Schritt von\n zu kann nicht vollzogen werden. Auch die formale Schreibweise kann für die Schülerinnen und Schüler ungewohnt sein.",
+      "Antwortalternative [03] (Fehllösung: richtig):",
+      "Wird diese Antwortalternative fälschlicherweise als richtig bewertet, deutet dies auf die Fehlvorstellung hin, Winkelgrößen in Figuren seien von der Größe der Figur abhängig.",
+      "Antwortalternative [04] (Fehllösung: falsch):",
+      "Die falsche Beurteilung dieser Antwortalternative kann auf Schwierigkeiten mit dem Begriff „Wechselwinkel“ hindeuten, oder der hier angeführte Satz über identische Winkel ist nicht bekannt.",
+      "Antwortalternative [05] (Fehllösung: richtig)",
+      "Wird diese Antwortalternative als richtig bewertet, wurde offenbar nicht erkannt, dass es sich bei den Winkeln und um Scheitelwinkel handelt."
+    ],
+    "quelle": "figurauszweidreiecken_Didaktische_Kommentierung.docx"
+  }
+}

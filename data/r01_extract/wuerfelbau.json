@@ -1,0 +1,116 @@
+{
+  "item": "wuerfelbau",
+  "sources": {
+    "Aufgabe": {
+      "file": "wuerfelbau_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "ad8153f382dbf8d5"
+    },
+    "Auswertung": {
+      "file": "wuerfelbau_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "341a24fe66d6efe9"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "wuerfelbau_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "bd29be37666ad0d5"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfelbau/00_doc_image1.emf.png",
+      "tokens": "Marco hat kleine Würfel aufgestapelt und dann so miteinander verklebt, dass dieser Körper entstanden ist. Die in der Zeichnung verdeckten Würfel sind alle schon eingebaut. ",
+      "deterministic_text": "Marco hat kleine Würfel aufgestapelt und dann so miteinander verklebt, dass dieser Körper\nentstanden ist. Die in der Zeichnung verdeckten Würfel sind alle schon eingebaut.",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Würfelbau"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Würfelbau"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "3",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• 2. Antwortalternative wurde angekreuzt: Es wird übersehen, dass der",
+      "Würfelkörper in der untersten Schicht „vorne links“ zwei Würfel aufweist",
+      "• 3. Antwortalternative wurde angekreuzt: Es wird nicht beachtet, dass sich",
+      "in der mittleren Schicht des Würfelkörpers auch „hinten rechts“ ein",
+      "Würfel befindet (K4).",
+      "Weiterarbeit und Förderung",
+      "Schwierigkeiten bei dieser Aufgabe beruhen vielfach darauf, dass einzelne",
+      "Teile des Körpers übersehen werden oder dass die gedankliche Bewegung des",
+      "gesamten Körpers im Raum nicht gelingt. Um solchen Schwierigkeiten zu",
+      "begegnen, kann der gezeigte Körper mit Steckwürfeln nachgebaut werden, um",
+      "ihn anschließend real zu drehen und die verschiedenen Ansichten mit den",
+      "Abbildungen zu vergleichen.",
+      "Bereitet der Umgang mit diesem – schon recht komplexen – Körper Probleme,",
+      "kann zunächst ein einfacherer Körper nachgebaut werden, der z. B. nur aus",
+      "vier L-förmig zusammengesteckten Würfeln besteht. Dieser Körper kann dann",
+      "in drei Ansichten (von oben, von der Seite, von vorne) gezeichnet werden.",
+      "Der Wechsel zwischen verschiedenen Darstellungsformen lässt sich gut in",
+      "Partnerarbeit üben. Dazu baut ein Partner (verdeckt) einen Körper und",
+      "formuliert – schriftlich oder mündlich – eine Bauanleitung. Der andere",
+      "Partner nutzt diese Bauanleitung und skizziert den Körper in verschiedenen",
+      "Ansichten. Anschließend werden Bauanleitung, Skizze und realer Körper",
+      "miteinander verglichen und etwaige Korrekturen vorgenommen.",
+      "Schließlich können umgekehrt verschiedene Ansichten eines Körpers",
+      "vorgegeben werden, und man fordert die Schülerinnen und Schüler auf, den",
+      "zugehörigen Körper mit Steckwürfeln nachzubauen.",
+      "Man vergleiche auch den didaktischen Kommentar zur Aufgabe",
+      "„Briefmarkenschachteln“, da auch in dieser Aufgabe gedanklich mit einem",
+      "Körper operiert wird."
+    ],
+    "quelle": "wuerfelbau_Didaktische_Kommentierung.doc"
+  }
+}

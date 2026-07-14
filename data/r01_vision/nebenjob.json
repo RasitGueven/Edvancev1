@@ -1,0 +1,32 @@
+{
+  "item": "nebenjob",
+  "gelesen_aus": [
+    "data/r01_render/nebenjob/00_image1.emf.png",
+    "data/r01_render/nebenjob/01_image2.emf.png",
+    "data/r01_render/nebenjob/02_image3.emf.png"
+  ],
+  "stem": "Leon hat einen Nebenjob. Er verdient in einer Stunde 12 Euro.\nLeon bekommt seinen Verdienst wöchentlich ausgezahlt.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Im Monat Juli hat Leon folgende Auszahlungen erhalten:\n1. Woche: 168 Euro\n2. Woche: 132 Euro\n3. Woche: 180 Euro\n4. Woche: 144 Euro\nGib an, wie viel Euro er im Juli durchschnittlich pro Woche erhalten hat.",
+      "unit": "Euro",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "In seinem letzten Nebenjob bekam Leon bei gleichem Stundenlohn 5-mal seinen Verdienst ausgezahlt. Alle Auszahlungen waren unterschiedlich. Stelle eine Liste mit möglichen Arbeitsstunden zusammen, sodass Leon in diesen 5 Wochen auf einen durchschnittlichen Verdienst von 168 Euro pro Woche kommt. Fülle die Liste aus. Denk daran: Alle fünf Auszahlungen müssen unterschiedlich sein!",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2 enthält eine auszufüllende Tabelle ('Leons letzter Arbeitsmonat', Spalten 'Anzahl der Arbeitsstunden' / 'Verdienst in Euro', Zeilen 1.–5. Woche, rechts 'Durchschnittlicher Verdienst pro Woche: 168 Euro'). Die Tabelle steht in der Teilaufgabe, nicht im Stamm — stem_tabelle_erwartet ist deshalb false, obwohl die Queue hat_tabelle_im_emf: true meldet.",
+    "Die Antwortzeile von Teilaufgabe 1 lautet 'Leon hat durchschnittlich …… Euro pro Woche erhalten.' — Einheit Euro."
+  ]
+}

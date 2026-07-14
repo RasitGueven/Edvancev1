@@ -1,0 +1,100 @@
+{
+  "item": "jeansmitermaessigung",
+  "sources": {
+    "Aufgabe": {
+      "file": "jeansmitermaessigung_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "d87ec4d39604b35c"
+    },
+    "Auswertung": {
+      "file": "jeansmitermaessigung_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "7de1733a299ac04c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "jeansmitermaessigung_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "f3c0b5943b3ff27b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/jeansmitermaessigung/00_image1.emf.png",
+      "tokens": "In einem Kaufhaus wird eine Jeans mit 20% Ermäßigung angeboten. Der neue Preis beträgt nun 48,00€. Wie teuer war die Jeans vorher? Kreuze an.38,40€48,20€57,60€60,00€68,00€",
+      "deterministic_text": "In einem Kaufhaus wird eine Jeans mit 20% Ermäßigung angeboten. Der neue Preis\nbeträgt nun 48,00€. Wie teuer war die Jeans vorher?\nKreuze an.\n38,40€ 48,20€ 57,60€ 60,00€ 68,00€",
+      "table": null,
+      "n_fragments": 36,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/jeansmitermaessigung/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Jeans mit Ermäßigung"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Jeans mit Ermäßigung"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "4. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "jeansmitermaessigung_Didaktische_Kommentierung.docx"
+  }
+}

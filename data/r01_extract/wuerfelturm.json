@@ -1,0 +1,233 @@
+{
+  "item": "wuerfelturm",
+  "sources": {
+    "Aufgabe": {
+      "file": "wuerfelturm_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "039284864208fdde"
+    },
+    "Auswertung": {
+      "file": "wuerfelturm_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "a17885a59f7199fe"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "wuerfelturm_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "834803f1466de4d6"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfelturm/00_image1.emf.png",
+      "tokens": "Wenn man einen Würfel auf einen Tisch legt, sind fünf Seitenflächen sichtbar (vorne, hinten, links, rechts und oben)....",
+      "deterministic_text": "Wenn man einen Würfel auf einen Tisch legt, sind fünf Seitenflächen sichtbar (vorne,\nhinten, links, rechts und oben).\n...",
+      "table": null,
+      "n_fragments": 13,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfelturm/01_image2.emf.png",
+      "tokens": "Zwei Würfel werden übereinander gestapelt. Kreuze an, wie viele Würfelseitenflächen sichtbar sind. Die oberste Würfelseitenfläche wird dabei mitgezählt.5891012",
+      "deterministic_text": "Zwei Würfel werden übereinander gestapelt.\nKreuze an, wie viele Würfelseitenflächen sichtbar sind. Die oberste Würfelseitenfläche\nwird dabei mitgezählt.\n5 8 9 10 12",
+      "table": null,
+      "n_fragments": 14,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfelturm/02_image3.emf.png",
+      "tokens": "Wie viele Würfelseitenflächen sind sichtbar, wenn man 3 bzw. 4 bzw. 10 Würfel übereinander stapelt? Die oberste Würfelseitenfläche wird dabei mitgezählt.Ergänze die folgende Tabelle.Anzahl der übereinander gestapelten Würfel3Anzahl der sichtbaren Würfelseitenflächen4…...10",
+      "deterministic_text": "Wie viele Würfelseitenflächen sind sichtbar, wenn man 3 bzw. 4 bzw. 10 Würfel\nübereinander stapelt? Die oberste Würfelseitenfläche wird dabei mitgezählt.\nErgänze die folgende Tabelle.\nAnzahl der übereinander Anzahl der sichtbaren\ngestapelten Würfel Würfelseitenflächen\n3\n4\n… ...\n10",
+      "table": {
+        "header": [
+          "Anzahl der übereinander gestapelten Würfel",
+          "Anzahl der sichtbaren Würfelseitenflächen"
+        ],
+        "rows": [
+          [
+            "3",
+            ""
+          ],
+          [
+            "4",
+            ""
+          ],
+          [
+            "…",
+            "..."
+          ],
+          [
+            "10",
+            ""
+          ]
+        ]
+      },
+      "n_fragments": 26,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfelturm/03_image4.emf.png",
+      "tokens": "Nun werden nWürfel übereinander gestapelt.Gib eine Vorschrift (Formel) an, mit der man die Anzahl A(n)der sichtbaren Würfelseitenflächen allgemein berechnen kann. Die oberste Würfelseitenfläche wird dabei mitgezählt.A(n) =",
+      "deterministic_text": "Nun werden nWürfel übereinander gestapelt.\nGib eine Vorschrift (Formel) an, mit der man die Anzahl A(n)der sichtbaren\nWürfelseitenflächen allgemein berechnen kann. Die oberste Würfelseitenfläche wird\ndabei mitgezählt.\nA(n) =",
+      "table": null,
+      "n_fragments": 26,
+      "is_license": false
+    },
+    {
+      "idx": 4,
+      "emf": "image5.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/wuerfelturm/04_image5.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Würfelturm",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:",
+      "Teilaufgabe 3:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "n  4 + 1\n[Anm.: Äquivalente Terme und rekursive Formulierungen (A(n) = A(n - 1) + 4; \nA(1) = 5) sind auch als richtig zu werten.]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Würfelturm"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 3:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "n  4 + 1\n[Anm.: Äquivalente Terme und rekursive Formulierungen (A(n) = A(n - 1) + 4; \nA(1) = 5) sind auch als richtig zu werten.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "3. Raum und Form",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K2",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      },
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Probleme mathematisch lösen (K2)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K2",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "3",
+        "nr": 3
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "wuerfelturm_Didaktische_Kommentierung.docx"
+  }
+}

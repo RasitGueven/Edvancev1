@@ -1,0 +1,196 @@
+{
+  "item": "chancen",
+  "sources": {
+    "Aufgabe": {
+      "file": "chancen_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "d99ad4e07fedb421"
+    },
+    "Auswertung": {
+      "file": "chancen_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "96cf4c85fd1156cb"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "chancen_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "4974ef3d06b3d0ef"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/chancen/00_doc_image1.emf.png",
+      "tokens": "Für ein Schulfest baut eine Klasse Glücksräder. Die Besucher gewinnen beim Drehen der Glücksräder, wenn der Zeiger auf ein graues Feld zeigt.",
+      "deterministic_text": "Für ein Schulfest baut eine Klasse Glücksräder. Die Besucher gewinnen beim Drehen der\nGlücksräder, wenn der Zeiger auf ein graues Feld zeigt.",
+      "table": null,
+      "n_fragments": 7,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Chancen",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Genau 4 Kreissektoren werden ausgemalt. Die Auswahl der\nKreissektoren ist beliebig.\nz. B.\n[pic]\nAnm.: Die Kreissektoren müssen nicht vollständig gefärbt sein.\nSie können auch mittels Kreuzen markiert werden."
+          ],
+          [
+            "FALSCH",
+            "Alle Antworten bei denen nicht genau 4 Kreissektoren\nausgemalt/gekennzeichnet werden.\nz. B.\n[pic]"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Antwort Kreuz bei \"Bei Michaels Glücksrad und bei Julias\nGlücksrad ist die  Gewinnwahrscheinlichkeit gleich.\" UND richtige\nBegründung, in welcher entweder auf die Wahrscheinlichkeiten\nverwiesen, auf die gefärbten Flächenanteile oder die Zahl der\ngefärbten Felder eingegangen wird.\nz. B.\nDie Gewinnwahrscheinlichkeit beträgt bei beiden Glücksrädern\n[pic].\nODER\nSowohl bei Michael als auch bei Julia sind 6 von 12 Feldern\neingefärbt. Die Gewinnwahrscheinlichkeiten sind also gleich.\nODER (Grenzfall)\nBeide Glücksräder sind gleich gefärbt.\nODER (Grenzfall)\n[pic] = [pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen fehlerhaften, unvollständigen oder falschen\nAntworten.\nz. B.\nBei Michael ist die Gewinnwahrscheinlichkeit größer, weil immer\nabwechselnd die Felder eingefärbt sind.\nODER\nBei Julia ist die Gewinnwahrscheinlichkeit größer, weil sie das\ngrößere Glücksrad gebastelt hat.\nODER\nBei beiden ist die Gewinnwahrscheinlichkeit gleich groß, weil\nbeide 12 Felder in ihr Glücksrad gezeichnet haben."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Chancen"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Genau 4 Kreissektoren werden ausgemalt. Die Auswahl der\nKreissektoren ist beliebig.\nz. B.\n[pic]\nAnm.: Die Kreissektoren müssen nicht vollständig gefärbt sein.\nSie können auch mittels Kreuzen markiert werden."
+          ],
+          [
+            "FALSCH",
+            "Alle Antworten bei denen nicht genau 4 Kreissektoren\nausgemalt/gekennzeichnet werden.\nz. B.\n[pic]"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Antwort Kreuz bei \"Bei Michaels Glücksrad und bei Julias\nGlücksrad ist die  Gewinnwahrscheinlichkeit gleich.\" UND richtige\nBegründung, in welcher entweder auf die Wahrscheinlichkeiten\nverwiesen, auf die gefärbten Flächenanteile oder die Zahl der\ngefärbten Felder eingegangen wird.\nz. B.\nDie Gewinnwahrscheinlichkeit beträgt bei beiden Glücksrädern\n[pic].\nODER\nSowohl bei Michael als auch bei Julia sind 6 von 12 Feldern\neingefärbt. Die Gewinnwahrscheinlichkeiten sind also gleich.\nODER (Grenzfall)\nBeide Glücksräder sind gleich gefärbt.\nODER (Grenzfall)\n[pic] = [pic]"
+          ],
+          [
+            "FALSCH",
+            "Alle anderen fehlerhaften, unvollständigen oder falschen\nAntworten.\nz. B.\nBei Michael ist die Gewinnwahrscheinlichkeit größer, weil immer\nabwechselnd die Felder eingefärbt sind.\nODER\nBei Julia ist die Gewinnwahrscheinlichkeit größer, weil sie das\ngrößere Glücksrad gebastelt hat.\nODER\nBei beiden ist die Gewinnwahrscheinlichkeit gleich groß, weil\nbeide 12 Felder in ihr Glücksrad gezeichnet haben."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1B",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Es wird mit dem Gegenereignis gearbeitet, so dass acht Felder statt vier",
+      "Felder eingefärbt werden (K3).",
+      "• Es werden wegen „[pic]“ nur 3 Felder gefärbt (K3).",
+      "• In der Begründung wird auf die Lage der gefärbten Felder verwiesen,",
+      "welche als wichtig für die Gewinnwahrscheinlichkeit ausgewiesen wird. Auf",
+      "die Anzahl der gefärbten Felder bzw. die jeweilige",
+      "Gewinnwahrscheinlichkeit wird nicht eingegangen, wie die abgebildete",
+      "Schülerlösung zeigt (K3).",
+      "• In der Begründung wird darauf verwiesen, dass die",
+      "Gewinnwahrscheinlichkeit bei Julias Glücksrad größer ist, da ihr",
+      "Glücksrad größer als Michaels ist. Den Schülerinnen und Schülern scheint",
+      "nicht bewusst zu sein, dass die Wahrscheinlichkeit zu gewinnen in diesem",
+      "Fall nur von der Anzahl der gefärbten Felder abhängig ist (K3).",
+      "• Die Begründung ist oberflächlich, so dass sie sich nur schwer",
+      "nachvollziehen lässt, wie die folgende Schülerlösung verdeutlicht (K6).",
+      "Wenn sich „Striche“ nur auf die Unterteilung in Sektoren beziehen, ist",
+      "die Begründung lückenhaft; beziehen sich „Striche“ hingegen auf die",
+      "gefärbten Felder, ist sie stichhaltig.",
+      "Weiterarbeit und Förderung",
+      "Teilaufgabe 1 ermöglicht es den Schülerinnen und Schülern, das – oft eher",
+      "im Hintergrund stehende – Rückwärtsarbeiten zu üben. Dies intensiviert die",
+      "Auseinandersetzung mit der Sachsituation und lässt Zusammenhänge deutlicher",
+      "hervortreten. Häufig sind diese Aufgaben so angelegt, dass die Schülerinnen",
+      "und Schüler durch ein erneutes Vorwärtsarbeiten ihre Lösung selbstständig",
+      "überprüfen können.",
+      "Weitere Anregungen zu Aufgaben dieser Art können dem Didaktischen",
+      "Kurzkommentar zur Aufgabe „Glücksrad“ aus VERA-8 2011 sowie der Aufgabe",
+      "„Glücksrad drehen“ aus",
+      "VERA-8 2012 entnommen werden.",
+      "Treten bei der Teilaufgabe 2 Schwierigkeiten auf, kann die Sachsituation",
+      "auf ein Urnenmodell übertragen werden. Dieses ermöglicht es, die",
+      "Unabhängigkeit der Gewinnwahrscheinlichkeit von der Lage der Felder/",
+      "Kugeln, deren Größe bzw. dem Ziehen/ Drehen selbst zu verdeutlichen. Der",
+      "Transfer kann von den Schülerinnen und Schülern gegebenenfalls auch selbst",
+      "vorgenommen werden.",
+      "Weiterführend kann im Unterricht folgende Sachsituation als Ausgangspunkt",
+      "für weiterge-hende Fragestellungen verwendet werden:",
+      "Von diesem Impuls ausgehend kann man überlegen, was beim Spielen mit diesem",
+      "Glücksrad auf lange Sicht passiert, ob man also auf lange Sicht Geld",
+      "gewinnt oder verliert. Um diese Frage zu beantworten, sind die Höhen der",
+      "Einnahmen und Ausgaben beim Spiel mit dem abgebildeten Glücksrad geeignet",
+      "in Beziehung zu setzen. Es genügt hierbei, die relevanten",
+      "Wahrscheinlichkeiten auf inhaltlicher Ebene zu vergleichen, um zu zeigen,",
+      "dass sich Gewinn und Verlust ausgleichen. Der Begriff des Erwartungswerts",
+      "ist hierfür nicht nötig.",
+      "Auch bietet es sich an, diese Situation spielerisch mit den Schülerinnen",
+      "und Schülern zu erkunden und zu simulieren. Dies hilft zu erkennen, dass es",
+      "nicht ausreicht, die Gewinnwahrscheinlichkeiten miteinander zu vergleichen,",
+      "sondern dass auch der Einsatz und der Gewinn beachtet werden müssen. Dreht",
+      "man das Glücksrad gedanklich z. B. 100-mal, kann man die Höhe des Einsatzes",
+      "mit dem zu erwartenden Gewinn vergleichen. Dabei ist die",
+      "Gewinnwahrscheinlichkeit so zu deuten, dass man in jedem zweiten Spiel 2 €",
+      "gewinnt. Dies gleicht sich dann mit dem Einsatz von 1 €, welcher bei jedem",
+      "Spiel zu entrichten ist, aus.",
+      "Vertiefend bietet es sich an, die Schülerinnen und Schüler die Situation",
+      "nach bestimmten Gesichtspunkten selbst verändern zu lassen. Beispielsweise",
+      "können sie die Sachsituation so verändern, dass man im Mittel einen Gewinn",
+      "von 1 € erzielt. Hierzu können die Höhe des Einsatzes und/ oder des Gewinns",
+      "abgeändert werden.",
+      "Derartige Aufgaben ermöglichen es, neben den bereits erforderlichen",
+      "Kompetenzen vor allem auch die Kompetenz „Probleme mathematisch lösen“ zu",
+      "aktivieren und das Denken in Zusammenhängen zu trainieren."
+    ],
+    "quelle": "chancen_Didaktische_Kommentierung.doc"
+  }
+}

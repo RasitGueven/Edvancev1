@@ -1,0 +1,36 @@
+{
+  "item": "fuellverhalten",
+  "gelesen_aus": [
+    "data/r01_render/fuellverhalten/00_image1.png",
+    "data/r01_render/fuellverhalten/01_image2.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Der abgebildete Standzylinder ist leer und wird gleichmäßig mit Wasser befüllt. Zeichne in das abgebildete Koordinatensystem einen Graphen, der diesen Füllvorgang beschreibt.",
+      "unit": null,
+      "options": null
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Das abgebildete Gefäß ist leer und wird gleichmäßig mit Wasser befüllt, bis es voll ist. Entscheide, welcher der dargestellten Graphen diesen Füllvorgang am besten beschreibt. Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Graph oben links"},
+        {"id": "b", "label": "Graph oben rechts"},
+        {"id": "c", "label": "Graph unten links"},
+        {"id": "d", "label": "Graph unten rechts"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts, oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "nur_raster: der gesamte Aufgabentext liegt als Pixelbild vor.",
+    "Die vier Antwortoptionen von Teilaufgabe 2 sind reine Graphen ohne Textbeschriftung (nur Achsenlabels 'Füllhöhe'/'Zeit'). Die Labels a-d sind daher Positionsangaben, keine Bildzitate. Reihenfolge der Ankreuzkästchen: oben links, oben rechts, unten links, unten rechts.",
+    "Teilaufgabe 1 ist eine Zeichenaufgabe (Graph ins Koordinatensystem eintragen); als free_text erfasst, da weder MC noch kurze Eingabe."
+  ]
+}

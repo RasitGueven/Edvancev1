@@ -1,0 +1,32 @@
+{
+  "item": "schwarzweisswuerfel",
+  "gelesen_aus": [
+    "data/r01_render/schwarzweisswuerfel/00_image1.emf.png",
+    "data/r01_render/schwarzweisswuerfel/01_image2.emf.png",
+    "data/r01_render/schwarzweisswuerfel/02_image3.emf.png"
+  ],
+  "stem": "Bei einem fairen Spielwürfel (siehe Abbildung) sind die Seiten mit den Augenzahlen 1 und 6 schwarz gefärbt, die anderen vier Seiten mit den Augenzahlen 2, 3, 4 und 5 sind weiß.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, mit welcher Wahrscheinlichkeit beim Würfeln eine gerade Augenzahl nach oben zeigt.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Tim sagt: „Bei diesem Würfel gibt es zwei Ergebnisse: Schwarz und Weiß. Also ist die Wahrscheinlichkeit für Schwarz ½.“ Erkläre, warum Tim nicht Recht hat.",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Der Bruch in Tims Aussage ist im Bild als echter Bruch (1 über 2) gesetzt; hier als ½ übernommen.",
+    "Die Würfel-Abbildung im Stamm ist im Render nur als leerer Würfel-Umriss ohne Färbung/Augen sichtbar."
+  ]
+}

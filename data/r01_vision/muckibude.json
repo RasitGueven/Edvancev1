@@ -1,0 +1,32 @@
+{
+  "item": "muckibude",
+  "gelesen_aus": [
+    "data/r01_render/muckibude/00_image1.png",
+    "data/r01_render/muckibude/01_image2.png",
+    "data/r01_render/muckibude/02_image3.png"
+  ],
+  "stem": "Die Grafik zeigt die Mitgliederzahlen des Fitnessvereins „Muckibude“ in den Jahren 2012 bis 2016.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Wie viele Mitglieder sind von 2013 bis 2014 hinzugekommen?",
+      "unit": "Mitglieder",
+      "options": [],
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "In welchen Jahren lag die Anzahl der Mitglieder über 1000?",
+      "unit": null,
+      "options": [],
+      "options_reihenfolge": null
+    }
+  ],
+  "unsicher": [
+    "Rasterbild-Item: rein visuell gelesen, kein Zeichenvorrat zur Gegenprüfung.",
+    "Säulendiagramm (Achse 'Anzahl der Mitglieder' 0–2000, x-Achse 'Jahr'): 2012 ≈ 200, 2013 ≈ 400, 2014 ≈ 800, 2015 ≈ 1200, 2016 ≈ 1800 — abgelesen, die Säulen sind nicht beziffert."
+  ]
+}

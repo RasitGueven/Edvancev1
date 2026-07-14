@@ -1,0 +1,99 @@
+{
+  "item": "zahlgesucht2",
+  "sources": {
+    "Aufgabe": {
+      "file": "zahlgesucht2_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "213740a9a6a016f9"
+    },
+    "Auswertung": {
+      "file": "zahlgesucht2_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "6ecdc38356fc556c"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zahlgesucht2_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "7ac5232df872e015"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlgesucht2/00_image1.emf.png",
+      "tokens": "Gegeben ist ein Zahlenstrahl.Auf welche Zahl zeigt der Pfeil ungefähr? Schreibe die Zahl in das Kästchen. 10000000",
+      "deterministic_text": "Gegeben ist ein Zahlenstrahl.\nAuf welche Zahl zeigt der Pfeil ungefähr? Schreibe die Zahl in das Kästchen.\n0 1000000",
+      "table": null,
+      "n_fragments": 10,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/zahlgesucht2/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Zahl gesucht"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Angabe einer Zahl aus dem Intervall [240 000; 260 000]"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Zahl gesucht"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Angabe einer Zahl aus dem Intervall [240 000; 260 000]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "zahlgesucht2_Didaktische_Kommentierung.docx"
+  }
+}

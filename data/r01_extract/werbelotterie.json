@@ -1,0 +1,167 @@
+{
+  "item": "werbelotterie",
+  "sources": {
+    "Aufgabe": {
+      "file": "werbelotterie_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "a3ad77286d5a933c"
+    },
+    "Auswertung": {
+      "file": "werbelotterie_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "3df90a96c64a40d1"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "werbelotterie_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "991ff835e75c318e"
+    }
+  },
+  "flags": [
+    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft"
+  ],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/werbelotterie/00_image1.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/werbelotterie/01_image2.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.png",
+      "ext": "png",
+      "quelle": "raster",
+      "png": "data/r01_render/werbelotterie/02_image3.png",
+      "tokens": "",
+      "deterministic_text": "",
+      "table": null,
+      "n_fragments": 0,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/werbelotterie/03_image4.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Werbelotterie",
+      "Teilaufgabe 1:",
+      "Teilaufgabe 2:"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Werbelotterie"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2:"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMathematische Darstellungen verwenden (K4)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematisch modellieren (K3)\nMathematische Darstellungen verwenden (K4)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)",
+        "k_tags": [
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "werbelotterie_Didaktische_Kommentierung.docx"
+  }
+}

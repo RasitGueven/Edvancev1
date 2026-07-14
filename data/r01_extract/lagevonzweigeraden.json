@@ -1,0 +1,105 @@
+{
+  "item": "lagevonzweigeraden",
+  "sources": {
+    "Aufgabe": {
+      "file": "lagevonzweigeraden_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "80d0954ffc0026d8"
+    },
+    "Auswertung": {
+      "file": "lagevonzweigeraden_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "6081f7f42f9c0f6b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "lagevonzweigeraden_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "863b115214c0831a"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/lagevonzweigeraden/00_image1.emf.png",
+      "tokens": "Gegeben sind zwei Geraden durch die folgenden Gleichungen:1)2)Welche Lage haben diese Geraden zueinander?Kreuze an.=+43yx=−43yxDie Geraden verlaufen parallel zueinander.Die Geraden schneiden sich in einem Punkt.Die Geraden sind identisch.Begründe deine Entscheidung.",
+      "deterministic_text": "Gegeben sind zwei Geraden durch die folgenden Gleichungen:\n1)yx=+43\n2)yx=−43\nWelche Lage haben diese Geraden zueinander?\nKreuze an.\nDie Geraden verlaufen parallel zueinander.\nDie Geraden schneiden sich in einem Punkt.\nDie Geraden sind identisch.\nBegründe deine Entscheidung.",
+      "table": null,
+      "n_fragments": 24,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/lagevonzweigeraden/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung - Lage von zwei Geraden"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Die Geraden verlaufen parallel zueinander.\n\nUND\n\nKorrekte Begründung unter Bezug auf die identische Steigung und die voneinander abweichenden y-Achsenabschnitte. Dies kann auch durch einen rechnerischen Ansatz erfolgen.\n\nBeispiel(e)\nBeide Geraden haben die Steigung 4. Sie sind also parallel.\n(Grenzfall)\nBeide Geraden haben dieselbe Steigung (ohne Angabe der 4).\nZeichnerische Lösungen sind auch zu akzeptieren:\n \n(Grenzfall)\nFalscher Achsenabschnitt eingezeichnet.\n(Grenzfall)\nDie gezeichneten Geraden verlaufen nicht parallel, jedoch ist ein Steigungsdreieck erkennbar."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung - Lage von zwei Geraden"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Die Geraden verlaufen parallel zueinander.\n\nUND\n\nKorrekte Begründung unter Bezug auf die identische Steigung und die voneinander abweichenden y-Achsenabschnitte. Dies kann auch durch einen rechnerischen Ansatz erfolgen.\n\nBeispiel(e)\nBeide Geraden haben die Steigung 4. Sie sind also parallel.\n(Grenzfall)\nBeide Geraden haben dieselbe Steigung (ohne Angabe der 4).\nZeichnerische Lösungen sind auch zu akzeptieren:\n \n(Grenzfall)\nFalscher Achsenabschnitt eingezeichnet.\n(Grenzfall)\nDie gezeichneten Geraden verlaufen nicht parallel, jedoch ist ein Steigungsdreieck erkennbar."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "4. Funktionaler Zusammenhang",
+        "kompetenz_raw": "Mathematisch argumentieren (K1),\nMathematische Darstellungen verwenden (K4)",
+        "k_tags": [
+          "K1",
+          "K4"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "Antwortalternative [02] (Fehllösung: Die Geraden schneiden sich in einem Punkt.):",
+      "In der Begründung wird auf die unterschiedlichen Vorzeichen der vermeintlichen Steigungen von  3 und 3 verwiesen, weshalb die Geraden nicht parallel verlaufen:",
+      "Antwortalternative [03] (Fehllösung: Die Geraden sind identisch.):",
+      "Wird diese Antwortalternative gewählt, wird fälschlich angenommen, dass die beiden Geraden hinsichtlich ihrer Steigung und ihres y-Achsenabschnitts übereinstimmen. Es wird also nicht erkannt, dass sich der y-Achsenabschnitt im Vorzeichen unterscheidet oder der y-Achsenabschnitt wird vernachlässigt. Dies zeigt die folgende Schülerlösung, in welcher ausschließlich mittels der Steigung argumentiert wird:"
+    ],
+    "quelle": "lagevonzweigeraden_Didaktische_Kommentierung.docx"
+  }
+}

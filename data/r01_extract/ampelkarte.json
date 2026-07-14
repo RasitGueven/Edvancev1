@@ -1,0 +1,235 @@
+{
+  "item": "ampelkarte",
+  "sources": {
+    "Aufgabe": {
+      "file": "ampelkarte_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "50942ed50ca3aac6"
+    },
+    "Auswertung": {
+      "file": "ampelkarte_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "026b259018e7f211"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "ampelkarte_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "5722b6c8f2358a48"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ampelkarte/00_image1.emf.png",
+      "tokens": "Lebensmittel enthalten unter anderem Fett, gesättigte Fettsäuren, Zucker und Salz zu unterschiedlich hohen Anteilen. Die drei Farben der sogenannten Ampelkarte sollen helfen, die Höhe der jeweiligen Anteile einzustufen. ",
+      "deterministic_text": "Lebensmittel enthalten unter anderem Fett, gesättigte Fettsäuren, Zucker und Salz zu\nunterschiedlich hohen Anteilen. Die drei Farben der sogenannten Ampelkarte sollen helfen,\ndie Höhe der jeweiligen Anteile einzustufen.",
+      "table": null,
+      "n_fragments": 11,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ampelkarte/01_image2.emf.png",
+      "tokens": "Der folgenden Tabelle ist zu entnehmen, wann ein Anteil als gering, mittel oder hoch einzustufen ist. Alle Angaben beziehen sich auf 100g des Lebensmittels. Sandra findet auf einer Dose Nüsse folgende Angaben (pro 100g):Gib an, wie die Ampelkarte für die einzelnen Bestandteile dieser Nüsse gefärbt werden müsste.BestandteilFettgesättigte FettsäureZuckerSalzmittel (gelb)3 –20g1,5 –5g5 –12,5g0,3 –1,5ghoch (rot)> 20 g> 5g> 12,5g> 1,5ggering (grün)< 3 g< 1,5g< 5g< 0,3gFett50,8gdavon gesättigte Fettsäuren                  14gZucker  5,8gSalz0,13gFettFarbe: gesättigte FettsäureFarbe: ZuckerFarbe:  SalzFarbe:  ",
+      "deterministic_text": "Der folgenden Tabelle ist zu entnehmen, wann ein Anteil als gering, mittel oder hoch\neinzustufen ist.\nAlle Angaben beziehen sich auf 100g des Lebensmittels.\nBestandteil gering (grün)mittel (gelb) hoch (rot)\nFett < 3 g 3 –20g > 20 g\ngesättigte Fettsäure < 1,5g 1,5 –5g > 5g\nZucker < 5g 5 –12,5g > 12,5g\nSalz < 0,3g 0,3 –1,5g > 1,5g\nSandra findet auf einer Dose Nüsse folgende Angaben (pro 100g):\nFett 50,8g\ndavon gesättigte Fettsäuren 14g\nZucker 5,8g\nSalz 0,13g\nGib an, wie die Ampelkarte für die einzelnen Bestandteile dieser Nüsse gefärbt werden\nmüsste.\nFett Farbe:\ngesättigte Fettsäure Farbe:\nZucker Farbe:\nSalz Farbe:",
+      "table": {
+        "header": [
+          "Bestandteil",
+          "gering (grün)",
+          "mittel (gelb)",
+          "hoch (rot)"
+        ],
+        "rows": [
+          [
+            "Fett",
+            "< 3 g",
+            "3 –20g",
+            "> 20 g"
+          ],
+          [
+            "gesättigte Fettsäure",
+            "< 1,5g",
+            "1,5 –5g",
+            "> 5g"
+          ],
+          [
+            "Zucker",
+            "< 5g",
+            "5 –12,5g",
+            "> 12,5g"
+          ],
+          [
+            "Salz",
+            "< 0,3g",
+            "0,3 –1,5g",
+            "> 1,5g"
+          ]
+        ]
+      },
+      "n_fragments": 125,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ampelkarte/02_image3.emf.png",
+      "tokens": "Für Getränke gelten sogar nur halbe Werte im Vergleich zur Tabelle in Teilaufgabe 1. Alle Angaben beziehen sich auf 100ml des Getränks.BestandteilFettgesättigte FettsäureZuckerSalzmittel (gelb)1,5 –10g0,75 –2,5g2,5 –6,25g0,15 –0,75ghoch (rot)> 10g> 2,5g> 6,25g> 0,75ggering (grün)< 1,5g< 0,75g< 2,5g< 0,15gPrüfe, ob der Zuckeranteil der folgenden Getränke hoch ist.Kreuze jeweils an.janeinOrangensaft:100ml enthalten 9,3g ZuckerApfelschorle:   200ml enthalten 10,6g ZuckerCola:           ein Glas (250ml) enthält 27g Zucker",
+      "deterministic_text": "Für Getränke gelten sogar nur halbe Werte im Vergleich zur Tabelle in Teilaufgabe 1.\nAlle Angaben beziehen sich auf 100ml des Getränks.\nBestandteil gering (grün)mittel (gelb) hoch (rot)\nFett < 1,5g 1,5 –10g > 10g\ngesättigte Fettsäure < 0,75g 0,75 –2,5g > 2,5g\nZucker < 2,5g 2,5 –6,25g > 6,25g\nSalz < 0,15g 0,15 –0,75g > 0,75g\nPrüfe, ob der Zuckeranteil der folgenden Getränke hoch ist.\nKreuze jeweils an.\nja nein\nOrangensaft:100ml enthalten 9,3g Zucker\nApfelschorle: 200ml enthalten 10,6g Zucker\nCola: ein Glas (250ml) enthält 27g Zucker",
+      "table": {
+        "header": [
+          "Bestandteil",
+          "gering (grün)",
+          "mittel (gelb)",
+          "hoch (rot)"
+        ],
+        "rows": [
+          [
+            "Fett",
+            "< 1,5g",
+            "1,5 –10g",
+            "> 10g"
+          ],
+          [
+            "gesättigte Fettsäure",
+            "< 0,75g",
+            "0,75 –2,5g",
+            "> 2,5g"
+          ],
+          [
+            "Zucker",
+            "< 2,5g",
+            "2,5 –6,25g",
+            "> 6,25g"
+          ],
+          [
+            "Salz",
+            "< 0,15g",
+            "0,15 –0,75g",
+            "> 0,75g"
+          ]
+        ]
+      },
+      "n_fragments": 126,
+      "is_license": false
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/ampelkarte/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 40,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+    "grafik_gedeckt": true,
+    "begruendung": "Lizenzzeile nennt 'Grafik' -> Abbildung von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Ampelkarte",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Fett\t\t\t\tFarbe: rot \ngesättigte Fettsäure\t\tFarbe: rot\nZucker\t\t\t\tFarbe: gelb\nSalz\t\t\t\tFarbe: grün"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Ampelkarte"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Fett\t\t\t\tFarbe: rot \ngesättigte Fettsäure\t\tFarbe: rot\nZucker\t\t\t\tFarbe: gelb\nSalz\t\t\t\tFarbe: grün"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Daten und Zufall (L5)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4), \nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "2",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Funktionaler Zusammenhang (L4)",
+        "kompetenz_raw": "Mathematische Darstellungen verwenden (K4),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6)",
+        "k_tags": [
+          "K4",
+          "K5",
+          "K6"
+        ],
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "3",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "Durch defizitär ausgebildetes oder nicht abrufbares Wissen zum Vergleich von Dezimalzahlen mit unterschiedlich vielen Nachkommastellen sind einzelne Farbenzuordnungen falsch, wie die folgende Schülerlösung zeigt (K5).",
+      "Es wird nicht erfasst, dass die Zuckermengenangabe für Apfelschorle und Cola sich auf 200 ml und 250 ml beziehen. So werden die gegebenen Zuckermengenangaben für diese beiden Getränke unmittelbar mit den Tabellenwerten verglichen, anstatt sie zuvor auf 100 ml zu beziehen [Fehllösung: Apfelschorle: Kreuz bei „ja“] (K6).",
+      "Aufgrund von Schwierigkeiten beim Anwenden der Routineverfahren im Umgang mit proportionalen Zuordnungen werden Apfelschorle und Cola falsch beurteilt (K5)."
+    ],
+    "quelle": "ampelkarte_Didaktische_Kommentierung.docx"
+  }
+}

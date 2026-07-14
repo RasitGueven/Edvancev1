@@ -1,0 +1,142 @@
+{
+  "item": "unregelmaessigesviereck",
+  "sources": {
+    "Aufgabe": {
+      "file": "unregelmaessigesviereck_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "aacdfb503b6db835"
+    },
+    "Auswertung": {
+      "file": "unregelmaessigesviereck_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "5bfc7a555bf39f5b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "unregelmaessigesviereck_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "faff701d5e37aa2b"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/unregelmaessigesviereck/00_doc_image1.emf.png",
+      "tokens": "Flächeninhalte von Rechtecken oder Dreiecken kann man leicht mit Formeln ausrechnen, wenn bestimmte Längen gegeben sind oder gemessen werden können. Hier ist ein Viereck abgebildet, für das es keine Formel zur direkten Berechnung des Flächeninhalts gibt.Beschreibe möglichst genau, wie man den Flächeninhalt dieses Vierecks sehr genau bestimmen kann. Veranschauliche dein Vorgehen in der Abbildung, indem du z.B. die Strecken markierst oder einzeichnest, deren Länge du messen musst.ABCD",
+      "deterministic_text": "Flächeninhalte von Rechtecken oder Dreiecken kann man leicht mit Formeln ausrechnen,\nwenn bestimmte Längen gegeben sind oder gemessen werden können.\nHier ist ein Viereck abgebildet, für das es keine Formel zur direkten Berechnung des\nFlächeninhalts gibt.\nC\nD\nB\nA\nBeschreibe möglichst genau, wie man den Flächeninhalt dieses Vierecks sehr genau\nbestimmen kann.\nVeranschauliche dein Vorgehen in der Abbildung, indem du z.B. die Strecken markierst oder\neinzeichnest, deren Länge du messen musst.",
+      "table": null,
+      "n_fragments": 29,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Unregelmäßiges Viereck"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Korrekte Beschreibung der Zerlegungs- oder Ergänzungsmethode UND\nEinzeichnen von geeigneten, der Beschreibung entsprechenden\nHilfslinien in der Abbildung UND Markierung der Strecken, die\ngemessen werden müssen, insbesondere verwendeter Höhen.\nDie Lösung ist auch richtig, wenn Höhen und andere Strecken\nungenau eingezeichnet sind.\nZerlegungsmethode:\nAnm.: Die Beschreibung der Zerlegungsmethode ist korrekt, wenn\ndie Zerlegung des Vierecks in Teilflächen beschrieben wird, deren\nFlächeninhalte mit einer Formel berechnet werden kann (Das sind\nRechtecke, Dreiecke, Parallelogramme und Trapeze.) UND darauf\nhingewiesen wird, dass die Summe dieser Flächeninhalte den\nFlächeninhalt des Vierecks ergibt UND anhand der Zeichnung\nverdeutlicht wird, welche Strecken gemessen werden müssen.\nMögliche Zerlegungen (alle weiteren Zerlegungen, die der obigen\nAnmerkung entsprechen, sind als richtig zu bewerten):\n[pic]\nz. B.\nIch zerlege das Viereck in Teilflächen, deren Flächeninhalte mit\nden entsprechenden Flächenformeln berechnet werden können. Die\nLängen kann ich ausmessen. Die Summe der Flächeninhalte der\nTeilflächen ergibt den Flächeninhalt des Vierecks.\nODER (Grenzfall)\nAddiert man die Teilflächen, so erhält man den Flächeninhalt des\nVierecks.\nUND Skizze mit geeigneten Teilfiguren.\nAnm.: Hier wurde zwar die Zerlegungsmethode nicht vollständig\nbeschrieben, aber die Abbildung lässt auf ein korrektes\nVerständnis schließen"
+          ],
+          [
+            "RICHTIG",
+            "Ergänzungsmethode:\nAnm.: Die Beschreibung der Ergänzungsmethode ist korrekt, wenn\ndas Viereck so ergänzt wird, dass Flächen entstehen, deren\nFlächeninhalte mit Hilfe entsprechender Formeln berechnet werden\nkönnen (Das sind Parallelogramm, Trapez, Rechteck, Dreieck.) UND\ndarauf hingewiesen wird, dass sich der gesuchte Flächeninhalt\ndurch Subtrahieren der ergänzten Teilflächen von der Gesamtfläche\nergibt UND anhand der Zeichnung verdeutlicht wird, welche\nStrecken gemessen werden müssen. Benötigte Höhen und Mittellinien\n(Trapez) müssen eingezeichnet sein.\nMögliche Ergänzungen (alle weiteren Ergänzungen, die der obigen\nAnmerkung entsprechen, sind als richtig zu bewerten):\n[pic]\nz. B.\nDas Viereck wird durch Hinzufügen von Dreiecksflächen zu einem\nRechteck ergänzt. Wenn vom Flächeninhalt des Rechtecks die\nFlächeninhalte der ergänzten Dreiecke subtrahiert werden (die\nzugehörigen Längen kann man ausmessen), erhält man den\nFlächeninhalt des Vierecks.\nODER (Grenzfall):\nZieht man vom Flächeninhalt des Trapezes den Flächeninhalt des\nDreiecks ab, so erhält man die gesuchte Fläche.\nUND Skizze mit geeigneten Teilfiguren.\nAnm.: Hier wurde zwar die Ergänzungsmethode nicht vollständig\nbeschrieben, aber die Abbildung lässt auf ein korrektes\nVerständnis schließen."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen Lösungen\nz. B.\nIch zeichne kleine Kästchen ein, zähle diese zusammen und\nbestimme so den Flächeninhalt.\nAnm.: Diese Methode ist für das ungefähre Abschätzen des\nFlächeninhalts geeignet, aber nicht für die exakte Bestimmung.\nODER\nIch schätze den Flächeninhalt.\nODER\nIch zerlege das Viereck wie folgt:\n[pic]\nAnm.: Zwar erfolgte hier das Zerlegen korrekt, allerdings fehlt\ndie Beschreibung, wie sich hieraus der Flächeninhalt des Vierecks\nergibt.\nODER\nEs wurden keine Hilfslinien, die die Ergänzung bzw. Zerlegung\nverdeutlichen, eingezeichnet.\nODER\nIch zerlege das Viereck wie in der Abbildung veranschaulicht und\naddiere dann die Summen der Teilflächen.\n[pic]\nAnm.: Die durch die Zerlegung entstandene Vierecksfläche lässt\nsich ebenfalls nicht mit einer Formel berechnen."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Unregelmäßiges Viereck"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Korrekte Beschreibung der Zerlegungs- oder Ergänzungsmethode UND\nEinzeichnen von geeigneten, der Beschreibung entsprechenden\nHilfslinien in der Abbildung UND Markierung der Strecken, die\ngemessen werden müssen, insbesondere verwendeter Höhen.\nDie Lösung ist auch richtig, wenn Höhen und andere Strecken\nungenau eingezeichnet sind.\nZerlegungsmethode:\nAnm.: Die Beschreibung der Zerlegungsmethode ist korrekt, wenn\ndie Zerlegung des Vierecks in Teilflächen beschrieben wird, deren\nFlächeninhalte mit einer Formel berechnet werden kann (Das sind\nRechtecke, Dreiecke, Parallelogramme und Trapeze.) UND darauf\nhingewiesen wird, dass die Summe dieser Flächeninhalte den\nFlächeninhalt des Vierecks ergibt UND anhand der Zeichnung\nverdeutlicht wird, welche Strecken gemessen werden müssen.\nMögliche Zerlegungen (alle weiteren Zerlegungen, die der obigen\nAnmerkung entsprechen, sind als richtig zu bewerten):\n[pic]\nz. B.\nIch zerlege das Viereck in Teilflächen, deren Flächeninhalte mit\nden entsprechenden Flächenformeln berechnet werden können. Die\nLängen kann ich ausmessen. Die Summe der Flächeninhalte der\nTeilflächen ergibt den Flächeninhalt des Vierecks.\nODER (Grenzfall)\nAddiert man die Teilflächen, so erhält man den Flächeninhalt des\nVierecks.\nUND Skizze mit geeigneten Teilfiguren.\nAnm.: Hier wurde zwar die Zerlegungsmethode nicht vollständig\nbeschrieben, aber die Abbildung lässt auf ein korrektes\nVerständnis schließen"
+          ],
+          [
+            "RICHTIG",
+            "Ergänzungsmethode:\nAnm.: Die Beschreibung der Ergänzungsmethode ist korrekt, wenn\ndas Viereck so ergänzt wird, dass Flächen entstehen, deren\nFlächeninhalte mit Hilfe entsprechender Formeln berechnet werden\nkönnen (Das sind Parallelogramm, Trapez, Rechteck, Dreieck.) UND\ndarauf hingewiesen wird, dass sich der gesuchte Flächeninhalt\ndurch Subtrahieren der ergänzten Teilflächen von der Gesamtfläche\nergibt UND anhand der Zeichnung verdeutlicht wird, welche\nStrecken gemessen werden müssen. Benötigte Höhen und Mittellinien\n(Trapez) müssen eingezeichnet sein.\nMögliche Ergänzungen (alle weiteren Ergänzungen, die der obigen\nAnmerkung entsprechen, sind als richtig zu bewerten):\n[pic]\nz. B.\nDas Viereck wird durch Hinzufügen von Dreiecksflächen zu einem\nRechteck ergänzt. Wenn vom Flächeninhalt des Rechtecks die\nFlächeninhalte der ergänzten Dreiecke subtrahiert werden (die\nzugehörigen Längen kann man ausmessen), erhält man den\nFlächeninhalt des Vierecks.\nODER (Grenzfall):\nZieht man vom Flächeninhalt des Trapezes den Flächeninhalt des\nDreiecks ab, so erhält man die gesuchte Fläche.\nUND Skizze mit geeigneten Teilfiguren.\nAnm.: Hier wurde zwar die Ergänzungsmethode nicht vollständig\nbeschrieben, aber die Abbildung lässt auf ein korrektes\nVerständnis schließen."
+          ],
+          [
+            "FALSCH",
+            "Alle anderen unvollständigen, fehlerhaften oder falschen Lösungen\nz. B.\nIch zeichne kleine Kästchen ein, zähle diese zusammen und\nbestimme so den Flächeninhalt.\nAnm.: Diese Methode ist für das ungefähre Abschätzen des\nFlächeninhalts geeignet, aber nicht für die exakte Bestimmung.\nODER\nIch schätze den Flächeninhalt.\nODER\nIch zerlege das Viereck wie folgt:\n[pic]\nAnm.: Zwar erfolgte hier das Zerlegen korrekt, allerdings fehlt\ndie Beschreibung, wie sich hieraus der Flächeninhalt des Vierecks\nergibt.\nODER\nEs wurden keine Hilfslinien, die die Ergänzung bzw. Zerlegung\nverdeutlichen, eingezeichnet.\nODER\nIch zerlege das Viereck wie in der Abbildung veranschaulicht und\naddiere dann die Summen der Teilflächen.\n[pic]\nAnm.: Die durch die Zerlegung entstandene Vierecksfläche lässt\nsich ebenfalls nicht mit einer Formel berechnen."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Messen (L2)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "5",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [
+      "• Die Veranschaulichung anhand der Abbildung fehlt oder ist unvollständig.",
+      "So kann insbesondere das Einzeichnen der Höhen bei einer Zerlegung in",
+      "Dreiecke oder eine entsprechenden Ergänzung Schwierigkeiten bereiten.",
+      "Dies könnte darauf beruhen, dass die Höhe einer Figur nicht als bedeutsam",
+      "für die Berechnung des Flächeninhalts angesehen wird oder aber den",
+      "Schülern die Charakteristika einer Höhe nicht vertraut sind (K4 und K6).",
+      "Dies zeigt die folgende Schülerlösung.",
+      "• Die Beschreibung des Vorgehens ist unvollständig.",
+      "o Es wird beispielsweise nur erläutert, in welche Figuren das allgemeine",
+      "Viereck zerlegt werden kann, jedoch nicht darauf verwiesen, dass die",
+      "Flächeninhalte der einzelnen Teilflächen zu berechnen und anschließend zu",
+      "addieren sind (K2 und K6). So fehlt bei der folgenden Schülerlösung",
+      "beispielsweise die Addition der berechneten Flächeninhalte.",
+      "o Es wird erklärt, wie das Viereck zu einer Figur, deren",
+      "Flächeninhaltsformel bekannt ist, ergänzt werden kann. Auf die Berechnung",
+      "der Flächeninhalte der Ergänzungsfiguren sowie deren Subtraktion von dem",
+      "Flächeninhalt der erzeugten Figur, wird nicht eingegangen (K2 und K6).",
+      "• Flächeninhalt und Umfang werden verwechselt oder der Umfang wird",
+      "fälschlicherweise in die Rechnung eingebunden. So wird er beispielsweise",
+      "genutzt, um die Figur in ein Quadrat mit gleichem Umfang zu überführen,",
+      "dessen Flächeninhalt anschließend berechnet wird, wie die folgende",
+      "Schülerlösung zeigt.",
+      "• Zur Lösung werden bekannte Formeln anderer Figuren direkt auf das",
+      "allgemeine Viereck (z. B. Dreieck, Parallelogramm) angewendet K6). Dies",
+      "veranschaulicht die folgende Schülerlösung:",
+      "Weiterarbeit und Förderung",
+      "Bei Schwierigkeiten bietet es sich an, die Schülerinnen und Schüler auf",
+      "handelnder Ebene daran zu erinnern, dass sich Flächeninhalte von",
+      "Teilflächen addieren. Hierzu kann z. B. gut das Tangram, bei dem aus",
+      "verschiedenen Vierecken und Dreiecken unterschiedliche Figuren",
+      "zusammengesetzt werden müssen, eingesetzt werden.",
+      "Anschließend können zunächst einfache, aus verschiedenen Vierecken",
+      "zusammengesetzte Flächen betrachtet werden. Dabei sollten solche Figuren",
+      "bevorzugt werden, die verschiedene Zerlegungs- und Ergänzungsmöglichkeiten",
+      "aufweisen. Denkbar ist es in diesem Zusammenhang auch, dass die Schüler",
+      "selbst zusammengesetzte Figuren zeichnen, deren Zerlegung/ Ergänzung von",
+      "einem Mitschüler vorgenommen bzw. beschrieben werden muss. In einem",
+      "weiteren Schritt können auch andere Figuren (z. B. Dreiecke, Kreise) mit",
+      "einbezogen werden, um so auch den unterschiedlichen Leistungsspektren einer",
+      "Klasse gerecht zu werden und entsprechende Überlegungen in Klasse 9",
+      "vorzubereiten. Weitere Informationen zu dieser Aufgabe sind im Allgemeinen",
+      "Kapitel zur Kompetenz „Probleme mathematisch lösen“ aus VERA-8 2012 zu"
+    ],
+    "quelle": "unregelmaessigesviereck_Didaktische_Kommentierung.doc"
+  }
+}

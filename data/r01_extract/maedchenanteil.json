@@ -1,0 +1,111 @@
+{
+  "item": "maedchenanteil",
+  "sources": {
+    "Aufgabe": {
+      "file": "maedchenanteil_Aufgabe.docx",
+      "format": "docx",
+      "sha256_16": "b42d4805d84eadad"
+    },
+    "Auswertung": {
+      "file": "maedchenanteil_Auswertung.docx",
+      "format": "docx",
+      "sha256_16": "6fdcbbbef30d831b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "maedchenanteil_Didaktische_Kommentierung.docx",
+      "format": "docx",
+      "sha256_16": "ba54129f1d51653e"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/maedchenanteil/00_image1.emf.png",
+      "tokens": "In der Klasse 7a sind 8 Mädchen und 15 Jungen.",
+      "deterministic_text": "In der Klasse 7a sind 8 Mädchen und 15 Jungen.",
+      "table": null,
+      "n_fragments": 8,
+      "is_license": false
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/maedchenanteil/01_image2.emf.png",
+      "tokens": "Wie groß ist der Anteil der Mädchen in der gesamten Klasse 7a?Kreuze an.823815158238",
+      "deterministic_text": "Wie groß ist der Anteil der Mädchen in der gesamten Klasse 7a?\nKreuze an.\n8 8 15 23\n23 15 8 8",
+      "table": null,
+      "n_fragments": 14,
+      "is_license": false
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/maedchenanteil/02_image3.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35,
+      "is_license": true
+    }
+  ],
+  "lizenz": {
+    "hinweis": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+    "grafik_gedeckt": false,
+    "begruendung": "Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Mädchenanteil"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Auswertung – Mädchenanteil"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "1. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "1. Zahl",
+        "kompetenz_raw": "Mit Mathematik symbolisch/ formal/ technisch umgehen (K5)",
+        "k_tags": [
+          "K5"
+        ],
+        "afb_raw": "I",
+        "afb": 1,
+        "kompetenzstufe_raw": "1b",
+        "nr": 1
+      }
+    ],
+    "typische_fehler": [],
+    "quelle": "maedchenanteil_Didaktische_Kommentierung.docx"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "item": "kreiseundvierecke",
+  "sources": {
+    "Aufgabe": {
+      "file": "kreiseundvierecke_Aufgabe.doc",
+      "format": "doc",
+      "sha256_16": "3af535495835d744"
+    },
+    "Auswertung": {
+      "file": "kreiseundvierecke_Auswertung.doc",
+      "format": "doc",
+      "sha256_16": "5a02e5b1790a6752"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "kreiseundvierecke_Didaktische_Kommentierung.doc",
+      "format": "doc",
+      "sha256_16": "1d2cfc7091245e35"
+    }
+  },
+  "flags": [],
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "doc_image1.emf",
+      "ext": "emf",
+      "quelle": "vektor",
+      "png": "data/r01_render/kreiseundvierecke/00_doc_image1.emf.png",
+      "tokens": "Gegeben ist jeweils ein Kreis mit dem Radius r= 3cm.",
+      "deterministic_text": "Gegeben ist jeweils ein Kreis mit dem Radius r= 3cm.",
+      "table": null,
+      "n_fragments": 6,
+      "is_license": false
+    }
+  ],
+  "lizenz": {
+    "hinweis": null,
+    "grafik_gedeckt": false,
+    "begruendung": "kein Lizenzhinweis im Item gefunden"
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Kreise und Vierecke",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: In der Zeichnung sollen die Hilfslinien (Diagonalen des\nQuadrats) erkennbar sein.\nZeichentoleranz: ( 1 mm"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (Nein) UND Angabe einer Begründung (als Skizze\noder verbal), die erkennen lässt, dass die beiden anderen\nEckpunkte einer Raute nicht auch auf der Kreislinie liegen\nmüssen.\nZeichentoleranz: ( 1 mm\nz. B.\nDer Kreismittelpunkt ist Schnittpunkt der beiden Diagonalen der\nRaute. Diese stehen senkrecht aufeinander und halbieren sich. Nur\nfalls beide Diagonalen auch Durchmesser des Kreises sind, liegen\nalle 4 Eckpunkte auf der Kreislinie. Dann ist es aber eine\nspezielle Raute (Quadrat).\nODER\nBei der Raute liegen nur zwei Ecken auf der Kreislinie, also\nstimmt Martins Aussage nicht für jede Raute.\n[pic]\nODER\nDies geht nur bei einem Quadrat.\nAnm.: \"Nur\" deutet auf das Erkennen des Spezialfalls Quadrat als\nbesondere Raute hin.\nODER (Grenzfall)\nEine Raute wird gezeichnet."
+          ]
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "kind": "para",
+        "payload": "Kreise und Vierecke"
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 1"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "[pic]\nAnm.: In der Zeichnung sollen die Hilfslinien (Diagonalen des\nQuadrats) erkennbar sein.\nZeichentoleranz: ( 1 mm"
+          ]
+        ]
+      },
+      {
+        "kind": "para",
+        "payload": "Teilaufgabe 2"
+      },
+      {
+        "kind": "table",
+        "payload": [
+          [
+            "RICHTIG",
+            "Richtige Antwort (Nein) UND Angabe einer Begründung (als Skizze\noder verbal), die erkennen lässt, dass die beiden anderen\nEckpunkte einer Raute nicht auch auf der Kreislinie liegen\nmüssen.\nZeichentoleranz: ( 1 mm\nz. B.\nDer Kreismittelpunkt ist Schnittpunkt der beiden Diagonalen der\nRaute. Diese stehen senkrecht aufeinander und halbieren sich. Nur\nfalls beide Diagonalen auch Durchmesser des Kreises sind, liegen\nalle 4 Eckpunkte auf der Kreislinie. Dann ist es aber eine\nspezielle Raute (Quadrat).\nODER\nBei der Raute liegen nur zwei Ecken auf der Kreislinie, also\nstimmt Martins Aussage nicht für jede Raute.\n[pic]\nODER\nDies geht nur bei einem Quadrat.\nAnm.: \"Nur\" deutet auf das Erkennen des Spezialfalls Quadrat als\nbesondere Raute hin.\nODER (Grenzfall)\nEine Raute wird gezeichnet."
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_kommentierung": {
+    "teilaufgaben": [
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "II",
+        "afb": 2,
+        "kompetenzstufe_raw": "4",
+        "nr": 1
+      },
+      {
+        "leitidee_raw": "Raum und Form (L3)",
+        "afb_raw": "III",
+        "afb": 3,
+        "kompetenzstufe_raw": "5",
+        "nr": 2
+      }
+    ],
+    "typische_fehler": [
+      "• Anstelle eines Quadrats wird ein Rechteck eingezeichnet, wie die folgende",
+      "Schülerlösung zeigt. Dies kann an fehlendem Begriffsverständnis oder an",
+      "einer falschen Zeichenstrategie liegen (K2 und K5).",
+      "• Die Bedingung, dass die Eckpunkte des Quadrats auf der Kreislinie liegen",
+      "müssen, wird missachtet, wie die folgende Schülerlösung zeigt (K2).",
+      "• Ein Quadrat wird so gezeichnet, dass die Kreislinie dessen Seiten",
+      "tangential berührt, siehe die folgende Schülerlösung (K2).",
+      "• Die dargelegte Argumentation ist fehler- oder lückenhaft bzw. es wird",
+      "nicht erkannt, dass die Behauptung falsch ist (K1).",
+      "• Es ist nicht bewusst, dass Quadrate besondere Rauten sind, wie die",
+      "folgende Schülerlösung zeigt (K5).",
+      "Weiterarbeit und Förderung",
+      "Wesentliche Schwierigkeiten dieser Aufgabe bestehen darin, dass mehrere",
+      "Bedingungen gleichzeitig erfüllt werden müssen und dies im Verlauf der",
+      "(zeichnerischen) Bearbeitung aus dem Blick geraten kann.",
+      "Diese Aufgabe eignet sich daher in besonderer Weise, Kontrollstrategien",
+      "(vgl. hierzu auch das allgemeine Kapitel zur Kompetenz „Probleme",
+      "mathematisch lösen“) zu wiederholen und dabei vor allem nach Abschluss der",
+      "Bearbeitung dazu anzuregen, die Einhaltung aller genannten Bedingungen",
+      "nochmals zu überprüfen. Etwaige Prüffragen könnten z. B. in Teilaufgabe 1",
+      "• Ist das eingezeichnete Viereck tatsächlich ein Quadrat?",
+      "• Liegen die Eckpunkte des Quadrats tatsächlich auf der Kreislinie?",
+      "Ergänzend kann man die Eigenschaften eines Quadrats mit Bezug zu der",
+      "durchgeführten Konstruktion nochmals begründen lassen.",
+      "Wird ein Um-Quadrat gezeichnet (vgl. dritte falsche Schülerlösung zu",
+      "Teilaufgabe 1), kann man diesen Fehler konstruktiv nutzen und fragen, wie",
+      "eine Aufgabe lauten müsste, damit diese Konstruktion ihre Lösung ist.",
+      "Diese Aufgabe legt eine Gegenüberstellung verschiedener Lösungswege nahe,",
+      "deren Vergleich einen Beitrag zur Förderung der Argumentationsfähigkeit",
+      "leisten kann (vgl. hierzu auch das allgemeine Kapitel zur Kompetenz",
+      "„Mathematisches Argumentieren“ aus VERA-8 2010). Des Weiteren können",
+      "inhaltliche Vernetzungen zum Satz des Thales oder auch zum Satz des",
+      "Pythagoras hergestellt werden, sofern diese Sätze bereits bekannt sind, was",
+      "zusätzlich die Einbeziehung rechnerischer Lösungswege ermöglicht. Auch",
+      "inhaltliche Vernetzungen zu verwandten Inkreis- und Umkreisfragestellungen",
+      "lassen sich herstellen.",
+      "Die Aufgabe kann noch erweitert werden, indem man andere Vierecke als ein",
+      "Quadrat einzeichnen lässt. Hierfür eignet sich die folgende Aufgabe mit",
+      "einem Rechteck, die sogar ohne Kenntnis des Satzes des Pythagoras gelöst",
+      "werden kann. Dazu zeichnet man ein Rechteck mit Seitenlängen im",
+      "vorgegebenen Verhältnis so in das Kreisinnere ein, dass der",
+      "Diagonalenschnittpunkt mit dem Kreismittelpunkt übereinstimmt, und gewinnt",
+      "das gesuchte Rechteck dann wieder durch „Aufblasen“. Diese Aufgabe kann",
+      "somit als echte Problemlöseaufgabe gestellt werden, deren Lösung auch",
+      "mithilfe eines dynamischen Geometrieprogramms erkundet werden kann."
+    ],
+    "quelle": "kreiseundvierecke_Didaktische_Kommentierung.doc"
+  }
+}
