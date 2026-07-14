@@ -1,122 +1,127 @@
-// Invariante: Die Vorschau zeigt, was das KIND sieht — und nichts sonst.
+// Was dieser Test seit A02 NICHT mehr prueft: dass die Vorschau keine Loesung aus
+// dem FormState rendert. Diese Zusage ist kein Testgegenstand mehr, sondern eine
+// Struktureigenschaft — die Komponente BEKOMMT keinen FormState. Sie rendert ein
+// Payload, das der Server gebaut hat, und in dessen Vertrag eine Loesung nie
+// vorkam. Der Beweis dafuer liegt dort, wo er hingehoert: in pgTAP
+// (supabase/tests/inv8_vorschau_ohne_loesung.test.sql, rekursiv bis in parts und
+// table hinein).
 //
-// Der Datenvertrag (P01 §4) haelt die Loesung serverseitig aus dem Payload heraus:
-// lsa_question_payload BAUT das Payload aus einer Whitelist, statt ein bestehendes
-// jsonb durchzukopieren. Diese Vorschau ist die Client-Seite derselben Zusage —
-// und sie hat es leichter, sie zu brechen, weil hier Item UND Loesung im selben
-// FormState liegen. Ein `{JSON.stringify(state)}` an der falschen Stelle, und die
-// Loesung steht im DOM.
-//
-// Genau das prueft dieser Test: er fuellt jedes Geheimfeld mit einem eindeutigen
-// Marker und behauptet, dass keiner davon gerendert wird. Er ueberlebt ein
-// Refactoring der Komponente, das ein Snapshot nicht ueberleben wuerde.
+// Was hier bleibt, ist das, was im Frontend noch brechen KANN:
+//   1. Die Verdrahtung: gespeichert → RPC ohne Draft. Ungespeichert → RPC MIT dem
+//      Draft, den ein Speichern schriebe. Wer das verwechselt, zeigt dem Pfleger
+//      einen Stand, den es nicht gibt.
+//   2. Das Etikett: ein Entwurf muss als Entwurf erkennbar sein.
+//   3. Das Rendering des Vertrags: Bild mit Alt-Text, Tabelle (F01), Multi-Part mit
+//      EINEM Weiter-Button (P02), MC-Optionen, Kurzantwort mit Einheit.
 
-import { describe, expect, it } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { render, screen, waitFor } from '@testing-library/react'
 import '@/i18n'
+import type { AuthoringTaskPatch, PreviewPayload } from '@/types'
 import { AuthoringPreview } from './AuthoringPreview'
-import type { FormState } from './editorState'
+import { PreviewStage } from './PreviewStage'
 
-const SECRETS = {
-  answer: 'GEHEIM_ANTWORT_16',
-  partAnswer: 'GEHEIM_TEILANTWORT_B',
-  solution: 'GEHEIM_RECHENWEG',
-  hint: 'GEHEIM_HINWEIS',
-  coachHint: 'GEHEIM_COACHHINWEIS',
-  typicalError: 'GEHEIM_TYPISCHER_FEHLER',
-  socratic: 'GEHEIM_SOKRATISCH',
-} as const
+const { getTaskPreview } = vi.hoisted(() => ({ getTaskPreview: vi.fn() }))
 
-const flat: FormState = {
-  title: 'Zwanzig Prozent',
-  question: 'Berechne 20 % von 80 m.',
-  table: null,
-  input_type: 'SHORT_TEXT',
+vi.mock('@/lib/supabase/taskPreview', () => ({
+  getTaskPreview,
+  PREVIEW_RPC_MISSING: 'PREVIEW_RPC_MISSING',
+}))
+
+const flat: PreviewPayload = {
+  task_id: 't1',
+  kind: 'short_input',
+  prompt: 'Berechne 20 % von 80 m.',
   unit: 'm',
-  est_duration_sec: '120',
-  afb: 'I',
-  competency_content: 'arithmetik_algebra',
-  competency_process: 'ope',
-  cluster_id: 'c1',
-  curriculum_grade: '7',
-  parts: [],
   assets: [{ url: 'https://example.test/bild.png', alt: 'Ein Balkendiagramm' }],
-  mcOptions: [],
-  answers: [SECRETS.answer],
-  partAnswers: {},
-  solutionText: SECRETS.solution,
-  hints: [{ level: 1, text: SECRETS.hint }],
-  coachHints: [SECRETS.coachHint],
-  typicalErrors: [{ error: SECRETS.typicalError, socratic_question: SECRETS.socratic }],
+  table: {
+    headers: ['Bundesland', 'Einwohner pro km2'],
+    rows: [
+      ['Baden-Wuerttemberg', '301'],
+      ['Bayern', '177'],
+    ],
+  },
 }
 
-const multi: FormState = {
-  ...flat,
-  input_type: 'MULTI_PART',
-  answers: [],
+const multi: PreviewPayload = {
+  task_id: 't2',
+  kind: 'multi_part',
+  stem: 'Die Tabelle zeigt die Bevoelkerungsdichte.',
+  assets: [],
+  table: { headers: ['Land', 'Wert'], rows: [['Bayern', '177']] },
   parts: [
-    { nr: 1, kind: 'short_input', prompt: 'Wie viel Prozent sind es?', unit: '%', afb: 'I' },
+    { nr: 1, kind: 'short_input', prompt: 'Wie gross ist die Differenz?', unit: 'E/km2' },
     {
       nr: 2,
       kind: 'mc',
-      prompt: 'Welche Aussage stimmt?',
-      afb: 'II',
+      prompt: 'Welches Land liegt darueber?',
       options: [
-        { id: 'a', label: 'Der Anteil wächst.' },
-        { id: 'b', label: 'Der Anteil fällt.' },
+        { id: 'a', label: 'Hessen' },
+        { id: 'b', label: 'Bayern' },
       ],
     },
   ],
-  partAnswers: { '1': [SECRETS.answer], '2': [SECRETS.partAnswer] },
 }
 
-function renderedText(): string {
-  return document.body.textContent ?? ''
-}
+const draft: AuthoringTaskPatch = { question: 'Neu getippt', input_type: 'SHORT_TEXT' }
 
-describe('AuthoringPreview — kein Loesungsleck', () => {
-  it('rendert bei einem flachen Item keines der Geheimfelder', () => {
-    render(<AuthoringPreview state={flat} />)
-    const text = renderedText()
-    for (const secret of Object.values(SECRETS)) {
-      expect(text).not.toContain(secret)
-    }
+describe('AuthoringPreview — eine Wahrheit, nicht zwei', () => {
+  beforeEach(() => {
+    getTaskPreview.mockReset()
+    getTaskPreview.mockResolvedValue({ data: flat, error: null })
   })
 
-  it('rendert bei Multi-Part keine Teilloesung', () => {
-    render(<AuthoringPreview state={multi} />)
-    const text = renderedText()
-    for (const secret of Object.values(SECRETS)) {
-      expect(text).not.toContain(secret)
-    }
+  it('holt den GESPEICHERTEN Stand, solange nichts geaendert wurde (kein Draft an den Server)', async () => {
+    render(<AuthoringPreview taskId="t1" draft={draft} dirty={false} />)
+    await waitFor(() => expect(getTaskPreview).toHaveBeenCalledWith('t1', null))
   })
 
-  it('zeigt keine Diagnostik-Metadaten (AFB, Kompetenz, Stoffanker)', () => {
-    render(<AuthoringPreview state={flat} />)
-    const text = renderedText()
-    expect(text).not.toContain('arithmetik_algebra')
-    expect(text).not.toContain('AFB')
+  it('schickt bei ungespeicherten Aenderungen den Draft mit — der Server baut daraus', async () => {
+    render(<AuthoringPreview taskId="t1" draft={draft} dirty />)
+    await waitFor(() => expect(getTaskPreview).toHaveBeenCalledWith('t1', draft))
+  })
+
+  it('markiert den Entwurfsstand sichtbar als ungespeichert', async () => {
+    render(<AuthoringPreview taskId="t1" draft={draft} dirty />)
+    expect(await screen.findByText('Ungespeichert')).toBeInTheDocument()
+  })
+
+  it('nennt den gespeicherten Stand beim Namen — kein stilles Entwurfs-Etikett', async () => {
+    render(<AuthoringPreview taskId="t1" draft={draft} dirty={false} />)
+    expect(await screen.findByText('Gespeicherter Stand')).toBeInTheDocument()
+  })
+
+  // Fehlt die RPC, gibt es keine Vorschau — und ausdruecklich keinen Frontend-Nachbau.
+  it('zeigt bei fehlender RPC einen Hinweis statt eines nachgebauten Payloads', async () => {
+    getTaskPreview.mockResolvedValue({ data: null, error: 'PREVIEW_RPC_MISSING' })
+    render(<AuthoringPreview taskId="t1" draft={draft} dirty={false} />)
+    expect(await screen.findByText('Vorschau nicht verfügbar')).toBeInTheDocument()
   })
 })
 
-describe('AuthoringPreview — zeigt, was das Kind sieht', () => {
-  it('rendert Stamm, Einheit und das Bild mit Alt-Text', () => {
-    render(<AuthoringPreview state={flat} />)
+describe('PreviewStage — der Vertrag, wie das Kind ihn sieht', () => {
+  it('rendert Stamm, Bild mit Alt-Text, Tabelle und die Einheit', () => {
+    render(<PreviewStage payload={flat} />)
     expect(screen.getByText(/Berechne 20 % von 80 m\./)).toBeInTheDocument()
     expect(screen.getByAltText('Ein Balkendiagramm')).toBeInTheDocument()
+    expect(screen.getByText('Einwohner pro km2')).toBeInTheDocument()
+    expect(screen.getByText('177')).toBeInTheDocument()
     expect(screen.getByText('m')).toBeInTheDocument()
   })
 
-  it('rendert jede Teilaufgabe mit ihrer Frage und ihren MC-Optionen', () => {
-    render(<AuthoringPreview state={multi} />)
-    expect(screen.getByText(/Wie viel Prozent sind es\?/)).toBeInTheDocument()
-    expect(screen.getByText(/Welche Aussage stimmt\?/)).toBeInTheDocument()
-    expect(screen.getByText('Der Anteil wächst.')).toBeInTheDocument()
-    expect(screen.getByText('Der Anteil fällt.')).toBeInTheDocument()
+  it('rendert Multi-Part: Stamm oben, Teilaufgaben darunter, EIN Weiter-Button', () => {
+    render(<PreviewStage payload={multi} />)
+    expect(screen.getByText(/Die Tabelle zeigt die Bevoelkerungsdichte\./)).toBeInTheDocument()
+    expect(screen.getByText(/Wie gross ist die Differenz\?/)).toBeInTheDocument()
+    expect(screen.getByText(/Welches Land liegt darueber\?/)).toBeInTheDocument()
+    expect(screen.getByText('Hessen')).toBeInTheDocument()
+    // P02: das Kind beantwortet den Block, nicht Teilaufgabe fuer Teilaufgabe.
+    expect(screen.getAllByRole('button')).toHaveLength(1)
   })
 
-  it('haelt die Eingabefelder inaktiv — die Vorschau prueft Layout, nicht Antworten', () => {
-    render(<AuthoringPreview state={flat} />)
+  it('bewertet nicht — die Eingaben sind Attrappen', () => {
+    render(<PreviewStage payload={flat} />)
     expect(screen.getByPlaceholderText('Deine Antwort')).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Antworten' })).toBeDisabled()
   })
 })

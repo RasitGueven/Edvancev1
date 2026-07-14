@@ -150,3 +150,11 @@ export type {
   MasteryStage,
   StudentCompetencyMastery,
 } from './competency'
+
+export type {
+  PreviewAsset,
+  PreviewOption,
+  PreviewPart,
+  PreviewPayload,
+  PreviewTable,
+} from './preview'

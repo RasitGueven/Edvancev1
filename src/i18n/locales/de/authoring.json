@@ -137,10 +137,17 @@
     "hint": "Jede Teilaufgabe trägt ihre eigene Kompetenz und ihr eigenes AFB — sie ist der diagnostische Datenpunkt, nicht das Item."
   },
   "preview": {
-    "hint": "So sieht es das Kind. Kein Feedback, keine Lösung — wie in der LSA.",
+    "hint": "So sieht es das Kind — serverseitig gebaut, dieselbe Funktion, die das Tablet bedient. Kein Feedback, keine Lösung.",
+    "unsavedHint": "Vorschau des Entwurfs: So sähe es aus, wenn du jetzt speicherst. Gespeichert ist es nicht.",
+    "saved": "Gespeicherter Stand",
+    "unsaved": "Ungespeichert",
+    "updating": "Aktualisiert …",
     "empty": "Der Stamm ist leer.",
     "submit": "Antworten",
-    "answerPlaceholder": "Deine Antwort"
+    "answerPlaceholder": "Deine Antwort",
+    "failed": "Vorschau nicht möglich",
+    "rpcMissing": "Vorschau nicht verfügbar",
+    "rpcMissingHint": "Der Datenbank fehlt die Funktion task_preview_payload (Migration A02). Bis sie da ist, gibt es keine Vorschau — ein Nachbau im Frontend würde etwas anderes zeigen als das Tablet."
   },
   "grounding": {
     "none": "Kein Quellenbeleg — dieses Item ist ein Eigenbau.",
