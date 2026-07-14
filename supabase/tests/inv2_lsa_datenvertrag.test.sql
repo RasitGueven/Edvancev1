@@ -22,6 +22,17 @@ create extension if not exists pgtap with schema extensions;
 
 select plan(17);
 
+-- --- Der CHECK aus T1b, lokal aufgehoben -----------------------------------
+-- T1b verbietet Loesungsfelder in tasks.question_payload
+-- (`tasks_question_payload_no_solution`). Genau so einen Payload brauchen die
+-- Fixtures unten aber: sie beweisen, dass der Builder die Loesung wegfiltert,
+-- AUCH wenn sie in den Daten steht. Das ist Defense in Depth — der CHECK ist die
+-- eine Schicht, die Whitelist im Builder die andere; faellt eine, haelt die
+-- andere. Wuerden wir die Fixtures stattdessen "sauber" machen, waere diese
+-- Assertion vakuum-gruen und die zweite Schicht ungetestet.
+-- Die Transaktion endet in `rollback` — die Prod-Zusage bleibt unangetastet.
+alter table tasks drop constraint tasks_question_payload_no_solution;
+
 -- --- Fixtures --------------------------------------------------------------
 \set student_uid '33333333-3333-3333-3333-333333333333'
 \set coach_uid   '44444444-4444-4444-4444-444444444444'

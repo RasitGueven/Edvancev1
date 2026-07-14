@@ -1,7 +1,6 @@
 import { useEffect, useState, type JSX } from 'react'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ArrowRight, CalendarClock } from 'lucide-react'
+import { CalendarClock } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceCard } from '@/components/edvance/EdvanceCard'
@@ -146,35 +145,32 @@ export function StudentDashboard(): JSX.Element {
             />
             <main className="mx-auto max-w-3xl px-4 py-8">
               {todaySession && (
-                <Link to={`/student/session/${todaySession.id}`} className="mb-6 block">
-                  <EdvanceCard
-                    variant="blue-pale"
-                    accent="primary"
-                    className="flex items-center gap-4"
-                  >
-                    <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--color-primary)] text-white">
-                      <CalendarClock className="h-6 w-6" />
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-eyebrow text-[var(--color-primary)]">
-                        {t('dashboard.todaySession.eyebrow')}
-                      </p>
-                      <p className="text-base font-semibold text-[var(--color-text-primary)]">
-                        {t('dashboard.todaySession.title')}
-                      </p>
-                      <p className="text-sm text-[var(--color-text-secondary)]">
-                        {t('dashboard.todaySession.time', {
-                          time: new Intl.DateTimeFormat(i18n.language, {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            timeZone: 'Europe/Berlin',
-                          }).format(new Date(todaySession.scheduled_at)),
-                        })}
-                      </p>
-                    </div>
-                    <ArrowRight className="h-5 w-5 flex-none text-[var(--color-primary)]" />
-                  </EdvanceCard>
-                </Link>
+                <EdvanceCard
+                  variant="blue-pale"
+                  accent="primary"
+                  className="mb-6 flex items-center gap-4"
+                >
+                  <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--color-primary)] text-white">
+                    <CalendarClock className="h-6 w-6" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-eyebrow text-[var(--color-primary)]">
+                      {t('dashboard.todaySession.eyebrow')}
+                    </p>
+                    <p className="text-base font-semibold text-[var(--color-text-primary)]">
+                      {t('dashboard.todaySession.title')}
+                    </p>
+                    <p className="text-sm text-[var(--color-text-secondary)]">
+                      {t('dashboard.todaySession.time', {
+                        time: new Intl.DateTimeFormat(i18n.language, {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          timeZone: 'Europe/Berlin',
+                        }).format(new Date(todaySession.scheduled_at)),
+                      })}
+                    </p>
+                  </div>
+                </EdvanceCard>
               )}
 
               <h2 className="text-eyebrow text-warm-56">

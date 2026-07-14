@@ -26,6 +26,12 @@ create extension if not exists pgtap with schema extensions;
 
 select plan(23);
 
+-- T1b verbietet Loesungsfelder in tasks.question_payload
+-- (`tasks_question_payload_no_solution`). Die Fixtures unten tragen bewusst
+-- `accepted` im Payload, um zu beweisen, dass der Builder unabhaengig von der
+-- Datenlage filtert. Lokal aufgehoben; die Transaktion endet in `rollback`.
+alter table tasks drop constraint tasks_question_payload_no_solution;
+
 -- --- Fixtures --------------------------------------------------------------
 \set student_uid '55555555-5555-5555-5555-555555555555'
 

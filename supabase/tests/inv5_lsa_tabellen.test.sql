@@ -27,6 +27,13 @@ create extension if not exists pgtap with schema extensions;
 
 select plan(15);
 
+-- T1b verbietet Loesungsfelder in tasks.question_payload
+-- (`tasks_question_payload_no_solution`). INV-5 lebt genau davon: es legt die
+-- Tabelle direkt NEBEN `accepted` in denselben Payload, um zu zeigen, dass der
+-- Builder die Tabelle mitnimmt und die Loesung liegen laesst. Lokal aufgehoben;
+-- die Transaktion endet in `rollback`.
+alter table tasks drop constraint tasks_question_payload_no_solution;
+
 -- --- Fixtures --------------------------------------------------------------
 \set student_uid '66666666-6666-6666-6666-666666666666'
 
