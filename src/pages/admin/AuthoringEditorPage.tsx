@@ -306,7 +306,12 @@ export function AuthoringEditorPage(): JSX.Element {
             </Section>
 
             <Section title={t('sections.assets')}>
-              <AssetsSection assets={state.assets} onChange={(next) => set('assets', next)} />
+              <AssetsSection
+                assets={state.assets}
+                onChange={(next) => set('assets', next)}
+                taskId={task.id}
+                canWrite={canWrite}
+              />
             </Section>
 
             <GroundingPanel source={task.source} sourceRef={task.source_ref} />
