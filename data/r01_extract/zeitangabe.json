@@ -1,0 +1,58 @@
+{
+  "item": "zeitangabe",
+  "sources": {
+    "Aufgabe": {
+      "file": "zeitangabe_Aufgabe.docx",
+      "sha256_16": "0c91a4e8e293187d"
+    },
+    "Auswertung": {
+      "file": "zeitangabe_Auswertung.docx",
+      "sha256_16": "df110ddefa35e136"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "zeitangabe_Didaktische_Kommentierung.docx",
+      "sha256_16": "d0962f473e31944c"
+    }
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Zeitangabe"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3. Kästchen wurde angekreuzt"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_aufgabe_docx": {
+    "paragraphs": [
+      "Zeitangabe"
+    ],
+    "tables": []
+  },
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "png": "data/r01_render/zeitangabe/00_image1.emf.png",
+      "tokens": "Wie viele Minuten sind 2    Stunden? 1260min90min150min250min",
+      "deterministic_text": "1\nWie viele Minuten sind 2 Stunden?\n2\n60min 90min 150min 250min",
+      "table": null,
+      "n_fragments": 14
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "png": "data/r01_render/zeitangabe/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 35
+    }
+  ]
+}

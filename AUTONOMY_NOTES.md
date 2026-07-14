@@ -219,3 +219,34 @@ in den Pool). Kein Handlungsbedarf, aber die Spec-Formulierung ist irreführend.
 Import mappt `edvance_matrix.inhaltsfelder` → Cluster-Name. Vorschlag fürs
 Foundation-Fenster: entweder `not null` auf `tasks.cluster_id` für `status='ready'`
 (Partial-Constraint) oder ein Left-Join + explizite Warnung in `lsa_start`.
+
+### 4. Der Payload-Vertrag kennt keine Tabelle — Blocker für ~83 Items (R01)
+
+**Was:** `DATENVERTRAG.md` §1 definiert `Asset = { url: string; alt?: string }`,
+`src/types/content.ts:38` definiert `TaskAsset = { url, alt, caption? }`. Einen
+**strukturierten Tabellentyp gibt es im Payload nicht.**
+
+**Warum das jetzt auffällt:** Die R01-Pipeline rekonstruiert die Tabellen wieder
+als Tabellen (belegt an `bevoelkerungsdichte`: 16×2, aus der EMF-Geometrie, siehe
+`data/r01_kalibrierung.md` §4). Sie liegen als
+`assets[0] = {kind:"table", header, rows}` in `data/r01_ergebnis.json` — und haben
+im Vertrag keinen Platz. Ohne Vertragsänderung bleibt nur, sie wieder zu Bildern
+oder zu Fließtext plattzuwalzen. Genau das war der C01/C02-Fehler.
+
+**Betroffen:** die 83 Items mit Tabellen im Stamm.
+
+**Vorschlag (Foundation-Fenster, nicht Surface):** `Asset` zu einem
+diskriminierten Typ machen —
+`{ kind:'image'; url; alt? } | { kind:'table'; header: string[]; rows: string[][]; caption? }` —
+und `lsa_question_payload()` die Tabelle feldweise aus der Whitelist bauen lassen
+(die Lösung darf auch hier nicht mitrutschen; `inv2`/`inv3` entsprechend
+erweitern). **Kein Import der Tabellen-Items, bevor das steht.**
+
+### 5. Altbestand: Ordinal-Strings als `correct_answers` (R01-Fund)
+
+`zeitangabe` trägt in der Live-DB `correct_answers = ['3. Kästchen', '60min ☐
+90min ☐ 150min ☐ 250min']` bei `task_type = SHORT_INPUT` — obwohl es eine
+MC-Aufgabe mit 4 Kästchen ist. Ein Kind müsste wörtlich „3. Kästchen" tippen, um
+Recht zu bekommen. **Zu prüfen:** wie viele `ready`-Items einen Ordinal-String
+(`/\d+\.\s*Kästchen/`) als akzeptierte Antwort tragen, und wie viele MC-Items als
+`SHORT_INPUT` typisiert sind. Beides ist ein Import-Fehler, kein Content-Fehler.
