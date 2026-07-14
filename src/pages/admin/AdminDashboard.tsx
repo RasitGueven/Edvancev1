@@ -8,6 +8,7 @@ import {
   Inbox,
   LayoutGrid,
   ListChecks,
+  PenLine,
   UserPlus,
   Users,
   Zap,
@@ -128,6 +129,14 @@ export function AdminDashboard(): JSX.Element {
             icon={<FlaskConical className={ICON_CLASS} />}
             title="Diagnostik"
             description="Aufgaben als Diagnose markieren und Inhalte pflegen."
+            accent="levelup"
+            size="sm"
+          />
+          <AdminTile
+            to="/admin/authoring"
+            icon={<PenLine className={ICON_CLASS} />}
+            title="Item-Pflege"
+            description="Aufgaben prüfen, Stoffanker setzen, für die LSA freigeben."
             accent="levelup"
             size="sm"
           />

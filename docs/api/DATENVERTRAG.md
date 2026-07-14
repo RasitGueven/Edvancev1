@@ -1,9 +1,11 @@
 # Datenvertrag: `question_payload` + LSA-RPCs
 
-**Stand:** 2026-07-13 · **Migrationen:** `20260712100000_p01_datenvertrag.sql` (P01),
-`20260713100000_p02_multipart.sql` (P02 — Multi-Part)
+**Stand:** 2026-07-14 · **Migrationen:** `20260712100000_p01_datenvertrag.sql` (P01),
+`20260713100000_p02_multipart.sql` (P02 — Multi-Part),
+`20260714100000_f01_tabellen.sql` (F01 — Tabellen)
 **Beweis:** `supabase/tests/inv2_lsa_datenvertrag.test.sql` (17 Assertions) +
-`supabase/tests/inv3_lsa_multipart.test.sql` (23 Assertions), beide pgTAP
+`supabase/tests/inv3_lsa_multipart.test.sql` (23 Assertions) +
+`supabase/tests/inv5_lsa_tabellen.test.sql` (15 Assertions), alle pgTAP
 
 Dieses Dokument ist die Klammer zwischen Backend (Edvancev1) und der neuen
 React-Native-App. Was hier steht, ist zugesichert. Was hier nicht steht, ist
@@ -18,18 +20,21 @@ Ein diskriminierter Typ. Der Renderer schaltet auf `kind`.
 ```ts
 type Asset = { url: string; alt?: string }
 
+// F01 — siehe §7. Zellen sind IMMER Strings ("301", nicht 301).
+type Table = { headers: string[]; rows: string[][] }
+
 type Part =
-  | { nr: number; kind: 'short_input'; prompt: string; unit?: string }
-  | { nr: number; kind: 'mc'; prompt: string;
+  | { nr: number; kind: 'short_input'; prompt: string; unit?: string; table?: Table }
+  | { nr: number; kind: 'mc'; prompt: string; table?: Table;
       options: { id: string; label: string }[] }
 
 type QuestionPayload =
-  | { kind: 'mc'; task_id: string; prompt: string; assets: Asset[];
+  | { kind: 'mc'; task_id: string; prompt: string; assets: Asset[]; table?: Table;
       options: { id: string; label: string }[] }
   | { kind: 'short_input'; task_id: string; prompt: string; assets: Asset[];
-      unit?: string }
+      table?: Table; unit?: string }
   | { kind: 'multi_part'; task_id: string; stem: string; assets: Asset[];
-      parts: Part[] }              // P02 — siehe §6
+      table?: Table; parts: Part[] }   // P02 — siehe §6
 // Spätere Typen sind in der Struktur vorgesehen, aber NICHT implementiert: cloze
 ```
 
@@ -44,14 +49,16 @@ PK von `xp_rules`; es wird hier nicht angefasst):
 | `NUMERIC`    | `short_input` |
 | `MULTI_PART` | `multi_part`  |
 
-`unit` fehlt im Payload, wenn die Aufgabe keine Einheit hat (`jsonb_strip_nulls`) —
-im TS-Typ also optional.
+`unit` und `table` fehlen im Payload, wenn die Aufgabe keine Einheit bzw. keine
+Tabelle hat (`jsonb_strip_nulls`) — im TS-Typ also optional. Ein leeres
+`{headers:[],rows:[]}` gibt es nicht: entweder der Schlüssel ist da und trägt eine
+Tabelle, oder er ist gar nicht da.
 
 ### Die Sicherheitsregel
 
 **Die Lösung landet niemals im `question_payload`.**
 
-- Ans Frontend geht: `prompt`, `assets`, `options` (nur `id` + `label`), `unit`
+- Ans Frontend geht: `prompt`, `assets`, `table`, `options` (nur `id` + `label`), `unit`
 - Server-only bleibt: `correct_answers`, `solution`, `hints`, `coach_hints`, `typical_errors`
 
 Durchgesetzt wird das nicht durch Filtern, sondern durch **Bauen aus einer
@@ -62,9 +69,15 @@ Das ist wichtig, weil `tasks.question_payload` bei Bestandszeilen das kanonische
 daraus ausschließlich `options[].id` und `options[].label`.
 
 **Die Whitelist gilt rekursiv.** Auch jede Teilaufgabe eines Multi-Part-Items
-wird feldweise gebaut (`lsa_public_parts`) — `correct`, `accepted`, `solution`,
-`hints` können auf keiner Verschachtelungsebene mitrutschen. `inv3` prüft das
-nicht nur strukturell, sondern gegen den **gesamten Payload-Text**.
+wird feldweise gebaut (`lsa_public_parts`), und ebenso jede Tabelle Zelle für
+Zelle (`lsa_public_table`) — `correct`, `accepted`, `solution`, `hints` können auf
+keiner Verschachtelungsebene mitrutschen. `inv3` und `inv5` prüfen das nicht nur
+strukturell, sondern gegen den **gesamten Payload-Text**.
+
+Bei der Tabelle ist das besonders scharf: sie ist das **einzige** Feld des
+Vertrags, das aus `tasks.question_payload` gelesen wird — also aus genau der
+Spalte, in der bei Bestandszeilen `accepted` liegt. `inv5` prüft deshalb an einem
+Item, dessen `accepted` **direkt neben** der Tabelle im selben Objekt steht.
 
 Hinweise kommen **einzeln auf Anfrage** über `lsa_hint` — nie vorab
 mitgeschickt. Sonst liest das Kind sie im Netzwerk-Tab.
@@ -111,9 +124,10 @@ direkt (service_role).
 
 ## 3. Antwort-Normalisierung
 
-`public.lsa_normalize_answer(text)` — **spiegelt `normText()` aus
-`src/lib/answer/evaluators.ts` (Zweig `SHORT_TEXT`) exakt**, in derselben
-Reihenfolge:
+`public.lsa_normalize_answer(text)` — **die einzige Normalisierung**. Sie
+spiegelte `normText()` aus `src/lib/answer/evaluators.ts`; diese Datei ist mit
+der clientseitigen Bewertung entfallen (T1b), weil sie die Loesung im Browser
+brauchte. Bewertet wird ausschliesslich serverseitig. Reihenfolge:
 
 1. `trim`
 2. Whitespace kollabieren (`\s+` → ein Leerzeichen)
@@ -278,7 +292,7 @@ auto-gradebare Typen gehören in eine Diagnose.
 
 | | |
 |---|---|
-| **Struktur** (öffentlich) | `tasks.parts` — `[{nr, kind, prompt, unit?, options?, competency_content?, competency_process?, afb?}]` |
+| **Struktur** (öffentlich) | `tasks.parts` — `[{nr, kind, prompt, unit?, table?, options?, competency_content?, competency_process?, afb?}]` |
 | **Lösung** (server-only) | `task_solutions.correct_answers` als **Objekt**: `{"1":["20"],"2":["b"]}` |
 
 `tasks.competency_content` / `_process` / `afb` sind **skalar** — einmal pro Item.
@@ -290,7 +304,8 @@ es `tasks.parts`. Ans Kind geht davon nur die Whitelist (`nr`, `kind`, `prompt`,
 `MULTI_PART`-Item kommt nur in die Tabelle, wenn es hat:
 mindestens 2 Teilaufgaben · eindeutige `nr` · `kind` nur `short_input`/`mc` ·
 nicht-leeren `prompt` · MC mit ≥2 Optionen · **kein Lösungsfeld in `parts`** ·
-einen nicht-leeren Stamm · ein gesetztes `est_duration_sec`.
+eine etwaige `table` nur wohlgeformt (§7) · einen nicht-leeren Stamm ·
+ein gesetztes `est_duration_sec`.
 
 ### Auswertung
 
@@ -307,3 +322,84 @@ misst nicht pro Teilaufgabe) und steht auf jeder Teilaufgaben-Zeile gleich.
 
 **Flache Items laufen unverändert weiter.** Beide Formen von `correct_answers`
 koexistieren; `inv2` bleibt als Regressionstest grün.
+
+---
+
+## 7. Tabellen im Aufgabenstamm (F01)
+
+83 der 299 VERA-Items tragen eine Tabelle. Die Extraktion hatte sie zu
+Pipe-Fließtext plattgewalzt und in den `prompt` gequetscht
+(`"Baden-Württemberg | 301 Bayern | 177 Berlin | 3.861"`) — auf einem Tablet
+unlesbar, und kein Datenmodell, sondern ein Unfall. Im Quell-DOCX ist die Tabelle
+strukturiert vorhanden.
+
+### Der Payload
+
+`table` steht **im Stamm** — bei jedem `kind`, auch bei `multi_part` (dort gilt
+die Tabelle für alle Teilaufgaben; genau das ist der VERA-Regelfall: eine
+Datentabelle oben, mehrere Fragen darunter). Zusätzlich kann **jede Teilaufgabe**
+eine eigene tragen.
+
+```jsonc
+{
+  "kind": "short_input",
+  "task_id": "…",
+  "prompt": "Wie viele Einwohner pro km² hat Bayern?",
+  "assets": [],
+  "table": {
+    "headers": ["Bundesland", "Einwohner pro km²"],
+    "rows": [["Baden-Württemberg", "301"], ["Bayern", "177"], ["Berlin", "3.861"]]
+  },
+  "unit": "E/km²"
+}
+```
+
+### Wo sie liegt — und warum keine neue Spalte
+
+| | |
+|---|---|
+| **Stamm-Tabelle** | `tasks.question_payload -> 'table'` |
+| **Teilaufgaben-Tabelle** | `tasks.parts[i].table` |
+
+**Keine eigene Spalte.** `tasks.question_payload` ist bereits der Ort der
+öffentlichen Frage-Struktur — der MC-Zweig von `lsa_question_payload` liest
+`options[]` schon heute von dort. Eine Tabelle ist dieselbe Kategorie:
+Frage-Struktur, kein Diagnostik-Metadatum. (Der Kontrast ist `tasks.parts` aus
+P02: dort ging es um `competency_*`/`afb` **pro Teilaufgabe**, und dafür hatte das
+Schema wirklich keinen Platz, weil `tasks.competency_*` skalar ist. Hier gibt es
+diesen Zwang nicht.)
+
+### Der Strukturvertrag (`lsa_table_valid`)
+
+Streng mit Absicht — was hier durchfällt, ist eine kaputte Extraktion, kein
+Grenzfall. `CHECK tasks_question_table_check` (Stamm) und `lsa_parts_valid`
+(Teilaufgabe) weisen sie ab:
+
+- **≥1 Header** (nicht-leere Strings) und **≥1 Zeile**
+- **Jede Zeile exakt so breit wie die Header.** Eine ragged row ist der klassische
+  Zerfall beim Plattwalzen (verbundene Zellen) — sie wäre stillschweigend falsch
+  ausgerichtet und damit eine *falsche Aufgabe*.
+- **Zellen sind Strings.** `"301"`, nicht `301`. Der Client rendert, er rechnet
+  nicht; und `"0,3"` ist in dieser Domäne ohnehin keine JSON-Number. Eine Zahl
+  bedeutet: das Extraktionsskript hat geraten — und das fällt hier auf.
+- **Kein Lösungsfeld im Tabellen-Objekt.**
+
+Der CHECK beißt **nur, wenn der Schlüssel `table` da ist**. Ein pauschaler Vertrag
+auf die ganze Spalte würde die 299 Bestandszeilen sofort abweisen — deren
+`question_payload` trägt das kanonische `AnswerPayload` inklusive `accepted`.
+
+### Gebaut, nicht durchgereicht
+
+`lsa_public_table` konstruiert `headers`/`rows` **Zelle für Zelle** neu. Ein
+`question_payload -> 'table'` blind durchzureichen wäre der erste Ort im ganzen
+Vertrag, an dem fremdes jsonb ungefiltert ans Kind ginge — genau das passiert
+nicht. Die Zusage hängt damit nicht am CHECK, sondern am Builder (`inv5` prüft
+beides getrennt).
+
+Ist keine wohlgeformte Tabelle da, liefert der Builder `NULL` und
+`jsonb_strip_nulls` entfernt den Schlüssel. Pipe-Fließtext ergibt kein
+Schein­ergebnis, sondern `NULL`.
+
+**Noch offen:** die 83 Items tragen ihre Tabelle weiterhin als Pipe-Fließtext im
+`prompt`. F01 ist der Vertrag, nicht die Re-Extraktion — die Daten kommen in einem
+eigenen Lauf aus dem DOCX nach. Erst der Vertrag, dann die Daten.

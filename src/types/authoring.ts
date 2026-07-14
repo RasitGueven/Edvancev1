@@ -1,0 +1,159 @@
+// Typen fuer das Autoren-Tool (Item-Pflege, /admin/authoring).
+//
+// Warum ein eigener Task-Typ statt einer Erweiterung von `Task` aus content.ts:
+// `Task` ist der Lese-Typ der Schueler-/Coach-Pfade und kennt die P01/P02-Spalten
+// (status, afb, competency_*, parts, unit, est_duration_sec) bis heute nicht. Sie
+// dort nachzuruesten wuerde jeden Consumer beruehren. Das Autoren-Tool ist der
+// einzige Ort, der die volle Zeile braucht — also traegt es seinen eigenen Typ.
+//
+// Die Loesung steckt bewusst NICHT in AuthoringTask: sie lebt in task_solutions
+// und ist nur ueber die SECURITY-DEFINER-RPCs erreichbar (P01 §4). Zwei Typen,
+// zwei Zugriffspfade — die Trennung soll im Code sichtbar bleiben.
+
+import type { InputType, TaskAsset } from './content'
+
+export type TaskStatus = 'draft' | 'review' | 'ready'
+export type Afb = 'I' | 'II' | 'III'
+
+/** Der Enum aus Migration P02 — CanonicalInputType kennt MULTI_PART nicht. */
+export type AuthoringInputType = InputType | 'MULTI_PART'
+
+/** Antworttyp einer Teilaufgabe. Nur auto-bewertbare (lsa_parts_valid). */
+export type PartKind = 'short_input' | 'mc'
+
+export type PartOption = { id: string; label: string }
+
+/**
+ * Eine Teilaufgabe aus `tasks.parts`. Oeffentliche Struktur — die Loesung liegt
+ * in task_solutions.correct_answers unter dem Schluessel `nr` (P02).
+ * Kompetenz und AFB sind Diagnostik-Metadaten und gehen NICHT ans Kind.
+ */
+export type TaskPart = {
+  nr: number
+  kind: PartKind
+  prompt: string
+  unit?: string | null
+  options?: PartOption[]
+  competency_content?: string | null
+  competency_process?: string | null
+  afb?: Afb | null
+}
+
+/** Eine tasks-Zeile, wie das Autoren-Tool sie sieht. */
+export type AuthoringTask = {
+  id: string
+  title: string | null
+  question: string | null
+  status: TaskStatus
+  input_type: AuthoringInputType | null
+  afb: Afb | null
+  competency_content: string | null
+  competency_process: string | null
+  cluster_id: string | null
+  unit: string | null
+  est_duration_sec: number | null
+  /** Herkunftsjahrgang des Tests (VERA-8 → 8). NICHT der Stoffanker. */
+  class_level: number | null
+  parts: TaskPart[]
+  assets: TaskAsset[]
+  question_payload: unknown | null
+  source: string
+  source_ref: string | null
+  is_active: boolean
+  created_at: string
+
+  // --- Erst nach docs/schema/A01-authoring.proposal.sql vorhanden ---
+  /** STOFFANKER: welcher Jahrgangsstoff wird geprueft. undefined = Spalte fehlt. */
+  curriculum_grade?: number | null
+  reviewed_by?: string | null
+  reviewed_at?: string | null
+}
+
+/** Was der Editor an `tasks` schreibt. Status NICHT dabei — der laeuft ueber das Gate. */
+export type AuthoringTaskPatch = {
+  title?: string | null
+  question?: string | null
+  input_type?: AuthoringInputType | null
+  afb?: Afb | null
+  competency_content?: string | null
+  competency_process?: string | null
+  unit?: string | null
+  est_duration_sec?: number | null
+  curriculum_grade?: number | null
+  parts?: TaskPart[]
+  assets?: TaskAsset[]
+  question_payload?: unknown
+}
+
+/**
+ * task_solutions, gelesen ueber task_solution_get.
+ * `correct_answers`: Array bei flachen Items, Objekt {"1": [...]} bei MULTI_PART.
+ */
+export type SolutionAnswers = string[] | Record<string, string[]>
+
+export type TaskSolution = {
+  exists: boolean
+  correct_answers: SolutionAnswers
+  solution: string | null
+  hints: { level?: number; text: string }[]
+  coach_hints: string[]
+  typical_errors: { error: string; socratic_question?: string }[]
+  updated_at?: string
+}
+
+/** Ein Pflege-Befund. `blocking` = verhindert den Uebergang nach 'ready'. */
+export type ItemFlag = {
+  /** i18n-Key unter authoring:flags.* — nie ein fertiger Satz. */
+  code: string
+  blocking: boolean
+  /** Interpolationswerte fuer t(), z.B. { nr: 2 }. */
+  vars?: Record<string, string | number>
+}
+
+/** Listenzeile — bewusst schmal, die Liste laedt keine Loesungen. */
+export type AuthoringListItem = {
+  id: string
+  title: string | null
+  status: TaskStatus
+  input_type: AuthoringInputType | null
+  afb: Afb | null
+  competency_content: string | null
+  curriculum_grade?: number | null
+  class_level: number | null
+  partCount: number
+  hasAsset: boolean
+  hasTable: boolean
+  flagCount: number
+  blockingCount: number
+}
+
+/** Welche Felder die DB heute wirklich hat (Feature-Detection statt Annahme). */
+export type AuthoringSchema = {
+  /** tasks.curriculum_grade / reviewed_by / reviewed_at */
+  hasStoffanker: boolean
+  /** RPC task_solution_get */
+  hasSolutionRead: boolean
+  /** RPC task_status_set */
+  hasStatusGate: boolean
+}
+
+/** Quellenbeleg aus der Extraktion (data/vera8_komplett_enriched.json). Read-only. */
+export type GroundingQuote = { quelle: string; zitat: string; methode?: string }
+
+export type GroundingRecord = {
+  id: string
+  titel?: string
+  quelle?: string
+  lizenz_status?: string
+  iqb_urls?: Record<string, string>
+  aufgabe_text?: string
+  problems?: string[]
+  grounding?: {
+    aufgabe_text?: GroundingQuote
+    akzeptierte_antworten?: GroundingQuote[]
+    loesung_pro_ta?: GroundingQuote[]
+    kodierung?: GroundingQuote
+    typische_fehler?: GroundingQuote
+    teilaufgaben?: GroundingQuote[]
+  }
+}

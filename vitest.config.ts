@@ -20,8 +20,6 @@ export default defineConfig({
       // Legacy node:test suites — executed via `npm run test:mock`, not vitest.
       'src/lib/mocks/sessionMachine.test.ts',
       'src/pages/mock/session/components/taskEval.test.ts',
-      'src/lib/answer/evaluators.test.ts',
-      'src/components/edvance/tasks/answer/answerState.test.ts',
     ],
   },
 })

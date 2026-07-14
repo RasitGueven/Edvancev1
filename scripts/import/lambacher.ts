@@ -177,14 +177,34 @@ async function upsertOne(
     errors.push({ file, message: 'source_ref konnte nicht gebildet werden (chapter/page/task_number fehlen)' })
     return
   }
-  const { error } = await supabase
+  // Die Loesung darf nicht mit in `tasks` — die Spalte `tasks.solution` gibt es
+  // seit T1b (20260714120000) nicht mehr, und auf `tasks` darf jeder eingeloggte
+  // Nutzer lesen. Sie geht ueber `task_solution_upsert` in die Server-Only-Zone.
+  const { solution, ...taskRow } = row as Record<string, unknown> & { solution?: string | null }
+
+  const { data, error } = await supabase
     .from('tasks')
-    .upsert(row, { onConflict: 'source,source_ref' })
+    .upsert(taskRow, { onConflict: 'source,source_ref' })
+    .select('id')
+    .single()
   if (error) {
     stats.upsertErrors += 1
     errors.push({ file, message: error.message })
     return
   }
+
+  if (solution) {
+    const { error: solutionError } = await supabase.rpc('task_solution_upsert', {
+      p_task_id: (data as { id: string }).id,
+      p_solution: solution,
+    })
+    if (solutionError) {
+      stats.upsertErrors += 1
+      errors.push({ file, message: `task_solution_upsert: ${solutionError.message}` })
+      return
+    }
+  }
+
   stats.upserted += 1
 }
 

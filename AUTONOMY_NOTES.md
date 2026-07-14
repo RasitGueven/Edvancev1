@@ -220,33 +220,48 @@ Import mappt `edvance_matrix.inhaltsfelder` → Cluster-Name. Vorschlag fürs
 Foundation-Fenster: entweder `not null` auf `tasks.cluster_id` für `status='ready'`
 (Partial-Constraint) oder ein Left-Join + explizite Warnung in `lsa_start`.
 
-### 4. Der Payload-Vertrag kennt keine Tabelle — Blocker für ~83 Items (R01)
+---
 
-**Was:** `DATENVERTRAG.md` §1 definiert `Asset = { url: string; alt?: string }`,
-`src/types/content.ts:38` definiert `TaskAsset = { url, alt, caption? }`. Einen
-**strukturierten Tabellentyp gibt es im Payload nicht.**
+## A01 — Autoren-Tool für die Item-Pflege (2026-07-14)
 
-**Warum das jetzt auffällt:** Die R01-Pipeline rekonstruiert die Tabellen wieder
-als Tabellen (belegt an `bevoelkerungsdichte`: 16×2, aus der EMF-Geometrie, siehe
-`data/r01_kalibrierung.md` §4). Sie liegen als
-`assets[0] = {kind:"table", header, rows}` in `data/r01_ergebnis.json` — und haben
-im Vertrag keinen Platz. Ohne Vertragsänderung bleibt nur, sie wieder zu Bildern
-oder zu Fließtext plattzuwalzen. Genau das war der C01/C02-Fehler.
+Branch `feat/A01-autorentool`. Vollständige Begründung in `docs/retros/RETRO-A01.md`.
 
-**Betroffen:** die 83 Items mit Tabellen im Stamm.
+### 1. Drei fehlende Schema-Felder — Vorschlag liegt, nicht ausgeführt
 
-**Vorschlag (Foundation-Fenster, nicht Surface):** `Asset` zu einem
-diskriminierten Typ machen —
-`{ kind:'image'; url; alt? } | { kind:'table'; header: string[]; rows: string[][]; caption? }` —
-und `lsa_question_payload()` die Tabelle feldweise aus der Whitelist bauen lassen
-(die Lösung darf auch hier nicht mitrutschen; `inv2`/`inv3` entsprechend
-erweitern). **Kein Import der Tabellen-Items, bevor das steht.**
+Der Auftrag verbot eigenmächtiges Migrieren. Die additive Migration liegt deshalb in
+**`docs/schema/A01-authoring.proposal.sql`** (bewusst *nicht* in
+`supabase/migrations/` — dort würde sie bei einem `db push` still mitlaufen):
 
-### 5. Altbestand: Ordinal-Strings als `correct_answers` (R01-Fund)
+- `tasks.curriculum_grade` — der **Stoffanker**. `class_level` ist der Herkunfts-
+  jahrgang (VERA ⇒ überall `8`), aber `lsa_start` filtert bereits
+  `coalesce(t.class_level, p_grade) <= p_grade` und liest die Spalte damit
+  *semantisch* als Stoffanker. Solange dort `8` steht, ist Klasse-7-Stoff für eine
+  Klasse-7-LSA unsichtbar. **Das ist ein stiller Pool-Fehler, kein Kosmetikthema.**
+- `task_solution_get(uuid)` — es gibt **keinen Lesepfad** zu `task_solutions`
+  (kein Grant, nur `task_solution_upsert`). Ohne ihn kann ein Pflege-Tool die
+  bestehende Lösung nur blind überschreiben.
+- `tasks.reviewed_by` / `reviewed_at` + `task_status_set(uuid, text)` — Freigabe-
+  Audit. Der Stempel muss aus `auth.uid()` kommen, nicht aus dem Request-Body.
 
-`zeitangabe` trägt in der Live-DB `correct_answers = ['3. Kästchen', '60min ☐
-90min ☐ 150min ☐ 250min']` bei `task_type = SHORT_INPUT` — obwohl es eine
-MC-Aufgabe mit 4 Kästchen ist. Ein Kind müsste wörtlich „3. Kästchen" tippen, um
-Recht zu bekommen. **Zu prüfen:** wie viele `ready`-Items einen Ordinal-String
-(`/\d+\.\s*Kästchen/`) als akzeptierte Antwort tragen, und wie viele MC-Items als
-`SHORT_INPUT` typisiert sind. Beides ist ein Import-Fehler, kein Content-Fehler.
+**Betroffene Symbole:** `tasks`, `task_solutions`, `lsa_start`, `lsa_has_answers`.
+**Nachlauf:** `lsa_start` auf `coalesce(t.curriculum_grade, t.class_level, p_grade)`
+umstellen — **erst nach** der Pflege, sonst mischt ein halb gepflegter Pool zwei
+Bedeutungen in einer Abfrage.
+
+Bis zur Ausführung läuft das Tool im Degraded-Modus (`probeAuthoringSchema()`
+fragt die DB, statt zu raten) und sagt im UI, was es nicht kann.
+
+### 2. `<Button asChild>` ist kaputt — im geteilten Baustein, nicht gefixt
+
+`src/components/ui/button.tsx` rendert immer `{loading && <Spinner/>}{children}`.
+Mit `asChild` sieht Radix' `Slot` darin **zwei** Kinder und wirft
+`React.Children.only expected to receive a single React element child` — also
+**immer**, nicht nur während `loading`. Gefunden vom Smoke-Test der Pflege-Liste.
+
+- **Warum nicht hier gefixt:** `src/components/ui/**` ist geteilter Baustein; der Fix
+  (bei `asChild` die children direkt durchreichen, ohne Spinner-Slot) berührt jeden
+  künftigen Aufrufer und gehört ins Foundation-Fenster.
+- **Umgehung im A01-Code:** `buttonVariants({…})` als `className` auf dem `<Link>`
+  (shadcn-idiomatisch, kein Slot).
+- **Betroffene Symbole:** `Button` (`asChild`-Pfad), jeder künftige
+  `<Button asChild><Link/></Button>`.

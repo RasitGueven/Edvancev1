@@ -2,7 +2,9 @@
 
 **Status:** eingefroren mit Migration `042_canonical_input_type.sql` (Foundation).
 **Quelle der Wahrheit:** `src/types/answerPayload.ts` (`CanonicalInputType`,
-`AnswerPayload`, `StudentAnswer`) + `src/lib/answer/evaluators.ts`.
+`AnswerPayload`, `StudentAnswer`). Der clientseitige Evaluator
+(`src/lib/answer/evaluators.ts`) ist mit T1b entfallen — bewertet wird
+serverseitig (`lsa_is_correct` / `lsa_submit`).
 
 ## 1. Der Enum (MVP, genau diese 8)
 

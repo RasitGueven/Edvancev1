@@ -288,7 +288,11 @@ create table tasks (
   ),
   title text,
   question text,
-  solution text,
+  -- `solution` GEDROPPT in 20260714120000 (T1b). Die Loesung lebt ausschliesslich
+  -- in task_solutions (Server-Only-Zone, kein Grant fuer anon/authenticated).
+  -- Auf `tasks` darf JEDER eingeloggte Nutzer lesen — eine Loesungsspalte hier
+  -- war fuer jede:n Schueler:in per select=* abrufbar. Ebenso verboten: Loesungs-
+  -- felder in question_payload, siehe CHECK tasks_question_payload_no_solution.
   hint text,
   common_errors text,
   coach_note text,
@@ -1674,8 +1678,9 @@ on conflict (id) do nothing;
 -- Funktionen:
 --   lsa_normalize_answer(text) → text          [immutable]
 --       trim → Whitespace kollabieren → ERSTES Komma zu Punkt → lowercase.
---       Spiegelt normText() aus src/lib/answer/evaluators.ts (SHORT_TEXT).
---       Eine Konvention, zwei Orte — nicht zwei Konventionen.
+--       War der Spiegel von normText() aus src/lib/answer/evaluators.ts —
+--       die Datei ist mit der Vite-Session weg (T1b). Die Normalisierung lebt
+--       jetzt NUR noch hier: eine Konvention, ein Ort.
 --   lsa_is_correct(input_type, correct_answers, response) → bool   [immutable]
 --       Bekommt die Loesung als Parameter, liest sie nie selbst → leakt nichts.
 --   lsa_public_assets(jsonb) → jsonb           [immutable]
