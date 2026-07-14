@@ -219,6 +219,18 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   jetzt read-only durchgereicht.
   **Offen:** Tabellen-Editor (54 Items), Pflege der 138.
 
+- **C09 — Abbildungen der Pool-Items im Bucket** (Branch `feat/C09-assets-upload`,
+  Retro `docs/retros/2026-07-14-C09-assets-upload.md`): C08 hatte die Bilder nur
+  als lokalen Dateipfad verwiesen, im Tool war jedes Bild kaputt. Jetzt liegen
+  **157 Abbildungen für 70 der 138 Pool-Items** im public Bucket `task-assets`
+  (`lsa/<slug>/<datei>.png`), `tasks.assets[].url` zeigt auf die Public URL, alle
+  157 per HTTP nachgeprüft. **93 Abbildungen in 67 Pool-Items** bleiben draußen,
+  weil ihr eingebetteter Lizenzhinweis die Grafik nicht deckt (`docs/LIZENZ-IQB.md`) —
+  C08s Entscheidung, nicht revidiert. Alt-Texte bleiben leer (Handarbeit).
+  **Offen:** CC-BY-Attribution hat weiter keinen Ausspielweg zum Client
+  (`LIZENZ-IQB.md` §5) — vor dem Ausspielen an Kinder zu klären; „Ecken an
+  Pyramiden" (`ready`) trägt kein Asset, obwohl gedeckt — Handarbeit.
+
 - **B01 — Quellenbeleg bekommt ein Zuhause + RLS auf `tasks`** (Branch
   `fix/beleg-und-rls`, Retro `docs/retros/2026-07-14-B01-beleg-und-rls.md`):
   Migration `20260714140000_b01_beleg_und_rls.sql` (**noch nicht ausgeführt** —
