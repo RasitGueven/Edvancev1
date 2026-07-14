@@ -22,16 +22,16 @@ Beim ersten Bau war `vera8_v2.json` aelter als 27 Vision-Lesungen — 22 Items h
 
 | Topf | Items | Bedeutung |
 |---|---:|---|
-| identisch | 15 | beide Seiten sauber |
-| neu besser | 40 | alt defekt, neu sauber |
-| **neu schlechter** | 20 | alt sauber, neu defekt — **der wichtige Topf** |
-| beide defekt | 224 | keine Version brauchbar |
+| identisch | 19 | beide Seiten sauber |
+| neu besser | 44 | alt defekt, neu sauber |
+| **neu schlechter** | 16 | alt sauber, neu defekt — **der wichtige Topf** |
+| beide defekt | 220 | keine Version brauchbar |
 
 *Defekt* heisst: fehlender Stamm, fehlende Loesung, nachweislich zerstoerter Stamm (S1–S4), blockierendes Gate-Flag oder unbenutzbarer Loesungsschluessel (N1–N3). *Defekt* heisst **nicht** "nicht auto-gradebar" — ein sauberes FREE_TEXT-Item ist nicht defekt.
 
 ## Der wichtige Topf: neu schlechter
 
-20 Items — in zwei Gruppen, denn nur die zweite ist ein echter Rueckschritt.
+16 Items — in zwei Gruppen, denn nur die zweite ist ein echter Rueckschritt.
 
 ### a) Vision-Stufe nie gelaufen (12)
 
@@ -52,20 +52,16 @@ Kein Rueckschritt der Extraktion, sondern eine **offene Pipeline-Stufe**: Der Al
 | Zwei Thermometeranzeigen (`thermometeranzeigen`) | ready |
 | Zwischen zwei Zahlen (`zwischenzweizahlen`) | ready |
 
-### b) Echter Rueckschritt (8)
+### b) Echter Rueckschritt (4)
 
 Vision ist gelaufen, das Ergebnis ist trotzdem schlechter als der Altbestand. Jedes Item einzeln:
 
 | Item | alter Status | was die Neuextraktion verliert |
 |---|---|---|
-| Anzahl von Nullen (`anzahlvonnullen`) | ready | G1b: part2.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '______' (Inhalt belegt, Zeichensetzung stammt aus der Lesung) |
 | Aussagen über Dreiecke (`aussagendreiecke`) | ready | N3 Schluessel ist Kodierregel (Ta [2]) |
-| Flächeninhalt (`flaecheninhalt`) | ready | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '__________' (Inhalt belegt, Zeichensetzung stammt aus der Lesung) |
-| Gewitter (`gewitter`) | ready | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '______' (Inhalt belegt, Zeichensetzung stammt aus der Lesung) |
-| Papier (`papier`) | ready | N3 Schluessel ist Kodierregel (Ta [1]) |
 | Quadernetz (`quadernetz`) | ready | G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert |
-| Sterne und Sandkörner (`sterneundsandkoerner`) | ready | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '____________' (Inhalt belegt, Zeichensetzung stammt aus der Lesung); G1b: part2.prompt: Inter |
-| Suche die Zahl (`suchediezahl`) | ready | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '☐☐☐' (Inhalt belegt, Zeichensetzung stammt aus der Lesung) |
+| Sterne und Sandkörner (`sterneundsandkoerner`) | ready | G1: part2.prompt: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '^' (kann den Inhalt aendern -> blockiert); N3 Schluessel ist Kodierregel (Ta [1]) |
+| Suche die Zahl (`suchediezahl`) | ready | N3 Schluessel ist Kodierregel (Ta [1]) |
 
 ---
 
@@ -160,9 +156,9 @@ Die Optionen sind auf der *neuen* Seite gelesen: im alten Stamm sind Optionen, T
 | Rauten (Ta4) | `xcm2` | 0,25x cm², 0,5x cm², x cm², 2x cm² | x cm² |
 | Rubbellose (Ta1) | `1` | 1/3, 3/25, 1/25, 1/300, 1/7500 | 1/300 |
 | Verkehrszeichen (Ta1) | `[pic]` | ja, nein | [pic] |
-| Verkehrszeichen (Ta2) | `[pic]` | ja, nein | [pic], Anm.: Die gespiegelt, d |
-| Verkehrszeichen (Ta3) | `[pic]` | ja, nein | [pic], Anm.: Es müssen alle, e |
-| Verkehrszeichen (Ta4) | `[pic]` | ja, nein | [pic], Anm.: Der Fehler kan, K |
+| Verkehrszeichen (Ta2) | `[pic]` | ja, nein | [pic] |
+| Verkehrszeichen (Ta3) | `[pic]` | ja, nein | [pic] |
+| Verkehrszeichen (Ta4) | `[pic]` | ja, nein | [pic] |
 | Zahlenwürfel (Ta2) | `1` | 1/30, 1/15, 1/2, Das kann man nicht b | 1/2 |
 
 Drei Sorten, und sie sind verschieden schlimm:
@@ -182,7 +178,7 @@ Zwei ineinandergeschobene Textlaeufe verdoppeln die Buchstaben:
 
 ## Was die Neuextraktion ihrerseits falsch macht (N1–N3)
 
-Diese Klasse faellt durch die Gates: `grade()` in `ground_all.py` prueft nur, **dass** ein `correct_answers` da ist — nicht, ob es eine benutzbare Antwort **ist**. Darum ist die Pipeline-Zahl (70) zu hoch.
+Diese Klasse faellt durch die Gates: `grade()` in `ground_all.py` prueft nur, **dass** ein `correct_answers` da ist — nicht, ob es eine benutzbare Antwort **ist**. Darum ist die Pipeline-Zahl (79) zu hoch.
 
 ### N1 — MC-Schluessel ist keine Options-ID (38 Teilaufgaben)
 
@@ -209,23 +205,23 @@ Der Grossteil sind in Wahrheit **MC + Begruendung** — also gar keine reinen MC
 - **Quadernetz 2** (Ta1): vier Optionen, alle Labels leer
 - **Rabattaktion** (Ta1): vier Optionen, alle Labels leer
 
-### N3 — SHORT_INPUT-Schluessel ist eine Kodierregel (49)
+### N3 — SHORT_INPUT-Schluessel ist eine Kodierregel (46)
 
-- **Andere Länder - andere Noten** (Ta1): `ODER`
+- **Ampelkarte** (Ta1): `Fett				Farbe: rot`
 - **Andere Länder - andere Noten** (Ta2): `Alle Punktzahlen, die größer oder gleich 89 und kleiner als 91 sind`
 - **Ansichten eines Tischs** (Ta1): `UND`
 - **Aussagen über Dreiecke** (Ta2): `Richtiger Term`
-- **Außenthermometer** (Ta2): `10 ODER -10`
 - **Bernd und das Brot** (Ta1): `UND`
 - **Bruch und Prozentsatz** (Ta1): `UND`
 - **Butter** (Ta1): `Ganzzahlige Antworten aus dem Intervall [70; 80]`
 - **Darstellung in Diagrammen** (Ta1): `Im Jahr 2009 sind 65 Millionen Flaschen verkauft worden.`
 - **Der Riese** (Ta1): `Angabe einer Größe aus dem Intervall [30 m; 60 m]`
+- **Dreieckszahlen** (Ta4): `D4 =  = 10`
 - **Ecken und Kanten** (Ta1): `UND`
-- **Fehlende Zahlen** (Ta2): `ODER`
 - **Fliesen für den Fußboden** (Ta1): `UND`
 - **Freizeitbeschäftigungen** (Ta2): `Musik ODER Sport ODER Kino`
-- … und 35 weitere
+- **Frühstücksbrötchen** (Ta1): `Angabe des richtigen Preises 3,90 (€) und Darlegung des`
+- … und 32 weitere
 
 Ein Teil davon ist mechanisch reparierbar — Intervalle und `ODER`-Alternativen lassen sich in einen Matcher uebersetzen. Aber **heute** kann LSA damit nicht bewerten.
 
@@ -237,18 +233,12 @@ Die Vorgabe war: Sie muessen identisch herauskommen. Weicht eines ab — melden,
 
 | Befund | Items |
 |---|---:|
-| Loesung und Einheit **exakt bestaetigt** | 11 |
-| Wert bestaetigt, aber **Schluessel unsauber** | 1 |
+| Loesung und Einheit **exakt bestaetigt** | 12 |
+| Wert bestaetigt, aber **Schluessel unsauber** | 0 |
 | **Widerspruch** (neue Loesung sagt etwas anderes) | **0** |
 | leer (Neuextraktion hat keine Teilaufgabe) | 2 |
 
 **Kein einziges der 14 importierten Items wird von der Neuextraktion widerlegt.** Es gibt keinen Fall, in dem die neue Loesung etwas anderes sagt als die importierte.
-
-### Wert bestaetigt, Schluessel unsauber
-
-Der importierte Wert steckt im neuen Schluessel — aber mit dem Kodiertext der Auswertung drumherum. Inhaltlich eine Bestaetigung, technisch ein Schluessel, den kein Matcher vergleichen kann:
-
-- **Papier** (`papier`): importiert `['22']` · neu `['22 (ODER ca. 22)']`
 
 ### Leer — weder bestaetigt noch widerlegt
 
@@ -263,61 +253,87 @@ Das ist **kein Widerspruch**, sondern eine Leerstelle: Fuer diese Items hat die 
 
 Kriterium: **auto-gradebar** (jede Teilaufgabe MC oder SHORT_INPUT, mit einem Schluessel, den ein Matcher **heute** vergleichen kann) **UND vollstaendig** (Stamm + Loesung + Beleg, kein blockierendes Flag).
 
-# 38 von 299 Items
+# 46 von 299 Items
 
 | Typ | Items |
 |---|---:|
 | MC | 15 |
-| SHORT_INPUT | 16 |
-| MULTI_PART | 7 |
-| **Summe** | **38** |
+| SHORT_INPUT | 20 |
+| MULTI_PART | 11 |
+| **Summe** | **46** |
 
-### Warum nicht 70
+### Warum nicht 79
 
-Das Feld `lsa_pool_kandidat` in `vera8_v2.json` sagt **70**. Diese Zahl ist zu hoch: `grade()` akzeptiert jeden nicht-leeren Schluessel. 32 dieser Items tragen eine Kodierregel oder einen Bildverweis statt einer Antwort (N1–N3) und sind damit nicht maschinell bewertbar:
+Das Feld `lsa_pool_kandidat` in `vera8_v2.json` sagt **79**. Diese Zahl ist zu hoch: `grade()` akzeptiert jeden nicht-leeren Schluessel. 33 dieser Items tragen eine Kodierregel oder einen Bildverweis statt einer Antwort (N1–N3) und sind damit nicht maschinell bewertbar:
 
-Aussagen über Dreiecke, Autokauf, Außenthermometer, Butter, Colakästen, Der Riese, Division von Zahlen, Durch 1001 teilbar, Ecken und Kanten, Figur aus zwei Dreiecken, Fliesen für den Fußboden, Geschichte zur Graphik, Hauptstädte, Holzstab, Judomatte, Kauf eines DVD-Players, Kraftfutter, Lage der Würfel, Lage von zwei Geraden, Literberechnungen, Niederschlag, Papier, Parfum, Quadernetz 2, Quadratfläche, Rabattaktion, Räumungsverkauf, Schnittpunkt von Graphen, Tankinhalt, Wahrscheinlicher, Zahl gesucht 2, fuehrerschein
+Aussagen über Dreiecke, Autokauf, Bernd und das Brot, Butter, Colakästen, Der Riese, Division von Zahlen, Durch 1001 teilbar, Ecken und Kanten, Figur aus zwei Dreiecken, Fliesen für den Fußboden, Geschichte zur Graphik, Hauptstädte, Haushaltsabfälle, Judomatte, Kauf eines DVD-Players, Kraftfutter, Lage der Würfel, Lage von zwei Geraden, Mathematikarbeit, Niederschlag, Null Komma Acht, Parfum, Quadernetz 2, Quadratfläche, Rabattaktion, Räumungsverkauf, Schnittpunkt von Graphen, Suche die Zahl, Tankinhalt, Wahrscheinlicher, Zahl gesucht 2, fuehrerschein
 
-**70 − 32 = 38.**
+**79 − 33 = 46.**
 
-Diese 32 zerfallen wiederum in zwei Gruppen:
+Diese 33 zerfallen wiederum in zwei Gruppen:
 
-- **18 brauchen wirklich einen Coach.** Der Schluessel verlangt eine Begruendung, einen Loesungsweg oder war eine Grafik — das repariert kein Matcher. Es sind Items, die als MC/SHORT_INPUT typisiert wurden, in Wahrheit aber **MC + Begruendung** sind: Aussagen über Dreiecke, Autokauf, Colakästen, Der Riese, Division von Zahlen, Durch 1001 teilbar, Figur aus zwei Dreiecken, Geschichte zur Graphik, Judomatte, Kauf eines DVD-Players, Lage der Würfel, Lage von zwei Geraden, Niederschlag, Parfum, Rabattaktion, Räumungsverkauf, Wahrscheinlicher, fuehrerschein.
-- **14 haben nur einen kaputten Schluessel.** Die Antwort steht da, nur verschuettet — unter einer `Anm.:`-Zeile (`Holzstab`: `['1,5', 'Anm.: Akzeptiert werden auch...']`), als Intervall (`Butter`: `[70; 80]`) oder als UND-Mehrfachantwort (`Fliesen`: `50 UND 25 UND 12,5`). Mit einem Aufraeumschritt am Schluessel kommen sie in den Pool: Außenthermometer, Butter, Ecken und Kanten, Fliesen für den Fußboden, Hauptstädte, Holzstab, Kraftfutter, Literberechnungen, Papier, Quadernetz 2, Quadratfläche, Schnittpunkt von Graphen, Tankinhalt, Zahl gesucht 2.
+- **19 brauchen wirklich einen Coach.** Der Schluessel verlangt eine Begruendung, einen Loesungsweg oder war eine Grafik — das repariert kein Matcher. Es sind Items, die als MC/SHORT_INPUT typisiert wurden, in Wahrheit aber **MC + Begruendung** sind: Aussagen über Dreiecke, Autokauf, Colakästen, Der Riese, Division von Zahlen, Durch 1001 teilbar, Figur aus zwei Dreiecken, Geschichte zur Graphik, Judomatte, Kauf eines DVD-Players, Lage der Würfel, Lage von zwei Geraden, Mathematikarbeit, Niederschlag, Parfum, Rabattaktion, Räumungsverkauf, Wahrscheinlicher, fuehrerschein.
+- **14 haengen an einem Schluessel, den ein Mensch entscheiden muss** — geflaggt, nicht geraten (Flag `SCHLUESSEL:` im Item): Bernd und das Brot, Butter, Ecken und Kanten, Fliesen für den Fußboden, Hauptstädte, Haushaltsabfälle, Kraftfutter, Null Komma Acht, Quadernetz 2, Quadratfläche, Schnittpunkt von Graphen, Suche die Zahl, Tankinhalt, Zahl gesucht 2.
 
-Damit: **38 heute**, **52 nach Schluessel-Aufraeumen** — ohne eine einzige Zeile neu zu extrahieren.
+### Das Schluessel-Aufraeumen: was mechanisch ging, ist erledigt
 
-### Der groesste Einzelposten: G1b
+Die Auswertungszelle ist fuer Menschen geschrieben, nicht fuer einen Matcher. `ground_all.schluessel_saeubern()` raeumt jetzt auf — aber **nur, wo es rein mechanisch ist**. Drei Regeln, jede fuer sich unstrittig:
 
-**11 Items sind auto-gradebar, haben einen sauberen Schluessel, Stamm und Loesung — und scheitern allein an `G1b`:** "Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat". Gemeint sind Zeichen wie `______` (Antwortlinie), `☐` (Ankreuzkaestchen), `…`.
+| Regel | Beispiel |
+|---|---|
+| Ab der ersten Kommentarzeile (`Anm.:`, `Anmerkung:`, `•`) ist alles Kommentar | `Holzstab`: `['1,5', 'Anm.: Akzeptiert werden auch...']` → `['1,5']` |
+| Reine Konnektoren (`ODER`, `(Grenzfall)`) sind keine Antworten | `Fehlende Zahlen`: `['(-21)', 'ODER', '(Grenzfall)', '-21']` → `['-21']` |
+| `A ODER B` sind zwei akzeptierte Alternativen — aufspalten; Klammern um reine Zahlen strippen | `Papier`: `['22 (ODER ca. 22)']` → `['22']` · `Außenthermometer`: `['10 ODER -10']` → `['10', '-10']` |
 
-Anzahl von Nullen, Fische zählen, Flächeninhalt, Fünfundvierzig, Gewitter, Handygebühr, Mädchenanteil, Pyramidenbau, Rubbellose, Suche die Zahl, Traktor
+Der Rohschluessel bleibt im `_grounding` stehen und belegbar — die Saeuberung verwischt nichts.
 
-Dieses Gate hat denselben Wurzelgrund wie S1 — und ist deshalb ein **falscher Waechter**: Der Zeichenvorrat stammt aus den EMF-Zeichenlaeufen, und genau dieser Kanal *kann* Layoutzeichen gar nicht enthalten (er verliert ja sogar das ½). G1b verlangt einen Beleg aus einer Quelle, die den Beleg strukturell nie liefern kann. Der *Inhalt* dieser Prompts ist belegt — nur die Unterstriche sind es nicht.
+**Wo die Bereinigung eine inhaltliche Entscheidung waere, wird geflaggt statt geraten.** Vier Faelle, in denen der Schluessel unveraendert bleibt:
 
-Wird G1b auf Layoutzeichen hin entschaerft (Vorschlag: nicht blockierend, sondern eine Notiz), steigt der Pool auf **63** — weiterhin ohne Neuextraktion. Das ist eine Entscheidung, kein Befund: sie gehoert vor einen Menschen.
+- **`UND`-Mehrfachantworten** (`Fliesen`: `50 UND 25 UND 12,5`) — mehrere *Pflicht*-Werte. Welcher davon ist "die" Antwort? Das ist eine Frage ans Datenmodell, nicht an einen Regex.
+- **Toleranzintervalle** (`Butter`: `Ganzzahlige Antworten aus dem Intervall [70; 80]`) — braucht einen Range-Matcher. Ein Format dafuer zu erfinden, waere geraten.
+- **Prosa-Saetze** (`Kraftfutter`: `Das Kraftfutter reicht 21 Tage.`) — die Antwort ist richtig, aber kein vergleichbarer Wert.
+- **Mehrere Teilantworten in einem String** (`Suche die Zahl`: `5 = 10  3 = 24  7 = 21`).
+
+Eine Falle dabei, die fast zugeschnappt waere: Der Konnektor der Auswertung ist das **grosse** `UND`. Ein case-insensitives `\bUND\b` trifft auch das normale deutsche Woertchen "und", das harmlos in jedem zweiten Antwortsatz steht — und haette 11 voellig gesunde Schluessel als kaputt gemeldet. Die Regel ist deshalb case-sensitive.
+
+### G1b ist entschaerft — eng, nicht generell
+
+G1b hat denselben Wurzelgrund wie S1 und war deshalb ein **falscher Waechter**: Der Zeichenvorrat stammt aus den EMF-Zeichenlaeufen, und genau dieser Kanal *kann* reine Layoutzeichen nicht liefern. Ein EMF *zeichnet* die Antwortlinie und das Ankreuzfeld — es *schreibt* sie nicht. G1b verlangte einen Beleg aus einer Quelle, die ihn strukturell nie liefern kann (sie verliert ja sogar das ½).
+
+Fuer eine **enge, explizite Whitelist** ist G1b jetzt eine Notiz statt eines Blockers — `ground_all.LAYOUT_ZEICHEN`:
+
+| Zeichen | was es ist |
+|---|---|
+| `_` | Antwortlinie (gezeichnete Linie, kein Zeichen) |
+| `…` | Auslassungspunkte |
+| `☐ □ ▢ ⬜` | Ankreuzfelder (gezeichnete Rechtecke) |
+
+**Beleg-pflichtig bleibt alles, was den Inhalt aendern kann** — und das war die Mehrheit der G1b-Faelle: `/` (Bruchstrich: `Maedchenanteil` waere sonst `8` statt `8/23`), `,` (Dezimaltrenner), `^` (Exponent), `*` (Malzeichen oder Fussnote — mehrdeutig, also blockierend), Klammern, Interpunktion. Von den 11 Items, die an G1b hingen, waren nur **5** reine Layoutfaelle; die uebrigen 6 blockieren weiter, zu Recht. Im Zweifel: blockieren.
+
+Abgesichert durch `NC14` in `test_scale.py`: Antwortlinie und Ankreuzfeld sind eine Notiz, Bruchstrich/Dezimalkomma/Exponent/Malzeichen blockieren weiter, und die Whitelist enthaelt nachweislich nichts Bedeutungstragendes.
 
 ### Und das ist eine Untergrenze
 
-38 ist kein Endstand: 106 Items haben keine Vision-Lesung und konnten gar nicht erst in die Bewertung. Laeuft die Vision-Stufe nach, kommen Kandidaten dazu — darunter 4 der 14 bereits importierten Items, die heute leer sind.
+46 ist kein Endstand: 106 Items haben keine Vision-Lesung und konnten gar nicht erst in die Bewertung. Laeuft die Vision-Stufe nach, kommen Kandidaten dazu — darunter 4 der 14 bereits importierten Items, die heute leer sind.
 
 ### Die Pool-Items
 
 **MC (15):** Der Stern, Geraden im Koordinatensystem, Geschwindigkeitsüberschreitung, Gleichung lösen 3, Honigbiene, Jeans mit Ermäßigung, Körper füllen, Leistung des Motors, Maus, Maßstabsleiste, Naschkatze, Prozentanteil schätzen, Schneekristalle, Zeitangabe, Überschlagsrechnung
 
-**SHORT_INPUT (16):** 20 Prozent, 700 Milliarden, Berechne x, Croissant, Das ist gerundet, Einfache Gleichung, Eingefärbter Körper, Fliesen, Gewerbezone, Gleichung lösen 1, Holzwürfel, Hälfte, Messzylinder, Mitte zwischen Zahlen, Pflaumen, Temperaturdifferenz
+**SHORT_INPUT (20):** 20 Prozent, 700 Milliarden, Berechne x, Croissant, Das ist gerundet, Einfache Gleichung, Eingefärbter Körper, Fliesen, Flächeninhalt, Gewerbezone, Gleichung lösen 1, Holzstab, Holzwürfel, Hälfte, Literberechnungen, Messzylinder, Mitte zwischen Zahlen, Papier, Pflaumen, Temperaturdifferenz
 
-**MULTI_PART (7):** Bevölkerungsdichte, Druckmaschinen, Gleichung finden, Güterverkehr, Internetauktion, Kopf und Körper, Rauten
+**MULTI_PART (11):** Anzahl von Nullen, Außenthermometer, Bevölkerungsdichte, Druckmaschinen, Fehlende Zahlen, Gewitter, Gleichung finden, Güterverkehr, Internetauktion, Kopf und Körper, Rauten
 
 ---
 
 ## Topf-Details
 
-### neu besser (40)
+### neu besser (44)
 
 | Item | alt defekt weil | neu defekt weil |
 |---|---|---|
 | 700 Milliarden | kein Stamm; _problems: 1 | — |
+| Außenthermometer | _problems: 1 | — |
 | Berechne x | kein Stamm; _problems: 1 | — |
 | Besondere Vierecke | _problems: 2 | — |
 | Bestimme x | _problems: 1 | — |
@@ -328,10 +344,12 @@ Wird G1b auf Layoutzeichen hin entschaerft (Vorschlag: nicht blockierend, sonder
 | Dreiecke ergänzen | _problems: 2 | — |
 | Druckmaschinen | _problems: 1 | — |
 | Eingefärbter Körper | _problems: 1 | — |
+| Fehlende Zahlen | _problems: 1 | — |
 | Fliesen | kein Stamm; _problems: 1 | — |
 | Geraden im Koordinatensystem | S1 verlorene Zeichen im Stamm: ½; _problems: 1 | — |
 | Gleichung finden | _problems: 2 | — |
 | Gleichung lösen 3 | _problems: 1 | — |
+| Holzstab | kein Stamm; _problems: 1 | — |
 | Honigbiene | _problems: 1 | — |
 | Internetauktion | _problems: 1 | — |
 | Jeans mit Ermäßigung | _problems: 1 | — |
@@ -339,6 +357,7 @@ Wird G1b auf Layoutzeichen hin entschaerft (Vorschlag: nicht blockierend, sonder
 | Kreise färben | kein Stamm; _problems: 2 | — |
 | Körper füllen | S1 verlorene Zeichen im Stamm: ³; S3 MC-Loesung nicht unter den Optionen (1 Ta) | — |
 | Leistung des Motors | keine Loesung; _problems: 2 | — |
+| Literberechnungen | kein Stamm; _problems: 1 | — |
 | Maus | _problems: 1 | — |
 | Maßstabsleiste | _problems: 1 | — |
 | Mitte zwischen Zahlen | kein Stamm; _problems: 1 | — |
@@ -358,7 +377,7 @@ Wird G1b auf Layoutzeichen hin entschaerft (Vorschlag: nicht blockierend, sonder
 | Tombola zum Schulfest | _problems: 2 | — |
 | Zeitangabe | S1 verlorene Zeichen im Stamm: ½; _problems: 1 | — |
 
-### beide defekt (224)
+### beide defekt (220)
 
 Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht gelaufen ist — nicht, weil sie gescheitert waere.
 
@@ -366,21 +385,20 @@ Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht g
 |---|---|---|
 | Abstand auf dem Wasser | kein Stamm; _problems: 1 | keine Teilaufgabe gelesen |
 | Adventskalender | keine Loesung; _problems: 7 | Teilaufgabe ohne Loesung; G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; G5: Tabelle im Bi |
-| Ampelkarte | _problems: 3 | Teilaufgabe ohne Loesung; G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenv |
-| Andere Länder - andere Noten | _problems: 3 | G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '()*/' (Inhalt belegt, Zeic |
+| Ampelkarte | _problems: 3 | Teilaufgabe ohne Loesung; G1: part1.prompt: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat:  |
+| Andere Länder - andere Noten | _problems: 3 | G1: stem: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '()*/' (kann den Inhalt aendern -> |
 | Ansichten eines Tischs | keine Loesung; _problems: 2 | Teilaufgabe ohne Prompt; G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; N3 Schluessel ist  |
 | Anteile in geometrischen Objekten | keine Loesung; _problems: 3 | Teilaufgabe ohne Loesung; G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonst |
 | Apfelsaftschorle | kein Stamm; keine Loesung; _problems: 2 | keine Teilaufgabe gelesen |
 | Aufgabenreihen | keine Loesung; _problems: 3 | G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; N1 MC-Schluessel ist keine Options-ID (Ta [ |
 | Aussagen zur proportionalen Zuordnung | kein Stamm; _problems: 1 | keine Teilaufgabe gelesen |
 | Autokauf | keine Loesung; _problems: 1 | N1 MC-Schluessel ist keine Options-ID (Ta [1]) |
-| Außenthermometer | _problems: 1 | N3 Schluessel ist Kodierregel (Ta [2]) |
 | Bahncard | _problems: 3 | Teilaufgabe ohne Loesung; G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; G2: Teilaufgabe 1 |
 | Berechnungen am Rechteck | _problems: 1 | keine Teilaufgabe gelesen |
-| Bernd und das Brot | keine Loesung; _problems: 2 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '__________________ |
+| Bernd und das Brot | keine Loesung; _problems: 2 | N3 Schluessel ist Kodierregel (Ta [1]) |
 | Bewege C | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
-| Bistroumfrage | keine Loesung; _problems: 5 | Teilaufgabe ohne Loesung; G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenv |
-| Bonbons | kein Stamm; S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1b: part1.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt bele |
+| Bistroumfrage | keine Loesung; _problems: 5 | Teilaufgabe ohne Loesung; G1: part1.prompt: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat:  |
+| Bonbons | kein Stamm; S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1: part1.option[a]: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/' (kann den Inhalt ae |
 | Brettspiel | kein Stamm; _problems: 1 | Teilaufgabe ohne Prompt |
 | Bruch und Prozentsatz | keine Loesung; _problems: 2 | G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert; N3 Schluessel ist  |
 | Brötchen | _problems: 1 | keine Teilaufgabe gelesen |
@@ -388,64 +406,62 @@ Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht g
 | Chancen | kein Stamm; _problems: 3 | keine Teilaufgabe gelesen |
 | Colakästen | _problems: 1 | N1 MC-Schluessel ist keine Options-ID (Ta [2]) |
 | Computerspielsucht | kein Stamm; _problems: 1 | keine Teilaufgabe gelesen |
-| Darstellung in Diagrammen | kein Stamm; keine Loesung; _problems: 2 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: ':________' (Inhalt |
+| Darstellung in Diagrammen | kein Stamm; keine Loesung; _problems: 2 | G1: part1.prompt: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: ':' (kann den Inhalt aende |
 | Der Riese | keine Loesung; _problems: 2 | N3 Schluessel ist Kodierregel (Ta [1]) |
 | Division von Zahlen | keine Loesung; _problems: 2 | N1 MC-Schluessel ist keine Options-ID (Ta [1]) |
 | Drehkörper | kein Stamm; _problems: 1 | Teilaufgabe ohne Prompt |
 | Dreieck im Quadrat | _problems: 1 | keine Teilaufgabe gelesen |
 | Dreieck im Rechteck | kein Stamm; keine Loesung; _problems: 2 | keine Teilaufgabe gelesen; keine Aufgaben-Datei; kein Inhaltsbild -> kein Stamm extrahierbar |
-| Dreieckszahlen | S1 verlorene Zeichen im Stamm: ₀₁₂₃₄₅₆ₙ | G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '…' (Inhalt belegt, Zeichen |
+| Dreieckszahlen | S1 verlorene Zeichen im Stamm: ₀₁₂₃₄₅₆ₙ | G1: part4.prompt: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '()*/' (kann den Inhalt ae |
 | Durch 1001 teilbar | keine Loesung; _problems: 2 | N1 MC-Schluessel ist keine Options-ID (Ta [1]) |
 | Ecken und Kanten | keine Loesung; _problems: 2 | N3 Schluessel ist Kodierregel (Ta [1]) |
-| Eindeutig | _problems: 4 | Teilaufgabe ohne Loesung; G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenv |
+| Eindeutig | _problems: 4 | Teilaufgabe ohne Loesung; G1: part1.prompt: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat:  |
 | Eiscafé | _problems: 2 | G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; N1 MC-Schluessel ist keine Options-ID (Ta [ |
 | Fahrradcomputer | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
 | Fahrradtour | kein Stamm; _problems: 4 | keine Teilaufgabe gelesen |
 | Fahrräder | _problems: 2 | G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert |
 | Fahrtrichtung geradeaus | _problems: 2 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
 | Faschingsdeko | _problems: 2 | keine Teilaufgabe gelesen |
-| Fehlende Zahlen | _problems: 1 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '☐' (Inhalt belegt, |
 | Fieberthermometer | kein Stamm; _problems: 1 | keine Teilaufgabe gelesen |
 | Figur aus zwei Dreiecken | keine Loesung; _problems: 2 | N1 MC-Schluessel ist keine Options-ID (Ta [1]) |
-| Fische zählen | kein Stamm; _problems: 1 | Teilaufgabe ohne Prompt; G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/ |
+| Fische zählen | kein Stamm; _problems: 1 | Teilaufgabe ohne Prompt; G1: stem: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '//' (kan |
 | Fliesen für den Fußboden | keine Loesung; _problems: 4 | N3 Schluessel ist Kodierregel (Ta [1]) |
 | Flächengleich oder nicht | _problems: 2 | keine Teilaufgabe gelesen |
 | Freibad | _problems: 3 | G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT |
-| Freizeitbeschäftigungen | _problems: 3 | G1b: part2.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '__________________ |
+| Freizeitbeschäftigungen | _problems: 3 | N3 Schluessel ist Kodierregel (Ta [2]) |
 | Freizeitkosten | keine Loesung; _problems: 2 | G1: Stamm ohne Beleg im Zeichenvorrat -> leer gelassen; G5: Tabelle im Bild gesehen, aber keine |
 | Freunde | keine Loesung; _problems: 5 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 4: keine RICHTIG-Zelle -> keine Loesung; N1 MC-Schlue |
 | Frühstücksbrötchen | kein Stamm; _problems: 4 | N3 Schluessel ist Kodierregel (Ta [1]) |
 | Fußballtabelle | _problems: 4 | G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert; N3 Schluessel ist  |
 | Fußleisten | kein Stamm; _problems: 1 | keine Teilaufgabe gelesen |
 | Füllverhalten | keine Loesung; _problems: 4 | keine Teilaufgabe gelesen |
-| Fünfundvierzig | kein Stamm; _problems: 1 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '*☐' (Inhalt belegt |
+| Fünfundvierzig | kein Stamm; _problems: 1 | G1: part1.prompt: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '*' (kann den Inhalt aende |
 | Geld anlegen | keine Loesung; _problems: 4 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
 | Geometrische Körper erkennen | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
 | Gesamtkantenlänge | keine Loesung; _problems: 3 | Teilaufgabe ohne Loesung; G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; G2: Teilaufgabe 1 |
 | Geschichte zur Graphik | kein Stamm; S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | N1 MC-Schluessel ist keine Options-ID (Ta [1]) |
-| Gleichung verändern | _problems: 2 | G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '*' (Inhalt belegt, Zeichen |
+| Gleichung verändern | _problems: 2 | G1: stem: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '*' (kann den Inhalt aendern -> bl |
 | Gleichungen lösen ist nicht schwierig | kein Stamm; _problems: 3 | keine Teilaufgabe gelesen |
 | Glücksrad | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
 | Glücksrad drehen | kein Stamm; _problems: 3 | Teilaufgabe ohne Prompt; G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstr |
 | Glückssäckchen | _problems: 3 | keine Teilaufgabe gelesen |
-| Großer Wagen | keine Loesung; _problems: 4 | Teilaufgabe ohne Loesung; G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenv |
+| Großer Wagen | keine Loesung; _problems: 4 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 2: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
 | Gummibären | _problems: 2 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
-| Handygebühr | _problems: 3 | G1b: part2.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '*' (Inhalt bele |
+| Handygebühr | _problems: 3 | G1: part2.option[a]: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '*' (kann den Inhalt ae |
 | Harzwanderung | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
 | Hauptstädte | _problems: 2 | N3 Schluessel ist Kodierregel (Ta [1]) |
 | Hausaufgaben | keine Loesung; _problems: 4 | Teilaufgabe ohne Loesung; G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonst |
-| Haushaltsabfälle | _problems: 1 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '…' (Inhalt belegt, |
+| Haushaltsabfälle | _problems: 1 | N3 Schluessel ist Kodierregel (Ta [2]) |
 | Heizkosten | keine Loesung; _problems: 3 | keine Teilaufgabe gelesen |
-| Hochrad | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen; G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat:  |
-| Holzstab | kein Stamm; _problems: 1 | N3 Schluessel ist Kodierregel (Ta [1]) |
+| Hochrad | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
 | Im Kreis laufen | keine Loesung; _problems: 2 | keine Teilaufgabe gelesen |
-| Inliner | keine Loesung; _problems: 3 | G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichen |
+| Inliner | keine Loesung; _problems: 3 | G1: stem: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/' (kann den Inhalt aendern -> bl |
 | Innenwinkel | kein Stamm; keine Loesung; _problems: 2 | keine Teilaufgabe gelesen; keine Aufgaben-Datei; kein Inhaltsbild -> kein Stamm extrahierbar |
-| Innenwinkel 2 | _problems: 5 | G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; N3 Schluessel ist Kodierregel (Ta [1]) |
+| Innenwinkel 2 | _problems: 5 | G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; N3 Schluessel ist Kodierregel (Ta [1, 2]) |
 | Joggen | kein Stamm; _problems: 3 | keine Teilaufgabe gelesen |
 | Jubiläumsgeschenk | keine Loesung; _problems: 3 | Teilaufgabe ohne Loesung; G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; G2: Teilaufgabe 1 |
 | Judomatte | kein Stamm; S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | N1 MC-Schluessel ist keine Options-ID (Ta [1]) |
-| Kauf eines DVD-Players | _problems: 1 | N1 MC-Schluessel ist keine Options-ID (Ta [2]); N3 Schluessel ist Kodierregel (Ta [1]) |
+| Kauf eines DVD-Players | _problems: 1 | N1 MC-Schluessel ist keine Options-ID (Ta [2]) |
 | Kaum eine Chance | _problems: 1 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
 | Kraftfutter | kein Stamm; _problems: 2 | N3 Schluessel ist Kodierregel (Ta [1]) |
 | Kreise und Vierecke | kein Stamm; _problems: 2 | Teilaufgabe ohne Prompt; N3 Schluessel ist Kodierregel (Ta [1, 2]) |
@@ -457,34 +473,33 @@ Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht g
 | Liebstes Schulfach | keine Loesung; _problems: 4 | Teilaufgabe ohne Loesung; G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; G5: Tabelle im Bi |
 | Linear und proportional | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
 | Lineare Funktionen anwenden | kein Stamm; _problems: 1 | Teilaufgabe ohne Prompt; G1: Teilaufgabe 1: Prompt ohne Beleg -> leer gelassen |
-| Literberechnungen | kein Stamm; _problems: 1 | N3 Schluessel ist Kodierregel (Ta [1]) |
 | Lohnerhöhung | _problems: 1 | Teilaufgabe ohne Prompt; G1: Teilaufgabe 1: Prompt ohne Beleg -> leer gelassen |
 | Luftballons | _problems: 1 | keine Teilaufgabe gelesen |
-| Mathematikarbeit | kein Stamm; S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '…………' (Inhalt belegt, Zeic |
+| Mathematikarbeit | kein Stamm; S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | N1 MC-Schluessel ist keine Options-ID (Ta [1]) |
 | Mauer aus Zahlen | _problems: 3 | keine Teilaufgabe gelesen |
 | Maßstabsrechner | kein Stamm; _problems: 1 | keine Teilaufgabe gelesen |
 | Mensch ärgere dich nicht | keine Loesung; _problems: 3 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
 | Muckibude | _problems: 1 | G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; N3 Schluessel ist Kodierregel (Ta [2]) |
-| Mädchenanteil | S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1b: part1.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt bele |
+| Mädchenanteil | S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1: part1.option[a]: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/' (kann den Inhalt ae |
 | Nachfolgerzahl | keine Loesung; _problems: 2 | N1 MC-Schluessel ist keine Options-ID (Ta [2]) |
 | Nagelbrett | _problems: 2 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
 | Nashorn | keine Loesung; _problems: 2 | keine Teilaufgabe gelesen |
 | Niederschlag | _problems: 2 | N1 MC-Schluessel ist keine Options-ID (Ta [4]) |
 | Niederschläge | _problems: 4 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 2: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
-| Null Komma Acht | _problems: 3 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '☐☐' (Inhalt belegt |
+| Null Komma Acht | _problems: 3 | N3 Schluessel ist Kodierregel (Ta [1, 2]) |
 | Ohrhänger | keine Loesung; _problems: 2 | keine Teilaufgabe gelesen |
-| Osterhase | S1 verlorene Zeichen im Stamm: ³; _problems: 2 | Teilaufgabe ohne Loesung; G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenv |
+| Osterhase | S1 verlorene Zeichen im Stamm: ³; _problems: 2 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 2: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
 | Pappschachtel | keine Loesung; _problems: 4 | Teilaufgabe ohne Loesung; G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT; G2: Teilaufgabe 1 |
 | Parfum | _problems: 3 | N3 Schluessel ist Kodierregel (Ta [2]) |
-| Parkhaus | keine Loesung; _problems: 2 | Teilaufgabe ohne Loesung; G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: ' |
+| Parkhaus | keine Loesung; _problems: 2 | Teilaufgabe ohne Loesung; G1: stem: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '()-:;;; |
 | Parlamentswahl | _problems: 1 | keine Teilaufgabe gelesen |
 | Passende Schuhe | _problems: 1 | keine Teilaufgabe gelesen |
 | Pinsel | _problems: 4 | keine Teilaufgabe gelesen |
 | Plättchen ziehen | keine Loesung; _problems: 1 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
-| Punkte auf Geraden | keine Loesung; S1 verlorene Zeichen im Stamm: ₁₂₃; _problems: 3 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, |
+| Punkte auf Geraden | keine Loesung; S1 verlorene Zeichen im Stamm: ₁₂₃; _problems: 3 | G1: part1.prompt: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/' (kann den Inhalt aende |
 | Punkte im Koordinatensystem | kein Stamm; _problems: 2 | Teilaufgabe ohne Prompt; N3 Schluessel ist Kodierregel (Ta [1, 2]) |
 | Punktgenau | _problems: 1 | keine Teilaufgabe gelesen |
-| Pyramidenbau | _problems: 1 | G1b: part1.unit: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Z |
+| Pyramidenbau | _problems: 1 | G1: part1.unit: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/' (kann den Inhalt aendern |
 | Quader | kein Stamm; _problems: 1 | keine Teilaufgabe gelesen |
 | Quadernetz 2 | keine Loesung; _problems: 3 | N2 Optionen ohne Label (Ta [1]) |
 | Quadrat im Gitter | _problems: 1 | keine Teilaufgabe gelesen |
@@ -497,12 +512,12 @@ Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht g
 | Rechtskurve | kein Stamm; keine Loesung; _problems: 4 | keine Teilaufgabe gelesen; kein Inhaltsbild -> kein Stamm extrahierbar |
 | Reiseverlauf | keine Loesung; _problems: 4 | keine Teilaufgabe gelesen |
 | Restaurantgewinnspiel | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
-| Richtig umgeformt | keine Loesung; _problems: 2 | Teilaufgabe ohne Loesung; G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenv |
+| Richtig umgeformt | keine Loesung; _problems: 2 | Teilaufgabe ohne Loesung; G2: Teilaufgabe 2: Loesung ohne woertlichen Beleg -> NICHT geschriebe |
 | Rollrasen | kein Stamm; _problems: 3 | keine Teilaufgabe gelesen |
 | Rolltreppe | kein Stamm; _problems: 5 | keine Teilaufgabe gelesen |
 | Rot, gelb, grün | keine Loesung; _problems: 4 | keine Teilaufgabe gelesen |
-| Rubbellose | S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1b: part1.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt bele |
-| Rundfunkgebühren | _problems: 4 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '………' (Inhalt beleg |
+| Rubbellose | S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1: part1.option[a]: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/' (kann den Inhalt ae |
+| Rundfunkgebühren | _problems: 4 | N3 Schluessel ist Kodierregel (Ta [1, 2]) |
 | Räumungsverkauf | keine Loesung; _problems: 3 | N1 MC-Schluessel ist keine Options-ID (Ta [1, 2]) |
 | Sauerkraut | _problems: 1 | keine Teilaufgabe gelesen |
 | Schachteln packen | _problems: 2 | keine Teilaufgabe gelesen |
@@ -519,7 +534,7 @@ Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht g
 | Skala und Zahlen | keine Loesung; _problems: 3 | keine Teilaufgabe gelesen |
 | Spielwürfel | keine Loesung; _problems: 4 | keine Teilaufgabe gelesen |
 | Sprechstunde | _problems: 1 | G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert |
-| Stammbrüche untersuchen | _problems: 3 | Teilaufgabe ohne Loesung; G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: ' |
+| Stammbrüche untersuchen | _problems: 3 | Teilaufgabe ohne Loesung; G1: stem: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/' (kan |
 | Steile Straße | _problems: 6 | keine Teilaufgabe gelesen |
 | Streichholzziehen | _problems: 1 | keine Teilaufgabe gelesen |
 | Tabelle | kein Stamm; _problems: 1 | keine Teilaufgabe gelesen |
@@ -528,9 +543,9 @@ Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht g
 | Temperatur | _problems: 2 | keine Teilaufgabe gelesen |
 | Temperaturen in Frankfurt am Main | kein Stamm; _problems: 2 | keine Teilaufgabe gelesen |
 | Thermometer | _problems: 1 | keine Teilaufgabe gelesen |
-| Traktor | _problems: 1 | G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: ',,,' (Inhalt belegt, Zeich |
+| Traktor | _problems: 1 | G1: stem: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: ',,,' (kann den Inhalt aendern ->  |
 | Trapez ohne Symmetrie | keine Loesung; _problems: 3 | keine Teilaufgabe gelesen |
-| Trapezvariation | keine Loesung; _problems: 4 | G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/:' (Inhalt belegt, Zeiche |
+| Trapezvariation | keine Loesung; _problems: 4 | G1: stem: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/:' (kann den Inhalt aendern -> b |
 | Treppenmaße | _problems: 3 | keine Teilaufgabe gelesen |
 | Tropfender Wasserhahn | _problems: 3 | keine Teilaufgabe gelesen |
 | Tunnelbohrmaschine | kein Stamm; _problems: 3 | keine Teilaufgabe gelesen |
@@ -575,7 +590,7 @@ Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht g
 | Zahlenstrahl | keine Loesung; _problems: 4 | keine Teilaufgabe gelesen |
 | Zahlensuche | _problems: 1 | keine Teilaufgabe gelesen |
 | Zahlensumme | kein Stamm; keine Loesung; _problems: 2 | keine Teilaufgabe gelesen |
-| Zahlenwürfel | S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '…' (Inhalt belegt, |
+| Zahlenwürfel | S3 MC-Loesung nicht unter den Optionen (1 Ta); _problems: 1 | G1: part2.option[a]: Zeichen mit Bedeutung ohne Beleg im Zeichenvorrat: '/' (kann den Inhalt ae |
 | Zeitumrechnung | _problems: 3 | keine Teilaufgabe gelesen |
 | Zoobesuch | keine Loesung; _problems: 2 | keine Teilaufgabe gelesen |
 | Zufallsversuche | kein Stamm; _problems: 3 | keine Teilaufgabe gelesen |
@@ -589,7 +604,7 @@ Davon **94 ohne Vision-Lesung**: die neue Seite ist leer, weil die Stufe nicht g
 | fuehrerschein | _problems: 2 | N1 MC-Schluessel ist keine Options-ID (Ta [2]) |
 | Überschlag doch mal | keine Loesung; _problems: 2 | keine Teilaufgabe gelesen |
 
-### identisch (15)
+### identisch (19)
 
-20 Prozent, Bevölkerungsdichte, Croissant, Das ist gerundet, Einfache Gleichung, Geschwindigkeitsüberschreitung, Gewerbezone, Gleichung lösen 1, Güterverkehr, Holzwürfel, Hälfte, Messzylinder, Naschkatze, Temperaturdifferenz, Überschlagsrechnung
+20 Prozent, Anzahl von Nullen, Bevölkerungsdichte, Croissant, Das ist gerundet, Einfache Gleichung, Flächeninhalt, Geschwindigkeitsüberschreitung, Gewerbezone, Gewitter, Gleichung lösen 1, Güterverkehr, Holzwürfel, Hälfte, Messzylinder, Naschkatze, Papier, Temperaturdifferenz, Überschlagsrechnung
 

@@ -113,11 +113,136 @@ def g1(claim, vorrat):
     return (not missing), "".join(sorted(missing.elements()))
 
 
+# --------------------------------------------------------------------------
+# Die ENGE Layout-Whitelist: Zeichen, fuer die G1b nur eine Notiz ist.
+#
+# WARUM diese und nur diese: Ein EMF *zeichnet* diese Elemente, es *schreibt*
+# sie nicht. Die Antwortlinie ist eine gezeichnete Linie, kein Unterstrich; das
+# Ankreuzfeld ist ein gezeichnetes Rechteck, kein Zeichen. Sie koennen im
+# Zeichenvorrat nie auftauchen — ein Beleg wird hier aus einer Quelle verlangt,
+# die ihn strukturell nicht liefern kann. (Derselbe Kanal verliert nachweislich
+# sogar das Bruchzeichen: 'Wie viele Minuten sind 2½ Stunden?' steht im
+# Zeichenvorrat als 'Wie viele Minuten sind 2    Stunden?'.)
+#
+# Ausserdem tragen sie keine Bedeutung: Ob eine Antwortlinie fuenf oder acht
+# Unterstriche lang ist, aendert die Aufgabe nicht. Sie sind auch nicht
+# halluzinierbar im relevanten Sinn — eine erfundene Antwortlinie erfindet
+# keinen Inhalt.
+#
+# WAS HIER BEWUSST NICHT STEHT — jedes dieser Zeichen kann den Inhalt aendern
+# und bleibt beleg-pflichtig:
+#   '/'  Bruchstrich   — 'Maedchenanteil': 8 statt 8/23 ist eine ANDERE Loesung
+#   ','  Dezimaltrenner — 1,5 statt 15
+#   '*'  Malzeichen / Fussnotenmarke — mehrdeutig, also blockierend
+#   '^'  Exponent      — 10^6 statt 106
+#   '-'  Minus/Bindestrich, '(' ')' Klammern, '|' Trenner, ':' ';' Interpunktion
+# Im Zweifel: blockieren.
+LAYOUT_ZEICHEN = frozenset(
+    "_"        # U+005F  Antwortlinie (gezeichnete Linie, kein Zeichen)
+    "…"        # U+2026  Auslassungspunkte
+    "☐□▢⬜"     # U+2610, U+25A1, U+25A2, U+2B1C  Ankreuzfelder (gezeichnete Rechtecke)
+)
+
+
 def g1b(claim, vorrat):
-    """Bericht: Interpunktion/Layoutzeichen der Lesung ohne Beleg im Vorrat."""
+    """Nicht-Inhaltszeichen der Lesung ohne Beleg im Vorrat.
+
+    Liefert zwei getrennte Mengen:
+      layout     — reine Layoutzeichen (LAYOUT_ZEICHEN): nur eine Notiz.
+      bedeutung  — alles andere: bleibt blockierend, denn es kann den Inhalt
+                   aendern (Bruchstrich, Dezimalkomma, Exponent, ...).
+    """
     def punkt(s):
         return Counter(c for c in norm(s) if not c.isalnum())
-    return "".join(sorted((punkt(claim) - punkt(vorrat)).elements()))
+    fehlt = punkt(claim) - punkt(vorrat)
+    layout = "".join(sorted(c for c in fehlt.elements() if c in LAYOUT_ZEICHEN))
+    bedeutung = "".join(sorted(c for c in fehlt.elements()
+                               if c not in LAYOUT_ZEICHEN))
+    return layout, bedeutung
+
+
+# --------------------------------------------------------------------------
+# Schluessel-Saeuberung. Die Auswertungszelle ist fuer Menschen geschrieben, nicht
+# fuer einen Matcher: sie enthaelt Kommentare, Alternativen und Grenzfaelle.
+#
+# Gesaeubert wird NUR, was rein mechanisch ist. Alles, wofuer man den Inhalt
+# interpretieren muesste, bleibt stehen und wird geflaggt — raten waere hier
+# schlimmer als nicht bewerten.
+KOMMENTAR = re.compile(r"^\s*(?:Anm\.?|Anmerkung(?:en)?|•|z\.\s*B\.)", re.I)
+KONNEKTOR = re.compile(r"^\s*\(?\s*(?:ODER|UND|\(?Grenzfall\)?)\s*\)?\s*$", re.I)
+NUR_ZAHL = re.compile(r"^\(?\s*(-?\d+(?:[.,]\d+)?)\s*\)?$")
+ODER_INLINE = re.compile(r"\s+ODER\s+")
+# Wofuer die Saeuberung NICHT reicht — das gehoert vor einen Menschen.
+# ACHTUNG case-sensitive: der Konnektor der Auswertung ist das GROSSE "UND"
+# ("Nein UND Begruendung..."). Ein kleines "und" ist das normale deutsche Wort
+# und steht harmlos in jedem zweiten Antwortsatz ("Quader: 8 Ecken und ...").
+# Mit re.I haette diese Regel 15 voellig gesunde Schluessel geflaggt.
+UNKLAR_UND = re.compile(r"\bUND\b")          # mehrere PFLICHT-Werte
+UNKLAR_BEREICH = re.compile(                 # Toleranz -> braucht Range-Matcher
+    r"Intervall|Bereich\s*\[|Jede Zahl|Maßzahl aus|Angabe einer"
+    r"|Ganzzahlige Antworten", re.I)
+
+
+def unklar(text):
+    m = UNKLAR_UND.search(text) or UNKLAR_BEREICH.search(text)
+    if m:
+        return m.group(0)
+    # Ein Schluessel ist ein WERT, kein Satz. 'Das Kraftfutter reicht 21 Tage.'
+    # ist die richtige Antwort — aber nichts, was ein Matcher vergleichen kann.
+    if len(re.findall(r"[A-Za-zÄÖÜäöüß]{2,}", text)) >= 3:
+        return "Prosa-Satz statt Wert"
+    # Mehrere Gleichungen in einem String sind mehrere Teilantworten
+    # ('5 = 10  3 = 24  7 = 21') — welche davon ist "die" Antwort?
+    if text.count("=") > 1:
+        return "mehrere Teilantworten in einem Schluessel"
+    return None
+
+
+def schluessel_saeubern(antworten):
+    """Kodiertext aus dem Loesungsschluessel entfernen — nur mechanisch.
+
+    Drei Regeln, jede fuer sich unstrittig:
+      1. Ab der ersten Kommentarzeile ('Anm.:', 'Anmerkung:', '•') ist alles
+         Kommentar, nicht Antwort.
+      2. Reine Konnektoren ('ODER', '(Grenzfall)') sind keine Antworten.
+      3. 'A ODER B' sind zwei akzeptierte Alternativen — aufspalten.
+         '(-21)' und '22 (ODER ca. 22)' meinen die Zahl; Klammern strippen.
+
+    Liefert (saubere_antworten, unklar_grund). Ist unklar_grund gesetzt, bleibt
+    der Schluessel UNVERAENDERT — dann ist die Bereinigung eine inhaltliche
+    Entscheidung (mehrere Pflichtwerte, Toleranzintervall) und kein Aufraeumen.
+    """
+    # 1. Kommentar abschneiden.
+    kern = []
+    for a in antworten:
+        if KOMMENTAR.match(str(a)):
+            break
+        kern.append(str(a))
+    if not kern:
+        return list(antworten), "Schluessel besteht nur aus Kommentar"
+
+    # Unklar? Dann NICHT anfassen.
+    grund = next((u for a in kern for u in [unklar(a)] if u), None)
+    if grund:
+        return list(antworten), f"nicht mechanisch aufloesbar ({grund!r})"
+
+    # 2./3. Konnektoren raus, ODER aufspalten, Klammern um Zahlen strippen.
+    out = []
+    for a in kern:
+        if KONNEKTOR.match(a):
+            continue
+        for teil in ODER_INLINE.split(a):
+            teil = teil.strip()
+            if not teil or KONNEKTOR.match(teil):
+                continue
+            # '22 (ODER ca. 22)' -> '22'; '(-21)' -> '-21'
+            teil = re.sub(r"\s*\((?:ODER|ca\.|Grenzfall)[^)]*\)\s*$", "", teil,
+                          flags=re.I).strip()
+            m = NUR_ZAHL.match(teil)
+            out.append(m.group(1) if m else teil)
+
+    sauber = list(dict.fromkeys(x for x in out if x))
+    return (sauber or list(antworten)), None
 
 
 def g2(value, cells):
@@ -174,7 +299,10 @@ def kompetenzen(komm, nr):
 # Rechts-, keine Datenfrage — das Item bleibt loesbar. "Der Stamm hat keinen
 # Beleg" heisst dagegen: hier steht moeglicherweise etwas Erfundenes. Nur die
 # zweite Sorte darf ein Item aus dem Pool werfen; die erste wird berichtet.
-BLOCKIEREND = ("G0", "G1", "G2", "G3", "G5")
+# Der Doppelpunkt gehoert zum Praefix: sonst faengt "G1:" auch "G1b:" ein (und
+# G1b ist ausdruecklich KEIN Blocker, sondern eine Notiz). Genau daran hingen
+# 5 Items, die sonst pool-faehig waren.
+BLOCKIEREND = ("G0:", "G1:", "G2:", "G3:", "G5:")
 BLOCKIEREND_TEXT = ("unbrauchbar", "keine Vision", "keine Quelle",
                     "keine Quelldatei", "kein Inhaltsbild", "keine Aufgaben-Datei")
 
@@ -273,15 +401,24 @@ def build(slug, rec, vis, alt):
         befunde.append({"item": slug, "feld": feld, "gate": "G1", "ok": ok,
                         "wert": claim, "fehlende_zeichen": "" if ok else missing})
         if ok:
-            # G1b: Interpunktion ohne Beleg blockiert nicht, verschwindet aber
-            # auch nicht — ein Mensch soll sehen, wo die Lesung geglaettet hat.
-            rest = g1b(claim, vorrat)
-            if rest:
-                item["_grounding"][feld]["g1b_interpunktion_ohne_beleg"] = rest
+            layout, bedeutung = g1b(claim, vorrat)
+            # G1b — reine Layoutzeichen (LAYOUT_ZEICHEN): NOTIZ, kein Blocker.
+            # Der Zeichenvorrat kann sie strukturell nicht liefern; sie tragen
+            # keine Bedeutung. Sie verschwinden trotzdem nicht: ein Mensch soll
+            # sehen, wo die Lesung ein Kaestchen oder eine Antwortlinie benennt.
+            if layout:
+                item["_grounding"][feld]["g1b_layout_ohne_beleg"] = layout
                 item["_flags"].append(
-                    f"G1b: {feld}: Interpunktion/Layoutzeichen ohne Beleg im "
-                    f"Zeichenvorrat: {rest!r} (Inhalt belegt, Zeichensetzung "
-                    f"stammt aus der Lesung)")
+                    f"G1b: {feld}: Layoutzeichen ohne Beleg im Zeichenvorrat: "
+                    f"{layout!r} (Inhalt belegt; EMF zeichnet diese Elemente, "
+                    f"es schreibt sie nicht -> Notiz, kein Blocker)")
+            # Alles andere bleibt beleg-pflichtig: es kann den Inhalt aendern.
+            if bedeutung:
+                item["_grounding"][feld]["g1c_zeichen_ohne_beleg"] = bedeutung
+                item["_flags"].append(
+                    f"G1: {feld}: Zeichen mit Bedeutung ohne Beleg im "
+                    f"Zeichenvorrat: {bedeutung!r} (kann den Inhalt aendern "
+                    f"-> blockiert)")
         return ok
 
     verbraucht = []
@@ -387,14 +524,26 @@ def build(slug, rec, vis, alt):
                 kandidaten = [x.strip() for x in haupt.splitlines() if x.strip()]
                 akzeptiert = [k for k in kandidaten if g2(k, cells)[0]]
                 if akzeptiert:
-                    p["correct_answers"] = akzeptiert
+                    # Kodiertext raus — aber nur, wo das mechanisch geht. Der
+                    # Rohschluessel bleibt im Grounding stehen und belegbar.
+                    sauber, unklar = schluessel_saeubern(akzeptiert)
+                    p["correct_answers"] = sauber
                     item["_grounding"][f"part{nr}.correct_answers"] = {
                         "gate": "G2", "ok": True,
                         "quelle": "Auswertung (RICHTIG-Zelle)", "zitat": zelle,
+                        "roh": akzeptiert,
                     }
+                    if unklar:
+                        item["_flags"].append(
+                            f"SCHLUESSEL: Teilaufgabe {nr}: {unklar} -> "
+                            f"unveraendert gelassen, gehoert vor einen Menschen")
+                    elif sauber != akzeptiert:
+                        item["_grounding"][f"part{nr}.correct_answers"][
+                            "saeuberung"] = (f"Kodiertext entfernt: "
+                                             f"{akzeptiert} -> {sauber}")
                     befunde.append({"item": slug, "feld": f"part{nr}.loesung",
                                     "gate": "G2", "ok": True,
-                                    "wert": "; ".join(akzeptiert)})
+                                    "wert": "; ".join(sauber)})
                 else:
                     item["_flags"].append(f"G2: Teilaufgabe {nr}: Loesung ohne "
                                           f"woertlichen Beleg -> NICHT geschrieben")

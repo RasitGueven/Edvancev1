@@ -76,11 +76,30 @@ AEQUIVALENT = str.maketrans({
 
 DBL = re.compile(r"([A-Za-zÄÖÜäöüß])\1")
 # Kodierregel statt Antwort — die Auswertung beschreibt, WAS zaehlt, statt es zu nennen.
-KODIERREGEL = re.compile(
-    r"\bUND\b|\bODER\b|Begründung|Lösungsweg|Anm\.?:|angekreuzt|Kästchen"
+# ACHTUNG: UND/ODER sind case-SENSITIVE. Der Konnektor der Auswertung ist gross
+# ("Nein UND Begruendung"); ein kleines "und" ist das normale deutsche Wort und
+# steht harmlos in jedem zweiten Antwortsatz.
+KONNEKTOR = re.compile(r"\bUND\b|\bODER\b")
+KODIERREGEL_I = re.compile(
+    r"Begründung|Lösungsweg|Anm\.?:|angekreuzt|Kästchen"
     r"|richtig gesetzt|\[pic\]|Intervall|Angabe einer|Antworten aus|erkennen"
     r"|Verweis|Nachweis|Richtige[rs]?\s+(?:Term|Lösung|Ansatz|Wert|Angabe)",
     re.I)
+
+
+def kodierregel(s):
+    """Ist der Schluessel etwas anderes als ein vergleichbarer Wert?
+
+    Der Diff prueft das unabhaengig von ground_all nach — er soll der Pipeline
+    nicht glauben, sondern sie kontrollieren.
+    """
+    if KONNEKTOR.search(s) or KODIERREGEL_I.search(s):
+        return True
+    # Ein Schluessel ist ein Wert, kein Satz.
+    if len(re.findall(r"[A-Za-zÄÖÜäöüß]{2,}", s)) >= 3:
+        return True
+    # Mehrere Gleichungen = mehrere Teilantworten in einem String.
+    return s.count("=") > 1
 # Verlangt eine menschliche Bewertung — kein Matcher der Welt repariert das.
 COACH_PFLICHT = re.compile(
     r"Begründung|Lösungsweg|Nachweis|Verweis|richtig gesetzt|\[pic\]|angekreuzt"
@@ -207,7 +226,7 @@ def n3_kodierregel(n):
         if p["kind"] != "short_input":
             continue
         for ans in p.get("correct_answers") or []:
-            if KODIERREGEL.search(str(ans)) or len(str(ans)) > 45:
+            if kodierregel(str(ans)) or len(str(ans)) > 45:
                 out.append((p["nr"], str(ans)[:70]))
                 break
     return out
@@ -699,38 +718,82 @@ def main():
       f"repariert kein Matcher. Es sind Items, die als MC/SHORT_INPUT typisiert "
       f"wurden, in Wahrheit aber **MC + Begruendung** sind: "
       f"{', '.join(sorted(coach_pflicht))}.")
-    w(f"- **{len(reparierbar)} haben nur einen kaputten Schluessel.** Die Antwort "
-      f"steht da, nur verschuettet — unter einer `Anm.:`-Zeile (`Holzstab`: "
-      f"`['1,5', 'Anm.: Akzeptiert werden auch...']`), als Intervall (`Butter`: "
-      f"`[70; 80]`) oder als UND-Mehrfachantwort (`Fliesen`: `50 UND 25 UND "
-      f"12,5`). Mit einem Aufraeumschritt am Schluessel kommen sie in den Pool: "
-      f"{', '.join(sorted(reparierbar))}.")
+    w(f"- **{len(reparierbar)} haengen an einem Schluessel, den ein Mensch "
+      f"entscheiden muss** — geflaggt, nicht geraten (Flag `SCHLUESSEL:` im "
+      f"Item): {', '.join(sorted(reparierbar))}.")
     w("")
-    w(f"Damit: **{len(pool)} heute**, **{len(pool) + len(reparierbar)} nach "
-      f"Schluessel-Aufraeumen** — ohne eine einzige Zeile neu zu extrahieren.")
+    w("### Das Schluessel-Aufraeumen: was mechanisch ging, ist erledigt")
     w("")
-    w("### Der groesste Einzelposten: G1b")
+    w("Die Auswertungszelle ist fuer Menschen geschrieben, nicht fuer einen "
+      "Matcher. `ground_all.schluessel_saeubern()` raeumt jetzt auf — aber **nur, "
+      "wo es rein mechanisch ist**. Drei Regeln, jede fuer sich unstrittig:")
     w("")
-    w(f"**{len(g1b)} Items sind auto-gradebar, haben einen sauberen Schluessel, "
-      f"Stamm und Loesung — und scheitern allein an `G1b`:** "
-      f"\"Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat\". Gemeint sind "
-      f"Zeichen wie `______` (Antwortlinie), `☐` (Ankreuzkaestchen), `…`.")
+    w("| Regel | Beispiel |")
+    w("|---|---|")
+    w("| Ab der ersten Kommentarzeile (`Anm.:`, `Anmerkung:`, `•`) ist alles "
+      "Kommentar | `Holzstab`: `['1,5', 'Anm.: Akzeptiert werden auch...']` → "
+      "`['1,5']` |")
+    w("| Reine Konnektoren (`ODER`, `(Grenzfall)`) sind keine Antworten | "
+      "`Fehlende Zahlen`: `['(-21)', 'ODER', '(Grenzfall)', '-21']` → `['-21']` |")
+    w("| `A ODER B` sind zwei akzeptierte Alternativen — aufspalten; Klammern um "
+      "reine Zahlen strippen | `Papier`: `['22 (ODER ca. 22)']` → `['22']` · "
+      "`Außenthermometer`: `['10 ODER -10']` → `['10', '-10']` |")
     w("")
-    w(f"{', '.join(sorted(g1b))}")
+    w("Der Rohschluessel bleibt im `_grounding` stehen und belegbar — die "
+      "Saeuberung verwischt nichts.")
     w("")
-    w("Dieses Gate hat denselben Wurzelgrund wie S1 — und ist deshalb ein "
-      "**falscher Waechter**: Der Zeichenvorrat stammt aus den EMF-Zeichenlaeufen, "
-      "und genau dieser Kanal *kann* Layoutzeichen gar nicht enthalten (er "
-      "verliert ja sogar das ½). G1b verlangt einen Beleg aus einer Quelle, die "
-      "den Beleg strukturell nie liefern kann. Der *Inhalt* dieser Prompts ist "
-      "belegt — nur die Unterstriche sind es nicht.")
+    w("**Wo die Bereinigung eine inhaltliche Entscheidung waere, wird geflaggt "
+      "statt geraten.** Vier Faelle, in denen der Schluessel unveraendert bleibt:")
     w("")
-    w(f"Wird G1b auf Layoutzeichen hin entschaerft (Vorschlag: nicht blockierend, "
-      f"sondern eine Notiz), steigt der Pool auf "
-      f"**{len(pool) + len(reparierbar) + len(g1b)}** — weiterhin ohne "
-      f"Neuextraktion. Das ist eine Entscheidung, kein Befund: sie gehoert vor "
-      f"einen Menschen.")
+    w("- **`UND`-Mehrfachantworten** (`Fliesen`: `50 UND 25 UND 12,5`) — mehrere "
+      "*Pflicht*-Werte. Welcher davon ist \"die\" Antwort? Das ist eine Frage ans "
+      "Datenmodell, nicht an einen Regex.")
+    w("- **Toleranzintervalle** (`Butter`: `Ganzzahlige Antworten aus dem "
+      "Intervall [70; 80]`) — braucht einen Range-Matcher. Ein Format dafuer zu "
+      "erfinden, waere geraten.")
+    w("- **Prosa-Saetze** (`Kraftfutter`: `Das Kraftfutter reicht 21 Tage.`) — die "
+      "Antwort ist richtig, aber kein vergleichbarer Wert.")
+    w("- **Mehrere Teilantworten in einem String** (`Suche die Zahl`: "
+      "`5 = 10  3 = 24  7 = 21`).")
     w("")
+    w("Eine Falle dabei, die fast zugeschnappt waere: Der Konnektor der Auswertung "
+      "ist das **grosse** `UND`. Ein case-insensitives `\\bUND\\b` trifft auch das "
+      "normale deutsche Woertchen \"und\", das harmlos in jedem zweiten "
+      "Antwortsatz steht — und haette 11 voellig gesunde Schluessel als kaputt "
+      "gemeldet. Die Regel ist deshalb case-sensitive.")
+    w("")
+    w("### G1b ist entschaerft — eng, nicht generell")
+    w("")
+    w("G1b hat denselben Wurzelgrund wie S1 und war deshalb ein **falscher "
+      "Waechter**: Der Zeichenvorrat stammt aus den EMF-Zeichenlaeufen, und genau "
+      "dieser Kanal *kann* reine Layoutzeichen nicht liefern. Ein EMF *zeichnet* "
+      "die Antwortlinie und das Ankreuzfeld — es *schreibt* sie nicht. G1b "
+      "verlangte einen Beleg aus einer Quelle, die ihn strukturell nie liefern "
+      "kann (sie verliert ja sogar das ½).")
+    w("")
+    w("Fuer eine **enge, explizite Whitelist** ist G1b jetzt eine Notiz statt "
+      "eines Blockers — `ground_all.LAYOUT_ZEICHEN`:")
+    w("")
+    w("| Zeichen | was es ist |")
+    w("|---|---|")
+    w("| `_` | Antwortlinie (gezeichnete Linie, kein Zeichen) |")
+    w("| `…` | Auslassungspunkte |")
+    w("| `☐ □ ▢ ⬜` | Ankreuzfelder (gezeichnete Rechtecke) |")
+    w("")
+    w("**Beleg-pflichtig bleibt alles, was den Inhalt aendern kann** — und das war "
+      "die Mehrheit der G1b-Faelle: `/` (Bruchstrich: `Maedchenanteil` waere sonst "
+      "`8` statt `8/23`), `,` (Dezimaltrenner), `^` (Exponent), `*` (Malzeichen "
+      "oder Fussnote — mehrdeutig, also blockierend), Klammern, Interpunktion. "
+      "Von den 11 Items, die an G1b hingen, waren nur **5** reine Layoutfaelle; "
+      "die uebrigen 6 blockieren weiter, zu Recht. Im Zweifel: blockieren.")
+    w("")
+    w("Abgesichert durch `NC14` in `test_scale.py`: Antwortlinie und Ankreuzfeld "
+      "sind eine Notiz, Bruchstrich/Dezimalkomma/Exponent/Malzeichen blockieren "
+      "weiter, und die Whitelist enthaelt nachweislich nichts Bedeutungstragendes.")
+    w("")
+    if g1b:
+        w(f"Rest, der noch an G1b haengt: {len(g1b)} — {', '.join(sorted(g1b))}")
+        w("")
     w("### Und das ist eine Untergrenze")
     w("")
     w(f"{len(pool)} ist kein Endstand: {len(ohne_vision)} Items haben keine "

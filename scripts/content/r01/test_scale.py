@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ground_all import g1, norm
+from ground_all import LAYOUT_ZEICHEN, g1, g1b, norm
 from ole import media_in_doc
 from pipeline import _is_license, lizenz
 
@@ -122,10 +122,32 @@ def main():
     check("G1 lehnt weiterhin 'Sekunden' ab", not ok, f"fehlt {missing!r}")
     ok, _ = g1("Wie viele Minuten sind 2½ Stunden?", vorrat)
     check("G1 nimmt die belegte Lesung an", ok)
-    ok, _ = g1("Kreuze an: ☐ 60 min ☐ 90 min", vorrat)
-    check("G1 stolpert NICHT mehr ueber gezeichnete Kaestchen", ok)
-    ok, _ = g1("Ergänze: 60 · ______ = 150", vorrat)
-    check("G1 stolpert NICHT mehr ueber gezeichnete Eingabelinien", ok)
+    # Nur das Layoutzeichen isolieren: die WOERTER muessen aus dem Vorrat
+    # stammen, sonst prueft der Test den Inhalt und nicht das Kaestchen.
+    ok, _ = g1("☐ 60min ☐ 90min", vorrat)
+    check("G1 stolpert NICHT ueber gezeichnete Kaestchen", ok)
+    ok, _ = g1("Minuten ______ 150min", vorrat)
+    check("G1 stolpert NICHT ueber gezeichnete Eingabelinien", ok)
+
+    print("\nNC14 — die Layout-Whitelist von G1b ist eng")
+    # G1b darf NUR reine Layoutzeichen durchwinken. Alles, was den Inhalt
+    # aendern kann, muss weiterhin blockieren — sonst waere die Entschaerfung
+    # ein Loch. 'Maedchenanteil' ist der Zeuge: 8 statt 8/23.
+    layout, bedeutung = g1b("Minuten ______ 150min", vorrat)
+    check("Antwortlinie ist eine Notiz", layout == "_" * 6 and not bedeutung)
+    layout, bedeutung = g1b("☐ 60min", vorrat)
+    check("Ankreuzfeld ist eine Notiz", layout == "☐" and not bedeutung)
+    _, bedeutung = g1b("8/23 Minuten", vorrat)
+    check("Bruchstrich blockiert weiter", "/" in bedeutung)
+    _, bedeutung = g1b("1,5 Minuten", vorrat)
+    check("Dezimalkomma blockiert weiter", "," in bedeutung)
+    _, bedeutung = g1b("10^6 Minuten", vorrat)
+    check("Exponent blockiert weiter", "^" in bedeutung)
+    _, bedeutung = g1b("60 * 3 Minuten", vorrat)
+    check("Malzeichen blockiert weiter", "*" in bedeutung)
+    check("die Whitelist enthaelt nichts Bedeutungstragendes",
+          not (LAYOUT_ZEICHEN & set("/,.*^-()|:;")),
+          f"Whitelist: {''.join(sorted(LAYOUT_ZEICHEN))!r}")
 
     print("\nNC12 — Status: kein Item kommt auf 'ready'")
     check("alle Items stehen auf 'draft'",

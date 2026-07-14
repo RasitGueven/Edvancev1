@@ -190,7 +190,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "4; ODER; 4,0"
+  "wert": "4; 4,0"
  },
  {
   "item": "anderelaenderanderenoten",
@@ -524,7 +524,7 @@
   "feld": "part2.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "10 ODER -10"
+  "wert": "10; -10"
  },
  {
   "item": "autokauf",
@@ -919,7 +919,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "[pic]; ODER; [pic]"
+  "wert": "[pic]"
  },
  {
   "item": "bruchundprozentsatz",
@@ -1616,7 +1616,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "79,99; ODER; (Grenzfall); 80"
+  "wert": "79,99; 80"
  },
  {
   "item": "dvdplayer",
@@ -1966,7 +1966,7 @@
   "feld": "part2.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "(-21); ODER; (Grenzfall); -21"
+  "wert": "-21"
  },
  {
   "item": "fieberthermometer",
@@ -3777,7 +3777,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "1,5; Anm.: Akzeptiert werden auch alle anderen wertgleichen Angaben,; z. B. 3/2 oder 6/4."
+  "wert": "1,5"
  },
  {
   "item": "holzwuerfel",
@@ -4419,7 +4419,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "[pic]; Anm.: In der Zeichnung sollen die Hilfslinien (Diagonalen des; Quadrats) erkennbar sein.; Zeichentoleranz: ( 1 mm"
+  "wert": "[pic]"
  },
  {
   "item": "kreiseundvierecke",
@@ -4650,7 +4650,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "[pic]; Anm.: Die Lösung ist nur richtig, wenn alle Zuordnungen richtig; sind."
+  "wert": "[pic]"
  },
  {
   "item": "linearundproportional",
@@ -4681,7 +4681,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "7,5 Liter; Anm.: Alle wertgleichen Angaben werden akzeptiert, z. B. 7 1/2; Liter oder; 15/2 Liter."
+  "wert": "7,5 Liter"
  },
  {
   "item": "lohnerhoehung",
@@ -5530,7 +5530,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "769 ODER 769,2 ODER 770"
+  "wert": "769; 769,2; 770"
  },
  {
   "item": "osterhase",
@@ -5601,7 +5601,7 @@
   "feld": "part1.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "22 (ODER ca. 22)"
+  "wert": "22"
  },
  {
   "item": "pappschachtel",
@@ -7553,7 +7553,7 @@
   "feld": "part2.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "[pic]; Anm.: Die gespiegelten Eckpunkte müssen auf den Schnittpunkten; des Rasters liegen. Zeichentoleranz diesbezüglich ( 1 mm."
+  "wert": "[pic]"
  },
  {
   "item": "verkehrszeichen",
@@ -7584,7 +7584,7 @@
   "feld": "part3.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "[pic]; Anm.: Es müssen alle Spiegelachsen eingezeichnet sein. Die; einzelnen Achsen dürfen um 1 mm bzw. 3° von ihrer ursprünglichen; Lage abweichen."
+  "wert": "[pic]"
  },
  {
   "item": "verkehrszeichen",
@@ -7615,7 +7615,7 @@
   "feld": "part4.loesung",
   "gate": "G2",
   "ok": true,
-  "wert": "[pic]; Anm.: Der Fehler kann auch mittels eines anderen Zeichens (z. B.; Kreuz) gekennzeichnet werden. Es kann auch das \"S\" im linken Bild; markiert werden."
+  "wert": "[pic]"
  },
  {
   "item": "verkehrszeichen",
