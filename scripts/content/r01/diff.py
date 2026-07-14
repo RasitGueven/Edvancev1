@@ -275,7 +275,8 @@ def main():
 
     toepfe = defaultdict(list)
     S1, S3, S4, N1, N2, N3 = [], [], [], [], [], []
-    abweichung, bestaetigt, fehlend, pool = [], [], [], []
+    bestaetigt, unsauber, widerspruch, leer = [], [], [], []
+    fehlend, pool = [], []
     vergleichbar = 0
 
     for a in alt:
@@ -321,21 +322,26 @@ def main():
             titel, answers, unit = IMPORTIERT[pref]
             nl = [x for p in n["parts"] for x in (p.get("correct_answers") or [])]
             nu = [p.get("unit") for p in n["parts"] if p.get("unit")]
-            ab = []
+
             if not n["parts"]:
-                nv = nicht_verbaut(n)
-                ab.append("Neuextraktion hat KEINE Teilaufgabe — nichts zu "
-                          "vergleichen: " + (
-                              f"Vision-Lesung ({nv} Ta) existiert, wurde aber "
-                              f"nicht verbaut (Bau-Verzug)" if nv else
-                              "keine Vision-Lesung vorhanden"))
+                leer.append((titel, n["slug"],
+                             "keine Vision-Lesung vorhanden" if not hat_vision(n)
+                             else "Vision-Lesung vorhanden, aber ohne Teilaufgabe"))
             else:
-                if not ({nz(x) for x in nl} & {nz(x) for x in answers}):
-                    ab.append(f"Loesung: importiert {answers} · neu {nl or '—'}")
-                if unit and not any(nz(unit) == nz(u) for u in nu):
-                    ab.append(f"Einheit: importiert {unit!r} · neu {nu or '—'}")
-            (abweichung if ab else bestaetigt).append(
-                (titel, n["slug"], ab, (n.get("_flags_blockierend") or [])[:2]))
+                # Exakt gleich? Oder steht der importierte Wert im neuen Schluessel
+                # drin, nur mit Kodiertext drumherum ("22 (ODER ca. 22)")?
+                exakt = bool({nz(x) for x in nl} & {nz(x) for x in answers})
+                drin = any(nz(w) in nz(x) for x in nl for w in answers)
+                e_ok = (not unit) or any(nz(unit) == nz(u) for u in nu)
+                if exakt and e_ok:
+                    bestaetigt.append((titel, n["slug"]))
+                elif drin and e_ok:
+                    unsauber.append((titel, n["slug"], answers, nl))
+                else:
+                    ab = [f"Loesung: importiert {answers} · neu {nl or '—'}"]
+                    if not e_ok:
+                        ab = [f"Einheit: importiert {unit!r} · neu {nu or '—'}"]
+                    widerspruch.append((titel, n["slug"], ab))
 
     ohne_vision = [n for n in neu if not hat_vision(n)]
     ohne_parts = [n for n in neu if not n["parts"]]
@@ -345,6 +351,13 @@ def main():
     pipeline_pool = [n for n in neu if n.get("lsa_pool_kandidat")]
     raus = [n for n in pipeline_pool if n["id"] not in {p["id"] for p in pool}]
     verloren = sorted(n["titel"] for n in raus)
+
+    # Auto-gradebar, sauberer Schluessel — scheitert NUR am G1b-Gate.
+    g1b = [n["titel"] for n in neu
+           if pool_faehig(n, n1_mc_schluessel(n), n2_leere_optionen(n),
+                          n3_kodierregel(n))
+           and not n["vollstaendig"]
+           and (n.get("_flags_blockierend") or [""])[0].startswith("G1b")]
 
     # Von den ausgeschiedenen: was braucht wirklich einen Coach, was ist nur ein
     # kaputter Schluessel?
@@ -380,28 +393,26 @@ def main():
       "entscheidende Zahl (LSA-Pool) ist eine **Untergrenze**: sie kann nur "
       "steigen, wenn die Vision-Stufe fuer die restlichen Items nachlaeuft.")
     w("")
-    w("### Und der Bau ist aelter als die Vision-Lesungen")
+    w("### Bau-Verzug")
     w("")
-    w(f"Schwerwiegender: **fuer {len(verzug)} Items liegt eine brauchbare "
-      f"Vision-Lesung auf der Platte, die `vera8_v2.json` nicht enthaelt.** Die "
-      f"Vision-Stufe lief weiter, waehrend der Bau schon geschrieben war — "
-      f"`data/r01_vision/` enthaelt 27 Dateien, die juenger sind als "
-      f"`vera8_v2.json`. Der Bau hat sie nie gesehen.")
-    w("")
-    w("Das ist **kein Extraktionsfehler**. Ein erneuter Lauf von `ground_all.py` "
-      "holt sie herein — ohne dass eine einzige Datei neu extrahiert werden "
-      "muss. Betroffen:")
-    w("")
-    w("| Item | Teilaufgaben in der Vision-Lesung |")
-    w("|---|---:|")
-    for t, k in verzug:
-        w(f"| {t} | {k} |")
-    w("")
-    w("Darunter **`Papier`** und **`Temperaturdifferenz`** — zwei der vier "
-      "importierten Items, die unten als \"Abweichung\" auftauchen. Ihre "
-      "Vision-Lesung ist da und sauber (`22 mm`, `19 °C` — exakt die "
-      "importierten Werte); sie steht nur nicht im Bau.")
-    w("")
+    if verzug:
+        w(f"**Fuer {len(verzug)} Items liegt eine brauchbare Vision-Lesung auf "
+          f"der Platte, die `vera8_v2.json` nicht enthaelt.** Die Vision-Stufe "
+          f"lief weiter, waehrend der Bau schon geschrieben war. Kein "
+          f"Extraktionsfehler — ein Lauf von `ground_all.py` holt sie herein:")
+        w("")
+        w("| Item | Teilaufgaben in der Vision-Lesung |")
+        w("|---|---:|")
+        for t, k in verzug:
+            w(f"| {t} | {k} |")
+        w("")
+    else:
+        w("Beim ersten Bau war `vera8_v2.json` aelter als 27 Vision-Lesungen — "
+          "22 Items hatten eine brauchbare Lesung auf der Platte, die der Bau nie "
+          "gesehen hatte. **Das ist behoben:** `ground_all.py` ist nachgelaufen, "
+          "der Bau enthaelt jetzt jede vorhandene Lesung. Was hier noch leer ist, "
+          "ist wirklich ungelesen — kein Verzug mehr.")
+        w("")
     w("---")
     w("")
 
@@ -609,32 +620,49 @@ def main():
     w("")
     w("## Die 14 bereits importierten Items")
     w("")
-    if not abweichung:
-        w("Alle 14 kommen aus der Neuextraktion identisch heraus.")
-    else:
-        w(f"**{len(bestaetigt)} von 14 werden von der Neuextraktion in Loesung und "
-          f"Einheit bestaetigt.** {len(abweichung)} weichen ab — nicht "
-          f"aufgeloest, gemeldet:")
-        w("")
-        for titel, slug, ab, flags in abweichung:
-            w(f"- **{titel}** (`{slug}`): {' · '.join(ab)}")
-            if flags:
-                w(f"  - Flag: {'; '.join(flags)}")
-        w("")
-        w("Alle vier Abweichungen sind vom selben Typ: Die Neuextraktion hat fuer "
-          "diese Items **gar keine Teilaufgabe**. Das ist **kein Widerspruch** "
-          "zwischen alter und neuer Loesung, sondern eine **Leerstelle** — die "
-          "importierten Werte werden weder bestaetigt noch widerlegt.")
-        w("")
-        w("**Kein einziges der 14 importierten Items wird von der Neuextraktion "
-          "widerlegt.** 10 werden bestaetigt, 4 sind leer. Bei `Papier` und "
-          "`Temperaturdifferenz` liegt die Bestaetigung sogar schon vor — sie "
-          "steht in der Vision-Lesung (`22 mm`, `19 °C`), nur nicht im Bau "
-          "(siehe Bau-Verzug oben). Bei `Ecken an Pyramiden` und `Zwanzig "
-          "Prozent` fehlt die Vision-Lesung ganz.")
-        w("")
-        w("Nichts davon ist aufgeloest worden — gemeldet, wie verlangt.")
+    w("Die Vorgabe war: Sie muessen identisch herauskommen. Weicht eines ab — "
+      "melden, nicht aufloesen.")
     w("")
+    w("| Befund | Items |")
+    w("|---|---:|")
+    w(f"| Loesung und Einheit **exakt bestaetigt** | {len(bestaetigt)} |")
+    w(f"| Wert bestaetigt, aber **Schluessel unsauber** | {len(unsauber)} |")
+    w(f"| **Widerspruch** (neue Loesung sagt etwas anderes) | "
+      f"**{len(widerspruch)}** |")
+    w(f"| leer (Neuextraktion hat keine Teilaufgabe) | {len(leer)} |")
+    w("")
+    if widerspruch:
+        w("### Widerspruch — hier ist eine der beiden Versionen falsch")
+        w("")
+        for titel, slug, ab in widerspruch:
+            w(f"- **{titel}** (`{slug}`): {' · '.join(ab)}")
+        w("")
+        w("**Nicht aufgeloest.** Das gehoert vor einen Menschen.")
+        w("")
+    else:
+        w("**Kein einziges der 14 importierten Items wird von der Neuextraktion "
+          "widerlegt.** Es gibt keinen Fall, in dem die neue Loesung etwas "
+          "anderes sagt als die importierte.")
+        w("")
+    if unsauber:
+        w("### Wert bestaetigt, Schluessel unsauber")
+        w("")
+        w("Der importierte Wert steckt im neuen Schluessel — aber mit dem "
+          "Kodiertext der Auswertung drumherum. Inhaltlich eine Bestaetigung, "
+          "technisch ein Schluessel, den kein Matcher vergleichen kann:")
+        w("")
+        for titel, slug, answers, nl in unsauber:
+            w(f"- **{titel}** (`{slug}`): importiert `{answers}` · neu `{nl}`")
+        w("")
+    if leer:
+        w("### Leer — weder bestaetigt noch widerlegt")
+        w("")
+        for titel, slug, grund in leer:
+            w(f"- **{titel}** (`{slug}`): {grund}")
+        w("")
+        w("Das ist **kein Widerspruch**, sondern eine Leerstelle: Fuer diese Items "
+          "hat die Neuextraktion nichts, woran man den Import messen koennte.")
+        w("")
 
     w("---")
     w("")
@@ -680,6 +708,28 @@ def main():
     w("")
     w(f"Damit: **{len(pool)} heute**, **{len(pool) + len(reparierbar)} nach "
       f"Schluessel-Aufraeumen** — ohne eine einzige Zeile neu zu extrahieren.")
+    w("")
+    w("### Der groesste Einzelposten: G1b")
+    w("")
+    w(f"**{len(g1b)} Items sind auto-gradebar, haben einen sauberen Schluessel, "
+      f"Stamm und Loesung — und scheitern allein an `G1b`:** "
+      f"\"Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat\". Gemeint sind "
+      f"Zeichen wie `______` (Antwortlinie), `☐` (Ankreuzkaestchen), `…`.")
+    w("")
+    w(f"{', '.join(sorted(g1b))}")
+    w("")
+    w("Dieses Gate hat denselben Wurzelgrund wie S1 — und ist deshalb ein "
+      "**falscher Waechter**: Der Zeichenvorrat stammt aus den EMF-Zeichenlaeufen, "
+      "und genau dieser Kanal *kann* Layoutzeichen gar nicht enthalten (er "
+      "verliert ja sogar das ½). G1b verlangt einen Beleg aus einer Quelle, die "
+      "den Beleg strukturell nie liefern kann. Der *Inhalt* dieser Prompts ist "
+      "belegt — nur die Unterstriche sind es nicht.")
+    w("")
+    w(f"Wird G1b auf Layoutzeichen hin entschaerft (Vorschlag: nicht blockierend, "
+      f"sondern eine Notiz), steigt der Pool auf "
+      f"**{len(pool) + len(reparierbar) + len(g1b)}** — weiterhin ohne "
+      f"Neuextraktion. Das ist eine Entscheidung, kein Befund: sie gehoert vor "
+      f"einen Menschen.")
     w("")
     w("### Und das ist eine Untergrenze")
     w("")
@@ -733,8 +783,11 @@ def main():
           f"N1={len(N1)} N2={len(N2)} N3={len(N3)}")
     print(f"LSA-Pool real={len(pool)} {dict(typ)} | +{len(reparierbar)} reparierbar "
           f"(Pipeline sagt {len(pipeline_pool)}, davon {len(verloren)} unbenutzbar)")
+    print(f"nur an G1b gescheitert={len(g1b)} -> Pool waere "
+          f"{len(pool) + len(reparierbar) + len(g1b)}")
     print(f"ohne Vision={len(ohne_vision)} ohne Teilaufgaben={len(ohne_parts)}")
-    print(f"14 importierte: {len(bestaetigt)} bestaetigt, {len(abweichung)} Abweichungen")
+    print(f"14 importierte: {len(bestaetigt)} exakt, {len(unsauber)} unsauber, "
+          f"{len(widerspruch)} WIDERSPRUCH, {len(leer)} leer")
     if fehlend:
         print(f"NICHT in v2: {fehlend}")
     return 0

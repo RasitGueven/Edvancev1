@@ -1486,7 +1486,7 @@
   "is_diagnostic": true,
   "input_type": null,
   "stem": {
-   "text": "",
+   "text": "Zur Herstellung einer Apfelsaftschorle mischt man vier fünftel Liter Apfelsaft mit einem halben Liter Mineralwasser.",
    "table": null
   },
   "parts": [],
@@ -1503,6 +1503,13 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Zur Herstellung einer Apfelsaftschorle mischt man vier fünftel Liter Apfelsaft mit einem halben Liter Mineralwasser.",
+    "fehlende_zeichen": ""
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": false,
@@ -1514,7 +1521,8 @@
   "_flags": [
    "keine Teilaufgabe gelesen -> Item unbrauchbar",
    "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Im gerenderten Bild steht ausschliesslich der Stamm — es ist kein Fragetext, kein Eingabefeld und kein Ankreuzkasten sichtbar. Die Auswertung kennt 1 Teilaufgabe; deren Prompt ist im Bild nicht vorhanden (vermutlich Fliesstext des Dokuments ausserhalb der EMF-Grafik). Prompt daher leer gelassen.",
+   "Vision unsicher: Die Bruchangaben stehen im Bild ausgeschrieben als Wörter ('vier fünftel Liter', 'einem halben Liter'), nicht als Ziffernbrüche — so übernommen."
   ],
   "_quelle": {
    "dateien": {
@@ -1537,8 +1545,8 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ".aaaaaaaabcceeeeeeeeeeeeeeeeffffffghhhhiiiiiiiillllllllllmmmmmnnnnnnnopprrrrrrrrrsssssssttttttttuuvwzü",
-   "anzahl": 102,
+   "rest": "",
+   "anzahl": 0,
    "von": 102
   },
   "auto_gradebar": false,
@@ -3922,12 +3930,51 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MC",
   "stem": {
-   "text": "",
+   "text": "In einer Tüte sind zwei grüne, ein gelbes, zwei weiße, ein orangefarbenes und vier rote Bonbons. Jan greift ohne hinzusehen ein Bonbon aus der Tüte.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "Mit welcher Wahrscheinlichkeit ist es rot?",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "1/10"
+     },
+     {
+      "id": "b",
+      "label": "1/5"
+     },
+     {
+      "id": "c",
+      "label": "4/10"
+     },
+     {
+      "id": "d",
+      "label": "1/2"
+     },
+     {
+      "id": "e",
+      "label": "4/6"
+     }
+    ],
+    "correct_answers": [
+     "[pic]"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K3"
+    ],
+    "kompetenzstufe": "1B",
+    "leitidee": "Daten und Zufall (L5)"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -3941,6 +3988,72 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "In einer Tüte sind zwei grüne, ein gelbes, zwei weiße, ein orangefarbenes und vier rote Bonbons. Jan greift ohne hinzusehen ein Bonbon aus der Tüte.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Mit welcher Wahrscheinlichkeit ist es rot?",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/10",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/5",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "4/10",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/2",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.option[e]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "4/6",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "[pic]"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "bonbons_Didaktische_Kommentierung.doc",
+    "zitat": "Daten und Zufall (L5) | Mathematisch modellieren (K3) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": false,
@@ -3950,9 +4063,13 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
+   "G1b: part1.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[b]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[c]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[d]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[e]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
    "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Die fünf Optionen stehen im Bild als gestapelte Brüche (Zähler über Bruchstrich über Nenner) unter den Ankreuzkästchen; ich habe sie als 'Zähler/Nenner' notiert."
   ],
   "_quelle": {
    "dateien": {
@@ -3975,15 +4092,19 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ",,,...001111124456?aaaaaabbbbbbcccdddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeffgggghhhhhhhiiiiiiiiiiiiiiiiijkklllmnnnnnnnnnnnnnnnnnnnnoooooooorrrrrrrrrrrrsssssssssttttttttttuuuuvwwwwwzzzzßüüü",
-   "anzahl": 182,
+   "rest": ".aeeknruz",
+   "anzahl": 9,
    "von": 182
   },
-  "auto_gradebar": false,
+  "auto_gradebar": true,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G1b: part1.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[b]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[c]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[d]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[e]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)"
   ]
  },
  {
@@ -5753,9 +5874,9 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MC",
   "stem": {
-   "text": "",
+   "text": "Eine ganze Zahl ist durch eine andere ganze Zahl teilbar, wenn bei der Division kein Rest bleibt.",
    "table": {
     "header": [
      "",
@@ -5821,7 +5942,35 @@
     ]
    }
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "Entscheide jeweils, ob die Aussage wahr oder falsch ist. Kreuze jeweils an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "wahr"
+     },
+     {
+      "id": "b",
+      "label": "falsch"
+     }
+    ],
+    "correct_answers": [
+     "Alle Kreuze sind richtig gesetzt."
+    ],
+    "afb": 3,
+    "afb_raw": "III",
+    "kompetenzen": [
+     "K1",
+     "K6"
+    ],
+    "kompetenzstufe": "5",
+    "leitidee": "1. Zahl"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -5845,11 +5994,51 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Eine ganze Zahl ist durch eine andere ganze Zahl teilbar, wenn bei der Division kein Rest bleibt.",
+    "fehlende_zeichen": ""
+   },
    "stem.table": {
     "gate": "G5",
     "ok": true,
     "quelle": "image2.emf",
     "zitat": " | Eine mehrziffrige Zahl ist immer durch 4 teilbar, wenn... | wahr |  |  | falsch |  | "
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Entscheide jeweils, ob die Aussage wahr oder falsch ist. Kreuze jeweils an.",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "wahr",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "falsch",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Alle Kreuze sind richtig gesetzt."
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "divisionvonzahlen_Didaktische_Kommentierung.docx",
+    "zitat": "1. Zahl | Mathematisch argumentieren (K1), \nMathematisch kommunizieren (K6) | III"
    },
    "assets.lizenz": {
     "gate": "G7",
@@ -5860,8 +6049,7 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Es ist eine Kreuztabelle: Kopfzeile 'Eine mehrziffrige Zahl ist immer durch 4 teilbar, wenn…' mit den Spalten 'wahr' / 'falsch'; vier Aussagezeilen (… sie zweimal nacheinander jeweils durch 2 teilbar ist. / … die letzte Ziffer eine 4 oder eine 8 ist. / … sie eine gerade Zahl ist. / … die aus den letzten beiden Ziffern gebildete Zahl durch 4 teilbar ist.). Die Optionen wahr/falsch gelten pro Zeile, nicht als Einfachauswahl."
   ],
   "_quelle": {
    "dateien": {
@@ -5884,16 +6072,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ",,...aaaaaaaaaaabbbbbcccdddddddeeeeeeeeeeeeeeeeeeeeeeeeeeefggghhhhhhiiiiiiiiiiiiiiijjkklllllllnnnnnnnnnnnooorrrrrrrrssssssssssttttttuuuvwwwwzzzzz",
-   "anzahl": 145,
+   "rest": "",
+   "anzahl": 0,
    "von": 367
   },
-  "auto_gradebar": false,
-  "vollstaendig": false,
-  "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "auto_gradebar": true,
+  "vollstaendig": true,
+  "lsa_pool_kandidat": true,
+  "_flags_blockierend": []
  },
  {
   "id": "3080e434-c82d-5808-ad70-1d81d0fe4f49",
@@ -8388,7 +8574,7 @@
   "is_diagnostic": true,
   "input_type": null,
   "stem": {
-   "text": "",
+   "text": "Max und Julia haben in den Ferien eine Radtour von Passau nach Wien unternommen. Die Längen ihrer Tagesetappen hat Julia in diesem Säulendiagramm dargestellt. Max verrät einem Freund: „Weil Julia einen sportlichen Eindruck machen will, hat sie die Säule für den letzten Tag einfach weggelassen. Am letzten Tag sind wir nämlich nur 20 km gefahren.“",
    "table": {
     "header": [
      "",
@@ -8661,6 +8847,13 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Max und Julia haben in den Ferien eine Radtour von Passau nach Wien unternommen. Die Längen ihrer Tagesetappen hat Julia in diesem Säulendiagramm dargestellt. Max verrät einem Freund: „Weil Julia einen sportlichen Eindruck machen will, hat sie die Säule für den letzten Tag einfach weggelassen. Am letzten Tag sind wir nämlich nur 20 km gefahren.“",
+    "fehlende_zeichen": ""
+   },
    "stem.table": {
     "gate": "G5",
     "ok": true,
@@ -8678,7 +8871,9 @@
   "_flags": [
    "keine Teilaufgabe gelesen -> Item unbrauchbar",
    "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Im Bild stehen nur der Stamm und das Säulendiagramm — kein Fragetext, kein Eingabefeld, kein Ankreuzkasten. Die Auswertung kennt 3 Teilaufgaben; deren Prompts sind im gerenderten Bild nicht enthalten. Parts daher leer.",
+   "Vision unsicher: Säulendiagramm 'pro Tag gefahrene Kilometer', y-Achse km (0–80), x-Achse Tag 1–7; beschriftete Werte: Tag 1 = 45, Tag 2 = 63, Tag 3 = 41, Tag 4 = 68, Tag 5 = 55, Tag 6 = 58; für Tag 7 fehlt die Säule.",
+   "Vision unsicher: Queue meldet hat_tabelle_im_emf=true; im Bild ist keine Tabelle, sondern ein Säulendiagramm mit Gitterlinien — stem_tabelle_erwartet daher false."
   ],
   "_quelle": {
    "dateien": {
@@ -8701,8 +8896,8 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "\"\",....02:aaaaaaaaaaaaaaaaaaaaaaaabccccccddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffffggggggggghhhhhhhhhhiiiiiiiiiiiiiiiiiiiiiiiijjjkkllllllllllllllllmmmmmmmmmmmmnnnnnnnnnnnnnnnnnnnnnn",
-   "anzahl": 293,
+   "rest": "",
+   "anzahl": 0,
    "von": 387
   },
   "auto_gradebar": false,
@@ -10957,9 +11152,9 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Alex (A), Bastian (B), Can (C) und Daniel (D) sind Freunde. Das Diagramm zeigt Informationen zu ihrer Körpergröße und zu ihrem Alter.",
    "table": {
     "header": [
      "",
@@ -11001,7 +11196,112 @@
     ]
    }
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "Wer ist der Älteste in der Gruppe? Kreuze an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "Alex"
+     },
+     {
+      "id": "b",
+      "label": "Bastian"
+     },
+     {
+      "id": "c",
+      "label": "Can"
+     },
+     {
+      "id": "d",
+      "label": "Daniel"
+     }
+    ],
+    "correct_answers": [
+     "Beide Kreuze sind richtig gesetzt.",
+     "Der Älteste in der Gruppe ist:",
+     "Der Kleinste in der Gruppe ist:"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4"
+    ],
+    "kompetenzstufe": "1a",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   },
+   {
+    "nr": 2,
+    "kind": "mc",
+    "prompt": "Wer ist der Kleinste in der Gruppe? Kreuze an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "Alex"
+     },
+     {
+      "id": "b",
+      "label": "Bastian"
+     },
+     {
+      "id": "c",
+      "label": "Can"
+     },
+     {
+      "id": "d",
+      "label": "Daniel"
+     }
+    ],
+    "correct_answers": [
+     "Beide Kreuze sind richtig gesetzt."
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K4",
+     "K6"
+    ],
+    "kompetenzstufe": "1b",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   },
+   {
+    "nr": 3,
+    "kind": "mc",
+    "prompt": "Die folgende Tabelle enthält Aussagen über Alex, Bastian, Can und Daniel. Prüfe, ob die Aussagen durch das Diagramm bestätigt werden. Kreuze jeweils an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "trifft zu"
+     },
+     {
+      "id": "b",
+      "label": "trifft nicht zu"
+     }
+    ],
+    "correct_answers": [
+     "Der Punkt für Erol (E) liegt links und unterhalb von Punkt C."
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K4",
+     "K6"
+    ],
+    "kompetenzstufe": "1a",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   },
+   {
+    "nr": 4,
+    "kind": "free_text",
+    "prompt": "Erol (E) ist Cans Bruder. Er ist jünger und kleiner als Can. Zeichne in das gegebene Diagramm eine Möglichkeit ein, wo der Punkt für Erol (E) liegen kann.",
+    "unit": null
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -11045,11 +11345,152 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Alex (A), Bastian (B), Can (C) und Daniel (D) sind Freunde. Das Diagramm zeigt Informationen zu ihrer Körpergröße und zu ihrem Alter.",
+    "fehlende_zeichen": ""
+   },
    "stem.table": {
     "gate": "G5",
     "ok": true,
     "quelle": "image3.emf",
     "zitat": " | trifft zu |  |  | trifft nicht | zu | "
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Wer ist der Älteste in der Gruppe? Kreuze an.",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Alex",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Bastian",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Can",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Daniel",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Beide Kreuze sind richtig gesetzt.\n\nDer Älteste in der Gruppe ist:\n \nDer Kleinste in der Gruppe ist:"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "freunde_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mathematische Darstellungen verwenden (K4) | I"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Wer ist der Kleinste in der Gruppe? Kreuze an.",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Alex",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Bastian",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Can",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Daniel",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Beide Kreuze sind richtig gesetzt."
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "freunde_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6) | II"
+   },
+   "part3.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Die folgende Tabelle enthält Aussagen über Alex, Bastian, Can und Daniel. Prüfe, ob die Aussagen durch das Diagramm bestätigt werden. Kreuze jeweils an.",
+    "fehlende_zeichen": ""
+   },
+   "part3.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "trifft zu",
+    "fehlende_zeichen": ""
+   },
+   "part3.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "trifft nicht zu",
+    "fehlende_zeichen": ""
+   },
+   "part3.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Der Punkt für Erol (E) liegt links und unterhalb von Punkt C.\n[Anm.: Dieser Punkt muss nicht beschriftet werden.]\n\nBeispiel(e)\nMöglich ist auch eine allgemeine Lösung:"
+   },
+   "part3.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "freunde_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6) | II"
+   },
+   "part4.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Erol (E) ist Cans Bruder. Er ist jünger und kleiner als Can. Zeichne in das gegebene Diagramm eine Möglichkeit ein, wo der Punkt für Erol (E) liegen kann.",
+    "fehlende_zeichen": ""
    },
    "assets.lizenz": {
     "gate": "G7",
@@ -11060,8 +11501,11 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G2: Teilaufgabe 4: keine RICHTIG-Zelle -> keine Loesung",
+   "Teilaufgabe 4: AFB/Kompetenzen nicht in der Kommentierung gefunden",
+   "Vision unsicher: Widerspruch zur Auswertung: Das Bild zeigt 4 Teilaufgaben (Ältester / Kleinster / Aussagentabelle / Erol einzeichnen), die Queue nennt 3. Ich folge dem Bild.",
+   "Vision unsicher: Tabelle in Teilaufgabe 3 mit zwei Aussagezeilen: 'Die zwei Kleinsten sind auch die zwei Jüngsten.' und 'Weder der Älteste noch der Jüngste sind der Kleinste oder der Größte.'; Spalten 'trifft zu' / 'trifft nicht zu'.",
+   "Vision unsicher: Das Streudiagramm (x = Alter, y = Körpergröße) trägt nur die vier Punkte A, B, C, D ohne Achsenskalierung."
   ],
   "_quelle": {
    "dateien": {
@@ -11084,15 +11528,15 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "(((((()))))),,,,,,..........??aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbcccccccccccdddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-   "anzahl": 504,
+   "rest": "aabdeeegklprrßöö",
+   "anzahl": 16,
    "von": 623
   },
   "auto_gradebar": false,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G2: Teilaufgabe 4: keine RICHTIG-Zelle -> keine Loesung"
   ]
  },
  {
@@ -13545,7 +13989,7 @@
   "is_diagnostic": true,
   "input_type": null,
   "stem": {
-   "text": "",
+   "text": "Gleichungen können auf verschiedene Arten gelöst werden.",
    "table": null
   },
   "parts": [],
@@ -13562,6 +14006,13 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gleichungen können auf verschiedene Arten gelöst werden.",
+    "fehlende_zeichen": ""
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": false,
@@ -13573,7 +14024,7 @@
   "_flags": [
    "keine Teilaufgabe gelesen -> Item unbrauchbar",
    "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Das Bild enthält nur diesen einen Satz — keine Teilaufgabe, kein Prompt, keine Optionen, kein Eingabefeld. Die Auswertung kennt 3 Teilaufgaben; deren Texte sind im gerenderten Bild nicht vorhanden. Parts daher leer."
   ],
   "_quelle": {
    "dateien": {
@@ -13596,8 +14047,8 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ".aaccddeeeeeeeeeeefggghhiikllnnnnnnnnrrrssttuuvwöö",
-   "anzahl": 50,
+   "rest": "",
+   "anzahl": 0,
    "von": 50
   },
   "auto_gradebar": false,
@@ -16405,12 +16856,68 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Die Karte zeigt die europäischen Hauptstädte. In der linken unteren Ecke ist der Maßstab dieser Karte angegeben.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Gib an, wie lang die Strecke (Luftlinie) zwischen Berlin und Athen in der Wirklichkeit ist.",
+    "unit": "km",
+    "correct_answers": [
+     "Maßzahl aus dem Intervall [1750;1950]"
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K3",
+     "K4",
+     "K5"
+    ],
+    "kompetenzstufe": "2",
+    "leitidee": "2. Messen"
+   },
+   {
+    "nr": 2,
+    "kind": "mc",
+    "prompt": "Welche der folgenden Hauptstädte ist etwa 1100 km von Berlin entfernt? Kreuze an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "Reykjavik"
+     },
+     {
+      "id": "b",
+      "label": "Luxemburg"
+     },
+     {
+      "id": "c",
+      "label": "Helsinki"
+     },
+     {
+      "id": "d",
+      "label": "Wilna"
+     }
+    ],
+    "correct_answers": [
+     "c"
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K2",
+     "K3",
+     "K4",
+     "K5"
+    ],
+    "kompetenzstufe": "1b",
+    "leitidee": "2. Messen"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -16444,6 +16951,87 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Die Karte zeigt die europäischen Hauptstädte. In der linken unteren Ecke ist der Maßstab dieser Karte angegeben.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gib an, wie lang die Strecke (Luftlinie) zwischen Berlin und Athen in der Wirklichkeit ist.",
+    "fehlende_zeichen": ""
+   },
+   "part1.unit": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "km",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Maßzahl aus dem Intervall [1750;1950]"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "hauptstaedte_Didaktische_Kommentierung.docx",
+    "zitat": "2. Messen | Mathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5) | II"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Welche der folgenden Hauptstädte ist etwa 1100 km von Berlin entfernt? Kreuze an.",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Reykjavik",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Luxemburg",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Helsinki",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Wilna",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G3",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "3. Kästchen wurde angekreuzt",
+    "aufgeloest_auf": "3. Option = Helsinki (id=c)"
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "hauptstaedte_Didaktische_Kommentierung.docx",
+    "zitat": "2. Messen | Probleme mathematisch lösen (K2),\nMathematisches Modellieren (K3),\nMathematische Darstellungen verwenden (K4),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5) | II"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -16453,8 +17041,8 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Der Maßstab steht als Kasten in der Karte: '1 cm ≙ 360 km'. Das Zeichen zwischen 'cm' und '360' lese ich als ≙ (entspricht); es ist klein gerendert und könnte auch ein anderes Gleichheitszeichen sein. Da es zur Abbildung gehört, habe ich es nicht in den Stamm übernommen.",
+   "Vision unsicher: Unter der Karte steht die Quellenangabe 'Grafik: © IQB' (Bildunterschrift, nicht Teil des Stamms)."
   ],
   "_quelle": {
    "dateien": {
@@ -16477,16 +17065,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "(),,....00011136:?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbccccccccccccdddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef",
-   "anzahl": 614,
+   "rest": ",0136:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbccccccdddddddddddeeeeeeeeeeeeeeeeeeeeffgggggggghhhhhhiiiiiiiiiiiiiiiiiiiiiiiiiiijjjjkkkkkkkkkkkkkkklllllllllllllllllllllmmmmmmmmmmmmn",
+   "anzahl": 339,
    "von": 614
   },
-  "auto_gradebar": false,
-  "vollstaendig": false,
-  "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "auto_gradebar": true,
+  "vollstaendig": true,
+  "lsa_pool_kandidat": true,
+  "_flags_blockierend": []
  },
  {
   "id": "66414746-76c2-5593-9b0c-d4f46d8448cb",
@@ -19143,12 +19729,48 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MC",
   "stem": {
-   "text": "",
+   "text": "Bei den Olympischen Spielen wird der Judokampf innerhalb einer 8 m x 8 m großen quadratischen Kampfzone ausgetragen.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "Wie groß ist diese?",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "8 m²"
+     },
+     {
+      "id": "b",
+      "label": "16 m²"
+     },
+     {
+      "id": "c",
+      "label": "32 m²"
+     },
+     {
+      "id": "d",
+      "label": "64 m²"
+     },
+     {
+      "id": "e",
+      "label": "256 m²"
+     }
+    ],
+    "correct_answers": [
+     "[pic]"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzstufe": "I",
+    "leitidee": "Messen (L2)"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -19162,6 +19784,67 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Bei den Olympischen Spielen wird der Judokampf innerhalb einer 8 m x 8 m großen quadratischen Kampfzone ausgetragen.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Wie groß ist diese?",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "8 m²",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "16 m²",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "32 m²",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "64 m²",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[e]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "256 m²",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "[pic]"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "judomatte_Didaktische_Kommentierung.doc",
+    "zitat": "Messen (L2) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": false,
@@ -19171,9 +19854,7 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden"
   ],
   "_quelle": {
    "dateien": {
@@ -19196,16 +19877,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "..12222222345666888?aaaaaaaabbccddddddeeeeeeeeeeeeeeeeeeeffgggghhhiiiiiiiiiijkkklllmmmmmmmmmmnnnnnnnnnnnoooooppppqrrrrrrrrrsssssstttuuuuwwxyzzßß",
-   "anzahl": 144,
+   "rest": ".aeeknruz",
+   "anzahl": 9,
    "von": 144
   },
-  "auto_gradebar": false,
-  "vollstaendig": false,
-  "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "auto_gradebar": true,
+  "vollstaendig": true,
+  "lsa_pool_kandidat": true,
+  "_flags_blockierend": []
  },
  {
   "id": "ad69c9f7-9cf5-5cb9-bc97-16f907467870",
@@ -21269,7 +21948,7 @@
   "is_diagnostic": true,
   "input_type": null,
   "stem": {
-   "text": "",
+   "text": "Eine proportionale Funktion kann im Koordinatensystem durch eine Gerade dargestellt werden, die durch den Punkt (0|0) verläuft. Jede lineare Funktion kann durch eine Funktionsgleichung der Form y = mx + b beschrieben werden.",
    "table": null
   },
   "parts": [],
@@ -21286,6 +21965,13 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Eine proportionale Funktion kann im Koordinatensystem durch eine Gerade dargestellt werden, die durch den Punkt (0|0) verläuft. Jede lineare Funktion kann durch eine Funktionsgleichung der Form y = mx + b beschrieben werden.",
+    "fehlende_zeichen": ""
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": false,
@@ -21297,7 +21983,7 @@
   "_flags": [
    "keine Teilaufgabe gelesen -> Item unbrauchbar",
    "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Das Bild enthält nur die beiden Aussagesätze — keine Frage, keine Optionen, kein Eingabefeld. Die Auswertung kennt 2 Teilaufgaben; deren Prompts sind im gerenderten Bild nicht vorhanden. Parts daher leer."
   ],
   "_quelle": {
    "dateien": {
@@ -21320,8 +22006,8 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "()+,..00=aaaaaaabbbcccccddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffffgggghhhhhiiiiiiiiiiiiijkkkkkkkllllllmmmmnnnnnnnnnnnnnnnnnnnnnnnoooooooooppprrrrrrrrrrrrrrrsssssttttttttttuuuuuuuuuvwwxyy|ä",
-   "anzahl": 192,
+   "rest": "",
+   "anzahl": 0,
    "von": 192
   },
   "auto_gradebar": false,
@@ -23195,12 +23881,65 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Frank behauptet: „Wähle eine natürliche Zahl und bilde ihre Nachfolgerzahl. Quadriere beide Zahlen und ziehe das kleinere Ergebnis vom größeren ab. Dann erhältst du die Summe der beiden ursprünglich gewählten Zahlen.“",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "free_text",
+    "prompt": "Überprüfe Franks Behauptung mit den beiden Zahlen 12 und 13.",
+    "unit": null,
+    "correct_answers": [
+     "Aus der Antwort muss deutlich werden, dass Franks Behauptung anhand der Zahlen 12 und 13 rechnerisch überprüft wird. In diesem Zusammenhang muss der Term  bzw.  konkret verwendet werden."
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K5",
+     "K6"
+    ],
+    "kompetenzstufe": "3",
+    "leitidee": "Zahl (L1)"
+   },
+   {
+    "nr": 2,
+    "kind": "mc",
+    "prompt": "Stimmt Franks Behauptung auch für zwei beliebige aufeinander folgende natürliche Zahlen? Kreuze an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "Ja"
+     },
+     {
+      "id": "b",
+      "label": "Nein"
+     }
+    ],
+    "correct_answers": [
+     "„Ja“",
+     "UND",
+     "angemessene Begründung.",
+     "Algebraisch:",
+     "ODER",
+     "ODER",
+     "Zeichnerisch:",
+     "In einer Zeichnung muss die Verallgemeinerung in irgendeiner Form deutlich werden!"
+    ],
+    "afb": 3,
+    "afb_raw": "III",
+    "kompetenzen": [
+     "K1",
+     "K5",
+     "K6"
+    ],
+    "kompetenzstufe": "5",
+    "leitidee": "Zahl (L1)"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -23234,6 +23973,65 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Frank behauptet: „Wähle eine natürliche Zahl und bilde ihre Nachfolgerzahl. Quadriere beide Zahlen und ziehe das kleinere Ergebnis vom größeren ab. Dann erhältst du die Summe der beiden ursprünglich gewählten Zahlen.“",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Überprüfe Franks Behauptung mit den beiden Zahlen 12 und 13.",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Aus der Antwort muss deutlich werden, dass Franks Behauptung anhand der Zahlen 12 und 13 rechnerisch überprüft wird. In diesem Zusammenhang muss der Term  bzw.  konkret verwendet werden.\n\nBeispiel(e)\n• \n• \n\n• \n•"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "nachfolgerzahl_Didaktische_Kommentierung.docx",
+    "zitat": "Zahl (L1) | Mit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6) | II"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Stimmt Franks Behauptung auch für zwei beliebige aufeinander folgende natürliche Zahlen? Kreuze an.",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Ja",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Nein",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "„Ja“\n\nUND\n\nangemessene Begründung.\n\nAlgebraisch:\n\nODER\n\nODER\nZeichnerisch:\n\nIn einer Zeichnung muss die Verallgemeinerung in irgendeiner Form deutlich werden!"
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "nachfolgerzahl_Didaktische_Kommentierung.docx",
+    "zitat": "Zahl (L1) | Mathematisch argumentieren (K1),\nMit symbolischen/formalen/technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6) | III"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -23243,9 +24041,8 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
    "G7: Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Teilaufgabe 2 verlangt zusätzlich zum Ankreuzen eine Begründung: unter den Kästchen steht 'Begründe deine Antwort.' mit einem karierten Freitextfeld. Ob die Auswertung Ankreuzen + Begründung als eine oder zwei Teilaufgaben zählt, kann ich dem Bild nicht entnehmen."
   ],
   "_quelle": {
    "dateien": {
@@ -23268,16 +24065,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "\"\"......1123:?aaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbcccccddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeffffffffgggggggggghhhhhhhhhhhhhhhhhhhiiiiiiiiiiiiiiiiiiiiiijkkkkklll",
-   "anzahl": 352,
+   "rest": ".abddeeeeginnnorrttwü",
+   "anzahl": 21,
    "von": 352
   },
   "auto_gradebar": false,
-  "vollstaendig": false,
+  "vollstaendig": true,
   "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "_flags_blockierend": []
  },
  {
   "id": "61159d5f-49dd-55c6-a6c4-4c8245b78658",
@@ -25216,12 +26011,30 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "SHORT_INPUT",
   "stem": {
-   "text": "",
+   "text": "500 Blatt einer Papiersorte sind 55 mm hoch.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Gib an, wie hoch 200 Blatt dieser Papiersorte sind.",
+    "unit": "mm",
+    "correct_answers": [
+     "22 (ODER ca. 22)"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K3",
+     "K5"
+    ],
+    "kompetenzstufe": "2",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -25235,6 +26048,39 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "500 Blatt einer Papiersorte sind 55 mm hoch.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gib an, wie hoch 200 Blatt dieser Papiersorte sind.",
+    "fehlende_zeichen": ""
+   },
+   "part1.unit": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "mm",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "22 (ODER ca. 22)\n\n[Anm.: Angaben in anderen Maßeinheiten mit passender Maßzahl werden auch als richtig gewertet.]"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "papier_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mathematisches Modellieren (K3),\nMit Mathematik symbolisch/ formal/ technisch umgehen (K5) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -25244,9 +26090,7 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "G7: Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G7: Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt -> Abbildung NICHT verwenden"
   ],
   "_quelle": {
    "dateien": {
@@ -25269,16 +26113,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ",..00002555aaaaabbbccdddeeeeeeeeeghhhhiiiiiiiillmmmmnnnnoooopppprrrrrrsssssttttttw",
-   "anzahl": 82,
+   "rest": "",
+   "anzahl": 0,
    "von": 82
   },
-  "auto_gradebar": false,
-  "vollstaendig": false,
-  "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "auto_gradebar": true,
+  "vollstaendig": true,
+  "lsa_pool_kandidat": true,
+  "_flags_blockierend": []
  },
  {
   "id": "85a4fb1a-df27-542a-a3cd-9c3c0d5aff86",
@@ -27955,12 +28797,30 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "SHORT_INPUT",
   "stem": {
-   "text": "",
+   "text": "In einem Magnetbaukasten befinden sich magnetische Stäbe und Kugeln. Mario baut damit Pyramiden und ihre Netze. Für jede Kante nimmt er einen Magnetstab. Abbildung 1 zeigt eine Pyramide mit dreieckiger Grundfläche. In Abbildung 2 wurde mit Stäben und Kugeln das Netz dieser Pyramide gelegt.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Das Netz aus Abbildung 2 soll zu der Pyramide aus Abbildung 1 „zusammengeklappt“ werden. Gib an, wie viele Stäbe und wie viele Kugeln dazu entfernt werden müssen.",
+    "unit": "Stäbe / Kugeln",
+    "correct_answers": [
+     "3 Stäbe",
+     "2 Kugeln"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4"
+    ],
+    "kompetenzstufe": "1b",
+    "leitidee": "3. Raum und Form"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -28004,6 +28864,40 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "In einem Magnetbaukasten befinden sich magnetische Stäbe und Kugeln. Mario baut damit Pyramiden und ihre Netze. Für jede Kante nimmt er einen Magnetstab. Abbildung 1 zeigt eine Pyramide mit dreieckiger Grundfläche. In Abbildung 2 wurde mit Stäben und Kugeln das Netz dieser Pyramide gelegt.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Das Netz aus Abbildung 2 soll zu der Pyramide aus Abbildung 1 „zusammengeklappt“ werden. Gib an, wie viele Stäbe und wie viele Kugeln dazu entfernt werden müssen.",
+    "fehlende_zeichen": ""
+   },
+   "part1.unit": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Stäbe / Kugeln",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "3 Stäbe\n2 Kugeln"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "pyramidenbau_Didaktische_Kommentierung.docx",
+    "zitat": "3. Raum und Form | Mathematische Darstellungen verwenden (K4) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -28013,8 +28907,9 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G1b: part1.unit: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "Vision unsicher: image2 ist im Rendering vollständig leer (die Fotos zu Abbildung 1 und Abbildung 2 fehlen); nur die Bildunterschriften 'Abbildung 1' / 'Abbildung 2' mit 'Foto: © IQB' sind sichtbar.",
+   "Vision unsicher: Teilaufgabe 1 hat zwei Eingabefelder ('_____ Stäbe' und '_____ Kugeln'); unit als kombiniertes Feld notiert."
   ],
   "_quelle": {
    "dateien": {
@@ -28037,15 +28932,15 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "\"\",.......111222::aaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbccccdddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeffffffgggggggggggggggggggghhhhiiiiiiiiii",
-   "anzahl": 432,
+   "rest": "12::aabbbbbbddffggiiiillnnooooqqttuu©©",
+   "anzahl": 38,
    "von": 432
   },
-  "auto_gradebar": false,
+  "auto_gradebar": true,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G1b: part1.unit: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)"
   ]
  },
  {
@@ -29602,12 +30497,29 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "FREE_TEXT",
   "stem": {
    "text": "",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "free_text",
+    "prompt": "Zeichne ein Quadrat mit der Seitenlänge 5 cm.",
+    "unit": null,
+    "correct_answers": [
+     "Quadrat mit der Seitenlänge 5 cm, welches nicht freihändig gezeichnet ist."
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K5"
+    ],
+    "kompetenzstufe": "1A",
+    "leitidee": "Raum und Form (L3)"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -29621,6 +30533,25 @@
    }
   ],
   "_grounding": {
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Zeichne ein Quadrat mit der Seitenlänge 5 cm.",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Quadrat mit der Seitenlänge 5 cm, welches nicht freihändig gezeichnet ist. \n[Anm.: Zeichentoleranz  1 mm und  1°\nEtwaige Bezeichnungen des Quadrats gehen nicht in die Kodierung ein.]"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "quadratzeichnen_Didaktische_Kommentierung.docx",
+    "zitat": "Raum und Form (L3) | Mit symbolischen/formalen/technischen Elementen umgehen (K5) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -29630,9 +30561,8 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
    "G7: Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Unter der Aufgabe steht ein großes leeres Zeichenfeld (Rahmen). Die Antwort ist eine Zeichnung; kind 'free_text' ist die nächstliegende Kategorie im Schema, ein Zeichen-Format gibt es nicht."
   ],
   "_quelle": {
    "dateien": {
@@ -29655,16 +30585,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ".5aaccddeeeeeeeghiiiilmmnnnnqrrstttuzä",
-   "anzahl": 38,
+   "rest": "",
+   "anzahl": 0,
    "von": 38
   },
   "auto_gradebar": false,
-  "vollstaendig": false,
+  "vollstaendig": true,
   "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "_flags_blockierend": []
  },
  {
   "id": "70a43e12-f9bb-5f82-9d8c-fdfe2b1350aa",
@@ -32051,9 +32979,9 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Eine Bäckerei führt zur Fußball-EM eine Verlosung durch. Während der 25 Spieltage bekommt jeder Kunde beim Einkauf ein Los mit drei Rubbelfeldern.\nNach dem Freirubbeln sieht man auf jedem Feld entweder ein Fußballbild oder einen freien Kreis.\nEs gilt folgender Gewinnplan:\nDie Bäckerei lässt 7500 Lose drucken. 25 davon haben 3 Fußballbilder.",
    "table": {
     "header": [
      "Rubbelfelder",
@@ -32079,7 +33007,66 @@
     ]
    }
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "Der erste Kunde bekommt ein Los.\nMit welcher Wahrscheinlichkeit gewinnt er einen echten Fußball?",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "1/3"
+     },
+     {
+      "id": "b",
+      "label": "3/25"
+     },
+     {
+      "id": "c",
+      "label": "1/25"
+     },
+     {
+      "id": "d",
+      "label": "1/300"
+     },
+     {
+      "id": "e",
+      "label": "1/7500"
+     }
+    ],
+    "correct_answers": [
+     "d"
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K3",
+     "K5",
+     "K6"
+    ],
+    "kompetenzstufe": "3",
+    "leitidee": "5. Daten und Zufall"
+   },
+   {
+    "nr": 2,
+    "kind": "short_input",
+    "prompt": "Die Wahrscheinlichkeit für den ersten Kunden, eine Autofahne zu gewinnen, beträgt 1/25. 1/3 der Autofahnen sind Deutschlandfahnen, 2/3 sind Fahnen anderer Länder.\nGib an, wie viele Deutschlandfahnen verlost werden.",
+    "unit": null,
+    "correct_answers": [
+     "100"
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K3",
+     "K5",
+     "K6"
+    ],
+    "kompetenzstufe": "4",
+    "leitidee": "5. Daten und Zufall"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -32113,11 +33100,98 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Eine Bäckerei führt zur Fußball-EM eine Verlosung durch. Während der 25 Spieltage bekommt jeder Kunde beim Einkauf ein Los mit drei Rubbelfeldern.\nNach dem Freirubbeln sieht man auf jedem Feld entweder ein Fußballbild oder einen freien Kreis.\nEs gilt folgender Gewinnplan:\nDie Bäckerei lässt 7500 Lose drucken. 25 davon haben 3 Fußballbilder.",
+    "fehlende_zeichen": ""
+   },
    "stem.table": {
     "gate": "G5",
     "ok": true,
     "quelle": "image1.emf",
     "zitat": "Rubbelfelder | Gewinn"
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Der erste Kunde bekommt ein Los.\nMit welcher Wahrscheinlichkeit gewinnt er einen echten Fußball?",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/3",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "3/25",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/25",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/300",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.option[e]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/7500",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part1.correct_answers": {
+    "gate": "G3",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "4. Kästchen wurde angekreuzt",
+    "aufgeloest_auf": "4. Option = 1/300 (id=d)"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "rubbellose_Didaktische_Kommentierung.docx",
+    "zitat": "5. Daten und Zufall | Mathematisches Modellieren (K3),\nMit symbolischen/ formalen/ technischen Elementen umgehen (K5),\nMathematisch kommunizieren (K6) | II"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Die Wahrscheinlichkeit für den ersten Kunden, eine Autofahne zu gewinnen, beträgt 1/25. 1/3 der Autofahnen sind Deutschlandfahnen, 2/3 sind Fahnen anderer Länder.\nGib an, wie viele Deutschlandfahnen verlost werden.",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "///"
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "100"
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "rubbellose_Didaktische_Kommentierung.docx",
+    "zitat": "5. Daten und Zufall | Mathematisches Modellieren (K3), \nMit Mathematik symbolisch/ formal/ technisch umgehen (K5),\nMathematisch kommunizieren (K6) | II"
    },
    "assets.lizenz": {
     "gate": "G7",
@@ -32128,8 +33202,16 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G1b: part1.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[b]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[c]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[d]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[e]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part2.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '///' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "Vision unsicher: Alle Brüche stehen im Bild als echte Brüche mit Bruchstrich (Zähler über Nenner). Ich habe sie als 1/3, 3/25, 1/25, 1/300, 1/7500 bzw. 1/25, 1/3, 2/3 geschrieben — Zähler und Nenner sind sicher gelesen, aber die Schreibweise mit Schrägstrich ist meine Notation, kein Zeichen aus der Quelle.",
+   "Vision unsicher: Der Gewinnplan im Stamm ist eine Tabelle (Spalten 'Rubbelfelder' / 'Gewinn': 3 Fußballbilder → ein echter Fußball; 2 Fußballbilder, 1 freier Kreis → eine Autofahne; 1 Fußballbild, 2 freie Kreise → ein Fußballbrötchen; 3 freie Kreise → kein Gewinn). Nicht abgetippt, stem_tabelle_erwartet=true.",
+   "Vision unsicher: In image1 gibt es ein leeres Rechteck (Los-Abbildung), deren Inhalt nicht mitgerendert wurde.",
+   "Vision unsicher: Eingabefeld Teilaufgabe 2 ist im Satz 'Es werden ____ Deutschlandfahnen verlost.' eingebettet."
   ],
   "_quelle": {
    "dateien": {
@@ -32152,15 +33234,20 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ",,,,-...........000000111111222222333333555555577:?aaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbccccccccccccccddddddddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-   "anzahl": 616,
+   "rest": "..aaacdddeeeeeeeefhhkllnnnnnorrrsssttuuvwz",
+   "anzahl": 42,
    "von": 769
   },
-  "auto_gradebar": false,
+  "auto_gradebar": true,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G1b: part1.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[b]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[c]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[d]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part1.option[e]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part2.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '///' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)"
   ]
  },
  {
@@ -33603,12 +34690,51 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "SHORT_INPUT",
   "stem": {
-   "text": "",
+   "text": "Zwei lineare Funktionen g und f haben die Funktionsgleichungen g(x) = 2x − 1 und f(x) = −x + 2.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Gib die Koordinaten des Schnittpunkts der Graphen beider Funktionen an.",
+    "unit": null,
+    "correct_answers": [
+     "Die beiden Graphen schneiden sich im Punkt S( 1",
+     "Anmerkung:",
+     "Der inhaltliche Kern dieses Items ist die Idee des Gleichsetzens.",
+     "Ob dies rechnerisch oder zeichnerisch geschieht, ist unerheblich.",
+     "Dies begründet die Auswahl der Grenzfälle.",
+     "Mögliche Lösungen:",
+     "Der Schnittpunkt hat die Koordinaten x = 1 und y = 1.",
+     "ODER (Grenzfall)",
+     "Beide Graphen werden richtig in ein Koordinatensystem gezeichnet",
+     "und der Schnittpunkt ist erkennbar. Die Koordinaten des",
+     "Schnittpunkts werden z. B. durch gestrichelte Linien zu den",
+     "Achsen angedeutet, aber nicht explizit angegeben.",
+     "ODER (Grenzfall)",
+     "Die Koordinaten des Schnittpunkts werden errechnet, aber nicht",
+     "explizit nach Abschluss der Rechnung angegeben.",
+     "ODER (Grenzfall)",
+     "Die Geraden werden richtig in ein Koordinatensystem",
+     "eingezeichnet, die Koordinaten des Schnittpunkts jedoch falsch",
+     "abgelesen.",
+     "ODER (Grenzfall)",
+     "Eine der beiden Geraden wird falsch in ein Koordinatensystem",
+     "eingezeichnet und die Koordinaten des Schnittpunkts werden",
+     "folgerichtig angegeben.",
+     "ODER (Grenzfall)",
+     "Bei der rechnerischen Bestimmung der Koordinaten des",
+     "Schnittpunkts unterläuft ein Fehler, die Koordinaten des"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzstufe": "V",
+    "leitidee": "Funktionaler Zusammenhang (L4)"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -33622,6 +34748,32 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Zwei lineare Funktionen g und f haben die Funktionsgleichungen g(x) = 2x − 1 und f(x) = −x + 2.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gib die Koordinaten des Schnittpunkts der Graphen beider Funktionen an.",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Die beiden Graphen schneiden sich im Punkt S( 1\nAnmerkung:\nDer inhaltliche Kern dieses Items ist die Idee des Gleichsetzens.\nOb dies rechnerisch oder zeichnerisch geschieht, ist unerheblich.\nDies begründet die Auswahl der Grenzfälle.\nMögliche Lösungen:\nDer Schnittpunkt hat die Koordinaten x = 1 und y = 1.\nODER (Grenzfall)\nBeide Graphen werden richtig in ein Koordinatensystem gezeichnet\nund der Schnittpunkt ist erkennbar. Die Koordinaten des\nSchnittpunkts werden z. B. durch gestrichelte Linien zu den\nAchsen angedeutet, aber nicht explizit angegeben.\nODER (Grenzfall)\nDie Koordinaten des Schnittpunkts werden errechnet, aber nicht\nexplizit nach Abschluss der Rechnung angegeben.\nODER (Grenzfall)\nDie Geraden werden richtig in ein Koordinatensystem\neingezeichnet, die Koordinaten des Schnittpunkts jedoch falsch\nabgelesen.\nODER (Grenzfall)\nEine der beiden Geraden wird falsch in ein Koordinatensystem\neingezeichnet und die Koordinaten des Schnittpunkts werden\nfolgerichtig angegeben.\nODER (Grenzfall)\nBei der rechnerischen Bestimmung der Koordinaten des\nSchnittpunkts unterläuft ein Fehler, die Koordinaten des\nSchnittpunkts werden folgerichtig angegeben. | 1 )."
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "schnittpunktvongraphen_Didaktische_Kommentierung.doc",
+    "zitat": "Funktionaler Zusammenhang (L4) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": false,
@@ -33631,9 +34783,8 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
    "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Antwortsatz-Vorlage im Kasten: 'Die beiden Graphen schneiden sich im Punkt S (__ | __).' — als Eingabefeld gewertet, nicht als Prompt."
   ],
   "_quelle": {
    "dateien": {
@@ -33656,16 +34807,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "((()))+--...122==aaaaaabbbbccccdddddddddddeeeeeeeeeeeeeeeeeeeeeefffffggggggghhhhhhhiiiiiiiiiiiiiiiiikkkkkkllmnnnnnnnnnnnnnnnnnnnnnnnnnooooopppprrrrrrsssssssttttttttuuuuuuuuwxxxxz|",
-   "anzahl": 179,
+   "rest": "().abccdddeeeeeeghhhiiiiikmnnnnnpprssstu|",
+   "anzahl": 41,
    "von": 179
   },
-  "auto_gradebar": false,
-  "vollstaendig": false,
-  "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "auto_gradebar": true,
+  "vollstaendig": true,
+  "lsa_pool_kandidat": true,
+  "_flags_blockierend": []
  },
  {
   "id": "52abf613-70d3-5541-845b-4c5bf859a79d",
@@ -35045,12 +36194,48 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Bei einem fairen Spielwürfel (siehe Abbildung) sind die Seiten mit den Augenzahlen 1 und 6 schwarz gefärbt, die anderen vier Seiten mit den Augenzahlen 2, 3, 4 und 5 sind weiß.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Gib an, mit welcher Wahrscheinlichkeit beim Würfeln eine gerade Augenzahl nach oben zeigt.",
+    "unit": null,
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K3",
+     "K6"
+    ],
+    "kompetenzstufe": "2",
+    "leitidee": "5. Daten und Zufall"
+   },
+   {
+    "nr": 2,
+    "kind": "free_text",
+    "prompt": "Tim sagt: „Bei diesem Würfel gibt es zwei Ergebnisse: Schwarz und Weiß. Also ist die Wahrscheinlichkeit für Schwarz ½.“ Erkläre, warum Tim nicht Recht hat.",
+    "unit": null,
+    "correct_answers": [
+     "In einer richtigen Antwort wird die Anzahl der schwarzen bzw. weißen Würfelseiten als ausschlaggebend herausgestellt. Der Begriff Wahrscheinlichkeit muss nicht explizit erwähnt werden.",
+     "Beispiele(e)",
+     "Es sind sechs Würfelseiten und von diesen sind vier weiß, also kann die Wahrscheinlichkeit für eine weiße Würfelseite nicht  sein.",
+     "Es sind vier weiße und nur zwei schwarze Seiten."
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K1",
+     "K3",
+     "K6"
+    ],
+    "kompetenzstufe": "2",
+    "leitidee": "5. Daten und Zufall"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -35084,6 +36269,45 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Bei einem fairen Spielwürfel (siehe Abbildung) sind die Seiten mit den Augenzahlen 1 und 6 schwarz gefärbt, die anderen vier Seiten mit den Augenzahlen 2, 3, 4 und 5 sind weiß.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gib an, mit welcher Wahrscheinlichkeit beim Würfeln eine gerade Augenzahl nach oben zeigt.",
+    "fehlende_zeichen": ""
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "schwarzweisswuerfel_Didaktische_Kommentierung.docx",
+    "zitat": "5. Daten und Zufall | Mathematisches Modellieren (K3),\nMathematisch kommunizieren (K6) | I"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Tim sagt: „Bei diesem Würfel gibt es zwei Ergebnisse: Schwarz und Weiß. Also ist die Wahrscheinlichkeit für Schwarz ½.“ Erkläre, warum Tim nicht Recht hat.",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "In einer richtigen Antwort wird die Anzahl der schwarzen bzw. weißen Würfelseiten als ausschlaggebend herausgestellt. Der Begriff Wahrscheinlichkeit muss nicht explizit erwähnt werden.\n\nBeispiele(e)\nEs sind sechs Würfelseiten und von diesen sind vier weiß, also kann die Wahrscheinlichkeit für eine weiße Würfelseite nicht  sein.\nEs sind vier weiße und nur zwei schwarze Seiten."
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "schwarzweisswuerfel_Didaktische_Kommentierung.docx",
+    "zitat": "5. Daten und Zufall | Mathematisch argumentieren (K1),\nMathematisches Modellieren (K3),\nMathematisch kommunizieren (K6) | II"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -35093,8 +36317,9 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschrieben",
+   "Vision unsicher: Der Bruch in Tims Aussage ist im Bild als echter Bruch (1 über 2) gesetzt; hier als ½ übernommen.",
+   "Vision unsicher: Die Würfel-Abbildung im Stamm ist im Render nur als leerer Würfel-Umriss ohne Färbung/Augen sichtbar."
   ],
   "_quelle": {
    "dateien": {
@@ -35117,15 +36342,15 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "\"\"(),,,,,......11223456:::aaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbcccccccccccccdddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffffffggggggggggggghhhhhhhhhhhhhhhhhhhhhiiiiiiiiiiii",
-   "anzahl": 396,
+   "rest": ".:aabbccdeeeefgghhhiiiiiikklnqrrrstttw©ä",
+   "anzahl": 40,
    "von": 396
   },
   "auto_gradebar": false,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschrieben"
   ]
  },
  {
@@ -35392,12 +36617,45 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Ein Arzt notiert an einem Vormittag, wie viele Mädchen und Jungen zur Sprechstunde kamen. Das Ergebnis hält er in folgender Liste fest:",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Gib an, wie viele Mädchen insgesamt an diesem Vormittag zur Sprechstunde kamen.",
+    "unit": "Mädchen",
+    "correct_answers": [
+     "7"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4"
+    ],
+    "kompetenzstufe": "1a",
+    "leitidee": "5. Daten und Zufall"
+   },
+   {
+    "nr": 2,
+    "kind": "short_input",
+    "prompt": "Gib an, wie viele Kinder von 10:00 Uhr bis 12:00 Uhr zur Sprechstunde kamen.",
+    "unit": "Kinder",
+    "correct_answers": [
+     "10"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4"
+    ],
+    "kompetenzstufe": "1b",
+    "leitidee": "5. Daten und Zufall"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -35431,6 +36689,65 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Ein Arzt notiert an einem Vormittag, wie viele Mädchen und Jungen zur Sprechstunde kamen. Das Ergebnis hält er in folgender Liste fest:",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gib an, wie viele Mädchen insgesamt an diesem Vormittag zur Sprechstunde kamen.",
+    "fehlende_zeichen": ""
+   },
+   "part1.unit": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Mädchen",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "7"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "sprechstunde_Didaktische_Kommentierung.docx",
+    "zitat": "5. Daten und Zufall | Mathematische Darstellungen verwenden (K4) | I"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gib an, wie viele Kinder von 10:00 Uhr bis 12:00 Uhr zur Sprechstunde kamen.",
+    "fehlende_zeichen": ""
+   },
+   "part2.unit": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Kinder",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "10"
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "sprechstunde_Didaktische_Kommentierung.docx",
+    "zitat": "5. Daten und Zufall | Mathematische Darstellungen verwenden (K4) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -35440,8 +36757,9 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert",
+   "Vision unsicher: Die Liste ist eine Strichlisten-Tabelle (Spalten 'Zeit', 'Mädchen', 'Jungen'; Zeilen '9.00 – 10.00 Uhr', '10.00 – 11.00 Uhr', '11.00 – 12.00 Uhr'). Die Zellinhalte sind Striche, keine Zahlen — die Strichzahlen lese ich als Mädchen 4/1/2 und Jungen 3/5(durchgestrichenes Bündel)/2, bin bei der 10–11-Uhr-Zeile der Jungen aber nicht sicher, ob es 5 oder 6 Striche sind.",
+   "Vision unsicher: Die Queue meldet 'hat_tabelle_im_emf: false', im Bild ist aber eindeutig eine Tabelle; ich setze stem_tabelle_erwartet: true."
   ],
   "_quelle": {
    "dateien": {
@@ -35464,15 +36782,15 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ",,,---.........0000000000000000000111111111229:::aaaaaaaaaaaabbbbcccccccdddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeffggggggggghhhhhhhhhhhhhiiiiiiiiiiiiiiiiiiiiiijjkkkkkllllllmmmmmmmmmmmmnnn",
-   "anzahl": 316,
+   "rest": "---......00000000000000111111129cdeeeghhhhijmnnnrrrtuuuuzä",
+   "anzahl": 58,
    "von": 316
   },
-  "auto_gradebar": false,
+  "auto_gradebar": true,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert"
   ]
  },
  {
@@ -36677,12 +37995,31 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "SHORT_INPUT",
   "stem": {
-   "text": "",
+   "text": "Der Bordcomputer eines Autos zeigt während der Fahrt den aktuellen Durchschnittsverbrauch in Liter pro 100 km an (l/100 km).\n\nEr zeigt auch an, wie viele Kilometer man noch fahren kann, bis der Tank leer ist. Diese Entfernung errechnet der Bordcomputer fortlaufend neu. Er berücksichtigt dabei den aktuellen Durchschnittsverbrauch und den aktuellen Tankinhalt.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Berechne mithilfe der angezeigten Daten, wie viele Liter Kraftstoff in diesem Moment noch ungefähr im Tank sind.",
+    "unit": "Liter",
+    "correct_answers": [
+     "eine Zahl aus dem Intervall [49; 50]"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K3",
+     "K5",
+     "K6"
+    ],
+    "kompetenzstufe": "5",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -36696,6 +38033,39 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Der Bordcomputer eines Autos zeigt während der Fahrt den aktuellen Durchschnittsverbrauch in Liter pro 100 km an (l/100 km).\n\nEr zeigt auch an, wie viele Kilometer man noch fahren kann, bis der Tank leer ist. Diese Entfernung errechnet der Bordcomputer fortlaufend neu. Er berücksichtigt dabei den aktuellen Durchschnittsverbrauch und den aktuellen Tankinhalt.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Berechne mithilfe der angezeigten Daten, wie viele Liter Kraftstoff in diesem Moment noch ungefähr im Tank sind.",
+    "fehlende_zeichen": ""
+   },
+   "part1.unit": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Liter",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "eine Zahl aus dem Intervall [49; 50]"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "tankinhalt_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mathematisch modellieren (K3)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)\nMathematisch kommunizieren (K6) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -36705,8 +38075,8 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Die Abbildung des Bordcomputer-Displays (mit den 'angezeigten Daten': Durchschnittsverbrauch und Restreichweite) ist im Render nur als winziges Strichfragment vorhanden — die konkreten Anzeigewerte sind nicht lesbar. Ich habe sie deshalb nicht in den Stamm aufgenommen.",
+   "Vision unsicher: Das Antwortfeld ist ein Lückensatz: 'In diesem Moment sind ca. ______ Liter Kraftstoff im Tank.' — Einheit 'Liter' nach unit übernommen."
   ],
   "_quelle": {
    "dateien": {
@@ -36729,16 +38099,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "(),,,......./000011aaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbccccccccccccccccddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffffffffffffggggggghhhhhhhhhhhhhhhhhhiiiiiii",
-   "anzahl": 447,
+   "rest": "..aaacddeeefffiiiikkmmmmnnnnoorssstttt",
+   "anzahl": 38,
    "von": 447
   },
-  "auto_gradebar": false,
-  "vollstaendig": false,
-  "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "auto_gradebar": true,
+  "vollstaendig": true,
+  "lsa_pool_kandidat": true,
+  "_flags_blockierend": []
  },
  {
   "id": "d97db3b5-e365-5f06-88ab-8d71bf840785",
@@ -36836,12 +38204,29 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "SHORT_INPUT",
   "stem": {
-   "text": "",
+   "text": "An einem Herbsttag misst Tim morgens im Garten eine Temperatur von -1 °C. Am Nachmittag beträgt die Temperatur an der gleichen Stelle 18 °C.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Gib an, um wie viel Grad Celsius die Temperatur angestiegen ist.",
+    "unit": "°C",
+    "correct_answers": [
+     "19"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K5"
+    ],
+    "kompetenzstufe": "1a",
+    "leitidee": "1. Zahl"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -36855,6 +38240,39 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "An einem Herbsttag misst Tim morgens im Garten eine Temperatur von -1 °C. Am Nachmittag beträgt die Temperatur an der gleichen Stelle 18 °C.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gib an, um wie viel Grad Celsius die Temperatur angestiegen ist.",
+    "fehlende_zeichen": ""
+   },
+   "part1.unit": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "°C",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "19"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "temperaturdifferenz_Didaktische_Kommentierung.docx",
+    "zitat": "1. Zahl | Mit Mathematik symbolisch/ formal/ technisch umgehen (K5) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -36864,9 +38282,7 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "G7: Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G7: Lizenzzeile nennt NUR Text/Teilaufgaben, keine 'Grafik' -> Abbildung NICHT von CC BY gedeckt -> Abbildung NICHT verwenden"
   ],
   "_quelle": {
    "dateien": {
@@ -36889,16 +38305,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ",-....118aaaaaaaaaaaaaabbbccccccdddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeegggggggggggghhhiiiiiiiiiiiiiiiiiilllllmmmmmmmmmmmmmnnnnnnnnnnnnnoopppprrrrrrrrrrrrrrsssssssssssttttttttttttttttttttttuuuuuuuvvw°°°",
-   "anzahl": 201,
+   "rest": ".adeeeeeeggiiimmnprrssttttuu",
+   "anzahl": 28,
    "von": 201
   },
-  "auto_gradebar": false,
-  "vollstaendig": false,
-  "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "auto_gradebar": true,
+  "vollstaendig": true,
+  "lsa_pool_kandidat": true,
+  "_flags_blockierend": []
  },
  {
   "id": "d7a6f944-b83b-58c3-acd0-c021f738279d",
@@ -37132,12 +38546,50 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Bei einer Tombola auf einem Schulfest befinden sich 200 Lose in einem Gefäß. Davon sind 70 kleine Gewinne, 30 mittlere Gewinne und 10 Hauptgewinne. Der Rest sind Nieten.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Gib an, bei wie vielen Losen es sich um Nieten handelt.",
+    "unit": "Nieten",
+    "correct_answers": [
+     "90"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K6"
+    ],
+    "kompetenzstufe": "1a",
+    "leitidee": "5. Daten und Zufall"
+   },
+   {
+    "nr": 2,
+    "kind": "free_text",
+    "prompt": "Zeichne die Anteile der vier Losarten in dieses Streifendiagramm ein. Beschrifte die Anteile.",
+    "unit": null,
+    "correct_answers": [
+     "[Anm: Auch alle anders angeordneten Streifendiagramme sind richtig, wenn die Streifenbreite den jeweiligen Losarten entspricht:",
+     "-  kleine Gewinne/70: Streifenbreite 7 Kästchenlängen",
+     "-  mittlere Gewinne/30: Streifenbreite 3 Kästchenlängen",
+     "-  Hauptgewinne/10: Streifenbreite 1 Kästchenlänge",
+     "-  Nieten/90: Streifenbreite 9 Kästchenlängen.]"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4",
+     "K6"
+    ],
+    "kompetenzstufe": "2",
+    "leitidee": "5. Daten und Zufall"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -37171,6 +38623,58 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Bei einer Tombola auf einem Schulfest befinden sich 200 Lose in einem Gefäß. Davon sind 70 kleine Gewinne, 30 mittlere Gewinne und 10 Hauptgewinne. Der Rest sind Nieten.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Gib an, bei wie vielen Losen es sich um Nieten handelt.",
+    "fehlende_zeichen": ""
+   },
+   "part1.unit": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Nieten",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "90"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "tombolazumschulfest_Didaktische_Kommentierung.docx",
+    "zitat": "5. Daten und Zufall | Mathematisch kommunizieren (K6) | I"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Zeichne die Anteile der vier Losarten in dieses Streifendiagramm ein. Beschrifte die Anteile.",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "[Anm: Auch alle anders angeordneten Streifendiagramme sind richtig, wenn die Streifenbreite den jeweiligen Losarten entspricht:\n  -  kleine Gewinne/70: Streifenbreite 7 Kästchenlängen \n  -  mittlere Gewinne/30: Streifenbreite 3 Kästchenlängen\n  -  Hauptgewinne/10: Streifenbreite 1 Kästchenlänge\n  -  Nieten/90: Streifenbreite 9 Kästchenlängen.]"
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "tombolazumschulfest_Didaktische_Kommentierung.docx",
+    "zitat": "5. Daten und Zufall | Mathematische Darstellungen verwenden (K4),\nMathematisch kommunizieren (K6) | I"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -37180,8 +38684,8 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Teilaufgabe 1 hat als Eingabefeld den Lückensatz 'Es gibt .......... Nieten.'; ich habe 'Nieten' als unit gesetzt.",
+   "Vision unsicher: Teilaufgabe 2 verlangt eine Zeichnung in ein leeres Kästchenraster (Streifendiagramm) — kind 'free_text' ist die nächstliegende Kategorie, eigentlich ist es eine Zeichenaufgabe."
   ],
   "_quelle": {
    "dateien": {
@@ -37204,16 +38708,14 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ",,.......000001237aaaaaaaaaaabbbbbbbcccccddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeffffffggggggghhhhhhhiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiklllllllllllmmmmmmmnnnnnnnnnnnnnnnnn",
-   "anzahl": 281,
+   "rest": ".begist",
+   "anzahl": 7,
    "von": 281
   },
   "auto_gradebar": false,
-  "vollstaendig": false,
+  "vollstaendig": true,
   "lsa_pool_kandidat": false,
-  "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
-  ]
+  "_flags_blockierend": []
  },
  {
   "id": "22362bd6-572f-555e-9713-f992df459c69",
@@ -37223,12 +38725,47 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MC",
   "stem": {
-   "text": "",
+   "text": "Von einem Traktor werden Spielzeugmodelle in den folgenden Maßstäben hergestellt: 1 : 120, 1 : 87, 1 : 50, 1 : 32",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "Bei welchem Maßstab ist das Modell am kleinsten? Kreuze an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "1 : 120"
+     },
+     {
+      "id": "b",
+      "label": "1 : 87"
+     },
+     {
+      "id": "c",
+      "label": "1 : 50"
+     },
+     {
+      "id": "d",
+      "label": "1 : 32"
+     }
+    ],
+    "correct_answers": [
+     "a"
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K5"
+    ],
+    "kompetenzstufe": "1b",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -37252,6 +38789,62 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Von einem Traktor werden Spielzeugmodelle in den folgenden Maßstäben hergestellt: 1 : 120, 1 : 87, 1 : 50, 1 : 32",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": ",,,"
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Bei welchem Maßstab ist das Modell am kleinsten? Kreuze an.",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1 : 120",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1 : 87",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1 : 50",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1 : 32",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G3",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "1. Kästchen wurde angekreuzt",
+    "aufgeloest_auf": "1. Option = 1 : 120 (id=a)"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "traktor_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5) | II"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -37261,8 +38854,8 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: ',,,' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "Vision unsicher: Die vier Maßstäbe stehen im Stamm als untereinander stehende Zeilen (1 : 120 / 1 : 87 / 1 : 50 / 1 : 32); hier zu einer Zeile zusammengefasst."
   ],
   "_quelle": {
    "dateien": {
@@ -37285,15 +38878,15 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ".00001111111111222233557788:::::::::?aaaaaaabbbcddddddeeeeeeeeeeeeeeeeeeeeeeefggghhiiiiiikkkllllllllllmmmmmmmnnnnnnnnnnnoooooprrrrrsssssssttttttttuuvwwzzßßä",
-   "anzahl": 156,
+   "rest": "",
+   "anzahl": 0,
    "von": 156
   },
-  "auto_gradebar": false,
+  "auto_gradebar": true,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: ',,,' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)"
   ]
  },
  {
@@ -37448,12 +39041,79 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Den Flächeninhalt A eines Trapezes kann man mit folgender Formel berechnen:\nA = (a + c) · h / 2\n(Skizze: Trapez ABCD mit Grundseite a, Parallelseite c und Höhe h)",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "Wie verändert sich der Flächeninhalt, wenn man die Höhe h verdoppelt (a und c aber konstant bleiben)? Kreuze an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "Der Flächeninhalt wird quadriert."
+     },
+     {
+      "id": "b",
+      "label": "Der Flächeninhalt wird verdoppelt."
+     },
+     {
+      "id": "c",
+      "label": "Der Flächeninhalt wird um 2 größer."
+     },
+     {
+      "id": "d",
+      "label": "Ohne konkrete Werte kann man diese Frage nicht beantworten."
+     }
+    ],
+    "correct_answers": [
+     "b"
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K2",
+     "K5",
+     "K6"
+    ],
+    "kompetenzstufe": "3",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   },
+   {
+    "nr": 2,
+    "kind": "mc",
+    "prompt": "Die Höhe h soll sich nicht verändern. Kann man dann die Längen der Seiten a und c so verändern, dass der Flächeninhalt des Trapezes gleich bleibt? Kreuze an. Begründe deine Antwort.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "Ja"
+     },
+     {
+      "id": "b",
+      "label": "Nein"
+     }
+    ],
+    "correct_answers": [
+     "Ja",
+     "UND",
+     "Begründung (auch anhand eines Beispiels) über die gleichbleibende Summe der Seitenlängen a und c."
+    ],
+    "afb": 3,
+    "afb_raw": "III",
+    "kompetenzen": [
+     "K1",
+     "K2",
+     "K5"
+    ],
+    "kompetenzstufe": "4",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -37487,6 +39147,95 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Den Flächeninhalt A eines Trapezes kann man mit folgender Formel berechnen:\nA = (a + c) · h / 2\n(Skizze: Trapez ABCD mit Grundseite a, Parallelseite c und Höhe h)",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/:"
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Wie verändert sich der Flächeninhalt, wenn man die Höhe h verdoppelt (a und c aber konstant bleiben)? Kreuze an.",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Der Flächeninhalt wird quadriert.",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Der Flächeninhalt wird verdoppelt.",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Der Flächeninhalt wird um 2 größer.",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Ohne konkrete Werte kann man diese Frage nicht beantworten.",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G3",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "2. Kästchen wurde angekreuzt",
+    "aufgeloest_auf": "2. Option = Der Flächeninhalt wird verdoppelt. (id=b)"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "trapezvariation_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Probleme mathematisch lösen (K2)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5)\nMathematisch kommunizieren (K6) | II"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Die Höhe h soll sich nicht verändern. Kann man dann die Längen der Seiten a und c so verändern, dass der Flächeninhalt des Trapezes gleich bleibt? Kreuze an. Begründe deine Antwort.",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Ja",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Nein",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Ja\n \nUND\n\nBegründung (auch anhand eines Beispiels) über die gleichbleibende Summe der Seitenlängen a und c.\n\nBeispiel(e)\n ; \nWenn man die Seitenlängen a und c so verändert, dass deren Summe gleich bleibt, bleibt auch der Flächeninhalt gleich.\n(Grenzfall)\nMan kann sie so verändern, dass es am Ende ein Rechteck wird und somit ist der Flächeninhalt gleich, da nichts weggenommen oder vergrößert wurde.\n(Grenzfall)\nMan kann die Seitenlängen a und c vertauschen."
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "trapezvariation_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mathematisch argumentieren (K1)\nProbleme mathematisch lösen (K2)\nMit symbolischen, formalen und technischen Elementen der Mathematik umgehen (K5) | III"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -37496,8 +39245,9 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/:' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "Vision unsicher: Die Bruchformel steht im Bild zweizeilig: Zähler (a + c) · h über Nenner 2; ich habe sie einzeilig als '(a + c) · h / 2' notiert.",
+   "Vision unsicher: Teilaufgabe 2 kombiniert Ankreuzen und eine schriftliche Begründung."
   ],
   "_quelle": {
    "dateien": {
@@ -37520,15 +39270,15 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "(())*+,,........22:=??aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbcccccccccccccccccdddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefffffffffgggggghhh",
-   "anzahl": 476,
+   "rest": "⋅",
+   "anzahl": 1,
    "von": 476
   },
-  "auto_gradebar": false,
+  "auto_gradebar": true,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G1b: stem: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/:' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)"
   ]
  },
  {
@@ -38275,12 +40025,50 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Dieser „Spielwürfel“ entstand, indem aus einem würfelförmigen Körper ein Viertel herausgeschnitten wurde. Er wurde aus verschiedenen Ansichten fotografiert.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "free_text",
+    "prompt": "Hier ist ein Netz dieses „Spielwürfels“ skizziert. Man sieht die Außenfläche des Würfels. Wenn das Netz zusammengefaltet ist, soll es so aussehen wie der fotografierte „Spielwürfel“. Zeichne die Punkte, die sich auf den Seitenflächen des „Spielwürfels“ befinden, in das Netz ein.",
+    "unit": null,
+    "correct_answers": [
+     "Eines der folgenden Netze liegt vor."
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K2",
+     "K4"
+    ],
+    "kompetenzstufe": "4",
+    "leitidee": "Raum und Form (L3)"
+   },
+   {
+    "nr": 2,
+    "kind": "free_text",
+    "prompt": "Hier wurde noch ein anderes Netz dieses „Spielwürfels“ skizziert. Es fehlt noch die Seitenfläche mit den drei Punkten. Zeichne die fehlende Seitenfläche passend an das Netz.",
+    "unit": null,
+    "correct_answers": [
+     "Eines der folgenden Netze liegt vor. Die Zeichengenauigkeit wird nicht bewertet.",
+     "Grenzfälle",
+     "Eines der beiden folgenden Netze wird gezeichnet – hierbei muss aber deutlich werden, dass (wie in der Skizze angedeutet) die winkelförmige Seite immer nur seitlich (Bild 1: links; Bild 2: rechts) an der „Seite ohne Punkte“ befestigt ist.",
+     "Die winkelförmige Seite wurde richtig angefügt, aber nicht mit den drei Punkten versehen."
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K2",
+     "K4"
+    ],
+    "kompetenzstufe": "3",
+    "leitidee": "Raum und Form (L3)"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -38314,6 +40102,51 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G0",
+    "ok": false,
+    "quelle": "Rasterbild",
+    "zitat": null,
+    "hinweis": "Rasterquelle: kein Zeichenvorrat, Lesung UNGEPRUEFT"
+   },
+   "part1.prompt": {
+    "gate": "G0",
+    "ok": false,
+    "quelle": "Rasterbild",
+    "zitat": null,
+    "hinweis": "Rasterquelle: kein Zeichenvorrat, Lesung UNGEPRUEFT"
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Eines der folgenden Netze liegt vor.\n\n\n[Anm.: Andere Zeichnungen mit analogen Beschriftungen sind ebenfalls zugelassen. Die Orientierung der Punkte ist nicht wichtig (z. B. bei der Zwei).]"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "ungewoehnlicherspielwuerfel_Didaktische_Kommentierung.docx",
+    "zitat": "Raum und Form (L3) | Probleme mathematisch lösen (K2)\nMathematische Darstellungen verwenden (K4) | II"
+   },
+   "part2.prompt": {
+    "gate": "G0",
+    "ok": false,
+    "quelle": "Rasterbild",
+    "zitat": null,
+    "hinweis": "Rasterquelle: kein Zeichenvorrat, Lesung UNGEPRUEFT"
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Eines der folgenden Netze liegt vor. Die Zeichengenauigkeit wird nicht bewertet.\n\n\n\nGrenzfälle\nEines der beiden folgenden Netze wird gezeichnet – hierbei muss aber deutlich werden, dass (wie in der Skizze angedeutet) die winkelförmige Seite immer nur seitlich (Bild 1: links; Bild 2: rechts) an der „Seite ohne Punkte“ befestigt ist.\n\nDie winkelförmige Seite wurde richtig angefügt, aber nicht mit den drei Punkten versehen."
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "ungewoehnlicherspielwuerfel_Didaktische_Kommentierung.docx",
+    "zitat": "Raum und Form (L3) | Probleme mathematisch lösen (K2)\nMathematische Darstellungen verwenden (K4) | II"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -38324,8 +40157,9 @@
   },
   "_flags": [
    "Aufgabentext nur als Rasterbild (kein Zeichenvorrat) -> G1 nicht anwendbar, Stamm bleibt ungeprueft",
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT",
+   "Vision unsicher: Rasterbild (nur_raster): Text aus dem Pixelbild gelesen, kein Zeichenvorrat zur Gegenprüfung.",
+   "Vision unsicher: Beide Teilaufgaben sind Zeichenaufgaben (in ein Netz einzeichnen) — sie lassen sich nicht als Texteingabe abbilden; kind=free_text ist nur eine Näherung."
   ],
   "_quelle": {
    "dateien": {
@@ -38351,7 +40185,7 @@
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G0: Stamm nur aus Rasterbild gelesen -> UNGEPRUEFT"
   ]
  },
  {
@@ -38593,12 +40427,138 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Ist das Bild des Verkehrszeichens achsensymmetrisch? Kreuze jeweils an.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "ja"
+     },
+     {
+      "id": "b",
+      "label": "nein"
+     }
+    ],
+    "correct_answers": [
+     "[pic]"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4"
+    ],
+    "kompetenzstufe": "4",
+    "leitidee": "Raum und Form (L3)"
+   },
+   {
+    "nr": 2,
+    "kind": "mc",
+    "prompt": "",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "ja"
+     },
+     {
+      "id": "b",
+      "label": "nein"
+     }
+    ],
+    "correct_answers": [
+     "[pic]",
+     "Anm.: Die gespiegelten Eckpunkte müssen auf den Schnittpunkten",
+     "des Rasters liegen. Zeichentoleranz diesbezüglich ( 1 mm."
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzstufe": "1A",
+    "leitidee": "Raum und Form (L3)"
+   },
+   {
+    "nr": 3,
+    "kind": "mc",
+    "prompt": "",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "ja"
+     },
+     {
+      "id": "b",
+      "label": "nein"
+     }
+    ],
+    "correct_answers": [
+     "[pic]",
+     "Anm.: Es müssen alle Spiegelachsen eingezeichnet sein. Die",
+     "einzelnen Achsen dürfen um 1 mm bzw. 3° von ihrer ursprünglichen",
+     "Lage abweichen."
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4"
+    ],
+    "kompetenzstufe": "2",
+    "leitidee": "Raum und Form (L3)"
+   },
+   {
+    "nr": 4,
+    "kind": "mc",
+    "prompt": "",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "ja"
+     },
+     {
+      "id": "b",
+      "label": "nein"
+     }
+    ],
+    "correct_answers": [
+     "[pic]",
+     "Anm.: Der Fehler kann auch mittels eines anderen Zeichens (z. B.",
+     "Kreuz) gekennzeichnet werden. Es kann auch das \"S\" im linken Bild",
+     "markiert werden."
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4"
+    ],
+    "kompetenzstufe": "2",
+    "leitidee": "Raum und Form (L3)"
+   },
+   {
+    "nr": 5,
+    "kind": "mc",
+    "prompt": "",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "ja"
+     },
+     {
+      "id": "b",
+      "label": "nein"
+     }
+    ]
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -38612,6 +40572,166 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Ist das Bild des Verkehrszeichens achsensymmetrisch? Kreuze jeweils an.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "ja",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "nein",
+    "fehlende_zeichen": ""
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "[pic]"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "verkehrszeichen_Didaktische_Kommentierung.doc",
+    "zitat": "Raum und Form (L3) | Mathematische Darstellungen verwenden (K4) | I"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "ja",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "nein",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "[pic]\nAnm.: Die gespiegelten Eckpunkte müssen auf den Schnittpunkten\ndes Rasters liegen. Zeichentoleranz diesbezüglich ( 1 mm."
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "verkehrszeichen_Didaktische_Kommentierung.doc",
+    "zitat": "Raum und Form (L3) | I"
+   },
+   "part3.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "",
+    "fehlende_zeichen": ""
+   },
+   "part3.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "ja",
+    "fehlende_zeichen": ""
+   },
+   "part3.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "nein",
+    "fehlende_zeichen": ""
+   },
+   "part3.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "[pic]\nAnm.: Es müssen alle Spiegelachsen eingezeichnet sein. Die\neinzelnen Achsen dürfen um 1 mm bzw. 3° von ihrer ursprünglichen\nLage abweichen."
+   },
+   "part3.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "verkehrszeichen_Didaktische_Kommentierung.doc",
+    "zitat": "Raum und Form (L3) | Mathematische Darstellungen verwenden (K4) | I"
+   },
+   "part4.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "",
+    "fehlende_zeichen": ""
+   },
+   "part4.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "ja",
+    "fehlende_zeichen": ""
+   },
+   "part4.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "nein",
+    "fehlende_zeichen": ""
+   },
+   "part4.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "[pic]\nAnm.: Der Fehler kann auch mittels eines anderen Zeichens (z. B.\nKreuz) gekennzeichnet werden. Es kann auch das \"S\" im linken Bild\nmarkiert werden."
+   },
+   "part4.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "verkehrszeichen_Didaktische_Kommentierung.doc",
+    "zitat": "Raum und Form (L3) | Mathematische Darstellungen verwenden (K4) | I"
+   },
+   "part5.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "",
+    "fehlende_zeichen": ""
+   },
+   "part5.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "ja",
+    "fehlende_zeichen": ""
+   },
+   "part5.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "nein",
+    "fehlende_zeichen": ""
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": false,
@@ -38621,9 +40741,13 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
+   "G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert",
+   "G2: Teilaufgabe 5: keine RICHTIG-Zelle -> keine Loesung",
+   "Teilaufgabe 5: AFB/Kompetenzen nicht in der Kommentierung gefunden",
    "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Die linke Spalte der Tabelle (die eigentlichen Verkehrszeichen-Bilder) ist im gerenderten EMF LEER — die Zeichenbilder fehlen. Ich kann daher zu keiner Zeile einen Prompt angeben; alle prompts bleiben leer.",
+   "Vision unsicher: Widerspruch zur Auswertung: sie kennt 4 Teilaufgaben, im Bild sind 5 Ankreuzzeilen (je ja/nein) unter der Kopfzeile. Ich folge dem Bild mit 5 parts.",
+   "Vision unsicher: Da die Bild-Spalte leer ist, sind die parts nur über ihre Zeilenposition identifizierbar; ohne die Zeichen ist eine Zuordnung zur Auswertung riskant."
   ],
   "_quelle": {
    "dateien": {
@@ -38646,15 +40770,16 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": ".?aaaabcccdddeeeeeeeeeeeehhhhiiiiiijjkkllmmnnnnnrrrrsssssssssttuvwyzz",
-   "anzahl": 69,
+   "rest": "",
+   "anzahl": 0,
    "von": 69
   },
   "auto_gradebar": false,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G5: Tabelle im Bild gesehen, aber keine strukturierte Tabelle rekonstruiert",
+   "G2: Teilaufgabe 5: keine RICHTIG-Zelle -> keine Loesung"
   ]
  },
  {
@@ -38665,7 +40790,7 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
    "text": "",
    "table": {
@@ -38709,7 +40834,56 @@
     ]
    }
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "mc",
+    "prompt": "Prüfe, ob die Aussagen über die Gerade y = 5x − 5 wahr oder falsch sind. Kreuze jeweils an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "wahr"
+     },
+     {
+      "id": "b",
+      "label": "falsch"
+     }
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K4",
+     "K6"
+    ],
+    "kompetenzstufe": "4",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   },
+   {
+    "nr": 2,
+    "kind": "mc",
+    "prompt": "Prüfe, ob die Aussagen über die Gerade y = mx + n wahr oder falsch sind, wenn m < 0 und n ≠ 0. Kreuze jeweils an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "wahr"
+     },
+     {
+      "id": "b",
+      "label": "falsch"
+     }
+    ],
+    "afb": 3,
+    "afb_raw": "III",
+    "kompetenzen": [
+     "K4",
+     "K6"
+    ],
+    "kompetenzstufe": "5",
+    "leitidee": "4. Funktionaler Zusammenhang"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -38739,6 +40913,60 @@
     "quelle": "image1.emf",
     "zitat": "Die Gerade … | wahr |  |  | falsch |  | "
    },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Prüfe, ob die Aussagen über die Gerade y = 5x − 5 wahr oder falsch sind. Kreuze jeweils an.",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "wahr",
+    "fehlende_zeichen": ""
+   },
+   "part1.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "falsch",
+    "fehlende_zeichen": ""
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "verlaufdesgraphen_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mathematische Darstellungen verwenden (K4)\nMathematisch kommunizieren (K6) | I"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Prüfe, ob die Aussagen über die Gerade y = mx + n wahr oder falsch sind, wenn m < 0 und n ≠ 0. Kreuze jeweils an.",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "wahr",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "falsch",
+    "fehlende_zeichen": ""
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "verlaufdesgraphen_Didaktische_Kommentierung.docx",
+    "zitat": "4. Funktionaler Zusammenhang | Mathematische Darstellungen verwenden (K4)\nMathematisch kommunizieren (K6) | III"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -38748,8 +40976,9 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschrieben",
+   "G2: Teilaufgabe 2: Loesung ohne woertlichen Beleg -> NICHT geschrieben",
+   "Vision unsicher: Beide Teilaufgaben sind Wahr/Falsch-Raster mit je 3 Aussagezeilen. Teil 1: '… verläuft durch den Koordinatenursprung (0 | 0).', '… hat eine positive Steigung.', '… schneidet die x-Achse im Punkt (5 | 0).' Teil 2: '… verläuft durch den Koordinatenursprung (0 | 0).', '… hat eine positive Steigung.', '… schneidet die y-Achse im Punkt (0 | n).' Die Zeilen selbst wurden nicht in options übernommen (stem_tabelle_erwartet = true); options enthalten nur die Spaltenköpfe."
   ],
   "_quelle": {
    "dateien": {
@@ -38772,15 +41001,16 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "(())+,,,--.......0000055<==aaaaaaaaaaaaaaaaaabbbbccccccddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeffffffgggggggghhhhhhhhhhiiiiiiiiiiiiiiiiijjkkkkllllllmmmnnnnnnnnnnnnnnnnnnnnoooooooppppp",
-   "anzahl": 280,
+   "rest": "(())-...000aaccdddddddeeeeeeeeeeeeeegggghhiiiiiiiiikkmnnnnnnnnnoooppprrrrrsssstttttttuuuuuuvvy||ä…………",
+   "anzahl": 101,
    "von": 400
   },
   "auto_gradebar": false,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G2: Teilaufgabe 1: Loesung ohne woertlichen Beleg -> NICHT geschrieben",
+   "G2: Teilaufgabe 2: Loesung ohne woertlichen Beleg -> NICHT geschrieben"
   ]
  },
  {
@@ -41369,7 +43599,7 @@
   "is_diagnostic": true,
   "input_type": null,
   "stem": {
-   "text": "",
+   "text": "Ein Würfel ist aus lauter kleinen Würfeln zusammengesetzt (siehe Bild). Jeder der kleinen Würfel hat ein Volumen von 1 cm³.",
    "table": null
   },
   "parts": [],
@@ -41386,6 +43616,13 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Ein Würfel ist aus lauter kleinen Würfeln zusammengesetzt (siehe Bild). Jeder der kleinen Würfel hat ein Volumen von 1 cm³.",
+    "fehlende_zeichen": ""
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": false,
@@ -41397,7 +43634,8 @@
   "_flags": [
    "keine Teilaufgabe gelesen -> Item unbrauchbar",
    "G7: kein Lizenzhinweis im Item gefunden -> Abbildung NICHT verwenden",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "Vision unsicher: Das einzige gerenderte Bild enthält nur den Stammtext und die Würfelzeichnung. Es sind KEINE Teilaufgaben/Prompts sichtbar, die Auswertung kennt aber 2 Teilaufgaben. Ich folge dem Bild und lasse parts leer, statt Fragen zu erfinden.",
+   "Vision unsicher: '(Abbildung nicht maßstabsgerecht)' ist Abbildungsbeschriftung, nicht Stamm."
   ],
   "_quelle": {
    "dateien": {
@@ -41420,8 +43658,8 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "(())..13aaaaaaabbbbcccddddeeeeeeeeeeeeeeeeeeeeefffggghhhhiiiiiiiiijkklllllllllmmmmmnnnnnnnnnnnnoorrrrrrrsssssssttttttttuuuuuvvwwwzzßüüü",
-   "anzahl": 135,
+   "rest": "()aaabbbccdeegghhiilmnnrsstttuß",
+   "anzahl": 31,
    "von": 135
   },
   "auto_gradebar": false,
@@ -42680,12 +44918,96 @@
   "klasse": 8,
   "status": "draft",
   "is_diagnostic": true,
-  "input_type": null,
+  "input_type": "MULTI_PART",
   "stem": {
-   "text": "",
+   "text": "Der faire Würfel im Foto hat 30 gleich große Seitenflächen. Diese sind mit den Zahlen 1 bis 30 beschriftet.",
    "table": null
   },
-  "parts": [],
+  "parts": [
+   {
+    "nr": 1,
+    "kind": "short_input",
+    "prompt": "Wie groß ist die Wahrscheinlichkeit, dass die Zahl 9 geworfen wird? Ergänze: Die Wahrscheinlichkeit beträgt … .",
+    "unit": null,
+    "correct_answers": [
+     "(oder gleichwertige Angabe, wie z. B.  3, %)"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K3"
+    ],
+    "kompetenzstufe": "2",
+    "leitidee": "Daten und Zufall (L5)"
+   },
+   {
+    "nr": 2,
+    "kind": "mc",
+    "prompt": "Wie groß ist die Wahrscheinlichkeit, eine ungerade Zahl zu werfen? Kreuze an.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "1/30"
+     },
+     {
+      "id": "b",
+      "label": "1/15"
+     },
+     {
+      "id": "c",
+      "label": "1/2"
+     },
+     {
+      "id": "d",
+      "label": "Das kann man nicht berechnen, ohne zu wissen, wie häufig gewürfelt wird."
+     }
+    ],
+    "correct_answers": [
+     "c"
+    ],
+    "afb": 1,
+    "afb_raw": "I",
+    "kompetenzen": [
+     "K3"
+    ],
+    "kompetenzstufe": "3",
+    "leitidee": "Daten und Zufall (L5)"
+   },
+   {
+    "nr": 3,
+    "kind": "mc",
+    "prompt": "Stefan hat diesen Würfel 29-mal geworfen. Dabei ist kein einziges Mal die Zahl 2 gefallen. Er sagt: „Beim nächsten Wurf fällt mit Sicherheit die 2, da bei 30 Würfen jede Zahl einmal fallen muss.“ Hat Stefan Recht? Kreuze an. Begründe deine Entscheidung.",
+    "unit": null,
+    "options": [
+     {
+      "id": "a",
+      "label": "Ja"
+     },
+     {
+      "id": "b",
+      "label": "Nein"
+     }
+    ],
+    "correct_answers": [
+     "Nein",
+     "UND",
+     "eine Antwort, in welcher auf einen der folgenden Aspekte Bezug genommen wird:",
+     "- Unabhängigkeit der einzelnen Würfe oder",
+     "- Gleichwahrscheinlichkeit aller Ergebnisse oder",
+     "- Zufälligkeit der Ergebnisse oder",
+     "- Analogie zum Ziehen mit Zurücklegen."
+    ],
+    "afb": 2,
+    "afb_raw": "II",
+    "kompetenzen": [
+     "K3",
+     "K6"
+    ],
+    "kompetenzstufe": "1A",
+    "leitidee": "Daten und Zufall (L5)"
+   }
+  ],
   "assets": [
    {
     "kind": "image",
@@ -42729,6 +45051,117 @@
    }
   ],
   "_grounding": {
+   "stem": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Der faire Würfel im Foto hat 30 gleich große Seitenflächen. Diese sind mit den Zahlen 1 bis 30 beschriftet.",
+    "fehlende_zeichen": ""
+   },
+   "part1.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Wie groß ist die Wahrscheinlichkeit, dass die Zahl 9 geworfen wird? Ergänze: Die Wahrscheinlichkeit beträgt … .",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "…"
+   },
+   "part1.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "(oder gleichwertige Angabe, wie z. B.  3, %)\n[Anm.: Auch gerundete und mit \"etwa\" versehene Angaben sind richtig,  z. B. \"etwa 3 %\" oder \"etwa 0,03\" oder \"etwa 3,3 %\".]\n\nBeispiel(e)\n• (Grenzfall)\n3,3 % (oder \"3 %\" oder \"0,03\")"
+   },
+   "part1.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "zahlenwuerfel_Didaktische_Kommentierung.docx",
+    "zitat": "Daten und Zufall (L5) | Mathematisch modellieren (K3), | I"
+   },
+   "part2.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Wie groß ist die Wahrscheinlichkeit, eine ungerade Zahl zu werfen? Kreuze an.",
+    "fehlende_zeichen": ""
+   },
+   "part2.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/30",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part2.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/15",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part2.option[c]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "1/2",
+    "fehlende_zeichen": "",
+    "g1b_interpunktion_ohne_beleg": "/"
+   },
+   "part2.option[d]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Das kann man nicht berechnen, ohne zu wissen, wie häufig gewürfelt wird.",
+    "fehlende_zeichen": ""
+   },
+   "part2.correct_answers": {
+    "gate": "G3",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "3. Kästchen wurde angekreuzt",
+    "aufgeloest_auf": "3. Option = 1/2 (id=c)"
+   },
+   "part2.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "zahlenwuerfel_Didaktische_Kommentierung.docx",
+    "zitat": "Daten und Zufall (L5) | Mathematisch modellieren (K3), | I"
+   },
+   "part3.prompt": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Stefan hat diesen Würfel 29-mal geworfen. Dabei ist kein einziges Mal die Zahl 2 gefallen. Er sagt: „Beim nächsten Wurf fällt mit Sicherheit die 2, da bei 30 Würfen jede Zahl einmal fallen muss.“ Hat Stefan Recht? Kreuze an. Begründe deine Entscheidung.",
+    "fehlende_zeichen": ""
+   },
+   "part3.option[a]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Ja",
+    "fehlende_zeichen": ""
+   },
+   "part3.option[b]": {
+    "gate": "G1",
+    "ok": true,
+    "quelle": "EMF-Zeichenvorrat",
+    "zitat": "Nein",
+    "fehlende_zeichen": ""
+   },
+   "part3.correct_answers": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "Auswertung (RICHTIG-Zelle)",
+    "zitat": "Nein\n\nUND \n\neine Antwort, in welcher auf einen der folgenden Aspekte Bezug genommen wird:\n - Unabhängigkeit der einzelnen Würfe oder\n - Gleichwahrscheinlichkeit aller Ergebnisse oder \n - Zufälligkeit der Ergebnisse oder \n - Analogie zum Ziehen mit Zurücklegen. \n[Anm.: Wird in der Antwort der Begriff \"Wahrscheinlichkeit\" mit dem Begriff \"Chance\" verwechselt, wird die Aufgabe als richtig gewertet.]\n\nBeispiel(e)\n• Beim nächsten Wurf fällt jede der 30 Zahlen mit derselben Wahrscheinlichkeit (also auch die 2).\n• Keine der Zahlen ist bevorzugt. \n• Bei jedem Wurf kann jede der Zahlen fallen. \n• Der Würfel hat kein Gedächtnis (und weiß nicht, dass die Zahl 2 noch \"fehlt\").\n• (Grenzfall)\n\"Er hat nicht Recht, denn eine Zahl kann auch zweimal fallen.\"\n[Anm.: Die Zufälligkeit eines einzelnen Ergebnisses scheint erkannt worden zu sein, aber hier wurde überlesen, dass die Zahl 2 bisher noch gar nicht gefallen war.]"
+   },
+   "part3.afb_kompetenzen": {
+    "gate": "G2",
+    "ok": true,
+    "quelle": "zahlenwuerfel_Didaktische_Kommentierung.docx",
+    "zitat": "Daten und Zufall (L5) | Mathematisch modellieren (K3),\nMathematisch kommunizieren (K6) | II"
+   },
    "assets.lizenz": {
     "gate": "G7",
     "ok": true,
@@ -42738,8 +45171,13 @@
    }
   },
   "_flags": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar",
-   "keine Vision-Lesung -> Stamm/Prompts fehlen"
+   "G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '…' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part2.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part2.option[b]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part2.option[c]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "Vision unsicher: Die Optionen in Teilaufgabe 2 sind im Bild als zweistöckige Brüche gesetzt (Zähler 1 über Nenner 30 bzw. 15 bzw. 2). Ich habe sie als '1/30', '1/15', '1/2' notiert — es gibt kein Unicode-Einzelzeichen dafür; der Bruchcharakter bleibt inhaltlich erhalten.",
+   "Vision unsicher: Teilaufgabe 3 ist gemischt (Ankreuzen Ja/Nein + freie Begründung); ich führe sie als mc und habe den Begründungsauftrag in den Prompt aufgenommen.",
+   "Vision unsicher: Das im Stamm erwähnte Foto des Würfels ist im gelieferten Rendering nicht enthalten."
   ],
   "_quelle": {
    "dateien": {
@@ -42762,15 +45200,18 @@
    "zeichenvorrat": "vektor (EMF)"
   },
   "_g6_restzeichen": {
-   "rest": "\"\",,,,,-..........00001111122223333599:???aaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbcccccccccccccccddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeff",
-   "anzahl": 528,
+   "rest": "",
+   "anzahl": 0,
    "von": 528
   },
-  "auto_gradebar": false,
+  "auto_gradebar": true,
   "vollstaendig": false,
   "lsa_pool_kandidat": false,
   "_flags_blockierend": [
-   "keine Teilaufgabe gelesen -> Item unbrauchbar"
+   "G1b: part1.prompt: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '…' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part2.option[a]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part2.option[b]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)",
+   "G1b: part2.option[c]: Interpunktion/Layoutzeichen ohne Beleg im Zeichenvorrat: '/' (Inhalt belegt, Zeichensetzung stammt aus der Lesung)"
   ]
  },
  {
