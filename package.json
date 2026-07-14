@@ -12,7 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:mock": "tsx --test src/lib/mocks/sessionMachine.test.ts src/pages/mock/session/components/taskEval.test.ts src/lib/answer/evaluators.test.ts src/components/edvance/tasks/answer/answerState.test.ts",
+    "test:mock": "tsx --test src/lib/mocks/sessionMachine.test.ts src/pages/mock/session/components/taskEval.test.ts",
     "seed:clusters": "tsx --env-file=.env scripts/seed-clusters.ts",
     "seed:taxonomy": "tsx --env-file=.env scripts/seed-taxonomy.ts",
     "mark:diagnostic": "tsx --env-file=.env scripts/mark-diagnostic.ts",

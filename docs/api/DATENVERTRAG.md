@@ -124,9 +124,10 @@ direkt (service_role).
 
 ## 3. Antwort-Normalisierung
 
-`public.lsa_normalize_answer(text)` — **spiegelt `normText()` aus
-`src/lib/answer/evaluators.ts` (Zweig `SHORT_TEXT`) exakt**, in derselben
-Reihenfolge:
+`public.lsa_normalize_answer(text)` — **die einzige Normalisierung**. Sie
+spiegelte `normText()` aus `src/lib/answer/evaluators.ts`; diese Datei ist mit
+der clientseitigen Bewertung entfallen (T1b), weil sie die Loesung im Browser
+brauchte. Bewertet wird ausschliesslich serverseitig. Reihenfolge:
 
 1. `trim`
 2. Whitespace kollabieren (`\s+` → ein Leerzeichen)

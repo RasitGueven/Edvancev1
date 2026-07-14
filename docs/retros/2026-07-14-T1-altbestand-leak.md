@@ -1,8 +1,13 @@
-# T1 — Altbestand-Leak: Schritt 1 (Backfill), Drop vertagt
+# T1 — Altbestand-Leak: Backfill + Drop. Abgeschlossen.
 
 **Datum:** 2026-07-14
-**Branch:** `fix/T1-altbestand-leak` → PR gegen `dev`
-**Status:** Schritt 1 von 2 erledigt. **Das Leck ist noch offen.**
+**Branch:** `fix/T1-altbestand-leak` (Schritt 1) → `fix/T1b-drop-altfelder` (Schritt 2), je PR gegen `dev`
+**Status:** **Beide Schritte erledigt. Das Leck ist zu.**
+
+> **Nachtrag 14.07. (Schritt 2).** Der Drop ist durch: `tasks.solution` ist weg,
+> die Lösungsfelder sind aus `question_payload` entfernt, ein CHECK verhindert
+> ihre Rückkehr, und INV-6 beweist, dass ein Schüler-Kontext über keinen Weg an
+> eine Lösung kommt. Details unten unter „Schritt 2".
 
 ## Das Problem
 
@@ -84,22 +89,124 @@ Entscheidung (Rasit): Backfill + RLS-Test jetzt, Port als eigener Branch.
   `legacy_payload`; eine Aufgabe ohne Lösung bekommt keine Zeile.
   **Gegen echten Prod-Bestand ist der Backfill noch nicht gelaufen.**
 
-## Offen — Schritt 2 (eigener Branch)
+## Schritt 2 — der Drop (Branch `fix/T1b-drop-altfelder`)
 
-1. **Port der Schüler-Session auf serverseitiges Grading** (`lsa_start` /
-   `lsa_submit`). Das ist die Voraussetzung für alles Weitere.
-2. **Erst danach:** `tasks.solution` droppen, `correct`/`accepted`/`pairs`/
-   `blanks`/`expected` aus `question_payload` entfernen.
-3. **Admin-/Autoren-Schreibpfad umstellen:** `NewTaskForm.tsx:181`,
-   `createDiagnosticTask` (`tasks.ts:281`), `LambacherPreview.tsx:113` sowie
-   `scripts/seed_session_tasks.sql` und `scripts/import/lambacher.ts` schreiben
-   bzw. lesen `solution` weiterhin direkt. Sie müssen über
-   `task_solution_upsert` gehen. **Nicht geraten — das ist Lenas Fläche und
-   braucht ihre Abnahme.**
-4. **pgTAP-Test „Schüler kommt über KEINEN Weg an eine Lösung"** (Punkt 5 des
-   Auftrags) ist bewusst *nicht* geschrieben: Er würde heute fehlschlagen, weil
-   das Leck noch offen ist. Er gehört in denselben Commit wie der Drop — dann
-   ist er der Beweis, nicht ein roter Test.
+### Was die Lage gedreht hat
+
+Der Drop hing an genau einem Blocker: `/student/session/:id` bewertete im
+Browser und brauchte die Lösungsfelder im Payload. **Dieser Blocker ist
+entfallen** — die Vite-Prototyp-App ist tot und wurde am 14.07. vom Netz
+genommen (Vercel-Projekt gelöscht). Die Launch-App ist das native Frontend im
+Repo `edvance-app`; sie bewertet serverseitig über `lsa_submit`. Damit hatte
+`tasks` keinen Leser der Lösung mehr, und der Port der Session (bisher
+Voraussetzung für den Drop) war nicht mehr nötig — die Session wurde stattdessen
+**gelöscht**.
+
+### Der Leak war nicht theoretisch — er war erreichbar
+
+Der wichtigste Befund dieser Session, und der Grund, warum T1 keine Fleißarbeit war:
+
+- Die Vite-App lief bis zum **14.07.2026 öffentlich unter `edvancev1.vercel.app`**.
+- Vercel publiziert **jeden Branch als Preview-Deployment**. Es gab also nicht
+  eine exponierte URL, sondern eine pro Branch — auch für Branches, in denen der
+  Leak längst bekannt war.
+- Die Policy `authenticated_read_tasks` gibt `tasks` an **jeden eingeloggten
+  Nutzer** frei (qual: `auth.role() = 'authenticated'` — *keine* Rollen-,
+  Klassen- oder Zuweisungs-Einschränkung), und PostgREST bietet `select=*` an.
+  Jede:r Schüler:in konnte damit die Lösung zu **jeder** Aufgabe abfragen, auch
+  zu nie zugewiesenen.
+
+**Präzisierung, damit die Lehre stimmt:** Ein *anonymer* Besucher kam nicht an
+die Lösungen — `anon` hat zwar ein SELECT-**Grant** auf `tasks`, aber die
+RLS-Policy hält es zurück. Der Leak war „öffentlich erreichbar" in dem Sinn, dass
+die App öffentlich stand und **ein beliebiger Account genügte**; er war nicht
+ohne Login abrufbar. Dass dort trotzdem nur *eine* Bedingung zwischen `anon` und
+den Aufgaben steht, ist der eigentliche Schrecken — deshalb pinnt INV-6
+(Abschnitt D) genau diese Schicht fest.
+
+### Was drin ist
+
+4. **`supabase/migrations/20260714120000_t1b_drop_altbestand.sql`**
+   - **Eigener Vorbedingungs-Guard.** Er prüft den Backfill selbst, statt sich
+     auf T1a zu verlassen — inklusive der Lücke, die T1as Guard *nicht* sah:
+     T1a fügte mit `on conflict do nothing` ein, eine kuratierte Zeile gewinnt
+     und behält `legacy_payload = null`. Trägt dieselbe Aufgabe MATCHING/CLOZE/
+     COORDINATE im Payload, wäre die Struktur nach dem Drop weg — und T1as Guard
+     hätte grün gezeigt, weil eine Zeile ja *existiert*. Der neue Guard bricht
+     hart ab, wenn irgendeine Lösung nicht verlustfrei angekommen ist.
+   - `alter table tasks drop column solution`.
+   - `correct`/`accepted`/`pairs`/`blanks`/`expected` aus `question_payload`
+     entfernt (dieselbe Liste wie T1a).
+   - **`CHECK tasks_question_payload_no_solution`.** Daten zu löschen schließt
+     den Leak für *heute*; `question_payload` ist jsonb, und ein einziges
+     späteres Insert mit `correct` darin macht ihn lautlos wieder auf. Erst der
+     CHECK macht den Zustand unrepräsentierbar. **Das ist der eigentliche
+     Verschluss**, nicht der Drop.
+
+5. **`supabase/tests/inv6_keine_loesung_fuer_schueler.test.sql`** — der Beweis.
+   Methode: ein **Sentinel-String** in `task_solutions`, dann jede Tür abklopfen,
+   die ein Schüler aufbekommt: `select *` auf `tasks` (**alle Spalten**, via
+   `to_jsonb(t)::text` — der Test nennt bewusst keine Feldnamen, damit auch ein
+   künftiges `tasks.loesung_v2` auffliegt), `lsa_question_payload`, und die
+   komplette LSA-Schleife (`start`/`submit`/`hint`/`finish`). Taucht der Sentinel
+   irgendwo auf, ist der Test rot.
+   - Enthält eine **Anti-Vakuum-Assertion**: Der Schüler muss die Aufgabe
+     *sehen*. Ohne sie wäre „kein Sentinel gefunden" trivial wahr, sobald RLS die
+     Zeile filtert — grün, ohne etwas geprüft zu haben. (Beim Schreiben genau in
+     diese Falle getappt: eine erste Negativkontrolle meldete „kein Leak", weil
+     die JWT-Claims fehlten und RLS die Zeile versteckte. Der Test wurde erst
+     scharf, nachdem ein *absichtlich* gepflanzter Leak ihn rot machte.)
+
+6. **Tote Vite-Oberfläche entfernt:** `src/pages/student/session/` (5 Dateien)
+   und alles, was ausschließlich daran hing — `src/lib/answer/evaluators.ts`
+   (die clientseitige Bewertung, also die Ursache), `src/components/edvance/
+   tasks/answer/` (12 Dateien), `scripts/seed_session_tasks.sql`. Dazu die
+   Route + der Link im `StudentDashboard`. **`vercel.json` gelöscht**, damit das
+   Projekt nie wieder versehentlich verknüpft wird.
+
+7. **Schreibpfade auf `task_solution_upsert` umgestellt** — nicht kosmetisch,
+   sondern zwingend: sie schrieben `tasks.solution` und wären mit dem Drop
+   **kaputt gegangen** (PostgREST: column does not exist). Betroffen:
+   `createDiagnosticTask` (`src/lib/supabase/tasks.ts`) und
+   `scripts/import/lambacher.ts`. Die Lösung geht jetzt über die RPC in die
+   Server-Only-Zone; das Mapping (`solution` → `task_solutions.solution`) ist
+   nicht geraten, sondern dasselbe wie in T1a.
+
+### Verifikation
+
+- `npx supabase db reset` → alle Migrationen laufen sauber in Reihenfolge
+  (T1a *vor* T1b; T1as Backfill-Guard grün, dann der Drop).
+- `npx supabase test db` → **6/6 Dateien PASS** (inkl. INV-6 mit 17 Assertions).
+- `npx tsc --noEmit` → 0 Fehler. `npx vitest run` → 28/28. `npm run test:mock` → 19/19.
+- ESLint auf `src/` sauber. (`scripts/` hat 39 **vorbestehende** Fehler, unverändert.)
+- **Negativkontrolle:** ein absichtlich gepflanzter Leak (Payload mit `correct`,
+  CHECK lokal entfernt) wird von INV-6 gesehen — der Test ist nicht vakuum-grün.
+- **Prod-Bestand:** Die Remote-DB trägt **0** Aufgaben mit Lösung in
+  `tasks.solution` oder `question_payload` (14 Aufgaben, alle 14 haben eine
+  kuratierte `task_solutions`-Zeile mit `correct_answers` *und* `solution`). Der
+  Drop kostet dort also nichts. **Achtung:** T1a war zum Zeitpunkt dieser Session
+  auf der Remote-DB **noch nicht angewandt** (Stand: `20260713100000`) — T1a und
+  T1b landen beim nächsten Deploy gemeinsam, in dieser Reihenfolge. Der Guard in
+  T1b greift dann gegen den *echten* Bestand.
+
+## Offen — bewusst NICHT in dieser Session entschieden
+
+1. **Coach-Sicht auf die Lösung ist jetzt leer.**
+   `TaskPedagogyAccordion.tsx:65,77` rendert `task.solution` — die Spalte gibt es
+   nicht mehr, die Sektion bleibt still leer (kein Crash). Coaches *sollen* die
+   Lösung sehen dürfen, aber `task_solutions` hat bewusst kein Grant für
+   `authenticated`. Das braucht eine **eigene Coach-RPC** (`SECURITY DEFINER`,
+   Rollen-Gate auf `coach`/`admin`) — die zu erfinden ist Lenas/Rasits
+   Entscheidung, nicht meine. **Bis dahin ist das eine Feature-Regression, kein
+   Bug.**
+2. **`Task.solution` im Typ (`src/types/content.ts:53,74,93`) ist jetzt
+   vestigial** — die Spalte ist weg, das Feld kommt nie mehr befüllt zurück. Der
+   Typ wurde stehen gelassen, weil sein Entfernen den Accordion-Code (Punkt 1)
+   zum Compile-Fehler macht und damit eine Produktentscheidung erzwingen würde.
+   Gehört in denselben Commit wie Punkt 1.
+3. **`tasks.typical_errors` bleibt.** Typische *Fehler* sind nicht die Lösung;
+   T1a hat sie nach `task_solutions` mitgenommen, ein späterer Schnitt kann die
+   Spalte folgen lassen. War nicht Auftrag von T1b.
 
 ## Nebenbefund: paralleles Arbeiten im selben Worktree
 
