@@ -30,6 +30,7 @@ const SECRETS = {
 const flat: FormState = {
   title: 'Zwanzig Prozent',
   question: 'Berechne 20 % von 80 m.',
+  table: null,
   input_type: 'SHORT_TEXT',
   unit: 'm',
   est_duration_sec: '120',

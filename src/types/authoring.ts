@@ -137,9 +137,38 @@ export type AuthoringSchema = {
   hasStatusGate: boolean
 }
 
-/** Quellenbeleg aus der Extraktion (data/vera8_komplett_enriched.json). Read-only. */
+/** Quellenbeleg aus der Extraktion (gebaut von scripts/build-grounding-index.ts). Read-only. */
 export type GroundingQuote = { quelle: string; zitat: string; methode?: string }
 
+/** Ein Beleg der Neuextraktion: welches Feld, welches Gate, welches Zitat. */
+export type GroundingBeleg = {
+  /** Feldpfad aus der Extraktion, z.B. "part1.prompt" oder "assets.lizenz". */
+  feld: string
+  gate?: string
+  quelle?: string
+  zitat: string
+  hinweis?: string
+}
+
+/** Eine Teilaufgabe, die der P02-Vertrag nicht halten konnte (Freitext, leerer
+ *  Prompt, MC ohne Optionen). Read-only — sie steht NICHT in tasks.parts und muss
+ *  im Editor von Hand angelegt werden. Ohne Loesung: der Index ist oeffentlich. */
+export type GroundingRohteil = {
+  nr: number
+  kind: string
+  prompt: string
+  unit?: string
+  options?: { id: string; label: string }[]
+}
+
+/**
+ * Der Beleg-Datensatz zu einem Item.
+ *
+ * ⚠️  Kommt aus public/authoring/grounding-vera8.json — statisch, ohne Auth.
+ *     Deshalb enthaelt er KEINEN Loesungsbeleg (seit C08). Worauf sich die Loesung
+ *     stuetzt, steht in task_solutions.solution und kommt ueber task_solution_get
+ *     — gegated auf Coach/Admin.
+ */
 export type GroundingRecord = {
   id: string
   titel?: string
@@ -147,13 +176,14 @@ export type GroundingRecord = {
   lizenz_status?: string
   iqb_urls?: Record<string, string>
   aufgabe_text?: string
+  /** Probleme, die der Altlauf gemeldet hat. */
   problems?: string[]
-  grounding?: {
-    aufgabe_text?: GroundingQuote
-    akzeptierte_antworten?: GroundingQuote[]
-    loesung_pro_ta?: GroundingQuote[]
-    kodierung?: GroundingQuote
-    typische_fehler?: GroundingQuote
-    teilaufgaben?: GroundingQuote[]
-  }
+  /** Was die Neuextraktion selbst unsicher fand (_flags). */
+  flags?: string[]
+  /** Was der Import nicht abbilden konnte (verworfene Tabelle, Teilaufgaben, Assets). */
+  import_flags?: string[]
+  belege?: GroundingBeleg[]
+  teilaufgaben_roh?: GroundingRohteil[]
+  /** Eine Tabelle, die F01 abgewiesen hat — roh, zum Nachbauen. */
+  tabelle_roh?: { header?: string[]; headers?: string[]; rows?: string[][] }
 }

@@ -137,8 +137,10 @@ export type {
   ItemFlag,
   AuthoringListItem,
   AuthoringSchema,
+  GroundingBeleg,
   GroundingQuote,
   GroundingRecord,
+  GroundingRohteil,
 } from './authoring'
 
 export type {
