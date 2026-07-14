@@ -1,0 +1,37 @@
+{
+  "item": "wosinddiepunkte",
+  "gelesen_aus": [
+    "data/r01_render/wosinddiepunkte/00_image1.emf.png",
+    "data/r01_render/wosinddiepunkte/01_image2.emf.png",
+    "data/r01_render/wosinddiepunkte/02_image3.emf.png"
+  ],
+  "stem": "In einem Koordinatensystem ist eine Gerade g eingezeichnet.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Prüfe, welcher der vorgegebenen Punkte auf der Geraden g liegt. Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "A (4|0)"},
+        {"id": "b", "label": "B (3|4)"},
+        {"id": "c", "label": "C (4|3)"},
+        {"id": "d", "label": "D (0|4)"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Der Punkt Q (2|5) liegt nicht auf der Geraden g. Zeichne diesen Punkt in das Koordinatensystem ein.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2 ist eine Zeichenaufgabe (Punkt ins Koordinatensystem eintragen); ich habe sie mangels passender Kategorie als free_text eingeordnet.",
+    "Die Queue meldet hat_tabelle_im_emf: true — im Bild sehe ich nur das karierte Koordinatensystem, keine Datentabelle. stem_tabelle_erwartet daher false."
+  ]
+}

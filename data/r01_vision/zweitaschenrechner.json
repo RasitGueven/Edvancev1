@@ -1,0 +1,33 @@
+{
+  "item": "zweitaschenrechner",
+  "gelesen_aus": [
+    "data/r01_render/zweitaschenrechner/00_image1.png",
+    "data/r01_render/zweitaschenrechner/01_image3.png",
+    "data/r01_render/zweitaschenrechner/02_image4.png"
+  ],
+  "stem": "Yasmina und David lösen die Aufgabe „Werbeaktion“ mit dem Taschenrechner. Beide haben unterschiedliche Taschenrechner, aber beide drücken jeweils die gleiche Tastenfolge.\nTrotzdem sehen sie unterschiedliche Ergebnisse:\nAufgabe: Werbeaktion\nWerbeaktion: „20 % mehr zum gleichen Preis.“ Normalerweise sind in der Verpackung 250 g.\nWie viel ist jetzt in der Verpackung?\nTastenfolge: 2 5 0 + 2 0 % =\nYasminas Taschenrechner zeigt an: 300\nDavids Taschenrechner zeigt an: 250+20% / 250,2",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Die Prozenttaste auf beiden Rechnern funktioniert unterschiedlich. Beschreibe, was die Taschenrechner bei der Eingabe „+ 20 %“ rechnen. Bei Yasmina: … Bei David: …",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Davids Taschenrechner gibt offenbar bezogen auf die Aufgabe „Werbeaktion“ ein falsches Ergebnis an. Gib eine Tastenfolge an, mit der David bei der Aufgabe „Werbeaktion“ das richtige Ergebnis erhält. Verwende dazu die Zahlentasten und einige der folgenden Tasten: + − : · , % =",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Die Displayanzeigen sind Fotos: Yasminas Display zeigt '300', Davids Display zeigt oben '250+20%' und unten '250,2'. Beide sind Pixelfotos, keine gesetzte Schrift — die Lesung ist plausibel, aber nicht gegen einen Zeichenvorrat prüfbar.",
+    "Teilaufgabe 1 verlangt zwei getrennte Antwortfelder ('Bei Yasmina:' und 'Bei David:'); die Auswertung nennt 2 Teilaufgaben insgesamt, deshalb habe ich beide Felder in einer Teilaufgabe zusammengefasst.",
+    "nur_raster: Text stammt aus Pixelbildern, kein Zeichenvorrat zur Gegenprüfung vorhanden."
+  ]
+}

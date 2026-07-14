@@ -1,0 +1,29 @@
+{
+  "item": "zoobesuch",
+  "gelesen_aus": [
+    "data/r01_render/zoobesuch/00_image1.emf.png",
+    "data/r01_render/zoobesuch/01_image2.emf.png"
+  ],
+  "stem": "Susann fährt mit dem Fahrrad zügig zum Zoo. Am Eingang muss sie einige Zeit warten, um eine Eintrittskarte zu kaufen. Dann geht sie zu Fuß weiter durch den Zoo.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welches Diagramm passt am besten zu diesem Vorgang? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "Diagramm oben links (Weg-Zeit-Diagramm)"},
+        {"id": "b", "label": "Diagramm oben rechts (Weg-Zeit-Diagramm)"},
+        {"id": "c", "label": "Diagramm unten links (Weg-Zeit-Diagramm)"},
+        {"id": "d", "label": "Diagramm unten rechts (Weg-Zeit-Diagramm)"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts, oben nach unten"
+    }
+  ],
+  "unsicher": [
+    "Die vier Antwortoptionen sind reine Weg-Zeit-Diagramme OHNE Textbeschriftung (nur Achsen 'Weg' und 'Zeit'). Die Labels sind daher rein positionell vergeben (a=oben links, b=oben rechts, c=unten links, d=unten rechts) und tragen keinen Quelltext.",
+    "Die Kurvenverläufe sind im Render nur teilweise/fragmentarisch gezeichnet (einzelne Liniensegmente); eine verlässliche Beschreibung der einzelnen Verläufe ist aus dem Bild nicht möglich und wurde daher nicht behauptet.",
+    "Das Ankreuzkästchen steht bei jeder Option jeweils LINKS neben dem Diagramm."
+  ]
+}

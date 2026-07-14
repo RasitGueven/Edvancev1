@@ -1,0 +1,46 @@
+{
+  "item": "wuerfelturm2",
+  "gelesen_aus": [
+    "data/r01_render/wuerfelturm2/00_image1.png",
+    "data/r01_render/wuerfelturm2/01_image2.png",
+    "data/r01_render/wuerfelturm2/02_image3.png",
+    "data/r01_render/wuerfelturm2/03_image4.png"
+  ],
+  "stem": "In der Abbildung siehst du einen Würfelturm. Der erste Würfel hat die Kantenlänge a. Die darüber stehenden Würfel haben immer die halbe Kantenlänge des jeweils darunter stehenden Würfels.",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib an, wie oft der zweite Würfel in den ersten passt.",
+      "unit": "-mal",
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ergänze die Formel für das Gesamtvolumen V dieses Würfelturms. Außer a sollen keine weiteren Variablen benutzt werden.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": null
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Zwei weitere kleinere Würfel werden auf die vorhandenen drei Würfel gestapelt. Das heißt, die Kantenlänge dieser Würfel ist ebenfalls jeweils halb so groß wie die des darunter liegenden Würfels. Wie oft passt der fünfte Würfel in den ersten? Kreuze an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "16-mal"},
+        {"id": "b", "label": "64-mal"},
+        {"id": "c", "label": "512-mal"},
+        {"id": "d", "label": "4096-mal"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Rasterbilder (nur_raster): Text nur aus Pixeln gelesen, kein Zeichenvorrat zur Gegenprüfung.",
+    "Teilaufgabe 2: Eingabefeld 'V = ______'."
+  ]
+}

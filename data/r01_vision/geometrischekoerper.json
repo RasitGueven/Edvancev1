@@ -1,0 +1,23 @@
+{
+  "item": "geometrischekoerper",
+  "gelesen_aus": ["data/r01_render/geometrischekoerper/00_doc_image1.emf.png"],
+  "stem": "In der nachfolgenden Tabelle sind Körper benannt.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Prüfe, ob diese in der Abbildung zu sehen sind. Kreuze jeweils an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "ja"},
+        {"id": "b", "label": "nein"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Das Item ist ein ja/nein-Raster mit 5 Zeilen (Zylinder, Quader, Pyramide, Kegel, Kugel) und 2 Spalten (ja, nein). Die Auswertung nennt 1 Teilaufgabe; ich lese entsprechend eine Teilaufgabe, die aber 5 Zeilenurteile verlangt. Die beiden Optionen ja/nein gelten pro Zeile.",
+    "Die im Stamm erwähnte Abbildung ist in den gerenderten Bildern nicht enthalten; ich kann nicht prüfen, welche Körper dort zu sehen sind."
+  ]
+}

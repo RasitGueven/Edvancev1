@@ -1,0 +1,35 @@
+{
+  "item": "spielwuerfel",
+  "gelesen_aus": [
+    "data/r01_render/spielwuerfel/00_image1.png",
+    "data/r01_render/spielwuerfel/01_image2.png",
+    "data/r01_render/spielwuerfel/02_image3.png"
+  ],
+  "stem": "Man nennt einen Spielwürfel fair, wenn jede seiner Seitenflächen nach einem Wurf mit derselben Wahrscheinlichkeit oben liegen kann. Solche Würfel können unterschiedlich viele Seitenflächen haben.",
+  "stem_tabelle_erwartet": true,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Die Abbildung zeigt einen fairen 20-seitigen Spielwürfel, dessen Seitenflächen mit den Zahlen von 1 bis 20 beschriftet sind. Gib die Wahrscheinlichkeit dafür an, dass die Zahl 11 geworfen wird.",
+      "unit": null,
+      "options": null,
+      "options_reihenfolge": "visuell von links nach rechts"
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Die folgenden Aussagen beziehen sich auf faire Spielwürfel, deren Seitenflächen alle mit verschiedenen Zahlen beschriftet sind. Es geht um die Wahrscheinlichkeit eine bestimmte Zahl zu würfeln. Prüfe die Aussagen und kreuze jeweils an.",
+      "unit": null,
+      "options": [
+        {"id": "a", "label": "wahr"},
+        {"id": "b", "label": "falsch"}
+      ],
+      "options_reihenfolge": "visuell von links nach rechts"
+    }
+  ],
+  "unsicher": [
+    "Teilaufgabe 2 ist ein wahr/falsch-Raster mit 2 Aussagezeilen ('Je mehr Seitenflächen es sind, umso größer ist die Wahrscheinlichkeit.' / 'Wenn die gewünschte Zahl lange nicht gewürfelt wurde, ist die Wahrscheinlichkeit beim nächsten Wurf größer als vorher.'). Die Optionen wahr/falsch gelten je Zeile; die Zeilen selbst habe ich nicht als Optionen abgetippt (Tabelle).",
+    "nur_raster: Text stammt aus Pixelbildern, kein Zeichenvorrat zur Gegenprüfung vorhanden."
+  ]
+}

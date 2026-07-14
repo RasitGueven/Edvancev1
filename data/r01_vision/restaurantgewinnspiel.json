@@ -1,0 +1,13 @@
+{
+  "item": "restaurantgewinnspiel",
+  "gelesen_aus": [
+    "data/r01_render/restaurantgewinnspiel/00_doc_image1.emf.png"
+  ],
+  "stem": "Jedes Jahr in der Weihnachtszeit veranstaltet ein Restaurant ein Gewinnspiel. Der Wirt füllt dazu 100 Kugeln mit den Nummern 1 bis 100 in ein undurchsichtiges Gefäß und deckt dieses mit einem Tuch ab. Ein Gast, der die Rechnung bekommt, muss eine Zahl zwischen 1 und 100 nennen und dann, ohne hinzusehen, eine Kugel ziehen. Er zeigt dem Wirt die Nummer auf der Kugel und legt die Kugel wieder in das Gefäß zurück.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild enthält ausschließlich den Einleitungstext (Stamm). Die Teilaufgaben sind in diesem Bild NICHT enthalten — es gibt keinen weiteren Render im Ordner data/r01_render/restaurantgewinnspiel/.",
+    "Widerspruch zur Auswertung: dort 3 Teilaufgaben, im Bild 0 lesbare Teilaufgaben. Prompts, kind, Optionen und Einheiten bleiben leer, statt sie zu raten. Item muss nachgerendert werden."
+  ]
+}

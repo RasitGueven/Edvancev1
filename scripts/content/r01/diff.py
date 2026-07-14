@@ -386,6 +386,10 @@ def main():
         (coach_pflicht if any(COACH_PFLICHT.search(k) for k in keys)
          else reparierbar).append(n["titel"])
 
+    bv_datei = ROOT / "data/r01_doc_bildverlust.json"
+    bv = (json.loads(bv_datei.read_text(encoding="utf-8"))
+          if bv_datei.exists() else None)
+
     L = []
     w = L.append
     w("# R01 — Diff: Altbestand gegen Neuextraktion")
@@ -399,18 +403,21 @@ def main():
     w("---")
     w("")
 
-    w("## Vorbehalt: der Lauf ist nicht vollstaendig")
+    w("## Stand des Laufs")
     w("")
-    w(f"Bevor irgendeine Zahl hier gelesen wird — **{len(ohne_vision)} der "
-      f"{len(neu)} Items haben keine Vision-Lesung** (`data/r01_vision/` enthaelt "
-      f"{len(neu) - len(ohne_vision)} Dateien), und **{len(ohne_parts)} Items "
-      f"haben deshalb null Teilaufgaben**. Fuer diese Items ist die "
-      f"Neuextraktion leer — nicht schlecht, sondern *nicht gelaufen*.")
+    w(f"Die Vision-Stufe ist **nachgezogen**: `data/r01_vision/` enthaelt jetzt "
+      f"**{len(neu) - len(ohne_vision)} von {len(neu)}** Lesungen. "
+      f"Die {len(ohne_vision)} ohne Lesung sind nicht nachholbar — ihnen fehlt "
+      f"die Quelle:")
     w("")
-    w("Das faerbt jede Zahl unten. Der Topf *beide defekt* ist zu einem grossen "
-      "Teil kein Qualitaetsbefund, sondern eine offene Pipeline-Stufe. Und die "
-      "entscheidende Zahl (LSA-Pool) ist eine **Untergrenze**: sie kann nur "
-      "steigen, wenn die Vision-Stufe fuer die restlichen Items nachlaeuft.")
+    for n in sorted(ohne_vision, key=lambda x: x["titel"]):
+        grund = next((f for f in (n.get("_flags") or [])
+                      if "keine Quelle" in f or "keine Aufgaben-Datei" in f
+                      or "kein Inhaltsbild" in f), "kein Render")
+        w(f"- **{n['titel']}** — {grund}")
+    w("")
+    w("Jede Lesung wurde sofort auf die Platte geschrieben, bevor die naechste "
+      "begann. Ein Abbruch haette keine Arbeit gekostet.")
     w("")
     w("### Bau-Verzug")
     w("")
@@ -429,11 +436,62 @@ def main():
         w("Beim ersten Bau war `vera8_v2.json` aelter als 27 Vision-Lesungen — "
           "22 Items hatten eine brauchbare Lesung auf der Platte, die der Bau nie "
           "gesehen hatte. **Das ist behoben:** `ground_all.py` ist nachgelaufen, "
-          "der Bau enthaelt jetzt jede vorhandene Lesung. Was hier noch leer ist, "
-          "ist wirklich ungelesen — kein Verzug mehr.")
+          "der Bau enthaelt jetzt jede vorhandene Lesung. Abgesichert durch "
+          "`NC15` in `test_scale.py`: Ein Bau, der eine vorhandene Lesung "
+          "ignoriert, ist ab jetzt ein Testfehler.")
         w("")
     w("---")
     w("")
+
+    if bv:
+        w("## Der groesste offene Hebel: die .doc-Extraktion verliert Bilder")
+        w("")
+        w(f"**{bv['doc_items_mit_verlust']} von {bv['doc_items_geprueft']} "
+          f".doc-Items verlieren Bilder — {bv['bilder_verloren']} Bilder "
+          f"insgesamt.** Und in diesen Bildern stehen die Teilaufgaben.")
+        w("")
+        w("Der Nachlauf hat den Befund erst sichtbar gemacht: Elf unabhaengige "
+          "Leser meldeten dasselbe — *\"nur EIN gerendertes Bild, darin nur der "
+          "Stamm, keine Frage\"*. Sie haben korrekt gemeldet, dass im Bild keine "
+          "Frage steht. Die Frage war nie im Bild.")
+        w("")
+        w("Ein VERA8-`.doc` legt **jede Teilaufgabe als eigenes eingebettetes "
+          "Bild** ab:")
+        w("")
+        w("```")
+        w("$ antiword temperaturen_Aufgabe.doc")
+        w("Temperaturen in Frankfurt am Main")
+        w("[pic]                 <- Stamm            } wird extrahiert")
+        w("Teilaufgabe 1")
+        w("[pic]                 <- die Frage        } bleibt in der Datei liegen")
+        w("Teilaufgabe 2")
+        w("[pic]                                     } bleibt in der Datei liegen")
+        w("Teilaufgabe 3")
+        w("[pic][pic]                                } bleibt in der Datei liegen")
+        w("```")
+        w("")
+        w("`ole.media_in_doc()` holt aus dem Container nur **ein** Bild. Das ist "
+          "kein Render- und kein Vision-Fehler, sondern ein **Extraktionsfehler** "
+          "— eine Stufe frueher als vermutet.")
+        w("")
+        w("| Item | Bilder im Dokument | extrahiert | verloren |")
+        w("|---|---:|---:|---:|")
+        for b in sorted(bv["items"], key=lambda x: -x["verloren"])[:15]:
+            w(f"| {b['item']} | {b['bilder_im_dokument']} | "
+              f"{b['bilder_extrahiert']} | {b['verloren']} |")
+        w(f"| … | | | **{bv['bilder_verloren']} gesamt** |")
+        w("")
+        w("Gemessen mit `scripts/content/r01/audit_doc_bilder.py` "
+          "(`data/r01_doc_bildverlust.json`).")
+        w("")
+        w("**Das ist der naechste Hebel, und er ist groesser als alles bisher "
+          "Gehobene.** Die Reihenfolge waere: `media_in_doc()` reparieren → neu "
+          "rendern → Vision nur fuer die betroffenen Items nachziehen → bauen. "
+          "Nicht angefasst: Das ist eine Neuextraktion, und die war fuer diesen "
+          "Lauf ausgeschlossen.")
+        w("")
+        w("---")
+        w("")
 
     w("## Die vier Toepfe")
     w("")

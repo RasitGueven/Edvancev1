@@ -46,6 +46,14 @@
   "wert": "700 000 000 000"
  },
  {
+  "item": "abstandaufdemwasser",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ein Schiff fährt mit gleichbleibender Geschwindigkeit aus einem Hafen an einem Leuchtturm vorbei. Der nachstehenden Abbildung kann man entnehmen, wie viele Minuten es vom Ablegen bis zu den markierten Positionen braucht.",
+  "fehlende_zeichen": ""
+ },
+ {
   "item": "adventskalender",
   "feld": "stem",
   "gate": "G0",
@@ -457,6 +465,29 @@
   "wert": "Richtiger Term"
  },
  {
+  "item": "aussagenzurprop",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Abbildung zeigt den Graphen einer proportionalen Zuordnung.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "aussagenzurprop",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "aussagenzurprop",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "[pic]"
+ },
+ {
   "item": "aussenthermometer",
   "feld": "part1.prompt",
   "gate": "G1",
@@ -650,6 +681,36 @@
   "gate": "G2",
   "ok": true,
   "wert": "x = 9"
+ },
+ {
+  "item": "berechnungenamrechteck",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib den Flächeninhalt des abgebildeten Rechtecks an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "berechnungenamrechteck",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "15 cm"
+ },
+ {
+  "item": "berechnungenamrechteck",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib den Umfang des abgebildeten Rechtecks an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "berechnungenamrechteck",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "16 cm"
  },
  {
   "item": "berndunddasbrot",
@@ -922,6 +983,84 @@
   "wert": "[pic]"
  },
  {
+  "item": "broetchen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Marcus hat im Sonderangebot 3 Brötchen für insgesamt 95 Cent gekauft.\nEin einzelnes Brötchen kostet 40 Cent.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "broetchen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, wie viel Cent Marcus bei seinem Einkauf im Vergleich zu einem Kauf von drei einzelnen Brötchen gespart hat.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "broetchen",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Cent",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "broetchen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "25"
+ },
+ {
+  "item": "broetchen",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Frau Schwarz will 10 Brötchen kaufen. Bei welcher Variante zahlt sie am wenigsten? Kreuze an. Frau Schwarz kauft…",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "broetchen",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "… 10 Brötchen zum Einzelpreis.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "broetchen",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "… 4 mal 3 Brötchen im Sonderangebot.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "broetchen",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "… 3 mal 3 Brötchen im Sonderangebot und 1 Brötchen zum Einzelpreis.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "broetchen",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "… 2 mal 3 Brötchen im Sonderangebot und 4 Brötchen zum Einzelpreis.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "broetchen",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "… 3 mal 3 Brötchen im Sonderangebot und 1 Brötchen zum Einzelpreis."
+ },
+ {
   "item": "bruchundprozentsatz",
   "feld": "stem",
   "gate": "G1",
@@ -1044,6 +1183,61 @@
   "gate": "G2",
   "ok": true,
   "wert": "\"Herr Melzer muss an der Kasse noch etwas bezahlen.\" ist angekreuzt.; UND; Die Rechnung lässt einen Vergleich der beiden Beträge 9,90 € und 9,96 € erkennen.; [Anm: Anstelle eines Vergleichs kann auch die Differenz beider Beträge (0,06 € bzw. 6 Cent) notiert werden.]"
+ },
+ {
+  "item": "computerspielsucht",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nach einer Untersuchung der Universität Koblenz-Landau zeigt jeder neunte Jugendliche ein krankhaftes Computerspielverhalten.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "computerspielsucht",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wie viel Prozent der Jugendlichen sind das? Kreuze den Prozentsatz an, der am besten passt.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "computerspielsucht",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 9%",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "computerspielsucht",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 11%",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "computerspielsucht",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 12%",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "computerspielsucht",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 90%",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "computerspielsucht",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "[pic]"
  },
  {
   "item": "croissant",
@@ -1348,6 +1542,107 @@
   "wert": "Zwei dieser drei Lösungen müssen vorhanden sein."
  },
  {
+  "item": "dreieckimquadrat",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Auf gleichgroßen quadratischen Zeichenblättern wird ein Muster mit gleichschenkligen Dreiecken entworfen. Das jeweils nachfolgende Zeichenblatt entsteht dadurch, dass man jedes Teilquadrat des Vorgängerblattes durch vier gleichgroße Quadrate mit je einem gleichschenkligen Dreieck ersetzt. Die ersten beiden Blätter sind hier gezeichnet:",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, wie viele gleichschenklige graue Dreiecke sich auf Zeichenblatt 3 befinden.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "16"
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Mit welchem Rechenschritt kann man die Anzahl der gleichschenkligen grauen Dreiecke auf einem beliebigen Zeichenblatt aus der Anzahl der gleichschenkligen grauen Dreiecke auf dem Vorgängerblatt berechnen? Kreuze an. Man rechnet: Neue Anzahl = Anzahl der grauen Dreiecke auf dem Vorgängerblatt …",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "+ 3",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "· 3",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "+ 4",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "· 4",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "· 4"
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Luca behauptet: „Je mehr gleichschenklige graue Dreiecke ein solches Zeichenblatt enthält, desto größer wird der Anteil der grauen Fläche an der Gesamtfläche.“ Stimmt diese Behauptung? Kreuze an. Begründe deine Entscheidung.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part3.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part3.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "dreieckimquadrat",
+  "feld": "part3.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Nein; UND; Begründung, dass die graue Fläche stets halb so groß ist wie die gesamte Quadratfläche; ODER; Begründung, dass die Summe der Flächeninhalte der Folge-Dreiecke stets so groß ist wie der Flächeninhalt des Vorgänger-Dreiecks."
+ },
+ {
   "item": "dreieckszahlen",
   "feld": "stem",
   "gate": "G1",
@@ -1650,6 +1945,37 @@
   "wert": "Nein; UND; Richtige Begründung, in welcher darauf verwiesen wird, dass sich der Preisnachlass von 20 % und der Rabatt von 5 % auf unterschiedliche Grundwerte beziehen."
  },
  {
+  "item": "eckenanpyramiden",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Abbildung zeigt eine Pyramide. Sie hat fünf Flächen: eine viereckige Grundfläche und vier dreieckige Seitenflächen.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "eckenanpyramiden",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, wie viele Ecken diese Pyramide hat.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "eckenanpyramiden",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ecken",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "eckenanpyramiden",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "5"
+ },
+ {
   "item": "eckenundkanten",
   "feld": "part1.prompt",
   "gate": "G1",
@@ -1931,6 +2257,29 @@
   "wert": "1"
  },
  {
+  "item": "faschingsdeko",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Schülerinnen und Schüler der Klasse 8a wollen für ihre Faschingsfeier Kreppband zur Dekoration verwenden. Das Kreppband wird in Packungen mit jeweils 4 verschiedenen Farben angeboten: weiß (w), rot (r), blau (b) und grün (g).",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "faschingsdeko",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Es sollen immer 2 Kreppbänder verschiedener Farben zu Girlanden zusammengedreht werden. Schreibe alle möglichen Farbkombinationen auf.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "faschingsdeko",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Angabe aller sechs Farbkombinationen."
+ },
+ {
   "item": "fehlendezahlen",
   "feld": "stem",
   "gate": "G1",
@@ -2061,6 +2410,60 @@
   "gate": "G2",
   "ok": true,
   "wert": "2000"
+ },
+ {
+  "item": "flaechengleichodernicht",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, wie groß der Flächeninhalt dieses Parallelogramms ist. Der Flächeninhalt des Parallelogramms beträgt",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "flaechengleichodernicht",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm²",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "flaechengleichodernicht",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "20"
+ },
+ {
+  "item": "flaechengleichodernicht",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In der Abbildung sind zwei Parallelogramme dargestellt. a || b. Ist der Flächeninhalt der beiden Parallelogramme gleich groß? Kreuze an. Begründe deine Antwort.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "flaechengleichodernicht",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "flaechengleichodernicht",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "flaechengleichodernicht",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Ja; UND; Begründung mit Hinweis auf die gleiche Länge von Höhe und Grundseite beider Parallelogramme"
  },
  {
   "item": "flaecheninhalt",
@@ -2586,6 +2989,55 @@
   "wert": "Die Aussage ist falsch; UND; Begründung mit einem Gegenbeispiel (Bremen, Hamburg oder Saarland)."
  },
  {
+  "item": "fuellverhalten",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Der abgebildete Standzylinder ist leer und wird gleichmäßig mit Wasser befüllt. Zeichne in das abgebildete Koordinatensystem einen Graphen, der diesen Füllvorgang beschreibt."
+ },
+ {
+  "item": "fuellverhalten",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Graph enthält eine Strecke mit positiver Steigung im ersten Quadranten, beginnend im Koordinatenursprung oder auf der x-Achse."
+ },
+ {
+  "item": "fuellverhalten",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Das abgebildete Gefäß ist leer und wird gleichmäßig mit Wasser befüllt, bis es voll ist. Entscheide, welcher der dargestellten Graphen diesen Füllvorgang am besten beschreibt. Kreuze an."
+ },
+ {
+  "item": "fuellverhalten",
+  "feld": "part2.option[a]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Graph oben links"
+ },
+ {
+  "item": "fuellverhalten",
+  "feld": "part2.option[b]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Graph oben rechts"
+ },
+ {
+  "item": "fuellverhalten",
+  "feld": "part2.option[c]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Graph unten links"
+ },
+ {
+  "item": "fuellverhalten",
+  "feld": "part2.option[d]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Graph unten rechts"
+ },
+ {
   "item": "fuenfundvierzig",
   "feld": "part1.prompt",
   "gate": "G1",
@@ -2723,6 +3175,45 @@
   "gate": "G2",
   "ok": true,
   "wert": "Nein; UND; Begründung, die darauf  beruht, dass sich bei geändertem Grundwert auch der Prozentwert ändert."
+ },
+ {
+  "item": "geometrischekoerper",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In der nachfolgenden Tabelle sind Körper benannt.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "geometrischekoerper",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Prüfe, ob diese in der Abbildung zu sehen sind. Kreuze jeweils an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "geometrischekoerper",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "geometrischekoerper",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "geometrischekoerper",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "[pic]"
  },
  {
   "item": "geradenimkoordinatensystem",
@@ -3126,6 +3617,61 @@
   "wert": "-10"
  },
  {
+  "item": "gleichungloesen2",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welche Lösung hat die Gleichung 16 – 6x = 14? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "gleichungloesen2",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "x = -5",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "gleichungloesen2",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "x = -⅓",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "gleichungloesen2",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "x = ⅓",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "gleichungloesen2",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "x = 3",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "gleichungloesen2",
+  "feld": "part1.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "x = 4",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "gleichungloesen2",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "x = ⅓"
+ },
+ {
   "item": "gleichungloesen3",
   "feld": "part1.prompt",
   "gate": "G1",
@@ -3303,6 +3849,108 @@
   "gate": "G2",
   "ok": true,
   "wert": "Anzahl der Lose mit dem Buchstaben C: 180 (Lose); Anzahl der Lose mit dem Buchstaben D: 90 (Lose)"
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei einem Glücksspiel darf man sich von den drei Säckchen A, B, C eines auswählen. Unter den einzelnen Säckchen siehst du, mit welchen Kugeln sie gefüllt werden. In jedem Säckchen befinden sich dann schwarze und weiße Kugeln. Man zieht ohne hinzusehen aus seinem ausgewählten Säckchen eine Kugel; ist sie weiß, hat man gewonnen, ist sie schwarz, hat man verloren.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei welchem Säckchen ist die Wahrscheinlichkeit zu gewinnen am größten? Kreuze an. Begründe deine Entscheidung.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "A",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "B",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "C",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "A; UND; Begründung mit vergleichendem Bezug auf die Anteile weißer Kugeln in den Säckchen, der bei A am höchsten ist."
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Kugeln der drei Säckchen werden alle in einen größeren Sack zusammengeschüttet. Nun wird aus diesem größeren Sack eine Kugel gezogen. Wie groß ist jetzt die Wahrscheinlichkeit zu gewinnen?",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Zwei andere Säckchen sind jeweils mit m Kugeln gefüllt. Im ersten Säckchen befinden sich n₁ weiße Kugeln, im zweiten Säckchen n₂ weiße Kugeln. Der Inhalt der beiden Säckchen wird wieder in einen großen Sack zusammengeschüttet und es wird aus dem großen Sack eine Kugel gezogen. Welcher Term gibt die Wahrscheinlichkeit an, mit der man gewinnt? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part3.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "(n₁ + n₂) / m",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part3.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "(n₁ · n₂) / m",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part3.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "(n₁ · n₂) / (2 · m)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part3.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "(n₁ + n₂) / (2 · m)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "glueckssaeckchen",
+  "feld": "part3.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "(n₁ + n₂) / (2 · m)"
  },
  {
   "item": "grosserwagen",
@@ -3749,6 +4397,54 @@
   "wert": "Jede Zahl im Bereich [505;520], auch wenn diese in der angegebenen Genauigkeit nicht ablesbar sein mag."
  },
  {
+  "item": "heizkosten",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Mit einer neuen Heizungsanlage kann man bis zu 40 % des Energieverbrauchs einsparen. Dieser verringerte Verbrauch kann durch sparsames Heizen um weitere 30 % reduziert werden.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "heizkosten",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Um wie viel Prozent kann der Verbrauch nach dem Einbau der neuen Anlage und dem anschließenden sparsamen Umgang mit Energie insgesamt höchstens gesenkt werden? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "heizkosten",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "12 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "heizkosten",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "42 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "heizkosten",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "58 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "heizkosten",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "70 %",
+  "fehlende_zeichen": ""
+ },
+ {
   "item": "hochrad",
   "feld": "stem",
   "gate": "G1",
@@ -3848,6 +4544,53 @@
   "gate": "G3",
   "ok": true,
   "wert": "1,5 cm"
+ },
+ {
+  "item": "imkreislaufen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Paul läuft im Abstand von ungefähr einem Meter um ein kreisrundes Iglu herum. Welcher Graph passt am besten, um diese Bewegung darzustellen? Kreuze an.\nd: Entfernung zum Startpunkt (Luftlinie)\nt: benötigte Zeit",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "imkreislaufen",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Graph oben links",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "imkreislaufen",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Graph oben rechts",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "imkreislaufen",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Graph unten links",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "imkreislaufen",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Graph unten rechts",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "imkreislaufen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "3. (links unten) Kästchen wurde angekreuzt"
  },
  {
   "item": "inliner",
@@ -4299,6 +5042,61 @@
   "wert": "90 cm³"
  },
  {
+  "item": "koordinatensystem",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In einem Koordinatensystem liegt ein Quadrat ABCD. Die Punkte B, C und D haben die Koordinaten B (4|-2), C (4|3) und D (-1|3).",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "koordinatensystem",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welches sind die Koordinaten des Punktes A? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "koordinatensystem",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "A (-1|-3)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "koordinatensystem",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "A (-1|-2)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "koordinatensystem",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "A (-2|-1)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "koordinatensystem",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "A (-1|4)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "koordinatensystem",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "A (-1|-2)"
+ },
+ {
   "item": "kopfundkoerper",
   "feld": "stem",
   "gate": "G1",
@@ -4435,6 +5233,27 @@
   "gate": "G2",
   "ok": true,
   "wert": "Richtige Antwort (Nein) UND Angabe einer Begründung (als Skizze; oder verbal), die erkennen lässt, dass die beiden anderen; Eckpunkte einer Raute nicht auch auf der Kreislinie liegen; müssen.; Zeichentoleranz: ( 1 mm; z. B.; Der Kreismittelpunkt ist Schnittpunkt der beiden Diagonalen der; Raute. Diese stehen senkrecht aufeinander und halbieren sich. Nur; falls beide Diagonalen auch Durchmesser des Kreises sind, liegen; alle 4 Eckpunkte auf der Kreislinie. Dann ist es aber eine; spezielle Raute (Quadrat).; ODER; Bei der Raute liegen nur zwei Ecken auf der Kreislinie, also; stimmt Martins Aussage nicht für jede Raute.; [pic]; ODER; Dies geht nur bei einem Quadrat.; Anm.: \"Nur\" deutet auf das Erkennen des Spezialfalls Quadrat als; besondere Raute hin.; ODER (Grenzfall); Eine Raute wird gezeichnet."
+ },
+ {
+  "item": "kreisfiguren",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "In der Abbildung siehst du Figuren, die durch Kreislinien und Strecken begrenzt sind."
+ },
+ {
+  "item": "kreisfiguren",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Zwei der vier Figuren haben denselben Flächeninhalt. Welche sind das?"
+ },
+ {
+  "item": "kreisfiguren",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "A UND B; ODER; B UND A"
  },
  {
   "item": "kugelnziehen",
@@ -4715,6 +5534,61 @@
   "wert": "10"
  },
  {
+  "item": "luftballons",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In einem undurchsichtigen Beutel befinden sich 100 Luftballons. 60 davon sind rot, 40 sind blau.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "luftballons",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Paul nimmt ohne hinzusehen einen Luftballon aus dem Beutel. Wie groß ist die Wahrscheinlichkeit, dass er einen roten Luftballon erhält? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "luftballons",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "1/100",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "luftballons",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "4/10",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "luftballons",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "1/2",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "luftballons",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "6/10",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "luftballons",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "6/10"
+ },
+ {
   "item": "maedchenanteil",
   "feld": "stem",
   "gate": "G1",
@@ -4894,6 +5768,52 @@
   "gate": "G2",
   "ok": true,
   "wert": "[pic]"
+ },
+ {
+  "item": "mauerauszahlen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei allen folgenden Zahlenmauern steht in jedem Stein das Produkt der beiden darunter liegenden Steine (siehe Abbildung). Man rechnet also 3·7 und erhält 21.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "mauerauszahlen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ergänze die folgende Zahlenmauer vollständig. (Zahlenmauer mit 3 Ebenen: oben 140, mittlere Ebene leer, unten leer, 2, 5)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "mauerauszahlen",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, welche Zahl man für x einsetzen muss. (Zahlenmauer: oben 48, mittlere Ebene leer, unten 3, -4, x)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "mauerauszahlen",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "1"
+ },
+ {
+  "item": "mauerauszahlen",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, welche Zahl man für x einsetzen kann. (Zahlenmauer: oben 256, mittlere Ebene leer, unten x, x, x)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "mauerauszahlen",
+  "feld": "part3.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "4; -4"
  },
  {
   "item": "maus",
@@ -5240,6 +6160,29 @@
   "wert": "3. Quartal"
  },
  {
+  "item": "nashorn",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Dieses Foto wurde kurz nach der Geburt eines Nashornbabys im Budapester Zoo aufgenommen. Das Nashornbaby hatte zu diesem Zeitpunkt eine Schulterhöhe von 60 cm (im Bild als Doppelpfeil eingezeichnet).",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "nashorn",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welche Länge hatte das Nashornbaby zu diesem Zeitpunkt (von der Nase bis zum Hinterteil)? Notiere deinen Lösungsweg.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "nashorn",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "eine Länge aus dem Intervall [75 cm; 110 cm]; UND; Lösungsweg, bei dem aus dem Verhältnis von Schulterhöhe zu horizontalen Längen von der gegebenen Schulterhöhe von 60 cm auf die Gesamtlänge des Nashorn-Babys geschlossen wird."
+ },
+ {
   "item": "nebenjob",
   "feld": "stem",
   "gate": "G1",
@@ -5500,6 +6443,60 @@
   "gate": "G2",
   "ok": true,
   "wert": "von oben nach unten:; 6,4    UND    0,64"
+ },
+ {
+  "item": "ohrhaenger",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Janina biegt Ohrhänger aus Silberdraht, die aus einem oberen und einem unteren Teil bestehen. Den oberen Teil macht Janina immer 3 cm lang, der untere Teil hat immer die Form eines gleichseitigen Dreiecks (siehe Abbildung).",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ohrhaenger",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das gleichseitige Dreieck hat eine Seitenlänge von 5 cm. Wie viele solche Ohrhänger kann Janina mit 90 cm Silberdraht herstellen? Schreibe deinen Lösungsweg auf.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ohrhaenger",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ohrhänger",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ohrhaenger",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "5; UND; Lösungsweg, der den Drahtbedarf für einen Ohrhänger (18 cm) und die Gesamtlänge des Drahts (90 cm) berücksichtigt."
+ },
+ {
+  "item": "ohrhaenger",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Aus weiteren 90 cm Silberdraht biegt Janina nun 6 andere Ohrhänger. Diese sind alle gleich groß. Der obere Teil ist wieder 3 cm lang und der untere Teil ist wieder ein gleichseitiges Dreieck. Wie lang ist eine Dreiecksseite, wenn kein Silberdraht übrig bleiben soll? Schreibe deinen Lösungsweg auf.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ohrhaenger",
+  "feld": "part2.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ohrhaenger",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "4; UND; Lösungsweg, bei dem mittels des Drahtbedarfs für einen Ohrhänger (12 cm + 3 cm) die Länge einer Dreiecksseite (4 cm) errechnet wird.; ODER; Es wird nachgewiesen, dass bei einer Länge der Dreiecksseiten von 4 cm für 6 Ohrhänger exakt 90 cm Draht verbraucht werden."
  },
  {
   "item": "osterhase",
@@ -5766,6 +6763,138 @@
   "fehlende_zeichen": ""
  },
  {
+  "item": "parlamentswahl",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei einer Parlamentswahl wurden in einem Wahlbezirk 12 650 gültige Stimmen abgegeben. Davon fielen 42 % auf den Kandidaten Herrn Aal.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "parlamentswahl",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib die Anzahl der Stimmen an, die Herr Aal bei dieser Wahl bekam.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "parlamentswahl",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Stimmen",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "parlamentswahl",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "5313 Stimmen"
+ },
+ {
+  "item": "parlamentswahl",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Herr Aal kandidiert vier Jahre später auch bei der nächsten Wahl. Diesmal bekommt er allerdings weniger Stimmen als vor vier Jahren. Trotzdem hat sich sein Stimmanteil auf 44 % erhöht. Nenne eine mögliche Ursache, warum dies so sein kann.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "parlamentswahl",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Lösungen, bei denen deutlich wird, dass die Grundgesamtheit (die Anzahl der abgegebenen gültigen Stimmen) möglicherweise kleiner geworden ist."
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Deutsche Schuhinstitut hat genauso viele Frauen wie Männer befragt, ob ihre Schuhe zu klein, passend oder zu groß sind (siehe Abbildung 1). Die Befragungsergebnisse beziehen sich jeweils auf 100 Frauen und 100 Männer.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In einer Zeitung steht zu dieser Grafik: „80 Prozent aller Befragten tragen Schuhe, die ihnen nicht passen.\" Ist diese Aussage richtig? Kreuze an. Begründe deine Antwort.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Nein ODER Ja; UND; richtige Begründung, in welcher nachgewiesen wird, dass der Anteil der Befragten ohne passende Schuhe nicht 80 % beträgt. Dieser Nachweis kann mittels einer Rechnung oder einer verbalen Erklärung erfolgen."
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die im Balkendiagramm dargestellten Befragungsergebnisse der Frauen und Männer sollen in ein gemeinsames Kreisdiagramm übertragen werden (siehe Abbildung 2). Wie viel Grad muss der Kreisausschnitt für den Anteil der Männer haben, denen die Schuhe zu groß sind? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "37,5°",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "75°",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "135°",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "270°",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "passendeschuhe",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "135°"
+ },
+ {
   "item": "pflaumen",
   "feld": "stem",
   "gate": "G1",
@@ -5795,6 +6924,69 @@
   "gate": "G2",
   "ok": true,
   "wert": "0,95"
+ },
+ {
+  "item": "pinsel",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Der Pinsel in Abbildung 1 ist im Maßstab 1:3 abgebildet."
+ },
+ {
+  "item": "pinsel",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Wie lang ist er in Wirklichkeit?"
+ },
+ {
+  "item": "pinsel",
+  "feld": "part1.unit",
+  "gate": "G0",
+  "ok": false,
+  "wert": "cm"
+ },
+ {
+  "item": "pinsel",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "eine Zahl aus dem Intervall [17,4; 18,6]"
+ },
+ {
+  "item": "pinsel",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Ein anderer Pinsel ist in Wirklichkeit 20 cm lang. Er soll im Maßstab 1:4 abgebildet werden. Welche Abbildung passt am besten? Kreuze an."
+ },
+ {
+  "item": "pinsel",
+  "feld": "part2.option[a]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Pinsel-Abbildung 1 (kürzeste)"
+ },
+ {
+  "item": "pinsel",
+  "feld": "part2.option[b]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Pinsel-Abbildung 2"
+ },
+ {
+  "item": "pinsel",
+  "feld": "part2.option[c]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Pinsel-Abbildung 3"
+ },
+ {
+  "item": "pinsel",
+  "feld": "part2.option[d]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Pinsel-Abbildung 4 (längste)"
  },
  {
   "item": "plaettchenziehen",
@@ -5957,6 +7149,68 @@
   "gate": "G2",
   "ok": true,
   "wert": "[pic]; Die Spiegelachse muss durch die Punkte A (3; (9; benannt werden.; Anmerkungen:; • Wenn beide Symmetrieachsen eingezeichnet sind, wird dies auch; als richtig gewertet.; • Akzeptiert werden sowohl bei der x-Koordinate als auch bei der; y-Koordinate Abweichungen ( 2 mm."
+ },
+ {
+  "item": "punktgenau",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welche Koordinaten hat der Punkt P? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "punktgenau",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "P (1|-2)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "punktgenau",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "P (2|1)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "punktgenau",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "P (-2|1)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "punktgenau",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "P (-1|2)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "punktgenau",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "P (-2|1)"
+ },
+ {
+  "item": "punktgenau",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Zeichne den Punkt Q (1|3) in das Koordinatensystem ein.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "punktgenau",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Zeichengenauigkeit: Die Lösung ist richtig, wenn die Markierung dem \"Gitterpunkt\" eindeutig zugeordnet werden kann. Zeichentoleranz: 1 mm."
  },
  {
   "item": "punktgesucht",
@@ -6130,6 +7384,30 @@
   "wert": "Das zusammengefaltete Netz muss einen Quader ergeben."
  },
  {
+  "item": "quadratdifferenz",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Hans und Karin wollen die Differenz 5² - 4² berechnen.\nKarin sagt: „Das ist bei zwei aufeinanderfolgenden Zahlen ganz einfach. Das Ergebnis ist die Summe der beiden Zahlen 5 und 4. Und das ist 9.\"\nHans ist erstaunt: „Tatsächlich, es stimmt: 5² - 4² = 25 - 16 = 9.\"",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "quadrate",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Im Koordinatensystem sind die drei Punkte A, B und D gegeben.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "quadrate",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wo muss der vierte Punkt C liegen, damit ein Quadrat ABCD entsteht? Zeichne den Punkt C ein.",
+  "fehlende_zeichen": ""
+ },
+ {
   "item": "quadratflaeche",
   "feld": "part1.prompt",
   "gate": "G1",
@@ -6143,6 +7421,37 @@
   "gate": "G2",
   "ok": true,
   "wert": "Der ermittelte Flächeninhalt liegt im Intervall [25; 27,04] cm2.; Die Einheit des Ergebnisses ist anzugeben. Angaben in anderen; Einheiten mit passender Maßzahl sind zulässig.; Anmerkungen:; • Die oben angegebene Lösung bezieht sich auf 5,1 cm Sollmaß der; Quadratseitenlänge. Die Lösung ist bei drucktechnischen; Abweichungen  anzupassen.; • Zulässige Toleranz beim Messen der Seitenlängen des Quadrats: (; 1 mm."
+ },
+ {
+  "item": "quadratimgitter",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Auf das Gitterpapier ist ein Quadrat gezeichnet. 1 Kästchen entspricht dabei 1 cm².",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "quadratimgitter",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib den Flächeninhalt des Quadrats an. Du darfst auch Hilfslinien einzeichnen.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "quadratimgitter",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm²",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "quadratimgitter",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "32"
  },
  {
   "item": "quadratundraute",
@@ -6315,6 +7624,76 @@
   "wert": "Nein; UND; Begründung, dass der Geschäftsführer nicht recht hat."
  },
  {
+  "item": "ratenbeimtest",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Christian beantwortet in einem Test alle vier Fragen nur durch Raten. Zu jeder Frage gibt es vier Antworten, von denen immer nur eine richtig ist.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ratenbeimtest",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wie groß ist die Wahrscheinlichkeit dafür, dass Christian bei der ersten Frage die richtige Antwort ankreuzt? Gib dein Ergebnis an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ratenbeimtest",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "0,25"
+ },
+ {
+  "item": "ratenbeimtest",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wie groß ist die Wahrscheinlichkeit ungefähr, dass Christian bei allen vier Fragen des Tests die richtigen Antworten ankreuzt? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ratenbeimtest",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 25 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ratenbeimtest",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 4 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ratenbeimtest",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 2,5 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ratenbeimtest",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 0,4 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ratenbeimtest",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "ca. 0,4 %"
+ },
+ {
   "item": "rathausuhr",
   "feld": "stem",
   "gate": "G1",
@@ -6383,6 +7762,61 @@
   "gate": "G2",
   "ok": true,
   "wert": "Aufgabe mit der Lösung 10 Glockenschläge; Die entsprechenden Zeiten in der Nacht bzw. gegen Morgen sind ebenfalls als richtig zu bewerten."
+ },
+ {
+  "item": "rauminhaltvonprismen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Rauminhalte der zwei Körper A und B sollen verglichen werden, ohne die beiden Rauminhalte jedoch konkret auszurechnen. Die Grundfläche von Körper A ist ein Quadrat mit 10 cm Kantenlänge, die Grundfläche G von Körper B ist ein Sechseck mit 100 cm² Flächeninhalt",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "rauminhaltvonprismen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welche der folgenden Aussagen ist richtig?",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "rauminhaltvonprismen",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Der Rauminhalt von Körper A ist größer als der Rauminhalt von Körper B.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "rauminhaltvonprismen",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Der Rauminhalt von Körper A ist gleich dem Rauminhalt von Körper B.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "rauminhaltvonprismen",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Der Rauminhalt von Körper A ist kleiner als der Rauminhalt von Körper B.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "rauminhaltvonprismen",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Man kann die Rauminhalte der zwei Körper nur vergleichen, indem man sie konkret ausrechnet.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "rauminhaltvonprismen",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "Der Rauminhalt von Körper A ist gleich dem Rauminhalt von Körper B."
  },
  {
   "item": "rauten",
@@ -6538,6 +7972,77 @@
   "wert": "Die Lösung ist richtig, wenn alle drei Symmetrieachsen; eingezeichnet sind; [pic]; Anm.: Hinsichtlich der Lage der einzelnen Spiegelachsen ist; darauf zu achten, dass diese senkrecht auf der Strecke zwischen; den beiden jeweiligen Punkten stehen (1° Abweichung ist hierbei; noch akzeptabel) und durch den dritten Punkt verlaufen."
  },
  {
+  "item": "reiseverlauf",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Diagramm (siehe Abbildung) zeigt vereinfacht den Reiseverlauf von zwei Fahrzeugen A und B.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "reiseverlauf",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welche Aussagen passen zu dem Diagramm? Kreuze jeweils an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "reiseverlauf",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "trifft zu",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "reiseverlauf",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "trifft nicht zu",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "reiseverlauf",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Kann der Reiseverlauf eines Fahrzeugs in einem Weg-Zeit-Diagramm durch eine Gerade dargestellt werden, die parallel zur Weg-Achse verläuft? Kreuze an. Begründe deine Antwort.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "reiseverlauf",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "reiseverlauf",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "reiseverlauf",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Nein; UND; Begründung, in der festgestellt wird, dass sich das Fahrzeug dann gleichzeitig an verschiedenen Orten befinden müsste."
+ },
+ {
+  "item": "restaurantgewinnspiel",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Jedes Jahr in der Weihnachtszeit veranstaltet ein Restaurant ein Gewinnspiel. Der Wirt füllt dazu 100 Kugeln mit den Nummern 1 bis 100 in ein undurchsichtiges Gefäß und deckt dieses mit einem Tuch ab. Ein Gast, der die Rechnung bekommt, muss eine Zahl zwischen 1 und 100 nennen und dann, ohne hinzusehen, eine Kugel ziehen. Er zeigt dem Wirt die Nummer auf der Kugel und legt die Kugel wieder in das Gefäß zurück.",
+  "fehlende_zeichen": ""
+ },
+ {
   "item": "richtigumgeformt",
   "feld": "part1.prompt",
   "gate": "G1",
@@ -6561,12 +8066,76 @@
   "fehlende_zeichen": ""
  },
  {
+  "item": "rollrasen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Herr Klie hat eine Gartenbaufirma und gestaltet einen Teil seines Firmengeländes in eine Rasenfläche um. Diese neue Rasenfläche ist 11 m lang und 10,5 m breit.\nAus Zeitgründen verwendet Herr Klie Rollrasen (siehe Fotos 1 und 2). Als Rollrasen bezeichnet man fertigen Rasen, der in rechteckige Stücke geschnitten und dann zum Transport aufgerollt wird.",
+  "fehlende_zeichen": ""
+ },
+ {
   "item": "rolltreppe",
   "feld": "stem",
   "gate": "G1",
   "ok": true,
   "wert": "In einer U-Bahn-Station befindet sich einer der Bahnsteige genau 21 m unter Straßenniveau. Nach oben gelangt man mit einer Rolltreppe.\nMonika stellt sich unten auf diese Rolltreppe und lässt sich einfach hochfahren.\nDas folgende Zeit-Höhen-Diagramm stellt dar, wie tief sie zu jedem Zeitpunkt noch unter der Erde (dem Straßenniveau) ist.",
   "fehlende_zeichen": ""
+ },
+ {
+  "item": "rotgelbgruen",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "In einer Urne liegen drei rote, vier gelbe und fünf grüne Kugeln. Man zieht ohne Hinzusehen eine Kugel aus der Urne und legt sie anschließend wieder zurück."
+ },
+ {
+  "item": "rotgelbgruen",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Mit welcher Wahrscheinlichkeit wird eine grüne Kugel gezogen? Kreuze an."
+ },
+ {
+  "item": "rotgelbgruen",
+  "feld": "part1.option[a]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "1/7"
+ },
+ {
+  "item": "rotgelbgruen",
+  "feld": "part1.option[b]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "5/7"
+ },
+ {
+  "item": "rotgelbgruen",
+  "feld": "part1.option[c]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "1/12"
+ },
+ {
+  "item": "rotgelbgruen",
+  "feld": "part1.option[d]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "5/12"
+ },
+ {
+  "item": "rotgelbgruen",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Gib die Farbe einer Kugel an, für die die Wahrscheinlichkeit gezogen zu werden 1/3 beträgt. Begründe deine Antwort."
+ },
+ {
+  "item": "rotgelbgruen",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Gelb; UND; Begründung, bei der auf den relativen Anteil der gelben Kugeln an der Gesamtzahl der Kugeln verwiesen wird."
  },
  {
   "item": "rubbellose",
@@ -6698,6 +8267,272 @@
   "gate": "G2",
   "ok": true,
   "wert": "Für die Bewertung als richtig genügt die Angabe eines Vorteils. Die Unterschiede werden nicht bewertet.; Die genannten Unterschiede können rein beschreibend sein und sich auf die Art der Darstellung beziehen, können aber auch wertend sein, indem Vorteile benannt werden, die Abbildung 2 gegenüber Abbildung 1 aufweist.; Die genannten Unterschiede gehen nicht in die Bewertung ein, es sei denn, hier wird bereits ein Vorteil erwähnt."
+ },
+ {
+  "item": "saeulenhoehe",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Diagramm zeigt drei Säulen mit unterschiedlicher Höhe.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "saeulenhoehe",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib die durchschnittliche Höhe dieser drei Säulen an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "saeulenhoehe",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "saeulenhoehe",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "6"
+ },
+ {
+  "item": "saeulenhoehe",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Eine weitere Säule wird in das Diagramm eingezeichnet. Die durchschnittliche Höhe der vier Säulen beträgt nun 7 cm. Wie hoch ist die vierte Säule?",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "saeulenhoehe",
+  "feld": "part2.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "saeulenhoehe",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "10"
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Sauerkraut wird aus Weißkohl hergestellt. Während der Herstellung werden Milchsäurebakterien zugegeben, die sich täglich um 70 % gegenüber der Vortagsmenge vermehren. Zu Beginn der Produktion werden dem Weißkohl 50 g Bakterien zugegeben.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Felix sagt: „Also kommen täglich 35 g Bakterien dazu.“ Nimm Stellung zu dieser Aussage.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Aus der Antwort muss ersichtlich werden, dass Felix nicht berücksichtigt, dass die jeweils hinzugekommenen Bakterien sich auch vermehren."
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ulla möchte für verschiedene Tage die Bakterienmenge mit Hilfe eines Tabellenkalkulationsprogramms errechnen. Für diese Berechnungen trägt sie in einzelne Zellen der Tabelle Formeln ein. Dabei verwendet sie für jede Zelle eine Adresse, z. B. B2 oder D4. In der Tabelle sind bereits solche Formeln enthalten. In welcher Spalte sind die richtigen Formeln eingetragen? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "B",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "C",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "D",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "E",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "sauerkraut",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "D"
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Zu einer Verpackungsserie gehören verschieden große würfelförmige Schachteln. Die Kantenlänge der kleinen Schachtel beträgt 5 cm. Die Kanten der mittleren Schachtel sind 1 cm länger als die doppelte Kantenlänge der kleinen Schachtel, und die Kanten der großen Schachtel sind 1 cm länger als die doppelte Kantenlänge der mittleren Schachtel.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib die Kantenlängen der beiden anderen Schachteln an. Mittlere Schachtel / Große Schachtel",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Mittlere Schachtel:  11; Große Schachtel:  23"
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wie viele der kleinen Schachteln passen höchstens in die große Schachtel? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "4",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "12",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "16",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "27",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part2.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "64",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "64"
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Serie wird um eine vierte Schachtel, eine „Riesenschachtel\", erweitert. Ihre Kantenlänge ist 1 cm länger als die doppelte Kantenlänge der großen Schachtel. Es sollen so viele kleine Schachteln wie möglich in die Riesenschachtel gepackt werden. Drei Schülerinnen haben aufgeschrieben, wie sie deren Anzahl berechnet haben. Kreuze jeweils an, ob die Argumentation richtig ist.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part3.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Lisa: richtig",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part3.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Lisa: falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part3.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Frieda: richtig",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part3.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Frieda: falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part3.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Erika: richtig",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schachtelnpacken",
+  "feld": "part3.option[f]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Erika: falsch",
+  "fehlende_zeichen": ""
  },
  {
   "item": "schluessel",
@@ -6875,6 +8710,84 @@
   "wert": "Bonbondose 1; UND; korrekte Begründung, bei der die Wahrscheinlichkeiten, ein Bonbon mit dunkler Schokolade aus einer der beiden Dosen zu ziehen, verglichen werden."
  },
  {
+  "item": "schokoladenfiguren",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In der Zeitung war über die Produktion von Schokoladenfiguren zu lesen: „Der Osterhase liegt deutlich vor dem Weihnachtsmann: Schätzungsweise 100 Millionen Hasen wurden im Jahr 2008 zum Osterfest produziert.\" Das Kreisdiagramm zeigt die Anteile der Weihnachtsmänner und Osterhasen an der Produktion dieser Schokoladenfiguren.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ein Laden verkauft selbstgemachte Schokolade. Beispiele aus dem Angebot: Es gibt keine Sonderangebote.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Für eine Schokoladensorte ist in diesem Schaubild die Zuordnung der zwei Größen Schokoladenmenge (in g) → Schokoladenpreis (in €) dargestellt. Das folgende Wertepaar ist mit zwei gestrichelten Linien gekennzeichnet: 200 g → 3,00 €. Ein weiteres Wertepaar ist ebenfalls mit einer gestrichelten Linie hervorgehoben. Ergänze die fehlenden Angaben.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "g"
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Um welche Schokoladensorte aus dem Angebot des Schokoladenladens handelt es sich bei dem Schaubild aus Teilaufgabe 1? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Dunkle Schokolade",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Weiße Schokolade",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Milchschokolade",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gefüllte Schokolade",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schokoladenpreis",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "Dunkle Schokolade"
+ },
+ {
   "item": "schokolinsen",
   "feld": "stem",
   "gate": "G1",
@@ -6898,12 +8811,70 @@
   "wert": "eine Zahl aus dem Intervall [200; 800]; UND; Eine Beschreibung, in der auf einen geeigneten Repräsentanten verwiesen wird und aus der die angegebene Anzahl folgerichtig hervorgeht."
  },
  {
+  "item": "schrankbreiten",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Einzelschränke gibt es in fünf verschiedenen Breiten. Man kann sie in unterschiedlichen Kombinationen nebeneinander stellen und erhält so für jedes Zimmer den passenden Schrank.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schrankbreiten",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Stelle eine Schrankkombination von 135 cm Breite zusammen. Trage in die Tabelle die Anzahl der benötigten Einzelschränke ein.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "schrankbreiten",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Eine der folgenden drei Schrank-Kombinationen muss angegeben sein.; 1 x 40 cm, 1 x 45 cm, 1 x 50 cm; ODER; 3 x 30 cm, 1 x 45 cm; ODER; 3 x 45 cm"
+ },
+ {
   "item": "schulgrundstueck",
   "feld": "stem",
   "gate": "G1",
   "ok": true,
   "wert": "Die Abbildung zeigt das Luftbild einer Schule. Darauf sind das Schulgrundstück (schwarz umrandet) und die Schulgebäude zu sehen.",
   "fehlende_zeichen": ""
+ },
+ {
+  "item": "schulkleidung",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "An einer Schule wird über die Einführung einheitlicher Schulkleidung diskutiert. Lisa und Paul haben im Internet eine Studie der Fachhochschule Münster zu diesem Thema gefunden. Dort wurden insgesamt 17 812 Schülerinnen und Schüler befragt. Auf die Frage „Wärst du bereit, Schulkleidung zu tragen?“ haben 9018 (50,6 %) der Befragten mit „ja“ geantwortet, 8136 (45,7 %) mit „nein“, der Rest hat keine Angaben gemacht."
+ },
+ {
+  "item": "schulkleidung",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Stelle die Ergebnisse der Befragung („ja“ / „nein“ / „keine Angaben“) in einem Säulendiagramm dar."
+ },
+ {
+  "item": "schulkleidung",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Ein Säulendiagramm ist gezeichnet, in dem:; die drei Säulen für \"ja\", \"nein\" und \"keine Angaben\" in demselben Maßstab gezeichnet sind und jeweils die richtige Höhe haben,; die Säulen bzw. die Hochachse nachvollziehbar beschriftet ist (auf der Hochachse genügt dabei die Angabe eines Wertes)"
+ },
+ {
+  "item": "schulkleidung",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Lisa hat die Ergebnisse der Befragung etwas auffälliger dargestellt und dabei ihre persönliche Meinung zu dem Thema einfließen lassen. Lisa ist gegen die Einführung einheitlicher Schulkleidung. Erläutere, warum Lisas Diagramm ihre Meinung betont."
+ },
+ {
+  "item": "schulkleidung",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Eine Erläuterung, in der herausgestellt wird, dass sich die Prozentangaben nur auf die Höhe beziehen, aber durch die Darstellung als Dreieck der untere Teil der Figur (das Trapez) optisch stärker betont wird."
  },
  {
   "item": "schulstatistik",
@@ -6943,6 +8914,141 @@
   "gate": "G2",
   "ok": true,
   "wert": "In einer richtigen Antwort wird die Anzahl der schwarzen bzw. weißen Würfelseiten als ausschlaggebend herausgestellt. Der Begriff Wahrscheinlichkeit muss nicht explizit erwähnt werden.; Beispiele(e); Es sind sechs Würfelseiten und von diesen sind vier weiß, also kann die Wahrscheinlichkeit für eine weiße Würfelseite nicht  sein.; Es sind vier weiße und nur zwei schwarze Seiten."
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Im Folgenden werden nur Körper betrachtet, deren Oberfläche aus ebenen Vielecken besteht. Es gibt also keine gebogenen oder gewölbten Flächen.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Aus wie vielen Flächen besteht die Oberfläche eines Quaders? Die Oberfläche eines Quaders besteht aus",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Flächen",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "6"
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nenne einen Körper, dessen Oberfläche aus genau fünf Flächen besteht. Wenn du die Bezeichnung des Körpers nicht kennst, kannst du ihn auch skizzieren.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Richtig sind Lösungen, in denen ein Körper genannt, eindeutig beschrieben oder skizziert wird, dessen Oberfläche aus fünf Flächen besteht."
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Es soll ein Körper konstruiert werden, dessen Oberfläche aus genau vier Flächen besteht. Welche Form haben diese Flächen? Kreuze an. Alle vier Flächen sind …",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part3.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "… dreieckig.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part3.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "… rechteckig.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part3.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "… quadratisch.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part3.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "… fünfeckig.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "seitenflaechen",
+  "feld": "part3.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "… dreieckig."
+ },
+ {
+  "item": "skalaundzahlen",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Zwei Zahlen sind auf dem obigen Ausschnitt der Zahlengeraden mit einem Pfeil markiert. Trage die zwei Zahlen in die Kästchen ein."
+ },
+ {
+  "item": "spielwuerfel",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Man nennt einen Spielwürfel fair, wenn jede seiner Seitenflächen nach einem Wurf mit derselben Wahrscheinlichkeit oben liegen kann. Solche Würfel können unterschiedlich viele Seitenflächen haben."
+ },
+ {
+  "item": "spielwuerfel",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Die Abbildung zeigt einen fairen 20-seitigen Spielwürfel, dessen Seitenflächen mit den Zahlen von 1 bis 20 beschriftet sind. Gib die Wahrscheinlichkeit dafür an, dass die Zahl 11 geworfen wird."
+ },
+ {
+  "item": "spielwuerfel",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Die folgenden Aussagen beziehen sich auf faire Spielwürfel, deren Seitenflächen alle mit verschiedenen Zahlen beschriftet sind. Es geht um die Wahrscheinlichkeit eine bestimmte Zahl zu würfeln. Prüfe die Aussagen und kreuze jeweils an."
+ },
+ {
+  "item": "spielwuerfel",
+  "feld": "part2.option[a]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "wahr"
+ },
+ {
+  "item": "spielwuerfel",
+  "feld": "part2.option[b]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "falsch"
  },
  {
   "item": "sprechstunde",
@@ -7062,6 +9168,83 @@
   "wert": "unendlich viele"
  },
  {
+  "item": "steilestrasse",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Verkehrszeichen in Abbildung 1 gibt an, dass die Straße dort ein Gefälle von 12 % hat. Ein Gefälle von 12 % bedeutet, dass zwischen zwei Orten ein Höhenunterschied von 12 m besteht, wenn die zugehörige Horizontalstrecke 100 m lang ist (siehe Abbildung 2).",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Straße „An der Steilen Wand\" in der sächsischen Stadt Meerane hat ein Gefälle von 13 %. Die Horizontalstrecke zwischen dem Beginn dieses Gefälles und dessen Ende beträgt ca. 250 m. Wie groß ist der Höhenunterschied, der auf diesem Straßenstück überwunden wird?",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "m",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "eine Zahl aus dem Intervall [32; 33]"
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die steilste Straße der Welt liegt in Neuseeland und heißt „Baldwin Street\". Ein sehr steiler Abschnitt der Straße überwindet bei einer Horizontalstrecke von 154 m einen Höhenunterschied von 47 m. Wie viel Prozent Gefälle hat die Straße auf diesem Abschnitt?",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part2.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "%",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "eine Zahl aus dem Intervall [30; 31]"
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Steigungen oder Gefälle werden manchmal nicht in Prozent wie in Abbildung 1, sondern durch die Größe des Winkels (siehe Abbildung 3) beschrieben. Gib die Größe des Winkels a an, der zu 100 % Gefälle gehört. Notiere deinen Lösungsweg.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part3.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "°",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "steilestrasse",
+  "feld": "part3.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "45; UND; Lösungsweg, bei dem der Winkel 45 berechnet oder argumentativ bzw. zeichnerisch hergeleitet wird."
+ },
+ {
   "item": "sterneundsandkoerner",
   "feld": "stem",
   "gate": "G1",
@@ -7100,6 +9283,99 @@
   "wert": "22"
  },
  {
+  "item": "streckeimkoordinatenkreuz",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In einem Koordinatensystem ist die Strecke AD gegeben.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "streckeimkoordinatenkreuz",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Strecke AD soll eine Seite des Quadrats ABCD sein. Gib die Koordinaten der zwei Punkte B und C des Quadrats an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "streckeimkoordinatenkreuz",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "B ( 4,5 | 2,5 )   C ( 3 | 4 ); B ( 3 | 4 )   C ( 4,5 | 2,5 ); B ( 1,5 | - 0,5 )   C ( 0 | 1 ); B ( 0 | 1 )   C ( 1,5 | - 0,5 )"
+ },
+ {
+  "item": "streckeimkoordinatenkreuz",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Strecke AD soll an der y-Achse gespiegelt werden. Gib die Koordinaten der beiden Spiegelpunkte an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "streckeimkoordinatenkreuz",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "A' (- 3 | 1 )   D' ( - 1,5 | 2,5 )"
+ },
+ {
+  "item": "streichholzziehen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Herr Peters hält fünf Streichhölzer in seiner Hand (siehe Foto). Vier dieser Streichhölzer haben eine normale Länge, eines ist gekürzt. Herr Peters sagt: „Wer das kurze Streichholz zieht, macht unser Auto sauber.“ Sein jüngster Sohn zieht als Erster ein Streichholz.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "streichholzziehen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wie groß ist die Wahrscheinlichkeit, dass er das kurze Streichholz zieht? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "streichholzziehen",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "⅕",
+  "fehlende_zeichen": "⅕"
+ },
+ {
+  "item": "streichholzziehen",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "¼",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "streichholzziehen",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "½",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "streichholzziehen",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "⅘",
+  "fehlende_zeichen": "⅘"
+ },
+ {
+  "item": "streichholzziehen",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "¼"
+ },
+ {
   "item": "suchediezahl",
   "feld": "part1.prompt",
   "gate": "G1",
@@ -7113,6 +9389,69 @@
   "gate": "G2",
   "ok": true,
   "wert": "5   = 10  3     = 24  7   = 21"
+ },
+ {
+  "item": "tabelle",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Tabelle zeigt einen Zusammenhang zwischen a und b.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tabelle",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welche der folgenden Gleichungen passt zu diesem Zusammenhang? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tabelle",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "b = a + 1",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tabelle",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "a = b - 2",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tabelle",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "b = 2a - 1",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tabelle",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "b = 3/2 · a",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tabelle",
+  "feld": "part1.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "a = b + 2",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tabelle",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "[pic]"
  },
  {
   "item": "tabelleausfuellen",
@@ -7170,6 +9509,41 @@
   "wert": "eine Zahl aus dem Intervall [49; 50]"
  },
  {
+  "item": "temperatur",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "In Europa werden Temperaturen in Grad Celsius (°C) angegeben, in den USA in Grad Fahrenheit (°F). Es gibt eine Regel für die Umrechnung: Multipliziere die Temperatur in °C mit 1,8 und addiere zum Ergebnis 32, dann erhältst du die Temperatur in °F."
+ },
+ {
+  "item": "temperatur",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Gib die Temperatur 5 °C in der Einheit °F an."
+ },
+ {
+  "item": "temperatur",
+  "feld": "part1.unit",
+  "gate": "G0",
+  "ok": false,
+  "wert": "°F"
+ },
+ {
+  "item": "temperatur",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "41"
+ },
+ {
+  "item": "temperatur",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Gib eine Formel für die Umrechnung von Temperaturen in °C nach °F an. Dabei soll C für Temperaturen in °C stehen und F für Temperaturen in °F."
+ },
+ {
   "item": "temperaturdifferenz",
   "feld": "stem",
   "gate": "G1",
@@ -7199,6 +9573,91 @@
   "gate": "G2",
   "ok": true,
   "wert": "19"
+ },
+ {
+  "item": "temperaturen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Tabelle und das Diagramm zeigen für Frankfurt am Main die langjährigen Durchschnittstemperaturen der einzelnen Monate in °C.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "thermometer",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, welche Temperatur das Thermometer anzeigt.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "thermometer",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "°C",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "thermometer",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "-8"
+ },
+ {
+  "item": "thermometer",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Später zeigt das Thermometer -3 °C. Danach steigt die Temperatur um 15 Grad. Gib an, welche Temperatur das Thermometer nun anzeigt.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "thermometer",
+  "feld": "part2.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "°C",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "thermometer",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "12"
+ },
+ {
+  "item": "thermometeranzeigen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das linke Thermometer zeigt die Temperatur, die morgens gemessen wurde. Das rechte Thermometer zeigt die Temperatur, die mittags gemessen wurde.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "thermometeranzeigen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib den Temperaturunterschied an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "thermometeranzeigen",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "°C",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "thermometeranzeigen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "15"
  },
  {
   "item": "tombolazumschulfest",
@@ -7302,6 +9761,38 @@
   "wert": "1 : 120"
  },
  {
+  "item": "trapezohnesymmetrie",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das dargestellte Trapez hat keine Symmetrieachse.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "trapezohnesymmetrie",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Entscheide jeweils, ob die folgenden Begründungen richtig sind. Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "trapezohnesymmetrie",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "richtig",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "trapezohnesymmetrie",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "falsch",
+  "fehlende_zeichen": ""
+ },
+ {
   "item": "trapezvariation",
   "feld": "stem",
   "gate": "G1",
@@ -7388,12 +9879,262 @@
   "wert": "Ja; UND; Begründung (auch anhand eines Beispiels) über die gleichbleibende Summe der Seitenlängen a und c."
  },
  {
+  "item": "treppenmasse",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Man muss jeden Tag viele verschiedenartige Treppen überwinden. Damit man das Treppensteigen als angenehm empfindet, orientieren sich Treppenbauer an der folgenden Schrittmaßregel (siehe Abbildung): Schrittmaßregel: 2 · h + b = 63 cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In der folgenden Tabelle sind die Maße von zwei Treppen angegeben. Kreuze jeweils an, ob die Schrittmaßregel erfüllt ist. Begründe deine Antwort durch eine Rechnung.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei Treppe 1 ist die Schrittmaßregel erfüllt. — ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei Treppe 1 ist die Schrittmaßregel erfüllt. — nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei Treppe 2 ist die Schrittmaßregel erfüllt. — ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei Treppe 2 ist die Schrittmaßregel erfüllt. — nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "ODER; ODER"
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Eine Wohnhaustreppe hat einen Auftritt von b = 27 cm. Gib die Tritthöhe gemäß der Schrittmaßregel an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part2.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "18"
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Beim Bau einer Treppe soll die Schrittmaßregel 2 · h + b = 63 cm beachtet werden. Peter behauptet: „Es gilt dann: Je kleiner die Tritthöhe h, desto größer der Auftritt b.\" Hat Peter Recht? Kreuze an. Begründe deine Antwort.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part3.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part3.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part3.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Ja; UND; richtige Begründung, in welcher darauf verwiesen wird, dass bei Verkleinerung von h der Summand b größer werden muss, um die Summe 63 zu erhalten."
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part4.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Eine Treppe hat eine Steigung von 45°. Die Schrittmaßregel 2 · h + b = 63 cm ist erfüllt. Gib an, welche Maße die Tritthöhe h und der Auftritt b dann haben müssen.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part4.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "treppenmasse",
+  "feld": "part4.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Tritthöhe h: 21 cm; Auftritt b: 21 cm"
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei Familie Rector tropft seit einigen Tagen ein undichter Wasserhahn.\nBen, der Sohn der Familie, will untersuchen, wie viel Wasser dabei verloren geht. Er fängt das gleichmäßig tropfende Wasser in einem Messbecher auf.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ben sieht ab und zu nach, wie viel Wasser inzwischen im Messbecher ist. Die Tabelle zeigt Bens Messergebnisse. Gib an, wie viel Wasser nach zwei Stunden im Messbecher war.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm³",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "600"
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welches Diagramm stellt die verlorene Wassermenge in Abhängigkeit von der Zeit am besten dar? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Diagramm oben links: Wassermenge in cm³ über Zeit in h, Gerade steigt vom Ursprung gleichmäßig an",
+  "fehlende_zeichen": "ü"
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Diagramm oben rechts: Wassermenge in cm³ über Zeit in h, Gerade fällt gleichmäßig von einem hohen Startwert bis auf die Zeitachse",
+  "fehlende_zeichen": "ü"
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Diagramm unten links: Wassermenge in cm³ über Zeit in h, kurze flach ansteigende Strecke knapp über der Zeitachse",
+  "fehlende_zeichen": "kküü"
+ },
+ {
+  "item": "tropfenderwasserhahn",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Diagramm unten rechts: Wassermenge in cm³ über Zeit in h, kurze steil fallende Strecke direkt unterhalb der Achsenspitze",
+  "fehlende_zeichen": "kü"
+ },
+ {
   "item": "tunnelbohrmaschine",
   "feld": "stem",
   "gate": "G1",
   "ok": true,
   "wert": "Die Tunnelbohrmaschine VERA (Von der Elbe Richtung Alster) begann am 15. Mai 2008 mit dem Ausbohren des Fahrtunnels für die neue Hamburger U-Bahnlinie U4. Diese Tunnelbohrmaschine schafft durchschnittlich 10 m Tunnellänge in 24 Stunden. Für den Bau dieses Tunnels sind bei pausenlosem Betrieb vierzig Wochen (also 280 Tage) angesetzt.",
   "fehlende_zeichen": ""
+ },
+ {
+  "item": "ueberschlagdochmal",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Max meint, dass er ziemlich viel Zeit in der Schule verbringt. Er fragt sich, wie viele Unterrichtsstunden es in acht Schuljahren wohl schon waren. Welche Zahl passt am besten? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ueberschlagdochmal",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 1000 Unterrichtsstunden",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ueberschlagdochmal",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 10 000 Unterrichtsstunden",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ueberschlagdochmal",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 100 000 Unterrichtsstunden",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ueberschlagdochmal",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "ca. 1 000 000 Unterrichtsstunden",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ueberschlagdochmal",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "ca. 10 000 Unterrichtsstunden"
  },
  {
   "item": "ueberschlagsrechnung",
@@ -7451,6 +10192,122 @@
   "wert": "90 · 90"
  },
  {
+  "item": "umfangundflaeche",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, wie lang der Umfang der dick umrandeten Figur ist.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "umfangundflaeche",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "umfangundflaeche",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "36"
+ },
+ {
+  "item": "umfangundflaeche",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib den Flächeninhalt der dick umrandeten Figur an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "umfangundflaeche",
+  "feld": "part2.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm²",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "umfangundflaeche",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "45"
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Hier wurde begonnen, aus kleinen Würfeln der Kantenlänge 1 cm einen großen Würfel zusammenzusetzen, der die Kantenlänge 4 cm haben soll. Die in der Zeichnung verdeckten Würfel sind schon alle eingebaut.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Peter will zuerst die beiden unteren Schichten vervollständigen. Gib an, wie viele Würfel er dafür noch benötigt.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "12 (Würfel)"
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Stell dir vor, du könntest um das Gebilde aus der Zeichnung herumgehen. Wie viele Seitenflächen der kleinen Würfel kannst du dann insgesamt von rechts, von hinten, von links und von vorne sehen? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "19",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "32",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "38",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "51",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unfertigerwuerfel",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "38"
+ },
+ {
   "item": "ungewoehnlicherspielwuerfel",
   "feld": "stem",
   "gate": "G0",
@@ -7484,6 +10341,79 @@
   "gate": "G2",
   "ok": true,
   "wert": "Eines der folgenden Netze liegt vor. Die Zeichengenauigkeit wird nicht bewertet.; Grenzfälle; Eines der beiden folgenden Netze wird gezeichnet – hierbei muss aber deutlich werden, dass (wie in der Skizze angedeutet) die winkelförmige Seite immer nur seitlich (Bild 1: links; Bild 2: rechts) an der „Seite ohne Punkte“ befestigt ist.; Die winkelförmige Seite wurde richtig angefügt, aber nicht mit den drei Punkten versehen."
+ },
+ {
+  "item": "ungleichungerfuellen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib drei natürliche Zahlen für z an, so dass die Ungleichung erfüllt ist.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "ungleichungerfuellen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Angabe von drei der Zahlen 0, 1, 2, 3, 4, 5."
+ },
+ {
+  "item": "unregelmaessigesviereck",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Flächeninhalte von Rechtecken oder Dreiecken kann man leicht mit Formeln ausrechnen, wenn bestimmte Längen gegeben sind oder gemessen werden können. Hier ist ein Viereck abgebildet, für das es keine Formel zur direkten Berechnung des Flächeninhalts gibt.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unregelmaessigesviereck",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Beschreibe möglichst genau, wie man den Flächeninhalt dieses Vierecks sehr genau bestimmen kann. Veranschauliche dein Vorgehen in der Abbildung, indem du z.B. die Strecken markierst oder einzeichnest, deren Länge du messen musst.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "unregelmaessigesviereck",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Korrekte Beschreibung der Zerlegungs- oder Ergänzungsmethode UND; Einzeichnen von geeigneten, der Beschreibung entsprechenden; Hilfslinien in der Abbildung UND Markierung der Strecken, die; gemessen werden müssen, insbesondere verwendeter Höhen.; Die Lösung ist auch richtig, wenn Höhen und andere Strecken; ungenau eingezeichnet sind.; Zerlegungsmethode:; Anm.: Die Beschreibung der Zerlegungsmethode ist korrekt, wenn; die Zerlegung des Vierecks in Teilflächen beschrieben wird, deren; Flächeninhalte mit einer Formel berechnet werden kann (Das sind; Rechtecke, Dreiecke, Parallelogramme und Trapeze.) UND darauf; hingewiesen wird, dass die Summe dieser Flächeninhalte den; Flächeninhalt des Vierecks ergibt UND anhand der Zeichnung; verdeutlicht wird, welche Strecken gemessen werden müssen.; Mögliche Zerlegungen (alle weiteren Zerlegungen, die der obigen; Anmerkung entsprechen, sind als richtig zu bewerten):; [pic]; z. B.; Ich zerlege das Viereck in Teilflächen, deren Flächeninhalte mit; den entsprechenden Flächenformeln berechnet werden können. Die; Längen kann ich ausmessen. Die Summe der Flächeninhalte der; Teilflächen ergibt den Flächeninhalt des Vierecks.; ODER (Grenzfall); Addiert man die Teilflächen, so erhält man den Flächeninhalt des; Vierecks.; UND Skizze mit geeigneten Teilfiguren.; Anm.: Hier wurde zwar die Zerlegungsmethode nicht vollständig; beschrieben, aber die Abbildung lässt auf ein korrektes; Verständnis schließen"
+ },
+ {
+  "item": "verbindungsstrecken",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "In der Abbildung sind fünf Punkte A, B, C, D und E gegeben. Jeder der vier Punkte A, B, C, D ist mit jedem anderen der vier Punkte A, B, C, D durch eine Strecke verbunden. So entstehen sechs verschiedene Verbindungsstrecken."
+ },
+ {
+  "item": "verbindungsstrecken",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Wie viele solcher Verbindungsstrecken entstehen zusätzlich, wenn man die Punkte A, B, C, D und E in gleicher Weise verbindet? Du kannst das in der Zeichnung oben ausprobieren."
+ },
+ {
+  "item": "verbindungsstrecken",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "4"
+ },
+ {
+  "item": "verbindungsstrecken",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "20 Punkte liegen verteilt auf einem Kreis. Dann gibt es 190 verschiedene Verbindungsstrecken. Wie viele dieser Verbindungsstrecken gibt es insgesamt, wenn man einen 21. Punkt auf den Kreis hinzunimmt?"
+ },
+ {
+  "item": "verbindungsstrecken",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "210"
  },
  {
   "item": "verkehrszeichen",
@@ -7690,6 +10620,240 @@
   "fehlende_zeichen": ""
  },
  {
+  "item": "verschiedenerechtecke",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Diagramm zeigt Breiten und Längen von Rechtecken, die alle den Flächeninhalt 36 cm² haben. Beispielsweise gehört der Punkt B (2 | 18) zu einem Rechteck, das 2 cm breit und 18 cm lang ist.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib an, wie breit und wie lang das Rechteck ist, das zum Punkt C gehört.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "cm",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "3; UND; 12"
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Betrachte nun das Rechteck, das zum Punkt B gehört. Es gibt einen anderen Punkt, der zu einem deckungsgleichen Rechteck gehört. Welcher Punkt ist das?",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "H; UND; ( 18 | 2 )"
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Betrachte nun immer die beiden Punkte, die zu jeweils deckungsgleichen Rechtecken gehören. Entscheide, ob folgende Aussagen wahr oder falsch sind. Kreuze jeweils an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part3.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Diese beiden Punkte haben vertauschte Koordinaten. — wahr",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part3.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Diese beiden Punkte haben vertauschte Koordinaten. — falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part3.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Verbindet man jeweils diese beiden Punkte deckungsgleicher Rechtecke, so verlaufen alle entstehenden Geraden parallel zueinander. — wahr",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part3.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Verbindet man jeweils diese beiden Punkte deckungsgleicher Rechtecke, so verlaufen alle entstehenden Geraden parallel zueinander. — falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part3.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Diese beiden Punkte liegen achsensymmetrisch zur Geraden mit der Gleichung y = x. — wahr",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "verschiedenerechtecke",
+  "feld": "part3.option[f]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Diese beiden Punkte liegen achsensymmetrisch zur Geraden mit der Gleichung y = x. — falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vielebroetchen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In der Bäckerei am Dorfplatz kostet ein Brötchen 0,30 €, egal wie viele Brötchen man kauft.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vielebroetchen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Schreibe die Bezeichnungen für die beiden Tabellenzeilen in die erste Spalte. Ergänze dann die fehlenden Werte, so dass man ablesen kann, was die jeweilige Anzahl Brötchen kostet.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "volumenverkleinerung",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ein Würfel wird verkleinert. Das Volumen des neuen Würfels ist um ca. 27 % geringer als das Volumen des ursprünglichen Würfels.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "volumenverkleinerung",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "volumenverkleinerung",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "[pic]"
+ },
+ {
+  "item": "volumenverkleinerung",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "volumenverkleinerung",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Richtige Begründung mittels einer allgemeinen Rechnung, einer; Beispielrechnung oder einer eher begrifflichen Argumentation, in; welcher Bezug auf die aus der Veränderung des Volumens folgende; Veränderung der Kantenlänge und damit der Oberflächengröße des; Würfels genommen wird. Auch eine Ausschlussargumentation kann; gegeben werden.; z. B.; Allgemeine Rechnung:; 27 % Verringerung des Volumens bedeutet eine Multiplikation des; Volumens mit 0,73, das entspricht einer Multiplikation der; Kantenlängen mit [pic] und damit einer Multiplikation der; Oberflächengröße mit [pic] , also einer Verringerung um 19 %.; ODER; Wenn das Volumen um 27 % verringert wird, muss die Kantenlänge; des Würfels mit [pic] 0,9 multipliziert werden und die Oberfläche; mit 0,81. Also bleibt von der ursprünglichen Oberfläche noch 81 %; übrig.; ODER; Volumen: [pic]Oberfläche:; [pic]; Also: 100 % - 81 % = 19 %"
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "252 und 4774 sind natürliche Zahlen, die von links und rechts gelesen gleich sind. Zahlen mit dieser Eigenschaft heißen Palindromzahlen. Dabei darf die erste und letzte Ziffer keine Null sein. 252 ist zum Beispiel eine 3-stellige Palindromzahl und 4774 eine 4-stellige Palindromzahl.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ergänze die Zahl 38 zu einer 4-stelligen Palindromzahl und zu einer 5-stelligen Palindromzahl.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Angabe einer 4-stelligen Palindromzahl:; 3883 ODER 8338; UND; Angabe einer 5-stelligen Palindromzahl:"
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wie viele verschiedene 4-stellige Palindromzahlen gibt es? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "16",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "72",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part2.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "81",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part2.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "90",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part2.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "100",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "vonlinkswievonrechts",
+  "feld": "part2.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "90"
+ },
+ {
   "item": "waage",
   "feld": "stem",
   "gate": "G1",
@@ -7737,6 +10901,48 @@
   "wert": "15"
  },
  {
+  "item": "wahl",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Bei einer Wahl erreichten die Parteien A, B, C und D folgende Ergebnisse:"
+ },
+ {
+  "item": "wahl",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Zur Wahl traten auch noch weitere Parteien an, die wegen ihrer geringen Stimmenzahl nicht im Diagramm auftauchen. Wie viel Prozent der Stimmen entfielen insgesamt auf diese weiteren Parteien?"
+ },
+ {
+  "item": "wahl",
+  "feld": "part1.unit",
+  "gate": "G0",
+  "ok": false,
+  "wert": "%"
+ },
+ {
+  "item": "wahl",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "3,6"
+ },
+ {
+  "item": "wahl",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "24 Millionen Menschen gingen zur Wahl. Wie viele Menschen haben demnach die Partei A gewählt?"
+ },
+ {
+  "item": "wahl",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "eine Zahl aus dem Intervall [7 920 000; 8 160 000]"
+ },
+ {
   "item": "wahrscheinlicher",
   "feld": "part1.prompt",
   "gate": "G1",
@@ -7768,12 +10974,437 @@
   "wert": "Beim einmaligen Werfen einer Münze liegt \"Kopf\" oben.; UND; Begründung mit; - Verweis auf die Wahrscheinlichkeiten beider Ereignisse oder; - Vergleich der Anzahlen der möglichen Ergebnisse."
  },
  {
+  "item": "weitsprung",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In der Klasse 8a wird im Sportunterricht Weitsprung trainiert. Jeder Schüler hat drei Versuche. Die Sportlehrerin gibt die drei Sprungweiten in ein Tabellenkalkulationsprogramm ein und lässt für jeden Schüler die mittlere Weite berechnen. So sieht die Tabelle für die zehn Mädchen der Klasse aus:",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "werbelotterie",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Die Fluggesellschaft Trans American Airways (Kürzel TAA) veranstaltet eine Lotterie als Werbung. Aus einer Trommel werden zufällig nacheinander drei Kugeln mit Buchstaben gezogen. In der Trommel gibt es 9 Kugeln mit dem Buchstaben A, 4 Kugeln mit dem Buchstaben T und 7 Kugeln mit dem Buchstaben X."
+ },
+ {
+  "item": "werbelotterie",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Wie groß ist die Wahrscheinlichkeit, das Kürzel TAA in der richtigen Reihenfolge zu ziehen, wenn die Kugeln nicht zurückgelegt werden? Gib diese Wahrscheinlichkeit an."
+ },
+ {
+  "item": "werbelotterie",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Wie groß ist die Wahrscheinlichkeit, das Kürzel TAA in der richtigen Reihenfolge zu ziehen, wenn die Kugeln nach jedem Ziehen zurückgelegt werden? Gib diese Wahrscheinlichkeit an."
+ },
+ {
+  "item": "werbemarkt",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die folgende Grafik stellt die Gesamtausgaben für Werbung in den Jahren 2010 bis 2015 dar.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "werbemarkt",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nimm an, dass sich die Gesamtausgaben für Werbung in den nächsten Jahren ähnlich weiterentwickeln. Gib unter dieser Voraussetzung eine Prognose ab, wie hoch die Gesamtausgaben für Werbung im Jahr 2018 ungefähr sein werden. Notiere deinen Lösungsweg.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "werbemarkt",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Mrd. €",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "werbemarkt",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "eine Zahl aus dem Intervall [24; 28]; UND; Überlegungen, bei denen die kontinuierliche und fast gleichmäßige Zunahme der Werbeausgaben in den Jahren 2010 bis 2015 auf die folgenden drei Jahre bis 2018 fortgesetzt wird."
+ },
+ {
+  "item": "wettkampfwaehlen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Zum Sportfest werden in den 7. Klassen zwei Wettkämpfe organisiert, je einer für Mädchen und einer für Jungen. Die Jungen und die Mädchen entscheiden durch Abstimmung, in welcher Sportart ihr Wettkampf ausgetragen werden soll.\nSo stimmen die Jungen ab:\nSo stimmen die Mädchen ab:",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wettkampfwaehlen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In welcher Sportart soll der Wettkampf der Jungen bzw. der Wettkampf der Mädchen nun ausgetragen werden? Ergänze. Jungen: / Mädchen:",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wettkampfwaehlen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Jungen: Fußball; UND; Mädchen: Volleyball"
+ },
+ {
+  "item": "winkelgamma",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In diesem Dreieck sind die Strecken AM, MB und MC gleich lang. (nicht maßstabsgerecht) Niki behauptet: „Dann ist g = g1 + g2 ein rechter Winkel.\" Dazu will sie einen Beweis in der Klasse vortragen. Sie hat ihre Argumentationsschritte auf Karteikarten notiert, die sie der Reihe nach an die Tafel heften will. Hier sind die noch nicht sortierten Karten: K1: g = g1 + g2 | K2: AMC und MBC sind gleichschenklige Dreiecke. | K3: 2g1 + 2g2 = 180° ⇒ g1 + g2 = 90° ⇒ g = 90° | K4: Daraus folgt, dass die Basiswinkel gleich groß sind, also: | K5: Einsetzen in den Winkelsummensatz für Dreiecke: | K6: a + b + g = 180°; g1 + g2 + g1 + g2 = 180°; Zusammenfassen: | K7: MC ist genauso lang wie AM und wie BM, also gilt: | K8: a = g1 und b = g2",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelgamma",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bringe alle Argumentationskarten für Nikis Vortrag in eine logisch richtige Reihenfolge. Trage hierzu die restlichen Kartennummern in der Reihenfolge des Vortrags ein:",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelgamma",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Die korrekte Reihenfolge der Karten wird notiert:"
+ },
+ {
+  "item": "winkelimdreieck",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Ein Dreieck hat die Innenwinkel α, β und γ. Es gilt: β ist doppelt so groß wie α. γ ist dreimal so groß wie α. Gib an, wie groß der Winkel γ ist.",
+  "fehlende_zeichen": "αααββγγγ"
+ },
+ {
+  "item": "winkelimdreieck",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "90°"
+ },
+ {
+  "item": "winkelimparallelogramm",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das dargestellte Viereck ABCD ist ein Parallelogramm. Die Seite CD dieses Parallelogramms wird gedanklich auf der Geraden h hin und her verschoben. Dabei bleibt die Seite CD immer auf der Geraden h. Die Lage der Seite AB verändert sich nicht.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelimparallelogramm",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelimparallelogramm",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Der Umfang des Parallelogramms ist für ( = 90° am kleinsten.; UND Angabe einer Begründung, in der die systematische Variation; des Winkels ( deutlich wird und der Zusammenhang zwischen der; Größe des Winkels ( und der Länge des Umfangs erläutert wird.; Dabei müssen mind. die beiden Fälle ( < 90° und ( = 90° (( > 90°; optional) betrachtet werden. Alternativ kann auch über den; Abstand zweier Punkte und dessen Definition argumentiert werden.; Anm.: Es muss deutlich werden, dass der Umfang berücksichtigt; wurde.; Mögliche Überlegungen:; Z. B.:; Verschiebt man die Seite [pic] immer weiter nach links, wird der; Umfang des Parallelogramms erst kürzer und nach ( = 90° wieder; länger. Bei ( = 90° ist der Umfang am kürzesten, denn dann sind; die Seiten [pic] und [pic] genauso lang wie der Abstand der; Parallelen.; ODER; Bei ( = 90° ist der Umfang am kleinsten, denn dann ist die Länge; der beiden Seiten [pic] und [pic] gleich dem Abstand der; Parallelen und der Abstand zweier Punkte ist deren kürzeste; Verbindung.; ODER (Grenzfall); Alle diese Parallelogramme haben denselben Flächeninhalt (muss; nicht weiter begründet werden). Unter allen diesen; Parallelogrammen hat jenes, das ein Rechteck ist, den kleinsten; Umfang. Also ist der gesuchte Winkel 90° groß.; ODER (Grenzfall); Lässt man [pic] auf der Parallelen h liegen und macht [pic] (und; damit auch [pic]) kürzer, so wird ( größer. Wenn [pic] (und; [pic]) am kürzesten sind, ist; ( = 90°. Verlängert man [pic] (und damit auch [pic]) in die; andere Richtung, vergrößert sich ( wieder.; Anmerkung: Hier wird zwar nichts über [pic] und [pic] bzw. über; den Umfang des Parallelogramms ausgesagt, aber es ist erkennbar,; dass sich dieser in Abhängigkeit der Größe des Winkels (; verändert.; ODER (Grenzfall); Je spitzer (stumpfer) ( ist, umso größer ist der Umfang des; Parallelogramms. Also ist er in der Mitte am kleinsten. Dies ist; bei ( = 90° der Fall."
+ },
+ {
+  "item": "winkelmessen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Miss die Größe des Winkels a. Runde auf ganze Grad.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelmessen",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "°",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelmessen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "43"
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Um einen „Winkelwürfel\" herzustellen, wurde aus einem Holzwürfel ein Viertel herausgeschnitten (siehe Abbildung). Als Ergebnis eines Wurfes gelten die Punkte, die oben liegen. Beim Würfeln treten die folgenden Ergebnisse auf: 1, 2, 3, 4, 5 (siehe Abbildung).",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Einige Ergebnisse sind aufgrund der Form des Winkelwürfels sicherlich gleichwahrscheinlich. Kreuze jeweils an. Das Ergebnis 1 ist gleichwahrscheinlich mit … / Das Ergebnis 5 ist gleichwahrscheinlich mit …",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "2",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "3",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "4",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "5",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "1",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.option[f]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "2",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.option[g]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "3",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.option[h]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "4",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "2"
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Mit diesem Winkelwürfel wurde 1000-mal gewürfelt. Aus der Tabelle kannst du entnehmen, wie oft welches Ergebnis vorkam. Schätze damit unter Berücksichtigung der Symmetrien des Winkelwürfels die Wahrscheinlichkeiten der einzelnen Ergebnisse und trage sie in die Tabelle ein.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "winkelwuerfel",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "5 Zahlen, deren Summe 1 ergibt; UND; gleiche Wahrscheinlichkeiten für die Ergebnisse \"1\" und \"2\" bzw. für \"3\" und \"5\""
+ },
+ {
+  "item": "woliegtc",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ergänze einen Punkt C₁ im Koordinatensystem so, dass ein Dreieck ABC₁ mit einem rechten Winkel in Punkt C₁ entsteht. Gib die Koordinaten des Punktes C₁ an, den du eingezeichnet hast.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "woliegtc",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Passender Punkt  eingezeichnet; UND; Angabe der Koordinaten von :; ( 3 | 1 ); ODER; ( 6 | 7 ); ODER; ein Punkt auf dem Thaleskreis"
+ },
+ {
+  "item": "woliegtc",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ergänze einen Punkt C₂ im Koordinatensystem so, dass ein rechtwinkliges Dreieck ABC₂ entsteht. Jetzt soll der rechte Winkel in Punkt B liegen. Gib die Koordinaten des Punktes C₂ an, den du eingezeichnet hast.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "woliegtc",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Passender Punkt , der auf der Geraden mit der Gleichung  liegt."
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In einem Koordinatensystem ist eine Gerade g eingezeichnet.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Prüfe, welcher der vorgegebenen Punkte auf der Geraden g liegt. Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "A (4|0)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "B (3|4)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "C (4|3)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "D (0|4)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "C (4|3)"
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Der Punkt Q (2|5) liegt nicht auf der Geraden g. Zeichne diesen Punkt in das Koordinatensystem ein.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wosinddiepunkte",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Markierung ( 2 | 5 )"
+ },
+ {
+  "item": "wuerfelbau",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Marco hat kleine Würfel aufgestapelt und dann so miteinander verklebt, dass dieser Körper entstanden ist. Die in der Zeichnung verdeckten Würfel sind alle schon eingebaut.",
+  "fehlende_zeichen": ""
+ },
+ {
   "item": "wuerfelkoerper",
   "feld": "stem",
   "gate": "G1",
   "ok": true,
   "wert": "Ein Würfel ist aus lauter kleinen Würfeln zusammengesetzt (siehe Bild). Jeder der kleinen Würfel hat ein Volumen von 1 cm³.",
   "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelnetze",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Bei welcher Abbildung handelt es sich um das Netz (Abwicklung) eines Würfels? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelnetze",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Abbildung 1: sechs Quadrate in einer Reihe",
+  "fehlende_zeichen": "1q"
+ },
+ {
+  "item": "wuerfelnetze",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Abbildung 2: fünf Quadrate in einer Reihe, ein Quadrat oben auf dem fünften",
+  "fehlende_zeichen": "2adffffnnoqqrtü"
+ },
+ {
+  "item": "wuerfelnetze",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Abbildung 3: vier Quadrate in einer Reihe, zwei Quadrate übereinander oben auf dem vierten",
+  "fehlende_zeichen": "3aaddeeeeiiinoqqrrrrrtvv"
+ },
+ {
+  "item": "wuerfelnetze",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Abbildung 4: drei Quadrate in einer Reihe, ein Quadrat oben und ein Quadrat unten am vierten Quadrat der Reihe",
+  "fehlende_zeichen": "4aaaaadddddeeeeiiiinnnnoqqqqrrrrrrrttttuuuv"
+ },
+ {
+  "item": "wuerfelnetze",
+  "feld": "part1.option[e]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Abbildung 5: vier Quadrate in einer Reihe, ein Quadrat oben auf dem zweiten und ein Quadrat oben auf dem vierten",
+  "fehlende_zeichen": "5aaaaddddeeeeefiiiimnnnnooqqqrrrrtttuuuvv"
  },
  {
   "item": "wuerfelnmitquader",
@@ -7805,6 +11436,409 @@
   "gate": "G2",
   "ok": true,
   "wert": "Die Zahlen müssen so eingetragen werden, dass folgende Bedingungen der Symmetrie und Normierung erfüllt sind:; - gegenüberliegende Flächen haben gleiche Werte; - die Wahrscheinlichkeiten ergeben zusammen 1; - kleinere Flächen haben kleinere Werte."
+ },
+ {
+  "item": "wuerfelnmitzweiwuerfeln",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Für eine Verlosung wurde das Glücksspiel „Würfeln mit zwei Würfeln“ ausgewählt. In der folgenden Liste sind alle möglichen Ergebnisse beim Würfeln mit zwei Würfeln angegeben:\n(1,1) (1,2) (1,3) (1,4) (1,5) (1,6)\n(2,1) (2,2) (2,3) (2,4) (2,5) (2,6)\n(3,1) (3,2) (3,3) (3,4) (3,5) (3,6)\n(4,1) (4,2) (4,3) (4,4) (4,5) (4,6)\n(5,1) (5,2) (5,3) (5,4) (5,5) (5,6)\n(6,1) (6,2) (6,3) (6,4) (6,5) (6,6)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfeloberflaeche",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Verkleinert man die Kantenlänge eines Würfels, verkleinert sich auch die Größe seiner Oberfläche.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfeloberflaeche",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Kantenlänge eines Würfels wird halbiert. Um wie viel Prozent verkleinert sich die Größe seiner Oberfläche? Kreuze an. Begründe deine Antwort.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfeloberflaeche",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "um 25 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfeloberflaeche",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "um 50 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfeloberflaeche",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "um 75 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfeloberflaeche",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "um 87,5 %",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfeloberflaeche",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "um 75 %; UND; (Begründung der Antwort (algebraisch, zeichnerisch, paradigmatisch, iterativ, inhaltlich); ODER; an einem konkreten Beispiel.)"
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wenn man einen Würfel auf einen Tisch legt, sind fünf Seitenflächen sichtbar (vorne, hinten, links, rechts und oben).",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Zwei Würfel werden übereinander gestapelt. Kreuze an, wie viele Würfelseitenflächen sichtbar sind. Die oberste Würfelseitenfläche wird dabei mitgezählt.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "5",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "8",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "9",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "10",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part1.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "12",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "9"
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wie viele Würfelseitenflächen sind sichtbar, wenn man 3 bzw. 4 bzw. 10 Würfel übereinander stapelt? Die oberste Würfelseitenfläche wird dabei mitgezählt. Ergänze die folgende Tabelle.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nun werden n Würfel übereinander gestapelt. Gib eine Vorschrift (Formel) an, mit der man die Anzahl A(n) der sichtbaren Würfelseitenflächen allgemein berechnen kann. Die oberste Würfelseitenfläche wird dabei mitgezählt.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wuerfelturm",
+  "feld": "part3.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "n  4 + 1"
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "In der Abbildung siehst du einen Würfelturm. Der erste Würfel hat die Kantenlänge a. Die darüber stehenden Würfel haben immer die halbe Kantenlänge des jeweils darunter stehenden Würfels."
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Gib an, wie oft der zweite Würfel in den ersten passt."
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part1.unit",
+  "gate": "G0",
+  "ok": false,
+  "wert": "-mal"
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "8"
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Ergänze die Formel für das Gesamtvolumen V dieses Würfelturms. Außer a sollen keine weiteren Variablen benutzt werden."
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "ODER"
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part3.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Zwei weitere kleinere Würfel werden auf die vorhandenen drei Würfel gestapelt. Das heißt, die Kantenlänge dieser Würfel ist ebenfalls jeweils halb so groß wie die des darunter liegenden Würfels. Wie oft passt der fünfte Würfel in den ersten? Kreuze an."
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part3.option[a]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "16-mal"
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part3.option[b]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "64-mal"
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part3.option[c]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "512-mal"
+ },
+ {
+  "item": "wuerfelturm2",
+  "feld": "part3.option[d]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "4096-mal"
+ },
+ {
+  "item": "wundersamerechenergebnisse",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Simone multipliziert einstellige, zweistellige bzw. dreistellige Zahlen mit den Faktoren 11, 101 und 1001. Sie wundert sich über die Rechenergebnisse, die sie erhält:\n(1) 7 · 11 = 77    5 · 11 = 55\n(2) 38 · 101 = 3838    45 · 101 = 4545\n(3) 306 · 1001 = 306306    692 · 1001 = 692692",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wundersamerechenergebnisse",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wundersamerechenergebnisse",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Z. B. 6573 ( 10001 = 65736573         1085 ( 10001 = 10851085; Anm.: Statt 6573 und 1085 können auch beliebige andere; vierstellige Zahlen gewählt werden. Das jeweilige Produkt muss; zwei sich wiederholende Ziffernfolgen des von 10001 verschiedenen; Faktors aufweisen.; Auch die Angabe zweier Aufgaben derart: 12345 ( 100001 =; 1234512345 wird akzeptiert. Hier wurde die Anzahl der Nullen; nicht um 1 erhöht, sondern verdoppelt.; Wird das Bildungsgesetz z. B. in der Form ABCD ( 10001 = ABCDABCD; notiert, ist dies auch richtig."
+ },
+ {
+  "item": "wundersamerechenergebnisse",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "wundersamerechenergebnisse",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Ergänzung des Textes in der Form:; „Wenn man eine dreistellige Zahl mit 1001 multipliziert, dann; erhält man das Ergebnis, indem man die Ausgangszahl zweimal; hintereinander schreibt (und als sechsstellige Zahl; interpretiert).“; UND; Richtige allgemeine Begründung der Aussage unter Bezug auf die; Auswirkungen einer Multiplikation mit 1000 auf den Stellenwert; der einzelnen Ziffern sowie die anschließende Addition der; gegebenen Zahl.; Anmerkungen:; • Der Stellenwert der einzelnen Ziffern bzw. deren Veränderung; muss dabei nicht angegeben werden.; • Die Begründung kann in algebraischer oder verbal beschreibender; Form erfolgen.; • Der Fokus liegt auf der Richtigkeit der Begründung.; Z. B.:; [pic]; Die Ziffern xyz wiederholen sich."
+ },
+ {
+  "item": "zaehlungvonfahrzeugen",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Eine Schülergruppe hat 500 Fahrzeuge beobachtet und gezählt. Ihre Ergebnisse haben die Schülerinnen und Schüler in folgender Tabelle dargestellt:",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zaehlungvonfahrzeugen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zaehlungvonfahrzeugen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Richtige Zeichnung; [pic]"
+ },
+ {
+  "item": "zahlenaddieren",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Die Summe von zwei ganzen Zahlen, die beide größer als 0 sind, soll 8 ergeben. Schreibe alle Möglichkeiten auf, wie diese Summe gebildet werden kann.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlenaddieren",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "1 + 7; 2 + 6; 3 + 5; 4 + 4"
+ },
+ {
+  "item": "zahlenaddieren",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nun geht es um Bruchzahlen, die größer als 0 sind. Die Summe von zwei solchen Bruchzahlen soll ⅛ ergeben. Schreibe ein Beispiel auf, wie die Summe gebildet werden kann. Die Brüche müssen dabei vollständig gekürzt sein.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlenaddieren",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Bruchzahlen, deren Summe  ergibt."
+ },
+ {
+  "item": "zahlengesucht",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Schreibe alle dreistelligen Zahlen auf, die aus den Ziffern 1, 2 und 3 gebildet werden können. In keiner der Zahlen darf eine dieser Ziffern mehrfach vorkommen.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlengesucht",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "123; 132; 213; 231; 312; 321"
+ },
+ {
+  "item": "zahlenmauer",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Zahlenmauern sind aus Steinen gebaut.\nDabei steht in jedem Stein die Summe der beiden darunter liegenden Steine.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlenstrahl",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Auf welche Zahl zeigt der Pfeil? Schreibe die Zahl in das Kästchen.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlenstrahl",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Markiere die Zahl 1/5 mit einem Pfeil auf dem gegebenen Zahlenstrahl.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlensuche",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In der Tabelle sind jeweils eine natürliche Zahl, ihr Vorgänger (die vorangehende natürliche Zahl) und das Doppelte dieses Vorgängers einander zugeordnet.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlensuche",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Vervollständige die Tabelle.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlensumme",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Lässt sich jede natürliche Zahl, die größer als 5 ist, als Summe aus drei aufeinanderfolgenden natürlichen Zahlen darstellen? Kreuze an. Begründe deine Entscheidung.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlensumme",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlensumme",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlensumme",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Richtige Antwort (Nein) UND richtige Begründung, auch durch; Angabe eines begründeten Gegenbeispiels.; z. B.; [pic]    [pic]    [pic]; Wenn a ein Vielfaches von 3 ist, dann ist n eine natürliche Zahl.; Es können also nur Zahlen, die durch drei teilbar sind, als Summe; von drei aufeinanderfolgenden Zahlen dargestellt werden.; ODER (Gegenbeispiel); Es gilt: 1+2+3=6.; Die nächste solche Summe ist: 2+3+4=9.; Also lassen sich die Zahlen 7 und 8 nicht als Summe von drei; aufeinanderfolgenden Zahlen darstellen. Somit geht es nicht bei; allen natürlichen Zahlen.; ODER (Gegenbeispiel); Die Summe von drei aufeinanderfolgenden Zahlen soll 14 sein:; [pic]   [pic]   [pic]; [pic] oder [pic] oder 4,67 ist keine natürliche Zahl. Also geht; es nicht bei allen natürlichen Zahlen.; ODER (inhaltlich); Bildet man die Summe von drei Nachbarzahlen, so ist das dasselbe,; wie wenn man die mittlere Zahl mit 3 multipliziert. Hierdurch; lassen sich aber nur Zahlen, die durch drei teilbar sind,; darstellen.; ODER (zeichnerisch); [pic]; Die darstellbaren Summen sind also immer nur Vielfache von 3."
  },
  {
   "item": "zahlenwuerfel",
@@ -7908,6 +11942,53 @@
   "wert": "Nein; UND; eine Antwort, in welcher auf einen der folgenden Aspekte Bezug genommen wird:; - Unabhängigkeit der einzelnen Würfe oder; - Gleichwahrscheinlichkeit aller Ergebnisse oder; - Zufälligkeit der Ergebnisse oder; - Analogie zum Ziehen mit Zurücklegen."
  },
  {
+  "item": "zahlgesucht",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wenn 9x = 6,3; dann ist x = ? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlgesucht",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "7",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlgesucht",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "0,07",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlgesucht",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "0,7",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlgesucht",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "70",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zahlgesucht",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "[pic]"
+ },
+ {
   "item": "zahlgesucht2",
   "feld": "stem",
   "gate": "G1",
@@ -7976,5 +12057,539 @@
   "gate": "G3",
   "ok": true,
   "wert": "150 min"
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Meistens - z.B. auf einer Stoppuhr - gibt man eine Zeitspanne in Stunden, Minuten und Sekunden an. Zum Rechnen ist es aber oft praktischer, die Zeit als Dezimalzahl in Stunden anzugeben. Ein Beispiel: 1,5 Stunden bedeutet 1 Stunde und 30 Minuten.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Wie lautet das Ergebnis der Umwandlung für die Zeitspanne „1 Stunde und 45 Minuten\"? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "1,45 Stunden",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "1,65 Stunden",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "1,75 Stunden",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "1,85 Stunden",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "1,75 Stunden"
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Hier wird eine Zeitspanne als Dezimalzahl in Stunden angegeben: t = 3,65 Stunden. Rechne diese Zeitspanne in Stunden und Minuten um. Gib das Ergebnis an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "t = 3 Stunden und 39 Minuten"
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gegeben ist allgemein eine Zeitspanne als Dezimalzahl in Stunden: t = a,b Stunden. Zum Beispiel hat dann bei t = 23,71 Stunden a den Wert 23 und b den Wert 71. Jede Angabe t = a,b Stunden kann dann in Stunden und Minuten umgerechnet werden. Beschreibe unter Verwendung von a und b den Rechenweg, den man gehen muss, um eine solche Umrechnung durchzuführen.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zeitumrechnung",
+  "feld": "part3.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Beschreibung eines Rechenwegs, in welchem dargelegt wird, dass a die Anzahl der Stunden und 0,b   60 die Anzahl der Minuten angeben."
+ },
+ {
+  "item": "zoobesuch",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Susann fährt mit dem Fahrrad zügig zum Zoo. Am Eingang muss sie einige Zeit warten, um eine Eintrittskarte zu kaufen. Dann geht sie zu Fuß weiter durch den Zoo.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zoobesuch",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welches Diagramm passt am besten zu diesem Vorgang? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zoobesuch",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Diagramm oben links (Weg-Zeit-Diagramm)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zoobesuch",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Diagramm oben rechts (Weg-Zeit-Diagramm)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zoobesuch",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Diagramm unten links (Weg-Zeit-Diagramm)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zoobesuch",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Diagramm unten rechts (Weg-Zeit-Diagramm)",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Mit einem 12-seitigen Spielwürfel werden Zufallsversuche durchgeführt. Die Seiten dieses Würfels sind mit den Zahlen 1 bis 12 beschriftet.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "[pic]"
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Richtig ist die Beschreibung eines Ereignisses mit nur drei; Ergebnissen. Diese müssen nicht genannt werden.; z. B.; Die Augenzahl ist kleiner als 4.; ODER; Der Würfel zeigt eine 5, 6 oder eine 11.; ODER; Die Augenzahl ist zweistellig.; ODER; Die Augenzahl ist durch 4 teilbar."
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "part3.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "part3.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Häufigste Augensumme (13) UND richtige Begründung unter Verweis; auf deren relative/absolute Häufigkeit in Abgrenzung zur; relativen/absoluten Häufigkeit der anderen möglichen Augensummen.; z. B.; Die Augensumme 13 ist am häufigsten, da sie in 12 von 144; Kombinationen fällt. Für alle anderen Augensummen gibt es weniger; Kombinationsmöglichkeiten (siehe Übersicht)."
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "part4.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zufallsversuche",
+  "feld": "part4.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "[pic]"
+ },
+ {
+  "item": "zuschauerzahlen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Zu einem Fußballspiel kamen 48 548 Zuschauer. Runde diese Zahl auf Tausender.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zuschauerzahlen",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "49 000"
+ },
+ {
+  "item": "zuschauerzahlen",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "An einem bestimmten Bundesliga-Spieltag wurden für die 9 Spiele die folgenden Zuschauerzahlen gemeldet: 24 000, 61 673, 39 000, 24 487, 51 500, 29 313, 54 057, 31 000 und 48 548. Günther sagt: „An diesem Spieltag waren insgesamt 363 578 Zuschauer in den Stadien.“ Sabine meint: „Das kann man bestimmt nicht so genau sagen, weil …“. Ergänze die Argumentation von Sabine.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zuschauerzahlen",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Die Begründung muss darauf eingehen, dass bei einigen Vereinen die Zahlen sehr wahrscheinlich gerundet sind und es daher nicht möglich ist, die Gesamtzuschauerzahlen auf Einer genau anzugeben."
+ },
+ {
+  "item": "zwanzigprozent",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Gib 20 % von 150 € an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zwanzigprozent",
+  "feld": "part1.unit",
+  "gate": "G1",
+  "ok": true,
+  "wert": "€",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zwanzigprozent",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "30"
+ },
+ {
+  "item": "zweikreise",
+  "feld": "stem",
+  "gate": "G1",
+  "ok": true,
+  "wert": "In der Abbildung ist A der Mittelpunkt des Kreises K₁ und B der Mittelpunkt des Kreises K₂. Beide Kreise haben den gleichen Radius r = |AB|.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Prüfe jeweils, ob die folgenden Aussagen auf diese Figur zutreffen oder nicht. Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Alle Winkel im Dreieck ABH sind gleich groß. — wahr",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Alle Winkel im Dreieck ABH sind gleich groß. — falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Dreieck BFH ist gleichseitig. — wahr",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Dreieck BFH ist gleichseitig. — falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[e]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Dreieck DFH ist gleichschenklig. — wahr",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[f]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Das Dreieck DFH ist gleichschenklig. — falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[g]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Im Dreieck AHD sind alle drei Winkel unterschiedlich groß. — wahr",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[h]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Im Dreieck AHD sind alle drei Winkel unterschiedlich groß. — falsch",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[i]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Der Winkel α beträgt 60°. — wahr",
+  "fehlende_zeichen": "α"
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part1.option[j]",
+  "gate": "G1",
+  "ok": false,
+  "wert": "Der Winkel α beträgt 60°. — falsch",
+  "fehlende_zeichen": "α"
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part2.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Sonja behauptet: „Der Flächeninhalt des großen Dreiecks DFH ist dreimal so groß wie der Flächeninhalt des kleinen Dreiecks ABH.\" Hat sie recht? Kreuze an. Begründe deine Antwort.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part2.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Ja",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part2.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Nein",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweikreise",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Ja; UND; Begründung, die auf die gleiche Höhe beider Dreiecke und die dreifache Länge der Grundseite des Dreiecks  im Vergleich zur Grundseite des Dreiecks  abzielt."
+ },
+ {
+  "item": "zweitaschenrechner",
+  "feld": "stem",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Yasmina und David lösen die Aufgabe „Werbeaktion“ mit dem Taschenrechner. Beide haben unterschiedliche Taschenrechner, aber beide drücken jeweils die gleiche Tastenfolge.\nTrotzdem sehen sie unterschiedliche Ergebnisse:\nAufgabe: Werbeaktion\nWerbeaktion: „20 % mehr zum gleichen Preis.“ Normalerweise sind in der Verpackung 250 g.\nWie viel ist jetzt in der Verpackung?\nTastenfolge: 2 5 0 + 2 0 % =\nYasminas Taschenrechner zeigt an: 300\nDavids Taschenrechner zeigt an: 250+20% / 250,2"
+ },
+ {
+  "item": "zweitaschenrechner",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Die Prozenttaste auf beiden Rechnern funktioniert unterschiedlich. Beschreibe, was die Taschenrechner bei der Eingabe „+ 20 %“ rechnen. Bei Yasmina: … Bei David: …"
+ },
+ {
+  "item": "zweitaschenrechner",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Beschreibung, die darauf eingeht, dass Yasminas Taschenrechner bei der Eingabe von +20 % den Prozentwert der vorangehenden Zahl berechnet und diesen addiert.; UND; Beschreibung, die darauf eingeht, dass Davids Taschenrechner die Eingabe von +20 %  als Addition der zum Prozentsatz zugehörigen Dezimalzahl versteht."
+ },
+ {
+  "item": "zweitaschenrechner",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Davids Taschenrechner gibt offenbar bezogen auf die Aufgabe „Werbeaktion“ ein falsches Ergebnis an. Gib eine Tastenfolge an, mit der David bei der Aufgabe „Werbeaktion“ das richtige Ergebnis erhält. Verwende dazu die Zahlentasten und einige der folgenden Tasten: + − : · , % ="
+ },
+ {
+  "item": "zweitaschenrechner",
+  "feld": "part2.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Angabe einer Tastenfolge, mit der Davids Taschenrechner zur vorgegebenen Aufgabe das Ergebnis 300 erhält."
+ },
+ {
+  "item": "zweitegerade",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Zeichne in dieses Koordinatensystem eine zweite Gerade ein, die eine größere Steigung als die dargestellte Gerade hat.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zweitegerade",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "Jede Gerade, die die Vorgabe erfüllt."
+ },
+ {
+  "item": "zwischenzweizahlen",
+  "feld": "part1.prompt",
+  "gate": "G1",
+  "ok": true,
+  "wert": "Welche der folgenden Zahlen liegt zwischen 0,06 und 0,07? Kreuze an.",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zwischenzweizahlen",
+  "feld": "part1.option[a]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "0,00062",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zwischenzweizahlen",
+  "feld": "part1.option[b]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "0,0062",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zwischenzweizahlen",
+  "feld": "part1.option[c]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "0,062",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zwischenzweizahlen",
+  "feld": "part1.option[d]",
+  "gate": "G1",
+  "ok": true,
+  "wert": "0,62",
+  "fehlende_zeichen": ""
+ },
+ {
+  "item": "zwischenzweizahlen",
+  "feld": "part1.loesung",
+  "gate": "G3",
+  "ok": true,
+  "wert": "0,062"
+ },
+ {
+  "item": "zwischenzweizahlen2",
+  "feld": "part1.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Gib zwei unterschiedliche rationale Zahlen an, die zwischen −4,5 und −3,5 liegen."
+ },
+ {
+  "item": "zwischenzweizahlen2",
+  "feld": "part1.loesung",
+  "gate": "G2",
+  "ok": true,
+  "wert": "zwei unterschiedliche rationale Zahlen aus dem Intervall ]-4,5; -3,5["
+ },
+ {
+  "item": "zwischenzweizahlen2",
+  "feld": "part2.prompt",
+  "gate": "G0",
+  "ok": false,
+  "wert": "Wie viele unterschiedliche Zahlen liegen zwischen −4,5 und −3,5? Kreuze an."
+ },
+ {
+  "item": "zwischenzweizahlen2",
+  "feld": "part2.option[a]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "2"
+ },
+ {
+  "item": "zwischenzweizahlen2",
+  "feld": "part2.option[b]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "3"
+ },
+ {
+  "item": "zwischenzweizahlen2",
+  "feld": "part2.option[c]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "9"
+ },
+ {
+  "item": "zwischenzweizahlen2",
+  "feld": "part2.option[d]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "11"
+ },
+ {
+  "item": "zwischenzweizahlen2",
+  "feld": "part2.option[e]",
+  "gate": "G0",
+  "ok": false,
+  "wert": "mehr als 11"
  }
 ]

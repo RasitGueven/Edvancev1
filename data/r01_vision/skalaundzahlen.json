@@ -1,0 +1,22 @@
+{
+  "item": "skalaundzahlen",
+  "gelesen_aus": [
+    "data/r01_render/skalaundzahlen/00_image1.png"
+  ],
+  "stem": "",
+  "stem_tabelle_erwartet": false,
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Zwei Zahlen sind auf dem obigen Ausschnitt der Zahlengeraden mit einem Pfeil markiert. Trage die zwei Zahlen in die Kästchen ein.",
+      "unit": null,
+      "options": null
+    }
+  ],
+  "unsicher": [
+    "nur_raster: Text liegt als Pixelbild vor.",
+    "Zwei Eingabekästchen (unter je einem Pfeil) gehören zu einer einzigen Teilaufgabe; Auswertung nennt ebenfalls 1 Teilaufgabe.",
+    "Beschriftungen der Zahlengeraden (-2, -1, 0, 1) gehören zur Abbildung, nicht zum Prompt."
+  ]
+}

@@ -149,6 +149,27 @@ def main():
           not (LAYOUT_ZEICHEN & set("/,.*^-()|:;")),
           f"Whitelist: {''.join(sorted(LAYOUT_ZEICHEN))!r}")
 
+    print("\nNC15 — der Bau hat JEDE vorhandene Vision-Lesung verbaut")
+    # Der Bug, der 22 fertige Lesungen gekostet hat: ground_all lief, waehrend
+    # die Vision-Stufe noch schrieb. Die Lesungen lagen auf der Platte, der Bau
+    # hat sie nie gesehen — und niemand hat es gemerkt, weil das Item einfach
+    # "keine Teilaufgabe gelesen" hiess, so als waere nie gelesen worden.
+    # Ein Bau, der eine vorhandene Lesung ignoriert, ist ab jetzt ein Fehler.
+    vision = ROOT / "data/r01_vision"
+    ignoriert = []
+    for i in items:
+        if i["parts"] or not i.get("slug"):
+            continue
+        f = vision / f"{i['slug']}.json"
+        if not f.exists():
+            continue
+        v = json.loads(f.read_text(encoding="utf-8"))
+        if v.get("parts"):
+            ignoriert.append(f"{i['slug']} ({len(v['parts'])} Ta)")
+    check("keine Vision-Lesung liegt unverbaut herum", not ignoriert,
+          f"ignoriert: {ignoriert[:5]}" if ignoriert
+          else f"{len(list(vision.glob('*.json')))} Lesungen, alle verbaut")
+
     print("\nNC12 — Status: kein Item kommt auf 'ready'")
     check("alle Items stehen auf 'draft'",
           all(i["status"] == "draft" for i in items),

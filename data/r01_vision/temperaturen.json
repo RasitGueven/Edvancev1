@@ -1,0 +1,14 @@
+{
+  "item": "temperaturen",
+  "gelesen_aus": [
+    "data/r01_render/temperaturen/00_doc_image1.emf.png"
+  ],
+  "stem": "Die Tabelle und das Diagramm zeigen für Frankfurt am Main die langjährigen Durchschnittstemperaturen der einzelnen Monate in °C.",
+  "stem_tabelle_erwartet": true,
+  "parts": [],
+  "unsicher": [
+    "WIDERSPRUCH zur Auswertung: Diese sagt 3 Teilaufgaben, im einzigen gerenderten Bild (00_doc_image1.emf.png) sind jedoch KEINE Teilaufgaben/Fragen sichtbar — es enthält nur den Einleitungssatz, die Monatstabelle und das Punktdiagramm. Die Prompts der Teilaufgaben liegen nicht im Bildmaterial vor; sie werden daher nicht geraten und bleiben leer.",
+    "In der Tabelle ist der Wert für November leer (Eingabefeld); im Diagramm liegt der Novemberpunkt bei ca. 5 °C. Das ist Teil der Aufgabenlogik, nicht des Stamms.",
+    "Die y-Achsenbeschriftung des Diagramms ('Durchschnittstemperatur in °C') ist im Render vertikal überlagert und nur teilweise lesbar."
+  ]
+}

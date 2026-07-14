@@ -1,0 +1,10 @@
+{
+  "item": "zahlenmauer",
+  "gelesen_aus": ["data/r01_render/zahlenmauer/00_doc_image1.emf.png"],
+  "stem": "Zahlenmauern sind aus Steinen gebaut.\nDabei steht in jedem Stein die Summe der beiden darunter liegenden Steine.",
+  "stem_tabelle_erwartet": false,
+  "parts": [],
+  "unsicher": [
+    "Das einzige gerenderte Bild zeigt nur den Einleitungstext und die mit 'Beispiel:' beschriftete Beispiel-Zahlenmauer (18 über 5 und 13). Die Teilaufgaben sind in keinem Bild sichtbar. Die Auswertung nennt 3 Teilaufgaben — ich kann keine davon lesen und lasse parts leer, statt zu raten."
+  ]
+}
