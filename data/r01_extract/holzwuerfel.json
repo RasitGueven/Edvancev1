@@ -1,0 +1,67 @@
+{
+  "item": "holzwuerfel",
+  "sources": {
+    "Aufgabe": {
+      "file": "holzwuerfel_Aufgabe.docx",
+      "sha256_16": "f651cd4d61361b13"
+    },
+    "Auswertung": {
+      "file": "holzwuerfel_Auswertung.docx",
+      "sha256_16": "f108f87cd0de830b"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "holzwuerfel_Didaktische_Kommentierung.docx",
+      "sha256_16": "bbe8b9053d9557f2"
+    }
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Holzwürfel"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "6"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_aufgabe_docx": {
+    "paragraphs": [
+      "Holzwürfel"
+    ],
+    "tables": []
+  },
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "png": "data/r01_render/holzwuerfel/00_image1.emf.png",
+      "tokens": "Ein gelber Holzwürfel, ein blauer Holzwürfel und ein roter Holzwürfel sollen zu einem Dreierturm aufeinander gelegt werden.Beispiel:gelbblaurotGrafik: © IQB",
+      "deterministic_text": "Ein gelber Holzwürfel, ein blauer Holzwürfel und ein roter Holzwürfel sollen zu einem\nDreierturm aufeinander gelegt werden.\nBeispiel:\ngelb\nblau\nrot\nGrafik: © IQB",
+      "table": null,
+      "n_fragments": 13
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "png": "data/r01_render/holzwuerfel/01_image2.emf.png",
+      "tokens": "Gib an, wie viele verschiedene Möglichkeiten es gibt, aus diesen drei Holzwürfeln einen Dreierturm zu bauen.Anzahl der Möglichkeiten:",
+      "deterministic_text": "Gib an, wie viele verschiedene Möglichkeiten es gibt, aus diesen drei Holzwürfeln\neinen Dreierturm zu bauen.\nAnzahl der Möglichkeiten:",
+      "table": null,
+      "n_fragments": 9
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "png": "data/r01_render/holzwuerfel/02_image3.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "item": "20prozent",
+  "sources": {
+    "Aufgabe": {
+      "file": "20prozent_Aufgabe.docx",
+      "sha256_16": "848a384751c35774"
+    },
+    "Auswertung": {
+      "file": "20prozent_Auswertung.docx",
+      "sha256_16": "cceef2c62da65e23"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "20prozent_Didaktische_Kommentierung.docx",
+      "sha256_16": "ebcaf01c576946e4"
+    }
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – 20 Prozent"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "16\n[Anm.: Auch Angaben in anderer Einheit werden akzeptiert, sofern die Einheit und die entsprechende Maßzahl angegeben sind (z. B. 0,016 km, 160 dm, 1600 cm).]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_aufgabe_docx": {
+    "paragraphs": [
+      "20 Prozent"
+    ],
+    "tables": []
+  },
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "png": "data/r01_render/20prozent/00_image1.emf.png",
+      "tokens": "Berechne 20% von 80m.m",
+      "deterministic_text": "Berechne 20% von 80m.\nm",
+      "table": null,
+      "n_fragments": 8
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "png": "data/r01_render/20prozent/01_image2.emf.png",
+      "tokens": "Copyright Text und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode ",
+      "deterministic_text": "Copyright Text und Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/3.0/de/legalcode",
+      "table": null,
+      "n_fragments": 36
+    }
+  ]
+}

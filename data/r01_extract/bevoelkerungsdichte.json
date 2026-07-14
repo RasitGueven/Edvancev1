@@ -1,0 +1,158 @@
+{
+  "item": "bevoelkerungsdichte",
+  "sources": {
+    "Aufgabe": {
+      "file": "bevoelkerungsdichte_Aufgabe.docx",
+      "sha256_16": "3446b50785b3c02d"
+    },
+    "Auswertung": {
+      "file": "bevoelkerungsdichte_Auswertung.docx",
+      "sha256_16": "9f4f268e8eea75e9"
+    },
+    "Didaktische_Kommentierung": {
+      "file": "bevoelkerungsdichte_Didaktische_Kommentierung.docx",
+      "sha256_16": "44c5c8f5e65a0168"
+    }
+  },
+  "stufe1_auswertung": {
+    "paragraphs": [
+      "Auswertung – Bevölkerungsdichte",
+      "Teilaufgabe 1",
+      "Teilaufgabe 2"
+    ],
+    "tables": [
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "Saarland"
+          ]
+        ]
+      },
+      {
+        "cells": [
+          [
+            "RICHTIG",
+            "3790\n\nBeispiel(e)\n(Grenzfall)\n3861-71\n[Anm.: Nur der Term ist aufgeschrieben.]"
+          ]
+        ]
+      }
+    ]
+  },
+  "stufe1_aufgabe_docx": {
+    "paragraphs": [
+      "Bevölkerungsdichte",
+      "Teilaufgabe 1\nTeilaufgabe 2"
+    ],
+    "tables": []
+  },
+  "stufe2_aufgabe_emf": [
+    {
+      "idx": 0,
+      "emf": "image1.emf",
+      "png": "data/r01_render/bevoelkerungsdichte/00_image1.emf.png",
+      "tokens": "Die Tabelle zeigt die Bevölkerungsdichte in den deutschen Bundesländernam 31.12.2009. BundeslandBevölkerungsdichte(Einwohner pro km2)Baden-Württemberg301Thüringen139Schleswig-Holstein179Sachsen-Anhalt115Sachsen226Saarland398Rheinland-Pfalz202Nordrhein-Westfalen524Niedersachsen166Mecklenburg-Vorpommern71Hessen287Hamburg2.349Bremen1.637Brandenburg85Berlin3.861Bayern177Tabelle: © IQB, basierend auf Daten der Statistischen Ämter des Bundes und der Länder",
+      "deterministic_text": "Die Tabelle zeigt die Bevölkerungsdichte in den deutschen Bundesländern\nam 31.12.2009.\nBundesland Bevölkerungsdichte\n(Einwohner pro km²)\nBaden-Württemberg 301\nBayern 177\nBerlin 3.861\nBrandenburg 85\nBremen 1.637\nHamburg 2.349\nHessen 287\nMecklenburg-Vorpommern 71\nNiedersachsen 166\nNordrhein-Westfalen 524\nRheinland-Pfalz 202\nSaarland 398\nSachsen 226\nSachsen-Anhalt 115\nSchleswig-Holstein 179\nThüringen 139\nTabelle: © IQB, basierend auf Daten der Statistischen Ämter des Bundes und der\nLänder",
+      "table": {
+        "header": [
+          "Bundesland",
+          "Bevölkerungsdichte (Einwohner pro km²)"
+        ],
+        "rows": [
+          [
+            "Baden-Württemberg",
+            "301"
+          ],
+          [
+            "Bayern",
+            "177"
+          ],
+          [
+            "Berlin",
+            "3.861"
+          ],
+          [
+            "Brandenburg",
+            "85"
+          ],
+          [
+            "Bremen",
+            "1.637"
+          ],
+          [
+            "Hamburg",
+            "2.349"
+          ],
+          [
+            "Hessen",
+            "287"
+          ],
+          [
+            "Mecklenburg-Vorpommern",
+            "71"
+          ],
+          [
+            "Niedersachsen",
+            "166"
+          ],
+          [
+            "Nordrhein-Westfalen",
+            "524"
+          ],
+          [
+            "Rheinland-Pfalz",
+            "202"
+          ],
+          [
+            "Saarland",
+            "398"
+          ],
+          [
+            "Sachsen",
+            "226"
+          ],
+          [
+            "Sachsen-Anhalt",
+            "115"
+          ],
+          [
+            "Schleswig-Holstein",
+            "179"
+          ],
+          [
+            "Thüringen",
+            "139"
+          ]
+        ]
+      },
+      "n_fragments": 70
+    },
+    {
+      "idx": 1,
+      "emf": "image2.emf",
+      "png": "data/r01_render/bevoelkerungsdichte/01_image2.emf.png",
+      "tokens": "Gib das Bundesland an, in dem die Bevölkerungsdichte am 31.12.2009 fast 400 Einwohner pro km2betrug.",
+      "deterministic_text": "Gib das Bundesland an, in dem die Bevölkerungsdichte am 31.12.2009 fast\n400 Einwohner pro km²betrug.",
+      "table": null,
+      "n_fragments": 14
+    },
+    {
+      "idx": 2,
+      "emf": "image3.emf",
+      "png": "data/r01_render/bevoelkerungsdichte/02_image3.emf.png",
+      "tokens": "Gib die Differenz zwischen dem größten und dem kleinsten Wert der Bevölkerungsdichte an (Spannweite).",
+      "deterministic_text": "Gib die Differenz zwischen dem größten und dem kleinsten Wert der\nBevölkerungsdichte an (Spannweite).",
+      "table": null,
+      "n_fragments": 5
+    },
+    {
+      "idx": 3,
+      "emf": "image4.emf",
+      "png": "data/r01_render/bevoelkerungsdichte/03_image4.emf.png",
+      "tokens": "Copyright Text, Grafik und Teilaufgaben: IQB e. V., Lizenz: Creative Commons (CC BY). Volltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de ",
+      "deterministic_text": "Copyright Text, Grafikund Teilaufgaben: IQB e.V., Lizenz: Creative Commons (CC BY).\nVolltext unter: https://creativecommons.org/licenses/by/4.0/legalcode.de",
+      "table": null,
+      "n_fragments": 39
+    }
+  ]
+}
