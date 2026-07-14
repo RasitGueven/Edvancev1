@@ -22,6 +22,7 @@
     "import:lsa-items": "tsx --env-file=.env scripts/import-lsa-items.ts",
     "import:lambacher": "tsx --env-file=.env scripts/import/lambacher.ts",
     "generate:assets": "tsx --env-file=.env scripts/generate-assets.ts",
+    "assets:upload": "tsx --env-file=.env scripts/upload-task-assets.ts",
     "sim:screening": "tsx scripts/screening-sim.ts"
   },
   "dependencies": {
