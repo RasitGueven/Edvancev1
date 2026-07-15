@@ -261,6 +261,8 @@
       "altMissingCaption": "blockiert die Freigabe",
       "noAsset": "Ohne Asset",
       "noAssetCaption": "kein Bild, reiner Text",
+      "imageRefNoAsset": "Bildverweis ohne Bild",
+      "imageRefNoAssetCaption": "Text nennt eine Abbildung, kein Asset da",
       "statusCaption": "Items in diesem Status"
     },
     "marker": {
@@ -268,11 +270,17 @@
       "stoffankerMissing": "Kein Stoffanker",
       "altMissing": "Bild ohne Alt-Text",
       "noAsset": "Kein Asset",
+      "imageRefNoAsset": "Bildverweis ohne Bild",
       "clean": "Keine Mängel"
     },
     "path": {
       "label": "Bildpfad — nicht im Bucket",
       "license": "Lizenz"
+    },
+    "imageRef": {
+      "labelQuestion": "Verdacht — Verweis im Fragetext",
+      "labelPart": "Verdacht — Verweis in Teilaufgabe {{nr}}",
+      "hint": "Nur ein Verdacht, keine Entscheidung: Der Text nennt eine Abbildung, aber es liegt kein Bild vor. Im Editor sichten — Text umformulieren, Bild ergänzen oder Item deaktivieren."
     },
     "remove": {
       "action": "Bildpfad entfernen",

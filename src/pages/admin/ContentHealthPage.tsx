@@ -22,6 +22,7 @@ import {
   countDefects,
   deadAssets,
   graphicLicenseHints,
+  imageRefFinding,
   isDeadAssetUrl,
   type HealthDefect,
 } from '@/lib/authoring/health'
@@ -42,7 +43,12 @@ function matches(item: HealthItem, filter: HealthFilter): boolean {
 }
 
 function buildItem(task: AuthoringTask, hasStoffanker: boolean): Omit<HealthItem, 'licenseStatus' | 'licenseHints'> {
-  return { task, defects: computeDefects(task, hasStoffanker), dead: deadAssets(task) }
+  return {
+    task,
+    defects: computeDefects(task, hasStoffanker),
+    dead: deadAssets(task),
+    imageRef: imageRefFinding(task),
+  }
 }
 
 export function ContentHealthPage(): JSX.Element {
@@ -129,7 +135,13 @@ export function ContentHealthPage(): JSX.Element {
     setItems((prev) =>
       prev.map((i) =>
         i.task.id === taskId
-          ? { ...i, task: updated, defects: computeDefects(updated, hasStoffanker), dead: deadAssets(updated) }
+          ? {
+              ...i,
+              task: updated,
+              defects: computeDefects(updated, hasStoffanker),
+              dead: deadAssets(updated),
+              imageRef: imageRefFinding(updated),
+            }
           : i,
       ),
     )

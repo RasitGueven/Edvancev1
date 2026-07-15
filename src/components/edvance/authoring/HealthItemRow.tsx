@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { AlertTriangle, CheckCircle2 } from 'lucide-react'
 import { EdvanceCard } from '@/components/edvance'
 import { buttonVariants } from '@/components/ui/button'
-import { DEFECT_ORDER, type HealthDefect } from '@/lib/authoring/health'
+import { DEFECT_ORDER, type HealthDefect, type ImageRefFinding } from '@/lib/authoring/health'
 import type { AuthoringTask, TaskAsset } from '@/types'
 import { StatusBadge } from './ui'
 
@@ -20,6 +20,7 @@ export type HealthItem = {
   task: AuthoringTask
   defects: Set<HealthDefect>
   dead: TaskAsset[]
+  imageRef: ImageRefFinding | null
   licenseStatus: string | null
   licenseHints: string[]
 }
@@ -46,7 +47,7 @@ export function HealthItemRow({
 }): JSX.Element {
   const { t } = useTranslation('authoring')
   const [confirming, setConfirming] = useState(false)
-  const { task, defects } = item
+  const { task, defects, imageRef } = item
   const hasDeadPath = defects.has('deadPath')
 
   return (
@@ -105,6 +106,22 @@ export function HealthItemRow({
               {hint}
             </p>
           ))}
+        </div>
+      )}
+
+      {imageRef && (
+        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-app)] p-4">
+          <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+            {imageRef.source === 'question'
+              ? t('health.imageRef.labelQuestion')
+              : t('health.imageRef.labelPart', { nr: imageRef.source })}
+          </span>
+          <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
+            {imageRef.excerpt}
+          </p>
+          <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+            {t('health.imageRef.hint')}
+          </p>
         </div>
       )}
 
