@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
   CalendarClock,
+  HeartPulse,
   Inbox,
   PenLine,
   UserPlus,
@@ -63,6 +64,13 @@ export function AdminDashboard(): JSX.Element {
               description="Aufgaben erstellen, prüfen, Stoffanker setzen und für die LSA freigeben — das zentrale Inhalts-Werkzeug."
               size="lg"
               cta="Inhalte pflegen"
+            />
+            <AdminTile
+              to="/admin/content-gesundheit"
+              icon={<HeartPulse className={ICON_CLASS} />}
+              title="Content-Gesundheit"
+              description="Mängel im Item-Bestand auf einen Blick — tote Bildpfade, fehlende Stoffanker, Alt-Texte."
+              size="wide"
             />
             <AdminTile
               to="/admin/leads"

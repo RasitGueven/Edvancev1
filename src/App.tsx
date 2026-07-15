@@ -9,6 +9,7 @@ import { ScreeningReportPage as ParentScreeningReportPage } from '@/pages/parent
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
 import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
+import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
 import { CoachesPage } from '@/pages/admin/CoachesPage'
@@ -170,6 +171,16 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['coach', 'admin']}>
               <AuthoringEditorPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Content-Gesundheit: Mängel-Übersicht des Bestands. Coach sichtet,
+            entfernen (Admin-Write) darf laut RLS nur Admin — die Seite schaltet um. */}
+        <Route
+          path="/admin/content-gesundheit"
+          element={
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <ContentHealthPage />
             </ProtectedRoute>
           }
         />

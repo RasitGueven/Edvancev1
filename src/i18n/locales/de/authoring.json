@@ -236,5 +236,56 @@
     "I": "AFB I — Reproduzieren",
     "II": "AFB II — Zusammenhänge herstellen",
     "III": "AFB III — Verallgemeinern und reflektieren"
+  },
+  "health": {
+    "eyebrow": "Autoren-Tool",
+    "title": "Content-Gesundheit",
+    "subtitle": "Wo im Bestand die Arbeit liegt",
+    "back": "Zurück",
+    "count": "{{shown}} von {{total}} Items",
+    "loadError": "Der Bestand konnte nicht geladen werden.",
+    "errorTitle": "Der Bestand konnte nicht geladen werden",
+    "emptyTitle": "Nichts in dieser Auswahl",
+    "emptyDescription": "Kein Item hat diesen Mangel — wähle eine andere Kachel.",
+    "open": "Im Editor öffnen",
+    "overview": {
+      "defects": "Mängel",
+      "byStatus": "Bestand nach Status"
+    },
+    "tiles": {
+      "deadPath": "Toter Bildpfad",
+      "deadPathCaption": "relativer Pfad, kein Bucket-Bild",
+      "stoffankerMissing": "Ohne Stoffanker",
+      "stoffankerMissingCaption": "Pflichtfeld für die Freigabe",
+      "altMissing": "Bild ohne Alt-Text",
+      "altMissingCaption": "blockiert die Freigabe",
+      "noAsset": "Ohne Asset",
+      "noAssetCaption": "kein Bild, reiner Text",
+      "statusCaption": "Items in diesem Status"
+    },
+    "marker": {
+      "deadPath": "Toter Bildpfad",
+      "stoffankerMissing": "Kein Stoffanker",
+      "altMissing": "Bild ohne Alt-Text",
+      "noAsset": "Kein Asset",
+      "clean": "Keine Mängel"
+    },
+    "path": {
+      "label": "Bildpfad — nicht im Bucket",
+      "license": "Lizenz"
+    },
+    "remove": {
+      "action": "Bildpfad entfernen",
+      "running": "Entferne …",
+      "confirm": "Bildpfad wirklich entfernen?",
+      "confirmYes": "Entfernen",
+      "confirmNo": "Abbrechen",
+      "hint": "Entfernt nur den Asset-Eintrag — das Item wird als reiner Text gerendert. Im Bucket wird nichts gelöscht, der Schritt ist umkehrbar.",
+      "adminOnly": "Entfernen darf nur die Rolle Admin."
+    },
+    "toast": {
+      "removed": "Bildpfad entfernt.",
+      "removeFailed": "Entfernen fehlgeschlagen: {{error}}"
+    }
   }
 }
