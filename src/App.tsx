@@ -9,18 +9,11 @@ import { ScreeningReportPage as ParentScreeningReportPage } from '@/pages/parent
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
 import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
-import { OnboardingPage } from '@/pages/admin/OnboardingPage'
-import { LambacherPreview } from '@/pages/admin/LambacherPreview'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
 import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
-import { XpRulesPage } from '@/pages/admin/XpRulesPage'
-import { TiersPage } from '@/pages/admin/TiersPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
-import { ScreeningItemsPage } from '@/pages/admin/ScreeningItemsPage'
-import { ScreeningItemEditorPage } from '@/pages/admin/ScreeningItemEditorPage'
-import { ScreeningCoveragePage } from '@/pages/admin/ScreeningCoveragePage'
 import { QsPage } from '@/pages/admin/QsPage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
@@ -123,22 +116,6 @@ export default function App(): JSX.Element {
           }
         />
         <Route
-          path="/admin/onboarding"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <OnboardingPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/lambacher-preview"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <LambacherPreview />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/admin/leads"
           element={
             <ProtectedRoute allowedRoles={['admin', 'coach']}>
@@ -171,22 +148,6 @@ export default function App(): JSX.Element {
           }
         />
         <Route
-          path="/admin/xp-rules"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <XpRulesPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/tiers"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <TiersPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/admin/diagnostics"
           element={
             <ProtectedRoute allowedRoles={['admin']}>
@@ -209,38 +170,6 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['coach', 'admin']}>
               <AuthoringEditorPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/screening-items"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <ScreeningItemsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/screening-items/:id/edit"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <ScreeningItemEditorPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/screening-items/new"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <ScreeningItemEditorPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/screening-coverage"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <ScreeningCoveragePage />
             </ProtectedRoute>
           }
         />

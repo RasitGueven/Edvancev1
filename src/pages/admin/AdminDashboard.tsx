@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react'
 import {
-  BookOpen,
   CalendarClock,
-  CreditCard,
-  FlaskConical,
-  GraduationCap,
   Inbox,
-  LayoutGrid,
-  ListChecks,
   PenLine,
   UserPlus,
   Users,
-  Zap,
 } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import {
@@ -51,7 +44,7 @@ export function AdminDashboard(): JSX.Element {
             Übersicht
           </h1>
           <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            Steuere Onboarding, Leads, Tarife und Inhalte an einem Ort.
+            Steuere Inhalte, Leads, Stundenplan und Coaches an einem Ort.
           </p>
         </header>
 
@@ -59,13 +52,13 @@ export function AdminDashboard(): JSX.Element {
 
         <AdminTileGrid>
           <AdminTile
-            to="/admin/onboarding"
-            icon={<GraduationCap className={ICON_CLASS} />}
-            title="Schüler-Onboarding"
-            description="Neue Schüler in fünf Schritten anlegen und einem Coach zuweisen."
+            to="/admin/authoring"
+            icon={<PenLine className={ICON_CLASS} />}
+            title="Autoren-Tool"
+            description="Aufgaben erstellen, prüfen, Stoffanker setzen und für die LSA freigeben — das zentrale Inhalts-Werkzeug."
             accent="primary"
             size="lg"
-            cta="Neuen Schüler anlegen"
+            cta="Inhalte pflegen"
           />
           <AdminTile
             to="/admin/leads"
@@ -103,70 +96,6 @@ export function AdminDashboard(): JSX.Element {
             description="Schüler ihrem Coach zuweisen oder umhängen."
             accent="success"
             size="sm"
-          />
-          <AdminTile
-            to="/admin/xp-rules"
-            icon={<Zap className={ICON_CLASS} />}
-            title="XP-Gewichtung"
-            description="XP pro Aufgabentyp und Schwierigkeit festlegen."
-            accent="success"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/tiers"
-            icon={<CreditCard className={ICON_CLASS} />}
-            title="Tarife"
-            accent="success"
-            size="sm"
-            stat={{
-              value: stats?.tiersActive ?? 0,
-              caption: `von ${stats?.tiersTotal ?? 0} Tarifen aktiv`,
-            }}
-            loading={loading}
-          />
-          <AdminTile
-            to="/admin/diagnostics"
-            icon={<FlaskConical className={ICON_CLASS} />}
-            title="Diagnostik"
-            description="Aufgaben als Diagnose markieren und Inhalte pflegen."
-            accent="levelup"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/authoring"
-            icon={<PenLine className={ICON_CLASS} />}
-            title="Item-Pflege"
-            description="Aufgaben prüfen, Stoffanker setzen, für die LSA freigeben."
-            accent="levelup"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/screening-items"
-            icon={<ListChecks className={ICON_CLASS} />}
-            title="Screening-Items"
-            accent="repair"
-            size="wide"
-            stat={{
-              value: stats?.screeningItems ?? 0,
-              caption: 'Items im Screening-Pool',
-            }}
-            loading={loading}
-          />
-          <AdminTile
-            to="/admin/screening-coverage"
-            icon={<LayoutGrid className={ICON_CLASS} />}
-            title="Screening-Coverage"
-            description="Lücken im v2-Pool sehen: Cluster × Phase × AFB."
-            accent="repair"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/lambacher-preview"
-            icon={<BookOpen className={ICON_CLASS} />}
-            title="Lambacher-Vorschau"
-            description="Importierte Lambacher-Inhalte als Vorschau prüfen."
-            accent="primary"
-            size="wide"
           />
         </AdminTileGrid>
       </main>
