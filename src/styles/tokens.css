@@ -10,6 +10,26 @@
     --color-navy-deep:              #14213D;
     --color-overlay:                rgba(20, 33, 61, 0.55);
 
+    /* ── MIDNIGHT-GRADIENT — die EINE benannte Hintergrund-Achse ─
+       Ein Hintergrund nutzt EINE Referenz (var(--gradient-midnight))
+       statt drei lose Navy-Werte zusammenzustückeln. Achse: HELL oben
+       (Content-Zone) → DUNKEL unten (Tiefe), linear `to bottom`.
+         0%   #334D7A  = var(--color-primary)    — Content-Zone, hell
+         50%  #1E2B49                            — Übergang
+         100% #14213D  = var(--color-navy-deep)  — Boden, Tiefe
+       --color-primary bleibt Flächen-/Akzentfarbe; dieser Gradient ist
+       ZUSÄTZLICH (Hero-/Hintergrundflächen). Bevor eine vierte Blau-
+       variante erfunden wird: diese Achse nutzen.
+       NB: Die dunkle Schüler-BÜHNE (.session-stage) ist bewusst ein
+       EIGENER Gradient (--color-stage-top #2E3E63, 168°, + Radial-Glows)
+       und wird NICHT durch dieses Token ersetzt. */
+    --gradient-midnight: linear-gradient(
+      to bottom,
+      var(--color-primary)   0%,
+      #1E2B49                50%,
+      var(--color-navy-deep) 100%
+    );
+
     /* ── HINTERGRUND ──────────────────────────────────────────── */
     --color-bg-app:                 #F7F7F5;
     --color-bg-surface:             #FFFFFF;
