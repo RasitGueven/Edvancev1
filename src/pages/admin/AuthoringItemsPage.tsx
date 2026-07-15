@@ -13,10 +13,8 @@
 // bedeutet.
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft } from 'lucide-react'
-import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import {
   AuthoringFilters,
@@ -168,24 +166,14 @@ export function AuthoringItemsPage(): JSX.Element {
   }, [rows, filters, subjectOf])
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('page.listSubtitle')} sticky />
       <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8">
-        <Link
-          to="/admin"
-          className="inline-flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
-        >
-          <ArrowLeft className="h-4 w-4" /> {t('page.back')}
-        </Link>
-
-        <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
-            {t('page.listTitle')}
-          </h1>
-          <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            {t('list.count', { shown: visible.length, total: rows.length })}
-          </p>
-        </div>
+        <AdminHeader
+          title={t('page.listTitle')}
+          backLabel={t('page.back')}
+          description={t('list.count', { shown: visible.length, total: rows.length })}
+        />
 
         {schema && <SchemaBanner schema={schema} />}
 
