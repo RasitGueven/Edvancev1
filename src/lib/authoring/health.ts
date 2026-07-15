@@ -8,7 +8,12 @@
 
 import type { AuthoringTask, GroundingRecord, TaskAsset } from '@/types'
 
-export type HealthDefect = 'deadPath' | 'stoffankerMissing' | 'altMissing' | 'noAsset'
+export type HealthDefect =
+  | 'deadPath'
+  | 'stoffankerMissing'
+  | 'altMissing'
+  | 'noAsset'
+  | 'imageRefNoAsset'
 
 /** Reihenfolge der Zählerkacheln — toter Pfad zuerst, das ist die eine Aktion. */
 export const DEFECT_ORDER: HealthDefect[] = [
@@ -16,6 +21,7 @@ export const DEFECT_ORDER: HealthDefect[] = [
   'stoffankerMissing',
   'altMissing',
   'noAsset',
+  'imageRefNoAsset',
 ]
 
 /**
@@ -32,6 +38,79 @@ export function isDeadAssetUrl(url: string): boolean {
 /** Die Asset-Einträge eines Items, deren Pfad tot ist. */
 export function deadAssets(task: AuthoringTask): TaskAsset[] {
   return task.assets.filter((a) => isDeadAssetUrl(a.url))
+}
+
+/**
+ * Verweis-Heuristik: Textstellen, die auf eine Abbildung deuten.
+ *
+ * Bewusst großzügig — das ist eine VORAUSWAHL, kein Urteil. Ein Treffer ist ein
+ * Verdacht, den ein Mensch sichtet: „rechts" meint „rechts im Bild" ODER „rechts
+ * in der Gleichung". „abbildung" fängt allein schon viel; die Alternativen decken
+ * Wörter ab (figur, grafik, skizze, schaubild …), die sonst durchrutschen würden.
+ * `folgende[nr]?` fängt „folgende/folgenden/folgender". Case-insensitive.
+ */
+const IMAGE_REF_RE =
+  /abbildung|abgebildet|dargestellt|nebenstehend|schraffiert|eingezeichnet|siehe\s+(?:bild|grafik|figur|zeichnung|skizze)|in\s+der\s+(?:figur|grafik|zeichnung|skizze|abbildung)|im\s+bild|folgende[nr]?\s+(?:abbildung|grafik|figur|diagramm|schaubild)/i
+
+/**
+ * Eine gefundene Verdachtsstelle: WO der Verweis steht (Fragetext oder Nummer der
+ * Teilaufgabe), das getroffene Verweiswort und ein Textausschnitt drumherum —
+ * damit der Pfleger sofort sieht, worauf sich der Verweis bezieht.
+ */
+export type ImageRefFinding = {
+  source: 'question' | number
+  match: string
+  excerpt: string
+}
+
+/** Hat das Item ein echtes Bild? Nur eine http(s)-URL zählt — kein relativer Pfad. */
+export function hasRealAsset(task: AuthoringTask): boolean {
+  return (task.assets ?? []).some((a) => /^https?:\/\//i.test(a.url.trim()))
+}
+
+/** Ein Fenster um die Fundstelle, mit „…" wo gekürzt wird. Reine Textkosmetik. */
+function excerptAround(text: string, start: number, length: number): string {
+  const PAD = 45
+  const from = Math.max(0, start - PAD)
+  const to = Math.min(text.length, start + length + PAD)
+  const prefix = from > 0 ? '… ' : ''
+  const suffix = to < text.length ? ' …' : ''
+  return prefix + text.slice(from, to).trim() + suffix
+}
+
+/**
+ * Verweist der Text auf ein Bild, obwohl kein echtes Asset da ist? Textquelle ist
+ * `tasks.question` UND die `parts`-Prompts — NICHT question_payload (das ist die
+ * leere Client-Hülle). Der Fragetext hat Vorrang; sonst die erste Teilaufgabe mit
+ * Treffer. Gibt es ein echtes Asset, ist es kein Verdacht — dann existiert das
+ * Bild, auf das der Text verweist. Rein und getestet — fällt keine Entscheidung.
+ */
+export function imageRefFinding(task: AuthoringTask): ImageRefFinding | null {
+  if (hasRealAsset(task)) return null
+
+  const question = task.question ?? ''
+  const inQuestion = question.match(IMAGE_REF_RE)
+  if (inQuestion && inQuestion.index != null) {
+    return {
+      source: 'question',
+      match: inQuestion[0],
+      excerpt: excerptAround(question, inQuestion.index, inQuestion[0].length),
+    }
+  }
+
+  for (const part of task.parts ?? []) {
+    const prompt = part.prompt ?? ''
+    const inPart = prompt.match(IMAGE_REF_RE)
+    if (inPart && inPart.index != null) {
+      return {
+        source: part.nr,
+        match: inPart[0],
+        excerpt: excerptAround(prompt, inPart.index, inPart[0].length),
+      }
+    }
+  }
+
+  return null
 }
 
 /**
@@ -54,6 +133,8 @@ export function computeDefects(
     defects.add('altMissing')
   }
   if (task.assets.length === 0) defects.add('noAsset')
+  // Verdacht (kein Urteil): Text verweist auf ein Bild, das nicht als Asset da ist.
+  if (imageRefFinding(task) != null) defects.add('imageRefNoAsset')
 
   return defects
 }
@@ -67,6 +148,7 @@ export function countDefects(items: { defects: Set<HealthDefect> }[]): DefectCou
     stoffankerMissing: 0,
     altMissing: 0,
     noAsset: 0,
+    imageRefNoAsset: 0,
   }
   for (const item of items) {
     for (const defect of item.defects) counts[defect] += 1
