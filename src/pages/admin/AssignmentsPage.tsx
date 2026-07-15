@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import {
+  AdminHeader,
   EdvanceCard,
   EdvanceBadge,
   EmptyState,
@@ -83,23 +82,14 @@ export function AssignmentsPage(): JSX.Element {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle="Coach-Zuordnung" sticky />
       <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
-        <div>
-          <Link
-            to="/admin"
-            className="mb-2 flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
-          >
-            <ArrowLeft className="h-4 w-4" /> Admin
-          </Link>
-          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
-            Coach ↔ Schüler-Zuordnung
-          </h1>
-          <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            Jeder Schüler hat genau einen aktiven Coach. Änderung wirkt sofort.
-          </p>
-        </div>
+        <AdminHeader
+          eyebrow="Team"
+          title="Coach ↔ Schüler-Zuordnung"
+          description="Jeder Schüler hat genau einen aktiven Coach. Änderung wirkt sofort."
+        />
 
         {error && (
           <p className="text-sm text-[var(--color-error-exam)]">{error}</p>

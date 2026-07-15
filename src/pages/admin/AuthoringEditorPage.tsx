@@ -216,7 +216,7 @@ export function AuthoringEditorPage(): JSX.Element {
   const multi = isMultiPart(state)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('page.editorSubtitle')} sticky />
       <main className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-32 pt-6">
         <Link
@@ -357,7 +357,7 @@ export function AuthoringEditorPage(): JSX.Element {
 function Shell({ children }: { children: JSX.Element }): JSX.Element {
   const { t } = useTranslation('authoring')
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('page.editorSubtitle')} sticky />
       <main className="mx-auto max-w-7xl px-4 py-8">{children}</main>
     </div>

@@ -2,6 +2,11 @@
   :root {
     /* ── TYPOGRAFIE ───────────────────────────────────────────── */
     --font-sans: 'Sora', ui-sans-serif, system-ui;
+    /* Marken-Fonts: Fraunces trägt die Headlines (Serif, wertig), Schibsted
+       Grotesk den Flächentext. Als benannte Achse, damit Utilities (font-serif/
+       font-body) und Komponenten dieselbe Referenz nutzen statt loser Strings. */
+    --font-serif: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+    --font-body:  'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
 
     /* ── PRIMÄR — MIDNIGHT ACADEMY ────────────────────────────── */
     --color-primary:                #334D7A;
