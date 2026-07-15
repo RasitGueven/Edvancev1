@@ -12,14 +12,14 @@
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Lock, ShieldCheck } from 'lucide-react'
+import { Circle, Lock, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import type { TaskStatus } from '@/types'
+import type { ItemFlag, TaskStatus } from '@/types'
 import { StatusBadge } from './ui'
 
 export function ReleaseGate({
   status,
-  blockingCount,
+  blocking,
   dirty,
   busy,
   canWrite,
@@ -30,7 +30,9 @@ export function ReleaseGate({
   onSetStatus,
 }: {
   status: TaskStatus
-  blockingCount: number
+  /** Die blockierenden Befunde — dieselben, die auch das DB-Gate wirft. Als
+   *  Checkliste sichtbar gemacht, statt erst beim Speichern-Versuch zu erscheinen. */
+  blocking: ItemFlag[]
   dirty: boolean
   busy: boolean
   canWrite: boolean
@@ -42,6 +44,7 @@ export function ReleaseGate({
 }): JSX.Element {
   const { t, i18n } = useTranslation('authoring')
 
+  const blockingCount = blocking.length
   const blocked = blockingCount > 0
   // Ungespeicherte Aenderungen: die DB pruefte gegen den ALTEN Stand. Ein "ready",
   // das gegen einen Stand freigibt, den der Pfleger gerade verworfen hat, waere
@@ -76,6 +79,30 @@ export function ReleaseGate({
                   }`
                 : t('release.noAudit')}
           </span>
+        </div>
+      )}
+
+      {status !== 'ready' && blocked && (
+        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] bg-[var(--color-bg-app)] p-4">
+          <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+            {t('release.checklistTitle')}
+          </span>
+          <ul className="flex flex-col gap-2">
+            {blocking.map((f, i) => (
+              <li
+                key={`${f.code}-${i}`}
+                className="flex items-start gap-2 text-sm leading-relaxed"
+              >
+                <Circle
+                  className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-text-tertiary)]"
+                  aria-hidden="true"
+                />
+                <span className="text-[var(--color-text-secondary)]">
+                  {t(`flags.${f.code}`, f.vars)}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 

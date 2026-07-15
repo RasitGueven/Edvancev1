@@ -137,6 +137,8 @@
     "hint": "Jede Teilaufgabe trägt ihre eigene Kompetenz und ihr eigenes AFB — sie ist der diagnostische Datenpunkt, nicht das Item."
   },
   "preview": {
+    "open": "Vorschau",
+    "close": "Vorschau schließen",
     "hint": "So sieht es das Kind — serverseitig gebaut, dieselbe Funktion, die das Tablet bedient. Kein Feedback, keine Lösung.",
     "unsavedHint": "Vorschau des Entwurfs: So sähe es aus, wenn du jetzt speicherst. Gespeichert ist es nicht.",
     "saved": "Gespeicherter Stand",
@@ -199,6 +201,7 @@
   },
   "release": {
     "current": "Aktueller Status",
+    "checklistTitle": "Vor der Freigabe zu erledigen",
     "toDraft": "Zurück auf Entwurf",
     "toReview": "Zur Prüfung",
     "toReady": "Freigeben",

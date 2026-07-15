@@ -1,8 +1,8 @@
 // Kleine Bausteine, die im Autoren-Tool mehrfach vorkommen.
 // Alles darueber hinaus kommt aus @/components/edvance bzw. @/lib/formStyles.
 
-import type { JSX, ReactNode } from 'react'
-import { Plus, X } from 'lucide-react'
+import { useState, type JSX, type ReactNode } from 'react'
+import { ChevronDown, Plus, X } from 'lucide-react'
 import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
 import type { EdvanceBadgeVariant } from '@/components/edvance/EdvanceBadge'
 import { Input } from '@/components/ui/input'
@@ -11,24 +11,62 @@ import type { TaskStatus } from '@/types'
 export const INPUT_CLS =
   'h-10 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm text-[var(--color-text-primary)]'
 
+const SECTION_TITLE_CLS =
+  'text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]'
+
+/**
+ * Eine Karten-Sektion des Editors. Mit `collapsible` wird der Kopf zum Auf-/
+ * Zuklapp-Schalter — der Zustand lebt rein im Client (`defaultOpen`), es geht kein
+ * Byte davon an den Server. Neun Sektionen gleichzeitig offen sind zu viel auf
+ * einmal; die Meta-Sektionen starten deshalb zugeklappt.
+ */
 export function Section({
   title,
   action,
   children,
+  collapsible = false,
+  defaultOpen = true,
 }: {
   title: string
   action?: ReactNode
   children: ReactNode
+  collapsible?: boolean
+  defaultOpen?: boolean
 }): JSX.Element {
+  const [open, setOpen] = useState(defaultOpen)
+
+  if (!collapsible) {
+    return (
+      <EdvanceCard className="p-6">
+        <div className="mb-4 flex items-center justify-between gap-2">
+          <h3 className={SECTION_TITLE_CLS}>{title}</h3>
+          {action}
+        </div>
+        <div className="flex flex-col gap-4">{children}</div>
+      </EdvanceCard>
+    )
+  }
+
   return (
     <EdvanceCard className="p-6">
-      <div className="mb-4 flex items-center justify-between gap-2">
-        <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-          {title}
-        </h3>
+      <div className="flex items-center justify-between gap-2">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className="flex min-h-[44px] flex-1 items-center gap-2 text-left"
+        >
+          <ChevronDown
+            className={`h-4 w-4 shrink-0 text-[var(--color-text-tertiary)] transition-transform ${
+              open ? '' : '-rotate-90'
+            }`}
+            aria-hidden="true"
+          />
+          <h3 className={SECTION_TITLE_CLS}>{title}</h3>
+        </button>
         {action}
       </div>
-      <div className="flex flex-col gap-4">{children}</div>
+      {open && <div className="mt-4 flex flex-col gap-4">{children}</div>}
     </EdvanceCard>
   )
 }
