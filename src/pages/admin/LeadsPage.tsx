@@ -22,6 +22,8 @@ const STATUS_LABEL: Record<LeadStatus, string> = {
   onboarding_scheduled: 'Onboarding geplant',
   converted: 'Konvertiert',
   rejected: 'Abgelehnt',
+  lsa_freigegeben: 'LSA freigegeben',
+  lsa_fertig: 'LSA fertig',
 }
 
 const STATUS_VARIANT: Record<LeadStatus, 'primary' | 'warning' | 'success' | 'muted'> = {
@@ -30,6 +32,8 @@ const STATUS_VARIANT: Record<LeadStatus, 'primary' | 'warning' | 'success' | 'mu
   onboarding_scheduled: 'warning',
   converted: 'success',
   rejected: 'muted',
+  lsa_freigegeben: 'primary',
+  lsa_fertig: 'success',
 }
 
 function nextActions(status: LeadStatus): { label: string; next: LeadStatus }[] {

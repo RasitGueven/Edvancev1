@@ -67,12 +67,14 @@ export async function getStudent(
   }
 }
 
-// Alle Schueler (RLS: nur Coach/Admin sehen alle).
+// Alle Schueler (RLS: nur Coach/Admin sehen alle). Provisorische Lead-Schueler
+// (S7, A1 Option 1) sind KEINE Schueler und bleiben draussen.
 export async function listStudents(): Promise<SupabaseResult<Student[]>> {
   try {
     const { data, error } = await supabase
       .from('students')
       .select('*')
+      .eq('is_provisional', false)
       .order('class_level', { ascending: true, nullsFirst: false })
     if (error) return { data: null, error: error.message }
     return { data: (data ?? []) as Student[], error: null }
@@ -92,8 +94,10 @@ export async function listStudentsWithName(): Promise<
       // FK-Hint nötig: student_coach erzeugt eine zweite students↔profiles
       // Beziehung → Embed muss explizit profile_id wählen (PostgREST).
       .select(
-        'id, profile_id, class_level, school_name, school_type, profiles!profile_id(full_name)',
+        'id, profile_id, class_level, school_name, school_type, is_provisional, lead_id, profiles!profile_id(full_name)',
       )
+      // S7: provisorische Lead-Schueler tauchen in keiner Auswahlliste auf.
+      .eq('is_provisional', false)
       .order('class_level', { ascending: true, nullsFirst: false })
     if (error) return { data: null, error: error.message }
     type ProfileRel = { full_name: string | null }
@@ -109,6 +113,8 @@ export async function listStudentsWithName(): Promise<
           class_level: r.class_level,
           school_name: r.school_name,
           school_type: r.school_type,
+          is_provisional: r.is_provisional,
+          lead_id: r.lead_id,
           full_name: rel?.full_name ?? null,
         }
       },
