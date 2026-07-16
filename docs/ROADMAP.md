@@ -28,13 +28,25 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **S9 Platz-Mechanik gebaut** (Retro `2026-07-16-S9-platz-mechanik.md`, Branch
+  `feat/S9-platz-mechanik`): Option 3 der PLATZ-Analyse umgesetzt — Kiosk-Konto
+  (`platz_devices`, role=student OHNE students-Zeile), session-scoped Zuweisung
+  (`platz_assignments`, 2 h-Ablauf, in jeder RPC geprüft), Tore
+  `platz_state/next/submit/finish` (kein session_id-Parameter von außen,
+  Durchreichen an die unveränderten `lsa_*` per Auftrags-Identität `created_by`),
+  Release-Trigger bei completed/aborted, §3.6(ii): `lsa_question_payload`-Grant
+  für `authenticated` zurückgezogen (inv2/3/5/6/7/8 prüfen den Inhalts-Vertrag
+  seither im Definer-Kontext). Beweis: `s9_platz_mechanik.test.sql`
+  (69 Assertions). **Offen:** pgTAP-Lauf (`npx supabase test db` — Docker war in
+  der Session nicht verfügbar), Migration im SQL-Editor ausführen, Admin-UI
+  (Zuweisen am Empfang) + Kiosk-Frontend sind eigene Läufe.
 - **S7 Lead→LSA-Backend gebaut** (Retro `2026-07-16-S7-lead-lsa.md`, Branch
   `feat/S7-lead-lsa`): A1 Option 1 umgesetzt — provisorischer Schüler pro Lead
   (`students.is_provisional` + `lead_id`-Kaskade), RPCs `lead_lsa_freigeben`
   (DSGVO-Gate) / `lead_convert` / `lead_assessment_upsert`, Intake-Felder am Lead,
   Guards (kein Abo, kein direkter Insert), Statistik-Schutz in `src/lib`.
   **Offen:** pgTAP-Lauf (`npx supabase test db` — Docker war in der Session nicht
-  verfügbar) + Platz-Mechanik wartet auf Freigabe (`docs/specs/PLATZ-analyse.md`).
+  verfügbar). Platz-Mechanik: freigegeben und als S9 gebaut (s. o.).
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
   - **C02 Grounded Rebuild abgeschlossen** (Retro `RETRO-C02.md`): VERA-Pool neu
     aufgebaut, jedes Feld mit `_grounding` belegt. **144 `ready`**, 74 `partial`,

@@ -170,7 +170,10 @@ select throws_ok(
 -- ============================================================================
 -- B) Die Whitelist gilt REKURSIV
 -- ============================================================================
-set local role authenticated;
+-- §3.6(ii)/S9: das authenticated-Grant auf lsa_question_payload ist zurueck-
+-- gezogen (s9_platz_mechanik.test.sql pinnt die Nicht-Aufrufbarkeit). Der
+-- Inhalts-Vertrag wird deshalb im Definer-Kontext geprueft — die Assertions
+-- selbst sind unveraendert.
 select pg_temp.act_as(:'student_uid');
 
 select is(
@@ -210,6 +213,7 @@ select is(
 -- ============================================================================
 -- C) Auswertung pro Teilaufgabe
 -- ============================================================================
+set local role authenticated;
 select lives_ok(
   format($f$select public.lsa_start(%L, 8, 'Mathematik')$f$, :'sid'),
   'lsa_start: Multi-Part und flaches Item stehen gemeinsam im Zeitbudget-Pool'

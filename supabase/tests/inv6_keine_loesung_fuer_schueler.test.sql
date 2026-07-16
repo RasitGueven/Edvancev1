@@ -136,6 +136,11 @@ select is(
   'select * from tasks: der Schueler sieht die Loesung in KEINER Spalte'
 );
 
+-- §3.6(ii)/S9: das authenticated-Grant auf lsa_question_payload ist zurueck-
+-- gezogen (s9_platz_mechanik.test.sql pinnt die Nicht-Aufrufbarkeit). Der
+-- Inhalts-Vertrag wird deshalb im Definer-Kontext geprueft — die Assertions
+-- selbst sind unveraendert.
+reset role;
 select is(
   (select public.lsa_question_payload(:'tid') ?| array['correct','accepted','pairs','blanks','expected','solution','hints']),
   false,
@@ -147,6 +152,7 @@ select is(
   false,
   'lsa_question_payload gibt die Loesung auch inhaltlich nicht her'
 );
+set local role authenticated;
 
 -- Die Server-Only-Zone direkt: schon das Tabellen-Tor ist zu (kein Grant).
 select throws_ok(

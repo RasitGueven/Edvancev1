@@ -178,11 +178,17 @@ select lives_ok(
 -- DIE Assertion. Nicht "die Vorschau enthaelt dieselben Felder" — sie IST dasselbe
 -- Objekt. Jede kuenftige Erweiterung von lsa_question_payload landet automatisch in
 -- der Vorschau, oder dieser Test bricht.
+-- §3.6(ii)/S9: das authenticated-Grant auf lsa_question_payload ist zurueck-
+-- gezogen (s9_platz_mechanik.test.sql pinnt die Nicht-Aufrufbarkeit). Die
+-- Gleichheits-Assertion laeuft deshalb im Definer-Kontext — die Coach-Claims
+-- (act_as) wirken weiter, task_preview_payload prueft sie im Body.
+reset role;
 select is(
   public.task_preview_payload(:'t_mp'),
   public.lsa_question_payload(:'t_mp'),
   'Die Vorschau IST lsa_question_payload — Byte fuer Byte dasselbe Payload'
 );
+set local role authenticated;
 
 -- ANTI-VAKUUM: Der Loesungs-Test unten prueft nur dann etwas, wenn der Payload
 -- ueberhaupt Inhalt HAT. Liefert der Builder eines Tages ein leeres Objekt, ist

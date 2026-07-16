@@ -1962,5 +1962,78 @@ on conflict (id) do nothing;
 -- Beweis: supabase/tests/s7_lead_lsa.test.sql (pgTAP, 38 Assertions).
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (36 Tabellen, 26 Funktionen, 2 Enums, 1 Trigger).
+-- 20. S9 – PLATZ-MECHANIK: KIOSK FUER DIE LSA (Option 3, docs/specs/PLATZ-analyse.md)
+--     (supabase/migrations/20260716110000_s9_platz_mechanik.sql)
+--     Eingrenzung verbindlich: NUR die LSA. Ein Platz erreicht ausschliesslich
+--     die ihm aktuell zugewiesene Session — nie Hub, XP, student_progress,
+--     fremde oder vergangene Sessions. P01-Datenvertrag byte-identisch
+--     (einzige bewusste Ausnahme: das GRANT von lsa_question_payload, s.u.).
+-- ============================================================================
+--
+-- platz_devices (Tabelle):
+--   profile_id uuid PK → profiles on delete cascade, label text, created_at
+--       Kennzeichnung der Kiosk-Konten. Ein Platz ist ein normaler Auth-User
+--       mit role='student' OHNE students-Zeile — strukturell „nichts"
+--       (get_my_student_id()=null → alle lsa_* verweigern). KEINE neue Rolle,
+--       kein CHECK-Umbau. RLS: admin all; der Platz liest die eigene Zeile.
+--
+-- platz_assignments (Tabelle):
+--   id PK, platz_profile_id → platz_devices, session_id → lsa_sessions,
+--   created_by uuid → profiles (Auftrags-Identitaet: der zuweisende Admin),
+--   created_at, expires_at (default now()+2h), released_at
+--       SESSION-scoped (nicht schueler-scoped): vergangene/parallele Sessions
+--       desselben Kindes sind nicht adressierbar. Aktiv = released_at null UND
+--       expires_at > now() — in JEDER RPC geprueft (Analyse §3.4).
+--       Partial-Unique (platz_profile_id) where released_at is null.
+--       RLS: admin all; der Platz liest NUR die eigene aktive Zeile.
+--
+-- RPCs [alle SECURITY DEFINER, search_path=public, revoke from public,
+--       Rollen-/Kontext-Pruefung im Body]:
+--   platz_current_assignment() → platz_assignments   [intern, nur service_role]
+--       Die EINE aktive, nicht abgelaufene Zuweisung von auth.uid().
+--   platz_assign(p_platz_profile_id, p_session_id) → jsonb        [nur admin]
+--       Gates: platz_devices-Zeile (P0002), Session in_progress (P0001),
+--       keine aktive Zuweisung (P0001). Raeumt abgelaufene Alt-Zeilen
+--       (Partial-Unique). Schreibt created_by fest.
+--   platz_release(p_assignment_id) → jsonb                        [nur admin]
+--       Manuelle Freigabe, idempotent; P0002 bei unbekannter Zuweisung.
+--   platz_state() → jsonb                                     [nur Platz-Konto]
+--       Kiosk-Poll: {status:'wartet'} | {status:'zugewiesen', first_name
+--       (session → students.lead_id → leads.first_name), progress, expires_at}.
+--       Traegt NIE session_id/student_id/lead_id/Auswertung.
+--   platz_next() → jsonb                                      [nur Platz-Konto]
+--       Naechstes offenes Item der ZUGEWIESENEN Session, Payload aus dem
+--       UNVERAENDERTEN lsa_question_payload. Kein Parameter von aussen.
+--   platz_submit(p_task_id, p_response, p_duration_ms) → jsonb [nur Platz-Konto]
+--       Validiert p_task_id = aktuell offenes Item, reicht an das
+--       UNVERAENDERTE lsa_submit durch — mit der Auftrags-Identitaet
+--       created_by (transaktionslokaler Claims-Tausch, in derselben Funktion
+--       geschlossen). Rueckgabe {ok, next} — kein Richtig/Falsch.
+--   platz_finish() → jsonb                                    [nur Platz-Konto]
+--       Ruft das UNVERAENDERTE lsa_finish und VERWIRFT dessen Auswertung —
+--       Rueckgabe exakt {ok:true}.
+--
+-- Trigger:
+--   lsa_session_platz_release_trg (lsa_sessions, after update of status)
+--       — completed ODER aborted → alle offenen Zuweisungen der Session
+--       released. Additiv; lsa_finish bleibt byte-identisch.
+--
+-- Grant-Aenderung (§3.6(ii) der Analyse, bewusst gewaehlt):
+--   revoke execute on lsa_question_payload from authenticated — der Builder
+--   ist nur noch ueber seine Tore erreichbar (lsa_start/lsa_submit intern,
+--   task_preview_payload fuer Coach/Admin, platz_next fuer den Platz).
+--   Kein Client ruft ihn direkt (verifiziert: kein .rpc(...) in src/**).
+--   Die inv2/3/5/6/7/8-Tests pruefen den Inhalts-Vertrag seither im
+--   Definer-Kontext; die Nicht-Aufrufbarkeit pinnt s9_platz_mechanik.test.sql.
+--
+-- Beweis: supabase/tests/s9_platz_mechanik.test.sql (pgTAP, 69 Assertions):
+--   (1) Platz ohne Zuweisung: 'wartet', alle lsa_* → 42501, RLS zeigt 0 Zeilen
+--   (Anti-Vakuum inklusive); (2) mit Zuweisung: genau die EINE Session, die
+--   zweite ist ueber keinen Parameter erreichbar, lsa_* bleiben auch dann zu;
+--   (3) nach lsa_finish / expires_at / platz_release / abort faellt alles auf
+--   'wartet'/42501 zurueck; plus P01-Regression (keine lsa_*-Funktion kennt
+--   'platz', kein Overload, anon ohne jedes Grant).
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (38 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================
