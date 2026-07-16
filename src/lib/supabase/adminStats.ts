@@ -44,7 +44,8 @@ export async function getAdminStats(): Promise<SupabaseResult<AdminStats>> {
       tiersTotal,
       screeningItems,
     ] = await Promise.all([
-      safeCount(countOf('students')),
+      // S7: provisorische Lead-Schüler (A1 Option 1) zählen NIE als Schüler.
+      safeCount(countOf('students').eq('is_provisional', false)),
       safeCount(countOf('leads')),
       safeCount(countOf('leads').eq('status', 'new')),
       safeCount(countOf('leads').in('status', OPEN_LEAD_STATUS)),

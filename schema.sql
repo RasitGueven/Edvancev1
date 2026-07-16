@@ -1896,5 +1896,71 @@ on conflict (id) do nothing;
 --   unveraendert.
 
 -- ============================================================================
+-- 19. S7 – LEAD→LSA: PROVISORISCHES SCHUELERKONTO (A1 OPTION 1) + INTAKE-FELDER
+--     (supabase/migrations/20260716100000_s7_lead_lsa.sql)
+--     Baut auf S5/Ebene A auf: lead_assessments (a3), lead_delete (a2),
+--     tasks.is_tutorial (a4) — siehe die jeweiligen Migrationen.
+-- ============================================================================
+--
+-- students (Spalten, additiv — P01-Datenvertrag byte-identisch):
+--   is_provisional boolean not null default false
+--       Provisorischer Lead-Schueler: profile_id NULL, kein Auth-Konto, kein
+--       Abo. Zaehlt NIRGENDS als Schueler — jedes Aggregat filtert
+--       is_provisional=false (src/lib: adminStats, listStudents*).
+--   lead_id uuid references leads(id) on delete cascade
+--       Der Loeschanker: lead_delete kaskadiert
+--       leads → students(lead_id) → lsa_sessions → lsa_responses (DSGVO).
+--   CHECK students_provisional_lead_ck: is_provisional = (lead_id is not null).
+--   UNIQUE students_lead_unique on (lead_id) where lead_id is not null
+--       — genau ein provisorischer Schueler pro Lead (Idempotenz-Anker).
+--
+-- leads (Spalten, Teil B — Fragenkatalog Erstgespraech, KEINE Diagnose-Felder):
+--   first_name text                  — Rufname („Hi <Name>" auf dem Tablet)
+--   birth_date date, last_grade text
+--   grade_trend text                 — CHECK in (besser, stabil, schlechter)
+--   struggling_since text            — CHECK in (dieses_halbjahr,
+--                                      letztes_schuljahr, laenger)
+--   tried_before text[]              — offene Liste, bewusst ohne CHECK
+--   next_exam_date date, next_exam_topic text
+--   consent_dsgvo_at timestamptz, consent_dsgvo_by uuid → profiles
+--       — PFLICHT vor der LSA-Freigabe (lead_lsa_freigeben verweigert sonst).
+--   status-CHECK erweitert um 'lsa_freigegeben', 'lsa_fertig'.
+--
+-- RPCs [alle SECURITY DEFINER, search_path=public, revoke from public,
+--       grant to authenticated + service_role, Rollenpruefung im Body]:
+--   lead_lsa_freigeben(p_lead_id, p_grade, p_subject) → jsonb   [nur admin]
+--       Gates: Lead existiert (P0002), nicht converted (P0001),
+--       consent_dsgvo_at gesetzt (P0001). Legt idempotent den provisorischen
+--       Schueler an (GUC-Schleuse edvance.allow_provisional, transaktionslokal)
+--       und startet die Session ueber das UNVERAENDERTE public.lsa_start —
+--       kein Duplikat, kein Overload (A3-Invariante haelt).
+--       Setzt leads.status='lsa_freigegeben'.
+--       Rueckgabe: session_id, student_id, total_items.
+--   lead_convert(p_lead_id) → jsonb                              [nur admin]
+--       Datensatz-Flip: students.is_provisional=false + lead_id=null (eine
+--       spaetere Lead-Loeschung darf NIE den echten Schueler kaskadieren),
+--       leads.status='converted' + converted_student_id. Auth-Konto folgt
+--       separat (nicht Teil von S7).
+--   lead_delete(p_lead_id)                                       [nur admin]
+--       Logik unveraendert (a2); der TODO-Block ist eingeloest: die neue
+--       FK-Kaskade raeumt Schueler + LSA-Daten restlos mit ab.
+--   lead_assessment_upsert(p_lead_id, p_source, p_note, p_weak_topics)
+--       → jsonb                                             [coach + admin]
+--       Upsert auf (lead_id, source); source nur parent/child (23514).
+--       Reveal-Metadatum — NIE Input fuer lsa_start (A3-Invariante, inv_a3 +
+--       s7-Regression).
+--
+-- Trigger:
+--   students_guard_provisional_trg (before insert/update of is_provisional)
+--       — provisorische Zeilen entstehen NUR ueber lead_lsa_freigeben.
+--   subscriptions_guard_provisional_trg (student_subscriptions)
+--       — ein provisorischer Schueler traegt NIE ein Abo (P0001).
+--   lsa_session_lead_fertig_trg (lsa_sessions, after update of status)
+--       — Session eines provisorischen Schuelers completed → Lead auf
+--       'lsa_fertig'. Additiv; lsa_finish selbst bleibt byte-identisch.
+--
+-- Beweis: supabase/tests/s7_lead_lsa.test.sql (pgTAP, 38 Assertions).
+
+-- ============================================================================
 -- ENDE – konsolidiertes Schema (36 Tabellen, 26 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

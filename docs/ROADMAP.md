@@ -28,6 +28,13 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **S7 Lead→LSA-Backend gebaut** (Retro `2026-07-16-S7-lead-lsa.md`, Branch
+  `feat/S7-lead-lsa`): A1 Option 1 umgesetzt — provisorischer Schüler pro Lead
+  (`students.is_provisional` + `lead_id`-Kaskade), RPCs `lead_lsa_freigeben`
+  (DSGVO-Gate) / `lead_convert` / `lead_assessment_upsert`, Intake-Felder am Lead,
+  Guards (kein Abo, kein direkter Insert), Statistik-Schutz in `src/lib`.
+  **Offen:** pgTAP-Lauf (`npx supabase test db` — Docker war in der Session nicht
+  verfügbar) + Platz-Mechanik wartet auf Freigabe (`docs/specs/PLATZ-analyse.md`).
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
   - **C02 Grounded Rebuild abgeschlossen** (Retro `RETRO-C02.md`): VERA-Pool neu
     aufgebaut, jedes Feld mit `_grounding` belegt. **144 `ready`**, 74 `partial`,
