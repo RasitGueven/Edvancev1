@@ -132,11 +132,17 @@ select is(
   'select * from tasks: der Beleg steht in keiner Spalte'
 );
 
+-- §3.6(ii)/S9: das authenticated-Grant auf lsa_question_payload ist zurueck-
+-- gezogen (s9_platz_mechanik.test.sql pinnt die Nicht-Aufrufbarkeit). Der
+-- Inhalts-Vertrag wird deshalb im Definer-Kontext geprueft — die Assertion
+-- selbst ist unveraendert.
+reset role;
 select is(
   (select public.lsa_question_payload(:'tid_ready')::text like '%' || :'beleg_sent' || '%'),
   false,
   'lsa_question_payload gibt den Beleg nicht heraus'
 );
+set local role authenticated;
 
 -- ============================================================================
 -- C) Regression: die LSA haengt NICHT an der Policy (SECURITY DEFINER)

@@ -186,7 +186,10 @@ select lives_ok(
 -- ============================================================================
 -- B) Der Payload: strukturiert — und ohne Loesung
 -- ============================================================================
-set local role authenticated;
+-- §3.6(ii)/S9: das authenticated-Grant auf lsa_question_payload ist zurueck-
+-- gezogen (s9_platz_mechanik.test.sql pinnt die Nicht-Aufrufbarkeit). Der
+-- Inhalts-Vertrag wird deshalb im Definer-Kontext geprueft — die Assertions
+-- selbst sind unveraendert.
 select pg_temp.act_as(:'student_uid');
 
 -- Kein Pipe-Fliesstext mehr. headers und rows, feldgenau.
