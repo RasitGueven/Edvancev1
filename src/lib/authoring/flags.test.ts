@@ -18,6 +18,7 @@ const baseTask: AuthoringTask = {
   curriculum_grade: 7,
   parts: [],
   assets: [],
+  needs_image: null,
   question_payload: null,
   source: 'VERA8_IQB',
   source_ref: 'abc',

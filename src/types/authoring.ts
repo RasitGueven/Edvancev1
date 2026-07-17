@@ -37,6 +37,14 @@ export type TaskPart = {
   competency_content?: string | null
   competency_process?: string | null
   afb?: Afb | null
+  /**
+   * Braucht DIESE Teilaufgabe eine Abbildung? Didaktik, nicht Technik — getrennt
+   * vom Bild-Zustand der Assets (C10). NULL/undefined = noch nicht beurteilt,
+   * true/false = beurteilt. Fehlt das Feld in tasks.parts, gilt "nicht
+   * beurteilt" (A08). Bleibt beim Kind unsichtbar: lsa_public_parts reicht es
+   * nicht durch.
+   */
+  needs_image?: boolean | null
 }
 
 /** Eine tasks-Zeile, wie das Autoren-Tool sie sieht. */
@@ -56,6 +64,12 @@ export type AuthoringTask = {
   class_level: number | null
   parts: TaskPart[]
   assets: TaskAsset[]
+  /**
+   * Braucht der Stamm eine Abbildung? Didaktik, getrennt vom Bild-Zustand der
+   * Assets (C10-EMF-Befund). NULL = noch nicht beurteilt, true/false =
+   * beurteilt. Menschliche Fachentscheidung, keine Heuristik (A08).
+   */
+  needs_image: boolean | null
   question_payload: unknown | null
   source: string
   source_ref: string | null
@@ -82,6 +96,7 @@ export type AuthoringTaskPatch = {
   curriculum_grade?: number | null
   parts?: TaskPart[]
   assets?: TaskAsset[]
+  needs_image?: boolean | null
   question_payload?: unknown
 }
 

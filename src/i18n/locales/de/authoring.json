@@ -250,6 +250,16 @@
     "II": "AFB II — Zusammenhänge herstellen",
     "III": "AFB III — Verallgemeinern und reflektieren"
   },
+  "needsImage": {
+    "title": "Bild-Notwendigkeit",
+    "hint": "Didaktik, nicht Technik: Braucht die Aufgabe inhaltlich eine Abbildung? Getrennt vom Bild-Zustand darunter — hier zählt nur der Inhalt, nicht ob schon ein Bild da ist. Eine Fachentscheidung, kein Automatismus.",
+    "itemLabel": "Braucht diese Aufgabe eine Abbildung?",
+    "itemLabelMulti": "Braucht der Stamm eine Abbildung?",
+    "partLabel": "Teilaufgabe {{nr}}: braucht eine Abbildung?",
+    "open": "Noch nicht beurteilt",
+    "yes": "Braucht eine Abbildung",
+    "no": "Keine Abbildung nötig"
+  },
   "wizard": {
     "title": "Pflege-Strecke",
     "subtitle": "Ein Item nach dem anderen",
@@ -358,6 +368,8 @@
       "noAssetCaption": "kein Bild, reiner Text",
       "imageRefNoAsset": "Bildverweis ohne Bild",
       "imageRefNoAssetCaption": "Text nennt eine Abbildung, kein Asset da",
+      "needsImageUnjudged": "Bild-Notwendigkeit offen",
+      "needsImageUnjudgedCaption": "Bild-Signal da, aber noch nicht beurteilt",
       "statusCaption": "Items in diesem Status"
     },
     "marker": {
@@ -366,6 +378,7 @@
       "altMissing": "Bild ohne Alt-Text",
       "noAsset": "Kein Asset",
       "imageRefNoAsset": "Bildverweis ohne Bild",
+      "needsImageUnjudged": "Bild-Notwendigkeit nicht beurteilt",
       "clean": "Keine Mängel"
     },
     "path": {

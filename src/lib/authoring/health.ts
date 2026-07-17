@@ -14,6 +14,7 @@ export type HealthDefect =
   | 'altMissing'
   | 'noAsset'
   | 'imageRefNoAsset'
+  | 'needsImageUnjudged'
 
 /** Reihenfolge der Zählerkacheln — toter Pfad zuerst, das ist die eine Aktion. */
 export const DEFECT_ORDER: HealthDefect[] = [
@@ -22,6 +23,7 @@ export const DEFECT_ORDER: HealthDefect[] = [
   'altMissing',
   'noAsset',
   'imageRefNoAsset',
+  'needsImageUnjudged',
 ]
 
 /**
@@ -135,6 +137,16 @@ export function computeDefects(
   if (task.assets.length === 0) defects.add('noAsset')
   // Verdacht (kein Urteil): Text verweist auf ein Bild, das nicht als Asset da ist.
   if (imageRefFinding(task) != null) defects.add('imageRefNoAsset')
+  // A08: Bild-Notwendigkeit noch nicht beurteilt. Es gibt ein Bild-Signal —
+  // ein Verweis im Text ODER ein toter Pfad — aber niemand hat die didaktische
+  // Frage entschieden (needs_image ist NULL). Rein informativ, keine Automatik:
+  // die Beurteilung ist eine menschliche Fachentscheidung.
+  if (
+    task.needs_image == null &&
+    (imageRefFinding(task) != null || deadAssets(task).length > 0)
+  ) {
+    defects.add('needsImageUnjudged')
+  }
 
   return defects
 }
@@ -149,6 +161,7 @@ export function countDefects(items: { defects: Set<HealthDefect> }[]): DefectCou
     altMissing: 0,
     noAsset: 0,
     imageRefNoAsset: 0,
+    needsImageUnjudged: 0,
   }
   for (const item of items) {
     for (const defect of item.defects) counts[defect] += 1

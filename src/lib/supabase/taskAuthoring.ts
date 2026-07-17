@@ -46,6 +46,7 @@ const BASE_COLUMNS = [
   'class_level',
   'parts',
   'assets',
+  'needs_image',
   'question_payload',
   'source',
   'source_ref',

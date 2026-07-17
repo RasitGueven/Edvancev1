@@ -26,6 +26,7 @@ const baseTask: AuthoringTask = {
   curriculum_grade: 7,
   parts: [],
   assets: [],
+  needs_image: null,
   question_payload: null,
   source: 'VERA8_IQB',
   source_ref: 'abc',
@@ -82,6 +83,42 @@ describe('computeDefects', () => {
     expect(d.has('deadPath')).toBe(true)
     expect(d.has('altMissing')).toBe(true)
     expect(d.has('noAsset')).toBe(false)
+  })
+})
+
+describe('computeDefects — needsImageUnjudged (A08)', () => {
+  it('meldet offene Bild-Notwendigkeit bei Bildverweis ohne Beurteilung', () => {
+    const t = task({
+      question: 'Welcher Winkel ist in der Abbildung markiert?',
+      assets: [],
+      needs_image: null,
+    })
+    expect(computeDefects(t, true).has('needsImageUnjudged')).toBe(true)
+  })
+
+  it('meldet offene Bild-Notwendigkeit auch bei totem Pfad ohne Beurteilung', () => {
+    const t = task({ assets: [{ url: 'data/r01_render/s/1.png', alt: 'x' }], needs_image: null })
+    expect(computeDefects(t, true).has('needsImageUnjudged')).toBe(true)
+  })
+
+  it('ist beurteilt: needs_image=true schweigt trotz Bildverweis', () => {
+    const t = task({
+      question: 'Welcher Winkel ist in der Abbildung markiert?',
+      assets: [],
+      needs_image: true,
+    })
+    expect(computeDefects(t, true).has('needsImageUnjudged')).toBe(false)
+  })
+
+  it('ist beurteilt: needs_image=false schweigt trotz totem Pfad', () => {
+    const t = task({ assets: [{ url: 'data/r01_render/s/1.png', alt: 'x' }], needs_image: false })
+    expect(computeDefects(t, true).has('needsImageUnjudged')).toBe(false)
+  })
+
+  it('kein Bild-Signal, keine offene Bild-Notwendigkeit', () => {
+    // Reiner Text ohne Verweis, ohne totes Asset — nichts zu beurteilen.
+    const t = task({ question: 'Berechne 20 % von 80 m.', assets: [], needs_image: null })
+    expect(computeDefects(t, true).has('needsImageUnjudged')).toBe(false)
   })
 })
 

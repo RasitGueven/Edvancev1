@@ -327,9 +327,18 @@ export function PflegeWizardPage(): JSX.Element {
               <StepImages
                 task={task}
                 assets={state.assets}
+                needsImage={state.needs_image}
+                parts={state.parts}
                 imageRef={imageRef}
                 canWrite={canWrite}
                 onAssets={(next) => set('assets', next)}
+                onNeedsImage={(next) => set('needs_image', next)}
+                onPart={(i, next) =>
+                  set(
+                    'parts',
+                    state.parts.map((p, j) => (j === i ? { ...p, needs_image: next } : p)),
+                  )
+                }
               />
             )}
             {step === 'solution' && (

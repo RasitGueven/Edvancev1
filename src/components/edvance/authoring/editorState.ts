@@ -43,6 +43,12 @@ export type FormState = {
   curriculum_grade: string
   parts: TaskPart[]
   assets: TaskAsset[]
+  /**
+   * Didaktik: Braucht der Stamm eine Abbildung? NULL = noch nicht beurteilt,
+   * true/false = beurteilt (A08). Getrennt von `assets` — das ist die Technik.
+   * Die Teilaufgaben tragen ihre eigene Beurteilung in `parts[i].needs_image`.
+   */
+  needs_image: boolean | null
   /** Optionen bei flachem MC (liegen in tasks.question_payload.options). */
   mcOptions: PartOption[]
   /**
@@ -114,6 +120,7 @@ export function fromTask(task: AuthoringTask, solution: TaskSolution): FormState
     curriculum_grade: task.curriculum_grade != null ? String(task.curriculum_grade) : '',
     parts: task.parts.map((p) => ({ ...p })),
     assets: task.assets.map((a) => ({ ...a })),
+    needs_image: task.needs_image ?? null,
     mcOptions: optionsFromPayload(task.question_payload),
     table: tableFromPayload(task.question_payload),
     answers: flat,
@@ -149,6 +156,8 @@ export function toPatch(state: FormState): AuthoringTaskPatch {
     // tasks_multipart_check verlangt parts = '[]' bei flachen Items.
     parts: multi ? normalizeParts(state.parts) : [],
     assets: state.assets.filter((a) => a.url.trim() !== ''),
+    // Didaktik-Beurteilung des Stamms. null = nicht beurteilt bleibt null.
+    needs_image: state.needs_image,
     question_payload: buildPayload(state),
   }
 }
@@ -183,6 +192,12 @@ export function normalizeParts(parts: TaskPart[]): TaskPart[] {
     }
     if (part.kind === 'mc') {
       clean.options = (part.options ?? []).filter((o) => o.label.trim() !== '')
+    }
+    // Nur eine ECHTE Beurteilung schreiben. null/undefined = nicht beurteilt →
+    // Feld weglassen (NULL-Semantik in tasks.parts, A08). Ein `needs_image:null`
+    // im jsonb waere ein anderes Ding als "Feld fehlt".
+    if (part.needs_image === true || part.needs_image === false) {
+      clean.needs_image = part.needs_image
     }
     return clean
   })

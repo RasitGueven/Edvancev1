@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { AnswerSection } from '@/components/edvance/authoring/AnswerSection'
-import { AssetsSection } from '@/components/edvance/authoring/AssetsSection'
+import { AssetsBlock } from '@/components/edvance/authoring/AssetsBlock'
 import { FlagList } from '@/components/edvance/authoring/FlagList'
 import { GroundingPanel } from '@/components/edvance/authoring/GroundingPanel'
 import { PartsEditor } from '@/components/edvance/authoring/PartsEditor'
@@ -306,14 +306,7 @@ export function AuthoringEditorPage(): JSX.Element {
               <PedagogySection state={state} set={set} beleg={beleg} />
             </Section>
 
-<Section title={t('sections.assets')} collapsible defaultOpen={false}>
-  <AssetsSection
-    assets={state.assets}
-    onChange={(next) => set('assets', next)}
-    taskId={task.id}
-    canWrite={canWrite}
-  />
-</Section>
+            <AssetsBlock state={state} set={set} taskId={task.id} multi={multi} canWrite={canWrite} />
 
             <GroundingPanel source={task.source} sourceRef={task.source_ref} />
           </div>

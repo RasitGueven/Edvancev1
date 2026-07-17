@@ -72,7 +72,7 @@ export function HealthOverview({
         <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('health.overview.defects')}
         </h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {DEFECT_ORDER.map((defect) => (
             <Tile
               key={defect}
