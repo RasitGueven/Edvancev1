@@ -306,9 +306,14 @@ export function AuthoringEditorPage(): JSX.Element {
               <PedagogySection state={state} set={set} beleg={beleg} />
             </Section>
 
-            <Section title={t('sections.assets')} collapsible defaultOpen={false}>
-              <AssetsSection assets={state.assets} onChange={(next) => set('assets', next)} />
-            </Section>
+<Section title={t('sections.assets')} collapsible defaultOpen={false}>
+  <AssetsSection
+    assets={state.assets}
+    onChange={(next) => set('assets', next)}
+    taskId={task.id}
+    canWrite={canWrite}
+  />
+</Section>
 
             <GroundingPanel source={task.source} sourceRef={task.source_ref} />
           </div>
