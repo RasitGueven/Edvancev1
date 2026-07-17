@@ -1,38 +1,10 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
+import { cn } from '@/lib/utils'
+import { EdvanceCard } from '@/components/edvance'
 import type { AdminStats } from '@/lib/supabase/adminStats'
 
-type TileAccent = 'primary' | 'success' | 'warning' | 'levelup' | 'repair'
 type TileSize = 'sm' | 'wide' | 'lg'
-
-const ACCENT_CLS: Record<TileAccent, { chip: string; text: string; cta: string }> = {
-  primary: {
-    chip: 'bg-[color-mix(in_srgb,var(--color-primary)_14%,white)] text-[var(--color-primary)]',
-    text: 'text-[var(--color-primary)]',
-    cta: 'bg-[var(--color-primary)]',
-  },
-  success: {
-    chip: 'bg-[color-mix(in_srgb,var(--color-success)_14%,white)] text-[var(--color-success)]',
-    text: 'text-[var(--color-success)]',
-    cta: 'bg-[var(--color-success)]',
-  },
-  warning: {
-    chip: 'bg-[color-mix(in_srgb,var(--color-gold-warning)_14%,white)] text-[var(--color-gold-warning)]',
-    text: 'text-[var(--color-gold-warning)]',
-    cta: 'bg-[var(--color-gold-warning)]',
-  },
-  levelup: {
-    chip: 'bg-[color-mix(in_srgb,var(--color-primary)_14%,white)] text-[var(--color-primary)]',
-    text: 'text-[var(--color-primary)]',
-    cta: 'bg-[var(--color-primary)]',
-  },
-  repair: {
-    chip: 'bg-[color-mix(in_srgb,var(--color-moment-repair-purple)_14%,white)] text-[var(--color-moment-repair-purple)]',
-    text: 'text-[var(--color-moment-repair-purple)]',
-    cta: 'bg-[var(--color-moment-repair-purple)]',
-  },
-}
 
 const SIZE_CLASS: Record<TileSize, string> = {
   sm: 'col-span-1',
@@ -48,7 +20,7 @@ function KpiCell({ kpi, loading }: { kpi: Kpi; loading: boolean }): JSX.Element 
       {loading ? (
         <span className="h-8 w-14 rounded-[var(--radius-md)] bg-white/20 animate-skeleton" />
       ) : (
-        <span className="text-3xl font-bold leading-none">{kpi.value}</span>
+        <span className="font-serif text-3xl font-semibold leading-none">{kpi.value}</span>
       )}
       <span className="text-xs font-semibold uppercase tracking-widest text-white/70">
         {kpi.label}
@@ -74,7 +46,7 @@ export function AdminKpiBar({
     <EdvanceCard variant="hero-student" className="animate-fade-in">
       <div className="flex flex-col gap-5">
         <div className="flex items-center justify-between gap-4">
-          <p className="text-xs font-semibold uppercase tracking-widest text-white/70">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[color-mix(in_srgb,var(--color-stage-gold-edge)_85%,white)]">
             Überblick
           </p>
           <span className="text-xs text-white/60">Stand: gerade eben</span>
@@ -89,20 +61,15 @@ export function AdminKpiBar({
   )
 }
 
-type TileBadge = {
-  label: string
-  variant: 'primary' | 'success' | 'warning' | 'destructive' | 'muted'
-}
-
 export type AdminTileProps = {
   to: string
   icon: ReactNode
   title: string
   description?: string
-  accent?: TileAccent
   size?: TileSize
   stat?: { value: number; caption: string } | null
-  badge?: TileBadge | null
+  /** Kleiner Gold-Hinweis (z. B. „3 neu") — als Text, keine Pill. */
+  flag?: string | null
   cta?: string | null
   loading?: boolean
 }
@@ -112,50 +79,61 @@ export function AdminTile({
   icon,
   title,
   description = '',
-  accent = 'primary',
   size = 'sm',
   stat = null,
-  badge = null,
+  flag = null,
   cta = null,
   loading = false,
 }: AdminTileProps): JSX.Element {
-  const cls = ACCENT_CLS[accent]
+  // Die eine prominente Kachel (Autoren-Tool) ist die große: warme Gold-Kante.
+  const prominent = size === 'lg'
 
   return (
     <Link
       to={to}
-      className={`${SIZE_CLASS[size]} block min-h-[44px] transition-transform duration-200 hover:-translate-y-1`}
+      className={`${SIZE_CLASS[size]} block min-h-[44px]`}
     >
-      <EdvanceCard className="flex h-full flex-col justify-between gap-4">
+      <EdvanceCard
+        variant="admin-tile"
+        className={cn(
+          'flex h-full flex-col justify-between gap-4',
+          prominent && 'admin-tile-primary',
+        )}
+      >
         <div className="flex items-start justify-between gap-3">
           <span
-            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)] ${cls.chip}`}
+            className="admin-icon-tile flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)]"
             aria-hidden="true"
           >
             {icon}
           </span>
-          {badge && <EdvanceBadge variant={badge.variant}>{badge.label}</EdvanceBadge>}
+          {flag && (
+            <span className="text-xs font-semibold text-[var(--color-accent)]">{flag}</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1.5">
           {stat &&
             (loading ? (
-              <span className="h-9 w-16 rounded-[var(--radius-md)] bg-[var(--color-border)] animate-skeleton" />
+              <span className="h-9 w-16 rounded-[var(--radius-md)] bg-white/15 animate-skeleton" />
             ) : (
-              <span className={`text-3xl font-bold leading-none ${cls.text}`}>
+              <span className="font-serif text-3xl font-semibold leading-none text-[var(--color-stage-gold-edge)]">
                 {stat.value}
               </span>
             ))}
-          <span className="text-base font-semibold text-[var(--color-text-primary)]">
+          <span
+            className={cn(
+              'font-semibold text-[var(--color-stage-text)]',
+              prominent ? 'font-serif text-xl' : 'text-base',
+            )}
+          >
             {title}
           </span>
-          <span className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+          <span className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--color-stage-text)_56%,transparent)]">
             {stat ? stat.caption : description}
           </span>
           {cta && (
-            <span
-              className={`mt-3 inline-flex w-fit items-center gap-1.5 rounded-[var(--radius-full)] px-4 py-2 text-sm font-semibold text-white ${cls.cta}`}
-            >
+            <span className="admin-cta-gold mt-3 inline-flex w-fit items-center gap-1.5 rounded-[var(--radius-full)] px-4 py-2 text-sm font-semibold">
               {cta}
               <span aria-hidden="true">→</span>
             </span>

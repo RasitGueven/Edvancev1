@@ -11,17 +11,17 @@
 import { useCallback, useEffect, useMemo, useState, type JSX } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Eye } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { AnswerSection } from '@/components/edvance/authoring/AnswerSection'
 import { AssetsSection } from '@/components/edvance/authoring/AssetsSection'
-import { AuthoringPreview } from '@/components/edvance/authoring/AuthoringPreview'
 import { FlagList } from '@/components/edvance/authoring/FlagList'
 import { GroundingPanel } from '@/components/edvance/authoring/GroundingPanel'
 import { PartsEditor } from '@/components/edvance/authoring/PartsEditor'
 import { PedagogySection } from '@/components/edvance/authoring/PedagogySection'
+import { PreviewModal } from '@/components/edvance/authoring/PreviewModal'
 import { ReleaseGate } from '@/components/edvance/authoring/ReleaseGate'
 import { SaveBar } from '@/components/edvance/authoring/SaveBar'
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
@@ -69,6 +69,7 @@ export function AuthoringEditorPage(): JSX.Element {
   const [clusters, setClusters] = useState<AuthoringCluster[]>([])
   const [reviewerName, setReviewerName] = useState<string | null>(null)
 
+  const [previewOpen, setPreviewOpen] = useState(false)
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
   const [loadError, setLoadError] = useState<string | null>(null)
@@ -146,7 +147,7 @@ export function AuthoringEditorPage(): JSX.Element {
   // und nicht weniger.
   const previewDraft = useMemo(() => (state ? toPatch(state) : null), [state])
 
-  const blockingCount = flags.filter((f) => f.blocking).length
+  const blockingFlags = useMemo(() => flags.filter((f) => f.blocking), [flags])
 
   const competencies = useMemo(() => {
     const set2 = new Set<string>()
@@ -216,7 +217,7 @@ export function AuthoringEditorPage(): JSX.Element {
   const multi = isMultiPart(state)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('page.editorSubtitle')} sticky />
       <main className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-32 pt-6">
         <Link
@@ -230,7 +231,7 @@ export function AuthoringEditorPage(): JSX.Element {
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
           <div className="flex flex-col gap-6">
-            <Section title={t('sections.stem')}>
+            <Section title={t('sections.stem')} collapsible>
               <Field label={t('fields.title')}>
                 <Input
                   value={state.title}
@@ -248,7 +249,7 @@ export function AuthoringEditorPage(): JSX.Element {
               </Field>
             </Section>
 
-            <Section title={t('sections.type')}>
+            <Section title={t('sections.type')} collapsible>
               <div className="flex flex-wrap gap-2">
                 {INPUT_TYPES.map((type) => (
                   <button
@@ -275,7 +276,7 @@ export function AuthoringEditorPage(): JSX.Element {
             </Section>
 
             {multi ? (
-              <Section title={t('sections.parts')}>
+              <Section title={t('sections.parts')} collapsible>
                 <PartsEditor
                   parts={state.parts}
                   partAnswers={state.partAnswers}
@@ -285,12 +286,12 @@ export function AuthoringEditorPage(): JSX.Element {
                 />
               </Section>
             ) : (
-              <Section title={t('sections.answer')}>
+              <Section title={t('sections.answer')} collapsible>
                 <AnswerSection state={state} set={set} />
               </Section>
             )}
 
-            <Section title={t('sections.tags')}>
+            <Section title={t('sections.tags')} collapsible defaultOpen={false}>
               <TagsSection
                 state={state}
                 set={set}
@@ -301,35 +302,46 @@ export function AuthoringEditorPage(): JSX.Element {
               />
             </Section>
 
-            <Section title={t('sections.pedagogy')}>
+            <Section title={t('sections.pedagogy')} collapsible defaultOpen={false}>
               <PedagogySection state={state} set={set} beleg={beleg} />
             </Section>
 
-            <Section title={t('sections.assets')}>
-              <AssetsSection
-                assets={state.assets}
-                onChange={(next) => set('assets', next)}
-                taskId={task.id}
-                canWrite={canWrite}
-              />
-            </Section>
+<Section title={t('sections.assets')} collapsible defaultOpen={false}>
+  <AssetsSection
+    assets={state.assets}
+    onChange={(next) => set('assets', next)}
+    taskId={task.id}
+    canWrite={canWrite}
+  />
+</Section>
 
             <GroundingPanel source={task.source} sourceRef={task.source_ref} />
           </div>
 
           <div className="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
-            {id && previewDraft && (
-              <AuthoringPreview taskId={id} draft={previewDraft} dirty={dirty} />
-            )}
+            <button
+              type="button"
+              onClick={() => setPreviewOpen(true)}
+              className="flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-3 text-sm font-semibold text-[var(--color-text-primary)] shadow-card transition hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+            >
+              <Eye className="h-4 w-4" aria-hidden="true" />
+              {t('preview.open')}
+              {dirty && (
+                <span
+                  className="ml-1 h-2 w-2 rounded-full bg-[var(--color-gold-warning)]"
+                  aria-hidden="true"
+                />
+              )}
+            </button>
 
-            <Section title={t('sections.flags')}>
+            <Section title={t('sections.flags')} collapsible defaultOpen={false}>
               <FlagList flags={flags} />
             </Section>
 
             <Section title={t('sections.release')}>
               <ReleaseGate
                 status={task.status}
-                blockingCount={blockingCount}
+                blocking={blockingFlags}
                 dirty={dirty}
                 busy={busy}
                 canWrite={canWrite}
@@ -343,6 +355,16 @@ export function AuthoringEditorPage(): JSX.Element {
           </div>
         </div>
       </main>
+
+      {id && previewDraft && (
+        <PreviewModal
+          open={previewOpen}
+          onClose={() => setPreviewOpen(false)}
+          taskId={id}
+          draft={previewDraft}
+          dirty={dirty}
+        />
+      )}
 
       <SaveBar
         dirty={dirty}
@@ -362,7 +384,7 @@ export function AuthoringEditorPage(): JSX.Element {
 function Shell({ children }: { children: JSX.Element }): JSX.Element {
   const { t } = useTranslation('authoring')
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('page.editorSubtitle')} sticky />
       <main className="mx-auto max-w-7xl px-4 py-8">{children}</main>
     </div>

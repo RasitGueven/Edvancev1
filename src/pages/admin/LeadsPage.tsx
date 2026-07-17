@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { EdvanceCard, EdvanceBadge, EmptyState, LoadingPulse } from '@/components/edvance'
+import {
+  AdminHeader,
+  EdvanceCard,
+  EdvanceBadge,
+  EmptyState,
+  LoadingPulse,
+} from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { listLeads, updateLead } from '@/lib/supabase/leads'
 import { provisionStudent } from '@/lib/supabase/provision'
@@ -17,6 +22,8 @@ const STATUS_LABEL: Record<LeadStatus, string> = {
   onboarding_scheduled: 'Onboarding geplant',
   converted: 'Konvertiert',
   rejected: 'Abgelehnt',
+  lsa_freigegeben: 'LSA freigegeben',
+  lsa_fertig: 'LSA fertig',
 }
 
 const STATUS_VARIANT: Record<LeadStatus, 'primary' | 'warning' | 'success' | 'muted'> = {
@@ -25,6 +32,8 @@ const STATUS_VARIANT: Record<LeadStatus, 'primary' | 'warning' | 'success' | 'mu
   onboarding_scheduled: 'warning',
   converted: 'success',
   rejected: 'muted',
+  lsa_freigegeben: 'primary',
+  lsa_fertig: 'success',
 }
 
 function nextActions(status: LeadStatus): { label: string; next: LeadStatus }[] {
@@ -100,25 +109,23 @@ export function LeadsPage(): JSX.Element {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle="Leads" sticky />
       <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <Link
-              to="/admin"
-              className="mb-2 flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
+        <AdminHeader
+          eyebrow="Vertrieb"
+          title="Leads"
+          description="Interessenten erfassen, qualifizieren und in Schüler konvertieren."
+          actions={
+            <button
+              type="button"
+              onClick={() => setShowForm((v) => !v)}
+              className="admin-cta-gold inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--radius-full)] px-4 text-sm font-semibold"
             >
-              <ArrowLeft className="h-4 w-4" /> Admin
-            </Link>
-            <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Leads</h1>
-          </div>
-          <Button onClick={() => setShowForm((v) => !v)}>
-            <span className="flex items-center gap-1.5">
               <Plus className="h-4 w-4" /> {showForm ? 'Schließen' : 'Neuer Lead'}
-            </span>
-          </Button>
-        </div>
+            </button>
+          }
+        />
 
         {showForm && (
           <LeadCreateForm

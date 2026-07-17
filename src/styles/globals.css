@@ -110,6 +110,10 @@
   --color-info:                       var(--color-primary);
   --color-info-light:                 var(--color-primary-light);
 
+  /* Typografie — Marken-Fonts als Utilities (font-serif / font-body) */
+  --font-serif:                       var(--font-serif);
+  --font-body:                        var(--font-body);
+
   /* Timing & Easing — für Tailwind-Utilities duration-* und ease-* */
   --transition-duration-instant:      100ms;
   --transition-duration-fast:         150ms;
@@ -243,6 +247,62 @@
     background-color: var(--color-error-exam);
     color: var(--color-bg-surface);
     border-color: var(--color-error-exam);
+  }
+}
+
+/* ─── Admin „Midnight Academy" ─ Bühne + Kacheln (matt, KEIN Glow) ────────────────
+   Die Admin-Oberfläche leiht sich die Schüler-Sprache: der EINE benannte
+   Midnight-Gradient (var(--gradient-midnight)) als Bühne, warme Off-White-Typo
+   (reuse der .text-warm*-Utilities), navy Kacheln mit warmer Gold-Kante. Bewusst
+   matt — kein Glow wie die Schüler-CTA-Karte. Alle Farben aus Tokens; inline nur
+   weiße Material-Alphas (Kanten/Highlights) wie in session.css. */
+@layer utilities {
+  .admin-stage {
+    --session-text:    var(--color-stage-text);
+    --session-text-72: color-mix(in srgb, var(--color-stage-text) 72%, transparent);
+    --session-text-56: color-mix(in srgb, var(--color-stage-text) 56%, transparent);
+    --session-text-42: color-mix(in srgb, var(--color-stage-text) 42%, transparent);
+    color: var(--session-text);
+    background: var(--gradient-midnight);
+    background-attachment: fixed;
+  }
+
+  /* Navy-Kachel auf der Bühne: matt, ruhige Elevation, warme Oberkante. */
+  .admin-tile {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-stage-cta-top) 46%, transparent),
+      color-mix(in srgb, var(--color-stage-cta-bottom) 38%, transparent)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top-color: rgba(255, 255, 255, 0.20);
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+  .admin-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
+  }
+  /* Prominente Kachel (Autoren-Tool): warme Gold-Kante — matt, kein Glow. */
+  .admin-tile-primary {
+    border-color: color-mix(in srgb, var(--color-stage-gold-edge) 34%, transparent);
+    border-top-color: color-mix(in srgb, var(--color-stage-warm-highlight) 30%, transparent);
+  }
+  /* Gold-getöntes Icon-Tile — matt. */
+  .admin-icon-tile {
+    background: color-mix(in srgb, var(--color-stage-gold-edge) 18%, transparent);
+    color: var(--color-accent);
+    box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--color-stage-gold-edge) 40%, transparent);
+  }
+  /* Matte Gold-CTA — nur auf dunklen Flächen (Button-Farblogik). */
+  .admin-cta-gold {
+    background: var(--color-gold-altgold);
+    color: var(--color-navy-deep);
+    transition: background var(--duration-base) var(--ease-out);
+  }
+  .admin-cta-gold:hover {
+    background: var(--color-gold-champagner);
   }
 }
 

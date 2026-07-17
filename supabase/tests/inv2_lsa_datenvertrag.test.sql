@@ -124,6 +124,11 @@ select throws_ok(
 -- Zweite Schicht: das, was tatsaechlich rausgeht. Der Builder liest aus einem
 -- question_payload, in dem die Loesung DRIN steht (Fixture oben) — und darf
 -- sie trotzdem nicht mitschleppen.
+-- §3.6(ii)/S9: das authenticated-Grant auf lsa_question_payload ist zurueck-
+-- gezogen (s9_platz_mechanik.test.sql pinnt die Nicht-Aufrufbarkeit). Der
+-- Inhalts-Vertrag wird deshalb im Definer-Kontext geprueft — die Assertions
+-- selbst sind unveraendert.
+reset role;
 select is(
   (select public.lsa_question_payload(:'t_mc') ?| array['correct','accepted','solution','hints','typical_errors','correct_answers']),
   false,
@@ -145,6 +150,7 @@ select is(
 -- ============================================================================
 -- Die LSA-Schleife: der Schueler bekommt kein Richtig/Falsch
 -- ============================================================================
+set local role authenticated;
 select lives_ok(
   format($f$select public.lsa_start(%L, 8, 'Mathematik')$f$, :'sid'),
   'lsa_start: der Schueler darf seine eigene LSA starten'

@@ -1896,5 +1896,144 @@ on conflict (id) do nothing;
 --   unveraendert.
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (36 Tabellen, 26 Funktionen, 2 Enums, 1 Trigger).
+-- 19. S7 – LEAD→LSA: PROVISORISCHES SCHUELERKONTO (A1 OPTION 1) + INTAKE-FELDER
+--     (supabase/migrations/20260716100000_s7_lead_lsa.sql)
+--     Baut auf S5/Ebene A auf: lead_assessments (a3), lead_delete (a2),
+--     tasks.is_tutorial (a4) — siehe die jeweiligen Migrationen.
+-- ============================================================================
+--
+-- students (Spalten, additiv — P01-Datenvertrag byte-identisch):
+--   is_provisional boolean not null default false
+--       Provisorischer Lead-Schueler: profile_id NULL, kein Auth-Konto, kein
+--       Abo. Zaehlt NIRGENDS als Schueler — jedes Aggregat filtert
+--       is_provisional=false (src/lib: adminStats, listStudents*).
+--   lead_id uuid references leads(id) on delete cascade
+--       Der Loeschanker: lead_delete kaskadiert
+--       leads → students(lead_id) → lsa_sessions → lsa_responses (DSGVO).
+--   CHECK students_provisional_lead_ck: is_provisional = (lead_id is not null).
+--   UNIQUE students_lead_unique on (lead_id) where lead_id is not null
+--       — genau ein provisorischer Schueler pro Lead (Idempotenz-Anker).
+--
+-- leads (Spalten, Teil B — Fragenkatalog Erstgespraech, KEINE Diagnose-Felder):
+--   first_name text                  — Rufname („Hi <Name>" auf dem Tablet)
+--   birth_date date, last_grade text
+--   grade_trend text                 — CHECK in (besser, stabil, schlechter)
+--   struggling_since text            — CHECK in (dieses_halbjahr,
+--                                      letztes_schuljahr, laenger)
+--   tried_before text[]              — offene Liste, bewusst ohne CHECK
+--   next_exam_date date, next_exam_topic text
+--   consent_dsgvo_at timestamptz, consent_dsgvo_by uuid → profiles
+--       — PFLICHT vor der LSA-Freigabe (lead_lsa_freigeben verweigert sonst).
+--   status-CHECK erweitert um 'lsa_freigegeben', 'lsa_fertig'.
+--
+-- RPCs [alle SECURITY DEFINER, search_path=public, revoke from public,
+--       grant to authenticated + service_role, Rollenpruefung im Body]:
+--   lead_lsa_freigeben(p_lead_id, p_grade, p_subject) → jsonb   [nur admin]
+--       Gates: Lead existiert (P0002), nicht converted (P0001),
+--       consent_dsgvo_at gesetzt (P0001). Legt idempotent den provisorischen
+--       Schueler an (GUC-Schleuse edvance.allow_provisional, transaktionslokal)
+--       und startet die Session ueber das UNVERAENDERTE public.lsa_start —
+--       kein Duplikat, kein Overload (A3-Invariante haelt).
+--       Setzt leads.status='lsa_freigegeben'.
+--       Rueckgabe: session_id, student_id, total_items.
+--   lead_convert(p_lead_id) → jsonb                              [nur admin]
+--       Datensatz-Flip: students.is_provisional=false + lead_id=null (eine
+--       spaetere Lead-Loeschung darf NIE den echten Schueler kaskadieren),
+--       leads.status='converted' + converted_student_id. Auth-Konto folgt
+--       separat (nicht Teil von S7).
+--   lead_delete(p_lead_id)                                       [nur admin]
+--       Logik unveraendert (a2); der TODO-Block ist eingeloest: die neue
+--       FK-Kaskade raeumt Schueler + LSA-Daten restlos mit ab.
+--   lead_assessment_upsert(p_lead_id, p_source, p_note, p_weak_topics)
+--       → jsonb                                             [coach + admin]
+--       Upsert auf (lead_id, source); source nur parent/child (23514).
+--       Reveal-Metadatum — NIE Input fuer lsa_start (A3-Invariante, inv_a3 +
+--       s7-Regression).
+--
+-- Trigger:
+--   students_guard_provisional_trg (before insert/update of is_provisional)
+--       — provisorische Zeilen entstehen NUR ueber lead_lsa_freigeben.
+--   subscriptions_guard_provisional_trg (student_subscriptions)
+--       — ein provisorischer Schueler traegt NIE ein Abo (P0001).
+--   lsa_session_lead_fertig_trg (lsa_sessions, after update of status)
+--       — Session eines provisorischen Schuelers completed → Lead auf
+--       'lsa_fertig'. Additiv; lsa_finish selbst bleibt byte-identisch.
+--
+-- Beweis: supabase/tests/s7_lead_lsa.test.sql (pgTAP, 38 Assertions).
+
+-- ============================================================================
+-- 20. S9 – PLATZ-MECHANIK: KIOSK FUER DIE LSA (Option 3, docs/specs/PLATZ-analyse.md)
+--     (supabase/migrations/20260716110000_s9_platz_mechanik.sql)
+--     Eingrenzung verbindlich: NUR die LSA. Ein Platz erreicht ausschliesslich
+--     die ihm aktuell zugewiesene Session — nie Hub, XP, student_progress,
+--     fremde oder vergangene Sessions. P01-Datenvertrag byte-identisch
+--     (einzige bewusste Ausnahme: das GRANT von lsa_question_payload, s.u.).
+-- ============================================================================
+--
+-- platz_devices (Tabelle):
+--   profile_id uuid PK → profiles on delete cascade, label text, created_at
+--       Kennzeichnung der Kiosk-Konten. Ein Platz ist ein normaler Auth-User
+--       mit role='student' OHNE students-Zeile — strukturell „nichts"
+--       (get_my_student_id()=null → alle lsa_* verweigern). KEINE neue Rolle,
+--       kein CHECK-Umbau. RLS: admin all; der Platz liest die eigene Zeile.
+--
+-- platz_assignments (Tabelle):
+--   id PK, platz_profile_id → platz_devices, session_id → lsa_sessions,
+--   created_by uuid → profiles (Auftrags-Identitaet: der zuweisende Admin),
+--   created_at, expires_at (default now()+2h), released_at
+--       SESSION-scoped (nicht schueler-scoped): vergangene/parallele Sessions
+--       desselben Kindes sind nicht adressierbar. Aktiv = released_at null UND
+--       expires_at > now() — in JEDER RPC geprueft (Analyse §3.4).
+--       Partial-Unique (platz_profile_id) where released_at is null.
+--       RLS: admin all; der Platz liest NUR die eigene aktive Zeile.
+--
+-- RPCs [alle SECURITY DEFINER, search_path=public, revoke from public,
+--       Rollen-/Kontext-Pruefung im Body]:
+--   platz_current_assignment() → platz_assignments   [intern, nur service_role]
+--       Die EINE aktive, nicht abgelaufene Zuweisung von auth.uid().
+--   platz_assign(p_platz_profile_id, p_session_id) → jsonb        [nur admin]
+--       Gates: platz_devices-Zeile (P0002), Session in_progress (P0001),
+--       keine aktive Zuweisung (P0001). Raeumt abgelaufene Alt-Zeilen
+--       (Partial-Unique). Schreibt created_by fest.
+--   platz_release(p_assignment_id) → jsonb                        [nur admin]
+--       Manuelle Freigabe, idempotent; P0002 bei unbekannter Zuweisung.
+--   platz_state() → jsonb                                     [nur Platz-Konto]
+--       Kiosk-Poll: {status:'wartet'} | {status:'zugewiesen', first_name
+--       (session → students.lead_id → leads.first_name), progress, expires_at}.
+--       Traegt NIE session_id/student_id/lead_id/Auswertung.
+--   platz_next() → jsonb                                      [nur Platz-Konto]
+--       Naechstes offenes Item der ZUGEWIESENEN Session, Payload aus dem
+--       UNVERAENDERTEN lsa_question_payload. Kein Parameter von aussen.
+--   platz_submit(p_task_id, p_response, p_duration_ms) → jsonb [nur Platz-Konto]
+--       Validiert p_task_id = aktuell offenes Item, reicht an das
+--       UNVERAENDERTE lsa_submit durch — mit der Auftrags-Identitaet
+--       created_by (transaktionslokaler Claims-Tausch, in derselben Funktion
+--       geschlossen). Rueckgabe {ok, next} — kein Richtig/Falsch.
+--   platz_finish() → jsonb                                    [nur Platz-Konto]
+--       Ruft das UNVERAENDERTE lsa_finish und VERWIRFT dessen Auswertung —
+--       Rueckgabe exakt {ok:true}.
+--
+-- Trigger:
+--   lsa_session_platz_release_trg (lsa_sessions, after update of status)
+--       — completed ODER aborted → alle offenen Zuweisungen der Session
+--       released. Additiv; lsa_finish bleibt byte-identisch.
+--
+-- Grant-Aenderung (§3.6(ii) der Analyse, bewusst gewaehlt):
+--   revoke execute on lsa_question_payload from authenticated — der Builder
+--   ist nur noch ueber seine Tore erreichbar (lsa_start/lsa_submit intern,
+--   task_preview_payload fuer Coach/Admin, platz_next fuer den Platz).
+--   Kein Client ruft ihn direkt (verifiziert: kein .rpc(...) in src/**).
+--   Die inv2/3/5/6/7/8-Tests pruefen den Inhalts-Vertrag seither im
+--   Definer-Kontext; die Nicht-Aufrufbarkeit pinnt s9_platz_mechanik.test.sql.
+--
+-- Beweis: supabase/tests/s9_platz_mechanik.test.sql (pgTAP, 69 Assertions):
+--   (1) Platz ohne Zuweisung: 'wartet', alle lsa_* → 42501, RLS zeigt 0 Zeilen
+--   (Anti-Vakuum inklusive); (2) mit Zuweisung: genau die EINE Session, die
+--   zweite ist ueber keinen Parameter erreichbar, lsa_* bleiben auch dann zu;
+--   (3) nach lsa_finish / expires_at / platz_release / abort faellt alles auf
+--   'wartet'/42501 zurueck; plus P01-Regression (keine lsa_*-Funktion kennt
+--   'platz', kein Overload, anon ohne jedes Grant).
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (38 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

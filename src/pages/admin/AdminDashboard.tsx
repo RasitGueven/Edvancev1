@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react'
 import {
-  BookOpen,
   CalendarClock,
-  CreditCard,
-  FlaskConical,
-  GraduationCap,
+  HeartPulse,
   Inbox,
-  LayoutGrid,
-  ListChecks,
   PenLine,
   UserPlus,
   Users,
-  Zap,
 } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import {
@@ -42,134 +36,78 @@ export function AdminDashboard(): JSX.Element {
   const leadsNew = stats?.leadsNew ?? 0
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-screen flex-col bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle="Admin" />
 
-      <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10">
-        <header className="flex flex-col gap-1 animate-fade-in">
-          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
-            Übersicht
-          </h1>
-          <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            Steuere Onboarding, Leads, Tarife und Inhalte an einem Ort.
-          </p>
-        </header>
+      {/* Midnight-Bühne — die Schüler-Sprache trägt jetzt auch die Verwaltung. */}
+      <div className="admin-stage flex-1">
+        <main className="relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6">
+          <header className="flex flex-col gap-2 animate-fade-in">
+            <p className="text-eyebrow text-[color-mix(in_srgb,var(--color-stage-gold-edge)_85%,white)]">
+              Edvance · Verwaltung
+            </p>
+            <h1 className="font-serif text-4xl font-semibold leading-tight text-warm">
+              Übersicht
+            </h1>
+            <p className="max-w-xl text-sm leading-relaxed text-warm-72">
+              Steuere Inhalte, Leads, Stundenplan und Coaches an einem Ort.
+            </p>
+          </header>
 
-        <AdminKpiBar stats={stats} loading={loading} />
+          <AdminKpiBar stats={stats} loading={loading} />
 
-        <AdminTileGrid>
-          <AdminTile
-            to="/admin/onboarding"
-            icon={<GraduationCap className={ICON_CLASS} />}
-            title="Schüler-Onboarding"
-            description="Neue Schüler in fünf Schritten anlegen und einem Coach zuweisen."
-            accent="primary"
-            size="lg"
-            cta="Neuen Schüler anlegen"
-          />
-          <AdminTile
-            to="/admin/leads"
-            icon={<Inbox className={ICON_CLASS} />}
-            title="Leads"
-            accent={leadsNew > 0 ? 'warning' : 'primary'}
-            size="wide"
-            stat={{
-              value: stats?.leadsOpen ?? 0,
-              caption: 'offene Leads in Bearbeitung',
-            }}
-            badge={leadsNew > 0 ? { label: `${leadsNew} neu`, variant: 'warning' } : null}
-            loading={loading}
-          />
-          <AdminTile
-            to="/admin/schedule"
-            icon={<CalendarClock className={ICON_CLASS} />}
-            title="Stundenplan"
-            description="Sessions anlegen und Schüler einem Coach-Termin zuweisen."
-            accent="warning"
-            size="wide"
-          />
-          <AdminTile
-            to="/admin/coaches"
-            icon={<UserPlus className={ICON_CLASS} />}
-            title="Coaches"
-            description="Coach-Accounts anlegen und Zugangsdaten vergeben."
-            accent="success"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/assignments"
-            icon={<Users className={ICON_CLASS} />}
-            title="Coach-Zuordnung"
-            description="Schüler ihrem Coach zuweisen oder umhängen."
-            accent="success"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/xp-rules"
-            icon={<Zap className={ICON_CLASS} />}
-            title="XP-Gewichtung"
-            description="XP pro Aufgabentyp und Schwierigkeit festlegen."
-            accent="success"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/tiers"
-            icon={<CreditCard className={ICON_CLASS} />}
-            title="Tarife"
-            accent="success"
-            size="sm"
-            stat={{
-              value: stats?.tiersActive ?? 0,
-              caption: `von ${stats?.tiersTotal ?? 0} Tarifen aktiv`,
-            }}
-            loading={loading}
-          />
-          <AdminTile
-            to="/admin/diagnostics"
-            icon={<FlaskConical className={ICON_CLASS} />}
-            title="Diagnostik"
-            description="Aufgaben als Diagnose markieren und Inhalte pflegen."
-            accent="levelup"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/authoring"
-            icon={<PenLine className={ICON_CLASS} />}
-            title="Item-Pflege"
-            description="Aufgaben prüfen, Stoffanker setzen, für die LSA freigeben."
-            accent="levelup"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/screening-items"
-            icon={<ListChecks className={ICON_CLASS} />}
-            title="Screening-Items"
-            accent="repair"
-            size="wide"
-            stat={{
-              value: stats?.screeningItems ?? 0,
-              caption: 'Items im Screening-Pool',
-            }}
-            loading={loading}
-          />
-          <AdminTile
-            to="/admin/screening-coverage"
-            icon={<LayoutGrid className={ICON_CLASS} />}
-            title="Screening-Coverage"
-            description="Lücken im v2-Pool sehen: Cluster × Phase × AFB."
-            accent="repair"
-            size="sm"
-          />
-          <AdminTile
-            to="/admin/lambacher-preview"
-            icon={<BookOpen className={ICON_CLASS} />}
-            title="Lambacher-Vorschau"
-            description="Importierte Lambacher-Inhalte als Vorschau prüfen."
-            accent="primary"
-            size="wide"
-          />
-        </AdminTileGrid>
-      </main>
+          <AdminTileGrid>
+            <AdminTile
+              to="/admin/authoring"
+              icon={<PenLine className={ICON_CLASS} />}
+              title="Autoren-Tool"
+              description="Aufgaben erstellen, prüfen, Stoffanker setzen und für die LSA freigeben — das zentrale Inhalts-Werkzeug."
+              size="lg"
+              cta="Inhalte pflegen"
+            />
+            <AdminTile
+              to="/admin/content-gesundheit"
+              icon={<HeartPulse className={ICON_CLASS} />}
+              title="Content-Gesundheit"
+              description="Mängel im Item-Bestand auf einen Blick — tote Bildpfade, fehlende Stoffanker, Alt-Texte."
+              size="wide"
+            />
+            <AdminTile
+              to="/admin/leads"
+              icon={<Inbox className={ICON_CLASS} />}
+              title="Leads"
+              size="wide"
+              stat={{
+                value: stats?.leadsOpen ?? 0,
+                caption: 'offene Leads in Bearbeitung',
+              }}
+              flag={leadsNew > 0 ? `${leadsNew} neu` : null}
+              loading={loading}
+            />
+            <AdminTile
+              to="/admin/schedule"
+              icon={<CalendarClock className={ICON_CLASS} />}
+              title="Stundenplan"
+              description="Sessions anlegen und Schüler einem Coach-Termin zuweisen."
+              size="wide"
+            />
+            <AdminTile
+              to="/admin/coaches"
+              icon={<UserPlus className={ICON_CLASS} />}
+              title="Coaches"
+              description="Coach-Accounts anlegen und Zugangsdaten vergeben."
+              size="sm"
+            />
+            <AdminTile
+              to="/admin/assignments"
+              icon={<Users className={ICON_CLASS} />}
+              title="Coach-Zuordnung"
+              description="Schüler ihrem Coach zuweisen oder umhängen."
+              size="sm"
+            />
+          </AdminTileGrid>
+        </main>
+      </div>
     </div>
   )
 }

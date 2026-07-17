@@ -150,6 +150,8 @@
     "hint": "Jede Teilaufgabe trägt ihre eigene Kompetenz und ihr eigenes AFB — sie ist der diagnostische Datenpunkt, nicht das Item."
   },
   "preview": {
+    "open": "Vorschau",
+    "close": "Vorschau schließen",
     "hint": "So sieht es das Kind — serverseitig gebaut, dieselbe Funktion, die das Tablet bedient. Kein Feedback, keine Lösung.",
     "unsavedHint": "Vorschau des Entwurfs: So sähe es aus, wenn du jetzt speicherst. Gespeichert ist es nicht.",
     "saved": "Gespeicherter Stand",
@@ -212,6 +214,7 @@
   },
   "release": {
     "current": "Aktueller Status",
+    "checklistTitle": "Vor der Freigabe zu erledigen",
     "toDraft": "Zurück auf Entwurf",
     "toReview": "Zur Prüfung",
     "toReady": "Freigeben",
@@ -246,5 +249,64 @@
     "I": "AFB I — Reproduzieren",
     "II": "AFB II — Zusammenhänge herstellen",
     "III": "AFB III — Verallgemeinern und reflektieren"
+  },
+  "health": {
+    "eyebrow": "Autoren-Tool",
+    "title": "Content-Gesundheit",
+    "subtitle": "Wo im Bestand die Arbeit liegt",
+    "back": "Zurück",
+    "count": "{{shown}} von {{total}} Items",
+    "loadError": "Der Bestand konnte nicht geladen werden.",
+    "errorTitle": "Der Bestand konnte nicht geladen werden",
+    "emptyTitle": "Nichts in dieser Auswahl",
+    "emptyDescription": "Kein Item hat diesen Mangel — wähle eine andere Kachel.",
+    "open": "Im Editor öffnen",
+    "overview": {
+      "defects": "Mängel",
+      "byStatus": "Bestand nach Status"
+    },
+    "tiles": {
+      "deadPath": "Toter Bildpfad",
+      "deadPathCaption": "relativer Pfad, kein Bucket-Bild",
+      "stoffankerMissing": "Ohne Stoffanker",
+      "stoffankerMissingCaption": "Pflichtfeld für die Freigabe",
+      "altMissing": "Bild ohne Alt-Text",
+      "altMissingCaption": "blockiert die Freigabe",
+      "noAsset": "Ohne Asset",
+      "noAssetCaption": "kein Bild, reiner Text",
+      "imageRefNoAsset": "Bildverweis ohne Bild",
+      "imageRefNoAssetCaption": "Text nennt eine Abbildung, kein Asset da",
+      "statusCaption": "Items in diesem Status"
+    },
+    "marker": {
+      "deadPath": "Toter Bildpfad",
+      "stoffankerMissing": "Kein Stoffanker",
+      "altMissing": "Bild ohne Alt-Text",
+      "noAsset": "Kein Asset",
+      "imageRefNoAsset": "Bildverweis ohne Bild",
+      "clean": "Keine Mängel"
+    },
+    "path": {
+      "label": "Bildpfad — nicht im Bucket",
+      "license": "Lizenz"
+    },
+    "imageRef": {
+      "labelQuestion": "Verdacht — Verweis im Fragetext",
+      "labelPart": "Verdacht — Verweis in Teilaufgabe {{nr}}",
+      "hint": "Nur ein Verdacht, keine Entscheidung: Der Text nennt eine Abbildung, aber es liegt kein Bild vor. Im Editor sichten — Text umformulieren, Bild ergänzen oder Item deaktivieren."
+    },
+    "remove": {
+      "action": "Bildpfad entfernen",
+      "running": "Entferne …",
+      "confirm": "Bildpfad wirklich entfernen?",
+      "confirmYes": "Entfernen",
+      "confirmNo": "Abbrechen",
+      "hint": "Entfernt nur den Asset-Eintrag — das Item wird als reiner Text gerendert. Im Bucket wird nichts gelöscht, der Schritt ist umkehrbar.",
+      "adminOnly": "Entfernen darf nur die Rolle Admin."
+    },
+    "toast": {
+      "removed": "Bildpfad entfernt.",
+      "removeFailed": "Entfernen fehlgeschlagen: {{error}}"
+    }
   }
 }
