@@ -18,23 +18,34 @@ import { EdvanceCard } from '@/components/edvance'
 import { Input } from '@/components/ui/input'
 import { getGrounding } from '@/lib/authoring/grounding'
 import { graphicLicenseHints, isDeadAssetUrl, type ImageRefFinding } from '@/lib/authoring/health'
-import type { AuthoringTask, TaskAsset } from '@/types'
+import type { AuthoringTask, TaskAsset, TaskPart } from '@/types'
+import { NeedsImageSection } from '../NeedsImageSection'
 import { Field } from '../ui'
 
 export function StepImages({
   task,
   assets,
+  needsImage,
+  parts,
   imageRef,
   canWrite,
   onAssets,
+  onNeedsImage,
+  onPart,
 }: {
   task: AuthoringTask
   /** Formularstand (state.assets) — Aenderungen speichert der Schrittwechsel. */
   assets: TaskAsset[]
+  /** tasks.needs_image (Stamm) — die Didaktik-Frage, VOR der Technik (A08). */
+  needsImage: boolean | null
+  /** Formularstand (state.parts) — traegt parts[i].needs_image je Teilaufgabe. */
+  parts: TaskPart[]
   /** Der Bildverweis-Verdacht, beim Laden des Items berechnet. */
   imageRef: ImageRefFinding | null
   canWrite: boolean
   onAssets: (next: TaskAsset[]) => void
+  onNeedsImage: (next: boolean | null) => void
+  onPart: (index: number, next: boolean | null) => void
 }): JSX.Element {
   const { t } = useTranslation('authoring')
   const [confirming, setConfirming] = useState(false)
@@ -64,6 +75,18 @@ export function StepImages({
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Zuerst die Didaktik: braucht die Aufgabe/Teilaufgabe ein Bild? Erst
+          danach die Technik (Alt-Text, toter Pfad, Loesbarkeit) — die nur zaehlt,
+          wenn ueberhaupt ein Bild noetig ist (A08). */}
+      <NeedsImageSection
+        needsImage={needsImage}
+        parts={parts}
+        multi={task.input_type === 'MULTI_PART'}
+        canWrite={canWrite}
+        onItem={onNeedsImage}
+        onPart={onPart}
+      />
+
       {assets.map((asset, i) =>
         isDeadAssetUrl(asset.url) ? null : (
           <EdvanceCard key={i} className="flex flex-col gap-4 p-6">

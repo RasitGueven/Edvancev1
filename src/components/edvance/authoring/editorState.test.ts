@@ -26,6 +26,7 @@ const task = (over: Partial<AuthoringTask> = {}): AuthoringTask => ({
   curriculum_grade: null,
   parts: [],
   assets: [],
+  needs_image: null,
   question_payload: { table: TABLE },
   source: 'VERA8_IQB',
   source_ref: 'abc',
@@ -74,6 +75,33 @@ describe('toPatch — question_payload', () => {
     const patch = toPatch(fromTask(task(), solution))
     expect(JSON.stringify(patch.question_payload)).not.toContain('16')
     expect(Object.keys(patch.question_payload ?? {})).not.toContain('correct')
+  })
+})
+
+// A08: Die Bild-Notwendigkeit ist eine Beurteilung mit drei Zuständen. NULL =
+// nicht beurteilt muss NULL bleiben (kein Automatismus), und in tasks.parts wird
+// "nicht beurteilt" als FEHLENDES Feld geschrieben, nicht als needs_image:null.
+describe('toPatch — needs_image (A08)', () => {
+  it('trägt die Item-Beurteilung durch — true und null', () => {
+    expect(toPatch(fromTask(task({ needs_image: true }), solution)).needs_image).toBe(true)
+    expect(toPatch(fromTask(task({ needs_image: null }), solution)).needs_image).toBeNull()
+  })
+
+  it('schreibt parts[].needs_image nur als echte Beurteilung — null lässt das Feld weg', () => {
+    const state = fromTask(
+      task({
+        input_type: 'MULTI_PART',
+        est_duration_sec: 300,
+        parts: [
+          { nr: 1, kind: 'short_input', prompt: 'a', needs_image: true },
+          { nr: 2, kind: 'short_input', prompt: 'b', needs_image: null },
+        ],
+      }),
+      solution,
+    )
+    const parts = toPatch(state).parts ?? []
+    expect(parts[0].needs_image).toBe(true)
+    expect('needs_image' in parts[1]).toBe(false)
   })
 })
 
