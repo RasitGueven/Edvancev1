@@ -29,6 +29,8 @@ export type {
   SchoolKind,
   LeadStatus,
   LeadGoal,
+  LeadGradeTrend,
+  LeadStrugglingSince,
   Lead,
   LeadInput,
   Student,
