@@ -250,6 +250,88 @@
     "II": "AFB II — Zusammenhänge herstellen",
     "III": "AFB III — Verallgemeinern und reflektieren"
   },
+  "wizard": {
+    "title": "Pflege-Strecke",
+    "subtitle": "Ein Item nach dem anderen",
+    "eyebrow": "Autoren-Tool",
+    "exit": "Strecke beenden",
+    "queuePosition": "{{pos}} / {{total}}",
+    "queueLabel": "Warteschlange: {{label}}",
+    "stepLabel": "Schritt {{pos}} von {{total}} — {{name}}",
+    "keyboardHint": "Enter = weiter · V = Vorschau · Esc = Vorschau zu",
+    "openPreview": "Vorschau (V)",
+    "back": "Zurück",
+    "next": "Weiter",
+    "start_one": "Dieses Item durcharbeiten",
+    "start_other": "Diese {{count}} Items durcharbeiten",
+    "sourceList": "Item-Liste",
+    "sourceHealth": "Content-Gesundheit",
+    "noQueueTitle": "Keine Warteschlange",
+    "noQueueDescription": "Die Pflege-Strecke startet aus der Item-Liste oder der Content-Gesundheit — dort bestimmt der aktive Filter, welche Items drankommen.",
+    "toList": "Zur Item-Liste",
+    "toHealth": "Zur Content-Gesundheit",
+    "loadErrorTitle": "Item konnte nicht geladen werden",
+    "skipBroken": "Überspringen und weiter",
+    "steps": {
+      "read": "Lesen",
+      "anchor": "Stoffanker",
+      "images": "Bilder",
+      "solution": "Lösung & Beleg",
+      "release": "Freigabe"
+    },
+    "read": {
+      "hint": "So sieht das Kind die Aufgabe — serverseitig gebaut. Prüfe: Ist die Frage vollständig und verständlich?",
+      "meta": "Item",
+      "defects": "Mängel",
+      "noDefects": "Keine Mängel"
+    },
+    "anchor": {
+      "title": "Stoffanker bestätigen oder setzen",
+      "suggestion": "Vorschlag: Klasse {{grade}} — bestätigen?",
+      "confirm": "Bestätigen & weiter",
+      "changeHint": "Oder anderen Jahrgang wählen:",
+      "unset": "Kein Stoffanker gesetzt — welcher Jahrgangsstoff wird geprüft?",
+      "afbTitle": "AFB — andere Achse, nur Anzeige",
+      "afbNone": "Kein AFB gesetzt",
+      "afbPart": "Teilaufgabe {{nr}}: AFB {{afb}}"
+    },
+    "images": {
+      "titleAssets": "Bilder prüfen",
+      "asset": "Bild {{nr}}",
+      "solvableTitle": "Lösbarkeits-Frage",
+      "solvableQuestion": "Ist die Aufgabe ohne dieses Bild lösbar? Wenn nicht: Text umformulieren, Bild ergänzen oder Item nicht freigeben."
+    },
+    "solution": {
+      "title": "Passt die Lösung zum Item?",
+      "hint": "Korrigiert wird im Expertenmodus — der Wizard prüft nur: passt das? Wenn nicht, im Editor öffnen und danach hier weitermachen.",
+      "answers": "Akzeptierte Antworten",
+      "partAnswers": "Teilaufgabe {{nr}}",
+      "noAnswers": "Keine akzeptierte Antwort hinterlegt.",
+      "solutionText": "Musterlösung",
+      "noSolutionText": "Keine Musterlösung hinterlegt.",
+      "openEditor": "Im Editor öffnen"
+    },
+    "release": {
+      "clear": "Nichts blockiert — das Item kann freigegeben werden.",
+      "clearCoach": "Nichts blockiert. Freigeben darf nur Admin — „Als geprüft markieren“ setzt das Item auf In Prüfung.",
+      "release": "Freigeben",
+      "review": "Als geprüft markieren",
+      "skip": "Überspringen (später)",
+      "alreadyReady": "Dieses Item ist bereits freigegeben.",
+      "blockedHint": "Solange Punkte blockieren, hält „Überspringen“ den Fluss — das Item bleibt in seinem Status."
+    },
+    "done": {
+      "title": "Strecke geschafft!",
+      "description": "{{total}} Items durchgesehen.",
+      "released_one": "{{count}} Item freigegeben",
+      "released_other": "{{count}} Items freigegeben",
+      "reviewed_one": "{{count}} Item als geprüft markiert",
+      "reviewed_other": "{{count}} Items als geprüft markiert",
+      "skipped_one": "{{count}} Item übersprungen",
+      "skipped_other": "{{count}} Items übersprungen",
+      "backToList": "Zur Item-Liste"
+    }
+  },
   "health": {
     "eyebrow": "Autoren-Tool",
     "title": "Content-Gesundheit",

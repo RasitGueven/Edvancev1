@@ -9,6 +9,7 @@ import { ScreeningReportPage as ParentScreeningReportPage } from '@/pages/parent
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
 import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
+import { PflegeWizardPage } from '@/pages/admin/PflegeWizardPage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
@@ -171,6 +172,16 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['coach', 'admin']}>
               <AuthoringEditorPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Pflege-Strecke (A07): der gefuehrte Fluss ueber der Editor-Maschinerie.
+            Coach prueft (review), freigeben bleibt admin-only — die Seite schaltet um. */}
+        <Route
+          path="/admin/pflege"
+          element={
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <PflegeWizardPage />
             </ProtectedRoute>
           }
         />

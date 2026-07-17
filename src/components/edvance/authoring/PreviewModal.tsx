@@ -19,12 +19,15 @@ export function PreviewModal({
   taskId,
   draft,
   dirty,
+  wide = false,
 }: {
   open: boolean
   onClose: () => void
   taskId: string
   draft: AuthoringTaskPatch
   dirty: boolean
+  /** Pflege-Strecke (A07): die Vorschau als grosses Modal (min. 80 % Viewport). */
+  wide?: boolean
 }): JSX.Element | null {
   const { t } = useTranslation('authoring')
 
@@ -57,7 +60,11 @@ export function PreviewModal({
         className="fixed inset-0 bg-[var(--color-overlay)]"
         onClick={onClose}
       />
-      <div className="relative z-10 w-full max-w-2xl animate-scale-in">
+      <div
+        className={`relative z-10 w-full animate-scale-in ${
+          wide ? 'max-w-[min(85vw,80rem)]' : 'max-w-2xl'
+        }`}
+      >
         <div className="mb-3 flex justify-end">
           <button
             type="button"

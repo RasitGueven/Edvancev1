@@ -13,9 +13,12 @@
 // bedeutet.
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { ListChecks } from 'lucide-react'
 import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { Button } from '@/components/ui/button'
 import {
   AuthoringFilters,
   EMPTY_FILTERS,
@@ -70,6 +73,7 @@ const STATUS_ORDER: Record<TaskStatus, number> = { draft: 0, review: 1, ready: 2
 
 export function AuthoringItemsPage(): JSX.Element {
   const { t } = useTranslation('authoring')
+  const navigate = useNavigate()
 
   const [rows, setRows] = useState<ItemRowData[]>([])
   const [clusters, setClusters] = useState<AuthoringCluster[]>([])
@@ -197,11 +201,30 @@ export function AuthoringItemsPage(): JSX.Element {
         )}
 
         {!error && !loading && visible.length > 0 && (
-          <div className="flex flex-col gap-4">
-            {visible.map((row) => (
-              <ItemRow key={row.task.id} row={row} />
-            ))}
-          </div>
+          <>
+            {/* Der Einstieg in die Pflege-Strecke (A07): der AKTIVE Filter wird
+                zur Warteschlange — "diese 47 Items durcharbeiten". */}
+            <div className="flex justify-end">
+              <Button
+                onClick={() =>
+                  navigate('/admin/pflege', {
+                    state: {
+                      ids: visible.map((row) => row.task.id),
+                      label: t('wizard.sourceList'),
+                    },
+                  })
+                }
+              >
+                <ListChecks className="h-4 w-4" aria-hidden="true" />
+                {t('wizard.start', { count: visible.length })}
+              </Button>
+            </div>
+            <div className="flex flex-col gap-4">
+              {visible.map((row) => (
+                <ItemRow key={row.task.id} row={row} />
+              ))}
+            </div>
+          </>
         )}
       </main>
     </div>
