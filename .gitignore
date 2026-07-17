@@ -32,3 +32,6 @@ __pycache__/
 
 # R01: gerenderte EMF->PNG Zwischenbilder (41MB, via scripts/content/r01/render.py reproduzierbar)
 data/r01_render/
+
+# C10-Audit: temporaer heruntergeladene Asset-Bilder (10MB, via scripts nachladbar)
+data/c10_assets_tmp/
