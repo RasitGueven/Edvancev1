@@ -34,6 +34,45 @@ export async function leadLsaFreigeben(
   }
 }
 
+// Offene (in_progress) LSA-Session eines Leads — über den provisorischen
+// Schüler (students.lead_id). Für das Weiterpflegen eines bereits
+// freigegebenen Leads: erlaubt die Platz-Zuweisung ohne erneute Freigabe.
+export async function getOpenSessionForLead(
+  leadId: string,
+): Promise<SupabaseResult<LeadLsaFreigabe | null>> {
+  try {
+    const { data: students, error: sErr } = await supabase
+      .from('students')
+      .select('id')
+      .eq('lead_id', leadId)
+    if (sErr) return { data: null, error: sErr.message }
+    const studentIds = (students ?? []).map((s) => s.id as string)
+    if (studentIds.length === 0) return { data: null, error: null }
+
+    const { data, error } = await supabase
+      .from('lsa_sessions')
+      .select('id, student_id, item_ids')
+      .in('student_id', studentIds)
+      .eq('status', 'in_progress')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+    if (error) return { data: null, error: error.message }
+    if (!data) return { data: null, error: null }
+    return {
+      data: {
+        session_id: data.id as string,
+        student_id: data.student_id as string,
+        total_items: (data.item_ids as unknown[] | null)?.length ?? 0,
+      },
+      error: null,
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Session konnte nicht geladen werden'
+    return { data: null, error: message }
+  }
+}
+
 // Konversion Lead → Schüler (nur Admin): Datensatz-Flip des provisorischen
 // Schülers. Das Anlegen des Auth-Kontos folgt separat.
 export async function leadConvert(
