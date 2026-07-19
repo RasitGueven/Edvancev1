@@ -1,0 +1,34 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viel 3/4 von 10 Liter sind.",
+      "unit": "Liter",
+      "loesung_vorschlag": "7,5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "2/3 von einem Volumen sind 6 Liter. Gib an, wie groß das Volumen ist.",
+      "unit": "Liter",
+      "loesung_vorschlag": "9",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "7979e5d2-7343-4868-9ad4-1a0b15a5f175",
+  "_title": "Literberechnungen",
+  "_slug": "literberechnungen",
+  "_images": [
+    "../vera8_sichtung/literberechnungen/image2.emf.png",
+    "../vera8_sichtung/literberechnungen/image3.emf.png",
+    "../vera8_sichtung/literberechnungen/image4.emf.png"
+  ]
+}

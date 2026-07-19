@@ -1,0 +1,43 @@
+{
+  "stamm": "Zur Herstellung einer Apfelsaftschorle mischt man vier fünftel Liter Apfelsaft mit einem halben Liter Mineralwasser.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Passt die Apfelsaftschorle dann in eine Flasche mit einem Fassungsvermögen von maximal 1,5 Liter? Kreuze an.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "4/5 Liter + 1/2 Liter = 0,8 + 0,5 = 1,3 Liter. Da 1,3 Liter kleiner als 1,5 Liter ist, passt die Schorle in die Flasche.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "3eae9729-1abc-4897-beb2-3d7cadb51210",
+  "_title": "Apfelsaftschorle",
+  "_slug": "apfelsaftschorle",
+  "_images": [
+    "../vera8_sichtung/apfelsaftschorle/image1.jpeg",
+    "../vera8_sichtung/apfelsaftschorle/image2.emf.png",
+    "../vera8_sichtung/apfelsaftschorle/image3.emf.png",
+    "../vera8_sichtung/apfelsaftschorle/image4.emf.png"
+  ]
+}

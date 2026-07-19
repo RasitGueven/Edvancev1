@@ -1,0 +1,43 @@
+{
+  "stamm": "Für Geschwindigkeitsüberschreitungen (d. h. für zu schnelles Fahren) innerhalb von Ortschaften gelten neue Bußgelder.\n\nTabelle:\nGeschwindigkeitsüberschreitung | bisher | jetzt\num 21 bis 25km/h | 50€ | 80€\num 26 bis 30km/h | 60€ | 100€\num 31 bis 40km/h | 100€ | 160€\num 41 bis 50km/h | 125€ | 200€\num 51 bis 60km/h | 175€ | 280€\num 61 bis 70km/h | 300€ | 480€\nüber 70km/h | 425€ | 760€",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Jemand fährt in der Innenstadt mit einer Geschwindigkeit von 58km/h, obwohl dort nur 30km/h erlaubt sind. Mit welchem Bußgeld ist jetzt zu rechnen? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "60€"
+        },
+        {
+          "id": "b",
+          "label": "100€"
+        },
+        {
+          "id": "c",
+          "label": "175€"
+        },
+        {
+          "id": "d",
+          "label": "280€"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "5fafe02e-c47d-4c42-819a-ff72d73d5762",
+  "_title": "Geschwindigkeitsüberschreitung",
+  "_slug": "geschwindigkeit",
+  "_images": [
+    "../vera8_sichtung/geschwindigkeit/image1.emf.png",
+    "../vera8_sichtung/geschwindigkeit/image2.emf.png",
+    "../vera8_sichtung/geschwindigkeit/image3.emf.png"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "stamm": "Bei einem Hochrad ist das Vorderrad (Durchmesser: dV = 1,56m) wesentlich größer als das Hinterrad (Durchmesser: dH = 52cm). Bei einer Umdrehung des Vorderrades legt man eine Strecke von etwa 4,90m zurück.\n\nDie Abbildung zeigt ein Hochrad (Abb. nicht maßstäblich).",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, welche Strecke man bei 15 Radumdrehungen des Vorderrades zurücklegt.",
+      "unit": "m",
+      "loesung_vorschlag": "73.5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viele Umdrehungen des Vorderrades für eine Strecke von 34,3m notwendig sind.",
+      "unit": null,
+      "loesung_vorschlag": "7",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Wie oft dreht sich das Hinterrad, um eine Strecke von etwa 34,3m zurückzulegen? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "12"
+        },
+        {
+          "id": "b",
+          "label": "16"
+        },
+        {
+          "id": "c",
+          "label": "21"
+        },
+        {
+          "id": "d",
+          "label": "27"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "5fcf0b07-b1e1-497a-a7d4-06a237c7ee0b",
+  "_title": "Hochrad",
+  "_slug": "hochrad",
+  "_images": [
+    "../vera8_sichtung/hochrad/image2.emf.png",
+    "../vera8_sichtung/hochrad/image3.emf.png",
+    "../vera8_sichtung/hochrad/image4.emf.png",
+    "../vera8_sichtung/hochrad/image5.emf.png",
+    "../vera8_sichtung/hochrad/image6.emf.png"
+  ]
+}

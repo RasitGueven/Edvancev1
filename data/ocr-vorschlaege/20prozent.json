@@ -1,0 +1,25 @@
+{
+  "stamm": "Berechne 20% von 80m.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Berechne 20% von 80m.",
+      "unit": "m",
+      "loesung_vorschlag": "16",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "600cc62e-d64f-4903-a950-11c98d46609b",
+  "_title": "20 Prozent",
+  "_slug": "20prozent",
+  "_images": [
+    "../vera8_sichtung/20prozent/image1.emf.png",
+    "../vera8_sichtung/20prozent/image2.emf.png"
+  ]
+}

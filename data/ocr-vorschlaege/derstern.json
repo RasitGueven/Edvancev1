@@ -1,0 +1,43 @@
+{
+  "stamm": "Wie groß ist der Flächeninhalt des abgebildeten Sterns? Kreuze an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist der Flächeninhalt des abgebildeten Sterns?",
+      "unit": "cm²",
+      "options": [
+        {
+          "id": "a",
+          "label": "7 cm²"
+        },
+        {
+          "id": "b",
+          "label": "12 cm²"
+        },
+        {
+          "id": "c",
+          "label": "16 cm²"
+        },
+        {
+          "id": "d",
+          "label": "20 cm²"
+        }
+      ],
+      "loesung_vorschlag": "16 cm²",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "3550a34f-4afc-4f27-8950-72004822e379",
+  "_title": "Der Stern",
+  "_slug": "derstern",
+  "_images": [
+    "../vera8_sichtung/derstern/image1.emf.png",
+    "../vera8_sichtung/derstern/image2.emf.png"
+  ]
+}

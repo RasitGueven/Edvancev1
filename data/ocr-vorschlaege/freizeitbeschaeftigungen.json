@@ -1,0 +1,64 @@
+{
+  "stamm": "Bei einer Befragung in den Klassenstufen 7 und 8 gaben alle Schülerinnen und Schüler ihre beliebteste Freizeitbeschäftigung an. Abbildung 1 zeigt das Ergebnis dieser Befragung mit folgenden Werten:\n- Musik: Klassenstufe 7: 21, Klassenstufe 8: 15\n- Sport: Klassenstufe 7: 36, Klassenstufe 8: 32\n- Computer: Klassenstufe 7: 26, Klassenstufe 8: 36\n- Kino: Klassenstufe 7: 12, Klassenstufe 8: 10\n- Theater: Klassenstufe 7: 5, Klassenstufe 8: 7",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viele Schülerinnen und Schüler aus beiden Klassenstufen insgesamt befragt wurden.",
+      "unit": "Schülerinnen und Schüler",
+      "loesung_vorschlag": "200",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Ergänze die beiden folgenden Sätze jeweils durch eine passende Freizeitbeschäftigung.",
+      "options": [
+        {
+          "id": "musik",
+          "label": "Musik war in Klassenstufe 7 beliebter als in Klassenstufe 8."
+        },
+        {
+          "id": "sport",
+          "label": "Sport war in Klassenstufe 7 beliebter als in Klassenstufe 8."
+        },
+        {
+          "id": "computer",
+          "label": "Computer war in Klassenstufe 8 beliebter als in Klassenstufe 7."
+        },
+        {
+          "id": "kino",
+          "label": "Kino war in Klassenstufe 7 beliebter als in Klassenstufe 8."
+        },
+        {
+          "id": "theater",
+          "label": "Theater war in Klassenstufe 8 beliebter als in Klassenstufe 7."
+        }
+      ],
+      "loesung_vorschlag": "Musik, Sport oder Kino war in Klassenstufe 7 beliebter als in Klassenstufe 8; Computer oder Theater war in Klassenstufe 8 beliebter als in Klassenstufe 7.",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Abbildung 2 zeigt Säulen zu den Freizeitbeschäftigungen \"Musik\", \"Sport\" und \"Computer\". Diese Säulen ergeben sich aus den Angaben in Abbildung 1. Beachte, dass einige Säulen nach unten zeigen. Beschreibe, was die Säulen in Abbildung 2 bedeuten, und ergänze die fehlenden Säulen für \"Kino\" und \"Theater\".",
+      "loesung_vorschlag": "Die Säulen zeigen die Differenz der Anzahl zwischen Klassenstufe 7 und Klassenstufe 8. Positive Werte bedeuten, dass die Aktivität in Klassenstufe 7 beliebter war, negative Werte bedeuten, dass sie in Klassenstufe 8 beliebter war. Kino: +2 (nach oben), Theater: -2 (nach unten).",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teilaufgabe 3 verlangt das Zeichnen/Ergänzen von Säulen in ein Diagramm, daher ist_zeichenaufgabe=true. Die Beschreibung der Bedeutung ist als free_text erfasst, aber die eigentliche Zeichenaufgabe kann nicht automatisch ausgewertet werden.",
+  "_task_id": "a36a8986-8fb2-49c4-9494-91f675f429b0",
+  "_title": "Freizeitbeschäftigungen",
+  "_slug": "freizeitbeschaeftigungen",
+  "_images": [
+    "../vera8_sichtung/freizeitbeschaeftigungen/image1.emf.png",
+    "../vera8_sichtung/freizeitbeschaeftigungen/image2.emf.png",
+    "../vera8_sichtung/freizeitbeschaeftigungen/image3.emf.png",
+    "../vera8_sichtung/freizeitbeschaeftigungen/image4.emf.png",
+    "../vera8_sichtung/freizeitbeschaeftigungen/image5.emf.png"
+  ]
+}

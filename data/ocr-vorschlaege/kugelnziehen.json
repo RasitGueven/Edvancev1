@@ -1,0 +1,26 @@
+{
+  "stamm": "In einem Gefäß befinden sich gleich viele rote und blaue Kugeln, die sich nur durch ihre Farbe unterscheiden.\n\nEs sollen zusätzlich so viele gelbe Kugeln hinzugefügt werden, dass die Wahrscheinlichkeit eine rote Kugel zu ziehen 20% beträgt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Wie viel mal so viele gelbe wie rote Kugeln müssen in dem Gefäß sein?",
+      "unit": null,
+      "loesung_vorschlag": "3",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "e40594ab-53ba-4eab-ab66-164599b8d9c7",
+  "_title": "Kugeln ziehen",
+  "_slug": "kugelnziehen",
+  "_images": [
+    "../vera8_sichtung/kugelnziehen/image1.png",
+    "../vera8_sichtung/kugelnziehen/image2.png",
+    "../vera8_sichtung/kugelnziehen/image3.emf.png"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "stamm": "Welche der folgenden Zahlen liegt zwischen 0,06 und 0,07? Kreuze an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche der folgenden Zahlen liegt zwischen 0,06 und 0,07?",
+      "options": [
+        {
+          "id": "a",
+          "label": "0,00062"
+        },
+        {
+          "id": "b",
+          "label": "0,0062"
+        },
+        {
+          "id": "c",
+          "label": "0,062"
+        },
+        {
+          "id": "d",
+          "label": "0,62"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "81f69046-b437-40b7-8c96-f6350ea7ab4c",
+  "_title": "Zwischen zwei Zahlen",
+  "_slug": "zwischenzweizahlen",
+  "_images": [
+    "../vera8_sichtung/zwischenzweizahlen/image1.png",
+    "../vera8_sichtung/zwischenzweizahlen/image2.png"
+  ]
+}

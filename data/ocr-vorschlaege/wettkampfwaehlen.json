@@ -1,0 +1,32 @@
+{
+  "stamm": "Zum Sportfest werden in den 7. Klassen zwei Wettkämpfe organisiert, je einer für Mädchen und einer für Jungen. Die Jungen und die Mädchen entscheiden durch Abstimmung, in welcher Sportart ihr Wettkampf ausgetragen werden soll.\n\nSo stimmen die Jungen ab:\nBasketball: 19, Fußball: 31, Handball: 12, Volleyball: 8\n\nSo stimmen die Mädchen ab:\nFeldhockey: 4, Fußball: 32, Handball: 10, Volleyball: 34",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "In welcher Sportart soll der Wettkampf der Jungen ausgetragen werden?",
+      "loesung_vorschlag": "Fußball",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "In welcher Sportart soll der Wettkampf der Mädchen ausgetragen werden?",
+      "loesung_vorschlag": "Volleyball",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "fa967979-cd33-476d-8562-3dda0ecc076a",
+  "_title": "Wettkampf wählen",
+  "_slug": "wettkampfwaehlen",
+  "_images": [
+    "../vera8_sichtung/wettkampfwaehlen/image1.png",
+    "../vera8_sichtung/wettkampfwaehlen/image2.png",
+    "../vera8_sichtung/wettkampfwaehlen/image3.png"
+  ]
+}

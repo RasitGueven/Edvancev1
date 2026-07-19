@@ -1,0 +1,86 @@
+{
+  "stamm": "Eine ganze Zahl ist durch eine andere ganze Zahl teilbar, wenn bei der Division kein Rest bleibt.\n\nEntscheide jeweils, ob die Aussage wahr oder falsch ist.\nKreuze jeweils an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Eine mehrziffrige Zahl ist immer durch 4 teilbar, wenn sie zweimal nacheinander jeweils durch 2 teilbar ist.",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Eine mehrziffrige Zahl ist immer durch 4 teilbar, wenn die letzte Ziffer eine 4 oder eine 8 ist.",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Eine mehrziffrige Zahl ist immer durch 4 teilbar, wenn sie eine gerade Zahl ist.",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Eine mehrziffrige Zahl ist immer durch 4 teilbar, wenn die aus den letzten beiden Ziffern gebildete Zahl durch 4 teilbar ist.",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "wahr",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "59e528d3-53f2-4184-8131-7f8810d0ab2f",
+  "_title": "Division von Zahlen",
+  "_slug": "divisionvonzahlen",
+  "_images": [
+    "../vera8_sichtung/divisionvonzahlen/image1.emf.png",
+    "../vera8_sichtung/divisionvonzahlen/image2.emf.png",
+    "../vera8_sichtung/divisionvonzahlen/image3.emf.png"
+  ]
+}

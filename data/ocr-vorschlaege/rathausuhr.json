@@ -1,0 +1,51 @@
+{
+  "stamm": "Die Rathausuhr hat einen hohen und einen tiefen Glockenton.\n\nDer hohe Glockenton erklingt\n· zur Viertelstunde einmal,\n· zur halben Stunde zweimal,\n· zur Dreiviertelstunde dreimal und\n· zur ganzen Stunde viermal.\n\nDer tiefe Glockenton gibt zusätzlich zu jeder vollen Stunde die Uhrzeit an, also um 1 Uhr (oder um 13 Uhr) mit einem Glockenschlag, um 2 Uhr (oder um 14 Uhr) mit zwei Glockenschlägen und so weiter.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie oft erklingt der tiefe Glockenton im Zeitraum von kurz vor 1 Uhr bis kurz nach 4 Uhr?",
+      "options": [
+        {
+          "id": "a",
+          "label": "4-mal"
+        },
+        {
+          "id": "b",
+          "label": "10-mal"
+        },
+        {
+          "id": "c",
+          "label": "30-mal"
+        },
+        {
+          "id": "d",
+          "label": "40-mal"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Denk dir eine kurze Aufgabe zu den Glockentönen der Rathausuhr aus, deren Ergebnis lautet: 10 Glockenschläge. In deiner Aufgabe sollen sowohl hohe als auch tiefe Glockentöne gezählt werden.",
+      "loesung_vorschlag": "Verschiedene Antworten möglich, z.B. 'Wie viele Glockenschläge ertönen um 3 Uhr insgesamt?' (4 hohe + 3 tiefe = 7, passt nicht) oder 'Von 12:45 bis 1:00 Uhr' (3 hohe um 12:45 + 4 hohe + 1 tiefer um 1:00 = 8, passt nicht). Korrekte Beispiele: 'Von 3:45 bis 4:00 Uhr' (3 hohe um 3:45 + 4 hohe + 4 tiefe um 4:00 = 11, passt nicht). Schüler muss selbst eine passende Aufgabe konstruieren.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Bei Teil 2 ist unklar, ob das leere Karogitter nur als Schreibhilfe dient oder ob eine spezielle Darstellungsform erwartet wird. Die Aufgabe verlangt eine kreative Textaufgabe mit festem Ergebnis.",
+  "_task_id": "4429d5ac-1f29-4cb1-89d7-a703d18cc53a",
+  "_title": "Rathausuhr",
+  "_slug": "rathausuhr",
+  "_images": [
+    "../vera8_sichtung/rathausuhr/image1.emf.png",
+    "../vera8_sichtung/rathausuhr/image2.emf.png",
+    "../vera8_sichtung/rathausuhr/image3.emf.png",
+    "../vera8_sichtung/rathausuhr/image4.emf.png"
+  ]
+}

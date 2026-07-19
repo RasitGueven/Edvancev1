@@ -1,0 +1,47 @@
+{
+  "stamm": "Ein Quader, dessen Kanten hier dick gezeichnet sind, ist mit einigen kleinen 1-cm³-Würfeln gefüllt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist das Volumen des Quaders insgesamt? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "14cm³"
+        },
+        {
+          "id": "b",
+          "label": "16cm³"
+        },
+        {
+          "id": "c",
+          "label": "74cm³"
+        },
+        {
+          "id": "d",
+          "label": "90 cm³"
+        },
+        {
+          "id": "e",
+          "label": "126cm³"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "fdd77d77-511f-4a9a-98b5-f32602a3cc52",
+  "_title": "Körper füllen",
+  "_slug": "koerperfuellen",
+  "_images": [
+    "../vera8_sichtung/koerperfuellen/image1.emf.png",
+    "../vera8_sichtung/koerperfuellen/image2.emf.png",
+    "../vera8_sichtung/koerperfuellen/image3.emf.png"
+  ]
+}

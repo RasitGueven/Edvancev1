@@ -1,0 +1,46 @@
+{
+  "stamm": "Welche Lösung hat die Gleichung 16 − 6x = 14? Kreuze an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Lösung hat die Gleichung 16 − 6x = 14?",
+      "options": [
+        {
+          "id": "a",
+          "label": "x = -5"
+        },
+        {
+          "id": "b",
+          "label": "x = -1/3"
+        },
+        {
+          "id": "c",
+          "label": "x = 1/3"
+        },
+        {
+          "id": "d",
+          "label": "x = 3"
+        },
+        {
+          "id": "e",
+          "label": "x = 4"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "798f3b3c-5b4f-4e2d-8f9a-4349ee70aa92",
+  "_title": "Gleichung lösen 2",
+  "_slug": "gleichungloesen2",
+  "_images": [
+    "../vera8_sichtung/gleichungloesen2/image1.emf.png",
+    "../vera8_sichtung/gleichungloesen2/image2.emf.png"
+  ]
+}

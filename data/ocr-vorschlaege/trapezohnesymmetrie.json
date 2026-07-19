@@ -1,0 +1,69 @@
+{
+  "stamm": "Das dargestellte Trapez hat keine Symmetrieachse. Es hat Winkel ∠A = 68° und ∠B = 69° (nicht maßstabsgerecht). Entscheide jeweils, ob die folgenden Begründungen richtig sind. Kreuze an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Dieses Trapez hat keine Symmetrieachse, weil … ein Trapez mit unterschiedlich langen Seiten AB und CD niemals eine Symmetrieachse hat.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Dieses Trapez hat keine Symmetrieachse, weil … ein Trapez mit unterschiedlich großen Innenwinkeln in den Punkten A und B niemals eine Symmetrieachse hat.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "richtig",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Dieses Trapez hat keine Symmetrieachse, weil … ein Trapez niemals eine Symmetrieachse hat.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "514e7cca-b546-4a8a-b59f-3f4b4e813522",
+  "_title": "Trapez ohne Symmetrie",
+  "_slug": "trapezohnesymmetrie",
+  "_images": [
+    "../vera8_sichtung/trapezohnesymmetrie/image1.png",
+    "../vera8_sichtung/trapezohnesymmetrie/image2.png",
+    "../vera8_sichtung/trapezohnesymmetrie/image3.png"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne ein Quadrat mit der Seitenlänge 5cm.",
+      "loesung_vorschlag": "Ein Quadrat mit vier gleich langen Seiten von je 5cm und vier rechten Winkeln.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": null,
+  "_task_id": "53da440f-b4d1-4933-bf81-6c8cafce8665",
+  "_title": "Quadrat zeichnen",
+  "_slug": "quadratzeichnen",
+  "_images": [
+    "../vera8_sichtung/quadratzeichnen/image1.emf.png",
+    "../vera8_sichtung/quadratzeichnen/image2.emf.png"
+  ]
+}

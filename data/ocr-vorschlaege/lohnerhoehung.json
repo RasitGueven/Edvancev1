@@ -1,0 +1,26 @@
+{
+  "stamm": "Eine Werbefirma erhöht den Lohn für das Verteilen von 500 Werbeprospekten von 5,00 € auf 5,50 €.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, um wie viel Prozent der Lohn erhöht wird.",
+      "unit": "%",
+      "loesung_vorschlag": "10",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "d350fb95-b256-4776-af65-91ffa284dd8c",
+  "_title": "Lohnerhöhung",
+  "_slug": "lohnerhoehung",
+  "_images": [
+    "../vera8_sichtung/lohnerhoehung/image1.emf.png",
+    "../vera8_sichtung/lohnerhoehung/image2.emf.png",
+    "../vera8_sichtung/lohnerhoehung/image3.emf.png"
+  ]
+}

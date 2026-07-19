@@ -1,0 +1,25 @@
+{
+  "stamm": "Im Koordinatensystem sind die drei Punkte A, B und D gegeben.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wo muss der vierte Punkt C liegen, damit ein Quadrat ABCD entsteht? Zeichne den Punkt C ein.",
+      "ist_zeichenaufgabe": true,
+      "loesung_vorschlag": "C muss so liegen, dass ABCD ein Quadrat bildet. Aus dem Koordinatensystem: A liegt bei etwa (2,1), B liegt bei etwa (10,1), D liegt bei etwa (2,9). Für ein Quadrat ABCD muss C bei (10,9) liegen.",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die Aufgabe verlangt das Einzeichnen eines Punktes in ein Koordinatensystem. Dies ist eine Zeichenaufgabe und kann von der LSA nicht automatisch ausgewertet werden. Die Koordinaten wurden aus dem Bild abgelesen: A≈(2,1), B≈(10,1), D≈(2,9).",
+  "_task_id": "70ce3cbd-6467-431a-b48e-c9b9b6eb5359",
+  "_title": "Quadrate",
+  "_slug": "quadrate",
+  "_images": [
+    "../vera8_sichtung/quadrate/image1.emf.png",
+    "../vera8_sichtung/quadrate/image2.emf.png"
+  ]
+}

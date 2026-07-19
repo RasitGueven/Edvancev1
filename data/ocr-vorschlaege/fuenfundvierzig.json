@@ -1,0 +1,25 @@
+{
+  "stamm": "Bestimme die fehlende Zahl.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "6 · ☐ + 3 = 45",
+      "unit": null,
+      "loesung_vorschlag": "7",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "71011a0e-d0d2-4baf-94c0-7ef0c0cec365",
+  "_title": "Fünfundvierzig",
+  "_slug": "fuenfundvierzig",
+  "_images": [
+    "../vera8_sichtung/fuenfundvierzig/image2.emf.png",
+    "../vera8_sichtung/fuenfundvierzig/image3.emf.png"
+  ]
+}

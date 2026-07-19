@@ -1,0 +1,35 @@
+{
+  "stamm": "Ein Zimmer, das 4m lang und 5m breit ist, soll renoviert werden. Die Renovierung ist fast beendet und nur die Fußleisten fehlen noch. Gib an, wie viele Fußleisten von je 2,50m man mindestens braucht. Die Breite der Zimmertür soll vernachlässigt werden.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Man benötigt mindestens _______ Fußleisten.",
+      "unit": null,
+      "loesung_vorschlag": "8",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Eine Fußleiste von 2,50m Länge kostet 3€. Gib an, wie teuer 30m Fußleisten sind.",
+      "unit": "€",
+      "loesung_vorschlag": "36",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "3ba29585-9e91-4a4c-99ce-3e239de359cf",
+  "_title": "Fußleisten",
+  "_slug": "fussleisten",
+  "_images": [
+    "../vera8_sichtung/fussleisten/image2.emf.png",
+    "../vera8_sichtung/fussleisten/image3.emf.png",
+    "../vera8_sichtung/fussleisten/image4.emf.png",
+    "../vera8_sichtung/fussleisten/image5.emf.png"
+  ]
+}

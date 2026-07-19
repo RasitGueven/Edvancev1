@@ -1,0 +1,54 @@
+{
+  "stamm": "Wie viele Symmetrieachsen haben die in der Tabelle aufgeführten regelmäßigen Vielecke?\n\nZur Erinnerung: Bei einem regelmäßigen Vieleck (Dreieck, Viereck, Fünfeck, Sechseck) sind alle Seiten gleich lang und die Ecken liegen auf einem gemeinsamen Kreis.\n\nTrage jeweils die Anzahl der Symmetrieachsen ein.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Zeichne in dem gegebenen gleichseitigen Dreieck alle Symmetrieachsen ein.",
+      "loesung_vorschlag": "3 Symmetrieachsen (von jeder Ecke zur Mitte der gegenüberliegenden Seite)",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Zeichne in dem gegebenen Quadrat alle Symmetrieachsen ein.",
+      "loesung_vorschlag": "4 Symmetrieachsen (2 durch Seitenmitten, 2 durch Diagonalen)",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Anzahl der Symmetrieachsen eines Fünfecks",
+      "loesung_vorschlag": "5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "numeric",
+      "prompt": "Anzahl der Symmetrieachsen eines Sechsecks",
+      "loesung_vorschlag": "6",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "numeric",
+      "prompt": "Anzahl der Symmetrieachsen eines 27-Ecks",
+      "loesung_vorschlag": "27",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die ersten beiden Teilaufgaben verlangen das Einzeichnen von Symmetrieachsen in gegebene Figuren, die letzten drei verlangen nur numerische Eingaben in eine Tabelle. Die Zeichenaufgaben sind für automatische Auswertung nicht geeignet.",
+  "_task_id": "56a2c4db-f249-4927-b38c-8f768835daeb",
+  "_title": "Regelmäßige Vielecke",
+  "_slug": "regelmaessigevielecke",
+  "_images": [
+    "../vera8_sichtung/regelmaessigevielecke/image2.png",
+    "../vera8_sichtung/regelmaessigevielecke/image3.png",
+    "../vera8_sichtung/regelmaessigevielecke/image4.png",
+    "../vera8_sichtung/regelmaessigevielecke/image5.png"
+  ]
+}

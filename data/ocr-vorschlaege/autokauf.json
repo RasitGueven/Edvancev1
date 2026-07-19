@@ -1,0 +1,41 @@
+{
+  "stamm": "Herr Berger möchte ein neues Auto kaufen. Nach Angabe des Händlers soll es ohne Mehrwertsteuer 19900€ kosten. Herrn Berger ist dies zu teuer, und so handelt er mit dem Händler eine Preisermäßigung von 12% aus. Zu dem ermäßigten Preis kommen dann noch 19% Mehrwertsteuer hinzu.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Herr Berger rechnet einfach: 19900€ zuzüglich 7%. Liefert diese Rechnung das richtige Ergebnis? Kreuze an.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Nein, die Rechnung ist falsch. Zuerst wird der Preis um 12% ermäßigt (19900€ × 0,88 = 17512€), dann kommen auf diesen ermäßigten Preis 19% Mehrwertsteuer hinzu (17512€ × 1,19 = 20839,28€). Insgesamt ergibt das eine Erhöhung um etwa 4,7% gegenüber dem Ausgangspreis, nicht 7%. Die Prozentsätze können nicht einfach addiert werden (-12% + 19% = +7%), da sie auf unterschiedliche Bezugsgrößen angewendet werden.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "6d79e710-e941-4708-bce1-6df035685575",
+  "_title": "Autokauf",
+  "_slug": "autokauf",
+  "_images": [
+    "../vera8_sichtung/autokauf/image1.emf.png",
+    "../vera8_sichtung/autokauf/image2.emf.png"
+  ]
+}

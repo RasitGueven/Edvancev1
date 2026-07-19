@@ -1,0 +1,24 @@
+{
+  "stamm": "Es soll ein Rechteck gezeichnet werden. Eine Seite ist bereits eingezeichnet. Vervollständige diese zu einem Rechteck.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne mit Geodreieck, Lineal oder Zirkel.",
+      "loesung_vorschlag": "Die drei fehlenden Seiten des Rechtecks werden parallel bzw. senkrecht zur eingezeichneten Seite vervollständigt.",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": null,
+  "_task_id": "4fcede19-c8ef-448f-ab6e-9f4f950c0074",
+  "_title": "Besondere Vierecke",
+  "_slug": "besonderevierecke",
+  "_images": [
+    "../vera8_sichtung/besonderevierecke/image1.emf.png",
+    "../vera8_sichtung/besonderevierecke/image2.emf.png"
+  ]
+}

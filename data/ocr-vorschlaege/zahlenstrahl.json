@@ -1,0 +1,33 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Auf welche Zahl zeigt der Pfeil? Schreibe die Zahl in das Kästchen.",
+      "unit": null,
+      "loesung_vorschlag": "3,5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Markiere die Zahl 1/5 mit einem Pfeil auf dem gegebenen Zahlenstrahl.",
+      "loesung_vorschlag": "Pfeil bei 0,2 (zwischen 0 und 1, ein Fünftel der Strecke von 0 bis 1)",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teil 2 verlangt das Einzeichnen eines Pfeils auf dem Zahlenstrahl - dies ist eine Zeichenaufgabe und kann von der LSA nicht automatisch ausgewertet werden.",
+  "_task_id": "0eeb9c9c-dff5-46d0-998c-ccba4674ea62",
+  "_title": "Zahlenstrahl",
+  "_slug": "zahlenstrahl",
+  "_images": [
+    "../vera8_sichtung/zahlenstrahl/image1.png",
+    "../vera8_sichtung/zahlenstrahl/image2.png",
+    "../vera8_sichtung/zahlenstrahl/image3.png"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Wie viel ist die Hälfte von 1 Million? Schreibe dein Ergebnis in Ziffern.",
+      "unit": null,
+      "loesung_vorschlag": "500000",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "1660a458-692a-4245-867e-e33ebc64fb26",
+  "_title": "Hälfte",
+  "_slug": "haelfte",
+  "_images": [
+    "../vera8_sichtung/haelfte/image1.emf.png",
+    "../vera8_sichtung/haelfte/image2.emf.png"
+  ]
+}

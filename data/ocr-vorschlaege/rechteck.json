@@ -1,0 +1,33 @@
+{
+  "stamm": "Es soll ein vierter Punkt C so ergänzt werden, dass das Viereck ABCD ein Rechteck ist.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Zeichne diesen Punkt C in das Koordinatensystem ein. Gib die x-Koordinate von C an.",
+      "unit": null,
+      "loesung_vorschlag": "1",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Zeichne diesen Punkt C in das Koordinatensystem ein. Gib die y-Koordinate von C an.",
+      "unit": null,
+      "loesung_vorschlag": "4",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die Aufgabe verlangt explizit 'Zeichne diesen Punkt C in das Koordinatensystem ein', was eine Zeichenaufgabe ist. Die Koordinaten können zwar numerisch eingegeben werden (C liegt bei (1|4) für ein Rechteck ABCD mit A(1|2), B(5|2), D(1|4)), aber die primäre Aufgabenstellung ist das Einzeichnen.",
+  "_task_id": "6d2d4e9a-ecad-4d1d-b4b5-eefe6985e64c",
+  "_title": "Rechteck",
+  "_slug": "rechteck",
+  "_images": [
+    "../vera8_sichtung/rechteck/image1.png",
+    "../vera8_sichtung/rechteck/image2.emf.png"
+  ]
+}

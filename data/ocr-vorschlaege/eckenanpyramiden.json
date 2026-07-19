@@ -1,0 +1,25 @@
+{
+  "stamm": "Die Abbildung zeigt eine Pyramide. Sie hat fünf Flächen: vier dreieckige Grundfläche und vier dreieckige Seitenflächen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viele Ecken diese Pyramide hat.",
+      "unit": null,
+      "loesung_vorschlag": "5",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Der Stamm-Text scheint einen Fehler zu enthalten: 'vier dreieckige Grundfläche' ergibt keinen Sinn. Wahrscheinlich sollte es heißen: 'eine viereckige Grundfläche und vier dreieckige Seitenflächen'. Ich habe den Text so übernommen, wie er im Bild steht.",
+  "_task_id": "238c34fe-bcd0-4a2b-90cc-f83fb9e28bfb",
+  "_title": "Ecken an Pyramiden",
+  "_slug": "eckenanpyramiden",
+  "_images": [
+    "../vera8_sichtung/eckenanpyramiden/image1.emf.png",
+    "../vera8_sichtung/eckenanpyramiden/image2.emf.png"
+  ]
+}

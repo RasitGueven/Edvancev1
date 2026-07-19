@@ -1,0 +1,48 @@
+{
+  "stamm": "Marco hat kleine Würfel aufgestapelt und dann so miteinander verklebt, dass dieser Körper entstanden ist. Die in der Zeichnung verdeckten Würfel sind alle schon eingebaut.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Drei der folgenden fünf Zeichnungen stellen diesen Körper in einer anderen Ansicht dar. Kreuze diese drei Ansichten an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Ansicht 1 (links oben)"
+        },
+        {
+          "id": "b",
+          "label": "Ansicht 2 (Mitte oben)"
+        },
+        {
+          "id": "c",
+          "label": "Ansicht 3 (rechts oben)"
+        },
+        {
+          "id": "d",
+          "label": "Ansicht 4 (links unten)"
+        },
+        {
+          "id": "e",
+          "label": "Ansicht 5 (rechts unten)"
+        }
+      ],
+      "loesung_vorschlag": "a, b, d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Zuordnung der Ansichten basiert auf der räumlichen Interpretation der 3D-Würfelkörper und der zugehörigen 2D-Drahtmodelle. Die genaue Lösung hängt davon ab, welche drei Ansichten tatsächlich zum ursprünglichen Körper passen.",
+  "_task_id": "e82d178f-89bf-42c2-9962-027a08463eea",
+  "_title": "Würfelbau",
+  "_slug": "wuerfelbau",
+  "_images": [
+    "../vera8_sichtung/wuerfelbau/image1.jpeg",
+    "../vera8_sichtung/wuerfelbau/image2.png",
+    "../vera8_sichtung/wuerfelbau/image3.png",
+    "../vera8_sichtung/wuerfelbau/image4.png"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "stamm": "Die Rauminhalte der zwei Körper A und B sollen verglichen werden, ohne die beiden Rauminhalte jedoch konkret auszurechnen. Die Grundfläche von Körper A ist ein Quadrat mit 10cm Kantenlänge, die Grundfläche G von Körper B ist ein Sechseck mit 100cm² Flächeninhalt. Beide Körper haben eine Höhe von 16cm.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche der folgenden Aussagen ist richtig?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Der Rauminhalt von Körper A ist größer als der Rauminhalt von Körper B."
+        },
+        {
+          "id": "b",
+          "label": "Der Rauminhalt von Körper A ist gleich dem Rauminhalt von Körper B."
+        },
+        {
+          "id": "c",
+          "label": "Der Rauminhalt von Körper A ist kleiner als der Rauminhalt von Körper B."
+        },
+        {
+          "id": "d",
+          "label": "Man kann die Rauminhalte der zwei Körper nur vergleichen, indem man sie konkret ausrechnet."
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "bf03d765-c01b-44a6-ab29-80a21cafc069",
+  "_title": "Rauminhalt von Prismen",
+  "_slug": "rauminhaltvonprismen",
+  "_images": [
+    "../vera8_sichtung/rauminhaltvonprismen/image1.emf.png",
+    "../vera8_sichtung/rauminhaltvonprismen/image2.emf.png"
+  ]
+}

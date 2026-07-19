@@ -1,0 +1,25 @@
+{
+  "stamm": "Gegeben ist die Gleichung 183±2x.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib den Wert für x an.",
+      "unit": null,
+      "loesung_vorschlag": "91.5",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Gleichung '183±2x' ist ungewöhnlich notiert und könnte '183=2x' oder '183±2x=...' bedeuten. Ohne weitere Kontextinformation wurde angenommen, dass 183=2x gemeint ist, woraus x=91.5 folgt.",
+  "_task_id": "866b569a-030f-489b-b7f0-a922658c540e",
+  "_title": "Einfache Gleichung",
+  "_slug": "einfachegleichung",
+  "_images": [
+    "../vera8_sichtung/einfachegleichung/image1.emf.png",
+    "../vera8_sichtung/einfachegleichung/image2.emf.png"
+  ]
+}

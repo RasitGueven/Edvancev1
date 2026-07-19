@@ -1,0 +1,59 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Angelika kauft sechs normale Brötchen zu je 0,35€ und vier Körnerbrötchen zu je 0,45€. Gib an, wie viel sie insgesamt bezahlen muss.",
+      "unit": "€",
+      "loesung_vorschlag": "3,90",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Angelika kauft fünf normale Brötchen zu je 0,35€ und zahlt mit einem Fünf-Euro-Schein. Gib an, wie viel Geld sie zurück erhält.",
+      "unit": "€",
+      "loesung_vorschlag": "3,25",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Reichen 10€, um zwölf normale Brötchen zu je 35 Cent und zwölf Körnerbrötchen zu je 45 Cent zu kaufen? Kreuze an.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "12 × 0,35€ + 12 × 0,45€ = 4,20€ + 5,40€ = 9,60€. Da 9,60€ < 10€, reichen 10€.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "b4c474d7-69f9-46e9-bb36-a7086597713e",
+  "_title": "Frühstücksbrötchen",
+  "_slug": "fruehstuecksbroetchen",
+  "_images": [
+    "../vera8_sichtung/fruehstuecksbroetchen/image2.emf.png",
+    "../vera8_sichtung/fruehstuecksbroetchen/image3.emf.png",
+    "../vera8_sichtung/fruehstuecksbroetchen/image4.emf.png",
+    "../vera8_sichtung/fruehstuecksbroetchen/image5.emf.png"
+  ]
+}

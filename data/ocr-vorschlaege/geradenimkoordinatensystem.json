@@ -1,0 +1,43 @@
+{
+  "stamm": "Die Abbildung zeigt die Gerade mit der Gleichung y = (1/2)x - 2.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "An welcher Stelle schneidet die Gerade die x-Achse? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "x = -2"
+        },
+        {
+          "id": "b",
+          "label": "x = 0"
+        },
+        {
+          "id": "c",
+          "label": "x = 4"
+        },
+        {
+          "id": "d",
+          "label": "x = 5"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "83fe9508-6a17-4658-8b12-3b75ea2a5544",
+  "_title": "Geraden im Koordinatensystem",
+  "_slug": "geradenimkoordinatensystem",
+  "_images": [
+    "../vera8_sichtung/geradenimkoordinatensystem/image1.emf.png",
+    "../vera8_sichtung/geradenimkoordinatensystem/image2.emf.png",
+    "../vera8_sichtung/geradenimkoordinatensystem/image3.emf.png"
+  ]
+}

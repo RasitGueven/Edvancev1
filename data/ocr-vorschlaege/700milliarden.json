@@ -1,0 +1,25 @@
+{
+  "stamm": "Eric hört in den Nachrichten, dass in den USA über einen Kredit von 700 Milliarden Dollar zur Behebung einer akuten Finanzkrise diskutiert wird.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Schreibe diese Zahl in Ziffern.",
+      "unit": null,
+      "loesung_vorschlag": "700000000000",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "31118a1a-1dff-4c2c-a7a5-c9f36afeecaf",
+  "_title": "700 Milliarden",
+  "_slug": "700milliarden",
+  "_images": [
+    "../vera8_sichtung/700milliarden/image2.emf.png",
+    "../vera8_sichtung/700milliarden/image3.emf.png"
+  ]
+}

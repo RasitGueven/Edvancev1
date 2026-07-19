@@ -1,0 +1,26 @@
+{
+  "stamm": "Gegeben ist die Gleichung 8x = 72. Berechne x.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "x =",
+      "unit": null,
+      "loesung_vorschlag": "9",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "0e4d40b0-1e64-49e7-8abf-ced28a71e19c",
+  "_title": "Berechne x",
+  "_slug": "berechnex",
+  "_images": [
+    "../vera8_sichtung/berechnex/image1.jpeg",
+    "../vera8_sichtung/berechnex/image2.emf.png",
+    "../vera8_sichtung/berechnex/image3.emf.png"
+  ]
+}

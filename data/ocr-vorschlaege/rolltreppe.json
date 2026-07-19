@@ -1,0 +1,44 @@
+{
+  "stamm": "In einer U-Bahn-Station befindet sich einer der Bahnsteige genau 21m unter Straßenniveau. Nach oben gelangt man mit einer Rolltreppe. Monika stellt sich unten auf diese Rolltreppe und lässt sich einfach hochfahren. Das folgende Zeit-Höhen-Diagramm stellt dar, wie tief sie zu jedem Zeitpunkt noch unter der Erde (dem Straßenniveau) ist.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Nach einer Minute Rolltreppenfahrt ist Monika noch _______ m unterhalb des Straßenniveaus.",
+      "unit": "m",
+      "loesung_vorschlag": "9",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Gib an, wie lange es etwa dauert, bis Monika 15m höher ist als das Bahnsteigniveau.",
+      "unit": "min",
+      "loesung_vorschlag": "0,75",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Monikas Bruder Sven betritt zusammen mit Monika die gleiche Stufe der Rolltreppe. Er ist ein sportlicher Typ und bleibt daher nicht auf derselben Stufe stehen, sondern läuft die Rolltreppe hoch. Auf halber Höhe kommt er allerdings an einem Fahrgast mit Koffer nicht vorbei und muss ab dort auch einfach mit der Rolltreppe mitfahren. Zeichne in das voranstehende Koordinatensystem einen Graphen ein, der zu Svens \"Fahrt\" vom Bahnsteig bis nach oben passt.",
+      "loesung_vorschlag": "Ein Graph, der anfangs steiler fällt als Monikas Graph (schnellere Aufwärtsfahrt durch Laufen), dann bei etwa halber Höhe (-10,5m) parallel zu Monikas Graph verläuft (nur noch mitfahren).",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teilaufgabe 3 ist eine Zeichenaufgabe, die eine graphische Antwort in das Koordinatensystem verlangt. Bei Teilaufgabe 2 ist unklar, ob '15m höher als das Bahnsteigniveau' bedeutet -6m (15m über -21m) oder +15m über Straßenniveau; nach Diagramm-Logik vermutlich -6m, was bei etwa 0,75 Minuten erreicht wird.",
+  "_task_id": "20cb0b2f-8db0-4772-b8b5-b5451ae381b1",
+  "_title": "Rolltreppe",
+  "_slug": "rolltreppe",
+  "_images": [
+    "../vera8_sichtung/rolltreppe/image1.jpeg",
+    "../vera8_sichtung/rolltreppe/image2.png",
+    "../vera8_sichtung/rolltreppe/image3.png",
+    "../vera8_sichtung/rolltreppe/image4.png",
+    "../vera8_sichtung/rolltreppe/image5.png",
+    "../vera8_sichtung/rolltreppe/image6.png"
+  ]
+}

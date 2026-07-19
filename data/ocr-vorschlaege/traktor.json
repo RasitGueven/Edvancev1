@@ -1,0 +1,43 @@
+{
+  "stamm": "Von einem Traktor werden Spielzeugmodelle in den folgenden Maßstäben hergestellt:\n1 : 120\n1 : 87\n1 : 50\n1 : 32",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Bei welchem Maßstab ist das Modell am kleinsten? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "1 : 120"
+        },
+        {
+          "id": "b",
+          "label": "1 : 87"
+        },
+        {
+          "id": "c",
+          "label": "1 : 50"
+        },
+        {
+          "id": "d",
+          "label": "1 : 32"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "486fe554-77ae-4c3c-84f5-52b5701e8767",
+  "_title": "Traktor",
+  "_slug": "traktor",
+  "_images": [
+    "../vera8_sichtung/traktor/image1.png",
+    "../vera8_sichtung/traktor/image2.png",
+    "../vera8_sichtung/traktor/image3.png"
+  ]
+}

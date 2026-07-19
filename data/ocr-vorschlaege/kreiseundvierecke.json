@@ -1,0 +1,51 @@
+{
+  "stamm": "Gegeben ist jeweils ein Kreis mit dem Radius r = 3cm.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne ein Quadrat exakt so ein, dass seine vier Eckpunkte auf der Kreislinie liegen.",
+      "loesung_vorschlag": "Ein Quadrat mit allen vier Eckpunkten auf dem Kreis (Radius 3cm), dessen Diagonale dem Durchmesser entspricht (6cm).",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Martin sagt: \"Wenn ich eine Raute (Rhombus) ABCD so zeichne, dass die Eckpunkte B und D auf der Kreislinie liegen, müssen auch die beiden anderen Eckpunkte A und C immer auf der Kreislinie liegen.\" Hat Martin Recht?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Begründe deine Entscheidung.",
+      "loesung_vorschlag": "Eine Raute kann so gezeichnet werden, dass nur zwei gegenüberliegende Eckpunkte auf der Kreislinie liegen, während die anderen beiden innerhalb oder außerhalb des Kreises liegen. Nur wenn die Raute ein Quadrat ist, liegen alle vier Eckpunkte auf der Kreislinie.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": null,
+  "_task_id": "69d29f0e-da8a-491c-aae7-054754bac3ff",
+  "_title": "Kreise und Vierecke",
+  "_slug": "kreiseundvierecke",
+  "_images": [
+    "../vera8_sichtung/kreiseundvierecke/image1.jpeg",
+    "../vera8_sichtung/kreiseundvierecke/image2.emf.png",
+    "../vera8_sichtung/kreiseundvierecke/image3.emf.png",
+    "../vera8_sichtung/kreiseundvierecke/image4.emf.png",
+    "../vera8_sichtung/kreiseundvierecke/image5.emf.png"
+  ]
+}

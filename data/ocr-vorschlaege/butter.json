@@ -1,0 +1,25 @@
+{
+  "stamm": "Petra braucht ein kleines Stück Butter zum Kuchenbacken.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viel Butter sie ungefähr von diesem 250-g-Stück abgeteilt hat.",
+      "unit": "g",
+      "loesung_vorschlag": "50",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die genaue Größe des abgeteilten Butterstücks ist im Bild nicht dargestellt, daher kann nur geschätzt werden. Der Wert 50g ist eine plausible Schätzung für 'ein kleines Stück', könnte aber auch anders interpretiert werden.",
+  "_task_id": "dadb66dc-cddc-4ab6-a1c5-915eb31180e2",
+  "_title": "Butter",
+  "_slug": "butter",
+  "_images": [
+    "../vera8_sichtung/butter/image1.emf.png",
+    "../vera8_sichtung/butter/image2.emf.png"
+  ]
+}

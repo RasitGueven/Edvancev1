@@ -1,0 +1,46 @@
+{
+  "stamm": "Andrea hat an ihrem Schlüsselbund vier Schlüssel, die sehr ähnlich aussehen. Nur einer dieser Schlüssel passt in das Schloss ihrer Haustür.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist die Wahrscheinlichkeit, dass die Haustür mit dem ersten Schlüssel aufgeht, den sie zufällig probiert? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "0"
+        },
+        {
+          "id": "b",
+          "label": "1/4"
+        },
+        {
+          "id": "c",
+          "label": "1/3"
+        },
+        {
+          "id": "d",
+          "label": "1/2"
+        },
+        {
+          "id": "e",
+          "label": "3/4"
+        }
+      ],
+      "loesung_vorschlag": "1/4",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "0ed1d9ac-9b33-4815-9dfc-4a145bba1069",
+  "_title": "Schlüssel",
+  "_slug": "schluessel",
+  "_images": [
+    "../vera8_sichtung/schluessel/image1.png",
+    "../vera8_sichtung/schluessel/image2.emf.png"
+  ]
+}

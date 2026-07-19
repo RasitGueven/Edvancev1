@@ -1,0 +1,42 @@
+{
+  "stamm": "Ein Schiff fährt mit gleichbleibender Geschwindigkeit aus einem Hafen an einem Leuchtturm vorbei. Der nachstehenden Abbildung kann man entnehmen, wie viele Minuten es vom Ablegen bis zu den markierten Positionen braucht. Die Abbildung zeigt die Route des Schiffes vom Hafen zum Leuchtturm mit Zeitmarkierungen bei 5 min, 10 min, 15 min, 20 min, 25 min, 30 min und 35 min. Der Maßstab zeigt 2 km.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welcher Graph stellt den Abstand des Schiffes zum Leuchtturm als Funktion der Zeit dar? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Graph oben links (erst abnehmend, dann zunehmend, gekrümmt)"
+        },
+        {
+          "id": "b",
+          "label": "Graph oben rechts (erst abnehmend U-förmig, dann stark zunehmend)"
+        },
+        {
+          "id": "c",
+          "label": "Graph unten links (U-förmig, symmetrisch)"
+        },
+        {
+          "id": "d",
+          "label": "Graph unten rechts (linear steigend von 0)"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "unsicher": "Die Zuordnung der Graphen zu den Optionen a-d erfolgte anhand der Position (oben links, oben rechts, unten links, unten rechts). Der korrekte Graph sollte zeigen, dass der Abstand zunächst abnimmt (Schiff nähert sich dem Leuchtturm) und dann wieder zunimmt (Schiff fährt am Leuchtturm vorbei). Graph oben links scheint dies am besten darzustellen.",
+  "_task_id": "27fb8ca3-408c-4837-8ea3-21a605b22e52",
+  "_title": "Abstand auf dem Wasser",
+  "_slug": "abstandaufdemwasser",
+  "_images": [
+    "../vera8_sichtung/abstandaufdemwasser/image2.emf.png",
+    "../vera8_sichtung/abstandaufdemwasser/image3.emf.png",
+    "../vera8_sichtung/abstandaufdemwasser/image4.emf.png"
+  ]
+}

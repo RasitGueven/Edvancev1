@@ -1,0 +1,51 @@
+{
+  "stamm": "Ein Würfel wird verkleinert. Das Volumen des neuen Würfels ist um ca. 27% geringer als das Volumen des ursprünglichen Würfels.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Um wie viel Prozent verkleinert sich dabei seine Oberfläche?",
+      "options": [
+        {
+          "id": "a",
+          "label": "um ca. 9%"
+        },
+        {
+          "id": "b",
+          "label": "um ca. 19%"
+        },
+        {
+          "id": "c",
+          "label": "um ca. 27%"
+        },
+        {
+          "id": "d",
+          "label": "um ca. 47%"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Wenn das Volumen um 27% sinkt, beträgt das neue Volumen 73% des ursprünglichen. Da V = a³, folgt a_neu = ∛0,73 · a ≈ 0,9004 · a. Die Oberfläche O = 6a² verkleinert sich auf O_neu = 6 · (0,9004)² · a² ≈ 0,8107 · O, also eine Reduktion um ca. 19%.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "unsicher": null,
+  "_task_id": "f8d1a795-d768-4b43-aebc-39dbe219de1d",
+  "_title": "Volumenverkleinerung",
+  "_slug": "volumenverkleinerung",
+  "_images": [
+    "../vera8_sichtung/volumenverkleinerung/image1.jpeg",
+    "../vera8_sichtung/volumenverkleinerung/image2.png",
+    "../vera8_sichtung/volumenverkleinerung/image3.png",
+    "../vera8_sichtung/volumenverkleinerung/image4.png",
+    "../vera8_sichtung/volumenverkleinerung/image5.png"
+  ]
+}

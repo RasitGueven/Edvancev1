@@ -1,0 +1,82 @@
+{
+  "stamm": "Mit einem 12-seitigen Spielwürfel werden Zufallsversuche durchgeführt. Die Seiten dieses Würfels sind mit den Zahlen 1 bis 12 beschriftet.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib zu dem folgenden Ereignis an, welche Zahlen beim Würfeln oben liegen können: Die Augenzahl ist kleiner als 5.",
+      "loesung_vorschlag": "1, 2, 3, 4",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Gib zu dem folgenden Ereignis an, welche Zahlen beim Würfeln oben liegen können: Die Augenzahl ist zweistellig und ungerade.",
+      "loesung_vorschlag": "11",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Ein anderes Ereignis bei diesem Würfel soll genau drei Ergebnisse (Ausgänge) haben. Beschreibe dazu ein passendes Ereignis.",
+      "loesung_vorschlag": "z.B. Die Augenzahl ist durch 4 teilbar (4, 8, 12) oder Die Augenzahl ist eine Primzahl kleiner als 8 (2, 3, 5, 7) — viele Möglichkeiten",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 4,
+      "kind": "short_input",
+      "prompt": "Beim Spielen mit zwei 12-seitigen Würfeln werden ebenfalls beide Augenzahlen addiert. Gib an, welche Augensumme dabei am häufigsten ist.",
+      "loesung_vorschlag": "13",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort zur häufigsten Augensumme beim Spielen mit zwei 12-seitigen Würfeln.",
+      "loesung_vorschlag": "Die Summe 13 kann auf die meisten Arten gewürfelt werden: (1,12), (2,11), (3,10), (4,9), (5,8), (6,7), (7,6), (8,5), (9,4), (10,3), (11,2), (12,1) = 12 Kombinationen. Analog zum 6-seitigen Würfel ist n+1 die häufigste Summe.",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 6,
+      "kind": "mc",
+      "prompt": "Ein n-seitiger Würfel zeigt die Zahlen 1 bis n. Bei einem Spiel mit zwei n-seitigen Würfeln werden die beiden gewürfelten Augenzahlen addiert. Welche Zahl kommt dabei am häufigsten als Summe vor? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "2n"
+        },
+        {
+          "id": "b",
+          "label": "n·n"
+        },
+        {
+          "id": "c",
+          "label": "n+1"
+        },
+        {
+          "id": "d",
+          "label": "n+2"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "c0b6b1ba-bdcc-48fe-b44c-36d7789fa4e8",
+  "_title": "Zufallsversuche",
+  "_slug": "zufallsversuche",
+  "_images": [
+    "../vera8_sichtung/zufallsversuche/image1.jpeg",
+    "../vera8_sichtung/zufallsversuche/image2.png",
+    "../vera8_sichtung/zufallsversuche/image3.png",
+    "../vera8_sichtung/zufallsversuche/image4.png",
+    "../vera8_sichtung/zufallsversuche/image5.png",
+    "../vera8_sichtung/zufallsversuche/image6.png",
+    "../vera8_sichtung/zufallsversuche/image7.png"
+  ]
+}

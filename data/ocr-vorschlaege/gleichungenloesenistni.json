@@ -1,0 +1,77 @@
+{
+  "stamm": "Gleichungen können auf verschiedene Arten gelöst werden. Timo soll die Gleichung 7x = 42 durch Probieren lösen. Dazu soll er verschiedene Zahlen für x einsetzen und ausprobieren, ob die Gleichung dann stimmt. Daniel soll die Gleichung 7x = 38 rechnerisch lösen. Dazu soll er sie schrittweise nach x umformen. In den Teilaufgaben 1 und 2 wurden die gegebenen Gleichungen auf zwei verschiedene Weisen gelöst. Timo hat die Gleichung durch Probieren gelöst, Daniel durch Umformen. Die Wahl der Vorgehensweise hängt auch von der zu lösenden Gleichung ab.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Zahl muss eingesetzt werden, damit die Gleichung 7x = 42 stimmt? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "4"
+        },
+        {
+          "id": "b",
+          "label": "8"
+        },
+        {
+          "id": "c",
+          "label": "20"
+        },
+        {
+          "id": "d",
+          "label": "44"
+        },
+        {
+          "id": "e",
+          "label": "56"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Notiere Daniels Lösungsweg für die Gleichung 7x = 38.",
+      "loesung_vorschlag": "7x = 38 | :7 auf beiden Seiten → x = 38/7",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Gib zwei Gleichungen an, die sich durch Probieren leicht lösen lassen (Probieren).",
+      "loesung_vorschlag": "z.B. 3x = 12 und 5x = 25",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 4,
+      "kind": "short_input",
+      "prompt": "Gib zwei weitere Gleichungen an, die sich besser durch Umformen lösen lassen (Umformen).",
+      "loesung_vorschlag": "z.B. 7x = 53 und 11x = 127",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 5,
+      "kind": "free_text",
+      "prompt": "Erkläre jeweils, warum du die Gleichungen durch Probieren bzw. durch Umformen löst.",
+      "loesung_vorschlag": "Probieren: Wenn die Lösung eine kleine ganze Zahl ist, kann man sie schnell erraten. Umformen: Wenn die Zahlen ungünstig sind oder die Lösung keine ganze Zahl ist, ist Umformen effizienter.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Gleichung bei Daniel ist schwer lesbar – könnte 7x=38 oder 7x=48 sein; ich habe 38 angenommen. Die Teilaufgaben 3–5 erwarten offene Antworten mit mehreren möglichen Lösungen.",
+  "_task_id": "6e3ec331-e25e-40e3-b7ee-94f916af0f3b",
+  "_title": "Gleichungen lösen ist nicht schwierig",
+  "_slug": "gleichungenloesenistni",
+  "_images": [
+    "../vera8_sichtung/gleichungenloesenistni/image2.emf.png",
+    "../vera8_sichtung/gleichungenloesenistni/image3.emf.png",
+    "../vera8_sichtung/gleichungenloesenistni/image4.emf.png",
+    "../vera8_sichtung/gleichungenloesenistni/image5.emf.png",
+    "../vera8_sichtung/gleichungenloesenistni/image6.emf.png"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "stamm": "Gib an, in wie viele Grundstücke sich die noch verfügbare Fläche höchstens aufteilen lässt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "In höchstens _________ Grundstücke.",
+      "unit": null,
+      "loesung_vorschlag": "nicht aus dem Bild ableitbar",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Lösung hängt von der Grafik ab, die eine Baugebietskarte mit Grundstücken zeigt. Ohne die vollständige Aufgabenstellung und ohne die Möglichkeit, die verfügbare Fläche in der Grafik genau zu analysieren, kann ich die korrekte Anzahl nicht bestimmen.",
+  "_task_id": "9c78fbf9-89a7-42af-b8d3-03cf489cd62b",
+  "_title": "Gewerbezone",
+  "_slug": "gewerbezone",
+  "_images": [
+    "../vera8_sichtung/gewerbezone/image1.emf.png",
+    "../vera8_sichtung/gewerbezone/image2.emf.png",
+    "../vera8_sichtung/gewerbezone/image3.emf.png"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "stamm": "In einem Parkhaus gelten folgende Parkgebühren:\n\nParkzeit | Gebühr\nbis 2 Stunden | 4,00 €\nbis 3 Stunden | 5,50 €\nbis 4 Stunden | 7,00 €\njede weitere angefangene Stunde | 1,00 €\nab neun Stunden gleichbleibend | 13,00 €\n\nDie Parkgebühren für 0 bis 11 Stunden sollen grafisch dargestellt werden. Das Diagramm wurde schon begonnen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Ergänze das Diagramm.",
+      "loesung_vorschlag": "Die fehlenden Punkte im Diagramm sind: (0,0), (1,4), (5,8), (6,9), (7,10), (8,11), (9,12), (10,13), (11,13). Die Gebühr steigt bis 4 Stunden gemäß Tabelle, danach +1€ pro angefangene Stunde bis 9 Stunden, ab 9 Stunden bleibt sie bei 13€.",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": null,
+  "_task_id": "e2cb3000-8995-4312-8f38-ad8b03cb30ba",
+  "_title": "Parkhaus",
+  "_slug": "parkhaus",
+  "_images": [
+    "../vera8_sichtung/parkhaus/image1.emf.png",
+    "../vera8_sichtung/parkhaus/image2.emf.png",
+    "../vera8_sichtung/parkhaus/image3.emf.png"
+  ]
+}

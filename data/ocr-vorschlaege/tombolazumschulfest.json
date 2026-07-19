@@ -1,0 +1,34 @@
+{
+  "stamm": "Bei einer Tombola auf einem Schulfest befinden sich 200 Lose in einem Gefäß. Davon sind 70 kleine Gewinne, 30 mittlere Gewinne und 10 Hauptgewinne. Der Rest sind Nieten.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, bei wie vielen Losen es sich um Nieten handelt.",
+      "unit": null,
+      "loesung_vorschlag": "90",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Zeichne die Anteile der vier Losarten in dieses Streifendiagramm ein. Beschrifte die Anteile.",
+      "loesung_vorschlag": "Streifendiagramm mit vier Abschnitten: Nieten 90/200 (45%), kleine Gewinne 70/200 (35%), mittlere Gewinne 30/200 (15%), Hauptgewinne 10/200 (5%)",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teil 2 ist eine Zeichenaufgabe (Streifendiagramm ausfüllen), die nicht automatisch ausgewertet werden kann. Sie wurde als free_text markiert, ist aber eigentlich ist_zeichenaufgabe=true.",
+  "_task_id": "c1ce2847-5827-4daa-baa7-53e06c05eced",
+  "_title": "Tombola zum Schulfest",
+  "_slug": "tombolazumschulfest",
+  "_images": [
+    "../vera8_sichtung/tombolazumschulfest/image1.png",
+    "../vera8_sichtung/tombolazumschulfest/image2.png",
+    "../vera8_sichtung/tombolazumschulfest/image3.png",
+    "../vera8_sichtung/tombolazumschulfest/image4.png"
+  ]
+}

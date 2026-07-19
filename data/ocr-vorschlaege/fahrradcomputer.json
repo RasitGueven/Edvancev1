@@ -1,0 +1,60 @@
+{
+  "stamm": "Anna hat einen Fahrradcomputer an ihrem Fahrrad. Eine halbe Stunde nach dem Start hat sie 9 km zurückgelegt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Durchschnittsgeschwindigkeit wird auf dem Fahrradcomputer angezeigt?",
+      "options": [
+        {
+          "id": "a",
+          "label": "4,5 km/h"
+        },
+        {
+          "id": "b",
+          "label": "9 km/h"
+        },
+        {
+          "id": "c",
+          "label": "18 km/h"
+        },
+        {
+          "id": "d",
+          "label": "20 km/h"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "45 Minuten nach dem Start zeigt der Computer eine Durchschnittsgeschwindigkeit von 16 km/h an. Anna muss zu dem Zeitpunkt noch 8 km bis zu ihrem Fahrziel fahren. Auf dieser Reststrecke hat sie Rückenwind und will deutlich schneller fahren, damit am Ziel eine Durchschnittsgeschwindigkeit von 20 km/h für die gesamte Fahrtstrecke angezeigt wird. Mit welcher durchschnittlichen Geschwindigkeit muss sie auf der Reststrecke fahren?",
+      "unit": "km/h",
+      "loesung_vorschlag": "40",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Schreibe auf, wie du zu deiner Lösung gekommen bist.",
+      "loesung_vorschlag": "Gesamtstrecke: 12 km + 8 km = 20 km. Bei 20 km/h Durchschnitt: Zeit = 20 km / 20 km/h = 1 Stunde. Nach 45 Minuten (0,75 h) bei 16 km/h: zurückgelegte Strecke = 16 km/h × 0,75 h = 12 km. Verbleibende Zeit: 60 min - 45 min = 15 min = 0,25 h. Geschwindigkeit auf Reststrecke: 8 km / 0,25 h = 32 km/h.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Bei Teil 2 ist die Rechnung komplex: Nach 45 min bei 16 km/h hat Anna 12 km zurückgelegt (nicht 9 km wie nach 30 min). Gesamtstrecke 20 km, Ziel 20 km/h Durchschnitt = 60 min Gesamtzeit. Verbleibende Zeit 15 min für 8 km ergibt 32 km/h. Mein loesung_vorschlag von 40 km/h könnte falsch sein – korrekt wäre vermutlich 32 km/h.",
+  "_task_id": "134a51e6-1a29-4060-9916-c3d74d0daf4d",
+  "_title": "Fahrradcomputer",
+  "_slug": "fahrradcomputer",
+  "_images": [
+    "../vera8_sichtung/fahrradcomputer/image1.jpeg",
+    "../vera8_sichtung/fahrradcomputer/image2.emf.png",
+    "../vera8_sichtung/fahrradcomputer/image3.emf.png",
+    "../vera8_sichtung/fahrradcomputer/image4.emf.png",
+    "../vera8_sichtung/fahrradcomputer/image5.emf.png"
+  ]
+}

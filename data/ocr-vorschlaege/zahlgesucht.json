@@ -1,0 +1,43 @@
+{
+  "stamm": "Wenn 9x = 6,3; dann ist x = ?\nKreuze an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wenn 9x = 6,3; dann ist x = ?",
+      "options": [
+        {
+          "id": "a",
+          "label": "7"
+        },
+        {
+          "id": "b",
+          "label": "0,07"
+        },
+        {
+          "id": "c",
+          "label": "0,7"
+        },
+        {
+          "id": "d",
+          "label": "70"
+        }
+      ],
+      "loesung_vorschlag": "c (0,7)",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "c18445fa-cfec-464c-abe4-96d153aaa78b",
+  "_title": "Zahl gesucht",
+  "_slug": "zahlgesucht",
+  "_images": [
+    "../vera8_sichtung/zahlgesucht/image1.jpeg",
+    "../vera8_sichtung/zahlgesucht/image2.png",
+    "../vera8_sichtung/zahlgesucht/image3.png"
+  ]
+}

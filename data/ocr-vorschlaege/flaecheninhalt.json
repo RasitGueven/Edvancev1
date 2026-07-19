@@ -1,0 +1,25 @@
+{
+  "stamm": "Gib den Flächeninhalt dieser Figur an. Die Figur ist ein Quadrat mit Seitenlänge 5 cm (nicht maßstabsgerecht).",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Der Flächeninhalt beträgt",
+      "unit": "cm²",
+      "loesung_vorschlag": "25",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "cf5302ed-39df-4963-a029-b4c39a5ae4d6",
+  "_title": "Flächeninhalt",
+  "_slug": "flaecheninhalt",
+  "_images": [
+    "../vera8_sichtung/flaecheninhalt/image1.emf.png",
+    "../vera8_sichtung/flaecheninhalt/image2.emf.png"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "stamm": "Auf dem Foto siehst du sehr viele Schokolinsen.\n\nSchätze, wie viele Schokolinsen auf diesem Foto abgebildet sind. Du kannst dafür eine der abgebildeten Figuren verwenden.\n\nDas Foto zeigt etwa _____ Schokolinsen.\n\nBeschreibe dein Vorgehen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Das Foto zeigt etwa _____ Schokolinsen.",
+      "unit": null,
+      "loesung_vorschlag": "Schätzwert abhängig vom gewählten Vorgehen, typischerweise mehrere hundert bis wenige tausend",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Beschreibe dein Vorgehen.",
+      "loesung_vorschlag": "z.B.: Ich habe ein Quadrat des Gitters als Referenzfläche gewählt, die Schokolinsen darin gezählt, die Gesamtfläche durch die Referenzfläche geteilt und mit der Anzahl multipliziert.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "00fc4a3c-6e5f-43f6-bed6-dc8aaa952cb1",
+  "_title": "Schokolinsen",
+  "_slug": "schokolinsen",
+  "_images": [
+    "../vera8_sichtung/schokolinsen/image1.emf.png",
+    "../vera8_sichtung/schokolinsen/image2.emf.png"
+  ]
+}

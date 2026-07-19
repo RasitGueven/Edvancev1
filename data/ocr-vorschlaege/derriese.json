@@ -1,0 +1,25 @@
+{
+  "stamm": "In der Zeichnung ist ein Teil eines Kopfes zu sehen. Dieser Teil ist 3m hoch.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Zu welcher Größe des gesamten Kopfes gehört dieser Teil des Kopfes?",
+      "unit": "m",
+      "loesung_vorschlag": "Nicht eindeutig bestimmbar ohne weitere Informationen über den Anteil des sichtbaren Teils am Gesamtkopf",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Aufgabenstellung ist unklar formuliert. Es ist nicht ersichtlich, welcher Anteil des Kopfes dargestellt ist oder welche spezifische Messung erwartet wird. Die Antwort könnte eine Proportion oder eine absolute Größe sein. Möglicherweise soll aus der Zeichnung abgelesen werden, wie groß der gesamte Kopf wäre, wenn der gezeigte Teil 3m hoch ist.",
+  "_task_id": "46e6c014-b735-4cb2-8c26-40f40b6ac838",
+  "_title": "Der Riese",
+  "_slug": "derriese",
+  "_images": [
+    "../vera8_sichtung/derriese/image1.emf.png",
+    "../vera8_sichtung/derriese/image2.emf.png"
+  ]
+}

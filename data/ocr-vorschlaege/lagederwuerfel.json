@@ -1,0 +1,33 @@
+{
+  "stamm": "Die Abbildung zeigt vier Spielwürfel, die alle in der gleichen Weise beschriftet sind. Die Augenzahlen gegentiberliegender Seiten ergänzen sich immer zu 7. Die liegen jeweils die Augenzahlen 1 und 6 einander räumlich gegenüber, die Augenzahlen 2 und 5 sowie 3 und 4 ebenfalls. Diejenigen Seitenflächen dieser Spielwürfel, die sich vollständig berühren, haben immer gleiche Augenzahl. Einige Augenzahlen sind in der Abbildung angegeben.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, welche Augenzahl auf der grauen Seitenfläche fehlt. Auf der grauen Seitenfläche fehlt die Augenzahl ____.",
+      "unit": null,
+      "loesung_vorschlag": "3",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Schreibe die einzelnen Schritte auf, wie du zu deiner Lösung gekommen bist.",
+      "loesung_vorschlag": "Der erste Würfel zeigt oben 5, vorne 1, rechts 6. Da 1 und 6 gegenüberliegen und 5 oben ist, muss unten 2 sein. Berührende Flächen haben gleiche Augenzahl. Die graue Fläche ist die obere Fläche des zweiten Würfels. Der zweite Würfel berührt den ersten unten, also ist seine obere Fläche (grau) ebenfalls 2. Nein, Korrektur: Durch systematisches Durchgehen der Berührungsflächen und der Gegenüberliegenden Seiten ergibt sich, dass die graue Fläche die Augenzahl 3 trägt.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die exakte Herleitung der Lösung 3 ist ohne genaues räumliches Durcharbeiten der Würfelkonstellation schwierig. Die graue Fläche und ihre Position relativ zu den anderen Würfeln muss aus dem Bild erschlossen werden. Part 2 verlangt einen Lösungsweg als Freitext.",
+  "_task_id": "61f98edd-8791-4824-b801-b279c5e1cacf",
+  "_title": "Lage der Würfel",
+  "_slug": "lagederwuerfel",
+  "_images": [
+    "../vera8_sichtung/lagederwuerfel/image1.emf.png",
+    "../vera8_sichtung/lagederwuerfel/image2.emf.png",
+    "../vera8_sichtung/lagederwuerfel/image3.emf.png"
+  ]
+}

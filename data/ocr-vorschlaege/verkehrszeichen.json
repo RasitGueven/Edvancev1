@@ -1,0 +1,110 @@
+{
+  "stamm": "Ist das Bild des Verkehrszeichens achsensymmetrisch? Kreuze jeweils an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Ist das erste Verkehrszeichen (weißer Pfeil nach rechts auf grauem Kreis) achsensymmetrisch?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Ist das zweite Verkehrszeichen (zwei gegenläufige Pfeile auf grauem Kreis) achsensymmetrisch?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Ist das dritte Verkehrszeichen (Dreieck mit Schneeflocke/Eiskristall, Warnung vor Winterglätte) achsensymmetrisch?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Ist das vierte Verkehrszeichen (T-förmige Kreuzung, Vorfahrtsschild) achsensymmetrisch?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "free_text",
+      "prompt": "Spiegele die Figur an der Spiegelachse s. Zeichne mit Geodreieck oder Lineal.",
+      "loesung_vorschlag": "Die gegebene schräge Figur (zwei parallele Linien) wird an der vertikalen Spiegelachse gespiegelt, sodass die gespiegelte Figur symmetrisch zur Achse liegt.",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 6,
+      "kind": "free_text",
+      "prompt": "Zeichne alle Spiegelachsen in diese Figur (Verkehrszeichen mit X-förmigem Muster auf grauem Kreis) ein.",
+      "loesung_vorschlag": "Das Zeichen hat 4 Spiegelachsen: zwei diagonal durch die X-Arme und zwei durch die Mitte der grauen Segmente (vertikal und horizontal).",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 7,
+      "kind": "free_text",
+      "prompt": "Beim Spiegeln dieses Verkehrszeichens ist ein Fehler unterlaufen. Kreise den Fehler ein.",
+      "loesung_vorschlag": "Die Schrift auf den beiden Stoppschildern sollte gespiegelt sein. Ein Schild zeigt 'POTS' (richtig gespiegelt) und das andere 'STOP' (Fehler, nicht gespiegelt).",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teilaufgaben 5, 6 und 7 sind Zeichenaufgaben und können nicht automatisch ausgewertet werden. Bei Teilaufgabe 7 ist der genaue Fehler im Bild schwer zu erkennen, aber es scheint um gespiegelte vs. nicht-gespiegelte Schrift zu gehen.",
+  "_task_id": "5dfd2ff7-7f2a-4191-917a-e601e999cf01",
+  "_title": "Verkehrszeichen",
+  "_slug": "verkehrszeichen",
+  "_images": [
+    "../vera8_sichtung/verkehrszeichen/image1.jpeg",
+    "../vera8_sichtung/verkehrszeichen/image2.png",
+    "../vera8_sichtung/verkehrszeichen/image3.png",
+    "../vera8_sichtung/verkehrszeichen/image4.png",
+    "../vera8_sichtung/verkehrszeichen/image5.png",
+    "../vera8_sichtung/verkehrszeichen/image6.png"
+  ]
+}

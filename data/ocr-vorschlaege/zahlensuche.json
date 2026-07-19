@@ -1,0 +1,49 @@
+{
+  "stamm": "In der Tabelle sind jeweils eine natürliche Zahl, ihr Vorgänger (die vorangehende natürliche Zahl) und das Doppelte dieses Vorgängers einander zugeordnet. Vervollständige die Tabelle.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Zahl: 5. Vorgänger der Zahl: 4. Vorgänger doppelt: ?",
+      "unit": null,
+      "loesung_vorschlag": "8",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Zahl: 6. Vorgänger der Zahl: ?. Vorgänger doppelt: ?",
+      "unit": null,
+      "loesung_vorschlag": "5 und 10",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Zahl: ?. Vorgänger der Zahl: 9. Vorgänger doppelt: ?",
+      "unit": null,
+      "loesung_vorschlag": "10 und 18",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "numeric",
+      "prompt": "Zahl: ?. Vorgänger der Zahl: 8. Vorgänger doppelt: 30",
+      "unit": null,
+      "loesung_vorschlag": "16",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die letzte Zeile (Vorgänger doppelt: 30, Vorgänger der Zahl: 8) scheint einen Widerspruch zu enthalten, da das Doppelte von 8 nicht 30 ist. Möglicherweise ist 30 die gesuchte Zahl, dann wäre der Vorgänger 29 und Vorgänger doppelt 58. Oder es ist ein Fehler in der Aufgabenstellung. Ich habe angenommen, dass die Zahl gesucht ist und 30 der Vorgänger ist (nicht 8), dann wäre die Zahl 16 falsch. Bei genauerer Betrachtung: wenn Vorgänger doppelt = 30, dann Vorgänger = 15, dann Zahl = 16.",
+  "_task_id": "4016c690-bbc8-4ede-83e8-5afa57365659",
+  "_title": "Zahlensuche",
+  "_slug": "zahlensuche",
+  "_images": [
+    "../vera8_sichtung/zahlensuche/image1.png",
+    "../vera8_sichtung/zahlensuche/image2.png"
+  ]
+}

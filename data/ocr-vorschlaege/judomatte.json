@@ -1,0 +1,47 @@
+{
+  "stamm": "Bei den Olympischen Spielen wird der Judokampf innerhalb einer 8 m x 8 m großen quadratischen Kampfzone ausgetragen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist diese?",
+      "unit": "m²",
+      "options": [
+        {
+          "id": "a",
+          "label": "8 m²"
+        },
+        {
+          "id": "b",
+          "label": "16 m²"
+        },
+        {
+          "id": "c",
+          "label": "32 m²"
+        },
+        {
+          "id": "d",
+          "label": "64 m²"
+        },
+        {
+          "id": "e",
+          "label": "256 m²"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "29e58bdf-eba0-4683-acf5-507301f60566",
+  "_title": "Judomatte",
+  "_slug": "judomatte",
+  "_images": [
+    "../vera8_sichtung/judomatte/image2.emf.png",
+    "../vera8_sichtung/judomatte/image3.emf.png"
+  ]
+}

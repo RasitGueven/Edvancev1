@@ -1,0 +1,25 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, welche Zahl genau in der Mitte der beiden Zahlen 6,06 und 6,6 liegt.",
+      "unit": null,
+      "loesung_vorschlag": "6,33",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "2bb1e79f-26e3-493f-8a56-8fdb0468f8eb",
+  "_title": "Mitte zwischen Zahlen",
+  "_slug": "mittezwischenzahlen",
+  "_images": [
+    "../vera8_sichtung/mittezwischenzahlen/image2.emf.png",
+    "../vera8_sichtung/mittezwischenzahlen/image3.emf.png"
+  ]
+}

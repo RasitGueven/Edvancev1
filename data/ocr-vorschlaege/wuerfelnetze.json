@@ -1,0 +1,46 @@
+{
+  "stamm": "Bei welcher Abbildung handelt es sich um das Netz (Abwicklung) eines Würfels? Kreuze an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Bei welcher Abbildung handelt es sich um das Netz (Abwicklung) eines Würfels?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Abbildung 1 (oben links)"
+        },
+        {
+          "id": "b",
+          "label": "Abbildung 2 (oben rechts)"
+        },
+        {
+          "id": "c",
+          "label": "Abbildung 3 (unten links)"
+        },
+        {
+          "id": "d",
+          "label": "Abbildung 4 (unten Mitte)"
+        },
+        {
+          "id": "e",
+          "label": "Abbildung 5 (unten rechts)"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "8f58d4cc-97cb-46d1-b036-b2246f0827a0",
+  "_title": "Würfelnetze",
+  "_slug": "wuerfelnetze",
+  "_images": [
+    "../vera8_sichtung/wuerfelnetze/image1.png",
+    "../vera8_sichtung/wuerfelnetze/image2.png"
+  ]
+}

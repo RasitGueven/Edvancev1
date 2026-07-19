@@ -1,0 +1,46 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Zahl ist Lösung der Gleichung 2x − 4 = 6? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "1"
+        },
+        {
+          "id": "b",
+          "label": "3"
+        },
+        {
+          "id": "c",
+          "label": "5"
+        },
+        {
+          "id": "d",
+          "label": "8"
+        },
+        {
+          "id": "e",
+          "label": "10"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "ab31309b-9166-4c62-8878-f81c9b050e2b",
+  "_title": "Gleichung lösen 3",
+  "_slug": "gleichungloesen3",
+  "_images": [
+    "../vera8_sichtung/gleichungloesen3/image1.emf.png",
+    "../vera8_sichtung/gleichungloesen3/image2.emf.png"
+  ]
+}

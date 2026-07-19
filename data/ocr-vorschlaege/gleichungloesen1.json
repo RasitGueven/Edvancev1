@@ -1,0 +1,24 @@
+{
+  "stamm": "Löse die Gleichung 46 ★",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Löse die Gleichung 46 ★ (verwende das Karopapier zur Lösung)",
+      "loesung_vorschlag": "Nicht eindeutig bestimmbar, da die vollständige Gleichung im Bild nicht sichtbar ist",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die vollständige Aufgabenstellung ist nicht lesbar. Es ist nur 'Löse die Gleichung 46 ★' sichtbar, wobei das Sternchen (★) vermutlich einen Platzhalter darstellt oder die Gleichung unvollständig abgebildet ist. Das Karopapier deutet auf eine schriftliche Rechnung oder grafische Lösung hin, aber ohne die vollständige Gleichung kann die genaue Aufgabenstellung und Lösung nicht bestimmt werden.",
+  "_task_id": "b43f6508-1ba8-44b2-9b0d-4d3906df7780",
+  "_title": "Gleichung lösen 1",
+  "_slug": "gleichungloesen1",
+  "_images": [
+    "../vera8_sichtung/gleichungloesen1/image1.emf.png",
+    "../vera8_sichtung/gleichungloesen1/image2.emf.png"
+  ]
+}

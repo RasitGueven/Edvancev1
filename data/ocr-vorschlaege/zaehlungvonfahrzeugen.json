@@ -1,0 +1,26 @@
+{
+  "stamm": "Eine Schülergruppe hat 500 Fahrzeuge beobachtet und gezählt. Ihre Ergebnisse haben die Schülerinnen und Schüler in folgender Tabelle dargestellt:\n\nFahrzeugart | PKW | LKW | Motorräder/Mofas | Bus und andere\nAnzahl | 300 | 120 | 60 | 20\n\nVervollständige das unten stehende Stabdiagramm, indem du an den passenden Stellen die Anzahlen der gezählten Fahrzeuge einzeichnest.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Vervollständige das Stabdiagramm, indem du an den passenden Stellen die Anzahlen der gezählten Fahrzeuge einzeichnest.",
+      "loesung_vorschlag": "Die Balken müssen ergänzt werden: PKW bleibt bei 300 (bereits eingezeichnet), LKW auf 120, Motorräder/Mofas auf 60, Bus und andere auf 20.",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die Aufgabe verlangt das Einzeichnen von Balken in ein vorgegebenes Stabdiagramm. Dies ist eine typische Zeichenaufgabe, die nicht automatisch ausgewertet werden kann.",
+  "_task_id": "e58dce02-c1e2-4868-8d5c-f7add423e475",
+  "_title": "Zählung von Fahrzeugen",
+  "_slug": "zaehlungvonfahrzeugen",
+  "_images": [
+    "../vera8_sichtung/zaehlungvonfahrzeugen/image1.jpeg",
+    "../vera8_sichtung/zaehlungvonfahrzeugen/image2.png",
+    "../vera8_sichtung/zaehlungvonfahrzeugen/image3.png",
+    "../vera8_sichtung/zaehlungvonfahrzeugen/image4.png"
+  ]
+}

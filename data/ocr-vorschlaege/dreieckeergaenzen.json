@@ -1,0 +1,24 @@
+{
+  "stamm": "Ergänze das gegebene Dreieck zu zwei verschiedenen Parallelogrammen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Ergänze das gegebene Dreieck zu zwei verschiedenen Parallelogrammen.",
+      "loesung_vorschlag": "Zwei verschiedene Parallelogramme durch Ergänzung des Dreiecks (z.B. durch Verschiebung verschiedener Seiten als Parallelogramm-Grundseite)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die Aufgabe verlangt das Einzeichnen von zwei Parallelogrammen in das Gitter. Dies ist eine Zeichenaufgabe, die automatisch nicht auswertbar ist.",
+  "_task_id": "66921a41-33d2-4183-b085-850cd1f17bb5",
+  "_title": "Dreiecke ergänzen",
+  "_slug": "dreieckeergaenzen",
+  "_images": [
+    "../vera8_sichtung/dreieckeergaenzen/image1.emf.png",
+    "../vera8_sichtung/dreieckeergaenzen/image2.emf.png"
+  ]
+}
