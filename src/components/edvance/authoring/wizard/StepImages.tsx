@@ -8,17 +8,25 @@
 // Schrittwechsel. Dazu sichtbar: die Loesbarkeits-Frage — ist die Aufgabe ohne
 // dieses Bild ueberhaupt loesbar?
 //
-// Kein Crop-Werkzeug: es gibt im Frontend keines (der "AssetCropper" des
-// C04-Laufs ist ein Python-Skript, scripts/content/crop_task_assets.py).
-// Eines nachzubauen waere ein neuer geteilter Baustein — nicht Teil der Strecke.
+// Zwei Wege zum richtigen Bild, beide ohne DB-Schreibpfad — der Schrittwechsel
+// speichert, wie bei allen anderen Feldern des Wizards:
+//   1. Kandidaten: was scripts/kandidaten_upload.py unter
+//      task-assets/kandidaten/<task_id>/ abgelegt hat. Klick uebernimmt.
+//   2. Zuschnitt: derselbe AssetCropper wie im Expertenmodus (AssetsSection).
+//      Die EMF-Renders der Quelle haben den Aufgabentext eingebrannt; der steht
+//      schon in tasks.question, das Kind saehe ihn doppelt (§12).
 
 import { useEffect, useState, type JSX } from 'react'
 import { useTranslation } from 'react-i18next'
-import { EdvanceCard } from '@/components/edvance'
+import { Crop, RotateCcw } from 'lucide-react'
+import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { getGrounding } from '@/lib/authoring/grounding'
 import { graphicLicenseHints, isDeadAssetUrl, type ImageRefFinding } from '@/lib/authoring/health'
+import { listCandidateAssets } from '@/lib/supabase/storage'
 import type { AuthoringTask, TaskAsset, TaskPart } from '@/types'
+import { AssetCropper } from '../AssetCropper'
 import { NeedsImageSection } from '../NeedsImageSection'
 import { Field } from '../ui'
 
@@ -51,9 +59,66 @@ export function StepImages({
   const [confirming, setConfirming] = useState(false)
   const [licenseStatus, setLicenseStatus] = useState<string | null>(null)
   const [licenseHints, setLicenseHints] = useState<string[]>([])
+  const [candidates, setCandidates] = useState<string[]>([])
+  const [candidatesError, setCandidatesError] = useState<string | null>(null)
+  /** Index des Assets, das gerade zugeschnitten wird — hoechstens eines. */
+  const [cropping, setCropping] = useState<number | null>(null)
 
   const dead = assets.filter((a) => isDeadAssetUrl(a.url))
   const hasDead = dead.length > 0
+
+  // Die vorbereiteten Kandidatenbilder des Items. Leere Liste ist der
+  // Normalfall fuer Items ohne Bildbedarf — dann bleibt der Bereich unsichtbar
+  // und der manuelle Weg unveraendert.
+  useEffect(() => {
+    let alive = true
+    setCandidates([])
+    setCandidatesError(null)
+    void listCandidateAssets(task.id).then((res) => {
+      if (!alive) return
+      if (res.error || !res.data) {
+        setCandidatesError(t('wizard.images.candidatesFailed'))
+        return
+      }
+      setCandidates(res.data.map((f) => f.url))
+    })
+    return () => {
+      alive = false
+    }
+  }, [task.id, t])
+
+  const patchAlt = (index: number, alt: string): void =>
+    onAssets(assets.map((a, i) => (i === index ? { ...a, alt } : a)))
+
+  /**
+   * Kandidat uebernehmen. Alt-Text bleibt leer — den schreibt der Pfleger im
+   * Feld darunter, und leer blockiert die Freigabe (AssetsSection erklaert warum).
+   */
+  const takeCandidate = (url: string): void => onAssets([...assets, { url, alt: '' }])
+
+  /**
+   * Zuschnitt uebernehmen. original_url zeigt weiterhin auf das ECHTE Original:
+   * ein zweiter Schnitt behaelt den Rueckweg auf das Ausgangsbild statt auf den
+   * Zwischenschnitt. Gleiche Regel wie in AssetsSection.
+   */
+  const applyCrop = (index: number, cropUrl: string): void => {
+    onAssets(
+      assets.map((a, i) =>
+        i === index ? { ...a, url: cropUrl, original_url: a.original_url ?? a.url } : a,
+      ),
+    )
+    setCropping(null)
+  }
+
+  /** Zurueck auf das Original. Im Bucket wird nichts geloescht, nur umgezeigt. */
+  const restore = (index: number): void =>
+    onAssets(
+      assets.map((a, i) => {
+        if (i !== index || !a.original_url) return a
+        const { original_url, ...rest } = a
+        return { ...rest, url: original_url }
+      }),
+    )
 
   // Lizenzhinweise nur bei totem Pfad — meist ist die Lizenz der Grund, warum
   // das Bild fehlt (C09). Dieselbe Quelle wie auf der Content-Gesundheit.
@@ -70,9 +135,6 @@ export function StepImages({
     }
   }, [hasDead, task.source, task.source_ref])
 
-  const patchAlt = (index: number, alt: string): void =>
-    onAssets(assets.map((a, i) => (i === index ? { ...a, alt } : a)))
-
   return (
     <div className="flex flex-col gap-6">
       {/* Zuerst die Didaktik: braucht die Aufgabe/Teilaufgabe ein Bild? Erst
@@ -86,6 +148,61 @@ export function StepImages({
         onItem={onNeedsImage}
         onPart={onPart}
       />
+
+      {/* Kandidaten aus der Quelle. Fehlen sie, bleibt der manuelle Weg der
+          einzige — dieser Bereich verschwindet dann ersatzlos. */}
+      {(candidates.length > 0 || candidatesError) && (
+        <EdvanceCard className="flex flex-col gap-4 p-6">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+            {t('wizard.images.candidatesTitle')}
+          </h3>
+          {candidatesError ? (
+            <p className="text-xs leading-relaxed text-[var(--color-destructive)]">
+              {candidatesError}
+            </p>
+          ) : (
+            <>
+              <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+                {t('wizard.images.candidatesHint')}
+              </p>
+              <div className="flex flex-wrap gap-4">
+                {candidates.map((url, i) => {
+                  // Auch ein Zuschnitt zaehlt als uebernommen: original_url
+                  // zeigt dann auf genau diesen Kandidaten.
+                  const taken = assets.some((a) => a.url === url || a.original_url === url)
+                  return (
+                    <button
+                      key={url}
+                      type="button"
+                      disabled={!canWrite || taken}
+                      aria-pressed={taken}
+                      aria-label={t('wizard.images.candidateSelect', { nr: i + 1 })}
+                      onClick={() => takeCandidate(url)}
+                      className={`flex min-h-[44px] flex-col items-center gap-2 rounded-[var(--radius-md)] border p-2 transition ${
+                        taken
+                          ? 'border-[var(--color-primary)] bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)]'
+                          : 'border-[var(--color-border)] hover:border-[var(--color-primary)]'
+                      } ${!canWrite || taken ? 'cursor-default' : 'cursor-pointer'}`}
+                    >
+                      <img
+                        src={url}
+                        alt=""
+                        loading="lazy"
+                        className="max-h-[120px] w-auto max-w-[120px] rounded-[var(--radius-sm)] object-contain"
+                      />
+                      {taken && (
+                        <EdvanceBadge variant="muted">
+                          {t('wizard.images.candidateSelected')}
+                        </EdvanceBadge>
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
+            </>
+          )}
+        </EdvanceCard>
+      )}
 
       {assets.map((asset, i) =>
         isDeadAssetUrl(asset.url) ? null : (
@@ -108,6 +225,43 @@ export function StepImages({
                 onChange={(e) => patchAlt(i, e.target.value)}
               />
             </Field>
+
+            {asset.original_url && (
+              <div className="flex flex-wrap items-center gap-2">
+                <EdvanceBadge variant="muted">{t('fields.cropBadge')}</EdvanceBadge>
+                <span className="text-xs text-[var(--color-text-tertiary)]">
+                  {t('fields.cropOriginalKept')}
+                </span>
+              </div>
+            )}
+
+            {canWrite && asset.url && cropping !== i && (
+              <div className="flex flex-wrap items-center gap-2">
+                <Button variant="outline" size="sm" onClick={() => setCropping(i)}>
+                  <Crop className="mr-2 h-4 w-4" />
+                  {t('fields.crop')}
+                </Button>
+                {asset.original_url && (
+                  <Button variant="outline" size="sm" onClick={() => restore(i)}>
+                    <RotateCcw className="mr-2 h-4 w-4" />
+                    {t('fields.cropRestore')}
+                  </Button>
+                )}
+              </div>
+            )}
+
+            {canWrite && cropping === i && (
+              <AssetCropper
+                taskId={task.id}
+                // Geschnitten wird immer aus dem Original, nie aus einem
+                // Zuschnitt: sonst frisst sich ein zweiter Schnitt in die schon
+                // weggeschnittenen Raender und der Pfleger verliert Bild.
+                sourceUrl={asset.original_url ?? asset.url}
+                alt={asset.alt}
+                onCropped={(url) => applyCrop(i, url)}
+                onCancel={() => setCropping(null)}
+              />
+            )}
           </EdvanceCard>
         ),
       )}
@@ -154,6 +308,9 @@ export function StepImages({
                 type="button"
                 onClick={() => {
                   setConfirming(false)
+                  // Der offene Cropper haengt an einem Index. Faellt ein Bild
+                  // aus der Liste, zeigt der Index auf ein anderes — also zu.
+                  setCropping(null)
                   onAssets(assets.filter((a) => !isDeadAssetUrl(a.url)))
                 }}
                 className="inline-flex min-h-[44px] items-center rounded-xl border border-[var(--color-destructive)] px-3 text-sm font-semibold text-[var(--color-destructive)] transition hover:bg-[color-mix(in_srgb,var(--color-destructive)_8%,transparent)]"

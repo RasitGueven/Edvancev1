@@ -308,6 +308,11 @@
     "images": {
       "titleAssets": "Bilder prüfen",
       "asset": "Bild {{nr}}",
+      "candidatesTitle": "Kandidaten aus der Quelle",
+      "candidatesHint": "Aus der Quelle vorbereitete Bilder. Klick übernimmt eines als Abbildung der Aufgabe — gespeichert wird beim Schrittwechsel.",
+      "candidatesFailed": "Die Kandidatenbilder konnten nicht geladen werden.",
+      "candidateSelect": "Kandidat {{nr}} übernehmen",
+      "candidateSelected": "Übernommen",
       "solvableTitle": "Lösbarkeits-Frage",
       "solvableQuestion": "Ist die Aufgabe ohne dieses Bild lösbar? Wenn nicht: Text umformulieren, Bild ergänzen oder Item nicht freigeben."
     },
