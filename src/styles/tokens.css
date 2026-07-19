@@ -58,6 +58,14 @@
     --color-gold-warning:           #C87E00;
     --color-gold-warning-light:     #FEF3E2;
 
+    /* ── ELTERN-REPORT (R1) ───────────────────────────────────────
+       Eigene Marken-Achse für das gedruckte Dokument. Bewusst dunkler und
+       wärmer als die App-Tokens: der Report liegt als Papier auf dem Tisch
+       und trägt das Elterngespräch, er ist kein App-Screen.            */
+    --color-report-navy:            #102038;
+    --color-report-gold:            #DA9721;
+    --color-report-cream:           #F8F5EE;
+
     /* ── GRÜN-FAMILIE (6 Kontexte) ────────────────────────────── */
     --color-success:                #2A8A4A;   /* Mastered dauerhaft */
     --color-success-light:          #EAF5EE;

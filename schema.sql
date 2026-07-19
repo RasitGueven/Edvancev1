@@ -2035,42 +2035,47 @@ on conflict (id) do nothing;
 --   'platz', kein Overload, anon ohne jedes Grant).
 
 -- ============================================================================
--- 21. S10 – PLATZ-AVATAR: DIE AVATAR-WAHL DES KINDES AM PLATZ (additiv zu S9)
---     (supabase/migrations/20260719100000_s10_platz_avatar.sql)
---     Teil des von der PLATZ-Analyse erlaubten Platz-Flows („Begruessung,
---     Avatar-Wahl, Tutorial, LSA-Aufgaben, Abschluss"). Reine Kosmetik.
+-- 21. R1 – ELTERN-REPORT: COACH-NOTIZEN AN DER LSA-SITZUNG
+--     (supabase/migrations/20260719100000_r1_report_notes.sql)
 -- ============================================================================
 --
--- lsa_sessions.avatar_choice text (neue Spalte, nullable):
---   CHECK lsa_sessions_avatar_choice_form — nur die FORM: null ODER
---   (1..40 Zeichen UND getrimmt). KEIN Enum, KEINE Werteliste: die
---   Avatar-Liste lebt in der Schueler-App, sonst waere jede neue Grafik eine
---   Migration. NULL = noch nicht gewaehlt.
---   Warum an der Session und nicht an students: der Platz kennt strukturell
---   keine student_id (jede platz_*-RPC loest ueber platz_current_assignment()
---   auf die EINE zugewiesene Session auf). Die Session ist der einzige Ort,
---   den der Platz schreiben kann, ohne ihm neue Adressierbarkeit zu geben —
---   und die Wahl ist ohnehin session-lokal gemeint, nicht dauerhaft am (oft
---   provisorischen) Kind.
---   Ohne Einfluss auf Auswertung, result_summary oder Lernpfad.
+-- lsa_report_notes (Tabelle):
+--   id uuid PK, session_id uuid NOT NULL UNIQUE → lsa_sessions on delete cascade
+--   zielbild text, empfehlung text
+--   paket text CHECK in ('basis','standard','premium')
+--   updated_at timestamptz not null default now()
+--   updated_by uuid → profiles(id) on delete set null
+--   INDEX lsa_report_notes_session_idx (session_id)
+--   RLS an, revoke all from anon, EINE Policy
+--   lsa_report_notes_coach_admin_all (for all, using+with check
+--   get_my_role() in ('coach','admin')).
 --
--- RPC [SECURITY DEFINER, search_path=public, revoke from public,
---      grant an authenticated + service_role — S9-Muster]:
---   platz_avatar_set(p_avatar text) → jsonb                   [nur Platz-Konto]
---       Gates in dieser Reihenfolge: platz_devices-Zeile (42501), aktive
---       Zuweisung (42501), Session in_progress (42501), Form des Schluessels
---       (P0001 statt eines 23514 aus dem CHECK). Schreibt avatar_choice der
---       ZUGEWIESENEN Session. Kein session_id-Parameter — eine fremde Session
---       ist nicht adressierbar. Ueberschreibend: das Kind darf sich waehrend
---       der laufenden Session umentscheiden (Kosmetik, kein Messwert).
---       Rueckgabe exakt {ok:true}.
+-- WAS SIE IST: die einzige schreibbare Flaeche des Eltern-Reports. Der Report
+--   (src/pages/admin/ReportPage.tsx) liest Sitzung + Antworten READ-ONLY; nur
+--   diese drei Coach-Felder werden gespeichert.
 --
--- Bewusst NICHT angefasst:
---   platz_state() bleibt byte-identisch. Ihre Schluesselmenge ist in
---   s9_platz_mechanik.test.sql gepinnt, und der Kiosk braucht den Wert nicht
---   zurueck — er kennt die gerade getroffene Wahl selbst. Ebenso unberuehrt:
---   platz_next/platz_submit/platz_finish und der gesamte P01-Datenvertrag.
+-- WARUM eine eigene Tabelle statt Spalten an lsa_sessions: die Notizen sind
+--   KEINE Auswertung. Sie erzeugen keinen Score, keine Note, keinen Prozentrang
+--   — und sie duerfen die Sitzungsdaten nicht anfassen (§6: Rohdaten
+--   append-only). Als eigene Zeile koennen sie ueberschrieben werden, ohne dass
+--   je ein Rohdatensatz mutiert.
+--
+-- 1:1 zur Sitzung ueber UNIQUE(session_id) — der Client schreibt per upsert auf
+--   session_id (src/lib/supabase/reportNotes.ts), ein Report pro Sitzung.
+--   on delete cascade haengt die Notizen an den bestehenden DSGVO-Loeschanker:
+--   leads → students(lead_id) → lsa_sessions → lsa_responses/lsa_report_notes.
+--
+-- paket als CHECK statt Enum: Paketnamen sind Vertriebs-Sprache und aendern
+--   sich schneller als ein Typ, der in Funktionssignaturen einfriert.
+--
+-- KEIN neues Grant, KEINE Aenderung an task_solutions, lsa_responses,
+--   lsa_sessions oder einer bestehenden Funktion. Die Bewertung im Report liest
+--   ausschliesslich lsa_responses.correct.
+--
+-- Vor dieser Migration erkennt reportNotes.ts den Postgres-Fehler 42P01
+--   (undefined_table) und kennzeichnet die Felder als „noch nicht speicherbar";
+--   der uebrige Report bleibt nutzbar.
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (38 Tabellen, 35 Funktionen, 2 Enums, 1 Trigger).
+-- ENDE – konsolidiertes Schema (39 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================
