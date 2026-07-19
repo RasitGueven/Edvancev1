@@ -17,6 +17,7 @@ import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { QsPage } from '@/pages/admin/QsPage'
+import { ReportPage } from '@/pages/admin/ReportPage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
@@ -146,6 +147,16 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <AssignmentsPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Eltern-Report zu einer LSA-Sitzung. Coach darf ihn öffnen — er
+            führt damit das Elterngespräch. */}
+        <Route
+          path="/admin/report/:sessionId"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+              <ReportPage />
             </ProtectedRoute>
           }
         />

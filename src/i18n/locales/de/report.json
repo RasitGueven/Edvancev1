@@ -1,0 +1,88 @@
+{
+  "today": {
+    "title": "Analysen heute",
+    "description": "Sitzungen dieses Tages. Ist eine Analyse fertig, lässt sich der Report öffnen.",
+    "refresh": "Aktualisieren",
+    "state": {
+      "in_progress": "läuft",
+      "completed": "fertig",
+      "aborted": "abgebrochen"
+    },
+    "progress": "{{answered}} von {{planned}} Aufgaben",
+    "openReport": "Report öffnen",
+    "empty": {
+      "title": "Heute noch keine Analyse",
+      "description": "Sobald eine Lernstandsanalyse freigegeben wurde, erscheint sie hier."
+    },
+    "meta": "Klasse {{grade}} · {{subject}}"
+  },
+  "page": {
+    "back": "Zurück",
+    "eyebrow": "Lernstandsanalyse",
+    "loadError": "Der Report konnte nicht geladen werden.",
+    "notFinished": "Diese Analyse läuft noch. Der Report ist vollständig, sobald {{name}} fertig ist."
+  },
+  "head": {
+    "title": "Lernstandsanalyse",
+    "subject": "Fach",
+    "grade": "Klasse",
+    "date": "Datum",
+    "child": "Für"
+  },
+  "narrative": {
+    "title": "Das Wichtigste in Kürze",
+    "generated": "automatische Zusammenfassung"
+  },
+  "strength": {
+    "title": "Das läuft gut",
+    "lead": "{{name}} kommt hier sicher voran.",
+    "detail": "{{correct}} von {{answered}} Aufgaben richtig, im Schnitt {{time}} pro Aufgabe.",
+    "detailNoTime": "{{correct}} von {{answered}} Aufgaben richtig."
+  },
+  "evidence": {
+    "title": "Die Beobachtungen im Einzelnen",
+    "description": "Für jedes Thema: wie viel Zeit eine Aufgabe im Schnitt gebraucht hat und wie viele Aufgaben bearbeitet wurden.",
+    "avgTime": "Zeit pro Aufgabe",
+    "noTime": "keine Zeit erfasst",
+    "answered": "{{answered}} von {{planned}} bearbeitet",
+    "skipped": "{{count}} ausgelassen",
+    "correct": "{{correct}} richtig",
+    "empty": {
+      "title": "Noch keine Aufgaben bearbeitet",
+      "description": "Sobald Aufgaben beantwortet sind, erscheinen hier die Beobachtungen."
+    }
+  },
+  "topics": {
+    "title": "Was abgefragt wurde",
+    "description": "Diese Themen kamen in der Analyse vor."
+  },
+  "parent": {
+    "title": "Ihre Einschätzung",
+    "yours": "Das haben Sie uns im Erstgespräch gesagt",
+    "analysis": "Was die Analyse zeigt",
+    "noFindings": "Die Analyse zeigt noch keine belastbaren Auffälligkeiten."
+  },
+  "outlook": {
+    "title": "Wie es weitergeht",
+    "goal": "Zielbild für die nächsten 6 Monate",
+    "goalPlaceholder": "Woran arbeiten wir mit {{name}} in den nächsten 6 Monaten?",
+    "recommendation": "Unsere Empfehlung",
+    "recommendationPlaceholder": "Was empfehlen wir konkret — und warum?",
+    "paket": "Passendes Paket",
+    "paketNone": "Noch offen",
+    "paketOption": {
+      "basis": "Basis",
+      "standard": "Standard",
+      "premium": "Premium"
+    },
+    "save": "Notizen speichern",
+    "saving": "Speichert …",
+    "saved": "Gespeichert",
+    "unavailable": "Die Notizen lassen sich noch nicht speichern — die Ablage dafür fehlt in der Datenbank."
+  },
+  "actions": {
+    "print": "Drucken",
+    "email": "Per E-Mail senden",
+    "emailTooltip": "kommt mit dem Eltern-Zugang"
+  }
+}

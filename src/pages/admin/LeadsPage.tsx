@@ -11,6 +11,7 @@ import {
   LoadingPulse,
 } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { LsaTodayCard } from '@/components/edvance/report/LsaTodayCard'
 import { listLeads, updateLead } from '@/lib/supabase/leads'
 import { listActivePlaetzeByLead, type LeadPlatz } from '@/lib/supabase/platz'
 import { provisionStudent } from '@/lib/supabase/provision'
@@ -135,6 +136,10 @@ export function LeadsPage(): JSX.Element {
             </button>
           }
         />
+
+        {/* Fertig-Signal: „ist das Kind durch?" — direkt neben der Freigabe,
+            die im Intake-Formular darunter passiert. */}
+        <LsaTodayCard />
 
         {editingLead ? (
           <LeadIntakeForm
