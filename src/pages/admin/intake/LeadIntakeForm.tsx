@@ -9,7 +9,13 @@ import {
   leadAssessmentUpsert,
   leadLsaFreigeben,
 } from '@/lib/supabase/leadLsa'
-import { assignPlatz, listFreePlaetze, type PlatzDevice } from '@/lib/supabase/platz'
+import {
+  assignPlatz,
+  listPlaetze,
+  releasePlatz,
+  type PlatzBelegt,
+  type PlatzDevice,
+} from '@/lib/supabase/platz'
 import type { Lead } from '@/types'
 import { SectionLead } from './SectionLead'
 import { SectionErstgespraech } from './SectionErstgespraech'
@@ -46,11 +52,16 @@ export function LeadIntakeForm({
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null)
   const [session, setSession] = useState<FreigabeSession | null>(null)
   const [plaetze, setPlaetze] = useState<PlatzDevice[] | null>(null)
+  const [belegtePlaetze, setBelegtePlaetze] = useState<PlatzBelegt[]>([])
   const [platzLoading, setPlatzLoading] = useState(false)
   const [assigningId, setAssigningId] = useState<string | null>(null)
-  const [assignedPlatz, setAssignedPlatz] = useState<{ label: string; expires_at: string } | null>(
-    null,
-  )
+  const [releasingId, setReleasingId] = useState<string | null>(null)
+  const [confirmReleaseId, setConfirmReleaseId] = useState<string | null>(null)
+  const [assignedPlatz, setAssignedPlatz] = useState<{
+    label: string
+    expires_at: string
+    assignment_id: string
+  } | null>(null)
   const [busy, setBusy] = useState(false)
   const [confirmingConsent, setConfirmingConsent] = useState(false)
   const [freigebenLoading, setFreigebenLoading] = useState(false)
@@ -63,13 +74,32 @@ export function LeadIntakeForm({
 
   const loadPlaetze = async (): Promise<void> => {
     setPlatzLoading(true)
-    const { data, error: err } = await listFreePlaetze()
+    const { data, error: err } = await listPlaetze()
     setPlatzLoading(false)
+    if (err || !data) {
+      setError(err ?? 'Plätze konnten nicht geladen werden.')
+      return
+    }
+    setPlaetze(data.frei)
+    setBelegtePlaetze(data.belegt)
+  }
+
+  // Beendet die aktive Zuweisung eines Platzes (platz_release). Danach neu
+  // laden — der Platz erscheint wieder unter „Freien Platz wählen".
+  const release = async (platz: PlatzBelegt): Promise<void> => {
+    setReleasingId(platz.assignment_id)
+    setError(null)
+    const { error: err } = await releasePlatz(platz.assignment_id)
+    setReleasingId(null)
+    setConfirmReleaseId(null)
     if (err) {
       setError(err)
       return
     }
-    setPlaetze(data ?? [])
+    // War es der gerade zugewiesene Platz, fällt die Erfolgs-Ansicht weg.
+    if (assignedPlatz?.assignment_id === platz.assignment_id) setAssignedPlatz(null)
+    await loadPlaetze()
+    onRefresh()
   }
 
   // Bereits freigegebenen Lead weiterpflegen: offene Session laden, damit die
@@ -182,7 +212,12 @@ export function LeadIntakeForm({
       return
     }
     const label = (plaetze ?? []).find((p) => p.profile_id === platzProfileId)?.label ?? 'Platz'
-    setAssignedPlatz({ label, expires_at: data.expires_at })
+    setAssignedPlatz({
+      label,
+      expires_at: data.expires_at,
+      assignment_id: data.assignment_id,
+    })
+    await loadPlaetze()
     onRefresh()
   }
 
@@ -250,10 +285,15 @@ export function LeadIntakeForm({
           freigebenLoading={freigebenLoading}
           session={session}
           plaetze={plaetze}
+          belegtePlaetze={belegtePlaetze}
           platzLoading={platzLoading}
           assigningId={assigningId}
+          releasingId={releasingId}
+          confirmReleaseId={confirmReleaseId}
           assignedPlatz={assignedPlatz}
           onAssignPlatz={assign}
+          onConfirmRelease={setConfirmReleaseId}
+          onReleasePlatz={release}
         />
       )}
 

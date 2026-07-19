@@ -2111,4 +2111,47 @@ on conflict (id) do nothing;
 
 -- ============================================================================
 -- ENDE – konsolidiertes Schema (41 Tabellen, 36 Funktionen, 2 Enums, 1 Trigger).
+-- 21. R1 – ELTERN-REPORT: COACH-NOTIZEN AN DER LSA-SITZUNG
+--     (supabase/migrations/20260719100000_r1_report_notes.sql)
+-- ============================================================================
+--
+-- lsa_report_notes (Tabelle):
+--   id uuid PK, session_id uuid NOT NULL UNIQUE → lsa_sessions on delete cascade
+--   zielbild text, empfehlung text
+--   paket text CHECK in ('basis','standard','premium')
+--   updated_at timestamptz not null default now()
+--   updated_by uuid → profiles(id) on delete set null
+--   INDEX lsa_report_notes_session_idx (session_id)
+--   RLS an, revoke all from anon, EINE Policy
+--   lsa_report_notes_coach_admin_all (for all, using+with check
+--   get_my_role() in ('coach','admin')).
+--
+-- WAS SIE IST: die einzige schreibbare Flaeche des Eltern-Reports. Der Report
+--   (src/pages/admin/ReportPage.tsx) liest Sitzung + Antworten READ-ONLY; nur
+--   diese drei Coach-Felder werden gespeichert.
+--
+-- WARUM eine eigene Tabelle statt Spalten an lsa_sessions: die Notizen sind
+--   KEINE Auswertung. Sie erzeugen keinen Score, keine Note, keinen Prozentrang
+--   — und sie duerfen die Sitzungsdaten nicht anfassen (§6: Rohdaten
+--   append-only). Als eigene Zeile koennen sie ueberschrieben werden, ohne dass
+--   je ein Rohdatensatz mutiert.
+--
+-- 1:1 zur Sitzung ueber UNIQUE(session_id) — der Client schreibt per upsert auf
+--   session_id (src/lib/supabase/reportNotes.ts), ein Report pro Sitzung.
+--   on delete cascade haengt die Notizen an den bestehenden DSGVO-Loeschanker:
+--   leads → students(lead_id) → lsa_sessions → lsa_responses/lsa_report_notes.
+--
+-- paket als CHECK statt Enum: Paketnamen sind Vertriebs-Sprache und aendern
+--   sich schneller als ein Typ, der in Funktionssignaturen einfriert.
+--
+-- KEIN neues Grant, KEINE Aenderung an task_solutions, lsa_responses,
+--   lsa_sessions oder einer bestehenden Funktion. Die Bewertung im Report liest
+--   ausschliesslich lsa_responses.correct.
+--
+-- Vor dieser Migration erkennt reportNotes.ts den Postgres-Fehler 42P01
+--   (undefined_table) und kennzeichnet die Felder als „noch nicht speicherbar";
+--   der uebrige Report bleibt nutzbar.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (39 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

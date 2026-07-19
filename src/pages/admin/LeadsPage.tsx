@@ -11,6 +11,7 @@ import {
   LoadingPulse,
 } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { LsaTodayCard } from '@/components/edvance/report/LsaTodayCard'
 import { listLeads, updateLead } from '@/lib/supabase/leads'
 import { listActivePlaetzeByLead, type LeadPlatz } from '@/lib/supabase/platz'
 import { provisionStudent } from '@/lib/supabase/provision'
@@ -136,6 +137,10 @@ export function LeadsPage(): JSX.Element {
           }
         />
 
+        {/* Fertig-Signal: „ist das Kind durch?" — direkt neben der Freigabe,
+            die im Intake-Formular darunter passiert. */}
+        <LsaTodayCard />
+
         {editingLead ? (
           <LeadIntakeForm
             key={editingLead.id}
@@ -201,6 +206,7 @@ export function LeadsPage(): JSX.Element {
                   {lead.contact_phone && <span>{lead.contact_phone}</span>}
                   {lead.class_level && <span>Kl. {lead.class_level}</span>}
                   {lead.school_type && <span>{lead.school_type}</span>}
+                  {lead.school_name && <span>{lead.school_name}</span>}
                   {lead.subjects.length > 0 && <span>{lead.subjects.join(', ')}</span>}
                 </div>
                 {nextActions(lead.status).length > 0 && (
