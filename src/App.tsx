@@ -13,6 +13,8 @@ import { PflegeWizardPage } from '@/pages/admin/PflegeWizardPage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
+import { SlotsManagePage } from '@/pages/admin/SlotsManagePage'
+import { SlotPickerPage } from '@/pages/admin/SlotPickerPage'
 import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
@@ -131,6 +133,26 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <SchedulePage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Slot-System (S10): Verwaltung des Wochen-Zeitrasters (Admin) und die
+            iPad-Ansicht fuers Elterngespraech. Die Auswahl darf der Coach
+            bedienen — er fuehrt das Erstgespraech; Schreiben auf slots und die
+            Zuweisungs-RPCs bleibt laut RLS admin-only. */}
+        <Route
+          path="/admin/slots"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <SlotsManagePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/slot-auswahl"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+              <SlotPickerPage />
             </ProtectedRoute>
           }
         />

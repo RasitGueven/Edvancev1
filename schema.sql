@@ -2035,6 +2035,82 @@ on conflict (id) do nothing;
 --   'platz', kein Overload, anon ohne jedes Grant).
 
 -- ============================================================================
+-- 21. S10 – SLOT-SYSTEM: WOCHENRASTER, FAVORITEN UND FESTE ZUWEISUNG
+--     (supabase/migrations/20260719100000_s10_slot_system.sql)
+--     Architektur-Branchpoint: alle drei Tabellen haengen an leads(id), NICHT
+--     an students(id) — der Slot wird im Erstgespraech vergeben, also VOR
+--     Vertragsabschluss. Zu dem Zeitpunkt existiert der Lead, kein Kind. Ein
+--     students-FK haette eine provisorische Schueler-Zeile erzwungen
+--     (A1-Leitplanke) oder die Vergabe ans Gespraechsende verschoben.
+-- ============================================================================
+--
+-- slots (Tabelle):
+--   id PK, created_at, weekday smallint CHECK 0..6 (0=Montag … 6=Sonntag,
+--   bewusst NICHT extract(dow)), start_time time, room text (nicht leer),
+--   capacity integer default 5 CHECK 1..5, active boolean default true
+--       Das Wochenraster (Wochentag × Uhrzeit × Raum). Der capacity-CHECK
+--       pinnt die Produktzusage „Kleingruppen max. 5" im Schema.
+--       Deaktivieren statt loeschen — bestehende Zuweisungen bleiben lesbar.
+--       Partial-Unique (weekday, start_time, room) where active: ein Raum
+--       traegt zu einer Zeit eine aktive Gruppe; deaktivierte Alt-Slots
+--       blockieren die Koordinate nicht. RLS: coach/admin all, anon nichts.
+--
+-- slot_wishes (Tabelle):
+--   id PK, created_at, lead_id → leads cascade, slot_id → slots cascade,
+--   rang smallint CHECK 1..3
+--       Bis zu 3 Favoriten je Lead (Erstgespraech, S8). UNVERBINDLICH — ein
+--       Wunsch reserviert nichts und zaehlt nie gegen die Kapazitaet.
+--       Unique (lead_id, rang) und (lead_id, slot_id). Das Frontend setzt die
+--       Liste als Ganzes neu (delete + insert), damit Raenge nie Luecken
+--       haben; die Indizes sind die Absicherung darunter.
+--       RLS: coach/admin all, anon nichts.
+--
+-- slot_assignments (Tabelle):
+--   id PK, slot_id → slots cascade, lead_id → leads cascade, assigned_at,
+--   released_at, created_by uuid → profiles on delete set null
+--       Die feste Zuweisung. Aktiv = released_at is null; Loesen setzt
+--       released_at statt zu loeschen, damit die Belegungshistorie („welches
+--       Kind sass wann in welcher Gruppe") lesbar bleibt. created_by set null:
+--       faellt das Konto des Zuweisenden, bleibt die Zuweisung — sie gehoert
+--       dem Lead, nicht dem Admin.
+--       Partial-Unique (lead_id) where released_at is null — die ZWEITE
+--       Verteidigungslinie der Kapazitaets-Garantie, wirksam auch an der RPC
+--       vorbei. Partial-Index (slot_id) where released_at is null traegt das
+--       Zaehlen der Auslastung. RLS: coach/admin all, anon nichts.
+--
+-- DIE KAPAZITAETS-GARANTIE (die eigentliche Zusage dieses Abschnitts):
+--   Ein naives „erst zaehlen, dann einfuegen" ueberbucht unter Nebenlaeufigkeit
+--   — zwei gleichzeitige Zuweisungen lesen beide belegt=4 bei capacity=5 und
+--   fuegen beide ein. Deshalb sperrt slot_assign() ZUERST die slots-Zeile
+--   (select … for update) und zaehlt erst danach; die zweite Transaktion
+--   wartet am Lock und sieht den Stand nach der ersten. Der Lock liegt auf dem
+--   SLOT — nur Zuweisungen in denselben Slot serialisieren. Darunter der
+--   partielle Unique-Index auf (lead_id). Es gibt genau eine Wahrheit: das
+--   Frontend zeigt die Auslastung nur an, es entscheidet sie nicht
+--   (src/lib/supabase/slots.ts).
+--
+-- RPCs [beide SECURITY DEFINER, search_path=public, revoke from public,
+--       Rollenpruefung im Body, grant an authenticated + service_role]:
+--   slot_assign(p_slot_id, p_lead_id) → jsonb            [coach/admin]
+--       Row-Lock auf slots, loest eine bestehende aktive Zuweisung des Leads
+--       (vor dem Zaehlen, damit ein Re-Assign in denselben Slot sich nicht
+--       selbst als Ueberbuchung sieht), prueft belegt < capacity, fuegt ein.
+--       Fehler: P0002 (Lead/Slot unbekannt), P0001 (Slot deaktiviert oder
+--       ausgebucht). Rueckgabe {ok, assignment_id, belegt, capacity}.
+--   slot_release(p_assignment_id) → jsonb                [coach/admin]
+--       Setzt released_at. Idempotent (released=false bei bereits geloester
+--       Zeile, Muster wie platz_release); P0002 bei unbekannter Zuweisung.
+--
+-- OFFENE FRAGE (bewusst nicht hier entschieden, Gruenderrunde):
+--   Was passiert mit einer Slot-Zuweisung, wenn der Lead ueber lead_convert()
+--   zum Studenten wird — wandert sie mit, oder bleibt sie am Lead und wird
+--   ueber leads.converted_student_id aufgeloest? Teil eines groesseren
+--   Musters: auch der Kindname faellt heute nach der Konvertierung weg.
+--   Die Migration legt sich nicht fest; released_at statt delete haelt den
+--   Zustand in jedem Fall nachvollziehbar.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (41 Tabellen, 36 Funktionen, 2 Enums, 1 Trigger).
 -- 21. R1 – ELTERN-REPORT: COACH-NOTIZEN AN DER LSA-SITZUNG
 --     (supabase/migrations/20260719100000_r1_report_notes.sql)
 -- ============================================================================
