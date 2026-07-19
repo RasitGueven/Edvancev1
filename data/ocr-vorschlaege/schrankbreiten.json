@@ -1,0 +1,58 @@
+{
+  "stamm": "Die Einzelschränke gibt es in fünf verschiedenen Breiten. Man kann sie in unterschiedlichen Kombinationen nebeneinander stellen und erhält so für jedes Zimmer den passenden Schrank. Verfügbare Schrankbreiten: 30cm, 40cm, 45cm, 50cm, 80cm. Das System ist planbar in 5cm-Schritten.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Stelle eine Schrankkombination von 135cm Breite zusammen. Wie viele Einzelschränke der Breite 30cm benötigst du?",
+      "unit": null,
+      "loesung_vorschlag": "1",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Stelle eine Schrankkombination von 135cm Breite zusammen. Wie viele Einzelschränke der Breite 40cm benötigst du?",
+      "unit": null,
+      "loesung_vorschlag": "0",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Stelle eine Schrankkombination von 135cm Breite zusammen. Wie viele Einzelschränke der Breite 45cm benötigst du?",
+      "unit": null,
+      "loesung_vorschlag": "1",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 4,
+      "kind": "numeric",
+      "prompt": "Stelle eine Schrankkombination von 135cm Breite zusammen. Wie viele Einzelschränke der Breite 50cm benötigst du?",
+      "unit": null,
+      "loesung_vorschlag": "0",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 5,
+      "kind": "numeric",
+      "prompt": "Stelle eine Schrankkombination von 135cm Breite zusammen. Wie viele Einzelschränke der Breite 80cm benötigst du?",
+      "unit": null,
+      "loesung_vorschlag": "1",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Aufgabe verlangt das Ausfüllen einer Tabelle mit mehreren Zellen für eine konkrete Schrankkombination. Es gibt mehrere mögliche richtige Kombinationen (z.B. 80+45+30=135 oder 50+45+40=135). Die gewählte Beispiellösung ist 80+45+30 (1x30, 0x40, 1x45, 0x50, 1x80).",
+  "_task_id": "52cc143f-9097-4f1c-bc6e-e3ed2b5543f7",
+  "_title": "Schrankbreiten",
+  "_slug": "schrankbreiten",
+  "_images": [
+    "../vera8_sichtung/schrankbreiten/image1.emf.png",
+    "../vera8_sichtung/schrankbreiten/image2.emf.png",
+    "../vera8_sichtung/schrankbreiten/image3.emf.png"
+  ]
+}

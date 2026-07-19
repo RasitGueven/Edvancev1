@@ -1,0 +1,25 @@
+{
+  "stamm": "An einem Herbsttag misst Tim morgens im Garten eine Temperatur von -1°C. Am Nachmittag beträgt die Temperatur an der gleichen Stelle 18°C.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, um wie viel Grad Celsius die Temperatur angestiegen ist.",
+      "unit": "°C",
+      "loesung_vorschlag": "19",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "f777470d-ddf1-49a4-975d-9f6713699211",
+  "_title": "Temperaturdifferenz",
+  "_slug": "temperaturdifferenz",
+  "_images": [
+    "../vera8_sichtung/temperaturdifferenz/image1.png",
+    "../vera8_sichtung/temperaturdifferenz/image2.png"
+  ]
+}

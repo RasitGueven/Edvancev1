@@ -1,0 +1,25 @@
+{
+  "stamm": "Gib 20% von 150€ an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib 20% von 150€ an.",
+      "unit": "€",
+      "loesung_vorschlag": "30",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "0c49350a-1163-4dbb-9775-836d73bc09d6",
+  "_title": "Zwanzig Prozent",
+  "_slug": "zwanzigprozent",
+  "_images": [
+    "../vera8_sichtung/zwanzigprozent/image1.png",
+    "../vera8_sichtung/zwanzigprozent/image2.png"
+  ]
+}

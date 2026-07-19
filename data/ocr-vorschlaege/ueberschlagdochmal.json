@@ -1,0 +1,42 @@
+{
+  "stamm": "Max meint, dass er ziemlich viel Zeit in der Schule verbringt. Er fragt sich, wie viele Unterrichtsstunden es in acht Schuljahren wohl schon waren.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Zahl passt am besten? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "ca. 1000 Unterrichtsstunden"
+        },
+        {
+          "id": "b",
+          "label": "ca. 10000 Unterrichtsstunden"
+        },
+        {
+          "id": "c",
+          "label": "ca. 100000 Unterrichtsstunden"
+        },
+        {
+          "id": "d",
+          "label": "ca. 1000000 Unterrichtsstunden"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "b739eddd-1b08-43ae-98bd-edf3ce77cfe5",
+  "_title": "Überschlag doch mal",
+  "_slug": "ueberschlagdochmal",
+  "_images": [
+    "../vera8_sichtung/ueberschlagdochmal/image1.png",
+    "../vera8_sichtung/ueberschlagdochmal/image2.png"
+  ]
+}

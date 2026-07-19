@@ -1,0 +1,44 @@
+{
+  "stamm": "Ein Maßstab gibt das Größenverhältnis von Bild zu Original an. Solche Maßstäbe findet man z.B. auf Landkarten und in Modellzeichnungen.\n\nEine Landkarte ist im Maßstab 1 : 300000 gezeichnet. Zwei Orte sind auf der Karte etwa 15cm voneinander entfernt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Kreuze an, wie weit diese Orte in der Wirklichkeit voneinander entfernt sind",
+      "options": [
+        {
+          "id": "a",
+          "label": "3km"
+        },
+        {
+          "id": "b",
+          "label": "15km"
+        },
+        {
+          "id": "c",
+          "label": "20km"
+        },
+        {
+          "id": "d",
+          "label": "45km"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "629a0e78-380f-451b-b159-3e4d6d4a8c8e",
+  "_title": "Maßstabsrechner",
+  "_slug": "massstabsrechner",
+  "_images": [
+    "../vera8_sichtung/massstabsrechner/image1.jpeg",
+    "../vera8_sichtung/massstabsrechner/image2.emf.png",
+    "../vera8_sichtung/massstabsrechner/image3.emf.png",
+    "../vera8_sichtung/massstabsrechner/image4.emf.png"
+  ]
+}

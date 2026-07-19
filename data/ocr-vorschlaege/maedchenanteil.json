@@ -1,0 +1,43 @@
+{
+  "stamm": "In der Klasse 7a sind 8 Mädchen und 15 Jungen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist der Anteil der Mädchen in der gesamten Klasse 7a? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "8/23"
+        },
+        {
+          "id": "b",
+          "label": "8/15"
+        },
+        {
+          "id": "c",
+          "label": "15/8"
+        },
+        {
+          "id": "d",
+          "label": "23/8"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "c924572f-0e95-4fb5-aa8d-788f0e6c580b",
+  "_title": "Mädchenanteil",
+  "_slug": "maedchenanteil",
+  "_images": [
+    "../vera8_sichtung/maedchenanteil/image1.emf.png",
+    "../vera8_sichtung/maedchenanteil/image2.emf.png",
+    "../vera8_sichtung/maedchenanteil/image3.emf.png"
+  ]
+}

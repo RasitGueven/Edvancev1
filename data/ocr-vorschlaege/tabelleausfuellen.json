@@ -1,0 +1,25 @@
+{
+  "stamm": "Die Tabelle zeigt eine proportionale Zuordnung.\nErgänze den fehlenden Wert.\n\n| Masse in kg | 3 | 4 | 6 | 8 |\n| Preis in € | 15 | 20 | 30 | ? |",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Ergänze den fehlenden Preis in € für 8 kg.",
+      "unit": "€",
+      "loesung_vorschlag": "40",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "df62fd31-08fe-40e3-8775-3d2174c6e812",
+  "_title": "Tabelle ausfüllen",
+  "_slug": "tabelleausfuellen",
+  "_images": [
+    "../vera8_sichtung/tabelleausfuellen/image1.png",
+    "../vera8_sichtung/tabelleausfuellen/image2.png"
+  ]
+}

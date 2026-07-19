@@ -1,0 +1,24 @@
+{
+  "stamm": "Zwei Zahlen sind auf dem obigen Ausschnitt der Zahlengeraden mit einem Pfeil markiert.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Trage die zwei Zahlen in die Kästchen ein.",
+      "loesung_vorschlag": "-1,5 und 0,75",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "SHORT_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die genaue Position der Pfeile ist schwer zu erkennen. Die linke markierte Stelle liegt zwischen -2 und -1, vermutlich bei -1,5. Die rechte markierte Stelle liegt zwischen 0 und 1, vermutlich bei 0,75. Es könnten auch andere Werte sein, je nach exakter Pfeilposition.",
+  "_task_id": "b3770a1c-f5e8-4734-b424-bd21c1ad8bc2",
+  "_title": "Skala und Zahlen",
+  "_slug": "skalaundzahlen",
+  "_images": [
+    "../vera8_sichtung/skalaundzahlen/image1.png",
+    "../vera8_sichtung/skalaundzahlen/image2.emf.png"
+  ]
+}

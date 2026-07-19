@@ -1,0 +1,55 @@
+{
+  "stamm": "Wie viele Nullen hat eine Milliarde, wenn man diese Zahl mit Ziffern schreibt? Kreuze an.\n\nErgänze den fehlenden Wert.\n1000 · _______ = 1 Milliarde",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie viele Nullen hat eine Milliarde, wenn man diese Zahl mit Ziffern schreibt?",
+      "options": [
+        {
+          "id": "a",
+          "label": "6"
+        },
+        {
+          "id": "b",
+          "label": "7"
+        },
+        {
+          "id": "c",
+          "label": "9"
+        },
+        {
+          "id": "d",
+          "label": "10"
+        },
+        {
+          "id": "e",
+          "label": "12"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Ergänze den fehlenden Wert: 1000 · _______ = 1 Milliarde",
+      "unit": null,
+      "loesung_vorschlag": "1000000",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "228b1d2f-7be7-4854-9707-e8353fedb4a5",
+  "_title": "Anzahl von Nullen",
+  "_slug": "anzahlvonnullen",
+  "_images": [
+    "../vera8_sichtung/anzahlvonnullen/image1.emf.png",
+    "../vera8_sichtung/anzahlvonnullen/image2.emf.png",
+    "../vera8_sichtung/anzahlvonnullen/image3.emf.png"
+  ]
+}

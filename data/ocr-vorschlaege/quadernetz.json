@@ -1,0 +1,85 @@
+{
+  "stamm": "Aus dem Netz eines Körpers kann man diesen zusammenfalten, ohne das Netz vorher auseinanderzuschneiden.\n\nKreuze jeweils an, ob es sich um das Netz eines Quaders handelt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Handelt es sich bei der ersten Figur um das Netz eines Quaders?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Handelt es sich bei der zweiten Figur um das Netz eines Quaders?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Handelt es sich bei der dritten Figur um das Netz eines Quaders?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Handelt es sich bei der vierten Figur um das Netz eines Quaders?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "c8250719-d97b-4b11-91b8-61ad12f481f3",
+  "_title": "Quadernetz",
+  "_slug": "quadernetz",
+  "_images": [
+    "../vera8_sichtung/quadernetz/image1.emf.png",
+    "../vera8_sichtung/quadernetz/image2.emf.png"
+  ]
+}

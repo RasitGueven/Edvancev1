@@ -1,0 +1,49 @@
+{
+  "stamm": "Verkleinert man die Kantenlänge eines Würfels, verkleinert sich auch die Größe seiner Oberfläche.\n\nDie Kantenlänge eines Würfels wird halbiert.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Um wie viel Prozent verkleinert sich die Größe seiner Oberfläche?",
+      "options": [
+        {
+          "id": "a",
+          "label": "um 25%"
+        },
+        {
+          "id": "b",
+          "label": "um 50%"
+        },
+        {
+          "id": "c",
+          "label": "um 75%"
+        },
+        {
+          "id": "d",
+          "label": "um 87,5%"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Oberfläche eines Würfels: O = 6a². Bei Halbierung der Kantenlänge: O_neu = 6(a/2)² = 6a²/4 = 1,5a². Das ist 1/4 der ursprünglichen Oberfläche, also eine Verkleinerung um 75%.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "bdd27678-91f6-4a4e-9568-56b3d3725edd",
+  "_title": "Würfeloberfläche",
+  "_slug": "wuerfeloberflaeche",
+  "_images": [
+    "../vera8_sichtung/wuerfeloberflaeche/image1.png",
+    "../vera8_sichtung/wuerfeloberflaeche/image2.png"
+  ]
+}

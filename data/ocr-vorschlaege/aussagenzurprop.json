@@ -1,0 +1,43 @@
+{
+  "stamm": "Die Abbildung zeigt den Graphen einer proportionalen Zuordnung.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welcher der vier Punkte A, B, C und D gehört nicht zu diesem Graphen? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "A (10|15)"
+        },
+        {
+          "id": "b",
+          "label": "B (30|20)"
+        },
+        {
+          "id": "c",
+          "label": "C (45|30)"
+        },
+        {
+          "id": "d",
+          "label": "D (60|40)"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "489cc6d1-9734-408f-9a08-0ce551d7452b",
+  "_title": "Aussagen zur proportionalen Zuordnung",
+  "_slug": "aussagenzurprop",
+  "_images": [
+    "../vera8_sichtung/aussagenzurprop/image2.emf.png",
+    "../vera8_sichtung/aussagenzurprop/image3.emf.png",
+    "../vera8_sichtung/aussagenzurprop/image4.emf.png"
+  ]
+}

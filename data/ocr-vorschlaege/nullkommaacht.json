@@ -1,0 +1,50 @@
+{
+  "stamm": "Ergänze jeweils die fehlende Zahl so, dass die Gleichung stimmt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "8 : ☐ = 0,8",
+      "unit": null,
+      "loesung_vorschlag": "10",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "0,8 : ☐ = 0,8",
+      "unit": null,
+      "loesung_vorschlag": "1",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "☐ : 80 = 8",
+      "unit": null,
+      "loesung_vorschlag": "640",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "numeric",
+      "prompt": "☐ : 0,80 = 8",
+      "unit": null,
+      "loesung_vorschlag": "6,4",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "654260bd-40a9-438c-8e7c-9fd2c254e2f8",
+  "_title": "Null Komma Acht",
+  "_slug": "nullkommaacht",
+  "_images": [
+    "../vera8_sichtung/nullkommaacht/image1.emf.png",
+    "../vera8_sichtung/nullkommaacht/image2.emf.png",
+    "../vera8_sichtung/nullkommaacht/image3.emf.png"
+  ]
+}

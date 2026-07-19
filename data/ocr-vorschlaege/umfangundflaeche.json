@@ -1,0 +1,35 @@
+{
+  "stamm": "Die Figur besteht aus 1cm × 1cm großen Quadraten.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie lang der Umfang der dick umrandeten Figur ist.",
+      "unit": "cm",
+      "loesung_vorschlag": "48",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Gib den Flächeninhalt der dick umrandeten Figur an.",
+      "unit": "cm²",
+      "loesung_vorschlag": "36",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "b42b9af9-1cc7-4cc6-badb-8191c6df334a",
+  "_title": "Umfang und Fläche",
+  "_slug": "umfangundflaeche",
+  "_images": [
+    "../vera8_sichtung/umfangundflaeche/image1.png",
+    "../vera8_sichtung/umfangundflaeche/image2.png",
+    "../vera8_sichtung/umfangundflaeche/image3.png",
+    "../vera8_sichtung/umfangundflaeche/image4.png"
+  ]
+}

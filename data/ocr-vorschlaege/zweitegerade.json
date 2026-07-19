@@ -1,0 +1,24 @@
+{
+  "stamm": "Zeichne in dieses Koordinatensystem eine zweite Gerade ein, die eine größere Steigung als die dargestellte Gerade hat.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne in dieses Koordinatensystem eine zweite Gerade ein, die eine größere Steigung als die dargestellte Gerade hat.",
+      "loesung_vorschlag": "Eine Gerade mit einer Steigung größer als die der eingezeichneten Geraden (die eingezeichnete Gerade hat eine Steigung von ca. 1/2, daher muss die neue Gerade eine Steigung > 1/2 haben)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": null,
+  "_task_id": "6765fba8-c0f0-425f-8e8e-4e8170117560",
+  "_title": "Zweite Gerade",
+  "_slug": "zweitegerade",
+  "_images": [
+    "../vera8_sichtung/zweitegerade/image1.png",
+    "../vera8_sichtung/zweitegerade/image2.png"
+  ]
+}

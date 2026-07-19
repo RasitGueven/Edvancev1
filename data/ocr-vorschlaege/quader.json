@@ -1,0 +1,54 @@
+{
+  "stamm": "Die Abbildung zeigt einen Holzquader. (Abbildung nicht maßstabstreu)\nAbmessungen: 5cm × 4cm × 6cm",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Berechne das Volumen dieses Quaders.",
+      "unit": "cm³",
+      "loesung_vorschlag": "120",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Alle Seiten des Quaders sollen mit Papier beklebt werden. Wie viel Papier wird (mindestens) benötigt? Kreuze an.",
+      "unit": "cm²",
+      "options": [
+        {
+          "id": "a",
+          "label": "45cm²"
+        },
+        {
+          "id": "b",
+          "label": "74cm²"
+        },
+        {
+          "id": "c",
+          "label": "120cm²"
+        },
+        {
+          "id": "d",
+          "label": "148cm²"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "48e1dcb9-c91b-41e6-b7cc-6c00530e715c",
+  "_title": "Quader",
+  "_slug": "quader",
+  "_images": [
+    "../vera8_sichtung/quader/image1.jpeg",
+    "../vera8_sichtung/quader/image2.png",
+    "../vera8_sichtung/quader/image3.png",
+    "../vera8_sichtung/quader/image4.png",
+    "../vera8_sichtung/quader/image5.png"
+  ]
+}

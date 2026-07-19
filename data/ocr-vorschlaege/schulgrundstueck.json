@@ -1,0 +1,36 @@
+{
+  "stamm": "Die Abbildung zeigt das Luftbild einer Schule. Darauf sind das Schulgrundstück (schwarz umrandet) und die Schulgebäude zu sehen. Die zwei größten Gebäude auf dem Grundstück sind die Schulgebäude.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Bestimme mit Hilfe der Angaben im Bild die Länge a dieses Schulgebäudes.",
+      "unit": "m",
+      "loesung_vorschlag": "80",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Auf dem Schulhof werden 100-m-Sprints gelaufen. Sebastian will eine 100-m-Laufbahn als Strecke in das Foto einzeichnen. Wie lang ist die Strecke, die er zeichnen müsste?",
+      "unit": "cm",
+      "loesung_vorschlag": "5",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Im Bild ist ein Maßstab von 10 m angegeben. Die Länge a des Schulgebäudes müsste durch Ablesen im Bild mit diesem Maßstab bestimmt werden. Die Lösung 80 m ist eine Schätzung basierend auf typischen Schulgebäudemaßen und dem Maßstab.",
+  "_task_id": "0721ceb4-8c6d-41ef-abd0-92c9ce81c8bd",
+  "_title": "Schulgrundstück",
+  "_slug": "schulgrundstueck",
+  "_images": [
+    "../vera8_sichtung/schulgrundstueck/image1.jpeg",
+    "../vera8_sichtung/schulgrundstueck/image2.png",
+    "../vera8_sichtung/schulgrundstueck/image3.png",
+    "../vera8_sichtung/schulgrundstueck/image4.png",
+    "../vera8_sichtung/schulgrundstueck/image5.png"
+  ]
+}

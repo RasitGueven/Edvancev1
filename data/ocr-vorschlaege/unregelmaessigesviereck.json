@@ -1,0 +1,25 @@
+{
+  "stamm": "Flächeninhalte von Rechtecken oder Dreiecken kann man leicht mit Formeln ausrechnen wenn bestimmte Längen gegeben sind oder gemessen werden können. Hier ist ein Viereck abgebildet, für das es keine Formel zur direkten Berechnung des Flächeninhalts gibt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Beschreibe möglichst genau, wie man den Flächeninhalt dieses Vierecks sehr genau bestimmen kann. Veranschauliche dein Vorgehen in der Abbildung, indem du z.B. die Strecken markierst oder einzeichnest, deren Länge du messen musst.",
+      "loesung_vorschlag": "Man kann das Viereck in Dreiecke zerlegen (z.B. durch eine Diagonale) und dann die Flächeninhalte der einzelnen Dreiecke mit der Formel A = (g·h)/2 berechnen, wobei man die Grundseite und die zugehörige Höhe messen muss. Alternativ: Einbeschreiben in ein Rechteck und Subtraktionsmethode.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die Aufgabe verlangt explizit, dass der Schüler Strecken in der Abbildung markiert/einzeichnet. Dies ist eine Zeichenaufgabe, die nicht automatisch ausgewertet werden kann. Der beschreibende Text-Teil ist jedoch als free_text erfassbar.",
+  "_task_id": "37e0e196-766c-447d-8be9-15bb0f698004",
+  "_title": "Unregelmäßiges Viereck",
+  "_slug": "unregelmaessigesviereck",
+  "_images": [
+    "../vera8_sichtung/unregelmaessigesviereck/image1.jpeg",
+    "../vera8_sichtung/unregelmaessigesviereck/image2.png",
+    "../vera8_sichtung/unregelmaessigesviereck/image3.png"
+  ]
+}

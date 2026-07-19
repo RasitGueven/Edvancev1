@@ -1,0 +1,68 @@
+{
+  "stamm": "Meistens - z.B. auf einer Stoppuhr - gibt man eine Zeitspanne in Stunden, Minuten und Sekunden an. Zum Rechnen ist es aber oft praktischer, die Zeit als Dezimalzahl in Stunden anzugeben. Ein Beispiel: 1,5 Stunden bedeutet 1 Stunde und 30 Minuten.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie lautet das Ergebnis der Umwandlung für die Zeitspanne \"1 Stunde und 45 Minuten\"?",
+      "options": [
+        {
+          "id": "a",
+          "label": "1,45 Stunden"
+        },
+        {
+          "id": "b",
+          "label": "1,65 Stunden"
+        },
+        {
+          "id": "c",
+          "label": "1,75 Stunden"
+        },
+        {
+          "id": "d",
+          "label": "1,85 Stunden"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Hier wird eine Zeitspanne als Dezimalzahl in Stunden angegeben: t = 3,65 Stunden. Rechne diese Zeitspanne in Stunden und Minuten um. Wie viele Stunden?",
+      "unit": null,
+      "loesung_vorschlag": "3",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Hier wird eine Zeitspanne als Dezimalzahl in Stunden angegeben: t = 3,65 Stunden. Rechne diese Zeitspanne in Stunden und Minuten um. Wie viele Minuten?",
+      "unit": null,
+      "loesung_vorschlag": "39",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "free_text",
+      "prompt": "Gegeben ist allgemein eine Zeitspanne als Dezimalzahl in Stunden: t = a,b Stunden. Zum Beispiel hat dann bei t = 23,71 Stunden a den Wert 23 und b den Wert 71. Jede Angabe t = a,b Stunden kann dann in Stunden und Minuten umgerechnet werden. Beschreibe unter Verwendung von a und b den Rechenweg, den man gehen muss, um eine solche Umrechnung durchzuführen.",
+      "loesung_vorschlag": "a gibt die Stunden an. Um die Minuten zu berechnen, multipliziert man b mit 60 und dividiert durch 100 (oder: b * 0,6), da b die Nachkommastelle in Hundertstel angibt und 0,01 Stunden = 0,6 Minuten entspricht.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Bei Teil 2 und 3 wird eine Tabelle gezeigt (t = ___ Stunden und ___ Minuten), aber da es nur zwei einzelne Zahlenwerte sind, habe ich sie als zwei separate numeric-Parts modelliert statt braucht_tabellentyp=true zu setzen. Bei Teil 4 ist die exakte Formulierung der Musterlösung variabel - mehrere korrekte Beschreibungen sind möglich.",
+  "_task_id": "e44e96a3-7b38-4a08-b1d2-7ed2c73b7511",
+  "_title": "Zeitumrechnung",
+  "_slug": "zeitumrechnung",
+  "_images": [
+    "../vera8_sichtung/zeitumrechnung/image1.png",
+    "../vera8_sichtung/zeitumrechnung/image2.png",
+    "../vera8_sichtung/zeitumrechnung/image3.png",
+    "../vera8_sichtung/zeitumrechnung/image4.png",
+    "../vera8_sichtung/zeitumrechnung/image5.png"
+  ]
+}

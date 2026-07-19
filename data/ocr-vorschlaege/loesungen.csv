@@ -1,0 +1,114 @@
+task_id,title,part_nr,kind,prompt,loesung,mehrere_moeglich
+600cc62e-d64f-4903-a950-11c98d46609b,20 Prozent,1,numeric,Berechne 20% von 80m.,16,False
+31118a1a-1dff-4c2c-a7a5-c9f36afeecaf,700 Milliarden,1,numeric,Schreibe diese Zahl in Ziffern.,700000000000,False
+27fb8ca3-408c-4837-8ea3-21a605b22e52,Abstand auf dem Wasser,1,mc,Welcher Graph stellt den Abstand des Schiffes zum Leuchtturm als Funktion der Zeit dar? Kreuze an.,a,False
+489cc6d1-9734-408f-9a08-0ce551d7452b,Aussagen zur proportionalen Zuordnung,1,mc,"Welcher der vier Punkte A, B, C und D gehört nicht zu diesem Graphen? Kreuze an.",b,False
+b1b572df-49b4-4ee4-980a-f76d06614b69,Außenthermometer,1,mc,Ein Außenthermometer zeigt −4°C. Die Außentemperatur steigt um 6°C an. Wie hoch ist die Außentemperatur danach? Kreuze an.,+2°C,False
+b1b572df-49b4-4ee4-980a-f76d06614b69,Außenthermometer,2,numeric,"Ein Außenthermometer zeigt +8°C und später −2°C an. Gib an, um wie viel Grad sich die Außentemperatur verändert hat.",10,False
+0e4d40b0-1e64-49e7-8abf-ced28a71e19c,Berechne x,1,numeric,x =,9,False
+ba2ed4e2-0ce8-480e-af96-16b61fddd2d7,Bestimme x,1,numeric,Welchen Wert hat x?,20,False
+cb32618b-f5ae-4721-8f9d-33a4027b4f04,Bonbons,1,mc,Mit welcher Wahrscheinlichkeit ist es rot? Kreuze an.,4/10,False
+c3b3e81d-ccc3-4957-bd47-14875d83ea69,Brettspiel,1,mc,"Wie groß ist die Wahrscheinlichkeit für Jan, mit dem nächsten Wurf das Spiel zu gewinnen? Kreuze an.",b,False
+dadb66dc-cddc-4ab6-a1c5-915eb31180e2,Butter,1,numeric,"Gib an, wie viel Butter sie ungefähr von diesem 250-g-Stück abgeteilt hat.",50,True
+f85c4d7b-2ca5-4a7c-a02e-2553fc317981,Computerspielsucht,1,mc,"Kreuze den Prozentsatz an, der am besten passt.",b,False
+ee40b6c2-a125-49b9-b094-7bc1a53b334b,Croissant,1,numeric,"Gib an, wie teuer das Schoko-Croissant ist.","1,25",False
+3e85e534-da2b-49dd-a34e-465adb763f55,Darstellung in Diagrammen,1,short_input,"In welchem Jahr sind 65 Millionen Flaschen verkauft worden? Vervollständige den Satz.
+
+Im Jahr __________ sind 65 Millionen Flaschen verkauft worden.",2009,False
+58af80b3-b073-40d5-bf38-6dd54d030291,Das ist gerundet,1,numeric,"Runde die Zahl 5,143 auf eine Stelle nach dem Komma.","5,1",False
+46e6c014-b735-4cb2-8c26-40f40b6ac838,Der Riese,1,numeric,Zu welcher Größe des gesamten Kopfes gehört dieser Teil des Kopfes?,Nicht eindeutig bestimmbar ohne weitere Informationen über den Anteil des sichtbaren Teils am Gesamtkopf,True
+3550a34f-4afc-4f27-8950-72004822e379,Der Stern,1,mc,Wie groß ist der Flächeninhalt des abgebildeten Sterns?,16 cm²,False
+952b106f-662f-430a-9869-def8d8050ecf,Drehkörper,1,mc,Welcher der folgenden Körper kann sich ergeben? Kreuze an.,b,False
+238c34fe-bcd0-4a2b-90cc-f83fb9e28bfb,Ecken an Pyramiden,1,numeric,"Gib an, wie viele Ecken diese Pyramide hat.",5,False
+866b569a-030f-489b-b7f0-a922658c540e,Einfache Gleichung,1,numeric,Gib den Wert für x an.,91.5,False
+23c512b3-60c9-4dde-844d-78841efc0f58,Eingefärbter Körper,1,numeric,"Gib an, wie viele Seitenflächen insgesamt ungefärbt sind.",2,False
+9d9e8094-c696-43b3-bdfb-ccd274879203,Faschingsdeko,1,short_input,Schreibe alle möglichen Farbkombinationen auf.,"wr, wb, wg, rb, rg, bg (oder: w-r, w-b, w-g, r-b, r-g, b-g)",True
+8ede07e1-2eba-4e60-9143-84d59dab61a6,Fische zählen,1,numeric,"Gib an, wie viele Fische schätzungsweise in dem Teich leben.",2000,False
+1e11c6a6-266a-4ada-a8ee-fdffe969818b,Flächengleich oder nicht,1,numeric,"Gib an, wie groß der Flächeninhalt dieses Parallelogramms ist. (Basis 5 cm, Höhe 4 cm; nicht maßstabsgerecht)",20,False
+1e11c6a6-266a-4ada-a8ee-fdffe969818b,Flächengleich oder nicht,2,mc,In der Abbildung sind zwei Parallelogramme dargestellt (a parallel zu b). Ist der Flächeninhalt der beiden Parallelogramme gleich groß? Kreuze an.,ja,False
+1e11c6a6-266a-4ada-a8ee-fdffe969818b,Flächengleich oder nicht,3,free_text,Begründe deine Antwort.,"Parallelogramme zwischen denselben parallelen Geraden (a und b) und mit derselben Grundseite haben denselben Flächeninhalt, da sie dieselbe Höhe haben.",True
+cf5302ed-39df-4963-a029-b4c39a5ae4d6,Flächeninhalt,1,numeric,Der Flächeninhalt beträgt,25,False
+6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,Fliesen,1,numeric,"Gib an, wie viele Fliesen jetzt mindestens nötig sind.",40,False
+b4c474d7-69f9-46e9-bb36-a7086597713e,Frühstücksbrötchen,1,numeric,"Angelika kauft sechs normale Brötchen zu je 0,35€ und vier Körnerbrötchen zu je 0,45€. Gib an, wie viel sie insgesamt bezahlen muss.","3,90",False
+b4c474d7-69f9-46e9-bb36-a7086597713e,Frühstücksbrötchen,2,numeric,"Angelika kauft fünf normale Brötchen zu je 0,35€ und zahlt mit einem Fünf-Euro-Schein. Gib an, wie viel Geld sie zurück erhält.","3,25",False
+b4c474d7-69f9-46e9-bb36-a7086597713e,Frühstücksbrötchen,3,mc,"Reichen 10€, um zwölf normale Brötchen zu je 35 Cent und zwölf Körnerbrötchen zu je 45 Cent zu kaufen? Kreuze an.",nein,False
+b4c474d7-69f9-46e9-bb36-a7086597713e,Frühstücksbrötchen,4,free_text,Begründe deine Antwort.,"12 × 0,35€ + 12 × 0,45€ = 4,20€ + 5,40€ = 9,60€. Da 9,60€ < 10€, reichen 10€.",True
+71011a0e-d0d2-4baf-94c0-7ef0c0cec365,Fünfundvierzig,1,numeric,6 · ☐ + 3 = 45,7,False
+83fe9508-6a17-4658-8b12-3b75ea2a5544,Geraden im Koordinatensystem,1,mc,An welcher Stelle schneidet die Gerade die x-Achse? Kreuze an.,c,False
+6d5eb2dc-2b16-4ddc-a39f-0dc85c9e2c6e,Gesamtkantenlänge,1,mc,Wie lang sind alle Kanten des Quaders zusammen?,44 cm,False
+9bca3f30-c0f4-4944-958d-aaf1b6f36f19,Geschichte zur Graphik,1,mc,Welche Beschreibung passt zu der Graphik?,a,False
+5fafe02e-c47d-4c42-819a-ff72d73d5762,Geschwindigkeitsüberschreitung,1,mc,"Jemand fährt in der Innenstadt mit einer Geschwindigkeit von 58km/h, obwohl dort nur 30km/h erlaubt sind. Mit welchem Bußgeld ist jetzt zu rechnen? Kreuze an.",c,False
+9c78fbf9-89a7-42af-b8d3-03cf489cd62b,Gewerbezone,1,numeric,In höchstens _________ Grundstücke.,nicht aus dem Bild ableitbar,False
+b43f6508-1ba8-44b2-9b0d-4d3906df7780,Gleichung lösen 1,1,free_text,Löse die Gleichung 46 ★ (verwende das Karopapier zur Lösung),"Nicht eindeutig bestimmbar, da die vollständige Gleichung im Bild nicht sichtbar ist",True
+798f3b3c-5b4f-4e2d-8f9a-4349ee70aa92,Gleichung lösen 2,1,mc,Welche Lösung hat die Gleichung 16 − 6x = 14?,c,False
+ab31309b-9166-4c62-8878-f81c9b050e2b,Gleichung lösen 3,1,mc,Welche Zahl ist Lösung der Gleichung 2x − 4 = 6? Kreuze an.,c,False
+1660a458-692a-4245-867e-e33ebc64fb26,Hälfte,1,numeric,Wie viel ist die Hälfte von 1 Million? Schreibe dein Ergebnis in Ziffern.,500000,False
+59bc8db7-3792-4f16-8240-bf5948eee275,Heizkosten,1,mc,Um wie viel Prozent kann der Verbrauch nach dem Einbau der neuen Anlage und dem anschließenden sparsamen Umgang mit Energie insgesamt höchstens gesenkt werden?,58%,False
+e040a388-3a17-4683-8e52-de7b25f56693,Holzstab,1,numeric,"Ein 3m langer Holzstab wird in zwei gleich lange Teile zersägt. Gib an, wie lang jedes Teil ist.","1,5",False
+e040a388-3a17-4683-8e52-de7b25f56693,Holzstab,2,numeric,"Von einem 2m langen Pfahl steckt ein Viertel im Boden. Gib an, wie viel Meter des Pfahls nicht im Boden stecken.","1,5",False
+8a9375a9-a878-4726-8183-2cd861a0533e,Holzwürfel,1,numeric,"Gib an, wie viele verschiedene Möglichkeiten es gibt, aus diesen drei Holzwürfeln einen Dreierturm zu bauen.",6,False
+8840971e-a829-4a1d-a9bb-bdcbf9367d9c,Honigbiene,1,mc,Ungefähr wie lang ist das abgebildete Tier?,"1,5cm",False
+96fa6857-d46f-4487-b7d3-a7cb09c9b4ed,Im Kreis laufen,1,mc,"Welcher Graph passt am besten, um Pauls Bewegung darzustellen?",c,False
+fecdd2aa-afdc-4ad2-aebc-f37966742d4b,Jeans mit Ermäßigung,1,mc,Kreuze an.,d,False
+29e58bdf-eba0-4683-acf5-507301f60566,Judomatte,1,mc,Wie groß ist diese?,d,False
+fdd77d77-511f-4a9a-98b5-f32602a3cc52,Körper füllen,1,mc,Wie groß ist das Volumen des Quaders insgesamt? Kreuze an.,d,False
+337ff49c-33a2-435e-b44f-779d5cfac005,Kraftfutter,1,numeric,Das Kraftfutter reicht _______ Tage.,21,False
+d57cdb1d-727b-4f6e-b935-92ed09db2d4f,Kreisfiguren,1,short_input,Welche sind das? Figur ... und Figur ... haben denselben Flächeninhalt.,A und D,False
+e40594ab-53ba-4eab-ab66-164599b8d9c7,Kugeln ziehen,1,numeric,Wie viel mal so viele gelbe wie rote Kugeln müssen in dem Gefäß sein?,3,False
+9d06385a-595a-49b0-b4fe-2a5db9770549,Leistung des Motors,1,mc,Welches Auto hat eine größere Motorleistung?,a,False
+7979e5d2-7343-4868-9ad4-1a0b15a5f175,Literberechnungen,1,numeric,"Gib an, wie viel 3/4 von 10 Liter sind.","7,5",False
+7979e5d2-7343-4868-9ad4-1a0b15a5f175,Literberechnungen,2,numeric,"2/3 von einem Volumen sind 6 Liter. Gib an, wie groß das Volumen ist.",9,False
+d350fb95-b256-4776-af65-91ffa284dd8c,Lohnerhöhung,1,numeric,"Gib an, um wie viel Prozent der Lohn erhöht wird.",10,False
+7feea1d6-7feb-4ec8-9d24-142e6722ccef,Luftballons,1,mc,"Wie groß ist die Wahrscheinlichkeit, dass er einen roten Luftballon erhält?
+
+Kreuze an.",d,False
+c924572f-0e95-4fb5-aa8d-788f0e6c580b,Mädchenanteil,1,mc,Wie groß ist der Anteil der Mädchen in der gesamten Klasse 7a? Kreuze an.,a,False
+bb074bf6-7f73-41c8-90e6-4940658fb66b,Maßstabsleiste,1,mc,Welcher Maßstab passt dazu? Kreuze an.,c,False
+629a0e78-380f-451b-b159-3e4d6d4a8c8e,Maßstabsrechner,1,mc,"Kreuze an, wie weit diese Orte in der Wirklichkeit voneinander entfernt sind",d,False
+9afea3a5-5644-4879-8a4d-feff3c7125d0,Maus,1,mc,Welche der folgenden Maßeinheiten passt hier zur Maßzahl 40?,b,False
+42a730f0-bc18-4c37-8880-f13f430bf4a7,Messzylinder,1,numeric,"Gib an, wie viel Flüssigkeit sich in diesem Messzylinder befindet.",300,False
+2bb1e79f-26e3-493f-8a56-8fdb0468f8eb,Mitte zwischen Zahlen,1,numeric,"Gib an, welche Zahl genau in der Mitte der beiden Zahlen 6,06 und 6,6 liegt.","6,33",False
+76703008-142e-4c66-90ab-87f4c9745a41,Mülltonne,1,numeric,Diese Mülltonne hat etwa ein Volumen von ... . Notiere deinen Lösungsweg.,"120 oder 240 (typische Mülltonnengrößen, aus dem Bild schwer genau abzulesen)",True
+f1464a99-50ce-4830-a306-7c07f3207f2b,Nashorn,1,numeric,Welche Länge hatte das Nashornbaby zu diesem Zeitpunkt (von der Nase bis zum Hinterteil)?,120,False
+9f5f5d98-e884-4382-ae0b-b6aebbf0e24c,Papier,1,numeric,"Gib an, wie hoch 200 Blatt dieser Papiersorte sind.",22,False
+1cc00f09-65ac-4091-afbe-a18def4563da,Pflaumen,1,numeric,"Gib an, wie viel 500 g Pflaumen kosten.",0.95,False
+16565a9a-7bdf-4d73-b1ba-aeed6a9460f3,Plättchen ziehen,1,numeric,Die Wahrscheinlichkeit beträgt,"0,5",True
+92f5edd1-e4b9-4ef8-8152-3b60f9f49ab7,Prozentanteil schätzen,1,mc,Wie viel Prozent der Kreisfläche sind grau gefärbt? Schätze und kreuze an.,d,False
+b3cee0ee-c082-4645-8a0c-a2e84ace4fb4,Quadernetz 2,1,mc,Welche der folgenden Abbildungen zeigt das Netz eines Quaders?,a,False
+1967ab57-df09-43e6-b159-e2c93fb23e57,Quadratfläche,1,numeric,Bestimme den Flächeninhalt des gegebenen Quadrats. Gib dein Ergebnis an.,Nicht bestimmbar ohne Seitenlänge,False
+df190223-3972-4b6c-a5ae-275d9fe1cae3,Quadrat im Gitter,1,numeric,Gib den Flächeninhalt des Quadrats an. Du darfst auch Hilfslinien einzeichnen.,25,False
+ae8c5f2d-57fe-49e2-9877-2a9f765b1932,Rabattaktion,1,mc,Welches Schild passt am besten zu dieser Rabattaktion? Kreuze an.,a,False
+bf03d765-c01b-44a6-ab29-80a21cafc069,Rauminhalt von Prismen,1,mc,Welche der folgenden Aussagen ist richtig?,b,False
+c3915b55-4de2-4e8d-a4e0-9e1c19bf0218,Rechenvorteil,1,free_text,Rechne vor.,"4 · 25 = 100; 100 · 3,15 = 315 (oder äquivalente Umformung mit Kommutativ- und Assoziativgesetz)",True
+f776531c-0283-43f9-8471-0c5183bc33b6,Rechtskurve,1,mc,Welches der folgenden vier Geschwindigkeit-Zeit-Diagramme passt am besten zu dieser Bewegung? Kreuze an.,d,False
+78c48a6c-de97-45f4-8fc2-831cbaea9f5e,Richtig umgeformt,1,short_input,Wandle den Term 2x + 4a in ein Produkt der Form ........................ · (........................) um.,2 · (x + 2a),False
+78c48a6c-de97-45f4-8fc2-831cbaea9f5e,Richtig umgeformt,2,short_input,Multipliziere den Term 4k · (2k − m) aus. 4k · (2k − m) = ........................,8k² − 4km,False
+0ed1d9ac-9b33-4815-9dfc-4a145bba1069,Schlüssel,1,mc,"Wie groß ist die Wahrscheinlichkeit, dass die Haustür mit dem ersten Schlüssel aufgeht, den sie zufällig probiert? Kreuze an.",1/4,False
+70b9366b-129d-4198-a6e8-c01a8cc1cba2,Schneekristalle,1,mc,Wie viele Symmetrieachsen hat dieser Schneekristall (von kleinen Abweichungen abgesehen)?,c,False
+e86cd57f-3b9d-434e-a730-35e03389d44f,Schnittpunkt von Graphen,1,short_input,Die beiden Graphen schneiden sich im Punkt S ( ___ | ___ ).,nicht eindeutig berechenbar - siehe unsicher,False
+7c65d32a-eded-401c-86d0-64cc263c2de5,Schulstatistik,1,mc,"Kreuze an, welche Schulform am häufigsten vertreten ist.",a,False
+b3770a1c-f5e8-4734-b424-bd21c1ad8bc2,Skala und Zahlen,1,short_input,Trage die zwei Zahlen in die Kästchen ein.,"-1,5 und 0,75",False
+7429c79b-0595-4825-837c-c0bde27c470f,Tabelle,1,mc,Welche der folgenden Gleichungen passt zu diesem Zusammenhang?,c,False
+df62fd31-08fe-40e3-8775-3d2174c6e812,Tabelle ausfüllen,1,numeric,Ergänze den fehlenden Preis in € für 8 kg.,40,False
+0c0403f1-b0ac-49ba-9667-0eedc16e2c13,Tankinhalt,1,numeric,"Berechne mithilfe der Daten, wie viele Liter Kraftstoff in diesem Moment noch im Tank sind. Gib das Ergebnis in Liter an.",24,False
+f777470d-ddf1-49a4-975d-9f6713699211,Temperaturdifferenz,1,numeric,"Gib an, um wie viel Grad Celsius die Temperatur angestiegen ist.",19,False
+486fe554-77ae-4c3c-84f5-52b5701e8767,Traktor,1,mc,Bei welchem Maßstab ist das Modell am kleinsten? Kreuze an.,a,False
+b739eddd-1b08-43ae-98bd-edf3ce77cfe5,Überschlag doch mal,1,mc,Welche Zahl passt am besten? Kreuze an.,b,False
+c1ec1de2-919f-460b-b099-d0726996f4ae,Überschlagsrechnung,1,mc,Welche Überschlagsrechnung eignet sich dafür am besten?,b,False
+fc1dabeb-705d-40d1-80b5-5c24d1596144,Viele Brötchen,1,short_input,"Schreibe die Bezeichnungen für die beiden Tabellenzeilen in die erste Spalte. Ergänze dann die fehlenden Werte, so dass man ablesen kann, was die jeweilige Anzahl Brötchen kostet.","Zeile 1: Anzahl Brötchen; Zeile 2: Preis in €. Werte: 2→0,60€; 3→0,90€; 4→1,20€; 5→1,50€",False
+1f996095-4eca-4a71-9ec1-39594c5002b2,Werbemarkt,1,numeric,"Gib unter dieser Voraussetzung eine Prognose ab, wie hoch die Gesamtausgaben für Werbung im Jahr 2018 ungefähr sein werden.",25,True
+b3de2d20-7304-40e2-9145-2d5ae7565a58,Winkel Gamma,1,short_input,"Bringe alle Argumentationskarten für Nikis Vortrag in eine logisch richtige Reihenfolge. Trage hierzu die restlichen Kartennummern in der Reihenfolge des Vortrags ein (K1 und K7 sind bereits vorgegeben, danach kommen 6 weitere Karten):","K1, K7, K2, K4, K8, K5, K6, K3",False
+81d04a79-8020-49e1-8292-3e8c1eb3be2f,Winkel im Dreieck,1,numeric,"Gib an, wie groß der Winkel γ ist.",90,False
+e41b8357-9848-4941-9bb7-96875d93547a,Winkel messen,1,numeric,Miss die Größe des Winkels α. Runde auf ganze Grad.,20,False
+e82d178f-89bf-42c2-9962-027a08463eea,Würfelbau,1,mc,Drei der folgenden fünf Zeichnungen stellen diesen Körper in einer anderen Ansicht dar. Kreuze diese drei Ansichten an.,"a, b, d",False
+8f58d4cc-97cb-46d1-b036-b2246f0827a0,Würfelnetze,1,mc,Bei welcher Abbildung handelt es sich um das Netz (Abwicklung) eines Würfels?,a,False
+97f07182-49a7-4235-aa81-76cc79085838,Zahlen addieren,1,free_text,"Die Summe von zwei ganzen Zahlen, die beide größer als 0 sind, soll 8 ergeben. Schreibe alle Möglichkeiten auf, wie diese Summe gebildet werden kann.","1+7, 2+6, 3+5, 4+4, 5+3, 6+2, 7+1",False
+97f07182-49a7-4235-aa81-76cc79085838,Zahlen addieren,2,free_text,"Nun geht es um Bruchzahlen, die größer als 0 sind. Die Summe von zwei solchen Bruchzahlen soll 1/8 ergeben. Schreibe ein Beispiel auf, wie die Summe gebildet werden kann. Die Brüche müssen dabei vollständig gekürzt sein.","1/16 + 1/16 oder andere vollständig gekürzte Bruchpaare, die 1/8 ergeben",True
+c18445fa-cfec-464c-abe4-96d153aaa78b,Zahl gesucht,1,mc,"Wenn 9x = 6,3; dann ist x = ?","c (0,7)",False
+95c96e7e-592d-471f-bb90-c0bc7adcaa23,Zahl gesucht 2,1,numeric,Auf welche Zahl zeigt der Pfeil ungefähr? Schreibe die Zahl in das Kästchen.,500000,True
+73676e71-d8b7-410e-83ec-d3407af7448f,Zeitangabe,1,mc,Wie viele Minuten sind 2 1/2 Stunden?,c,False
+95b85cbb-f494-4402-9ce9-afb9da6a4334,Zoobesuch,1,mc,Welches Diagramm passt am besten zu diesem Vorgang? Kreuze an.,d,False
+0c49350a-1163-4dbb-9775-836d73bc09d6,Zwanzig Prozent,1,numeric,Gib 20% von 150€ an.,30,False
+81f69046-b437-40b7-8c96-f6350ea7ab4c,Zwischen zwei Zahlen,1,mc,"Welche der folgenden Zahlen liegt zwischen 0,06 und 0,07?",c,False
+932d5499-416f-4316-92e0-aff931b59b82,Zwischen zwei Zahlen 2,1,short_input,"Gib zwei unterschiedliche rationale Zahlen an, die zwischen -4,5 und -3,5 liegen.","z.B. -4 und -4,2 (beliebige zwei verschiedene rationale Zahlen im Intervall (-4,5; -3,5))",True
+932d5499-416f-4316-92e0-aff931b59b82,Zwischen zwei Zahlen 2,2,mc,"Wie viele unterschiedliche Zahlen liegen zwischen -4,5 und -3,5? Kreuze an.",e,False

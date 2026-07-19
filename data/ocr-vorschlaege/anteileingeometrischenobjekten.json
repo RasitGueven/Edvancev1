@@ -1,0 +1,73 @@
+{
+  "stamm": "Welche Anteile sind grau gefärbt?\nTrage jeweils einen passenden Bruch und einen passenden Prozentsatz in die Tabelle ein.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Kreis mit 3 von 4 gleichen Teilen grau gefärbt: Gefärbter Anteil als Bruch",
+      "loesung_vorschlag": "3/4",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Kreis mit 3 von 4 gleichen Teilen grau gefärbt: Gefärbter Anteil als Prozentsatz",
+      "loesung_vorschlag": "75%",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Kreis mit 2 von 3 gleichen Teilen grau gefärbt: Gefärbter Anteil als Bruch",
+      "loesung_vorschlag": "2/3",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "short_input",
+      "prompt": "Kreis mit 2 von 3 gleichen Teilen grau gefärbt: Gefärbter Anteil als Prozentsatz",
+      "loesung_vorschlag": "66,67% oder 66 2/3%",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 5,
+      "kind": "short_input",
+      "prompt": "Rechteck mit 2 von 5 gleichen Teilen grau gefärbt: Gefärbter Anteil als Bruch",
+      "loesung_vorschlag": "2/5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 6,
+      "kind": "short_input",
+      "prompt": "Rechteck mit 2 von 5 gleichen Teilen grau gefärbt: Gefärbter Anteil als Prozentsatz",
+      "loesung_vorschlag": "40%",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 7,
+      "kind": "short_input",
+      "prompt": "Rechteck mit 3 von 10 gleichen Teilen grau gefärbt: Gefärbter Anteil als Bruch",
+      "loesung_vorschlag": "3/10",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 8,
+      "kind": "short_input",
+      "prompt": "Rechteck mit 3 von 10 gleichen Teilen grau gefärbt: Gefärbter Anteil als Prozentsatz",
+      "loesung_vorschlag": "30%",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "dee84098-657e-4af9-a20a-8e60331777de",
+  "_title": "Anteile in geometrischen Objekten",
+  "_slug": "anteileingeometrischenobjekten",
+  "_images": [
+    "../vera8_sichtung/anteileingeometrischenobjekten/image1.emf.png",
+    "../vera8_sichtung/anteileingeometrischenobjekten/image2.emf.png"
+  ]
+}

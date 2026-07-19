@@ -1,0 +1,45 @@
+{
+  "stamm": "Gegeben sind zwei Geraden durch die folgenden Gleichungen:\n1) y=x−43\n2) y=−43\n\nWelche Lage haben diese Geraden zueinander?",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Die Geraden verlaufen parallel zueinander."
+        },
+        {
+          "id": "b",
+          "label": "Die Geraden schneiden sich in einem Punkt."
+        },
+        {
+          "id": "c",
+          "label": "Die Geraden sind identisch."
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Entscheidung.",
+      "loesung_vorschlag": "Die erste Gerade y=x−43 hat die Steigung 1 und y-Achsenabschnitt −43. Die zweite Gerade y=−43 ist eine waagerechte Gerade (Steigung 0) mit y-Wert −43. Da die Steigungen unterschiedlich sind (1 ≠ 0), können die Geraden nicht parallel oder identisch sein. Sie schneiden sich im Punkt (0, −43).",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die erste Gleichung könnte 'y=x−43' oder 'y=x−4/3' sein – die Darstellung im Bild lässt beide Interpretationen zu. Ich habe y=x−43 angenommen, da kein Bruchstrich erkennbar ist. Die zweite Gleichung ist eindeutig y=−43.",
+  "_task_id": "20426c56-c788-4a2d-a7fe-fa64aa03510a",
+  "_title": "Lage von zwei Geraden",
+  "_slug": "lagevonzweigeraden",
+  "_images": [
+    "../vera8_sichtung/lagevonzweigeraden/image1.emf.png",
+    "../vera8_sichtung/lagevonzweigeraden/image2.emf.png"
+  ]
+}

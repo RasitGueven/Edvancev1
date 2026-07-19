@@ -1,0 +1,46 @@
+{
+  "stamm": "Das Ergebnis von 91·88 soll durch eine Überschlagsrechnung im Kopf annähernd ermittelt werden.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Überschlagsrechnung eignet sich dafür am besten?",
+      "options": [
+        {
+          "id": "a",
+          "label": "80·80"
+        },
+        {
+          "id": "b",
+          "label": "90·90"
+        },
+        {
+          "id": "c",
+          "label": "90·80"
+        },
+        {
+          "id": "d",
+          "label": "91·85"
+        },
+        {
+          "id": "e",
+          "label": "100·100"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "c1ec1de2-919f-460b-b099-d0726996f4ae",
+  "_title": "Überschlagsrechnung",
+  "_slug": "ueberschlagsrechnung",
+  "_images": [
+    "../vera8_sichtung/ueberschlagsrechnung/image1.png",
+    "../vera8_sichtung/ueberschlagsrechnung/image2.png"
+  ]
+}

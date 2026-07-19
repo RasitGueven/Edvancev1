@@ -1,0 +1,34 @@
+{
+  "stamm": "Leon hat einen Nebenjob. Er verdient in einer Stunde 12 Euro. Leon bekommt seinen Verdienst wöchentlich ausgezahlt.\n\nIm Monat Juli hat Leon folgende Auszahlungen erhalten:\n1. Woche: 168 Euro\n2. Woche: 132 Euro\n3. Woche: 180 Euro\n4. Woche: 144 Euro",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viel Euro er im Juli durchschnittlich pro Woche erhalten hat.",
+      "unit": "Euro",
+      "loesung_vorschlag": "156",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "In seinem letzten Nebenjob bekam Leon bei gleichem Stundenlohn 5-mal seinen Verdienst ausgezahlt. Alle Auszahlungen waren unterschiedlich.\n\nStelle eine Liste mit möglichen Arbeitsstunden zusammen, sodass Leon in diesen 5 Wochen auf einen durchschnittlichen Verdienst von 168 Euro pro Woche kommt.\n\nFülle die Liste aus.\n\nDenk daran: Alle fünf Auszahlungen müssen unterschiedlich sein!\n\nTabelle:\nLeons letzter Arbeitsmonat\n- Anzahl der Arbeitsstunden\n- Verdienst in Euro\n- Durchschnittlicher Verdienst pro Woche: 168 Euro\n\n1. Woche:\n2. Woche:\n3. Woche:\n4. Woche:\n5. Woche:",
+      "loesung_vorschlag": "Beispiel: 1. Woche: 12h/144€, 2. Woche: 13h/156€, 3. Woche: 14h/168€, 4. Woche: 15h/180€, 5. Woche: 16h/192€ (Summe 840€, Durchschnitt 168€). Beliebige Kombination, solange Summe 840€ ergibt und alle Werte unterschiedlich sind.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Teil 2 verlangt das Ausfüllen einer 5-zeiligen Tabelle mit je 2 Spalten (Stundenzahl und Verdienst). Dies ist eine echte Tabellenaufgabe mit mehreren möglichen Lösungen, die alle die Bedingung erfüllen müssen: unterschiedliche Werte und Durchschnitt 168 Euro.",
+  "_task_id": "1bf1de10-fc90-472d-909c-372c22797a56",
+  "_title": "Nebenjob",
+  "_slug": "nebenjob",
+  "_images": [
+    "../vera8_sichtung/nebenjob/image1.emf.png",
+    "../vera8_sichtung/nebenjob/image2.emf.png",
+    "../vera8_sichtung/nebenjob/image3.emf.png",
+    "../vera8_sichtung/nebenjob/image4.emf.png"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "stamm": "Ein Versandhaus bietet eine Damenuhr an, deren Uhrengehäuse mit vier verschiedenen Wechselringen und vier verschiedenen Wechselarmbändern kombiniert werden kann. Ein goldfarbenes Uhrengehäuse mit weißem Zifferblatt und ganggenauem Quarzwerk. 4 schmuckvolle Wechselringe zum Austauschen. 4 Wechselarmbänder in 4 aktuellen Farben: Schwarz, Braun, Rot, Beige.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Auf wie viele verschiedene Arten kann das Uhrengehäuse mit den vier verschiedenen Wechselringen und den vier verschiedenen Wechselarmbändern kombiniert werden? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "4"
+        },
+        {
+          "id": "b",
+          "label": "8"
+        },
+        {
+          "id": "c",
+          "label": "9"
+        },
+        {
+          "id": "d",
+          "label": "16"
+        },
+        {
+          "id": "e",
+          "label": "unendlich"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Bei einer anderen Damenuhr soll das Uhrengehäuse ebenfalls mit verschiedenen Wechselringen und verschiedenen Wechselarmbändern kombiniert werden. Dabei sollen genau 12 Kombinationen möglich sein. Wie viele Wechselringe und wie viele Wechselarmbänder muss man dazu anbieten? Gib alle Möglichkeiten an.",
+      "loesung_vorschlag": "1 Ring und 12 Armbänder, 2 Ringe und 6 Armbänder, 3 Ringe und 4 Armbänder, 4 Ringe und 3 Armbänder, 6 Ringe und 2 Armbänder, 12 Ringe und 1 Armband (alle Faktorpaare von 12)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Bei Teil 2 ist ein Karogitter abgebildet, vermutlich zur freien Strukturierung der Antwort. Die Aufgabe verlangt alle Faktorpaare von 12, was mehrere richtige Kombinationen ergibt.",
+  "_task_id": "ce075f2f-6c70-4ab4-88b0-545c27a99460",
+  "_title": "Damenuhr",
+  "_slug": "damenuhr",
+  "_images": [
+    "../vera8_sichtung/damenuhr/image1.emf.png",
+    "../vera8_sichtung/damenuhr/image2.emf.png",
+    "../vera8_sichtung/damenuhr/image3.emf.png",
+    "../vera8_sichtung/damenuhr/image4.emf.png"
+  ]
+}

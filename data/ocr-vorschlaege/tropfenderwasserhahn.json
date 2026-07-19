@@ -1,0 +1,52 @@
+{
+  "stamm": "Bei Familie Rector tropft seit einigen Tagen ein undichter Wasserhahn.\n\nBen, der Sohn der Familie, will untersuchen, wie viel Wasser dabei verloren geht. Er fängt das gleichmäßig tropfende Wasser in einem Messbecher auf.\n\nBen sieht ab und zu nach, wie viel Wasser inzwischen im Messbecher ist. Die Tabelle zeigt Bens Messergebnisse.\n\nZeit in Stunden: 0,5 → 150 cm³; 4 → 1200 cm³",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viel Wasser nach zwei Stunden im Messbecher war.",
+      "unit": "cm³",
+      "loesung_vorschlag": "600",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Welches Diagramm stellt die verlorene Wassermenge in Abhängigkeit von der Zeit am besten dar? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Wassermenge in cm³ steigt linear (gerade Linie nach oben)"
+        },
+        {
+          "id": "b",
+          "label": "Wassermenge in cm³ sinkt linear (gerade Linie nach unten)"
+        },
+        {
+          "id": "c",
+          "label": "Wassermenge in cm³ steigt gekrümmt (nach oben gebogene Kurve)"
+        },
+        {
+          "id": "d",
+          "label": "Wassermenge in cm³ sinkt gekrümmt (nach unten gebogene Kurve)"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "6d294116-74a2-4a2b-a097-e6bc17e447dc",
+  "_title": "Tropfender Wasserhahn",
+  "_slug": "tropfenderwasserhahn",
+  "_images": [
+    "../vera8_sichtung/tropfenderwasserhahn/image1.png",
+    "../vera8_sichtung/tropfenderwasserhahn/image2.png",
+    "../vera8_sichtung/tropfenderwasserhahn/image3.png",
+    "../vera8_sichtung/tropfenderwasserhahn/image4.png"
+  ]
+}

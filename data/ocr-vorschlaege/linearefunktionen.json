@@ -1,0 +1,118 @@
+{
+  "stamm": "Im Folgenden sind Sachsituationen beschrieben, bei denen jeweils eine Größe einer anderen zugeordnet ist. Diese Zuordnungen lassen sich durch Gleichungen darstellen.\n\nOrdne jeder Sachsituation die passende Gleichung zu, indem du sie jeweils verbindest.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Herr Hinze kauft einen Rosenstrauß. Eine Rose kostet 2€. Im Blumenladen wird für das Binden des Straußes zusätzlich 0,50€ berechnet.\n\nWelche Gleichung passt zu dieser Sachsituation?",
+      "options": [
+        {
+          "id": "a",
+          "label": "yx=0,52"
+        },
+        {
+          "id": "b",
+          "label": "yx=-25"
+        },
+        {
+          "id": "c",
+          "label": "yx=20,5"
+        },
+        {
+          "id": "d",
+          "label": "yx=52"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Florian verkauft auf dem Bücherbasar seine alten Comics für je 2€. Von seinen Einnahmen muss er 5€ Standgebühr bezahlen. Trotzdem erwartet er, dass er einen guten Gewinn macht.\n\nWelche Gleichung passt zu dieser Sachsituation?",
+      "options": [
+        {
+          "id": "a",
+          "label": "yx=0,52"
+        },
+        {
+          "id": "b",
+          "label": "yx=-25"
+        },
+        {
+          "id": "c",
+          "label": "yx=20,5"
+        },
+        {
+          "id": "d",
+          "label": "yx=52"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Sven leiht sich im Urlaub ein Fahrrad. Er muss eine Grundgebühr von 2€ bezahlen und zusätzlich pro Tag eine Leihgebühr von 5€.\n\nWelche Gleichung passt zu dieser Sachsituation?",
+      "options": [
+        {
+          "id": "a",
+          "label": "yx=0,52"
+        },
+        {
+          "id": "b",
+          "label": "yx=-25"
+        },
+        {
+          "id": "c",
+          "label": "yx=20,5"
+        },
+        {
+          "id": "d",
+          "label": "yx=52"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Frau Meier kauft für eine Bastelarbeit farbige Pappe. Jeder Bogen kostet 0,50€. Außerdem kauft sie eine Tube Spezialkleber für 2,00€.\n\nWelche Gleichung passt zu dieser Sachsituation?",
+      "options": [
+        {
+          "id": "a",
+          "label": "yx=0,52"
+        },
+        {
+          "id": "b",
+          "label": "yx=-25"
+        },
+        {
+          "id": "c",
+          "label": "yx=20,5"
+        },
+        {
+          "id": "d",
+          "label": "yx=52"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Gleichungen sind im Bild in der Form 'yx=...' geschrieben. Es könnte sein, dass 'yx' für 'y(x)' oder 'y=...x+...' stehen soll. Die Interpretation: yx=0,52 könnte y=0,5x+2 bedeuten, yx=-25 könnte y=2x-5 bedeuten, yx=20,5 könnte y=2+0,5x oder y=2+5x bedeuten, yx=52 könnte y=0,5x+2 oder y=5x+2 bedeuten. Ohne klare Notation ist die exakte Zuordnung unsicher.",
+  "_task_id": "63888302-5d4a-4cc7-be90-1034cdc7ecdb",
+  "_title": "Lineare Funktionen anwenden",
+  "_slug": "linearefunktionen",
+  "_images": [
+    "../vera8_sichtung/linearefunktionen/image1.jpeg",
+    "../vera8_sichtung/linearefunktionen/image2.emf.png",
+    "../vera8_sichtung/linearefunktionen/image3.emf.png"
+  ]
+}

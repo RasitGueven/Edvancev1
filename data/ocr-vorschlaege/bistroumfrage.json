@@ -1,0 +1,65 @@
+{
+  "stamm": "Die Klasse 8a plant eine statistische Untersuchung zum Kaufverhalten im Schulbistro.\n\nBevor die statistische Untersuchung durchgeführt wird, soll mithilfe von Planungskarten ein allgemeiner Ablaufplan erstellt werden.\n\nAblaufplan:\n1. Wir haben ein Problem zu lösen.\n2. (leer)\n3. (leer)\n4. Wir stellen die Untersuchungsergebnisse dar (Tabelle, Diagramm).\n5. (leer)\n6. Wir formulieren Antworten auf das Untersuchungsproblem.\n\nPlanungskarten:\n- Wir führen eine Befragung durch.\n- Wir interpretieren die Untersuchungsergebnisse.\n- Wir überlegen uns geeignete Fragen.\n\nOrdne die folgenden Planungskarten der richtigen Stelle im Ablaufplan zu. Schreibe dazu die entsprechenden Nummern in die Kreise auf den Planungskarten.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Ordne die Planungskarte 'Wir führen eine Befragung durch.' der richtigen Stelle im Ablaufplan zu (Nummer 2, 3 oder 5).",
+      "loesung_vorschlag": "3",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Ordne die Planungskarte 'Wir interpretieren die Untersuchungsergebnisse.' der richtigen Stelle im Ablaufplan zu (Nummer 2, 3 oder 5).",
+      "loesung_vorschlag": "5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Ordne die Planungskarte 'Wir überlegen uns geeignete Fragen.' der richtigen Stelle im Ablaufplan zu (Nummer 2, 3 oder 5).",
+      "loesung_vorschlag": "2",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Ein Ziel der Untersuchung soll es sein, die Wochentage mit dem höchsten Getränkeumsatz herauszufinden. Dazu wird eine Umfrage vor der Eröffnung des Bistros durchgeführt.\n\nWelche Frage passt zum Ziel der Umfrage?\n\nKreuze eine der folgenden Fragen an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Würdest du im Bistro Getränke kaufen?"
+        },
+        {
+          "id": "b",
+          "label": "An welchen Wochentagen würdest du im Bistro einkaufen?"
+        },
+        {
+          "id": "c",
+          "label": "Wie viele Getränke würdest du in einer Woche im Bistro kaufen?"
+        },
+        {
+          "id": "d",
+          "label": "An welchen Wochentagen würdest du im Bistro Getränke kaufen?"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "1dab40e4-96f6-45b8-aaad-ed80d298b23a",
+  "_title": "Bistroumfrage",
+  "_slug": "bistroumfrage",
+  "_images": [
+    "../vera8_sichtung/bistroumfrage/image1.emf.png",
+    "../vera8_sichtung/bistroumfrage/image2.emf.png",
+    "../vera8_sichtung/bistroumfrage/image4.emf.png",
+    "../vera8_sichtung/bistroumfrage/image5.emf.png"
+  ]
+}

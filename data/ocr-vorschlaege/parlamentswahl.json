@@ -1,0 +1,34 @@
+{
+  "stamm": "Bei einer Parlamentswahl wurden in einem Wahlbezirk 12650 gültige Stimmen abgegeben. Davon fielen 42% auf den Kandidaten Herrn Aal.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib die Anzahl der Stimmen an, die Herr Aal bei dieser Wahl bekam.",
+      "unit": "Stimmen",
+      "loesung_vorschlag": "5313",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Herr Aal kandidiert vier Jahre später auch bei der nächsten Wahl. Diesmal bekommt er allerdings weniger Stimmen als vor vier Jahren. Trotzdem hat sich sein Stimmanteil auf 44% erhöht. Nenne eine mögliche Ursache, warum dies so sein kann.",
+      "loesung_vorschlag": "Die Gesamtzahl der abgegebenen gültigen Stimmen ist gesunken (z.B. durch geringere Wahlbeteiligung), sodass trotz weniger absoluter Stimmen der prozentuale Anteil höher sein kann.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "428f9b68-7bbe-44fc-bf4e-c892c1428e49",
+  "_title": "Parlamentswahl",
+  "_slug": "parlamentswahl",
+  "_images": [
+    "../vera8_sichtung/parlamentswahl/image1.emf.png",
+    "../vera8_sichtung/parlamentswahl/image2.emf.png",
+    "../vera8_sichtung/parlamentswahl/image3.emf.png",
+    "../vera8_sichtung/parlamentswahl/image4.emf.png"
+  ]
+}

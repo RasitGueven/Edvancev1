@@ -1,0 +1,41 @@
+{
+  "stamm": "Schreibe die richtigen Zahlen in die Kästchen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "5 · __ = 10",
+      "unit": null,
+      "loesung_vorschlag": "2",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "3 · __ = 24",
+      "unit": null,
+      "loesung_vorschlag": "8",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "7 · __ = 21",
+      "unit": null,
+      "loesung_vorschlag": "3",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "62ff9874-68e3-476f-9186-40f3f6b4aacf",
+  "_title": "Suche die Zahl",
+  "_slug": "suchediezahl",
+  "_images": [
+    "../vera8_sichtung/suchediezahl/image1.png",
+    "../vera8_sichtung/suchediezahl/image2.png"
+  ]
+}

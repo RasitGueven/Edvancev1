@@ -1,0 +1,43 @@
+{
+  "stamm": "Eine Firma plant eine Rabattaktion. Dabei sollen die Verkaufspreise (in denen 19% Mehrwertsteuer enthalten ist) so gesenkt werden, dass die Kunden die Mehrwertsteuer von 19% praktisch nicht bezahlen müssen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welches Schild passt am besten zu dieser Rabattaktion? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Schild mit Text 'VORÜBERGEHEND BIS BYBY/11' und Symbol '6%' (Bild teilweise unleserlich)"
+        },
+        {
+          "id": "b",
+          "label": "Schild mit Text 'VORÜBERGEHEND BIS BYBY/11' und Symbol '19%' (Bild teilweise unleserlich)"
+        },
+        {
+          "id": "c",
+          "label": "Schild mit Text 'VORÜBERGEHEND BIS BYBY/11' und Symbol '6%' (Bild teilweise unleserlich)"
+        },
+        {
+          "id": "d",
+          "label": "Schild mit Text 'VORÜBERGEHEND BIS BYBY/11' und Symbol '38%' (Bild teilweise unleserlich)"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Schilder im Bild sind teilweise unleserlich oder gespiegelt. Die Prozentsätze scheinen zu sein: ca. 6%, 19%, 6%, 38%. Der korrekte Rabatt bei 19% MwSt. wäre etwa 16% (100/1,19 ≈ 84), aber diese Option ist nicht klar erkennbar. Vermutete Lösung basiert auf der Annahme, dass eines der Schilder ca. 16% zeigt.",
+  "_task_id": "ae8c5f2d-57fe-49e2-9877-2a9f765b1932",
+  "_title": "Rabattaktion",
+  "_slug": "rabattaktion",
+  "_images": [
+    "../vera8_sichtung/rabattaktion/image1.jpeg",
+    "../vera8_sichtung/rabattaktion/image2.png",
+    "../vera8_sichtung/rabattaktion/image3.png"
+  ]
+}

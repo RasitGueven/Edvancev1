@@ -1,0 +1,26 @@
+{
+  "stamm": "In einem Gefäß sind – gut gemischt – 20 gleich große Plättchen. Zehn davon sind mit A, die anderen zehn sind mit B beschriftet. Ellen zieht ohne hinzusehen ein Plättchen heraus. Gib die Wahrscheinlichkeit dafür an, dass Ellen ein Plättchen mit einem A zieht.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Die Wahrscheinlichkeit beträgt",
+      "unit": null,
+      "loesung_vorschlag": "0,5",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Antwort kann als Dezimalzahl (0,5), Bruch (1/2 oder 10/20) oder Prozent (50%) gegeben werden – alle Formen sind richtig, daher mehrere_loesungen_moeglich=true gesetzt",
+  "_task_id": "16565a9a-7bdf-4d73-b1ba-aeed6a9460f3",
+  "_title": "Plättchen ziehen",
+  "_slug": "plaettchenziehen",
+  "_images": [
+    "../vera8_sichtung/plaettchenziehen/image1.emf.png",
+    "../vera8_sichtung/plaettchenziehen/image2.emf.png",
+    "../vera8_sichtung/plaettchenziehen/image3.emf.png"
+  ]
+}

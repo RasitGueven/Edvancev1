@@ -1,0 +1,25 @@
+{
+  "stamm": "Bestimme den Flächeninhalt des gegebenen Quadrats.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Bestimme den Flächeninhalt des gegebenen Quadrats. Gib dein Ergebnis an.",
+      "unit": null,
+      "loesung_vorschlag": "Nicht bestimmbar ohne Seitenlänge",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Seitenlänge des Quadrats ist im Bild nicht angegeben oder erkennbar, daher kann der Flächeninhalt nicht berechnet werden. Möglicherweise fehlt eine Maßangabe im Original oder das Quadrat soll auf Karopapier abgemessen werden.",
+  "_task_id": "1967ab57-df09-43e6-b159-e2c93fb23e57",
+  "_title": "Quadratfläche",
+  "_slug": "quadratflaeche",
+  "_images": [
+    "../vera8_sichtung/quadratflaeche/image2.png",
+    "../vera8_sichtung/quadratflaeche/image3.png"
+  ]
+}

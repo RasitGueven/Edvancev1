@@ -1,0 +1,39 @@
+{
+  "stamm": "Auf einem Tisch befinden sich die Gegenstände Teller, Gabel, Glas und Tasse mit Untertasse. Der Tisch wurde von verschiedenen seitlichen Kamerapositionen A bis D aus fotografiert. Abbildung 1 zeigt die Ansicht von oben.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Abbildung 2 zeigt die Ansicht aus der Kameraposition",
+      "loesung_vorschlag": "C",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Abbildung 3 zeigt die Ansicht aus der Kameraposition",
+      "loesung_vorschlag": "D",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Abbildung 4 zeigt die Ansicht aus der Kameraposition",
+      "loesung_vorschlag": "A",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "784b7bb7-d1b6-4242-b71d-f76ccf5eae37",
+  "_title": "Ansichten eines Tischs",
+  "_slug": "ansichteneinestischs",
+  "_images": [
+    "../vera8_sichtung/ansichteneinestischs/image1.png",
+    "../vera8_sichtung/ansichteneinestischs/image2.png",
+    "../vera8_sichtung/ansichteneinestischs/image3.emf.png"
+  ]
+}

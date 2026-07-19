@@ -1,0 +1,50 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie groß der Flächeninhalt dieses Parallelogramms ist. (Basis 5 cm, Höhe 4 cm; nicht maßstabsgerecht)",
+      "unit": "cm²",
+      "loesung_vorschlag": "20",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "In der Abbildung sind zwei Parallelogramme dargestellt (a parallel zu b). Ist der Flächeninhalt der beiden Parallelogramme gleich groß? Kreuze an.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Parallelogramme zwischen denselben parallelen Geraden (a und b) und mit derselben Grundseite haben denselben Flächeninhalt, da sie dieselbe Höhe haben.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "1e11c6a6-266a-4ada-a8ee-fdffe969818b",
+  "_title": "Flächengleich oder nicht",
+  "_slug": "flaechengleichodernicht",
+  "_images": [
+    "../vera8_sichtung/flaechengleichodernicht/image1.emf.png",
+    "../vera8_sichtung/flaechengleichodernicht/image2.emf.png",
+    "../vera8_sichtung/flaechengleichodernicht/image3.emf.png"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "stamm": "Ein Dreieck hat die Innenwinkel α, β und γ.\n\nEs gilt:\n- β ist doppelt so groß wie α.\n- γ ist dreimal so groß wie α.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie groß der Winkel γ ist.",
+      "unit": "°",
+      "loesung_vorschlag": "90",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "81d04a79-8020-49e1-8292-3e8c1eb3be2f",
+  "_title": "Winkel im Dreieck",
+  "_slug": "winkelimdreieck",
+  "_images": [
+    "../vera8_sichtung/winkelimdreieck/image1.png",
+    "../vera8_sichtung/winkelimdreieck/image2.png"
+  ]
+}

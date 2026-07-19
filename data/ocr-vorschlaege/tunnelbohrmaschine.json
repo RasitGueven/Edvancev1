@@ -1,0 +1,36 @@
+{
+  "stamm": "Die Tunnelbohrmaschine VERA (Von der Elbe Richtung Alster) begann am 15. Mai 2008 mit dem Ausbohren des Fahrtunnels für die neue Hamburger U-Bahnlinie U4. Diese Tunnelbohrmaschine schafft durchschnittlich 10m Tunnellänge in 24 Stunden. Für den Bau dieses Tunnels sind bei pausenlosem Betrieb vierzig Wochen (also 280 Tage) angesetzt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie lang der Tunnel der U-Bahnlinie U4 etwa wird. Der Tunnel wird etwa _______ km lang.",
+      "unit": "km",
+      "loesung_vorschlag": "2,8",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Wie viele Meter Tunnel müsste VERA durchschnittlich am Tag schaffen, wenn der U-Bahntunnel schon nach 200 Tagen fertig sein soll? VERA müsste am Tag _______ m Tunnel schaffen.",
+      "unit": "m",
+      "loesung_vorschlag": "14",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "bdc0dabb-4d8f-46ea-b014-e4384f6631b7",
+  "_title": "Tunnelbohrmaschine",
+  "_slug": "tunnelbohrmaschine",
+  "_images": [
+    "../vera8_sichtung/tunnelbohrmaschine/image1.jpeg",
+    "../vera8_sichtung/tunnelbohrmaschine/image2.png",
+    "../vera8_sichtung/tunnelbohrmaschine/image3.png",
+    "../vera8_sichtung/tunnelbohrmaschine/image4.png",
+    "../vera8_sichtung/tunnelbohrmaschine/image5.png"
+  ]
+}

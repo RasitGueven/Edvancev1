@@ -1,0 +1,58 @@
+{
+  "stamm": "In einer Urne liegen drei rote, vier gelbe und fünf grüne Kugeln. Man zieht ohne Hinzusehen eine Kugel aus der Urne und legt sie anschließend wieder zurück.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Mit welcher Wahrscheinlichkeit wird eine grüne Kugel gezogen? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "1/7"
+        },
+        {
+          "id": "b",
+          "label": "5/7"
+        },
+        {
+          "id": "c",
+          "label": "1/12"
+        },
+        {
+          "id": "d",
+          "label": "5/12"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Gib die Farbe einer Kugel an, für die die Wahrscheinlichkeit gezogen zu werden 1/3 beträgt.",
+      "loesung_vorschlag": "gelb",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Es gibt 4 gelbe Kugeln von insgesamt 12 Kugeln. 4/12 = 1/3",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "1ad5e7ab-699d-4844-a2a8-e3b259cdffb9",
+  "_title": "Rot, gelb, grün",
+  "_slug": "rotgelbgruen",
+  "_images": [
+    "../vera8_sichtung/rotgelbgruen/image1.png",
+    "../vera8_sichtung/rotgelbgruen/image2.png",
+    "../vera8_sichtung/rotgelbgruen/image3.png",
+    "../vera8_sichtung/rotgelbgruen/image4.emf.png"
+  ]
+}

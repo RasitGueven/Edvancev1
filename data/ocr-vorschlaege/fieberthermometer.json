@@ -1,0 +1,35 @@
+{
+  "stamm": "Die Abbildung zeigt ein Fieberthermometer. Die schwarze dicke Linie zeigt die gemessene Körpertemperatur in Grad Celsius an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viel °C die gemessene Körpertemperatur in der Abbildung beträgt.",
+      "unit": "°C",
+      "loesung_vorschlag": "38.5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Zu einem anderen Zeitpunkt beträgt die Körpertemperatur 37,9°C. Sie steigt dann um 2,3°C an. Gib an, wie viel °C die Körpertemperatur nach dem Temperaturanstieg beträgt.",
+      "unit": "°C",
+      "loesung_vorschlag": "40.2",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "unsicher": "Die genaue Temperatur auf dem Thermometer ist im Bild schwer lesbar, aber der schwarze Balken scheint zwischen 38 und 39 Grad zu stehen, vermutlich bei 38,5°C",
+  "_task_id": "6cd67330-0ef4-48ce-8df1-a5b6c0825465",
+  "_title": "Fieberthermometer",
+  "_slug": "fieberthermometer",
+  "_images": [
+    "../vera8_sichtung/fieberthermometer/image1.jpeg",
+    "../vera8_sichtung/fieberthermometer/image2.emf.png",
+    "../vera8_sichtung/fieberthermometer/image3.emf.png",
+    "../vera8_sichtung/fieberthermometer/image4.emf.png",
+    "../vera8_sichtung/fieberthermometer/image5.emf.png"
+  ]
+}

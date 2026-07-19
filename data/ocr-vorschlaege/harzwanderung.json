@@ -1,0 +1,35 @@
+{
+  "stamm": "Peter und Markus planen eine Wanderung durch den Harz. Die Wanderung soll in Stolberg beginnen und auf einem der eingezeichneten Wanderwege nach Halberstadt führen (s. Skizze).",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Gib anhand der Skizze eine mögliche Wanderroute von Stolberg nach Halberstadt an. Ergänze die beiden Lücken: Stolberg → __________ → Gernrode → __________ → Halberstadt",
+      "loesung_vorschlag": "Erste Lücke: Güntersberge oder Harzgerode; Zweite Lücke: Thale oder Quedlinburg oder Blankenburg",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Aus wie vielen verschiedenen Wanderrouten (siehe Skizze aus Teilaufgabe 1) können Peter und Markus insgesamt wählen, um von Stolberg über Gernrode nach Halberstadt zu kommen? Gib das Ergebnis an.",
+      "unit": null,
+      "loesung_vorschlag": "6",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "6a31f50b-689e-49cf-a921-22f50c538cdf",
+  "_title": "Harzwanderung",
+  "_slug": "harzwanderung",
+  "_images": [
+    "../vera8_sichtung/harzwanderung/image1.jpeg",
+    "../vera8_sichtung/harzwanderung/image2.emf.png",
+    "../vera8_sichtung/harzwanderung/image3.emf.png",
+    "../vera8_sichtung/harzwanderung/image4.emf.png",
+    "../vera8_sichtung/harzwanderung/image5.emf.png"
+  ]
+}

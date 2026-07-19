@@ -1,0 +1,24 @@
+{
+  "stamm": "Dieses Netz eines Quaders ist unvollständig. Es gibt mehrere Möglichkeiten, dieses unvollständige Netz zu einem vollständigen Quadernetz zu ergänzen.\n\nErgänze in der Zeichnung fehlende Flächen, so dass ein vollständiges Quadernetz entsteht.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Ergänze in der Zeichnung fehlende Flächen, so dass ein vollständiges Quadernetz entsteht.",
+      "loesung_vorschlag": "Es müssen drei Flächen ergänzt werden, um das Quadernetz zu vervollständigen. Mehrere Positionen sind möglich, solange insgesamt 6 Rechtecke entstehen, die ein vollständiges Quadernetz bilden.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Dies ist eine Zeichenaufgabe - Schüler sollen fehlende Rechtecke in das vorhandene Gitternetz einzeichnen. Die Aufgabe kann nicht automatisch ausgewertet werden.",
+  "_task_id": "0d4d2467-aaab-4c07-8a03-81daf42d496e",
+  "_title": "Quadernetz vervollständigen",
+  "_slug": "quadernetzvervollstaendigen",
+  "_images": [
+    "../vera8_sichtung/quadernetzvervollstaendigen/image1.emf.png",
+    "../vera8_sichtung/quadernetzvervollstaendigen/image2.emf.png"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "stamm": "Ein Glücksrad besteht aus drei Feldern: einem roten, einem grünen und einem blauen Feld. Bei 180 Drehungen wies der Zeiger nach dem Stillstand des Glücksrades 66-mal auf das rote Feld und 54-mal auf das grüne Feld.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie oft zeigte der Zeiger auf das blaue Feld? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "240-mal"
+        },
+        {
+          "id": "b",
+          "label": "120-mal"
+        },
+        {
+          "id": "c",
+          "label": "60-mal"
+        },
+        {
+          "id": "d",
+          "label": "Das kann ich nicht entscheiden, weil das ja Zufall ist."
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Die Aufteilung der Felder im Glücksrad soll so verändert werden, dass der Zeiger bei etwa jeder zweiten Drehung auf dem grünen Feld steht. Ergänze die Zeichnung.",
+      "loesung_vorschlag": "Das grüne Feld muss etwa die Hälfte des Kreises einnehmen (180 Grad), das blaue Feld bleibt wie gezeigt etwa ein Viertel.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teil 2 ist eine Zeichenaufgabe (Ergänze die Zeichnung im Kreis), die nicht automatisch ausgewertet werden kann.",
+  "_task_id": "6162090c-d865-4371-9b13-0674d5622af4",
+  "_title": "Glücksrad",
+  "_slug": "gluecksrad",
+  "_images": [
+    "../vera8_sichtung/gluecksrad/image2.emf.png",
+    "../vera8_sichtung/gluecksrad/image3.emf.png",
+    "../vera8_sichtung/gluecksrad/image4.emf.png",
+    "../vera8_sichtung/gluecksrad/image5.emf.png"
+  ]
+}

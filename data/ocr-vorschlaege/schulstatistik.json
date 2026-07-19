@@ -1,0 +1,44 @@
+{
+  "stamm": "Im Diagramm ist dargestellt, wie viele Schulen es im Schuljahr 2008/2009 in Sachsen-Anhalt gab. Es werden vier Schulformen unterschieden.\n\nSchulen in Sachsen-Anhalt:\n- Gesamtschulen: 3 staatliche, 6 in freier Trägerschaft\n- Gymnasien: 13 staatliche, 69 in freier Trägerschaft\n- Sekundarschulen: 13 staatliche, 166 in freier Trägerschaft\n- Grundschulen: 39 staatliche, 520 in freier Trägerschaft",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Kreuze an, welche Schulform am häufigsten vertreten ist.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Grundschule"
+        },
+        {
+          "id": "b",
+          "label": "Sekundarschule"
+        },
+        {
+          "id": "c",
+          "label": "Gymnasium"
+        },
+        {
+          "id": "d",
+          "label": "Gesamtschule"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Zahlen im Diagramm sind teilweise schwer zu lesen. Die Werte für Gymnasien und Sekundarschulen bei staatlichen Schulen (jeweils 13) und bei Schulen in freier Trägerschaft (69 bzw. 166) wurden nach bestem Wissen abgelesen. Bei den Grundschulen scheinen es 39 staatliche und 520 in freier Trägerschaft zu sein, was zusammen 559 ergibt und damit die häufigste Schulform darstellt.",
+  "_task_id": "7c65d32a-eded-401c-86d0-64cc263c2de5",
+  "_title": "Schulstatistik",
+  "_slug": "schulstatistik",
+  "_images": [
+    "../vera8_sichtung/schulstatistik/image1.jpeg",
+    "../vera8_sichtung/schulstatistik/image2.png",
+    "../vera8_sichtung/schulstatistik/image3.png",
+    "../vera8_sichtung/schulstatistik/image4.png"
+  ]
+}

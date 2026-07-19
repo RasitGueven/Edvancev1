@@ -1,0 +1,24 @@
+{
+  "stamm": "4 · 3,15 · 25 =\n\nWie kann Susanne einen Rechenvorteil nutzen, um diese Aufgabe ohne Nebenrechnung oder Taschenrechner zu lösen?\n\nRechne vor.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Rechne vor.",
+      "loesung_vorschlag": "4 · 25 = 100; 100 · 3,15 = 315 (oder äquivalente Umformung mit Kommutativ- und Assoziativgesetz)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "c3915b55-4de2-4e8d-a4e0-9e1c19bf0218",
+  "_title": "Rechenvorteil",
+  "_slug": "rechenvorteil",
+  "_images": [
+    "../vera8_sichtung/rechenvorteil/image2.png",
+    "../vera8_sichtung/rechenvorteil/image3.png"
+  ]
+}

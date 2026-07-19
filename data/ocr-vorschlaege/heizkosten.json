@@ -1,0 +1,42 @@
+{
+  "stamm": "Mit einer neuen Heizungsanlage kann man bis zu 40% des Energieverbrauchs einsparen. Dieser verringerte Verbrauch kann durch sparsames Heizen um weitere 30% reduziert werden.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Um wie viel Prozent kann der Verbrauch nach dem Einbau der neuen Anlage und dem anschließenden sparsamen Umgang mit Energie insgesamt höchstens gesenkt werden?",
+      "options": [
+        {
+          "id": "a",
+          "label": "12%"
+        },
+        {
+          "id": "b",
+          "label": "42%"
+        },
+        {
+          "id": "c",
+          "label": "58%"
+        },
+        {
+          "id": "d",
+          "label": "70%"
+        }
+      ],
+      "loesung_vorschlag": "58%",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "unsicher": null,
+  "_task_id": "59bc8db7-3792-4f16-8240-bf5948eee275",
+  "_title": "Heizkosten",
+  "_slug": "heizkosten",
+  "_images": [
+    "../vera8_sichtung/heizkosten/image1.emf.png",
+    "../vera8_sichtung/heizkosten/image2.emf.png",
+    "../vera8_sichtung/heizkosten/image3.emf.png"
+  ]
+}

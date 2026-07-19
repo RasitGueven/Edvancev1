@@ -1,0 +1,46 @@
+{
+  "stamm": "In einem Kaufhaus wird eine Jeans mit 20% Ermäßigung angeboten. Der neue Preis beträgt nun 48,00€. Wie teuer war die Jeans vorher?",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "38,40€"
+        },
+        {
+          "id": "b",
+          "label": "48,20€"
+        },
+        {
+          "id": "c",
+          "label": "57,60€"
+        },
+        {
+          "id": "d",
+          "label": "60,00€"
+        },
+        {
+          "id": "e",
+          "label": "68,00€"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "fecdd2aa-afdc-4ad2-aebc-f37966742d4b",
+  "_title": "Jeans mit Ermäßigung",
+  "_slug": "jeansmitermaessigung",
+  "_images": [
+    "../vera8_sichtung/jeansmitermaessigung/image1.emf.png",
+    "../vera8_sichtung/jeansmitermaessigung/image2.emf.png"
+  ]
+}

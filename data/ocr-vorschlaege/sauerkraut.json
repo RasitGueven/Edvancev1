@@ -1,0 +1,51 @@
+{
+  "stamm": "Sauerkraut wird aus Weißkohl hergestellt. Während der Herstellung werden Milchsäurebakterien zugegeben, die sich täglich um 70% gegenüber der Vortagsmenge vermehren. Zu Beginn der Produktion werden dem Weißkohl 50g Bakterien zugegeben.\n\nFelix sagt: \"Also kommen täglich 35g Bakterien dazu.\"\n\nUlla möchte für verschiedene Tage die Bakterienmenge mit Hilfe eines Tabellenkalkulationsprogramms errechnen. Für diese Berechnungen trägt sie in einzelne Zellen der Tabelle Formeln ein. Dabei verwendet sie für jede Zelle eine Adresse, z. B. B2 oder D4.\n\nIn der Tabelle sind bereits solche Formeln enthalten.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Nimm Stellung zu Felix' Aussage.",
+      "loesung_vorschlag": "Felix' Aussage ist falsch. Die Bakterien vermehren sich um 70%, das bedeutet, dass die Menge jeden Tag auf das 1,7-fache anwächst. Am ersten Tag kommen 35g dazu (70% von 50g), aber am zweiten Tag schon mehr, da die Basis größer ist. Es ist exponentielles, nicht lineares Wachstum.",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "In welcher Spalte sind die richtigen Formeln eingetragen? Kreuze an.",
+      "options": [
+        {
+          "id": "B",
+          "label": "Spalte B (=B2+0,7; =B3+0,7; =B4+0,7; =B5+0,7)"
+        },
+        {
+          "id": "C",
+          "label": "Spalte C (=C2+35; =C3+35; =C4+35; =C5+35)"
+        },
+        {
+          "id": "D",
+          "label": "Spalte D (=D2*1,7; =D3*1,7; =D4*1,7; =D5*1,7)"
+        },
+        {
+          "id": "E",
+          "label": "Spalte E (=E2*0,7; =E3*0,7; =E4*0,7; =E5*0,7)"
+        }
+      ],
+      "loesung_vorschlag": "D",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "afd1f720-27d1-4cd8-9d75-b4268b8563af",
+  "_title": "Sauerkraut",
+  "_slug": "sauerkraut",
+  "_images": [
+    "../vera8_sichtung/sauerkraut/image1.emf.png",
+    "../vera8_sichtung/sauerkraut/image2.emf.png",
+    "../vera8_sichtung/sauerkraut/image3.emf.png",
+    "../vera8_sichtung/sauerkraut/image4.emf.png"
+  ]
+}

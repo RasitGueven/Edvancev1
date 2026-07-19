@@ -44,3 +44,5 @@ scripts/edq.sh
 data/vera8_sichtung/*/
 data/c11_tasks.json
 data/vera8_sichtung/*/
+data/ocr-vorschlaege/*.png
+data/vera8_sichtung/*/

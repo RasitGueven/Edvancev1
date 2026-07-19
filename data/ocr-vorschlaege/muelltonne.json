@@ -1,0 +1,25 @@
+{
+  "stamm": "Ermittle, welches Volumen diese Mülltonne etwa hat.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Diese Mülltonne hat etwa ein Volumen von ... . Notiere deinen Lösungsweg.",
+      "unit": "Liter",
+      "loesung_vorschlag": "120 oder 240 (typische Mülltonnengrößen, aus dem Bild schwer genau abzulesen)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die genaue Größe der Mülltonne ist aus dem Foto nicht eindeutig bestimmbar. Es gibt ein Lösungsfeld mit Kästchen, vermutlich für Rechenwege. Typische Mülltonnen sind 120L oder 240L groß.",
+  "_task_id": "76703008-142e-4c66-90ab-87f4c9745a41",
+  "_title": "Mülltonne",
+  "_slug": "muelltonne",
+  "_images": [
+    "../vera8_sichtung/muelltonne/image1.png",
+    "../vera8_sichtung/muelltonne/image2.emf.png"
+  ]
+}

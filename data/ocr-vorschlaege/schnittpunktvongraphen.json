@@ -1,0 +1,24 @@
+{
+  "stamm": "Zwei lineare Funktionen g und f haben die Funktionsgleichungen g(x)=2x-1 und f(x)=2-x+1.\n\nGib die Koordinaten des Schnittpunkts der Graphen beider Funktionen an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Die beiden Graphen schneiden sich im Punkt S ( ___ | ___ ).",
+      "loesung_vorschlag": "nicht eindeutig berechenbar - siehe unsicher",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "SHORT_TEXT",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Funktionsgleichung f(x) ist im Bild nicht vollständig klar lesbar. Es scheint 'f(x)=2-x+...' zu sein, wobei der letzte Teil ('-+' oder ähnlich) unklar ist. Möglicherweise sollte es '-x+2' oder '-x-1' heißen. Ohne korrekte Gleichung kann der Schnittpunkt nicht berechnet werden.",
+  "_task_id": "e86cd57f-3b9d-434e-a730-35e03389d44f",
+  "_title": "Schnittpunkt von Graphen",
+  "_slug": "schnittpunktvongraphen",
+  "_images": [
+    "../vera8_sichtung/schnittpunktvongraphen/image2.png",
+    "../vera8_sichtung/schnittpunktvongraphen/image3.png"
+  ]
+}

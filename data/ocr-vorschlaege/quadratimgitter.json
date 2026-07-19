@@ -1,0 +1,25 @@
+{
+  "stamm": "Auf das Gitterpapier ist ein Quadrat gezeichnet. 1 Kästchen entspricht dabei 1cm².",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib den Flächeninhalt des Quadrats an. Du darfst auch Hilfslinien einzeichnen.",
+      "unit": "cm²",
+      "loesung_vorschlag": "25",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Aufgabe erlaubt Hilfslinien einzuzeichnen, aber die eigentliche Antwort ist eine Zahl (Flächeninhalt). Das um 45° gedrehte Quadrat hat eine Seitenlänge von 5 Kästchen (diagonal), was bei 1 Kästchen = 1cm² einen Flächeninhalt von 25cm² ergibt.",
+  "_task_id": "df190223-3972-4b6c-a5ae-275d9fe1cae3",
+  "_title": "Quadrat im Gitter",
+  "_slug": "quadratimgitter",
+  "_images": [
+    "../vera8_sichtung/quadratimgitter/image1.emf.png",
+    "../vera8_sichtung/quadratimgitter/image2.emf.png"
+  ]
+}

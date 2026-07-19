@@ -1,0 +1,26 @@
+{
+  "stamm": "Ein gelber Holzwürfel, ein blauer Holzwürfel und ein roter Holzwürfel sollen zu einem Dreierturm aufeinander gelegt werden.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viele verschiedene Möglichkeiten es gibt, aus diesen drei Holzwürfeln einen Dreierturm zu bauen.",
+      "unit": null,
+      "loesung_vorschlag": "6",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "8a9375a9-a878-4726-8183-2cd861a0533e",
+  "_title": "Holzwürfel",
+  "_slug": "holzwuerfel",
+  "_images": [
+    "../vera8_sichtung/holzwuerfel/image1.emf.png",
+    "../vera8_sichtung/holzwuerfel/image2.emf.png",
+    "../vera8_sichtung/holzwuerfel/image3.emf.png"
+  ]
+}

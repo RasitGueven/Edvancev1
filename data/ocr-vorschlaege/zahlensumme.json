@@ -1,0 +1,41 @@
+{
+  "stamm": "Lässt sich jede natürliche Zahl, die größer als 5 ist, als Summe aus drei aufeinanderfolgenden natürlichen Zahlen darstellen?",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Lässt sich jede natürliche Zahl, die größer als 5 ist, als Summe aus drei aufeinanderfolgenden natürlichen Zahlen darstellen? Kreuze an.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Entscheidung.",
+      "loesung_vorschlag": "Drei aufeinanderfolgende natürliche Zahlen sind n, n+1, n+2. Ihre Summe ist 3n+3 = 3(n+1), also immer durch 3 teilbar. Zahlen wie 7, 8, 10, 11 etc., die nicht durch 3 teilbar sind, lassen sich daher nicht als solche Summe darstellen.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "unsicher": null,
+  "_task_id": "75b2fbed-c73f-4406-bafb-d3a4a7cbc4e2",
+  "_title": "Zahlensumme",
+  "_slug": "zahlensumme",
+  "_images": [
+    "../vera8_sichtung/zahlensumme/image1.jpeg",
+    "../vera8_sichtung/zahlensumme/image2.png",
+    "../vera8_sichtung/zahlensumme/image3.png"
+  ]
+}

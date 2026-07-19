@@ -1,0 +1,36 @@
+{
+  "stamm": "Ein Würfel ist aus lauter kleinen Würfeln zusammengesetzt (siehe Bild). Jeder der kleinen Würfel hat ein Volumen von 1 cm³.\n\n(Abbildung nicht maßstabsgerecht)",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie groß das Volumen des großen Würfels ist.\n\nDas Volumen des großen Würfels beträgt",
+      "unit": "cm³",
+      "loesung_vorschlag": "64",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Gib an, wie groß die Oberfläche des großen Würfels ist.\n\nDie Oberfläche des großen Würfels beträgt",
+      "unit": "cm²",
+      "loesung_vorschlag": "96",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Abbildung zeigt einen Würfel aus 4×4×4 = 64 kleinen Würfeln, daher Volumen 64 cm³. Die Oberfläche: jede Seite ist 4×4 = 16 cm², 6 Seiten → 96 cm².",
+  "_task_id": "5e19dd1a-b69b-43aa-94f2-077499aba5af",
+  "_title": "Würfelkörper",
+  "_slug": "wuerfelkoerper",
+  "_images": [
+    "../vera8_sichtung/wuerfelkoerper/image1.jpeg",
+    "../vera8_sichtung/wuerfelkoerper/image2.png",
+    "../vera8_sichtung/wuerfelkoerper/image3.png",
+    "../vera8_sichtung/wuerfelkoerper/image4.png",
+    "../vera8_sichtung/wuerfelkoerper/image5.png"
+  ]
+}

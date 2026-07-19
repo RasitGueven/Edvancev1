@@ -1,0 +1,155 @@
+{
+  "stamm": "Eine proportionale Funktion kann im Koordinatensystem durch eine Gerade dargestellt werden, die durch den Punkt (0|0) verläuft.\n\nJede lineare Funktion kann durch eine Funktionsgleichung der Form y=mx+b beschrieben werden.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Nachfolgend werden drei Sachsituationen beschrieben. Entscheide jeweils, ob sich die Sachsituation durch eine lineare Funktion beschreiben lässt. Kreuze jeweils an.\n\nEin Stromanbieter verlangt eine monatliche Grundgebühr. Für jede verbrauchte Kilowattstunde Strom ist zusätzlich eine festgelegte Gebühr zu zahlen.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Nachfolgend werden drei Sachsituationen beschrieben. Entscheide jeweils, ob sich die Sachsituation durch eine lineare Funktion beschreiben lässt. Kreuze jeweils an.\n\nDas Schwimmbecken eines Freibades ist zu Saisonbeginn leer. Vor der Eröffnung der Freibadsaison wird das Schwimmbecken mit Wasser befüllt. Dabei ist die pro Stunde einlaufende Wassermenge gleich.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Nachfolgend werden drei Sachsituationen beschrieben. Entscheide jeweils, ob sich die Sachsituation durch eine lineare Funktion beschreiben lässt. Kreuze jeweils an.\n\nEin Sparbetrag wird für drei Jahre mit einem festen Zinssatz angelegt. Nach dem ersten Jahr werden auch die Zinsen verzinst.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Beurteile die folgenden Aussagen zu Funktionen. Kreuze jeweils an.\n\nFür jedes Wertepaar x und y einer proportionalen Funktion hat der Quotient y/x den gleichen Wert. (Dabei ist x, y ≠ 0.)",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "richtig",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "mc",
+      "prompt": "Beurteile die folgenden Aussagen zu Funktionen. Kreuze jeweils an.\n\nJede proportionale Funktion ist auch eine lineare Funktion.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "richtig",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 6,
+      "kind": "mc",
+      "prompt": "Beurteile die folgenden Aussagen zu Funktionen. Kreuze jeweils an.\n\nJede lineare Funktion ist auch eine proportionale Funktion.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 7,
+      "kind": "mc",
+      "prompt": "Beurteile die folgenden Aussagen zu Funktionen. Kreuze jeweils an.\n\nBei einer proportionalen Funktion gehört zum Doppelten des x-Werts die Hälfte des y-Werts.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 8,
+      "kind": "mc",
+      "prompt": "Beurteile die folgenden Aussagen zu Funktionen. Kreuze jeweils an.\n\nBei einer linearen Funktion hat die zugehörige Gerade immer eine positive Steigung.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "0813c064-6fbc-4eb8-9b1e-0d388622525f",
+  "_title": "Linear und proportional",
+  "_slug": "linearundproportional",
+  "_images": [
+    "../vera8_sichtung/linearundproportional/image2.emf.png",
+    "../vera8_sichtung/linearundproportional/image3.emf.png",
+    "../vera8_sichtung/linearundproportional/image4.emf.png",
+    "../vera8_sichtung/linearundproportional/image5.emf.png"
+  ]
+}

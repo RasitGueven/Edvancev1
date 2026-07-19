@@ -1,0 +1,32 @@
+{
+  "stamm": "Gegeben sind die Punkte A (2 | 7) und B (5 | 1) in einem Koordinatensystem.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Ergänze einen Punkt C₁ im Koordinatensystem so, dass ein Dreieck ABC₁ mit einem rechten Winkel in Punkt C₁ entsteht. Gib die Koordinaten des Punktes C₁ an, den du eingezeichnet hast. C₁ ( ... | ... )",
+      "loesung_vorschlag": "Jeder Punkt C₁, für den der Vektor AC₁ senkrecht auf BC₁ steht (Skalarprodukt = 0). Beispiel: C₁(5|7) oder andere Punkte auf dem Thaleskreis über AB.",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Ergänze einen Punkt C₂ im Koordinatensystem so, dass ein rechtwinkliges Dreieck ABC₂ entsteht. Jetzt soll der rechte Winkel in Punkt B liegen. Gib die Koordinaten des Punktes C₂ an, den du eingezeichnet hast. C₂ ( ... | ... )",
+      "loesung_vorschlag": "Jeder Punkt C₂, für den der Vektor BA senkrecht auf BC₂ steht. Der Vektor BA ist (-3|6). Ein dazu senkrechter Vektor ist z.B. (6|3) oder (-6|-3). C₂ = B + k·(6|3) für beliebiges k≠0. Beispiele: C₂(11|4) oder C₂(-1|-2).",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die Aufgabe verlangt das Einzeichnen und Angeben von Koordinaten. Da die Schüler die Punkte im Koordinatensystem einzeichnen sollen, ist dies eine Zeichenaufgabe. Die Koordinatenangabe ist jedoch numerisch auswertbar, wobei mehrere korrekte Lösungen möglich sind.",
+  "_task_id": "feff2fe8-347f-48d3-b5d4-794ee7fdbf3b",
+  "_title": "Wo liegt C",
+  "_slug": "woliegtc",
+  "_images": [
+    "../vera8_sichtung/woliegtc/image1.png",
+    "../vera8_sichtung/woliegtc/image2.png",
+    "../vera8_sichtung/woliegtc/image3.png"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "stamm": "Zum Fliesen eines Badezimmers werden 50 Platten mit einer Größe von jeweils 0,16m² benötigt. Der Besitzer entschließt sich dann aber doch, Fliesen der Größe 0,2m² verlegen zu lassen.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viele Fliesen jetzt mindestens nötig sind.",
+      "unit": "Fliesen",
+      "loesung_vorschlag": "40",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "6f552893-ec6d-4a73-b54d-17b0f2fd4dd6",
+  "_title": "Fliesen",
+  "_slug": "fliesen",
+  "_images": [
+    "../vera8_sichtung/fliesen/image2.emf.png",
+    "../vera8_sichtung/fliesen/image3.emf.png"
+  ]
+}

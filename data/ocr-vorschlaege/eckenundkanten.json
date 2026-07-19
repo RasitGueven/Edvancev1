@@ -1,0 +1,32 @@
+{
+  "stamm": "Ergänze die Tabelle.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gesamtzahl der Ecken eines Quaders",
+      "unit": null,
+      "loesung_vorschlag": "8",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Gesamtzahl der Kanten einer Pyramide mit viereckiger Grundfläche",
+      "unit": null,
+      "loesung_vorschlag": "8",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "unsicher": null,
+  "_task_id": "e2755e78-8eaa-4b0a-b80d-1befb8f06892",
+  "_title": "Ecken und Kanten",
+  "_slug": "eckenundkanten",
+  "_images": [
+    "../vera8_sichtung/eckenundkanten/image1.emf.png",
+    "../vera8_sichtung/eckenundkanten/image2.emf.png"
+  ]
+}

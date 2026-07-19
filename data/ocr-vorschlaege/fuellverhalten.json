@@ -1,0 +1,43 @@
+{
+  "stamm": "Der abgebildete Standzylinder ist leer und wird gleichmäßig mit Wasser befüllt. Zeichne in das abgebildete Koordinatensystem einen Graphen, der diesen Füllvorgang beschreibt.\n\nDas abgebildete Gefäß ist leer und wird gleichmäßig mit Wasser befüllt, bis es voll ist.\n\nEntscheide, welcher der dargestellten Graphen diesen Füllvorgang am besten beschreibt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Kreuze an, welcher Graph den Füllvorgang des abgebildeten Gefäßes (Rundkolben mit langem Hals) am besten beschreibt.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Graph links oben (konkave Kurve, die abflacht)"
+        },
+        {
+          "id": "b",
+          "label": "Graph rechts oben (konvexe Kurve, die steiler wird)"
+        },
+        {
+          "id": "c",
+          "label": "Graph links unten (gleichmäßig ansteigende Kurve, wird steiler)"
+        },
+        {
+          "id": "d",
+          "label": "Graph rechts unten (S-förmige Kurve: flach, dann steiler, dann wieder flacher)"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die erste Teilaufgabe ('Zeichne in das abgebildete Koordinatensystem...') verlangt das Einzeichnen eines Graphen für den Standzylinder und ist eine Zeichenaufgabe. Die zweite Teilaufgabe ist eine MC-Aufgabe zur Auswahl des richtigen Graphen für das Rundkolben-Gefäß. Der richtige Graph sollte d sein (S-Form: zuerst langsam im breiten Kolben, dann schnell im engen Hals, dann wieder langsam wenn voll).",
+  "_task_id": "18f90c2c-c862-4c95-974d-593f53bfb27d",
+  "_title": "Füllverhalten",
+  "_slug": "fuellverhalten",
+  "_images": [
+    "../vera8_sichtung/fuellverhalten/image1.png",
+    "../vera8_sichtung/fuellverhalten/image2.png",
+    "../vera8_sichtung/fuellverhalten/image3.emf.png"
+  ]
+}

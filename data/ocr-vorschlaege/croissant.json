@@ -1,0 +1,25 @@
+{
+  "stamm": "Marc tankt für 43,80€. Im Tankstellenladen kauft er noch ein Schoko-Croissant. Er bezahlt beides mit einem 50€-Schein und bekommt 4,95€ zurück.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie teuer das Schoko-Croissant ist.",
+      "unit": "€",
+      "loesung_vorschlag": "1,25",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "ee40b6c2-a125-49b9-b094-7bc1a53b334b",
+  "_title": "Croissant",
+  "_slug": "croissant",
+  "_images": [
+    "../vera8_sichtung/croissant/image1.emf.png",
+    "../vera8_sichtung/croissant/image2.emf.png"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "stamm": "Ein Motorradfahrer durchfährt eine enge Rechtskurve. Er bremst vor der Kurve etwas ab, fährt mit konstanter Geschwindigkeit durch die Kurve und wird dann wieder schneller.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welches der folgenden vier Geschwindigkeit-Zeit-Diagramme passt am besten zu dieser Bewegung? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Diagramm oben links: linear ansteigend"
+        },
+        {
+          "id": "b",
+          "label": "Diagramm oben rechts: ansteigend, dann konstant (Plateau), dann abfallend"
+        },
+        {
+          "id": "c",
+          "label": "Diagramm unten links: stark ansteigend, dann abflachend (Sättigungskurve)"
+        },
+        {
+          "id": "d",
+          "label": "Diagramm unten rechts: stark abfallend, dann konstant niedrig (U-Form), dann wieder ansteigend"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "f776531c-0283-43f9-8471-0c5183bc33b6",
+  "_title": "Rechtskurve",
+  "_slug": "rechtskurve",
+  "_images": [
+    "../vera8_sichtung/rechtskurve/image1.emf.png"
+  ]
+}

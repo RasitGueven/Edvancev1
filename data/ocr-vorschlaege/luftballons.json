@@ -1,0 +1,43 @@
+{
+  "stamm": "In einem undurchsichtigen Beutel befinden sich 100 Luftballons. 60 davon sind rot, 40 sind blau.\n\nPaul nimmt ohne hinzusehen einen Luftballon aus dem Beutel.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist die Wahrscheinlichkeit, dass er einen roten Luftballon erhält?\n\nKreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "1/100"
+        },
+        {
+          "id": "b",
+          "label": "4/10"
+        },
+        {
+          "id": "c",
+          "label": "1/2"
+        },
+        {
+          "id": "d",
+          "label": "6/10"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "7feea1d6-7feb-4ec8-9d24-142e6722ccef",
+  "_title": "Luftballons",
+  "_slug": "luftballons",
+  "_images": [
+    "../vera8_sichtung/luftballons/image1.emf.png",
+    "../vera8_sichtung/luftballons/image2.emf.png",
+    "../vera8_sichtung/luftballons/image3.emf.png"
+  ]
+}

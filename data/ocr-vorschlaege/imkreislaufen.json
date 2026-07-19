@@ -1,0 +1,42 @@
+{
+  "stamm": "Paul läuft im Abstand von ungefähr einem Meter um ein kreisrundes Iglu herum. Welcher Graph passt am besten, um diese Bewegung darzustellen? Kreuze an.\n\nd: Entfernung zum Startpunkt (Luftlinie)\nt: benötigte Zeit",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welcher Graph passt am besten, um Pauls Bewegung darzustellen?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Graph mit dreieckiger Form (Anstieg und Abfall)"
+        },
+        {
+          "id": "b",
+          "label": "Graph mit Kreis"
+        },
+        {
+          "id": "c",
+          "label": "Graph mit wellenförmigem Verlauf"
+        },
+        {
+          "id": "d",
+          "label": "Graph mit S-förmigem/stufenförmigem Verlauf"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die genaue Form der Graphen ist im Bild erkennbar, aber die Beschreibung in den options ist eine Interpretation. Graph c zeigt eine Wellenbewegung, die zur periodischen Entfernungsänderung beim Umrunden passt.",
+  "_task_id": "96fa6857-d46f-4487-b7d3-a7cb09c9b4ed",
+  "_title": "Im Kreis laufen",
+  "_slug": "imkreislaufen",
+  "_images": [
+    "../vera8_sichtung/imkreislaufen/image1.emf.png",
+    "../vera8_sichtung/imkreislaufen/image2.emf.png"
+  ]
+}

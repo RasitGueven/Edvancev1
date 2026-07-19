@@ -1,0 +1,26 @@
+{
+  "stamm": "In einem großen Teich soll die Anzahl der Fische abgeschätzt werden. Dazu werden aus dem Teich 250 Fische gefangen, mit einem roten Punkt gekennzeichnet und wieder in den Teich freigelassen. Die Wahrscheinlichkeit, einen gekennzeichneten Fisch zu fangen, ist nun\n\np(Fisch mit rotem Punkt fangen) = (Anzahl der Fische mit rotem Punkt 250) / (Anzahl aller Fische (markierte und nicht markierte)) × x\n\nx : Gesamtzahl der Fische im Teich\n\nAn einem anderen Tag werden 400 Fische gefangen. Von diesen 400 Fischen sind 50 mit einem roten Punkt markiert.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viele Fische schätzungsweise in dem Teich leben.",
+      "unit": null,
+      "loesung_vorschlag": "2000",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Formel im Stamm ist etwas unklar dargestellt (insbesondere das '× x' am Ende), aber die Aufgabe ist eine klassische Fang-Wiederfang-Schätzung: 250/x = 50/400, woraus x = 2000 folgt.",
+  "_task_id": "8ede07e1-2eba-4e60-9143-84d59dab61a6",
+  "_title": "Fische zählen",
+  "_slug": "fischezaehlen",
+  "_images": [
+    "../vera8_sichtung/fischezaehlen/image2.emf.png",
+    "../vera8_sichtung/fischezaehlen/image3.emf.png",
+    "../vera8_sichtung/fischezaehlen/image4.emf.png"
+  ]
+}

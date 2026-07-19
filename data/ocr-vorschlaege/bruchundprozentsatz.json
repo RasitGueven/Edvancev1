@@ -1,0 +1,33 @@
+{
+  "stamm": "In der Tabelle stehen Prozentsätze und zugehörige Dezimalbrüche. Vervollständige die Tabelle.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Welcher Prozentsatz gehört zum Dezimalbruch 0,3?",
+      "unit": "%",
+      "loesung_vorschlag": "30",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Welcher Dezimalbruch gehört zum Prozentsatz 80%?",
+      "unit": null,
+      "loesung_vorschlag": "0,8",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "21fada8f-5917-4403-8104-1a075bccb06d",
+  "_title": "Bruch und Prozentsatz",
+  "_slug": "bruchundprozentsatz",
+  "_images": [
+    "../vera8_sichtung/bruchundprozentsatz/image1.emf.png",
+    "../vera8_sichtung/bruchundprozentsatz/image2.emf.png"
+  ]
+}

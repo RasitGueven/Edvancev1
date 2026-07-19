@@ -1,0 +1,50 @@
+{
+  "stamm": "Weise nach: Der Punkt A(4|3) liegt auf der Geraden mit der Gleichung y = 3/4 x.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Gegeben sind die drei Punkte P₁(2|1), P₂(4|0) und P₃(7|-2). Liegen alle drei Punkte auf einer Geraden?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Man prüft, ob alle drei Punkte die gleiche Steigung zueinander haben. P₁ zu P₂: m = (0-1)/(4-2) = -1/2. P₂ zu P₃: m = (-2-0)/(7-4) = -2/3. Die Steigungen sind unterschiedlich, daher liegen die Punkte nicht auf einer Geraden.",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Gegeben ist eine lineare Funktion mit der Gleichung y = mx + b. Erkläre, wie sich die Lage der Geraden verändert, wenn b variiert wird.",
+      "loesung_vorschlag": "Wenn b variiert wird, verschiebt sich die Gerade parallel nach oben (b wird größer) oder nach unten (b wird kleiner). Die Steigung m bleibt gleich, nur der y-Achsenabschnitt ändert sich.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "fbb3463a-115f-4d51-be7e-ef7c8ec220d3",
+  "_title": "Punkte auf Geraden",
+  "_slug": "punkteaufgeraden",
+  "_images": [
+    "../vera8_sichtung/punkteaufgeraden/image1.emf.png",
+    "../vera8_sichtung/punkteaufgeraden/image2.emf.png",
+    "../vera8_sichtung/punkteaufgeraden/image3.emf.png",
+    "../vera8_sichtung/punkteaufgeraden/image4.emf.png"
+  ]
+}

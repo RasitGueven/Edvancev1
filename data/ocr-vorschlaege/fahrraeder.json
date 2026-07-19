@@ -1,0 +1,34 @@
+{
+  "stamm": "An einem Morgen notiert Marko in einer Strichliste, wie viele Frauen und wie viele Männer ihr Fahrrad am Bahnhof abstellen.\n\nFrauen: |||| |||| |||| |||| |\nMänner: |||| |||| |||| |||| |||| |||",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Wie viele Frauen und Männer sind es insgesamt, die ihr Fahrrad abstellen? Es sind insgesamt ___ Frauen und Männer.",
+      "unit": null,
+      "loesung_vorschlag": "44",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Formuliere selbst eine Aufgabe, die man mit den Angaben in der Tabelle lösen kann. Du musst die Aufgabe nicht lösen.",
+      "loesung_vorschlag": "Beispiele: Wie viele Männer mehr als Frauen stellen ihr Fahrrad ab? / Wie viele Personen sind es insgesamt? / Wie viel Prozent der Personen sind Frauen?",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "df452f94-054c-4242-a18a-965c2d96fef6",
+  "_title": "Fahrräder",
+  "_slug": "fahrraeder",
+  "_images": [
+    "../vera8_sichtung/fahrraeder/image1.emf.png",
+    "../vera8_sichtung/fahrraeder/image2.emf.png",
+    "../vera8_sichtung/fahrraeder/image3.emf.png",
+    "../vera8_sichtung/fahrraeder/image4.emf.png"
+  ]
+}

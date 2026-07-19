@@ -1,0 +1,26 @@
+{
+  "stamm": "Dieses Foto wurde kurz nach der Geburt eines Nashornbabys im Budapester Zoo aufgenommen. Das Nashornbaby hatte zu diesem Zeitpunkt eine Schulterhöhe von 60cm (im Bild als Doppelpfeil eingezeichnet).",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Welche Länge hatte das Nashornbaby zu diesem Zeitpunkt (von der Nase bis zum Hinterteil)?",
+      "unit": "cm",
+      "loesung_vorschlag": "120",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Lösung muss aus dem Foto abgemessen werden. Das bereitgestellte Karogitter dient vermutlich zur Dokumentation des Lösungswegs. Die genaue Länge hängt von der Proportion im Bild ab – wenn die Schulterhöhe 60cm beträgt (Doppelpfeil), ist die Körperlänge etwa doppelt so lang, also ca. 120cm.",
+  "_task_id": "f1464a99-50ce-4830-a306-7c07f3207f2b",
+  "_title": "Nashorn",
+  "_slug": "nashorn",
+  "_images": [
+    "../vera8_sichtung/nashorn/image1.emf.png",
+    "../vera8_sichtung/nashorn/image2.emf.png",
+    "../vera8_sichtung/nashorn/image3.emf.png"
+  ]
+}
