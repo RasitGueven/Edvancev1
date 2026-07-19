@@ -1,0 +1,114 @@
+{
+  "weekday": {
+    "0": "Montag",
+    "1": "Dienstag",
+    "2": "Mittwoch",
+    "3": "Donnerstag",
+    "4": "Freitag",
+    "5": "Samstag",
+    "6": "Sonntag"
+  },
+  "weekdayShort": {
+    "0": "Mo",
+    "1": "Di",
+    "2": "Mi",
+    "3": "Do",
+    "4": "Fr",
+    "5": "Sa",
+    "6": "So"
+  },
+  "manage": {
+    "eyebrow": "Edvance · Verwaltung",
+    "title": "Slots verwalten",
+    "description": "Wochen-Zeitraster der Kleingruppen: Wochentag, Uhrzeit, Raum und Kapazität.",
+    "rasterHint": "Zeitraster in Abstimmung — die hier angelegten Slots sind Beispiele, bis Tolunay das finale Raster festlegt.",
+    "form": {
+      "legend": "Neuen Slot anlegen",
+      "weekday": "Wochentag",
+      "startTime": "Uhrzeit",
+      "room": "Raum",
+      "roomPlaceholder": "z. B. Raum 1",
+      "capacity": "Kapazität",
+      "submit": "Slot anlegen",
+      "submitting": "Wird angelegt …"
+    },
+    "list": {
+      "heading": "Angelegte Slots",
+      "capacity": "{{capacity}} Plätze",
+      "load": "{{belegt}}/{{capacity}} belegt",
+      "inactive": "Deaktiviert",
+      "deactivate": "Deaktivieren",
+      "activate": "Aktivieren"
+    },
+    "empty": {
+      "title": "Noch keine Slots",
+      "description": "Lege den ersten Wochen-Slot an — Wochentag, Uhrzeit und Raum genügen."
+    },
+    "error": {
+      "load": "Slots konnten nicht geladen werden.",
+      "roomRequired": "Bitte einen Raum angeben.",
+      "timeRequired": "Bitte eine Uhrzeit angeben."
+    },
+    "toast": {
+      "created": "Slot angelegt.",
+      "activated": "Slot aktiviert.",
+      "deactivated": "Slot deaktiviert."
+    }
+  },
+  "picker": {
+    "eyebrow": "Erstgespräch",
+    "title": "Slot-Auswahl",
+    "description": "Wochenkalender für das Elterngespräch: Favoriten antippen, optional direkt fest zuweisen.",
+    "leadLabel": "Kind / Lead",
+    "leadPlaceholder": "Lead wählen …",
+    "noLead": {
+      "title": "Zuerst einen Lead wählen",
+      "description": "Wähle oben das Kind aus, für das Favoriten festgehalten werden sollen."
+    },
+    "noSlots": {
+      "title": "Keine aktiven Slots",
+      "description": "Lege zuerst unter „Slots verwalten“ das Wochen-Zeitraster an."
+    },
+    "legend": {
+      "heading": "Auslastung",
+      "free": "Plätze frei",
+      "almost": "Letzter Platz",
+      "full": "Ausgebucht"
+    },
+    "card": {
+      "load": "{{belegt}}/{{capacity}}",
+      "room": "Raum {{room}}",
+      "full": "Ausgebucht",
+      "rank": "Favorit {{rang}}",
+      "select": "Als Favorit wählen",
+      "deselect": "Favorit entfernen"
+    },
+    "wishes": {
+      "heading": "Favoriten",
+      "hint": "Bis zu drei Favoriten — die Reihenfolge der Auswahl ist der Rang.",
+      "empty": "Noch keine Favoriten gewählt.",
+      "save": "Favoriten speichern",
+      "saving": "Wird gespeichert …",
+      "assign": "Fest zuweisen",
+      "assigning": "Wird zugewiesen …"
+    },
+    "assignment": {
+      "heading": "Feste Zuweisung",
+      "current": "{{weekday}} {{time}} Uhr · Raum {{room}}",
+      "release": "Zuweisung lösen",
+      "releasing": "Wird gelöst …",
+      "none": "Noch kein fester Slot."
+    },
+    "error": {
+      "load": "Slots konnten nicht geladen werden.",
+      "leads": "Leads konnten nicht geladen werden.",
+      "maxWishes": "Es sind höchstens drei Favoriten möglich.",
+      "assignFull": "Dieser Slot ist ausgebucht."
+    },
+    "toast": {
+      "wishesSaved": "Favoriten gespeichert.",
+      "assigned": "Slot fest zugewiesen.",
+      "released": "Zuweisung gelöst."
+    }
+  }
+}

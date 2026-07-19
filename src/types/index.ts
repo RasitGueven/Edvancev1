@@ -154,6 +154,15 @@ export type {
 } from './competency'
 
 export type {
+  Weekday,
+  Slot,
+  SlotInput,
+  SlotWish,
+  SlotAssignment,
+  SlotWithLoad,
+} from './slots'
+
+export type {
   PreviewAsset,
   PreviewOption,
   PreviewPart,

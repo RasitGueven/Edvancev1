@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import {
   CalendarClock,
+  CalendarHeart,
   HeartPulse,
   Inbox,
+  LayoutGrid,
   PenLine,
   UserPlus,
   Users,
@@ -90,6 +92,20 @@ export function AdminDashboard(): JSX.Element {
               title="Stundenplan"
               description="Sessions anlegen und Schüler einem Coach-Termin zuweisen."
               size="wide"
+            />
+            <AdminTile
+              to="/admin/slots"
+              icon={<LayoutGrid className={ICON_CLASS} />}
+              title="Slots verwalten"
+              description="Wochen-Zeitraster der Kleingruppen — Wochentag, Uhrzeit, Raum und Kapazität."
+              size="sm"
+            />
+            <AdminTile
+              to="/admin/slot-auswahl"
+              icon={<CalendarHeart className={ICON_CLASS} />}
+              title="Slot-Auswahl"
+              description="Wochenkalender fürs Elterngespräch: Favoriten festhalten und fest zuweisen."
+              size="sm"
             />
             <AdminTile
               to="/admin/coaches"
