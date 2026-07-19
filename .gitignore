@@ -35,3 +35,12 @@ data/r01_render/
 
 # C10-Audit: temporaer heruntergeladene Asset-Bilder (10MB, via scripts nachladbar)
 data/c10_assets_tmp/
+scripts/c10_*.py
+scripts/edq.sh
+
+# C11-Sichtung: extrahierte Bilder pro Aufgabe (Binaerdaten, via
+# scripts/c11_extract.py aus data/vera8_docs reproduzierbar).
+# sichtung.html / sichtung.csv / deko-hashes.csv werden bewusst committet.
+data/vera8_sichtung/*/
+data/c11_tasks.json
+data/vera8_sichtung/*/
