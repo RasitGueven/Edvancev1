@@ -201,6 +201,7 @@ export function LeadsPage(): JSX.Element {
                   {lead.contact_phone && <span>{lead.contact_phone}</span>}
                   {lead.class_level && <span>Kl. {lead.class_level}</span>}
                   {lead.school_type && <span>{lead.school_type}</span>}
+                  {lead.school_name && <span>{lead.school_name}</span>}
                   {lead.subjects.length > 0 && <span>{lead.subjects.join(', ')}</span>}
                 </div>
                 {nextActions(lead.status).length > 0 && (
