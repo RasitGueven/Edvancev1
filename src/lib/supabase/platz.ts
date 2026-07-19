@@ -8,35 +8,71 @@ import type { SupabaseResult } from '@/types'
 
 export type PlatzDevice = { profile_id: string; label: string }
 
+// Ein belegter Platz traegt zusaetzlich seine aktive Zuweisung — die id ist
+// das, was platz_release adressiert.
+export type PlatzBelegt = PlatzDevice & { assignment_id: string; expires_at: string }
+
 export type PlatzAssignResult = { assignment_id: string; expires_at: string }
 
 // Aktive Zuweisung eines Leads (fuer die Leads-Liste): Platz-Label + Ablauf.
 export type LeadPlatz = { label: string; expires_at: string }
 
-// Freie Plaetze = platz_devices ohne aktive (nicht abgelaufene) Zuweisung.
-// Beide Tabellen sind fuer den Admin per RLS voll lesbar.
-export async function listFreePlaetze(): Promise<SupabaseResult<PlatzDevice[]>> {
+export type PlatzUebersicht = { frei: PlatzDevice[]; belegt: PlatzBelegt[] }
+
+// Alle Plaetze in einem Zug, aufgeteilt in frei und belegt. Belegt = aktive,
+// nicht abgelaufene Zuweisung — dieselbe Definition wie in jeder platz_*-RPC
+// (released_at is null UND expires_at > now()). Beide Tabellen sind fuer den
+// Admin per RLS voll lesbar.
+export async function listPlaetze(): Promise<SupabaseResult<PlatzUebersicht>> {
   try {
     const [devicesRes, activeRes] = await Promise.all([
       supabase.from('platz_devices').select('profile_id, label').order('label'),
       supabase
         .from('platz_assignments')
-        .select('platz_profile_id')
+        .select('id, platz_profile_id, expires_at')
         .is('released_at', null)
         .gt('expires_at', new Date().toISOString()),
     ])
     if (devicesRes.error) return { data: null, error: devicesRes.error.message }
     if (activeRes.error) return { data: null, error: activeRes.error.message }
 
-    const belegt = new Set(
-      (activeRes.data ?? []).map((row) => row.platz_profile_id as string),
+    const aktivByPlatz = new Map(
+      (activeRes.data ?? []).map((row) => [
+        row.platz_profile_id as string,
+        { assignment_id: row.id as string, expires_at: row.expires_at as string },
+      ]),
     )
-    const frei = (devicesRes.data ?? [])
-      .map((row) => ({ profile_id: row.profile_id as string, label: row.label as string }))
-      .filter((device) => !belegt.has(device.profile_id))
-    return { data: frei, error: null }
+
+    const frei: PlatzDevice[] = []
+    const belegt: PlatzBelegt[] = []
+    for (const row of devicesRes.data ?? []) {
+      const device = { profile_id: row.profile_id as string, label: row.label as string }
+      const aktiv = aktivByPlatz.get(device.profile_id)
+      if (aktiv) belegt.push({ ...device, ...aktiv })
+      else frei.push(device)
+    }
+    return { data: { frei, belegt }, error: null }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Plaetze konnten nicht geladen werden'
+    return { data: null, error: message }
+  }
+}
+
+// Beendet eine aktive Zuweisung (nur Admin, geprueft in der RPC). Setzt
+// released_at = now() — derselbe Weg, den der Auto-Release-Trigger nimmt.
+// Idempotent: eine bereits freigegebene Zuweisung meldet released=false.
+export async function releasePlatz(
+  assignmentId: string,
+): Promise<SupabaseResult<{ released: boolean }>> {
+  try {
+    const { data, error } = await supabase.rpc('platz_release', {
+      p_assignment_id: assignmentId,
+    })
+    if (error) return { data: null, error: error.message }
+    const result = data as { released: boolean }
+    return { data: { released: result.released }, error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Platz-Freigabe fehlgeschlagen'
     return { data: null, error: message }
   }
 }

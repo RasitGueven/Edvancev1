@@ -95,6 +95,19 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
             ))}
           </select>
         </div>
+        <div className="flex flex-col gap-2 sm:col-span-2">
+          <Label htmlFor="lead-schoolname">Schule (optional)</Label>
+          <Input
+            id="lead-schoolname"
+            value={form.school_name}
+            onChange={(e) => patch({ school_name: e.target.value })}
+            placeholder="z. B. Gymnasium Köln-Nippes"
+          />
+          <p className="text-xs text-[var(--color-text-tertiary)]">
+            Schulen setzen Themen in unterschiedlichen Jahrgangsstufen an — hilft
+            später bei der Einordnung. Kein Einfluss auf die Aufgabenwahl.
+          </p>
+        </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="lead-email">E-Mail (Eltern)</Label>
           <Input

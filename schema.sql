@@ -2035,5 +2035,42 @@ on conflict (id) do nothing;
 --   'platz', kein Overload, anon ohne jedes Grant).
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (38 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
+-- 21. S10 – PLATZ-AVATAR: DIE AVATAR-WAHL DES KINDES AM PLATZ (additiv zu S9)
+--     (supabase/migrations/20260719100000_s10_platz_avatar.sql)
+--     Teil des von der PLATZ-Analyse erlaubten Platz-Flows („Begruessung,
+--     Avatar-Wahl, Tutorial, LSA-Aufgaben, Abschluss"). Reine Kosmetik.
+-- ============================================================================
+--
+-- lsa_sessions.avatar_choice text (neue Spalte, nullable):
+--   CHECK lsa_sessions_avatar_choice_form — nur die FORM: null ODER
+--   (1..40 Zeichen UND getrimmt). KEIN Enum, KEINE Werteliste: die
+--   Avatar-Liste lebt in der Schueler-App, sonst waere jede neue Grafik eine
+--   Migration. NULL = noch nicht gewaehlt.
+--   Warum an der Session und nicht an students: der Platz kennt strukturell
+--   keine student_id (jede platz_*-RPC loest ueber platz_current_assignment()
+--   auf die EINE zugewiesene Session auf). Die Session ist der einzige Ort,
+--   den der Platz schreiben kann, ohne ihm neue Adressierbarkeit zu geben —
+--   und die Wahl ist ohnehin session-lokal gemeint, nicht dauerhaft am (oft
+--   provisorischen) Kind.
+--   Ohne Einfluss auf Auswertung, result_summary oder Lernpfad.
+--
+-- RPC [SECURITY DEFINER, search_path=public, revoke from public,
+--      grant an authenticated + service_role — S9-Muster]:
+--   platz_avatar_set(p_avatar text) → jsonb                   [nur Platz-Konto]
+--       Gates in dieser Reihenfolge: platz_devices-Zeile (42501), aktive
+--       Zuweisung (42501), Session in_progress (42501), Form des Schluessels
+--       (P0001 statt eines 23514 aus dem CHECK). Schreibt avatar_choice der
+--       ZUGEWIESENEN Session. Kein session_id-Parameter — eine fremde Session
+--       ist nicht adressierbar. Ueberschreibend: das Kind darf sich waehrend
+--       der laufenden Session umentscheiden (Kosmetik, kein Messwert).
+--       Rueckgabe exakt {ok:true}.
+--
+-- Bewusst NICHT angefasst:
+--   platz_state() bleibt byte-identisch. Ihre Schluesselmenge ist in
+--   s9_platz_mechanik.test.sql gepinnt, und der Kiosk braucht den Wert nicht
+--   zurueck — er kennt die gerade getroffene Wahl selbst. Ebenso unberuehrt:
+--   platz_next/platz_submit/platz_finish und der gesamte P01-Datenvertrag.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (38 Tabellen, 35 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

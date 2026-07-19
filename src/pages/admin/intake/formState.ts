@@ -15,6 +15,10 @@ export type IntakeFormState = {
   birth_date: string
   class_level: number | null
   school_type: SchoolKind | null
+  // Optional. Schulen setzen Themen in unterschiedlichen Jahrgangsstufen an —
+  // der Schulname hilft spaeter bei der Einordnung. Kein Einfluss auf die
+  // Aufgabenwahl.
+  school_name: string
   subjects: string[]
   contact_email: string
   contact_phone: string
@@ -38,6 +42,7 @@ export const EMPTY_INTAKE: IntakeFormState = {
   birth_date: '',
   class_level: null,
   school_type: null,
+  school_name: '',
   subjects: [],
   contact_email: '',
   contact_phone: '',
@@ -60,6 +65,7 @@ export function intakeFromLead(lead: Lead): IntakeFormState {
     birth_date: lead.birth_date ?? '',
     class_level: lead.class_level,
     school_type: lead.school_type,
+    school_name: lead.school_name ?? '',
     subjects: lead.subjects ?? [],
     contact_email: lead.contact_email ?? '',
     contact_phone: lead.contact_phone ?? '',
@@ -87,6 +93,7 @@ export function intakeToLeadInput(form: IntakeFormState): LeadInput {
     contact_phone: nullIfEmpty(form.contact_phone),
     class_level: form.class_level,
     school_type: form.school_type,
+    school_name: nullIfEmpty(form.school_name),
     subjects: form.subjects,
     last_grade: form.last_grade,
     grade_trend: form.grade_trend,
