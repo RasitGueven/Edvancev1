@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { EdvanceBadge } from '@/components/edvance'
 import { CheckCircle2, Loader2, MonitorSmartphone } from 'lucide-react'
-import type { PlatzDevice } from '@/lib/supabase/platz'
+import type { PlatzBelegt, PlatzDevice } from '@/lib/supabase/platz'
 import { OptionChips } from './OptionChips'
 import type { IntakeFormState } from './formState'
 
@@ -18,10 +18,15 @@ type SectionFreigabePlatzProps = {
   freigebenLoading: boolean
   session: FreigabeSession | null
   plaetze: PlatzDevice[] | null
+  belegtePlaetze: PlatzBelegt[]
   platzLoading: boolean
   assigningId: string | null
+  releasingId: string | null
+  confirmReleaseId: string | null
   assignedPlatz: { label: string; expires_at: string } | null
   onAssignPlatz: (platzProfileId: string) => void
+  onConfirmRelease: (assignmentId: string | null) => void
+  onReleasePlatz: (platz: PlatzBelegt) => void
 }
 
 const berlinTime = (iso: string): string =>
@@ -45,10 +50,15 @@ export function SectionFreigabePlatz(props: SectionFreigabePlatzProps): JSX.Elem
     freigebenLoading,
     session,
     plaetze,
+    belegtePlaetze,
     platzLoading,
     assigningId,
+    releasingId,
+    confirmReleaseId,
     assignedPlatz,
     onAssignPlatz,
+    onConfirmRelease,
+    onReleasePlatz,
   } = props
 
   const canFreigeben =
@@ -176,8 +186,66 @@ export function SectionFreigabePlatz(props: SectionFreigabePlatzProps): JSX.Elem
             </div>
           ) : (
             <p className="text-sm text-[var(--color-error-exam)]">
-              Kein freier Platz verfügbar. Bitte einen Platz freigeben oder später erneut versuchen.
+              Kein freier Platz verfügbar. Bitte unten einen belegten Platz freigeben.
             </p>
+          )}
+
+          {/* Belegte Plätze — jeder einzeln freigebbar, wenn er hängen bleibt
+              (Kind abgebrochen, Tablet weggelegt). Beendet die aktive Zuweisung;
+              der Platz fällt sofort auf „wartet" zurück und wird wieder frei. */}
+          {belegtePlaetze.length > 0 && (
+            <div className="flex flex-col gap-2 border-t border-[var(--color-border)] pt-3">
+              <span className="text-sm text-[var(--color-text-secondary)]">
+                Belegte Plätze:
+              </span>
+              {belegtePlaetze.map((platz) => (
+                <div
+                  key={platz.assignment_id}
+                  className="flex flex-wrap items-center justify-between gap-2"
+                >
+                  <span className="text-sm text-[var(--color-text-primary)]">
+                    {platz.label}
+                    <span className="text-[var(--color-text-tertiary)]">
+                      {' '}
+                      — bis {berlinTime(platz.expires_at)} Uhr
+                    </span>
+                  </span>
+                  {confirmReleaseId === platz.assignment_id ? (
+                    // Bestätigung inline statt Modal (Design-Regel: keine Modals
+                    // für einfache Bestätigungen).
+                    <span className="flex flex-wrap items-center gap-2">
+                      <span className="text-sm text-[var(--color-text-secondary)]">
+                        {platz.label} wirklich freigeben?
+                      </span>
+                      <Button
+                        size="sm"
+                        disabled={releasingId !== null}
+                        onClick={() => onReleasePlatz(platz)}
+                      >
+                        {releasingId === platz.assignment_id ? 'Gibt frei …' : 'Ja, freigeben'}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={releasingId !== null}
+                        onClick={() => onConfirmRelease(null)}
+                      >
+                        Abbrechen
+                      </Button>
+                    </span>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={releasingId !== null}
+                      onClick={() => onConfirmRelease(platz.assignment_id)}
+                    >
+                      Platz freigeben
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
           )}
         </div>
       )}
