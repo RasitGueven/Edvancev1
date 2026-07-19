@@ -33,6 +33,7 @@ void i18n.use(initReactI18next).init({
     'student',
     'mock',
     'report',
+    'slots',
   ],
   interpolation: { escapeValue: false },
   returnNull: false,
