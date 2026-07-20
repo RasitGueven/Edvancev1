@@ -211,7 +211,7 @@ export function Login(): JSX.Element {
             <Sparkles className="h-3.5 w-3.5 text-[var(--color-accent)]" />
             <span>Klasse 5 – 13 · Köln · Pre-Launch</span>
           </div>
-        </div>
+        </EdvanceCard>
       </div>
     </main>
   )
