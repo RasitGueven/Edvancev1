@@ -5,7 +5,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { EdvanceAppIcon } from '@/components/brand/EdvanceLogo'
+import { EdvanceSymbol } from '@/components/brand/EdvanceLogo'
 import type { UserRole } from '@/types'
 
 const ROLE_ROUTES: Record<UserRole, string> = {
@@ -43,11 +43,21 @@ export function Login(): JSX.Element {
   return (
     <main className="flex min-h-screen flex-col md:flex-row">
       {/* Linke Marken-Flaeche: Navy, flaechig, ohne Glow */}
-      <aside className="flex shrink-0 flex-row items-center justify-center gap-4 bg-[var(--color-navy-deep)] px-6 py-6 md:w-[45%] md:flex-col md:gap-6 md:px-10 md:py-12">
-        <EdvanceAppIcon size={48} className="md:hidden" />
-        <div className="hidden md:block">
-          <EdvanceAppIcon size={88} />
-        </div>
+      <aside className="flex shrink-0 flex-row items-center justify-center gap-4 bg-[var(--color-navy-deep)] px-6 py-6 md:w-[45%] md:flex-col md:justify-center md:gap-10 md:px-10 md:py-16">
+        {/* Freies Symbol statt Kachel — Navy auf Navy verschwindet sonst.
+            Creme-Strich fuer Kontrast, goldener Pfeil als Marken-Akzent. */}
+        <EdvanceSymbol
+          size={44}
+          color="var(--color-bg-app)"
+          accentColor="var(--color-accent)"
+          className="md:hidden"
+        />
+        <EdvanceSymbol
+          size={120}
+          color="var(--color-bg-app)"
+          accentColor="var(--color-accent)"
+          className="hidden md:block"
+        />
         <p className="text-sm text-[var(--color-gold-champagner)] md:max-w-xs md:text-center md:text-base md:leading-relaxed">
           Hybride Lernakademie · Kleingruppen · Tablet-Lernpfad
         </p>
