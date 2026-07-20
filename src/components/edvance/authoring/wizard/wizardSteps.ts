@@ -14,7 +14,8 @@ import type { AuthoringTask } from '@/types'
 export type WizardStepId = 'read' | 'anchor' | 'images' | 'solution' | 'release'
 
 export function stepsForTask(task: AuthoringTask): WizardStepId[] {
-  const hasImageWork = task.assets.length > 0 || imageRefFinding(task) != null
+  const hasImageWork =
+    task.needs_image === true || task.assets.length > 0 || imageRefFinding(task) != null
   return [
     'read',
     'anchor',
