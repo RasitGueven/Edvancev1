@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { EdvanceAppIcon } from '@/components/brand/EdvanceLogo'
-import { EdvanceCard } from '@/components/edvance'
 import type { UserRole } from '@/types'
 
 const ROLE_ROUTES: Record<UserRole, string> = {
@@ -42,35 +41,28 @@ export function Login(): JSX.Element {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden student-hero px-4 py-12">
-      {/* Goldene Glow-Akzente */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-[var(--color-gold-altgold)] opacity-30 blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[var(--color-primary-light)] opacity-20 blur-3xl"
-      />
+    <main className="flex min-h-screen flex-col md:flex-row">
+      {/* Linke Marken-Flaeche: Navy, flaechig, ohne Glow */}
+      <aside className="flex shrink-0 flex-row items-center justify-center gap-4 bg-[var(--color-navy-deep)] px-6 py-6 md:w-[45%] md:flex-col md:gap-6 md:px-10 md:py-12">
+        <EdvanceAppIcon size={48} className="md:hidden" />
+        <div className="hidden md:block">
+          <EdvanceAppIcon size={88} />
+        </div>
+        <p className="text-sm text-[var(--color-gold-champagner)] md:max-w-xs md:text-center md:text-base md:leading-relaxed">
+          Hybride Lernakademie · Kleingruppen · Tablet-Lernpfad
+        </p>
+      </aside>
 
-      {/* Glass-Card */}
-      <div className="relative w-full max-w-md">
-        <EdvanceCard variant="glass" className="rounded-[var(--radius-xl)] shadow-xl p-8">
-          {/* Logo + Headline */}
-          <div className="flex flex-col items-center gap-4 mb-8">
-            <div className="relative">
-              <div className="absolute inset-0 rounded-2xl xp-bar-fill blur-xl opacity-50" aria-hidden="true" />
-              <EdvanceAppIcon size={64} className="relative shadow-md" />
-            </div>
-
-            <div className="text-center">
-              <h1 className="text-display text-3xl text-[var(--color-text-primary)]">
-                Edvance
-              </h1>
-              <p className="mt-1 text-sm text-[var(--color-text-tertiary)]">
-                Hybride Lernakademie · Kleingruppen · Tablet-Lernpfad
-              </p>
-            </div>
+      {/* Rechte Spalte: Formular */}
+      <div className="flex flex-1 items-center justify-center bg-[var(--color-bg-app)] px-6 py-12">
+        <div className="w-full max-w-[380px]">
+          <div className="mb-8">
+            <h1 className="text-display text-3xl text-[var(--color-text-primary)]">
+              Edvance
+            </h1>
+            <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
+              Willkommen zurück
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -118,11 +110,11 @@ export function Login(): JSX.Element {
             </Button>
           </form>
 
-          <div className="mt-6 flex items-center justify-center gap-2 text-xs text-[var(--color-text-tertiary)]">
+          <div className="mt-6 flex items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
             <Sparkles className="h-3.5 w-3.5" />
             <span>Klasse 5 – 13 · Köln · Pre-Launch</span>
           </div>
-        </EdvanceCard>
+        </div>
       </div>
     </main>
   )
