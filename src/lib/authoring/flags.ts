@@ -123,11 +123,14 @@ export function computeFlags(
     if (isBlank(asset.alt)) flags.push(flag('assetAltMissing', true, { index: i + 1 }))
   })
 
-  // Hat das Item ein Bild, MUSS ein Lizenz-/Attributionstext dran sein — CC BY
-  // 4.0 verlangt die Namensnennung beim Zeigen (A09). Genau wie der Alt-Text ist
-  // das blockierend und haengt am Vorhandensein eines Bildes; Items ohne Bild
-  // brauchen keinen. Einer je Aufgabe, nicht je Asset.
-  if (task.assets.length > 0 && isBlank(task.licence_text)) {
+  // Hat ein Item MIT QUELLE ein Bild, MUSS ein Lizenz-/Attributionstext dran
+  // sein — CC BY 4.0 verlangt die Namensnennung beim Zeigen (A09). Blockierend
+  // wie der Alt-Text. Eigenbauten (Bruchrechnung, Prozent …) haben keine externe
+  // Quelle und brauchen keine Attribution — sie sind hier ausgenommen. Die
+  // Quellenpruefung ist bewusst inline (diese Datei bleibt abhaengigkeitsfrei):
+  // gegrounded ist ein Item mit source_ref aus einer belegpflichtigen Quelle.
+  const hatQuelle = Boolean(task.source_ref) && task.source === 'VERA8_IQB'
+  if (task.assets.length > 0 && hatQuelle && isBlank(task.licence_text)) {
     flags.push(flag('licenceMissing', true))
   }
 
