@@ -2153,5 +2153,41 @@ on conflict (id) do nothing;
 --   der uebrige Report bleibt nutzbar.
 
 -- ============================================================================
+-- 22. A09 – LIZENZTEXT AN DER AUFGABE
+--     (supabase/migrations/20260720100000_a09_lizenztext.sql)
+-- ============================================================================
+--
+-- tasks.licence_text text NULL
+--   Der einblendbare Attributionstext der Aufgabe. Die VERA-8-Abbildungen
+--   stehen unter CC BY 4.0 (IQB); CC BY verlangt beim Zeigen eine Namensnennung
+--   (Titel, Autor, Quelle, Lizenz — TASL, soweit verfuegbar). Der Lizenzstatus
+--   im Quellenbeleg (_grounding.lizenz_status) sagt nur, DASS attribuiert werden
+--   muss — dieses Feld haelt, WIE.
+--
+-- WARUM an der AUFGABE und nicht pro Asset oder pro Teilaufgabe: ein Item traegt
+--   in der Praxis eine Abbildung, und selbst bei mehreren stammen sie aus
+--   derselben Quelle mit derselben Lizenz. Ein Feld je Bild waere dieselbe Zeile
+--   mehrfach — mit dem Risiko, dass sie auseinanderlaeuft.
+--
+-- WARUM nullable und ohne CHECK: die grosse Mehrheit der Items hat kein Bild und
+--   damit nichts zu attribuieren. Die Pflicht ist bedingt („Bild da → Text da")
+--   und sitzt im Freigabe-Gate des Autoren-Tools (src/lib/authoring/flags.ts,
+--   Flag `licenceMissing`, blockierend) — genau dort, wo schon die Alt-Text-
+--   Pflicht sitzt. Ein CHECK ueber tasks.assets waere bei jedem Import und jedem
+--   Altbestand-Update im Weg.
+--
+-- VORBEFUELLUNG: src/lib/authoring/attribution.ts baut aus dem Quellenbeleg den
+--   CC-BY-4.0-konformen Standardtext (EINE Stelle, damit die Rechtsberatung die
+--   Formel spaeter zentral schaerfen kann). Der Wizard setzt ihn ein, sobald ein
+--   Bild zugewiesen ist und das Feld leer war; der Pfleger kann ihn
+--   ueberschreiben — eingebettetes Fremdmaterial in einer VERA-Aufgabe braucht
+--   eine abweichende Nennung.
+--
+-- KEIN Schueler-Feld auf diesem Weg: lsa_question_payload baut aus einer
+--   Whitelist, lsa_public_assets reicht je Asset nur { url, alt } durch. Der
+--   Text wird beim Einblenden bewusst dazugeholt, er kommt nicht versehentlich
+--   mit. KEINE Aenderung an einer bestehenden Funktion, Policy oder Grant.
+
+-- ============================================================================
 -- ENDE – konsolidiertes Schema (39 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

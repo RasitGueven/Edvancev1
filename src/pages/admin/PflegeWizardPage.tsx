@@ -330,9 +330,11 @@ export function PflegeWizardPage(): JSX.Element {
                 needsImage={state.needs_image}
                 parts={state.parts}
                 imageRef={imageRef}
+                licenceText={state.licence_text}
                 canWrite={canWrite}
                 onAssets={(next) => set('assets', next)}
                 onNeedsImage={(next) => set('needs_image', next)}
+                onLicence={(next) => set('licence_text', next)}
                 onPart={(i, next) =>
                   set(
                     'parts',

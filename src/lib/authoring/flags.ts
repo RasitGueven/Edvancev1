@@ -123,6 +123,14 @@ export function computeFlags(
     if (isBlank(asset.alt)) flags.push(flag('assetAltMissing', true, { index: i + 1 }))
   })
 
+  // Hat das Item ein Bild, MUSS ein Lizenz-/Attributionstext dran sein — CC BY
+  // 4.0 verlangt die Namensnennung beim Zeigen (A09). Genau wie der Alt-Text ist
+  // das blockierend und haengt am Vorhandensein eines Bildes; Items ohne Bild
+  // brauchen keinen. Einer je Aufgabe, nicht je Asset.
+  if (task.assets.length > 0 && isBlank(task.licence_text)) {
+    flags.push(flag('licenceMissing', true))
+  }
+
   // ── Zeitbudget ───────────────────────────────────────────────────────────
   // Bei MULTI_PART ist es DB-Pflicht (CHECK), sonst nur ein guter Wert: lsa_start
   // zieht dann auf estimated_minutes bzw. 180 s zurueck.

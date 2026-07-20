@@ -46,6 +46,7 @@ const task = (over: Partial<AuthoringTask>): AuthoringTask => ({
   parts: [],
   assets: [],
   needs_image: null,
+  licence_text: null,
   question_payload: null,
   source: 'VERA8_IQB',
   source_ref: 'ref-1',

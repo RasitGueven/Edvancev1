@@ -110,6 +110,8 @@
     "assetAltPlaceholder": "Was ist auf dem Bild zu sehen?",
     "assetCaption": "Bildunterschrift (optional)",
     "addAsset": "Bild hinzufügen",
+    "licenceText": "Lizenz / Quellenangabe",
+    "licenceTextPlaceholder": "Attributionstext, der mit dem Bild eingeblendet wird.",
     "crop": "Zuschneiden",
     "cropHint": "Rechteck über der Figur aufziehen. Der Zuschnitt wird als neue Datei gespeichert — das Original bleibt erhalten.",
     "cropPreview": "Vorschau des Ausschnitts",
@@ -210,6 +212,7 @@
     "partCompetencyMissing": "Teilaufgabe {{nr}}: kein Inhaltsfeld.",
     "partSolutionMissing": "Teilaufgabe {{nr}}: keine Lösung. Bei Multi-Part braucht jede Teilaufgabe eine.",
     "assetAltMissing": "Bild {{index}}: kein Alt-Text.",
+    "licenceMissing": "Bild ohne Lizenz-/Quellenangabe.",
     "estDurationMissing": "Kein Zeitbudget gesetzt."
   },
   "release": {
@@ -314,7 +317,9 @@
       "candidateSelect": "Kandidat {{nr}} übernehmen",
       "candidateSelected": "Übernommen",
       "solvableTitle": "Lösbarkeits-Frage",
-      "solvableQuestion": "Ist die Aufgabe ohne dieses Bild lösbar? Wenn nicht: Text umformulieren, Bild ergänzen oder Item nicht freigeben."
+      "solvableQuestion": "Ist die Aufgabe ohne dieses Bild lösbar? Wenn nicht: Text umformulieren, Bild ergänzen oder Item nicht freigeben.",
+      "licenceTitle": "Lizenz / Quellenangabe",
+      "licenceHint": "Standard ist CC BY 4.0 (IQB/VERA-8) — der Text ist bereits vorbefüllt. Nur anpassen, wenn die Abbildung eingebettetes Fremdmaterial enthält, das eine abweichende Nennung braucht."
     },
     "solution": {
       "title": "Passt die Lösung zum Item?",

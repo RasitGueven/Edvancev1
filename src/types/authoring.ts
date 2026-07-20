@@ -70,6 +70,13 @@ export type AuthoringTask = {
    * beurteilt. Menschliche Fachentscheidung, keine Heuristik (A08).
    */
   needs_image: boolean | null
+  /**
+   * Der einblendbare Attributionstext (CC BY 4.0 / TASL, A09). NULL = keiner
+   * noetig (Item ohne Bild) oder noch nicht gepflegt. Einer je AUFGABE, nicht je
+   * Asset: mehrere Bilder eines Items stammen aus derselben Quelle. Sobald
+   * `assets` nicht leer ist, blockiert ein leerer Text die Freigabe (flags.ts).
+   */
+  licence_text: string | null
   question_payload: unknown | null
   source: string
   source_ref: string | null
@@ -97,6 +104,7 @@ export type AuthoringTaskPatch = {
   parts?: TaskPart[]
   assets?: TaskAsset[]
   needs_image?: boolean | null
+  licence_text?: string | null
   question_payload?: unknown
 }
 
