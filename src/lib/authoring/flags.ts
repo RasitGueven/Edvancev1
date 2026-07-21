@@ -123,6 +123,17 @@ export function computeFlags(
     if (isBlank(asset.alt)) flags.push(flag('assetAltMissing', true, { index: i + 1 }))
   })
 
+  // Hat ein Item MIT QUELLE ein Bild, MUSS ein Lizenz-/Attributionstext dran
+  // sein — CC BY 4.0 verlangt die Namensnennung beim Zeigen (A09). Blockierend
+  // wie der Alt-Text. Eigenbauten (Bruchrechnung, Prozent …) haben keine externe
+  // Quelle und brauchen keine Attribution — sie sind hier ausgenommen. Die
+  // Quellenpruefung ist bewusst inline (diese Datei bleibt abhaengigkeitsfrei):
+  // gegrounded ist ein Item mit source_ref aus einer belegpflichtigen Quelle.
+  const hatQuelle = Boolean(task.source_ref) && task.source === 'VERA8_IQB'
+  if (task.assets.length > 0 && hatQuelle && isBlank(task.licence_text)) {
+    flags.push(flag('licenceMissing', true))
+  }
+
   // ── Zeitbudget ───────────────────────────────────────────────────────────
   // Bei MULTI_PART ist es DB-Pflicht (CHECK), sonst nur ein guter Wert: lsa_start
   // zieht dann auf estimated_minutes bzw. 180 s zurueck.

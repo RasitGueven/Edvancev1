@@ -1,0 +1,25 @@
+{
+  "stamm": "Die Schülerinnen und Schüler der Klasse 8a wollen für ihre Faschingsfeier Kreppband zur Dekoration verwenden. Das Kreppband wird in Packungen mit jeweils 4 verschiedenen Farben angeboten: weiß (w), rot (r), blau (b) und grün (g). Es sollen immer 2 Kreppbänder verschiedener Farben zu Girlanden zusammengedreht werden.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Schreibe alle möglichen Farbkombinationen auf.",
+      "loesung_vorschlag": "wr, wb, wg, rb, rg, bg (oder: w-r, w-b, w-g, r-b, r-g, b-g)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "SHORT_TEXT",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Das Karogitter im Bild scheint nur für Notizen/freie Beantwortung gedacht zu sein, nicht zum Einzeichnen. Die Aufgabe verlangt das Aufschreiben von Kombinationen, keine Zeichnung.",
+  "_task_id": "9d9e8094-c696-43b3-bdfb-ccd274879203",
+  "_title": "Faschingsdeko",
+  "_slug": "faschingsdeko",
+  "_images": [
+    "../vera8_sichtung/faschingsdeko/image1.emf.png",
+    "../vera8_sichtung/faschingsdeko/image2.emf.png",
+    "../vera8_sichtung/faschingsdeko/image3.emf.png"
+  ]
+}

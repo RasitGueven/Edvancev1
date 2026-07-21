@@ -1,0 +1,25 @@
+{
+  "stamm": "Gib an, wie viel Flüssigkeit sich in diesem Messzylinder befindet.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viel Flüssigkeit sich in diesem Messzylinder befindet.",
+      "unit": "ml",
+      "loesung_vorschlag": "300",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "42a730f0-bc18-4c37-8880-f13f430bf4a7",
+  "_title": "Messzylinder",
+  "_slug": "messzylinder",
+  "_images": [
+    "../vera8_sichtung/messzylinder/image1.emf.png",
+    "../vera8_sichtung/messzylinder/image2.emf.png"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "stamm": "Dieses Verkehrszeichen zeigt an: \"Vorgeschriebene Fahrtrichtung - geradeaus\". Es zeigt ein rundes Schild mit einem nach oben zeigenden Pfeil.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne eine Symmetrieachse in das Bild ein.",
+      "loesung_vorschlag": "Eine vertikale Linie durch die Mitte des Schildes (von oben nach unten durch den Pfeil)",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Wie viele Symmetrieachsen hat dieses Verkehrszeichen insgesamt? Kreuze an.",
+      "options": [
+        {
+          "id": "1",
+          "label": "1"
+        },
+        {
+          "id": "2",
+          "label": "2"
+        },
+        {
+          "id": "3",
+          "label": "3"
+        },
+        {
+          "id": "4",
+          "label": "4"
+        }
+      ],
+      "loesung_vorschlag": "1",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": null,
+  "_task_id": "486bdc8d-4b9b-4d83-823a-59f78197fc04",
+  "_title": "Fahrtrichtung geradeaus",
+  "_slug": "fahrtrichtunggeradeaus",
+  "_images": [
+    "../vera8_sichtung/fahrtrichtunggeradeaus/image1.emf.png",
+    "../vera8_sichtung/fahrtrichtunggeradeaus/image2.emf.png",
+    "../vera8_sichtung/fahrtrichtunggeradeaus/image3.emf.png",
+    "../vera8_sichtung/fahrtrichtunggeradeaus/image4.emf.png"
+  ]
+}

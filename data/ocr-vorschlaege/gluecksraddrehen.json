@@ -1,0 +1,49 @@
+{
+  "stamm": "Für eine Verlosung wurde ein Glücksrad entworfen. Es hat sechs verschiedene große Sektoren, die mit den Buchstaben A, B, C, D, E und F beschriftet sind.\n\nBeim Drehen des Glücksrades treten diese Ergebnisse mit folgenden Wahrscheinlichkeiten ein:\n\nErgebnis | A | B | C | D | E | F\np | 1/18 | 1/12 | 1/3 | 1/6 | 1/4 | 1/9",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib in der Tabelle die Größe des Winkels für Sektor C an. (Sektor A = 20°, Sektor B = 30°)",
+      "unit": "°",
+      "loesung_vorschlag": "120",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Zeichne Sektor C in das Kreisdiagramm ein.",
+      "loesung_vorschlag": "Sektor C mit 120° einzeichnen",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Das Glücksrad soll durch einen kleinen Eimer mit 540 Losen ersetzt werden. Die Lose sollen ebenfalls mit den Buchstaben A, B, C, D, E und F beschriftet sein. Die Ergebnisse sollen mit den gleichen Wahrscheinlichkeiten wie beim Glücksrad gezogen werden. Gib an, wie viele Lose hierzu mit dem Buchstaben C bedruckt werden müssen.",
+      "loesung_vorschlag": "180",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "numeric",
+      "prompt": "Das Glücksrad soll durch einen kleinen Eimer mit 540 Losen ersetzt werden. Die Lose sollen ebenfalls mit den Buchstaben A, B, C, D, E und F beschriftet sein. Die Ergebnisse sollen mit den gleichen Wahrscheinlichkeiten wie beim Glücksrad gezogen werden. Gib an, wie viele Lose hierzu mit dem Buchstaben D bedruckt werden müssen.",
+      "loesung_vorschlag": "90",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teilaufgabe 2 ist eine Zeichenaufgabe (Sektor C im Kreisdiagramm einzeichnen), daher ist_zeichenaufgabe=true gesetzt",
+  "_task_id": "7032fdd0-36bc-43df-a5ad-7abddf509db9",
+  "_title": "Glücksrad drehen",
+  "_slug": "gluecksraddrehen",
+  "_images": [
+    "../vera8_sichtung/gluecksraddrehen/image1.jpeg",
+    "../vera8_sichtung/gluecksraddrehen/image2.emf.png",
+    "../vera8_sichtung/gluecksraddrehen/image3.emf.png",
+    "../vera8_sichtung/gluecksraddrehen/image4.emf.png",
+    "../vera8_sichtung/gluecksraddrehen/image5.emf.png"
+  ]
+}

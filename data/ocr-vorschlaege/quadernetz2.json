@@ -1,0 +1,42 @@
+{
+  "stamm": "Welche der folgenden Abbildungen zeigt das Netz eines Quaders? Kreuze an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche der folgenden Abbildungen zeigt das Netz eines Quaders?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Abbildung 1 (6 Rechtecke in L-Form angeordnet)"
+        },
+        {
+          "id": "b",
+          "label": "Abbildung 2 (6 Rechtecke mit zwei getrennten Teilen)"
+        },
+        {
+          "id": "c",
+          "label": "Abbildung 3 (5 Rechtecke in einer Reihe mit einem unten)"
+        },
+        {
+          "id": "d",
+          "label": "Abbildung 4 (5 Rechtecke mit einem Rechteck oben mittig)"
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "b3cee0ee-c082-4645-8a0c-a2e84ace4fb4",
+  "_title": "Quadernetz 2",
+  "_slug": "quadernetz2",
+  "_images": [
+    "../vera8_sichtung/quadernetz2/image1.emf.png",
+    "../vera8_sichtung/quadernetz2/image2.emf.png"
+  ]
+}

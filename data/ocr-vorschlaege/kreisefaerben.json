@@ -1,0 +1,25 @@
+{
+  "stamm": "Färbe 20% dieser Kreise ein.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Färbe 20% dieser Kreise ein. (Es sind 15 Kreise in 3 Reihen à 5 Kreise dargestellt.)",
+      "loesung_vorschlag": "3 Kreise einfärben (20% von 15 = 3)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "FREE_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Dies ist eine Zeichenaufgabe (Einfärben von Kreisen), die nicht automatisch ausgewertet werden kann. Die Schüler sollen 3 von 15 Kreisen einfärben, können aber beliebige 3 Kreise wählen.",
+  "_task_id": "7691a248-4279-44b1-97ad-ce33624708bb",
+  "_title": "Kreise färben",
+  "_slug": "kreisefaerben",
+  "_images": [
+    "../vera8_sichtung/kreisefaerben/image1.jpeg",
+    "../vera8_sichtung/kreisefaerben/image2.emf.png",
+    "../vera8_sichtung/kreisefaerben/image3.emf.png"
+  ]
+}

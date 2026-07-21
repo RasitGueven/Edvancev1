@@ -1,0 +1,26 @@
+{
+  "stamm": "Die folgende Grafik stellt die Gesamtausgaben für Werbung in den Jahren 2010 bis 2015 dar. [Balkendiagramm zeigt Werte: 2010: ca. 16,5 Mrd. Euro, 2011: ca. 17,5 Mrd. Euro, 2012: ca. 18,5 Mrd. Euro, 2013: ca. 19,5 Mrd. Euro, 2014: ca. 21 Mrd. Euro, 2015: ca. 22 Mrd. Euro]. Nimm an, dass sich die Gesamtausgaben für Werbung in den nächsten Jahren ähnlich weiterentwickeln.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib unter dieser Voraussetzung eine Prognose ab, wie hoch die Gesamtausgaben für Werbung im Jahr 2018 ungefähr sein werden.",
+      "unit": "Mrd.€",
+      "loesung_vorschlag": "25",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die genauen Werte im Balkendiagramm sind schwer abzulesen. Die Prognose hängt davon ab, welchen durchschnittlichen Anstieg die Schüler berechnen (ca. 1-1,5 Mrd. Euro pro Jahr), daher sind mehrere Lösungen im Bereich 24-26 Mrd. Euro möglich.",
+  "_task_id": "1f996095-4eca-4a71-9ec1-39594c5002b2",
+  "_title": "Werbemarkt",
+  "_slug": "werbemarkt",
+  "_images": [
+    "../vera8_sichtung/werbemarkt/image1.png",
+    "../vera8_sichtung/werbemarkt/image2.png",
+    "../vera8_sichtung/werbemarkt/image3.png"
+  ]
+}

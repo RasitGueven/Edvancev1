@@ -1,0 +1,25 @@
+{
+  "stamm": "Es gilt x - 5 = 15.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Welchen Wert hat x?",
+      "unit": null,
+      "loesung_vorschlag": "20",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "ba2ed4e2-0ce8-480e-af96-16b61fddd2d7",
+  "_title": "Bestimme x",
+  "_slug": "bestimmex",
+  "_images": [
+    "../vera8_sichtung/bestimmex/image1.png",
+    "../vera8_sichtung/bestimmex/image2.emf.png"
+  ]
+}

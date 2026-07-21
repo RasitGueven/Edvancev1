@@ -1,0 +1,34 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Ein 3m langer Holzstab wird in zwei gleich lange Teile zersägt. Gib an, wie lang jedes Teil ist.",
+      "unit": "m",
+      "loesung_vorschlag": "1,5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Von einem 2m langen Pfahl steckt ein Viertel im Boden. Gib an, wie viel Meter des Pfahls nicht im Boden stecken.",
+      "unit": "m",
+      "loesung_vorschlag": "1,5",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "e040a388-3a17-4683-8e52-de7b25f56693",
+  "_title": "Holzstab",
+  "_slug": "holzstab",
+  "_images": [
+    "../vera8_sichtung/holzstab/image2.emf.png",
+    "../vera8_sichtung/holzstab/image3.emf.png",
+    "../vera8_sichtung/holzstab/image4.emf.png"
+  ]
+}

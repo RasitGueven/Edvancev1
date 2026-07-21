@@ -1,0 +1,48 @@
+/* Eltern-Report — Druckbild (R1).
+   Alles ist unter @media print bzw. .report-sheet gescoped, damit die
+   Bildschirm-Oberfläche unberührt bleibt. */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 16mm 14mm;
+  }
+
+  /* Admin-Navigation, Kopfleisten und Bedienelemente gehören nicht aufs Blatt. */
+  .print-hide {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  body {
+    /* Der Report ist ein Dokument, kein Screen: volle Breite, kein App-Chrome. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .report-sheet {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 8mm !important;
+  }
+
+  /* Ein Abschnitt soll nicht über den Seitenrand zerrissen werden. */
+  .report-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  /* Die Balken tragen die Aussage — sie müssen mitdrucken, nicht als
+     leerer Rahmen erscheinen. */
+  .report-bar,
+  .report-bar-fill {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

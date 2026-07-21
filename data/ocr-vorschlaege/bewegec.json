@@ -1,0 +1,33 @@
+{
+  "stamm": "Mit einer Geometrie-Software wurde Folgendes konstruiert: eine Strecke AB, dazu die Mittelsenkrechte m und ein Punkt C auf m. C wird mit A und B verbunden, um das Dreieck ABC zu erhalten. Der Punkt C wird auf der Mittelsenkrechten m nach unten bewegt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "C soll so weit nach unten bewegt werden, dass ein gleichseitiges Dreieck ABC entsteht. Konstruiere dieses Dreieck in Figur 1.",
+      "loesung_vorschlag": "Konstruktion eines gleichseitigen Dreiecks mit C auf der Mittelsenkrechten m unterhalb von AB",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "C soll so weit bewegt werden, dass der Winkel bei C (∠ACB) 132° groß ist. Konstruiere dieses Dreieck in Figur 2.",
+      "loesung_vorschlag": "Konstruktion eines Dreiecks mit C auf der Mittelsenkrechten m, sodass ∠ACB = 132°",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": null,
+  "_task_id": "0cbe68c9-d709-4b82-862c-fda96b65be41",
+  "_title": "Bewege C",
+  "_slug": "bewegec",
+  "_images": [
+    "../vera8_sichtung/bewegec/image2.emf.png",
+    "../vera8_sichtung/bewegec/image3.emf.png",
+    "../vera8_sichtung/bewegec/image4.emf.png",
+    "../vera8_sichtung/bewegec/image5.emf.png"
+  ]
+}

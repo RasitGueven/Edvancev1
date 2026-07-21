@@ -39,6 +39,15 @@ export type TaskAsset = {
   url: string
   alt: string
   caption?: string
+  /**
+   * Nur gesetzt, wenn url ein Zuschnitt ist: die URL des unangetasteten
+   * Originals im Bucket. Der Rueckweg aus einem Fehlschnitt — ohne dieses Feld
+   * waere ein Zuschnitt eine Einbahnstrasse.
+   *
+   * Bleibt beim Kind unsichtbar: lsa_public_assets reicht nur { url, alt }
+   * durch (P01-Datenvertrag).
+   */
+  original_url?: string
 }
 
 export type Task = {

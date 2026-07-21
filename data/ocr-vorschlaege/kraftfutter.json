@@ -1,0 +1,26 @@
+{
+  "stamm": "Im Zoo bekommen die Nashörner Kraftfutter. Der Kraftfuttervorrat reicht für fünf Nashörner sechs Wochen.\n\nGib an, wie lange die gleiche Menge Kraftfutter für 10 Nashörner reicht.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Das Kraftfutter reicht _______ Tage.",
+      "unit": "Tage",
+      "loesung_vorschlag": "21",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "337ff49c-33a2-435e-b44f-779d5cfac005",
+  "_title": "Kraftfutter",
+  "_slug": "kraftfutter",
+  "_images": [
+    "../vera8_sichtung/kraftfutter/image1.jpeg",
+    "../vera8_sichtung/kraftfutter/image2.emf.png",
+    "../vera8_sichtung/kraftfutter/image3.emf.png"
+  ]
+}

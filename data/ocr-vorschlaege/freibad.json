@@ -1,0 +1,34 @@
+{
+  "stamm": "Das Freibad in Burgdorf wurde am 1. Juni geöffnet. Am 1. Juli begannen die sechs Wochen dauernden Sommerferien. Insgesamt kamen vom 1. Juni bis zum Ende der Sommerferien 35681 Besucherinnen und Besucher in das Freibad.\n\nDas Diagramm zeigt die Zahlen der Besucherinnen und Besucher für Juni und für jede Woche der Sommerferien.\n\n[Diagramm: Juni: 3845, 1. Ferienwoche: 2831, 2. Ferienwoche: 4074, 3. Ferienwoche: 5732, 4. Ferienwoche: 4987, 5. Ferienwoche: 7710, 6. Ferienwoche: 6502]",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie viele Personen das Freibad während der 6 Wochen Sommerferien im Durchschnitt pro Woche besucht haben.",
+      "unit": "Personen",
+      "loesung_vorschlag": "5139",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Im Juni war das Wetter schlecht und das Freibad war an vielen Tagen leer. Aber in den Sommerferien war das Wetter schön und das Freibad hatte viele Besucherinnen und Besucher.\n\nDie Betreiber des Freibads wollten die Zahlen der Besucherinnen und Besucher für den Juni besser aussehen lassen, als sie tatsächlich sind. Deshalb haben sie im Diagramm einen Trick angewendet.\n\nErkläre, welchen Trick sie benutzt haben.",
+      "loesung_vorschlag": "Die y-Achse beginnt nicht bei 0, sondern bei einem höheren Wert, wodurch die Unterschiede zwischen den Balken größer wirken und die Besucherzahl im Juni optisch besser erscheint.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "6dd43469-cd90-4367-9b07-01bfd7b550d7",
+  "_title": "Freibad",
+  "_slug": "freibad",
+  "_images": [
+    "../vera8_sichtung/freibad/image1.png",
+    "../vera8_sichtung/freibad/image2.png",
+    "../vera8_sichtung/freibad/image3.png",
+    "../vera8_sichtung/freibad/image4.emf.png"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "stamm": "Alex (A), Bastian (B), Can (C) und Daniel (D) sind Freunde. Das Diagramm zeigt Informationen zu ihrer Körpergröße und zu ihrem Alter.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wer ist der Älteste in der Gruppe?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Alex"
+        },
+        {
+          "id": "b",
+          "label": "Bastian"
+        },
+        {
+          "id": "c",
+          "label": "Can"
+        },
+        {
+          "id": "d",
+          "label": "Daniel"
+        }
+      ],
+      "loesung_vorschlag": "Daniel",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Wer ist der Kleinste in der Gruppe?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Alex"
+        },
+        {
+          "id": "b",
+          "label": "Bastian"
+        },
+        {
+          "id": "c",
+          "label": "Can"
+        },
+        {
+          "id": "d",
+          "label": "Daniel"
+        }
+      ],
+      "loesung_vorschlag": "Alex",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Die zwei Kleinsten sind auch die zwei Jüngsten. Trifft zu oder trifft nicht zu?",
+      "options": [
+        {
+          "id": "a",
+          "label": "trifft zu"
+        },
+        {
+          "id": "b",
+          "label": "trifft nicht zu"
+        }
+      ],
+      "loesung_vorschlag": "trifft zu",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Weder der Älteste noch der Jüngste sind der Kleinste oder der Größte. Trifft zu oder trifft nicht zu?",
+      "options": [
+        {
+          "id": "a",
+          "label": "trifft zu"
+        },
+        {
+          "id": "b",
+          "label": "trifft nicht zu"
+        }
+      ],
+      "loesung_vorschlag": "trifft nicht zu",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "free_text",
+      "prompt": "Erol (E) ist Cans Bruder. Er ist jünger und kleiner als Can. Zeichne in das gegebene Diagramm eine Möglichkeit ein, wo der Punkt für Erol (E) liegen kann.",
+      "loesung_vorschlag": "Erol muss links von Can (jünger) und unterhalb von Can (kleiner) im Diagramm eingezeichnet werden",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teilaufgabe 5 verlangt das Einzeichnen eines Punktes in ein Diagramm, daher ist_zeichenaufgabe=true. Die LSA kann solche Zeichenaufgaben nicht automatisch auswerten.",
+  "_task_id": "aab3e63c-34cc-4583-bb16-f65f889942a2",
+  "_title": "Freunde",
+  "_slug": "freunde",
+  "_images": [
+    "../vera8_sichtung/freunde/image1.emf.png",
+    "../vera8_sichtung/freunde/image2.emf.png",
+    "../vera8_sichtung/freunde/image3.emf.png",
+    "../vera8_sichtung/freunde/image4.emf.png",
+    "../vera8_sichtung/freunde/image5.emf.png"
+  ]
+}

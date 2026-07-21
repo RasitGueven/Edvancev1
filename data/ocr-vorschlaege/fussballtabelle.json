@@ -1,0 +1,133 @@
+{
+  "stamm": "Bei Fußball-Meisterschaftsspielen gilt: Für einen Sieg erhält eine Mannschaft drei Punkte, für ein Unentschieden einen Punkt, für Niederlagen gibt es keinen Punkt. Die Punkte aller Spiele einer Mannschaft werden addiert.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Die Saison hat gerade begonnen. Eine Mannschaft hat bisher zweimal gespielt. Wie viele Punkte kann diese Mannschaft haben? Gib alle Möglichkeiten an.",
+      "options": [
+        {
+          "id": "0",
+          "label": "0 Punkte"
+        },
+        {
+          "id": "1",
+          "label": "1 Punkt"
+        },
+        {
+          "id": "2",
+          "label": "2 Punkte"
+        },
+        {
+          "id": "3",
+          "label": "3 Punkte"
+        },
+        {
+          "id": "4",
+          "label": "4 Punkte"
+        },
+        {
+          "id": "5",
+          "label": "5 Punkte"
+        },
+        {
+          "id": "6",
+          "label": "6 Punkte"
+        }
+      ],
+      "loesung_vorschlag": "0, 1, 2, 3, 4, 6",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe, warum eine Mannschaft nach drei Spielen nicht acht Punkte haben kann.",
+      "loesung_vorschlag": "Das Maximum nach drei Spielen ist 9 Punkte (3 Siege). 8 Punkte sind nicht erreichbar, weil Punkte nur in Schritten von 0, 1 oder 3 pro Spiel vergeben werden. Mögliche Kombinationen nach drei Spielen: 0, 1, 2, 3, 4, 5, 6, 7, 9 Punkte. 8 Punkte lassen sich durch keine Kombination von drei Spielergebnissen erreichen.",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Nach 14 Spielen hat eine Mannschaft 26 Punkte. Wie viele Spiele könnte diese Mannschaft gewonnen haben? Nenne alle Möglichkeiten.",
+      "options": [
+        {
+          "id": "0",
+          "label": "0 Siege"
+        },
+        {
+          "id": "1",
+          "label": "1 Sieg"
+        },
+        {
+          "id": "2",
+          "label": "2 Siege"
+        },
+        {
+          "id": "3",
+          "label": "3 Siege"
+        },
+        {
+          "id": "4",
+          "label": "4 Siege"
+        },
+        {
+          "id": "5",
+          "label": "5 Siege"
+        },
+        {
+          "id": "6",
+          "label": "6 Siege"
+        },
+        {
+          "id": "7",
+          "label": "7 Siege"
+        },
+        {
+          "id": "8",
+          "label": "8 Siege"
+        },
+        {
+          "id": "9",
+          "label": "9 Siege"
+        },
+        {
+          "id": "10",
+          "label": "10 Siege"
+        },
+        {
+          "id": "11",
+          "label": "11 Siege"
+        },
+        {
+          "id": "12",
+          "label": "12 Siege"
+        },
+        {
+          "id": "13",
+          "label": "13 Siege"
+        },
+        {
+          "id": "14",
+          "label": "14 Siege"
+        }
+      ],
+      "loesung_vorschlag": "5, 6, 7, 8",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "08c62e60-6f49-448a-af8e-8326a5a36135",
+  "_title": "Fußballtabelle",
+  "_slug": "fussballtabelle",
+  "_images": [
+    "../vera8_sichtung/fussballtabelle/image1.emf.png",
+    "../vera8_sichtung/fussballtabelle/image2.emf.png",
+    "../vera8_sichtung/fussballtabelle/image3.emf.png",
+    "../vera8_sichtung/fussballtabelle/image4.emf.png",
+    "../vera8_sichtung/fussballtabelle/image5.emf.png"
+  ]
+}

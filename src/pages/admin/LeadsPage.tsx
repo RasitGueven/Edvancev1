@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { MonitorSmartphone, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { EdvanceCard, EdvanceBadge, EmptyState, LoadingPulse } from '@/components/edvance'
+import {
+  AdminHeader,
+  EdvanceCard,
+  EdvanceBadge,
+  EmptyState,
+  LoadingPulse,
+} from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { LsaTodayCard } from '@/components/edvance/report/LsaTodayCard'
 import { listLeads, updateLead } from '@/lib/supabase/leads'
+import { listActivePlaetzeByLead, type LeadPlatz } from '@/lib/supabase/platz'
 import { provisionStudent } from '@/lib/supabase/provision'
 import type { Lead, LeadStatus } from '@/types'
-import { LeadCreateForm } from './LeadCreateForm'
+import { LeadIntakeForm } from './intake/LeadIntakeForm'
 
 const STATUS_LABEL: Record<LeadStatus, string> = {
   new: 'Neu',
@@ -17,6 +24,8 @@ const STATUS_LABEL: Record<LeadStatus, string> = {
   onboarding_scheduled: 'Onboarding geplant',
   converted: 'Konvertiert',
   rejected: 'Abgelehnt',
+  lsa_freigegeben: 'LSA freigegeben',
+  lsa_fertig: 'LSA fertig',
 }
 
 const STATUS_VARIANT: Record<LeadStatus, 'primary' | 'warning' | 'success' | 'muted'> = {
@@ -25,6 +34,8 @@ const STATUS_VARIANT: Record<LeadStatus, 'primary' | 'warning' | 'success' | 'mu
   onboarding_scheduled: 'warning',
   converted: 'success',
   rejected: 'muted',
+  lsa_freigegeben: 'primary',
+  lsa_fertig: 'success',
 }
 
 function nextActions(status: LeadStatus): { label: string; next: LeadStatus }[] {
@@ -45,20 +56,25 @@ function nextActions(status: LeadStatus): { label: string; next: LeadStatus }[] 
 
 export function LeadsPage(): JSX.Element {
   const [leads, setLeads] = useState<Lead[]>([])
+  const [platzByLead, setPlatzByLead] = useState<Record<string, LeadPlatz>>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
+  const [editingLead, setEditingLead] = useState<Lead | null>(null)
   const [convertingId, setConvertingId] = useState<string | null>(null)
   const [pwLeadId, setPwLeadId] = useState<string | null>(null)
   const [pw, setPw] = useState('')
 
   const load = (): void => {
     setLoading(true)
-    listLeads().then(({ data, error: err }) => {
-      setLeads(data ?? [])
-      setError(err)
-      setLoading(false)
-    })
+    void Promise.all([listLeads(), listActivePlaetzeByLead()]).then(
+      ([leadsRes, platzRes]) => {
+        setLeads(leadsRes.data ?? [])
+        setPlatzByLead(platzRes.data ?? {})
+        setError(leadsRes.error ?? platzRes.error)
+        setLoading(false)
+      },
+    )
   }
 
   useEffect(load, [])
@@ -100,33 +116,51 @@ export function LeadsPage(): JSX.Element {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle="Leads" sticky />
       <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <Link
-              to="/admin"
-              className="mb-2 flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
+        <AdminHeader
+          eyebrow="Vertrieb"
+          title="Leads"
+          description="Interessenten erfassen, qualifizieren und in Schüler konvertieren."
+          actions={
+            <button
+              type="button"
+              onClick={() => {
+                setEditingLead(null)
+                setShowForm((v) => !v)
+              }}
+              className="admin-cta-gold inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--radius-full)] px-4 text-sm font-semibold"
             >
-              <ArrowLeft className="h-4 w-4" /> Admin
-            </Link>
-            <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Leads</h1>
-          </div>
-          <Button onClick={() => setShowForm((v) => !v)}>
-            <span className="flex items-center gap-1.5">
               <Plus className="h-4 w-4" /> {showForm ? 'Schließen' : 'Neuer Lead'}
-            </span>
-          </Button>
-        </div>
+            </button>
+          }
+        />
 
-        {showForm && (
-          <LeadCreateForm
-            onCreated={() => {
-              setShowForm(false)
+        {/* Fertig-Signal: „ist das Kind durch?" — direkt neben der Freigabe,
+            die im Intake-Formular darunter passiert. */}
+        <LsaTodayCard />
+
+        {editingLead ? (
+          <LeadIntakeForm
+            key={editingLead.id}
+            existingLead={editingLead}
+            onRefresh={load}
+            onClose={() => {
+              setEditingLead(null)
               load()
             }}
           />
+        ) : (
+          showForm && (
+            <LeadIntakeForm
+              onRefresh={load}
+              onClose={() => {
+                setShowForm(false)
+                load()
+              }}
+            />
+          )
         )}
 
         {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
@@ -144,18 +178,35 @@ export function LeadsPage(): JSX.Element {
             {leads.map((lead) => (
               <EdvanceCard key={lead.id} className="flex flex-col gap-3 p-6">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-base font-semibold text-[var(--color-text-primary)]">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowForm(false)
+                      setEditingLead(lead)
+                    }}
+                    className="text-left text-base font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)]"
+                  >
+                    {lead.first_name ? `${lead.first_name} · ` : ''}
                     {lead.full_name}
-                  </span>
-                  <EdvanceBadge variant={STATUS_VARIANT[lead.status]}>
-                    {STATUS_LABEL[lead.status]}
-                  </EdvanceBadge>
+                  </button>
+                  <div className="flex items-center gap-2">
+                    {platzByLead[lead.id] && (
+                      <EdvanceBadge variant="success">
+                        <MonitorSmartphone className="mr-1 inline h-3.5 w-3.5" />
+                        {platzByLead[lead.id].label}
+                      </EdvanceBadge>
+                    )}
+                    <EdvanceBadge variant={STATUS_VARIANT[lead.status]}>
+                      {STATUS_LABEL[lead.status]}
+                    </EdvanceBadge>
+                  </div>
                 </div>
                 <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-[var(--color-text-secondary)]">
                   {lead.contact_email && <span>{lead.contact_email}</span>}
                   {lead.contact_phone && <span>{lead.contact_phone}</span>}
                   {lead.class_level && <span>Kl. {lead.class_level}</span>}
                   {lead.school_type && <span>{lead.school_type}</span>}
+                  {lead.school_name && <span>{lead.school_name}</span>}
                   {lead.subjects.length > 0 && <span>{lead.subjects.join(', ')}</span>}
                 </div>
                 {nextActions(lead.status).length > 0 && (

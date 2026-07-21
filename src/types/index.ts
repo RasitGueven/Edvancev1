@@ -29,6 +29,8 @@ export type {
   SchoolKind,
   LeadStatus,
   LeadGoal,
+  LeadGradeTrend,
+  LeadStrugglingSince,
   Lead,
   LeadInput,
   Student,
@@ -150,3 +152,32 @@ export type {
   MasteryStage,
   StudentCompetencyMastery,
 } from './competency'
+
+export type {
+  Weekday,
+  Slot,
+  SlotInput,
+  SlotWish,
+  SlotAssignment,
+  SlotWithLoad,
+} from './slots'
+
+export type {
+  PreviewAsset,
+  PreviewOption,
+  PreviewPart,
+  PreviewPayload,
+  PreviewTable,
+} from './preview'
+
+export type {
+  LsaSessionState,
+  LsaSessionListItem,
+  ReportTopic,
+  ParentAssessment,
+  ReportData,
+  ReportPaket,
+  ReportNotes,
+} from './report'
+
+export { REPORT_PAKETE } from './report'

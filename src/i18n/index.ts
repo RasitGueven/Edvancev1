@@ -6,6 +6,8 @@ import deAuthoring from './locales/de/authoring.json'
 import deScreeningEditor from './locales/de/screening-editor.json'
 import deStudent from './locales/de/student.json'
 import deMock from './locales/de/mock.json'
+import deSlots from './locales/de/slots.json'
+import deReport from './locales/de/report.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -16,12 +18,23 @@ void i18n.use(initReactI18next).init({
       'screening-editor': deScreeningEditor,
       student: deStudent,
       mock: deMock,
+      slots: deSlots,
+      report: deReport,
     },
   },
   lng: 'de',
   fallbackLng: 'de',
   defaultNS: 'common',
-  ns: ['common', 'admin', 'authoring', 'screening-editor', 'student', 'mock'],
+  ns: [
+    'common',
+    'admin',
+    'authoring',
+    'screening-editor',
+    'student',
+    'mock',
+    'report',
+    'slots',
+  ],
   interpolation: { escapeValue: false },
   returnNull: false,
 })

@@ -1,0 +1,50 @@
+{
+  "stamm": "Frank behauptet: \"Ich addiere zwei natürliche Zahl und bilde ihre Nachfolgerzahl. Quadriere beide Zahlen und das kleinere Ergebnis vom größeren ab. Dann erhältst du die Summe der beiden ursprünglich gewählten Zahlen.\"",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Überprüfe Franks Behauptung mit den beiden Zahlen 12 und 13.",
+      "loesung_vorschlag": "12 + 13 = 25; Nachfolgerzahl: 26. 26² = 676; 13² = 169; 676 - 169 = 507. Die Summe 12 + 13 = 25 stimmt nicht mit 507 überein, daher ist Franks Behauptung falsch.",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Stimmt Franks Behauptung auch für zwei beliebige aufeinander folgende natürliche Zahlen?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Seien n und n+1 zwei aufeinanderfolgende natürliche Zahlen. Summe: n + (n+1) = 2n+1. Nachfolgerzahl: 2n+2. Differenz der Quadrate: (2n+2)² - (n+1)² = 4n²+8n+4 - n²-2n-1 = 3n²+6n+3 = 3(n²+2n+1) ≠ 2n+1. Die Behauptung stimmt nicht.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die ursprüngliche Behauptung Franks ist grammatikalisch etwas unklar formuliert ('Ich addiere zwei natürliche Zahl' statt 'Zahlen', und 'das kleinere Ergebnis vom größeren ab' ist verkürzt). Ich habe interpretiert: Summe bilden, Nachfolgerzahl der Summe bilden, beide quadrieren, Differenz bilden.",
+  "_task_id": "d77cc255-e34c-41d1-a505-1f80ea12178d",
+  "_title": "Nachfolgerzahl",
+  "_slug": "nachfolgerzahl",
+  "_images": [
+    "../vera8_sichtung/nachfolgerzahl/image1.emf.png",
+    "../vera8_sichtung/nachfolgerzahl/image2.emf.png",
+    "../vera8_sichtung/nachfolgerzahl/image3.emf.png",
+    "../vera8_sichtung/nachfolgerzahl/image4.emf.png"
+  ]
+}

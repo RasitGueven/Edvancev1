@@ -1,0 +1,33 @@
+{
+  "stamm": "Auf die Seitenflächen eines Quaders werden die Augenzahlen 1 bis 6 geschrieben. Nach 1000-fachem Werfen des Quaders ergab sich folgende Häufigkeitstabelle für die oben liegenden Augenzahlen:\n\nTabelle 1:\nAugenzahl: 1, 2, 3, 4, 5\nabsolute Häufigkeit: 242, 75, 179, 161, 87\n\nDas Netz dieses Quaders sieht wie in der Abbildung aus.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Wie könnten die Augenzahlen 1 bis 6 auf dem Quader verteilt sein (vgl. Tabelle 1)? Begründe ohne Rechnung kurz deine Antwort.",
+      "loesung_vorschlag": "Die Augenzahl 6 muss auf der größten Fläche liegen, da die Summe der absoluten Häufigkeiten 242+75+179+161+87=744 ergibt, also fehlen 256 für 1000 Würfe. Die größte Fläche hat die höchste Wahrscheinlichkeit oben zu liegen.",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Was ist die beste Schätzung für die Wahrscheinlichkeit der sechs Augenzahlen beim Werfen dieses Quaders? Beachte dabei die Symmetrie des Quaders. Trage die sechs Werte in die folgende Tabelle ein. Orientiere dich an Tabelle 1.\n\nTabelle mit Spalten: Augenzahl 1, 2, 3, 4, 5, 6 und Zeile: Wahrscheinlichkeit",
+      "loesung_vorschlag": "Wahrscheinlichkeiten basierend auf relativen Häufigkeiten aus 1000 Würfen: P(1)=0,242; P(2)=0,075; P(3)=0,179; P(4)=0,161; P(5)=0,087; P(6)=0,256. Symmetrie bedeutet: gegenüberliegende Flächen gleicher Größe haben gleiche Wahrscheinlichkeiten.",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Teil 2 verlangt eine Tabelle mit 6 Wahrscheinlichkeitswerten. Die genaue Erwartung bezüglich 'Symmetrie' ist interpretationsbedürftig - vermutlich sollen gegenüberliegende Flächen gleicher Größe erkannt werden. braucht_tabellentyp=true, da 6 zusammenhängende Werte in Tabellenform erwartet werden.",
+  "_task_id": "9169f1bd-4a1c-4703-a79e-4b5742d280d2",
+  "_title": "Würfeln mit Quader",
+  "_slug": "wuerfelnmitquader",
+  "_images": [
+    "../vera8_sichtung/wuerfelnmitquader/image1.png",
+    "../vera8_sichtung/wuerfelnmitquader/image2.png",
+    "../vera8_sichtung/wuerfelnmitquader/image3.png",
+    "../vera8_sichtung/wuerfelnmitquader/image4.png"
+  ]
+}

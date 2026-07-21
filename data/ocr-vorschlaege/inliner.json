@@ -1,0 +1,50 @@
+{
+  "stamm": "Lara umrundet auf Inline-Skates einen See. Sie startet vom Parkplatz aus und braucht für die 12 km bis zum Eiscafé 40 Minuten. Im Eiscafé macht Lara 30min Pause. Anschließend fährt sie mit einer Geschwindigkeit von 12 km/h weiter und ist nach einer halben Stunde wieder am Parkplatz.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Zeichne in das folgende Koordinatensystem ein Zeit-Weg-Diagramm für Laras Seeumrundung.",
+      "loesung_vorschlag": "Das Diagramm zeigt: 0-40min Anstieg auf 12km (Fahrt zum Eiscafé), 40-70min waagerecht bei 12km (Pause), 70-100min Anstieg von 12km auf 18km (Rückfahrt 6km in 30min), dann Rückkehr zum Parkplatz.",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Paul startet mit seinem Fahrrad 40 Minuten später als Lara auf dem Parkplatz. Er fährt die gleiche Runde um den See wie Lara. Paul fährt mit einer Durchschnittsgeschwindigkeit von 28 km/h. Ist Lara noch im Eiscafé, wenn Paul dort ankommt? Kreuze an.",
+      "options": [
+        {
+          "id": "ja",
+          "label": "Ja"
+        },
+        {
+          "id": "nein",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "free_text",
+      "prompt": "Begründe deine Entscheidung.",
+      "loesung_vorschlag": "Paul braucht für die 12 km zum Eiscafé bei 28 km/h ca. 25,7 Minuten. Er startet 40 Minuten später, kommt also nach 40+25,7=65,7 Minuten dort an. Lara verlässt das Eiscafé nach 70 Minuten (40min Fahrt + 30min Pause). Paul kommt also vor Laras Abfahrt an.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die erste Teilaufgabe verlangt das Einzeichnen eines Zeit-Weg-Diagramms in ein Koordinatensystem. Dies ist eine Zeichenaufgabe und kann von der LSA nicht automatisch ausgewertet werden. Die MC-Frage zur Begründung wurde in zwei Parts aufgeteilt (MC + Begründung als free_text).",
+  "_task_id": "88038d05-d028-48ba-97f0-98755b1c9407",
+  "_title": "Inliner",
+  "_slug": "inliner",
+  "_images": [
+    "../vera8_sichtung/inliner/image1.emf.png",
+    "../vera8_sichtung/inliner/image2.emf.png",
+    "../vera8_sichtung/inliner/image3.emf.png",
+    "../vera8_sichtung/inliner/image4.emf.png"
+  ]
+}

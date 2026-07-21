@@ -1,0 +1,36 @@
+{
+  "stamm": "In einem Magnetbaukasten befinden sich magnetische Stäbe und Kugeln. Mario baut damit Pyramiden und ihre Netze. Für jede Kante nimmt er einen Magnetstab.\n\nAbbildung 1 zeigt eine Pyramide mit dreieckiger Grundfläche. In Abbildung 2 wurde mit Stäben und Kugeln das Netz dieser Pyramide gelegt.\n\nDas Netz aus Abbildung 2 soll zu der Pyramide aus Abbildung 1 \"zusammengeklappt\" werden.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Wie viele Stäbe müssen entfernt werden?",
+      "unit": null,
+      "loesung_vorschlag": "3",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Wie viele Kugeln müssen entfernt werden?",
+      "unit": null,
+      "loesung_vorschlag": "3",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "3197784c-dda0-466e-8397-8bcab73bdc2d",
+  "_title": "Pyramidenbau",
+  "_slug": "pyramidenbau",
+  "_images": [
+    "../vera8_sichtung/pyramidenbau/image1.emf.png",
+    "../vera8_sichtung/pyramidenbau/image2.emf.png",
+    "../vera8_sichtung/pyramidenbau/image3.emf.png",
+    "../vera8_sichtung/pyramidenbau/image4.emf.png",
+    "../vera8_sichtung/pyramidenbau/image5.emf.png"
+  ]
+}

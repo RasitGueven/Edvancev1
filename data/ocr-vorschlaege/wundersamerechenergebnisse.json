@@ -1,0 +1,40 @@
+{
+  "stamm": "Simone multipliziert einstellige, zweistellige bzw. dreistellige Zahlen mit den Faktoren 11, 101 und 1001. Sie wundert sich über die Rechenergebnisse, die sie erhält:\n(1) 7 · 11 = 77, 5 · 11 = 55\n(2) 38 · 101 = 3838, 45 · 101 = 4545\n(3) 306 · 1001 = 306306, 692 · 1001 = 692692",
+  "parts": [
+    {
+      "nr": 4,
+      "kind": "short_input",
+      "prompt": "Schreibe eine vierte Zeile auf, in der du das obige Aufgabenmuster mit zwei weiteren Beispielen fortsetzt. (Erste Gleichung)",
+      "loesung_vorschlag": "beliebige Zahl · 11 = Zahl-Zahl, z.B. 8 · 11 = 88",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 4,
+      "kind": "short_input",
+      "prompt": "Schreibe eine vierte Zeile auf, in der du das obige Aufgabenmuster mit zwei weiteren Beispielen fortsetzt. (Zweite Gleichung)",
+      "loesung_vorschlag": "beliebige zweistellige Zahl · 101 = Zahl-Zahl, z.B. 23 · 101 = 2323",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 5,
+      "kind": "free_text",
+      "prompt": "Ergänze den folgenden Text: 'Wenn man eine dreistellige Zahl mit 1001 multipliziert, dann ...' Begründe diese Aussage nun allgemein.",
+      "loesung_vorschlag": "... dann wird die dreistellige Zahl zweimal hintereinander geschrieben. Begründung: 1001 = 1000 + 1, also ist abc · 1001 = abc · 1000 + abc · 1 = abc000 + abc = abcabc",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "3b50c53b-1112-42d9-a19f-5bdeda6f97ba",
+  "_title": "Wundersame Rechenergebnisse",
+  "_slug": "wundersamerechenergebnisse",
+  "_images": [
+    "../vera8_sichtung/wundersamerechenergebnisse/image2.png",
+    "../vera8_sichtung/wundersamerechenergebnisse/image3.png",
+    "../vera8_sichtung/wundersamerechenergebnisse/image4.png",
+    "../vera8_sichtung/wundersamerechenergebnisse/image5.png"
+  ]
+}

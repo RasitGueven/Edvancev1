@@ -1,0 +1,43 @@
+{
+  "stamm": "Bei einem Brettspiel wird ein sechsseitiger Spielwürfel mit den Zahlen von 1 bis 6 verwendet. Der Spielstein darf immer um genau so viele Felder weitergeschoben werden, wie die Augenzahl beim einmaligen Werfen des Würfels anzeigt.\n\nJan wird das Spiel gewinnen, wenn er beim nächsten Wurf eine Fünf wirft.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie groß ist die Wahrscheinlichkeit für Jan, mit dem nächsten Wurf das Spiel zu gewinnen? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "1/5"
+        },
+        {
+          "id": "b",
+          "label": "1/6"
+        },
+        {
+          "id": "c",
+          "label": "5/6"
+        },
+        {
+          "id": "d",
+          "label": "5"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "c3b3e81d-ccc3-4957-bd47-14875d83ea69",
+  "_title": "Brettspiel",
+  "_slug": "brettspiel",
+  "_images": [
+    "../vera8_sichtung/brettspiel/image2.emf.png",
+    "../vera8_sichtung/brettspiel/image3.emf.png",
+    "../vera8_sichtung/brettspiel/image4.emf.png"
+  ]
+}

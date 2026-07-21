@@ -1,0 +1,34 @@
+{
+  "stamm": "In Europa werden Temperaturen in Grad Celsius (°C) angegeben, in den USA in Grad Fahrenheit (°F). Es gibt eine Regel für die Umrechnung:\n\nMultipliziere die Temperatur in °C mit 1,8 und addiere zum Ergebnis 32, dann erhältst du die Temperatur in °F.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib die Temperatur 5 °C in der Einheit °F an.",
+      "unit": "°F",
+      "loesung_vorschlag": "41",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Gib eine Formel für die Umrechnung von Temperaturen in °C nach °F an. Dabei soll C für Temperaturen in °C stehen und F für Temperaturen in °F.",
+      "loesung_vorschlag": "F = C · 1,8 + 32 oder F = 1,8 · C + 32 oder F = 1,8C + 32",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "f3bd9dae-61f3-4d0a-9ca8-9e281382402d",
+  "_title": "Temperaturen in Frankfurt am Main",
+  "_slug": "temperatur",
+  "_images": [
+    "../vera8_sichtung/temperatur/image1.png",
+    "../vera8_sichtung/temperatur/image2.png",
+    "../vera8_sichtung/temperatur/image3.png",
+    "../vera8_sichtung/temperatur/image4.png"
+  ]
+}

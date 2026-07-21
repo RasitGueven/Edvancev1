@@ -1,0 +1,51 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Ein Außenthermometer zeigt −4°C. Die Außentemperatur steigt um 6°C an. Wie hoch ist die Außentemperatur danach? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "−10°C"
+        },
+        {
+          "id": "b",
+          "label": "−2°C"
+        },
+        {
+          "id": "c",
+          "label": "+2°C"
+        },
+        {
+          "id": "d",
+          "label": "+10°C"
+        }
+      ],
+      "loesung_vorschlag": "+2°C",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Ein Außenthermometer zeigt +8°C und später −2°C an. Gib an, um wie viel Grad sich die Außentemperatur verändert hat.",
+      "unit": "Grad",
+      "loesung_vorschlag": "10",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "b1b572df-49b4-4ee4-980a-f76d06614b69",
+  "_title": "Außenthermometer",
+  "_slug": "aussenthermometer",
+  "_images": [
+    "../vera8_sichtung/aussenthermometer/image1.emf.png",
+    "../vera8_sichtung/aussenthermometer/image2.emf.png",
+    "../vera8_sichtung/aussenthermometer/image3.emf.png"
+  ]
+}

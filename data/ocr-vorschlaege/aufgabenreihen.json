@@ -1,0 +1,57 @@
+{
+  "stamm": "Sandra schreibt aufeinanderfolgende ungerade Zahlen auf, beginnend bei 1, und macht diese Aufgabenreihe daraus.\n\n1 = 1\n1 + 3 = 4\n1 + 3 + 5 = 9\n\nSetze diese Aufgabenreihe passend fort.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Schreibe hierzu die nächsten zwei Rechnungen auf. (Erste Rechnung)",
+      "loesung_vorschlag": "1 + 3 + 5 + 7 = 16",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Schreibe hierzu die nächsten zwei Rechnungen auf. (Zweite Rechnung)",
+      "loesung_vorschlag": "1 + 3 + 5 + 7 + 9 = 25",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Sebastian setzt die Aufgabenreihe noch weiter fort. Er erhält 61 als Ergebnis. Kann das sein?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Ja"
+        },
+        {
+          "id": "b",
+          "label": "Nein"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "free_text",
+      "prompt": "Notiere deinen Lösungsweg.",
+      "loesung_vorschlag": "Die Summe der ersten n ungeraden Zahlen ist immer n². 61 ist keine Quadratzahl (7² = 49, 8² = 64), daher kann 61 nicht als Ergebnis auftreten.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "2993046f-9fc2-4730-a04b-051d662f6204",
+  "_title": "Aufgabenreihen",
+  "_slug": "aufgabenreihen",
+  "_images": [
+    "../vera8_sichtung/aufgabenreihen/image1.png",
+    "../vera8_sichtung/aufgabenreihen/image2.png",
+    "../vera8_sichtung/aufgabenreihen/image3.png",
+    "../vera8_sichtung/aufgabenreihen/image4.emf.png"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "stamm": "Auf einer Karte im Atlas befindet sich diese Maßstabsleiste.\n\n1 cm entspricht einer Leiste von 0 bis 2000 m (mit Markierungen bei 0, 500, 1000, 1500, 2000).",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welcher Maßstab passt dazu? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "1 : 500"
+        },
+        {
+          "id": "b",
+          "label": "1 : 5000"
+        },
+        {
+          "id": "c",
+          "label": "1 : 50000"
+        },
+        {
+          "id": "d",
+          "label": "1 : 500000"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "bb074bf6-7f73-41c8-90e6-4940658fb66b",
+  "_title": "Maßstabsleiste",
+  "_slug": "massstabsleiste",
+  "_images": [
+    "../vera8_sichtung/massstabsleiste/image1.emf.png",
+    "../vera8_sichtung/massstabsleiste/image2.emf.png"
+  ]
+}

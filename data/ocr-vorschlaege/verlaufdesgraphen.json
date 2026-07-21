@@ -1,0 +1,120 @@
+{
+  "stamm": "Prüfe, ob die Aussagen über die Geraden wahr oder falsch sind. Kreuze jeweils an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Prüfe, ob die Aussagen über die Gerade yx=55 wahr oder falsch sind. Die Gerade … verläuft durch den Koordinatenursprung (0|0).",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Prüfe, ob die Aussagen über die Gerade yx=55 wahr oder falsch sind. Die Gerade … hat eine positive Steigung.",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "wahr",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Prüfe, ob die Aussagen über die Gerade yx=55 wahr oder falsch sind. Die Gerade … schneidet die x-Achse im Punkt (5|0).",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Prüfe, ob die Aussagen über die Gerade y=mx+n wahr oder falsch sind, wenn m<0 und n≠0. Die Gerade … verläuft durch den Koordinatenursprung (0|0).",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "mc",
+      "prompt": "Prüfe, ob die Aussagen über die Gerade y=mx+n wahr oder falsch sind, wenn m<0 und n≠0. Die Gerade … hat eine positive Steigung.",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 6,
+      "kind": "mc",
+      "prompt": "Prüfe, ob die Aussagen über die Gerade y=mx+n wahr oder falsch sind, wenn m<0 und n≠0. Die Gerade … schneidet die y-Achse im Punkt (0|n).",
+      "options": [
+        {
+          "id": "wahr",
+          "label": "wahr"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "wahr",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Gleichung im ersten Teil könnte 'y=x-55' oder 'yx=55' lauten - aufgrund der Formatierung nicht eindeutig. Habe 'yx=55' angenommen.",
+  "_task_id": "19f6f7be-c0ce-41f1-8f93-1db8b8201e42",
+  "_title": "Verlauf des Graphen",
+  "_slug": "verlaufdesgraphen",
+  "_images": [
+    "../vera8_sichtung/verlaufdesgraphen/image1.png",
+    "../vera8_sichtung/verlaufdesgraphen/image2.png",
+    "../vera8_sichtung/verlaufdesgraphen/image3.png"
+  ]
+}

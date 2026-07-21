@@ -1,0 +1,51 @@
+{
+  "stamm": "In einem Koordinatensystem ist eine Gerade g eingezeichnet.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Prüfe, welcher der vorgegebenen Punkte auf der Geraden g liegt. Kreuze an.",
+      "options": [
+        {
+          "id": "A",
+          "label": "A (4|0)"
+        },
+        {
+          "id": "B",
+          "label": "B (3|4)"
+        },
+        {
+          "id": "C",
+          "label": "C (4|3)"
+        },
+        {
+          "id": "D",
+          "label": "D (0|4)"
+        }
+      ],
+      "loesung_vorschlag": "A",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Der Punkt Q (2|5) liegt nicht auf der Geraden g. Zeichne diesen Punkt in das Koordinatensystem ein.",
+      "loesung_vorschlag": "Punkt Q bei (2|5) einzeichnen",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teilaufgabe 2 verlangt das Einzeichnen eines Punktes in ein Koordinatensystem – dies ist eine Zeichenaufgabe und für automatische Auswertung ungeeignet.",
+  "_task_id": "19cbf7c6-077a-47f3-bfdf-2bce1531c872",
+  "_title": "Wo sind die Punkte",
+  "_slug": "wosinddiepunkte",
+  "_images": [
+    "../vera8_sichtung/wosinddiepunkte/image1.png",
+    "../vera8_sichtung/wosinddiepunkte/image2.png",
+    "../vera8_sichtung/wosinddiepunkte/image3.png",
+    "../vera8_sichtung/wosinddiepunkte/image4.png"
+  ]
+}

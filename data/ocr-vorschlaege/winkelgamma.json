@@ -1,0 +1,24 @@
+{
+  "stamm": "In diesem Dreieck sind die Strecken AM, MB und MC gleich lang.\n\n[Diagramm: Dreieck ABC mit Punkt M auf AB. Von M geht eine Strecke zu C. Winkel bei C: γ₁ und γ₂. Winkel bei A: α. Winkel bei B: β. Strecken: AC = a, BC = b, AM = x, MB = x, MC = x.]\n\n(nicht maßstabsgerecht)\n\nNiki behauptet: \"Dann ist γ = γ₁ + γ₂ ein rechter Winkel.\"\n\nDazu will sie einen Beweis in der Klasse vortragen. Sie hat ihre Argumentationsschritte auf Karteikarten notiert, die sie der Reihe nach an die Tafel heften will.\n\nHier sind die noch nicht sortierten Karten:\n\nK1: γ = γ₁ + γ₂\n\nK2: AMC und MBC sind gleichschenklige Dreiecke\n\nK3: 2γ₁ + 2γ₂ = 180° ⇒ γ₁ + γ₂ = 90° ⇒ γ = 90°\n\nK4: Daraus folgt, dass die Basiswinkel gleich groß sind, also\n\nK5: Einsetzen in den Winkelsummensatz für Dreiecke:\n\nK6: α + β + γ = 180°, γ₁ + γ₂ + γ₁ + γ₂ = 180°, Zusammenfassen\n\nK7: MC ist genauso lang wie AM, wie BM, also gilt\n\nK8: α = γ₁ und β = γ₂",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Bringe alle Argumentationskarten für Nikis Vortrag in eine logisch richtige Reihenfolge. Trage hierzu die restlichen Kartennummern in der Reihenfolge des Vortrags ein (K1 und K7 sind bereits vorgegeben, danach kommen 6 weitere Karten):",
+      "loesung_vorschlag": "K1, K7, K2, K4, K8, K5, K6, K3",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "SHORT_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "b3de2d20-7304-40e2-9145-2d5ae7565a58",
+  "_title": "Winkel Gamma",
+  "_slug": "winkelgamma",
+  "_images": [
+    "../vera8_sichtung/winkelgamma/image1.png",
+    "../vera8_sichtung/winkelgamma/image2.png"
+  ]
+}

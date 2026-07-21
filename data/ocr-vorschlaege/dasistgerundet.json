@@ -1,0 +1,25 @@
+{
+  "stamm": "Runde die Zahl 5,143 auf eine Stelle nach dem Komma.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Runde die Zahl 5,143 auf eine Stelle nach dem Komma.",
+      "unit": null,
+      "loesung_vorschlag": "5,1",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "58af80b3-b073-40d5-bf38-6dd54d030291",
+  "_title": "Das ist gerundet",
+  "_slug": "dasistgerundet",
+  "_images": [
+    "../vera8_sichtung/dasistgerundet/image1.emf.png",
+    "../vera8_sichtung/dasistgerundet/image2.emf.png"
+  ]
+}

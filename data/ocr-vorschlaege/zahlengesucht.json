@@ -1,0 +1,33 @@
+{
+  "stamm": "Schreibe alle dreistelligen Zahlen auf, die aus den Ziffern 1, 2 und 3 gebildet werden können. In keiner der Zahlen darf eine dieser Ziffern mehrfach vorkommen.\n\nLuisa weiß, dass man aus den vier Ziffern 1, 2, 3 und 4 insgesamt genau 24 verschiedene vierstellige Zahlen bilden kann, in denen keine dieser vier Ziffern mehrfach vorkommt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Schreibe alle dreistelligen Zahlen auf, die aus den Ziffern 1, 2 und 3 gebildet werden können. In keiner der Zahlen darf eine dieser Ziffern mehrfach vorkommen.",
+      "loesung_vorschlag": "123, 132, 213, 231, 312, 321",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Wie viele verschiedene fünfstellige Zahlen können insgesamt gebildet werden, wenn man ebenso mit den Ziffern 1, 2, 3, 4 und 5 vorgeht?",
+      "loesung_vorschlag": "120",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "fd7892f0-f7ab-455e-bfc9-bd0267e7e898",
+  "_title": "Zahlen gesucht",
+  "_slug": "zahlengesucht",
+  "_images": [
+    "../vera8_sichtung/zahlengesucht/image1.jpeg",
+    "../vera8_sichtung/zahlengesucht/image2.png",
+    "../vera8_sichtung/zahlengesucht/image3.png",
+    "../vera8_sichtung/zahlengesucht/image4.png"
+  ]
+}

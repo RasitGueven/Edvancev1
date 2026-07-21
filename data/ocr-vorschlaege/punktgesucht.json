@@ -1,0 +1,44 @@
+{
+  "stamm": "Gegeben sind die Punkte A, B und D in dem abgebildeten Koordinatensystem.\n\nGesucht ist ein Punkt P, der\n- von den Punkten A und B den gleichen Abstand hat und\n- von dem Punkt D den Abstand d von 5 Längeneinheiten hat.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Konstruiere im obigen Bild einen Punkt P, der die gegebenen Bedingungen erfüllt. Gib die x-Koordinate des Punktes an.",
+      "unit": null,
+      "loesung_vorschlag": "3",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Gib die y-Koordinate des Punktes P an.",
+      "unit": null,
+      "loesung_vorschlag": "10",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Verändere den in der Aufgabenstellung gegebenen Abstand d (5 Längeneinheiten) so, dass es keinen solchen gesuchten Punkt P gibt. Gib einen passenden Wert für d an.",
+      "unit": "Längeneinheiten",
+      "loesung_vorschlag": "d < 4 oder d > 6 (z.B. 3 oder 7)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die Aufgabe verlangt zunächst das Konstruieren/Einzeichnen eines Punktes im Koordinatensystem (Teil 1), was eine Zeichenaufgabe ist. Die Koordinaten sollen dann angegeben werden. Die genaue Lage der Punkte A, B, D im Bild: A scheint bei (2,14), B bei (4,4), D bei (6,7) zu liegen - die exakten Werte sind schwer abzulesen. Die Lösung für P hängt davon ab: P muss auf der Mittelsenkrechten von AB liegen und Abstand 5 von D haben. Für Teil 3 ist jeder Wert d richtig, bei dem der Kreis um D die Mittelsenkrechte nicht schneidet.",
+  "_task_id": "c2517688-24f2-45e8-9c11-39301acc5c50",
+  "_title": "Punkt gesucht",
+  "_slug": "punktgesucht",
+  "_images": [
+    "../vera8_sichtung/punktgesucht/image1.jpeg",
+    "../vera8_sichtung/punktgesucht/image2.png",
+    "../vera8_sichtung/punktgesucht/image3.png",
+    "../vera8_sichtung/punktgesucht/image4.png",
+    "../vera8_sichtung/punktgesucht/image5.png"
+  ]
+}

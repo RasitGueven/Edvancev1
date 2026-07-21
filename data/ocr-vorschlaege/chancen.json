@@ -1,0 +1,48 @@
+{
+  "stamm": "Für ein Schulfest baut eine Klasse Glücksräder. Die Besucher gewinnen beim Drehen der Glücksräder, wenn der Zeiger auf ein graues Feld zeigt.\n\nFärbe das Glücksrad so, dass die Gewinnwahrscheinlichkeit 1/3 beträgt.\n\n[Glücksrad mit 12 gleichen Sektoren abgebildet]\n\nMichael und Julia haben bereits ihre Glücksräder gebastelt.\n\n[Michaels Glücksrad: 12 Sektoren, 4 grau gefärbt (verteilt)]\n[Julias Glücksrad: 12 Sektoren, 4 grau gefärbt (verteilt)]",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche der folgenden Aussagen ist richtig? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Bei Michaels Glücksrad ist die Gewinnwahrscheinlichkeit am größten"
+        },
+        {
+          "id": "b",
+          "label": "Bei Julias Glücksrad ist die Gewinnwahrscheinlichkeit am größten"
+        },
+        {
+          "id": "c",
+          "label": "Bei Michaels Glücksrad und bei Julias Glücksrad ist die Gewinnwahrscheinlichkeit gleich."
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Beide Glücksräder haben jeweils 12 gleich große Sektoren, und bei beiden sind genau 4 Sektoren grau gefärbt. Die Gewinnwahrscheinlichkeit ist daher bei beiden 4/12 = 1/3.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Die Aufgabe enthält auch eine Zeichenaufgabe (Färbe das Glücksrad), die nicht als separate part aufgenommen wurde, da sie vor der eigentlichen Frage liegt und als Kontext dient. Die Hauptfrage bezieht sich auf den Vergleich der bereits gezeichneten Glücksräder von Michael und Julia.",
+  "_task_id": "89627d8a-0279-41b5-b966-9a023fe7e8c2",
+  "_title": "Chancen",
+  "_slug": "chancen",
+  "_images": [
+    "../vera8_sichtung/chancen/image1.jpeg",
+    "../vera8_sichtung/chancen/image2.emf.png",
+    "../vera8_sichtung/chancen/image3.emf.png",
+    "../vera8_sichtung/chancen/image4.emf.png",
+    "../vera8_sichtung/chancen/image5.emf.png"
+  ]
+}

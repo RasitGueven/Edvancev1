@@ -1,10 +1,14 @@
 import { useEffect, useState, type JSX } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { EdvanceCard, EdvanceBadge, EmptyState, LoadingPulse } from '@/components/edvance'
+import {
+  AdminHeader,
+  EdvanceCard,
+  EdvanceBadge,
+  EmptyState,
+  LoadingPulse,
+} from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { getCoaches } from '@/lib/supabase/profiles'
 import { provisionCoach } from '@/lib/supabase/provisionCoach'
@@ -58,18 +62,14 @@ export function CoachesPage(): JSX.Element {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle="Coaches" sticky />
       <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
-        <div>
-          <Link
-            to="/admin"
-            className="mb-2 flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
-          >
-            <ArrowLeft className="h-4 w-4" /> Admin
-          </Link>
-          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Coaches</h1>
-        </div>
+        <AdminHeader
+          eyebrow="Team"
+          title="Coaches"
+          description="Coach-Accounts anlegen und Zugangsdaten vergeben."
+        />
 
         {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
         {created && (

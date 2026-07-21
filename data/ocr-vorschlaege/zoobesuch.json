@@ -1,0 +1,43 @@
+{
+  "stamm": "Susann fährt mit dem Fahrrad zügig zum Zoo. Am Eingang muss sie einige Zeit warten, um eine Eintrittskarte zu kaufen. Dann geht sie zu Fuß weiter durch den Zoo.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welches Diagramm passt am besten zu diesem Vorgang? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Diagramm oben links"
+        },
+        {
+          "id": "b",
+          "label": "Diagramm oben rechts"
+        },
+        {
+          "id": "c",
+          "label": "Diagramm unten links"
+        },
+        {
+          "id": "d",
+          "label": "Diagramm unten rechts"
+        }
+      ],
+      "loesung_vorschlag": "d",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die vier Diagramme zeigen Weg-Zeit-Graphen. Diagramm d (unten rechts) zeigt: zunächst steiler Anstieg (schnelles Radfahren), dann waagerechte Phase (Warten, kein Weg), dann flacheren Anstieg (langsames Gehen). Dies passt am besten zur Beschreibung.",
+  "_task_id": "95b85cbb-f494-4402-9ce9-afb9da6a4334",
+  "_title": "Zoobesuch",
+  "_slug": "zoobesuch",
+  "_images": [
+    "../vera8_sichtung/zoobesuch/image1.png",
+    "../vera8_sichtung/zoobesuch/image2.png",
+    "../vera8_sichtung/zoobesuch/image3.png"
+  ]
+}

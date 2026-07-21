@@ -1,0 +1,53 @@
+{
+  "stamm": "Zahlenmauern sind aus Steinen gebaut. Dabei steht in jedem Stein die Summe der beiden darunter liegenden Steine.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Ergänze die fehlende Zahl links unten in der Zahlenmauer (unter der 5).",
+      "unit": null,
+      "loesung_vorschlag": "35",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Ergänze die fehlende Zahl rechts oben in der Zahlenmauer (über der 12).",
+      "unit": null,
+      "loesung_vorschlag": "43",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Gib an, welche Zahl man für x einsetzen muss in der Zahlenmauer mit der Spitze 15 und den unteren Steinen 3, -4, x.",
+      "unit": null,
+      "loesung_vorschlag": "16",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "numeric",
+      "prompt": "Gib an, welche Zahl man für x einsetzen muss in der Zahlenmauer mit der Spitze 12000 und den drei unteren Steinen x, x, x.",
+      "unit": null,
+      "loesung_vorschlag": "4000",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "8c134a21-b5e1-4e79-b6a8-41f62db3aeea",
+  "_title": "Zahlenmauer",
+  "_slug": "zahlenmauer",
+  "_images": [
+    "../vera8_sichtung/zahlenmauer/image1.jpeg",
+    "../vera8_sichtung/zahlenmauer/image2.png",
+    "../vera8_sichtung/zahlenmauer/image3.png",
+    "../vera8_sichtung/zahlenmauer/image4.png",
+    "../vera8_sichtung/zahlenmauer/image5.png",
+    "../vera8_sichtung/zahlenmauer/image6.png"
+  ]
+}

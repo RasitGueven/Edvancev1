@@ -63,6 +63,19 @@ export async function getGrounding(
   }
 }
 
+/**
+ * Stammt das Item aus einer Fremdquelle (VERA) statt aus dem Eigenbau?
+ *
+ * Bewusst OHNE `source_ref` — im Gegensatz zu hasGroundingSource, das die Frage
+ * "gibt es einen Beleg zum Nachschlagen?" beantwortet und deshalb die Referenz
+ * braucht. Fuer die Herkunft reicht die Quelle: ein VERA-Item ohne source_ref
+ * ist trotzdem keins vom Fundament und darf im Quellen-Filter nicht als
+ * Eigenbau durchrutschen.
+ */
+export function isGroundedSource(source: string): boolean {
+  return GROUNDED_SOURCES.has(source)
+}
+
 export function hasGroundingSource(source: string, sourceRef: string | null): boolean {
-  return Boolean(sourceRef) && GROUNDED_SOURCES.has(source)
+  return Boolean(sourceRef) && isGroundedSource(source)
 }

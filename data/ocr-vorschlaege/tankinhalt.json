@@ -1,0 +1,25 @@
+{
+  "stamm": "Der Bordcomputer eines Autos zeigt während der Fahrt den aktuellen Durchschnittsverbrauch in Liter pro 100km an (l/100km).",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Berechne mithilfe der Daten, wie viele Liter Kraftstoff in diesem Moment noch im Tank sind. Gib das Ergebnis in Liter an.",
+      "unit": "Liter",
+      "loesung_vorschlag": "24",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Aufgabe verweist auf Informationen im Bordcomputer-Bild. Aus dem Bild sind folgende Werte lesbar: Reichweite ca. 250km (obere Zeile mit Tanksymbol), Durchschnittsverbrauch 9,6 l/100km (mittlere Zeile mit X-Symbol), Tankinhalt etwa 24 km bzw. 24 Liter (untere Zeile - die Einheit ist nicht vollständig lesbar, könnte 'km' oder Liter-Symbol sein). Der vollständige Text der Aufgabe ist teilweise abgeschnitten. Die Berechnung würde lauten: 250km Reichweite / 100 × 9,6 l/100km ≈ 24 Liter, was mit der unteren Anzeige übereinstimmt.",
+  "_task_id": "0c0403f1-b0ac-49ba-9667-0eedc16e2c13",
+  "_title": "Tankinhalt",
+  "_slug": "tankinhalt",
+  "_images": [
+    "../vera8_sichtung/tankinhalt/image1.png",
+    "../vera8_sichtung/tankinhalt/image2.png"
+  ]
+}

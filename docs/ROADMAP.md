@@ -28,6 +28,25 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **S9 Platz-Mechanik gebaut** (Retro `2026-07-16-S9-platz-mechanik.md`, Branch
+  `feat/S9-platz-mechanik`): Option 3 der PLATZ-Analyse umgesetzt — Kiosk-Konto
+  (`platz_devices`, role=student OHNE students-Zeile), session-scoped Zuweisung
+  (`platz_assignments`, 2 h-Ablauf, in jeder RPC geprüft), Tore
+  `platz_state/next/submit/finish` (kein session_id-Parameter von außen,
+  Durchreichen an die unveränderten `lsa_*` per Auftrags-Identität `created_by`),
+  Release-Trigger bei completed/aborted, §3.6(ii): `lsa_question_payload`-Grant
+  für `authenticated` zurückgezogen (inv2/3/5/6/7/8 prüfen den Inhalts-Vertrag
+  seither im Definer-Kontext). Beweis: `s9_platz_mechanik.test.sql`
+  (69 Assertions). **Offen:** pgTAP-Lauf (`npx supabase test db` — Docker war in
+  der Session nicht verfügbar), Migration im SQL-Editor ausführen, Admin-UI
+  (Zuweisen am Empfang) + Kiosk-Frontend sind eigene Läufe.
+- **S7 Lead→LSA-Backend gebaut** (Retro `2026-07-16-S7-lead-lsa.md`, Branch
+  `feat/S7-lead-lsa`): A1 Option 1 umgesetzt — provisorischer Schüler pro Lead
+  (`students.is_provisional` + `lead_id`-Kaskade), RPCs `lead_lsa_freigeben`
+  (DSGVO-Gate) / `lead_convert` / `lead_assessment_upsert`, Intake-Felder am Lead,
+  Guards (kein Abo, kein direkter Insert), Statistik-Schutz in `src/lib`.
+  **Offen:** pgTAP-Lauf (`npx supabase test db` — Docker war in der Session nicht
+  verfügbar). Platz-Mechanik: freigegeben und als S9 gebaut (s. o.).
 - Aufgaben-DB-Befüllung (Diagnostik-Content `is_diagnostic=true` fehlt → Screening leer)
   - **C02 Grounded Rebuild abgeschlossen** (Retro `RETRO-C02.md`): VERA-Pool neu
     aufgebaut, jedes Feld mit `_grounding` belegt. **144 `ready`**, 74 `partial`,
@@ -244,6 +263,28 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Beweis: `supabase/tests/inv7_draft_nicht_fuer_schueler.test.sql`.
   **Blockiert auf Rasit:** Migration im SQL-Editor ausführen, danach
   `npx supabase test db` (inv6 + inv7).
+
+- **A02 — Schüler-Vorschau im Autoren-Tool** (Branch `feat/A02-schueler-vorschau`,
+  Retro `docs/retros/2026-07-14-A02-schueler-vorschau.md`): Migration
+  `20260714150000_a02_vorschau.sql` (**noch nicht ausgeführt** — Schema-Session mit
+  Rasit). Der Pfleger sieht neben dem Editor, wie die Aufgabe auf dem Tablet
+  aussieht: Stamm, Bild + Alt-Text, Tabelle (F01), Multi-Part (P02), MC, Einheit.
+  Nicht interaktiv. Der Punkt ist **eine Wahrheit**: die neue RPC
+  `task_preview_payload` ruft intern `lsa_question_payload` auf — dieselbe Funktion,
+  nicht dieselbe Logik. Die alte Vorschau baute den Payload im Frontend nach und war
+  seit F01 still falsch (die Tabelle kam serverseitig an und wurde nie gerendert).
+  Der ungespeicherte Entwurf wird serverseitig in einer zurückgerollten
+  Subtransaktion gebaut (statt im Client) und sichtbar als „Ungespeichert" markiert.
+  Härtung wie A01/B01: coach/admin im Body, revoke/grant. Beweis:
+  `supabase/tests/inv8_vorschau_ohne_loesung.test.sql` (16 Assertions — Schüler
+  `permission denied` auf beiden Pfaden, Identität mit `lsa_question_payload`,
+  rekursiv keine Lösung bis in `parts`/`table`, Zeile nach Entwurfs-Aufruf
+  unverändert).
+  **Blockiert auf Rasit:** Migration im SQL-Editor ausführen, danach
+  `npx supabase test db`. Bis dahin Degraded-Modus (Hinweis statt Vorschau).
+  **Offen:** `TaskPlayer` liest weiterhin die `tasks`-Zeile direkt statt
+  `lsa_question_payload` — `parts`/`table` rendert er bis heute nicht. Die zwei
+  Wahrheiten sind damit nicht weg, sie sind verschoben.
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →

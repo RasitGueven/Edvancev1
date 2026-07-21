@@ -1,0 +1,34 @@
+{
+  "stamm": "Eine Figur zeigt ein Rechteck mit den Maßen 5 cm (Breite) und 3 cm (Höhe). Es wird angegeben, dass die Figur nicht maßstabsgerecht ist.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib den Flächeninhalt des abgebildeten Rechtecks an.",
+      "unit": "cm²",
+      "loesung_vorschlag": "15",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Gib den Umfang des abgebildeten Rechtecks an.",
+      "unit": "cm",
+      "loesung_vorschlag": "16",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "unsicher": null,
+  "_task_id": "6216a4af-c126-4e4b-bf1f-9d073348fd3e",
+  "_title": "Berechnungen am Rechteck",
+  "_slug": "berechnungenamrechteck",
+  "_images": [
+    "../vera8_sichtung/berechnungenamrechteck/image1.emf.png",
+    "../vera8_sichtung/berechnungenamrechteck/image2.emf.png",
+    "../vera8_sichtung/berechnungenamrechteck/image3.emf.png",
+    "../vera8_sichtung/berechnungenamrechteck/image4.emf.png"
+  ]
+}

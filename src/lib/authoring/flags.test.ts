@@ -18,6 +18,8 @@ const baseTask: AuthoringTask = {
   curriculum_grade: 7,
   parts: [],
   assets: [],
+  needs_image: null,
+  licence_text: null,
   question_payload: null,
   source: 'VERA8_IQB',
   source_ref: 'abc',
@@ -94,6 +96,25 @@ describe('computeFlags — flaches Item', () => {
     const alt = flags.find((f) => f.code === 'assetAltMissing')
     expect(alt?.blocking).toBe(true)
     expect(alt?.vars).toEqual({ index: 2 })
+  })
+
+  it('blockiert ein Bild ohne Lizenz-/Quellenangabe (A09)', () => {
+    const t = task({ assets: [{ url: 'a.png', alt: 'Ein Diagramm' }], licence_text: null })
+    const licence = computeFlags(t, sol(), true).find((f) => f.code === 'licenceMissing')
+    expect(licence?.blocking).toBe(true)
+  })
+
+  it('schweigt zum Lizenztext, wenn ein Bild ihn traegt', () => {
+    const t = task({
+      assets: [{ url: 'a.png', alt: 'Ein Diagramm' }],
+      licence_text: 'Quelle: IQB, VERA-8. Lizenz: CC BY 4.0.',
+    })
+    expect(computeFlags(t, sol(), true).some((f) => f.code === 'licenceMissing')).toBe(false)
+  })
+
+  it('verlangt keinen Lizenztext ohne Bild', () => {
+    const t = task({ assets: [], licence_text: null })
+    expect(computeFlags(t, sol(), true).some((f) => f.code === 'licenceMissing')).toBe(false)
   })
 
   it('meldet Extraktions-Artefakte im Stamm, ohne zu blockieren', () => {

@@ -1,0 +1,74 @@
+{
+  "stamm": "In der folgenden Abbildung ist die Entwicklung der monatlichen Rundfunkgebühren, die ein Haushalt bezahlen muss, seit dem Jahr 1953 dargestellt. Die Abbildung 1 zeigt, wann es Gebührenerhöhungen gab und wie hoch danach die Gebühren waren.\n\nHerr Kunze hat sich genauer mit den Daten befasst und viel gerechnet. Seine Ergebnisse hat er in einer Tabelle aufgeschrieben. Allerdings hat er in der Kopfzeile nicht alle fünf Spalten inhaltlich beschriftet. Zudem stehen in einigen Feldern Fragezeichen statt Daten.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "In der Spalte 1 (Jahr) fehlt ein Wert. Gib das Jahr an, das in Spalte 1 fehlt.",
+      "unit": null,
+      "loesung_vorschlag": "1992",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "In der Spalte 2 (Differenz) fehlt ein Wert. Gib die Differenz an, die in Spalte 2 fehlt.",
+      "unit": null,
+      "loesung_vorschlag": "5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "In der Spalte 3 fehlt ein Wert. Gib den Wert an, der in Spalte 3 fehlt.",
+      "unit": "€",
+      "loesung_vorschlag": "6,90€",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "short_input",
+      "prompt": "Die Daten in den Spalten 4 und 5 lassen sich nicht direkt aus der Abbildung ablesen. Sie müssen erst errechnet werden. Gib den Wert an, der in Spalte 4 fehlt.",
+      "unit": "€",
+      "loesung_vorschlag": "2,00€",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "short_input",
+      "prompt": "Die Daten in den Spalten 4 und 5 lassen sich nicht direkt aus der Abbildung ablesen. Sie müssen erst errechnet werden. Gib den Wert an, der in Spalte 5 fehlt.",
+      "unit": "€",
+      "loesung_vorschlag": "0,23€",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 6,
+      "kind": "free_text",
+      "prompt": "Nenne zwei Unterschiede, die Abbildung 2 gegenüber Abbildung 1 hat.",
+      "loesung_vorschlag": "Unterschied 1: In Abbildung 2 sind die Datenpunkte als Punkte dargestellt und nicht als Balken wie in Abbildung 1. Unterschied 2: In Abbildung 2 sind die Zwischenjahre ohne Gebührenänderung nicht dargestellt, die Darstellung ist kontinuierlich.",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 7,
+      "kind": "free_text",
+      "prompt": "Nenne einen Vorteil, den Abbildung 2 im Vergleich zu Abbildung 1 hat. (Du darfst auch einen der beiden Unterschiede nutzen.)",
+      "loesung_vorschlag": "In Abbildung 2 kann man den Trend der Gebührenentwicklung besser erkennen, da die Punkte durch eine implizierte Linie verbunden erscheinen und die kontinuierliche Entwicklung sichtbar wird.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Bei den berechneten Werten in Spalte 4 und 5 (Fragezeichen bei 2001 und 2009) musste ich aus dem Kontext erschließen, dass Spalte 4 die absolute Erhöhung und Spalte 5 die Erhöhung pro Jahr im jeweiligen Zeitraum darstellt. Die genauen Berechnungsformeln sind nicht explizit angegeben.",
+  "_task_id": "d5757c69-8873-48d2-88b4-74bdec3898d8",
+  "_title": "Rundfunkgebühren",
+  "_slug": "rundfunkgebuehren",
+  "_images": [
+    "../vera8_sichtung/rundfunkgebuehren/image1.emf.png",
+    "../vera8_sichtung/rundfunkgebuehren/image2.emf.png",
+    "../vera8_sichtung/rundfunkgebuehren/image3.emf.png",
+    "../vera8_sichtung/rundfunkgebuehren/image4.emf.png",
+    "../vera8_sichtung/rundfunkgebuehren/image5.emf.png"
+  ]
+}

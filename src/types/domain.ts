@@ -10,8 +10,17 @@ export type LeadStatus =
   | 'onboarding_scheduled'
   | 'converted'
   | 'rejected'
+  | 'lsa_freigegeben'
+  | 'lsa_fertig'
 
 export type LeadGoal = 'IMPROVE_GRADES' | 'CLOSE_GAPS' | 'EXAM_PREP' | 'GENERAL'
+
+export type LeadGradeTrend = 'besser' | 'stabil' | 'schlechter'
+
+export type LeadStrugglingSince =
+  | 'dieses_halbjahr'
+  | 'letztes_schuljahr'
+  | 'laenger'
 
 export type Lead = {
   id: string
@@ -32,6 +41,17 @@ export type Lead = {
   converted_student_id: string | null
   contacted_at: string | null
   onboarding_scheduled_at: string | null
+  // Intake-Felder (S7, Erstgespräch) — bewusst KEINE Diagnose-Felder.
+  first_name: string | null
+  birth_date: string | null
+  last_grade: string | null
+  grade_trend: LeadGradeTrend | null
+  struggling_since: LeadStrugglingSince | null
+  tried_before: string[] | null
+  next_exam_date: string | null
+  next_exam_topic: string | null
+  consent_dsgvo_at: string | null
+  consent_dsgvo_by: string | null
 }
 
 export type LeadInput = {
@@ -45,14 +65,28 @@ export type LeadInput = {
   goal?: LeadGoal | null
   known_weak_topics?: string[]
   source?: string | null
+  first_name?: string | null
+  birth_date?: string | null
+  last_grade?: string | null
+  grade_trend?: LeadGradeTrend | null
+  struggling_since?: LeadStrugglingSince | null
+  tried_before?: string[] | null
+  next_exam_date?: string | null
+  next_exam_topic?: string | null
+  consent_dsgvo_at?: string | null
+  consent_dsgvo_by?: string | null
 }
 
 export type Student = {
   id: string
-  profile_id: string
+  // NULL bei provisorischen Schülern (A1 Option 1: kein Auth-Konto vor Vertrag).
+  profile_id: string | null
   class_level: number | null
   school_name: string | null
   school_type: SchoolKind | null
+  // Provisorischer Lead-Schüler — zählt NIRGENDS als Schüler (S7).
+  is_provisional: boolean
+  lead_id: string | null
 }
 
 export type StudentInput = {

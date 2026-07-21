@@ -1,0 +1,26 @@
+{
+  "stamm": "Die Firma Fruktia stellt die Umsätze ihres neuen Zitronengetränks in einem Diagramm dar.\n\nZitronengetränk-Umsatz\nAnzahl verkaufter Flaschen (in Mio.)\n\nDas Balkendiagramm zeigt:\n- 2007: 55 Mio. Flaschen\n- 2008: 60 Mio. Flaschen\n- 2009: 65 Mio. Flaschen\n- 2010: 70 Mio. Flaschen",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "In welchem Jahr sind 65 Millionen Flaschen verkauft worden? Vervollständige den Satz.\n\nIm Jahr __________ sind 65 Millionen Flaschen verkauft worden.",
+      "unit": null,
+      "loesung_vorschlag": "2009",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "SHORT_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "3e85e534-da2b-49dd-a34e-465adb763f55",
+  "_title": "Darstellung in Diagrammen",
+  "_slug": "darstellungindiagrammen",
+  "_images": [
+    "../vera8_sichtung/darstellungindiagrammen/image1.jpeg",
+    "../vera8_sichtung/darstellungindiagrammen/image2.emf.png",
+    "../vera8_sichtung/darstellungindiagrammen/image3.emf.png"
+  ]
+}

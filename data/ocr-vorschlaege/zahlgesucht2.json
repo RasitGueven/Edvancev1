@@ -1,0 +1,25 @@
+{
+  "stamm": "Gegeben ist ein Zahlenstrahl.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Auf welche Zahl zeigt der Pfeil ungefähr? Schreibe die Zahl in das Kästchen.",
+      "unit": null,
+      "loesung_vorschlag": "500000",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Der Pfeil zeigt auf eine Position zwischen 0 und 1000000 auf dem Zahlenstrahl. Die genaue Position ist visuell zu schätzen, daher kann die Lösung variieren (vermutlich im Bereich 400000-600000). Mehrere Lösungen könnten als korrekt gelten, je nach Toleranz.",
+  "_task_id": "95c96e7e-592d-471f-bb90-c0bc7adcaa23",
+  "_title": "Zahl gesucht 2",
+  "_slug": "zahlgesucht2",
+  "_images": [
+    "../vera8_sichtung/zahlgesucht2/image1.png",
+    "../vera8_sichtung/zahlgesucht2/image2.png"
+  ]
+}

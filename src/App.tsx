@@ -9,19 +9,17 @@ import { ScreeningReportPage as ParentScreeningReportPage } from '@/pages/parent
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
 import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
-import { OnboardingPage } from '@/pages/admin/OnboardingPage'
-import { LambacherPreview } from '@/pages/admin/LambacherPreview'
+import { PflegeWizardPage } from '@/pages/admin/PflegeWizardPage'
+import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
+import { SlotsManagePage } from '@/pages/admin/SlotsManagePage'
+import { SlotPickerPage } from '@/pages/admin/SlotPickerPage'
 import { CoachesPage } from '@/pages/admin/CoachesPage'
 import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
-import { XpRulesPage } from '@/pages/admin/XpRulesPage'
-import { TiersPage } from '@/pages/admin/TiersPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
-import { ScreeningItemsPage } from '@/pages/admin/ScreeningItemsPage'
-import { ScreeningItemEditorPage } from '@/pages/admin/ScreeningItemEditorPage'
-import { ScreeningCoveragePage } from '@/pages/admin/ScreeningCoveragePage'
 import { QsPage } from '@/pages/admin/QsPage'
+import { ReportPage } from '@/pages/admin/ReportPage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
@@ -123,22 +121,6 @@ export default function App(): JSX.Element {
           }
         />
         <Route
-          path="/admin/onboarding"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <OnboardingPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/lambacher-preview"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <LambacherPreview />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/admin/leads"
           element={
             <ProtectedRoute allowedRoles={['admin', 'coach']}>
@@ -151,6 +133,26 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <SchedulePage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Slot-System (S10): Verwaltung des Wochen-Zeitrasters (Admin) und die
+            iPad-Ansicht fuers Elterngespraech. Die Auswahl darf der Coach
+            bedienen — er fuehrt das Erstgespraech; Schreiben auf slots und die
+            Zuweisungs-RPCs bleibt laut RLS admin-only. */}
+        <Route
+          path="/admin/slots"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <SlotsManagePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/slot-auswahl"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+              <SlotPickerPage />
             </ProtectedRoute>
           }
         />
@@ -170,19 +172,13 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
+        {/* Eltern-Report zu einer LSA-Sitzung. Coach darf ihn öffnen — er
+            führt damit das Elterngespräch. */}
         <Route
-          path="/admin/xp-rules"
+          path="/admin/report/:sessionId"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <XpRulesPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/tiers"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <TiersPage />
+            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+              <ReportPage />
             </ProtectedRoute>
           }
         />
@@ -212,35 +208,23 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
+        {/* Pflege-Strecke (A07): der gefuehrte Fluss ueber der Editor-Maschinerie.
+            Coach prueft (review), freigeben bleibt admin-only — die Seite schaltet um. */}
         <Route
-          path="/admin/screening-items"
+          path="/admin/pflege"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <ScreeningItemsPage />
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <PflegeWizardPage />
             </ProtectedRoute>
           }
         />
+        {/* Content-Gesundheit: Mängel-Übersicht des Bestands. Coach sichtet,
+            entfernen (Admin-Write) darf laut RLS nur Admin — die Seite schaltet um. */}
         <Route
-          path="/admin/screening-items/:id/edit"
+          path="/admin/content-gesundheit"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <ScreeningItemEditorPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/screening-items/new"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <ScreeningItemEditorPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/screening-coverage"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <ScreeningCoveragePage />
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <ContentHealthPage />
             </ProtectedRoute>
           }
         />

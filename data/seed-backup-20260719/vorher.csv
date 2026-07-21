@@ -1,0 +1,369 @@
+id,title,question,parts,input_type,needs_image,est_duration_sec,status
+238c34fe-bcd0-4a2b-90cc-f83fb9e28bfb,Ecken an Pyramiden,"Die Abbildung zeigt eine Pyramide. Sie hat fünf Flächen:
+eine viereckige Grundfläche und vier dreieckige
+Seitenflächen.
+Gib an, wie viele Ecken diese Pyramide hat.",[],NUMERIC,t,,ready
+27fb8ca3-408c-4837-8ea3-21a605b22e52,Abstand auf dem Wasser,"Ein Schiff fährt mit gleichbleibender Geschwindigkeit aus einem Hafen an einem Leuchtturm vorbei. Der nachstehenden Abbildung kann man entnehmen, wie viele Minuten es vom Ablegen bis zu den markierten Positionen braucht. Die Abbildung zeigt die Route des Schiffes vom Hafen zum Leuchtturm mit Zeitmarkierungen bei 5 min, 10 min, 15 min, 20 min, 25 min, 30 min und 35 min. Der Maßstab zeigt 2 km.
+
+Welcher Graph stellt den Abstand des Schiffes zum Leuchtturm als Funktion der Zeit dar? Kreuze an.",[],MC,t,,draft
+ba2ed4e2-0ce8-480e-af96-16b61fddd2d7,Bestimme x,"Es gilt x − 5 = 15.
+
+Welchen Wert hat x?",[],NUMERIC,,,ready
+58af80b3-b073-40d5-bf38-6dd54d030291,Das ist gerundet,"Runde die Zahl 5,143 auf eine Stelle nach dem Komma.",[],NUMERIC,,,ready
+866b569a-030f-489b-b7f0-a922658c540e,Einfache Gleichung,"Gegeben ist die Gleichung 18−3x=12.
+Gib den Wert für x an.",[],NUMERIC,,,ready
+b43f6508-1ba8-44b2-9b0d-4d3906df7780,Gleichung lösen 1,Löse die Gleichung 4+x=−6.,[],NUMERIC,,,ready
+e40594ab-53ba-4eab-ab66-164599b8d9c7,Kugeln ziehen,"In einem Gefäß befinden sich gleich viele rote und blaue Kugeln, die sich nur durch ihre Farbe unterscheiden.
+
+Es sollen zusätzlich so viele gelbe Kugeln hinzugefügt werden, dass die Wahrscheinlichkeit eine rote Kugel zu ziehen 20 % beträgt.
+
+Wie viel mal so viele gelbe wie rote Kugeln müssen in dem Gefäß sein?",[],NUMERIC,,,ready
+9f5f5d98-e884-4382-ae0b-b6aebbf0e24c,Papier,"500 Blatt einer Papiersorte sind 55mm hoch.
+Gib an, wie hoch 200 Blatt dieser Papiersorte sind.",[],NUMERIC,,,ready
+1cc00f09-65ac-4091-afbe-a18def4563da,Pflaumen,"1kg Pflaumen kostet 1,90€.
+
+Gib an, wie viel 500g Pflaumen kosten.",[],NUMERIC,,,ready
+f777470d-ddf1-49a4-975d-9f6713699211,Temperaturdifferenz,"An einem Herbsttag misst Tim morgens im Garten eine Temperatur von -1°C.
+Am Nachmittag beträgt die Temperatur an der gleichen Stelle 18°C.
+Gib an, um wie viel Grad Celsius die Temperatur angestiegen ist.",[],NUMERIC,,,ready
+ee40b6c2-a125-49b9-b094-7bc1a53b334b,Croissant,"Marc tankt für 43,80€. Im Tankstellenladen kauft er noch ein Schoko-Croissant.
+Er bezahlt beides mit einem 50€-Schein und bekommt 4,95€ zurück.
+Gib an, wie teuer das Schoko-Croissant ist.",[],NUMERIC,,,ready
+1660a458-692a-4245-867e-e33ebc64fb26,Hälfte,"Wie viel ist die Hälfte von 1 Million?
+Schreibe dein Ergebnis in Ziffern.",[],NUMERIC,,,ready
+d350fb95-b256-4776-af65-91ffa284dd8c,Lohnerhöhung,"Eine Werbefirma erhöht den Lohn für das Verteilen von 500 Werbeprospekten
+von 5,00€ auf 5,50€.
+
+Gib an, um wie viel Prozent der Lohn erhöht wird.",[],NUMERIC,,,ready
+0c49350a-1163-4dbb-9775-836d73bc09d6,Zwanzig Prozent,Gib 20% von 150€ an.,[],NUMERIC,,,ready
+0e4d40b0-1e64-49e7-8abf-ced28a71e19c,Berechne x,"Gegeben ist die Gleichung 8x = 72. Berechne x.
+
+x =",[],NUMERIC,f,,draft
+c3b3e81d-ccc3-4957-bd47-14875d83ea69,Brettspiel,"Bei einem Brettspiel wird ein sechsseitiger Spielwürfel mit den Zahlen von 1 bis 6 verwendet. Der Spielstein darf immer um genau so viele Felder weitergeschoben werden, wie die Augenzahl beim einmaligen Werfen des Würfels anzeigt.
+
+Jan wird das Spiel gewinnen, wenn er beim nächsten Wurf eine Fünf wirft.
+
+Wie groß ist die Wahrscheinlichkeit für Jan, mit dem nächsten Wurf das Spiel zu gewinnen? Kreuze an.",[],MC,f,,draft
+dadb66dc-cddc-4ab6-a1c5-915eb31180e2,Butter,"Petra braucht ein kleines Stück Butter zum Kuchenbacken.
+
+Gib an, wie viel Butter sie ungefähr von diesem 250-g-Stück abgeteilt hat.",[],NUMERIC,t,,draft
+f85c4d7b-2ca5-4a7c-a02e-2553fc317981,Computerspielsucht,"Nach einer Untersuchung der Universität Koblenz-Landau zeigt jeder neunte Jugendliche ein krankhaftes Computerspielverhalten.
+
+Wie viel Prozent der Jugendlichen sind das?
+
+Kreuze den Prozentsatz an, der am besten passt.",[],MC,f,,draft
+46e6c014-b735-4cb2-8c26-40f40b6ac838,Der Riese,"In der Zeichnung ist ein Teil eines Kopfes zu sehen. Dieser Teil ist 3m hoch.
+
+Zu welcher Größe des gesamten Kopfes gehört dieser Teil des Kopfes?",[],NUMERIC,t,,draft
+9d9e8094-c696-43b3-bdfb-ccd274879203,Faschingsdeko,"Die Schülerinnen und Schüler der Klasse 8a wollen für ihre Faschingsfeier Kreppband zur Dekoration verwenden. Das Kreppband wird in Packungen mit jeweils 4 verschiedenen Farben angeboten: weiß (w), rot (r), blau (b) und grün (g). Es sollen immer 2 Kreppbänder verschiedener Farben zu Girlanden zusammengedreht werden.
+
+Schreibe alle möglichen Farbkombinationen auf.",[],SHORT_TEXT,f,,draft
+8f58d4cc-97cb-46d1-b036-b2246f0827a0,Würfelnetze,"Bei welcher Abbildung handelt es sich um das Netz (Abwicklung) eines Würfels? Kreuze an.
+
+Bei welcher Abbildung handelt es sich um das Netz (Abwicklung) eines Würfels?",[],MC,t,,draft
+1e11c6a6-266a-4ada-a8ee-fdffe969818b,Flächengleich oder nicht,,[],,,,draft
+8ede07e1-2eba-4e60-9143-84d59dab61a6,Fische zählen,"In einem großen Teich soll die Anzahl der Fische abgeschätzt werden. Dazu werden aus dem Teich 250 Fische gefangen, mit einem roten Punkt gekennzeichnet und wieder in den Teich freigelassen. Die Wahrscheinlichkeit, einen gekennzeichneten Fisch zu fangen, ist nun
+
+p(Fisch mit rotem Punkt fangen) = (Anzahl der Fische mit rotem Punkt 250) / (Anzahl aller Fische (markierte und nicht markierte)) × x
+
+x : Gesamtzahl der Fische im Teich
+
+An einem anderen Tag werden 400 Fische gefangen. Von diesen 400 Fischen sind 50 mit einem roten Punkt markiert.
+
+Gib an, wie viele Fische schätzungsweise in dem Teich leben.",[],NUMERIC,f,,draft
+6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,Fliesen,"Zum Fliesen eines Badezimmers werden 50 Platten mit einer Größe von jeweils 0,16m² benötigt. Der Besitzer entschließt sich dann aber doch, Fliesen der Größe 0,2m² verlegen zu lassen.
+
+Gib an, wie viele Fliesen jetzt mindestens nötig sind.",[],NUMERIC,f,,draft
+71011a0e-d0d2-4baf-94c0-7ef0c0cec365,Fünfundvierzig,"Bestimme die fehlende Zahl.
+
+6 · ☐ + 3 = 45",[],NUMERIC,f,,draft
+b4c474d7-69f9-46e9-bb36-a7086597713e,Frühstücksbrötchen,"Angelika kauft sechs normale Brötchen zu je 0,35 € und vier Körnerbrötchen zu je 0,45 €.",[],,,,draft
+e040a388-3a17-4683-8e52-de7b25f56693,Holzstab,"Ein 3 m langer Holzstab wird in zwei gleich lange Teile zersägt. Gib an, wie lang jedes Teil ist.",[],NUMERIC,,,draft
+9c78fbf9-89a7-42af-b8d3-03cf489cd62b,Gewerbezone,"Gib an, in wie viele Grundstücke sich die noch verfügbare Fläche höchstens aufteilen lässt.
+
+In höchstens _________ Grundstücke.",[],NUMERIC,t,,draft
+6d5eb2dc-2b16-4ddc-a39f-0dc85c9e2c6e,Gesamtkantenlänge,"Ein Quader hat die in der Abbildung angegebenen Maße: Länge 5 cm, Breite 2 cm, Höhe 4 cm.
+
+Wie lang sind alle Kanten des Quaders zusammen?",[],MC,t,,draft
+798f3b3c-5b4f-4e2d-8f9a-4349ee70aa92,Gleichung lösen 2,"Welche Lösung hat die Gleichung 16 − 6x = 14? Kreuze an.
+
+Welche Lösung hat die Gleichung 16 − 6x = 14?",[],MC,f,,draft
+8a9375a9-a878-4726-8183-2cd861a0533e,Holzwürfel,"Ein gelber Holzwürfel, ein blauer Holzwürfel und ein roter Holzwürfel sollen zu einem Dreierturm aufeinander gelegt werden.
+
+Gib an, wie viele verschiedene Möglichkeiten es gibt, aus diesen drei Holzwürfeln einen Dreierturm zu bauen.",[],NUMERIC,t,,draft
+fecdd2aa-afdc-4ad2-aebc-f37966742d4b,Jeans mit Ermäßigung,"In einem Kaufhaus wird eine Jeans mit 20% Ermäßigung angeboten. Der neue Preis beträgt nun 48,00€. Wie teuer war die Jeans vorher?
+
+Kreuze an.",[],MC,f,,draft
+bb074bf6-7f73-41c8-90e6-4940658fb66b,Maßstabsleiste,"Auf einer Karte im Atlas befindet sich diese Maßstabsleiste.
+
+1 cm entspricht einer Leiste von 0 bis 2000 m (mit Markierungen bei 0, 500, 1000, 1500, 2000).
+
+Welcher Maßstab passt dazu? Kreuze an.",[],MC,t,,draft
+337ff49c-33a2-435e-b44f-779d5cfac005,Kraftfutter,"Im Zoo bekommen die Nashörner Kraftfutter. Der Kraftfuttervorrat reicht für fünf Nashörner sechs Wochen.
+
+Gib an, wie lange die gleiche Menge Kraftfutter für 10 Nashörner reicht.
+
+Das Kraftfutter reicht _______ Tage.",[],NUMERIC,f,,draft
+d57cdb1d-727b-4f6e-b935-92ed09db2d4f,Kreisfiguren,"In der Abbildung siehst du Figuren, die durch Kreislinien und Strecken begrenzt sind. Zwei der vier Figuren haben denselben Flächeninhalt.
+
+Welche sind das? Figur ... und Figur ... haben denselben Flächeninhalt.",[],SHORT_TEXT,t,,draft
+9d06385a-595a-49b0-b4fe-2a5db9770549,Leistung des Motors,"Die Leistung von Fahrzeugmotoren wurde früher in PS angegeben. Mittlerweile wird sie in kW angegeben. 1kW sind etwa 1,36PS.
+
+Auto A hat eine Motorleistung von 89kW.
+Auto B hat eine Motorleistung von 109PS.
+
+Welches Auto hat eine größere Motorleistung?",[],MC,f,,draft
+70b9366b-129d-4198-a6e8-c01a8cc1cba2,Schneekristalle,"Hier ist ein Schneekristall abgebildet.
+Wie viele Symmetrieachsen hat dieser Schneekristall (von kleinen Abweichungen abgesehen)?
+Kreuze an.
+
+Wie viele Symmetrieachsen hat dieser Schneekristall (von kleinen Abweichungen abgesehen)?",[],MC,t,,draft
+0c0403f1-b0ac-49ba-9667-0eedc16e2c13,Tankinhalt,"Der Bordcomputer eines Autos zeigt während der Fahrt den aktuellen Durchschnittsverbrauch in Liter pro 100km an (l/100km).
+
+Berechne mithilfe der Daten, wie viele Liter Kraftstoff in diesem Moment noch im Tank sind. Gib das Ergebnis in Liter an.",[],NUMERIC,t,,draft
+cf5302ed-39df-4963-a029-b4c39a5ae4d6,Flächeninhalt,"Gib den Flächeninhalt dieser Figur an. Die Figur ist ein Quadrat mit Seitenlänge 5 cm (nicht maßstabsgerecht).
+
+Der Flächeninhalt beträgt",[],NUMERIC,t,,draft
+629a0e78-380f-451b-b159-3e4d6d4a8c8e,Maßstabsrechner,"Ein Maßstab gibt das Größenverhältnis von Bild zu Original an. Solche Maßstäbe findet man z.B. auf Landkarten und in Modellzeichnungen.
+
+Eine Landkarte ist im Maßstab 1 : 300000 gezeichnet. Zwei Orte sind auf der Karte etwa 15cm voneinander entfernt.
+
+Kreuze an, wie weit diese Orte in der Wirklichkeit voneinander entfernt sind",[],MC,f,,draft
+7979e5d2-7343-4868-9ad4-1a0b15a5f175,Literberechnungen,"Gib an, wie viel ¾ von 10 Liter sind.",[],SHORT_TEXT,,,draft
+42a730f0-bc18-4c37-8880-f13f430bf4a7,Messzylinder,"Gib an, wie viel Flüssigkeit sich in diesem Messzylinder befindet.",[],NUMERIC,t,,draft
+9bca3f30-c0f4-4944-958d-aaf1b6f36f19,Geschichte zur Graphik,"Eine der folgenden Beschreibungen wurde hier graphisch dargestellt. Kreuze die Beschreibung an, die zu der Graphik passt.
+
+Die Graphik zeigt: Strecke in km (y-Achse) über Zeit in Stunden (x-Achse). Der Graph startet bei 0, steigt zunächst leicht an, verläuft dann eine Zeit lang horizontal (eben), und steigt zum Schluss steil an.
+
+Welche Beschreibung passt zu der Graphik?",[],MC,t,,draft
+f1464a99-50ce-4830-a306-7c07f3207f2b,Nashorn,"Dieses Foto wurde kurz nach der Geburt eines Nashornbabys im Budapester Zoo aufgenommen. Das Nashornbaby hatte zu diesem Zeitpunkt eine Schulterhöhe von 60cm (im Bild als Doppelpfeil eingezeichnet).
+
+Welche Länge hatte das Nashornbaby zu diesem Zeitpunkt (von der Nase bis zum Hinterteil)?",[],NUMERIC,t,,draft
+59bc8db7-3792-4f16-8240-bf5948eee275,Heizkosten,"Mit einer neuen Heizungsanlage kann man bis zu 40% des Energieverbrauchs einsparen. Dieser verringerte Verbrauch kann durch sparsames Heizen um weitere 30% reduziert werden.
+
+Um wie viel Prozent kann der Verbrauch nach dem Einbau der neuen Anlage und dem anschließenden sparsamen Umgang mit Energie insgesamt höchstens gesenkt werden?",[],MC,f,,draft
+76703008-142e-4c66-90ab-87f4c9745a41,Mülltonne,"Ermittle, welches Volumen diese Mülltonne etwa hat.
+
+Diese Mülltonne hat etwa ein Volumen von ... . Notiere deinen Lösungsweg.",[],NUMERIC,t,,draft
+23c512b3-60c9-4dde-844d-78841efc0f58,Eingefärbter Körper,"Der dargestellte Körper besteht aus drei gleich großen Würfeln. Dieser Körper wird vollständig in Farbe getaucht. Nach dem Färben wird der Körper wieder in die einzelnen Würfel zerlegt.
+
+Gib an, wie viele Seitenflächen insgesamt ungefärbt sind.",[],NUMERIC,t,,draft
+7feea1d6-7feb-4ec8-9d24-142e6722ccef,Luftballons,"In einem undurchsichtigen Beutel befinden sich 100 Luftballons. 60 davon sind rot, 40 sind blau.
+
+Paul nimmt ohne hinzusehen einen Luftballon aus dem Beutel.
+
+Wie groß ist die Wahrscheinlichkeit, dass er einen roten Luftballon erhält?
+
+Kreuze an.",[],MC,f,,draft
+1967ab57-df09-43e6-b159-e2c93fb23e57,Quadratfläche,"Bestimme den Flächeninhalt des gegebenen Quadrats.
+
+Bestimme den Flächeninhalt des gegebenen Quadrats. Gib dein Ergebnis an.",[],NUMERIC,t,,draft
+df190223-3972-4b6c-a5ae-275d9fe1cae3,Quadrat im Gitter,"Auf das Gitterpapier ist ein Quadrat gezeichnet. 1 Kästchen entspricht dabei 1cm².
+
+Gib den Flächeninhalt des Quadrats an. Du darfst auch Hilfslinien einzeichnen.",[],NUMERIC,t,,draft
+ae8c5f2d-57fe-49e2-9877-2a9f765b1932,Rabattaktion,"Eine Firma plant eine Rabattaktion. Dabei sollen die Verkaufspreise (in denen 19% Mehrwertsteuer enthalten ist) so gesenkt werden, dass die Kunden die Mehrwertsteuer von 19% praktisch nicht bezahlen müssen.
+
+Welches Schild passt am besten zu dieser Rabattaktion? Kreuze an.",[],MC,t,,draft
+16565a9a-7bdf-4d73-b1ba-aeed6a9460f3,Plättchen ziehen,"In einem Gefäß sind – gut gemischt – 20 gleich große Plättchen. Zehn davon sind mit A, die anderen zehn sind mit B beschriftet. Ellen zieht ohne hinzusehen ein Plättchen heraus. Gib die Wahrscheinlichkeit dafür an, dass Ellen ein Plättchen mit einem A zieht.
+
+Die Wahrscheinlichkeit beträgt",[],NUMERIC,f,,draft
+c3915b55-4de2-4e8d-a4e0-9e1c19bf0218,Rechenvorteil,"4 · 3,15 · 25 =
+
+Wie kann Susanne einen Rechenvorteil nutzen, um diese Aufgabe ohne Nebenrechnung oder Taschenrechner zu lösen?
+
+Rechne vor.
+
+Rechne vor.",[],FREE_TEXT,f,,draft
+78c48a6c-de97-45f4-8fc2-831cbaea9f5e,Richtig umgeformt,,[],,,,draft
+f776531c-0283-43f9-8471-0c5183bc33b6,Rechtskurve,"Ein Motorradfahrer durchfährt eine enge Rechtskurve. Er bremst vor der Kurve etwas ab, fährt mit konstanter Geschwindigkeit durch die Kurve und wird dann wieder schneller.
+
+Welches der folgenden vier Geschwindigkeit-Zeit-Diagramme passt am besten zu dieser Bewegung? Kreuze an.",[],MC,t,,draft
+5fafe02e-c47d-4c42-819a-ff72d73d5762,Geschwindigkeitsüberschreitung,"Für Geschwindigkeitsüberschreitungen (d. h. für zu schnelles Fahren) innerhalb von Ortschaften gelten neue Bußgelder.
+
+Tabelle:
+Geschwindigkeitsüberschreitung | bisher | jetzt
+um 21 bis 25km/h | 50€ | 80€
+um 26 bis 30km/h | 60€ | 100€
+um 31 bis 40km/h | 100€ | 160€
+um 41 bis 50km/h | 125€ | 200€
+um 51 bis 60km/h | 175€ | 280€
+um 61 bis 70km/h | 300€ | 480€
+über 70km/h | 425€ | 760€
+
+Jemand fährt in der Innenstadt mit einer Geschwindigkeit von 58km/h, obwohl dort nur 30km/h erlaubt sind. Mit welchem Bußgeld ist jetzt zu rechnen? Kreuze an.",[],MC,f,,draft
+fdd77d77-511f-4a9a-98b5-f32602a3cc52,Körper füllen,"Ein Quader, dessen Kanten hier dick gezeichnet sind, ist mit einigen kleinen 1-cm³-Würfeln gefüllt.
+
+Wie groß ist das Volumen des Quaders insgesamt? Kreuze an.",[],MC,t,,draft
+b3cee0ee-c082-4645-8a0c-a2e84ace4fb4,Quadernetz 2,"Welche der folgenden Abbildungen zeigt das Netz eines Quaders? Kreuze an.
+
+Welche der folgenden Abbildungen zeigt das Netz eines Quaders?",[],MC,t,,draft
+b3770a1c-f5e8-4734-b424-bd21c1ad8bc2,Skala und Zahlen,"Zwei Zahlen sind auf dem obigen Ausschnitt der Zahlengeraden mit einem Pfeil markiert.
+
+Trage die zwei Zahlen in die Kästchen ein.",[],SHORT_TEXT,t,,draft
+7429c79b-0595-4825-837c-c0bde27c470f,Tabelle,"Die Tabelle zeigt einen Zusammenhang zwischen a und b.
+
+| a | 2 | 3 | 4 |
+| b | 3 | 5 | 7 |
+
+Welche der folgenden Gleichungen passt zu diesem Zusammenhang? Kreuze an.
+
+Welche der folgenden Gleichungen passt zu diesem Zusammenhang?",[],MC,f,,draft
+df62fd31-08fe-40e3-8775-3d2174c6e812,Tabelle ausfüllen,"Die Tabelle zeigt eine proportionale Zuordnung.
+Ergänze den fehlenden Wert.
+
+| Masse in kg | 3 | 4 | 6 | 8 |
+| Preis in € | 15 | 20 | 30 | ? |
+
+Ergänze den fehlenden Preis in € für 8 kg.",[],NUMERIC,f,,draft
+0ed1d9ac-9b33-4815-9dfc-4a145bba1069,Schlüssel,"Andrea hat an ihrem Schlüsselbund vier Schlüssel, die sehr ähnlich aussehen. Nur einer dieser Schlüssel passt in das Schloss ihrer Haustür.
+
+Wie groß ist die Wahrscheinlichkeit, dass die Haustür mit dem ersten Schlüssel aufgeht, den sie zufällig probiert? Kreuze an.",[],MC,f,,draft
+b739eddd-1b08-43ae-98bd-edf3ce77cfe5,Überschlag doch mal,"Max meint, dass er ziemlich viel Zeit in der Schule verbringt. Er fragt sich, wie viele Unterrichtsstunden es in acht Schuljahren wohl schon waren.
+
+Welche Zahl passt am besten? Kreuze an.",[],MC,f,,draft
+c1ec1de2-919f-460b-b099-d0726996f4ae,Überschlagsrechnung,"Das Ergebnis von 91·88 soll durch eine Überschlagsrechnung im Kopf annähernd ermittelt werden.
+
+Welche Überschlagsrechnung eignet sich dafür am besten?",[],MC,f,,draft
+fc1dabeb-705d-40d1-80b5-5c24d1596144,Viele Brötchen,"In der Bäckerei am Dorfplatz kostet ein Brötchen 0,30 €, egal wie viele Brötchen man kauft.
+
+Schreibe die Bezeichnungen für die beiden Tabellenzeilen in die erste Spalte. Ergänze dann die fehlenden Werte, so dass man ablesen kann, was die jeweilige Anzahl Brötchen kostet.",[],FREE_TEXT,,,draft
+81d04a79-8020-49e1-8292-3e8c1eb3be2f,Winkel im Dreieck,"Ein Dreieck hat die Innenwinkel α, β und γ.
+
+Es gilt:
+- β ist doppelt so groß wie α.
+- γ ist dreimal so groß wie α.
+
+Gib an, wie groß der Winkel γ ist.",[],NUMERIC,f,,draft
+e41b8357-9848-4941-9bb7-96875d93547a,Winkel messen,Miss die Größe des Winkels α. Runde auf ganze Grad.,[],NUMERIC,t,,draft
+95b85cbb-f494-4402-9ce9-afb9da6a4334,Zoobesuch,"Susann fährt mit dem Fahrrad zügig zum Zoo. Am Eingang muss sie einige Zeit warten, um eine Eintrittskarte zu kaufen. Dann geht sie zu Fuß weiter durch den Zoo.
+
+Welches Diagramm passt am besten zu diesem Vorgang? Kreuze an.",[],MC,t,,draft
+1f996095-4eca-4a71-9ec1-39594c5002b2,Werbemarkt,"Die folgende Grafik stellt die Gesamtausgaben für Werbung in den Jahren 2010 bis 2015 dar. [Balkendiagramm zeigt Werte: 2010: ca. 16,5 Mrd. Euro, 2011: ca. 17,5 Mrd. Euro, 2012: ca. 18,5 Mrd. Euro, 2013: ca. 19,5 Mrd. Euro, 2014: ca. 21 Mrd. Euro, 2015: ca. 22 Mrd. Euro]. Nimm an, dass sich die Gesamtausgaben für Werbung in den nächsten Jahren ähnlich weiterentwickeln.
+
+Gib unter dieser Voraussetzung eine Prognose ab, wie hoch die Gesamtausgaben für Werbung im Jahr 2018 ungefähr sein werden.",[],NUMERIC,t,,draft
+b3de2d20-7304-40e2-9145-2d5ae7565a58,Winkel Gamma,"In diesem Dreieck sind die Strecken AM, MB und MC gleich lang.
+
+[Diagramm: Dreieck ABC mit Punkt M auf AB. Von M geht eine Strecke zu C. Winkel bei C: γ₁ und γ₂. Winkel bei A: α. Winkel bei B: β. Strecken: AC = a, BC = b, AM = x, MB = x, MC = x.]
+
+(nicht maßstabsgerecht)
+
+Niki behauptet: ""Dann ist γ = γ₁ + γ₂ ein rechter Winkel.""
+
+Dazu will sie einen Beweis in der Klasse vortragen. Sie hat ihre Argumentationsschritte auf Karteikarten notiert, die sie der Reihe nach an die Tafel heften will.
+
+Hier sind die noch nicht sortierten Karten:
+
+K1: γ = γ₁ + γ₂
+
+K2: AMC und MBC sind gleichschenklige Dreiecke
+
+K3: 2γ₁ + 2γ₂ = 180° ⇒ γ₁ + γ₂ = 90° ⇒ γ = 90°
+
+K4: Daraus folgt, dass die Basiswinkel gleich groß sind, also
+
+K5: Einsetzen in den Winkelsummensatz für Dreiecke:
+
+K6: α + β + γ = 180°, γ₁ + γ₂ + γ₁ + γ₂ = 180°, Zusammenfassen
+
+K7: MC ist genauso lang wie AM, wie BM, also gilt
+
+K8: α = γ₁ und β = γ₂
+
+Bringe alle Argumentationskarten für Nikis Vortrag in eine logisch richtige Reihenfolge. Trage hierzu die restlichen Kartennummern in der Reihenfolge des Vortrags ein (K1 und K7 sind bereits vorgegeben, danach kommen 6 weitere Karten):",[],SHORT_TEXT,t,,draft
+e82d178f-89bf-42c2-9962-027a08463eea,Würfelbau,"Marco hat kleine Würfel aufgestapelt und dann so miteinander verklebt, dass dieser Körper entstanden ist. Die in der Zeichnung verdeckten Würfel sind alle schon eingebaut.
+
+Drei der folgenden fünf Zeichnungen stellen diesen Körper in einer anderen Ansicht dar. Kreuze diese drei Ansichten an.",[],MC,t,,draft
+c18445fa-cfec-464c-abe4-96d153aaa78b,Zahl gesucht,"Wenn 9x = 6,3; dann ist x = ?
+Kreuze an.
+
+Wenn 9x = 6,3; dann ist x = ?",[],MC,f,,draft
+97f07182-49a7-4235-aa81-76cc79085838,Zahlen addieren,,[],,,,draft
+932d5499-416f-4316-92e0-aff931b59b82,Zwischen zwei Zahlen 2,,[],,,,draft
+3550a34f-4afc-4f27-8950-72004822e379,Der Stern,"Wie groß ist der Flächeninhalt des abgebildeten Sterns? Kreuze an.
+
+Wie groß ist der Flächeninhalt des abgebildeten Sterns?",[],MC,t,,draft
+83fe9508-6a17-4658-8b12-3b75ea2a5544,Geraden im Koordinatensystem,"Die Abbildung zeigt die Gerade mit der Gleichung y = (1/2)x - 2.
+
+An welcher Stelle schneidet die Gerade die x-Achse? Kreuze an.",[],MC,t,,draft
+8840971e-a829-4a1d-a9bb-bdcbf9367d9c,Honigbiene,Ungefähr wie lang ist das abgebildete Tier?,[],MC,t,,draft
+96fa6857-d46f-4487-b7d3-a7cb09c9b4ed,Im Kreis laufen,"Paul läuft im Abstand von ungefähr einem Meter um ein kreisrundes Iglu herum. Welcher Graph passt am besten, um diese Bewegung darzustellen? Kreuze an.
+
+d: Entfernung zum Startpunkt (Luftlinie)
+t: benötigte Zeit
+
+Welcher Graph passt am besten, um Pauls Bewegung darzustellen?",[],MC,t,,draft
+bf03d765-c01b-44a6-ab29-80a21cafc069,Rauminhalt von Prismen,"Die Rauminhalte der zwei Körper A und B sollen verglichen werden, ohne die beiden Rauminhalte jedoch konkret auszurechnen. Die Grundfläche von Körper A ist ein Quadrat mit 10cm Kantenlänge, die Grundfläche G von Körper B ist ein Sechseck mit 100cm² Flächeninhalt. Beide Körper haben eine Höhe von 16cm.
+
+Welche der folgenden Aussagen ist richtig?",[],MC,t,,draft
+486fe554-77ae-4c3c-84f5-52b5701e8767,Traktor,"Von einem Traktor werden Spielzeugmodelle in den folgenden Maßstäben hergestellt:
+1 : 120
+1 : 87
+1 : 50
+1 : 32
+
+Bei welchem Maßstab ist das Modell am kleinsten? Kreuze an.",[],MC,f,,draft
+31118a1a-1dff-4c2c-a7a5-c9f36afeecaf,700 Milliarden,"Eric hört in den Nachrichten, dass in den USA über einen Kredit von 700 Milliarden Dollar zur Behebung einer akuten Finanzkrise diskutiert wird.
+
+Schreibe diese Zahl in Ziffern.",[],NUMERIC,f,,draft
+489cc6d1-9734-408f-9a08-0ce551d7452b,Aussagen zur proportionalen Zuordnung,"Die Abbildung zeigt den Graphen einer proportionalen Zuordnung.
+
+Welcher der vier Punkte A, B, C und D gehört nicht zu diesem Graphen? Kreuze an.",[],MC,t,,draft
+600cc62e-d64f-4903-a950-11c98d46609b,20 Prozent,Berechne 20% von 80m.,[],NUMERIC,,30,ready
+b1b572df-49b4-4ee4-980a-f76d06614b69,Außenthermometer,,[],,,,draft
+cb32618b-f5ae-4721-8f9d-33a4027b4f04,Bonbons,"In einer Tüte sind zwei grüne, ein gelbes, zwei weiße, ein orangefarbenes und vier rote Bonbons. Jan greift ohne hinzusehen ein Bonbon aus der Tüte.
+
+Mit welcher Wahrscheinlichkeit ist es rot? Kreuze an.",[],MC,f,,draft
+3e85e534-da2b-49dd-a34e-465adb763f55,Darstellung in Diagrammen,"Die Firma Fruktia stellt die Umsätze ihres neuen Zitronengetränks in einem Diagramm dar.
+
+Zitronengetränk-Umsatz
+Anzahl verkaufter Flaschen (in Mio.)
+
+Das Balkendiagramm zeigt:
+- 2007: 55 Mio. Flaschen
+- 2008: 60 Mio. Flaschen
+- 2009: 65 Mio. Flaschen
+- 2010: 70 Mio. Flaschen
+
+In welchem Jahr sind 65 Millionen Flaschen verkauft worden? Vervollständige den Satz.
+
+Im Jahr __________ sind 65 Millionen Flaschen verkauft worden.",[],SHORT_TEXT,t,,draft
+952b106f-662f-430a-9869-def8d8050ecf,Drehkörper,"Ein Körper, der aus fünf gleich großen Würfeln besteht, wird gedreht.
+
+Welcher der folgenden Körper kann sich ergeben? Kreuze an.",[],MC,t,,draft
+ab31309b-9166-4c62-8878-f81c9b050e2b,Gleichung lösen 3,Welche Zahl ist Lösung der Gleichung 2x − 4 = 6? Kreuze an.,[],MC,f,,draft
+29e58bdf-eba0-4683-acf5-507301f60566,Judomatte,"Bei den Olympischen Spielen wird der Judokampf innerhalb einer 8 m x 8 m großen quadratischen Kampfzone ausgetragen.
+
+Wie groß ist diese?",[],MC,f,,draft
+c924572f-0e95-4fb5-aa8d-788f0e6c580b,Mädchenanteil,"In der Klasse 7a sind 8 Mädchen und 15 Jungen.
+
+Wie groß ist der Anteil der Mädchen in der gesamten Klasse 7a? Kreuze an.",[],MC,f,,draft
+9afea3a5-5644-4879-8a4d-feff3c7125d0,Maus,"Foto: Holger Mehlig
+http://www.guetersloh.de/Z3VldGVyc2xvaGQ0Y21zL2xvaGQ0Y21zLQ0Y21zLQ0Y21z
+
+Hier stimmt die Größenangabe nicht: ""Mäuse wiegen im Durchschnitt 40 Tonnen.""
+Welche der folgenden Maßeinheiten passt hier zur Maßzahl 40?
+
+Welche der folgenden Maßeinheiten passt hier zur Maßzahl 40?",[],MC,f,,draft
+2bb1e79f-26e3-493f-8a56-8fdb0468f8eb,Mitte zwischen Zahlen,"Gib an, welche Zahl genau in der Mitte der beiden Zahlen 6,06 und 6,6 liegt.",[],NUMERIC,f,,draft
+92f5edd1-e4b9-4ef8-8152-3b60f9f49ab7,Prozentanteil schätzen,Wie viel Prozent der Kreisfläche sind grau gefärbt? Schätze und kreuze an.,[],MC,t,,draft
+e86cd57f-3b9d-434e-a730-35e03389d44f,Schnittpunkt von Graphen,"Zwei lineare Funktionen g und f haben die Funktionsgleichungen g(x)=2x-1 und f(x)=2-x+1.
+
+Gib die Koordinaten des Schnittpunkts der Graphen beider Funktionen an.
+
+Die beiden Graphen schneiden sich im Punkt S ( ___ | ___ ).",[],SHORT_TEXT,f,,draft
+7c65d32a-eded-401c-86d0-64cc263c2de5,Schulstatistik,"Im Diagramm ist dargestellt, wie viele Schulen es im Schuljahr 2008/2009 in Sachsen-Anhalt gab. Es werden vier Schulformen unterschieden.
+
+Schulen in Sachsen-Anhalt:
+- Gesamtschulen: 3 staatliche, 6 in freier Trägerschaft
+- Gymnasien: 13 staatliche, 69 in freier Trägerschaft
+- Sekundarschulen: 13 staatliche, 166 in freier Trägerschaft
+- Grundschulen: 39 staatliche, 520 in freier Trägerschaft
+
+Kreuze an, welche Schulform am häufigsten vertreten ist.",[],MC,t,,draft
+95c96e7e-592d-471f-bb90-c0bc7adcaa23,Zahl gesucht 2,"Gegeben ist ein Zahlenstrahl.
+
+Auf welche Zahl zeigt der Pfeil ungefähr? Schreibe die Zahl in das Kästchen.",[],NUMERIC,t,,draft
+73676e71-d8b7-410e-83ec-d3407af7448f,Zeitangabe,Wie viele Minuten sind 2 1/2 Stunden?,[],MC,f,,draft
+81f69046-b437-40b7-8c96-f6350ea7ab4c,Zwischen zwei Zahlen,"Welche der folgenden Zahlen liegt zwischen 0,06 und 0,07? Kreuze an.
+
+Welche der folgenden Zahlen liegt zwischen 0,06 und 0,07?",[],MC,f,,draft

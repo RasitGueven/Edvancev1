@@ -1854,5 +1854,525 @@ on conflict (id) do nothing;
 --   Weg erreichbar, lsa_start liefert weiterhin Items). inv6 bleibt gruen.
 
 -- ============================================================================
--- ENDE – konsolidiertes Schema (36 Tabellen, 25 Funktionen, 2 Enums, 1 Trigger).
+-- 18. A02 – SCHUELER-VORSCHAU IM AUTOREN-TOOL
+--     (supabase/migrations/20260714150000_a02_vorschau.sql)
+-- ============================================================================
+--
+-- task_preview_payload(p_task_id uuid, p_draft jsonb default null) → jsonb
+--   [volatile, SECURITY DEFINER, set search_path = public]
+--   Rolle: coach/admin (Body-Check, errcode 42501). revoke from public,
+--          grant to authenticated, service_role.
+--
+--   WAS SIE IST: ein Tor vor lsa_question_payload — kein zweiter Builder. Der Body
+--     ruft `public.lsa_question_payload(p_task_id)` auf und gibt dessen Ergebnis
+--     unveraendert zurueck. Dieselbe Funktion, dieselbe Whitelist, dieselbe
+--     Wahrheit; nur ohne LSA-Session, damit die Vorschau ein EINZELNES Item bauen
+--     kann. lsa_question_payload selbst bleibt unberuehrt.
+--
+--   WARUM UEBERHAUPT: die Vorschau im Autoren-Tool hat den Payload bisher im
+--     Frontend nachgebaut. Sie zeigte damit, was der Editor denkt — nicht, was das
+--     Kind sieht. F01 (die Aufgaben-Tabelle) ist genau daran vorbeigelaufen: der
+--     Server lieferte sie, die Vorschau kannte sie nicht.
+--
+--   p_draft (der ungespeicherte Formularstand): wird in einer PL/pgSQL-
+--     Subtransaktion auf die Zeile gespielt, lsa_question_payload baut daraus, und
+--     die Subtransaktion wird per `raise ... errcode = 'ED001'` ZURUECKGEROLLT (die
+--     PL/pgSQL-Variable ueberlebt den Abbruch, die Zeilenaenderung nicht). Die
+--     Alternative waere gewesen, den Entwurf im Frontend zu bauen — also die zweite
+--     Wahrheit durch die Hintertuer. Uebernommen werden nur die sechs Spalten, die
+--     der Builder ueberhaupt liest: question, input_type, unit, parts, assets,
+--     question_payload.
+--     Folge mit Ansage: die CHECKs auf `tasks` feuern auf dem Entwurf mit. Ein
+--     Entwurf, der nicht speicherbar waere, ist auch nicht vorschaubar (23514).
+--
+-- Beweis: supabase/tests/inv8_vorschau_ohne_loesung.test.sql (pgTAP, 16 Assertions):
+--   Schueler-Kontext → permission denied (Lese- UND Entwurfspfad, damit die
+--   Vorschau dem Schueler kein UPDATE schenkt); anon hat nicht mal das Grant;
+--   task_preview_payload(id) = lsa_question_payload(id) als Gleichheit (nicht als
+--   Feldliste — sonst faellt das naechste Vertragsfeld wieder durch); der Payload
+--   traegt REKURSIV kein Loesungsfeld (pg_temp.all_keys steigt in parts und table
+--   hinab), obwohl der Sentinel als `accepted` neben der Tabelle im selben
+--   question_payload liegt; und die tasks-Zeile ist nach einem Entwurfs-Aufruf
+--   unveraendert.
+
+-- ============================================================================
+-- 19. S7 – LEAD→LSA: PROVISORISCHES SCHUELERKONTO (A1 OPTION 1) + INTAKE-FELDER
+--     (supabase/migrations/20260716100000_s7_lead_lsa.sql)
+--     Baut auf S5/Ebene A auf: lead_assessments (a3), lead_delete (a2),
+--     tasks.is_tutorial (a4) — siehe die jeweiligen Migrationen.
+-- ============================================================================
+--
+-- students (Spalten, additiv — P01-Datenvertrag byte-identisch):
+--   is_provisional boolean not null default false
+--       Provisorischer Lead-Schueler: profile_id NULL, kein Auth-Konto, kein
+--       Abo. Zaehlt NIRGENDS als Schueler — jedes Aggregat filtert
+--       is_provisional=false (src/lib: adminStats, listStudents*).
+--   lead_id uuid references leads(id) on delete cascade
+--       Der Loeschanker: lead_delete kaskadiert
+--       leads → students(lead_id) → lsa_sessions → lsa_responses (DSGVO).
+--   CHECK students_provisional_lead_ck: is_provisional = (lead_id is not null).
+--   UNIQUE students_lead_unique on (lead_id) where lead_id is not null
+--       — genau ein provisorischer Schueler pro Lead (Idempotenz-Anker).
+--
+-- leads (Spalten, Teil B — Fragenkatalog Erstgespraech, KEINE Diagnose-Felder):
+--   first_name text                  — Rufname („Hi <Name>" auf dem Tablet)
+--   birth_date date, last_grade text
+--   grade_trend text                 — CHECK in (besser, stabil, schlechter)
+--   struggling_since text            — CHECK in (dieses_halbjahr,
+--                                      letztes_schuljahr, laenger)
+--   tried_before text[]              — offene Liste, bewusst ohne CHECK
+--   next_exam_date date, next_exam_topic text
+--   consent_dsgvo_at timestamptz, consent_dsgvo_by uuid → profiles
+--       — PFLICHT vor der LSA-Freigabe (lead_lsa_freigeben verweigert sonst).
+--   status-CHECK erweitert um 'lsa_freigegeben', 'lsa_fertig'.
+--
+-- RPCs [alle SECURITY DEFINER, search_path=public, revoke from public,
+--       grant to authenticated + service_role, Rollenpruefung im Body]:
+--   lead_lsa_freigeben(p_lead_id, p_grade, p_subject) → jsonb   [nur admin]
+--       Gates: Lead existiert (P0002), nicht converted (P0001),
+--       consent_dsgvo_at gesetzt (P0001). Legt idempotent den provisorischen
+--       Schueler an (GUC-Schleuse edvance.allow_provisional, transaktionslokal)
+--       und startet die Session ueber das UNVERAENDERTE public.lsa_start —
+--       kein Duplikat, kein Overload (A3-Invariante haelt).
+--       Setzt leads.status='lsa_freigegeben'.
+--       Rueckgabe: session_id, student_id, total_items.
+--   lead_convert(p_lead_id) → jsonb                              [nur admin]
+--       Datensatz-Flip: students.is_provisional=false + lead_id=null (eine
+--       spaetere Lead-Loeschung darf NIE den echten Schueler kaskadieren),
+--       leads.status='converted' + converted_student_id. Auth-Konto folgt
+--       separat (nicht Teil von S7).
+--   lead_delete(p_lead_id)                                       [nur admin]
+--       Logik unveraendert (a2); der TODO-Block ist eingeloest: die neue
+--       FK-Kaskade raeumt Schueler + LSA-Daten restlos mit ab.
+--   lead_assessment_upsert(p_lead_id, p_source, p_note, p_weak_topics)
+--       → jsonb                                             [coach + admin]
+--       Upsert auf (lead_id, source); source nur parent/child (23514).
+--       Reveal-Metadatum — NIE Input fuer lsa_start (A3-Invariante, inv_a3 +
+--       s7-Regression).
+--
+-- Trigger:
+--   students_guard_provisional_trg (before insert/update of is_provisional)
+--       — provisorische Zeilen entstehen NUR ueber lead_lsa_freigeben.
+--   subscriptions_guard_provisional_trg (student_subscriptions)
+--       — ein provisorischer Schueler traegt NIE ein Abo (P0001).
+--   lsa_session_lead_fertig_trg (lsa_sessions, after update of status)
+--       — Session eines provisorischen Schuelers completed → Lead auf
+--       'lsa_fertig'. Additiv; lsa_finish selbst bleibt byte-identisch.
+--
+-- Beweis: supabase/tests/s7_lead_lsa.test.sql (pgTAP, 38 Assertions).
+
+-- ============================================================================
+-- 20. S9 – PLATZ-MECHANIK: KIOSK FUER DIE LSA (Option 3, docs/specs/PLATZ-analyse.md)
+--     (supabase/migrations/20260716110000_s9_platz_mechanik.sql)
+--     Eingrenzung verbindlich: NUR die LSA. Ein Platz erreicht ausschliesslich
+--     die ihm aktuell zugewiesene Session — nie Hub, XP, student_progress,
+--     fremde oder vergangene Sessions. P01-Datenvertrag byte-identisch
+--     (einzige bewusste Ausnahme: das GRANT von lsa_question_payload, s.u.).
+-- ============================================================================
+--
+-- platz_devices (Tabelle):
+--   profile_id uuid PK → profiles on delete cascade, label text, created_at
+--       Kennzeichnung der Kiosk-Konten. Ein Platz ist ein normaler Auth-User
+--       mit role='student' OHNE students-Zeile — strukturell „nichts"
+--       (get_my_student_id()=null → alle lsa_* verweigern). KEINE neue Rolle,
+--       kein CHECK-Umbau. RLS: admin all; der Platz liest die eigene Zeile.
+--
+-- platz_assignments (Tabelle):
+--   id PK, platz_profile_id → platz_devices, session_id → lsa_sessions,
+--   created_by uuid → profiles (Auftrags-Identitaet: der zuweisende Admin),
+--   created_at, expires_at (default now()+2h), released_at
+--       SESSION-scoped (nicht schueler-scoped): vergangene/parallele Sessions
+--       desselben Kindes sind nicht adressierbar. Aktiv = released_at null UND
+--       expires_at > now() — in JEDER RPC geprueft (Analyse §3.4).
+--       Partial-Unique (platz_profile_id) where released_at is null.
+--       RLS: admin all; der Platz liest NUR die eigene aktive Zeile.
+--
+-- RPCs [alle SECURITY DEFINER, search_path=public, revoke from public,
+--       Rollen-/Kontext-Pruefung im Body]:
+--   platz_current_assignment() → platz_assignments   [intern, nur service_role]
+--       Die EINE aktive, nicht abgelaufene Zuweisung von auth.uid().
+--   platz_assign(p_platz_profile_id, p_session_id) → jsonb        [nur admin]
+--       Gates: platz_devices-Zeile (P0002), Session in_progress (P0001),
+--       keine aktive Zuweisung (P0001). Raeumt abgelaufene Alt-Zeilen
+--       (Partial-Unique). Schreibt created_by fest.
+--   platz_release(p_assignment_id) → jsonb                        [nur admin]
+--       Manuelle Freigabe, idempotent; P0002 bei unbekannter Zuweisung.
+--   platz_state() → jsonb                                     [nur Platz-Konto]
+--       Kiosk-Poll: {status:'wartet'} | {status:'zugewiesen', first_name
+--       (session → students.lead_id → leads.first_name), progress, expires_at}.
+--       Traegt NIE session_id/student_id/lead_id/Auswertung.
+--   platz_next() → jsonb                                      [nur Platz-Konto]
+--       Naechstes offenes Item der ZUGEWIESENEN Session, Payload aus dem
+--       UNVERAENDERTEN lsa_question_payload. Kein Parameter von aussen.
+--   platz_submit(p_task_id, p_response, p_duration_ms) → jsonb [nur Platz-Konto]
+--       Validiert p_task_id = aktuell offenes Item, reicht an das
+--       UNVERAENDERTE lsa_submit durch — mit der Auftrags-Identitaet
+--       created_by (transaktionslokaler Claims-Tausch, in derselben Funktion
+--       geschlossen). Rueckgabe {ok, next} — kein Richtig/Falsch.
+--   platz_finish() → jsonb                                    [nur Platz-Konto]
+--       Ruft das UNVERAENDERTE lsa_finish und VERWIRFT dessen Auswertung —
+--       Rueckgabe exakt {ok:true}.
+--
+-- Trigger:
+--   lsa_session_platz_release_trg (lsa_sessions, after update of status)
+--       — completed ODER aborted → alle offenen Zuweisungen der Session
+--       released. Additiv; lsa_finish bleibt byte-identisch.
+--
+-- Grant-Aenderung (§3.6(ii) der Analyse, bewusst gewaehlt):
+--   revoke execute on lsa_question_payload from authenticated — der Builder
+--   ist nur noch ueber seine Tore erreichbar (lsa_start/lsa_submit intern,
+--   task_preview_payload fuer Coach/Admin, platz_next fuer den Platz).
+--   Kein Client ruft ihn direkt (verifiziert: kein .rpc(...) in src/**).
+--   Die inv2/3/5/6/7/8-Tests pruefen den Inhalts-Vertrag seither im
+--   Definer-Kontext; die Nicht-Aufrufbarkeit pinnt s9_platz_mechanik.test.sql.
+--
+-- Beweis: supabase/tests/s9_platz_mechanik.test.sql (pgTAP, 69 Assertions):
+--   (1) Platz ohne Zuweisung: 'wartet', alle lsa_* → 42501, RLS zeigt 0 Zeilen
+--   (Anti-Vakuum inklusive); (2) mit Zuweisung: genau die EINE Session, die
+--   zweite ist ueber keinen Parameter erreichbar, lsa_* bleiben auch dann zu;
+--   (3) nach lsa_finish / expires_at / platz_release / abort faellt alles auf
+--   'wartet'/42501 zurueck; plus P01-Regression (keine lsa_*-Funktion kennt
+--   'platz', kein Overload, anon ohne jedes Grant).
+
+-- ============================================================================
+-- 21. S10 – SLOT-SYSTEM: WOCHENRASTER, FAVORITEN UND FESTE ZUWEISUNG
+--     (supabase/migrations/20260719100000_s10_slot_system.sql)
+--     Architektur-Branchpoint: alle drei Tabellen haengen an leads(id), NICHT
+--     an students(id) — der Slot wird im Erstgespraech vergeben, also VOR
+--     Vertragsabschluss. Zu dem Zeitpunkt existiert der Lead, kein Kind. Ein
+--     students-FK haette eine provisorische Schueler-Zeile erzwungen
+--     (A1-Leitplanke) oder die Vergabe ans Gespraechsende verschoben.
+-- ============================================================================
+--
+-- slots (Tabelle):
+--   id PK, created_at, weekday smallint CHECK 0..6 (0=Montag … 6=Sonntag,
+--   bewusst NICHT extract(dow)), start_time time, room text (nicht leer),
+--   capacity integer default 5 CHECK 1..5, active boolean default true
+--       Das Wochenraster (Wochentag × Uhrzeit × Raum). Der capacity-CHECK
+--       pinnt die Produktzusage „Kleingruppen max. 5" im Schema.
+--       Deaktivieren statt loeschen — bestehende Zuweisungen bleiben lesbar.
+--       Partial-Unique (weekday, start_time, room) where active: ein Raum
+--       traegt zu einer Zeit eine aktive Gruppe; deaktivierte Alt-Slots
+--       blockieren die Koordinate nicht. RLS: coach/admin all, anon nichts.
+--
+-- slot_wishes (Tabelle):
+--   id PK, created_at, lead_id → leads cascade, slot_id → slots cascade,
+--   rang smallint CHECK 1..3
+--       Bis zu 3 Favoriten je Lead (Erstgespraech, S8). UNVERBINDLICH — ein
+--       Wunsch reserviert nichts und zaehlt nie gegen die Kapazitaet.
+--       Unique (lead_id, rang) und (lead_id, slot_id). Das Frontend setzt die
+--       Liste als Ganzes neu (delete + insert), damit Raenge nie Luecken
+--       haben; die Indizes sind die Absicherung darunter.
+--       RLS: coach/admin all, anon nichts.
+--
+-- slot_assignments (Tabelle):
+--   id PK, slot_id → slots cascade, lead_id → leads cascade, assigned_at,
+--   released_at, created_by uuid → profiles on delete set null
+--       Die feste Zuweisung. Aktiv = released_at is null; Loesen setzt
+--       released_at statt zu loeschen, damit die Belegungshistorie („welches
+--       Kind sass wann in welcher Gruppe") lesbar bleibt. created_by set null:
+--       faellt das Konto des Zuweisenden, bleibt die Zuweisung — sie gehoert
+--       dem Lead, nicht dem Admin.
+--       Partial-Unique (lead_id) where released_at is null — die ZWEITE
+--       Verteidigungslinie der Kapazitaets-Garantie, wirksam auch an der RPC
+--       vorbei. Partial-Index (slot_id) where released_at is null traegt das
+--       Zaehlen der Auslastung. RLS: coach/admin all, anon nichts.
+--
+-- DIE KAPAZITAETS-GARANTIE (die eigentliche Zusage dieses Abschnitts):
+--   Ein naives „erst zaehlen, dann einfuegen" ueberbucht unter Nebenlaeufigkeit
+--   — zwei gleichzeitige Zuweisungen lesen beide belegt=4 bei capacity=5 und
+--   fuegen beide ein. Deshalb sperrt slot_assign() ZUERST die slots-Zeile
+--   (select … for update) und zaehlt erst danach; die zweite Transaktion
+--   wartet am Lock und sieht den Stand nach der ersten. Der Lock liegt auf dem
+--   SLOT — nur Zuweisungen in denselben Slot serialisieren. Darunter der
+--   partielle Unique-Index auf (lead_id). Es gibt genau eine Wahrheit: das
+--   Frontend zeigt die Auslastung nur an, es entscheidet sie nicht
+--   (src/lib/supabase/slots.ts).
+--
+-- RPCs [beide SECURITY DEFINER, search_path=public, revoke from public,
+--       Rollenpruefung im Body, grant an authenticated + service_role]:
+--   slot_assign(p_slot_id, p_lead_id) → jsonb            [coach/admin]
+--       Row-Lock auf slots, loest eine bestehende aktive Zuweisung des Leads
+--       (vor dem Zaehlen, damit ein Re-Assign in denselben Slot sich nicht
+--       selbst als Ueberbuchung sieht), prueft belegt < capacity, fuegt ein.
+--       Fehler: P0002 (Lead/Slot unbekannt), P0001 (Slot deaktiviert oder
+--       ausgebucht). Rueckgabe {ok, assignment_id, belegt, capacity}.
+--   slot_release(p_assignment_id) → jsonb                [coach/admin]
+--       Setzt released_at. Idempotent (released=false bei bereits geloester
+--       Zeile, Muster wie platz_release); P0002 bei unbekannter Zuweisung.
+--
+-- OFFENE FRAGE (bewusst nicht hier entschieden, Gruenderrunde):
+--   Was passiert mit einer Slot-Zuweisung, wenn der Lead ueber lead_convert()
+--   zum Studenten wird — wandert sie mit, oder bleibt sie am Lead und wird
+--   ueber leads.converted_student_id aufgeloest? Teil eines groesseren
+--   Musters: auch der Kindname faellt heute nach der Konvertierung weg.
+--   Die Migration legt sich nicht fest; released_at statt delete haelt den
+--   Zustand in jedem Fall nachvollziehbar.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (41 Tabellen, 36 Funktionen, 2 Enums, 1 Trigger).
+-- 21. R1 – ELTERN-REPORT: COACH-NOTIZEN AN DER LSA-SITZUNG
+--     (supabase/migrations/20260719100000_r1_report_notes.sql)
+-- ============================================================================
+--
+-- lsa_report_notes (Tabelle):
+--   id uuid PK, session_id uuid NOT NULL UNIQUE → lsa_sessions on delete cascade
+--   zielbild text, empfehlung text
+--   paket text CHECK in ('basis','standard','premium')
+--   updated_at timestamptz not null default now()
+--   updated_by uuid → profiles(id) on delete set null
+--   INDEX lsa_report_notes_session_idx (session_id)
+--   RLS an, revoke all from anon, EINE Policy
+--   lsa_report_notes_coach_admin_all (for all, using+with check
+--   get_my_role() in ('coach','admin')).
+--
+-- WAS SIE IST: die einzige schreibbare Flaeche des Eltern-Reports. Der Report
+--   (src/pages/admin/ReportPage.tsx) liest Sitzung + Antworten READ-ONLY; nur
+--   diese drei Coach-Felder werden gespeichert.
+--
+-- WARUM eine eigene Tabelle statt Spalten an lsa_sessions: die Notizen sind
+--   KEINE Auswertung. Sie erzeugen keinen Score, keine Note, keinen Prozentrang
+--   — und sie duerfen die Sitzungsdaten nicht anfassen (§6: Rohdaten
+--   append-only). Als eigene Zeile koennen sie ueberschrieben werden, ohne dass
+--   je ein Rohdatensatz mutiert.
+--
+-- 1:1 zur Sitzung ueber UNIQUE(session_id) — der Client schreibt per upsert auf
+--   session_id (src/lib/supabase/reportNotes.ts), ein Report pro Sitzung.
+--   on delete cascade haengt die Notizen an den bestehenden DSGVO-Loeschanker:
+--   leads → students(lead_id) → lsa_sessions → lsa_responses/lsa_report_notes.
+--
+-- paket als CHECK statt Enum: Paketnamen sind Vertriebs-Sprache und aendern
+--   sich schneller als ein Typ, der in Funktionssignaturen einfriert.
+--
+-- KEIN neues Grant, KEINE Aenderung an task_solutions, lsa_responses,
+--   lsa_sessions oder einer bestehenden Funktion. Die Bewertung im Report liest
+--   ausschliesslich lsa_responses.correct.
+--
+-- Vor dieser Migration erkennt reportNotes.ts den Postgres-Fehler 42P01
+--   (undefined_table) und kennzeichnet die Felder als „noch nicht speicherbar";
+--   der uebrige Report bleibt nutzbar.
+
+-- ============================================================================
+-- 22. A09 – LIZENZTEXT AN DER AUFGABE
+--     (supabase/migrations/20260720100000_a09_lizenztext.sql)
+-- ============================================================================
+--
+-- tasks.licence_text text NULL
+--   Der einblendbare Attributionstext der Aufgabe. Die VERA-8-Abbildungen
+--   stehen unter CC BY 4.0 (IQB); CC BY verlangt beim Zeigen eine Namensnennung
+--   (Titel, Autor, Quelle, Lizenz — TASL, soweit verfuegbar). Der Lizenzstatus
+--   im Quellenbeleg (_grounding.lizenz_status) sagt nur, DASS attribuiert werden
+--   muss — dieses Feld haelt, WIE.
+--
+-- WARUM an der AUFGABE und nicht pro Asset oder pro Teilaufgabe: ein Item traegt
+--   in der Praxis eine Abbildung, und selbst bei mehreren stammen sie aus
+--   derselben Quelle mit derselben Lizenz. Ein Feld je Bild waere dieselbe Zeile
+--   mehrfach — mit dem Risiko, dass sie auseinanderlaeuft.
+--
+-- WARUM nullable und ohne CHECK: die grosse Mehrheit der Items hat kein Bild und
+--   damit nichts zu attribuieren. Die Pflicht ist bedingt („Bild da → Text da")
+--   und sitzt im Freigabe-Gate des Autoren-Tools (src/lib/authoring/flags.ts,
+--   Flag `licenceMissing`, blockierend) — genau dort, wo schon die Alt-Text-
+--   Pflicht sitzt. Ein CHECK ueber tasks.assets waere bei jedem Import und jedem
+--   Altbestand-Update im Weg.
+--
+-- VORBEFUELLUNG: src/lib/authoring/attribution.ts baut aus dem Quellenbeleg den
+--   CC-BY-4.0-konformen Standardtext (EINE Stelle, damit die Rechtsberatung die
+--   Formel spaeter zentral schaerfen kann). Der Wizard setzt ihn ein, sobald ein
+--   Bild zugewiesen ist und das Feld leer war; der Pfleger kann ihn
+--   ueberschreiben — eingebettetes Fremdmaterial in einer VERA-Aufgabe braucht
+--   eine abweichende Nennung.
+--
+-- KEIN Schueler-Feld auf diesem Weg: lsa_question_payload baut aus einer
+--   Whitelist, lsa_public_assets reicht je Asset nur { url, alt } durch. Der
+--   Text wird beim Einblenden bewusst dazugeholt, er kommt nicht versehentlich
+--   mit. KEINE Aenderung an einer bestehenden Funktion, Policy oder Grant.
+
+-- ============================================================================
+-- 23. A10 – AKZEPTANZ-SET + AFB-III-OPTION-SCORING
+--     (supabase/migrations/20260721100000_a10_akzeptanz_und_scoring.sql)
+-- ============================================================================
+--
+-- Zwei Felder, die die auto-gradbare Diagnostik braucht. Beide sind
+-- LOESUNGSDATEN und liegen deshalb in der Server-Only-Zone `task_solutions`
+-- (P01 §4) — nicht an `tasks`, nicht in `tasks.parts`.
+--
+-- task_solutions.acceptance jsonb NULL   — DAS AKZEPTANZ-SET
+--   Warum eine Antwort zaehlt, maschinenlesbar. Eine Regel:
+--     { canonical:"1,5 m", equivalents:["150 cm","1500 mm"],
+--       notation:{decimal_comma,unit_optional,ignore_case,ignore_space},
+--       tolerance:{mode:'exact'|'absolute'|'decimals', value},
+--       unit:"m", unit_graded:false }
+--   Flach EINE Regel, bei MULTI_PART {"<nr>": Regel} — dieselbe Doppelform wie
+--   correct_answers, kein drittes Format.
+--   CHECK task_solutions_acceptance_check → lsa_acceptance_valid.
+--
+--   WARUM notation als FLAGS, equivalents als LISTE: Notationsvarianten sind
+--     eine Regel (jede Zahl mit Komma ist auch mit Punkt richtig) — sie
+--     einzeln aufzuzaehlen ist Kombinatorik und laeuft auseinander. Ein
+--     EINHEITEN-Wechsel ist dagegen eine fachliche Aussage ("150 cm ist
+--     dieselbe Laenge") und gehoert einzeln benannt.
+--   WARUM unit_graded: manchmal IST die geforderte Einheit Teil der Kompetenz
+--     ("Gib das Ergebnis in Metern an") — dann darf "150 cm" NICHT zaehlen.
+--     Das entscheidet die Aufgabe, nicht eine Umrechnung. unit_graded=true
+--     schliesst notation.unit_optional=true aus; der Widerspruch ist im CHECK
+--     unrepraesentierbar.
+--   DEKLARATIV: lsa_is_correct bleibt byte-identisch — bewertet wird weiterhin
+--     gegen correct_answers. Der Evaluator-Umbau ist ein eigener Lauf.
+--
+-- task_solutions.option_scores jsonb NULL — DAS AFB-III-OPTION-SCORING
+--   Bewertungsstufe je Antwortoption: { "<option_id>": 'voll'|'teilweise'|'nicht' },
+--   bei MULTI_PART {"<nr>": {…}}. CHECK task_solutions_option_scores_check →
+--   lsa_option_scores_valid.
+--
+--   KONSTRUKTIONSREGEL: pro Aufgabe/Teilaufgabe GENAU EINE Option 'voll' und
+--     GENAU EINE 'teilweise', alle uebrigen 'nicht'. Die Stufe haengt an der
+--     EINZELNEN OPTION, nicht am Urteil — mehrere Optionen duerfen dasselbe
+--     Ja/Nein-Urteil tragen (sie unterscheiden sich in der Begruendung), nur
+--     eine davon ist 'teilweise'.
+--   Der CHECK erzwingt HOECHSTENS eine je Stufe (nie zwei); die
+--     Vollstaendigkeit ist eine FREIGABE-Regel, kein Speicher-Verbot — ein halb
+--     gepflegter Entwurf muss speicherbar bleiben.
+--   AFB I/II bleibt binaer: dort ist die Spalte NULL.
+--
+-- WARUM in task_solutions und nicht an parts[].options: `tasks` ist fuer jede
+--   eingeloggte Rolle lesbar (Policy read_tasks_by_role, Schueler:innen alles
+--   mit status='ready') und PostgREST bietet select=* an. Ein Bewertungsfeld an
+--   der oeffentlichen Option waere fuer jedes Schuelergeraet abrufbar — genau so
+--   ist der Altbestand-Leak entstanden (T1). Die Stufe haengt deshalb ueber die
+--   Option-ID an der Option, nicht in ihr; die oeffentliche Option behaelt
+--   exakt {id, label}.
+-- WARUM JSONB statt eigener Tabelle: eine Zeile je Option waere relational
+--   sauberer, braeuchte aber eigene RLS, eigene Grants, eigene RPCs — die
+--   Server-Only-Zusage muesste ein zweites Mal bewiesen werden. task_solutions
+--   traegt die Loesung schon als JSONB mit derselben Doppelform.
+--
+-- Funktionen (neu, alle immutable):
+--   lsa_acceptance_rule_valid(jsonb)      – Strukturvertrag EINER Regel
+--   lsa_acceptance_valid(jsonb)           – Doppelform, steht im CHECK
+--   lsa_option_scores_scale_valid(jsonb)  – EINE Skala, hoechstens 1× je Stufe
+--   lsa_option_scores_valid(jsonb)        – Doppelform, steht im CHECK
+--   lsa_option_scores_complete(afb, options, scale) – die FREIGABE-Regel:
+--       bei afb='III' genau eine 'voll', genau eine 'teilweise', jede Option
+--       bewertet, keine fremde Option in der Skala. Muster wie lsa_has_answers:
+--       bekommt alles als Parameter, liest nie selbst → leakt nichts.
+--       NOCH NICHT in task_status_set verdrahtet (der Bestand hat keine Skala).
+--
+-- Funktionen (geaendert):
+--   task_solution_get(uuid)     – liefert acceptance + option_scores mit.
+--                                 Haertung unveraendert: nur coach/admin.
+--   task_solution_upsert(...)   – +p_acceptance, +p_option_scores (9-stellig;
+--       die 7-stellige Signatur wird gedroppt statt ueberladen — PostgREST kann
+--       zwei Ueberladungen mit Defaults nicht aufloesen). PATCH-Semantik aus B01
+--       unveraendert; geleert wird mit 'null'::jsonb. Beide Felder werden vor
+--       dem Schreiben gegen ihren Strukturvertrag geprueft, damit der Editor
+--       eine Klartext-Meldung bekommt statt eines CHECK-Fehlers.
+--
+-- KEIN LEAK: lsa_question_payload/lsa_public_parts bauen aus einer WHITELIST und
+--   lesen task_solutions gar nicht. Diese Migration aendert am Payload-Bau KEINE
+--   Zeile. Erreichbar sind die Felder nur ueber die beiden SECURITY-DEFINER-RPCs.
+--
+-- ⚠️  Die Migration muss VOR dem Merge eingespielt werden: task_solution_upsert
+--   wird neu erzeugt und die alte Signatur gedroppt. src/types/authoring.ts
+--   haelt acceptance/option_scores optional (undefined = Spalte/RPC-Feld fehlt
+--   noch), das Autoren-Tool schickt sie heute nicht mit — ein Frontend auf altem
+--   Stand bleibt also funktionsfaehig.
+
+-- ============================================================================
+-- 24. A11 – ABGESTUFTE BEWERTUNG (voll | teilweise | nicht)
+--     (supabase/migrations/20260721110000_a11_abgestufte_bewertung.sql)
+--     SETZT A10 VORAUS: ersetzt lsa_acceptance_rule_valid, liest acceptance.
+-- ============================================================================
+--
+-- DAS PROBLEM: lsa_is_correct vergleicht STRINGS. "22/24" ist damit falsch,
+--   obwohl die Loesung "11/12" ist — dieselbe Zahl, andere Schreibweise. Das
+--   Kind hat richtig gerechnet und nur nicht gekuerzt, und die haeufigste
+--   Foerderentscheidung ("Rechenweg sitzt, Darstellung fehlt") ist aus den
+--   Daten nicht ablesbar.
+--
+-- Funktionen (neu, alle immutable, alle NUR service_role):
+--   lsa_split_value_unit(text) → text[]
+--       [Zahlteil, Einheit]. "1,5 m" → {1.5, m}, "11/12" → {11/12, ''}.
+--   lsa_parse_fraction(text) → numeric[]
+--       [Zaehler, Nenner]. Ganze Zahl, Dezimal, Bruch, gemischter Bruch, mit
+--       Vorzeichen. NULL bei allem anderen (Muell wirft nicht).
+--       KUERZT NICHT — die geschriebene Form ist genau das, was
+--       require_reduced beurteilt. Wer beim Parsen kuerzt, wirft weg, was er
+--       gleich messen will.
+--       numeric statt bigint: Ganzzahlarithmetik ohne Ueberlaufgrenze.
+--       "0,9166666666" wird zu 9166666666/10000000000 — mit bigint waere das
+--       bei genug Nachkommastellen ein Absturz.
+--   lsa_is_reduced(text) → boolean
+--       Ist die geschriebene Bruchform gekuerzt (ggT = 1)? Ohne '/' immer true.
+--       Prueft Kuerzung, NICHT Echtheit: 3/2 ist gekuerzt.
+--   lsa_values_equal(a, b, tolerance) → boolean
+--       Mathematische Wertgleichheit. exact vergleicht per KREUZPRODUKT
+--       (a·d = c·b) und dividiert nie — 1/3 hat keine endliche
+--       Dezimaldarstellung, jeder float-Weg waere eine Naeherung, die genau bei
+--       den Aufgaben kippt, um die es geht. absolute/decimals nach
+--       acceptance.tolerance.
+--   lsa_grade(input_type, acceptance, correct_answers, response) → text
+--       'voll' | 'teilweise' | 'nicht' — dasselbe Vokabular wie
+--       task_solutions.option_scores (A10), auch wenn beide verschieden
+--       entscheiden.
+--         nicht     – nicht wertgleich, leer oder unlesbar
+--         teilweise – wertgleich, aber die geforderte FORM verfehlt
+--                     (unit_graded mit falscher/fehlender Einheit;
+--                      require_reduced mit ungekuerztem Bruch)
+--         voll      – wertgleich und formgerecht
+--       p_acceptance ist die Regel EINES Scopes (flache Aufgabe oder EINE
+--       Teilaufgabe) — wie p_correct_answers bei lsa_is_correct. Bei MULTI_PART
+--       schneidet der Aufrufer zu (acceptance -> nr).
+--
+-- Funktion (geaendert):
+--   lsa_acceptance_rule_valid(jsonb) – erlaubt zusaetzlich `require_reduced`
+--       (boolean, oben in der Regel). Additiv und lockernd; keine bestehende
+--       Zeile kann dadurch ungueltig werden.
+--
+-- acceptance.require_reduced (neu, top-level, default fehlt/false):
+--   WARUM OBEN statt in `notation`: alle notation-Flags LOCKERN ("diese
+--     Schreibweise gilt auch"), eine Kuerzungspflicht VERSCHAERFT. Sie gehoert
+--     neben `unit_graded` — die beiden sind die Formanforderungen, notation.*
+--     sind die Nachsichten. Praktisch dazu: der A10-CHECK whitelistet die
+--     notation-Schluessel, ein `notation.require_reduced` waere von jeder
+--     Datenbank mit A10 und ohne A11 abgewiesen worden.
+--
+-- DIE VIER notation-FLAGS SIND HEUTE DOKUMENTIEREND, NICHT SCHALTEND:
+--   decimal_comma / ignore_case / ignore_space beschreiben, was
+--   lsa_normalize_answer ohnehin und immer tut. Ein `decimal_comma: false`
+--   wuerde eine zweite Normalisierungskonvention verlangen — P01 §3 sagt "eine
+--   Konvention, ein Ort". unit_optional ist unter A10 nur mit
+--   unit_graded=false erlaubt, und dort ist die Einheit ohnehin kein Kriterium.
+--   Wirksam sind genau zwei Flags: unit_graded und require_reduced.
+--
+-- RUECKWAERTSKOMPATIBILITAET (die eigentliche Zusage):
+--   lsa_is_correct bleibt BYTE-IDENTISCH — Signatur, Rumpf, Verhalten. Sein
+--   einziger Aufrufer ist lsa_submit (flach + MULTI_PART), und lsa_submit wird
+--   NICHT angefasst. lsa_grade tritt DANEBEN, nicht davor: es ist aufrufbar und
+--   getestet, aber noch nicht verdrahtet.
+--   Ohne acceptance-Regel (NULL, '{}', oder die Teilaufgaben-Abbildung statt
+--   einer Regel) faellt lsa_grade auf lsa_is_correct zurueck und kennt nur
+--   'voll'/'nicht'. 'teilweise' kann gar nicht entstehen, solange niemand eine
+--   Regel gepflegt hat. MC bleibt binaer — die Abstufung dort ist option_scores.
+--
+-- WARUM NICHT GLEICH VERDRAHTET: lsa_responses.correct ist boolean, und
+--   lsa_finish + der Eltern-Report rechnen darauf. Eine Stufe kann dort erst
+--   ankommen, wenn die Spalte sie halten kann (eigener Schnitt: `grade` neben
+--   `correct`). Ausserdem pinnen inv2/inv3 das heutige Bewertungsverhalten —
+--   Datenmodell und gruene Beweise sollten nicht in derselben Migration wandern.
+--
+-- KEIN LEAK: alle Funktionen bekommen acceptance/correct_answers als PARAMETER
+--   und lesen nie selbst aus task_solutions (Muster lsa_is_correct/
+--   lsa_has_answers). Gegrantet sind sie nur an service_role. lsa_grade ist
+--   AUSWERTUNGS-Logik und laeuft serverseitig; weder acceptance noch eine Stufe
+--   gehen je in den Schueler-Payload. Am Payload-Bau aendert die Migration
+--   KEINE Zeile.
+--
+-- Beweis: supabase/tests/a11_abgestufte_bewertung.test.sql (pgTAP, 29
+--   Assertions). ⚠️ Laeuft heute weder lokal (kein Docker) noch in
+--   .github/workflows/ci.yml — der Test ist geschrieben, aber bis dahin
+--   unbewiesen.
+
+-- ============================================================================
+-- ENDE – konsolidiertes Schema (39 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

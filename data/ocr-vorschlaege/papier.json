@@ -1,0 +1,25 @@
+{
+  "stamm": "500 Blatt einer Papiersorte sind 55mm hoch.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, wie hoch 200 Blatt dieser Papiersorte sind.",
+      "unit": "mm",
+      "loesung_vorschlag": "22",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "9f5f5d98-e884-4382-ae0b-b6aebbf0e24c",
+  "_title": "Papier",
+  "_slug": "papier",
+  "_images": [
+    "../vera8_sichtung/papier/image1.emf.png",
+    "../vera8_sichtung/papier/image2.emf.png"
+  ]
+}

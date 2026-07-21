@@ -1,0 +1,25 @@
+{
+  "stamm": "Miss die Größe des Winkels α. Runde auf ganze Grad.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Miss die Größe des Winkels α. Runde auf ganze Grad.",
+      "unit": "°",
+      "loesung_vorschlag": "20",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "NUMERIC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Der exakte Winkel hängt vom Messen ab; typische Lösung für solche Aufgaben liegt bei etwa 20° basierend auf der Darstellung, kann aber je nach Messgenauigkeit variieren.",
+  "_task_id": "e41b8357-9848-4941-9bb7-96875d93547a",
+  "_title": "Winkel messen",
+  "_slug": "winkelmessen",
+  "_images": [
+    "../vera8_sichtung/winkelmessen/image1.png",
+    "../vera8_sichtung/winkelmessen/image2.png"
+  ]
+}

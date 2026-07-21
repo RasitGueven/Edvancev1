@@ -13,11 +13,12 @@
 // bedeutet.
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft } from 'lucide-react'
-import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { ListChecks } from 'lucide-react'
+import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { Button } from '@/components/ui/button'
 import {
   AuthoringFilters,
   EMPTY_FILTERS,
@@ -26,6 +27,7 @@ import {
 import { ItemRow, type ItemRowData } from '@/components/edvance/authoring/ItemRow'
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
 import { computeFlags, hasTable } from '@/lib/authoring/flags'
+import { isGroundedSource } from '@/lib/authoring/grounding'
 import {
   listAuthoringTasks,
   listClustersWithSubject,
@@ -72,6 +74,7 @@ const STATUS_ORDER: Record<TaskStatus, number> = { draft: 0, review: 1, ready: 2
 
 export function AuthoringItemsPage(): JSX.Element {
   const { t } = useTranslation('authoring')
+  const navigate = useNavigate()
 
   const [rows, setRows] = useState<ItemRowData[]>([])
   const [clusters, setClusters] = useState<AuthoringCluster[]>([])
@@ -137,6 +140,11 @@ export function AuthoringItemsPage(): JSX.Element {
         return false
       }
       if (filters.afb !== 'all' && task.afb !== filters.afb) return false
+      if (filters.source !== 'all') {
+        const vera = isGroundedSource(task.source)
+        if (filters.source === 'eigene' && vera) return false
+        if (filters.source === 'vera' && !vera) return false
+      }
       if (filters.flags === 'blocking' && blockingCount === 0) return false
       if (filters.flags === 'any' && flagCount === 0) return false
       if (filters.flags === 'none' && flagCount > 0) return false
@@ -168,24 +176,14 @@ export function AuthoringItemsPage(): JSX.Element {
   }, [rows, filters, subjectOf])
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('page.listSubtitle')} sticky />
       <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8">
-        <Link
-          to="/admin"
-          className="inline-flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
-        >
-          <ArrowLeft className="h-4 w-4" /> {t('page.back')}
-        </Link>
-
-        <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
-            {t('page.listTitle')}
-          </h1>
-          <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            {t('list.count', { shown: visible.length, total: rows.length })}
-          </p>
-        </div>
+        <AdminHeader
+          title={t('page.listTitle')}
+          backLabel={t('page.back')}
+          description={t('list.count', { shown: visible.length, total: rows.length })}
+        />
 
         {schema && <SchemaBanner schema={schema} />}
 
@@ -209,11 +207,30 @@ export function AuthoringItemsPage(): JSX.Element {
         )}
 
         {!error && !loading && visible.length > 0 && (
-          <div className="flex flex-col gap-4">
-            {visible.map((row) => (
-              <ItemRow key={row.task.id} row={row} />
-            ))}
-          </div>
+          <>
+            {/* Der Einstieg in die Pflege-Strecke (A07): der AKTIVE Filter wird
+                zur Warteschlange — "diese 47 Items durcharbeiten". */}
+            <div className="flex justify-end">
+              <Button
+                onClick={() =>
+                  navigate('/admin/pflege', {
+                    state: {
+                      ids: visible.map((row) => row.task.id),
+                      label: t('wizard.sourceList'),
+                    },
+                  })
+                }
+              >
+                <ListChecks className="h-4 w-4" aria-hidden="true" />
+                {t('wizard.start', { count: visible.length })}
+              </Button>
+            </div>
+            <div className="flex flex-col gap-4">
+              {visible.map((row) => (
+                <ItemRow key={row.task.id} row={row} />
+              ))}
+            </div>
+          </>
         )}
       </main>
     </div>

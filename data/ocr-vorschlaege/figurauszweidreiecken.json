@@ -1,0 +1,103 @@
+{
+  "stamm": "Gegeben ist eine Figur aus zwei Dreiecken. Sind die beiden Winkel α und δ gleich groß? Kreuze jeweils an, ob die Aussagen und deren Begründungen richtig oder falsch sind.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "... gleich groß, denn die beiden Dreiecke sind kongruent.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "... gleich groß, denn β und γ sind Scheitelwinkel und daher gleich groß. Außerdem ist α + β = 90° und es ist γ + δ = 90°. Also ist α = 90° - β = 90° - γ = δ.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "richtig",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "... nicht gleich groß, denn in einem kleineren Dreieck ist auch der entsprechende Winkel kleiner.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "... gleich groß, denn beide Winkel haben einen Schenkel gemeinsam und ihre beiden anderen Schenkel verlaufen parallel zueinander. α und δ sind also Wechselwinkel an parallelen Geraden.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "richtig",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "mc",
+      "prompt": "... nicht gleich groß, denn β und γ sind nicht gleich groß.",
+      "options": [
+        {
+          "id": "richtig",
+          "label": "richtig"
+        },
+        {
+          "id": "falsch",
+          "label": "falsch"
+        }
+      ],
+      "loesung_vorschlag": "falsch",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "57936589-98cb-404e-91aa-dd92f11eda35",
+  "_title": "Figur aus zwei Dreiecken",
+  "_slug": "figurauszweidreiecken",
+  "_images": [
+    "../vera8_sichtung/figurauszweidreiecken/image1.emf.png",
+    "../vera8_sichtung/figurauszweidreiecken/image2.emf.png",
+    "../vera8_sichtung/figurauszweidreiecken/image3.emf.png"
+  ]
+}

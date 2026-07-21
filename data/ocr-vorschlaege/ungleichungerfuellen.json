@@ -1,0 +1,43 @@
+{
+  "stamm": "Gib drei natürliche Zahlen für z an, so dass die Ungleichung erfüllt ist.\n7 + z < 13",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "z = _______",
+      "unit": null,
+      "loesung_vorschlag": "0, 1, 2, 3, 4 oder 5 (alle natürlichen Zahlen kleiner 6)",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "z = _______",
+      "unit": null,
+      "loesung_vorschlag": "0, 1, 2, 3, 4 oder 5 (alle natürlichen Zahlen kleiner 6)",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "z = _______",
+      "unit": null,
+      "loesung_vorschlag": "0, 1, 2, 3, 4 oder 5 (alle natürlichen Zahlen kleiner 6)",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "bf98afaf-0ea3-4bbf-a5be-7eb81ff68a36",
+  "_title": "Ungleichung erfüllen",
+  "_slug": "ungleichungerfuellen",
+  "_images": [
+    "../vera8_sichtung/ungleichungerfuellen/image1.jpeg",
+    "../vera8_sichtung/ungleichungerfuellen/image2.png",
+    "../vera8_sichtung/ungleichungerfuellen/image3.png",
+    "../vera8_sichtung/ungleichungerfuellen/image4.png"
+  ]
+}

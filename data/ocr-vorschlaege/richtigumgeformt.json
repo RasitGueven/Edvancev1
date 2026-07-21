@@ -1,0 +1,32 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Wandle den Term 2x + 4a in ein Produkt der Form ........................ · (........................) um.",
+      "loesung_vorschlag": "2 · (x + 2a)",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Multipliziere den Term 4k · (2k − m) aus. 4k · (2k − m) = ........................",
+      "loesung_vorschlag": "8k² − 4km",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "78c48a6c-de97-45f4-8fc2-831cbaea9f5e",
+  "_title": "Richtig umgeformt",
+  "_slug": "richtigumgeformt",
+  "_images": [
+    "../vera8_sichtung/richtigumgeformt/image1.emf.png",
+    "../vera8_sichtung/richtigumgeformt/image2.emf.png",
+    "../vera8_sichtung/richtigumgeformt/image3.emf.png"
+  ]
+}

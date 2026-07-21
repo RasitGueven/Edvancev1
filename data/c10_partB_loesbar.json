@@ -1,0 +1,326 @@
+{
+  "Adventskalender": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Alle Zahlen (24 Personen, Daten) stehen im Text; Abbildung dekorativ."
+  },
+  "Ampelkarte": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Einstufungs-Grenzwerte gering/mittel/hoch stehen nur in der referenzierten Tabelle."
+  },
+  "Andere Länder - andere Noten": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Berechnungsformel vollständig im Text angegeben."
+  },
+  "Anteile in geometrischen Objekten": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die grau gefärbten Anteile sind nur der Figur zu entnehmen."
+  },
+  "Aussagen über Dreiecke": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; gesamte Information steckt in der Abbildung."
+  },
+  "Berechnungen am Rechteck": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Maße nur in der Abbildung."
+  },
+  "Besondere Vierecke": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die bereits eingezeichnete Seite muss aus der Zeichnung übernommen werden."
+  },
+  "Bistroumfrage": {
+    "ohne_bild_loesbar": "vielleicht",
+    "begruendung": "Nur Einleitung vorhanden; konkrete Aufgabe/Daten unklar, evtl. anpassbar."
+  },
+  "Damenuhr": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Anzahl der Ringe und Armbänder (4 und 4) steht im Text."
+  },
+  "Deckungsgleiche Parallelogramme": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Das gegebene Parallelogramm liegt nur in der Zeichnung vor."
+  },
+  "Dreieck im Quadrat": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Anzahl grauer Dreiecke der ersten Blätter nur aus den Abbildungen ablesbar."
+  },
+  "Dreiecke ergänzen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Das zu ergänzende Dreieck ist nur in der Zeichnung gegeben."
+  },
+  "Eindeutig": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die zu lösenden Gleichungen stehen nicht im Text, sondern in der Abbildung."
+  },
+  "Fahrräder": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Werte der Strichliste sind nur der Abbildung zu entnehmen."
+  },
+  "Fahrtrichtung geradeaus": {
+    "ohne_bild_loesbar": "vielleicht",
+    "begruendung": "Verkehrszeichen im Text beschrieben, konkrete Frage aber unklar."
+  },
+  "Fliesen für den Fußboden": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Seitenlängen der Fliesen müssen aus dem Bild gemessen werden."
+  },
+  "Flächengleich oder nicht": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Figuren nur in der Abbildung."
+  },
+  "Freibad": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Besucherzahlen stehen nur im Diagramm."
+  },
+  "Freizeitbeschäftigungen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Das Umfrageergebnis ist nur der Abbildung zu entnehmen."
+  },
+  "Freunde": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Körpergröße und Alter der Freunde stehen nur im Diagramm."
+  },
+  "Fußballtabelle": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Nur die Punkteregeln stehen im Text; die eigentliche Tabelle fehlt."
+  },
+  "Füllverhalten": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Gefäße/Graphen nur in der Abbildung."
+  },
+  "Gesamtkantenlänge": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Quadermaße sind nur in der Abbildung angegeben."
+  },
+  "Glückssäckchen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Kugelzusammensetzung der Säckchen ist nur im Bild dargestellt."
+  },
+  "Großer Wagen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Sternpositionen liegen nur im Koordinatensystem vor."
+  },
+  "Hausaufgaben": {
+    "ohne_bild_loesbar": "vielleicht",
+    "begruendung": "Datenlisten im Text lösbar, Teil 2 braucht aber das Kreisdiagramm."
+  },
+  "Heizkosten": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Beide Prozentwerte (40 %, 30 %) stehen im Text."
+  },
+  "Inliner": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Alle Strecken, Zeiten und Geschwindigkeiten stehen im Text."
+  },
+  "Innenwinkel 2": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Nur der Merksatz steht im Text; die zu berechnende Figur fehlt."
+  },
+  "Liebstes Schulfach": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Umfragewerte stehen nur in der Tabelle."
+  },
+  "Mauer aus Zahlen": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Alle Zahlenmauer-Werte sind im Text in Klammern angegeben."
+  },
+  "Mensch ärgere dich nicht": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Würfelwahrscheinlichkeit vollständig aus dem Text herleitbar."
+  },
+  "Mülltonne": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Maße der Mülltonne müssen der Abbildung entnommen werden."
+  },
+  "Nagelbrett": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die eigentliche Aufgabenstellung/Figuren stecken in den Abbildungen."
+  },
+  "Nebenjob": {
+    "ohne_bild_loesbar": "vielleicht",
+    "begruendung": "Stundenlohn im Text, aber die auszufüllende Tabelle fehlt."
+  },
+  "Niederschläge": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Niederschlagswerte sind nur dem Diagramm zu entnehmen."
+  },
+  "Null Komma Acht": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Information nur in der Abbildung."
+  },
+  "Osterhase": {
+    "ohne_bild_loesbar": "vielleicht",
+    "begruendung": "Teil 1 aus Text lösbar, Teil-2-Aussagen der Tabelle fehlen im Text."
+  },
+  "Pappschachtel": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Alle Maße (2,5 cm, 8 cm, 13 cm, x) stehen im Text."
+  },
+  "Parkhaus": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Das schon begonnene Diagramm ist zum Ergänzen nötig."
+  },
+  "Pinsel": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Pinsellänge muss im Bild gemessen werden."
+  },
+  "Punktgenau": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Information nur in der Abbildung."
+  },
+  "Quadernetz vervollständigen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Das unvollständige Netz liegt nur in der Zeichnung vor."
+  },
+  "Quadrat und Raute": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die gegebene Gerade ist nur im Koordinatensystem eingezeichnet."
+  },
+  "Quadrate": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Koordinaten von A, B, D sind nur der Zeichnung zu entnehmen."
+  },
+  "Rathausuhr": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Alle Schlagregeln sind vollständig im Text beschrieben."
+  },
+  "Rechteck": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Punkte A, B, D liegen nur im Koordinatensystem vor."
+  },
+  "Reiseverlauf": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Der Reiseverlauf ist nur im Weg-Zeit-Diagramm dargestellt."
+  },
+  "Rundfunkgebühren": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Gebührenentwicklung und Tabelle stehen nur in der Abbildung."
+  },
+  "Sauerkraut": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Startmenge und Wachstumsrate stehen im Text."
+  },
+  "Schachteln packen": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Alle Kantenlängen sind im Text beschrieben."
+  },
+  "Schokolinsen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Schätzung erfordert das Foto mit den Schokolinsen."
+  },
+  "Schulkleidung": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Alle Umfragezahlen stehen im Text."
+  },
+  "Schwarz-Weiß-Würfel": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Die Farbverteilung der Würfelseiten ist im Text beschrieben."
+  },
+  "Skala und Zahlen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die markierten Zahlen müssen von der Zahlengeraden abgelesen werden."
+  },
+  "Spielwürfel": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "20-seitiger Würfel mit Zahlen 1-20 im Text beschrieben."
+  },
+  "Stammbrüche untersuchen": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Begriff Stammbruch definiert; Aufgabe rein rechnerisch lösbar."
+  },
+  "Tabelle ausfüllen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Werte der proportionalen Zuordnung stehen nur in der Tabelle."
+  },
+  "Thermometer": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Skala nur in der Abbildung."
+  },
+  "Tombola zum Schulfest": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Alle Losanzahlen stehen im Text."
+  },
+  "Trapez ohne Symmetrie": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Begründungen beziehen sich auf das nur abgebildete Trapez."
+  },
+  "Treppenmaße": {
+    "ohne_bild_loesbar": "vielleicht",
+    "begruendung": "Formel im Text, aber die Maßtabelle in Teil 1 fehlt."
+  },
+  "Tropfender Wasserhahn": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Messdaten zur Wassermenge fehlen im Text."
+  },
+  "Umfang und Fläche": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Figuren nur in der Abbildung."
+  },
+  "Ungewöhnlicher Spielwürfel": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Form ergibt sich nur aus den fotografierten Ansichten."
+  },
+  "Verlauf des Graphen": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Graph nur in der Abbildung."
+  },
+  "Verschiedene Rechtecke": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Koordinaten von Punkt C sind nur dem Diagramm zu entnehmen."
+  },
+  "Viele Brötchen": {
+    "ohne_bild_loesbar": "vielleicht",
+    "begruendung": "Preis im Text, aber die auszufüllende Tabelle fehlt."
+  },
+  "Waage": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die gemessenen Gewichte sind im Text nicht aufgeführt."
+  },
+  "Wo liegt C": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Punkte nur im Koordinatensystem."
+  },
+  "Wo sind die Punkte": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Gerade g ist nur im Koordinatensystem eingezeichnet."
+  },
+  "Würfeln mit Quader": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Häufigkeitstabelle mit den Werten fehlt im Text."
+  },
+  "Würfelnetze": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die zu prüfenden Netz-Abbildungen müssen betrachtet werden."
+  },
+  "Würfelturm": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Aufgabe rein kombinatorisch aus dem Text lösbar."
+  },
+  "Würfelturm 2": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Kantenlängen-Verhältnis vollständig im Text beschrieben."
+  },
+  "Zahlenstrahl": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Aufgabentext leer; Markierungen nur in der Abbildung."
+  },
+  "Zahlensuche": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die vorgegebenen Zahlen der Tabelle fehlen im Text."
+  },
+  "Zoobesuch": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die zur Auswahl stehenden Diagramme müssen betrachtet werden."
+  },
+  "Zwei Kreise": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die Figur mit Kreisen und Dreiecken liegt nur in der Abbildung vor."
+  },
+  "Zwei Taschenrechner": {
+    "ohne_bild_loesbar": "ja_sicher",
+    "begruendung": "Tastenfolge und beide Ergebnisse stehen im Text."
+  },
+  "Zweite Gerade": {
+    "ohne_bild_loesbar": "nein",
+    "begruendung": "Die vorhandene Gerade ist nur im Koordinatensystem eingezeichnet."
+  }
+}

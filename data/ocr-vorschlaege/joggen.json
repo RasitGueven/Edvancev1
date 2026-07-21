@@ -1,0 +1,52 @@
+{
+  "stamm": "Die ideale Trainingsbelastung: Rechnen Sie 200 minus Lebensalter. Das ergibt den Maximalpuls. Beim Training sollte man mindestens 65% vom Maximalpuls erreichen, aber auch nicht mehr als 85%.\n\nHerr Fuchs ist 35 Jahre alt und trainiert nach dieser Faustregel.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Trage ein, zwischen welchen Werten sich sein Trainingspuls bewegen sollte. Runde auf ganze Zahlen. Trainingspuls mindestens:",
+      "unit": null,
+      "loesung_vorschlag": "107",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Trage ein, zwischen welchen Werten sich sein Trainingspuls bewegen sollte. Runde auf ganze Zahlen. Trainingspuls höchstens:",
+      "unit": null,
+      "loesung_vorschlag": "140",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "Für ein beliebiges Lebensalter x lässt sich der für den Trainingspuls empfohlene Bereich mit Hilfe von Termen beschreiben. Gib einen Term für den unteren Wert des Trainingspulses an.",
+      "loesung_vorschlag": "0,65·(200-x) oder (200-x)·0,65",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 4,
+      "kind": "short_input",
+      "prompt": "Der Trainer möchte eine Tabelle erstellen, aus der er für jedes Lebensalter sofort die richtigen Werte für den Trainingspuls ablesen kann. Er verwendet dazu eine Tabellenkalkulation. Der Wert für die obere Grenze des Trainingspulses in der Zelle D4 wird mit einer Formel berechnet. In dieser Formel wird für das Lebensalter die Zellbezeichnung A4 verwendet. Gib eine passende Formel hierfür an.",
+      "loesung_vorschlag": "=0,85*(200-A4) oder =(200-A4)*0,85 oder =0.85*(200-A4) oder =(200-A4)*0.85",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "da9d0038-6c4e-4b0e-9547-a6c93daaac40",
+  "_title": "Joggen",
+  "_slug": "joggen",
+  "_images": [
+    "../vera8_sichtung/joggen/image1.jpeg",
+    "../vera8_sichtung/joggen/image2.emf.png",
+    "../vera8_sichtung/joggen/image3.emf.png",
+    "../vera8_sichtung/joggen/image4.emf.png",
+    "../vera8_sichtung/joggen/image5.emf.png",
+    "../vera8_sichtung/joggen/image6.emf.png",
+    "../vera8_sichtung/joggen/image7.emf.png"
+  ]
+}

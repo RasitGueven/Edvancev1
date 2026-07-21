@@ -45,13 +45,21 @@ const task = (over: Partial<AuthoringTask>): AuthoringTask => ({
   curriculum_grade: 7,
   parts: [],
   assets: [],
+  needs_image: null,
+  licence_text: null,
   question_payload: null,
-  source: 'VERA8_IQB',
-  source_ref: 'ref-1',
+  // Eigenbau — der Quellen-Filter steht per Default auf "Nur Eigenbauten", also
+  // ist das die Herkunft, mit der die Liste ein Item ueberhaupt zeigt.
+  source: 'edvance_original',
+  source_ref: null,
   is_active: true,
   created_at: '2026-07-01T00:00:00Z',
   ...over,
 })
+
+/** Ein Item aus dem VERA-Bestand — vom Quellen-Filter standardmaessig verdeckt. */
+const veraTask = (over: Partial<AuthoringTask> = {}): AuthoringTask =>
+  task({ id: 'vera-1', title: 'VERA-Aufgabe', source: 'VERA8_IQB', source_ref: 'ref-1', ...over })
 
 const FULL_SCHEMA = { hasStoffanker: true, hasSolutionRead: true, hasStatusGate: true }
 
@@ -115,6 +123,30 @@ describe('AuthoringItemsPage', () => {
     })
 
     expect(await screen.findByText('Keine Items in dieser Auswahl')).toBeInTheDocument()
+  })
+
+  it('blendet den VERA-Bestand standardmaessig aus', async () => {
+    setup([task({}), veraTask()])
+    await screen.findByText('Zwanzig Prozent')
+
+    expect(screen.queryByText('VERA-Aufgabe')).not.toBeInTheDocument()
+    // Ehrlich gezaehlt: die Gesamtzahl verschweigt das Ausgeblendete nicht.
+    expect(screen.getByText('1 von 2 Items')).toBeInTheDocument()
+  })
+
+  it('holt VERA ueber das Quellen-Dropdown zurueck — nichts ist geloescht', async () => {
+    setup([task({}), veraTask()])
+    await screen.findByText('Zwanzig Prozent')
+
+    fireEvent.change(screen.getByLabelText('Quelle'), { target: { value: 'all' } })
+    expect(await screen.findByText('VERA-Aufgabe')).toBeInTheDocument()
+    expect(screen.getByText('Zwanzig Prozent')).toBeInTheDocument()
+
+    fireEvent.change(screen.getByLabelText('Quelle'), { target: { value: 'vera' } })
+    await waitFor(() =>
+      expect(screen.queryByText('Zwanzig Prozent')).not.toBeInTheDocument(),
+    )
+    expect(screen.getByText('VERA-Aufgabe')).toBeInTheDocument()
   })
 
   it('warnt, wenn die Datenbank die A01-Felder noch nicht hat', async () => {

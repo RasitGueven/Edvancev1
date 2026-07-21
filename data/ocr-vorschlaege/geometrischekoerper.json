@@ -1,0 +1,103 @@
+{
+  "stamm": "In der nachfolgenden Tabelle sind Körper benannt. Prüfe, ob diese in der Abbildung zu sehen sind. Kreuze jeweils an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Ist ein Zylinder in der Abbildung zu sehen?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "nein",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "mc",
+      "prompt": "Ist ein Quader in der Abbildung zu sehen?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "mc",
+      "prompt": "Ist eine Pyramide in der Abbildung zu sehen?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 4,
+      "kind": "mc",
+      "prompt": "Ist ein Kegel in der Abbildung zu sehen?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 5,
+      "kind": "mc",
+      "prompt": "Ist eine Kugel in der Abbildung zu sehen?",
+      "options": [
+        {
+          "id": "ja",
+          "label": "ja"
+        },
+        {
+          "id": "nein",
+          "label": "nein"
+        }
+      ],
+      "loesung_vorschlag": "ja",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "e85d48b0-e49a-4659-a998-40d33ea2fae4",
+  "_title": "Geometrische Körper erkennen",
+  "_slug": "geometrischekoerper",
+  "_images": [
+    "../vera8_sichtung/geometrischekoerper/image1.jpeg",
+    "../vera8_sichtung/geometrischekoerper/image2.emf.png",
+    "../vera8_sichtung/geometrischekoerper/image3.emf.png"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "stamm": "Zur Erinnerung: In jedem Dreieck beträgt die Summe der drei Innenwinkelgrößen 180°.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Bei einem rechtwinkligen Dreieck ist die Größe des Innenwinkels α gegeben mit 20°. Ergänze β.",
+      "unit": "°",
+      "loesung_vorschlag": "70",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Bei einem rechtwinkligen Dreieck ist die Größe des Innenwinkels α gegeben mit 20°. Ergänze γ.",
+      "unit": "°",
+      "loesung_vorschlag": "90",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Von einem gleichschenkligen Dreieck ist die Größe des Innenwinkels α mit 50° gegeben. Notiere eine Möglichkeit für β.",
+      "unit": "°",
+      "loesung_vorschlag": "50 oder 65 oder 80",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 4,
+      "kind": "numeric",
+      "prompt": "Von einem gleichschenkligen Dreieck ist die Größe des Innenwinkels α mit 50° gegeben. Notiere eine weitere, verschiedene Möglichkeit für β.",
+      "unit": "°",
+      "loesung_vorschlag": "50 oder 65 oder 80",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 5,
+      "kind": "numeric",
+      "prompt": "Von einem gleichschenkligen Dreieck ist die Größe des Innenwinkels α mit 50° gegeben. Notiere die zugehörige Möglichkeit für γ zur ersten Möglichkeit.",
+      "unit": "°",
+      "loesung_vorschlag": "80 oder 50 oder 65",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 6,
+      "kind": "numeric",
+      "prompt": "Von einem gleichschenkligen Dreieck ist die Größe des Innenwinkels α mit 50° gegeben. Notiere die zugehörige Möglichkeit für γ zur zweiten Möglichkeit.",
+      "unit": "°",
+      "loesung_vorschlag": "80 oder 50 oder 65",
+      "mehrere_loesungen_moeglich": true
+    },
+    {
+      "nr": 7,
+      "kind": "free_text",
+      "prompt": "Es gibt keine gleichseitigen Dreiecke, die rechtwinklig sind. Begründe die Aussage.",
+      "loesung_vorschlag": "In einem gleichseitigen Dreieck sind alle drei Winkel gleich groß, also jeweils 60°. Ein rechtwinkliges Dreieck muss einen 90°-Winkel haben. Beides zusammen ist nicht möglich.",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "92670ac0-39fd-47cb-a2da-5b95dc2b0751",
+  "_title": "Innenwinkel 2",
+  "_slug": "innenwinkel2",
+  "_images": [
+    "../vera8_sichtung/innenwinkel2/image1.png",
+    "../vera8_sichtung/innenwinkel2/image2.png",
+    "../vera8_sichtung/innenwinkel2/image3.png",
+    "../vera8_sichtung/innenwinkel2/image4.png",
+    "../vera8_sichtung/innenwinkel2/image5.emf.png"
+  ]
+}

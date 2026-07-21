@@ -17,6 +17,16 @@ export async function createLead(input: LeadInput): Promise<SupabaseResult<Lead>
         goal: input.goal ?? null,
         known_weak_topics: input.known_weak_topics ?? [],
         source: input.source ?? null,
+        // Intake-Felder (S7): direkt beim Anlegen, damit das Erstgespraech in
+        // einem Rutsch am Empfang erfasst werden kann.
+        first_name: input.first_name ?? null,
+        birth_date: input.birth_date ?? null,
+        last_grade: input.last_grade ?? null,
+        grade_trend: input.grade_trend ?? null,
+        struggling_since: input.struggling_since ?? null,
+        tried_before: input.tried_before ?? null,
+        next_exam_date: input.next_exam_date ?? null,
+        next_exam_topic: input.next_exam_topic ?? null,
       })
       .select('*')
       .single()
@@ -51,8 +61,38 @@ type LeadPatch = Partial<
     | 'contacted_at'
     | 'onboarding_scheduled_at'
     | 'converted_student_id'
+    // Intake-Felder (S7, Erstgespraech) — beim Weiterpflegen eines Leads.
+    | 'full_name'
+    | 'first_name'
+    | 'birth_date'
+    | 'contact_email'
+    | 'contact_phone'
+    | 'class_level'
+    | 'school_type'
+    | 'school_name'
+    | 'subjects'
+    | 'last_grade'
+    | 'grade_trend'
+    | 'struggling_since'
+    | 'tried_before'
+    | 'next_exam_date'
+    | 'next_exam_topic'
+    | 'consent_dsgvo_at'
+    | 'consent_dsgvo_by'
   >
 >
+
+// Dokumentiert die DSGVO-Einwilligung der Eltern: Zeitpunkt + der bestaetigende
+// Admin. PFLICHT-Gate vor der LSA-Freigabe (lead_lsa_freigeben verweigert ohne).
+export async function setLeadConsent(
+  id: string,
+  adminProfileId: string,
+): Promise<SupabaseResult<Lead>> {
+  return updateLead(id, {
+    consent_dsgvo_at: new Date().toISOString(),
+    consent_dsgvo_by: adminProfileId,
+  })
+}
 
 // Aktualisiert Status/Owner/Notizen/Termine eines Leads.
 export async function updateLead(

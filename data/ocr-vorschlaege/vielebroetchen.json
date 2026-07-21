@@ -1,0 +1,25 @@
+{
+  "stamm": "In der Bäckerei am Dorfplatz kostet ein Brötchen 0,30€, egal wie viele Brötchen man kauft.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Schreibe die Bezeichnungen für die beiden Tabellenzeilen in die erste Spalte. Ergänze dann die fehlenden Werte, so dass man ablesen kann, was die jeweilige Anzahl Brötchen kostet.",
+      "loesung_vorschlag": "Zeile 1: Anzahl Brötchen; Zeile 2: Preis in €. Werte: 2→0,60€; 3→0,90€; 4→1,20€; 5→1,50€",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": true,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die Aufgabe verlangt das Ausfüllen einer Tabelle mit Zeilenbeschriftungen und mehreren Zahlenwerten. Dies ist eine typische Tabellenausfüllaufgabe, die sich nicht sauber in einzelne numeric-Parts zerlegen lässt, daher braucht_tabellentyp=true.",
+  "_task_id": "fc1dabeb-705d-40d1-80b5-5c24d1596144",
+  "_title": "Viele Brötchen",
+  "_slug": "vielebroetchen",
+  "_images": [
+    "../vera8_sichtung/vielebroetchen/image1.png",
+    "../vera8_sichtung/vielebroetchen/image2.png",
+    "../vera8_sichtung/vielebroetchen/image3.png"
+  ]
+}

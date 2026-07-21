@@ -1,0 +1,42 @@
+{
+  "stamm": "Hier ist ein Schneekristall abgebildet.\nWie viele Symmetrieachsen hat dieser Schneekristall (von kleinen Abweichungen abgesehen)?\nKreuze an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Wie viele Symmetrieachsen hat dieser Schneekristall (von kleinen Abweichungen abgesehen)?",
+      "options": [
+        {
+          "id": "a",
+          "label": "3"
+        },
+        {
+          "id": "b",
+          "label": "4"
+        },
+        {
+          "id": "c",
+          "label": "6"
+        },
+        {
+          "id": "d",
+          "label": "12"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "70b9366b-129d-4198-a6e8-c01a8cc1cba2",
+  "_title": "Schneekristalle",
+  "_slug": "schneekristalle",
+  "_images": [
+    "../vera8_sichtung/schneekristalle/image1.emf.png",
+    "../vera8_sichtung/schneekristalle/image2.emf.png"
+  ]
+}

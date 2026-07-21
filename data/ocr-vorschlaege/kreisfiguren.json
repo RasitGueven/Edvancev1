@@ -1,0 +1,25 @@
+{
+  "stamm": "In der Abbildung siehst du Figuren, die durch Kreislinien und Strecken begrenzt sind. Zwei der vier Figuren haben denselben Flächeninhalt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Welche sind das? Figur ... und Figur ... haben denselben Flächeninhalt.",
+      "loesung_vorschlag": "A und D",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "SHORT_TEXT",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "d57cdb1d-727b-4f6e-b935-92ed09db2d4f",
+  "_title": "Kreisfiguren",
+  "_slug": "kreisfiguren",
+  "_images": [
+    "../vera8_sichtung/kreisfiguren/image1.png",
+    "../vera8_sichtung/kreisfiguren/image2.png",
+    "../vera8_sichtung/kreisfiguren/image3.emf.png"
+  ]
+}

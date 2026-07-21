@@ -1,0 +1,34 @@
+{
+  "stamm": "Martin sammelt neuerdings Briefmarken. Er will sie vorläufig in kleinen, selbst gebastelten Schachteln aufbewahren.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Hier sind Netze für weitere Schachteln. Vor dem Zusammenkleben beschriftete sie Martin. Vervollständige die Beschriftung für SCHWEIZ.",
+      "loesung_vorschlag": "Fehlende Buchstaben: E, I, Z (in den leeren Feldern entsprechend der Faltung)",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Hier sind Netze für weitere Schachteln. Vor dem Zusammenkleben beschriftete sie Martin. Vervollständige die Beschriftung für PORTUGAL.",
+      "loesung_vorschlag": "Fehlende Buchstaben: L, A, U, G (in den leeren Feldern entsprechend der Faltung)",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": "Die genaue Zuordnung der Buchstaben zu den leeren Feldern erfordert räumliches Vorstellungsvermögen beim Falten der Netze. Die konkrete Position jedes Buchstabens ist aus dem Bild nicht eindeutig ohne Faltsimulation ablesbar.",
+  "_task_id": "47af3fb6-5546-43ca-810c-cf9dee8770d6",
+  "_title": "Briefmarkenschachteln",
+  "_slug": "briefmarkenschachteln",
+  "_images": [
+    "../vera8_sichtung/briefmarkenschachteln/image1.jpeg",
+    "../vera8_sichtung/briefmarkenschachteln/image2.emf.png",
+    "../vera8_sichtung/briefmarkenschachteln/image3.emf.png",
+    "../vera8_sichtung/briefmarkenschachteln/image4.emf.png",
+    "../vera8_sichtung/briefmarkenschachteln/image5.emf.png"
+  ]
+}

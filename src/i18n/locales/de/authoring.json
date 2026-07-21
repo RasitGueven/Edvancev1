@@ -33,6 +33,9 @@
     "subject": "Fach",
     "competency": "Kompetenz",
     "afb": "AFB",
+    "source": "Quelle",
+    "sourceOwn": "Nur Eigenbauten",
+    "sourceVera": "Nur VERA",
     "flags": "Befunde",
     "flagsBlocking": "Nur blockierende",
     "flagsAny": "Mit Befund",
@@ -110,6 +113,21 @@
     "assetAltPlaceholder": "Was ist auf dem Bild zu sehen?",
     "assetCaption": "Bildunterschrift (optional)",
     "addAsset": "Bild hinzufügen",
+    "licenceText": "Lizenz / Quellenangabe",
+    "licenceTextPlaceholder": "Attributionstext, der mit dem Bild eingeblendet wird.",
+    "crop": "Zuschneiden",
+    "cropHint": "Rechteck über der Figur aufziehen. Der Zuschnitt wird als neue Datei gespeichert — das Original bleibt erhalten.",
+    "cropPreview": "Vorschau des Ausschnitts",
+    "cropSize": "{{width}} × {{height}} Pixel",
+    "cropConfirm": "Ausschnitt übernehmen",
+    "cropSaving": "Wird gespeichert …",
+    "cropCancel": "Abbrechen",
+    "cropNoSelection": "Erst ein Rechteck über dem Bild aufziehen",
+    "cropRestore": "Original wiederherstellen",
+    "cropBadge": "Zugeschnitten",
+    "cropOriginalKept": "Das Original bleibt gespeichert und kann wiederhergestellt werden.",
+    "cropFailed": "Der Zuschnitt konnte nicht gespeichert werden: {{detail}}",
+    "cropUnavailable": "Dieses Bild lässt sich nicht zuschneiden — es liegt nicht im Bucket task-assets und gibt den Zugriff nicht frei. Bild zuerst hochladen.",
     "remove": "Entfernen",
     "none": "—"
   },
@@ -137,10 +155,19 @@
     "hint": "Jede Teilaufgabe trägt ihre eigene Kompetenz und ihr eigenes AFB — sie ist der diagnostische Datenpunkt, nicht das Item."
   },
   "preview": {
-    "hint": "So sieht es das Kind. Kein Feedback, keine Lösung — wie in der LSA.",
+    "open": "Vorschau",
+    "close": "Vorschau schließen",
+    "hint": "So sieht es das Kind — serverseitig gebaut, dieselbe Funktion, die das Tablet bedient. Kein Feedback, keine Lösung.",
+    "unsavedHint": "Vorschau des Entwurfs: So sähe es aus, wenn du jetzt speicherst. Gespeichert ist es nicht.",
+    "saved": "Gespeicherter Stand",
+    "unsaved": "Ungespeichert",
+    "updating": "Aktualisiert …",
     "empty": "Der Stamm ist leer.",
     "submit": "Antworten",
-    "answerPlaceholder": "Deine Antwort"
+    "answerPlaceholder": "Deine Antwort",
+    "failed": "Vorschau nicht möglich",
+    "rpcMissing": "Vorschau nicht verfügbar",
+    "rpcMissingHint": "Der Datenbank fehlt die Funktion task_preview_payload (Migration A02). Bis sie da ist, gibt es keine Vorschau — ein Nachbau im Frontend würde etwas anderes zeigen als das Tablet."
   },
   "grounding": {
     "none": "Kein Quellenbeleg — dieses Item ist ein Eigenbau.",
@@ -188,10 +215,12 @@
     "partCompetencyMissing": "Teilaufgabe {{nr}}: kein Inhaltsfeld.",
     "partSolutionMissing": "Teilaufgabe {{nr}}: keine Lösung. Bei Multi-Part braucht jede Teilaufgabe eine.",
     "assetAltMissing": "Bild {{index}}: kein Alt-Text.",
+    "licenceMissing": "Bild ohne Lizenz-/Quellenangabe.",
     "estDurationMissing": "Kein Zeitbudget gesetzt."
   },
   "release": {
     "current": "Aktueller Status",
+    "checklistTitle": "Vor der Freigabe zu erledigen",
     "toDraft": "Zurück auf Entwurf",
     "toReview": "Zur Prüfung",
     "toReady": "Freigeben",
@@ -226,5 +255,166 @@
     "I": "AFB I — Reproduzieren",
     "II": "AFB II — Zusammenhänge herstellen",
     "III": "AFB III — Verallgemeinern und reflektieren"
+  },
+  "needsImage": {
+    "title": "Bild-Notwendigkeit",
+    "hint": "Didaktik, nicht Technik: Braucht die Aufgabe inhaltlich eine Abbildung? Getrennt vom Bild-Zustand darunter — hier zählt nur der Inhalt, nicht ob schon ein Bild da ist. Eine Fachentscheidung, kein Automatismus.",
+    "itemLabel": "Braucht diese Aufgabe eine Abbildung?",
+    "itemLabelMulti": "Braucht der Stamm eine Abbildung?",
+    "partLabel": "Teilaufgabe {{nr}}: braucht eine Abbildung?",
+    "open": "Noch nicht beurteilt",
+    "yes": "Braucht eine Abbildung",
+    "no": "Keine Abbildung nötig"
+  },
+  "wizard": {
+    "title": "Pflege-Strecke",
+    "subtitle": "Ein Item nach dem anderen",
+    "eyebrow": "Autoren-Tool",
+    "exit": "Strecke beenden",
+    "queuePosition": "{{pos}} / {{total}}",
+    "queueLabel": "Warteschlange: {{label}}",
+    "stepLabel": "Schritt {{pos}} von {{total}} — {{name}}",
+    "keyboardHint": "Enter = weiter · V = Vorschau · Esc = Vorschau zu",
+    "openPreview": "Vorschau (V)",
+    "back": "Zurück",
+    "next": "Weiter",
+    "start_one": "Dieses Item durcharbeiten",
+    "start_other": "Diese {{count}} Items durcharbeiten",
+    "sourceList": "Item-Liste",
+    "sourceHealth": "Content-Gesundheit",
+    "noQueueTitle": "Keine Warteschlange",
+    "noQueueDescription": "Die Pflege-Strecke startet aus der Item-Liste oder der Content-Gesundheit — dort bestimmt der aktive Filter, welche Items drankommen.",
+    "toList": "Zur Item-Liste",
+    "toHealth": "Zur Content-Gesundheit",
+    "loadErrorTitle": "Item konnte nicht geladen werden",
+    "skipBroken": "Überspringen und weiter",
+    "steps": {
+      "read": "Lesen",
+      "anchor": "Stoffanker",
+      "images": "Bilder",
+      "solution": "Lösung & Beleg",
+      "release": "Freigabe"
+    },
+    "read": {
+      "hint": "So sieht das Kind die Aufgabe — serverseitig gebaut. Prüfe: Ist die Frage vollständig und verständlich?",
+      "meta": "Item",
+      "defects": "Mängel",
+      "noDefects": "Keine Mängel"
+    },
+    "anchor": {
+      "title": "Stoffanker bestätigen oder setzen",
+      "suggestion": "Vorschlag: Klasse {{grade}} — bestätigen?",
+      "confirm": "Bestätigen & weiter",
+      "changeHint": "Oder anderen Jahrgang wählen:",
+      "unset": "Kein Stoffanker gesetzt — welcher Jahrgangsstoff wird geprüft?",
+      "afbTitle": "AFB — andere Achse, nur Anzeige",
+      "afbNone": "Kein AFB gesetzt",
+      "afbPart": "Teilaufgabe {{nr}}: AFB {{afb}}"
+    },
+    "images": {
+      "titleAssets": "Bilder prüfen",
+      "asset": "Bild {{nr}}",
+      "candidatesTitle": "Kandidaten aus der Quelle",
+      "candidatesHint": "Aus der Quelle vorbereitete Bilder. Klick übernimmt eines als Abbildung der Aufgabe — gespeichert wird beim Schrittwechsel.",
+      "candidatesFailed": "Die Kandidatenbilder konnten nicht geladen werden.",
+      "candidateSelect": "Kandidat {{nr}} übernehmen",
+      "candidateSelected": "Übernommen",
+      "solvableTitle": "Lösbarkeits-Frage",
+      "solvableQuestion": "Ist die Aufgabe ohne dieses Bild lösbar? Wenn nicht: Text umformulieren, Bild ergänzen oder Item nicht freigeben.",
+      "licenceTitle": "Lizenz / Quellenangabe",
+      "licenceHint": "Standard ist CC BY 4.0 (IQB/VERA-8) — der Text ist bereits vorbefüllt. Nur anpassen, wenn die Abbildung eingebettetes Fremdmaterial enthält, das eine abweichende Nennung braucht."
+    },
+    "solution": {
+      "title": "Passt die Lösung zum Item?",
+      "hint": "Korrigiert wird im Expertenmodus — der Wizard prüft nur: passt das? Wenn nicht, im Editor öffnen und danach hier weitermachen.",
+      "answers": "Akzeptierte Antworten",
+      "partAnswers": "Teilaufgabe {{nr}}",
+      "noAnswers": "Keine akzeptierte Antwort hinterlegt.",
+      "solutionText": "Musterlösung",
+      "noSolutionText": "Keine Musterlösung hinterlegt.",
+      "openEditor": "Im Editor öffnen"
+    },
+    "release": {
+      "clear": "Nichts blockiert — das Item kann freigegeben werden.",
+      "clearCoach": "Nichts blockiert. Freigeben darf nur Admin — „Als geprüft markieren“ setzt das Item auf In Prüfung.",
+      "release": "Freigeben",
+      "review": "Als geprüft markieren",
+      "skip": "Überspringen (später)",
+      "alreadyReady": "Dieses Item ist bereits freigegeben.",
+      "blockedHint": "Solange Punkte blockieren, hält „Überspringen“ den Fluss — das Item bleibt in seinem Status."
+    },
+    "done": {
+      "title": "Strecke geschafft!",
+      "description": "{{total}} Items durchgesehen.",
+      "released_one": "{{count}} Item freigegeben",
+      "released_other": "{{count}} Items freigegeben",
+      "reviewed_one": "{{count}} Item als geprüft markiert",
+      "reviewed_other": "{{count}} Items als geprüft markiert",
+      "skipped_one": "{{count}} Item übersprungen",
+      "skipped_other": "{{count}} Items übersprungen",
+      "backToList": "Zur Item-Liste"
+    }
+  },
+  "health": {
+    "eyebrow": "Autoren-Tool",
+    "title": "Content-Gesundheit",
+    "subtitle": "Wo im Bestand die Arbeit liegt",
+    "back": "Zurück",
+    "count": "{{shown}} von {{total}} Items",
+    "loadError": "Der Bestand konnte nicht geladen werden.",
+    "errorTitle": "Der Bestand konnte nicht geladen werden",
+    "emptyTitle": "Nichts in dieser Auswahl",
+    "emptyDescription": "Kein Item hat diesen Mangel — wähle eine andere Kachel.",
+    "open": "Im Editor öffnen",
+    "overview": {
+      "defects": "Mängel",
+      "byStatus": "Bestand nach Status"
+    },
+    "tiles": {
+      "deadPath": "Toter Bildpfad",
+      "deadPathCaption": "relativer Pfad, kein Bucket-Bild",
+      "stoffankerMissing": "Ohne Stoffanker",
+      "stoffankerMissingCaption": "Pflichtfeld für die Freigabe",
+      "altMissing": "Bild ohne Alt-Text",
+      "altMissingCaption": "blockiert die Freigabe",
+      "noAsset": "Ohne Asset",
+      "noAssetCaption": "kein Bild, reiner Text",
+      "imageRefNoAsset": "Bildverweis ohne Bild",
+      "imageRefNoAssetCaption": "Text nennt eine Abbildung, kein Asset da",
+      "needsImageUnjudged": "Bild-Notwendigkeit offen",
+      "needsImageUnjudgedCaption": "Bild-Signal da, aber noch nicht beurteilt",
+      "statusCaption": "Items in diesem Status"
+    },
+    "marker": {
+      "deadPath": "Toter Bildpfad",
+      "stoffankerMissing": "Kein Stoffanker",
+      "altMissing": "Bild ohne Alt-Text",
+      "noAsset": "Kein Asset",
+      "imageRefNoAsset": "Bildverweis ohne Bild",
+      "needsImageUnjudged": "Bild-Notwendigkeit nicht beurteilt",
+      "clean": "Keine Mängel"
+    },
+    "path": {
+      "label": "Bildpfad — nicht im Bucket",
+      "license": "Lizenz"
+    },
+    "imageRef": {
+      "labelQuestion": "Verdacht — Verweis im Fragetext",
+      "labelPart": "Verdacht — Verweis in Teilaufgabe {{nr}}",
+      "hint": "Nur ein Verdacht, keine Entscheidung: Der Text nennt eine Abbildung, aber es liegt kein Bild vor. Im Editor sichten — Text umformulieren, Bild ergänzen oder Item deaktivieren."
+    },
+    "remove": {
+      "action": "Bildpfad entfernen",
+      "running": "Entferne …",
+      "confirm": "Bildpfad wirklich entfernen?",
+      "confirmYes": "Entfernen",
+      "confirmNo": "Abbrechen",
+      "hint": "Entfernt nur den Asset-Eintrag — das Item wird als reiner Text gerendert. Im Bucket wird nichts gelöscht, der Schritt ist umkehrbar.",
+      "adminOnly": "Entfernen darf nur die Rolle Admin."
+    },
+    "toast": {
+      "removed": "Bildpfad entfernt.",
+      "removeFailed": "Entfernen fehlgeschlagen: {{error}}"
+    }
   }
 }

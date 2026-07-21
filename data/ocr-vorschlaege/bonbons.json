@@ -1,0 +1,47 @@
+{
+  "stamm": "In einer Tüte sind zwei grüne, ein gelbes, zwei weiße, ein orangefarbenes und vier rote Bonbons. Jan greift ohne hinzusehen ein Bonbon aus der Tüte.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Mit welcher Wahrscheinlichkeit ist es rot? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "1/10"
+        },
+        {
+          "id": "b",
+          "label": "1/5"
+        },
+        {
+          "id": "c",
+          "label": "4/10"
+        },
+        {
+          "id": "d",
+          "label": "1/2"
+        },
+        {
+          "id": "e",
+          "label": "4/6"
+        }
+      ],
+      "loesung_vorschlag": "4/10",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "cb32618b-f5ae-4721-8f9d-33a4027b4f04",
+  "_title": "Bonbons",
+  "_slug": "bonbons",
+  "_images": [
+    "../vera8_sichtung/bonbons/image1.jpeg",
+    "../vera8_sichtung/bonbons/image2.emf.png",
+    "../vera8_sichtung/bonbons/image3.emf.png"
+  ]
+}

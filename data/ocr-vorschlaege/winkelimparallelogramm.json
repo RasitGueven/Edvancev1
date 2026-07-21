@@ -1,0 +1,33 @@
+{
+  "stamm": "Das dargestellte Viereck ABCD ist ein Parallelogramm. Die Seite CD dieses Parallelogramms wird gedanklich auf der Geraden h hin und her verschoben. Dabei bleibt die Seite CD immer auf der Geraden h. Die Lage der Seite AB verändert sich nicht.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, für welche Winkelgröße α der Umfang des Parallelogramms am kleinsten ist. Der Umfang des Parallelogramms ist für α = ___ am kleinsten.",
+      "unit": "°",
+      "loesung_vorschlag": "90",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Antwort.",
+      "loesung_vorschlag": "Der Umfang ist am kleinsten, wenn die Seiten AD und BC am kürzesten sind. Dies ist der Fall, wenn sie senkrecht auf AB stehen, also bei α = 90°. Dann ist das Parallelogramm ein Rechteck und die Höhe zwischen den parallelen Seiten ist minimal für die Seitenlängen AD und BC.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "75ad818e-9de6-4ce8-a202-a1c4d0fc2675",
+  "_title": "Winkel im Parallelogramm",
+  "_slug": "winkelimparallelogramm",
+  "_images": [
+    "../vera8_sichtung/winkelimparallelogramm/image2.png",
+    "../vera8_sichtung/winkelimparallelogramm/image3.png",
+    "../vera8_sichtung/winkelimparallelogramm/image4.png"
+  ]
+}

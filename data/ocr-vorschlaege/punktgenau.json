@@ -1,0 +1,51 @@
+{
+  "stamm": "Gegeben ist ein Koordinatensystem mit Punkt P eingezeichnet.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Koordinaten hat der Punkt P? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "P (-1 | -2)"
+        },
+        {
+          "id": "b",
+          "label": "P (2 | 1)"
+        },
+        {
+          "id": "c",
+          "label": "P (-2 | 1)"
+        },
+        {
+          "id": "d",
+          "label": "P (-1 | 2)"
+        }
+      ],
+      "loesung_vorschlag": "c",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Zeichne den Punkt Q (1 | 3) in das Koordinatensystem ein.",
+      "loesung_vorschlag": "Punkt Q bei x=1, y=3 einzeichnen",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": true,
+  "unsicher": "Teil 2 ist eine Zeichenaufgabe (Punkt einzeichnen), die automatisch nicht auswertbar ist. Der kind wurde auf short_input gesetzt, sollte aber eigentlich als Zeichenaufgabe markiert bleiben.",
+  "_task_id": "78021c1f-dee2-4262-8cf1-fd0c45355ab0",
+  "_title": "Punktgenau",
+  "_slug": "punktgenau",
+  "_images": [
+    "../vera8_sichtung/punktgenau/image1.emf.png",
+    "../vera8_sichtung/punktgenau/image2.emf.png",
+    "../vera8_sichtung/punktgenau/image3.emf.png",
+    "../vera8_sichtung/punktgenau/image4.emf.png"
+  ]
+}

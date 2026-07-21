@@ -1,0 +1,41 @@
+{
+  "stamm": "Welches der beiden Ereignisse hat die höhere Wahrscheinlichkeit?",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welches der beiden Ereignisse hat die höhere Wahrscheinlichkeit? Kreuze an.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Beim einmaligen Werfen eines Spielwürfels fällt eine Sechs."
+        },
+        {
+          "id": "b",
+          "label": "Beim einmaligen Werfen einer Münze liegt \"Kopf\" oben."
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Begründe deine Entscheidung.",
+      "loesung_vorschlag": "Die Wahrscheinlichkeit für \"Kopf\" bei einer Münze ist 1/2 = 0,5. Die Wahrscheinlichkeit für eine Sechs beim Würfel ist 1/6 ≈ 0,167. Da 1/2 > 1/6 ist, hat das Ereignis mit der Münze die höhere Wahrscheinlichkeit.",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "baebdc2c-9cf0-45c1-8de4-2868a1da618a",
+  "_title": "Wahrscheinlicher",
+  "_slug": "wahrscheinlicher",
+  "_images": [
+    "../vera8_sichtung/wahrscheinlicher/image1.png",
+    "../vera8_sichtung/wahrscheinlicher/image2.png"
+  ]
+}

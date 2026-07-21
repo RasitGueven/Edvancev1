@@ -1,0 +1,300 @@
+id,title,status,input_type,stoffanker_vorschlag,konfidenz,vorbelegt,duration_vorschlag,asset_status,crop_noetig,ohne_bild_loesbar,alt_text_vorschlag,loesung_da,beleg_da,empfohlene_aktion
+600cc62e-d64f-4903-a950-11c98d46609b,20 Prozent,ready,NUMERIC,7,sicher,nein,45,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+31118a1a-1dff-4c2c-a7a5-c9f36afeecaf,700 Milliarden,draft,SHORT_TEXT,5,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+27fb8ca3-408c-4837-8ea3-21a605b22e52,Abstand auf dem Wasser,draft,,7,unsicher,nein,90,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+00c53af5-68c9-4618-8457-2c019ca226a5,Adventskalender,draft,MULTI_PART,6,unsicher,nein,150,tote_pfade_nachladbar,,ja_sicher,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+da2feb2a-c0b0-4ffd-87da-1337060e5189,Ampelkarte,draft,MULTI_PART,6,unsicher,nein,240,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+c6990fb9-ae96-4a56-952e-da94736ac70f,Andere Länder - andere Noten,draft,,7,unsicher,nein,120,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+784b7bb7-d1b6-4242-b71d-f76ccf5eae37,Ansichten eines Tischs,draft,SHORT_TEXT,5,sicher,ja,90,bild_vorhanden,ja,,"Draufsicht eines Tisches mit Teller, Gabel, Glas und Tasse mit Untertasse; am Rand die Kamerapositionen A (unten), B (rechts), C (oben), D (links).",ja,ja,P2 Crop noetig
+dee84098-657e-4af9-a20a-8e60331777de,Anteile in geometrischen Objekten,draft,SHORT_TEXT,6,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+228b1d2f-7be7-4854-9707-e8353fedb4a5,Anzahl von Nullen,draft,,5,sicher,ja,90,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+3eae9729-1abc-4897-beb2-3d7cadb51210,Apfelsaftschorle,draft,,6,sicher,ja,90,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+2993046f-9fc2-4730-a04b-051d662f6204,Aufgabenreihen,draft,,5,unsicher,nein,120,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+489cc6d1-9734-408f-9a08-0ce551d7452b,Aussagen zur proportionalen Zuordnung,draft,FREE_TEXT,7,sicher,ja,120,text_verweis,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+174d386c-3355-4c0a-abc3-2881894e1d16,Aussagen über Dreiecke,draft,,7,sicher,ja,150,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+6d79e710-e941-4708-bce1-6df035685575,Autokauf,draft,MC,7,sicher,ja,120,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+b1b572df-49b4-4ee4-980a-f76d06614b69,Außenthermometer,draft,,7,sicher,ja,120,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+2999e234-85ad-49b0-84d6-eb29311bba5b,Bahncard,draft,MULTI_PART,7,sicher,ja,180,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+0e4d40b0-1e64-49e7-8abf-ced28a71e19c,Berechne x,draft,SHORT_TEXT,8,sicher,ja,45,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+6216a4af-c126-4e4b-bf1f-9d073348fd3e,Berechnungen am Rechteck,draft,,5,sicher,ja,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+93645b25-fbba-4646-a156-d0d5ca3816a3,Bernd und das Brot,draft,SHORT_TEXT,5,sicher,ja,90,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+4fcede19-c8ef-448f-ab6e-9f4f950c0074,Besondere Vierecke,draft,FREE_TEXT,5,sicher,ja,120,tote_pfade_nachladbar,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+ba2ed4e2-0ce8-480e-af96-16b61fddd2d7,Bestimme x,ready,NUMERIC,8,sicher,nein,45,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+aea6e751-c113-43cf-ac73-d6b892d85c45,Bevölkerungsdichte,draft,MULTI_PART,6,unsicher,nein,150,bild_vorhanden,ja,,"Tabelle: Bevoelkerungsdichte der 16 deutschen Bundeslaender am 31.12.2009 in Einwohnern pro km², von Baden-Wuerttemberg (301) bis Thueringen (139).",ja,ja,P2 Crop noetig
+0cbe68c9-d709-4b82-862c-fda96b65be41,Bewege C,draft,,7,unsicher,nein,120,text_verweis,,vielleicht,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+1dab40e4-96f6-45b8-aaad-ed80d298b23a,Bistroumfrage,draft,,,nicht_bestimmbar,nein,120,tote_pfade_nachladbar,,vielleicht,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+cb32618b-f5ae-4721-8f9d-33a4027b4f04,Bonbons,draft,MC,6,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+c3b3e81d-ccc3-4957-bd47-14875d83ea69,Brettspiel,draft,FREE_TEXT,,nicht_bestimmbar,nein,120,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+47af3fb6-5546-43ca-810c-cf9dee8770d6,Briefmarkenschachteln,draft,FREE_TEXT,5,unsicher,nein,150,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+21fada8f-5917-4403-8104-1a075bccb06d,Bruch und Prozentsatz,draft,SHORT_TEXT,6,unsicher,nein,90,bild_vorhanden,ja,,"Tabelle mit zwei Zeilen: Prozentsatz (50 %, leer, 80 %) und Dezimalbruch (0,5; 0,3; leer) — zwei Felder sind auszufuellen.",ja,ja,P2 Crop noetig
+c823a4aa-62eb-40e8-afb4-e13f8f5736f3,Brötchen,draft,MULTI_PART,5,sicher,ja,150,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+dadb66dc-cddc-4ab6-a1c5-915eb31180e2,Butter,draft,SHORT_TEXT,5,unsicher,nein,60,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+89627d8a-0279-41b5-b966-9a023fe7e8c2,Chancen,draft,,6,sicher,ja,90,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+b1964718-db6b-4321-8f58-2462647ae9c8,Colakästen,draft,MULTI_PART,5,sicher,ja,180,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+f85c4d7b-2ca5-4a7c-a02e-2553fc317981,Computerspielsucht,draft,MC,7,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+ee40b6c2-a125-49b9-b094-7bc1a53b334b,Croissant,ready,NUMERIC,5,sicher,nein,60,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+ce075f2f-6c70-4ab4-88b0-545c27a99460,Damenuhr,draft,,6,unsicher,nein,90,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+3e85e534-da2b-49dd-a34e-465adb763f55,Darstellung in Diagrammen,draft,SHORT_TEXT,5,sicher,ja,60,text_verweis,,nein,,ja,ja,P4 Bild-Entscheidung: Eigengrafik noetig oder Text ergaenzen
+58af80b3-b073-40d5-bf38-6dd54d030291,Das ist gerundet,ready,NUMERIC,6,sicher,nein,45,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+a75412ab-2a6c-465c-91a6-fd8dc18cf3af,Deckungsgleiche Parallelogramme,draft,FREE_TEXT,6,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+46e6c014-b735-4cb2-8c26-40f40b6ac838,Der Riese,draft,SHORT_TEXT,7,unsicher,nein,180,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+3550a34f-4afc-4f27-8950-72004822e379,Der Stern,draft,MC,7,unsicher,nein,120,bild_vorhanden,ja,,"Vierzackiger Stern in einem 8x8-Zentimetergitter; die Zacken reichen jeweils bis zum Gitterrand, Kaestchenlaenge 1 cm (nicht massstabsgerecht).",ja,ja,P2 Crop noetig
+59e528d3-53f2-4184-8131-7f8810d0ab2f,Division von Zahlen,draft,MC,5,unsicher,nein,120,bild_vorhanden,ja,,"Tabelle 'Eine mehrziffrige Zahl ist immer durch 4 teilbar, wenn...' mit vier Aussagen und Ankreuzspalten wahr/falsch.",ja,ja,P2 Crop noetig
+952b106f-662f-430a-9869-def8d8050ecf,Drehkörper,draft,MC,5,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+9a898db3-a154-4766-90e5-4daddb0bf1ef,Dreieck im Quadrat,draft,MULTI_PART,7,unsicher,nein,240,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+4e771a04-9408-4a8e-bd71-4561a7b2a6a6,Dreieck im Rechteck,draft,,,nicht_bestimmbar,nein,,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+66921a41-33d2-4183-b085-850cd1f17bb5,Dreiecke ergänzen,draft,FREE_TEXT,6,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+12c00b8d-dae4-4fee-a1a0-ce27b1089327,Dreieckszahlen,draft,MULTI_PART,8,unsicher,nein,300,bild_vorhanden,ja,,,ja,ja,P2 Crop noetig
+125a4c15-3659-4d39-93d5-422a0b72dd1d,Druckmaschinen,draft,MULTI_PART,7,sicher,ja,150,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+9a83c152-41ac-4153-a2ca-54f352f0e35a,Durch 1001 teilbar,draft,MC,5,unsicher,nein,150,bild_vorhanden,ja,,,ja,ja,P2 Crop noetig
+238c34fe-bcd0-4a2b-90cc-f83fb9e28bfb,Ecken an Pyramiden,ready,NUMERIC,5,sicher,nein,45,text_verweis,,ja_sicher,,ja,nein,ok (Anker bereits gesetzt / ready)
+e2755e78-8eaa-4b0a-b80d-1befb8f06892,Ecken und Kanten,draft,SHORT_TEXT,5,sicher,ja,90,bild_vorhanden,ja,,"Tabelle mit Skizzen eines Quaders und einer Pyramide mit viereckiger Grundflaeche; einzutragen sind Gesamtzahl der Ecken und Kanten (vorgegeben: Quader 12 Kanten, Pyramide 5 Ecken).",ja,ja,P2 Crop noetig
+d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,Eindeutig,draft,,8,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+866b569a-030f-489b-b7f0-a922658c540e,Einfache Gleichung,ready,NUMERIC,8,sicher,nein,60,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+23c512b3-60c9-4dde-844d-78841efc0f58,Eingefärbter Körper,draft,NUMERIC,5,sicher,ja,90,bild_vorhanden,ja,,"Schraegbild eines Koerpers aus drei gleich grossen, in einer Reihe versetzt zusammengesetzten Wuerfeln.",ja,ja,P2 Crop noetig
+24a6c671-873f-46c1-8906-c995e1fcbbea,Eiscafé,draft,MULTI_PART,5,sicher,ja,150,bild_vorhanden,ja,,Zeichnung einer Eistuete mit drei Kugeln (dekorativ).,ja,ja,P2 Crop noetig
+134a51e6-1a29-4060-9916-c3d74d0daf4d,Fahrradcomputer,draft,,,nicht_bestimmbar,nein,120,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+7e82d987-c3bf-4265-a1fe-796226174d5e,Fahrradtour,draft,,6,unsicher,nein,120,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+df452f94-054c-4242-a18a-965c2d96fef6,Fahrräder,draft,,5,sicher,ja,90,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+486bdc8d-4b9b-4d83-823a-59f78197fc04,Fahrtrichtung geradeaus,draft,,5,unsicher,nein,60,tote_pfade_nachladbar,,vielleicht,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+9d9e8094-c696-43b3-bdfb-ccd274879203,Faschingsdeko,draft,FREE_TEXT,6,unsicher,nein,120,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+66897eec-4aa4-47df-8923-3f44ff0a19bb,Fehlende Zahlen,draft,MULTI_PART,7,sicher,ja,90,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+6cd67330-0ef4-48ce-8df1-a5b6c0825465,Fieberthermometer,draft,,6,unsicher,nein,60,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+57936589-98cb-404e-91aa-dd92f11eda35,Figur aus zwei Dreiecken,draft,MC,7,sicher,ja,150,bild_vorhanden,ja,,"Figur aus zwei Dreiecken: ein flaches Rechteck mit einer Diagonalen; markiert sind Winkel Alpha unten links, Beta an der Diagonalen, Gamma und Delta im oberen rechten Dreieck.",ja,ja,P2 Crop noetig
+8ede07e1-2eba-4e60-9143-84d59dab61a6,Fische zählen,draft,NUMERIC,8,unsicher,nein,120,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,Fliesen,draft,NUMERIC,7,sicher,ja,90,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+155c4278-abb7-4e26-ba53-811466167b7d,Fliesen für den Fußboden,draft,MULTI_PART,6,unsicher,nein,180,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+1e11c6a6-266a-4ada-a8ee-fdffe969818b,Flächengleich oder nicht,draft,,7,unsicher,nein,180,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+cf5302ed-39df-4963-a029-b4c39a5ae4d6,Flächeninhalt,draft,NUMERIC,5,sicher,ja,75,bild_vorhanden,ja,,"Rechteck mit den Seitenlaengen 5 cm (unten) und 3 cm (rechts), nicht massstabsgerecht.",ja,ja,P2 Crop noetig
+6dd43469-cd90-4367-9b07-01bfd7b550d7,Freibad,draft,,5,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+a36a8986-8fb2-49c4-9494-91f675f429b0,Freizeitbeschäftigungen,draft,,5,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+36067604-421c-4ba7-84a5-8021eee61f2d,Freizeitkosten,draft,MC,,nicht_bestimmbar,nein,120,bild_vorhanden,ja,,"Tabelle: Bettys Ausgaben fuer Freizeitaktivitaeten Januar bis Juni in Euro (31, 31, 20, 28, 30, 40).",ja,ja,P2 Crop noetig
+aab3e63c-34cc-4583-bb16-f65f889942a2,Freunde,draft,,6,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+b4c474d7-69f9-46e9-bb36-a7086597713e,Frühstücksbrötchen,draft,,5,unsicher,nein,90,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+a9af9e1f-0f88-4fcd-8448-dcfe042fd71a,fuehrerschein,draft,MULTI_PART,6,unsicher,nein,150,bild_vorhanden,ja,,"Tabelle: Durchfallquoten der Fuehrerscheinpruefungen 2009 je Bundesland, getrennt nach Theorie und Praxis in Prozent (Quelle: Kraftfahrt-Bundesamt 2009).",ja,ja,P2 Crop noetig
+08c62e60-6f49-448a-af8e-8326a5a36135,Fußballtabelle,draft,,5,sicher,ja,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+3ba29585-9e91-4a4c-99ce-3e239de359cf,Fußleisten,draft,,5,sicher,ja,90,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+18f90c2c-c862-4c95-974d-593f53bfb27d,Füllverhalten,draft,,8,unsicher,nein,150,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+71011a0e-d0d2-4baf-94c0-7ef0c0cec365,Fünfundvierzig,draft,NUMERIC,5,unsicher,nein,60,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+39b3ad8a-9bff-4979-9a00-e74e0edc77e1,Geld anlegen,draft,,7,sicher,ja,150,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+e85d48b0-e49a-4659-a998-40d33ea2fae4,Geometrische Körper erkennen,draft,MC,5,sicher,ja,90,text_verweis,,nein,,ja,ja,P4 Bild-Entscheidung: Eigengrafik noetig oder Text ergaenzen
+83fe9508-6a17-4658-8b12-3b75ea2a5544,Geraden im Koordinatensystem,draft,MC,8,sicher,ja,60,bild_vorhanden,ja,,Koordinatensystem mit Kaestchengitter und der Geraden y = 1/2 x - 2; die Gerade steigt nach rechts und schneidet die x-Achse bei x = 4.,ja,ja,P2 Crop noetig
+6d5eb2dc-2b16-4ddc-a39f-0dc85c9e2c6e,Gesamtkantenlänge,draft,MC,5,sicher,ja,75,tote_pfade_nachladbar,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, MC ohne Optionen"
+9bca3f30-c0f4-4944-958d-aaf1b6f36f19,Geschichte zur Graphik,draft,MC,7,unsicher,nein,90,text_verweis,,nein,,ja,ja,P4 Bild-Entscheidung: Eigengrafik noetig oder Text ergaenzen
+5fafe02e-c47d-4c42-819a-ff72d73d5762,Geschwindigkeitsüberschreitung,draft,MC,5,sicher,ja,60,bild_vorhanden,ja,,"Tabelle der neuen Bussgelder fuer Geschwindigkeitsueberschreitungen innerorts: von 'um 21 bis 25 km/h' (80 Euro) bis 'ueber 70 km/h' (760 Euro), jeweils mit altem und neuem Betrag.",ja,ja,P2 Crop noetig
+9c78fbf9-89a7-42af-b8d3-03cf489cd62b,Gewerbezone,draft,NUMERIC,6,unsicher,nein,120,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+90c94811-ab69-4338-8121-d9020075593e,Gewitter,draft,MULTI_PART,7,sicher,ja,150,bild_ohne_grafik,,ja_sicher,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+615a8442-6912-4056-90e7-861c56dcfa51,Gleichung finden,draft,MULTI_PART,8,sicher,ja,120,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+b43f6508-1ba8-44b2-9b0d-4d3906df7780,Gleichung lösen 1,ready,NUMERIC,8,sicher,nein,45,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+798f3b3c-5b4f-4e2d-8f9a-4349ee70aa92,Gleichung lösen 2,draft,MC,8,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+ab31309b-9166-4c62-8878-f81c9b050e2b,Gleichung lösen 3,draft,MC,8,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+223b888c-4a63-461e-8ca8-1c0dc1d2c8d1,Gleichung verändern,draft,MULTI_PART,8,sicher,ja,150,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+6e3ec331-e25e-40e3-b7ee-94f916af0f3b,Gleichungen lösen ist nicht schwierig,draft,,8,sicher,ja,120,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+6162090c-d865-4371-9b13-0674d5622af4,Glücksrad,draft,,6,sicher,ja,120,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+7032fdd0-36bc-43df-a5ad-7abddf509db9,Glücksrad drehen,draft,,6,sicher,ja,120,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+6d01fb50-0fca-4f16-bcf5-bde4a56d883c,Glückssäckchen,draft,MULTI_PART,8,unsicher,nein,240,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+a2298d34-fc39-4750-b11c-5c376041a8b7,Großer Wagen,draft,,5,sicher,ja,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+ee0b70bd-3198-4cb7-883c-c981fd46a3d5,Gummibären,draft,MULTI_PART,6,unsicher,nein,180,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+99c13edf-6db7-4ac9-a1ff-4b96288556ea,Güterverkehr,draft,MULTI_PART,7,unsicher,nein,120,bild_vorhanden,ja,,"Liniendiagramm: Kosten je Tonne in Euro in Abhaengigkeit von der Laenge des Transportweges (0-500 km) fuer LKW (steilste Gerade ab 100), Bahn und Binnenschiff (flachste Gerade, hoeherer Startwert).",ja,ja,P2 Crop noetig
+2eae4733-7bc9-4011-a42a-72e6d1331aab,Handygebühr,draft,MULTI_PART,8,sicher,ja,150,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+6a31f50b-689e-49cf-a921-22f50c538cdf,Harzwanderung,draft,,,nicht_bestimmbar,nein,120,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+f3df6c08-4c6b-4181-a55f-77721b1097d1,Hauptstädte,draft,MULTI_PART,6,sicher,ja,150,bild_vorhanden,ja,,Vereinfachte Europakarte mit den Hauptstaedten (Reykjavik bis Nikosia); links unten Massstabsangabe 1 cm entspricht 360 km.,ja,ja,P2 Crop noetig
+13f6ed48-a0f3-4482-a65c-bb0fff1b813d,Hausaufgaben,draft,MULTI_PART,6,sicher,ja,240,tote_pfade_nachladbar,,vielleicht,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+f687b453-f279-498e-a9dc-109adaf48050,Haushaltsabfälle,draft,MULTI_PART,5,sicher,ja,120,bild_vorhanden,ja,,"Saeulendiagramm: Haushaltsabfaelle pro Einwohner in kg im Jahr 2009 fuer die 16 Bundeslaender (nummeriert 1-16, Zuordnung per Tabelle rechts); Werte zwischen ca. 320 kg (Sachsen) und ca. 515 kg (Rheinland-Pfalz).",ja,ja,P2 Crop noetig
+59bc8db7-3792-4f16-8240-bf5948eee275,Heizkosten,draft,MC,7,sicher,ja,90,tote_pfade_nachladbar,,ja_sicher,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, MC ohne Optionen"
+5fcf0b07-b1e1-497a-a7d4-06a237c7ee0b,Hochrad,draft,,8,sicher,ja,150,text_verweis,,ja_sicher,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+e040a388-3a17-4683-8e52-de7b25f56693,Holzstab,draft,NUMERIC,5,sicher,ja,45,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+8a9375a9-a878-4726-8183-2cd861a0533e,Holzwürfel,draft,NUMERIC,6,unsicher,nein,90,bild_vorhanden,ja,,"Skizze eines Turms aus drei uebereinander gestapelten Wuerfeln, von oben nach unten beschriftet mit gelb, blau und rot.",ja,ja,P2 Crop noetig
+8840971e-a829-4a1d-a9bb-bdcbf9367d9c,Honigbiene,draft,MC,5,sicher,ja,45,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+1660a458-692a-4245-867e-e33ebc64fb26,Hälfte,ready,NUMERIC,5,sicher,nein,45,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+96fa6857-d46f-4487-b7d3-a7cb09c9b4ed,Im Kreis laufen,draft,MC,8,unsicher,nein,90,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+88038d05-d028-48ba-97f0-98755b1c9407,Inliner,draft,,7,sicher,ja,150,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+9824dab0-b884-4228-95e5-b9754accdd19,Innenwinkel,draft,,,nicht_bestimmbar,nein,,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+92670ac0-39fd-47cb-a2da-5b95dc2b0751,Innenwinkel 2,draft,,7,sicher,ja,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+b8d7b161-b84b-4dfa-9896-0629fcbf34ab,Internetauktion,draft,MULTI_PART,6,sicher,ja,150,bild_vorhanden,ja,,"Tabelle: Endpreise von neun Notebook-Auktionen, Auktionsnummer 1 bis 9 mit Preisen zwischen 355 und 449 Euro.",ja,ja,P2 Crop noetig
+fecdd2aa-afdc-4ad2-aebc-f37966742d4b,Jeans mit Ermäßigung,draft,MC,7,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+da9d0038-6c4e-4b0e-9547-a6c93daaac40,Joggen,draft,,7,sicher,ja,120,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+03360729-2a5b-425d-95c1-c0bde735a11d,Jubiläumsgeschenk,draft,MULTI_PART,8,sicher,ja,180,text_verweis,,ja_sicher,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+29e58bdf-eba0-4683-acf5-507301f60566,Judomatte,draft,MC,5,sicher,ja,45,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+41f89561-a128-4c8d-b6b6-b7862cb08053,Kauf eines DVD-Players,draft,MULTI_PART,7,sicher,ja,210,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+9d8f1a2f-9776-4f65-ba51-0d341cb11ca3,Kaum eine Chance,draft,MULTI_PART,6,sicher,ja,120,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+79260d40-421f-4dc3-bc89-0db6dbc8d3b1,Kopf und Körper,draft,MULTI_PART,7,unsicher,nein,120,bild_vorhanden,ja,,"Schematische Strichfigur eines Babys; die Kopflaenge ist mit 1, die restliche Koerperlaenge mit 4 markiert (Verhaeltnis 1:4).",ja,ja,P2 Crop noetig
+337ff49c-33a2-435e-b44f-779d5cfac005,Kraftfutter,draft,SHORT_TEXT,7,sicher,ja,90,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+7691a248-4279-44b1-97ad-ce33624708bb,Kreise färben,draft,FREE_TEXT,7,sicher,ja,60,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+69d29f0e-da8a-491c-aae7-054754bac3ff,Kreise und Vierecke,draft,,,nicht_bestimmbar,nein,120,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+d57cdb1d-727b-4f6e-b935-92ed09db2d4f,Kreisfiguren,draft,SHORT_TEXT,8,unsicher,nein,120,bild_vorhanden,ja,,"Vier grau gefaerbte Figuren in einem Kaestchengitter, begrenzt durch Kreislinien und Strecken: Figur A (nach innen gewoelbtes Quadrat/Stern), Figur B (Quadrat mit ausgebuchteten Halbkreisen), Figur C (Kreis), Figur D (halbkreisfoermige Figur).",ja,ja,P2 Crop noetig
+e40594ab-53ba-4eab-ab66-164599b8d9c7,Kugeln ziehen,ready,NUMERIC,8,unsicher,nein,120,kein_bild,,,,ja,nein,Anker offen (unsicher) — menschliche Entscheidung
+fdd77d77-511f-4a9a-98b5-f32602a3cc52,Körper füllen,draft,MC,6,sicher,ja,75,bild_vorhanden,ja,,"Schraegbild eines Quaders, dessen Boden- und Seitenreihen teilweise mit kleinen Wuerfeln gefuellt sind; daneben ein einzelner Wuerfel mit Kantenlaenge 1 cm.",ja,ja,P2 Crop noetig
+7f7ac4e5-38cf-483b-9d27-306adbc279be,Körper mit Seitenflächen,draft,,5,unsicher,nein,120,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+61f98edd-8791-4824-b801-b279c5e1cacf,Lage der Würfel,draft,SHORT_TEXT,5,sicher,ja,180,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+20426c56-c788-4a2d-a7fe-fa64aa03510a,Lage von zwei Geraden,draft,MC,8,sicher,ja,90,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+9d06385a-595a-49b0-b4fe-2a5db9770549,Leistung des Motors,draft,MC,7,unsicher,nein,90,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+cefe96f8-2f0e-4e94-95d8-f6f4035769c5,Liebstes Schulfach,draft,,5,sicher,ja,90,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+0813c064-6fbc-4eb8-9b1e-0d388622525f,Linear und proportional,draft,,8,sicher,ja,120,text_verweis,,vielleicht,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+63888302-5d4a-4cc7-be90-1034cdc7ecdb,Lineare Funktionen anwenden,draft,FREE_TEXT,8,sicher,ja,180,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+7979e5d2-7343-4868-9ad4-1a0b15a5f175,Literberechnungen,draft,SHORT_TEXT,6,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+d350fb95-b256-4776-af65-91ffa284dd8c,Lohnerhöhung,ready,NUMERIC,7,sicher,nein,90,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+7feea1d6-7feb-4ec8-9d24-142e6722ccef,Luftballons,draft,MC,6,sicher,ja,60,bild_vorhanden,ja,,,ja,ja,P2 Crop noetig
+7d91cef6-595f-4b46-879c-4a7ddafea2fc,Mathematikarbeit,draft,MC,7,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+ed54b936-2592-4185-a39d-8d3bc956f5b7,Mauer aus Zahlen,draft,MULTI_PART,7,unsicher,nein,180,tote_pfade_nachladbar,,ja_sicher,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+9afea3a5-5644-4879-8a4d-feff3c7125d0,Maus,draft,MC,5,sicher,ja,45,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+bb074bf6-7f73-41c8-90e6-4940658fb66b,Maßstabsleiste,draft,MC,6,sicher,ja,75,bild_vorhanden,ja,,"Massstabsleiste einer Atlaskarte: Balken von 0 bis 2000 m in 500-m-Schritten; darueber ein Doppelpfeil, der 1 cm auf der Karte markiert.",ja,ja,P2 Crop noetig
+629a0e78-380f-451b-b159-3e4d6d4a8c8e,Maßstabsrechner,draft,,6,sicher,ja,90,text_verweis,,vielleicht,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+38ee6e68-0598-45c9-84db-6d15db4a5c32,Mensch ärgere dich nicht,draft,MULTI_PART,6,sicher,ja,120,tote_pfade_nachladbar,,ja_sicher,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+42a730f0-bc18-4c37-8880-f13f430bf4a7,Messzylinder,draft,NUMERIC,5,unsicher,nein,60,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+2bb1e79f-26e3-493f-8a56-8fdb0468f8eb,Mitte zwischen Zahlen,draft,NUMERIC,6,sicher,ja,75,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+62c4c7de-fe7e-4f00-b91f-4398b9446ff7,Muckibude,draft,MULTI_PART,5,sicher,ja,120,bild_vorhanden,ja,,"Saeulendiagramm: Mitgliederzahlen des Fitnessvereins Muckibude 2012 bis 2016; Werte 200, 400, 800, 1200 und 1800 Mitglieder.",ja,ja,P2 Crop noetig
+c924572f-0e95-4fb5-aa8d-788f0e6c580b,Mädchenanteil,draft,MC,6,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+76703008-142e-4c66-90ab-87f4c9745a41,Mülltonne,draft,FREE_TEXT,6,unsicher,nein,180,tote_pfade_nachladbar,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+d77cc255-e34c-41d1-a505-1f80ea12178d,Nachfolgerzahl,draft,,8,unsicher,nein,180,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+dd5d6e68-1b79-4a6c-8bdd-fa39d9cfb1b4,Nagelbrett,draft,,5,unsicher,nein,150,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+1f72d7b9-fab3-4b6d-8f3a-a069eec7efb1,Naschkatze,draft,MC,5,sicher,ja,60,bild_vorhanden,ja,,"Saeulendiagramm: Umsatz des Cafes Naschkatze in Euro je Quartal des ersten Geschaeftsjahres — 8000, 10000, 14000 und 16000 Euro.",ja,ja,P2 Crop noetig
+f1464a99-50ce-4830-a306-7c07f3207f2b,Nashorn,draft,SHORT_TEXT,7,unsicher,nein,150,text_verweis,,nein,,ja,ja,P4 Bild-Entscheidung: Eigengrafik noetig oder Text ergaenzen
+1bf1de10-fc90-472d-909c-372c22797a56,Nebenjob,draft,,7,unsicher,nein,120,tote_pfade_nachladbar,,vielleicht,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+bb3e5789-a5c0-4e43-bb1f-d0f44d0ba935,Niederschlag,draft,MULTI_PART,6,unsicher,nein,240,bild_vorhanden,ja,,"Klimadiagramm Halle an der Saale 2012: Saeulen fuer monatlichen Niederschlag in mm (Maximum Juni ca. 61 mm), Linie/Punkte fuer die durchschnittliche Monatstemperatur in Grad Celsius (Minimum Januar, Maximum Juli ca. 18 Grad).",ja,ja,P2 Crop noetig
+73a6d014-f211-4486-99a4-37a5f616a603,Niederschläge,draft,MULTI_PART,6,unsicher,nein,240,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+654260bd-40a9-438c-8e7c-9fd2c254e2f8,Null Komma Acht,draft,,6,sicher,ja,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+2b05cadf-4167-4719-a8ce-c2a259604b52,Ohrhänger,draft,MULTI_PART,5,sicher,ja,240,bild_vorhanden,ja,,"Skizze eines Ohrhaengers: ein 3 cm langer gerader Drahtabschnitt, an dessen unterem Ende ein gleichseitiges Dreieck haengt (nicht massstabsgerecht).",ja,ja,P2 Crop noetig
+015572c6-4565-4c18-bba5-dd8fb6ec405a,Osterhase,draft,MULTI_PART,6,unsicher,nein,180,tote_pfade_nachladbar,,vielleicht,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+9f5f5d98-e884-4382-ae0b-b6aebbf0e24c,Papier,ready,NUMERIC,7,sicher,nein,90,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+531c9319-d9df-4ebb-b339-00a2abb76b3e,Pappschachtel,draft,MULTI_PART,6,unsicher,nein,150,tote_pfade_nachladbar,,ja_sicher,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+14dc2b3a-763e-4061-a300-59284e5483d5,Parfum,draft,MULTI_PART,7,unsicher,nein,210,bild_ohne_grafik,,ja_sicher,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+e2cb3000-8995-4312-8f38-ad8b03cb30ba,Parkhaus,draft,FREE_TEXT,7,unsicher,nein,180,tote_pfade_nachladbar,,nein,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+428f9b68-7bbe-44fc-bf4e-c892c1428e49,Parlamentswahl,draft,,7,sicher,ja,90,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+84b763bf-3f3e-4b29-ada5-09e5431cf149,Passende Schuhe,draft,MULTI_PART,7,sicher,ja,210,bild_vorhanden,ja,,"Balkendiagramm einer Befragung: Anteile von je 100 Frauen und Maennern, deren Schuhe zu klein (20/10), passend (20/15) oder zu gross (60/75) sind.",ja,ja,P2 Crop noetig
+1cc00f09-65ac-4091-afbe-a18def4563da,Pflaumen,ready,NUMERIC,7,unsicher,nein,60,kein_bild,,,,ja,nein,Anker offen (unsicher) — menschliche Entscheidung
+190a459d-748d-406d-8fa6-a885981e2c46,Pinsel,draft,MULTI_PART,6,sicher,ja,150,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+16565a9a-7bdf-4d73-b1ba-aeed6a9460f3,Plättchen ziehen,draft,SHORT_TEXT,6,sicher,ja,60,kein_bild,,,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+92f5edd1-e4b9-4ef8-8152-3b60f9f49ab7,Prozentanteil schätzen,draft,MC,7,sicher,ja,45,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+c2517688-24f2-45e8-9c11-39301acc5c50,Punkt gesucht,draft,FREE_TEXT,7,unsicher,nein,180,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+fbb3463a-115f-4d51-be7e-ef7c8ec220d3,Punkte auf Geraden,draft,,8,sicher,ja,240,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+3c0f5ab9-db2a-49f7-9ff3-4da15bc50c8d,Punkte im Koordinatensystem,draft,,5,sicher,ja,120,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+78021c1f-dee2-4262-8cf1-fd0c45355ab0,Punktgenau,draft,,7,unsicher,nein,90,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+3197784c-dda0-466e-8397-8bcab73bdc2d,Pyramidenbau,draft,SHORT_TEXT,5,unsicher,nein,120,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+48e1dcb9-c91b-41e6-b7cc-6c00530e715c,Quader,draft,,6,unsicher,nein,120,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+c8250719-d97b-4b11-91b8-61ad12f481f3,Quadernetz,draft,MC,5,sicher,ja,90,bild_vorhanden,ja,,"Tabelle mit vier Flaechennetzen, jeweils mit ja/nein-Ankreuzfeldern: zu pruefen ist, ob es sich um das Netz eines Quaders handelt.",ja,ja,P2 Crop noetig
+b3cee0ee-c082-4645-8a0c-a2e84ace4fb4,Quadernetz 2,draft,MC,5,sicher,ja,60,bild_vorhanden,ja,,Vier Anordnungen von Rechtecken (Netz-Kandidaten); nur eine davon ist das vollstaendige Netz eines Quaders.,ja,ja,P2 Crop noetig
+0d4d2467-aaab-4c07-8a03-81daf42d496e,Quadernetz vervollständigen,draft,FREE_TEXT,5,sicher,ja,120,tote_pfade_nachladbar,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+df190223-3972-4b6c-a5ae-275d9fe1cae3,Quadrat im Gitter,draft,NUMERIC,7,unsicher,nein,120,bild_vorhanden,ja,,"Ein um 45 Grad gedrehtes Quadrat, dessen Ecken auf Gitterpunkten eines 8x8-Zentimeterrasters liegen (Diagonalen 8 cm); 1 Kaestchen entspricht 1 cm².",ja,ja,P2 Crop noetig
+612ee65d-7d5b-439a-906a-b8b5e7bf9f0c,Quadrat im Koordinatensystem,draft,MC,7,unsicher,nein,90,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+55522065-40dd-40f4-aea6-6eefb8fa5f49,Quadrat und Raute,draft,,,nicht_bestimmbar,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+53da440f-b4d1-4933-bf81-6c8cafce8665,Quadrat zeichnen,draft,FREE_TEXT,5,sicher,ja,90,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+32cdbd7f-8375-4e87-8d74-50b8566d9062,Quadratdifferenz,draft,,8,unsicher,nein,180,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+70ce3cbd-6467-431a-b48e-c9b9b6eb5359,Quadrate,draft,SHORT_TEXT,5,unsicher,nein,90,tote_pfade_nachladbar,,nein,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+1967ab57-df09-43e6-b159-e2c93fb23e57,Quadratfläche,draft,SHORT_TEXT,5,sicher,ja,90,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+ae8c5f2d-57fe-49e2-9877-2a9f765b1932,Rabattaktion,draft,MC,7,sicher,ja,90,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+be086b13-0ac4-4aee-ae74-1e8c9aa02abd,Raten beim Test,draft,MULTI_PART,8,sicher,ja,150,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+4429d5ac-1f29-4cb1-89d7-a703d18cc53a,Rathausuhr,draft,,5,sicher,ja,150,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+bf03d765-c01b-44a6-ab29-80a21cafc069,Rauminhalt von Prismen,draft,MC,8,sicher,ja,90,bild_vorhanden,ja,,"Skizzen zweier Prismen gleicher Hoehe 16 cm: Koerper A mit quadratischer Grundflaeche (Kantenlaenge a = 10 cm), Koerper B mit sechseckiger Grundflaeche (G = 100 cm²).",ja,ja,P2 Crop noetig
+e065bfc7-80c1-497e-93f0-62977e480499,Rauten,draft,MULTI_PART,7,unsicher,nein,300,bild_vorhanden,ja,,"Koordinatensystem mit der Geraden y = x und zwei Rauten: Eckpunkte D4(4|4) bzw. D7(7|7) auf der Geraden, B4 und B7 auf der x-Achse, Diagonalen AC jeweils 2 cm.",ja,ja,P2 Crop noetig
+c3915b55-4de2-4e8d-a4e0-9e1c19bf0218,Rechenvorteil,draft,FREE_TEXT,6,unsicher,nein,90,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+6d2d4e9a-ecad-4d1d-b4b5-eefe6985e64c,Rechteck,draft,FREE_TEXT,5,unsicher,nein,90,tote_pfade_nachladbar,,nein,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+f776531c-0283-43f9-8471-0c5183bc33b6,Rechtskurve,draft,,8,unsicher,nein,90,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+56a2c4db-f249-4927-b38c-8f768835daeb,Regelmäßige Vielecke,draft,FREE_TEXT,5,sicher,ja,90,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+e6a204c1-8a88-4ac2-b5e0-ace0ae241171,Reiseverlauf,draft,MULTI_PART,7,sicher,ja,150,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+2afb29d3-b379-4723-a34d-196e2baf9230,Restaurantgewinnspiel,draft,,6,sicher,ja,90,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+78c48a6c-de97-45f4-8fc2-831cbaea9f5e,Richtig umgeformt,draft,,7,unsicher,nein,120,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+8904f16a-4144-4e79-894c-f8fbdbc06202,Rollrasen,draft,,6,unsicher,nein,150,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+20cb0b2f-8db0-4772-b8b5-b5451ae381b1,Rolltreppe,draft,,7,unsicher,nein,120,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+1ad5e7ab-699d-4844-a2a8-e3b259cdffb9,"Rot, gelb, grün",draft,,6,sicher,ja,120,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+59b7e6f7-e13c-428c-9cca-a6e38d472d73,Rubbellose,draft,MULTI_PART,6,unsicher,nein,180,bild_vorhanden,ja,,"Gewinnplan-Tabelle: 3 Fussballbilder = ein echter Fussball, 2 Bilder + 1 Kreis = eine Autofahne, 1 Bild + 2 Kreise = ein Fussballbroetchen, 3 freie Kreise = kein Gewinn.",ja,ja,P2 Crop noetig
+d5757c69-8873-48d2-88b4-74bdec3898d8,Rundfunkgebühren,draft,,7,unsicher,nein,180,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+a99b139a-0823-4147-8fed-15a3bb937876,Räumungsverkauf,draft,MULTI_PART,7,sicher,ja,240,bild_vorhanden,ja,,Schaufenster-Schild mit der Aufschrift Raeumungsverkauf wegen Geschaeftsaufgabe und verstreuten Rabattangaben von 10 % bis 50 %.,ja,ja,P2 Crop noetig
+afd1f720-27d1-4cd8-9d75-b4268b8563af,Sauerkraut,draft,,7,unsicher,nein,150,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+60eebe80-d3eb-4370-b730-123a8a1035ed,Schachteln packen,draft,MULTI_PART,6,unsicher,nein,240,tote_pfade_nachladbar,,ja_sicher,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+0ed1d9ac-9b33-4815-9dfc-4a145bba1069,Schlüssel,draft,MC,6,sicher,ja,45,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, MC ohne Optionen"
+70b9366b-129d-4198-a6e8-c01a8cc1cba2,Schneekristalle,draft,MC,5,sicher,ja,60,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+e86cd57f-3b9d-434e-a730-35e03389d44f,Schnittpunkt von Graphen,draft,SHORT_TEXT,8,sicher,ja,120,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+d5394267-64e4-4f8c-b0f9-922621ee326b,Schokoladenbonbons,draft,MULTI_PART,6,sicher,ja,150,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+b3bc1847-3d6e-46f9-a36b-040bd0337d05,Schokoladenfiguren,draft,,6,unsicher,nein,120,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+1421bbe8-a433-4925-8b28-1f5eea9f106e,Schokoladenpreis,draft,MULTI_PART,7,sicher,ja,150,bild_vorhanden,ja,,"Tabelle: Preis fuer 100 g je Schokoladensorte — Dunkle 1,50 €, Weisse 1,40 €, Milch 1,10 €, Gefuellte 2,10 €.",ja,ja,P2 Crop noetig
+00fc4a3c-6e5f-43f6-bed6-dc8aaa952cb1,Schokolinsen,draft,FREE_TEXT,5,unsicher,nein,180,tote_pfade_nachladbar,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+52cc143f-9097-4f1c-bc6e-e3ed2b5543f7,Schrankbreiten,draft,SHORT_TEXT,5,sicher,ja,150,bild_vorhanden,ja,,"Zwei Abbildungen: fuenf Einzelschraenke der Breiten 30, 40, 45, 50 und 80 cm; Tabelle 'Schrankbreiten' mit Kombinationen von 70 bis 145 cm (Zeile 135 cm frei).",ja,ja,P2 Crop noetig
+0721ceb4-8c6d-41ef-abd0-92c9ce81c8bd,Schulgrundstück,draft,,6,unsicher,nein,150,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+29e551fd-6ed9-42c1-bb6d-2c0fe37c60fd,Schulkleidung,draft,,7,unsicher,nein,150,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+7c65d32a-eded-401c-86d0-64cc263c2de5,Schulstatistik,draft,,5,sicher,ja,90,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+392535f9-e177-4516-84de-967b4b55eef2,Schwarz-Weiß-Würfel,draft,,6,sicher,ja,90,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+b3770a1c-f5e8-4734-b424-bd21c1ad8bc2,Skala und Zahlen,draft,SHORT_TEXT,5,unsicher,nein,90,tote_pfade_nachladbar,,nein,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+f580e603-14d6-4520-a07a-084c330c3b4f,Spielwürfel,draft,MULTI_PART,6,sicher,ja,150,tote_pfade_nachladbar,,ja_sicher,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+f76aa8b5-cf03-40db-9ecf-c9268b028814,Sprechstunde,draft,MULTI_PART,5,sicher,ja,120,bild_vorhanden,ja,,Strichlisten-Tabelle: Zeitraeume 9–10 / 10–11 / 11–12 Uhr mit Strichlisten fuer Maedchen und Jungen.,ja,ja,P2 Crop noetig
+a9d6ebc2-3b39-4c5e-9854-15e372583270,Stammbrüche untersuchen,draft,MULTI_PART,6,sicher,ja,120,tote_pfade_nachladbar,,ja_sicher,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+328d79b5-f355-4472-bb20-555ecdc24efd,Steile Straße,draft,MULTI_PART,7,sicher,ja,270,bild_vorhanden,ja,,"Rechtwinkliges Steigungsdreieck: Ort A oben, Ort B unten, Hoehe 12 m, Horizontalstrecke 100 m, 12 % Gefaelle (nicht massstabsgerecht).",ja,ja,P2 Crop noetig
+5ff0c366-5d5d-4e8f-9686-50b2409f6294,Sterne und Sandkörner,draft,MULTI_PART,5,unsicher,nein,180,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+c7947d82-f4c8-4ba9-9113-54545115ed13,Strecke im Koordinatenkreuz,draft,MULTI_PART,5,unsicher,nein,180,bild_vorhanden,ja,,"Koordinatensystem (x, y von -1 bis 5) mit eingezeichneter Strecke AD: A rechts unten (etwa (3|1)), D links oben.",ja,ja,P2 Crop noetig
+11d9377f-8723-40aa-9080-8c8317931219,Streichholzziehen,draft,MC,6,sicher,ja,60,bild_ohne_grafik,,ja_sicher,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+62ff9874-68e3-476f-9186-40f3f6b4aacf,Suche die Zahl,draft,SHORT_TEXT,5,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+347c2e58-2883-4c97-8e2c-cc776a22ce3f,Säulenhöhe,draft,MULTI_PART,6,sicher,ja,150,bild_vorhanden,ja,,"Saeulendiagramm auf Zentimeterraster mit drei Saeulen der Hoehen 8 cm, 4 cm und 6 cm.",ja,ja,P2 Crop noetig
+7429c79b-0595-4825-837c-c0bde27c470f,Tabelle,draft,MC,7,unsicher,nein,90,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+df62fd31-08fe-40e3-8775-3d2174c6e812,Tabelle ausfüllen,draft,SHORT_TEXT,7,sicher,ja,60,tote_pfade_nachladbar,,nein,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+0c0403f1-b0ac-49ba-9667-0eedc16e2c13,Tankinhalt,draft,SHORT_TEXT,7,sicher,ja,120,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+079768d6-a74d-40fb-bef4-fcb99c1baaa8,Temperatur,draft,MULTI_PART,7,unsicher,nein,150,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+f777470d-ddf1-49a4-975d-9f6713699211,Temperaturdifferenz,ready,NUMERIC,7,sicher,nein,60,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+f3bd9dae-61f3-4d0a-9ca8-9e281382402d,Temperaturen in Frankfurt am Main,draft,,6,unsicher,nein,150,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+44ebd96d-cc33-4daa-b5fb-bcee8f56e1fe,Thermometer,draft,,7,sicher,ja,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+c1ce2847-5827-4daa-baa7-53e06c05eced,Tombola zum Schulfest,draft,,6,sicher,ja,120,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+486fe554-77ae-4c3c-84f5-52b5701e8767,Traktor,draft,MC,6,sicher,ja,60,bild_ohne_grafik,,ja_sicher,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+514e7cca-b546-4a8a-b59f-3f4b4e813522,Trapez ohne Symmetrie,draft,MC,6,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, MC ohne Optionen"
+0d9ea74f-6354-482d-ae84-c97f102e853a,Trapezvariation,draft,MULTI_PART,7,unsicher,nein,180,bild_vorhanden,ja,,"Trapez ABCD mit Grundseite a (AB unten), Parallelseite c (DC oben) und eingezeichneter Hoehe h.",ja,ja,P2 Crop noetig
+9bc58f80-558a-4b46-85b4-b40d7a4f3665,Treppenmaße,draft,MULTI_PART,8,sicher,ja,300,tote_pfade_nachladbar,,vielleicht,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+6d294116-74a2-4a2b-a097-e6bc17e447dc,Tropfender Wasserhahn,draft,,7,unsicher,nein,150,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+bdc0dabb-4d8f-46ea-b014-e4384f6631b7,Tunnelbohrmaschine,draft,,7,unsicher,nein,120,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+b42b9af9-1cc7-4cc6-badb-8191c6df334a,Umfang und Fläche,draft,,5,sicher,ja,150,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+b8504059-16dd-4822-966d-65ff94b7b453,Unfertiger Würfel,draft,MULTI_PART,5,sicher,ja,150,bild_ohne_grafik,,nein,,ja,ja,P4 Bild-Entscheidung: Render verloren — Grafik neu einbetten/zeichnen
+9c07055b-df4b-4064-a888-8d986bd544b9,Ungewöhnlicher Mittelwert,draft,,,nicht_bestimmbar,nein,,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+b7b5b590-ef0f-4860-8a31-de446d5fcd71,Ungewöhnlicher Spielwürfel,draft,,5,unsicher,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+bf98afaf-0ea3-4bbf-a5be-7eb81ff68a36,Ungleichung erfüllen,draft,SHORT_TEXT,8,unsicher,nein,90,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+37e0e196-766c-447d-8be9-15bb0f698004,Unregelmäßiges Viereck,draft,FREE_TEXT,7,unsicher,nein,240,text_verweis,,vielleicht,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+8bd8269b-8544-4c91-b29c-b244a014fa06,Verbindungsstrecken,draft,MULTI_PART,6,unsicher,nein,150,bild_vorhanden,ja,,"Grauer Kreis mit fuenf Punkten A, B, C, D, E; die Punkte A, B, C, D sind paarweise durch sechs Strecken verbunden, E ist unverbunden.",ja,ja,P2 Crop noetig
+5dfd2ff7-7f2a-4191-917a-e601e999cf01,Verkehrszeichen,draft,,5,sicher,ja,90,text_verweis,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+19f6f7be-c0ce-41f1-8f93-1db8b8201e42,Verlauf des Graphen,draft,,8,sicher,ja,150,tote_pfade_nachladbar,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+be0c8e7d-cb6a-4ad9-ae3d-9e512dbda068,Verschiedene Rechtecke,draft,MULTI_PART,7,unsicher,nein,210,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+fc1dabeb-705d-40d1-80b5-5c24d1596144,Viele Brötchen,draft,FREE_TEXT,7,unsicher,nein,120,tote_pfade_nachladbar,,vielleicht,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+f8d1a795-d768-4b43-aebc-39dbe219de1d,Volumenverkleinerung,draft,,9,unsicher,nein,150,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+3e44679b-4fd4-47ed-85e8-ecde3feaed15,Von links wie von rechts,draft,MULTI_PART,6,unsicher,nein,180,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+3684dd5a-a7b9-4c67-abcd-4369cf488a27,Waage,draft,MULTI_PART,5,sicher,ja,120,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+3acaf5d2-ed55-4cb1-8906-55683714ce85,Wahl,draft,MULTI_PART,7,sicher,ja,150,bild_vorhanden,ja,,"Saeulendiagramm 'Wahlergebnisse' mit vier Parteien: A 33,4 %, B 36,8 %, C 19,8 %, D 6,4 %.",ja,ja,P2 Crop noetig
+baebdc2c-9cf0-45c1-8de4-2868a1da618a,Wahrscheinlicher,draft,MC,6,sicher,ja,90,bild_ohne_grafik,,ja_sicher,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+32540c00-b4bf-49a0-a243-177122759ab5,Weitsprung,draft,,6,sicher,ja,120,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+41a3efc4-3077-4571-8e5e-d02f80a4cec1,Werbelotterie,draft,MULTI_PART,8,sicher,ja,180,kein_bild,,,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+1f996095-4eca-4a71-9ec1-39594c5002b2,Werbemarkt,draft,SHORT_TEXT,7,unsicher,nein,150,bild_vorhanden,ja,,"Saeulendiagramm Gesamtausgaben fuer Werbung 2010–2015 in Mrd. €, steigend von etwa 15 auf etwa 21.",ja,ja,P2 Crop noetig
+fa967979-cd33-476d-8562-3dda0ecc076a,Wettkampf wählen,draft,SHORT_TEXT,5,sicher,ja,90,bild_vorhanden,ja,,"Zwei Abstimmungstabellen: Jungen (Basketball 19, Fussball 31, Handball 12, Volleyball 8) und Maedchen (Feldhockey 4, Fussball 32, Handball 10, Volleyball 34).",ja,ja,P2 Crop noetig
+b3de2d20-7304-40e2-9145-2d5ae7565a58,Winkel Gamma,draft,SHORT_TEXT,7,unsicher,nein,240,bild_vorhanden,ja,,"Dreieck mit Spitze C und Basis AB, Punkt M auf AB (AM, MB, MC gleich lang); Winkel g1, g2 an C, Basiswinkel x; darunter acht Argumentationskarten K1–K8 zum Sortieren.",ja,ja,P2 Crop noetig
+81d04a79-8020-49e1-8292-3e8c1eb3be2f,Winkel im Dreieck,draft,SHORT_TEXT,7,sicher,ja,90,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 7)
+75ad818e-9de6-4ce8-a202-a1c4d0fc2675,Winkel im Parallelogramm,draft,SHORT_TEXT,7,unsicher,nein,180,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+e41b8357-9848-4941-9bb7-96875d93547a,Winkel messen,draft,NUMERIC,6,sicher,ja,60,bild_vorhanden,ja,,"Ein nach rechts geoeffneter Winkel a mit Scheitel links, gebildet aus zwei Schenkeln.",ja,ja,P2 Crop noetig
+9376d249-38ef-499e-8ae9-a52f343092b8,Winkelwürfel,draft,MULTI_PART,6,sicher,ja,240,bild_vorhanden,ja,,"Fuenf moegliche Wurfergebnisse des Winkelwuerfels (1–5): 1 und 2 als stehende Rechtecke, 3 und 5 als L-foermige Flaechen, 4 als keilfoermige Doppelflaeche.",ja,ja,P2 Crop noetig
+feff2fe8-347f-48d3-b5d4-794ee7fdbf3b,Wo liegt C,draft,,5,unsicher,nein,150,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+19cbf7c6-077a-47f3-bfdf-2bce1531c872,Wo sind die Punkte,draft,,,nicht_bestimmbar,nein,120,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+3b50c53b-1112-42d9-a19f-5bdeda6f97ba,Wundersame Rechenergebnisse,draft,,5,unsicher,nein,150,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+e82d178f-89bf-42c2-9962-027a08463eea,Würfelbau,draft,,5,sicher,ja,120,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+5e19dd1a-b69b-43aa-94f2-077499aba5af,Würfelkörper,draft,,5,unsicher,nein,120,text_verweis,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+9169f1bd-4a1c-4703-a79e-4b5742d280d2,Würfeln mit Quader,draft,,6,sicher,ja,90,tote_pfade_nachladbar,,nein,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+f4da620a-c463-4bc9-85b0-f289028a0e26,Würfeln mit zwei Würfeln,draft,,6,unsicher,nein,150,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+8f58d4cc-97cb-46d1-b036-b2246f0827a0,Würfelnetze,draft,MC,5,sicher,ja,60,tote_pfade_nachladbar,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, MC ohne Optionen"
+bdd27678-91f6-4a4e-9568-56b3d3725edd,Würfeloberfläche,draft,MC,7,unsicher,nein,150,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+8b4ec637-c992-490c-90c7-d7c1262e392e,Würfelturm,draft,MULTI_PART,7,unsicher,nein,240,tote_pfade_nachladbar,,ja_sicher,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+57bacd40-a9f0-4103-b90e-0cfea8f51fbc,Würfelturm 2,draft,MULTI_PART,8,unsicher,nein,240,tote_pfade_nachladbar,,ja_sicher,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+c18445fa-cfec-464c-abe4-96d153aaa78b,Zahl gesucht,draft,MC,8,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 8)
+95c96e7e-592d-471f-bb90-c0bc7adcaa23,Zahl gesucht 2,draft,SHORT_TEXT,5,sicher,ja,60,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+97f07182-49a7-4235-aa81-76cc79085838,Zahlen addieren,draft,,6,sicher,ja,150,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+fd7892f0-f7ab-455e-bfc9-bd0267e7e898,Zahlen gesucht,draft,FREE_TEXT,5,unsicher,nein,90,kein_bild,,,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+8c134a21-b5e1-4e79-b6a8-41f62db3aeea,Zahlenmauer,draft,,5,sicher,ja,90,kein_bild,,,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+0eeb9c9c-dff5-46d0-998c-ccba4674ea62,Zahlenstrahl,draft,,6,sicher,ja,90,tote_pfade_nachladbar,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+4016c690-bbc8-4ede-83e8-5afa57365659,Zahlensuche,draft,SHORT_TEXT,5,sicher,ja,90,tote_pfade_nachladbar,,nein,,nein,nein,P5 unvollstaendig: kein Loesungsschluessel
+75b2fbed-c73f-4406-bafb-d3a4a7cbc4e2,Zahlensumme,draft,MC,8,unsicher,nein,150,kein_bild,,,,ja,ja,Anker offen (unsicher) — menschliche Entscheidung
+382089bc-fb00-4912-aa51-9503df6d0f9f,Zahlenwürfel,draft,MULTI_PART,6,sicher,ja,210,bild_ohne_grafik,,ja_sicher,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+73676e71-d8b7-410e-83ec-d3407af7448f,Zeitangabe,draft,MC,5,sicher,ja,45,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+e44e96a3-7b38-4a08-b1d2-7ed2c73b7511,Zeitumrechnung,draft,,6,sicher,ja,90,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+95b85cbb-f494-4402-9ce9-afb9da6a4334,Zoobesuch,draft,MC,7,unsicher,nein,75,tote_pfade_nachladbar,,nein,,nein,nein,"P5 unvollstaendig: kein Loesungsschluessel, MC ohne Optionen"
+c0b6b1ba-bdcc-48fe-b44c-36d7789fa4e8,Zufallsversuche,draft,,6,sicher,ja,90,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+520199f7-d218-4bb7-8794-003f1423e7ee,Zuschauerzahlen,draft,,5,sicher,ja,150,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+0c49350a-1163-4dbb-9775-836d73bc09d6,Zwanzig Prozent,ready,NUMERIC,7,sicher,nein,45,kein_bild,,,,ja,nein,ok (Anker bereits gesetzt / ready)
+73a07206-fccc-4f51-8298-a044d5d707af,Zwei Kreise,draft,MULTI_PART,7,unsicher,nein,240,tote_pfade_nachladbar,,nein,,ja,ja,P4 Bild-Entscheidung: Grafik nachladen (lizenziert) oder ohne Bild pruefen
+1d172722-3da0-4200-b441-49741ebbf438,Zwei Taschenrechner,draft,,7,sicher,ja,120,tote_pfade_nachladbar,,ja_sicher,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+c9910d6c-a11a-4552-a021-f1ed6f1b9d72,Zwei Thermometeranzeigen,draft,NUMERIC,7,unsicher,nein,90,bild_vorhanden,ja,,"Zwei Thermometer nebeneinander, Skala -10 bis 40 °C: links 'morgens' (Anzeige etwa -8 °C), rechts 'mittags' (Anzeige etwa +6 °C).",ja,ja,P2 Crop noetig
+6765fba8-c0f0-425f-8e8e-4e8170117560,Zweite Gerade,draft,FREE_TEXT,8,sicher,ja,75,tote_pfade_nachladbar,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+81f69046-b437-40b7-8c96-f6350ea7ab4c,Zwischen zwei Zahlen,draft,MC,6,sicher,ja,45,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 6)
+932d5499-416f-4316-92e0-aff931b59b82,Zwischen zwei Zahlen 2,draft,,7,sicher,ja,60,kein_bild,,,,nein,ja,"P5 unvollstaendig: kein Loesungsschluessel, input_type fehlt"
+e58dce02-c1e2-4868-8d5c-f7add423e475,Zählung von Fahrzeugen,draft,FREE_TEXT,5,unsicher,nein,120,text_verweis,,nein,,nein,ja,P5 unvollstaendig: kein Loesungsschluessel
+b739eddd-1b08-43ae-98bd-edf3ce77cfe5,Überschlag doch mal,draft,MC,5,sicher,ja,75,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)
+c1ec1de2-919f-460b-b099-d0726996f4ae,Überschlagsrechnung,draft,MC,5,sicher,ja,45,kein_bild,,,,ja,ja,P1 Anker bestaetigen (Vorschlag Kl. 5)

@@ -1,0 +1,32 @@
+{
+  "stamm": "",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "free_text",
+      "prompt": "Die Summe von zwei ganzen Zahlen, die beide größer als 0 sind, soll 8 ergeben. Schreibe alle Möglichkeiten auf, wie diese Summe gebildet werden kann.",
+      "loesung_vorschlag": "1+7, 2+6, 3+5, 4+4, 5+3, 6+2, 7+1",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "free_text",
+      "prompt": "Nun geht es um Bruchzahlen, die größer als 0 sind. Die Summe von zwei solchen Bruchzahlen soll 1/8 ergeben. Schreibe ein Beispiel auf, wie die Summe gebildet werden kann. Die Brüche müssen dabei vollständig gekürzt sein.",
+      "loesung_vorschlag": "1/16 + 1/16 oder andere vollständig gekürzte Bruchpaare, die 1/8 ergeben",
+      "mehrere_loesungen_moeglich": true
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "97f07182-49a7-4235-aa81-76cc79085838",
+  "_title": "Zahlen addieren",
+  "_slug": "zahlenaddieren",
+  "_images": [
+    "../vera8_sichtung/zahlenaddieren/image1.png",
+    "../vera8_sichtung/zahlenaddieren/image2.png",
+    "../vera8_sichtung/zahlenaddieren/image3.png"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "stamm": "Eine der folgenden Beschreibungen wurde hier graphisch dargestellt. Kreuze die Beschreibung an, die zu der Graphik passt.\n\nDie Graphik zeigt: Strecke in km (y-Achse) über Zeit in Stunden (x-Achse). Der Graph startet bei 0, steigt zunächst leicht an, verläuft dann eine Zeit lang horizontal (eben), und steigt zum Schluss steil an.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Welche Beschreibung passt zu der Graphik?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Paula und Sepp machen eine Bergtour. Zuerst steigt der Weg nur wenig an und die beiden kommen gut voran. Dann ist der Weg eine Zeit lang eben. Zum Schluss ist der Weg bis zum Gipfel ziemlich steil und Paula und Sepp kommen nur langsam voran."
+        },
+        {
+          "id": "b",
+          "label": "Herr Heuer kauft Aktien. Zuerst steigt der Wert der Aktien. Dann bleibt er eine Zeit lang konstant. Schließlich steigt der Wert steil an und Herr Heuer könnte die Aktien mit Gewinn verkaufen."
+        },
+        {
+          "id": "c",
+          "label": "Lisa und Sven machen eine Radtour. Nach einiger Zeit hat Sven eine Panne und sie müssen sein Rad reparieren. Für den Rest der Strecke fahren beide mit höherer Geschwindigkeit, um die versäumte Zeit aufzuholen."
+        },
+        {
+          "id": "d",
+          "label": "Lars ist auf dem Weg zur Schule. Unterwegs fällt ihm ein, dass er seinen Taschenrechner vergessen hat, den er für die Mathearbeit braucht. Er läuft zurück nach Hause, nimmt den Taschenrechner und muss sich jetzt beeilen, um pünktlich zur Schule zu kommen."
+        }
+      ],
+      "loesung_vorschlag": "a",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "9bca3f30-c0f4-4944-958d-aaf1b6f36f19",
+  "_title": "Geschichte zur Graphik",
+  "_slug": "geschichtezurgraphik",
+  "_images": [
+    "../vera8_sichtung/geschichtezurgraphik/image1.jpeg",
+    "../vera8_sichtung/geschichtezurgraphik/image2.emf.png",
+    "../vera8_sichtung/geschichtezurgraphik/image3.emf.png"
+  ]
+}

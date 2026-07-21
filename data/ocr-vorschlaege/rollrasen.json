@@ -1,0 +1,44 @@
+{
+  "stamm": "Herr Klie hat eine Gartenbaufirma und gestaltet einen Teil seines Firmengeländes in eine Rasenfläche um. Diese neue Rasenfläche ist 11m lang und 10,5m breit. Aus Zeitgründen verwendet Herr Klie Rollrasen (siehe Fotos 1 und 2). Als Rollrasen bezeichnet man fertigen Rasen, der in rechteckige Stücke geschnitten und dann zum Transport aufgerollt wird.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib die Größe der neuen Rasenfläche an.",
+      "unit": "m²",
+      "loesung_vorschlag": "115.5",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Ein Streifen Rollrasen ist 0,6m breit, 0,03m dick und 2m lang. Ermittle, wie viele Streifen Herr Klie benötigt, um die gesamte Rasenfläche mit Rollrasen auszulegen. Reststücke eines Streifens werden weiterverarbeitet. Notiere deinen Rechenweg.",
+      "unit": "Streifen",
+      "loesung_vorschlag": "97",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 3,
+      "kind": "numeric",
+      "prompt": "Herr Klie transportiert mehrere Streifen Rollrasen in einer Schubkarre (siehe Foto 3). Ermittle das Gewicht der sieben Rollen Rollrasen, die er pro Fuhre transportieren kann. Ein m³ Rollrasen wiegt circa 900kg.",
+      "unit": "kg",
+      "loesung_vorschlag": "226.8",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "8904f16a-4144-4e79-894c-f8fbdbc06202",
+  "_title": "Rollrasen",
+  "_slug": "rollrasen",
+  "_images": [
+    "../vera8_sichtung/rollrasen/image2.png",
+    "../vera8_sichtung/rollrasen/image3.png",
+    "../vera8_sichtung/rollrasen/image4.png",
+    "../vera8_sichtung/rollrasen/image5.png",
+    "../vera8_sichtung/rollrasen/image6.png"
+  ]
+}

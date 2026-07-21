@@ -1,0 +1,34 @@
+{
+  "stamm": "Gib an, welche Temperatur das Thermometer anzeigt.\n\nSpäter zeigt das Thermometer -3°C. Danach steigt die Temperatur um 15 Grad. Gib an, welche Temperatur das Thermometer nun anzeigt.",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "numeric",
+      "prompt": "Gib an, welche Temperatur das Thermometer anzeigt.",
+      "unit": "°C",
+      "loesung_vorschlag": "-10",
+      "mehrere_loesungen_moeglich": false
+    },
+    {
+      "nr": 2,
+      "kind": "numeric",
+      "prompt": "Später zeigt das Thermometer -3°C. Danach steigt die Temperatur um 15 Grad. Gib an, welche Temperatur das Thermometer nun anzeigt.",
+      "unit": "°C",
+      "loesung_vorschlag": "12",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MULTI_PART",
+  "needs_image": true,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "44ebd96d-cc33-4daa-b5fb-bcee8f56e1fe",
+  "_title": "Thermometer",
+  "_slug": "thermometer",
+  "_images": [
+    "../vera8_sichtung/thermometer/image1.png",
+    "../vera8_sichtung/thermometer/image2.png",
+    "../vera8_sichtung/thermometer/image3.png"
+  ]
+}

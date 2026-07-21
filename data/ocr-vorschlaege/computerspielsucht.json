@@ -1,0 +1,42 @@
+{
+  "stamm": "Nach einer Untersuchung der Universität Koblenz-Landau zeigt jeder neunte Jugendliche ein krankhaftes Computerspielverhalten.\n\nWie viel Prozent der Jugendlichen sind das?",
+  "parts": [
+    {
+      "nr": 1,
+      "kind": "mc",
+      "prompt": "Kreuze den Prozentsatz an, der am besten passt.",
+      "options": [
+        {
+          "id": "a",
+          "label": "ca. 9%"
+        },
+        {
+          "id": "b",
+          "label": "ca. 11%"
+        },
+        {
+          "id": "c",
+          "label": "ca. 12%"
+        },
+        {
+          "id": "d",
+          "label": "ca. 90%"
+        }
+      ],
+      "loesung_vorschlag": "b",
+      "mehrere_loesungen_moeglich": false
+    }
+  ],
+  "input_type": "MC",
+  "needs_image": false,
+  "braucht_tabellentyp": false,
+  "ist_zeichenaufgabe": false,
+  "unsicher": null,
+  "_task_id": "f85c4d7b-2ca5-4a7c-a02e-2553fc317981",
+  "_title": "Computerspielsucht",
+  "_slug": "computerspielsucht",
+  "_images": [
+    "../vera8_sichtung/computerspielsucht/image2.emf.png",
+    "../vera8_sichtung/computerspielsucht/image3.emf.png"
+  ]
+}
