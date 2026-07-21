@@ -151,6 +151,15 @@ export type AcceptanceRule = {
    * NICHT, wenn nach Metern gefragt war. Schliesst notation.unit_optional aus.
    */
   unit_graded?: boolean
+  /**
+   * Muss ein Bruch vollstaendig gekuerzt sein (A11)? true → "22/24" ist bei
+   * kanonisch "11/12" nur `teilweise`: richtig gerechnet, Form verfehlt.
+   * Fehlt/false → wertgleich reicht fuer `voll`.
+   *
+   * Steht oben und nicht in `notation`, weil alle notation-Flags LOCKERN und
+   * dieses hier VERSCHAERFT — es gehoert neben `unit_graded`.
+   */
+  require_reduced?: boolean
 }
 
 /** Flach eine Regel, bei MULTI_PART eine Regel je Teilaufgaben-nr. */
