@@ -1,0 +1,310 @@
+{
+  "quelle": "edvance_fundament",
+  "status": "draft",
+  "erzeugt": 28,
+  "akzeptiert": 28,
+  "verworfen": 0,
+  "je_skill": {
+    "A_kuerzen": 7,
+    "B_addieren": 7,
+    "C_multiplizieren": 7,
+    "D_dividieren": 7
+  },
+  "varianten": [
+    {
+      "skill": "A_kuerzen",
+      "ref": "brueche-kuerzen-01",
+      "frage": "Kürze den Bruch vollständig. 18/24 = ?",
+      "voll": "3/4",
+      "teilweise": "9/12",
+      "nicht": {
+        "additiv": "17/23"
+      }
+    },
+    {
+      "skill": "A_kuerzen",
+      "ref": "brueche-kuerzen-02",
+      "frage": "Kürze den Bruch vollständig. 12/16 = ?",
+      "voll": "3/4",
+      "teilweise": "6/8",
+      "nicht": {
+        "additiv": "11/15"
+      }
+    },
+    {
+      "skill": "A_kuerzen",
+      "ref": "brueche-kuerzen-03",
+      "frage": "Kürze den Bruch vollständig. 8/12 = ?",
+      "voll": "2/3",
+      "teilweise": "4/6",
+      "nicht": {
+        "additiv": "7/11"
+      }
+    },
+    {
+      "skill": "A_kuerzen",
+      "ref": "brueche-kuerzen-04",
+      "frage": "Kürze den Bruch vollständig. 16/24 = ?",
+      "voll": "2/3",
+      "teilweise": "8/12",
+      "nicht": {
+        "additiv": "15/23"
+      }
+    },
+    {
+      "skill": "A_kuerzen",
+      "ref": "brueche-kuerzen-05",
+      "frage": "Kürze den Bruch vollständig. 12/18 = ?",
+      "voll": "2/3",
+      "teilweise": "6/9",
+      "nicht": {
+        "additiv": "11/17"
+      }
+    },
+    {
+      "skill": "A_kuerzen",
+      "ref": "brueche-kuerzen-06",
+      "frage": "Kürze den Bruch vollständig. 20/24 = ?",
+      "voll": "5/6",
+      "teilweise": "10/12",
+      "nicht": {
+        "additiv": "19/23"
+      }
+    },
+    {
+      "skill": "A_kuerzen",
+      "ref": "brueche-kuerzen-07",
+      "frage": "Kürze den Bruch vollständig. 4/12 = ?",
+      "voll": "1/3",
+      "teilweise": "2/6",
+      "nicht": {
+        "additiv": "3/11"
+      }
+    },
+    {
+      "skill": "B_addieren",
+      "ref": "brueche-addieren-01",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 1/4 + 2/3 = ?",
+      "voll": "11/12",
+      "teilweise": null,
+      "nicht": {
+        "zaehler_plus_nenner": "3/7"
+      }
+    },
+    {
+      "skill": "B_addieren",
+      "ref": "brueche-addieren-02",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 1/6 + 1/3 = ?",
+      "voll": "1/2",
+      "teilweise": "3/6",
+      "nicht": {
+        "zaehler_plus_nenner": "2/9"
+      }
+    },
+    {
+      "skill": "B_addieren",
+      "ref": "brueche-addieren-03",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 1/4 + 1/12 = ?",
+      "voll": "1/3",
+      "teilweise": "4/12",
+      "nicht": {
+        "zaehler_plus_nenner": "2/16"
+      }
+    },
+    {
+      "skill": "B_addieren",
+      "ref": "brueche-addieren-04",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 1/2 + 1/6 = ?",
+      "voll": "2/3",
+      "teilweise": "4/6",
+      "nicht": {
+        "zaehler_plus_nenner": "2/8"
+      }
+    },
+    {
+      "skill": "B_addieren",
+      "ref": "brueche-addieren-05",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 3/4 + 1/8 = ?",
+      "voll": "7/8",
+      "teilweise": null,
+      "nicht": {
+        "zaehler_plus_nenner": "4/12"
+      }
+    },
+    {
+      "skill": "B_addieren",
+      "ref": "brueche-addieren-06",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 5/12 + 1/4 = ?",
+      "voll": "2/3",
+      "teilweise": "8/12",
+      "nicht": {
+        "zaehler_plus_nenner": "6/16"
+      }
+    },
+    {
+      "skill": "B_addieren",
+      "ref": "brueche-addieren-07",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 2/9 + 1/6 = ?",
+      "voll": "7/18",
+      "teilweise": null,
+      "nicht": {
+        "zaehler_plus_nenner": "3/15"
+      }
+    },
+    {
+      "skill": "C_multiplizieren",
+      "ref": "brueche-multiplizieren-01",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 2/3 · 4/5 = ?",
+      "voll": "8/15",
+      "teilweise": null,
+      "nicht": {
+        "ueber_kreuz": "10/12",
+        "additionsregel": "22/15"
+      }
+    },
+    {
+      "skill": "C_multiplizieren",
+      "ref": "brueche-multiplizieren-02",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 2/3 · 3/4 = ?",
+      "voll": "1/2",
+      "teilweise": "6/12",
+      "nicht": {
+        "ueber_kreuz": "8/9",
+        "additionsregel": "17/12"
+      }
+    },
+    {
+      "skill": "C_multiplizieren",
+      "ref": "brueche-multiplizieren-03",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 3/4 · 2/5 = ?",
+      "voll": "3/10",
+      "teilweise": "6/20",
+      "nicht": {
+        "ueber_kreuz": "15/8",
+        "additionsregel": "23/20"
+      }
+    },
+    {
+      "skill": "C_multiplizieren",
+      "ref": "brueche-multiplizieren-04",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 1/2 · 3/5 = ?",
+      "voll": "3/10",
+      "teilweise": null,
+      "nicht": {
+        "ueber_kreuz": "5/6",
+        "additionsregel": "11/10"
+      }
+    },
+    {
+      "skill": "C_multiplizieren",
+      "ref": "brueche-multiplizieren-05",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 4/5 · 5/6 = ?",
+      "voll": "2/3",
+      "teilweise": "20/30",
+      "nicht": {
+        "ueber_kreuz": "24/25",
+        "additionsregel": "49/30"
+      }
+    },
+    {
+      "skill": "C_multiplizieren",
+      "ref": "brueche-multiplizieren-06",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 3/8 · 2/3 = ?",
+      "voll": "1/4",
+      "teilweise": "6/24",
+      "nicht": {
+        "ueber_kreuz": "9/16",
+        "additionsregel": "25/24"
+      }
+    },
+    {
+      "skill": "C_multiplizieren",
+      "ref": "brueche-multiplizieren-07",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 5/6 · 2/3 = ?",
+      "voll": "5/9",
+      "teilweise": "10/18",
+      "nicht": {
+        "ueber_kreuz": "15/12",
+        "additionsregel": "9/6"
+      }
+    },
+    {
+      "skill": "D_dividieren",
+      "ref": "brueche-dividieren-01",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 2/3 : 4/5 = ?",
+      "voll": "5/6",
+      "teilweise": "10/12",
+      "nicht": {
+        "nicht_gestuerzt": "8/15",
+        "falsch_gestuerzt": "12/10"
+      }
+    },
+    {
+      "skill": "D_dividieren",
+      "ref": "brueche-dividieren-02",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 1/2 : 3/4 = ?",
+      "voll": "2/3",
+      "teilweise": "4/6",
+      "nicht": {
+        "nicht_gestuerzt": "3/8",
+        "falsch_gestuerzt": "6/4"
+      }
+    },
+    {
+      "skill": "D_dividieren",
+      "ref": "brueche-dividieren-03",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 3/4 : 2/3 = ?",
+      "voll": "9/8",
+      "teilweise": null,
+      "nicht": {
+        "nicht_gestuerzt": "6/12",
+        "falsch_gestuerzt": "8/9"
+      }
+    },
+    {
+      "skill": "D_dividieren",
+      "ref": "brueche-dividieren-04",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 2/5 : 3/4 = ?",
+      "voll": "8/15",
+      "teilweise": null,
+      "nicht": {
+        "nicht_gestuerzt": "6/20",
+        "falsch_gestuerzt": "15/8"
+      }
+    },
+    {
+      "skill": "D_dividieren",
+      "ref": "brueche-dividieren-05",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 3/8 : 3/4 = ?",
+      "voll": "1/2",
+      "teilweise": "12/24",
+      "nicht": {
+        "nicht_gestuerzt": "9/32",
+        "falsch_gestuerzt": "24/12"
+      }
+    },
+    {
+      "skill": "D_dividieren",
+      "ref": "brueche-dividieren-06",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 5/6 : 2/3 = ?",
+      "voll": "5/4",
+      "teilweise": "15/12",
+      "nicht": {
+        "nicht_gestuerzt": "10/18",
+        "falsch_gestuerzt": "12/15"
+      }
+    },
+    {
+      "skill": "D_dividieren",
+      "ref": "brueche-dividieren-07",
+      "frage": "Berechne. Gib das Ergebnis als vollständig gekürzten Bruch an. 4/9 : 2/3 = ?",
+      "voll": "2/3",
+      "teilweise": "12/18",
+      "nicht": {
+        "nicht_gestuerzt": "8/27",
+        "falsch_gestuerzt": "18/12"
+      }
+    }
+  ],
+  "verworfene": []
+}
