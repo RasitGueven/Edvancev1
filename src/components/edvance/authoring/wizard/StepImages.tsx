@@ -29,6 +29,7 @@ import type { AuthoringTask, TaskAsset, TaskPart } from '@/types'
 import { AssetCropper } from '../AssetCropper'
 import { NeedsImageSection } from '../NeedsImageSection'
 import { Field } from '../ui'
+import { LicenceSection } from './LicenceSection'
 
 export function StepImages({
   task,
@@ -36,9 +37,11 @@ export function StepImages({
   needsImage,
   parts,
   imageRef,
+  licenceText,
   canWrite,
   onAssets,
   onNeedsImage,
+  onLicence,
   onPart,
 }: {
   task: AuthoringTask
@@ -50,9 +53,12 @@ export function StepImages({
   parts: TaskPart[]
   /** Der Bildverweis-Verdacht, beim Laden des Items berechnet. */
   imageRef: ImageRefFinding | null
+  /** Formularstand (state.licence_text) — Aenderungen speichert der Schrittwechsel. */
+  licenceText: string
   canWrite: boolean
   onAssets: (next: TaskAsset[]) => void
   onNeedsImage: (next: boolean | null) => void
+  onLicence: (next: string) => void
   onPart: (index: number, next: boolean | null) => void
 }): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -66,6 +72,9 @@ export function StepImages({
 
   const dead = assets.filter((a) => isDeadAssetUrl(a.url))
   const hasDead = dead.length > 0
+  // Ein echtes, heiles Bild ist zugewiesen — nur dann braucht das Item eine
+  // Attribution, und nur dann blockiert ein leerer Lizenztext die Freigabe.
+  const hasImage = assets.some((a) => !isDeadAssetUrl(a.url))
 
   // Die vorbereiteten Kandidatenbilder des Items. Leere Liste ist der
   // Normalfall fuer Items ohne Bildbedarf — dann bleibt der Bereich unsichtbar
@@ -265,6 +274,17 @@ export function StepImages({
           </EdvanceCard>
         ),
       )}
+
+      {/* Lizenz/Quellenangabe — Pflicht, sobald ein Bild zugewiesen ist (A09).
+          Vorbefuellt mit dem CC-BY-4.0-Standardtext, ueberschreibbar fuer den
+          Ausnahmefall: eingebettetes Fremdmaterial in der VERA-Aufgabe. */}
+      <LicenceSection
+        task={task}
+        hasImage={hasImage}
+        licenceText={licenceText}
+        canWrite={canWrite}
+        onLicence={onLicence}
+      />
 
       {hasDead && (
         <EdvanceCard className="flex flex-col gap-4 p-6">

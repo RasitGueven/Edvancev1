@@ -49,6 +49,13 @@ export type FormState = {
    * Die Teilaufgaben tragen ihre eigene Beurteilung in `parts[i].needs_image`.
    */
   needs_image: boolean | null
+  /**
+   * Der einblendbare Attributionstext (CC BY 4.0 / TASL, A09). Leerstring = kein
+   * Text. Der Wizard befuellt ihn vor, sobald ein Bild zugewiesen und das Feld
+   * leer ist (buildAttribution); ueberschreibbar. Einer je Aufgabe, nicht je
+   * Asset. Leerer Text bei vorhandenem Bild blockiert die Freigabe (flags.ts).
+   */
+  licence_text: string
   /** Optionen bei flachem MC (liegen in tasks.question_payload.options). */
   mcOptions: PartOption[]
   /**
@@ -121,6 +128,7 @@ export function fromTask(task: AuthoringTask, solution: TaskSolution): FormState
     parts: task.parts.map((p) => ({ ...p })),
     assets: task.assets.map((a) => ({ ...a })),
     needs_image: task.needs_image ?? null,
+    licence_text: task.licence_text ?? '',
     mcOptions: optionsFromPayload(task.question_payload),
     table: tableFromPayload(task.question_payload),
     answers: flat,
@@ -158,6 +166,9 @@ export function toPatch(state: FormState): AuthoringTaskPatch {
     assets: state.assets.filter((a) => a.url.trim() !== ''),
     // Didaktik-Beurteilung des Stamms. null = nicht beurteilt bleibt null.
     needs_image: state.needs_image,
+    // Kein Text = NULL, nicht Leerstring: „noch nichts gepflegt" ist ein
+    // Fehlen, kein leerer Inhalt (A09).
+    licence_text: nullIfBlank(state.licence_text),
     question_payload: buildPayload(state),
   }
 }
