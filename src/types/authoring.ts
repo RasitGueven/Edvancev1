@@ -114,9 +114,78 @@ export type AuthoringTaskPatch = {
  */
 export type SolutionAnswers = string[] | Record<string, string[]>
 
+/** Wie streng gerundet werden darf. `exact` traegt keinen Wert (A10). */
+export type AcceptanceTolerance =
+  | { mode: 'exact' }
+  | { mode: 'absolute'; value: number }
+  /** Nachkommastellen, 0..6. */
+  | { mode: 'decimals'; value: number }
+
+/**
+ * Schreibweisen, die als dieselbe Antwort gelten — als REGEL, nicht als
+ * aufgezaehlte Varianten (die waeren Kombinatorik und laufen auseinander).
+ */
+export type AcceptanceNotation = {
+  /** 1,5 zaehlt wie 1.5 */
+  decimal_comma?: boolean
+  /** "1,5" zaehlt wie "1,5 m" — verboten, wenn `unit_graded` gilt. */
+  unit_optional?: boolean
+  ignore_case?: boolean
+  ignore_space?: boolean
+}
+
+/**
+ * EINE Akzeptanzregel: welche Antwortformen als richtig gelten (A10).
+ * Loesungsdatum — kommt aus task_solutions, nie aus dem Schueler-Payload.
+ */
+export type AcceptanceRule = {
+  /** Die kanonische Antwort, z.B. "1,5 m". Pflicht. */
+  canonical: string
+  /** Fachliche Aequivalente in anderer Einheit/Groessenordnung: ["150 cm"]. */
+  equivalents?: string[]
+  notation?: AcceptanceNotation
+  tolerance?: AcceptanceTolerance
+  unit?: string
+  /**
+   * Ist die geforderte Einheit Teil der Kompetenz? true → "150 cm" zaehlt
+   * NICHT, wenn nach Metern gefragt war. Schliesst notation.unit_optional aus.
+   */
+  unit_graded?: boolean
+}
+
+/** Flach eine Regel, bei MULTI_PART eine Regel je Teilaufgaben-nr. */
+export type AcceptanceSet = AcceptanceRule | Record<string, AcceptanceRule>
+
+/** Bewertungsstufe einer Antwortoption bei AFB III (A10). */
+export type OptionScore = 'voll' | 'teilweise' | 'nicht'
+
+/**
+ * Die Skala einer Aufgabe/Teilaufgabe: Option-ID → Stufe.
+ * KONSTRUKTIONSREGEL: genau eine 'voll', genau eine 'teilweise', Rest 'nicht'.
+ * Die Stufe haengt an der OPTION, nicht am Urteil — mehrere Optionen duerfen
+ * dasselbe Ja/Nein-Urteil tragen, nur eine ist 'teilweise'.
+ */
+export type OptionScoreScale = Record<string, OptionScore>
+
+/** Flach eine Skala, bei MULTI_PART eine Skala je Teilaufgaben-nr. */
+export type OptionScores = OptionScoreScale | Record<string, OptionScoreScale>
+
 export type TaskSolution = {
   exists: boolean
   correct_answers: SolutionAnswers
+  /**
+   * Das Akzeptanz-Set (task_solutions.acceptance, A10) — WARUM eine Antwort
+   * zaehlt. `undefined`, solange die Migration nicht eingespielt ist (die RPC
+   * liefert das Feld dann nicht); `null` = nicht gepflegt. Bewertet wird bis auf
+   * Weiteres weiterhin gegen `correct_answers`.
+   */
+  acceptance?: AcceptanceSet | null
+  /**
+   * Die Bewertungsstufe je Antwortoption (task_solutions.option_scores, A10).
+   * Nur bei AFB III belegt — bei I/II bleibt die Bewertung binaer.
+   * `undefined` = Migration fehlt noch, `null` = nicht gepflegt.
+   */
+  option_scores?: OptionScores | null
   /** Der didaktische LOESUNGSWEG (Handarbeit). Nicht der Beleg — siehe `beleg`. */
   solution: string | null
   /**

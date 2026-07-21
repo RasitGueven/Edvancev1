@@ -2189,5 +2189,95 @@ on conflict (id) do nothing;
 --   mit. KEINE Aenderung an einer bestehenden Funktion, Policy oder Grant.
 
 -- ============================================================================
+-- 23. A10 – AKZEPTANZ-SET + AFB-III-OPTION-SCORING
+--     (supabase/migrations/20260721100000_a10_akzeptanz_und_scoring.sql)
+-- ============================================================================
+--
+-- Zwei Felder, die die auto-gradbare Diagnostik braucht. Beide sind
+-- LOESUNGSDATEN und liegen deshalb in der Server-Only-Zone `task_solutions`
+-- (P01 §4) — nicht an `tasks`, nicht in `tasks.parts`.
+--
+-- task_solutions.acceptance jsonb NULL   — DAS AKZEPTANZ-SET
+--   Warum eine Antwort zaehlt, maschinenlesbar. Eine Regel:
+--     { canonical:"1,5 m", equivalents:["150 cm","1500 mm"],
+--       notation:{decimal_comma,unit_optional,ignore_case,ignore_space},
+--       tolerance:{mode:'exact'|'absolute'|'decimals', value},
+--       unit:"m", unit_graded:false }
+--   Flach EINE Regel, bei MULTI_PART {"<nr>": Regel} — dieselbe Doppelform wie
+--   correct_answers, kein drittes Format.
+--   CHECK task_solutions_acceptance_check → lsa_acceptance_valid.
+--
+--   WARUM notation als FLAGS, equivalents als LISTE: Notationsvarianten sind
+--     eine Regel (jede Zahl mit Komma ist auch mit Punkt richtig) — sie
+--     einzeln aufzuzaehlen ist Kombinatorik und laeuft auseinander. Ein
+--     EINHEITEN-Wechsel ist dagegen eine fachliche Aussage ("150 cm ist
+--     dieselbe Laenge") und gehoert einzeln benannt.
+--   WARUM unit_graded: manchmal IST die geforderte Einheit Teil der Kompetenz
+--     ("Gib das Ergebnis in Metern an") — dann darf "150 cm" NICHT zaehlen.
+--     Das entscheidet die Aufgabe, nicht eine Umrechnung. unit_graded=true
+--     schliesst notation.unit_optional=true aus; der Widerspruch ist im CHECK
+--     unrepraesentierbar.
+--   DEKLARATIV: lsa_is_correct bleibt byte-identisch — bewertet wird weiterhin
+--     gegen correct_answers. Der Evaluator-Umbau ist ein eigener Lauf.
+--
+-- task_solutions.option_scores jsonb NULL — DAS AFB-III-OPTION-SCORING
+--   Bewertungsstufe je Antwortoption: { "<option_id>": 'voll'|'teilweise'|'nicht' },
+--   bei MULTI_PART {"<nr>": {…}}. CHECK task_solutions_option_scores_check →
+--   lsa_option_scores_valid.
+--
+--   KONSTRUKTIONSREGEL: pro Aufgabe/Teilaufgabe GENAU EINE Option 'voll' und
+--     GENAU EINE 'teilweise', alle uebrigen 'nicht'. Die Stufe haengt an der
+--     EINZELNEN OPTION, nicht am Urteil — mehrere Optionen duerfen dasselbe
+--     Ja/Nein-Urteil tragen (sie unterscheiden sich in der Begruendung), nur
+--     eine davon ist 'teilweise'.
+--   Der CHECK erzwingt HOECHSTENS eine je Stufe (nie zwei); die
+--     Vollstaendigkeit ist eine FREIGABE-Regel, kein Speicher-Verbot — ein halb
+--     gepflegter Entwurf muss speicherbar bleiben.
+--   AFB I/II bleibt binaer: dort ist die Spalte NULL.
+--
+-- WARUM in task_solutions und nicht an parts[].options: `tasks` ist fuer jede
+--   eingeloggte Rolle lesbar (Policy read_tasks_by_role, Schueler:innen alles
+--   mit status='ready') und PostgREST bietet select=* an. Ein Bewertungsfeld an
+--   der oeffentlichen Option waere fuer jedes Schuelergeraet abrufbar — genau so
+--   ist der Altbestand-Leak entstanden (T1). Die Stufe haengt deshalb ueber die
+--   Option-ID an der Option, nicht in ihr; die oeffentliche Option behaelt
+--   exakt {id, label}.
+-- WARUM JSONB statt eigener Tabelle: eine Zeile je Option waere relational
+--   sauberer, braeuchte aber eigene RLS, eigene Grants, eigene RPCs — die
+--   Server-Only-Zusage muesste ein zweites Mal bewiesen werden. task_solutions
+--   traegt die Loesung schon als JSONB mit derselben Doppelform.
+--
+-- Funktionen (neu, alle immutable):
+--   lsa_acceptance_rule_valid(jsonb)      – Strukturvertrag EINER Regel
+--   lsa_acceptance_valid(jsonb)           – Doppelform, steht im CHECK
+--   lsa_option_scores_scale_valid(jsonb)  – EINE Skala, hoechstens 1× je Stufe
+--   lsa_option_scores_valid(jsonb)        – Doppelform, steht im CHECK
+--   lsa_option_scores_complete(afb, options, scale) – die FREIGABE-Regel:
+--       bei afb='III' genau eine 'voll', genau eine 'teilweise', jede Option
+--       bewertet, keine fremde Option in der Skala. Muster wie lsa_has_answers:
+--       bekommt alles als Parameter, liest nie selbst → leakt nichts.
+--       NOCH NICHT in task_status_set verdrahtet (der Bestand hat keine Skala).
+--
+-- Funktionen (geaendert):
+--   task_solution_get(uuid)     – liefert acceptance + option_scores mit.
+--                                 Haertung unveraendert: nur coach/admin.
+--   task_solution_upsert(...)   – +p_acceptance, +p_option_scores (9-stellig;
+--       die 7-stellige Signatur wird gedroppt statt ueberladen — PostgREST kann
+--       zwei Ueberladungen mit Defaults nicht aufloesen). PATCH-Semantik aus B01
+--       unveraendert; geleert wird mit 'null'::jsonb. Beide Felder werden vor
+--       dem Schreiben gegen ihren Strukturvertrag geprueft, damit der Editor
+--       eine Klartext-Meldung bekommt statt eines CHECK-Fehlers.
+--
+-- KEIN LEAK: lsa_question_payload/lsa_public_parts bauen aus einer WHITELIST und
+--   lesen task_solutions gar nicht. Diese Migration aendert am Payload-Bau KEINE
+--   Zeile. Erreichbar sind die Felder nur ueber die beiden SECURITY-DEFINER-RPCs.
+--
+-- ⚠️  Die Migration muss VOR dem Merge eingespielt werden: task_solution_upsert
+--   wird neu erzeugt und die alte Signatur gedroppt. src/types/authoring.ts
+--   haelt acceptance/option_scores optional (undefined = Spalte/RPC-Feld fehlt
+--   noch), das Autoren-Tool schickt sie heute nicht mit — ein Frontend auf altem
+--   Stand bleibt also funktionsfaehig.
+
+-- ============================================================================
 -- ENDE – konsolidiertes Schema (39 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================
