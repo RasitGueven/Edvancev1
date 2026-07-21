@@ -2279,5 +2279,100 @@ on conflict (id) do nothing;
 --   Stand bleibt also funktionsfaehig.
 
 -- ============================================================================
+-- 24. A11 – ABGESTUFTE BEWERTUNG (voll | teilweise | nicht)
+--     (supabase/migrations/20260721110000_a11_abgestufte_bewertung.sql)
+--     SETZT A10 VORAUS: ersetzt lsa_acceptance_rule_valid, liest acceptance.
+-- ============================================================================
+--
+-- DAS PROBLEM: lsa_is_correct vergleicht STRINGS. "22/24" ist damit falsch,
+--   obwohl die Loesung "11/12" ist — dieselbe Zahl, andere Schreibweise. Das
+--   Kind hat richtig gerechnet und nur nicht gekuerzt, und die haeufigste
+--   Foerderentscheidung ("Rechenweg sitzt, Darstellung fehlt") ist aus den
+--   Daten nicht ablesbar.
+--
+-- Funktionen (neu, alle immutable, alle NUR service_role):
+--   lsa_split_value_unit(text) → text[]
+--       [Zahlteil, Einheit]. "1,5 m" → {1.5, m}, "11/12" → {11/12, ''}.
+--   lsa_parse_fraction(text) → numeric[]
+--       [Zaehler, Nenner]. Ganze Zahl, Dezimal, Bruch, gemischter Bruch, mit
+--       Vorzeichen. NULL bei allem anderen (Muell wirft nicht).
+--       KUERZT NICHT — die geschriebene Form ist genau das, was
+--       require_reduced beurteilt. Wer beim Parsen kuerzt, wirft weg, was er
+--       gleich messen will.
+--       numeric statt bigint: Ganzzahlarithmetik ohne Ueberlaufgrenze.
+--       "0,9166666666" wird zu 9166666666/10000000000 — mit bigint waere das
+--       bei genug Nachkommastellen ein Absturz.
+--   lsa_is_reduced(text) → boolean
+--       Ist die geschriebene Bruchform gekuerzt (ggT = 1)? Ohne '/' immer true.
+--       Prueft Kuerzung, NICHT Echtheit: 3/2 ist gekuerzt.
+--   lsa_values_equal(a, b, tolerance) → boolean
+--       Mathematische Wertgleichheit. exact vergleicht per KREUZPRODUKT
+--       (a·d = c·b) und dividiert nie — 1/3 hat keine endliche
+--       Dezimaldarstellung, jeder float-Weg waere eine Naeherung, die genau bei
+--       den Aufgaben kippt, um die es geht. absolute/decimals nach
+--       acceptance.tolerance.
+--   lsa_grade(input_type, acceptance, correct_answers, response) → text
+--       'voll' | 'teilweise' | 'nicht' — dasselbe Vokabular wie
+--       task_solutions.option_scores (A10), auch wenn beide verschieden
+--       entscheiden.
+--         nicht     – nicht wertgleich, leer oder unlesbar
+--         teilweise – wertgleich, aber die geforderte FORM verfehlt
+--                     (unit_graded mit falscher/fehlender Einheit;
+--                      require_reduced mit ungekuerztem Bruch)
+--         voll      – wertgleich und formgerecht
+--       p_acceptance ist die Regel EINES Scopes (flache Aufgabe oder EINE
+--       Teilaufgabe) — wie p_correct_answers bei lsa_is_correct. Bei MULTI_PART
+--       schneidet der Aufrufer zu (acceptance -> nr).
+--
+-- Funktion (geaendert):
+--   lsa_acceptance_rule_valid(jsonb) – erlaubt zusaetzlich `require_reduced`
+--       (boolean, oben in der Regel). Additiv und lockernd; keine bestehende
+--       Zeile kann dadurch ungueltig werden.
+--
+-- acceptance.require_reduced (neu, top-level, default fehlt/false):
+--   WARUM OBEN statt in `notation`: alle notation-Flags LOCKERN ("diese
+--     Schreibweise gilt auch"), eine Kuerzungspflicht VERSCHAERFT. Sie gehoert
+--     neben `unit_graded` — die beiden sind die Formanforderungen, notation.*
+--     sind die Nachsichten. Praktisch dazu: der A10-CHECK whitelistet die
+--     notation-Schluessel, ein `notation.require_reduced` waere von jeder
+--     Datenbank mit A10 und ohne A11 abgewiesen worden.
+--
+-- DIE VIER notation-FLAGS SIND HEUTE DOKUMENTIEREND, NICHT SCHALTEND:
+--   decimal_comma / ignore_case / ignore_space beschreiben, was
+--   lsa_normalize_answer ohnehin und immer tut. Ein `decimal_comma: false`
+--   wuerde eine zweite Normalisierungskonvention verlangen — P01 §3 sagt "eine
+--   Konvention, ein Ort". unit_optional ist unter A10 nur mit
+--   unit_graded=false erlaubt, und dort ist die Einheit ohnehin kein Kriterium.
+--   Wirksam sind genau zwei Flags: unit_graded und require_reduced.
+--
+-- RUECKWAERTSKOMPATIBILITAET (die eigentliche Zusage):
+--   lsa_is_correct bleibt BYTE-IDENTISCH — Signatur, Rumpf, Verhalten. Sein
+--   einziger Aufrufer ist lsa_submit (flach + MULTI_PART), und lsa_submit wird
+--   NICHT angefasst. lsa_grade tritt DANEBEN, nicht davor: es ist aufrufbar und
+--   getestet, aber noch nicht verdrahtet.
+--   Ohne acceptance-Regel (NULL, '{}', oder die Teilaufgaben-Abbildung statt
+--   einer Regel) faellt lsa_grade auf lsa_is_correct zurueck und kennt nur
+--   'voll'/'nicht'. 'teilweise' kann gar nicht entstehen, solange niemand eine
+--   Regel gepflegt hat. MC bleibt binaer — die Abstufung dort ist option_scores.
+--
+-- WARUM NICHT GLEICH VERDRAHTET: lsa_responses.correct ist boolean, und
+--   lsa_finish + der Eltern-Report rechnen darauf. Eine Stufe kann dort erst
+--   ankommen, wenn die Spalte sie halten kann (eigener Schnitt: `grade` neben
+--   `correct`). Ausserdem pinnen inv2/inv3 das heutige Bewertungsverhalten —
+--   Datenmodell und gruene Beweise sollten nicht in derselben Migration wandern.
+--
+-- KEIN LEAK: alle Funktionen bekommen acceptance/correct_answers als PARAMETER
+--   und lesen nie selbst aus task_solutions (Muster lsa_is_correct/
+--   lsa_has_answers). Gegrantet sind sie nur an service_role. lsa_grade ist
+--   AUSWERTUNGS-Logik und laeuft serverseitig; weder acceptance noch eine Stufe
+--   gehen je in den Schueler-Payload. Am Payload-Bau aendert die Migration
+--   KEINE Zeile.
+--
+-- Beweis: supabase/tests/a11_abgestufte_bewertung.test.sql (pgTAP, 29
+--   Assertions). ⚠️ Laeuft heute weder lokal (kein Docker) noch in
+--   .github/workflows/ci.yml — der Test ist geschrieben, aber bis dahin
+--   unbewiesen.
+
+-- ============================================================================
 -- ENDE – konsolidiertes Schema (39 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================
