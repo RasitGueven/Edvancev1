@@ -27,6 +27,7 @@ import {
 import { ItemRow, type ItemRowData } from '@/components/edvance/authoring/ItemRow'
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
 import { computeFlags, hasTable } from '@/lib/authoring/flags'
+import { isGroundedSource } from '@/lib/authoring/grounding'
 import {
   listAuthoringTasks,
   listClustersWithSubject,
@@ -139,6 +140,11 @@ export function AuthoringItemsPage(): JSX.Element {
         return false
       }
       if (filters.afb !== 'all' && task.afb !== filters.afb) return false
+      if (filters.source !== 'all') {
+        const vera = isGroundedSource(task.source)
+        if (filters.source === 'eigene' && vera) return false
+        if (filters.source === 'vera' && !vera) return false
+      }
       if (filters.flags === 'blocking' && blockingCount === 0) return false
       if (filters.flags === 'any' && flagCount === 0) return false
       if (filters.flags === 'none' && flagCount > 0) return false

@@ -14,12 +14,16 @@ export type FlagFilter = 'all' | 'blocking' | 'any' | 'none'
 export type TriFilter = 'all' | 'yes' | 'no'
 export type SortKey = 'flags' | 'title' | 'status' | 'newest'
 
+/** Herkunft: 'eigene' = alles ausser VERA, 'vera' = nur VERA, 'all' = beides. */
+export type SourceFilter = 'all' | 'eigene' | 'vera'
+
 export type FilterState = {
   search: string
   status: TaskStatus | 'all'
   subject: string
   competency: string
   afb: string
+  source: SourceFilter
   flags: FlagFilter
   asset: TriFilter
   table: TriFilter
@@ -32,6 +36,10 @@ export const EMPTY_FILTERS: FilterState = {
   subject: 'all',
   competency: 'all',
   afb: 'all',
+  // Der einzige Filter, der NICHT auf 'all' steht: die Pflege arbeitet am
+  // Eigenbau, der VERA-Bestand liegt daneben und wuerde die Liste zudecken.
+  // Ausgeblendet, nicht geloescht — ein Griff ins Dropdown holt ihn zurueck.
+  source: 'eigene',
   flags: 'all',
   asset: 'all',
   table: 'all',
@@ -120,6 +128,19 @@ export function AuthoringFilters({
           <option value="I">AFB I</option>
           <option value="II">AFB II</option>
           <option value="III">AFB III</option>
+        </select>
+
+        <select
+          className={SELECT_SM}
+          value={value.source}
+          aria-label={t('filter.source')}
+          onChange={(e) => set('source', e.target.value as SourceFilter)}
+        >
+          <option value="all">
+            {t('filter.source')}: {t('filter.all')}
+          </option>
+          <option value="eigene">{t('filter.sourceOwn')}</option>
+          <option value="vera">{t('filter.sourceVera')}</option>
         </select>
 
         <select
