@@ -1,0 +1,330 @@
+{
+  "quelle": "edvance_fundament",
+  "status": "draft",
+  "bewertung": "binaer (kein require_reduced, kein teilweise)",
+  "schreibweise": "lsa_values_equal vergleicht wertgleich (0,30 = 0,3) — je Fehlbild eine Form",
+  "erzeugt": 26,
+  "akzeptiert": 26,
+  "verworfen": 0,
+  "je_skill": {
+    "DA_addieren": 8,
+    "DB_multiplizieren": 6,
+    "DC_dividieren": 6,
+    "DD_umwandeln": 6
+  },
+  "varianten": [
+    {
+      "skill": "DA_addieren",
+      "ref": "dezimal-addieren-01",
+      "frage": "Berechne. 0,5 + 0,25 = ?",
+      "afb": "I",
+      "voll": "0,75",
+      "known_errors": {
+        "0,3": "stellenwert_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DA_addieren",
+      "ref": "dezimal-addieren-02",
+      "frage": "Berechne. 0,7 + 0,5 = ?",
+      "afb": "I",
+      "voll": "1,2",
+      "known_errors": {
+        "0,12": "uebertrag_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DA_addieren",
+      "ref": "dezimal-addieren-03",
+      "frage": "Berechne. 0,8 + 0,45 = ?",
+      "afb": "I",
+      "voll": "1,25",
+      "known_errors": {
+        "0,53": "stellenwert_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DA_addieren",
+      "ref": "dezimal-addieren-04",
+      "frage": "Berechne. 0,6 + 0,4 = ?",
+      "afb": "I",
+      "voll": "1",
+      "known_errors": {
+        "0,1": "uebertrag_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DA_addieren",
+      "ref": "dezimal-addieren-05",
+      "frage": "Berechne. 0,25 + 0,4 = ?",
+      "afb": "I",
+      "voll": "0,65",
+      "known_errors": {
+        "0,29": "stellenwert_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DA_addieren",
+      "ref": "dezimal-addieren-06",
+      "frage": "Berechne. 0,9 + 0,35 = ?",
+      "afb": "I",
+      "voll": "1,25",
+      "known_errors": {
+        "0,44": "stellenwert_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DA_addieren",
+      "ref": "dezimal-addieren-07",
+      "frage": "Berechne. 0,8 + 0,7 = ?",
+      "afb": "I",
+      "voll": "1,5",
+      "known_errors": {
+        "0,15": "uebertrag_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DA_addieren",
+      "ref": "dezimal-addieren-08",
+      "frage": "Berechne. 0,3 + 0,45 = ?",
+      "afb": "I",
+      "voll": "0,75",
+      "known_errors": {
+        "0,48": "stellenwert_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DB_multiplizieren",
+      "ref": "dezimal-multiplizieren-01",
+      "frage": "Berechne. 0,3 · 0,4 = ?",
+      "afb": "I",
+      "voll": "0,12",
+      "known_errors": {
+        "1,2": "kommastellen_zu_wenig",
+        "0,012": "kommastellen_zu_viel",
+        "12": "komma_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DB_multiplizieren",
+      "ref": "dezimal-multiplizieren-02",
+      "frage": "Berechne. 0,2 · 0,7 = ?",
+      "afb": "I",
+      "voll": "0,14",
+      "known_errors": {
+        "1,4": "kommastellen_zu_wenig",
+        "0,014": "kommastellen_zu_viel",
+        "14": "komma_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DB_multiplizieren",
+      "ref": "dezimal-multiplizieren-03",
+      "frage": "Berechne. 0,6 · 0,4 = ?",
+      "afb": "I",
+      "voll": "0,24",
+      "known_errors": {
+        "2,4": "kommastellen_zu_wenig",
+        "0,024": "kommastellen_zu_viel",
+        "24": "komma_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DB_multiplizieren",
+      "ref": "dezimal-multiplizieren-04",
+      "frage": "Berechne. 0,9 · 0,3 = ?",
+      "afb": "I",
+      "voll": "0,27",
+      "known_errors": {
+        "2,7": "kommastellen_zu_wenig",
+        "0,027": "kommastellen_zu_viel",
+        "27": "komma_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DB_multiplizieren",
+      "ref": "dezimal-multiplizieren-05",
+      "frage": "Berechne. 0,5 · 0,6 = ?",
+      "afb": "I",
+      "voll": "0,3",
+      "known_errors": {
+        "3": "kommastellen_zu_wenig",
+        "0,03": "kommastellen_zu_viel",
+        "30": "komma_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DB_multiplizieren",
+      "ref": "dezimal-multiplizieren-06",
+      "frage": "Berechne. 0,8 · 0,5 = ?",
+      "afb": "I",
+      "voll": "0,4",
+      "known_errors": {
+        "4": "kommastellen_zu_wenig",
+        "0,04": "kommastellen_zu_viel",
+        "40": "komma_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DC_dividieren",
+      "ref": "dezimal-dividieren-01",
+      "frage": "Berechne. 4,8 : 0,6 = ?",
+      "afb": "I",
+      "voll": "8",
+      "known_errors": {
+        "0,8": "komma_nicht_verschoben",
+        "0,08": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DC_dividieren",
+      "ref": "dezimal-dividieren-02",
+      "frage": "Berechne. 3,5 : 0,5 = ?",
+      "afb": "I",
+      "voll": "7",
+      "known_errors": {
+        "0,7": "komma_nicht_verschoben",
+        "0,07": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DC_dividieren",
+      "ref": "dezimal-dividieren-03",
+      "frage": "Berechne. 7,2 : 0,8 = ?",
+      "afb": "I",
+      "voll": "9",
+      "known_errors": {
+        "0,9": "komma_nicht_verschoben",
+        "0,09": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DC_dividieren",
+      "ref": "dezimal-dividieren-04",
+      "frage": "Berechne. 2,4 : 0,4 = ?",
+      "afb": "I",
+      "voll": "6",
+      "known_errors": {
+        "0,6": "komma_nicht_verschoben",
+        "0,06": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DC_dividieren",
+      "ref": "dezimal-dividieren-05",
+      "frage": "Berechne. 5,4 : 0,9 = ?",
+      "afb": "I",
+      "voll": "6",
+      "known_errors": {
+        "0,6": "komma_nicht_verschoben",
+        "0,06": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DC_dividieren",
+      "ref": "dezimal-dividieren-06",
+      "frage": "Berechne. 1,2 : 0,3 = ?",
+      "afb": "I",
+      "voll": "4",
+      "known_errors": {
+        "0,4": "komma_nicht_verschoben",
+        "0,04": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DD_umwandeln",
+      "ref": "dezimal-umwandeln-01",
+      "frage": "Schreibe den Bruch als Dezimalzahl. 3/4 = ?",
+      "afb": "I",
+      "voll": "0,75",
+      "known_errors": {
+        "0,34": "ziffern_gelesen"
+      },
+      "weggelassen": [
+        "umgekehrt_geteilt (1.333333…) ist kein tippbarer Wert"
+      ]
+    },
+    {
+      "skill": "DD_umwandeln",
+      "ref": "dezimal-umwandeln-02",
+      "frage": "Schreibe den Bruch als Dezimalzahl. 1/4 = ?",
+      "afb": "I",
+      "voll": "0,25",
+      "known_errors": {
+        "0,14": "ziffern_gelesen",
+        "4": "umgekehrt_geteilt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DD_umwandeln",
+      "ref": "dezimal-umwandeln-03",
+      "frage": "Schreibe den Bruch als Dezimalzahl. 1/2 = ?",
+      "afb": "I",
+      "voll": "0,5",
+      "known_errors": {
+        "0,12": "ziffern_gelesen",
+        "2": "umgekehrt_geteilt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DD_umwandeln",
+      "ref": "dezimal-umwandeln-04",
+      "frage": "Schreibe den Bruch als Dezimalzahl. 1/5 = ?",
+      "afb": "I",
+      "voll": "0,2",
+      "known_errors": {
+        "0,15": "ziffern_gelesen",
+        "5": "umgekehrt_geteilt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "DD_umwandeln",
+      "ref": "dezimal-umwandeln-05",
+      "frage": "Schreibe den Bruch als Dezimalzahl. 3/8 = ?",
+      "afb": "I",
+      "voll": "0,375",
+      "known_errors": {
+        "0,38": "ziffern_gelesen"
+      },
+      "weggelassen": [
+        "umgekehrt_geteilt (2.666667…) ist kein tippbarer Wert"
+      ]
+    },
+    {
+      "skill": "DD_umwandeln",
+      "ref": "dezimal-umwandeln-06",
+      "frage": "Schreibe den Bruch als Dezimalzahl. 1/8 = ?",
+      "afb": "I",
+      "voll": "0,125",
+      "known_errors": {
+        "0,18": "ziffern_gelesen",
+        "8": "umgekehrt_geteilt"
+      },
+      "weggelassen": []
+    }
+  ],
+  "verworfene": []
+}
