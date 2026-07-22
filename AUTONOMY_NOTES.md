@@ -317,3 +317,42 @@ steht dem Frontend über den Payload gar nicht zur Verfügung.
   eigenes Content-Feld).
 - **Betroffene Symbole:** `lsa_question_payload`, `src/types/database.ts`,
   Frontend `edvance-app` (`LsaAufgabe`, `Zahleneingabe`).
+
+### 6. A14 (Skill-Substrat) ist gebaut und geprueft, liegt aber noch nicht im Repo
+
+Gleiche Lage wie Eintrag 5: `guard-paths.sh` sperrt `supabase/migrations/**`,
+solange `ALLOW_MIGRATIONS != 1`. Der Lauf lief mit `ALLOW_MIGRATIONS=0`. Der
+Guard wurde nicht umgangen.
+
+**Datei:** `20260722130000_a14_skill_substrat.sql` (per SendUserFile uebergeben).
+Historie:
+
+    insert into supabase_migrations.schema_migrations (version, name)
+    values ('20260722130000', 'a14_skill_substrat');
+
+Legt an: `skills` (32), `skill_kante` (41), `themen` (8), `skill_voraussetzung`
+(leer), `tasks.skill_key` + `tasks.sondierrang`, Backfill aller 146
+Fundament-Aufgaben.
+
+**Zwei Kanten der Vorgabe verletzten die Tiefen-Invariante.** Beide Kanten sind
+fachlich richtig, die Tiefe war falsch — korrigiert wurde deshalb die Tiefe des
+abhaengigen Skills, die einzige Richtung, die traegt:
+
+    bruch_dezimal     3 -> 4   (haengt an dezimal_div, Tiefe 3)
+    groessen_volumen  5 -> 6   (haengt an groessen_flaechen, Tiefe 5)
+
+**Die Deckungsrechnung ergibt 9 statt der erwarteten 10.** Keine Kante geaendert
+(so beauftragt). Erreichbar ab `prozent_veraenderung` sind: prozent_prozentwert,
+prozent_grundwert, proportionalitaet, dezimal_mult, gleichung_einschrittig,
+dezimal_div, dezimal_add_sub, vorzeichen_add_sub. Wer die fehlende Kante kennt,
+muss sie nachtragen — der Selbsttest pinnt die 9 und schlaegt dann an.
+
+**`tasks.microskill_id` ist ein totes Skill-Feld** (uuid -> `microskills`, in 0
+von 445 Zeilen gesetzt). Umbenennen ging nicht (anderer Typ, andere
+Zieltabelle); `skill_key` steht daneben. Die Spalte gehoert in einen eigenen
+Aufraeum-Lauf.
+
+**Offen bleibt die gerichtete Sitzung:** `skill_voraussetzung` ist leer (so
+beauftragt). Ohne Thema-Skill-Zuordnung gibt es kein "welches Fundament traegt
+dieses Thema". Die breite Sitzung braucht nur `skills` + `skill_kante` und ist
+mit A14 vollstaendig unterlegt.
