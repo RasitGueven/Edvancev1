@@ -1,0 +1,614 @@
+{
+  "quelle": "edvance_fundament",
+  "status": "draft",
+  "bewertung": "binaer (kein require_reduced, kein teilweise)",
+  "einheiten": "tasks.unit gesetzt (Anzeige im Feld); unit_graded aus",
+  "erzeugt": 45,
+  "akzeptiert": 45,
+  "verworfen": 0,
+  "je_skill": {
+    "GA_einschrittig": 6,
+    "GB_zweischrittig": 6,
+    "GC_negativ": 5,
+    "GD_beidseitig": 5,
+    "PA_prozentwert": 6,
+    "PB_prozentsatz": 6,
+    "PC_grundwert": 6,
+    "PD_veraenderung": 5
+  },
+  "varianten": [
+    {
+      "skill": "GA_einschrittig",
+      "ref": "gleichung-einschrittig-01",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. x + 7 = 12",
+      "afb": "I",
+      "unit": null,
+      "voll": "5",
+      "known_errors": {
+        "19": "falsche_gegenoperation",
+        "-5": "seiten_verwechselt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GA_einschrittig",
+      "ref": "gleichung-einschrittig-02",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. x − 4 = 9",
+      "afb": "I",
+      "unit": null,
+      "voll": "13",
+      "known_errors": {
+        "5": "falsche_gegenoperation",
+        "-5": "seiten_verwechselt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GA_einschrittig",
+      "ref": "gleichung-einschrittig-03",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 3x = 18",
+      "afb": "I",
+      "unit": null,
+      "voll": "6",
+      "known_errors": {
+        "15": "falsche_gegenoperation"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GA_einschrittig",
+      "ref": "gleichung-einschrittig-04",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. x + 12 = 20",
+      "afb": "I",
+      "unit": null,
+      "voll": "8",
+      "known_errors": {
+        "32": "falsche_gegenoperation",
+        "-8": "seiten_verwechselt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GA_einschrittig",
+      "ref": "gleichung-einschrittig-05",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. x − 9 = 6",
+      "afb": "I",
+      "unit": null,
+      "voll": "15",
+      "known_errors": {
+        "-3": "falsche_gegenoperation",
+        "3": "seiten_verwechselt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GA_einschrittig",
+      "ref": "gleichung-einschrittig-06",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 4x = 24",
+      "afb": "I",
+      "unit": null,
+      "voll": "6",
+      "known_errors": {
+        "20": "falsche_gegenoperation"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GB_zweischrittig",
+      "ref": "gleichung-zweischrittig-01",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 3x + 6 = 24",
+      "afb": "I",
+      "unit": null,
+      "voll": "6",
+      "known_errors": {
+        "18": "division_vergessen",
+        "10": "addiert_statt_subtrahiert",
+        "8": "b_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GB_zweischrittig",
+      "ref": "gleichung-zweischrittig-02",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 2x + 4 = 20",
+      "afb": "I",
+      "unit": null,
+      "voll": "8",
+      "known_errors": {
+        "16": "division_vergessen",
+        "12": "addiert_statt_subtrahiert",
+        "10": "b_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GB_zweischrittig",
+      "ref": "gleichung-zweischrittig-03",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 5x + 10 = 45",
+      "afb": "I",
+      "unit": null,
+      "voll": "7",
+      "known_errors": {
+        "35": "division_vergessen",
+        "11": "addiert_statt_subtrahiert",
+        "9": "b_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GB_zweischrittig",
+      "ref": "gleichung-zweischrittig-04",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 4x + 8 = 40",
+      "afb": "I",
+      "unit": null,
+      "voll": "8",
+      "known_errors": {
+        "32": "division_vergessen",
+        "12": "addiert_statt_subtrahiert",
+        "10": "b_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GB_zweischrittig",
+      "ref": "gleichung-zweischrittig-05",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 3x + 9 = 30",
+      "afb": "I",
+      "unit": null,
+      "voll": "7",
+      "known_errors": {
+        "21": "division_vergessen",
+        "13": "addiert_statt_subtrahiert",
+        "10": "b_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GB_zweischrittig",
+      "ref": "gleichung-zweischrittig-06",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 6x + 12 = 42",
+      "afb": "I",
+      "unit": null,
+      "voll": "5",
+      "known_errors": {
+        "30": "division_vergessen",
+        "9": "addiert_statt_subtrahiert",
+        "7": "b_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GC_negativ",
+      "ref": "gleichung-negativ-01",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 18 − 3x = 12",
+      "afb": "I",
+      "unit": null,
+      "voll": "2",
+      "known_errors": {
+        "-2": "vorzeichen_beim_umstellen",
+        "6": "division_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GC_negativ",
+      "ref": "gleichung-negativ-02",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 20 − 4x = 8",
+      "afb": "I",
+      "unit": null,
+      "voll": "3",
+      "known_errors": {
+        "-3": "vorzeichen_beim_umstellen",
+        "12": "division_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GC_negativ",
+      "ref": "gleichung-negativ-03",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 15 − 5x = 5",
+      "afb": "I",
+      "unit": null,
+      "voll": "2",
+      "known_errors": {
+        "-2": "vorzeichen_beim_umstellen",
+        "10": "division_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GC_negativ",
+      "ref": "gleichung-negativ-04",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 24 − 2x = 10",
+      "afb": "I",
+      "unit": null,
+      "voll": "7",
+      "known_errors": {
+        "-7": "vorzeichen_beim_umstellen",
+        "14": "division_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GC_negativ",
+      "ref": "gleichung-negativ-05",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 30 − 6x = 12",
+      "afb": "I",
+      "unit": null,
+      "voll": "3",
+      "known_errors": {
+        "-3": "vorzeichen_beim_umstellen",
+        "18": "division_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GD_beidseitig",
+      "ref": "gleichung-beidseitig-01",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 5x + 3 = 2x + 18",
+      "afb": "II",
+      "unit": null,
+      "voll": "5",
+      "known_errors": {
+        "3": "variablen_nicht_zusammengefuehrt",
+        "7": "falsches_vorzeichen_beim_zusammenfuehren"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GD_beidseitig",
+      "ref": "gleichung-beidseitig-02",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 4x + 2 = 2x + 14",
+      "afb": "II",
+      "unit": null,
+      "voll": "6",
+      "known_errors": {
+        "3": "variablen_nicht_zusammengefuehrt",
+        "8": "falsches_vorzeichen_beim_zusammenfuehren"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GD_beidseitig",
+      "ref": "gleichung-beidseitig-03",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 5x + 5 = 3x + 25",
+      "afb": "II",
+      "unit": null,
+      "voll": "10",
+      "known_errors": {
+        "4": "variablen_nicht_zusammengefuehrt",
+        "15": "falsches_vorzeichen_beim_zusammenfuehren"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GD_beidseitig",
+      "ref": "gleichung-beidseitig-04",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 7x + 2 = 3x + 30",
+      "afb": "II",
+      "unit": null,
+      "voll": "7",
+      "known_errors": {
+        "4": "variablen_nicht_zusammengefuehrt",
+        "8": "falsches_vorzeichen_beim_zusammenfuehren"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "GD_beidseitig",
+      "ref": "gleichung-beidseitig-05",
+      "frage": "Löse die Gleichung. Gib den Wert für x an. 6x + 4 = 2x + 28",
+      "afb": "II",
+      "unit": null,
+      "voll": "6",
+      "known_errors": {
+        "4": "variablen_nicht_zusammengefuehrt",
+        "8": "falsches_vorzeichen_beim_zusammenfuehren"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PA_prozentwert",
+      "ref": "prozent-wert-01",
+      "frage": "Ein Pullover kostet 80 €. Der Preis wird um 15 % reduziert. Wie viel Euro beträgt die Ermäßigung?",
+      "afb": "I",
+      "unit": "€",
+      "voll": "12",
+      "known_errors": {
+        "1200": "dezimalverschiebung"
+      },
+      "weggelassen": [
+        "grundwert_verwechselt (533,333333) ist kein tippbarer Wert"
+      ]
+    },
+    {
+      "skill": "PA_prozentwert",
+      "ref": "prozent-wert-02",
+      "frage": "Ein Fahrrad kostet 200 €. Der Preis wird um 20 % reduziert. Wie viel Euro beträgt die Ermäßigung?",
+      "afb": "I",
+      "unit": "€",
+      "voll": "40",
+      "known_errors": {
+        "4000": "dezimalverschiebung",
+        "1000": "grundwert_verwechselt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PA_prozentwert",
+      "ref": "prozent-wert-03",
+      "frage": "Ein Rucksack kostet 60 €. Der Preis wird um 25 % reduziert. Wie viel Euro beträgt die Ermäßigung?",
+      "afb": "I",
+      "unit": "€",
+      "voll": "15",
+      "known_errors": {
+        "1500": "dezimalverschiebung",
+        "240": "grundwert_verwechselt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PA_prozentwert",
+      "ref": "prozent-wert-04",
+      "frage": "Ein Paar Schuhe kostet 150 €. Der Preis wird um 20 % reduziert. Wie viel Euro beträgt die Ermäßigung?",
+      "afb": "I",
+      "unit": "€",
+      "voll": "30",
+      "known_errors": {
+        "3000": "dezimalverschiebung",
+        "750": "grundwert_verwechselt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PA_prozentwert",
+      "ref": "prozent-wert-05",
+      "frage": "Ein Buch kostet 40 €. Der Preis wird um 50 % reduziert. Wie viel Euro beträgt die Ermäßigung?",
+      "afb": "I",
+      "unit": "€",
+      "voll": "20",
+      "known_errors": {
+        "2000": "dezimalverschiebung",
+        "80": "grundwert_verwechselt"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PA_prozentwert",
+      "ref": "prozent-wert-06",
+      "frage": "Eine Jacke kostet 90 €. Der Preis wird um 10 % reduziert. Wie viel Euro beträgt die Ermäßigung?",
+      "afb": "I",
+      "unit": "€",
+      "voll": "9",
+      "known_errors": {
+        "900": "dezimalverschiebung"
+      },
+      "weggelassen": [
+        "grundwert_verwechselt (900) faellt mit dezimalverschiebung zusammen"
+      ]
+    },
+    {
+      "skill": "PB_prozentsatz",
+      "ref": "prozent-satz-01",
+      "frage": "Von 80 Schülerinnen und Schülern haben 12 eine Eins. Wie viel Prozent sind das?",
+      "afb": "I",
+      "unit": "%",
+      "voll": "15",
+      "known_errors": {
+        "0,15": "faktor_100_vergessen"
+      },
+      "weggelassen": [
+        "bezug_vertauscht (666,666667) ist kein tippbarer Wert"
+      ]
+    },
+    {
+      "skill": "PB_prozentsatz",
+      "ref": "prozent-satz-02",
+      "frage": "Von 80 Schülerinnen und Schülern haben 20 eine Eins. Wie viel Prozent sind das?",
+      "afb": "I",
+      "unit": "%",
+      "voll": "25",
+      "known_errors": {
+        "400": "bezug_vertauscht",
+        "0,25": "faktor_100_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PB_prozentsatz",
+      "ref": "prozent-satz-03",
+      "frage": "Von 60 Schülerinnen und Schülern haben 15 eine Eins. Wie viel Prozent sind das?",
+      "afb": "I",
+      "unit": "%",
+      "voll": "25",
+      "known_errors": {
+        "400": "bezug_vertauscht",
+        "0,25": "faktor_100_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PB_prozentsatz",
+      "ref": "prozent-satz-04",
+      "frage": "Von 90 Schülerinnen und Schülern haben 9 eine Eins. Wie viel Prozent sind das?",
+      "afb": "I",
+      "unit": "%",
+      "voll": "10",
+      "known_errors": {
+        "1000": "bezug_vertauscht",
+        "0,1": "faktor_100_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PB_prozentsatz",
+      "ref": "prozent-satz-05",
+      "frage": "Von 60 Schülerinnen und Schülern haben 30 eine Eins. Wie viel Prozent sind das?",
+      "afb": "I",
+      "unit": "%",
+      "voll": "50",
+      "known_errors": {
+        "200": "bezug_vertauscht",
+        "0,5": "faktor_100_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PB_prozentsatz",
+      "ref": "prozent-satz-06",
+      "frage": "Von 80 Schülerinnen und Schülern haben 16 eine Eins. Wie viel Prozent sind das?",
+      "afb": "I",
+      "unit": "%",
+      "voll": "20",
+      "known_errors": {
+        "500": "bezug_vertauscht",
+        "0,2": "faktor_100_vergessen"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PC_grundwert",
+      "ref": "prozent-grundwert-01",
+      "frage": "12 Bücher sind 15 % aller Bücher. Wie viele Bücher sind es insgesamt?",
+      "afb": "II",
+      "unit": null,
+      "voll": "80",
+      "known_errors": {
+        "1,8": "multipliziert_statt_dividiert",
+        "180": "dezimalverschiebung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PC_grundwert",
+      "ref": "prozent-grundwert-02",
+      "frage": "20 Bälle sind 25 % aller Bälle. Wie viele Bälle sind es insgesamt?",
+      "afb": "II",
+      "unit": null,
+      "voll": "80",
+      "known_errors": {
+        "5": "multipliziert_statt_dividiert",
+        "500": "dezimalverschiebung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PC_grundwert",
+      "ref": "prozent-grundwert-03",
+      "frage": "30 Karten sind 20 % aller Karten. Wie viele Karten sind es insgesamt?",
+      "afb": "II",
+      "unit": null,
+      "voll": "150",
+      "known_errors": {
+        "6": "multipliziert_statt_dividiert",
+        "600": "dezimalverschiebung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PC_grundwert",
+      "ref": "prozent-grundwert-04",
+      "frage": "40 Stifte sind 50 % aller Stifte. Wie viele Stifte sind es insgesamt?",
+      "afb": "II",
+      "unit": null,
+      "voll": "80",
+      "known_errors": {
+        "20": "multipliziert_statt_dividiert",
+        "2000": "dezimalverschiebung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PC_grundwert",
+      "ref": "prozent-grundwert-05",
+      "frage": "12 Hefte sind 25 % aller Hefte. Wie viele Hefte sind es insgesamt?",
+      "afb": "II",
+      "unit": null,
+      "voll": "48",
+      "known_errors": {
+        "3": "multipliziert_statt_dividiert",
+        "300": "dezimalverschiebung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PC_grundwert",
+      "ref": "prozent-grundwert-06",
+      "frage": "15 Plätze sind 50 % aller Plätze. Wie viele Plätze sind es insgesamt?",
+      "afb": "II",
+      "unit": null,
+      "voll": "30",
+      "known_errors": {
+        "7,5": "multipliziert_statt_dividiert",
+        "750": "dezimalverschiebung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PD_veraenderung",
+      "ref": "prozent-veraenderung-01",
+      "frage": "Ein Fahrrad kostet 200 €. Der Preis steigt um 20 %. Wie viel Euro kostet es danach?",
+      "afb": "II",
+      "unit": "€",
+      "voll": "240",
+      "known_errors": {
+        "40": "nur_prozentwert",
+        "160": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PD_veraenderung",
+      "ref": "prozent-veraenderung-02",
+      "frage": "Ein Pullover kostet 80 €. Der Preis sinkt um 25 %. Wie viel Euro kostet es danach?",
+      "afb": "II",
+      "unit": "€",
+      "voll": "60",
+      "known_errors": {
+        "20": "nur_prozentwert",
+        "100": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PD_veraenderung",
+      "ref": "prozent-veraenderung-03",
+      "frage": "Ein Rucksack kostet 150 €. Der Preis steigt um 10 %. Wie viel Euro kostet es danach?",
+      "afb": "II",
+      "unit": "€",
+      "voll": "165",
+      "known_errors": {
+        "15": "nur_prozentwert",
+        "135": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PD_veraenderung",
+      "ref": "prozent-veraenderung-04",
+      "frage": "Ein Buch kostet 60 €. Der Preis sinkt um 25 %. Wie viel Euro kostet es danach?",
+      "afb": "II",
+      "unit": "€",
+      "voll": "45",
+      "known_errors": {
+        "15": "nur_prozentwert",
+        "75": "falsche_richtung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "PD_veraenderung",
+      "ref": "prozent-veraenderung-05",
+      "frage": "Ein Zelt kostet 250 €. Der Preis steigt um 20 %. Wie viel Euro kostet es danach?",
+      "afb": "II",
+      "unit": "€",
+      "voll": "300",
+      "known_errors": {
+        "50": "nur_prozentwert",
+        "200": "falsche_richtung"
+      },
+      "weggelassen": []
+    }
+  ],
+  "verworfene": []
+}
