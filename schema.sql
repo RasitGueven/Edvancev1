@@ -2374,5 +2374,60 @@ on conflict (id) do nothing;
 --   unbewiesen.
 
 -- ============================================================================
+-- 25. A12 – `known_errors` IM AKZEPTANZ-SET
+--     (supabase/migrations/20260722100000_a12_known_errors.sql)
+--     SETZT A10 + A11 VORAUS.
+-- ============================================================================
+--
+-- acceptance.known_errors (optional, Top-Level):
+--   Die bekannten FEHLBILDER einer Aufgabe — welcher Wert entsteht, wenn ein
+--   Kind einen bestimmten Denkfehler macht.
+--     {"17/23":"additiv","3/7":"zaehler_plus_nenner"}   ← Wert → Fehlertyp
+--     ["17/23","3/7"]                                    ← nur die Werte
+--   Beide Formen gueltig; die innere Struktur wird NICHT erzwungen, weil noch
+--   nicht entschieden ist, wie ein Fehlbild benannt wird (freie Labels,
+--   Vokabular, oder Verweis auf eine spaetere Fehlbild-Tabelle). Ein CHECK
+--   waere hier eine Entscheidung, die niemand getroffen hat.
+--
+-- WOZU: Der Brueche-Seed (Charge 01) rechnet die Fehlbilder bereits aus und
+--   legt sie nur im Bericht ab (data/brueche_fundament_01_report.json) — in der
+--   Datenbank landeten sie nirgends. Ohne sie kann der Eltern-/Coach-Report nur
+--   „falsch" sagen; mit ihnen, WELCHER Fehler es war. Das ist der Unterschied
+--   zwischen einer Note und einer Diagnose.
+--
+-- BEFUND, DER DIE MIGRATION KLEIN MACHT: lsa_acceptance_rule_valid whitelistet
+--   KEINE Top-Level-Schluessel. Es prueft die bekannten Felder einzeln, aber es
+--   gibt kein jsonb_object_keys/jsonb_each ueber die Regel selbst — eine
+--   Whitelist gilt ausschliesslich INNERHALB von `notation` (und genau daran
+--   waere `notation.require_reduced` gescheitert, weshalb A11 das Flag oben
+--   ablegte). `known_errors` waere also auch vorher schon durchgegangen, nur
+--   ungetypt und undokumentiert.
+--   Diese Migration aendert deshalb nicht die Erlaubnis, sondern gibt dem Feld
+--   einen TYP (Objekt oder Array) und einen Namen im Vertrag.
+--
+-- BEWUSST NICHT: unbekannte Top-Level-Schluessel abweisen. Das waere eine
+--   Verschaerfung an Bestandsdaten vorbei — welche acceptance-Objekte real in
+--   der Tabelle stehen, ist beim Schreiben der Migration nicht einsehbar, und
+--   ein CHECK, der an einer Altzeile scheitert, nimmt den ganzen Lauf mit.
+--   Folge mit Ansage: ein Tippfehler wie `know_errors` faellt weiterhin nicht
+--   auf.
+--
+-- Funktion (geaendert): lsa_acceptance_rule_valid — EIN neuer Zweig
+--   (known_errors is null or jsonb_typeof in ('object','array')).
+--
+-- KEINE Bewertungsaenderung: lsa_grade liest ausschliesslich benannte
+--   Schluessel und ignoriert alles andere; lsa_is_correct liest acceptance
+--   ueberhaupt nicht. Beide bleiben byte-identisch. known_errors ist REIN
+--   DEKLARATIV.
+--
+-- KEIN LEAK: known_errors erbt den Schutz von task_solutions
+--   (revoke all from anon, authenticated — P01 §2), ohne dass hier etwas getan
+--   werden muss. Kein Grant beruehrt, keine Funktion am Payload-Bau.
+--
+-- Proben in der Migration (Transaktion bricht bei Abweichung ab): acceptance
+--   ohne known_errors gueltig · als Objekt gueltig · als Array gueltig · als
+--   Zeichenkette abgewiesen · Multi-Part-Doppelform mit known_errors gueltig.
+
+-- ============================================================================
 -- ENDE – konsolidiertes Schema (39 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================

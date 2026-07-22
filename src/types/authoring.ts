@@ -160,6 +160,19 @@ export type AcceptanceRule = {
    * dieses hier VERSCHAERFT — es gehoert neben `unit_graded`.
    */
   require_reduced?: boolean
+  /**
+   * Die bekannten FEHLBILDER dieser Aufgabe (A12) — welcher Wert entsteht,
+   * wenn ein Kind einen bestimmten Denkfehler macht.
+   *
+   * Zwei Formen, beide gueltig: Objekt `{"17/23":"additiv"}` (Wert →
+   * Fehlertyp) oder Array `["17/23","3/7"]` (nur die Werte). Wie ein Fehlbild
+   * benannt wird, ist noch nicht entschieden; deshalb erzwingt auch der
+   * CHECK die innere Form nicht.
+   *
+   * REIN DEKLARATIV: aendert die Bewertung nicht. Ohne dieses Feld kann der
+   * Report nur „falsch" sagen, mit ihm WELCHER Fehler es war.
+   */
+  known_errors?: Record<string, string> | string[]
 }
 
 /** Flach eine Regel, bei MULTI_PART eine Regel je Teilaufgaben-nr. */
