@@ -15,8 +15,16 @@ import type { InputType, TaskAsset } from './content'
 export type TaskStatus = 'draft' | 'review' | 'ready'
 export type Afb = 'I' | 'II' | 'III'
 
-/** Der Enum aus Migration P02 — CanonicalInputType kennt MULTI_PART nicht. */
-export type AuthoringInputType = InputType | 'MULTI_PART'
+/**
+ * Der Enum aus Migration P02 — CanonicalInputType kennt MULTI_PART nicht.
+ *
+ * TERM ist der Antworttyp fuer Termumformungen ("5x+4"). Er steht bewusst HIER
+ * und nicht in CanonicalInputType: Der kanonische Antwort-Vertrag
+ * (answerPayload.ts) beschreibt fuer jeden Typ eine Loesungsstruktur, und die
+ * fuer TERM ist noch nicht entschieden. Was feststeht, ist die Pflege-Seite —
+ * und die braucht den Typ, sobald es TERM-Aufgaben gibt.
+ */
+export type AuthoringInputType = InputType | 'MULTI_PART' | 'TERM'
 
 /** Antworttyp einer Teilaufgabe. Nur auto-bewertbare (lsa_parts_valid). */
 export type PartKind = 'short_input' | 'mc'
