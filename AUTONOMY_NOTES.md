@@ -265,3 +265,55 @@ Mit `asChild` sieht Radix' `Slot` darin **zwei** Kinder und wirft
   (shadcn-idiomatisch, kein Slot).
 - **Betroffene Symbole:** `Button` (`asChild`-Pfad), jeder künftige
   `<Button asChild><Link/></Button>`.
+
+### 3. `known_errors` ist für Term-Aufgaben nicht speicherbar
+
+Gefunden beim Content-Lauf Termumformung (`content/termumformung-01`). Zwei
+Mechanismen greifen ineinander und schließen sich gegenseitig aus:
+
+- `lsa_acceptance_valid` lässt `known_errors` **nur in einem Satz mit
+  `canonical`** zu. Ohne `canonical` wird `acceptance` als
+  Teilaufgaben-Abbildung gelesen (Schlüssel müssen `^[1-9][0-9]*$` sein) und
+  `known_errors` fällt durch den CHECK.
+- Sobald `acceptance` ein `canonical` hat, nimmt `lsa_grade` den Zahlen-Pfad.
+  Dort zerlegt `lsa_split_value_unit` den Term `5x+4` in Wert `5` und Einheit
+  `x+4` und vergleicht **nur den Wert**. Live geprüft: mit
+  `canonical = "5x+4"` bewertet `lsa_grade` die Antworten `5x+9`, `5x+6`,
+  `5x-4` und `5x` alle als `voll`.
+
+Ein Term-Content kann also entweder korrekt bewertet werden **oder**
+`known_errors` tragen — nicht beides. Der Lauf hat sich für die korrekte
+Bewertung entschieden (`acceptance = NULL`) und die Fehlbilder als Kommentar in
+der Seed-Datei abgelegt.
+
+- **Warum nicht hier gefixt:** `lsa_grade` / `lsa_acceptance_valid` sind
+  Schema-Zone, der Lauf hatte `ALLOW_MIGRATIONS=0`.
+- **Was nötig wäre:** ein Weg, `known_errors` ohne `canonical` zu hinterlegen
+  (z.B. `acceptance` mit `known_errors` als alleinigem erlaubten Schlüssel), ODER
+  ein `lsa_grade`, das bei nicht-numerischem `canonical` auf den
+  String-Vergleich zurückfällt statt auf `lsa_split_value_unit`.
+- **Nicht tun:** `acceptance = {"1": {"canonical": …, "known_errors": …}}`. Das
+  ist gültig und bewertet heute zufällig richtig (weil `lsa_grade` die
+  Teil-Abbildung ignoriert), behauptet aber eine Teilaufgabe, die es nicht gibt
+   — und kippt still, sobald `lsa_grade` die Abbildung auswertet.
+- **Betroffene Symbole:** `lsa_acceptance_valid`, `lsa_acceptance_rule_valid`,
+  `lsa_grade`, `lsa_split_value_unit`.
+
+### 4. Kein `input_hint` im Schüler-Payload
+
+`lsa_question_payload` liefert für alles außer MC und MULTI_PART
+`{task_id, kind: 'short_input', prompt, assets, table, unit}` — **kein Feld für
+den Eingabemodus**. Ein Kind kann einer Aufgabe nicht ansehen, ob eine Zahl, ein
+Bruch oder ein Term `ax+b` erwartet wird; die App rät (bei Brüchen heute über
+einen Umschalter, den das Kind bedienen muss).
+
+Für die Term-Aufgaben ist das blockierend: Der Ziffernblock der App kann kein
+`x` tippen. Der einzige Unterschied im Datenbestand ist bisher
+`tasks.input_type` (`SHORT_TEXT` für Terme, `NUMERIC` für Zahlen) — und der
+steht dem Frontend über den Payload gar nicht zur Verfügung.
+
+- **Was nötig wäre:** `lsa_question_payload` um ein Feld ergänzen, das den
+  erwarteten Eingabemodus nennt (aus `tasks.input_type` ableitbar oder als
+  eigenes Content-Feld).
+- **Betroffene Symbole:** `lsa_question_payload`, `src/types/database.ts`,
+  Frontend `edvance-app` (`LsaAufgabe`, `Zahleneingabe`).
