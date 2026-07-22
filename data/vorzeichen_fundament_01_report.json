@@ -1,0 +1,274 @@
+{
+  "quelle": "edvance_fundament",
+  "status": "draft",
+  "bewertung": "binaer (kein require_reduced, kein teilweise)",
+  "erzeugt": 21,
+  "akzeptiert": 21,
+  "verworfen": 0,
+  "je_skill": {
+    "A_addieren": 7,
+    "B_punktrechnung": 7,
+    "C_vorrang": 7
+  },
+  "varianten": [
+    {
+      "skill": "A_addieren",
+      "ref": "vorzeichen-addieren-01",
+      "frage": "Berechne. -3 - 5 = ?",
+      "afb": "I",
+      "voll": "-8",
+      "known_errors": {
+        "15": "mult_add_verwechslung",
+        "-2": "betrag_fehler",
+        "8": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "A_addieren",
+      "ref": "vorzeichen-addieren-02",
+      "frage": "Berechne. -7 + 4 = ?",
+      "afb": "I",
+      "voll": "-3",
+      "known_errors": {
+        "-28": "mult_add_verwechslung",
+        "3": "betrag_fehler",
+        "11": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "A_addieren",
+      "ref": "vorzeichen-addieren-03",
+      "frage": "Berechne. 2 - 9 = ?",
+      "afb": "I",
+      "voll": "-7",
+      "known_errors": {
+        "-18": "mult_add_verwechslung",
+        "7": "betrag_fehler",
+        "11": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "A_addieren",
+      "ref": "vorzeichen-addieren-04",
+      "frage": "Berechne. -6 - 2 = ?",
+      "afb": "I",
+      "voll": "-8",
+      "known_errors": {
+        "12": "mult_add_verwechslung",
+        "4": "betrag_fehler",
+        "8": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "A_addieren",
+      "ref": "vorzeichen-addieren-05",
+      "frage": "Berechne. -4 + 9 = ?",
+      "afb": "I",
+      "voll": "5",
+      "known_errors": {
+        "-36": "mult_add_verwechslung",
+        "-5": "betrag_fehler",
+        "13": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "A_addieren",
+      "ref": "vorzeichen-addieren-06",
+      "frage": "Berechne. 3 - 8 = ?",
+      "afb": "I",
+      "voll": "-5",
+      "known_errors": {
+        "-24": "mult_add_verwechslung",
+        "5": "betrag_fehler",
+        "11": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "A_addieren",
+      "ref": "vorzeichen-addieren-07",
+      "frage": "Berechne. -9 + 5 = ?",
+      "afb": "I",
+      "voll": "-4",
+      "known_errors": {
+        "-45": "mult_add_verwechslung",
+        "4": "betrag_fehler",
+        "14": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "B_punktrechnung",
+      "ref": "vorzeichen-punktrechnung-01",
+      "frage": "Berechne. -3 · 5 = ?",
+      "afb": "I",
+      "voll": "-15",
+      "known_errors": {
+        "15": "vorzeichen_ignoriert",
+        "2": "mult_add_verwechslung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "B_punktrechnung",
+      "ref": "vorzeichen-punktrechnung-02",
+      "frage": "Berechne. -4 · (-6) = ?",
+      "afb": "I",
+      "voll": "24",
+      "known_errors": {
+        "-24": "vorzeichen_ignoriert",
+        "-10": "mult_add_verwechslung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "B_punktrechnung",
+      "ref": "vorzeichen-punktrechnung-03",
+      "frage": "Berechne. -20 : 4 = ?",
+      "afb": "I",
+      "voll": "-5",
+      "known_errors": {
+        "5": "vorzeichen_ignoriert",
+        "-16": "mult_add_verwechslung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "B_punktrechnung",
+      "ref": "vorzeichen-punktrechnung-04",
+      "frage": "Berechne. 7 · (-3) = ?",
+      "afb": "I",
+      "voll": "-21",
+      "known_errors": {
+        "21": "vorzeichen_ignoriert",
+        "4": "mult_add_verwechslung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "B_punktrechnung",
+      "ref": "vorzeichen-punktrechnung-05",
+      "frage": "Berechne. -8 · (-3) = ?",
+      "afb": "I",
+      "voll": "24",
+      "known_errors": {
+        "-24": "vorzeichen_ignoriert",
+        "-11": "mult_add_verwechslung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "B_punktrechnung",
+      "ref": "vorzeichen-punktrechnung-06",
+      "frage": "Berechne. -36 : (-6) = ?",
+      "afb": "I",
+      "voll": "6",
+      "known_errors": {
+        "-6": "vorzeichen_ignoriert",
+        "-42": "mult_add_verwechslung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "B_punktrechnung",
+      "ref": "vorzeichen-punktrechnung-07",
+      "frage": "Berechne. 24 : (-4) = ?",
+      "afb": "I",
+      "voll": "-6",
+      "known_errors": {
+        "6": "vorzeichen_ignoriert",
+        "20": "mult_add_verwechslung"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "C_vorrang",
+      "ref": "vorzeichen-vorrang-01",
+      "frage": "Berechne. 4 + (-2) · 3 = ?",
+      "afb": "II",
+      "voll": "-2",
+      "known_errors": {
+        "6": "vorrang_ignoriert",
+        "10": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "C_vorrang",
+      "ref": "vorzeichen-vorrang-02",
+      "frage": "Berechne. 5 - 2 · (-3) = ?",
+      "afb": "II",
+      "voll": "11",
+      "known_errors": {
+        "-9": "vorrang_ignoriert",
+        "-1": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "C_vorrang",
+      "ref": "vorzeichen-vorrang-03",
+      "frage": "Berechne. -3 + 4 · 2 = ?",
+      "afb": "II",
+      "voll": "5",
+      "known_errors": {
+        "2": "vorrang_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "C_vorrang",
+      "ref": "vorzeichen-vorrang-04",
+      "frage": "Berechne. 6 + (-3) · 4 = ?",
+      "afb": "II",
+      "voll": "-6",
+      "known_errors": {
+        "12": "vorrang_ignoriert",
+        "18": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "C_vorrang",
+      "ref": "vorzeichen-vorrang-05",
+      "frage": "Berechne. -2 - 3 · (-4) = ?",
+      "afb": "II",
+      "voll": "10",
+      "known_errors": {
+        "20": "vorrang_ignoriert",
+        "-14": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "C_vorrang",
+      "ref": "vorzeichen-vorrang-06",
+      "frage": "Berechne. 8 + (-5) · 2 = ?",
+      "afb": "II",
+      "voll": "-2",
+      "known_errors": {
+        "6": "vorrang_ignoriert",
+        "18": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    },
+    {
+      "skill": "C_vorrang",
+      "ref": "vorzeichen-vorrang-07",
+      "frage": "Berechne. 3 - 4 · (-2) = ?",
+      "afb": "II",
+      "voll": "11",
+      "known_errors": {
+        "2": "vorrang_ignoriert",
+        "-5": "vorzeichen_ignoriert"
+      },
+      "weggelassen": []
+    }
+  ],
+  "verworfene": []
+}
