@@ -317,3 +317,41 @@ steht dem Frontend über den Payload gar nicht zur Verfügung.
   eigenes Content-Feld).
 - **Betroffene Symbole:** `lsa_question_payload`, `src/types/database.ts`,
   Frontend `edvance-app` (`LsaAufgabe`, `Zahleneingabe`).
+
+### 5. A13 ist gebaut und geprueft, liegt aber noch nicht im Repo
+
+Der Lauf `fix/grader-split-pfad` sollte vier Dinge bauen (Split-Pfad-Defekt,
+TERM-Marker, Term-Normalisierung, `dont_know`/leere Abgabe). Die Migration ist
+**fertig und vollstaendig gegen die echte DB geprueft** — sie konnte nur nicht
+abgelegt werden: `guard-paths.sh` sperrt `supabase/migrations/**` und
+`schema.sql`, solange `ALLOW_MIGRATIONS != 1`, und der Auftrag lief mit
+`ALLOW_MIGRATIONS=0`. Der Guard wurde nicht umgangen.
+
+**Datei:** `20260722120000_a13_grader_split_und_abgabeart.sql` (per SendUserFile
+uebergeben). Sie gehoert unveraendert nach `supabase/migrations/`. Historie:
+
+    insert into supabase_migrations.schema_migrations (version, name)
+    values ('20260722120000', 'a13_grader_split_und_abgabeart');
+
+**Der tragende Befund:** `lsa_grade` bewertet jede Antwort der Gestalt
+"Ziffern-dann-Zeichen" nur nach den fuehrenden Ziffern.
+`lsa_split_value_unit('5x+4')` liefert `{5, "x+4"}`, der Rest gilt als Einheit,
+und bei `unit_graded = false` ist die Einheit kein Kriterium. Gegen canonical
+`"5x+4"` sind `5x+9`, `5x+6` und `5x` deshalb **voll**. Der Defekt ist nicht
+term-spezifisch; der Term-Lauf hat ihn nur zuerst gefunden.
+
+**Bis die Migration liegt, gilt:** Term-Aufgaben duerfen kein `acceptance`
+bekommen. Heute haelt das nur die Konvention — die Zusage (Trigger) kommt erst
+mit A13. Wer in der Freigabe ein `acceptance` setzt, kippt die Bewertung still.
+
+**Was bewusst NICHT vorgezogen wurde:** die Seed-Datei und der Generator aus
+PR #87 tragen weiterhin beide Schreibweisen (`"5x+4"` und `"5x + 4"`) in
+`correct_answers`. Der zweite Eintrag darf erst fallen, wenn die
+Term-Normalisierung steht — sonst waere jede mit Leerzeichen getippte Antwort
+dazwischen falsch bewertet. Beides gehoert in denselben PR wie die Migration.
+
+**Ebenfalls in A13 enthalten und nicht offensichtlich:** `lsa_finish` musste
+mit. `correct = NULL` faellt zwar aus dem Zaehler `count(*) filter (where
+correct)`, bliebe aber im Nenner `count(*)` — ein "weiss nicht" haette die Quote
+genauso gedrueckt wie eine falsche Antwort. Die Nenner zaehlen jetzt nur noch
+geprufte Abgaben, und `unbeantwortet` wird getrennt ausgewiesen.

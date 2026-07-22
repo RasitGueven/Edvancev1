@@ -80,9 +80,13 @@ export type FormState = {
 // verlangt correct_answers). Es steht trotzdem hier: der VERA-Import (C08) hat 23
 // Freitext-Items als draft angelegt, und ein Typ, den der Editor nicht anzeigen kann,
 // ist ein Typ, den der Pfleger versehentlich ueberschreibt.
+// TERM steht aus demselben Grund hier wie FREE_TEXT: Es gibt Aufgaben dieses
+// Typs (die 20 Term-Eingaben der Fundament-Gruppe), und ein Typ, den der Editor
+// nicht anzeigen kann, ist ein Typ, den der Pfleger versehentlich ueberschreibt.
 export const INPUT_TYPES: AuthoringInputType[] = [
   'SHORT_TEXT',
   'NUMERIC',
+  'TERM',
   'MC',
   'MULTI_PART',
   'FREE_TEXT',
