@@ -2431,3 +2431,39 @@ on conflict (id) do nothing;
 -- ============================================================================
 -- ENDE – konsolidiertes Schema (39 Tabellen, 34 Funktionen, 2 Enums, 1 Trigger).
 -- ============================================================================
+
+-- ============================================================================
+-- A19 – GENERIERTE ABBILDUNGEN AN AUFGABEN
+--     (supabase/migrations/20260723140000_a19_task_figures.sql)
+-- ============================================================================
+--
+-- task_figures (server-only, wie task_solutions — KEIN anon/authenticated-Grant):
+--   task_id PK -> tasks(id) on delete cascade
+--   generator  text CHECK in ('koordinatensystem')   -- Positivliste, per Migration erweitern
+--   params     jsonb    -- Eingabe des Generators; enthaelt die LOESUNG (m=2)
+--   alt_text   text     -- gepflegt, beschreibt WAS ZU SEHEN IST; CHECK: keine Ziffer
+--   svg_hash   text     -- vom Upload-Skript (sha256 generator+params); Idempotenz
+--   erzeugt_am timestamptz
+--
+--   WARUM server-only: params traegt bei Steigungsaufgaben die Antwort. Im
+--   Schuelerpayload waere das ein Leak am task_solutions-Schutz vorbei.
+--   WARUM alt ohne Ziffer: "Steigung 2" im alt-Text liest ein Screenreader vor.
+--
+-- Auslieferung ( EIN Weg, wie Bestandsassets):
+--   lsa_storage_base() -> Storage-Basis des task-assets-Buckets (projektgebunden).
+--   lsa_task_assets(task_id) -> Bestandsassets (VERA, {url,alt}) PLUS die
+--     generierte dunkle Abbildung ({url,alt,content_type='image/svg+xml'}), nur
+--     wenn svg_hash gesetzt (hochgeladen). URL aus Konvention:
+--     <base>generiert/<task_id>/<generator>-dunkel.svg
+--   lsa_question_payload nutzt lsa_task_assets(t.id) statt lsa_public_assets(
+--     t.assets) in allen drei Zweigen — sonst byte-identisch. Der Schuelerpayload
+--     traegt AUSSCHLIESSLICH {url, alt, content_type}; nie params/generator/hash.
+--   content_type (A19): generierte Abbildung bekannt (image/svg+xml). VERA ohne
+--     bekannten Typ behaelt {url,alt} — keine Regression.
+--
+-- Zwei Themes, zwei Dateien: generiert/<task_id>/<generator>-{dunkel,hell}.svg.
+--   Payload liefert dunkel; hell zieht spaeter die Report-Ebene (nicht A19).
+--
+-- Upload (scripts/figures/upload_figures.py, von Rasit ausgefuehrt): erzeugt +
+--   prueft SVGs (Generatoren aus #96), laedt in generiert/<task_id>/, schreibt
+--   svg_hash+erzeugt_am, idempotent, --dry-run. Kein Upload in diesem PR.
