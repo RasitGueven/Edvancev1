@@ -48,11 +48,12 @@ begin
   sA := pg_temp.mk('A15-A'); sB := pg_temp.mk('A15-B'); sC := pg_temp.mk('A15-C');
   sD := pg_temp.mk('A15-D'); sE := pg_temp.mk('A15-E');
 
-  -- 1. Blaetter = 14
+  -- 1. Blaetter = 19 (14 vor A18 + 5 neue Geometrie-Blaetter; geo_flaeche_rechteck
+  --    ist kein Blatt, geo_flaeche_dreieck und geo_volumen_quader sitzen darauf)
   select count(*) into v_n from skills s
    where not exists (select 1 from skill_kante k where k.voraussetzt_skill_key = s.skill_key);
-  if v_n <> 14 then raise exception 'P1 Blaetter=%, erwartet 14', v_n; end if;
-  raise notice 'P1 ok: 14 Blaetter';
+  if v_n <> 19 then raise exception 'P1 Blaetter=%, erwartet 19', v_n; end if;
+  raise notice 'P1 ok: 19 Blaetter';
 
   -- 2. Abschluss(prozent_veraenderung) = 8
   select count(*) into v_n from public.lsa_abschluss('prozent_veraenderung');
@@ -119,11 +120,14 @@ begin
 
   select count(distinct skill_key) into v_n from lsa_skill_urteil where session_id=sA;
   select count(*) into v_hit from lsa_skill_urteil where session_id=sA and belegt_direkt;
-  -- Auf vollem Substrat (alle 32 Skills tragen Aufgaben) gilt die scharfe
-  -- Vorlage-Erwartung: 32 gedeckt, 14 direkt.
-  if v_n <> 32 then raise exception 'P4 Deckung=%, erwartet 32 (voll substrat)', v_n; end if;
-  if v_hit <> 14 then raise exception 'P4 belegt_direkt=%, erwartet 14 (voll substrat)', v_hit; end if;
-  raise notice 'P4 ok: 32 gedeckt, 14 direkt, % Proben', v_probes;
+  -- Auf vollem Substrat (alle 38 Skills tragen Aufgaben — nach A18 + den
+  -- Geometrie-Seeds) gilt die scharfe Vorlage-Erwartung: 38 gedeckt, 19 direkt.
+  -- ACHTUNG Reihenfolge: diese Zahlen setzen voraus, dass A18 UND die
+  -- Geometrie-Seeds vor diesem Harness laufen (sonst tragen die 6 Geo-Skills
+  -- keine Aufgaben und bleiben ungeprueft — s. PR).
+  if v_n <> 38 then raise exception 'P4 Deckung=%, erwartet 38 (voll substrat)', v_n; end if;
+  if v_hit <> 19 then raise exception 'P4 belegt_direkt=%, erwartet 19 (voll substrat)', v_hit; end if;
+  raise notice 'P4 ok: 38 gedeckt, 19 direkt, % Proben', v_probes;
 
   -- 5. Simulation B: prozent_veraenderung zweimal nicht -> traegt_nicht, Abstieg auf grundwert
   v_t := public.lsa_select_next_core(sB, array['draft'], now());

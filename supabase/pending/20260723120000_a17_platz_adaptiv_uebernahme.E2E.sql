@@ -109,7 +109,8 @@ begin
   if not (n ->> 'done')::boolean then raise exception 'P4 platz_next nicht done nach Zeitablauf'; end if;
   perform set_config('request.jwt.claims', json_build_object('sub', v_admin)::text, true);
   select count(distinct skill_key) into v_i from lsa_skill_urteil where session_id=sC;
-  if v_i >= 32 then raise exception 'P4 alles gedeckt — Zeitende nicht aussagekraeftig'; end if;
+  -- 38 = Gesamtzahl der Skills nach A18 (Waechter: Zeitablauf beendet, nicht Erschoepfung).
+  if v_i >= 38 then raise exception 'P4 alles gedeckt — Zeitende nicht aussagekraeftig'; end if;
   raise notice 'P4 ok: nach 20 min done, nur % Skills gedeckt', v_i;
 
   -- ---- 5. Kein Zaehler ---------------------------------------------------
