@@ -88,7 +88,9 @@ begin
     raise exception 'P4 next nicht null nach Zeitablauf';
   end if;
   select count(distinct skill_key) into v_n from lsa_skill_urteil where session_id=sid;
-  if v_n >= 32 then raise exception 'P4 alles gedeckt — Zeitende nicht aussagekraeftig'; end if;
+  -- 38 = Gesamtzahl der Skills nach A18. Der Waechter belegt, dass der Zeitablauf
+  -- die Sitzung beendet hat, NICHT die Erschoepfung aller Skills.
+  if v_n >= 38 then raise exception 'P4 alles gedeckt — Zeitende nicht aussagekraeftig'; end if;
   raise notice 'P4 ok: next null nach 20 min, obwohl nur % Skills gedeckt', v_n;
 
   -- ---- 5. Modus 'fest' unveraendert ---------------------------------------
