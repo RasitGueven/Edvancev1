@@ -20,6 +20,8 @@ man nicht trauen kann.
 
 from __future__ import annotations
 
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -29,6 +31,11 @@ from figures.koordinatensystem import koordinatensystem  # noqa: E402
 from figures.tokens import pruefe_drift  # noqa: E402
 
 ORDNER = 'edvance-assets/koordinatensystem'
+
+# Rasterbreite der Sichtprobe. Im SVG-Quelltext sieht man nicht, ob die
+# Achsenbeschriftung bei realer Groesse lesbar ist — ein PNG in Anzeigebreite
+# schon. 400 px ist etwa die Breite auf der 340-px-Buehne plus Rand.
+PNG_BREITE = 400
 
 # Bühnen-Verlauf und Overlay der Vorschau — gemessen aus src/styles/tokens.css
 # (--color-stage-top/-mid/-bottom) bzw. der Buehne in edvance-app.
@@ -127,6 +134,41 @@ def dateiname(name: str, theme: str) -> str:
     return f'koordinatensystem-{name}-{theme}.svg'
 
 
+def finde_png_wandler():
+    """
+    Sucht einen Weg, ein SVG bei PNG_BREITE zu rastern. Zwei bekannte, in KEINER
+    Reihenfolge bevorzugte Wege — der erste vorhandene gewinnt:
+
+      cairosvg      Python-Bibliothek (pip install cairosvg --break-system-packages)
+      rsvg-convert  Kommandozeile aus librsvg (apt install librsvg2-bin)
+
+    Rueckgabe: (name, wandler) mit wandler(svg_text, ziel_pfad) -> None, oder
+    (None, None), wenn keiner da ist. Dann wird GEMELDET, nicht gebastelt: kein
+    handgeschriebener PNG-Encoder, keine halbe Loesung.
+    """
+    try:
+        import cairosvg  # type: ignore
+
+        def per_cairo(svg: str, ziel: Path) -> None:
+            cairosvg.svg2png(bytestring=svg.encode('utf-8'),
+                             write_to=str(ziel), output_width=PNG_BREITE)
+
+        return 'cairosvg', per_cairo
+    except ImportError:
+        pass
+
+    if shutil.which('rsvg-convert'):
+        def per_rsvg(svg: str, ziel: Path) -> None:
+            subprocess.run(
+                ['rsvg-convert', '-w', str(PNG_BREITE), '-o', str(ziel), '-'],
+                input=svg.encode('utf-8'), check=True,
+            )
+
+        return 'rsvg-convert', per_rsvg
+
+    return None, None
+
+
 def vorschau(eintraege: list[tuple[str, str, str, str]]) -> str:
     """Eine Seite, die jede Probe auf ihrem echten Traeger zeigt."""
     bloecke = []
@@ -181,8 +223,11 @@ def main() -> None:
     ziel = desktop() / ORDNER
     ziel.mkdir(parents=True, exist_ok=True)
 
+    png_name, png_wandler = finde_png_wandler()
+
     eintraege: list[tuple[str, str, str, str]] = []
     geschrieben = 0
+    png_geschrieben = 0
 
     for name, zweck, argumente in PROBEN:
         namen_je_theme = {}
@@ -198,6 +243,10 @@ def main() -> None:
             namen_je_theme[theme] = datei.name
             geschrieben += 1
 
+            if png_wandler is not None:
+                png_wandler(svg, datei.with_suffix('.png'))
+                png_geschrieben += 1
+
         eintraege.append((name, zweck, namen_je_theme['dunkel'], namen_je_theme['hell']))
 
     (ziel / 'index.html').write_text(vorschau(eintraege), encoding='utf-8')
@@ -206,6 +255,14 @@ def main() -> None:
     print(f'  {ziel}')
     print('Windows-Pfad:')
     print('  ' + str(ziel).replace('/mnt/c/', 'C:\\').replace('/', '\\'))
+
+    if png_wandler is not None:
+        print(f'{png_geschrieben} PNG bei {PNG_BREITE} px Breite (via {png_name}) daneben geschrieben.')
+    else:
+        print(f'KEINE PNG geschrieben: weder cairosvg noch rsvg-convert gefunden. '
+              f'Fuer die {PNG_BREITE}-px-Sichtprobe eines installieren:')
+        print('  pip install cairosvg --break-system-packages')
+        print('  # oder: sudo apt install librsvg2-bin')
 
 
 if __name__ == '__main__':

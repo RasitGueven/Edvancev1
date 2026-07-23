@@ -26,6 +26,8 @@ unter 45 Grad und eine Parabel ist nicht gestaucht.
 
 from __future__ import annotations
 
+import re
+
 from .pruefungen import (
     ganzzahl,
     pruefe_funktion,
@@ -56,8 +58,8 @@ RAND = 34
 
 # Feste ID. Die SVGs sind eigenstaendige Dateien; werden sie je INLINE in ein
 # gemeinsames HTML-Dokument gelegt, kollidieren gleiche IDs — dann braucht der
-# Aufrufer einen Praefix. Eine Zufalls-ID kommt nicht in Frage, sie zerstoert
-# die Byte-Gleichheit.
+# Aufrufer einen Praefix (Parameter `id_praefix`). Eine Zufalls-ID kommt nicht in
+# Frage, sie zerstoert die Byte-Gleichheit.
 CLIP_ID = 'edvance-plot'
 
 
@@ -159,6 +161,7 @@ def koordinatensystem(
     achsen: dict | None = None,
     theme: str = 'dunkel',
     einheit: int = EINHEIT_STANDARD,
+    id_praefix: str = '',
 ) -> str:
     """
     Baut ein vollstaendiges SVG als String.
@@ -172,6 +175,10 @@ def koordinatensystem(
                  unterdrueckt sie.
     theme      — 'dunkel' (Buehne) oder 'hell' (Eltern-Report, Druck).
     einheit    — px pro Einheit, fuer BEIDE Achsen. Der einzige Skalenfaktor.
+    id_praefix — vor die clipPath-ID gestellt. Default '' — dann byteidentisch zu
+                 vorher. Nur noetig, wenn mehrere SVGs INLINE in EIN HTML-Dokument
+                 gelegt werden und gleiche IDs sonst kollidierten (z.B. ein
+                 Report, der die Abbildung einbettet statt per URL zu laden).
 
     Die Vorgaben stehen als None statt als [] bzw. {} — veraenderliche
     Standardwerte sind in Python geteilter Zustand ueber alle Aufrufe hinweg.
@@ -187,6 +194,15 @@ def koordinatensystem(
         raise ValueError(f'y_min ({y_min}) muss kleiner als y_max ({y_max}) sein.')
     if isinstance(einheit, bool) or not isinstance(einheit, int) or einheit <= 0:
         raise ValueError(f'einheit muss eine positive ganze Zahl sein, nicht {einheit!r}.')
+    if not isinstance(id_praefix, str):
+        raise ValueError(f'id_praefix muss Text sein, nicht {id_praefix!r}.')
+    # Die ID landet in einem Attribut und in url(#…). Nur unauffaellige Zeichen,
+    # damit weder das Attribut noch die Referenz zerbricht. Leer bleibt erlaubt.
+    if id_praefix and not re.fullmatch(r'[A-Za-z0-9_-]+', id_praefix):
+        raise ValueError(
+            f'id_praefix darf nur Buchstaben, Ziffern, _ und - enthalten, nicht {id_praefix!r}.'
+        )
+    clip_id = f'{id_praefix}{CLIP_ID}'
 
     farben = palette(theme)
     _gitter = wahrheitswert(gitter, 'gitter')
@@ -238,7 +254,7 @@ def koordinatensystem(
 
     inhalt: list[str] = []
 
-    inhalt.append(element('clipPath', [('id', CLIP_ID)], element('rect', [
+    inhalt.append(element('clipPath', [('id', clip_id)], element('rect', [
         ('x', zahl(links)), ('y', zahl(oben)),
         ('width', zahl(breite_plot)), ('height', zahl(hoehe_plot)),
     ])))
@@ -353,7 +369,7 @@ def koordinatensystem(
 
     if kurven_teile:
         inhalt.append(element(
-            'g', [('clip-path', f'url(#{CLIP_ID})')], ''.join(kurven_teile)
+            'g', [('clip-path', f'url(#{clip_id})')], ''.join(kurven_teile)
         ))
     # Labels stehen AUSSERHALB der Clip-Gruppe: Ein Text direkt an der
     # Fensterkante wuerde sonst zur Haelfte abgeschnitten. Der Aussenrand traegt
@@ -379,4 +395,24 @@ def koordinatensystem(
     return dokument(breite, hoehe, inhalt)
 
 
-__all__ = ['koordinatensystem', 'EINHEIT_STANDARD']
+# ── Adapter fuer den Upload (upload_figures.py: zeichne(params, theme)) ───────
+
+def zeichne(params: dict, theme: str) -> str:
+    """
+    Baut ein SVG aus einem params-DICT — die Schnittstelle, die upload_figures.py
+    (A19) erwartet: `koordinatensystem.zeichne(params, theme) -> str`.
+
+    Der Vertrag ist bewusst duenn: `params` traegt genau die Schluesselwort-
+    Argumente von `koordinatensystem` (x_min, x_max, y_min, y_max, funktionen,
+    punkte, gitter, achsen, einheit, id_praefix). `theme` kommt getrennt, weil der
+    Aufrufer beide Themes aus DENSELBEN params erzeugt; ein 'theme' IN params
+    waere doppelt vergeben und wird darum abgewiesen.
+    """
+    if not isinstance(params, dict):
+        raise ValueError(f'params muss ein dict sein, nicht {params!r}.')
+    if 'theme' in params:
+        raise ValueError("theme gehoert nicht in params — es wird getrennt uebergeben.")
+    return koordinatensystem(theme=theme, **params)
+
+
+__all__ = ['koordinatensystem', 'zeichne', 'EINHEIT_STANDARD']

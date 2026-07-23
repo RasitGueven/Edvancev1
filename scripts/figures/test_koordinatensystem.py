@@ -20,6 +20,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from figures.koordinatensystem import koordinatensystem  # noqa: E402
+from figures.pruefe_koordinatensystem import (  # noqa: E402
+    negativkontrolle,
+    pruefe_geometrie,
+)
 from figures.svg_basis import zahl  # noqa: E402
 from figures.tokens import THEMES, pruefe_drift  # noqa: E402
 
@@ -223,6 +227,42 @@ pruefe(zahl(-0.0) == '0', f'zahl(-0.0) = {zahl(-0.0)!r}')
 pruefe(zahl(0.1 + 0.2) == '0.3', f'zahl(0.1+0.2) = {zahl(0.1 + 0.2)!r}')
 pruefe(zahl(120.0) == '120', f'zahl(120.0) = {zahl(120.0)!r}')
 pruefe(zahl(-0.004) == '0', f'zahl(-0.004) = {zahl(-0.004)!r}')
+
+# ── Absolute Rueckrechnung ───────────────────────────────────────────────────
+# Die Pixelort-Pruefungen aus pruefe_koordinatensystem.py — der Testlauf RUFT sie
+# nur noch auf (sie stehen dort als importierbare Funktionen, damit auch der
+# Upload sie vor dem Hochladen anwenden kann). Auf korrekten Bildern duerfen sie
+# NICHTS finden. Ein Fenster mit verschobenem Ursprung, ein asymmetrisches und
+# eins ohne Gitter sind dabei — die Faelle, in denen ein Verhaeltnistest blind
+# bliebe, ein Absoluttest aber nicht.
+ABSOLUT_POSITIV: list[tuple[str, dict]] = [
+    ('gerade', dict(x_min=-5, x_max=5, y_min=-5, y_max=5,
+                    funktionen=[{'typ': 'linear', 'm': 2, 'b': -1, 'label': 'f'}])),
+    ('zwei-geraden-punkt', dict(
+        x_min=-5, x_max=5, y_min=-5, y_max=5,
+        funktionen=[{'typ': 'linear', 'm': 1, 'b': 1, 'label': 'f'},
+                    {'typ': 'linear', 'm': -0.5, 'b': 4, 'label': 'g'}],
+        punkte=[{'x': 2, 'y': 3, 'label': 'S', 'betont': True}])),
+    ('parabel', dict(x_min=-4, x_max=4, y_min=-2, y_max=10,
+                     funktionen=[{'typ': 'quadratisch', 'a': 1, 'b': 0, 'c': 0, 'label': 'p'}])),
+    ('parabel-geteilt', dict(x_min=-5, x_max=5, y_min=4, y_max=20,
+                             funktionen=[{'typ': 'quadratisch', 'a': 1, 'b': 0, 'c': 0}])),
+    ('verschoben', dict(x_min=2, x_max=10, y_min=2, y_max=10,
+                        funktionen=[{'typ': 'linear', 'm': 1, 'b': 1, 'label': 'f'}],
+                        punkte=[{'x': 5, 'y': 6, 'label': 'P'}])),
+    ('flach-und-breit', dict(x_min=-10, x_max=10, y_min=-2, y_max=2,
+                             funktionen=[{'typ': 'linear', 'm': 0.1, 'b': 0}])),
+    ('ohne-gitter', dict(x_min=-5, x_max=5, y_min=-5, y_max=5, gitter=False,
+                         funktionen=[{'typ': 'linear', 'm': -2, 'b': 3, 'label': 'f'}])),
+]
+for name, params in ABSOLUT_POSITIV:
+    befunde = pruefe_geometrie(koordinatensystem(**params), params)
+    pruefe(not befunde, f'Absolutpruefung meldet auf korrektem {name!r}: {befunde}')
+
+# Die Negativkontrolle beweist das Gegenstueck: bei kaputter AUSGABE schlaegt jede
+# Pruefung an. Bleibt eine still, prueft sie nichts — das ist hier ein Testfehler.
+for name, angeschlagen, _befunde in negativkontrolle():
+    pruefe(angeschlagen, f'Negativkontrolle blieb still bei: {name}')
 
 # ── Tokens ───────────────────────────────────────────────────────────────────
 for befund in pruefe_drift():
