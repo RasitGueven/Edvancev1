@@ -14,6 +14,7 @@ vi.mock('@/lib/supabase/taskAuthoring', () => ({
   probeAuthoringSchema: vi.fn(),
   listAuthoringTasks: vi.fn(),
   listClustersWithSubject: vi.fn(),
+  listReviewMeta: vi.fn(() => Promise.resolve(new Map())),
 }))
 
 // Die Navbar zieht useAuth → supabase/client, und der braucht Env-Variablen, die
@@ -40,6 +41,7 @@ const task = (over: Partial<AuthoringTask>): AuthoringTask => ({
   competency_process: 'ope',
   cluster_id: 'c1',
   unit: 'm',
+  skill_key: 'prozent_prozentwert',
   est_duration_sec: 120,
   class_level: 8,
   curriculum_grade: 7,

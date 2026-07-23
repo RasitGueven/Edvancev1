@@ -12,7 +12,7 @@
 
 import type { InputType, TaskAsset } from './content'
 
-export type TaskStatus = 'draft' | 'review' | 'ready'
+export type TaskStatus = 'draft' | 'review' | 'ready' | 'beanstandet'
 export type Afb = 'I' | 'II' | 'III'
 
 /**
@@ -68,6 +68,8 @@ export type AuthoringTask = {
   cluster_id: string | null
   unit: string | null
   est_duration_sec: number | null
+  /** Fundament-Skill (A14). NULL bei Quellen ohne Skill-Zuordnung (VERA). */
+  skill_key: string | null
   /** Herkunftsjahrgang des Tests (VERA-8 → 8). NICHT der Stoffanker. */
   class_level: number | null
   parts: TaskPart[]
