@@ -318,40 +318,41 @@ steht dem Frontend über den Payload gar nicht zur Verfügung.
 - **Betroffene Symbole:** `lsa_question_payload`, `src/types/database.ts`,
   Frontend `edvance-app` (`LsaAufgabe`, `Zahleneingabe`).
 
-### 5. A13 ist gebaut und geprueft, liegt aber noch nicht im Repo
+### 6. A14 (Skill-Substrat) ist gebaut und geprueft, liegt aber noch nicht im Repo
 
-Der Lauf `fix/grader-split-pfad` sollte vier Dinge bauen (Split-Pfad-Defekt,
-TERM-Marker, Term-Normalisierung, `dont_know`/leere Abgabe). Die Migration ist
-**fertig und vollstaendig gegen die echte DB geprueft** — sie konnte nur nicht
-abgelegt werden: `guard-paths.sh` sperrt `supabase/migrations/**` und
-`schema.sql`, solange `ALLOW_MIGRATIONS != 1`, und der Auftrag lief mit
-`ALLOW_MIGRATIONS=0`. Der Guard wurde nicht umgangen.
+Gleiche Lage wie Eintrag 5: `guard-paths.sh` sperrt `supabase/migrations/**`,
+solange `ALLOW_MIGRATIONS != 1`. Der Lauf lief mit `ALLOW_MIGRATIONS=0`. Der
+Guard wurde nicht umgangen.
 
-**Datei:** `20260722120000_a13_grader_split_und_abgabeart.sql` (per SendUserFile
-uebergeben). Sie gehoert unveraendert nach `supabase/migrations/`. Historie:
+**Datei:** `20260722130000_a14_skill_substrat.sql` (per SendUserFile uebergeben).
+Historie:
 
     insert into supabase_migrations.schema_migrations (version, name)
-    values ('20260722120000', 'a13_grader_split_und_abgabeart');
+    values ('20260722130000', 'a14_skill_substrat');
 
-**Der tragende Befund:** `lsa_grade` bewertet jede Antwort der Gestalt
-"Ziffern-dann-Zeichen" nur nach den fuehrenden Ziffern.
-`lsa_split_value_unit('5x+4')` liefert `{5, "x+4"}`, der Rest gilt als Einheit,
-und bei `unit_graded = false` ist die Einheit kein Kriterium. Gegen canonical
-`"5x+4"` sind `5x+9`, `5x+6` und `5x` deshalb **voll**. Der Defekt ist nicht
-term-spezifisch; der Term-Lauf hat ihn nur zuerst gefunden.
+Legt an: `skills` (32), `skill_kante` (41), `themen` (8), `skill_voraussetzung`
+(leer), `tasks.skill_key` + `tasks.sondierrang`, Backfill aller 146
+Fundament-Aufgaben.
 
-**Bis die Migration liegt, gilt:** Term-Aufgaben duerfen kein `acceptance`
-bekommen. Heute haelt das nur die Konvention — die Zusage (Trigger) kommt erst
-mit A13. Wer in der Freigabe ein `acceptance` setzt, kippt die Bewertung still.
+**Zwei Kanten der Vorgabe verletzten die Tiefen-Invariante.** Beide Kanten sind
+fachlich richtig, die Tiefe war falsch — korrigiert wurde deshalb die Tiefe des
+abhaengigen Skills, die einzige Richtung, die traegt:
 
-**Was bewusst NICHT vorgezogen wurde:** die Seed-Datei und der Generator aus
-PR #87 tragen weiterhin beide Schreibweisen (`"5x+4"` und `"5x + 4"`) in
-`correct_answers`. Der zweite Eintrag darf erst fallen, wenn die
-Term-Normalisierung steht — sonst waere jede mit Leerzeichen getippte Antwort
-dazwischen falsch bewertet. Beides gehoert in denselben PR wie die Migration.
+    bruch_dezimal     3 -> 4   (haengt an dezimal_div, Tiefe 3)
+    groessen_volumen  5 -> 6   (haengt an groessen_flaechen, Tiefe 5)
 
-**Ebenfalls in A13 enthalten und nicht offensichtlich:** `lsa_finish` musste
-mit. `correct = NULL` faellt zwar aus dem Zaehler `count(*) filter (where
-correct)`, bliebe aber im Nenner `count(*)` — ein "weiss nicht" haette die Quote
-genauso gedrueckt wie eine falsche Antwort. Die Nenner zaehlen jetzt nur noch
-geprufte Abgaben, und `unbeantwortet` wird getrennt ausgewiesen.
+**Die Deckungsrechnung ergibt 9 statt der erwarteten 10.** Keine Kante geaendert
+(so beauftragt). Erreichbar ab `prozent_veraenderung` sind: prozent_prozentwert,
+prozent_grundwert, proportionalitaet, dezimal_mult, gleichung_einschrittig,
+dezimal_div, dezimal_add_sub, vorzeichen_add_sub. Wer die fehlende Kante kennt,
+muss sie nachtragen — der Selbsttest pinnt die 9 und schlaegt dann an.
+
+**`tasks.microskill_id` ist ein totes Skill-Feld** (uuid -> `microskills`, in 0
+von 445 Zeilen gesetzt). Umbenennen ging nicht (anderer Typ, andere
+Zieltabelle); `skill_key` steht daneben. Die Spalte gehoert in einen eigenen
+Aufraeum-Lauf.
+
+**Offen bleibt die gerichtete Sitzung:** `skill_voraussetzung` ist leer (so
+beauftragt). Ohne Thema-Skill-Zuordnung gibt es kein "welches Fundament traegt
+dieses Thema". Die breite Sitzung braucht nur `skills` + `skill_kante` und ist
+mit A14 vollstaendig unterlegt.
