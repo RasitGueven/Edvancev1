@@ -118,8 +118,12 @@ begin
   if v_n <> 0 then raise exception 'P4e % Abschluss-Skills ohne Zeile', v_n; end if;
 
   select count(distinct skill_key) into v_n from lsa_skill_urteil where session_id=sA;
-  raise notice 'P4 ok (Invarianten a-e): % gedeckt, % direkt, % Proben (Vorlage-32/14 galt nur ohne taskless-Blaetter)',
-    v_n, (select count(*) from lsa_skill_urteil where session_id=sA and belegt_direkt), v_probes;
+  select count(*) into v_hit from lsa_skill_urteil where session_id=sA and belegt_direkt;
+  -- Auf vollem Substrat (alle 32 Skills tragen Aufgaben) gilt die scharfe
+  -- Vorlage-Erwartung: 32 gedeckt, 14 direkt.
+  if v_n <> 32 then raise exception 'P4 Deckung=%, erwartet 32 (voll substrat)', v_n; end if;
+  if v_hit <> 14 then raise exception 'P4 belegt_direkt=%, erwartet 14 (voll substrat)', v_hit; end if;
+  raise notice 'P4 ok: 32 gedeckt, 14 direkt, % Proben', v_probes;
 
   -- 5. Simulation B: prozent_veraenderung zweimal nicht -> traegt_nicht, Abstieg auf grundwert
   v_t := public.lsa_select_next_core(sB, array['draft'], now());
@@ -142,9 +146,17 @@ begin
   if v_txt <> 'nicht_angesetzt' then raise exception 'P6 Zustand=%, erwartet nicht_angesetzt', v_txt; end if;
   raise notice 'P6 ok: nicht_angesetzt (nicht traegt_nicht)';
 
-  -- 7. Skill ohne Aufgaben -> ungeprueft, Sitzung laeuft weiter
+  -- 7. Skill ohne Aufgaben -> ungeprueft, Sitzung laeuft weiter.
+  --    Nach dem Seeding (PR #90) tragen ALLE Skills Aufgaben. Um den
+  --    taskless-Pfad der Engine weiter zu pruefen, entfernen wir die Aufgaben
+  --    von groessen_laengen TRANSAKTIONSLOKAL (Rollback macht es rueckgaengig).
+  delete from tasks where skill_key = 'groessen_laengen';  -- cascade: task_solutions
   insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
     values (sD, 'groessen_flaechen', 'traegt_nicht', true, false, 2);
+  -- Die tiefere direkte Voraussetzung (potenzen) abdecken, damit
+  -- groessen_laengen das tiefste ungedeckte Abstiegsziel wird.
+  insert into lsa_skill_urteil (session_id, skill_key, zustand, belegt_direkt, offen, proben_anzahl)
+    values (sD, 'potenzen', 'traegt', false, false, 0);
   perform public.lsa_select_next_core(sD, array['draft'], now());
   select zustand into v_txt from lsa_skill_urteil where session_id = sD and skill_key = 'groessen_laengen';
   if v_txt is distinct from 'ungeprueft' then raise exception 'P7 groessen_laengen=%, erwartet ungeprueft', coalesce(v_txt,'<keine Zeile>'); end if;
