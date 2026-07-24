@@ -36,6 +36,7 @@ import {
   type AuthoringCluster,
   type ReviewMeta,
 } from '@/lib/supabase/taskAuthoring'
+import { freigabeMuster, freigabeZuruecknehmen } from '@/lib/supabase/freigabe'
 import type { AuthoringSchema, AuthoringTask, TaskSolution, TaskStatus } from '@/types'
 
 /**
@@ -102,6 +103,10 @@ export function AuthoringItemsPage(): JSX.Element {
   const [error, setError] = useState<string | null>(null)
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS)
   const [meta, setMeta] = useState<Map<string, ReviewMeta>>(new Map())
+  // Nach einer Sammelfreigabe hochzaehlen -> der Effekt laedt die Liste neu.
+  const [reloadKey, setReloadKey] = useState(0)
+  // skill_key der Gruppe, die gerade eine Aktion laeuft (Buttons sperren).
+  const [gruppeBusy, setGruppeBusy] = useState<string | null>(null)
 
   useEffect(() => {
     void (async () => {
@@ -124,7 +129,7 @@ export function AuthoringItemsPage(): JSX.Element {
       setRows(taskRes.data.map((task) => buildRow(task, detected)))
       setLoading(false)
     })()
-  }, [t])
+  }, [t, reloadKey])
 
   const subjectOf = useMemo(() => {
     const map = new Map<string, string>()
@@ -227,6 +232,40 @@ export function AuthoringItemsPage(): JSX.Element {
     })
   }, [rows, filters, subjectOf, meta])
 
+  /**
+   * Sammelfreigabe einer Skill-Gruppe. Der Bestaetigungsdialog nennt die Anzahl
+   * der DRAFT-Aufgaben (nur die koennen frei werden). Serverseitig hebt das Gate
+   * unvollstaendige Items nicht mit — die Rueckgabe ist die echte Anzahl, die im
+   * Anschluss gemeldet wird. Danach laedt die Liste neu.
+   */
+  const gruppeFreigeben = async (skill: string, draftCount: number): Promise<void> => {
+    if (gruppeBusy) return
+    if (!window.confirm(t('freigabe.confirmFreigeben', { skill, count: draftCount }))) return
+    setGruppeBusy(skill)
+    const res = await freigabeMuster(skill)
+    setGruppeBusy(null)
+    if (res.error || res.data === null) {
+      window.alert(t('freigabe.fehler', { message: res.error ?? '' }))
+      return
+    }
+    window.alert(t('freigabe.freigegeben', { count: res.data }))
+    setReloadKey((k) => k + 1)
+  }
+
+  const gruppeZuruecknehmen = async (skill: string, readyCount: number): Promise<void> => {
+    if (gruppeBusy) return
+    if (!window.confirm(t('freigabe.confirmZuruecknehmen', { skill, count: readyCount }))) return
+    setGruppeBusy(skill)
+    const res = await freigabeZuruecknehmen(skill)
+    setGruppeBusy(null)
+    if (res.error || res.data === null) {
+      window.alert(t('freigabe.fehler', { message: res.error ?? '' }))
+      return
+    }
+    window.alert(t('freigabe.zurueckgenommen', { count: res.data }))
+    setReloadKey((k) => k + 1)
+  }
+
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('page.listSubtitle')} sticky />
@@ -282,16 +321,40 @@ export function AuthoringItemsPage(): JSX.Element {
             {filters.sort === 'skill' ? (
               // Nach Skill gruppiert: je Skill eine Überschrift mit Anzahl —
               // Aufgaben eines Skills stammen aus demselben Muster.
-              groupBySkill(visible).map(([skill, group]) => (
-                <div key={skill} className="flex flex-col gap-4">
-                  <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-                    {skill} · {group.length}
-                  </h2>
-                  {group.map((row) => (
-                    <ItemRow key={row.task.id} row={row} />
-                  ))}
-                </div>
-              ))
+              groupBySkill(visible).map(([skill, group]) => {
+                const draftCount = group.filter((r) => r.task.status === 'draft').length
+                const readyCount = group.filter((r) => r.task.status === 'ready').length
+                return (
+                  <div key={skill} className="flex flex-col gap-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+                        {skill} · {group.length}
+                      </h2>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          disabled={gruppeBusy !== null || draftCount === 0}
+                          onClick={() => void gruppeFreigeben(skill, draftCount)}
+                        >
+                          {t('freigabe.freigeben', { count: draftCount })}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          disabled={gruppeBusy !== null || readyCount === 0}
+                          onClick={() => void gruppeZuruecknehmen(skill, readyCount)}
+                        >
+                          {t('freigabe.zuruecknehmen')}
+                        </Button>
+                      </div>
+                    </div>
+                    {group.map((row) => (
+                      <ItemRow key={row.task.id} row={row} />
+                    ))}
+                  </div>
+                )
+              })
             ) : (
               <div className="flex flex-col gap-4">
                 {visible.map((row) => (
