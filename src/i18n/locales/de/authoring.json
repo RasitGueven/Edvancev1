@@ -422,5 +422,18 @@
       "removed": "Bildpfad entfernt.",
       "removeFailed": "Entfernen fehlgeschlagen: {{error}}"
     }
+  },
+  "freigabe": {
+    "freigeben": "Gruppe freigeben ({{count}})",
+    "zuruecknehmen": "Freigabe zurücknehmen",
+    "confirmFreigeben_one": "Eine Aufgabe des Skills „{{skill}}“ freigeben? Nur vollständige Entwürfe werden freigegeben; Beanstandetes und Aufgaben in Prüfung bleiben liegen.",
+    "confirmFreigeben_other": "{{count}} Aufgaben des Skills „{{skill}}“ freigeben? Nur vollständige Entwürfe werden freigegeben; Beanstandetes und Aufgaben in Prüfung bleiben liegen.",
+    "confirmZuruecknehmen_one": "Freigabe einer Aufgabe des Skills „{{skill}}“ zurücknehmen? Sie fällt auf Entwurf zurück; Beanstandetes bleibt unberührt.",
+    "confirmZuruecknehmen_other": "Freigabe von {{count}} Aufgaben des Skills „{{skill}}“ zurücknehmen? Sie fallen auf Entwurf zurück; Beanstandetes bleibt unberührt.",
+    "freigegeben_one": "Eine Aufgabe freigegeben.",
+    "freigegeben_other": "{{count}} Aufgaben freigegeben.",
+    "zurueckgenommen_one": "Eine Freigabe zurückgenommen.",
+    "zurueckgenommen_other": "{{count}} Freigaben zurückgenommen.",
+    "fehler": "Aktion fehlgeschlagen: {{message}}"
   }
 }
