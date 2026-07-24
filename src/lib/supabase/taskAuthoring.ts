@@ -17,6 +17,7 @@ import type {
   AuthoringSchema,
   AuthoringTask,
   AuthoringTaskPatch,
+  EditorSettableStatus,
   GroundingBeleg,
   SolutionAnswers,
   SupabaseResult,
@@ -42,6 +43,7 @@ const BASE_COLUMNS = [
   'competency_process',
   'cluster_id',
   'unit',
+  'skill_key',
   'est_duration_sec',
   'class_level',
   'parts',
@@ -113,6 +115,38 @@ export async function listAuthoringTasks(): Promise<SupabaseResult<AuthoringTask
     return { data: (data ?? []) as unknown as AuthoringTask[], error: null }
   } catch (err) {
     return { data: null, error: toMessage(err, 'Items konnten nicht geladen werden') }
+  }
+}
+
+export type ReviewMeta = { labels: string[]; hasIncomplete: boolean }
+
+/**
+ * Label-Metadaten je Aufgabe fuer die Review-Filter (A20): welche Fehlbild-Slugs
+ * die Aufgabe traegt und ob eines davon noch unvollstaendig ist (klartext ODER
+ * erklaerung fehlt). EINE Abfrage (authoring_review_meta) statt 185 Loesungs-RPCs.
+ *
+ * Der RPC steht noch nicht in database.ts (A20 wird separat eingespielt) — der
+ * Cast haelt das sichtbar, bis die Typen neu generiert sind (CLAUDE.md §4).
+ * Faellt die Abfrage aus (RPC fehlt, kein Recht), bleibt die Liste bedienbar:
+ * eine leere Map heisst nur, dass die Label-Filter nichts finden.
+ */
+export async function listReviewMeta(): Promise<Map<string, ReviewMeta>> {
+  const map = new Map<string, ReviewMeta>()
+  try {
+    const rpc = supabase.rpc as unknown as (
+      fn: string,
+    ) => Promise<{
+      data: { task_id: string; labels: string[] | null; has_incomplete: boolean }[] | null
+      error: { message: string } | null
+    }>
+    const { data, error } = await rpc('authoring_review_meta')
+    if (error || !data) return map
+    for (const row of data) {
+      map.set(row.task_id, { labels: row.labels ?? [], hasIncomplete: !!row.has_incomplete })
+    }
+    return map
+  } catch {
+    return map
   }
 }
 
@@ -253,7 +287,7 @@ export async function upsertTaskSolution(
  */
 export async function setTaskStatus(
   taskId: string,
-  status: 'draft' | 'review' | 'ready',
+  status: EditorSettableStatus,
 ): Promise<SupabaseResult<true>> {
   try {
     const schema = await probeAuthoringSchema()

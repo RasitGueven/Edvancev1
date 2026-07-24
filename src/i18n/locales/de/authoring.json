@@ -47,18 +47,24 @@
     "hasTable": "Mit Tabelle",
     "noTable": "Ohne Tabelle",
     "sort": "Sortierung",
-    "reset": "Filter zurücksetzen"
+    "reset": "Filter zurücksetzen",
+    "skill": "Skill",
+    "fehlbild": "Fehlbild-Label",
+    "labelIncomplete": "Label",
+    "labelIncompleteYes": "Label unvollständig"
   },
   "sort": {
     "flags": "Offene Punkte zuerst",
     "title": "Titel A–Z",
     "status": "Status",
-    "newest": "Neueste zuerst"
+    "newest": "Neueste zuerst",
+    "skill": "Nach Skill"
   },
   "status": {
     "draft": "Entwurf",
     "review": "In Prüfung",
-    "ready": "Freigegeben"
+    "ready": "Freigegeben",
+    "beanstandet": "Beanstandet"
   },
   "sections": {
     "stem": "Stamm",

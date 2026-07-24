@@ -51,7 +51,7 @@ import {
   type AuthoringCluster,
 } from '@/lib/supabase/taskAuthoring'
 import { useAuth } from '@/hooks/useAuth'
-import type { AuthoringSchema, AuthoringTask, GroundingBeleg, TaskStatus } from '@/types'
+import type { AuthoringSchema, AuthoringTask, EditorSettableStatus, GroundingBeleg } from '@/types'
 
 export function AuthoringEditorPage(): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -181,7 +181,7 @@ export function AuthoringEditorPage(): JSX.Element {
     setBaseline(state)
   }
 
-  const changeStatus = async (next: TaskStatus): Promise<void> => {
+  const changeStatus = async (next: EditorSettableStatus): Promise<void> => {
     if (!id) return
     setStatusError(null)
     setBusy(true)

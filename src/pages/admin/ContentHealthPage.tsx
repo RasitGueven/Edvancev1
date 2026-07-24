@@ -37,7 +37,12 @@ import {
 import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringTask, TaskStatus } from '@/types'
 
-const EMPTY_STATUS_COUNTS: Record<TaskStatus, number> = { draft: 0, review: 0, ready: 0 }
+const EMPTY_STATUS_COUNTS: Record<TaskStatus, number> = {
+  draft: 0,
+  review: 0,
+  ready: 0,
+  beanstandet: 0,
+}
 
 function matches(item: HealthItem, filter: HealthFilter): boolean {
   if (filter === 'all') return item.defects.size > 0

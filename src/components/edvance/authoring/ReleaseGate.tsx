@@ -14,7 +14,7 @@ import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Circle, Lock, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import type { ItemFlag, TaskStatus } from '@/types'
+import type { EditorSettableStatus, ItemFlag, TaskStatus } from '@/types'
 import { StatusBadge } from './ui'
 
 export function ReleaseGate({
@@ -40,7 +40,7 @@ export function ReleaseGate({
   reviewerName: string | null
   reviewedAt: string | null
   error: string | null
-  onSetStatus: (next: TaskStatus) => void
+  onSetStatus: (next: EditorSettableStatus) => void
 }): JSX.Element {
   const { t, i18n } = useTranslation('authoring')
 

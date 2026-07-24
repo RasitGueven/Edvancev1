@@ -31,8 +31,10 @@ import { isGroundedSource } from '@/lib/authoring/grounding'
 import {
   listAuthoringTasks,
   listClustersWithSubject,
+  listReviewMeta,
   probeAuthoringSchema,
   type AuthoringCluster,
+  type ReviewMeta,
 } from '@/lib/supabase/taskAuthoring'
 import type { AuthoringSchema, AuthoringTask, TaskSolution, TaskStatus } from '@/types'
 
@@ -70,7 +72,24 @@ function buildRow(task: AuthoringTask, schema: AuthoringSchema): ItemRowData {
   }
 }
 
-const STATUS_ORDER: Record<TaskStatus, number> = { draft: 0, review: 1, ready: 2 }
+const STATUS_ORDER: Record<TaskStatus, number> = {
+  beanstandet: 0,
+  draft: 1,
+  review: 2,
+  ready: 3,
+}
+
+/** Erhaelt die (bereits nach Skill sortierten) Zeilen als Gruppen [skill, rows]. */
+function groupBySkill(rows: ItemRowData[]): [string, ItemRowData[]][] {
+  const groups = new Map<string, ItemRowData[]>()
+  for (const row of rows) {
+    const key = row.task.skill_key ?? '—'
+    const group = groups.get(key)
+    if (group) group.push(row)
+    else groups.set(key, [row])
+  }
+  return [...groups.entries()]
+}
 
 export function AuthoringItemsPage(): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -82,16 +101,21 @@ export function AuthoringItemsPage(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS)
+  const [meta, setMeta] = useState<Map<string, ReviewMeta>>(new Map())
 
   useEffect(() => {
     void (async () => {
-      const [detected, taskRes, clusterRes] = await Promise.all([
+      const [detected, taskRes, clusterRes, metaMap] = await Promise.all([
         probeAuthoringSchema(),
         listAuthoringTasks(),
         listClustersWithSubject(),
+        // Faellt der RPC aus (A20 noch nicht eingespielt), bleibt die Liste
+        // bedienbar — die Label-Filter finden dann nur nichts.
+        listReviewMeta(),
       ])
       setSchema(detected)
       setClusters(clusterRes.data ?? [])
+      setMeta(metaMap)
       if (taskRes.error || !taskRes.data) {
         setError(taskRes.error ?? t('list.errorTitle'))
         setLoading(false)
@@ -123,6 +147,21 @@ export function AuthoringItemsPage(): JSX.Element {
     [rows],
   )
 
+  const skills = useMemo(
+    () =>
+      [
+        ...new Set(rows.map((r) => r.task.skill_key).filter((s): s is string => Boolean(s))),
+      ].sort(),
+    [rows],
+  )
+
+  // Nur die tatsaechlich vergebenen Fehlbild-Slugs — die volle Registry waere
+  // ein Dropdown voller Labels, die keine Aufgabe traegt.
+  const labels = useMemo(
+    () => [...new Set([...meta.values()].flatMap((m) => m.labels))].sort(),
+    [meta],
+  )
+
   const visible = useMemo(() => {
     const needle = filters.search.trim().toLowerCase()
 
@@ -145,6 +184,12 @@ export function AuthoringItemsPage(): JSX.Element {
         if (filters.source === 'eigene' && vera) return false
         if (filters.source === 'vera' && !vera) return false
       }
+      if (filters.skill !== 'all' && task.skill_key !== filters.skill) return false
+      const rowMeta = meta.get(task.id)
+      if (filters.fehlbild !== 'all' && !(rowMeta?.labels ?? []).includes(filters.fehlbild)) {
+        return false
+      }
+      if (filters.labelIncomplete === 'yes' && !rowMeta?.hasIncomplete) return false
       if (filters.flags === 'blocking' && blockingCount === 0) return false
       if (filters.flags === 'any' && flagCount === 0) return false
       if (filters.flags === 'none' && flagCount > 0) return false
@@ -163,6 +208,13 @@ export function AuthoringItemsPage(): JSX.Element {
           return STATUS_ORDER[a.task.status] - STATUS_ORDER[b.task.status]
         case 'newest':
           return b.task.created_at.localeCompare(a.task.created_at)
+        case 'skill':
+          // Nach Skill gruppiert (Aufgaben eines Skills stammen aus demselben
+          // Muster — Lena arbeitet sie am Stueck durch). Ohne Skill nach unten.
+          return (
+            (a.task.skill_key ?? '￿').localeCompare(b.task.skill_key ?? '￿', 'de') ||
+            (a.task.title ?? '').localeCompare(b.task.title ?? '', 'de')
+          )
         case 'flags':
         default:
           // Blockierendes zuerst — das ist die Arbeit, die wirklich ansteht.
@@ -173,7 +225,7 @@ export function AuthoringItemsPage(): JSX.Element {
           )
       }
     })
-  }, [rows, filters, subjectOf])
+  }, [rows, filters, subjectOf, meta])
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
@@ -191,6 +243,8 @@ export function AuthoringItemsPage(): JSX.Element {
           value={filters}
           subjects={subjects}
           competencies={competencies}
+          skills={skills}
+          labels={labels}
           onChange={setFilters}
         />
 
@@ -225,11 +279,26 @@ export function AuthoringItemsPage(): JSX.Element {
                 {t('wizard.start', { count: visible.length })}
               </Button>
             </div>
-            <div className="flex flex-col gap-4">
-              {visible.map((row) => (
-                <ItemRow key={row.task.id} row={row} />
-              ))}
-            </div>
+            {filters.sort === 'skill' ? (
+              // Nach Skill gruppiert: je Skill eine Überschrift mit Anzahl —
+              // Aufgaben eines Skills stammen aus demselben Muster.
+              groupBySkill(visible).map(([skill, group]) => (
+                <div key={skill} className="flex flex-col gap-4">
+                  <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+                    {skill} · {group.length}
+                  </h2>
+                  {group.map((row) => (
+                    <ItemRow key={row.task.id} row={row} />
+                  ))}
+                </div>
+              ))
+            ) : (
+              <div className="flex flex-col gap-4">
+                {visible.map((row) => (
+                  <ItemRow key={row.task.id} row={row} />
+                ))}
+              </div>
+            )}
           </>
         )}
       </main>

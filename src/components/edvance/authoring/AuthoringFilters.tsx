@@ -12,7 +12,7 @@ import type { TaskStatus } from '@/types'
 
 export type FlagFilter = 'all' | 'blocking' | 'any' | 'none'
 export type TriFilter = 'all' | 'yes' | 'no'
-export type SortKey = 'flags' | 'title' | 'status' | 'newest'
+export type SortKey = 'flags' | 'title' | 'status' | 'newest' | 'skill'
 
 /** Herkunft: 'eigene' = alles ausser VERA, 'vera' = nur VERA, 'all' = beides. */
 export type SourceFilter = 'all' | 'eigene' | 'vera'
@@ -24,6 +24,12 @@ export type FilterState = {
   competency: string
   afb: string
   source: SourceFilter
+  /** Fundament-Skill (A14/A18) oder 'all'. */
+  skill: string
+  /** Ein Fehlbild-Slug (A20) oder 'all' — trifft Aufgaben, die es tragen. */
+  fehlbild: string
+  /** 'yes' = nur Aufgaben mit noch unvollstaendigem Label (klartext/erklaerung fehlt). */
+  labelIncomplete: 'all' | 'yes'
   flags: FlagFilter
   asset: TriFilter
   table: TriFilter
@@ -40,6 +46,9 @@ export const EMPTY_FILTERS: FilterState = {
   // Eigenbau, der VERA-Bestand liegt daneben und wuerde die Liste zudecken.
   // Ausgeblendet, nicht geloescht — ein Griff ins Dropdown holt ihn zurueck.
   source: 'eigene',
+  skill: 'all',
+  fehlbild: 'all',
+  labelIncomplete: 'all',
   flags: 'all',
   asset: 'all',
   table: 'all',
@@ -50,11 +59,15 @@ export function AuthoringFilters({
   value,
   subjects,
   competencies,
+  skills,
+  labels,
   onChange,
 }: {
   value: FilterState
   subjects: string[]
   competencies: string[]
+  skills: string[]
+  labels: string[]
   onChange: (next: FilterState) => void
 }): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -82,6 +95,51 @@ export function AuthoringFilters({
           <option value="draft">{t('status.draft')}</option>
           <option value="review">{t('status.review')}</option>
           <option value="ready">{t('status.ready')}</option>
+          <option value="beanstandet">{t('status.beanstandet')}</option>
+        </select>
+
+        <select
+          className={SELECT_SM}
+          value={value.skill}
+          aria-label={t('filter.skill')}
+          onChange={(e) => set('skill', e.target.value)}
+        >
+          <option value="all">
+            {t('filter.skill')}: {t('filter.all')}
+          </option>
+          {skills.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+
+        <select
+          className={SELECT_SM}
+          value={value.fehlbild}
+          aria-label={t('filter.fehlbild')}
+          onChange={(e) => set('fehlbild', e.target.value)}
+        >
+          <option value="all">
+            {t('filter.fehlbild')}: {t('filter.all')}
+          </option>
+          {labels.map((l) => (
+            <option key={l} value={l}>
+              {l}
+            </option>
+          ))}
+        </select>
+
+        <select
+          className={SELECT_SM}
+          value={value.labelIncomplete}
+          aria-label={t('filter.labelIncomplete')}
+          onChange={(e) => set('labelIncomplete', e.target.value as 'all' | 'yes')}
+        >
+          <option value="all">
+            {t('filter.labelIncomplete')}: {t('filter.all')}
+          </option>
+          <option value="yes">{t('filter.labelIncompleteYes')}</option>
         </select>
 
         <select
@@ -193,6 +251,7 @@ export function AuthoringFilters({
           <option value="title">{t('sort.title')}</option>
           <option value="status">{t('sort.status')}</option>
           <option value="newest">{t('sort.newest')}</option>
+          <option value="skill">{t('sort.skill')}</option>
         </select>
 
         <Button

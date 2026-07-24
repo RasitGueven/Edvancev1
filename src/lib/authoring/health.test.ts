@@ -22,6 +22,7 @@ const baseTask: AuthoringTask = {
   cluster_id: 'c1',
   unit: 'm',
   est_duration_sec: 120,
+  skill_key: null,
   class_level: 8,
   curriculum_grade: 7,
   parts: [],
