@@ -185,6 +185,9 @@ const STATUS_VARIANT: Record<TaskStatus, EdvanceBadgeVariant> = {
   draft: 'muted',
   review: 'warning',
   ready: 'success',
+  // Geprueft und Mangel gefunden (A20). Rot wie die uebrigen Defekt-Zustaende —
+  // ein beanstandetes Item ist offene Arbeit, kein neutraler Entwurf.
+  beanstandet: 'destructive',
 }
 
 export function StatusBadge({

@@ -13,6 +13,15 @@
 import type { InputType, TaskAsset } from './content'
 
 export type TaskStatus = 'draft' | 'review' | 'ready' | 'beanstandet'
+
+/**
+ * Die Status, die ein Mensch ueber den Editor (task_status_set) selbst setzen
+ * darf. 'beanstandet' fehlt BEWUSST: dorthin fuehrt ausschliesslich
+ * lena_beanstande — admin-Rolle, Pflicht-Kategorie und eine task_reviews-
+ * Audit-Zeile (A20). Ueber das Editor-Gate gesetzt, umginge es genau diesen
+ * Nachweis. Der Editor kann 'beanstandet' anzeigen, aber nicht dorthin schalten.
+ */
+export type EditorSettableStatus = Exclude<TaskStatus, 'beanstandet'>
 export type Afb = 'I' | 'II' | 'III'
 
 /**

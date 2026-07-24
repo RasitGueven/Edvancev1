@@ -17,6 +17,7 @@ import type {
   AuthoringSchema,
   AuthoringTask,
   AuthoringTaskPatch,
+  EditorSettableStatus,
   GroundingBeleg,
   SolutionAnswers,
   SupabaseResult,
@@ -286,7 +287,7 @@ export async function upsertTaskSolution(
  */
 export async function setTaskStatus(
   taskId: string,
-  status: 'draft' | 'review' | 'ready',
+  status: EditorSettableStatus,
 ): Promise<SupabaseResult<true>> {
   try {
     const schema = await probeAuthoringSchema()

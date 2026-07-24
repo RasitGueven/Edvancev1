@@ -127,6 +127,7 @@ export type {
 
 export type {
   TaskStatus,
+  EditorSettableStatus,
   Afb,
   AuthoringInputType,
   PartKind,

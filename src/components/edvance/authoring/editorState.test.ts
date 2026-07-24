@@ -22,6 +22,7 @@ const task = (over: Partial<AuthoringTask> = {}): AuthoringTask => ({
   cluster_id: 'c1',
   unit: null,
   est_duration_sec: null,
+  skill_key: null,
   class_level: 8,
   curriculum_grade: null,
   parts: [],

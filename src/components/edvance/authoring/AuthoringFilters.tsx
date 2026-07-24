@@ -12,7 +12,7 @@ import type { TaskStatus } from '@/types'
 
 export type FlagFilter = 'all' | 'blocking' | 'any' | 'none'
 export type TriFilter = 'all' | 'yes' | 'no'
-export type SortKey = 'flags' | 'title' | 'status' | 'newest'
+export type SortKey = 'flags' | 'title' | 'status' | 'newest' | 'skill'
 
 /** Herkunft: 'eigene' = alles ausser VERA, 'vera' = nur VERA, 'all' = beides. */
 export type SourceFilter = 'all' | 'eigene' | 'vera'
