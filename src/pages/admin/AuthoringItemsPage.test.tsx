@@ -17,6 +17,14 @@ vi.mock('@/lib/supabase/taskAuthoring', () => ({
   listReviewMeta: vi.fn(() => Promise.resolve(new Map())),
 }))
 
+// Die Seite importiert seit A21 einen ZWEITEN Wrapper (freigabe). Ohne diesen
+// Mock laedt freigabe.ts echt -> supabase/client -> createClient ohne Env stirbt
+// beim Import und reisst die ganze Suite mit. Gleiche Form wie oben.
+vi.mock('@/lib/supabase/freigabe', () => ({
+  freigabeMuster: vi.fn(),
+  freigabeZuruecknehmen: vi.fn(),
+}))
+
 // Die Navbar zieht useAuth → supabase/client, und der braucht Env-Variablen, die
 // im Test nicht gesetzt sind. Auth ist hier ohnehin nicht Gegenstand.
 vi.mock('@/hooks/useAuth', () => ({
