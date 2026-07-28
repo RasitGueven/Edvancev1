@@ -66,6 +66,11 @@ def _lade_generator(name: str):
         import winkel  # type: ignore
 
         return winkel.zeichne, pruefe_winkel.pruefe
+    if name == "dreieck":
+        import dreieck  # type: ignore
+        import pruefe_dreieck  # type: ignore
+
+        return dreieck.zeichne, pruefe_dreieck.pruefe
     raise SystemExit(f"Unbekannter Generator '{name}' — kein Adapter (Positivliste in der Migration).")
 
 

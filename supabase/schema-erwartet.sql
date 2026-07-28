@@ -7,7 +7,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict IZgZpVuexLllWfb0p5reSD4avT2bdZZ0JhpQJgxGKSAUKqQBa0cgoMYlSIPAMeL
+\restrict 66fkf1dcPmcD9EsLla76zZH5loSLghiqmqof04cOJgiYXTvmb7ZT5lwOY4tChJc
 
 -- Dumped from database version 18.4 (Ubuntu 18.4-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.4 (Ubuntu 18.4-0ubuntu0.26.04.1)
@@ -4364,7 +4364,7 @@ CREATE TABLE public.task_figures (
     erzeugt_am timestamp with time zone,
     CONSTRAINT task_figures_alt_no_digit CHECK ((alt_text !~ '[0-9]'::text)),
     CONSTRAINT task_figures_alt_not_empty CHECK ((btrim(alt_text) <> ''::text)),
-    CONSTRAINT task_figures_generator_check CHECK ((generator = ANY (ARRAY['koordinatensystem'::text, 'winkel'::text])))
+    CONSTRAINT task_figures_generator_check CHECK ((generator = ANY (ARRAY['koordinatensystem'::text, 'winkel'::text, 'dreieck'::text])))
 );
 
 
@@ -7449,5 +7449,5 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict IZgZpVuexLllWfb0p5reSD4avT2bdZZ0JhpQJgxGKSAUKqQBa0cgoMYlSIPAMeL
+\unrestrict 66fkf1dcPmcD9EsLla76zZH5loSLghiqmqof04cOJgiYXTvmb7ZT5lwOY4tChJc
 
