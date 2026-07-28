@@ -24,7 +24,10 @@ export default defineConfig({
     },
     // scripts/: der Import-Bau (C08) spiegelt die DB-Vertraege (lsa_parts_valid,
     // lsa_table_valid) — er wird getestet wie Produktivcode, nicht wie ein Skript.
-    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.ts'],
+    // tests/: Suiten, die keinen Ort im Produktivbaum haben — die
+    // Figuren-Generatoren (A19) liegen unter scripts/figures/, ihre Tests
+    // laut Spec unter tests/.
+    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.ts', 'tests/**/*.test.ts'],
     exclude: [
       'node_modules',
       'dist',
