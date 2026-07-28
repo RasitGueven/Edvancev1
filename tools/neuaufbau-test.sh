@@ -17,8 +17,9 @@ set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 DB="${TESTDB:-edvance_neuaufbau}"
+GEGEN_PROD=0; [[ "${1:-}" == "--gegen-prod" ]] && GEGEN_PROD=1
 LOCAL="postgresql:///$DB"
-[[ -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt."; exit 1; }
+[[ "$GEGEN_PROD" -eq 0 || -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt (nur mit --gegen-prod noetig)."; exit 1; }
 
 ok(){ echo "  ✓ $*"; }; bad(){ echo "  ✗ $*"; }; info(){ echo "  · $*"; }
 
@@ -135,33 +136,46 @@ info "$n eingespielt, $fehler gescheitert"
 [[ "$fehler" -gt 0 ]] && { echo; bad "Erst die Fehler oben beheben."; exit 1; }
 
 # ── Vergleich ───────────────────────────────────────────────────────────────
+D="--schema-only --no-owner --no-acl --no-comments --schema public"
+SIEB='^--|^$|^SET |^SELECT pg_catalog|restrict '
+
+pg_dump "$LOCAL" $D 2>/dev/null | grep -vE "$SIEB" | sort > /tmp/neu.txt
+
+if [[ "$GEGEN_PROD" -eq 0 ]]; then
+  echo
+  echo "══ Vergleich mit supabase/schema-erwartet.sql"
+  [[ -f supabase/schema-erwartet.sql ]] || { bad "Datei fehlt — bash tools/schema-snapshot.sh"; exit 1; }
+  grep -vE "$SIEB" supabase/schema-erwartet.sql | sort > /tmp/soll.txt
+  if diff -q /tmp/soll.txt /tmp/neu.txt >/dev/null; then
+    ok "Neuaufbau entspricht dem Schnappschuss."
+    exit 0
+  fi
+  bad "Weicht vom Schnappschuss ab. Nach Schemaaenderungen: bash tools/schema-snapshot.sh"
+  diff /tmp/soll.txt /tmp/neu.txt | head -30 | sed 's/^/      /'
+  exit 1
+fi
+
 echo
 echo "══ Vergleich mit Produktion"
-D="--schema-only --no-owner --no-acl --no-comments --schema public"
-pg_dump "$LOCAL" $D 2>/dev/null | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/neu.txt
-pg_dump "$DBURL" $D 2>/tmp/dumperr || { bad "Prod nicht erreichbar:"; tail -3 /tmp/dumperr; exit 1; } | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/prod.txt
+if ! pg_dump "$DBURL" $D > /tmp/proddump 2>/tmp/dumperr; then
+  bad "Prod nicht erreichbar:"; tail -3 /tmp/dumperr | sed 's/^/      /'; exit 1
+fi
+grep -vE "$SIEB" /tmp/proddump | sort > /tmp/prod.txt
 
 echo "  neu:  $(wc -l < /tmp/neu.txt) Zeilen"
 echo "  prod: $(wc -l < /tmp/prod.txt) Zeilen"
 echo
-
 if diff -q /tmp/neu.txt /tmp/prod.txt >/dev/null; then
-  echo "  ════════════════════════════════════════"
-  ok  "Identisch. Das Repo baut Produktion nach."
-  echo "  ════════════════════════════════════════"
-else
-  a=$(comm -13 /tmp/neu.txt /tmp/prod.txt | wc -l)
-  b=$(comm -23 /tmp/neu.txt /tmp/prod.txt | wc -l)
-  bad "$a Zeile(n) nur in Prod, $b nur im Neuaufbau"
-  echo
-  echo "  Nur in Prod (fehlt im Repo — das ist der kritische Teil):"
-  comm -13 /tmp/neu.txt /tmp/prod.txt | head -25 | cut -c1-110 | sed 's/^/      /'
-  echo
-  echo "  Nur im Neuaufbau (meist harmlos: Reihenfolge, Grundlage oben):"
-  comm -23 /tmp/neu.txt /tmp/prod.txt | head -15 | cut -c1-110 | sed 's/^/      /'
-  echo
-  info "vollständig:  diff /tmp/neu.txt /tmp/prod.txt"
-  echo
-  exit 1
+  ok "Identisch. Das Repo baut Produktion nach."
+  exit 0
 fi
+bad "$(comm -13 /tmp/neu.txt /tmp/prod.txt | wc -l) Zeile(n) nur in Prod, $(comm -23 /tmp/neu.txt /tmp/prod.txt | wc -l) nur im Neuaufbau"
 echo
+echo "  Nur in Prod (fehlt im Repo):"
+comm -13 /tmp/neu.txt /tmp/prod.txt | head -25 | cut -c1-110 | sed 's/^/      /'
+echo
+echo "  Nur im Neuaufbau:"
+comm -23 /tmp/neu.txt /tmp/prod.txt | head -15 | cut -c1-110 | sed 's/^/      /'
+echo
+info "vollständig:  diff /tmp/neu.txt /tmp/prod.txt"
+exit 1
