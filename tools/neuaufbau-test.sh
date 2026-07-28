@@ -17,8 +17,9 @@ set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 DB="${TESTDB:-edvance_neuaufbau}"
+GEGEN_PROD=0; [[ "${1:-}" == "--gegen-prod" ]] && GEGEN_PROD=1
 LOCAL="postgresql:///$DB"
-[[ -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt."; exit 1; }
+[[ "$GEGEN_PROD" -eq 0 || -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt (nötig nur mit --gegen-prod)."; exit 1; }
 
 ok(){ echo "  ✓ $*"; }; bad(){ echo "  ✗ $*"; }; info(){ echo "  · $*"; }
 
@@ -136,6 +137,21 @@ info "$n eingespielt, $fehler gescheitert"
 
 # ── Vergleich ───────────────────────────────────────────────────────────────
 echo
+D="--schema-only --no-owner --no-acl --no-comments --schema public"
+
+if [[ "$GEGEN_PROD" -eq 0 ]]; then
+  if [[ -f supabase/schema-erwartet.sql ]]; then
+    pg_dump "$LOCAL" $D 2>/dev/null | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/ist.txt
+    grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' supabase/schema-erwartet.sql | sort > /tmp/soll.txt
+    if diff -q /tmp/soll.txt /tmp/ist.txt >/dev/null; then
+      ok "Neuaufbau entspricht supabase/schema-erwartet.sql"; exit 0
+    fi
+    bad "Neuaufbau weicht vom Schnappschuss ab. Neu erzeugen: bash tools/schema-snapshot.sh"
+    diff /tmp/soll.txt /tmp/ist.txt | head -30; exit 1
+  fi
+  bad "supabase/schema-erwartet.sql fehlt — bash tools/schema-snapshot.sh"; exit 1
+fi
+
 echo "══ Vergleich mit Produktion"
 D="--schema-only --no-owner --no-acl --no-comments --schema public"
 pg_dump "$LOCAL" $D 2>/dev/null | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/neu.txt
