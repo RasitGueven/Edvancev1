@@ -517,4 +517,9 @@ grant execute on function public.lsa_select_next_core(uuid, text[], timestamptz)
 grant execute on function public.lsa_urteil_buchen(uuid, uuid)                to authenticated, service_role;
 grant execute on function public.lsa_select_next(uuid, text[])                to authenticated, service_role;
 
+
+    ADD CONSTRAINT lsa_skill_urteil_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
+
 commit;
+
+ALTER TABLE ONLY public.lsa_skill_urteil
