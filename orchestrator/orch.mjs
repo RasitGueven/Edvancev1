@@ -237,13 +237,13 @@ async function runGates(spec, wt) {
 
 // ─── Agent ───────────────────────────────────────────────────────────────────
 
-async function runAgent(prompt, wt) {
+async function runAgent(prompt, wt, braucht_db = false) {
   const pf = path.join(wt, '.orch-prompt.md');
   await fs.writeFile(pf, prompt);
   log('\n  claude -p läuft …\n');
   // Produktionszugang bleibt draussen. Ein Agent, der DBURL erbt, verbindet sich
   // damit — auch wenn die Spec nichts davon sagt.
-  const sauber = { DBURL: '', SUPABASE_SERVICE_ROLE_KEY: '', SUPABASE_URL: '',
+  const sauber = braucht_db ? {} : { DBURL: '', SUPABASE_SERVICE_ROLE_KEY: '', SUPABASE_URL: '',
                    PGPASSWORD: '', PGHOST: '', PGUSER: '', DATABASE_URL: '' };
   const r = await sh(
     `claude -p "$(cat .orch-prompt.md)" --permission-mode bypassPermissions < /dev/null`,
@@ -305,7 +305,7 @@ async function cmdRun(id) {
   let feedback = null;
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     log(`\n── Versuch ${attempt}/${MAX_ATTEMPTS}`);
-    await runAgent(buildPrompt(spec, feedback), wt);
+    await runAgent(buildPrompt(spec, feedback), wt, spec.type === 'content');
 
     const g = await runGates(spec, wt);
     if (g.ok) {

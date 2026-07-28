@@ -116,10 +116,15 @@ def hole_aufgaben() -> list[dict]:
         for zeile in (WURZEL / ".env").read_text().splitlines():
             if zeile.startswith("DATABASE_URL="):
                 umgebung["DATABASE_URL"] = zeile.split("=", 1)[1].strip().strip('"')
-    roh = subprocess.run(
+    roh_p = subprocess.run(
         ["psql", umgebung["DATABASE_URL"], "-P", "pager=off", "-Atc", ABFRAGE],
-        capture_output=True, text=True, check=True, env=umgebung,
-    ).stdout.strip()
+        capture_output=True, text=True, check=False, env=umgebung,
+    )
+    if roh_p.returncode != 0:
+        # Verbindungsstring nicht ins Log — er enthaelt das Passwort.
+        raise SystemExit(f"psql fehlgeschlagen (Code {roh_p.returncode}):\n"
+                         + roh_p.stderr[-800:])
+    roh = roh_p.stdout.strip()
     return json.loads(roh)
 
 
