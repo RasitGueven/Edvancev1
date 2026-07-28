@@ -40,7 +40,7 @@ const COL = {
   inputType: 'input_type',
   status: 'status',
   afb: 'afb',
-  asset: null,               // z. B. 'asset_key' / 'bild_url', falls vorhanden. null = keine Spalte.
+  asset: 'assets',
 };
 
 const CFG = {
