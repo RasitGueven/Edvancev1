@@ -2,14 +2,8 @@ name: schema
 
 on:
   pull_request:
-    paths:
-      - 'supabase/migrations/**'
-      - 'supabase/test-grundlage.sql'
-      - '.github/workflows/schema.yml'
   push:
     branches: [dev, main]
-    paths:
-      - 'supabase/migrations/**'
 
 jobs:
   neuaufbau:
