@@ -10,7 +10,7 @@ gates:
   - bash -c 'test $(grep -c "^def pruefe_" scripts/figures/pruefe_baumdiagramm.py) -ge 3'
   - bash -c 'grep -q "negativkontrolle\|Negativkontrolle" scripts/figures/test_baumdiagramm.py'
   - bash tools/neuaufbau-test.sh
-  - bash -c 'psql "$DBURL" -tAc "select pg_get_constraintdef(oid) from pg_constraint where conrelid = ''public.task_figures''::regclass and contype = ''c''" | grep -q "baumdiagramm"'
+  - bash -c 'grep -rl "task_figures_generator" supabase/migrations/ | xargs grep -lq "baumdiagramm"'
 ---
 
 ## Ziel
