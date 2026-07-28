@@ -240,6 +240,9 @@ async function runGates(spec, wt) {
 async function runAgent(prompt, wt, braucht_db = false) {
   const pf = path.join(wt, '.orch-prompt.md');
   await fs.writeFile(pf, prompt);
+  // Marker fuer guard-paths.sh: dies ist ein autonomer Lauf.
+  await fs.mkdir(path.join(wt, '.claude'), { recursive: true });
+  await fs.writeFile(path.join(wt, '.claude', 'autonomous'), '');
   log('\n  claude -p läuft …\n');
   // Produktionszugang bleibt draussen. Ein Agent, der DBURL erbt, verbindet sich
   // damit — auch wenn die Spec nichts davon sagt.
@@ -250,6 +253,7 @@ async function runAgent(prompt, wt, braucht_db = false) {
     { cwd: wt, env: sauber }
   );
   await fs.rm(pf, { force: true });
+  await fs.rm(path.join(wt, '.claude', 'autonomous'), { force: true });
   return r;
 }
 

@@ -139,7 +139,7 @@ echo
 echo "══ Vergleich mit Produktion"
 D="--schema-only --no-owner --no-acl --no-comments --schema public"
 pg_dump "$LOCAL" $D 2>/dev/null | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/neu.txt
-pg_dump "$DBURL" $D 2>/dev/null | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/prod.txt
+pg_dump "$DBURL" $D 2>/tmp/dumperr || { bad "Prod nicht erreichbar:"; tail -3 /tmp/dumperr; exit 1; } | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/prod.txt
 
 echo "  neu:  $(wc -l < /tmp/neu.txt) Zeilen"
 echo "  prod: $(wc -l < /tmp/prod.txt) Zeilen"
@@ -161,5 +161,7 @@ else
   comm -23 /tmp/neu.txt /tmp/prod.txt | head -15 | cut -c1-110 | sed 's/^/      /'
   echo
   info "vollständig:  diff /tmp/neu.txt /tmp/prod.txt"
+  echo
+  exit 1
 fi
 echo

@@ -91,6 +91,9 @@ nicht belegt, dass die Prüfung überhaupt greifen kann.
   Die Historie ist append-only: neue Datei in `supabase/migrations/`, nicht die
   A19-Migration ändern. Danach `bash tools/schema-snapshot.sh` und
   `supabase/schema-erwartet.sql` mitcommitten.
+- **Nicht in Produktion einspielen.** Die Migration wird nach dem Merge von Hand
+  über `scripts/db-migrate.sh` eingespielt. Der Neuaufbau-Test belegt vorher,
+  dass sie trägt.
 
 ## Nicht-Ziele
 
