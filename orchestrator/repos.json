@@ -1,4 +1,4 @@
 {
-  "edvancev1":   { "path": "/home/rasit/Edvancev1", "base": "main" },
-  "edvance-app": { "path": "/home/rasit/dev/edvance-app", "base": "main" }
+  "edvancev1":   { "path": "/home/rasit/Edvancev1", "base": "dev" },
+  "edvance-app": { "path": "/home/rasit/dev/edvance-app", "base": "dev" }
 }
