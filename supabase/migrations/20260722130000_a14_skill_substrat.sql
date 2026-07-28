@@ -9,13 +9,12 @@
 
 --
 -- Name: FUNCTION lsa_abschluss(p_skill_key text); Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON FUNCTION public.lsa_abschluss(p_skill_key text) IS 'Alle transitiv erreichbaren Voraussetzungen eines Skills (ohne den Skill selbst). Immer zur Laufzeit — nie materialisiert.';
 
 --
 -- Name: skill_kante_tiefe_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
+
+ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS skill_key text;
 
 CREATE FUNCTION public.skill_kante_tiefe_guard() RETURNS trigger
     LANGUAGE plpgsql
@@ -97,6 +96,8 @@ CREATE TABLE public.skills (
 COMMENT ON TABLE public.skills IS 'Die Fundament-Skills der LSA-Auswahl. fundament_tiefe = Stufe im Fundament (1 traegt alles), nicht Schwierigkeit.';
 
 --
+ALTER TABLE public.tasks ADD COLUMN IF NOT EXISTS sondierrang integer;
+
 -- Name: COLUMN tasks.sondierrang; Type: COMMENT; Schema: public; Owner: -
 --
 
@@ -183,10 +184,6 @@ ALTER TABLE ONLY public.skill_voraussetzung
 
 --
 -- Name: student_focus_areas student_focus_areas_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.student_focus_areas
-    ADD CONSTRAINT student_focus_areas_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
 
 --
 -- Name: tasks tasks_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
@@ -194,3 +191,100 @@ ALTER TABLE ONLY public.student_focus_areas
 
 ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT tasks_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
+
+-- Stammdaten. Aus Produktion nachgetragen; pg_dump --schema-only
+-- enthält keine Daten, deshalb fehlten sie in der Rekonstruktion.
+
+-- skills (32 Zeilen)
+INSERT INTO public.skills VALUES ('dezimal_add_sub', 'Dezimalzahlen addieren/subtrahieren', 'mathematik', 5, 1) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('bruch_kuerzen', 'Brüche kürzen', 'mathematik', 6, 1) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('vorzeichen_add_sub', 'Negative Zahlen addieren/subtrahieren', 'mathematik', 7, 1) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('dezimal_mult', 'Dezimalzahlen multiplizieren', 'mathematik', 6, 2) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('bruch_add', 'Brüche addieren', 'mathematik', 6, 2) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('bruch_mult', 'Brüche multiplizieren', 'mathematik', 6, 2) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('vorzeichen_mult_div', 'Negative Zahlen multiplizieren/dividieren', 'mathematik', 7, 2) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('runden_ueberschlag', 'Runden und Überschlag', 'mathematik', 5, 2) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('dezimal_div', 'Dezimalzahlen dividieren', 'mathematik', 6, 3) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('bruch_div', 'Brüche dividieren', 'mathematik', 6, 3) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('bruch_dezimal', 'Bruch in Dezimalzahl', 'mathematik', 6, 4) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('groessen_laengen', 'Längen umrechnen', 'mathematik', 5, 3) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('groessen_massen', 'Massen umrechnen', 'mathematik', 5, 3) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('vorzeichen_vorrang', 'Vorrangregeln mit Vorzeichen', 'mathematik', 7, 4) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('groessen_zeit', 'Zeitspannen umrechnen', 'mathematik', 5, 4) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('potenzen', 'Potenzen und Quadratzahlen', 'mathematik', 7, 4) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('proportionalitaet', 'Dreisatz, proportionale Zuordnung', 'mathematik', 7, 4) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('term_zusammenfassen', 'Terme zusammenfassen', 'mathematik', 7, 4) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('groessen_flaechen', 'Flächeneinheiten', 'mathematik', 6, 5) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('groessen_volumen', 'Volumeneinheiten', 'mathematik', 6, 6) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('groessen_gemischt', 'Gemischte Schreibweise', 'mathematik', 6, 5) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('term_ausmultiplizieren', 'Ausmultiplizieren', 'mathematik', 7, 5) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('gleichung_einschrittig', 'Einschrittige Gleichungen', 'mathematik', 7, 5) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('term_minusklammer', 'Minusklammer auflösen', 'mathematik', 7, 6) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('gleichung_zweischrittig', 'Zweischrittige Gleichungen', 'mathematik', 7, 6) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('prozent_prozentwert', 'Prozentwert berechnen', 'mathematik', 7, 6) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('term_ausklammern', 'Ausklammern', 'mathematik', 7, 7) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('gleichung_neg_koeffizient', 'Gleichungen mit negativem Koeffizienten', 'mathematik', 7, 7) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('gleichung_beidseitig', 'Beidseitige Gleichungen', 'mathematik', 7, 7) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('prozent_grundwert', 'Grundwert berechnen', 'mathematik', 7, 7) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('prozent_prozentsatz', 'Prozentsatz berechnen', 'mathematik', 7, 7) ON CONFLICT DO NOTHING;
+INSERT INTO public.skills VALUES ('prozent_veraenderung', 'Prozentuale Veränderung', 'mathematik', 7, 8) ON CONFLICT DO NOTHING;
+
+-- themen (8 Zeilen)
+INSERT INTO public.themen VALUES ('terme_binomische_formeln', 'mathematik', 8, 'Terme und binomische Formeln') ON CONFLICT DO NOTHING;
+INSERT INTO public.themen VALUES ('lineare_gleichungen_lgs', 'mathematik', 8, 'Lineare Gleichungen und LGS') ON CONFLICT DO NOTHING;
+INSERT INTO public.themen VALUES ('lineare_funktionen', 'mathematik', 8, 'Lineare Funktionen') ON CONFLICT DO NOTHING;
+INSERT INTO public.themen VALUES ('zinsrechnung', 'mathematik', 8, 'Zinsrechnung') ON CONFLICT DO NOTHING;
+INSERT INTO public.themen VALUES ('kreis', 'mathematik', 8, 'Kreis') ON CONFLICT DO NOTHING;
+INSERT INTO public.themen VALUES ('prismen_zylinder', 'mathematik', 8, 'Prismen und Zylinder') ON CONFLICT DO NOTHING;
+INSERT INTO public.themen VALUES ('zufallsexperimente', 'mathematik', 8, 'Zufallsexperimente') ON CONFLICT DO NOTHING;
+INSERT INTO public.themen VALUES ('daten_streumasse', 'mathematik', 8, 'Daten und Streumaße') ON CONFLICT DO NOTHING;
+
+-- skill_kante (41 Zeilen)
+INSERT INTO public.skill_kante VALUES ('dezimal_mult', 'dezimal_add_sub') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('dezimal_div', 'dezimal_mult') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('runden_ueberschlag', 'dezimal_add_sub') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('bruch_add', 'bruch_kuerzen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('bruch_mult', 'bruch_kuerzen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('bruch_div', 'bruch_mult') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('bruch_dezimal', 'bruch_kuerzen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('bruch_dezimal', 'dezimal_div') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('vorzeichen_mult_div', 'vorzeichen_add_sub') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('vorzeichen_vorrang', 'vorzeichen_mult_div') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('groessen_laengen', 'dezimal_mult') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('groessen_massen', 'dezimal_mult') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('groessen_zeit', 'dezimal_add_sub') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('potenzen', 'dezimal_mult') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('potenzen', 'vorzeichen_mult_div') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('proportionalitaet', 'dezimal_div') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('groessen_flaechen', 'groessen_laengen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('groessen_flaechen', 'potenzen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('groessen_volumen', 'groessen_flaechen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('groessen_gemischt', 'groessen_laengen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('groessen_gemischt', 'groessen_zeit') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('term_zusammenfassen', 'vorzeichen_add_sub') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('term_ausmultiplizieren', 'term_zusammenfassen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('term_ausmultiplizieren', 'vorzeichen_mult_div') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('term_minusklammer', 'term_ausmultiplizieren') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('term_ausklammern', 'term_ausmultiplizieren') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('gleichung_einschrittig', 'vorzeichen_add_sub') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('gleichung_einschrittig', 'dezimal_div') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('gleichung_zweischrittig', 'gleichung_einschrittig') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('gleichung_neg_koeffizient', 'gleichung_zweischrittig') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('gleichung_neg_koeffizient', 'vorzeichen_mult_div') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('gleichung_beidseitig', 'gleichung_zweischrittig') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('gleichung_beidseitig', 'term_zusammenfassen') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('prozent_prozentwert', 'proportionalitaet') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('prozent_prozentwert', 'dezimal_mult') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('prozent_prozentsatz', 'prozent_prozentwert') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('prozent_prozentsatz', 'dezimal_div') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('prozent_grundwert', 'prozent_prozentwert') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('prozent_grundwert', 'gleichung_einschrittig') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('prozent_veraenderung', 'prozent_prozentwert') ON CONFLICT DO NOTHING;
+INSERT INTO public.skill_kante VALUES ('prozent_veraenderung', 'prozent_grundwert') ON CONFLICT DO NOTHING;
+
+
+ALTER TABLE public.tasks ADD CONSTRAINT tasks_sondierrang_check CHECK (((sondierrang IS NULL) OR (sondierrang >= 1)));
+
+-- CONSTRAINT TRIGGER: pg_dump gibt ihn als CREATE TRIGGER aus, mein Zuordner
+-- hat die DEFERRABLE-Variante nicht erkannt.
+CREATE CONSTRAINT TRIGGER skill_kante_tiefe AFTER INSERT OR UPDATE ON public.skill_kante DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION skill_kante_tiefe_guard();

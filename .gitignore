@@ -53,3 +53,9 @@ data/vera8_sichtung/*/
 out/
 state/
 .worktrees/
+.runbook-log
+.runbook-state
+.runbook-col-ok
+out/
+state/
+.worktrees/

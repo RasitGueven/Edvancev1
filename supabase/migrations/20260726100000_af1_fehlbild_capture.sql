@@ -11,6 +11,8 @@
 -- Name: lsa_fehlbild_capture(); Type: FUNCTION; Schema: public; Owner: -
 --
 
+ALTER TABLE public.lsa_responses ADD COLUMN IF NOT EXISTS fehlbild_slug text;
+
 CREATE FUNCTION public.lsa_fehlbild_capture() RETURNS trigger
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public'
