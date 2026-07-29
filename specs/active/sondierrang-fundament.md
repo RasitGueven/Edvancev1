@@ -7,7 +7,7 @@ depends_on: []
 gates:
   - python3 scripts/content/sondierrang_vorschlag.py
   - bash -c 'git diff --quiet docs/sondierrang_vorschlag.md || (echo "Vorlage veraltet — neu erzeugt, bitte pruefen und mitcommitten" && exit 1)'
-  - psql "$DBURL" -v ON_ERROR_STOP=1 -f supabase/checks/sondierrang.PRUEFUNG.sql
+  - psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/checks/sondierrang.PRUEFUNG.sql
 ---
 
 ## Ziel
