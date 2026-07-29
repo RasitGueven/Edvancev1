@@ -34,12 +34,26 @@ create table if not exists auth.users (
   created_at         timestamptz default now()
 );
 
+-- Supabase liefert die Claims als JSON in request.jwt.claims; einzelne
+-- request.jwt.claim.<name> sind die aeltere Form. Beide muessen hier ankommen:
+-- ein Stub, der nur eine davon liest, laesst Pruefskripte gruen leuchten, die
+-- mit der anderen Form arbeiten — auth.uid() bleibt dann null, und
+-- `if not lsa_may_act_for(...)` feuert bei null nicht.
+-- Vorrang hat die Einzahlform (siehe supabase/checks/jwt_identitaet.PRUEFUNG.sql).
+
 create or replace function auth.uid() returns uuid language sql stable as $$
-  select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid
+  select coalesce(
+           nullif(current_setting('request.jwt.claim.sub', true), ''),
+           nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'sub'
+         )::uuid
 $$;
 
 create or replace function auth.role() returns text language sql stable as $$
-  select coalesce(nullif(current_setting('request.jwt.claim.role', true), ''), 'anon')
+  select coalesce(
+           nullif(current_setting('request.jwt.claim.role', true), ''),
+           nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role',
+           'anon'
+         )
 $$;
 
 create or replace function auth.jwt() returns jsonb language sql stable as $$

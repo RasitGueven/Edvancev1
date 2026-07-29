@@ -36,81 +36,15 @@ ok "$DB angelegt"
 # Die Migrationen setzen Rollen, Schemata und auth.users voraus, die in einer
 # Supabase-Instanz vorhanden sind. Ohne diese Grundlage scheitern sie an
 # Dingen, die nichts mit deinem Schema zu tun haben.
+#
+# Quelle ist supabase/test-grundlage.sql — dieselbe Datei, die schema-snapshot.sh
+# und .github/workflows/schema.yml einspielen. Hier stand frueher eine zweite,
+# eigene Kopie; sie ist beim auth.uid()-Fix auseinandergelaufen (siehe
+# docs/jwt-identitaet-befund.md). Eine Grundlage, eine Datei.
 
 echo
 echo "══ Grundlage"
-psql -q "$LOCAL" -v ON_ERROR_STOP=1 <<'SQL'
-create schema if not exists extensions;
-create extension if not exists "uuid-ossp" with schema extensions;
-create extension if not exists pgcrypto with schema extensions;
-
-do $$
-declare r text;
-begin
-  foreach r in array array['anon','authenticated','service_role','authenticator',
-                           'supabase_admin','supabase_auth_admin','supabase_storage_admin']
-  loop
-    if not exists (select 1 from pg_roles where rolname = r) then
-      execute format('create role %I nologin noinherit', r);
-    end if;
-  end loop;
-end $$;
-
-create schema if not exists auth;
-create schema if not exists storage;
-create schema if not exists extensions;
-
-create table if not exists auth.users (
-  id uuid primary key default gen_random_uuid(),
-  email text,
-  raw_user_meta_data jsonb,
-  created_at timestamptz default now()
-);
-
-create or replace function auth.uid() returns uuid language sql stable as $$
-  select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid
-$$;
-
-create or replace function auth.role() returns text language sql stable as $$
-  select coalesce(nullif(current_setting('request.jwt.claim.role', true), ''), 'anon')
-$$;
-
-create or replace function auth.jwt() returns jsonb language sql stable as $$
-  select coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb, '{}'::jsonb)
-$$;
-
-create schema if not exists supabase_migrations;
-create table if not exists supabase_migrations.schema_migrations (
-  version text primary key, name text, statements text[]
-);
-
-create table if not exists storage.buckets (
-  id text primary key,
-  name text not null,
-  owner uuid,
-  public boolean default false,
-  created_at timestamptz default now(),
-  updated_at timestamptz default now()
-);
-
-create table if not exists storage.objects (
-  id uuid primary key default gen_random_uuid(),
-  bucket_id text references storage.buckets(id),
-  name text,
-  owner uuid,
-  owner_id text,
-  path_tokens text[],
-  metadata jsonb,
-  created_at timestamptz default now(),
-  updated_at timestamptz default now(),
-  last_accessed_at timestamptz default now()
-);
-
-create or replace function storage.foldername(name text) returns text[]
-  language sql immutable as $fn$ select string_to_array(name, '/') $fn$;
-
-grant usage on schema public, extensions to anon, authenticated, service_role;
-SQL
+psql -q "$LOCAL" -v ON_ERROR_STOP=1 -f supabase/test-grundlage.sql
 [[ $? -eq 0 ]] && ok "Rollen, Schemata, auth.users, auth.uid()" || { bad "Grundlage fehlgeschlagen"; exit 1; }
 
 # ── Migrationen einspielen ──────────────────────────────────────────────────
