@@ -1,248 +1,311 @@
 #!/usr/bin/env python3
 """
-Erzeugt docs/sondierrang_vorschlag.md — die Entscheidungsvorlage fuer den
-sondierrang der Fundament-Aufgaben.
+Erzeugt die drei abgeleiteten Dateien zum sondierrang der Fundament-Aufgaben:
+
+    docs/sondierrang_vorschlag.md   Entscheidungsvorlage (Profile je Skill)
+    scripts/sql/sondierrang_setzen.sql  die UPDATEs, eine Zeile je Aufgabe
+    out/sondierrang-bericht.md      Begruendung je Skill, ohne DB lesbar
 
     python3 scripts/content/sondierrang_vorschlag.py
 
-Das Skript SETZT KEINEN RANG. sondierrang ist Handarbeit (Rasit/Lena); hier
-entsteht nur die Liste, aus der sich Rang 1 und 2 sinnvoll waehlen lassen.
+Das Skript SCHREIBT NICHT IN DIE DATENBANK. Es liest nur und legt ein
+SQL-Skript ab; das scharfe Setzen macht Rasit nach Durchsicht des Berichts
+(sondierrang ist laut Spaltenkommentar Handarbeit Rasit/Lena).
 
-WAS DIE SORTIERUNG TRAEGT — und was nicht:
+Kein Erzeugungsdatum in den Ausgaben — sonst aendern sie sich bei jedem Lauf
+ohne inhaltlichen Grund.
 
-Der Auftrag wollte "kontextfrei zuerst". Gemessen: KEINE der 146
-Fundament-Aufgaben traegt einen Sachkontext. Alle sind nackte Rechnungen, der
-laengste Fragetext besteht aus Arbeitsanweisung plus Term. Das Kriterium kann
-also nichts unterscheiden — es waere eine Sortierung, die so tut, als haette sie
-etwas gesehen.
+WAS DIE AUSWAHL TRAEGT — und was nicht:
 
-Was unterscheidet, ist das FEHLBILDPROFIL: welche Denkfehler eine Aufgabe
-ueberhaupt sichtbar machen kann. Genau darauf zielt der Auftrag ja ab ("damit
-sich die Fehlbildprofile unterscheiden"). Die Aufgaben stehen deshalb nach
-Profil gruppiert: Rang 1 aus dem einen Profil, Rang 2 aus einem anderen, dann
-decken die ersten beiden Sondier-Aufgaben zusammen mehr ab als zwei aus
-demselben Topf.
+Der urspruengliche Auftrag wollte "kontextfrei zuerst". Das unterscheidet die
+Fundament-Aufgaben kaum; was unterscheidet, ist das FEHLBILDPROFIL: welche
+Denkfehler eine Aufgabe ueberhaupt sichtbar machen kann.
 
-Die Skill-Zuordnung spiegelt den Backfill der A14-Migration (source_ref-Praefix
--> skill_key). Solange A14 nicht eingespielt ist, gibt es die Spalte
-tasks.skill_key noch nicht, deshalb rechnet das Skript sie hier selbst aus.
+ACHTUNG, hier liegt die Falle: known_errors ist ein Objekt
+{"<falsche Antwort>": "<Fehlbild>"}, zum Beispiel
+
+    {"3/7": "nenner_addiert", "3/12": "zaehler_nicht_erweitert"}
+
+Die SCHLUESSEL sind die konkreten falschen Antworten — sie haengen an den
+Zahlen der Aufgabe und sind darum fast fuer jede Aufgabe verschieden. Die WERTE
+sind die Fehlbilder. Ein Profil aus Schluesseln waere praktisch die Aufgaben-
+Identitaet und koennte nichts buendeln; gruppiert wird deshalb nach den WERTEN.
+Der Unterschied ist in out/sondierrang-bericht.md ausdruecklich vermerkt, weil
+supabase/checks/sondierrang.PRUEFUNG.sql nach Schluesseln prueft.
+
+Damit die Pruefung trotzdem haelt, erzwingt die Auswahl zusaetzlich
+verschiedene Schluesselprofile, wo der Skill mehr als eines hat (P4).
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 from collections import defaultdict
 from pathlib import Path
 
+from sondierrang_texte import BERICHT_KOPF, FUSS, KOPF, SQL_KOPF
+
 WURZEL = Path(__file__).resolve().parents[2]
-OUT = WURZEL / "docs/sondierrang_vorschlag.md"
+OUT_DOC = WURZEL / "docs/sondierrang_vorschlag.md"
+OUT_SQL = WURZEL / "scripts/sql/sondierrang_setzen.sql"
+OUT_BERICHT = WURZEL / "out/sondierrang-bericht.md"
 
-# Spiegelt Abschnitt 7 der A14-Migration. Eine Aenderung hier ohne dort waere
-# genau die zweite Wahrheit, die das Substrat vermeiden soll.
-GRUPPE_ZU_SKILL = {
-    "brueche-kuerzen": "bruch_kuerzen",
-    "brueche-addieren": "bruch_add",
-    "brueche-multiplizieren": "bruch_mult",
-    "brueche-dividieren": "bruch_div",
-    "dezimal-addieren": "dezimal_add_sub",
-    "dezimal-multiplizieren": "dezimal_mult",
-    "dezimal-dividieren": "dezimal_div",
-    "dezimal-umwandeln": "bruch_dezimal",
-    "vorzeichen-addieren": "vorzeichen_add_sub",
-    "vorzeichen-punktrechnung": "vorzeichen_mult_div",
-    "vorzeichen-vorrang": "vorzeichen_vorrang",
-    "term-zusammenfassen": "term_zusammenfassen",
-    "term-ausmultiplizieren": "term_ausmultiplizieren",
-    "term-ausklammern": "term_ausklammern",
-    "term-minusklammer": "term_minusklammer",
-    "gleichung-einschrittig": "gleichung_einschrittig",
-    "gleichung-zweischrittig": "gleichung_zweischrittig",
-    "gleichung-negativ": "gleichung_neg_koeffizient",
-    "gleichung-beidseitig": "gleichung_beidseitig",
-    "prozent-wert": "prozent_prozentwert",
-    "prozent-satz": "prozent_prozentsatz",
-    "prozent-grundwert": "prozent_grundwert",
-    "prozent-veraenderung": "prozent_veraenderung",
-}
-
-# skill_key -> (Label, fundament_tiefe). Ebenfalls aus A14.
-SKILL_INFO = {
-    "dezimal_add_sub": ("Dezimalzahlen addieren/subtrahieren", 1),
-    "bruch_kuerzen": ("Brüche kürzen", 1),
-    "vorzeichen_add_sub": ("Negative Zahlen addieren/subtrahieren", 1),
-    "dezimal_mult": ("Dezimalzahlen multiplizieren", 2),
-    "bruch_add": ("Brüche addieren", 2),
-    "bruch_mult": ("Brüche multiplizieren", 2),
-    "vorzeichen_mult_div": ("Negative Zahlen multiplizieren/dividieren", 2),
-    "dezimal_div": ("Dezimalzahlen dividieren", 3),
-    "bruch_div": ("Brüche dividieren", 3),
-    "bruch_dezimal": ("Bruch in Dezimalzahl", 4),
-    "vorzeichen_vorrang": ("Vorrangregeln mit Vorzeichen", 4),
-    "term_zusammenfassen": ("Terme zusammenfassen", 4),
-    "term_ausmultiplizieren": ("Ausmultiplizieren", 5),
-    "gleichung_einschrittig": ("Einschrittige Gleichungen", 5),
-    "term_minusklammer": ("Minusklammer auflösen", 6),
-    "gleichung_zweischrittig": ("Zweischrittige Gleichungen", 6),
-    "prozent_prozentwert": ("Prozentwert berechnen", 6),
-    "term_ausklammern": ("Ausklammern", 7),
-    "gleichung_neg_koeffizient": ("Gleichungen mit negativem Koeffizienten", 7),
-    "gleichung_beidseitig": ("Beidseitige Gleichungen", 7),
-    "prozent_grundwert": ("Grundwert berechnen", 7),
-    "prozent_prozentsatz": ("Prozentsatz berechnen", 7),
-    "prozent_veraenderung": ("Prozentuale Veränderung", 8),
-}
-
+# Skill-Label und Fundament-Tiefe kommen aus der Tabelle skills. Sie hier noch
+# einmal zu pflegen waere die zweite Wahrheit, die das Substrat vermeiden soll.
 ABFRAGE = """
-select json_agg(z order by z.source_ref)
+select json_agg(z order by z.skill_key, z.source_ref)
 from (
-  select t.id::text            as id,
-         t.source_ref          as source_ref,
-         t.afb                 as afb,
-         t.input_type          as input_type,
-         btrim(split_part(t.question, chr(10), 3)) as aufgabe,
+  select t.id::text        as id,
+         t.skill_key       as skill_key,
+         k.label           as label,
+         k.fundament_tiefe as tiefe,
+         t.source_ref      as source_ref,
+         t.afb             as afb,
+         t.question        as question,
          coalesce(s.acceptance -> 'known_errors', '{}'::jsonb) as known_errors
     from tasks t
-    join task_solutions s on s.task_id = t.id
+    join skills k          on k.skill_key = t.skill_key
+    join task_solutions s  on s.task_id = t.id
    where t.source = 'edvance_fundament'
+     and t.status = 'ready'
 ) z
 """
 
+ZAHL = re.compile(r"\d+(?:[.,]\d+)?")
+
+
+def db_url() -> str:
+    """DATABASE_URL aus der Umgebung, sonst aus .env.
+
+    .env quotet den Wert mit Apostrophen; ein reines strip('"') liess den
+    Apostroph stehen, psql las den String dann als Datenbanknamen.
+    """
+    if os.environ.get("DATABASE_URL"):
+        return os.environ["DATABASE_URL"]
+    for zeile in (WURZEL / ".env").read_text().splitlines():
+        if zeile.startswith("DATABASE_URL="):
+            wert = zeile.split("=", 1)[1].strip()
+            if len(wert) >= 2 and wert[0] == wert[-1] and wert[0] in "\"'":
+                wert = wert[1:-1]
+            return wert
+    raise SystemExit("DATABASE_URL weder in der Umgebung noch in .env gefunden.")
+
 
 def hole_aufgaben() -> list[dict]:
-    umgebung = dict(os.environ)
-    if "DATABASE_URL" not in umgebung:
-        for zeile in (WURZEL / ".env").read_text().splitlines():
-            if zeile.startswith("DATABASE_URL="):
-                umgebung["DATABASE_URL"] = zeile.split("=", 1)[1].strip().strip('"')
-    roh_p = subprocess.run(
-        ["psql", umgebung["DATABASE_URL"], "-P", "pager=off", "-Atc", ABFRAGE],
-        capture_output=True, text=True, check=False, env=umgebung,
+    url = db_url()
+    lauf = subprocess.run(
+        ["psql", url, "-P", "pager=off", "-Atc", ABFRAGE],
+        capture_output=True, text=True, check=False,
+        env=dict(os.environ, DATABASE_URL=url),
     )
-    if roh_p.returncode != 0:
+    if lauf.returncode != 0:
         # Verbindungsstring nicht ins Log — er enthaelt das Passwort.
-        raise SystemExit(f"psql fehlgeschlagen (Code {roh_p.returncode}):\n"
-                         + roh_p.stderr[-800:])
-    roh = roh_p.stdout.strip()
-    return json.loads(roh)
+        raise SystemExit(f"psql fehlgeschlagen (Code {lauf.returncode}):\n"
+                         + lauf.stderr[-800:])
+    return json.loads(lauf.stdout.strip())
+
+
+def aufgabentext(question: str) -> str:
+    """Fragetext einzeilig. Nicht auf die dritte Zeile verkuerzen — bei den
+    Geometrie- und Dreisatz-Aufgaben stehen die Zahlen in der ersten."""
+    return " ".join(question.split())
+
+
+def zahlengroesse(question: str) -> float:
+    """Summe der Zahlen im Fragetext. Grober, aber nachvollziehbarer Massstab
+    fuer 'kleinere Zahlen zuerst' — der Tiebreak, wenn das Profil nichts mehr
+    unterscheidet."""
+    return sum(float(z.replace(",", ".")) for z in ZAHL.findall(question))
+
+
+def anzahl(n: int, einzahl: str, mehrzahl: str) -> str:
+    return f"{n} {einzahl if n == 1 else mehrzahl}"
+
+
+def waehle(posten: list[dict]) -> tuple[dict, dict, str]:
+    """Rang 1 und 2 fuer einen Skill. Gibt zusaetzlich die Begruendung zurueck."""
+    nach_profil: dict[tuple[str, ...], list[dict]] = defaultdict(list)
+    for a in posten:
+        nach_profil[a["fehlbilder"]].append(a)
+    for gruppe in nach_profil.values():
+        gruppe.sort(key=lambda a: (a["zahlen"], a["source_ref"]))
+
+    # Breitestes Profil zuerst: die Aufgabe, die die meisten Fehlbilder zeigen
+    # kann. Bei gleicher Breite entscheidet dieselbe Regel wie innerhalb eines
+    # Profils — kleinere Zahlen zuerst.
+    ordnung = sorted(nach_profil, key=lambda p: (-len(p), nach_profil[p][0]["zahlen"], p))
+
+    if len(ordnung) > 1:
+        erst = ordnung[0]
+        # Rang 2 soll etwas NEUES zeigen. Unter den uebrigen Profilen also das,
+        # das die meisten Fehlbilder beitraegt, die Rang 1 nicht schon zeigt —
+        # nicht einfach das zweitbreiteste. Wo ein Profil Teilmenge des ersten
+        # ist, bringt es null Neue und faellt damit von selbst nach hinten.
+        zweit = max(ordnung[1:], key=lambda p: (len(set(p) - set(erst)), len(p),
+                                                -nach_profil[p][0]["zahlen"]))
+        r1 = nach_profil[erst][0]
+        r2 = nach_profil[zweit][0]
+
+        neu = len(set(zweit) - set(erst))
+        breite = anzahl(len(erst), "Fehlbild", "Fehlbilder")
+        kopf = (f"Rang 1 aus dem breitesten Fehlbildprofil ({breite})"
+                if len(erst) > len(ordnung[1]) else
+                f"Rang 1 aus dem Profil mit den kleineren Zahlen — die vorderen Profile "
+                f"zeigen gleich viele Fehlbilder ({len(erst)})")
+        if neu:
+            grund = (f"{kopf}; Rang 2 aus dem Profil, das am meisten Neues beitraegt "
+                     f"({anzahl(neu, 'weiteres Fehlbild', 'weitere Fehlbilder')}) — zusammen "
+                     f"{anzahl(len(set(erst) | set(zweit)), 'Fehlbild', 'Fehlbilder')}.")
+        else:
+            grund = (f"{kopf}; Rang 2 aus einem anderen Profil, das aber eine Teilmenge des "
+                     f"ersten ist — mehr gibt der Bestand hier nicht her, die zweite "
+                     f"Sondierung zeigt kein zusaetzliches Fehlbild.")
+    else:
+        gruppe = nach_profil[ordnung[0]]
+        r1, r2 = gruppe[0], gruppe[1]
+        grund = ("Nur ein Fehlbildprofil — nach Profil ist hier nichts zu unterscheiden; "
+                 "es entscheidet die Zahlenwahl, kleinere Zahlen zuerst.")
+
+    # P4 der PRUEFUNG zaehlt Schluesselprofile, nicht Fehlbilder. Wo der Skill
+    # mehr als eines hat, muessen Rang 1 und 2 sich auch dort unterscheiden.
+    if len({a["antworten"] for a in posten}) > 1 and r1["antworten"] == r2["antworten"]:
+        rest = [a for a in sorted(posten, key=lambda a: (a["zahlen"], a["source_ref"]))
+                if a["id"] != r1["id"] and a["antworten"] != r1["antworten"]]
+        if not rest:
+            raise SystemExit(f"{r1['skill_key']}: kein zweites Schluesselprofil gefunden.")
+        r2 = rest[0]
+        grund += " Rang 2 nachgezogen, damit sich auch die falschen Antworten unterscheiden."
+
+    return r1, r2, grund
 
 
 def main() -> None:
     aufgaben = hole_aufgaben()
+    for a in aufgaben:
+        a["fehlbilder"] = tuple(sorted(set(a["known_errors"].values())))
+        a["antworten"] = tuple(sorted(a["known_errors"].keys()))
+        a["text"] = aufgabentext(a["question"])
+        a["zahlen"] = zahlengroesse(a["question"])
 
     je_skill: dict[str, list[dict]] = defaultdict(list)
     for a in aufgaben:
-        gruppe = a["source_ref"].rsplit("-", 1)[0]
-        skill = GRUPPE_ZU_SKILL.get(gruppe)
-        if skill is None:
-            raise SystemExit(f"Gruppe {gruppe} hat keinen Skill — Mapping ergaenzen.")
-        je_skill[skill].append(a)
+        je_skill[a["skill_key"]].append(a)
 
-    zeilen: list[str] = [KOPF]
-    ohne_fehlbilder: list[str] = []
+    skills = sorted(je_skill, key=lambda s: (je_skill[s][0]["tiefe"] or 0, s))
+    wahl = {s: waehle(je_skill[s]) for s in skills}
 
-    for skill in sorted(je_skill, key=lambda s: (SKILL_INFO[s][1], s)):
-        label, tiefe = SKILL_INFO[skill]
+    pruefe(je_skill, wahl)
+    schreibe_doc(je_skill, skills, wahl)
+    schreibe_sql(skills, wahl)
+    schreibe_bericht(je_skill, skills, wahl)
+
+    ohne = [s for s in skills if not any(a["fehlbilder"] for a in je_skill[s])]
+    print(f"geschrieben: {OUT_DOC}\n             {OUT_SQL}\n             {OUT_BERICHT}")
+    print(f"  Skills: {len(skills)}   Aufgaben: {len(aufgaben)}   "
+          f"UPDATEs: {2 * len(skills)}")
+    if ohne:
+        print(f"  ohne known_errors: {', '.join(ohne)}")
+
+
+def pruefe(je_skill: dict[str, list[dict]], wahl: dict) -> None:
+    """Dieselben Zusicherungen, die supabase/checks/sondierrang.PRUEFUNG.sql
+    danach an der Datenbank prueft — hier schon, damit ein Fehler nicht erst im
+    Probelauf auffaellt."""
+    for skill, posten in je_skill.items():
+        r1, r2, _ = wahl[skill]
+        if r1["id"] == r2["id"]:
+            raise SystemExit(f"{skill}: Rang 1 und 2 sind dieselbe Aufgabe.")
+        if len({a["antworten"] for a in posten}) > 1 and r1["antworten"] == r2["antworten"]:
+            raise SystemExit(f"{skill}: P4 verletzt — gleiches Schluesselprofil.")
+
+
+def schreibe_doc(je_skill, skills, wahl) -> None:
+    zeilen = [KOPF.replace("@AUFGABEN@", str(sum(len(je_skill[s]) for s in skills)))
+                  .replace("@SKILLS@", str(len(skills)))]
+    for skill in skills:
         posten = je_skill[skill]
+        label, tiefe = posten[0]["label"], posten[0]["tiefe"]
+        r1, r2, _ = wahl[skill]
 
-        # Nach Fehlbildprofil buendeln — das ist die Entscheidungsachse.
         profile: dict[tuple[str, ...], list[dict]] = defaultdict(list)
         for a in posten:
-            schluessel = tuple(sorted(set(a["known_errors"].values())))
-            profile[schluessel].append(a)
+            profile[a["fehlbilder"]].append(a)
 
         zeilen.append(f"\n## `{skill}` — {label}\n")
-        zeilen.append(f"Fundament-Tiefe {tiefe} · {len(posten)} Aufgaben · "
-                      f"{len(profile)} Fehlbildprofil(e)\n")
-
+        zeilen.append(f"\nFundament-Tiefe {tiefe} · {len(posten)} Aufgaben · "
+                      f"{anzahl(len(profile), 'Fehlbildprofil', 'Fehlbildprofile')}\n")
         if len(profile) == 1 and not next(iter(profile)):
-            ohne_fehlbilder.append(skill)
             zeilen.append(
                 "\n> **Keine `known_errors` gepflegt.** Nach Profil laesst sich hier nichts "
-                "unterscheiden — die Auswahl von Rang 1 und 2 braucht erst die Fehlbilder "
-                "(siehe Kopf).\n"
-            )
+                "unterscheiden — es entscheidet die Zahlenwahl (siehe Kopf).\n")
 
-        for nr, (schluessel, gruppe) in enumerate(
-            sorted(profile.items(), key=lambda kv: (-len(kv[0]), kv[0])), start=1
-        ):
+        for nr, schluessel in enumerate(
+                sorted(profile, key=lambda p: (-len(p), p)), start=1):
             titel = ", ".join(f"`{s}`" for s in schluessel) if schluessel else "_(keine)_"
             zeilen.append(f"\n**Profil {nr}:** {titel}\n")
-            zeilen.append("\n| source_ref | Aufgabe | AFB | id |")
-            zeilen.append("\n|---|---|---|---|")
-            for a in gruppe:
-                zeilen.append(
-                    f"\n| `{a['source_ref']}` | `{a['aufgabe']}` | {a['afb']} | `{a['id'][:8]}` |"
-                )
+            zeilen.append("\n| Rang | source_ref | Aufgabe | AFB | id |")
+            zeilen.append("\n|---|---|---|---|---|")
+            for a in sorted(profile[schluessel], key=lambda a: (a["zahlen"], a["source_ref"])):
+                rang = "**1**" if a["id"] == r1["id"] else "**2**" if a["id"] == r2["id"] else "—"
+                zeilen.append(f"\n| {rang} | `{a['source_ref']}` | {a['text']} "
+                              f"| {a['afb']} | `{a['id'][:8]}` |")
             zeilen.append("\n")
-
-    zeilen.append(FUSS.replace("@OHNE@", ", ".join(f"`{s}`" for s in ohne_fehlbilder) or "keine"))
-    OUT.write_text("".join(zeilen), encoding="utf-8")
-
-    print(f"geschrieben: {OUT}")
-    print(f"  Skills: {len(je_skill)}   Aufgaben: {len(aufgaben)}")
-    if ohne_fehlbilder:
-        print(f"  ohne known_errors: {', '.join(ohne_fehlbilder)}")
+    zeilen.append(FUSS)
+    OUT_DOC.write_text("".join(zeilen), encoding="utf-8")
 
 
-KOPF = """# Sondierrang — Entscheidungsvorlage
+def schreibe_sql(skills, wahl) -> None:
+    zeilen = [SQL_KOPF.replace("@N@", str(2 * len(skills))).replace("@SKILLS@", str(len(skills)))]
+    for skill in skills:
+        r1, r2, _ = wahl[skill]
+        zeilen.append(f"\n-- {skill} — {r1['label']}\n")
+        for rang, a in ((1, r1), (2, r2)):
+            zeilen.append(f"update tasks set sondierrang = {rang}\n"
+                          f" where id = '{a['id']}'  -- {a['source_ref']}\n"
+                          f"   and source = 'edvance_fundament' and status = 'ready'\n"
+                          f"   and sondierrang is distinct from {rang};\n")
+    OUT_SQL.write_text("".join(zeilen), encoding="utf-8")
 
-**Erzeugt von `scripts/content/sondierrang_vorschlag.py`. Nicht von Hand pflegen.**
 
-`tasks.sondierrang` ist in der A14-Migration angelegt und steht **überall auf
-`NULL`**. Diese Datei setzt keinen Rang — sie ist die Liste, aus der Rasit und
-Lena Rang 1 und 2 je Skill wählen.
+def schreibe_bericht(je_skill, skills, wahl) -> None:
+    # Wie viel bringt die zweite Sondierung? Das ist der Punkt, an dem die
+    # Durchsicht ansetzen sollte.
+    neu, teilmenge, einzeln = [], [], []
+    for s in skills:
+        r1, r2, _ = wahl[s]
+        if len({a["fehlbilder"] for a in je_skill[s]}) == 1:
+            einzeln.append(s)
+        elif set(r2["fehlbilder"]) - set(r1["fehlbilder"]):
+            neu.append(s)
+        else:
+            teilmenge.append(s)
 
-## Warum nicht „kontextfrei zuerst"
+    zeilen = [BERICHT_KOPF
+              .replace("@AUFGABEN@", str(sum(len(je_skill[s]) for s in skills)))
+              .replace("@SKILLS@", str(len(skills)))
+              .replace("@N@", str(2 * len(skills)))
+              .replace("@NEU@", str(len(neu)))
+              .replace("@TEILMENGE@", str(len(teilmenge)))
+              .replace("@EINZELN@", str(len(einzeln)))
+              .replace("@TEILMENGE_LISTE@", ", ".join(f"`{s}`" for s in teilmenge) or "keine")]
+    for skill in skills:
+        posten = je_skill[skill]
+        r1, r2, grund = wahl[skill]
+        anzahl_profile = len({a["fehlbilder"] for a in posten})
+        zeilen.append(f"\n## `{skill}` — {posten[0]['label']}\n")
+        zeilen.append(f"\n{len(posten)} Aufgaben · "
+                      f"{anzahl(anzahl_profile, 'Fehlbildprofil', 'Fehlbildprofile')}\n")
+        for rang, a in ((1, r1), (2, r2)):
+            bilder = ", ".join(f"`{s}`" for s in a["fehlbilder"]) or "_(keine gepflegt)_"
+            zeilen.append(f"\n- **Rang {rang}** · `{a['source_ref']}` · {a['text']}\n")
+            zeilen.append(f"  - Fehlbilder: {bilder}\n")
+            zeilen.append(f"  - `{a['id']}`\n")
+        zeilen.append(f"\n{grund}\n")
+    OUT_BERICHT.write_text("".join(zeilen), encoding="utf-8")
 
-Der ursprüngliche Auftrag wollte die Aufgaben nach „kontextfrei zuerst" sortiert.
-Gemessen an den echten Daten: **keine der 146 Fundament-Aufgaben trägt einen
-Sachkontext.** Alle sind nackte Rechnungen; der längste Fragetext ist
-Arbeitsanweisung plus Term (24 Wörter, `term-minusklammer`). Das Kriterium kann
-hier also nichts unterscheiden, und eine Sortierung danach würde eine Auswahl
-vortäuschen, die keine ist.
-
-Was unterscheidet, ist das **Fehlbildprofil**: welche Denkfehler eine Aufgabe
-überhaupt sichtbar machen kann. Genau darauf zielt der Auftrag auch ab — Rang 1
-und 2 sollen sich in den Fehlbildern unterscheiden. Die Aufgaben stehen deshalb
-nach Profil gebündelt.
-
-## Wie man das liest
-
-Je Skill sind die Aufgaben nach ihrem Fehlbildprofil gruppiert. Zwei Aufgaben im
-selben Profil machen dieselben Denkfehler sichtbar — sie als Rang 1 und 2 zu
-wählen verschenkt die zweite Sondierung.
-
-**Faustregel:** Rang 1 aus dem breitesten Profil (die meisten Fehlbilder,
-steht oben), Rang 2 aus einem *anderen* Profil.
-
-Wo ein Skill nur ein einziges Profil hat, ist die Wahl innerhalb des Skills
-gleichgültig — dann entscheidet die Zahlenwahl, und die sieht man in der Spalte
-`Aufgabe`.
-"""
-
-FUSS = """
----
-
-## Offen
-
-**Ohne `known_errors`:** @OHNE@
-
-Diese Skills sind die Term-Gruppen. Ihre Fehlbilder sind berechnet und
-dokumentiert (im Kopf von `supabase/seeds/20260722_term_fundament_01.sql`),
-aber **nicht als Daten speicherbar**: `known_errors` lebt in `acceptance`, und
-`acceptance` mit `canonical` kippt bei Termen die Bewertung. Der Weg dorthin
-steht in `AUTONOMY_NOTES.md` (Eintrag 3) und hängt an der A13-Migration.
-
-Bis dahin lässt sich der Sondierrang für diese vier Skills nicht nach Profil
-wählen — nur nach Augenschein an der Zahlenwahl.
-
-**Neun Skills haben noch gar keine Aufgaben:** `runden_ueberschlag`,
-`groessen_laengen`, `groessen_massen`, `groessen_zeit`, `potenzen`,
-`proportionalitaet`, `groessen_flaechen`, `groessen_gemischt`,
-`groessen_volumen`. Sie tauchen hier nicht auf, weil es nichts zu ranken gibt.
-"""
 
 
 if __name__ == "__main__":
