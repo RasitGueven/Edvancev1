@@ -44,11 +44,12 @@ echo "   $n eingespielt"
 echo "── Abzug"
 {
   echo "-- schema-erwartet.sql"
-  echo "-- Erzeugt von tools/schema-snapshot.sh am $(date -u +%F)."
+  echo "-- Erzeugt von tools/schema-snapshot.sh."
   echo "-- Stand nach allen Migrationen in supabase/migrations/."
   echo "-- Nicht von Hand bearbeiten — nach Schemaänderungen neu erzeugen."
   echo
-  pg_dump "postgresql:///$DB" --schema-only --no-owner --no-acl --no-comments --schema public
+  pg_dump "postgresql:///$DB" --schema-only --no-owner --no-acl --no-comments --schema public \
+    | grep -vE "^\\\\(un)?restrict "
 } > "$ZIEL"
 
 dropdb "$DB"

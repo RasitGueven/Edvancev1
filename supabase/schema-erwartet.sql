@@ -1,5 +1,5 @@
 -- schema-erwartet.sql
--- Erzeugt von tools/schema-snapshot.sh am 2026-07-28.
+-- Erzeugt von tools/schema-snapshot.sh.
 -- Stand nach allen Migrationen in supabase/migrations/.
 -- Nicht von Hand bearbeiten — nach Schemaänderungen neu erzeugen.
 
@@ -7,7 +7,6 @@
 -- PostgreSQL database dump
 --
 
-\restrict IZgZpVuexLllWfb0p5reSD4avT2bdZZ0JhpQJgxGKSAUKqQBa0cgoMYlSIPAMeL
 
 -- Dumped from database version 18.4 (Ubuntu 18.4-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.4 (Ubuntu 18.4-0ubuntu0.26.04.1)
@@ -7449,5 +7448,4 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict IZgZpVuexLllWfb0p5reSD4avT2bdZZ0JhpQJgxGKSAUKqQBa0cgoMYlSIPAMeL
 
