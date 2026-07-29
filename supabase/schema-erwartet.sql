@@ -854,6 +854,11 @@ CREATE FUNCTION public.lsa_fehlbild_auswertung(p_session_id uuid) RETURNS TABLE(
       from public.lsa_responses r
       join public.tasks t on t.id = r.task_id
      where r.session_id = p_session_id
+	and exists (
+         select 1 from public.lsa_sessions s
+          where s.id = p_session_id
+            and coalesce(public.lsa_may_act_for(s.student_id), false)
+       )
        and r.abgabeart  = 'antwort'
        and r.correct is false
        and r.fehlbild_slug is not null
@@ -1035,6 +1040,11 @@ CREATE FUNCTION public.lsa_fehlbild_report(p_session_id uuid) RETURNS TABLE(skil
       from public.lsa_responses r
       join public.tasks t on t.id = r.task_id
      where r.session_id = p_session_id
+	and exists (
+         select 1 from public.lsa_sessions s
+          where s.id = p_session_id
+            and coalesce(public.lsa_may_act_for(s.student_id), false)
+       )
        and r.abgabeart  = 'antwort'
        and r.correct is false
   ),

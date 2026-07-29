@@ -33,8 +33,16 @@ declare
   v_num     numeric;
   v_arr     text[];
   v_ctrl    boolean;
+  v_coach   uuid := gen_random_uuid();
 begin
   -- ══ Testdaten ═════════════════════════════════════════════════════════════
+
+  -- Identitaet setzen: ohne Rolle liefert get_my_role() null, lsa_may_act_for
+  -- gibt null zurueck und coalesce(...,false) in AF2 sperrt alles weg.
+  insert into auth.users (id, email) values (v_coach, 'pruef-coach@edvance.test');
+  insert into public.profiles (id, email, role)
+    values (v_coach, 'pruef-coach@edvance.test', 'coach');
+  perform set_config('request.jwt.claim.sub', v_coach::text, true);
 
   -- Zwei Skills — Fall 5 braucht ein Fehlbild, das ueber beide laeuft.
   insert into public.skills (skill_key, label, fach, klasse_herkunft, fundament_tiefe)
