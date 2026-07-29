@@ -22,5 +22,6 @@ $(cat "$SPEC")" --permission-mode acceptEdits \
 --allowedTools "Bash(npm run test:*)" "Bash(npm run typecheck:*)" "Bash(npm run lint:*)" \
                 "Bash(git add:*)" "Bash(git commit:*)" \
                 "Bash(bash tools/neuaufbau-test.sh)" "Bash(bash tools/schema-snapshot.sh)" \
-                "Bash(psql postgresql:///edvance_neuaufbau*)" 
+                "Bash(psql:*)" \
+		"Bash(python3:*)" 
 echo "Lauf beendet auf Branch $BRANCH — PR nach dev öffnen und reviewen."
