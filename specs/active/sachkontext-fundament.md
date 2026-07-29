@@ -6,8 +6,8 @@ branch: spec/sachkontext-fundament
 depends_on: []
 gates:
   - node tools/verify-tasks.mjs --source edvance_fundament_kontext --min-pass 0.98
-  - bash -c 'psql "$DBURL" -tAc "select count(*) from tasks where source=''edvance_fundament_kontext'' and (skill_key is null or status<>''draft'')" | grep -qx 0'
-  - bash -c 'psql "$DBURL" -tAc "select count(*) from tasks t left join task_solutions s on s.task_id=t.id where t.source=''edvance_fundament_kontext'' and s.task_id is null" | grep -qx 0'
+  - bash -c 'psql "$DATABASE_URL" -tAc "select count(*) from tasks where source=''edvance_fundament_kontext'' and (skill_key is null or status<>''draft'')" | grep -qx 0'
+  - bash -c 'psql "$DATABASE_URL" -tAc "select count(*) from tasks t left join task_solutions s on s.task_id=t.id where t.source=''edvance_fundament_kontext'' and s.task_id is null" | grep -qx 0'
 ---
 
 ## Ziel
