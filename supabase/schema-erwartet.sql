@@ -840,6 +840,55 @@ $$;
 
 
 --
+-- Name: lsa_fehlbild_auswertung(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_fehlbild_auswertung(p_session_id uuid) RETURNS TABLE(fehlbild_slug text, klartext text, anzahl bigint, aufgaben bigint, skills text[], skill_uebergreifend boolean, einstufung text)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  with falsch as (
+    select r.fehlbild_slug as slug,
+           r.task_id       as task_id,
+           t.skill_key     as sk
+      from public.lsa_responses r
+      join public.tasks t on t.id = r.task_id
+     where r.session_id = p_session_id
+       and r.abgabeart  = 'antwort'
+       and r.correct is false
+       and r.fehlbild_slug is not null
+  ),
+  je_slug as (
+    -- `aufgaben` zaehlt AUFGABEN, nicht Zeilen: zwei Teilaufgaben desselben
+    -- Items sind eine Aufgabe. Genau darauf steht die Einstufung.
+    -- count(distinct sk) ignoriert NULL — eine Aufgabe ohne Skill ist kein
+    -- zweiter Skill und macht ein Fehlbild nicht uebergreifend.
+    select f.slug,
+           count(*)                  as n,
+           count(distinct f.task_id) as n_aufgaben,
+           count(distinct f.sk)      as n_skills,
+           coalesce(
+             array_agg(distinct f.sk order by f.sk) filter (where f.sk is not null),
+             '{}'::text[])           as sk_liste
+      from falsch f
+     group by f.slug
+  )
+  select g.slug,
+         l.klartext,
+         g.n,
+         g.n_aufgaben,
+         g.sk_liste,
+         (g.n_skills >= 2),
+         case when g.n >= 2 and g.n_aufgaben >= 2 then 'befund' else 'beobachtung' end
+    from je_slug g
+    left join public.fehlbild_labels l on l.slug = g.slug
+   -- Befunde zuerst, darin das haeufigste — der Report liest von oben.
+   order by (case when g.n >= 2 and g.n_aufgaben >= 2 then 0 else 1 end),
+            g.n desc, g.slug asc
+$$;
+
+
+--
 -- Name: lsa_fehlbild_capture(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -969,6 +1018,49 @@ begin
 
   return v_slug;
 end;
+$$;
+
+
+--
+-- Name: lsa_fehlbild_report(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_fehlbild_report(p_session_id uuid) RETURNS TABLE(skill_key text, fehlbild_slug text, klartext text, anzahl bigint, anteil numeric)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  with falsch as (
+    select t.skill_key     as sk,
+           r.fehlbild_slug as slug
+      from public.lsa_responses r
+      join public.tasks t on t.id = r.task_id
+     where r.session_id = p_session_id
+       and r.abgabeart  = 'antwort'
+       and r.correct is false
+  ),
+  je_slug as (
+    -- group by trifft slug null als eigene Gruppe (NULLs gelten hier als
+    -- gleich) — das ist die "nicht zugeordnet"-Zeile.
+    -- Das Fenster ueber der Aggregation liefert den Nenner je Skill, ohne die
+    -- Basis ein zweites Mal zu lesen.
+    select f.sk,
+           f.slug,
+           count(*)                            as n,
+           sum(count(*)) over (partition by f.sk) as n_skill
+      from falsch f
+     group by f.sk, f.slug
+  )
+  select g.sk,
+         g.slug,
+         case when g.slug is null then 'nicht zugeordnet' else l.klartext end,
+         g.n,
+         -- Anteil als Bruchteil 0..1, auf 4 Stellen gerundet. Gerundete
+         -- Anteile summieren sich nicht zwingend exakt auf 1 — massgeblich
+         -- ist `anzahl`.
+         round(g.n::numeric / g.n_skill, 4)
+    from je_slug g
+    left join public.fehlbild_labels l on l.slug = g.slug
+   order by g.sk asc, g.n desc, g.slug asc
 $$;
 
 

@@ -16,7 +16,9 @@ touch .claude/autonomous
 # Marker IMMER entfernen — auch bei Fehler (set -e) oder Abbruch (Ctrl-C / kill),
 # damit kein verwaister .claude/autonomous spätere interaktive Sessions ausbremst.
 trap 'rm -f .claude/autonomous' EXIT INT TERM
-claude -p "$(cat "$SPEC")" --permission-mode acceptEdits \
+claude -p "Setze diese Spec um. Alle Gates im Frontmatter muessen gruen sein. Committe auf dem aktuellen Branch, oeffne keinen PR.
+
+$(cat "$SPEC")" --permission-mode acceptEdits \
 --allowedTools "Bash(npm run test:*)" "Bash(npm run typecheck:*)" "Bash(npm run lint:*)" \
                 "Bash(git add:*)" "Bash(git commit:*)" \
                 "Bash(bash tools/neuaufbau-test.sh)" "Bash(bash tools/schema-snapshot.sh)" \
