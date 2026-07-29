@@ -66,6 +66,11 @@ as $$
       from public.lsa_responses r
       join public.tasks t on t.id = r.task_id
      where r.session_id = p_session_id
+	and exists (
+         select 1 from public.lsa_sessions s
+          where s.id = p_session_id
+            and coalesce(public.lsa_may_act_for(s.student_id), false)
+       )
        and r.abgabeart  = 'antwort'
        and r.correct is false
   ),
@@ -137,6 +142,11 @@ as $$
       from public.lsa_responses r
       join public.tasks t on t.id = r.task_id
      where r.session_id = p_session_id
+	and exists (
+         select 1 from public.lsa_sessions s
+          where s.id = p_session_id
+            and coalesce(public.lsa_may_act_for(s.student_id), false)
+       )
        and r.abgabeart  = 'antwort'
        and r.correct is false
        and r.fehlbild_slug is not null
