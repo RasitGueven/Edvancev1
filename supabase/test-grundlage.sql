@@ -27,9 +27,19 @@ end $$;
 create schema if not exists auth;
 create schema if not exists storage;
 
+-- instance_id/aud/role gehoeren zur echten auth.users und fehlten hier. Die
+-- Invariantentests in supabase/tests/ schreiben sie mit
+-- (`insert into auth.users (id, email, instance_id, aud, role)`) — gegen den
+-- alten Stub scheiterte jeder von ihnen an einer fehlenden Spalte, statt an
+-- dem, was er pruefen soll. Aufgefallen ist es erst, als die Tests in
+-- .github/workflows/schema.yml aufgenommen wurden; vorher liefen sie nur
+-- gegen `npx supabase test db`, wo die vollstaendige Tabelle existiert.
 create table if not exists auth.users (
   id                 uuid primary key default gen_random_uuid(),
   email              text,
+  instance_id        uuid,
+  aud                text,
+  role               text,
   raw_user_meta_data jsonb,
   created_at         timestamptz default now()
 );

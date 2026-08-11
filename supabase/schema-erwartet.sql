@@ -7127,6 +7127,45 @@ CREATE POLICY session_students_select_own ON public.session_students FOR SELECT 
 ALTER TABLE public.skill_clusters ENABLE ROW LEVEL SECURITY;
 
 --
+-- Name: skill_kante; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.skill_kante ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: skill_kante skill_kante_read_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY skill_kante_read_all ON public.skill_kante FOR SELECT TO anon, authenticated, service_role USING (true);
+
+
+--
+-- Name: skill_voraussetzung; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.skill_voraussetzung ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: skill_voraussetzung skill_voraussetzung_read_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY skill_voraussetzung_read_all ON public.skill_voraussetzung FOR SELECT TO anon, authenticated, service_role USING (true);
+
+
+--
+-- Name: skills; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.skills ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: skills skills_read_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY skills_read_all ON public.skills FOR SELECT TO anon, authenticated, service_role USING (true);
+
+
+--
 -- Name: slot_assignments; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -7450,6 +7489,19 @@ ALTER TABLE public.task_solutions ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.tasks ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: themen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.themen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: themen themen_read_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY themen_read_all ON public.themen FOR SELECT TO anon, authenticated, service_role USING (true);
+
 
 --
 -- Name: tiers; Type: ROW SECURITY; Schema: public; Owner: -

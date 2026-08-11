@@ -96,3 +96,87 @@ jobs:
             comm -13 /tmp/soll.txt /tmp/ist.txt | head -40
             exit 1
           fi
+
+      # ── Ab hier laufen die SQL-Tests. Sie kommen bewusst NACH dem
+      #    Schemavergleich: pgTAP legt rund tausend Funktionen an, und die
+      #    Seed-Daten fuellen Tabellen. Beides soll den Abzug nicht beruehren.
+
+      - name: pgTAP bereitstellen
+        run: |
+          cid=$(docker ps --format '{{.ID}} {{.Image}}' | awk '$2 ~ /^postgres:16/ {print $1; exit}')
+          if [ -z "$cid" ]; then
+            echo "::error::Postgres-Dienstcontainer nicht gefunden — pgTAP nicht installierbar."
+            docker ps
+            exit 1
+          fi
+          # Das offizielle postgres-Image traegt die PGDG-Quelle bereits.
+          docker exec "$cid" bash -c \
+            'apt-get update -qq && apt-get install -y -qq postgresql-16-pgtap' >/dev/null
+          psql -v ON_ERROR_STOP=1 -q -c 'create schema if not exists extensions'
+          psql -v ON_ERROR_STOP=1 -q -c 'create extension if not exists pgtap with schema extensions'
+          echo "pgTAP $(psql -tAc "select extversion from pg_extension where extname='pgtap'")"
+
+      - name: Katalogdaten
+        run: |
+          # Die Tests legen ihre Fixtures selbst an, haengen sie aber an
+          # skill_clusters/subjects — die kommen aus seed.sql, nicht aus den
+          # Migrationen. Ohne diesen Schritt liefern die \gset-Abfragen NULL und
+          # psql scheitert an nicht ersetzten :'variablen'.
+          # supabase/seeds/*.sql (Aufgabenbestand) braucht keiner der Tests, die
+          # hier gruen laufen — bewusst nicht geladen, das spart eine Minute.
+          psql -v ON_ERROR_STOP=1 -q -f supabase/seed.sql
+
+      - name: Invariantentests (pgTAP)
+        env:
+          # pgTAP liegt in `extensions`; die Tests rufen plan()/ok()/is()
+          # unqualifiziert auf. In Supabase steht das im search_path der
+          # Datenbank, in einem nackten Postgres nicht.
+          PGOPTIONS: -c search_path=public,extensions
+        run: |
+          liste=supabase/tests/bekannt-rot.txt
+          fehler=0
+          for f in $(ls supabase/tests/*.test.sql | sort); do
+            b=$(basename "$f" .test.sql)
+            if out=$(psql -X -q -t -A -v ON_ERROR_STOP=1 -f "$f" 2>&1) \
+               && ! grep -qE '^not ok|^# Looks like' <<<"$out"; then
+              stand=gruen
+            else
+              stand=rot
+            fi
+            if grep -qE "^$b([[:space:]]|$)" "$liste"; then
+              if [ "$stand" = gruen ]; then
+                echo "::error file=$liste::$b laeuft wieder gruen — Zeile aus $liste entfernen."
+                fehler=1
+              else
+                echo "  wartet $b — $(grep -E "^$b([[:space:]]|$)" "$liste" | sed 's/^[^#]*#[[:space:]]*//')"
+              fi
+              continue
+            fi
+            if [ "$stand" = gruen ]; then
+              echo "  ok     $b ($(grep -cE '^ok ' <<<"$out") Zusicherungen)"
+            else
+              echo "::error file=$f::$b ist rot"
+              grep -E '^not ok|^#|ERROR|FEHLER' <<<"$out" | head -15
+              fehler=1
+            fi
+          done
+          exit $fehler
+
+      - name: Prüfskripte gegen den Neuaufbau
+        run: |
+          # Nur die beiden Skripte aus supabase/checks/, die fuer eine leere
+          # Neuaufbau-Datenbank geschrieben sind (Testdaten selbst anlegen,
+          # eigenes begin/rollback). Die uebrigen sieben pruefen gegen
+          # Produktionsinhalte — Begruendung im PR.
+          fehler=0
+          for f in supabase/checks/fehlbild_auswertung.PRUEFUNG.sql \
+                   supabase/checks/jwt_identitaet.PRUEFUNG.sql; do
+            if psql -v ON_ERROR_STOP=1 -q -f "$f" >/dev/null 2>/tmp/perr; then
+              echo "  ok   $(basename "$f")"
+            else
+              echo "::error file=$f::Prüfskript scheitert"
+              grep -vE '^(NOTICE|HINWEIS)' /tmp/perr | head -20
+              fehler=1
+            fi
+          done
+          exit $fehler
