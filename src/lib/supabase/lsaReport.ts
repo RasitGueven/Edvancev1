@@ -15,6 +15,7 @@ import type {
   LsaSessionState,
   ParentAssessment,
   ReportData,
+  ReportFehlbild,
   ReportTopic,
   SupabaseResult,
 } from '@/types'
@@ -199,6 +200,47 @@ function buildTopics(
     .sort((a, b) => a.topic.localeCompare(b.topic, 'de'))
 }
 
+// Die wiederkehrenden Denkschritte der Sitzung (AF2/AF3).
+//
+// Quelle ist ausschließlich die RPC lsa_fehlbild_auswertung — sie ist der
+// einzige Lesepfad auf lsa_responses.fehlbild_slug (kein Grant auf der Spalte)
+// und trägt die Abnahme-Schranke: ein unabgenommener Klartext kommt hier gar
+// nicht erst an, sondern als null.
+//
+// Gefiltert wird auf einstufung='befund' (>=2 Treffer in >=2 Aufgaben). Eine
+// 'beobachtung' ist per Definition ein Einzeltreffer — im Elterngespräch wäre
+// das eine Behauptung über das Denken eines Kindes auf einer einzigen Aufgabe.
+//
+// Ein Fehler hier darf den Report nicht kippen: die Fehlbilder sind ein
+// Zusatzabschnitt, die Themen-Belege sind der Report. Deshalb leeres Array
+// statt Fehlerdurchreichung.
+async function loadFehlbilder(sessionId: string): Promise<ReportFehlbild[]> {
+  const { data, error } = await supabase.rpc('lsa_fehlbild_auswertung', {
+    p_session_id: sessionId,
+  })
+  if (error || !data) return []
+
+  type Row = {
+    fehlbild_slug: string
+    klartext: string | null
+    anzahl: number
+    aufgaben: number
+    skill_uebergreifend: boolean
+    einstufung: string
+  }
+
+  return (data as Row[])
+    .filter((r) => r.einstufung === 'befund')
+    .map((r) => ({
+      slug: r.fehlbild_slug,
+      klartext: r.klartext?.trim() ? r.klartext : null,
+      anzahl: r.anzahl,
+      aufgaben: r.aufgaben,
+      skillUebergreifend: r.skill_uebergreifend,
+      einstufung: 'befund' as const,
+    }))
+}
+
 // Der vollständige Report-Datensatz einer Session.
 export async function getReportData(
   sessionId: string,
@@ -256,6 +298,7 @@ export async function getReportData(
           }[],
         ),
         parentAssessment: await loadParentAssessment(row.student_id),
+        fehlbilder: await loadFehlbilder(row.id),
       },
       error: null,
     }

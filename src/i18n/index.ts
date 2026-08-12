@@ -8,6 +8,7 @@ import deStudent from './locales/de/student.json'
 import deMock from './locales/de/mock.json'
 import deSlots from './locales/de/slots.json'
 import deReport from './locales/de/report.json'
+import deParent from './locales/de/parent.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -20,6 +21,7 @@ void i18n.use(initReactI18next).init({
       mock: deMock,
       slots: deSlots,
       report: deReport,
+      parent: deParent,
     },
   },
   lng: 'de',
@@ -34,6 +36,7 @@ void i18n.use(initReactI18next).init({
     'mock',
     'report',
     'slots',
+    'parent',
   ],
   interpolation: { escapeValue: false },
   returnNull: false,

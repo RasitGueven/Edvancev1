@@ -38,6 +38,21 @@ export type ParentAssessment = {
   weakTopics: string[]
 }
 
+// Ein wiederkehrender Denkschritt aus lsa_fehlbild_auswertung (AF2/AF3).
+//
+// `klartext` ist null, solange der Text nicht von einem Menschen abgenommen ist
+// (fehlbild_labels.freigegeben_am) oder der Slug in der Registry fehlt. Die
+// Anzeige MUSS diesen Fall auf einen neutralen Text abbilden und darf den Slug
+// nie zeigen — er ist ein interner Schlüssel, kein Satz für Eltern.
+export type ReportFehlbild = {
+  slug: string
+  klartext: string | null
+  anzahl: number
+  aufgaben: number
+  skillUebergreifend: boolean
+  einstufung: 'befund' | 'beobachtung'
+}
+
 export type ReportData = {
   sessionId: string
   firstName: string | null
@@ -47,6 +62,8 @@ export type ReportData = {
   analysedAt: string | null
   topics: ReportTopic[]
   parentAssessment: ParentAssessment | null
+  /** Nur Einstufung 'befund' — Beobachtungen tragen für ein Elterngespräch zu wenig. */
+  fehlbilder: ReportFehlbild[]
 }
 
 // Die Pakete der Empfehlung. Bewusst eine Konstantenliste: die

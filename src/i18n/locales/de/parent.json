@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "subtitle": "Eltern-Dashboard"
+  },
+  "page": {
+    "title": "Mein Kind"
+  },
+  "quickAccess": {
+    "title": "Schnellzugriff",
+    "tile": "Fortschritt & Reports ansehen"
+  },
+  "child": {
+    "unnamed": "Unbenannt"
+  },
+  "empty": {
+    "title": "Noch keine Daten",
+    "description": "Sobald Ihr Kind angelegt ist, erscheinen hier der Lernstand und die Reports."
+  },
+  "nextSession": {
+    "title": "Nächste Session",
+    "room": "Raum {{room}}",
+    "none": "Noch kein Termin geplant."
+  },
+  "reports": {
+    "title": "Reports",
+    "none": "Noch kein veröffentlichter Report.",
+    "period": "{{from}} – {{to}}",
+    "section": {
+      "lernfortschritt": "Lernfortschritt",
+      "anwesenheit": "Anwesenheit",
+      "eingriffe": "Eingriffe",
+      "empfehlung": "Empfehlung"
+    }
+  }
+}

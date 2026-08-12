@@ -1,41 +1,53 @@
 import { useEffect, useState, type JSX } from 'react'
+import { useTranslation } from 'react-i18next'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { User } from 'lucide-react'
-import { EdvanceCard, EdvanceBadge, EmptyState, LoadingPulse, StreakPill } from '@/components/edvance'
+import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { DashboardTiles } from '@/components/edvance/DashboardTiles'
 import { useAuth } from '@/hooks/useAuth'
 import { listStudentsWithName } from '@/lib/supabase/students'
-import { getStudentProgress } from '@/lib/supabase/progress'
 import { listReportsForStudent } from '@/lib/supabase/parentReports'
 import { listUpcomingSessionsForStudent } from '@/lib/supabase/sessions'
 import { formatSessionDate } from '@/lib/datetime'
 import { studentSelectLabel } from '@/lib/utils'
-import type {
-  CoachingSession,
-  ParentReport,
-  StudentProgress,
-  StudentWithName,
-} from '@/types'
+import type { CoachingSession, ParentReport, StudentWithName } from '@/types'
 
+/**
+ * Eltern-Dashboard.
+ *
+ * KEINE Gamification (INV-4): XP, Level und Streaks sind die Sprache des
+ * Schüler-Surface und motivieren dort. Gegenüber Eltern werden sie zur
+ * Leistungskennzahl — ein Streak, der reißt, liest sich als Vorwurf, und ein
+ * XP-Stand lädt zum Vergleich mit anderen Kindern ein. Der Elternblick zeigt
+ * Termine und die vom Coach freigegebenen Reports, sonst nichts.
+ *
+ * Ansprache: Sie. Der Screen gehört den Eltern, nicht dem Kind.
+ */
 type ChildVM = {
   student: StudentWithName
-  progress: StudentProgress | null
   reports: ParentReport[]
   nextSession: CoachingSession | null
 }
 
-const REPORT_SECTIONS: [string, string][] = [
-  ['lernfortschritt', 'Lernfortschritt'],
-  ['anwesenheit', 'Anwesenheit'],
-  ['eingriffe', 'Eingriffe'],
-  ['empfehlung', 'Empfehlung'],
-]
+const REPORT_SECTIONS = [
+  'lernfortschritt',
+  'anwesenheit',
+  'eingriffe',
+  'empfehlung',
+] as const
 
 export function ParentDashboard(): JSX.Element {
   const { user } = useAuth()
+  const { t, i18n } = useTranslation('parent')
   const [children, setChildren] = useState<ChildVM[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  // Datum über Intl mit der aktiven Locale (§12), nicht toLocaleDateString('de-DE').
+  const dateFmt = new Intl.DateTimeFormat(i18n.language, {
+    dateStyle: 'medium',
+    timeZone: 'Europe/Berlin',
+  })
 
   useEffect(() => {
     if (!user) return
@@ -51,15 +63,14 @@ export function ParentDashboard(): JSX.Element {
       }
       const vms: ChildVM[] = []
       for (const student of students ?? []) {
-        const [{ data: progress }, { data: reports }, { data: sessions }] =
-          await Promise.all([
-            getStudentProgress(student.id),
-            listReportsForStudent(student.id),
-            listUpcomingSessionsForStudent(student.id),
-          ])
+        // getStudentProgress ist hier bewusst NICHT mehr geladen: der einzige
+        // Konsument waren XP/Level/Streak.
+        const [{ data: reports }, { data: sessions }] = await Promise.all([
+          listReportsForStudent(student.id),
+          listUpcomingSessionsForStudent(student.id),
+        ])
         vms.push({
           student,
-          progress,
           reports: reports ?? [],
           nextSession: sessions && sessions.length > 0 ? sessions[0] : null,
         })
@@ -76,9 +87,11 @@ export function ParentDashboard(): JSX.Element {
 
   return (
     <div className="min-h-screen bg-background">
-      <EdvanceNavbar subtitle="Eltern-Dashboard" sticky />
+      <EdvanceNavbar subtitle={t('nav.subtitle')} sticky />
       <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
-        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Mein Kind</h1>
+        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
+          {t('page.title')}
+        </h1>
 
         {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
 
@@ -87,81 +100,63 @@ export function ParentDashboard(): JSX.Element {
         ) : children.length === 0 ? (
           <EmptyState
             icon="👨‍👩‍👧"
-            title="Noch keine Daten"
-            description="Sobald dein Kind angelegt ist, erscheinen hier Fortschritt und Reports."
+            title={t('empty.title')}
+            description={t('empty.description')}
           />
         ) : (
           <>
             {children.length > 1 && (
               <>
                 <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                  Schnellzugriff
+                  {t('quickAccess.title')}
                 </h2>
                 <DashboardTiles
                   tiles={children.map(({ student }) => ({
                     to: `#child-${student.id}`,
                     anchor: true,
                     icon: <User className="h-5 w-5" />,
-                    title: student.full_name ?? 'Unbenannt',
-                    description: 'Fortschritt & Reports ansehen',
+                    title: student.full_name ?? t('child.unnamed'),
+                    description: t('quickAccess.tile'),
                   }))}
                 />
               </>
             )}
-            {children.map(({ student, progress, reports, nextSession }) => (
+            {children.map(({ student, reports, nextSession }) => (
             <div
               key={student.id}
               id={`child-${student.id}`}
               className="scroll-mt-20"
             >
             <EdvanceCard className="flex flex-col gap-4 p-6">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-base font-semibold text-[var(--color-text-primary)]">
-                  {studentSelectLabel(student)}
-                </span>
-                <EdvanceBadge variant="primary">
-                  Level {progress?.level ?? 1}
-                </EdvanceBadge>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2">
-                <StreakPill
-                  variant="presence"
-                  count={progress?.presence_streak_weeks ?? 0}
-                  multiplier={progress?.presence_streak_multiplier ?? 1}
-                />
-                <StreakPill
-                  variant="home"
-                  count={progress?.home_streak_sessions ?? 0}
-                />
-                <span className="ml-auto text-sm font-semibold text-[var(--color-text-secondary)]">
-                  {(progress?.xp_total ?? 0).toLocaleString('de-DE')} XP
-                </span>
-              </div>
+              <span className="text-base font-semibold text-[var(--color-text-primary)]">
+                {studentSelectLabel(student)}
+              </span>
 
               <div className="flex flex-col gap-2">
                 <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                  Nächste Session
+                  {t('nextSession.title')}
                 </p>
                 {nextSession ? (
                   <p className="text-sm text-[var(--color-text-secondary)]">
-                    {formatSessionDate(nextSession.scheduled_at)} Uhr
-                    {nextSession.room ? ` · Raum ${nextSession.room}` : ''}
+                    {formatSessionDate(nextSession.scheduled_at)}
+                    {nextSession.room
+                      ? ` · ${t('nextSession.room', { room: nextSession.room })}`
+                      : ''}
                   </p>
                 ) : (
                   <p className="text-sm text-[var(--color-text-tertiary)]">
-                    Noch kein Termin geplant.
+                    {t('nextSession.none')}
                   </p>
                 )}
               </div>
 
               <div className="flex flex-col gap-2">
                 <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                  Reports
+                  {t('reports.title')}
                 </p>
                 {reports.length === 0 ? (
                   <p className="text-sm text-[var(--color-text-tertiary)]">
-                    Noch kein veröffentlichter Report.
+                    {t('reports.none')}
                   </p>
                 ) : (
                   reports.map((r) => (
@@ -170,10 +165,12 @@ export function ParentDashboard(): JSX.Element {
                       className="p-4"
                     >
                       <p className="text-sm font-semibold text-[var(--color-text-primary)]">
-                        {new Date(r.period_start).toLocaleDateString('de-DE')} –{' '}
-                        {new Date(r.period_end).toLocaleDateString('de-DE')}
+                        {t('reports.period', {
+                          from: dateFmt.format(new Date(r.period_start)),
+                          to: dateFmt.format(new Date(r.period_end)),
+                        })}
                       </p>
-                      {REPORT_SECTIONS.map(([key, label]) => {
+                      {REPORT_SECTIONS.map((key) => {
                         const v = (r.summary as Record<string, unknown> | null)?.[
                           key
                         ]
@@ -181,7 +178,7 @@ export function ParentDashboard(): JSX.Element {
                         return (
                           <div key={key} className="mt-2">
                             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                              {label}
+                              {t(`reports.section.${key}`)}
                             </p>
                             <p className="mt-0.5 text-sm leading-relaxed text-[var(--color-text-secondary)]">
                               {v}
