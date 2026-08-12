@@ -1,0 +1,39 @@
+# bekannt-rot.txt — Tests, die gegen einen Neuaufbau aus dem Repo nicht laufen.
+#
+# Gelesen von .github/workflows/schema.yml. Ein Test auf dieser Liste darf rot
+# sein, ohne die Pipeline zu stoppen. Wird er wieder gruen, schlaegt der
+# Workflow ebenfalls an — dann gehoert die Zeile hier raus. Die Liste kann also
+# nur schrumpfen, nicht stillschweigend wachsen.
+#
+# Alle acht sind seit Monaten rot: sie liefen in keiner Pipeline (genau der
+# Befund, der diese Verdrahtung ausgeloest hat) und sind an Schemaaenderungen
+# vorbeigelaufen, die nach ihnen kamen. Das ist Reparaturarbeit an den Tests,
+# nicht an der Datenbank — bewusst nicht Teil des RLS-PRs.
+#
+# Format: <Testname ohne .test.sql>  # Grund
+
+# --- Gruppe 1: Fixture schreibt eine Loesung nach tasks.question_payload -----
+# Der CHECK tasks_question_payload_no_solution (20260714120000_t1b_drop_altbestand)
+# verbietet die Schluessel correct/accepted/pairs/blanks/expected in
+# question_payload. Diese vier Fixtures setzen "correct" — der Insert scheitert,
+# bevor der Test irgendetwas prueft. inv2/inv3/inv5/inv8 loesen dasselbe Problem,
+# indem sie den CHECK transaktionslokal fallen lassen; hier fehlt das.
+# Achtung: der lokale Drop allein reicht nicht — darunter liegen bei allen vier
+# weitere Fehler (Gruppe 2 bzw. fehlende Grants). Geprueft am 2026-08-11.
+a3_lead_assessments   # tasks_question_payload_no_solution + lead_assessments-Grant
+a4_is_tutorial        # tasks_question_payload_no_solution + lsa_start-Pool
+s7_lead_lsa           # tasks_question_payload_no_solution
+s9_platz_mechanik     # tasks_question_payload_no_solution + lsa_start-Pool
+
+# --- Gruppe 2: lsa_start findet keinen Item-Pool ----------------------------
+# "LSA: kein freigegebener Item-Pool fuer Mathematik / Klasse 8" (P0002).
+# Die Tests legen sich eigene ready-Items an und riefen frueher lsa_start
+# darauf. Seit der adaptiven Auswahl (A15/A16, 20260723) zieht lsa_start aus
+# dem Fundament-Pool (tasks.skill_key, status ready) statt aus beliebigen
+# passenden Items; die Fixtures setzen kein skill_key. supabase/seeds/ liefert
+# die Fundament-Aufgaben nur als draft — siehe die E2E-Skripte in
+# supabase/checks/, die sie transaktionslokal auf ready setzen.
+inv2_lsa_datenvertrag              # lsa_start ohne Fundament-Pool
+inv3_lsa_multipart                 # lsa_start ohne Fundament-Pool
+inv6_keine_loesung_fuer_schueler   # lsa_start ohne Fundament-Pool
+inv7_draft_nicht_fuer_schueler     # lsa_start ohne Fundament-Pool
