@@ -59,3 +59,7 @@ state/
 out/
 state/
 .worktrees/
+
+# Arbeitsablagen: Notizen und Orchestrierungs-Prompts, nicht versionieren
+orchestration/
+scratchpad/
