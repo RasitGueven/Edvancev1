@@ -319,11 +319,23 @@ begin
     raise exception 'F13: % der 5 AF4-Familien sind freigegeben und bestueckt', v_i;
   end if;
 
+  -- Die 20 Slugs sind NAMENTLICH benannt, nicht global gezaehlt. Die erste
+  -- Fassung zaehlte alle bestueckten Labels und erwartete 20 — das war eine
+  -- Zusicherung ueber den GESAMTBESTAND und brach beim naechsten Inhalts-PR
+  -- (P5 brachte neun weitere und machte daraus 29). Geprueft gehoert, dass
+  -- AF4s eigene Bestueckung steht, nicht dass niemand sonst etwas hinzufuegt.
   select count(*) into v_i from public.fehlbild_labels
-   where familie is not null and klartext is not null and freigegeben_am is not null
-     and slug not like 'af4\_%';
+   where slug in ('vorzeichen_ignoriert','betrag_fehler','vorzeichen_beim_umstellen',
+                  'seiten_verwechselt','falsches_vorzeichen_beim_zusammenfuehren',
+                  'division_vergessen','b_ignoriert','addiert_statt_subtrahiert',
+                  'falsche_gegenoperation','variablen_nicht_zusammengefuehrt',
+                  'vorrang_ignoriert','mult_add_verwechslung','richtung_vertauscht',
+                  'faktor_zehn_daneben','linearer_faktor','einheit_uebersprungen',
+                  'dezimalverschiebung','antiproportional_verwechselt',
+                  'einheit_verrutscht','falsche_richtung')
+     and familie is not null and klartext is not null and freigegeben_am is not null;
   if v_i <> 20 then
-    raise exception 'F13: % bestueckte Fehlbilder aus AF4, erwartet 20', v_i;
+    raise exception 'F13: % der 20 AF4-Fehlbilder sind bestueckt und freigegeben', v_i;
   end if;
   raise notice 'F13 ok: 5 Familien und 20 Fehlbilder stehen bestueckt';
 
