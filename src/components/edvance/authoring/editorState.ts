@@ -159,9 +159,16 @@ export function toPatch(state: FormState): AuthoringTaskPatch {
     input_type: state.input_type === '' ? null : state.input_type,
     unit: nullIfBlank(state.unit),
     est_duration_sec: intOrNull(state.est_duration_sec),
-    // Bei Multi-Part traegt die Teilaufgabe AFB und Kompetenz (P02) — am Item
-    // waeren sie eine zweite, konkurrierende Wahrheit.
-    afb: multi ? null : state.afb === '' ? null : state.afb,
+    // AFB wird IMMER geschrieben, auch bei Multi-Part.
+    //
+    // Vorher stand hier `multi ? null : …`, und das war nicht nur eine
+    // Auslassung, sondern ein Datenverlust: JEDES Speichern eines
+    // Multi-Part-Items hat sein Item-AFB genullt — auch eines, das eine
+    // Migration korrekt gesetzt hatte. Danach scheitert die Freigabe an
+    // task_status_set, das `tasks.afb` unabhaengig vom input_type verlangt.
+    afb: state.afb === '' ? null : state.afb,
+    // Kompetenz bleibt bei Multi-Part der Teilaufgabe ueberlassen (P02) — sie
+    // ist kein Feld des Freigabe-Gates.
     competency_content: multi ? null : nullIfBlank(state.competency_content),
     competency_process: multi ? null : nullIfBlank(state.competency_process),
     curriculum_grade: intOrNull(state.curriculum_grade),

@@ -100,17 +100,32 @@ begin
   -- dass sie NICHT an einem fehlenden Pflichtfeld scheitern wuerde. Die Liste
   -- ist die aus task_status_set.
 
-  if exists (
-    select 1 from public.tasks t
-     where t.id = v_task
-       and (coalesce(btrim(t.question), '') = ''
-            or t.input_type is null
-            or t.afb is null
-            or t.curriculum_grade is null
-            or t.est_duration_sec is null)
-  ) then
-    raise exception 'F3: ein Pflichtfeld fuer die Freigabe fehlt '
-                    '(question/input_type/afb/curriculum_grade/est_duration_sec)';
+  -- Jedes Feld EINZELN, nicht als Sammelbedingung. Die erste Fassung meldete
+  -- "ein Pflichtfeld fehlt (question/input_type/afb/curriculum_grade/
+  -- est_duration_sec)" — sie schlug korrekt an, als afb am Item fehlte, sagte
+  -- aber nicht WELCHES der fuenf. Bei neun Folge-Items ist das der Unterschied
+  -- zwischen "sofort klar" und "fuenf Felder durchsehen".
+  select string_agg(fehlt, ', ' order by fehlt) into v_txt
+    from public.tasks t
+    cross join lateral (values
+      ('question',         coalesce(btrim(t.question), '') = ''),
+      ('input_type',       t.input_type is null),
+      ('afb',              t.afb is null),
+      ('curriculum_grade', t.curriculum_grade is null),
+      ('est_duration_sec', t.est_duration_sec is null)
+    ) as p(fehlt, ist_leer)
+   where t.id = v_task and p.ist_leer;
+  if v_txt is not null then
+    raise exception 'F3: Pflichtfeld(er) fuer die Freigabe fehlen: % — '
+                    'task_status_set wuerde mit P0001 abbrechen', v_txt;
+  end if;
+
+  -- afb zusaetzlich auf den WERTEBEREICH: der CHECK auf tasks laesst nur
+  -- I/II/III zu, aber eine spaetere Bestueckung koennte 'AFB II' oder '2'
+  -- schreiben und liefe in den Constraint statt in eine lesbare Meldung.
+  select afb into v_txt from public.tasks where id = v_task;
+  if v_txt not in ('I', 'II', 'III') then
+    raise exception 'F3: afb ist "%", erwartet eine roemische Ziffer I/II/III', v_txt;
   end if;
   -- cluster_id ist bewusst NICHT als "muss gesetzt sein" geprueft.
   --

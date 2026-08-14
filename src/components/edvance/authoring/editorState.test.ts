@@ -122,3 +122,42 @@ describe('toSolution — der Beleg ist unzerstoerbar', () => {
     expect(JSON.stringify(written)).not.toContain('Auswertung.docx')
   })
 })
+
+// Das Item-AFB ueberlebt ein Speichern — auch bei MULTI_PART.
+//
+// Vorher stand in toPatch `afb: multi ? null : …`. Das war kein bloss fehlendes
+// Feld, sondern ein Datenverlust: jedes Speichern eines Multi-Part-Items hat
+// sein Item-AFB genullt, auch eines, das eine Migration korrekt gesetzt hatte.
+// Danach scheitert task_status_set mit "AFB fehlt" (P0001) — es verlangt
+// tasks.afb unabhaengig vom input_type.
+describe('toPatch — das Item-AFB ueberlebt bei MULTI_PART', () => {
+  const multiTask = (): AuthoringTask =>
+    task({
+      input_type: 'MULTI_PART',
+      afb: 'II',
+      parts: [
+        { nr: 1, kind: 'mc', prompt: 'a', afb: 'II', options: [{ id: 'a', label: 'A' }] },
+        { nr: 2, kind: 'short_input', prompt: 'b', afb: 'II' },
+      ],
+    })
+
+  it('schreibt das Item-AFB zurueck, statt es zu nullen', () => {
+    expect(toPatch(fromTask(multiTask(), solution)).afb).toBe('II')
+  })
+
+  it('laesst die Teilaufgaben ihr eigenes AFB behalten', () => {
+    const parts = toPatch(fromTask(multiTask(), solution)).parts as { afb: string }[]
+    expect(parts.map((p) => p.afb)).toEqual(['II', 'II'])
+  })
+
+  it('macht aus einer leeren Auswahl weiterhin null', () => {
+    const state = fromTask(multiTask(), solution)
+    expect(toPatch({ ...state, afb: '' }).afb).toBeNull()
+  })
+
+  // Die Kompetenz bleibt bei Multi-Part der Teilaufgabe ueberlassen — sie ist
+  // kein Feld des Freigabe-Gates und soll NICHT mitwandern.
+  it('nullt die Kompetenz am Item weiterhin', () => {
+    expect(toPatch(fromTask(multiTask(), solution)).competency_content).toBeNull()
+  })
+})

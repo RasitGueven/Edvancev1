@@ -135,7 +135,8 @@
     "cropFailed": "Der Zuschnitt konnte nicht gespeichert werden: {{detail}}",
     "cropUnavailable": "Dieses Bild lässt sich nicht zuschneiden — es liegt nicht im Bucket task-assets und gibt den Zugriff nicht frei. Bild zuerst hochladen.",
     "remove": "Entfernen",
-    "none": "—"
+    "none": "—",
+    "afbItemHint": "Gilt für die Aufgabe als Ganzes. Die Teilaufgaben tragen zusätzlich ihr eigenes AFB."
   },
   "stoffanker": {
     "label": "Stoffanker",
