@@ -200,20 +200,17 @@ function buildTopics(
     .sort((a, b) => a.topic.localeCompare(b.topic, 'de'))
 }
 
-// Die wiederkehrenden Denkschritte der Sitzung (AF2/AF3/AF4).
+// Die wiederkehrenden Denkschritte der Sitzung (AF2/AF3/AF4/AF5).
 //
 // Quelle ist ausschließlich die RPC lsa_fehlbild_auswertung — sie ist der
 // einzige Lesepfad auf lsa_responses.fehlbild_slug (kein Grant auf der Spalte)
 // und trägt die Abnahme-Schranke: ein unabgenommener Text kommt hier gar nicht
 // erst an, sondern als null.
 //
-// Ab AF4 gibt die RPC KEIN klartext mehr aus. Das ist seit AF4 der Coach-Satz
-// (kurz, fachlich) und hat auf einer Elternfläche nichts zu suchen; der
-// Elternsatz liegt eine Ebene höher auf der Familie und deckt mehrere Slugs
-// derselben Art mit EINEM Satz ab. Solange ReportBody noch je Slug rendert,
-// bleibt klartext hier bewusst null und die Anzeige zeigt ihren neutralen Text —
-// familie/familieElterntext sind schon da, damit die Bündelung nur noch eine
-// Frage der Darstellung ist.
+// Ab AF4 gibt die RPC KEIN klartext mehr aus — das ist der Coach-Satz und hat
+// auf einer Elternfläche nichts zu suchen. Der Elternsatz liegt eine Ebene
+// höher auf der Familie und deckt mehrere Slugs derselben Art mit EINEM Satz
+// ab; gebündelt wird er in src/lib/reportFehlbilder.ts.
 //
 // Gefiltert wird auf einstufung='befund' (>=2 Treffer in >=2 Aufgaben). Eine
 // 'beobachtung' ist per Definition ein Einzeltreffer — im Elterngespräch wäre
@@ -242,10 +239,6 @@ async function loadFehlbilder(sessionId: string): Promise<ReportFehlbild[]> {
     .filter((r) => r.einstufung === 'befund')
     .map((r) => ({
       slug: r.fehlbild_slug,
-      // Kein Klartext im Eltern-Pfad, siehe Kopfkommentar. Nicht die RPC-Spalte
-      // umbenennen und hier durchreichen — dann stünde der Coach-Satz im
-      // Elterngespräch.
-      klartext: null,
       familie: r.familie,
       familieElterntext: r.familie_elterntext?.trim() ? r.familie_elterntext : null,
       anzahl: r.anzahl,
