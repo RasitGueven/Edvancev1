@@ -172,11 +172,13 @@ jobs:
           # AF4 (2026-08-14) haengt zwei dazu: die Familien-Pruefung und die
           # Abnahme-Pruefung. Beide laufen gegen eine leere Datenbank, weil die
           # Bestueckung (5 Familien, 20 Fehlbilder) per Upsert aus der Migration
-          # selbst kommt und nicht aus Produktionsinhalten.
+          # selbst kommt und nicht aus Produktionsinhalten. P5 eine dritte: das
+          # erste MULTI_PART-Item mit acceptance, aus demselben Grund.
           fehler=0
           for f in supabase/checks/fehlbild_auswertung.PRUEFUNG.sql \
                    supabase/checks/fehlbild_klartext_abnahme.PRUEFUNG.sql \
                    supabase/checks/fehlbild_familien.PRUEFUNG.sql \
+                   supabase/checks/gleichung_modellieren_item1.PRUEFUNG.sql \
                    supabase/checks/jwt_identitaet.PRUEFUNG.sql; do
             if psql -v ON_ERROR_STOP=1 -q -f "$f" >/dev/null 2>/tmp/perr; then
               echo "  ok   $(basename "$f")"
