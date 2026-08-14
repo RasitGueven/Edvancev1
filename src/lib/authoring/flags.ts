@@ -87,11 +87,19 @@ export function computeFlags(
     flags.push(flag('stoffankerNoField', false))
   }
 
-  // AFB und Kompetenz: bei Multi-Part traegt sie die TEILAUFGABE (P02), beim
-  // flachen Item das Item. Beides gleichzeitig zu verlangen waere doppelt.
-  if (!isMulti) {
-    if (!task.afb) flags.push(flag('afbMissing', true))
-    if (isBlank(task.competency_content)) flags.push(flag('competencyMissing', true))
+  // AFB steht IMMER am Item — auch bei Multi-Part. Das ist keine Doppelung,
+  // sondern zwei verschiedene Aussagen: die Teilaufgabe sagt, welches
+  // Anforderungsniveau dieser Schritt hat, das Item, welches die Aufgabe als
+  // Ganzes hat. Massgeblich ist, dass task_status_set `tasks.afb` verlangt,
+  // ohne nach input_type zu fragen — fehlt es, bricht die Freigabe mit
+  // "AFB fehlt" (P0001) ab. Bis hierher hat das Tool bei Multi-Part gar nicht
+  // geprueft, die Freigabe zugelassen und sich den RPC-Fehler eingefangen.
+  if (!task.afb) flags.push(flag('afbMissing', true))
+
+  // Kompetenz bleibt teilaufgabenweise: sie ist KEIN Feld des Gates, sondern
+  // eine Regel des Tools, und bei Multi-Part traegt sie die Teilaufgabe (P02).
+  if (!isMulti && isBlank(task.competency_content)) {
+    flags.push(flag('competencyMissing', true))
   }
 
   // ── Teilaufgaben ─────────────────────────────────────────────────────────

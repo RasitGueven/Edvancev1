@@ -6,8 +6,11 @@
 // VERA-8 ist Klasse-7-Stoff. Wer das verwechselt, laesst die LSA auf dem falschen
 // Jahrgang ziehen — und das faellt niemandem auf, weil das Item ja "funktioniert".
 //
-// Bei MULTI_PART sind AFB und Kompetenz ausgeblendet: dort traegt sie die
-// Teilaufgabe (siehe PartsEditor).
+// Bei MULTI_PART ist die KOMPETENZ ausgeblendet: die traegt dort die
+// Teilaufgabe (siehe PartsEditor). AFB dagegen steht immer auch am Item —
+// task_status_set verlangt tasks.afb unabhaengig vom input_type, und ohne das
+// Feld war die Freigabe eines Multi-Part-Items ueber die Oberflaeche gar nicht
+// moeglich.
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -83,23 +86,32 @@ export function TagsSection({
         </select>
       </Field>
 
+      {/* AFB steht immer am Item — auch bei MULTI_PART, wo die Teilaufgaben
+          zusaetzlich ihr eigenes tragen. Ohne dieses Feld war die Freigabe
+          eines Multi-Part-Items ueber die Oberflaeche unmoeglich:
+          task_status_set verlangt tasks.afb unabhaengig vom input_type. */}
+      <Field label={t('fields.afb')}>
+        <select
+          className={`${SELECT_SM} w-full`}
+          value={state.afb}
+          onChange={(e) => set('afb', e.target.value as Afb | '')}
+        >
+          <option value="">{t('fields.none')}</option>
+          {AFB_VALUES.map((a) => (
+            <option key={a} value={a}>
+              {t(`afbLevel.${a}`)}
+            </option>
+          ))}
+        </select>
+        {multi && (
+          <span className="text-xs text-[var(--color-text-tertiary)]">
+            {t('fields.afbItemHint')}
+          </span>
+        )}
+      </Field>
+
       {!multi && (
         <>
-          <Field label={t('fields.afb')}>
-            <select
-              className={`${SELECT_SM} w-full`}
-              value={state.afb}
-              onChange={(e) => set('afb', e.target.value as Afb | '')}
-            >
-              <option value="">{t('fields.none')}</option>
-              {AFB_VALUES.map((a) => (
-                <option key={a} value={a}>
-                  {t(`afbLevel.${a}`)}
-                </option>
-              ))}
-            </select>
-          </Field>
-
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label={t('fields.competencyContent')}>
               <Input

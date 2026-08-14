@@ -148,7 +148,11 @@ describe('computeFlags — MULTI_PART', () => {
   const multi = (over: Partial<AuthoringTask> = {}): AuthoringTask =>
     task({
       input_type: 'MULTI_PART',
-      afb: null,
+      // Ein VOLLSTAENDIGES Multi-Part-Item traegt AFB auch am Item — das
+      // verlangt task_status_set unabhaengig vom input_type. Der Fixture stand
+      // frueher auf null und galt trotzdem als vollstaendig; genau diese
+      // Annahme war der Fehler.
+      afb: 'II',
       competency_content: null,
       parts: [
         { nr: 1, kind: 'short_input', prompt: 'Wie viel Prozent?', afb: 'I', competency_content: 'arithmetik_algebra' },
@@ -174,7 +178,7 @@ describe('computeFlags — MULTI_PART', () => {
     expect(codes(multi(), multiSol({ '1': ['20'], '2': ['b'] }))).toEqual([])
   })
 
-  it('verlangt AFB und Kompetenz je Teilaufgabe, nicht am Item', () => {
+  it('verlangt AFB und Kompetenz je Teilaufgabe', () => {
     const t = multi({
       parts: [
         { nr: 1, kind: 'short_input', prompt: 'a' },
@@ -184,9 +188,36 @@ describe('computeFlags — MULTI_PART', () => {
     const found = codes(t, multiSol({ '1': ['1'], '2': ['2'] }))
     expect(found).toContain('partAfbMissing')
     expect(found).toContain('partCompetencyMissing')
-    // Das Item selbst braucht sie dann nicht.
-    expect(found).not.toContain('afbMissing')
+    // Die Kompetenz braucht das Item nicht — sie ist kein Feld des Gates.
     expect(found).not.toContain('competencyMissing')
+    // Das Item-AFB steht im Fixture, also meldet es hier nichts. Dass es
+    // FEHLEND blockiert, prueft der Fall darunter.
+    expect(found).not.toContain('afbMissing')
+  })
+
+  it('blockiert ein Multi-Part-Item ohne AFB am Item, auch wenn alle Teile eins haben', () => {
+    const t = multi({
+      afb: null,
+      parts: [
+        { nr: 1, kind: 'short_input', prompt: 'a', afb: 'II', competency_content: 'x' },
+        { nr: 2, kind: 'short_input', prompt: 'b', afb: 'II', competency_content: 'x' },
+      ],
+    })
+    const found = codes(t, multiSol({ '1': ['1'], '2': ['2'] }))
+    expect(found).not.toContain('partAfbMissing')
+    expect(found).toContain('afbMissing')
+  })
+
+  it('gibt ein Multi-Part-Item mit AFB am Item frei', () => {
+    const t = multi({
+      afb: 'II',
+      parts: [
+        { nr: 1, kind: 'short_input', prompt: 'a', afb: 'II', competency_content: 'x' },
+        { nr: 2, kind: 'short_input', prompt: 'b', afb: 'II', competency_content: 'x' },
+      ],
+    })
+    const found = codes(t, multiSol({ '1': ['1'], '2': ['2'] }))
+    expect(found).not.toContain('afbMissing')
   })
 
   it('blockiert, wenn auch nur EINER Teilaufgabe die Loesung fehlt', () => {
