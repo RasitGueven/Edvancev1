@@ -843,7 +843,7 @@ $$;
 -- Name: lsa_fehlbild_auswertung(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.lsa_fehlbild_auswertung(p_session_id uuid) RETURNS TABLE(fehlbild_slug text, klartext text, anzahl bigint, aufgaben bigint, skills text[], skill_uebergreifend boolean, einstufung text)
+CREATE FUNCTION public.lsa_fehlbild_auswertung(p_session_id uuid) RETURNS TABLE(fehlbild_slug text, familie text, familie_elterntext text, anzahl bigint, aufgaben bigint, skills text[], skill_uebergreifend boolean, einstufung text)
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public'
     AS $$
@@ -879,17 +879,24 @@ CREATE FUNCTION public.lsa_fehlbild_auswertung(p_session_id uuid) RETURNS TABLE(
      group by f.slug
   )
   select g.slug,
-         case when l.freigegeben_am is null then null else l.klartext end,
+         l.familie,
+         case when fam.freigegeben_am is null then null else fam.elterntext end,
          g.n,
          g.n_aufgaben,
          g.sk_liste,
          (g.n_skills >= 2),
          case when g.n >= 2 and g.n_aufgaben >= 2 then 'befund' else 'beobachtung' end
     from je_slug g
-    left join public.fehlbild_labels l on l.slug = g.slug
+    left join public.fehlbild_labels l   on l.slug       = g.slug
+    -- Zweiter LEFT JOIN aus demselben Grund wie der erste: ein Slug ohne
+    -- Familie muss seine Zeile behalten. INNER JOIN liesse 53 der 73 Slugs
+    -- aus dem Report verschwinden.
+    left join public.fehlbild_familien fam on fam.schluessel = l.familie
    -- Befunde zuerst, darin das haeufigste — der Report liest von oben.
+   -- Innerhalb dessen nach Familie, damit gleiche Buendel beieinander stehen
+   -- und der Konsument sie in einem Durchlauf zusammenfassen kann.
    order by (case when g.n >= 2 and g.n_aufgaben >= 2 then 0 else 1 end),
-            g.n desc, g.slug asc
+            g.n desc, l.familie asc nulls last, g.slug asc
 $$;
 
 
@@ -3755,6 +3762,18 @@ CREATE TABLE public.coaching_sessions (
 
 
 --
+-- Name: fehlbild_familien; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.fehlbild_familien (
+    schluessel text NOT NULL,
+    elterntext text,
+    freigegeben_am timestamp with time zone,
+    freigegeben_von uuid
+);
+
+
+--
 -- Name: fehlbild_labels; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3764,7 +3783,8 @@ CREATE TABLE public.fehlbild_labels (
     erklaerung text,
     erstellt_am timestamp with time zone DEFAULT now() NOT NULL,
     freigegeben_am timestamp with time zone,
-    freigegeben_von uuid
+    freigegeben_von uuid,
+    familie text
 );
 
 
@@ -4656,6 +4676,14 @@ ALTER TABLE ONLY public.behavior_snapshots
 
 ALTER TABLE ONLY public.coaching_sessions
     ADD CONSTRAINT coaching_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fehlbild_familien fehlbild_familien_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fehlbild_familien
+    ADD CONSTRAINT fehlbild_familien_pkey PRIMARY KEY (schluessel);
 
 
 --
@@ -5708,6 +5736,22 @@ ALTER TABLE ONLY public.coaching_sessions
 
 
 --
+-- Name: fehlbild_familien fehlbild_familien_freigegeben_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fehlbild_familien
+    ADD CONSTRAINT fehlbild_familien_freigegeben_von_fkey FOREIGN KEY (freigegeben_von) REFERENCES public.profiles(id);
+
+
+--
+-- Name: fehlbild_labels fehlbild_labels_familie_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fehlbild_labels
+    ADD CONSTRAINT fehlbild_labels_familie_fkey FOREIGN KEY (familie) REFERENCES public.fehlbild_familien(schluessel) ON UPDATE CASCADE;
+
+
+--
 -- Name: fehlbild_labels fehlbild_labels_freigegeben_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6557,6 +6601,19 @@ CREATE POLICY coaching_sessions_parent_read ON public.coaching_sessions FOR SELE
 CREATE POLICY coaching_sessions_student_read ON public.coaching_sessions FOR SELECT USING ((id IN ( SELECT session_students.session_id
    FROM public.session_students
   WHERE (session_students.student_id = public.get_my_student_id()))));
+
+
+--
+-- Name: fehlbild_familien; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.fehlbild_familien ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: fehlbild_familien fehlbild_familien_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY fehlbild_familien_read ON public.fehlbild_familien FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
 
 
 --

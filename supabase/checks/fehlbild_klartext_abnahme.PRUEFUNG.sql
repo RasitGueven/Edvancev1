@@ -65,9 +65,14 @@ begin
     (v_sess, v_t[4], 1, 'antwort', false, '{"text":"x"}'::jsonb, 'af3_entwurf');
 
   -- ══ Fall 1: abgenommener Klartext wird ausgeliefert ═══════════════════════
+  --
+  -- Ab AF4 ist klartext der COACH-Satz und verlaesst die Datenbank nur noch
+  -- ueber lsa_fehlbild_report. Der Eltern-Pfad (lsa_fehlbild_auswertung) fuehrt
+  -- die Spalte nicht mehr — deshalb steht die Textprobe hier auf der
+  -- Coach-Sicht. Fall 3 belegt, dass es im Eltern-Pfad wirklich keinen Weg gibt.
 
   select klartext into v_txt
-    from public.lsa_fehlbild_auswertung(v_sess)
+    from public.lsa_fehlbild_report(v_sess)
    where fehlbild_slug = 'af3_abgenommen';
   if v_txt is distinct from 'abgenommener Text' then
     raise exception 'F1: abgenommener Klartext fehlt (bekam %)', coalesce(v_txt, '<null>');
@@ -77,38 +82,44 @@ begin
   -- ══ Fall 2: unabgenommener Entwurf kommt NICHT heraus ═════════════════════
   --
   -- Der Kern von AF3. Die Zeile muss weiterhin ERSCHEINEN (das Fehlbild ist
-  -- belegt und traegt die Einstufung), nur der Text fehlt.
+  -- belegt und traegt die Einstufung), nur der Text fehlt. Die Belegzahl kommt
+  -- aus dem Eltern-Pfad, der Text aus der Coach-Sicht — genau die Aufteilung,
+  -- die AF4 hergestellt hat.
 
-  select klartext, anzahl into v_txt, v_n
+  select anzahl into v_n
     from public.lsa_fehlbild_auswertung(v_sess)
    where fehlbild_slug = 'af3_entwurf';
   if v_n is distinct from 2 then
     raise exception 'F2: Entwurfs-Zeile fehlt oder zaehlt falsch (anzahl=%)', coalesce(v_n::text, '<keine Zeile>');
   end if;
+  select klartext into v_txt
+    from public.lsa_fehlbild_report(v_sess)
+   where fehlbild_slug = 'af3_entwurf';
   if v_txt is not null then
     raise exception 'F2: unabgenommener Entwurf ausgeliefert: %', v_txt;
   end if;
   raise notice 'F2 ok: Entwurf erscheint als Zeile, aber ohne Klartext';
 
-  -- ══ Fall 3: dasselbe in der Coach-Sicht (lsa_fehlbild_report) ═════════════
+  -- ══ Fall 3: der Eltern-Pfad fuehrt gar keinen Klartext mehr ═══════════════
   --
-  -- Beide RPCs tragen die Schranke. Nur eine zu pruefen liesse die andere als
-  -- offenen Auslieferungspfad stehen.
+  -- Bis AF3 trugen BEIDE RPCs die Schranke, und dieser Fall prueft, dass keine
+  -- der beiden ein offener Auslieferungspfad ist. Ab AF4 ist die Antwort im
+  -- Eltern-Pfad struktureller Natur: die Spalte existiert dort nicht. Das ist
+  -- die staerkere Zusicherung — eine Spalte, die es nicht gibt, kann keine
+  -- Schranke vergessen. Der Elternsatz laeuft ueber familie_elterntext mit
+  -- eigener Schranke (supabase/checks/fehlbild_familien.PRUEFUNG.sql).
 
-  select klartext into v_txt
-    from public.lsa_fehlbild_report(v_sess)
-   where fehlbild_slug = 'af3_entwurf';
-  if v_txt is not null then
-    raise exception 'F3: Entwurf ueber lsa_fehlbild_report ausgeliefert: %', v_txt;
+  if exists (
+    select 1 from pg_proc p
+     join unnest(p.proallargtypes, p.proargnames) as a(atttype, attname) on true
+    where p.proname = 'lsa_fehlbild_auswertung'
+      and p.pronamespace = 'public'::regnamespace
+      and a.attname = 'klartext'
+  ) then
+    raise exception 'F3: lsa_fehlbild_auswertung fuehrt wieder klartext — der '
+                    'Coach-Satz hat im Eltern-Pfad nichts zu suchen (INV-4.3)';
   end if;
-
-  select klartext into v_txt
-    from public.lsa_fehlbild_report(v_sess)
-   where fehlbild_slug = 'af3_abgenommen';
-  if v_txt is distinct from 'abgenommener Text' then
-    raise exception 'F3: abgenommener Klartext fehlt in der Coach-Sicht';
-  end if;
-  raise notice 'F3 ok: die Schranke gilt in beiden RPCs';
+  raise notice 'F3 ok: kein Klartext-Pfad zum Elternreport';
 
   -- ══ Fall 4: Abnahme wirkt sofort ══════════════════════════════════════════
   --
@@ -120,7 +131,7 @@ begin
    where slug = 'af3_entwurf';
 
   select klartext into v_txt
-    from public.lsa_fehlbild_auswertung(v_sess)
+    from public.lsa_fehlbild_report(v_sess)
    where fehlbild_slug = 'af3_entwurf';
   if v_txt is distinct from 'ENTWURF-Text' then
     raise exception 'F4: nach Abnahme kommt der Text nicht durch (bekam %)', coalesce(v_txt, '<null>');
@@ -134,7 +145,7 @@ begin
    where slug = 'af3_entwurf';
 
   select klartext into v_txt
-    from public.lsa_fehlbild_auswertung(v_sess)
+    from public.lsa_fehlbild_report(v_sess)
    where fehlbild_slug = 'af3_entwurf';
   if v_txt is not null then
     raise exception 'F5: nach Ruecknahme wird weiter ausgeliefert: %', v_txt;
@@ -158,20 +169,40 @@ begin
   end if;
   raise notice 'F6 ok: "nicht zugeordnet" passiert die Schranke unveraendert';
 
-  -- ══ Fall 7: die zwei real bestueckten Slugs sind NICHT freigegeben ════════
+  -- ══ Fall 7: die AF3-Elternentwuerfe sind durch Coach-Saetze ersetzt ════════
   --
-  -- Haelt die Entscheidung fest, dass die LLM-Entwuerfe aus der Migration
-  -- unabgenommen ausgeliefert werden. Faellt dieser Fall, hat jemand
-  -- freigegeben_am in einer Migration gesetzt statt Lena abnehmen zu lassen.
+  -- ABGELOEST DURCH AF4. Bis AF4 stand hier, dass linearer_faktor und
+  -- faktor_zehn_daneben NICHT freigegeben sein duerfen: ihr klartext war ein
+  -- LLM-Entwurf in ELTERNSPRACHE, und ein Elternsatz braucht Lenas Abnahme.
+  --
+  -- Mit AF4 ist klartext der COACH-Satz (die Elternsprache ist nach
+  -- fehlbild_familien.elterntext gewandert) und beide Slugs sind bewusst in
+  -- einer Migration freigegeben — ein Coach-Satz ist eine Arbeitsnotiz zwischen
+  -- Fachleuten, kein Satz ueber ein Kind an dessen Eltern.
+  --
+  -- Der Fall prueft jetzt genau diesen Uebergang: die Elternprosa aus AF3 darf
+  -- nicht als freigegebener klartext ueberleben. Waeren die Migrationen je
+  -- umsortiert oder AF4 zurueckgerollt, stuende der Entwurf wieder freigegeben
+  -- im Coachreport — und genau das faengt diese Probe.
 
+  select klartext into v_txt from public.fehlbild_labels where slug = 'linearer_faktor';
+  if v_txt is distinct from 'Nutzt den linearen Umrechnungsfaktor, wo der quadrierte gilt.' then
+    raise exception 'F7: linearer_faktor traegt nicht den AF4-Coach-Satz (bekam %)',
+      coalesce(v_txt, '<null>');
+  end if;
+  select klartext into v_txt from public.fehlbild_labels where slug = 'faktor_zehn_daneben';
+  if v_txt is distinct from 'Ergebnis um den Faktor 10 daneben, in beide Richtungen.' then
+    raise exception 'F7: faktor_zehn_daneben traegt nicht den AF4-Coach-Satz (bekam %)',
+      coalesce(v_txt, '<null>');
+  end if;
   if exists (
     select 1 from public.fehlbild_labels
-     where slug in ('linearer_faktor', 'faktor_zehn_daneben')
-       and freigegeben_am is not null
+     where freigegeben_am is not null
+       and (klartext ilike '%Ihr Kind%' or klartext ilike '%vergrößert%')
   ) then
-    raise exception 'F7: ein LLM-Entwurf ist ohne menschliche Abnahme freigegeben';
+    raise exception 'F7: ein Elternsatz steht als freigegebener Coach-Klartext';
   end if;
-  raise notice 'F7 ok: die Entwuerfe aus AF3 stehen unabgenommen';
+  raise notice 'F7 ok: AF3-Elternentwuerfe sind durch Coach-Saetze ersetzt';
 
   -- ══ Fall 8: falsche_operation ist in der Registry ═════════════════════════
 
