@@ -39,20 +39,32 @@ begin
   if v_n <> 8 then
     raise exception 'F1: fundament_tiefe ist %, erwartet 8', v_n;
   end if;
-  if not exists (select 1 from public.skill_kante
-                  where skill_key = 'gleichung_modellieren'
-                    and voraussetzt_skill_key = 'gleichung_zweischrittig') then
-    raise exception 'F1: die Voraussetzungskante fehlt — der Knoten waere im '
-                    'adaptiven Pfad praktisch unerreichbar';
+  -- DREI Voraussetzungen. term_ausmultiplizieren ist die, die man vergisst:
+  -- Item 7 (Rechteck, Umfang) und Item 10 (Klammer) aus dem Folge-PR setzen es
+  -- voraus, und ohne die Kante steigt die LSA beim Scheitern nicht dorthin ab.
+  select count(*) into v_n from public.skill_kante
+   where skill_key = 'gleichung_modellieren'
+     and voraussetzt_skill_key in ('gleichung_zweischrittig',
+                                   'gleichung_beidseitig',
+                                   'term_ausmultiplizieren');
+  if v_n <> 3 then
+    raise exception 'F1: nur % von 3 Voraussetzungskanten stehen — fehlt eine, '
+                    'bricht die LSA den Ast beim Scheitern ab, statt abzusteigen', v_n;
   end if;
-  -- Die Voraussetzung muss ECHT flacher liegen (skill_kante_tiefe_guard). Das
+
+  -- Jede Voraussetzung muss ECHT flacher liegen (skill_kante_tiefe_guard). Das
   -- prueft der Trigger beim Schreiben; hier steht es als Zusicherung ueber den
   -- BESTAND, falls jemand spaeter eine Tiefe verschiebt.
-  if (select s.fundament_tiefe from public.skills s where s.skill_key = 'gleichung_zweischrittig')
-     >= v_n then
-    raise exception 'F1: gleichung_zweischrittig liegt nicht mehr unter gleichung_modellieren';
+  select count(*) into v_n
+    from public.skill_kante k
+    join public.skills v on v.skill_key = k.voraussetzt_skill_key
+    join public.skills s on s.skill_key = k.skill_key
+   where k.skill_key = 'gleichung_modellieren'
+     and v.fundament_tiefe >= s.fundament_tiefe;
+  if v_n <> 0 then
+    raise exception 'F1: % Voraussetzung(en) liegen nicht mehr unter gleichung_modellieren', v_n;
   end if;
-  raise notice 'F1 ok: Skill (Tiefe 8) und Kante auf gleichung_zweischrittig stehen';
+  raise notice 'F1 ok: Skill (Tiefe 8) und alle drei Voraussetzungskanten stehen';
 
   -- ══ Fall 2: das Item existiert mit beiden Teilen ══════════════════════════
 
@@ -100,15 +112,31 @@ begin
     raise exception 'F3: ein Pflichtfeld fuer die Freigabe fehlt '
                     '(question/input_type/afb/curriculum_grade/est_duration_sec)';
   end if;
-  -- cluster_id getrennt: auf einer leeren Neuaufbau-Datenbank gibt es keine
-  -- Cluster (supabase/seed.sql laeuft dort nicht), die Unterabfrage in der
-  -- Migration liefert dann null. Das ist kein Fehler der Migration — geprueft
-  -- wird deshalb nur, DASS der Cluster gesetzt ist, WENN es ihn gibt.
-  if exists (select 1 from public.skill_clusters where name = 'Algebra & Funktionen')
-     and (select cluster_id from public.tasks where id = v_task) is null then
-    raise exception 'F3: der Cluster "Algebra & Funktionen" existiert, ist am Item aber nicht gesetzt';
+  -- cluster_id ist bewusst NICHT als "muss gesetzt sein" geprueft.
+  --
+  -- Die erste Fassung tat das bedingt ("wenn es den Cluster gibt, muss er am
+  -- Item stehen") und war in CI rot. Der Grund ist die Reihenfolge im Workflow:
+  --   1. test-grundlage.sql   — keine Cluster
+  --   2. Migrationen          — P5 laeuft, die Unterabfrage findet nichts -> null
+  --   3. seed.sql             — legt "Algebra & Funktionen" JETZT ERST an
+  --   4. Pruefskripte         — Cluster da, cluster_id am Item null -> Abbruch
+  -- Auf Produktion existiert der Cluster laengst, dort greift die Unterabfrage.
+  -- Ein null-cluster_id im Neuaufbau ist also ein Artefakt der Seed-Reihenfolge
+  -- und kein Befund. Die Zusicherung, die wirklich zaehlt, steht deshalb IN der
+  -- Migration (Kontrollzaehlung, Teil 5) — dort ist der Zeitpunkt bekannt.
+  --
+  -- Was hier bleibt, ist reihenfolgeunabhaengig und faengt trotzdem den Fall,
+  -- der wehtut: ein Item, das am FALSCHEN Cluster haengt.
+  if exists (
+    select 1 from public.tasks t
+     left join public.skill_clusters c on c.id = t.cluster_id
+     where t.id = v_task
+       and t.cluster_id is not null
+       and c.name is distinct from 'Algebra & Funktionen'
+  ) then
+    raise exception 'F3: das Item haengt an einem anderen Cluster als "Algebra & Funktionen"';
   end if;
-  raise notice 'F3 ok: Pflichtfelder fuer die Freigabe sind gesetzt';
+  raise notice 'F3 ok: Pflichtfelder gesetzt, Cluster stimmig (oder im Neuaufbau leer)';
 
   -- ══ Fall 4: Loesung je Teil, in der Form die das Gate verlangt ════════════
 

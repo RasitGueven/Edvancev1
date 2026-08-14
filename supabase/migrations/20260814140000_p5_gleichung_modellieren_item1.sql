@@ -44,17 +44,28 @@ values ('gleichung_modellieren', 'Gleichungen aufstellen (Sachkontext)',
         'mathematik', 8, 8)
 on conflict (skill_key) do nothing;
 
--- Die Kante macht den Knoten fuer die adaptive Auswahl ueberhaupt erst
+-- Die Kanten machen den Knoten fuer die adaptive Auswahl ueberhaupt erst
 -- brauchbar. lsa_select_next_core waehlt ein neues Blatt ueber
 -- `order by neu desc, fundament_tiefe desc` — `neu` ist die Zahl der Skills in
 -- der Abschlusshuelle. Ein kantenloser Knoten haette neu = 1 und stuende hinter
 -- jedem Blatt mit Unterbau; er waere angelegt und praktisch unerreichbar.
 --
--- skill_kante_tiefe_guard verlangt eine ECHT flachere Voraussetzung:
--- zweischrittig (6) < modellieren (8). Passt.
+-- DREI Voraussetzungen, nicht eine:
+--   gleichung_zweischrittig  (Tiefe 6) — die aufgestellte Gleichung loesen
+--   gleichung_beidseitig     (Tiefe 7) — Variablen auf beiden Seiten
+--   term_ausmultiplizieren   (Tiefe 5) — Klammern aufloesen. Item 7 (Rechteck,
+--        Umfang) und Item 10 (Klammer) aus dem Folge-PR setzen es voraus; ohne
+--        diese Kante steigt die LSA beim Scheitern nicht dorthin ab, sondern
+--        bricht den Ast ab.
+--
+-- skill_kante_tiefe_guard verlangt eine ECHT flachere Voraussetzung. Alle drei
+-- liegen unter modellieren (8): 5, 6, 7. Der Guard laesst alle drei durch,
+-- keine Fundamenttiefe muss angefasst werden.
 
 insert into public.skill_kante (skill_key, voraussetzt_skill_key)
-values ('gleichung_modellieren', 'gleichung_zweischrittig')
+values ('gleichung_modellieren', 'gleichung_zweischrittig'),
+       ('gleichung_modellieren', 'gleichung_beidseitig'),
+       ('gleichung_modellieren', 'term_ausmultiplizieren')
 on conflict do nothing;
 
 
@@ -249,10 +260,24 @@ begin
     raise exception 'P5: Item 1 wurde nicht angelegt';
   end if;
 
-  if not exists (select 1 from public.skill_kante
-                  where skill_key = 'gleichung_modellieren'
-                    and voraussetzt_skill_key = 'gleichung_zweischrittig') then
-    raise exception 'P5: die Kante gleichung_modellieren -> gleichung_zweischrittig fehlt';
+  select count(*) into v_n from public.skill_kante
+   where skill_key = 'gleichung_modellieren'
+     and voraussetzt_skill_key in ('gleichung_zweischrittig',
+                                   'gleichung_beidseitig',
+                                   'term_ausmultiplizieren');
+  if v_n <> 3 then
+    raise exception 'P5: nur % von 3 Voraussetzungskanten angelegt', v_n;
+  end if;
+
+  -- Der Cluster wird HIER geprueft und nicht in der PRUEFUNG: nur zu diesem
+  -- Zeitpunkt ist bekannt, ob es ihn gab. Auf Produktion existiert er, die
+  -- Unterabfrage im insert oben greift also. Auf einer leeren Neuaufbau-
+  -- Datenbank legt supabase/seed.sql ihn erst NACH den Migrationen an — dort
+  -- bleibt cluster_id null, und das ist die Seed-Reihenfolge, kein Fehler.
+  if exists (select 1 from public.skill_clusters where name = 'Algebra & Funktionen')
+     and (select cluster_id from public.tasks where id = v_task) is null then
+    raise exception 'P5: der Cluster "Algebra & Funktionen" existiert, wurde am '
+                    'Item aber nicht gesetzt';
   end if;
 
   select count(*) into v_n from public.fehlbild_labels
