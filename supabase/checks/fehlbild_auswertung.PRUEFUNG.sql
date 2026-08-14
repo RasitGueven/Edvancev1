@@ -234,9 +234,13 @@ begin
   select count(*) into v_n from public.lsa_fehlbild_auswertung(v_sess) a
    where a.fehlbild_slug = 'af2_unbekannt';
   if v_n <> 1 then raise exception 'F6: Zeile fehlt in lsa_fehlbild_auswertung (INNER JOIN?)'; end if;
-  select a.klartext into v_txt from public.lsa_fehlbild_auswertung(v_sess) a
+  -- Ab AF4 gibt die Auswertung keinen klartext mehr aus (das ist der Coach-Satz
+  -- und bleibt in lsa_fehlbild_report). Geprueft wird hier stattdessen, dass
+  -- auch die Familie null bleibt — derselbe LEFT-JOIN-Befund, eine Spalte
+  -- weiter: ein Slug ohne Registry-Eintrag hat auch keine Familie.
+  select a.familie into v_txt from public.lsa_fehlbild_auswertung(v_sess) a
    where a.fehlbild_slug = 'af2_unbekannt';
-  if v_txt is not null then raise exception 'F6: klartext %, erwartet null', v_txt; end if;
+  if v_txt is not null then raise exception 'F6: familie %, erwartet null', v_txt; end if;
   select count(*) into v_n from public.lsa_fehlbild_report(v_sess) r
    where r.fehlbild_slug = 'af2_unbekannt' and r.klartext is null;
   if v_n <> 1 then raise exception 'F6: Zeile fehlt in lsa_fehlbild_report (INNER JOIN?)'; end if;
@@ -314,8 +318,10 @@ begin
        where p.proname = 'lsa_fehlbild_auswertung'
          and p.pronamespace = 'public'::regnamespace
          and a.attname <> 'p_session_id')
-     is distinct from array['fehlbild_slug','klartext','anzahl','aufgaben','skills',
-                            'skill_uebergreifend','einstufung'] then
+     -- Stand AF4: klartext ist raus (Coach-Satz, nur noch in
+     -- lsa_fehlbild_report), familie + familie_elterntext sind dazugekommen.
+     is distinct from array['fehlbild_slug','familie','familie_elterntext','anzahl',
+                            'aufgaben','skills','skill_uebergreifend','einstufung'] then
     raise exception 'FSec: Spaltenliste von lsa_fehlbild_auswertung weicht ab';
   end if;
   raise notice 'FSec ok: Rueckgabespalten unveraendert, keine Loesungsdaten';
