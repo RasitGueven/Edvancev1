@@ -180,6 +180,7 @@ jobs:
                    supabase/checks/fehlbild_familien.PRUEFUNG.sql \
                    supabase/checks/gleichung_modellieren_item1.PRUEFUNG.sql \
                    supabase/checks/gleichung_modellieren_items2_10.PRUEFUNG.sql \
+                   supabase/checks/fehlbild_capture_formen.PRUEFUNG.sql \
                    supabase/checks/jwt_identitaet.PRUEFUNG.sql; do
             if psql -v ON_ERROR_STOP=1 -q -f "$f" >/dev/null 2>/tmp/perr; then
               echo "  ok   $(basename "$f")"
