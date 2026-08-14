@@ -854,7 +854,7 @@ CREATE FUNCTION public.lsa_fehlbild_auswertung(p_session_id uuid) RETURNS TABLE(
       from public.lsa_responses r
       join public.tasks t on t.id = r.task_id
      where r.session_id = p_session_id
-	and exists (
+       and exists (
          select 1 from public.lsa_sessions s
           where s.id = p_session_id
             and coalesce(public.lsa_may_act_for(s.student_id), false)
@@ -879,7 +879,7 @@ CREATE FUNCTION public.lsa_fehlbild_auswertung(p_session_id uuid) RETURNS TABLE(
      group by f.slug
   )
   select g.slug,
-         l.klartext,
+         case when l.freigegeben_am is null then null else l.klartext end,
          g.n,
          g.n_aufgaben,
          g.sk_liste,
@@ -1040,7 +1040,7 @@ CREATE FUNCTION public.lsa_fehlbild_report(p_session_id uuid) RETURNS TABLE(skil
       from public.lsa_responses r
       join public.tasks t on t.id = r.task_id
      where r.session_id = p_session_id
-	and exists (
+       and exists (
          select 1 from public.lsa_sessions s
           where s.id = p_session_id
             and coalesce(public.lsa_may_act_for(s.student_id), false)
@@ -1062,7 +1062,12 @@ CREATE FUNCTION public.lsa_fehlbild_report(p_session_id uuid) RETURNS TABLE(skil
   )
   select g.sk,
          g.slug,
-         case when g.slug is null then 'nicht zugeordnet' else l.klartext end,
+         -- "nicht zugeordnet" bleibt unabhaengig von der Abnahme sichtbar: es
+         -- ist kein Klartext ueber ein Kind, sondern ein Befund ueber die
+         -- Registry — genau die Luecke, die Lena sehen muss (AF2).
+         case when g.slug is null then 'nicht zugeordnet'
+              when l.freigegeben_am is null then null
+              else l.klartext end,
          g.n,
          -- Anteil als Bruchteil 0..1, auf 4 Stellen gerundet. Gerundete
          -- Anteile summieren sich nicht zwingend exakt auf 1 — massgeblich
@@ -3757,7 +3762,9 @@ CREATE TABLE public.fehlbild_labels (
     slug text NOT NULL,
     klartext text,
     erklaerung text,
-    erstellt_am timestamp with time zone DEFAULT now() NOT NULL
+    erstellt_am timestamp with time zone DEFAULT now() NOT NULL,
+    freigegeben_am timestamp with time zone,
+    freigegeben_von uuid
 );
 
 
@@ -5698,6 +5705,14 @@ ALTER TABLE ONLY public.behavior_snapshots
 
 ALTER TABLE ONLY public.coaching_sessions
     ADD CONSTRAINT coaching_sessions_coach_id_fkey FOREIGN KEY (coach_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
+
+
+--
+-- Name: fehlbild_labels fehlbild_labels_freigegeben_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fehlbild_labels
+    ADD CONSTRAINT fehlbild_labels_freigegeben_von_fkey FOREIGN KEY (freigegeben_von) REFERENCES public.profiles(id);
 
 
 --

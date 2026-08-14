@@ -73,7 +73,7 @@ export function ReportPage(): JSX.Element {
     }
   }, [sessionId, notes])
 
-  const name = data?.firstName?.trim() || 'Ihr Kind'
+  const name = data?.firstName?.trim() || t('head.childFallback')
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">

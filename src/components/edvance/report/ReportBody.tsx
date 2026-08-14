@@ -13,7 +13,7 @@ import type { ReportData } from '@/types'
  */
 export function ReportBody({ data }: { data: ReportData }): JSX.Element {
   const { t, i18n } = useTranslation('report')
-  const name = data.firstName?.trim() || 'Ihr Kind'
+  const name = data.firstName?.trim() || t('head.childFallback')
 
   const strength = pickStrength(data.topics)
   const narrative = buildNarrative({
@@ -126,6 +126,49 @@ export function ReportBody({ data }: { data: ReportData }): JSX.Element {
           />
         )}
       </section>
+
+      {/* 4b. WIEDERKEHRENDE DENKSCHRITTE (AF3)
+
+          Nach den Belegen, damit die Zahlen zuerst stehen und der Denkschritt
+          sie deutet — nicht umgekehrt. Nur Einstufung 'befund' erreicht diese
+          Liste (Filter in lsaReport.loadFehlbilder).
+
+          Der Slug wird NIE gerendert. Fehlt der abgenommene Klartext, steht
+          hier ein neutraler Satz: dass es ein wiederkehrendes Muster gibt, ist
+          belegt — WELCHES, ist ohne abgenommenen Text nicht sagbar. */}
+      {data.fehlbilder.length > 0 && (
+        <section className="report-block flex flex-col gap-2">
+          <h3 className={sectionTitle}>{t('fehlbild.title')}</h3>
+          <p className="mb-1 text-sm leading-relaxed text-[color-mix(in_srgb,var(--color-report-navy)_70%,transparent)]">
+            {t('fehlbild.description', { name })}
+          </p>
+          <ul className="flex flex-col gap-3">
+            {data.fehlbilder.map((fb) => (
+              <li
+                key={fb.slug}
+                className="rounded-[var(--radius-lg)] border-l-4 border-[var(--color-report-navy)] bg-[var(--color-report-cream)] p-5"
+              >
+                <p className="text-base font-semibold text-[var(--color-report-navy)]">
+                  {fb.klartext ?? t('fehlbild.pending.title')}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-[color-mix(in_srgb,var(--color-report-navy)_75%,transparent)]">
+                  {fb.klartext
+                    ? t('fehlbild.evidence', {
+                        count: fb.aufgaben,
+                        anzahl: fb.anzahl,
+                      })
+                    : t('fehlbild.pending.description', { count: fb.aufgaben })}
+                </p>
+                {fb.skillUebergreifend && (
+                  <p className="mt-1 text-xs font-medium text-[var(--color-report-gold)]">
+                    {t('fehlbild.crossSkill')}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* 5. WAS ABGEFRAGT WURDE */}
       {data.topics.length > 0 && (

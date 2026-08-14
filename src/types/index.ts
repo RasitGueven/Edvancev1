@@ -177,6 +177,7 @@ export type {
   ReportTopic,
   ParentAssessment,
   ReportData,
+  ReportFehlbild,
   ReportPaket,
   ReportNotes,
 } from './report'

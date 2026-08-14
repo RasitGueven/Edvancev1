@@ -27,7 +27,20 @@
     "subject": "Fach",
     "grade": "Klasse",
     "date": "Datum",
-    "child": "Für"
+    "child": "Für",
+    "childFallback": "Ihr Kind"
+  },
+  "fehlbild": {
+    "title": "Ein Muster, das mehrfach aufgetreten ist",
+    "description": "Diese Denkschritte sind bei {{name}} in mehreren Aufgaben gleich verlaufen. Sie zeigen, wo eine gezielte Übung am meisten bewirkt.",
+    "evidence_one": "In {{count}} Aufgabe zu beobachten.",
+    "evidence_other": "In {{count}} Aufgaben zu beobachten, insgesamt {{anzahl}} Mal.",
+    "crossSkill": "Tritt in mehreren Themen auf.",
+    "pending": {
+      "title": "Ein wiederkehrendes Muster",
+      "description_one": "In {{count}} Aufgabe ist derselbe Zwischenschritt gleich verlaufen. Ihr Coach ordnet das im Gespräch ein.",
+      "description_other": "In {{count}} Aufgaben ist derselbe Zwischenschritt gleich verlaufen. Ihr Coach ordnet das im Gespräch ein."
+    }
   },
   "narrative": {
     "title": "Das Wichtigste in Kürze",
