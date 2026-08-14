@@ -13,9 +13,21 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['src/test/setup.ts'],
+    // Dummy-Env, NICHT als Ersatz fuer die Mocks: Fehlt irgendwo ein Wrapper-Mock,
+    // soll createClient() in supabase/client.ts nicht schon beim IMPORT sterben und
+    // den Worker mitreissen (das faerbt fremde Suiten rot, an der falschen Stelle).
+    // Mit gesetzter — aber unerreichbarer — URL bleibt der Fehler lokal: erst der
+    // konkrete RPC-Aufruf scheitert (connection refused), dort wo er hingehoert.
+    env: {
+      VITE_SUPABASE_URL: 'http://localhost:54321',
+      VITE_SUPABASE_ANON_KEY: 'test-anon-key',
+    },
     // scripts/: der Import-Bau (C08) spiegelt die DB-Vertraege (lsa_parts_valid,
     // lsa_table_valid) — er wird getestet wie Produktivcode, nicht wie ein Skript.
-    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.ts'],
+    // tests/: Suiten, die keinen Ort im Produktivbaum haben — die
+    // Figuren-Generatoren (A19) liegen unter scripts/figures/, ihre Tests
+    // laut Spec unter tests/.
+    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.ts', 'tests/**/*.test.ts'],
     exclude: [
       'node_modules',
       'dist',

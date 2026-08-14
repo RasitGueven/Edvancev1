@@ -1,0 +1,1 @@
+../.claude/hooks/guard-paths.sh

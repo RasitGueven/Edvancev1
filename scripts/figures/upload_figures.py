@@ -61,6 +61,11 @@ def _lade_generator(name: str):
         import pruefe_koordinatensystem  # type: ignore
 
         return koordinatensystem.zeichne, pruefe_koordinatensystem.pruefe
+    if name == "winkel":
+        import pruefe_winkel  # type: ignore
+        import winkel  # type: ignore
+
+        return winkel.zeichne, pruefe_winkel.pruefe
     raise SystemExit(f"Unbekannter Generator '{name}' — kein Adapter (Positivliste in der Migration).")
 
 
