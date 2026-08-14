@@ -2467,3 +2467,89 @@ on conflict (id) do nothing;
 -- Upload (scripts/figures/upload_figures.py, von Rasit ausgefuehrt): erzeugt +
 --   prueft SVGs (Generatoren aus #96), laedt in generiert/<task_id>/, schreibt
 --   svg_hash+erzeugt_am, idempotent, --dry-run. Kein Upload in diesem PR.
+
+-- ============================================================================
+-- AF1 – FEHLBILD-ERFASSUNG (Baustein A)
+--     (supabase/migrations/20260726100000_af1_fehlbild_capture.sql)
+--     SETZT A10 + A11 + A12 VORAUS.
+-- ============================================================================
+--
+-- WOZU: A12 hat `acceptance.known_errors` deklariert — welcher Wert entsteht,
+--   wenn ein Kind einen bestimmten Denkfehler macht. Gelesen hat es niemand.
+--   AF1 verdrahtet das Feld: jede falsche Abgabe traegt danach den Slug ihres
+--   Fehlbilds. Damit sagt der Report nicht mehr „falsch", sondern WELCHER
+--   Fehler — der Unterschied zwischen einer Note und einer Diagnose.
+--
+-- lsa_responses.fehlbild_slug text NULL
+--   Gematchtes Fehlbild DIESER (Teil-)Antwort. NULL wenn korrekt, wenn
+--   „weiss nicht"/leer, oder wenn kein known_errors-Schluessel passt.
+--   Die Response-Zeile ist seit p02 bereits pro part_nr — das Fehlbild haengt
+--   damit am richtigen Korn OHNE neue Tabelle.
+--   Gesetzt ausschliesslich vom Capture-Trigger, nie vom Client.
+--
+--   Index lsa_responses_fehlbild_idx (session_id) WHERE fehlbild_slug is not null
+--     — der Report liest gezielt nur die Treffer einer Sitzung. Verifiziert:
+--     EXPLAIN waehlt den Index fuer genau diese Abfrage.
+--
+-- lsa_fehlbild_match(p_kind, p_known_errors, p_response) -> text  [immutable]
+--   Rein, Parameter-Disziplin nach A11: liest NIE selbst aus task_solutions.
+--   Die Antwort-Extraktion SPIEGELT lsa_is_correct exakt — das ist die
+--   eigentliche Pointe, denn sonst matcht nichts:
+--     'mc'   -> p_response->'selected' (Array von Option-Ids)
+--     sonst  -> coalesce(p_response->>'text', p_response->>'value')
+--     'term' -> lsa_normalize_term statt lsa_normalize_answer
+--   BEIDE Seiten des Vergleichs laufen durch DENSELBEN Normalisierer, sonst
+--   matcht die Kindeingabe „0.29" nie gegen den Regelschluessel „0,29".
+--   Rueckgabe: bei Objektform der Slug, bei Arrayform (A12) der generische
+--   Marker '__known__' (bekannt-falsch ohne Label).
+--
+--   MC nur bei GENAU EINER gewaehlten Option. Ein known_errors-Schluessel ist
+--   ein Skalar und kann keine Auswahl-MENGE abbilden; Mehrfachauswahl ist
+--   deshalb bewusst kein Fehlbild-Kandidat (NULL statt Fehlzuordnung).
+--
+-- lsa_fehlbild_capture() – AFTER INSERT FOR EACH ROW auf lsa_responses
+--   (trg_lsa_fehlbild_capture), security definer.
+--   PFAD-AGNOSTISCH: fasst jede Response, egal welcher Submit-Pfad sie schrieb
+--   (adaptiv/A16, Platz-Uebernahme/A17, kuenftige). lsa_submit bleibt unberuehrt
+--   — kein Eingriff in den laufenden adaptiven Pfad. Das ist der Grund fuer den
+--   Trigger statt einer Aenderung an lsa_submit.
+--
+--   Nur `abgabeart = 'antwort' AND correct IS false` ist Kandidat. Der CHECK
+--   lsa_responses_correct_nur_bei_antwort haelt correct NULL fuer 'weiss_nicht'
+--   und 'leer' — ein „weiss nicht" ist KEIN Denkfehler und darf nie als einer
+--   gelabelt werden.
+--
+--   known_errors-Pfad: coalesce(acceptance -> '<part_nr>' -> 'known_errors',
+--                               acceptance -> 'known_errors').
+--   Der Fallback auf die flache Form ist defensiv: in Prod sind heute ALLE 232
+--   acceptance-Zeilen flach und auf Ein-Teil-Items (NUMERIC). Schreibt ein
+--   kuenftiger Submit-Pfad dort part_nr, matcht die strikte Variante sonst
+--   stillschweigend nichts.
+--   p_kind: bei Multi-Part parts[nr].kind ('mc'|'short_input'), sonst
+--   lower(tasks.input_type).
+--
+--   Schreibt per WHERE id = new.id (PK) statt ueber das Tripel
+--   (session_id, task_id, coalesce(part_nr,0)) — aequivalent, weil darauf der
+--   Unique-Index lsa_responses_once_per_part liegt, aber ein Schluesselzugriff.
+--
+--   EXCEPTION WHEN OTHERS -> RAISE WARNING, kein Abbruch. Fehlbild-Erfassung
+--   ist Diagnostik-Beiwerk; ein Fehler hier darf die Abgabe eines Kindes NIE
+--   blockieren. Probleme landen als WARNING im Log, nicht im Gesicht des Kindes.
+--
+-- APPEND-ONLY GEWAHRT: der Trigger setzt ausschliesslich fehlbild_slug auf der
+--   gerade eingefuegten Zeile und nur solange sie NULL ist. Keine Rohdaten
+--   werden ueberschrieben (CLAUDE.md §6).
+--
+-- KEIN BACKFILL: verifiziert gegen Prod — alle 66 bestehenden Responses liegen
+--   auf Aufgaben OHNE known_errors, ein Backfill wuerde 0 Zeilen labeln. Der
+--   Report-Wert entsteht erst mit neuen Sitzungen, die known_errors-Items ziehen
+--   (232 NUMERIC-Items vorhanden).
+--
+-- ENTSCHEIDUNG (Rasit): K8-Items nutzen die OBJEKTFORM {wert: slug}. A12
+--   erlaubt Objekt und Array; ein Array liefert nur „bekannt-falsch" ohne Label
+--   und ist fuer die Kausalkette wertlos, weil Baustein B daraus keinen
+--   Ziel-Skill ableiten kann. Bestand ist bereits durchgaengig Objektform.
+--
+-- NICHT IN AF1: Baustein B (lsa_fehlbild_route + A16-Konsum) — das ist ein
+--   Eingriff IN den adaptiven Pfad und braucht einen eigenen Lauf. Ebenso der
+--   Report-Umbau zur Kette und die 17 K8-Knoten samt Items.
