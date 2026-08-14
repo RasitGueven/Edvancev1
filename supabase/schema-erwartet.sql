@@ -953,8 +953,15 @@ begin
   -- Auf die Primaerschluessel-Zeile schreiben. Kein Match ueber
   -- (session_id, task_id, part_nr): darauf existiert KEIN Unique-Constraint,
   -- eine Wiederholung derselben Aufgabe wuerde sonst fremde Zeilen treffen.
+  --
+  -- AF6: die Antwort wird VOR dem Matchen normalisiert — dieselbe Funktion, die
+  -- lsa_submit fuer die Bewertung benutzt. Damit haengt die Diagnosefaehigkeit
+  -- nicht mehr daran, in welcher der drei zulaessigen Formen der Client die
+  -- Antwort geschickt hat. Objekte gibt lsa_part_answer unveraendert zurueck.
   update public.lsa_responses
-     set fehlbild_slug = public.lsa_fehlbild_match(v_kind, v_ke, new.response)
+     set fehlbild_slug = public.lsa_fehlbild_match(
+                           v_kind, v_ke,
+                           public.lsa_part_answer(v_kind, new.response))
    where id = new.id
      and fehlbild_slug is null;
 
