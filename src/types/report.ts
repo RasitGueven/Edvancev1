@@ -38,25 +38,19 @@ export type ParentAssessment = {
   weakTopics: string[]
 }
 
-// Ein wiederkehrender Denkschritt aus lsa_fehlbild_auswertung (AF2/AF3/AF4).
+// Ein wiederkehrender Denkschritt aus lsa_fehlbild_auswertung (AF2/AF3/AF4/AF5).
 //
 // `slug` und `familie` sind interne Schlüssel und dürfen NIE gerendert werden —
 // beide sind snake_case und keine Sätze für Eltern (INV-4.3). Angezeigt wird
-// ausschließlich ein abgenommener Text; fehlt er, gilt der neutrale Fallback.
+// ausschließlich `familieElterntext`, und nur wenn er da ist.
+//
+// Kein `klartext` mehr: das war bis AF3 der Elternsatz zum einzelnen Slug, ab
+// AF4 der Coach-Satz — den die RPC des Eltern-Pfads nicht mehr herausgibt. Mit
+// der Bündelung (AF5) trägt der Elternsatz die Familie, nicht den Slug; das
+// Feld wäre dauerhaft null und die einzige Frage daran, wann es doch jemand
+// rendert.
 export type ReportFehlbild = {
   slug: string
-  /**
-   * Bis AF3 der Elternsatz zum einzelnen Slug. Ab AF4 ist
-   * fehlbild_labels.klartext der COACH-Satz und die RPC des Eltern-Pfads gibt
-   * ihn nicht mehr heraus — dieses Feld ist deshalb derzeit IMMER null und die
-   * Anzeige fällt auf ihren neutralen Text zurück.
-   *
-   * Es bleibt bestehen, weil der Elternsatz nach der Bündelung hier wieder
-   * einläuft: sobald ReportBody auf Familien gruppiert, trägt die Karte
-   * `familieElterntext` der Gruppe. Vorher hätte ein Entfernen nur bedeutet,
-   * die Fallback-Logik der Anzeige zweimal zu schreiben.
-   */
-  klartext: string | null
   /**
    * Bündelschlüssel (fehlbild_familien.schluessel), null wenn der Slug keiner
    * Familie zugeordnet ist. Zum Gruppieren, nicht zum Anzeigen.

@@ -20,9 +20,10 @@ import deReport from '@/i18n/locales/de/report.json'
  *   2. KEINE GAMIFICATION — XP, Level und Streaks bleiben im Schüler-Surface.
  *      Gegenüber Eltern werden sie zur Leistungskennzahl; ein gerissener Streak
  *      liest sich als Vorwurf, ein XP-Stand lädt zum Vergleich ein.
- *   3. KEIN ROHER SLUG — ein Fehlbild-Slug ist ein interner Schlüssel
- *      ('linearer_faktor'), kein Satz für Eltern. Ohne abgenommenen Klartext
- *      (fehlbild_labels.freigegeben_am) zeigt der Report seinen neutralen Text.
+ *   3. KEIN ROHER SCHLÜSSEL — ein Fehlbild-Slug ('linearer_faktor') und ein
+ *      Familienschlüssel ('einheiten_massstab') sind interne Bezeichner, keine
+ *      Sätze für Eltern. Angezeigt wird nur ein abgenommener Text; fehlt er,
+ *      entfällt der Befund still (AF5-Bündelung).
  */
 
 const SRC = resolve(__dirname, '../..')
@@ -45,6 +46,8 @@ function code(rel: string): string {
 
 const PARENT_DASHBOARD = 'pages/parent/ParentDashboard.tsx'
 const REPORT_BODY = 'components/edvance/report/ReportBody.tsx'
+const REPORT_FEHLBILDER = 'components/edvance/report/ReportFehlbilder.tsx'
+const FEHLBILD_GRUPPIERUNG = 'lib/reportFehlbilder.ts'
 
 // Alle Strings eines Übersetzungsbaums, Pfad → Text.
 function flatten(
@@ -124,30 +127,49 @@ describe('INV-4.2 — keine Gamification auf Eltern-Flächen', () => {
   })
 })
 
-describe('INV-4.3 — Eltern sehen nie einen rohen Fehlbild-Slug', () => {
-  it('ReportBody rendert klartext, niemals slug', () => {
+describe('INV-4.3 — Eltern sehen nie einen rohen Fehlbild-Schlüssel', () => {
+  // Seit der Bündelung (AF5) rendert der Abschnitt Familien, nicht Slugs. Die
+  // Invariante ist dieselbe geblieben, ihre Angriffsfläche ist gewachsen: es
+  // gibt jetzt ZWEI interne Schlüssel (slug, familie) und einen Text, der nicht
+  // für Eltern gedacht ist (den Coach-Klartext).
+
+  it('ReportBody rendert den Fehlbild-Abschnitt nicht mehr selbst', () => {
+    // Er delegiert. Zieht jemand die Liste zurück in den Body, greifen die
+    // Proben unten nicht mehr — deshalb wird die Delegation selbst geprüft.
     const src = code(REPORT_BODY)
-    // Der Slug darf ausschliesslich als React-key dienen.
-    const slugVerwendungen = [...src.matchAll(/fb\.slug/g)]
-    expect(slugVerwendungen).toHaveLength(1)
-    expect(src).toContain('key={fb.slug}')
+    expect(src).toContain('<ReportFehlbilder')
+    expect(src).not.toMatch(/\bfb\./)
   })
 
-  it('für fehlenden Klartext existiert ein neutraler Fallback', () => {
-    const src = code(REPORT_BODY)
-    expect(src).toContain("fb.klartext ?? t('fehlbild.pending.title')")
-    expect(reportStrings['fehlbild.pending.title']).toBeTruthy()
+  it('die Fehlbild-Komponente rendert weder Slug noch Familienschlüssel', () => {
+    const src = code(REPORT_FEHLBILDER)
+    // Der Familienschlüssel darf ausschliesslich als React-key dienen.
+    expect([...src.matchAll(/familie\.familie/g)]).toHaveLength(1)
+    expect(src).toContain('key={familie.familie}')
+    // Der Slug taucht in der Elternsicht überhaupt nicht auf.
+    expect(src).not.toMatch(/\.slug\b/)
   })
 
-  it('der neutrale Fallback behauptet nichts über den Denkschritt', () => {
-    // Er darf sagen DASS ein Muster da ist, nicht WELCHES.
-    const text = [
-      reportStrings['fehlbild.pending.title'],
-      reportStrings['fehlbild.pending.description_one'],
-      reportStrings['fehlbild.pending.description_other'],
-    ].join(' ')
-    expect(text).toMatch(/Muster|Zwischenschritt/)
-    expect(text).not.toMatch(/_/) // kein durchgerutschter Slug
+  it('die Fehlbild-Komponente rendert keinen Coach-Klartext', () => {
+    // klartext ist ab AF4 der Coach-Satz. Er kommt über die Eltern-RPC gar
+    // nicht mehr an; taucht der Bezeichner hier auf, hat ihn jemand zurückgeholt.
+    expect(code(REPORT_FEHLBILDER)).not.toMatch(/klartext/i)
+    expect(code(FEHLBILD_GRUPPIERUNG)).not.toMatch(/klartext/i)
+  })
+
+  it('ohne abgenommenen Elterntext entfällt der Befund, statt ersetzt zu werden', () => {
+    // Kein Platzhalter: ein Ersatztext an dieser Stelle wäre genau die
+    // Behauptung über das Denken eines Kindes, die die Abnahme verhindern soll.
+    const src = code(FEHLBILD_GRUPPIERUNG)
+    expect(src).toContain('if (!familie || !elterntext) continue')
+    // Und die Komponente rendert nichts, wenn nichts übrig bleibt.
+    expect(code(REPORT_FEHLBILDER)).toContain('return null')
+  })
+
+  it('der angezeigte Satz kommt wörtlich aus der Datenbank', () => {
+    // Nicht aus i18n: der Elterntext ist Inhalt, keine Oberflächensprache
+    // (CLAUDE §12). Gerendert wird das Feld, unverändert.
+    expect(code(REPORT_FEHLBILDER)).toContain('{familie.elterntext}')
   })
 
   it('kein Registry-Slug steht als Text in report.json', () => {
