@@ -254,21 +254,21 @@ async function loadFehlbilder(sessionId: string): Promise<ReportFehlbild[]> {
     familie_elterntext: string | null
     anzahl: number
     aufgaben: number
+    skills: string[] | null
     skill_uebergreifend: boolean
     einstufung: string
   }
 
-  return (data as Row[])
-    .filter((r) => r.einstufung === 'befund')
-    .map((r) => ({
-      slug: r.fehlbild_slug,
-      familie: r.familie,
-      familieElterntext: r.familie_elterntext?.trim() ? r.familie_elterntext : null,
-      anzahl: r.anzahl,
-      aufgaben: r.aufgaben,
-      skillUebergreifend: r.skill_uebergreifend,
-      einstufung: 'befund' as const,
-    }))
+  return (data as Row[]).map((r) => ({
+    slug: r.fehlbild_slug,
+    familie: r.familie,
+    familieElterntext: r.familie_elterntext?.trim() ? r.familie_elterntext : null,
+    anzahl: r.anzahl,
+    aufgaben: r.aufgaben,
+    skills: r.skills ?? [],
+    skillUebergreifend: r.skill_uebergreifend,
+    einstufung: r.einstufung === 'befund' ? ('befund' as const) : ('beobachtung' as const),
+  }))
 }
 
 // Der vollständige Report-Datensatz einer Session.

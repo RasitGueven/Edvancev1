@@ -64,7 +64,21 @@ export type ReportFehlbild = {
   familieElterntext: string | null
   anzahl: number
   aufgaben: number
+  /**
+   * Die Skills, in denen dieser Slug auftrat.
+   *
+   * Ab R2 nicht mehr nur Zierde: eine Aufgabe hat genau EINEN skill_key, also
+   * beweisen disjunkte Skill-Mengen zweier Slugs, dass sie verschiedene
+   * Aufgaben getroffen haben. Darauf ruht die Untergrenze der Aufgabenzahl in
+   * `aufgabenUntergrenze` — die RPC liefert keine Aufgaben-IDs.
+   */
+  skills: string[]
   skillUebergreifend: boolean
+  /**
+   * Einstufung des EINZELNEN Slugs. Ab R2 nur noch Information: die Schwelle
+   * entscheidet nicht mehr hier, sondern nach der Bündelung auf Familienebene
+   * (src/lib/reportFehlbilder.ts).
+   */
   einstufung: 'befund' | 'beobachtung'
 }
 
@@ -77,7 +91,14 @@ export type ReportData = {
   analysedAt: string | null
   topics: ReportTopic[]
   parentAssessment: ParentAssessment | null
-  /** Nur Einstufung 'befund' — Beobachtungen tragen für ein Elterngespräch zu wenig. */
+  /**
+   * ALLE Fehlbilder der Sitzung, ungefiltert.
+   *
+   * Bis R2 stand hier nur 'befund'. Die Schwelle greift seitdem erst NACH der
+   * Bündelung je Familie — sonst geht verloren, wofür die Bündelung gebaut
+   * wurde: zwei Slugs derselben Familie, je unter der Schwelle, zusammen
+   * darüber.
+   */
   fehlbilder: ReportFehlbild[]
 }
 
