@@ -178,6 +178,7 @@ export type {
   ParentAssessment,
   ReportData,
   ReportFehlbild,
+  ReportEmpfehlung,
   ReportSkillbefund,
   ReportSkillbefunde,
   ReportPaket,

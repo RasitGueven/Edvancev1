@@ -1,0 +1,130 @@
+/* Eltern-Report — Komposition (R3).
+   Alles unter `.report-sheet` gescoped, damit die übrige Oberfläche unberührt
+   bleibt. Farben ausschließlich aus den Report-Tokens: Navy, Gold als einziger
+   Akzent, Cremeweiß als Fläche. Kein Verlauf, kein Glow, kein Rot. */
+
+/* ── Leseordnung ───────────────────────────────────────────────────────────
+   Der Report hatte sieben gleichwertige Abschnitte. Drei Gewichte machen daraus
+   eine Ordnung — ohne die Reihenfolge anzutasten:
+
+     Leitabschnitt   die Erzählung. Volle Navy-Fläche, größte Type.
+     Hauptteil       Muster + „Was wir uns genauer ansehen". Was der Coach
+                     zeigt: wie das Kind denkt und woran gearbeitet wird.
+                     Goldene Haarlinie darüber, großzügiger Vorlauf.
+     Belegteil       „Das läuft gut" + „Die Beobachtungen im Einzelnen".
+                     Stützen die beiden Hauptteile, führen sie nicht.
+     Anhang          „Was abgefragt wurde", „Ihre Einschätzung". Herkunft,
+                     kein Argument — kleine Versalien, gedämpft.
+*/
+
+.report-sheet .report-hauptteil {
+  margin-top: 0.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-report-gold) 45%, transparent);
+}
+
+.report-sheet .report-anhang {
+  margin-top: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-report-navy) 12%, transparent);
+}
+
+/* ── Aufklappbarer Befund ──────────────────────────────────────────────────
+   `<details>` statt Skript: kein Zustand, kein Widget-Verhalten. Der UA-Pfeil
+   ist abgeschaltet, an seiner Stelle steht ein Winkel in Gold — die Zeile soll
+   wie eine Abschnittsüberschrift aussehen, nicht wie ein Bedienelement. */
+
+.report-sheet details > summary {
+  list-style: none;
+}
+.report-sheet details > summary::-webkit-details-marker {
+  display: none;
+}
+.report-sheet details:not([open]) > .report-details-body {
+  display: none;
+}
+
+.report-winkel {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--color-report-gold);
+  border-bottom: 2px solid var(--color-report-gold);
+  transform: rotate(-45deg);
+  transition: transform 120ms ease-out;
+}
+.report-sheet details[open] .report-winkel {
+  transform: rotate(45deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .report-winkel {
+    transition: none;
+  }
+}
+.report-sheet details > summary:focus-visible {
+  outline: 2px solid var(--color-report-gold);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ── Aufgabenspur ─────────────────────────────────────────────────────────
+   Eine Marke je gestellter Aufgabe. Eine ZÄHLUNG, keine Skala: kein Maximum,
+   auf das man zuläuft, keine Farbe mit Wertung, keine Prozentzahl. */
+
+.report-marke {
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+/* ── Schluss: Fazit und Empfehlung ────────────────────────────────────────
+   Eine gemeinsame Navy-Fläche mit deutlichem Vorlauf. Der Report ist eine
+   Aufzählung von Beobachtungen — Fazit und Empfehlung sind das Gegenteil und
+   dürfen nicht als Kasten sechs und sieben in derselben Reihe stehen. So endet
+   das Dokument sichtbar, statt aufzuhören. */
+
+.report-schluss {
+  margin-top: 2.5rem;
+  padding: 2rem 2rem 2.25rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-report-navy);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.report-schluss-titel {
+  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-report-gold) 92%, white);
+  margin-bottom: 0.5rem;
+}
+
+.report-schluss-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+.report-schluss-text:last-child {
+  margin-bottom: 0;
+}
+
+.report-schluss-paket {
+  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+/* Die Trennlinie zwischen Fazit und Empfehlung: eine Haarlinie in Gold,
+   damit die beiden als zwei Gedanken lesbar bleiben und nicht verschwimmen. */
+.report-schluss-empfehlung {
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-report-gold) 40%, transparent);
+}
+.report-schluss-fazit:only-child,
+.report-schluss-empfehlung:only-child {
+  padding-top: 0;
+  border-top: 0;
+}

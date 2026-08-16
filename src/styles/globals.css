@@ -2,6 +2,7 @@
 @import "./tokens.css";
 @import "./session.css";
 @import "./print.css";
+@import "./report.css";
 
 /* ─── Tailwind v4: map CSS variables to utility classes ───────────────────────── */
 @theme inline {

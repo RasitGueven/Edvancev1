@@ -41,7 +41,7 @@ export function ReportFehlbilder({
   if (familien.length === 0) return null
 
   return (
-    <section className="report-block flex flex-col gap-2">
+    <section className="report-block report-hauptteil flex flex-col gap-2">
       <h3 className={titleClassName}>
         {t('fehlbild.title', { count: familien.length })}
       </h3>
