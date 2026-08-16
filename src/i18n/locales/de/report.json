@@ -60,7 +60,14 @@
   },
   "topics": {
     "title": "Was abgefragt wurde",
-    "description": "Diese Themen kamen in der Analyse vor."
+    "description": "Diese Themen kamen in der Analyse vor.",
+    "area": {
+      "arithmetik_algebra": "Arithmetik und Algebra",
+      "geometrie": "Geometrie",
+      "funktionen": "Funktionen",
+      "stochastik": "Stochastik",
+      "unassigned": "Ohne Zuordnung"
+    }
   },
   "parent": {
     "title": "Ihre Einschätzung",
