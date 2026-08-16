@@ -122,6 +122,33 @@ begin
   end if;
   raise notice 'F4 ok: question, curriculum_grade, est_duration_sec, skill_key gesetzt';
 
+  -- ══ Fall 4b: competency_content AM ITEM ══════════════════════════════════
+  --
+  -- KEIN Feld des Freigabe-Gates — task_status_set prueft es nicht. Der
+  -- Eltern-Report baut daraus aber die Themengliederung: fehlt der Wert,
+  -- erscheinen die Aufgaben dort unter "ohne Zuordnung". Genau so ist es
+  -- passiert (Nachtrag 20260816100000). Fall 3 prueft den Wert in den
+  -- TEILAUFGABEN — der war nie das Problem, er stand von Anfang an.
+
+  select count(*) into v_n from public.tasks
+   where source = 'edvance_p5_modellieren' and source_ref <> 'handytarif-01'
+     and coalesce(btrim(competency_content), '') = '';
+  if v_n <> 0 then
+    raise exception 'F4b: % Aufgaben ohne competency_content AM ITEM — der '
+                    'Elternreport fuehrt sie unter "ohne Zuordnung"', v_n;
+  end if;
+
+  -- Item und Teilaufgabe muessen denselben Bereich fuehren.
+  select count(*) into v_n
+    from public.tasks t, jsonb_array_elements(t.parts) e(p)
+   where t.source = 'edvance_p5_modellieren' and t.source_ref <> 'handytarif-01'
+     and coalesce(btrim(p ->> 'competency_content'), '') <> ''
+     and p ->> 'competency_content' is distinct from t.competency_content;
+  if v_n <> 0 then
+    raise exception 'F4b: bei % Teilaufgaben weicht der Kompetenzbereich vom Item ab', v_n;
+  end if;
+  raise notice 'F4b ok: competency_content am Item gesetzt und deckungsgleich mit den Teilen';
+
   -- ══ Fall 5: lsa_parts_valid ═══════════════════════════════════════════════
   --
   -- Der CHECK auf tasks erzwingt das bereits beim Insert. Hier steht es als
