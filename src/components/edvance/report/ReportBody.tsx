@@ -1,8 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import { EmptyState } from '@/components/edvance'
 import { ReportFehlbilder } from '@/components/edvance/report/ReportFehlbilder'
+import { ReportSkillbefunde } from '@/components/edvance/report/ReportSkillbefunde'
 import { ReportTopicBar } from '@/components/edvance/report/ReportTopicBar'
 import { buildNarrative, formatDuration, pickStrength } from '@/lib/reportNarrative'
+import { TOPIC_UNASSIGNED } from '@/lib/supabase/lsaReport'
 import type { ReportData } from '@/types'
 
 /**
@@ -16,16 +18,29 @@ export function ReportBody({ data }: { data: ReportData }): JSX.Element {
   const { t, i18n } = useTranslation('report')
   const name = data.firstName?.trim() || t('head.childFallback')
 
-  const strength = pickStrength(data.topics)
+  // `topic` trägt seit R2 den ROHEN competency_content-Schlüssel
+  // (arithmetik_algebra, geometrie, funktionen, stochastik) — eine interne
+  // Konstante, kein Satz. Sie wird HIER zu einem, einmal und zentral, bevor
+  // irgendetwas sie rendert oder in einen Erzählsatz einbaut (CLAUDE §12).
+  // Ein unbekannter Schlüssel würde sonst als snake_case an Eltern gehen.
+  const topics = data.topics.map((topic) => ({
+    ...topic,
+    topic:
+      topic.topic === TOPIC_UNASSIGNED
+        ? t('topics.area.unassigned')
+        : t(`topics.area.${topic.topic}`, { defaultValue: t('topics.area.unassigned') }),
+  }))
+
+  const strength = pickStrength(topics)
   const narrative = buildNarrative({
     firstName: data.firstName,
-    topics: data.topics,
+    topics,
   })
-  const maxDurationMs = data.topics.reduce(
+  const maxDurationMs = topics.reduce(
     (max, topic) => Math.max(max, topic.avgDurationMs ?? 0),
     0,
   )
-  const answeredAny = data.topics.some((topic) => topic.answered > 0)
+  const answeredAny = topics.some((topic) => topic.answered > 0)
 
   const dateLabel = data.analysedAt
     ? new Intl.DateTimeFormat(i18n.language, {
@@ -112,7 +127,7 @@ export function ReportBody({ data }: { data: ReportData }): JSX.Element {
           {t('evidence.description')}
         </p>
         {answeredAny ? (
-          data.topics.map((topic) => (
+          topics.map((topic) => (
             <ReportTopicBar
               key={topic.topic}
               topic={topic}
@@ -144,15 +159,28 @@ export function ReportBody({ data }: { data: ReportData }): JSX.Element {
         titleClassName={sectionTitle}
       />
 
+      {/* 4c. WAS WIR UNS GENAUER ANSEHEN (R2)
+
+          Die Skill-Ebene der Diagnose. Nach den Denkschritten, weil sie
+          gröber ist: dort steht, WIE das Kind gerechnet hat, hier, WELCHE
+          Bereiche der Coach nachprüft.
+
+          Ein Befund, kein Urteil — bei zwei Proben je Skill steht offen=true
+          in den Daten. Trägt alles Geprüfte, rendert die Komponente nichts. */}
+      <ReportSkillbefunde
+        befunde={data.skillbefunde}
+        titleClassName={sectionTitle}
+      />
+
       {/* 5. WAS ABGEFRAGT WURDE */}
-      {data.topics.length > 0 && (
+      {topics.length > 0 && (
         <section className="report-block flex flex-col gap-2">
           <h3 className={sectionTitle}>{t('topics.title')}</h3>
           <p className="text-sm text-[color-mix(in_srgb,var(--color-report-navy)_70%,transparent)]">
             {t('topics.description')}
           </p>
           <ul className="mt-1 flex flex-col gap-1">
-            {data.topics.map((topic) => (
+            {topics.map((topic) => (
               <li
                 key={topic.topic}
                 className="flex items-baseline gap-2 text-sm text-[var(--color-report-navy)]"

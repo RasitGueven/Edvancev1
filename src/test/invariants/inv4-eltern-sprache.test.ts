@@ -48,6 +48,7 @@ const PARENT_DASHBOARD = 'pages/parent/ParentDashboard.tsx'
 const REPORT_BODY = 'components/edvance/report/ReportBody.tsx'
 const REPORT_FEHLBILDER = 'components/edvance/report/ReportFehlbilder.tsx'
 const FEHLBILD_GRUPPIERUNG = 'lib/reportFehlbilder.ts'
+const SKILLBEFUNDE = 'components/edvance/report/ReportSkillbefunde.tsx'
 
 // Alle Strings eines Übersetzungsbaums, Pfad → Text.
 function flatten(
@@ -170,6 +171,36 @@ describe('INV-4.3 — Eltern sehen nie einen rohen Fehlbild-Schlüssel', () => {
     // Nicht aus i18n: der Elterntext ist Inhalt, keine Oberflächensprache
     // (CLAUDE §12). Gerendert wird das Feld, unverändert.
     expect(code(REPORT_FEHLBILDER)).toContain('{familie.elterntext}')
+  })
+
+  it('der Skill-Abschnitt rendert das Label, niemals den skill_key', () => {
+    const src = code(SKILLBEFUNDE)
+    // skillKey darf ausschliesslich als React-key dienen.
+    expect([...src.matchAll(/skill\.skillKey/g)]).toHaveLength(1)
+    expect(src).toContain('key={skill.skillKey}')
+    expect(src).toContain('{skill.label}')
+  })
+
+  it('der Skill-Abschnitt entfaellt, statt Leere zu behaupten', () => {
+    const src = code(SKILLBEFUNDE)
+    expect(src).toContain('return null')
+  })
+
+  it('der Skill-Abschnitt zeigt keine Fundamenttiefe als Zahl', () => {
+    // Eine Stufenzahl waere fuer Eltern bedeutungslos und laese sich wie eine Note.
+    const src = code(SKILLBEFUNDE)
+    expect(src).not.toMatch(/\{\s*skill\.fundamentTiefe\s*\}/)
+  })
+
+  it('der Skill-Abschnitt traegt seine Vorlaeufigkeit in der Sprache', () => {
+    // Ein Befund aus zwei Aufgaben ist eine Beobachtung, kein Urteil.
+    const text = [
+      reportStrings['skillbefunde.title'],
+      reportStrings['skillbefunde.description'],
+    ].join(' ')
+    expect(text).toMatch(/genauer an|nach|Momentaufnahme/)
+    // Kein Defizit-Vokabular ueber das Kind.
+    expect(text).not.toMatch(/L(ü|ue)cke|Schw(ä|ae)che|kann das nicht|Defizit/i)
   })
 
   it('kein Registry-Slug steht als Text in report.json', () => {

@@ -10,6 +10,7 @@
 // task_solutions wird NICHT angefasst.
 
 import { supabase } from '@/lib/supabase/client'
+import { loadSkillbefunde } from '@/lib/supabase/lsaReportSkills'
 import type {
   LsaSessionListItem,
   LsaSessionState,
@@ -153,14 +154,25 @@ async function loadParentAssessment(
   return { note, weakTopics }
 }
 
+/**
+ * Der Schlüssel für „keiner Kompetenz zugeordnet".
+ *
+ * Bewusst der Leerstring und KEIN deutscher Text: `topic` trägt seit R2 den
+ * rohen `competency_content`-Schlüssel (`arithmetik_algebra`, `geometrie`,
+ * `funktionen`, `stochastik`) — interne Konstanten, die erst in der Anzeige
+ * über i18n zu einem Satz werden (CLAUDE §12). Stünde hier deutscher Text,
+ * läge Oberflächensprache in der lib-Schicht.
+ */
+export const TOPIC_UNASSIGNED = ''
+
 // Themen-Belege: geplante Items je Thema gegen die tatsächlichen Antworten.
 // „ausgelassen" = zugelost, aber nicht beantwortet.
-function buildTopics(
-  itemIds: string[],
+export function buildTopics(
+  taskIds: string[],
   topicByTask: Map<string, string>,
   responses: { task_id: string; correct: boolean | null; duration_ms: number | null }[],
 ): ReportTopic[] {
-  const UNKNOWN = 'Ohne Themenzuordnung'
+  const UNKNOWN = TOPIC_UNASSIGNED
   const acc = new Map<
     string,
     { planned: number; answered: number; correct: number; durations: number[] }
@@ -174,7 +186,7 @@ function buildTopics(
     return e
   }
 
-  for (const id of itemIds) ensure(topicByTask.get(id) ?? UNKNOWN).planned += 1
+  for (const id of taskIds) ensure(topicByTask.get(id) ?? UNKNOWN).planned += 1
 
   for (const r of responses) {
     const e = ensure(topicByTask.get(r.task_id) ?? UNKNOWN)
@@ -185,7 +197,7 @@ function buildTopics(
     }
   }
 
-  return [...acc.entries()]
+  const topics = [...acc.entries()]
     .map(([topic, e]) => ({
       topic,
       planned: e.planned,
@@ -197,7 +209,19 @@ function buildTopics(
           ? Math.round(e.durations.reduce((a, b) => a + b, 0) / e.durations.length)
           : null,
     }))
-    .sort((a, b) => a.topic.localeCompare(b.topic, 'de'))
+    // Zugeordnete Themen alphabetisch, „ohne Zuordnung" zuletzt — es ist ein
+    // Rest, kein Thema, und soll nicht die Liste anführen.
+    .sort((a, b) => {
+      if (a.topic === UNKNOWN) return 1
+      if (b.topic === UNKNOWN) return -1
+      return a.topic.localeCompare(b.topic, 'de')
+    })
+
+  // Bleibt NUR der Rest übrig, ist die Themenachse keine Information, sondern
+  // ein Etikett auf dem Nichts. Dann lieber keine Themen: der Report zeigt
+  // seinen EmptyState statt eines Balkens namens „ohne Zuordnung".
+  if (topics.length === 1 && topics[0].topic === UNKNOWN) return []
+  return topics
 }
 
 // Die wiederkehrenden Denkschritte der Sitzung (AF2/AF3/AF4/AF5).
@@ -231,21 +255,21 @@ async function loadFehlbilder(sessionId: string): Promise<ReportFehlbild[]> {
     familie_elterntext: string | null
     anzahl: number
     aufgaben: number
+    skills: string[] | null
     skill_uebergreifend: boolean
     einstufung: string
   }
 
-  return (data as Row[])
-    .filter((r) => r.einstufung === 'befund')
-    .map((r) => ({
-      slug: r.fehlbild_slug,
-      familie: r.familie,
-      familieElterntext: r.familie_elterntext?.trim() ? r.familie_elterntext : null,
-      anzahl: r.anzahl,
-      aufgaben: r.aufgaben,
-      skillUebergreifend: r.skill_uebergreifend,
-      einstufung: 'befund' as const,
-    }))
+  return (data as Row[]).map((r) => ({
+    slug: r.fehlbild_slug,
+    familie: r.familie,
+    familieElterntext: r.familie_elterntext?.trim() ? r.familie_elterntext : null,
+    anzahl: r.anzahl,
+    aufgaben: r.aufgaben,
+    skills: r.skills ?? [],
+    skillUebergreifend: r.skill_uebergreifend,
+    einstufung: r.einstufung === 'befund' ? ('befund' as const) : ('beobachtung' as const),
+  }))
 }
 
 // Der vollständige Report-Datensatz einer Session.
@@ -270,18 +294,36 @@ export async function getReportData(
       .eq('session_id', sessionId)
     if (rErr) return { data: null, error: rErr.message }
 
+    // Die Aufgabenmenge, über die die Themenachse gebaut wird.
+    //
+    // `item_ids` ist NUR im Modus 'fest' gefüllt. Adaptive Sitzungen starten
+    // mit '{}' und lsa_finish trägt nichts nach — bis R2 fiel dadurch JEDE
+    // Antwort auf „ohne Zuordnung", `planned` blieb 0, und der Report zeigte
+    // „30 von 0 bearbeitet".
+    //
+    // Deshalb: item_ids, wenn vorhanden — sonst die tatsächlich beantworteten
+    // Aufgaben. Für 'fest' ist das byte-gleich zu vorher (item_ids ist dort
+    // immer gesetzt), für 'adaptiv' überhaupt erst eine Achse.
+    const taskIds =
+      itemIds.length > 0
+        ? itemIds
+        : [...new Set((responses ?? []).map((r) => r.task_id as string))]
+
     // competency_content ist der Stoffanker, nach dem auch lsa_finish
     // aggregiert — gleiche Achse, damit Report und Auswertung nicht driften.
+    // Der Wert ist eine interne Konstante (arithmetik_algebra, geometrie,
+    // funktionen, stochastik) und wird ERST IN DER ANZEIGE zu einem Satz
+    // (CLAUDE §12). Hier bleibt er roh.
     const topicByTask = new Map<string, string>()
-    if (itemIds.length > 0) {
+    if (taskIds.length > 0) {
       const { data: tasks, error: tErr } = await supabase
         .from('tasks')
         .select('id, competency_content')
-        .in('id', itemIds)
+        .in('id', taskIds)
       if (tErr) return { data: null, error: tErr.message }
       for (const t of tasks ?? []) {
-        const label = (t.competency_content as string | null)?.trim()
-        if (label) topicByTask.set(t.id as string, label)
+        const key = (t.competency_content as string | null)?.trim()
+        if (key) topicByTask.set(t.id as string, key)
       }
     }
 
@@ -296,7 +338,7 @@ export async function getReportData(
         status: row.status,
         analysedAt: row.completed_at ?? row.started_at ?? row.created_at,
         topics: buildTopics(
-          itemIds,
+          taskIds,
           topicByTask,
           (responses ?? []) as {
             task_id: string
@@ -305,6 +347,7 @@ export async function getReportData(
           }[],
         ),
         parentAssessment: await loadParentAssessment(row.student_id),
+        skillbefunde: await loadSkillbefunde(sessionId),
         fehlbilder: await loadFehlbilder(row.id),
       },
       error: null,

@@ -178,6 +178,8 @@ export type {
   ParentAssessment,
   ReportData,
   ReportFehlbild,
+  ReportSkillbefund,
+  ReportSkillbefunde,
   ReportPaket,
   ReportNotes,
 } from './report'

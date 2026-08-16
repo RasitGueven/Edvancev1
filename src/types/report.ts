@@ -64,8 +64,58 @@ export type ReportFehlbild = {
   familieElterntext: string | null
   anzahl: number
   aufgaben: number
+  /**
+   * Die Skills, in denen dieser Slug auftrat.
+   *
+   * Ab R2 nicht mehr nur Zierde: eine Aufgabe hat genau EINEN skill_key, also
+   * beweisen disjunkte Skill-Mengen zweier Slugs, dass sie verschiedene
+   * Aufgaben getroffen haben. Darauf ruht die Untergrenze der Aufgabenzahl in
+   * `aufgabenUntergrenze` — die RPC liefert keine Aufgaben-IDs.
+   */
+  skills: string[]
   skillUebergreifend: boolean
+  /**
+   * Einstufung des EINZELNEN Slugs. Ab R2 nur noch Information: die Schwelle
+   * entscheidet nicht mehr hier, sondern nach der Bündelung auf Familienebene
+   * (src/lib/reportFehlbilder.ts).
+   */
   einstufung: 'befund' | 'beobachtung'
+}
+
+/**
+ * Ein direkt geprüfter Skill, der nicht trägt (R2).
+ *
+ * `skillKey` ist ein interner Schlüssel und wird NIE gerendert — angezeigt wird
+ * `label` aus `skills.label`. Erfunden wird dafür nichts: fehlt ein Label, fehlt
+ * der Eintrag.
+ */
+export type ReportSkillbefund = {
+  skillKey: string
+  label: string
+  fundamentTiefe: number
+}
+
+/**
+ * Der Abschnitt „Was wir uns genauer ansehen".
+ *
+ * Ein BEFUND, kein Urteil: bei zwei Proben je Skill steht `offen = true` in den
+ * Daten. Der Coach validiert ihn in den ersten Sitzungen — die Sprache des
+ * Abschnitts muss diese Vorläufigkeit tragen.
+ *
+ * Enthalten sind ausschließlich DIREKT geprüfte Skills (`belegt_direkt`).
+ * Mitbelegte Urteile sind abgeleitet, nicht geprüft, und erscheinen nicht.
+ */
+export type ReportSkillbefunde = {
+  /** Nicht tragend, namentlich. Absteigend nach Fundamenttiefe. */
+  nichtTragend: ReportSkillbefund[]
+  /** Direkt geprüft und tragend — nur die Zahl, nie einzeln aufgezählt. */
+  tragendAnzahl: number
+  /**
+   * true, wenn die nicht tragenden Skills über mehr als eine Fundamentstufe
+   * streuen — die Analyse musste also hinter den Einstieg zurückgehen. Liegen
+   * alle auf einer Stufe, entfällt die Aussage.
+   */
+  zurueckgegangen: boolean
 }
 
 export type ReportData = {
@@ -77,8 +127,20 @@ export type ReportData = {
   analysedAt: string | null
   topics: ReportTopic[]
   parentAssessment: ParentAssessment | null
-  /** Nur Einstufung 'befund' — Beobachtungen tragen für ein Elterngespräch zu wenig. */
+  /**
+   * ALLE Fehlbilder der Sitzung, ungefiltert.
+   *
+   * Bis R2 stand hier nur 'befund'. Die Schwelle greift seitdem erst NACH der
+   * Bündelung je Familie — sonst geht verloren, wofür die Bündelung gebaut
+   * wurde: zwei Slugs derselben Familie, je unter der Schwelle, zusammen
+   * darüber.
+   */
   fehlbilder: ReportFehlbild[]
+  /**
+   * Die Skill-Ebene der Diagnose (R2). null, wenn kein Skill direkt geprüft
+   * wurde — dann entfällt der Abschnitt vollständig.
+   */
+  skillbefunde: ReportSkillbefunde | null
 }
 
 // Die Pakete der Empfehlung. Bewusst eine Konstantenliste: die
