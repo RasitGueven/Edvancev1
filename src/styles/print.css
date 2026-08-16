@@ -38,14 +38,6 @@
     box-shadow: none !important;
   }
 
-  /* Die Balken tragen die Aussage — sie müssen mitdrucken, nicht als
-     leerer Rahmen erscheinen. */
-  .report-bar,
-  .report-bar-fill {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
   /* R3 — der Befund-Abschnitt steht im Druck OFFEN.
      Am Bildschirm ist er zugeklappt (Eltern öffnen ihn zu Hause), auf Papier
      gibt es kein Klicken: die UA-Regel für geschlossene <details> wird hier
