@@ -49,6 +49,9 @@ const REPORT_BODY = 'components/edvance/report/ReportBody.tsx'
 const REPORT_FEHLBILDER = 'components/edvance/report/ReportFehlbilder.tsx'
 const FEHLBILD_GRUPPIERUNG = 'lib/reportFehlbilder.ts'
 const SKILLBEFUNDE = 'components/edvance/report/ReportSkillbefunde.tsx'
+const REPORT_TOPIC_BAR = 'components/edvance/report/ReportTopicBar.tsx'
+const REPORT_SCHLUSS = 'components/edvance/report/ReportSchluss.tsx'
+const PRINT_CSS = 'styles/print.css'
 
 // Alle Strings eines Übersetzungsbaums, Pfad → Text.
 function flatten(
@@ -209,5 +212,73 @@ describe('INV-4.3 — Eltern sehen nie einen rohen Fehlbild-Schlüssel', () => {
       /\b[a-z]+_[a-z_]+\b/.test(text),
     )
     expect(treffer).toEqual([])
+  })
+})
+
+/**
+ * INV-4.4 — der Eltern-Report sieht nicht aus wie ein Zeugnis (R3).
+ *
+ * Die Gestaltungsentscheidung von R3 ist eine inhaltliche: der Bereichsbalken
+ * zeigt, WAS gelöst wurde, nicht WIE GUT. Sobald jemand daraus eine Quote, eine
+ * Ampel oder einen Fortschrittsbalken macht, ist es eine Note — und der Report
+ * behauptet etwas, das aus zwei Proben je Skill nicht folgt. Deshalb steht die
+ * Grenze hier und nicht nur im Kommentar.
+ */
+describe('INV-4.4 — der Report zeigt Koennen, keine Note', () => {
+  const REPORT_FLAECHEN = [
+    REPORT_BODY,
+    REPORT_TOPIC_BAR,
+    REPORT_FEHLBILDER,
+    SKILLBEFUNDE,
+    REPORT_SCHLUSS,
+  ]
+
+  it('keine Quote und keine Prozentzahl als Aussage', () => {
+    for (const datei of REPORT_FLAECHEN) {
+      const src = code(datei)
+      // Prozentrechnung im Renderpfad — der klassische Weg zur Note.
+      expect(src, datei).not.toMatch(/\*\s*100\b/)
+      expect(src, datei).not.toMatch(/toFixed/)
+      // Ein Prozentzeichen im ausgegebenen Text.
+      expect(src, datei).not.toMatch(/%\s*(<\/|\{|'|"|`)/)
+    }
+    const prozent = Object.entries(reportStrings).filter(([, text]) =>
+      text.includes('%'),
+    )
+    expect(prozent).toEqual([])
+  })
+
+  it('keine Ampelfarben auf den Eltern-Flaechen', () => {
+    // Der Report kennt drei Farben: Navy, Gold, Creme. Rot/Gelb/Gruen tragen
+    // hier eine Wertung, die niemand belegt hat.
+    for (const datei of REPORT_FLAECHEN) {
+      const src = code(datei)
+      expect(src, datei).not.toMatch(
+        /--color-(error|success|warning|danger)|\b(bg|text|border)-(red|green|amber|yellow|emerald|rose)-/,
+      )
+    }
+  })
+
+  it('der Bereichsbalken ist eine Zaehlung, keine Skala', () => {
+    const src = code(REPORT_TOPIC_BAR)
+    // Kein gefuellter Balken: eine variable Breite ist immer ein Maximum,
+    // auf das man zulaeuft — also eine Skala von schlecht nach gut.
+    expect(src).not.toMatch(/width:/)
+    // Gezaehlt wird gegen die gestellten Aufgaben, nicht gegen ein Soll.
+    expect(src).toMatch(/evidence\.solved/)
+  })
+
+  it('der Schluss rendert nichts ohne Daten', () => {
+    // Fazit und Empfehlung kommen aus abgenommenen Bausteinen. Solange die
+    // fehlen, steht dort kein leerer Kasten und kein Platzhaltersatz.
+    expect(code(REPORT_SCHLUSS)).toMatch(/return null/)
+  })
+
+  it('der aufklappbare Befund steht im Druck offen', () => {
+    // Am Bildschirm zugeklappt, auf Papier vollstaendig: ein ausgedruckter
+    // Report darf nicht weniger sagen als der gleiche Report am Bildschirm.
+    expect(read(PRINT_CSS)).toMatch(
+      /details:not\(\[open\]\)\s*>\s*\.report-details-body/,
+    )
   })
 })

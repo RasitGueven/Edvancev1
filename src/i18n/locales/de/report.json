@@ -47,16 +47,14 @@
   },
   "evidence": {
     "title": "Die Beobachtungen im Einzelnen",
-    "description": "Für jedes Thema: wie viel Zeit eine Aufgabe im Schnitt gebraucht hat und wie viele Aufgaben bearbeitet wurden.",
-    "avgTime": "Zeit pro Aufgabe",
-    "noTime": "keine Zeit erfasst",
-    "answered": "{{answered}} von {{planned}} bearbeitet",
+    "description": "Für jeden Bereich: wie viele der gestellten Aufgaben gelöst wurden.",
     "skipped": "{{count}} ausgelassen",
-    "correct": "{{correct}} richtig",
     "empty": {
       "title": "Noch keine Aufgaben bearbeitet",
       "description": "Sobald Aufgaben beantwortet sind, erscheinen hier die Beobachtungen."
-    }
+    },
+    "solved": "{{correct}} von {{answered}} Aufgaben gelöst",
+    "pace": "im Schnitt {{time}} pro Aufgabe"
   },
   "topics": {
     "title": "Was abgefragt wurde",
@@ -103,6 +101,12 @@
     "description": "Diese Bereiche sehen wir uns in den ersten Sitzungen genauer an. Die Analyse ist eine Momentaufnahme aus wenigen Aufgaben — der Coach prüft sie im Unterricht nach.",
     "tiefe": "Die Analyse hat dafür auch frühere Grundlagen einbezogen, nicht nur den Bereich, mit dem sie begonnen hat.",
     "rest_one": "In dem übrigen geprüften Bereich zeigte sich kein Anlass zur Nachprüfung.",
-    "rest_other": "In den übrigen {{count}} geprüften Bereichen zeigte sich kein Anlass zur Nachprüfung."
+    "rest_other": "In den übrigen {{count}} geprüften Bereichen zeigte sich kein Anlass zur Nachprüfung.",
+    "count_one": "{{count}} Bereich",
+    "count_other": "{{count}} Bereiche"
+  },
+  "schluss": {
+    "fazitTitel": "Unser Fazit",
+    "empfehlungTitel": "Unsere Empfehlung"
   }
 }

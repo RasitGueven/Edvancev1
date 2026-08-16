@@ -118,6 +118,18 @@ export type ReportSkillbefunde = {
   zurueckgegangen: boolean
 }
 
+/**
+ * Die Empfehlung am Schluss des Reports (R3 — Gestaltung vorbereitet).
+ *
+ * `paket` ist der ANZEIGENAME der Stufe, kein Schlüssel. Die Begründung kommt
+ * als Sätze, wörtlich aus abgenommenen Bausteinen — nicht zur Laufzeit
+ * formuliert.
+ */
+export type ReportEmpfehlung = {
+  paket: string
+  begruendung: string[]
+}
+
 export type ReportData = {
   sessionId: string
   firstName: string | null
@@ -141,6 +153,15 @@ export type ReportData = {
    * wurde — dann entfällt der Abschnitt vollständig.
    */
   skillbefunde: ReportSkillbefunde | null
+  /**
+   * Fazit als Sätze und Empfehlung — beides noch OHNE Datenquelle.
+   *
+   * Die Bausteine entstehen in einem eigenen PR; hier liegt nur die Gestaltung
+   * bereit. Optional, damit der Lesepfad sie noch nicht setzen muss: fehlen
+   * sie, rendert der Schluss nichts.
+   */
+  fazit?: string[] | null
+  empfehlung?: ReportEmpfehlung | null
 }
 
 // Die Pakete der Empfehlung. Bewusst eine Konstantenliste: die

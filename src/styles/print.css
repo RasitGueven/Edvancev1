@@ -45,4 +45,32 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
+  /* R3 — der Befund-Abschnitt steht im Druck OFFEN.
+     Am Bildschirm ist er zugeklappt (Eltern öffnen ihn zu Hause), auf Papier
+     gibt es kein Klicken: die UA-Regel für geschlossene <details> wird hier
+     überschrieben, der Aufklapp-Hinweis und der Winkel verschwinden. */
+  .report-sheet details:not([open]) > .report-details-body {
+    display: block !important;
+  }
+  .report-sheet .report-details-hint,
+  .report-sheet .report-winkel {
+    display: none !important;
+  }
+
+  /* Die Aufgabenspur trägt die Aussage mit — sie muss mitdrucken, nicht als
+     leere Ringe erscheinen. */
+  .report-marke {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Der Schluss ist eine Fläche, kein Kasten in der Reihe: er darf umbrechen,
+     aber nicht auf einer eigenen Seite alleine landen. */
+  .report-schluss {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }
