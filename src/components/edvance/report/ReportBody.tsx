@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { EmptyState } from '@/components/edvance'
 import { ReportFehlbilder } from '@/components/edvance/report/ReportFehlbilder'
+import { ReportSkillbefunde } from '@/components/edvance/report/ReportSkillbefunde'
 import { ReportTopicBar } from '@/components/edvance/report/ReportTopicBar'
 import { buildNarrative, formatDuration, pickStrength } from '@/lib/reportNarrative'
 import { TOPIC_UNASSIGNED } from '@/lib/supabase/lsaReport'
@@ -155,6 +156,19 @@ export function ReportBody({ data }: { data: ReportData }): JSX.Element {
       <ReportFehlbilder
         fehlbilder={data.fehlbilder}
         name={name}
+        titleClassName={sectionTitle}
+      />
+
+      {/* 4c. WAS WIR UNS GENAUER ANSEHEN (R2)
+
+          Die Skill-Ebene der Diagnose. Nach den Denkschritten, weil sie
+          gröber ist: dort steht, WIE das Kind gerechnet hat, hier, WELCHE
+          Bereiche der Coach nachprüft.
+
+          Ein Befund, kein Urteil — bei zwei Proben je Skill steht offen=true
+          in den Daten. Trägt alles Geprüfte, rendert die Komponente nichts. */}
+      <ReportSkillbefunde
+        befunde={data.skillbefunde}
         titleClassName={sectionTitle}
       />
 

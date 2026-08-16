@@ -97,5 +97,12 @@
     "print": "Drucken",
     "email": "Per E-Mail senden",
     "emailTooltip": "kommt mit dem Eltern-Zugang"
+  },
+  "skillbefunde": {
+    "title": "Was wir uns genauer ansehen",
+    "description": "Diese Bereiche sehen wir uns in den ersten Sitzungen genauer an. Die Analyse ist eine Momentaufnahme aus wenigen Aufgaben — der Coach prüft sie im Unterricht nach.",
+    "tiefe": "Die Analyse hat dafür auch frühere Grundlagen einbezogen, nicht nur den Bereich, mit dem sie begonnen hat.",
+    "rest_one": "In dem übrigen geprüften Bereich zeigte sich kein Anlass zur Nachprüfung.",
+    "rest_other": "In den übrigen {{count}} geprüften Bereichen zeigte sich kein Anlass zur Nachprüfung."
   }
 }

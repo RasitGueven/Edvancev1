@@ -10,6 +10,7 @@
 // task_solutions wird NICHT angefasst.
 
 import { supabase } from '@/lib/supabase/client'
+import { loadSkillbefunde } from '@/lib/supabase/lsaReportSkills'
 import type {
   LsaSessionListItem,
   LsaSessionState,
@@ -346,6 +347,7 @@ export async function getReportData(
           }[],
         ),
         parentAssessment: await loadParentAssessment(row.student_id),
+        skillbefunde: await loadSkillbefunde(sessionId),
         fehlbilder: await loadFehlbilder(row.id),
       },
       error: null,

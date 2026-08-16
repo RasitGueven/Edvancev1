@@ -82,6 +82,42 @@ export type ReportFehlbild = {
   einstufung: 'befund' | 'beobachtung'
 }
 
+/**
+ * Ein direkt geprüfter Skill, der nicht trägt (R2).
+ *
+ * `skillKey` ist ein interner Schlüssel und wird NIE gerendert — angezeigt wird
+ * `label` aus `skills.label`. Erfunden wird dafür nichts: fehlt ein Label, fehlt
+ * der Eintrag.
+ */
+export type ReportSkillbefund = {
+  skillKey: string
+  label: string
+  fundamentTiefe: number
+}
+
+/**
+ * Der Abschnitt „Was wir uns genauer ansehen".
+ *
+ * Ein BEFUND, kein Urteil: bei zwei Proben je Skill steht `offen = true` in den
+ * Daten. Der Coach validiert ihn in den ersten Sitzungen — die Sprache des
+ * Abschnitts muss diese Vorläufigkeit tragen.
+ *
+ * Enthalten sind ausschließlich DIREKT geprüfte Skills (`belegt_direkt`).
+ * Mitbelegte Urteile sind abgeleitet, nicht geprüft, und erscheinen nicht.
+ */
+export type ReportSkillbefunde = {
+  /** Nicht tragend, namentlich. Absteigend nach Fundamenttiefe. */
+  nichtTragend: ReportSkillbefund[]
+  /** Direkt geprüft und tragend — nur die Zahl, nie einzeln aufgezählt. */
+  tragendAnzahl: number
+  /**
+   * true, wenn die nicht tragenden Skills über mehr als eine Fundamentstufe
+   * streuen — die Analyse musste also hinter den Einstieg zurückgehen. Liegen
+   * alle auf einer Stufe, entfällt die Aussage.
+   */
+  zurueckgegangen: boolean
+}
+
 export type ReportData = {
   sessionId: string
   firstName: string | null
@@ -100,6 +136,11 @@ export type ReportData = {
    * darüber.
    */
   fehlbilder: ReportFehlbild[]
+  /**
+   * Die Skill-Ebene der Diagnose (R2). null, wenn kein Skill direkt geprüft
+   * wurde — dann entfällt der Abschnitt vollständig.
+   */
+  skillbefunde: ReportSkillbefunde | null
 }
 
 // Die Pakete der Empfehlung. Bewusst eine Konstantenliste: die
