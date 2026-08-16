@@ -153,6 +153,34 @@ begin
   end if;
   raise notice 'F3 ok: Pflichtfelder gesetzt, Cluster stimmig (oder im Neuaufbau leer)';
 
+  -- ══ Fall 3b: competency_content AM ITEM ══════════════════════════════════
+  --
+  -- KEIN Feld des Freigabe-Gates — task_status_set prueft es nicht, das Item
+  -- geht auch ohne auf 'ready'. Der Eltern-Report baut daraus aber die
+  -- Themengliederung: fehlt der Wert, erscheint die Aufgabe dort unter "ohne
+  -- Zuordnung". Genau so ist es passiert (Nachtrag 20260816100000), deshalb
+  -- steht es jetzt als eigener Fall hier.
+  --
+  -- Geprueft wird zusaetzlich die Uebereinstimmung mit den Teilaufgaben: zwei
+  -- verschiedene Kompetenzbereiche an einer Aufgabe waeren ein Widerspruch,
+  -- den niemand bemerkt, weil beide Stellen fuer sich plausibel aussehen.
+  select competency_content into v_txt from public.tasks where id = v_task;
+  if coalesce(btrim(v_txt), '') = '' then
+    raise exception 'F3b: competency_content am Item fehlt — der Elternreport '
+                    'fuehrt die Aufgabe dann unter "ohne Zuordnung"';
+  end if;
+  -- Nur wo eine Teilaufgabe einen Bereich fuehrt: Item 1 hat in beiden Teilen
+  -- keinen (Altbestand aus dem Item-1-PR, dort als offener Punkt benannt).
+  -- Geprueft wird der Widerspruch, nicht die Luecke.
+  if exists (
+    select 1 from jsonb_array_elements(v_parts) e(p)
+     where coalesce(btrim(p ->> 'competency_content'), '') <> ''
+       and p ->> 'competency_content' is distinct from v_txt
+  ) then
+    raise exception 'F3b: Item fuehrt "%", eine Teilaufgabe etwas anderes', v_txt;
+  end if;
+  raise notice 'F3b ok: competency_content am Item gesetzt, kein Widerspruch zu den Teilen';
+
   -- ══ Fall 4: Loesung je Teil, in der Form die das Gate verlangt ════════════
 
   select ts.correct_answers, ts.acceptance into v_ca, v_acc
