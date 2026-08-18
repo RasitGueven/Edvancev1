@@ -4156,7 +4156,9 @@ CREATE TABLE public.report_anlass_zuordnung (
     thema text NOT NULL,
     skill_keys text[] DEFAULT '{}'::text[] NOT NULL,
     fehlbild_familien text[] DEFAULT '{}'::text[] NOT NULL,
-    strukturell boolean DEFAULT false NOT NULL
+    strukturell boolean DEFAULT false NOT NULL,
+    anzeigename text NOT NULL,
+    messbar boolean DEFAULT true NOT NULL
 );
 
 

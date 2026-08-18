@@ -102,34 +102,76 @@ export function baueFundament(skills: readonly FundamentSkill[]): Fundament | nu
 }
 
 /**
- * Die Ebene mit dem größten Einbruch.
+ * Mindestzahl geprüfter Bereiche, damit eine Ebene als Einbruch zitierbar ist.
  *
- * Der Abstieg ist nicht monoton — bei der Sitzung d8b0d885 lautet die Spur
- * 2/2 · 2/3 · 0/2 · 1/3 · 1/4 · 3/3. Er bricht in der MITTE, ganz unten trägt
- * wieder alles. Die Erzählung „immer tiefer bis zum Grund" passt darauf nicht,
- * und „0 von 2" stand bis R4 unkommentiert in einer Zeile, obwohl es der
- * schärfste Datenpunkt des ganzen Dokuments ist.
+ * „1 von 2" ist keine belastbare Aussage über eine Ebene — ein einziges
+ * Skill-Urteil, das bei zwei Proben kippt, dreht den Wert von 50 % auf 0 oder
+ * 100 %. Erst ab drei Bereichen trägt die Zahl.
+ */
+export const MIN_GEPRUEFT_EINBRUCH = 3
+
+/**
+ * Mindestabstand im Anteil zur nächstschlechteren Ebene.
  *
- * Kriterium ist der ANTEIL, nicht die absolute Zahl: 0 von 2 wiegt schwerer als
- * 1 von 4, obwohl dort mehr Bereiche fehlen. Bei gleichem Anteil gewinnt die
- * breitere Grundlage, danach die höhere Ebene — dort merkt es das Kind zuerst.
+ * Warum 0,25: Eine Ebene trägt in der Praxis drei bis fünf geprüfte Bereiche.
+ * Ein einzelner Bereich ist dort 20 bis 33 Prozentpunkte wert. Ein Abstand
+ * unter einem Viertel lässt sich also durch EIN einziges Skill-Urteil erzeugen
+ * — und genau ein Urteil ist das, was zwei Proben danebenliegen können.
  *
- * null, wenn keine Ebene einen Einbruch hat.
+ * Der Satz „am deutlichsten zeigt es sich hier" behauptet eine Rangordnung.
+ * Sie muss größer sein als die Unschärfe, aus der sie entsteht.
+ */
+export const MIN_ABSTAND_EINBRUCH = 0.25
+
+/**
+ * Die Ebene mit dem größten Einbruch — oder null, wenn es keinen gibt.
+ *
+ * Der Abstieg ist nicht monoton. Bei der Sitzung d8b0d885 lautet die Spur
+ * 2/2 · 2/3 · 0/2 · 1/3 · 1/4 · 3/3; er bricht in der MITTE, ganz unten trägt
+ * wieder alles. Die Erzählung „immer tiefer bis zum Grund" passt darauf nicht.
+ *
+ * ----------------------------------------------------------------------------
+ * Warum zwei Bedingungen und nicht nur „die schlechteste Ebene"
+ * ----------------------------------------------------------------------------
+ * Bis R5 nahm die Funktion schlicht die Ebene mit dem kleinsten Anteil. Bei der
+ * Sitzung 920d00ae ergab das „Am deutlichsten zeigt es sich zwei Ebenen unter
+ * dem aktuellen Thema: Dort trugen 1 von 2 geprüften Bereichen." — drei Ebenen
+ * tiefer stand aber ebenfalls 1 von 2. Die Funktion entschied den Gleichstand
+ * über eine Tiebreaker-Regel und der Text machte daraus einen Befund. Es gab
+ * dort schlicht keinen Einbruch.
+ *
+ * Beide Bedingungen müssen halten:
+ *   1. die Ebene trägt mindestens MIN_GEPRUEFT_EINBRUCH geprüfte Bereiche
+ *   2. ihr Anteil liegt mindestens MIN_ABSTAND_EINBRUCH unter dem der
+ *      nächstschlechteren Ebene, die Bedingung 1 ebenfalls erfüllt
+ *
+ * Sonst null — und der Satz entfällt ersatzlos.
  */
 export function findeEinbruch(
   ebenen: readonly FundamentEbene[],
 ): FundamentEbene | null {
-  const mitLuecke = ebenen.filter((e) => e.traegt < e.geprueft)
-  if (mitLuecke.length === 0) return null
+  const anteil = (e: FundamentEbene) => e.traegt / e.geprueft
 
-  return mitLuecke.reduce((schlimmste, e) => {
-    const anteilE = e.traegt / e.geprueft
-    const anteilS = schlimmste.traegt / schlimmste.geprueft
-    if (anteilE !== anteilS) return anteilE < anteilS ? e : schlimmste
-    if (e.geprueft !== schlimmste.geprueft)
-      return e.geprueft > schlimmste.geprueft ? e : schlimmste
-    return e.delta < schlimmste.delta ? e : schlimmste
-  })
+  // Nur Ebenen mit tragfähiger Grundlage kommen überhaupt in Frage — auch als
+  // Vergleichsmaßstab. Eine 0-von-2-Ebene als „nächstschlechtere" heranzuziehen
+  // hieße, die Rangordnung an derselben Unschärfe zu messen, die Bedingung 1
+  // gerade ausschließt.
+  const kandidaten = ebenen
+    .filter((e) => e.geprueft >= MIN_GEPRUEFT_EINBRUCH && e.traegt < e.geprueft)
+    .sort((a, b) => anteil(a) - anteil(b) || b.geprueft - a.geprueft || a.delta - b.delta)
+
+  if (kandidaten.length === 0) return null
+
+  const schlimmste = kandidaten[0]
+  const naechste = kandidaten[1]
+
+  // Einzige Ebene mit Lücke und tragfähiger Grundlage: Es gibt nichts, wogegen
+  // sie sich abheben müsste — sie IST der Einbruch.
+  if (!naechste) return schlimmste
+
+  return anteil(naechste) - anteil(schlimmste) >= MIN_ABSTAND_EINBRUCH
+    ? schlimmste
+    : null
 }
 
 /**

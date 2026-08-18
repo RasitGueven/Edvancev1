@@ -77,9 +77,10 @@ select coalesce(jsonb_agg(x order by x->>'session_id'), '[]'::jsonb) from (
                          where b.freigegeben_am is not null), '[]'::jsonb),
 
     'zuordnungen',     coalesce((select jsonb_agg(jsonb_build_object(
-                            'thema', z.thema, 'skill_keys', z.skill_keys,
+                            'thema', z.thema, 'anzeigename', z.anzeigename,
+                            'skill_keys', z.skill_keys,
                             'fehlbild_familien', z.fehlbild_familien,
-                            'strukturell', z.strukturell))
+                            'strukturell', z.strukturell, 'messbar', z.messbar))
                           from public.report_anlass_zuordnung z), '[]'::jsonb),
 
     -- Wer die Analyse begleitet hat: die erste Platzvergabe der Sitzung.
@@ -90,6 +91,13 @@ select coalesce(jsonb_agg(x order by x->>'session_id'), '[]'::jsonb) from (
                           join profiles p on p.id = pa.created_by
                          where pa.session_id = se.id
                          order by pa.created_at asc limit 1),
+
+    -- Der Nenner des Profils: ALLE Skills im Bestand, nicht nur die geprueften.
+    -- Ohne ihn zeigte die Achse traegt/geprueft — und "2 von 2" ergab eine
+    -- volle Achse, obwohl von acht vorhandenen Bereichen sechs nie angesehen
+    -- wurden.
+    'skill_bestand',   coalesce((select jsonb_agg(sk.skill_key order by sk.skill_key)
+                          from public.skills sk), '[]'::jsonb),
 
     'tiers',           coalesce((select jsonb_agg(jsonb_build_object(
                             'name', t.name, 'features', t.features)

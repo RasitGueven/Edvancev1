@@ -101,8 +101,28 @@ export type Fundament = {
   bodenTraegt: boolean
 }
 
-/** In welche Richtung ein von den Eltern genannter Bereich beantwortet wird. */
-export type RueckbezugRichtung = 'bestaetigend' | 'entlastend'
+/**
+ * In welche Richtung ein von den Eltern genannter Bereich beantwortet wird.
+ *
+ * Vier Richtungen, weil es vier ehrliche Antworten gibt:
+ *
+ *   bestaetigend   — die Analyse hat den Punkt gefunden
+ *   entlastend     — positive Evidenz spricht dagegen
+ *   offen          — der Punkt IST messbar, diese Sitzung gibt aber nichts her.
+ *                    Nicht dasselbe wie entlastend: eine leere Fehlbild-Familie
+ *                    beweist nichts (Begruendung in rueckbezug.ts).
+ *   nicht_messbar  — eine Lernstandsanalyse kann dazu grundsaetzlich nichts
+ *                    sagen (Konzentration, Pruefungsangst, Zeiteinteilung).
+ *
+ * Bis R5 gab es nur die ersten beiden, und alles andere fiel still weg. Bei
+ * einem Kind nannte Abschnitt 01 vier Punkte, der Schluss behandelte zwei —
+ * die anderen beiden standen unbeantwortet im Dokument.
+ */
+export type RueckbezugRichtung =
+  | 'bestaetigend'
+  | 'entlastend'
+  | 'offen'
+  | 'nicht_messbar'
 
 /**
  * Ein Aufgriff der Eltern-Einschätzung im Fazit.
@@ -123,10 +143,26 @@ export type Rueckbezug = {
 
 /** Eine Zeile aus report_anlass_zuordnung. */
 export type AnlassZuordnung = {
+  /** Wörtlich der Wert aus lead_assessments.weak_topics. */
   thema: string
+  /**
+   * Derselbe Punkt als Substantivgruppe, für die Aufzählung in Abschnitt 01.
+   *
+   * `weak_topics` mischt Formen: „Grundlagen fehlen" ist ein Teilsatz,
+   * „Textverständnis" ein Substantiv. Aneinandergereiht ergab das
+   * „weil Sie Grundlagen fehlen, Textverständnis und Konzentration als
+   * Schwierigkeiten sehen". Der Anzeigename glättet das („fehlende Grundlagen")
+   * — ohne den DB-Wert anzufassen, an dem die Zuordnung hängt.
+   */
+  anzeigename: string
   skillKeys: string[]
   fehlbildFamilien: string[]
   strukturell: boolean
+  /**
+   * false = eine Lernstandsanalyse kann zu diesem Punkt grundsätzlich nichts
+   * sagen. Er bekommt trotzdem einen Satz — einen, der das offen ausspricht.
+   */
+  messbar: boolean
 }
 
 /** Ein abgenommener Erzählbaustein aus report_bausteine. */

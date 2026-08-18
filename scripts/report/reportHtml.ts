@@ -6,30 +6,22 @@
 // nicht und formuliert nicht.
 //
 // ----------------------------------------------------------------------------
-// Warum beide Diagramme entfallen sind
+// Ein Diagramm, nicht zwei
 // ----------------------------------------------------------------------------
-// VARIANTE B (Fundament nach Ebenen) zeigte exakt dieselben Zahlen wie die
-// Ebenenspur in Abschnitt 02 — dieselben Daten, zweimal auf einer Seite. Von
-// den beiden ist die Spur die tragfähigere: Sie lässt sich beschriften. Seit R4
-// steht unter jeder Zeile, welche Bereiche auf dieser Ebene liegen; ein Balken
-// kann das nicht.
+// VARIANTE B (Balken nach Tiefe) bleibt entfallen. Sie zeigte exakt die Zahlen
+// der Ebenenspur in Abschnitt 02 — dieselben Daten, zweimal auf einer Seite.
+// Von beiden ist die Spur die tragfaehigere: Sie laesst sich beschriften, und
+// seit R4 steht unter jeder Zeile, welche Bereiche auf dieser Ebene liegen.
 //
-// VARIANTE A (Radar über Themenfamilien) ist an der Grundgesamtheit
-// gescheitert. Der Radar zeigte Anteile ohne ihren Nenner: „Brüche 100 %" waren
-// in Wahrheit zwei von zwei geprüften Skills. Auf so dünner Basis liest sich
-// eine volle Achse wie eine Bestnote.
+// VARIANTE A (Profil ueber die Themenfamilien) ist mit R5 zurueck, in
+// Abschnitt 03. Sie ordnet nach THEMA, die Spur nach TIEFE — zwei Achsen,
+// dieselben Urteile, keine Dopplung. Und sie ist das Bild, auf das der Coach im
+// Gespraech zeigt; sechs Zeilen Text sind praezise, aber man zeigt nicht darauf.
 //
-// Zwei Auswege waren möglich — Anzahl je Achse ausweisen, oder Achsen unter
-// einer Mindestzahl nicht zeichnen. Bei einer Mindestzahl von DREI geprüften
-// Skills je Achse bleibt von den sechs Familien übrig:
-//
-//   Sitzung d8b0d885 — 1 Achse  (Geometrie & Größen, 8 geprüft)
-//   Sitzung 920d00ae — 2 Achsen (Geometrie & Größen 9, Brüche 3)
-//
-// Ein Radar mit ein bis zwei Achsen ist keiner. Und eine feste Achsenmenge mit
-// vier ausgegrauten Achsen erzählt nichts, was die Skill-Listen in Abschnitt 03
-// nicht genauer sagen. Deshalb: ersatzlos. Die Ebenenspur ist jetzt die eine
-// Grafik des Dokuments — und die einzige, deren Nenner in jeder Zeile steht.
+// Warum sie in R4 kurzzeitig entfallen war und was sich geaendert hat, steht im
+// Kopf von radar.ts: feste Achsenmenge fuer alle Reports, ausgewiesene
+// Grundgesamtheit, und "nicht geprueft" wird nie wie "nichts gekonnt"
+// gezeichnet.
 
 import {
   alsWort,
@@ -38,9 +30,11 @@ import {
   ebeneImSatz,
   ebenenUntertitel,
 } from '@/lib/report/bausteine'
+import type { FamilienBefund } from '@/lib/report/familien'
 import { sucheFall } from '@/lib/report/fundament'
 import type { ReportFehlbildFamilie } from '@/lib/reportFehlbilder'
 import type { Fundament, ReportAnsprechpartner, Rueckbezug } from '@/types'
+import { radarNenner, radarSvg } from './radar'
 import { REPORT_CSS } from './reportCss'
 
 export type ReportEingabe = {
@@ -52,15 +46,21 @@ export type ReportEingabe = {
   aufgaben: number
   fundament: Fundament
   familien: ReportFehlbildFamilie[]
+  /** Die sechs Achsen des Profils — immer alle sechs, auch die ungeprüften. */
+  profil: FamilienBefund[]
   rueckbezuege: Rueckbezug[]
   ansprechpartner: ReportAnsprechpartner
   /** Abschnitt 01 — fertig formulierter Satz aus belegten Lead-Feldern. */
   anlass: string
-  /** Abschnitt 05 — Fazit und Paketempfehlung. */
-  fazit: string
+  /**
+   * Der Fall für Fazit und Empfehlung: wie viele Themenfamilien betroffen sind.
+   *
+   * Die Texte selbst kommen aus report_bausteine — bis R5 standen sie im
+   * Generator und behaupteten eine Verteilung, die niemand gezählt hatte.
+   */
+  verteilung: string
   paket: string
   frequenz: string
-  paketWarum: string
 }
 
 export const esc = (v: unknown): string =>
@@ -123,8 +123,17 @@ function rueckbezugBlock(rb: Rueckbezug[], satz: Bausteinsatz, sessionId: string
         belege: r.belege,
       })
       if (!text) return null
-      const klasse = r.richtung === 'entlastend' ? 'ok' : 'hit'
-      const zeichen = r.richtung === 'entlastend' ? '✓' : '!'
+      // Drei Markierungen fuer vier Richtungen. „offen" und „nicht messbar"
+      // teilen sich die neutrale: Beide sagen, dass diese Analyse nichts
+      // hergibt. Ein goldenes Ausrufezeichen daneben laese sich als Befund —
+      // und genau das sind sie nicht.
+      const marke =
+        r.richtung === 'entlastend'
+          ? { klasse: 'ok', zeichen: '✓' }
+          : r.richtung === 'bestaetigend'
+            ? { klasse: 'hit', zeichen: '!' }
+            : { klasse: 'off', zeichen: '?' }
+      const { klasse, zeichen } = marke
       return `        <div class="rb">
           <span class="mark ${klasse}" aria-hidden="true">${zeichen}</span>
           <p>${esc(text)}</p>
@@ -163,6 +172,8 @@ export function baueReport(e: ReportEingabe, satz: Bausteinsatz): string {
     traegt: f.traegt,
     geprueft: f.geprueft,
   })
+  const fazitText = satz.waehle('fazit', e.verteilung, streuung)
+  const empfehlungText = satz.waehle('empfehlung', e.verteilung, streuung)
 
   const musterAbschnitt =
     e.familien.length > 0
@@ -208,7 +219,7 @@ ${e.familien.map((m) => `      <li>${esc(m.elterntext)}</li>`).join('\n')}
 <div class="wrap">
 
 <div class="note">
-<b>Entwurf zur Abstimmung (v2).</b> Alle Zahlen, Listen und Erzählbausteine stammen aus der
+<b>Entwurf zur Abstimmung (v3).</b> Alle Zahlen, Listen und Erzählbausteine stammen aus der
 echten Sitzung <code>${esc(e.sessionId)}</code> vom ${esc(e.datum)}. Die Sätze kommen aus
 <code>report_bausteine</code> und tragen dort eine Abnahme-Schranke — was nicht abgenommen ist,
 erscheint hier gar nicht.
@@ -257,6 +268,27 @@ ${bodenText ? `        <p>${esc(bodenText)}</p>` : ''}
   <section>
     <div class="step"><span class="step-n">03</span><h3>Was wir gefunden haben</h3></div>
     <p class="sub">Zuerst das, was trägt — darauf lässt sich aufbauen.</p>
+
+    <div class="profil">
+${radarSvg(e.profil)}
+      <div>
+        <h4>Profil über die Themenfamilien</h4>
+        <p class="cap">Immer dieselben sechs Familien, damit zwei Analysen vergleichbar
+        bleiben. Beide Flächen zählen gegen <b>alle</b> Bereiche der Familie — nicht nur
+        gegen die geprüften.</p>
+        <ul class="legende">
+          <li><span class="l-aussen" aria-hidden="true"></span>
+            <b>geprüft</b> — wie viel der Familie diese Analyse angesehen hat</li>
+          <li><span class="l-innen" aria-hidden="true"></span>
+            <b>trägt</b> — wie viel der Familie nachweislich trägt</li>
+        </ul>
+        <p class="cap">Liegen beide Linien dicht beieinander, trägt das Geprüfte. Klafft
+        die innere weit nach innen, wurde gründlich geprüft und es trägt wenig. Bleiben
+        beide klein, wurde hier kaum geprüft — das ist keine Aussage über Ihr Kind.</p>
+        <p class="nenner">${esc(radarNenner(e.profil))}</p>
+      </div>
+    </div>
+
     <div class="two">
       <div class="box good">
         <h4>Das trägt</h4>
@@ -298,9 +330,7 @@ ${aufklapp(f)}
   <section>
     <div class="step"><span class="step-n">${nrFazit}</span><h3>So geht es weiter</h3></div>
     <div class="close">
-      <p>
-${e.fazit}
-      </p>
+${fazitText ? `      <p>${esc(fazitText)}</p>` : ''}
       <p style="margin-top:12px;font-size:15px;color:rgba(255,255,255,.72)">
         Das ist der Stand nach dieser Analyse und bezieht sich auf die nächsten ein bis zwei
         Sitzungen — der Coach prüft ihn dort nach.
@@ -313,7 +343,7 @@ ${rueckbezugBlock(e.rueckbezuege, satz, e.sessionId)}
           <div class="freq">${esc(e.frequenz)}</div>
         </div>
         <div class="why">
-${e.paketWarum}
+${empfehlungText ? `          ${esc(empfehlungText)}` : ''}
           <div class="off">Ein anderes Paket schließt nichts aus — es verändert, wie schnell
           wir vorankommen.</div>
         </div>

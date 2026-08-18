@@ -71,6 +71,9 @@ const FALL_STAMM: Record<string, string> = {
   'Textverständnis': 'textverstaendnis',
   'Rechenwege': 'rechenwege',
   'Grundlagen fehlen': 'grundlagen',
+  'Konzentration': 'konzentration',
+  'Prüfungsangst': 'pruefungsangst',
+  'Zeiteinteilung': 'zeiteinteilung',
 }
 
 export type RueckbezugInput = {
@@ -92,11 +95,14 @@ export type RueckbezugInput = {
  * Ergebnis in der Reihenfolge, in der die Eltern die Bereiche genannt haben —
  * das Gespräch soll ihrer Aufzählung folgen, nicht unserer Sortierung.
  *
- * Ein Bereich fällt still weg, wenn:
- *   - keine Zuordnung existiert (Konzentration, Prüfungsangst, Zeiteinteilung),
- *   - die Zuordnung keinen Beleg in dieser Sitzung findet,
- *   - nur Fehlbild-Familien zugeordnet sind und keine davon über der Schwelle
- *     liegt (siehe Asymmetrie oben).
+ * Seit R5 fällt KEIN genannter Bereich mehr still weg. Jeder bekommt eine der
+ * vier Richtungen — auch „dazu sagt diese Analyse nichts". Ein unbeantworteter
+ * Punkt in Abschnitt 01 liest sich sonst wie ein stillschweigendes
+ * „unauffällig", und genau das ist er nicht.
+ *
+ * Ohne Zeile in report_anlass_zuordnung (oder ohne Eintrag in FALL_STAMM) bleibt
+ * ein Bereich weiterhin außen vor: Dann fehlt der Baustein-Namensraum, und ein
+ * Satz ohne abgenommenen Baustein gibt es nicht.
  */
 export function baueRueckbezuege(input: RueckbezugInput): Rueckbezug[] {
   const nachThema = new Map(input.zuordnungen.map((z) => [z.thema, z]))
@@ -113,11 +119,29 @@ export function baueRueckbezuege(input: RueckbezugInput): Rueckbezug[] {
     if (!zuordnung || !stamm || gesehen.has(thema)) continue
     gesehen.add(thema)
 
+    // Was die LSA grundsaetzlich nicht misst, bekommt genau einen Satz: dass
+    // sie es nicht misst. Schweigen liest sich wie „unauffaellig".
+    if (!zuordnung.messbar) {
+      ergebnis.push({
+        thema,
+        fall: `${stamm}_nicht_messbar`,
+        richtung: 'nicht_messbar',
+        belege: 0,
+      })
+      continue
+    }
+
     const rb = zuordnung.strukturell
       ? strukturell(stamm, input.fundament)
       : ueberBelege(stamm, zuordnung, input.skills, familienKeys)
 
-    if (rb) ergebnis.push({ thema, ...rb })
+    // Messbar, aber diese Sitzung gibt nichts her — in KEINE Richtung. Auch das
+    // ist eine Antwort, und zwar die einzige ehrliche.
+    ergebnis.push(
+      rb
+        ? { thema, ...rb }
+        : { thema, fall: `${stamm}_offen`, richtung: 'offen', belege: 0 },
+    )
   }
 
   return ergebnis

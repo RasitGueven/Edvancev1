@@ -24,18 +24,36 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { Bausteinsatz } from '@/lib/report/bausteine'
+import {
+  familienBefunde,
+  familienBestand,
+  lueckenFamilien,
+  verteilungsFall,
+} from '@/lib/report/familien'
 import { baueFundament } from '@/lib/report/fundament'
 import { baueRueckbezuege } from '@/lib/report/rueckbezug'
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
-import type { ReportFehlbild } from '@/types'
+import type { AnlassZuordnung, ReportFehlbild } from '@/types'
 
-import { FAZIT, WARUM } from './paketTexte'
 import { baueReport, esc, type ReportEingabe } from './reportHtml'
 import { SITZUNG_SQL } from './sitzungSql'
 
 const HIER = dirname(fileURLToPath(import.meta.url))
 const REPO = resolve(HIER, '../..')
-const MIGRATION = join(REPO, 'supabase/migrations/20260818120000_r4_report_bausteine.sql')
+/**
+ * Die Migrationen, die Erzählbausteine mitbringen — in Reihenfolge.
+ *
+ * Der Generator stellt sie in einer Transaktion nach und rollt zurück, damit
+ * die Entwürfe aus GENAU den Sätzen der Migration entstehen, auch wenn sie noch
+ * nicht eingespielt ist. Eine bereits eingespielte Migration erneut
+ * nachzustellen ist unschädlich: Alle Anweisungen sind idempotent
+ * (`create table if not exists`, `add column if not exists`,
+ * `drop policy if exists`, Upserts).
+ */
+const NACHSTELL_MIGRATIONEN = [
+  'supabase/migrations/20260818120000_r4_report_bausteine.sql',
+  'supabase/migrations/20260818160000_r5_bausteine_verteilung.sql',
+].map((f) => join(REPO, f))
 
 /** Der Admin, unter dessen Claim gelesen wird — lsa_fehlbild_auswertung prüft lsa_may_act_for. */
 const LESE_CLAIM_ENV = 'REPORT_ADMIN_PROFILE_ID'
@@ -98,10 +116,13 @@ type Roh = {
   }[]
   zuordnungen: {
     thema: string
+    anzeigename: string | null
     skill_keys: string[] | null
     fehlbild_familien: string[] | null
     strukturell: boolean
+    messbar: boolean
   }[]
+  skill_bestand: string[]
   ansprechpartner: { name: string | null; email: string | null } | null
   tiers: { name: string; features: string[] }[]
 }
@@ -128,15 +149,32 @@ function paketFuer(luecken: { fundamentTiefe: number }[], einstieg: number): str
  * nächstes Thema an", nicht „fällt schwer". Die genannten Bereiche kommen
  * wörtlich aus lead_assessments.weak_topics (source 'parent').
  */
-function anlassSatz(weakTopics: string[], thema: string | null): string {
+function anlassSatz(
+  weakTopics: readonly string[],
+  zuordnungen: readonly AnlassZuordnung[],
+  thema: string | null,
+): string {
+  const nachThema = new Map(zuordnungen.map((z) => [z.thema, z]))
   const teile: string[] = []
-  if (weakTopics.length > 0) {
-    const hervor = weakTopics.map((t) => `<span class="em">${esc(t)}</span>`)
+
+  // Anzeigenamen statt Rohwerte: weak_topics mischt einen Teilsatz
+  // ("Grundlagen fehlen") mit Substantiven. Aneinandergereiht ergab das
+  // "weil Sie Grundlagen fehlen, Textverstaendnis und Konzentration als
+  // Schwierigkeiten sehen". Der Anzeigename glaettet die Aufzaehlung.
+  const namen = [...new Set(weakTopics)].map(
+    (t) => nachThema.get(t)?.anzeigename?.trim() || t,
+  )
+
+  if (namen.length > 0) {
+    const hervor = namen.map((t) => `<span class="em">${esc(t)}</span>`)
     const liste =
       hervor.length === 1
         ? hervor[0]
         : `${hervor.slice(0, -1).join(', ')} und ${hervor[hervor.length - 1]}`
-    teile.push(`Sie sind zu uns gekommen, weil Sie ${liste} als Schwierigkeiten sehen.`)
+    teile.push(
+      `Sie sind zu uns gekommen, weil Sie ${liste} als ` +
+        `${namen.length === 1 ? 'Schwierigkeit' : 'Schwierigkeiten'} sehen.`,
+    )
   }
   if (thema) {
     teile.push(
@@ -159,7 +197,7 @@ function anlassSatz(weakTopics: string[], thema: string | null): string {
  *   ERROR: invalid input syntax for type uuid: "--ohne-nachstellen"
  *
  * Ein Schalter, der die Positionsargumente verschiebt, ist der klassische Fall
- * dafuer; deshalb steht die Zerlegung jetzt an einer Stelle und wird geprueft.
+ * dafuer; deshalb steht die Zerlegung an einer Stelle und wird geprueft.
  */
 export function zerlegeArgumente(argv: readonly string[]): {
   ziel: string | undefined
@@ -188,7 +226,9 @@ function main(): void {
   }
 
   const migration = nachstellen
-    ? readFileSync(MIGRATION, 'utf8').replace(/^\s*(begin|commit);\s*$/gm, '')
+    ? NACHSTELL_MIGRATIONEN.map((f) =>
+        readFileSync(f, 'utf8').replace(/^\s*(begin|commit);\s*$/gm, ''),
+      ).join('\n')
     : ''
 
   const sql = [
@@ -233,11 +273,13 @@ function main(): void {
     }))
     const familien = gruppiereFehlbilderNachFamilie(fehlbilder)
 
-    const zuordnungen = r.zuordnungen.map((z) => ({
+    const zuordnungen: AnlassZuordnung[] = r.zuordnungen.map((z) => ({
       thema: z.thema,
+      anzeigename: z.anzeigename?.trim() || z.thema,
       skillKeys: z.skill_keys ?? [],
       fehlbildFamilien: z.fehlbild_familien ?? [],
       strukturell: z.strukturell,
+      messbar: z.messbar,
     }))
 
     const rueckbezuege = baueRueckbezuege({
@@ -250,6 +292,17 @@ function main(): void {
 
     const paket = paketFuer(fundament.luecken, fundament.einstiegTiefe)
     const tier = r.tiers.find((t) => t.name === paket)
+
+    // Fazit und Empfehlung haengen an der VERTEILUNG der Luecken, nicht am
+    // Paket. Dieselbe Familientaxonomie wie das Profil daneben — wer die
+    // Verteilung behauptet, muss sie mit demselben Massstab zaehlen.
+    const alleSkills = fundament.tragend.concat(fundament.luecken)
+    const profil = familienBefunde(alleSkills, familienBestand(r.skill_bestand ?? []))
+    const { familien: lueckenFam, ohneFamilie } = lueckenFamilien(fundament.luecken)
+    const verteilung =
+      fundament.luecken.length === 0
+        ? 'keine'
+        : verteilungsFall(lueckenFam.length)
 
     const eingabe: ReportEingabe = {
       sessionId: r.session_id,
@@ -265,19 +318,19 @@ function main(): void {
       aufgaben: Number(r.aufgaben),
       fundament,
       familien,
+      profil,
       rueckbezuege,
       ansprechpartner: r.ansprechpartner ?? { name: null, email: null },
-      anlass: anlassSatz(r.weak_topics ?? [], r.next_exam_topic),
-      fazit: `        ${FAZIT[paket]}`,
+      anlass: anlassSatz(r.weak_topics ?? [], zuordnungen, r.next_exam_topic),
+      verteilung,
       paket,
       frequenz: tier?.features?.[0] ?? '',
-      paketWarum: `          ${WARUM[paket]}`,
     }
 
     const satz = new Bausteinsatz(r.bausteine)
     const datei = join(
       ziel,
-      `report-${(r.vorname ?? r.session_id.slice(0, 8)).toLowerCase()}-v2.html`,
+      `report-${(r.vorname ?? r.session_id.slice(0, 8)).toLowerCase()}-v3.html`,
     )
     writeFileSync(datei, baueReport(eingabe, satz), 'utf8')
 
@@ -288,6 +341,12 @@ function main(): void {
         ` | Einbruch Δ${fundament.einbruch?.delta ?? '—'}` +
         ` | Boden ${fundament.bodenTraegt ? 'trägt' : 'trägt nicht'}` +
         ` | ${paket}`,
+    )
+    console.log(
+      `  Verteilung: ${verteilung} (${lueckenFam.length} Familie(n)` +
+        `${ohneFamilie > 0 ? `, ${ohneFamilie} ohne Familie` : ''})` +
+        ` | Profil (geprueft|traegt/vorhanden): ` +
+        profil.map((b) => `${b.key} ${b.geprueft}|${b.traegt}/${b.vorhanden}`).join(' '),
     )
     for (const rb of rueckbezuege) {
       console.log(`  Rückbezug „${rb.thema}" -> ${rb.fall} (Belege: ${rb.belege})`)
