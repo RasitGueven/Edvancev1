@@ -21,7 +21,7 @@
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { Bausteinsatz } from '@/lib/report/bausteine'
 import { baueFundament } from '@/lib/report/fundament'
@@ -149,8 +149,30 @@ function anlassSatz(weakTopics: string[], thema: string | null): string {
   return `      ${teile.join(' ')}`
 }
 
+/**
+ * Trennt Schalter von Positionsargumenten.
+ *
+ * Eigene Funktion, weil genau hier ein Fehler steckte: `--ohne-nachstellen`
+ * wurde per `includes` ERKANNT, aber nicht aus der Liste ENTFERNT — und landete
+ * damit als vierte Sitzungs-ID im SQL:
+ *
+ *   ERROR: invalid input syntax for type uuid: "--ohne-nachstellen"
+ *
+ * Ein Schalter, der die Positionsargumente verschiebt, ist der klassische Fall
+ * dafuer; deshalb steht die Zerlegung jetzt an einer Stelle und wird geprueft.
+ */
+export function zerlegeArgumente(argv: readonly string[]): {
+  ziel: string | undefined
+  ids: string[]
+  nachstellen: boolean
+} {
+  const schalter = argv.filter((a) => a.startsWith('--'))
+  const [ziel, ...ids] = argv.filter((a) => !a.startsWith('--'))
+  return { ziel, ids, nachstellen: !schalter.includes('--ohne-nachstellen') }
+}
+
 function main(): void {
-  const [ziel, ...ids] = process.argv.slice(2)
+  const { ziel, ids, nachstellen } = zerlegeArgumente(process.argv.slice(2))
   if (!ziel || ids.length === 0) {
     console.error(
       'Nutzung: npx tsx scripts/report/build-eltern-report.ts <ziel-verzeichnis> <session-id>…',
@@ -165,7 +187,6 @@ function main(): void {
     process.exit(1)
   }
 
-  const nachstellen = !process.argv.includes('--ohne-nachstellen')
   const migration = nachstellen
     ? readFileSync(MIGRATION, 'utf8').replace(/^\s*(begin|commit);\s*$/gm, '')
     : ''
@@ -279,4 +300,9 @@ function quote(v: string): string {
   return `'${v.replace(/'/g, "''")}'`
 }
 
-main()
+// Nur ausfuehren, wenn die Datei direkt gestartet wurde. Sonst wuerde jeder
+// Import — etwa aus einem Test — den Generator laufen lassen und gegen die
+// Datenbank gehen.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main()
+}
