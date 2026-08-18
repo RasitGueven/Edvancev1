@@ -74,6 +74,18 @@ section{margin-bottom:34px}
   display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.6;color:var(--t2)}
 .descent-note b{color:var(--t1);font-weight:600}
 
+/* Profil ueber die Themenfamilien — das Bild, auf das der Coach zeigt. */
+.profil{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:18px 20px 14px;margin-bottom:16px;
+  display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:center}
+.profil h4{font-size:15px;margin-bottom:4px}
+.profil .cap{font-size:13px;color:var(--t3);line-height:1.55}
+.profil .nenner{margin-top:12px;padding-top:10px;border-top:1px solid var(--subtle);
+  font-size:11.5px;line-height:1.7;color:var(--t3)}
+/* Ohne Deckel fuellt das SVG auf schmalen Schirmen die ganze Breite und
+   ueberragt alles andere — das Profil ist ein Beleg, kein Plakat. */
+.profil svg{display:block;max-width:280px;margin:0 auto}
+
 /* Befund */
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 .box{border-radius:var(--r-lg);padding:20px 22px}
@@ -105,6 +117,9 @@ section{margin-bottom:34px}
   font-size:12px;font-weight:700;margin-top:2px}
 .rueck .mark.ok{background:rgba(58,175,106,.9);color:#0B2E1A}
 .rueck .mark.hit{background:rgba(232,213,163,.9);color:#4A3708}
+/* Weder Befund noch Entlastung: die Analyse gibt dazu nichts her. Bewusst
+   farblos — jede Farbe waere hier eine Wertung, die niemand belegt hat. */
+.rueck .mark.off{background:rgba(255,255,255,.28);color:rgba(255,255,255,.92)}
 
 .paket{margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.22);
   display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start;justify-content:space-between}
@@ -133,6 +148,7 @@ details.deep .stufe ul{padding-left:18px;margin:4px 0 0}
 
 @media(max-width:760px){
   .two{grid-template-columns:1fr}
+  .profil{grid-template-columns:1fr}
   .sheet{padding:28px 22px 34px}
   .layer .row{grid-template-columns:96px 1fr auto;gap:10px}
   .layer .was{margin-left:0}

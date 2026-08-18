@@ -28,6 +28,16 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **R5 Profil zurück, Verteilung geprüft** (Retro `2026-08-18-r5-radar-und-verteilung.md`,
+  Branch `feature/r5-radar-und-bausteine`): Variante A (Themenfamilien-Profil) kehrt in
+  Abschnitt 03 zurück — feste Sechs-Achsen-Menge für alle Reports, „nicht geprüft" wird
+  nie wie „nichts gekonnt" gezeichnet, Nenner je Familie darunter. Variante B bleibt
+  entfallen. Der Einbruch-Satz braucht jetzt drei geprüfte Bereiche **und** 0,25 Abstand
+  zur nächstschlechteren Ebene (entfällt damit in beiden Pilotsitzungen). Jeder von den
+  Eltern genannte Punkt bekommt eine Antwort — vier Richtungen statt zwei, inkl.
+  „offen" und „nicht messbar". Fazit und Empfehlung hängen an der Zahl betroffener
+  Themenfamilien statt am Paket und wandern nach `report_bausteine`.
+  **Offen:** Migration nicht eingespielt, `ReportBody.tsx` nicht umgestellt.
 - **R4 Eltern-Report nachgeschärft** (Retro `2026-08-18-r4-report-nachschaerfen.md`,
   Branch `feature/r4-report-nachschaerfen`): Erzählbausteine aus dem Renderer in die
   Datenbank (`report_bausteine` mit Abnahme-Schranke nach dem

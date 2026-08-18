@@ -50,21 +50,27 @@ export async function loadReportBausteine(): Promise<ReportBaustein[]> {
 export async function loadAnlassZuordnungen(): Promise<AnlassZuordnung[]> {
   const { data, error } = await supabase
     .from('report_anlass_zuordnung')
-    .select('thema, skill_keys, fehlbild_familien, strukturell')
+    .select('thema, anzeigename, skill_keys, fehlbild_familien, strukturell, messbar')
   if (error || !data) return []
 
   return (
     data as {
       thema: string
+      anzeigename: string | null
       skill_keys: string[] | null
       fehlbild_familien: string[] | null
       strukturell: boolean
+      messbar: boolean
     }[]
   ).map((z) => ({
     thema: z.thema,
+    // Fällt der Anzeigename aus, steht der Rohwert da — holprig, aber lesbar.
+    // Ein leerer Punkt in der Aufzählung wäre schlimmer.
+    anzeigename: z.anzeigename?.trim() || z.thema,
     skillKeys: z.skill_keys ?? [],
     fehlbildFamilien: z.fehlbild_familien ?? [],
     strukturell: z.strukturell,
+    messbar: z.messbar,
   }))
 }
 

@@ -16,21 +16,35 @@ const s = (
 const ZUORDNUNGEN: AnlassZuordnung[] = [
   {
     thema: 'Textverständnis',
+    anzeigename: 'Textverständnis',
     skillKeys: ['gleichung_modellieren'],
     fehlbildFamilien: ['sachaufgaben'],
     strukturell: false,
+    messbar: true,
   },
   {
     thema: 'Rechenwege',
+    anzeigename: 'Rechenwege',
     skillKeys: [],
     fehlbildFamilien: ['gleichungen_umformen', 'rechenreihenfolge'],
     strukturell: false,
+    messbar: true,
   },
   {
     thema: 'Grundlagen fehlen',
+    anzeigename: 'fehlende Grundlagen',
     skillKeys: [],
     fehlbildFamilien: [],
     strukturell: true,
+    messbar: true,
+  },
+  {
+    thema: 'Konzentration',
+    anzeigename: 'Konzentration',
+    skillKeys: [],
+    fehlbildFamilien: [],
+    strukturell: false,
+    messbar: false,
   },
 ]
 
@@ -64,10 +78,20 @@ function lauf(
   })
 }
 
-describe('baueRueckbezuege — nur belegbare Bereiche bekommen eine Antwort', () => {
-  it('lässt Konzentration, Prüfungsangst und Zeiteinteilung still weg', () => {
-    const r = lauf(['Konzentration', 'Prüfungsangst', 'Zeiteinteilung'])
-    expect(r).toEqual([])
+describe('baueRueckbezuege — jeder genannte Bereich bekommt eine Antwort', () => {
+  it('sagt bei nicht messbaren Bereichen, dass sie nicht messbar sind', () => {
+    // R5: Bis dahin fielen sie still weg. Ein unbeantworteter Punkt aus
+    // Abschnitt 01 liest sich aber wie ein stillschweigendes „unauffällig".
+    const r = lauf(['Konzentration'])
+    expect(r).toHaveLength(1)
+    expect(r[0].richtung).toBe('nicht_messbar')
+    expect(r[0].fall).toBe('konzentration_nicht_messbar')
+  })
+
+  it('lässt einen Bereich ohne Zuordnung weiterhin weg', () => {
+    // Ohne Zeile in report_anlass_zuordnung fehlt der Baustein-Namensraum —
+    // und einen Satz ohne abgenommenen Baustein gibt es nicht.
+    expect(lauf(['Prüfungsangst'])).toEqual([])
   })
 
   it('folgt der Reihenfolge, in der die Eltern die Bereiche genannt haben', () => {
@@ -106,12 +130,17 @@ describe('Entlastung braucht positive Evidenz', () => {
     expect(r[0].fall).toBe('textverstaendnis_entlastend')
   })
 
-  it('entlastet Rechenwege NIE — eine leere Fehlbild-Familie ist kein Beleg', () => {
+  it('entlastet Rechenwege NIE — meldet den Bereich aber als offen', () => {
     // Der Kern der Asymmetrie. In Sitzung 920d00ae tragen fünf falsche
     // Antworten null fehlbild_slug; „keine Familie über der Schwelle" heißt
     // dort nur, dass nichts katalogisiert wurde.
+    //
+    // Seit R5 wird daraus nicht Schweigen, sondern ein eigener Satz: messbar,
+    // aber diese Sitzung gibt nichts her.
     const r = lauf(['Rechenwege'])
-    expect(r).toEqual([])
+    expect(r).toHaveLength(1)
+    expect(r[0].richtung).toBe('offen')
+    expect(r[0].fall).toBe('rechenwege_offen')
   })
 
   it('bestätigt Rechenwege, sobald eine zugeordnete Familie über der Schwelle liegt', () => {
@@ -122,7 +151,7 @@ describe('Entlastung braucht positive Evidenz', () => {
 
   it('ignoriert Familien, die dem Bereich nicht zugeordnet sind', () => {
     const r = lauf(['Rechenwege'], ECHTE_SKILLS, [familie('einheiten_massstab')])
-    expect(r).toEqual([])
+    expect(r[0].richtung).toBe('offen')
   })
 
   it('bestätigt vor entlasten, wenn beides zutrifft', () => {
@@ -167,9 +196,33 @@ describe('"Grundlagen fehlen" — belegt an der Form des Fundaments', () => {
     expect(r[0].fall).toBe('grundlagen_entlastend_schmal')
   })
 
-  it('sagt nichts, wenn gar kein Abstieg stattgefunden hat', () => {
+  it('meldet den Bereich als offen, wenn gar kein Abstieg stattgefunden hat', () => {
     const nurEinstieg = [s('a', 8, 'traegt'), s('b', 8, 'traegt')]
     const r = lauf(['Grundlagen fehlen'], nurEinstieg)
-    expect(r).toEqual([])
+    expect(r[0].richtung).toBe('offen')
+    expect(r[0].fall).toBe('grundlagen_offen')
+  })
+
+  it('beantwortet ALLE vier Punkte der Sitzung 920d00ae', () => {
+    // Genau der Befund, der R5 ausgeloest hat: Abschnitt 01 nannte vier
+    // Punkte, der Schluss behandelte zwei.
+    const r = lauf([
+      'Grundlagen fehlen',
+      'Textverständnis',
+      'Rechenwege',
+      'Konzentration',
+    ])
+    expect(r.map((x) => x.thema)).toEqual([
+      'Grundlagen fehlen',
+      'Textverständnis',
+      'Rechenwege',
+      'Konzentration',
+    ])
+    expect(r.map((x) => x.richtung)).toEqual([
+      'bestaetigend',
+      'entlastend',
+      'offen',
+      'nicht_messbar',
+    ])
   })
 })

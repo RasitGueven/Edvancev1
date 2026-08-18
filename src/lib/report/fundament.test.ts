@@ -167,12 +167,55 @@ describe('Einstieg und Fundament — die Achsen der Fallwahl', () => {
 })
 
 describe('findeEinbruch — der Abstieg ist nicht monoton', () => {
-  it('findet bei d8b0d885 die Ebene mit 0 von 2, nicht die unterste', () => {
-    const f = baueFundament(TOLUNAY)!
-    expect(f.einbruch).not.toBeNull()
-    expect(f.einbruch!.delta).toBe(2)
-    expect(f.einbruch!.traegt).toBe(0)
-    expect(f.einbruch!.geprueft).toBe(2)
+  it('nennt bei BEIDEN echten Sitzungen keinen Einbruch', () => {
+    // R5: Bis dahin nahm die Funktion schlicht die schlechteste Ebene. Bei
+    // 920d00ae stand dort 1 von 2 — und drei Ebenen tiefer ebenfalls 1 von 2.
+    // Der Gleichstand wurde per Tiebreaker aufgeloest und der Text machte
+    // daraus einen Befund.
+    //
+    // Mit den beiden Bedingungen faellt der Satz in beiden Sitzungen weg. Das
+    // ist kein Bedauern, sondern das Ergebnis: Die Ebenen tragen zwei bis
+    // fuenf gepruefte Bereiche, und die schaerfste (0 von 2) steht auf zwei
+    // davon. Aus zwei Bereichen laesst sich keine Rangordnung ueber sechs
+    // Ebenen begruenden.
+    expect(baueFundament(TOLUNAY)!.einbruch).toBeNull()
+    expect(baueFundament(RASIT)!.einbruch).toBeNull()
+  })
+
+  it('verlangt mindestens drei geprüfte Bereiche auf der Ebene', () => {
+    // 0 von 2 ist der schaerfste Wert ueberhaupt — und trotzdem zu duenn.
+    const einbruch = findeEinbruch([
+      { tiefe: 8, delta: 0, geprueft: 4, traegt: 4, labels: [], weitere: 0 },
+      { tiefe: 7, delta: 1, geprueft: 2, traegt: 0, labels: [], weitere: 0 },
+    ])
+    expect(einbruch).toBeNull()
+  })
+
+  it('nennt die einzige Ebene mit Lücke, wenn sie tragfähig ist', () => {
+    // Nichts, wogegen sie sich abheben muesste — sie IST der Einbruch.
+    const einbruch = findeEinbruch([
+      { tiefe: 8, delta: 0, geprueft: 4, traegt: 4, labels: [], weitere: 0 },
+      { tiefe: 7, delta: 1, geprueft: 4, traegt: 1, labels: [], weitere: 0 },
+      { tiefe: 6, delta: 2, geprueft: 3, traegt: 3, labels: [], weitere: 0 },
+    ])
+    expect(einbruch!.delta).toBe(1)
+  })
+
+  it('verlangt deutlichen Abstand zur nächstschlechteren Ebene', () => {
+    // 1/4 = 0.25 gegen 1/3 = 0.333 — ein Abstand von 0.083. Das ist weniger,
+    // als EIN einzelnes Skill-Urteil auf dieser Ebene wert waere.
+    const knapp = findeEinbruch([
+      { tiefe: 8, delta: 0, geprueft: 4, traegt: 1, labels: [], weitere: 0 },
+      { tiefe: 7, delta: 1, geprueft: 3, traegt: 1, labels: [], weitere: 0 },
+    ])
+    expect(knapp).toBeNull()
+
+    // 0/4 gegen 3/4 — Abstand 0.75, eindeutig.
+    const deutlich = findeEinbruch([
+      { tiefe: 8, delta: 0, geprueft: 4, traegt: 0, labels: [], weitere: 0 },
+      { tiefe: 7, delta: 1, geprueft: 4, traegt: 3, labels: [], weitere: 0 },
+    ])
+    expect(deutlich!.delta).toBe(0)
   })
 
   it('meldet für beide echten Sitzungen, dass ganz unten alles trägt', () => {
@@ -181,21 +224,13 @@ describe('findeEinbruch — der Abstieg ist nicht monoton', () => {
   })
 
   it('wertet den Anteil, nicht die absolute Zahl fehlender Bereiche', () => {
-    // 0 von 2 wiegt schwerer als 1 von 4, obwohl dort mehr Bereiche fehlen.
+    // 0 von 3 wiegt schwerer als 2 von 6, obwohl dort mehr Bereiche fehlen.
     const einbruch = findeEinbruch([
-      { tiefe: 8, delta: 0, geprueft: 2, traegt: 2, labels: [], weitere: 0 },
-      { tiefe: 7, delta: 1, geprueft: 4, traegt: 1, labels: [], weitere: 0 },
-      { tiefe: 6, delta: 2, geprueft: 2, traegt: 0, labels: [], weitere: 0 },
+      { tiefe: 8, delta: 0, geprueft: 6, traegt: 6, labels: [], weitere: 0 },
+      { tiefe: 7, delta: 1, geprueft: 6, traegt: 4, labels: [], weitere: 0 },
+      { tiefe: 6, delta: 2, geprueft: 3, traegt: 0, labels: [], weitere: 0 },
     ])
     expect(einbruch!.delta).toBe(2)
-  })
-
-  it('bevorzugt bei gleichem Anteil die breitere Grundlage', () => {
-    const einbruch = findeEinbruch([
-      { tiefe: 8, delta: 0, geprueft: 2, traegt: 1, labels: [], weitere: 0 },
-      { tiefe: 7, delta: 1, geprueft: 6, traegt: 3, labels: [], weitere: 0 },
-    ])
-    expect(einbruch!.geprueft).toBe(6)
   })
 
   it('gibt null zurück, wenn jede Ebene vollständig trägt', () => {

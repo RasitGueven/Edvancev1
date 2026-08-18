@@ -297,10 +297,10 @@ describe('INV-4.4 — der Report zeigt Koennen, keine Note', () => {
  * die Abnahme-Schranke, die eine Änderung ohne erneute Freigabe unwirksam macht.
  */
 describe('INV-4.5 — die Erzaehlbausteine sprechen Elternsprache', () => {
-  const MIGRATION = resolve(
-    __dirname,
-    '../../../supabase/migrations/20260818120000_r4_report_bausteine.sql',
-  )
+  const MIGRATIONEN = [
+    '20260818120000_r4_report_bausteine.sql',
+    '20260818160000_r5_bausteine_verteilung.sql',
+  ].map((f) => resolve(__dirname, '../../../supabase/migrations/', f))
 
   /**
    * Die Satz-Literale der insert-Zeilen, ohne SQL-Kommentare.
@@ -308,8 +308,8 @@ describe('INV-4.5 — die Erzaehlbausteine sprechen Elternsprache', () => {
    * Die Datei ERKLÄRT in ihren Kommentaren, warum bestimmte Formulierungen
    * verboten sind — diese Erklärungen dürfen den Test nicht rot machen.
    */
-  const saetze: string[] = (() => {
-    const roh = readFileSync(MIGRATION, 'utf8')
+  const saetze: string[] = MIGRATIONEN.flatMap((datei) => {
+    const roh = readFileSync(datei, 'utf8')
       .split('\n')
       .filter((z) => !z.trimStart().startsWith('--'))
       .join('\n')
@@ -317,10 +317,22 @@ describe('INV-4.5 — die Erzaehlbausteine sprechen Elternsprache', () => {
     return [...roh.matchAll(/'(a|b)',\n\s*'((?:[^']|'')*)',\n\s*now\(\)/g)].map((m) =>
       m[2].replace(/''/g, "'"),
     )
-  })()
+  })
 
   it('findet ueberhaupt Bausteine (sonst prueft der Rest nichts)', () => {
-    expect(saetze.length).toBeGreaterThanOrEqual(20)
+    expect(saetze.length).toBeGreaterThanOrEqual(50)
+  })
+
+  it('nennt keine Terminzahl — die steht in der freq-Zeile aus tiers', () => {
+    // R5: Die Empfehlungstexte nannten die Frequenz ein zweites Mal („Drei
+    // Termine geben dafuer genug Raum"). Als die Tarife korrigiert wurden,
+    // widersprach das Dokument sich selbst. Eine Zahl an zwei Orten driftet.
+    for (const satz of saetze) {
+      expect(satz, satz).not.toMatch(/pro Woche|\/Woche|w(ö|oe)chentlich/i)
+      expect(satz, satz).not.toMatch(
+        /\b(ein|eine|einen|zwei|drei|vier|f(ü|ue)nf)\s+(Termin|Termine|Sitzung|Sitzungen|Session|Sessions)\b/i,
+      )
+    }
   })
 
   it('duzt nirgends', () => {

@@ -77,9 +77,10 @@ select coalesce(jsonb_agg(x order by x->>'session_id'), '[]'::jsonb) from (
                          where b.freigegeben_am is not null), '[]'::jsonb),
 
     'zuordnungen',     coalesce((select jsonb_agg(jsonb_build_object(
-                            'thema', z.thema, 'skill_keys', z.skill_keys,
+                            'thema', z.thema, 'anzeigename', z.anzeigename,
+                            'skill_keys', z.skill_keys,
                             'fehlbild_familien', z.fehlbild_familien,
-                            'strukturell', z.strukturell))
+                            'strukturell', z.strukturell, 'messbar', z.messbar))
                           from public.report_anlass_zuordnung z), '[]'::jsonb),
 
     -- Wer die Analyse begleitet hat: die erste Platzvergabe der Sitzung.
