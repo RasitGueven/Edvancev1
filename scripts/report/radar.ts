@@ -10,26 +10,33 @@
 // lässt sich beschriften.)
 //
 // ----------------------------------------------------------------------------
-// Der Punkt, an dem dieses Diagramm lügen könnte
+// Der Punkt, an dem dieses Diagramm gelogen hat
 // ----------------------------------------------------------------------------
-// Ein Radar über Anteile verschweigt seinen Nenner. „Brüche 100 %" können zwei
-// von zwei geprüften Skills sein — auf so dünner Basis liest sich eine volle
-// Achse wie eine Bestnote. Und eine Familie, die gar nicht geprüft wurde, sähe
-// mit einem Punkt im Mittelpunkt aus wie eine, die nichts kann.
+// Die erste Fassung zeigte EINE Fläche mit dem Wert `traegt / geprueft`. Das
+// verzerrt in genau die falsche Richtung: „2 von 2" ergab eine volle Achse,
+// obwohl in der Familie nur zwei von acht vorhandenen Bereichen überhaupt
+// angesehen wurden. Je weniger geprüft, desto besser sah die Familie aus.
 //
-// Drei Vorkehrungen dagegen, in dieser Reihenfolge wichtig:
+// Jetzt zwei Flächen auf DEMSELBEN Nenner — allen Skills der Familie im
+// Bestand:
 //
-//   1. NICHT GEPRÜFT wird nie wie NULL gezeichnet. Die Achse bekommt keinen
-//      Vertexpunkt, die Kanten dorthin sind gestrichelt, und die Beschriftung
-//      sagt „nicht geprüft" statt eines Familiennamens allein.
-//   2. Achsen unter MIN_GEPRUEFT_ACHSE tragen keine Fläche und heißen „zu wenig
-//      geprüft". Eine volle Achse aus einem Skill gibt es nicht.
-//   3. Unter dem Diagramm steht der Nenner je Familie im Klartext. Wer die Form
-//      liest, sieht daneben, worauf sie beruht.
+//   AUSSEN, blass und gestrichelt   geprueft / vorhanden
+//   INNEN,  gefüllt in Primary      traegt   / vorhanden
 //
-// Ein echter Anteil von 0 bekommt dagegen einen sichtbaren Punkt knapp neben
-// dem Mittelpunkt (NULL_RADIUS) — sonst wäre er von „nicht geprüft" nicht zu
-// unterscheiden.
+// Der Abstand zwischen beiden ist die Information:
+//
+//   dicht beieinander   das Geprüfte trägt
+//   weit auseinander    gründlich geprüft, es trägt wenig
+//   beide klein         hier wurde kaum geprüft — keine Aussage, kein Vorwurf
+//
+// Die innere Fläche kann die äußere nie überragen: Ein Skill trägt nicht, ohne
+// geprüft worden zu sein. Wo die äußere den Mittelpunkt nicht verlässt, wurde
+// nichts angesehen; die Beschriftung sagt das zusätzlich („nicht geprüft"), und
+// die Zeile unter dem Diagramm nennt für jede Familie geprüft von vorhanden.
+//
+// Die frühere Sonderbehandlung „zu wenig geprüft" ist damit entfallen. Sie war
+// eine Krücke für den alten Nenner; mit dem Bestand zeigt derselbe Fall von
+// sich aus eine kleine Fläche.
 
 import type { FamilienBefund } from '@/lib/report/familien'
 
@@ -37,37 +44,33 @@ const CX = 130
 const CY = 128
 const R = 82
 
-/**
- * Radius, mit dem ein echter Anteil von 0 gezeichnet wird.
- *
- * Klein genug, um als „nichts davon trägt" zu lesen, groß genug, damit der
- * Punkt sichtbar NEBEN dem Mittelpunkt sitzt — dort, wo die nicht geprüften
- * Achsen enden. Bei 0,05 überlappte der Vertexpunkt (r=3) noch den
- * Mittelpunkt, und ein echter Nullwert war von „nicht geprüft" nicht mehr zu
- * unterscheiden.
- */
-const NULL_RADIUS = 0.09
-
 const r1 = (n: number): number => Math.round(n * 10) / 10
-const esc = (s: string): string =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const esc = (t: string): string =>
+  t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-type Punkt = { x: number; y: number; gezeichnet: boolean }
+/** Winkel der i-ten von n Achsen, im Uhrzeigersinn ab oben. */
+const winkel = (i: number, n: number): number => ((-90 + (i * 360) / n) * Math.PI) / 180
 
-function punkte(befunde: readonly FamilienBefund[]): Punkt[] {
+/**
+ * Die Eckpunkte einer Fläche über alle Achsen.
+ *
+ * `wert` liest den Anteil aus dem Befund; null (Familie ohne Bestand) wird als
+ * Mittelpunkt gezeichnet.
+ */
+function polygon(
+  befunde: readonly FamilienBefund[],
+  wert: (b: FamilienBefund) => number | null,
+): { x: number; y: number }[] {
   const n = befunde.length
   return befunde.map((b, i) => {
-    const w = ((-90 + (i * 360) / n) * Math.PI) / 180
-    // Nicht auswertbare Achsen enden exakt im Mittelpunkt — die Fläche greift
-    // dort nicht aus, behauptet aber auch keinen Wert.
-    const f = b.anteil === null ? 0 : Math.max(b.anteil, NULL_RADIUS)
-    return {
-      x: r1(Math.cos(w) * R * f),
-      y: r1(Math.sin(w) * R * f),
-      gezeichnet: b.anteil !== null,
-    }
+    const w = winkel(i, n)
+    const f = wert(b) ?? 0
+    return { x: r1(Math.cos(w) * R * f), y: r1(Math.sin(w) * R * f) }
   })
 }
+
+const alsPunkte = (p: readonly { x: number; y: number }[]): string =>
+  p.map((q) => `${q.x},${q.y}`).join(' ')
 
 function netz(n: number): string {
   const ring = (f: number) =>
@@ -98,19 +101,12 @@ function beschriftung(befunde: readonly FamilienBefund[]): string {
   const n = befunde.length
   return befunde
     .map((b, i) => {
-      const w = ((-90 + (i * 360) / n) * Math.PI) / 180
+      const w = winkel(i, n)
       const lx = Math.min(224, Math.max(36, r1(CX + Math.cos(w) * (R + 26))))
-      const zeilen = [
-        ...b.zeilen.map((t) => ({ text: t, grau: b.anteil === null })),
-        ...(b.grund
-          ? [
-              {
-                text: b.grund === 'nicht_geprueft' ? 'nicht geprüft' : 'zu wenig geprüft',
-                grau: true,
-                klein: true,
-              },
-            ]
-          : []),
+      const grau = b.grund !== null
+      const zeilen: { text: string; grau: boolean; klein?: boolean }[] = [
+        ...b.zeilen.map((t) => ({ text: t, grau })),
+        ...(b.grund ? [{ text: 'nicht geprüft', grau: true, klein: true }] : []),
       ]
       let ly = r1(CY + Math.sin(w) * (R + 26)) + 3
       const hoehe = (zeilen.length - 1) * 10
@@ -121,7 +117,7 @@ function beschriftung(befunde: readonly FamilienBefund[]): string {
           (z, k) =>
             `            <text x="${lx}" y="${r1(ly + k * 10)}"` +
             ` fill="${z.grau ? '#A8A8A4' : '#4A4A47'}"` +
-            (('klein' in z && z.klein) ? ' font-size="8.5" font-style="italic"' : '') +
+            (z.klein ? ' font-size="8.5" font-style="italic"' : '') +
             `>${esc(z.text)}</text>`,
         )
         .join('\n')
@@ -138,31 +134,29 @@ function beschriftung(befunde: readonly FamilienBefund[]): string {
  * anschreibt, hat eine Note gebaut (INV-4.4).
  */
 export function radarSvg(befunde: readonly FamilienBefund[]): string {
-  const p = punkte(befunde)
-  const flaeche = p.map((x) => `${x.x},${x.y}`).join(' ')
-  const dots = p
-    .filter((x) => x.gezeichnet)
-    .map((x) => `              <circle cx="${x.x}" cy="${x.y}" r="3"/>`)
-    .join('\n')
+  const aussen = polygon(befunde, (b) => b.anteilGeprueft)
+  const innen = polygon(befunde, (b) => b.anteilTraegt)
 
-  // Gestrichelte Kanten dorthin, wo nichts geprüft wurde: Die Fläche schließt
-  // sich, ohne zu behaupten, dass dort etwas gemessen wurde.
-  const gestrichelt = p
-    .map((x, i) => {
-      const next = p[(i + 1) % p.length]
-      if (x.gezeichnet && next.gezeichnet) return null
-      return `              <line x1="${x.x}" y1="${x.y}" x2="${next.x}" y2="${next.y}" stroke-dasharray="3 3"/>`
-    })
+  // Punkte nur auf der inneren Flaeche, und nur wo geprueft wurde. Ein Punkt im
+  // Mittelpunkt einer ungeprueften Achse laese sich als gemessene Null.
+  const dots = innen
+    .map((q, i) =>
+      befunde[i].grund === null
+        ? `              <circle cx="${q.x}" cy="${q.y}" r="2.5"/>`
+        : null,
+    )
     .filter((x): x is string => x !== null)
     .join('\n')
 
   return `        <svg viewBox="0 0 260 258" width="100%" role="img"
-             aria-label="Profil über sechs Themenfamilien; nicht geprüfte Familien sind als solche gekennzeichnet">
+             aria-label="Profil über sechs Themenfamilien. Äußere gestrichelte Fläche: Anteil geprüfter Bereiche am Bestand. Innere gefüllte Fläche: Anteil tragender Bereiche am Bestand.">
           <g transform="translate(${CX},${CY})">
 ${netz(befunde.length)}
-            <polygon points="${flaeche}" fill="rgba(51,77,122,.14)" stroke="#334D7A"
-                     stroke-width="2" stroke-linejoin="round"/>
-${gestrichelt ? `            <g stroke="#FFFFFF" stroke-width="2">\n${gestrichelt}\n            </g>` : ''}
+            <polygon points="${alsPunkte(aussen)}" fill="rgba(51,77,122,.05)"
+                     stroke="rgba(51,77,122,.45)" stroke-width="1.5"
+                     stroke-dasharray="4 3" stroke-linejoin="round"/>
+            <polygon points="${alsPunkte(innen)}" fill="rgba(51,77,122,.18)"
+                     stroke="#334D7A" stroke-width="2" stroke-linejoin="round"/>
             <g fill="#334D7A">
 ${dots}
             </g>
@@ -177,14 +171,16 @@ ${beschriftung(befunde)}
  * Die Nennerzeile unter dem Diagramm.
  *
  * Ohne sie ist die Grundgesamtheit unsichtbar, und genau daran ist die erste
- * Fassung des Radars gescheitert.
+ * Fassung des Radars gescheitert. Sie nennt beide Zahlen, die die beiden
+ * Flächen zeichnen: wie viel der Familie angesehen wurde und wie viel davon
+ * trägt — jeweils gegen den Bestand.
  */
 export function radarNenner(befunde: readonly FamilienBefund[]): string {
   return befunde
     .map((b) =>
       b.geprueft === 0
-        ? `${b.label}: nicht geprüft`
-        : `${b.label}: ${b.traegt} von ${b.geprueft}`,
+        ? `${b.label}: 0 von ${b.vorhanden} geprüft`
+        : `${b.label}: ${b.geprueft} von ${b.vorhanden} geprüft, ${b.traegt} tragen`,
     )
     .join(' · ')
 }

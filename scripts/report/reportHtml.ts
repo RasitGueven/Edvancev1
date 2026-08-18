@@ -273,10 +273,18 @@ ${bodenText ? `        <p>${esc(bodenText)}</p>` : ''}
 ${radarSvg(e.profil)}
       <div>
         <h4>Profil über die Themenfamilien</h4>
-        <p class="cap">Je weiter außen, desto mehr der geprüften Bereiche dieser Familie
-        tragen. Immer dieselben sechs Familien, damit zwei Analysen vergleichbar bleiben.
-        Grau heißt: dazu sagt diese Analyse nichts — das ist etwas anderes als ein
-        Bereich, der nicht trägt.</p>
+        <p class="cap">Immer dieselben sechs Familien, damit zwei Analysen vergleichbar
+        bleiben. Beide Flächen zählen gegen <b>alle</b> Bereiche der Familie — nicht nur
+        gegen die geprüften.</p>
+        <ul class="legende">
+          <li><span class="l-aussen" aria-hidden="true"></span>
+            <b>geprüft</b> — wie viel der Familie diese Analyse angesehen hat</li>
+          <li><span class="l-innen" aria-hidden="true"></span>
+            <b>trägt</b> — wie viel der Familie nachweislich trägt</li>
+        </ul>
+        <p class="cap">Liegen beide Linien dicht beieinander, trägt das Geprüfte. Klafft
+        die innere weit nach innen, wurde gründlich geprüft und es trägt wenig. Bleiben
+        beide klein, wurde hier kaum geprüft — das ist keine Aussage über Ihr Kind.</p>
         <p class="nenner">${esc(radarNenner(e.profil))}</p>
       </div>
     </div>

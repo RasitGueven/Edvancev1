@@ -80,6 +80,16 @@ section{margin-bottom:34px}
   display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:center}
 .profil h4{font-size:15px;margin-bottom:4px}
 .profil .cap{font-size:13px;color:var(--t3);line-height:1.55}
+/* Legende: die beiden Linien beim Namen nennen. Ohne sie ist die aeussere
+   Flaeche nur eine blasse Kontur ohne Bedeutung. */
+.profil .legende{list-style:none;margin:10px 0;padding:0;
+  display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--t2)}
+.profil .legende li{display:flex;align-items:center;gap:8px;line-height:1.45}
+.profil .legende b{color:var(--t1);font-weight:600}
+.profil .legende span{flex:none;width:26px;height:0;border-top-width:2px}
+.profil .l-aussen{border-top-style:dashed;border-top-color:rgba(51,77,122,.45)}
+.profil .l-innen{border-top-style:solid;border-top-color:var(--primary)}
+
 .profil .nenner{margin-top:12px;padding-top:10px;border-top:1px solid var(--subtle);
   font-size:11.5px;line-height:1.7;color:var(--t3)}
 /* Ohne Deckel fuellt das SVG auf schmalen Schirmen die ganze Breite und

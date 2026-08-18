@@ -24,7 +24,12 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { Bausteinsatz } from '@/lib/report/bausteine'
-import { familienBefunde, lueckenFamilien, verteilungsFall } from '@/lib/report/familien'
+import {
+  familienBefunde,
+  familienBestand,
+  lueckenFamilien,
+  verteilungsFall,
+} from '@/lib/report/familien'
 import { baueFundament } from '@/lib/report/fundament'
 import { baueRueckbezuege } from '@/lib/report/rueckbezug'
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
@@ -117,6 +122,7 @@ type Roh = {
     strukturell: boolean
     messbar: boolean
   }[]
+  skill_bestand: string[]
   ansprechpartner: { name: string | null; email: string | null } | null
   tiers: { name: string; features: string[] }[]
 }
@@ -291,7 +297,7 @@ function main(): void {
     // Paket. Dieselbe Familientaxonomie wie das Profil daneben — wer die
     // Verteilung behauptet, muss sie mit demselben Massstab zaehlen.
     const alleSkills = fundament.tragend.concat(fundament.luecken)
-    const profil = familienBefunde(alleSkills)
+    const profil = familienBefunde(alleSkills, familienBestand(r.skill_bestand ?? []))
     const { familien: lueckenFam, ohneFamilie } = lueckenFamilien(fundament.luecken)
     const verteilung =
       fundament.luecken.length === 0
@@ -339,7 +345,8 @@ function main(): void {
     console.log(
       `  Verteilung: ${verteilung} (${lueckenFam.length} Familie(n)` +
         `${ohneFamilie > 0 ? `, ${ohneFamilie} ohne Familie` : ''})` +
-        ` | Profil: ${profil.map((b) => `${b.key} ${b.traegt}/${b.geprueft}`).join(' ')}`,
+        ` | Profil (geprueft|traegt/vorhanden): ` +
+        profil.map((b) => `${b.key} ${b.geprueft}|${b.traegt}/${b.vorhanden}`).join(' '),
     )
     for (const rb of rueckbezuege) {
       console.log(`  Rückbezug „${rb.thema}" -> ${rb.fall} (Belege: ${rb.belege})`)

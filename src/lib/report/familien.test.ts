@@ -3,13 +3,26 @@ import { describe, expect, it } from 'vitest'
 import {
   familieVon,
   familienBefunde,
+  familienBestand,
   FAMILIEN,
   lueckenFamilien,
-  MIN_GEPRUEFT_ACHSE,
   verteilungsFall,
 } from '@/lib/report/familien'
 
 const s = (skillKey: string, zustand: string) => ({ skillKey, zustand })
+
+/**
+ * Der Skill-Bestand, wie er am 18.08. in der Tabelle `skills` stand: 39 Skills,
+ * ein Fach. Der Nenner beider Flächen des Profils.
+ */
+const BESTAND = {
+  bruch: 8,
+  prozent: 5,
+  gleichung: 5,
+  term: 4,
+  geo: 12,
+  vorzeichen: 3,
+} as const
 
 /** Die 17 direkt geprüften Skills der Sitzung d8b0d885 vom 16.08. */
 const TOLUNAY = [
@@ -59,50 +72,93 @@ describe('familienBefunde — die feste Achsenmenge', () => {
     // geprüften Familien — fünf Achsen bei der einen Sitzung, sechs bei der
     // anderen. Zwei Reports nebeneinander waren nicht vergleichbar.
     for (const skills of [TOLUNAY, [], [s('bruch_div', 'traegt')]]) {
-      const b = familienBefunde(skills)
+      const b = familienBefunde(skills, BESTAND)
       expect(b).toHaveLength(6)
       expect(b.map((x) => x.key)).toEqual(FAMILIEN.map((f) => f.key))
     }
   })
 
-  it('reproduziert das Profil von d8b0d885', () => {
-    const b = familienBefunde(TOLUNAY)
-    const nach = Object.fromEntries(b.map((x) => [x.key, `${x.traegt}/${x.geprueft}`]))
+  it('reproduziert das Profil von d8b0d885 — beide Werte gegen den Bestand', () => {
+    const b = familienBefunde(TOLUNAY, BESTAND)
+    const nach = Object.fromEntries(
+      b.map((x) => [x.key, `${x.geprueft}|${x.traegt}/${x.vorhanden}`]),
+    )
     expect(nach).toEqual({
-      bruch: '2/2',
-      prozent: '2/2',
-      gleichung: '2/2',
-      term: '0/2',
-      geo: '3/8',
-      vorzeichen: '0/0',
+      bruch: '2|2/8',
+      prozent: '2|2/5',
+      gleichung: '2|2/5',
+      term: '2|0/4',
+      geo: '8|3/12',
+      vorzeichen: '0|0/3',
     })
   })
 
-  it('unterscheidet "nicht geprüft" von "trägt nicht"', () => {
-    // Der wichtigste Punkt des Diagramms. Beides an den Mittelpunkt zu
-    // zeichnen, ohne es zu unterscheiden, hieße: nicht geprüft sieht aus wie
-    // nichts gekonnt.
-    const b = familienBefunde(TOLUNAY)
-    const vorzeichen = b.find((x) => x.key === 'vorzeichen')!
-    const term = b.find((x) => x.key === 'term')!
+  it('teilt beide Flächen denselben Nenner — den Bestand, nicht die Stichprobe', () => {
+    // Der Kern der Korrektur. Mit `traegt / geprueft` ergaben Brüche eine VOLLE
+    // Achse (2 von 2), obwohl nur zwei von acht vorhandenen Bereichen angesehen
+    // wurden. Je weniger geprüft, desto besser sah die Familie aus.
+    const b = familienBefunde(TOLUNAY, BESTAND)
+    const bruch = b.find((x) => x.key === 'bruch')!
+    expect(bruch.anteilGeprueft).toBeCloseTo(2 / 8)
+    expect(bruch.anteilTraegt).toBeCloseTo(2 / 8)
 
+    // Gründlich geprüft, trägt wenig: die beiden Flächen klaffen auseinander.
+    const geo = b.find((x) => x.key === 'geo')!
+    expect(geo.anteilGeprueft).toBeCloseTo(8 / 12)
+    expect(geo.anteilTraegt).toBeCloseTo(3 / 12)
+  })
+
+  it('lässt die innere Fläche nie über die äußere hinausgehen', () => {
+    // Ein Skill traegt nicht, ohne geprueft worden zu sein.
+    for (const skills of [TOLUNAY, [], [s('term_ausklammern', 'traegt')]]) {
+      for (const b of familienBefunde(skills, BESTAND)) {
+        expect(b.anteilTraegt!).toBeLessThanOrEqual(b.anteilGeprueft!)
+      }
+    }
+  })
+
+  it('markiert eine Familie ohne geprüften Skill, statt sie als Null zu zeigen', () => {
+    const b = familienBefunde(TOLUNAY, BESTAND)
+    const vorzeichen = b.find((x) => x.key === 'vorzeichen')!
     expect(vorzeichen.geprueft).toBe(0)
-    expect(vorzeichen.anteil).toBeNull()
     expect(vorzeichen.grund).toBe('nicht_geprueft')
 
-    expect(term.anteil).toBe(0)
+    // Eine echte Null bleibt davon unberührt: Terme wurden geprüft.
+    const term = b.find((x) => x.key === 'term')!
+    expect(term.anteilTraegt).toBe(0)
+    expect(term.anteilGeprueft).toBeCloseTo(0.5)
     expect(term.grund).toBeNull()
   })
 
-  it('markiert eine Achse unter der Mindestzahl als zu dünn', () => {
-    // Eine volle Achse aus einem Skill liest sich wie eine Bestnote und beruht
-    // auf ein bis zwei Aufgaben.
-    const b = familienBefunde([s('vorzeichen_vorrang', 'traegt')])
+  it('braucht keine Sonderregel mehr für dünn geprüfte Familien', () => {
+    // Frueher war „1 geprueft, 1 traegt" eine volle Achse und musste
+    // ausgegraut werden. Mit dem Bestand als Nenner sind es 1 von 3 — die
+    // Warnung steckt jetzt in der Zahl.
+    const b = familienBefunde([s('vorzeichen_vorrang', 'traegt')], BESTAND)
     const vorzeichen = b.find((x) => x.key === 'vorzeichen')!
-    expect(vorzeichen.geprueft).toBe(1)
-    expect(vorzeichen.geprueft).toBeLessThan(MIN_GEPRUEFT_ACHSE)
-    expect(vorzeichen.anteil).toBeNull()
-    expect(vorzeichen.grund).toBe('zu_wenig')
+    expect(vorzeichen.anteilTraegt).toBeCloseTo(1 / 3)
+    expect(vorzeichen.grund).toBeNull()
+  })
+})
+
+describe('familienBestand', () => {
+  it('zählt den Bestand je Familie und ignoriert Skills ohne Familie', () => {
+    const bestand = familienBestand([
+      'bruch_div',
+      'dezimal_mult',
+      'geo_massstab',
+      'groessen_flaechen',
+      'potenzen',
+      'runden_ueberschlag',
+    ])
+    expect(bestand.bruch).toBe(2)
+    expect(bestand.geo).toBe(2)
+    expect(bestand.term).toBe(0)
+  })
+
+  it('liefert für jede der sechs Familien einen Wert', () => {
+    const bestand = familienBestand([])
+    expect(Object.keys(bestand).sort()).toEqual(FAMILIEN.map((f) => f.key).sort())
   })
 })
 

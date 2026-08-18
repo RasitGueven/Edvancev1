@@ -15,21 +15,33 @@ ordnet nach **Thema**, die Spur nach **Tiefe**. Zwei Achsen, dieselben Urteile,
 keine Dopplung. Und sie ist das Bild, auf das der Coach zeigt; sechs Zeilen Text
 sind präzise, aber man zeigt nicht darauf.
 
-Was sich gegenüber der alten Fassung geändert hat — die drei Gründe, an denen sie
-gescheitert war:
+Was sich gegenüber der alten Fassung geändert hat:
 
 - **Feste Achsenmenge.** Sechs Familien, immer dieselben. Vorher zeichnete das
   Diagramm nur die geprüften: fünf Achsen bei der einen Sitzung, sechs bei der
   anderen — dieselbe Form bedeutete zweimal etwas anderes.
-- **Nicht geprüft ≠ nichts gekonnt.** Ungeprüfte Familien bekommen keinen
-  Vertexpunkt, die Kanten dorthin sind gestrichelt, die Beschriftung sagt „nicht
-  geprüft". Ein echter Anteil von 0 bekommt dagegen einen sichtbaren Punkt neben
-  dem Mittelpunkt (`NULL_RADIUS`).
-- **Der Nenner steht darunter.** „Brüche: 3 von 3 · … · Vorzeichen: nicht
-  geprüft". Ohne diese Zeile verschweigt ein Anteilsdiagramm seine Grundlage.
+- **Der Nenner ist der Bestand, nicht die Stichprobe.** Zwei überlagerte Flächen
+  auf demselben Nenner (alle Skills der Familie): außen gestrichelt
+  `geprüft/vorhanden`, innen gefüllt `trägt/vorhanden`.
+- **Der Nenner steht darunter**, im Klartext, plus eine Legende, die beide
+  Linien benennt.
 
-Achsen unter zwei geprüften Skills tragen keine Fläche und heißen „zu wenig
-geprüft" — eine volle Achse aus einem Skill liest sich wie eine Bestnote.
+### Warum die erste Fassung noch verzerrte
+
+Der erste Wurf zeigte **eine** Fläche mit `trägt/geprüft`. Das schmeichelt in
+genau die falsche Richtung: „2 von 2" ergab eine volle Achse, obwohl in der
+Familie nur zwei von acht vorhandenen Bereichen angesehen wurden. **Je weniger
+geprüft, desto besser sah die Familie aus.**
+
+Mit dem Bestand als Nenner ist der Abstand zwischen den beiden Flächen die
+eigentliche Information: dicht beisammen heißt „das Geprüfte trägt", weit
+auseinander „gründlich geprüft, trägt wenig", beide klein „hier wurde kaum
+geprüft".
+
+Nebeneffekt: Die Sonderbehandlung „zu wenig geprüft" ist ersatzlos entfallen.
+Sie war eine Krücke für den alten Nenner — ein Skill von einem geprüft ergab
+eine volle Achse. Jetzt zeigt derselbe Fall (Rasits Vorzeichen, 1 von 3) von
+sich aus eine kleine Fläche. Die Warnung ist in die Zahl gewandert.
 
 ## 2. „Am deutlichsten zeigt es sich…" ist verstummt
 
@@ -104,8 +116,8 @@ nichts — „dicht beieinander" war bei zwei Familien so falsch wie bei drei.
 
 ## Beweis
 
-- `npm ci && typecheck && lint && test` — **369 Tests grün** (30 Dateien),
-  darunter 9 neue für die Familien-Taxonomie und die überarbeiteten
+- `npm ci && typecheck && lint && test` — **373 Tests grün** (30 Dateien),
+  darunter 13 neue für die Familien-Taxonomie und die überarbeiteten
   Einbruch-/Rückbezug-Suiten.
 - **INV-4.5** deckt jetzt beide Baustein-Migrationen ab: **58 Sätze**, geprüft
   auf Siezen, Note, Kohortenvergleich, Erfolgszusage, Gamification,

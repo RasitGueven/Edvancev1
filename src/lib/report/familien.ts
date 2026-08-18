@@ -15,9 +15,9 @@
 // ----------------------------------------------------------------------------
 // Maßstab (geo_massstab) und Flächeneinheiten (groessen_flaechen) sind
 // fachlich zwei Dinge, im Elterngespräch aber eines: „das Rechnen mit Figuren
-// und Einheiten". Sie zu trennen ergäbe eine siebte Achse, die in den
-// Pilotsitzungen je zwei bis vier geprüfte Skills trüge — zu dünn für eine
-// eigene Achse (siehe MIN_GEPRUEFT_ACHSE).
+// und Einheiten". Zusammen tragen sie zwölf Skills im Bestand — die breiteste
+// Familie. Getrennt ergäbe das zwei Achsen mit fünf und sieben, und der Report
+// spräche über einen Unterschied, den Eltern an dieser Stelle nicht brauchen.
 
 /** Der interne Schlüssel einer Familie. Wird nie gerendert (INV-4.3). */
 export type FamilienKey =
@@ -55,16 +55,6 @@ export const FAMILIEN: readonly Familie[] = [
 ]
 
 /**
- * Ab so vielen geprüften Skills trägt eine Achse eine Aussage.
- *
- * Eine volle Achse auf Basis eines einzigen Skills liest sich wie eine
- * Bestnote — und beruht auf ein bis zwei Aufgaben. Zwei ist die Untergrenze,
- * ab der überhaupt zwei Beobachtungen zusammenkommen; darunter zeichnet das
- * Diagramm keine Fläche und die Beschriftung sagt, warum.
- */
-export const MIN_GEPRUEFT_ACHSE = 2
-
-/**
  * Die Familie eines Skills, oder null.
  *
  * null ist kein Fehler: `potenzen` und `runden_ueberschlag` gehören in keine
@@ -81,51 +71,97 @@ export function familieVon(skillKey: string): FamilienKey | null {
   return null
 }
 
-/** Eine Achse des Profils: Zähler, Nenner und ob sie überhaupt etwas sagt. */
+/**
+ * Eine Achse des Profils — zwei Werte auf DEMSELBEN Nenner.
+ *
+ * ----------------------------------------------------------------------------
+ * Warum der Nenner der Bestand ist und nicht die Stichprobe
+ * ----------------------------------------------------------------------------
+ * Bis zu dieser Korrektur zeigte die Achse `traegt / geprueft`. Das verzerrt in
+ * genau die falsche Richtung: „2 von 2" ergab eine volle Achse, obwohl in der
+ * Familie nur zwei von acht vorhandenen Bereichen überhaupt angesehen wurden.
+ * Je weniger geprüft, desto besser sah die Familie aus.
+ *
+ * Jetzt teilen sich beide Werte den Nenner `vorhanden` — alle Skills der
+ * Familie im Bestand. Damit wird die Achse zu einer Aussage über den
+ * tatsächlichen Stoff, nicht über die Auswahl:
+ *
+ *   anteilGeprueft   wie viel der Familie diese Analyse angesehen hat
+ *   anteilTraegt     wie viel der Familie nachweislich trägt
+ *
+ * `anteilTraegt` ist nie größer als `anteilGeprueft` — ein Skill kann nicht
+ * tragen, ohne geprüft worden zu sein. Die beiden Polygone liegen also
+ * ineinander, und ihr Abstand ist die eigentliche Information: dicht beisammen
+ * heißt „das Geprüfte trägt", weit auseinander heißt „gründlich geprüft, trägt
+ * wenig".
+ */
 export type FamilienBefund = {
   key: FamilienKey
   label: string
   zeilen: readonly string[]
+  /** Alle Skills dieser Familie im Bestand — der gemeinsame Nenner. */
+  vorhanden: number
   geprueft: number
   traegt: number
+  /** geprueft / vorhanden, oder null wenn die Familie gar keinen Skill hat. */
+  anteilGeprueft: number | null
+  /** traegt / vorhanden, oder null wenn die Familie gar keinen Skill hat. */
+  anteilTraegt: number | null
   /**
-   * Anteil tragender an geprüften Skills, oder null wenn die Achse zu dünn ist.
+   * Warum die Achse nichts sagt — für die Beschriftung.
    *
-   * null heißt „keine Aussage" — und wird im Diagramm anders dargestellt als
-   * ein echter Anteil von 0. Beides an den Mittelpunkt zu zeichnen, ohne es zu
-   * unterscheiden, hieße: nicht geprüft sieht aus wie nichts gekonnt.
+   * Nur noch ein Grund: nichts geprüft. Die frühere Markierung „zu wenig
+   * geprüft" ist entfallen, weil sie mit dem alten Nenner nötig war (eine volle
+   * Achse aus einem Skill). Mit dem Bestand als Nenner zeigt derselbe Fall von
+   * sich aus eine kleine Fläche — die Warnung ist in die Zahl gewandert.
    */
-  anteil: number | null
-  /** Warum die Achse nichts sagt — für die Beschriftung. */
-  grund: 'nicht_geprueft' | 'zu_wenig' | null
+  grund: 'nicht_geprueft' | null
 }
 
 /**
- * Rechnet die sechs Achsen aus den direkt geprüften Skills.
+ * Zählt je Familie, wie viele Skills überhaupt im Bestand stehen.
+ *
+ * Erwartet die skill_keys der Tabelle `skills`. Skills ohne Familie
+ * (`potenzen`, `runden_ueberschlag`) zählen nirgends mit.
+ */
+export function familienBestand(
+  alleSkillKeys: readonly string[],
+): Record<FamilienKey, number> {
+  const bestand = Object.fromEntries(FAMILIEN.map((f) => [f.key, 0])) as Record<
+    FamilienKey,
+    number
+  >
+  for (const key of alleSkillKeys) {
+    const f = familieVon(key)
+    if (f) bestand[f] += 1
+  }
+  return bestand
+}
+
+/**
+ * Rechnet die sechs Achsen aus den direkt geprüften Skills und dem Bestand.
  *
  * Gibt IMMER sechs Einträge zurück, in der Reihenfolge von FAMILIEN.
  */
 export function familienBefunde(
   skills: readonly { skillKey: string; zustand: string }[],
+  bestand: Readonly<Record<FamilienKey, number>>,
 ): FamilienBefund[] {
   return FAMILIEN.map((f) => {
     const drauf = skills.filter((s) => familieVon(s.skillKey) === f.key)
     const traegt = drauf.filter((s) => s.zustand === 'traegt').length
     const geprueft = drauf.length
-    const grund =
-      geprueft === 0
-        ? ('nicht_geprueft' as const)
-        : geprueft < MIN_GEPRUEFT_ACHSE
-          ? ('zu_wenig' as const)
-          : null
+    const vorhanden = bestand[f.key] ?? 0
     return {
       key: f.key,
       label: f.label,
       zeilen: f.zeilen,
+      vorhanden,
       geprueft,
       traegt,
-      anteil: grund === null ? traegt / geprueft : null,
-      grund,
+      anteilGeprueft: vorhanden > 0 ? geprueft / vorhanden : null,
+      anteilTraegt: vorhanden > 0 ? traegt / vorhanden : null,
+      grund: geprueft === 0 || vorhanden === 0 ? 'nicht_geprueft' : null,
     }
   })
 }
