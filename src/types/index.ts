@@ -186,3 +186,14 @@ export type {
 } from './report'
 
 export { REPORT_PAKETE } from './report'
+
+export type {
+  AnlassZuordnung,
+  Fundament,
+  FundamentEbene,
+  FundamentSkill,
+  ReportAnsprechpartner,
+  ReportBaustein,
+  Rueckbezug,
+  RueckbezugRichtung,
+} from './reportFundament'
