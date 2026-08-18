@@ -4149,6 +4149,34 @@ CREATE TABLE public.profiles (
 
 
 --
+-- Name: report_anlass_zuordnung; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.report_anlass_zuordnung (
+    thema text NOT NULL,
+    skill_keys text[] DEFAULT '{}'::text[] NOT NULL,
+    fehlbild_familien text[] DEFAULT '{}'::text[] NOT NULL,
+    strukturell boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: report_bausteine; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.report_bausteine (
+    schluessel text NOT NULL,
+    slot text NOT NULL,
+    fall text NOT NULL,
+    variante text NOT NULL,
+    text text NOT NULL,
+    freigegeben_am timestamp with time zone,
+    freigegeben_von uuid,
+    CONSTRAINT report_bausteine_variante_check CHECK ((variante = ANY (ARRAY['a'::text, 'b'::text])))
+);
+
+
+--
 -- Name: screening_item_ratings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4934,6 +4962,30 @@ ALTER TABLE ONLY public.process_competencies
 
 ALTER TABLE ONLY public.profiles
     ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: report_anlass_zuordnung report_anlass_zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.report_anlass_zuordnung
+    ADD CONSTRAINT report_anlass_zuordnung_pkey PRIMARY KEY (thema);
+
+
+--
+-- Name: report_bausteine report_bausteine_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.report_bausteine
+    ADD CONSTRAINT report_bausteine_pkey PRIMARY KEY (schluessel);
+
+
+--
+-- Name: report_bausteine report_bausteine_slot_fall_variante_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.report_bausteine
+    ADD CONSTRAINT report_bausteine_slot_fall_variante_key UNIQUE (slot, fall, variante);
 
 
 --
@@ -6074,6 +6126,14 @@ ALTER TABLE ONLY public.profiles
 
 
 --
+-- Name: report_bausteine report_bausteine_freigegeben_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.report_bausteine
+    ADD CONSTRAINT report_bausteine_freigegeben_von_fkey FOREIGN KEY (freigegeben_von) REFERENCES public.profiles(id);
+
+
+--
 -- Name: screening_item_ratings screening_item_ratings_coach_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7025,6 +7085,32 @@ ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY read_tasks_by_role ON public.tasks FOR SELECT USING (((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])) OR ((public.get_my_role() IS NOT NULL) AND (status = 'ready'::text))));
+
+
+--
+-- Name: report_anlass_zuordnung; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.report_anlass_zuordnung ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: report_anlass_zuordnung report_anlass_zuordnung_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY report_anlass_zuordnung_read ON public.report_anlass_zuordnung FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
+-- Name: report_bausteine; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.report_bausteine ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: report_bausteine report_bausteine_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY report_bausteine_read ON public.report_bausteine FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
 
 
 --

@@ -282,3 +282,96 @@ describe('INV-4.4 — der Report zeigt Koennen, keine Note', () => {
     )
   })
 })
+
+/**
+ * INV-4.5 — die Erzählbausteine gehorchen denselben Sprachregeln (R4).
+ *
+ * Mit R4 sind die Sätze des Reports aus dem Renderer in die Datenbank gewandert
+ * (report_bausteine, Abnahme-Schranke wie fehlbild_familien). Damit fielen sie
+ * aus dem Blick dieser Suite: INV-4.1 prüft die i18n-Ressourcen, und in denen
+ * stehen sie nicht mehr.
+ *
+ * Geprüft wird deshalb die MIGRATIONSDATEI — dort steht der Wortlaut, dort geht
+ * er durch das Review, und dort ist er statisch lesbar. Ein Satz, der später in
+ * der Datenbank geändert wird, ist damit nicht abgedeckt; genau dafür gibt es
+ * die Abnahme-Schranke, die eine Änderung ohne erneute Freigabe unwirksam macht.
+ */
+describe('INV-4.5 — die Erzaehlbausteine sprechen Elternsprache', () => {
+  const MIGRATION = resolve(
+    __dirname,
+    '../../../supabase/migrations/20260818120000_r4_report_bausteine.sql',
+  )
+
+  /**
+   * Die Satz-Literale der insert-Zeilen, ohne SQL-Kommentare.
+   *
+   * Die Datei ERKLÄRT in ihren Kommentaren, warum bestimmte Formulierungen
+   * verboten sind — diese Erklärungen dürfen den Test nicht rot machen.
+   */
+  const saetze: string[] = (() => {
+    const roh = readFileSync(MIGRATION, 'utf8')
+      .split('\n')
+      .filter((z) => !z.trimStart().startsWith('--'))
+      .join('\n')
+    // Nur der Textblock der Bausteine: die Zeilen zwischen Variante und now().
+    return [...roh.matchAll(/'(a|b)',\n\s*'((?:[^']|'')*)',\n\s*now\(\)/g)].map((m) =>
+      m[2].replace(/''/g, "'"),
+    )
+  })()
+
+  it('findet ueberhaupt Bausteine (sonst prueft der Rest nichts)', () => {
+    expect(saetze.length).toBeGreaterThanOrEqual(20)
+  })
+
+  it('duzt nirgends', () => {
+    const DUZEN = /\b(du|dich|dir|dein|deine|deiner|deinem|deinen|deines)\b/i
+    expect(saetze.filter((s) => DUZEN.test(s))).toEqual([])
+  })
+
+  it('nennt keine Note und keinen Vergleich mit anderen Kindern', () => {
+    for (const s of saetze) {
+      expect(s, s).not.toMatch(/\bNote\b|Zeugnis|Durchschnitt|Klassenschnitt/i)
+      expect(s, s).not.toMatch(/andere Kinder|Mitsch(ü|ue)ler|im Vergleich zu/i)
+    }
+  })
+
+  it('verspricht nichts — Handlungsrichtung ja, Erfolgszusage nein', () => {
+    for (const s of saetze) {
+      expect(s, s).not.toMatch(/wird .*(schaffen|k(ö|oe)nnen|beherrschen)/i)
+      expect(s, s).not.toMatch(/garantier|sicher erreichen|in \w+ Wochen/i)
+      // „gemeistert" behauptet einen Abschluss, den nur der Coach-Gate setzt.
+      expect(s, s).not.toMatch(/gemeistert|Meilenstein erreicht/i)
+    }
+  })
+
+  it('bringt keine Gamification auf die Elternflaeche', () => {
+    for (const s of saetze) {
+      expect(s, s).not.toMatch(/\bXP\b|Badge|Streak|Level\b|Punkte gesammelt/i)
+    }
+  })
+
+  it('nennt keine Klassenstufe an einer Fundamentebene', () => {
+    // fundament_tiefe ist die Position im Voraussetzungsgraphen, nicht der
+    // Lehrplan — „Stoff aus Klasse 6" an einer Ebene waere schlicht falsch.
+    for (const s of saetze) {
+      expect(s, s).not.toMatch(/Klasse\s*\d/i)
+    }
+  })
+
+  it('traegt keinen rohen Registry-Schluessel im Satz', () => {
+    for (const s of saetze) {
+      expect(s, s).not.toMatch(/\b[a-z]+_[a-z_]+\b/)
+    }
+  })
+
+  it('nutzt nur Platzhalter, die der Renderer auch fuellt', () => {
+    // Ein unbekannter Platzhalter bliebe im Dokument stehen (bewusst sichtbar,
+    // siehe setzePlatzhalter) — hier faellt er schon im Test auf.
+    const ERLAUBT = new Set(['traegt', 'geprueft', 'ebene', 'ebenen', 'belege'])
+    for (const s of saetze) {
+      for (const [, name] of s.matchAll(/\{(\w+)\}/g)) {
+        expect(ERLAUBT.has(name), `${name} in: ${s}`).toBe(true)
+      }
+    }
+  })
+})

@@ -28,6 +28,19 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **R4 Eltern-Report nachgeschärft** (Retro `2026-08-18-r4-report-nachschaerfen.md`,
+  Branch `feature/r4-report-nachschaerfen`): Erzählbausteine aus dem Renderer in die
+  Datenbank (`report_bausteine` mit Abnahme-Schranke nach dem
+  `fehlbild_familien`-Muster, `report_anlass_zuordnung`). Abschnitt 02 unterscheidet
+  jetzt vier Fälle am **Zustand des Einstiegsskills** statt einen zu behaupten; die
+  Ebenenspur nennt die Bereiche, die auf ihr liegen; die Ebene mit dem größten
+  Einbruch und eine vollständig tragende Sohle werden ausdrücklich benannt; die
+  Eltern-Einschätzung wird im Fazit bestätigend oder entlastend aufgegriffen —
+  entlastend nur auf **positiver** Evidenz, weil eine leere Fehlbild-Familie nichts
+  beweist. Beide Diagramme entfallen (Begründung im Kopf von
+  `scripts/report/reportHtml.ts`). Neu: INV-4.5 prüft alle 30 Bausteine statisch.
+  **Offen:** Migration nicht eingespielt, React-Fläche (`ReportBody.tsx`) noch nicht
+  umgestellt.
 - **S9 Platz-Mechanik gebaut** (Retro `2026-07-16-S9-platz-mechanik.md`, Branch
   `feat/S9-platz-mechanik`): Option 3 der PLATZ-Analyse umgesetzt — Kiosk-Konto
   (`platz_devices`, role=student OHNE students-Zeile), session-scoped Zuweisung
