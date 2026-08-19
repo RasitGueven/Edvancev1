@@ -1,14 +1,19 @@
 import { useTranslation } from 'react-i18next'
 
-import type { ReportEmpfehlung } from '@/types'
+import { ReportRueckbezug } from '@/components/edvance/report/ReportRueckbezug'
+import type { Bausteinsatz } from '@/lib/report/bausteine'
+import type { Rueckbezug } from '@/types'
 
 /**
  * Der Schluss des Eltern-Reports: Fazit und Empfehlung (R3 — Gestaltung).
  *
- * NOCH OHNE DATEN. Die Bausteine für Fazit und Empfehlung entstehen in einem
- * eigenen PR (Tabelle mit Abnahme-Schranke, analog fehlbild_familien). Hier
- * liegt nur die Gestaltung vor — fehlen die Daten, rendert die Komponente
- * nichts.
+ * Fazit und Empfehlung kommen seit R5 aus report_bausteine und haengen an der
+ * VERTEILUNG der Luecken, nicht am Paket: Ein Text, der „dicht beieinander"
+ * sagt, existiert nur fuer den Fall, in dem das stimmt. Fehlt ein Baustein,
+ * bleibt seine Stelle leer.
+ *
+ * Dazwischen steht der Aufgriff der Eltern-Einschaetzung — die staerkste
+ * Aussage, die der Report machen kann, und bis R4 die einzige, die fehlte.
  *
  * WARUM EINE EIGENE GRUPPE UND KEINE ZWEI WEITEREN ABSCHNITTE:
  * Der Report ist eine Aufzählung von Beobachtungen. Fazit und Empfehlung sind
@@ -22,40 +27,44 @@ import type { ReportEmpfehlung } from '@/types'
  * gehört zum Baustein und wird nicht weggelassen.
  */
 export function ReportSchluss({
-  fazit,
-  empfehlung,
+  verteilung,
+  rueckbezuege,
+  satz,
+  sessionId,
 }: {
-  fazit: string[] | null | undefined
-  empfehlung: ReportEmpfehlung | null | undefined
+  verteilung: string | null
+  rueckbezuege: Rueckbezug[]
+  satz: Bausteinsatz
+  sessionId: string
 }): JSX.Element | null {
   const { t } = useTranslation('report')
 
-  const hatFazit = Boolean(fazit && fazit.length > 0)
-  const hatEmpfehlung = Boolean(empfehlung?.paket)
-  if (!hatFazit && !hatEmpfehlung) return null
+  const fazit = satz.waehle('fazit', verteilung, sessionId)
+  const empfehlung = satz.waehle('empfehlung', verteilung, sessionId)
+  const hatRueckbezug = rueckbezuege.length > 0
+  if (!fazit && !empfehlung && !hatRueckbezug) return null
 
   return (
     <section className="report-block report-schluss">
-      {hatFazit && (
+      {fazit && (
         <div className="report-schluss-fazit">
           <h3 className="report-schluss-titel">{t('schluss.fazitTitel')}</h3>
-          {fazit?.map((satz) => (
-            <p key={satz} className="report-schluss-text">
-              {satz}
-            </p>
-          ))}
+          <p className="report-schluss-text">{fazit}</p>
+          <p className="report-schluss-vorbehalt">{t('schluss.vorbehalt')}</p>
         </div>
       )}
 
-      {hatEmpfehlung && empfehlung && (
+      <ReportRueckbezug
+        rueckbezuege={rueckbezuege}
+        satz={satz}
+        sessionId={sessionId}
+      />
+
+      {empfehlung && (
         <div className="report-schluss-empfehlung">
           <h3 className="report-schluss-titel">{t('schluss.empfehlungTitel')}</h3>
-          <p className="report-schluss-paket">{empfehlung.paket}</p>
-          {empfehlung.begruendung.map((satz) => (
-            <p key={satz} className="report-schluss-text">
-              {satz}
-            </p>
-          ))}
+          <p className="report-schluss-text">{empfehlung}</p>
+          <p className="report-schluss-vorbehalt">{t('schluss.offenheit')}</p>
         </div>
       )}
     </section>

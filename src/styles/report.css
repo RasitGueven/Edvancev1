@@ -128,3 +128,304 @@
   padding-top: 0;
   border-top: 0;
 }
+
+/* ── R6: die Erzählung in sechs Schritten ────────────────────────────────── */
+
+/* Ebenenspur (Schritt 02).
+   Der Balken ist eine ZUSAMMENSETZUNG, keine Skala: Er zeigt, wie sich die
+   geprüften Bereiche einer Ebene aufteilen, und die Zahl daneben nennt beide
+   Summanden. Deshalb Navy und offen — kein Rot, kein Grün, keine Ampel
+   (INV-4.4). Die Farbe sagt „das steht", nicht „das ist gut". */
+.report-ebenen {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.report-ebene {
+  border-radius: var(--radius-md);
+  background: var(--color-report-cream);
+  padding: 0.5rem 0.875rem;
+}
+
+.report-ebene-kopf {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr auto;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.report-ebene-name {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--color-report-navy) 62%, transparent);
+}
+
+.report-ebene-spur {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-report-navy) 12%, transparent);
+  overflow: hidden;
+  display: block;
+}
+
+.report-ebene-fuellung {
+  display: block;
+  height: 100%;
+  background: var(--color-report-navy);
+}
+
+.report-ebene-zahl {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--color-report-navy) 78%, transparent);
+}
+
+.report-ebene-was {
+  margin: 0.3rem 0 0 9.375rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-report-navy) 70%, transparent);
+}
+
+.report-ebenen-notiz {
+  margin-top: 0.5rem;
+  padding-top: 0.625rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-report-navy) 12%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-report-navy) 80%, transparent);
+}
+
+/* Profil (Schritt 03). Ein Farbton, keine Skalenbeschriftung, keine Zahl an
+   den Achsen — wer eine Prozentzahl anschreibt, hat eine Note gebaut. */
+.report-profil {
+  display: grid;
+  grid-template-columns: 16rem 1fr;
+  gap: 1.25rem;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-report-navy) 12%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.125rem;
+}
+
+.report-profil-bild {
+  display: block;
+  width: 100%;
+  max-width: 17.5rem;
+  margin: 0 auto;
+}
+
+.report-profil-netz {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-report-navy) 14%, transparent);
+}
+.report-profil-netz-innen {
+  stroke: color-mix(in srgb, var(--color-report-navy) 8%, transparent);
+}
+.report-profil-speichen line {
+  stroke: color-mix(in srgb, var(--color-report-navy) 8%, transparent);
+}
+
+.report-profil-geprueft {
+  fill: color-mix(in srgb, var(--color-report-navy) 5%, transparent);
+  stroke: color-mix(in srgb, var(--color-report-navy) 42%, transparent);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  stroke-linejoin: round;
+}
+
+.report-profil-traegt {
+  fill: color-mix(in srgb, var(--color-report-navy) 18%, transparent);
+  stroke: var(--color-report-navy);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.report-profil-punkte circle {
+  fill: var(--color-report-navy);
+}
+
+.report-profil-achsen text {
+  font-size: 9.5px;
+  text-anchor: middle;
+}
+.report-profil-achse {
+  fill: color-mix(in srgb, var(--color-report-navy) 78%, transparent);
+}
+/* „Nicht geprüft" ist KEINE Null-Leistung — die Beschriftung sagt das, weil
+   die Fläche dort im Mittelpunkt endet und sonst so gelesen würde. */
+.report-profil-achse-grau {
+  fill: color-mix(in srgb, var(--color-report-navy) 38%, transparent);
+  font-style: italic;
+}
+
+.report-profil-cap {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--color-report-navy) 68%, transparent);
+}
+
+.report-profil-legende {
+  list-style: none;
+  margin: 0.625rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--color-report-navy) 78%, transparent);
+}
+.report-profil-legende li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.45;
+}
+.report-profil-legende span[aria-hidden] {
+  flex: none;
+  width: 1.625rem;
+  height: 0;
+  border-top-width: 2px;
+}
+.report-profil-marke-geprueft {
+  border-top-style: dashed;
+  border-top-color: color-mix(in srgb, var(--color-report-navy) 42%, transparent);
+}
+.report-profil-marke-traegt {
+  border-top-style: solid;
+  border-top-color: var(--color-report-navy);
+}
+
+.report-profil-nenner {
+  margin-top: 0.625rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-report-navy) 10%, transparent);
+  font-size: 0.7rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-report-navy) 55%, transparent);
+}
+
+/* Befundlisten (Schritt 03).
+   Tragend auf Creme, offen mit Goldrand — die Reihenfolge trägt die Aussage,
+   nicht die Farbe. Rot und Grün wären zwei Wertungen in Signalfarbe auf einem
+   Dokument über ein Kind; die Sprache des Reports vermeidet das („trägt noch
+   nicht", nicht „Lücke"), und die Farbe darf es nicht zurückholen. */
+.report-befund {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.report-befund-spalte {
+  border-radius: var(--radius-lg);
+  padding: 1.125rem 1.25rem;
+}
+.report-befund-spalte ul {
+  /* Tailwinds Preflight nimmt Listen ihre Punkte; hier tragen sie die
+     Gliederung, also kommen sie zurück. */
+  list-style: disc;
+  margin: 0.5rem 0 0;
+  padding-left: 1.125rem;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--color-report-navy) 82%, transparent);
+}
+.report-befund-traegt {
+  background: var(--color-report-cream);
+}
+.report-befund-offen {
+  border: 1px solid color-mix(in srgb, var(--color-report-gold) 55%, transparent);
+}
+.report-befund-fuss {
+  margin-top: 0.75rem;
+  padding-top: 0.625rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-report-navy) 10%, transparent);
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--color-report-navy) 70%, transparent);
+}
+
+/* Rückbezug (Schritt 05), auf der Navy-Fläche des Schlusses. */
+.report-rueckbezug {
+  list-style: none;
+  margin: 1.125rem 0 0;
+  padding: 1rem 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-report-gold) 30%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.report-rueckbezug-zeile {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, #ffffff 92%, transparent);
+}
+.report-rueckbezug-marke {
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin-top: 0.1rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.report-rueckbezug-befund .report-rueckbezug-marke {
+  background: color-mix(in srgb, var(--color-report-gold) 90%, transparent);
+  color: var(--color-report-navy);
+}
+.report-rueckbezug-entlastet .report-rueckbezug-marke {
+  background: #ffffff;
+  color: var(--color-report-navy);
+}
+/* Weder Befund noch Entlastung: die Analyse gibt dazu nichts her. Bewusst
+   farblos — jede Farbe wäre hier eine Wertung, die niemand belegt hat. */
+.report-rueckbezug-offen .report-rueckbezug-marke {
+  background: color-mix(in srgb, #ffffff 26%, transparent);
+  color: #ffffff;
+}
+
+.report-schluss-vorbehalt {
+  margin-top: 0.625rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, #ffffff 70%, transparent);
+}
+
+.report-kontakt {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-report-navy) 12%, transparent);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-report-navy) 72%, transparent);
+}
+.report-kontakt a {
+  color: var(--color-report-navy);
+}
+
+@media (max-width: 48rem) {
+  .report-profil,
+  .report-befund {
+    grid-template-columns: 1fr;
+  }
+  .report-ebene-kopf {
+    grid-template-columns: 6rem 1fr auto;
+    gap: 0.5rem;
+  }
+  .report-ebene-was {
+    margin-left: 0;
+  }
+}
