@@ -2,5 +2,54 @@
   "breadcrumbs": {
     "admin": "Admin",
     "screeningItems": "Screening-Items"
+  },
+  "dashboard": {
+    "eyebrow": "Edvance · Verwaltung",
+    "title": "Übersicht",
+    "overview": {
+      "heading": "Überblick",
+      "students": "Schüler gesamt",
+      "leadsOpen": "Offene Leads",
+      "coaches": "Coaches"
+    },
+    "pending": "in Arbeit",
+    "badges": {
+      "leadsNew_one": "{{count}} neu",
+      "leadsNew_other": "{{count}} neu"
+    },
+    "tiles": {
+      "leads": {
+        "title": "Leads",
+        "description": "Anfragen sichten, qualifizieren und ins Erstgespräch überführen."
+      },
+      "schedule": {
+        "title": "Stundenplan",
+        "description": "Sessions anlegen und Schüler einem Coach-Termin zuweisen."
+      },
+      "studentRecord": {
+        "title": "Schülerakte",
+        "description": "Stammdaten, Lernstand und Verlauf einer Schülerin oder eines Schülers an einem Ort."
+      },
+      "lsaResults": {
+        "title": "LSA-Ergebnisse",
+        "description": "Ausgewertete Lernstandsanalysen prüfen und fürs Elterngespräch freigeben."
+      },
+      "parentReports": {
+        "title": "Eltern-Reports",
+        "description": "Berichte fürs Elterngespräch zusammenstellen, kommentieren und versenden."
+      },
+      "slots": {
+        "title": "Slots",
+        "description": "Wochen-Zeitraster der Kleingruppen — Wochentag, Uhrzeit, Raum und Kapazität."
+      },
+      "coaches": {
+        "title": "Coaches",
+        "description": "Coach-Accounts anlegen und Zugangsdaten vergeben."
+      },
+      "content": {
+        "title": "Inhalte",
+        "description": "Aufgaben erstellen, prüfen, Stoffanker setzen und für die LSA freigeben."
+      }
+    }
   }
 }

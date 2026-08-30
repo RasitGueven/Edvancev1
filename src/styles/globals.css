@@ -279,17 +279,7 @@
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-top-color: rgba(255, 255, 255, 0.20);
     box-shadow: var(--shadow-lg);
-    transition: transform var(--duration-base) var(--ease-out),
-      box-shadow var(--duration-base) var(--ease-out);
-  }
-  .admin-tile:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-xl);
-  }
-  /* Prominente Kachel (Autoren-Tool): warme Gold-Kante — matt, kein Glow. */
-  .admin-tile-primary {
-    border-color: color-mix(in srgb, var(--color-stage-gold-edge) 34%, transparent);
-    border-top-color: color-mix(in srgb, var(--color-stage-warm-highlight) 30%, transparent);
+    transition: border-color var(--duration-base) var(--ease-out);
   }
   /* Gold-getöntes Icon-Tile — matt. */
   .admin-icon-tile {
@@ -368,6 +358,16 @@
 /* ─── Base reset ──────────────────────────────────────────────────────────────── */
 * {
   border-color: var(--color-border);
+}
+
+/* Hover einer verlinkten Admin-Kachel: nur die warme Gold-Kante — keine
+   Bewegung, kein zusätzlicher Schatten, kein Glow. Inaktive Kacheln sind keine
+   Links und reagieren deshalb nicht.
+   Steht bewusst ungelayert und hinter dem `*`-Reset darüber: der Reset ist
+   selbst ungelayert und schlägt damit jede border-color aus @layer utilities,
+   unabhängig von der Spezifität. */
+.admin-tile-link:hover .admin-tile {
+  border-color: var(--color-stage-gold-edge);
 }
 
 html,
