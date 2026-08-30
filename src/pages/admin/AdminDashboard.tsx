@@ -94,17 +94,17 @@ export function AdminDashboard(): JSX.Element {
               size="wide"
             />
             <AdminTile
-              to="/admin/slots"
-              icon={<LayoutGrid className={ICON_CLASS} />}
-              title="Slots verwalten"
-              description="Wochen-Zeitraster der Kleingruppen — Wochentag, Uhrzeit, Raum und Kapazität."
-              size="sm"
-            />
-            <AdminTile
               to="/admin/slot-auswahl"
               icon={<CalendarHeart className={ICON_CLASS} />}
               title="Slot-Auswahl"
               description="Wochenkalender fürs Elterngespräch: Favoriten festhalten und fest zuweisen."
+              size="sm"
+            />
+            <AdminTile
+              to="/admin/slots"
+              icon={<LayoutGrid className={ICON_CLASS} />}
+              title="Slots verwalten"
+              description="Wochen-Zeitraster der Kleingruppen — Wochentag, Uhrzeit, Raum und Kapazität."
               size="sm"
             />
             <AdminTile
