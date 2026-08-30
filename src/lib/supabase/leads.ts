@@ -27,6 +27,8 @@ export async function createLead(input: LeadInput): Promise<SupabaseResult<Lead>
         tried_before: input.tried_before ?? null,
         next_exam_date: input.next_exam_date ?? null,
         next_exam_topic: input.next_exam_topic ?? null,
+        current_topic_cluster_id: input.current_topic_cluster_id ?? null,
+        notes: input.notes ?? null,
       })
       .select('*')
       .single()
@@ -77,20 +79,29 @@ type LeadPatch = Partial<
     | 'tried_before'
     | 'next_exam_date'
     | 'next_exam_topic'
+    | 'current_topic_cluster_id'
     | 'consent_dsgvo_at'
     | 'consent_dsgvo_by'
+    | 'consent_dsgvo_signature'
+    | 'consent_dsgvo_document_version'
   >
 >
 
-// Dokumentiert die DSGVO-Einwilligung der Eltern: Zeitpunkt + der bestaetigende
-// Admin. PFLICHT-Gate vor der LSA-Freigabe (lead_lsa_freigeben verweigert ohne).
+// Dokumentiert die DSGVO-Einwilligung der Eltern: Zeitpunkt, der bestaetigende
+// Admin, die Unterschrift als PNG-Data-URL und die Version des unterzeichneten
+// Dokumenttexts. PFLICHT-Gate vor der LSA-Freigabe (lead_lsa_freigeben
+// verweigert ohne consent_dsgvo_at).
 export async function setLeadConsent(
   id: string,
   adminProfileId: string,
+  signature: string,
+  documentVersion: string,
 ): Promise<SupabaseResult<Lead>> {
   return updateLead(id, {
     consent_dsgvo_at: new Date().toISOString(),
     consent_dsgvo_by: adminProfileId,
+    consent_dsgvo_signature: signature,
+    consent_dsgvo_document_version: documentVersion,
   })
 }
 

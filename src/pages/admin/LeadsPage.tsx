@@ -17,6 +17,7 @@ import { listActivePlaetzeByLead, type LeadPlatz } from '@/lib/supabase/platz'
 import { provisionStudent } from '@/lib/supabase/provision'
 import type { Lead, LeadStatus } from '@/types'
 import { LeadIntakeForm } from './intake/LeadIntakeForm'
+import { PlatzPanel } from './intake/PlatzPanel'
 
 const STATUS_LABEL: Record<LeadStatus, string> = {
   new: 'Neu',
@@ -64,6 +65,7 @@ export function LeadsPage(): JSX.Element {
   const [convertingId, setConvertingId] = useState<string | null>(null)
   const [pwLeadId, setPwLeadId] = useState<string | null>(null)
   const [pw, setPw] = useState('')
+  const [platzLead, setPlatzLead] = useState<Lead | null>(null)
 
   const load = (): void => {
     setLoading(true)
@@ -209,6 +211,21 @@ export function LeadsPage(): JSX.Element {
                   {lead.school_name && <span>{lead.school_name}</span>}
                   {lead.subjects.length > 0 && <span>{lead.subjects.join(', ')}</span>}
                 </div>
+                {/* Platzvergabe — seit dem Wizard-Umbau (zwei Schritte) haengt
+                    sie hier statt in Schritt 3. Nur sinnvoll, sobald die LSA
+                    freigegeben ist. */}
+                {(lead.status === 'lsa_freigegeben' || lead.status === 'lsa_fertig') && (
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPlatzLead(lead)}
+                    >
+                      <MonitorSmartphone className="mr-1.5 h-4 w-4" />
+                      Platz zuweisen
+                    </Button>
+                  </div>
+                )}
                 {nextActions(lead.status).length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {nextActions(lead.status).map((action) => (
@@ -277,6 +294,14 @@ export function LeadsPage(): JSX.Element {
           </div>
         )}
       </main>
+
+      {platzLead && (
+        <PlatzPanel
+          lead={platzLead}
+          onClose={() => setPlatzLead(null)}
+          onChanged={load}
+        />
+      )}
     </div>
   )
 }

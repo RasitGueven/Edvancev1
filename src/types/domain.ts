@@ -50,8 +50,15 @@ export type Lead = {
   tried_before: string[] | null
   next_exam_date: string | null
   next_exam_topic: string | null
+  // Im Erstgespraech gewaehltes Themencluster (skill_clusters). Loest
+  // next_exam_topic ab; die alte Spalte bleibt bestehen, wird aber nicht
+  // mehr beschrieben.
+  current_topic_cluster_id: string | null
   consent_dsgvo_at: string | null
   consent_dsgvo_by: string | null
+  // Unterschriebene Einwilligung: PNG-Data-URL + Version des Dokumenttexts.
+  consent_dsgvo_signature: string | null
+  consent_dsgvo_document_version: string | null
 }
 
 export type LeadInput = {
@@ -73,8 +80,12 @@ export type LeadInput = {
   tried_before?: string[] | null
   next_exam_date?: string | null
   next_exam_topic?: string | null
+  current_topic_cluster_id?: string | null
+  notes?: string | null
   consent_dsgvo_at?: string | null
   consent_dsgvo_by?: string | null
+  consent_dsgvo_signature?: string | null
+  consent_dsgvo_document_version?: string | null
 }
 
 export type Student = {
