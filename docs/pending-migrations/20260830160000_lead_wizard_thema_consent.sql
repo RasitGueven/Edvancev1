@@ -1,9 +1,18 @@
 -- Lead-Wizard: Themenauswahl + unterschriebene DSGVO-Einwilligung.
 --
--- NICHT ANGEWENDET. Diese Datei liegt bewusst unter supabase/pending/ und ist
--- noch keine Migration. Vor dem Merge nach supabase/migrations/ verschieben und
--- anwenden — ohne sie schlaegt „Fuer die LSA freigeben" fehl, weil der Wizard
--- auf Spalten schreibt, die es in der Datenbank noch nicht gibt.
+-- NICHT ANGEWENDET. Noch keine Migration, sondern ein Vorschlag zur Uebernahme.
+--
+-- Sie sollte urspruenglich unter supabase/pending/ liegen. Dieses Verzeichnis
+-- ist im Repo aber abgeschafft und wird von .github/workflows/schema.yml aktiv
+-- zurueckgewiesen ("supabase/pending/ existiert wieder — das Verzeichnis ist
+-- abgeschafft"). Deshalb liegt die Datei hier, ausserhalb von supabase/, wo
+-- keine Schemapruefung sie anfasst.
+--
+-- Vor dem Merge nach supabase/migrations/ verschieben, anwenden und
+-- supabase/schema-erwartet.sql neu erzeugen (bash tools/schema-snapshot.sh) —
+-- der CI-Job "neuaufbau" vergleicht das erzeugte Schema gegen diese Datei.
+-- Ohne das schlaegt „Fuer die LSA freigeben" fehl, weil der Wizard auf Spalten
+-- schreibt, die es in der Datenbank noch nicht gibt.
 
 -- 1. Aktuelles Thema am Lead: Verweis auf das Themencluster, das im
 --    Erstgespraech ausgewaehlt wurde. Ersetzt das Freitextfeld
