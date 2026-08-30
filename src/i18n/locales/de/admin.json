@@ -22,29 +22,25 @@
         "title": "Leads",
         "description": "Anfragen sichten, qualifizieren und ins Erstgespräch überführen."
       },
-      "schedule": {
-        "title": "Stundenplan",
-        "description": "Sessions anlegen und Schüler einem Coach-Termin zuweisen."
+      "slots": {
+        "title": "Slots",
+        "description": "Sessions anlegen, Schüler zuweisen und das Wochenraster der Kleingruppen pflegen."
       },
       "studentRecord": {
         "title": "Schülerakte",
         "description": "Stammdaten, Lernstand und Verlauf einer Schülerin oder eines Schülers an einem Ort."
       },
-      "lsaResults": {
-        "title": "LSA-Ergebnisse",
-        "description": "Ausgewertete Lernstandsanalysen prüfen und fürs Elterngespräch freigeben."
+      "coaches": {
+        "title": "Coaches",
+        "description": "Coach-Accounts anlegen und Zugangsdaten vergeben."
       },
       "parentReports": {
         "title": "Eltern-Reports",
         "description": "Berichte fürs Elterngespräch zusammenstellen, kommentieren und versenden."
       },
-      "slots": {
-        "title": "Slots",
-        "description": "Wochen-Zeitraster der Kleingruppen — Wochentag, Uhrzeit, Raum und Kapazität."
-      },
-      "coaches": {
-        "title": "Coaches",
-        "description": "Coach-Accounts anlegen und Zugangsdaten vergeben."
+      "lsaResults": {
+        "title": "LSA-Ergebnisse",
+        "description": "Ausgewertete Lernstandsanalysen prüfen und fürs Elterngespräch freigeben."
       },
       "content": {
         "title": "Inhalte",

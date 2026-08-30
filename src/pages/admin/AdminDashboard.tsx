@@ -6,7 +6,6 @@ import {
   FileText,
   FolderOpen,
   Inbox,
-  LayoutGrid,
   PenLine,
   UserPlus,
 } from 'lucide-react'
@@ -70,18 +69,22 @@ export function AdminDashboard(): JSX.Element {
                   leadsNew > 0 ? t('dashboard.badges.leadsNew', { count: leadsNew }) : null
                 }
               />
+              {/* Stundenplan und Slots sind eine Kachel: Sessions und Wochenraster
+                  gehoeren fuer die Verwaltung zusammen. Ziel bleibt der
+                  Stundenplan; /admin/slots existiert weiter, nur ohne Kachel. */}
               <AdminTile
                 tall
                 to="/admin/schedule"
                 icon={<CalendarClock className={ICON_CLASS} />}
-                title={t('dashboard.tiles.schedule.title')}
-                description={t('dashboard.tiles.schedule.description')}
+                title={t('dashboard.tiles.slots.title')}
+                description={t('dashboard.tiles.slots.description')}
               />
             </AdminTileRow>
 
-            {/* Reihe 2 und 3 — sechs Karten in einem Raster, damit beide Reihen
-                exakt dieselbe Höhe bekommen. Schülerakte, LSA-Ergebnisse und
-                Eltern-Reports haben noch keine Route und bleiben inaktiv. */}
+            {/* Reihe 2 und 3 — fuenf Karten in einem Raster, damit beide Reihen
+                exakt dieselbe Hoehe bekommen. Die dritte Zelle der letzten Reihe
+                bleibt leer, ohne Platzhalter. Schuelerakte, Eltern-Reports und
+                LSA-Ergebnisse haben noch keine Route und bleiben inaktiv. */}
             <AdminTileRow columns={3}>
               <AdminTile
                 icon={<FolderOpen className={ICON_CLASS} />}
@@ -89,9 +92,10 @@ export function AdminDashboard(): JSX.Element {
                 description={t('dashboard.tiles.studentRecord.description')}
               />
               <AdminTile
-                icon={<ClipboardCheck className={ICON_CLASS} />}
-                title={t('dashboard.tiles.lsaResults.title')}
-                description={t('dashboard.tiles.lsaResults.description')}
+                to="/admin/coaches"
+                icon={<UserPlus className={ICON_CLASS} />}
+                title={t('dashboard.tiles.coaches.title')}
+                description={t('dashboard.tiles.coaches.description')}
               />
               <AdminTile
                 icon={<FileText className={ICON_CLASS} />}
@@ -99,16 +103,9 @@ export function AdminDashboard(): JSX.Element {
                 description={t('dashboard.tiles.parentReports.description')}
               />
               <AdminTile
-                to="/admin/slots"
-                icon={<LayoutGrid className={ICON_CLASS} />}
-                title={t('dashboard.tiles.slots.title')}
-                description={t('dashboard.tiles.slots.description')}
-              />
-              <AdminTile
-                to="/admin/coaches"
-                icon={<UserPlus className={ICON_CLASS} />}
-                title={t('dashboard.tiles.coaches.title')}
-                description={t('dashboard.tiles.coaches.description')}
+                icon={<ClipboardCheck className={ICON_CLASS} />}
+                title={t('dashboard.tiles.lsaResults.title')}
+                description={t('dashboard.tiles.lsaResults.description')}
               />
               <AdminTile
                 to="/admin/authoring"
