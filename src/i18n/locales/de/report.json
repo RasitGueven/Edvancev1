@@ -28,50 +28,16 @@
     "grade": "Klasse",
     "date": "Datum",
     "child": "Für",
-    "childFallback": "Ihr Kind"
+    "childFallback": "Ihr Kind",
+    "ueberschrift": "Was wir bei {{name}} gesehen haben",
+    "umfang": "Umfang",
+    "aufgaben_one": "{{count}} Aufgabe",
+    "aufgaben_other": "{{count}} Aufgaben"
   },
   "fehlbild": {
     "title_one": "Ein Muster, das mehrfach aufgetreten ist",
     "title_other": "Muster, die mehrfach aufgetreten sind",
     "description": "Diese Denkschritte sind bei {{name}} in mehreren Aufgaben gleich verlaufen. Sie zeigen, wo eine gezielte Übung am meisten bewirkt."
-  },
-  "narrative": {
-    "title": "Das Wichtigste in Kürze",
-    "generated": "automatische Zusammenfassung"
-  },
-  "strength": {
-    "title": "Das läuft gut",
-    "lead": "{{name}} kommt hier sicher voran.",
-    "detail": "{{correct}} von {{answered}} Aufgaben richtig, im Schnitt {{time}} pro Aufgabe.",
-    "detailNoTime": "{{correct}} von {{answered}} Aufgaben richtig."
-  },
-  "evidence": {
-    "title": "Die Beobachtungen im Einzelnen",
-    "description": "Für jeden Bereich: wie viele der gestellten Aufgaben gelöst wurden.",
-    "skipped": "{{count}} ausgelassen",
-    "empty": {
-      "title": "Noch keine Aufgaben bearbeitet",
-      "description": "Sobald Aufgaben beantwortet sind, erscheinen hier die Beobachtungen."
-    },
-    "solved": "{{correct}} von {{answered}} Aufgaben gelöst",
-    "pace": "im Schnitt {{time}} pro Aufgabe"
-  },
-  "topics": {
-    "title": "Was abgefragt wurde",
-    "description": "Diese Themen kamen in der Analyse vor.",
-    "area": {
-      "arithmetik_algebra": "Arithmetik und Algebra",
-      "geometrie": "Geometrie",
-      "funktionen": "Funktionen",
-      "stochastik": "Stochastik",
-      "unassigned": "Ohne Zuordnung"
-    }
-  },
-  "parent": {
-    "title": "Ihre Einschätzung",
-    "yours": "Das haben Sie uns im Erstgespräch gesagt",
-    "analysis": "Was die Analyse zeigt",
-    "noFindings": "Die Analyse zeigt noch keine belastbaren Auffälligkeiten."
   },
   "outlook": {
     "title": "Wie es weitergeht",
@@ -107,6 +73,51 @@
   },
   "schluss": {
     "fazitTitel": "Unser Fazit",
-    "empfehlungTitel": "Unsere Empfehlung"
+    "empfehlungTitel": "Unsere Empfehlung",
+    "vorbehalt": "Das ist der Stand nach dieser Analyse und bezieht sich auf die nächsten ein bis zwei Sitzungen — der Coach prüft ihn dort nach.",
+    "offenheit": "Ein anderes Paket schließt nichts aus — es verändert, wie schnell wir vorankommen."
+  },
+  "anlass": {
+    "title": "Warum wir geschaut haben",
+    "genannt_one": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeit sehen.",
+    "genannt_other": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeiten sehen.",
+    "thema": "Als nächstes Thema steht {{thema}} an — genau dort haben wir angesetzt."
+  },
+  "ebenen": {
+    "title": "Wie wir gesucht haben",
+    "zaehlung": "{{traegt}} von {{geprueft}}"
+  },
+  "profil": {
+    "title": "Profil über die Themenfamilien",
+    "description": "Immer dieselben sechs Familien, damit zwei Analysen vergleichbar bleiben. Beide Flächen zählen gegen alle Bereiche der Familie — nicht nur gegen die geprüften.",
+    "lesehilfe": "Liegen beide Linien dicht beieinander, trägt das Geprüfte. Klafft die innere weit nach innen, wurde gründlich geprüft und es trägt wenig. Bleiben beide klein, wurde hier kaum geprüft — das ist keine Aussage über Ihr Kind.",
+    "legendeGepruefName": "geprüft",
+    "legendeGeprueft": "— wie viel der Familie diese Analyse angesehen hat",
+    "legendeTraegtName": "trägt",
+    "legendeTraegt": "— wie viel der Familie nachweislich trägt",
+    "nichtGeprueft": "nicht geprüft",
+    "nenner": "{{familie}}: {{geprueft}} von {{vorhanden}} geprüft, {{traegt}} tragen",
+    "nennerLeer": "{{familie}}: 0 von {{vorhanden}} geprüft",
+    "ariaLabel": "Profil über sechs Themenfamilien. Äußere gestrichelte Fläche: Anteil geprüfter Bereiche am Bestand. Innere gefüllte Fläche: Anteil tragender Bereiche am Bestand."
+  },
+  "befund": {
+    "title": "Was wir gefunden haben",
+    "description": "Zuerst das, was trägt — darauf lässt sich aufbauen.",
+    "traegtTitel": "Das trägt",
+    "offenTitel": "Das trägt noch nicht",
+    "offenFuss": "Diese Bereiche liegen unter dem aktuellen Thema — sie werden dort vorausgesetzt."
+  },
+  "rueckbezug": {
+    "art": {
+      "befund": "Deckt sich mit der Analyse",
+      "entlastet": "Hat sich so nicht bestätigt",
+      "offen": "Dazu sagt diese Analyse nichts"
+    }
+  },
+  "kontakt": {
+    "satz": "Diese Analyse hat {{name}} begleitet.",
+    "team": "das Edvance-Team",
+    "frage": "Fragen dazu beantworten wir gern — schreiben Sie an",
+    "frageOhneMail": "Fragen dazu beantworten wir gern."
   }
 }

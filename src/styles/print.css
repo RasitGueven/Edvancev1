@@ -38,18 +38,29 @@
     box-shadow: none !important;
   }
 
-  /* Die Balken tragen die Aussage — sie müssen mitdrucken, nicht als
-     leerer Rahmen erscheinen. */
-  .report-bar,
-  .report-bar-fill {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
   /* R3 — der Befund-Abschnitt steht im Druck OFFEN.
      Am Bildschirm ist er zugeklappt (Eltern öffnen ihn zu Hause), auf Papier
      gibt es kein Klicken: die UA-Regel für geschlossene <details> wird hier
      überschrieben, der Aufklapp-Hinweis und der Winkel verschwinden. */
+  /* Die Ebenenspur und das Profil tragen die Aussage — sie muessen mitdrucken,
+     nicht als leerer Rahmen erscheinen. */
+  .report-ebene,
+  .report-ebene-spur,
+  .report-ebene-fuellung,
+  .report-befund-traegt,
+  .report-rueckbezug-marke {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Das Profil ist eine Flaeche, kein Rahmen: ohne exakte Farben blieben zwei
+     leere Sechsecke uebrig und der Abstand zwischen ihnen — die eigentliche
+     Information — waere weg. */
+  .report-profil-bild {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   .report-sheet details:not([open]) > .report-details-body {
     display: block !important;
   }

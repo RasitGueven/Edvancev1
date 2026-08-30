@@ -174,9 +174,9 @@ export type {
 export type {
   LsaSessionState,
   LsaSessionListItem,
-  ReportTopic,
   ParentAssessment,
   ReportData,
+  ReportErzaehlung,
   ReportFehlbild,
   ReportEmpfehlung,
   ReportSkillbefund,

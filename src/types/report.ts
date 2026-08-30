@@ -6,6 +6,16 @@
 // über die Antwort des Kindes, keine Lösung, und liegt für coach/admin ohnehin
 // schon per RLS offen. Kein neuer Grant, keine zweite Bewertungswahrheit.
 
+import type {
+  FamilienBefund,
+} from '@/lib/report/familien'
+import type {
+  Fundament,
+  ReportAnsprechpartner,
+  ReportBaustein,
+  Rueckbezug,
+} from '@/types/reportFundament'
+
 export type LsaSessionState = 'in_progress' | 'completed' | 'aborted'
 
 // Ein Eintrag der Fertig-Liste (heutige Analysen).
@@ -19,17 +29,6 @@ export type LsaSessionListItem = {
   completed_at: string | null
   answered: number
   planned: number
-}
-
-// Ein Stoffanker der Session. `planned` zählt die zugelosten Items des Themas,
-// `answered` die tatsächlich bearbeiteten — die Differenz ist „ausgelassen".
-export type ReportTopic = {
-  topic: string
-  planned: number
-  answered: number
-  skipped: number
-  correct: number
-  avgDurationMs: number | null
 }
 
 // Die beim Lead erfasste Eltern-Einschätzung (lead_assessments, source='parent').
@@ -137,7 +136,6 @@ export type ReportData = {
   subject: string
   status: LsaSessionState
   analysedAt: string | null
-  topics: ReportTopic[]
   parentAssessment: ParentAssessment | null
   /**
    * ALLE Fehlbilder der Sitzung, ungefiltert.
@@ -162,6 +160,46 @@ export type ReportData = {
    */
   fazit?: string[] | null
   empfehlung?: ReportEmpfehlung | null
+  /**
+   * Die sechs Schritte der Erzählung (R4/R5, in der App seit R6).
+   *
+   * Fehlt sie, rendert der Report nur Kopf und Fehlbilder — jeder Abschnitt
+   * prüft sein eigenes Datum und entfällt still, statt einen leeren Kasten zu
+   * zeigen.
+   */
+  erzaehlung: ReportErzaehlung
+  /** Aufgaben, nicht Antwortzeilen: zwei Teilaufgaben eines Items sind eine. */
+  aufgaben: number
+  /** leads.next_exam_topic — das Thema, an dem die Analyse angesetzt hat. */
+  naechstesThema: string | null
+}
+
+/**
+ * Die Erzählschicht: alles, was die sechs Schritte brauchen.
+ *
+ * Gerechnet wird sie mit den reinen Funktionen aus src/lib/report/ — denselben,
+ * die der Entwurfs-Generator benutzt. Der Lesepfad steht in
+ * src/lib/supabase/lsaReportErzaehlung.ts.
+ */
+export type ReportErzaehlung = {
+  /** null, wenn kein Skill direkt geprüft wurde. Dann entfallen 02 und 03. */
+  fundament: Fundament | null
+  /** Immer sechs Achsen — auch die ungeprüften, als solche gekennzeichnet. */
+  profil: FamilienBefund[]
+  /** Der Aufgriff der Eltern-Einschätzung im Schluss. */
+  rueckbezuege: Rueckbezug[]
+  /** Fall-Schlüssel für Fazit und Empfehlung: keine | eine | zwei | mehrere. */
+  verteilung: string | null
+  /** Die ABGENOMMENEN Bausteine. Fehlt einer, bleibt seine Stelle leer. */
+  bausteine: ReportBaustein[]
+  ansprechpartner: ReportAnsprechpartner
+  /**
+   * Die von den Eltern genannten Punkte als Substantivgruppen.
+   *
+   * weak_topics mischt einen Teilsatz („Grundlagen fehlen") mit Substantiven;
+   * der Anzeigename aus report_anlass_zuordnung glättet die Aufzählung.
+   */
+  anlassNamen: string[]
 }
 
 // Die Pakete der Empfehlung. Bewusst eine Konstantenliste: die

@@ -10,6 +10,7 @@
 // task_solutions wird NICHT angefasst.
 
 import { supabase } from '@/lib/supabase/client'
+import { loadErzaehlung } from '@/lib/supabase/lsaReportErzaehlung'
 import { loadSkillbefunde } from '@/lib/supabase/lsaReportSkills'
 import type {
   LsaSessionListItem,
@@ -17,7 +18,6 @@ import type {
   ParentAssessment,
   ReportData,
   ReportFehlbild,
-  ReportTopic,
   SupabaseResult,
 } from '@/types'
 
@@ -155,94 +155,13 @@ async function loadParentAssessment(
 }
 
 /**
- * Der Schlüssel für „keiner Kompetenz zugeordnet".
+ * Die Fehlbilder einer Sitzung, UNGEFILTERT.
  *
- * Bewusst der Leerstring und KEIN deutscher Text: `topic` trägt seit R2 den
- * rohen `competency_content`-Schlüssel (`arithmetik_algebra`, `geometrie`,
- * `funktionen`, `stochastik`) — interne Konstanten, die erst in der Anzeige
- * über i18n zu einem Satz werden (CLAUDE §12). Stünde hier deutscher Text,
- * läge Oberflächensprache in der lib-Schicht.
+ * Die Schwelle greift erst NACH der Bündelung je Familie
+ * (src/lib/reportFehlbilder.ts) — vorher zu filtern verliert genau den Fall,
+ * für den die Bündelung gebaut wurde: zwei Slugs derselben Familie, je unter
+ * der Schwelle, zusammen darüber.
  */
-export const TOPIC_UNASSIGNED = ''
-
-// Themen-Belege: geplante Items je Thema gegen die tatsächlichen Antworten.
-// „ausgelassen" = zugelost, aber nicht beantwortet.
-export function buildTopics(
-  taskIds: string[],
-  topicByTask: Map<string, string>,
-  responses: { task_id: string; correct: boolean | null; duration_ms: number | null }[],
-): ReportTopic[] {
-  const UNKNOWN = TOPIC_UNASSIGNED
-  const acc = new Map<
-    string,
-    { planned: number; answered: number; correct: number; durations: number[] }
-  >()
-  const ensure = (topic: string) => {
-    let e = acc.get(topic)
-    if (!e) {
-      e = { planned: 0, answered: 0, correct: 0, durations: [] }
-      acc.set(topic, e)
-    }
-    return e
-  }
-
-  for (const id of taskIds) ensure(topicByTask.get(id) ?? UNKNOWN).planned += 1
-
-  for (const r of responses) {
-    const e = ensure(topicByTask.get(r.task_id) ?? UNKNOWN)
-    e.answered += 1
-    if (r.correct) e.correct += 1
-    if (typeof r.duration_ms === 'number' && r.duration_ms > 0) {
-      e.durations.push(r.duration_ms)
-    }
-  }
-
-  const topics = [...acc.entries()]
-    .map(([topic, e]) => ({
-      topic,
-      planned: e.planned,
-      answered: e.answered,
-      skipped: Math.max(0, e.planned - e.answered),
-      correct: e.correct,
-      avgDurationMs:
-        e.durations.length > 0
-          ? Math.round(e.durations.reduce((a, b) => a + b, 0) / e.durations.length)
-          : null,
-    }))
-    // Zugeordnete Themen alphabetisch, „ohne Zuordnung" zuletzt — es ist ein
-    // Rest, kein Thema, und soll nicht die Liste anführen.
-    .sort((a, b) => {
-      if (a.topic === UNKNOWN) return 1
-      if (b.topic === UNKNOWN) return -1
-      return a.topic.localeCompare(b.topic, 'de')
-    })
-
-  // Bleibt NUR der Rest übrig, ist die Themenachse keine Information, sondern
-  // ein Etikett auf dem Nichts. Dann lieber keine Themen: der Report zeigt
-  // seinen EmptyState statt eines Balkens namens „ohne Zuordnung".
-  if (topics.length === 1 && topics[0].topic === UNKNOWN) return []
-  return topics
-}
-
-// Die wiederkehrenden Denkschritte der Sitzung (AF2/AF3/AF4/AF5).
-//
-// Quelle ist ausschließlich die RPC lsa_fehlbild_auswertung — sie ist der
-// einzige Lesepfad auf lsa_responses.fehlbild_slug (kein Grant auf der Spalte)
-// und trägt die Abnahme-Schranke: ein unabgenommener Text kommt hier gar nicht
-// erst an, sondern als null.
-//
-// Ab AF4 gibt die RPC KEIN klartext mehr aus — das ist der Coach-Satz und hat
-// auf einer Elternfläche nichts zu suchen. Der Elternsatz liegt eine Ebene
-// höher auf der Familie und deckt mehrere Slugs derselben Art mit EINEM Satz
-// ab; gebündelt wird er in src/lib/reportFehlbilder.ts.
-//
-// Gefiltert wird auf einstufung='befund' (>=2 Treffer in >=2 Aufgaben). Eine
-// 'beobachtung' ist per Definition ein Einzeltreffer — im Elterngespräch wäre
-// das eine Behauptung über das Denken eines Kindes auf einer einzigen Aufgabe.
-//
-// Ein Fehler hier darf den Report nicht kippen: die Fehlbilder sind ein
-// Zusatzabschnitt, die Themen-Belege sind der Report. Deshalb leeres Array
-// statt Fehlerdurchreichung.
 async function loadFehlbilder(sessionId: string): Promise<ReportFehlbild[]> {
   const { data, error } = await supabase.rpc('lsa_fehlbild_auswertung', {
     p_session_id: sessionId,
@@ -272,7 +191,30 @@ async function loadFehlbilder(sessionId: string): Promise<ReportFehlbild[]> {
   }))
 }
 
-// Der vollständige Report-Datensatz einer Session.
+/**
+ * Das Thema, an dem die Analyse angesetzt hat.
+ *
+ * `leads` trägt KEINE Spalte `leitthema` — geprüft am Schema, nicht vermutet.
+ * `next_exam_topic` ist das, was belegt ist; der Report formuliert entsprechend
+ * vorsichtiger („steht als nächstes Thema an", nicht „fällt schwer").
+ */
+async function loadNaechstesThema(studentId: string): Promise<string | null> {
+  const { data: student } = await supabase
+    .from('students')
+    .select('lead_id')
+    .eq('id', studentId)
+    .maybeSingle()
+  const leadId = (student as { lead_id: string | null } | null)?.lead_id
+  if (!leadId) return null
+
+  const { data: lead } = await supabase
+    .from('leads')
+    .select('next_exam_topic')
+    .eq('id', leadId)
+    .maybeSingle()
+  return (lead as { next_exam_topic: string | null } | null)?.next_exam_topic?.trim() || null
+}
+
 export async function getReportData(
   sessionId: string,
 ): Promise<SupabaseResult<ReportData>> {
@@ -286,48 +228,20 @@ export async function getReportData(
     if (!session) return { data: null, error: 'Analyse nicht gefunden' }
 
     const row = session as SessionRow
-    const itemIds = row.item_ids ?? []
-
     const { data: responses, error: rErr } = await supabase
       .from('lsa_responses')
       .select('task_id, correct, duration_ms')
       .eq('session_id', sessionId)
     if (rErr) return { data: null, error: rErr.message }
 
-    // Die Aufgabenmenge, über die die Themenachse gebaut wird.
-    //
-    // `item_ids` ist NUR im Modus 'fest' gefüllt. Adaptive Sitzungen starten
-    // mit '{}' und lsa_finish trägt nichts nach — bis R2 fiel dadurch JEDE
-    // Antwort auf „ohne Zuordnung", `planned` blieb 0, und der Report zeigte
-    // „30 von 0 bearbeitet".
-    //
-    // Deshalb: item_ids, wenn vorhanden — sonst die tatsächlich beantworteten
-    // Aufgaben. Für 'fest' ist das byte-gleich zu vorher (item_ids ist dort
-    // immer gesetzt), für 'adaptiv' überhaupt erst eine Achse.
-    const taskIds =
-      itemIds.length > 0
-        ? itemIds
-        : [...new Set((responses ?? []).map((r) => r.task_id as string))]
-
-    // competency_content ist der Stoffanker, nach dem auch lsa_finish
-    // aggregiert — gleiche Achse, damit Report und Auswertung nicht driften.
-    // Der Wert ist eine interne Konstante (arithmetik_algebra, geometrie,
-    // funktionen, stochastik) und wird ERST IN DER ANZEIGE zu einem Satz
-    // (CLAUDE §12). Hier bleibt er roh.
-    const topicByTask = new Map<string, string>()
-    if (taskIds.length > 0) {
-      const { data: tasks, error: tErr } = await supabase
-        .from('tasks')
-        .select('id, competency_content')
-        .in('id', taskIds)
-      if (tErr) return { data: null, error: tErr.message }
-      for (const t of tasks ?? []) {
-        const key = (t.competency_content as string | null)?.trim()
-        if (key) topicByTask.set(t.id as string, key)
-      }
-    }
+    // AUFGABEN, nicht Antwortzeilen: zwei Teilaufgaben desselben Items sind
+    // eine Aufgabe. Dieselbe Zaehlweise nutzt lsa_fehlbild_auswertung.
+    const aufgaben = new Set((responses ?? []).map((r) => r.task_id as string)).size
 
     const names = await loadNames([row.student_id])
+
+    const parentAssessment = await loadParentAssessment(row.student_id)
+    const fehlbilder = await loadFehlbilder(row.id)
 
     return {
       data: {
@@ -337,18 +251,16 @@ export async function getReportData(
         subject: row.subject,
         status: row.status,
         analysedAt: row.completed_at ?? row.started_at ?? row.created_at,
-        topics: buildTopics(
-          taskIds,
-          topicByTask,
-          (responses ?? []) as {
-            task_id: string
-            correct: boolean | null
-            duration_ms: number | null
-          }[],
-        ),
-        parentAssessment: await loadParentAssessment(row.student_id),
+        aufgaben,
+        naechstesThema: await loadNaechstesThema(row.student_id),
+        parentAssessment,
         skillbefunde: await loadSkillbefunde(sessionId),
-        fehlbilder: await loadFehlbilder(row.id),
+        fehlbilder,
+        erzaehlung: await loadErzaehlung(
+          sessionId,
+          parentAssessment?.weakTopics ?? [],
+          fehlbilder,
+        ),
       },
       error: null,
     }

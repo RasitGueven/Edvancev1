@@ -28,6 +28,16 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **R6 Eltern-Report in der App** (Retro `2026-08-19-r6-reportbody-v3.md`, Branch
+  `feature/r6-reportbody-v3`): `ReportBody.tsx` zeigt die abgestimmte Erzählung in
+  sechs Schritten — Anlass, Ebenenspur mit Untertiteln, Profil über die
+  Themenfamilien, Fehlbilder, Aufklappbereich, Fazit mit Aufgriff der
+  Eltern-Punkte, Ansprechpartner. Gerechnet mit denselben reinen Funktionen wie
+  der HTML-Generator. Ersetzt (nicht ergänzt): Erzählung aus Bearbeitungsdauern,
+  Stärke, Belege je Themenfeld, Themen-Anhang. Farben bleiben Navy/Gold/Creme —
+  INV-4.4 gilt unverändert und ist auf die Nachfolgekomponenten übergegangen.
+  Neu: 9 Rendertests mit den Daten der echten Sitzung.
+  **Offen:** Paketblock (Coach-Gate vs. Empfehlungsregel).
 - **R5 Profil zurück, Verteilung geprüft** (Retro `2026-08-18-r5-radar-und-verteilung.md`,
   Branch `feature/r5-radar-und-bausteine`): Variante A (Themenfamilien-Profil) kehrt in
   Abschnitt 03 zurück — feste Sechs-Achsen-Menge für alle Reports, „nicht geprüft" wird
