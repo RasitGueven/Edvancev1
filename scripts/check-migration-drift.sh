@@ -2,10 +2,18 @@
 # check-migration-drift.sh — findet die Lücke, bevor sie jemand merkt.
 #
 # Lokal (immer):    supabase/pending/ muss leer sein; Dateinamen müssen stimmen.
-# Gegen die DB:     jede eingespielte Version braucht eine Datei im Repo.  (nur wenn DBURL gesetzt)
+# Gegen die DB:     jede eingespielte Version braucht eine Datei im Repo.
+#
+# Der DB-Abgleich ist der Teil, der Drift überhaupt findet — die drei lokalen
+# Prüfungen sehen eine eingespielte Migration ohne Datei nie. Darum braucht das
+# Skript DATABASE_URL und bricht sonst ab. Wer nur die lokalen Prüfungen will,
+# sagt das mit --ohne-db; dann steht am Ende, was NICHT geprüft wurde.
+# Vorher hiess die Variable hier DBURL und war nirgends gesetzt: Abschnitt 4 fiel
+# still aus, das Skript meldete trotzdem "Kein Drift".
 #
 # Einsatz:
 #   scripts/check-migration-drift.sh          # von Hand
+#   scripts/check-migration-drift.sh --ohne-db   # nur die lokalen Prüfungen
 #   in CI                                     # blockiert den Merge
 #   .git/hooks/pre-push                       # blockiert den Push
 #
@@ -13,10 +21,18 @@
 
 set -uo pipefail
 
+# Verbindung. Ohne sie fällt Abschnitt 4 aus — das darf nie unbemerkt passieren.
+# Kein $(...) im :?-Text: der wird expandiert und würde den Zugangsstring drucken.
+#   export DATABASE_URL="$(grep '^DATABASE_URL=' .env | cut -d= -f2- | tr -d "'\"")"
+ohne_db=0
+[[ "${1:-}" == "--ohne-db" ]] && ohne_db=1
+[[ "$ohne_db" -eq 1 ]] || : "${DATABASE_URL:?nicht gesetzt (frueher DBURL) — siehe Kommentar in diesem Skript, oder --ohne-db}"
+
 repo_root=$(git rev-parse --show-toplevel)
 cd "$repo_root"
 
 fail=0
+uebersprungen=0
 note() { echo "  $*"; }
 err()  { echo "✗ $*"; fail=1; }
 ok()   { echo "✓ $*"; }
@@ -54,10 +70,11 @@ else
 fi
 
 # ── 4 · Repo gegen Produktion ───────────────────────────────────────────────
-if [[ -z "${DBURL:-}" ]]; then
-  echo "· DBURL nicht gesetzt — Abgleich mit der Datenbank übersprungen."
+if [[ "$ohne_db" -eq 1 ]]; then
+  uebersprungen=1
+  echo "· --ohne-db: Abgleich mit der Datenbank NICHT gelaufen."
 else
-  applied=$(psql "$DBURL" -tAc \
+  applied=$(psql "$DATABASE_URL" -tAc \
     "select version from supabase_migrations.schema_migrations order by version" 2>/dev/null) || {
       err "Datenbank nicht erreichbar."; applied=""; }
 
@@ -81,9 +98,12 @@ else
 fi
 
 echo
-if [[ "$fail" -eq 0 ]]; then
-  echo "Kein Drift."
-else
+if [[ "$fail" -ne 0 ]]; then
   echo "Drift gefunden — siehe oben."
+elif [[ "$uebersprungen" -eq 1 ]]; then
+  echo "Lokal kein Drift. Gegen die Datenbank wurde NICHT geprüft (--ohne-db)."
+  echo "Das ist keine Freigabe — genau dieser Abgleich findet die fehlenden Dateien."
+else
+  echo "Kein Drift."
 fi
 exit "$fail"

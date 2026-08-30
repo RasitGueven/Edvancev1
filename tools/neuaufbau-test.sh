@@ -19,7 +19,7 @@ cd "$(git rev-parse --show-toplevel)"
 DB="${TESTDB:-edvance_neuaufbau}"
 GEGEN_PROD=0; [[ "${1:-}" == "--gegen-prod" ]] && GEGEN_PROD=1
 LOCAL="postgresql:///$DB"
-[[ "$GEGEN_PROD" -eq 0 || -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt (nur mit --gegen-prod noetig)."; exit 1; }
+[[ "$GEGEN_PROD" -eq 0 || -n "${DATABASE_URL:-}" ]] || { echo "DATABASE_URL nicht gesetzt (nur mit --gegen-prod noetig)."; exit 1; }
 
 ok(){ echo "  ✓ $*"; }; bad(){ echo "  ✗ $*"; }; info(){ echo "  · $*"; }
 
@@ -91,7 +91,7 @@ fi
 
 echo
 echo "══ Vergleich mit Produktion"
-if ! pg_dump "$DBURL" $D > /tmp/proddump 2>/tmp/dumperr; then
+if ! pg_dump "$DATABASE_URL" $D > /tmp/proddump 2>/tmp/dumperr; then
   bad "Prod nicht erreichbar:"; tail -3 /tmp/dumperr | sed 's/^/      /'; exit 1
 fi
 grep -vE "$SIEB" /tmp/proddump | sort > /tmp/prod.txt

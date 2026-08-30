@@ -14,12 +14,16 @@ set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 APPLY=0; [[ "${1:-}" == "--apply" ]] && APPLY=1
-[[ -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt."; exit 1; }
+# Verbindung. Der Text hinter :? wird von der Shell EXPANDIERT — dort darf keine
+# Kommandosubstitution stehen, sonst landet der Zugangsstring bei jedem
+# Fehlschlag im Terminal. Der Weg zum Wert:
+#   export DATABASE_URL="$(grep '^DATABASE_URL=' .env | cut -d= -f2- | tr -d "'\"")"
+: "${DATABASE_URL:?nicht gesetzt (frueher DBURL) — siehe Kommentar in diesem Skript}"
 
 ok(){ echo "  ✓ $*"; }; warn(){ echo "  ! $*"; }; bad(){ echo "  ✗ $*"; }; info(){ echo "  · $*"; }
 frage(){ [[ "$APPLY" -eq 1 ]] || return 1; local a; read -rp "  → $1 [j/N] " a </dev/tty; [[ "$a" =~ ^[jJyY]$ ]]; }
 
-APPLIED=$(psql "$DBURL" -tAc "select version from supabase_migrations.schema_migrations order by version")
+APPLIED=$(psql "$DATABASE_URL" -tAc "select version from supabase_migrations.schema_migrations order by version")
 ist_eingespielt(){ grep -qx "$1" <<<"$APPLIED"; }
 
 echo
@@ -119,7 +123,7 @@ if [[ ${#FEHLT[@]} -eq 0 ]]; then
 else
   bad "${#FEHLT[@]} eingespielte Version(en) ohne Datei im Repo:"
   for v in "${FEHLT[@]}"; do
-    n=$(psql "$DBURL" -tAc "select coalesce(name,'(ohne Namen)') from supabase_migrations.schema_migrations where version='$v'")
+    n=$(psql "$DATABASE_URL" -tAc "select coalesce(name,'(ohne Namen)') from supabase_migrations.schema_migrations where version='$v'")
     echo "      $v  $n"
   done
   echo
