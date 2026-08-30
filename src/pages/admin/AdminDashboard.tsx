@@ -7,6 +7,7 @@ import {
   FolderOpen,
   Inbox,
   PenLine,
+  ScrollText,
   UserPlus,
 } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
@@ -81,10 +82,10 @@ export function AdminDashboard(): JSX.Element {
               />
             </AdminTileRow>
 
-            {/* Reihe 2 und 3 — fuenf Karten in einem Raster, damit beide Reihen
-                exakt dieselbe Hoehe bekommen. Die dritte Zelle der letzten Reihe
-                bleibt leer, ohne Platzhalter. Schuelerakte, Eltern-Reports und
-                LSA-Ergebnisse haben noch keine Route und bleiben inaktiv. */}
+            {/* Reihe 2 und 3 — sechs Karten in einem Raster, damit beide Reihen
+                exakt dieselbe Hoehe bekommen. Schuelerakte, Eltern-Reports,
+                LSA-Ergebnisse und Vertraege haben noch keine Route und bleiben
+                inaktiv. */}
             <AdminTileRow columns={3}>
               <AdminTile
                 icon={<FolderOpen className={ICON_CLASS} />}
@@ -112,6 +113,11 @@ export function AdminDashboard(): JSX.Element {
                 icon={<PenLine className={ICON_CLASS} />}
                 title={t('dashboard.tiles.content.title')}
                 description={t('dashboard.tiles.content.description')}
+              />
+              <AdminTile
+                icon={<ScrollText className={ICON_CLASS} />}
+                title={t('dashboard.tiles.contracts.title')}
+                description={t('dashboard.tiles.contracts.description')}
               />
             </AdminTileRow>
           </div>
