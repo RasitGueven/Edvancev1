@@ -15,7 +15,7 @@ Das ist Empirie statt Stichwortraten.
 
 import os, re, subprocess, sys, pathlib, bisect, collections
 
-DBURL = os.environ.get("DBURL") or sys.exit("DBURL nicht gesetzt.")
+DATABASE_URL = os.environ.get("DATABASE_URL") or sys.exit("DATABASE_URL nicht gesetzt.")
 REPO = pathlib.Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
                                    capture_output=True, text=True).stdout.strip())
 MIG = REPO / "supabase" / "migrations"
@@ -25,7 +25,7 @@ exec(open(REPO / "schema-rekonstruktion.py").read().split("# ── Was legen")[
      .replace('APPLY = "--apply" in sys.argv', "APPLY = False"))   # split_statements, ziel
 
 def psql(q):
-    return subprocess.run(["psql", DBURL, "-tAF|", "-c", q],
+    return subprocess.run(["psql", DATABASE_URL, "-tAF|", "-c", q],
                           capture_output=True, text=True).stdout.strip()
 
 # ── Objekt → OID ────────────────────────────────────────────────────────────

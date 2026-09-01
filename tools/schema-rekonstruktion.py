@@ -20,9 +20,9 @@ Neuaufbau testen (siehe Ausgabe am Ende).
 import os, re, subprocess, sys, pathlib, collections
 
 APPLY = "--apply" in sys.argv
-DBURL = os.environ.get("DBURL")
-if not DBURL:
-    sys.exit("DBURL nicht gesetzt.")
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if not DATABASE_URL:
+    sys.exit("DATABASE_URL nicht gesetzt.")
 
 REPO = pathlib.Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
                                    capture_output=True, text=True).stdout.strip())
@@ -109,7 +109,7 @@ print(f"\n  {len(list(MIG.glob('*.sql')))} vorhandene Migrationen legen "
 # ── Fehlende Versionen ──────────────────────────────────────────────────────
 
 def psql(q):
-    r = subprocess.run(["psql", DBURL, "-tAc", q], capture_output=True, text=True)
+    r = subprocess.run(["psql", DATABASE_URL, "-tAc", q], capture_output=True, text=True)
     return r.stdout.strip()
 
 fehlend = []
@@ -143,7 +143,7 @@ schemas = [s for s in psql(
     "'pgsodium_masks','supabase_functions')").splitlines() if s]
 print(f"\n  Schemata: {', '.join(schemas)}")
 
-cmd = ["pg_dump", DBURL, "--schema-only", "--no-owner", "--no-acl", "--no-comments"]
+cmd = ["pg_dump", DATABASE_URL, "--schema-only", "--no-owner", "--no-acl", "--no-comments"]
 for s in schemas: cmd += ["--schema", s]
 r = subprocess.run(cmd, capture_output=True, text=True)
 if r.returncode != 0:
@@ -237,7 +237,7 @@ print(f"""
     4. Beweis antreten. Nur ein Neuaufbau zeigt, ob die Rekonstruktion trägt:
          supabase db reset                     # gegen eine lokale Instanz
          pg_dump <lokal>  --schema-only --no-owner --no-acl | sort > /tmp/neu.txt
-         pg_dump "$DBURL" --schema-only --no-owner --no-acl | sort > /tmp/prod.txt
+         pg_dump "$DATABASE_URL" --schema-only --no-owner --no-acl | sort > /tmp/prod.txt
          diff /tmp/neu.txt /tmp/prod.txt
 
        Ohne diesen Schritt hast du geraten, nicht rekonstruiert.

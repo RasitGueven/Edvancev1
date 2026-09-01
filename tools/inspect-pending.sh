@@ -8,7 +8,7 @@ set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 APPLIED=""
-[[ -n "${DBURL:-}" ]] && APPLIED=$(psql "$DBURL" -tAc \
+[[ -n "${DATABASE_URL:-}" ]] && APPLIED=$(psql "$DATABASE_URL" -tAc \
   "select version from supabase_migrations.schema_migrations" 2>/dev/null)
 
 # Kommentare und Leerzeilen raus, damit die Zählung stimmt

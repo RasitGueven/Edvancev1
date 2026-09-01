@@ -10,7 +10,7 @@
 # Skript an, zeigt was passieren wird, und fragt. Abbruch ist jederzeit gefahrlos —
 # der Fortschritt steht in .runbook-state.
 #
-# Voraussetzung: setup-wsl.sh ist gelaufen, DBURL ist gesetzt.
+# Voraussetzung: setup-wsl.sh ist gelaufen, DATABASE_URL ist gesetzt.
 
 set -uo pipefail
 
@@ -55,7 +55,7 @@ lauf() {  # lauf <nr> -> 0 wenn diese Phase dran ist
   [[ "$1" -ge "$FROM" ]] && ! erledigt "phase$1"
 }
 
-psqlq() { psql "$DBURL" -tAc "$1" 2>/dev/null; }
+psqlq() { psql "$DATABASE_URL" -tAc "$1" 2>/dev/null; }
 
 exec > >(tee -a "$LOG") 2>&1
 echo; echo "runbook.sh — $(date '+%F %T')"
@@ -70,9 +70,11 @@ for t in git node jq psql; do
   command -v "$t" >/dev/null && ok "$t" || bad "$t fehlt"
 done
 
-if [[ -z "${DBURL:-}" ]]; then
-  bad "DBURL nicht gesetzt — ohne die geht ab Phase 1 nichts."
-  echo "     export DBURL='postgresql://...'"
+# Frueher DBURL — die war nirgends gesetzt, psql fiel auf Socket und
+# Benutzernamen zurueck und der Lauf ging still ins Leere.
+if [[ -z "${DATABASE_URL:-}" ]]; then
+  bad "DATABASE_URL nicht gesetzt — ohne die geht ab Phase 1 nichts."
+  echo "     export DATABASE_URL=\"\$(grep '^DATABASE_URL=' .env | cut -d= -f2- | tr -d \"'\\\"\")\""
   exit 1
 fi
 psqlq "select 1" >/dev/null && ok "Datenbank erreichbar" || { bad "Datenbank nicht erreichbar."; exit 1; }
@@ -220,7 +222,7 @@ if lauf 3; then
 phase 3 "Reproduzierbarkeit"
 
 if command -v supabase >/dev/null && frage "schema.sql neu ziehen?"; then
-  supabase db dump --db-url "$DBURL" -f supabase/schema.sql && { git add supabase/schema.sql; ok "aktualisiert"; }
+  supabase db dump --db-url "$DATABASE_URL" -f supabase/schema.sql && { git add supabase/schema.sql; ok "aktualisiert"; }
 fi
 
 echo
@@ -285,7 +287,7 @@ DANGSQL="-1"
 [[ "$DANG" -gt 0 ]] && DANGSQL=$(paste -sd, .runbook-dangling.txt)
 
 b "Ausschlussliste bauen"
-psql "$DBURL" -q <<SQL
+psql "$DATABASE_URL" -q <<SQL
 drop table if exists _runbook_ausschluss;
 create table _runbook_ausschluss as
   select t.id, 'keine_loesung'::text as grund
@@ -320,14 +322,14 @@ fi
 # Exakter Rückweg: aktuellen Stand sichern, nicht pauschal zurückschieben
 SIC="out/status-vorher-$(date +%Y%m%d%H%M%S).csv"
 mkdir -p out
-psql "$DBURL" -c "\copy (select id, status from tasks) to '$SIC' csv header" >/dev/null
+psql "$DATABASE_URL" -c "\copy (select id, status from tasks) to '$SIC' csv header" >/dev/null
 ok "Vorzustand gesichert: $SIC"
 info "Rückweg: die 14 bereits freigegebenen bleiben damit erhalten — ein pauschales"
 info "         'alles zurück auf draft' würde die mitreissen."
 echo
 
 if wort "Zum Freigeben genau FREIGEBEN tippen:" "FREIGEBEN"; then
-  psql "$DBURL" -v ON_ERROR_STOP=1 <<SQL
+  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 <<SQL
 begin;
 update tasks set status = 'ready'
  where status = 'draft' and id not in (select id from _runbook_ausschluss);
@@ -338,11 +340,11 @@ SQL
   markiere phase5
 else
   info "abgebrochen — nichts geändert"
-  psql "$DBURL" -q -c "drop table if exists _runbook_ausschluss"
+  psql "$DATABASE_URL" -q -c "drop table if exists _runbook_ausschluss"
   exit 0
 fi
 
-psql "$DBURL" -q -c "drop table if exists _runbook_ausschluss"
+psql "$DATABASE_URL" -q -c "drop table if exists _runbook_ausschluss"
 fi
 
 # ════════════════════════════════════════════════════════════════════════════

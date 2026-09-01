@@ -10,7 +10,7 @@ sodass sie in der rekonstruierten Migration fehlen.
 
 import os, re, subprocess, sys, pathlib, collections
 
-DBURL = os.environ.get("DBURL") or sys.exit("DBURL nicht gesetzt.")
+DATABASE_URL = os.environ.get("DATABASE_URL") or sys.exit("DATABASE_URL nicht gesetzt.")
 REPO = pathlib.Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
                                    capture_output=True, text=True).stdout.strip())
 MIG = REPO / "supabase" / "migrations"
@@ -75,7 +75,7 @@ for f in sorted(MIG.glob("*.sql")):
 
 # ── Was hat Produktion ──────────────────────────────────────────────────────
 
-roh = subprocess.run(["psql", DBURL, "-tAF|", "-c", """
+roh = subprocess.run(["psql", DATABASE_URL, "-tAF|", "-c", """
 select c.table_name, c.column_name,
        case when c.data_type = 'USER-DEFINED' then c.udt_name else c.data_type end,
        coalesce(c.column_default,''), c.is_nullable, c.ordinal_position

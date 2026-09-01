@@ -1,0 +1,68 @@
+{
+  "_hinweis": "Vier Aufgaben, alle Loesungen richtig. Reine Arithmetik mit Absicht: der Pruefer im Test rechnet sie aus dem Aufgabentext nach, er schlaegt sie nicht nach. Zweite Bedingung, leicht zu uebersehen: KEINE hinterlegte Antwort darf als Zahl in einer Frage vorkommen — sonst kann die Unabhaengigkeits-Zusicherung nicht zwischen 'Loesung geleakt' und 'Zahl steht in der Aufgabe' unterscheiden. Daran ist 144 / 12 = 12 gescheitert.",
+  "tasks": [
+    {
+      "id": "probe-01",
+      "skill_key": "grundrechnen_add",
+      "input_type": "NUMERIC",
+      "status": "draft",
+      "source": "edvance_probe",
+      "unit": null,
+      "created_at": "2026-08-30T10:00:00Z",
+      "question": "Berechne: 24 + 18",
+      "solution": {
+        "correct_answers": [
+          "42"
+        ],
+        "acceptance": {
+          "require_reduced": false
+        }
+      }
+    },
+    {
+      "id": "probe-02",
+      "skill_key": "grundrechnen_mult",
+      "input_type": "NUMERIC",
+      "status": "draft",
+      "source": "edvance_probe",
+      "unit": null,
+      "created_at": "2026-08-30T10:01:00Z",
+      "question": "Berechne: 13 * 7",
+      "solution": {
+        "correct_answers": [
+          "91"
+        ]
+      }
+    },
+    {
+      "id": "probe-03",
+      "skill_key": "grundrechnen_sub",
+      "input_type": "NUMERIC",
+      "status": "draft",
+      "source": "edvance_probe",
+      "unit": null,
+      "created_at": "2026-08-30T10:02:00Z",
+      "question": "Berechne: 100 - 37",
+      "solution": {
+        "correct_answers": [
+          "63"
+        ]
+      }
+    },
+    {
+      "id": "probe-04",
+      "skill_key": "grundrechnen_div",
+      "input_type": "NUMERIC",
+      "status": "veroeffentlicht",
+      "source": "edvance_probe",
+      "unit": null,
+      "created_at": "2026-08-30T10:03:00Z",
+      "question": "Berechne: 150 / 6",
+      "solution": {
+        "correct_answers": [
+          "25"
+        ]
+      }
+    }
+  ]
+}

@@ -9,7 +9,7 @@
 -- machen dieselben Denkfehler sichtbar.
 --
 -- Läuft lesend. Aufruf:
---     psql "$DBURL" -v ON_ERROR_STOP=1 -f supabase/checks/sondierrang.PRUEFUNG.sql
+--     psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/checks/sondierrang.PRUEFUNG.sql
 
 do $$
 declare

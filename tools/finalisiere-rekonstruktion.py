@@ -16,7 +16,7 @@ abhängigkeitssicher, anders als jede selbst gebaute.
 import os, re, subprocess, sys, pathlib, collections
 
 APPLY = "--apply" in sys.argv
-DBURL = os.environ.get("DBURL") or sys.exit("DBURL nicht gesetzt.")
+DATABASE_URL = os.environ.get("DATABASE_URL") or sys.exit("DATABASE_URL nicht gesetzt.")
 REPO = pathlib.Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
                                    capture_output=True, text=True).stdout.strip())
 OUT = REPO / "supabase" / "rekonstruktion"
@@ -59,7 +59,7 @@ ZUORDNUNG = {
 # ─────────────────────────────────────────────────────────────────────────────
 
 def psql(q):
-    return subprocess.run(["psql", DBURL, "-tAF|", "-c", q],
+    return subprocess.run(["psql", DATABASE_URL, "-tAF|", "-c", q],
                           capture_output=True, text=True).stdout.strip()
 
 # Indizes, die zu einem Constraint gehören — die erzeugt Postgres selbst,
@@ -72,7 +72,7 @@ implizit = set(psql("""
        and exists (select 1 from pg_constraint k where k.conindid = i.indexrelid)
 """).splitlines())
 
-cmd = ["pg_dump", DBURL, "--schema-only", "--no-owner", "--no-acl", "--schema", "public"]
+cmd = ["pg_dump", DATABASE_URL, "--schema-only", "--no-owner", "--no-acl", "--schema", "public"]
 r = subprocess.run(cmd, capture_output=True, text=True)
 if r.returncode != 0:
     sys.exit("pg_dump fehlgeschlagen:\n" + r.stderr[:800])
@@ -159,7 +159,7 @@ print(f"""
     supabase db reset                                        # leere lokale Instanz
     pg_dump "$LOCAL_DBURL" --schema-only --no-owner --no-acl --schema public \\
       | grep -v '^--' | sort > /tmp/neu.txt
-    pg_dump "$DBURL"       --schema-only --no-owner --no-acl --schema public \\
+    pg_dump "$DATABASE_URL" --schema-only --no-owner --no-acl --schema public \\
       | grep -v '^--' | sort > /tmp/prod.txt
     diff /tmp/neu.txt /tmp/prod.txt
 

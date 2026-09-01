@@ -13,7 +13,11 @@
 
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
-[[ -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt."; exit 1; }
+# Verbindung. Der Text hinter :? wird von der Shell EXPANDIERT — dort darf keine
+# Kommandosubstitution stehen, sonst landet der Zugangsstring bei jedem
+# Fehlschlag im Terminal. Der Weg zum Wert:
+#   export DATABASE_URL="$(grep '^DATABASE_URL=' .env | cut -d= -f2- | tr -d "'\"")"
+: "${DATABASE_URL:?nicht gesetzt (frueher DBURL) — siehe Kommentar in diesem Skript}"
 
 APPLY=0; [[ "${1:-}" == "--apply" ]] && APPLY=1
 A14="supabase/migrations/20260722130000_a14_skill_substrat.sql"
@@ -47,7 +51,7 @@ echo "══ Daten aus Produktion"
 
 ROH=$(mktemp)
 ARGS=(); for t in "${TABELLEN[@]}"; do ARGS+=(--table "public.$t"); done
-pg_dump "$DBURL" --data-only --inserts "${ARGS[@]}" 2>/dev/null \
+pg_dump "$DATABASE_URL" --data-only --inserts "${ARGS[@]}" 2>/dev/null \
   | grep -E '^INSERT INTO' > "$ROH"
 
 GEFILTERT=$(mktemp)

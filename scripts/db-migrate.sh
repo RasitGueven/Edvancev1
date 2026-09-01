@@ -12,14 +12,20 @@
 # in supabase/migrations/ liegt. Damit ist die richtige Ablage nicht mehr Disziplin,
 # sondern Vorbedingung fürs Einspielen. Genau daran ist es sechsmal gescheitert.
 #
-# Braucht: DBURL (Postgres-Connection-String der Zieldatenbank)
+# Braucht: DATABASE_URL (Postgres-Connection-String der Zieldatenbank).
+# Frueher hiess die Variable hier DBURL — sie war nirgends gesetzt, psql fiel auf
+# Socket und Benutzernamen zurueck und das Skript lief still ins Leere.
 
 set -euo pipefail
 
 file="${1:-}"
 [[ -n "$file" ]] || { echo "Nutzung: $0 <supabase/migrations/*.sql>" >&2; exit 1; }
 [[ -f "$file" ]] || { echo "Datei nicht gefunden: $file" >&2; exit 1; }
-[[ -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt." >&2; exit 1; }
+# Verbindung. Der Text hinter :? wird von der Shell EXPANDIERT — hier darf
+# deshalb keine Kommandosubstitution stehen, sonst landet der Zugangsstring bei
+# jedem Fehlschlag im Terminal. Der Weg zum Wert steht als Kommentar:
+#   export DATABASE_URL="$(grep '^DATABASE_URL=' .env | cut -d= -f2- | tr -d "'\"")"
+: "${DATABASE_URL:?nicht gesetzt (frueher DBURL) — siehe Kommentar in diesem Skript}"
 
 repo_root=$(git rev-parse --show-toplevel)
 rel=$(realpath --relative-to="$repo_root" "$file")
@@ -50,7 +56,7 @@ name="${base#*_}"
 }
 
 # Schon eingespielt?
-if psql "$DBURL" -tAc \
+if psql "$DATABASE_URL" -tAc \
    "select 1 from supabase_migrations.schema_migrations where version = '$version'" \
    | grep -q 1; then
   echo "Version $version ist bereits eingetragen — nichts zu tun."
@@ -59,11 +65,11 @@ if psql "$DBURL" -tAc \
 fi
 
 echo "→ Spiele ein: $rel"
-psql "$DBURL" -P pager=off -v ON_ERROR_STOP=1 -f "$rel"
+psql "$DATABASE_URL" -P pager=off -v ON_ERROR_STOP=1 -f "$rel"
 
 echo "→ Trage Historie ein: $version ($name)"
 grep -q '\$mig\$' "$rel" && { echo "Datei enthält \$mig\$ — Historieneintrag von Hand." >&2; exit 1; }
-psql "$DBURL" -P pager=off -v ON_ERROR_STOP=1 <<SQL
+psql "$DATABASE_URL" -P pager=off -v ON_ERROR_STOP=1 <<SQL
 insert into supabase_migrations.schema_migrations (version, name, statements)
 values ('$version', '$name', array[\$mig\$$(cat "$rel")\$mig\$])
 on conflict (version) do update set statements = excluded.statements;
