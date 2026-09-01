@@ -7,13 +7,17 @@
 
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
-[[ -n "${DBURL:-}" ]] || { echo "DBURL nicht gesetzt."; exit 1; }
+# Verbindung. Der Text hinter :? wird von der Shell EXPANDIERT — dort darf keine
+# Kommandosubstitution stehen, sonst landet der Zugangsstring bei jedem
+# Fehlschlag im Terminal. Der Weg zum Wert:
+#   export DATABASE_URL="$(grep '^DATABASE_URL=' .env | cut -d= -f2- | tr -d "'\"")"
+: "${DATABASE_URL:?nicht gesetzt (frueher DBURL) — siehe Kommentar in diesem Skript}"
 
 APPLY=0; [[ "${1:-}" == "--apply" ]] && APPLY=1
 ok(){ echo "  ✓ $*"; }; bad(){ echo "  ✗ $*"; }; info(){ echo "  · $*"; }
 
 # Gibt es die Spalte überhaupt?
-HAT_ST=$(psql "$DBURL" -tAc "select 1 from information_schema.columns
+HAT_ST=$(psql "$DATABASE_URL" -tAc "select 1 from information_schema.columns
                               where table_schema='supabase_migrations'
                                 and table_name='schema_migrations'
                                 and column_name='statements'")
@@ -28,7 +32,7 @@ FEHLT=()
 while IFS= read -r v; do
   [[ -n "$v" ]] || continue
   ls supabase/migrations/"${v}"_*.sql >/dev/null 2>&1 || FEHLT+=("$v")
-done < <(psql "$DBURL" -tAc "select version from supabase_migrations.schema_migrations order by version")
+done < <(psql "$DATABASE_URL" -tAc "select version from supabase_migrations.schema_migrations order by version")
 
 [[ ${#FEHLT[@]} -eq 0 ]] && { ok "Keine Datei fehlt."; exit 0; }
 
@@ -38,7 +42,7 @@ echo
 
 OFFEN=()
 for v in "${FEHLT[@]}"; do
-  read -r name n < <(psql "$DBURL" -tAF' ' -c \
+  read -r name n < <(psql "$DATABASE_URL" -tAF' ' -c \
     "select coalesce(nullif(name,''),'unbenannt'), coalesce(array_length(statements,1),0)
        from supabase_migrations.schema_migrations where version='$v'")
 
@@ -52,7 +56,7 @@ for v in "${FEHLT[@]}"; do
       echo "-- Rekonstruiert aus supabase_migrations.schema_migrations am $(date -u +%F)."
       echo "-- Inhalt entspricht dem eingespielten SQL, Formatierung kann abweichen."
       echo
-      psql "$DBURL" -tAc \
+      psql "$DATABASE_URL" -tAc \
         "select array_to_string(statements, E';\n\n') || ';'
            from supabase_migrations.schema_migrations where version='$v'"
     } > "$ziel"

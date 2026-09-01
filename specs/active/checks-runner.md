@@ -19,7 +19,7 @@ Die Dateien in `supabase/checks/` sind aus Migrationen herausgelöste Prüfharni
 (PRUEFUNG/E2E). Sie prüfen gegen vorhandene Daten und werfen bei Fehlschlag eine
 Exception. Bisher gibt es keinen Weg, sie gesammelt laufen zu lassen.
 
-Die Verbindung kommt aus `$DBURL`. Manche Prüfungen brauchen Produktionsdaten und
+Die Verbindung kommt aus `$DATABASE_URL`. Manche Prüfungen brauchen Produktionsdaten und
 schlagen auf einer leeren Datenbank fehl — das ist erwartet und muss unterscheidbar
 bleiben von einem echten Fehlschlag.
 
@@ -28,7 +28,7 @@ bleiben von einem echten Fehlschlag.
 - `--list` gibt die gefundenen Prüfskripte aus und endet mit Code 0
 - Ohne Argument läuft jedes Skript, Ausgabe je Datei ok/fehlgeschlagen, Zusammenfassung am Ende
 - Exit-Code 1, wenn mindestens eine Prüfung fehlschlägt
-- Ohne gesetztes `DBURL` bricht es mit klarer Meldung ab
+- Ohne gesetztes `DATABASE_URL` bricht es mit klarer Meldung ab
 
 ## Nicht-Ziele
 

@@ -13,6 +13,12 @@
  *   2. Rechnung    (LLM)        Aufgabe blind lösen, dann mit der Lösung vergleichen
  *   3. Plausibilität (LLM)      Sind Kontext und Zahlen realistisch? Nur Bericht, kein Gate.
  *
+ * Zwei Quellen (siehe verify-tasks-quellen.mjs):
+ *   --quelle prod            Produktion. Vorgabe, bestehende Aufrufe bleiben gleich.
+ *   --quelle datei --pfad x  JSON-Datei. Prüft eine Charge VOR dem Einspielen —
+ *                            der Fall, für den das Werkzeug gebaut wurde und den
+ *                            es bis hierher als einziges nicht konnte.
+ *
  * Als Gate in einer Spec:
  *     gates:
  *       - node tools/verify-tasks.mjs --skill bruch_add --min-pass 0.95
@@ -21,15 +27,26 @@
  *   node tools/verify-tasks.mjs --seit 2026-07-28     # alles seit einem Datum
  *   node tools/verify-tasks.mjs --status draft --source edvance_fundament
  *   node tools/verify-tasks.mjs --nur-struktur        # ohne LLM, kostenlos
+ *   node tools/verify-tasks.mjs --quelle datei --pfad out/k8-charge.json
  */
 
 import { createClient } from '@supabase/supabase-js';
 import fs from 'node:fs/promises';
+import { ausDatei, ausProduktion, filtere, QuellenFehler } from './verify-tasks-quellen.mjs';
+
+// Node liest .env nicht von selbst — ohne das hier fehlten SUPABASE_URL und
+// ANTHROPIC_API_KEY jedem Aufruf, der die Variablen nicht vorher exportiert hat.
+// Bereits gesetzte Werte gewinnen (loadEnvFile überschreibt nicht), die Umgebung
+// bleibt also stärker als die Datei.
+try { process.loadEnvFile('.env'); } catch { /* keine .env — dann eben nur echte Umgebung */ }
 
 const CFG = {
   url: process.env.SUPABASE_URL,
   key: process.env.SUPABASE_SERVICE_ROLE_KEY,
   anthropic: process.env.ANTHROPIC_API_KEY,
+  // Standard-Variable des Anthropic-SDK. Erlaubt, den Prüfer im Test gegen einen
+  // lokalen Löser laufen zu lassen, ohne den Prüfkern anzufassen.
+  apiBase: (process.env.ANTHROPIC_BASE_URL ?? 'https://api.anthropic.com').replace(/\/+$/, ''),
   model: process.env.VERIFY_MODEL ?? 'claude-sonnet-5',
   batch: 10,
   parallel: 4,
@@ -40,27 +57,40 @@ const flag = (n) => A.includes(`--${n}`);
 const opt = (n, d) => { const i = A.indexOf(`--${n}`); return i === -1 ? d : A[i + 1]; };
 const MIN_PASS = Number(opt('min-pass', '0.95'));
 
-if (!CFG.url || !CFG.key) { console.error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY fehlen.'); process.exit(2); }
-
-const sb = createClient(CFG.url, CFG.key, { auth: { persistSession: false } });
-
 // ─── Aufgaben laden ──────────────────────────────────────────────────────────
 
-let q = sb.from('tasks').select('id,question,skill_key,input_type,status,source,unit,created_at');
-if (opt('skill'))  q = q.eq('skill_key', opt('skill'));
-if (opt('status')) q = q.eq('status', opt('status'));
-if (opt('source')) q = q.eq('source', opt('source'));
-if (opt('seit'))   q = q.gte('created_at', opt('seit'));
+const QUELLE = opt('quelle', 'prod');
+if (QUELLE !== 'prod' && QUELLE !== 'datei') {
+  console.error(`--quelle kennt nur "prod" oder "datei", nicht "${QUELLE}".`);
+  process.exit(2);
+}
 
-const { data: tasks, error } = await q;
-if (error) { console.error(`Ladefehler: ${error.message}`); process.exit(2); }
-if (!tasks?.length) { console.error('Keine Aufgabe passt auf die Auswahl.'); process.exit(2); }
+const FILTER = { skill: opt('skill'), status: opt('status'), source: opt('source'), seit: opt('seit') };
 
-const ids = tasks.map((t) => t.id);
-const { data: loesungen } = await sb.from('task_solutions').select('*').in('task_id', ids);
-const loesungVon = new Map((loesungen ?? []).map((s) => [s.task_id, s]));
+let tasks, loesungVon, herkunft;
+try {
+  if (QUELLE === 'datei') {
+    const pfad = opt('pfad');
+    ({ tasks, loesungVon } = await ausDatei(pfad));
+    tasks = filtere(tasks, FILTER);
+    herkunft = pfad;
+  } else {
+    if (!CFG.url || !CFG.key) {
+      console.error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY fehlen (oder --quelle datei nutzen).');
+      process.exit(2);
+    }
+    const sb = createClient(CFG.url, CFG.key, { auth: { persistSession: false } });
+    ({ tasks, loesungVon } = await ausProduktion(sb, FILTER));
+    herkunft = 'Produktion';
+  }
+} catch (e) {
+  console.error(e instanceof QuellenFehler ? e.message : `Ladefehler: ${e.message}`);
+  process.exit(2);
+}
 
-console.log(`\n  ${tasks.length} Aufgabe(n) zu prüfen\n`);
+if (!tasks.length) { console.error('Keine Aufgabe passt auf die Auswahl.'); process.exit(2); }
+
+console.log(`\n  ${tasks.length} Aufgabe(n) zu prüfen — Quelle: ${herkunft}\n`);
 
 // ─── Stufe 1 · Struktur ──────────────────────────────────────────────────────
 
@@ -117,7 +147,18 @@ if (flag('nur-struktur')) {
 
 // ─── Stufe 2 · Blind lösen ───────────────────────────────────────────────────
 
-if (!CFG.anthropic) { console.error('\nANTHROPIC_API_KEY fehlt (oder --nur-struktur nutzen).'); process.exit(2); }
+if (!CFG.anthropic) {
+  console.error(`
+  ANTHROPIC_API_KEY ist nicht gesetzt.
+
+  Stufe 2 (blind nachrechnen) ist der eigentliche Prüfer — ohne Schlüssel gibt es
+  kein Urteil, nur einen Abbruch. Weder gesetzt in der Umgebung noch in .env.
+
+  Entweder:  export ANTHROPIC_API_KEY=...   bzw. Zeile in .env
+  Oder:      --nur-struktur                 (Stufe 1 allein, kostenlos)
+`);
+  process.exit(2);
+}
 
 const SYSTEM_LOESEN = `Du bist Mathematiklehrer und löst Aufgaben für Klasse 5 bis 7.
 
@@ -149,13 +190,28 @@ Antworte AUSSCHLIESSLICH mit einem JSON-Array, ohne Markdown-Fences:
 async function llm(system, inhalt) {
   for (let versuch = 1; versuch <= 4; versuch++) {
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch(`${CFG.apiBase}/v1/messages`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-api-key': CFG.anthropic,
                    'anthropic-version': '2023-06-01' },
         body: JSON.stringify({ model: CFG.model, max_tokens: 3000, system,
                                messages: [{ role: 'user', content: inhalt }] }),
       });
+      if (res.status === 401 || res.status === 403) {
+        // Nicht wiederholen und nicht als Aufgabenbefund verbuchen: ohne gültigen
+        // Schlüssel bliebe jede Aufgabe "ungeprueft" und die Trefferquote fiele auf
+        // 0 % — das sähe aus wie schlechter Inhalt und ist ein Zugangsproblem.
+        console.error(`
+  ANTHROPIC_API_KEY wird abgelehnt (HTTP ${res.status}).
+
+  Der Schlüssel ist gesetzt, aber ungültig oder ohne Berechtigung. Der Prüfer bricht
+  hier ab, statt jede Aufgabe als "ungeprueft" zu zählen — eine Trefferquote von 0 %
+  würde sonst wie ein Inhaltsfehler aussehen.
+
+  Gültigen Schlüssel hinterlegen oder --nur-struktur nutzen.
+`);
+        process.exit(2);
+      }
       if (res.status === 429 || res.status >= 500) throw new Error(`HTTP ${res.status}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
       const data = await res.json();

@@ -1,0 +1,31 @@
+{
+  "_hinweis": "Strukturfehler, die Stufe 1 ohne LLM finden muss: fehlende Loesung, fehlender skill_key, leerer Aufgabentext.",
+  "tasks": [
+    {
+      "id": "luecke-01",
+      "skill_key": "grundrechnen_add",
+      "input_type": "NUMERIC",
+      "status": "draft",
+      "source": "edvance_probe",
+      "question": "Berechne: 5 + 5"
+    },
+    {
+      "id": "luecke-02",
+      "skill_key": null,
+      "input_type": "NUMERIC",
+      "status": "draft",
+      "source": "edvance_probe",
+      "question": "Berechne: 6 + 6",
+      "solution": { "correct_answers": ["12"] }
+    },
+    {
+      "id": "luecke-03",
+      "skill_key": "grundrechnen_add",
+      "input_type": "NUMERIC",
+      "status": "draft",
+      "source": "edvance_probe",
+      "question": "   ",
+      "solution": { "correct_answers": ["7"] }
+    }
+  ]
+}
