@@ -3371,23 +3371,28 @@ begin
     raise exception 'slot_assign: Lead nicht gefunden' using errcode = 'P0002';
   end if;
 
-  -- DER LOCK (Header „Kapazitaets-Garantie"): sperrt die Slot-Zeile fuer die
-  -- Dauer der Transaktion. Erst DANACH wird gezaehlt — eine zweite gleichzeitige
-  -- Zuweisung in denselben Slot wartet hier und sieht den Stand nach uns.
+  -- Der Lock: sperrt die Slot-Zeile fuer die Dauer der Transaktion. Erst
+  -- danach wird gezaehlt, eine zweite gleichzeitige Zuweisung wartet hier.
   select * into v_slot from slots where id = p_slot_id for update;
   if not found then
     raise exception 'slot_assign: Slot nicht gefunden' using errcode = 'P0002';
   end if;
-  if not v_slot.active then
-    raise exception 'slot_assign: Slot ist deaktiviert' using errcode = 'P0001';
+
+  if v_slot.valid_until is not null then
+    raise exception 'slot_assign: Slot ist beendet' using errcode = 'P0001';
   end if;
 
-  -- Bestehende aktive Zuweisung des Leads loesen — ein Kind sitzt in genau
-  -- einer Gruppe. Das laeuft VOR dem Zaehlen, damit ein Wechsel innerhalb
-  -- desselben Slots (Re-Assign) sich nicht selbst als Ueberbuchung sieht.
+  if v_slot.valid_from > current_date then
+    raise exception 'slot_assign: Slot beginnt erst am %', v_slot.valid_from
+      using errcode = 'P0001';
+  end if;
+
+  -- Nur eine bestehende Zuordnung im selben Slot loesen. Zuordnungen zu
+  -- anderen Slots bleiben: ein Lead darf mehrere Sessions pro Woche haben.
   update slot_assignments
      set released_at = now()
    where lead_id = p_lead_id
+     and slot_id = p_slot_id
      and released_at is null;
 
   select count(*)::int into v_belegt
@@ -3404,8 +3409,6 @@ begin
   values (p_slot_id, p_lead_id, auth.uid())
   returning id into v_id;
 
-  -- belegt inkl. der gerade angelegten Zeile — das Frontend zeigt den Stand
-  -- unmittelbar an, ohne nachzuladen.
   return jsonb_build_object(
     'ok',            true,
     'assignment_id', v_id,
