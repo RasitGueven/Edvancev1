@@ -14,10 +14,6 @@ type SectionLeadProps = {
 // Schritt 1 — Stammdaten in einem Rutsch. first_name gross und prominent, weil
 // der Rufname auf dem Tablet erscheint.
 export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
-  // Genau eine Kontaktangabe genuegt — welche, entscheidet das Gespraech.
-  const needsContact =
-    form.contact_email.trim() === '' && form.contact_phone.trim() === ''
-
   const toggleSubject = (subject: string): void => {
     const list = form.subjects
     patch({
@@ -132,11 +128,6 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
         <p className="text-xs text-[var(--color-text-tertiary)] sm:col-span-2">
           Mindestens eine der beiden Angaben ist erforderlich.
         </p>
-        {needsContact && (
-          <p className="text-sm text-[var(--color-error-exam)] sm:col-span-2">
-            Mindestens eines von beiden ausfüllen — E-Mail oder Telefon.
-          </p>
-        )}
       </div>
 
       <div className="flex flex-col gap-2">

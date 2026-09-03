@@ -5,7 +5,7 @@ import { EdvanceCard } from '@/components/edvance'
 import { useAuthContext } from '@/context/AuthContext'
 import { createLead, setLeadConsent, updateLead } from '@/lib/supabase/leads'
 import { leadAssessmentUpsert, leadLsaFreigeben } from '@/lib/supabase/leadLsa'
-import type { Lead } from '@/types'
+import type { Lead, LeadStatus } from '@/types'
 import { SectionLead } from './SectionLead'
 import { SectionErstgespraech } from './SectionErstgespraech'
 import { CONSENT_DOCUMENT_VERSION } from './consentDocument'
@@ -36,6 +36,9 @@ export function LeadIntakeForm({
   )
   const [step, setStep] = useState(0)
   const [leadId, setLeadId] = useState<string | null>(existingLead?.id ?? null)
+  const [leadStatus, setLeadStatus] = useState<LeadStatus | null>(
+    existingLead?.status ?? null,
+  )
   const [consent, setConsent] = useState<ConsentState>({
     at: existingLead?.consent_dsgvo_at ?? null,
     by: existingLead?.consent_dsgvo_by ?? null,
@@ -53,7 +56,13 @@ export function LeadIntakeForm({
   // am Ende von Schritt 2.
   const subject = form.subjects.length === 1 ? form.subjects[0] : selectedSubject
 
-  const persistLead = async (): Promise<string | null> => {
+  // markContacted: nur beim Speichern des Erstgespraechs. Der Statuswechsel
+  // faehrt im selben Update mit — ein Schreibvorgang, eine Stelle. Semantik
+  // wie changeStatus() in LeadsPage: Status plus Zeitstempel. Steht der Lead
+  // schon weiter als 'new', bleibt beides unberuehrt.
+  const persistLead = async (
+    opts?: { markContacted?: boolean },
+  ): Promise<string | null> => {
     if (form.full_name.trim() === '') {
       setError('Vollständiger Name ist erforderlich.')
       return null
@@ -62,12 +71,21 @@ export function LeadIntakeForm({
     setError(null)
     const payload = intakeToLeadInput(form)
     if (leadId) {
-      const { error: err } = await updateLead(leadId, payload)
+      const patchWithStatus =
+        opts?.markContacted === true && leadStatus === 'new'
+          ? {
+              ...payload,
+              status: 'contacted' as const,
+              contacted_at: new Date().toISOString(),
+            }
+          : payload
+      const { data, error: err } = await updateLead(leadId, patchWithStatus)
       setBusy(false)
       if (err) {
         setError(err)
         return null
       }
+      if (data) setLeadStatus(data.status)
       onRefresh()
       return leadId
     }
@@ -78,6 +96,7 @@ export function LeadIntakeForm({
       return null
     }
     setLeadId(data.id)
+    setLeadStatus(data.status)
     onRefresh()
     return data.id
   }
@@ -90,6 +109,14 @@ export function LeadIntakeForm({
     if (!id) return
     if (andThen === 'continue') setStep(1)
     else onClose()
+  }
+
+  // Schritt 2 sichern, ohne die LSA freizugeben — das Erstgespraech ist damit
+  // erfasst, die DSGVO-Unterschrift kann spaeter folgen.
+  const saveStep2 = async (): Promise<void> => {
+    const id = await persistLead({ markContacted: true })
+    if (!id) return
+    onClose()
   }
 
   const sign = async (signature: string): Promise<void> => {
@@ -239,9 +266,21 @@ export function LeadIntakeForm({
           </>
         )}
         {step === 1 && (
-          <Button onClick={freigeben} disabled={busy || freigebenLoading || !canFreigeben}>
-            {freigebenLoading ? 'Gibt frei …' : 'Für die LSA freigeben'}
-          </Button>
+          <>
+            <Button
+              variant="outline"
+              onClick={() => void saveStep2()}
+              disabled={busy || freigebenLoading || !canLeaveStep1}
+            >
+              {busy ? 'Speichert …' : 'Speichern'}
+            </Button>
+            <Button
+              onClick={freigeben}
+              disabled={busy || freigebenLoading || !canFreigeben}
+            >
+              {freigebenLoading ? 'Gibt frei …' : 'Für die LSA freigeben'}
+            </Button>
+          </>
         )}
       </div>
     </EdvanceCard>
