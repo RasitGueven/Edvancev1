@@ -53,7 +53,7 @@ export function SlotPickerPage(): JSX.Element {
 
   const reloadSlots = (): void => {
     setSlotsLoading(true)
-    void listSlotsWithLoad({ onlyActive: true }).then(({ data, error }) => {
+    void listSlotsWithLoad({ onlyLaufend: true }).then(({ data, error }) => {
       if (error) setSlotsError(error)
       setSlots(data ?? [])
       setSlotsLoading(false)

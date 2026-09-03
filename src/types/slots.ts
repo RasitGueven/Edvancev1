@@ -15,7 +15,14 @@ export type Slot = {
   start_time: string
   room: string
   capacity: number
-  active: boolean
+  /** Postgres `date` — ab wann der Slot im Kalender gilt ('YYYY-MM-DD'). */
+  valid_from: string
+  /** Bis wann der Slot gilt; null = laeuft weiter. Die Laufzeit ist die einzige
+   *  Wahrheit ueber "aktiv" — slots.active gibt es nicht mehr. */
+  valid_until: string | null
+  /** Optionale Eingrenzung der Klassenstufe (5..13), null = keine Grenze. */
+  class_level_min: number | null
+  class_level_max: number | null
 }
 
 export type SlotInput = {

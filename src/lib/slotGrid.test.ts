@@ -9,7 +9,10 @@ function slot(partial: Partial<SlotWithLoad> & { id: string }): SlotWithLoad {
     start_time: '15:00:00',
     room: 'A',
     capacity: 5,
-    active: true,
+    valid_from: '2026-07-19',
+    valid_until: null,
+    class_level_min: null,
+    class_level_max: null,
     belegt: 0,
     ...partial,
   }

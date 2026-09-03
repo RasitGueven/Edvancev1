@@ -3371,23 +3371,28 @@ begin
     raise exception 'slot_assign: Lead nicht gefunden' using errcode = 'P0002';
   end if;
 
-  -- DER LOCK (Header „Kapazitaets-Garantie"): sperrt die Slot-Zeile fuer die
-  -- Dauer der Transaktion. Erst DANACH wird gezaehlt — eine zweite gleichzeitige
-  -- Zuweisung in denselben Slot wartet hier und sieht den Stand nach uns.
+  -- Der Lock: sperrt die Slot-Zeile fuer die Dauer der Transaktion. Erst
+  -- danach wird gezaehlt, eine zweite gleichzeitige Zuweisung wartet hier.
   select * into v_slot from slots where id = p_slot_id for update;
   if not found then
     raise exception 'slot_assign: Slot nicht gefunden' using errcode = 'P0002';
   end if;
-  if not v_slot.active then
-    raise exception 'slot_assign: Slot ist deaktiviert' using errcode = 'P0001';
+
+  if v_slot.valid_until is not null then
+    raise exception 'slot_assign: Slot ist beendet' using errcode = 'P0001';
   end if;
 
-  -- Bestehende aktive Zuweisung des Leads loesen — ein Kind sitzt in genau
-  -- einer Gruppe. Das laeuft VOR dem Zaehlen, damit ein Wechsel innerhalb
-  -- desselben Slots (Re-Assign) sich nicht selbst als Ueberbuchung sieht.
+  if v_slot.valid_from > current_date then
+    raise exception 'slot_assign: Slot beginnt erst am %', v_slot.valid_from
+      using errcode = 'P0001';
+  end if;
+
+  -- Nur eine bestehende Zuordnung im selben Slot loesen. Zuordnungen zu
+  -- anderen Slots bleiben: ein Lead darf mehrere Sessions pro Woche haben.
   update slot_assignments
      set released_at = now()
    where lead_id = p_lead_id
+     and slot_id = p_slot_id
      and released_at is null;
 
   select count(*)::int into v_belegt
@@ -3404,8 +3409,6 @@ begin
   values (p_slot_id, p_lead_id, auth.uid())
   returning id into v_id;
 
-  -- belegt inkl. der gerade angelegten Zeile — das Frontend zeigt den Stand
-  -- unmittelbar an, ohne nachzuladen.
   return jsonb_build_object(
     'ok',            true,
     'assignment_id', v_id,
@@ -3831,6 +3834,7 @@ CREATE TABLE public.coaching_sessions (
     room text,
     scheduled_at timestamp with time zone NOT NULL,
     status text DEFAULT 'upcoming'::text NOT NULL,
+    slot_id uuid,
     CONSTRAINT coaching_sessions_status_check CHECK ((status = ANY (ARRAY['upcoming'::text, 'active'::text, 'done'::text])))
 );
 
@@ -4407,8 +4411,15 @@ CREATE TABLE public.slots (
     start_time time without time zone NOT NULL,
     room text NOT NULL,
     capacity integer DEFAULT 5 NOT NULL,
-    active boolean DEFAULT true NOT NULL,
+    valid_from date DEFAULT CURRENT_DATE NOT NULL,
+    valid_until date,
+    class_level_min smallint,
+    class_level_max smallint,
     CONSTRAINT slots_capacity_check CHECK (((capacity >= 1) AND (capacity <= 5))),
+    CONSTRAINT slots_class_level_max_check CHECK (((class_level_max IS NULL) OR ((class_level_max >= 5) AND (class_level_max <= 13)))),
+    CONSTRAINT slots_class_level_min_check CHECK (((class_level_min IS NULL) OR ((class_level_min >= 5) AND (class_level_min <= 13)))),
+    CONSTRAINT slots_klassenstufe_check CHECK (((class_level_max IS NULL) OR (class_level_min IS NULL) OR (class_level_max >= class_level_min))),
+    CONSTRAINT slots_laufzeit_check CHECK (((valid_until IS NULL) OR (valid_until >= valid_from))),
     CONSTRAINT slots_room_check CHECK ((length(btrim(room)) > 0)),
     CONSTRAINT slots_weekday_check CHECK (((weekday >= 0) AND (weekday <= 6)))
 );
@@ -5318,6 +5329,20 @@ CREATE INDEX coaching_sessions_scheduled_idx ON public.coaching_sessions USING b
 
 
 --
+-- Name: coaching_sessions_slot_datum_unique; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX coaching_sessions_slot_datum_unique ON public.coaching_sessions USING btree (slot_id, (((scheduled_at AT TIME ZONE 'Europe/Berlin'::text))::date)) WHERE (slot_id IS NOT NULL);
+
+
+--
+-- Name: coaching_sessions_slot_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coaching_sessions_slot_idx ON public.coaching_sessions USING btree (slot_id) WHERE (slot_id IS NOT NULL);
+
+
+--
 -- Name: intake_sessions_student_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5577,10 +5602,10 @@ CREATE INDEX skill_kante_voraussetzt_idx ON public.skill_kante USING btree (vora
 
 
 --
--- Name: slot_assignments_active_lead_unique; Type: INDEX; Schema: public; Owner: -
+-- Name: slot_assignments_active_lead_slot_unique; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX slot_assignments_active_lead_unique ON public.slot_assignments USING btree (lead_id) WHERE (released_at IS NULL);
+CREATE UNIQUE INDEX slot_assignments_active_lead_slot_unique ON public.slot_assignments USING btree (lead_id, slot_id) WHERE (released_at IS NULL);
 
 
 --
@@ -5612,10 +5637,10 @@ CREATE INDEX slot_wishes_slot_idx ON public.slot_wishes USING btree (slot_id);
 
 
 --
--- Name: slots_active_coord_unique; Type: INDEX; Schema: public; Owner: -
+-- Name: slots_laufend_coord_unique; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX slots_active_coord_unique ON public.slots USING btree (weekday, start_time, room) WHERE active;
+CREATE UNIQUE INDEX slots_laufend_coord_unique ON public.slots USING btree (weekday, start_time, room) WHERE (valid_until IS NULL);
 
 
 --
@@ -5865,6 +5890,14 @@ ALTER TABLE ONLY public.behavior_snapshots
 
 ALTER TABLE ONLY public.coaching_sessions
     ADD CONSTRAINT coaching_sessions_coach_id_fkey FOREIGN KEY (coach_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
+
+
+--
+-- Name: coaching_sessions coaching_sessions_slot_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coaching_sessions
+    ADD CONSTRAINT coaching_sessions_slot_id_fkey FOREIGN KEY (slot_id) REFERENCES public.slots(id) ON DELETE SET NULL;
 
 
 --
