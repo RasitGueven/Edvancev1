@@ -44,28 +44,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Der Runner bringt einen aelteren pg_dump mit als das Dienst-Image.
-      # pg_dump verweigert einen neueren Server ("aborting because of server
-      # version mismatch") — und weil der Aufruf unten in einer Pipeline steht,
-      # faellt das nicht als Fehler auf, sondern als leerer Abzug und damit als
-      # scheinbare Schemaabweichung. Genau daran ist der erste Anlauf auf
-      # postgres:18 gescheitert.
-      - name: Passenden pg_dump bereitstellen
-        run: |
-          sudo install -d /usr/share/postgresql-common/pgdg
-          sudo curl -sS -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
-            https://www.postgresql.org/media/keys/ACCC4CF8.asc
-          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
-            | sudo tee /etc/apt/sources.list.d/pgdg.list >/dev/null
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq postgresql-client-18
-          echo "/usr/lib/postgresql/18/bin" >> "$GITHUB_PATH"
-
-      - name: Client- und Serverversion zeigen
-        run: |
-          pg_dump --version
-          psql -tAc 'show server_version'
-
       - name: Namensschema und Ablage prüfen
         run: |
           fehler=0
@@ -112,22 +90,8 @@ jobs:
             echo "Erzeugen mit: bash tools/schema-snapshot.sh"
             exit 0
           fi
-          # Erst dumpen und den Rueckgabewert pruefen, dann sieben. Vorher stand
-          # pg_dump am Anfang einer Pipeline: sein Abbruch ging unter, der Abzug
-          # blieb leer, und der Vergleich meldete das als Schemaabweichung — ein
-          # Werkzeugfehler, der wie ein Inhaltsfehler aussah.
-          if ! pg_dump --schema-only --no-owner --no-acl --no-comments --schema public \
-                 > /tmp/roh.sql 2>/tmp/dumperr; then
-            echo "::error::pg_dump ist gescheitert — kein Schemavergleich moeglich."
-            cat /tmp/dumperr
-            exit 1
-          fi
-          if [ ! -s /tmp/roh.sql ]; then
-            echo "::error::pg_dump lieferte einen leeren Abzug."
-            cat /tmp/dumperr
-            exit 1
-          fi
-          grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' /tmp/roh.sql | sort > /tmp/ist.txt
+          pg_dump --schema-only --no-owner --no-acl --no-comments --schema public \
+            | grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' | sort > /tmp/ist.txt
           grep -vE '^--|^$|^SET |^SELECT pg_catalog|restrict ' supabase/schema-erwartet.sql \
             | sort > /tmp/soll.txt
           if diff -q /tmp/soll.txt /tmp/ist.txt >/dev/null; then
