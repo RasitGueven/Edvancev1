@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react'
-import { MonitorSmartphone, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
+import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
+import { Modal } from '@/components/edvance/Modal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  AdminHeader,
-  EdvanceCard,
-  EdvanceBadge,
-  EmptyState,
-  LoadingPulse,
-} from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { LsaTodayCard } from '@/components/edvance/report/LsaTodayCard'
 import { listLeads, updateLead } from '@/lib/supabase/leads'
@@ -18,42 +13,14 @@ import { provisionStudent } from '@/lib/supabase/provision'
 import type { Lead, LeadStatus } from '@/types'
 import { LeadIntakeForm } from './intake/LeadIntakeForm'
 import { PlatzPanel } from './intake/PlatzPanel'
-
-const STATUS_LABEL: Record<LeadStatus, string> = {
-  new: 'Neu',
-  contacted: 'Kontaktiert',
-  onboarding_scheduled: 'Onboarding geplant',
-  converted: 'Konvertiert',
-  rejected: 'Abgelehnt',
-  lsa_freigegeben: 'LSA freigegeben',
-  lsa_fertig: 'LSA fertig',
-}
-
-const STATUS_VARIANT: Record<LeadStatus, 'primary' | 'warning' | 'success' | 'muted'> = {
-  new: 'primary',
-  contacted: 'warning',
-  onboarding_scheduled: 'warning',
-  converted: 'success',
-  rejected: 'muted',
-  lsa_freigegeben: 'primary',
-  lsa_fertig: 'success',
-}
-
-function nextActions(status: LeadStatus): { label: string; next: LeadStatus }[] {
-  if (status === 'new')
-    return [
-      { label: 'Kontaktiert', next: 'contacted' },
-      { label: 'Ablehnen', next: 'rejected' },
-    ]
-  if (status === 'contacted')
-    return [
-      { label: 'Onboarding geplant', next: 'onboarding_scheduled' },
-      { label: 'Ablehnen', next: 'rejected' },
-    ]
-  if (status === 'onboarding_scheduled')
-    return [{ label: 'Ablehnen', next: 'rejected' }]
-  return []
-}
+import { LeadBoard } from './leads/LeadBoard'
+import { LeadFilterBar } from './leads/LeadFilterBar'
+import {
+  BOARD_COLUMNS,
+  DONE_COLUMN,
+  EMPTY_FILTERS,
+  type LeadFilters,
+} from './leads/boardModel'
 
 export function LeadsPage(): JSX.Element {
   const [leads, setLeads] = useState<Lead[]>([])
@@ -62,10 +29,13 @@ export function LeadsPage(): JSX.Element {
   const [error, setError] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
   const [editingLead, setEditingLead] = useState<Lead | null>(null)
-  const [convertingId, setConvertingId] = useState<string | null>(null)
-  const [pwLeadId, setPwLeadId] = useState<string | null>(null)
-  const [pw, setPw] = useState('')
+  const [editingStep, setEditingStep] = useState<0 | 1>(0)
   const [platzLead, setPlatzLead] = useState<Lead | null>(null)
+  const [convertLead, setConvertLead] = useState<Lead | null>(null)
+  const [pw, setPw] = useState('')
+  const [converting, setConverting] = useState(false)
+  const [filters, setFilters] = useState<LeadFilters>(EMPTY_FILTERS)
+  const [showDone, setShowDone] = useState(false)
 
   const load = (): void => {
     setLoading(true)
@@ -81,12 +51,12 @@ export function LeadsPage(): JSX.Element {
 
   useEffect(load, [])
 
+  // Einziger verbliebener manueller Statuswechsel: "Ablehnen" im
+  // Overflow-Menue der Karte. 'contacted' setzt seit dem Wizard-Umbau der
+  // Speicherpfad von Schritt 2, 'lsa_freigegeben' die RPC, 'lsa_fertig' ein
+  // Trigger.
   const changeStatus = async (lead: Lead, next: LeadStatus): Promise<void> => {
-    const patch: Parameters<typeof updateLead>[1] = { status: next }
-    if (next === 'contacted') patch.contacted_at = new Date().toISOString()
-    if (next === 'onboarding_scheduled')
-      patch.onboarding_scheduled_at = new Date().toISOString()
-    const { error: err } = await updateLead(lead.id, patch)
+    const { error: err } = await updateLead(lead.id, { status: next })
     if (err) {
       setError(err)
       return
@@ -95,7 +65,7 @@ export function LeadsPage(): JSX.Element {
   }
 
   const convert = async (lead: Lead, password: string): Promise<void> => {
-    setConvertingId(lead.id)
+    setConverting(true)
     setError(null)
     const { error: err } = await provisionStudent({
       lead_id: lead.id,
@@ -107,20 +77,35 @@ export function LeadsPage(): JSX.Element {
       subjects: lead.subjects,
       student_password: password,
     })
-    setConvertingId(null)
+    setConverting(false)
     if (err) {
       setError(err)
       return
     }
-    setPwLeadId(null)
+    setConvertLead(null)
     setPw('')
     load()
   }
 
+  const openLead = (lead: Lead, step: 0 | 1): void => {
+    setShowForm(false)
+    setEditingStep(step)
+    setEditingLead(lead)
+  }
+
+  const closeForm = (): void => {
+    setEditingLead(null)
+    setShowForm(false)
+    setEditingStep(0)
+    load()
+  }
+
+  const columns = showDone ? [...BOARD_COLUMNS, DONE_COLUMN] : BOARD_COLUMNS
+
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle="Leads" sticky />
-      <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
+      <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8">
         <AdminHeader
           eyebrow="Vertrieb"
           title="Leads"
@@ -130,6 +115,7 @@ export function LeadsPage(): JSX.Element {
               type="button"
               onClick={() => {
                 setEditingLead(null)
+                setEditingStep(0)
                 setShowForm((v) => !v)
               }}
               className="admin-cta-gold inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--radius-full)] px-4 text-sm font-semibold"
@@ -147,22 +133,12 @@ export function LeadsPage(): JSX.Element {
           <LeadIntakeForm
             key={editingLead.id}
             existingLead={editingLead}
+            initialStep={editingStep}
             onRefresh={load}
-            onClose={() => {
-              setEditingLead(null)
-              load()
-            }}
+            onClose={closeForm}
           />
         ) : (
-          showForm && (
-            <LeadIntakeForm
-              onRefresh={load}
-              onClose={() => {
-                setShowForm(false)
-                load()
-              }}
-            />
-          )
+          showForm && <LeadIntakeForm onRefresh={load} onClose={closeForm} />
         )}
 
         {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
@@ -176,124 +152,65 @@ export function LeadsPage(): JSX.Element {
             description="Lege den ersten Lead über den Button oben an."
           />
         ) : (
-          <div className="flex flex-col gap-4">
-            {leads.map((lead) => (
-              <EdvanceCard key={lead.id} className="flex flex-col gap-3 p-6">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowForm(false)
-                      setEditingLead(lead)
-                    }}
-                    className="text-left text-base font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)]"
-                  >
-                    {lead.first_name ? `${lead.first_name} · ` : ''}
-                    {lead.full_name}
-                  </button>
-                  <div className="flex items-center gap-2">
-                    {platzByLead[lead.id] && (
-                      <EdvanceBadge variant="success">
-                        <MonitorSmartphone className="mr-1 inline h-3.5 w-3.5" />
-                        {platzByLead[lead.id].label}
-                      </EdvanceBadge>
-                    )}
-                    <EdvanceBadge variant={STATUS_VARIANT[lead.status]}>
-                      {STATUS_LABEL[lead.status]}
-                    </EdvanceBadge>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-[var(--color-text-secondary)]">
-                  {lead.contact_email && <span>{lead.contact_email}</span>}
-                  {lead.contact_phone && <span>{lead.contact_phone}</span>}
-                  {lead.class_level && <span>Kl. {lead.class_level}</span>}
-                  {lead.school_type && <span>{lead.school_type}</span>}
-                  {lead.school_name && <span>{lead.school_name}</span>}
-                  {lead.subjects.length > 0 && <span>{lead.subjects.join(', ')}</span>}
-                </div>
-                {/* Platzvergabe — seit dem Wizard-Umbau (zwei Schritte) haengt
-                    sie hier statt in Schritt 3. Nur sinnvoll, sobald die LSA
-                    freigegeben ist. */}
-                {(lead.status === 'lsa_freigegeben' || lead.status === 'lsa_fertig') && (
-                  <div className="flex flex-wrap gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setPlatzLead(lead)}
-                    >
-                      <MonitorSmartphone className="mr-1.5 h-4 w-4" />
-                      Platz zuweisen
-                    </Button>
-                  </div>
-                )}
-                {nextActions(lead.status).length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {nextActions(lead.status).map((action) => (
-                      <Button
-                        key={action.next}
-                        variant={action.next === 'rejected' ? 'outline' : 'default'}
-                        size="sm"
-                        onClick={() => changeStatus(lead, action.next)}
-                      >
-                        {action.label}
-                      </Button>
-                    ))}
-                    {lead.status !== 'converted' &&
-                      lead.status !== 'rejected' &&
-                      pwLeadId !== lead.id && (
-                        <Button
-                          size="sm"
-                          onClick={() => {
-                            setPwLeadId(lead.id)
-                            setPw('')
-                            setError(null)
-                          }}
-                        >
-                          In Schüler konvertieren
-                        </Button>
-                      )}
-                  </div>
-                )}
-                {pwLeadId === lead.id && (
-                  <div className="flex flex-col gap-2">
-                    <Label htmlFor={`pw-${lead.id}`}>
-                      Schüler-Passwort (min. 6 Zeichen) – dem Schüler persönlich mitteilen
-                    </Label>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Input
-                        id={`pw-${lead.id}`}
-                        type="text"
-                        autoComplete="off"
-                        className="max-w-xs"
-                        value={pw}
-                        onChange={(e) => setPw(e.target.value)}
-                      />
-                      <Button
-                        size="sm"
-                        disabled={convertingId === lead.id || pw.length < 6}
-                        onClick={() => convert(lead, pw)}
-                      >
-                        {convertingId === lead.id ? 'Konvertiert …' : 'Bestätigen'}
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        disabled={convertingId === lead.id}
-                        onClick={() => {
-                          setPwLeadId(null)
-                          setPw('')
-                        }}
-                      >
-                        Abbrechen
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </EdvanceCard>
-            ))}
-          </div>
+          <>
+            <LeadFilterBar
+              filters={filters}
+              onChange={(next) => setFilters((f) => ({ ...f, ...next }))}
+              showDone={showDone}
+              onToggleDone={setShowDone}
+            />
+            <LeadBoard
+              columns={columns}
+              leads={leads}
+              filters={filters}
+              platzByLead={platzByLead}
+              onOpen={(lead) => openLead(lead, 0)}
+              onOpenErstgespraech={(lead) => openLead(lead, 1)}
+              onAssignPlatz={setPlatzLead}
+              onConvert={(lead) => {
+                setPw('')
+                setError(null)
+                setConvertLead(lead)
+              }}
+              onReject={(lead) => void changeStatus(lead, 'rejected')}
+            />
+          </>
         )}
       </main>
+
+      <Modal
+        open={convertLead !== null}
+        onClose={() => setConvertLead(null)}
+        title="In Schüler konvertieren"
+        description="Das Passwort dem Schüler persönlich mitteilen — es wird nirgends erneut angezeigt."
+        size="md"
+      >
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="convert-pw">Schüler-Passwort (min. 6 Zeichen)</Label>
+          <Input
+            id="convert-pw"
+            type="text"
+            autoComplete="off"
+            value={pw}
+            onChange={(e) => setPw(e.target.value)}
+          />
+          <div className="mt-2 flex flex-wrap gap-2">
+            <Button
+              disabled={converting || pw.length < 6}
+              onClick={() => convertLead && void convert(convertLead, pw)}
+            >
+              {converting ? 'Konvertiert …' : 'Bestätigen'}
+            </Button>
+            <Button
+              variant="outline"
+              disabled={converting}
+              onClick={() => setConvertLead(null)}
+            >
+              Abbrechen
+            </Button>
+          </div>
+        </div>
+      </Modal>
 
       {platzLead && (
         <PlatzPanel

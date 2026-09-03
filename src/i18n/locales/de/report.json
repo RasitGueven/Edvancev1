@@ -1,7 +1,7 @@
 {
   "today": {
-    "title": "Analysen heute",
-    "description": "Sitzungen dieses Tages. Ist eine Analyse fertig, lässt sich der Report öffnen.",
+    "title": "Heute abgeschlossen",
+    "description": "Analysen, die heute fertig geworden sind. Der Report lässt sich direkt öffnen.",
     "refresh": "Aktualisieren",
     "state": {
       "in_progress": "läuft",
@@ -11,8 +11,8 @@
     "progress": "{{answered}} von {{planned}} Aufgaben",
     "openReport": "Report öffnen",
     "empty": {
-      "title": "Heute noch keine Analyse",
-      "description": "Sobald eine Lernstandsanalyse freigegeben wurde, erscheint sie hier."
+      "title": "Heute noch nichts abgeschlossen",
+      "description": "Sobald eine Lernstandsanalyse fertig ist, erscheint sie hier."
     },
     "meta": "Klasse {{grade}} · {{subject}}"
   },
