@@ -14,10 +14,6 @@ type SectionLeadProps = {
 // Schritt 1 — Stammdaten in einem Rutsch. first_name gross und prominent, weil
 // der Rufname auf dem Tablet erscheint.
 export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
-  // Genau eine Kontaktangabe genuegt — welche, entscheidet das Gespraech.
-  const needsContact =
-    form.contact_email.trim() === '' && form.contact_phone.trim() === ''
-
   const toggleSubject = (subject: string): void => {
     const list = form.subjects
     patch({
@@ -113,7 +109,7 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
           </p>
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="lead-email">E-Mail (Eltern) *</Label>
+          <Label htmlFor="lead-email">E-Mail (Eltern)</Label>
           <Input
             id="lead-email"
             type="email"
@@ -122,18 +118,16 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="lead-phone">Telefon (Eltern) *</Label>
+          <Label htmlFor="lead-phone">Telefon (Eltern)</Label>
           <Input
             id="lead-phone"
             value={form.contact_phone}
             onChange={(e) => patch({ contact_phone: e.target.value })}
           />
         </div>
-        {needsContact && (
-          <p className="text-sm text-[var(--color-error-exam)] sm:col-span-2">
-            Mindestens eines von beiden ausfüllen — E-Mail oder Telefon.
-          </p>
-        )}
+        <p className="text-xs text-[var(--color-text-tertiary)] sm:col-span-2">
+          Mindestens eine der beiden Angaben ist erforderlich.
+        </p>
       </div>
 
       <div className="flex flex-col gap-2">
