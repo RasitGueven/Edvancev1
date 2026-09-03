@@ -82,9 +82,14 @@ export function LeadIntakeForm({
     return data.id
   }
 
-  const nextFromStep1 = async (): Promise<void> => {
+  // Ein Speicherpfad, zwei Ausgaenge: entweder weiter zu Schritt 2 oder das
+  // Panel schliessen — der Lead steht dann in der Liste und ist von dort
+  // wieder aufklappbar. Leads entstehen meist vor dem Erstgespraech.
+  const submitStep1 = async (andThen: 'continue' | 'close'): Promise<void> => {
     const id = await persistLead()
-    if (id) setStep(1)
+    if (!id) return
+    if (andThen === 'continue') setStep(1)
+    else onClose()
   }
 
   const sign = async (signature: string): Promise<void> => {
@@ -214,15 +219,24 @@ export function LeadIntakeForm({
         />
       )}
 
-      {/* Navigation */}
-      <div className="flex items-center justify-between gap-2">
-        <Button variant="outline" onClick={onClose}>
-          Schließen
-        </Button>
+      {/* Navigation — Abbrechen laeuft ueber das × oben rechts. */}
+      <div className="flex flex-wrap items-center justify-end gap-2">
         {step === 0 && (
-          <Button onClick={nextFromStep1} disabled={busy || !canLeaveStep1}>
-            {busy ? 'Speichert …' : leadId ? 'Speichern & weiter' : 'Lead anlegen & weiter'}
-          </Button>
+          <>
+            <Button
+              variant="outline"
+              onClick={() => void submitStep1('continue')}
+              disabled={busy || !canLeaveStep1}
+            >
+              Weiter zum Erstgespräch
+            </Button>
+            <Button
+              onClick={() => void submitStep1('close')}
+              disabled={busy || !canLeaveStep1}
+            >
+              {busy ? 'Speichert …' : 'Speichern'}
+            </Button>
+          </>
         )}
         {step === 1 && (
           <Button onClick={freigeben} disabled={busy || freigebenLoading || !canFreigeben}>
