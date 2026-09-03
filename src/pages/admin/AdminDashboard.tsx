@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   CalendarClock,
-  CalendarHeart,
-  HeartPulse,
+  ClipboardCheck,
+  FileText,
+  FolderOpen,
   Inbox,
-  LayoutGrid,
   PenLine,
+  ScrollText,
   UserPlus,
-  Users,
 } from 'lucide-react'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import {
   AdminKpiBar,
   AdminTile,
-  AdminTileGrid,
+  AdminTileRow,
 } from '@/components/edvance/AdminWidgetGrid'
 import { getAdminStats, type AdminStats } from '@/lib/supabase/adminStats'
 
 const ICON_CLASS = 'h-6 w-6'
 
 export function AdminDashboard(): JSX.Element {
+  const { t } = useTranslation('admin')
   const [stats, setStats] = useState<AdminStats | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -46,82 +48,79 @@ export function AdminDashboard(): JSX.Element {
         <main className="relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6">
           <header className="flex flex-col gap-2 animate-fade-in">
             <p className="text-eyebrow text-[color-mix(in_srgb,var(--color-stage-gold-edge)_85%,white)]">
-              Edvance · Verwaltung
+              {t('dashboard.eyebrow')}
             </p>
             <h1 className="font-serif text-4xl font-semibold leading-tight text-warm">
-              Übersicht
+              {t('dashboard.title')}
             </h1>
-            <p className="max-w-xl text-sm leading-relaxed text-warm-72">
-              Steuere Inhalte, Leads, Stundenplan und Coaches an einem Ort.
-            </p>
           </header>
 
           <AdminKpiBar stats={stats} loading={loading} />
 
-          <AdminTileGrid>
-            <AdminTile
-              to="/admin/authoring"
-              icon={<PenLine className={ICON_CLASS} />}
-              title="Autoren-Tool"
-              description="Aufgaben erstellen, prüfen, Stoffanker setzen und für die LSA freigeben — das zentrale Inhalts-Werkzeug."
-              size="lg"
-              cta="Inhalte pflegen"
-            />
-            <AdminTile
-              to="/admin/content-gesundheit"
-              icon={<HeartPulse className={ICON_CLASS} />}
-              title="Content-Gesundheit"
-              description="Mängel im Item-Bestand auf einen Blick — tote Bildpfade, fehlende Stoffanker, Alt-Texte."
-              size="wide"
-            />
-            <AdminTile
-              to="/admin/leads"
-              icon={<Inbox className={ICON_CLASS} />}
-              title="Leads"
-              size="wide"
-              stat={{
-                value: stats?.leadsOpen ?? 0,
-                caption: 'offene Leads in Bearbeitung',
-              }}
-              flag={leadsNew > 0 ? `${leadsNew} neu` : null}
-              loading={loading}
-            />
-            <AdminTile
-              to="/admin/schedule"
-              icon={<CalendarClock className={ICON_CLASS} />}
-              title="Stundenplan"
-              description="Sessions anlegen und Schüler einem Coach-Termin zuweisen."
-              size="wide"
-            />
-            <AdminTile
-              to="/admin/slot-auswahl"
-              icon={<CalendarHeart className={ICON_CLASS} />}
-              title="Slot-Auswahl"
-              description="Wochenkalender fürs Elterngespräch: Favoriten festhalten und fest zuweisen."
-              size="sm"
-            />
-            <AdminTile
-              to="/admin/slots"
-              icon={<LayoutGrid className={ICON_CLASS} />}
-              title="Slots verwalten"
-              description="Wochen-Zeitraster der Kleingruppen — Wochentag, Uhrzeit, Raum und Kapazität."
-              size="sm"
-            />
-            <AdminTile
-              to="/admin/coaches"
-              icon={<UserPlus className={ICON_CLASS} />}
-              title="Coaches"
-              description="Coach-Accounts anlegen und Zugangsdaten vergeben."
-              size="sm"
-            />
-            <AdminTile
-              to="/admin/assignments"
-              icon={<Users className={ICON_CLASS} />}
-              title="Coach-Zuordnung"
-              description="Schüler ihrem Coach zuweisen oder umhängen."
-              size="sm"
-            />
-          </AdminTileGrid>
+          <div className="flex flex-col gap-4">
+            {/* Reihe 1 — zwei Karten über die volle Breite, höher als die übrigen. */}
+            <AdminTileRow columns={2}>
+              <AdminTile
+                tall
+                to="/admin/leads"
+                icon={<Inbox className={ICON_CLASS} />}
+                title={t('dashboard.tiles.leads.title')}
+                description={t('dashboard.tiles.leads.description')}
+                badge={
+                  leadsNew > 0 ? t('dashboard.badges.leadsNew', { count: leadsNew }) : null
+                }
+              />
+              {/* Stundenplan und Slots sind eine Kachel: Sessions und Wochenraster
+                  gehoeren fuer die Verwaltung zusammen. Ziel bleibt der
+                  Stundenplan; /admin/slots existiert weiter, nur ohne Kachel. */}
+              <AdminTile
+                tall
+                to="/admin/schedule"
+                icon={<CalendarClock className={ICON_CLASS} />}
+                title={t('dashboard.tiles.slots.title')}
+                description={t('dashboard.tiles.slots.description')}
+              />
+            </AdminTileRow>
+
+            {/* Reihe 2 und 3 — sechs Karten in einem Raster, damit beide Reihen
+                exakt dieselbe Hoehe bekommen. Schuelerakte, Eltern-Reports,
+                LSA-Ergebnisse und Vertraege haben noch keine Route und bleiben
+                inaktiv. */}
+            <AdminTileRow columns={3}>
+              <AdminTile
+                icon={<FolderOpen className={ICON_CLASS} />}
+                title={t('dashboard.tiles.studentRecord.title')}
+                description={t('dashboard.tiles.studentRecord.description')}
+              />
+              <AdminTile
+                to="/admin/coaches"
+                icon={<UserPlus className={ICON_CLASS} />}
+                title={t('dashboard.tiles.coaches.title')}
+                description={t('dashboard.tiles.coaches.description')}
+              />
+              <AdminTile
+                icon={<FileText className={ICON_CLASS} />}
+                title={t('dashboard.tiles.parentReports.title')}
+                description={t('dashboard.tiles.parentReports.description')}
+              />
+              <AdminTile
+                icon={<ClipboardCheck className={ICON_CLASS} />}
+                title={t('dashboard.tiles.lsaResults.title')}
+                description={t('dashboard.tiles.lsaResults.description')}
+              />
+              <AdminTile
+                to="/admin/authoring"
+                icon={<PenLine className={ICON_CLASS} />}
+                title={t('dashboard.tiles.content.title')}
+                description={t('dashboard.tiles.content.description')}
+              />
+              <AdminTile
+                icon={<ScrollText className={ICON_CLASS} />}
+                title={t('dashboard.tiles.contracts.title')}
+                description={t('dashboard.tiles.contracts.description')}
+              />
+            </AdminTileRow>
+          </div>
         </main>
       </div>
     </div>

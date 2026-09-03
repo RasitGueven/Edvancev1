@@ -10,11 +10,22 @@ import {
   TRIED_BEFORE,
 } from './intakeConstants'
 import { OptionChips } from './OptionChips'
+import { TopicSelect } from './TopicSelect'
+import { ConsentBlock, type ConsentState } from './ConsentBlock'
 import type { IntakeFormState } from './formState'
 
 type SectionErstgespraechProps = {
   form: IntakeFormState
   patch: (next: Partial<IntakeFormState>) => void
+  /** Fach fuer die Themenauswahl — bei mehreren Faechern die Auswahl unten. */
+  subject: string | null
+  onSelectSubject: (subject: string) => void
+  consent: ConsentState
+  consentSaving: boolean
+  onSign: (signature: string) => void
+  consentByLabel: string | null
+  /** Ohne angelegten Lead haengt die Einwilligung an nichts. */
+  consentDisabled: boolean
 }
 
 const FieldLabel = ({ children }: { children: string }): JSX.Element => (
@@ -28,6 +39,13 @@ const FieldLabel = ({ children }: { children: string }): JSX.Element => (
 export function SectionErstgespraech({
   form,
   patch,
+  subject,
+  onSelectSubject,
+  consent,
+  consentSaving,
+  onSign,
+  consentByLabel,
+  consentDisabled,
 }: SectionErstgespraechProps): JSX.Element {
   const toggleTried = (value: string): void => {
     const list = form.tried_before
@@ -89,26 +107,7 @@ export function SectionErstgespraech({
         <OptionChips options={TRIED_BEFORE} selected={form.tried_before} onToggle={toggleTried} />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="exam-date">Nächste Klassenarbeit</Label>
-          <Input
-            id="exam-date"
-            type="date"
-            value={form.next_exam_date}
-            onChange={(e) => patch({ next_exam_date: e.target.value })}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="exam-topic">Thema der Klassenarbeit</Label>
-          <Input
-            id="exam-topic"
-            value={form.next_exam_topic}
-            onChange={(e) => patch({ next_exam_topic: e.target.value })}
-            placeholder="z. B. Bruchrechnung"
-          />
-        </div>
-      </div>
+      <TopicSelect form={form} patch={patch} subject={subject} />
 
       <div className="flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-4">
         <FieldLabel>Eltern-Einschätzung: Wo vermuten Sie die Schwierigkeiten?</FieldLabel>
@@ -141,6 +140,17 @@ export function SectionErstgespraech({
           placeholder="Freie Notiz zum Gespräch"
         />
       </div>
+
+      <ConsentBlock
+        form={form}
+        consent={consent}
+        saving={consentSaving}
+        onSign={onSign}
+        selectedSubject={subject}
+        onSelectSubject={onSelectSubject}
+        byLabel={consentByLabel}
+        disabled={consentDisabled}
+      />
     </div>
   )
 }

@@ -1,16 +1,9 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { EdvanceCard } from '@/components/edvance'
 import type { AdminStats } from '@/lib/supabase/adminStats'
-
-type TileSize = 'sm' | 'wide' | 'lg'
-
-const SIZE_CLASS: Record<TileSize, string> = {
-  sm: 'col-span-1',
-  wide: 'col-span-2 md:col-span-1 lg:col-span-2',
-  lg: 'col-span-2 md:row-span-2 lg:row-span-2',
-}
 
 type Kpi = { value: number; label: string }
 
@@ -29,6 +22,7 @@ function KpiCell({ kpi, loading }: { kpi: Kpi; loading: boolean }): JSX.Element 
   )
 }
 
+/** Ueberblicks-Band ueber dem Kachelraster — drei Kennzahlen, kein Zeitstempel. */
 export function AdminKpiBar({
   stats,
   loading,
@@ -36,22 +30,19 @@ export function AdminKpiBar({
   stats: AdminStats | null
   loading: boolean
 }): JSX.Element {
+  const { t } = useTranslation('admin')
   const kpis: Kpi[] = [
-    { value: stats?.students ?? 0, label: 'Schüler' },
-    { value: stats?.leadsOpen ?? 0, label: 'Offene Leads' },
-    { value: stats?.coaches ?? 0, label: 'Coaches' },
-    { value: stats?.tiersActive ?? 0, label: 'Aktive Tarife' },
+    { value: stats?.students ?? 0, label: t('dashboard.overview.students') },
+    { value: stats?.leadsOpen ?? 0, label: t('dashboard.overview.leadsOpen') },
+    { value: stats?.coaches ?? 0, label: t('dashboard.overview.coaches') },
   ]
   return (
     <EdvanceCard variant="hero-student" className="animate-fade-in">
       <div className="flex flex-col gap-5">
-        <div className="flex items-center justify-between gap-4">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[color-mix(in_srgb,var(--color-stage-gold-edge)_85%,white)]">
-            Überblick
-          </p>
-          <span className="text-xs text-white/60">Stand: gerade eben</span>
-        </div>
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[color-mix(in_srgb,var(--color-stage-gold-edge)_85%,white)]">
+          {t('dashboard.overview.heading')}
+        </p>
+        <div className="grid grid-cols-3 gap-6">
           {kpis.map((kpi) => (
             <KpiCell key={kpi.label} kpi={kpi} loading={loading} />
           ))}
@@ -62,91 +53,123 @@ export function AdminKpiBar({
 }
 
 export type AdminTileProps = {
-  to: string
   icon: ReactNode
   title: string
-  description?: string
-  size?: TileSize
-  stat?: { value: number; caption: string } | null
-  /** Kleiner Gold-Hinweis (z. B. „3 neu") — als Text, keine Pill. */
-  flag?: string | null
-  cta?: string | null
-  loading?: boolean
+  description: string
+  /** Zielroute. null bedeutet: das Ziel existiert noch nicht — Kachel bleibt inaktiv. */
+  to?: string | null
+  /** Gold-Hinweis oben rechts. Nur setzen, wenn ein Wert groesser null vorliegt. */
+  badge?: string | null
+  /** Reihe 1 ist hoeher als Reihe 2 und 3. */
+  tall?: boolean
+}
+
+/**
+ * Karteninhalt — fuer jede Kachel identisch: Icon oben links, optionaler Badge
+ * oben rechts, Titel darunter, Beschreibung auf zwei Zeilen begrenzt.
+ */
+function AdminTileBody({
+  icon,
+  title,
+  description,
+  badge,
+  badgeClass,
+}: {
+  icon: ReactNode
+  title: string
+  description: string
+  badge: string | null
+  badgeClass: string
+}): JSX.Element {
+  return (
+    <EdvanceCard variant="admin-tile" className="flex h-full flex-col gap-4">
+      <div className="flex items-start justify-between gap-3">
+        <span
+          className="admin-icon-tile flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)]"
+          aria-hidden="true"
+        >
+          {icon}
+        </span>
+        {badge && (
+          <span className={cn('shrink-0 text-xs font-semibold', badgeClass)}>{badge}</span>
+        )}
+      </div>
+      <div className="flex flex-col gap-2">
+        <span className="text-base font-semibold text-[var(--color-stage-text)]">{title}</span>
+        <span className="line-clamp-2 text-xs leading-relaxed text-[color-mix(in_srgb,var(--color-stage-text)_56%,transparent)]">
+          {description}
+        </span>
+      </div>
+    </EdvanceCard>
+  )
 }
 
 export function AdminTile({
-  to,
   icon,
   title,
-  description = '',
-  size = 'sm',
-  stat = null,
-  flag = null,
-  cta = null,
-  loading = false,
+  description,
+  to = null,
+  badge = null,
+  tall = false,
 }: AdminTileProps): JSX.Element {
-  // Die eine prominente Kachel (Autoren-Tool) ist die große: warme Gold-Kante.
-  const prominent = size === 'lg'
+  const { t } = useTranslation('admin')
+  const heightClass = tall ? 'min-h-72' : 'min-h-52'
+  const mutedClass = 'text-[color-mix(in_srgb,var(--color-stage-text)_56%,transparent)]'
 
+  // Ziel ohne Route: sichtbar, aber nicht bedienbar — kein Link, kein Hover.
+  if (!to) {
+    return (
+      <div className={cn(heightClass, 'opacity-60')} aria-disabled="true">
+        <AdminTileBody
+          icon={icon}
+          title={title}
+          description={description}
+          badge={t('dashboard.pending')}
+          badgeClass={mutedClass}
+        />
+      </div>
+    )
+  }
+
+  // Die gesamte Karte ist die Klickflaeche — kein Button darin.
   return (
     <Link
       to={to}
-      className={`${SIZE_CLASS[size]} block min-h-[44px]`}
+      className={cn(
+        'admin-tile-link block rounded-[var(--radius-xl)]',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]',
+        heightClass,
+      )}
     >
-      <EdvanceCard
-        variant="admin-tile"
-        className={cn(
-          'flex h-full flex-col justify-between gap-4',
-          prominent && 'admin-tile-primary',
-        )}
-      >
-        <div className="flex items-start justify-between gap-3">
-          <span
-            className="admin-icon-tile flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)]"
-            aria-hidden="true"
-          >
-            {icon}
-          </span>
-          {flag && (
-            <span className="text-xs font-semibold text-[var(--color-accent)]">{flag}</span>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          {stat &&
-            (loading ? (
-              <span className="h-9 w-16 rounded-[var(--radius-md)] bg-white/15 animate-skeleton" />
-            ) : (
-              <span className="font-serif text-3xl font-semibold leading-none text-[var(--color-stage-gold-edge)]">
-                {stat.value}
-              </span>
-            ))}
-          <span
-            className={cn(
-              'font-semibold text-[var(--color-stage-text)]',
-              prominent ? 'font-serif text-xl' : 'text-base',
-            )}
-          >
-            {title}
-          </span>
-          <span className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--color-stage-text)_56%,transparent)]">
-            {stat ? stat.caption : description}
-          </span>
-          {cta && (
-            <span className="admin-cta-gold mt-3 inline-flex w-fit items-center gap-1.5 rounded-[var(--radius-full)] px-4 py-2 text-sm font-semibold">
-              {cta}
-              <span aria-hidden="true">→</span>
-            </span>
-          )}
-        </div>
-      </EdvanceCard>
+      <AdminTileBody
+        icon={icon}
+        title={title}
+        description={description}
+        badge={badge}
+        badgeClass="text-[var(--color-accent)]"
+      />
     </Link>
   )
 }
 
-export function AdminTileGrid({ children }: { children: ReactNode }): JSX.Element {
+/**
+ * Eine Kachelreihe. Schmale Viewports einspaltig, sonst zwei oder drei Spalten.
+ * auto-rows-fr haelt alle Reihen eines Rasters exakt gleich hoch.
+ */
+export function AdminTileRow({
+  columns,
+  children,
+}: {
+  columns: 2 | 3
+  children: ReactNode
+}): JSX.Element {
   return (
-    <section className="grid grid-flow-dense grid-cols-2 gap-4 md:grid-cols-3 md:auto-rows-[minmax(200px,auto)] lg:grid-cols-4">
+    <section
+      className={cn(
+        'grid auto-rows-fr grid-cols-1 gap-4',
+        columns === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-3',
+      )}
+    >
       {children}
     </section>
   )

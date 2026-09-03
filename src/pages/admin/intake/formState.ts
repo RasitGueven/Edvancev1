@@ -27,8 +27,9 @@ export type IntakeFormState = {
   grade_trend: LeadGradeTrend | null
   struggling_since: LeadStrugglingSince | null
   tried_before: string[]
-  next_exam_date: string
-  next_exam_topic: string
+  // Aktuelles Thema als Cluster-ID (skill_clusters). Loest das Freitextfeld
+  // next_exam_topic ab; next_exam_date wird nicht mehr erfasst.
+  current_topic_cluster_id: string | null
   // Eltern-Einschaetzung (Gespraechskontext, nie Auswertungs-Input)
   parent_weak_topics: string[]
   parent_note: string
@@ -50,8 +51,7 @@ export const EMPTY_INTAKE: IntakeFormState = {
   grade_trend: null,
   struggling_since: null,
   tried_before: [],
-  next_exam_date: '',
-  next_exam_topic: '',
+  current_topic_cluster_id: null,
   parent_weak_topics: [],
   parent_note: '',
   notes: '',
@@ -73,8 +73,7 @@ export function intakeFromLead(lead: Lead): IntakeFormState {
     grade_trend: lead.grade_trend,
     struggling_since: lead.struggling_since,
     tried_before: lead.tried_before ?? [],
-    next_exam_date: lead.next_exam_date ?? '',
-    next_exam_topic: lead.next_exam_topic ?? '',
+    current_topic_cluster_id: lead.current_topic_cluster_id,
     parent_weak_topics: [],
     parent_note: '',
     notes: lead.notes ?? '',
@@ -99,7 +98,9 @@ export function intakeToLeadInput(form: IntakeFormState): LeadInput {
     grade_trend: form.grade_trend,
     struggling_since: form.struggling_since,
     tried_before: form.tried_before.length > 0 ? form.tried_before : null,
-    next_exam_date: form.next_exam_date || null,
-    next_exam_topic: nullIfEmpty(form.next_exam_topic),
+    // next_exam_date und next_exam_topic werden nicht mehr beschrieben; die
+    // Spalten bleiben im Schema bestehen.
+    current_topic_cluster_id: form.current_topic_cluster_id,
+    notes: nullIfEmpty(form.notes),
   }
 }
