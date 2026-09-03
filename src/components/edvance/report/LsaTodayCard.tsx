@@ -58,6 +58,37 @@ export function LsaTodayCard(): JSX.Element {
     return () => window.clearInterval(timer)
   }, [load])
 
+  const refreshButton = (
+    <Button
+      type="button"
+      variant="secondary"
+      onClick={() => void load()}
+      aria-label={t('today.refresh')}
+    >
+      <RefreshCw className="mr-2 h-4 w-4" />
+      {t('today.refresh')}
+    </Button>
+  )
+
+  // An den meisten Tagen ist die Karte leer. Dann faellt sie auf eine Zeile
+  // zusammen — Titel, Hinweis daneben, Knopf rechts — statt ein Drittel der
+  // Bildhoehe fuer ein Icon zu belegen.
+  if (!loading && error === null && sessions.length === 0) {
+    return (
+      <EdvanceCard className="p-4">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h2 className="text-base font-semibold">{t('today.title')}</h2>
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              {t('today.empty.description')}
+            </p>
+          </div>
+          {refreshButton}
+        </div>
+      </EdvanceCard>
+    )
+  }
+
   return (
     <EdvanceCard>
       <div className="flex flex-col gap-4">
@@ -68,15 +99,7 @@ export function LsaTodayCard(): JSX.Element {
               {t('today.description')}
             </p>
           </div>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => void load()}
-            aria-label={t('today.refresh')}
-          >
-            <RefreshCw className="mr-2 h-4 w-4" />
-            {t('today.refresh')}
-          </Button>
+          {refreshButton}
         </div>
 
         {error && <p className="text-sm text-[var(--color-error-gap)]">{error}</p>}

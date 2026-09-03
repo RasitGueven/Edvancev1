@@ -71,7 +71,7 @@ export function LeadFilterBar({
           onChange={(e) => onToggleDone(e.target.checked)}
           className="h-4 w-4 rounded border-[var(--color-border)]"
         />
-        Abgeschlossene anzeigen
+        Archiv anzeigen
       </label>
     </div>
   )

@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Plus } from 'lucide-react'
 import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
-import { Modal } from '@/components/edvance/Modal'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { LsaTodayCard } from '@/components/edvance/report/LsaTodayCard'
 import { listLeads, updateLead } from '@/lib/supabase/leads'
 import { listActivePlaetzeByLead, type LeadPlatz } from '@/lib/supabase/platz'
-import { provisionStudent } from '@/lib/supabase/provision'
 import type { Lead, LeadStatus } from '@/types'
 import { LeadIntakeForm } from './intake/LeadIntakeForm'
 import { PlatzPanel } from './intake/PlatzPanel'
@@ -31,9 +26,6 @@ export function LeadsPage(): JSX.Element {
   const [editingLead, setEditingLead] = useState<Lead | null>(null)
   const [editingStep, setEditingStep] = useState<0 | 1>(0)
   const [platzLead, setPlatzLead] = useState<Lead | null>(null)
-  const [convertLead, setConvertLead] = useState<Lead | null>(null)
-  const [pw, setPw] = useState('')
-  const [converting, setConverting] = useState(false)
   const [filters, setFilters] = useState<LeadFilters>(EMPTY_FILTERS)
   const [showDone, setShowDone] = useState(false)
 
@@ -61,29 +53,6 @@ export function LeadsPage(): JSX.Element {
       setError(err)
       return
     }
-    load()
-  }
-
-  const convert = async (lead: Lead, password: string): Promise<void> => {
-    setConverting(true)
-    setError(null)
-    const { error: err } = await provisionStudent({
-      lead_id: lead.id,
-      full_name: lead.full_name,
-      parent_email: lead.contact_email,
-      class_level: lead.class_level,
-      school_type: lead.school_type,
-      school_name: lead.school_name,
-      subjects: lead.subjects,
-      student_password: password,
-    })
-    setConverting(false)
-    if (err) {
-      setError(err)
-      return
-    }
-    setConvertLead(null)
-    setPw('')
     load()
   }
 
@@ -167,50 +136,11 @@ export function LeadsPage(): JSX.Element {
               onOpen={(lead) => openLead(lead, 0)}
               onOpenErstgespraech={(lead) => openLead(lead, 1)}
               onAssignPlatz={setPlatzLead}
-              onConvert={(lead) => {
-                setPw('')
-                setError(null)
-                setConvertLead(lead)
-              }}
               onReject={(lead) => void changeStatus(lead, 'rejected')}
             />
           </>
         )}
       </main>
-
-      <Modal
-        open={convertLead !== null}
-        onClose={() => setConvertLead(null)}
-        title="In Schüler konvertieren"
-        description="Das Passwort dem Schüler persönlich mitteilen — es wird nirgends erneut angezeigt."
-        size="md"
-      >
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="convert-pw">Schüler-Passwort (min. 6 Zeichen)</Label>
-          <Input
-            id="convert-pw"
-            type="text"
-            autoComplete="off"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-          />
-          <div className="mt-2 flex flex-wrap gap-2">
-            <Button
-              disabled={converting || pw.length < 6}
-              onClick={() => convertLead && void convert(convertLead, pw)}
-            >
-              {converting ? 'Konvertiert …' : 'Bestätigen'}
-            </Button>
-            <Button
-              variant="outline"
-              disabled={converting}
-              onClick={() => setConvertLead(null)}
-            >
-              Abbrechen
-            </Button>
-          </div>
-        </div>
-      </Modal>
 
       {platzLead && (
         <PlatzPanel

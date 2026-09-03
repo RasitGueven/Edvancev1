@@ -11,13 +11,16 @@ type LeadBoardProps = {
   onOpen: (lead: Lead) => void
   onOpenErstgespraech: (lead: Lead) => void
   onAssignPlatz: (lead: Lead) => void
-  onConvert: (lead: Lead) => void
   onReject: (lead: Lead) => void
 }
 
-// Vier bis fuenf Spalten nebeneinander; auf schmalen Schirmen scrollt das
-// Board waagerecht, statt die Spalten zu stapeln — die Pipeline bleibt so als
-// Abfolge lesbar. Kein Drag & Drop: der Status wechselt ueber die Karten.
+/**
+ * Die vier Standardspalten teilen sich die Breite als Raster und passen damit
+ * ohne waagerechtes Scrollen nebeneinander. Erst das eingeschaltete Archiv
+ * macht eine fuenfte Spalte noetig — dann scrollt das Board waagerecht, statt
+ * die Spalten unlesbar schmal zu quetschen. Kein Drag & Drop: der Status
+ * wechselt ueber die Karten.
+ */
 export function LeadBoard({
   columns,
   leads,
@@ -26,45 +29,60 @@ export function LeadBoard({
   onOpen,
   onOpenErstgespraech,
   onAssignPlatz,
-  onConvert,
   onReject,
 }: LeadBoardProps): JSX.Element {
-  return (
-    <div className="-mx-4 overflow-x-auto px-4">
-      <div className="flex min-w-max gap-4">
-        {columns.map((column) => {
-          const columnLeads = leadsForColumn(leads, column, filters)
-          return (
-            <section key={column.key} className="flex w-72 shrink-0 flex-col gap-4">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
-                  {column.title}
-                </h2>
-                <span className="text-xs font-semibold text-[var(--color-text-tertiary)]">
-                  {columnLeads.length}
-                </span>
-              </div>
-              {columnLeads.length === 0 ? (
-                <p className="text-xs text-[var(--color-text-tertiary)]">{column.emptyHint}</p>
-              ) : (
-                columnLeads.map((lead) => (
-                  <LeadCard
-                    key={lead.id}
-                    lead={lead}
-                    platz={platzByLead[lead.id]}
-                    column={column.key}
-                    onOpen={onOpen}
-                    onOpenErstgespraech={onOpenErstgespraech}
-                    onAssignPlatz={onAssignPlatz}
-                    onConvert={onConvert}
-                    onReject={onReject}
-                  />
-                ))
-              )}
-            </section>
-          )
-        })}
-      </div>
+  const scrolls = columns.length > 4
+
+  const body = (
+    <div
+      className={
+        scrolls
+          ? 'flex min-w-max gap-4'
+          : 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'
+      }
+    >
+      {columns.map((column) => {
+        const columnLeads = leadsForColumn(leads, column, filters)
+        return (
+          <section
+            key={column.key}
+            className={
+              scrolls
+                ? 'flex w-72 shrink-0 flex-col gap-4'
+                : 'flex min-w-0 flex-col gap-4'
+            }
+          >
+            {/* Die Anzahl steht direkt hinter dem eigenen Spaltennamen, damit
+                sie nicht wie der Anfang der naechsten Spalte wirkt. */}
+            <h2 className="flex min-w-0 items-baseline gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+              <span className="truncate">{column.title}</span>
+              <span className="text-[var(--color-text-tertiary)]">
+                {columnLeads.length}
+              </span>
+            </h2>
+            {columnLeads.length === 0 ? (
+              <p className="text-xs text-[var(--color-text-tertiary)]">
+                {column.emptyHint}
+              </p>
+            ) : (
+              columnLeads.map((lead) => (
+                <LeadCard
+                  key={lead.id}
+                  lead={lead}
+                  platz={platzByLead[lead.id]}
+                  column={column}
+                  onOpen={onOpen}
+                  onOpenErstgespraech={onOpenErstgespraech}
+                  onAssignPlatz={onAssignPlatz}
+                  onReject={onReject}
+                />
+              ))
+            )}
+          </section>
+        )
+      })}
     </div>
   )
+
+  return scrolls ? <div className="-mx-4 overflow-x-auto px-4">{body}</div> : body
 }
