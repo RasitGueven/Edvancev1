@@ -197,8 +197,14 @@ async function loadFehlbilder(sessionId: string): Promise<ReportFehlbild[]> {
  * `leads` trägt KEINE Spalte `leitthema` — geprüft am Schema, nicht vermutet.
  * `next_exam_topic` ist das, was belegt ist; der Report formuliert entsprechend
  * vorsichtiger („steht als nächstes Thema an", nicht „fällt schwer").
+ *
+ * Bei Leads aus dem zweistufigen Wizard stammt der Wert aus einer Themenauswahl
+ * im Erstgespräch und steht als `leads.current_topic_cluster_id` auf einem
+ * Cluster in `skill_clusters`. Bei älteren Leads gibt es diese Auswahl nicht —
+ * dort ist der Freitext aus `next_exam_topic` weiterhin die einzige Quelle, und
+ * er bleibt auch der Rückfall, wenn sich ein Cluster nicht auflösen lässt.
  */
-async function loadNaechstesThema(studentId: string): Promise<string | null> {
+export async function loadNaechstesThema(studentId: string): Promise<string | null> {
   const { data: student } = await supabase
     .from('students')
     .select('lead_id')
@@ -209,10 +215,29 @@ async function loadNaechstesThema(studentId: string): Promise<string | null> {
 
   const { data: lead } = await supabase
     .from('leads')
-    .select('next_exam_topic')
+    .select('next_exam_topic, current_topic_cluster_id')
     .eq('id', leadId)
     .maybeSingle()
-  return (lead as { next_exam_topic: string | null } | null)?.next_exam_topic?.trim() || null
+  const leadRow = lead as {
+    next_exam_topic: string | null
+    current_topic_cluster_id: string | null
+  } | null
+  const freitext = leadRow?.next_exam_topic?.trim() || null
+  const clusterId = leadRow?.current_topic_cluster_id
+  if (!clusterId) return freitext
+
+  // Zweiter Roundtrip statt eingebettetem Select über den Fremdschlüssel: die
+  // Funktion läuft einmal pro Report, und der eigene Treffer ist eindeutig.
+  const { data: cluster } = await supabase
+    .from('skill_clusters')
+    .select('name')
+    .eq('id', clusterId)
+    .maybeSingle()
+  const clusterName = (cluster as { name: string | null } | null)?.name?.trim() || null
+
+  // Kein auflösbarer Cluster (gelöscht, nicht lesbar, leerer Name) heißt nicht
+  // „kein Thema" — dann trägt der Freitext weiter.
+  return clusterName ?? freitext
 }
 
 export async function getReportData(
