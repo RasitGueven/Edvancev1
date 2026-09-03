@@ -1,18 +1,26 @@
 -- Lead-Wizard: Themenauswahl + unterschriebene DSGVO-Einwilligung.
 --
--- NICHT ANGEWENDET. Noch keine Migration, sondern ein Vorschlag zur Uebernahme.
+-- Legt vier Spalten an, alle nicht-destruktiv (add column if not exists):
+--   leads.current_topic_cluster_id        Themencluster aus dem Erstgespraech,
+--                                         Verweis auf skill_clusters(id)
+--   leads.consent_dsgvo_signature         Unterschrift als PNG-Data-URL
+--   leads.consent_dsgvo_document_version  Version des unterzeichneten Textes
+--   skill_clusters.school_types           Schulform, vom Frontend noch ungenutzt
 --
--- Sie sollte urspruenglich unter supabase/pending/ liegen. Dieses Verzeichnis
--- ist im Repo aber abgeschafft und wird von .github/workflows/schema.yml aktiv
--- zurueckgewiesen ("supabase/pending/ existiert wieder — das Verzeichnis ist
--- abgeschafft"). Deshalb liegt die Datei hier, ausserhalb von supabase/, wo
--- keine Schemapruefung sie anfasst.
+-- Ohne diese Spalten laeuft setLeadConsent in einen Fehler und die Freigabe
+-- fuer die LSA schlaegt fehl: der Wizard schreibt auf Felder, die es in der
+-- Datenbank sonst nicht gibt.
 --
--- Vor dem Merge nach supabase/migrations/ verschieben, anwenden und
--- supabase/schema-erwartet.sql neu erzeugen (bash tools/schema-snapshot.sh) —
--- der CI-Job "neuaufbau" vergleicht das erzeugte Schema gegen diese Datei.
--- Ohne das schlaegt „Fuer die LSA freigeben" fehl, weil der Wizard auf Spalten
--- schreibt, die es in der Datenbank noch nicht gibt.
+-- Wird diese Migration eingespielt, muss supabase/schema-erwartet.sql neu
+-- erzeugt werden (bash tools/schema-snapshot.sh). Der CI-Job "neuaufbau"
+-- spielt alle Migrationen in eine leere Datenbank und vergleicht das Ergebnis
+-- gegen diesen Schnappschuss; bleibt er alt, meldet er genau diese vier
+-- Spalten als Abweichung. Von Hand editieren geht nicht, guard-paths.sh weist
+-- den Schnappschuss ab.
+--
+-- Historie: die Datei lag zwischenzeitlich unter docs/pending-migrations/, weil
+-- supabase/pending/ seit #107 vom CI zurueckgewiesen wird; sie gehoert hierher
+-- und liegt jetzt hier.
 
 -- 1. Aktuelles Thema am Lead: Verweis auf das Themencluster, das im
 --    Erstgespraech ausgewaehlt wurde. Ersetzt das Freitextfeld

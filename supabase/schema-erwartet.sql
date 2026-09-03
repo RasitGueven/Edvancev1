@@ -8,8 +8,8 @@
 --
 
 
--- Dumped from database version 18.4 (Ubuntu 18.4-0ubuntu0.26.04.1)
--- Dumped by pg_dump version 18.4 (Ubuntu 18.4-0ubuntu0.26.04.1)
+-- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3950,6 +3950,9 @@ CREATE TABLE public.leads (
     consent_dsgvo_at timestamp with time zone,
     consent_dsgvo_by uuid,
     konvertiert_am timestamp with time zone,
+    current_topic_cluster_id uuid,
+    consent_dsgvo_signature text,
+    consent_dsgvo_document_version text,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
     CONSTRAINT leads_grade_trend_check CHECK (((grade_trend IS NULL) OR (grade_trend = ANY (ARRAY['besser'::text, 'stabil'::text, 'schlechter'::text])))),
@@ -4323,6 +4326,7 @@ CREATE TABLE public.skill_clusters (
     class_level_max integer NOT NULL,
     sort_order integer DEFAULT 0,
     is_deprecated boolean DEFAULT false NOT NULL,
+    school_types text[],
     CONSTRAINT skill_clusters_class_level_max_check CHECK (((class_level_max >= 5) AND (class_level_max <= 13))),
     CONSTRAINT skill_clusters_class_level_min_check CHECK (((class_level_min >= 5) AND (class_level_min <= 13)))
 );
@@ -5957,6 +5961,14 @@ ALTER TABLE ONLY public.leads
 
 ALTER TABLE ONLY public.leads
     ADD CONSTRAINT leads_converted_student_id_fkey FOREIGN KEY (converted_student_id) REFERENCES public.students(id) ON DELETE SET NULL;
+
+
+--
+-- Name: leads leads_current_topic_cluster_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leads
+    ADD CONSTRAINT leads_current_topic_cluster_id_fkey FOREIGN KEY (current_topic_cluster_id) REFERENCES public.skill_clusters(id);
 
 
 --
