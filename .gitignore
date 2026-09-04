@@ -63,3 +63,4 @@ state/
 # Arbeitsablagen: Notizen und Orchestrierungs-Prompts, nicht versionieren
 orchestration/
 scratchpad/
+.claude/worktrees/
