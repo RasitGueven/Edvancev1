@@ -554,6 +554,26 @@ $$;
 
 
 --
+-- Name: leads_status_zeitstempel(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.leads_status_zeitstempel() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+begin
+  if new.status is distinct from old.status then
+    if new.status = 'lsa_freigegeben' and new.lsa_freigegeben_at is null then
+      new.lsa_freigegeben_at := now();
+    elsif new.status = 'lsa_fertig' and new.lsa_fertig_at is null then
+      new.lsa_fertig_at := now();
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: lena_beanstande(uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3999,6 +4019,8 @@ CREATE TABLE public.leads (
     current_topic_cluster_id uuid,
     consent_dsgvo_signature text,
     consent_dsgvo_document_version text,
+    lsa_freigegeben_at timestamp with time zone,
+    lsa_fertig_at timestamp with time zone,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
     CONSTRAINT leads_grade_trend_check CHECK (((grade_trend IS NULL) OR (grade_trend = ANY (ARRAY['besser'::text, 'stabil'::text, 'schlechter'::text])))),
@@ -5816,6 +5838,13 @@ CREATE INDEX tasks_source_idx ON public.tasks USING btree (source);
 --
 
 CREATE INDEX xp_events_student_idx ON public.xp_events USING btree (student_id);
+
+
+--
+-- Name: leads leads_status_zeitstempel_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER leads_status_zeitstempel_trg BEFORE UPDATE ON public.leads FOR EACH ROW EXECUTE FUNCTION public.leads_status_zeitstempel();
 
 
 --
