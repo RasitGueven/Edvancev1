@@ -3324,6 +3324,48 @@ $$;
 
 
 --
+-- Name: session_ids_fuer_coach(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_ids_fuer_coach() RETURNS SETOF uuid
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  select cs.id
+  from coaching_sessions cs
+  where cs.coach_id = auth.uid();
+$$;
+
+
+--
+-- Name: session_ids_fuer_eltern(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_ids_fuer_eltern() RETURNS SETOF uuid
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  select ss.session_id
+  from session_students ss
+  where public.is_parent_of_student(ss.student_id);
+$$;
+
+
+--
+-- Name: session_ids_fuer_schueler(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_ids_fuer_schueler() RETURNS SETOF uuid
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  select ss.session_id
+  from session_students ss
+  where ss.student_id = public.get_my_student_id();
+$$;
+
+
+--
 -- Name: skill_kante_tiefe_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3830,7 +3872,7 @@ CREATE TABLE public.behavior_snapshots (
 CREATE TABLE public.coaching_sessions (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     created_at timestamp with time zone DEFAULT now(),
-    coach_id uuid NOT NULL,
+    coach_id uuid,
     room text,
     scheduled_at timestamp with time zone NOT NULL,
     status text DEFAULT 'upcoming'::text NOT NULL,
@@ -6770,18 +6812,14 @@ CREATE POLICY coaching_sessions_coach_rw ON public.coaching_sessions USING ((coa
 -- Name: coaching_sessions coaching_sessions_parent_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY coaching_sessions_parent_read ON public.coaching_sessions FOR SELECT USING ((id IN ( SELECT ss.session_id
-   FROM public.session_students ss
-  WHERE public.is_parent_of_student(ss.student_id))));
+CREATE POLICY coaching_sessions_parent_read ON public.coaching_sessions FOR SELECT USING ((id IN ( SELECT public.session_ids_fuer_eltern() AS session_ids_fuer_eltern)));
 
 
 --
 -- Name: coaching_sessions coaching_sessions_student_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY coaching_sessions_student_read ON public.coaching_sessions FOR SELECT USING ((id IN ( SELECT session_students.session_id
-   FROM public.session_students
-  WHERE (session_students.student_id = public.get_my_student_id()))));
+CREATE POLICY coaching_sessions_student_read ON public.coaching_sessions FOR SELECT USING ((id IN ( SELECT public.session_ids_fuer_schueler() AS session_ids_fuer_schueler)));
 
 
 --
@@ -7378,11 +7416,7 @@ CREATE POLICY session_students_admin_all ON public.session_students USING ((publ
 -- Name: session_students session_students_coach_rw; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY session_students_coach_rw ON public.session_students USING ((session_id IN ( SELECT coaching_sessions.id
-   FROM public.coaching_sessions
-  WHERE (coaching_sessions.coach_id = auth.uid())))) WITH CHECK ((session_id IN ( SELECT coaching_sessions.id
-   FROM public.coaching_sessions
-  WHERE (coaching_sessions.coach_id = auth.uid()))));
+CREATE POLICY session_students_coach_rw ON public.session_students USING ((session_id IN ( SELECT public.session_ids_fuer_coach() AS session_ids_fuer_coach))) WITH CHECK ((session_id IN ( SELECT public.session_ids_fuer_coach() AS session_ids_fuer_coach)));
 
 
 --
