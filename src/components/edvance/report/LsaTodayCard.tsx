@@ -8,14 +8,26 @@ import { listTodaysLsaSessions } from '@/lib/supabase/lsaReport'
 import type { LsaSessionListItem } from '@/types'
 
 /**
- * Fertig-Signal: die heutigen Analyse-Sitzungen mit Zustand „läuft" / „fertig".
+ * Fertig-Signal: die heute abgeschlossenen Analyse-Sitzungen.
  *
- * Bewusst KEIN Live-Dashboard mit vier Zuständen — das ist verschoben. Hier
- * genügt die Frage „ist das Kind durch?": ein leichtes Polling (60 s) plus ein
- * Knopf zum sofortigen Neuladen. Bei fertigen Sitzungen führt „Report öffnen"
- * direkt ins Elterngespräch.
+ * Bewusst KEIN Live-Dashboard — laufende Sitzungen stehen im Lead-Board unter
+ * „Analyse", hier zaehlt nur die Frage „wer ist heute durch?". Gefiltert und
+ * sortiert wird ueber lsa_sessions.completed_at, den echten Abschluss-
+ * Zeitstempel: neuester Abschluss zuoberst. Dazu ein leichtes Polling (60 s)
+ * plus ein Knopf zum sofortigen Neuladen; „Report oeffnen" fuehrt direkt ins
+ * Elterngespraech.
  */
 const POLL_MS = 60_000
+
+// Abschluss liegt im heutigen Kalendertag (lokale Zeit).
+function completedToday(completedAt: string | null): boolean {
+  if (completedAt === null) return false
+  const done = new Date(completedAt)
+  if (Number.isNaN(done.getTime())) return false
+  const start = new Date()
+  start.setHours(0, 0, 0, 0)
+  return done.getTime() >= start.getTime()
+}
 
 export function LsaTodayCard(): JSX.Element {
   const { t } = useTranslation('report')
@@ -27,7 +39,14 @@ export function LsaTodayCard(): JSX.Element {
     const { data, error: err } = await listTodaysLsaSessions()
     if (err) setError(err)
     else {
-      setSessions(data ?? [])
+      const done = (data ?? [])
+        .filter((s) => s.status === 'completed' && completedToday(s.completed_at))
+        .sort(
+          (a, b) =>
+            new Date(b.completed_at ?? 0).getTime() -
+            new Date(a.completed_at ?? 0).getTime(),
+        )
+      setSessions(done)
       setError(null)
     }
     setLoading(false)
@@ -39,6 +58,37 @@ export function LsaTodayCard(): JSX.Element {
     return () => window.clearInterval(timer)
   }, [load])
 
+  const refreshButton = (
+    <Button
+      type="button"
+      variant="secondary"
+      onClick={() => void load()}
+      aria-label={t('today.refresh')}
+    >
+      <RefreshCw className="mr-2 h-4 w-4" />
+      {t('today.refresh')}
+    </Button>
+  )
+
+  // An den meisten Tagen ist die Karte leer. Dann faellt sie auf eine Zeile
+  // zusammen — Titel, Hinweis daneben, Knopf rechts — statt ein Drittel der
+  // Bildhoehe fuer ein Icon zu belegen.
+  if (!loading && error === null && sessions.length === 0) {
+    return (
+      <EdvanceCard className="p-4">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h2 className="text-base font-semibold">{t('today.title')}</h2>
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              {t('today.empty.description')}
+            </p>
+          </div>
+          {refreshButton}
+        </div>
+      </EdvanceCard>
+    )
+  }
+
   return (
     <EdvanceCard>
       <div className="flex flex-col gap-4">
@@ -49,15 +99,7 @@ export function LsaTodayCard(): JSX.Element {
               {t('today.description')}
             </p>
           </div>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => void load()}
-            aria-label={t('today.refresh')}
-          >
-            <RefreshCw className="mr-2 h-4 w-4" />
-            {t('today.refresh')}
-          </Button>
+          {refreshButton}
         </div>
 
         {error && <p className="text-sm text-[var(--color-error-gap)]">{error}</p>}
@@ -82,12 +124,8 @@ export function LsaTodayCard(): JSX.Element {
                     <span className="font-semibold">
                       {session.first_name ?? '—'}
                     </span>
-                    <EdvanceBadge
-                      variant={
-                        session.status === 'completed' ? 'strength' : 'muted'
-                      }
-                    >
-                      {t(`today.state.${session.status}`)}
+                    <EdvanceBadge variant="strength">
+                      {t('today.state.completed')}
                     </EdvanceBadge>
                   </div>
                   <p className="text-xs text-[var(--color-text-tertiary)]">
@@ -103,13 +141,11 @@ export function LsaTodayCard(): JSX.Element {
                   </p>
                 </div>
 
-                {session.status === 'completed' && (
-                  <Button asChild>
-                    <Link to={`/admin/report/${session.session_id}`}>
-                      {t('today.openReport')}
-                    </Link>
-                  </Button>
-                )}
+                <Button asChild>
+                  <Link to={`/admin/report/${session.session_id}`}>
+                    {t('today.openReport')}
+                  </Link>
+                </Button>
               </li>
             ))}
           </ul>
