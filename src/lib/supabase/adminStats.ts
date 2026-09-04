@@ -13,7 +13,16 @@ export type AdminStats = {
   screeningItems: number
 }
 
-const OPEN_LEAD_STATUS = ['new', 'contacted', 'onboarding_scheduled']
+// Offen ist alles, was weder konvertiert noch abgelehnt ist — die beiden
+// LSA-Zustaende eingeschlossen. Ein Lead in der Analyse ist Arbeit, die noch
+// aussteht, und darf auf der Startseite nicht als erledigt gelten.
+const OPEN_LEAD_STATUS = [
+  'new',
+  'contacted',
+  'onboarding_scheduled',
+  'lsa_freigegeben',
+  'lsa_fertig',
+]
 
 // Fuehrt eine count-Query (head: true) robust aus – ein Fehler in einer
 // Einzelkennzahl darf das gesamte Dashboard nicht blockieren.

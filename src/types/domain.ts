@@ -41,6 +41,10 @@ export type Lead = {
   converted_student_id: string | null
   contacted_at: string | null
   onboarding_scheduled_at: string | null
+  // Zeitpunkte der beiden LSA-Zustaende (Migration 20260904100000, gesetzt vom
+  // Trigger leads_status_zeitstempel_trg). Bei Leads von vor der Migration null.
+  lsa_freigegeben_at: string | null
+  lsa_fertig_at: string | null
   // Intake-Felder (S7, Erstgespräch) — bewusst KEINE Diagnose-Felder.
   first_name: string | null
   birth_date: string | null

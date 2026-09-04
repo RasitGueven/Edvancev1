@@ -10,7 +10,9 @@ type LeadBoardProps = {
   platzByLead: Record<string, LeadPlatz>
   onOpen: (lead: Lead) => void
   onOpenErstgespraech: (lead: Lead) => void
+  onMarkContacted: (lead: Lead) => void
   onAssignPlatz: (lead: Lead) => void
+  onConvert: (lead: Lead) => void
   onReject: (lead: Lead) => void
 }
 
@@ -28,7 +30,9 @@ export function LeadBoard({
   platzByLead,
   onOpen,
   onOpenErstgespraech,
+  onMarkContacted,
   onAssignPlatz,
+  onConvert,
   onReject,
 }: LeadBoardProps): JSX.Element {
   const scrolls = columns.length > 4
@@ -73,7 +77,9 @@ export function LeadBoard({
                   column={column}
                   onOpen={onOpen}
                   onOpenErstgespraech={onOpenErstgespraech}
+                  onMarkContacted={onMarkContacted}
                   onAssignPlatz={onAssignPlatz}
+                  onConvert={onConvert}
                   onReject={onReject}
                 />
               ))

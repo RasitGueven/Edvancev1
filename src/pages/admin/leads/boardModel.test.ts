@@ -31,6 +31,8 @@ function lead(over: Partial<Lead> & { id: string }): Lead {
     converted_student_id: null,
     contacted_at: null,
     onboarding_scheduled_at: null,
+    lsa_freigegeben_at: null,
+    lsa_fertig_at: null,
     birth_date: null,
     last_grade: null,
     grade_trend: null,
@@ -108,7 +110,7 @@ describe('leadsForColumn', () => {
     ])
   })
 
-  it('fasst contacted und onboarding_scheduled in "Erstgespraech erfasst" zusammen', () => {
+  it('fasst contacted und onboarding_scheduled in "Termin vereinbart" zusammen', () => {
     const leads = [
       lead({ id: 'c', status: 'contacted' }),
       lead({ id: 'o', status: 'onboarding_scheduled' }),
@@ -161,10 +163,30 @@ describe('stateTimestamp', () => {
     ).toBe('2026-09-11T10:00:00.000Z')
   })
 
-  it('liefert null fuer Zustaende ohne eigene Spalte auf leads', () => {
-    for (const status of ['lsa_freigegeben', 'lsa_fertig', 'converted', 'rejected'] as const) {
+  it('liefert die Zeitstempel der beiden LSA-Zustaende', () => {
+    expect(
+      stateTimestamp(
+        lead({
+          id: 'f',
+          status: 'lsa_freigegeben',
+          lsa_freigegeben_at: '2026-09-12T10:00:00.000Z',
+        }),
+      ),
+    ).toBe('2026-09-12T10:00:00.000Z')
+    expect(
+      stateTimestamp(
+        lead({ id: 'd', status: 'lsa_fertig', lsa_fertig_at: '2026-09-14T10:00:00.000Z' }),
+      ),
+    ).toBe('2026-09-14T10:00:00.000Z')
+  })
+
+  it('liefert null im Archiv und bei Bestandsleads ohne LSA-Zeitstempel', () => {
+    for (const status of ['converted', 'rejected'] as const) {
       expect(stateTimestamp(lead({ id: status, status }))).toBeNull()
     }
+    // Vor Migration 20260904100000 angelegt: Status gesetzt, Spalte leer.
+    expect(stateTimestamp(lead({ id: 'alt', status: 'lsa_freigegeben' }))).toBeNull()
+    expect(stateTimestamp(lead({ id: 'alt2', status: 'lsa_fertig' }))).toBeNull()
   })
 })
 
@@ -215,9 +237,40 @@ describe('ageDisplay', () => {
     expect([at14.accent, at14.bold]).toEqual([true, true])
   })
 
+  it('nutzt in Spalte 3 und 4 die Schwellen 3 und 7 ab dem LSA-Zeitstempel', () => {
+    const view = ageDisplay(
+      lead({
+        id: 'h',
+        status: 'lsa_freigegeben',
+        created_at: '2026-09-01T12:00:00.000Z',
+        lsa_freigegeben_at: '2026-09-11T12:00:00.000Z',
+      }),
+      analyse,
+      now,
+    )
+    expect(view.label).toBe('seit 4 Tagen')
+    expect(view.createdLabel).toBe('angelegt vor 14 Tagen')
+    // 4 Tage liegen ueber der Akzent-Schwelle 3, aber unter der Fett-Schwelle 7.
+    expect([view.accent, view.bold]).toEqual([true, false])
+
+    const fertig = ageDisplay(
+      lead({
+        id: 'i',
+        status: 'lsa_fertig',
+        created_at: '2026-09-01T12:00:00.000Z',
+        lsa_fertig_at: '2026-09-07T12:00:00.000Z',
+      }),
+      abgeschlossen,
+      now,
+    )
+    expect(fertig.label).toBe('seit 8 Tagen')
+    expect([fertig.accent, fertig.bold]).toEqual([true, true])
+  })
+
   it('faellt ohne Zustands-Zeitstempel auf das Anlagedatum mit 7/14 zurueck', () => {
-    // Spalte 3 traegt zwar die Schwellen 3/7, aber lsa_freigegeben hat keinen
-    // eigenen Zeitstempel — dann gelten die Rueckfall-Schwellen.
+    // Bestandsleads von vor Migration 20260904100000: Status gesetzt, aber
+    // lsa_freigegeben_at leer — dann gelten die Rueckfall-Schwellen 7/14
+    // statt der 3/7 der Spalte.
     const view = ageDisplay(
       lead({
         id: 'e',

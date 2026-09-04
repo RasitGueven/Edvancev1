@@ -35,9 +35,9 @@ export const BOARD_COLUMNS: BoardColumn[] = [
   },
   {
     key: 'gespraech',
-    title: 'Erstgespräch erfasst',
+    title: 'Termin vereinbart',
     statuses: ['contacted', 'onboarding_scheduled'],
-    emptyHint: 'Noch kein Erstgespräch erfasst.',
+    emptyHint: 'Noch kein Termin vereinbart.',
     thresholds: SLOW,
   },
   {
@@ -88,10 +88,14 @@ export function daysWaiting(since: string, now: Date = new Date()): number {
 /**
  * Zeitstempel des aktuellen Zustands, oder null wenn es keinen gibt.
  *
- * leads traegt nur created_at, contacted_at und onboarding_scheduled_at.
- * Fuer 'lsa_freigegeben' und 'lsa_fertig' existiert KEINE Spalte — diese
- * Zustaende fallen bewusst auf created_at zurueck, statt etwas aus updated_at
- * zu rechnen. Ebenso 'converted' und 'rejected' im Archiv.
+ * Jeder Zustand der vier Spalten hat seit Migration 20260904100000 eine eigene
+ * Spalte auf leads: created_at, contacted_at, lsa_freigegeben_at,
+ * lsa_fertig_at. Nichts wird aus updated_at gerechnet oder geschaetzt.
+ *
+ * Null bleibt in zwei Faellen: 'converted'/'rejected' im Archiv haben keinen
+ * eigenen Zeitstempel, und Bestandsleads haben lsa_freigegeben_at /
+ * lsa_fertig_at nicht, weil der Trigger sie erst ab der Migration schreibt.
+ * Beide Faelle fallen in ageDisplay auf das Anlagedatum zurueck.
  */
 export function stateTimestamp(lead: Lead): string | null {
   switch (lead.status) {
@@ -101,6 +105,10 @@ export function stateTimestamp(lead: Lead): string | null {
       return lead.contacted_at
     case 'onboarding_scheduled':
       return lead.onboarding_scheduled_at
+    case 'lsa_freigegeben':
+      return lead.lsa_freigegeben_at
+    case 'lsa_fertig':
+      return lead.lsa_fertig_at
     default:
       return null
   }
