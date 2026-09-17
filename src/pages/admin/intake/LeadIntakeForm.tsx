@@ -19,6 +19,9 @@ import {
 
 type LeadIntakeFormProps = {
   existingLead?: Lead
+  /** Schritt, auf dem der Wizard aufgeht — das Board springt direkt ins
+   *  Erstgespraech. Ohne angelegten Lead bleibt nur Schritt 1 erreichbar. */
+  initialStep?: 0 | 1
   onRefresh: () => void
   onClose: () => void
 }
@@ -27,6 +30,7 @@ const STEPS = ['Stammdaten', 'Erstgespräch'] as const
 
 export function LeadIntakeForm({
   existingLead,
+  initialStep = 0,
   onRefresh,
   onClose,
 }: LeadIntakeFormProps): JSX.Element {
@@ -34,7 +38,7 @@ export function LeadIntakeForm({
   const [form, setForm] = useState<IntakeFormState>(
     existingLead ? intakeFromLead(existingLead) : EMPTY_INTAKE,
   )
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState<number>(existingLead ? initialStep : 0)
   const [leadId, setLeadId] = useState<string | null>(existingLead?.id ?? null)
   const [leadStatus, setLeadStatus] = useState<LeadStatus | null>(
     existingLead?.status ?? null,
