@@ -4,6 +4,7 @@
 // DB — slot_assign() sperrt die Slot-Zeile und verweigert bei Ueberbuchung. Das
 // Frontend zeigt die Auslastung nur an; es entscheidet sie nicht.
 
+import { berlinYMD } from '@/lib/datetime'
 import { supabase } from '@/lib/supabase/client'
 import type {
   Slot,
@@ -14,10 +15,20 @@ import type {
   SupabaseResult,
 } from '@/types'
 
+// slots.valid_until ist ein Postgres `date`. Der Betriebstag ist Berlin, nicht
+// UTC — toISOString() wuerde nachts vor 02:00 den Vortag schreiben.
+function heuteInBerlin(): string {
+  const { y, m, d } = berlinYMD(new Date().toISOString())
+  return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+}
+
 // Alle Slots inkl. Auslastung. Die Zaehlung laeuft ueber die aktiven
 // Zuweisungen (released_at is null) — beide Tabellen sind per RLS lesbar.
+//
+// `onlyLaufend` filtert auf die Laufzeit: laufend = valid_until is null. Es
+// gibt kein slots.active mehr, das man stattdessen fragen koennte.
 export async function listSlotsWithLoad(
-  opts: { onlyActive?: boolean } = {},
+  opts: { onlyLaufend?: boolean } = {},
 ): Promise<SupabaseResult<SlotWithLoad[]>> {
   try {
     let slotQuery = supabase
@@ -26,7 +37,7 @@ export async function listSlotsWithLoad(
       .order('weekday')
       .order('start_time')
       .order('room')
-    if (opts.onlyActive) slotQuery = slotQuery.eq('active', true)
+    if (opts.onlyLaufend) slotQuery = slotQuery.is('valid_until', null)
 
     const [slotRes, assignRes] = await Promise.all([
       slotQuery,
@@ -72,22 +83,25 @@ export async function createSlot(input: SlotInput): Promise<SupabaseResult<Slot>
   }
 }
 
-// Deaktivieren statt loeschen — bestehende Zuweisungen bleiben nachvollziehbar.
-export async function setSlotActive(
-  id: string,
-  active: boolean,
-): Promise<SupabaseResult<Slot>> {
+// Beenden statt loeschen — bestehende Zuweisungen bleiben nachvollziehbar.
+//
+// Nur diese Richtung: valid_until wird auf heute gesetzt, nie wieder auf null.
+// Der Unique-Index slots_laufend_coord_unique laesst hoechstens einen laufenden
+// Slot je Wochentag/Uhrzeit/Raum zu — ein Zuruecksetzen wuerde daran scheitern,
+// sobald ein Nachfolgeslot existiert. Ein beendeter Slot wird ersetzt, nicht
+// wiederbelebt.
+export async function endSlot(id: string): Promise<SupabaseResult<Slot>> {
   try {
     const { data, error } = await supabase
       .from('slots')
-      .update({ active })
+      .update({ valid_until: heuteInBerlin() })
       .eq('id', id)
       .select('*')
       .single()
     if (error) return { data: null, error: error.message }
     return { data: data as Slot, error: null }
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Slot konnte nicht geaendert werden'
+    const message = err instanceof Error ? err.message : 'Slot konnte nicht beendet werden'
     return { data: null, error: message }
   }
 }

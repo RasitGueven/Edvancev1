@@ -36,9 +36,8 @@
       "heading": "Angelegte Slots",
       "capacity": "{{capacity}} Plätze",
       "load": "{{belegt}}/{{capacity}} belegt",
-      "inactive": "Deaktiviert",
-      "deactivate": "Deaktivieren",
-      "activate": "Aktivieren"
+      "ended": "Beendet",
+      "end": "Slot beenden"
     },
     "empty": {
       "title": "Noch keine Slots",
@@ -51,8 +50,7 @@
     },
     "toast": {
       "created": "Slot angelegt.",
-      "activated": "Slot aktiviert.",
-      "deactivated": "Slot deaktiviert."
+      "ended": "Slot beendet."
     }
   },
   "picker": {

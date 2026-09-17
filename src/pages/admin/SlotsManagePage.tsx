@@ -1,8 +1,12 @@
 // S10: Admin-Verwaltung des Wochen-Zeitrasters.
 //
-// Reine CRUD-Seite: Slots anlegen, Liste (inkl. inaktiver) ansehen, aktiv/inaktiv
-// schalten. Keine Zuweisungslogik hier — die liegt in slots.ts (slot_assign RPC)
-// und wird vom Erstgespräch-Slot-Picker konsumiert.
+// Reine CRUD-Seite: Slots anlegen, Liste (inkl. beendeter) ansehen, laufende
+// Slots beenden. Keine Zuweisungslogik hier — die liegt in slots.ts
+// (slot_assign RPC) und wird vom Erstgespräch-Slot-Picker konsumiert.
+//
+// Beenden ist eine Einbahnstraße: ein Slot ist aktiv, solange valid_until null
+// ist, und ein beendeter Slot wird durch einen neuen ersetzt, nicht reaktiviert
+// (Unique-Index slots_laufend_coord_unique).
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -21,7 +25,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SELECT_MD } from '@/lib/formStyles'
 import { formatSlotTime } from '@/lib/slotGrid'
-import { createSlot, listSlotsWithLoad, setSlotActive } from '@/lib/supabase/slots'
+import { createSlot, endSlot, listSlotsWithLoad } from '@/lib/supabase/slots'
 import type { SlotWithLoad, Weekday } from '@/types'
 
 const WEEKDAYS: Weekday[] = [0, 1, 2, 3, 4, 5, 6]
@@ -41,7 +45,7 @@ export function SlotsManagePage(): JSX.Element {
   const [formError, setFormError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
-  const [togglingId, setTogglingId] = useState<string | null>(null)
+  const [endingId, setEndingId] = useState<string | null>(null)
   const [toast, setToast] = useState<{ key: number; type: 'success' | 'error'; message: string } | null>(
     null,
   )
@@ -104,15 +108,15 @@ export function SlotsManagePage(): JSX.Element {
     load()
   }
 
-  const toggle = async (slot: SlotWithLoad): Promise<void> => {
-    setTogglingId(slot.id)
-    const { error } = await setSlotActive(slot.id, !slot.active)
-    setTogglingId(null)
+  const beenden = async (slot: SlotWithLoad): Promise<void> => {
+    setEndingId(slot.id)
+    const { error } = await endSlot(slot.id)
+    setEndingId(null)
     if (error) {
       showToast('error', error)
       return
     }
-    showToast('success', slot.active ? t('manage.toast.deactivated') : t('manage.toast.activated'))
+    showToast('success', t('manage.toast.ended'))
     load()
   }
 
@@ -227,17 +231,18 @@ export function SlotsManagePage(): JSX.Element {
                             <EdvanceBadge variant="primary">
                               {t('manage.list.load', { belegt: slot.belegt, capacity: slot.capacity })}
                             </EdvanceBadge>
-                            {!slot.active && (
-                              <EdvanceBadge variant="muted">{t('manage.list.inactive')}</EdvanceBadge>
+                            {slot.valid_until !== null ? (
+                              <EdvanceBadge variant="muted">{t('manage.list.ended')}</EdvanceBadge>
+                            ) : (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                disabled={endingId === slot.id}
+                                onClick={() => beenden(slot)}
+                              >
+                                {t('manage.list.end')}
+                              </Button>
                             )}
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              disabled={togglingId === slot.id}
-                              onClick={() => toggle(slot)}
-                            >
-                              {slot.active ? t('manage.list.deactivate') : t('manage.list.activate')}
-                            </Button>
                           </div>
                         </EdvanceCard>
                       ))}
