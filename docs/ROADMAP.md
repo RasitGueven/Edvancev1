@@ -319,6 +319,22 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   `lsa_question_payload` — `parts`/`table` rendert er bis heute nicht. Die zwei
   Wahrheiten sind damit nicht weg, sie sind verschoben.
 
+- **Item-Freigabe — Board, zweistufige Freigabe, Prüfrecht** (Branch
+  `feat/item-freigabe`, Retro `docs/retros/2026-09-22-item-freigabe.md`,
+  Anforderung Tolunay 13.09.): Migration `20260922100000_item_freigabe_pruefrecht.sql`
+  (**live eingespielt**, PRUEFUNG P0–P8 grün). `profiles.darf_pruefen` —
+  Prüfer (freigeschalteter coach) ordnen ein, korrigieren, weisen zurück und
+  setzen „Zur Freigabe" (review); admin gibt frei (einzeln oder je Themengebiet,
+  `freigabe_cluster`). Dazu A20-Nachtrag: anon-Execute + NULL-Falle bei
+  `lena_*` geschlossen. `/admin/authoring` ist jetzt das Board (Bereich › Klasse ›
+  Fach › Themengebiete, vier Filter), die Filterliste lebt unter
+  `/admin/authoring/liste`. Pflege-Strecke: Schritt 4 mit setzbaren
+  Pflichtangaben und den Entscheidungen, Tasten F/Z/L, Verschieben mit
+  Rückmeldung, Rückweg aus dem Editor.
+  **Offen:** Kachel im Coach-Dashboard (Coach-Fenster); Themengebiet = Skill
+  (Runde zwei); Fach für Aufgaben ohne Cluster, sobald Deutsch/Englisch kommen;
+  Editor-Felder für Coaches ohne Prüfrecht sperren.
+
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
   KI-Erklärartikel → Eskalations-Trigger.
