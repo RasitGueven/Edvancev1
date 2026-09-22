@@ -1,72 +1,75 @@
-import { useState } from 'react'
-import { MonitorSmartphone, MoreHorizontal } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { CalendarClock, FileText, MonitorSmartphone, Pencil } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
+import { formatBerlinDateTime } from '@/lib/datetime'
 import type { Lead } from '@/types'
 import type { LeadPlatz } from '@/lib/supabase/platz'
-import { ageDisplay, type BoardColumn } from './boardModel'
+import { AgeLine } from './AgeLine'
+import { CardMenu, type CardMenuItem } from './CardMenu'
+import { ageDisplay, followUpDays, stateTimestamp, type BoardColumn } from './boardModel'
 
 type LeadCardProps = {
   lead: Lead
   platz?: LeadPlatz
   column: BoardColumn
+  /** Juengste abgeschlossene LSA-Session — Ziel des Report-Links. */
+  reportSessionId?: string
+  /** Vertraege startet nur die Verwaltung (RPC vertrag_starten ist admin-only). */
+  canStartContract: boolean
+  /** Laeuft fuer diesen Lead gerade eine Aktion? Sperrt Doppelklicks. */
+  busy: boolean
   /** Wizard auf Schritt 1 (Stammdaten) oeffnen — Klick auf den Namen. */
   onOpen: (lead: Lead) => void
   /** Wizard direkt auf Schritt 2 (Erstgespraech) oeffnen. */
   onOpenErstgespraech: (lead: Lead) => void
-  /** Termin steht: status 'contacted' + contacted_at. */
-  onMarkContacted: (lead: Lead) => void
+  /** Termin-Modal: erstmals (Spalte 1) oder zum Aendern. */
+  onTermin: (lead: Lead) => void
   onAssignPlatz: (lead: Lead) => void
-  /** Irreversibel — deshalb nie Primaeraktion, nur im Overflow. */
-  onConvert: (lead: Lead) => void
   onReject: (lead: Lead) => void
-}
-
-type MenuItem = {
-  label: string
-  onSelect: () => void
-  /** Rot dargestellt: Aktionen, die einen Lead aus dem Trichter nehmen. */
-  danger?: boolean
-}
-
-function ageClass(accent: boolean, bold: boolean): string {
-  if (bold) return 'font-bold text-[var(--color-accent)]'
-  if (accent) return 'text-[var(--color-accent)]'
-  return 'text-[var(--color-text-tertiary)]'
+  onStartContract: (lead: Lead) => void
 }
 
 export function LeadCard({
   lead,
   platz,
   column,
+  reportSessionId,
+  canStartContract,
+  busy,
   onOpen,
   onOpenErstgespraech,
-  onMarkContacted,
+  onTermin,
   onAssignPlatz,
-  onConvert,
   onReject,
+  onStartContract,
 }: LeadCardProps): JSX.Element {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const { t, i18n } = useTranslation('leads')
   const age = ageDisplay(lead, column)
+  const followUp = column.followUp ? followUpDays(stateTimestamp(lead)) : null
   // Leere Werte fallen raus, damit keine Trennpunkte ins Leere zeigen.
   const meta = [
-    lead.class_level !== null ? `Kl. ${lead.class_level}` : null,
+    lead.class_level !== null ? t('card.classShort', { level: lead.class_level }) : null,
     lead.school_type,
     lead.subjects.length > 0 ? lead.subjects.join(', ') : null,
   ].filter((part): part is string => part !== null && part !== '')
 
-  // Ablehnen steht in jeder Spalte im Overflow; davor stehen die Aktionen, die
-  // in dieser Spalte moeglich, aber nicht die Primaeraktion sind.
-  const reject: MenuItem = { label: 'Ablehnen', onSelect: () => onReject(lead), danger: true }
-  const menuItems: MenuItem[] =
+  // Ablehnen steht im Overflow — ausser in "Analyse abgeschlossen", wo es als
+  // eigener Button neben "Vertrag starten" steht. Im Archiv gibt es nichts mehr.
+  const reject: CardMenuItem = {
+    label: t('card.reject'),
+    onSelect: () => onReject(lead),
+    danger: true,
+  }
+  const menuItems: CardMenuItem[] =
     column.key === 'neu'
-      ? [{ label: 'Erstgespräch erfassen', onSelect: () => onOpenErstgespraech(lead) }, reject]
-      : column.key === 'entscheidung'
-        ? [
-            { label: 'In Schüler konvertieren', onSelect: () => onConvert(lead) },
-            reject,
-          ]
-        : [reject]
+      ? [{ label: t('card.captureErstgespraech'), onSelect: () => onOpenErstgespraech(lead) }, reject]
+      : column.key === 'gespraech'
+        ? [{ label: t('card.editTermin'), onSelect: () => onTermin(lead) }, reject]
+        : column.key === 'analyse'
+          ? [reject]
+          : []
 
   return (
     <EdvanceCard className="flex min-w-0 flex-col gap-3 p-4">
@@ -82,66 +85,36 @@ export function LeadCard({
         >
           {lead.full_name}
         </button>
-        <div
-          className="relative shrink-0"
-          onBlur={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setMenuOpen(false)
-          }}
-        >
-          <button
-            type="button"
-            aria-label="Weitere Aktionen"
-            aria-haspopup="menu"
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
-            onKeyDown={(e) => {
-              if (e.key === 'Escape') setMenuOpen(false)
-            }}
-            className="rounded-full p-2 text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-surface)]"
-          >
-            <MoreHorizontal className="h-5 w-5" />
-          </button>
-          {menuOpen && (
-            <div
-              role="menu"
-              className="absolute right-0 z-10 mt-1 min-w-[10rem] rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-1 shadow-elevation-lg"
-            >
-              {menuItems.map((item) => (
-                <button
-                  key={item.label}
-                  type="button"
-                  role="menuitem"
-                  onClick={() => {
-                    setMenuOpen(false)
-                    item.onSelect()
-                  }}
-                  className={`w-full rounded-lg px-3 py-2 text-left text-sm font-medium hover:bg-[var(--color-bg-app)] ${
-                    item.danger
-                      ? 'text-[var(--color-destructive)]'
-                      : 'text-[var(--color-text-primary)]'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        <CardMenu items={menuItems} />
       </div>
 
-      <div className="flex flex-col gap-0.5">
-        <p className={`text-xs ${ageClass(age.accent, age.bold)}`}>{age.label}</p>
-        {age.createdLabel !== null && (
-          <p className="text-[10px] text-[var(--color-text-tertiary)]">
-            {age.createdLabel}
-          </p>
-        )}
-      </div>
+      <AgeLine age={age} followUp={followUp} />
 
       {meta.length > 0 && (
-        <p className="truncate text-xs text-[var(--color-text-secondary)]">
-          {meta.join(' · ')}
-        </p>
+        <p className="truncate text-xs text-[var(--color-text-secondary)]">{meta.join(' · ')}</p>
+      )}
+
+      {lead.erstgespraech_at && (
+        <div className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)]">
+          <CalendarClock className="h-3.5 w-3.5 shrink-0" />
+          <span className="min-w-0 flex-1 truncate">
+            {t('card.terminAt', {
+              date: formatBerlinDateTime(lead.erstgespraech_at, i18n.language),
+              location: t(`standort.${lead.erstgespraech_standort ?? 'koeln'}`),
+            })}
+          </span>
+          {column.key === 'gespraech' && (
+            <button
+              type="button"
+              aria-label={t('card.editTermin')}
+              title={t('card.editTermin')}
+              onClick={() => onTermin(lead)}
+              className="rounded-full p-1 text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-app)]"
+            >
+              <Pencil className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
       )}
 
       {platz && (
@@ -151,31 +124,62 @@ export function LeadCard({
         </EdvanceBadge>
       )}
 
+      {lead.status === 'rejected' && lead.rejection_reason && (
+        <p className="text-xs text-[var(--color-text-secondary)]">
+          {t('card.rejectedReason', {
+            reason:
+              lead.rejection_reason === 'sonstiges' && lead.rejection_note
+                ? lead.rejection_note
+                : t(`reasons.${lead.rejection_reason}`),
+          })}
+        </p>
+      )}
+
+      {reportSessionId && column.key === 'entscheidung' && (
+        <Link
+          to={`/admin/report/${reportSessionId}`}
+          className="inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-[var(--color-primary)] hover:underline"
+        >
+          <FileText className="h-4 w-4" />
+          {t('card.report')}
+        </Link>
+      )}
+
       {/* Eine Primaeraktion je Spalte — der naechste Schritt im Trichter. */}
       {column.key === 'neu' && (
-        <Button size="sm" onClick={() => onMarkContacted(lead)}>
-          Termin vereinbart
+        <Button size="sm" disabled={busy} onClick={() => onTermin(lead)}>
+          {t('card.markContacted')}
         </Button>
       )}
       {column.key === 'gespraech' && (
         <Button size="sm" onClick={() => onOpenErstgespraech(lead)}>
-          Erstgespräch erfassen
+          {t('card.captureErstgespraech')}
         </Button>
       )}
       {column.key === 'analyse' && (
         <>
           <Button size="sm" onClick={() => onAssignPlatz(lead)}>
-            Platz vergeben
+            {t('card.assignPlatz')}
           </Button>
-          <p className="text-xs text-[var(--color-text-tertiary)]">
-            Analyse läuft — Ergebnis abwarten.
-          </p>
+          <p className="text-xs text-[var(--color-text-tertiary)]">{t('card.analysisRunning')}</p>
         </>
       )}
       {column.key === 'entscheidung' && (
-        <Button size="sm" onClick={() => onAssignPlatz(lead)}>
-          Platz vergeben
-        </Button>
+        <div className="grid grid-cols-2 gap-2">
+          <Button size="sm" variant="outline" disabled={busy} onClick={() => onReject(lead)}>
+            {t('card.reject')}
+          </Button>
+          <span title={canStartContract ? undefined : t('card.startContractAdminOnly')}>
+            <Button
+              size="sm"
+              className="w-full"
+              disabled={busy || !canStartContract}
+              onClick={() => onStartContract(lead)}
+            >
+              {busy ? t('card.startingContract') : t('card.startContract')}
+            </Button>
+          </span>
+        </div>
       )}
     </EdvanceCard>
   )

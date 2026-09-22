@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SELECT_SM } from '@/lib/formStyles'
@@ -9,6 +10,8 @@ type LeadFilterBarProps = {
   onChange: (next: Partial<LeadFilters>) => void
   showDone: boolean
   onToggleDone: (next: boolean) => void
+  /** Eindeutige ids, wenn die Leiste in einer anderen Ansicht (Vertraege) steht. */
+  idPrefix?: string
 }
 
 // Eine Zeile ueber dem Board. Die Filter wirken auf alle Spalten zugleich;
@@ -18,27 +21,29 @@ export function LeadFilterBar({
   onChange,
   showDone,
   onToggleDone,
+  idPrefix = 'lead',
 }: LeadFilterBarProps): JSX.Element {
+  const { t } = useTranslation('leads')
   return (
     <div className="flex flex-wrap items-end gap-4">
       <div className="flex min-w-[12rem] flex-1 flex-col gap-2">
-        <Label htmlFor="lead-search">Suche</Label>
+        <Label htmlFor={`${idPrefix}-search`}>{t('filters.search')}</Label>
         <Input
-          id="lead-search"
+          id={`${idPrefix}-search`}
           value={filters.query}
           onChange={(e) => onChange({ query: e.target.value })}
-          placeholder="Rufname oder vollständiger Name"
+          placeholder={t('filters.searchPlaceholder')}
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="lead-filter-subject">Fach</Label>
+        <Label htmlFor={`${idPrefix}-filter-subject`}>{t('filters.subject')}</Label>
         <select
-          id="lead-filter-subject"
+          id={`${idPrefix}-filter-subject`}
           className={SELECT_SM}
           value={filters.subject ?? ''}
           onChange={(e) => onChange({ subject: e.target.value || null })}
         >
-          <option value="">Alle</option>
+          <option value="">{t('filters.all')}</option>
           {SUBJECTS.map((s) => (
             <option key={s} value={s}>
               {s}
@@ -47,19 +52,19 @@ export function LeadFilterBar({
         </select>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="lead-filter-class">Klasse</Label>
+        <Label htmlFor={`${idPrefix}-filter-class`}>{t('filters.classLevel')}</Label>
         <select
-          id="lead-filter-class"
+          id={`${idPrefix}-filter-class`}
           className={SELECT_SM}
           value={filters.classLevel ?? ''}
           onChange={(e) =>
             onChange({ classLevel: e.target.value ? Number(e.target.value) : null })
           }
         >
-          <option value="">Alle</option>
+          <option value="">{t('filters.all')}</option>
           {CLASS_LEVELS.map((lvl) => (
             <option key={lvl} value={lvl}>
-              {lvl}. Klasse
+              {t('filters.classOption', { level: lvl })}
             </option>
           ))}
         </select>
@@ -71,7 +76,7 @@ export function LeadFilterBar({
           onChange={(e) => onToggleDone(e.target.checked)}
           className="h-4 w-4 rounded border-[var(--color-border)]"
         />
-        Archiv anzeigen
+        {t('filters.archive')}
       </label>
     </div>
   )

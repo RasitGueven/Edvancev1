@@ -6,6 +6,7 @@ import {
   EMPTY_FILTERS,
   ageDisplay,
   daysWaiting,
+  followUpDays,
   leadsForColumn,
   matchesFilters,
   stateTimestamp,
@@ -45,6 +46,11 @@ function lead(over: Partial<Lead> & { id: string }): Lead {
     consent_dsgvo_by: null,
     consent_dsgvo_signature: null,
     consent_dsgvo_document_version: null,
+    erstgespraech_at: null,
+    erstgespraech_standort: null,
+    rejected_at: null,
+    rejection_reason: null,
+    rejection_note: null,
     ...over,
   }
 }
@@ -132,6 +138,13 @@ describe('leadsForColumn', () => {
     expect(leadsForColumn(leads, DONE_COLUMN, EMPTY_FILTERS)).toHaveLength(2)
   })
 
+  it('zeigt Leads mit gestartetem Vertrag weder im Board noch im Archiv', () => {
+    const leads = [lead({ id: 'v', status: 'vertrag' })]
+    for (const column of [...BOARD_COLUMNS, DONE_COLUMN]) {
+      expect(leadsForColumn(leads, column, EMPTY_FILTERS)).toHaveLength(0)
+    }
+  })
+
   it('wendet die Filter innerhalb der Spalte an', () => {
     const leads = [
       lead({ id: 'mathe', subjects: ['Mathematik'] }),
@@ -184,6 +197,11 @@ describe('stateTimestamp', () => {
     for (const status of ['converted', 'rejected'] as const) {
       expect(stateTimestamp(lead({ id: status, status }))).toBeNull()
     }
+    expect(
+      stateTimestamp(
+        lead({ id: 'rej2', status: 'rejected', rejected_at: '2026-09-20T10:00:00.000Z' }),
+      ),
+    ).toBe('2026-09-20T10:00:00.000Z')
     // Vor Migration 20260904100000 angelegt: Status gesetzt, Spalte leer.
     expect(stateTimestamp(lead({ id: 'alt', status: 'lsa_freigegeben' }))).toBeNull()
     expect(stateTimestamp(lead({ id: 'alt2', status: 'lsa_fertig' }))).toBeNull()
@@ -200,8 +218,8 @@ describe('ageDisplay', () => {
       offen,
       now,
     )
-    expect(view.label).toBe('seit 1 Tag')
-    expect(view.createdLabel).toBeNull()
+    expect([view.kind, view.days]).toEqual(['since', 1])
+    expect(view.createdDays).toBeNull()
   })
 
   it('rechnet ab dem Zustands-Zeitstempel und zeigt das Anlagedatum darunter', () => {
@@ -215,8 +233,8 @@ describe('ageDisplay', () => {
       erfasst,
       now,
     )
-    expect(view.label).toBe('seit 2 Tagen')
-    expect(view.createdLabel).toBe('angelegt vor 14 Tagen')
+    expect([view.kind, view.days]).toEqual(['since', 2])
+    expect(view.createdDays).toBe(14)
     // 2 Tage im Zustand liegen unter der 7-Tage-Schwelle der Spalte.
     expect(view.accent).toBe(false)
     expect(view.bold).toBe(false)
@@ -237,7 +255,7 @@ describe('ageDisplay', () => {
     expect([at14.accent, at14.bold]).toEqual([true, true])
   })
 
-  it('nutzt in Spalte 3 und 4 die Schwellen 3 und 7 ab dem LSA-Zeitstempel', () => {
+  it('nutzt in Spalte 3 die Schwellen 3 und 7 ab dem LSA-Zeitstempel', () => {
     const view = ageDisplay(
       lead({
         id: 'h',
@@ -248,8 +266,8 @@ describe('ageDisplay', () => {
       analyse,
       now,
     )
-    expect(view.label).toBe('seit 4 Tagen')
-    expect(view.createdLabel).toBe('angelegt vor 14 Tagen')
+    expect([view.kind, view.days]).toEqual(['since', 4])
+    expect(view.createdDays).toBe(14)
     // 4 Tage liegen ueber der Akzent-Schwelle 3, aber unter der Fett-Schwelle 7.
     expect([view.accent, view.bold]).toEqual([true, false])
 
@@ -263,8 +281,9 @@ describe('ageDisplay', () => {
       abgeschlossen,
       now,
     )
-    expect(fertig.label).toBe('seit 8 Tagen')
-    expect([fertig.accent, fertig.bold]).toEqual([true, true])
+    // Spalte 4 faerbt die Zeitzeile nicht — dort traegt der Nachfass-Hinweis die Farbe.
+    expect([fertig.kind, fertig.days]).toEqual(['since', 8])
+    expect([fertig.accent, fertig.bold]).toEqual([false, false])
   })
 
   it('faellt ohne Zustands-Zeitstempel auf das Anlagedatum mit 7/14 zurueck', () => {
@@ -280,8 +299,8 @@ describe('ageDisplay', () => {
       analyse,
       now,
     )
-    expect(view.label).toBe('angelegt vor 5 Tagen')
-    expect(view.createdLabel).toBeNull()
+    expect([view.kind, view.days]).toEqual(['created', 5])
+    expect(view.createdDays).toBeNull()
     expect(view.accent).toBe(false)
 
     const alt = ageDisplay(
@@ -293,9 +312,10 @@ describe('ageDisplay', () => {
       abgeschlossen,
       now,
     )
-    expect(alt.label).toBe('angelegt vor 8 Tagen')
-    expect(alt.accent).toBe(true)
-    expect(alt.bold).toBe(false)
+    // Auch der Rueckfall aufs Anlagedatum bleibt in Spalte 4 neutral: orange
+    // wird dort nur der Hinweis, und der zaehlt nie ab dem Anlagedatum.
+    expect([alt.kind, alt.days]).toEqual(['created', 8])
+    expect(alt.accent).toBe(false)
   })
 
   it('faellt auch bei fehlendem contacted_at auf das Anlagedatum zurueck', () => {
@@ -309,7 +329,21 @@ describe('ageDisplay', () => {
       erfasst,
       now,
     )
-    expect(view.label).toBe('angelegt vor 2 Tagen')
-    expect(view.createdLabel).toBeNull()
+    expect([view.kind, view.days]).toEqual(['created', 2])
+    expect(view.createdDays).toBeNull()
+  })
+})
+
+describe('followUpDays', () => {
+  const now = new Date('2026-09-15T12:00:00.000Z')
+
+  it('meldet sich ab 7 Tagen seit dem Zustandswechsel', () => {
+    expect(followUpDays('2026-09-09T12:00:00.000Z', now)).toBeNull()
+    expect(followUpDays('2026-09-08T12:00:00.000Z', now)).toBe(7)
+    expect(followUpDays('2026-09-01T12:00:00.000Z', now)).toBe(14)
+  })
+
+  it('schweigt ohne Zeitstempel — kein Rueckfall aufs Anlagedatum', () => {
+    expect(followUpDays(null, now)).toBeNull()
   })
 })
