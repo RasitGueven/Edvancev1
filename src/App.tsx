@@ -20,6 +20,9 @@ import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { QsPage } from '@/pages/admin/QsPage'
 import { ReportPage } from '@/pages/admin/ReportPage'
+import { VertraegePage } from '@/pages/admin/VertraegePage'
+import { VertragPage } from '@/pages/admin/VertragPage'
+import { VertragUnterlagenPage } from '@/pages/admin/VertragUnterlagenPage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
@@ -125,6 +128,31 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin', 'coach']}>
               <LeadsPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Vertragsprozess — nur Verwaltung (Vertrag & Zahlung). */}
+        <Route
+          path="/admin/vertraege"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <VertraegePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/vertraege/:id"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <VertragPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/vertraege/:id/unterlagen"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <VertragUnterlagenPage />
             </ProtectedRoute>
           }
         />

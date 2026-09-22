@@ -1,1 +1,143 @@
-{}
+{
+  "page": {
+    "subtitle": "Verträge",
+    "eyebrow": "Verwaltung",
+    "title": "Verträge",
+    "description": "Vom gestarteten Vertrag bis zur Unterschrift — Daten erfassen, Unterlagen versenden, Abschluss nachhalten.",
+    "emptyTitle": "Noch keine Verträge",
+    "emptyDescription": "Verträge entstehen im Lead-Board über „Vertrag starten“ in der Spalte „Analyse abgeschlossen“."
+  },
+  "columns": {
+    "vorbereitung": { "title": "In Vorbereitung", "empty": "Kein Vertrag in Vorbereitung." },
+    "ausstehend": { "title": "Unterschrift ausstehend", "empty": "Keine offene Unterschrift." },
+    "abgeschlossen": { "title": "Abgeschlossen", "empty": "Noch kein Vertrag abgeschlossen." },
+    "archiv": { "title": "Archiv", "empty": "Archiv ist leer." }
+  },
+  "status": {
+    "in_vorbereitung": "In Vorbereitung",
+    "unterschrift_ausstehend": "Unterschrift ausstehend",
+    "abgeschlossen": "Abgeschlossen",
+    "abgelehnt": "Abgelehnt"
+  },
+  "card": {
+    "parent": "Eltern: {{name}}",
+    "paket": "{{paket}} · {{preis}} / Monat",
+    "closedOn": "Unterschrieben am {{date}}",
+    "capture": "Daten erfassen",
+    "viewDocs": "Unterlagen ansehen",
+    "reject": "Doch abgelehnt"
+  },
+  "detail": {
+    "eyebrow": "Vertrag",
+    "back": "Verträge",
+    "mandate": "Mandatsreferenz {{ref}}"
+  },
+  "form": {
+    "parent": "Vertragspartner (Elternteil)",
+    "child": "Kind",
+    "contract": "Vertragsdaten",
+    "sepa": "SEPA-Lastschriftmandat",
+    "choose": "Bitte wählen",
+    "classOption": "{{level}}. Klasse",
+    "tierOption": "{{name}} – {{price}} / Monat",
+    "months_one": "{{count}} Monat",
+    "months_other": "{{count}} Monate",
+    "priceHint": "Ergibt sich aus dem Paket.",
+    "ibanPlaceholder": "DE00 0000 0000 0000 0000 00",
+    "ibanInvalid": "Diese IBAN ist ungültig (Prüfsumme oder Länge).",
+    "ibanSaved": "Hinterlegt: {{masked}} — zum Ändern neu eingeben.",
+    "accountHolderHint": "Nur falls abweichend vom Vertragspartner.",
+    "creditorMissing": "Noch nicht hinterlegt",
+    "save": "Daten speichern",
+    "saved": "Gespeichert"
+  },
+  "field": {
+    "eltern_vorname": "Vorname",
+    "eltern_nachname": "Name",
+    "strasse": "Straße",
+    "hausnummer": "Hausnummer",
+    "plz": "PLZ",
+    "ort": "Ort",
+    "eltern_telefon": "Telefon",
+    "eltern_email": "E-Mail",
+    "kind_vorname": "Vorname des Kindes",
+    "kind_nachname": "Name des Kindes",
+    "kind_geburtsdatum": "Geburtsdatum",
+    "klasse": "Klasse",
+    "fach": "Fach",
+    "schule": "Schule",
+    "tier_id": "Paket",
+    "preis": "Preis pro Monat",
+    "laufzeit_monate": "Laufzeit",
+    "vertragsbeginn": "Vertragsbeginn",
+    "iban": "IBAN",
+    "kontoinhaber": "Kontoinhaber:in",
+    "mandatsreferenz": "Mandatsreferenz",
+    "glaeubiger_id": "Gläubiger-ID"
+  },
+  "docs": {
+    "title": "Unterlagen",
+    "hint": "Jedes Dokument einzeln bestätigen. „Ansehen“ öffnet das Dokument in einem neuen Tab.",
+    "accept": "{{titel}} gelesen und akzeptiert",
+    "version": "Fassung {{version}}",
+    "open": "Ansehen",
+    "optional": "Optionale Einwilligungen"
+  },
+  "ways": {
+    "title": "Abschluss",
+    "sign": "Direkt auf dem iPad unterschreiben",
+    "email": "Per E-Mail senden",
+    "emailDisabled": "E-Mail-Versand ist noch nicht eingerichtet.",
+    "print": "Ausdrucken",
+    "blockedUnsaved": "Ungespeicherte Änderungen — erst „Daten speichern“.",
+    "blockedMissing": "Es fehlt noch: {{fields}}",
+    "blockedChecks": "Erst alle Pflicht-Dokumente einzeln bestätigen."
+  },
+  "sign": {
+    "vertrag": "Unterschrift Vertrag",
+    "sepa": "Unterschrift SEPA-Lastschriftmandat",
+    "clear": "Neu zeichnen",
+    "missing": "Bitte beide Felder unterschreiben.",
+    "submit": "Unterschreiben und abschließen"
+  },
+  "paper": {
+    "hint": "Kommt der unterschriebene Vertrag auf Papier zurück, hier mit dem Datum der Unterschrift abschließen.",
+    "action": "Unterschrieben erhalten",
+    "date": "Abschlussdatum",
+    "confirm": "Abschließen"
+  },
+  "after": {
+    "title": "Vertrag abgeschlossen",
+    "hint": "Bestätigung per E-Mail und Ausdruck sind beide möglich.",
+    "email": "Vertragsbestätigung per E-Mail",
+    "print": "Unterlagen ausdrucken"
+  },
+  "proof": {
+    "title": "Nachweise",
+    "paper": "Unterschriebener Papiervertrag erhalten, unterschrieben am {{date}}",
+    "signed": "{{art}} unterschrieben am {{date}}",
+    "accepted": "{{titel}} (Fassung {{version}}) bestätigt am {{date}}",
+    "sent": "{{weg}} · {{anlass}} · {{date}}",
+    "none": "Noch keine Nachweise."
+  },
+  "art": {
+    "vertrag": "Vertrag",
+    "sepa_mandat": "SEPA-Lastschriftmandat"
+  },
+  "weg": {
+    "email": "E-Mail",
+    "druck": "Ausdruck"
+  },
+  "anlass": {
+    "unterlagen": "Unterlagen zur Unterschrift",
+    "bestaetigung": "Vertragsbestätigung"
+  },
+  "docsView": {
+    "title": "Vertragsunterlagen · {{ref}}",
+    "print": "Drucken",
+    "accepted": "bestätigt am {{date}}",
+    "signedAt": "Unterschrieben am {{date}}",
+    "signLine": "Ort, Datum, Unterschrift",
+    "versionMismatch": "„{{titel}}“: Die Datei trägt Fassung {{text}}, aktiv ist {{db}}. Das Dokument wird nicht angezeigt, bis beide übereinstimmen."
+  }
+}
