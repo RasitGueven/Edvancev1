@@ -3887,7 +3887,7 @@ CREATE FUNCTION public.vertrag_ablehnen(p_vertrag_id uuid, p_grund text, p_notiz
 declare
   v_vertrag vertraege%rowtype;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_ablehnen: nur Admin' using errcode = '42501';
   end if;
 
@@ -3928,7 +3928,7 @@ declare
   v_vertrag vertraege%rowtype;
   v_fehlt   text;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_abschliessen: nur Admin' using errcode = '42501';
   end if;
 
@@ -4030,7 +4030,7 @@ declare
   v_lead leads%rowtype;
   v_id   uuid;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_starten: nur Admin' using errcode = '42501';
   end if;
 
@@ -4077,7 +4077,7 @@ CREATE FUNCTION public.vertrag_versand_protokollieren(p_vertrag_id uuid, p_weg t
 declare
   v_status text;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_versand_protokollieren: nur Admin' using errcode = '42501';
   end if;
 
