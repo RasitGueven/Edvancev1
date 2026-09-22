@@ -8,6 +8,8 @@
 //
 // Kein src/lib-Baustein: das ist UI-Sitzungszustand, kein Datenzugriff.
 
+import { leereBilanz } from './useRunBilanz'
+
 export type PflegeQueue = {
   /** Task-IDs in der Reihenfolge der Quell-Liste. */
   ids: string[]
@@ -21,6 +23,7 @@ const QUEUE_KEY = 'edvance.pflegeQueue'
 const POS_KEY = 'edvance.pflegeQueuePos'
 
 export function persistQueue(queue: PflegeQueue): void {
+  leereBilanz()
   try {
     sessionStorage.setItem(QUEUE_KEY, JSON.stringify(queue))
     sessionStorage.setItem(POS_KEY, '0')
@@ -94,4 +97,23 @@ export function initialRun(state: unknown): { queue: PflegeQueue; pos: number } 
     }
   }
   return stored
+}
+
+// ── Rueckweg aus dem Editor ─────────────────────────────────────────────────
+//
+// Der Editor oeffnet aus der Strecke im SELBEN Tab, mit dem Schritt als
+// Parameter. Nach dem Speichern fuehrt er zurueck; die Strecke laedt die Aufgabe
+// frisch und springt in diesen Schritt. Ein zweiter Tab waere gefaehrlich: die
+// Strecke hielte den alten Stand und schriebe ihn beim naechsten Speichern ueber
+// die Korrektur aus dem Editor.
+
+export const PFLEGE_PARAM = 'pflege'
+
+export function editorAusStrecke(taskId: string, schritt: string): string {
+  return `/admin/authoring/${taskId}?${PFLEGE_PARAM}=${encodeURIComponent(schritt)}`
+}
+
+/** Ziel und state fuer navigate/Link zurueck in die Strecke. */
+export function zurueckInStrecke(schritt: string): { to: string; state: { schritt: string } } {
+  return { to: '/admin/pflege', state: { schritt } }
 }

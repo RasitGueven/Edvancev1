@@ -17,6 +17,7 @@ import type { AuthoringCluster } from '@/lib/supabase/taskAuthoring'
 import type { Afb, ItemFlag } from '@/types'
 import { AFB_VALUES, type FormState } from '../editorState'
 import { ChoiceChip } from './ChoiceChip'
+import { editorAusStrecke } from './wizardQueue'
 
 const GRADES = [5, 6, 7, 8, 9]
 
@@ -129,7 +130,7 @@ export function RequiredFields({
             ))}
           </ul>
           <Link
-            to={`/admin/authoring/${taskId}`}
+            to={editorAusStrecke(taskId, 'release')}
             className={`${buttonVariants({ variant: 'outline', size: 'sm' })} self-start`}
           >
             <PenLine className="h-4 w-4" aria-hidden="true" />

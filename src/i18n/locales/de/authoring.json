@@ -373,10 +373,14 @@
       "rejected_one": "{{count}} Aufgabe zurückgewiesen",
       "rejected_other": "{{count}} Aufgaben zurückgewiesen",
       "revoked_one": "{{count}} Freigabe zurückgenommen",
-      "revoked_other": "{{count}} Freigaben zurückgenommen"
+      "revoked_other": "{{count}} Freigaben zurückgenommen",
+      "moved_one": "{{count}} Aufgabe verschoben",
+      "moved_other": "{{count}} Aufgaben verschoben"
     },
     "decidedCount_one": "{{count}} in diesem Durchlauf erledigt",
-    "decidedCount_other": "{{count}} in diesem Durchlauf erledigt"
+    "decidedCount_other": "{{count}} in diesem Durchlauf erledigt",
+    "moved": "Nach {{thema}} verschoben",
+    "backToRun": "Zurück zur Pflege-Strecke"
   },
   "health": {
     "eyebrow": "Autoren-Tool",

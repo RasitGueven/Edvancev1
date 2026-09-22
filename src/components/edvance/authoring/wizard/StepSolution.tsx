@@ -3,18 +3,19 @@
 // Der Wizard prueft nur: passt die Loesung zum Item? Die Daten sind dieselben,
 // die der Editor haelt (task_solution_get → FormState); der Beleg sind die
 // read-only-Zitate aus task_solutions.beleg (B01). Korrigiert wird im
-// Expertenmodus — der Link oeffnet den Editor in einem neuen Tab, damit die
-// Warteschlange stehen bleibt.
+// Expertenmodus — der Link oeffnet den Editor im selben Tab, und nach dem
+// Speichern geht es hierher zurueck (wizardQueue: editorAusStrecke).
 
 import type { JSX } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ExternalLink } from 'lucide-react'
+import { PenLine } from 'lucide-react'
 import { EdvanceCard } from '@/components/edvance'
 import { buttonVariants } from '@/components/ui/button'
 import type { GroundingBeleg } from '@/types'
 import { BelegQuote } from '../BelegQuote'
 import { isMultiPart, type FormState } from '../editorState'
+import { editorAusStrecke } from './wizardQueue'
 
 function AnswerList({ answers }: { answers: string[] }): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -61,12 +62,11 @@ export function StepSolution({
             {t('wizard.solution.title')}
           </h3>
           <Link
-            to={`/admin/authoring/${taskId}`}
-            target="_blank"
+            to={editorAusStrecke(taskId, 'solution')}
             className={buttonVariants({ variant: 'outline', size: 'sm' })}
           >
+            <PenLine className="h-3.5 w-3.5" aria-hidden="true" />
             {t('wizard.solution.openEditor')}
-            <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
           </Link>
         </div>
         <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">

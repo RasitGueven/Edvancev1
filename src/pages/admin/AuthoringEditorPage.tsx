@@ -26,6 +26,7 @@ import { ReleaseGate } from '@/components/edvance/authoring/ReleaseGate'
 import { SaveBar } from '@/components/edvance/authoring/SaveBar'
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
 import { TagsSection } from '@/components/edvance/authoring/TagsSection'
+import { usePflegeRueckweg } from '@/components/edvance/authoring/wizard/usePflegeRueckweg'
 import { Field, Section } from '@/components/edvance/authoring/ui'
 import {
   draftSolution,
@@ -59,6 +60,7 @@ export function AuthoringEditorPage(): JSX.Element {
   const { id } = useParams<{ id: string }>()
   const { role } = useAuth()
   const isAdmin = role === 'admin'
+  const rueckweg = usePflegeRueckweg()
   const [darfPruefen, setDarfPruefen] = useState(false)
   useEffect(() => {
     void getDarfPruefen().then((res) => setDarfPruefen(res.data === true))
@@ -187,6 +189,7 @@ export function AuthoringEditorPage(): JSX.Element {
 
     setTask(taskRes.data)
     setBaseline(state)
+    rueckweg.nachSpeichern()
   }
 
   const changeStatus = async (next: EditorSettableStatus): Promise<void> => {
@@ -229,10 +232,11 @@ export function AuthoringEditorPage(): JSX.Element {
       <EdvanceNavbar subtitle={t('page.editorSubtitle')} sticky />
       <main className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-32 pt-6">
         <Link
-          to="/admin/authoring"
+          to={rueckweg.zurueck.to}
+          state={rueckweg.zurueck.state}
           className="inline-flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
         >
-          <ArrowLeft className="h-4 w-4" /> {t('page.backToList')}
+          <ArrowLeft className="h-4 w-4" /> {t(rueckweg.zurueck.labelKey)}
         </Link>
 
         <SchemaBanner schema={schema} />

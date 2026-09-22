@@ -12,7 +12,8 @@
 // Geschrieben wird dabei nur `tasks` (toPatch) — die Loesung ist im Wizard
 // read-only, also fasst er task_solution_upsert gar nicht erst an.
 
-import { useCallback, useEffect, useMemo, useState, type JSX } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'react'
+import { ToastBanner } from '@/components/edvance'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
@@ -32,6 +33,7 @@ import { StepRead } from '@/components/edvance/authoring/wizard/StepRead'
 import { RequiredFields } from '@/components/edvance/authoring/wizard/RequiredFields'
 import { StepRelease } from '@/components/edvance/authoring/wizard/StepRelease'
 import { useReleaseActions } from '@/components/edvance/authoring/wizard/useReleaseActions'
+import { useRunBilanz } from '@/components/edvance/authoring/wizard/useRunBilanz'
 import { useWizardKeys } from '@/components/edvance/authoring/wizard/useWizardKeys'
 import { StepSolution } from '@/components/edvance/authoring/wizard/StepSolution'
 import { WizardFooter } from '@/components/edvance/authoring/wizard/WizardFooter'
@@ -78,7 +80,12 @@ export function PflegeWizardPage(): JSX.Element {
   const [run] = useState(() => initialRun(location.state))
   const queue = run?.queue ?? null
   const [pos, setPos] = useState(run?.pos ?? 0)
-  const [outcomes, setOutcomes] = useState<Record<string, WizardOutcome>>({})
+  const bilanz = useRunBilanz()
+  const [hinweis, setHinweis] = useState<string | null>(null)
+  // Rueckkehr aus dem Editor: in diesen Schritt springen (einmal, beim Laden).
+  const resumeStep = useRef((location.state as { schritt?: string } | null)?.schritt ?? null)
+  // Das Themengebiet beim Laden — weicht es beim Abschluss ab, ist die Aufgabe verschoben.
+  const herkunft = useRef('')
 
   const finished = queue != null && pos >= queue.ids.length
   const currentId = queue && !finished ? queue.ids[pos] : null
@@ -132,8 +139,12 @@ export function PflegeWizardPage(): JSX.Element {
       // Verdacht + Schrittliste EINMAL beim Laden — Schritte verschwinden nicht
       // unter dem Pfleger, wenn er mittendrin den toten Pfad entfernt.
       setImageRef(imageRefFinding(taskRes.data))
-      setSteps(stepsForTask(taskRes.data))
-      setStepIdx(0)
+      const liste = stepsForTask(taskRes.data)
+      setSteps(liste)
+      const resume = resumeStep.current ? liste.indexOf(resumeStep.current as WizardStepId) : -1
+      resumeStep.current = null
+      herkunft.current = taskRes.data.cluster_id ?? ''
+      setStepIdx(Math.max(resume, 0))
       setPreviewOpen(false)
       setLoading(false)
     })()
@@ -200,12 +211,16 @@ export function PflegeWizardPage(): JSX.Element {
   const advanceItem = useCallback(
     (outcome?: WizardOutcome): void => {
       if (outcome && currentId) {
-        setOutcomes((prev) => ({ ...prev, [currentId]: outcome }))
+        const ziel = state?.cluster_id ?? ''
+        const verschoben = ziel !== '' && ziel !== herkunft.current
+        bilanz.erfasse(currentId, outcome, verschoben)
+        const name = clusters.find((c) => c.id === ziel)?.name
+        setHinweis(verschoben && name ? t('wizard.moved', { thema: name }) : null)
       }
       persistPosition(pos + 1)
       setPos(pos + 1)
     },
-    [currentId, pos],
+    [currentId, pos, state, bilanz.erfasse, clusters, t],
   )
 
   const step = steps[stepIdx] ?? 'read'
@@ -234,12 +249,20 @@ export function PflegeWizardPage(): JSX.Element {
   // ── Render ────────────────────────────────────────────────────────────────
   if (!queue) return <NoQueueScreen />
   if (finished) {
-    return <DoneScreen total={queue.ids.length} outcomes={outcomes} backTo={queue.returnTo} />
+    return (
+      <DoneScreen
+        total={queue.ids.length}
+        outcomes={bilanz.outcomes}
+        verschoben={bilanz.verschoben.length}
+        backTo={queue.returnTo}
+      />
+    )
   }
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('wizard.subtitle')} sticky />
+      {hinweis && <ToastBanner key={hinweis} type="success" message={hinweis} onClose={() => setHinweis(null)} />}
       <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-36 pt-6">
         <WizardTopBar
           label={queue.label}
@@ -247,7 +270,7 @@ export function PflegeWizardPage(): JSX.Element {
           total={queue.ids.length}
           exitTo={queue.returnTo}
           decided={
-            Object.values(outcomes).filter((o) => o === 'released' || o === 'reviewed').length
+            Object.values(bilanz.outcomes).filter((o) => o === 'released' || o === 'reviewed').length
           }
           onPreview={() => setPreviewOpen(true)}
         />
