@@ -237,6 +237,21 @@ $$;
 
 
 --
+-- Name: darf_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.darf_pruefen() RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  select coalesce(
+    (select p.role = 'admin' or (p.role = 'coach' and p.darf_pruefen)
+       from public.profiles p where p.id = auth.uid()),
+    false)
+$$;
+
+
+--
 -- Name: enforce_mastery_gate(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -264,6 +279,38 @@ begin
   return new;
 end;
 $$;
+
+
+--
+-- Name: freigabe_cluster(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.freigabe_cluster(p_cluster_id uuid) RETURNS integer
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+declare
+  v_id uuid;
+  v_n  integer := 0;
+begin
+  if public.get_my_role() is distinct from 'admin' then
+    raise exception 'freigabe_cluster: nur admin darf freigeben' using errcode = '42501';
+  end if;
+
+  for v_id in
+    select id from public.tasks
+     where cluster_id = p_cluster_id and status = 'review'
+  loop
+    begin
+      perform public.task_status_set(v_id, 'ready');
+      v_n := v_n + 1;
+    exception
+      when sqlstate 'P0001' then null;
+    end;
+  end loop;
+
+  return v_n;
+end $$;
 
 
 --
@@ -374,6 +421,18 @@ CREATE FUNCTION public.is_parent_of_student(p_student_id uuid) RETURNS boolean
         select profile_id from students where id = p_student_id
       )
   );
+$$;
+
+
+--
+-- Name: ist_systemaufruf(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ist_systemaufruf() RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public'
+    AS $$
+  select coalesce(auth.role(), 'service_role') = 'service_role'
 $$;
 
 
@@ -581,15 +640,22 @@ CREATE FUNCTION public.lena_beanstande(p_task_id uuid, p_kategorie text, p_notiz
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public'
     AS $$
+declare v_status text;
 begin
-  if public.get_my_role() <> 'admin' then
-    raise exception 'A20: nur die fachliche Freigabe (admin) darf beanstanden'
-      using errcode = '42501';
+  if not public.darf_pruefen() then
+    raise exception 'A20: kein Pruefrecht fuer Beanstandungen' using errcode = '42501';
   end if;
-  update public.tasks set status = 'beanstandet' where id = p_task_id;
+  select status into v_status from public.tasks where id = p_task_id for update;
   if not found then
     raise exception 'A20: Aufgabe % nicht gefunden', p_task_id using errcode = 'P0002';
   end if;
+  if v_status = 'ready' and public.get_my_role() is distinct from 'admin' then
+    raise exception 'A20: eine freigegebene Aufgabe beanstandet nur admin'
+      using errcode = '42501';
+  end if;
+  update public.tasks
+     set status = 'beanstandet', reviewed_by = null, reviewed_at = null
+   where id = p_task_id;
   insert into public.task_reviews (task_id, kategorie, notiz, geprueft_von)
     values (p_task_id, p_kategorie, p_notiz, auth.uid());
   return 1;
@@ -606,7 +672,7 @@ CREATE FUNCTION public.lena_beanstande_muster(p_skill_key text, p_fehlbild_label
     AS $$
 declare v_n integer;
 begin
-  if public.get_my_role() <> 'admin' then
+  if public.get_my_role() is distinct from 'admin' then
     raise exception 'A20: nur die fachliche Freigabe (admin) darf beanstanden'
       using errcode = '42501';
   end if;
@@ -642,7 +708,7 @@ CREATE FUNCTION public.lena_text_aendern(p_task_id uuid, p_question text) RETURN
     AS $$
 declare v_alt text;
 begin
-  if public.get_my_role() <> 'admin' then
+  if public.get_my_role() is distinct from 'admin' then
     raise exception 'A20: nur die fachliche Freigabe (admin) darf den Text aendern'
       using errcode = '42501';
   end if;
@@ -3672,12 +3738,22 @@ CREATE FUNCTION public.task_solution_upsert(p_task_id uuid, p_correct_answers js
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public'
     AS $$
+declare
+  v_admin  boolean := public.get_my_role() is not distinct from 'admin'
+                      or public.ist_systemaufruf();
+  v_status text;
 begin
-  if public.get_my_role() <> 'admin' then
-    raise exception 'task_solution_upsert: nur Admin' using errcode = '42501';
+  if not (v_admin or public.darf_pruefen()) then
+    raise exception 'task_solution_upsert: kein Pruefrecht' using errcode = '42501';
   end if;
-  if not exists (select 1 from tasks where id = p_task_id) then
+  select status into v_status from tasks where id = p_task_id for update;
+  if not found then
     raise exception 'task_solution_upsert: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  -- Wie beim tasks_pruefer_guard: unter einer Freigabe aendert nur admin.
+  if not v_admin and v_status = 'ready' then
+    raise exception 'task_solution_upsert: eine freigegebene Aufgabe aendert nur admin'
+      using errcode = '42501';
   end if;
   if p_beleg is not null and jsonb_typeof(p_beleg) not in ('array', 'null') then
     raise exception 'task_solution_upsert: beleg muss ein Array sein (oder JSON-null zum Leeren)'
@@ -3767,26 +3843,35 @@ CREATE FUNCTION public.task_status_set(p_task_id uuid, p_status text) RETURNS js
     SET search_path TO 'public'
     AS $$
 declare
-  v_task tasks%rowtype;
+  v_task  tasks%rowtype;
+  v_admin boolean := public.get_my_role() is not distinct from 'admin'
+                     or public.ist_systemaufruf();
 begin
-  if public.get_my_role() <> 'admin' then
-    raise exception 'task_status_set: nur Admin' using errcode = '42501';
+  if not (v_admin or public.darf_pruefen()) then
+    raise exception 'task_status_set: kein Pruefrecht' using errcode = '42501';
   end if;
   if p_status not in ('draft', 'review', 'ready') then
     raise exception 'task_status_set: unbekannter Status %', p_status
       using errcode = '22023';
   end if;
 
-  select * into v_task from tasks where id = p_task_id;
+  -- for update: sonst liest ein Pruefer 'review', waehrend admin gerade
+  -- freigibt, und ueberschreibt danach das 'ready'.
+  select * into v_task from tasks where id = p_task_id for update;
   if not found then
     raise exception 'task_status_set: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  if not v_admin and (p_status = 'ready' or v_task.status = 'ready') then
+    raise exception 'task_status_set: freigeben und zuruecknehmen nur admin'
+      using errcode = '42501';
   end if;
 
   -- Das Gate. Was hier durchfaellt, kommt nicht in den LSA-Pool — unabhaengig
   -- davon, was das Frontend meint. Es sind dieselben Pflichtfelder, die
   -- src/lib/authoring/flags.ts prueft; hier stehen die, die die DB selbst
   -- beantworten kann (das Tool prueft zusaetzlich Alt-Texte u.a.).
-  if p_status = 'ready' then
+  if p_status in ('review', 'ready') then
     if coalesce(btrim(v_task.question), '') = '' then
       raise exception 'task_status_set: Stamm fehlt' using errcode = 'P0001';
     end if;
@@ -3826,6 +3911,46 @@ begin
   return jsonb_build_object('ok', true, 'task_id', p_task_id, 'status', p_status);
 end;
 $$;
+
+
+--
+-- Name: tasks_pruefer_guard(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.tasks_pruefer_guard() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+begin
+  if current_user = 'authenticated'
+     and public.get_my_role() is distinct from 'admin' then
+    if new.status      is distinct from old.status
+       or new.reviewed_by is distinct from old.reviewed_by
+       or new.reviewed_at is distinct from old.reviewed_at then
+      raise exception 'Freigabe: Status nur ueber task_status_set / lena_beanstande'
+        using errcode = '42501';
+    end if;
+    -- Herkunft und Steuerung des Bestands pflegt der Pruefer nicht: sie
+    -- entscheiden, woher eine Aufgabe kommt und ob/wie die LSA sie zieht.
+    if new.id is distinct from old.id
+       or new.source        is distinct from old.source
+       or new.source_ref    is distinct from old.source_ref
+       or new.created_at    is distinct from old.created_at
+       or new.content_type  is distinct from old.content_type
+       or new.is_active     is distinct from old.is_active
+       or new.is_diagnostic is distinct from old.is_diagnostic
+       or new.is_tutorial   is distinct from old.is_tutorial
+       or new.skill_key     is distinct from old.skill_key
+       or new.sondierrang   is distinct from old.sondierrang then
+      raise exception 'Freigabe: Herkunfts- und Steuerfelder aendert nur admin'
+        using errcode = '42501';
+    end if;
+    if old.status = 'ready' then
+      raise exception 'Freigabe: eine freigegebene Aufgabe aendert nur admin'
+        using errcode = '42501';
+    end if;
+  end if;
+  return new;
+end $$;
 
 
 --
@@ -4215,6 +4340,7 @@ CREATE TABLE public.profiles (
     role text NOT NULL,
     full_name text,
     created_at timestamp with time zone DEFAULT now(),
+    darf_pruefen boolean DEFAULT false NOT NULL,
     CONSTRAINT profiles_role_check CHECK ((role = ANY (ARRAY['student'::text, 'parent'::text, 'coach'::text, 'admin'::text])))
 );
 
@@ -4690,7 +4816,7 @@ CREATE TABLE public.task_reviews (
     notiz text,
     geprueft_von uuid,
     geprueft_am timestamp with time zone DEFAULT now() NOT NULL,
-    CONSTRAINT task_reviews_kategorie_check CHECK ((kategorie = ANY (ARRAY['fehlbild_falsch'::text, 'fehlbild_unrealistisch'::text, 'zahlen_unguenstig'::text, 'formulierung'::text, 'didaktisch'::text, 'kontext'::text])))
+    CONSTRAINT task_reviews_kategorie_check CHECK ((kategorie = ANY (ARRAY['fehlbild_falsch'::text, 'fehlbild_unrealistisch'::text, 'zahlen_unguenstig'::text, 'formulierung'::text, 'didaktisch'::text, 'kontext'::text, 'loesung_passt_nicht'::text])))
 );
 
 
@@ -5894,6 +6020,13 @@ CREATE TRIGGER task_solutions_term_acceptance BEFORE INSERT OR UPDATE OF accepta
 --
 
 CREATE TRIGGER task_solutions_zahlen_guard BEFORE UPDATE OF correct_answers, acceptance ON public.task_solutions FOR EACH ROW EXECUTE FUNCTION public.task_solutions_zahlen_guard();
+
+
+--
+-- Name: tasks tasks_pruefer_guard; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tasks_pruefer_guard BEFORE UPDATE ON public.tasks FOR EACH ROW EXECUTE FUNCTION public.tasks_pruefer_guard();
 
 
 --
@@ -7193,6 +7326,13 @@ CREATE POLICY process_competencies_admin_write ON public.process_competencies US
 --
 
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: tasks pruefer_update_tasks; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY pruefer_update_tasks ON public.tasks FOR UPDATE TO authenticated USING (public.darf_pruefen()) WITH CHECK (public.darf_pruefen());
+
 
 --
 -- Name: tasks read_tasks_by_role; Type: POLICY; Schema: public; Owner: -
