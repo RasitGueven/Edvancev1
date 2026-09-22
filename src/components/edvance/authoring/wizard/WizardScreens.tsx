@@ -48,9 +48,11 @@ export function NoQueueScreen(): JSX.Element {
 export function DoneScreen({
   total,
   outcomes,
+  backTo = '/admin/authoring',
 }: {
   total: number
   outcomes: Record<string, WizardOutcome>
+  backTo?: string
 }): JSX.Element {
   const { t } = useTranslation('authoring')
   const tally = Object.values(outcomes)
@@ -70,7 +72,7 @@ export function DoneScreen({
         {count('revoked') > 0 && <li>{t('wizard.done.revoked', { count: count('revoked') })}</li>}
       </ul>
       <div className="flex justify-center">
-        <Link to="/admin/authoring" className={buttonVariants({ size: 'sm' })}>
+        <Link to={backTo} className={buttonVariants({ size: 'sm' })}>
           {t('wizard.done.backToList')}
         </Link>
       </div>

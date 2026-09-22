@@ -8,6 +8,7 @@ import { ParentDashboard } from '@/pages/parent/ParentDashboard'
 import { ScreeningReportPage as ParentScreeningReportPage } from '@/pages/parent/ScreeningReportPage'
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
 import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
+import { ItemBoardPage } from '@/pages/admin/ItemBoardPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
 import { PflegeWizardPage } from '@/pages/admin/PflegeWizardPage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
@@ -194,6 +195,15 @@ export default function App(): JSX.Element {
             und task_solution_upsert nur Admin — die Seiten schalten selbst um. */}
         <Route
           path="/admin/authoring"
+          element={
+            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <ItemBoardPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Die Filterliste (A05) bleibt als Expertenansicht neben dem Board. */}
+        <Route
+          path="/admin/authoring/liste"
           element={
             <ProtectedRoute allowedRoles={['coach', 'admin']}>
               <AuthoringItemsPage />

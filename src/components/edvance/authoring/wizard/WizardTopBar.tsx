@@ -14,6 +14,7 @@ export function WizardTopBar({
   label,
   position,
   total,
+  exitTo = '/admin/authoring',
   decided,
   onPreview,
 }: {
@@ -22,6 +23,8 @@ export function WizardTopBar({
   /** 1-basiert — Anzeige "12 / 47". */
   position: number
   total: number
+  /** Wohin das X fuehrt — die Board-Ebene, von der die Strecke kam. */
+  exitTo?: string
   /** In diesem Durchlauf freigegeben oder zur Freigabe gegeben. */
   decided: number
   onPreview: () => void
@@ -68,7 +71,7 @@ export function WizardTopBar({
             {t('wizard.openPreview')}
           </button>
           <Link
-            to="/admin/authoring"
+            to={exitTo}
             aria-label={t('wizard.exit')}
             title={t('wizard.exit')}
             className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[color-mix(in_srgb,var(--color-stage-text)_30%,transparent)] text-[var(--color-stage-text)] transition hover:border-[var(--color-stage-gold-edge)]"

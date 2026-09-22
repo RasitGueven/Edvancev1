@@ -132,3 +132,41 @@ export async function freigabeCluster(clusterId: string): Promise<SupabaseResult
     return { data: null, error: fehlermeldung(err, 'Freigabe fehlgeschlagen') }
   }
 }
+
+export type LetzteBeanstandung = { kategorie: BeanstandungsKategorie; notiz: string | null }
+
+type ReviewAbfrage = {
+  select: (cols: string) => {
+    order: (
+      col: string,
+      opts: { ascending: boolean },
+    ) => Promise<{
+      data: { task_id: string; kategorie: BeanstandungsKategorie; notiz: string | null }[] | null
+      error: { message: string } | null
+    }>
+  }
+}
+
+/**
+ * Die juengste Beanstandung je Aufgabe (task_reviews ist eine Spur — eine Aufgabe
+ * kann mehrfach zurueckgewiesen werden; das Board zeigt den letzten Grund).
+ * task_reviews steht nicht in database.ts — der Cast haelt das sichtbar.
+ */
+export async function listLetzteBeanstandungen(): Promise<
+  SupabaseResult<Map<string, LetzteBeanstandung>>
+> {
+  try {
+    const from = supabase.from as unknown as (table: string) => ReviewAbfrage
+    const { data, error } = await from('task_reviews')
+      .select('task_id,kategorie,notiz')
+      .order('geprueft_am', { ascending: false })
+    if (error) return { data: null, error: error.message }
+    const map = new Map<string, LetzteBeanstandung>()
+    for (const r of data ?? []) {
+      if (!map.has(r.task_id)) map.set(r.task_id, { kategorie: r.kategorie, notiz: r.notiz })
+    }
+    return { data: map, error: null }
+  } catch (err) {
+    return { data: null, error: fehlermeldung(err, 'Rueckweisungen konnten nicht geladen werden') }
+  }
+}

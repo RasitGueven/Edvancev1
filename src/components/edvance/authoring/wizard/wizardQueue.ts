@@ -13,6 +13,8 @@ export type PflegeQueue = {
   ids: string[]
   /** Woher die Auswahl kam — nur Anzeige ("Item-Liste", "Content-Gesundheit"). */
   label: string
+  /** Wohin Beenden/Abschluss fuehren (Board-Ebene); fehlt = /admin/authoring. */
+  returnTo?: string
 }
 
 const QUEUE_KEY = 'edvance.pflegeQueue'
@@ -46,6 +48,7 @@ export function restoreQueue(): { queue: PflegeQueue; pos: number } | null {
     const queue: PflegeQueue = {
       ids: parsed.ids.filter((id): id is string => typeof id === 'string'),
       label: typeof parsed.label === 'string' ? parsed.label : '',
+      ...(typeof parsed.returnTo === 'string' ? { returnTo: parsed.returnTo } : {}),
     }
     if (queue.ids.length === 0) return null
     const pos = Number.parseInt(sessionStorage.getItem(POS_KEY) ?? '0', 10)
@@ -65,4 +68,30 @@ export function clearQueue(): void {
   } catch {
     // s. o.
   }
+}
+
+/**
+ * Warteschlange aus location.state (frischer Einstieg) oder sessionStorage.
+ *
+ * Achtung Reload: der Browser stellt location.state wieder her. Kommt dieselbe
+ * Warteschlange erneut herein, gilt die GESPEICHERTE Position weiter — sonst
+ * wuerfe jeder Reload den Pfleger zurueck auf Item 1.
+ */
+export function initialRun(state: unknown): { queue: PflegeQueue; pos: number } | null {
+  const stored = restoreQueue()
+  const s = state as { ids?: unknown; label?: unknown; returnTo?: unknown } | null
+  if (s && Array.isArray(s.ids)) {
+    const ids = s.ids.filter((id): id is string => typeof id === 'string')
+    if (ids.length > 0) {
+      if (stored && JSON.stringify(stored.queue.ids) === JSON.stringify(ids)) return stored
+      const queue: PflegeQueue = {
+        ids,
+        label: typeof s.label === 'string' ? s.label : '',
+        ...(typeof s.returnTo === 'string' ? { returnTo: s.returnTo } : {}),
+      }
+      persistQueue(queue)
+      return { queue, pos: 0 }
+    }
+  }
+  return stored
 }

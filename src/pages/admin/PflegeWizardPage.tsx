@@ -43,10 +43,8 @@ import {
 } from '@/components/edvance/authoring/wizard/WizardScreens'
 import {
   clearQueue,
+  initialRun,
   persistPosition,
-  persistQueue,
-  restoreQueue,
-  type PflegeQueue,
 } from '@/components/edvance/authoring/wizard/wizardQueue'
 import { stepsForTask, type WizardStepId } from '@/components/edvance/authoring/wizard/wizardSteps'
 import { computeFlags } from '@/lib/authoring/flags'
@@ -62,28 +60,6 @@ import {
 } from '@/lib/supabase/taskAuthoring'
 import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringSchema, AuthoringTask, GroundingBeleg } from '@/types'
-
-/**
- * Warteschlange aus location.state (frischer Einstieg) oder sessionStorage.
- *
- * Achtung Reload: der Browser stellt location.state wieder her. Kommt dieselbe
- * Warteschlange erneut herein, gilt die GESPEICHERTE Position weiter — sonst
- * wuerfe jeder Reload den Pfleger zurueck auf Item 1.
- */
-function initialRun(state: unknown): { queue: PflegeQueue; pos: number } | null {
-  const stored = restoreQueue()
-  const s = state as { ids?: unknown; label?: unknown } | null
-  if (s && Array.isArray(s.ids)) {
-    const ids = s.ids.filter((id): id is string => typeof id === 'string')
-    if (ids.length > 0) {
-      if (stored && JSON.stringify(stored.queue.ids) === JSON.stringify(ids)) return stored
-      const queue: PflegeQueue = { ids, label: typeof s.label === 'string' ? s.label : '' }
-      persistQueue(queue)
-      return { queue, pos: 0 }
-    }
-  }
-  return stored
-}
 
 export function PflegeWizardPage(): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -252,12 +228,14 @@ export function PflegeWizardPage(): JSX.Element {
     setPreviewOpen,
     closeOverlay: actions.closeReject,
     next: goNext,
-    exit: () => navigate('/admin/authoring'),
+    exit: () => navigate(queue?.returnTo ?? '/admin/authoring'),
   })
 
   // ── Render ────────────────────────────────────────────────────────────────
   if (!queue) return <NoQueueScreen />
-  if (finished) return <DoneScreen total={queue.ids.length} outcomes={outcomes} />
+  if (finished) {
+    return <DoneScreen total={queue.ids.length} outcomes={outcomes} backTo={queue.returnTo} />
+  }
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
@@ -267,6 +245,7 @@ export function PflegeWizardPage(): JSX.Element {
           label={queue.label}
           position={pos + 1}
           total={queue.ids.length}
+          exitTo={queue.returnTo}
           decided={
             Object.values(outcomes).filter((o) => o === 'released' || o === 'reviewed').length
           }

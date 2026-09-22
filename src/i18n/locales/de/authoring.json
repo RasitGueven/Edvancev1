@@ -475,12 +475,64 @@
     "stochastik": "Stochastik"
   },
   "clusterRelease": {
-    "title": "Zur Freigabe je Themengebiet",
     "button_one": "{{count}} geprüfte freigeben",
     "button_other": "Alle {{count}} geprüften freigeben",
-    "done_one": "{{count}} Aufgabe freigegeben.",
-    "done_other": "{{count}} Aufgaben freigegeben.",
-    "skippedHint": "Unvollständige Aufgaben bleiben auf „Zur Freigabe“.",
+    "done_one": "{{count}} Aufgabe freigegeben. Unvollständige bleiben auf „Zur Freigabe“.",
+    "done_other": "{{count}} Aufgaben freigegeben. Unvollständige bleiben auf „Zur Freigabe“.",
     "failed": "Freigabe fehlgeschlagen: {{error}}"
+  },
+  "board": {
+    "bereich": {
+      "lsa": "Lernstandsanalyse",
+      "sessions": "Sessions"
+    },
+    "ebene": {
+      "bereich": "Aufgaben prüfen und freigeben",
+      "klasse": "Klassenstufe wählen — gemeint ist die Zielklasse der Lernstandsanalyse, nicht der Stoffjahrgang.",
+      "fach": "Fach wählen",
+      "arbeit": "Themengebiete durchgehen, prüfen und freigeben"
+    },
+    "klasse": "Klasse {{klasse}}",
+    "fach": {
+      "Mathematik": "Mathe",
+      "Deutsch": "Deutsch",
+      "Englisch": "Englisch"
+    },
+    "titelArbeit": "{{fach}} · Klasse {{klasse}}",
+    "pfad": "Pfad",
+    "expertenliste": "Expertenliste",
+    "leer": "Noch keine Aufgaben",
+    "kachelStand_one": "{{total}} Aufgabe · {{geprueft}} geprüft",
+    "kachelStand_other": "{{total}} Aufgaben · {{geprueft}} geprüft",
+    "stand": "{{geprueft}} von {{total}} geprüft · {{frei}} freigegeben",
+    "filter": {
+      "offen": "Offen {{count}}",
+      "zurFreigabe": "Zur Freigabe {{count}}",
+      "freigegeben": "Freigegeben {{count}}",
+      "zurueckgewiesen": "Zurückgewiesen {{count}}"
+    },
+    "durchlaufAlle_one": "Durchlauf über {{count}} Aufgabe",
+    "durchlaufAlle_other": "Durchlauf über alle {{count}}",
+    "durchlauf": "Durchlauf",
+    "zaehler": "{{geprueft}} / {{total}}",
+    "fertig": "fertig",
+    "ohneThema": "Ohne Themengebiet",
+    "ohneTitel": "Ohne Titel",
+    "keineImFilter": "Keine Aufgabe in diesem Filter",
+    "keinThemaTitel": "Nichts in diesem Filter",
+    "keinThema": {
+      "offen": "Alle Aufgaben dieses Fachs sind bearbeitet.",
+      "zurFreigabe": "Gerade wartet keine Aufgabe auf die Freigabe.",
+      "freigegeben": "Noch ist keine Aufgabe freigegeben.",
+      "zurueckgewiesen": "Keine Aufgabe ist zurückgewiesen."
+    },
+    "zustand": {
+      "draft": "Prüfbereit",
+      "review": "Zur Freigabe",
+      "ready": "Freigegeben",
+      "beanstandet": "Zurückgewiesen"
+    },
+    "grundMitNotiz": "{{grund}} — {{notiz}}",
+    "queueLabel": "{{titel}} · {{thema}}"
   }
 }
