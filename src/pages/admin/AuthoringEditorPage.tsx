@@ -50,6 +50,7 @@ import {
   upsertTaskSolution,
   type AuthoringCluster,
 } from '@/lib/supabase/taskAuthoring'
+import { getDarfPruefen } from '@/lib/supabase/freigabe'
 import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringSchema, AuthoringTask, EditorSettableStatus, GroundingBeleg } from '@/types'
 
@@ -57,9 +58,16 @@ export function AuthoringEditorPage(): JSX.Element {
   const { t } = useTranslation('authoring')
   const { id } = useParams<{ id: string }>()
   const { role } = useAuth()
-  const canWrite = role === 'admin'
+  const isAdmin = role === 'admin'
+  const [darfPruefen, setDarfPruefen] = useState(false)
+  useEffect(() => {
+    void getDarfPruefen().then((res) => setDarfPruefen(res.data === true))
+  }, [])
 
   const [task, setTask] = useState<AuthoringTask | null>(null)
+  // Pruefer (admin oder coach mit darf_pruefen) korrigieren hier; eine
+  // freigegebene Aufgabe aendert nur admin (tasks_pruefer_guard).
+  const canWrite = darfPruefen && (isAdmin || task?.status !== 'ready')
   const [state, setState] = useState<FormState | null>(null)
   // Der Quellenbeleg lebt BEWUSST neben dem FormState, nicht darin: was nicht im
   // Formular steht, kann ein Speichern nicht ueberschreiben (B01).
@@ -337,7 +345,9 @@ export function AuthoringEditorPage(): JSX.Element {
                 blocking={blockingFlags}
                 dirty={dirty}
                 busy={busy}
-                canWrite={canWrite}
+                /* Statusentscheidungen der Pruefer laufen ueber die Strecke
+                   (Schritt 4); das Editor-Gate bleibt admin. */
+                canWrite={isAdmin}
                 hasAudit={schema.hasStatusGate}
                 reviewerName={reviewerName}
                 reviewedAt={task.reviewed_at ?? null}

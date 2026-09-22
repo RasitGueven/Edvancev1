@@ -14,6 +14,7 @@ export function WizardTopBar({
   label,
   position,
   total,
+  decided,
   onPreview,
 }: {
   /** Woher die Warteschlange kam ("Item-Liste", "Content-Gesundheit"). */
@@ -21,6 +22,8 @@ export function WizardTopBar({
   /** 1-basiert — Anzeige "12 / 47". */
   position: number
   total: number
+  /** In diesem Durchlauf freigegeben oder zur Freigabe gegeben. */
+  decided: number
   onPreview: () => void
 }): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -48,9 +51,14 @@ export function WizardTopBar({
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-2xl font-bold tabular-nums text-[var(--color-stage-text)]">
-            {t('wizard.queuePosition', { pos: position, total })}
-          </span>
+          <div className="flex flex-col items-end">
+            <span className="text-2xl font-bold tabular-nums text-[var(--color-stage-text)]">
+              {t('wizard.queuePosition', { pos: position, total })}
+            </span>
+            <span className="text-xs text-[color-mix(in_srgb,var(--color-stage-text)_60%,transparent)]">
+              {t('wizard.decidedCount', { count: decided })}
+            </span>
+          </div>
           <button
             type="button"
             onClick={onPreview}

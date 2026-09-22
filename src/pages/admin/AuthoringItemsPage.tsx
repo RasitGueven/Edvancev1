@@ -37,6 +37,7 @@ import {
   type ReviewMeta,
 } from '@/lib/supabase/taskAuthoring'
 import { freigabeMuster, freigabeZuruecknehmen } from '@/lib/supabase/freigabe'
+import { ClusterReleasePanel } from '@/components/edvance/authoring/ClusterReleasePanel'
 import type { AuthoringSchema, AuthoringTask, TaskSolution, TaskStatus } from '@/types'
 
 /**
@@ -277,6 +278,12 @@ export function AuthoringItemsPage(): JSX.Element {
         />
 
         {schema && <SchemaBanner schema={schema} />}
+
+        <ClusterReleasePanel
+          tasks={rows.map((r) => r.task)}
+          clusters={clusters}
+          onDone={() => setReloadKey((k) => k + 1)}
+        />
 
         <AuthoringFilters
           value={filters}

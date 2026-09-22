@@ -22,6 +22,19 @@ export type TaskStatus = 'draft' | 'review' | 'ready' | 'beanstandet'
  * Nachweis. Der Editor kann 'beanstandet' anzeigen, aber nicht dorthin schalten.
  */
 export type EditorSettableStatus = Exclude<TaskStatus, 'beanstandet'>
+
+/**
+ * Rueckweisungsgrund (task_reviews.kategorie, A20 + loesung_passt_nicht). Die
+ * Werte sind Schluessel — angezeigt wird ueber authoring:reject.kategorie.*.
+ */
+export type BeanstandungsKategorie =
+  | 'fehlbild_falsch'
+  | 'fehlbild_unrealistisch'
+  | 'zahlen_unguenstig'
+  | 'formulierung'
+  | 'didaktisch'
+  | 'kontext'
+  | 'loesung_passt_nicht'
 export type Afb = 'I' | 'II' | 'III'
 
 /**

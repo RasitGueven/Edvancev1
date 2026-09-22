@@ -9,7 +9,7 @@ import { EmptyState } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { buttonVariants } from '@/components/ui/button'
 
-export type WizardOutcome = 'released' | 'reviewed' | 'skipped'
+export type WizardOutcome = 'released' | 'reviewed' | 'rejected' | 'revoked' | 'skipped'
 
 export function WizardShell({ children }: { children: ReactNode }): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -65,7 +65,9 @@ export function DoneScreen({
       <ul className="flex flex-col items-center gap-1 text-sm text-[var(--color-text-secondary)]">
         <li>{t('wizard.done.released', { count: count('released') })}</li>
         <li>{t('wizard.done.reviewed', { count: count('reviewed') })}</li>
+        <li>{t('wizard.done.rejected', { count: count('rejected') })}</li>
         <li>{t('wizard.done.skipped', { count: count('skipped') })}</li>
+        {count('revoked') > 0 && <li>{t('wizard.done.revoked', { count: count('revoked') })}</li>}
       </ul>
       <div className="flex justify-center">
         <Link to="/admin/authoring" className={buttonVariants({ size: 'sm' })}>

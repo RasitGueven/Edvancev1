@@ -62,7 +62,7 @@
   },
   "status": {
     "draft": "Entwurf",
-    "review": "In Prüfung",
+    "review": "Zur Freigabe",
     "ready": "Freigegeben",
     "beanstandet": "Beanstandet"
   },
@@ -278,10 +278,10 @@
     "subtitle": "Ein Item nach dem anderen",
     "eyebrow": "Autoren-Tool",
     "exit": "Strecke beenden",
-    "queuePosition": "{{pos}} / {{total}}",
+    "queuePosition": "Aufgabe {{pos}} von {{total}}",
     "queueLabel": "Warteschlange: {{label}}",
     "stepLabel": "Schritt {{pos}} von {{total}} — {{name}}",
-    "keyboardHint": "Enter = weiter · V = Vorschau · Esc = Vorschau zu",
+    "keyboardHint": "Enter = weiter · V = Vorschau · Esc = Strecke schließen",
     "openPreview": "Vorschau (V)",
     "back": "Zurück",
     "next": "Weiter",
@@ -297,10 +297,10 @@
     "skipBroken": "Überspringen und weiter",
     "steps": {
       "read": "Lesen",
-      "anchor": "Stoffanker",
+      "anchor": "Einordnung",
       "images": "Bilder",
       "solution": "Lösung & Beleg",
-      "release": "Freigabe"
+      "release": "Abschluss"
     },
     "read": {
       "hint": "So sieht das Kind die Aufgabe — serverseitig gebaut. Prüfe: Ist die Frage vollständig und verständlich?",
@@ -309,14 +309,17 @@
       "noDefects": "Keine Mängel"
     },
     "anchor": {
-      "title": "Stoffanker bestätigen oder setzen",
+      "title": "Einordnung bestätigen oder ändern",
       "suggestion": "Vorschlag: Klasse {{grade}} — bestätigen?",
       "confirm": "Bestätigen & weiter",
       "changeHint": "Oder anderen Jahrgang wählen:",
       "unset": "Kein Stoffanker gesetzt — welcher Jahrgangsstoff wird geprüft?",
       "afbTitle": "AFB — andere Achse, nur Anzeige",
       "afbNone": "Kein AFB gesetzt",
-      "afbPart": "Teilaufgabe {{nr}}: AFB {{afb}}"
+      "afbPart": "Teilaufgabe {{nr}}: AFB {{afb}}",
+      "themeTitle": "Themengebiet",
+      "themeHint": "Vorbelegt mit dem aktuellen Themengebiet. Änderst du es, wird die Aufgabe dort eingeordnet.",
+      "themeUnset": "Noch kein Themengebiet — ohne zieht die LSA die Aufgabe nie."
     },
     "images": {
       "titleAssets": "Bilder prüfen",
@@ -342,25 +345,38 @@
       "openEditor": "Im Editor öffnen"
     },
     "release": {
-      "clear": "Nichts blockiert — das Item kann freigegeben werden.",
-      "clearCoach": "Nichts blockiert. Freigeben darf nur Admin — „Als geprüft markieren“ setzt das Item auf In Prüfung.",
+      "requiredTitle": "Noch offen — hier setzen",
+      "suggestion": "Vorschlag nach Themengebiet: {{value}}",
       "release": "Freigeben",
-      "review": "Als geprüft markieren",
-      "skip": "Überspringen (später)",
-      "alreadyReady": "Dieses Item ist bereits freigegeben.",
-      "blockedHint": "Solange Punkte blockieren, hält „Überspringen“ den Fluss — das Item bleibt in seinem Status."
+      "toReview": "Zur Freigabe",
+      "revoke": "Freigabe zurücknehmen",
+      "revokeReview": "Zurück auf Entwurf",
+      "reject": "Zurückweisen",
+      "later": "Später",
+      "keys": "F · Z · L",
+      "alreadyReady": "Diese Aufgabe ist freigegeben.",
+      "alreadyReview": "Diese Aufgabe steht zur Freigabe — die Freigabe erteilt ein Admin.",
+      "noRight": "Du kannst diese Aufgabe ansehen, aber nicht entscheiden — dafür fehlt das Prüfrecht.",
+      "blockedTooltip": "Erst möglich, wenn keine Pflichtangabe mehr fehlt",
+      "blockedHint": "Solange eine Pflichtangabe fehlt, geht es nur mit „Zurückweisen“ oder „Später“ weiter."
     },
     "done": {
       "title": "Strecke geschafft!",
       "description": "{{total}} Items durchgesehen.",
       "released_one": "{{count}} Item freigegeben",
       "released_other": "{{count}} Items freigegeben",
-      "reviewed_one": "{{count}} Item als geprüft markiert",
-      "reviewed_other": "{{count}} Items als geprüft markiert",
-      "skipped_one": "{{count}} Item übersprungen",
-      "skipped_other": "{{count}} Items übersprungen",
-      "backToList": "Zur Item-Liste"
-    }
+      "reviewed_one": "{{count}} Aufgabe zur Freigabe gegeben",
+      "reviewed_other": "{{count}} Aufgaben zur Freigabe gegeben",
+      "skipped_one": "{{count}} Aufgabe auf später gelegt",
+      "skipped_other": "{{count}} Aufgaben auf später gelegt",
+      "backToList": "Zur Item-Liste",
+      "rejected_one": "{{count}} Aufgabe zurückgewiesen",
+      "rejected_other": "{{count}} Aufgaben zurückgewiesen",
+      "revoked_one": "{{count}} Freigabe zurückgenommen",
+      "revoked_other": "{{count}} Freigaben zurückgenommen"
+    },
+    "decidedCount_one": "{{count}} in diesem Durchlauf erledigt",
+    "decidedCount_other": "{{count}} in diesem Durchlauf erledigt"
   },
   "health": {
     "eyebrow": "Autoren-Tool",
@@ -436,5 +452,35 @@
     "zurueckgenommen_one": "Eine Freigabe zurückgenommen.",
     "zurueckgenommen_other": "{{count}} Freigaben zurückgenommen.",
     "fehler": "Aktion fehlgeschlagen: {{message}}"
+  },
+  "reject": {
+    "title": "Grund der Rückweisung",
+    "notePlaceholder": "Ergänzung, optional",
+    "needsReason": "Bitte zuerst einen Grund wählen",
+    "confirm": "Zurückweisen und weiter",
+    "kategorie": {
+      "formulierung": "Unklar formuliert",
+      "loesung_passt_nicht": "Lösung passt nicht",
+      "didaktisch": "Fachlich/didaktisch falsch",
+      "zahlen_unguenstig": "Zahlen ungünstig",
+      "kontext": "Kontext verrät die Antwort",
+      "fehlbild_falsch": "Fehlbild passt nicht",
+      "fehlbild_unrealistisch": "Fehlbild unrealistisch"
+    }
+  },
+  "inhaltsfeld": {
+    "arithmetik_algebra": "Arithmetik & Algebra",
+    "funktionen": "Funktionen",
+    "geometrie": "Geometrie",
+    "stochastik": "Stochastik"
+  },
+  "clusterRelease": {
+    "title": "Zur Freigabe je Themengebiet",
+    "button_one": "{{count}} geprüfte freigeben",
+    "button_other": "Alle {{count}} geprüften freigeben",
+    "done_one": "{{count}} Aufgabe freigegeben.",
+    "done_other": "{{count}} Aufgaben freigegeben.",
+    "skippedHint": "Unvollständige Aufgaben bleiben auf „Zur Freigabe“.",
+    "failed": "Freigabe fehlgeschlagen: {{error}}"
   }
 }

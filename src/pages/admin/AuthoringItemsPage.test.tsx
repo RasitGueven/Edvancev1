@@ -23,6 +23,7 @@ vi.mock('@/lib/supabase/taskAuthoring', () => ({
 vi.mock('@/lib/supabase/freigabe', () => ({
   freigabeMuster: vi.fn(),
   freigabeZuruecknehmen: vi.fn(),
+  freigabeCluster: vi.fn(),
 }))
 
 // Die Navbar zieht useAuth → supabase/client, und der braucht Env-Variablen, die
