@@ -128,6 +128,7 @@ export type {
 export type {
   TaskStatus,
   EditorSettableStatus,
+  BeanstandungsKategorie,
   Afb,
   AuthoringInputType,
   PartKind,

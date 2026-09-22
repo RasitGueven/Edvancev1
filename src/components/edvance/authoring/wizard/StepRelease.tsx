@@ -1,119 +1,137 @@
-// Schritt 5 — FREIGABE. Die Checkliste aus A04 (die blockierenden Flags,
-// namentlich), dann die eine grosse Aktion:
+// Schritt 4 — ABSCHLUSS. Oben, was noch blockiert (direkt setzbar, wo moeglich),
+// darunter die Entscheidung. Der Status wechselt NUR hier — oeffnen und blaettern
+// aendern nichts.
 //
-//   admin  → "Freigeben"            (ready via task_status_set — wie im Editor)
-//   coach  → "Als geprueft markieren" (review — schreiben darf laut RLS nur die
-//                                      Status-RPC, freigeben bleibt admin-only)
+// Zwei Stufen (Migration 20260922100000):
+//   Pruefer (coach mit darf_pruefen) → "Zur Freigabe" (review)
+//   admin                             → "Freigeben" (ready), "Freigabe zuruecknehmen"
+// Fuer beide: "Zurueckweisen" (beanstandet, mit Grund) und "Spaeter" (Status
+// bleibt, gesetzte Angaben sind gespeichert).
 //
-// Blockiert etwas, haelt "Ueberspringen (spaeter)" den Fluss — das Item bleibt,
-// wie es ist, und die Strecke geht weiter. Das Gate hier ist wie im Editor die
-// HOEFLICHE Version; die verbindliche steht in task_status_set.
+// Das Gate hier ist die HOEFLICHE Version; die verbindliche steht in
+// task_status_set und gilt fuer review wie fuer ready.
 
-import type { JSX } from 'react'
+import type { JSX, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Circle, ShieldCheck } from 'lucide-react'
+import { ShieldCheck, Undo2 } from 'lucide-react'
 import { EdvanceCard } from '@/components/edvance'
 import { Button } from '@/components/ui/button'
-import type { ItemFlag, TaskStatus } from '@/types'
+import type { BeanstandungsKategorie, TaskStatus } from '@/types'
 import { StatusBadge } from '../ui'
+import { RejectPanel } from './RejectPanel'
+
+const SECONDARY =
+  'inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-[var(--color-border)] px-4 text-sm font-semibold text-[var(--color-text-secondary)] transition hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40'
 
 export function StepRelease({
   status,
-  blocking,
-  busy,
   isAdmin,
+  canWrite,
+  blocked,
+  busy,
   error,
-  onRelease,
-  onReview,
-  onSkip,
-  onNextItem,
+  rejectOpen,
+  required,
+  onPrimary,
+  onRevoke,
+  onToggleReject,
+  onReject,
+  onLater,
 }: {
   status: TaskStatus
-  blocking: ItemFlag[]
-  busy: boolean
   isAdmin: boolean
+  /** Pruefrecht fuer DIESE Aufgabe (bei 'ready' nur admin). */
+  canWrite: boolean
+  blocked: boolean
+  busy: boolean
   error: string | null
-  onRelease: () => void
-  onReview: () => void
-  onSkip: () => void
-  /** Bereits freigegebene Items: einfach weiter, ohne Aktion und ohne Zaehler. */
-  onNextItem: () => void
+  rejectOpen: boolean
+  /** Die setzbaren Pflichtangaben (RequiredFields). */
+  required: ReactNode
+  /** admin: Freigeben; Pruefer: Zur Freigabe. */
+  onPrimary: () => void
+  /** ready → draft (admin) bzw. review → draft (Pruefer). */
+  onRevoke: () => void
+  onToggleReject: () => void
+  onReject: (kategorie: BeanstandungsKategorie, notiz: string | null) => void
+  onLater: () => void
 }): JSX.Element {
   const { t } = useTranslation('authoring')
-  const blocked = blocking.length > 0
+  const done = status === 'ready' || (!isAdmin && status === 'review')
 
   return (
     <EdvanceCard className="mx-auto flex w-full max-w-2xl flex-col gap-6 p-6">
       <div className="flex items-center justify-between gap-2">
         <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-          {t('sections.release')}
+          {t('wizard.steps.release')}
         </h3>
         <StatusBadge status={status} label={t(`status.${status}`)} />
       </div>
 
-      {status === 'ready' ? (
-        <>
-          <div className="flex items-start gap-2 rounded-[var(--radius-md)] bg-[var(--color-success)]/10 p-3">
-            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-success)]" />
-            <span className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-              {t('wizard.release.alreadyReady')}
-            </span>
-          </div>
-          <Button size="lg" onClick={onNextItem}>
-            {t('wizard.next')}
+      {!canWrite && (
+        <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
+          {status === 'ready' ? t('wizard.release.alreadyReady') : t('wizard.release.noRight')}
+        </p>
+      )}
+
+      {canWrite && !done && required}
+
+      {canWrite && done && (
+        <div className="flex items-start gap-2 rounded-[var(--radius-md)] bg-[var(--color-success)]/10 p-3">
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-success)]" />
+          <span className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
+            {status === 'ready' ? t('wizard.release.alreadyReady') : t('wizard.release.alreadyReview')}
+          </span>
+        </div>
+      )}
+
+      <div className="flex flex-wrap items-center gap-2">
+        {canWrite && !done && (
+          <Button
+            size="lg"
+            disabled={busy || blocked}
+            title={blocked ? t('wizard.release.blockedTooltip') : undefined}
+            onClick={onPrimary}
+          >
+            <ShieldCheck className="h-5 w-5" aria-hidden="true" />
+            {isAdmin ? t('wizard.release.release') : t('wizard.release.toReview')}
           </Button>
-        </>
-      ) : blocked ? (
-        <>
-          <div className="flex flex-col gap-2 rounded-[var(--radius-md)] bg-[var(--color-bg-app)] p-4">
-            <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-              {t('release.checklistTitle')}
-            </span>
-            <ul className="flex flex-col gap-2">
-              {blocking.map((f, i) => (
-                <li key={`${f.code}-${i}`} className="flex items-start gap-2 text-sm leading-relaxed">
-                  <Circle
-                    className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-text-tertiary)]"
-                    aria-hidden="true"
-                  />
-                  <span className="text-[var(--color-text-secondary)]">
-                    {t(`flags.${f.code}`, f.vars)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Button size="lg" disabled={busy} onClick={onSkip}>
-            {t('wizard.release.skip')}
-          </Button>
-          <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
-            {t('wizard.release.blockedHint')}
-          </p>
-        </>
-      ) : (
-        <>
-          <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            {isAdmin ? t('wizard.release.clear') : t('wizard.release.clearCoach')}
-          </p>
-          {isAdmin ? (
-            <Button size="lg" disabled={busy} onClick={onRelease}>
-              <ShieldCheck className="h-5 w-5" aria-hidden="true" />
-              {t('wizard.release.release')}
-            </Button>
-          ) : (
-            <Button size="lg" disabled={busy} onClick={onReview}>
-              {t('wizard.release.review')}
-            </Button>
-          )}
+        )}
+        {canWrite && done && (
+          <button type="button" disabled={busy} onClick={onRevoke} className={SECONDARY}>
+            <Undo2 className="h-4 w-4" aria-hidden="true" />
+            {status === 'ready' ? t('wizard.release.revoke') : t('wizard.release.revokeReview')}
+          </button>
+        )}
+        {canWrite && (isAdmin || status !== 'ready') && (
           <button
             type="button"
             disabled={busy}
-            onClick={onSkip}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-[var(--color-border)] px-4 text-sm font-semibold text-[var(--color-text-secondary)] transition hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40"
+            onClick={onToggleReject}
+            aria-expanded={rejectOpen}
+            className={SECONDARY}
           >
-            {t('wizard.release.skip')}
+            {t('wizard.release.reject')}
           </button>
-        </>
+        )}
+        <button type="button" disabled={busy} onClick={onLater} className={SECONDARY}>
+          {done || !canWrite ? t('wizard.next') : t('wizard.release.later')}
+        </button>
+        {canWrite && (
+          <span className="ml-auto text-xs text-[var(--color-text-tertiary)]">
+            {t('wizard.release.keys')}
+          </span>
+        )}
+      </div>
+
+      {canWrite && !done && blocked && (
+        <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+          {t('wizard.release.blockedHint')}
+        </p>
+      )}
+
+      {canWrite && rejectOpen && (isAdmin || status !== 'ready') && (
+        <RejectPanel busy={busy} onReject={onReject} />
       )}
 
       {error && (

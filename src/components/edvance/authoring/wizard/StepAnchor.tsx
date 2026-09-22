@@ -1,4 +1,4 @@
-// Schritt 2 — STOFFANKER. Bestaetigen oder setzen.
+// Schritt 2 — EINORDNUNG: Stoffanker und Themengebiet. Bestaetigen oder setzen.
 //
 // Ist der Wert vorbelegt (naechtliches Audit schreibt curriculum_grade direkt),
 // erscheint er als VORSCHLAG: "Klasse 7 — bestaetigen?" mit einem Klick. Der
@@ -6,13 +6,19 @@
 // Geaendert wird per Klick-Auswahl 5–9 (der VERA-Bestand ist Sek-I-Stoff); ein
 // Bestandswert ausserhalb bleibt als eigene Kachel sichtbar, statt zu
 // verschwinden. AFB steht daneben als reine Anzeige — andere Achse.
+//
+// Das THEMENGEBIET ist der Cluster (Entscheidung 22.09.: Skills erst in Runde
+// zwei). Vorbelegt mit dem aktuellen Cluster; eine Aenderung wird wie jede
+// andere beim Schrittwechsel gespeichert.
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Check } from 'lucide-react'
 import { EdvanceCard } from '@/components/edvance'
 import { Button } from '@/components/ui/button'
+import type { AuthoringCluster } from '@/lib/supabase/taskAuthoring'
 import type { AuthoringTask } from '@/types'
+import { ChoiceChip } from './ChoiceChip'
 
 /** Klick-Auswahl des Wizards: Sek I. Der Editor kennt weiterhin 5–13. */
 const WIZARD_GRADES = [5, 6, 7, 8, 9]
@@ -22,7 +28,10 @@ export function StepAnchor({
   grade,
   hasStoffanker,
   canWrite,
+  clusters,
+  clusterId,
   onSelect,
+  onCluster,
   onConfirm,
 }: {
   task: AuthoringTask
@@ -30,7 +39,12 @@ export function StepAnchor({
   grade: string
   hasStoffanker: boolean
   canWrite: boolean
+  /** Waehlbare Themengebiete — die Cluster des Fachs. */
+  clusters: AuthoringCluster[]
+  /** Aktueller Formularwert (editorState.cluster_id, '' = nicht gesetzt). */
+  clusterId: string
   onSelect: (grade: string) => void
+  onCluster: (clusterId: string) => void
   /** Ein Klick: Vorschlag angenommen → naechster Schritt (speichert, wenn noetig). */
   onConfirm: () => void
 }): JSX.Element {
@@ -71,20 +85,14 @@ export function StepAnchor({
           )}
           <div className="flex flex-wrap gap-2">
             {choices.map((g) => (
-              <button
+              <ChoiceChip
                 key={g}
-                type="button"
+                selected={current === g}
                 disabled={!hasStoffanker || !canWrite}
                 onClick={() => onSelect(String(g))}
-                aria-pressed={current === g}
-                className={`min-h-[44px] rounded-xl border px-4 text-sm font-semibold transition disabled:opacity-40 ${
-                  current === g
-                    ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-white'
-                    : 'border-[var(--color-border)] bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]'
-                }`}
               >
                 {t('stoffanker.grade', { grade: g })}
-              </button>
+              </ChoiceChip>
             ))}
           </div>
         </div>
@@ -97,6 +105,27 @@ export function StepAnchor({
             ? t('stoffanker.origin', { grade: task.class_level })
             : t('stoffanker.originUnknown')}
         </span>
+
+        <div className="flex flex-col gap-2 border-t border-[var(--color-border)] pt-4">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+            {t('wizard.anchor.themeTitle')}
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {clusters.map((c) => (
+              <ChoiceChip
+                key={c.id}
+                selected={clusterId === c.id}
+                disabled={!canWrite}
+                onClick={() => onCluster(c.id)}
+              >
+                {c.name}
+              </ChoiceChip>
+            ))}
+          </div>
+          <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+            {clusterId === '' ? t('wizard.anchor.themeUnset') : t('wizard.anchor.themeHint')}
+          </p>
+        </div>
       </EdvanceCard>
 
       <EdvanceCard className="flex h-fit flex-col gap-3 p-6">
