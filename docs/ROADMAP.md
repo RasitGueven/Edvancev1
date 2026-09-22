@@ -128,6 +128,7 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
 | Feature | Status | Aufwand |
 |---|---|---|
 | Leads erfassen/kontaktieren/konvertieren/ablehnen | ✅ | — |
+| Vertragsprozess (`/admin/vertraege`: Formular, SEPA, Dokument-Häkchen, Unterschrift vor Ort, Druck) | ✅ | E-Mail-Versand + PDF-Anhänge offen |
 | Onboarding-Assistent (5 Schritte) | ✅ | — |
 | Tarife anlegen & pflegen | ✅ | — |
 | Aufgaben-Übersicht (nach Fach/Cluster) | ✅ | — |
@@ -318,6 +319,17 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   **Offen:** `TaskPlayer` liest weiterhin die `tasks`-Zeile direkt statt
   `lsa_question_payload` — `parts`/`table` rendert er bis heute nicht. Die zwei
   Wahrheiten sind damit nicht weg, sie sind verschoben.
+
+- **Vertragsprozess** (Branch `feat/vertraege-prozess`, Retro
+  `docs/retros/2026-09-22-vertragsprozess.md`): Lead-Board mit Termin-Modal,
+  Ablehnen mit Pflichtgrund, „Vertrag starten“ und Nachfass-Hinweis ab 7 Tagen;
+  neue Ansicht `/admin/vertraege` mit Formular, IBAN-Prüfsumme, sechs
+  Platzhalterdokumenten mit Version, Häkchen je Dokument, Canvas-Unterschrift und
+  Druckansicht. Migration `20260922120000_vertraege_prozess` live;
+  `20260922130000_vertraege_rpc_admin_sperre` **noch einzuspielen**. **Offen:**
+  E-Mail-Versand (kein Anbieter), echte PDF-Anhänge, Rechtstexte statt
+  Platzhaltern, Gläubiger-ID in `vertrag_einstellungen`, Schülerakte auf Basis
+  von `vertraege`.
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
