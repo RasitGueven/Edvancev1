@@ -13,7 +13,8 @@
 // read-only, also fasst er task_solution_upsert gar nicht erst an.
 
 import { useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'react'
-import { useLocation } from 'react-router-dom'
+import { ToastBanner } from '@/components/edvance'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
@@ -29,7 +30,11 @@ import {
 import { StepAnchor } from '@/components/edvance/authoring/wizard/StepAnchor'
 import { StepImages } from '@/components/edvance/authoring/wizard/StepImages'
 import { StepRead } from '@/components/edvance/authoring/wizard/StepRead'
+import { RequiredFields } from '@/components/edvance/authoring/wizard/RequiredFields'
 import { StepRelease } from '@/components/edvance/authoring/wizard/StepRelease'
+import { useReleaseActions } from '@/components/edvance/authoring/wizard/useReleaseActions'
+import { useRunBilanz } from '@/components/edvance/authoring/wizard/useRunBilanz'
+import { useWizardKeys } from '@/components/edvance/authoring/wizard/useWizardKeys'
 import { StepSolution } from '@/components/edvance/authoring/wizard/StepSolution'
 import { WizardFooter } from '@/components/edvance/authoring/wizard/WizardFooter'
 import { WizardTopBar } from '@/components/edvance/authoring/wizard/WizardTopBar'
@@ -40,56 +45,47 @@ import {
 } from '@/components/edvance/authoring/wizard/WizardScreens'
 import {
   clearQueue,
+  initialRun,
   persistPosition,
-  persistQueue,
-  restoreQueue,
-  type PflegeQueue,
 } from '@/components/edvance/authoring/wizard/wizardQueue'
 import { stepsForTask, type WizardStepId } from '@/components/edvance/authoring/wizard/wizardSteps'
 import { computeFlags } from '@/lib/authoring/flags'
 import { imageRefFinding, type ImageRefFinding } from '@/lib/authoring/health'
+import { getDarfPruefen } from '@/lib/supabase/freigabe'
 import {
   getAuthoringTask,
   getTaskSolution,
+  listClustersWithSubject,
   probeAuthoringSchema,
-  setTaskStatus,
   updateAuthoringTask,
+  type AuthoringCluster,
 } from '@/lib/supabase/taskAuthoring'
 import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringSchema, AuthoringTask, GroundingBeleg } from '@/types'
 
-/**
- * Warteschlange aus location.state (frischer Einstieg) oder sessionStorage.
- *
- * Achtung Reload: der Browser stellt location.state wieder her. Kommt dieselbe
- * Warteschlange erneut herein, gilt die GESPEICHERTE Position weiter — sonst
- * wuerfe jeder Reload den Pfleger zurueck auf Item 1.
- */
-function initialRun(state: unknown): { queue: PflegeQueue; pos: number } | null {
-  const stored = restoreQueue()
-  const s = state as { ids?: unknown; label?: unknown } | null
-  if (s && Array.isArray(s.ids)) {
-    const ids = s.ids.filter((id): id is string => typeof id === 'string')
-    if (ids.length > 0) {
-      if (stored && JSON.stringify(stored.queue.ids) === JSON.stringify(ids)) return stored
-      const queue: PflegeQueue = { ids, label: typeof s.label === 'string' ? s.label : '' }
-      persistQueue(queue)
-      return { queue, pos: 0 }
-    }
-  }
-  return stored
-}
-
 export function PflegeWizardPage(): JSX.Element {
   const { t } = useTranslation('authoring')
   const location = useLocation()
+  const navigate = useNavigate()
   const { role } = useAuth()
-  const canWrite = role === 'admin'
+  const isAdmin = role === 'admin'
+  // Pruefrecht kommt aus der DB (darf_pruefen) — admin oder freigeschalteter coach.
+  const [darfPruefen, setDarfPruefen] = useState(false)
+  const [clusters, setClusters] = useState<AuthoringCluster[]>([])
+  useEffect(() => {
+    void getDarfPruefen().then((res) => setDarfPruefen(res.data === true))
+    void listClustersWithSubject().then((res) => setClusters(res.data ?? []))
+  }, [])
 
   const [run] = useState(() => initialRun(location.state))
   const queue = run?.queue ?? null
   const [pos, setPos] = useState(run?.pos ?? 0)
-  const [outcomes, setOutcomes] = useState<Record<string, WizardOutcome>>({})
+  const bilanz = useRunBilanz()
+  const [hinweis, setHinweis] = useState<string | null>(null)
+  // Rueckkehr aus dem Editor: in diesen Schritt springen (einmal, beim Laden).
+  const resumeStep = useRef((location.state as { schritt?: string } | null)?.schritt ?? null)
+  // Das Themengebiet beim Laden — weicht es beim Abschluss ab, ist die Aufgabe verschoben.
+  const herkunft = useRef('')
 
   const finished = queue != null && pos >= queue.ids.length
   const currentId = queue && !finished ? queue.ids[pos] : null
@@ -108,7 +104,6 @@ export function PflegeWizardPage(): JSX.Element {
   const [busy, setBusy] = useState(false)
   const [loadError, setLoadError] = useState<string | null>(null)
   const [saveError, setSaveError] = useState<string | null>(null)
-  const [statusError, setStatusError] = useState<string | null>(null)
 
   // ── Item laden ────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -118,7 +113,6 @@ export function PflegeWizardPage(): JSX.Element {
       setLoading(true)
       setLoadError(null)
       setSaveError(null)
-      setStatusError(null)
       const [detected, taskRes] = await Promise.all([
         probeAuthoringSchema(),
         getAuthoringTask(currentId),
@@ -145,8 +139,12 @@ export function PflegeWizardPage(): JSX.Element {
       // Verdacht + Schrittliste EINMAL beim Laden — Schritte verschwinden nicht
       // unter dem Pfleger, wenn er mittendrin den toten Pfad entfernt.
       setImageRef(imageRefFinding(taskRes.data))
-      setSteps(stepsForTask(taskRes.data))
-      setStepIdx(0)
+      const liste = stepsForTask(taskRes.data)
+      setSteps(liste)
+      const resume = resumeStep.current ? liste.indexOf(resumeStep.current as WizardStepId) : -1
+      resumeStep.current = null
+      herkunft.current = taskRes.data.cluster_id ?? ''
+      setStepIdx(Math.max(resume, 0))
       setPreviewOpen(false)
       setLoading(false)
     })()
@@ -179,6 +177,8 @@ export function PflegeWizardPage(): JSX.Element {
     return computeFlags(draftTask(state, task), draftSolution(state, beleg), schema.hasStoffanker)
   }, [task, state, schema, beleg])
   const blockingFlags = useMemo(() => flags.filter((f) => f.blocking), [flags])
+  // Eine freigegebene Aufgabe aendert nur admin (tasks_pruefer_guard).
+  const canWrite = darfPruefen && (isAdmin || task?.status !== 'ready')
 
   const previewDraft = useMemo(() => (state ? toPatch(state) : null), [state])
 
@@ -211,79 +211,67 @@ export function PflegeWizardPage(): JSX.Element {
   const advanceItem = useCallback(
     (outcome?: WizardOutcome): void => {
       if (outcome && currentId) {
-        setOutcomes((prev) => ({ ...prev, [currentId]: outcome }))
+        const ziel = state?.cluster_id ?? ''
+        const verschoben = ziel !== '' && ziel !== herkunft.current
+        bilanz.erfasse(currentId, outcome, verschoben)
+        const name = clusters.find((c) => c.id === ziel)?.name
+        setHinweis(verschoben && name ? t('wizard.moved', { thema: name }) : null)
       }
       persistPosition(pos + 1)
       setPos(pos + 1)
     },
-    [currentId, pos],
+    [currentId, pos, state, bilanz.erfasse, clusters, t],
   )
 
-  const changeStatusAndAdvance = useCallback(
-    async (status: 'ready' | 'review', outcome: WizardOutcome): Promise<void> => {
-      if (!currentId) return
-      setStatusError(null)
-      if (!(await saveStep())) return
-      setBusy(true)
-      const res = await setTaskStatus(currentId, status)
-      setBusy(false)
-      if (res.error) {
-        setStatusError(res.error)
-        return
-      }
-      advanceItem(outcome)
-    },
-    [currentId, saveStep, advanceItem],
-  )
+  const step = steps[stepIdx] ?? 'read'
+  const actions = useReleaseActions({
+    currentId,
+    status: task?.status ?? null,
+    isAdmin,
+    canWrite,
+    blocked: blockingFlags.length > 0,
+    active: step === 'release' && !loading,
+    previewOpen,
+    busy,
+    setBusy,
+    saveStep,
+    advanceItem,
+  })
 
-  const skip = useCallback(async (): Promise<void> => {
-    if (!(await saveStep())) return
-    advanceItem('skipped')
-  }, [saveStep, advanceItem])
-
-  // ── Tastatur: Enter = weiter, V = Vorschau, Esc = Vorschau zu ─────────────
-  // Ein Listener, Refs fuer den aktuellen Stand — sonst haengt am Fenster ein
-  // veralteter Closure-Stand.
-  const keyCtx = useRef({ next: goNext, previewOpen })
-  keyCtx.current = { next: goNext, previewOpen }
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent): void => {
-      const el = e.target as HTMLElement | null
-      const tag = el?.tagName ?? ''
-      const typing = tag === 'TEXTAREA' || tag === 'SELECT' || Boolean(el?.isContentEditable)
-      if (e.key === 'Escape') {
-        setPreviewOpen(false)
-        return
-      }
-      if (keyCtx.current.previewOpen) return
-      if ((e.key === 'v' || e.key === 'V') && !typing && tag !== 'INPUT') {
-        e.preventDefault()
-        setPreviewOpen(true)
-        return
-      }
-      if (e.key === 'Enter' && !typing && tag !== 'BUTTON' && tag !== 'A') {
-        e.preventDefault()
-        void keyCtx.current.next()
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [])
+  useWizardKeys({
+    previewOpen,
+    setPreviewOpen,
+    closeOverlay: actions.closeReject,
+    next: goNext,
+    exit: () => navigate(queue?.returnTo ?? '/admin/authoring'),
+  })
 
   // ── Render ────────────────────────────────────────────────────────────────
   if (!queue) return <NoQueueScreen />
-  if (finished) return <DoneScreen total={queue.ids.length} outcomes={outcomes} />
-
-  const step = steps[stepIdx] ?? 'read'
+  if (finished) {
+    return (
+      <DoneScreen
+        total={queue.ids.length}
+        outcomes={bilanz.outcomes}
+        verschoben={bilanz.verschoben.length}
+        backTo={queue.returnTo}
+      />
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('wizard.subtitle')} sticky />
+      {hinweis && <ToastBanner key={hinweis} type="success" message={hinweis} onClose={() => setHinweis(null)} />}
       <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-36 pt-6">
         <WizardTopBar
           label={queue.label}
           position={pos + 1}
           total={queue.ids.length}
+          exitTo={queue.returnTo}
+          decided={
+            Object.values(bilanz.outcomes).filter((o) => o === 'released' || o === 'reviewed').length
+          }
           onPreview={() => setPreviewOpen(true)}
         />
 
@@ -319,7 +307,10 @@ export function PflegeWizardPage(): JSX.Element {
                 grade={state.curriculum_grade}
                 hasStoffanker={schema.hasStoffanker}
                 canWrite={canWrite}
+                clusters={clusters}
+                clusterId={state.cluster_id}
                 onSelect={(g) => set('curriculum_grade', g)}
+                onCluster={(id) => set('cluster_id', id)}
                 onConfirm={() => void goNext()}
               />
             )}
@@ -349,14 +340,27 @@ export function PflegeWizardPage(): JSX.Element {
             {step === 'release' && (
               <StepRelease
                 status={task.status}
-                blocking={blockingFlags}
+                isAdmin={isAdmin}
+                canWrite={canWrite}
+                blocked={blockingFlags.length > 0}
                 busy={busy}
-                isAdmin={canWrite}
-                error={statusError}
-                onRelease={() => void changeStatusAndAdvance('ready', 'released')}
-                onReview={() => void changeStatusAndAdvance('review', 'reviewed')}
-                onSkip={() => void skip()}
-                onNextItem={() => advanceItem()}
+                error={actions.error}
+                rejectOpen={actions.rejectOpen}
+                required={
+                  <RequiredFields
+                    taskId={task.id}
+                    state={state}
+                    blocking={blockingFlags}
+                    clusters={clusters}
+                    canWrite={canWrite}
+                    set={set}
+                  />
+                }
+                onPrimary={actions.primary}
+                onRevoke={actions.revoke}
+                onToggleReject={actions.toggleReject}
+                onReject={actions.reject}
+                onLater={actions.later}
               />
             )}
           </>

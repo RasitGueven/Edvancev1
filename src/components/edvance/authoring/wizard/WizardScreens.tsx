@@ -9,7 +9,7 @@ import { EmptyState } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { buttonVariants } from '@/components/ui/button'
 
-export type WizardOutcome = 'released' | 'reviewed' | 'skipped'
+export type WizardOutcome = 'released' | 'reviewed' | 'rejected' | 'revoked' | 'skipped'
 
 export function WizardShell({ children }: { children: ReactNode }): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -48,9 +48,14 @@ export function NoQueueScreen(): JSX.Element {
 export function DoneScreen({
   total,
   outcomes,
+  verschoben,
+  backTo = '/admin/authoring',
 }: {
   total: number
   outcomes: Record<string, WizardOutcome>
+  /** Aufgaben, deren Themengebiet in diesem Durchlauf geaendert wurde. */
+  verschoben: number
+  backTo?: string
 }): JSX.Element {
   const { t } = useTranslation('authoring')
   const tally = Object.values(outcomes)
@@ -65,10 +70,13 @@ export function DoneScreen({
       <ul className="flex flex-col items-center gap-1 text-sm text-[var(--color-text-secondary)]">
         <li>{t('wizard.done.released', { count: count('released') })}</li>
         <li>{t('wizard.done.reviewed', { count: count('reviewed') })}</li>
+        <li>{t('wizard.done.rejected', { count: count('rejected') })}</li>
         <li>{t('wizard.done.skipped', { count: count('skipped') })}</li>
+        <li>{t('wizard.done.moved', { count: verschoben })}</li>
+        {count('revoked') > 0 && <li>{t('wizard.done.revoked', { count: count('revoked') })}</li>}
       </ul>
       <div className="flex justify-center">
-        <Link to="/admin/authoring" className={buttonVariants({ size: 'sm' })}>
+        <Link to={backTo} className={buttonVariants({ size: 'sm' })}>
           {t('wizard.done.backToList')}
         </Link>
       </div>

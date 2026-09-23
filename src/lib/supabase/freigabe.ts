@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase/client'
-import type { SupabaseResult } from '@/types'
+import type { BeanstandungsKategorie, SupabaseResult } from '@/types'
 
 /**
  * Sammelfreigabe je Skill (A21) — das Gegenstueck zu A20s Sammel-Beanstandung.
@@ -58,5 +58,115 @@ export async function freigabeZuruecknehmen(
     return { data: data ?? 0, error: null }
   } catch (err) {
     return { data: null, error: fehlermeldung(err, 'Zuruecknehmen fehlgeschlagen') }
+  }
+}
+
+// ── Pruefrecht und zweistufige Freigabe (20260922100000) ────────────────────
+
+/** Die Rueckweisungsgruende in Anzeige-Reihenfolge (task_reviews.kategorie). */
+export const BEANSTANDUNGS_KATEGORIEN: BeanstandungsKategorie[] = [
+  'formulierung',
+  'loesung_passt_nicht',
+  'didaktisch',
+  'zahlen_unguenstig',
+  'kontext',
+  'fehlbild_falsch',
+  'fehlbild_unrealistisch',
+]
+
+type RpcWert<T> = (
+  fn: string,
+  args?: Record<string, unknown>,
+) => Promise<{ data: T | null; error: { message: string } | null }>
+
+/**
+ * Darf der angemeldete Mensch Aufgaben pruefen (admin, oder coach mit
+ * profiles.darf_pruefen)? Die DB entscheidet — die Oberflaeche schaltet nur um.
+ */
+export async function getDarfPruefen(): Promise<SupabaseResult<boolean>> {
+  try {
+    const rpc = supabase.rpc as unknown as RpcWert<boolean>
+    const { data, error } = await rpc('darf_pruefen')
+    if (error) return { data: null, error: error.message }
+    return { data: data === true, error: null }
+  } catch (err) {
+    return { data: null, error: fehlermeldung(err, 'Pruefrecht konnte nicht gelesen werden') }
+  }
+}
+
+/**
+ * Weist eine Aufgabe zurueck: status 'beanstandet' plus task_reviews-Zeile mit
+ * Grund und optionaler Ergaenzung. Eine freigegebene Aufgabe weist nur admin zurueck.
+ */
+export async function beanstandeAufgabe(
+  taskId: string,
+  kategorie: BeanstandungsKategorie,
+  notiz: string | null,
+): Promise<SupabaseResult<true>> {
+  try {
+    const rpc = supabase.rpc as unknown as RpcZahl
+    const { error } = await rpc('lena_beanstande', {
+      p_task_id: taskId,
+      p_kategorie: kategorie,
+      p_notiz: notiz,
+    })
+    if (error) return { data: null, error: error.message }
+    return { data: true, error: null }
+  } catch (err) {
+    return { data: null, error: fehlermeldung(err, 'Zurueckweisen fehlgeschlagen') }
+  }
+}
+
+/**
+ * Gibt alle Aufgaben eines Clusters frei, die auf 'review' ("Zur Freigabe")
+ * stehen. Nur admin. Jede laeuft durch das task_status_set-Gate; unvollstaendige
+ * bleiben liegen. Rueckgabe: Anzahl tatsaechlich freigegebener Aufgaben.
+ */
+export async function freigabeCluster(clusterId: string): Promise<SupabaseResult<number>> {
+  try {
+    const rpc = supabase.rpc as unknown as RpcZahl
+    const { data, error } = await rpc('freigabe_cluster', { p_cluster_id: clusterId })
+    if (error) return { data: null, error: error.message }
+    return { data: data ?? 0, error: null }
+  } catch (err) {
+    return { data: null, error: fehlermeldung(err, 'Freigabe fehlgeschlagen') }
+  }
+}
+
+export type LetzteBeanstandung = { kategorie: BeanstandungsKategorie; notiz: string | null }
+
+type ReviewAbfrage = {
+  select: (cols: string) => {
+    order: (
+      col: string,
+      opts: { ascending: boolean },
+    ) => Promise<{
+      data: { task_id: string; kategorie: BeanstandungsKategorie; notiz: string | null }[] | null
+      error: { message: string } | null
+    }>
+  }
+}
+
+/**
+ * Die juengste Beanstandung je Aufgabe (task_reviews ist eine Spur — eine Aufgabe
+ * kann mehrfach zurueckgewiesen werden; das Board zeigt den letzten Grund).
+ * task_reviews steht nicht in database.ts — der Cast haelt das sichtbar.
+ */
+export async function listLetzteBeanstandungen(): Promise<
+  SupabaseResult<Map<string, LetzteBeanstandung>>
+> {
+  try {
+    const from = supabase.from as unknown as (table: string) => ReviewAbfrage
+    const { data, error } = await from('task_reviews')
+      .select('task_id,kategorie,notiz')
+      .order('geprueft_am', { ascending: false })
+    if (error) return { data: null, error: error.message }
+    const map = new Map<string, LetzteBeanstandung>()
+    for (const r of data ?? []) {
+      if (!map.has(r.task_id)) map.set(r.task_id, { kategorie: r.kategorie, notiz: r.notiz })
+    }
+    return { data: map, error: null }
+  } catch (err) {
+    return { data: null, error: fehlermeldung(err, 'Rueckweisungen konnten nicht geladen werden') }
   }
 }

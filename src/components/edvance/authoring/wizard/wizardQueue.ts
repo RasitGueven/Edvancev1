@@ -8,17 +8,22 @@
 //
 // Kein src/lib-Baustein: das ist UI-Sitzungszustand, kein Datenzugriff.
 
+import { leereBilanz } from './useRunBilanz'
+
 export type PflegeQueue = {
   /** Task-IDs in der Reihenfolge der Quell-Liste. */
   ids: string[]
   /** Woher die Auswahl kam — nur Anzeige ("Item-Liste", "Content-Gesundheit"). */
   label: string
+  /** Wohin Beenden/Abschluss fuehren (Board-Ebene); fehlt = /admin/authoring. */
+  returnTo?: string
 }
 
 const QUEUE_KEY = 'edvance.pflegeQueue'
 const POS_KEY = 'edvance.pflegeQueuePos'
 
 export function persistQueue(queue: PflegeQueue): void {
+  leereBilanz()
   try {
     sessionStorage.setItem(QUEUE_KEY, JSON.stringify(queue))
     sessionStorage.setItem(POS_KEY, '0')
@@ -46,6 +51,7 @@ export function restoreQueue(): { queue: PflegeQueue; pos: number } | null {
     const queue: PflegeQueue = {
       ids: parsed.ids.filter((id): id is string => typeof id === 'string'),
       label: typeof parsed.label === 'string' ? parsed.label : '',
+      ...(typeof parsed.returnTo === 'string' ? { returnTo: parsed.returnTo } : {}),
     }
     if (queue.ids.length === 0) return null
     const pos = Number.parseInt(sessionStorage.getItem(POS_KEY) ?? '0', 10)
@@ -65,4 +71,49 @@ export function clearQueue(): void {
   } catch {
     // s. o.
   }
+}
+
+/**
+ * Warteschlange aus location.state (frischer Einstieg) oder sessionStorage.
+ *
+ * Achtung Reload: der Browser stellt location.state wieder her. Kommt dieselbe
+ * Warteschlange erneut herein, gilt die GESPEICHERTE Position weiter — sonst
+ * wuerfe jeder Reload den Pfleger zurueck auf Item 1.
+ */
+export function initialRun(state: unknown): { queue: PflegeQueue; pos: number } | null {
+  const stored = restoreQueue()
+  const s = state as { ids?: unknown; label?: unknown; returnTo?: unknown } | null
+  if (s && Array.isArray(s.ids)) {
+    const ids = s.ids.filter((id): id is string => typeof id === 'string')
+    if (ids.length > 0) {
+      if (stored && JSON.stringify(stored.queue.ids) === JSON.stringify(ids)) return stored
+      const queue: PflegeQueue = {
+        ids,
+        label: typeof s.label === 'string' ? s.label : '',
+        ...(typeof s.returnTo === 'string' ? { returnTo: s.returnTo } : {}),
+      }
+      persistQueue(queue)
+      return { queue, pos: 0 }
+    }
+  }
+  return stored
+}
+
+// ── Rueckweg aus dem Editor ─────────────────────────────────────────────────
+//
+// Der Editor oeffnet aus der Strecke im SELBEN Tab, mit dem Schritt als
+// Parameter. Nach dem Speichern fuehrt er zurueck; die Strecke laedt die Aufgabe
+// frisch und springt in diesen Schritt. Ein zweiter Tab waere gefaehrlich: die
+// Strecke hielte den alten Stand und schriebe ihn beim naechsten Speichern ueber
+// die Korrektur aus dem Editor.
+
+export const PFLEGE_PARAM = 'pflege'
+
+export function editorAusStrecke(taskId: string, schritt: string): string {
+  return `/admin/authoring/${taskId}?${PFLEGE_PARAM}=${encodeURIComponent(schritt)}`
+}
+
+/** Ziel und state fuer navigate/Link zurueck in die Strecke. */
+export function zurueckInStrecke(schritt: string): { to: string; state: { schritt: string } } {
+  return { to: '/admin/pflege', state: { schritt } }
 }
