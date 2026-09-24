@@ -31,15 +31,15 @@ begin;
 
 do $$
 declare
-  -- Preis in Cent. 199,99 EUR traegt gebrochene Cent und ist in einer
-  -- integer-Euro-Spalte gar nicht darstellbar — daran haengt die Einheit,
-  -- nicht am Spaltennamen.
+  -- Preis in Cent: Referenzpreis in tiers = Jahrespaket-Beitrag
+  -- (20260924120000_tarife_laufzeiten). Verbindlich fuer Vertraege ist
+  -- tier_laufzeiten, geprueft in T6.
   v_soll jsonb := '[
-    {"name":"Basic",   "preis":19999,"freq":"1 Session/Woche",   "sort":1,
+    {"name":"Basic",   "preis":19990,"freq":"1 Session/Woche",   "sort":1,
      "rest":["Basis-Lernpfad","Monatlicher Eltern-Report"]},
-    {"name":"Standard","preis":27999,"freq":"1,5 Sessions/Woche","sort":2,
+    {"name":"Standard","preis":26990,"freq":"1,5 Sessions/Woche","sort":2,
      "rest":["KI-Lernpfad","2x Eltern-Report/Monat","Coach-Chat"]},
-    {"name":"Premium", "preis":34999,"freq":"2 Sessions/Woche",  "sort":3,
+    {"name":"Premium", "preis":34990,"freq":"2 Sessions/Woche",  "sort":3,
      "rest":["Voller KI-Lernpfad","Woechentlicher Report","Prioritaets-Coach","Fachwechsel flexibel"]}
   ]'::jsonb;
   v_zeile  jsonb;
@@ -134,6 +134,38 @@ begin
   end if;
 
   raise notice 'T4-T5 ok: keine Altwerte, genau 3 aktive Tarife';
+
+  -- ---- T6: Beitrag und Einheiten je Laufzeit -----------------------------
+  -- Jahrespaket 12 Beitraege, Halbjahrespaket 6 Beitraege. Das Halbjahr hat
+  -- genau die halben Einheiten (abgerundet) und den hoeheren Monatsbeitrag.
+  for v_zeile in select * from jsonb_array_elements('[
+    {"name":"Basic",   "l":12,"preis":19990,"einheiten":38},
+    {"name":"Basic",   "l":6, "preis":21990,"einheiten":19},
+    {"name":"Standard","l":12,"preis":26990,"einheiten":57},
+    {"name":"Standard","l":6, "preis":29990,"einheiten":29},
+    {"name":"Premium", "l":12,"preis":34990,"einheiten":76},
+    {"name":"Premium", "l":6, "preis":38990,"einheiten":38}
+  ]'::jsonb) loop
+    select tl.preis_cents, tl.einheiten into v_preis, v_sort
+      from public.tier_laufzeiten tl
+      join public.tiers t on t.id = tl.tier_id
+     where t.name = v_zeile ->> 'name'
+       and tl.laufzeit_monate = (v_zeile ->> 'l')::integer;
+    if not found then
+      raise exception 'T6 % / % Monate fehlt in tier_laufzeiten', v_zeile ->> 'name', v_zeile ->> 'l';
+    end if;
+    if v_preis <> (v_zeile ->> 'preis')::integer or v_sort <> (v_zeile ->> 'einheiten')::integer then
+      raise exception 'T6 % / % Monate: % Cent, % Einheiten; erwartet %',
+        v_zeile ->> 'name', v_zeile ->> 'l', v_preis, v_sort, v_zeile::text;
+    end if;
+  end loop;
+
+  select count(*) into v_anzahl from public.tier_laufzeiten;
+  if v_anzahl <> 6 then
+    raise exception 'T6 % Zeilen in tier_laufzeiten, erwartet 6', v_anzahl;
+  end if;
+
+  raise notice 'T6 ok: Jahres- und Halbjahrespaket je Tarif';
 end $$;
 
 rollback;

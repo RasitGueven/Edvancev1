@@ -3989,10 +3989,20 @@ begin
     raise exception 'vertraege: Status nur ueber vertrag_*-RPCs aendern' using errcode = '42501';
   end if;
 
-  if new.tier_id is distinct from old.tier_id and new.status = 'in_vorbereitung' then
-    select price_cents into new.preis_cents from public.tiers where id = new.tier_id;
-  elsif new.preis_cents is distinct from old.preis_cents then
+  -- Preis und Einheiten folgen aus (Paket, Laufzeit) — nie aus dem Formular.
+  if new.status = 'in_vorbereitung'
+     and (new.tier_id is distinct from old.tier_id
+          or new.laufzeit_monate is distinct from old.laufzeit_monate) then
+    new.preis_cents := null;
+    new.einheiten   := null;
+    select tl.preis_cents, tl.einheiten
+      into new.preis_cents, new.einheiten
+      from public.tier_laufzeiten tl
+     where tl.tier_id = new.tier_id
+       and tl.laufzeit_monate = new.laufzeit_monate;
+  else
     new.preis_cents := old.preis_cents;
+    new.einheiten   := old.einheiten;
   end if;
 
   new.updated_at := now();
@@ -5191,6 +5201,21 @@ CREATE TABLE public.themen (
 
 
 --
+-- Name: tier_laufzeiten; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tier_laufzeiten (
+    tier_id uuid NOT NULL,
+    laufzeit_monate integer NOT NULL,
+    preis_cents integer NOT NULL,
+    einheiten integer NOT NULL,
+    CONSTRAINT tier_laufzeiten_einheiten_check CHECK ((einheiten > 0)),
+    CONSTRAINT tier_laufzeiten_laufzeit_check CHECK ((laufzeit_monate = ANY (ARRAY[6, 12]))),
+    CONSTRAINT tier_laufzeiten_preis_check CHECK ((preis_cents > 0))
+);
+
+
+--
 -- Name: tiers; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5257,6 +5282,7 @@ CREATE TABLE public.vertraege (
     iban_masked text,
     mandatsreferenz text DEFAULT ((('EDV-'::text || to_char((now() AT TIME ZONE 'Europe/Berlin'::text), 'YYYY'::text)) || '-'::text) || lpad((nextval('public.vertrag_mandat_seq'::regclass))::text, 6, '0'::text)) NOT NULL,
     glaeubiger_id text,
+    einheiten integer,
     CONSTRAINT vertraege_abgelehnt_grund_check CHECK (((abgelehnt_grund IS NULL) OR (abgelehnt_grund = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
     CONSTRAINT vertraege_abgelehnt_notiz_check CHECK (((abgelehnt_grund IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(abgelehnt_notiz), ''::text) IS NOT NULL))),
     CONSTRAINT vertraege_abschluss_weg_check CHECK (((abschluss_weg IS NULL) OR (abschluss_weg = ANY (ARRAY['vor_ort'::text, 'papier'::text])))),
@@ -5861,6 +5887,14 @@ ALTER TABLE ONLY public.tasks
 
 ALTER TABLE ONLY public.themen
     ADD CONSTRAINT themen_pkey PRIMARY KEY (thema_key);
+
+
+--
+-- Name: tier_laufzeiten tier_laufzeiten_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tier_laufzeiten
+    ADD CONSTRAINT tier_laufzeiten_pkey PRIMARY KEY (tier_id, laufzeit_monate);
 
 
 --
@@ -7383,6 +7417,14 @@ ALTER TABLE ONLY public.tasks
 
 
 --
+-- Name: tier_laufzeiten tier_laufzeiten_tier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tier_laufzeiten
+    ADD CONSTRAINT tier_laufzeiten_tier_id_fkey FOREIGN KEY (tier_id) REFERENCES public.tiers(id) ON DELETE CASCADE;
+
+
+--
 -- Name: vertraege vertraege_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8597,6 +8639,26 @@ ALTER TABLE public.themen ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY themen_read_all ON public.themen FOR SELECT TO anon, authenticated, service_role USING (true);
+
+
+--
+-- Name: tier_laufzeiten; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.tier_laufzeiten ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: tier_laufzeiten tier_laufzeiten_admin_write; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY tier_laufzeiten_admin_write ON public.tier_laufzeiten USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: tier_laufzeiten tier_laufzeiten_authenticated_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY tier_laufzeiten_authenticated_read ON public.tier_laufzeiten FOR SELECT USING ((auth.role() = 'authenticated'::text));
 
 
 --
