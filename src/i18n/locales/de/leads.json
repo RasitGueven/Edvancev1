@@ -1,0 +1,89 @@
+{
+  "page": {
+    "subtitle": "Leads",
+    "eyebrow": "Vertrieb",
+    "title": "Leads",
+    "description": "Interessenten erfassen, qualifizieren und in den Vertrag überführen.",
+    "newLead": "Neuer Lead",
+    "emptyTitle": "Noch keine Leads",
+    "emptyDescription": "Lege den ersten Lead über den Button oben an."
+  },
+  "filters": {
+    "search": "Suche",
+    "searchPlaceholder": "Rufname oder vollständiger Name",
+    "subject": "Fach",
+    "classLevel": "Klasse",
+    "all": "Alle",
+    "classOption": "{{level}}. Klasse",
+    "archive": "Archiv anzeigen"
+  },
+  "columns": {
+    "neu": { "title": "Offene Leads", "empty": "Keine offenen Leads." },
+    "gespraech": { "title": "Termin vereinbart", "empty": "Noch kein Termin vereinbart." },
+    "analyse": { "title": "Analyse", "empty": "Keine Analyse unterwegs." },
+    "entscheidung": { "title": "Analyse abgeschlossen", "empty": "Keine abgeschlossene Analyse." },
+    "archiv": { "title": "Archiv", "empty": "Archiv ist leer." }
+  },
+  "age": {
+    "sinceToday": "seit heute",
+    "since_one": "seit {{count}} Tag",
+    "since_other": "seit {{count}} Tagen",
+    "createdToday": "heute angelegt",
+    "created_one": "angelegt vor {{count}} Tag",
+    "created_other": "angelegt vor {{count}} Tagen",
+    "followUp_one": "Seit {{count}} Tag offen – nachhaken",
+    "followUp_other": "Seit {{count}} Tagen offen – nachhaken"
+  },
+  "card": {
+    "moreActions": "Weitere Aktionen",
+    "classShort": "Kl. {{level}}",
+    "markContacted": "Termin vereinbart",
+    "captureErstgespraech": "Erstgespräch erfassen",
+    "assignPlatz": "Platz vergeben",
+    "analysisRunning": "Analyse läuft — Ergebnis abwarten.",
+    "reject": "Ablehnen",
+    "startContract": "Vertrag starten",
+    "startingContract": "Startet …",
+    "startContractAdminOnly": "Verträge startet die Verwaltung (Admin).",
+    "report": "Eltern-Report ansehen",
+    "termin": "Erstgespräch: {{date}}",
+    "terminAt": "{{date}} · {{location}}",
+    "editTermin": "Termin ändern",
+    "rejectedReason": "Abgelehnt: {{reason}}"
+  },
+  "termin": {
+    "title": "Termin vereinbaren",
+    "editTitle": "Termin ändern",
+    "description": "Erstgespräch mit {{name}}",
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "location": "Standort",
+    "missing": "Bitte Datum und Uhrzeit angeben."
+  },
+  "standort": {
+    "koeln": "Köln"
+  },
+  "reject": {
+    "title": "Ablehnen",
+    "description": "{{name}} — der Eintrag wird nicht gelöscht und bleibt im Archiv auffindbar.",
+    "reason": "Grund",
+    "note": "Beschreibung",
+    "notePlaceholder": "Was ist der Grund?",
+    "noteRequired": "Bei „Sonstiges“ bitte kurz beschreiben.",
+    "confirm": "Ablehnen"
+  },
+  "reasons": {
+    "preis": "Preis",
+    "zeit": "Zeitliche Gründe",
+    "anderer_anbieter": "Anderer Anbieter",
+    "kein_bedarf": "Kein Bedarf mehr",
+    "kein_kontakt": "Kein Kontakt zustande gekommen",
+    "sonstiges": "Sonstiges"
+  },
+  "convert": {
+    "action": "In Schüler konvertieren",
+    "passwordLabel": "Schüler-Passwort für {{name}} (min. 6 Zeichen) – dem Schüler persönlich mitteilen",
+    "confirm": "Bestätigen",
+    "converting": "Konvertiert …"
+  }
+}

@@ -12,6 +12,20 @@ export type LeadStatus =
   | 'rejected'
   | 'lsa_freigegeben'
   | 'lsa_fertig'
+  // Vertrag gestartet — der Lead lebt ab hier in der Ansicht "Vertraege".
+  | 'vertrag'
+
+// Pflichtauswahl beim Ablehnen eines Leads oder Vertrags. 'sonstiges' nur mit
+// Freitext (DB-Check leads_rejection_note_check / vertraege_abgelehnt_notiz_check).
+export type RejectionReason =
+  | 'preis'
+  | 'zeit'
+  | 'anderer_anbieter'
+  | 'kein_bedarf'
+  | 'kein_kontakt'
+  | 'sonstiges'
+
+export type ErstgespraechStandort = 'koeln'
 
 export type LeadGoal = 'IMPROVE_GRADES' | 'CLOSE_GAPS' | 'EXAM_PREP' | 'GENERAL'
 
@@ -63,6 +77,13 @@ export type Lead = {
   // Unterschriebene Einwilligung: PNG-Data-URL + Version des Dokumenttexts.
   consent_dsgvo_signature: string | null
   consent_dsgvo_document_version: string | null
+  // Termin des Erstgespraechs (Migration 20260922120000).
+  erstgespraech_at: string | null
+  erstgespraech_standort: ErstgespraechStandort | null
+  // Ablehnung: rejected_at setzt der Status-Trigger. Bestandsleads ohne Grund.
+  rejected_at: string | null
+  rejection_reason: RejectionReason | null
+  rejection_note: string | null
 }
 
 export type LeadInput = {

@@ -625,6 +625,10 @@ begin
       new.lsa_freigegeben_at := now();
     elsif new.status = 'lsa_fertig' and new.lsa_fertig_at is null then
       new.lsa_fertig_at := now();
+    elsif new.status = 'rejected' then
+      -- Anders als die LSA-Zeitstempel immer neu: ein reaktivierter und
+      -- erneut abgelehnter Lead zaehlt ab der letzten Ablehnung.
+      new.rejected_at := now();
     end if;
   end if;
   return new;
@@ -3973,6 +3977,261 @@ end $$;
 
 
 --
+-- Name: vertraege_guard(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertraege_guard() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+begin
+  if new.status is distinct from old.status
+     and coalesce(current_setting('edvance.vertrag_rpc', true), '') <> '1' then
+    raise exception 'vertraege: Status nur ueber vertrag_*-RPCs aendern' using errcode = '42501';
+  end if;
+
+  if new.tier_id is distinct from old.tier_id and new.status = 'in_vorbereitung' then
+    select price_cents into new.preis_cents from public.tiers where id = new.tier_id;
+  elsif new.preis_cents is distinct from old.preis_cents then
+    new.preis_cents := old.preis_cents;
+  end if;
+
+  new.updated_at := now();
+  return new;
+end;
+$$;
+
+
+--
+-- Name: vertrag_ablehnen(uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_ablehnen(p_vertrag_id uuid, p_grund text, p_notiz text DEFAULT NULL::text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+declare
+  v_vertrag vertraege%rowtype;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_ablehnen: nur Admin' using errcode = '42501';
+  end if;
+
+  select * into v_vertrag from vertraege where id = p_vertrag_id for update;
+  if not found then
+    raise exception 'vertrag_ablehnen: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+  if v_vertrag.status = 'abgelehnt' then
+    return;
+  end if;
+  if v_vertrag.status = 'abgeschlossen' then
+    raise exception 'vertrag_ablehnen: Vertrag ist bereits abgeschlossen' using errcode = 'P0001';
+  end if;
+
+  perform set_config('edvance.vertrag_rpc', '1', true);
+  update vertraege
+     set status = 'abgelehnt', abgelehnt_at = now(),
+         abgelehnt_grund = p_grund, abgelehnt_notiz = p_notiz
+   where id = p_vertrag_id;
+  perform set_config('edvance.vertrag_rpc', '', true);
+
+  update leads
+     set status = 'rejected', rejection_reason = p_grund, rejection_note = p_notiz
+   where id = v_vertrag.lead_id;
+end;
+$$;
+
+
+--
+-- Name: vertrag_abschliessen(uuid, text, jsonb, text, text, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_abschliessen(p_vertrag_id uuid, p_weg text, p_zustimmungen jsonb DEFAULT '[]'::jsonb, p_signatur_vertrag text DEFAULT NULL::text, p_signatur_sepa text DEFAULT NULL::text, p_unterschrieben_am date DEFAULT NULL::date) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+declare
+  v_vertrag vertraege%rowtype;
+  v_fehlt   text;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_abschliessen: nur Admin' using errcode = '42501';
+  end if;
+
+  select * into v_vertrag from vertraege where id = p_vertrag_id for update;
+  if not found then
+    raise exception 'vertrag_abschliessen: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+  if v_vertrag.status = 'abgeschlossen' then
+    return;
+  end if;
+  if v_vertrag.status = 'abgelehnt' then
+    raise exception 'vertrag_abschliessen: Vertrag ist abgelehnt' using errcode = 'P0001';
+  end if;
+  if v_vertrag.tier_id is null or v_vertrag.laufzeit_monate is null
+     or v_vertrag.vertragsbeginn is null then
+    raise exception 'vertrag_abschliessen: Paket, Laufzeit oder Vertragsbeginn fehlt'
+      using errcode = 'P0001';
+  end if;
+
+  if p_weg = 'vor_ort' then
+    if not exists (select 1 from vertrag_bankdaten where vertrag_id = p_vertrag_id) then
+      raise exception 'vertrag_abschliessen: IBAN fehlt' using errcode = 'P0001';
+    end if;
+    if nullif(p_signatur_vertrag, '') is null or nullif(p_signatur_sepa, '') is null then
+      raise exception 'vertrag_abschliessen: Unterschrift fehlt' using errcode = 'P0001';
+    end if;
+
+    select string_agg(d.schluessel, ', ') into v_fehlt
+      from vertrag_dokumente d
+     where d.aktiv and d.pflicht
+       and not exists (
+         select 1 from jsonb_array_elements(p_zustimmungen) z
+          where z ->> 'schluessel' = d.schluessel and z ->> 'version' = d.version);
+    if v_fehlt is not null then
+      raise exception 'vertrag_abschliessen: Zustimmung fehlt fuer %', v_fehlt
+        using errcode = 'P0001';
+    end if;
+
+    insert into vertrag_zustimmungen
+      (vertrag_id, dokument_schluessel, dokument_version, akzeptiert_at, erfasst_von)
+    select p_vertrag_id, z ->> 'schluessel', z ->> 'version',
+           coalesce((z ->> 'akzeptiert_at')::timestamptz, now()), auth.uid()
+      from jsonb_array_elements(p_zustimmungen) z
+    on conflict do nothing;
+
+    insert into vertrag_unterschriften (vertrag_id, art, signatur) values
+      (p_vertrag_id, 'vertrag',     p_signatur_vertrag),
+      (p_vertrag_id, 'sepa_mandat', p_signatur_sepa)
+    on conflict (vertrag_id, art) do nothing;
+  elsif p_weg = 'papier' then
+    if p_unterschrieben_am is null then
+      raise exception 'vertrag_abschliessen: Abschlussdatum fehlt' using errcode = 'P0001';
+    end if;
+  else
+    raise exception 'vertrag_abschliessen: unbekannter Weg %', p_weg using errcode = '22023';
+  end if;
+
+  perform set_config('edvance.vertrag_rpc', '1', true);
+  update vertraege
+     set status = 'abgeschlossen',
+         abgeschlossen_at = now(),
+         abschluss_weg = p_weg,
+         unterschrieben_am = coalesce(p_unterschrieben_am,
+                                      (now() at time zone 'Europe/Berlin')::date),
+         glaeubiger_id = coalesce(glaeubiger_id,
+           (select glaeubiger_id from vertrag_einstellungen))
+   where id = p_vertrag_id;
+  perform set_config('edvance.vertrag_rpc', '', true);
+end;
+$$;
+
+
+--
+-- Name: vertrag_bankdaten_maskieren(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_bankdaten_maskieren() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+begin
+  update vertraege
+     set iban_masked = left(new.iban, 2) || '** **** ' || right(new.iban, 4)
+   where id = new.vertrag_id;
+  return new;
+end;
+$$;
+
+
+--
+-- Name: vertrag_starten(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_starten(p_lead_id uuid) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+declare
+  v_lead leads%rowtype;
+  v_id   uuid;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_starten: nur Admin' using errcode = '42501';
+  end if;
+
+  select * into v_lead from leads where id = p_lead_id for update;
+  if not found then
+    raise exception 'vertrag_starten: Lead nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  select id into v_id from vertraege where lead_id = p_lead_id and status <> 'abgelehnt';
+  if v_id is not null then
+    return v_id;
+  end if;
+
+  if v_lead.status <> 'lsa_fertig' then
+    raise exception 'vertrag_starten: Lead steht nicht auf "Analyse abgeschlossen"'
+      using errcode = 'P0001';
+  end if;
+
+  insert into vertraege (
+    created_by, lead_id, eltern_telefon, eltern_email,
+    kind_vorname, kind_nachname, kind_geburtsdatum, klasse, fach, schule
+  ) values (
+    auth.uid(), p_lead_id, v_lead.contact_phone, v_lead.contact_email,
+    coalesce(v_lead.first_name, split_part(v_lead.full_name, ' ', 1)),
+    nullif(regexp_replace(v_lead.full_name, '^\S+\s*', ''), ''),
+    v_lead.birth_date, v_lead.class_level, v_lead.subjects[1], v_lead.school_name
+  )
+  returning id into v_id;
+
+  update leads set status = 'vertrag' where id = p_lead_id;
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: vertrag_versand_protokollieren(uuid, text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_versand_protokollieren(p_vertrag_id uuid, p_weg text, p_anlass text, p_empfaenger text DEFAULT NULL::text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+declare
+  v_status text;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_versand_protokollieren: nur Admin' using errcode = '42501';
+  end if;
+
+  select status into v_status from vertraege where id = p_vertrag_id for update;
+  if not found then
+    raise exception 'vertrag_versand_protokollieren: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+  if v_status = 'abgelehnt' then
+    raise exception 'vertrag_versand_protokollieren: Vertrag ist abgelehnt' using errcode = 'P0001';
+  end if;
+
+  insert into vertrag_versand (vertrag_id, weg, anlass, empfaenger, erfolgt_von)
+  values (p_vertrag_id, p_weg, p_anlass, p_empfaenger, auth.uid());
+
+  if p_anlass = 'unterlagen' and v_status = 'in_vorbereitung' then
+    perform set_config('edvance.vertrag_rpc', '1', true);
+    update vertraege
+       set status = 'unterschrift_ausstehend',
+           unterschrift_ausstehend_at = now(),
+           glaeubiger_id = coalesce(glaeubiger_id,
+             (select glaeubiger_id from vertrag_einstellungen))
+     where id = p_vertrag_id;
+    perform set_config('edvance.vertrag_rpc', '', true);
+  end if;
+end;
+$$;
+
+
+--
 -- Name: badge_catalog; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4146,11 +4405,19 @@ CREATE TABLE public.leads (
     consent_dsgvo_document_version text,
     lsa_freigegeben_at timestamp with time zone,
     lsa_fertig_at timestamp with time zone,
+    erstgespraech_at timestamp with time zone,
+    erstgespraech_standort text,
+    rejected_at timestamp with time zone,
+    rejection_reason text,
+    rejection_note text,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
+    CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
     CONSTRAINT leads_grade_trend_check CHECK (((grade_trend IS NULL) OR (grade_trend = ANY (ARRAY['besser'::text, 'stabil'::text, 'schlechter'::text])))),
+    CONSTRAINT leads_rejection_note_check CHECK (((rejection_reason IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(rejection_note), ''::text) IS NOT NULL))),
+    CONSTRAINT leads_rejection_reason_check CHECK (((rejection_reason IS NULL) OR (rejection_reason = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
     CONSTRAINT leads_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text]))),
-    CONSTRAINT leads_status_check CHECK ((status = ANY (ARRAY['new'::text, 'contacted'::text, 'onboarding_scheduled'::text, 'converted'::text, 'rejected'::text, 'lsa_freigegeben'::text, 'lsa_fertig'::text]))),
+    CONSTRAINT leads_status_check CHECK ((status = ANY (ARRAY['new'::text, 'contacted'::text, 'onboarding_scheduled'::text, 'converted'::text, 'rejected'::text, 'lsa_freigegeben'::text, 'lsa_fertig'::text, 'vertrag'::text]))),
     CONSTRAINT leads_struggling_since_check CHECK (((struggling_since IS NULL) OR (struggling_since = ANY (ARRAY['dieses_halbjahr'::text, 'letztes_schuljahr'::text, 'laenger'::text]))))
 );
 
@@ -4938,6 +5205,151 @@ CREATE TABLE public.tiers (
 
 
 --
+-- Name: vertrag_mandat_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.vertrag_mandat_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: vertraege; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vertraege (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    created_by uuid,
+    lead_id uuid NOT NULL,
+    status text DEFAULT 'in_vorbereitung'::text NOT NULL,
+    in_vorbereitung_at timestamp with time zone DEFAULT now() NOT NULL,
+    unterschrift_ausstehend_at timestamp with time zone,
+    abgeschlossen_at timestamp with time zone,
+    abgelehnt_at timestamp with time zone,
+    abgelehnt_grund text,
+    abgelehnt_notiz text,
+    abschluss_weg text,
+    unterschrieben_am date,
+    eltern_vorname text,
+    eltern_nachname text,
+    strasse text,
+    hausnummer text,
+    plz text,
+    ort text,
+    eltern_telefon text,
+    eltern_email text,
+    kind_vorname text,
+    kind_nachname text,
+    kind_geburtsdatum date,
+    klasse integer,
+    fach text,
+    schule text,
+    laufzeit_monate integer,
+    tier_id uuid,
+    preis_cents integer,
+    vertragsbeginn date,
+    kontoinhaber text,
+    iban_masked text,
+    mandatsreferenz text DEFAULT ((('EDV-'::text || to_char((now() AT TIME ZONE 'Europe/Berlin'::text), 'YYYY'::text)) || '-'::text) || lpad((nextval('public.vertrag_mandat_seq'::regclass))::text, 6, '0'::text)) NOT NULL,
+    glaeubiger_id text,
+    CONSTRAINT vertraege_abgelehnt_grund_check CHECK (((abgelehnt_grund IS NULL) OR (abgelehnt_grund = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
+    CONSTRAINT vertraege_abgelehnt_notiz_check CHECK (((abgelehnt_grund IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(abgelehnt_notiz), ''::text) IS NOT NULL))),
+    CONSTRAINT vertraege_abschluss_weg_check CHECK (((abschluss_weg IS NULL) OR (abschluss_weg = ANY (ARRAY['vor_ort'::text, 'papier'::text])))),
+    CONSTRAINT vertraege_klasse_check CHECK (((klasse IS NULL) OR ((klasse >= 5) AND (klasse <= 13)))),
+    CONSTRAINT vertraege_laufzeit_check CHECK (((laufzeit_monate IS NULL) OR (laufzeit_monate = ANY (ARRAY[6, 12])))),
+    CONSTRAINT vertraege_status_check CHECK ((status = ANY (ARRAY['in_vorbereitung'::text, 'unterschrift_ausstehend'::text, 'abgeschlossen'::text, 'abgelehnt'::text])))
+);
+
+
+--
+-- Name: vertrag_bankdaten; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vertrag_bankdaten (
+    vertrag_id uuid NOT NULL,
+    iban text NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT vertrag_bankdaten_iban_check CHECK ((iban ~ '^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$'::text))
+);
+
+
+--
+-- Name: vertrag_dokumente; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vertrag_dokumente (
+    schluessel text NOT NULL,
+    version text NOT NULL,
+    titel text NOT NULL,
+    pflicht boolean NOT NULL,
+    aktiv boolean DEFAULT true NOT NULL,
+    sort_order integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: vertrag_einstellungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vertrag_einstellungen (
+    id boolean DEFAULT true NOT NULL,
+    glaeubiger_id text,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT vertrag_einstellungen_id_check CHECK (id)
+);
+
+
+--
+-- Name: vertrag_unterschriften; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vertrag_unterschriften (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    vertrag_id uuid NOT NULL,
+    art text NOT NULL,
+    signatur text NOT NULL,
+    unterschrieben_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT vertrag_unterschriften_art_check CHECK ((art = ANY (ARRAY['vertrag'::text, 'sepa_mandat'::text])))
+);
+
+
+--
+-- Name: vertrag_versand; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vertrag_versand (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    vertrag_id uuid NOT NULL,
+    weg text NOT NULL,
+    anlass text NOT NULL,
+    empfaenger text,
+    erfolgt_at timestamp with time zone DEFAULT now() NOT NULL,
+    erfolgt_von uuid,
+    CONSTRAINT vertrag_versand_anlass_check CHECK ((anlass = ANY (ARRAY['unterlagen'::text, 'bestaetigung'::text]))),
+    CONSTRAINT vertrag_versand_weg_check CHECK ((weg = ANY (ARRAY['email'::text, 'druck'::text])))
+);
+
+
+--
+-- Name: vertrag_zustimmungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vertrag_zustimmungen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    vertrag_id uuid NOT NULL,
+    dokument_schluessel text NOT NULL,
+    dokument_version text NOT NULL,
+    akzeptiert_at timestamp with time zone NOT NULL,
+    erfasst_von uuid
+);
+
+
+--
 -- Name: xp_events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5468,6 +5880,86 @@ ALTER TABLE ONLY public.tiers
 
 
 --
+-- Name: vertraege vertraege_mandatsreferenz_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_mandatsreferenz_key UNIQUE (mandatsreferenz);
+
+
+--
+-- Name: vertraege vertraege_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vertrag_bankdaten vertrag_bankdaten_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_bankdaten
+    ADD CONSTRAINT vertrag_bankdaten_pkey PRIMARY KEY (vertrag_id);
+
+
+--
+-- Name: vertrag_dokumente vertrag_dokumente_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_dokumente
+    ADD CONSTRAINT vertrag_dokumente_pkey PRIMARY KEY (schluessel, version);
+
+
+--
+-- Name: vertrag_einstellungen vertrag_einstellungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_einstellungen
+    ADD CONSTRAINT vertrag_einstellungen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vertrag_unterschriften vertrag_unterschriften_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_unterschriften
+    ADD CONSTRAINT vertrag_unterschriften_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vertrag_unterschriften vertrag_unterschriften_vertrag_id_art_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_unterschriften
+    ADD CONSTRAINT vertrag_unterschriften_vertrag_id_art_key UNIQUE (vertrag_id, art);
+
+
+--
+-- Name: vertrag_versand vertrag_versand_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_versand
+    ADD CONSTRAINT vertrag_versand_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vertrag_zustimmungen vertrag_zustimmungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_zustimmungen
+    ADD CONSTRAINT vertrag_zustimmungen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vertrag_zustimmungen vertrag_zustimmungen_vertrag_id_dokument_schluessel_dokumen_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_zustimmungen
+    ADD CONSTRAINT vertrag_zustimmungen_vertrag_id_dokument_schluessel_dokumen_key UNIQUE (vertrag_id, dokument_schluessel, dokument_version);
+
+
+--
 -- Name: xp_events xp_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5960,6 +6452,34 @@ CREATE INDEX tasks_source_idx ON public.tasks USING btree (source);
 
 
 --
+-- Name: vertraege_lead_offen_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX vertraege_lead_offen_idx ON public.vertraege USING btree (lead_id) WHERE (status <> 'abgelehnt'::text);
+
+
+--
+-- Name: vertraege_status_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX vertraege_status_idx ON public.vertraege USING btree (status);
+
+
+--
+-- Name: vertrag_dokumente_aktiv_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX vertrag_dokumente_aktiv_idx ON public.vertrag_dokumente USING btree (schluessel) WHERE aktiv;
+
+
+--
+-- Name: vertrag_versand_vertrag_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX vertrag_versand_vertrag_idx ON public.vertrag_versand USING btree (vertrag_id);
+
+
+--
 -- Name: xp_events_student_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6055,6 +6575,20 @@ CREATE TRIGGER trg_enforce_mastery_gate BEFORE INSERT OR UPDATE ON public.studen
 --
 
 CREATE TRIGGER trg_lsa_fehlbild_capture AFTER INSERT ON public.lsa_responses FOR EACH ROW EXECUTE FUNCTION public.lsa_fehlbild_capture();
+
+
+--
+-- Name: vertraege vertraege_guard_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER vertraege_guard_trg BEFORE UPDATE ON public.vertraege FOR EACH ROW EXECUTE FUNCTION public.vertraege_guard();
+
+
+--
+-- Name: vertrag_bankdaten vertrag_bankdaten_maskieren_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER vertrag_bankdaten_maskieren_trg AFTER INSERT OR UPDATE OF iban ON public.vertrag_bankdaten FOR EACH ROW EXECUTE FUNCTION public.vertrag_bankdaten_maskieren();
 
 
 --
@@ -6846,6 +7380,86 @@ ALTER TABLE ONLY public.tasks
 
 ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT tasks_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
+
+
+--
+-- Name: vertraege vertraege_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: vertraege vertraege_lead_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_lead_id_fkey FOREIGN KEY (lead_id) REFERENCES public.leads(id) ON DELETE CASCADE;
+
+
+--
+-- Name: vertraege vertraege_tier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_tier_id_fkey FOREIGN KEY (tier_id) REFERENCES public.tiers(id);
+
+
+--
+-- Name: vertrag_bankdaten vertrag_bankdaten_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_bankdaten
+    ADD CONSTRAINT vertrag_bankdaten_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE CASCADE;
+
+
+--
+-- Name: vertrag_unterschriften vertrag_unterschriften_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_unterschriften
+    ADD CONSTRAINT vertrag_unterschriften_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE CASCADE;
+
+
+--
+-- Name: vertrag_versand vertrag_versand_erfolgt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_versand
+    ADD CONSTRAINT vertrag_versand_erfolgt_von_fkey FOREIGN KEY (erfolgt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: vertrag_versand vertrag_versand_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_versand
+    ADD CONSTRAINT vertrag_versand_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE CASCADE;
+
+
+--
+-- Name: vertrag_zustimmungen vertrag_zustimmungen_dokument_schluessel_dokument_version_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_zustimmungen
+    ADD CONSTRAINT vertrag_zustimmungen_dokument_schluessel_dokument_version_fkey FOREIGN KEY (dokument_schluessel, dokument_version) REFERENCES public.vertrag_dokumente(schluessel, version);
+
+
+--
+-- Name: vertrag_zustimmungen vertrag_zustimmungen_erfasst_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_zustimmungen
+    ADD CONSTRAINT vertrag_zustimmungen_erfasst_von_fkey FOREIGN KEY (erfasst_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: vertrag_zustimmungen vertrag_zustimmungen_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_zustimmungen
+    ADD CONSTRAINT vertrag_zustimmungen_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE CASCADE;
 
 
 --
@@ -8024,6 +8638,129 @@ CREATE POLICY users_see_own_profile ON public.profiles FOR SELECT USING ((auth.u
 --
 
 CREATE POLICY users_see_own_snapshots ON public.behavior_snapshots FOR SELECT USING ((auth.uid() = user_id));
+
+
+--
+-- Name: vertraege; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.vertraege ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: vertraege vertraege_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertraege_admin_select ON public.vertraege FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: vertraege vertraege_admin_update_vorbereitung; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertraege_admin_update_vorbereitung ON public.vertraege FOR UPDATE USING (((public.get_my_role() = 'admin'::text) AND (status = 'in_vorbereitung'::text))) WITH CHECK (((public.get_my_role() = 'admin'::text) AND (status = 'in_vorbereitung'::text)));
+
+
+--
+-- Name: vertrag_bankdaten; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.vertrag_bankdaten ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: vertrag_bankdaten vertrag_bankdaten_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_bankdaten_admin_select ON public.vertrag_bankdaten FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: vertrag_bankdaten vertrag_bankdaten_admin_update; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_bankdaten_admin_update ON public.vertrag_bankdaten FOR UPDATE USING (((public.get_my_role() = 'admin'::text) AND (EXISTS ( SELECT 1
+   FROM public.vertraege v
+  WHERE ((v.id = vertrag_bankdaten.vertrag_id) AND (v.status = 'in_vorbereitung'::text)))))) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: vertrag_bankdaten vertrag_bankdaten_admin_write; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_bankdaten_admin_write ON public.vertrag_bankdaten FOR INSERT WITH CHECK (((public.get_my_role() = 'admin'::text) AND (EXISTS ( SELECT 1
+   FROM public.vertraege v
+  WHERE ((v.id = vertrag_bankdaten.vertrag_id) AND (v.status = 'in_vorbereitung'::text))))));
+
+
+--
+-- Name: vertrag_dokumente; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.vertrag_dokumente ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: vertrag_dokumente vertrag_dokumente_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_dokumente_admin_select ON public.vertrag_dokumente FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: vertrag_einstellungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.vertrag_einstellungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: vertrag_einstellungen vertrag_einstellungen_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_einstellungen_admin_select ON public.vertrag_einstellungen FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: vertrag_einstellungen vertrag_einstellungen_admin_update; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_einstellungen_admin_update ON public.vertrag_einstellungen FOR UPDATE USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: vertrag_unterschriften; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.vertrag_unterschriften ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: vertrag_unterschriften vertrag_unterschriften_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_unterschriften_admin_select ON public.vertrag_unterschriften FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: vertrag_versand; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.vertrag_versand ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: vertrag_versand vertrag_versand_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_versand_admin_select ON public.vertrag_versand FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: vertrag_zustimmungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.vertrag_zustimmungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: vertrag_zustimmungen vertrag_zustimmungen_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_zustimmungen_admin_select ON public.vertrag_zustimmungen FOR SELECT USING ((public.get_my_role() = 'admin'::text));
 
 
 --

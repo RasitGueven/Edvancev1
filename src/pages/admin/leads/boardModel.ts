@@ -1,5 +1,6 @@
 // Board-Modell der Lead-Pipeline: Spaltenzuordnung, Wartezeit, Filter.
 // Reine Logik ohne React — hier liegt alles, was sich ohne DOM testen laesst.
+// Texte stehen als i18n-Schluessel im Namespace 'leads'.
 
 import type { Lead, LeadStatus } from '@/types'
 
@@ -14,53 +15,32 @@ const FAST: AgeThresholds = { accent: 3, bold: 7 }
 /** Rueckfall-Schwellen, wenn ein Zustand keinen eigenen Zeitstempel hat. */
 export const CREATED_THRESHOLDS: AgeThresholds = SLOW
 
+/** Ab so vielen Tagen im Zustand erscheint "Seit X Tagen offen – nachhaken". */
+export const FOLLOW_UP_DAYS = 7
+
 export type BoardColumn = {
   key: BoardColumnKey
-  title: string
   statuses: LeadStatus[]
-  /** Kurztext, wenn die Spalte leer bleibt — die Spalte selbst bleibt sichtbar. */
-  emptyHint: string
   thresholds: AgeThresholds
+  /**
+   * Spalte mit Nachfass-Hinweis: die Farbe traegt dann allein der Hinweis, die
+   * Zeitzeile bleibt neutral — auch beim Rueckfall aufs Anlagedatum.
+   */
+  followUp?: boolean
 }
 
 // 'converted' und 'rejected' stehen bewusst nur im Archiv, das hinter dem
-// Schalter "Archiv anzeigen" liegt.
+// Schalter "Archiv anzeigen" liegt. 'vertrag' lebt in der Ansicht "Vertraege".
 export const BOARD_COLUMNS: BoardColumn[] = [
-  {
-    key: 'neu',
-    title: 'Offene Leads',
-    statuses: ['new'],
-    emptyHint: 'Keine offenen Leads.',
-    thresholds: SLOW,
-  },
-  {
-    key: 'gespraech',
-    title: 'Termin vereinbart',
-    statuses: ['contacted', 'onboarding_scheduled'],
-    emptyHint: 'Noch kein Termin vereinbart.',
-    thresholds: SLOW,
-  },
-  {
-    key: 'analyse',
-    title: 'Analyse',
-    statuses: ['lsa_freigegeben'],
-    emptyHint: 'Keine Analyse unterwegs.',
-    thresholds: FAST,
-  },
-  {
-    key: 'entscheidung',
-    title: 'Analyse abgeschlossen',
-    statuses: ['lsa_fertig'],
-    emptyHint: 'Keine abgeschlossene Analyse.',
-    thresholds: FAST,
-  },
+  { key: 'neu', statuses: ['new'], thresholds: SLOW },
+  { key: 'gespraech', statuses: ['contacted', 'onboarding_scheduled'], thresholds: SLOW },
+  { key: 'analyse', statuses: ['lsa_freigegeben'], thresholds: FAST },
+  { key: 'entscheidung', statuses: ['lsa_fertig'], thresholds: FAST, followUp: true },
 ]
 
 export const DONE_COLUMN: BoardColumn = {
   key: 'archiv',
-  title: 'Archiv',
   statuses: ['converted', 'rejected'],
-  emptyHint: 'Archiv ist leer.',
   thresholds: SLOW,
 }
 
@@ -86,16 +66,29 @@ export function daysWaiting(since: string, now: Date = new Date()): number {
 }
 
 /**
+ * Tage fuer den Nachfass-Hinweis, oder null wenn er entfaellt. Gezaehlt wird ab
+ * dem Zeitstempel des Zustandswechsels — ohne Zeitstempel (Bestand) kein
+ * Hinweis, nie ab dem Anlagedatum.
+ */
+export function followUpDays(
+  since: string | null,
+  now: Date = new Date(),
+): number | null {
+  if (since === null) return null
+  const days = daysWaiting(since, now)
+  return days >= FOLLOW_UP_DAYS ? days : null
+}
+
+/**
  * Zeitstempel des aktuellen Zustands, oder null wenn es keinen gibt.
  *
  * Jeder Zustand der vier Spalten hat seit Migration 20260904100000 eine eigene
  * Spalte auf leads: created_at, contacted_at, lsa_freigegeben_at,
  * lsa_fertig_at. Nichts wird aus updated_at gerechnet oder geschaetzt.
  *
- * Null bleibt in zwei Faellen: 'converted'/'rejected' im Archiv haben keinen
- * eigenen Zeitstempel, und Bestandsleads haben lsa_freigegeben_at /
- * lsa_fertig_at nicht, weil der Trigger sie erst ab der Migration schreibt.
- * Beide Faelle fallen in ageDisplay auf das Anlagedatum zurueck.
+ * 'rejected' hat seit 20260922120000 rejected_at. Null bleibt fuer
+ * 'converted' und fuer Bestandsleads, deren Zeitstempel erst ab der jeweiligen
+ * Migration geschrieben wird. ageDisplay faellt dann aufs Anlagedatum zurueck.
  */
 export function stateTimestamp(lead: Lead): string | null {
   switch (lead.status) {
@@ -109,30 +102,21 @@ export function stateTimestamp(lead: Lead): string | null {
       return lead.lsa_freigegeben_at
     case 'lsa_fertig':
       return lead.lsa_fertig_at
+    case 'rejected':
+      return lead.rejected_at
     default:
       return null
   }
 }
 
 export type AgeDisplay = {
-  /** Eingefaerbte Hauptzeile. */
-  label: string
+  /** 'since' = Tage im Zustand, 'created' = Rueckfall aufs Anlagedatum. */
+  kind: 'since' | 'created'
+  days: number
   accent: boolean
   bold: boolean
-  /** Graue Nebenzeile, oder null wenn sie entfaellt. */
-  createdLabel: string | null
-}
-
-function sinceLabel(days: number): string {
-  if (days === 0) return 'seit heute'
-  if (days === 1) return 'seit 1 Tag'
-  return `seit ${days} Tagen`
-}
-
-function createdLabel(days: number): string {
-  if (days === 0) return 'heute angelegt'
-  if (days === 1) return 'angelegt vor 1 Tag'
-  return `angelegt vor ${days} Tagen`
+  /** Tage seit Anlage fuer die graue Nebenzeile, oder null wenn sie entfaellt. */
+  createdDays: number | null
 }
 
 /**
@@ -149,22 +133,25 @@ export function ageDisplay(
 ): AgeDisplay {
   const since = stateTimestamp(lead)
   const createdDays = daysWaiting(lead.created_at, now)
+  const colored = column.followUp !== true
 
   if (since === null) {
     return {
-      label: createdLabel(createdDays),
-      accent: createdDays >= CREATED_THRESHOLDS.accent,
-      bold: createdDays >= CREATED_THRESHOLDS.bold,
-      createdLabel: null,
+      kind: 'created',
+      days: createdDays,
+      accent: colored && createdDays >= CREATED_THRESHOLDS.accent,
+      bold: colored && createdDays >= CREATED_THRESHOLDS.bold,
+      createdDays: null,
     }
   }
 
   const days = daysWaiting(since, now)
   return {
-    label: sinceLabel(days),
-    accent: days >= column.thresholds.accent,
-    bold: days >= column.thresholds.bold,
-    createdLabel: column.key === 'neu' ? null : createdLabel(createdDays),
+    kind: 'since',
+    days,
+    accent: colored && days >= column.thresholds.accent,
+    bold: colored && days >= column.thresholds.bold,
+    createdDays: column.key === 'neu' ? null : createdDays,
   }
 }
 

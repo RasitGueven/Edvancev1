@@ -117,3 +117,42 @@ export async function leadAssessmentUpsert(
     return { data: null, error: message }
   }
 }
+
+// Juengste abgeschlossene LSA-Session je Lead — fuer den Link zum
+// Eltern-Report auf der Board-Karte (/admin/report/:sessionId).
+export async function listReportSessionsByLead(
+  leadIds: string[],
+): Promise<SupabaseResult<Record<string, string>>> {
+  if (leadIds.length === 0) return { data: {}, error: null }
+  try {
+    const { data: students, error: sErr } = await supabase
+      .from('students')
+      .select('id, lead_id')
+      .in('lead_id', leadIds)
+    if (sErr) return { data: null, error: sErr.message }
+    const leadByStudent = new Map(
+      (students ?? []).map((s) => [s.id as string, s.lead_id as string]),
+    )
+    if (leadByStudent.size === 0) return { data: {}, error: null }
+
+    const { data, error } = await supabase
+      .from('lsa_sessions')
+      .select('id, student_id')
+      .in('student_id', [...leadByStudent.keys()])
+      .eq('status', 'completed')
+      .order('completed_at', { ascending: true })
+    if (error) return { data: null, error: error.message }
+
+    // Aufsteigend sortiert: die juengste Session ueberschreibt aeltere.
+    const byLead: Record<string, string> = {}
+    for (const row of data ?? []) {
+      const leadId = leadByStudent.get(row.student_id as string)
+      if (leadId) byLead[leadId] = row.id as string
+    }
+    return { data: byLead, error: null }
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : 'Report-Sitzungen konnten nicht geladen werden'
+    return { data: null, error: message }
+  }
+}

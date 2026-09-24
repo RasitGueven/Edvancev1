@@ -84,6 +84,11 @@ type LeadPatch = Partial<
     | 'consent_dsgvo_by'
     | 'consent_dsgvo_signature'
     | 'consent_dsgvo_document_version'
+    // Termin (A1) und Ablehnung (A2), Migration 20260922120000.
+    | 'erstgespraech_at'
+    | 'erstgespraech_standort'
+    | 'rejection_reason'
+    | 'rejection_note'
   >
 >
 

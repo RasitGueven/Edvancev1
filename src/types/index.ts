@@ -31,6 +31,8 @@ export type {
   LeadGoal,
   LeadGradeTrend,
   LeadStrugglingSince,
+  RejectionReason,
+  ErstgespraechStandort,
   Lead,
   LeadInput,
   Student,
@@ -45,6 +47,18 @@ export type {
   StudentSubscription,
   StudentCoach,
 } from './domain'
+
+export type {
+  VertragStatus,
+  VertragAbschlussWeg,
+  Vertrag,
+  VertragMitLead,
+  VertragPatch,
+  VertragDokument,
+  VertragVersand,
+  VertragUnterschrift,
+  VertragZustimmung,
+} from './vertrag'
 
 export type {
   AttendanceStatus,
