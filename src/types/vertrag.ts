@@ -44,8 +44,10 @@ export type Vertrag = {
 
   laufzeit_monate: 6 | 12 | null
   tier_id: string | null
-  /** Vom Trigger aus tiers gesetzt — nie aus dem Formular. */
+  /** Monatsbeitrag, vom Trigger aus tier_laufzeiten gesetzt — nie aus dem Formular. */
   preis_cents: number | null
+  /** Zugesagte Einheiten, vom Trigger aus tier_laufzeiten gesetzt. */
+  einheiten: number | null
   vertragsbeginn: string | null
 
   kontoinhaber: string | null

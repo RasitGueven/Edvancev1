@@ -48,6 +48,7 @@ function vertrag(over: Partial<VertragMitLead> & { id: string }): VertragMitLead
     laufzeit_monate: 12,
     tier_id: 't1',
     preis_cents: 26990,
+    einheiten: 57,
     vertragsbeginn: '2026-10-01',
     kontoinhaber: null,
     iban_masked: 'DE** **** 3000',

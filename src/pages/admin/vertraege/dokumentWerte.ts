@@ -3,6 +3,7 @@
 import type { TFunction } from 'i18next'
 import { formatDateOnly } from '@/lib/datetime'
 import { formatIban } from '@/lib/vertrag/iban'
+import { gesamtCents } from '@/lib/vertrag/konditionen'
 import type { Vertrag } from '@/types'
 import { formatEuro } from './VertragForm'
 import { elternName } from './vertragModel'
@@ -33,7 +34,13 @@ export function dokumentWerte({ vertrag: v, iban, paket, glaeubigerId, locale, t
     schule: v.schule,
     paket,
     preis: v.preis_cents !== null ? formatEuro(v.preis_cents, locale) : null,
-    laufzeit: v.laufzeit_monate !== null ? t('form.months', { count: v.laufzeit_monate }) : null,
+    laufzeit: v.laufzeit_monate !== null ? t(`form.laufzeitOption.${v.laufzeit_monate}`) : null,
+    beitraege: v.laufzeit_monate !== null ? String(v.laufzeit_monate) : null,
+    gesamtpreis:
+      v.preis_cents !== null && v.laufzeit_monate !== null
+        ? formatEuro(gesamtCents(v.preis_cents, v.laufzeit_monate), locale)
+        : null,
+    einheiten: v.einheiten !== null ? String(v.einheiten) : null,
     vertragsbeginn: datum(v.vertragsbeginn),
     kontoinhaber: v.kontoinhaber ?? eltern,
     iban: iban ? formatIban(iban) : null,

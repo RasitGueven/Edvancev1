@@ -52,10 +52,19 @@ begin
      set tier_id = (select id from tiers where name = 'Standard'),
          laufzeit_monate = 12, vertragsbeginn = current_date
    where id = v1;
-  update vertraege set preis_cents = 1 where id = v1;
+  update vertraege set preis_cents = 1, einheiten = 1 where id = v1;
   select preis_cents into v_n from vertraege where id = v1;
-  assert v_n = 27999, 'preis_cents nicht aus tiers: ' || v_n;
-  raise notice '3 ok  Preis aus tiers, nicht ueberschreibbar';
+  assert v_n = 26990, 'preis_cents nicht aus tier_laufzeiten (Jahr): ' || v_n;
+  select einheiten into v_n from vertraege where id = v1;
+  assert v_n = 57, 'einheiten nicht aus tier_laufzeiten (Jahr): ' || v_n;
+  -- Laufzeitwechsel zieht Preis und Einheiten nach.
+  update vertraege set laufzeit_monate = 6 where id = v1;
+  select preis_cents into v_n from vertraege where id = v1;
+  assert v_n = 29990, 'preis_cents nicht aus tier_laufzeiten (Halbjahr): ' || v_n;
+  select einheiten into v_n from vertraege where id = v1;
+  assert v_n = 29, 'einheiten nicht aus tier_laufzeiten (Halbjahr): ' || v_n;
+  update vertraege set laufzeit_monate = 12 where id = v1;
+  raise notice '3 ok  Preis und Einheiten aus tier_laufzeiten, nicht ueberschreibbar';
 
   -- 4. IBAN wird maskiert gespiegelt.
   insert into vertrag_bankdaten (vertrag_id, iban) values (v1, 'DE89370400440532013000');

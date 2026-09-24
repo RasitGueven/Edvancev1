@@ -42,6 +42,7 @@ export type {
   IntakeSession,
   IntakeInput,
   TierPlan,
+  TierLaufzeit,
   TierInput,
   SubscriptionStatus,
   StudentSubscription,

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SELECT_MD } from '@/lib/formStyles'
 import { isValidIban } from '@/lib/vertrag/iban'
+import { kondition } from '@/lib/vertrag/konditionen'
 import type { TierPlan } from '@/types'
 import { CLASS_LEVELS, SUBJECTS } from '../intake/intakeConstants'
 import type { VertragFormState } from './vertragForm'
@@ -59,9 +60,9 @@ function Feld({
 }
 
 /**
- * Vertragsformular: Vertragspartner, Kind, Vertragsdaten, SEPA. Der Preis ist
- * kein Eingabefeld — er folgt aus dem Paket (tiers). Nach dem Versand oder der
- * Unterschrift nur noch lesbar.
+ * Vertragsformular: Vertragspartner, Kind, Vertragsdaten, SEPA. Beitrag und
+ * Einheiten sind keine Eingabefelder — sie folgen aus Paket und Laufzeit
+ * (tier_laufzeiten). Nach dem Versand oder der Unterschrift nur noch lesbar.
  */
 export function VertragForm({
   form,
@@ -74,6 +75,8 @@ export function VertragForm({
 }: VertragFormProps): JSX.Element {
   const { t, i18n } = useTranslation('vertraege')
   const tier = tiers.find((x) => x.id === form.tier_id) ?? null
+  const k = kondition(tier, form.laufzeit_monate === '' ? null : Number(form.laufzeit_monate))
+  const euro = (cents: number): string => formatEuro(cents, i18n.language)
   const ibanInvalid = form.iban.trim() !== '' && !isValidIban(form.iban)
 
   const text = (feld: keyof VertragFormState, opts: { type?: string; wide?: boolean } = {}) => (
@@ -160,11 +163,6 @@ export function VertragForm({
             ))}
           </select>
         </Feld>
-        <Feld id="vertrag-preis" label={t('field.preis')} hint={t('form.priceHint')}>
-          <p id="vertrag-preis" className="flex h-11 items-center text-sm font-semibold text-[var(--color-text-primary)]">
-            {tier ? formatEuro(tier.price_cents, i18n.language) : '—'}
-          </p>
-        </Feld>
         <Feld id="vertrag-laufzeit" label={t('field.laufzeit_monate')}>
           <select
             id="vertrag-laufzeit"
@@ -176,10 +174,28 @@ export function VertragForm({
             <option value="">{t('form.choose')}</option>
             {LAUFZEITEN.map((m) => (
               <option key={m} value={m}>
-                {t('form.months', { count: m })}
+                {t(`form.laufzeitOption.${m}`)}
               </option>
             ))}
           </select>
+        </Feld>
+        <Feld
+          id="vertrag-preis"
+          label={t('field.preis')}
+          hint={
+            k
+              ? t('form.konditionHint', { beitraege: k.beitraege, gesamt: euro(k.gesamt_cents) })
+              : t('form.priceHint')
+          }
+        >
+          <p id="vertrag-preis" className="flex h-11 items-center text-sm font-semibold text-[var(--color-text-primary)]">
+            {k ? euro(k.preis_cents) : '—'}
+          </p>
+        </Feld>
+        <Feld id="vertrag-einheiten" label={t('field.einheiten')} hint={k ? t('form.einheitenHint') : null}>
+          <p id="vertrag-einheiten" className="flex h-11 items-center text-sm font-semibold text-[var(--color-text-primary)]">
+            {k ? k.einheiten : '—'}
+          </p>
         </Feld>
         {text('vertragsbeginn', { type: 'date' })}
       </Section>

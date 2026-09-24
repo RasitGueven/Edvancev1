@@ -18,8 +18,10 @@ Klasse {{klasse}} · Fach {{fach}} · Schule: {{schule}}
 ## Leistung und Preis
 
 - Paket: **{{paket}}**
-- Monatlicher Preis: **{{preis}}**
 - Laufzeit: **{{laufzeit}}**
+- Umfang: **{{einheiten}} Coaching-Einheiten** à 60 Minuten
+- Monatlicher Beitrag: **{{preis}}**, **{{beitraege}}** Beiträge
+- Gesamtpreis: **{{gesamtpreis}}**
 - Vertragsbeginn: **{{vertragsbeginn}}**
 
 ## Weitere Regelungen
