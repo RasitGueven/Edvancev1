@@ -54,7 +54,7 @@ begin
    where id = v1;
   update vertraege set preis_cents = 1 where id = v1;
   select preis_cents into v_n from vertraege where id = v1;
-  assert v_n = 26990, 'preis_cents nicht aus tiers: ' || v_n;
+  assert v_n = 27999, 'preis_cents nicht aus tiers: ' || v_n;
   raise notice '3 ok  Preis aus tiers, nicht ueberschreibbar';
 
   -- 4. IBAN wird maskiert gespiegelt.

@@ -7,7 +7,7 @@ Branch `feat/vertraege-prozess` (von `origin/dev`), Worktree `../Edvancev1-vertr
 **Datenbank**
 - `20260922120000_vertraege_prozess` (live eingespielt, zusammen mit dem
   History-Eintrag in einer Transaktion):
-  - `tiers`: 199,90 / 269,90 / 349,90 €
+  - `tiers`: Preise bleiben 199,99 / 279,99 / 349,99 € (Änderung mit 20260923200000_tiers_preise_zurueck zurückgenommen)
   - `leads`: `erstgespraech_at`, `erstgespraech_standort`, `rejected_at`,
     `rejection_reason`, `rejection_note`, Status `vertrag`; `rejected_at` setzt
     der vorhandene Status-Trigger
