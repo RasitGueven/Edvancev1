@@ -6,7 +6,7 @@ export async function listTiers(): Promise<SupabaseResult<TierPlan[]>> {
   try {
     const { data, error } = await supabase
       .from('tiers')
-      .select('*')
+      .select('*, laufzeiten:tier_laufzeiten(laufzeit_monate, preis_cents, einheiten)')
       .eq('active', true)
       .order('sort_order', { ascending: true })
     if (error) return { data: null, error: error.message }

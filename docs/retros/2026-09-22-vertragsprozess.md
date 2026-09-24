@@ -7,7 +7,7 @@ Branch `feat/vertraege-prozess` (von `origin/dev`), Worktree `../Edvancev1-vertr
 **Datenbank**
 - `20260922120000_vertraege_prozess` (live eingespielt, zusammen mit dem
   History-Eintrag in einer Transaktion):
-  - `tiers`: Preise bleiben 199,99 / 279,99 / 349,99 € (Änderung mit 20260923200000_tiers_preise_zurueck zurückgenommen)
+  - `tiers`: Preise über `20260924120000_tarife_laufzeiten` neu geregelt (siehe unten)
   - `leads`: `erstgespraech_at`, `erstgespraech_standort`, `rejected_at`,
     `rejection_reason`, `rejection_note`, Status `vertrag`; `rejected_at` setzt
     der vorhandene Status-Trigger
@@ -60,3 +60,21 @@ Branch `feat/vertraege-prozess` (von `origin/dev`), Worktree `../Edvancev1-vertr
 - Rechtstexte statt Platzhaltern; Gläubiger-ID in `vertrag_einstellungen`.
 - Browser-Test des gesamten Flows im Preview.
 - Schülerakte auf Basis von `vertraege`.
+
+## Nachtrag 24.09.2026 — Tarife je Laufzeit
+
+`20260924120000_tarife_laufzeiten` führt `tier_laufzeiten` ein. Monatsbeitrag und
+Einheiten hängen an Paket **und** Laufzeit:
+
+| Paket | Jahrespaket (12 Beiträge) | Halbjahrespaket (6 Beiträge) |
+|---|---|---|
+| Basic | 199,90 € · 38 Einheiten | 219,90 € · 19 Einheiten |
+| Standard | 269,90 € · 57 Einheiten | 299,90 € · 29 Einheiten |
+| Premium | 349,90 € · 76 Einheiten | 389,90 € · 38 Einheiten |
+
+- `vertraege.einheiten` neu; der Guard setzt `preis_cents` und `einheiten` bei
+  Wechsel von Paket oder Laufzeit (nur `in_vorbereitung`), danach eingefroren.
+- `tiers.price_cents` bleibt Referenzpreis = Jahrespaket.
+- Gesamtpreis = Beitrag × Laufzeit, im Formular und im Vertragstext ausgewiesen (PAngV).
+- Die Zwischenmigration `20260923200000_tiers_preise_zurueck` ist entfallen.
+

@@ -167,13 +167,23 @@ export type IntakeInput = {
   notes?: string | null
 }
 
+/** Monatsbeitrag und Einheiten eines Tarifs fuer eine Laufzeit (tier_laufzeiten). */
+export type TierLaufzeit = {
+  laufzeit_monate: 6 | 12
+  preis_cents: number
+  einheiten: number
+}
+
 export type TierPlan = {
   id: string
   name: string
+  /** Referenzpreis = Jahrespaket. Verbindlich fuer Vertraege ist `laufzeiten`. */
   price_cents: number
   features: string[]
   sort_order: number
   active: boolean
+  /** Nur geladen, wenn die Abfrage tier_laufzeiten mitholt (listTiers). */
+  laufzeiten?: TierLaufzeit[]
 }
 
 export type TierInput = {
