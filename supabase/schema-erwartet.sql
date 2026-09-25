@@ -153,6 +153,35 @@ $$;
 
 
 --
+-- Name: audit_log_schreiben(text, text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.audit_log_schreiben(p_aktion text, p_objekt_typ text, p_objekt_id uuid DEFAULT NULL::uuid) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_id uuid;
+begin
+  if auth.uid() is null then
+    raise exception 'audit_log_schreiben: kein angemeldeter Aufrufer' using errcode = '42501';
+  end if;
+  -- SECURITY DEFINER haengt an dieser Zeile: ohne sie duerfte jeder Angemeldete
+  -- beliebige Eintraege ins Protokoll schreiben und es damit unbrauchbar machen.
+  if public.get_my_role() <> 'admin' then
+    raise exception 'audit_log_schreiben: nur Admin' using errcode = '42501';
+  end if;
+
+  insert into public.audit_log (actor, aktion, objekt_typ, objekt_id)
+  values (auth.uid(), p_aktion, p_objekt_typ, p_objekt_id)
+  returning id into v_id;
+
+  return v_id;
+end;
+$$;
+
+
+--
 -- Name: authoring_review_meta(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4154,6 +4183,131 @@ $$;
 
 
 --
+-- Name: vertrag_ende_berechnen(date, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_ende_berechnen(p_beginn date, p_laufzeit_monate integer) RETURNS TABLE(nominal date, ferientage integer, ende date, ferien text[])
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  c_max_runden constant integer := 500;
+  v_nominal  date;
+  v_fix      date;
+  v_neu      date;
+  v_ende     date;
+  v_tage     integer;
+  v_runde    integer;
+  v_bis      date;
+  v_erster   date;
+  v_letzter  date;
+  v_namen    text[];
+begin
+  if p_beginn is null or p_laufzeit_monate is null then
+    raise exception 'vertrag_ende_berechnen: p_beginn und p_laufzeit_monate sind Pflicht'
+      using errcode = '22023';
+  end if;
+  if p_laufzeit_monate not in (6, 12) then
+    raise exception 'vertrag_ende_berechnen: Laufzeit ist 6 oder 12 Monate, nicht %', p_laufzeit_monate
+      using errcode = '22023';
+  end if;
+  if extract(day from p_beginn) <> 1 then
+    raise exception 'vertrag_ende_berechnen: Vertragsbeginn ist immer der Monatserste (% ist es nicht)', p_beginn
+      using errcode = '22023';
+  end if;
+
+  v_nominal := (p_beginn + make_interval(months => p_laufzeit_monate))::date - 1;
+
+  -- ------------------------------------------------------------- Jahresvertrag
+  if p_laufzeit_monate = 12 then
+    nominal    := v_nominal;
+    ferientage := 0;
+    ende       := v_nominal;
+    ferien     := array[]::text[];
+    return next;
+    return;
+  end if;
+
+  -- ---------------------------------------------------------- Halbjahresvertrag
+  select min(f.von), max(f.bis) into v_erster, v_letzter from public.ferien_nrw f;
+
+  if v_letzter is null then
+    raise exception 'vertrag_ende_berechnen: ferien_nrw ist leer — ohne Ferien gibt es kein Halbjahresende'
+      using errcode = 'P0001';
+  end if;
+  if p_beginn < v_erster then
+    raise exception 'vertrag_ende_berechnen: Beginn % liegt vor dem ersten gepflegten Ferientag (%) — die Rechnung waere unvollstaendig', p_beginn, v_erster
+      using errcode = 'P0001';
+  end if;
+
+  -- Fixpunkt: schieben, bis das Schieben nichts Neues mehr findet.
+  v_fix   := v_nominal;
+  v_runde := 0;
+  loop
+    v_runde := v_runde + 1;
+    if v_runde > c_max_runden then
+      raise exception 'vertrag_ende_berechnen: kein Fixpunkt nach % Runden (Beginn %)', c_max_runden, p_beginn
+        using errcode = 'P0001';
+    end if;
+
+    select coalesce(sum((least(f.bis, v_fix) - greatest(f.von, p_beginn)) + 1), 0)::integer
+      into v_tage
+      from public.ferien_nrw f
+     where f.von <= v_fix and f.bis >= p_beginn;
+
+    v_neu := v_nominal + v_tage;
+    exit when v_neu = v_fix;
+    v_fix := v_neu;
+  end loop;
+
+  -- Aufrunden und, falls noetig, aus den Ferien heraus — bis beides stimmt.
+  v_ende  := v_fix;
+  v_runde := 0;
+  loop
+    v_runde := v_runde + 1;
+    if v_runde > 50 then
+      raise exception 'vertrag_ende_berechnen: Aufrunden findet keinen ferienfreien Tag (Beginn %)', p_beginn
+        using errcode = 'P0001';
+    end if;
+
+    v_ende := case
+                when extract(day from v_ende) < 15 then date_trunc('month', v_ende)::date + 14
+                when extract(day from v_ende) = 15 then v_ende
+                else (date_trunc('month', v_ende) + interval '1 month')::date - 1
+              end;
+
+    v_bis := null;
+    select f.bis into v_bis
+      from public.ferien_nrw f
+     where v_ende between f.von and f.bis
+     limit 1;
+
+    exit when v_bis is null;
+    v_ende := v_bis + 1;
+  end loop;
+
+  if v_ende > v_letzter then
+    raise exception 'vertrag_ende_berechnen: Ende % liegt nach dem letzten gepflegten Ferientag (%). Ferien in ferien_nrw ergaenzen — hier wird nicht still gerechnet.', v_ende, v_letzter
+      using errcode = 'P0001';
+  end if;
+
+  -- Die Ferien, die gezaehlt haben (Fenster des Fixpunkts, nicht des gerundeten
+  -- Endes) — als Nachweis fuer die Vertragsunterlage.
+  select coalesce(array_agg(f.name order by f.von), array[]::text[])
+    into v_namen
+    from public.ferien_nrw f
+   where f.von <= v_fix and f.bis >= p_beginn;
+
+  nominal    := v_nominal;
+  ferientage := v_tage;
+  ende       := v_ende;
+  ferien     := v_namen;
+  return next;
+end;
+$$;
+
+
+--
 -- Name: vertrag_starten(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4242,6 +4396,69 @@ $$;
 
 
 --
+-- Name: vertrag_widerruf_bis(date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_widerruf_bis(p_beginn date) RETURNS date
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select p_beginn + 29;
+$$;
+
+
+--
+-- Name: zugangscode_erzeugen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.zugangscode_erzeugen() RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  c_alphabet constant text := 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  v_roh   text;
+  v_code  text;
+  v_runde integer := 0;
+begin
+  loop
+    v_runde := v_runde + 1;
+    if v_runde > 100 then
+      raise exception 'zugangscode_erzeugen: 100 Kollisionen in Folge — Alphabet oder Laenge pruefen'
+        using errcode = 'P0001';
+    end if;
+
+    v_roh := '';
+    for i in 1..8 loop
+      v_roh := v_roh || substr(c_alphabet, 1 + floor(random() * length(c_alphabet))::integer, 1);
+    end loop;
+
+    v_code := 'EDV-' || substr(v_roh, 1, 4) || '-' || substr(v_roh, 5, 4);
+
+    exit when not exists (select 1 from public.vertraege t where t.zugangscode = v_code);
+  end loop;
+
+  return v_code;
+end;
+$$;
+
+
+--
+-- Name: audit_log; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.audit_log (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    actor uuid,
+    aktion text NOT NULL,
+    objekt_typ text NOT NULL,
+    objekt_id uuid,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT audit_log_aktion_nicht_leer CHECK ((NULLIF(btrim(aktion), ''::text) IS NOT NULL)),
+    CONSTRAINT audit_log_objekt_typ_nicht_leer CHECK ((NULLIF(btrim(objekt_typ), ''::text) IS NOT NULL))
+);
+
+
+--
 -- Name: badge_catalog; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4319,6 +4536,21 @@ CREATE TABLE public.fehlbild_labels (
     freigegeben_am timestamp with time zone,
     freigegeben_von uuid,
     familie text
+);
+
+
+--
+-- Name: ferien_nrw; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ferien_nrw (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    art text NOT NULL,
+    name text NOT NULL,
+    von date NOT NULL,
+    bis date NOT NULL,
+    CONSTRAINT ferien_nrw_art_check CHECK ((art = ANY (ARRAY['herbst'::text, 'weihnachten'::text, 'ostern'::text, 'sommer'::text]))),
+    CONSTRAINT ferien_nrw_zeitraum_check CHECK ((von <= bis))
 );
 
 
@@ -4649,6 +4881,20 @@ CREATE TABLE public.report_bausteine (
     freigegeben_am timestamp with time zone,
     freigegeben_von uuid,
     CONSTRAINT report_bausteine_variante_check CHECK ((variante = ANY (ARRAY['a'::text, 'b'::text])))
+);
+
+
+--
+-- Name: schulen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schulen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name text NOT NULL,
+    ort text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    created_by uuid,
+    CONSTRAINT schulen_name_nicht_leer CHECK ((NULLIF(btrim(name), ''::text) IS NOT NULL))
 );
 
 
@@ -5283,12 +5529,51 @@ CREATE TABLE public.vertraege (
     mandatsreferenz text DEFAULT ((('EDV-'::text || to_char((now() AT TIME ZONE 'Europe/Berlin'::text), 'YYYY'::text)) || '-'::text) || lpad((nextval('public.vertrag_mandat_seq'::regclass))::text, 6, '0'::text)) NOT NULL,
     glaeubiger_id text,
     einheiten integer,
+    student_id uuid,
+    schule_id uuid,
+    vorgaenger_id uuid,
+    vertrag_status text,
+    abgeschlossen_am date,
+    eingang_datum date,
+    vertrag_ende date,
+    ferientage integer,
+    widerruf_bis date,
+    widerrufen_am date,
+    gekuendigt_zum date,
+    kuendigung_grund text,
+    zahlungsstatus text DEFAULT 'in_ordnung'::text NOT NULL,
+    zahlungsstatus_seit date,
+    offener_betrag_cents integer,
+    verlaengerung_status text,
+    verlaengerung_grund text,
+    wiedervorlage_am date,
+    rueckmeldung_bis date,
+    abweichung_vermerk text,
+    zugangscode text,
+    zugangscode_erzeugt_am date,
+    zugangscode_gesperrt_am date,
     CONSTRAINT vertraege_abgelehnt_grund_check CHECK (((abgelehnt_grund IS NULL) OR (abgelehnt_grund = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
     CONSTRAINT vertraege_abgelehnt_notiz_check CHECK (((abgelehnt_grund IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(abgelehnt_notiz), ''::text) IS NOT NULL))),
     CONSTRAINT vertraege_abschluss_weg_check CHECK (((abschluss_weg IS NULL) OR (abschluss_weg = ANY (ARRAY['vor_ort'::text, 'papier'::text])))),
+    CONSTRAINT vertraege_beginn_monatserster CHECK (((vertragsbeginn IS NULL) OR (EXTRACT(day FROM vertragsbeginn) = (1)::numeric))),
+    CONSTRAINT vertraege_ende_nach_beginn CHECK (((vertrag_ende IS NULL) OR (vertragsbeginn IS NULL) OR (vertrag_ende > vertragsbeginn))),
+    CONSTRAINT vertraege_ferientage_nicht_negativ CHECK (((ferientage IS NULL) OR (ferientage >= 0))),
+    CONSTRAINT vertraege_gekuendigt_braucht_datum_und_grund CHECK (((vertrag_status IS DISTINCT FROM 'gekuendigt'::text) OR ((gekuendigt_zum IS NOT NULL) AND (NULLIF(btrim(kuendigung_grund), ''::text) IS NOT NULL)))),
+    CONSTRAINT vertraege_keine_verlaengerung_braucht_grund CHECK (((verlaengerung_status IS DISTINCT FROM 'keine_verlaengerung'::text) OR (NULLIF(btrim(verlaengerung_grund), ''::text) IS NOT NULL))),
     CONSTRAINT vertraege_klasse_check CHECK (((klasse IS NULL) OR ((klasse >= 5) AND (klasse <= 13)))),
     CONSTRAINT vertraege_laufzeit_check CHECK (((laufzeit_monate IS NULL) OR (laufzeit_monate = ANY (ARRAY[6, 12])))),
-    CONSTRAINT vertraege_status_check CHECK ((status = ANY (ARRAY['in_vorbereitung'::text, 'unterschrift_ausstehend'::text, 'abgeschlossen'::text, 'abgelehnt'::text])))
+    CONSTRAINT vertraege_offener_betrag_nicht_negativ CHECK (((offener_betrag_cents IS NULL) OR (offener_betrag_cents >= 0))),
+    CONSTRAINT vertraege_status_check CHECK ((status = ANY (ARRAY['in_vorbereitung'::text, 'unterschrift_ausstehend'::text, 'abgeschlossen'::text, 'abgelehnt'::text]))),
+    CONSTRAINT vertraege_verlaengerung_status_check CHECK (((verlaengerung_status IS NULL) OR (verlaengerung_status = ANY (ARRAY['offen'::text, 'kontaktiert'::text, 'gespraech_vereinbart'::text, 'verlaengert'::text, 'keine_verlaengerung'::text])))),
+    CONSTRAINT vertraege_vertrag_status_check CHECK (((vertrag_status IS NULL) OR (vertrag_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text, 'gekuendigt'::text, 'ausgelaufen'::text, 'widerrufen'::text])))),
+    CONSTRAINT vertraege_vertrag_status_nach_abschluss CHECK (((status = 'abgeschlossen'::text) = (vertrag_status IS NOT NULL))),
+    CONSTRAINT vertraege_vorgaenger_nicht_selbst CHECK (((vorgaenger_id IS NULL) OR (vorgaenger_id <> id))),
+    CONSTRAINT vertraege_widerruf_nach_beginn CHECK (((widerruf_bis IS NULL) OR (vertragsbeginn IS NULL) OR (widerruf_bis >= vertragsbeginn))),
+    CONSTRAINT vertraege_widerrufen_braucht_datum CHECK (((vertrag_status IS DISTINCT FROM 'widerrufen'::text) OR (widerrufen_am IS NOT NULL))),
+    CONSTRAINT vertraege_zahlungsstatus_braucht_datum CHECK (((zahlungsstatus = 'in_ordnung'::text) OR (zahlungsstatus_seit IS NOT NULL))),
+    CONSTRAINT vertraege_zahlungsstatus_check CHECK ((zahlungsstatus = ANY (ARRAY['in_ordnung'::text, 'zahlung_offen'::text, 'mahnung_1'::text, 'mahnung_2'::text, 'inkasso'::text]))),
+    CONSTRAINT vertraege_zugangscode_form CHECK (((zugangscode IS NULL) OR (zugangscode ~ '^EDV-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{4}-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{4}$'::text))),
+    CONSTRAINT vertraege_zugangscode_sperre_braucht_code CHECK (((zugangscode_gesperrt_am IS NULL) OR (zugangscode IS NOT NULL)))
 );
 
 
@@ -5402,6 +5687,14 @@ CREATE TABLE public.xp_rules (
 
 
 --
+-- Name: audit_log audit_log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.audit_log
+    ADD CONSTRAINT audit_log_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: badge_catalog badge_catalog_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5439,6 +5732,14 @@ ALTER TABLE ONLY public.fehlbild_familien
 
 ALTER TABLE ONLY public.fehlbild_labels
     ADD CONSTRAINT fehlbild_labels_pkey PRIMARY KEY (slug);
+
+
+--
+-- Name: ferien_nrw ferien_nrw_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ferien_nrw
+    ADD CONSTRAINT ferien_nrw_pkey PRIMARY KEY (id);
 
 
 --
@@ -5631,6 +5932,14 @@ ALTER TABLE ONLY public.report_bausteine
 
 ALTER TABLE ONLY public.report_bausteine
     ADD CONSTRAINT report_bausteine_slot_fall_variante_key UNIQUE (slot, fall, variante);
+
+
+--
+-- Name: schulen schulen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schulen
+    ADD CONSTRAINT schulen_pkey PRIMARY KEY (id);
 
 
 --
@@ -5930,6 +6239,14 @@ ALTER TABLE ONLY public.vertraege
 
 
 --
+-- Name: vertraege vertraege_zugangscode_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_zugangscode_uniq UNIQUE (zugangscode);
+
+
+--
 -- Name: vertrag_bankdaten vertrag_bankdaten_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6010,6 +6327,20 @@ ALTER TABLE ONLY public.xp_rules
 
 
 --
+-- Name: audit_log_actor_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX audit_log_actor_idx ON public.audit_log USING btree (actor, created_at DESC);
+
+
+--
+-- Name: audit_log_objekt_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX audit_log_objekt_idx ON public.audit_log USING btree (objekt_typ, objekt_id, created_at DESC);
+
+
+--
 -- Name: behavior_snapshots_screening_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6056,6 +6387,20 @@ CREATE UNIQUE INDEX coaching_sessions_slot_datum_unique ON public.coaching_sessi
 --
 
 CREATE INDEX coaching_sessions_slot_idx ON public.coaching_sessions USING btree (slot_id) WHERE (slot_id IS NOT NULL);
+
+
+--
+-- Name: ferien_nrw_bis_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ferien_nrw_bis_idx ON public.ferien_nrw USING btree (bis);
+
+
+--
+-- Name: ferien_nrw_von_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ferien_nrw_von_idx ON public.ferien_nrw USING btree (von);
 
 
 --
@@ -6182,6 +6527,13 @@ CREATE UNIQUE INDEX platz_assignments_active_unique ON public.platz_assignments 
 --
 
 CREATE INDEX platz_assignments_session_idx ON public.platz_assignments USING btree (session_id);
+
+
+--
+-- Name: schulen_name_ort_uniq; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX schulen_name_ort_uniq ON public.schulen USING btree (lower(name), COALESCE(ort, ''::text));
 
 
 --
@@ -6493,10 +6845,45 @@ CREATE UNIQUE INDEX vertraege_lead_offen_idx ON public.vertraege USING btree (le
 
 
 --
+-- Name: vertraege_schule_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX vertraege_schule_idx ON public.vertraege USING btree (schule_id);
+
+
+--
 -- Name: vertraege_status_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX vertraege_status_idx ON public.vertraege USING btree (status);
+
+
+--
+-- Name: vertraege_student_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX vertraege_student_idx ON public.vertraege USING btree (student_id);
+
+
+--
+-- Name: vertraege_student_laufend_uniq; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX vertraege_student_laufend_uniq ON public.vertraege USING btree (student_id) WHERE ((student_id IS NOT NULL) AND (vertrag_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text])));
+
+
+--
+-- Name: vertraege_vorgaenger_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX vertraege_vorgaenger_idx ON public.vertraege USING btree (vorgaenger_id);
+
+
+--
+-- Name: vertraege_wiedervorlage_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX vertraege_wiedervorlage_idx ON public.vertraege USING btree (wiedervorlage_am) WHERE (wiedervorlage_am IS NOT NULL);
 
 
 --
@@ -6630,6 +7017,14 @@ CREATE TRIGGER vertrag_bankdaten_maskieren_trg AFTER INSERT OR UPDATE OF iban ON
 --
 
 CREATE TRIGGER xp_events_apply AFTER INSERT ON public.xp_events FOR EACH ROW EXECUTE FUNCTION public.apply_xp_event();
+
+
+--
+-- Name: audit_log audit_log_actor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.audit_log
+    ADD CONSTRAINT audit_log_actor_fkey FOREIGN KEY (actor) REFERENCES public.profiles(id) ON DELETE SET NULL;
 
 
 --
@@ -6950,6 +7345,14 @@ ALTER TABLE ONLY public.profiles
 
 ALTER TABLE ONLY public.report_bausteine
     ADD CONSTRAINT report_bausteine_freigegeben_von_fkey FOREIGN KEY (freigegeben_von) REFERENCES public.profiles(id);
+
+
+--
+-- Name: schulen schulen_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schulen
+    ADD CONSTRAINT schulen_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id) ON DELETE SET NULL;
 
 
 --
@@ -7437,7 +7840,23 @@ ALTER TABLE ONLY public.vertraege
 --
 
 ALTER TABLE ONLY public.vertraege
-    ADD CONSTRAINT vertraege_lead_id_fkey FOREIGN KEY (lead_id) REFERENCES public.leads(id) ON DELETE CASCADE;
+    ADD CONSTRAINT vertraege_lead_id_fkey FOREIGN KEY (lead_id) REFERENCES public.leads(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: vertraege vertraege_schule_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_schule_id_fkey FOREIGN KEY (schule_id) REFERENCES public.schulen(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: vertraege vertraege_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE RESTRICT;
 
 
 --
@@ -7446,6 +7865,14 @@ ALTER TABLE ONLY public.vertraege
 
 ALTER TABLE ONLY public.vertraege
     ADD CONSTRAINT vertraege_tier_id_fkey FOREIGN KEY (tier_id) REFERENCES public.tiers(id);
+
+
+--
+-- Name: vertraege vertraege_vorgaenger_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertraege
+    ADD CONSTRAINT vertraege_vorgaenger_id_fkey FOREIGN KEY (vorgaenger_id) REFERENCES public.vertraege(id) ON DELETE RESTRICT;
 
 
 --
@@ -7527,6 +7954,19 @@ ALTER TABLE ONLY public.xp_events
 CREATE POLICY admin_write_tasks ON public.tasks USING ((EXISTS ( SELECT 1
    FROM public.profiles p
   WHERE ((p.id = auth.uid()) AND (p.role = 'admin'::text)))));
+
+
+--
+-- Name: audit_log; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.audit_log ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: audit_log audit_log_admin_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY audit_log_admin_read ON public.audit_log FOR SELECT USING ((public.get_my_role() = 'admin'::text));
 
 
 --
@@ -7664,6 +8104,19 @@ ALTER TABLE public.fehlbild_labels ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY fehlbild_labels_read ON public.fehlbild_labels FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
+-- Name: ferien_nrw; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.ferien_nrw ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: ferien_nrw ferien_nrw_authenticated_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY ferien_nrw_authenticated_read ON public.ferien_nrw FOR SELECT USING ((auth.role() = 'authenticated'::text));
 
 
 --
@@ -8021,6 +8474,19 @@ ALTER TABLE public.report_bausteine ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY report_bausteine_read ON public.report_bausteine FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
+-- Name: schulen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.schulen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: schulen schulen_admin_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schulen_admin_all ON public.schulen USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
 
 
 --
