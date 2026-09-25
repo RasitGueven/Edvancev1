@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verträge — Gesamt-Dummy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#102038; --navy-2:#1B2A4A; --primary:#334D7A; --primary-hover:#253D6A;
+    --primary-light:#EEF2F8; --bg:#F7F7F5; --surface:#FFFFFF; --subtle:#EFEFED;
+    --border:#E8E8E5; --t1:#1A1A18; --t2:#4A4A47; --t3:#888884;
+    --warn-t:#C87E00; --warn-bg:#FEF3E2; --ok-t:#2A8A4A; --ok-bg:#EAF5EE;
+    --bad-t:#B91C1C; --bad-bg:#FEF2F2; --gold:#DA9721;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--t1);
+    font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:15px;line-height:1.55}
+  .topbar{display:flex;align-items:center;gap:20px;padding:11px 20px;
+    border-bottom:1px solid var(--border);background:var(--surface)}
+  .logo{font-family:Fraunces,serif;font-size:20px;color:var(--primary)}
+  .nav{display:flex;gap:4px}
+  .nav button{border:none;background:none;font:inherit;font-size:14px;color:var(--t2);
+    padding:6px 13px;border-radius:999px;cursor:pointer}
+  .nav button:hover{background:var(--subtle);color:var(--t1)}
+  .nav button[aria-current="true"]{background:var(--primary-light);color:var(--primary);font-weight:500}
+  .topbar .who{margin-left:auto;font-size:13px;color:var(--t3)}
+  .wrap{max-width:1000px;margin:0 auto;padding:22px 20px 90px}
+  .hero{background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:14px;
+    padding:18px 24px;color:#fff;margin-bottom:18px}
+  .hero h1{font-family:Fraunces,serif;font-weight:600;font-size:24px;margin:0 0 3px}
+  .hero p{margin:0;font-size:13px;opacity:.75}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+  .tab{border:1px solid var(--border);background:var(--surface);border-radius:999px;
+    padding:8px 16px;font:inherit;font-size:14px;color:var(--t2);cursor:pointer}
+  .tab:hover{border-color:var(--primary);color:var(--primary)}
+  .tab[aria-selected="true"]{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:500}
+  .tab b{font-weight:500;opacity:.8;margin-left:5px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:18px 20px;margin-bottom:16px}
+  .card.hidden{display:none}
+  h2{font-family:Fraunces,serif;font-weight:600;font-size:19px;margin:0 0 4px}
+  h3{font-family:Fraunces,serif;font-weight:600;font-size:17px;margin:0 0 10px}
+  .sub{font-size:13px;color:var(--t2);margin:0 0 14px}
+  .lbl{font-size:12px;color:var(--t3);font-weight:500;margin:0 0 9px}
+  .note{font-size:12px;color:var(--t3);margin-top:9px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-weight:500;font-size:12px;color:var(--t3);
+    padding:0 10px 8px 0;border-bottom:1px solid var(--border)}
+  td{padding:11px 10px 11px 0;border-bottom:1px solid var(--subtle);vertical-align:top}
+  tr.row{cursor:pointer}
+  tr.row:hover td{background:var(--primary-light)}
+  .nm{font-weight:500}
+  .muted{color:var(--t2);font-size:13px}
+  .due{color:var(--bad-t);font-weight:500}
+  .tag{display:inline-block;border-radius:6px;padding:2px 9px;font-size:11px;font-weight:500;white-space:nowrap}
+  .tag-ok{background:var(--ok-bg);color:var(--ok-t)}
+  .tag-warn{background:var(--warn-bg);color:var(--warn-t)}
+  .tag-bad{background:var(--bad-bg);color:var(--bad-t)}
+  .tag-info{background:var(--primary-light);color:var(--primary)}
+  .tag-mut{background:var(--subtle);color:var(--t3)}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:999px;
+    padding:9px 18px;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+  .btn:hover{background:var(--primary-hover)}
+  .btn:disabled{background:#B8B8B4;cursor:not-allowed}
+  .btn-ghost{background:var(--surface);color:var(--t2);border:1px solid var(--border)}
+  .btn-ghost:hover{background:var(--subtle);color:var(--t1)}
+  .btn-ok{background:var(--ok-t)} .btn-ok:hover{background:#227a3f}
+  .btn-sm{padding:5px 13px;font-size:13px}
+  .sumline{display:flex;gap:26px;flex-wrap:wrap;background:var(--primary-light);
+    border-radius:10px;padding:11px 16px;margin-bottom:14px}
+  .sumline div span{display:block;font-size:12px;color:var(--t2)}
+  .sumline div b{font-family:Fraunces,serif;font-size:19px;font-weight:600;color:var(--primary)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  select,input[type=text],input[type=date]{padding:8px 11px;border:1px solid var(--border);
+    border-radius:10px;font:inherit;font-size:14px;background:var(--surface);color:var(--t1)}
+  .field{margin-bottom:13px}
+  .field label{display:block;font-size:13px;color:var(--t2);margin-bottom:4px}
+  .field input,.field select{width:100%}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:start}
+  .dl{display:grid;grid-template-columns:140px 1fr;gap:6px 12px;font-size:14px}
+  .dl dt{color:var(--t2);font-size:13px}
+  .dl dd{margin:0}
+  .back{font-size:13px;color:var(--primary);cursor:pointer;display:inline-block;margin-bottom:12px}
+  .back:hover{text-decoration:underline}
+  .flash{background:var(--ok-bg);color:var(--ok-t);border-radius:10px;padding:11px 15px;
+    font-size:13px;margin-bottom:15px}
+  .warnbox{background:var(--warn-bg);color:var(--warn-t);border-radius:10px;padding:11px 15px;
+    font-size:13px;margin-bottom:15px}
+  .infobox{background:var(--primary-light);color:var(--primary);border-radius:10px;
+    padding:12px 15px;font-size:13px;margin-bottom:14px}
+  .code{font-family:ui-monospace,Menlo,monospace;font-size:19px;letter-spacing:.1em;
+    background:var(--subtle);border-radius:10px;padding:10px 14px;display:inline-block;margin:4px 0 10px}
+  .reveal{display:block;font-size:12px;color:var(--primary);cursor:pointer;margin-top:2px}
+  .reveal:hover{text-decoration:underline}
+  .doc{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--subtle);font-size:13px}
+  .doc:last-child{border-bottom:none}
+  .doc a{margin-left:auto;color:var(--primary);cursor:pointer;font-size:12px}
+  .hist{font-size:13px;padding:8px 0;border-bottom:1px solid var(--subtle)}
+  .hist:last-child{border-bottom:none}
+  .empty{color:var(--t3);font-size:14px;padding:16px 0}
+  .lane{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;max-width:340px}
+  .lane h4{font-family:Fraunces,serif;font-size:15px;margin:0 0 3px}
+  .leadcard{border:1px solid var(--border);border-radius:11px;padding:12px;margin-top:10px}
+  .leadcard .nm{font-size:14px}
+  .sbar{background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:14px;
+    padding:16px 22px;color:#fff;margin-bottom:18px}
+  .sbar .row{display:flex;justify-content:space-between;align-items:center;gap:14px}
+  .sbar h2{margin:0;color:#fff}
+  .sbar small{opacity:.72;font-size:12px}
+  .sbar .pos{font-family:Fraunces,serif;font-size:17px}
+  .steps{display:flex;gap:4px;margin-top:13px}
+  .steps i{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.2)}
+  .steps i.on{background:var(--gold)}
+  .paper{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    padding:20px 24px;font-size:12px;line-height:1.7;color:var(--t2);max-height:260px;overflow:auto}
+  .paper h4{font-family:Fraunces,serif;font-size:15px;color:var(--t1);margin:0 0 9px}
+  .paper table{width:100%;margin:9px 0}
+  .paper td{padding:3px 0;border-bottom:1px solid var(--subtle)}
+  .paper td:last-child{text-align:right}
+  .ways{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+  .way{border:1px solid var(--border);border-radius:12px;padding:15px;text-align:left;
+    background:var(--surface);font:inherit;color:inherit;cursor:pointer}
+  .way:hover{border-color:var(--primary)}
+  .way[aria-pressed="true"]{border:2px solid var(--primary);background:var(--primary-light)}
+  .way strong{display:block;font-size:14px;margin-bottom:3px}
+  .way em{font-style:normal;font-size:12px;color:var(--t2)}
+  .check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--subtle)}
+  .check input{margin-top:3px;width:17px;height:17px;flex-shrink:0}
+  .check label{font-size:14px}
+  .check a{color:var(--primary);cursor:pointer}
+  .check a:hover{text-decoration:underline}
+  .check .ver{display:block;font-size:12px;color:var(--t3)}
+  .sign{border:2px dashed var(--border);border-radius:12px;height:120px;display:flex;
+    align-items:center;justify-content:center;color:var(--t3);font-size:13px;cursor:pointer}
+  .sign.done{border:1px solid var(--ok-t);background:var(--ok-bg);color:var(--ok-t)}
+  .sign .sig{font-family:Fraunces,serif;font-size:26px;color:var(--navy);transform:rotate(-3deg)}
+  .drop{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;
+    color:var(--t3);font-size:13px;cursor:pointer}
+  .drop.done{border:1px solid var(--ok-t);background:var(--ok-bg);color:var(--ok-t)}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .cmp .col{border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .foot{position:sticky;bottom:0;background:rgba(247,247,245,.97);border-top:1px solid var(--border);
+    margin:20px -20px -90px;padding:13px 20px;display:flex;align-items:center;gap:11px}
+  .foot .step{flex:1;font-size:13px;color:var(--t2)}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">edvance</span>
+  <div class="nav">
+    <button id="nav-board" onclick="zeigeBoard()">Lead-Board</button>
+    <button id="nav-vertraege" onclick="zeigeVertraege()">Verträge</button>
+  </div>
+  <span class="who">Gesamt-Dummy · heute ist der 12.10.2027</span>
+</div>
+
+<div class="wrap">
+
+<section id="s-board" class="hidden">
+  <div class="hero"><h1>Lead-Board</h1><p>Nur die letzte Spalte — hier startet der Vertragsprozess</p></div>
+  <div class="lane">
+    <h4>Analyse abgeschlossen</h4>
+    <div class="muted" id="lane-zahl"></div>
+    <div id="lane-leads"></div>
+  </div>
+</section>
+
+<section id="s-main" class="hidden">
+  <div class="hero"><h1>Verträge</h1><p>Anträge, laufende Verträge, Verlängerungen und Zahlungen</p></div>
+  <div class="tabs">
+    <button class="tab" aria-selected="true" onclick="tab('antraege',this)">Offene Anträge <b id="n-antraege"></b></button>
+    <button class="tab" onclick="tab('uebersicht',this)">Vertragsübersicht <b id="n-uebersicht"></b></button>
+    <button class="tab" onclick="tab('auslaufend',this)">Auslaufende Verträge <b id="n-auslaufend"></b></button>
+    <button class="tab" onclick="tab('zahlung',this)">Zahlungsverzüge <b id="n-zahlung"></b></button>
+  </div>
+  <div class="card" id="panel"></div>
+</section>
+
+<section id="s-detail" class="hidden">
+  <span class="back" onclick="zeigeVertraege()">← Zurück zur Liste</span>
+  <div id="detail"></div>
+</section>
+
+<section id="s-run" class="hidden">
+  <div class="sbar">
+    <div class="row">
+      <div><h2 id="run-titel">Vertragsprozess</h2><small id="run-sub"></small></div>
+      <div class="pos" id="run-pos">Schritt 1 von 4</div>
+    </div>
+    <div class="steps"><i class="on"></i><i></i><i></i><i></i></div>
+  </div>
+
+  <div id="w1">
+    <div class="card">
+      <h3>Vertragsdaten prüfen</h3>
+      <p class="sub" id="w1-sub">Alles aus dem Lead vorausgefüllt. Änderungen wirken auch auf die Stammdaten.</p>
+      <div class="two">
+        <div class="field"><label>Vertragspartner</label><input type="text" id="f-partner"></div>
+        <div class="field"><label>E-Mail</label><input type="text" id="f-email"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label>Anschrift</label><input type="text" id="f-strasse"></div>
+        <div class="field"><label>PLZ und Ort</label><input type="text" id="f-ort"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label>Telefon (optional)</label><input type="text" id="f-tel"></div>
+        <div class="field"><label>IBAN</label><input type="text" id="f-iban"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label>Kind</label><input type="text" id="f-kind"></div>
+        <div class="field"><label>Schule (optional)</label><input type="text" id="f-schule"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label>Paket</label>
+          <select id="f-paket" onchange="endeRechnen()">
+            <option>Basic</option><option selected>Standard</option><option>Premium</option>
+          </select></div>
+        <div class="field"><label>Laufzeit</label>
+          <select id="f-laufzeit" onchange="endeRechnen()">
+            <option selected>Halbjahr</option><option>Jahr</option>
+          </select></div>
+      </div>
+      <div class="field"><label>Tarif</label><input type="text" id="f-tarif" readonly></div>
+      <div class="two">
+        <div class="field"><label>Vertragsbeginn</label><select id="f-beginn" onchange="endeRechnen()"></select></div>
+        <div class="field"><label>Vertragsende</label><input type="text" id="f-ende" readonly></div>
+      </div>
+      <div class="infobox hidden" id="ferienbox"></div>
+      <p class="note">Ein Vertrag beginnt immer am Ersten eines Monats.</p>
+      <p class="note" id="zahlnote"></p>
+    </div>
+  </div>
+
+  <div id="w2" class="hidden">
+    <div class="card">
+      <h3>Vertragsdokument</h3>
+      <p class="sub">So geht der Vertrag an die Eltern.</p>
+      <div class="paper" id="paper"></div>
+      <p class="note">Platzhalter. Der endgültige Text kommt aus der Vertragsvorlage.</p>
+    </div>
+  </div>
+
+  <div id="w3" class="hidden">
+    <div class="card">
+      <h3>Wie wird abgeschlossen?</h3>
+      <p class="sub">Davon hängt ab, ob jetzt ein Vertrag entsteht oder ein Antrag, der auf den Rücklauf wartet.</p>
+      <div class="ways">
+        <button class="way" id="way-vorort" aria-pressed="false" onclick="weg('vorort')">
+          <strong>Hier unterschreiben</strong><em>Auf dem iPad, direkt im Termin</em></button>
+        <button class="way" id="way-mail" aria-pressed="false" onclick="weg('mail')">
+          <strong>Per Mail senden</strong><em>Eltern unterschreiben zu Hause</em></button>
+        <button class="way" id="way-druck" aria-pressed="false" onclick="weg('druck')">
+          <strong>Ausdrucken</strong><em>Unterlagen mitgeben</em></button>
+      </div>
+      <p class="note">Bei allen drei Wegen gehen dieselben Unterlagen an die Eltern: Vertrag, AGB, Datenschutzerklärung, Widerrufsbelehrung und SEPA-Mandat.</p>
+    </div>
+  </div>
+
+  <div id="w4" class="hidden">
+    <div class="card hidden" id="box-vorort">
+      <h3>Bedingungen und Unterschrift</h3>
+      <p class="sub">Der Elternteil bestätigt und unterschreibt auf dem iPad.</p>
+      <div class="check"><input type="checkbox" id="c1" onchange="pruefeAbschluss()">
+        <label for="c1">Ich habe die <a onclick="alert('Öffnet die AGB, Fassung 09/2027.')">Allgemeinen Geschäftsbedingungen</a> gelesen und akzeptiere sie.<span class="ver">Fassung 09/2027</span></label></div>
+      <div class="check"><input type="checkbox" id="c2" onchange="pruefeAbschluss()">
+        <label for="c2">Ich habe die <a onclick="alert('Öffnet die Datenschutzerklärung, Fassung 09/2027.')">Datenschutzerklärung</a> zur Kenntnis genommen.<span class="ver">Fassung 09/2027</span></label></div>
+      <div class="check"><input type="checkbox" id="c3" onchange="pruefeAbschluss()">
+        <label for="c3">Ich erteile das <a onclick="alert('Öffnet das SEPA-Lastschriftmandat.')">SEPA-Lastschriftmandat</a>.<span class="ver">eigenes Mandat für diesen Vertrag</span></label></div>
+      <div class="check"><input type="checkbox" id="c4" onchange="pruefeAbschluss()">
+        <label for="c4">Ich wurde über das <a onclick="alert('Öffnet die Widerrufsbelehrung.')">Widerrufsrecht</a> belehrt.<span class="ver">30 Tage ab Vertragsschluss</span></label></div>
+      <p class="lbl" style="margin:18px 0 9px">Unterschrift des Vertragspartners</p>
+      <div class="sign" id="sigbox" onclick="unterschreiben()">Zum Unterschreiben tippen</div>
+      <p class="lbl" style="margin:18px 0 9px">Vertragsbestätigung</p>
+      <div style="display:flex;gap:9px;flex-wrap:wrap">
+        <button class="btn btn-sm" id="b-mail" onclick="best('mail')">Per Mail</button>
+        <button class="btn btn-ghost btn-sm" id="b-druck" onclick="best('druck')">Ausdrucken</button>
+      </div>
+      <p class="note">Enthält Vertrag, AGB, Datenschutzerklärung, Widerrufsbelehrung und SEPA-Mandat.</p>
+      <div style="margin-top:18px;border-top:1px solid var(--border);padding-top:16px">
+        <button class="btn btn-ok" id="b-abschluss" disabled onclick="abschliessen()">Vertrag abschließen</button>
+        <p class="note" id="abschlussnote"></p>
+      </div>
+    </div>
+    <div class="card hidden" id="box-papier">
+      <h3>Unterlagen erzeugen</h3>
+      <div class="warnbox">Der Vertrag gilt erst als geschlossen, wenn das unterschriebene Exemplar zurück ist und eingepflegt wurde. Bis dahin bleibt der Antrag unter Offene Anträge.</div>
+      <div class="field" style="max-width:280px"><label>Rückmeldung erwartet bis</label><input type="date" id="f-rueck"></div>
+      <button class="btn" onclick="versenden()">Unterlagen erzeugen und Antrag auf „versendet“ setzen</button>
+      <p class="note">Die heute gültigen Fassungen von AGB und Datenschutzerklärung werden mit dem Antrag gespeichert. Die Bestätigungshäkchen setzt der Elternteil auf dem Ausdruck.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="step" id="stepname">Schritt 1 von 4 — Vertragsdaten</div>
+    <button class="btn btn-ghost btn-sm" onclick="zurueck()">Zurück</button>
+    <button class="btn btn-sm" id="b-weiter" onclick="weiter()">Weiter</button>
+  </div>
+</section>
+
+<section id="s-pflege" class="hidden">
+  <div class="sbar">
+    <div class="row">
+      <div><h2>Vertrag einpflegen</h2><small id="pf-sub"></small></div>
+      <div class="pos" id="pf-tag"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Unterschriebenes Exemplar</h3>
+    <p class="sub">Scan oder PDF hochladen. Das eingescannte Original ist der Nachweis.</p>
+    <div class="drop" id="drop" onclick="scanned()">Datei hierher ziehen oder auswählen<br><span style="font-size:12px">PDF, JPG oder PNG</span></div>
+  </div>
+  <div class="card">
+    <h3>Stimmt der Rücklauf mit dem Antrag überein?</h3>
+    <p class="sub">Links, was versendet wurde. Rechts, was auf dem Papier steht.</p>
+    <div class="cmp">
+      <div class="col"><p class="lbl">Versendeter Antrag</p><dl class="dl" id="pf-soll"></dl></div>
+      <div class="col">
+        <p class="lbl">Wie unterschrieben</p>
+        <div class="field"><label>Paket</label><select id="r-paket" onchange="abweichung()"></select></div>
+        <div class="field"><label>Laufzeit</label><select id="r-laufzeit" onchange="abweichung()">
+          <option>Halbjahr</option><option>Jahr</option></select></div>
+        <div class="field"><label>Beginn</label><select id="r-beginn" onchange="abweichung()"></select></div>
+      </div>
+    </div>
+    <div id="abw" class="hidden" style="margin-top:14px">
+      <div class="warnbox">Abweichung zum versendeten Antrag. Bitte festhalten, was die Eltern geändert haben.</div>
+      <div class="field"><label>Vermerk zur Abweichung</label><input type="text" id="r-vermerk" placeholder="z. B. Paket handschriftlich auf Standard geändert"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Daten des Rücklaufs</h3>
+    <div class="two">
+      <div class="field"><label>Unterschriftsdatum laut Dokument</label><input type="date" id="p-sig" onchange="pflegePruefen()"></div>
+      <div class="field"><label>Eingang bei uns</label><input type="date" id="p-ein"></div>
+    </div>
+    <p class="note" id="fristnote"></p>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-ok" id="b-pflege" disabled onclick="pflegeAbschluss()">Vertrag abschließen</button>
+      <button class="btn btn-ghost" onclick="pflegeAblehnen()">Nicht zustande gekommen</button>
+      <button class="btn btn-ghost" onclick="zeigeVertraege()">Abbrechen</button>
+    </div>
+    <p class="note" id="pflegenote">Erst nach dem Hochladen des Scans möglich.</p>
+  </div>
+</section>
+
+</div>
+
+<script>
+const HEUTE=new Date(2027,9,12);
+const MONATE=["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+
+const FERIEN=[
+  ["2026-07-20","2026-09-01","Sommerferien 2026"],["2026-10-17","2026-10-31","Herbstferien 2026"],
+  ["2026-12-23","2027-01-06","Weihnachtsferien 2026/27"],["2027-03-22","2027-04-03","Osterferien 2027"],
+  ["2027-07-19","2027-08-31","Sommerferien 2027"],["2027-10-23","2027-11-06","Herbstferien 2027"],
+  ["2027-12-24","2028-01-08","Weihnachtsferien 2027/28"],["2028-04-10","2028-04-22","Osterferien 2028"],
+  ["2028-07-10","2028-08-22","Sommerferien 2028"],["2028-10-23","2028-11-04","Herbstferien 2028"],
+  ["2028-12-21","2029-01-05","Weihnachtsferien 2028/29"],["2029-03-26","2029-04-07","Osterferien 2029"],
+  ["2029-07-02","2029-08-14","Sommerferien 2029"],["2029-10-15","2029-10-27","Herbstferien 2029"],
+  ["2029-12-20","2030-01-04","Weihnachtsferien 2029/30"],["2030-04-15","2030-04-27","Osterferien 2030"]
+].map(f=>({von:new Date(f[0]+"T00:00:00"),bis:new Date(f[1]+"T00:00:00"),name:f[2]}));
+const FERIEN_BIS=new Date(2030,3,27);
+
+const PAKETE={
+  Basic:{jahr:{preis:199.90,einheiten:38},halb:{preis:219.90,einheiten:19}},
+  Standard:{jahr:{preis:269.90,einheiten:57},halb:{preis:299.90,einheiten:29}},
+  Premium:{jahr:{preis:349.90,einheiten:76},halb:{preis:369.90,einheiten:38}}
+};
+
+function addTage(d,n){return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);}
+function addMonate(d,n){return new Date(d.getFullYear(),d.getMonth()+n,d.getDate());}
+function dstr(d){return ("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+d.getFullYear();}
+function mstr(d){return "1. "+MONATE[d.getMonth()]+" "+d.getFullYear();}
+function iso(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+function eur(n){return n.toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" €";}
+function monatsEnde(d){return new Date(d.getFullYear(),d.getMonth()+1,0);}
+function aufrunden(d){return d.getDate()<15?new Date(d.getFullYear(),d.getMonth(),15):monatsEnde(d);}
+function inFerien(d){return FERIEN.some(f=>d>=f.von&&d<=f.bis);}
+function ferienIm(a,b){
+  let tage=0,namen=[];
+  FERIEN.forEach(f=>{const lo=new Date(Math.max(a,f.von)),hi=new Date(Math.min(b,f.bis));
+    if(lo<=hi){tage+=Math.round((hi-lo)/86400000)+1;namen.push(f.name);}});
+  return {tage,namen:[...new Set(namen)]};
+}
+function berechneEnde(beginn,jahr){
+  const nominal=addTage(addMonate(beginn,jahr?12:6),-1);
+  if(jahr) return {nominal,ende:nominal,tage:0,namen:[],ueber:false};
+  let ende=nominal;
+  for(let i=0;i<400;i++){
+    const t=ferienIm(beginn,ende).tage;
+    const neu=addTage(nominal,t);
+    if(+neu===+ende) break;
+    ende=neu;
+  }
+  const r=ferienIm(beginn,ende);
+  ende=aufrunden(ende);
+  while(inFerien(ende)) ende=aufrunden(addTage(ende,1));
+  return {nominal,ende,tage:r.tage,namen:r.namen,ueber:ende>FERIEN_BIS};
+}
+
+let naechsteId=100;
+function code(){const t=()=>Math.random().toString(36).slice(2,6).toUpperCase();return "EDV-"+t()+"-"+t();}
+
+const LEADS=[
+  {id:1,partner:"Aylin Demir",kind:"Efe Demir",klasse:8,strasse:"Kalker Hauptstraße 55",ort:"51103 Köln",
+   email:"a.demir@example.de",tel:"0221 8840217",schule:"Kaiserin-Augusta-Schule",iban4:"3376"},
+  {id:2,partner:"Jens Kowalski",kind:"Mara Kowalski",klasse:10,strasse:"Aachener Straße 512",ort:"50933 Köln",
+   email:"j.kowalski@example.de",tel:"",schule:"",iban4:"1204"}
+];
+
+const ANTRAEGE=[
+  {id:11,partner:"Sandra Köhler",kind:"Jonas Köhler",klasse:8,strasse:"Mülheimer Freiheit 22",ort:"51063 Köln",
+   email:"s.koehler@example.de",tel:"0175 3390821",schule:"Genoveva-Gymnasium",iban4:"8813",
+   paket:"Basic",jahr:false,beginn:new Date(2027,10,1),status:"versendet",
+   start:new Date(2027,8,20),bis:new Date(2027,9,4),fassung:"09/2027"},
+  {id:12,partner:"Markus Brehm",kind:"Lina Brehm",klasse:9,strasse:"Zülpicher Straße 190",ort:"50937 Köln",
+   email:"m.brehm@example.de",tel:"",schule:"",iban4:"5521",
+   paket:"Premium",jahr:true,beginn:new Date(2027,11,1),status:"versendet",
+   start:new Date(2027,9,8),bis:new Date(2027,9,22),fassung:"09/2027"}
+];
+
+function machVertrag(o){
+  const t=PAKETE[o.paket][o.jahr?"jahr":"halb"];
+  const r=berechneEnde(o.beginn,o.jahr);
+  const wid=addTage(o.unterschrift||HEUTE,30);
+  return Object.assign({
+    id:naechsteId++,beitrag:t.preis,einheiten:t.einheiten,beitraege:o.jahr?12:6,
+    ende:r.ende,status:"im Widerruf",widerrufBis:wid,zahlung:"in Ordnung",offen:0,seit:null,
+    code:code(),verl:null,hist:[]
+  },o);
+}
+
+const VERTRAEGE=[
+  machVertrag({partner:"Claudia Wenzel",kind:"Mia Wenzel",klasse:8,strasse:"Sülzburgstraße 114",ort:"50937 Köln",
+    email:"c.wenzel@example.de",tel:"0221 5512480",schule:"Friedrich-Wilhelm-Gymnasium",iban4:"4417",
+    paket:"Premium",jahr:true,beginn:new Date(2027,8,1)}),
+  machVertrag({partner:"Thomas Ritter",kind:"Paul Ritter",klasse:9,strasse:"Venloer Straße 301",ort:"50823 Köln",
+    email:"t.ritter@example.de",tel:"",schule:"Hansa-Gymnasium",iban4:"9032",
+    paket:"Standard",jahr:false,beginn:new Date(2027,2,1)}),
+  machVertrag({partner:"Nadine Sauer",kind:"Emil Sauer",klasse:8,strasse:"Deutz-Kalker Straße 48",ort:"50679 Köln",
+    email:"n.sauer@example.de",tel:"0171 2298440",schule:"",iban4:"7165",
+    paket:"Basic",jahr:false,beginn:new Date(2027,5,1)}),
+  machVertrag({partner:"Ferhat Yilmaz",kind:"Elif Yilmaz",klasse:10,strasse:"Neusser Straße 220",ort:"50733 Köln",
+    email:"f.yilmaz@example.de",tel:"0221 7730192",schule:"Gesamtschule Nippes",iban4:"5508",
+    paket:"Standard",jahr:true,beginn:new Date(2027,1,1)}),
+  machVertrag({partner:"Petra Lindner",kind:"Ben Lindner",klasse:9,strasse:"Bonner Straße 84",ort:"50677 Köln",
+    email:"p.lindner@example.de",tel:"0160 4471203",schule:"Elisabeth-von-Thüringen-Gymnasium",iban4:"2841",
+    paket:"Standard",jahr:false,beginn:new Date(2027,2,1)}),
+  machVertrag({partner:"Oliver Hanke",kind:"Nora Hanke",klasse:8,strasse:"Aachener Straße 512",ort:"50933 Köln",
+    email:"o.hanke@example.de",tel:"",schule:"",iban4:"6690",
+    paket:"Basic",jahr:false,beginn:new Date(2026,8,1)})
+];
+// Ausgangslage: unterschrieben wurde jeweils rund zehn Tage vor Vertragsbeginn,
+// die Widerrufsfrist ist also längst abgelaufen.
+VERTRAEGE.forEach(v=>{
+  v.widerrufBis=addTage(addTage(v.beginn,-10),30);
+  v.status = v.ende<HEUTE ? "ausgelaufen" : (v.widerrufBis<HEUTE ? "aktiv" : "im Widerruf");
+});
+VERTRAEGE[2].zahlung="1. Mahnung"; VERTRAEGE[2].offen=219.90; VERTRAEGE[2].seit=new Date(2027,8,28);
+VERTRAEGE[3].zahlung="2. Mahnung"; VERTRAEGE[3].offen=539.80; VERTRAEGE[3].seit=new Date(2027,7,30);
+VERTRAEGE[1].verl="kontaktiert";
+
+let aktiv="antraege", flash="", schritt=1, gewaehlt=null, signiert=false, bestWeg="mail";
+let entwurf=null, scanOk=false, pflegeAntrag=null;
+
+function go(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  const board=id==="s-board";
+  document.getElementById("nav-board").setAttribute("aria-current",board?"true":"false");
+  document.getElementById("nav-vertraege").setAttribute("aria-current",board?"false":"true");
+  window.scrollTo(0,0);
+}
+function zeigeBoard(){renderBoard();go("s-board");}
+function zeigeVertraege(){render();go("s-main");}
+
+function renderBoard(){
+  document.getElementById("lane-zahl").textContent=LEADS.length+" Leads";
+  document.getElementById("lane-leads").innerHTML=LEADS.length
+    ? LEADS.map(l=>`<div class="leadcard">
+        <div class="nm">${l.kind}</div>
+        <div class="muted">${l.partner} · Klasse ${l.klasse}</div>
+        <div style="margin-top:10px"><button class="btn btn-sm" onclick="startStrecke(${l.id})">Vertragsprozess</button></div>
+      </div>`).join("")
+    : '<div class="empty">Keine Leads mehr in dieser Spalte.</div>';
+}
+
+function tagFor(s){
+  if(s==="aktiv") return '<span class="tag tag-ok">aktiv</span>';
+  if(s==="im Widerruf") return '<span class="tag tag-warn">im Widerruf</span>';
+  if(s==="ausgelaufen") return '<span class="tag tag-mut">ausgelaufen</span>';
+  if(s==="widerrufen") return '<span class="tag tag-bad">widerrufen</span>';
+  return '<span class="tag tag-mut">'+s+'</span>';
+}
+function zahlTag(z){
+  if(z==="in Ordnung") return '<span class="tag tag-ok">in Ordnung</span>';
+  if(z==="Zahlung offen") return '<span class="tag tag-warn">Zahlung offen</span>';
+  return '<span class="tag tag-bad">'+z+'</span>';
+}
+function verlTag(v){
+  if(!v||v==="offen") return '<span class="tag tag-mut">offen</span>';
+  if(v==="verlängert") return '<span class="tag tag-ok">verlängert</span>';
+  if(v==="keine Verlängerung") return '<span class="tag tag-bad">keine Verlängerung</span>';
+  return '<span class="tag tag-info">'+v+'</span>';
+}
+function tarifText(p,jahr){
+  const t=PAKETE[p][jahr?"jahr":"halb"];
+  return p+" · "+eur(t.preis)+" · "+t.einheiten+" Einheiten";
+}
+
+function tab(name,btn){
+  aktiv=name;
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected","false"));
+  btn.setAttribute("aria-selected","true");
+  render();
+}
+function offeneAntraege(){return ANTRAEGE.filter(a=>a.status==="versendet");}
+function auslaufende(){
+  const grenze=addTage(HEUTE,56);
+  return VERTRAEGE.filter(v=>v.status==="aktiv"&&v.ende<=grenze&&v.ende>=HEUTE&&v.verl!=="keine Verlängerung")
+    .sort((a,b)=>a.ende-b.ende);
+}
+function render(){
+  document.getElementById("n-antraege").textContent=offeneAntraege().length;
+  document.getElementById("n-uebersicht").textContent=VERTRAEGE.length;
+  document.getElementById("n-auslaufend").textContent=auslaufende().length;
+  document.getElementById("n-zahlung").textContent=VERTRAEGE.filter(v=>v.zahlung!=="in Ordnung").length;
+  const f=flash?'<div class="flash">'+flash+'</div>':''; flash="";
+  document.getElementById("panel").innerHTML=f+
+    ({antraege:pAntraege,uebersicht:pUebersicht,auslaufend:pAuslaufend,zahlung:pZahlung}[aktiv])();
+}
+
+function pAntraege(){
+  const rows=offeneAntraege().map(a=>{
+    const spaet=a.bis<HEUTE;
+    return `<tr>
+      <td><div class="nm">${a.partner}</div><div class="muted">${a.kind} · Klasse ${a.klasse}</div></td>
+      <td>${tarifText(a.paket,a.jahr)}<div class="muted">${a.jahr?"Jahr":"Halbjahr"} ab ${mstr(a.beginn)}</div></td>
+      <td><span class="tag tag-info">versendet</span><div class="muted">am ${dstr(a.start)}</div></td>
+      <td class="${spaet?'due':'muted'}">${dstr(a.bis)}${spaet?'<br>überfällig':''}</td>
+      <td style="text-align:right"><button class="btn btn-sm" onclick="startEinpflegen(${a.id})">Einpflegen</button></td>
+    </tr>`;}).join("");
+  return `<h2>Offene Anträge</h2>
+    <p class="sub">Anträge, die auf das unterschriebene Exemplar warten. Überschrittene Rückmeldefristen sind hervorgehoben.</p>
+    <table><thead><tr><th>Vertragspartner / Kind</th><th>Paket</th><th>Status</th><th>Rückmeldung bis</th><th></th></tr></thead>
+    <tbody>${rows||'<tr><td class="empty" colspan="5">Kein offener Antrag. Im Lead-Board über „Vertragsprozess“ einen neuen starten.</td></tr>'}</tbody></table>`;
+}
+
+function pUebersicht(){
+  const laufend=VERTRAEGE.filter(v=>v.status==="aktiv"||v.status==="im Widerruf");
+  const summe=laufend.reduce((s,v)=>s+v.beitrag,0);
+  const rows=VERTRAEGE.map(v=>`<tr class="row" onclick="detail(${v.id})">
+      <td><div class="nm">${v.partner}</div><div class="muted">${v.kind} · Klasse ${v.klasse}</div></td>
+      <td>${v.paket}<div class="muted">${eur(v.beitrag)} · ${v.einheiten} Einheiten</div></td>
+      <td class="muted">${v.jahr?"Jahr":"Halbjahr"}<div class="muted">${dstr(v.beginn)} – ${dstr(v.ende)}</div></td>
+      <td>${tagFor(v.status)}${v.status==="im Widerruf"?'<div class="muted">bis '+dstr(v.widerrufBis)+'</div>':''}</td>
+      <td>${zahlTag(v.zahlung)}</td></tr>`).join("");
+  return `<h2>Vertragsübersicht</h2>
+    <p class="sub">Aktueller Vertrag je Kind. Ältere Verträge stehen in der Detailansicht.</p>
+    <div class="sumline">
+      <div><span>Laufende Verträge</span><b>${laufend.length}</b></div>
+      <div><span>Monatlicher Umsatz</span><b>${eur(summe)}</b></div>
+      <div><span>Im Widerruf</span><b>${VERTRAEGE.filter(v=>v.status==="im Widerruf").length}</b></div>
+    </div>
+    <div class="filters">
+      <input type="text" placeholder="Vertragspartner oder Kind suchen" style="min-width:230px">
+      <select><option>Status: alle</option><option>aktiv</option><option>im Widerruf</option><option>ausgelaufen</option></select>
+      <select><option>Paket: alle</option><option>Basic</option><option>Standard</option><option>Premium</option></select>
+    </div>
+    <table><thead><tr><th>Vertragspartner / Kind</th><th>Paket</th><th>Laufzeit</th><th>Status</th><th>Zahlung</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    <p class="note">Zeile anklicken öffnet die Vertragsdetailansicht.</p>`;
+}
+
+function pAuslaufend(){
+  const rows=auslaufende().map(v=>{
+    const w=Math.round((v.ende-HEUTE)/(7*86400000));
+    return `<tr>
+      <td><div class="nm">${v.partner}</div><div class="muted">${v.kind} · Klasse ${v.klasse}</div></td>
+      <td>${dstr(v.ende)}<div class="muted ${w<=2?'due':''}">in ${w} Woche${w===1?'':'n'}</div></td>
+      <td>${v.paket}<div class="muted">${eur(v.beitrag)}</div></td>
+      <td>${verlTag(v.verl)}</td>
+      <td style="text-align:right;white-space:nowrap">
+        <select onchange="setVerl(${v.id},this.value)" style="margin-right:6px">
+          <option${!v.verl||v.verl==="offen"?" selected":""}>offen</option>
+          <option${v.verl==="kontaktiert"?" selected":""}>kontaktiert</option>
+          <option${v.verl==="Gespräch vereinbart"?" selected":""}>Gespräch vereinbart</option>
+          <option${v.verl==="keine Verlängerung"?" selected":""}>keine Verlängerung</option>
+        </select>
+        <button class="btn btn-sm" onclick="neuerVertrag(${v.id})">Neuer Vertrag</button></td>
+    </tr>`;}).join("");
+  return `<h2>Auslaufende Verträge</h2>
+    <p class="sub">Was in den nächsten acht Wochen endet. Verträge verlängern sich nicht von selbst.</p>
+    <table><thead><tr><th>Vertragspartner / Kind</th><th>Endet am</th><th>Paket</th><th>Verlängerung</th><th></th></tr></thead>
+    <tbody>${rows||'<tr><td class="empty" colspan="5">In den nächsten acht Wochen endet kein Vertrag.</td></tr>'}</tbody></table>`;
+}
+
+function pZahlung(){
+  const rows=VERTRAEGE.filter(v=>v.zahlung!=="in Ordnung").map(v=>`<tr>
+      <td><div class="nm">${v.partner}</div><div class="muted">${v.kind}</div></td>
+      <td>${eur(v.beitrag)}<div class="muted">monatlich</div></td>
+      <td class="due">${eur(v.offen)}</td>
+      <td>${zahlTag(v.zahlung)}<div class="muted">seit ${dstr(v.seit)}</div></td>
+      <td>${tagFor(v.status)}</td>
+      <td style="text-align:right;white-space:nowrap">
+        <button class="btn btn-sm" onclick="stufeHoch(${v.id})">Nächste Stufe</button>
+        <button class="btn btn-ghost btn-sm" onclick="bezahlt(${v.id})">Bezahlt</button></td>
+    </tr>`).join("");
+  return `<h2>Zahlungsverzüge</h2>
+    <p class="sub">Verträge, bei denen die Zahlung hängt. Stufen werden von Hand gesetzt.</p>
+    <table><thead><tr><th>Vertragspartner / Kind</th><th>Betrag</th><th>Offen</th><th>Stufe</th><th>Vertrag</th><th></th></tr></thead>
+    <tbody>${rows||'<tr><td class="empty" colspan="6">Alle Zahlungen in Ordnung.</td></tr>'}</tbody></table>`;
+}
+
+function detail(id){
+  const v=VERTRAEGE.find(x=>x.id===id);
+  document.getElementById("detail").innerHTML=`
+  <div class="hero"><h1>${v.kind}</h1><p>${v.partner} · ${tarifText(v.paket,v.jahr)}</p></div>
+  <div class="grid2">
+    <div>
+      <div class="card">
+        <p class="lbl">Vertragspartner</p>
+        <dl class="dl">
+          <dt>Name</dt><dd>${v.partner}</dd>
+          <dt>Anschrift</dt><dd>${v.strasse}<br>${v.ort}</dd>
+          <dt>E-Mail</dt><dd>${v.email}</dd>
+          <dt>Telefon</dt><dd>${v.tel||'<span class="muted">nicht hinterlegt</span>'}</dd>
+          <dt>Bankverbindung</dt><dd>DE•• •••• •••• •••• •• ${v.iban4}
+            <a class="reveal" onclick="alert('Vollständige IBAN anzeigen — der Zugriff wird protokolliert.')">vollständig anzeigen</a></dd>
+        </dl>
+        <p class="lbl" style="margin:18px 0 9px">Kind</p>
+        <dl class="dl">
+          <dt>Name</dt><dd>${v.kind}</dd><dt>Klasse</dt><dd>${v.klasse}</dd>
+          <dt>Schule</dt><dd>${v.schule||'<span class="muted">nicht hinterlegt</span>'}</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <p class="lbl">Vertragsdaten</p>
+        <dl class="dl">
+          <dt>Status</dt><dd>${tagFor(v.status)}${v.status==="im Widerruf"?' <span class="muted">Widerruf möglich bis '+dstr(v.widerrufBis)+'</span>':''}</dd>
+          <dt>Paket</dt><dd>${v.paket} · ${eur(v.beitrag)} · ${v.einheiten} Einheiten</dd>
+          <dt>Laufzeit</dt><dd>${v.jahr?"Jahr":"Halbjahr"} · ${v.beitraege} Beiträge</dd>
+          <dt>Vertragsbeginn</dt><dd>${dstr(v.beginn)}</dd>
+          <dt>Vertragsende</dt><dd>${dstr(v.ende)} <span class="muted">— keine automatische Verlängerung</span></dd>
+          <dt>Zahlungsstatus</dt><dd>${zahlTag(v.zahlung)}${v.seit?' <span class="muted">seit '+dstr(v.seit)+'</span>':''}</dd>
+          <dt>SEPA-Mandat</dt><dd>eigenes Mandat für diesen Vertrag</dd>
+        </dl>
+        <div style="margin-top:16px;display:flex;gap:9px;flex-wrap:wrap">
+          <button class="btn" onclick="neuerVertrag(${v.id})">Neuer Vertrag</button>
+          ${v.status==="im Widerruf"?'<button class="btn btn-ghost" onclick="widerruf('+v.id+')">Widerruf erfassen</button>':''}
+        </div>
+      </div>
+      <div class="card">
+        <p class="lbl">Vertragshistorie dieses Kindes</p>
+        ${v.hist.length?v.hist.map(h=>'<div class="hist">'+h+'</div>').join(""):'<div class="empty">Erster Vertrag für dieses Kind.</div>'}
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <p class="lbl">Zugangscode</p>
+        <div class="code">${v.code}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="alert('Zugangscode per Mail senden.')">Per Mail</button>
+          <button class="btn btn-ghost btn-sm" onclick="alert('Zugangscode drucken.')">Drucken</button>
+        </div>
+      </div>
+      <div class="card">
+        <p class="lbl">Archivierte Dokumente</p>
+        <div class="doc"><span>·</span><span>Vertrag, unterschrieben</span><a onclick="alert('Öffnet das archivierte PDF.')">öffnen</a></div>
+        ${v.scan?'<div class="doc"><span>·</span><span>Eingescanntes Original</span><a onclick="alert(\'Öffnet den Scan.\')">öffnen</a></div>':''}
+        <div class="doc"><span>·</span><span>AGB, Fassung 09/2027</span><a onclick="alert('Öffnet die akzeptierte Fassung.')">öffnen</a></div>
+        <div class="doc"><span>·</span><span>Datenschutz, Fassung 09/2027</span><a onclick="alert('Öffnet die akzeptierte Fassung.')">öffnen</a></div>
+        <div class="doc"><span>·</span><span>SEPA-Mandat</span><a onclick="alert('Öffnet das Mandat.')">öffnen</a></div>
+        ${v.vermerk?'<p class="note">Vermerk beim Einpflegen: '+v.vermerk+'</p>':''}
+      </div>
+    </div>
+  </div>`;
+  go("s-detail");
+}
+
+function setVerl(id,val){
+  const v=VERTRAEGE.find(x=>x.id===id);
+  if(val==="keine Verlängerung"){
+    const g=prompt("Warum keine Verlängerung?","Kind wechselt die Schule");
+    if(g===null){render();return;}
+    v.verl="keine Verlängerung"; flash="Aus der Liste entfernt. Grund: "+(g||"—");
+  } else v.verl=val;
+  render();
+}
+function widerruf(id){
+  const v=VERTRAEGE.find(x=>x.id===id);
+  v.status="widerrufen";
+  flash="Widerruf erfasst. Zugang endet, gezahlte Beträge werden zurückerstattet.";
+  aktiv="uebersicht"; zeigeVertraege();
+}
+const STUFEN=["in Ordnung","Zahlung offen","1. Mahnung","2. Mahnung","Inkasso"];
+function stufeHoch(id){
+  const v=VERTRAEGE.find(x=>x.id===id);
+  const i=STUFEN.indexOf(v.zahlung);
+  if(i<STUFEN.length-1){v.zahlung=STUFEN[i+1];v.seit=HEUTE;
+    flash=v.kind+": Stufe auf „"+v.zahlung+"“ gesetzt, Datum "+dstr(HEUTE)+".";}
+  else flash="Inkasso ist die letzte Stufe.";
+  render();
+}
+function bezahlt(id){
+  const v=VERTRAEGE.find(x=>x.id===id);
+  v.zahlung="in Ordnung"; v.offen=0; v.seit=null;
+  flash=v.kind+": Zahlung als in Ordnung markiert."; render();
+}
+
+/* ---------- Abschlussstrecke ---------- */
+
+function beginnOptionen(sel,vorgabe){
+  const start=new Date(HEUTE.getFullYear(),HEUTE.getMonth()+1,1);
+  let html="";
+  for(let i=0;i<18;i++){
+    const d=new Date(start.getFullYear(),start.getMonth()+i,1);
+    const sel2=vorgabe&&+d===+vorgabe;
+    html+='<option value="'+iso(d)+'"'+(sel2?" selected":"")+'>'+mstr(d)+'</option>';
+  }
+  sel.innerHTML=html;
+  if(vorgabe&&!sel.value) sel.value=iso(vorgabe);
+}
+
+function startStrecke(leadId){
+  const l=LEADS.find(x=>x.id===leadId);
+  entwurf={quelle:"lead",leadId:leadId,partner:l.partner,kind:l.kind,klasse:l.klasse,
+    strasse:l.strasse,ort:l.ort,email:l.email,tel:l.tel,schule:l.schule,iban4:l.iban4,
+    paket:"Standard",jahr:false,vorgaenger:null};
+  oeffneStrecke("Vertragsprozess");
+}
+function neuerVertrag(id){
+  const v=VERTRAEGE.find(x=>x.id===id);
+  const nb=new Date(v.ende.getFullYear(),v.ende.getMonth()+1,1);
+  entwurf={quelle:"folge",altId:id,partner:v.partner,kind:v.kind,klasse:v.klasse,
+    strasse:v.strasse,ort:v.ort,email:v.email,tel:v.tel,schule:v.schule,iban4:v.iban4,
+    paket:v.paket,jahr:v.jahr,beginnVorgabe:nb,
+    vorgaenger:dstr(v.beginn)+" – "+dstr(v.ende)+" · "+v.paket+" · "+(v.jahr?"Jahr":"Halbjahr"),
+    hist:v.hist};
+  oeffneStrecke("Folgevertrag");
+}
+function oeffneStrecke(titel){
+  schritt=1; gewaehlt=null; signiert=false; bestWeg="mail";
+  document.getElementById("run-titel").textContent=titel;
+  document.getElementById("run-sub").textContent=entwurf.partner+" · "+entwurf.kind+", Klasse "+entwurf.klasse;
+  document.getElementById("w1-sub").textContent = entwurf.quelle==="folge"
+    ? "Vorausgefüllt aus dem bisherigen Vertrag. Jedes Feld bleibt änderbar."
+    : "Alles aus dem Lead vorausgefüllt. Änderungen wirken auch auf die Stammdaten.";
+  ["partner","email","strasse","ort","tel","kind","schule"].forEach(k=>
+    document.getElementById("f-"+k).value=entwurf[k]||"");
+  document.getElementById("f-iban").value="DE•• •••• •••• •••• •• "+entwurf.iban4;
+  document.getElementById("f-paket").value=entwurf.paket;
+  document.getElementById("f-laufzeit").value=entwurf.jahr?"Jahr":"Halbjahr";
+  beginnOptionen(document.getElementById("f-beginn"),entwurf.beginnVorgabe);
+  ["c1","c2","c3","c4"].forEach(id=>document.getElementById(id).checked=false);
+  const s=document.getElementById("sigbox"); s.className="sign"; s.textContent="Zum Unterschreiben tippen";
+  ["vorort","mail","druck"].forEach(k=>document.getElementById("way-"+k).setAttribute("aria-pressed","false"));
+  document.getElementById("box-vorort").classList.add("hidden");
+  document.getElementById("box-papier").classList.add("hidden");
+  document.getElementById("f-rueck").value=iso(addTage(HEUTE,14));
+  best("mail"); pruefeAbschluss(); endeRechnen(); zeige(); go("s-run");
+}
+
+function zeige(){
+  [1,2,3,4].forEach(i=>document.getElementById("w"+i).classList.toggle("hidden",i!==schritt));
+  const namen={1:"Vertragsdaten",2:"Vertragsdokument",3:"Abschlussweg",
+    4:gewaehlt==="vorort"?"Bedingungen und Unterschrift":"Unterlagen erzeugen"};
+  document.getElementById("run-pos").textContent="Schritt "+schritt+" von 4";
+  document.getElementById("stepname").textContent="Schritt "+schritt+" von 4 — "+namen[schritt];
+  document.querySelectorAll(".steps i").forEach((el,i)=>el.classList.toggle("on",i<schritt));
+  document.getElementById("b-weiter").classList.toggle("hidden",schritt===4);
+  if(schritt===2) dokumentFuellen();
+}
+function weiter(){
+  if(schritt===3&&!gewaehlt){alert("Bitte zuerst einen Abschlussweg wählen.");return;}
+  if(schritt<4){schritt++;zeige();}
+}
+function zurueck(){
+  if(schritt>1){schritt--;zeige();}
+  else if(entwurf.quelle==="lead") zeigeBoard(); else zeigeVertraege();
+}
+
+function aktuellerTarif(){
+  const jahr=document.getElementById("f-laufzeit").value==="Jahr";
+  const p=document.getElementById("f-paket").value;
+  return Object.assign({jahr,paket:p,beitraege:jahr?12:6},PAKETE[p][jahr?"jahr":"halb"]);
+}
+function endeRechnen(){
+  const b=document.getElementById("f-beginn").value;
+  if(!b) return;
+  const beginn=new Date(b+"T00:00:00");
+  const t=aktuellerTarif();
+  const r=berechneEnde(beginn,t.jahr);
+  document.getElementById("f-ende").value=dstr(r.ende);
+  document.getElementById("f-tarif").value=
+    eur(t.preis)+" monatlich · "+t.einheiten+" Einheiten · "+t.beitraege+" Beiträge";
+  const box=document.getElementById("ferienbox"), zahl=document.getElementById("zahlnote");
+  if(t.jahr){
+    box.classList.add("hidden");
+    zahl.textContent="Jahresvertrag: volle zwölf Kalendermonate, zwölf Beiträge. Die Ferienregel gilt hier nicht.";
+  } else if(r.tage){
+    box.classList.remove("hidden");
+    box.innerHTML="Nominales Ende wäre der "+dstr(r.nominal)+". In der Laufzeit liegen <b>"+r.tage+
+      " Ferientage</b> ("+r.namen.join(", ")+"), in denen kein Betrieb stattfindet.<br>"+
+      "Das Vertragsende verschiebt sich auf den <b>"+dstr(r.ende)+"</b>."+
+      (r.ueber?'<br><span style="color:var(--bad-t)">Achtung: Das Ende liegt hinter dem letzten bekannten Ferientermin (April 2030). Die Ferientabelle muss verlängert werden.</span>':"");
+    zahl.textContent="Sechs Beiträge, abgebucht in den ersten sechs Monaten (bis "+
+      dstr(monatsEnde(addMonate(beginn,5)))+"). Die restliche Laufzeit ist beitragsfrei.";
+  } else {
+    box.classList.add("hidden");
+    zahl.textContent="Keine Ferien in der Laufzeit. Sechs Beiträge in sechs Monaten.";
+  }
+}
+function dokumentFuellen(){
+  const t=aktuellerTarif();
+  const beginn=new Date(document.getElementById("f-beginn").value+"T00:00:00");
+  document.getElementById("paper").innerHTML=`
+    <h4>Mitgliedschaftsvertrag</h4>
+    <p>zwischen der Edvance GmbH, Köln, und <b>${document.getElementById("f-partner").value}</b>,
+       ${document.getElementById("f-strasse").value}, ${document.getElementById("f-ort").value}.</p>
+    <table>
+      <tr><td>Teilnehmendes Kind</td><td><b>${document.getElementById("f-kind").value}, Klasse ${entwurf.klasse}</b></td></tr>
+      <tr><td>Paket</td><td><b>${t.paket} · ${t.einheiten} Einheiten</b></td></tr>
+      <tr><td>Beitrag</td><td><b>${eur(t.preis)} · ${t.beitraege} Beiträge</b></td></tr>
+      <tr><td>Laufzeit</td><td><b>${t.jahr?"Jahr":"Halbjahr"}</b></td></tr>
+      <tr><td>Beginn</td><td><b>${dstr(beginn)}</b></td></tr>
+      <tr><td>Ende</td><td><b>${document.getElementById("f-ende").value}</b></td></tr>
+    </table>
+    <p>${t.jahr
+      ? "Der Vertrag endet zum genannten Datum, ohne dass es einer Kündigung bedarf. Eine automatische Verlängerung findet nicht statt."
+      : "Geschuldet ist die oben genannte Zahl an Einheiten. In den Schulferien des Landes Nordrhein-Westfalen findet kein Betrieb statt; das Vertragsende ist deshalb um die in die Laufzeit fallenden Ferientage verlängert und bezeichnet den Stichtag, bis zu dem die Einheiten abgerufen werden können. Der Beitrag wird in den ersten sechs Vertragsmonaten erhoben; die darüber hinausgehende Laufzeit ist beitragsfrei. Der Vertrag endet zum genannten Datum, ohne dass es einer Kündigung bedarf."}</p>
+    <p>Die Teilnahme am Lernpfad erfolgt ausschließlich in den Präsenzterminen vor Ort.</p>
+    <p>Sie können diesen Vertrag innerhalb von 30 Tagen ohne Angabe von Gründen widerrufen.</p>`;
+}
+function weg(w){
+  gewaehlt=w;
+  ["vorort","mail","druck"].forEach(k=>
+    document.getElementById("way-"+k).setAttribute("aria-pressed",k===w?"true":"false"));
+  document.getElementById("box-vorort").classList.toggle("hidden",w!=="vorort");
+  document.getElementById("box-papier").classList.toggle("hidden",w==="vorort");
+  pruefeAbschluss();
+  if(schritt===3) zeige();
+}
+function unterschreiben(){
+  signiert=true;
+  const s=document.getElementById("sigbox");
+  s.className="sign done";
+  s.innerHTML='<span class="sig">'+document.getElementById("f-partner").value.split(" ").map((w,i)=>i?w:w[0]+".").join(" ")+'</span>';
+  pruefeAbschluss();
+}
+function alleHaken(){return ["c1","c2","c3","c4"].every(id=>document.getElementById(id).checked);}
+function pruefeAbschluss(){
+  const haken=alleHaken(), ok=signiert&&haken;
+  document.getElementById("b-abschluss").disabled=!ok;
+  document.getElementById("abschlussnote").textContent = ok?"Alles bestätigt und unterschrieben."
+    : !haken&&!signiert ? "Möglich, sobald alle vier Punkte bestätigt sind und unterschrieben wurde."
+    : !haken ? "Es fehlen noch Bestätigungen." : "Es fehlt noch die Unterschrift.";
+}
+function best(w){
+  bestWeg=w;
+  document.getElementById("b-mail").className="btn btn-sm"+(w==="mail"?"":" btn-ghost");
+  document.getElementById("b-druck").className="btn btn-sm"+(w==="druck"?"":" btn-ghost");
+}
+function entwurfDaten(){
+  const t=aktuellerTarif();
+  return {partner:document.getElementById("f-partner").value,
+    kind:document.getElementById("f-kind").value,klasse:entwurf.klasse,
+    strasse:document.getElementById("f-strasse").value,ort:document.getElementById("f-ort").value,
+    email:document.getElementById("f-email").value,tel:document.getElementById("f-tel").value,
+    schule:document.getElementById("f-schule").value,iban4:entwurf.iban4,
+    paket:t.paket,jahr:t.jahr,beginn:new Date(document.getElementById("f-beginn").value+"T00:00:00")};
+}
+function leadEntfernen(){
+  if(entwurf.quelle==="lead"){const i=LEADS.findIndex(l=>l.id===entwurf.leadId); if(i>-1) LEADS.splice(i,1);}
+}
+function altenVertragBeenden(){
+  if(entwurf.quelle!=="folge") return null;
+  const alt=VERTRAEGE.find(v=>v.id===entwurf.altId);
+  alt.verl="verlängert";
+  if(alt.ende<=HEUTE) alt.status="ausgelaufen";
+  const i=VERTRAEGE.indexOf(alt); VERTRAEGE.splice(i,1);
+  return [entwurf.vorgaenger].concat(alt.hist||[]);
+}
+function abschliessen(){
+  const d=entwurfDaten();
+  const hist=altenVertragBeenden();
+  leadEntfernen();
+  const v=machVertrag(Object.assign(d,{unterschrift:HEUTE}));
+  v.hist=hist||[];
+  VERTRAEGE.push(v);
+  flash="Vertrag abgeschlossen. Zugangscode "+v.code+" erzeugt, Vertragsbestätigung "+
+    (bestWeg==="mail"?"per Mail an "+v.email+" versendet":"zum Ausdrucken erzeugt")+
+    " — mit Vertrag, AGB 09/2027, Datenschutzerklärung 09/2027, Widerrufsbelehrung und SEPA-Mandat. "+
+    "Status: im Widerruf bis "+dstr(v.widerrufBis)+".";
+  aktiv="uebersicht";
+  document.querySelectorAll(".tab").forEach((t,i)=>t.setAttribute("aria-selected",i===1?"true":"false"));
+  zeigeVertraege();
+}
+function versenden(){
+  const d=entwurfDaten();
+  leadEntfernen();
+  ANTRAEGE.push(Object.assign(d,{id:naechsteId++,status:"versendet",start:HEUTE,
+    bis:new Date(document.getElementById("f-rueck").value+"T00:00:00"),fassung:"09/2027",
+    vorgaengerHist:entwurf.quelle==="folge"?entwurf:null}));
+  flash="Unterlagen "+(gewaehlt==="mail"?"per Mail versendet":"zum Ausdrucken erzeugt")+
+    " — Vertrag, AGB 09/2027, Datenschutzerklärung 09/2027, Widerrufsbelehrung und SEPA-Mandat. "+
+    "Noch kein Vertrag und kein Zugangscode: Der Antrag steht unter Offene Anträge und wartet auf das unterschriebene Exemplar.";
+  aktiv="antraege";
+  document.querySelectorAll(".tab").forEach((t,i)=>t.setAttribute("aria-selected",i===0?"true":"false"));
+  zeigeVertraege();
+}
+
+/* ---------- Einpflegen ---------- */
+
+function startEinpflegen(id){
+  pflegeAntrag=ANTRAEGE.find(a=>a.id===id);
+  scanOk=false;
+  const a=pflegeAntrag;
+  document.getElementById("pf-sub").textContent=
+    a.partner+" · "+a.kind+", Klasse "+a.klasse+" — versendet am "+dstr(a.start);
+  document.getElementById("pf-tag").innerHTML = a.bis<HEUTE
+    ? '<span class="tag tag-warn">Rücklauf überfällig</span>' : '<span class="tag tag-info">im Zeitfenster</span>';
+  document.getElementById("pf-soll").innerHTML=
+    "<dt>Paket</dt><dd>"+tarifText(a.paket,a.jahr)+"</dd>"+
+    "<dt>Laufzeit</dt><dd>"+(a.jahr?"Jahr":"Halbjahr")+"</dd>"+
+    "<dt>Beginn</dt><dd>"+mstr(a.beginn)+"</dd>"+
+    "<dt>AGB-Fassung</dt><dd>"+a.fassung+"</dd>";
+  document.getElementById("r-paket").innerHTML=["Basic","Standard","Premium"].map(p=>
+    '<option'+(p===a.paket?" selected":"")+'>'+p+'</option>').join("");
+  document.getElementById("r-laufzeit").value=a.jahr?"Jahr":"Halbjahr";
+  beginnOptionen(document.getElementById("r-beginn"),a.beginn);
+  document.getElementById("abw").classList.add("hidden");
+  const d=document.getElementById("drop");
+  d.className="drop"; d.innerHTML="Datei hierher ziehen oder auswählen<br><span style='font-size:12px'>PDF, JPG oder PNG</span>";
+  document.getElementById("p-sig").value=iso(addTage(HEUTE,-7));
+  document.getElementById("p-ein").value=iso(HEUTE);
+  pflegePruefen(); go("s-pflege");
+}
+function scanned(){
+  scanOk=true;
+  const d=document.getElementById("drop");
+  d.className="drop done";
+  d.innerHTML="Vertrag_"+pflegeAntrag.kind.split(" ").pop()+"_unterschrieben.pdf · 1,4 MB<br><span style='font-size:12px'>Scan hochgeladen</span>";
+  pflegePruefen();
+}
+function abweichung(){
+  const a=pflegeAntrag;
+  const ab=document.getElementById("r-paket").value!==a.paket
+    || (document.getElementById("r-laufzeit").value==="Jahr")!==a.jahr
+    || document.getElementById("r-beginn").value!==iso(a.beginn);
+  document.getElementById("abw").classList.toggle("hidden",!ab);
+}
+function pflegePruefen(){
+  document.getElementById("b-pflege").disabled=!scanOk;
+  document.getElementById("pflegenote").textContent=scanOk
+    ? "Der Scan wird mit dem Vertrag archiviert." : "Erst nach dem Hochladen des Scans möglich.";
+  const s=document.getElementById("p-sig").value;
+  if(s) document.getElementById("fristnote").textContent=
+    "Die Widerrufsfrist läuft ab dem Unterschriftsdatum — bis "+dstr(addTage(new Date(s+"T00:00:00"),30))+
+    ". Welches Datum maßgeblich ist, klärt Frage 3 in Dokument 1.";
+}
+function pflegeAbschluss(){
+  const a=pflegeAntrag;
+  const unt=new Date(document.getElementById("p-sig").value+"T00:00:00");
+  const vermerk=document.getElementById("abw").classList.contains("hidden")
+    ? null : (document.getElementById("r-vermerk").value||"Abweichung ohne Vermerk");
+  const v=machVertrag({partner:a.partner,kind:a.kind,klasse:a.klasse,strasse:a.strasse,ort:a.ort,
+    email:a.email,tel:a.tel,schule:a.schule,iban4:a.iban4,
+    paket:document.getElementById("r-paket").value,
+    jahr:document.getElementById("r-laufzeit").value==="Jahr",
+    beginn:new Date(document.getElementById("r-beginn").value+"T00:00:00"),
+    unterschrift:unt});
+  v.scan=true; v.vermerk=vermerk;
+  VERTRAEGE.push(v);
+  ANTRAEGE.splice(ANTRAEGE.indexOf(a),1);
+  flash="Rücklauf eingepflegt. Zugangscode "+v.code+" erzeugt, Status im Widerruf bis "+dstr(v.widerrufBis)+
+    ". Im Archiv liegen das eingescannte Original, das Vertrags-PDF, AGB "+a.fassung+
+    ", Datenschutzerklärung "+a.fassung+" und das SEPA-Mandat."+(vermerk?" Vermerk: "+vermerk:"");
+  aktiv="uebersicht";
+  document.querySelectorAll(".tab").forEach((t,i)=>t.setAttribute("aria-selected",i===1?"true":"false"));
+  zeigeVertraege();
+}
+function pflegeAblehnen(){
+  const g=prompt("Warum ist der Vertrag nicht zustande gekommen?","Eltern haben abgesagt");
+  if(g===null) return;
+  pflegeAntrag.status="nicht zustande gekommen"; pflegeAntrag.grund=g;
+  flash="Antrag als nicht zustande gekommen abgelegt. Grund: "+(g||"—")+
+    ". Ausgeblendet, über den Filter aber auffindbar. Der Lead kehrt nicht ins Board zurück.";
+  aktiv="antraege"; zeigeVertraege();
+}
+
+zeigeBoard();
+</script>
+</body>
+</html>
