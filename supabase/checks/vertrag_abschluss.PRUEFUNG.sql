@@ -129,7 +129,7 @@ begin
     'Zugangscode hat die falsche Form: ' || coalesce(v_text, 'null');
   select zugangscode_erzeugt_am into v_d from vertraege where id = v1;
   assert v_d is not null, 'Zugangscode ohne Erzeugungsdatum';
-  raise notice '6  ok  Abnahmefall 5: Zugangscode erzeugt (' || v_text || ')';
+  raise notice '6  ok  Abnahmefall 5: Zugangscode erzeugt (%)', v_text;
 
   -- ==========================================================================
   -- 3. Das Konto haengt am PROVISORISCHEN Schueler, nicht an einem zweiten
