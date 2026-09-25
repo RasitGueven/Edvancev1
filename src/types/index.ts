@@ -52,6 +52,11 @@ export type {
 export type {
   VertragStatus,
   VertragAbschlussWeg,
+  VertragLebenStatus,
+  WirksamerStatus,
+  Zahlungsstatus,
+  VerlaengerungStatus,
+  VertragAktuell,
   Vertrag,
   VertragMitLead,
   VertragPatch,

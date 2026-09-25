@@ -6157,7 +6157,7 @@ CREATE VIEW public.vertraege_aktuell WITH (security_invoker='true') AS
             v.scan_pfad,
             public.vertrag_wirksamer_status(v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis) AS wirksamer_status,
                 CASE
-                    WHEN (v.vertragsbeginn IS NULL) THEN NULL::integer
+                    WHEN ((v.vertragsbeginn IS NULL) OR (CURRENT_DATE < v.vertragsbeginn)) THEN NULL::integer
                     ELSE ((1 + (((EXTRACT(year FROM CURRENT_DATE))::integer * 12) + (EXTRACT(month FROM CURRENT_DATE))::integer)) - (((EXTRACT(year FROM v.vertragsbeginn))::integer * 12) + (EXTRACT(month FROM v.vertragsbeginn))::integer))
                 END AS laufzeit_monat
            FROM public.vertraege v
