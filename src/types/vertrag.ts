@@ -168,3 +168,30 @@ export type VertragVersand = {
   empfaenger: string | null
   erfolgt_at: string
 }
+
+/** Der abgeleitete Status aus vertraege_aktuell (Migration 20260925181700). */
+export type WirksamerStatus =
+  | 'im_widerruf'
+  | 'aktiv'
+  | 'gekuendigt'
+  | 'ausgelaufen'
+  | 'widerrufen'
+
+/**
+ * Eine Zeile aus der Sicht vertraege_aktuell.
+ *
+ * Alles hier ist BERECHNET und kommt fertig aus der Datenbank. Im Frontend wird
+ * davon nichts nachgerechnet — weder der Status noch der Monatsbeitrag noch die
+ * Restlaufzeit. Sonst stuende irgendwann auf dem Bildschirm etwas anderes als
+ * im Vertrag.
+ */
+export type VertragAktuell = Vertrag & {
+  wirksamer_status: WirksamerStatus
+  /** NULL, solange der Vertrag noch nicht begonnen hat. */
+  laufzeit_monat: number | null
+  ist_aktueller_vertrag: boolean
+  beitrag_diesen_monat_cents: number
+  zugangscode_gueltig: boolean
+  /** Negativ, sobald das Ende vorbei ist. */
+  endet_in_tagen: number | null
+}
