@@ -435,6 +435,38 @@ $$;
 
 
 --
+-- Name: hat_zugang(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.hat_zugang(p_student_id uuid, p_datum date DEFAULT CURRENT_DATE) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.vertraege v
+     where v.student_id = p_student_id
+       and v.status = 'abgeschlossen'
+       and public.vertrag_wirksamer_status(
+             v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis, p_datum
+           ) in ('im_widerruf', 'aktiv')
+  )
+  or exists (
+    select 1
+      from public.vertraege alt
+      join public.vertraege neu on neu.vorgaenger_id = alt.id
+     where alt.student_id = p_student_id
+       and alt.status = 'abgeschlossen'
+       and alt.vertrag_ende is not null
+       and alt.vertrag_ende < p_datum
+       and neu.status = 'abgeschlossen'
+       and neu.vertragsbeginn is not null
+       and neu.vertragsbeginn > p_datum
+  );
+$$;
+
+
+--
 -- Name: is_parent_of_student(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4455,6 +4487,74 @@ $$;
 
 
 --
+-- Name: vertrag_iban_anzeigen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_iban_anzeigen(p_vertrag_id uuid) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_iban text;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_iban_anzeigen: nur Admin' using errcode = '42501';
+  end if;
+
+  select b.iban into v_iban
+    from public.vertrag_bankdaten b where b.vertrag_id = p_vertrag_id;
+  if v_iban is null then
+    raise exception 'vertrag_iban_anzeigen: zu diesem Vertrag ist keine IBAN hinterlegt'
+      using errcode = 'P0002';
+  end if;
+
+  perform public.audit_log_schreiben('iban_angezeigt', 'vertrag', p_vertrag_id);
+  return v_iban;
+end;
+$$;
+
+
+--
+-- Name: vertrag_sonderkuendigung_erfassen(uuid, date, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_sonderkuendigung_erfassen(p_vertrag_id uuid, p_zum date, p_grund text) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v vertraege%rowtype;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_sonderkuendigung_erfassen: nur Admin' using errcode = '42501';
+  end if;
+  if p_zum is null then
+    raise exception 'vertrag_sonderkuendigung_erfassen: Kuendigungsdatum fehlt' using errcode = '22023';
+  end if;
+  if nullif(btrim(coalesce(p_grund, '')), '') is null then
+    raise exception 'vertrag_sonderkuendigung_erfassen: Grund ist Pflicht' using errcode = 'P0001';
+  end if;
+
+  select * into v from public.vertraege where id = p_vertrag_id for update;
+  if not found then
+    raise exception 'vertrag_sonderkuendigung_erfassen: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+  if v.status <> 'abgeschlossen' then
+    raise exception 'vertrag_sonderkuendigung_erfassen: nur ein abgeschlossener Vertrag ist kuendbar'
+      using errcode = 'P0001';
+  end if;
+
+  update public.vertraege
+     set gekuendigt_zum   = p_zum,
+         kuendigung_grund = btrim(p_grund)
+   where id = p_vertrag_id;
+
+  return jsonb_build_object('ok', true, 'gekuendigt_zum', p_zum);
+end;
+$$;
+
+
+--
 -- Name: vertrag_starten(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4505,6 +4605,49 @@ begin
 
   update public.leads set status = 'vertrag' where id = p_lead_id;
   return v_id;
+end;
+$$;
+
+
+--
+-- Name: vertrag_verlaengerung_setzen(uuid, text, text, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_verlaengerung_setzen(p_vertrag_id uuid, p_status text, p_grund text DEFAULT NULL::text, p_wiedervorlage_am date DEFAULT NULL::date) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v vertraege%rowtype;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_verlaengerung_setzen: nur Admin' using errcode = '42501';
+  end if;
+  if p_status = 'verlaengert' then
+    raise exception 'vertrag_verlaengerung_setzen: verlaengert entsteht nur aus einem Folgevertrag'
+      using errcode = 'P0001';
+  end if;
+  if p_status not in ('offen','kontaktiert','gespraech_vereinbart','keine_verlaengerung') then
+    raise exception 'vertrag_verlaengerung_setzen: unbekannter Status %', p_status using errcode = '22023';
+  end if;
+  if p_status = 'keine_verlaengerung'
+     and nullif(btrim(coalesce(p_grund, '')), '') is null then
+    raise exception 'vertrag_verlaengerung_setzen: keine_verlaengerung braucht einen Grund'
+      using errcode = 'P0001';
+  end if;
+
+  select * into v from public.vertraege where id = p_vertrag_id for update;
+  if not found then
+    raise exception 'vertrag_verlaengerung_setzen: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  update public.vertraege
+     set verlaengerung_status = p_status,
+         verlaengerung_grund  = nullif(btrim(coalesce(p_grund, '')), ''),
+         wiedervorlage_am     = p_wiedervorlage_am
+   where id = p_vertrag_id;
+
+  return jsonb_build_object('ok', true, 'verlaengerung_status', p_status);
 end;
 $$;
 
@@ -4627,6 +4770,148 @@ CREATE FUNCTION public.vertrag_widerruf_bis(p_beginn date) RETURNS date
     LANGUAGE sql IMMUTABLE
     AS $$
   select p_beginn + 29;
+$$;
+
+
+--
+-- Name: vertrag_widerruf_erfassen(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_widerruf_erfassen(p_vertrag_id uuid, p_datum date DEFAULT CURRENT_DATE) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v vertraege%rowtype;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_widerruf_erfassen: nur Admin' using errcode = '42501';
+  end if;
+
+  select * into v from public.vertraege where id = p_vertrag_id for update;
+  if not found then
+    raise exception 'vertrag_widerruf_erfassen: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+  if v.status <> 'abgeschlossen' then
+    raise exception 'vertrag_widerruf_erfassen: nur ein abgeschlossener Vertrag ist widerrufbar'
+      using errcode = 'P0001';
+  end if;
+  if v.widerrufen_am is not null then
+    return jsonb_build_object('ok', true, 'bereits_widerrufen', true,
+                              'widerrufen_am', v.widerrufen_am);
+  end if;
+  if v.widerruf_bis is null or p_datum > v.widerruf_bis then
+    raise exception 'vertrag_widerruf_erfassen: Widerrufsfrist endete am %', v.widerruf_bis
+      using errcode = 'P0001';
+  end if;
+
+  update public.vertraege
+     set widerrufen_am           = p_datum,
+         zugangscode_gesperrt_am = coalesce(zugangscode_gesperrt_am, p_datum)
+   where id = p_vertrag_id;
+
+  return jsonb_build_object('ok', true, 'widerrufen_am', p_datum);
+end;
+$$;
+
+
+--
+-- Name: vertrag_wirksamer_status(date, date, date, date, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_wirksamer_status(p_widerrufen_am date, p_gekuendigt_zum date, p_vertrag_ende date, p_widerruf_bis date, p_datum date DEFAULT CURRENT_DATE) RETURNS text
+    LANGUAGE sql STABLE
+    AS $$
+  select case
+    when p_widerrufen_am  is not null                          then 'widerrufen'
+    when p_gekuendigt_zum is not null and p_gekuendigt_zum <= p_datum then 'gekuendigt'
+    when p_vertrag_ende   is not null and p_vertrag_ende   <  p_datum then 'ausgelaufen'
+    when p_widerruf_bis   is not null and p_datum <= p_widerruf_bis   then 'im_widerruf'
+    else 'aktiv'
+  end;
+$$;
+
+
+--
+-- Name: vertrag_zahlungsstatus_setzen(uuid, text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_zahlungsstatus_setzen(p_vertrag_id uuid, p_status text, p_offener_betrag_cents integer DEFAULT NULL::integer) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  c_stufen constant text[] := array['in_ordnung','zahlung_offen','mahnung_1','mahnung_2','inkasso'];
+  v        vertraege%rowtype;
+  v_alt    integer;
+  v_neu    integer;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_zahlungsstatus_setzen: nur Admin' using errcode = '42501';
+  end if;
+
+  v_neu := array_position(c_stufen, p_status);
+  if v_neu is null then
+    raise exception 'vertrag_zahlungsstatus_setzen: unbekannte Stufe %', p_status using errcode = '22023';
+  end if;
+
+  select * into v from public.vertraege where id = p_vertrag_id for update;
+  if not found then
+    raise exception 'vertrag_zahlungsstatus_setzen: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  v_alt := array_position(c_stufen, v.zahlungsstatus);
+  if p_status <> 'in_ordnung' and v_neu <> v_alt + 1 then
+    raise exception 'vertrag_zahlungsstatus_setzen: von % geht es nur eine Stufe weiter oder zurueck auf in_ordnung', v.zahlungsstatus
+      using errcode = 'P0001';
+  end if;
+
+  update public.vertraege
+     set zahlungsstatus       = p_status,
+         zahlungsstatus_seit  = current_date,
+         -- Zurueck auf in_ordnung heisst: nichts mehr offen.
+         offener_betrag_cents = case when p_status = 'in_ordnung' then null
+                                     else p_offener_betrag_cents end
+   where id = p_vertrag_id;
+
+  return jsonb_build_object('ok', true, 'zahlungsstatus', p_status, 'seit', current_date);
+end;
+$$;
+
+
+--
+-- Name: vertrag_zugangscode_neu(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_zugangscode_neu(p_vertrag_id uuid) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_gueltig boolean;
+  v_code    text;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_zugangscode_neu: nur Admin' using errcode = '42501';
+  end if;
+
+  select a.zugangscode_gueltig into v_gueltig
+    from public.vertraege_aktuell a where a.id = p_vertrag_id;
+  if v_gueltig is null then
+    raise exception 'vertrag_zugangscode_neu: kein abgeschlossener Vertrag' using errcode = 'P0002';
+  end if;
+  if not v_gueltig then
+    raise exception 'vertrag_zugangscode_neu: der Zugangscode dieses Vertrags gilt nicht mehr'
+      using errcode = 'P0001';
+  end if;
+
+  v_code := public.zugangscode_erzeugen();
+  update public.vertraege
+     set zugangscode = v_code, zugangscode_erzeugt_am = current_date
+   where id = p_vertrag_id;
+
+  return v_code;
+end;
 $$;
 
 
@@ -5801,6 +6086,155 @@ CREATE TABLE public.vertraege (
     CONSTRAINT vertraege_zugangscode_form CHECK (((zugangscode IS NULL) OR (zugangscode ~ '^EDV-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{4}-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{4}$'::text))),
     CONSTRAINT vertraege_zugangscode_sperre_braucht_code CHECK (((zugangscode_gesperrt_am IS NULL) OR (zugangscode IS NOT NULL)))
 );
+
+
+--
+-- Name: vertraege_aktuell; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.vertraege_aktuell WITH (security_invoker='true') AS
+ WITH basis AS (
+         SELECT v.id,
+            v.created_at,
+            v.updated_at,
+            v.created_by,
+            v.lead_id,
+            v.status,
+            v.in_vorbereitung_at,
+            v.unterschrift_ausstehend_at,
+            v.abgeschlossen_at,
+            v.abgelehnt_at,
+            v.abgelehnt_grund,
+            v.abgelehnt_notiz,
+            v.abschluss_weg,
+            v.unterschrieben_am,
+            v.eltern_vorname,
+            v.eltern_nachname,
+            v.strasse,
+            v.hausnummer,
+            v.plz,
+            v.ort,
+            v.eltern_telefon,
+            v.eltern_email,
+            v.kind_vorname,
+            v.kind_nachname,
+            v.kind_geburtsdatum,
+            v.klasse,
+            v.fach,
+            v.schule,
+            v.laufzeit_monate,
+            v.tier_id,
+            v.preis_cents,
+            v.vertragsbeginn,
+            v.kontoinhaber,
+            v.iban_masked,
+            v.mandatsreferenz,
+            v.glaeubiger_id,
+            v.einheiten,
+            v.student_id,
+            v.schule_id,
+            v.vorgaenger_id,
+            v.vertrag_status,
+            v.abgeschlossen_am,
+            v.eingang_datum,
+            v.vertrag_ende,
+            v.ferientage,
+            v.widerruf_bis,
+            v.widerrufen_am,
+            v.gekuendigt_zum,
+            v.kuendigung_grund,
+            v.zahlungsstatus,
+            v.zahlungsstatus_seit,
+            v.offener_betrag_cents,
+            v.verlaengerung_status,
+            v.verlaengerung_grund,
+            v.wiedervorlage_am,
+            v.rueckmeldung_bis,
+            v.abweichung_vermerk,
+            v.zugangscode,
+            v.zugangscode_erzeugt_am,
+            v.zugangscode_gesperrt_am,
+            v.scan_pfad,
+            public.vertrag_wirksamer_status(v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis) AS wirksamer_status,
+                CASE
+                    WHEN (v.vertragsbeginn IS NULL) THEN NULL::integer
+                    ELSE ((1 + (((EXTRACT(year FROM CURRENT_DATE))::integer * 12) + (EXTRACT(month FROM CURRENT_DATE))::integer)) - (((EXTRACT(year FROM v.vertragsbeginn))::integer * 12) + (EXTRACT(month FROM v.vertragsbeginn))::integer))
+                END AS laufzeit_monat
+           FROM public.vertraege v
+          WHERE (v.status = 'abgeschlossen'::text)
+        )
+ SELECT id,
+    created_at,
+    updated_at,
+    created_by,
+    lead_id,
+    status,
+    in_vorbereitung_at,
+    unterschrift_ausstehend_at,
+    abgeschlossen_at,
+    abgelehnt_at,
+    abgelehnt_grund,
+    abgelehnt_notiz,
+    abschluss_weg,
+    unterschrieben_am,
+    eltern_vorname,
+    eltern_nachname,
+    strasse,
+    hausnummer,
+    plz,
+    ort,
+    eltern_telefon,
+    eltern_email,
+    kind_vorname,
+    kind_nachname,
+    kind_geburtsdatum,
+    klasse,
+    fach,
+    schule,
+    laufzeit_monate,
+    tier_id,
+    preis_cents,
+    vertragsbeginn,
+    kontoinhaber,
+    iban_masked,
+    mandatsreferenz,
+    glaeubiger_id,
+    einheiten,
+    student_id,
+    schule_id,
+    vorgaenger_id,
+    vertrag_status,
+    abgeschlossen_am,
+    eingang_datum,
+    vertrag_ende,
+    ferientage,
+    widerruf_bis,
+    widerrufen_am,
+    gekuendigt_zum,
+    kuendigung_grund,
+    zahlungsstatus,
+    zahlungsstatus_seit,
+    offener_betrag_cents,
+    verlaengerung_status,
+    verlaengerung_grund,
+    wiedervorlage_am,
+    rueckmeldung_bis,
+    abweichung_vermerk,
+    zugangscode,
+    zugangscode_erzeugt_am,
+    zugangscode_gesperrt_am,
+    scan_pfad,
+    wirksamer_status,
+    laufzeit_monat,
+    (row_number() OVER (PARTITION BY COALESCE(student_id, id) ORDER BY vertragsbeginn DESC NULLS LAST, abgeschlossen_am DESC NULLS LAST, created_at DESC) = 1) AS ist_aktueller_vertrag,
+        CASE
+            WHEN ((preis_cents IS NULL) OR (laufzeit_monat IS NULL) OR (laufzeit_monate IS NULL)) THEN 0
+            WHEN ((laufzeit_monat >= 1) AND (laufzeit_monat <= laufzeit_monate)) THEN preis_cents
+            ELSE 0
+        END AS beitrag_diesen_monat_cents,
+    ((zugangscode IS NOT NULL) AND (zugangscode_gesperrt_am IS NULL) AND (wirksamer_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text]))) AS zugangscode_gueltig,
+    (vertrag_ende - CURRENT_DATE) AS endet_in_tagen
+   FROM basis b;
 
 
 --
