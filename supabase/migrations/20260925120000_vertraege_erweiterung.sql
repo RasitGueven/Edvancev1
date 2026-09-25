@@ -150,6 +150,11 @@ begin
   if auth.uid() is null then
     raise exception 'audit_log_schreiben: kein angemeldeter Aufrufer' using errcode = '42501';
   end if;
+  -- SECURITY DEFINER haengt an dieser Zeile: ohne sie duerfte jeder Angemeldete
+  -- beliebige Eintraege ins Protokoll schreiben und es damit unbrauchbar machen.
+  if public.get_my_role() <> 'admin' then
+    raise exception 'audit_log_schreiben: nur Admin' using errcode = '42501';
+  end if;
 
   insert into public.audit_log (actor, aktion, objekt_typ, objekt_id)
   values (auth.uid(), p_aktion, p_objekt_typ, p_objekt_id)
@@ -160,9 +165,14 @@ end;
 $$;
 
 comment on function public.audit_log_schreiben(text, text, uuid) is
-  'Einziger Schreibweg in audit_log. Der Actor kommt aus auth.uid() und wird nicht uebergeben — sonst koennte der Aufrufer sich als jemand anderes eintragen.';
+  'Einziger Schreibweg in audit_log, nur fuer Admins. Der Actor kommt aus auth.uid() und wird nicht uebergeben — sonst koennte der Aufrufer sich als jemand anderes eintragen.';
 
-revoke all on function public.audit_log_schreiben(text, text, uuid) from public;
+-- Supabase vergibt EXECUTE auf neue Funktionen per Default Privileges DIREKT an
+-- anon und authenticated. Ein "revoke ... from public" entzieht das nicht: es
+-- raeumt nur die PUBLIC-Zeile ab, die Rollenzeilen bleiben stehen. Deshalb
+-- werden hier und bei jeder weiteren Funktion beide Rollen ausdruecklich
+-- genannt, bevor das gewollte Recht zurueckkommt.
+revoke all on function public.audit_log_schreiben(text, text, uuid) from public, anon, authenticated;
 grant execute on function public.audit_log_schreiben(text, text, uuid) to authenticated;
 
 -- ============================================================================
@@ -360,6 +370,9 @@ $$;
 comment on function public.vertrag_widerruf_bis(date) is
   'Letzter Tag der Widerrufsfrist: Vertragsbeginn + 29 Tage (erster Tag zaehlt mit).';
 
+revoke all on function public.vertrag_widerruf_bis(date) from public, anon, authenticated;
+grant execute on function public.vertrag_widerruf_bis(date) to authenticated;
+
 -- ============================================================================
 -- 7. Vertragsende
 -- ============================================================================
@@ -527,7 +540,7 @@ $$;
 comment on function public.vertrag_ende_berechnen(date, integer) is
   'Vertragsende. 12 Monate: Beginn + 12 Monate - 1 Tag. 6 Monate: Ferienregel NRW mit Fixpunkt, Aufrunden auf 15. oder Monatsletzten, Ausweichen aus Ferien. Wirft, wenn die Rechnung ueber ferien_nrw hinauslaeuft.';
 
-revoke all on function public.vertrag_ende_berechnen(date, integer) from public;
+revoke all on function public.vertrag_ende_berechnen(date, integer) from public, anon, authenticated;
 grant execute on function public.vertrag_ende_berechnen(date, integer) to authenticated;
 
 -- ============================================================================
@@ -581,6 +594,6 @@ $$;
 comment on function public.zugangscode_erzeugen() is
   'Neuer, noch freier Zugangscode in der Form EDV-XXXX-XXXX. Alphabet ohne 0/O/1/I/L.';
 
-revoke all on function public.zugangscode_erzeugen() from public;
+revoke all on function public.zugangscode_erzeugen() from public, anon, authenticated;
 
 commit;

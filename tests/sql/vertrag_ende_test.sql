@@ -9,7 +9,10 @@
 --      sind in reinem SQL nicht fangbar; set_config() legt das Ergebnis in den
 --      Sitzungszustand, nicht in eine Tabelle.
 --   2. EINE lesende Abfrage, die jeden Fall als ist/soll gegenueberstellt und
---      OK oder FEHLER ausgibt.
+--      OK oder FEHLER ausgibt. Die Zeilen I pruefen die EXECUTE-Rechte der neuen
+--      Funktionen: Supabase vergibt sie per Default Privileges direkt an anon
+--      und authenticated, und ein Grant, den niemand prueft, faellt erst auf,
+--      wenn er ausgenutzt wird.
 --
 -- Abnahme: die Spalte `ergebnis` enthaelt ausschliesslich OK.
 
@@ -49,6 +52,28 @@ sweep as (
          exists (select 1 from public.ferien_nrw f where r.ende between f.von and f.bis) as in_ferien
     from monatserste m
     cross join lateral public.vertrag_ende_berechnen(m.beginn, 6) r
+),
+rechte_soll (fname, sig, rolle, soll) as (
+  values
+    ('vertrag_ende_berechnen', 'public.vertrag_ende_berechnen(date,integer)', 'anon',          false),
+    ('vertrag_ende_berechnen', 'public.vertrag_ende_berechnen(date,integer)', 'authenticated', true),
+    ('vertrag_widerruf_bis',   'public.vertrag_widerruf_bis(date)',           'anon',          false),
+    ('vertrag_widerruf_bis',   'public.vertrag_widerruf_bis(date)',           'authenticated', true),
+    ('audit_log_schreiben',    'public.audit_log_schreiben(text,text,uuid)',  'anon',          false),
+    ('audit_log_schreiben',    'public.audit_log_schreiben(text,text,uuid)',  'authenticated', true),
+    ('zugangscode_erzeugen',   'public.zugangscode_erzeugen()',               'anon',          false),
+    ('zugangscode_erzeugen',   'public.zugangscode_erzeugen()',               'authenticated', false)
+),
+rechte as (
+  -- LEFT JOIN statt has_function_privilege('anon', ...): fehlt die Rolle, gibt
+  -- es eine FEHLER-Zeile statt einer Exception, die den ganzen Test abbricht.
+  select rs.fname, rs.rolle, rs.soll,
+         case when r.oid is null
+              then null
+              else has_function_privilege(r.oid, rs.sig::regprocedure::oid, 'execute')
+         end as ist
+    from rechte_soll rs
+    left join pg_roles r on r.rolname = rs.rolle
 ),
 zeilen as (
   -- A-E: nominal, Ferientage und Ende gegen die Referenzwerte
@@ -101,6 +126,18 @@ zeilen as (
          '2028-03-01',
          case when public.vertrag_widerruf_bis(date '2028-02-01') = date '2028-03-01'
               then 'OK' else 'FEHLER' end
+
+  union all
+
+  -- I: EXECUTE-Rechte. Nur vertrag_ende_berechnen und vertrag_widerruf_bis
+  --    gehoeren dem Frontend; audit_log_schreiben zusaetzlich mit Admin-Gate im
+  --    Rumpf; zugangscode_erzeugen keiner Rolle.
+  select 300 + (row_number() over (order by r.fname, r.rolle))::integer,
+         format('I  EXECUTE %s fuer %s', r.fname, r.rolle),
+         case when r.ist is null then 'Rolle nicht vorhanden' else r.ist::text end,
+         r.soll::text,
+         case when r.ist is not distinct from r.soll then 'OK' else 'FEHLER' end
+    from rechte r
 )
 select nr, fall, ist, soll, ergebnis
   from zeilen
