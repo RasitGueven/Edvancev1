@@ -96,7 +96,8 @@ begin
   v_ok := false;
   begin
     perform public.vertrag_abschliessen(v1, 'vor_ort', '[]'::jsonb, 'data:a', 'data:b',
-                                        p_student_uid => v_kind1);
+                                        p_student_uid   => v_kind1,
+                                        p_student_email => 'zz_kind1@edvance.invalid');
   exception when sqlstate 'P0001' then v_ok := true; end;
   assert v_ok, 'Abnahmefall 4: Abschluss ohne Zustimmungen war moeglich';
 
@@ -107,14 +108,16 @@ begin
   v_ok := false;
   begin
     perform public.vertrag_abschliessen(v1, 'vor_ort', v_alle, null, null,
-                                        p_student_uid => v_kind1);
+                                        p_student_uid   => v_kind1,
+                                        p_student_email => 'zz_kind1@edvance.invalid');
   exception when sqlstate 'P0001' then v_ok := true; end;
   assert v_ok, 'Abnahmefall 4: Abschluss ohne Unterschrift war moeglich';
   raise notice '4  ok  Abnahmefall 4: Gate vor dem Abschluss';
 
   -- Abnahmefall 5: vor Ort abschliessen.
   v_ergebnis := public.vertrag_abschliessen(v1, 'vor_ort', v_alle, 'data:a', 'data:b',
-                                            p_student_uid => v_kind1);
+                                            p_student_uid   => v_kind1,
+                                            p_student_email => 'zz_kind1@edvance.invalid');
 
   select status || '|' || vertrag_status || '|' || vertrag_ende || '|' || ferientage
          || '|' || widerruf_bis
@@ -155,7 +158,8 @@ begin
 
   -- Idempotenz: ein zweiter Aufruf aendert nichts.
   v_ergebnis := public.vertrag_abschliessen(v1, 'vor_ort', v_alle, 'data:a', 'data:b',
-                                            p_student_uid => v_kind1);
+                                            p_student_uid   => v_kind1,
+                                            p_student_email => 'zz_kind1@edvance.invalid');
   assert (v_ergebnis ->> 'bereits_abgeschlossen')::boolean,
     'Zweiter Abschluss meldet sich nicht als idempotent';
   select count(*) into v_n from student_subscriptions where student_id = v_prov;
@@ -207,7 +211,8 @@ begin
       v2, 'papier',
       p_unterschrieben_am => date '2027-10-20',
       p_eingang_datum     => date '2027-10-25',
-      p_student_uid       => v_kind2);
+      p_student_uid       => v_kind2,
+      p_student_email     => 'zz_kind2@edvance.invalid');
   exception when sqlstate 'P0001' then v_ok := true; end;
   assert v_ok, 'Abnahmefall 8: Abschluss ohne Scan war moeglich';
   raise notice '11 ok  Abnahmefall 8: ohne Scan kein Abschluss';
@@ -221,7 +226,8 @@ begin
       p_eingang_datum     => date '2027-10-25',
       p_scan_pfad         => v2::text || '/ruecklauf.pdf',
       p_tier_id           => v_basic,
-      p_student_uid       => v_kind2);
+      p_student_uid       => v_kind2,
+      p_student_email     => 'zz_kind2@edvance.invalid');
   exception when sqlstate 'P0001' then v_ok := true; end;
   assert v_ok, 'Abnahmefall 7: Abweichung ohne Vermerk war moeglich';
 
@@ -233,7 +239,8 @@ begin
     p_scan_pfad          => v2::text || '/ruecklauf.pdf',
     p_abweichung_vermerk => 'ZZ_Eltern haben auf Basic geaendert',
     p_tier_id            => v_basic,
-    p_student_uid        => v_kind2);
+    p_student_uid        => v_kind2,
+    p_student_email      => 'zz_kind2@edvance.invalid');
 
   select (tier_id = v_basic)::text || '|' || preis_cents || '|' || einheiten
          || '|' || unterschrieben_am || '|' || eingang_datum || '|' || abschluss_weg

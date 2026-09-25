@@ -84,7 +84,8 @@ begin
   v_ok := false;
   begin
     perform public.vertrag_abschliessen(v1, 'vor_ort', '[]'::jsonb, 'data:a', 'data:b',
-                                       p_student_uid => v_kind);
+                                       p_student_uid   => v_kind,
+                                       p_student_email => 'zz_pruefung_kind@edvance.invalid');
   exception when sqlstate 'P0001' then
     v_ok := true;
   end;
@@ -96,9 +97,11 @@ begin
                                       'akzeptiert_at', now()))
     into v_alle from vertrag_dokumente where aktiv and pflicht;
   perform public.vertrag_abschliessen(v1, 'vor_ort', v_alle, 'data:a', 'data:b',
-                                     p_student_uid => v_kind);
+                                     p_student_uid   => v_kind,
+                                     p_student_email => 'zz_pruefung_kind@edvance.invalid');
   perform public.vertrag_abschliessen(v1, 'vor_ort', v_alle, 'data:a', 'data:b',
-                                     p_student_uid => v_kind);
+                                     p_student_uid   => v_kind,
+                                     p_student_email => 'zz_pruefung_kind@edvance.invalid');
   select status into v_text from vertraege where id = v1;
   assert v_text = 'abgeschlossen', 'Status nicht abgeschlossen';
   select count(*) into v_n from vertrag_zustimmungen where vertrag_id = v1;
