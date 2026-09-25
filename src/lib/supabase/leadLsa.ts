@@ -1,4 +1,5 @@
-// Lead→LSA-Flow (S7): Freigabe, Konversion, Eltern-/Kind-Einschätzung.
+// Lead→LSA-Flow (S7): Freigabe und Eltern-/Kind-Einschätzung.
+// Die Konversion gehört seit P2 zum Vertragsabschluss (vertrag_abschliessen).
 // Dünne Wrapper um die SECURITY-DEFINER-RPCs — die Autorisierung (admin bzw.
 // coach/admin) und alle Gates (DSGVO-Consent, Idempotenz) liegen in der DB.
 
@@ -69,24 +70,6 @@ export async function getOpenSessionForLead(
     }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Session konnte nicht geladen werden'
-    return { data: null, error: message }
-  }
-}
-
-// Konversion Lead → Schüler (nur Admin): Datensatz-Flip des provisorischen
-// Schülers. Das Anlegen des Auth-Kontos folgt separat.
-export async function leadConvert(
-  leadId: string,
-): Promise<SupabaseResult<{ ok: boolean; student_id: string }>> {
-  try {
-    const { data, error } = await supabase.rpc('lead_convert', {
-      p_lead_id: leadId,
-    })
-    if (error) return { data: null, error: error.message }
-    return { data: data as { ok: boolean; student_id: string }, error: null }
-  } catch (err) {
-    const message =
-      err instanceof Error ? err.message : 'Konversion fehlgeschlagen'
     return { data: null, error: message }
   }
 }

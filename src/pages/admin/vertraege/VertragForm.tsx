@@ -3,11 +3,16 @@ import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { formatDateOnly } from '@/lib/datetime'
 import { SELECT_MD } from '@/lib/formStyles'
+import type { Schule } from '@/lib/supabase/schulen'
+import type { VertragEnde } from '@/lib/supabase/vertragEnde'
 import { isValidIban } from '@/lib/vertrag/iban'
 import { kondition } from '@/lib/vertrag/konditionen'
 import type { TierPlan } from '@/types'
 import { CLASS_LEVELS, SUBJECTS } from '../intake/intakeConstants'
+import { EndeVorschau } from './EndeVorschau'
+import { SchuleAuswahl } from './SchuleAuswahl'
 import type { VertragFormState } from './vertragForm'
 
 type VertragFormProps = {
@@ -18,6 +23,13 @@ type VertragFormProps = {
   ibanMasked: string | null
   mandatsreferenz: string
   glaeubigerId: string | null
+  schulen: Schule[]
+  onSchuleAngelegt: (schule: Schule) => void
+  /** Monatserste zur Auswahl — Vertragsbeginn ist nie ein freies Datum. */
+  beginnOptionen: string[]
+  /** Vorschau aus vertrag_ende_berechnen; null, solange etwas fehlt. */
+  ende: VertragEnde | null
+  endeFehler: string | null
 }
 
 const LAUFZEITEN = [6, 12] as const
@@ -72,6 +84,11 @@ export function VertragForm({
   ibanMasked,
   mandatsreferenz,
   glaeubigerId,
+  schulen,
+  onSchuleAngelegt,
+  beginnOptionen,
+  ende,
+  endeFehler,
 }: VertragFormProps): JSX.Element {
   const { t, i18n } = useTranslation('vertraege')
   const tier = tiers.find((x) => x.id === form.tier_id) ?? null
@@ -140,7 +157,16 @@ export function VertragForm({
             ))}
           </select>
         </Feld>
-        {text('schule')}
+        <Feld id="vertrag-schule" label={t('field.schule')} wide>
+          <SchuleAuswahl
+            schulen={schulen}
+            value={form.schule_id}
+            readOnly={readOnly}
+            freitext={form.schule}
+            onChange={(id, name) => onChange({ schule_id: id, schule: name })}
+            onAngelegt={onSchuleAngelegt}
+          />
+        </Feld>
       </Section>
 
       <Section title={t('form.contract')}>
@@ -197,7 +223,33 @@ export function VertragForm({
             {k ? k.einheiten : '—'}
           </p>
         </Feld>
-        {text('vertragsbeginn', { type: 'date' })}
+        <Feld
+          id="vertrag-vertragsbeginn"
+          label={t('field.vertragsbeginn')}
+          hint={t('form.beginnHint')}
+        >
+          <select
+            id="vertrag-vertragsbeginn"
+            className={SELECT_MD}
+            value={form.vertragsbeginn}
+            disabled={readOnly}
+            onChange={(e) => onChange({ vertragsbeginn: e.target.value })}
+          >
+            <option value="">{t('form.choose')}</option>
+            {beginnOptionen.map((tag) => (
+              <option key={tag} value={tag}>
+                {formatDateOnly(tag, i18n.language)}
+              </option>
+            ))}
+          </select>
+        </Feld>
+        <div className="sm:col-span-2">
+          <EndeVorschau
+            ende={ende}
+            fehler={endeFehler}
+            laufzeitMonate={form.laufzeit_monate === '' ? null : Number(form.laufzeit_monate)}
+          />
+        </div>
       </Section>
 
       <Section title={t('form.sepa')}>

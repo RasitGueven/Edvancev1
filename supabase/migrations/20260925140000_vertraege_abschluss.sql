@@ -44,6 +44,28 @@ alter table public.vertraege
            or nullif(btrim(scan_pfad), '') is not null);
 
 -- ============================================================================
+-- 1b. Korrektur an P1: ein Folgevertrag darf frueher da sein als das Ende
+-- ============================================================================
+--
+-- P1 legte "ein laufender Vertrag pro Kind" als Partial-Unique-Index ueber
+-- vertrag_status in ('im_widerruf','aktiv'). Das ist zu streng: Entscheidung 11
+-- setzt voraus, dass der Folgevertrag UNTERSCHRIEBEN ist, bevor der laufende
+-- endet — sonst gaebe es die Luecke gar nicht, die sie beschreibt. Mit dem
+-- alten Index waere der Abschluss des Folgevertrags am Index gescheitert.
+--
+-- Neu faellt ein Vertrag aus dem Index, sobald er als verlaengert markiert ist.
+-- Die Regel bleibt damit: hoechstens ein Vertrag je Kind, der noch laeuft und
+-- noch keinen Nachfolger hat.
+
+drop index if exists public.vertraege_student_laufend_uniq;
+
+create unique index vertraege_student_laufend_uniq
+  on public.vertraege (student_id)
+  where student_id is not null
+    and vertrag_status in ('im_widerruf', 'aktiv')
+    and verlaengerung_status is distinct from 'verlaengert';
+
+-- ============================================================================
 -- 2. vertraege_guard — die RPCs duerfen durch
 -- ============================================================================
 --
@@ -526,6 +548,15 @@ begin
   -- -------------------------------------------------------- Der Vertrag
   perform set_config('edvance.vertrag_rpc', '1', true);
 
+  -- Zuerst der Vorgaenger: er ist verlaengert und faellt damit aus dem
+  -- Partial-Unique-Index. Andersherum schluegen beide Vertraege gleichzeitig
+  -- als "laufend" auf und der Index wuerde den Abschluss abweisen.
+  if v_vorgaenger is not null then
+    update public.vertraege
+       set verlaengerung_status = 'verlaengert'
+     where id = v_vorgaenger;
+  end if;
+
   update public.vertraege
      set status                 = 'abgeschlossen',
          vertrag_status         = 'im_widerruf',
@@ -552,13 +583,6 @@ begin
          glaeubiger_id          = coalesce(glaeubiger_id,
                                     (select glaeubiger_id from public.vertrag_einstellungen))
    where id = p_vertrag_id;
-
-  -- Der Vorgaenger ist verlaengert. Er bleibt stehen — er ist die Historie.
-  if v_vorgaenger is not null then
-    update public.vertraege
-       set verlaengerung_status = 'verlaengert'
-     where id = v_vorgaenger;
-  end if;
 
   perform set_config('edvance.vertrag_rpc', '', true);
 

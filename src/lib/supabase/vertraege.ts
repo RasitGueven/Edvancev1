@@ -198,40 +198,119 @@ export async function vertragVersandProtokollieren(
   }
 }
 
+export type Zustimmung = { schluessel: string; version: string; akzeptiert_at: string }
+
 export type AbschlussVorOrt = {
   weg: 'vor_ort'
-  zustimmungen: { schluessel: string; version: string; akzeptiert_at: string }[]
+  zustimmungen: Zustimmung[]
   signaturVertrag: string
   signaturSepa: string
+  /** Passwort des Schuelerkontos — wird persoenlich uebergeben, nie gemailt. */
+  studentPassword: string
 }
 
-export type AbschlussPapier = { weg: 'papier'; unterschriebenAm: string }
+/** Einpflegen eines Ruecklaufs. Es gilt, was auf dem Papier steht. */
+export type AbschlussPapier = {
+  weg: 'papier'
+  unterschriebenAm: string
+  eingangDatum: string
+  scanPfad: string
+  abweichungVermerk: string | null
+  tierId: string | null
+  laufzeitMonate: number | null
+  vertragsbeginn: string | null
+  studentPassword: string
+}
 
-// Idempotent: ein bereits abgeschlossener Vertrag bleibt unveraendert.
+export type AbschlussErgebnis = {
+  student_id: string | null
+  zugangscode: string | null
+  vertrag_ende: string | null
+  ferientage: number | null
+  widerruf_bis: string | null
+  abweichung?: boolean
+  bereits_abgeschlossen?: boolean
+}
+
+/**
+ * Der Abschluss laeuft ueber die Edge Function vertrag_abschluss, nicht direkt
+ * ueber die RPC. Grund: Das Auth-Konto des Kindes kann eine Datenbankfunktion
+ * nicht anlegen. Die Edge Function legt es an, ruft die RPC und raeumt das
+ * Konto wieder weg, wenn die RPC wirft — die RPC selbst bleibt atomar.
+ *
+ * Idempotent: ein bereits abgeschlossener Vertrag kommt unveraendert zurueck.
+ */
 export async function vertragAbschliessen(
   vertragId: string,
   abschluss: AbschlussVorOrt | AbschlussPapier,
-): Promise<SupabaseResult<true>> {
+): Promise<SupabaseResult<AbschlussErgebnis>> {
+  const body =
+    abschluss.weg === 'vor_ort'
+      ? {
+          vertrag_id: vertragId,
+          weg: 'vor_ort',
+          zustimmungen: abschluss.zustimmungen,
+          signatur_vertrag: abschluss.signaturVertrag,
+          signatur_sepa: abschluss.signaturSepa,
+          student_password: abschluss.studentPassword,
+        }
+      : {
+          vertrag_id: vertragId,
+          weg: 'papier',
+          unterschrieben_am: abschluss.unterschriebenAm,
+          eingang_datum: abschluss.eingangDatum,
+          scan_pfad: abschluss.scanPfad,
+          abweichung_vermerk: abschluss.abweichungVermerk,
+          tier_id: abschluss.tierId,
+          laufzeit_monate: abschluss.laufzeitMonate,
+          vertragsbeginn: abschluss.vertragsbeginn,
+          student_password: abschluss.studentPassword,
+        }
+
   try {
-    const params =
-      abschluss.weg === 'vor_ort'
-        ? {
-            p_vertrag_id: vertragId,
-            p_weg: 'vor_ort',
-            p_zustimmungen: abschluss.zustimmungen,
-            p_signatur_vertrag: abschluss.signaturVertrag,
-            p_signatur_sepa: abschluss.signaturSepa,
-          }
-        : {
-            p_vertrag_id: vertragId,
-            p_weg: 'papier',
-            p_unterschrieben_am: abschluss.unterschriebenAm,
-          }
-    const { error } = await supabase.rpc('vertrag_abschliessen', params)
-    if (error) return { data: null, error: error.message }
-    return { data: true, error: null }
+    const { data, error } = await supabase.functions.invoke('vertrag_abschluss', { body })
+    if (error) {
+      // Die Edge Function antwortet mit {error: "..."} im Body; die generische
+      // Meldung von invoke() ("non-2xx status code") hilft am Empfang nicht.
+      let msg = error.message
+      try {
+        const antwort = (await (error as unknown as { context: Response }).context.json()) as {
+          error?: string
+        }
+        if (antwort?.error) msg = antwort.error
+      } catch {
+        /* generische Meldung behalten */
+      }
+      return { data: null, error: msg }
+    }
+    return { data: data as AbschlussErgebnis, error: null }
   } catch (err) {
     return fail(err, 'Vertrag konnte nicht abgeschlossen werden')
+  }
+}
+
+/**
+ * Wege B und C: Unterlagen raus, Fassungen festhalten, Antrag auf
+ * "unterschrift_ausstehend". Es entsteht KEIN Vertrag — der kommt erst mit dem
+ * unterschriebenen Papier zurueck.
+ */
+export async function vertragVersenden(
+  vertragId: string,
+  weg: VertragVersand['weg'],
+  empfaenger: string | null = null,
+  rueckmeldungBis: string | null = null,
+): Promise<SupabaseResult<{ rueckmeldung_bis: string }>> {
+  try {
+    const { data, error } = await supabase.rpc('vertrag_versenden', {
+      p_vertrag_id: vertragId,
+      p_weg: weg,
+      p_empfaenger: empfaenger,
+      p_rueckmeldung_bis: rueckmeldungBis,
+    })
+    if (error) return { data: null, error: error.message }
+    return { data: data as { rueckmeldung_bis: string }, error: null }
+  } catch (err) {
+    return fail(err, 'Unterlagen konnten nicht versendet werden')
   }
 }
 

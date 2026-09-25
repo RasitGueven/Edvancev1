@@ -4261,6 +4261,15 @@ begin
   -- -------------------------------------------------------- Der Vertrag
   perform set_config('edvance.vertrag_rpc', '1', true);
 
+  -- Zuerst der Vorgaenger: er ist verlaengert und faellt damit aus dem
+  -- Partial-Unique-Index. Andersherum schluegen beide Vertraege gleichzeitig
+  -- als "laufend" auf und der Index wuerde den Abschluss abweisen.
+  if v_vorgaenger is not null then
+    update public.vertraege
+       set verlaengerung_status = 'verlaengert'
+     where id = v_vorgaenger;
+  end if;
+
   update public.vertraege
      set status                 = 'abgeschlossen',
          vertrag_status         = 'im_widerruf',
@@ -4287,13 +4296,6 @@ begin
          glaeubiger_id          = coalesce(glaeubiger_id,
                                     (select glaeubiger_id from public.vertrag_einstellungen))
    where id = p_vertrag_id;
-
-  -- Der Vorgaenger ist verlaengert. Er bleibt stehen — er ist die Historie.
-  if v_vorgaenger is not null then
-    update public.vertraege
-       set verlaengerung_status = 'verlaengert'
-     where id = v_vorgaenger;
-  end if;
 
   perform set_config('edvance.vertrag_rpc', '', true);
 
@@ -7093,7 +7095,7 @@ CREATE INDEX vertraege_student_idx ON public.vertraege USING btree (student_id);
 -- Name: vertraege_student_laufend_uniq; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX vertraege_student_laufend_uniq ON public.vertraege USING btree (student_id) WHERE ((student_id IS NOT NULL) AND (vertrag_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text])));
+CREATE UNIQUE INDEX vertraege_student_laufend_uniq ON public.vertraege USING btree (student_id) WHERE ((student_id IS NOT NULL) AND (vertrag_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text])) AND (verlaengerung_status IS DISTINCT FROM 'verlaengert'::text));
 
 
 --

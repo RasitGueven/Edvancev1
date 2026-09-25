@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { listTiers } from '@/lib/supabase/subscriptions'
-import { listVertraege, vertragAblehnen, vertragAbschliessen } from '@/lib/supabase/vertraege'
+import { listVertraege, vertragAblehnen } from '@/lib/supabase/vertraege'
 import type { RejectionReason, VertragMitLead } from '@/types'
 import { BoardColumns } from './leads/BoardColumns'
-import { ConvertInline } from './leads/ConvertInline'
 import { LeadFilterBar } from './leads/LeadFilterBar'
 import { RejectModal } from './leads/RejectModal'
 import { EMPTY_FILTERS, type LeadFilters } from './leads/boardModel'
@@ -24,7 +23,6 @@ export function VertraegePage(): JSX.Element {
   const [showArchiv, setShowArchiv] = useState(false)
   const [busyId, setBusyId] = useState<string | null>(null)
   const [rejectVertrag, setRejectVertrag] = useState<VertragMitLead | null>(null)
-  const [convertVertrag, setConvertVertrag] = useState<VertragMitLead | null>(null)
 
   const load = (): void => {
     void Promise.all([listVertraege(), listTiers()]).then(([v, tiers]) => {
@@ -67,18 +65,6 @@ export function VertraegePage(): JSX.Element {
 
         {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
 
-        {convertVertrag && (
-          <ConvertInline
-            lead={convertVertrag.lead}
-            onDone={() => {
-              setConvertVertrag(null)
-              load()
-            }}
-            onCancel={() => setConvertVertrag(null)}
-            onError={setError}
-          />
-        )}
-
         {loading ? (
           <LoadingPulse type="list" lines={4} />
         ) : vertraege.length === 0 ? (
@@ -106,13 +92,7 @@ export function VertraegePage(): JSX.Element {
                   vertrag={v}
                   paket={v.tier_id ? (paketById[v.tier_id] ?? null) : null}
                   busy={busyId === v.id}
-                  onPaperSigned={(target, datum) =>
-                    void run(target, () =>
-                      vertragAbschliessen(target.id, { weg: 'papier', unterschriebenAm: datum }),
-                    )
-                  }
                   onReject={setRejectVertrag}
-                  onConvert={setConvertVertrag}
                 />
               )}
             />

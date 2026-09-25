@@ -12,6 +12,31 @@ export type VertragStatus =
 /** 'vor_ort' = Canvas-Unterschrift, 'papier' = unterschrieben zurueckerhalten. */
 export type VertragAbschlussWeg = 'vor_ort' | 'papier'
 
+/**
+ * Das Leben NACH dem Abschluss (Migration 20260925120000). Null, solange
+ * `status` noch nicht 'abgeschlossen' ist — ein Check erzwingt beides.
+ */
+export type VertragLebenStatus =
+  | 'im_widerruf'
+  | 'aktiv'
+  | 'gekuendigt'
+  | 'ausgelaufen'
+  | 'widerrufen'
+
+export type Zahlungsstatus =
+  | 'in_ordnung'
+  | 'zahlung_offen'
+  | 'mahnung_1'
+  | 'mahnung_2'
+  | 'inkasso'
+
+export type VerlaengerungStatus =
+  | 'offen'
+  | 'kontaktiert'
+  | 'gespraech_vereinbart'
+  | 'verlaengert'
+  | 'keine_verlaengerung'
+
 export type Vertrag = {
   id: string
   created_at: string
@@ -55,6 +80,36 @@ export type Vertrag = {
   iban_masked: string | null
   mandatsreferenz: string
   glaeubiger_id: string | null
+
+  // --- Vorgang nach dem Abschluss (P1/P2) ---------------------------------
+  student_id: string | null
+  schule_id: string | null
+  vorgaenger_id: string | null
+  vertrag_status: VertragLebenStatus | null
+  /** Fachlicher Abschlusstag. Nicht abgeschlossen_at, dem Systemzeitpunkt. */
+  abgeschlossen_am: string | null
+  eingang_datum: string | null
+  /** Beim Abschluss eingefroren — eine spaetere Ferienkorrektur aendert ihn nicht. */
+  vertrag_ende: string | null
+  ferientage: number | null
+  widerruf_bis: string | null
+  widerrufen_am: string | null
+  gekuendigt_zum: string | null
+  kuendigung_grund: string | null
+  zahlungsstatus: Zahlungsstatus
+  zahlungsstatus_seit: string | null
+  offener_betrag_cents: number | null
+  verlaengerung_status: VerlaengerungStatus | null
+  verlaengerung_grund: string | null
+  wiedervorlage_am: string | null
+  rueckmeldung_bis: string | null
+  abweichung_vermerk: string | null
+  /** Anzeigeform EDV-XXXX-XXXX. Erst ab Abschluss gesetzt. */
+  zugangscode: string | null
+  zugangscode_erzeugt_am: string | null
+  zugangscode_gesperrt_am: string | null
+  /** Pfad des Ruecklauf-Scans im Bucket "vertraege". */
+  scan_pfad: string | null
 }
 
 /** Vertrag mit dem Lead, aus dem er entstanden ist (Board + Konversion). */
@@ -78,6 +133,7 @@ export type VertragPatch = Partial<
     | 'klasse'
     | 'fach'
     | 'schule'
+    | 'schule_id'
     | 'laufzeit_monate'
     | 'tier_id'
     | 'vertragsbeginn'

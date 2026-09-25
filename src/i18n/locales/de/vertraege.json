@@ -8,10 +8,22 @@
     "emptyDescription": "Verträge entstehen im Lead-Board über „Vertrag starten“ in der Spalte „Analyse abgeschlossen“."
   },
   "columns": {
-    "vorbereitung": { "title": "In Vorbereitung", "empty": "Kein Vertrag in Vorbereitung." },
-    "ausstehend": { "title": "Unterschrift ausstehend", "empty": "Keine offene Unterschrift." },
-    "abgeschlossen": { "title": "Abgeschlossen", "empty": "Noch kein Vertrag abgeschlossen." },
-    "archiv": { "title": "Archiv", "empty": "Archiv ist leer." }
+    "vorbereitung": {
+      "title": "In Vorbereitung",
+      "empty": "Kein Vertrag in Vorbereitung."
+    },
+    "ausstehend": {
+      "title": "Unterschrift ausstehend",
+      "empty": "Keine offene Unterschrift."
+    },
+    "abgeschlossen": {
+      "title": "Abgeschlossen",
+      "empty": "Noch kein Vertrag abgeschlossen."
+    },
+    "archiv": {
+      "title": "Archiv",
+      "empty": "Archiv ist leer."
+    }
   },
   "status": {
     "in_vorbereitung": "In Vorbereitung",
@@ -25,7 +37,8 @@
     "closedOn": "Unterschrieben am {{date}}",
     "capture": "Daten erfassen",
     "viewDocs": "Unterlagen ansehen",
-    "reject": "Doch abgelehnt"
+    "reject": "Doch abgelehnt",
+    "einpflegen": "Rücklauf einpflegen"
   },
   "detail": {
     "eyebrow": "Vertrag",
@@ -55,7 +68,8 @@
     "accountHolderHint": "Nur falls abweichend vom Vertragspartner.",
     "creditorMissing": "Noch nicht hinterlegt",
     "save": "Daten speichern",
-    "saved": "Gespeichert"
+    "saved": "Gespeichert",
+    "beginnHint": "Ein Vertrag beginnt immer am Ersten eines Monats."
   },
   "field": {
     "eltern_vorname": "Vorname",
@@ -146,5 +160,84 @@
     "signedAt": "Unterschrieben am {{date}}",
     "signLine": "Ort, Datum, Unterschrift",
     "versionMismatch": "„{{titel}}“: Die Datei trägt Fassung {{text}}, aktiv ist {{db}}. Das Dokument wird nicht angezeigt, bis beide übereinstimmen."
+  },
+  "wizard": {
+    "step1": "1 · Vertragsdaten",
+    "step2": "2 · Vertragsdokument",
+    "step3": "3 · Abschlussweg",
+    "step4": "4 · Abschluss",
+    "step2Title": "Vertragsdokument",
+    "step3Title": "Wie wird abgeschlossen?",
+    "next": "Weiter",
+    "openAllDocs": "Alle Unterlagen öffnen",
+    "weg": {
+      "vor_ort": "Hier unterschreiben",
+      "email": "Per Mail senden",
+      "druck": "Ausdrucken"
+    },
+    "wegHint": "Bei jedem Weg gehen dieselben Unterlagen mit: Vertrag, AGB, Datenschutzerklärung, Widerrufsbelehrung und SEPA-Mandat.",
+    "wegMissing": "Ohne gewählten Weg geht es nicht weiter.",
+    "noContractYet": "Hier entsteht noch kein Vertrag. Der kommt erst zustande, wenn das unterschriebene Exemplar zurück ist und eingepflegt wird.",
+    "emailManual": "Die Unterlagen gehen an {{empfaenger}}. Den Versand über hello@ baut P4 — bis dahin verschickst du sie von Hand und hältst es hier fest.",
+    "printHint": "Erst ausdrucken, dann den Antrag als versendet festhalten.",
+    "rueckmeldungBis": "Rückmeldung erwartet bis",
+    "rueckmeldungHint": "Standard sind zwei Wochen, also {{date}}.",
+    "printDocs": "Unterlagen ausdrucken",
+    "markSent": "Als versendet festhalten",
+    "account": "Zugang des Kindes",
+    "passwordLabel": "Passwort für das Schülerkonto (mind. 6 Zeichen)",
+    "passwordHint": "Wird beim Abschluss angelegt und dem Kind persönlich mitgeteilt — nie per Mail.",
+    "passwordMissing": "Passwort fehlt (mind. 6 Zeichen)",
+    "toSignature": "Zur Unterschrift"
+  },
+  "ende": {
+    "title": "Vertragsende",
+    "pending": "Paket, Laufzeit und Beginn wählen — dann steht hier das berechnete Ende.",
+    "rechnung": "Nominal wäre das der {{nominal}}. In der Laufzeit liegen {{tage}} Ferientage; sie schieben das Ende auf den {{ende}}.",
+    "ferien": "Berücksichtigt: {{namen}}",
+    "beitraegeHalbjahr": "6 Beiträge in den ersten 6 Monaten, danach beitragsfrei.",
+    "jahr": "Zwölf volle Kalendermonate, zwölf Beiträge. Die Ferienregel gilt beim Jahresvertrag nicht."
+  },
+  "schule": {
+    "new": "+ Neue Schule anlegen",
+    "name": "Name der Schule",
+    "ort": "Ort",
+    "namePlaceholder": "z. B. Gymnasium Kreuzgasse",
+    "ortPlaceholder": "z. B. Köln",
+    "save": "Schule anlegen",
+    "saveFailed": "Die Schule konnte nicht angelegt werden."
+  },
+  "code": {
+    "title": "Zugangscode",
+    "created": "Erzeugt am {{date}}",
+    "blocked": "Gesperrt seit {{date}}",
+    "hint": "Entsteht im Moment des Abschlusses."
+  },
+  "doc": {
+    "ferienklausel": "Geschuldet sind {{einheiten}} Coaching-Einheiten. Das Vertragsende ist der Stichtag, bis zu dem sie abgerufen werden können — es verschiebt sich um die {{tage}} Ferientage der Laufzeit auf den {{ende}}. Der Beitrag wird in den ersten sechs Monaten erhoben; die darüber hinausgehende Laufzeit ist beitragsfrei.",
+    "keineFerienklausel": "Die Laufzeit umfasst zwölf volle Kalendermonate mit zwölf Beiträgen."
+  },
+  "einpflegen": {
+    "scanTitle": "Eingescanntes Original",
+    "scanHint": "Der Scan ist der Nachweis. Ohne ihn lässt sich der Vertrag nicht abschließen.",
+    "choose": "Datei wählen",
+    "uploading": "Wird hochgeladen …",
+    "scanReady": "Scan hinterlegt.",
+    "uploadFailed": "Der Scan konnte nicht hochgeladen werden.",
+    "abgleichTitle": "Abgleich: versendet gegen unterschrieben",
+    "soll": "{{feld}} — versendet",
+    "ist": "{{feld}} — laut Papier",
+    "vermerk": "Vermerk zur Abweichung",
+    "vermerkHint": "Abweichend: {{felder}}. Es gilt das Papier — der Vermerk hält fest, was die Eltern geändert haben.",
+    "datenTitle": "Daten des Rücklaufs",
+    "signedOn": "Unterschriftsdatum laut Dokument",
+    "receivedOn": "Eingangsdatum bei uns",
+    "missingScan": "Scan fehlt",
+    "missingSigned": "Unterschriftsdatum fehlt",
+    "missingReceived": "Eingangsdatum fehlt",
+    "missingTerms": "Paket, Laufzeit oder Beginn fehlt",
+    "missingNote": "Vermerk zur Abweichung fehlt",
+    "conclude": "Vertrag abschließen",
+    "notConcluded": "Nicht zustande gekommen"
   }
 }
