@@ -8,11 +8,16 @@
 //   1. Autorisieren (Admin; fail-closed wie in provision_student).
 //   2. Den Vertrag lesen — traegt er schon student_id, ist es ein Folgevertrag
 //      und es entsteht KEIN zweites Konto.
-//   3. Auth-User fuer Schueler anlegen, Elternteil optional per Invite.
+//   3. Auth-User fuer Schueler anlegen, Elternkonto anlegen oder verknuepfen.
+//      OHNE Einladungsmail — die Einladung der Eltern folgt bewusst in P4 ueber
+//      hello@ (Microsoft Graph). Bis dahin existiert das Konto, ist aber
+//      unbestaetigt und ohne Passwort: niemand kann sich damit anmelden, und
+//      niemand bekommt eine Mail, die auf nichts verweist.
 //   4. RPC vertrag_abschliessen aufrufen. Sie macht den ganzen Rest in EINER
 //      Transaktion: Status, Ende, Widerruf, Zugangscode, Schuelerkonto, Abo.
-//   5. Wirft die RPC, werden die eben angelegten Auth-User wieder entfernt.
-//      Sonst blieben Konten stehen, zu denen es keinen Vertrag gibt.
+//   5. Wirft die RPC, werden die eben angelegten Auth-User wieder entfernt —
+//      aber nur die eben angelegten. Ein wiederverwendetes Elternkonto bleibt
+//      stehen; es gehoert dem Geschwisterkind genauso.
 //
 // Deploy: supabase functions deploy vertrag_abschluss
 
@@ -122,6 +127,8 @@ Deno.serve(async (req: Request) => {
   let studentUid: string | null = null
   let studentEmail: string | null = null
   let parentUid: string | null = null
+  // Nur selbst angelegte Konten werden beim Rollback wieder entfernt.
+  let parentNeuAngelegt = false
 
   if (braucht_konto) {
     // Das Kind hat keine eigene Adresse — dieselbe Konvention wie bisher in
@@ -139,13 +146,41 @@ Deno.serve(async (req: Request) => {
 
     const elternMail = (vertrag.eltern_email ?? '').trim()
     if (elternMail !== '') {
-      const { data: parentData, error: parentErr } =
-        await admin.auth.admin.inviteUserByEmail(elternMail)
-      if (parentErr || !parentData.user) {
-        await admin.auth.admin.deleteUser(studentUid)
-        return json(502, { error: `Eltern-Account: ${parentErr?.message ?? 'unbekannt'}` })
+      // Hat das Elternteil schon ein Konto — etwa vom Geschwisterkind —, wird
+      // es verknuepft statt ein zweites anzulegen. profiles ist dafuer die
+      // verlaessliche Quelle: jedes Konto, das dieses System angelegt hat, hat
+      // dort eine Zeile.
+      //
+      // Nur Rolle 'parent': Teilt sich ein Coach oder Admin die Adresse mit
+      // einem Elternteil, wuerde die RPC ihn beim Verknuepfen auf 'parent'
+      // herabstufen. Dann lieber der Fehler unten als ein verlorener Zugang.
+      const { data: vorhanden } = await admin
+        .from('profiles')
+        .select('id')
+        .eq('email', elternMail)
+        .eq('role', 'parent')
+        .maybeSingle()
+
+      if (vorhanden) {
+        parentUid = vorhanden.id as string
+      } else {
+        // Einladung der Eltern folgt bewusst in P4 ueber hello@ (Microsoft Graph).
+        // Deshalb hier kein inviteUserByEmail: kein Passwort, keine Bestaetigung,
+        // keine Mail. Das Konto ist angelegt und wartet auf die Einladung.
+        const { data: parentData, error: parentErr } = await admin.auth.admin.createUser({
+          email: elternMail,
+          email_confirm: false,
+        })
+        if (parentErr || !parentData.user) {
+          // Existiert die Adresse in auth.users, aber ohne profiles-Zeile,
+          // laesst sich die UID hier nicht aufloesen. Lieber abbrechen und es
+          // sagen, als ein zweites Elternkonto zu erzeugen.
+          await admin.auth.admin.deleteUser(studentUid)
+          return json(502, { error: `Eltern-Account: ${parentErr?.message ?? 'unbekannt'}` })
+        }
+        parentUid = parentData.user.id
+        parentNeuAngelegt = true
       }
-      parentUid = parentData.user.id
     }
   }
 
@@ -182,7 +217,7 @@ Deno.serve(async (req: Request) => {
   // ---- 5. Aufraeumen -------------------------------------------------------
   if (error) {
     if (studentUid) await admin.auth.admin.deleteUser(studentUid)
-    if (parentUid) await admin.auth.admin.deleteUser(parentUid)
+    if (parentUid && parentNeuAngelegt) await admin.auth.admin.deleteUser(parentUid)
     return json(400, { error: error.message })
   }
 
