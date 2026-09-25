@@ -501,54 +501,6 @@ $$;
 
 
 --
--- Name: lead_convert(uuid); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.lead_convert(p_lead_id uuid) RETURNS jsonb
-    LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
-    AS $$
-declare
-  v_lead       leads%rowtype;
-  v_student_id uuid;
-begin
-  if public.get_my_role() <> 'admin' then
-    raise exception 'lead_convert: nur Admin' using errcode = '42501';
-  end if;
-
-  select * into v_lead from leads where id = p_lead_id;
-  if not found then
-    raise exception 'lead_convert: Lead nicht gefunden' using errcode = 'P0002';
-  end if;
-
-  if v_lead.status = 'converted' then
-    raise exception 'lead_convert: Lead ist bereits konvertiert'
-      using errcode = 'P0001';
-  end if;
-
-  select id into v_student_id
-    from students where lead_id = p_lead_id and is_provisional;
-  if v_student_id is null then
-    raise exception 'lead_convert: kein provisorischer Schueler zu diesem Lead'
-      using errcode = 'P0002';
-  end if;
-
-  -- lead_id nullen: eine spätere Lead-Löschung darf NIE den echten Schüler
-  -- kaskadieren. Die Verbindung hält ab jetzt leads.converted_student_id.
-  update students
-     set is_provisional = false, lead_id = null
-   where id = v_student_id;
-
-  update leads
-     set status = 'converted', converted_student_id = v_student_id
-   where id = p_lead_id;
-
-  return jsonb_build_object('ok', true, 'student_id', v_student_id);
-end;
-$$;
-
-
---
 -- Name: lead_delete(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3644,12 +3596,13 @@ $$;
 --
 
 CREATE FUNCTION public.subscriptions_guard_provisional() RETURNS trigger
-    LANGUAGE plpgsql
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  if exists (select 1 from students where id = new.student_id and is_provisional) then
+  if exists (select 1 from public.students where id = new.student_id and is_provisional) then
     raise exception
-      'student_subscriptions: provisorischer Schueler traegt kein Abo (erst lead_convert)'
+      'student_subscriptions: provisorischer Schueler traegt kein Abo (erst der Vertragsabschluss)'
       using errcode = 'P0001';
   end if;
   return new;
@@ -4013,9 +3966,18 @@ CREATE FUNCTION public.vertraege_guard() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 begin
-  if new.status is distinct from old.status
-     and coalesce(current_setting('edvance.vertrag_rpc', true), '') <> '1' then
+  new.updated_at := now();
+
+  -- Innerhalb einer vertrag_*-RPC gilt, was die RPC schreibt.
+  if coalesce(current_setting('edvance.vertrag_rpc', true), '') = '1' then
+    return new;
+  end if;
+
+  if new.status is distinct from old.status then
     raise exception 'vertraege: Status nur ueber vertrag_*-RPCs aendern' using errcode = '42501';
+  end if;
+  if new.vertrag_status is distinct from old.vertrag_status then
+    raise exception 'vertraege: vertrag_status nur ueber vertrag_*-RPCs aendern' using errcode = '42501';
   end if;
 
   -- Preis und Einheiten folgen aus (Paket, Laufzeit) — nie aus dem Formular.
@@ -4034,7 +3996,6 @@ begin
     new.einheiten   := old.einheiten;
   end if;
 
-  new.updated_at := now();
   return new;
 end;
 $$;
@@ -4081,39 +4042,81 @@ $$;
 
 
 --
--- Name: vertrag_abschliessen(uuid, text, jsonb, text, text, date); Type: FUNCTION; Schema: public; Owner: -
+-- Name: vertrag_abschliessen(uuid, text, jsonb, text, text, date, date, text, text, uuid, integer, date, uuid, text, uuid, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.vertrag_abschliessen(p_vertrag_id uuid, p_weg text, p_zustimmungen jsonb DEFAULT '[]'::jsonb, p_signatur_vertrag text DEFAULT NULL::text, p_signatur_sepa text DEFAULT NULL::text, p_unterschrieben_am date DEFAULT NULL::date) RETURNS void
+CREATE FUNCTION public.vertrag_abschliessen(p_vertrag_id uuid, p_weg text, p_zustimmungen jsonb DEFAULT '[]'::jsonb, p_signatur_vertrag text DEFAULT NULL::text, p_signatur_sepa text DEFAULT NULL::text, p_unterschrieben_am date DEFAULT NULL::date, p_eingang_datum date DEFAULT NULL::date, p_scan_pfad text DEFAULT NULL::text, p_abweichung_vermerk text DEFAULT NULL::text, p_tier_id uuid DEFAULT NULL::uuid, p_laufzeit_monate integer DEFAULT NULL::integer, p_vertragsbeginn date DEFAULT NULL::date, p_student_uid uuid DEFAULT NULL::uuid, p_student_email text DEFAULT NULL::text, p_parent_uid uuid DEFAULT NULL::uuid, p_parent_email text DEFAULT NULL::text) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_vertrag vertraege%rowtype;
-  v_fehlt   text;
+  v            vertraege%rowtype;
+  v_heute      date := (now() at time zone 'Europe/Berlin')::date;
+  v_tier       uuid;
+  v_laufzeit   integer;
+  v_beginn     date;
+  v_preis      integer;
+  v_einheiten  integer;
+  v_ende       record;
+  v_widerruf   date;
+  v_code       text;
+  v_student    uuid;
+  v_vorgaenger uuid;
+  v_fehlt      text;
+  v_abweichung boolean;
+  v_kindname   text;
+  v_subject    uuid;
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_abschliessen: nur Admin' using errcode = '42501';
   end if;
+  if p_weg not in ('vor_ort', 'papier') then
+    raise exception 'vertrag_abschliessen: unbekannter Weg %', p_weg using errcode = '22023';
+  end if;
 
-  select * into v_vertrag from vertraege where id = p_vertrag_id for update;
+  select * into v from public.vertraege where id = p_vertrag_id for update;
   if not found then
     raise exception 'vertrag_abschliessen: Vertrag nicht gefunden' using errcode = 'P0002';
   end if;
-  if v_vertrag.status = 'abgeschlossen' then
-    return;
+
+  -- Idempotent: ein zweiter Aufruf liefert dasselbe Ergebnis, ohne etwas zu tun.
+  if v.status = 'abgeschlossen' then
+    return jsonb_build_object(
+      'ok', true, 'bereits_abgeschlossen', true,
+      'student_id', v.student_id, 'zugangscode', v.zugangscode,
+      'vertrag_ende', v.vertrag_ende, 'widerruf_bis', v.widerruf_bis,
+      'ferientage', v.ferientage);
   end if;
-  if v_vertrag.status = 'abgelehnt' then
+  if v.status = 'abgelehnt' then
     raise exception 'vertrag_abschliessen: Vertrag ist abgelehnt' using errcode = 'P0001';
   end if;
-  if v_vertrag.tier_id is null or v_vertrag.laufzeit_monate is null
-     or v_vertrag.vertragsbeginn is null then
+
+  -- -------------------------------------------------------- Konditionen
+  -- Auf dem Papierweg gilt, was unterschrieben wurde, nicht was versendet war.
+  v_tier     := coalesce(p_tier_id,         v.tier_id);
+  v_laufzeit := coalesce(p_laufzeit_monate, v.laufzeit_monate);
+  v_beginn   := coalesce(p_vertragsbeginn,  v.vertragsbeginn);
+
+  if v_tier is null or v_laufzeit is null or v_beginn is null then
     raise exception 'vertrag_abschliessen: Paket, Laufzeit oder Vertragsbeginn fehlt'
       using errcode = 'P0001';
   end if;
 
+  select tl.preis_cents, tl.einheiten into v_preis, v_einheiten
+    from public.tier_laufzeiten tl
+   where tl.tier_id = v_tier and tl.laufzeit_monate = v_laufzeit;
+  if v_preis is null then
+    raise exception 'vertrag_abschliessen: kein Tarif fuer Paket und Laufzeit %', v_laufzeit
+      using errcode = 'P0001';
+  end if;
+
+  -- -------------------------------------------------------- Weg A: vor Ort
   if p_weg = 'vor_ort' then
-    if not exists (select 1 from vertrag_bankdaten where vertrag_id = p_vertrag_id) then
+    if v.status <> 'in_vorbereitung' then
+      raise exception 'vertrag_abschliessen: vor Ort geht nur aus der Vorbereitung (status=%)', v.status
+        using errcode = 'P0001';
+    end if;
+    if not exists (select 1 from public.vertrag_bankdaten where vertrag_id = p_vertrag_id) then
       raise exception 'vertrag_abschliessen: IBAN fehlt' using errcode = 'P0001';
     end if;
     if nullif(p_signatur_vertrag, '') is null or nullif(p_signatur_sepa, '') is null then
@@ -4121,7 +4124,7 @@ begin
     end if;
 
     select string_agg(d.schluessel, ', ') into v_fehlt
-      from vertrag_dokumente d
+      from public.vertrag_dokumente d
      where d.aktiv and d.pflicht
        and not exists (
          select 1 from jsonb_array_elements(p_zustimmungen) z
@@ -4131,36 +4134,180 @@ begin
         using errcode = 'P0001';
     end if;
 
-    insert into vertrag_zustimmungen
+    insert into public.vertrag_zustimmungen
       (vertrag_id, dokument_schluessel, dokument_version, akzeptiert_at, erfasst_von)
     select p_vertrag_id, z ->> 'schluessel', z ->> 'version',
            coalesce((z ->> 'akzeptiert_at')::timestamptz, now()), auth.uid()
       from jsonb_array_elements(p_zustimmungen) z
-    on conflict do nothing;
+    on conflict (vertrag_id, dokument_schluessel, dokument_version) do nothing;
 
-    insert into vertrag_unterschriften (vertrag_id, art, signatur) values
+    insert into public.vertrag_unterschriften (vertrag_id, art, signatur) values
       (p_vertrag_id, 'vertrag',     p_signatur_vertrag),
       (p_vertrag_id, 'sepa_mandat', p_signatur_sepa)
     on conflict (vertrag_id, art) do nothing;
-  elsif p_weg = 'papier' then
-    if p_unterschrieben_am is null then
-      raise exception 'vertrag_abschliessen: Abschlussdatum fehlt' using errcode = 'P0001';
-    end if;
+
+    p_unterschrieben_am := v_heute;
+    v_abweichung := false;
+
+  -- -------------------------------------------------------- Weg B/C: Papier
   else
-    raise exception 'vertrag_abschliessen: unbekannter Weg %', p_weg using errcode = '22023';
+    if v.status <> 'unterschrift_ausstehend' then
+      raise exception 'vertrag_abschliessen: Einpflegen geht nur bei versendeten Unterlagen (status=%)', v.status
+        using errcode = 'P0001';
+    end if;
+    if nullif(btrim(coalesce(p_scan_pfad, '')), '') is null then
+      raise exception 'vertrag_abschliessen: ohne hochgeladenen Scan kein Abschluss'
+        using errcode = 'P0001';
+    end if;
+    if p_unterschrieben_am is null or p_eingang_datum is null then
+      raise exception 'vertrag_abschliessen: Unterschriftsdatum und Eingangsdatum sind Pflicht'
+        using errcode = 'P0001';
+    end if;
+
+    -- Abgleich Soll/Ist. Weicht etwas ab, ist der Vermerk Pflicht — es gilt das
+    -- Papier, der Vermerk haelt fest, was die Eltern geaendert haben.
+    v_abweichung := (v_tier     is distinct from v.tier_id)
+                 or (v_laufzeit is distinct from v.laufzeit_monate)
+                 or (v_beginn   is distinct from v.vertragsbeginn);
+    if v_abweichung and nullif(btrim(coalesce(p_abweichung_vermerk, '')), '') is null then
+      raise exception 'vertrag_abschliessen: Abweichung zum versendeten Stand braucht einen Vermerk'
+        using errcode = 'P0001';
+    end if;
   end if;
 
+  -- -------------------------------------------------------- Ende und Frist
+  -- Einzige Quelle. Wirft, wenn die Rechnung ueber ferien_nrw hinauslaeuft.
+  select * into v_ende from public.vertrag_ende_berechnen(v_beginn, v_laufzeit);
+  v_widerruf := public.vertrag_widerruf_bis(v_beginn);
+
+  -- -------------------------------------------------------- Schuelerkonto
+  if v.student_id is not null then
+    -- Folgevertrag: das Kind gibt es schon, es bekommt kein zweites Konto.
+    v_student := v.student_id;
+
+    select id into v_vorgaenger
+      from public.vertraege
+     where student_id = v_student
+       and id <> p_vertrag_id
+       and vertrag_status is not null
+     order by vertrag_ende desc nulls last, abgeschlossen_am desc nulls last
+     limit 1;
+  else
+    v_kindname := nullif(btrim(concat_ws(' ', v.kind_vorname, v.kind_nachname)), '');
+
+    -- Der provisorische Schueler aus lead_lsa_freigeben traegt die LSA-Historie.
+    select id into v_student from public.students where lead_id = v.lead_id;
+
+    if p_student_uid is null then
+      raise exception 'vertrag_abschliessen: p_student_uid fehlt — das Auth-Konto legt die Edge Function an'
+        using errcode = '22023';
+    end if;
+
+    insert into public.profiles (id, email, role, full_name)
+    values (p_student_uid, p_student_email, 'student', v_kindname)
+    on conflict (id) do update
+      set email = excluded.email, role = 'student', full_name = excluded.full_name;
+
+    if p_parent_uid is not null then
+      insert into public.profiles (id, email, role, full_name)
+      values (p_parent_uid, p_parent_email, 'parent', null)
+      on conflict (id) do update set email = excluded.email, role = 'parent';
+      insert into public.parent_student (parent_id, student_id)
+      values (p_parent_uid, p_student_uid)
+      on conflict do nothing;
+    end if;
+
+    if v_student is null then
+      -- Kein Lead-Schueler (Antrag ohne LSA): neue Zeile wie bisher.
+      insert into public.students (profile_id, class_level, school_name)
+      values (p_student_uid, v.klasse, v.schule)
+      returning id into v_student;
+    else
+      -- Uebernahme: dieselbe Zeile, jetzt mit Konto. lead_id wird genullt,
+      -- damit eine spaetere Lead-Loeschung den Schueler nicht mitreisst.
+      update public.students
+         set profile_id     = p_student_uid,
+             is_provisional = false,
+             lead_id        = null,
+             class_level    = coalesce(v.klasse, class_level),
+             school_name    = coalesce(v.schule, school_name)
+       where id = v_student;
+    end if;
+
+    if v.fach is not null then
+      select id into v_subject from public.subjects where name = v.fach;
+      if v_subject is not null
+         and not exists (select 1 from public.student_subjects
+                          where student_id = v_student and subject_id = v_subject) then
+        insert into public.student_subjects (student_id, subject_id) values (v_student, v_subject);
+      end if;
+    end if;
+
+    update public.leads
+       set status = 'converted', converted_student_id = v_student
+     where id = v.lead_id;
+  end if;
+
+  -- Abo: eins je laufendem Vertrag. Der Guard verlangt, dass der Schueler
+  -- vorher nicht mehr provisorisch ist — deshalb steht es hier unten.
+  if not exists (select 1 from public.student_subscriptions
+                  where student_id = v_student and tier_id = v_tier and status = 'active') then
+    insert into public.student_subscriptions (student_id, tier_id) values (v_student, v_tier);
+  end if;
+
+  -- -------------------------------------------------------- Zugangscode
+  v_code := coalesce(v.zugangscode, public.zugangscode_erzeugen());
+
+  -- -------------------------------------------------------- Der Vertrag
   perform set_config('edvance.vertrag_rpc', '1', true);
-  update vertraege
-     set status = 'abgeschlossen',
-         abgeschlossen_at = now(),
-         abschluss_weg = p_weg,
-         unterschrieben_am = coalesce(p_unterschrieben_am,
-                                      (now() at time zone 'Europe/Berlin')::date),
-         glaeubiger_id = coalesce(glaeubiger_id,
-           (select glaeubiger_id from vertrag_einstellungen))
+
+  -- Zuerst der Vorgaenger: er ist verlaengert und faellt damit aus dem
+  -- Partial-Unique-Index. Andersherum schluegen beide Vertraege gleichzeitig
+  -- als "laufend" auf und der Index wuerde den Abschluss abweisen.
+  if v_vorgaenger is not null then
+    update public.vertraege
+       set verlaengerung_status = 'verlaengert'
+     where id = v_vorgaenger;
+  end if;
+
+  update public.vertraege
+     set status                 = 'abgeschlossen',
+         vertrag_status         = 'im_widerruf',
+         abgeschlossen_at       = now(),
+         abgeschlossen_am       = coalesce(p_unterschrieben_am, v_heute),
+         abschluss_weg          = p_weg,
+         unterschrieben_am      = p_unterschrieben_am,
+         eingang_datum          = p_eingang_datum,
+         scan_pfad              = coalesce(p_scan_pfad, scan_pfad),
+         abweichung_vermerk     = coalesce(nullif(btrim(coalesce(p_abweichung_vermerk, '')), ''),
+                                           abweichung_vermerk),
+         tier_id                = v_tier,
+         laufzeit_monate        = v_laufzeit,
+         vertragsbeginn         = v_beginn,
+         preis_cents            = v_preis,
+         einheiten              = v_einheiten,
+         vertrag_ende           = v_ende.ende,
+         ferientage             = v_ende.ferientage,
+         widerruf_bis           = v_widerruf,
+         zugangscode            = v_code,
+         zugangscode_erzeugt_am = coalesce(zugangscode_erzeugt_am, v_heute),
+         student_id             = v_student,
+         vorgaenger_id          = coalesce(vorgaenger_id, v_vorgaenger),
+         glaeubiger_id          = coalesce(glaeubiger_id,
+                                    (select glaeubiger_id from public.vertrag_einstellungen))
    where id = p_vertrag_id;
+
   perform set_config('edvance.vertrag_rpc', '', true);
+
+  return jsonb_build_object(
+    'ok', true,
+    'student_id',   v_student,
+    'zugangscode',  v_code,
+    'vertrag_ende', v_ende.ende,
+    'ferientage',   v_ende.ferientage,
+    'ferien',       to_jsonb(v_ende.ferien),
+    'widerruf_bis', v_widerruf,
+    'abweichung',   coalesce(v_abweichung, false));
 end;
 $$;
 
@@ -4313,24 +4460,26 @@ $$;
 
 CREATE FUNCTION public.vertrag_starten(p_lead_id uuid) RETURNS uuid
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_lead leads%rowtype;
-  v_id   uuid;
+  v_lead     leads%rowtype;
+  v_id       uuid;
+  v_schule   uuid;
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_starten: nur Admin' using errcode = '42501';
   end if;
 
-  select * into v_lead from leads where id = p_lead_id for update;
+  select * into v_lead from public.leads where id = p_lead_id for update;
   if not found then
     raise exception 'vertrag_starten: Lead nicht gefunden' using errcode = 'P0002';
   end if;
 
-  select id into v_id from vertraege where lead_id = p_lead_id and status <> 'abgelehnt';
+  select id into v_id from public.vertraege
+   where lead_id = p_lead_id and status <> 'abgelehnt';
   if v_id is not null then
-    return v_id;
+    return v_id;   -- idempotent: der Knopf darf zweimal gedrueckt werden
   end if;
 
   if v_lead.status <> 'lsa_fertig' then
@@ -4338,18 +4487,23 @@ begin
       using errcode = 'P0001';
   end if;
 
-  insert into vertraege (
+  select s.id into v_schule
+    from public.schulen s
+   where lower(s.name) = lower(btrim(coalesce(v_lead.school_name, '')))
+   limit 1;
+
+  insert into public.vertraege (
     created_by, lead_id, eltern_telefon, eltern_email,
-    kind_vorname, kind_nachname, kind_geburtsdatum, klasse, fach, schule
+    kind_vorname, kind_nachname, kind_geburtsdatum, klasse, fach, schule, schule_id
   ) values (
     auth.uid(), p_lead_id, v_lead.contact_phone, v_lead.contact_email,
     coalesce(v_lead.first_name, split_part(v_lead.full_name, ' ', 1)),
     nullif(regexp_replace(v_lead.full_name, '^\S+\s*', ''), ''),
-    v_lead.birth_date, v_lead.class_level, v_lead.subjects[1], v_lead.school_name
+    v_lead.birth_date, v_lead.class_level, v_lead.subjects[1], v_lead.school_name, v_schule
   )
   returning id into v_id;
 
-  update leads set status = 'vertrag' where id = p_lead_id;
+  update public.leads set status = 'vertrag' where id = p_lead_id;
   return v_id;
 end;
 $$;
@@ -4391,6 +4545,76 @@ begin
      where id = p_vertrag_id;
     perform set_config('edvance.vertrag_rpc', '', true);
   end if;
+end;
+$$;
+
+
+--
+-- Name: vertrag_versenden(uuid, text, text, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_versenden(p_vertrag_id uuid, p_weg text, p_empfaenger text DEFAULT NULL::text, p_rueckmeldung_bis date DEFAULT NULL::date) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v         vertraege%rowtype;
+  v_bis     date;
+  v_fehlt   text;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_versenden: nur Admin' using errcode = '42501';
+  end if;
+  if p_weg not in ('email', 'druck') then
+    raise exception 'vertrag_versenden: unbekannter Weg %', p_weg using errcode = '22023';
+  end if;
+
+  select * into v from public.vertraege where id = p_vertrag_id for update;
+  if not found then
+    raise exception 'vertrag_versenden: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+  if v.status = 'abgelehnt' then
+    raise exception 'vertrag_versenden: Vertrag ist abgelehnt' using errcode = 'P0001';
+  end if;
+  if v.status = 'abgeschlossen' then
+    raise exception 'vertrag_versenden: Vertrag ist bereits abgeschlossen' using errcode = 'P0001';
+  end if;
+  if v.tier_id is null or v.laufzeit_monate is null or v.vertragsbeginn is null then
+    raise exception 'vertrag_versenden: Paket, Laufzeit oder Vertragsbeginn fehlt'
+      using errcode = 'P0001';
+  end if;
+  if not exists (select 1 from public.vertrag_bankdaten where vertrag_id = p_vertrag_id) then
+    raise exception 'vertrag_versenden: IBAN fehlt' using errcode = 'P0001';
+  end if;
+
+  -- Fassungen festhalten: ALLE aktiven Dokumente, nicht nur die Pflichtstuecke.
+  -- Rechtlich notwendig ist das Buendel, nicht die Auswahl daraus.
+  insert into public.vertrag_zustimmungen
+    (vertrag_id, dokument_schluessel, dokument_version, akzeptiert_at, erfasst_von)
+  select p_vertrag_id, d.schluessel, d.version, now(), auth.uid()
+    from public.vertrag_dokumente d
+   where d.aktiv
+  on conflict (vertrag_id, dokument_schluessel, dokument_version) do nothing;
+
+  insert into public.vertrag_versand (vertrag_id, weg, anlass, empfaenger, erfolgt_von)
+  values (p_vertrag_id, p_weg, 'unterlagen', p_empfaenger, auth.uid());
+
+  v_bis := coalesce(p_rueckmeldung_bis,
+                    v.rueckmeldung_bis,
+                    (now() at time zone 'Europe/Berlin')::date + 14);
+
+  perform set_config('edvance.vertrag_rpc', '1', true);
+  update public.vertraege
+     set status = 'unterschrift_ausstehend',
+         unterschrift_ausstehend_at = coalesce(unterschrift_ausstehend_at, now()),
+         abschluss_weg   = 'papier',
+         rueckmeldung_bis = v_bis,
+         glaeubiger_id   = coalesce(glaeubiger_id,
+                             (select glaeubiger_id from public.vertrag_einstellungen))
+   where id = p_vertrag_id;
+  perform set_config('edvance.vertrag_rpc', '', true);
+
+  return jsonb_build_object('ok', true, 'rueckmeldung_bis', v_bis);
 end;
 $$;
 
@@ -5552,6 +5776,7 @@ CREATE TABLE public.vertraege (
     zugangscode text,
     zugangscode_erzeugt_am date,
     zugangscode_gesperrt_am date,
+    scan_pfad text,
     CONSTRAINT vertraege_abgelehnt_grund_check CHECK (((abgelehnt_grund IS NULL) OR (abgelehnt_grund = ANY (ARRAY['preis'::text, 'zeit'::text, 'anderer_anbieter'::text, 'kein_bedarf'::text, 'kein_kontakt'::text, 'sonstiges'::text])))),
     CONSTRAINT vertraege_abgelehnt_notiz_check CHECK (((abgelehnt_grund IS DISTINCT FROM 'sonstiges'::text) OR (NULLIF(btrim(abgelehnt_notiz), ''::text) IS NOT NULL))),
     CONSTRAINT vertraege_abschluss_weg_check CHECK (((abschluss_weg IS NULL) OR (abschluss_weg = ANY (ARRAY['vor_ort'::text, 'papier'::text])))),
@@ -5563,6 +5788,7 @@ CREATE TABLE public.vertraege (
     CONSTRAINT vertraege_klasse_check CHECK (((klasse IS NULL) OR ((klasse >= 5) AND (klasse <= 13)))),
     CONSTRAINT vertraege_laufzeit_check CHECK (((laufzeit_monate IS NULL) OR (laufzeit_monate = ANY (ARRAY[6, 12])))),
     CONSTRAINT vertraege_offener_betrag_nicht_negativ CHECK (((offener_betrag_cents IS NULL) OR (offener_betrag_cents >= 0))),
+    CONSTRAINT vertraege_scan_bei_papier CHECK (((status <> 'abgeschlossen'::text) OR (abschluss_weg IS DISTINCT FROM 'papier'::text) OR (NULLIF(btrim(scan_pfad), ''::text) IS NOT NULL))),
     CONSTRAINT vertraege_status_check CHECK ((status = ANY (ARRAY['in_vorbereitung'::text, 'unterschrift_ausstehend'::text, 'abgeschlossen'::text, 'abgelehnt'::text]))),
     CONSTRAINT vertraege_verlaengerung_status_check CHECK (((verlaengerung_status IS NULL) OR (verlaengerung_status = ANY (ARRAY['offen'::text, 'kontaktiert'::text, 'gespraech_vereinbart'::text, 'verlaengert'::text, 'keine_verlaengerung'::text])))),
     CONSTRAINT vertraege_vertrag_status_check CHECK (((vertrag_status IS NULL) OR (vertrag_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text, 'gekuendigt'::text, 'ausgelaufen'::text, 'widerrufen'::text])))),
@@ -6869,7 +7095,7 @@ CREATE INDEX vertraege_student_idx ON public.vertraege USING btree (student_id);
 -- Name: vertraege_student_laufend_uniq; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX vertraege_student_laufend_uniq ON public.vertraege USING btree (student_id) WHERE ((student_id IS NOT NULL) AND (vertrag_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text])));
+CREATE UNIQUE INDEX vertraege_student_laufend_uniq ON public.vertraege USING btree (student_id) WHERE ((student_id IS NOT NULL) AND (vertrag_status = ANY (ARRAY['im_widerruf'::text, 'aktiv'::text])) AND (verlaengerung_status IS DISTINCT FROM 'verlaengert'::text));
 
 
 --

@@ -2,6 +2,7 @@
 
 import type { Vertrag, VertragMitLead, VertragStatus } from '@/types'
 import { daysWaiting, followUpDays, type AgeDisplay, type LeadFilters } from '../leads/boardModel'
+import type { VertragFormState } from './vertragForm'
 
 export type VertragColumnKey = 'vorbereitung' | 'ausstehend' | 'abgeschlossen' | 'archiv'
 
@@ -80,7 +81,14 @@ export function vertraegeForColumn(
     .sort((a, b) => since(a) - since(b))
 }
 
-/** Pflichtangaben fuer Unterschrift und Versand (Schule und Kontoinhaber sind optional). */
+/**
+ * Pflichtangaben der Strecke. Alles ist Pflicht ausser dem Telefon der Eltern
+ * und der Schule des Kindes — die beiden fehlen im Alltag oft und halten sonst
+ * einen Vertrag auf, der sonst vollstaendig ist.
+ *
+ * Die IBAN steht nicht in der Liste, weil sie nicht am Vertrag haengt, sondern
+ * in vertrag_bankdaten; fehlendeAngaben() haengt sie separat an.
+ */
 export const PFLICHTFELDER = [
   'eltern_vorname',
   'eltern_nachname',
@@ -88,7 +96,6 @@ export const PFLICHTFELDER = [
   'hausnummer',
   'plz',
   'ort',
-  'eltern_telefon',
   'eltern_email',
   'kind_vorname',
   'kind_nachname',
@@ -98,6 +105,7 @@ export const PFLICHTFELDER = [
   'laufzeit_monate',
   'tier_id',
   'vertragsbeginn',
+  'kontoinhaber',
 ] as const satisfies readonly (keyof Vertrag)[]
 
 export type Pflichtfeld = (typeof PFLICHTFELDER)[number] | 'iban'
@@ -109,5 +117,21 @@ export function fehlendeAngaben(v: Vertrag, hatIban: boolean): Pflichtfeld[] {
     return wert === null || (typeof wert === 'string' && wert.trim() === '')
   })
   if (!hatIban) fehlt.push('iban')
+  return fehlt
+}
+
+/**
+ * Dasselbe auf dem, was gerade im Formular steht.
+ *
+ * Getrennt von fehlendeAngaben(), weil "Daten speichern" pruefen muss, was der
+ * Admin eingetippt hat — nicht, was zuletzt gespeichert wurde. Sonst meldet der
+ * Knopf ein Feld als fehlend, das direkt daneben ausgefuellt dasteht.
+ *
+ * `hatIban` deckt die schon hinterlegte IBAN ab; eine neu eingetippte steht in
+ * form.iban und zaehlt genauso.
+ */
+export function fehlendeFormAngaben(form: VertragFormState, hatIban: boolean): Pflichtfeld[] {
+  const fehlt: Pflichtfeld[] = PFLICHTFELDER.filter((feld) => form[feld].trim() === '')
+  if (!hatIban && form.iban.trim() === '') fehlt.push('iban')
   return fehlt
 }

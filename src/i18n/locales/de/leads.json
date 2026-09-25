@@ -18,11 +18,26 @@
     "archive": "Archiv anzeigen"
   },
   "columns": {
-    "neu": { "title": "Offene Leads", "empty": "Keine offenen Leads." },
-    "gespraech": { "title": "Termin vereinbart", "empty": "Noch kein Termin vereinbart." },
-    "analyse": { "title": "Analyse", "empty": "Keine Analyse unterwegs." },
-    "entscheidung": { "title": "Analyse abgeschlossen", "empty": "Keine abgeschlossene Analyse." },
-    "archiv": { "title": "Archiv", "empty": "Archiv ist leer." }
+    "neu": {
+      "title": "Offene Leads",
+      "empty": "Keine offenen Leads."
+    },
+    "gespraech": {
+      "title": "Termin vereinbart",
+      "empty": "Noch kein Termin vereinbart."
+    },
+    "analyse": {
+      "title": "Analyse",
+      "empty": "Keine Analyse unterwegs."
+    },
+    "entscheidung": {
+      "title": "Analyse abgeschlossen",
+      "empty": "Keine abgeschlossene Analyse."
+    },
+    "archiv": {
+      "title": "Archiv",
+      "empty": "Archiv ist leer."
+    }
   },
   "age": {
     "sinceToday": "seit heute",
@@ -42,8 +57,8 @@
     "assignPlatz": "Platz vergeben",
     "analysisRunning": "Analyse läuft — Ergebnis abwarten.",
     "reject": "Ablehnen",
-    "startContract": "Vertrag starten",
-    "startingContract": "Startet …",
+    "startContract": "Vertragsprozess",
+    "startingContract": "Wird angelegt …",
     "startContractAdminOnly": "Verträge startet die Verwaltung (Admin).",
     "report": "Eltern-Report ansehen",
     "termin": "Erstgespräch: {{date}}",
@@ -79,11 +94,5 @@
     "kein_bedarf": "Kein Bedarf mehr",
     "kein_kontakt": "Kein Kontakt zustande gekommen",
     "sonstiges": "Sonstiges"
-  },
-  "convert": {
-    "action": "In Schüler konvertieren",
-    "passwordLabel": "Schüler-Passwort für {{name}} (min. 6 Zeichen) – dem Schüler persönlich mitteilen",
-    "confirm": "Bestätigen",
-    "converting": "Konvertiert …"
   }
 }

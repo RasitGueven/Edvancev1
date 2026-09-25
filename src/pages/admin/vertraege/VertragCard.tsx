@@ -7,7 +7,6 @@ import { formatDateOnly } from '@/lib/datetime'
 import type { VertragMitLead } from '@/types'
 import { AgeLine } from '../leads/AgeLine'
 import { CardMenu, type CardMenuItem } from '../leads/CardMenu'
-import { PapierAbschluss } from './PapierAbschluss'
 import { formatEuro } from './VertragForm'
 import { elternName, kindName, vertragAge, vertragFollowUp } from './vertragModel'
 import { openUnterlagen } from './vertragUi'
@@ -17,33 +16,21 @@ type VertragCardProps = {
   /** Name des Pakets aus tiers, falls gewaehlt. */
   paket: string | null
   busy: boolean
-  onPaperSigned: (vertrag: VertragMitLead, unterschriebenAm: string) => void
   onReject: (vertrag: VertragMitLead) => void
-  onConvert: (vertrag: VertragMitLead) => void
 }
 
-export function VertragCard({
-  vertrag,
-  paket,
-  busy,
-  onPaperSigned,
-  onReject,
-  onConvert,
-}: VertragCardProps): JSX.Element {
+export function VertragCard({ vertrag, paket, busy, onReject }: VertragCardProps): JSX.Element {
   const { t, i18n } = useTranslation('vertraege')
   const { t: tl } = useTranslation('leads')
   const eltern = elternName(vertrag)
   const telefon = vertrag.eltern_telefon ?? vertrag.lead.contact_phone
   const offen = vertrag.status === 'in_vorbereitung' || vertrag.status === 'unterschrift_ausstehend'
-  const konvertierbar =
-    vertrag.status === 'abgeschlossen' &&
-    vertrag.lead.converted_student_id === null &&
-    vertrag.lead.status !== 'converted'
 
-  const menuItems: CardMenuItem[] = [
-    ...(konvertierbar ? [{ label: tl('convert.action'), onSelect: () => onConvert(vertrag) }] : []),
-    ...(offen ? [{ label: t('card.reject'), onSelect: () => onReject(vertrag), danger: true }] : []),
-  ]
+  // Kein "In Schueler konvertieren" mehr: Das Konto entsteht beim Abschluss,
+  // nicht als eigener Schritt danach.
+  const menuItems: CardMenuItem[] = offen
+    ? [{ label: t('card.reject'), onSelect: () => onReject(vertrag), danger: true }]
+    : []
 
   return (
     <EdvanceCard className="flex min-w-0 flex-col gap-3 p-4">
@@ -100,11 +87,9 @@ export function VertragCard({
         </Button>
       )}
       {vertrag.status === 'unterschrift_ausstehend' && (
-        <PapierAbschluss
-          idPrefix={`card-${vertrag.id}`}
-          saving={busy}
-          onConfirm={(datum) => onPaperSigned(vertrag, datum)}
-        />
+        <Button size="sm" disabled={busy} asChild>
+          <Link to={`/admin/vertraege/${vertrag.id}`}>{t('card.einpflegen')}</Link>
+        </Button>
       )}
       {(vertrag.status === 'unterschrift_ausstehend' || vertrag.status === 'abgeschlossen') && (
         <Button size="sm" variant="outline" onClick={() => openUnterlagen(vertrag.id)}>

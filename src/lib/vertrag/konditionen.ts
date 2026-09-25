@@ -31,3 +31,28 @@ export function kondition(tier: TierPlan | null, laufzeitMonate: number | null):
     gesamt_cents: gesamtCents(zeile.preis_cents, zeile.laufzeit_monate),
   }
 }
+
+/** Ein Paket, wie es in der Auswahl steht — mit den Zahlen der Laufzeit. */
+export type PaketOption = {
+  id: string
+  name: string
+  /** null, solange keine Laufzeit gewaehlt ist oder der Tarif dafuer keine Zeile hat. */
+  kondition: Kondition | null
+}
+
+/**
+ * Die Pakete zur GEWAEHLTEN Laufzeit.
+ *
+ * Vorher zeigte die Paketauswahl `tiers.price_cents` — den Referenzpreis, der
+ * dem Jahrespaket entspricht und sich beim Laufzeitwechsel nie aendert. Wer
+ * auf Halbjahr umstellte, sah darunter Beitrag und Einheiten springen, in der
+ * Auswahl darueber aber weiter den Jahrespreis. Die Auswahl muss dieselbe
+ * Quelle lesen wie alles andere: tier_laufzeiten.
+ */
+export function paketOptionen(tiers: TierPlan[], laufzeitMonate: number | null): PaketOption[] {
+  return tiers.map((tier) => ({
+    id: tier.id,
+    name: tier.name,
+    kondition: kondition(tier, laufzeitMonate),
+  }))
+}

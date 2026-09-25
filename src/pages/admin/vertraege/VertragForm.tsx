@@ -3,12 +3,18 @@ import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { formatDateOnly } from '@/lib/datetime'
 import { SELECT_MD } from '@/lib/formStyles'
+import type { Schule } from '@/lib/supabase/schulen'
+import type { VertragEnde } from '@/lib/supabase/vertragEnde'
 import { isValidIban } from '@/lib/vertrag/iban'
-import { kondition } from '@/lib/vertrag/konditionen'
+import { kondition, paketOptionen } from '@/lib/vertrag/konditionen'
 import type { TierPlan } from '@/types'
 import { CLASS_LEVELS, SUBJECTS } from '../intake/intakeConstants'
+import { EndeVorschau } from './EndeVorschau'
+import { SchuleAuswahl } from './SchuleAuswahl'
 import type { VertragFormState } from './vertragForm'
+import { PFLICHTFELDER } from './vertragModel'
 
 type VertragFormProps = {
   form: VertragFormState
@@ -18,6 +24,13 @@ type VertragFormProps = {
   ibanMasked: string | null
   mandatsreferenz: string
   glaeubigerId: string | null
+  schulen: Schule[]
+  onSchuleAngelegt: (schule: Schule) => void
+  /** Monatserste zur Auswahl — Vertragsbeginn ist nie ein freies Datum. */
+  beginnOptionen: string[]
+  /** Vorschau aus vertrag_ende_berechnen; null, solange etwas fehlt. */
+  ende: VertragEnde | null
+  endeFehler: string | null
 }
 
 const LAUFZEITEN = [6, 12] as const
@@ -29,7 +42,7 @@ export function formatEuro(cents: number, locale: string): string {
 function Section({ title, children }: { title: string; children: ReactNode }): JSX.Element {
   return (
     <EdvanceCard className="flex flex-col gap-4 p-6">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         {title}
       </h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">{children}</div>
@@ -41,20 +54,30 @@ function Feld({
   id,
   label,
   hint,
+  pflicht = false,
   wide = false,
   children,
 }: {
   id: string
   label: string
   hint?: string | null
+  /** Pflichtangabe — Sternchen wie in den uebrigen Formularen des Repos. */
+  pflicht?: boolean
   wide?: boolean
   children: ReactNode
 }): JSX.Element {
   return (
     <div className={`flex flex-col gap-2 ${wide ? 'sm:col-span-2' : ''}`}>
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id}>
+        {label}
+        {pflicht && (
+          <span aria-hidden="true" className="text-[var(--color-error-exam)]">
+            {' *'}
+          </span>
+        )}
+      </Label>
       {children}
-      {hint && <p className="text-xs text-[var(--color-text-muted)]">{hint}</p>}
+      {hint && <p className="text-xs text-[var(--color-text-tertiary)]">{hint}</p>}
     </div>
   )
 }
@@ -72,15 +95,33 @@ export function VertragForm({
   ibanMasked,
   mandatsreferenz,
   glaeubigerId,
+  schulen,
+  onSchuleAngelegt,
+  beginnOptionen,
+  ende,
+  endeFehler,
 }: VertragFormProps): JSX.Element {
   const { t, i18n } = useTranslation('vertraege')
   const tier = tiers.find((x) => x.id === form.tier_id) ?? null
-  const k = kondition(tier, form.laufzeit_monate === '' ? null : Number(form.laufzeit_monate))
+  const laufzeit = form.laufzeit_monate === '' ? null : Number(form.laufzeit_monate)
+  const k = kondition(tier, laufzeit)
+  // Die Auswahl zeigt die Zahlen der GEWAEHLTEN Laufzeit, nicht den
+  // Referenzpreis aus tiers — der entspricht dem Jahrespaket und stand beim
+  // Halbjahr falsch da.
+  const pakete = paketOptionen(tiers, laufzeit)
   const euro = (cents: number): string => formatEuro(cents, i18n.language)
   const ibanInvalid = form.iban.trim() !== '' && !isValidIban(form.iban)
 
+  const istPflicht = (feld: string): boolean =>
+    (PFLICHTFELDER as readonly string[]).includes(feld)
+
   const text = (feld: keyof VertragFormState, opts: { type?: string; wide?: boolean } = {}) => (
-    <Feld id={`vertrag-${feld}`} label={t(`field.${feld}`)} wide={opts.wide}>
+    <Feld
+      id={`vertrag-${feld}`}
+      label={t(`field.${feld}`)}
+      wide={opts.wide}
+      pflicht={istPflicht(feld)}
+    >
       <Input
         id={`vertrag-${feld}`}
         type={opts.type ?? 'text'}
@@ -140,30 +181,22 @@ export function VertragForm({
             ))}
           </select>
         </Feld>
-        {text('schule')}
+        <Feld id="vertrag-schule" label={t('field.schule')} wide>
+          <SchuleAuswahl
+            schulen={schulen}
+            value={form.schule_id}
+            readOnly={readOnly}
+            freitext={form.schule}
+            onChange={(id, name) => onChange({ schule_id: id, schule: name })}
+            onAngelegt={onSchuleAngelegt}
+          />
+        </Feld>
       </Section>
 
       <Section title={t('form.contract')}>
-        <Feld id="vertrag-tier" label={t('field.tier_id')}>
-          <select
-            id="vertrag-tier"
-            className={SELECT_MD}
-            value={form.tier_id}
-            disabled={readOnly}
-            onChange={(e) => onChange({ tier_id: e.target.value })}
-          >
-            <option value="">{t('form.choose')}</option>
-            {tiers.map((x) => (
-              <option key={x.id} value={x.id}>
-                {t('form.tierOption', {
-                  name: x.name,
-                  price: formatEuro(x.price_cents, i18n.language),
-                })}
-              </option>
-            ))}
-          </select>
-        </Feld>
-        <Feld id="vertrag-laufzeit" label={t('field.laufzeit_monate')}>
+        {/* Laufzeit steht VOR dem Paket: erst sie legt fest, welche Preise und
+            Einheiten die Paketauswahl ueberhaupt zeigen kann. */}
+        <Feld id="vertrag-laufzeit" label={t('field.laufzeit_monate')} pflicht>
           <select
             id="vertrag-laufzeit"
             className={SELECT_MD}
@@ -175,6 +208,33 @@ export function VertragForm({
             {LAUFZEITEN.map((m) => (
               <option key={m} value={m}>
                 {t(`form.laufzeitOption.${m}`)}
+              </option>
+            ))}
+          </select>
+        </Feld>
+        <Feld
+          id="vertrag-tier"
+          label={t('field.tier_id')}
+          pflicht
+          hint={laufzeit === null ? t('form.tierNeedsLaufzeit') : null}
+        >
+          <select
+            id="vertrag-tier"
+            className={SELECT_MD}
+            value={form.tier_id}
+            disabled={readOnly || laufzeit === null}
+            onChange={(e) => onChange({ tier_id: e.target.value })}
+          >
+            <option value="">{t('form.choose')}</option>
+            {pakete.map((x) => (
+              <option key={x.id} value={x.id}>
+                {x.kondition
+                  ? t('form.tierOption', {
+                      name: x.name,
+                      price: euro(x.kondition.preis_cents),
+                      einheiten: x.kondition.einheiten,
+                    })
+                  : x.name}
               </option>
             ))}
           </select>
@@ -197,13 +257,40 @@ export function VertragForm({
             {k ? k.einheiten : '—'}
           </p>
         </Feld>
-        {text('vertragsbeginn', { type: 'date' })}
+        <Feld
+          id="vertrag-vertragsbeginn"
+          label={t('field.vertragsbeginn')}
+          hint={t('form.beginnHint')}
+        >
+          <select
+            id="vertrag-vertragsbeginn"
+            className={SELECT_MD}
+            value={form.vertragsbeginn}
+            disabled={readOnly}
+            onChange={(e) => onChange({ vertragsbeginn: e.target.value })}
+          >
+            <option value="">{t('form.choose')}</option>
+            {beginnOptionen.map((tag) => (
+              <option key={tag} value={tag}>
+                {formatDateOnly(tag, i18n.language)}
+              </option>
+            ))}
+          </select>
+        </Feld>
+        <div className="sm:col-span-2">
+          <EndeVorschau
+            ende={ende}
+            fehler={endeFehler}
+            laufzeitMonate={form.laufzeit_monate === '' ? null : Number(form.laufzeit_monate)}
+          />
+        </div>
       </Section>
 
       <Section title={t('form.sepa')}>
         <Feld
           id="vertrag-iban"
           label={t('field.iban')}
+          pflicht
           wide
           hint={
             ibanInvalid
@@ -223,7 +310,13 @@ export function VertragForm({
             onChange={(e) => onChange({ iban: e.target.value })}
           />
         </Feld>
-        <Feld id="vertrag-kontoinhaber" label={t('field.kontoinhaber')} hint={t('form.accountHolderHint')} wide>
+        <Feld
+          id="vertrag-kontoinhaber"
+          label={t('field.kontoinhaber')}
+          hint={t('form.accountHolderHint')}
+          pflicht
+          wide
+        >
           <Input
             id="vertrag-kontoinhaber"
             value={form.kontoinhaber}

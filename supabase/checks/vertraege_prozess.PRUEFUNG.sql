@@ -1,4 +1,4 @@
--- PRUEFUNG: Vertragsprozess (Migration 20260922120000).
+-- PRUEFUNG: Vertragsprozess (Migrationen 20260922120000, 20260925120000/140000).
 -- Laeuft komplett in einer Transaktion und rollt am Ende zurueck.
 -- Testdaten mit Praefix ZZ_. Claims mit Rolle — ohne 'role' gilt der Aufruf
 -- als Systemaufruf.
@@ -15,8 +15,16 @@ declare
   v_text   text;
   v_ok     boolean;
   v_alle   jsonb;
+  v_kind   uuid := gen_random_uuid();
+  v_beginn date := (date_trunc('month', current_date) + interval '1 month')::date;
 begin
   select id into v_admin from profiles where role = 'admin' limit 1;
+
+  -- Auth-Konto fuer den Abschluss. Die RPC legt das Profil an, den auth-User
+  -- legt sonst die Edge Function an — hier von Hand, alles im Rollback.
+  insert into auth.users (id, email, instance_id, aud, role)
+  values (v_kind, 'zz_pruefung_kind@edvance.invalid',
+          '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated');
   perform set_config('request.jwt.claims',
     json_build_object('sub', v_admin, 'role', 'authenticated')::text, true);
 
@@ -50,7 +58,7 @@ begin
   -- 3. Preis kommt aus dem Tarif und laesst sich nicht direkt setzen.
   update vertraege
      set tier_id = (select id from tiers where name = 'Standard'),
-         laufzeit_monate = 12, vertragsbeginn = current_date
+         laufzeit_monate = 12, vertragsbeginn = v_beginn
    where id = v1;
   update vertraege set preis_cents = 1, einheiten = 1 where id = v1;
   select preis_cents into v_n from vertraege where id = v1;
@@ -75,7 +83,9 @@ begin
   -- 5. Abschluss vor Ort ohne Haekchen scheitert.
   v_ok := false;
   begin
-    perform public.vertrag_abschliessen(v1, 'vor_ort', '[]'::jsonb, 'data:a', 'data:b');
+    perform public.vertrag_abschliessen(v1, 'vor_ort', '[]'::jsonb, 'data:a', 'data:b',
+                                       p_student_uid   => v_kind,
+                                       p_student_email => 'zz_pruefung_kind@edvance.invalid');
   exception when sqlstate 'P0001' then
     v_ok := true;
   end;
@@ -86,8 +96,12 @@ begin
   select jsonb_agg(jsonb_build_object('schluessel', schluessel, 'version', version,
                                       'akzeptiert_at', now()))
     into v_alle from vertrag_dokumente where aktiv and pflicht;
-  perform public.vertrag_abschliessen(v1, 'vor_ort', v_alle, 'data:a', 'data:b');
-  perform public.vertrag_abschliessen(v1, 'vor_ort', v_alle, 'data:a', 'data:b');
+  perform public.vertrag_abschliessen(v1, 'vor_ort', v_alle, 'data:a', 'data:b',
+                                     p_student_uid   => v_kind,
+                                     p_student_email => 'zz_pruefung_kind@edvance.invalid');
+  perform public.vertrag_abschliessen(v1, 'vor_ort', v_alle, 'data:a', 'data:b',
+                                     p_student_uid   => v_kind,
+                                     p_student_email => 'zz_pruefung_kind@edvance.invalid');
   select status into v_text from vertraege where id = v1;
   assert v_text = 'abgeschlossen', 'Status nicht abgeschlossen';
   select count(*) into v_n from vertrag_zustimmungen where vertrag_id = v1;

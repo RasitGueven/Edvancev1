@@ -218,7 +218,13 @@ begin
   r := public.lead_lsa_freigeben(v_lead, 13, 'Mathematik');
   sK := (r ->> 'session_id')::uuid;
   select student_id into sStud from lsa_sessions where id=sK;
-  perform public.lead_convert(v_lead);                 -- setzt converted_student_id, flippt Schueler
+  -- Fruehere Fassung rief hier lead_convert(). Die Funktion ist mit
+  -- 20260925140000 entfallen; den Flip macht jetzt vertrag_abschliessen als
+  -- Teil des Vertragsabschlusses. Fuer diese Pruefung zaehlt nur der Zustand
+  -- danach, deshalb steht er hier direkt — der Abschluss selbst hat seine
+  -- eigene Pruefung in supabase/checks/vertrag_abschluss.PRUEFUNG.sql.
+  update students set is_provisional = false, lead_id = null where id = sStud;
+  update leads set status = 'converted', converted_student_id = sStud where id = v_lead;
   perform public.lsa_uebernahme(sK, sStud);            -- setzt konvertiert_am + Sitzungs-Spur
   select converted_student_id into v_txt from leads where id=v_lead;
   if v_txt::uuid <> sStud then raise exception 'P13 lead.converted_student_id falsch'; end if;

@@ -17,6 +17,7 @@ export const TEXT_FELDER = [
   'kind_geburtsdatum',
   'fach',
   'schule',
+  'schule_id',
   'tier_id',
   'vertragsbeginn',
   'kontoinhaber',

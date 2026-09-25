@@ -23,6 +23,9 @@ Klasse {{klasse}} · Fach {{fach}} · Schule: {{schule}}
 - Monatlicher Beitrag: **{{preis}}**, **{{beitraege}}** Beiträge
 - Gesamtpreis: **{{gesamtpreis}}**
 - Vertragsbeginn: **{{vertragsbeginn}}**
+- Vertragsende: **{{vertragsende}}**
+
+{{ferienklausel}}
 
 ## Weitere Regelungen
 
