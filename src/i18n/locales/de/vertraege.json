@@ -52,7 +52,7 @@
     "sepa": "SEPA-Lastschriftmandat",
     "choose": "Bitte wählen",
     "classOption": "{{level}}. Klasse",
-    "tierOption": "{{name}} – ab {{price}} / Monat",
+    "tierOption": "{{name}} – {{price}} / Monat · {{einheiten}} Einheiten",
     "months_one": "{{count}} Monat",
     "months_other": "{{count}} Monate",
     "priceHint": "Ergibt sich aus Paket und Laufzeit.",
@@ -69,7 +69,9 @@
     "creditorMissing": "Noch nicht hinterlegt",
     "save": "Daten speichern",
     "saved": "Gespeichert",
-    "beginnHint": "Ein Vertrag beginnt immer am Ersten eines Monats."
+    "beginnHint": "Ein Vertrag beginnt immer am Ersten eines Monats.",
+    "tierNeedsLaufzeit": "Erst die Laufzeit wählen — davon hängen Beitrag und Einheiten ab.",
+    "missingHint": "Es fehlt noch: {{fields}}"
   },
   "field": {
     "eltern_vorname": "Vorname",
@@ -184,10 +186,6 @@
     "rueckmeldungHint": "Standard sind zwei Wochen, also {{date}}.",
     "printDocs": "Unterlagen ausdrucken",
     "markSent": "Als versendet festhalten",
-    "account": "Zugang des Kindes",
-    "passwordLabel": "Passwort für das Schülerkonto (mind. 6 Zeichen)",
-    "passwordHint": "Wird beim Abschluss angelegt und dem Kind persönlich mitgeteilt — nie per Mail.",
-    "passwordMissing": "Passwort fehlt (mind. 6 Zeichen)",
     "toSignature": "Zur Unterschrift"
   },
   "ende": {

@@ -20,7 +20,7 @@ export function ZugangscodeKarte({ code, erzeugtAm, gesperrtAm }: ZugangscodeKar
     <EdvanceCard className="flex flex-col gap-2 p-6">
       <div className="flex items-center gap-2">
         <KeyRound className="h-5 w-5 text-[var(--color-primary)]" />
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('code.title')}
         </h2>
       </div>
@@ -32,7 +32,7 @@ export function ZugangscodeKarte({ code, erzeugtAm, gesperrtAm }: ZugangscodeKar
           {t('code.blocked', { date: formatDateOnly(gesperrtAm, i18n.language) })}
         </p>
       ) : (
-        <p className="text-xs text-[var(--color-text-muted)]">
+        <p className="text-xs text-[var(--color-text-tertiary)]">
           {erzeugtAm
             ? t('code.created', { date: formatDateOnly(erzeugtAm, i18n.language) })
             : t('code.hint')}

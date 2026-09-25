@@ -36,7 +36,7 @@ export function WizardKopf({ aktuell, erreichbar, onSpringe }: WizardKopfProps):
                   ? 'bg-[var(--color-primary)] text-[var(--color-text-inverse)]'
                   : offen
                     ? 'bg-[var(--color-bg-app)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
-                    : 'bg-[var(--color-bg-app)] text-[var(--color-text-muted)]',
+                    : 'bg-[var(--color-bg-app)] text-[var(--color-text-tertiary)]',
               ].join(' ')}
             >
               {t(`wizard.step${s}`)}

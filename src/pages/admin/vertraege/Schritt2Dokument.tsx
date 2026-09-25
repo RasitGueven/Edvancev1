@@ -56,7 +56,7 @@ export function Schritt2Dokument({
   return (
     <EdvanceCard className="flex flex-col gap-4 p-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('wizard.step2Title')}
         </h2>
         <Button size="sm" variant="outline" onClick={() => openUnterlagen(vertrag.id)}>

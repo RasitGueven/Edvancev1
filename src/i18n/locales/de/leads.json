@@ -94,11 +94,5 @@
     "kein_bedarf": "Kein Bedarf mehr",
     "kein_kontakt": "Kein Kontakt zustande gekommen",
     "sonstiges": "Sonstiges"
-  },
-  "convert": {
-    "action": "In Schüler konvertieren",
-    "passwordLabel": "Schüler-Passwort für {{name}} (min. 6 Zeichen) – dem Schüler persönlich mitteilen",
-    "confirm": "Bestätigen",
-    "converting": "Konvertiert …"
   }
 }

@@ -244,9 +244,12 @@ export function VertragPage(): JSX.Element {
                   ende={ende}
                   endeFehler={endeFehler}
                 />
+                {datenSperre && (
+                  <p className="text-sm text-[var(--color-text-tertiary)]">{datenSperre}</p>
+                )}
                 <div className="flex flex-wrap items-center justify-end gap-4">
                   {saved && !dirty && (
-                    <p className="text-xs text-[var(--color-text-muted)]">{t('form.saved')}</p>
+                    <p className="text-xs text-[var(--color-text-tertiary)]">{t('form.saved')}</p>
                   )}
                   <Button
                     variant="outline"
@@ -275,8 +278,15 @@ export function VertragPage(): JSX.Element {
                   dokumente={stamm.dokumente}
                   ende={ende}
                 />
-                <div className="flex justify-end">
-                  <Button onClick={() => setSchritt(3)}>{t('wizard.next')}</Button>
+                <div className="flex flex-col items-end gap-2">
+                  {datenSperre && (
+                    <p className="text-sm text-[var(--color-text-tertiary)]">{datenSperre}</p>
+                  )}
+                  <span title={datenSperre ?? undefined}>
+                    <Button disabled={datenSperre !== null} onClick={() => setSchritt(3)}>
+                      {t('wizard.next')}
+                    </Button>
+                  </span>
                 </div>
               </>
             )}
@@ -284,7 +294,10 @@ export function VertragPage(): JSX.Element {
             {schritt === 3 && (
               <>
                 <Schritt3Weg wahl={wahl} onWahl={setWahl} disabled={saving} />
-                <div className="flex justify-end">
+                <div className="flex flex-col items-end gap-2">
+                  {wahl === null && (
+                    <p className="text-sm text-[var(--color-text-tertiary)]">{t('wizard.wegMissing')}</p>
+                  )}
                   <span title={wahl === null ? t('wizard.wegMissing') : undefined}>
                     <Button disabled={wahl === null} onClick={() => setSchritt(4)}>
                       {t('wizard.next')}
@@ -300,14 +313,13 @@ export function VertragPage(): JSX.Element {
                 dokumente={stamm.dokumente}
                 datenSperre={datenSperre}
                 saving={saving}
-                onAbschluss={(zustimmungen, signaturVertrag, signaturSepa, passwort) =>
+                onAbschluss={(zustimmungen, signaturVertrag, signaturSepa) =>
                   void run(() =>
                     vertragAbschliessen(vertrag.id, {
                       weg: 'vor_ort',
                       zustimmungen,
                       signaturVertrag,
                       signaturSepa,
-                      studentPassword: passwort,
                     }),
                   )
                 }
@@ -359,7 +371,6 @@ export function VertragPage(): JSX.Element {
                   tierId: eingabe.tierId,
                   laufzeitMonate: eingabe.laufzeitMonate,
                   vertragsbeginn: eingabe.vertragsbeginn,
-                  studentPassword: eingabe.passwort,
                 }),
               )
             }

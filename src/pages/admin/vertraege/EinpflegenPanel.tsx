@@ -9,6 +9,7 @@ import { berlinToday, formatDateOnly } from '@/lib/datetime'
 import { uploadScan } from '@/lib/supabase/vertragScan'
 import { SELECT_MD, TEXTAREA_MD } from '@/lib/formStyles'
 import { abweichendeFelder, type AbgleichStand } from '@/lib/vertrag/abgleich'
+import { paketOptionen } from '@/lib/vertrag/konditionen'
 import type { TierPlan, Vertrag } from '@/types'
 import { formatEuro } from './VertragForm'
 
@@ -25,13 +26,11 @@ type EinpflegenProps = {
     tierId: string
     laufzeitMonate: number
     vertragsbeginn: string
-    passwort: string
   }) => void
   onNichtZustande: () => void
 }
 
 const LAUFZEITEN = [6, 12] as const
-const PASSWORT_MIN = 6
 
 /**
  * Einpflegen eines Ruecklaufs (Anforderung F).
@@ -59,7 +58,6 @@ export function EinpflegenPanel({
   const [unterschriebenAm, setUnterschriebenAm] = useState('')
   const [eingangDatum, setEingangDatum] = useState(berlinToday())
   const [vermerk, setVermerk] = useState(vertrag.abweichung_vermerk ?? '')
-  const [passwort, setPasswort] = useState('')
 
   const soll: AbgleichStand = {
     tier_id: vertrag.tier_id,
@@ -91,7 +89,6 @@ export function EinpflegenPanel({
     eingangDatum === '' ? t('einpflegen.missingReceived') : null,
     tierId === '' || laufzeit === '' || beginn === '' ? t('einpflegen.missingTerms') : null,
     abweichend.length > 0 && vermerk.trim() === '' ? t('einpflegen.missingNote') : null,
-    passwort.length < PASSWORT_MIN ? t('wizard.passwordMissing') : null,
   ].filter((x): x is string => x !== null)
 
   const sperre = fehlt.length > 0 ? fehlt.join(' · ') : null
@@ -114,7 +111,7 @@ export function EinpflegenPanel({
         <p
           className={`flex min-h-[44px] items-center text-sm ${
             abweichend.includes(feld)
-              ? 'text-[var(--color-text-muted)] line-through'
+              ? 'text-[var(--color-text-tertiary)] line-through'
               : 'text-[var(--color-text-primary)]'
           }`}
         >
@@ -122,7 +119,10 @@ export function EinpflegenPanel({
         </p>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor={`ist-${feld}`}>{t('einpflegen.ist', { feld: t(`field.${feld}`) })}</Label>
+        <Label htmlFor={`ist-${feld}`}>
+          {t('einpflegen.ist', { feld: t(`field.${feld}`) })}
+          <span aria-hidden="true" className="text-[var(--color-error-exam)]">{' *'}</span>
+        </Label>
         {eingabe}
       </div>
     </div>
@@ -131,7 +131,7 @@ export function EinpflegenPanel({
   return (
     <div className="flex flex-col gap-4">
       <EdvanceCard className="flex flex-col gap-4 p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('einpflegen.scanTitle')}
         </h2>
         <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
@@ -161,29 +161,10 @@ export function EinpflegenPanel({
       </EdvanceCard>
 
       <EdvanceCard className="flex flex-col gap-4 p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('einpflegen.abgleichTitle')}
         </h2>
-        {zeile(
-          'tier_id',
-          <select
-            id="ist-tier_id"
-            className={SELECT_MD}
-            value={tierId}
-            disabled={saving}
-            onChange={(e) => setTierId(e.target.value)}
-          >
-            <option value="">{t('form.choose')}</option>
-            {tiers.map((x) => (
-              <option key={x.id} value={x.id}>
-                {t('form.tierOption', {
-                  name: x.name,
-                  price: formatEuro(x.price_cents, i18n.language),
-                })}
-              </option>
-            ))}
-          </select>,
-        )}
+        {/* Wie in Schritt 1: erst die Laufzeit, dann das Paket mit IHREN Zahlen. */}
         {zeile(
           'laufzeit_monate',
           <select
@@ -197,6 +178,29 @@ export function EinpflegenPanel({
             {LAUFZEITEN.map((m) => (
               <option key={m} value={m}>
                 {t(`form.laufzeitOption.${m}`)}
+              </option>
+            ))}
+          </select>,
+        )}
+        {zeile(
+          'tier_id',
+          <select
+            id="ist-tier_id"
+            className={SELECT_MD}
+            value={tierId}
+            disabled={saving || laufzeit === ''}
+            onChange={(e) => setTierId(e.target.value)}
+          >
+            <option value="">{t('form.choose')}</option>
+            {paketOptionen(tiers, laufzeit === '' ? null : Number(laufzeit)).map((x) => (
+              <option key={x.id} value={x.id}>
+                {x.kondition
+                  ? t('form.tierOption', {
+                      name: x.name,
+                      price: formatEuro(x.kondition.preis_cents, i18n.language),
+                      einheiten: x.kondition.einheiten,
+                    })
+                  : x.name}
               </option>
             ))}
           </select>,
@@ -221,7 +225,10 @@ export function EinpflegenPanel({
 
         {abweichend.length > 0 && (
           <div className="flex flex-col gap-2">
-            <Label htmlFor="ist-vermerk">{t('einpflegen.vermerk')}</Label>
+            <Label htmlFor="ist-vermerk">
+              {t('einpflegen.vermerk')}
+              <span aria-hidden="true" className="text-[var(--color-error-exam)]">{' *'}</span>
+            </Label>
             <textarea
               id="ist-vermerk"
               className={TEXTAREA_MD}
@@ -229,7 +236,7 @@ export function EinpflegenPanel({
               disabled={saving}
               onChange={(e) => setVermerk(e.target.value)}
             />
-            <p className="text-xs text-[var(--color-text-muted)]">
+            <p className="text-xs text-[var(--color-text-tertiary)]">
               {t('einpflegen.vermerkHint', {
                 felder: abweichend.map((f) => t(`field.${f}`)).join(', '),
               })}
@@ -239,12 +246,15 @@ export function EinpflegenPanel({
       </EdvanceCard>
 
       <EdvanceCard className="flex flex-col gap-4 p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('einpflegen.datenTitle')}
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="ist-unterschrieben">{t('einpflegen.signedOn')}</Label>
+            <Label htmlFor="ist-unterschrieben">
+              {t('einpflegen.signedOn')}
+              <span aria-hidden="true" className="text-[var(--color-error-exam)]">{' *'}</span>
+            </Label>
             <Input
               id="ist-unterschrieben"
               type="date"
@@ -254,7 +264,10 @@ export function EinpflegenPanel({
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="ist-eingang">{t('einpflegen.receivedOn')}</Label>
+            <Label htmlFor="ist-eingang">
+              {t('einpflegen.receivedOn')}
+              <span aria-hidden="true" className="text-[var(--color-error-exam)]">{' *'}</span>
+            </Label>
             <Input
               id="ist-eingang"
               type="date"
@@ -263,23 +276,10 @@ export function EinpflegenPanel({
               onChange={(e) => setEingangDatum(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-2 sm:col-span-2">
-            <Label htmlFor="ist-passwort">{t('wizard.passwordLabel')}</Label>
-            <Input
-              id="ist-passwort"
-              type="text"
-              autoComplete="off"
-              className="max-w-xs"
-              value={passwort}
-              disabled={saving}
-              onChange={(e) => setPasswort(e.target.value)}
-            />
-            <p className="text-xs text-[var(--color-text-muted)]">{t('wizard.passwordHint')}</p>
-          </div>
         </div>
       </EdvanceCard>
 
-      {sperre && <p className="text-sm text-[var(--color-text-muted)]">{sperre}</p>}
+      {sperre && <p className="text-sm text-[var(--color-text-tertiary)]">{sperre}</p>}
 
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Button
@@ -303,7 +303,6 @@ export function EinpflegenPanel({
                 tierId,
                 laufzeitMonate: Number(laufzeit),
                 vertragsbeginn: beginn,
-                passwort,
               })
             }
           >

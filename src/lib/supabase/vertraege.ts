@@ -205,8 +205,6 @@ export type AbschlussVorOrt = {
   zustimmungen: Zustimmung[]
   signaturVertrag: string
   signaturSepa: string
-  /** Passwort des Schuelerkontos — wird persoenlich uebergeben, nie gemailt. */
-  studentPassword: string
 }
 
 /** Einpflegen eines Ruecklaufs. Es gilt, was auf dem Papier steht. */
@@ -219,7 +217,6 @@ export type AbschlussPapier = {
   tierId: string | null
   laufzeitMonate: number | null
   vertragsbeginn: string | null
-  studentPassword: string
 }
 
 export type AbschlussErgebnis = {
@@ -252,7 +249,6 @@ export async function vertragAbschliessen(
           zustimmungen: abschluss.zustimmungen,
           signatur_vertrag: abschluss.signaturVertrag,
           signatur_sepa: abschluss.signaturSepa,
-          student_password: abschluss.studentPassword,
         }
       : {
           vertrag_id: vertragId,
@@ -264,7 +260,6 @@ export async function vertragAbschliessen(
           tier_id: abschluss.tierId,
           laufzeit_monate: abschluss.laufzeitMonate,
           vertragsbeginn: abschluss.vertragsbeginn,
-          student_password: abschluss.studentPassword,
         }
 
   try {

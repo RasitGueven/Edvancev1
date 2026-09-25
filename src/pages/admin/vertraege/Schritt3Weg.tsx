@@ -28,7 +28,7 @@ export function Schritt3Weg({ wahl, onWahl, disabled }: Schritt3Props): JSX.Elem
   const { t } = useTranslation('vertraege')
   return (
     <EdvanceCard className="flex flex-col gap-4 p-6">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         {t('wizard.step3Title')}
       </h2>
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
@@ -58,7 +58,7 @@ export function Schritt3Weg({ wahl, onWahl, disabled }: Schritt3Props): JSX.Elem
         {t('wizard.wegHint')}
       </p>
       {wahl === null && (
-        <p className="text-sm text-[var(--color-text-muted)]">{t('wizard.wegMissing')}</p>
+        <p className="text-sm text-[var(--color-text-tertiary)]">{t('wizard.wegMissing')}</p>
       )}
     </EdvanceCard>
   )

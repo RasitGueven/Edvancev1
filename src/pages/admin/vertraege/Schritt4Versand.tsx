@@ -47,7 +47,7 @@ export function Schritt4Versand({
 
   return (
     <EdvanceCard className="flex flex-col gap-4 p-6">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         {t(`wizard.weg.${weg}`)}
       </h2>
 
@@ -73,7 +73,7 @@ export function Schritt4Versand({
           disabled={saving}
           onChange={(e) => setBis(e.target.value)}
         />
-        <p className="text-xs text-[var(--color-text-muted)]">
+        <p className="text-xs text-[var(--color-text-tertiary)]">
           {t('wizard.rueckmeldungHint', { date: formatDateOnly(standardFrist(), i18n.language) })}
         </p>
       </div>
@@ -95,7 +95,7 @@ export function Schritt4Versand({
           </Button>
         </span>
       </div>
-      {datenSperre && <p className="text-sm text-[var(--color-text-muted)]">{datenSperre}</p>}
+      {datenSperre && <p className="text-sm text-[var(--color-text-tertiary)]">{datenSperre}</p>}
     </EdvanceCard>
   )
 }

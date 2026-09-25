@@ -42,8 +42,6 @@ type Body = {
   tier_id?: string | null
   laufzeit_monate?: number | null
   vertragsbeginn?: string | null
-  /** Passwort des Schuelerkontos. Nur beim Erstvertrag noetig. */
-  student_password?: string | null
 }
 
 function json(status: number, payload: unknown): Response {
@@ -53,8 +51,23 @@ function json(status: number, payload: unknown): Response {
   })
 }
 
+/**
+ * Passwort des Schuelerkontos: 48 Zeichen aus dem CSPRNG, nirgends angezeigt,
+ * nirgends gespeichert. Es gibt bewusst kein Eingabefeld dafuer.
+ *
+ * Vor Ort meldet sich das Kind nicht an — es bekommt einen Platz zugewiesen
+ * (platz_assign, das Tablet ist mit dem Platz-Konto angemeldet). Und zuhause
+ * fuehrt der Weg spaeter ueber den Zugangscode, nicht ueber ein Passwort, das
+ * am Empfang vergeben und weitergereicht wird. Ein Passwort, das niemand
+ * braucht, soll auch niemand kennen.
+ */
 function randomPassword(): string {
-  return crypto.randomUUID() + crypto.randomUUID()
+  const bytes = new Uint8Array(36)
+  crypto.getRandomValues(bytes)
+  return btoa(String.fromCharCode(...bytes))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '')
 }
 
 Deno.serve(async (req: Request) => {
@@ -115,14 +128,6 @@ Deno.serve(async (req: Request) => {
 
   const braucht_konto = vertrag.student_id === null && vertrag.status !== 'abgeschlossen'
 
-  const password =
-    body.student_password && body.student_password.trim() !== ''
-      ? body.student_password
-      : null
-  if (braucht_konto && password !== null && password.length < 6) {
-    return json(400, { error: 'Passwort muss mindestens 6 Zeichen haben' })
-  }
-
   // ---- 3. Auth-Konten ------------------------------------------------------
   let studentUid: string | null = null
   let studentEmail: string | null = null
@@ -132,11 +137,12 @@ Deno.serve(async (req: Request) => {
 
   if (braucht_konto) {
     // Das Kind hat keine eigene Adresse — dieselbe Konvention wie bisher in
-    // provision_student. Angemeldet wird mit dem Passwort, nicht per Mail.
+    // provision_student. Das Passwort kommt aus randomPassword() und verlaesst
+    // diese Funktion nicht (Begruendung dort).
     studentEmail = `student.${crypto.randomUUID()}@edvance.invalid`
     const { data: studentData, error: studentErr } = await admin.auth.admin.createUser({
       email: studentEmail,
-      password: password ?? randomPassword(),
+      password: randomPassword(),
       email_confirm: true,
     })
     if (studentErr || !studentData.user) {

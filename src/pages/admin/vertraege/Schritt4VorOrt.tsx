@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import type { Zustimmung } from '@/lib/supabase/vertraege'
 import type { VertragDokument } from '@/types'
 import { DokumentCheckliste } from './DokumentCheckliste'
@@ -15,16 +13,14 @@ type Schritt4VorOrtProps = {
   dokumente: VertragDokument[]
   datenSperre: string | null
   saving: boolean
-  onAbschluss: (zustimmungen: Zustimmung[], signaturVertrag: string, signaturSepa: string, passwort: string) => void
+  onAbschluss: (zustimmungen: Zustimmung[], signaturVertrag: string, signaturSepa: string) => void
 }
 
 /** Die vier Punkte zum Bestaetigen (Anforderung D.11). */
 const BESTAETIGUNGEN = ['agb', 'datenschutz_vertrag', 'sepa_mandat', 'widerruf']
 
-const PASSWORT_MIN = 6
-
 /**
- * Schritt 4, Weg A. Vier Haekchen, Unterschrift, Passwort — und erst dann der
+ * Schritt 4, Weg A. Vier Haekchen, Unterschrift — und erst dann der
  * Abschluss. Der Hinweis benennt, was fehlt; ein Knopf, der nicht geht und
  * nicht sagt warum, ist am Empfang wertlos (Anforderung D.12).
  *
@@ -42,7 +38,6 @@ export function Schritt4VorOrt({
 }: Schritt4VorOrtProps): JSX.Element {
   const { t } = useTranslation('vertraege')
   const [haken, setHaken] = useState<Record<string, string>>({})
-  const [passwort, setPasswort] = useState('')
   const [signiert, setSigniert] = useState(false)
 
   const zuBestaetigen = dokumente.filter(
@@ -55,7 +50,6 @@ export function Schritt4VorOrt({
   const fehlt = [
     datenSperre,
     offenePflicht.length > 0 ? t('ways.blockedChecks') : null,
-    passwort.length < PASSWORT_MIN ? t('wizard.passwordMissing') : null,
   ].filter((x): x is string => x !== null)
 
   const sperre = fehlt.length > 0 ? fehlt.join(' · ') : null
@@ -69,13 +63,13 @@ export function Schritt4VorOrt({
         version: d.version,
         akzeptiert_at: haken[d.schluessel] ?? new Date().toISOString(),
       }))
-    onAbschluss(zustimmungen, signaturVertrag, signaturSepa, passwort)
+    onAbschluss(zustimmungen, signaturVertrag, signaturSepa)
   }
 
   return (
     <div className="flex flex-col gap-4">
       <EdvanceCard className="flex flex-col gap-4 p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('docs.title')}
         </h2>
         <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">{t('docs.hint')}</p>
@@ -96,29 +90,10 @@ export function Schritt4VorOrt({
       </EdvanceCard>
 
       <EdvanceCard className="flex flex-col gap-4 p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
-          {t('wizard.account')}
-        </h2>
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="vertrag-passwort">{t('wizard.passwordLabel')}</Label>
-          <Input
-            id="vertrag-passwort"
-            type="text"
-            autoComplete="off"
-            className="max-w-xs"
-            value={passwort}
-            disabled={saving}
-            onChange={(e) => setPasswort(e.target.value)}
-          />
-          <p className="text-xs text-[var(--color-text-muted)]">{t('wizard.passwordHint')}</p>
-        </div>
-      </EdvanceCard>
-
-      <EdvanceCard className="flex flex-col gap-4 p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('ways.sign')}
         </h2>
-        {sperre && <p className="text-sm text-[var(--color-text-muted)]">{sperre}</p>}
+        {sperre && <p className="text-sm text-[var(--color-text-tertiary)]">{sperre}</p>}
         {signiert ? (
           <UnterschriftPanel
             saving={saving}

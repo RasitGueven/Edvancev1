@@ -31,7 +31,7 @@ export function EndeVorschau({ ende, fehler, laufzeitMonate }: EndeVorschauProps
   if (!ende) {
     return (
       <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-app)] p-4">
-        <p className="text-sm text-[var(--color-text-muted)]">{t('ende.pending')}</p>
+        <p className="text-sm text-[var(--color-text-tertiary)]">{t('ende.pending')}</p>
       </div>
     )
   }
@@ -40,7 +40,7 @@ export function EndeVorschau({ ende, fehler, laufzeitMonate }: EndeVorschauProps
 
   return (
     <div className="flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-app)] p-4">
-      <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+      <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         {t('ende.title')}
       </p>
       <p className="text-base font-semibold text-[var(--color-text-primary)]">
@@ -56,7 +56,7 @@ export function EndeVorschau({ ende, fehler, laufzeitMonate }: EndeVorschauProps
             })}
           </p>
           {ende.ferien.length > 0 && (
-            <p className="text-xs text-[var(--color-text-muted)]">
+            <p className="text-xs text-[var(--color-text-tertiary)]">
               {t('ende.ferien', { namen: ende.ferien.join(' · ') })}
             </p>
           )}
