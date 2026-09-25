@@ -16,7 +16,14 @@ type Schritt4VorOrtProps = {
   onAbschluss: (zustimmungen: Zustimmung[], signaturVertrag: string, signaturSepa: string) => void
 }
 
-/** Die vier Punkte zum Bestaetigen (Anforderung D.11). */
+/**
+ * Die VIER Punkte zum Bestaetigen (Anforderung D.11) — und nur diese.
+ *
+ * Die optionale Foto-Einwilligung stand hier einmal mit drin, weil die Liste
+ * alles Nicht-Pflichtige mitnahm. Sie gehoert nicht in die Abschlussstrecke:
+ * wer gerade einen Vertrag unterschreibt, soll nicht nebenbei ueber Fotos
+ * entscheiden. Der Datensatz in vertrag_dokumente bleibt unberuehrt.
+ */
 const BESTAETIGUNGEN = ['agb', 'datenschutz_vertrag', 'sepa_mandat', 'widerruf']
 
 /**
@@ -40,12 +47,8 @@ export function Schritt4VorOrt({
   const [haken, setHaken] = useState<Record<string, string>>({})
   const [signiert, setSigniert] = useState(false)
 
-  const zuBestaetigen = dokumente.filter(
-    (d) => BESTAETIGUNGEN.includes(d.schluessel) || !d.pflicht,
-  )
-  const offenePflicht = zuBestaetigen.filter(
-    (d) => d.pflicht && haken[d.schluessel] === undefined,
-  )
+  const zuBestaetigen = dokumente.filter((d) => BESTAETIGUNGEN.includes(d.schluessel))
+  const offenePflicht = zuBestaetigen.filter((d) => haken[d.schluessel] === undefined)
 
   const fehlt = [
     datenSperre,

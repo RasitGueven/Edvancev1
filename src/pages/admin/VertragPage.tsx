@@ -36,7 +36,7 @@ import { VertragForm } from './vertraege/VertragForm'
 import { WizardKopf, type WizardSchritt } from './vertraege/WizardKopf'
 import { ZugangscodeKarte } from './vertraege/ZugangscodeKarte'
 import { isDirty, toFormState, toPatch, type VertragFormState } from './vertraege/vertragForm'
-import { fehlendeAngaben, kindName } from './vertraege/vertragModel'
+import { fehlendeAngaben, fehlendeFormAngaben, kindName } from './vertraege/vertragModel'
 import { STATUS_BADGE, openUnterlagen } from './vertraege/vertragUi'
 
 type Stammdaten = {
@@ -74,6 +74,7 @@ export function VertragPage(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [speicherFehler, setSpeicherFehler] = useState<string | null>(null)
   const [rejecting, setRejecting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -173,7 +174,21 @@ export function VertragPage(): JSX.Element {
   const paket = stamm.tiers.find((x) => x.id === vertrag.tier_id)?.name ?? null
   const optionen = beginnAuswahl(berlinToday(), vertrag.vertragsbeginn)
 
+  // Unvollstaendig wird nicht gespeichert. Geprueft wird das FORMULAR, nicht
+  // der zuletzt gespeicherte Stand — sonst meldet der Knopf ein Feld als
+  // fehlend, das direkt daneben ausgefuellt dasteht.
   const speichern = async (): Promise<void> => {
+    const fehltImFormular = fehlendeFormAngaben(form, iban !== null)
+    if (fehltImFormular.length > 0) {
+      setSaved(false)
+      setSpeicherFehler(
+        t('form.saveBlocked', {
+          fields: fehltImFormular.map((f) => t(`field.${f}`)).join(', '),
+        }),
+      )
+      return
+    }
+    setSpeicherFehler(null)
     const ok = await run(async () => {
       const res = await updateVertrag(vertrag.id, toPatch(form))
       if (res.error || form.iban.trim() === '') return res
@@ -229,6 +244,7 @@ export function VertragPage(): JSX.Element {
                   form={form}
                   onChange={(next) => {
                     setSaved(false)
+                    setSpeicherFehler(null)
                     setForm((f) => (f ? { ...f, ...next } : f))
                   }}
                   readOnly={false}
@@ -244,8 +260,12 @@ export function VertragPage(): JSX.Element {
                   ende={ende}
                   endeFehler={endeFehler}
                 />
-                {datenSperre && (
-                  <p className="text-sm text-[var(--color-text-tertiary)]">{datenSperre}</p>
+                {speicherFehler ? (
+                  <p className="text-sm text-[var(--color-error-exam)]">{speicherFehler}</p>
+                ) : (
+                  datenSperre && (
+                    <p className="text-sm text-[var(--color-text-tertiary)]">{datenSperre}</p>
+                  )
                 )}
                 <div className="flex flex-wrap items-center justify-end gap-4">
                   {saved && !dirty && (

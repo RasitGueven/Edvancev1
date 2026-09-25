@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import type { Lead, VertragMitLead } from '@/types'
+import type { VertragFormState } from './vertragForm'
 import { EMPTY_FILTERS } from '../leads/boardModel'
 import {
   VERTRAG_ARCHIV,
   VERTRAG_COLUMNS,
   fehlendeAngaben,
+  fehlendeFormAngaben,
   kindName,
   matchesVertragFilters,
   vertragFollowUp,
@@ -74,7 +76,7 @@ function vertrag(over: Partial<VertragMitLead> & { id: string }): VertragMitLead
     preis_cents: 26990,
     einheiten: 57,
     vertragsbeginn: '2026-10-01',
-    kontoinhaber: null,
+    kontoinhaber: 'ZZ_Anna Muster',
     iban_masked: 'DE** **** 3000',
     mandatsreferenz: 'EDV-2026-000001',
     glaeubiger_id: null,
@@ -148,7 +150,69 @@ describe('fehlendeAngaben', () => {
     expect(fehlendeAngaben(v, false)).toEqual(['plz', 'tier_id', 'iban'])
   })
 
-  it('verlangt weder Schule noch abweichenden Kontoinhaber', () => {
-    expect(fehlendeAngaben(vertrag({ id: 'a', schule: null, kontoinhaber: null }), true)).toEqual([])
+  // Alles ist Pflicht ausser diesen beiden — sie fehlen im Alltag oft und
+  // wuerden sonst einen sonst vollstaendigen Vertrag aufhalten.
+  it('verlangt weder Telefon noch Schule', () => {
+    expect(
+      fehlendeAngaben(vertrag({ id: 'a', schule: null, eltern_telefon: null }), true),
+    ).toEqual([])
+  })
+
+  it('verlangt den Kontoinhaber', () => {
+    expect(fehlendeAngaben(vertrag({ id: 'a', kontoinhaber: null }), true)).toEqual([
+      'kontoinhaber',
+    ])
+  })
+})
+
+const vollesFormular: VertragFormState = {
+  eltern_vorname: 'ZZ_Anna',
+  eltern_nachname: 'Muster',
+  strasse: 'Teststr',
+  hausnummer: '1',
+  plz: '50667',
+  ort: 'Koeln',
+  eltern_telefon: '',
+  eltern_email: 'zz@edvance.invalid',
+  kind_vorname: 'ZZ_Mia',
+  kind_nachname: 'Muster',
+  kind_geburtsdatum: '2012-05-04',
+  fach: 'Mathematik',
+  schule: '',
+  schule_id: '',
+  tier_id: 't3',
+  vertragsbeginn: '2027-11-01',
+  kontoinhaber: 'ZZ_Anna Muster',
+  klasse: '8',
+  laufzeit_monate: '6',
+  iban: '',
+}
+
+describe('fehlendeFormAngaben', () => {
+  it('ist zufrieden, wenn die IBAN schon hinterlegt ist', () => {
+    expect(fehlendeFormAngaben(vollesFormular, true)).toEqual([])
+  })
+
+  // Der Grund fuer die zweite Funktion: der Knopf prueft das Getippte. Eine
+  // frisch eingegebene IBAN zaehlt, auch wenn noch nichts gespeichert ist.
+  it('nimmt eine neu eingetippte IBAN an', () => {
+    expect(
+      fehlendeFormAngaben({ ...vollesFormular, iban: 'DE89370400440532013000' }, false),
+    ).toEqual([])
+  })
+
+  it('meldet die fehlende IBAN, wenn weder gespeichert noch getippt', () => {
+    expect(fehlendeFormAngaben(vollesFormular, false)).toEqual(['iban'])
+  })
+
+  it('nennt leere Felder in der Reihenfolge der Pflichtliste', () => {
+    const luecken = { ...vollesFormular, plz: '', tier_id: '', kontoinhaber: '   ' }
+    expect(fehlendeFormAngaben(luecken, true)).toEqual(['plz', 'tier_id', 'kontoinhaber'])
+  })
+
+  it('haelt Telefon und Schule weiter fuer entbehrlich', () => {
+    expect(
+      fehlendeFormAngaben({ ...vollesFormular, eltern_telefon: '', schule: '', schule_id: '' }, true),
+    ).toEqual([])
   })
 })

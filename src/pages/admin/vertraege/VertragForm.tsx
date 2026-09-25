@@ -290,6 +290,7 @@ export function VertragForm({
         <Feld
           id="vertrag-iban"
           label={t('field.iban')}
+          pflicht
           wide
           hint={
             ibanInvalid
@@ -309,7 +310,13 @@ export function VertragForm({
             onChange={(e) => onChange({ iban: e.target.value })}
           />
         </Feld>
-        <Feld id="vertrag-kontoinhaber" label={t('field.kontoinhaber')} hint={t('form.accountHolderHint')} wide>
+        <Feld
+          id="vertrag-kontoinhaber"
+          label={t('field.kontoinhaber')}
+          hint={t('form.accountHolderHint')}
+          pflicht
+          wide
+        >
           <Input
             id="vertrag-kontoinhaber"
             value={form.kontoinhaber}
