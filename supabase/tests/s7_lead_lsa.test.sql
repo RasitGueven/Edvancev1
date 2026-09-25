@@ -1,5 +1,5 @@
 -- ============================================================================
--- S7 (Lead→LSA): lead_lsa_freigeben / lead_convert / lead_delete-Kaskade /
+-- S7 (Lead→LSA): lead_lsa_freigeben / Konversions-Flip / lead_delete-Kaskade /
 -- Guards / lead_assessment_upsert — und die A3-Regression.
 --
 -- Bewiesen wird:
@@ -11,8 +11,10 @@
 --   3. Guards: provisorische Zeilen entstehen NUR über die RPC; ein
 --      provisorischer Schüler trägt NIE ein Abo; is_provisional ⇔ lead_id.
 --   4. lsa_finish rückt den Lead auf 'lsa_fertig' (additiver Trigger).
---   5. lead_convert: Datensatz-Flip; danach ist das Abo frei; converted ist
---      endgültig (kein zweites Convert, kein lead_delete).
+--   5. Der Konversions-Flip: danach ist das Abo frei, die Session hängt
+--      unverändert am Schüler, und converted ist endgültig (kein lead_delete).
+--      Der Flip selbst gehört seit 20260925140000 zu vertrag_abschliessen;
+--      dessen Rechte und Gates prüft supabase/checks/vertrag_abschluss.PRUEFUNG.sql.
 --   6. lead_delete: die Kaskade räumt Schüler + Sessions + Responses restlos —
 --      kein verwaistes Datum.
 --   7. A3-Regression: lsa_start (unverändert, kein Overload) und
@@ -23,7 +25,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(38);
+select plan(35);
 
 -- --- Fixtures --------------------------------------------------------------
 \set admin_uid   'dddddddd-dddd-dddd-dddd-dddddddddddd'
@@ -183,7 +185,7 @@ select throws_ok(
   format($f$insert into student_subscriptions (student_id, tier_id)
             values (%L, %L)$f$, :'sid1', :'tier_id'),
   'P0001', NULL,
-  'Abo fuer einen provisorischen Schueler wird abgewiesen (erst lead_convert)'
+  'Abo fuer einen provisorischen Schueler wird abgewiesen (erst der Vertragsabschluss)'
 );
 
 -- ============================================================================
@@ -205,20 +207,16 @@ select is(
 );
 
 -- ============================================================================
--- 5. lead_convert — der Datensatz-Flip
+-- 5. Der Konversions-Flip
 -- ============================================================================
-select pg_temp.act_as(:'coach_uid');
-select throws_ok(
-  format($f$select public.lead_convert(%L)$f$, :'lead1'),
-  '42501', NULL,
-  'Ein Coach darf nicht konvertieren (nur Admin)'
-);
-
-select pg_temp.act_as(:'admin_uid');
-select lives_ok(
-  format($f$select public.lead_convert(%L)$f$, :'lead1'),
-  'Admin konvertiert Lead 1'
-);
+-- Bis 20260925140000 machte das lead_convert(). Die Funktion ist entfallen; den
+-- Flip macht jetzt vertrag_abschliessen als einen Schritt des Abschlusses. Was
+-- hier geprueft wird, ist der Zustand DANACH — er ist derselbe geblieben, und
+-- genau darum geht es: die Invarianten haengen nicht an der Funktion, die sie
+-- herstellt.
+reset role;
+update students set is_provisional = false, lead_id = null where id = :'sid1';
+update leads set status = 'converted', converted_student_id = :'sid1' where id = :'lead1';
 
 select is(
   (select count(*) from students
@@ -245,16 +243,10 @@ reset role;
 select lives_ok(
   format($f$insert into student_subscriptions (student_id, tier_id)
             values (%L, %L)$f$, :'sid1', :'tier_id'),
-  'Nach lead_convert darf der (jetzt echte) Schueler ein Abo tragen'
+  'Nach dem Flip darf der (jetzt echte) Schueler ein Abo tragen'
 );
 
 select pg_temp.act_as(:'admin_uid');
-select throws_ok(
-  format($f$select public.lead_convert(%L)$f$, :'lead1'),
-  'P0001', NULL,
-  'Ein bereits konvertierter Lead wird nicht erneut konvertiert'
-);
-
 select throws_ok(
   format($f$select public.lead_delete(%L)$f$, :'lead1'),
   'P0001', NULL,
