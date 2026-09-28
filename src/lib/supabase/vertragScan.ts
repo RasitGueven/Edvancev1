@@ -46,3 +46,28 @@ export async function scanUrl(pfad: string): Promise<SupabaseResult<string>> {
     return { data: null, error: message }
   }
 }
+
+export type ArchivDatei = { name: string; pfad: string; groesseBytes: number | null }
+
+/**
+ * Was im Bucket zu diesem Vertrag liegt. Heute ist das der Ruecklauf-Scan aus
+ * dem Einpflegen; die erzeugten PDFs kommen mit P4 dazu.
+ */
+export async function listArchiv(vertragId: string): Promise<SupabaseResult<ArchivDatei[]>> {
+  try {
+    const { data, error } = await supabase.storage.from(VERTRAEGE_BUCKET).list(vertragId)
+    if (error) return { data: null, error: error.message }
+    const dateien = (data ?? [])
+      // Supabase meldet Unterordner als Eintrag ohne id — die sind hier keine Datei.
+      .filter((d) => d.id !== null)
+      .map((d) => ({
+        name: d.name,
+        pfad: `${vertragId}/${d.name}`,
+        groesseBytes: (d.metadata as { size?: number } | null)?.size ?? null,
+      }))
+    return { data: dateien, error: null }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Archiv konnte nicht geladen werden'
+    return { data: null, error: msg }
+  }
+}

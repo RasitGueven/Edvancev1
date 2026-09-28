@@ -1,0 +1,155 @@
+// Verhalten der Vertragsdetailansicht, mit gemocktem Supabase.
+//
+// Drei Dinge, die nur hier entschieden werden: dass die volle IBAN erst nach
+// dem protokollierten Aufruf sichtbar wird, dass die Sonderkuendigung beide
+// Felder verlangt, und dass "Widerruf erfassen" nur waehrend der Frist geht.
+
+import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+import '@/i18n'
+import type { VertragAktuell } from '@/types'
+
+vi.mock('@/lib/supabase/vertraegeMenue', () => ({
+  getVertragAktuell: vi.fn(),
+  listVertragHistorie: vi.fn(() => Promise.resolve({ data: [], error: null })),
+  vertragIbanAnzeigen: vi.fn(() =>
+    Promise.resolve({ data: 'DE89370400440532013000', error: null }),
+  ),
+  vertragZugangscodeNeu: vi.fn(() => Promise.resolve({ data: 'EDV-NEUA-NEU2', error: null })),
+  vertragWiderrufErfassen: vi.fn(() => Promise.resolve({ data: true, error: null })),
+  vertragSonderkuendigungErfassen: vi.fn(() => Promise.resolve({ data: true, error: null })),
+  vertragFolgevertragStarten: vi.fn(() => Promise.resolve({ data: 'neu-id', error: null })),
+}))
+vi.mock('@/lib/supabase/vertraege', () => ({
+  getVertragNachweise: vi.fn(() =>
+    Promise.resolve({ data: { zustimmungen: [], unterschriften: [], versand: [] }, error: null }),
+  ),
+  listVertragDokumente: vi.fn(() => Promise.resolve({ data: [], error: null })),
+}))
+vi.mock('@/lib/supabase/vertragScan', () => ({
+  listArchiv: vi.fn(() => Promise.resolve({ data: [], error: null })),
+  scanUrl: vi.fn(() => Promise.resolve({ data: 'https://example.invalid/x', error: null })),
+  VERTRAEGE_BUCKET: 'vertraege',
+}))
+vi.mock('@/lib/supabase/subscriptions', () => ({
+  listTiers: vi.fn(() =>
+    Promise.resolve({ data: [{ id: 't3', name: 'Premium', price_cents: 34990 }], error: null }),
+  ),
+}))
+vi.mock('@/hooks/useAuth', () => ({
+  useAuth: () => ({ user: { email: 'admin@edvance.de' }, role: 'admin', signOut: vi.fn() }),
+}))
+
+import {
+  getVertragAktuell,
+  vertragIbanAnzeigen,
+  vertragSonderkuendigungErfassen,
+} from '@/lib/supabase/vertraegeMenue'
+import { VertragDetailPage } from './VertragDetailPage'
+
+function v(over: Partial<VertragAktuell> = {}): VertragAktuell {
+  return {
+    id: 'v1',
+    wirksamer_status: 'im_widerruf',
+    laufzeit_monat: 1,
+    ist_aktueller_vertrag: true,
+    beitrag_diesen_monat_cents: 38990,
+    zugangscode_gueltig: true,
+    endet_in_tagen: 200,
+    mandatsreferenz: 'EDV-2026-000001',
+    eltern_vorname: 'ZZ_Anna',
+    eltern_nachname: 'Muster',
+    kind_vorname: 'ZZ_Mia',
+    kind_nachname: 'Muster',
+    klasse: 8,
+    tier_id: 't3',
+    laufzeit_monate: 6,
+    preis_cents: 38990,
+    einheiten: 38,
+    vertragsbeginn: '2026-10-01',
+    vertrag_ende: '2027-05-15',
+    widerruf_bis: '2026-10-30',
+    ferientage: 43,
+    iban_masked: 'DE** **** 3000',
+    zugangscode: 'EDV-ABCD-EFG2',
+    zahlungsstatus: 'in_ordnung',
+    student_id: 's1',
+    ...over,
+  } as VertragAktuell
+}
+
+function zeige(): void {
+  render(
+    <MemoryRouter>
+      <VertragDetailPage />
+    </MemoryRouter>,
+  )
+}
+
+beforeEach(() => vi.clearAllMocks())
+
+describe('IBAN', () => {
+  it('zeigt sie maskiert und erst nach dem protokollierten Aufruf vollständig', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    zeige()
+
+    await waitFor(() => expect(screen.getByText('DE** **** 3000')).toBeTruthy())
+    expect(screen.queryByText(/DE89 3704/)).toBeNull()
+    expect(vertragIbanAnzeigen).not.toHaveBeenCalled()
+
+    fireEvent.click(screen.getByRole('button', { name: /Vollständig anzeigen/ }))
+    await waitFor(() => expect(screen.getByText(/DE89 3704/)).toBeTruthy())
+    expect(vertragIbanAnzeigen).toHaveBeenCalledWith('v1')
+  })
+
+  it('vergisst sie beim Zuklappen wieder', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    zeige()
+    fireEvent.click(await screen.findByRole('button', { name: /Vollständig anzeigen/ }))
+    fireEvent.click(await screen.findByRole('button', { name: /Wieder verbergen/ }))
+    await waitFor(() => expect(screen.queryByText(/DE89 3704/)).toBeNull())
+  })
+})
+
+describe('Widerruf', () => {
+  it('ist während der Frist anklickbar', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    zeige()
+    const knopf = await screen.findByRole('button', { name: 'Widerruf erfassen' })
+    expect((knopf as HTMLButtonElement).disabled).toBe(false)
+  })
+
+  it('ist gesperrt, sobald der Vertrag aktiv ist', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({
+      data: v({ wirksamer_status: 'aktiv' }),
+      error: null,
+    })
+    zeige()
+    const knopf = await screen.findByRole('button', { name: 'Widerruf erfassen' })
+    expect((knopf as HTMLButtonElement).disabled).toBe(true)
+  })
+})
+
+describe('Sonderkündigung', () => {
+  it('verlangt Datum und Grund', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    zeige()
+
+    fireEvent.click(await screen.findByRole('button', { name: 'Sonderkündigung erfassen' }))
+    const bestaetigen = await screen.findByRole('button', { name: 'Kündigung erfassen' })
+    expect((bestaetigen as HTMLButtonElement).disabled).toBe(true)
+
+    fireEvent.change(screen.getByLabelText(/Gekündigt zum/), { target: { value: '2027-01-31' } })
+    expect((bestaetigen as HTMLButtonElement).disabled).toBe(true)
+    expect(vertragSonderkuendigungErfassen).not.toHaveBeenCalled()
+
+    fireEvent.change(screen.getByLabelText(/Grund/), { target: { value: 'Umzug' } })
+    expect((bestaetigen as HTMLButtonElement).disabled).toBe(false)
+
+    fireEvent.click(bestaetigen)
+    await waitFor(() =>
+      expect(vertragSonderkuendigungErfassen).toHaveBeenCalledWith('v1', '2027-01-31', 'Umzug'),
+    )
+  })
+})

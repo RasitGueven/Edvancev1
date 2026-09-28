@@ -4487,6 +4487,82 @@ $$;
 
 
 --
+-- Name: vertrag_folgevertrag_starten(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_folgevertrag_starten(p_vorgaenger_id uuid) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_alt   vertraege%rowtype;
+  v_id    uuid;
+  v_preis integer;
+  v_einh  integer;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_folgevertrag_starten: nur Admin' using errcode = '42501';
+  end if;
+
+  select * into v_alt from public.vertraege where id = p_vorgaenger_id for update;
+  if not found then
+    raise exception 'vertrag_folgevertrag_starten: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+  if v_alt.status <> 'abgeschlossen' then
+    raise exception 'vertrag_folgevertrag_starten: ein Folgevertrag entsteht nur aus einem abgeschlossenen Vertrag'
+      using errcode = 'P0001';
+  end if;
+  if v_alt.student_id is null then
+    raise exception 'vertrag_folgevertrag_starten: der Vorgaenger haengt an keinem Kind'
+      using errcode = 'P0001';
+  end if;
+
+  -- Idempotent: der Knopf darf zweimal gedrueckt werden.
+  select id into v_id
+    from public.vertraege
+   where vorgaenger_id = p_vorgaenger_id
+     and status in ('in_vorbereitung', 'unterschrift_ausstehend');
+  if v_id is not null then
+    return v_id;
+  end if;
+
+  select tl.preis_cents, tl.einheiten into v_preis, v_einh
+    from public.tier_laufzeiten tl
+   where tl.tier_id = v_alt.tier_id
+     and tl.laufzeit_monate = v_alt.laufzeit_monate;
+
+  insert into public.vertraege (
+    created_by, lead_id, student_id, vorgaenger_id,
+    eltern_vorname, eltern_nachname, strasse, hausnummer, plz, ort,
+    eltern_telefon, eltern_email,
+    kind_vorname, kind_nachname, kind_geburtsdatum, klasse, fach,
+    schule, schule_id, kontoinhaber,
+    tier_id, laufzeit_monate, preis_cents, einheiten
+  ) values (
+    auth.uid(), v_alt.lead_id, v_alt.student_id, p_vorgaenger_id,
+    v_alt.eltern_vorname, v_alt.eltern_nachname, v_alt.strasse, v_alt.hausnummer,
+    v_alt.plz, v_alt.ort, v_alt.eltern_telefon, v_alt.eltern_email,
+    v_alt.kind_vorname, v_alt.kind_nachname, v_alt.kind_geburtsdatum,
+    v_alt.klasse, v_alt.fach,
+    v_alt.schule, v_alt.schule_id, v_alt.kontoinhaber,
+    v_alt.tier_id, v_alt.laufzeit_monate, v_preis, v_einh
+  )
+  returning id into v_id;
+
+  -- Ein eigenes Mandat je Vertrag (Dokument 1), aber dieselbe Bankverbindung.
+  -- Die Mandatsreferenz zieht der Default aus der Sequenz; die IBAN wird
+  -- uebernommen und laesst sich in Schritt 1 aendern.
+  insert into public.vertrag_bankdaten (vertrag_id, iban)
+  select v_id, b.iban
+    from public.vertrag_bankdaten b
+   where b.vertrag_id = p_vorgaenger_id;
+
+  return v_id;
+end;
+$$;
+
+
+--
 -- Name: vertrag_iban_anzeigen(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -7501,7 +7577,7 @@ CREATE INDEX tasks_source_idx ON public.tasks USING btree (source);
 -- Name: vertraege_lead_offen_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX vertraege_lead_offen_idx ON public.vertraege USING btree (lead_id) WHERE (status <> 'abgelehnt'::text);
+CREATE UNIQUE INDEX vertraege_lead_offen_idx ON public.vertraege USING btree (lead_id) WHERE (status = ANY (ARRAY['in_vorbereitung'::text, 'unterschrift_ausstehend'::text]));
 
 
 --

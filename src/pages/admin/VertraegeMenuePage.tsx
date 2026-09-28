@@ -8,6 +8,7 @@ import { listTiers } from '@/lib/supabase/subscriptions'
 import { listVertraege, vertragAblehnen } from '@/lib/supabase/vertraege'
 import {
   listVertraegeAktuell,
+  vertragFolgevertragStarten,
   vertragVerlaengerungSetzen,
   vertragZahlungsstatusSetzen,
 } from '@/lib/supabase/vertraegeMenue'
@@ -124,6 +125,21 @@ export function VertraegeMenuePage(): JSX.Element {
     }
   }
 
+  // Der Folgevertrag entsteht aus dem alten Vertrag, nicht aus einem Lead —
+  // deshalb eine eigene RPC. Danach direkt in die Strecke.
+  const folgevertrag = async (v: VertragAktuell): Promise<void> => {
+    if (busyId) return
+    setBusyId(v.id)
+    setError(null)
+    const { data, error: err } = await vertragFolgevertragStarten(v.id)
+    setBusyId(null)
+    if (err || !data) {
+      setError(err ?? t('detailansicht.folgevertragFehler'))
+      return
+    }
+    navigate(`/admin/vertraege/${data}`)
+  }
+
   const reiterListe = [
     { key: 'antraege' as const, titel: t('menue.reiter.antraege'), anzahl: antraege.filter((a) => a.status !== 'abgelehnt').length },
     { key: 'uebersicht' as const, titel: t('menue.reiter.uebersicht'), anzahl: vertraege.filter((v) => v.ist_aktueller_vertrag).length },
@@ -181,7 +197,7 @@ export function VertraegeMenuePage(): JSX.Element {
                 ),
               )
             }
-            neuerVertragSperre={t('menue.neuerVertragFolgt')}
+            onNeuerVertrag={(v) => void folgevertrag(v)}
           />
         ) : (
           <ReiterVerzug
