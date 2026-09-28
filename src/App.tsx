@@ -21,7 +21,8 @@ import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { QsPage } from '@/pages/admin/QsPage'
 import { ReportPage } from '@/pages/admin/ReportPage'
-import { VertraegePage } from '@/pages/admin/VertraegePage'
+import { VertraegeMenuePage } from '@/pages/admin/VertraegeMenuePage'
+import { VertragDetailPage } from '@/pages/admin/VertragDetailPage'
 import { VertragPage } from '@/pages/admin/VertragPage'
 import { VertragUnterlagenPage } from '@/pages/admin/VertragUnterlagenPage'
 import { IntakePage } from '@/pages/coach/IntakePage'
@@ -137,7 +138,7 @@ export default function App(): JSX.Element {
           path="/admin/vertraege"
           element={
             <ProtectedRoute allowedRoles={['admin']}>
-              <VertraegePage />
+              <VertraegeMenuePage />
             </ProtectedRoute>
           }
         />
@@ -146,6 +147,14 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <VertragPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/vertraege/:id/detail"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <VertragDetailPage />
             </ProtectedRoute>
           }
         />

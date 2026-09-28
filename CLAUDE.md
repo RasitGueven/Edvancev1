@@ -164,12 +164,25 @@ Edvance ist warm, intelligent und ermutigend.
 | Aufgabe | Komponente |
 |---|---|
 | Metriken anzeigen | `StatCard` |
-| Liste von Objekten | `EdvanceCard` pro Item, nie `<table>` |
+| Liste von Objekten | `EdvanceCard` pro Item, nie `<table>` — Ausnahme Admin, siehe unten |
 | Status zeigen | `EdvanceBadge` |
 | Fortschritt zeigen | `MasteryBar` oder `XPBar` |
 | Ladezeit | `LoadingPulse` |
 | Nichts vorhanden | `EmptyState` |
 | Erfolgsmeldung | `ToastBanner` type="xp" oder "success" |
+
+### Tabellen im Admin
+
+Die Karten-Regel oben gilt für Schüler-, Coach- und Eltern-Flächen. Sie ist für
+„warm, ermutigend" geschrieben — Admin ist laut derselben Datei „professionell,
+übersichtlich, effizient", und die Vertragslisten vergleichen bis zu zehn Felder
+je Zeile. Zehn Felder auf einer Karte sind nicht mehr scanbar.
+
+- Admin-Listen mit mehr als vier Spalten benutzen `EdvanceTable`
+  (`src/components/edvance/EdvanceTable.tsx`), nicht ein eigenes `<table>`.
+- Farben, Abstände und Radien kommen auch dort aus den Tokens. Keine freien
+  Hex-Werte, keine Inline-Styles.
+- Außerhalb von `src/pages/admin/**` bleibt die Karten-Regel unberührt.
 
 ### Shadow-Hierarchie
 - Ruhende Cards: `shadow-card`
@@ -185,7 +198,7 @@ Edvance ist warm, intelligent und ermutigend.
 - `animate-skeleton` – für LoadingPulse (automatisch)
 
 ### Verbotene Patterns
-- ❌ Tabellen mit mehr als 4 Spalten
+- ❌ Tabellen mit mehr als 4 Spalten — **außer auf Admin-Flächen** (siehe „Tabellen im Admin")
 - ❌ Modals für einfache Bestätigungen – lieber Inline
 - ❌ Text-Links als primäre Aktionen
 - ❌ Disabled Buttons ohne Tooltip warum

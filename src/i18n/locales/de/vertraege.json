@@ -238,5 +238,95 @@
     "missingNote": "Vermerk zur Abweichung fehlt",
     "conclude": "Vertrag abschließen",
     "notConcluded": "Nicht zustande gekommen"
+  },
+  "menue": {
+    "beschreibung": "Anträge, laufende Verträge, auslaufende Verträge und Zahlungsverzüge — alles an einer Stelle.",
+    "reiter": {
+      "antraege": "Offene Anträge",
+      "uebersicht": "Vertragsübersicht",
+      "auslaufend": "Auslaufende Verträge",
+      "verzug": "Zahlungsverzüge"
+    },
+    "spalte": {
+      "partner": "Vertragspartner / Kind",
+      "betrag": "Betrag / Monat",
+      "zeitraum": "Laufzeit von – bis",
+      "status": "Vertragsstatus",
+      "zahlung": "Zahlung",
+      "rueckmeldung": "Rückmeldung bis",
+      "aktionen": "Aktionen",
+      "endetAm": "Endet am",
+      "verlaengerung": "Verlängerung",
+      "wiedervorlage": "Wiedervorlage",
+      "offen": "Offen",
+      "stufe": "Stufe"
+    },
+    "summe": {
+      "laufend": "Laufende Verträge",
+      "abbuchung": "Abbuchung diesen Monat",
+      "widerruf": "Im Widerruf"
+    },
+    "wirksam": {
+      "aktiv": "Aktiv",
+      "im_widerruf": "Im Widerruf",
+      "gekuendigt": "Gekündigt",
+      "ausgelaufen": "Ausgelaufen",
+      "widerrufen": "Widerrufen"
+    },
+    "zahlung": {
+      "in_ordnung": "In Ordnung",
+      "zahlung_offen": "Zahlung offen",
+      "mahnung_1": "1. Mahnung",
+      "mahnung_2": "2. Mahnung",
+      "inkasso": "Inkasso"
+    },
+    "verlaengerung": {
+      "offen": "Offen",
+      "kontaktiert": "Kontaktiert",
+      "gespraech_vereinbart": "Gespräch vereinbart",
+      "keine_verlaengerung": "Keine Verlängerung"
+    },
+    "kindMitKlasse": "{{kind}} · Klasse {{klasse}}",
+    "beginntAm": "beginnt am {{date}}",
+    "inTagen_one": "in {{count}} Tag",
+    "inTagen_other": "in {{count}} Tagen",
+    "seit": "seit {{date}}",
+    "ueberfaellig": "überfällig",
+    "suche": "Suche",
+    "suchePlatzhalter": "Vertragspartner oder Kind",
+    "alleStatus": "Alle Status",
+    "allePakete": "Alle Pakete",
+    "alleLaufzeiten": "Alle Laufzeiten",
+    "alleZahlungen": "Alle Zahlungsstatus",
+    "auchVorgaenger": "Vorgängerverträge mitzeigen",
+    "zeigeAbgelehnte": "Abgelehnte mitzeigen",
+    "fortsetzen": "Fortsetzen",
+    "neuerVertrag": "Neuer Vertrag",
+    "neuerVertragFolgt": "Folgeverträge lassen sich erst aus der Detailansicht starten — kommt mit P3b-2.",
+    "naechsteStufe": "Nächste Stufe",
+    "bezahlt": "Bezahlt",
+    "keineStufeMehr": "Inkasso ist die letzte Stufe.",
+    "leer": {
+      "antraege": "Kein offener Antrag",
+      "antraegeHint": "Anträge entstehen im Lead-Board über „Vertragsprozess\".",
+      "uebersicht": "Kein Vertrag zu diesen Filtern",
+      "uebersichtHint": "Setze die Filter zurück oder zeige auch Vorgängerverträge.",
+      "auslaufend": "Nichts läuft in den nächsten acht Wochen aus",
+      "auslaufendHint": "Hier stehen Verträge, deren Ende näher als acht Wochen ist.",
+      "verzug": "Alle Zahlungen in Ordnung",
+      "verzugHint": "Sobald eine Zahlung offen ist, steht der Vertrag hier."
+    },
+    "dialog": {
+      "grundTitel": "Keine Verlängerung",
+      "grundHinweis": "Der Vertrag verschwindet danach aus den auslaufenden Verträgen.",
+      "grundLabel": "Grund",
+      "stufeTitel": "Nächste Mahnstufe",
+      "stufeHinweis": "Die Stufe rückt um eins vor und speichert das heutige Datum.",
+      "betragLabel": "Offener Betrag in Euro",
+      "bestaetigen": "Übernehmen"
+    },
+    "detailFolgt": "Detailansicht folgt",
+    "detailFolgtHint": "IBAN, Zugangscode, Archiv und Historie kommen mit dem nächsten Paket.",
+    "nichtGefunden": "Dieser Vertrag ist nicht (mehr) abgeschlossen."
   }
 }
