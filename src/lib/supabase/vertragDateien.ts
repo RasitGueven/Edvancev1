@@ -1,0 +1,72 @@
+// Die erzeugten Dokumente eines Vertrags: was im Archiv liegt und wie es
+// dahin kam. Gegenstueck zu vertragScan.ts, das nur den Bucket kennt.
+//
+// Der Bucket weiss, dass unter <vertrag_id>/vertrag.pdf etwas liegt — nicht,
+// ob es aus diesem Vertragsstand stammt, wann und von wem. Das steht in
+// vertrag_dateien, und nur deshalb gibt es beide Abfragen.
+
+import { supabase } from '@/lib/supabase/client'
+import type { SupabaseResult } from '@/types'
+
+export type VertragDatei = {
+  art: 'vertrag' | 'unterschrift' | 'unterlagen_versand' | 'sepa_mandat'
+  pfad: string
+  sha256: string
+  bytes: number | null
+  erzeugtAm: string
+}
+
+export async function listVertragDateien(vertragId: string): Promise<SupabaseResult<VertragDatei[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('vertrag_dateien')
+      .select('art, pfad, sha256, bytes, erzeugt_am')
+      .eq('vertrag_id', vertragId)
+      .order('erzeugt_am', { ascending: true })
+    if (error) return { data: null, error: error.message }
+    const dateien = (data ?? []).map((d) => ({
+      art: d.art as VertragDatei['art'],
+      pfad: d.pfad as string,
+      sha256: d.sha256 as string,
+      bytes: (d.bytes as number | null) ?? null,
+      erzeugtAm: d.erzeugt_am as string,
+    }))
+    return { data: dateien, error: null }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Archiv konnte nicht geladen werden'
+    return { data: null, error: msg }
+  }
+}
+
+/**
+ * Das Vertrags-PDF nachtraeglich erzeugen.
+ *
+ * Normalerweise entsteht es beim Abschluss. Bleibt es dabei aus — die Edge
+ * Function meldet das als pdf_fehler, ohne den Abschluss zurueckzunehmen —,
+ * ist das hier der Weg zurueck zu einem vollstaendigen Archiv.
+ */
+export async function vertragPdfErzeugen(vertragId: string): Promise<SupabaseResult<true>> {
+  try {
+    const { error } = await supabase.functions.invoke('vertrag_pdf', {
+      body: { vertrag_id: vertragId },
+    })
+    if (error) {
+      // Die Edge Function antwortet mit {error: "..."} im Body; die generische
+      // Meldung von invoke() ("non-2xx status code") hilft am Empfang nicht.
+      let msg = error.message
+      try {
+        const antwort = (await (error as unknown as { context: Response }).context.json()) as {
+          error?: string
+        }
+        if (antwort?.error) msg = antwort.error
+      } catch {
+        /* generische Meldung behalten */
+      }
+      return { data: null, error: msg }
+    }
+    return { data: true, error: null }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'PDF konnte nicht erzeugt werden'
+    return { data: null, error: msg }
+  }
+}

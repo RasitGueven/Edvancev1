@@ -1,6 +1,7 @@
 import { ExternalLink } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceCard } from '@/components/edvance'
+import { formatDateOnly } from '@/lib/datetime'
 import { Button } from '@/components/ui/button'
 import type { VertragEnde } from '@/lib/supabase/vertragEnde'
 import type { Vertrag, VertragDokument } from '@/types'
@@ -44,11 +45,15 @@ export function Schritt2Dokument({
       vertrag.laufzeit_monate === 6
         ? t('doc.ferienklausel', {
             einheiten: vertrag.einheiten ?? '—',
-            ende: ende?.ende ?? '—',
+            // Das Datum kommt als ISO aus der RPC. Ungeformt stand hier bisher
+            // "auf den 2027-04-30" — im PDF steht dieselbe Klausel mit
+            // deutschem Datum, und zwei Fassungen desselben Satzes sind eine
+            // zu viel.
+            ende: ende ? formatDateOnly(ende.ende, i18n.language) : '—',
             tage: ende?.ferientage ?? 0,
           })
         : t('doc.keineFerienklausel'),
-    vertragsende: ende?.ende ?? null,
+    vertragsende: ende ? formatDateOnly(ende.ende, i18n.language) : null,
   }
 
   const versionPasst = aktiv === undefined || aktiv.version === vorlage.version

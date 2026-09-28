@@ -8,6 +8,11 @@ import { Button } from '@/components/ui/button'
 import { berlinToday, formatDateOnly } from '@/lib/datetime'
 import { listTiers } from '@/lib/supabase/subscriptions'
 import { getVertragNachweise, listVertragDokumente, type VertragNachweise } from '@/lib/supabase/vertraege'
+import {
+  listVertragDateien,
+  vertragPdfErzeugen,
+  type VertragDatei,
+} from '@/lib/supabase/vertragDateien'
 import { listArchiv, type ArchivDatei } from '@/lib/supabase/vertragScan'
 import {
   getVertragAktuell,
@@ -36,10 +41,12 @@ type Daten = {
   tiers: TierPlan[]
   historie: VertragAktuell[]
   archiv: ArchivDatei[]
+  erzeugte: VertragDatei[]
 }
 
 const LEER: Daten = {
   vertrag: null, nachweise: null, dokumente: [], tiers: [], historie: [], archiv: [],
+  erzeugte: [],
 }
 
 /**
@@ -63,12 +70,13 @@ export function VertragDetailPage(): JSX.Element {
   const [codeFrage, setCodeFrage] = useState(false)
 
   const laden = useCallback(async (): Promise<void> => {
-    const [v, n, dok, ti, ar] = await Promise.all([
+    const [v, n, dok, ti, ar, ez] = await Promise.all([
       getVertragAktuell(id),
       getVertragNachweise(id),
       listVertragDokumente(),
       listTiers(),
       listArchiv(id),
+      listVertragDateien(id),
     ])
     const hist = v.data?.student_id ? await listVertragHistorie(v.data.student_id) : null
     setD({
@@ -78,8 +86,11 @@ export function VertragDetailPage(): JSX.Element {
       tiers: ti.data ?? [],
       historie: hist?.data ?? (v.data ? [v.data] : []),
       archiv: ar.data ?? [],
+      erzeugte: ez.data ?? [],
     })
-    setError(v.error ?? n.error ?? dok.error ?? ti.error ?? ar.error ?? hist?.error ?? null)
+    setError(
+      v.error ?? n.error ?? dok.error ?? ti.error ?? ar.error ?? ez.error ?? hist?.error ?? null,
+    )
     setLoading(false)
   }, [id])
 
@@ -310,8 +321,11 @@ export function VertragDetailPage(): JSX.Element {
               kinder={
                 <ArchivListe
                   dateien={d.archiv}
+                  erzeugte={d.erzeugte}
                   zustimmungen={d.nachweise?.zustimmungen ?? []}
                   dokumente={d.dokumente}
+                  erzeugt={busy}
+                  onPdfErzeugen={() => void run(() => vertragPdfErzeugen(v.id))}
                   onFehler={setError}
                 />
               }

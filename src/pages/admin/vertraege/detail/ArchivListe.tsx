@@ -1,14 +1,20 @@
 import { useState } from 'react'
-import { FileText, FileClock, ExternalLink } from 'lucide-react'
+import { FileText, FileClock, ExternalLink, Loader2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { Button } from '@/components/ui/button'
 import { formatDateOnly } from '@/lib/datetime'
+import type { VertragDatei } from '@/lib/supabase/vertragDateien'
 import { scanUrl, type ArchivDatei } from '@/lib/supabase/vertragScan'
 import type { VertragDokument, VertragZustimmung } from '@/types'
 
 type ArchivListeProps = {
   dateien: ArchivDatei[]
+  erzeugte: VertragDatei[]
   zustimmungen: VertragZustimmung[]
   dokumente: VertragDokument[]
+  onPdfErzeugen: () => void
+  /** Läuft gerade eine Aktion — dann ist der Knopf gesperrt. */
+  erzeugt: boolean
   onFehler: (text: string) => void
 }
 
@@ -16,14 +22,22 @@ type ArchivListeProps = {
  * Was zu diesem Vertrag archiviert ist.
  *
  * Drei Arten von Einträgen, und alle drei stehen da — auch die fehlenden:
- * hochgeladene Dateien (heute der Rücklauf-Scan), festgehaltene Fassungen aus
- * vertrag_zustimmungen, und die PDFs, die es noch nicht gibt. Letztere zu
+ * hochgeladene und erzeugte Dateien, festgehaltene Fassungen aus
+ * vertrag_zustimmungen, und ein fehlendes Vertrags-PDF. Letzteres zu
  * verstecken hieße zu behaupten, das Archiv sei vollständig.
+ *
+ * Die Dateiliste kommt aus dem Bucket, die Herkunft aus vertrag_dateien. Was
+ * ohne Eintrag dort liegt — der Rücklauf-Scan aus P2 — steht trotzdem in der
+ * Liste, nur ohne Zeitstempel. Eine Datei zu verschweigen, weil die Tabelle
+ * sie nicht kennt, wäre das falsche Ende von beiden.
  */
 export function ArchivListe({
   dateien,
+  erzeugte,
   zustimmungen,
   dokumente,
+  onPdfErzeugen,
+  erzeugt,
   onFehler,
 }: ArchivListeProps): JSX.Element {
   const { t, i18n } = useTranslation('vertraege')
@@ -43,13 +57,30 @@ export function ArchivListe({
   const titel = (schluessel: string): string =>
     dokumente.find((d) => d.schluessel === schluessel)?.titel ?? schluessel
 
+  const herkunft = (pfad: string): string | null => {
+    const e = erzeugte.find((x) => x.pfad === pfad)
+    if (!e) return null
+    return t('detailansicht.erzeugtAm', {
+      date: formatDateOnly(e.erzeugtAm.slice(0, 10), i18n.language),
+    })
+  }
+
+  const hatPdf = erzeugte.some((e) => e.art === 'vertrag')
+
   return (
     <ul className="flex flex-col gap-2">
       {dateien.map((d) => (
         <li key={d.pfad} className="flex items-center justify-between gap-2">
-          <span className="flex min-w-0 items-center gap-2 text-sm text-[var(--color-text-primary)]">
-            <FileText className="h-4 w-4 shrink-0 text-[var(--color-success)]" />
-            <span className="truncate">{d.name}</span>
+          <span className="flex min-w-0 flex-col">
+            <span className="flex min-w-0 items-center gap-2 text-sm text-[var(--color-text-primary)]">
+              <FileText className="h-4 w-4 shrink-0 text-[var(--color-success)]" />
+              <span className="truncate">{d.name}</span>
+            </span>
+            {herkunft(d.pfad) !== null && (
+              <span className="pl-6 text-xs text-[var(--color-text-tertiary)]">
+                {herkunft(d.pfad)}
+              </span>
+            )}
           </span>
           <button
             type="button"
@@ -78,10 +109,25 @@ export function ArchivListe({
         </li>
       ))}
 
-      {/* Die erzeugten PDFs kommen mit P4. Sichtbar, aber als offen markiert. */}
-      <li className="flex items-center gap-2 border-t border-[var(--color-border)] pt-2 text-sm text-[var(--color-text-tertiary)]">
-        <FileClock className="h-4 w-4 shrink-0" />
-        {t('detailansicht.pdfFolgt')}
+      {!hatPdf && (
+        <li className="flex flex-col gap-2 border-t border-[var(--color-border)] pt-2">
+          <span className="flex items-center gap-2 text-sm text-[var(--color-gold-warning)]">
+            <FileClock className="h-4 w-4 shrink-0" />
+            {t('detailansicht.pdfAusstehend')}
+          </span>
+          <span className="text-xs text-[var(--color-text-tertiary)]">
+            {t('detailansicht.pdfAusstehendHint')}
+          </span>
+          <Button size="sm" variant="outline" disabled={erzeugt} onClick={onPdfErzeugen}>
+            {erzeugt && <Loader2 className="h-4 w-4 animate-spin" />}
+            {t('detailansicht.pdfErzeugen')}
+          </Button>
+        </li>
+      )}
+
+      {/* SEPA-Mandat und die Fassungen der Unterlagen kommen mit P4a-2. */}
+      <li className="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
+        {t('detailansicht.weitereFolgen')}
       </li>
     </ul>
   )

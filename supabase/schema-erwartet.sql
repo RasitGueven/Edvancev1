@@ -4362,6 +4362,59 @@ $$;
 
 
 --
+-- Name: vertrag_datei_eintragen(uuid, text, text, text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_datei_eintragen(p_vertrag_id uuid, p_art text, p_pfad text, p_sha256 text, p_bytes integer DEFAULT NULL::integer) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_status text;
+  v_id     uuid;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'vertrag_datei_eintragen: nur Admin' using errcode = '42501';
+  end if;
+
+  select status into v_status from public.vertraege where id = p_vertrag_id;
+  if v_status is null then
+    raise exception 'vertrag_datei_eintragen: Vertrag nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  -- Ein Vertragsdokument gibt es erst, wenn der Vertrag steht. Vorher waere es
+  -- ein Entwurf mit dem Aussehen einer Urkunde.
+  if p_art in ('vertrag', 'unterschrift') and v_status <> 'abgeschlossen' then
+    raise exception 'vertrag_datei_eintragen: Vertrag ist nicht abgeschlossen (%)', v_status
+      using errcode = 'P0001';
+  end if;
+
+  -- Der Pfad muss unter dem Vertrag liegen. Sonst koennte ein Eintrag auf ein
+  -- fremdes Dokument zeigen und die Zuordnung waere nur noch Behauptung.
+  if p_pfad !~ ('^' || p_vertrag_id::text || '/') then
+    raise exception 'vertrag_datei_eintragen: Pfad gehoert nicht zu diesem Vertrag (%)', p_pfad
+      using errcode = 'P0001';
+  end if;
+
+  begin
+    insert into public.vertrag_dateien (vertrag_id, art, pfad, sha256, bytes, erzeugt_von)
+    values (p_vertrag_id, p_art, p_pfad, lower(p_sha256), p_bytes, auth.uid())
+    returning id into v_id;
+  exception when unique_violation then
+    raise exception 'vertrag_datei_eintragen: fuer diesen Vertrag gibt es "%" schon', p_art
+      using errcode = '23505';
+  end;
+
+  -- Kein audit_log-Eintrag: Die Zeile selbst ist das Protokoll — sie traegt
+  -- erzeugt_von und erzeugt_am, und geloescht wird hier nichts. audit_log ist
+  -- fuer Zugriffe gedacht, die sonst spurlos blieben (etwa die volle IBAN).
+
+  return v_id;
+end;
+$$;
+
+
+--
 -- Name: vertrag_ende_berechnen(date, integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -6326,6 +6379,26 @@ CREATE TABLE public.vertrag_bankdaten (
 
 
 --
+-- Name: vertrag_dateien; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vertrag_dateien (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    vertrag_id uuid NOT NULL,
+    art text NOT NULL,
+    pfad text NOT NULL,
+    sha256 text NOT NULL,
+    bytes integer,
+    erzeugt_am timestamp with time zone DEFAULT now() NOT NULL,
+    erzeugt_von uuid,
+    CONSTRAINT vertrag_dateien_art_check CHECK ((art = ANY (ARRAY['vertrag'::text, 'unterschrift'::text, 'unterlagen_versand'::text, 'sepa_mandat'::text]))),
+    CONSTRAINT vertrag_dateien_bytes_check CHECK (((bytes IS NULL) OR (bytes > 0))),
+    CONSTRAINT vertrag_dateien_pfad_check CHECK ((NULLIF(btrim(pfad), ''::text) IS NOT NULL)),
+    CONSTRAINT vertrag_dateien_sha256_check CHECK ((sha256 ~ '^[0-9a-f]{64}$'::text))
+);
+
+
+--
 -- Name: vertrag_dokumente; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6988,6 +7061,30 @@ ALTER TABLE ONLY public.vertraege
 
 ALTER TABLE ONLY public.vertrag_bankdaten
     ADD CONSTRAINT vertrag_bankdaten_pkey PRIMARY KEY (vertrag_id);
+
+
+--
+-- Name: vertrag_dateien vertrag_dateien_art_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_dateien
+    ADD CONSTRAINT vertrag_dateien_art_uniq UNIQUE (vertrag_id, art);
+
+
+--
+-- Name: vertrag_dateien vertrag_dateien_pfad_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_dateien
+    ADD CONSTRAINT vertrag_dateien_pfad_uniq UNIQUE (pfad);
+
+
+--
+-- Name: vertrag_dateien vertrag_dateien_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_dateien
+    ADD CONSTRAINT vertrag_dateien_pkey PRIMARY KEY (id);
 
 
 --
@@ -8620,6 +8717,22 @@ ALTER TABLE ONLY public.vertrag_bankdaten
 
 
 --
+-- Name: vertrag_dateien vertrag_dateien_erzeugt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_dateien
+    ADD CONSTRAINT vertrag_dateien_erzeugt_von_fkey FOREIGN KEY (erzeugt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: vertrag_dateien vertrag_dateien_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vertrag_dateien
+    ADD CONSTRAINT vertrag_dateien_vertrag_id_fkey FOREIGN KEY (vertrag_id) REFERENCES public.vertraege(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: vertrag_unterschriften vertrag_unterschriften_vertrag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9953,6 +10066,19 @@ CREATE POLICY vertrag_bankdaten_admin_update ON public.vertrag_bankdaten FOR UPD
 CREATE POLICY vertrag_bankdaten_admin_write ON public.vertrag_bankdaten FOR INSERT WITH CHECK (((public.get_my_role() = 'admin'::text) AND (EXISTS ( SELECT 1
    FROM public.vertraege v
   WHERE ((v.id = vertrag_bankdaten.vertrag_id) AND (v.status = 'in_vorbereitung'::text))))));
+
+
+--
+-- Name: vertrag_dateien; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.vertrag_dateien ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: vertrag_dateien vertrag_dateien_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY vertrag_dateien_admin_select ON public.vertrag_dateien FOR SELECT USING ((public.get_my_role() = 'admin'::text));
 
 
 --
