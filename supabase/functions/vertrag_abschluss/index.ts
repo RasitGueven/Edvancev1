@@ -27,8 +27,8 @@
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import {
+  buendelVollstaendig,
   fassungenErzeugen,
-  hatVertragPdf,
   vertragPdfErzeugen,
 } from '../_shared/vertrag_pdf_erzeugen.ts'
 
@@ -245,7 +245,7 @@ Deno.serve(async (req: Request) => {
     // Der Aufruf ist idempotent (bereits_abgeschlossen) — dann liegt das PDF
     // schon da und ein zweiter Versuch waere nur ein Upload-Fehler, den
     // niemand lesen muss.
-    if (!(await hatVertragPdf(admin, body.vertrag_id))) {
+    if (!(await buendelVollstaendig(admin, body.vertrag_id))) {
       await fassungenErzeugen(admin, rpcClient)
       await vertragPdfErzeugen(admin, rpcClient, body.vertrag_id)
     }

@@ -31,6 +31,7 @@ import { NachAbschluss } from './vertraege/NachAbschluss'
 import { Schritt2Dokument } from './vertraege/Schritt2Dokument'
 import { Schritt3Weg, type AbschlussWahl } from './vertraege/Schritt3Weg'
 import { Schritt4VorOrt } from './vertraege/Schritt4VorOrt'
+import { unterlagenPerMail } from '@/lib/supabase/vertragMail'
 import { Schritt4Versand } from './vertraege/Schritt4Versand'
 import { VertragForm } from './vertraege/VertragForm'
 import { WizardKopf, type WizardSchritt } from './vertraege/WizardKopf'
@@ -348,6 +349,7 @@ export function VertragPage(): JSX.Element {
 
             {schritt === 4 && wahl !== null && wahl !== 'vor_ort' && (
               <Schritt4Versand
+                glaeubigerId={vertrag.glaeubiger_id ?? stamm.glaeubigerId}
                 weg={wahl}
                 empfaenger={vertrag.eltern_email}
                 datenSperre={datenSperre}
@@ -355,7 +357,12 @@ export function VertragPage(): JSX.Element {
                 onDrucken={() => drucken('unterlagen')}
                 onVersenden={(bis) =>
                   void run(() =>
-                    vertragVersenden(vertrag.id, wahl, vertrag.eltern_email, bis),
+                    // Weg B verschickt jetzt wirklich: Unterlagen erzeugen,
+                    // Status setzen, Mail raus. Der Druckweg bleibt, wie er
+                    // war — dort IST das Auslegen der Vorgang.
+                    wahl === 'email' && vertrag.eltern_email
+                      ? unterlagenPerMail(vertrag.id, vertrag.eltern_email, bis)
+                      : vertragVersenden(vertrag.id, wahl, vertrag.eltern_email, bis),
                   )
                 }
               />

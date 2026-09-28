@@ -106,3 +106,14 @@ export function imVerzug(vertraege: VertragAktuell[]): VertragAktuell[] {
     .filter((v) => v.zahlungsstatus !== 'in_ordnung')
     .sort((a, b) => (a.zahlungsstatus_seit ?? '').localeCompare(b.zahlungsstatus_seit ?? ''))
 }
+
+/**
+ * Liegt das vollständige Bündel im Archiv?
+ *
+ * Gefragt ist, ob etwas FEHLT, nicht ob etwas DA ist: Verträge aus dem ersten
+ * PDF-Paket haben ihr Vertrags-PDF, aber kein SEPA-Mandat. Ein Versand ohne
+ * Mandat wäre eine halbe Mail.
+ */
+export function buendelVollstaendig(arten: readonly string[]): boolean {
+  return arten.includes('vertrag') && arten.includes('sepa_mandat')
+}

@@ -21,7 +21,7 @@ const FARBE_TEXT = rgb(0.11, 0.14, 0.21)
 const FARBE_LEISE = rgb(0.42, 0.46, 0.55)
 const FARBE_LINIE = rgb(0.8, 0.83, 0.88)
 
-type Art = 'h1' | 'h2' | 'li' | 'quote' | 'p'
+type Art = 'h1' | 'h2' | 'li' | 'quote' | 'p' | 'seitenumbruch'
 /** `klebt` = im Quelltext stand kein Leerzeichen davor (Satzzeichen). */
 type Wort = { text: string; fett: boolean; klebt: boolean }
 /** `weiter` = direkt an den Block darueber, ohne Absatzabstand. */
@@ -35,6 +35,7 @@ const STIL: Record<Art, Stil> = {
   li: { groesse: 10.5, hoehe: 15, davor: 3, einzug: 14 },
   quote: { groesse: 9.5, hoehe: 14, davor: 12, einzug: 12 },
   p: { groesse: 10.5, hoehe: 15, davor: 10, einzug: 0 },
+  seitenumbruch: { groesse: 0, hoehe: 0, davor: 0, einzug: 0 },
 }
 
 /**
@@ -123,6 +124,14 @@ export function bloecke(markdown: string): Block[] {
       letzteWarText = false
       continue
     }
+    // "---" allein auf einer Zeile beginnt eine neue Seite. Gebraucht fuer
+    // die Unterlagen zum Ausdrucken: Vertrag und SEPA-Mandat liegen in einer
+    // Datei, sollen aber nicht auf demselben Blatt anfangen.
+    if (zeile === '---') {
+      raus.push({ art: 'seitenumbruch', woerter: [], weiter: false })
+      letzteWarText = false
+      continue
+    }
     const art: Art = zeile.startsWith('## ')
       ? 'h2'
       : zeile.startsWith('# ')
@@ -198,6 +207,10 @@ export async function markdownZuPdf({ markdown, fusszeile, unterschrift }: PdfEi
   }
 
   for (const block of bloecke(markdown)) {
+    if (block.art === 'seitenumbruch') {
+      neueSeite()
+      continue
+    }
     const s = STIL[block.art]
     const farbe = block.art === 'quote' ? FARBE_LEISE : FARBE_TEXT
     const x0 = RAND + s.einzug

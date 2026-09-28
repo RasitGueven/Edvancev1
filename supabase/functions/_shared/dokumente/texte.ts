@@ -43,6 +43,17 @@ export const FERIENKLAUSEL = "Geschuldet sind {{einheiten}} Coaching-Einheiten. 
 export const KEINE_FERIENKLAUSEL = "Die Laufzeit umfasst zwölf volle Kalendermonate mit zwölf Beiträgen."
 export const GLAEUBIGER_ID_FEHLT = "**Gläubiger-Identifikationsnummer fehlt — dieses Mandat ist nicht gültig.** Es wurde erzeugt, damit der Ablauf vollständig ist. Vor dem ersten Einzug muss die Nummer eingetragen und das Mandat neu erstellt werden."
 
+/** Wortgleich mit de/vertraege.json → mail.* — die Texte, die an Eltern gehen. */
+export const MAIL: Record<string, string> = {
+  bestaetigungBetreff: "Ihr Vertrag mit Edvance für {{kind}}",
+  bestaetigungText: "Guten Tag {{eltern}},\n\nvielen Dank für Ihr Vertrauen. Anbei finden Sie alle Unterlagen zum Vertrag für {{kind}}:\n{{liste}}\n\nDer Vertrag läuft vom {{beginn}} bis zum {{ende}}. Bis einschließlich {{widerruf}} können Sie ihn ohne Angabe von Gründen widerrufen; die Widerrufsbelehrung liegt bei.\n\nDen Zugang für {{kind}} richten wir vor dem ersten Termin gemeinsam ein. Bei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+  unterlagenBetreff: "Ihre Vertragsunterlagen von Edvance",
+  unterlagenText: "Guten Tag {{eltern}},\n\nanbei die Unterlagen für {{kind}}. Bitte drucken Sie den Vertrag und das SEPA-Mandat aus, unterschreiben beides und senden es uns zurück — bis zum {{bis}}.\n{{liste}}\n\nDer Vertrag kommt erst zustande, wenn uns das unterschriebene Original vorliegt. Bis dahin ist für Sie nichts verbindlich.\n\nBei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+  zugangscodeBetreff: "Ihr neuer Zugangscode für Edvance",
+  zugangscodeText: "Guten Tag {{eltern}},\n\nder Zugangscode für {{kind}} lautet:\n\n    {{code}}\n\nDer bisherige Code gilt nicht mehr. Geben Sie den Code bitte nicht weiter — er gehört zu diesem einen Zugang.\n\nHerzliche Grüße\nIhr Edvance-Team",
+  anhangZeile: "- {{name}}",
+}
+
 /** Wortgleich mit de/vertraege.json → form.laufzeitOption. */
 export const LAUFZEIT_TEXT: Record<number, string> = {
   6: "6 Monate · Halbjahrespaket",

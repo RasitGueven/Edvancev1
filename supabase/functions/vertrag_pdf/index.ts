@@ -14,8 +14,9 @@
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import {
+  buendelVollstaendig,
   fassungenErzeugen,
-  hatVertragPdf,
+  unterlagenVersandErzeugen,
   vertragPdfErzeugen,
 } from '../_shared/vertrag_pdf_erzeugen.ts'
 
@@ -41,7 +42,9 @@ Deno.serve(async (req: Request) => {
   const anonKey = Deno.env.get('SUPABASE_ANON_KEY')
   if (!url || !serviceKey || !anonKey) return json(500, { error: 'Service-Config fehlt' })
 
-  let body: { vertrag_id?: string }
+  // 'buendel' = Vertrag und SEPA-Mandat nach dem Abschluss.
+  // 'unterlagen' = die Fassung zum Ausdrucken fuer Weg B, vor der Unterschrift.
+  let body: { vertrag_id?: string; art?: 'buendel' | 'unterlagen' }
   try {
     body = await req.json()
   } catch {
@@ -76,16 +79,20 @@ Deno.serve(async (req: Request) => {
     .maybeSingle()
   if (prof?.role !== 'admin') return json(403, { error: 'Nur Admin darf PDFs erzeugen' })
 
-  if (await hatVertragPdf(admin, body.vertrag_id)) {
-    return json(409, { error: 'Fuer diesen Vertrag gibt es das PDF schon' })
+  const art = body.art ?? 'buendel'
+  if (art === 'buendel' && (await buendelVollstaendig(admin, body.vertrag_id))) {
+    return json(409, { error: 'Das Archiv dieses Vertrags ist schon vollstaendig' })
   }
 
   try {
-    // Erst die geteilten Unterlagen — sie gehoeren zum Buendel und sind beim
-    // ersten Vertrag noch nicht da. Idempotent: liegen sie schon, passiert
-    // nichts.
+    // Erst die geteilten Unterlagen — sie gehoeren zu jedem Umschlag und sind
+    // beim ersten Vertrag noch nicht da. Idempotent: liegen sie schon,
+    // passiert nichts.
     const fassungen = await fassungenErzeugen(admin, caller)
-    const dateien = await vertragPdfErzeugen(admin, caller, body.vertrag_id)
+    const dateien =
+      art === 'unterlagen'
+        ? [await unterlagenVersandErzeugen(admin, caller, body.vertrag_id)]
+        : await vertragPdfErzeugen(admin, caller, body.vertrag_id)
     return json(200, { dateien, fassungen })
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'PDF konnte nicht erzeugt werden'

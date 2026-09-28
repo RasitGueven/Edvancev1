@@ -77,10 +77,13 @@ export async function listVertragDateien(vertragId: string): Promise<SupabaseRes
  * Function meldet das als pdf_fehler, ohne den Abschluss zurueckzunehmen —,
  * ist das hier der Weg zurueck zu einem vollstaendigen Archiv.
  */
-export async function vertragPdfErzeugen(vertragId: string): Promise<SupabaseResult<true>> {
+export async function vertragPdfErzeugen(
+  vertragId: string,
+  art: 'buendel' | 'unterlagen' = 'buendel',
+): Promise<SupabaseResult<true>> {
   try {
     const { error } = await supabase.functions.invoke('vertrag_pdf', {
-      body: { vertrag_id: vertragId },
+      body: { vertrag_id: vertragId, art },
     })
     if (error) {
       // Die Edge Function antwortet mit {error: "..."} im Body; die generische

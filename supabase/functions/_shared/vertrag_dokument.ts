@@ -17,7 +17,7 @@ import {
   type DokumentArt,
 } from './dokumente/texte.ts'
 
-const SPALTEN = `
+export const VERTRAG_SPALTEN = `
   id, status, eltern_vorname, eltern_nachname, strasse, hausnummer, plz, ort,
   eltern_telefon, eltern_email, kind_vorname, kind_nachname, kind_geburtsdatum,
   klasse, fach, schule, laufzeit_monate, tier_id, preis_cents, einheiten,
@@ -158,7 +158,7 @@ export function dokumentAusZeile(
 export async function vertragDokument(admin: SupabaseClient, vertragId: string): Promise<Dokument> {
   const { data: v, error } = await admin
     .from('vertraege')
-    .select(SPALTEN)
+    .select(VERTRAG_SPALTEN)
     .eq('id', vertragId)
     .single()
   if (error || !v) throw new Error(`Vertrag nicht gefunden: ${error?.message ?? vertragId}`)

@@ -10,6 +10,8 @@ import { berlinToday, formatDateOnly } from '@/lib/datetime'
 type Schritt4VersandProps = {
   weg: 'email' | 'druck'
   empfaenger: string | null
+  /** Leer heisst: das SEPA-Mandat geht ungueltig raus. Das muss man sehen. */
+  glaeubigerId: string | null
   datenSperre: string | null
   saving: boolean
   onVersenden: (rueckmeldungBis: string) => void
@@ -29,13 +31,14 @@ function standardFrist(): string {
  * gross dastehen muss, weil der Knopf sonst wie ein Abschluss aussieht
  * (Anforderung D.13).
  *
- * Der Mailversand ueber hello@ kommt in P4. Bis dahin verschickt der Empfang
- * die Unterlagen von Hand und haelt hier fest, dass es passiert ist — das
- * Protokoll stimmt dadurch, der Weg ist nur noch nicht automatisch.
+ * Der Mailweg verschickt seit P4b wirklich: aus hello@edvanceacademy.de, mit
+ * Vertrag, SEPA-Mandat und den Fassungen im Anhang. Der Druckweg bleibt, wie
+ * er war — dort IST das Auslegen der Vorgang.
  */
 export function Schritt4Versand({
   weg,
   empfaenger,
+  glaeubigerId,
   datenSperre,
   saving,
   onVersenden,
@@ -62,6 +65,14 @@ export function Schritt4Versand({
           ? t('wizard.emailManual', { empfaenger: empfaenger ?? '—' })
           : t('wizard.printHint')}
       </p>
+
+      {(glaeubigerId ?? '').trim() === '' && (
+        <div className="rounded-xl border border-[var(--color-gold-warning)] bg-[var(--color-gold-warning-light)] px-4 py-3">
+          <p className="text-sm leading-relaxed text-[var(--color-text-primary)]">
+            {t('wizard.glaeubigerWarnung')}
+          </p>
+        </div>
+      )}
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="vertrag-rueckmeldung">{t('wizard.rueckmeldungBis')}</Label>
