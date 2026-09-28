@@ -181,7 +181,8 @@
     "wegHint": "Bei jedem Weg gehen dieselben Unterlagen mit: Vertrag, AGB, Datenschutzerklärung, Widerrufsbelehrung und SEPA-Mandat.",
     "wegMissing": "Ohne gewählten Weg geht es nicht weiter.",
     "noContractYet": "Hier entsteht noch kein Vertrag. Der kommt erst zustande, wenn das unterschriebene Exemplar zurück ist und eingepflegt wird.",
-    "emailManual": "Die Unterlagen gehen an {{empfaenger}}. Den Versand über hello@ baut P4 — bis dahin verschickst du sie von Hand und hältst es hier fest.",
+    "emailManual": "Die Unterlagen gehen als PDF an {{empfaenger}} — Vertrag, SEPA-Mandat, AGB, Widerrufsbelehrung und Datenschutzhinweise. Abgeschickt wird aus hello@edvanceacademy.de.",
+    "glaeubigerWarnung": "Die Gläubiger-Identifikationsnummer fehlt. Das SEPA-Mandat geht mit dem Hinweis raus, dass es noch nicht gültig ist.",
     "printHint": "Erst ausdrucken, dann den Antrag als versendet festhalten.",
     "rueckmeldungBis": "Rückmeldung erwartet bis",
     "rueckmeldungHint": "Standard sind zwei Wochen, also {{date}}.",
@@ -340,6 +341,12 @@
     "pdfAusstehend": "PDF ausstehend",
     "pdfAusstehendHint": "Der Vertrag ist geschlossen, das Dokument fehlt im Archiv. Beim Abschluss ist dabei etwas schiefgegangen.",
     "pdfErzeugen": "PDF erzeugen",
+    "bestaetigungSenden": "Bestätigung per Mail",
+    "codeSenden": "Zugangscode per Mail",
+    "versandBraucht": "Erst das Archiv vervollständigen — ohne Vertrag und SEPA-Mandat gibt es nichts zu verschicken.",
+    "keinCode": "Dieser Vertrag hat keinen Zugangscode.",
+    "keineAdresse": "Für diesen Vertrag ist keine E-Mail-Adresse hinterlegt.",
+    "versandOk": "Verschickt an {{an}}.",
     "historie": "Vertragshistorie",
     "historieLeer": "Erster Vertrag",
     "historieLeerHint": "Sobald ein Folgevertrag zustande kommt, steht die Kette hier.",
@@ -367,5 +374,14 @@
     "kuendigungBestaetigen": "Kündigung erfassen",
     "kuendigungFehlt": "Datum und Grund sind beide Pflicht.",
     "folgevertragFehler": "Der Folgevertrag konnte nicht gestartet werden."
+  },
+  "mail": {
+    "bestaetigungBetreff": "Ihr Vertrag mit Edvance für {{kind}}",
+    "bestaetigungText": "Guten Tag {{eltern}},\n\nvielen Dank für Ihr Vertrauen. Anbei finden Sie alle Unterlagen zum Vertrag für {{kind}}:\n{{liste}}\n\nDer Vertrag läuft vom {{beginn}} bis zum {{ende}}. Bis einschließlich {{widerruf}} können Sie ihn ohne Angabe von Gründen widerrufen; die Widerrufsbelehrung liegt bei.\n\nDen Zugang für {{kind}} richten wir vor dem ersten Termin gemeinsam ein. Bei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+    "unterlagenBetreff": "Ihre Vertragsunterlagen von Edvance",
+    "unterlagenText": "Guten Tag {{eltern}},\n\nanbei die Unterlagen für {{kind}}. Bitte drucken Sie den Vertrag und das SEPA-Mandat aus, unterschreiben beides und senden es uns zurück — bis zum {{bis}}.\n{{liste}}\n\nDer Vertrag kommt erst zustande, wenn uns das unterschriebene Original vorliegt. Bis dahin ist für Sie nichts verbindlich.\n\nBei Fragen antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
+    "zugangscodeBetreff": "Ihr neuer Zugangscode für Edvance",
+    "zugangscodeText": "Guten Tag {{eltern}},\n\nder Zugangscode für {{kind}} lautet:\n\n    {{code}}\n\nDer bisherige Code gilt nicht mehr. Geben Sie den Code bitte nicht weiter — er gehört zu diesem einen Zugang.\n\nHerzliche Grüße\nIhr Edvance-Team",
+    "anhangZeile": "- {{name}}"
   }
 }

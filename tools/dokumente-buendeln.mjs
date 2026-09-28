@@ -79,6 +79,11 @@ export function baueTexte(wurzel = '.') {
     `export const KEINE_FERIENKLAUSEL = ${s(i18n.doc.keineFerienklausel)}`,
     `export const GLAEUBIGER_ID_FEHLT = ${s(i18n.doc.glaeubigerIdFehlt)}`,
     '',
+    '/** Wortgleich mit de/vertraege.json → mail.* — die Texte, die an Eltern gehen. */',
+    'export const MAIL: Record<string, string> = {',
+    ...Object.entries(i18n.mail).map(([k, v]) => `  ${k}: ${s(v)},`),
+    '}',
+    '',
     '/** Wortgleich mit de/vertraege.json → form.laufzeitOption. */',
     'export const LAUFZEIT_TEXT: Record<number, string> = {',
     ...Object.entries(i18n.form.laufzeitOption)

@@ -37,6 +37,9 @@ vi.mock('@/lib/supabase/vertragDateien', () => ({
   listDokumentFassungen: vi.fn(() => Promise.resolve({ data: [], error: null })),
   vertragPdfErzeugen: vi.fn(() => Promise.resolve({ data: true, error: null })),
 }))
+vi.mock('@/lib/supabase/vertragMail', () => ({
+  mailSenden: vi.fn(() => Promise.resolve({ data: { an: 'a@b.de', anhaenge: [] }, error: null })),
+}))
 vi.mock('@/lib/supabase/subscriptions', () => ({
   listTiers: vi.fn(() =>
     Promise.resolve({ data: [{ id: 't3', name: 'Premium', price_cents: 34990 }], error: null }),
@@ -52,6 +55,7 @@ import {
   vertragPdfErzeugen,
 } from '@/lib/supabase/vertragDateien'
 import { getVertragNachweise } from '@/lib/supabase/vertraege'
+import { mailSenden } from '@/lib/supabase/vertragMail'
 import { listArchiv, scanUrl } from '@/lib/supabase/vertragScan'
 import {
   getVertragAktuell,
@@ -85,6 +89,7 @@ function v(over: Partial<VertragAktuell> = {}): VertragAktuell {
     ferientage: 43,
     iban_masked: 'DE** **** 3000',
     zugangscode: 'EDV-ABCD-EFG2',
+    eltern_email: 'eltern@example.org',
     zahlungsstatus: 'in_ordnung',
     student_id: 's1',
     ...over,
@@ -266,5 +271,65 @@ describe('Fassungen im Archiv', () => {
 
     expect(await screen.findByText(/Fassung platzhalter-v1/)).toBeTruthy()
     expect(screen.queryByRole('button', { name: /Öffnen/ })).toBeNull()
+  })
+})
+
+describe('Versand', () => {
+  it('ist gesperrt ohne Elternadresse — es gibt niemanden zum Verschicken', async () => {
+    vi.mocked(listVertragDateien).mockResolvedValue({
+      data: [
+        { art: 'vertrag', pfad: 'v1/vertrag.pdf', sha256: 'a'.repeat(64), bytes: 10, erzeugtAm: '2026-09-24T10:00:00Z' },
+        { art: 'sepa_mandat', pfad: 'v1/sepa_mandat.pdf', sha256: 'b'.repeat(64), bytes: 10, erzeugtAm: '2026-09-24T10:00:00Z' },
+      ],
+      error: null,
+    })
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v({ eltern_email: null }), error: null })
+    zeige()
+    const knopf = await screen.findByRole('button', { name: /Bestätigung per Mail/ })
+    expect((knopf as HTMLButtonElement).disabled).toBe(true)
+  })
+
+  it('ist gesperrt, solange das Buendel unvollstaendig ist', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    // Nur das Vertrags-PDF, kein SEPA-Mandat — genau der Zustand der
+    // Vertraege aus P4a-1.
+    vi.mocked(listVertragDateien).mockResolvedValue({
+      data: [
+        { art: 'vertrag', pfad: 'v1/vertrag.pdf', sha256: 'a'.repeat(64), bytes: 10, erzeugtAm: '2026-09-24T10:00:00Z' },
+      ],
+      error: null,
+    })
+    zeige()
+
+    const knopf = await screen.findByRole('button', { name: /Bestätigung per Mail/ })
+    expect((knopf as HTMLButtonElement).disabled).toBe(true)
+    expect(mailSenden).not.toHaveBeenCalled()
+  })
+
+  it('verschickt die Bestaetigung, sobald Vertrag und Mandat da sind', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    vi.mocked(listVertragDateien).mockResolvedValue({ data: [
+        { art: 'vertrag', pfad: 'v1/vertrag.pdf', sha256: 'a'.repeat(64), bytes: 10, erzeugtAm: '2026-09-24T10:00:00Z' },
+        { art: 'sepa_mandat', pfad: 'v1/sepa_mandat.pdf', sha256: 'b'.repeat(64), bytes: 10, erzeugtAm: '2026-09-24T10:00:00Z' },
+      ], error: null })
+    zeige()
+
+    fireEvent.click(await screen.findByRole('button', { name: /Bestätigung per Mail/ }))
+    await waitFor(() => expect(mailSenden).toHaveBeenCalledWith('v1', 'bestaetigung'))
+    expect(await screen.findByText(/Verschickt an/)).toBeTruthy()
+  })
+
+  it('bietet den Zugangscode nur an, wenn es einen gibt', async () => {
+    vi.mocked(listVertragDateien).mockResolvedValue({ data: [
+        { art: 'vertrag', pfad: 'v1/vertrag.pdf', sha256: 'a'.repeat(64), bytes: 10, erzeugtAm: '2026-09-24T10:00:00Z' },
+        { art: 'sepa_mandat', pfad: 'v1/sepa_mandat.pdf', sha256: 'b'.repeat(64), bytes: 10, erzeugtAm: '2026-09-24T10:00:00Z' },
+      ], error: null })
+    vi.mocked(getVertragAktuell).mockResolvedValue({
+      data: v({ zugangscode: null }),
+      error: null,
+    })
+    zeige()
+    const knopf = await screen.findByRole('button', { name: /Zugangscode per Mail/ })
+    expect((knopf as HTMLButtonElement).disabled).toBe(true)
   })
 })

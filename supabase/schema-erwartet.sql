@@ -4823,21 +4823,22 @@ $$;
 
 
 --
--- Name: vertrag_versand_protokollieren(uuid, text, text, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: vertrag_versand_protokollieren(uuid, text, text, text, jsonb, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.vertrag_versand_protokollieren(p_vertrag_id uuid, p_weg text, p_anlass text, p_empfaenger text DEFAULT NULL::text) RETURNS void
+CREATE FUNCTION public.vertrag_versand_protokollieren(p_vertrag_id uuid, p_weg text, p_anlass text, p_empfaenger text DEFAULT NULL::text, p_anhaenge jsonb DEFAULT NULL::jsonb, p_fehler text DEFAULT NULL::text) RETURNS uuid
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_status text;
+  v_id     uuid;
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_versand_protokollieren: nur Admin' using errcode = '42501';
   end if;
 
-  select status into v_status from vertraege where id = p_vertrag_id for update;
+  select status into v_status from public.vertraege where id = p_vertrag_id for update;
   if not found then
     raise exception 'vertrag_versand_protokollieren: Vertrag nicht gefunden' using errcode = 'P0002';
   end if;
@@ -4845,19 +4846,28 @@ begin
     raise exception 'vertrag_versand_protokollieren: Vertrag ist abgelehnt' using errcode = 'P0001';
   end if;
 
-  insert into vertrag_versand (vertrag_id, weg, anlass, empfaenger, erfolgt_von)
-  values (p_vertrag_id, p_weg, p_anlass, p_empfaenger, auth.uid());
+  insert into public.vertrag_versand
+    (vertrag_id, weg, anlass, empfaenger, anhaenge, fehler, erfolgt_von)
+  values
+    (p_vertrag_id, p_weg, p_anlass, p_empfaenger, p_anhaenge,
+     nullif(btrim(coalesce(p_fehler, '')), ''), auth.uid())
+  returning id into v_id;
 
+  -- Unveraendert aus der alten Fassung: wer die Unterlagen rausgibt, wartet
+  -- ab da auf Post. Beim Mailweg hat vertrag_versenden das schon getan, dann
+  -- greift die Bedingung nicht.
   if p_anlass = 'unterlagen' and v_status = 'in_vorbereitung' then
     perform set_config('edvance.vertrag_rpc', '1', true);
-    update vertraege
+    update public.vertraege
        set status = 'unterschrift_ausstehend',
            unterschrift_ausstehend_at = now(),
            glaeubiger_id = coalesce(glaeubiger_id,
-             (select glaeubiger_id from vertrag_einstellungen))
+             (select glaeubiger_id from public.vertrag_einstellungen))
      where id = p_vertrag_id;
     perform set_config('edvance.vertrag_rpc', '', true);
   end if;
+
+  return v_id;
 end;
 $$;
 
@@ -4871,9 +4881,8 @@ CREATE FUNCTION public.vertrag_versenden(p_vertrag_id uuid, p_weg text, p_empfae
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v         vertraege%rowtype;
-  v_bis     date;
-  v_fehlt   text;
+  v     vertraege%rowtype;
+  v_bis date;
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_versenden: nur Admin' using errcode = '42501';
@@ -4909,8 +4918,10 @@ begin
    where d.aktiv
   on conflict (vertrag_id, dokument_schluessel, dokument_version) do nothing;
 
-  insert into public.vertrag_versand (vertrag_id, weg, anlass, empfaenger, erfolgt_von)
-  values (p_vertrag_id, p_weg, 'unterlagen', p_empfaenger, auth.uid());
+  if p_weg = 'druck' then
+    insert into public.vertrag_versand (vertrag_id, weg, anlass, empfaenger, erfolgt_von)
+    values (p_vertrag_id, p_weg, 'unterlagen', p_empfaenger, auth.uid());
+  end if;
 
   v_bis := coalesce(p_rueckmeldung_bis,
                     v.rueckmeldung_bis,
@@ -6510,7 +6521,9 @@ CREATE TABLE public.vertrag_versand (
     empfaenger text,
     erfolgt_at timestamp with time zone DEFAULT now() NOT NULL,
     erfolgt_von uuid,
-    CONSTRAINT vertrag_versand_anlass_check CHECK ((anlass = ANY (ARRAY['unterlagen'::text, 'bestaetigung'::text]))),
+    anhaenge jsonb,
+    fehler text,
+    CONSTRAINT vertrag_versand_anlass_check CHECK ((anlass = ANY (ARRAY['unterlagen'::text, 'bestaetigung'::text, 'zugangscode'::text]))),
     CONSTRAINT vertrag_versand_weg_check CHECK ((weg = ANY (ARRAY['email'::text, 'druck'::text])))
 );
 

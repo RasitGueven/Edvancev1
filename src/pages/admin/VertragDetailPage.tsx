@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { KeyRound, Mail, Printer } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { AdminHeader, EdvanceBadge, EdvanceCard, LoadingPulse } from '@/components/edvance'
+import { AdminHeader, EdvanceBadge, LoadingPulse } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { Button } from '@/components/ui/button'
 import { berlinToday, formatDateOnly } from '@/lib/datetime'
@@ -15,6 +15,7 @@ import {
   type DokumentFassung,
   type VertragDatei,
 } from '@/lib/supabase/vertragDateien'
+import { mailSenden, type Versandanlass } from '@/lib/supabase/vertragMail'
 import { listArchiv, type ArchivDatei } from '@/lib/supabase/vertragScan'
 import {
   getVertragAktuell,
@@ -24,8 +25,9 @@ import {
   vertragWiderrufErfassen,
   vertragZugangscodeNeu,
 } from '@/lib/supabase/vertraegeMenue'
-import { kind, vertragspartner } from '@/lib/vertrag/menue'
+import { buendelVollstaendig, kind, vertragspartner } from '@/lib/vertrag/menue'
 import type { TierPlan, VertragAktuell, VertragDokument } from '@/types'
+import { AktionenKarte } from './vertraege/detail/AktionenKarte'
 import { ArchivListe } from './vertraege/detail/ArchivListe'
 import { Datenblock } from './vertraege/detail/Datenblock'
 import { IbanFeld } from './vertraege/detail/IbanFeld'
@@ -71,6 +73,7 @@ export function VertragDetailPage(): JSX.Element {
   const [widerruf, setWiderruf] = useState(false)
   const [kuendigung, setKuendigung] = useState(false)
   const [codeFrage, setCodeFrage] = useState(false)
+  const [hinweis, setHinweis] = useState<string | null>(null)
 
   const laden = useCallback(async (): Promise<void> => {
     const [v, n, dok, ti, ar, ez, fa] = await Promise.all([
@@ -106,6 +109,7 @@ export function VertragDetailPage(): JSX.Element {
   const run = async (aktion: () => Promise<{ error: string | null }>): Promise<boolean> => {
     setBusy(true)
     setError(null)
+    setHinweis(null)
     const { error: err } = await aktion()
     setBusy(false)
     if (err) setError(err)
@@ -114,6 +118,14 @@ export function VertragDetailPage(): JSX.Element {
   }
 
   const v = d.vertrag
+
+  const buendelDa = buendelVollstaendig(d.erzeugte.map((e) => e.art))
+
+  const versenden = async (anlass: Versandanlass): Promise<void> => {
+    if (!v) return
+    const ok = await run(() => mailSenden(v.id, anlass))
+    if (ok) setHinweis(t('detailansicht.versandOk', { an: v.eltern_email ?? '' }))
+  }
 
   if (loading || !v) {
     return (
@@ -164,6 +176,9 @@ export function VertragDetailPage(): JSX.Element {
         />
 
         {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
+        {hinweis !== null && (
+          <p className="text-sm text-[var(--color-success)]">{hinweis}</p>
+        )}
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr]">
           {/* ---- links: wer, was, seit wann ---------------------------- */}
@@ -337,32 +352,17 @@ export function VertragDetailPage(): JSX.Element {
               }
             />
 
-            <EdvanceCard className="flex flex-col gap-2 p-6">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                {t('menue.spalte.aktionen')}
-              </h2>
-              <Button disabled={busy} onClick={() => void folgevertrag()}>
-                {t('menue.neuerVertrag')}
-              </Button>
-              <span title={widerrufMoeglich ? undefined : t('detailansicht.widerrufVorbei')}>
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  disabled={!widerrufMoeglich || busy}
-                  onClick={() => setWiderruf(true)}
-                >
-                  {t('detailansicht.widerrufErfassen')}
-                </Button>
-              </span>
-              <Button
-                variant="ghost"
-                className="text-[var(--color-destructive)]"
-                disabled={busy}
-                onClick={() => setKuendigung(true)}
-              >
-                {t('detailansicht.kuendigungErfassen')}
-              </Button>
-            </EdvanceCard>
+            <AktionenKarte
+              busy={busy}
+              buendelDa={buendelDa}
+              elternEmail={v.eltern_email}
+              zugangscode={v.zugangscode}
+              widerrufMoeglich={widerrufMoeglich}
+              onFolgevertrag={() => void folgevertrag()}
+              onVersenden={(anlass) => void versenden(anlass)}
+              onWiderruf={() => setWiderruf(true)}
+              onKuendigung={() => setKuendigung(true)}
+            />
           </div>
         </div>
       </main>

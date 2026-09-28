@@ -7,9 +7,15 @@
 // gibt — ein Archiv, das etwas behauptet, was nicht da ist.
 
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { JE_FASSUNG, FASSUNG } from './dokumente/texte.ts'
+import { FASSUNG, JE_FASSUNG, JE_VERTRAG } from './dokumente/texte.ts'
 import { markdownZuPdf } from './markdown_pdf.ts'
-import { fassungsDokument, sepaAusZeile, vertragDokument } from './vertrag_dokument.ts'
+import {
+  VERTRAG_SPALTEN,
+  dokumentAusZeile,
+  fassungsDokument,
+  sepaAusZeile,
+  vertragDokument,
+} from './vertrag_dokument.ts'
 
 export const BUCKET = 'vertraege'
 
@@ -95,10 +101,21 @@ export async function vertragPdfErzeugen(
     unterschrift: dok.unterschrift,
   })
 
-  const raus: ErzeugteDatei[] = []
-  raus.push(await ablegen(admin, rpc, vertragId, 'vertrag', 'vertrag.pdf', pdf, 'application/pdf'))
+  // Was schon liegt, bleibt liegen. Ein Vertrag aus P4a-1 hat sein
+  // Vertrags-PDF und braucht nur noch das Mandat — es noch einmal zu erzeugen
+  // wuerde am upsert:false scheitern und den ganzen Lauf mitreissen.
+  const { data: schonDa } = await admin
+    .from('vertrag_dateien')
+    .select('art')
+    .eq('vertrag_id', vertragId)
+  const liegt = new Set((schonDa ?? []).map((d) => d.art as string))
 
-  if (dok.unterschrift) {
+  const raus: ErzeugteDatei[] = []
+  if (!liegt.has('vertrag')) {
+    raus.push(await ablegen(admin, rpc, vertragId, 'vertrag', 'vertrag.pdf', pdf, 'application/pdf'))
+  }
+
+  if (dok.unterschrift && !liegt.has('unterschrift')) {
     raus.push(
       await ablegen(
         admin, rpc, vertragId, 'unterschrift', 'unterschrift.png',
@@ -140,14 +157,16 @@ export async function vertragPdfErzeugen(
     (einst?.glaeubiger_id as string | null) ?? null,
     (sepaSig?.signatur as string | null) ?? null,
   )
-  const sepaPdf = await markdownZuPdf({
-    markdown: sepa.markdown,
-    fusszeile: sepa.fusszeile,
-    unterschrift: sepa.unterschrift,
-  })
-  raus.push(
-    await ablegen(admin, rpc, vertragId, 'sepa_mandat', 'sepa_mandat.pdf', sepaPdf, 'application/pdf'),
-  )
+  if (!liegt.has('sepa_mandat')) {
+    const sepaPdf = await markdownZuPdf({
+      markdown: sepa.markdown,
+      fusszeile: sepa.fusszeile,
+      unterschrift: sepa.unterschrift,
+    })
+    raus.push(
+      await ablegen(admin, rpc, vertragId, 'sepa_mandat', 'sepa_mandat.pdf', sepaPdf, 'application/pdf'),
+    )
+  }
 
   return raus
 }
@@ -192,13 +211,157 @@ export async function fassungenErzeugen(
   return raus
 }
 
-/** Liegt fuer diesen Vertrag schon ein vertrag.pdf im Archiv? */
-export async function hatVertragPdf(admin: SupabaseClient, vertragId: string): Promise<boolean> {
+/**
+ * Liegt das vollstaendige Buendel im Archiv?
+ *
+ * Frueher fragte das nur nach vertrag.pdf. Das ging schief, sobald es eine
+ * zweite Art gab: Vertraege aus P4a-1 haben ihr Vertrags-PDF, aber kein
+ * SEPA-Mandat — und der Nachhol-Knopf blieb aus, weil das eine Stueck ja da
+ * war. Gefragt ist, ob etwas FEHLT, nicht ob etwas DA ist.
+ */
+export async function buendelVollstaendig(
+  admin: SupabaseClient,
+  vertragId: string,
+): Promise<boolean> {
   const { data } = await admin
     .from('vertrag_dateien')
-    .select('id')
+    .select('art')
     .eq('vertrag_id', vertragId)
-    .eq('art', 'vertrag')
+  const vorhanden = new Set((data ?? []).map((d) => d.art as string))
+  return JE_VERTRAG.every((art) => vorhanden.has(art))
+}
+
+/**
+ * Die Unterlagen zum Ausdrucken — Weg B, bevor irgendetwas unterschrieben ist.
+ *
+ * Vertrag und SEPA-Mandat liegen in EINER Datei, getrennt durch einen
+ * Seitenumbruch. Nicht aus Bequemlichkeit: vertrag_dateien laesst je Vertrag
+ * ein Dokument je Art zu, und die Art 'sepa_mandat' ist fuer das
+ * unterschriebene Mandat nach dem Abschluss reserviert. Zwei Mandate unter
+ * einem Namen abzulegen hiesse, das spaetere gueltige nicht mehr ablegen zu
+ * koennen.
+ *
+ * Vertragsende und Widerrufsfrist stehen vor dem Abschluss noch nicht auf der
+ * Zeile — sie kommen aus derselben RPC, die auch der Assistent fuer die
+ * Vorschau benutzt. Eine zweite Rechnung gaebe es damit nicht.
+ */
+export async function unterlagenVersandErzeugen(
+  admin: SupabaseClient,
+  rpc: SupabaseClient,
+  vertragId: string,
+): Promise<ErzeugteDatei> {
+  const { data: v, error } = await admin
+    .from('vertraege')
+    .select(VERTRAG_SPALTEN)
+    .eq('id', vertragId)
+    .single()
+  if (error || !v) throw new Error(`Vertrag nicht gefunden: ${error?.message ?? vertragId}`)
+
+  const zeile: Record<string, unknown> = { ...v }
+
+  // Ende, Ferientage und Widerrufsfrist fuer die Vorschau berechnen — aus der
+  // Datenbank, nicht hier.
+  if (v.vertragsbeginn && v.laufzeit_monate) {
+    const { data: ende } = await rpc
+      .rpc('vertrag_ende_berechnen', {
+        p_beginn: v.vertragsbeginn,
+        p_laufzeit_monate: v.laufzeit_monate,
+      })
+      .maybeSingle()
+    if (ende) {
+      zeile.vertrag_ende = (ende as { ende: string }).ende
+      zeile.ferientage = (ende as { ferientage: number }).ferientage
+    }
+    const { data: widerruf } = await rpc.rpc('vertrag_widerruf_bis', {
+      p_beginn: v.vertragsbeginn,
+    })
+    if (widerruf) zeile.widerruf_bis = widerruf as string
+  }
+
+  let paket: string | null = null
+  if (v.tier_id) {
+    const { data: tier } = await admin.from('tiers').select('name').eq('id', v.tier_id).maybeSingle()
+    paket = (tier?.name as string | undefined) ?? null
+  }
+
+  const { data: iban } = await rpc.rpc('vertrag_iban_anzeigen', { p_vertrag_id: vertragId })
+  const { data: einst } = await admin
+    .from('vertrag_einstellungen')
+    .select('glaeubiger_id')
     .maybeSingle()
-  return data !== null && data !== undefined
+
+  // Ohne Unterschriftsbild: hier wird von Hand unterschrieben. Ein leeres
+  // Feld waere hier richtig, ein eingesetztes Bild eine Faelschung.
+  const vertrag = dokumentAusZeile(zeile, paket, null)
+  const sepa = sepaAusZeile(
+    zeile,
+    (iban as string | null) ?? null,
+    (einst?.glaeubiger_id as string | null) ?? null,
+    null,
+  )
+
+  const pdf = await markdownZuPdf({
+    markdown: `${vertrag.markdown}\n\n---\n\n${sepa.markdown}`,
+    fusszeile: vertrag.fusszeile,
+  })
+
+  return await ablegen(
+    admin, rpc, vertragId, 'unterlagen_versand', 'unterlagen.pdf', pdf, 'application/pdf',
+  )
+}
+
+/**
+ * Was in den Umschlag gehoert — als Pfade im Bucket, in Lesereihenfolge.
+ *
+ * Fehlt etwas, wird es hier erzeugt statt eine halbe Mail zu verschicken. Ein
+ * Buendel, dem die Widerrufsbelehrung fehlt, ist kein unvollstaendiges
+ * Buendel, sondern ein rechtliches Problem.
+ *
+ * Die Fassungen sind die, denen dieser Vertrag ZUGESTIMMT hat — nicht die
+ * neuesten. Sonst laege dem Elternteil ein Text bei, den es nie gesehen hat.
+ * Die Foto-Einwilligung ist freiwillig und nur dabei, wenn zugestimmt wurde.
+ */
+export async function buendelPfade(
+  admin: SupabaseClient,
+  vertragId: string,
+  anlass: 'bestaetigung' | 'unterlagen',
+): Promise<string[]> {
+  const { data: dateien } = await admin
+    .from('vertrag_dateien')
+    .select('art, pfad')
+    .eq('vertrag_id', vertragId)
+  const je = new Map((dateien ?? []).map((d) => [d.art as string, d.pfad as string]))
+
+  const raus: string[] = []
+  if (anlass === 'bestaetigung') {
+    const vertrag = je.get('vertrag')
+    const sepa = je.get('sepa_mandat')
+    if (!vertrag || !sepa) {
+      throw new Error('Das Vertrags-PDF fehlt noch — bitte erst im Archiv erzeugen')
+    }
+    raus.push(vertrag, sepa)
+  } else {
+    const unterlagen = je.get('unterlagen_versand')
+    if (!unterlagen) throw new Error('Die Unterlagen wurden noch nicht erzeugt')
+    raus.push(unterlagen)
+  }
+
+  const { data: zust } = await admin
+    .from('vertrag_zustimmungen')
+    .select('dokument_schluessel, dokument_version')
+    .eq('vertrag_id', vertragId)
+  const { data: fassungen } = await admin.from('dokument_fassungen').select('art, fassung, pfad')
+
+  for (const art of JE_FASSUNG) {
+    const z = (zust ?? []).find((x) => x.dokument_schluessel === art)
+    if (!z) continue
+    const f = (fassungen ?? []).find(
+      (x) => x.art === art && x.fassung === z.dokument_version,
+    )
+    if (!f) {
+      throw new Error(`Die Fassung ${art} ${z.dokument_version} liegt nicht im Archiv`)
+    }
+    raus.push(f.pfad as string)
+  }
+  return raus
 }
