@@ -26,7 +26,11 @@
 // Deploy: supabase functions deploy vertrag_abschluss
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { hatVertragPdf, vertragPdfErzeugen } from '../_shared/vertrag_pdf_erzeugen.ts'
+import {
+  fassungenErzeugen,
+  hatVertragPdf,
+  vertragPdfErzeugen,
+} from '../_shared/vertrag_pdf_erzeugen.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -242,6 +246,7 @@ Deno.serve(async (req: Request) => {
     // schon da und ein zweiter Versuch waere nur ein Upload-Fehler, den
     // niemand lesen muss.
     if (!(await hatVertragPdf(admin, body.vertrag_id))) {
+      await fassungenErzeugen(admin, rpcClient)
       await vertragPdfErzeugen(admin, rpcClient, body.vertrag_id)
     }
   } catch (err) {

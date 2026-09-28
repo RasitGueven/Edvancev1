@@ -16,6 +16,38 @@ export type VertragDatei = {
   erzeugtAm: string
 }
 
+/**
+ * Eine der Unterlagen, die fuer alle gleich sind. Der Schluessel ist (art,
+ * fassung) und nicht der Vertrag: AGB und Widerrufsbelehrung enthalten keinen
+ * Platzhalter, es gibt sie einmal je Fassung. Welcher Fassung ein Vertrag
+ * zugestimmt hat, steht in vertrag_zustimmungen.
+ */
+export type DokumentFassung = {
+  art: string
+  fassung: string
+  pfad: string
+  erzeugtAm: string
+}
+
+export async function listDokumentFassungen(): Promise<SupabaseResult<DokumentFassung[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('dokument_fassungen')
+      .select('art, fassung, pfad, erzeugt_am')
+    if (error) return { data: null, error: error.message }
+    const fassungen = (data ?? []).map((d) => ({
+      art: d.art as string,
+      fassung: d.fassung as string,
+      pfad: d.pfad as string,
+      erzeugtAm: d.erzeugt_am as string,
+    }))
+    return { data: fassungen, error: null }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Fassungen konnten nicht geladen werden'
+    return { data: null, error: msg }
+  }
+}
+
 export async function listVertragDateien(vertragId: string): Promise<SupabaseResult<VertragDatei[]>> {
   try {
     const { data, error } = await supabase

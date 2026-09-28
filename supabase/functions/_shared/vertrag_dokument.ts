@@ -8,18 +8,21 @@
 
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import {
+  FASSUNG,
   FERIENKLAUSEL,
+  GLAEUBIGER_ID_FEHLT,
   KEINE_FERIENKLAUSEL,
   LAUFZEIT_TEXT,
-  VERTRAG_MD,
-} from './dokumente/vertrag_de.ts'
+  TEXT,
+  type DokumentArt,
+} from './dokumente/texte.ts'
 
 const SPALTEN = `
   id, status, eltern_vorname, eltern_nachname, strasse, hausnummer, plz, ort,
   eltern_telefon, eltern_email, kind_vorname, kind_nachname, kind_geburtsdatum,
   klasse, fach, schule, laufzeit_monate, tier_id, preis_cents, einheiten,
   vertragsbeginn, vertrag_ende, ferientage, widerruf_bis, mandatsreferenz,
-  abschluss_weg, unterschrieben_am, abgeschlossen_am
+  abschluss_weg, unterschrieben_am, abgeschlossen_am, kontoinhaber, glaeubiger_id
 `
 
 export type VertragZeile = Record<string, unknown>
@@ -45,6 +48,11 @@ export function fuellen(text: string, werte: Record<string, string | null>): str
 
 function einsetzen(vorlage: string, werte: Record<string, string | number>): string {
   return vorlage.replace(/\{\{(\w+)\}\}/g, (_, k: string) => String(werte[k] ?? '—'))
+}
+
+/** Vierergruppen wie in src/lib/vertrag/iban.ts. */
+export function formatIban(iban: string): string {
+  return iban.replace(/\s+/g, '').replace(/(.{4})/g, '$1 ').trim()
 }
 
 export type Dokument = {
@@ -140,7 +148,7 @@ export function dokumentAusZeile(
 
   return {
     vertrag: v,
-    markdown: fuellen(VERTRAG_MD, werte) + zusatz,
+    markdown: fuellen(TEXT.vertrag, werte) + zusatz,
     fusszeile: `Vertrag ${feld('mandatsreferenz') ?? String(v.id).slice(0, 8)}`,
     unterschrift,
   }
@@ -172,4 +180,79 @@ export async function vertragDokument(admin: SupabaseClient, vertragId: string):
     .maybeSingle()
 
   return dokumentAusZeile(v as VertragZeile, paket, (sig?.signatur as string | null) ?? null)
+}
+
+/**
+ * Das SEPA-Lastschriftmandat.
+ *
+ * Mit der vollen IBAN, nicht der maskierten: es sind die eigenen Daten der
+ * Eltern, und ein Mandat, auf dem die Kontonummer unkenntlich ist, kann kein
+ * Kreditinstitut einloesen.
+ *
+ * Fehlt die Glaeubiger-Identifikationsnummer, steht das oben im Dokument.
+ * Erzeugt wird es trotzdem — der Ablauf soll vollstaendig sein —, aber
+ * niemand soll es fuer gueltig halten.
+ */
+export function sepaAusZeile(
+  v: VertragZeile,
+  iban: string | null,
+  glaeubigerId: string | null,
+  signaturDataUrl: string | null,
+): Dokument {
+  const feld = (k: string): string | null => (v[k] as string | null) ?? null
+  const eltern = [feld('eltern_vorname'), feld('eltern_nachname')].filter(Boolean).join(' ')
+  const strasse = [feld('strasse'), feld('hausnummer')].filter(Boolean).join(' ')
+  const ort = [feld('plz'), feld('ort')].filter(Boolean).join(' ')
+  const gid = (feld('glaeubiger_id') ?? glaeubigerId ?? '').trim()
+
+  const werte: Record<string, string | null> = {
+    glaeubiger_id: gid === '' ? null : gid,
+    mandatsreferenz: feld('mandatsreferenz'),
+    kontoinhaber: feld('kontoinhaber') ?? (eltern || null),
+    anschrift: [strasse, ort].filter((x) => x !== '').join('\n') || null,
+    iban: iban ? formatIban(iban) : null,
+    preis: euro(v.preis_cents as number | null),
+    vertragsbeginn: datum(feld('vertragsbeginn')),
+  }
+
+  const gefuellt = fuellen(TEXT.sepa_mandat, werte)
+  // Die Warnung steht direkt unter der Ueberschrift, nicht am Ende. Wer
+  // "Glaeubiger-Identifikationsnummer: —" liest, soll im selben Blick
+  // erfahren, was das bedeutet — nicht drei Absaetze spaeter.
+  const zeilenumbruch = gefuellt.indexOf('\n')
+  const markdown =
+    gid === '' && zeilenumbruch > 0
+      ? `${gefuellt.slice(0, zeilenumbruch)}\n\n> ${GLAEUBIGER_ID_FEHLT}\n${gefuellt.slice(zeilenumbruch)}`
+      : gefuellt
+
+  let unterschrift: Dokument['unterschrift'] = null
+  const png = signaturDataUrl ? pngAusDataUrl(signaturDataUrl) : null
+  if (png) {
+    const tag = datum(feld('unterschrieben_am')) ?? datum(feld('abgeschlossen_am')) ?? ''
+    unterschrift = {
+      png,
+      beschriftung: `${werte.kontoinhaber ?? 'Kontoinhaber:in'}, Kontoinhaber:in`,
+      ort: tag ? `Köln, ${tag}` : 'Köln',
+    }
+  }
+
+  return {
+    vertrag: v,
+    markdown,
+    fusszeile: `SEPA-Mandat ${feld('mandatsreferenz') ?? String(v.id).slice(0, 8)}`,
+    unterschrift,
+  }
+}
+
+/**
+ * Eine der Unterlagen, die fuer alle gleich sind. Kein Platzhalter, kein
+ * Vertragsbezug — deshalb auch keine Unterschrift: unterschrieben wird der
+ * Vertrag, zugestimmt wird der Fassung, und das steht in
+ * vertrag_zustimmungen.
+ */
+export function fassungsDokument(art: DokumentArt): { markdown: string; fusszeile: string } {
+  return {
+    markdown: TEXT[art],
+    fusszeile: `Fassung ${FASSUNG[art]}`,
+  }
 }

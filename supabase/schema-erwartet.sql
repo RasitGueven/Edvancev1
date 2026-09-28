@@ -281,6 +281,47 @@ $$;
 
 
 --
+-- Name: dokument_fassung_eintragen(text, text, text, text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.dokument_fassung_eintragen(p_art text, p_fassung text, p_pfad text, p_sha256 text, p_bytes integer DEFAULT NULL::integer) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_erwartet text;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'dokument_fassung_eintragen: nur Admin' using errcode = '42501';
+  end if;
+
+  -- Die Fassung muss im Katalog stehen. Sonst entstuende eine Datei zu einer
+  -- Fassung, der niemand zustimmen kann — vertrag_zustimmungen zeigt per
+  -- Fremdschluessel auf genau diesen Katalog.
+  perform 1 from public.vertrag_dokumente
+   where schluessel = p_art and version = p_fassung;
+  if not found then
+    raise exception 'dokument_fassung_eintragen: % in Fassung % steht nicht im Katalog', p_art, p_fassung
+      using errcode = 'P0002';
+  end if;
+
+  v_erwartet := 'fassungen/' || p_art || '/' || p_fassung || '.pdf';
+  if p_pfad <> v_erwartet then
+    raise exception 'dokument_fassung_eintragen: Pfad muss % sein, nicht %', v_erwartet, p_pfad
+      using errcode = 'P0001';
+  end if;
+
+  -- Einmal erzeugt, bleibt es. Eine Fassung ist der Text zu einem Zeitpunkt;
+  -- aendert er sich, bekommt er eine neue Fassungskennung, keine neue Datei
+  -- unter altem Namen.
+  insert into public.dokument_fassungen (art, fassung, pfad, sha256, bytes, erzeugt_von)
+  values (p_art, p_fassung, p_pfad, lower(p_sha256), p_bytes, auth.uid())
+  on conflict (art, fassung) do nothing;
+end;
+$$;
+
+
+--
 -- Name: enforce_mastery_gate(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5151,6 +5192,25 @@ CREATE TABLE public.coaching_sessions (
 
 
 --
+-- Name: dokument_fassungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.dokument_fassungen (
+    art text NOT NULL,
+    fassung text NOT NULL,
+    pfad text NOT NULL,
+    sha256 text NOT NULL,
+    bytes integer,
+    erzeugt_am timestamp with time zone DEFAULT now() NOT NULL,
+    erzeugt_von uuid,
+    CONSTRAINT dokument_fassungen_art_check CHECK ((art = ANY (ARRAY['agb'::text, 'widerruf'::text, 'datenschutz_vertrag'::text, 'einwilligung_fotos'::text]))),
+    CONSTRAINT dokument_fassungen_bytes_check CHECK (((bytes IS NULL) OR (bytes > 0))),
+    CONSTRAINT dokument_fassungen_pfad_check CHECK ((NULLIF(btrim(pfad), ''::text) IS NOT NULL)),
+    CONSTRAINT dokument_fassungen_sha256_check CHECK ((sha256 ~ '^[0-9a-f]{64}$'::text))
+);
+
+
+--
 -- Name: fehlbild_familien; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6528,6 +6588,22 @@ ALTER TABLE ONLY public.coaching_sessions
 
 
 --
+-- Name: dokument_fassungen dokument_fassungen_pfad_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dokument_fassungen
+    ADD CONSTRAINT dokument_fassungen_pfad_uniq UNIQUE (pfad);
+
+
+--
+-- Name: dokument_fassungen dokument_fassungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dokument_fassungen
+    ADD CONSTRAINT dokument_fassungen_pkey PRIMARY KEY (art, fassung);
+
+
+--
 -- Name: fehlbild_familien fehlbild_familien_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7901,6 +7977,14 @@ ALTER TABLE ONLY public.coaching_sessions
 
 
 --
+-- Name: dokument_fassungen dokument_fassungen_erzeugt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dokument_fassungen
+    ADD CONSTRAINT dokument_fassungen_erzeugt_von_fkey FOREIGN KEY (erzeugt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
 -- Name: fehlbild_familien fehlbild_familien_freigegeben_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8927,6 +9011,19 @@ CREATE POLICY coaching_sessions_parent_read ON public.coaching_sessions FOR SELE
 --
 
 CREATE POLICY coaching_sessions_student_read ON public.coaching_sessions FOR SELECT USING ((id IN ( SELECT public.session_ids_fuer_schueler() AS session_ids_fuer_schueler)));
+
+
+--
+-- Name: dokument_fassungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.dokument_fassungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: dokument_fassungen dokument_fassungen_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY dokument_fassungen_select ON public.dokument_fassungen FOR SELECT USING ((auth.uid() IS NOT NULL));
 
 
 --
