@@ -145,9 +145,10 @@ begin
   v_ok := false;
   begin
     delete from vertraege where id = v_vertrag;
-  -- restrict_violation (23001), nicht foreign_key_violation (23503): ON DELETE
-  -- RESTRICT hat einen eigenen SQLSTATE.
-  exception when restrict_violation then v_ok := true; end;
+  -- Beide Bedingungen, weil der SQLSTATE von der Serverversion abhaengt:
+  -- PG 18 meldet restrict_violation (23001) fuer ON DELETE RESTRICT, PG 17 —
+  -- und damit Produktion — das allgemeinere foreign_key_violation (23503).
+  exception when restrict_violation or foreign_key_violation then v_ok := true; end;
   assert v_ok, 'Vertrag mit Archiveintrag geloescht';
   raise notice '7  ok  Archiv haelt den Vertrag fest';
 
