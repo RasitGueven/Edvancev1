@@ -34,6 +34,7 @@ vi.mock('@/lib/supabase/vertragScan', () => ({
 }))
 vi.mock('@/lib/supabase/vertragDateien', () => ({
   listVertragDateien: vi.fn(() => Promise.resolve({ data: [], error: null })),
+  listDokumentFassungen: vi.fn(() => Promise.resolve({ data: [], error: null })),
   vertragPdfErzeugen: vi.fn(() => Promise.resolve({ data: true, error: null })),
 }))
 vi.mock('@/lib/supabase/subscriptions', () => ({
@@ -45,8 +46,13 @@ vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { email: 'admin@edvance.de' }, role: 'admin', signOut: vi.fn() }),
 }))
 
-import { listVertragDateien, vertragPdfErzeugen } from '@/lib/supabase/vertragDateien'
-import { listArchiv } from '@/lib/supabase/vertragScan'
+import {
+  listDokumentFassungen,
+  listVertragDateien,
+  vertragPdfErzeugen,
+} from '@/lib/supabase/vertragDateien'
+import { getVertragNachweise } from '@/lib/supabase/vertraege'
+import { listArchiv, scanUrl } from '@/lib/supabase/vertragScan'
 import {
   getVertragAktuell,
   vertragIbanAnzeigen,
@@ -196,5 +202,69 @@ describe('Archiv', () => {
     expect(screen.getByText('Erzeugt am 24.09.2026')).toBeTruthy()
     expect(screen.queryByText('PDF ausstehend')).toBeNull()
     expect(screen.queryByRole('button', { name: 'PDF erzeugen' })).toBeNull()
+  })
+})
+
+describe('Fassungen im Archiv', () => {
+  // clearAllMocks loescht die Aufrufe, nicht die Rueckgaben. Ohne das hier
+  // liegt noch die Datei aus dem Archiv-Test in der Liste und es gibt zwei
+  // "Oeffnen"-Knoepfe.
+  beforeEach(() => {
+    vi.mocked(listArchiv).mockResolvedValue({ data: [], error: null })
+    vi.mocked(listVertragDateien).mockResolvedValue({ data: [], error: null })
+  })
+
+  it('verlinkt die Fassung, der zugestimmt wurde — nicht die neueste', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    vi.mocked(getVertragNachweise).mockResolvedValue({
+      data: {
+        zustimmungen: [
+          {
+            dokument_schluessel: 'agb',
+            dokument_version: 'platzhalter-v1',
+            akzeptiert_at: '2026-10-01T09:00:00Z',
+          },
+        ],
+        unterschriften: [],
+        versand: [],
+      },
+      error: null,
+    } as never)
+    vi.mocked(listDokumentFassungen).mockResolvedValue({
+      data: [
+        { art: 'agb', fassung: 'platzhalter-v1', pfad: 'fassungen/agb/platzhalter-v1.pdf', erzeugtAm: '2026-10-01T08:00:00Z' },
+        { art: 'agb', fassung: 'platzhalter-v2', pfad: 'fassungen/agb/platzhalter-v2.pdf', erzeugtAm: '2026-11-01T08:00:00Z' },
+      ],
+      error: null,
+    })
+    zeige()
+
+    // Zugestimmt wurde v1. Ein Link auf v2 zeigte einen Text, den dieses
+    // Elternteil nie gesehen hat.
+    fireEvent.click(await screen.findByRole('button', { name: /Öffnen/ }))
+    await waitFor(() => expect(scanUrl).toHaveBeenCalledWith('fassungen/agb/platzhalter-v1.pdf'))
+  })
+
+  it('bietet kein Öffnen an, solange die Fassungsdatei fehlt', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    vi.mocked(getVertragNachweise).mockResolvedValue({
+      data: {
+        zustimmungen: [
+          {
+            dokument_schluessel: 'agb',
+            dokument_version: 'platzhalter-v1',
+            akzeptiert_at: '2026-10-01T09:00:00Z',
+          },
+        ],
+        unterschriften: [],
+        versand: [],
+      },
+      error: null,
+    } as never)
+    vi.mocked(listDokumentFassungen).mockResolvedValue({ data: [], error: null })
+    zeige()
+
+    expect(await screen.findByText(/Fassung platzhalter-v1/)).toBeTruthy()
+    expect(screen.queryByRole('button', { name: /Öffnen/ })).toBeNull()
   })
 })

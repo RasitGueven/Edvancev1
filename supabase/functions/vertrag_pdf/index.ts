@@ -13,7 +13,11 @@
 // Deploy: npx supabase functions deploy vertrag_pdf --project-ref ztcppihxqcphlqaguhma
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { hatVertragPdf, vertragPdfErzeugen } from '../_shared/vertrag_pdf_erzeugen.ts'
+import {
+  fassungenErzeugen,
+  hatVertragPdf,
+  vertragPdfErzeugen,
+} from '../_shared/vertrag_pdf_erzeugen.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -77,8 +81,12 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
+    // Erst die geteilten Unterlagen — sie gehoeren zum Buendel und sind beim
+    // ersten Vertrag noch nicht da. Idempotent: liegen sie schon, passiert
+    // nichts.
+    const fassungen = await fassungenErzeugen(admin, caller)
     const dateien = await vertragPdfErzeugen(admin, caller, body.vertrag_id)
-    return json(200, { dateien })
+    return json(200, { dateien, fassungen })
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'PDF konnte nicht erzeugt werden'
     return json(400, { error: msg })

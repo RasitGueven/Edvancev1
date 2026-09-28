@@ -8,13 +8,14 @@
 
 import { assert, assertEquals, assertStringIncludes } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { markdownZuPdf, winAnsi } from './markdown_pdf.ts'
-import { dokumentAusZeile } from './vertrag_dokument.ts'
+import { dokumentAusZeile, fassungsDokument, sepaAusZeile } from './vertrag_dokument.ts'
 
 // Ein winziges echtes PNG — pdf-lib liest den Header, ein Fantasiestring
 // wuerde beim Einbetten fliegen.
 const SIGNATUR = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAoCAIAAAC6iKlyAAAAfklEQVR4nO3QwQmAAAwEwfTftDag4COsgjMNJLdzkJi3H/gLoSNCR4SOCB0ROiJ0ROjIfuh5Zv3uut0hQt8SOiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNfD80loSNCR4SOCB0ROiJ0ROjICfxCD6I3k/eCAAAAAElFTkSuQmCC'
 
 const VERTRAG = {
+  kontoinhaber: 'Miriam Özdemir',
   id: '11111111-2222-3333-4444-555555555555',
   status: 'abgeschlossen',
   eltern_vorname: 'Miriam',
@@ -138,4 +139,45 @@ Deno.test('WinAnsi: schmales Leerzeichen wird gewoehnlich, Exoten werden ersetzt
   assertEquals(winAnsi('389,90 €'), '389,90 €')
   assertEquals(winAnsi('Wei\u{1F600}ter'), 'Wei??ter') // ausserhalb der BMP: zwei Einheiten
   assertEquals(winAnsi('Größe – „Zitat" · 24 × 60'), 'Größe – „Zitat" · 24 × 60')
+})
+
+Deno.test('SEPA-Mandat: volle IBAN, eigene Unterschrift, Betrag', async () => {
+  const dok = sepaAusZeile(VERTRAG, 'DE89370400440532013000', 'DE98ZZZ09999999999', SIGNATUR)
+  const pdf = await markdownZuPdf({
+    markdown: dok.markdown,
+    fusszeile: dok.fusszeile,
+    unterschrift: dok.unterschrift,
+  })
+  const text = await pdfText(pdf)
+
+  // Voll, nicht maskiert — ein Mandat mit unkenntlicher Kontonummer kann kein
+  // Kreditinstitut einloesen.
+  assertStringIncludes(text, 'DE89 3704 0044 0532 0130 00', 'IBAN fehlt oder ist maskiert')
+  assertStringIncludes(text, 'DE98ZZZ09999999999', 'Glaeubiger-ID fehlt')
+  assertStringIncludes(text, 'EDV-2026-000042', 'Mandatsreferenz fehlt')
+  assertStringIncludes(text, '389,90', 'Betrag fehlt')
+  assertStringIncludes(text, '01.10.2026', 'Beginn fehlt')
+  assert(!text.includes('gültig'), 'Warnung trotz vorhandener Glaeubiger-ID')
+  assert(dok.unterschrift !== null, 'Mandat ohne Unterschrift')
+})
+
+Deno.test('SEPA-Mandat ohne Glaeubiger-ID sagt, dass es nicht gilt', async () => {
+  for (const leer of [null, '', '   ']) {
+    const dok = sepaAusZeile({ ...VERTRAG, glaeubiger_id: null }, 'DE89370400440532013000', leer, null)
+    const text = await pdfText(
+      await markdownZuPdf({ markdown: dok.markdown, fusszeile: dok.fusszeile }),
+    )
+    assertStringIncludes(text, 'gültig.', `keine Warnung bei ${JSON.stringify(leer)}`)
+    assertStringIncludes(text, 'Gläubiger-Identifikationsnummer', 'Warnung ohne Begriff')
+  }
+})
+
+Deno.test('Fassungen sind vertragsfrei — kein Platzhalter, keine Unterschrift', async () => {
+  for (const art of ['agb', 'widerruf', 'datenschutz_vertrag', 'einwilligung_fotos'] as const) {
+    const dok = fassungsDokument(art)
+    assertEquals(dok.markdown.match(/\{\{\w+\}\}/g), null, `${art} hat Platzhalter`)
+    assertStringIncludes(dok.fusszeile, 'Fassung ', `${art} ohne Fassung in der Fusszeile`)
+    const pdf = await markdownZuPdf({ markdown: dok.markdown, fusszeile: dok.fusszeile })
+    assertEquals(new TextDecoder().decode(pdf.slice(0, 5)), '%PDF-', `${art} ist kein PDF`)
+  }
 })

@@ -9,8 +9,10 @@ import { berlinToday, formatDateOnly } from '@/lib/datetime'
 import { listTiers } from '@/lib/supabase/subscriptions'
 import { getVertragNachweise, listVertragDokumente, type VertragNachweise } from '@/lib/supabase/vertraege'
 import {
+  listDokumentFassungen,
   listVertragDateien,
   vertragPdfErzeugen,
+  type DokumentFassung,
   type VertragDatei,
 } from '@/lib/supabase/vertragDateien'
 import { listArchiv, type ArchivDatei } from '@/lib/supabase/vertragScan'
@@ -42,11 +44,12 @@ type Daten = {
   historie: VertragAktuell[]
   archiv: ArchivDatei[]
   erzeugte: VertragDatei[]
+  fassungen: DokumentFassung[]
 }
 
 const LEER: Daten = {
   vertrag: null, nachweise: null, dokumente: [], tiers: [], historie: [], archiv: [],
-  erzeugte: [],
+  erzeugte: [], fassungen: [],
 }
 
 /**
@@ -70,13 +73,14 @@ export function VertragDetailPage(): JSX.Element {
   const [codeFrage, setCodeFrage] = useState(false)
 
   const laden = useCallback(async (): Promise<void> => {
-    const [v, n, dok, ti, ar, ez] = await Promise.all([
+    const [v, n, dok, ti, ar, ez, fa] = await Promise.all([
       getVertragAktuell(id),
       getVertragNachweise(id),
       listVertragDokumente(),
       listTiers(),
       listArchiv(id),
       listVertragDateien(id),
+      listDokumentFassungen(),
     ])
     const hist = v.data?.student_id ? await listVertragHistorie(v.data.student_id) : null
     setD({
@@ -87,9 +91,10 @@ export function VertragDetailPage(): JSX.Element {
       historie: hist?.data ?? (v.data ? [v.data] : []),
       archiv: ar.data ?? [],
       erzeugte: ez.data ?? [],
+      fassungen: fa.data ?? [],
     })
     setError(
-      v.error ?? n.error ?? dok.error ?? ti.error ?? ar.error ?? ez.error ?? hist?.error ?? null,
+      v.error ?? n.error ?? dok.error ?? ti.error ?? ar.error ?? ez.error ?? fa.error ?? hist?.error ?? null,
     )
     setLoading(false)
   }, [id])
@@ -322,6 +327,7 @@ export function VertragDetailPage(): JSX.Element {
                 <ArchivListe
                   dateien={d.archiv}
                   erzeugte={d.erzeugte}
+                  fassungen={d.fassungen}
                   zustimmungen={d.nachweise?.zustimmungen ?? []}
                   dokumente={d.dokumente}
                   erzeugt={busy}

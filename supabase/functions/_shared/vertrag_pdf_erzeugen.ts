@@ -7,8 +7,9 @@
 // gibt — ein Archiv, das etwas behauptet, was nicht da ist.
 
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { JE_FASSUNG, FASSUNG } from './dokumente/texte.ts'
 import { markdownZuPdf } from './markdown_pdf.ts'
-import { vertragDokument } from './vertrag_dokument.ts'
+import { fassungsDokument, sepaAusZeile, vertragDokument } from './vertrag_dokument.ts'
 
 export const BUCKET = 'vertraege'
 
@@ -23,6 +24,24 @@ async function sha256Hex(bytes: Uint8Array): Promise<string> {
     .join('')
 }
 
+async function hochladen(
+  admin: SupabaseClient,
+  pfad: string,
+  bytes: Uint8Array,
+  contentType: string,
+): Promise<string> {
+  // upsert:false ist die eigentliche Zusage: ein archiviertes Dokument wird
+  // nicht ersetzt. Die Unique-Constraints in vertrag_dateien und
+  // dokument_fassungen sagen dasselbe noch einmal — zwei Schloesser an
+  // derselben Tuer, weil Datei und Eintrag getrennt entstehen.
+  const { error } = await admin.storage
+    .from(BUCKET)
+    .upload(pfad, bytes, { upsert: false, contentType })
+  if (error) throw new Error(`Upload ${pfad}: ${error.message}`)
+  return await sha256Hex(bytes)
+}
+
+/** Ein Dokument je Vertrag: hochladen, dann in vertrag_dateien eintragen. */
 async function ablegen(
   admin: SupabaseClient,
   rpc: SupabaseClient,
@@ -33,29 +52,20 @@ async function ablegen(
   contentType: string,
 ): Promise<ErzeugteDatei> {
   const pfad = `${vertragId}/${dateiname}`
-  const sha256 = await sha256Hex(bytes)
+  const sha256 = await hochladen(admin, pfad, bytes, contentType)
 
-  // upsert:false ist die eigentliche Zusage: ein archiviertes Dokument wird
-  // nicht ersetzt. Der Unique-Constraint in vertrag_dateien sagt dasselbe noch
-  // einmal — zwei Schloesser an derselben Tuer, weil eine Datei im Bucket und
-  // ein Eintrag in der Tabelle getrennt entstehen koennen.
-  const { error: upErr } = await admin.storage
-    .from(BUCKET)
-    .upload(pfad, bytes, { upsert: false, contentType })
-  if (upErr) throw new Error(`Upload ${pfad}: ${upErr.message}`)
-
-  const { error: rpcErr } = await rpc.rpc('vertrag_datei_eintragen', {
+  const { error } = await rpc.rpc('vertrag_datei_eintragen', {
     p_vertrag_id: vertragId,
     p_art: art,
     p_pfad: pfad,
     p_sha256: sha256,
     p_bytes: bytes.length,
   })
-  if (rpcErr) {
+  if (error) {
     // Der Eintrag fehlt — dann soll auch die Datei nicht liegen bleiben, sonst
     // blockiert sie beim naechsten Versuch den Upload mit upsert:false.
     await admin.storage.from(BUCKET).remove([pfad])
-    throw new Error(`Eintrag ${pfad}: ${rpcErr.message}`)
+    throw new Error(`Eintrag ${pfad}: ${error.message}`)
   }
 
   return { art, pfad, sha256, bytes: bytes.length }
@@ -95,6 +105,89 @@ export async function vertragPdfErzeugen(
         dok.unterschrift.png, 'image/png',
       ),
     )
+  }
+
+  // ---- SEPA-Mandat ---------------------------------------------------------
+  // Die volle IBAN kommt ueber vertrag_iban_anzeigen und nicht per direktem
+  // SELECT: die RPC schreibt den audit_log-Eintrag. Dass die Kontonummer
+  // aufgedeckt wurde, um sie in ein PDF zu setzen, ist genau der Vorgang, den
+  // das Protokoll festhalten soll.
+  const { data: iban, error: ibanErr } = await rpc.rpc('vertrag_iban_anzeigen', {
+    p_vertrag_id: vertragId,
+  })
+  if (ibanErr) throw new Error(`IBAN: ${ibanErr.message}`)
+
+  const { data: einst } = await admin
+    .from('vertrag_einstellungen')
+    .select('glaeubiger_id')
+    .maybeSingle()
+
+  // Das Mandat traegt eine EIGENE Unterschrift, nicht die des Vertrags:
+  // vertrag_unterschriften haelt beide getrennt (art 'vertrag' und
+  // 'sepa_mandat'), und der Assistent nimmt sie auch getrennt ab. Die eine
+  // fuer die andere einzusetzen hiesse, eine Unterschrift unter ein Dokument
+  // zu setzen, das so nie unterschrieben wurde.
+  const { data: sepaSig } = await admin
+    .from('vertrag_unterschriften')
+    .select('signatur')
+    .eq('vertrag_id', vertragId)
+    .eq('art', 'sepa_mandat')
+    .maybeSingle()
+
+  const sepa = sepaAusZeile(
+    dok.vertrag,
+    (iban as string | null) ?? null,
+    (einst?.glaeubiger_id as string | null) ?? null,
+    (sepaSig?.signatur as string | null) ?? null,
+  )
+  const sepaPdf = await markdownZuPdf({
+    markdown: sepa.markdown,
+    fusszeile: sepa.fusszeile,
+    unterschrift: sepa.unterschrift,
+  })
+  raus.push(
+    await ablegen(admin, rpc, vertragId, 'sepa_mandat', 'sepa_mandat.pdf', sepaPdf, 'application/pdf'),
+  )
+
+  return raus
+}
+
+/**
+ * Die Unterlagen, die fuer alle gleich sind — eine Datei je Art und Fassung.
+ *
+ * Idempotent und geteilt: liegt die Fassung schon, wird sie nicht neu erzeugt.
+ * Deshalb steht sie unter fassungen/<art>/<fassung>.pdf und nicht unter jedem
+ * Vertrag noch einmal.
+ */
+export async function fassungenErzeugen(
+  admin: SupabaseClient,
+  rpc: SupabaseClient,
+): Promise<ErzeugteDatei[]> {
+  const { data: vorhanden } = await admin.from('dokument_fassungen').select('art, fassung')
+  const schon = new Set((vorhanden ?? []).map((r) => `${r.art}/${r.fassung}`))
+
+  const raus: ErzeugteDatei[] = []
+  for (const art of JE_FASSUNG) {
+    const fassung = FASSUNG[art]
+    if (schon.has(`${art}/${fassung}`)) continue
+
+    const dok = fassungsDokument(art)
+    const pdf = await markdownZuPdf({ markdown: dok.markdown, fusszeile: dok.fusszeile })
+    const pfad = `fassungen/${art}/${fassung}.pdf`
+    const sha256 = await hochladen(admin, pfad, pdf, 'application/pdf')
+
+    const { error } = await rpc.rpc('dokument_fassung_eintragen', {
+      p_art: art,
+      p_fassung: fassung,
+      p_pfad: pfad,
+      p_sha256: sha256,
+      p_bytes: pdf.length,
+    })
+    if (error) {
+      await admin.storage.from(BUCKET).remove([pfad])
+      throw new Error(`Eintrag ${pfad}: ${error.message}`)
+    }
+    raus.push({ art, pfad, sha256, bytes: pdf.length })
   }
   return raus
 }

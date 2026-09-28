@@ -214,7 +214,8 @@
   },
   "doc": {
     "ferienklausel": "Geschuldet sind {{einheiten}} Coaching-Einheiten. Das Vertragsende ist der Stichtag, bis zu dem sie abgerufen werden können — es verschiebt sich um die {{tage}} Ferientage der Laufzeit auf den {{ende}}. Der Beitrag wird in den ersten sechs Monaten erhoben; die darüber hinausgehende Laufzeit ist beitragsfrei.",
-    "keineFerienklausel": "Die Laufzeit umfasst zwölf volle Kalendermonate mit zwölf Beiträgen."
+    "keineFerienklausel": "Die Laufzeit umfasst zwölf volle Kalendermonate mit zwölf Beiträgen.",
+    "glaeubigerIdFehlt": "**Gläubiger-Identifikationsnummer fehlt — dieses Mandat ist nicht gültig.** Es wurde erzeugt, damit der Ablauf vollständig ist. Vor dem ersten Einzug muss die Nummer eingetragen und das Mandat neu erstellt werden."
   },
   "einpflegen": {
     "scanTitle": "Eingescanntes Original",
@@ -339,7 +340,6 @@
     "pdfAusstehend": "PDF ausstehend",
     "pdfAusstehendHint": "Der Vertrag ist geschlossen, das Dokument fehlt im Archiv. Beim Abschluss ist dabei etwas schiefgegangen.",
     "pdfErzeugen": "PDF erzeugen",
-    "weitereFolgen": "SEPA-Mandat und die versendeten Unterlagen folgen.",
     "historie": "Vertragshistorie",
     "historieLeer": "Erster Vertrag",
     "historieLeerHint": "Sobald ein Folgevertrag zustande kommt, steht die Kette hier.",
