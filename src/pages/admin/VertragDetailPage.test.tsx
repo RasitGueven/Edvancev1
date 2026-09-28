@@ -32,6 +32,10 @@ vi.mock('@/lib/supabase/vertragScan', () => ({
   scanUrl: vi.fn(() => Promise.resolve({ data: 'https://example.invalid/x', error: null })),
   VERTRAEGE_BUCKET: 'vertraege',
 }))
+vi.mock('@/lib/supabase/vertragDateien', () => ({
+  listVertragDateien: vi.fn(() => Promise.resolve({ data: [], error: null })),
+  vertragPdfErzeugen: vi.fn(() => Promise.resolve({ data: true, error: null })),
+}))
 vi.mock('@/lib/supabase/subscriptions', () => ({
   listTiers: vi.fn(() =>
     Promise.resolve({ data: [{ id: 't3', name: 'Premium', price_cents: 34990 }], error: null }),
@@ -41,6 +45,8 @@ vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ user: { email: 'admin@edvance.de' }, role: 'admin', signOut: vi.fn() }),
 }))
 
+import { listVertragDateien, vertragPdfErzeugen } from '@/lib/supabase/vertragDateien'
+import { listArchiv } from '@/lib/supabase/vertragScan'
 import {
   getVertragAktuell,
   vertragIbanAnzeigen,
@@ -151,5 +157,44 @@ describe('Sonderkündigung', () => {
     await waitFor(() =>
       expect(vertragSonderkuendigungErfassen).toHaveBeenCalledWith('v1', '2027-01-31', 'Umzug'),
     )
+  })
+})
+
+describe('Archiv', () => {
+  it('meldet ein fehlendes Vertrags-PDF und bietet an, es nachzuholen', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    zeige()
+
+    // Der Vertrag ist geschlossen, im Archiv liegt nichts: das gehoert gesagt,
+    // nicht verschwiegen.
+    expect(await screen.findByText('PDF ausstehend')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'PDF erzeugen' }))
+    await waitFor(() => expect(vertragPdfErzeugen).toHaveBeenCalledWith('v1'))
+  })
+
+  it('zeigt das erzeugte PDF mit seinem Datum und keinen Nachhol-Knopf mehr', async () => {
+    vi.mocked(getVertragAktuell).mockResolvedValue({ data: v(), error: null })
+    vi.mocked(listArchiv).mockResolvedValue({
+      data: [{ name: 'vertrag.pdf', pfad: 'v1/vertrag.pdf', groesseBytes: 6886 }],
+      error: null,
+    })
+    vi.mocked(listVertragDateien).mockResolvedValue({
+      data: [
+        {
+          art: 'vertrag',
+          pfad: 'v1/vertrag.pdf',
+          sha256: 'a'.repeat(64),
+          bytes: 6886,
+          erzeugtAm: '2026-09-24T10:00:00Z',
+        },
+      ],
+      error: null,
+    })
+    zeige()
+
+    expect(await screen.findByText('vertrag.pdf')).toBeTruthy()
+    expect(screen.getByText('Erzeugt am 24.09.2026')).toBeTruthy()
+    expect(screen.queryByText('PDF ausstehend')).toBeNull()
+    expect(screen.queryByRole('button', { name: 'PDF erzeugen' })).toBeNull()
   })
 })

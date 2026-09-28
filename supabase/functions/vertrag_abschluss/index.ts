@@ -18,10 +18,15 @@
 //   5. Wirft die RPC, werden die eben angelegten Auth-User wieder entfernt —
 //      aber nur die eben angelegten. Ein wiederverwendetes Elternkonto bleibt
 //      stehen; es gehoert dem Geschwisterkind genauso.
+//   6. Das Vertrags-PDF erzeugen. NACH der RPC und ohne Rueckrollrecht: Der
+//      Vertrag ist geschlossen, sobald die RPC durch ist. Ein Fehler beim
+//      Setzen des PDF macht das nicht rueckgaengig — er wird gemeldet und die
+//      Detailansicht zeigt "PDF ausstehend" mit einem Knopf zum Nachholen.
 //
 // Deploy: supabase functions deploy vertrag_abschluss
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { hatVertragPdf, vertragPdfErzeugen } from '../_shared/vertrag_pdf_erzeugen.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -227,5 +232,22 @@ Deno.serve(async (req: Request) => {
     return json(400, { error: error.message })
   }
 
-  return json(200, data)
+  // ---- 6. Das PDF ----------------------------------------------------------
+  // Absichtlich hinter dem Punkt ohne Wiederkehr. Ein Vertrag ohne PDF ist ein
+  // fehlendes Dokument; ein zurueckgerollter Abschluss waere ein fehlender
+  // Vertrag — mit einem Elternteil, das eben unterschrieben hat.
+  let pdf_fehler: string | null = null
+  try {
+    // Der Aufruf ist idempotent (bereits_abgeschlossen) — dann liegt das PDF
+    // schon da und ein zweiter Versuch waere nur ein Upload-Fehler, den
+    // niemand lesen muss.
+    if (!(await hatVertragPdf(admin, body.vertrag_id))) {
+      await vertragPdfErzeugen(admin, rpcClient, body.vertrag_id)
+    }
+  } catch (err) {
+    pdf_fehler = err instanceof Error ? err.message : 'PDF konnte nicht erzeugt werden'
+    console.error('vertrag_pdf', body.vertrag_id, pdf_fehler)
+  }
+
+  return json(200, { ...(data as Record<string, unknown>), pdf_fehler })
 })
