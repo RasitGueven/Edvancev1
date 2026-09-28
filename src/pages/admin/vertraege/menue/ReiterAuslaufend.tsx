@@ -23,13 +23,8 @@ type Props = {
   busyId: string | null
   onStatus: (v: VertragAktuell, status: VerlaengerungStatus) => void
   onWiedervorlage: (v: VertragAktuell, datum: string) => void
-  /**
-   * Warum "Neuer Vertrag" noch nicht geht. Ein Folgevertrag entsteht heute nur
-   * aus einem Lead (vertrag_starten); aus einem bestehenden Vertrag heraus
-   * fehlt der Weg. Gesperrt, aber mit Begruendung — ein Knopf, der nicht geht
-   * und nicht sagt warum, ist am Empfang wertlos.
-   */
-  neuerVertragSperre: string | null
+  /** Startet den Folgevertrag (vertrag_folgevertrag_starten) und oeffnet ihn. */
+  onNeuerVertrag: (v: VertragAktuell) => void
 }
 
 /**
@@ -46,7 +41,7 @@ export function ReiterAuslaufend({
   busyId,
   onStatus,
   onWiedervorlage,
-  neuerVertragSperre,
+  onNeuerVertrag,
 }: Props): JSX.Element {
   const { t, i18n } = useTranslation('vertraege')
   const lang = i18n.language
@@ -121,11 +116,9 @@ export function ReiterAuslaufend({
       kopf: t('menue.spalte.aktionen'),
       rechts: true,
       zelle: (v) => (
-        <span title={neuerVertragSperre ?? undefined}>
-          <Button size="sm" disabled={neuerVertragSperre !== null || busyId === v.id}>
-            {t('menue.neuerVertrag')}
-          </Button>
-        </span>
+        <Button size="sm" disabled={busyId === v.id} onClick={() => onNeuerVertrag(v)}>
+          {t('menue.neuerVertrag')}
+        </Button>
       ),
     },
   ]

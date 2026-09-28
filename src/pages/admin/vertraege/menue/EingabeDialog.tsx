@@ -17,6 +17,8 @@ type EingabeDialogProps = {
   /** Pflichtfeld — ohne Eingabe bleibt der Knopf gesperrt. */
   pflicht: boolean
   bestaetigen: string
+  /** Startwert, etwa das heutige Datum beim Widerruf. */
+  vorbelegung?: string
   saving: boolean
   onAbbruch: () => void
   onBestaetigen: (wert: string) => void
@@ -37,12 +39,13 @@ export function EingabeDialog({
   label,
   pflicht,
   bestaetigen,
+  vorbelegung = '',
   saving,
   onAbbruch,
   onBestaetigen,
 }: EingabeDialogProps): JSX.Element | null {
   const { t: tc } = useTranslation('common')
-  const [wert, setWert] = useState('')
+  const [wert, setWert] = useState(vorbelegung)
   const leer = wert.trim() === ''
 
   return (

@@ -14,6 +14,7 @@ vi.mock('@/lib/supabase/vertraegeMenue', () => ({
   listVertraegeAktuell: vi.fn(),
   vertragVerlaengerungSetzen: vi.fn(() => Promise.resolve({ data: true, error: null })),
   vertragZahlungsstatusSetzen: vi.fn(() => Promise.resolve({ data: true, error: null })),
+  vertragFolgevertragStarten: vi.fn(() => Promise.resolve({ data: 'neu-id', error: null })),
 }))
 vi.mock('@/lib/supabase/vertraege', () => ({
   listVertraege: vi.fn(() => Promise.resolve({ data: [], error: null })),
