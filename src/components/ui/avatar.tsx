@@ -2,9 +2,11 @@ import { cn } from '@/lib/utils'
 import type { AttendanceStatus, AvatarProps } from '@/types'
 
 const ATTENDANCE_STYLE: Record<AttendanceStatus, string> = {
+  planned: 'bg-muted',
   present: 'bg-success',
-  absent: 'bg-destructive',
-  unknown: 'bg-muted',
+  unexcused: 'bg-destructive',
+  cancelled: 'bg-muted',
+  cancelled_by_us: 'bg-muted',
 }
 
 export function Avatar({ initials, attendance, className }: AvatarProps): JSX.Element {

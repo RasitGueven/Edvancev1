@@ -24,7 +24,7 @@ import {
   PLACEHOLDER_DASH,
   type SessionVM,
 } from '@/pages/coach/SessionCard'
-import type { AttendanceStatus, Intervention } from '@/types'
+import type { Intervention, SessionAttendance } from '@/types'
 
 type RangeFilter = 'today' | 'week' | 'all'
 
@@ -159,7 +159,7 @@ export function CoachDashboard(): JSX.Element {
   const onAttendance = async (
     sessionId: string,
     studentId: string,
-    a: AttendanceStatus,
+    a: SessionAttendance,
   ): Promise<void> => {
     const { error: err } = await setAttendance(sessionId, studentId, a)
     if (err) {

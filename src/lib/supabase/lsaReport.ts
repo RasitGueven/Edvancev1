@@ -1,11 +1,15 @@
 // Eltern-Report (R1) — Lesezugriff. Read-only gegenüber den Sitzungsdaten.
 //
-// Quellen (alle bereits per RLS für coach/admin lesbar, kein neuer Grant):
-//   lsa_sessions   — item_ids, Fach, Klasse, Status, Zeitpunkte
-//   lsa_responses  — correct + duration_ms je Aufgabe (serverseitig von
-//                    lsa_submit gesetzt, siehe src/types/report.ts)
-//   tasks          — competency_content als Stoffanker/Thema
-//   leads          — Rufname (students.lead_id → leads.first_name)
+// Quellen (per RLS für coach/admin lesbar):
+//   lsa_sessions      — item_ids, Fach, Klasse, Status, Zeitpunkte
+//   lsa_responses     — correct + duration_ms je Aufgabe (serverseitig von
+//                       lsa_submit gesetzt, siehe src/types/report.ts)
+//   tasks             — competency_content als Stoffanker/Thema
+//   lsa_lead_kontext  — RPC: Rufname, nächstes Thema, Eltern-Einschätzung vom
+//                       Lead. Löst den Lead über students.lead_id ODER
+//                       leads.converted_student_id auf (nach dem Vertrags-
+//                       abschluss ist students.lead_id NULL). Coaches lesen
+//                       leads seit S1 nicht mehr direkt.
 //
 // task_solutions wird NICHT angefasst.
 
@@ -36,35 +40,56 @@ type SessionRow = {
 const SESSION_COLS =
   'id, student_id, subject, grade, status, item_ids, started_at, completed_at, created_at'
 
-// Rufname je student_id — über den provisorischen Schüler (students.lead_id).
-// students trägt selbst keinen Namen; der Rufname lebt am Lead.
+// Was der Report vom Lead braucht — ohne Kontaktdaten.
+type LeadKontext = {
+  rufname: string | null
+  nextExamTopic: string | null
+  currentTopicClusterId: string | null
+  elternNote: string | null
+  elternWeakTopics: string[]
+}
+
+// Lead-Kontext je student_id. students trägt selbst keinen Namen; der Rufname
+// lebt am Lead. Kinder ohne auflösbaren Lead fehlen in der Map.
+async function loadLeadKontext(
+  studentIds: string[],
+): Promise<Map<string, LeadKontext>> {
+  const kontext = new Map<string, LeadKontext>()
+  if (studentIds.length === 0) return kontext
+
+  const { data, error } = await supabase.rpc('lsa_lead_kontext', {
+    p_student_ids: studentIds,
+  })
+  // Nicht still schlucken: ein Report ohne Namen sähe aus wie ein Kind ohne
+  // Lead. Die Aufrufer fangen den Fehler und geben ihn als error zurück.
+  if (error) throw new Error(`lsa_lead_kontext: ${error.message}`)
+
+  type Row = {
+    student_id: string
+    rufname: string | null
+    next_exam_topic: string | null
+    current_topic_cluster_id: string | null
+    eltern_note: string | null
+    eltern_weak_topics: string[] | null
+  }
+  for (const r of (data ?? []) as Row[]) {
+    kontext.set(r.student_id, {
+      rufname: r.rufname,
+      nextExamTopic: r.next_exam_topic,
+      currentTopicClusterId: r.current_topic_cluster_id,
+      elternNote: r.eltern_note,
+      elternWeakTopics: r.eltern_weak_topics ?? [],
+    })
+  }
+  return kontext
+}
+
 async function loadNames(
   studentIds: string[],
 ): Promise<Record<string, string | null>> {
   const names: Record<string, string | null> = {}
-  if (studentIds.length === 0) return names
-
-  const { data: students } = await supabase
-    .from('students')
-    .select('id, lead_id')
-    .in('id', studentIds)
-
-  const byLead = new Map<string, string>()
-  for (const s of students ?? []) {
-    if (s.lead_id) byLead.set(s.lead_id as string, s.id as string)
-  }
-  if (byLead.size === 0) return names
-
-  const { data: leads } = await supabase
-    .from('leads')
-    .select('id, first_name, full_name')
-    .in('id', [...byLead.keys()])
-
-  for (const l of leads ?? []) {
-    const studentId = byLead.get(l.id as string)
-    if (!studentId) continue
-    names[studentId] =
-      (l.first_name as string | null) ?? (l.full_name as string | null) ?? null
+  for (const [studentId, k] of await loadLeadKontext(studentIds)) {
+    names[studentId] = k.rufname
   }
   return names
 }
@@ -129,27 +154,10 @@ export async function listTodaysLsaSessions(): Promise<
 
 // Die Eltern-Einschätzung vom Lead (source='parent'). Fehlt sie, ist der
 // Abschnitt im Report auszublenden — deshalb null statt leerem Objekt.
-async function loadParentAssessment(
-  studentId: string,
-): Promise<ParentAssessment | null> {
-  const { data: student } = await supabase
-    .from('students')
-    .select('lead_id')
-    .eq('id', studentId)
-    .maybeSingle()
-  const leadId = student?.lead_id as string | null | undefined
-  if (!leadId) return null
-
-  const { data } = await supabase
-    .from('lead_assessments')
-    .select('note, weak_topics')
-    .eq('lead_id', leadId)
-    .eq('source', 'parent')
-    .maybeSingle()
-  if (!data) return null
-
-  const note = (data.note as string | null) ?? null
-  const weakTopics = (data.weak_topics as string[] | null) ?? []
+function parentAssessmentAus(k: LeadKontext | undefined): ParentAssessment | null {
+  if (!k) return null
+  const note = k.elternNote
+  const weakTopics = k.elternWeakTopics
   if (!note?.trim() && weakTopics.length === 0) return null
   return { note, weakTopics }
 }
@@ -205,25 +213,13 @@ async function loadFehlbilder(sessionId: string): Promise<ReportFehlbild[]> {
  * er bleibt auch der Rückfall, wenn sich ein Cluster nicht auflösen lässt.
  */
 export async function loadNaechstesThema(studentId: string): Promise<string | null> {
-  const { data: student } = await supabase
-    .from('students')
-    .select('lead_id')
-    .eq('id', studentId)
-    .maybeSingle()
-  const leadId = (student as { lead_id: string | null } | null)?.lead_id
-  if (!leadId) return null
+  return naechstesThemaAus((await loadLeadKontext([studentId])).get(studentId))
+}
 
-  const { data: lead } = await supabase
-    .from('leads')
-    .select('next_exam_topic, current_topic_cluster_id')
-    .eq('id', leadId)
-    .maybeSingle()
-  const leadRow = lead as {
-    next_exam_topic: string | null
-    current_topic_cluster_id: string | null
-  } | null
-  const freitext = leadRow?.next_exam_topic?.trim() || null
-  const clusterId = leadRow?.current_topic_cluster_id
+async function naechstesThemaAus(k: LeadKontext | undefined): Promise<string | null> {
+  if (!k) return null
+  const freitext = k.nextExamTopic?.trim() || null
+  const clusterId = k.currentTopicClusterId
   if (!clusterId) return freitext
 
   // Zweiter Roundtrip statt eingebettetem Select über den Fremdschlüssel: die
@@ -263,21 +259,21 @@ export async function getReportData(
     // eine Aufgabe. Dieselbe Zaehlweise nutzt lsa_fehlbild_auswertung.
     const aufgaben = new Set((responses ?? []).map((r) => r.task_id as string)).size
 
-    const names = await loadNames([row.student_id])
+    const kontext = (await loadLeadKontext([row.student_id])).get(row.student_id)
 
-    const parentAssessment = await loadParentAssessment(row.student_id)
+    const parentAssessment = parentAssessmentAus(kontext)
     const fehlbilder = await loadFehlbilder(row.id)
 
     return {
       data: {
         sessionId: row.id,
-        firstName: names[row.student_id] ?? null,
+        firstName: kontext?.rufname ?? null,
         grade: row.grade,
         subject: row.subject,
         status: row.status,
         analysedAt: row.completed_at ?? row.started_at ?? row.created_at,
         aufgaben,
-        naechstesThema: await loadNaechstesThema(row.student_id),
+        naechstesThema: await naechstesThemaAus(kontext),
         parentAssessment,
         skillbefunde: await loadSkillbefunde(sessionId),
         fehlbilder,

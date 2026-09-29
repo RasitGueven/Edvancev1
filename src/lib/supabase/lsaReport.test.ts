@@ -9,33 +9,42 @@ import { describe, expect, it, vi, beforeEach } from 'vitest'
  */
 
 type Row = Record<string, unknown> | null
-let studentRow: Row = null
+// Der Lead-Kontext kommt aus der RPC lsa_lead_kontext (Lead über
+// students.lead_id oder leads.converted_student_id — aufgelöst in SQL).
 let leadRow: Row = null
 let clusterRow: Row = null
 let abgefragt: string[] = []
+let rpcFehler: string | null = null
 
 vi.mock('@/lib/supabase/client', () => {
   const bau = (tabelle: string) => {
     abgefragt.push(tabelle)
-    const daten = () =>
-      tabelle === 'students' ? studentRow : tabelle === 'leads' ? leadRow : clusterRow
     const q = {
       select: () => q,
       eq: () => q,
-      maybeSingle: () => Promise.resolve({ data: daten(), error: null }),
+      maybeSingle: () => Promise.resolve({ data: clusterRow, error: null }),
     }
     return q
   }
-  return { supabase: { from: (tabelle: string) => bau(tabelle) } }
+  const rpc = (name: string) => {
+    abgefragt.push(`rpc:${name}`)
+    const data = leadRow
+      ? [{ student_id: 'ZZ_student_1', rufname: null, eltern_note: null, eltern_weak_topics: [], ...leadRow }]
+      : []
+    return Promise.resolve(
+      rpcFehler ? { data: null, error: { message: rpcFehler } } : { data, error: null },
+    )
+  }
+  return { supabase: { from: (tabelle: string) => bau(tabelle), rpc } }
 })
 
 const { loadNaechstesThema } = await import('@/lib/supabase/lsaReport')
 
 beforeEach(() => {
-  studentRow = { lead_id: 'ZZ_lead_1' }
   leadRow = null
   clusterRow = null
   abgefragt = []
+  rpcFehler = null
 })
 
 describe('loadNaechstesThema — Cluster vor Freitext', () => {
@@ -47,7 +56,7 @@ describe('loadNaechstesThema — Cluster vor Freitext', () => {
     clusterRow = { name: 'ZZ_Binomische Formeln' }
 
     expect(await loadNaechstesThema('ZZ_student_1')).toBe('ZZ_Binomische Formeln')
-    expect(abgefragt).toEqual(['students', 'leads', 'skill_clusters'])
+    expect(abgefragt).toEqual(['rpc:lsa_lead_kontext', 'skill_clusters'])
   })
 
   it('fällt auf den Freitext zurück, wenn der Cluster nicht auflösbar ist', async () => {
@@ -78,12 +87,25 @@ describe('loadNaechstesThema — Altbestand ohne Cluster', () => {
 
     expect(await loadNaechstesThema('ZZ_student_1')).toBe('ZZ_Freitext Bruchrechnen')
     // Ohne Cluster-ID entfällt der zweite Roundtrip.
-    expect(abgefragt).toEqual(['students', 'leads'])
+    expect(abgefragt).toEqual(['rpc:lsa_lead_kontext'])
   })
 
   it('liefert null, wenn weder Cluster noch Freitext belegt sind', async () => {
     leadRow = { next_exam_topic: '   ', current_topic_cluster_id: null }
 
     expect(await loadNaechstesThema('ZZ_student_1')).toBeNull()
+  })
+
+  it('liefert null, wenn zum Kind kein Lead auflösbar ist', async () => {
+    leadRow = null
+
+    expect(await loadNaechstesThema('ZZ_student_1')).toBeNull()
+    expect(abgefragt).toEqual(['rpc:lsa_lead_kontext'])
+  })
+
+  it('reicht einen RPC-Fehler weiter statt ihn zu verschlucken', async () => {
+    rpcFehler = 'permission denied'
+
+    await expect(loadNaechstesThema('ZZ_student_1')).rejects.toThrow('lsa_lead_kontext')
   })
 })

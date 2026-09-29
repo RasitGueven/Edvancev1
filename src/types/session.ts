@@ -1,6 +1,16 @@
 // Session, attendance, XP, interventions, and parent reports.
 
-export type AttendanceStatus = 'present' | 'absent' | 'unknown'
+// Spiegelt session_students_attendance_check. In der Session setzt der Coach
+// nur 'present' oder 'unexcused'; 'cancelled' und 'cancelled_by_us' setzt das
+// Slots-Feature. Was eine Einheit verbraucht, entscheidet die DB-Funktion
+// einheit_verbraucht() — nicht das Frontend.
+export type AttendanceStatus =
+  | 'planned'
+  | 'present'
+  | 'cancelled'
+  | 'unexcused'
+  | 'cancelled_by_us'
+export type SessionAttendance = Extract<AttendanceStatus, 'present' | 'unexcused'>
 export type SessionStatus = 'upcoming' | 'active' | 'done'
 
 export type CoachingSession = {

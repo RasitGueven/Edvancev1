@@ -1,4 +1,5 @@
 import { useEffect, useState, type JSX } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Avatar } from '@/components/ui/avatar'
@@ -10,6 +11,7 @@ import type {
   AttendanceStatus,
   CoachingSession,
   Intervention,
+  SessionAttendance,
   SessionStatus,
   StudentProgress,
 } from '@/types'
@@ -102,11 +104,12 @@ export function SessionCard({
   onResolve,
 }: {
   vm: SessionVM
-  onAttendance: (studentId: string, a: AttendanceStatus) => void
+  onAttendance: (studentId: string, a: SessionAttendance) => void
   interventions: Intervention[]
   onIntervene: (studentId: string) => void
   onResolve: (interventionId: string) => void
 }): JSX.Element {
+  const { t } = useTranslation('coach')
   const { session, students } = vm
   const [openProfile, setOpenProfile] = useState<string | null>(null)
   const openFor = (studentId: string): Intervention | undefined =>
@@ -170,14 +173,14 @@ export function SessionCard({
                       variant={s.attendance === 'present' ? 'default' : 'outline'}
                       onClick={() => onAttendance(s.student_id, 'present')}
                     >
-                      Da
+                      {t('attendance.present')}
                     </Button>
                     <Button
                       size="sm"
-                      variant={s.attendance === 'absent' ? 'default' : 'outline'}
-                      onClick={() => onAttendance(s.student_id, 'absent')}
+                      variant={s.attendance === 'unexcused' ? 'default' : 'outline'}
+                      onClick={() => onAttendance(s.student_id, 'unexcused')}
                     >
-                      Fehlt
+                      {t('attendance.unexcused')}
                     </Button>
                     {open ? (
                       <>

@@ -116,6 +116,18 @@ export async function listReportSessionsByLead(
     const leadByStudent = new Map(
       (students ?? []).map((s) => [s.id as string, s.lead_id as string]),
     )
+
+    // Nach dem Vertragsabschluss ist students.lead_id NULL; der Rückweg läuft
+    // über leads.converted_student_id (Schülerakte S1).
+    const { data: converted, error: cErr } = await supabase
+      .from('leads')
+      .select('id, converted_student_id')
+      .in('id', leadIds)
+      .not('converted_student_id', 'is', null)
+    if (cErr) return { data: null, error: cErr.message }
+    for (const l of converted ?? []) {
+      leadByStudent.set(l.converted_student_id as string, l.id as string)
+    }
     if (leadByStudent.size === 0) return { data: {}, error: null }
 
     const { data, error } = await supabase
