@@ -6,9 +6,15 @@
 //
 // Lauf:  npx deno test --allow-net --allow-read supabase/functions/_shared/vertrag_pdf_test.ts
 
-import { assert, assertEquals, assertStringIncludes } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+import {
+  assert,
+  assertEquals,
+  assertStringIncludes,
+  assertThrows,
+} from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import { markdownZuPdf, winAnsi } from './markdown_pdf.ts'
 import { dokumentAusZeile, fassungsDokument, sepaAusZeile } from './vertrag_dokument.ts'
+import { buendelZusammenstellen } from './vertrag_pdf_erzeugen.ts'
 
 // Ein winziges echtes PNG — pdf-lib liest den Header, ein Fantasiestring
 // wuerde beim Einbetten fliegen.
@@ -180,4 +186,109 @@ Deno.test('Fassungen sind vertragsfrei — kein Platzhalter, keine Unterschrift'
     const pdf = await markdownZuPdf({ markdown: dok.markdown, fusszeile: dok.fusszeile })
     assertEquals(new TextDecoder().decode(pdf.slice(0, 5)), '%PDF-', `${art} ist kein PDF`)
   }
+})
+
+const DATEIEN = [
+  { art: 'vertrag', pfad: 'v1/vertrag.pdf' },
+  { art: 'sepa_mandat', pfad: 'v1/sepa_mandat.pdf' },
+]
+const ALLE_ZUSTIMMUNGEN = [
+  { dokument_schluessel: 'agb', dokument_version: 'platzhalter-v1' },
+  { dokument_schluessel: 'widerruf', dokument_version: 'platzhalter-v1' },
+  { dokument_schluessel: 'datenschutz_vertrag', dokument_version: 'platzhalter-v1' },
+]
+const FASSUNGEN = [
+  { art: 'agb', fassung: 'platzhalter-v1', pfad: 'fassungen/agb/platzhalter-v1.pdf' },
+  { art: 'widerruf', fassung: 'platzhalter-v1', pfad: 'fassungen/widerruf/platzhalter-v1.pdf' },
+  {
+    art: 'datenschutz_vertrag',
+    fassung: 'platzhalter-v1',
+    pfad: 'fassungen/datenschutz_vertrag/platzhalter-v1.pdf',
+  },
+  {
+    art: 'einwilligung_fotos',
+    fassung: 'platzhalter-v1',
+    pfad: 'fassungen/einwilligung_fotos/platzhalter-v1.pdf',
+  },
+]
+const TITEL: Record<string, string> = {
+  vertrag: 'Vertrag über Lernbegleitung',
+  sepa_mandat: 'SEPA-Lastschriftmandat',
+  agb: 'Allgemeine Geschäftsbedingungen',
+  widerruf: 'Widerrufsbelehrung',
+  datenschutz_vertrag: 'Datenschutzhinweise',
+  einwilligung_fotos: 'Einwilligung Fotos',
+}
+
+Deno.test('Umschlag: jeder Anhang hat einen eigenen, lesbaren Namen', () => {
+  const stuecke = buendelZusammenstellen({
+    dateien: DATEIEN,
+    zustimmungen: ALLE_ZUSTIMMUNGEN,
+    fassungen: FASSUNGEN,
+    titel: TITEL,
+    anlass: 'bestaetigung',
+  })
+
+  assertEquals(stuecke.length, 5, 'nicht fuenf Anhaenge')
+  const namen = stuecke.map((s) => s.name)
+  // Aus dem Pfad abgeleitet hiessen alle Fassungen "platzhalter-v1.pdf".
+  assertEquals(new Set(namen).size, namen.length, `doppelte Namen: ${namen.join(', ')}`)
+  assert(!namen.some((n) => n.includes('platzhalter')), `Fassungskennung im Namen: ${namen}`)
+  assertEquals(namen[2], 'Allgemeine Geschäftsbedingungen.pdf')
+  assertEquals(namen[3], 'Widerrufsbelehrung.pdf')
+})
+
+Deno.test('Umschlag: fehlende Pflichtunterlage bricht ab, statt sie wegzulassen', () => {
+  for (const fehlt of ['agb', 'widerruf', 'datenschutz_vertrag']) {
+    assertThrows(
+      () =>
+        buendelZusammenstellen({
+          dateien: DATEIEN,
+          zustimmungen: ALLE_ZUSTIMMUNGEN.filter((z) => z.dokument_schluessel !== fehlt),
+          fassungen: FASSUNGEN,
+          titel: TITEL,
+          anlass: 'bestaetigung',
+        }),
+      Error,
+      fehlt,
+      `ohne ${fehlt} ging die Mail trotzdem raus`,
+    )
+  }
+})
+
+Deno.test('Umschlag: die Foto-Einwilligung ist freiwillig und darf fehlen', () => {
+  const ohne = buendelZusammenstellen({
+    dateien: DATEIEN,
+    zustimmungen: ALLE_ZUSTIMMUNGEN,
+    fassungen: FASSUNGEN,
+    titel: TITEL,
+    anlass: 'bestaetigung',
+  })
+  const mit = buendelZusammenstellen({
+    dateien: DATEIEN,
+    zustimmungen: [
+      ...ALLE_ZUSTIMMUNGEN,
+      { dokument_schluessel: 'einwilligung_fotos', dokument_version: 'platzhalter-v1' },
+    ],
+    fassungen: FASSUNGEN,
+    titel: TITEL,
+    anlass: 'bestaetigung',
+  })
+  assertEquals(ohne.length, 5)
+  assertEquals(mit.length, 6, 'zugestimmte Foto-Einwilligung fehlt im Umschlag')
+})
+
+Deno.test('Umschlag: ohne Vertrags-PDF gibt es nichts zu verschicken', () => {
+  assertThrows(
+    () =>
+      buendelZusammenstellen({
+        dateien: [{ art: 'vertrag', pfad: 'v1/vertrag.pdf' }],
+        zustimmungen: ALLE_ZUSTIMMUNGEN,
+        fassungen: FASSUNGEN,
+        titel: TITEL,
+        anlass: 'bestaetigung',
+      }),
+    Error,
+    'Archiv',
+  )
 })

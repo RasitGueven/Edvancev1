@@ -15,7 +15,11 @@ import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { MAIL } from '../_shared/dokumente/texte.ts'
 import { mailSenden, type Anhang } from '../_shared/graph_mail.ts'
 import { datum } from '../_shared/vertrag_dokument.ts'
-import { BUCKET, buendelPfade } from '../_shared/vertrag_pdf_erzeugen.ts'
+import {
+  BUCKET,
+  buendelPfade,
+  type Umschlagstueck,
+} from '../_shared/vertrag_pdf_erzeugen.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -45,14 +49,17 @@ function einsetzen(vorlage: string, werte: Record<string, string>): string {
 }
 
 /** Die Anhaenge aus dem privaten Bucket holen. */
-async function anhaengeLaden(admin: SupabaseClient, pfade: string[]): Promise<Anhang[]> {
+async function anhaengeLaden(
+  admin: SupabaseClient,
+  stuecke: Umschlagstueck[],
+): Promise<Anhang[]> {
   const raus: Anhang[] = []
-  for (const pfad of pfade) {
-    const { data, error } = await admin.storage.from(BUCKET).download(pfad)
-    if (error || !data) throw new Error(`Anhang fehlt: ${pfad}`)
+  for (const s of stuecke) {
+    const { data, error } = await admin.storage.from(BUCKET).download(s.pfad)
+    if (error || !data) throw new Error(`Anhang fehlt: ${s.pfad}`)
     raus.push({
-      name: pfad.split('/').pop() ?? 'anhang.pdf',
-      contentType: pfad.endsWith('.png') ? 'image/png' : 'application/pdf',
+      name: s.name,
+      contentType: s.pfad.endsWith('.png') ? 'image/png' : 'application/pdf',
       bytes: new Uint8Array(await data.arrayBuffer()),
     })
   }
@@ -117,13 +124,13 @@ Deno.serve(async (req: Request) => {
   const kind = [v.kind_vorname, v.kind_nachname].filter(Boolean).join(' ') || 'Ihr Kind'
   const eltern = [v.eltern_vorname, v.eltern_nachname].filter(Boolean).join(' ')
 
-  let pfade: string[] = []
+  let stuecke: Umschlagstueck[] = []
   try {
-    if (anlass !== 'zugangscode') pfade = await buendelPfade(admin, body.vertrag_id, anlass)
+    if (anlass !== 'zugangscode') stuecke = await buendelPfade(admin, body.vertrag_id, anlass)
   } catch (err) {
     return json(400, { error: err instanceof Error ? err.message : 'Anhaenge fehlen' })
   }
-  const namen = pfade.map((p) => p.split('/').pop() ?? p)
+  const namen = stuecke.map((s) => s.name)
   const liste = namen.map((n) => einsetzen(MAIL.anhangZeile, { name: n })).join('\n')
 
   const werte: Record<string, string> = {
@@ -149,7 +156,7 @@ Deno.serve(async (req: Request) => {
   // "fehler" ist die wertvollere von beiden.
   let fehler: string | null = null
   try {
-    const anhaenge = await anhaengeLaden(admin, pfade)
+    const anhaenge = await anhaengeLaden(admin, stuecke)
     await mailSenden({ an, betreff, text, anhaenge })
   } catch (err) {
     fehler = err instanceof Error ? err.message : 'Versand fehlgeschlagen'
