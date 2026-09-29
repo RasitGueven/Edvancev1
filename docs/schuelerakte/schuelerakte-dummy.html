@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schülerakte — Dummy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#102038; --navy-2:#1B2A4A; --primary:#334D7A; --primary-hover:#253D6A;
+    --primary-light:#EEF2F8; --bg:#F7F7F5; --surface:#FFFFFF; --subtle:#EFEFED;
+    --border:#E8E8E5; --t1:#1A1A18; --t2:#4A4A47; --t3:#888884;
+    --warn-t:#C87E00; --warn-bg:#FEF3E2; --ok-t:#2A8A4A; --ok-bg:#EAF5EE;
+    --bad-t:#B91C1C; --bad-bg:#FEF2F2; --gold:#DA9721;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--t1);
+    font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:15px;line-height:1.55}
+  .topbar{display:flex;align-items:center;gap:20px;padding:11px 20px;flex-wrap:wrap;
+    border-bottom:1px solid var(--border);background:var(--surface)}
+  .logo{font-family:Fraunces,serif;font-size:20px;color:var(--primary)}
+  .nav{display:flex;gap:4px}
+  .nav button{border:none;background:none;font:inherit;font-size:14px;color:var(--t2);
+    padding:6px 13px;border-radius:999px;cursor:pointer}
+  .nav button:hover{background:var(--subtle);color:var(--t1)}
+  .nav button[aria-current="true"]{background:var(--primary-light);color:var(--primary);font-weight:500}
+  .role{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t3)}
+  .seg{display:flex;border:1px solid var(--border);border-radius:999px;padding:2px}
+  .seg button{border:none;background:none;font:inherit;font-size:13px;color:var(--t2);
+    padding:4px 12px;border-radius:999px;cursor:pointer}
+  .seg button[aria-pressed="true"]{background:var(--primary);color:#fff;font-weight:500}
+  .wrap{max-width:1040px;margin:0 auto;padding:22px 20px 90px}
+  .hero{background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:14px;
+    padding:18px 24px;color:#fff;margin-bottom:18px}
+  .hero h1{font-family:Fraunces,serif;font-weight:600;font-size:24px;margin:0 0 3px}
+  .hero p{margin:0;font-size:13px;opacity:.75}
+  .hero .row{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:18px 20px;margin-bottom:16px}
+  h2{font-family:Fraunces,serif;font-weight:600;font-size:19px;margin:0 0 4px}
+  h3{font-family:Fraunces,serif;font-weight:600;font-size:17px;margin:0 0 10px}
+  .sub{font-size:13px;color:var(--t2);margin:0 0 14px}
+  .lbl{font-size:12px;color:var(--t3);font-weight:500;margin:0 0 9px}
+  .note{font-size:12px;color:var(--t3);margin-top:9px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-weight:500;font-size:12px;color:var(--t3);
+    padding:0 10px 8px 0;border-bottom:1px solid var(--border)}
+  td{padding:10px 10px 10px 0;border-bottom:1px solid var(--subtle);vertical-align:top}
+  tr.row{cursor:pointer}
+  tr.row:hover td{background:var(--primary-light)}
+  .nm{font-weight:500}
+  .muted{color:var(--t2);font-size:13px}
+  .tag{display:inline-block;border-radius:6px;padding:2px 9px;font-size:11px;font-weight:500;white-space:nowrap}
+  .tag-ok{background:var(--ok-bg);color:var(--ok-t)}
+  .tag-warn{background:var(--warn-bg);color:var(--warn-t)}
+  .tag-bad{background:var(--bad-bg);color:var(--bad-t)}
+  .tag-info{background:var(--primary-light);color:var(--primary)}
+  .tag-mut{background:var(--subtle);color:var(--t3)}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:999px;
+    padding:9px 18px;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+  .btn:hover{background:var(--primary-hover)}
+  .btn:disabled{background:var(--t3);cursor:not-allowed}
+  .btn-ghost{background:var(--surface);color:var(--t2);border:1px solid var(--border)}
+  .btn-ghost:hover{background:var(--subtle);color:var(--t1)}
+  .btn-sm{padding:5px 13px;font-size:13px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  select,input[type=text],textarea{padding:8px 11px;border:1px solid var(--border);
+    border-radius:10px;font:inherit;font-size:14px;background:var(--surface);color:var(--t1)}
+  textarea{width:100%;min-height:74px;resize:vertical}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:13px;color:var(--t2);margin-bottom:4px}
+  .field input,.field select{width:100%}
+  .grid2{display:grid;grid-template-columns:1.45fr 1fr;gap:16px;align-items:start}
+  @media (max-width:820px){.grid2{grid-template-columns:1fr}}
+  .dl{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;font-size:14px;margin:0}
+  .dl dt{color:var(--t2);font-size:13px}
+  .dl dd{margin:0}
+  .back{font-size:13px;color:var(--primary);cursor:pointer;display:inline-block;margin-bottom:12px}
+  .back:hover{text-decoration:underline}
+  .flash{background:var(--ok-bg);color:var(--ok-t);border-radius:10px;padding:11px 15px;
+    font-size:13px;margin-bottom:15px}
+  .warnbox{background:var(--warn-bg);color:var(--warn-t);border-radius:10px;padding:11px 15px;
+    font-size:13px;margin:10px 0}
+  .infobox{background:var(--primary-light);color:var(--primary);border-radius:10px;
+    padding:12px 15px;font-size:13px}
+  .empty{color:var(--t3);font-size:14px;padding:12px 0}
+  .link{color:var(--primary);cursor:pointer;font-size:12px}
+  .link:hover{text-decoration:underline}
+  /* Einheiten-Stand */
+  .kpis{display:flex;gap:24px;flex-wrap:wrap;margin:4px 0 14px}
+  .kpis div span{display:block;font-size:12px;color:var(--t2)}
+  .kpis div b{font-family:Fraunces,serif;font-size:21px;font-weight:600;color:var(--primary)}
+  .bar{position:relative;height:10px;border-radius:5px;background:var(--subtle);margin:8px 0 6px}
+  .bar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--primary)}
+  .bar .soll{position:absolute;top:-4px;bottom:-4px;width:3px;border-radius:2px;background:var(--gold)}
+  .legend{display:flex;gap:16px;font-size:12px;color:var(--t2);flex-wrap:wrap}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  /* Notizen */
+  .notiz{padding:11px 0;border-bottom:1px solid var(--subtle)}
+  .notiz:last-child{border-bottom:none}
+  .notiz .meta{font-size:12px;color:var(--t3);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .notiz .txt{font-size:14px;margin-top:3px}
+  .notiz.aus{opacity:.55}
+  .notiz.aus .txt{text-decoration:line-through}
+  /* Fortschritt */
+  .fach{padding:10px 0;border-bottom:1px solid var(--subtle)}
+  .fach:last-child{border-bottom:none}
+  .badge{display:flex;gap:8px;align-items:baseline;font-size:13px;padding:3px 0}
+  .badge b{font-weight:500}
+  .doc{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--subtle);font-size:13px}
+  .doc:last-child{border-bottom:none}
+  .doc .link{margin-left:auto}
+  /* Board */
+  .board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(290px,1fr);gap:14px;
+    overflow-x:auto;padding-bottom:6px}
+  .lane{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;
+    display:flex;flex-direction:column;min-width:0}
+  .lane-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+  .lane-head h3{margin:0}
+  .lane input{width:100%;margin-bottom:10px}
+  .lane-body{max-height:62vh;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding-right:2px}
+  .scard{border:1px solid var(--border);border-radius:11px;padding:11px 12px;cursor:pointer;background:var(--surface)}
+  .scard:hover{border-color:var(--primary);background:var(--primary-light)}
+  .scard-foot{margin-top:8px;display:flex;justify-content:space-between;gap:8px;align-items:flex-end}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">edvance</span>
+  <div class="nav" id="nav"></div>
+  <div class="role">
+    <span>Ansicht als</span>
+    <div class="seg">
+      <button id="r-admin" aria-pressed="true" onclick="setRolle('admin')">Admin</button>
+      <button id="r-coach" aria-pressed="false" onclick="setRolle('coach')">Coach</button>
+    </div>
+    <span id="heute"></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="s-liste"></section>
+  <section id="s-akte" class="hidden"></section>
+</div>
+
+<script>
+/* ---------- Grundlagen ---------- */
+const HEUTE=new Date(2028,2,13);
+const MONATE=["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+const FERIEN=[
+  ["2026-10-17","2026-10-31"],["2026-12-23","2027-01-06"],["2027-03-22","2027-04-03"],
+  ["2027-07-19","2027-08-31"],["2027-10-23","2027-11-06"],["2027-12-24","2028-01-08"],
+  ["2028-04-10","2028-04-22"],["2028-07-10","2028-08-22"],["2028-10-23","2028-11-04"],
+  ["2028-12-21","2029-01-05"],["2029-03-26","2029-04-07"],["2029-07-02","2029-08-14"]
+].map(f=>({von:neu(f[0]),bis:neu(f[1])}));
+
+function neu(s){const p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2]);}
+function addTage(d,n){return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);}
+function dstr(d){return ("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+d.getFullYear();}
+function iso(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+function inFerien(d){return FERIEN.some(f=>d>=f.von&&d<=f.bis);}
+// Tage zählen über Jahr/Monat/Tag, nicht über Millisekunden (Zeitumstellung)
+function betriebstage(a,b){let n=0;for(let d=new Date(a);d<=b;d=addTage(d,1)) if(!inFerien(d)) n++;return n;}
+function komma(n){return n.toLocaleString("de-DE",{minimumFractionDigits:1,maximumFractionDigits:1});}
+
+const THEMEN={
+  Mathematik:["Brüche kürzen und erweitern","Brüche addieren und subtrahieren","Brüche multiplizieren und dividieren",
+    "Dezimalzahlen","Prozentrechnung","Terme vereinfachen","Klammern ausmultiplizieren","Binomische Formeln",
+    "Lineare Gleichungen","Lineare Funktionen","Gleichungssysteme","Potenzen","Wurzeln",
+    "Satz des Pythagoras","Quadratische Funktionen","Quadratische Gleichungen"],
+  Englisch:["Simple past","Present perfect","Past progressive","Will-future und going to",
+    "If-clauses I","If-clauses II","Passive","Reported speech","Relative clauses"]
+};
+const COACHES=["Jana K.","Mehmet A.","Lukas B."];
+const SCHULEN=["Elisabeth-von-Thüringen-Gymnasium","Friedrich-Wilhelm-Gymnasium","Genoveva-Gymnasium",
+  "Gesamtschule Nippes","Hansa-Gymnasium","Kaiserin-Augusta-Schule"];
+
+/* ---------- Kinder ----------
+   vertrag: nur für die Berechnung des Einheiten-Stands. Die Akte zeigt keine Vertragsdaten,
+   nur Einheiten und Stichtag des laufenden Vertrags. */
+const KINDER=[
+  {id:1,name:"Efe Demir",klasse:8,schule:"Kaiserin-Augusta-Schule",seit:neu("2027-11-01"),zustand:"aktiv",
+   faecher:["Mathematik"],plan:[{tag:2,fach:"Mathematik"}],sessionsAb:neu("2027-11-01"),
+   vertrag:{einheiten:29,beginn:neu("2027-11-01"),ende:neu("2028-06-15")},
+   fehlt:{"2027-11-30":"entschuldigt","2028-01-25":"unentschuldigt"},start:{Mathematik:1},
+   lsa:[{datum:neu("2027-10-14"),fach:"Mathematik",
+     aussage:"Brüche kürzen sicher, Brüche mit ungleichen Nennern addieren noch nicht sicher.",
+     coach:"Jana K.",best:neu("2027-10-14")}],
+   reports:[{titel:"Lernstandsanalyse — Report an die Eltern",datum:neu("2027-10-15")}],
+   notizen:[
+     {autor:"Jana K.",rolle:"Coach",datum:neu("2028-03-07"),kat:"Lernen",
+      text:"Arbeitet konzentriert. Bei Textaufgaben hilft ein Anstoß, zuerst aufzuschreiben, was gegeben ist."},
+     {autor:"Mehmet A.",rolle:"Coach",datum:neu("2028-01-25"),kat:"Organisatorisch",
+      text:"Heute nicht erschienen, keine Abmeldung. Admins informiert."}]},
+
+  {id:2,name:"Mia Wenzel",klasse:8,schule:"Friedrich-Wilhelm-Gymnasium",seit:neu("2027-09-01"),zustand:"aktiv",
+   faecher:["Mathematik","Englisch"],plan:[{tag:1,fach:"Mathematik"},{tag:4,fach:"Englisch"}],sessionsAb:neu("2027-09-01"),
+   vertrag:{einheiten:76,beginn:neu("2027-09-01"),ende:neu("2028-08-31")},
+   fehlt:{"2027-12-09":"entschuldigt"},start:{Mathematik:3,Englisch:1},
+   lsa:[{datum:neu("2027-08-19"),fach:"Mathematik",
+     aussage:"Brüche in allen Grundrechenarten sicher, Dezimalzahlen und Prozente noch nicht sicher.",
+     coach:"Lukas B.",best:neu("2027-08-19")}],
+   reports:[{titel:"Lernstandsanalyse — Report an die Eltern",datum:neu("2027-08-20")},
+            {titel:"Zwischenbericht an die Eltern",datum:neu("2028-01-28"),fach:"Mathematik",coach:"Lukas B.",
+             aussage:"Dezimalzahlen und Prozentrechnung sicher, Terme vereinfachen noch nicht sicher."}],
+   notizen:[{autor:"Lukas B.",rolle:"Coach",datum:neu("2028-02-17"),kat:"Lernen",
+      text:"Im Englischen schnell, Mathe braucht mehr Übungsrunden vor dem nächsten Badge."}]},
+
+  {id:3,name:"Elif Yilmaz",klasse:10,schule:"Gesamtschule Nippes",seit:neu("2027-02-01"),zustand:"aktiv",
+   faecher:["Mathematik"],plan:[{tag:3,fach:"Mathematik"}],sessionsAb:neu("2027-02-01"),
+   vertrag:{einheiten:57,beginn:neu("2028-02-01"),ende:neu("2029-01-31")},
+   fehlt:{"2027-05-12":"entschuldigt","2028-02-16":"unentschuldigt","2028-03-08":"unentschuldigt"},start:{Mathematik:3},
+   lsa:[{datum:neu("2027-01-18"),fach:"Mathematik",
+     aussage:"Prozentrechnung sicher, Terme mit Klammern vereinfachen noch nicht sicher.",
+     coach:"Mehmet A.",best:neu("2027-01-18")}],
+   reports:[{titel:"Lernstandsanalyse — Report an die Eltern",datum:neu("2027-01-19")},
+            {titel:"Zwischenbericht an die Eltern",datum:neu("2027-07-09"),fach:"Mathematik",coach:"Mehmet A.",
+             aussage:"Terme vereinfachen sicher, binomische Formeln noch nicht sicher."},
+            {titel:"Zwischenbericht an die Eltern",datum:neu("2028-01-27"),fach:"Mathematik",coach:"Jana K.",
+             aussage:"Lineare Gleichungen sicher, lineare Funktionen noch nicht sicher."}],
+   notizen:[{autor:"Jana K.",rolle:"Coach",datum:neu("2028-03-08"),kat:"Organisatorisch",
+      text:"Zum zweiten Mal in diesem Vertrag ohne Abmeldung gefehlt."},
+     {autor:"Mehmet A.",rolle:"Coach",datum:neu("2027-11-10"),kat:"Verhalten",
+      text:"Sehr unruhig heute, wohl wegen der Klassenarbeit morgen. Kürzere Aufgabenblöcke haben geholfen."}]},
+
+  {id:4,name:"Lina Brehm",klasse:9,schule:"Hansa-Gymnasium",seit:neu("2028-03-05"),zustand:"aktiv",
+   faecher:["Mathematik"],plan:[],sessionsAb:neu("2028-04-01"),
+   vertrag:{einheiten:76,beginn:neu("2028-04-01"),ende:neu("2029-03-31")},
+   fehlt:{},start:{Mathematik:5},
+   lsa:[{datum:neu("2028-02-21"),fach:"Mathematik",
+     aussage:"Terme vereinfachen sicher, Klammern ausmultiplizieren noch nicht sicher.",
+     coach:"Jana K.",best:neu("2028-02-21")}],
+   reports:[{titel:"Lernstandsanalyse — Report an die Eltern",datum:neu("2028-02-22")}],
+   notizen:[]},
+
+  {id:5,name:"Ben Lindner",klasse:9,schule:"Elisabeth-von-Thüringen-Gymnasium",seit:neu("2027-04-01"),zustand:"ruhend",
+   ruhendSeit:neu("2027-12-16"),
+   faecher:["Mathematik"],plan:[{tag:4,fach:"Mathematik"}],sessionsAb:neu("2027-04-01"),sessionsBis:neu("2027-12-15"),
+   vertrag:null,fehlt:{"2027-06-10":"entschuldigt"},start:{Mathematik:5},
+   lsa:[{datum:neu("2027-03-11"),fach:"Mathematik",
+     aussage:"Terme vereinfachen sicher, binomische Formeln noch nicht sicher.",
+     coach:"Lukas B.",best:neu("2027-03-11")}],
+   reports:[{titel:"Lernstandsanalyse — Report an die Eltern",datum:neu("2027-03-12")}],
+   notizen:[{autor:"Tolunay",rolle:"Admin",datum:neu("2027-12-10"),kat:"Organisatorisch",
+      text:"Eltern verlängern vorerst nicht, melden sich nach den Halbjahreszeugnissen wieder."},
+     {autor:"Jana K.",rolle:"Coach",datum:neu("2027-09-16"),kat:"Lernen",
+      text:"Fehlt oft, weil er krank ist, kommt dann nicht mehr mit.",
+      aus:{von:"Rasit",am:neu("2027-09-17"),grund:"Gesundheitsangabe"}}]}
+];
+
+/* Füllkinder, damit das Board nach Betrieb aussieht */
+const VN=["Lea","Noah","Emma","Luis","Hannah","Finn","Sophie","Leon","Marie","Jonas","Emilia","Paul","Lena","Tim","Clara",
+  "Ali","Zeynep","Mats","Leonie","David","Amira","Felix","Nele","Can","Ida","Julian","Yara","Moritz","Selin","Anton","Maja","Tom","Aylin"];
+const NN=["Becker","Schmitz","Hoffmann","Wagner","Krause","Arslan","Neumann","Schulz","Kaya","Fischer","Meyer","Weber","Braun",
+  "Özdemir","Richter","Wolf","Schröder","Peters","Lange","Keller","Sommer","Jansen","Vogel","Hartmann","Çelik","Busch",
+  "Krüger","Engel","Möller","Albrecht","Franke","Winkler","Berg"];
+const VERTRAGSMUSTER=[
+  {einheiten:29,beginn:"2027-11-01",ende:"2028-06-15"},
+  {einheiten:57,beginn:"2027-09-01",ende:"2028-08-31"},
+  {einheiten:38,beginn:"2028-02-01",ende:"2029-01-31"}];
+const AUSSAGEN=["Brüche kürzen sicher, Brüche addieren noch nicht sicher.",
+  "Prozentrechnung sicher, Terme vereinfachen noch nicht sicher.",
+  "Terme vereinfachen sicher, Klammern ausmultiplizieren noch nicht sicher.",
+  "Lineare Gleichungen sicher, lineare Funktionen noch nicht sicher.",
+  "Dezimalzahlen sicher, Prozentrechnung noch nicht sicher."];
+for(let i=0;i<VN.length;i++){
+  const kl=[8,9,10][i%3], ruhend=i%8===5, vm=VERTRAGSMUSTER[i%3];
+  const v=ruhend?null:{einheiten:vm.einheiten,beginn:neu(vm.beginn),ende:neu(vm.ende)};
+  const ab=ruhend?neu("2027-01-01"):v.beginn;
+  KINDER.push({id:10+i,name:VN[i]+" "+NN[(i*7)%NN.length],klasse:kl,schule:SCHULEN[i%SCHULEN.length],
+    seit:ab,zustand:ruhend?"ruhend":"aktiv",ruhendSeit:ruhend?neu("2027-09-16"):null,
+    faecher:["Mathematik"],plan:[{tag:1+(i%5),fach:"Mathematik"}],sessionsAb:ab,
+    sessionsBis:ruhend?neu("2027-09-15"):null,vertrag:v,fehlt:{},quote:[0,9,6,4][i%4],
+    start:{Mathematik:{8:1,9:5,10:8}[kl]+(i%3)},
+    lsa:[{datum:addTage(ab,-20),fach:"Mathematik",aussage:AUSSAGEN[i%AUSSAGEN.length],
+      coach:COACHES[i%3],best:addTage(ab,-20)}],
+    reports:[{titel:"Lernstandsanalyse — Report an die Eltern",datum:addTage(ab,-19)}],
+    notizen:[]});
+}
+
+/* Sessions erzeugen: je Planwochentag, keine Ferien, bis gestern */
+KINDER.forEach(k=>{
+  const bis=k.sessionsBis||addTage(HEUTE,-1);
+  const s=[],zaehler={},i0={};
+  let n=0;
+  for(let d=new Date(k.sessionsAb);d<=bis;d=addTage(d,1)){
+    const p=k.plan.find(x=>x.tag===d.getDay());
+    if(!p||inFerien(d)) continue;
+    const f=p.fach; zaehler[f]=zaehler[f]||0;
+    const liste=THEMEN[f], ti=Math.min(k.start[f]+Math.floor(zaehler[f]/4),liste.length-1);
+    const status=k.fehlt[iso(d)]||(k.quote&&(n*5+k.id)%k.quote===0?(n%2?"unentschuldigt":"entschuldigt"):"anwesend");
+    const coach=COACHES[(n*2+k.id)%3];
+    const e={datum:new Date(d),fach:f,coach,status,thema:status==="anwesend"?liste[ti]:"—",badge:null};
+    if(status==="anwesend"){
+      zaehler[f]++;
+      if(zaehler[f]%4===0&&ti<liste.length-1) e.badge=liste[ti];
+    }
+    s.push(e); n++;
+  }
+  k.sessions=s;
+});
+
+/* ---------- Einheiten-Stand ---------- */
+function einheitenStand(k){
+  if(k.zustand==="ruhend"||!k.vertrag) return {art:"keiner"};
+  const v=k.vertrag;
+  if(HEUTE<v.beginn) return {art:"vorher",v};
+  const genutzt=k.sessions.filter(s=>s.status==="anwesend"&&s.datum>=v.beginn&&s.datum<=v.ende).length;
+  const gesamt=betriebstage(v.beginn,v.ende);
+  const bisher=betriebstage(v.beginn,addTage(HEUTE,-1));
+  const rest=betriebstage(HEUTE,v.ende);
+  const soll=v.einheiten*bisher/gesamt;
+  const offen=Math.max(v.einheiten-genutzt,0);
+  const restW=rest/7, takt=v.einheiten/(gesamt/7);
+  const noetig=restW>0?offen/restW:offen;
+  const rueck=soll-genutzt;
+  const ampel=rueck<=1.5?"ok":rueck<=3.5?"warn":"bad";
+  const text={ok:"im Plan",warn:"leicht im Rückstand",bad:"deutlich im Rückstand"}[ampel];
+  return {art:"laufend",v,genutzt,offen,soll,rueck,restW,takt,noetig,ampel,text};
+}
+function standTag(k){
+  const e=einheitenStand(k);
+  if(e.art==="keiner") return '<span class="tag tag-mut">kein laufender Vertrag</span>';
+  if(e.art==="vorher") return '<span class="tag tag-info">startet am '+dstr(e.v.beginn)+'</span>';
+  return '<span class="tag tag-'+e.ampel+'">'+e.text+'</span><div class="muted">'+e.genutzt+' von '+e.v.einheiten+' genutzt</div>';
+}
+
+/* ---------- Zustand und Navigation ---------- */
+let rolle="admin", filter="aktiv", sucheKl={}, sucheAlle="", sort="name", flash="", offenesKind=null, alleSessions=false;
+const KLASSEN=[8,9,10];
+const ICH={admin:{name:"Tolunay",rolle:"Admin"},coach:{name:"Jana K.",rolle:"Coach"}};
+
+function setRolle(r){
+  rolle=r;
+  document.getElementById("r-admin").setAttribute("aria-pressed",r==="admin");
+  document.getElementById("r-coach").setAttribute("aria-pressed",r==="coach");
+  renderNav();
+  if(offenesKind){
+    const k=KINDER.find(x=>x.id===offenesKind);
+    if(r==="coach"&&k.zustand==="ruhend"){flash="Ruhende Akten sind für Coaches nicht sichtbar.";zeigeListe();return;}
+    zeigeAkte(offenesKind);
+  } else zeigeListe();
+}
+function renderNav(){
+  const n=rolle==="admin"
+    ? '<button onclick="alert(\'Lead-Board — siehe Verträge-Dummy.\')">Lead-Board</button>'+
+      '<button onclick="alert(\'Verträge — siehe Verträge-Dummy.\')">Verträge</button>'+
+      '<button aria-current="true" onclick="zeigeListe()">Schüler</button>'
+    : '<button onclick="alert(\'Sessions — nicht Teil dieses Dummys.\')">Sessions</button>'+
+      '<button aria-current="true" onclick="zeigeListe()">Schüler</button>';
+  document.getElementById("nav").innerHTML=n;
+}
+function zeig(id){
+  ["s-liste","s-akte"].forEach(s=>document.getElementById(s).classList.toggle("hidden",s!==id));
+  window.scrollTo(0,0);
+}
+function zustandTag(k){
+  return k.zustand==="aktiv"?'<span class="tag tag-ok">aktiv</span>'
+    :'<span class="tag tag-mut">ruhend seit '+dstr(k.ruhendSeit)+'</span>';
+}
+function letzteSession(k){
+  const a=k.sessions.filter(s=>s.status==="anwesend");
+  return a.length?dstr(a[a.length-1].datum):"—";
+}
+
+/* ---------- Board ---------- */
+function sichtbareKinder(){
+  return KINDER.filter(k=>rolle==="coach"?k.zustand==="aktiv":(filter==="alle"||k.zustand===filter));
+}
+function nachname(k){return k.name.split(" ").slice(-1)[0];}
+function rk(e){return e.art==="laufend"?e.rueck:-99;}
+function zeigeListe(){
+  offenesKind=null;
+  const f=flash?'<div class="flash">'+flash+'</div>':''; flash="";
+  document.getElementById("s-liste").innerHTML=`
+    <div class="hero"><h1>Schüler</h1><p>${rolle==="admin"
+      ?"Alle Schülerakten nach Klassenstufe. Ruhende Akten über den Filter."
+      :"Alle aktiven Schülerakten nach Klassenstufe — unabhängig davon, in welcher Gruppe du sie hast."}</p></div>
+    ${f}
+    <div class="filters">
+      <input type="text" style="flex:1;min-width:240px" placeholder="Alle Klassen durchsuchen — Name oder Schule"
+        value="${sucheAlle}" oninput="sucheAlle=this.value;KLASSEN.forEach(renderSpalte)">
+      <span class="muted" id="treffer-alle"></span>
+      ${rolle==="admin"?`<select onchange="filter=this.value;KLASSEN.forEach(renderSpalte)">
+        <option value="aktiv"${filter==="aktiv"?" selected":""}>Zustand: aktiv</option>
+        <option value="ruhend"${filter==="ruhend"?" selected":""}>Zustand: ruhend</option>
+        <option value="alle"${filter==="alle"?" selected":""}>Zustand: alle</option></select>`:""}
+      <select onchange="sort=this.value;KLASSEN.forEach(renderSpalte)">
+        <option value="name"${sort==="name"?" selected":""}>Sortierung: Nachname</option>
+        <option value="rueck"${sort==="rueck"?" selected":""}>Sortierung: größter Rückstand zuerst</option></select>
+    </div>
+    <div class="board">${KLASSEN.map(kl=>`<div class="lane">
+      <div class="lane-head"><h3>Klasse ${kl}</h3><span class="muted" id="n-${kl}"></span></div>
+      <input type="text" placeholder="In Klasse ${kl} suchen — Name oder Schule" value="${sucheKl[kl]||""}"
+        oninput="sucheKl[${kl}]=this.value;renderSpalte(${kl})">
+      <div class="lane-body" id="l-${kl}"></div></div>`).join("")}</div>
+    <p class="note">Eine Akte entsteht beim Vertragsabschluss. Kinder mit offenem Antrag stehen noch nicht hier.
+      Die obere Suche wirkt auf alle Spalten, die Suche in einer Spalte nur dort.</p>`;
+  KLASSEN.forEach(renderSpalte);
+  zeig("s-liste");
+}
+function renderSpalte(kl){
+  const alle=sichtbareKinder().filter(k=>k.klasse===kl);
+  const passt=(k,s)=>(k.name+" "+k.schule).toLowerCase().includes(s);
+  const qa=sucheAlle.trim().toLowerCase();
+  const q=(sucheKl[kl]||"").trim().toLowerCase();
+  const treffer=alle.filter(k=>(!qa||passt(k,qa))&&(!q||passt(k,q)))
+    .map(k=>({k,e:einheitenStand(k)}));
+  const byName=(a,b)=>nachname(a.k).localeCompare(nachname(b.k),"de");
+  treffer.sort(sort==="rueck"?((a,b)=>rk(b.e)-rk(a.e)||byName(a,b)):byName);
+  document.getElementById("n-"+kl).textContent=(q||qa)?treffer.length+" von "+alle.length:alle.length+" Schüler";
+  if(kl===KLASSEN[KLASSEN.length-1]){
+    const n=qa?sichtbareKinder().filter(k=>passt(k,qa)).length:null;
+    document.getElementById("treffer-alle").textContent=qa?n+(n===1?" Treffer":" Treffer")+" in allen Klassen":"";
+  }
+  document.getElementById("l-"+kl).innerHTML=treffer.length?treffer.map(({k})=>`
+    <div class="scard" onclick="zeigeAkte(${k.id})">
+      <div class="nm">${k.name}</div>
+      <div class="muted">${k.schule}</div>
+      <div class="scard-foot"><div>${standTag(k)}</div>
+        <div class="muted" style="text-align:right;font-size:12px">letzte Session<br>${letzteSession(k)}</div></div>
+      ${k.zustand==="ruhend"?'<div style="margin-top:6px">'+zustandTag(k)+'</div>':''}
+    </div>`).join("")
+    :'<div class="empty">'+(q?"Niemand gefunden.":"Keine Schüler in dieser Klassenstufe.")+'</div>';
+}
+
+/* ---------- Akte ---------- */
+function zeigeAkte(id){
+  if(offenesKind!==id) alleSessions=false;
+  offenesKind=id;
+  const k=KINDER.find(x=>x.id===id);
+  const f=flash?'<div class="flash">'+flash+'</div>':''; flash="";
+  document.getElementById("s-akte").innerHTML=`
+    <span class="back" onclick="zeigeListe()">← Zurück zur Liste</span>
+    <div class="hero"><div class="row">
+      <div><h1>${k.name}</h1><p>Klasse ${k.klasse} · ${k.schule} · Akte seit ${dstr(k.seit)}</p></div>
+      <div>${zustandTag(k)}</div></div></div>
+    ${f}
+    ${k.zustand==="ruhend"?'<div class="infobox" style="margin-bottom:16px">Kein laufender Vertrag. Die Akte ist für Coaches nicht sichtbar, der App-Zugang ist beendet. Der Lernpfad-Stand bleibt erhalten — bei einem neuen Vertrag macht das Kind dort weiter.</div>':''}
+    <div class="grid2">
+      <div>${kEinheiten(k)}${kSessions(k)}${kNotizen(k)}</div>
+      <div>${kStamm(k)}${kReports(k)}${kFortschritt(k)}</div>
+    </div>`;
+  zeig("s-akte");
+}
+
+function kEinheiten(k){
+  const e=einheitenStand(k);
+  let inhalt;
+  if(e.art==="keiner") inhalt='<div class="empty">Kein laufender Vertrag, daher kein Einheiten-Stand.</div>';
+  else if(e.art==="vorher") inhalt=`<p class="sub">Der Vertrag beginnt am ${dstr(e.v.beginn)}.
+      Ab dann stehen ${e.v.einheiten} Einheiten bis zum Stichtag ${dstr(e.v.ende)} zur Verfügung.</p>
+      <div class="infobox">Die erste Session steht noch aus. Der Einheiten-Stand zählt ab Vertragsbeginn.</div>`;
+  else {
+    const pf=Math.min(e.genutzt/e.v.einheiten*100,100), ps=Math.min(e.soll/e.v.einheiten*100,100);
+    inhalt=`<p class="sub">${e.v.einheiten} Einheiten bis zum Stichtag ${dstr(e.v.ende)}.
+        Gezählt wird jede Session, bei der das Kind anwesend war.</p>
+      <div class="kpis">
+        <div><span>genutzt</span><b>${e.genutzt}</b></div>
+        <div><span>offen</span><b>${e.offen}</b></div>
+        <div><span>Betriebswochen bis Stichtag</span><b>${komma(e.restW)}</b></div>
+      </div>
+      <div class="bar"><div class="fill" style="width:${pf}%"></div><div class="soll" style="left:calc(${ps}% - 1px)"></div></div>
+      <div class="legend"><span><i style="background:var(--primary)"></i>genutzt</span>
+        <span><i style="background:var(--gold)"></i>wo das Kind heute stehen sollte (${komma(e.soll)})</span></div>
+      <div style="margin-top:14px"><span class="tag tag-${e.ampel}">${e.text}</span>
+        <span class="muted" style="margin-left:6px">${e.rueck>0?komma(e.rueck)+" Einheiten hinter dem gleichmäßigen Verlauf":"vor oder genau im gleichmäßigen Verlauf"}</span></div>
+      <p class="note">Um alle offenen Einheiten bis zum Stichtag zu nutzen, braucht es ab jetzt
+        ${komma(e.noetig)} Einheiten pro Betriebswoche — gleichmäßig verteilt wären es ${komma(e.takt)}.</p>`;
+  }
+  return `<div class="card"><h3>Einheiten-Stand</h3>${inhalt}</div>`;
+}
+
+function statusTag(s){
+  return s==="anwesend"?'<span class="tag tag-ok">anwesend</span>'
+    :s==="entschuldigt"?'<span class="tag tag-warn">entschuldigt</span>'
+    :'<span class="tag tag-bad">unentschuldigt</span>';
+}
+function kSessions(k){
+  const alle=k.sessions.slice().reverse();
+  const zeigen=alleSessions?alle:alle.slice(0,8);
+  const z=s=>k.sessions.filter(x=>x.status===s).length;
+  const rows=zeigen.map(s=>`<tr>
+      <td>${dstr(s.datum)}<div class="muted">${s.fach}</div></td>
+      <td class="muted">${s.coach}</td>
+      <td>${statusTag(s.status)}</td>
+      <td>${s.thema}${s.badge?'<div class="muted">Badge gemeistert: '+s.badge+'</div>':''}</td></tr>`).join("");
+  return `<div class="card"><h3>Sessions und Anwesenheit</h3>
+    ${k.sessions.length?`<p class="sub">${z("anwesend")} anwesend · ${z("entschuldigt")} entschuldigt · ${z("unentschuldigt")} unentschuldigt — seit Beginn der Akte</p>
+    <table><thead><tr><th>Datum</th><th>Coach</th><th>Anwesenheit</th><th>Woran gearbeitet</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    ${alle.length>8?`<p class="note"><span class="link" onclick="alleSessions=!alleSessions;zeigeAkte(${k.id})">${alleSessions?"nur die letzten 8 zeigen":"alle "+alle.length+" Sessions zeigen"}</span></p>`:""}`
+    :'<div class="empty">Noch keine Session.</div>'}
+    <p class="note">Anwesenheit wird in der Session erfasst, hier nur angezeigt.</p></div>`;
+}
+
+const GESUNDHEIT=["adhs","ads ","allergi","diagnos","medikament","krank","therapie","therapeut","legasthen","lrs",
+  "dyskalkul","autis","depress","asthma","epilep","arzt","ärzt","attest","tabletten","psych"];
+function klingtNachGesundheit(t){const s=" "+t.toLowerCase()+" ";return GESUNDHEIT.some(w=>s.includes(w));}
+function kNotizen(k){
+  const sichtbar=k.notizen.filter(n=>rolle==="admin"||!n.aus).sort((a,b)=>b.datum-a.datum);
+  const items=sichtbar.map(n=>{
+    const i=k.notizen.indexOf(n);
+    return `<div class="notiz${n.aus?" aus":""}">
+      <div class="meta"><span>${n.autor} · ${n.rolle} · ${dstr(n.datum)}</span><span class="tag tag-mut">${n.kat}</span>
+        ${rolle==="admin"?(n.aus
+          ?'<span>ausgeblendet von '+n.aus.von+' am '+dstr(n.aus.am)+(n.aus.grund?' — '+n.aus.grund:'')+'</span><span class="link" onclick="einblenden('+k.id+','+i+')">wieder einblenden</span>'
+          :'<span class="link" style="margin-left:auto" onclick="ausblenden('+k.id+','+i+')">ausblenden</span>'):''}
+      </div>
+      <div class="txt">${n.text}</div></div>`;}).join("");
+  const schreiben=k.zustand==="aktiv"||rolle==="admin";
+  return `<div class="card"><h3>Notizen</h3>
+    ${schreiben?`<div class="field"><label>Neue Notiz</label>
+      <textarea id="n-text" oninput="notizPruefen()" placeholder="Was sollte der nächste Coach wissen?"></textarea></div>
+    <div id="n-warn" class="warnbox hidden">Das klingt nach einer Gesundheitsangabe. Gesundheitsdaten gehören nicht in die Akte — bitte beschreiben, was im Unterricht hilft, nicht warum.</div>
+    <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+      <select id="n-kat"><option>Lernen</option><option>Verhalten</option><option>Organisatorisch</option></select>
+      <button class="btn btn-sm" id="n-btn" disabled onclick="notizSpeichern(${k.id})">Notiz speichern</button>
+    </div>
+    <p class="note">Notizen sind für alle Coaches und Admins sichtbar und können nicht bearbeitet oder gelöscht werden.
+      Eltern haben ein Auskunftsrecht — so schreiben, dass man es ihnen zeigen könnte. Keine Gesundheitsdaten.</p>`:""}
+    <div style="margin-top:10px">${items||'<div class="empty">Noch keine Notiz.</div>'}</div></div>`;
+}
+function notizPruefen(){
+  const t=document.getElementById("n-text").value.trim();
+  const g=t&&klingtNachGesundheit(t);
+  document.getElementById("n-warn").classList.toggle("hidden",!g);
+  document.getElementById("n-btn").disabled=!t||g;
+}
+function notizSpeichern(id){
+  const k=KINDER.find(x=>x.id===id);
+  k.notizen.push({autor:ICH[rolle].name,rolle:ICH[rolle].rolle,datum:HEUTE,
+    kat:document.getElementById("n-kat").value,text:document.getElementById("n-text").value.trim()});
+  flash="Notiz gespeichert."; zeigeAkte(id);
+}
+function ausblenden(id,i){
+  const g=prompt("Warum wird die Notiz ausgeblendet?","Gesundheitsangabe");
+  if(g===null) return;
+  KINDER.find(x=>x.id===id).notizen[i].aus={von:ICH.admin.name,am:HEUTE,grund:g};
+  flash="Notiz ausgeblendet. Coaches sehen sie nicht mehr, Admins weiterhin durchgestrichen."; zeigeAkte(id);
+}
+function einblenden(id,i){KINDER.find(x=>x.id===id).notizen[i].aus=null;flash="Notiz wieder eingeblendet.";zeigeAkte(id);}
+
+function kStamm(k){
+  if(rolle==="coach") return `<div class="card"><p class="lbl">Stammdaten</p>
+    <dl class="dl"><dt>Name</dt><dd>${k.name}</dd><dt>Klasse</dt><dd>${k.klasse}</dd>
+      <dt>Schule</dt><dd>${k.schule}</dd><dt>Fächer</dt><dd>${k.faecher.join(", ")}</dd></dl>
+    <p class="note">Änderungen nur durch Admins.</p></div>`;
+  return `<div class="card"><p class="lbl">Stammdaten</p>
+    <div class="field"><label>Name</label><input type="text" id="st-name" value="${k.name}"></div>
+    <div class="field"><label>Klasse</label><select id="st-klasse">
+      ${[8,9,10].map(x=>'<option'+(x===k.klasse?" selected":"")+'>'+x+'</option>').join("")}</select></div>
+    <div class="field"><label>Schule</label><select id="st-schule" onchange="neueSchule(this)">
+      ${SCHULEN.map(s=>'<option'+(s===k.schule?" selected":"")+'>'+s+'</option>').join("")}
+      <option value="__neu">+ Schule neu anlegen</option></select></div>
+    <dl class="dl" style="margin-bottom:12px"><dt>Fächer</dt><dd>${k.faecher.join(", ")}</dd></dl>
+    <button class="btn btn-sm" onclick="stammSpeichern(${k.id})">Speichern</button>
+    <p class="note">Elternkontakt, Anschrift und Bankverbindung stehen im Vertrag, nicht in der Akte.</p></div>`;
+}
+function neueSchule(sel){
+  if(sel.value!=="__neu") return;
+  const s=prompt("Name der Schule");
+  if(s&&s.trim()){SCHULEN.push(s.trim());SCHULEN.sort();
+    sel.innerHTML=SCHULEN.map(x=>'<option'+(x===s.trim()?" selected":"")+'>'+x+'</option>').join("")+'<option value="__neu">+ Schule neu anlegen</option>';}
+  else sel.selectedIndex=0;
+}
+function stammSpeichern(id){
+  const k=KINDER.find(x=>x.id===id);
+  k.name=document.getElementById("st-name").value;
+  k.klasse=+document.getElementById("st-klasse").value;
+  k.schule=document.getElementById("st-schule").value;
+  flash="Stammdaten gespeichert."; zeigeAkte(id);
+}
+
+function kFortschritt(k){
+  const faecher=k.faecher.map(f=>{
+    const ses=k.sessions.filter(s=>s.fach===f);
+    const anw=ses.filter(s=>s.status==="anwesend");
+    const liste=THEMEN[f];
+    const ti=Math.min(k.start[f]+Math.floor(anw.length/4),liste.length-1);
+    const badges=ses.filter(s=>s.badge).reverse();
+    return `<div class="fach">
+      <div class="nm">${f}</div>
+      <div class="muted">Aktuell: ${liste[ti]} · Station ${ti+1} von ${liste.length}</div>
+      <div class="bar" style="height:6px"><div class="fill" style="width:${(ti+1)/liste.length*100}%"></div></div>
+      ${badges.length?badges.slice(0,4).map(b=>`<div class="badge"><span class="tag tag-ok">gemeistert</span>
+        <b>${b.badge}</b><span class="muted">bestätigt von ${b.coach}, ${dstr(b.datum)}</span></div>`).join("")
+        +(badges.length>4?'<p class="note">und '+(badges.length-4)+' weitere</p>':'')
+        :'<div class="muted" style="margin-top:4px">Noch kein Badge.</div>'}
+    </div>`;}).join("");
+  return `<div class="card"><p class="lbl">Fortschritt</p>${faecher}
+    <p class="note">„Gemeistert“ steht nur bei Badges, die ein Coach vor Ort bestätigt hat.</p></div>`;
+}
+
+function kReports(k){
+  // Die Lernstandsanalyse ist der erste Report — gleiche Liste, gleiche Darstellung
+  const liste=k.reports.slice().sort((a,b)=>a.datum-b.datum).map((r,i)=>{
+    const lsa=r.titel.startsWith("Lernstand");
+    const q=lsa?k.lsa[0]:r;
+    return {nr:i+1,typ:lsa?"Lernstandsanalyse":"Zwischenbericht",datum:r.datum,
+      fach:q.fach,aussage:q.aussage,coach:q.coach};
+  }).reverse();
+  return `<div class="card"><p class="lbl">Reports</p>
+    ${liste.map(r=>`<div class="notiz">
+      <div class="meta"><span>Report ${r.nr} · ${r.typ} · ${r.fach}</span>
+        <span class="link" style="margin-left:auto" onclick="alert('Öffnet Report ${r.nr} in der Fassung, die am ${dstr(r.datum)} an die Eltern ging — unverändert.')">öffnen</span></div>
+      <div class="txt">${r.aussage}</div>
+      <div style="margin-top:5px"><span class="tag tag-ok">vom Coach freigegeben</span>
+        <span class="muted">${r.coach} · versendet am ${dstr(r.datum)}</span></div>
+    </div>`).join("")}
+    <p class="note">Report 1 ist immer die Lernstandsanalyse. Gezeigt wird die Fassung, die an die Eltern ging, nicht eine neu berechnete.</p></div>`;
+}
+
+document.getElementById("heute").textContent="· heute ist der "+dstr(HEUTE);
+renderNav(); zeigeListe();
+</script>
+</body>
+</html>
