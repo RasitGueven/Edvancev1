@@ -321,47 +321,108 @@ export async function unterlagenVersandErzeugen(
  * neuesten. Sonst laege dem Elternteil ein Text bei, den es nie gesehen hat.
  * Die Foto-Einwilligung ist freiwillig und nur dabei, wenn zugestimmt wurde.
  */
-export async function buendelPfade(
-  admin: SupabaseClient,
-  vertragId: string,
-  anlass: 'bestaetigung' | 'unterlagen',
-): Promise<string[]> {
-  const { data: dateien } = await admin
-    .from('vertrag_dateien')
-    .select('art, pfad')
-    .eq('vertrag_id', vertragId)
-  const je = new Map((dateien ?? []).map((d) => [d.art as string, d.pfad as string]))
+export type Umschlagstueck = { pfad: string; name: string }
 
-  const raus: string[] = []
+/**
+ * Die Unterlagen, die JEDE Mail tragen muss.
+ *
+ * Die Foto-Einwilligung fehlt hier mit Absicht: sie ist freiwillig und keine
+ * Voraussetzung fuer den Vertrag. Die drei anderen sind es.
+ */
+const PFLICHT: readonly string[] = ['agb', 'widerruf', 'datenschutz_vertrag']
+
+/** Dateiname ohne Pfadtrenner und ohne Zeichen, die Mailprogramme stolpern lassen. */
+function sicherName(titel: string, art: string): string {
+  const roh = titel.trim() === '' ? art : titel
+  const sauber = roh
+    .replace(/[\\/:*?"<>|]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+  return `${sauber === '' ? art : sauber}.pdf`
+}
+
+/**
+ * Was in den Umschlag gehoert — mit Pfad UND Dateinamen.
+ *
+ * Der Name kommt aus dem Katalog, nicht aus dem Pfad. Die Fassungen liegen
+ * unter fassungen/<art>/<fassung>.pdf; aus dem Pfad abgeleitet hiessen sie
+ * alle gleich ("platzhalter-v1.pdf"), und die Eltern haetten vier
+ * ununterscheidbare Anhaenge im Postfach.
+ *
+ * Fehlt eine Pflichtunterlage, wird geworfen statt uebersprungen. Eine Mail
+ * ohne AGB und Widerrufsbelehrung ist kein unvollstaendiges Buendel, sondern
+ * ein rechtliches Problem — und sie saehe aus wie ein vollstaendiges.
+ */
+export function buendelZusammenstellen(opts: {
+  dateien: { art: string; pfad: string }[]
+  zustimmungen: { dokument_schluessel: string; dokument_version: string }[]
+  fassungen: { art: string; fassung: string; pfad: string }[]
+  titel: Record<string, string>
+  anlass: 'bestaetigung' | 'unterlagen'
+}): Umschlagstueck[] {
+  const { dateien, zustimmungen, fassungen, titel, anlass } = opts
+  const je = new Map(dateien.map((d) => [d.art, d.pfad]))
+  const raus: Umschlagstueck[] = []
+
   if (anlass === 'bestaetigung') {
     const vertrag = je.get('vertrag')
     const sepa = je.get('sepa_mandat')
     if (!vertrag || !sepa) {
       throw new Error('Das Vertrags-PDF fehlt noch — bitte erst im Archiv erzeugen')
     }
-    raus.push(vertrag, sepa)
+    raus.push({ pfad: vertrag, name: sicherName(titel.vertrag ?? '', 'Vertrag') })
+    raus.push({ pfad: sepa, name: sicherName(titel.sepa_mandat ?? '', 'SEPA-Mandat') })
   } else {
     const unterlagen = je.get('unterlagen_versand')
     if (!unterlagen) throw new Error('Die Unterlagen wurden noch nicht erzeugt')
-    raus.push(unterlagen)
+    raus.push({ pfad: unterlagen, name: 'Vertragsunterlagen.pdf' })
   }
-
-  const { data: zust } = await admin
-    .from('vertrag_zustimmungen')
-    .select('dokument_schluessel, dokument_version')
-    .eq('vertrag_id', vertragId)
-  const { data: fassungen } = await admin.from('dokument_fassungen').select('art, fassung, pfad')
 
   for (const art of JE_FASSUNG) {
-    const z = (zust ?? []).find((x) => x.dokument_schluessel === art)
-    if (!z) continue
-    const f = (fassungen ?? []).find(
-      (x) => x.art === art && x.fassung === z.dokument_version,
-    )
-    if (!f) {
-      throw new Error(`Die Fassung ${art} ${z.dokument_version} liegt nicht im Archiv`)
+    const z = zustimmungen.find((x) => x.dokument_schluessel === art)
+    if (!z) {
+      if (PFLICHT.includes(art)) {
+        throw new Error(
+          `Zu diesem Vertrag ist keine Zustimmung zu "${art}" festgehalten — ` +
+            'ohne sie darf das Dokument nicht als vereinbart mitgeschickt werden',
+        )
+      }
+      continue
     }
-    raus.push(f.pfad as string)
+    const f = fassungen.find((x) => x.art === art && x.fassung === z.dokument_version)
+    if (!f) throw new Error(`Die Fassung ${art} ${z.dokument_version} liegt nicht im Archiv`)
+    raus.push({ pfad: f.pfad, name: sicherName(titel[art] ?? '', art) })
   }
   return raus
+}
+
+/** Laedt die Belege und stellt daraus den Umschlag zusammen. */
+export async function buendelPfade(
+  admin: SupabaseClient,
+  vertragId: string,
+  anlass: 'bestaetigung' | 'unterlagen',
+): Promise<Umschlagstueck[]> {
+  const [dateien, zust, fassungen, katalog] = await Promise.all([
+    admin.from('vertrag_dateien').select('art, pfad').eq('vertrag_id', vertragId),
+    admin
+      .from('vertrag_zustimmungen')
+      .select('dokument_schluessel, dokument_version')
+      .eq('vertrag_id', vertragId),
+    admin.from('dokument_fassungen').select('art, fassung, pfad'),
+    admin.from('vertrag_dokumente').select('schluessel, titel'),
+  ])
+
+  const titel: Record<string, string> = {}
+  for (const d of katalog.data ?? []) titel[d.schluessel as string] = d.titel as string
+
+  return buendelZusammenstellen({
+    dateien: (dateien.data ?? []) as { art: string; pfad: string }[],
+    zustimmungen: (zust.data ?? []) as {
+      dokument_schluessel: string
+      dokument_version: string
+    }[],
+    fassungen: (fassungen.data ?? []) as { art: string; fassung: string; pfad: string }[],
+    titel,
+    anlass,
+  })
 }
