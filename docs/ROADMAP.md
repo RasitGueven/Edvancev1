@@ -1,6 +1,22 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **Verträge P1–P4** (Retro `2026-09-29-vertraege-p4-pdf-mail.md`, PRs #164–#172):
+  Vom Antrag bis zum Vertragsende. Datenmodell mit Ferienregel
+  (`vertrag_ende_berechnen`), Abschlussstrecke (Weg A vor Ort, Wege B/C auf
+  Papier), Menü mit vier Reitern und abgeleitetem Status (`vertraege_aktuell`,
+  kein Cronjob), Detailansicht mit Folgevertrag.
+  **P4:** serverseitige PDF-Erzeugung (pdf-lib in einer Edge Function, eigener
+  Markdown-Setzer, kein Headless-Browser), Archiv mit Pfad und SHA-256
+  (`vertrag_dateien`), geteilte Unterlagen je Fassung (`dokument_fassungen`),
+  SEPA-Mandat mit voller IBAN über `vertrag_iban_anzeigen` (protokolliert),
+  Mailversand über `hello@edvanceacademy.de` (Microsoft Graph,
+  Client-Credentials) mit Versandprotokoll inkl. Anhängen und Fehlertext.
+  Beweis: Prüfskripte gegen Prod 8/8, 7/7, 9/9; Deno 11/11; Vitest 513/513;
+  Byte-Gleichheit aller acht Archivdateien gemessen.
+  **Offen:** `vertrag_versand` wird in der Oberfläche nicht angezeigt —
+  fehlgeschlagene Versände sind unsichtbar. Gläubiger-ID fehlt (Tolunay), die
+  Mandate tragen deshalb den Hinweis, dass sie nicht gültig sind.
 - Vite + React + TypeScript + Tailwind + shadcn Fundament
 - Supabase Auth mit Rollen (student|parent|coach|admin)
 - Design-System: EdvanceCard, MasteryBar, XPBar, StatCard, Badges, EmptyState, LoadingPulse
