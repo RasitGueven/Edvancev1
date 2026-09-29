@@ -5,6 +5,8 @@
 # Test-/E2E-Artefakte
 *.local
 *.log
+# Editor-Sicherungsdateien (nano/vim), z. B. ..env.swp
+*.swp
 *.tsbuildinfo
 .DS_Store
 .claude/autonomous
