@@ -1,62 +1,63 @@
 #!/usr/bin/env bash
 # schema-snapshot.sh — erzeugt supabase/schema-erwartet.sql neu.
 #
-# Baut die Migrationen in eine leere lokale Datenbank ein und legt den
-# Schema-Abzug als erwarteten Stand ab. Die Datei wird mitcommittet; damit
-# wird jede Schemaänderung im PR-Diff sichtbar und ist prüfbar, statt in
-# 200 Zeilen SQL verborgen zu bleiben.
+# Zieht einen rein LESENDEN Schema-Abzug (Schema public) aus der Ziel-DB
+# ($DATABASE_URL, sonst aus .env). Keine lokale Datenbank mehr: der Abzug zeigt,
+# was in Produktion wirklich steht. Die Datei wird mitcommittet; CI baut alle
+# Migrationen in eine leere DB und vergleicht mit ihr — weicht Produktion von
+# den Migrationen ab, faellt das dort auf.
 #
-# Nach jeder neuen Migration ausführen:
+# Nach jedem Einspielen einer Schemaaenderung ausfuehren:
 #     bash tools/schema-snapshot.sh
 #
-# Braucht ein lokales Postgres, keine Zugangsdaten zu Produktion.
+# Sicherheitsnetz: Ziel-DB-Check (current_database() = postgres), keine lokale
+# DB (localhost/127.0.0.1 wird abgelehnt), Sitzung read-only erzwungen.
 
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-DB="${SNAPDB:-edvance_snapshot}"
 ZIEL="supabase/schema-erwartet.sql"
+ENVFILE="${ENVFILE:-.env}"
 
-command -v psql >/dev/null || { echo "psql fehlt."; exit 1; }
-pg_isready -q || { echo "Lokales Postgres läuft nicht  →  sudo service postgresql start"; exit 1; }
+if [[ -z "${DATABASE_URL:-}" && -f "$ENVFILE" ]]; then
+  DATABASE_URL="$(sed -n 's/^DATABASE_URL=//p' "$ENVFILE" | head -1)"
+  # .env quotet den Wert in einfachen (oder doppelten) Anfuehrungszeichen.
+  DATABASE_URL="${DATABASE_URL%\'}"; DATABASE_URL="${DATABASE_URL#\'}"
+  DATABASE_URL="${DATABASE_URL%\"}"; DATABASE_URL="${DATABASE_URL#\"}"
+fi
+[[ -n "${DATABASE_URL:-}" ]] || { echo "DATABASE_URL fehlt (Umgebung oder \$ENVFILE)."; exit 1; }
+case "$DATABASE_URL" in
+  *localhost*|*127.0.0.1*) echo "Lokale DB abgelehnt — der Abzug kommt aus der Ziel-DB."; exit 1 ;;
+esac
 
-echo "── Leere Datenbank"
-dropdb --if-exists "$DB"
-createdb "$DB"
+command -v pg_dump >/dev/null || { echo "pg_dump fehlt."; exit 1; }
+export PGOPTIONS='-c default_transaction_read_only=on'
 
-echo "── Grundlage"
-psql -q "postgresql:///$DB" -v ON_ERROR_STOP=1 -f supabase/test-grundlage.sql
+echo "── Ziel-DB-Check"
+psql "$DATABASE_URL" -tAc "select current_database()" | grep -qx postgres \
+  || { echo "Ziel-DB ist nicht 'postgres' — Abbruch."; exit 1; }
 
-echo "── Migrationen"
-n=0
-for f in $(ls supabase/migrations/*.sql | sort); do
-  if ! psql -q "postgresql:///$DB" -v ON_ERROR_STOP=1 -f "$f" >/dev/null 2>/tmp/snap_err; then
-    echo "✗ $(basename "$f")"
-    grep -vE '^(NOTICE|HINWEIS)' /tmp/snap_err | head -20
-    echo
-    echo "Schnappschuss nicht erzeugt — erst die Migration reparieren."
-    exit 1
-  fi
-  n=$((n+1))
-done
-echo "   $n eingespielt"
-
-echo "── Abzug"
+echo "── Abzug (read-only)"
+TMP="$(mktemp)"
+trap 'rm -f "$TMP"' EXIT
 {
   echo "-- schema-erwartet.sql"
-  echo "-- Erzeugt von tools/schema-snapshot.sh."
-  echo "-- Stand nach allen Migrationen in supabase/migrations/."
-  echo "-- Nicht von Hand bearbeiten — nach Schemaänderungen neu erzeugen."
+  echo "-- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public)."
+  echo "-- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen."
   echo
-  pg_dump "postgresql:///$DB" --schema-only --no-owner --no-acl --no-comments --schema public \
-    | grep -vE "^\\\\(un)?restrict "
-} > "$ZIEL"
-
-dropdb "$DB"
+  # Rollenlisten in CREATE POLICY alphabetisch: Produktion gibt sie in OID-Reihenfolge
+  # aus ("authenticated, anon"), der CI-Neuaufbau alphabetisch — inhaltlich gleich,
+  # der zeilengenaue CI-Vergleich waere sonst rot.
+  pg_dump "$DATABASE_URL" --schema-only --no-owner --no-acl --no-comments --schema public \
+    | grep -vE "^\\\\(un)?restrict " \
+    | perl -pe 's/^(CREATE POLICY .*? TO )([a-z_]+(?:, [a-z_]+)+)( )/$1.join(", ", sort split(", ", $2)).$3/e'
+} > "$TMP"
+mv "$TMP" "$ZIEL"
+trap - EXIT
 
 echo
 echo "✓ $ZIEL  ($(wc -l < "$ZIEL") Zeilen)"
 git diff --stat -- "$ZIEL" 2>/dev/null || true
 echo
-echo "  Änderungen im Diff prüfen — dort steht, was deine Migration wirklich tut."
+echo "  Diff pruefen: dort steht, was in Produktion wirklich angekommen ist."
 echo "  Dann:  git add $ZIEL"

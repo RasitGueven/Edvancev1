@@ -1,14 +1,13 @@
 -- schema-erwartet.sql
--- Erzeugt von tools/schema-snapshot.sh.
--- Stand nach allen Migrationen in supabase/migrations/.
--- Nicht von Hand bearbeiten — nach Schemaänderungen neu erzeugen.
+-- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
+-- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
 
 --
 -- PostgreSQL database dump
 --
 
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -830,6 +829,7 @@ begin
   for v_id in
     select id from public.tasks
      where cluster_id = p_cluster_id and status = 'review'
+       and source is distinct from 'VERA8_IQB'
   loop
     begin
       perform public.task_status_set(v_id, 'ready');
