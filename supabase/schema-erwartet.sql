@@ -859,9 +859,11 @@ CREATE FUNCTION public.hat_zugang(p_student_id uuid, p_datum date DEFAULT CURREN
       join public.vertraege neu on neu.vorgaenger_id = alt.id
      where alt.student_id = p_student_id
        and alt.status = 'abgeschlossen'
+       and alt.widerrufen_am is null
        and alt.vertrag_ende is not null
        and alt.vertrag_ende < p_datum
        and neu.status = 'abgeschlossen'
+       and neu.widerrufen_am is null
        and neu.vertragsbeginn is not null
        and neu.vertragsbeginn > p_datum
   );
@@ -4143,31 +4145,16 @@ CREATE FUNCTION public.session_platz_zugang(p_student_id uuid, p_datum date) RET
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select exists (
-    select 1
-      from public.vertraege v
-     where v.student_id = p_student_id
-       and v.status = 'abgeschlossen'
-       and v.vertragsbeginn is not null
-       and v.vertrag_ende is not null
-       and p_datum between v.vertragsbeginn and v.vertrag_ende
-       and public.vertrag_wirksamer_status(
-             v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis, p_datum
-           ) in ('im_widerruf', 'aktiv')
-  )
-  or exists (
-    -- Bruecke, wie hat_zugang (20260925181700_vertraege_menue_db.sql)
-    select 1
-      from public.vertraege alt
-      join public.vertraege neu on neu.vorgaenger_id = alt.id
-     where alt.student_id = p_student_id
-       and alt.status = 'abgeschlossen'
-       and alt.vertrag_ende is not null
-       and alt.vertrag_ende < p_datum
-       and neu.status = 'abgeschlossen'
-       and neu.vertragsbeginn is not null
-       and neu.vertragsbeginn > p_datum
-  );
+  select public.hat_zugang(p_student_id, p_datum)
+     and exists (
+       select 1
+         from public.vertraege v
+        where v.student_id = p_student_id
+          and v.status = 'abgeschlossen'
+          and v.widerrufen_am is null
+          and v.vertragsbeginn is not null
+          and v.vertragsbeginn <= p_datum
+     );
 $$;
 
 
@@ -4197,6 +4184,37 @@ begin
                     to_char(v_datum, 'DD.MM.YYYY')
       using errcode = 'ZG001',
             hint    = 'datum:' || to_char(v_datum, 'YYYY-MM-DD');
+  end if;
+
+  return new;
+end;
+$$;
+
+
+--
+-- Name: session_verschieben_zugang_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_verschieben_zugang_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_neu date := (new.scheduled_at at time zone 'Europe/Berlin')::date;
+begin
+  if v_neu = (old.scheduled_at at time zone 'Europe/Berlin')::date then
+    return new;
+  end if;
+
+  if exists (
+    select 1 from public.session_students ss
+     where ss.session_id = new.id
+       and not public.session_platz_zugang(ss.student_id, v_neu)
+  ) then
+    raise exception 'Kein laufender Vertrag am % — Platz kann nicht vergeben werden.',
+                    to_char(v_neu, 'DD.MM.YYYY')
+      using errcode = 'ZG001',
+            hint    = 'datum:' || to_char(v_neu, 'YYYY-MM-DD');
   end if;
 
   return new;
@@ -8757,6 +8775,13 @@ CREATE INDEX vertrag_versand_vertrag_idx ON public.vertrag_versand USING btree (
 --
 
 CREATE INDEX xp_events_student_idx ON public.xp_events USING btree (student_id);
+
+
+--
+-- Name: coaching_sessions coaching_sessions_verschieben_zugang_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER coaching_sessions_verschieben_zugang_trg BEFORE UPDATE OF scheduled_at ON public.coaching_sessions FOR EACH ROW EXECUTE FUNCTION public.session_verschieben_zugang_pruefen();
 
 
 --

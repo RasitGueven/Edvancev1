@@ -37,12 +37,6 @@ const STATUS_VARIANT: Record<SessionStatus, 'primary' | 'warning' | 'success'> =
   done: 'success',
 }
 
-const STATUS_LABEL: Record<SessionStatus, string> = {
-  upcoming: 'Geplant',
-  active: 'Läuft',
-  done: 'Erledigt',
-}
-
 function SessionRow({
   session,
   students,
@@ -54,6 +48,7 @@ function SessionRow({
   const [assigned, setAssigned] = useState<string[]>([])
   // Nur Kinder mit laufendem Vertrag am Datum der Session (P5b).
   const [kandidaten, setKandidaten] = useState<Set<string>>(new Set())
+  const [kandidatenFehler, setKandidatenFehler] = useState(false)
   const [loading, setLoading] = useState(true)
   const [pick, setPick] = useState('')
   const [busy, setBusy] = useState(false)
@@ -65,6 +60,7 @@ function SessionRow({
       ([teilnehmer, erlaubt]) => {
         setAssigned((teilnehmer.data ?? []).map((s) => s.student_id))
         setKandidaten(new Set(erlaubt.data ?? []))
+        setKandidatenFehler(Boolean(erlaubt.error))
         if (erlaubt.error) setError(erlaubt.error)
         setLoading(false)
       },
@@ -81,7 +77,7 @@ function SessionRow({
   useEffect(load, [session.id])
 
   const nameById = (id: string): string =>
-    students.find((s) => s.id === id)?.full_name ?? 'Unbenannt'
+    students.find((s) => s.id === id)?.full_name ?? t('schedule.unbenannt')
 
   const add = async (): Promise<void> => {
     if (!pick) return
@@ -103,26 +99,26 @@ function SessionRow({
     <EdvanceCard className="flex flex-col gap-3 p-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-base font-semibold text-[var(--color-text-primary)]">
-          {formatSessionDate(session.scheduled_at)} Uhr
+          {t('schedule.zeitpunkt', { zeit: formatSessionDate(session.scheduled_at) })}
         </span>
         <EdvanceBadge variant={STATUS_VARIANT[session.status]}>
-          {STATUS_LABEL[session.status]}
+          {t(`schedule.status.${session.status}`)}
         </EdvanceBadge>
       </div>
       {session.room && (
         <span className="text-sm text-[var(--color-text-secondary)]">
-          Raum {session.room}
+          {t('schedule.raumAnzeige', { raum: session.room })}
         </span>
       )}
 
       <div className="flex flex-col gap-2">
         <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-          Teilnehmer
+          {t('schedule.teilnehmer')}
         </p>
         {loading ? (
           <LoadingPulse type="list" lines={2} />
         ) : assigned.length === 0 ? (
-          <p className="text-sm text-[var(--color-text-tertiary)]">Noch niemand zugewiesen.</p>
+          <p className="text-sm text-[var(--color-text-tertiary)]">{t('schedule.niemand')}</p>
         ) : (
           <div className="flex flex-wrap gap-2">
             {assigned.map((id) => (
@@ -136,19 +132,19 @@ function SessionRow({
 
       {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
 
-      {!loading && available.length === 0 && (
+      {!loading && !kandidatenFehler && available.length === 0 && (
         <p className="text-sm text-[var(--color-text-tertiary)]">{t('schedule.keineKandidaten')}</p>
       )}
 
       {available.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">
           <select
-            aria-label="Schüler auswählen"
+            aria-label={t('schedule.kindWaehlen')}
             className={SELECT_CLASS}
             value={pick}
             onChange={(e) => setPick(e.target.value)}
           >
-            <option value="">Schüler zuweisen …</option>
+            <option value="">{t('schedule.kindZuweisenPlatzhalter')}</option>
             {available.map((s) => (
               <option key={s.id} value={s.id}>
                 {studentSelectLabel(s)}
@@ -156,7 +152,7 @@ function SessionRow({
             ))}
           </select>
           <Button size="sm" disabled={busy || !pick} onClick={add}>
-            {busy ? 'Fügt hinzu …' : 'Zuweisen'}
+            {busy ? t('schedule.fuegtHinzu') : t('schedule.zuweisen')}
           </Button>
         </div>
       )}
@@ -165,6 +161,7 @@ function SessionRow({
 }
 
 export function SchedulePage(): JSX.Element {
+  const { t } = useTranslation('admin')
   const [coaches, setCoaches] = useState<Coach[]>([])
   const [students, setStudents] = useState<StudentWithName[]>([])
   const [error, setError] = useState<string | null>(null)
@@ -204,7 +201,7 @@ export function SchedulePage(): JSX.Element {
 
   const submit = async (): Promise<void> => {
     if (!formCoach || !when) {
-      setError('Coach und Zeitpunkt sind erforderlich.')
+      setError(t('schedule.pflichtfelder'))
       return
     }
     setSaving(true)
@@ -223,23 +220,23 @@ export function SchedulePage(): JSX.Element {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle="Stundenplan" sticky />
+      <EdvanceNavbar subtitle={t('schedule.titel')} sticky />
       <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
         <AdminHeader
-          eyebrow="Betrieb"
-          title="Stundenplan"
-          description="Präsenz-Sessions anlegen und Schüler einem Coach-Termin zuweisen."
+          eyebrow={t('schedule.eyebrow')}
+          title={t('schedule.titel')}
+          description={t('schedule.beschreibung')}
         />
 
         {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
 
         <EdvanceCard className="flex flex-col gap-4 p-6">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-            Neue Session
+            {t('schedule.neueSession')}
           </p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
-              <Label htmlFor="s-coach">Coach *</Label>
+              <Label htmlFor="s-coach">{t('schedule.coachPflicht')}</Label>
               <select
                 id="s-coach"
                 className={SELECT_CLASS}
@@ -249,13 +246,13 @@ export function SchedulePage(): JSX.Element {
                 <option value="">–</option>
                 {coaches.map((c) => (
                   <option key={c.id} value={c.id}>
-                    {c.full_name ?? 'Unbenannt'}
+                    {c.full_name ?? t('schedule.unbenannt')}
                   </option>
                 ))}
               </select>
             </div>
             <div className="flex flex-col gap-2">
-              <Label htmlFor="s-when">Zeitpunkt *</Label>
+              <Label htmlFor="s-when">{t('schedule.zeitpunktPflicht')}</Label>
               <Input
                 id="s-when"
                 type="datetime-local"
@@ -264,7 +261,7 @@ export function SchedulePage(): JSX.Element {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <Label htmlFor="s-room">Raum</Label>
+              <Label htmlFor="s-room">{t('schedule.raum')}</Label>
               <Input
                 id="s-room"
                 value={room}
@@ -274,23 +271,23 @@ export function SchedulePage(): JSX.Element {
           </div>
           <div>
             <Button onClick={submit} disabled={saving}>
-              {saving ? 'Speichert …' : 'Session anlegen'}
+              {saving ? t('schedule.speichert') : t('schedule.sessionAnlegen')}
             </Button>
           </div>
         </EdvanceCard>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="view-coach">Sessions eines Coaches verwalten</Label>
+          <Label htmlFor="view-coach">{t('schedule.sessionsVerwalten')}</Label>
           <select
             id="view-coach"
             className={SELECT_CLASS}
             value={viewCoach}
             onChange={(e) => setViewCoach(e.target.value)}
           >
-            <option value="">Coach wählen …</option>
+            <option value="">{t('schedule.coachWaehlen')}</option>
             {coaches.map((c) => (
               <option key={c.id} value={c.id}>
-                {c.full_name ?? 'Unbenannt'}
+                {c.full_name ?? t('schedule.unbenannt')}
               </option>
             ))}
           </select>
@@ -301,8 +298,8 @@ export function SchedulePage(): JSX.Element {
         ) : sessions.length === 0 ? (
           <EmptyState
             icon="📅"
-            title="Keine Sessions"
-            description="Lege oben die erste Session für diesen Coach an."
+            title={t('schedule.leer.titel')}
+            description={t('schedule.leer.beschreibung')}
           />
         ) : (
           <div className="flex flex-col gap-4">

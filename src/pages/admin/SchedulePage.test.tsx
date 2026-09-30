@@ -92,6 +92,20 @@ describe('SchedulePage — Platz nur mit laufendem Vertrag', () => {
     ).toBeTruthy()
   })
 
+  it('zeigt bei einem Fehler der Auswahlliste nur den Fehler, nicht "kein Kind"', async () => {
+    vi.mocked(listPlatzKandidaten).mockResolvedValueOnce({ data: null, error: 'ZZ_rpc_fehler' })
+    render(
+      <MemoryRouter>
+        <SchedulePage />
+      </MemoryRouter>,
+    )
+    const coachWahl = await screen.findByLabelText('Sessions eines Coaches verwalten')
+    await waitFor(() => expect(within(coachWahl).getByText('ZZ Coach')).toBeTruthy())
+    fireEvent.change(coachWahl, { target: { value: 'ZZ_coach' } })
+    expect(await screen.findByText('ZZ_rpc_fehler')).toBeTruthy()
+    expect(screen.queryByText('Kein weiteres Kind hat an diesem Datum einen laufenden Vertrag.')).toBeNull()
+  })
+
   it('zeigt einen Hinweis, wenn kein Kind an diesem Datum einen Vertrag hat', async () => {
     vi.mocked(listPlatzKandidaten).mockResolvedValueOnce({ data: [], error: null })
     render(

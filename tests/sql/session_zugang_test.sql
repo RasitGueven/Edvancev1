@@ -28,8 +28,10 @@ declare
   k_ohne   uuid := gen_random_uuid();   -- kein Vertrag
   k_spaet  uuid := gen_random_uuid();   -- Vertrag ab M1
   k_luecke uuid := gen_random_uuid();   -- Luecke vor unterschriebenem Folgevertrag
+  k_widerr uuid := gen_random_uuid();   -- Luecke vor WIDERRUFENEM Folgevertrag
   l1 uuid := gen_random_uuid(); l2 uuid := gen_random_uuid();
-  l3 uuid := gen_random_uuid();
+  l3 uuid := gen_random_uuid(); l5 uuid := gen_random_uuid();
+  v_alt2 uuid := gen_random_uuid();
   l_lsa uuid := gen_random_uuid();
   v_alt uuid := gen_random_uuid();
   v_aktiv_vertrag uuid := gen_random_uuid();
@@ -55,8 +57,10 @@ begin
   on conflict (id) do update set role = excluded.role;
 
   insert into public.leads (id, full_name, status) values
-    (l1, 'ZZ_P5b Aktiv', 'converted'), (l2, 'ZZ_P5b Spaet', 'converted'), (l3, 'ZZ_P5b Luecke', 'converted');
-  insert into public.students (id, class_level) values (k_aktiv, 9), (k_ohne, 9), (k_spaet, 9), (k_luecke, 9);
+    (l1, 'ZZ_P5b Aktiv', 'converted'), (l2, 'ZZ_P5b Spaet', 'converted'), (l3, 'ZZ_P5b Luecke', 'converted'),
+    (l5, 'ZZ_P5b Widerruf', 'converted');
+  insert into public.students (id, class_level) values
+    (k_aktiv, 9), (k_ohne, 9), (k_spaet, 9), (k_luecke, 9), (k_widerr, 9);
 
   insert into public.vertraege (id, lead_id, status, vertrag_status, student_id, einheiten, laufzeit_monate,
                                 vertragsbeginn, vertrag_ende, abgeschlossen_am, widerruf_bis) values
@@ -72,6 +76,15 @@ begin
                                 vertragsbeginn, vertrag_ende, abgeschlossen_am, widerruf_bis) values
     (l3, 'abgeschlossen', 'im_widerruf', k_luecke, v_alt, 57, 12,
      m1, (m1 + interval '1 year')::date - 1, current_date - 1, m1 + 29);
+  -- Wie k_luecke, aber der Folgevertrag ist widerrufen
+  insert into public.vertraege (id, lead_id, status, vertrag_status, student_id, einheiten, laufzeit_monate,
+                                vertragsbeginn, vertrag_ende, abgeschlossen_am, verlaengerung_status) values
+    (v_alt2, l5, 'abgeschlossen', 'aktiv', k_widerr, 57, 12,
+     date_trunc('month', current_date - 400)::date, current_date - 5, current_date - 400, 'verlaengert');
+  insert into public.vertraege (lead_id, status, vertrag_status, student_id, vorgaenger_id, einheiten, laufzeit_monate,
+                                vertragsbeginn, vertrag_ende, abgeschlossen_am, widerruf_bis, widerrufen_am) values
+    (l5, 'abgeschlossen', 'widerrufen', k_widerr, v_alt2, 57, 12,
+     m1, (m1 + interval '1 year')::date - 1, current_date - 3, m1 + 29, current_date - 1);
 
   insert into public.coaching_sessions (id, coach_id, scheduled_at, status) values
     (s_heute,  v_coach, (current_date + time '16:00') at time zone 'Europe/Berlin', 'upcoming'),
@@ -124,6 +137,29 @@ begin
     insert into ergebnis values (7, 'Luecke vor unterschriebenem Folgevertrag', 'klappt', 'klappt');
   exception when others then
     insert into ergebnis values (7, 'Luecke vor unterschriebenem Folgevertrag', 'Fehler ' || sqlstate, 'klappt');
+  end;
+
+  insert into ergebnis values (12, 'hat_zugang in der Luecke vor widerrufenem Folgevertrag',
+    public.hat_zugang(k_widerr)::text, 'false');
+  begin
+    insert into public.session_students (session_id, student_id) values (s_heute, k_widerr);
+    insert into ergebnis values (13, 'Luecke vor widerrufenem Folgevertrag eintragen', 'klappt', 'Fehler ZG001');
+  exception when others then
+    insert into ergebnis values (13, 'Luecke vor widerrufenem Folgevertrag eintragen', 'Fehler ' || sqlstate, 'Fehler ZG001');
+  end;
+
+  -- Session verschieben (Trigger auf coaching_sessions.scheduled_at)
+  begin
+    update public.coaching_sessions set scheduled_at = scheduled_at + interval '30 minutes' where id = s_heute;
+    insert into ergebnis values (14, 'Session am selben Tag spaeter legen', 'klappt', 'klappt');
+  exception when others then
+    insert into ergebnis values (14, 'Session am selben Tag spaeter legen', 'Fehler ' || sqlstate, 'klappt');
+  end;
+  begin
+    update public.coaching_sessions set scheduled_at = scheduled_at + interval '300 days' where id = s_heute;
+    insert into ergebnis values (15, 'Admin: Session hinter das Vertragsende verschieben', 'klappt', 'Fehler ZG001');
+  exception when others then
+    insert into ergebnis values (15, 'Admin: Session hinter das Vertragsende verschieben', 'Fehler ' || sqlstate, 'Fehler ZG001');
   end;
 
   -- Verschieben per UPDATE ist ebenfalls geprueft
@@ -208,6 +244,16 @@ begin
   end;
 
   begin
+    -- s_danach traegt jetzt k_spaet (Vertrag ab M1): vor M1 verschieben geht nicht
+    update public.coaching_sessions set scheduled_at = ((m1 - 1) + time '16:00') at time zone 'Europe/Berlin'
+     where id = s_danach;
+    get diagnostics v_n = row_count;
+    insert into ergebnis values (24, 'Coach: eigene Session vor den Vertragsbeginn verschieben', 'klappt (' || v_n || ')', 'Fehler ZG001');
+  exception when others then
+    insert into ergebnis values (24, 'Coach: eigene Session vor den Vertragsbeginn verschieben', 'Fehler ' || sqlstate, 'Fehler ZG001');
+  end;
+
+  begin
     perform * from public.session_platz_kandidaten(s_fremd);
     insert into ergebnis values (23, 'Coach: Auswahlliste fremder Session', 'geliefert', 'Fehler 42501');
   exception when others then
@@ -241,6 +287,10 @@ select 40 + row_number() over (), 'anon darf ' || f || ' nicht ausfuehren',
        has_function_privilege('anon', f, 'execute')::text, 'false'
   from unnest(array['public.session_platz_kandidaten(uuid)', 'public.session_platz_zugang(uuid,date)',
                     'public.session_platz_zugang_pruefen()']) f;
+insert into ergebnis values (47, 'authenticated darf session_platz_zugang nicht ausfuehren',
+  has_function_privilege('authenticated', 'public.session_platz_zugang(uuid,date)', 'execute')::text, 'false');
+insert into ergebnis values (48, 'authenticated darf den Verschiebe-Trigger nicht direkt ausfuehren',
+  has_function_privilege('authenticated', 'public.session_verschieben_zugang_pruefen()', 'execute')::text, 'false');
 insert into ergebnis values (49, 'authenticated darf die Trigger-Funktion nicht direkt ausfuehren',
   has_function_privilege('authenticated', 'public.session_platz_zugang_pruefen()', 'execute')::text, 'false');
 

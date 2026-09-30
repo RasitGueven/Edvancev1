@@ -93,8 +93,9 @@ begin
   insert into ergebnis values
     (1, 'C Luecke vor unterschriebenem Folgevertrag: akte_aktiv / hat_zugang',
         public.akte_aktiv(c)::text || ' / ' || public.hat_zugang(c)::text, 'true / true'),
-    (2, 'D Luecke vor widerrufenem Folgevertrag: akte_aktiv / hat_zugang (Abweichung, gemeldet)',
-        public.akte_aktiv(d)::text || ' / ' || public.hat_zugang(d)::text, 'false / true');
+    -- Seit P5b (20260930100100) traegt die Bruecke von hat_zugang keinen widerrufenen Folgevertrag mehr.
+    (2, 'D Luecke vor widerrufenem Folgevertrag: akte_aktiv / hat_zugang',
+        public.akte_aktiv(d)::text || ' / ' || public.hat_zugang(d)::text, 'false / false');
 
   -- ---------------------------------------------------------------- als Coach
   perform set_config('request.jwt.claims', json_build_object('sub', v_coach, 'role', 'authenticated')::text, true);
