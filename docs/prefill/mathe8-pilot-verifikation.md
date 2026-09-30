@@ -1,6 +1,19 @@
 # Verifikation mathe8-pilot
 
-Aufgaben: 18 · Charge-Fehler: **0** · Bestands-Befunde: 0
+Aufgaben: 18 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
+
+## Feldtabelle (was die Migration auf dem Snapshot-Stand tut)
+
+| Feld | neu | ueberschrieben | ergaenzt | bewusst leer (Kennzeichen) |
+|---|---|---|---|---|
+| est_duration_sec | 18 | 0 | 0 | 0 |
+| solution | 18 | 0 | 0 | 0 |
+| hints | 18 | 0 | 0 | 0 |
+| typical_errors | 18 | 0 | 0 | 0 |
+
+## Ueberschreibungen (alt → neu)
+
+- keine
 
 ## Vollstaendigkeit je Feld
 
@@ -10,8 +23,6 @@ Aufgaben: 18 · Charge-Fehler: **0** · Bestands-Befunde: 0
 | task_solutions.solution | 18 | 18 | 0 | 0 |
 | task_solutions.hints | 18 | 18 | 0 | 0 |
 | task_solutions.typical_errors | 18 | 18 | 0 | 0 |
-| task_solutions.coach_hints | 18 | 0 | 18 | 0 |
-| tasks.unit | 2 | 0 | 2 | 0 |
 
 ## Charge-Fehler (Gate)
 

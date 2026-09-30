@@ -10,10 +10,6 @@
     },
     "sachkontext_zuschlag": 30
   },
-  "leer_alle": {
-    "coach_hints": "Bewusst leer im ganzen Pilot: kein Beleg und inhaltlich doppelt zu typical_errors. Entscheidung Rasit/Lena, ob das Feld vorbefuellt werden soll.",
-    "needs_image": "Laut Item-Pflege \"eine Fachentscheidung, kein Automatismus\" — wird nie vorbefuellt."
-  },
   "aufgaben": [
     {
       "nr": 1,
@@ -545,9 +541,6 @@
           "grund": "Aus acceptance.known_errors (10004)."
         }
       },
-      "leer": {
-        "unit": "Reine Zahl, keine Einheit."
-      },
       "pruefung": [
         {
           "teil": null,
@@ -803,9 +796,6 @@
           "sicher": "hoch",
           "grund": "Aus acceptance.known_errors (16, 90)."
         }
-      },
-      "leer": {
-        "unit": "Reine Zahl, keine Einheit."
       },
       "pruefung": [
         {

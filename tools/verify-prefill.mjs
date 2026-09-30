@@ -22,7 +22,8 @@
  */
 
 import fs from 'node:fs';
-import { keinVera8Sql, ladeCharge, leer, vera8Verstoesse, wirksam } from './prefill-lib.mjs';
+import { ladeCharge, leer, vera8Verstoesse, wirksam } from './prefill-lib.mjs';
+import { pruefeMigrationen } from './prefill-migration-check.mjs';
 import { Q, zahl, gleichwertig, faktoren } from './prefill-rechnen.mjs';
 
 const AFB = ['I', 'II', 'III'];
@@ -30,36 +31,6 @@ const INHALT = [...fs.readFileSync('src/lib/authoring/einordnung.ts', 'utf8')
   .match(/INHALTSFELDER = \[([^\]]*)\]/)[1].matchAll(/'([a-z_]+)'/g)].map((m) => m[1]);
 const PROZESS = ['Argumentieren', 'Problemlösen', 'Modellieren', 'Darstellen', 'Operieren', 'Kommunizieren'];
 const VERBOTEN = /gemeistert|meisterst|mastered|beherrscht/i;
-
-/**
- * Jede Prefill-Migration (supabase/migrations/*_prefill_*.sql) muss in JEDER
- * schreibenden Anweisung den VERA8-Ausschluss tragen und darf nichts loeschen.
- * Fuer die Migration dieser Charge (--migration) zusaetzlich: nur Aufgaben der
- * Charge, keine davon VERA8.
- */
-function pruefeMigrationen(eigene, charge, stand) {
-  const raus = [];
-  const dir = 'supabase/migrations';
-  const dateien = fs.readdirSync(dir).filter((f) => /_prefill_.*\.sql$/.test(f)).map((f) => `${dir}/${f}`);
-  if (eigene && !dateien.includes(eigene)) dateien.push(eigene);
-  const guard = new RegExp(`\\b(\\w+\\.)?${keinVera8Sql().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
-  for (const datei of dateien) {
-    const text = fs.readFileSync(datei, 'utf8');
-    const anweisungen = text.split(/;\s*\n/).map((s) => s.replace(/^(\s*--[^\n]*\n)+/, '').trim())
-      .filter((s) => /^(update|insert|delete|merge)\b/i.test(s));
-    for (const s of anweisungen) {
-      if (/^delete|^merge/i.test(s)) raus.push(`${datei}: loeschende/merge-Anweisung: ${s.slice(0, 80)}`);
-      else if (!guard.test(s)) raus.push(`${datei}: Anweisung ohne VERA8-Ausschluss: ${s.slice(0, 80)}`);
-    }
-    if (datei !== eigene) continue;
-    const ids = new Set(charge.aufgaben.map((a) => a.id));
-    for (const id of new Set(text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g) ?? [])) {
-      if (!ids.has(id)) raus.push(`${datei}: fasst Aufgabe ${id} an, die nicht in der Charge steht`);
-      else if (vera8Verstoesse({ aufgaben: [{ id, nr: '?', titel: id }] }, stand).length) raus.push(`${datei}: fasst VERA8-Aufgabe ${id} an`);
-    }
-  }
-  return raus;
-}
 
 export async function pruefePrefill(opt) {
   const { charge, stand } = ladeCharge(opt.charge, opt.snapshot);
@@ -74,17 +45,45 @@ export async function pruefePrefill(opt) {
     const b = bilanz.get(feld) ?? { vorherLeer: 0, befuellt: 0, bewusstLeer: 0, ungeklaert: 0 };
     b[art]++; bilanz.set(feld, b);
   };
+  const arten = new Map(); // feld -> { neu, ueberschrieben, ergaenzt, leer }
+  const zaehlArt = (feld, art) => {
+    const b = arten.get(feld) ?? { neu: 0, ueberschrieben: 0, ergaenzt: 0, leer: 0 };
+    b[art]++; arten.set(feld, b);
+  };
+  const ueberschreibungen = [];
 
   for (const a of charge.aufgaben) {
     const x = stand.get(a.id);
-    const { task, sol, aenderungen } = wirksam(a, x);
+    const { task, sol, aenderungen, uebersprungen, leerKennzeichen } = wirksam(a, x);
     const tag = `#${a.nr} ${a.titel}`;
     const F = (m) => fehler.push(`${tag}: ${m}`), B = (m) => bestand.push(`${tag}: ${m}`);
     const mp = task.input_type === 'MULTI_PART';
+    uebersprungen.forEach(B);
+    leerKennzeichen.forEach((l) => zaehlArt(l.schluessel.replace(/\.\d+\./, '[].').replace(/\.\d+$/, '[]'), 'leer'));
 
     // ── 1. Constraints der neu gesetzten Werte ──
     for (const c of aenderungen) {
       const w = c.wert, wo = c.teil ? `Teil ${c.teil} ${c.feld}` : c.feld;
+      zaehlArt(c.teil ? `${c.tabelle === 'tasks.parts' ? 'parts' : c.feld}[].${c.tabelle === 'tasks.parts' ? c.feld : 'antwort'}` : c.feld, c.art);
+      if (c.art !== 'neu') {
+        // Ueberschreiben (Nachtrag 2): Begruendung, exakter Altwert, Nachweis "kein Mensch".
+        const e = c.casAlt === undefined ? null : c;
+        if (!e) F(`${wo}: Ueberschreibung ohne exakten alten Wert (alt)`);
+        const quelle = c.teil ? a.teile?.[c.teil]?.[c.feld === 'correct_answers' ? 'antwort' : c.feld]
+          : a.felder?.[c.feld] ?? a.loesung?.[c.feld];
+        if (!String(quelle?.begruendung ?? '').trim()) F(`${wo}: Ueberschreibung ohne Begruendung`);
+        if (!String(quelle?.nachweis ?? '').trim()) F(`${wo}: Ueberschreibung ohne Nachweis, dass kein Mensch den Wert bearbeitet hat`);
+        if (c.tabelle === 'task_solutions' && x.sol && Date.parse(x.sol.updated_at) - Date.parse(x.task.created_at) > 10 * 60e3) {
+          F(`${wo}: Loesung nach dem Import geaendert (updated_at) — moeglicherweise von Hand, nicht ueberschreiben`);
+        }
+        if (c.art === 'ergaenzt' && !(Array.isArray(c.alt) && Array.isArray(w) && c.alt.every((v) => w.includes(v)))) {
+          F(`${wo}: "ergaenzt" darf keine vorhandene Variante entfernen`);
+        }
+        ueberschreibungen.push(`${tag} · ${wo}: ${JSON.stringify(c.alt)} → ${JSON.stringify(w)} (${c.art}) — ${quelle?.begruendung ?? ''}`);
+      }
+      if (c.feld === 'needs_image' && w === true && !/Bild|Abbildung|Graph|Tabelle|Skizze|Grafik/i.test(c.grund)) {
+        F(`${wo}: Bildbedarf true, aber der Grund nennt kein fehlendes Bild`);
+      }
       if (c.feld === 'afb' && !AFB.includes(w)) F(`${wo}="${w}" nicht in I/II/III`);
       if (c.feld === 'est_duration_sec' && !(Number.isInteger(w) && w >= 10 && w <= 3600)) F(`${wo}=${w} ausserhalb 10..3600`);
       if (c.feld === 'curriculum_grade' && !(Number.isInteger(w) && w >= 5 && w <= 13)) F(`${wo}=${w} ausserhalb 5..13`);
@@ -117,14 +116,15 @@ export async function pruefePrefill(opt) {
     if (VERBOTEN.test(JSON.stringify(a))) F('Mastery-Sprache in der Charge');
 
     // ── 2. Vollstaendigkeit je Lena-Feld ──
+    // Nicht als Luecke: coach_hints (LSA, Entscheidung 2) und unit (reine Zahlen, Entscheidung 4).
     const felder = [
       ['tasks.input_type', task.input_type], ['tasks.afb', task.afb], ['tasks.est_duration_sec', task.est_duration_sec],
       ['tasks.curriculum_grade', task.curriculum_grade], ['tasks.cluster_id', task.cluster_id], ['tasks.needs_image', task.needs_image],
       ['task_solutions.solution', sol.solution], ['task_solutions.hints', sol.hints], ['task_solutions.typical_errors', sol.typical_errors],
-      ['task_solutions.coach_hints', sol.coach_hints],
     ];
     if (!mp) felder.push(['tasks.competency_content', task.competency_content], ['tasks.competency_process', task.competency_process], ['task_solutions.correct_answers', Array.isArray(ca) ? ca : null]);
-    if (!mp && task.input_type === 'NUMERIC') felder.push(['tasks.unit', task.unit]);
+    // Entscheidung 3: Bildbedarf ist bei JEDER Aufgabe gesetzt — ein Leer-Grund reicht nicht.
+    if (task.needs_image == null) F('needs_image nicht gesetzt (true oder false Pflicht)');
     for (const p of task.parts) {
       felder.push([`parts[].afb`, p.afb, p.nr], [`parts[].competency_content`, p.competency_content, p.nr],
         [`parts[].antwort`, Array.isArray(ca) ? null : ca?.[p.nr], p.nr]);
@@ -137,7 +137,8 @@ export async function pruefePrefill(opt) {
         : feld.startsWith('tasks.') ? vorherTask[kurz] : vorherSol[kurz];
       if (!leer(vorher)) continue;
       zaehl(feld, 'vorherLeer');
-      const grund = a.leer?.[kurz] ?? a.leer?.[`${kurz}[${nr}]`] ?? charge.leer_alle?.[kurz];
+      const teilSchluessel = kurz === 'antwort' ? `correct_answers.${nr}` : `parts.${nr}.${kurz}`;
+      const grund = nr != null ? a.leer?.[teilSchluessel] : a.leer?.[kurz];
       if (!leer(jetzt)) zaehl(feld, 'befuellt');
       else if (grund) zaehl(feld, 'bewusstLeer');
       else { zaehl(feld, 'ungeklaert'); F(`${feld}${nr != null ? ` (Teil ${nr})` : ''} leer ohne Grund`); }
@@ -225,9 +226,13 @@ export async function pruefePrefill(opt) {
   }
 
   const zeilen = [...bilanz].map(([f, b]) => `| ${f} | ${b.vorherLeer} | ${b.befuellt} | ${b.bewusstLeer} | ${b.ungeklaert} |`);
+  const artZeilen = [...arten].map(([f, b]) => `| ${f} | ${b.neu} | ${b.ueberschrieben} | ${b.ergaenzt} | ${b.leer} |`);
   const bericht = [
     `# Verifikation ${charge.batch}`, '',
-    `Aufgaben: ${charge.aufgaben.length} · Charge-Fehler: **${fehler.length}** · Bestands-Befunde: ${bestand.length}`, '',
+    `Aufgaben: ${charge.aufgaben.length} · Charge-Fehler: **${fehler.length}** · Bestands-Befunde: ${bestand.length} · Ueberschreibungen: ${ueberschreibungen.length}`, '',
+    '## Feldtabelle (was die Migration auf dem Snapshot-Stand tut)', '',
+    '| Feld | neu | ueberschrieben | ergaenzt | bewusst leer (Kennzeichen) |', '|---|---|---|---|---|', ...artZeilen, '',
+    '## Ueberschreibungen (alt → neu)', '', ...(ueberschreibungen.length ? ueberschreibungen.map((u) => `- ${u}`) : ['- keine']), '',
     '## Vollstaendigkeit je Feld', '', '| Feld | vorher leer | jetzt befuellt | bewusst leer | ungeklaert |', '|---|---|---|---|---|', ...zeilen, '',
     '## Charge-Fehler (Gate)', '', ...(fehler.length ? fehler.map((f) => `- ${f}`) : ['- keine']), '',
     '## Bestands-Befunde (gesetzte Werte, nicht ueberschrieben)', '', ...(bestand.length ? bestand.map((f) => `- ${f}`) : ['- keine']), '',

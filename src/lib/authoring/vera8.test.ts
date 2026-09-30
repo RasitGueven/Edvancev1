@@ -25,7 +25,7 @@ describe('VERA8-Definition', () => {
     for (const f of dateien) {
       const anweisungen = fs.readFileSync(`${dir}/${f}`, 'utf8').split(/;\s*\n/)
         .map((s) => s.replace(/^(\s*--[^\n]*\n)+/, '').trim())
-        .filter((s) => /^(update|insert)\b/i.test(s))
+        .filter((s) => /^(update|insert|with)\b/i.test(s))
       for (const s of anweisungen) expect(s).toMatch(new RegExp(`source is distinct from '${VERA8_SOURCE}'`))
     }
   })
