@@ -121,7 +121,7 @@ for (const a of charge.aufgaben) {
 
 const kopf = `-- Datenmigration ${charge.batch}: Vorbefuellung fuer Lenas Pruefung (Item-Pflege).
 -- Erzeugt von tools/prefill-build.mjs aus ${chargePfad} — nicht von Hand editieren.
--- ${charge.auswahl}
+-- ${charge.auswahl}${charge.ersetzt ? `\n-- Ersetzt ${charge.ersetzt}.` : ''}
 -- Regeln: nur status = 'draft', nie VERA8 (${keinVera8Sql()} in jedem WHERE),
 -- jede Aenderung als Compare-and-set (/*cas*/: leer ODER exakter alter Wert),
 -- Kennzeichen tasks.vorbefuellt in derselben Anweisung, keine DDL, keine Status-Felder.

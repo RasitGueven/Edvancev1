@@ -1,6 +1,7 @@
 -- Datenmigration mathe8-pilot: Vorbefuellung fuer Lenas Pruefung (Item-Pflege).
 -- Erzeugt von tools/prefill-build.mjs aus docs/prefill/mathe8-pilot.json — nicht von Hand editieren.
 -- Die ersten 18 offenen Aufgaben (status=draft) im Themengebiet 'Algebra & Funktionen' in Lenas Warteschlange (themenVon: Titel, dann id) — ohne VERA8 (Entscheidung zu PR #176). Urspruenglich 25 inkl. 7 VERA8; nicht aufgefuellt.
+-- Ersetzt 20260930120000_prefill_mathe8_pilot (Versionskollision mit S2b, nie eingespielt).
 -- Regeln: nur status = 'draft', nie VERA8 (source is distinct from 'VERA8_IQB' in jedem WHERE),
 -- jede Aenderung als Compare-and-set (/*cas*/: leer ODER exakter alter Wert),
 -- Kennzeichen tasks.vorbefuellt in derselben Anweisung, keine DDL, keine Status-Felder.

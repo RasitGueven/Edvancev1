@@ -24,38 +24,47 @@ wirkt an drei Stellen:
 | `befunde.md` | Befundliste für Lena und Rasit |
 | `vorschlag-prefill-marker.sql` | Vorschlag „vorbefüllt vs. geprüft". **Nicht einspielen** ohne Freigabe (Auth/RLS). |
 
-Zwei Migrationen, beide **nicht eingespielt**:
+Stand der Migrationen (30.09.2026):
 
-- `supabase/migrations/20260930120000_prefill_mathe8_pilot.sql`: die Daten. Sie wird aus der JSON-Quelle erzeugt;
-  bitte nicht von Hand editieren.
-- `supabase/migrations/20260930130000_freigabe_cluster_ohne_vera8.sql`: „Alle geprüften freigeben" im Board erfasst
-  kein VERA8 mehr.
+| Datei | Inhalt | Stand |
+|---|---|---|
+| `20260930130000_freigabe_cluster_ohne_vera8.sql` | „Alle geprüften freigeben" erfasst kein VERA8 | **eingespielt** (History-Eintrag, Definition per pg_proc bestätigt) |
+| `20260930140000_tasks_vorbefuellt.sql` | Kennzeichen `tasks.vorbefuellt` / `vorbefuellt_am` | **eingespielt** (Spalten, CHECK und Rechte bestätigt) |
+| `20260930150000_prefill_mathe8_pilot.sql` | Pilot-Daten (18 Binom-Aufgaben) | **nicht eingespielt** — wartet auf Freigabe und Versionsentscheidung |
+
+Die Pilot-Datei ersetzt `20260930120000_prefill_mathe8_pilot` (Versionskollision mit S2b, nie eingespielt).
+Sie wird aus der JSON-Quelle erzeugt; bitte nicht von Hand editieren.
+
+Vor dem Einspielen:
+- `mathe8-pilot-prod-abgleich.md`: nur lesend gegen Prod — welche Felder die Migration heute ändern würde
+  und wo Prod schon andere Werte hat.
+- Wegwerf-DB (lokaler Socket): alle Migrationen in Dateireihenfolge, dann der Pilot mit den echten Daten aus dem
+  Snapshot, CSV-Abgleich, zweiter Lauf ohne Änderung.
 
 ## Neu erzeugen und prüfen
 
 ```bash
 node tools/prefill-build.mjs docs/prefill/mathe8-pilot.json docs/prefill/mathe8-pilot-snapshot.json \
-     20260930120000 prefill_mathe8_pilot
+     20260930150000 prefill_mathe8_pilot
 node tools/verify-tasks.mjs --prefill docs/prefill/mathe8-pilot.json \
      --snapshot docs/prefill/mathe8-pilot-snapshot.json \
-     --migration supabase/migrations/20260930120000_prefill_mathe8_pilot.sql \
+     --migration supabase/migrations/20260930150000_prefill_mathe8_pilot.sql \
      --blind docs/prefill/mathe8-pilot-blind.json --bericht docs/prefill/mathe8-pilot-verifikation.md
 ```
 
 Der Prüfer braucht weder LLM noch DB noch `node_modules`. Exit 1 bei Charge-Fehlern.
 
-## Einspielen (macht Rasit)
+## Einspielen (nach Freigabe)
 
-Ziel-DB-Check, dann jede Migration in **einer** Transaktion mit anschließendem History-Eintrag. Der DB-Namens-Check
-steht nur hier in der Kette, nicht in den Migrationen: CI spielt sie in eine DB namens `neuaufbau` ein.
+Ziel-DB-Check, dann die Migration in **einer** Transaktion, dann der History-Eintrag. Der DB-Namens-Check steht nur
+hier in der Kette, nicht in der Migration (CI spielt in `neuaufbau` ein).
 
 ```bash
-psql "$DATABASE_URL" -tAc "select current_database()" | grep -qx postgres && psql "$DATABASE_URL" -v ON_ERROR_STOP=1 --single-transaction -f supabase/migrations/20260930120000_prefill_mathe8_pilot.sql && echo "insert into supabase_migrations.schema_migrations (version, name, statements) values ('20260930120000', 'prefill_mathe8_pilot', array[:'stmt']) on conflict (version) do nothing;" | psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -v stmt="$(cat supabase/migrations/20260930120000_prefill_mathe8_pilot.sql)" && psql "$DATABASE_URL" -v ON_ERROR_STOP=1 --single-transaction -f supabase/migrations/20260930130000_freigabe_cluster_ohne_vera8.sql && echo "insert into supabase_migrations.schema_migrations (version, name, statements) values ('20260930130000', 'freigabe_cluster_ohne_vera8', array[:'stmt']) on conflict (version) do nothing;" | psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -v stmt="$(cat supabase/migrations/20260930130000_freigabe_cluster_ohne_vera8.sql)"
+psql "$DATABASE_URL" -tAc "select current_database()" | grep -qx postgres && psql "$DATABASE_URL" -v ON_ERROR_STOP=1 --single-transaction -f supabase/migrations/20260930150000_prefill_mathe8_pilot.sql && echo "insert into supabase_migrations.schema_migrations (version, name, statements) values ('20260930150000', 'prefill_mathe8_pilot', array[:'stmt']) on conflict (version) do nothing;" | psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -v stmt="$(cat supabase/migrations/20260930150000_prefill_mathe8_pilot.sql)"
 ```
 
-Danach `bash tools/schema-snapshot.sh` laufen lassen und `supabase/schema-erwartet.sql` committen. Ohne neuen
-Snapshot meldet der Schema-Job in CI die neue `freigabe_cluster`-Fassung als Abweichung. Ein Hook sperrt das
-Handeditieren der Datei, und das Skript nutzt eine lokale DB.
+Nach jeder Schemaänderung: `bash tools/schema-snapshot.sh` (lesender Abzug der Ziel-DB, kein lokales Postgres)
+und `supabase/schema-erwartet.sql` committen.
 
-Die Daten-Migration ist idempotent. Jedes UPDATE prüft „Feld ist leer", `status = 'draft'` und „nicht VERA8", ein
-zweiter Lauf ändert also nichts.
+Die Daten-Migration ist idempotent: Jedes UPDATE ist ein Compare-and-set (`/*cas*/`: Feld leer ODER exakter alter
+Wert), dazu `status = 'draft'` und „nicht VERA8"; das Kennzeichen entsteht in derselben Anweisung.

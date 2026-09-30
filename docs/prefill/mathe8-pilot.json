@@ -1,6 +1,7 @@
 {
   "batch": "mathe8-pilot",
   "auswahl": "Die ersten 18 offenen Aufgaben (status=draft) im Themengebiet 'Algebra & Funktionen' in Lenas Warteschlange (themenVon: Titel, dann id) — ohne VERA8 (Entscheidung zu PR #176). Urspruenglich 25 inkl. 7 VERA8; nicht aufgefuellt.",
+  "ersetzt": "20260930120000_prefill_mathe8_pilot (Versionskollision mit S2b, nie eingespielt)",
   "zeitregel": {
     "beschreibung": "est_duration_sec fuer Einzelaufgaben: AFB I 45 s, AFB II 60 s, AFB III 90 s; +30 s bei Sachkontext. MULTI_PART-Werte sind gesetzt und bleiben.",
     "basis": {
