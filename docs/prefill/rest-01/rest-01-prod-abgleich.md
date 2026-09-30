@@ -1,4 +1,4 @@
-# rest-01: Abgleich mit Produktion (nur gelesen, 2026-09-30T12:09:39.874Z)
+# rest-01: Abgleich mit Produktion (nur gelesen, 2026-09-30T12:21:33.757Z)
 
 Die Migration wuerde heute **134** Felder aendern, davon **0** Ueberschreibungen; bei **0** Feldern steht in Prod schon ein anderer Wert (bleibt wegen Compare-and-set unangetastet).
 

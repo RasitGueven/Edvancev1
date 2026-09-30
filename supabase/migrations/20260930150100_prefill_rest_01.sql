@@ -1,10 +1,10 @@
 -- Datenmigration rest-01: Vorbefuellung fuer Lenas Pruefung (Item-Pflege).
--- Erzeugt von tools/prefill-build.mjs aus docs/prefill/rest-01.json — nicht von Hand editieren.
+-- Erzeugt von tools/prefill-build.mjs aus docs/prefill/rest-01/rest-01.json — nicht von Hand editieren.
 -- Erste Charge Restbestand (ohne VERA8): die restlichen 6 offenen Binom-Aufgaben (Algebra & Funktionen) und alle 22 offenen edvance_fundament_afb1-Aufgaben (ohne Themengebiet). Im Restbestand gibt es keine nachweisbar falschen Altwerte oder Import-Platzhalter — 0 Ueberschreibungen.
 -- Regeln: nur status = 'draft', nie VERA8 (source is distinct from 'VERA8_IQB' in jedem WHERE),
 -- jede Aenderung als Compare-and-set (/*cas*/: leer ODER exakter alter Wert),
 -- Kennzeichen tasks.vorbefuellt in derselben Anweisung, keine DDL, keine Status-Felder.
--- Idempotent: ein zweiter Lauf aendert nichts. Werte + Gruende: docs/prefill/rest-01.csv
+-- Idempotent: ein zweiter Lauf aendert nichts. Werte + Gruende: docs/prefill/rest-01/rest-01.csv
 -- Kein Ziel-DB-Guard in der Datei: CI spielt alle Migrationen in eine leere DB 'neuaufbau' ein
 -- (dort treffen die UPDATEs 0 Zeilen). Der Ziel-DB-Check steht in der Apply-Kette (docs/prefill/README.md).
 
