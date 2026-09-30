@@ -21,6 +21,8 @@ import { AssignmentsPage } from '@/pages/admin/AssignmentsPage'
 import { DiagnosticsPage } from '@/pages/admin/DiagnosticsPage'
 import { QsPage } from '@/pages/admin/QsPage'
 import { ReportPage } from '@/pages/admin/ReportPage'
+import { BoardPage as AktenBoardPage } from '@/pages/admin/akten/BoardPage'
+import { AktePage } from '@/pages/admin/akten/AktePage'
 import { VertraegeMenuePage } from '@/pages/admin/VertraegeMenuePage'
 import { VertragDetailPage } from '@/pages/admin/VertragDetailPage'
 import { VertragPage } from '@/pages/admin/VertragPage'
@@ -213,6 +215,25 @@ export default function App(): JSX.Element {
         />
         {/* Eltern-Report zu einer LSA-Sitzung. Coach darf ihn öffnen — er
             führt damit das Elterngespräch. */}
+        {/* Menue "Schueler" (Schuelerakte S2): Board und Akte fuer Admin und
+            Coach. Welche Akten jemand sieht, entscheidet die Datenbank
+            (board_schueler / schuelerakten: Coach nur aktive Akten). */}
+        <Route
+          path="/admin/akten"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+              <AktenBoardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/akten/:studentId"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+              <AktePage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin/report/:sessionId"
           element={

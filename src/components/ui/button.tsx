@@ -22,7 +22,9 @@ const buttonVariants = cva(
         secondary: 'border border-primary text-primary bg-transparent hover:bg-primary-light',
         outline:   'border border-primary text-primary bg-transparent hover:bg-primary-light',
         ghost:     'text-primary bg-transparent hover:bg-primary-light',
-        destructive: 'bg-error text-white shadow-xs hover:shadow-md hover:brightness-110',
+        // Vorher 'bg-error': einen Token --color-error gibt es nicht, die Klasse
+        // entstand nie — der Knopf war durchsichtig mit weisser Schrift (S2b).
+        destructive: 'bg-[var(--color-error-coach)] text-white shadow-xs hover:shadow-md hover:brightness-110',
       },
       size: {
         sm:      'px-3 py-1.5 text-xs min-h-[36px] rounded-lg',

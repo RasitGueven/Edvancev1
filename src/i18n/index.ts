@@ -12,6 +12,7 @@ import deParent from './locales/de/parent.json'
 import deLeads from './locales/de/leads.json'
 import deVertraege from './locales/de/vertraege.json'
 import deCoach from './locales/de/coach.json'
+import deAkte from './locales/de/akte.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -28,6 +29,7 @@ void i18n.use(initReactI18next).init({
       leads: deLeads,
       vertraege: deVertraege,
       coach: deCoach,
+      akte: deAkte,
     },
   },
   lng: 'de',
@@ -46,6 +48,7 @@ void i18n.use(initReactI18next).init({
     'leads',
     'vertraege',
     'coach',
+    'akte',
   ],
   interpolation: { escapeValue: false },
   returnNull: false,

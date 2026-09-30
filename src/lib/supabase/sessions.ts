@@ -61,10 +61,33 @@ export async function getSessionStudents(
   }
 }
 
+// SQLSTATE des Triggers aus 20260930100000_session_platz_zugang.sql: am Datum
+// der Session laeuft fuer das Kind kein Vertrag.
+export const KEIN_PLATZ_ZUGANG = 'ZG001'
+
+// Kinder, die am Datum der Session einen Platz bekommen duerfen
+// (RPC session_platz_kandidaten, gleiche Regel wie der Trigger).
+export async function listPlatzKandidaten(
+  sessionId: string,
+): Promise<SupabaseResult<string[]>> {
+  try {
+    const { data, error } = await supabase.rpc('session_platz_kandidaten', {
+      p_session_id: sessionId,
+    })
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as string[], error: null }
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : 'Auswahlliste konnte nicht geladen werden'
+    return { data: null, error: message }
+  }
+}
+
+// Lehnt die Datenbank ab, traegt `code` den SQLSTATE (z. B. KEIN_PLATZ_ZUGANG).
 export async function addStudentToSession(
   sessionId: string,
   studentId: string,
-): Promise<SupabaseResult<SessionStudent>> {
+): Promise<SupabaseResult<SessionStudent> & { code?: string | null }> {
   try {
     const { data, error } = await supabase
       .from('session_students')
@@ -74,7 +97,7 @@ export async function addStudentToSession(
       )
       .select('*')
       .single()
-    if (error) return { data: null, error: error.message }
+    if (error) return { data: null, error: error.message, code: error.code ?? null }
     return { data: data as SessionStudent, error: null }
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Teilnehmer konnte nicht ergaenzt werden'

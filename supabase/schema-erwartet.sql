@@ -123,6 +123,105 @@ $$;
 
 
 --
+-- Name: akte_sessions(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.akte_sessions(p_student_id uuid) RETURNS TABLE(session_id uuid, scheduled_at timestamp with time zone, coach_id uuid, coach_name text, attendance text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle text := public.get_my_role();
+  v_seit  date;
+begin
+  if v_rolle = 'admin' then
+    null;
+  elsif v_rolle = 'coach' and public.akte_aktiv(p_student_id) then
+    null;
+  else
+    raise exception 'akte_sessions: keine Berechtigung fuer diese Akte' using errcode = '42501';
+  end if;
+
+  select min(v.abgeschlossen_am) into v_seit
+    from public.vertraege v
+   where v.student_id = p_student_id and v.status = 'abgeschlossen';
+
+  return query
+    select cs.id, cs.scheduled_at, cs.coach_id, p.full_name, ss.attendance
+      from public.session_students ss
+      join public.coaching_sessions cs on cs.id = ss.session_id
+      left join public.profiles p on p.id = cs.coach_id
+     where ss.student_id = p_student_id
+       and v_seit is not null
+       and (cs.scheduled_at at time zone 'Europe/Berlin')::date >= v_seit
+     order by cs.scheduled_at desc;
+end;
+$$;
+
+
+--
+-- Name: akte_stammdaten_aendern(uuid, text, integer, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.akte_stammdaten_aendern(p_student_id uuid, p_name text, p_klasse integer, p_schule_id uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_profil uuid;
+  v_name   text := nullif(btrim(coalesce(p_name, '')), '');
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'akte_stammdaten_aendern: nur Admin' using errcode = '42501';
+  end if;
+
+  select s.profile_id into v_profil from public.students s where s.id = p_student_id for update;
+  if not found then
+    raise exception 'akte_stammdaten_aendern: Kind nicht gefunden' using errcode = 'P0002';
+  end if;
+  if not exists (select 1 from public.vertraege v where v.student_id = p_student_id and v.status = 'abgeschlossen') then
+    raise exception 'akte_stammdaten_aendern: keine Akte zu diesem Kind' using errcode = 'P0002';
+  end if;
+  if v_name is null then
+    raise exception 'akte_stammdaten_aendern: der Name ist leer' using errcode = '22023';
+  end if;
+  if p_klasse is not null and (p_klasse < 5 or p_klasse > 13) then
+    raise exception 'akte_stammdaten_aendern: Klasse % ist nicht 5 bis 13', p_klasse using errcode = '22023';
+  end if;
+  if p_schule_id is not null and not exists (select 1 from public.schulen where id = p_schule_id) then
+    raise exception 'akte_stammdaten_aendern: Schule nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  -- Der Name lebt am Profil. Eine Akte ohne Profil (Kind ohne Konto, etwa
+  -- Testdaten) zeigt den Namen aus dem Vertrag; aendern laesst er sich dann
+  -- nicht — der Aufruf meldet das, statt still nichts zu tun. Bleibt der Name
+  -- gleich, gehen Klasse und Schule trotzdem durch.
+  if v_profil is null then
+    if v_name is distinct from (
+      select nullif(btrim(concat_ws(' ', v.kind_vorname, v.kind_nachname)), '')
+        from public.vertraege v
+       where v.student_id = p_student_id and v.status = 'abgeschlossen'
+       order by v.vertragsbeginn desc nulls last
+       limit 1
+    ) then
+      raise exception 'akte_stammdaten_aendern: das Kind hat kein Profil, der Name steht nur im Vertrag'
+        using errcode = 'P0001';
+    end if;
+  else
+    update public.profiles set full_name = v_name where id = v_profil;
+  end if;
+
+  update public.students
+     set class_level = p_klasse,
+         schule_id   = p_schule_id
+   where id = p_student_id;
+
+  perform public.audit_log_schreiben('akte_stammdaten_aendern', 'student', p_student_id);
+end;
+$$;
+
+
+--
 -- Name: akte_wortliste_treffer(text, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -853,18 +952,7 @@ CREATE FUNCTION public.hat_zugang(p_student_id uuid, p_datum date DEFAULT CURREN
              v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis, p_datum
            ) in ('im_widerruf', 'aktiv')
   )
-  or exists (
-    select 1
-      from public.vertraege alt
-      join public.vertraege neu on neu.vorgaenger_id = alt.id
-     where alt.student_id = p_student_id
-       and alt.status = 'abgeschlossen'
-       and alt.vertrag_ende is not null
-       and alt.vertrag_ende < p_datum
-       and neu.status = 'abgeschlossen'
-       and neu.vertragsbeginn is not null
-       and neu.vertragsbeginn > p_datum
-  );
+  or public.vertrag_bruecke(p_student_id, p_datum);
 $$;
 
 
@@ -4101,6 +4189,132 @@ $$;
 
 
 --
+-- Name: session_platz_kandidaten(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_platz_kandidaten(p_session_id uuid) RETURNS SETOF uuid
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle text := public.get_my_role();
+  v_datum date;
+begin
+  if v_rolle = 'admin' then
+    null;
+  elsif v_rolle = 'coach' and p_session_id in (select public.session_ids_fuer_coach()) then
+    null;
+  else
+    raise exception 'session_platz_kandidaten: keine Berechtigung fuer diese Session' using errcode = '42501';
+  end if;
+
+  select (cs.scheduled_at at time zone 'Europe/Berlin')::date into v_datum
+    from public.coaching_sessions cs where cs.id = p_session_id;
+  if v_datum is null then
+    raise exception 'session_platz_kandidaten: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  return query
+    select s.id
+      from public.students s
+     where not s.is_provisional
+       and public.session_platz_zugang(s.id, v_datum);
+end;
+$$;
+
+
+--
+-- Name: session_platz_zugang(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_platz_zugang(p_student_id uuid, p_datum date) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select public.hat_zugang(p_student_id, p_datum)
+     and (
+       exists (
+         select 1
+           from public.vertraege v
+          where v.student_id = p_student_id
+            and v.status = 'abgeschlossen'
+            and v.vertragsbeginn is not null
+            and v.vertrag_ende is not null
+            and p_datum between v.vertragsbeginn and v.vertrag_ende
+            and public.vertrag_wirksamer_status(
+                  v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis, p_datum
+                ) in ('im_widerruf', 'aktiv')
+       )
+       or public.vertrag_bruecke(p_student_id, p_datum)
+     );
+$$;
+
+
+--
+-- Name: session_platz_zugang_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_platz_zugang_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_datum date;
+begin
+  select (cs.scheduled_at at time zone 'Europe/Berlin')::date
+    into v_datum
+    from public.coaching_sessions cs
+   where cs.id = new.session_id;
+
+  -- Keine Session: der Fremdschluessel meldet das selbst.
+  if v_datum is null then
+    return new;
+  end if;
+
+  if not public.session_platz_zugang(new.student_id, v_datum) then
+    raise exception 'Kein laufender Vertrag am % — Platz kann nicht vergeben werden.',
+                    to_char(v_datum, 'DD.MM.YYYY')
+      using errcode = 'ZG001',
+            hint    = 'datum:' || to_char(v_datum, 'YYYY-MM-DD');
+  end if;
+
+  return new;
+end;
+$$;
+
+
+--
+-- Name: session_verschieben_zugang_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_verschieben_zugang_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_neu date := (new.scheduled_at at time zone 'Europe/Berlin')::date;
+begin
+  if v_neu = (old.scheduled_at at time zone 'Europe/Berlin')::date then
+    return new;
+  end if;
+
+  if exists (
+    select 1 from public.session_students ss
+     where ss.session_id = new.id
+       and not public.session_platz_zugang(ss.student_id, v_neu)
+  ) then
+    raise exception 'Kein laufender Vertrag am % — Platz kann nicht vergeben werden.',
+                    to_char(v_neu, 'DD.MM.YYYY')
+      using errcode = 'ZG001',
+            hint    = 'datum:' || to_char(v_neu, 'YYYY-MM-DD');
+  end if;
+
+  return new;
+end;
+$$;
+
+
+--
 -- Name: skill_kante_tiefe_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5019,6 +5233,31 @@ begin
    where id = new.vertrag_id;
   return new;
 end;
+$$;
+
+
+--
+-- Name: vertrag_bruecke(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_bruecke(p_student_id uuid, p_datum date) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.vertraege alt
+      join public.vertraege neu on neu.vorgaenger_id = alt.id
+     where alt.student_id = p_student_id
+       and alt.status = 'abgeschlossen'
+       and alt.widerrufen_am is null
+       and alt.vertrag_ende is not null
+       and alt.vertrag_ende < p_datum
+       and neu.status = 'abgeschlossen'
+       and neu.widerrufen_am is null
+       and neu.vertragsbeginn is not null
+       and neu.vertragsbeginn > p_datum
+  );
 $$;
 
 
@@ -8656,6 +8895,13 @@ CREATE INDEX xp_events_student_idx ON public.xp_events USING btree (student_id);
 
 
 --
+-- Name: coaching_sessions coaching_sessions_verschieben_zugang_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER coaching_sessions_verschieben_zugang_trg BEFORE UPDATE OF scheduled_at ON public.coaching_sessions FOR EACH ROW EXECUTE FUNCTION public.session_verschieben_zugang_pruefen();
+
+
+--
 -- Name: eltern_reports eltern_reports_guard_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -8688,6 +8934,13 @@ CREATE TRIGGER lsa_session_platz_release_trg AFTER UPDATE OF status ON public.ls
 --
 
 CREATE TRIGGER schueler_notizen_guard_trg BEFORE UPDATE ON public.schueler_notizen FOR EACH ROW EXECUTE FUNCTION public.schueler_notizen_guard();
+
+
+--
+-- Name: session_students session_students_zugang_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER session_students_zugang_trg BEFORE INSERT OR UPDATE OF student_id, session_id ON public.session_students FOR EACH ROW EXECUTE FUNCTION public.session_platz_zugang_pruefen();
 
 
 --
