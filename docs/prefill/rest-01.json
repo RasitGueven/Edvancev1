@@ -1,0 +1,1589 @@
+{
+  "batch": "rest-01",
+  "auswahl": "Erste Charge Restbestand (ohne VERA8): die restlichen 6 offenen Binom-Aufgaben (Algebra & Funktionen) und alle 22 offenen edvance_fundament_afb1-Aufgaben (ohne Themengebiet). Im Restbestand gibt es keine nachweisbar falschen Altwerte oder Import-Platzhalter — 0 Ueberschreibungen.",
+  "zeitregel": {
+    "beschreibung": "est_duration_sec nur wo leer: AFB I 45 s, AFB II 60 s, AFB III 90 s; +30 s bei Sachkontext.",
+    "basis": {
+      "I": 45,
+      "II": 60,
+      "III": 90
+    },
+    "sachkontext_zuschlag": 30
+  },
+  "aufgaben": [
+    {
+      "nr": 1,
+      "id": "dbe2ed81-b0e9-470a-8f9a-80966a4eaf63",
+      "titel": "AFB I · Fläche · Dreieck g = 10 cm, h = 6 cm",
+      "felder": {
+        "cluster_id": {
+          "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+          "sicher": "hoch",
+          "grund": "Wie alle 7 bereits zugeordneten Aufgaben mit skill_key geo_flaeche_dreieck: Themengebiet „Geometrie & Messen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "A = g · h : 2 = 10 cm · 6 cm : 2 = 60 cm² : 2 = 30 cm².",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welche Formel gilt für die Fläche eines Dreiecks?"
+            },
+            {
+              "level": 2,
+              "text": "Rechne Grundseite mal Höhe und teile das Ergebnis durch 2."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Grundseite und Höhe werden addiert: 10 + 6 = 16.",
+              "socratic_question": "Wird bei einer Fläche addiert oder multipliziert?"
+            },
+            {
+              "error": "Das Halbieren wird vergessen: 10 · 6 = 60.",
+              "socratic_question": "Welchen Teil eines Rechtecks bedeckt das Dreieck?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "30",
+          "rechnung": "10*6/2"
+        }
+      ]
+    },
+    {
+      "nr": 2,
+      "id": "0f3fe7d3-cdcf-4514-84a9-b08e5826234a",
+      "titel": "AFB I · Fläche · Dreieck g = 6 cm, h = 4 cm",
+      "felder": {
+        "cluster_id": {
+          "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+          "sicher": "hoch",
+          "grund": "Wie alle 7 bereits zugeordneten Aufgaben mit skill_key geo_flaeche_dreieck: Themengebiet „Geometrie & Messen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "A = g · h : 2 = 6 cm · 4 cm : 2 = 24 cm² : 2 = 12 cm².",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welche Formel gilt für die Fläche eines Dreiecks?"
+            },
+            {
+              "level": 2,
+              "text": "Rechne Grundseite mal Höhe und teile das Ergebnis durch 2."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Grundseite und Höhe werden addiert: 6 + 4 = 10.",
+              "socratic_question": "Wird bei einer Fläche addiert oder multipliziert?"
+            },
+            {
+              "error": "Das Halbieren wird vergessen: 6 · 4 = 24.",
+              "socratic_question": "Welchen Teil eines Rechtecks bedeckt das Dreieck?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "12",
+          "rechnung": "6*4/2"
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "id": "3372f3a7-7014-4052-809c-3bb17d627361",
+      "titel": "AFB I · Flächeneinheiten · 5 cm² in mm²",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 6 bereits zugeordneten Aufgaben mit skill_key groessen_flaechen: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "1 cm² = 100 mm² (1 cm = 10 mm, also 10 · 10).\n5 cm² = 5 · 100 mm² = 500 mm².",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie viele Millimeter hat ein Zentimeter – und wie viele mm² passen dann in 1 cm²?"
+            },
+            {
+              "level": 2,
+              "text": "Bei Flächeneinheiten ist die Umrechnungszahl 100. Multipliziere mit 100."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Die Einheit wird nicht umgerechnet: 5.",
+              "socratic_question": "Ist ein mm² größer oder kleiner als ein cm²?"
+            },
+            {
+              "error": "Es wird wie bei Längen mit 10 statt mit 100 multipliziert: 50.",
+              "socratic_question": "Wie viele kleine Quadrate von 1 mm Seitenlänge passen in ein Quadrat von 1 cm Seitenlänge?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "500",
+          "rechnung": "5*100"
+        }
+      ]
+    },
+    {
+      "nr": 4,
+      "id": "341fd991-7230-4548-8413-7f5f422231bf",
+      "titel": "AFB I · Flächeneinheiten · 8 cm² in mm²",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 6 bereits zugeordneten Aufgaben mit skill_key groessen_flaechen: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "1 cm² = 100 mm² (1 cm = 10 mm, also 10 · 10).\n8 cm² = 8 · 100 mm² = 800 mm².",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie viele Millimeter hat ein Zentimeter – und wie viele mm² passen dann in 1 cm²?"
+            },
+            {
+              "level": 2,
+              "text": "Bei Flächeneinheiten ist die Umrechnungszahl 100. Multipliziere mit 100."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Die Einheit wird nicht umgerechnet: 8.",
+              "socratic_question": "Ist ein mm² größer oder kleiner als ein cm²?"
+            },
+            {
+              "error": "Es wird wie bei Längen mit 10 statt mit 100 multipliziert: 80.",
+              "socratic_question": "Wie viele kleine Quadrate von 1 mm Seitenlänge passen in ein Quadrat von 1 cm Seitenlänge?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "800",
+          "rechnung": "8*100"
+        }
+      ]
+    },
+    {
+      "nr": 5,
+      "id": "dd8db039-818d-42c2-8866-2df507675c36",
+      "titel": "AFB I · Gemischte Schreibweise · 1,4 m in cm",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 6 bereits zugeordneten Aufgaben mit skill_key groessen_gemischt: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "1 m = 100 cm.\n1,4 m = 1,4 · 100 cm = 140 cm.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie viele Zentimeter hat ein Meter?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere 1,4 mit 100 – das Komma rückt zwei Stellen nach rechts."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Mit 10 statt mit 100 multipliziert: 14.",
+              "socratic_question": "Wie viele Zentimeter hat ein Meter genau?"
+            },
+            {
+              "error": "Das Komma wird als Trenner gelesen: 1 m und 4 cm = 104 cm.",
+              "socratic_question": "Was bedeutet die 4 nach dem Komma – 4 Zentimeter oder 4 Zehntel Meter?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "140",
+          "rechnung": "1.4*100"
+        }
+      ]
+    },
+    {
+      "nr": 6,
+      "id": "c9e3f728-2591-4704-9558-d5f8dc467f93",
+      "titel": "AFB I · Gemischte Schreibweise · 2,5 m in cm",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 6 bereits zugeordneten Aufgaben mit skill_key groessen_gemischt: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "1 m = 100 cm.\n2,5 m = 2,5 · 100 cm = 250 cm.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie viele Zentimeter hat ein Meter?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere 2,5 mit 100 – das Komma rückt zwei Stellen nach rechts."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Mit 10 statt mit 100 multipliziert: 25.",
+              "socratic_question": "Wie viele Zentimeter hat ein Meter genau?"
+            },
+            {
+              "error": "Das Komma wird als Trenner gelesen: 2 m und 5 cm = 205 cm.",
+              "socratic_question": "Was bedeutet die 5 nach dem Komma – 5 Zentimeter oder 5 Zehntel Meter?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "250",
+          "rechnung": "2.5*100"
+        }
+      ]
+    },
+    {
+      "nr": 7,
+      "id": "00096607-230e-4fd3-b236-42673e5ea268",
+      "titel": "AFB I · Gleichung · 4x + 3 = 3x + 11",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 5 bereits zugeordneten Aufgaben mit skill_key gleichung_beidseitig: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "4x + 3 = 3x + 11 | − 3x\nx + 3 = 11 | − 3\nx = 8\nProbe: 4 · 8 + 3 = 35 und 3 · 8 + 11 = 35.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Bringe alle Terme mit x auf eine Seite der Gleichung."
+            },
+            {
+              "level": 2,
+              "text": "Ziehe auf beiden Seiten 3x ab, danach auf beiden Seiten 3."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Die x-Terme werden nicht zusammengeführt, sondern nur die Zahlen verrechnet.",
+              "socratic_question": "Was passiert mit 4x und 3x, wenn du auf beiden Seiten 3x abziehst?"
+            },
+            {
+              "error": "Beim Zusammenführen wird ein Vorzeichen falsch übernommen.",
+              "socratic_question": "Setze dein Ergebnis zur Probe in beide Seiten ein – kommt links und rechts dasselbe heraus?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "8",
+          "probe": "4*A+3-(3*A+11)",
+          "soll": "0"
+        }
+      ]
+    },
+    {
+      "nr": 8,
+      "id": "f76034e5-792c-47bb-81b2-1d5ecd205499",
+      "titel": "AFB I · Gleichung · 6x + 2 = 5x + 8",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 5 bereits zugeordneten Aufgaben mit skill_key gleichung_beidseitig: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "6x + 2 = 5x + 8 | − 5x\nx + 2 = 8 | − 2\nx = 6\nProbe: 6 · 6 + 2 = 38 und 5 · 6 + 8 = 38.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Bringe alle Terme mit x auf eine Seite der Gleichung."
+            },
+            {
+              "level": 2,
+              "text": "Ziehe auf beiden Seiten 5x ab, danach auf beiden Seiten 2."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Die x-Terme werden nicht zusammengeführt, sondern nur die Zahlen verrechnet.",
+              "socratic_question": "Was passiert mit 6x und 5x, wenn du auf beiden Seiten 5x abziehst?"
+            },
+            {
+              "error": "Beim Zusammenführen wird ein Vorzeichen falsch übernommen.",
+              "socratic_question": "Setze dein Ergebnis zur Probe in beide Seiten ein – kommt links und rechts dasselbe heraus?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "6",
+          "probe": "6*A+2-(5*A+8)",
+          "soll": "0"
+        }
+      ]
+    },
+    {
+      "nr": 9,
+      "id": "5bcf9b2a-6cce-4674-b070-3bd14cd3bad1",
+      "titel": "AFB I · Grundwert · 20 sind 10 %",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 6 bereits zugeordneten Aufgaben mit skill_key prozent_grundwert: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "10 % sind der zehnte Teil. Wenn 20 der zehnte Teil sind, ist die ganze Zahl 20 · 10 = 200.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welcher Bruchteil sind 10 %?"
+            },
+            {
+              "level": 2,
+              "text": "Wenn 20 ein Zehntel der Zahl sind: Wie oft passt dieses Zehntel in das Ganze?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Es wird 20 · 0,1 gerechnet statt geteilt: 2.",
+              "socratic_question": "Muss die gesuchte Zahl größer oder kleiner als 20 sein?"
+            },
+            {
+              "error": "Das Komma wird eine Stelle zu weit verschoben: 2000.",
+              "socratic_question": "Sind 10 % von 2000 wirklich 20?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "200",
+          "rechnung": "20/0.1"
+        }
+      ]
+    },
+    {
+      "nr": 10,
+      "id": "f0dc76f2-9666-4122-867c-9d089b106205",
+      "titel": "AFB I · Grundwert · 45 sind 10 %",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 6 bereits zugeordneten Aufgaben mit skill_key prozent_grundwert: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "10 % sind der zehnte Teil. Wenn 45 der zehnte Teil sind, ist die ganze Zahl 45 · 10 = 450.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welcher Bruchteil sind 10 %?"
+            },
+            {
+              "level": 2,
+              "text": "Wenn 45 ein Zehntel der Zahl sind: Wie oft passt dieses Zehntel in das Ganze?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Es wird 45 · 0,1 gerechnet statt geteilt: 4,5.",
+              "socratic_question": "Muss die gesuchte Zahl größer oder kleiner als 45 sein?"
+            },
+            {
+              "error": "Das Komma wird eine Stelle zu weit verschoben: 4500.",
+              "socratic_question": "Sind 10 % von 4500 wirklich 45?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "450",
+          "rechnung": "45/0.1"
+        }
+      ]
+    },
+    {
+      "nr": 11,
+      "id": "76f0bf82-458f-4903-a1ac-71f74c44e1e5",
+      "titel": "AFB I · Maßstab · 1:100, 5 cm auf dem Plan",
+      "felder": {
+        "cluster_id": {
+          "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+          "sicher": "hoch",
+          "grund": "Wie alle 6 bereits zugeordneten Aufgaben mit skill_key geo_massstab: Themengebiet „Geometrie & Messen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "Maßstab 1:100 heißt: 1 cm auf dem Plan sind 100 cm in Wirklichkeit.\n5 cm · 100 = 500 cm.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Was bedeutet der Maßstab 1:100 für 1 cm auf dem Plan?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere die Länge auf dem Plan mit 100."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Mit 10 statt mit 100 multipliziert: 50 cm.",
+              "socratic_question": "Was sagt die zweite Zahl im Maßstab 1:100 aus?"
+            },
+            {
+              "error": "Die Richtung wird vertauscht und durch 100 geteilt: 0,05 cm.",
+              "socratic_question": "Ist die Strecke in Wirklichkeit länger oder kürzer als auf dem Plan?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "500",
+          "rechnung": "5*100"
+        }
+      ]
+    },
+    {
+      "nr": 12,
+      "id": "1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7",
+      "titel": "AFB I · Maßstab · 1:200, 3 cm auf dem Plan",
+      "felder": {
+        "cluster_id": {
+          "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+          "sicher": "hoch",
+          "grund": "Wie alle 6 bereits zugeordneten Aufgaben mit skill_key geo_massstab: Themengebiet „Geometrie & Messen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "Maßstab 1:200 heißt: 1 cm auf dem Plan sind 200 cm in Wirklichkeit.\n3 cm · 200 = 600 cm.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Was bedeutet der Maßstab 1:200 für 1 cm auf dem Plan?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere die Länge auf dem Plan mit 200."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Mit 20 statt mit 200 multipliziert: 60 cm.",
+              "socratic_question": "Was sagt die zweite Zahl im Maßstab 1:200 aus?"
+            },
+            {
+              "error": "Die Richtung wird vertauscht und durch 200 geteilt: 0,015 cm.",
+              "socratic_question": "Ist die Strecke in Wirklichkeit länger oder kürzer als auf dem Plan?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "600",
+          "rechnung": "3*200"
+        }
+      ]
+    },
+    {
+      "nr": 13,
+      "id": "01f22500-c86d-47d0-bb1d-a5f420e2de9d",
+      "titel": "AFB I · Potenzen · 3^2",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 16 bereits zugeordneten Aufgaben mit skill_key potenzen: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "3² = 3 · 3 = 9.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Was bedeutet die kleine 2 oben an der 3?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere die Zahl mit sich selbst."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Basis mal Exponent gerechnet: 3 · 2 = 6.",
+              "socratic_question": "Wie oft steht die 3 als Faktor in 3²?"
+            },
+            {
+              "error": "Basis und Exponent werden vertauscht: 2³ = 8.",
+              "socratic_question": "Welche Zahl wird mit sich selbst multipliziert – die große oder die kleine?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "9",
+          "rechnung": "3^2"
+        }
+      ]
+    },
+    {
+      "nr": 14,
+      "id": "25539057-46a0-473c-ab73-40d1b81edd55",
+      "titel": "AFB I · Potenzen · 5^2",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 16 bereits zugeordneten Aufgaben mit skill_key potenzen: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "5² = 5 · 5 = 25.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Was bedeutet die kleine 2 oben an der 5?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere die Zahl mit sich selbst."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Basis mal Exponent gerechnet: 5 · 2 = 10.",
+              "socratic_question": "Wie oft steht die 5 als Faktor in 5²?"
+            },
+            {
+              "error": "Basis und Exponent werden vertauscht: 2⁵ = 32.",
+              "socratic_question": "Welche Zahl wird mit sich selbst multipliziert – die große oder die kleine?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "25",
+          "rechnung": "5^2"
+        }
+      ]
+    },
+    {
+      "nr": 15,
+      "id": "25da44e4-8960-4836-929f-cdfbaab61c14",
+      "titel": "AFB I · Prozentuale Veränderung · 200 um 10 % größer",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 5 bereits zugeordneten Aufgaben mit skill_key prozent_veraenderung: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "10 % von 200 sind 20.\nVergrößert: 200 + 20 = 220 (oder 200 · 1,1 = 220).",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie viel sind 10 % von 200?"
+            },
+            {
+              "level": 2,
+              "text": "Rechne diesen Betrag zur ursprünglichen Zahl dazu."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Nur der Prozentwert wird angegeben: 20.",
+              "socratic_question": "Wie groß ist die Zahl insgesamt, nachdem sie gewachsen ist?"
+            },
+            {
+              "error": "Es wird verkleinert statt vergrößert: 180.",
+              "socratic_question": "Wird die Zahl größer oder kleiner?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "220",
+          "rechnung": "200*1.1"
+        }
+      ]
+    },
+    {
+      "nr": 16,
+      "id": "dcf715b5-4a34-48c8-ba54-bbbb22617058",
+      "titel": "AFB I · Prozentuale Veränderung · 400 um 10 % größer",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 5 bereits zugeordneten Aufgaben mit skill_key prozent_veraenderung: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "10 % von 400 sind 40.\nVergrößert: 400 + 40 = 440 (oder 400 · 1,1 = 440).",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie viel sind 10 % von 400?"
+            },
+            {
+              "level": 2,
+              "text": "Rechne diesen Betrag zur ursprünglichen Zahl dazu."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Nur der Prozentwert wird angegeben: 40.",
+              "socratic_question": "Wie groß ist die Zahl insgesamt, nachdem sie gewachsen ist?"
+            },
+            {
+              "error": "Es wird verkleinert statt vergrößert: 360.",
+              "socratic_question": "Wird die Zahl größer oder kleiner?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "440",
+          "rechnung": "400*1.1"
+        }
+      ]
+    },
+    {
+      "nr": 17,
+      "id": "c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7",
+      "titel": "AFB I · Volumen · Quader 2 cm, 3 cm, 5 cm",
+      "felder": {
+        "cluster_id": {
+          "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+          "sicher": "hoch",
+          "grund": "Wie alle 7 bereits zugeordneten Aufgaben mit skill_key geo_volumen_quader: Themengebiet „Geometrie & Messen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "V = a · b · c = 2 cm · 3 cm · 5 cm = 30 cm³.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie berechnest du das Volumen eines Quaders?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere alle drei Kantenlängen miteinander."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Nur zwei Kanten werden multipliziert: 2 · 3 = 6.",
+              "socratic_question": "Wie viele Kantenlängen braucht ein Körper mit Länge, Breite und Höhe?"
+            },
+            {
+              "error": "Die Kanten werden addiert: 2 + 3 + 5 = 10.",
+              "socratic_question": "Wird bei einem Volumen addiert oder multipliziert?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "30",
+          "rechnung": "2*3*5"
+        }
+      ]
+    },
+    {
+      "nr": 18,
+      "id": "7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4",
+      "titel": "AFB I · Volumen · Quader 4 cm, 2 cm, 6 cm",
+      "felder": {
+        "cluster_id": {
+          "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+          "sicher": "hoch",
+          "grund": "Wie alle 7 bereits zugeordneten Aufgaben mit skill_key geo_volumen_quader: Themengebiet „Geometrie & Messen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "V = a · b · c = 4 cm · 2 cm · 6 cm = 48 cm³.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie berechnest du das Volumen eines Quaders?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere alle drei Kantenlängen miteinander."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Nur zwei Kanten werden multipliziert: 4 · 2 = 8.",
+              "socratic_question": "Wie viele Kantenlängen braucht ein Körper mit Länge, Breite und Höhe?"
+            },
+            {
+              "error": "Die Kanten werden addiert: 4 + 2 + 6 = 12.",
+              "socratic_question": "Wird bei einem Volumen addiert oder multipliziert?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "48",
+          "rechnung": "4*2*6"
+        }
+      ]
+    },
+    {
+      "nr": 19,
+      "id": "a9ff9918-5d33-4381-b0bc-f611b3cb3a30",
+      "titel": "AFB I · Volumeneinheiten · 2 dm³ in cm³",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 5 bereits zugeordneten Aufgaben mit skill_key groessen_volumen: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "1 dm³ = 1000 cm³ (1 dm = 10 cm, also 10 · 10 · 10).\n2 dm³ = 2 · 1000 cm³ = 2000 cm³.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie viele Zentimeter hat ein Dezimeter – und wie viele cm³ passen dann in 1 dm³?"
+            },
+            {
+              "level": 2,
+              "text": "Bei Volumeneinheiten ist die Umrechnungszahl 1000."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Es wird wie bei Längen mit 10 multipliziert: 20.",
+              "socratic_question": "Wie viele Würfel mit 1 cm Kantenlänge passen in einen Würfel mit 1 dm Kantenlänge?"
+            },
+            {
+              "error": "Die Richtung wird vertauscht und geteilt: 0,002.",
+              "socratic_question": "Ist ein cm³ größer oder kleiner als ein dm³?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "2000",
+          "rechnung": "2*1000"
+        }
+      ]
+    },
+    {
+      "nr": 20,
+      "id": "d040f47f-0d2e-4cb1-abfc-36eb694f518d",
+      "titel": "AFB I · Volumeneinheiten · 5 dm³ in cm³",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 5 bereits zugeordneten Aufgaben mit skill_key groessen_volumen: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "1 dm³ = 1000 cm³ (1 dm = 10 cm, also 10 · 10 · 10).\n5 dm³ = 5 · 1000 cm³ = 5000 cm³.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie viele Zentimeter hat ein Dezimeter – und wie viele cm³ passen dann in 1 dm³?"
+            },
+            {
+              "level": 2,
+              "text": "Bei Volumeneinheiten ist die Umrechnungszahl 1000."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Es wird wie bei Längen mit 10 multipliziert: 50.",
+              "socratic_question": "Wie viele Würfel mit 1 cm Kantenlänge passen in einen Würfel mit 1 dm Kantenlänge?"
+            },
+            {
+              "error": "Die Richtung wird vertauscht und geteilt: 0,005.",
+              "socratic_question": "Ist ein cm³ größer oder kleiner als ein dm³?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "5000",
+          "rechnung": "5*1000"
+        }
+      ]
+    },
+    {
+      "nr": 21,
+      "id": "864f0b02-71a8-4203-988d-9b6fbf6dd074",
+      "titel": "AFB I · Vorrang · -6 + 4 · 2",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 7 bereits zugeordneten Aufgaben mit skill_key vorzeichen_vorrang: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "Punktrechnung vor Strichrechnung: 4 · 2 = 8.\n-6 + 8 = 2.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welche Rechenart kommt zuerst: Plus oder Mal?"
+            },
+            {
+              "level": 2,
+              "text": "Rechne zuerst 4 · 2 und addiere das Ergebnis zu -6."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Das Minuszeichen vor der 6 wird übersehen: 6 + 8 = 14.",
+              "socratic_question": "Welches Vorzeichen hat die erste Zahl?"
+            },
+            {
+              "error": "Von links nach rechts gerechnet: (-6 + 4) · 2 = -4.",
+              "socratic_question": "Gilt hier „von links nach rechts“ oder „Punkt vor Strich“?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "2",
+          "rechnung": "-6+4*2"
+        }
+      ]
+    },
+    {
+      "nr": 22,
+      "id": "d79fa8b6-c6b4-425c-ae78-724e5b38af81",
+      "titel": "AFB I · Vorrang · -8 + 5 · 3",
+      "felder": {
+        "cluster_id": {
+          "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+          "sicher": "hoch",
+          "grund": "Wie alle 7 bereits zugeordneten Aufgaben mit skill_key vorzeichen_vorrang: Themengebiet „Zahl & Rechnen“."
+        },
+        "needs_image": {
+          "wert": false,
+          "sicher": "hoch",
+          "grund": "Aufgabentext enthält alle Angaben und verweist auf keine Abbildung."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "Punktrechnung vor Strichrechnung: 5 · 3 = 15.\n-8 + 15 = 7.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welche Rechenart kommt zuerst: Plus oder Mal?"
+            },
+            {
+              "level": 2,
+              "text": "Rechne zuerst 5 · 3 und addiere das Ergebnis zu -8."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Das Minuszeichen vor der 8 wird übersehen: 8 + 15 = 23.",
+              "socratic_question": "Welches Vorzeichen hat die erste Zahl?"
+            },
+            {
+              "error": "Von links nach rechts gerechnet: (-8 + 5) · 3 = -9.",
+              "socratic_question": "Gilt hier „von links nach rechts“ oder „Punkt vor Strich“?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "antwort": "7",
+          "rechnung": "-8+5*3"
+        }
+      ]
+    },
+    {
+      "nr": 23,
+      "id": "dd4db5a2-2e96-4a93-b1c0-fca052b144ca",
+      "titel": "Gemischt · Koeffizienten und Differenz · (3x - 2)² - (x + 4)(x - 4)",
+      "felder": {
+        "est_duration_sec": {
+          "wert": 90,
+          "sicher": "mittel",
+          "grund": "Zeitregel: AFB III, kein Sachkontext."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "(3x - 2)² = 9x² - 12x + 4 (zweite binomische Formel)\n(x + 4)(x - 4) = x² - 16 (dritte binomische Formel)\n9x² - 12x + 4 - (x² - 16) = 8x² - 12x + 20.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welche binomischen Formeln stecken in den beiden Teilen?"
+            },
+            {
+              "level": 2,
+              "text": "Setze den zweiten Teil in Klammern, bevor du subtrahierst – das Minus wirkt auf beide Glieder."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Das Minus vor der Klammer wird nicht auf -16 angewendet: 8x² - 12x - 12.",
+              "socratic_question": "Was ergibt − (x² − 16), wenn du die Klammer auflöst?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "term": "(3x-2)^2-(x+4)(x-4)"
+        }
+      ]
+    },
+    {
+      "nr": 24,
+      "id": "b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261",
+      "titel": "Gemischt · Quadrat und Quadratdifferenz · (x + 5)² - (x + 2)(x - 2)",
+      "felder": {
+        "est_duration_sec": {
+          "wert": 60,
+          "sicher": "mittel",
+          "grund": "Zeitregel: AFB II, kein Sachkontext."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "(x + 5)² = x² + 10x + 25\n(x + 2)(x - 2) = x² - 4\nx² + 10x + 25 - (x² - 4) = 10x + 29.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welche binomischen Formeln stecken in den beiden Teilen?"
+            },
+            {
+              "level": 2,
+              "text": "Achte beim Abziehen der Klammer (x² − 4) auf das Vorzeichen der 4."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Das Minus vor der Klammer wird nicht auf -4 angewendet: 10x + 21.",
+              "socratic_question": "Was ergibt − (x² − 4), wenn du die Klammer auflöst?"
+            },
+            {
+              "error": "Das Quadrat wird gliedweise gebildet, der Mischterm 10x fehlt: 29.",
+              "socratic_question": "Rechne (x + 5)(x + 5) Schritt für Schritt aus – wie viele Produkte entstehen?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "term": "(x+5)^2-(x+2)(x-2)"
+        }
+      ]
+    },
+    {
+      "nr": 25,
+      "id": "f8364853-03fa-4d7e-807c-b0a20dbe09e3",
+      "titel": "Gemischt · Sachkontext · Restfläche",
+      "felder": {
+        "est_duration_sec": {
+          "wert": 120,
+          "sicher": "mittel",
+          "grund": "Zeitregel: AFB III + Sachkontext."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "Restfläche = Grundstück − Beet = (x + 3)² - (x - 1)²\n= x² + 6x + 9 - (x² - 2x + 1) = 8x + 8 (in m²).",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Wie berechnest du die Restfläche aus der Fläche des Grundstücks und der Fläche des Beets?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere beide Quadrate mit den binomischen Formeln aus und ziehe sie voneinander ab."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Beide Quadrate werden gliedweise gebildet: 9 − 1 = 8.",
+              "socratic_question": "Probiere es mit x = 2 aus: Wie groß sind Grundstück und Beet dann?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "term": "(x+3)^2-(x-1)^2"
+        }
+      ]
+    },
+    {
+      "nr": 26,
+      "id": "79c7a940-7a41-4b6b-b4ff-ce464425c758",
+      "titel": "Gemischt · Summe zweier Formeln · (x + 6)(x - 6) + (x + 2)²",
+      "felder": {
+        "est_duration_sec": {
+          "wert": 60,
+          "sicher": "mittel",
+          "grund": "Zeitregel: AFB II, kein Sachkontext."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "(x + 6)(x - 6) = x² - 36\n(x + 2)² = x² + 4x + 4\nx² - 36 + x² + 4x + 4 = 2x² + 4x - 32.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welche binomischen Formeln stecken in den beiden Teilen?"
+            },
+            {
+              "level": 2,
+              "text": "Multipliziere beide Teile aus und fasse gleichartige Terme zusammen."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Das Vorzeichen von 36 wird falsch übernommen: 2x² + 4x + 40.",
+              "socratic_question": "Was ergibt 6 · (−6) beim Ausmultiplizieren?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "term": "(x+6)(x-6)+(x+2)^2"
+        }
+      ]
+    },
+    {
+      "nr": 27,
+      "id": "1c519bed-37b4-4322-9668-849b4756efcf",
+      "titel": "Gemischt · vereinfachen · (x + 4)² - x² - 16",
+      "felder": {
+        "est_duration_sec": {
+          "wert": 60,
+          "sicher": "mittel",
+          "grund": "Zeitregel: AFB II, kein Sachkontext."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "(x + 4)² = x² + 8x + 16\nx² + 8x + 16 - x² - 16 = 8x.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Multipliziere (x + 4)² zuerst mit der ersten binomischen Formel aus."
+            },
+            {
+              "level": 2,
+              "text": "Fasse danach zusammen: Was bleibt übrig, wenn du x² und 16 wieder abziehst?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Das Quadrat wird gliedweise gebildet, der Mischterm fehlt: 0.",
+              "socratic_question": "Rechne (x + 4)(x + 4) Schritt für Schritt aus – bleibt wirklich nichts übrig?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "term": "(x+4)^2-x^2-16"
+        }
+      ]
+    },
+    {
+      "nr": 28,
+      "id": "c31fdbb1-9a48-4cd8-9b0c-35393af84330",
+      "titel": "Gemischt · zwei Quadrate · (x + 3)² - (x - 3)²",
+      "felder": {
+        "est_duration_sec": {
+          "wert": 60,
+          "sicher": "mittel",
+          "grund": "Zeitregel: AFB II, kein Sachkontext."
+        }
+      },
+      "loesung": {
+        "solution": {
+          "wert": "(x + 3)² = x² + 6x + 9\n(x - 3)² = x² - 6x + 9\nx² + 6x + 9 - (x² - 6x + 9) = 12x.",
+          "sicher": "hoch",
+          "grund": "Nachgerechnet."
+        },
+        "hints": {
+          "wert": [
+            {
+              "level": 1,
+              "text": "Welche binomischen Formeln stecken in den beiden Teilen?"
+            },
+            {
+              "level": 2,
+              "text": "Setze den zweiten Teil in Klammern, bevor du subtrahierst – das Minus wirkt auf alle drei Glieder."
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Generiert."
+        },
+        "typical_errors": {
+          "wert": [
+            {
+              "error": "Die Quadrate werden gliedweise gebildet: 9 − 9 = 0.",
+              "socratic_question": "Rechne (x + 3)(x + 3) Schritt für Schritt aus – wie viele Produkte entstehen?"
+            },
+            {
+              "error": "Die Klammer wird beim Abziehen vergessen: 18.",
+              "socratic_question": "Was ergibt − (x² − 6x + 9), wenn du die Klammer auflöst?"
+            }
+          ],
+          "sicher": "hoch",
+          "grund": "Aus acceptance.known_errors der Aufgabe abgeleitet."
+        }
+      },
+      "pruefung": [
+        {
+          "term": "(x+3)^2-(x-3)^2"
+        }
+      ]
+    }
+  ]
+}

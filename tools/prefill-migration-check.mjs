@@ -71,7 +71,9 @@ export function pruefeMigrationen(eigene, charge, stand) {
     }
     if (datei !== eigene) continue;
     const ids = new Set(charge.aufgaben.map((a) => a.id));
-    for (const id of new Set(text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g) ?? [])) {
+    // Nur Aufgaben-Bezuege (id = / task_id =) — UUIDs als WERT (z. B. cluster_id) sind keine Aufgaben.
+    const bezuege = [...text.matchAll(/\b(?:id|task_id)\s*=\s*'([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})'/g)].map((m) => m[1]);
+    for (const id of new Set(bezuege)) {
       if (!ids.has(id)) raus.push(`${datei}: fasst Aufgabe ${id} an, die nicht in der Charge steht`);
       else if (vera8Verstoesse({ aufgaben: [{ id, nr: '?', titel: id }] }, stand).length) raus.push(`${datei}: fasst VERA8-Aufgabe ${id} an`);
     }

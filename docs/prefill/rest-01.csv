@@ -1,0 +1,163 @@
+Aufgabe-ID,Teilaufgabe,Feld,alter Wert,neuer Wert,Art,Unsicherheit,Begründung
+dbe2ed81-b0e9-470a-8f9a-80966a4eaf63,,tasks.cluster_id,,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,Wie alle 7 bereits zugeordneten Aufgaben mit skill_key geo_flaeche_dreieck: Themengebiet „Geometrie & Messen“.
+dbe2ed81-b0e9-470a-8f9a-80966a4eaf63,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+dbe2ed81-b0e9-470a-8f9a-80966a4eaf63,,task_solutions.solution,,A = g · h : 2 = 10 cm · 6 cm : 2 = 60 cm² : 2 = 30 cm².,neu,hoch,Nachgerechnet.
+dbe2ed81-b0e9-470a-8f9a-80966a4eaf63,,task_solutions.hints,,"[{""level"":1,""text"":""Welche Formel gilt für die Fläche eines Dreiecks?""},{""level"":2,""text"":""Rechne Grundseite mal Höhe und teile das Ergebnis durch 2.""}]",neu,hoch,Generiert.
+dbe2ed81-b0e9-470a-8f9a-80966a4eaf63,,task_solutions.typical_errors,,"[{""error"":""Grundseite und Höhe werden addiert: 10 + 6 = 16."",""socratic_question"":""Wird bei einer Fläche addiert oder multipliziert?""},{""error"":""Das Halbieren wird vergessen: 10 · 6 = 60."",""socratic_question"":""Welchen Teil eines Rechtecks bedeckt das Dreieck?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+0f3fe7d3-cdcf-4514-84a9-b08e5826234a,,tasks.cluster_id,,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,Wie alle 7 bereits zugeordneten Aufgaben mit skill_key geo_flaeche_dreieck: Themengebiet „Geometrie & Messen“.
+0f3fe7d3-cdcf-4514-84a9-b08e5826234a,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+0f3fe7d3-cdcf-4514-84a9-b08e5826234a,,task_solutions.solution,,A = g · h : 2 = 6 cm · 4 cm : 2 = 24 cm² : 2 = 12 cm².,neu,hoch,Nachgerechnet.
+0f3fe7d3-cdcf-4514-84a9-b08e5826234a,,task_solutions.hints,,"[{""level"":1,""text"":""Welche Formel gilt für die Fläche eines Dreiecks?""},{""level"":2,""text"":""Rechne Grundseite mal Höhe und teile das Ergebnis durch 2.""}]",neu,hoch,Generiert.
+0f3fe7d3-cdcf-4514-84a9-b08e5826234a,,task_solutions.typical_errors,,"[{""error"":""Grundseite und Höhe werden addiert: 6 + 4 = 10."",""socratic_question"":""Wird bei einer Fläche addiert oder multipliziert?""},{""error"":""Das Halbieren wird vergessen: 6 · 4 = 24."",""socratic_question"":""Welchen Teil eines Rechtecks bedeckt das Dreieck?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+3372f3a7-7014-4052-809c-3bb17d627361,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 6 bereits zugeordneten Aufgaben mit skill_key groessen_flaechen: Themengebiet „Zahl & Rechnen“.
+3372f3a7-7014-4052-809c-3bb17d627361,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+3372f3a7-7014-4052-809c-3bb17d627361,,task_solutions.solution,,"1 cm² = 100 mm² (1 cm = 10 mm, also 10 · 10).
+5 cm² = 5 · 100 mm² = 500 mm².",neu,hoch,Nachgerechnet.
+3372f3a7-7014-4052-809c-3bb17d627361,,task_solutions.hints,,"[{""level"":1,""text"":""Wie viele Millimeter hat ein Zentimeter – und wie viele mm² passen dann in 1 cm²?""},{""level"":2,""text"":""Bei Flächeneinheiten ist die Umrechnungszahl 100. Multipliziere mit 100.""}]",neu,hoch,Generiert.
+3372f3a7-7014-4052-809c-3bb17d627361,,task_solutions.typical_errors,,"[{""error"":""Die Einheit wird nicht umgerechnet: 5."",""socratic_question"":""Ist ein mm² größer oder kleiner als ein cm²?""},{""error"":""Es wird wie bei Längen mit 10 statt mit 100 multipliziert: 50."",""socratic_question"":""Wie viele kleine Quadrate von 1 mm Seitenlänge passen in ein Quadrat von 1 cm Seitenlänge?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+341fd991-7230-4548-8413-7f5f422231bf,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 6 bereits zugeordneten Aufgaben mit skill_key groessen_flaechen: Themengebiet „Zahl & Rechnen“.
+341fd991-7230-4548-8413-7f5f422231bf,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+341fd991-7230-4548-8413-7f5f422231bf,,task_solutions.solution,,"1 cm² = 100 mm² (1 cm = 10 mm, also 10 · 10).
+8 cm² = 8 · 100 mm² = 800 mm².",neu,hoch,Nachgerechnet.
+341fd991-7230-4548-8413-7f5f422231bf,,task_solutions.hints,,"[{""level"":1,""text"":""Wie viele Millimeter hat ein Zentimeter – und wie viele mm² passen dann in 1 cm²?""},{""level"":2,""text"":""Bei Flächeneinheiten ist die Umrechnungszahl 100. Multipliziere mit 100.""}]",neu,hoch,Generiert.
+341fd991-7230-4548-8413-7f5f422231bf,,task_solutions.typical_errors,,"[{""error"":""Die Einheit wird nicht umgerechnet: 8."",""socratic_question"":""Ist ein mm² größer oder kleiner als ein cm²?""},{""error"":""Es wird wie bei Längen mit 10 statt mit 100 multipliziert: 80."",""socratic_question"":""Wie viele kleine Quadrate von 1 mm Seitenlänge passen in ein Quadrat von 1 cm Seitenlänge?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+dd8db039-818d-42c2-8866-2df507675c36,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 6 bereits zugeordneten Aufgaben mit skill_key groessen_gemischt: Themengebiet „Zahl & Rechnen“.
+dd8db039-818d-42c2-8866-2df507675c36,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+dd8db039-818d-42c2-8866-2df507675c36,,task_solutions.solution,,"1 m = 100 cm.
+1,4 m = 1,4 · 100 cm = 140 cm.",neu,hoch,Nachgerechnet.
+dd8db039-818d-42c2-8866-2df507675c36,,task_solutions.hints,,"[{""level"":1,""text"":""Wie viele Zentimeter hat ein Meter?""},{""level"":2,""text"":""Multipliziere 1,4 mit 100 – das Komma rückt zwei Stellen nach rechts.""}]",neu,hoch,Generiert.
+dd8db039-818d-42c2-8866-2df507675c36,,task_solutions.typical_errors,,"[{""error"":""Mit 10 statt mit 100 multipliziert: 14."",""socratic_question"":""Wie viele Zentimeter hat ein Meter genau?""},{""error"":""Das Komma wird als Trenner gelesen: 1 m und 4 cm = 104 cm."",""socratic_question"":""Was bedeutet die 4 nach dem Komma – 4 Zentimeter oder 4 Zehntel Meter?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+c9e3f728-2591-4704-9558-d5f8dc467f93,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 6 bereits zugeordneten Aufgaben mit skill_key groessen_gemischt: Themengebiet „Zahl & Rechnen“.
+c9e3f728-2591-4704-9558-d5f8dc467f93,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+c9e3f728-2591-4704-9558-d5f8dc467f93,,task_solutions.solution,,"1 m = 100 cm.
+2,5 m = 2,5 · 100 cm = 250 cm.",neu,hoch,Nachgerechnet.
+c9e3f728-2591-4704-9558-d5f8dc467f93,,task_solutions.hints,,"[{""level"":1,""text"":""Wie viele Zentimeter hat ein Meter?""},{""level"":2,""text"":""Multipliziere 2,5 mit 100 – das Komma rückt zwei Stellen nach rechts.""}]",neu,hoch,Generiert.
+c9e3f728-2591-4704-9558-d5f8dc467f93,,task_solutions.typical_errors,,"[{""error"":""Mit 10 statt mit 100 multipliziert: 25."",""socratic_question"":""Wie viele Zentimeter hat ein Meter genau?""},{""error"":""Das Komma wird als Trenner gelesen: 2 m und 5 cm = 205 cm."",""socratic_question"":""Was bedeutet die 5 nach dem Komma – 5 Zentimeter oder 5 Zehntel Meter?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+00096607-230e-4fd3-b236-42673e5ea268,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 5 bereits zugeordneten Aufgaben mit skill_key gleichung_beidseitig: Themengebiet „Zahl & Rechnen“.
+00096607-230e-4fd3-b236-42673e5ea268,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+00096607-230e-4fd3-b236-42673e5ea268,,task_solutions.solution,,"4x + 3 = 3x + 11 | − 3x
+x + 3 = 11 | − 3
+x = 8
+Probe: 4 · 8 + 3 = 35 und 3 · 8 + 11 = 35.",neu,hoch,Nachgerechnet.
+00096607-230e-4fd3-b236-42673e5ea268,,task_solutions.hints,,"[{""level"":1,""text"":""Bringe alle Terme mit x auf eine Seite der Gleichung.""},{""level"":2,""text"":""Ziehe auf beiden Seiten 3x ab, danach auf beiden Seiten 3.""}]",neu,hoch,Generiert.
+00096607-230e-4fd3-b236-42673e5ea268,,task_solutions.typical_errors,,"[{""error"":""Die x-Terme werden nicht zusammengeführt, sondern nur die Zahlen verrechnet."",""socratic_question"":""Was passiert mit 4x und 3x, wenn du auf beiden Seiten 3x abziehst?""},{""error"":""Beim Zusammenführen wird ein Vorzeichen falsch übernommen."",""socratic_question"":""Setze dein Ergebnis zur Probe in beide Seiten ein – kommt links und rechts dasselbe heraus?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+f76034e5-792c-47bb-81b2-1d5ecd205499,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 5 bereits zugeordneten Aufgaben mit skill_key gleichung_beidseitig: Themengebiet „Zahl & Rechnen“.
+f76034e5-792c-47bb-81b2-1d5ecd205499,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+f76034e5-792c-47bb-81b2-1d5ecd205499,,task_solutions.solution,,"6x + 2 = 5x + 8 | − 5x
+x + 2 = 8 | − 2
+x = 6
+Probe: 6 · 6 + 2 = 38 und 5 · 6 + 8 = 38.",neu,hoch,Nachgerechnet.
+f76034e5-792c-47bb-81b2-1d5ecd205499,,task_solutions.hints,,"[{""level"":1,""text"":""Bringe alle Terme mit x auf eine Seite der Gleichung.""},{""level"":2,""text"":""Ziehe auf beiden Seiten 5x ab, danach auf beiden Seiten 2.""}]",neu,hoch,Generiert.
+f76034e5-792c-47bb-81b2-1d5ecd205499,,task_solutions.typical_errors,,"[{""error"":""Die x-Terme werden nicht zusammengeführt, sondern nur die Zahlen verrechnet."",""socratic_question"":""Was passiert mit 6x und 5x, wenn du auf beiden Seiten 5x abziehst?""},{""error"":""Beim Zusammenführen wird ein Vorzeichen falsch übernommen."",""socratic_question"":""Setze dein Ergebnis zur Probe in beide Seiten ein – kommt links und rechts dasselbe heraus?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+5bcf9b2a-6cce-4674-b070-3bd14cd3bad1,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 6 bereits zugeordneten Aufgaben mit skill_key prozent_grundwert: Themengebiet „Zahl & Rechnen“.
+5bcf9b2a-6cce-4674-b070-3bd14cd3bad1,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+5bcf9b2a-6cce-4674-b070-3bd14cd3bad1,,task_solutions.solution,,"10 % sind der zehnte Teil. Wenn 20 der zehnte Teil sind, ist die ganze Zahl 20 · 10 = 200.",neu,hoch,Nachgerechnet.
+5bcf9b2a-6cce-4674-b070-3bd14cd3bad1,,task_solutions.hints,,"[{""level"":1,""text"":""Welcher Bruchteil sind 10 %?""},{""level"":2,""text"":""Wenn 20 ein Zehntel der Zahl sind: Wie oft passt dieses Zehntel in das Ganze?""}]",neu,hoch,Generiert.
+5bcf9b2a-6cce-4674-b070-3bd14cd3bad1,,task_solutions.typical_errors,,"[{""error"":""Es wird 20 · 0,1 gerechnet statt geteilt: 2."",""socratic_question"":""Muss die gesuchte Zahl größer oder kleiner als 20 sein?""},{""error"":""Das Komma wird eine Stelle zu weit verschoben: 2000."",""socratic_question"":""Sind 10 % von 2000 wirklich 20?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+f0dc76f2-9666-4122-867c-9d089b106205,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 6 bereits zugeordneten Aufgaben mit skill_key prozent_grundwert: Themengebiet „Zahl & Rechnen“.
+f0dc76f2-9666-4122-867c-9d089b106205,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+f0dc76f2-9666-4122-867c-9d089b106205,,task_solutions.solution,,"10 % sind der zehnte Teil. Wenn 45 der zehnte Teil sind, ist die ganze Zahl 45 · 10 = 450.",neu,hoch,Nachgerechnet.
+f0dc76f2-9666-4122-867c-9d089b106205,,task_solutions.hints,,"[{""level"":1,""text"":""Welcher Bruchteil sind 10 %?""},{""level"":2,""text"":""Wenn 45 ein Zehntel der Zahl sind: Wie oft passt dieses Zehntel in das Ganze?""}]",neu,hoch,Generiert.
+f0dc76f2-9666-4122-867c-9d089b106205,,task_solutions.typical_errors,,"[{""error"":""Es wird 45 · 0,1 gerechnet statt geteilt: 4,5."",""socratic_question"":""Muss die gesuchte Zahl größer oder kleiner als 45 sein?""},{""error"":""Das Komma wird eine Stelle zu weit verschoben: 4500."",""socratic_question"":""Sind 10 % von 4500 wirklich 45?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+76f0bf82-458f-4903-a1ac-71f74c44e1e5,,tasks.cluster_id,,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,Wie alle 6 bereits zugeordneten Aufgaben mit skill_key geo_massstab: Themengebiet „Geometrie & Messen“.
+76f0bf82-458f-4903-a1ac-71f74c44e1e5,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+76f0bf82-458f-4903-a1ac-71f74c44e1e5,,task_solutions.solution,,"Maßstab 1:100 heißt: 1 cm auf dem Plan sind 100 cm in Wirklichkeit.
+5 cm · 100 = 500 cm.",neu,hoch,Nachgerechnet.
+76f0bf82-458f-4903-a1ac-71f74c44e1e5,,task_solutions.hints,,"[{""level"":1,""text"":""Was bedeutet der Maßstab 1:100 für 1 cm auf dem Plan?""},{""level"":2,""text"":""Multipliziere die Länge auf dem Plan mit 100.""}]",neu,hoch,Generiert.
+76f0bf82-458f-4903-a1ac-71f74c44e1e5,,task_solutions.typical_errors,,"[{""error"":""Mit 10 statt mit 100 multipliziert: 50 cm."",""socratic_question"":""Was sagt die zweite Zahl im Maßstab 1:100 aus?""},{""error"":""Die Richtung wird vertauscht und durch 100 geteilt: 0,05 cm."",""socratic_question"":""Ist die Strecke in Wirklichkeit länger oder kürzer als auf dem Plan?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7,,tasks.cluster_id,,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,Wie alle 6 bereits zugeordneten Aufgaben mit skill_key geo_massstab: Themengebiet „Geometrie & Messen“.
+1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7,,task_solutions.solution,,"Maßstab 1:200 heißt: 1 cm auf dem Plan sind 200 cm in Wirklichkeit.
+3 cm · 200 = 600 cm.",neu,hoch,Nachgerechnet.
+1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7,,task_solutions.hints,,"[{""level"":1,""text"":""Was bedeutet der Maßstab 1:200 für 1 cm auf dem Plan?""},{""level"":2,""text"":""Multipliziere die Länge auf dem Plan mit 200.""}]",neu,hoch,Generiert.
+1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7,,task_solutions.typical_errors,,"[{""error"":""Mit 20 statt mit 200 multipliziert: 60 cm."",""socratic_question"":""Was sagt die zweite Zahl im Maßstab 1:200 aus?""},{""error"":""Die Richtung wird vertauscht und durch 200 geteilt: 0,015 cm."",""socratic_question"":""Ist die Strecke in Wirklichkeit länger oder kürzer als auf dem Plan?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+01f22500-c86d-47d0-bb1d-a5f420e2de9d,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 16 bereits zugeordneten Aufgaben mit skill_key potenzen: Themengebiet „Zahl & Rechnen“.
+01f22500-c86d-47d0-bb1d-a5f420e2de9d,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+01f22500-c86d-47d0-bb1d-a5f420e2de9d,,task_solutions.solution,,3² = 3 · 3 = 9.,neu,hoch,Nachgerechnet.
+01f22500-c86d-47d0-bb1d-a5f420e2de9d,,task_solutions.hints,,"[{""level"":1,""text"":""Was bedeutet die kleine 2 oben an der 3?""},{""level"":2,""text"":""Multipliziere die Zahl mit sich selbst.""}]",neu,hoch,Generiert.
+01f22500-c86d-47d0-bb1d-a5f420e2de9d,,task_solutions.typical_errors,,"[{""error"":""Basis mal Exponent gerechnet: 3 · 2 = 6."",""socratic_question"":""Wie oft steht die 3 als Faktor in 3²?""},{""error"":""Basis und Exponent werden vertauscht: 2³ = 8."",""socratic_question"":""Welche Zahl wird mit sich selbst multipliziert – die große oder die kleine?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+25539057-46a0-473c-ab73-40d1b81edd55,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 16 bereits zugeordneten Aufgaben mit skill_key potenzen: Themengebiet „Zahl & Rechnen“.
+25539057-46a0-473c-ab73-40d1b81edd55,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+25539057-46a0-473c-ab73-40d1b81edd55,,task_solutions.solution,,5² = 5 · 5 = 25.,neu,hoch,Nachgerechnet.
+25539057-46a0-473c-ab73-40d1b81edd55,,task_solutions.hints,,"[{""level"":1,""text"":""Was bedeutet die kleine 2 oben an der 5?""},{""level"":2,""text"":""Multipliziere die Zahl mit sich selbst.""}]",neu,hoch,Generiert.
+25539057-46a0-473c-ab73-40d1b81edd55,,task_solutions.typical_errors,,"[{""error"":""Basis mal Exponent gerechnet: 5 · 2 = 10."",""socratic_question"":""Wie oft steht die 5 als Faktor in 5²?""},{""error"":""Basis und Exponent werden vertauscht: 2⁵ = 32."",""socratic_question"":""Welche Zahl wird mit sich selbst multipliziert – die große oder die kleine?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+25da44e4-8960-4836-929f-cdfbaab61c14,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 5 bereits zugeordneten Aufgaben mit skill_key prozent_veraenderung: Themengebiet „Zahl & Rechnen“.
+25da44e4-8960-4836-929f-cdfbaab61c14,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+25da44e4-8960-4836-929f-cdfbaab61c14,,task_solutions.solution,,"10 % von 200 sind 20.
+Vergrößert: 200 + 20 = 220 (oder 200 · 1,1 = 220).",neu,hoch,Nachgerechnet.
+25da44e4-8960-4836-929f-cdfbaab61c14,,task_solutions.hints,,"[{""level"":1,""text"":""Wie viel sind 10 % von 200?""},{""level"":2,""text"":""Rechne diesen Betrag zur ursprünglichen Zahl dazu.""}]",neu,hoch,Generiert.
+25da44e4-8960-4836-929f-cdfbaab61c14,,task_solutions.typical_errors,,"[{""error"":""Nur der Prozentwert wird angegeben: 20."",""socratic_question"":""Wie groß ist die Zahl insgesamt, nachdem sie gewachsen ist?""},{""error"":""Es wird verkleinert statt vergrößert: 180."",""socratic_question"":""Wird die Zahl größer oder kleiner?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+dcf715b5-4a34-48c8-ba54-bbbb22617058,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 5 bereits zugeordneten Aufgaben mit skill_key prozent_veraenderung: Themengebiet „Zahl & Rechnen“.
+dcf715b5-4a34-48c8-ba54-bbbb22617058,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+dcf715b5-4a34-48c8-ba54-bbbb22617058,,task_solutions.solution,,"10 % von 400 sind 40.
+Vergrößert: 400 + 40 = 440 (oder 400 · 1,1 = 440).",neu,hoch,Nachgerechnet.
+dcf715b5-4a34-48c8-ba54-bbbb22617058,,task_solutions.hints,,"[{""level"":1,""text"":""Wie viel sind 10 % von 400?""},{""level"":2,""text"":""Rechne diesen Betrag zur ursprünglichen Zahl dazu.""}]",neu,hoch,Generiert.
+dcf715b5-4a34-48c8-ba54-bbbb22617058,,task_solutions.typical_errors,,"[{""error"":""Nur der Prozentwert wird angegeben: 40."",""socratic_question"":""Wie groß ist die Zahl insgesamt, nachdem sie gewachsen ist?""},{""error"":""Es wird verkleinert statt vergrößert: 360."",""socratic_question"":""Wird die Zahl größer oder kleiner?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7,,tasks.cluster_id,,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,Wie alle 7 bereits zugeordneten Aufgaben mit skill_key geo_volumen_quader: Themengebiet „Geometrie & Messen“.
+c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7,,task_solutions.solution,,V = a · b · c = 2 cm · 3 cm · 5 cm = 30 cm³.,neu,hoch,Nachgerechnet.
+c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7,,task_solutions.hints,,"[{""level"":1,""text"":""Wie berechnest du das Volumen eines Quaders?""},{""level"":2,""text"":""Multipliziere alle drei Kantenlängen miteinander.""}]",neu,hoch,Generiert.
+c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7,,task_solutions.typical_errors,,"[{""error"":""Nur zwei Kanten werden multipliziert: 2 · 3 = 6."",""socratic_question"":""Wie viele Kantenlängen braucht ein Körper mit Länge, Breite und Höhe?""},{""error"":""Die Kanten werden addiert: 2 + 3 + 5 = 10."",""socratic_question"":""Wird bei einem Volumen addiert oder multipliziert?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4,,tasks.cluster_id,,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,Wie alle 7 bereits zugeordneten Aufgaben mit skill_key geo_volumen_quader: Themengebiet „Geometrie & Messen“.
+7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4,,task_solutions.solution,,V = a · b · c = 4 cm · 2 cm · 6 cm = 48 cm³.,neu,hoch,Nachgerechnet.
+7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4,,task_solutions.hints,,"[{""level"":1,""text"":""Wie berechnest du das Volumen eines Quaders?""},{""level"":2,""text"":""Multipliziere alle drei Kantenlängen miteinander.""}]",neu,hoch,Generiert.
+7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4,,task_solutions.typical_errors,,"[{""error"":""Nur zwei Kanten werden multipliziert: 4 · 2 = 8."",""socratic_question"":""Wie viele Kantenlängen braucht ein Körper mit Länge, Breite und Höhe?""},{""error"":""Die Kanten werden addiert: 4 + 2 + 6 = 12."",""socratic_question"":""Wird bei einem Volumen addiert oder multipliziert?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+a9ff9918-5d33-4381-b0bc-f611b3cb3a30,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 5 bereits zugeordneten Aufgaben mit skill_key groessen_volumen: Themengebiet „Zahl & Rechnen“.
+a9ff9918-5d33-4381-b0bc-f611b3cb3a30,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+a9ff9918-5d33-4381-b0bc-f611b3cb3a30,,task_solutions.solution,,"1 dm³ = 1000 cm³ (1 dm = 10 cm, also 10 · 10 · 10).
+2 dm³ = 2 · 1000 cm³ = 2000 cm³.",neu,hoch,Nachgerechnet.
+a9ff9918-5d33-4381-b0bc-f611b3cb3a30,,task_solutions.hints,,"[{""level"":1,""text"":""Wie viele Zentimeter hat ein Dezimeter – und wie viele cm³ passen dann in 1 dm³?""},{""level"":2,""text"":""Bei Volumeneinheiten ist die Umrechnungszahl 1000.""}]",neu,hoch,Generiert.
+a9ff9918-5d33-4381-b0bc-f611b3cb3a30,,task_solutions.typical_errors,,"[{""error"":""Es wird wie bei Längen mit 10 multipliziert: 20."",""socratic_question"":""Wie viele Würfel mit 1 cm Kantenlänge passen in einen Würfel mit 1 dm Kantenlänge?""},{""error"":""Die Richtung wird vertauscht und geteilt: 0,002."",""socratic_question"":""Ist ein cm³ größer oder kleiner als ein dm³?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+d040f47f-0d2e-4cb1-abfc-36eb694f518d,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 5 bereits zugeordneten Aufgaben mit skill_key groessen_volumen: Themengebiet „Zahl & Rechnen“.
+d040f47f-0d2e-4cb1-abfc-36eb694f518d,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+d040f47f-0d2e-4cb1-abfc-36eb694f518d,,task_solutions.solution,,"1 dm³ = 1000 cm³ (1 dm = 10 cm, also 10 · 10 · 10).
+5 dm³ = 5 · 1000 cm³ = 5000 cm³.",neu,hoch,Nachgerechnet.
+d040f47f-0d2e-4cb1-abfc-36eb694f518d,,task_solutions.hints,,"[{""level"":1,""text"":""Wie viele Zentimeter hat ein Dezimeter – und wie viele cm³ passen dann in 1 dm³?""},{""level"":2,""text"":""Bei Volumeneinheiten ist die Umrechnungszahl 1000.""}]",neu,hoch,Generiert.
+d040f47f-0d2e-4cb1-abfc-36eb694f518d,,task_solutions.typical_errors,,"[{""error"":""Es wird wie bei Längen mit 10 multipliziert: 50."",""socratic_question"":""Wie viele Würfel mit 1 cm Kantenlänge passen in einen Würfel mit 1 dm Kantenlänge?""},{""error"":""Die Richtung wird vertauscht und geteilt: 0,005."",""socratic_question"":""Ist ein cm³ größer oder kleiner als ein dm³?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+864f0b02-71a8-4203-988d-9b6fbf6dd074,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 7 bereits zugeordneten Aufgaben mit skill_key vorzeichen_vorrang: Themengebiet „Zahl & Rechnen“.
+864f0b02-71a8-4203-988d-9b6fbf6dd074,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+864f0b02-71a8-4203-988d-9b6fbf6dd074,,task_solutions.solution,,"Punktrechnung vor Strichrechnung: 4 · 2 = 8.
+-6 + 8 = 2.",neu,hoch,Nachgerechnet.
+864f0b02-71a8-4203-988d-9b6fbf6dd074,,task_solutions.hints,,"[{""level"":1,""text"":""Welche Rechenart kommt zuerst: Plus oder Mal?""},{""level"":2,""text"":""Rechne zuerst 4 · 2 und addiere das Ergebnis zu -6.""}]",neu,hoch,Generiert.
+864f0b02-71a8-4203-988d-9b6fbf6dd074,,task_solutions.typical_errors,,"[{""error"":""Das Minuszeichen vor der 6 wird übersehen: 6 + 8 = 14."",""socratic_question"":""Welches Vorzeichen hat die erste Zahl?""},{""error"":""Von links nach rechts gerechnet: (-6 + 4) · 2 = -4."",""socratic_question"":""Gilt hier „von links nach rechts“ oder „Punkt vor Strich“?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+d79fa8b6-c6b4-425c-ae78-724e5b38af81,,tasks.cluster_id,,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Wie alle 7 bereits zugeordneten Aufgaben mit skill_key vorzeichen_vorrang: Themengebiet „Zahl & Rechnen“.
+d79fa8b6-c6b4-425c-ae78-724e5b38af81,,tasks.needs_image,,false,neu,hoch,Aufgabentext enthält alle Angaben und verweist auf keine Abbildung.
+d79fa8b6-c6b4-425c-ae78-724e5b38af81,,task_solutions.solution,,"Punktrechnung vor Strichrechnung: 5 · 3 = 15.
+-8 + 15 = 7.",neu,hoch,Nachgerechnet.
+d79fa8b6-c6b4-425c-ae78-724e5b38af81,,task_solutions.hints,,"[{""level"":1,""text"":""Welche Rechenart kommt zuerst: Plus oder Mal?""},{""level"":2,""text"":""Rechne zuerst 5 · 3 und addiere das Ergebnis zu -8.""}]",neu,hoch,Generiert.
+d79fa8b6-c6b4-425c-ae78-724e5b38af81,,task_solutions.typical_errors,,"[{""error"":""Das Minuszeichen vor der 8 wird übersehen: 8 + 15 = 23."",""socratic_question"":""Welches Vorzeichen hat die erste Zahl?""},{""error"":""Von links nach rechts gerechnet: (-8 + 5) · 3 = -9."",""socratic_question"":""Gilt hier „von links nach rechts“ oder „Punkt vor Strich“?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+dd4db5a2-2e96-4a93-b1c0-fca052b144ca,,tasks.est_duration_sec,,90,neu,mittel,"Zeitregel: AFB III, kein Sachkontext."
+dd4db5a2-2e96-4a93-b1c0-fca052b144ca,,task_solutions.solution,,"(3x - 2)² = 9x² - 12x + 4 (zweite binomische Formel)
+(x + 4)(x - 4) = x² - 16 (dritte binomische Formel)
+9x² - 12x + 4 - (x² - 16) = 8x² - 12x + 20.",neu,hoch,Nachgerechnet.
+dd4db5a2-2e96-4a93-b1c0-fca052b144ca,,task_solutions.hints,,"[{""level"":1,""text"":""Welche binomischen Formeln stecken in den beiden Teilen?""},{""level"":2,""text"":""Setze den zweiten Teil in Klammern, bevor du subtrahierst – das Minus wirkt auf beide Glieder.""}]",neu,hoch,Generiert.
+dd4db5a2-2e96-4a93-b1c0-fca052b144ca,,task_solutions.typical_errors,,"[{""error"":""Das Minus vor der Klammer wird nicht auf -16 angewendet: 8x² - 12x - 12."",""socratic_question"":""Was ergibt − (x² − 16), wenn du die Klammer auflöst?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261,,tasks.est_duration_sec,,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261,,task_solutions.solution,,"(x + 5)² = x² + 10x + 25
+(x + 2)(x - 2) = x² - 4
+x² + 10x + 25 - (x² - 4) = 10x + 29.",neu,hoch,Nachgerechnet.
+b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261,,task_solutions.hints,,"[{""level"":1,""text"":""Welche binomischen Formeln stecken in den beiden Teilen?""},{""level"":2,""text"":""Achte beim Abziehen der Klammer (x² − 4) auf das Vorzeichen der 4.""}]",neu,hoch,Generiert.
+b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261,,task_solutions.typical_errors,,"[{""error"":""Das Minus vor der Klammer wird nicht auf -4 angewendet: 10x + 21."",""socratic_question"":""Was ergibt − (x² − 4), wenn du die Klammer auflöst?""},{""error"":""Das Quadrat wird gliedweise gebildet, der Mischterm 10x fehlt: 29."",""socratic_question"":""Rechne (x + 5)(x + 5) Schritt für Schritt aus – wie viele Produkte entstehen?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+f8364853-03fa-4d7e-807c-b0a20dbe09e3,,tasks.est_duration_sec,,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+f8364853-03fa-4d7e-807c-b0a20dbe09e3,,task_solutions.solution,,"Restfläche = Grundstück − Beet = (x + 3)² - (x - 1)²
+= x² + 6x + 9 - (x² - 2x + 1) = 8x + 8 (in m²).",neu,hoch,Nachgerechnet.
+f8364853-03fa-4d7e-807c-b0a20dbe09e3,,task_solutions.hints,,"[{""level"":1,""text"":""Wie berechnest du die Restfläche aus der Fläche des Grundstücks und der Fläche des Beets?""},{""level"":2,""text"":""Multipliziere beide Quadrate mit den binomischen Formeln aus und ziehe sie voneinander ab.""}]",neu,hoch,Generiert.
+f8364853-03fa-4d7e-807c-b0a20dbe09e3,,task_solutions.typical_errors,,"[{""error"":""Beide Quadrate werden gliedweise gebildet: 9 − 1 = 8."",""socratic_question"":""Probiere es mit x = 2 aus: Wie groß sind Grundstück und Beet dann?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+79c7a940-7a41-4b6b-b4ff-ce464425c758,,tasks.est_duration_sec,,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+79c7a940-7a41-4b6b-b4ff-ce464425c758,,task_solutions.solution,,"(x + 6)(x - 6) = x² - 36
+(x + 2)² = x² + 4x + 4
+x² - 36 + x² + 4x + 4 = 2x² + 4x - 32.",neu,hoch,Nachgerechnet.
+79c7a940-7a41-4b6b-b4ff-ce464425c758,,task_solutions.hints,,"[{""level"":1,""text"":""Welche binomischen Formeln stecken in den beiden Teilen?""},{""level"":2,""text"":""Multipliziere beide Teile aus und fasse gleichartige Terme zusammen.""}]",neu,hoch,Generiert.
+79c7a940-7a41-4b6b-b4ff-ce464425c758,,task_solutions.typical_errors,,"[{""error"":""Das Vorzeichen von 36 wird falsch übernommen: 2x² + 4x + 40."",""socratic_question"":""Was ergibt 6 · (−6) beim Ausmultiplizieren?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+1c519bed-37b4-4322-9668-849b4756efcf,,tasks.est_duration_sec,,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+1c519bed-37b4-4322-9668-849b4756efcf,,task_solutions.solution,,"(x + 4)² = x² + 8x + 16
+x² + 8x + 16 - x² - 16 = 8x.",neu,hoch,Nachgerechnet.
+1c519bed-37b4-4322-9668-849b4756efcf,,task_solutions.hints,,"[{""level"":1,""text"":""Multipliziere (x + 4)² zuerst mit der ersten binomischen Formel aus.""},{""level"":2,""text"":""Fasse danach zusammen: Was bleibt übrig, wenn du x² und 16 wieder abziehst?""}]",neu,hoch,Generiert.
+1c519bed-37b4-4322-9668-849b4756efcf,,task_solutions.typical_errors,,"[{""error"":""Das Quadrat wird gliedweise gebildet, der Mischterm fehlt: 0."",""socratic_question"":""Rechne (x + 4)(x + 4) Schritt für Schritt aus – bleibt wirklich nichts übrig?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.
+c31fdbb1-9a48-4cd8-9b0c-35393af84330,,tasks.est_duration_sec,,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+c31fdbb1-9a48-4cd8-9b0c-35393af84330,,task_solutions.solution,,"(x + 3)² = x² + 6x + 9
+(x - 3)² = x² - 6x + 9
+x² + 6x + 9 - (x² - 6x + 9) = 12x.",neu,hoch,Nachgerechnet.
+c31fdbb1-9a48-4cd8-9b0c-35393af84330,,task_solutions.hints,,"[{""level"":1,""text"":""Welche binomischen Formeln stecken in den beiden Teilen?""},{""level"":2,""text"":""Setze den zweiten Teil in Klammern, bevor du subtrahierst – das Minus wirkt auf alle drei Glieder.""}]",neu,hoch,Generiert.
+c31fdbb1-9a48-4cd8-9b0c-35393af84330,,task_solutions.typical_errors,,"[{""error"":""Die Quadrate werden gliedweise gebildet: 9 − 9 = 0."",""socratic_question"":""Rechne (x + 3)(x + 3) Schritt für Schritt aus – wie viele Produkte entstehen?""},{""error"":""Die Klammer wird beim Abziehen vergessen: 18."",""socratic_question"":""Was ergibt − (x² − 6x + 9), wenn du die Klammer auflöst?""}]",neu,hoch,Aus acceptance.known_errors der Aufgabe abgeleitet.

@@ -20,7 +20,9 @@ import path from 'node:path';
 import { kennzeichenGrund, keinVera8Sql, ladeCharge, vera8Verstoesse, wirksam } from './prefill-lib.mjs';
 
 const [chargePfad, snapPfad, version, name] = process.argv.slice(2);
-if (!name || !/^\d{14}$/.test(version)) {
+// ENTWURF: noch ohne gueltige Version (date -u liegt vor der Vorgaenger-Migration) —
+// die Datei landet in docs/prefill/, nicht in supabase/migrations/ (CI spielt sie nicht ein).
+if (!name || !(/^\d{14}$/.test(version) || version === 'ENTWURF')) {
   console.error('Aufruf: prefill-build.mjs <charge.json> <snapshot.json> <14-stellige Version> <name>');
   process.exit(2);
 }
@@ -129,7 +131,9 @@ const kopf = `-- Datenmigration ${charge.batch}: Vorbefuellung fuer Lenas Pruefu
 -- Kein Ziel-DB-Guard in der Datei: CI spielt alle Migrationen in eine leere DB 'neuaufbau' ein
 -- (dort treffen die UPDATEs 0 Zeilen). Der Ziel-DB-Check steht in der Apply-Kette (docs/prefill/README.md).
 `;
-const migPfad = path.join('supabase/migrations', `${version}_${name}.sql`);
+const migPfad = version === 'ENTWURF'
+  ? path.join('docs/prefill', `ENTWURF_${name}.sql`)
+  : path.join('supabase/migrations', `${version}_${name}.sql`);
 fs.writeFileSync(migPfad, kopf + sql.join('\n') + '\n');
 const csvZelle = (v) => (/[",\n;]/.test(v) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
 fs.writeFileSync(`docs/prefill/${charge.batch}.csv`, csv.map((r) => r.map((v) => csvZelle(v ?? '')).join(',')).join('\n') + '\n');
