@@ -19,6 +19,7 @@ import type {
   TaskPart,
   TaskSolution,
 } from '@/types'
+import { istVera8 } from './vera8'
 
 /** Markdown-GFM-Tabelle im Stamm: eine Zeile, die mit | beginnt und endet. */
 export function hasTable(question: string | null): boolean {
@@ -135,9 +136,9 @@ export function computeFlags(
   // sein — CC BY 4.0 verlangt die Namensnennung beim Zeigen (A09). Blockierend
   // wie der Alt-Text. Eigenbauten (Bruchrechnung, Prozent …) haben keine externe
   // Quelle und brauchen keine Attribution — sie sind hier ausgenommen. Die
-  // Quellenpruefung ist bewusst inline (diese Datei bleibt abhaengigkeitsfrei):
+  // Quellenpruefung ohne grounding.ts (diese Datei bleibt frei von Fetch/Supabase):
   // gegrounded ist ein Item mit source_ref aus einer belegpflichtigen Quelle.
-  const hatQuelle = Boolean(task.source_ref) && task.source === 'VERA8_IQB'
+  const hatQuelle = Boolean(task.source_ref) && istVera8(task)
   if (task.assets.length > 0 && hatQuelle && isBlank(task.licence_text)) {
     flags.push(flag('licenceMissing', true))
   }

@@ -71,7 +71,7 @@ const task = (over: Partial<AuthoringTask>): AuthoringTask => ({
 const veraTask = (over: Partial<AuthoringTask> = {}): AuthoringTask =>
   task({ id: 'vera-1', title: 'VERA-Aufgabe', source: 'VERA8_IQB', source_ref: 'ref-1', ...over })
 
-const FULL_SCHEMA = { hasStoffanker: true, hasSolutionRead: true, hasStatusGate: true }
+const FULL_SCHEMA = { hasStoffanker: true, hasSolutionRead: true, hasStatusGate: true, hasVorbefuellt: true }
 
 function setup(tasks: AuthoringTask[], schema = FULL_SCHEMA): void {
   vi.mocked(probeAuthoringSchema).mockResolvedValue(schema)
@@ -164,6 +164,7 @@ describe('AuthoringItemsPage', () => {
       hasStoffanker: false,
       hasSolutionRead: false,
       hasStatusGate: false,
+      hasVorbefuellt: false,
     })
     expect(
       await screen.findByText('Diese Datenbank ist noch nicht auf Stand A01'),

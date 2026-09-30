@@ -47,7 +47,7 @@ export function AnswerSection({
           />
         </Field>
       ) : (
-        <Field label={t('fields.unit')}>
+        <Field label={t('fields.unit')} feld="unit">
           <Input
             value={state.unit}
             placeholder={t('fields.unitPlaceholder')}
@@ -57,6 +57,7 @@ export function AnswerSection({
       )}
 
       <Field
+        feld="correct_answers"
         label={t('fields.correctAnswers')}
         hint={state.input_type === 'MC' ? undefined : t('fields.answersHint')}
       >

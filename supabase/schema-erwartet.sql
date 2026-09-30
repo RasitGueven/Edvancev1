@@ -1,14 +1,13 @@
 -- schema-erwartet.sql
--- Erzeugt von tools/schema-snapshot.sh.
--- Stand nach allen Migrationen in supabase/migrations/.
--- Nicht von Hand bearbeiten — nach Schemaänderungen neu erzeugen.
+-- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
+-- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
 
 --
 -- PostgreSQL database dump
 --
 
 
--- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
+-- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -913,6 +912,7 @@ begin
   for v_id in
     select id from public.tasks
      where cluster_id = p_cluster_id and status = 'review'
+       and source is distinct from 'VERA8_IQB'
   loop
     begin
       perform public.task_status_set(v_id, 'ready');
@@ -6039,6 +6039,25 @@ $$;
 
 
 --
+-- Name: vorbefuellt_valid(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vorbefuellt_valid(p jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select jsonb_typeof(p) = 'object'
+     and not exists (
+       select 1 from jsonb_each(p) as e(k, v)
+        where btrim(k) = ''
+           or jsonb_typeof(v) <> 'object'
+           or coalesce(v ->> 'art', '') not in ('neu', 'ueberschrieben', 'ergaenzt', 'leer')
+           or coalesce(btrim(v ->> 'grund'), '') = ''
+           or v ?| array['alt', 'wert', 'neu']
+     )
+$$;
+
+
+--
 -- Name: werktage(date, date); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -7194,6 +7213,8 @@ CREATE TABLE public.tasks (
     licence_text text,
     skill_key text,
     sondierrang integer,
+    vorbefuellt jsonb DEFAULT '{}'::jsonb NOT NULL,
+    vorbefuellt_am timestamp with time zone,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
     CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT tasks_cognitive_type_check CHECK ((cognitive_type = ANY (ARRAY['FACT'::text, 'TRANSFER'::text, 'ANALYSIS'::text]))),
@@ -7210,7 +7231,8 @@ END),
     CONSTRAINT tasks_question_payload_no_solution CHECK (((question_payload IS NULL) OR (NOT (question_payload ?| ARRAY['correct'::text, 'accepted'::text, 'pairs'::text, 'blanks'::text, 'expected'::text])))),
     CONSTRAINT tasks_question_table_check CHECK (((question_payload IS NULL) OR (NOT (question_payload ? 'table'::text)) OR public.lsa_table_valid((question_payload -> 'table'::text)))),
     CONSTRAINT tasks_sondierrang_check CHECK (((sondierrang IS NULL) OR (sondierrang >= 1))),
-    CONSTRAINT tasks_status_check CHECK ((status = ANY (ARRAY['draft'::text, 'review'::text, 'ready'::text, 'beanstandet'::text])))
+    CONSTRAINT tasks_status_check CHECK ((status = ANY (ARRAY['draft'::text, 'review'::text, 'ready'::text, 'beanstandet'::text]))),
+    CONSTRAINT tasks_vorbefuellt_check CHECK (public.vorbefuellt_valid(vorbefuellt))
 );
 
 

@@ -120,7 +120,21 @@ export type AuthoringTask = {
   curriculum_grade?: number | null
   reviewed_by?: string | null
   reviewed_at?: string | null
+
+  // --- Erst nach 20260930140000_tasks_vorbefuellt.sql vorhanden ---
+  /** Vom Agenten vorbefuellte, noch unbestaetigte Felder. undefined = Spalte fehlt. */
+  vorbefuellt?: Vorbefuellt
+  vorbefuellt_am?: string | null
 }
+
+/**
+ * Kennzeichen einer Vorbefuellung (tasks.vorbefuellt). Schluessel: Spalte ('afb',
+ * 'solution' …), 'parts.<nr>.<schluessel>' oder 'correct_answers.<nr>'. Traegt
+ * bewusst KEINE Werte — tasks ist fuer ready-Aufgaben auch fuer Schueler lesbar.
+ */
+export type VorbefuelltArt = 'neu' | 'ueberschrieben' | 'ergaenzt' | 'leer'
+export type VorbefuelltEintrag = { art: VorbefuelltArt; grund: string; charge?: string }
+export type Vorbefuellt = Record<string, VorbefuelltEintrag>
 
 /** Was der Editor an `tasks` schreibt. Status NICHT dabei — der laeuft ueber das Gate. */
 export type AuthoringTaskPatch = {
@@ -130,9 +144,13 @@ export type AuthoringTaskPatch = {
   afb?: Afb | null
   competency_content?: string | null
   competency_process?: string | null
+  /** Themengebiet. Fehlte bis zum Nachtrag 2 zu PR #176 — die Auswahl ging beim Speichern verloren. */
+  cluster_id?: string | null
   unit?: string | null
   est_duration_sec?: number | null
   curriculum_grade?: number | null
+  /** Restliche Kennzeichen nach dem Speichern (gespeicherte Felder sind bestaetigt). */
+  vorbefuellt?: Vorbefuellt
   parts?: TaskPart[]
   assets?: TaskAsset[]
   needs_image?: boolean | null
@@ -292,6 +310,8 @@ export type AuthoringSchema = {
   hasSolutionRead: boolean
   /** RPC task_status_set */
   hasStatusGate: boolean
+  /** tasks.vorbefuellt / vorbefuellt_am */
+  hasVorbefuellt: boolean
 }
 
 /** Quellenbeleg aus der Extraktion (gebaut von scripts/build-grounding-index.ts). Read-only. */

@@ -263,6 +263,15 @@
     "II": "AFB II — Zusammenhänge herstellen",
     "III": "AFB III — Verallgemeinern und reflektieren"
   },
+  "vorbefuellt": {
+    "art": {
+      "neu": "vorbefüllt",
+      "ueberschrieben": "überschrieben",
+      "ergaenzt": "ergänzt"
+    },
+    "leer": "Bewusst leer: {{grund}}",
+    "aria": "{{art}} – noch nicht bestätigt: {{grund}}"
+  },
   "needsImage": {
     "title": "Bild-Notwendigkeit",
     "hint": "Didaktik, nicht Technik: Braucht die Aufgabe inhaltlich eine Abbildung? Getrennt vom Bild-Zustand darunter — hier zählt nur der Inhalt, nicht ob schon ein Bild da ist. Eine Fachentscheidung, kein Automatismus.",

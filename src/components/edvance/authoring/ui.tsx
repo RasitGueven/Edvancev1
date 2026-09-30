@@ -7,6 +7,7 @@ import { EdvanceBadge, EdvanceCard } from '@/components/edvance'
 import type { EdvanceBadgeVariant } from '@/components/edvance/EdvanceBadge'
 import { Input } from '@/components/ui/input'
 import type { TaskStatus } from '@/types'
+import { VorbefuelltMarke } from './VorbefuelltMarke'
 
 export const INPUT_CLS =
   'h-10 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm text-[var(--color-text-primary)]'
@@ -74,16 +75,20 @@ export function Section({
 export function Field({
   label,
   hint,
+  feld,
   children,
 }: {
   label: string
   hint?: string
+  /** Schluessel im Vorbefuellt-Kennzeichen ('afb', 'parts.2.afb' …) — zeigt die Marke. */
+  feld?: string
   children: ReactNode
 }): JSX.Element {
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-xs font-semibold text-[var(--color-text-secondary)]">
+      <span className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)]">
         {label}
+        {feld && <VorbefuelltMarke feld={feld} />}
       </span>
       {children}
       {hint && (

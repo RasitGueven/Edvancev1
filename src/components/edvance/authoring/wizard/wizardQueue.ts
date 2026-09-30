@@ -17,7 +17,11 @@ export type PflegeQueue = {
   label: string
   /** Wohin Beenden/Abschluss fuehren (Board-Ebene); fehlt = /admin/authoring. */
   returnTo?: string
+  /** 'board' = Start aus dem Lena-Board: dort ist VERA8 ausgeschlossen, die Strecke ueberspringt es. */
+  kontext?: 'board'
 }
+
+const kontextVon = (v: unknown): Pick<PflegeQueue, 'kontext'> => (v === 'board' ? { kontext: 'board' } : {})
 
 const QUEUE_KEY = 'edvance.pflegeQueue'
 const POS_KEY = 'edvance.pflegeQueuePos'
@@ -52,6 +56,7 @@ export function restoreQueue(): { queue: PflegeQueue; pos: number } | null {
       ids: parsed.ids.filter((id): id is string => typeof id === 'string'),
       label: typeof parsed.label === 'string' ? parsed.label : '',
       ...(typeof parsed.returnTo === 'string' ? { returnTo: parsed.returnTo } : {}),
+      ...kontextVon(parsed.kontext),
     }
     if (queue.ids.length === 0) return null
     const pos = Number.parseInt(sessionStorage.getItem(POS_KEY) ?? '0', 10)
@@ -82,15 +87,17 @@ export function clearQueue(): void {
  */
 export function initialRun(state: unknown): { queue: PflegeQueue; pos: number } | null {
   const stored = restoreQueue()
-  const s = state as { ids?: unknown; label?: unknown; returnTo?: unknown } | null
+  const s = state as { ids?: unknown; label?: unknown; returnTo?: unknown; kontext?: unknown } | null
   if (s && Array.isArray(s.ids)) {
     const ids = s.ids.filter((id): id is string => typeof id === 'string')
     if (ids.length > 0) {
-      if (stored && JSON.stringify(stored.queue.ids) === JSON.stringify(ids)) return stored
+      if (stored && JSON.stringify(stored.queue.ids) === JSON.stringify(ids)
+        && stored.queue.kontext === kontextVon(s.kontext).kontext) return stored
       const queue: PflegeQueue = {
         ids,
         label: typeof s.label === 'string' ? s.label : '',
         ...(typeof s.returnTo === 'string' ? { returnTo: s.returnTo } : {}),
+        ...kontextVon(s.kontext),
       }
       persistQueue(queue)
       return { queue, pos: 0 }

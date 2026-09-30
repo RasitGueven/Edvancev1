@@ -1,0 +1,1540 @@
+[
+  {
+    "nr": 1,
+    "task": {
+      "id": "de60d4ff-c473-4358-b050-85a54dd903a1",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Binomische Formel · Quadrat · (2x + 3)²",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus. Welcher Term ist richtig?\n\n(2x + 3)² = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadrat",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadrat-03",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "4x² + 12x + 9"
+          },
+          {
+            "id": "b",
+            "label": "4x² + 9"
+          },
+          {
+            "id": "c",
+            "label": "2x² + 12x + 9"
+          },
+          {
+            "id": "d",
+            "label": "4x² + 6x + 9"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "de60d4ff-c473-4358-b050-85a54dd903a1",
+      "solution": null,
+      "acceptance": {
+        "canonical": "a",
+        "known_errors": {
+          "b": "quadrat_gliedweise"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "a"
+      ]
+    }
+  },
+  {
+    "nr": 2,
+    "task": {
+      "id": "ebd05f6f-2ab0-41ad-bac3-16c075fc2592",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Binomische Formel · Quadrat · (3x - 4)²",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus. Welcher Term ist richtig?\n\n(3x - 4)² = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadrat",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadrat-04",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "9x² + 16"
+          },
+          {
+            "id": "b",
+            "label": "9x² + 24x + 16"
+          },
+          {
+            "id": "c",
+            "label": "9x² - 24x - 16"
+          },
+          {
+            "id": "d",
+            "label": "9x² - 24x + 16"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "ebd05f6f-2ab0-41ad-bac3-16c075fc2592",
+      "solution": null,
+      "acceptance": {
+        "canonical": "d",
+        "known_errors": {
+          "a": "quadrat_gliedweise",
+          "b": "falsches_vorzeichen_beim_zusammenfuehren"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "d"
+      ]
+    }
+  },
+  {
+    "nr": 3,
+    "task": {
+      "id": "9a598424-963b-4981-91ad-9a81cead51f4",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Binomische Formel · Quadrat · (x - 5)²",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus. Welcher Term ist richtig?\n\n(x - 5)² = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadrat",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadrat-02",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": 1,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "x² + 25"
+          },
+          {
+            "id": "b",
+            "label": "x² - 10x + 25"
+          },
+          {
+            "id": "c",
+            "label": "x² + 10x + 25"
+          },
+          {
+            "id": "d",
+            "label": "x² - 10x - 25"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "9a598424-963b-4981-91ad-9a81cead51f4",
+      "solution": null,
+      "acceptance": {
+        "canonical": "b",
+        "known_errors": {
+          "a": "quadrat_gliedweise",
+          "c": "falsches_vorzeichen_beim_zusammenfuehren"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "b"
+      ]
+    }
+  },
+  {
+    "nr": 4,
+    "task": {
+      "id": "ae6fa0b8-283c-4570-b9d2-6271c17e3384",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Binomische Formel · Quadrat · (x + 3)²",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus. Welcher Term ist richtig?\n\n(x + 3)² = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadrat",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadrat-01",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "x² + 9"
+          },
+          {
+            "id": "b",
+            "label": "x² + 3x + 9"
+          },
+          {
+            "id": "c",
+            "label": "x² + 6x + 9"
+          },
+          {
+            "id": "d",
+            "label": "x² + 6x + 6"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "ae6fa0b8-283c-4570-b9d2-6271c17e3384",
+      "solution": null,
+      "acceptance": {
+        "canonical": "c",
+        "known_errors": {
+          "a": "quadrat_gliedweise"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "c"
+      ]
+    }
+  },
+  {
+    "nr": 5,
+    "task": {
+      "id": "f54b2f2c-5c0e-46ae-bd6c-00acc3efa4fa",
+      "afb": "III",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Binomische Formel · Rückrichtung · x² + 20x + 100",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Schreibe als Quadrat einer Klammer. Welcher Term ist richtig?\n\nx² + 20x + 100 = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadrat",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadrat-06",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": 2,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "(x + 20)²"
+          },
+          {
+            "id": "b",
+            "label": "(x + 10)²"
+          },
+          {
+            "id": "c",
+            "label": "(x + 100)²"
+          },
+          {
+            "id": "d",
+            "label": "(x + 10)(x - 10)"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Problemlösen, Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "f54b2f2c-5c0e-46ae-bd6c-00acc3efa4fa",
+      "solution": null,
+      "acceptance": {
+        "canonical": "b",
+        "known_errors": {
+          "a": "quadrat_gliedweise"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "b"
+      ]
+    }
+  },
+  {
+    "nr": 6,
+    "task": {
+      "id": "513d03bd-0d8d-4f0a-9e99-ea63b38b8587",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Binomische Formel · Sachkontext · quadratisches Beet",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Ein quadratisches Beet hat die Seitenlänge (x + 4) Meter.\nWelcher Term gibt den Flächeninhalt an?",
+      "is_active": true,
+      "skill_key": "term_binom_quadrat",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadrat-05",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "x² + 8x + 16"
+          },
+          {
+            "id": "b",
+            "label": "x² + 16"
+          },
+          {
+            "id": "c",
+            "label": "4x + 16"
+          },
+          {
+            "id": "d",
+            "label": "x² + 4x + 16"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Modellieren, Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "513d03bd-0d8d-4f0a-9e99-ea63b38b8587",
+      "solution": null,
+      "acceptance": {
+        "canonical": "a",
+        "known_errors": {
+          "b": "quadrat_gliedweise"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "a"
+      ]
+    }
+  },
+  {
+    "nr": 7,
+    "task": {
+      "id": "d47b8793-7e82-4036-9173-d446c554b907",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Dritte binomische Formel · (2x - 9)(2x + 9)",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus. Welcher Term ist richtig?\n\n(2x - 9)(2x + 9) = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadratdifferenz",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadratdiff-04",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "4x² - 36x - 81"
+          },
+          {
+            "id": "b",
+            "label": "4x² + 81"
+          },
+          {
+            "id": "c",
+            "label": "2x² - 81"
+          },
+          {
+            "id": "d",
+            "label": "4x² - 81"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "d47b8793-7e82-4036-9173-d446c554b907",
+      "solution": null,
+      "acceptance": {
+        "canonical": "d",
+        "known_errors": {
+          "b": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "d"
+      ]
+    }
+  },
+  {
+    "nr": 8,
+    "task": {
+      "id": "94492e5a-3627-4f45-b628-41d06114a7a4",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Dritte binomische Formel · (3x + 5)(3x - 5)",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus. Welcher Term ist richtig?\n\n(3x + 5)(3x - 5) = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadratdifferenz",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadratdiff-03",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "9x² - 25"
+          },
+          {
+            "id": "b",
+            "label": "9x² + 25"
+          },
+          {
+            "id": "c",
+            "label": "3x² - 25"
+          },
+          {
+            "id": "d",
+            "label": "9x² - 30x - 25"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "94492e5a-3627-4f45-b628-41d06114a7a4",
+      "solution": null,
+      "acceptance": {
+        "canonical": "a",
+        "known_errors": {
+          "b": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "a"
+      ]
+    }
+  },
+  {
+    "nr": 9,
+    "task": {
+      "id": "eb3f28da-155b-49fc-aa17-1abfd882a373",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Dritte binomische Formel · (x - 7)(x + 7)",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus. Welcher Term ist richtig?\n\n(x - 7)(x + 7) = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadratdifferenz",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadratdiff-02",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "x² + 49"
+          },
+          {
+            "id": "b",
+            "label": "x² - 14x + 49"
+          },
+          {
+            "id": "c",
+            "label": "x² - 49"
+          },
+          {
+            "id": "d",
+            "label": "x² - 14x - 49"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "eb3f28da-155b-49fc-aa17-1abfd882a373",
+      "solution": null,
+      "acceptance": {
+        "canonical": "c",
+        "known_errors": {
+          "a": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "c"
+      ]
+    }
+  },
+  {
+    "nr": 10,
+    "task": {
+      "id": "293413f8-8e31-4f0b-b64e-7ac2a183606e",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Dritte binomische Formel · (x + 4)(x - 4)",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus. Welcher Term ist richtig?\n\n(x + 4)(x - 4) = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadratdifferenz",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadratdiff-01",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "x² - 16"
+          },
+          {
+            "id": "b",
+            "label": "x² + 16"
+          },
+          {
+            "id": "c",
+            "label": "x² - 8x - 16"
+          },
+          {
+            "id": "d",
+            "label": "x² - 4x - 16"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "293413f8-8e31-4f0b-b64e-7ac2a183606e",
+      "solution": null,
+      "acceptance": {
+        "canonical": "a",
+        "known_errors": {
+          "b": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "a"
+      ]
+    }
+  },
+  {
+    "nr": 11,
+    "task": {
+      "id": "7e027634-1c45-4c70-8357-198dad0f1797",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Dritte binomische Formel · geschicktes Rechnen · 102 · 98",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Berechne geschickt mit einer binomischen Formel.\n\n102 · 98 = ?",
+      "is_active": true,
+      "skill_key": "term_binom_quadratdifferenz",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "binom-quadratdiff-05",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": 2,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Berechne geschickt mit einer binomischen Formel.\n\n102 · 98 = ?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Problemlösen, Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "7e027634-1c45-4c70-8357-198dad0f1797",
+      "solution": null,
+      "acceptance": {
+        "canonical": "9996",
+        "known_errors": {
+          "10004": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "9996"
+      ]
+    }
+  },
+  {
+    "nr": 12,
+    "task": {
+      "id": "113aea0a-276a-4042-b634-805ef1e11db2",
+      "afb": "III",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Dritte binomische Formel · Sachkontext · Grundstück",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Ein quadratisches Grundstück hat die Seitenlänge x Meter. Eine Seite wird um 5 Meter verlängert, die andere um 5 Meter verkürzt.\nWelcher Term gibt den Flächeninhalt des neuen Rechtecks an?",
+      "is_active": true,
+      "skill_key": "term_binom_quadratdifferenz",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-quadratdiff-06",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": 1,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "x²"
+          },
+          {
+            "id": "b",
+            "label": "x² + 25"
+          },
+          {
+            "id": "c",
+            "label": "x² - 25"
+          },
+          {
+            "id": "d",
+            "label": "x² - 10x - 25"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Modellieren, Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "113aea0a-276a-4042-b634-805ef1e11db2",
+      "solution": null,
+      "acceptance": {
+        "canonical": "c",
+        "known_errors": {
+          "a": "differenz_ignoriert",
+          "b": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "c"
+      ]
+    }
+  },
+  {
+    "nr": 13,
+    "task": {
+      "id": "9be9bb9c-a5b5-482e-bd76-51599553d61b",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Faktorisieren · Differenz von Quadraten · x² - 25",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Schreibe als Produkt zweier Klammern. Welcher Term ist richtig?\n\nx² - 25 = ?",
+      "is_active": true,
+      "skill_key": "term_binom_faktorisieren",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-faktor-01",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "(x + 5)(x - 5)"
+          },
+          {
+            "id": "b",
+            "label": "(x - 5)(x - 5)"
+          },
+          {
+            "id": "c",
+            "label": "(x + 5)(x + 5)"
+          },
+          {
+            "id": "d",
+            "label": "(x + 25)(x - 1)"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "9be9bb9c-a5b5-482e-bd76-51599553d61b",
+      "solution": null,
+      "acceptance": {
+        "canonical": "a",
+        "known_errors": {
+          "b": "quadratdifferenz_vorzeichen",
+          "c": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "a"
+      ]
+    }
+  },
+  {
+    "nr": 14,
+    "task": {
+      "id": "18dbb731-98be-4b90-a8c2-5773114de6c6",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Faktorisieren · gemeinsamer Faktor und Quadrat · 3x² + 12x + 12",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Faktorisiere vollständig. Welcher Term ist richtig?\n\n3x² + 12x + 12 = ?",
+      "is_active": true,
+      "skill_key": "term_binom_faktorisieren",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-faktor-04",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "3(x² + 4x + 4)"
+          },
+          {
+            "id": "b",
+            "label": "3(x + 4)²"
+          },
+          {
+            "id": "c",
+            "label": "3(x + 2)²"
+          },
+          {
+            "id": "d",
+            "label": "(3x + 6)²"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "18dbb731-98be-4b90-a8c2-5773114de6c6",
+      "solution": null,
+      "acceptance": {
+        "canonical": "c",
+        "known_errors": {
+          "a": "faktorisierung_unvollstaendig"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "c"
+      ]
+    }
+  },
+  {
+    "nr": 15,
+    "task": {
+      "id": "e4a18d51-9545-4f17-b1aa-10dc72c35cd3",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Faktorisieren · gemeinsamer Faktor zuerst · 2x² - 18",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Faktorisiere vollständig. Welcher Term ist richtig?\n\n2x² - 18 = ?",
+      "is_active": true,
+      "skill_key": "term_binom_faktorisieren",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-faktor-03",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": 1,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "2(x² - 9)"
+          },
+          {
+            "id": "b",
+            "label": "2(x + 3)(x - 3)"
+          },
+          {
+            "id": "c",
+            "label": "2(x - 3)(x - 3)"
+          },
+          {
+            "id": "d",
+            "label": "(2x + 3)(2x - 3)"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "e4a18d51-9545-4f17-b1aa-10dc72c35cd3",
+      "solution": null,
+      "acceptance": {
+        "canonical": "b",
+        "known_errors": {
+          "a": "faktorisierung_unvollstaendig",
+          "c": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "b"
+      ]
+    }
+  },
+  {
+    "nr": 16,
+    "task": {
+      "id": "88ca2551-82bf-4ca3-b971-32cd4292a146",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Faktorisieren · geschicktes Rechnen · 47² - 43²",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Berechne geschickt mit einer binomischen Formel.\n\n47² - 43² = ?",
+      "is_active": true,
+      "skill_key": "term_binom_faktorisieren",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "binom-faktor-06",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": 2,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Berechne geschickt mit einer binomischen Formel.\n\n47² - 43² = ?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Problemlösen, Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "88ca2551-82bf-4ca3-b971-32cd4292a146",
+      "solution": null,
+      "acceptance": {
+        "canonical": "360",
+        "known_errors": {
+          "16": "quadrat_gliedweise",
+          "90": "faktorisierung_unvollstaendig"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "360"
+      ]
+    }
+  },
+  {
+    "nr": 17,
+    "task": {
+      "id": "b2bc0cfc-d927-4a29-aca4-4686606d9466",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Faktorisieren · vollständiges Quadrat · x² + 8x + 16",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Schreibe als Quadrat einer Klammer. Welcher Term ist richtig?\n\nx² + 8x + 16 = ?",
+      "is_active": true,
+      "skill_key": "term_binom_faktorisieren",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-faktor-02",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "(x + 8)²"
+          },
+          {
+            "id": "b",
+            "label": "(x + 4)²"
+          },
+          {
+            "id": "c",
+            "label": "(x + 16)²"
+          },
+          {
+            "id": "d",
+            "label": "(x + 4)(x - 4)"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "b2bc0cfc-d927-4a29-aca4-4686606d9466",
+      "solution": null,
+      "acceptance": {
+        "canonical": "b",
+        "known_errors": {
+          "a": "quadrat_gliedweise"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "b"
+      ]
+    }
+  },
+  {
+    "nr": 18,
+    "task": {
+      "id": "9d904128-a0ae-449c-b7de-e1c57c8238c5",
+      "afb": "III",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Faktorisieren · zweistufig · x⁴ - 16",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Faktorisiere vollständig. Welcher Term ist richtig?\n\nx⁴ - 16 = ?",
+      "is_active": true,
+      "skill_key": "term_binom_faktorisieren",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-faktor-05",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "(x² + 4)(x² - 4)"
+          },
+          {
+            "id": "b",
+            "label": "(x² + 4)(x + 2)(x - 2)"
+          },
+          {
+            "id": "c",
+            "label": "(x² - 4)(x² - 4)"
+          },
+          {
+            "id": "d",
+            "label": "(x + 2)⁴"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Problemlösen, Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "9d904128-a0ae-449c-b7de-e1c57c8238c5",
+      "solution": null,
+      "acceptance": {
+        "canonical": "b",
+        "known_errors": {
+          "a": "faktorisierung_unvollstaendig"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "b"
+      ]
+    }
+  }
+]

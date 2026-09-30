@@ -18,6 +18,7 @@ import type { Afb, ItemFlag } from '@/types'
 import { AFB_VALUES, type FormState } from '../editorState'
 import { ChoiceChip } from './ChoiceChip'
 import { editorAusStrecke } from './wizardQueue'
+import { VorbefuelltMarke } from '../VorbefuelltMarke'
 
 const GRADES = [5, 6, 7, 8, 9]
 
@@ -52,7 +53,7 @@ export function RequiredFields({
       </span>
 
       {shown.has('clusterMissing') && (
-        <FieldRow label={t('wizard.anchor.themeTitle')}>
+        <FieldRow label={t('wizard.anchor.themeTitle')} feld="cluster_id">
           {clusters.map((c) => (
             <ChoiceChip
               key={c.id}
@@ -68,6 +69,7 @@ export function RequiredFields({
 
       {shown.has('competencyMissing') && (
         <FieldRow
+          feld="competency_content"
           label={t('fields.competencyContent')}
           hint={vorschlag ? t('wizard.release.suggestion', { value: t(`inhaltsfeld.${vorschlag}`) }) : undefined}
         >
@@ -85,7 +87,7 @@ export function RequiredFields({
       )}
 
       {shown.has('afbMissing') && (
-        <FieldRow label={t('fields.afb')}>
+        <FieldRow label={t('fields.afb')} feld="afb">
           {AFB_VALUES.map((a) => (
             <ChoiceChip
               key={a}
@@ -100,7 +102,7 @@ export function RequiredFields({
       )}
 
       {shown.has('stoffankerMissing') && (
-        <FieldRow label={t('stoffanker.label')}>
+        <FieldRow label={t('stoffanker.label')} feld="curriculum_grade">
           {GRADES.map((g) => (
             <ChoiceChip
               key={g}
@@ -145,15 +147,21 @@ export function RequiredFields({
 function FieldRow({
   label,
   hint,
+  feld,
   children,
 }: {
   label: string
   hint?: string
+  /** Schluessel im Vorbefuellt-Kennzeichen — zeigt die Marke. */
+  feld?: string
   children: ReactNode
 }): JSX.Element {
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-sm font-semibold text-[var(--color-text-primary)]">{label}</span>
+      <span className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[var(--color-text-primary)]">
+        {label}
+        {feld && <VorbefuelltMarke feld={feld} />}
+      </span>
       <div className="flex flex-wrap gap-2">{children}</div>
       {hint && <span className="text-xs text-[var(--color-text-tertiary)]">{hint}</span>}
     </div>

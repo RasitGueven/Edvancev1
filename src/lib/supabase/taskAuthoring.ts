@@ -58,6 +58,8 @@ const BASE_COLUMNS = [
 ].join(',')
 
 const A01_COLUMNS = 'curriculum_grade,reviewed_by,reviewed_at'
+/** Vorbefuellt-Kennzeichen (20260930140000_tasks_vorbefuellt). */
+const PREFILL_COLUMNS = 'vorbefuellt,vorbefuellt_am'
 
 let schemaCache: AuthoringSchema | null = null
 
@@ -70,8 +72,9 @@ let schemaCache: AuthoringSchema | null = null
 export async function probeAuthoringSchema(): Promise<AuthoringSchema> {
   if (schemaCache) return schemaCache
 
-  const [cols, solRead, gate] = await Promise.all([
+  const [cols, prefill, solRead, gate] = await Promise.all([
     supabase.from('tasks').select(`id,${A01_COLUMNS}`).limit(1),
+    supabase.from('tasks').select(`id,${PREFILL_COLUMNS}`).limit(1),
     supabase.rpc('task_solution_get', { p_task_id: NIL_UUID }),
     // NIL_UUID existiert nie → die RPC laeuft in "nicht gefunden" (P0002) und
     // schreibt nichts. Uns interessiert nur, ob sie ueberhaupt da ist.
@@ -82,6 +85,7 @@ export async function probeAuthoringSchema(): Promise<AuthoringSchema> {
     hasStoffanker: cols.error?.code !== COL_MISSING,
     hasSolutionRead: solRead.error?.code !== FN_MISSING,
     hasStatusGate: gate.error?.code !== FN_MISSING,
+    hasVorbefuellt: prefill.error?.code !== COL_MISSING,
   }
   return schemaCache
 }
@@ -92,7 +96,9 @@ export function resetAuthoringSchemaCache(): void {
 }
 
 function columnsFor(schema: AuthoringSchema): string {
-  return schema.hasStoffanker ? `${BASE_COLUMNS},${A01_COLUMNS}` : BASE_COLUMNS
+  return [BASE_COLUMNS, schema.hasStoffanker && A01_COLUMNS, schema.hasVorbefuellt && PREFILL_COLUMNS]
+    .filter(Boolean)
+    .join(',')
 }
 
 // ── tasks lesen ─────────────────────────────────────────────────────────────
@@ -185,6 +191,7 @@ export async function updateAuthoringTask(
     const schema = await probeAuthoringSchema()
     const payload: Record<string, unknown> = { ...patch }
     if (!schema.hasStoffanker) delete payload.curriculum_grade
+    if (!schema.hasVorbefuellt) delete payload.vorbefuellt
 
     const { data, error } = await supabase
       .from('tasks')

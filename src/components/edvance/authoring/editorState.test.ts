@@ -5,7 +5,7 @@
 // eine, und kein Editor-Feld zeigt sie an. Diese Suite haelt die Tabelle fest.
 
 import { describe, expect, it } from 'vitest'
-import { fromTask, toPatch, toSolution } from './editorState'
+import { fromTask, patchFuerSpeichern, toPatch, toSolution } from './editorState'
 import type { AuthoringTask, TaskSolution } from '@/types'
 
 const TABLE = { headers: ['Bestandteil', 'gering'], rows: [['Fett', '< 3 g']] }
@@ -159,5 +159,43 @@ describe('toPatch — das Item-AFB ueberlebt bei MULTI_PART', () => {
   // kein Feld des Freigabe-Gates und soll NICHT mitwandern.
   it('nullt die Kompetenz am Item weiterhin', () => {
     expect(toPatch(fromTask(multiTask(), solution)).competency_content).toBeNull()
+  })
+})
+
+describe('toPatch — Themengebiet (Regression Nachtrag 2 zu PR #176)', () => {
+  it('schreibt die geaenderte cluster_id mit — vorher ging sie beim Speichern verloren', () => {
+    const state = { ...fromTask(task({ cluster_id: 'c1' }), solution), cluster_id: 'c2' }
+    expect(toPatch(state).cluster_id).toBe('c2')
+  })
+
+  it('leeres Themengebiet wird NULL, nicht Leerstring', () => {
+    const state = { ...fromTask(task(), solution), cluster_id: '' }
+    expect(toPatch(state).cluster_id).toBeNull()
+  })
+})
+
+describe('patchFuerSpeichern — Vorbefuellt-Kennzeichen', () => {
+  const marker = {
+    afb: { art: 'neu' as const, grund: 'IQB-belegt' },
+    est_duration_sec: { art: 'neu' as const, grund: 'Zeitregel' },
+    'parts.1.afb': { art: 'neu' as const, grund: 'IQB-belegt' },
+    hints: { art: 'neu' as const, grund: 'generiert' },
+  }
+
+  it('Editor: alle Aufgaben-Spalten gelten als bestaetigt, Loesungsfelder bleiben bis zum Loesungs-Speichern', () => {
+    const t = task({ vorbefuellt: marker })
+    expect(patchFuerSpeichern(fromTask(t, solution), t).vorbefuellt).toEqual({ hints: marker.hints })
+  })
+
+  it('Strecke: nur geaenderte Felder gelten als bestaetigt', () => {
+    const t = task({ vorbefuellt: marker })
+    const baseline = fromTask(t, solution)
+    const patch = patchFuerSpeichern({ ...baseline, afb: 'II' }, t, baseline)
+    expect(Object.keys(patch.vorbefuellt ?? {}).sort()).toEqual(['est_duration_sec', 'hints', 'parts.1.afb'])
+  })
+
+  it('ohne Kennzeichen-Spalte kein vorbefuellt im Patch', () => {
+    const t = task()
+    expect('vorbefuellt' in patchFuerSpeichern(fromTask(t, solution), t)).toBe(false)
   })
 })

@@ -184,6 +184,9 @@ export type {
   GroundingQuote,
   GroundingRecord,
   GroundingRohteil,
+  Vorbefuellt,
+  VorbefuelltArt,
+  VorbefuelltEintrag,
 } from './authoring'
 
 export type {

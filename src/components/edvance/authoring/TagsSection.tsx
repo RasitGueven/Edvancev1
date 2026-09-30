@@ -42,6 +42,7 @@ export function TagsSection({
   return (
     <div className="flex flex-col gap-4">
       <Field
+        feld="curriculum_grade"
         label={t('stoffanker.label')}
         hint={
           hasStoffankerField
@@ -71,7 +72,7 @@ export function TagsSection({
         </div>
       </Field>
 
-      <Field label={t('fields.cluster')}>
+      <Field label={t('fields.cluster')} feld="cluster_id">
         <select
           className={`${SELECT_SM} w-full`}
           value={state.cluster_id}
@@ -90,7 +91,7 @@ export function TagsSection({
           zusaetzlich ihr eigenes tragen. Ohne dieses Feld war die Freigabe
           eines Multi-Part-Items ueber die Oberflaeche unmoeglich:
           task_status_set verlangt tasks.afb unabhaengig vom input_type. */}
-      <Field label={t('fields.afb')}>
+      <Field label={t('fields.afb')} feld="afb">
         <select
           className={`${SELECT_SM} w-full`}
           value={state.afb}
@@ -113,14 +114,14 @@ export function TagsSection({
       {!multi && (
         <>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label={t('fields.competencyContent')}>
+            <Field label={t('fields.competencyContent')} feld="competency_content">
               <Input
                 list="authoring-competencies-item"
                 value={state.competency_content}
                 onChange={(e) => set('competency_content', e.target.value)}
               />
             </Field>
-            <Field label={t('fields.competencyProcess')}>
+            <Field label={t('fields.competencyProcess')} feld="competency_process">
               <Input
                 value={state.competency_process}
                 onChange={(e) => set('competency_process', e.target.value)}

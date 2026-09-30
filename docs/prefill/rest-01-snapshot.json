@@ -1,0 +1,2088 @@
+[
+  {
+    "nr": 1,
+    "task": {
+      "id": "dbe2ed81-b0e9-470a-8f9a-80966a4eaf63",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm²",
+      "parts": [],
+      "title": "AFB I · Fläche · Dreieck g = 10 cm, h = 6 cm",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Ein Dreieck hat die Grundseite g = 10 cm und die zugehörige Höhe h = 6 cm.\n\nWie groß ist die Fläche in cm²?",
+      "is_active": true,
+      "skill_key": "geo_flaeche_dreieck",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-geo-flaeche-dreieck-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 45,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Ein Dreieck hat die Grundseite g = 10 cm und die zugehörige Höhe h = 6 cm.\n\nWie groß ist die Fläche in cm²?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "geometrie",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "dbe2ed81-b0e9-470a-8f9a-80966a4eaf63",
+      "solution": null,
+      "acceptance": {
+        "canonical": "30",
+        "known_errors": {
+          "16": "plus_statt_mal",
+          "60": "halbieren_vergessen"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "30"
+      ]
+    }
+  },
+  {
+    "nr": 2,
+    "task": {
+      "id": "0f3fe7d3-cdcf-4514-84a9-b08e5826234a",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm²",
+      "parts": [],
+      "title": "AFB I · Fläche · Dreieck g = 6 cm, h = 4 cm",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Ein Dreieck hat die Grundseite g = 6 cm und die zugehörige Höhe h = 4 cm.\n\nWie groß ist die Fläche in cm²?",
+      "is_active": true,
+      "skill_key": "geo_flaeche_dreieck",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-geo-flaeche-dreieck-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 45,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Ein Dreieck hat die Grundseite g = 6 cm und die zugehörige Höhe h = 4 cm.\n\nWie groß ist die Fläche in cm²?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "geometrie",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "0f3fe7d3-cdcf-4514-84a9-b08e5826234a",
+      "solution": null,
+      "acceptance": {
+        "canonical": "12",
+        "known_errors": {
+          "10": "plus_statt_mal",
+          "24": "halbieren_vergessen"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "12"
+      ]
+    }
+  },
+  {
+    "nr": 3,
+    "task": {
+      "id": "3372f3a7-7014-4052-809c-3bb17d627361",
+      "afb": "I",
+      "hint": null,
+      "unit": "mm²",
+      "parts": [],
+      "title": "AFB I · Flächeneinheiten · 5 cm² in mm²",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Wandle um.\n\n5 cm² = ? mm²",
+      "is_active": true,
+      "skill_key": "groessen_flaechen",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-groessen-flaechen-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 40,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Wandle um.\n\n5 cm² = ? mm²"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "3372f3a7-7014-4052-809c-3bb17d627361",
+      "solution": null,
+      "acceptance": {
+        "canonical": "500",
+        "known_errors": {
+          "5": "einheit_uebersprungen",
+          "50": "linearer_faktor"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "500"
+      ]
+    }
+  },
+  {
+    "nr": 4,
+    "task": {
+      "id": "341fd991-7230-4548-8413-7f5f422231bf",
+      "afb": "I",
+      "hint": null,
+      "unit": "mm²",
+      "parts": [],
+      "title": "AFB I · Flächeneinheiten · 8 cm² in mm²",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Wandle um.\n\n8 cm² = ? mm²",
+      "is_active": true,
+      "skill_key": "groessen_flaechen",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-groessen-flaechen-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 40,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Wandle um.\n\n8 cm² = ? mm²"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "341fd991-7230-4548-8413-7f5f422231bf",
+      "solution": null,
+      "acceptance": {
+        "canonical": "800",
+        "known_errors": {
+          "8": "einheit_uebersprungen",
+          "80": "linearer_faktor"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "800"
+      ]
+    }
+  },
+  {
+    "nr": 5,
+    "task": {
+      "id": "dd8db039-818d-42c2-8866-2df507675c36",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm",
+      "parts": [],
+      "title": "AFB I · Gemischte Schreibweise · 1,4 m in cm",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Wandle um.\n\n1,4 m = ? cm",
+      "is_active": true,
+      "skill_key": "groessen_gemischt",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-groessen-gemischt-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 40,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Wandle um.\n\n1,4 m = ? cm"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "dd8db039-818d-42c2-8866-2df507675c36",
+      "solution": null,
+      "acceptance": {
+        "canonical": "140",
+        "known_errors": {
+          "14": "faktor_zehn_daneben",
+          "104": "komma_als_trenner"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "140"
+      ]
+    }
+  },
+  {
+    "nr": 6,
+    "task": {
+      "id": "c9e3f728-2591-4704-9558-d5f8dc467f93",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm",
+      "parts": [],
+      "title": "AFB I · Gemischte Schreibweise · 2,5 m in cm",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Wandle um.\n\n2,5 m = ? cm",
+      "is_active": true,
+      "skill_key": "groessen_gemischt",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-groessen-gemischt-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 40,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Wandle um.\n\n2,5 m = ? cm"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "c9e3f728-2591-4704-9558-d5f8dc467f93",
+      "solution": null,
+      "acceptance": {
+        "canonical": "250",
+        "known_errors": {
+          "25": "faktor_zehn_daneben",
+          "205": "komma_als_trenner"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "250"
+      ]
+    }
+  },
+  {
+    "nr": 7,
+    "task": {
+      "id": "00096607-230e-4fd3-b236-42673e5ea268",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Gleichung · 4x + 3 = 3x + 11",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Löse die Gleichung. Gib den Wert für x an.\n\n4x + 3 = 3x + 11",
+      "is_active": true,
+      "skill_key": "gleichung_beidseitig",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-gleichung-beidseitig-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 60,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n4x + 3 = 3x + 11"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "00096607-230e-4fd3-b236-42673e5ea268",
+      "solution": null,
+      "acceptance": {
+        "canonical": "8",
+        "known_errors": {
+          "2": "variablen_nicht_zusammengefuehrt",
+          "14": "falsches_vorzeichen_beim_zusammenfuehren"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "8"
+      ]
+    }
+  },
+  {
+    "nr": 8,
+    "task": {
+      "id": "f76034e5-792c-47bb-81b2-1d5ecd205499",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Gleichung · 6x + 2 = 5x + 8",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Löse die Gleichung. Gib den Wert für x an.\n\n6x + 2 = 5x + 8",
+      "is_active": true,
+      "skill_key": "gleichung_beidseitig",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-gleichung-beidseitig-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 60,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Löse die Gleichung. Gib den Wert für x an.\n\n6x + 2 = 5x + 8"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "f76034e5-792c-47bb-81b2-1d5ecd205499",
+      "solution": null,
+      "acceptance": {
+        "canonical": "6",
+        "known_errors": {
+          "1": "variablen_nicht_zusammengefuehrt",
+          "10": "falsches_vorzeichen_beim_zusammenfuehren"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "6"
+      ]
+    }
+  },
+  {
+    "nr": 9,
+    "task": {
+      "id": "5bcf9b2a-6cce-4674-b070-3bd14cd3bad1",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Grundwert · 20 sind 10 %",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "20 sind 10 % einer Zahl.\n\nWie groß ist die Zahl?",
+      "is_active": true,
+      "skill_key": "prozent_grundwert",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-prozent-grundwert-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 50,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "20 sind 10 % einer Zahl.\n\nWie groß ist die Zahl?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "5bcf9b2a-6cce-4674-b070-3bd14cd3bad1",
+      "solution": null,
+      "acceptance": {
+        "canonical": "200",
+        "known_errors": {
+          "2": "multipliziert_statt_dividiert",
+          "2000": "dezimalverschiebung"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "200"
+      ]
+    }
+  },
+  {
+    "nr": 10,
+    "task": {
+      "id": "f0dc76f2-9666-4122-867c-9d089b106205",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Grundwert · 45 sind 10 %",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "45 sind 10 % einer Zahl.\n\nWie groß ist die Zahl?",
+      "is_active": true,
+      "skill_key": "prozent_grundwert",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-prozent-grundwert-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 50,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "45 sind 10 % einer Zahl.\n\nWie groß ist die Zahl?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "f0dc76f2-9666-4122-867c-9d089b106205",
+      "solution": null,
+      "acceptance": {
+        "canonical": "450",
+        "known_errors": {
+          "4500": "dezimalverschiebung",
+          "4,5": "multipliziert_statt_dividiert"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "450"
+      ]
+    }
+  },
+  {
+    "nr": 11,
+    "task": {
+      "id": "76f0bf82-458f-4903-a1ac-71f74c44e1e5",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm",
+      "parts": [],
+      "title": "AFB I · Maßstab · 1:100, 5 cm auf dem Plan",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Auf einem Plan im Maßstab 1:100 ist eine Strecke 5 cm lang.\n\nWie viele Zentimeter ist die Strecke in Wirklichkeit lang?",
+      "is_active": true,
+      "skill_key": "geo_massstab",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-geo-massstab-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 50,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Auf einem Plan im Maßstab 1:100 ist eine Strecke 5 cm lang.\n\nWie viele Zentimeter ist die Strecke in Wirklichkeit lang?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "geometrie",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "76f0bf82-458f-4903-a1ac-71f74c44e1e5",
+      "solution": null,
+      "acceptance": {
+        "canonical": "500",
+        "known_errors": {
+          "50": "faktor_zehn_daneben",
+          "0,05": "richtung_vertauscht"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "500"
+      ]
+    }
+  },
+  {
+    "nr": 12,
+    "task": {
+      "id": "1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm",
+      "parts": [],
+      "title": "AFB I · Maßstab · 1:200, 3 cm auf dem Plan",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Auf einem Plan im Maßstab 1:200 ist eine Strecke 3 cm lang.\n\nWie viele Zentimeter ist die Strecke in Wirklichkeit lang?",
+      "is_active": true,
+      "skill_key": "geo_massstab",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-geo-massstab-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 50,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Auf einem Plan im Maßstab 1:200 ist eine Strecke 3 cm lang.\n\nWie viele Zentimeter ist die Strecke in Wirklichkeit lang?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "geometrie",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "1a3cac96-e9a5-4a9a-9c6f-873940ec1fe7",
+      "solution": null,
+      "acceptance": {
+        "canonical": "600",
+        "known_errors": {
+          "60": "faktor_zehn_daneben",
+          "0,015": "richtung_vertauscht"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "600"
+      ]
+    }
+  },
+  {
+    "nr": 13,
+    "task": {
+      "id": "01f22500-c86d-47d0-bb1d-a5f420e2de9d",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Potenzen · 3^2",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Berechne.\n\n3^2 = ?",
+      "is_active": true,
+      "skill_key": "potenzen",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-potenzen-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 30,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Berechne.\n\n3^2 = ?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "01f22500-c86d-47d0-bb1d-a5f420e2de9d",
+      "solution": null,
+      "acceptance": {
+        "canonical": "9",
+        "known_errors": {
+          "6": "mal_exponent",
+          "8": "basis_exponent_vertauscht"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "9"
+      ]
+    }
+  },
+  {
+    "nr": 14,
+    "task": {
+      "id": "25539057-46a0-473c-ab73-40d1b81edd55",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Potenzen · 5^2",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Berechne.\n\n5^2 = ?",
+      "is_active": true,
+      "skill_key": "potenzen",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-potenzen-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 30,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Berechne.\n\n5^2 = ?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "25539057-46a0-473c-ab73-40d1b81edd55",
+      "solution": null,
+      "acceptance": {
+        "canonical": "25",
+        "known_errors": {
+          "10": "mal_exponent",
+          "32": "basis_exponent_vertauscht"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "25"
+      ]
+    }
+  },
+  {
+    "nr": 15,
+    "task": {
+      "id": "25da44e4-8960-4836-929f-cdfbaab61c14",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Prozentuale Veränderung · 200 um 10 % größer",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Eine Zahl ist 200. Sie wird um 10 % vergrößert.\n\nWie groß ist sie danach?",
+      "is_active": true,
+      "skill_key": "prozent_veraenderung",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-prozent-veraenderung-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 60,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Eine Zahl ist 200. Sie wird um 10 % vergrößert.\n\nWie groß ist sie danach?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "25da44e4-8960-4836-929f-cdfbaab61c14",
+      "solution": null,
+      "acceptance": {
+        "canonical": "220",
+        "known_errors": {
+          "20": "nur_prozentwert",
+          "180": "falsche_richtung"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "220"
+      ]
+    }
+  },
+  {
+    "nr": 16,
+    "task": {
+      "id": "dcf715b5-4a34-48c8-ba54-bbbb22617058",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Prozentuale Veränderung · 400 um 10 % größer",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Eine Zahl ist 400. Sie wird um 10 % vergrößert.\n\nWie groß ist sie danach?",
+      "is_active": true,
+      "skill_key": "prozent_veraenderung",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-prozent-veraenderung-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 60,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Eine Zahl ist 400. Sie wird um 10 % vergrößert.\n\nWie groß ist sie danach?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "dcf715b5-4a34-48c8-ba54-bbbb22617058",
+      "solution": null,
+      "acceptance": {
+        "canonical": "440",
+        "known_errors": {
+          "40": "nur_prozentwert",
+          "360": "falsche_richtung"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "440"
+      ]
+    }
+  },
+  {
+    "nr": 17,
+    "task": {
+      "id": "c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm³",
+      "parts": [],
+      "title": "AFB I · Volumen · Quader 2 cm, 3 cm, 5 cm",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Ein Quader hat die Kantenlängen a = 2 cm, b = 3 cm und c = 5 cm.\n\nWie groß ist das Volumen in cm³?",
+      "is_active": true,
+      "skill_key": "geo_volumen_quader",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-geo-volumen-quader-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 45,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Ein Quader hat die Kantenlängen a = 2 cm, b = 3 cm und c = 5 cm.\n\nWie groß ist das Volumen in cm³?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "geometrie",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "c4ffe2bc-72fd-4faf-b2e8-bd1c59a6e2a7",
+      "solution": null,
+      "acceptance": {
+        "canonical": "30",
+        "known_errors": {
+          "6": "zwei_kanten",
+          "10": "plus_statt_mal"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "30"
+      ]
+    }
+  },
+  {
+    "nr": 18,
+    "task": {
+      "id": "7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm³",
+      "parts": [],
+      "title": "AFB I · Volumen · Quader 4 cm, 2 cm, 6 cm",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Ein Quader hat die Kantenlängen a = 4 cm, b = 2 cm und c = 6 cm.\n\nWie groß ist das Volumen in cm³?",
+      "is_active": true,
+      "skill_key": "geo_volumen_quader",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-geo-volumen-quader-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 45,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Ein Quader hat die Kantenlängen a = 4 cm, b = 2 cm und c = 6 cm.\n\nWie groß ist das Volumen in cm³?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "geometrie",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "7f41ce84-72e3-42fe-9bd4-40d7bfc12cb4",
+      "solution": null,
+      "acceptance": {
+        "canonical": "48",
+        "known_errors": {
+          "8": "zwei_kanten",
+          "12": "plus_statt_mal"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "48"
+      ]
+    }
+  },
+  {
+    "nr": 19,
+    "task": {
+      "id": "a9ff9918-5d33-4381-b0bc-f611b3cb3a30",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm³",
+      "parts": [],
+      "title": "AFB I · Volumeneinheiten · 2 dm³ in cm³",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Wandle um.\n\n2 dm³ = ? cm³",
+      "is_active": true,
+      "skill_key": "groessen_volumen",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-groessen-volumen-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 40,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Wandle um.\n\n2 dm³ = ? cm³"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "a9ff9918-5d33-4381-b0bc-f611b3cb3a30",
+      "solution": null,
+      "acceptance": {
+        "canonical": "2000",
+        "known_errors": {
+          "20": "linearer_faktor",
+          "0,002": "richtung_vertauscht"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "2000"
+      ]
+    }
+  },
+  {
+    "nr": 20,
+    "task": {
+      "id": "d040f47f-0d2e-4cb1-abfc-36eb694f518d",
+      "afb": "I",
+      "hint": null,
+      "unit": "cm³",
+      "parts": [],
+      "title": "AFB I · Volumeneinheiten · 5 dm³ in cm³",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Wandle um.\n\n5 dm³ = ? cm³",
+      "is_active": true,
+      "skill_key": "groessen_volumen",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-groessen-volumen-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 40,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Wandle um.\n\n5 dm³ = ? cm³"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "d040f47f-0d2e-4cb1-abfc-36eb694f518d",
+      "solution": null,
+      "acceptance": {
+        "canonical": "5000",
+        "known_errors": {
+          "50": "linearer_faktor",
+          "0,005": "richtung_vertauscht"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "5000"
+      ]
+    }
+  },
+  {
+    "nr": 21,
+    "task": {
+      "id": "864f0b02-71a8-4203-988d-9b6fbf6dd074",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Vorrang · -6 + 4 · 2",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Berechne.\n\n-6 + 4 · 2 = ?",
+      "is_active": true,
+      "skill_key": "vorzeichen_vorrang",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-vorzeichen-vorrang-01",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 40,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Berechne.\n\n-6 + 4 · 2 = ?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "864f0b02-71a8-4203-988d-9b6fbf6dd074",
+      "solution": null,
+      "acceptance": {
+        "canonical": "2",
+        "known_errors": {
+          "14": "vorzeichen_ignoriert",
+          "-4": "vorrang_ignoriert"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "2"
+      ]
+    }
+  },
+  {
+    "nr": 22,
+    "task": {
+      "id": "d79fa8b6-c6b4-425c-ae78-724e5b38af81",
+      "afb": "I",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "AFB I · Vorrang · -8 + 5 · 3",
+      "assets": [],
+      "source": "edvance_fundament_afb1",
+      "status": "draft",
+      "question": "Berechne.\n\n-8 + 5 · 3 = ?",
+      "is_active": true,
+      "skill_key": "vorzeichen_vorrang",
+      "cluster_id": null,
+      "coach_note": null,
+      "created_at": "2026-07-30T12:36:22.335786+00:00",
+      "difficulty": null,
+      "input_type": "NUMERIC",
+      "source_ref": "afb1-vorzeichen-vorrang-02",
+      "class_level": null,
+      "is_tutorial": false,
+      "needs_image": null,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 7,
+      "est_duration_sec": 40,
+      "question_payload": {
+        "kind": "short_input",
+        "prompt": "Berechne.\n\n-8 + 5 · 3 = ?"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "d79fa8b6-c6b4-425c-ae78-724e5b38af81",
+      "solution": null,
+      "acceptance": {
+        "canonical": "7",
+        "known_errors": {
+          "23": "vorzeichen_ignoriert",
+          "-9": "vorrang_ignoriert"
+        }
+      },
+      "updated_at": "2026-07-30T12:36:22.335786+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "7"
+      ]
+    }
+  },
+  {
+    "nr": 23,
+    "task": {
+      "id": "dd4db5a2-2e96-4a93-b1c0-fca052b144ca",
+      "afb": "III",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Gemischt · Koeffizienten und Differenz · (3x - 2)² - (x + 4)(x - 4)",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus und fasse zusammen. Welcher Term ist richtig?\n\n(3x - 2)² - (x + 4)(x - 4) = ?",
+      "is_active": true,
+      "skill_key": "term_binom_gemischt",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-gemischt-04",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "8x² - 12x + 20"
+          },
+          {
+            "id": "b",
+            "label": "8x² - 12x - 12"
+          },
+          {
+            "id": "c",
+            "label": "10x² - 12x + 20"
+          },
+          {
+            "id": "d",
+            "label": "8x² - 12x - 20"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Problemlösen, Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "dd4db5a2-2e96-4a93-b1c0-fca052b144ca",
+      "solution": null,
+      "acceptance": {
+        "canonical": "a",
+        "known_errors": {
+          "b": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "a"
+      ]
+    }
+  },
+  {
+    "nr": 24,
+    "task": {
+      "id": "b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Gemischt · Quadrat und Quadratdifferenz · (x + 5)² - (x + 2)(x - 2)",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus und fasse zusammen. Welcher Term ist richtig?\n\n(x + 5)² - (x + 2)(x - 2) = ?",
+      "is_active": true,
+      "skill_key": "term_binom_gemischt",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-gemischt-02",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": 1,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "10x + 29"
+          },
+          {
+            "id": "b",
+            "label": "10x + 21"
+          },
+          {
+            "id": "c",
+            "label": "29"
+          },
+          {
+            "id": "d",
+            "label": "2x² + 10x + 21"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "b7ac3c73-91eb-4a9c-9d9e-4d9f3790b261",
+      "solution": null,
+      "acceptance": {
+        "canonical": "a",
+        "known_errors": {
+          "b": "quadratdifferenz_vorzeichen",
+          "c": "quadrat_gliedweise"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "a"
+      ]
+    }
+  },
+  {
+    "nr": 25,
+    "task": {
+      "id": "f8364853-03fa-4d7e-807c-b0a20dbe09e3",
+      "afb": "III",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Gemischt · Sachkontext · Restfläche",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Ein quadratisches Grundstück hat die Seitenlänge (x + 3) Meter. Davon wird ein quadratisches Beet mit der Seitenlänge (x - 1) Metern abgetrennt.\nWelcher Term gibt den Flächeninhalt der Restfläche an?",
+      "is_active": true,
+      "skill_key": "term_binom_gemischt",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-gemischt-05",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "8"
+          },
+          {
+            "id": "b",
+            "label": "8x + 8"
+          },
+          {
+            "id": "c",
+            "label": "4x + 8"
+          },
+          {
+            "id": "d",
+            "label": "2x² + 8x + 8"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Modellieren, Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "f8364853-03fa-4d7e-807c-b0a20dbe09e3",
+      "solution": null,
+      "acceptance": {
+        "canonical": "b",
+        "known_errors": {
+          "a": "quadrat_gliedweise"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "b"
+      ]
+    }
+  },
+  {
+    "nr": 26,
+    "task": {
+      "id": "79c7a940-7a41-4b6b-b4ff-ce464425c758",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Gemischt · Summe zweier Formeln · (x + 6)(x - 6) + (x + 2)²",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus und fasse zusammen. Welcher Term ist richtig?\n\n(x + 6)(x - 6) + (x + 2)² = ?",
+      "is_active": true,
+      "skill_key": "term_binom_gemischt",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-gemischt-03",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "2x² + 4x + 40"
+          },
+          {
+            "id": "b",
+            "label": "2x² + 4x - 32"
+          },
+          {
+            "id": "c",
+            "label": "2x² - 32"
+          },
+          {
+            "id": "d",
+            "label": "2x² + 4x - 40"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "79c7a940-7a41-4b6b-b4ff-ce464425c758",
+      "solution": null,
+      "acceptance": {
+        "canonical": "b",
+        "known_errors": {
+          "a": "quadratdifferenz_vorzeichen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "b"
+      ]
+    }
+  },
+  {
+    "nr": 27,
+    "task": {
+      "id": "1c519bed-37b4-4322-9668-849b4756efcf",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Gemischt · vereinfachen · (x + 4)² - x² - 16",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Vereinfache so weit wie möglich. Welcher Term ist richtig?\n\n(x + 4)² - x² - 16 = ?",
+      "is_active": true,
+      "skill_key": "term_binom_gemischt",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-gemischt-06",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": null,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "0"
+          },
+          {
+            "id": "b",
+            "label": "8x"
+          },
+          {
+            "id": "c",
+            "label": "8x + 32"
+          },
+          {
+            "id": "d",
+            "label": "8x - 32"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "1c519bed-37b4-4322-9668-849b4756efcf",
+      "solution": null,
+      "acceptance": {
+        "canonical": "b",
+        "known_errors": {
+          "a": "quadrat_gliedweise"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "b"
+      ]
+    }
+  },
+  {
+    "nr": 28,
+    "task": {
+      "id": "c31fdbb1-9a48-4cd8-9b0c-35393af84330",
+      "afb": "II",
+      "hint": null,
+      "unit": null,
+      "parts": [],
+      "title": "Gemischt · zwei Quadrate · (x + 3)² - (x - 3)²",
+      "assets": [],
+      "source": "edvance_k8_binom",
+      "status": "draft",
+      "question": "Multipliziere aus und fasse zusammen. Welcher Term ist richtig?\n\n(x + 3)² - (x - 3)² = ?",
+      "is_active": true,
+      "skill_key": "term_binom_gemischt",
+      "cluster_id": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+      "coach_note": null,
+      "created_at": "2026-08-30T17:00:32.04196+00:00",
+      "difficulty": null,
+      "input_type": "MC",
+      "source_ref": "binom-gemischt-01",
+      "class_level": 8,
+      "is_tutorial": false,
+      "needs_image": false,
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "sondierrang": 2,
+      "vorbefuellt": {},
+      "content_type": "exercise",
+      "licence_text": null,
+      "common_errors": null,
+      "competency_id": null,
+      "is_diagnostic": false,
+      "microskill_id": null,
+      "cognitive_type": null,
+      "curriculum_ref": null,
+      "dialog_enabled": false,
+      "typical_errors": null,
+      "vorbefuellt_am": null,
+      "curriculum_grade": 8,
+      "est_duration_sec": null,
+      "question_payload": {
+        "options": [
+          {
+            "id": "a",
+            "label": "0"
+          },
+          {
+            "id": "b",
+            "label": "18"
+          },
+          {
+            "id": "c",
+            "label": "12x"
+          },
+          {
+            "id": "d",
+            "label": "2x² + 18"
+          }
+        ],
+        "input_type": "MC"
+      },
+      "estimated_minutes": 3,
+      "competency_content": "arithmetik_algebra",
+      "competency_process": "Operieren"
+    },
+    "sol": {
+      "beleg": null,
+      "hints": [],
+      "task_id": "c31fdbb1-9a48-4cd8-9b0c-35393af84330",
+      "solution": null,
+      "acceptance": {
+        "canonical": "c",
+        "known_errors": {
+          "a": "quadrat_gliedweise",
+          "b": "klammer_vergessen"
+        }
+      },
+      "updated_at": "2026-08-30T17:00:32.04196+00:00",
+      "coach_hints": [],
+      "option_scores": null,
+      "legacy_payload": null,
+      "typical_errors": [],
+      "correct_answers": [
+        "c"
+      ]
+    }
+  }
+]

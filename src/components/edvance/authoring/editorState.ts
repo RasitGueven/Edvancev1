@@ -25,6 +25,7 @@ import type {
   TaskSolution,
   TaskSolutionPatch,
 } from '@/types'
+import { geaenderteSpalten, hatEintraege, ohneSpalten } from '@/lib/authoring/vorbefuellt'
 
 export type Hint = { level?: number; text: string }
 export type TypicalError = { error: string; socratic_question?: string }
@@ -171,6 +172,9 @@ export function toPatch(state: FormState): AuthoringTaskPatch {
     // ist kein Feld des Freigabe-Gates.
     competency_content: multi ? null : nullIfBlank(state.competency_content),
     competency_process: multi ? null : nullIfBlank(state.competency_process),
+    // Themengebiet: fehlte hier bis zum Nachtrag 2 zu PR #176 — die Auswahl in
+    // Editor und Strecke ging beim Speichern stillschweigend verloren.
+    cluster_id: nullIfBlank(state.cluster_id),
     curriculum_grade: intOrNull(state.curriculum_grade),
     // tasks_multipart_check verlangt parts = '[]' bei flachen Items.
     parts: multi ? normalizeParts(state.parts) : [],
@@ -279,6 +283,30 @@ export function draftTask(state: FormState, base: AuthoringTask): AuthoringTask 
     curriculum_grade:
       base.curriculum_grade === undefined ? undefined : (patch.curriculum_grade ?? null),
   }
+}
+
+/**
+ * Der Patch fuer ein Speichern, samt Rest-Kennzeichen (lib/authoring/vorbefuellt).
+ * Editor (`baseline` fehlt): alle gespeicherten Aufgaben-Spalten gelten als
+ * bestaetigt. Strecke (`baseline` gesetzt): nur die geaenderten.
+ */
+export function patchFuerSpeichern(
+  state: FormState,
+  task: AuthoringTask,
+  baseline?: FormState,
+): AuthoringTaskPatch {
+  const patch = toPatch(state)
+  if (task.vorbefuellt === undefined || !hatEintraege(task.vorbefuellt)) return patch
+  const gespeichert = baseline ? geaenderteSpalten(toPatch(baseline), patch) : Object.keys(patch)
+  return { ...patch, vorbefuellt: ohneSpalten(task.vorbefuellt, gespeichert) }
+}
+
+/** Inhaltsfelder, die in dieser Aufgabe schon vorkommen (Vorschlagsliste im Editor). */
+export function kompetenzenVon(task: AuthoringTask | null): string[] {
+  const set = new Set<string>()
+  if (task?.competency_content) set.add(task.competency_content)
+  for (const part of task?.parts ?? []) if (part.competency_content) set.add(part.competency_content)
+  return [...set].sort()
 }
 
 /** `beleg` kommt vom Server durchgereicht — er entsteht nie im Formular. */

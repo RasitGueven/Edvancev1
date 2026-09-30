@@ -19,6 +19,7 @@
 // Hinweise, die der Pfleger DRUMHERUM liest, laufen sehr wohl ueber i18n.
 
 import type { AuthoringTask, GroundingRecord } from '@/types'
+import { istVera8 } from './vera8'
 
 /** Die Lizenz, unter der die VERA-8-Materialien stehen. */
 export const CC_BY_40_URL = 'https://creativecommons.org/licenses/by/4.0/'
@@ -27,8 +28,6 @@ export const CC_BY_40_LABEL = 'CC BY 4.0'
 /** Der Rechteinhaber, ausgeschrieben — eine Abkuerzung allein nennt niemanden. */
 const IQB_NAME = 'Institut zur Qualitätsentwicklung im Bildungswesen (IQB)'
 
-/** Nur fuer diese Quelle kennen wir Rechteinhaber und Lizenz sicher. */
-const VERA8_SOURCE = 'VERA8_IQB'
 
 /**
  * Das Fach aus dem IQB-Dateipfad (…/VERA-8_Mathematik/xyz_Aufgabe.docx).
@@ -65,7 +64,8 @@ export function buildAttribution(
   task: Pick<AuthoringTask, 'source'>,
   record: GroundingRecord | null,
 ): string | null {
-  if (task.source !== VERA8_SOURCE) return null
+  // Nur fuer VERA8 kennen wir Rechteinhaber und Lizenz sicher.
+  if (!istVera8(task)) return null
 
   const title = record?.titel?.trim()
   const subject = subjectFromUrls(record?.iqb_urls)

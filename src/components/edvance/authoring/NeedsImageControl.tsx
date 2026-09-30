@@ -23,11 +23,14 @@ const CHOICES: Choice[] = [
 
 export function NeedsImageControl({
   label,
+  feld,
   value,
   canWrite,
   onChange,
 }: {
   label: string
+  /** Schluessel im Vorbefuellt-Kennzeichen ('needs_image' / 'parts.<nr>.needs_image'). */
+  feld?: string
   value: boolean | null
   canWrite: boolean
   onChange: (next: boolean | null) => void
@@ -35,7 +38,7 @@ export function NeedsImageControl({
   const { t } = useTranslation('authoring')
 
   return (
-    <Field label={label}>
+    <Field label={label} feld={feld}>
       <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={label}>
         {CHOICES.map((choice) => {
           const active = value === choice.value
