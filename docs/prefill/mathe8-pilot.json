@@ -1,0 +1,449 @@
+{
+  "batch": "mathe8-pilot",
+  "auswahl": "Die ersten 25 offenen Aufgaben (status=draft) im Themengebiet 'Algebra & Funktionen', sortiert wie Lenas Warteschlange (themenVon: Titel, dann id).",
+  "zeitregel": {
+    "beschreibung": "est_duration_sec fuer Einzelaufgaben: AFB I 45 s, AFB II 60 s, AFB III 90 s; +30 s bei Sachkontext. MULTI_PART-Werte sind gesetzt und bleiben.",
+    "basis": { "I": 45, "II": 60, "III": 90 },
+    "sachkontext_zuschlag": 30
+  },
+  "leer_alle": {
+    "coach_hints": "Bewusst leer im ganzen Pilot: kein Beleg und inhaltlich doppelt zu typical_errors. Entscheidung Rasit/Lena, ob das Feld vorbefuellt werden soll.",
+    "needs_image": "Laut Item-Pflege \"eine Fachentscheidung, kein Automatismus\" — wird nie vorbefuellt."
+  },
+  "aufgaben": [
+    {
+      "nr": 1,
+      "id": "c6990fb9-ae96-4a56-952e-da94736ac70f",
+      "titel": "Andere Länder - andere Noten",
+      "felder": {
+        "afb": { "wert": "II", "sicher": "hoch", "grund": "Hoechster AFB der Teilaufgaben (IQB-Kommentierung: TA1 I, TA2 II, TA3 II)." }
+      },
+      "teile": {
+        "1": {
+          "afb": { "wert": "I", "sicher": "hoch", "grund": "IQB-Kommentierung TA1: AFB I." },
+          "competency_content": { "wert": "funktionen", "sicher": "hoch", "grund": "IQB-Leitidee '4. Funktionaler Zusammenhang'." },
+          "antwort": { "wert": ["4", "4,0"], "sicher": "hoch", "grund": "IQB-Auswertung TA1 woertlich: '4 ODER 4,0'. Nachgerechnet 30/50*5+1." }
+        },
+        "2": {
+          "afb": { "wert": "II", "sicher": "hoch", "grund": "IQB-Kommentierung TA2: AFB II." },
+          "competency_content": { "wert": "funktionen", "sicher": "hoch", "grund": "IQB-Leitidee '4. Funktionaler Zusammenhang'." },
+          "antwort": { "wert": ["90", "89"], "sicher": "mittel", "grund": "Nachgerechnet, kein IQB-Beleg fuer TA2. 90 ergibt exakt 5,5; 89 ergibt 5,45 und wird kaufmaennisch auf 5,5 gerundet. Halbe Punkte nicht beruecksichtigt." }
+        },
+        "3": {
+          "afb": { "wert": "II", "sicher": "mittel", "grund": "Teil 3 ist im Original der Loesungsweg zu TA2 (AFB II), keine eigene Teilaufgabe." },
+          "competency_content": { "wert": "funktionen", "sicher": "hoch", "grund": "Wie TA2." },
+          "antwort": { "wert": ["90/100 · 5 + 1 = 5,5"], "sicher": "mittel", "grund": "Musterloesung fuer einen Freitext-Loesungsweg; automatisch nur bei woertlicher Gleichheit bewertbar (siehe Befund)." }
+        },
+        "4": {
+          "afb": { "wert": "II", "sicher": "hoch", "grund": "IQB-Kommentierung TA3 (= DB-Teil 4): AFB II." },
+          "competency_content": { "wert": "funktionen", "sicher": "hoch", "grund": "IQB-Leitidee '4. Funktionaler Zusammenhang'." },
+          "antwort": { "wert": ["Note = erreichte Punktzahl / Maximalpunktzahl · 9 + 1", "erreichte Punktzahl / Maximalpunktzahl · 9 + 1"], "sicher": "mittel", "grund": "Nachgerechnet (0 Punkte -> 1, volle Punktzahl -> 10). Musterloesung, Formel-Freitext; siehe Befund." }
+        }
+      },
+      "loesung": {
+        "solution": { "wert": "Teilaufgabe 1: Note = 30/50 · 5 + 1 = 0,6 · 5 + 1 = 4. Die Note ist 4 (auch als 4,0 richtig).\nTeilaufgabe 2: Aus P/100 · 5 + 1 = 5,5 folgt P/100 · 5 = 4,5, also P = 90. Da auf eine Nachkommastelle gerundet wird, ergibt auch 89 Punkte die Note 5,5 (89/100 · 5 + 1 = 5,45 ≈ 5,5).\nTeilaufgabe 3: Lösungsweg zu Teilaufgabe 2, z. B. die Gleichung P/100 · 5 + 1 = 5,5 nach P auflösen oder die Probe 90/100 · 5 + 1 = 5,5.\nTeilaufgabe 4: Die Noten reichen von 1 bis 10, die Spanne ist also 9. Note = erreichte Punktzahl / Maximalpunktzahl · 9 + 1. Probe: 0 Punkte ergeben 1, die volle Punktzahl ergibt 10.", "sicher": "hoch", "grund": "Selbst gerechnet; TA1 deckt sich mit der IQB-Auswertung." },
+        "hints": { "wert": [{ "level": 1, "text": "Setze die gegebenen Zahlen in die Formel ein: erreichte Punktzahl oben, Maximalpunktzahl unten." }, { "level": 2, "text": "Für Teilaufgabe 2 rechnest du rückwärts: Ziehe von 5,5 zuerst 1 ab und teile dann durch 5. Für die Niederlande überlege, wie viele Notenstufen zwischen 1 und 10 liegen." }], "sicher": "mittel", "grund": "Generiert, kein Beleg." },
+        "typical_errors": { "wert": [{ "error": "In der Formel wird zuerst 5 + 1 gerechnet (Punkt-vor-Strich missachtet): 30/50 · 6 = 3,6.", "socratic_question": "Welche Rechenart kommt in der Formel zuerst – das Mal oder das Plus?" }, { "error": "Für die Niederlande wird der Faktor 10 statt 9 gewählt; dann ergibt die volle Punktzahl die Note 11.", "socratic_question": "Welche Note ergibt deine Formel, wenn jemand alle Punkte erreicht hat?" }], "sicher": "mittel", "grund": "Generiert; IQB nennt fuer diese Aufgabe keine typischen Fehler (Grounding: keine_typischen_fehler_belegt)." }
+      },
+      "leer": {
+        "curriculum_grade": "Nicht eindeutig: Einsetzen in eine Formel (Kl. 7) oder Formel fuer eine lineare Zuordnung aufstellen (Kl. 8). Das C10-Audit hat die Aufgabe ebenfalls nicht als 'sicher' eingestuft. Vorschlag fuer Lena: 7 oder 8.",
+        "coach_hints": "Bewusst leer im ganzen Pilot: kein Beleg, inhaltlich doppelt zu typical_errors. Entscheidung Rasit/Lena, ob das Feld vorbefuellt werden soll.",
+        "needs_image": "Laut Item-Pflege 'eine Fachentscheidung, kein Automatismus' — wird nicht vorbefuellt."
+      },
+      "pruefung": [
+        { "teil": "1", "antwort": "4", "rechnung": "30/50*5+1" },
+        { "teil": "2", "antwort": "90", "probe": "round(A/100*5+1,1)", "soll": "5.5" },
+        { "teil": "2", "antwort": "89", "probe": "round(A/100*5+1,1)", "soll": "5.5" },
+        { "teil": "4", "formel": "P/M*9+1", "faelle": [{ "P": 0, "M": 50, "soll": "1" }, { "P": 50, "M": 50, "soll": "10" }, { "P": 25, "M": 50, "soll": "5.5" }] }
+      ]
+    },
+    {
+      "nr": 2,
+      "id": "489cc6d1-9734-408f-9a08-0ce551d7452b",
+      "titel": "Aussagen zur proportionalen Zuordnung",
+      "felder": {
+        "est_duration_sec": { "wert": 45, "sicher": "mittel", "grund": "Zeitregel: AFB I, kein Sachkontext." }
+      },
+      "leer": {
+        "correct_answers": "MC ohne Optionen in question_payload und ohne Abbildung; die IQB-Loesung liegt nur als Grafik vor ('[pic]'). Keine Options-ID belegbar.",
+        "solution": "Ohne Graph nicht loesbar — ein Loesungsweg waere geraten.",
+        "hints": "Aufgabe strukturell unvollstaendig (Graph und Optionen fehlen).",
+        "typical_errors": "Das IQB-Zitat ist abgeschnitten ('Es wird entweder nicht …'); ohne Graph nicht sinnvoll formulierbar.",
+        "competency_process": "IQB nennt fuer dieses Item keine K-Kompetenz.",
+        "coach_hints": "Bewusst leer im ganzen Pilot (siehe Aufgabe 1).",
+        "needs_image": "Bereits gesetzt (true)."
+      }
+    },
+    {
+      "nr": 3,
+      "id": "0e4d40b0-1e64-49e7-8abf-ced28a71e19c",
+      "titel": "Berechne x",
+      "felder": {
+        "est_duration_sec": { "wert": 45, "sicher": "mittel", "grund": "Zeitregel: AFB I, kein Sachkontext." },
+        "competency_process": { "wert": "Operieren", "sicher": "mittel", "grund": "Reine Aequivalenzumformung; IQB nennt keine K-Kompetenz, Wert aus dem Bestand gewaehlt." }
+      },
+      "loesung": {
+        "solution": { "wert": "8x = 72 | : 8\nx = 9\nProbe: 8 · 9 = 72.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "8x bedeutet 8 · x. Welche Rechnung macht das Mal 8 rückgängig?" }, { "level": 2, "text": "Teile beide Seiten der Gleichung durch 8." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "8x wird wie 8 + x behandelt und 8 abgezogen: x = 64.", "socratic_question": "Was bedeutet 8x – wird hier addiert oder multipliziert?" }], "sicher": "mittel", "grund": "Nach IQB-Kommentierung ('Die multiplikative Struktur von 8x wird nicht erkannt …'); Zitat im Grounding abgeschnitten, Rest ergaenzt." }
+      },
+      "leer": {
+        "unit": "Reine Zahl, keine Einheit.",
+        "coach_hints": "Bewusst leer im ganzen Pilot (siehe Aufgabe 1).",
+        "needs_image": "Bereits gesetzt (false)."
+      },
+      "pruefung": [
+        { "teil": null, "antwort": "9", "probe": "8*A", "soll": "72" }
+      ]
+    },
+    {
+      "nr": 4,
+      "id": "de60d4ff-c473-4358-b050-85a54dd903a1",
+      "titel": "Binomische Formel · Quadrat · (2x + 3)²",
+      "felder": {
+        "est_duration_sec": { "wert": 60, "sicher": "mittel", "grund": "Zeitregel: AFB II, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Erste binomische Formel mit a = 2x und b = 3:\n(2x + 3)² = (2x)² + 2 · 2x · 3 + 3² = 4x² + 12x + 9.\nRichtig ist also 4x² + 12x + 9.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Welche binomische Formel passt zu (a + b)²?" }, { "level": 2, "text": "Setze a = 2x und b = 3 in a² + 2ab + b² ein. Denk an den Mischterm 2ab." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Quadrat wird gliedweise gebildet: (2x + 3)² = 4x² + 9 – der Mischterm 12x fehlt.", "socratic_question": "Schreibe (2x + 3)² als (2x + 3)(2x + 3) und multipliziere jedes Glied mit jedem – wie viele Produkte entstehen?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (b: quadrat_gliedweise)." }
+      },
+      "pruefung": [{ "term": "(2x+3)^2" }]
+    },
+    {
+      "nr": 5,
+      "id": "ebd05f6f-2ab0-41ad-bac3-16c075fc2592",
+      "titel": "Binomische Formel · Quadrat · (3x - 4)²",
+      "felder": {
+        "est_duration_sec": { "wert": 60, "sicher": "mittel", "grund": "Zeitregel: AFB II, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Zweite binomische Formel mit a = 3x und b = 4:\n(3x - 4)² = (3x)² - 2 · 3x · 4 + 4² = 9x² - 24x + 16.\nRichtig ist also 9x² - 24x + 16.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Welche binomische Formel passt zu (a - b)²?" }, { "level": 2, "text": "Setze a = 3x und b = 4 in a² - 2ab + b² ein. Achte auf das Vorzeichen des Mischterms." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Quadrat wird gliedweise gebildet: 9x² + 16 – der Mischterm fehlt.", "socratic_question": "Wenn du (3x - 4)(3x - 4) ausmultiplizierst: Was ergibt 3x · (-4)?" }, { "error": "Der Mischterm bekommt das falsche Vorzeichen: 9x² + 24x + 16.", "socratic_question": "Welches Vorzeichen hat 2ab, wenn b abgezogen wird?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a: quadrat_gliedweise, b: falsches_vorzeichen_beim_zusammenfuehren)." }
+      },
+      "pruefung": [{ "term": "(3x-4)^2" }]
+    },
+    {
+      "nr": 6,
+      "id": "9a598424-963b-4981-91ad-9a81cead51f4",
+      "titel": "Binomische Formel · Quadrat · (x - 5)²",
+      "felder": {
+        "est_duration_sec": { "wert": 45, "sicher": "mittel", "grund": "Zeitregel: AFB I, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Zweite binomische Formel mit a = x und b = 5:\n(x - 5)² = x² - 2 · x · 5 + 5² = x² - 10x + 25.\nRichtig ist also x² - 10x + 25.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Welche binomische Formel passt zu (a - b)²?" }, { "level": 2, "text": "Rechne a² - 2ab + b² mit a = x und b = 5." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Quadrat wird gliedweise gebildet: x² + 25 – der Mischterm -10x fehlt.", "socratic_question": "Rechne (x - 5)(x - 5) Schritt für Schritt aus – wie viele Produkte entstehen?" }, { "error": "Der Mischterm bekommt das falsche Vorzeichen: x² + 10x + 25.", "socratic_question": "Was ergibt x · (-5) + (-5) · x?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a, c)." }
+      },
+      "pruefung": [{ "term": "(x-5)^2" }]
+    },
+    {
+      "nr": 7,
+      "id": "ae6fa0b8-283c-4570-b9d2-6271c17e3384",
+      "titel": "Binomische Formel · Quadrat · (x + 3)²",
+      "felder": {
+        "est_duration_sec": { "wert": 45, "sicher": "mittel", "grund": "Zeitregel: AFB I, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Erste binomische Formel mit a = x und b = 3:\n(x + 3)² = x² + 2 · x · 3 + 3² = x² + 6x + 9.\nRichtig ist also x² + 6x + 9.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Welche binomische Formel passt zu (a + b)²?" }, { "level": 2, "text": "Rechne a² + 2ab + b² mit a = x und b = 3." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Quadrat wird gliedweise gebildet: x² + 9 – der Mischterm 6x fehlt.", "socratic_question": "Setze zur Probe x = 1 ein: Ist (1 + 3)² dasselbe wie 1² + 9?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a: quadrat_gliedweise)." }
+      },
+      "pruefung": [{ "term": "(x+3)^2" }]
+    },
+    {
+      "nr": 8,
+      "id": "f54b2f2c-5c0e-46ae-bd6c-00acc3efa4fa",
+      "titel": "Binomische Formel · Rückrichtung · x² + 20x + 100",
+      "felder": {
+        "est_duration_sec": { "wert": 90, "sicher": "mittel", "grund": "Zeitregel: AFB III, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Gesucht sind a und b mit a² = x² und b² = 100, also a = x und b = 10.\nProbe des Mischterms: 2 · x · 10 = 20x – passt.\nx² + 20x + 100 = (x + 10)².", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Von welcher Zahl ist 100 das Quadrat?" }, { "level": 2, "text": "Prüfe mit dem Mischterm: 2 · a · b muss 20x ergeben." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Der Mischterm wird direkt als b übernommen: (x + 20)². Ausmultipliziert ergibt das x² + 40x + 400.", "socratic_question": "Multipliziere deine Klammer zur Probe aus – kommt wieder x² + 20x + 100 heraus?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a)." }
+      },
+      "pruefung": [{ "term": "x^2+20x+100" }]
+    },
+    {
+      "nr": 9,
+      "id": "513d03bd-0d8d-4f0a-9e99-ea63b38b8587",
+      "titel": "Binomische Formel · Sachkontext · quadratisches Beet",
+      "felder": {
+        "est_duration_sec": { "wert": 90, "sicher": "mittel", "grund": "Zeitregel: AFB II + Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Fläche eines Quadrats = Seitenlänge · Seitenlänge.\nA = (x + 4)² = x² + 2 · x · 4 + 4² = x² + 8x + 16 (in m²).", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Wie berechnest du die Fläche eines Quadrats?" }, { "level": 2, "text": "Die Fläche ist (x + 4)². Nutze die erste binomische Formel." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Quadrat wird gliedweise gebildet: x² + 16 – der Mischterm 8x fehlt.", "socratic_question": "Zeichne das Beet als Quadrat mit den Teilen x und 4: Aus welchen vier Rechtecken besteht es?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (b)." }
+      },
+      "pruefung": [{ "term": "(x+4)^2" }]
+    },
+    {
+      "nr": 10,
+      "id": "d47b8793-7e82-4036-9173-d446c554b907",
+      "titel": "Dritte binomische Formel · (2x - 9)(2x + 9)",
+      "felder": {
+        "est_duration_sec": { "wert": 60, "sicher": "mittel", "grund": "Zeitregel: AFB II, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Dritte binomische Formel mit a = 2x und b = 9:\n(2x - 9)(2x + 9) = (2x)² - 9² = 4x² - 81.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Die Klammern unterscheiden sich nur im Vorzeichen. Welche binomische Formel passt?" }, { "level": 2, "text": "(a - b)(a + b) = a² - b². Hier ist a = 2x und b = 9." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Vorzeichen von b² wird falsch gesetzt: 4x² + 81.", "socratic_question": "Was ergibt (-9) · 9 beim Ausmultiplizieren?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (b)." }
+      },
+      "pruefung": [{ "term": "(2x-9)(2x+9)" }]
+    },
+    {
+      "nr": 11,
+      "id": "94492e5a-3627-4f45-b628-41d06114a7a4",
+      "titel": "Dritte binomische Formel · (3x + 5)(3x - 5)",
+      "felder": {
+        "est_duration_sec": { "wert": 60, "sicher": "mittel", "grund": "Zeitregel: AFB II, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Dritte binomische Formel mit a = 3x und b = 5:\n(3x + 5)(3x - 5) = (3x)² - 5² = 9x² - 25.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Die Klammern unterscheiden sich nur im Vorzeichen. Welche binomische Formel passt?" }, { "level": 2, "text": "(a + b)(a - b) = a² - b². Hier ist a = 3x und b = 5." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Vorzeichen von b² wird falsch gesetzt: 9x² + 25.", "socratic_question": "Was ergibt 5 · (-5) beim Ausmultiplizieren?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (b)." }
+      },
+      "pruefung": [{ "term": "(3x+5)(3x-5)" }]
+    },
+    {
+      "nr": 12,
+      "id": "eb3f28da-155b-49fc-aa17-1abfd882a373",
+      "titel": "Dritte binomische Formel · (x - 7)(x + 7)",
+      "felder": {
+        "est_duration_sec": { "wert": 45, "sicher": "mittel", "grund": "Zeitregel: AFB I, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Dritte binomische Formel mit a = x und b = 7:\n(x - 7)(x + 7) = x² - 7² = x² - 49.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Die Klammern unterscheiden sich nur im Vorzeichen. Welche binomische Formel passt?" }, { "level": 2, "text": "(a - b)(a + b) = a² - b². Hier ist a = x und b = 7." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Vorzeichen von b² wird falsch gesetzt: x² + 49.", "socratic_question": "Was ergibt (-7) · 7 beim Ausmultiplizieren?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a)." }
+      },
+      "pruefung": [{ "term": "(x-7)(x+7)" }]
+    },
+    {
+      "nr": 13,
+      "id": "293413f8-8e31-4f0b-b64e-7ac2a183606e",
+      "titel": "Dritte binomische Formel · (x + 4)(x - 4)",
+      "felder": {
+        "est_duration_sec": { "wert": 45, "sicher": "mittel", "grund": "Zeitregel: AFB I, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Dritte binomische Formel mit a = x und b = 4:\n(x + 4)(x - 4) = x² - 4² = x² - 16.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Die Klammern unterscheiden sich nur im Vorzeichen. Welche binomische Formel passt?" }, { "level": 2, "text": "(a + b)(a - b) = a² - b². Hier ist a = x und b = 4." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Vorzeichen von b² wird falsch gesetzt: x² + 16.", "socratic_question": "Was ergibt 4 · (-4) beim Ausmultiplizieren?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (b)." }
+      },
+      "pruefung": [{ "term": "(x+4)(x-4)" }]
+    },
+    {
+      "nr": 14,
+      "id": "7e027634-1c45-4c70-8357-198dad0f1797",
+      "titel": "Dritte binomische Formel · geschicktes Rechnen · 102 · 98",
+      "felder": {
+        "est_duration_sec": { "wert": 60, "sicher": "mittel", "grund": "Zeitregel: AFB II, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "102 · 98 = (100 + 2)(100 - 2) = 100² - 2² = 10000 - 4 = 9996.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Schreibe 102 und 98 als 100 plus bzw. minus eine kleine Zahl." }, { "level": 2, "text": "Nutze (a + b)(a - b) = a² - b² mit a = 100 und b = 2." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Das Vorzeichen von b² wird falsch gesetzt: 100² + 2² = 10004.", "socratic_question": "Ist 102 · 98 größer oder kleiner als 100 · 100?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (10004)." }
+      },
+      "leer": {
+        "unit": "Reine Zahl, keine Einheit."
+      },
+      "pruefung": [{ "teil": null, "antwort": "9996", "rechnung": "(100+2)*(100-2)" }]
+    },
+    {
+      "nr": 15,
+      "id": "113aea0a-276a-4042-b634-805ef1e11db2",
+      "titel": "Dritte binomische Formel · Sachkontext · Grundstück",
+      "felder": {
+        "est_duration_sec": { "wert": 120, "sicher": "mittel", "grund": "Zeitregel: AFB III + Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Die neuen Seitenlängen sind (x + 5) m und (x - 5) m.\nA = (x + 5)(x - 5) = x² - 25 (in m²).\nDas Rechteck ist also um 25 m² kleiner als das ursprüngliche Quadrat.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Schreibe die beiden neuen Seitenlängen als Terme auf." }, { "level": 2, "text": "Multipliziere (x + 5) mit (x - 5). Welche binomische Formel passt?" }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Es wird angenommen, dass sich Verlängern und Verkürzen ausgleichen: Fläche bleibt x².", "socratic_question": "Probiere es mit x = 10 aus: Wie groß ist ein Rechteck mit 15 m und 5 m im Vergleich zum Quadrat mit 10 m?" }, { "error": "Das Vorzeichen von b² wird falsch gesetzt: x² + 25.", "socratic_question": "Was ergibt 5 · (-5) beim Ausmultiplizieren?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a: differenz_ignoriert, b: quadratdifferenz_vorzeichen)." }
+      },
+      "pruefung": [{ "term": "(x+5)(x-5)" }]
+    },
+    {
+      "nr": 16,
+      "id": "125a4c15-3659-4d39-93d5-422a0b72dd1d",
+      "titel": "Druckmaschinen",
+      "felder": {
+        "afb": { "wert": "I", "sicher": "hoch", "grund": "Hoechster AFB der Teilaufgaben (beide I, IQB-belegt)." }
+      },
+      "loesung": {
+        "solution": { "wert": "Eine Maschine schafft 60000 : 4 = 15000 Bögen pro Stunde.\nTeilaufgabe 1: 90000 : 15000 = 6, also 6 Stunden.\nTeilaufgabe 2: Zwei Maschinen schaffen zusammen 30000 Bögen pro Stunde; 60000 : 30000 = 2, also 2 Stunden. Doppelt so viele Maschinen brauchen die halbe Zeit.", "sicher": "hoch", "grund": "Nachgerechnet; deckt sich mit der IQB-Auswertung (6 und 2)." },
+        "hints": { "wert": [{ "level": 1, "text": "Wie viele Bögen schafft eine Maschine in einer Stunde?" }, { "level": 2, "text": "Teile die Anzahl der Bögen durch die Leistung pro Stunde. Zwei Maschinen schaffen pro Stunde doppelt so viel." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Bei zwei Maschinen wird die Zeit verdoppelt statt halbiert (8 Stunden) – mehr Maschinen bedeuten weniger Zeit.", "socratic_question": "Wenn zwei Maschinen gleichzeitig drucken – sind sie schneller oder langsamer fertig als eine?" }, { "error": "Der Dreisatz wird falsch herum aufgestellt: 60000 : 90000 · 4 ≈ 2,7 Stunden.", "socratic_question": "Sind 90000 Bögen mehr als 60000 – muss es dann länger oder kürzer dauern als 4 Stunden?" }], "sicher": "mittel", "grund": "Generiert; IQB nennt keine typischen Fehler." }
+      },
+      "leer": {
+        "est_duration_sec": "Gesetzt (180 s), laut Import-Flag aber ein Platzhalter (90 s je Teilaufgabe). Wird nicht ueberschrieben — siehe Befund.",
+        "needs_image": "Laut Item-Pflege eine Fachentscheidung — wird nicht vorbefuellt.",
+        "coach_hints": "Bewusst leer im ganzen Pilot (siehe Aufgabe 1)."
+      },
+      "pruefung": [
+        { "teil": "1", "antwort": "6", "rechnung": "90000/(60000/4)" },
+        { "teil": "2", "antwort": "2", "rechnung": "60000/(2*60000/4)" }
+      ]
+    },
+    {
+      "nr": 17,
+      "id": "d3422f3d-85c0-46e5-b9a5-0e751e3c09c9",
+      "titel": "Eindeutig",
+      "felder": {
+        "afb": { "wert": "III", "sicher": "hoch", "grund": "Hoechster AFB der IQB-Teilaufgaben (TA1 II, TA2 III)." }
+      },
+      "loesung": {
+        "solution": { "wert": "Teilaufgabe 1:\n3x + 32 = 17x + 4 hat genau eine Lösung (unterschiedliche Faktoren vor x; x = 2).\nx + 32 = x + 4 hat keine Lösung (gleicher Faktor vor x, aber 32 ≠ 4).\n3 + 32x = 17 + 4x hat genau eine Lösung (unterschiedliche Faktoren vor x; x = 0,5).\nTeilaufgabe 2: z. B. x + 2 = x + 2 oder 2(x + 1) = 2x + 2 – beide Seiten sind gleichwertige Terme, jede Zahl für x ergibt eine wahre Aussage.", "sicher": "hoch", "grund": "Nachgerechnet; Beispiel TA2 aus der IQB-Auswertung ('x + 2 = x + 2')." }
+      },
+      "leer": {
+        "input_type": "Aufgabe hat weder Typ noch Teilaufgaben; der Stamm endet nach dem ersten Satz. Struktur muss im Editor neu angelegt werden (Befund).",
+        "correct_answers": "Ohne Teilaufgaben-Struktur nicht setzbar.",
+        "est_duration_sec": "Ohne Aufgabentyp und Teilaufgaben nicht sinnvoll schaetzbar.",
+        "curriculum_grade": "Lineare Gleichungen: Kl. 7 oder 8 — nicht eindeutig; C10-Audit ebenfalls nicht 'sicher'.",
+        "hints": "Aufgabe strukturell unvollstaendig.",
+        "typical_errors": "Aufgabe strukturell unvollstaendig; IQB nennt keine typischen Fehler.",
+        "needs_image": "Laut Item-Pflege eine Fachentscheidung — wird nicht vorbefuellt.",
+        "coach_hints": "Bewusst leer im ganzen Pilot (siehe Aufgabe 1)."
+      },
+      "pruefung": [
+        { "teil": null, "antwort": "2", "probe": "3*A+32-(17*A+4)", "soll": "0", "rolle": "hilfsrechnung" },
+        { "teil": null, "antwort": "0.5", "probe": "3+32*A-(17+4*A)", "soll": "0", "rolle": "hilfsrechnung" },
+        { "teil": null, "antwort": "7", "probe": "(A+2)-(A+2)", "soll": "0", "rolle": "hilfsrechnung" }
+      ]
+    },
+    {
+      "nr": 18,
+      "id": "24a6c671-873f-46c1-8906-c995e1fcbbea",
+      "titel": "Eiscafé",
+      "felder": {
+        "afb": { "wert": "II", "sicher": "hoch", "grund": "Hoechster AFB der Teilaufgaben (I, II; IQB-belegt)." }
+      },
+      "loesung": {
+        "solution": { "wert": "Teilaufgabe 1: 4 · 0,80 € + 0,50 € = 3,20 € + 0,50 € = 3,70 €.\nTeilaufgabe 2: Im Eiscafé Venezia kostet eine Kugel 4,50 € : 5 = 0,90 €, im Eiscafé Arnoldo 0,80 €. Eine Kugel ist also im Eiscafé Arnoldo günstiger. (Oder: Fünf Kugeln kosten bei Arnoldo 5 · 0,80 € = 4,00 €, also weniger als 4,50 €.)", "sicher": "hoch", "grund": "Nachgerechnet; deckt sich mit der IQB-Auswertung (3,70; Arnoldo)." },
+        "hints": { "wert": [{ "level": 1, "text": "Rechne zuerst den Preis für die Eiskugeln aus. Was kommt danach noch dazu?" }, { "level": 2, "text": "Für den Vergleich: Teile 4,50 € durch 5, dann hast du den Preis einer Kugel im Eiscafé Venezia." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Die Sahne wird vergessen: 3,20 €.", "socratic_question": "Was hat Gina außer den vier Kugeln noch gekauft?" }, { "error": "Der Preis für fünf Kugeln (4,50 €) wird direkt mit dem Preis einer Kugel (0,80 €) verglichen.", "socratic_question": "Vergleichst du gerade den Preis für eine Kugel mit dem Preis für fünf Kugeln?" }], "sicher": "mittel", "grund": "Generiert; IQB nennt keine typischen Fehler." }
+      },
+      "leer": {
+        "est_duration_sec": "Gesetzt (180 s), laut Import-Flag ein Platzhalter. Wird nicht ueberschrieben — siehe Befund.",
+        "needs_image": "Laut Item-Pflege eine Fachentscheidung — wird nicht vorbefuellt.",
+        "coach_hints": "Bewusst leer im ganzen Pilot (siehe Aufgabe 1)."
+      },
+      "pruefung": [
+        { "teil": "1", "antwort": "3,70", "rechnung": "4*0.80+0.50" },
+        { "teil": "2", "antwort": "0.9", "rechnung": "4.50/5", "rolle": "hilfsrechnung" }
+      ]
+    },
+    {
+      "nr": 19,
+      "id": "9be9bb9c-a5b5-482e-bd76-51599553d61b",
+      "titel": "Faktorisieren · Differenz von Quadraten · x² - 25",
+      "felder": {
+        "est_duration_sec": { "wert": 45, "sicher": "mittel", "grund": "Zeitregel: AFB I, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "x² - 25 = x² - 5² ist eine Differenz von Quadraten.\nMit a² - b² = (a + b)(a - b): x² - 25 = (x + 5)(x - 5).", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Von welcher Zahl ist 25 das Quadrat?" }, { "level": 2, "text": "Nutze a² - b² = (a + b)(a - b) rückwärts." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Beide Klammern bekommen dasselbe Vorzeichen: (x - 5)(x - 5) oder (x + 5)(x + 5). Das ergibt einen Mischterm ±10x.", "socratic_question": "Multipliziere deine Klammern zur Probe aus – verschwindet der Term mit x?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (b, c)." }
+      },
+      "pruefung": [{ "term": "x^2-25" }]
+    },
+    {
+      "nr": 20,
+      "id": "18dbb731-98be-4b90-a8c2-5773114de6c6",
+      "titel": "Faktorisieren · gemeinsamer Faktor und Quadrat · 3x² + 12x + 12",
+      "felder": {
+        "est_duration_sec": { "wert": 60, "sicher": "mittel", "grund": "Zeitregel: AFB II, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Zuerst 3 ausklammern: 3x² + 12x + 12 = 3(x² + 4x + 4).\nDie Klammer ist ein vollständiges Quadrat: x² + 4x + 4 = (x + 2)².\nAlso: 3x² + 12x + 12 = 3(x + 2)².", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Welche Zahl steckt in allen drei Summanden als Faktor?" }, { "level": 2, "text": "Klammere 3 aus und prüfe dann, ob die Klammer eine binomische Formel ist." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Nur der gemeinsame Faktor wird ausgeklammert: 3(x² + 4x + 4) – die Klammer lässt sich noch als (x + 2)² schreiben.", "socratic_question": "Kannst du den Term in der Klammer noch weiter zerlegen?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a: faktorisierung_unvollstaendig)." }
+      },
+      "pruefung": [{ "term": "3x^2+12x+12", "vollstaendig": true }]
+    },
+    {
+      "nr": 21,
+      "id": "e4a18d51-9545-4f17-b1aa-10dc72c35cd3",
+      "titel": "Faktorisieren · gemeinsamer Faktor zuerst · 2x² - 18",
+      "felder": {
+        "est_duration_sec": { "wert": 60, "sicher": "mittel", "grund": "Zeitregel: AFB II, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Zuerst 2 ausklammern: 2x² - 18 = 2(x² - 9).\nDie Klammer ist eine Differenz von Quadraten: x² - 9 = (x + 3)(x - 3).\nAlso: 2x² - 18 = 2(x + 3)(x - 3).", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Welche Zahl steckt in beiden Summanden als Faktor?" }, { "level": 2, "text": "Klammere 2 aus und zerlege x² - 9 mit a² - b² = (a + b)(a - b)." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Nur der gemeinsame Faktor wird ausgeklammert: 2(x² - 9) – die Klammer lässt sich noch zerlegen.", "socratic_question": "Ist x² - 9 schon ein Produkt, oder kannst du es noch zerlegen?" }, { "error": "Beide Klammern bekommen dasselbe Vorzeichen: 2(x - 3)(x - 3).", "socratic_question": "Multipliziere (x - 3)(x - 3) aus – bleibt ein Term mit x übrig?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a, c)." }
+      },
+      "pruefung": [{ "term": "2x^2-18", "vollstaendig": true }]
+    },
+    {
+      "nr": 22,
+      "id": "88ca2551-82bf-4ca3-b971-32cd4292a146",
+      "titel": "Faktorisieren · geschicktes Rechnen · 47² - 43²",
+      "felder": {
+        "est_duration_sec": { "wert": 60, "sicher": "mittel", "grund": "Zeitregel: AFB II, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "47² - 43² = (47 + 43)(47 - 43) = 90 · 4 = 360.", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Welche binomische Formel hat die Form a² - b²?" }, { "level": 2, "text": "a² - b² = (a + b)(a - b). Setze a = 47 und b = 43 ein." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "47² - 43² wird als (47 - 43)² gerechnet: 16.", "socratic_question": "Ist 47² - 43² dasselbe wie (47 - 43)²? Probiere es mit kleinen Zahlen wie 3² - 2² aus." }, { "error": "Nur (47 + 43) = 90 wird berechnet, der Faktor (47 - 43) = 4 fehlt.", "socratic_question": "Aus wie vielen Faktoren besteht (a + b)(a - b)?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (16, 90)." }
+      },
+      "leer": {
+        "unit": "Reine Zahl, keine Einheit."
+      },
+      "pruefung": [{ "teil": null, "antwort": "360", "rechnung": "47^2-43^2" }]
+    },
+    {
+      "nr": 23,
+      "id": "b2bc0cfc-d927-4a29-aca4-4686606d9466",
+      "titel": "Faktorisieren · vollständiges Quadrat · x² + 8x + 16",
+      "felder": {
+        "est_duration_sec": { "wert": 45, "sicher": "mittel", "grund": "Zeitregel: AFB I, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Gesucht sind a und b mit a² = x² und b² = 16, also a = x und b = 4.\nProbe des Mischterms: 2 · x · 4 = 8x – passt.\nx² + 8x + 16 = (x + 4)².", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Von welcher Zahl ist 16 das Quadrat?" }, { "level": 2, "text": "Prüfe mit dem Mischterm: 2 · a · b muss 8x ergeben." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Der Mischterm wird direkt als b übernommen: (x + 8)². Ausmultipliziert ergibt das x² + 16x + 64.", "socratic_question": "Multipliziere deine Klammer zur Probe aus – kommt wieder x² + 8x + 16 heraus?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a)." }
+      },
+      "pruefung": [{ "term": "x^2+8x+16" }]
+    },
+    {
+      "nr": 24,
+      "id": "9d904128-a0ae-449c-b7de-e1c57c8238c5",
+      "titel": "Faktorisieren · zweistufig · x⁴ - 16",
+      "felder": {
+        "est_duration_sec": { "wert": 90, "sicher": "mittel", "grund": "Zeitregel: AFB III, kein Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "x⁴ - 16 = (x²)² - 4² = (x² + 4)(x² - 4).\nDie zweite Klammer ist wieder eine Differenz von Quadraten: x² - 4 = (x + 2)(x - 2).\nAlso: x⁴ - 16 = (x² + 4)(x + 2)(x - 2).", "sicher": "hoch", "grund": "Nachgerechnet." },
+        "hints": { "wert": [{ "level": 1, "text": "Schreibe x⁴ als (x²)² und 16 als 4²." }, { "level": 2, "text": "Nach dem ersten Zerlegen: Lässt sich eine der Klammern noch einmal mit a² - b² zerlegen?" }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Nach dem ersten Schritt wird aufgehört: (x² + 4)(x² - 4) – die Klammer x² - 4 lässt sich noch zerlegen.", "socratic_question": "Ist x² - 4 selbst wieder eine Differenz von Quadraten?" }], "sicher": "hoch", "grund": "Aus acceptance.known_errors (a: faktorisierung_unvollstaendig)." }
+      },
+      "pruefung": [{ "term": "x^4-16", "vollstaendig": true }]
+    },
+    {
+      "nr": 25,
+      "id": "6f552893-ec6d-4a73-b54d-17b0f2fd4dd6",
+      "titel": "Fliesen",
+      "felder": {
+        "est_duration_sec": { "wert": 90, "sicher": "mittel", "grund": "Zeitregel: AFB II + Sachkontext." }
+      },
+      "loesung": {
+        "solution": { "wert": "Fläche des Badezimmers: 50 · 0,16 m² = 8 m².\nAnzahl der neuen Fliesen: 8 m² : 0,2 m² = 40.\nEs sind mindestens 40 Fliesen nötig. (Größere Fliesen – weniger Fliesen.)", "sicher": "hoch", "grund": "Nachgerechnet; deckt sich mit der IQB-Auswertung (40)." },
+        "hints": { "wert": [{ "level": 1, "text": "Wie groß ist die Fläche, die gefliest werden soll?" }, { "level": 2, "text": "Teile die Gesamtfläche durch die Fläche einer neuen Fliese." }], "sicher": "hoch", "grund": "Generiert." },
+        "typical_errors": { "wert": [{ "error": "Der Dreisatz wird anders herum angewendet, als wären größere Fliesen mehr Fliesen: 50 · 0,2 : 0,16 = 62,5.", "socratic_question": "Wenn jede Fliese größer wird – brauchst du dann mehr oder weniger Fliesen?" }], "sicher": "mittel", "grund": "Nach IQB-Kommentierung ('Der Dreisatz wird anders herum angewendet …'); Zitat abgeschnitten, Beispielzahl ergaenzt." }
+      },
+      "leer": {
+        "competency_process": "IQB nennt fuer dieses Item keine K-Kompetenz; Modellieren oder Operieren waeren beide vertretbar.",
+        "coach_hints": "Bewusst leer im ganzen Pilot (siehe Aufgabe 1)."
+      },
+      "pruefung": [
+        { "teil": null, "antwort": "40", "rechnung": "50*0.16/0.2" },
+        { "teil": null, "antwort": "62.5", "rechnung": "50*0.2/0.16", "rolle": "fehlbild" }
+      ]
+    }
+  ]
+}

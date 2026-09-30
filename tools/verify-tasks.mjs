@@ -28,9 +28,12 @@
  *   node tools/verify-tasks.mjs --status draft --source edvance_fundament
  *   node tools/verify-tasks.mjs --nur-struktur        # ohne LLM, kostenlos
  *   node tools/verify-tasks.mjs --quelle datei --pfad out/k8-charge.json
+ *
+ * Vorbefuellung fuer Lenas Pruefung (siehe verify-prefill.mjs) — ohne LLM, ohne DB:
+ *   node tools/verify-tasks.mjs --prefill docs/prefill/<charge>.json \
+ *        --snapshot docs/prefill/<charge>-snapshot.json [--blind <loeser.json>] [--bericht <datei.md>]
  */
 
-import { createClient } from '@supabase/supabase-js';
 import fs from 'node:fs/promises';
 import { ausDatei, ausProduktion, filtere, QuellenFehler } from './verify-tasks-quellen.mjs';
 
@@ -57,6 +60,14 @@ const flag = (n) => A.includes(`--${n}`);
 const opt = (n, d) => { const i = A.indexOf(`--${n}`); return i === -1 ? d : A[i + 1]; };
 const MIN_PASS = Number(opt('min-pass', '0.95'));
 
+if (flag('prefill')) {
+  const { pruefePrefill } = await import('./verify-prefill.mjs');
+  const r = await pruefePrefill({ charge: opt('prefill'), snapshot: opt('snapshot'), blind: opt('blind') });
+  console.log(r.bericht);
+  if (opt('bericht')) await fs.writeFile(opt('bericht'), r.bericht);
+  process.exit(r.fehler.length ? 1 : 0);
+}
+
 // ─── Aufgaben laden ──────────────────────────────────────────────────────────
 
 const QUELLE = opt('quelle', 'prod');
@@ -79,6 +90,8 @@ try {
       console.error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY fehlen (oder --quelle datei nutzen).');
       process.exit(2);
     }
+    // Dynamisch: --prefill und --quelle datei laufen so auch ohne node_modules.
+    const { createClient } = await import('@supabase/supabase-js');
     const sb = createClient(CFG.url, CFG.key, { auth: { persistSession: false } });
     ({ tasks, loesungVon } = await ausProduktion(sb, FILTER));
     herkunft = 'Produktion';
