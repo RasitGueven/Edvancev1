@@ -1,4 +1,5 @@
 import { useEffect, useState, type JSX } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,6 +18,8 @@ import {
   listSessionsForCoach,
   getSessionStudents,
   addStudentToSession,
+  listPlatzKandidaten,
+  KEIN_PLATZ_ZUGANG,
 } from '@/lib/supabase/sessions'
 import { formatSessionDate } from '@/lib/datetime'
 import { SELECT_MD as SELECT_CLASS } from '@/lib/formStyles'
@@ -47,7 +50,10 @@ function SessionRow({
   session: CoachingSession
   students: StudentWithName[]
 }): JSX.Element {
+  const { t, i18n } = useTranslation('admin')
   const [assigned, setAssigned] = useState<string[]>([])
+  // Nur Kinder mit laufendem Vertrag am Datum der Session (P5b).
+  const [kandidaten, setKandidaten] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
   const [pick, setPick] = useState('')
   const [busy, setBusy] = useState(false)
@@ -55,11 +61,22 @@ function SessionRow({
 
   const load = (): void => {
     setLoading(true)
-    void getSessionStudents(session.id).then(({ data }) => {
-      setAssigned((data ?? []).map((s) => s.student_id))
-      setLoading(false)
-    })
+    void Promise.all([getSessionStudents(session.id), listPlatzKandidaten(session.id)]).then(
+      ([teilnehmer, erlaubt]) => {
+        setAssigned((teilnehmer.data ?? []).map((s) => s.student_id))
+        setKandidaten(new Set(erlaubt.data ?? []))
+        if (erlaubt.error) setError(erlaubt.error)
+        setLoading(false)
+      },
+    )
   }
+
+  const sessionDatum = new Intl.DateTimeFormat(i18n.language, {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    timeZone: 'Europe/Berlin',
+  }).format(new Date(session.scheduled_at))
 
   useEffect(load, [session.id])
 
@@ -70,17 +87,17 @@ function SessionRow({
     if (!pick) return
     setBusy(true)
     setError(null)
-    const { error: err } = await addStudentToSession(session.id, pick)
+    const { error: err, code } = await addStudentToSession(session.id, pick)
     setBusy(false)
     if (err) {
-      setError(err)
+      setError(code === KEIN_PLATZ_ZUGANG ? t('schedule.keinZugang', { datum: sessionDatum }) : err)
       return
     }
     setPick('')
     load()
   }
 
-  const available = students.filter((s) => !assigned.includes(s.id))
+  const available = students.filter((s) => !assigned.includes(s.id) && kandidaten.has(s.id))
 
   return (
     <EdvanceCard className="flex flex-col gap-3 p-6">
@@ -118,6 +135,10 @@ function SessionRow({
       </div>
 
       {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
+
+      {!loading && available.length === 0 && (
+        <p className="text-sm text-[var(--color-text-tertiary)]">{t('schedule.keineKandidaten')}</p>
+      )}
 
       {available.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">

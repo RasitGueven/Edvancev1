@@ -51,5 +51,9 @@
         "description": "Verträge vorbereiten, unterschreiben lassen und nachhalten."
       }
     }
+  },
+  "schedule": {
+    "keinZugang": "Kein laufender Vertrag am {{datum}} — Platz kann nicht vergeben werden.",
+    "keineKandidaten": "Kein weiteres Kind hat an diesem Datum einen laufenden Vertrag."
   }
 }

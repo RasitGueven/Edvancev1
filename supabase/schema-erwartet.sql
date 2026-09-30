@@ -4101,6 +4101,110 @@ $$;
 
 
 --
+-- Name: session_platz_kandidaten(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_platz_kandidaten(p_session_id uuid) RETURNS SETOF uuid
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle text := public.get_my_role();
+  v_datum date;
+begin
+  if v_rolle = 'admin' then
+    null;
+  elsif v_rolle = 'coach' and p_session_id in (select public.session_ids_fuer_coach()) then
+    null;
+  else
+    raise exception 'session_platz_kandidaten: keine Berechtigung fuer diese Session' using errcode = '42501';
+  end if;
+
+  select (cs.scheduled_at at time zone 'Europe/Berlin')::date into v_datum
+    from public.coaching_sessions cs where cs.id = p_session_id;
+  if v_datum is null then
+    raise exception 'session_platz_kandidaten: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  return query
+    select s.id
+      from public.students s
+     where not s.is_provisional
+       and public.session_platz_zugang(s.id, v_datum);
+end;
+$$;
+
+
+--
+-- Name: session_platz_zugang(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_platz_zugang(p_student_id uuid, p_datum date) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.vertraege v
+     where v.student_id = p_student_id
+       and v.status = 'abgeschlossen'
+       and v.vertragsbeginn is not null
+       and v.vertrag_ende is not null
+       and p_datum between v.vertragsbeginn and v.vertrag_ende
+       and public.vertrag_wirksamer_status(
+             v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis, p_datum
+           ) in ('im_widerruf', 'aktiv')
+  )
+  or exists (
+    -- Bruecke, wie hat_zugang (20260925181700_vertraege_menue_db.sql)
+    select 1
+      from public.vertraege alt
+      join public.vertraege neu on neu.vorgaenger_id = alt.id
+     where alt.student_id = p_student_id
+       and alt.status = 'abgeschlossen'
+       and alt.vertrag_ende is not null
+       and alt.vertrag_ende < p_datum
+       and neu.status = 'abgeschlossen'
+       and neu.vertragsbeginn is not null
+       and neu.vertragsbeginn > p_datum
+  );
+$$;
+
+
+--
+-- Name: session_platz_zugang_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_platz_zugang_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_datum date;
+begin
+  select (cs.scheduled_at at time zone 'Europe/Berlin')::date
+    into v_datum
+    from public.coaching_sessions cs
+   where cs.id = new.session_id;
+
+  -- Keine Session: der Fremdschluessel meldet das selbst.
+  if v_datum is null then
+    return new;
+  end if;
+
+  if not public.session_platz_zugang(new.student_id, v_datum) then
+    raise exception 'Kein laufender Vertrag am % — Platz kann nicht vergeben werden.',
+                    to_char(v_datum, 'DD.MM.YYYY')
+      using errcode = 'ZG001',
+            hint    = 'datum:' || to_char(v_datum, 'YYYY-MM-DD');
+  end if;
+
+  return new;
+end;
+$$;
+
+
+--
 -- Name: skill_kante_tiefe_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -8688,6 +8792,13 @@ CREATE TRIGGER lsa_session_platz_release_trg AFTER UPDATE OF status ON public.ls
 --
 
 CREATE TRIGGER schueler_notizen_guard_trg BEFORE UPDATE ON public.schueler_notizen FOR EACH ROW EXECUTE FUNCTION public.schueler_notizen_guard();
+
+
+--
+-- Name: session_students session_students_zugang_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER session_students_zugang_trg BEFORE INSERT OR UPDATE OF student_id, session_id ON public.session_students FOR EACH ROW EXECUTE FUNCTION public.session_platz_zugang_pruefen();
 
 
 --
