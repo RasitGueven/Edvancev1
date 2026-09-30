@@ -17,7 +17,7 @@ import {
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { formatDateLongDe } from '@/lib/utils'
 import { berlinYMD, isoWeek } from '@/lib/datetime'
-import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, Inbox, FileText } from 'lucide-react'
+import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, FileText } from 'lucide-react'
 import {
   SessionCard,
   sessionTime,
@@ -229,12 +229,6 @@ export function CoachDashboard(): JSX.Element {
                 icon: <FileText className="h-5 w-5" />,
                 title: 'Elternreport',
                 description: 'KI-gestützten Report erstellen und freigeben',
-              },
-              {
-                to: '/admin/leads',
-                icon: <Inbox className="h-5 w-5" />,
-                title: 'Leads',
-                description: 'Interessent:innen erfassen und nachverfolgen',
               },
             ]}
           />

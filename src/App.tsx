@@ -128,7 +128,9 @@ export default function App(): JSX.Element {
         <Route
           path="/admin/leads"
           element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+            // Schuelerakte S1: Coaches lesen leads nicht mehr (coach_rls).
+            // Wer die alte Adresse aufruft, landet auf dem Coach-Dashboard.
+            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
               <LeadsPage />
             </ProtectedRoute>
           }
@@ -174,10 +176,9 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
-        {/* Slot-System (S10): Verwaltung des Wochen-Zeitrasters (Admin) und die
-            iPad-Ansicht fuers Elterngespraech. Die Auswahl darf der Coach
-            bedienen — er fuehrt das Erstgespraech; Schreiben auf slots und die
-            Zuweisungs-RPCs bleibt laut RLS admin-only. */}
+        {/* Slot-System (S10): Verwaltung des Wochen-Zeitrasters und die
+            iPad-Ansicht fuers Elterngespraech — seit Schuelerakte S1 beides nur
+            Admin, weil die Auswahl leads liest (coach_rls). */}
         <Route
           path="/admin/slots"
           element={
@@ -189,7 +190,7 @@ export default function App(): JSX.Element {
         <Route
           path="/admin/slot-auswahl"
           element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']}>
+            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
               <SlotPickerPage />
             </ProtectedRoute>
           }
