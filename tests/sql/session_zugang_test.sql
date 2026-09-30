@@ -29,6 +29,10 @@ declare
   k_spaet  uuid := gen_random_uuid();   -- Vertrag ab M1
   k_luecke uuid := gen_random_uuid();   -- Luecke vor unterschriebenem Folgevertrag
   k_widerr uuid := gen_random_uuid();   -- Luecke vor WIDERRUFENEM Folgevertrag
+  k_pause  uuid := gen_random_uuid();   -- Rueckkehrer: Altvertrag lange beendet, neuer ab M1 ohne Verknuepfung
+  k_kuend  uuid := gen_random_uuid();   -- Altvertrag gekuendigt (heute wirksam), Ende spaeter, Folgevertrag verknuepft
+  l6 uuid := gen_random_uuid(); l7 uuid := gen_random_uuid();
+  v_alt3 uuid := gen_random_uuid();
   l1 uuid := gen_random_uuid(); l2 uuid := gen_random_uuid();
   l3 uuid := gen_random_uuid(); l5 uuid := gen_random_uuid();
   v_alt2 uuid := gen_random_uuid();
@@ -60,7 +64,29 @@ begin
     (l1, 'ZZ_P5b Aktiv', 'converted'), (l2, 'ZZ_P5b Spaet', 'converted'), (l3, 'ZZ_P5b Luecke', 'converted'),
     (l5, 'ZZ_P5b Widerruf', 'converted');
   insert into public.students (id, class_level) values
-    (k_aktiv, 9), (k_ohne, 9), (k_spaet, 9), (k_luecke, 9), (k_widerr, 9);
+    (k_aktiv, 9), (k_ohne, 9), (k_spaet, 9), (k_luecke, 9), (k_widerr, 9), (k_pause, 9), (k_kuend, 9);
+  insert into public.leads (id, full_name, status) values
+    (l6, 'ZZ_P5b Pause', 'converted'), (l7, 'ZZ_P5b Kuendigung', 'converted');
+  -- Rueckkehrer: alt vor ueber einem Jahr beendet, neu ab M1, nicht verknuepft
+  insert into public.vertraege (lead_id, status, vertrag_status, student_id, einheiten, laufzeit_monate,
+                                vertragsbeginn, vertrag_ende, abgeschlossen_am) values
+    (l6, 'abgeschlossen', 'ausgelaufen', k_pause, 57, 12,
+     date_trunc('month', current_date - 800)::date, current_date - 400, current_date - 800);
+  insert into public.vertraege (lead_id, status, vertrag_status, student_id, einheiten, laufzeit_monate,
+                                vertragsbeginn, vertrag_ende, abgeschlossen_am, widerruf_bis) values
+    (l6, 'abgeschlossen', 'im_widerruf', k_pause, 57, 12, m1, (m1 + interval '1 year')::date - 1, current_date, m1 + 29);
+  -- Gekuendigt zum Vormonat, Vertragsende erst in 30 Tagen, Folgevertrag verknuepft ab spaeter
+  insert into public.vertraege (id, lead_id, status, vertrag_status, student_id, einheiten, laufzeit_monate,
+                                vertragsbeginn, vertrag_ende, abgeschlossen_am, gekuendigt_zum, kuendigung_grund,
+                                verlaengerung_status) values
+    (v_alt3, l7, 'abgeschlossen', 'aktiv', k_kuend, 57, 12,
+     date_trunc('month', current_date - 300)::date, current_date + 30, current_date - 300,
+     current_date - 30, 'ZZ_Test', 'verlaengert');
+  insert into public.vertraege (lead_id, status, vertrag_status, student_id, vorgaenger_id, einheiten, laufzeit_monate,
+                                vertragsbeginn, vertrag_ende, abgeschlossen_am, widerruf_bis) values
+    (l7, 'abgeschlossen', 'im_widerruf', k_kuend, v_alt3, 57, 12,
+     (m1 + interval '2 months')::date, (m1 + interval '14 months')::date - 1, current_date - 1,
+     (m1 + interval '2 months')::date + 29);
 
   insert into public.vertraege (id, lead_id, status, vertrag_status, student_id, einheiten, laufzeit_monate,
                                 vertragsbeginn, vertrag_ende, abgeschlossen_am, widerruf_bis) values
@@ -146,6 +172,21 @@ begin
     insert into ergebnis values (13, 'Luecke vor widerrufenem Folgevertrag eintragen', 'klappt', 'Fehler ZG001');
   exception when others then
     insert into ergebnis values (13, 'Luecke vor widerrufenem Folgevertrag eintragen', 'Fehler ' || sqlstate, 'Fehler ZG001');
+  end;
+
+  -- Auflage N1: hat_zugang ist hier wahr (neuer Vertrag im Widerruf), ein Platz aber nicht.
+  -- session_platz_zugang ist nicht an authenticated freigegeben: als Eigentuemer abfragen.
+  execute 'reset role';
+  insert into ergebnis values (16, 'Rueckkehrer nach Pause, neuer Vertrag ab M1: hat_zugang / Platz heute',
+    public.hat_zugang(k_pause)::text || ' / ' || public.session_platz_zugang(k_pause, current_date)::text, 'true / false');
+  insert into ergebnis values (18, 'Gekuendigter Altvertrag vor seinem Ende, Folgevertrag spaeter: Platz heute',
+    public.session_platz_zugang(k_kuend, current_date)::text, 'false');
+  execute 'set local role authenticated';
+  begin
+    insert into public.session_students (session_id, student_id) values (s_heute, k_pause);
+    insert into ergebnis values (17, 'Rueckkehrer nach Pause heute eintragen', 'klappt', 'Fehler ZG001');
+  exception when others then
+    insert into ergebnis values (17, 'Rueckkehrer nach Pause heute eintragen', 'Fehler ' || sqlstate, 'Fehler ZG001');
   end;
 
   -- Session verschieben (Trigger auf coaching_sessions.scheduled_at)
@@ -287,6 +328,8 @@ select 40 + row_number() over (), 'anon darf ' || f || ' nicht ausfuehren',
        has_function_privilege('anon', f, 'execute')::text, 'false'
   from unnest(array['public.session_platz_kandidaten(uuid)', 'public.session_platz_zugang(uuid,date)',
                     'public.session_platz_zugang_pruefen()']) f;
+insert into ergebnis values (46, 'authenticated darf vertrag_bruecke nicht ausfuehren',
+  has_function_privilege('authenticated', 'public.vertrag_bruecke(uuid,date)', 'execute')::text, 'false');
 insert into ergebnis values (47, 'authenticated darf session_platz_zugang nicht ausfuehren',
   has_function_privilege('authenticated', 'public.session_platz_zugang(uuid,date)', 'execute')::text, 'false');
 insert into ergebnis values (48, 'authenticated darf den Verschiebe-Trigger nicht direkt ausfuehren',

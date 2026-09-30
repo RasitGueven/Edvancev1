@@ -853,20 +853,7 @@ CREATE FUNCTION public.hat_zugang(p_student_id uuid, p_datum date DEFAULT CURREN
              v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis, p_datum
            ) in ('im_widerruf', 'aktiv')
   )
-  or exists (
-    select 1
-      from public.vertraege alt
-      join public.vertraege neu on neu.vorgaenger_id = alt.id
-     where alt.student_id = p_student_id
-       and alt.status = 'abgeschlossen'
-       and alt.widerrufen_am is null
-       and alt.vertrag_ende is not null
-       and alt.vertrag_ende < p_datum
-       and neu.status = 'abgeschlossen'
-       and neu.widerrufen_am is null
-       and neu.vertragsbeginn is not null
-       and neu.vertragsbeginn > p_datum
-  );
+  or public.vertrag_bruecke(p_student_id, p_datum);
 $$;
 
 
@@ -4146,14 +4133,20 @@ CREATE FUNCTION public.session_platz_zugang(p_student_id uuid, p_datum date) RET
     SET search_path TO 'public', 'pg_temp'
     AS $$
   select public.hat_zugang(p_student_id, p_datum)
-     and exists (
-       select 1
-         from public.vertraege v
-        where v.student_id = p_student_id
-          and v.status = 'abgeschlossen'
-          and v.widerrufen_am is null
-          and v.vertragsbeginn is not null
-          and v.vertragsbeginn <= p_datum
+     and (
+       exists (
+         select 1
+           from public.vertraege v
+          where v.student_id = p_student_id
+            and v.status = 'abgeschlossen'
+            and v.vertragsbeginn is not null
+            and v.vertrag_ende is not null
+            and p_datum between v.vertragsbeginn and v.vertrag_ende
+            and public.vertrag_wirksamer_status(
+                  v.widerrufen_am, v.gekuendigt_zum, v.vertrag_ende, v.widerruf_bis, p_datum
+                ) in ('im_widerruf', 'aktiv')
+       )
+       or public.vertrag_bruecke(p_student_id, p_datum)
      );
 $$;
 
@@ -5141,6 +5134,31 @@ begin
    where id = new.vertrag_id;
   return new;
 end;
+$$;
+
+
+--
+-- Name: vertrag_bruecke(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vertrag_bruecke(p_student_id uuid, p_datum date) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.vertraege alt
+      join public.vertraege neu on neu.vorgaenger_id = alt.id
+     where alt.student_id = p_student_id
+       and alt.status = 'abgeschlossen'
+       and alt.widerrufen_am is null
+       and alt.vertrag_ende is not null
+       and alt.vertrag_ende < p_datum
+       and neu.status = 'abgeschlossen'
+       and neu.widerrufen_am is null
+       and neu.vertragsbeginn is not null
+       and neu.vertragsbeginn > p_datum
+  );
 $$;
 
 
