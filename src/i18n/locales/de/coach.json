@@ -8,5 +8,11 @@
       "title": "Schüler",
       "description": "Aktive Akten nach Klassenstufe: Einheiten-Stand, Sessions und Notizen"
     }
+  },
+  "dashboard": {
+    "aktiveSchueler": "Aktive Schüler",
+    "naechsteSession": "Nächste Session",
+    "naechsteHeute": "{{zeit}} Uhr",
+    "naechsteAm": "{{datum}}, {{zeit}} Uhr"
   }
 }

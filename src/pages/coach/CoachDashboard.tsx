@@ -17,8 +17,11 @@ import {
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { formatDateLongDe } from '@/lib/utils'
 import { berlinYMD, isoWeek } from '@/lib/datetime'
-import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, FileText, FolderOpen } from 'lucide-react'
+import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, FolderOpen } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { datum } from '@/lib/akte/format'
+import { amSelbenBerlinerTag, naechsteSession } from '@/lib/coachKennzahlen'
+import { zaehleAktiveAkten } from '@/lib/supabase/akte'
 import {
   SessionCard,
   sessionTime,
@@ -48,18 +51,6 @@ function inRange(
   return sw.year === nw.year && sw.week === nw.week
 }
 
-function nextUpcomingTime(vms: SessionVM[]): string {
-  const next = vms
-    .filter((v) => v.session.status === 'upcoming')
-    .sort((a, b) => a.session.scheduled_at.localeCompare(b.session.scheduled_at))[0]
-  return next ? `${sessionTime(next.session.scheduled_at)} Uhr` : PLACEHOLDER_DASH
-}
-
-function totalActiveStudents(vms: SessionVM[]): number {
-  return vms
-    .filter((v) => v.session.status === 'active')
-    .reduce((sum, v) => sum + v.students.length, 0)
-}
 
 function DashStatCard({
   label,
@@ -88,7 +79,7 @@ function DashStatCard({
 }
 
 export function CoachDashboard(): JSX.Element {
-  const { t } = useTranslation('coach')
+  const { t, i18n } = useTranslation('coach')
   const { user } = useAuth()
   const [vms, setVms] = useState<SessionVM[]>([])
   const [intervBySession, setIntervBySession] = useState<
@@ -98,10 +89,28 @@ export function CoachDashboard(): JSX.Element {
   const [error, setError] = useState<string | null>(null)
   const [range, setRange] = useState<RangeFilter>('today')
 
-  const now = berlinYMD(new Date().toISOString())
+  const [aktiveSchueler, setAktiveSchueler] = useState<number | null>(null)
+
+  // "Sessions heute" zaehlt nach Berliner Kalendertag (berlinYMD fuer jetzt
+  // und fuer die Session) — war schon vor S2b so (Prod-Beleg im PR).
+  const jetztIso = new Date().toISOString()
+  const now = berlinYMD(jetztIso)
   const todayCount = vms.filter((v) =>
     inRange(v.session.scheduled_at, 'today', now),
   ).length
+  const naechste = naechsteSession(vms.map((v) => v.session), Date.now())
+  const naechsteAnzeige = !naechste
+    ? PLACEHOLDER_DASH
+    : amSelbenBerlinerTag(naechste.scheduled_at, jetztIso)
+      ? t('dashboard.naechsteHeute', { zeit: sessionTime(naechste.scheduled_at) })
+      : t('dashboard.naechsteAm', {
+          datum: datum(naechste.scheduled_at, i18n.language),
+          zeit: sessionTime(naechste.scheduled_at),
+        })
+
+  useEffect(() => {
+    void zaehleAktiveAkten().then(({ data }) => setAktiveSchueler(data))
+  }, [])
   const filteredVms = vms.filter((v) =>
     inRange(v.session.scheduled_at, range, now),
   )
@@ -232,12 +241,6 @@ export function CoachDashboard(): JSX.Element {
                 title: 'Screening-Ergebnisse',
                 description: 'Abgeschlossene Lernstand-Diagnosen einsehen',
               },
-              {
-                to: '/coach/reports',
-                icon: <FileText className="h-5 w-5" />,
-                title: 'Elternreport',
-                description: 'KI-gestützten Report erstellen und freigeben',
-              },
             ]}
           />
         </div>
@@ -250,14 +253,14 @@ export function CoachDashboard(): JSX.Element {
             iconCls="bg-[color-mix(in_srgb,var(--color-primary)_12%,transparent)]"
           />
           <DashStatCard
-            label="Aktive Schüler"
-            value={totalActiveStudents(vms)}
+            label={t('dashboard.aktiveSchueler')}
+            value={aktiveSchueler ?? PLACEHOLDER_DASH}
             icon={<Users className="h-5 w-5 text-success" />}
             iconCls="bg-[color-mix(in_srgb,var(--color-success)_12%,transparent)]"
           />
           <DashStatCard
-            label="Nächste Session"
-            value={nextUpcomingTime(vms)}
+            label={t('dashboard.naechsteSession')}
+            value={naechsteAnzeige}
             icon={<Clock className="h-5 w-5 text-warning" />}
             iconCls="bg-[color-mix(in_srgb,var(--color-gold-warning)_12%,transparent)]"
           />

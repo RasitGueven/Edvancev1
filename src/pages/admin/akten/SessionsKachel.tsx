@@ -19,14 +19,13 @@ const BADGE: Record<AttendanceStatus, EdvanceBadgeVariant> = {
   cancelled_by_us: 'primary',
 }
 
-/** Sessions und Anwesenheit (Anforderung E): Summe je Zustand, letzte 8, Rest aufklappbar. */
-export function SessionsKachel({
-  sessions,
-  nurEigene,
-}: {
-  sessions: AkteSession[]
-  nurEigene: boolean
-}): JSX.Element {
+/**
+ * Sessions und Anwesenheit (Anforderung E): Summe je Zustand, letzte 8, Rest
+ * aufklappbar. Quelle akte_sessions (alle Sessions seit Beginn der Akte, auch
+ * fuer Coaches). Fach und "woran gearbeitet" gibt es noch nicht — "—" mit
+ * Hinweis, kommt mit Slots.
+ */
+export function SessionsKachel({ sessions }: { sessions: AkteSession[] }): JSX.Element {
   const { t, i18n } = useTranslation('akte')
   const [alle, setAlle] = useState(false)
   const summe = summeJeZustand(sessions.map((s) => s.attendance))
@@ -38,7 +37,6 @@ export function SessionsKachel({
       <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         {t('sessions.titel')}
       </h2>
-      {nurEigene && <p className="text-xs text-[var(--color-text-tertiary)]">{t('sessions.nurEigene')}</p>}
 
       {sessions.length === 0 ? (
         <p className="text-sm text-[var(--color-text-secondary)]">{t('sessions.leer')}</p>
@@ -56,10 +54,17 @@ export function SessionsKachel({
               <li key={s.session_id} className="flex flex-wrap items-center justify-between gap-2 text-sm">
                 <span className="text-[var(--color-text-primary)]">{formatBerlinDateTime(s.scheduled_at, i18n.language)}</span>
                 <span className="text-[var(--color-text-tertiary)]">{s.coach_name ?? t('sessions.coachUnbekannt')}</span>
+                <span className="text-[var(--color-text-tertiary)]" title={t('sessions.kommtMitSlots')}>
+                  {t('sessions.fach')}: —
+                </span>
+                <span className="text-[var(--color-text-tertiary)]" title={t('sessions.kommtMitSlots')}>
+                  {t('sessions.gearbeitet')}: —
+                </span>
                 <EdvanceBadge variant={BADGE[s.attendance]}>{t(`sessions.anwesenheit.${s.attendance}`)}</EdvanceBadge>
               </li>
             ))}
           </ul>
+          <p className="text-xs text-[var(--color-text-tertiary)]">{t('sessions.kommtMitSlotsHinweis')}</p>
           {rest > 0 && (
             <div>
               <Button size="sm" variant="outline" onClick={() => setAlle(!alle)}>
