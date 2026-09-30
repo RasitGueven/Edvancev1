@@ -51,5 +51,39 @@
         "description": "Verträge vorbereiten, unterschreiben lassen und nachhalten."
       }
     }
+  },
+  "schedule": {
+    "titel": "Stundenplan",
+    "eyebrow": "Betrieb",
+    "beschreibung": "Präsenz-Sessions anlegen und Schüler einem Coach-Termin zuweisen.",
+    "neueSession": "Neue Session",
+    "coachPflicht": "Coach *",
+    "zeitpunktPflicht": "Zeitpunkt *",
+    "raum": "Raum",
+    "raumAnzeige": "Raum {{raum}}",
+    "zeitpunkt": "{{zeit}} Uhr",
+    "pflichtfelder": "Coach und Zeitpunkt sind erforderlich.",
+    "speichert": "Speichert …",
+    "sessionAnlegen": "Session anlegen",
+    "sessionsVerwalten": "Sessions eines Coaches verwalten",
+    "coachWaehlen": "Coach wählen …",
+    "unbenannt": "Unbenannt",
+    "leer": {
+      "titel": "Keine Sessions",
+      "beschreibung": "Lege oben die erste Session für diesen Coach an."
+    },
+    "status": {
+      "upcoming": "Geplant",
+      "active": "Läuft",
+      "done": "Erledigt"
+    },
+    "teilnehmer": "Teilnehmer",
+    "niemand": "Noch niemand zugewiesen.",
+    "kindWaehlen": "Schüler auswählen",
+    "kindZuweisenPlatzhalter": "Schüler zuweisen …",
+    "fuegtHinzu": "Fügt hinzu …",
+    "zuweisen": "Zuweisen",
+    "keinZugang": "Kein laufender Vertrag am {{datum}} — Platz kann nicht vergeben werden.",
+    "keineKandidaten": "Kein weiteres Kind hat an diesem Datum einen laufenden Vertrag."
   }
 }
