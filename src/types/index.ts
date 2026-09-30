@@ -3,6 +3,21 @@
 
 export type { UserRole, Role, ProtectedRouteProps } from './auth'
 
+export type {
+  AkteZustand,
+  EinheitenArt,
+  Ampel,
+  NotizKategorie,
+  ElternReportArt,
+  BoardSchueler,
+  Schuelerakte,
+  EinheitenStand,
+  AkteSession,
+  SchuelerNotiz,
+  ElternReport,
+  WortlisteEintrag,
+} from './akte'
+
 export { THEMES } from './theme'
 export type { Theme, ThemeColors } from './theme'
 

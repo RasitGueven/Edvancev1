@@ -2,5 +2,11 @@
   "attendance": {
     "present": "anwesend",
     "unexcused": "nicht erschienen"
+  },
+  "tiles": {
+    "schueler": {
+      "title": "Schüler",
+      "description": "Aktive Akten nach Klassenstufe: Einheiten-Stand, Sessions und Notizen"
+    }
   }
 }

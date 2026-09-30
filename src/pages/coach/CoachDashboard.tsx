@@ -17,7 +17,8 @@ import {
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { formatDateLongDe } from '@/lib/utils'
 import { berlinYMD, isoWeek } from '@/lib/datetime'
-import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, FileText } from 'lucide-react'
+import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, FileText, FolderOpen } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import {
   SessionCard,
   sessionTime,
@@ -87,6 +88,7 @@ function DashStatCard({
 }
 
 export function CoachDashboard(): JSX.Element {
+  const { t } = useTranslation('coach')
   const { user } = useAuth()
   const [vms, setVms] = useState<SessionVM[]>([])
   const [intervBySession, setIntervBySession] = useState<
@@ -206,6 +208,12 @@ export function CoachDashboard(): JSX.Element {
         <div className="mb-8">
           <DashboardTiles
             tiles={[
+              {
+                to: '/admin/akten',
+                icon: <FolderOpen className="h-5 w-5" />,
+                title: t('tiles.schueler.title'),
+                description: t('tiles.schueler.description'),
+              },
               {
                 to: '/coach/intake',
                 icon: <ClipboardList className="h-5 w-5" />,

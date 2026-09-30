@@ -27,8 +27,8 @@
         "description": "Sessions anlegen, Schüler zuweisen und das Wochenraster der Kleingruppen pflegen."
       },
       "studentRecord": {
-        "title": "Schülerakte",
-        "description": "Stammdaten, Lernstand und Verlauf einer Schülerin oder eines Schülers an einem Ort."
+        "title": "Schüler",
+        "description": "Alle Akten nach Klassenstufe: Einheiten-Stand, Sessions, Notizen und Reports je Kind."
       },
       "coaches": {
         "title": "Coaches",
