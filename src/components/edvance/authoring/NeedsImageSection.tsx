@@ -46,6 +46,7 @@ export function NeedsImageSection({
 
       <NeedsImageControl
         label={multi ? t('needsImage.itemLabelMulti') : t('needsImage.itemLabel')}
+        feld="needs_image"
         value={needsImage}
         canWrite={canWrite}
         onChange={onItem}
@@ -56,6 +57,7 @@ export function NeedsImageSection({
           <NeedsImageControl
             key={i}
             label={t('needsImage.partLabel', { nr: part.nr })}
+            feld={`parts.${part.nr}.needs_image`}
             value={part.needs_image ?? null}
             canWrite={canWrite}
             onChange={(next) => onPart(i, next)}

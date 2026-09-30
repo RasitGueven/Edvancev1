@@ -50,7 +50,7 @@ export function PedagogySection({
         </Field>
       )}
 
-      <Field label={t('fields.solutionText')}>
+      <Field label={t('fields.solutionText')} feld="solution">
         <textarea
           className={`${TEXTAREA_MD} w-full`}
           value={state.solutionText}
@@ -59,7 +59,7 @@ export function PedagogySection({
         />
       </Field>
 
-      <Field label={t('fields.hints')}>
+      <Field label={t('fields.hints')} feld="hints">
         <StringList
           values={state.hints.map((h) => h.text)}
           placeholder={t('fields.hintPlaceholder')}
@@ -74,7 +74,7 @@ export function PedagogySection({
         />
       </Field>
 
-      <Field label={t('fields.coachHints')}>
+      <Field label={t('fields.coachHints')} feld="coach_hints">
         <StringList
           values={state.coachHints}
           placeholder={t('fields.coachHintPlaceholder')}
@@ -85,7 +85,7 @@ export function PedagogySection({
         />
       </Field>
 
-      <Field label={t('fields.typicalErrors')}>
+      <Field label={t('fields.typicalErrors')} feld="typical_errors">
         <div className="flex flex-col gap-3">
           {state.typicalErrors.map((entry, i) => (
             <div key={i} className="flex items-start gap-2">

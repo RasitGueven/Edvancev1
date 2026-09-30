@@ -9,24 +9,18 @@
 //
 // Gespeichert wird PRO SCHRITT (jeder Schrittwechsel schreibt den Entwurf, wenn
 // er sich geaendert hat): ein Abbruch verliert hoechstens den aktuellen Schritt.
-// Geschrieben wird dabei nur `tasks` (toPatch) — die Loesung ist im Wizard
-// read-only, also fasst er task_solution_upsert gar nicht erst an.
+// Geschrieben wird dabei nur `tasks` (toPatch) — die Loesung ist im Wizard read-only.
+// Vorbefuellt-Kennzeichen: bestaetigt sind nur die Felder, die Lena hier aendert.
 
 import { useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'react'
-import { ToastBanner } from '@/components/edvance'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
 import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { buttonVariants } from '@/components/ui/button'
 import { PreviewModal } from '@/components/edvance/authoring/PreviewModal'
-import {
-  draftSolution,
-  draftTask,
-  fromTask,
-  toPatch,
-  type FormState,
-} from '@/components/edvance/authoring/editorState'
+import { draftSolution, draftTask, fromTask, patchFuerSpeichern, toPatch, type FormState } from '@/components/edvance/authoring/editorState'
+import { VorbefuelltContext } from '@/components/edvance/authoring/VorbefuelltMarke'
 import { StepAnchor } from '@/components/edvance/authoring/wizard/StepAnchor'
 import { StepImages } from '@/components/edvance/authoring/wizard/StepImages'
 import { StepRead } from '@/components/edvance/authoring/wizard/StepRead'
@@ -190,7 +184,7 @@ export function PflegeWizardPage(): JSX.Element {
     if (!currentId || !state || !dirty) return true
     setSaveError(null)
     setBusy(true)
-    const res = await updateAuthoringTask(currentId, toPatch(state))
+    const res = await updateAuthoringTask(currentId, task && baseline ? patchFuerSpeichern(state, task, baseline) : toPatch(state))
     setBusy(false)
     if (res.error || !res.data) {
       setSaveError(res.error ?? 'unknown')
@@ -199,7 +193,7 @@ export function PflegeWizardPage(): JSX.Element {
     setTask(res.data)
     setBaseline(state)
     return true
-  }, [currentId, state, dirty])
+  }, [currentId, state, dirty, task, baseline])
 
   const goNext = useCallback(async (): Promise<void> => {
     if (busy || stepIdx >= steps.length - 1) return
@@ -266,6 +260,7 @@ export function PflegeWizardPage(): JSX.Element {
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('wizard.subtitle')} sticky />
       {hinweis && <ToastBanner key={hinweis} type="success" message={hinweis} onClose={() => setHinweis(null)} />}
+      <VorbefuelltContext.Provider value={task?.vorbefuellt}>
       <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-36 pt-6">
         <WizardTopBar
           label={queue.label}
@@ -369,6 +364,7 @@ export function PflegeWizardPage(): JSX.Element {
           </>
         )}
       </main>
+      </VorbefuelltContext.Provider>
 
       {currentId && previewDraft && (
         <PreviewModal

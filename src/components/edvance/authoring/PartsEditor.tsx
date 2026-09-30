@@ -93,7 +93,7 @@ function PartCard({
         </Field>
 
         {part.kind === 'short_input' && (
-          <Field label={t('fields.unit')}>
+          <Field label={t('fields.unit')} feld={`parts.${part.nr}.unit`}>
             <Input
               value={part.unit ?? ''}
               placeholder={t('fields.unitPlaceholder')}
@@ -123,7 +123,7 @@ function PartCard({
         </Field>
       )}
 
-      <Field label={t('parts.solution')}>
+      <Field label={t('parts.solution')} feld={`correct_answers.${part.nr}`}>
         <StringList
           values={answers}
           placeholder={t('fields.answerPlaceholder')}
@@ -134,7 +134,7 @@ function PartCard({
       </Field>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={t('fields.afb')}>
+        <Field label={t('fields.afb')} feld={`parts.${part.nr}.afb`}>
           <select
             className={`${SELECT_SM} w-full`}
             value={part.afb ?? ''}
@@ -149,7 +149,7 @@ function PartCard({
           </select>
         </Field>
 
-        <Field label={t('fields.competencyContent')}>
+        <Field label={t('fields.competencyContent')} feld={`parts.${part.nr}.competency_content`}>
           <Input
             list="authoring-competencies"
             value={part.competency_content ?? ''}

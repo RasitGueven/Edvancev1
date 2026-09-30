@@ -34,10 +34,13 @@ import {
   fromTask,
   INPUT_TYPES,
   isMultiPart,
+  kompetenzenVon,
+  patchFuerSpeichern,
   toPatch,
   toSolution,
   type FormState,
 } from '@/components/edvance/authoring/editorState'
+import { VorbefuelltContext } from '@/components/edvance/authoring/VorbefuelltMarke'
 import { computeFlags } from '@/lib/authoring/flags'
 import { TEXTAREA_MD } from '@/lib/formStyles'
 import {
@@ -52,6 +55,7 @@ import {
   type AuthoringCluster,
 } from '@/lib/supabase/taskAuthoring'
 import { getDarfPruefen } from '@/lib/supabase/freigabe'
+import { bestaetigeLoesungsKennzeichen } from '@/lib/supabase/vorbefuellt'
 import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringSchema, AuthoringTask, EditorSettableStatus, GroundingBeleg } from '@/types'
 
@@ -159,21 +163,15 @@ export function AuthoringEditorPage(): JSX.Element {
 
   const blockingFlags = useMemo(() => flags.filter((f) => f.blocking), [flags])
 
-  const competencies = useMemo(() => {
-    const set2 = new Set<string>()
-    if (task?.competency_content) set2.add(task.competency_content)
-    for (const part of task?.parts ?? []) {
-      if (part.competency_content) set2.add(part.competency_content)
-    }
-    return [...set2].sort()
-  }, [task])
+  const competencies = useMemo(() => kompetenzenVon(task), [task])
 
   const save = async (): Promise<void> => {
-    if (!id || !state) return
+    if (!id || !state || !task) return
     setSaveError(null)
     setBusy(true)
 
-    const taskRes = await updateAuthoringTask(id, toPatch(state))
+    // Speichern bestaetigt die Vorbefuellung der gespeicherten Felder (tasks.vorbefuellt).
+    const taskRes = await updateAuthoringTask(id, patchFuerSpeichern(state, task))
     if (taskRes.error || !taskRes.data) {
       setSaveError(taskRes.error ?? 'unknown')
       setBusy(false)
@@ -181,13 +179,14 @@ export function AuthoringEditorPage(): JSX.Element {
     }
 
     const solRes = await upsertTaskSolution(id, toSolution(state))
-    setBusy(false)
     if (solRes.error) {
+      setBusy(false)
       setSaveError(solRes.error)
       return
     }
-
-    setTask(taskRes.data)
+    const fertig = await bestaetigeLoesungsKennzeichen(id, taskRes.data)
+    setBusy(false)
+    setTask(fertig.data ?? taskRes.data)
     setBaseline(state)
     rueckweg.nachSpeichern()
   }
@@ -230,6 +229,7 @@ export function AuthoringEditorPage(): JSX.Element {
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
       <EdvanceNavbar subtitle={t('page.editorSubtitle')} sticky />
+      <VorbefuelltContext.Provider value={task?.vorbefuellt}>
       <main className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-32 pt-6">
         <Link
           to={rueckweg.zurueck.to}
@@ -278,7 +278,7 @@ export function AuthoringEditorPage(): JSX.Element {
                   </button>
                 ))}
               </div>
-              <Field label={t('fields.estDuration')}>
+              <Field label={t('fields.estDuration')} feld="est_duration_sec">
                 <Input
                   type="number"
                   value={state.est_duration_sec}
@@ -362,6 +362,7 @@ export function AuthoringEditorPage(): JSX.Element {
           </div>
         </div>
       </main>
+      </VorbefuelltContext.Provider>
 
       {id && previewDraft && (
         <PreviewModal
