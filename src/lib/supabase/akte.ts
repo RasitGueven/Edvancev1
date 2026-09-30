@@ -13,6 +13,7 @@ import type {
   EinheitenStand,
   ElternReport,
   ElternReportArt,
+  FachFortschritt,
   Schuelerakte,
   SupabaseResult,
 } from '@/types'
@@ -93,6 +94,21 @@ export async function listAkteSessions(studentId: string): Promise<SupabaseResul
     }
   } catch (err) {
     return { data: null, error: fehlertext(err, 'akte_sessions failed') }
+  }
+}
+
+/**
+ * Fortschritt je Fach (RPC fortschritt, S3): aktuelles Thema, Station x von y
+ * und die vom Coach bestaetigten Kompetenzen (neueste zuerst). Admin immer,
+ * Coach nur bei aktiver Akte. Kein XP, keine Streaks, keine Badges.
+ */
+export async function getFortschritt(studentId: string): Promise<SupabaseResult<FachFortschritt[]>> {
+  try {
+    const { data, error } = await supabase.rpc('fortschritt', { p_student_id: studentId })
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as FachFortschritt[], error: null }
+  } catch (err) {
+    return { data: null, error: fehlertext(err, 'fortschritt failed') }
   }
 }
 

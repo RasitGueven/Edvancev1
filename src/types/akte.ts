@@ -92,3 +92,21 @@ export type ElternReport = {
 }
 
 export type WortlisteEintrag = { wort: string; nur_ganzes_wort: boolean }
+
+/** Eine vom Coach bestaetigte Kompetenz (mastered_by gesetzt). */
+export type BestaetigteKompetenz = {
+  kompetenz: string
+  prozess: string | null
+  coach: string | null
+  am: string | null
+}
+
+/** Zeile aus fortschritt(student): ein Fach der Akte. */
+export type FachFortschritt = {
+  fach_id: string
+  fach: string
+  thema: string | null
+  station: number | null
+  stationen: number | null
+  kompetenzen: BestaetigteKompetenz[]
+}
