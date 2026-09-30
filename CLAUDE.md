@@ -100,6 +100,22 @@ Lies vor jeder Aufgabe die relevanten Dateien in docs/:
 - Error Handling: Jeder Supabase-Aufruf hat try/catch mit aussagekräftiger Fehlermeldung
 - Schema-Änderungen: Erst in schema.sql dokumentieren, dann im Supabase SQL Editor ausführen
 
+### Migrationen: Version und Einspielen
+
+- Version = Erstellungszeitpunkt sekundengenau (`date -u +%Y%m%d%H%M%S`), nie runde oder ausgedachte Werte.
+  Grund: Am 30.09.2026 trugen zwei Branches unabhängig voneinander `20260930120000` bzw. `20260930140000` —
+  eingetragen wurde jeweils nur eine Migration, die andere lief nie.
+- Vor jedem Einspielen: `select 1 from supabase_migrations.schema_migrations where version = '$V'` → Treffer = Abbruch.
+- Einspielmuster:
+
+  ```bash
+  V=... N=... && dbcheck && \
+  [ -z "$(psql "$DATABASE_URL" -tAc "select 1 from supabase_migrations.schema_migrations where version='$V'")" ] && \
+  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -1 -f supabase/migrations/${V}_${N}.sql && \
+  psql "$DATABASE_URL" -c "insert into supabase_migrations.schema_migrations(version,name) values ('$V','$N')" && \
+  tools/schema-snapshot.sh
+  ```
+
 ## 11. Design Rules – Nicht verhandelbar
 
 ### Brand Personality

@@ -34,6 +34,7 @@ source ~/.bashrc && dbcheck
 
 ```bash
 V=<version> N=<name> && dbcheck && \
+[ -z "$(psql "$DATABASE_URL" -tAc "select 1 from supabase_migrations.schema_migrations where version='$V'")" ] && \
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -1 -f supabase/migrations/${V}_${N}.sql && \
 psql "$DATABASE_URL" -c "insert into supabase_migrations.schema_migrations(version,name) values ('$V','$N')" && \
 tools/schema-snapshot.sh
