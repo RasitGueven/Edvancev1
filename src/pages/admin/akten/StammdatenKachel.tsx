@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { EdvanceCard } from '@/components/edvance'
 import { SELECT_MD } from '@/lib/formStyles'
@@ -16,10 +17,9 @@ const KLASSEN = [8, 9, 10]
 const WERT = 'text-sm leading-relaxed text-[var(--color-text-secondary)]'
 
 /**
- * Stammdaten (Anforderung G). Admin bearbeitet Klasse und Schule (Schulliste
- * wie unter Vertraege, "neu anlegen" inklusive); Coach liest. Faecher werden
- * nur angezeigt. Den Namen aendert hier niemand: profiles hat keine
- * Schreibregel, eine RPC dafuer gehoert ins Foundation-Fenster.
+ * Stammdaten (Anforderung G). Admin bearbeitet Name, Klasse und Schule
+ * (Schulliste wie unter Vertraege, "neu anlegen" inklusive) ueber die RPC
+ * akte_stammdaten_aendern; Coach liest. Faecher werden nur angezeigt.
  */
 export function StammdatenKachel({
   akte,
@@ -34,6 +34,7 @@ export function StammdatenKachel({
 }): JSX.Element {
   const { t } = useTranslation('akte')
   const [schulen, setSchulen] = useState<Schule[]>([])
+  const [name, setName] = useState(akte.name ?? '')
   const [klasse, setKlasse] = useState<string>(akte.klasse !== null ? String(akte.klasse) : '')
   const [schuleId, setSchuleId] = useState<string>(akte.schule_id ?? '')
   const [busy, setBusy] = useState(false)
@@ -52,7 +53,8 @@ export function StammdatenKachel({
     setFehler(null)
     setMeldung(null)
     const { error } = await stammdatenSpeichern(akte.student_id, {
-      class_level: klasse ? Number(klasse) : null,
+      name: name.trim(),
+      klasse: klasse ? Number(klasse) : null,
       schule_id: schuleId || null,
     })
     setBusy(false)
@@ -70,14 +72,12 @@ export function StammdatenKachel({
         {t('stammdaten.titel')}
       </h2>
 
-      <div className="flex flex-col gap-2">
-        <span className="text-xs text-[var(--color-text-tertiary)]">{t('stammdaten.name')}</span>
-        <span className={WERT}>{akte.name ?? t('stammdaten.offen')}</span>
-        {istAdmin && <span className="text-xs text-[var(--color-text-tertiary)]">{t('stammdaten.nameHinweis')}</span>}
-      </div>
-
       {istAdmin ? (
         <>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="akte-name">{t('stammdaten.name')}</Label>
+            <Input id="akte-name" value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="akte-klasse">{t('stammdaten.klasse')}</Label>
             <select id="akte-klasse" className={SELECT_MD} value={klasse} onChange={(e) => setKlasse(e.target.value)}>
@@ -104,6 +104,10 @@ export function StammdatenKachel({
       ) : (
         <>
           <div className="flex flex-col gap-2">
+            <span className="text-xs text-[var(--color-text-tertiary)]">{t('stammdaten.name')}</span>
+            <span className={WERT}>{akte.name ?? t('stammdaten.offen')}</span>
+          </div>
+          <div className="flex flex-col gap-2">
             <span className="text-xs text-[var(--color-text-tertiary)]">{t('stammdaten.klasse')}</span>
             <span className={WERT}>{akte.klasse ?? t('stammdaten.offen')}</span>
           </div>
@@ -124,7 +128,11 @@ export function StammdatenKachel({
 
       {istAdmin && (
         <div>
-          <Button disabled={busy} onClick={() => void speichern()}>
+          <Button
+            disabled={busy || !name.trim()}
+            title={!name.trim() ? t('stammdaten.namePflicht') : undefined}
+            onClick={() => void speichern()}
+          >
             {busy ? t('stammdaten.speichert') : t('stammdaten.speichern')}
           </Button>
         </div>

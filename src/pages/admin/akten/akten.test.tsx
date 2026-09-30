@@ -64,7 +64,7 @@ vi.mock('@/lib/supabase/schulen', () => ({
   schuleAnlegen: vi.fn(),
 }))
 
-import { listBoardSchueler } from '@/lib/supabase/akte'
+import { listBoardSchueler, stammdatenSpeichern } from '@/lib/supabase/akte'
 import { BoardPage } from './BoardPage'
 import { AktePage } from './AktePage'
 
@@ -155,6 +155,25 @@ describe('Akte', () => {
     expect((screen.getByRole('button', { name: 'Notiz speichern' }) as HTMLButtonElement).disabled).toBe(true)
     fireEvent.change(feld, { target: { value: 'Standardaufgaben sitzen' } })
     expect((screen.getByRole('button', { name: 'Notiz speichern' }) as HTMLButtonElement).disabled).toBe(false)
+  })
+
+  it('Admin: Stammdaten mit Name ueber akte_stammdaten_aendern speichern', async () => {
+    vi.mocked(stammdatenSpeichern).mockResolvedValue({ data: true, error: null })
+    zeige('/admin/akten/k1')
+    const name = (await screen.findByLabelText('Name')) as HTMLInputElement
+    expect(name.value).toBe('ZZ_Efe Demir')
+    fireEvent.change(name, { target: { value: '  ZZ_Efe Neu ' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Stammdaten speichern' }))
+    expect(await screen.findByText('Gespeichert.')).toBeTruthy()
+    expect(stammdatenSpeichern).toHaveBeenCalledWith('k1', { name: 'ZZ_Efe Neu', klasse: 9, schule_id: null })
+    fireEvent.change(name, { target: { value: '   ' } })
+    expect((screen.getByRole('button', { name: 'Stammdaten speichern' }) as HTMLButtonElement).disabled).toBe(true)
+  })
+
+  it('Sessions: Fach und "woran gearbeitet" mit Hinweis, kommt mit Slots', async () => {
+    zeige('/admin/akten/k1')
+    expect(await screen.findByText('Fach und „woran gearbeitet“: kommt mit Slots.')).toBeTruthy()
+    expect(screen.getAllByText('Fach: —')).toHaveLength(3)
   })
 
   it('Coach: Stammdaten nur lesend', async () => {

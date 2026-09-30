@@ -42,6 +42,17 @@ Die Zeilenangaben beziehen sich auf den Stand von Branch `feat/rasit-schuelerakt
 | Braucht der Coach | Den LSA-Report der Kinder mit aktiver Akte. In der Akte ist das Report 1 (S2 verlinkt ihn). Laufende oder fremde LSA braucht er nicht, der Kiosk läuft über SECURITY-DEFINER-RPCs. |
 | Vorschlag | Coach-Policies auf `akte_aktiv(student_id)` (bei `lsa_responses`/`lsa_skill_urteil`/`lsa_report_notes` über `session_id → lsa_sessions.student_id`, als DEFINER-Hilfsfunktion gegen RLS-Ketten). Klären, ob `/admin/report/:sessionId` für Coaches bleibt oder nur über die Akte (S2) erreichbar ist. `ReportPage.tsx:89` (`backTo="/admin/leads"`) führt einen Coach heute über die Umleitung aufs Dashboard; in S2 auf die Akte zeigen lassen. |
 
+## Befund S2b (30.09.2026): Coach-Kacheln „Erstgespräch-Protokoll“ und „Screening-Ergebnisse“
+
+Die Kachel „Elternreport – erstellen und freigeben“ ist aus dem Coach-Dashboard entfernt (Entscheidung Rasit: Eltern-Reports nur Admin). Die Route `/coach/reports` besteht weiter und ist für Coaches erreichbar; sie gehört in dieses Paket (siehe `parent_reports` oben).
+
+Die beiden anderen Kacheln bleiben unverändert. Sie hängen aber an denselben offenen Lesezugriffen:
+
+| Kachel | Route | liest als Coach | Befund |
+|---|---|---|---|
+| Erstgespräch-Protokoll | `/coach/intake` (`IntakePage.tsx`) | `students` + `profiles` über `listStudentsWithName` (seit S1 nur aktive Akten), `intake_sessions` lesen/anlegen/ändern (`intake.ts:10,41,65`) | Das Erstgespräch findet vor dem Vertrag statt. Seit S1 bietet die Seite dem Coach aber nur Kinder mit aktiver Akte an, ein neues Erstgespräch zu einem Lead ist dort nicht mehr möglich. Offen: gehört das Erstgespräch dem Admin (wie Leads) oder dem Coach? |
+| Screening-Ergebnisse | `/coach/screening-results` (`ScreeningResultsPage.tsx`) | `students` + `profiles` (nur aktive Akten), `screening_tests` (`screening.ts:30`, Policy `screening_tests_coach_admin_all`, ALL) und `screening_item_results` (Policy `screening_item_results_coach_admin_read`) | Die Tabellen sind für Coaches für alle Kinder offen, auch für ruhende und provisorische. Die Seite zeigt nur Kinder mit aktiver Akte, per API ist aber alles lesbar. Vorschlag: Coach-Policies auf `akte_aktiv(student_id)`, wie bei `lsa_sessions`. |
+
 ## Weitere Kandidaten (aus dem Consensus-Check, nicht bewertet)
 
 - `student_subscriptions`: Das Paket ist Vertragsinhalt und für Coaches offen.

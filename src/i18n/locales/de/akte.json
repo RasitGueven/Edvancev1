@@ -13,7 +13,11 @@
     "sortNachname": "Nachname",
     "sortRueckstand": "Größter Rückstand zuerst",
     "zustandFilter": "Zustand",
-    "zustand": { "aktiv": "aktiv", "ruhend": "ruhend", "alle": "alle" },
+    "zustand": {
+      "aktiv": "aktiv",
+      "ruhend": "ruhend",
+      "alle": "alle"
+    },
     "klasse": "Klasse {{klasse}}",
     "ohneKlasse": "ohne Klasse",
     "anzahl": "{{count}}",
@@ -42,7 +46,10 @@
   "kopf": {
     "klasse": "Klasse {{klasse}}",
     "akteSeit": "Akte seit {{datum}}",
-    "zustand": { "aktiv": "aktiv", "ruhend": "ruhend" },
+    "zustand": {
+      "aktiv": "aktiv",
+      "ruhend": "ruhend"
+    },
     "ruhendHinweis": "Kein laufender Vertrag. Die Akte ist für Coaches nicht sichtbar, der App-Zugang ist beendet. Der Lernpfad-Stand bleibt erhalten.",
     "ruhendSeit": "Ruhend seit {{datum}}.",
     "zurueck": "Schüler"
@@ -68,7 +75,6 @@
     "mehr_other": "{{count}} weitere anzeigen",
     "weniger": "Weniger anzeigen",
     "coachUnbekannt": "ohne Coach",
-    "nurEigene": "Als Coach siehst du hier die Sessions, die du selbst geleitet hast.",
     "summe": "{{label}}: {{count}}",
     "anwesenheit": {
       "planned": "geplant",
@@ -76,7 +82,11 @@
       "cancelled": "abgesagt",
       "unexcused": "unentschuldigt",
       "cancelled_by_us": "ausgefallen (durch uns)"
-    }
+    },
+    "fach": "Fach",
+    "gearbeitet": "woran gearbeitet",
+    "kommtMitSlots": "kommt mit Slots",
+    "kommtMitSlotsHinweis": "Fach und „woran gearbeitet“: kommt mit Slots."
   },
   "notizen": {
     "titel": "Notizen",
@@ -84,7 +94,11 @@
     "feldLabel": "Neue Notiz",
     "kategorie": "Kategorie",
     "kategorieWaehlen": "Kategorie wählen …",
-    "kategorien": { "lernen": "Lernen", "verhalten": "Verhalten", "organisatorisch": "Organisatorisch" },
+    "kategorien": {
+      "lernen": "Lernen",
+      "verhalten": "Verhalten",
+      "organisatorisch": "Organisatorisch"
+    },
     "hinweis": "Notizen sehen alle Coaches und Admins. Eltern haben ein Auskunftsrecht — so schreiben, dass man es ihnen zeigen könnte. Keine Gesundheitsdaten.",
     "gesundheit": "„{{wort}}“ deutet auf eine Gesundheitsangabe hin. Gesundheitsdaten gehören nicht in die Akte — bitte umformulieren.",
     "speichern": "Notiz speichern",
@@ -92,7 +106,10 @@
     "speichernGesperrt": "Speichern ist gesperrt, bis Kategorie und Text passen.",
     "nurAdminRuhend": "Ruhende Akten: Notizen schreiben nur Admins.",
     "von": "{{name}} ({{rolle}}) · {{datum}}",
-    "rolle": { "admin": "Admin", "coach": "Coach" },
+    "rolle": {
+      "admin": "Admin",
+      "coach": "Coach"
+    },
     "unbekannt": "unbekannt",
     "ausblenden": "Ausblenden",
     "grund": "Grund",
@@ -114,17 +131,20 @@
     "schule": "Schule",
     "faecher": "Fächer",
     "keineFaecher": "Keine Fächer hinterlegt",
-    "nameHinweis": "Den Namen ändert heute niemand in der Akte (profiles hat keine Schreibregel) — er kommt aus dem Vertrag.",
     "speichern": "Stammdaten speichern",
     "speichert": "Speichert …",
     "gespeichert": "Gespeichert.",
-    "offen": "—"
+    "offen": "—",
+    "namePflicht": "Der Name ist Pflicht."
   },
   "reports": {
     "titel": "Reports",
     "leer": "Noch kein Report an die Eltern.",
     "nr": "Report {{nr}}",
-    "art": { "lernstandsanalyse": "Lernstandsanalyse", "zwischenbericht": "Zwischenbericht" },
+    "art": {
+      "lernstandsanalyse": "Lernstandsanalyse",
+      "zwischenbericht": "Zwischenbericht"
+    },
     "freigegebenVon": "freigegeben von {{name}}",
     "versendetAm": "versendet am {{datum}}",
     "fassung": "Versendete Fassung öffnen",

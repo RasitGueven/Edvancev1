@@ -66,31 +66,47 @@ export async function getEinheitenStand(studentId: string): Promise<SupabaseResu
   }
 }
 
-/** Sessions des Kindes, neueste zuerst (RLS: Coach sieht nur eigene Sessions). */
+/**
+ * Alle Sessions des Kindes seit Beginn der Akte, neueste zuerst — ueber die
+ * RPC akte_sessions (S2b): Admin immer, Coach bei aktiver Akte auch Sessions
+ * anderer Coaches. Direktes Lesen von session_students zeigte Coaches nur
+ * ihre eigenen Sessions.
+ */
 export async function listAkteSessions(studentId: string): Promise<SupabaseResult<AkteSession[]>> {
   try {
-    const { data, error } = await supabase
-      .from('session_students')
-      .select('attendance, coaching_sessions!inner(id, scheduled_at, coach_id)')
-      .eq('student_id', studentId)
+    const { data, error } = await supabase.rpc('akte_sessions', { p_student_id: studentId })
     if (error) return { data: null, error: error.message }
     type Zeile = {
+      session_id: string
+      scheduled_at: string
+      coach_name: string | null
       attendance: AttendanceStatus
-      coaching_sessions: { id: string; scheduled_at: string; coach_id: string | null }
     }
-    const zeilen = (data ?? []) as unknown as Zeile[]
-    const namen = await profilNamen(zeilen.map((z) => z.coaching_sessions.coach_id))
-    const sessions = zeilen
-      .map((z) => ({
-        session_id: z.coaching_sessions.id,
-        scheduled_at: z.coaching_sessions.scheduled_at,
-        coach_name: namen.get(z.coaching_sessions.coach_id ?? '') ?? null,
+    return {
+      data: ((data ?? []) as Zeile[]).map((z) => ({
+        session_id: z.session_id,
+        scheduled_at: z.scheduled_at,
+        coach_name: z.coach_name,
         attendance: z.attendance,
-      }))
-      .sort((a, b) => b.scheduled_at.localeCompare(a.scheduled_at))
-    return { data: sessions, error: null }
+      })),
+      error: null,
+    }
   } catch (err) {
-    return { data: null, error: fehlertext(err, 'sessions failed') }
+    return { data: null, error: fehlertext(err, 'akte_sessions failed') }
+  }
+}
+
+/** Anzahl aktiver Akten (schuelerakten, zustand = aktiv) — Kachel "Aktive Schueler". */
+export async function zaehleAktiveAkten(): Promise<SupabaseResult<number>> {
+  try {
+    const { count, error } = await supabase
+      .from('schuelerakten')
+      .select('student_id', { count: 'exact', head: true })
+      .eq('zustand', 'aktiv')
+    if (error) return { data: null, error: error.message }
+    return { data: count ?? 0, error: null }
+  } catch (err) {
+    return { data: null, error: fehlertext(err, 'schuelerakten count failed') }
   }
 }
 
@@ -112,17 +128,25 @@ export async function listFaecher(studentId: string): Promise<SupabaseResult<str
   }
 }
 
-/** Stammdaten (nur Admin, RLS students_admin_all): Klasse und Schule. */
+/**
+ * Stammdaten ueber die RPC akte_stammdaten_aendern (S2b, nur Admin, sonst 42501):
+ * Name (profiles.full_name), Klasse und Schule in einem Aufruf, protokolliert.
+ */
 export async function stammdatenSpeichern(
   studentId: string,
-  werte: { class_level: number | null; schule_id: string | null },
+  werte: { name: string; klasse: number | null; schule_id: string | null },
 ): Promise<SupabaseResult<true>> {
   try {
-    const { error } = await supabase.from('students').update(werte).eq('id', studentId)
+    const { error } = await supabase.rpc('akte_stammdaten_aendern', {
+      p_student_id: studentId,
+      p_name: werte.name,
+      p_klasse: werte.klasse,
+      p_schule_id: werte.schule_id,
+    })
     if (error) return { data: null, error: error.message }
     return { data: true, error: null }
   } catch (err) {
-    return { data: null, error: fehlertext(err, 'stammdaten failed') }
+    return { data: null, error: fehlertext(err, 'akte_stammdaten_aendern failed') }
   }
 }
 
@@ -150,8 +174,9 @@ export async function listElternReports(studentId: string): Promise<SupabaseResu
   }
 }
 
-// Bucket fuer versendete Report-PDFs. Heute ist pdf_pfad ueberall NULL; das
-// Feature Eltern-Reports legt Bucket und Pfade an (Annahme, im PR vermerkt).
+// Bucket fuer versendete Report-PDFs: eltern-reports (privat, Frankfurt),
+// Entscheidung Rasit 30.09.2026. Angelegt wird er vom Feature Eltern-Reports,
+// nicht hier. Einzige Stelle, an der der Name steht.
 export const REPORT_BUCKET = 'eltern-reports'
 
 export async function reportLink(pdfPfad: string): Promise<SupabaseResult<string>> {

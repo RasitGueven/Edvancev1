@@ -139,7 +139,7 @@ export function AktePage(): JSX.Element {
 
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               {!ruhend && <EinheitenKachel stand={daten.stand} />}
-              <SessionsKachel sessions={daten.sessions} nurEigene={!istAdmin} />
+              <SessionsKachel sessions={daten.sessions} />
               <NotizenKachel
                 studentId={studentId}
                 notizen={daten.notizen}
