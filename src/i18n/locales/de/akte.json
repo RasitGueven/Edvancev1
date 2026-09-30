@@ -153,7 +153,13 @@
   },
   "fortschritt": {
     "titel": "Fortschritt",
-    "kommt": "Kommt: aktuelles Thema und Station je Fach, vom Coach bestätigte Kompetenzen."
+    "keinLernpfad": "Noch kein Lernpfad.",
+    "station": "Station {{x}} von {{y}}",
+    "gemeistert": "gemeistert",
+    "bestaetigt": "bestätigt von {{coach}} am {{datum}}",
+    "coachUnbekannt": "unbekannt",
+    "weitere_one": "und {{count}} weitere",
+    "weitere_other": "und {{count}} weitere"
   },
   "fehler": {
     "laden": "Die Akte konnte nicht geladen werden."

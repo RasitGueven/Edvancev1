@@ -812,6 +812,89 @@ $$;
 
 
 --
+-- Name: fortschritt(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.fortschritt(p_student_id uuid) RETURNS TABLE(fach_id uuid, fach text, thema text, station integer, stationen integer, kompetenzen jsonb)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle  text := public.get_my_role();
+  v_klasse integer;
+begin
+  if v_rolle = 'admin' then
+    null;
+  elsif v_rolle = 'coach' and public.akte_aktiv(p_student_id) then
+    null;
+  else
+    raise exception 'fortschritt: keine Berechtigung fuer diese Akte' using errcode = '42501';
+  end if;
+
+  select s.class_level into v_klasse from public.students s where s.id = p_student_id;
+
+  return query
+  with faecher as (
+    select ss.subject_id as id from public.student_subjects ss where ss.student_id = p_student_id
+    union
+    select c.subject_id from public.student_focus_areas f
+      join public.skill_clusters c on c.id = f.cluster_id
+     where f.student_id = p_student_id and f.active and f.status <> 'verworfen' and c.subject_id is not null
+    union
+    select c.subject_id from public.student_competency_mastery m
+      join public.microskills ms on ms.id = m.microskill_id
+      join public.skill_clusters c on c.id = ms.cluster_id
+     where m.student_id = p_student_id and m.mastered_by is not null and c.subject_id is not null
+  ),
+  pfad as (
+    select c.id, c.subject_id, c.name,
+           row_number() over (partition by c.subject_id order by c.sort_order, c.name)::integer as pos,
+           count(*) over (partition by c.subject_id)::integer as laenge
+      from public.skill_clusters c
+     where not c.is_deprecated
+       and (v_klasse is null or v_klasse between c.class_level_min and c.class_level_max)
+  ),
+  aktuell as (
+    select distinct on (p.subject_id) p.subject_id, p.name, p.pos, p.laenge
+      from public.student_focus_areas f
+      join pfad p on p.id = f.cluster_id
+     where f.student_id = p_student_id and f.active and f.status <> 'verworfen'
+     order by p.subject_id, p.pos
+  ),
+  laengen as (
+    select p.subject_id, max(p.laenge) as laenge from pfad p group by p.subject_id
+  ),
+  bestaetigt as (
+    select c.subject_id,
+           jsonb_agg(jsonb_build_object(
+             'kompetenz', ms.name,
+             'prozess',   pc.name,
+             'coach',     pr.full_name,
+             'am',        m.mastered_at
+           ) order by m.mastered_at desc nulls last, ms.name) as liste
+      from public.student_competency_mastery m
+      join public.microskills ms on ms.id = m.microskill_id
+      join public.skill_clusters c on c.id = ms.cluster_id
+      left join public.process_competencies pc on pc.id = m.competency_id
+      left join public.profiles pr on pr.id = m.mastered_by
+     where m.student_id = p_student_id
+       and m.mastered_by is not null
+     group by c.subject_id
+  )
+  select s.id, s.name, a.name, a.pos,
+         coalesce(a.laenge, l.laenge),
+         coalesce(b.liste, '[]'::jsonb)
+    from faecher f
+    join public.subjects s on s.id = f.id
+    left join aktuell a on a.subject_id = s.id
+    left join laengen l on l.subject_id = s.id
+    left join bestaetigt b on b.subject_id = s.id
+   order by s.name;
+end;
+$$;
+
+
+--
 -- Name: freigabe_cluster(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 

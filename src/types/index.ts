@@ -16,6 +16,8 @@ export type {
   SchuelerNotiz,
   ElternReport,
   WortlisteEintrag,
+  BestaetigteKompetenz,
+  FachFortschritt,
 } from './akte'
 
 export { THEMES } from './theme'

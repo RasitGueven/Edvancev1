@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { datum } from '@/lib/akte/format'
 import {
   getEinheitenStand,
+  getFortschritt,
   getSchuelerakte,
   listAkteSessions,
   listElternReports,
@@ -17,10 +18,12 @@ import type {
   AkteSession,
   EinheitenStand,
   ElternReport,
+  FachFortschritt,
   Schuelerakte,
   SchuelerNotiz,
   WortlisteEintrag,
 } from '@/types'
+import { FortschrittKachel } from './FortschrittKachel'
 import type { BoardHinweis } from './BoardPage'
 import { EinheitenKachel } from './EinheitenKachel'
 import { NotizenKachel } from './NotizenKachel'
@@ -35,9 +38,10 @@ type Daten = {
   wortliste: WortlisteEintrag[]
   faecher: string[]
   reports: ElternReport[]
+  fortschritt: FachFortschritt[]
 }
 
-const LEER: Daten = { stand: null, sessions: [], notizen: [], wortliste: [], faecher: [], reports: [] }
+const LEER: Daten = { stand: null, sessions: [], notizen: [], wortliste: [], faecher: [], reports: [], fortschritt: [] }
 
 /**
  * Die Schuelerakte (/admin/akten/:studentId) fuer Admin und Coach.
@@ -66,13 +70,14 @@ export function AktePage(): JSX.Element {
         setStatus('weg')
         return
       }
-      const [stand, sessions, notizen, wortliste, faecher, reports] = await Promise.all([
+      const [stand, sessions, notizen, wortliste, faecher, reports, fortschritt] = await Promise.all([
         a.zustand === 'aktiv' ? getEinheitenStand(studentId) : Promise.resolve({ data: null, error: null }),
         listAkteSessions(studentId),
         listNotizen(studentId),
         listWortlisteGesundheit(),
         listFaecher(studentId),
         listElternReports(studentId),
+        getFortschritt(studentId),
       ])
       setAkte(a)
       setDaten({
@@ -82,8 +87,11 @@ export function AktePage(): JSX.Element {
         wortliste: wortliste.data ?? [],
         faecher: faecher.data ?? [],
         reports: reports.data ?? [],
+        fortschritt: fortschritt.data ?? [],
       })
-      setError(stand.error ?? sessions.error ?? notizen.error ?? wortliste.error ?? faecher.error ?? reports.error)
+      setError(
+        stand.error ?? sessions.error ?? notizen.error ?? wortliste.error ?? faecher.error ?? reports.error ?? fortschritt.error,
+      )
       setStatus('da')
     })
   }, [studentId])
@@ -150,12 +158,7 @@ export function AktePage(): JSX.Element {
               />
               <StammdatenKachel akte={akte} faecher={daten.faecher} istAdmin={istAdmin} onGespeichert={laden} />
               <ReportsKachel reports={daten.reports} />
-              <EdvanceCard variant="subtle" className="flex flex-col gap-2 p-6">
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-                  {t('fortschritt.titel')}
-                </h2>
-                <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">{t('fortschritt.kommt')}</p>
-              </EdvanceCard>
+              <FortschrittKachel faecher={daten.fortschritt} />
             </div>
           </>
         )}

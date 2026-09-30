@@ -48,6 +48,13 @@ vi.mock('@/lib/supabase/akte', () => ({
   ),
   stammdatenSpeichern: vi.fn(),
   reportLink: vi.fn(),
+  getFortschritt: vi.fn(() =>
+    Promise.resolve({
+      data: [{ fach_id: 'm', fach: 'Mathematik', thema: 'Algebra & Funktionen', station: 2, stationen: 5,
+               kompetenzen: [{ kompetenz: 'ZZ_Kompetenz', prozess: null, coach: 'ZZ Coach', am: '2026-09-20T10:00:00Z' }] }],
+      error: null,
+    }),
+  ),
 }))
 vi.mock('@/lib/supabase/akteNotizen', () => ({
   listNotizen: vi.fn(() => Promise.resolve({ data: [], error: null })),
@@ -143,7 +150,10 @@ describe('Akte', () => {
     expect(screen.getByText('Report 1')).toBeTruthy()
     expect(screen.getByText('keine gespeicherte Fassung')).toBeTruthy()
     expect(screen.queryByText(/freigegeben von/)).toBeNull()
-    expect(screen.getByText('Kommt: aktuelles Thema und Station je Fach, vom Coach bestätigte Kompetenzen.')).toBeTruthy()
+    // Kachel Fortschritt (S3) statt Platzhalter
+    expect(screen.getByText('Algebra & Funktionen')).toBeTruthy()
+    expect(screen.getAllByText('Station 2 von 5').length).toBeGreaterThan(0)
+    expect(screen.getByText('gemeistert')).toBeTruthy()
   })
 
   it('Notiz mit Gesundheitsbegriff: Hinweis und Speichern gesperrt', async () => {
@@ -181,6 +191,7 @@ describe('Akte', () => {
     zeige('/admin/akten/k1')
     await screen.findByText('Stammdaten')
     expect(screen.queryByRole('button', { name: 'Stammdaten speichern' })).toBeNull()
-    expect(screen.getByText('Mathematik')).toBeTruthy()
+    // Faecher in den Stammdaten und als Fach in der Kachel Fortschritt
+    expect(screen.getAllByText('Mathematik').length).toBeGreaterThanOrEqual(1)
   })
 })
