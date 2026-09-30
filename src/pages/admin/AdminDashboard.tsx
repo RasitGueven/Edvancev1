@@ -83,10 +83,11 @@ export function AdminDashboard(): JSX.Element {
             </AdminTileRow>
 
             {/* Reihe 2 und 3 — sechs Karten in einem Raster, damit beide Reihen
-                exakt dieselbe Hoehe bekommen. Schuelerakte, Eltern-Reports und
+                exakt dieselbe Hoehe bekommen. Eltern-Reports und
                 LSA-Ergebnisse haben noch keine Route und bleiben inaktiv. */}
             <AdminTileRow columns={3}>
               <AdminTile
+                to="/admin/akten"
                 icon={<FolderOpen className={ICON_CLASS} />}
                 title={t('dashboard.tiles.studentRecord.title')}
                 description={t('dashboard.tiles.studentRecord.description')}
