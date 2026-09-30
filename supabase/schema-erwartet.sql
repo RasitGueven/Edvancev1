@@ -53,6 +53,98 @@ CREATE TYPE public.badge_rarity AS ENUM (
 
 
 --
+-- Name: akte_aktiv(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.akte_aktiv(p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.vertraege_aktuell v
+     where v.student_id = p_student_id
+       and v.wirksamer_status in ('aktiv', 'im_widerruf')
+  );
+$$;
+
+
+--
+-- Name: akte_basis(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.akte_basis() RETURNS TABLE(student_id uuid, name text, klasse integer, schule_id uuid, schule text, akte_seit date, zustand text, ruhend_seit date, letzte_session timestamp with time zone)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with ich as (
+    select public.get_my_role() as rolle
+  ),
+  vertrag as (
+    select v.student_id,
+           min(v.abgeschlossen_am) as akte_seit,
+           bool_or(v.wirksamer_status in ('aktiv', 'im_widerruf')) as aktiv,
+           -- Ende des letzten Vertrags, der gelaufen ist: gekuendigt_zum vor
+           -- vertrag_ende; ein widerrufener Vertrag ist nie gelaufen und zaehlt
+           -- nur, wenn es keinen anderen gibt (dann ab dem Widerruf).
+           coalesce(max(coalesce(v.gekuendigt_zum, v.vertrag_ende)) filter (where v.widerrufen_am is null),
+                    max(v.widerrufen_am)) as letztes_ende,
+           (array_agg(nullif(btrim(concat_ws(' ', v.kind_vorname, v.kind_nachname)), '')
+                      order by v.vertragsbeginn desc nulls last))[1] as kindname
+      from public.vertraege_aktuell v
+     where v.student_id is not null
+     group by v.student_id
+  ),
+  anwesend as (
+    select ss.student_id, max(cs.scheduled_at) as letzte_session
+      from public.session_students ss
+      join public.coaching_sessions cs on cs.id = ss.session_id
+     where ss.attendance = 'present'
+     group by ss.student_id
+  )
+  select s.id,
+         coalesce(nullif(btrim(p.full_name), ''), vt.kindname),
+         s.class_level,
+         s.schule_id,
+         coalesce(sch.name, s.school_name),
+         vt.akte_seit,
+         case when vt.aktiv then 'aktiv' else 'ruhend' end,
+         case when vt.aktiv then null else vt.letztes_ende end,
+         a.letzte_session
+    from vertrag vt
+    join public.students s   on s.id = vt.student_id
+    left join public.profiles p   on p.id = s.profile_id
+    left join public.schulen  sch on sch.id = s.schule_id
+    left join anwesend a on a.student_id = s.id
+    cross join ich
+   where ich.rolle = 'admin'
+      or (ich.rolle = 'coach' and vt.aktiv);
+$$;
+
+
+--
+-- Name: akte_wortliste_treffer(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.akte_wortliste_treffer(p_liste text, p_text text) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+  select w.wort
+    from public.akte_wortliste w
+   where w.liste = p_liste
+     and case
+           when w.nur_ganzes_wort then
+             lower(coalesce(p_text, '')) ~ ('\m' || regexp_replace(w.wort, '([.*+?^${}()|\[\]\\])', '\\\1', 'g') || '\M')
+           else
+             strpos(lower(coalesce(p_text, '')), w.wort) > 0
+         end
+   order by w.wort
+   limit 1;
+$_$;
+
+
+--
 -- Name: app_provision_student(uuid, text, uuid, text, text, integer, text, text, text[], uuid, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -204,6 +296,57 @@ $$;
 
 
 --
+-- Name: betriebstag(date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.betriebstag(p_datum date) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select extract(isodow from p_datum) between 1 and 5
+     and not exists (select 1 from public.feiertage_nrw f where f.datum = p_datum)
+     and not exists (select 1 from public.ferien_nrw f where p_datum between f.von and f.bis);
+$$;
+
+
+--
+-- Name: betriebstage(date, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.betriebstage(p_von date, p_bis date) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select public.werktage(p_von, p_bis)
+       - (select count(distinct g.t)::integer
+            from public.ferien_nrw f
+            cross join lateral generate_series(greatest(f.von, p_von), least(f.bis, p_bis), interval '1 day') g(t)
+           where f.von <= p_bis and f.bis >= p_von
+             and extract(isodow from g.t) between 1 and 5)
+       - (select count(*)::integer
+            from public.feiertage_nrw h
+           where h.datum between p_von and p_bis
+             and extract(isodow from h.datum) between 1 and 5
+             and not exists (select 1 from public.ferien_nrw f where h.datum between f.von and f.bis));
+$$;
+
+
+--
+-- Name: board_schueler(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.board_schueler() RETURNS TABLE(student_id uuid, name text, klasse integer, schule text, zustand text, ruhend_seit date, letzte_session timestamp with time zone, art text, einheiten integer, beginn date, stichtag date, verbraucht integer, offen integer, soll numeric, rueckstand numeric, ampel text)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select a.student_id, a.name, a.klasse, a.schule, a.zustand, a.ruhend_seit, a.letzte_session,
+         e.art, e.einheiten, e.beginn, e.stichtag, e.verbraucht, e.offen, e.soll, e.rueckstand, e.ampel
+    from public.akte_basis() a
+    cross join lateral public.einheiten_stand_intern(a.student_id, current_date) e;
+$$;
+
+
+--
 -- Name: calc_presence_multiplier(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -317,6 +460,224 @@ begin
   insert into public.dokument_fassungen (art, fassung, pfad, sha256, bytes, erzeugt_von)
   values (p_art, p_fassung, p_pfad, lower(p_sha256), p_bytes, auth.uid())
   on conflict (art, fassung) do nothing;
+end;
+$$;
+
+
+--
+-- Name: einheit_verbraucht(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.einheit_verbraucht(p_attendance text) RETURNS boolean
+    LANGUAGE sql IMMUTABLE PARALLEL SAFE
+    AS $$
+  select coalesce(p_attendance in ('present', 'unexcused'), false);
+$$;
+
+
+--
+-- Name: einheiten_rechnung(integer, date, date, integer, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.einheiten_rechnung(p_einheiten integer, p_beginn date, p_stichtag date, p_verbraucht integer, p_heute date) RETURNS TABLE(art text, soll numeric, rueckstand numeric, offen integer, wochen_rest numeric, noetig_pro_woche numeric, gleichmaessig_pro_woche numeric, ampel text, betriebstage_gesamt integer, betriebstage_bis_gestern integer, betriebstage_ab_heute integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_verbraucht integer := coalesce(p_verbraucht, 0);
+  v_s1         numeric;
+  v_s2         numeric;
+begin
+  -- Ohne Vertrag keine Rechnung: keine Zeile statt Fehler. einheiten_stand_intern
+  -- ruft die Funktion per LEFT JOIN LATERAL auch fuer Kinder ohne laufenden
+  -- Vertrag auf (ruhende Akte); ein Fehler braeche dort Board und Akte.
+  if p_einheiten is null or p_beginn is null or p_stichtag is null or p_heute is null then
+    return;
+  end if;
+
+  betriebstage_gesamt := public.betriebstage(p_beginn, p_stichtag);
+  gleichmaessig_pro_woche := case when betriebstage_gesamt > 0
+                                  then p_einheiten / (betriebstage_gesamt / 5.0) end;
+
+  if p_heute < p_beginn then
+    art := 'vorher';
+    return next;
+    return;
+  end if;
+
+  art := 'laufend';
+  betriebstage_bis_gestern := public.betriebstage(p_beginn, least(p_heute - 1, p_stichtag));
+  betriebstage_ab_heute    := public.betriebstage(p_heute, p_stichtag);
+
+  soll := case when betriebstage_gesamt > 0
+               then p_einheiten * betriebstage_bis_gestern::numeric / betriebstage_gesamt
+               else 0 end;
+  rueckstand := soll - v_verbraucht;
+  offen := greatest(p_einheiten - v_verbraucht, 0);
+  wochen_rest := betriebstage_ab_heute / 5.0;
+  noetig_pro_woche := case when wochen_rest > 0 then offen / wochen_rest else offen end;
+
+  select e.schwelle_1, e.schwelle_2 into v_s1, v_s2 from public.akte_einstellungen e;
+  ampel := case when rueckstand <= v_s1 then 'im_plan'
+                when rueckstand <= v_s2 then 'leicht_im_rueckstand'
+                else 'deutlich_im_rueckstand' end;
+
+  return next;
+end;
+$$;
+
+
+--
+-- Name: einheiten_stand(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.einheiten_stand(p_student_id uuid, p_heute date DEFAULT CURRENT_DATE) RETURNS TABLE(art text, einheiten integer, beginn date, stichtag date, verbraucht integer, offen integer, soll numeric, rueckstand numeric, ampel text, wochen_rest numeric, noetig_pro_woche numeric, gleichmaessig_pro_woche numeric)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle text := public.get_my_role();
+begin
+  if v_rolle = 'admin' then
+    null;
+  elsif v_rolle = 'coach' and public.akte_aktiv(p_student_id) then
+    null;
+  else
+    raise exception 'einheiten_stand: keine Berechtigung fuer diese Akte' using errcode = '42501';
+  end if;
+
+  return query select * from public.einheiten_stand_intern(p_student_id, coalesce(p_heute, current_date));
+end;
+$$;
+
+
+--
+-- Name: einheiten_stand_intern(uuid, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.einheiten_stand_intern(p_student_id uuid, p_heute date) RETURNS TABLE(art text, einheiten integer, beginn date, stichtag date, verbraucht integer, offen integer, soll numeric, rueckstand numeric, ampel text, wochen_rest numeric, noetig_pro_woche numeric, gleichmaessig_pro_woche numeric)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with vertrag as (
+    select v.einheiten, v.vertragsbeginn, v.vertrag_ende
+      from public.vertraege_aktuell v
+     where v.student_id = p_student_id
+       and v.wirksamer_status in ('aktiv', 'im_widerruf')
+       and v.einheiten is not null
+       and v.vertragsbeginn is not null
+       and v.vertrag_ende is not null
+       and v.vertrag_ende >= p_heute
+     order by (v.vertragsbeginn <= p_heute) desc,
+              case when v.vertragsbeginn <= p_heute then v.vertragsbeginn end desc nulls last,
+              v.vertragsbeginn asc
+     limit 1
+  ),
+  zaehlung as (
+    select count(*)::integer as verbraucht
+      from vertrag vt
+      join public.session_students ss on ss.student_id = p_student_id
+      join public.coaching_sessions cs on cs.id = ss.session_id
+     where public.einheit_verbraucht(ss.attendance)
+       and (cs.scheduled_at at time zone 'Europe/Berlin')::date
+           between vt.vertragsbeginn and vt.vertrag_ende
+  )
+  select coalesce(r.art, 'keiner'),
+         vt.einheiten,
+         vt.vertragsbeginn,
+         vt.vertrag_ende,
+         case when r.art = 'laufend' then z.verbraucht end,
+         r.offen,
+         r.soll,
+         r.rueckstand,
+         r.ampel,
+         r.wochen_rest,
+         r.noetig_pro_woche,
+         r.gleichmaessig_pro_woche
+    from (select 1) eins
+    left join vertrag vt on true
+    left join zaehlung z on true
+    left join lateral public.einheiten_rechnung(
+      vt.einheiten, vt.vertragsbeginn, vt.vertrag_ende, z.verbraucht, p_heute
+    ) r on true;
+$$;
+
+
+--
+-- Name: eltern_report_eintragen(uuid, text, date, jsonb, uuid, timestamp with time zone, timestamp with time zone, text, text, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.eltern_report_eintragen(p_student_id uuid, p_art text, p_berichtsmonat date DEFAULT NULL::date, p_kernaussagen jsonb DEFAULT NULL::jsonb, p_freigegeben_von uuid DEFAULT NULL::uuid, p_freigegeben_am timestamp with time zone DEFAULT NULL::timestamp with time zone, p_versendet_am timestamp with time zone DEFAULT NULL::timestamp with time zone, p_versendet_an text DEFAULT NULL::text, p_pdf_pfad text DEFAULT NULL::text, p_parent_report_id uuid DEFAULT NULL::uuid, p_lsa_session_id uuid DEFAULT NULL::uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_nr integer;
+  v_id uuid;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'eltern_report_eintragen: nur Admin' using errcode = '42501';
+  end if;
+
+  perform 1 from public.students where id = p_student_id for update;
+  if not found then
+    raise exception 'eltern_report_eintragen: Kind nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  if p_lsa_session_id is not null and not exists (
+    select 1 from public.lsa_sessions where id = p_lsa_session_id and student_id = p_student_id
+  ) then
+    raise exception 'eltern_report_eintragen: die LSA gehoert nicht zu diesem Kind' using errcode = '22023';
+  end if;
+
+  select coalesce(max(nr), 0) + 1 into v_nr from public.eltern_reports where student_id = p_student_id;
+
+  insert into public.eltern_reports
+    (student_id, nr, art, berichtsmonat, kernaussagen, freigegeben_von, freigegeben_am,
+     versendet_am, versendet_an, pdf_pfad, parent_report_id, lsa_session_id)
+  values
+    (p_student_id, v_nr, p_art, p_berichtsmonat, p_kernaussagen, p_freigegeben_von, p_freigegeben_am,
+     p_versendet_am, nullif(btrim(coalesce(p_versendet_an, '')), ''), p_pdf_pfad, p_parent_report_id,
+     p_lsa_session_id)
+  returning id into v_id;
+
+  perform public.audit_log_schreiben('eltern_report_eintragen', 'eltern_report', v_id);
+
+  return jsonb_build_object('id', v_id, 'nr', v_nr);
+end;
+$$;
+
+
+--
+-- Name: eltern_reports_guard(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.eltern_reports_guard() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if (new.id, new.student_id, new.nr, new.art, new.berichtsmonat, new.kernaussagen,
+      new.freigegeben_am, new.versendet_am, new.versendet_an, new.parent_report_id,
+      new.lsa_session_id, new.created_at)
+     is distinct from
+     (old.id, old.student_id, old.nr, old.art, old.berichtsmonat, old.kernaussagen,
+      old.freigegeben_am, old.versendet_am, old.versendet_an, old.parent_report_id,
+      old.lsa_session_id, old.created_at)
+  then
+    raise exception 'eltern_reports: ein versendeter Report ist unveraenderlich' using errcode = '42501';
+  end if;
+
+  -- freigegeben_von darf nur durch das Loeschen des Profils leer werden.
+  if new.freigegeben_von is distinct from old.freigegeben_von and new.freigegeben_von is not null then
+    raise exception 'eltern_reports: ein versendeter Report ist unveraenderlich' using errcode = '42501';
+  end if;
+
+  if new.pdf_pfad is distinct from old.pdf_pfad and old.pdf_pfad is not null then
+    raise exception 'eltern_reports: pdf_pfad ist schon gesetzt' using errcode = '42501';
+  end if;
+
+  return new;
 end;
 $$;
 
@@ -1718,6 +2079,45 @@ $_$;
 
 
 --
+-- Name: lsa_lead_kontext(uuid[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_lead_kontext(p_student_ids uuid[]) RETURNS TABLE(student_id uuid, lead_id uuid, rufname text, next_exam_topic text, current_topic_cluster_id uuid, eltern_note text, eltern_weak_topics text[])
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle text := public.get_my_role();
+begin
+  if coalesce(v_rolle, '') not in ('admin', 'coach') then
+    raise exception 'lsa_lead_kontext: nur Admin oder Coach' using errcode = '42501';
+  end if;
+
+  return query
+  select s.id,
+         l.id,
+         coalesce(l.first_name, l.full_name),
+         l.next_exam_topic,
+         l.current_topic_cluster_id,
+         la.note,
+         coalesce(la.weak_topics, '{}'::text[])
+    from public.students s
+    join lateral (
+      select l2.*
+        from public.leads l2
+       where l2.id = s.lead_id
+          or (s.lead_id is null and l2.converted_student_id = s.id)
+       order by (l2.id = s.lead_id) desc nulls last, l2.created_at desc
+       limit 1
+    ) l on true
+    left join public.lead_assessments la on la.lead_id = l.id and la.source = 'parent'
+   where s.id = any(coalesce(p_student_ids, '{}'::uuid[]))
+     and (v_rolle = 'admin' or s.is_provisional or public.akte_aktiv(s.id));
+end;
+$$;
+
+
+--
 -- Name: lsa_may_act_for(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3073,6 +3473,135 @@ $$;
 
 
 --
+-- Name: notiz_anlegen(uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.notiz_anlegen(p_student_id uuid, p_kategorie text, p_text text) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_rolle  text := public.get_my_role();
+  v_text   text := nullif(btrim(coalesce(p_text, '')), '');
+  v_treffer text;
+  v_id     uuid;
+begin
+  if auth.uid() is null or v_rolle not in ('admin', 'coach') then
+    raise exception 'notiz_anlegen: nur Admin oder Coach' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.vertraege_aktuell v where v.student_id = p_student_id) then
+    raise exception 'notiz_anlegen: keine Akte zu diesem Kind' using errcode = 'P0002';
+  end if;
+  if v_rolle = 'coach' and not public.akte_aktiv(p_student_id) then
+    raise exception 'notiz_anlegen: Coaches schreiben nur in aktive Akten' using errcode = '42501';
+  end if;
+  if p_kategorie is null or p_kategorie not in ('lernen', 'verhalten', 'organisatorisch') then
+    raise exception 'notiz_anlegen: unbekannte Kategorie %', p_kategorie using errcode = '22023';
+  end if;
+  if v_text is null then
+    raise exception 'notiz_anlegen: die Notiz ist leer' using errcode = '22023';
+  end if;
+
+  v_treffer := public.akte_wortliste_treffer('gesundheit', v_text);
+  if v_treffer is not null then
+    raise exception 'notiz_anlegen: Die Notiz enthaelt "%". Das deutet auf eine Gesundheitsangabe hin, und die gehoert nicht in die Akte. Bitte umformulieren.', v_treffer
+      using errcode = '22023',
+            hint = 'gesundheitsbegriff:' || v_treffer;
+  end if;
+
+  insert into public.schueler_notizen (student_id, kategorie, text, autor_id, autor_rolle)
+  values (p_student_id, p_kategorie, v_text, auth.uid(), v_rolle)
+  returning id into v_id;
+
+  insert into public.audit_log (actor, aktion, objekt_typ, objekt_id)
+  values (auth.uid(), 'notiz_anlegen', 'schueler_notiz', v_id);
+
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: notiz_ausblenden(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.notiz_ausblenden(p_notiz_id uuid, p_grund text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_grund text := nullif(btrim(coalesce(p_grund, '')), '');
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'notiz_ausblenden: nur Admin' using errcode = '42501';
+  end if;
+  if v_grund is null then
+    raise exception 'notiz_ausblenden: ein Grund ist Pflicht' using errcode = '22023';
+  end if;
+
+  update public.schueler_notizen
+     set ausgeblendet_am = now(), ausgeblendet_von = auth.uid(), ausgeblendet_grund = v_grund
+   where id = p_notiz_id and entfernt_am is null;
+  if not found then
+    raise exception 'notiz_ausblenden: Notiz nicht gefunden oder schon entfernt' using errcode = 'P0002';
+  end if;
+
+  perform public.audit_log_schreiben('notiz_ausblenden', 'schueler_notiz', p_notiz_id);
+end;
+$$;
+
+
+--
+-- Name: notiz_einblenden(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.notiz_einblenden(p_notiz_id uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'notiz_einblenden: nur Admin' using errcode = '42501';
+  end if;
+
+  update public.schueler_notizen
+     set ausgeblendet_am = null, ausgeblendet_von = null, ausgeblendet_grund = null
+   where id = p_notiz_id and entfernt_am is null;
+  if not found then
+    raise exception 'notiz_einblenden: Notiz nicht gefunden oder schon entfernt' using errcode = 'P0002';
+  end if;
+
+  perform public.audit_log_schreiben('notiz_einblenden', 'schueler_notiz', p_notiz_id);
+end;
+$$;
+
+
+--
+-- Name: notiz_gesundheit_entfernen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.notiz_gesundheit_entfernen(p_notiz_id uuid) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'notiz_gesundheit_entfernen: nur Admin' using errcode = '42501';
+  end if;
+
+  update public.schueler_notizen
+     set text = null, entfernt_am = now(), entfernt_von = auth.uid(), entfernt_grund = 'gesundheitsangabe'
+   where id = p_notiz_id and entfernt_am is null;
+  if not found then
+    raise exception 'notiz_gesundheit_entfernen: Notiz nicht gefunden oder schon entfernt' using errcode = 'P0002';
+  end if;
+
+  perform public.audit_log_schreiben('notiz_gesundheit_entfernen', 'schueler_notiz', p_notiz_id);
+end;
+$$;
+
+
+--
 -- Name: platz_assign(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3463,6 +3992,68 @@ begin
   perform set_config('request.jwt.claims', coalesce(v_claims, ''), true);
 
   return v_result;   -- {ok, next} — kein correct, kein Score, kein Zaehler.
+end;
+$$;
+
+
+--
+-- Name: profil_fuer_coach_sichtbar(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.profil_fuer_coach_sichtbar(p_profile_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1 from public.profiles p
+     where p.id = p_profile_id
+       and (p.id = auth.uid()
+            or p.role in ('admin', 'coach')
+            or (p.role = 'student'
+                and exists (select 1 from public.students s
+                             where s.profile_id = p.id and public.akte_aktiv(s.id))))
+  );
+$$;
+
+
+--
+-- Name: schueler_notizen_guard(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.schueler_notizen_guard() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if new.id <> old.id
+     or new.student_id  <> old.student_id
+     or new.kategorie   <> old.kategorie
+     or new.autor_rolle <> old.autor_rolle
+     or new.created_at  <> old.created_at then
+    raise exception 'schueler_notizen: Notizen werden nicht bearbeitet' using errcode = '42501';
+  end if;
+
+  -- Verweise auf Profile duerfen nur durch das Loeschen des Profils leer werden.
+  if new.autor_id is distinct from old.autor_id and new.autor_id is not null then
+    raise exception 'schueler_notizen: Autor ist unveraenderlich' using errcode = '42501';
+  end if;
+
+  -- Text: unveraendert, oder einmalig endgueltig entfernt.
+  if new.text is distinct from old.text
+     and not (old.text is not null and new.text is null
+              and old.entfernt_am is null and new.entfernt_am is not null) then
+    raise exception 'schueler_notizen: Notizen werden nicht bearbeitet' using errcode = '42501';
+  end if;
+
+  -- Entfernt bleibt entfernt.
+  if old.entfernt_am is not null
+     and (new.entfernt_am is distinct from old.entfernt_am
+          or new.entfernt_grund is distinct from old.entfernt_grund
+          or (new.entfernt_von is distinct from old.entfernt_von and new.entfernt_von is not null)) then
+    raise exception 'schueler_notizen: eine entfernte Notiz bleibt entfernt' using errcode = '42501';
+  end if;
+
+  return new;
 end;
 $$;
 
@@ -4139,6 +4730,8 @@ declare
   v_abweichung boolean;
   v_kindname   text;
   v_subject    uuid;
+  v_erstvertrag boolean;
+  v_lsa        uuid;
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'vertrag_abschliessen: nur Admin' using errcode = '42501';
@@ -4254,6 +4847,8 @@ begin
   v_widerruf := public.vertrag_widerruf_bis(v_beginn);
 
   -- -------------------------------------------------------- Schuelerkonto
+  v_erstvertrag := v.student_id is null;
+
   if v.student_id is not null then
     -- Folgevertrag: das Kind gibt es schon, es bekommt kein zweites Konto.
     v_student := v.student_id;
@@ -4307,18 +4902,26 @@ begin
        where id = v_student;
     end if;
 
-    if v.fach is not null then
-      select id into v_subject from public.subjects where name = v.fach;
-      if v_subject is not null
-         and not exists (select 1 from public.student_subjects
-                          where student_id = v_student and subject_id = v_subject) then
-        insert into public.student_subjects (student_id, subject_id) values (v_student, v_subject);
-      end if;
-    end if;
-
     update public.leads
        set status = 'converted', converted_student_id = v_student
      where id = v.lead_id;
+  end if;
+
+  -- S1 (Entscheidung 11): Faecher auch beim Folgevertrag nachziehen.
+  if v.fach is not null then
+    select id into v_subject from public.subjects where name = v.fach;
+    if v_subject is not null
+       and not exists (select 1 from public.student_subjects
+                        where student_id = v_student and subject_id = v_subject) then
+      insert into public.student_subjects (student_id, subject_id) values (v_student, v_subject);
+    end if;
+  end if;
+
+  -- S1: Schule der Akte aus dem Vertrag, solange die Akte keine hat. Eine in der
+  -- Akte gepflegte Schule wird nicht ueberschrieben.
+  if v.schule_id is not null then
+    update public.students set schule_id = v.schule_id
+     where id = v_student and schule_id is null;
   end if;
 
   -- Abo: eins je laufendem Vertrag. Der Guard verlangt, dass der Schueler
@@ -4371,6 +4974,23 @@ begin
    where id = p_vertrag_id;
 
   perform set_config('edvance.vertrag_rpc', '', true);
+
+  -- S1 (Entscheidung 10): Report 1 = die LSA, beim ersten Vertrag des Kindes.
+  -- Die letzte abgeschlossene LSA; ohne LSA kein Report 1.
+  if v_erstvertrag then
+    select l.id into v_lsa
+      from public.lsa_sessions l
+     where l.student_id = v_student and l.status = 'completed'
+     order by l.completed_at desc nulls last
+     limit 1;
+    if v_lsa is not null
+       and not exists (select 1 from public.eltern_reports where lsa_session_id = v_lsa) then
+      perform public.eltern_report_eintragen(
+        p_student_id     => v_student,
+        p_art            => 'lernstandsanalyse',
+        p_lsa_session_id => v_lsa);
+    end if;
+  end if;
 
   return jsonb_build_object(
     'ok', true,
@@ -5097,6 +5717,20 @@ $$;
 
 
 --
+-- Name: werktage(date, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.werktage(p_von date, p_bis date) RETURNS integer
+    LANGUAGE sql IMMUTABLE PARALLEL SAFE
+    AS $$
+  select case when p_bis < p_von then 0 else
+    ((p_bis - date '1970-01-05' + 1) / 7) * 5 + least((p_bis - date '1970-01-05' + 1) % 7, 5)
+    - (((p_von - date '1970-01-05') / 7) * 5 + least((p_von - date '1970-01-05') % 7, 5))
+  end;
+$$;
+
+
+--
 -- Name: zugangscode_erzeugen(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5130,6 +5764,36 @@ begin
   return v_code;
 end;
 $$;
+
+
+--
+-- Name: akte_einstellungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.akte_einstellungen (
+    id boolean DEFAULT true NOT NULL,
+    schwelle_1 numeric DEFAULT 1.5 NOT NULL,
+    schwelle_2 numeric DEFAULT 3.5 NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT akte_einstellungen_eine_zeile CHECK (id),
+    CONSTRAINT akte_einstellungen_schwellen CHECK (((schwelle_1 >= (0)::numeric) AND (schwelle_1 < schwelle_2)))
+);
+
+
+--
+-- Name: akte_wortliste; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.akte_wortliste (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    liste text NOT NULL,
+    wort text NOT NULL,
+    nur_ganzes_wort boolean DEFAULT false NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    created_by uuid,
+    CONSTRAINT akte_wortliste_liste_check CHECK ((liste = ANY (ARRAY['gesundheit'::text, 'report_verbot'::text]))),
+    CONSTRAINT akte_wortliste_wort_form CHECK (((wort = lower(btrim(wort))) AND (wort <> ''::text)))
+);
 
 
 --
@@ -5222,6 +5886,33 @@ CREATE TABLE public.dokument_fassungen (
 
 
 --
+-- Name: eltern_reports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.eltern_reports (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    nr integer NOT NULL,
+    art text NOT NULL,
+    berichtsmonat date,
+    kernaussagen jsonb,
+    freigegeben_von uuid,
+    freigegeben_am timestamp with time zone,
+    versendet_am timestamp with time zone,
+    versendet_an text,
+    pdf_pfad text,
+    parent_report_id uuid,
+    lsa_session_id uuid,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT eltern_reports_art_check CHECK ((art = ANY (ARRAY['lernstandsanalyse'::text, 'zwischenbericht'::text]))),
+    CONSTRAINT eltern_reports_berichtsmonat_erster CHECK (((berichtsmonat IS NULL) OR (EXTRACT(day FROM berichtsmonat) = (1)::numeric))),
+    CONSTRAINT eltern_reports_kernaussagen_objekt CHECK (((kernaussagen IS NULL) OR (jsonb_typeof(kernaussagen) = 'object'::text))),
+    CONSTRAINT eltern_reports_nr_positiv CHECK ((nr >= 1)),
+    CONSTRAINT eltern_reports_pdf_pfad_nicht_leer CHECK (((pdf_pfad IS NULL) OR (NULLIF(btrim(pdf_pfad), ''::text) IS NOT NULL)))
+);
+
+
+--
 -- Name: fehlbild_familien; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5245,6 +5936,19 @@ CREATE TABLE public.fehlbild_labels (
     freigegeben_am timestamp with time zone,
     freigegeben_von uuid,
     familie text
+);
+
+
+--
+-- Name: feiertage_nrw; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feiertage_nrw (
+    datum date NOT NULL,
+    art text NOT NULL,
+    name text NOT NULL,
+    CONSTRAINT feiertage_nrw_art_check CHECK ((art = ANY (ARRAY['feiertag'::text, 'pfingstferien'::text]))),
+    CONSTRAINT feiertage_nrw_name_nicht_leer CHECK ((NULLIF(btrim(name), ''::text) IS NOT NULL))
 );
 
 
@@ -5594,6 +6298,50 @@ CREATE TABLE public.report_bausteine (
 
 
 --
+-- Name: schueler_notizen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schueler_notizen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    kategorie text NOT NULL,
+    text text,
+    autor_id uuid,
+    autor_rolle text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    ausgeblendet_am timestamp with time zone,
+    ausgeblendet_von uuid,
+    ausgeblendet_grund text,
+    entfernt_am timestamp with time zone,
+    entfernt_von uuid,
+    entfernt_grund text,
+    CONSTRAINT schueler_notizen_ausgeblendet_mit_grund CHECK ((((ausgeblendet_am IS NULL) AND (ausgeblendet_grund IS NULL)) OR ((ausgeblendet_am IS NOT NULL) AND (NULLIF(btrim(ausgeblendet_grund), ''::text) IS NOT NULL)))),
+    CONSTRAINT schueler_notizen_autor_rolle_check CHECK ((autor_rolle = ANY (ARRAY['admin'::text, 'coach'::text]))),
+    CONSTRAINT schueler_notizen_entfernt_grund CHECK ((((entfernt_am IS NULL) AND (entfernt_grund IS NULL)) OR ((entfernt_am IS NOT NULL) AND (entfernt_grund = 'gesundheitsangabe'::text)))),
+    CONSTRAINT schueler_notizen_kategorie_check CHECK ((kategorie = ANY (ARRAY['lernen'::text, 'verhalten'::text, 'organisatorisch'::text]))),
+    CONSTRAINT schueler_notizen_text_nicht_leer CHECK (((text IS NULL) OR (NULLIF(btrim(text), ''::text) IS NOT NULL))),
+    CONSTRAINT schueler_notizen_text_oder_entfernt CHECK (((entfernt_am IS NULL) = (text IS NOT NULL)))
+);
+
+
+--
+-- Name: schuelerakten; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.schuelerakten WITH (security_invoker='true') AS
+ SELECT student_id,
+    name,
+    klasse,
+    schule_id,
+    schule,
+    akte_seit,
+    zustand,
+    ruhend_seit,
+    letzte_session
+   FROM public.akte_basis() akte_basis(student_id, name, klasse, schule_id, schule, akte_seit, zustand, ruhend_seit, letzte_session);
+
+
+--
 -- Name: schulen; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5735,8 +6483,8 @@ CREATE TABLE public.screening_tests (
 CREATE TABLE public.session_students (
     session_id uuid NOT NULL,
     student_id uuid NOT NULL,
-    attendance text DEFAULT 'unknown'::text NOT NULL,
-    CONSTRAINT session_students_attendance_check CHECK ((attendance = ANY (ARRAY['present'::text, 'absent'::text, 'unknown'::text])))
+    attendance text DEFAULT 'planned'::text NOT NULL,
+    CONSTRAINT session_students_attendance_check CHECK ((attendance = ANY (ARRAY['planned'::text, 'present'::text, 'cancelled'::text, 'unexcused'::text, 'cancelled_by_us'::text])))
 );
 
 
@@ -5990,6 +6738,7 @@ CREATE TABLE public.students (
     school_type text,
     is_provisional boolean DEFAULT false NOT NULL,
     lead_id uuid,
+    schule_id uuid,
     CONSTRAINT students_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT students_provisional_lead_ck CHECK ((is_provisional = (lead_id IS NOT NULL))),
     CONSTRAINT students_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text])))
@@ -6569,6 +7318,30 @@ CREATE TABLE public.xp_rules (
 
 
 --
+-- Name: akte_einstellungen akte_einstellungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.akte_einstellungen
+    ADD CONSTRAINT akte_einstellungen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: akte_wortliste akte_wortliste_eindeutig; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.akte_wortliste
+    ADD CONSTRAINT akte_wortliste_eindeutig UNIQUE (liste, wort);
+
+
+--
+-- Name: akte_wortliste akte_wortliste_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.akte_wortliste
+    ADD CONSTRAINT akte_wortliste_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: audit_log audit_log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6617,6 +7390,22 @@ ALTER TABLE ONLY public.dokument_fassungen
 
 
 --
+-- Name: eltern_reports eltern_reports_nr_je_kind; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.eltern_reports
+    ADD CONSTRAINT eltern_reports_nr_je_kind UNIQUE (student_id, nr);
+
+
+--
+-- Name: eltern_reports eltern_reports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.eltern_reports
+    ADD CONSTRAINT eltern_reports_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: fehlbild_familien fehlbild_familien_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6630,6 +7419,14 @@ ALTER TABLE ONLY public.fehlbild_familien
 
 ALTER TABLE ONLY public.fehlbild_labels
     ADD CONSTRAINT fehlbild_labels_pkey PRIMARY KEY (slug);
+
+
+--
+-- Name: feiertage_nrw feiertage_nrw_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feiertage_nrw
+    ADD CONSTRAINT feiertage_nrw_pkey PRIMARY KEY (datum);
 
 
 --
@@ -6830,6 +7627,14 @@ ALTER TABLE ONLY public.report_bausteine
 
 ALTER TABLE ONLY public.report_bausteine
     ADD CONSTRAINT report_bausteine_slot_fall_variante_key UNIQUE (slot, fall, variante);
+
+
+--
+-- Name: schueler_notizen schueler_notizen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schueler_notizen
+    ADD CONSTRAINT schueler_notizen_pkey PRIMARY KEY (id);
 
 
 --
@@ -7312,6 +8117,13 @@ CREATE INDEX coaching_sessions_slot_idx ON public.coaching_sessions USING btree 
 
 
 --
+-- Name: eltern_reports_lsa_einmal; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX eltern_reports_lsa_einmal ON public.eltern_reports USING btree (lsa_session_id) WHERE (lsa_session_id IS NOT NULL);
+
+
+--
 -- Name: ferien_nrw_bis_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7449,6 +8261,13 @@ CREATE UNIQUE INDEX platz_assignments_active_unique ON public.platz_assignments 
 --
 
 CREATE INDEX platz_assignments_session_idx ON public.platz_assignments USING btree (session_id);
+
+
+--
+-- Name: schueler_notizen_student_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX schueler_notizen_student_idx ON public.schueler_notizen USING btree (student_id, created_at DESC);
 
 
 --
@@ -7690,6 +8509,13 @@ CREATE UNIQUE INDEX students_lead_unique ON public.students USING btree (lead_id
 
 
 --
+-- Name: students_schule_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX students_schule_idx ON public.students USING btree (schule_id);
+
+
+--
 -- Name: task_reviews_task_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7830,6 +8656,13 @@ CREATE INDEX xp_events_student_idx ON public.xp_events USING btree (student_id);
 
 
 --
+-- Name: eltern_reports eltern_reports_guard_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER eltern_reports_guard_trg BEFORE UPDATE ON public.eltern_reports FOR EACH ROW EXECUTE FUNCTION public.eltern_reports_guard();
+
+
+--
 -- Name: leads leads_status_zeitstempel_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -7848,6 +8681,13 @@ CREATE TRIGGER lsa_session_lead_fertig_trg AFTER UPDATE OF status ON public.lsa_
 --
 
 CREATE TRIGGER lsa_session_platz_release_trg AFTER UPDATE OF status ON public.lsa_sessions FOR EACH ROW WHEN (((new.status = ANY (ARRAY['completed'::text, 'aborted'::text])) AND (old.status IS DISTINCT FROM new.status))) EXECUTE FUNCTION public.lsa_session_platz_release();
+
+
+--
+-- Name: schueler_notizen schueler_notizen_guard_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER schueler_notizen_guard_trg BEFORE UPDATE ON public.schueler_notizen FOR EACH ROW EXECUTE FUNCTION public.schueler_notizen_guard();
 
 
 --
@@ -7942,6 +8782,14 @@ CREATE TRIGGER xp_events_apply AFTER INSERT ON public.xp_events FOR EACH ROW EXE
 
 
 --
+-- Name: akte_wortliste akte_wortliste_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.akte_wortliste
+    ADD CONSTRAINT akte_wortliste_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
 -- Name: audit_log audit_log_actor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7995,6 +8843,38 @@ ALTER TABLE ONLY public.coaching_sessions
 
 ALTER TABLE ONLY public.dokument_fassungen
     ADD CONSTRAINT dokument_fassungen_erzeugt_von_fkey FOREIGN KEY (erzeugt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: eltern_reports eltern_reports_freigegeben_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.eltern_reports
+    ADD CONSTRAINT eltern_reports_freigegeben_von_fkey FOREIGN KEY (freigegeben_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: eltern_reports eltern_reports_lsa_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.eltern_reports
+    ADD CONSTRAINT eltern_reports_lsa_session_id_fkey FOREIGN KEY (lsa_session_id) REFERENCES public.lsa_sessions(id);
+
+
+--
+-- Name: eltern_reports eltern_reports_parent_report_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.eltern_reports
+    ADD CONSTRAINT eltern_reports_parent_report_id_fkey FOREIGN KEY (parent_report_id) REFERENCES public.parent_reports(id);
+
+
+--
+-- Name: eltern_reports eltern_reports_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.eltern_reports
+    ADD CONSTRAINT eltern_reports_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
 
 
 --
@@ -8275,6 +9155,38 @@ ALTER TABLE ONLY public.profiles
 
 ALTER TABLE ONLY public.report_bausteine
     ADD CONSTRAINT report_bausteine_freigegeben_von_fkey FOREIGN KEY (freigegeben_von) REFERENCES public.profiles(id);
+
+
+--
+-- Name: schueler_notizen schueler_notizen_ausgeblendet_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schueler_notizen
+    ADD CONSTRAINT schueler_notizen_ausgeblendet_von_fkey FOREIGN KEY (ausgeblendet_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: schueler_notizen schueler_notizen_autor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schueler_notizen
+    ADD CONSTRAINT schueler_notizen_autor_id_fkey FOREIGN KEY (autor_id) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: schueler_notizen schueler_notizen_entfernt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schueler_notizen
+    ADD CONSTRAINT schueler_notizen_entfernt_von_fkey FOREIGN KEY (entfernt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: schueler_notizen schueler_notizen_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schueler_notizen
+    ADD CONSTRAINT schueler_notizen_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
 
 
 --
@@ -8670,6 +9582,14 @@ ALTER TABLE ONLY public.students
 
 
 --
+-- Name: students students_schule_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.students
+    ADD CONSTRAINT students_schule_id_fkey FOREIGN KEY (schule_id) REFERENCES public.schulen(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: task_coach_metadata task_coach_metadata_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8903,6 +9823,46 @@ CREATE POLICY admin_write_tasks ON public.tasks USING ((EXISTS ( SELECT 1
 
 
 --
+-- Name: akte_einstellungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.akte_einstellungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: akte_einstellungen akte_einstellungen_admin_update; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY akte_einstellungen_admin_update ON public.akte_einstellungen FOR UPDATE USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: akte_einstellungen akte_einstellungen_authenticated_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY akte_einstellungen_authenticated_read ON public.akte_einstellungen FOR SELECT USING ((auth.role() = 'authenticated'::text));
+
+
+--
+-- Name: akte_wortliste; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.akte_wortliste ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: akte_wortliste akte_wortliste_admin_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY akte_wortliste_admin_all ON public.akte_wortliste USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: akte_wortliste akte_wortliste_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY akte_wortliste_read ON public.akte_wortliste FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
 -- Name: audit_log; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -8970,13 +9930,6 @@ CREATE POLICY badge_catalog_read_all ON public.badge_catalog FOR SELECT USING (t
 ALTER TABLE public.behavior_snapshots ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: profiles coaches_admins_see_all_profiles; Type: POLICY; Schema: public; Owner: -
---
-
-CREATE POLICY coaches_admins_see_all_profiles ON public.profiles FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
-
-
---
 -- Name: behavior_snapshots coaches_admins_see_all_snapshots; Type: POLICY; Schema: public; Owner: -
 --
 
@@ -9040,6 +9993,33 @@ CREATE POLICY dokument_fassungen_select ON public.dokument_fassungen FOR SELECT 
 
 
 --
+-- Name: eltern_reports; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.eltern_reports ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: eltern_reports eltern_reports_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY eltern_reports_admin_select ON public.eltern_reports FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: eltern_reports eltern_reports_admin_update; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY eltern_reports_admin_update ON public.eltern_reports FOR UPDATE USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: eltern_reports eltern_reports_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY eltern_reports_coach_select ON public.eltern_reports FOR SELECT USING (((public.get_my_role() = 'coach'::text) AND public.akte_aktiv(student_id)));
+
+
+--
 -- Name: fehlbild_familien; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -9063,6 +10043,19 @@ ALTER TABLE public.fehlbild_labels ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY fehlbild_labels_read ON public.fehlbild_labels FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
+-- Name: feiertage_nrw; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.feiertage_nrw ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: feiertage_nrw feiertage_nrw_authenticated_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY feiertage_nrw_authenticated_read ON public.feiertage_nrw FOR SELECT USING ((auth.role() = 'authenticated'::text));
 
 
 --
@@ -9149,10 +10142,10 @@ CREATE POLICY lead_assessments_coach_admin_all ON public.lead_assessments USING 
 ALTER TABLE public.leads ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: leads leads_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: leads leads_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY leads_coach_admin_all ON public.leads USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY leads_admin_all ON public.leads USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
 
 
 --
@@ -9300,10 +10293,10 @@ CREATE POLICY parent_reports_student_read ON public.parent_reports FOR SELECT US
 ALTER TABLE public.parent_student ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: parent_student parent_student_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: parent_student parent_student_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY parent_student_coach_admin_all ON public.parent_student USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY parent_student_admin_all ON public.parent_student USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
 
 
 --
@@ -9396,6 +10389,20 @@ CREATE POLICY process_competencies_admin_write ON public.process_competencies US
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
 --
+-- Name: profiles profiles_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY profiles_admin_select ON public.profiles FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: profiles profiles_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY profiles_coach_select ON public.profiles FOR SELECT USING (((public.get_my_role() = 'coach'::text) AND public.profil_fuer_coach_sichtbar(id)));
+
+
+--
 -- Name: tasks pruefer_update_tasks; Type: POLICY; Schema: public; Owner: -
 --
 
@@ -9433,6 +10440,26 @@ ALTER TABLE public.report_bausteine ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY report_bausteine_read ON public.report_bausteine FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
+
+--
+-- Name: schueler_notizen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.schueler_notizen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: schueler_notizen schueler_notizen_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schueler_notizen_admin_select ON public.schueler_notizen FOR SELECT USING ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: schueler_notizen schueler_notizen_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schueler_notizen_coach_select ON public.schueler_notizen FOR SELECT USING (((public.get_my_role() = 'coach'::text) AND public.akte_aktiv(student_id) AND (ausgeblendet_am IS NULL) AND (entfernt_am IS NULL)));
 
 
 --
@@ -9990,10 +11017,17 @@ CREATE POLICY student_task_progress_parent_read ON public.student_task_progress 
 ALTER TABLE public.students ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: students students_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: students students_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY students_coach_admin_all ON public.students USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY students_admin_all ON public.students USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: students students_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY students_coach_select ON public.students FOR SELECT USING (((public.get_my_role() = 'coach'::text) AND public.akte_aktiv(id)));
 
 
 --

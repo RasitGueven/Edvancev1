@@ -68,6 +68,7 @@ export type {
 
 export type {
   AttendanceStatus,
+  SessionAttendance,
   SessionStatus,
   CoachingSession,
   SessionStudent,

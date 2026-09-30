@@ -211,7 +211,7 @@ Werden in fast allen RLS-Policies genutzt (umgehen Policy-Rekursion):
 
 ### session_students
 - **Zweck:** Anwesenheit pro Schüler in einer Session.
-- **Spalten:** `session_id` (FK→`coaching_sessions` CASCADE), `student_id` (FK→`students` CASCADE), `attendance` (CHECK `present|absent|unknown`), PK (`session_id`,`student_id`).
+- **Spalten:** `session_id` (FK→`coaching_sessions` CASCADE), `student_id` (FK→`students` CASCADE), `attendance` (CHECK `planned|present|cancelled|unexcused|cancelled_by_us`, Default `planned`; was eine Einheit verbraucht, entscheidet `einheit_verbraucht()` — seit Schülerakte S1), PK (`session_id`,`student_id`).
 - **RLS:** Schüler/Eltern lesen eigene; Coach r/w (eigene Sessions); Admin alles.
 
 ### interventions

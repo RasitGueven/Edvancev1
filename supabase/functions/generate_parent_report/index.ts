@@ -352,7 +352,7 @@ Deno.serve(async (req: Request) => {
     anwesenheit: {
       gesamt: attendance.length,
       anwesend: attendance.filter((a) => a.attendance === 'present').length,
-      abwesend: attendance.filter((a) => a.attendance === 'absent').length,
+      abwesend: attendance.filter((a) => a.attendance === 'unexcused').length,
     },
     eingriffe: ivRes.data ?? [],
     coach_kontext: body.coach_context ?? null,

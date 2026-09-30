@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase/client'
 import type {
-  AttendanceStatus,
   CoachingSession,
+  SessionAttendance,
   SessionStudent,
   SupabaseResult,
 } from '@/types'
@@ -114,11 +114,12 @@ export async function listUpcomingSessionsForStudent(
   }
 }
 
-// Anwesenheit setzen (present/absent/unknown).
+// Anwesenheit in der Session setzen: nur 'present' oder 'unexcused'
+// ("nicht erschienen"). Neue Teilnahmen starten als 'planned' (DB-Default).
 export async function setAttendance(
   sessionId: string,
   studentId: string,
-  attendance: AttendanceStatus,
+  attendance: SessionAttendance,
 ): Promise<SupabaseResult<SessionStudent>> {
   try {
     const { data, error } = await supabase

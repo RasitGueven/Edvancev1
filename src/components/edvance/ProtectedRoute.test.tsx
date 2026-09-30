@@ -7,7 +7,7 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
 const auth = vi.hoisted(() => ({ rolle: 'admin' as string | null, angemeldet: true }))
 
@@ -46,6 +46,29 @@ describe('ProtectedRoute auf den Vertragsrouten', () => {
     zeige()
     expect(screen.queryByText('Vertragsmenue')).toBeNull()
     expect(screen.getByText('Kein Zugriff')).toBeTruthy()
+  })
+
+  it('leitet eine Rolle mit Umleitung weiter statt "Kein Zugriff" zu zeigen', () => {
+    auth.rolle = 'coach'
+    auth.angemeldet = true
+    render(
+      <MemoryRouter initialEntries={['/admin/leads']}>
+        <Routes>
+          <Route
+            path="/admin/leads"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+                <p>Leads</p>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/coach" element={<p>Coach-Dashboard</p>} />
+        </Routes>
+      </MemoryRouter>,
+    )
+    expect(screen.queryByText('Leads')).toBeNull()
+    expect(screen.queryByText('Kein Zugriff')).toBeNull()
+    expect(screen.getByText('Coach-Dashboard')).toBeTruthy()
   })
 
   it('weist auch Eltern und Schueler ab', () => {

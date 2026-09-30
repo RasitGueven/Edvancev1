@@ -149,7 +149,7 @@ begin
     returning id into v_session_id;
 
     insert into public.session_students (session_id, student_id, attendance)
-    values (v_session_id, v_student_id, 'unknown')
+    values (v_session_id, v_student_id, 'planned')
     on conflict do nothing;
 
     raise notice 'Session angelegt: session_id=% um %', v_session_id, v_session_at;
