@@ -13,8 +13,17 @@
 - `ruhend_seit`: widerrufene Verträge zählen nicht, `gekuendigt_zum` vor `vertrag_ende` (Befund Consensus-Check).
 - `einheiten_rechnung` liefert ohne Vertrag keine Zeile statt eines Fehlers (sonst brach das Board an jeder ruhenden Akte).
 
+- 30.09., Rasit:
+  - Coaches aus `/admin/leads` und `/admin/slot-auswahl` genommen (`ProtectedRoute` mit Umleitung aufs Coach-Dashboard, Kachel entfernt).
+  - Im Sessionplan keine Ausnahme; „Unbenannt“ bei Testkindern ohne Vertrag ist gewollt.
+  - Rest-Lesezugriff → Folgepaket S1b (`docs/schuelerakte/folgepaket-s1b-coach-lesezugriff.md`).
+
 ## Offen
-- Coach-Strecke `/admin/leads` und `/admin/slot-auswahl` (Lead anlegen, Kiosk starten) funktioniert nach `coach_rls` für Coaches nicht mehr; Namen von Kindern ohne aktive Akte fehlen im Sessionplan. Entscheidung Rasit nötig, bevor Migration 3 eingespielt wird.
-- Coaches lesen weiter `parent_reports`, `intake_sessions`, `lead_assessments`, `student_subscriptions`, `lsa_sessions` aller Kinder (außerhalb Entscheidung 12).
+- Befund zur Annahme „jedes Kind in einer regulären Session hat eine aktive Akte“: Das stimmt nicht.
+  - `platz_assign` prüft kein `hat_zugang` und betrifft ohnehin nur `lsa_sessions`.
+  - Reguläre Sessions füllt `addStudentToSession` (direkter INSERT) ohne Prüfung.
+  - `session_students_coach_rw` erlaubt Coaches, beliebige Kinder in eigene Sessions einzutragen.
+  - Gemeldet, nicht geändert.
+- Coaches lesen weiter `parent_reports`, `intake_sessions`, `lead_assessments`, `lsa_sessions` aller Kinder → S1b.
 - Prod-Belege (pg_proc-Scan, EXPLAIN ANALYZE, Testdateien, Screenshots als Coach) nach dem Einspielen.
 - `supabase/functions/generate_parent_report/index.ts` ist schon vor S1 über 400 Zeilen.
