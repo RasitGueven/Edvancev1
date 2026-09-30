@@ -10,11 +10,12 @@
 // ins Bundle jeder Admin-Seite.
 
 import type { GroundingRecord } from '@/types'
+import { VERA8_SOURCE } from './vera8'
 
 const INDEX_URL = '/authoring/grounding-vera8.json'
 
 /** Nur diese Quelle hat Belege — bei allem anderen sparen wir uns den Fetch. */
-const GROUNDED_SOURCES = new Set(['VERA8_IQB'])
+const GROUNDED_SOURCES = new Set([VERA8_SOURCE])
 
 let cache: Record<string, GroundingRecord> | null = null
 let inflight: Promise<Record<string, GroundingRecord>> | null = null

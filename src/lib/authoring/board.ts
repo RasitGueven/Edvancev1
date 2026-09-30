@@ -15,6 +15,7 @@
 // Reine Funktionen, kein React, kein Supabase — testbar (board.test.ts).
 
 import type { AuthoringTask, TaskStatus } from '@/types'
+import { istVera8 } from './vera8'
 
 export type BoardCluster = { id: string; name: string; subject_name: string }
 
@@ -35,6 +36,19 @@ export const KLASSEN = [8, 9, 10] as const
 export const AKTIVE_KLASSEN: readonly number[] = [8]
 export const FAECHER = ['Mathematik', 'Deutsch', 'Englisch'] as const
 export const FACH_OHNE_CLUSTER = 'Mathematik'
+
+/**
+ * Der Bestand des Boards: alles ausser VERA8 (Entscheidung zu PR #176).
+ * Einmal nach dem Laden angewandt — Zaehler, Klassen-/Fach-/Themenansichten
+ * und die Warteschlange der Strecke sehen dadurch nur diesen Bestand.
+ */
+export function imBoard(task: Pick<AuthoringTask, 'source'>): boolean {
+  return !istVera8(task)
+}
+
+export function boardBestand<T extends Pick<AuthoringTask, 'source'>>(tasks: T[]): T[] {
+  return tasks.filter(imBoard)
+}
 
 export function passtZuFilter(task: AuthoringTask, filter: BoardFilter): boolean {
   return task.status === STATUS_JE_FILTER[filter]

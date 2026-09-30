@@ -4,4 +4,6 @@ export function pruefePrefill(opt: {
   charge: string
   snapshot: string
   blind?: string
-}): Promise<{ fehler: string[]; bestand: string[]; bericht: string }>
+  /** Pfad der Migration dieser Charge — prueft zusaetzlich, dass sie nur Charge-Aufgaben anfasst. */
+  migration?: string
+}):Promise<{ fehler: string[]; bestand: string[]; bericht: string }>

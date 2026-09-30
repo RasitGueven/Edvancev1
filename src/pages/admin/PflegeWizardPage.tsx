@@ -51,6 +51,7 @@ import {
 import { stepsForTask, type WizardStepId } from '@/components/edvance/authoring/wizard/wizardSteps'
 import { computeFlags } from '@/lib/authoring/flags'
 import { imageRefFinding, type ImageRefFinding } from '@/lib/authoring/health'
+import { istVera8 } from '@/lib/authoring/vera8'
 import { getDarfPruefen } from '@/lib/supabase/freigabe'
 import {
   getAuthoringTask,
@@ -79,6 +80,7 @@ export function PflegeWizardPage(): JSX.Element {
 
   const [run] = useState(() => initialRun(location.state))
   const queue = run?.queue ?? null
+  const ausBoard = queue?.kontext === 'board'
   const [pos, setPos] = useState(run?.pos ?? 0)
   const bilanz = useRunBilanz()
   const [hinweis, setHinweis] = useState<string | null>(null)
@@ -132,6 +134,7 @@ export function PflegeWizardPage(): JSX.Element {
         return
       }
       const form = fromTask(taskRes.data, solutionRes.data)
+      if (ausBoard && istVera8(taskRes.data)) return setPos((p) => p + 1) // VERA8: nicht im Board-Kontext
       setTask(taskRes.data)
       setState(form)
       setBaseline(form)
@@ -151,7 +154,7 @@ export function PflegeWizardPage(): JSX.Element {
     return () => {
       alive = false
     }
-  }, [currentId, t])
+  }, [currentId, ausBoard, t])
 
   // Am Ende der Strecke ist die Warteschlange verbraucht — ein Reload soll dann
   // nicht wieder bei Item 1 anfangen.

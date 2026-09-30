@@ -37,29 +37,57 @@ describe('prefill-rechnen', () => {
   })
 })
 
+const MIGRATION = 'supabase/migrations/20260930120000_prefill_mathe8_pilot.sql'
+const tmp = (name: string, inhalt: string): string => {
+  const pfad = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'prefill-')), name)
+  fs.writeFileSync(pfad, inhalt)
+  return pfad
+}
+const charge = () => JSON.parse(fs.readFileSync(CHARGE, 'utf8'))
+
 describe('verify-prefill', () => {
-  it('laesst den Pilot ohne Charge-Fehler durch', async () => {
-    const r = await pruefePrefill({ charge: CHARGE, snapshot: SNAPSHOT, blind: BLIND })
+  it('laesst den Pilot samt Migration ohne Charge-Fehler durch', async () => {
+    const r = await pruefePrefill({ charge: CHARGE, snapshot: SNAPSHOT, blind: BLIND, migration: MIGRATION })
     expect(r.fehler).toEqual([])
   })
 
   it('findet eingebaute Fehler', async () => {
-    const c = JSON.parse(fs.readFileSync(CHARGE, 'utf8'))
-    c.aufgaben[0].teile['2'].antwort.wert = ['91']
-    c.aufgaben[0].teile['1'].competency_content.wert = 'algebra'
-    c.aufgaben[3].felder.est_duration_sec.wert = 999
-    c.aufgaben[15].loesung.hints.wert[0].text = 'Du hast es gemeistert'
-    delete c.aufgaben[16].leer.curriculum_grade
-    const pfad = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'prefill-')), 'mutant.json')
-    fs.writeFileSync(pfad, JSON.stringify(c))
-
-    const { fehler } = await pruefePrefill({ charge: pfad, snapshot: SNAPSHOT, blind: BLIND })
+    const c = charge()
+    c.aufgaben[0].felder.est_duration_sec.wert = 999
+    c.aufgaben[0].loesung.solution.wert = '(2x + 3)² = 4x² + 9'
+    c.aufgaben[1].loesung.hints.wert[0].text = 'Du hast es gemeistert'
+    c.aufgaben[2].loesung.typical_errors.wert = [{ fehler: 'falsches Feld' }]
+    delete c.aufgaben[10].leer.unit
+    const { fehler } = await pruefePrefill({ charge: tmp('mutant.json', JSON.stringify(c)), snapshot: SNAPSHOT })
     const alle = fehler.join('\n')
-    expect(alle).toMatch(/nachgerechneter Wert 90 fehlt/)
-    expect(alle).toMatch(/nicht im Katalog/)
     expect(alle).toMatch(/Zeitregel/)
+    expect(alle).toMatch(/Loesungsweg nennt das richtige Ergebnis nicht/)
     expect(alle).toMatch(/Mastery-Sprache/)
-    expect(alle).toMatch(/curriculum_grade leer ohne Grund/)
-    expect(alle).toMatch(/Blind-Loeser 90;89/)
+    expect(alle).toMatch(/typical_errors: Form/)
+    expect(alle).toMatch(/tasks.unit leer ohne Grund/)
+  })
+
+  it('meldet eine Abweichung des Blind-Loesers', async () => {
+    const b = JSON.parse(fs.readFileSync(BLIND, 'utf8'))
+    b[10].antwort = '10004'
+    const r = await pruefePrefill({ charge: CHARGE, snapshot: SNAPSHOT, blind: tmp('blind.json', JSON.stringify(b)) })
+    expect(r.bestand.join('\n')).toMatch(/Blind-Loeser 10004/)
+  })
+
+  it('lehnt eine VERA8-Aufgabe in der Charge ab', async () => {
+    const snap = JSON.parse(fs.readFileSync(SNAPSHOT, 'utf8'))
+    snap[0].task.source = 'VERA8_IQB'
+    const { fehler } = await pruefePrefill({ charge: CHARGE, snapshot: tmp('snap.json', JSON.stringify(snap)) })
+    expect(fehler.join('\n')).toMatch(/VERA8-Aufgabe \(source=VERA8_IQB\)/)
+  })
+
+  it('lehnt eine Migration ab, die VERA8 nicht ausschliesst oder fremde Aufgaben anfasst', async () => {
+    const ohneGuard = fs.readFileSync(MIGRATION, 'utf8').replace(/ and source is distinct from 'VERA8_IQB'/, '')
+    const r1 = await pruefePrefill({ charge: CHARGE, snapshot: SNAPSHOT, migration: tmp('a_prefill_x.sql', ohneGuard) })
+    expect(r1.fehler.join('\n')).toMatch(/ohne VERA8-Ausschluss/)
+
+    const fremd = `update public.tasks set afb = 'I' where id = '00000000-0000-0000-0000-000000000001' and source is distinct from 'VERA8_IQB';\n`
+    const r2 = await pruefePrefill({ charge: CHARGE, snapshot: SNAPSHOT, migration: tmp('b_prefill_x.sql', fremd) })
+    expect(r2.fehler.join('\n')).toMatch(/nicht in der Charge/)
   })
 })

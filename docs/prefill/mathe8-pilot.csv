@@ -1,44 +1,4 @@
 Aufgabe-ID,Teilaufgabe,Feld,neuer Wert,Unsicherheit/Begründung
-c6990fb9-ae96-4a56-952e-da94736ac70f,,tasks.afb,II,"Sicherheit hoch: Hoechster AFB der Teilaufgaben (IQB-Kommentierung: TA1 I, TA2 II, TA3 II)."
-c6990fb9-ae96-4a56-952e-da94736ac70f,1,tasks.parts[1].afb,I,Sicherheit hoch: IQB-Kommentierung TA1: AFB I.
-c6990fb9-ae96-4a56-952e-da94736ac70f,1,tasks.parts[1].competency_content,funktionen,Sicherheit hoch: IQB-Leitidee '4. Funktionaler Zusammenhang'.
-c6990fb9-ae96-4a56-952e-da94736ac70f,1,task_solutions.correct_answers[1],"[""4"",""4,0""]","Sicherheit hoch: IQB-Auswertung TA1 woertlich: '4 ODER 4,0'. Nachgerechnet 30/50*5+1."
-c6990fb9-ae96-4a56-952e-da94736ac70f,2,tasks.parts[2].afb,II,Sicherheit hoch: IQB-Kommentierung TA2: AFB II.
-c6990fb9-ae96-4a56-952e-da94736ac70f,2,tasks.parts[2].competency_content,funktionen,Sicherheit hoch: IQB-Leitidee '4. Funktionaler Zusammenhang'.
-c6990fb9-ae96-4a56-952e-da94736ac70f,2,task_solutions.correct_answers[2],"[""90"",""89""]","Sicherheit mittel: Nachgerechnet, kein IQB-Beleg fuer TA2. 90 ergibt exakt 5,5; 89 ergibt 5,45 und wird kaufmaennisch auf 5,5 gerundet. Halbe Punkte nicht beruecksichtigt."
-c6990fb9-ae96-4a56-952e-da94736ac70f,3,tasks.parts[3].afb,II,"Sicherheit mittel: Teil 3 ist im Original der Loesungsweg zu TA2 (AFB II), keine eigene Teilaufgabe."
-c6990fb9-ae96-4a56-952e-da94736ac70f,3,tasks.parts[3].competency_content,funktionen,Sicherheit hoch: Wie TA2.
-c6990fb9-ae96-4a56-952e-da94736ac70f,3,task_solutions.correct_answers[3],"[""90/100 · 5 + 1 = 5,5""]","Sicherheit mittel: Musterloesung fuer einen Freitext-Loesungsweg; automatisch nur bei woertlicher Gleichheit bewertbar (siehe Befund)."
-c6990fb9-ae96-4a56-952e-da94736ac70f,4,tasks.parts[4].afb,II,Sicherheit hoch: IQB-Kommentierung TA3 (= DB-Teil 4): AFB II.
-c6990fb9-ae96-4a56-952e-da94736ac70f,4,tasks.parts[4].competency_content,funktionen,Sicherheit hoch: IQB-Leitidee '4. Funktionaler Zusammenhang'.
-c6990fb9-ae96-4a56-952e-da94736ac70f,4,task_solutions.correct_answers[4],"[""Note = erreichte Punktzahl / Maximalpunktzahl · 9 + 1"",""erreichte Punktzahl / Maximalpunktzahl · 9 + 1""]","Sicherheit mittel: Nachgerechnet (0 Punkte -> 1, volle Punktzahl -> 10). Musterloesung, Formel-Freitext; siehe Befund."
-c6990fb9-ae96-4a56-952e-da94736ac70f,,task_solutions.solution,"Teilaufgabe 1: Note = 30/50 · 5 + 1 = 0,6 · 5 + 1 = 4. Die Note ist 4 (auch als 4,0 richtig).
-Teilaufgabe 2: Aus P/100 · 5 + 1 = 5,5 folgt P/100 · 5 = 4,5, also P = 90. Da auf eine Nachkommastelle gerundet wird, ergibt auch 89 Punkte die Note 5,5 (89/100 · 5 + 1 = 5,45 ≈ 5,5).
-Teilaufgabe 3: Lösungsweg zu Teilaufgabe 2, z. B. die Gleichung P/100 · 5 + 1 = 5,5 nach P auflösen oder die Probe 90/100 · 5 + 1 = 5,5.
-Teilaufgabe 4: Die Noten reichen von 1 bis 10, die Spanne ist also 9. Note = erreichte Punktzahl / Maximalpunktzahl · 9 + 1. Probe: 0 Punkte ergeben 1, die volle Punktzahl ergibt 10.","Sicherheit hoch: Selbst gerechnet; TA1 deckt sich mit der IQB-Auswertung."
-c6990fb9-ae96-4a56-952e-da94736ac70f,,task_solutions.hints,"[{""level"":1,""text"":""Setze die gegebenen Zahlen in die Formel ein: erreichte Punktzahl oben, Maximalpunktzahl unten.""},{""level"":2,""text"":""Für Teilaufgabe 2 rechnest du rückwärts: Ziehe von 5,5 zuerst 1 ab und teile dann durch 5. Für die Niederlande überlege, wie viele Notenstufen zwischen 1 und 10 liegen.""}]","Sicherheit mittel: Generiert, kein Beleg."
-c6990fb9-ae96-4a56-952e-da94736ac70f,,task_solutions.typical_errors,"[{""error"":""In der Formel wird zuerst 5 + 1 gerechnet (Punkt-vor-Strich missachtet): 30/50 · 6 = 3,6."",""socratic_question"":""Welche Rechenart kommt in der Formel zuerst – das Mal oder das Plus?""},{""error"":""Für die Niederlande wird der Faktor 10 statt 9 gewählt; dann ergibt die volle Punktzahl die Note 11."",""socratic_question"":""Welche Note ergibt deine Formel, wenn jemand alle Punkte erreicht hat?""}]","Sicherheit mittel: Generiert; IQB nennt fuer diese Aufgabe keine typischen Fehler (Grounding: keine_typischen_fehler_belegt)."
-c6990fb9-ae96-4a56-952e-da94736ac70f,,curriculum_grade,,LEER: Nicht eindeutig: Einsetzen in eine Formel (Kl. 7) oder Formel fuer eine lineare Zuordnung aufstellen (Kl. 8). Das C10-Audit hat die Aufgabe ebenfalls nicht als 'sicher' eingestuft. Vorschlag fuer Lena: 7 oder 8.
-c6990fb9-ae96-4a56-952e-da94736ac70f,,coach_hints,,"LEER: Bewusst leer im ganzen Pilot: kein Beleg, inhaltlich doppelt zu typical_errors. Entscheidung Rasit/Lena, ob das Feld vorbefuellt werden soll."
-c6990fb9-ae96-4a56-952e-da94736ac70f,,needs_image,,"LEER: Laut Item-Pflege 'eine Fachentscheidung, kein Automatismus' — wird nicht vorbefuellt."
-489cc6d1-9734-408f-9a08-0ce551d7452b,,tasks.est_duration_sec,45,"Sicherheit mittel: Zeitregel: AFB I, kein Sachkontext."
-489cc6d1-9734-408f-9a08-0ce551d7452b,,correct_answers,,"LEER: MC ohne Optionen in question_payload und ohne Abbildung; die IQB-Loesung liegt nur als Grafik vor ('[pic]'). Keine Options-ID belegbar."
-489cc6d1-9734-408f-9a08-0ce551d7452b,,solution,,LEER: Ohne Graph nicht loesbar — ein Loesungsweg waere geraten.
-489cc6d1-9734-408f-9a08-0ce551d7452b,,hints,,LEER: Aufgabe strukturell unvollstaendig (Graph und Optionen fehlen).
-489cc6d1-9734-408f-9a08-0ce551d7452b,,typical_errors,,"LEER: Das IQB-Zitat ist abgeschnitten ('Es wird entweder nicht …'); ohne Graph nicht sinnvoll formulierbar."
-489cc6d1-9734-408f-9a08-0ce551d7452b,,competency_process,,LEER: IQB nennt fuer dieses Item keine K-Kompetenz.
-489cc6d1-9734-408f-9a08-0ce551d7452b,,coach_hints,,LEER: Bewusst leer im ganzen Pilot (siehe Aufgabe 1).
-489cc6d1-9734-408f-9a08-0ce551d7452b,,needs_image,,LEER: Bereits gesetzt (true).
-0e4d40b0-1e64-49e7-8abf-ced28a71e19c,,tasks.est_duration_sec,45,"Sicherheit mittel: Zeitregel: AFB I, kein Sachkontext."
-0e4d40b0-1e64-49e7-8abf-ced28a71e19c,,tasks.competency_process,Operieren,"Sicherheit mittel: Reine Aequivalenzumformung; IQB nennt keine K-Kompetenz, Wert aus dem Bestand gewaehlt."
-0e4d40b0-1e64-49e7-8abf-ced28a71e19c,,task_solutions.solution,"8x = 72 | : 8
-x = 9
-Probe: 8 · 9 = 72.",Sicherheit hoch: Nachgerechnet.
-0e4d40b0-1e64-49e7-8abf-ced28a71e19c,,task_solutions.hints,"[{""level"":1,""text"":""8x bedeutet 8 · x. Welche Rechnung macht das Mal 8 rückgängig?""},{""level"":2,""text"":""Teile beide Seiten der Gleichung durch 8.""}]",Sicherheit hoch: Generiert.
-0e4d40b0-1e64-49e7-8abf-ced28a71e19c,,task_solutions.typical_errors,"[{""error"":""8x wird wie 8 + x behandelt und 8 abgezogen: x = 64."",""socratic_question"":""Was bedeutet 8x – wird hier addiert oder multipliziert?""}]","Sicherheit mittel: Nach IQB-Kommentierung ('Die multiplikative Struktur von 8x wird nicht erkannt …'); Zitat im Grounding abgeschnitten, Rest ergaenzt."
-0e4d40b0-1e64-49e7-8abf-ced28a71e19c,,unit,,"LEER: Reine Zahl, keine Einheit."
-0e4d40b0-1e64-49e7-8abf-ced28a71e19c,,coach_hints,,LEER: Bewusst leer im ganzen Pilot (siehe Aufgabe 1).
-0e4d40b0-1e64-49e7-8abf-ced28a71e19c,,needs_image,,LEER: Bereits gesetzt (false).
 de60d4ff-c473-4358-b050-85a54dd903a1,,tasks.est_duration_sec,60,"Sicherheit mittel: Zeitregel: AFB II, kein Sachkontext."
 de60d4ff-c473-4358-b050-85a54dd903a1,,task_solutions.solution,"Erste binomische Formel mit a = 2x und b = 3:
 (2x + 3)² = (2x)² + 2 · 2x · 3 + 3² = 4x² + 12x + 9.
@@ -105,37 +65,6 @@ A = (x + 5)(x - 5) = x² - 25 (in m²).
 Das Rechteck ist also um 25 m² kleiner als das ursprüngliche Quadrat.",Sicherheit hoch: Nachgerechnet.
 113aea0a-276a-4042-b634-805ef1e11db2,,task_solutions.hints,"[{""level"":1,""text"":""Schreibe die beiden neuen Seitenlängen als Terme auf.""},{""level"":2,""text"":""Multipliziere (x + 5) mit (x - 5). Welche binomische Formel passt?""}]",Sicherheit hoch: Generiert.
 113aea0a-276a-4042-b634-805ef1e11db2,,task_solutions.typical_errors,"[{""error"":""Es wird angenommen, dass sich Verlängern und Verkürzen ausgleichen: Fläche bleibt x²."",""socratic_question"":""Probiere es mit x = 10 aus: Wie groß ist ein Rechteck mit 15 m und 5 m im Vergleich zum Quadrat mit 10 m?""},{""error"":""Das Vorzeichen von b² wird falsch gesetzt: x² + 25."",""socratic_question"":""Was ergibt 5 · (-5) beim Ausmultiplizieren?""}]","Sicherheit hoch: Aus acceptance.known_errors (a: differenz_ignoriert, b: quadratdifferenz_vorzeichen)."
-125a4c15-3659-4d39-93d5-422a0b72dd1d,,tasks.afb,I,"Sicherheit hoch: Hoechster AFB der Teilaufgaben (beide I, IQB-belegt)."
-125a4c15-3659-4d39-93d5-422a0b72dd1d,,task_solutions.solution,"Eine Maschine schafft 60000 : 4 = 15000 Bögen pro Stunde.
-Teilaufgabe 1: 90000 : 15000 = 6, also 6 Stunden.
-Teilaufgabe 2: Zwei Maschinen schaffen zusammen 30000 Bögen pro Stunde; 60000 : 30000 = 2, also 2 Stunden. Doppelt so viele Maschinen brauchen die halbe Zeit.","Sicherheit hoch: Nachgerechnet; deckt sich mit der IQB-Auswertung (6 und 2)."
-125a4c15-3659-4d39-93d5-422a0b72dd1d,,task_solutions.hints,"[{""level"":1,""text"":""Wie viele Bögen schafft eine Maschine in einer Stunde?""},{""level"":2,""text"":""Teile die Anzahl der Bögen durch die Leistung pro Stunde. Zwei Maschinen schaffen pro Stunde doppelt so viel.""}]",Sicherheit hoch: Generiert.
-125a4c15-3659-4d39-93d5-422a0b72dd1d,,task_solutions.typical_errors,"[{""error"":""Bei zwei Maschinen wird die Zeit verdoppelt statt halbiert (8 Stunden) – mehr Maschinen bedeuten weniger Zeit."",""socratic_question"":""Wenn zwei Maschinen gleichzeitig drucken – sind sie schneller oder langsamer fertig als eine?""},{""error"":""Der Dreisatz wird falsch herum aufgestellt: 60000 : 90000 · 4 ≈ 2,7 Stunden."",""socratic_question"":""Sind 90000 Bögen mehr als 60000 – muss es dann länger oder kürzer dauern als 4 Stunden?""}]","Sicherheit mittel: Generiert; IQB nennt keine typischen Fehler."
-125a4c15-3659-4d39-93d5-422a0b72dd1d,,est_duration_sec,,"LEER: Gesetzt (180 s), laut Import-Flag aber ein Platzhalter (90 s je Teilaufgabe). Wird nicht ueberschrieben — siehe Befund."
-125a4c15-3659-4d39-93d5-422a0b72dd1d,,needs_image,,LEER: Laut Item-Pflege eine Fachentscheidung — wird nicht vorbefuellt.
-125a4c15-3659-4d39-93d5-422a0b72dd1d,,coach_hints,,LEER: Bewusst leer im ganzen Pilot (siehe Aufgabe 1).
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,tasks.afb,III,"Sicherheit hoch: Hoechster AFB der IQB-Teilaufgaben (TA1 II, TA2 III)."
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,task_solutions.solution,"Teilaufgabe 1:
-3x + 32 = 17x + 4 hat genau eine Lösung (unterschiedliche Faktoren vor x; x = 2).
-x + 32 = x + 4 hat keine Lösung (gleicher Faktor vor x, aber 32 ≠ 4).
-3 + 32x = 17 + 4x hat genau eine Lösung (unterschiedliche Faktoren vor x; x = 0,5).
-Teilaufgabe 2: z. B. x + 2 = x + 2 oder 2(x + 1) = 2x + 2 – beide Seiten sind gleichwertige Terme, jede Zahl für x ergibt eine wahre Aussage.","Sicherheit hoch: Nachgerechnet; Beispiel TA2 aus der IQB-Auswertung ('x + 2 = x + 2')."
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,input_type,,"LEER: Aufgabe hat weder Typ noch Teilaufgaben; der Stamm endet nach dem ersten Satz. Struktur muss im Editor neu angelegt werden (Befund)."
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,correct_answers,,LEER: Ohne Teilaufgaben-Struktur nicht setzbar.
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,est_duration_sec,,LEER: Ohne Aufgabentyp und Teilaufgaben nicht sinnvoll schaetzbar.
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,curriculum_grade,,"LEER: Lineare Gleichungen: Kl. 7 oder 8 — nicht eindeutig; C10-Audit ebenfalls nicht 'sicher'."
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,hints,,LEER: Aufgabe strukturell unvollstaendig.
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,typical_errors,,"LEER: Aufgabe strukturell unvollstaendig; IQB nennt keine typischen Fehler."
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,needs_image,,LEER: Laut Item-Pflege eine Fachentscheidung — wird nicht vorbefuellt.
-d3422f3d-85c0-46e5-b9a5-0e751e3c09c9,,coach_hints,,LEER: Bewusst leer im ganzen Pilot (siehe Aufgabe 1).
-24a6c671-873f-46c1-8906-c995e1fcbbea,,tasks.afb,II,"Sicherheit hoch: Hoechster AFB der Teilaufgaben (I, II; IQB-belegt)."
-24a6c671-873f-46c1-8906-c995e1fcbbea,,task_solutions.solution,"Teilaufgabe 1: 4 · 0,80 € + 0,50 € = 3,20 € + 0,50 € = 3,70 €.
-Teilaufgabe 2: Im Eiscafé Venezia kostet eine Kugel 4,50 € : 5 = 0,90 €, im Eiscafé Arnoldo 0,80 €. Eine Kugel ist also im Eiscafé Arnoldo günstiger. (Oder: Fünf Kugeln kosten bei Arnoldo 5 · 0,80 € = 4,00 €, also weniger als 4,50 €.)","Sicherheit hoch: Nachgerechnet; deckt sich mit der IQB-Auswertung (3,70; Arnoldo)."
-24a6c671-873f-46c1-8906-c995e1fcbbea,,task_solutions.hints,"[{""level"":1,""text"":""Rechne zuerst den Preis für die Eiskugeln aus. Was kommt danach noch dazu?""},{""level"":2,""text"":""Für den Vergleich: Teile 4,50 € durch 5, dann hast du den Preis einer Kugel im Eiscafé Venezia.""}]",Sicherheit hoch: Generiert.
-24a6c671-873f-46c1-8906-c995e1fcbbea,,task_solutions.typical_errors,"[{""error"":""Die Sahne wird vergessen: 3,20 €."",""socratic_question"":""Was hat Gina außer den vier Kugeln noch gekauft?""},{""error"":""Der Preis für fünf Kugeln (4,50 €) wird direkt mit dem Preis einer Kugel (0,80 €) verglichen."",""socratic_question"":""Vergleichst du gerade den Preis für eine Kugel mit dem Preis für fünf Kugeln?""}]","Sicherheit mittel: Generiert; IQB nennt keine typischen Fehler."
-24a6c671-873f-46c1-8906-c995e1fcbbea,,est_duration_sec,,"LEER: Gesetzt (180 s), laut Import-Flag ein Platzhalter. Wird nicht ueberschrieben — siehe Befund."
-24a6c671-873f-46c1-8906-c995e1fcbbea,,needs_image,,LEER: Laut Item-Pflege eine Fachentscheidung — wird nicht vorbefuellt.
-24a6c671-873f-46c1-8906-c995e1fcbbea,,coach_hints,,LEER: Bewusst leer im ganzen Pilot (siehe Aufgabe 1).
 9be9bb9c-a5b5-482e-bd76-51599553d61b,,tasks.est_duration_sec,45,"Sicherheit mittel: Zeitregel: AFB I, kein Sachkontext."
 9be9bb9c-a5b5-482e-bd76-51599553d61b,,task_solutions.solution,"x² - 25 = x² - 5² ist eine Differenz von Quadraten.
 Mit a² - b² = (a + b)(a - b): x² - 25 = (x + 5)(x - 5).",Sicherheit hoch: Nachgerechnet.
@@ -170,13 +99,5 @@ Die zweite Klammer ist wieder eine Differenz von Quadraten: x² - 4 = (x + 2)(x 
 Also: x⁴ - 16 = (x² + 4)(x + 2)(x - 2).",Sicherheit hoch: Nachgerechnet.
 9d904128-a0ae-449c-b7de-e1c57c8238c5,,task_solutions.hints,"[{""level"":1,""text"":""Schreibe x⁴ als (x²)² und 16 als 4².""},{""level"":2,""text"":""Nach dem ersten Zerlegen: Lässt sich eine der Klammern noch einmal mit a² - b² zerlegen?""}]",Sicherheit hoch: Generiert.
 9d904128-a0ae-449c-b7de-e1c57c8238c5,,task_solutions.typical_errors,"[{""error"":""Nach dem ersten Schritt wird aufgehört: (x² + 4)(x² - 4) – die Klammer x² - 4 lässt sich noch zerlegen."",""socratic_question"":""Ist x² - 4 selbst wieder eine Differenz von Quadraten?""}]",Sicherheit hoch: Aus acceptance.known_errors (a: faktorisierung_unvollstaendig).
-6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,,tasks.est_duration_sec,90,Sicherheit mittel: Zeitregel: AFB II + Sachkontext.
-6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,,task_solutions.solution,"Fläche des Badezimmers: 50 · 0,16 m² = 8 m².
-Anzahl der neuen Fliesen: 8 m² : 0,2 m² = 40.
-Es sind mindestens 40 Fliesen nötig. (Größere Fliesen – weniger Fliesen.)","Sicherheit hoch: Nachgerechnet; deckt sich mit der IQB-Auswertung (40)."
-6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,,task_solutions.hints,"[{""level"":1,""text"":""Wie groß ist die Fläche, die gefliest werden soll?""},{""level"":2,""text"":""Teile die Gesamtfläche durch die Fläche einer neuen Fliese.""}]",Sicherheit hoch: Generiert.
-6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,,task_solutions.typical_errors,"[{""error"":""Der Dreisatz wird anders herum angewendet, als wären größere Fliesen mehr Fliesen: 50 · 0,2 : 0,16 = 62,5."",""socratic_question"":""Wenn jede Fliese größer wird – brauchst du dann mehr oder weniger Fliesen?""}]","Sicherheit mittel: Nach IQB-Kommentierung ('Der Dreisatz wird anders herum angewendet …'); Zitat abgeschnitten, Beispielzahl ergaenzt."
-6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,,competency_process,,"LEER: IQB nennt fuer dieses Item keine K-Kompetenz; Modellieren oder Operieren waeren beide vertretbar."
-6f552893-ec6d-4a73-b54d-17b0f2fd4dd6,,coach_hints,,LEER: Bewusst leer im ganzen Pilot (siehe Aufgabe 1).
 (alle),,coach_hints,,"LEER: Bewusst leer im ganzen Pilot: kein Beleg und inhaltlich doppelt zu typical_errors. Entscheidung Rasit/Lena, ob das Feld vorbefuellt werden soll."
 (alle),,needs_image,,"LEER: Laut Item-Pflege ""eine Fachentscheidung, kein Automatismus"" — wird nie vorbefuellt."

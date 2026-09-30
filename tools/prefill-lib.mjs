@@ -16,6 +16,32 @@
 
 import fs from 'node:fs';
 
+/**
+ * VERA8 wird nie vorbefuellt (Entscheidung zu PR #176). Dieselbe Definition wie
+ * das Board: src/lib/authoring/vera8.json (tasks.source).
+ */
+// Pfade relativ zur Repo-Wurzel (Aufruf immer von dort, wie bei verify-tasks.mjs).
+export const VERA8_SOURCE = JSON.parse(fs.readFileSync('src/lib/authoring/vera8.json', 'utf8')).source;
+
+/** SQL-Bedingung "keine VERA8-Aufgabe" fuer eine tasks-Zeile (optional mit Alias). */
+export const keinVera8Sql = (alias = '') => `${alias}source is distinct from '${VERA8_SOURCE}'`;
+
+/**
+ * VERA8-Verstoesse einer Charge: ueber die Herkunft im Snapshot UND unabhaengig
+ * davon ueber den VERA-Belegindex (source_ref), falls ein Snapshot die Herkunft
+ * einmal falsch fuehrt.
+ */
+export function vera8Verstoesse(charge, stand) {
+  const index = JSON.parse(fs.readFileSync('public/authoring/grounding-vera8.json', 'utf8'));
+  const raus = [];
+  for (const a of charge.aufgaben) {
+    const t = stand.get(a.id)?.task;
+    if (t?.source === VERA8_SOURCE) raus.push(`#${a.nr} ${a.titel}: VERA8-Aufgabe (source=${t.source}) in der Charge`);
+    else if (t?.source_ref && Object.hasOwn(index, t.source_ref)) raus.push(`#${a.nr} ${a.titel}: source_ref steht im VERA8-Belegindex`);
+  }
+  return raus;
+}
+
 export const leer = (v) =>
   v == null ||
   (typeof v === 'string' && v.trim() === '') ||

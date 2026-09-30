@@ -61,7 +61,7 @@ export function Arbeitsbereich({
 
   const starte = (ids: string[], label: string): void => {
     if (ids.length === 0) return
-    navigate('/admin/pflege', { state: { ids, label, returnTo } })
+    navigate('/admin/pflege', { state: { ids, label, returnTo, kontext: 'board' } })
   }
   const themaName = (th: Thema): string => th.name ?? t('board.ohneThema')
   const themaKey = (th: Thema): string => th.id ?? 'ohne'

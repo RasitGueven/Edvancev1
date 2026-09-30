@@ -1,32 +1,128 @@
 [
-{"id":"c6990fb9-ae96-4a56-952e-da94736ac70f","teil":"1","antwort":"4","eindeutig":true,"anmerkung":"30/50*5+1=4,0"},
-{"id":"c6990fb9-ae96-4a56-952e-da94736ac70f","teil":"2","antwort":"90;89","eindeutig":true,"anmerkung":"P/20+1 gerundet = 5,5 ergibt P=89 (5,45) oder 90 (5,5); 89 nur bei Aufrunden von 5,45"},
-{"id":"c6990fb9-ae96-4a56-952e-da94736ac70f","teil":"3","antwort":"","eindeutig":false,"anmerkung":"Freitext"},
-{"id":"c6990fb9-ae96-4a56-952e-da94736ac70f","teil":"4","antwort":"P/M*9+1","eindeutig":true,"anmerkung":""},
-{"id":"489cc6d1-9734-408f-9a08-0ce551d7452b","teil":null,"antwort":"","eindeutig":false,"anmerkung":"Abbildung und Optionen fehlen"},
-{"id":"0e4d40b0-1e64-49e7-8abf-ced28a71e19c","teil":null,"antwort":"9","eindeutig":true,"anmerkung":""},
-{"id":"de60d4ff-c473-4358-b050-85a54dd903a1","teil":null,"antwort":"a","eindeutig":true,"anmerkung":""},
-{"id":"ebd05f6f-2ab0-41ad-bac3-16c075fc2592","teil":null,"antwort":"d","eindeutig":true,"anmerkung":""},
-{"id":"9a598424-963b-4981-91ad-9a81cead51f4","teil":null,"antwort":"b","eindeutig":true,"anmerkung":""},
-{"id":"ae6fa0b8-283c-4570-b9d2-6271c17e3384","teil":null,"antwort":"c","eindeutig":true,"anmerkung":""},
-{"id":"f54b2f2c-5c0e-46ae-bd6c-00acc3efa4fa","teil":null,"antwort":"b","eindeutig":true,"anmerkung":""},
-{"id":"513d03bd-0d8d-4f0a-9e99-ea63b38b8587","teil":null,"antwort":"a","eindeutig":true,"anmerkung":""},
-{"id":"d47b8793-7e82-4036-9173-d446c554b907","teil":null,"antwort":"d","eindeutig":true,"anmerkung":""},
-{"id":"94492e5a-3627-4f45-b628-41d06114a7a4","teil":null,"antwort":"a","eindeutig":true,"anmerkung":""},
-{"id":"eb3f28da-155b-49fc-aa17-1abfd882a373","teil":null,"antwort":"c","eindeutig":true,"anmerkung":""},
-{"id":"293413f8-8e31-4f0b-b64e-7ac2a183606e","teil":null,"antwort":"a","eindeutig":true,"anmerkung":""},
-{"id":"7e027634-1c45-4c70-8357-198dad0f1797","teil":null,"antwort":"9996","eindeutig":true,"anmerkung":""},
-{"id":"113aea0a-276a-4042-b634-805ef1e11db2","teil":null,"antwort":"c","eindeutig":true,"anmerkung":""},
-{"id":"125a4c15-3659-4d39-93d5-422a0b72dd1d","teil":"1","antwort":"6","eindeutig":true,"anmerkung":""},
-{"id":"125a4c15-3659-4d39-93d5-422a0b72dd1d","teil":"2","antwort":"2","eindeutig":true,"anmerkung":"zwei Maschinen, je 30000 Bögen bei 15000/h"},
-{"id":"d3422f3d-85c0-46e5-b9a5-0e751e3c09c9","teil":null,"antwort":"","eindeutig":false,"anmerkung":"Text bricht ab, keine Aufgabenstellung (Gleichungen von Selina und Jasmin fehlen)"},
-{"id":"24a6c671-873f-46c1-8906-c995e1fcbbea","teil":"1","antwort":"3.7","eindeutig":true,"anmerkung":""},
-{"id":"24a6c671-873f-46c1-8906-c995e1fcbbea","teil":"2","antwort":"a","eindeutig":true,"anmerkung":"Arnoldo 0,80 EUR, Venezia 0,90 EUR; Lösungsweg-Aufforderung ist Freitext"},
-{"id":"9be9bb9c-a5b5-482e-bd76-51599553d61b","teil":null,"antwort":"a","eindeutig":true,"anmerkung":""},
-{"id":"18dbb731-98be-4b90-a8c2-5773114de6c6","teil":null,"antwort":"c","eindeutig":true,"anmerkung":"b ist falsch, a nicht vollständig faktorisiert"},
-{"id":"e4a18d51-9545-4f17-b1aa-10dc72c35cd3","teil":null,"antwort":"b","eindeutig":true,"anmerkung":"a nicht vollständig faktorisiert"},
-{"id":"88ca2551-82bf-4ca3-b971-32cd4292a146","teil":null,"antwort":"360","eindeutig":true,"anmerkung":""},
-{"id":"b2bc0cfc-d927-4a29-aca4-4686606d9466","teil":null,"antwort":"b","eindeutig":true,"anmerkung":""},
-{"id":"9d904128-a0ae-449c-b7de-e1c57c8238c5","teil":null,"antwort":"b","eindeutig":true,"anmerkung":"a nicht vollständig"},
-{"id":"6f552893-ec6d-4a73-b54d-17b0f2fd4dd6","teil":null,"antwort":"40","eindeutig":true,"anmerkung":"8 m² / 0,2"}
+  {
+    "id": "de60d4ff-c473-4358-b050-85a54dd903a1",
+    "teil": null,
+    "antwort": "a",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "ebd05f6f-2ab0-41ad-bac3-16c075fc2592",
+    "teil": null,
+    "antwort": "d",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "9a598424-963b-4981-91ad-9a81cead51f4",
+    "teil": null,
+    "antwort": "b",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "ae6fa0b8-283c-4570-b9d2-6271c17e3384",
+    "teil": null,
+    "antwort": "c",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "f54b2f2c-5c0e-46ae-bd6c-00acc3efa4fa",
+    "teil": null,
+    "antwort": "b",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "513d03bd-0d8d-4f0a-9e99-ea63b38b8587",
+    "teil": null,
+    "antwort": "a",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "d47b8793-7e82-4036-9173-d446c554b907",
+    "teil": null,
+    "antwort": "d",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "94492e5a-3627-4f45-b628-41d06114a7a4",
+    "teil": null,
+    "antwort": "a",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "eb3f28da-155b-49fc-aa17-1abfd882a373",
+    "teil": null,
+    "antwort": "c",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "293413f8-8e31-4f0b-b64e-7ac2a183606e",
+    "teil": null,
+    "antwort": "a",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "7e027634-1c45-4c70-8357-198dad0f1797",
+    "teil": null,
+    "antwort": "9996",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "113aea0a-276a-4042-b634-805ef1e11db2",
+    "teil": null,
+    "antwort": "c",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "9be9bb9c-a5b5-482e-bd76-51599553d61b",
+    "teil": null,
+    "antwort": "a",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "18dbb731-98be-4b90-a8c2-5773114de6c6",
+    "teil": null,
+    "antwort": "c",
+    "eindeutig": true,
+    "anmerkung": "b ist falsch, a nicht vollständig faktorisiert"
+  },
+  {
+    "id": "e4a18d51-9545-4f17-b1aa-10dc72c35cd3",
+    "teil": null,
+    "antwort": "b",
+    "eindeutig": true,
+    "anmerkung": "a nicht vollständig faktorisiert"
+  },
+  {
+    "id": "88ca2551-82bf-4ca3-b971-32cd4292a146",
+    "teil": null,
+    "antwort": "360",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "b2bc0cfc-d927-4a29-aca4-4686606d9466",
+    "teil": null,
+    "antwort": "b",
+    "eindeutig": true,
+    "anmerkung": ""
+  },
+  {
+    "id": "9d904128-a0ae-449c-b7de-e1c57c8238c5",
+    "teil": null,
+    "antwort": "b",
+    "eindeutig": true,
+    "anmerkung": "a nicht vollständig"
+  }
 ]

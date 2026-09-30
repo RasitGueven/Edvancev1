@@ -4,9 +4,13 @@
  *
  *   node tools/verify-tasks.mjs --prefill docs/prefill/mathe8-pilot.json \
  *        --snapshot docs/prefill/mathe8-pilot-snapshot.json \
+ *        [--migration supabase/migrations/<v>_prefill_<name>.sql]
  *        [--blind docs/prefill/mathe8-pilot-blind.json] [--bericht <datei.md>]
  *
- * Vier Stufen, alle ohne LLM und ohne DB:
+ * Vorab (Gate): VERA8 wird nie vorbefuellt — weder in der Charge noch in einer
+ * Prefill-Migration (jede Anweisung traegt den Ausschluss; siehe pruefeMigrationen).
+ *
+ * Danach vier Stufen, alle ohne LLM und ohne DB:
  *   1. Constraints/Kataloge  jeder neue Wert gegen CHECKs und Wertelisten
  *   2. Vollstaendigkeit      jedes Lena-Feld ist gefuellt ODER hat einen Leer-Grund
  *   3. Nachrechnen           exakt (Brueche, Polynome) — Rechnung, Probe, Formel, Term
@@ -18,7 +22,7 @@
  */
 
 import fs from 'node:fs';
-import { ladeCharge, wirksam, leer } from './prefill-lib.mjs';
+import { keinVera8Sql, ladeCharge, leer, vera8Verstoesse, wirksam } from './prefill-lib.mjs';
 import { Q, zahl, gleichwertig, faktoren } from './prefill-rechnen.mjs';
 
 const AFB = ['I', 'II', 'III'];
@@ -27,11 +31,45 @@ const INHALT = [...fs.readFileSync('src/lib/authoring/einordnung.ts', 'utf8')
 const PROZESS = ['Argumentieren', 'Problemlösen', 'Modellieren', 'Darstellen', 'Operieren', 'Kommunizieren'];
 const VERBOTEN = /gemeistert|meisterst|mastered|beherrscht/i;
 
+/**
+ * Jede Prefill-Migration (supabase/migrations/*_prefill_*.sql) muss in JEDER
+ * schreibenden Anweisung den VERA8-Ausschluss tragen und darf nichts loeschen.
+ * Fuer die Migration dieser Charge (--migration) zusaetzlich: nur Aufgaben der
+ * Charge, keine davon VERA8.
+ */
+function pruefeMigrationen(eigene, charge, stand) {
+  const raus = [];
+  const dir = 'supabase/migrations';
+  const dateien = fs.readdirSync(dir).filter((f) => /_prefill_.*\.sql$/.test(f)).map((f) => `${dir}/${f}`);
+  if (eigene && !dateien.includes(eigene)) dateien.push(eigene);
+  const guard = new RegExp(`\\b(\\w+\\.)?${keinVera8Sql().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
+  for (const datei of dateien) {
+    const text = fs.readFileSync(datei, 'utf8');
+    const anweisungen = text.split(/;\s*\n/).map((s) => s.replace(/^(\s*--[^\n]*\n)+/, '').trim())
+      .filter((s) => /^(update|insert|delete|merge)\b/i.test(s));
+    for (const s of anweisungen) {
+      if (/^delete|^merge/i.test(s)) raus.push(`${datei}: loeschende/merge-Anweisung: ${s.slice(0, 80)}`);
+      else if (!guard.test(s)) raus.push(`${datei}: Anweisung ohne VERA8-Ausschluss: ${s.slice(0, 80)}`);
+    }
+    if (datei !== eigene) continue;
+    const ids = new Set(charge.aufgaben.map((a) => a.id));
+    for (const id of new Set(text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g) ?? [])) {
+      if (!ids.has(id)) raus.push(`${datei}: fasst Aufgabe ${id} an, die nicht in der Charge steht`);
+      else if (vera8Verstoesse({ aufgaben: [{ id, nr: '?', titel: id }] }, stand).length) raus.push(`${datei}: fasst VERA8-Aufgabe ${id} an`);
+    }
+  }
+  return raus;
+}
+
 export async function pruefePrefill(opt) {
   const { charge, stand } = ladeCharge(opt.charge, opt.snapshot);
   const blind = opt.blind ? JSON.parse(fs.readFileSync(opt.blind, 'utf8')) : [];
   const fehler = [], bestand = [], rechnung = [], abgleich = [];
   const bilanz = new Map(); // feld -> { vorher, jetzt, leer, offen }
+  // ── 0. VERA8 wird nie vorbefuellt ──
+  fehler.push(...vera8Verstoesse(charge, stand));
+  fehler.push(...pruefeMigrationen(opt.migration, charge, stand));
+
   const zaehl = (feld, art) => {
     const b = bilanz.get(feld) ?? { vorherLeer: 0, befuellt: 0, bewusstLeer: 0, ungeklaert: 0 };
     b[art]++; bilanz.set(feld, b);

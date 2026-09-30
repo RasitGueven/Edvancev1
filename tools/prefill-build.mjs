@@ -12,7 +12,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { ladeCharge, wirksam } from './prefill-lib.mjs';
+import { keinVera8Sql, ladeCharge, vera8Verstoesse, wirksam } from './prefill-lib.mjs';
 
 const [chargePfad, snapPfad, version, name] = process.argv.slice(2);
 if (!name || !/^\d{14}$/.test(version)) {
@@ -20,12 +20,19 @@ if (!name || !/^\d{14}$/.test(version)) {
   process.exit(2);
 }
 const { charge, stand } = ladeCharge(chargePfad, snapPfad);
+const vera = vera8Verstoesse(charge, stand);
+if (vera.length) {
+  console.error(`VERA8 wird nicht vorbefuellt — Charge abgelehnt:\n  ${vera.join('\n  ')}`);
+  process.exit(1);
+}
 
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
 const j = (v) => `${q(JSON.stringify(v))}::jsonb`;
 const INT = new Set(['est_duration_sec', 'curriculum_grade']);
 const leerSql = (f) => (INT.has(f) ? `${f} is null` : `coalesce(btrim(${f}), '') = ''`);
-const draft = (id) => `exists (select 1 from public.tasks d where d.id = ${q(id)} and d.status = 'draft')`;
+// Jede Anweisung traegt den VERA8-Ausschluss selbst — auch wenn eine Charge ihn
+// einmal nicht haette, fasst die Datei keine VERA8-Aufgabe an (verify prueft das).
+const draft = (id) => `exists (select 1 from public.tasks d where d.id = ${q(id)} and d.status = 'draft' and ${keinVera8Sql('d.')})`;
 
 const sql = [];
 const csv = [['Aufgabe-ID', 'Teilaufgabe', 'Feld', 'neuer Wert', 'Unsicherheit/Begründung']];
@@ -41,13 +48,13 @@ for (const a of charge.aufgaben) {
   for (const c of aenderungen) {
     if (c.tabelle === 'tasks') {
       const wert = INT.has(c.feld) ? String(c.wert) : q(c.wert);
-      sql.push(`update public.tasks set ${c.feld} = ${wert} where id = ${q(a.id)} and status = 'draft' and ${leerSql(c.feld)};`);
+      sql.push(`update public.tasks set ${c.feld} = ${wert} where id = ${q(a.id)} and status = 'draft' and ${keinVera8Sql()} and ${leerSql(c.feld)};`);
     } else if (c.tabelle === 'tasks.parts') {
       sql.push(
         `update public.tasks t set parts = (select jsonb_agg(case when e.p->>'nr' = ${q(c.teil)} ` +
           `then e.p || jsonb_build_object(${q(c.feld)}, ${q(c.wert)}) else e.p end order by e.o) ` +
           `from jsonb_array_elements(t.parts) with ordinality e(p, o))\n` +
-          ` where t.id = ${q(a.id)} and t.status = 'draft' and exists (select 1 from jsonb_array_elements(t.parts) p ` +
+          ` where t.id = ${q(a.id)} and t.status = 'draft' and ${keinVera8Sql('t.')} and exists (select 1 from jsonb_array_elements(t.parts) p ` +
           `where p->>'nr' = ${q(c.teil)} and coalesce(btrim(p->>${q(c.feld)}), '') = '');`,
       );
     } else if (c.feld === 'correct_answers' && c.teil) {
@@ -88,8 +95,8 @@ for (const [feld, grund] of Object.entries(charge.leer_alle ?? {})) csv.push(['(
 const kopf = `-- Datenmigration ${charge.batch}: Vorbefuellung fuer Lenas Pruefung (Item-Pflege).
 -- Erzeugt von tools/prefill-build.mjs aus ${chargePfad} — nicht von Hand editieren.
 -- ${charge.auswahl}
--- Regeln: nur leere Felder, nur status = 'draft', Status-/Freigabefelder unangetastet,
--- keine DDL. Idempotent: ein zweiter Lauf aendert nichts. Werte + Gruende: docs/prefill/${charge.batch}.csv
+-- Regeln: nur leere Felder, nur status = 'draft', nie VERA8 (${keinVera8Sql()} in jedem WHERE),
+-- Status-/Freigabefelder unangetastet, keine DDL. Idempotent: ein zweiter Lauf aendert nichts. Werte + Gruende: docs/prefill/${charge.batch}.csv
 -- Kein Ziel-DB-Guard in der Datei: CI spielt alle Migrationen in eine leere DB 'neuaufbau' ein
 -- (dort treffen die UPDATEs 0 Zeilen). Der Ziel-DB-Check steht in der Apply-Kette (docs/prefill/README.md).
 `;

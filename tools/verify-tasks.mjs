@@ -31,7 +31,9 @@
  *
  * Vorbefuellung fuer Lenas Pruefung (siehe verify-prefill.mjs) — ohne LLM, ohne DB:
  *   node tools/verify-tasks.mjs --prefill docs/prefill/<charge>.json \
- *        --snapshot docs/prefill/<charge>-snapshot.json [--blind <loeser.json>] [--bericht <datei.md>]
+ *        --snapshot docs/prefill/<charge>-snapshot.json [--migration <datei.sql>]
+ *        [--blind <loeser.json>] [--bericht <datei.md>]
+ *   Scheitert u. a., sobald eine Prefill-Migration eine VERA8-Aufgabe anfassen koennte.
  */
 
 import fs from 'node:fs/promises';
@@ -62,7 +64,9 @@ const MIN_PASS = Number(opt('min-pass', '0.95'));
 
 if (flag('prefill')) {
   const { pruefePrefill } = await import('./verify-prefill.mjs');
-  const r = await pruefePrefill({ charge: opt('prefill'), snapshot: opt('snapshot'), blind: opt('blind') });
+  const r = await pruefePrefill({
+    charge: opt('prefill'), snapshot: opt('snapshot'), blind: opt('blind'), migration: opt('migration'),
+  });
   console.log(r.bericht);
   if (opt('bericht')) await fs.writeFile(opt('bericht'), r.bericht);
   process.exit(r.fehler.length ? 1 : 0);

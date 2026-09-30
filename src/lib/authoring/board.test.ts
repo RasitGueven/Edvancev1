@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import type { AuthoringTask, TaskStatus } from '@/types'
 import {
+  boardBestand,
   fachVon,
+  imBoard,
   inKlasse,
   standVon,
   themenVon,
@@ -25,6 +27,25 @@ const clusters = new Map<string, BoardCluster>([
   ['c1', { id: 'c1', name: 'Zahl & Rechnen', subject_name: 'Mathematik' }],
   ['c2', { id: 'c2', name: 'Geometrie & Messen', subject_name: 'Mathematik' }],
 ])
+
+describe('Board-Bestand ohne VERA8', () => {
+  const vera = task('vera', { source: 'VERA8_IQB', class_level: 8, cluster_id: 'c1' })
+  const eigen = task('eigen', { source: 'edvance_k8_binom', class_level: 8, cluster_id: 'c1' })
+
+  it('eine VERA8-Aufgabe erscheint nicht, eine Nicht-VERA-Aufgabe schon', () => {
+    expect(imBoard(vera)).toBe(false)
+    expect(imBoard(eigen)).toBe(true)
+    expect(boardBestand([vera, eigen]).map((t) => t.id)).toEqual(['eigen'])
+  })
+
+  it('Zaehler, Themengebiete und Warteschlange sehen VERA8 nicht', () => {
+    const bestand = boardBestand([vera, eigen])
+    expect(standVon(bestand.filter((t) => inKlasse(t, 8))).total).toBe(1)
+    const themen = themenVon(bestand, clusters)
+    expect(themen.flatMap((th) => th.tasks.map((t) => t.id))).toEqual(['eigen'])
+    expect(warteschlange(themen, 'offen')).toEqual(['eigen'])
+  })
+})
 
 describe('inKlasse', () => {
   it('Klasse 8 nimmt class_level <= 8 und leer', () => {

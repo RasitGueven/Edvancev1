@@ -19,6 +19,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { Arbeitsbereich } from '@/components/edvance/authoring/board/Arbeitsbereich'
 import { BoardKachel } from '@/components/edvance/authoring/board/BoardKachel'
 import {
+  boardBestand,
   FAECHER,
   KLASSEN,
   fachVon,
@@ -61,7 +62,8 @@ export function ItemBoardPage(): JSX.Element {
         setError(taskRes.error ?? t('page.loadError'))
       } else {
         setError(null)
-        setTasks(taskRes.data)
+        // VERA8 gehoert nicht ins Board — die Expertenliste zeigt weiter alles.
+        setTasks(boardBestand(taskRes.data))
       }
       setClusters(new Map((clusterRes.data ?? []).map((c) => [c.id, c])))
       // Ohne Gruende bleibt das Board bedienbar — sie fehlen dann nur unter den Aufgaben.

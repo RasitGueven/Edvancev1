@@ -43,6 +43,30 @@
   `docs/prefill/vorschlag-prefill-marker.sql` (Auth/RLS, Consensus-Trigger).
 - **L1:** `cluster_id` wird in der Item-Pflege nicht gespeichert. Eigener Fix-PR, bevor im Restbestand Themengebiete
   vorbefüllt werden.
-- **Befunde A1–A3** (falsch wertende Bestandsantworten): Korrektur durch Lena oder einen beaufsichtigten Fix.
+- ~~**Befunde A1–A3**~~: Diese falsch wertenden Bestandsantworten betrafen nur VERA8. Nach dem Nachtrag entfallen sie
+  für Lenas Prüfung, die Daten bleiben unverändert.
 - **Restbestand (Schritt 5)** erst nach Freigabe: pro Themengebiet eine Charge, dazu vorher einen frischen Snapshot
   ziehen.
+
+## Nachtrag: VERA8 ausgeschlossen
+
+Neue Entscheidung: VERA8 wird nicht vorbefüllt und erscheint nicht im Lena-Board. Die Daten bleiben unverändert.
+
+**Definition:** `tasks.source = 'VERA8_IQB'`, einmal zentral in `src/lib/authoring/vera8.json` und `vera8.ts`.
+Stand heute sind das 299 Aufgaben, Grenzfälle gibt es keine. Die drei verstreuten Literale in `grounding.ts`,
+`flags.ts` und `attribution.ts` nutzen jetzt diese Definition.
+
+**Pilot:** Die ursprüngliche Auswahl enthielt **7** VERA8-Aufgaben, nicht 10 wie im ersten Bericht angegeben. Übrig
+bleiben 18 Binom-Aufgaben, aufgefüllt wurde nicht. Die Migration ist in derselben Datei neu erzeugt: 72 Anweisungen,
+jede mit VERA8-Ausschluss. Ergebnis: 0 Charge-Fehler und 0 Bestands-Befunde.
+
+**Board:**
+
+- `boardBestand()` filtert VERA8 direkt nach dem Laden. Das Board zeigt dadurch 362 statt 661 Aufgaben.
+- Die Pflege-Strecke überspringt VERA8 im Board-Kontext.
+- `freigabe_cluster` bekommt den Ausschluss als eigene Migration (**nicht eingespielt**).
+- Expertenliste, Content-Gesundheit und Editor bleiben unverändert. Die Expertenliste nutzt dieselbe Abfrage
+  (`listAuthoringTasks`), deshalb sitzt der Filter im Board.
+
+**Offen:** `supabase/schema-erwartet.sql` ist noch nicht neu erzeugt. Ein Hook sperrt das Handeditieren, und
+`tools/schema-snapshot.sh` braucht eine lokale DB. Bis zum neuen Snapshot bleibt der Schema-Job in CI rot.
