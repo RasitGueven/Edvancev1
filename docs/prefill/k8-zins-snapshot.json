@@ -1,0 +1,842 @@
+[
+ {
+  "task": {
+   "id": "cee0061d-f262-48bc-a206-884b75fedbd4",
+   "title": "Jahreszinsen · Guthaben 600 € zu 3 %",
+   "question": "Ein Guthaben von 600 € wird ein Jahr lang mit einem Zinssatz von 3 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_jahreszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 600 € wird ein Jahr lang mit einem Zinssatz von 3 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-jahreszins-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "972862f3-5dfd-4c56-8509-15d15cec91dc",
+   "title": "Jahreszinsen · Guthaben 850 € zu 2 %",
+   "question": "Ein Guthaben von 850 € wird ein Jahr lang mit einem Zinssatz von 2 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_jahreszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 850 € wird ein Jahr lang mit einem Zinssatz von 2 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-jahreszins-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e8d5acdb-b1fd-4b74-8f18-2509c300cf90",
+   "title": "Jahreszinsen · Guthaben 640 € zu 2,5 %",
+   "question": "Ein Guthaben von 640 € wird ein Jahr lang mit einem Zinssatz von 2,5 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_jahreszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 640 € wird ein Jahr lang mit einem Zinssatz von 2,5 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-jahreszins-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ea141d44-521e-4250-a4bd-d9aa8e159238",
+   "title": "Jahreszinsen · Kontostand nach einem Jahr · 480 € zu 3,5 %",
+   "question": "Auf ein Sparkonto werden 480 € eingezahlt. Der Zinssatz beträgt 3,5 % pro Jahr. Die Zinsen werden nach einem Jahr dem Konto gutgeschrieben.\n\nWie viel Euro sind nach einem Jahr auf dem Konto?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_jahreszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Auf ein Sparkonto werden 480 € eingezahlt. Der Zinssatz beträgt 3,5 % pro Jahr. Die Zinsen werden nach einem Jahr dem Konto gutgeschrieben.\n\nWie viel Euro sind nach einem Jahr auf dem Konto?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-jahreszins-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0e82ae91-8c55-4c75-ad2c-ef8ffb5649ad",
+   "title": "Jahreszinsen · Kredit 900 € zu 6 % · Rückzahlung",
+   "question": "Für einen Kredit über 900 € verlangt ein Händler 6 % Zinsen pro Jahr. Nach einem Jahr wird der Kredit zusammen mit den Zinsen auf einmal zurückgezahlt.\n\nWie viel Euro werden insgesamt zurückgezahlt?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_jahreszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für einen Kredit über 900 € verlangt ein Händler 6 % Zinsen pro Jahr. Nach einem Jahr wird der Kredit zusammen mit den Zinsen auf einmal zurückgezahlt.\n\nWie viel Euro werden insgesamt zurückgezahlt?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-jahreszins-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f899a57b-8fec-459b-849c-d8ffaa51ee5e",
+   "title": "Jahreszinsen · zwei Sparangebote vergleichen · 750 €",
+   "question": "Für 750 € gibt es zwei Sparangebote für ein Jahr:\nAngebot A: 2 % Zinsen.\nAngebot B: 1,5 % Zinsen und zusätzlich 5 € Bonus.\n\nUm wie viel Euro bringt das bessere Angebot mehr als das andere?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_jahreszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für 750 € gibt es zwei Sparangebote für ein Jahr:\nAngebot A: 2 % Zinsen.\nAngebot B: 1,5 % Zinsen und zusätzlich 5 € Bonus.\n\nUm wie viel Euro bringt das bessere Angebot mehr als das andere?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-jahreszins-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b0e9c1c6-561a-44ca-8903-62d4c8495b63",
+   "title": "Teilzinsen · 600 € zu 4 % für 3 Monate",
+   "question": "Ein Guthaben von 600 € wird mit einem Zinssatz von 4 % pro Jahr verzinst. Das Geld bleibt nur 3 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 3 Monate?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_teilzins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 600 € wird mit einem Zinssatz von 4 % pro Jahr verzinst. Das Geld bleibt nur 3 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 3 Monate?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-teilzins-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e9ac2c93-9310-446d-966b-c08e55253361",
+   "title": "Teilzinsen · 800 € zu 3 % für 5 Monate",
+   "question": "Ein Guthaben von 800 € wird mit einem Zinssatz von 3 % pro Jahr verzinst. Das Geld bleibt 5 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 5 Monate?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_teilzins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 800 € wird mit einem Zinssatz von 3 % pro Jahr verzinst. Das Geld bleibt 5 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 5 Monate?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-teilzins-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7b761feb-7873-48c8-99cc-c2106ae5d530",
+   "title": "Teilzinsen · 720 € zu 5 % für 40 Tage",
+   "question": "Ein Guthaben von 720 € wird mit einem Zinssatz von 5 % pro Jahr verzinst. Das Geld bleibt 40 Tage auf dem Konto.\nRechne wie bei Banken üblich: 1 Monat = 30 Tage, 1 Jahr = 360 Tage.\n\nWie viel Euro Zinsen gibt es für diese 40 Tage?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_teilzins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 720 € wird mit einem Zinssatz von 5 % pro Jahr verzinst. Das Geld bleibt 40 Tage auf dem Konto.\nRechne wie bei Banken üblich: 1 Monat = 30 Tage, 1 Jahr = 360 Tage.\n\nWie viel Euro Zinsen gibt es für diese 40 Tage?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-teilzins-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "745351dc-794d-4939-9c33-fea2492bd8ff",
+   "title": "Teilzinsen · 900 € zu 2,5 % für 8 Monate",
+   "question": "Ein Guthaben von 900 € wird mit einem Zinssatz von 2,5 % pro Jahr verzinst. Das Geld bleibt 8 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 8 Monate?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_teilzins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 900 € wird mit einem Zinssatz von 2,5 % pro Jahr verzinst. Das Geld bleibt 8 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 8 Monate?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-teilzins-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "663cac41-81da-41a8-9092-b63e0101e769",
+   "title": "Teilzinsen · überzogenes Konto · 500 € zu 12 % für 50 Tage",
+   "question": "Ein Girokonto ist 50 Tage lang um 500 € überzogen. Für die Überziehung verlangt die Bank 12 % Zinsen pro Jahr.\nRechne wie bei Banken üblich: 1 Monat = 30 Tage, 1 Jahr = 360 Tage. Runde das Ergebnis auf Cent.\n\nWie viel Euro Zinsen muss man für die 50 Tage zahlen?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_teilzins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Girokonto ist 50 Tage lang um 500 € überzogen. Für die Überziehung verlangt die Bank 12 % Zinsen pro Jahr.\nRechne wie bei Banken üblich: 1 Monat = 30 Tage, 1 Jahr = 360 Tage. Runde das Ergebnis auf Cent.\n\nWie viel Euro Zinsen muss man für die 50 Tage zahlen?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-teilzins-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2503c8e9-2f40-494e-865c-687d7256a771",
+   "title": "Teilzinsen · Fahrrad finanziert · 840 € zu 9 % für 7 Monate",
+   "question": "Ein Fahrrad kostet 840 €. Der Händler bietet an, den Preis erst später zu bezahlen. Dafür verlangt er 9 % Zinsen pro Jahr. Nach 7 Monaten wird alles auf einmal bezahlt.\n\nWie viel Euro werden insgesamt bezahlt?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_teilzins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Fahrrad kostet 840 €. Der Händler bietet an, den Preis erst später zu bezahlen. Dafür verlangt er 9 % Zinsen pro Jahr. Nach 7 Monaten wird alles auf einmal bezahlt.\n\nWie viel Euro werden insgesamt bezahlt?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-teilzins-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d0b5af07-3cd8-4da1-85ed-6a3e57cffc34",
+   "title": "Rückrechnung · Kapital aus 28 € Zinsen bei 4 %",
+   "question": "Ein Guthaben bringt bei einem Zinssatz von 4 % in einem Jahr 28 € Zinsen.\n\nWie viel Euro beträgt das Guthaben?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_rueckrechnung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben bringt bei einem Zinssatz von 4 % in einem Jahr 28 € Zinsen.\n\nWie viel Euro beträgt das Guthaben?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-rueckrechnung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2d5e6e81-1f81-462c-8b70-db43a7454bb4",
+   "title": "Rückrechnung · Zinssatz aus 15 € Zinsen bei 500 €",
+   "question": "Ein Guthaben von 500 € bringt in einem Jahr 15 € Zinsen.\n\nWie hoch ist der Zinssatz in Prozent?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_rueckrechnung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 500 € bringt in einem Jahr 15 € Zinsen.\n\nWie hoch ist der Zinssatz in Prozent?"
+   },
+   "parts": [],
+   "unit": "%",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-rueckrechnung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "53f6be59-aaa0-450d-af10-6c9570a39ca9",
+   "title": "Rückrechnung · Kapital aus 21 € Zinsen bei 3,5 %",
+   "question": "Ein Guthaben bringt bei einem Zinssatz von 3,5 % in einem Jahr 21 € Zinsen.\n\nWie viel Euro beträgt das Guthaben?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_rueckrechnung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben bringt bei einem Zinssatz von 3,5 % in einem Jahr 21 € Zinsen.\n\nWie viel Euro beträgt das Guthaben?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-rueckrechnung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "86f705e2-6364-4749-8faf-c031e6bf7110",
+   "title": "Rückrechnung · Zinssatz aus 20,80 € Zinsen bei 640 €",
+   "question": "Ein Guthaben von 640 € bringt in einem Jahr 20,80 € Zinsen.\n\nWie hoch ist der Zinssatz in Prozent?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_rueckrechnung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 640 € bringt in einem Jahr 20,80 € Zinsen.\n\nWie hoch ist der Zinssatz in Prozent?"
+   },
+   "parts": [],
+   "unit": "%",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-rueckrechnung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "77a9dabf-1e92-4a40-a28b-ba72bea91169",
+   "title": "Rückrechnung · Einzahlung aus Kontostand 765 € bei 2 %",
+   "question": "Auf einem Sparkonto stehen nach einem Jahr 765 €. Die Zinsen von 2 % sind darin schon enthalten.\n\nWie viel Euro wurden am Anfang eingezahlt?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_rueckrechnung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Auf einem Sparkonto stehen nach einem Jahr 765 €. Die Zinsen von 2 % sind darin schon enthalten.\n\nWie viel Euro wurden am Anfang eingezahlt?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-rueckrechnung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e059539e-120d-428b-ba3d-c11ae9c4a83d",
+   "title": "Rückrechnung · Zinssatz eines Kredits · 400 € geliehen, 428 € zurück",
+   "question": "Für einen Kredit über 400 € müssen nach einem Jahr 428 € zurückgezahlt werden.\n\nWie hoch ist der Zinssatz in Prozent?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_rueckrechnung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für einen Kredit über 400 € müssen nach einem Jahr 428 € zurückgezahlt werden.\n\nWie hoch ist der Zinssatz in Prozent?"
+   },
+   "parts": [],
+   "unit": "%",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-rueckrechnung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "736ea5a7-cc7f-44da-b042-8b0711207a15",
+   "title": "Zinseszins · 500 € zu 4 % für 2 Jahre",
+   "question": "Ein Guthaben von 500 € wird jedes Jahr mit 4 % verzinst. Die Zinsen bleiben auf dem Konto und werden im nächsten Jahr mitverzinst.\n\nWie viel Euro sind nach 2 Jahren auf dem Konto?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_zinseszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 500 € wird jedes Jahr mit 4 % verzinst. Die Zinsen bleiben auf dem Konto und werden im nächsten Jahr mitverzinst.\n\nWie viel Euro sind nach 2 Jahren auf dem Konto?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-zinseszins-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d9e29439-32a2-43b7-a35a-a0d166637802",
+   "title": "Zinseszins · 800 € zu 5 % für 3 Jahre",
+   "question": "Ein Guthaben von 800 € wird jedes Jahr mit 5 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nWie viel Euro sind nach 3 Jahren auf dem Konto?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_zinseszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 800 € wird jedes Jahr mit 5 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nWie viel Euro sind nach 3 Jahren auf dem Konto?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-zinseszins-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ab2df4fc-6d03-45a3-a974-7191461d00fc",
+   "title": "Zinseszins · Zinsen nach 2 Jahren · 600 € zu 3 %",
+   "question": "Ein Guthaben von 600 € wird jedes Jahr mit 3 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nWie viel Euro Zinsen sind nach 2 Jahren insgesamt dazugekommen?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_zinseszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 600 € wird jedes Jahr mit 3 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nWie viel Euro Zinsen sind nach 2 Jahren insgesamt dazugekommen?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-zinseszins-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3b7c2619-ae14-4c9c-b67b-89589310033f",
+   "title": "Zinseszins · Laufzeit durch Probieren · 500 € zu 10 % über 700 €",
+   "question": "Ein Guthaben von 500 € wird jedes Jahr mit 10 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nNach wie vielen Jahren ist das Guthaben zum ersten Mal größer als 700 €?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_zinseszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben von 500 € wird jedes Jahr mit 10 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nNach wie vielen Jahren ist das Guthaben zum ersten Mal größer als 700 €?"
+   },
+   "parts": [],
+   "unit": "Jahre",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-zinseszins-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f07265aa-116a-4d92-9312-6cae6d7cba2d",
+   "title": "Kombinierte Veränderung · Preis +20 %, dann −20 % · 400 €",
+   "question": "Ein Fahrrad kostet 400 €. Der Preis wird zuerst um 20 % erhöht. Später wird der neue Preis um 20 % gesenkt.\n\nWie viel Euro kostet das Fahrrad danach?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_zinseszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Fahrrad kostet 400 €. Der Preis wird zuerst um 20 % erhöht. Später wird der neue Preis um 20 % gesenkt.\n\nWie viel Euro kostet das Fahrrad danach?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-zinseszins-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9031703f-4b09-41be-a1a3-6a0b55bc0603",
+   "title": "Zinseszins · Zinssatz gesucht · 500 € werden in 2 Jahren 551,25 €",
+   "question": "Ein Guthaben wächst in 2 Jahren von 500 € auf 551,25 €. Der Zinssatz ist in beiden Jahren gleich, die Zinsen bleiben auf dem Konto.\n\nWie hoch ist der Zinssatz in Prozent?",
+   "input_type": "NUMERIC",
+   "skill_key": "prozent_zins_zinseszins",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Guthaben wächst in 2 Jahren von 500 € auf 551,25 €. Der Zinssatz ist in beiden Jahren gleich, die Zinsen bleiben auf dem Konto.\n\nWie hoch ist der Zinssatz in Prozent?"
+   },
+   "parts": [],
+   "unit": "%",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-zinseszins-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fd7c0327-2903-4199-a275-be6c4b46cd1e",
+   "title": "Potenzen · 4³",
+   "question": "Berechne.\n\n4³ = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "potenzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n4³ = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-potenzen-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e04a700d-23f0-4709-bf16-a4e65bca3cd2",
+   "title": "Potenzen · 0,4²",
+   "question": "Berechne.\n\n0,4² = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "potenzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n0,4² = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-potenzen-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2fe1feb6-8551-4eb1-be91-f5092d383242",
+   "title": "Potenzen · 2,5²",
+   "question": "Berechne.\n\n2,5² = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "potenzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n2,5² = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-potenzen-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c5ff0008-b3f0-4ebf-aa68-31cff48d7342",
+   "title": "Potenzen · 1,05²",
+   "question": "Berechne.\n\n1,05² = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "potenzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n1,05² = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-potenzen-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "bb125765-c709-4f59-afff-4b4bd090dbbf",
+   "title": "Potenzen · 1,05³",
+   "question": "Berechne.\n\n1,05³ = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "potenzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne.\n\n1,05³ = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-potenzen-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "451bd34e-273d-40ac-a16d-3f13d271c5fa",
+   "title": "Potenzen · Würfelvolumen · Kante 0,4 m",
+   "question": "Ein würfelförmiger Karton hat die Kantenlänge 0,4 m. Für das Volumen gilt V = a³.\n\nWie viele Kubikmeter beträgt das Volumen?",
+   "input_type": "NUMERIC",
+   "skill_key": "potenzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein würfelförmiger Karton hat die Kantenlänge 0,4 m. Für das Volumen gilt V = a³.\n\nWie viele Kubikmeter beträgt das Volumen?"
+   },
+   "parts": [],
+   "unit": "m³",
+   "status": "draft",
+   "source": "edvance_k8_zins",
+   "source_ref": "zins-potenzen-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]
