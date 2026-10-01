@@ -1,4 +1,4 @@
-# Befunde: Charge `rest-01` (erste Charge Restbestand) — ENTWURF, nicht eingespielt
+# Befunde: Charge `rest-01` (erste Charge Restbestand) — eingespielt als `20260930150100`
 
 **Auswahl (28 Aufgaben, kein VERA8):**
 - die restlichen 6 offenen Binom-Aufgaben (Algebra & Funktionen)
@@ -42,6 +42,4 @@ und gelten nicht als Befund.
 
 - **Themengebiet:** `gleichung_beidseitig` liegt laut Bestand unter „Zahl & Rechnen“ und nicht unter „Algebra &
   Funktionen“. Ich habe den Bestand übernommen, nicht umsortiert.
-- **Version:** `date -u` lag beim Bauen (12:04 UTC) vor `20260930150000`. Die Datei steht deshalb als
-  `docs/prefill/ENTWURF_prefill_rest_01.sql` bereit und bekommt ihre Version erst nach deinem Go, sobald `date -u`
-  nach 15:00:00 UTC liegt.
+- **Version:** eingespielt als `20260930150100_prefill_rest_01` (fortlaufende Version nach Auftrag), Nachweis in `rest-01-nachweis.md`.

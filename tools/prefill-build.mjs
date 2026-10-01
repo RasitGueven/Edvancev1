@@ -27,6 +27,8 @@ if (!name || !(/^\d{14}$/.test(version) || version === 'ENTWURF')) {
   process.exit(2);
 }
 const { charge, stand } = ladeCharge(chargePfad, snapPfad);
+// Ab dem Restbestand liegt jede Charge in einem eigenen Ordner docs/prefill/<charge>/.
+const ORDNER = fs.existsSync(`docs/prefill/${charge.batch}`) ? `docs/prefill/${charge.batch}` : 'docs/prefill';
 const vera = vera8Verstoesse(charge, stand);
 if (vera.length) {
   console.error(`VERA8 wird nicht vorbefuellt — Charge abgelehnt:\n  ${vera.join('\n  ')}`);
@@ -127,7 +129,7 @@ const kopf = `-- Datenmigration ${charge.batch}: Vorbefuellung fuer Lenas Pruefu
 -- Regeln: nur status = 'draft', nie VERA8 (${keinVera8Sql()} in jedem WHERE),
 -- jede Aenderung als Compare-and-set (/*cas*/: leer ODER exakter alter Wert),
 -- Kennzeichen tasks.vorbefuellt in derselben Anweisung, keine DDL, keine Status-Felder.
--- Idempotent: ein zweiter Lauf aendert nichts. Werte + Gruende: docs/prefill/${charge.batch}.csv
+-- Idempotent: ein zweiter Lauf aendert nichts. Werte + Gruende: ${ORDNER}/${charge.batch}.csv
 -- Kein Ziel-DB-Guard in der Datei: CI spielt alle Migrationen in eine leere DB 'neuaufbau' ein
 -- (dort treffen die UPDATEs 0 Zeilen). Der Ziel-DB-Check steht in der Apply-Kette (docs/prefill/README.md).
 `;
@@ -136,8 +138,8 @@ const migPfad = version === 'ENTWURF'
   : path.join('supabase/migrations', `${version}_${name}.sql`);
 fs.writeFileSync(migPfad, kopf + sql.join('\n') + '\n');
 const csvZelle = (v) => (/[",\n;]/.test(v) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
-fs.writeFileSync(`docs/prefill/${charge.batch}.csv`, csv.map((r) => r.map((v) => csvZelle(v ?? '')).join(',')).join('\n') + '\n');
-fs.writeFileSync(`docs/prefill/${charge.batch}-dbcheck.sql`,
+fs.writeFileSync(`${ORDNER}/${charge.batch}.csv`, csv.map((r) => r.map((v) => csvZelle(v ?? '')).join(',')).join('\n') + '\n');
+fs.writeFileSync(`${ORDNER}/${charge.batch}-dbcheck.sql`,
   `-- Rein lesend: prueft den aus Snapshot + Charge BERECHNETEN Endstand (Werte eingebettet) mit den DB-Validatoren.\n` +
   pruef.join('\nunion all\n') + ';\n');
 console.log(`${migPfad}: ${sql.filter((s) => !s.startsWith('\n--')).length} Anweisungen; CSV: ${csv.length - 1} Zeilen`);
