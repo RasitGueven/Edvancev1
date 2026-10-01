@@ -28,6 +28,12 @@
  *   node tools/verify-tasks.mjs --status draft --source edvance_fundament
  *   node tools/verify-tasks.mjs --nur-struktur        # ohne LLM, kostenlos
  *   node tools/verify-tasks.mjs --quelle datei --pfad out/k8-charge.json
+ *   node tools/verify-tasks.mjs --from-file docs/prefill/k8-vorlauf.json   # Charge-Format
+ *
+ * --from-file liest eine Charge im Format von docs/prefill/<batch>.json (vorlauf-build.mjs)
+ * und prueft sie mit Stufe 1 und Blindloeser, bevor sie eingespielt ist. MULTI_PART: der
+ * Loeser bekommt die Teilprompts und antwortet "x;y" in Teil-Reihenfolge; verglichen wird
+ * je Teil gegen dessen Varianten.
  *
  * Vorbefuellung fuer Lenas Pruefung (siehe verify-prefill.mjs) — ohne LLM, ohne DB:
  *   node tools/verify-tasks.mjs --prefill docs/prefill/<charge>.json \
@@ -37,7 +43,7 @@
  */
 
 import fs from 'node:fs/promises';
-import { ausDatei, ausProduktion, filtere, QuellenFehler } from './verify-tasks-quellen.mjs';
+import { ausCharge, ausDatei, ausProduktion, filtere, QuellenFehler } from './verify-tasks-quellen.mjs';
 
 // Node liest .env nicht von selbst — ohne das hier fehlten SUPABASE_URL und
 // ANTHROPIC_API_KEY jedem Aufruf, der die Variablen nicht vorher exportiert hat.
@@ -74,8 +80,8 @@ if (flag('prefill')) {
 
 // ─── Aufgaben laden ──────────────────────────────────────────────────────────
 
-const QUELLE = opt('quelle', 'prod');
-if (QUELLE !== 'prod' && QUELLE !== 'datei') {
+const QUELLE = flag('from-file') ? 'charge' : opt('quelle', 'prod');
+if (QUELLE !== 'prod' && QUELLE !== 'datei' && QUELLE !== 'charge') {
   console.error(`--quelle kennt nur "prod" oder "datei", nicht "${QUELLE}".`);
   process.exit(2);
 }
@@ -84,9 +90,9 @@ const FILTER = { skill: opt('skill'), status: opt('status'), source: opt('source
 
 let tasks, loesungVon, herkunft;
 try {
-  if (QUELLE === 'datei') {
-    const pfad = opt('pfad');
-    ({ tasks, loesungVon } = await ausDatei(pfad));
+  if (QUELLE === 'datei' || QUELLE === 'charge') {
+    const pfad = QUELLE === 'charge' ? opt('from-file') : opt('pfad');
+    ({ tasks, loesungVon } = await (QUELLE === 'charge' ? ausCharge(pfad) : ausDatei(pfad)));
     tasks = filtere(tasks, FILTER);
     herkunft = pfad;
   } else {
@@ -108,6 +114,11 @@ try {
 if (!tasks.length) { console.error('Keine Aufgabe passt auf die Auswahl.'); process.exit(2); }
 
 console.log(`\n  ${tasks.length} Aufgabe(n) zu prüfen — Quelle: ${herkunft}\n`);
+const mitBild = tasks.filter((t) => t.needs_image === true).length;
+if (mitBild) {
+  console.log(`  Hinweis: ${mitBild} Aufgabe(n) brauchen eine Abbildung. Stufe 2 schickt nur den Text —`);
+  console.log('           dort ist "mehrdeutig" das erwartbare Urteil, kein Inhaltsfehler.\n');
+}
 
 // ─── Stufe 1 · Struktur ──────────────────────────────────────────────────────
 
@@ -136,7 +147,9 @@ for (const t of tasks) {
 
   if (s) {
     const antworten = s.correct_answers ?? s.correct_answer ?? null;
-    if (antworten == null || (Array.isArray(antworten) && !antworten.length)) {
+    const leerObjekt = antworten && typeof antworten === 'object' && !Array.isArray(antworten)
+      && !Object.values(antworten).some((v) => Array.isArray(v) && v.length);
+    if (antworten == null || (Array.isArray(antworten) && !antworten.length) || leerObjekt) {
       m.push('Lösung ohne Antwortwert');
     }
     if (s.acceptance && typeof s.acceptance === 'object') {
@@ -271,6 +284,13 @@ const norm = (v) => String(v ?? '')
   .replace(/^[+]/, '').replace(/[€%]|cm2|cm²|m2|m²/g, '');
 
 function stimmtUeberein(erwartet, bekommen) {
+  // MULTI_PART: correct_answers = {"1": [...], "2": [...]}; der Loeser antwortet "a;b" in
+  // Teil-Reihenfolge. Jeder Teil muss gegen SEINE Varianten stimmen.
+  if (erwartet && typeof erwartet === 'object' && !Array.isArray(erwartet)) {
+    const teile = Object.keys(erwartet).sort((a, b) => Number(a) - Number(b));
+    const seine = String(bekommen ?? '').split(';');
+    return seine.length === teile.length && teile.every((k, i) => stimmtUeberein(erwartet[k], seine[i]));
+  }
   const e = Array.isArray(erwartet) ? erwartet : [erwartet];
   const b = norm(bekommen);
   for (const x of e) {

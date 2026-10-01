@@ -1,0 +1,32 @@
+{
+  "batch": "test-charge",
+  "source": "test_charge_format",
+  "aufgaben": [
+    {
+      "nr": 1,
+      "id": "cf-flach-01",
+      "titel": "Flach",
+      "basis": { "skill_key": "term_einsetzen", "input_type": "NUMERIC", "frage": "Berechne.\n\n24 + 18 = ?" },
+      "loesung": { "correct_answers": { "wert": ["42", "+42"] } }
+    },
+    {
+      "nr": 2,
+      "id": "cf-teile-01",
+      "titel": "Zwei Teile",
+      "basis": {
+        "skill_key": "geo_koordinaten",
+        "input_type": "MULTI_PART",
+        "frage": "Rechne beide Teile.",
+        "parts": [
+          { "nr": 1, "kind": "short_input", "prompt": "13 · 7 = ?" },
+          { "nr": 2, "kind": "short_input", "prompt": "5 - 12 = ?" }
+        ],
+        "figur": { "params": {}, "alt_text": "Probe" }
+      },
+      "teile": {
+        "1": { "antwort": { "wert": ["91"] } },
+        "2": { "antwort": { "wert": ["-7", "−7"] } }
+      }
+    }
+  ]
+}

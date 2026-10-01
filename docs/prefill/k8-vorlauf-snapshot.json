@@ -1,0 +1,410 @@
+[
+ {
+  "task": {
+   "id": "650eed2a-79e5-4a6f-9ed2-a51053fe75c8",
+   "title": "Koordinaten · Punkt ablesen · 1. Quadrant",
+   "question": "Lies die Koordinaten des Punktes P im Koordinatensystem ab.",
+   "input_type": "MULTI_PART",
+   "skill_key": "geo_koordinaten",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate von P",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate von P",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-koord-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a1fa4311-c631-47ba-a4a7-15e12149db4c",
+   "title": "Koordinaten · Punkt ablesen · 2. Quadrant",
+   "question": "Lies die Koordinaten des Punktes Q im Koordinatensystem ab.",
+   "input_type": "MULTI_PART",
+   "skill_key": "geo_koordinaten",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate von Q",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate von Q",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-koord-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d8195933-ba82-4768-ac40-064da27497a6",
+   "title": "Koordinaten · Punkt ablesen · 3. Quadrant",
+   "question": "Lies die Koordinaten des Punktes R im Koordinatensystem ab.",
+   "input_type": "MULTI_PART",
+   "skill_key": "geo_koordinaten",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate von R",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate von R",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-koord-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e0daa32b-4d16-49ae-82b4-ece970facc2f",
+   "title": "Koordinaten · Punkt ablesen · 4. Quadrant, halbe Einheit",
+   "question": "Lies die Koordinaten des Punktes T im Koordinatensystem ab. T liegt nicht auf einem Gitterpunkt.",
+   "input_type": "MULTI_PART",
+   "skill_key": "geo_koordinaten",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate von T",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate von T",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-koord-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cef62bbd-6d88-4dc4-a1cc-3c9960e67584",
+   "title": "Koordinaten · Rückrichtung · vierter Eckpunkt eines Rechtecks",
+   "question": "Die Punkte A, B und C sind drei Eckpunkte des Rechtecks ABCD.\nWelche Koordinaten hat der vierte Eckpunkt D, der noch eingetragen werden muss?",
+   "input_type": "MULTI_PART",
+   "skill_key": "geo_koordinaten",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate von D",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate von D",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-koord-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "769c9fdb-c72a-46bd-9899-58c8773705d2",
+   "title": "Koordinaten · Sachkontext · Fahrt auf der Seekarte",
+   "question": "Das Koordinatensystem ist eine Seekarte. Eine Einheit entspricht einem Kilometer.\nEin Boot startet im Punkt S. Es fährt 6 Kilometer nach rechts und danach 4 Kilometer nach unten.\nIn welchem Punkt kommt das Boot an?",
+   "input_type": "MULTI_PART",
+   "skill_key": "geo_koordinaten",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Zielpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Zielpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-koord-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "dea9fea4-6976-4632-a33d-547693f1fbc9",
+   "title": "Einsetzen · negativer Wert · 2 · x + 5",
+   "question": "Berechne den Wert des Terms für x = -4.\n\n2 · x + 5 = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "term_einsetzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne den Wert des Terms für x = -4.\n\n2 · x + 5 = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-einsetzen-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa",
+   "title": "Einsetzen · negativer Wert und Vorrang · 5 - 3 · x",
+   "question": "Berechne den Wert des Terms für x = -2.\n\n5 - 3 · x = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "term_einsetzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne den Wert des Terms für x = -2.\n\n5 - 3 · x = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-einsetzen-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "16352abe-36f9-482c-972d-a7b10493919d",
+   "title": "Einsetzen · Potenz im Term · 3 · x²",
+   "question": "Berechne den Wert des Terms für x = -2.\n\n3 · x² = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "term_einsetzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne den Wert des Terms für x = -2.\n\n3 · x² = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-einsetzen-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd",
+   "title": "Einsetzen · Potenz und Produkt · x² - 2 · x",
+   "question": "Berechne den Wert des Terms für x = -3.\n\nx² - 2 · x = ?",
+   "input_type": "NUMERIC",
+   "skill_key": "term_einsetzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne den Wert des Terms für x = -3.\n\nx² - 2 · x = ?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-einsetzen-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca",
+   "title": "Einsetzen · Formel mit zwei Variablen · Fläche des Dreiecks",
+   "question": "Für den Flächeninhalt eines Dreiecks gilt die Formel A = g · h : 2.\nDabei ist g die Grundseite und h die Höhe.\n\nBerechne A für g = 7 cm und h = 5 cm.",
+   "input_type": "NUMERIC",
+   "skill_key": "term_einsetzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für den Flächeninhalt eines Dreiecks gilt die Formel A = g · h : 2.\nDabei ist g die Grundseite und h die Höhe.\n\nBerechne A für g = 7 cm und h = 5 cm."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-einsetzen-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fbf4143f-5932-4a14-9337-575ea4c5d2b0",
+   "title": "Einsetzen · Sachformel · Grad Celsius in Grad Fahrenheit",
+   "question": "Temperaturen in Grad Celsius (C) rechnet man mit der Formel F = 1,8 · C + 32 in Grad Fahrenheit (F) um.\n\nWie viel Grad Fahrenheit sind -10 Grad Celsius?",
+   "input_type": "NUMERIC",
+   "skill_key": "term_einsetzen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Temperaturen in Grad Celsius (C) rechnet man mit der Formel F = 1,8 · C + 32 in Grad Fahrenheit (F) um.\n\nWie viel Grad Fahrenheit sind -10 Grad Celsius?"
+   },
+   "parts": [],
+   "unit": "°F",
+   "status": "draft",
+   "source": "edvance_fundament_vorlauf",
+   "source_ref": "vorlauf-einsetzen-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]
