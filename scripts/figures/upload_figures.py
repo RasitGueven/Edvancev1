@@ -38,6 +38,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib
 import json
 import os
 import sys
@@ -54,19 +55,23 @@ THEMES = ("dunkel", "hell")
 #   pruefe_koordinatensystem.pruefe(svg: str, params: dict) -> tuple[bool, str]
 
 
+GENERATOREN = ("koordinatensystem", "winkel")
+
+
 def _lade_generator(name: str):
-    sys.path.insert(0, str(WURZEL / "scripts" / "figures"))
-    if name == "koordinatensystem":
-        import koordinatensystem  # type: ignore
-        import pruefe_koordinatensystem  # type: ignore
-
-        return koordinatensystem.zeichne, pruefe_koordinatensystem.pruefe
-    if name == "winkel":
-        import pruefe_winkel  # type: ignore
-        import winkel  # type: ignore
-
-        return winkel.zeichne, pruefe_winkel.pruefe
-    raise SystemExit(f"Unbekannter Generator '{name}' — kein Adapter (Positivliste in der Migration).")
+    # Als PAKET laden, nicht als loses Modul: koordinatensystem.py importiert
+    # relativ (from .pruefungen ...). Mit scripts/figures selbst auf sys.path
+    # waere es ein Top-Level-Modul ohne Elternpaket -> ImportError "attempted
+    # relative import with no known parent package". scripts/ auf sys.path und
+    # figures.<name> ist dieselbe Konvention wie in den Tests.
+    if name not in GENERATOREN:
+        raise SystemExit(f"Unbekannter Generator '{name}' — kein Adapter (Positivliste in der Migration).")
+    pfad = str(WURZEL / "scripts")
+    if pfad not in sys.path:
+        sys.path.insert(0, pfad)
+    generator = importlib.import_module(f"figures.{name}")
+    pruefer = importlib.import_module(f"figures.pruefe_{name}")
+    return generator.zeichne, pruefer.pruefe
 
 
 # ── Hash / Umgebung ──────────────────────────────────────────────────────────
