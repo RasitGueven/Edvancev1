@@ -1,128 +1,128 @@
 [
   {
-    "id": "650eed2a-79e5-4a6f-9ed2-a51053fe75c8",
-    "teil": "1",
+    "task_id": "650eed2a-79e5-4a6f-9ed2-a51053fe75c8",
+    "part": "1",
     "antwort": "4",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "650eed2a-79e5-4a6f-9ed2-a51053fe75c8",
-    "teil": "2",
+    "task_id": "650eed2a-79e5-4a6f-9ed2-a51053fe75c8",
+    "part": "2",
     "antwort": "3",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "a1fa4311-c631-47ba-a4a7-15e12149db4c",
-    "teil": "1",
+    "task_id": "a1fa4311-c631-47ba-a4a7-15e12149db4c",
+    "part": "1",
     "antwort": "-4",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "a1fa4311-c631-47ba-a4a7-15e12149db4c",
-    "teil": "2",
+    "task_id": "a1fa4311-c631-47ba-a4a7-15e12149db4c",
+    "part": "2",
     "antwort": "2",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "d8195933-ba82-4768-ac40-064da27497a6",
-    "teil": "1",
+    "task_id": "d8195933-ba82-4768-ac40-064da27497a6",
+    "part": "1",
     "antwort": "-2",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "d8195933-ba82-4768-ac40-064da27497a6",
-    "teil": "2",
+    "task_id": "d8195933-ba82-4768-ac40-064da27497a6",
+    "part": "2",
     "antwort": "-5",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "e0daa32b-4d16-49ae-82b4-ece970facc2f",
-    "teil": "1",
+    "task_id": "e0daa32b-4d16-49ae-82b4-ece970facc2f",
+    "part": "1",
     "antwort": "3",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "e0daa32b-4d16-49ae-82b4-ece970facc2f",
-    "teil": "2",
+    "task_id": "e0daa32b-4d16-49ae-82b4-ece970facc2f",
+    "part": "2",
     "antwort": "-2.5",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "cef62bbd-6d88-4dc4-a1cc-3c9960e67584",
-    "teil": "1",
+    "task_id": "cef62bbd-6d88-4dc4-a1cc-3c9960e67584",
+    "part": "1",
     "antwort": "-4",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "cef62bbd-6d88-4dc4-a1cc-3c9960e67584",
-    "teil": "2",
+    "task_id": "cef62bbd-6d88-4dc4-a1cc-3c9960e67584",
+    "part": "2",
     "antwort": "2",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "769c9fdb-c72a-46bd-9899-58c8773705d2",
-    "teil": "1",
+    "task_id": "769c9fdb-c72a-46bd-9899-58c8773705d2",
+    "part": "1",
     "antwort": "4",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "769c9fdb-c72a-46bd-9899-58c8773705d2",
-    "teil": "2",
+    "task_id": "769c9fdb-c72a-46bd-9899-58c8773705d2",
+    "part": "2",
     "antwort": "-3",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "dea9fea4-6976-4632-a33d-547693f1fbc9",
-    "teil": null,
+    "task_id": "dea9fea4-6976-4632-a33d-547693f1fbc9",
+    "part": null,
     "antwort": "-3",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa",
-    "teil": null,
+    "task_id": "18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa",
+    "part": null,
     "antwort": "11",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "16352abe-36f9-482c-972d-a7b10493919d",
-    "teil": null,
+    "task_id": "16352abe-36f9-482c-972d-a7b10493919d",
+    "part": null,
     "antwort": "12",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd",
-    "teil": null,
+    "task_id": "d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd",
+    "part": null,
     "antwort": "15",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca",
-    "teil": null,
+    "task_id": "6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca",
+    "part": null,
     "antwort": "17.5",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   },
   {
-    "id": "fbf4143f-5932-4a14-9337-575ea4c5d2b0",
-    "teil": null,
+    "task_id": "fbf4143f-5932-4a14-9337-575ea4c5d2b0",
+    "part": null,
     "antwort": "14",
-    "eindeutig": true,
+    "unsicher": "nein",
     "anmerkung": ""
   }
 ]

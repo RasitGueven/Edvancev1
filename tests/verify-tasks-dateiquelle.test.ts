@@ -264,6 +264,73 @@ describe('--from-file (Charge-Format)', () => {
     expect(raus).toContain('(2) 5 - 12 = ?')
   })
 
+  it('bricht bei einer Datei ohne "aufgaben" mit klarer Meldung ab (Charge)', async () => {
+    const { code, ausgabe } = await pruefer(['--from-file', FIX('charge-korrekt.json'), '--nur-struktur'])
+    expect(ausgabe).toContain('Charge-Format')
+    expect(code).toBe(2)
+  })
+})
+
+describe('--answers-from (Blind-Löser ohne API)', () => {
+  const OHNE_API = { ANTHROPIC_API_KEY: undefined }
+  const datei = (antworten: string, ...mehr: string[]) =>
+    ['--quelle', 'datei', '--pfad', FIX('antworten-aufgaben.json'), '--answers-from', FIX(antworten), ...mehr]
+
+  it('richtig, Variante (Unicode-Minus, Leerraum, Großschreibung bei MC) und Toleranz — 100 %, kein API-Aufruf', async () => {
+    const { code, ausgabe } = await pruefer(datei('antworten-richtig.json', '--min-pass', '1.0'), OHNE_API)
+    expect(ausgabe).toContain('kein API-Aufruf')
+    expect(ausgabe).toMatch(/Trefferquote\s+100\.0 %/)
+    expect(gesendet).toHaveLength(0)
+    expect(code).toBe(0)
+  })
+
+  it('meldet eine nur über Toleranz richtige Antwort gesondert (lsa_is_correct wäre false)', async () => {
+    const { ausgabe } = await pruefer(datei('antworten-richtig.json'), OHNE_API)
+    expect(ausgabe).toContain('Nur über Toleranz/equivalents richtig — 1')
+    expect(ausgabe).toContain('aw-03: 3.334')
+  })
+
+  it('listet unsichere Antworten, ohne die Wertung zu ändern', async () => {
+    const { ausgabe } = await pruefer(datei('antworten-richtig.json'), OHNE_API)
+    expect(ausgabe).toContain('Blind-Löser unsicher — 1')
+    expect(ausgabe).toContain('aw-04 (ok)')
+  })
+
+  it('falsch: abweichende Zahl, außerhalb der Toleranz, MC-Menge zu groß; fehlende Antwort = ungeprüft', async () => {
+    const { code, ausgabe } = await pruefer(datei('antworten-falsch.json', '--min-pass', '1.0'), OHNE_API)
+    expect(ausgabe).toMatch(/abweichung\s+3/)
+    expect(ausgabe).toMatch(/nicht prüfbar\s+1/)
+    expect(ausgabe).toContain('Blind-Löser: 41')
+    expect(ausgabe).toContain('Blind-Löser: 3.4')
+    expect(ausgabe).toContain('keine Blind-Antwort')
+    expect(code).toBe(1)
+  })
+
+  it('Teilaufgaben: jeder Teil gegen seine Varianten — richtig', async () => {
+    const { code, ausgabe } = await pruefer(
+      ['--from-file', FIX('charge-format-korrekt.json'), '--answers-from', FIX('antworten-teile.json'), '--min-pass', '1.0'], OHNE_API)
+    expect(ausgabe).toMatch(/Trefferquote\s+100\.0 %/)
+    expect(code).toBe(0)
+  })
+
+  it('Teilaufgaben: ein falscher Teil kippt die ganze Aufgabe', async () => {
+    const { code, ausgabe } = await pruefer(
+      ['--from-file', FIX('charge-format-korrekt.json'), '--answers-from', FIX('antworten-teile-falsch.json'), '--min-pass', '1.0'], OHNE_API)
+    expect(ausgabe).toContain('Blind-Löser: 91;7')
+    expect(ausgabe).toMatch(/Trefferquote\s+50\.0 %/)
+    expect(code).toBe(1)
+  })
+
+  it('ohne --answers-from und ohne Schlüssel: Hinweis auf den Ablauf, kein API-Aufruf', async () => {
+    const { code, ausgabe } = await pruefer(['--from-file', FIX('charge-format-korrekt.json')], OHNE_API)
+    expect(ausgabe).toContain('es geht kein API-Aufruf raus')
+    expect(ausgabe).toContain('--answers-from')
+    expect(gesendet).toHaveLength(0)
+    expect(code).toBe(2)
+  })
+})
+
+describe('--from-file Grenzfälle', () => {
   it('bricht bei einer Datei ohne "aufgaben" mit klarer Meldung ab', async () => {
     const { code, ausgabe } = await pruefer(['--from-file', FIX('charge-korrekt.json'), '--nur-struktur'])
     expect(ausgabe).toContain('Charge-Format')

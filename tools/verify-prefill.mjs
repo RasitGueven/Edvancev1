@@ -34,7 +34,10 @@ const VERBOTEN = /gemeistert|meisterst|mastered|beherrscht/i;
 
 export async function pruefePrefill(opt) {
   const { charge, stand } = ladeCharge(opt.charge, opt.snapshot);
-  const blind = opt.blind ? JSON.parse(fs.readFileSync(opt.blind, 'utf8')) : [];
+  // Zwei Formate: alt {id, teil, antwort, eindeutig} und das des Blind-Loeser-Ablaufs
+  // (tools/blind-loeser) {task_id, part, antwort, unsicher: 'ja'|'nein'}.
+  const blind = (opt.blind ? JSON.parse(fs.readFileSync(opt.blind, 'utf8')) : []).map((r) => (r.task_id == null ? r
+    : { id: r.task_id, teil: r.part ?? null, antwort: r.antwort, eindeutig: r.unsicher !== 'ja', anmerkung: r.anmerkung ?? '' }));
   const fehler = [], bestand = [], rechnung = [], abgleich = [];
   const bilanz = new Map(); // feld -> { vorher, jetzt, leer, offen }
   // ── 0. VERA8 wird nie vorbefuellt ──

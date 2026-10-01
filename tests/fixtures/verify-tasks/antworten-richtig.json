@@ -1,0 +1,6 @@
+[
+  { "task_id": "aw-01", "part": null, "antwort": " 42 ", "unsicher": "nein" },
+  { "task_id": "aw-02", "part": null, "antwort": "−7", "unsicher": "nein" },
+  { "task_id": "aw-03", "part": null, "antwort": "3.334", "unsicher": "nein" },
+  { "task_id": "aw-04", "part": null, "antwort": "B", "unsicher": "ja", "anmerkung": "Probe" }
+]
