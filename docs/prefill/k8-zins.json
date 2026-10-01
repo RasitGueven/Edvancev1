@@ -1,0 +1,3511 @@
+{
+ "batch": "k8-zins",
+ "kopf": [
+  "K8 Zinsrechnung, Migration 2 von 2 — 30 Aufgaben: je sechs zu den vier prozent_zins_*-Knoten, sechs zur Auffuellung von potenzen.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k8-zins.json (Quelle: tools/k8-zins-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261001123347_substrat_k8_zins.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Neue Aufgaben: je Zins-Knoten vier reine Anwendung mit steigender Schwierigkeit und zwei mit Sachkontext oder Rückrichtung (Sparen, Kredit, Ratenkauf, Überziehung, Preisänderung); dazu sechs potenzen-Aufgaben (Hochzahl 2 und 3, Dezimalbasis, Wachstumsfaktor), die auch der Kreis-Lauf nutzt. Teilzinsen nach kaufmännischer Konvention (30/360) im Aufgabentext; Zinseszins-Endkapital höchstens drei Jahre; alle Beträge unter 1000 €.",
+ "source": "edvance_k8_zins",
+ "ohne_sondierrang": [
+  "potenzen"
+ ],
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie im Pilot/Vorlauf: AFB I 45 s, AFB II 60 s, AFB III 90 s; +30 s bei Sachkontext (Konsumsituation, die erst übersetzt werden muss). Nüchterne Zinsaufgaben mit Kapital und Zinssatz zählen als reine Anwendung.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "cee0061d-f262-48bc-a206-884b75fedbd4",
+   "titel": "Jahreszinsen · Guthaben 600 € zu 3 %",
+   "basis": {
+    "skill_key": "prozent_zins_jahreszins",
+    "source_ref": "zins-jahreszins-01",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 600 € wird ein Jahr lang mit einem Zinssatz von 3 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?",
+    "known_errors": {
+     "618": "falsche_groesse_beantwortet",
+     "1800": "dezimalverschiebung",
+     "1800 €": "dezimalverschiebung",
+     "1800€": "dezimalverschiebung",
+     "618 €": "falsche_groesse_beantwortet",
+     "618€": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Prozentwert mit ganzzahligem Zinssatz, ein Schritt."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "18",
+      "18 €",
+      "18€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Jahreszinsen = Kapital · p/100\nZ = 600 € · 3/100 = 18 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit 3 statt mit 3/100 gerechnet: 600 · 3 = 1800.",
+       "socratic_question": "Wie viel sind 3 % – 3 Ganze oder 3 Hundertstel?"
+      },
+      {
+       "error": "Neuen Kontostand statt der Zinsen angegeben: 600 + 18 = 618.",
+       "socratic_question": "Gefragt sind die Zinsen – ist das der ganze Kontostand oder nur der Teil, der dazukommt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (dezimalverschiebung, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "600*3/100",
+     "antwort": "18"
+    },
+    {
+     "rechnung": "600*3",
+     "antwort": "1800",
+     "rolle": "fehlbild:dezimalverschiebung"
+    },
+    {
+     "rechnung": "600+600*3/100",
+     "antwort": "618",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "972862f3-5dfd-4c56-8509-15d15cec91dc",
+   "titel": "Jahreszinsen · Guthaben 850 € zu 2 %",
+   "basis": {
+    "skill_key": "prozent_zins_jahreszins",
+    "source_ref": "zins-jahreszins-02",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 850 € wird ein Jahr lang mit einem Zinssatz von 2 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?",
+    "known_errors": {
+     "867": "falsche_groesse_beantwortet",
+     "1700": "dezimalverschiebung",
+     "1700 €": "dezimalverschiebung",
+     "1700€": "dezimalverschiebung",
+     "867 €": "falsche_groesse_beantwortet",
+     "867€": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Prozentwert, ein Schritt; Kapital nicht rund."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "17",
+      "17 €",
+      "17€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Z = 850 € · 2/100 = 17 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit 2 statt mit 2/100 gerechnet: 850 · 2 = 1700.",
+       "socratic_question": "Wie viel sind 2 % von 100 €? Passt das zu deinem Ergebnis?"
+      },
+      {
+       "error": "Neuen Kontostand statt der Zinsen angegeben: 850 + 17 = 867.",
+       "socratic_question": "Gefragt sind die Zinsen – welcher Teil deiner Rechnung ist neu dazugekommen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (dezimalverschiebung, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "850*2/100",
+     "antwort": "17"
+    },
+    {
+     "rechnung": "850*2",
+     "antwort": "1700",
+     "rolle": "fehlbild:dezimalverschiebung"
+    },
+    {
+     "rechnung": "850+850*2/100",
+     "antwort": "867",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "e8d5acdb-b1fd-4b74-8f18-2509c300cf90",
+   "titel": "Jahreszinsen · Guthaben 640 € zu 2,5 %",
+   "basis": {
+    "skill_key": "prozent_zins_jahreszins",
+    "source_ref": "zins-jahreszins-03",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 640 € wird ein Jahr lang mit einem Zinssatz von 2,5 % verzinst.\n\nWie viel Euro Zinsen gibt es nach einem Jahr?",
+    "known_errors": {
+     "656": "falsche_groesse_beantwortet",
+     "1600": "dezimalverschiebung",
+     "1600 €": "dezimalverschiebung",
+     "1600€": "dezimalverschiebung",
+     "656 €": "falsche_groesse_beantwortet",
+     "656€": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Zinssatz als Dezimalzahl, Prozentwert nicht im Kopf ablesbar."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "16",
+      "16 €",
+      "16€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Z = 640 € · 2,5/100 = 640 € · 0,025 = 16 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit 2,5 statt mit 2,5/100 gerechnet: 640 · 2,5 = 1600.",
+       "socratic_question": "Was bedeutet „Prozent\" – von wie vielen Teilen ist die Rede?"
+      },
+      {
+       "error": "Neuen Kontostand statt der Zinsen angegeben: 640 + 16 = 656.",
+       "socratic_question": "Sind die Zinsen der ganze Betrag auf dem Konto oder nur das, was dazukommt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (dezimalverschiebung, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "640*2.5/100",
+     "antwort": "16"
+    },
+    {
+     "rechnung": "640*2.5",
+     "antwort": "1600",
+     "rolle": "fehlbild:dezimalverschiebung"
+    },
+    {
+     "rechnung": "640+640*2.5/100",
+     "antwort": "656",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "ea141d44-521e-4250-a4bd-d9aa8e159238",
+   "titel": "Jahreszinsen · Kontostand nach einem Jahr · 480 € zu 3,5 %",
+   "basis": {
+    "skill_key": "prozent_zins_jahreszins",
+    "source_ref": "zins-jahreszins-04",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Auf ein Sparkonto werden 480 € eingezahlt. Der Zinssatz beträgt 3,5 % pro Jahr. Die Zinsen werden nach einem Jahr dem Konto gutgeschrieben.\n\nWie viel Euro sind nach einem Jahr auf dem Konto?",
+    "known_errors": {
+     "2160": "dezimalverschiebung",
+     "16,80": "nur_prozentwert",
+     "16.80": "nur_prozentwert",
+     "16,8": "nur_prozentwert",
+     "16.8": "nur_prozentwert",
+     "16,80 €": "nur_prozentwert",
+     "16,80€": "nur_prozentwert",
+     "16,8 €": "nur_prozentwert",
+     "16,8€": "nur_prozentwert",
+     "2160 €": "dezimalverschiebung",
+     "2160€": "dezimalverschiebung"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: zwei Schritte (Zinsen, dann Kontostand); Ergebnis mit Cent."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "496,80",
+      "496.80",
+      "496,8",
+      "496.8",
+      "496,80 €",
+      "496,80€",
+      "496,8 €",
+      "496,8€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Zinsen: 480 € · 3,5/100 = 16,80 €.\nKontostand: 480 € + 16,80 € = 496,80 €.\n(Oder in einem Schritt: 480 € · 1,035 = 496,80 €.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Zinsen angegeben (16,80 €), nicht den Kontostand.",
+       "socratic_question": "Was steht nach einem Jahr auf dem Konto – nur die Zinsen oder auch das eingezahlte Geld?"
+      },
+      {
+       "error": "Mit 3,5 statt mit 3,5/100 gerechnet: 480 + 480 · 3,5 = 2160.",
+       "socratic_question": "Kann das Geld in einem Jahr mit 3,5 % auf mehr als das Vierfache wachsen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_prozentwert, dezimalverschiebung)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "480+480*3.5/100",
+     "antwort": "496,80"
+    },
+    {
+     "rechnung": "480*3.5/100",
+     "antwort": "16,80",
+     "rolle": "fehlbild:nur_prozentwert"
+    },
+    {
+     "rechnung": "480+480*3.5",
+     "antwort": "2160",
+     "rolle": "fehlbild:dezimalverschiebung"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "0e82ae91-8c55-4c75-ad2c-ef8ffb5649ad",
+   "titel": "Jahreszinsen · Kredit 900 € zu 6 % · Rückzahlung",
+   "basis": {
+    "skill_key": "prozent_zins_jahreszins",
+    "source_ref": "zins-jahreszins-05",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Für einen Kredit über 900 € verlangt ein Händler 6 % Zinsen pro Jahr. Nach einem Jahr wird der Kredit zusammen mit den Zinsen auf einmal zurückgezahlt.\n\nWie viel Euro werden insgesamt zurückgezahlt?",
+    "known_errors": {
+     "54": "nur_prozentwert",
+     "6300": "dezimalverschiebung",
+     "54 €": "nur_prozentwert",
+     "54€": "nur_prozentwert",
+     "6300 €": "dezimalverschiebung",
+     "6300€": "dezimalverschiebung"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext Kredit: Rückzahlung = Kredit + Zinsen, die Situation muss übersetzt werden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "954",
+      "954 €",
+      "954€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Zinsen: 900 € · 6/100 = 54 €.\nRückzahlung: 900 € + 54 € = 954 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Zinsen angegeben (54 €), nicht den ganzen Rückzahlungsbetrag.",
+       "socratic_question": "Was muss nach einem Jahr zurückgegeben werden – nur die Zinsen oder auch das geliehene Geld?"
+      },
+      {
+       "error": "Mit 6 statt mit 6/100 gerechnet: 900 + 900 · 6 = 6300.",
+       "socratic_question": "Wären 6 % Zinsen mehr als das Sechsfache des Kredits?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_prozentwert, dezimalverschiebung)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "900+900*6/100",
+     "antwort": "954"
+    },
+    {
+     "rechnung": "900*6/100",
+     "antwort": "54",
+     "rolle": "fehlbild:nur_prozentwert"
+    },
+    {
+     "rechnung": "900+900*6",
+     "antwort": "6300",
+     "rolle": "fehlbild:dezimalverschiebung"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "f899a57b-8fec-459b-849c-d8ffaa51ee5e",
+   "titel": "Jahreszinsen · zwei Sparangebote vergleichen · 750 €",
+   "basis": {
+    "skill_key": "prozent_zins_jahreszins",
+    "source_ref": "zins-jahreszins-06",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Für 750 € gibt es zwei Sparangebote für ein Jahr:\nAngebot A: 2 % Zinsen.\nAngebot B: 1,5 % Zinsen und zusätzlich 5 € Bonus.\n\nUm wie viel Euro bringt das bessere Angebot mehr als das andere?",
+    "known_errors": {
+     "3,75": "bedingung_unvollstaendig",
+     "3.75": "bedingung_unvollstaendig",
+     "3,75 €": "bedingung_unvollstaendig",
+     "3,75€": "bedingung_unvollstaendig",
+     "16,25": "falsche_groesse_beantwortet",
+     "16.25": "falsche_groesse_beantwortet",
+     "16,25 €": "falsche_groesse_beantwortet",
+     "16,25€": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: zwei Angebote modellieren, den Bonus einbeziehen, vergleichen und die Differenz bilden – Rechenweg selbst wählen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1,25",
+      "1.25",
+      "1,25 €",
+      "1,25€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Angebot A: 750 € · 2/100 = 15 €.\nAngebot B: 750 € · 1,5/100 + 5 € = 11,25 € + 5 € = 16,25 €.\nB bringt mehr: 16,25 € − 15 € = 1,25 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bonus nicht berücksichtigt: 15 − 11,25 = 3,75.",
+       "socratic_question": "Welche Angabe zu Angebot B hast du noch nicht verwendet?"
+      },
+      {
+       "error": "Den Ertrag von Angebot B angegeben statt des Unterschieds.",
+       "socratic_question": "Gefragt ist, um wie viel B mehr bringt – was musst du dafür noch rechnen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (bedingung_unvollstaendig, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(750*1.5/100+5)-(750*2/100)",
+     "antwort": "1,25"
+    },
+    {
+     "rechnung": "750*2/100-750*1.5/100",
+     "antwort": "3,75",
+     "rolle": "fehlbild:bedingung_unvollstaendig"
+    },
+    {
+     "rechnung": "750*1.5/100+5",
+     "antwort": "16,25",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "b0e9c1c6-561a-44ca-8903-62d4c8495b63",
+   "titel": "Teilzinsen · 600 € zu 4 % für 3 Monate",
+   "basis": {
+    "skill_key": "prozent_zins_teilzins",
+    "source_ref": "zins-teilzins-01",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 600 € wird mit einem Zinssatz von 4 % pro Jahr verzinst. Das Geld bleibt nur 3 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 3 Monate?",
+    "known_errors": {
+     "24": "zeitfaktor_vergessen",
+     "24 €": "zeitfaktor_vergessen",
+     "24€": "zeitfaktor_vergessen",
+     "0,72": "zinszeit_falsch_umgerechnet",
+     "0.72": "zinszeit_falsch_umgerechnet",
+     "0,72 €": "zinszeit_falsch_umgerechnet",
+     "0,72€": "zinszeit_falsch_umgerechnet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Jahreszinsen, dann ein glatter Zeitanteil (ein Viertel Jahr)."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6",
+      "6 €",
+      "6€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Jahreszinsen: 600 € · 4/100 = 24 €.\n3 Monate sind 3/12 = 1/4 Jahr.\nZinsen: 24 € · 3/12 = 6 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Zinsen für ein ganzes Jahr angegeben: 24 €.",
+       "socratic_question": "Für wie lange gilt der Zinssatz von 4 % – und wie lange liegt das Geld auf dem Konto?"
+      },
+      {
+       "error": "Monate durch 100 statt durch 12 geteilt: 24 · 3/100 = 0,72.",
+       "socratic_question": "Wie viele Monate hat ein Jahr?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeitfaktor_vergessen, zinszeit_falsch_umgerechnet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "600*4/100*3/12",
+     "antwort": "6"
+    },
+    {
+     "rechnung": "600*4/100",
+     "antwort": "24",
+     "rolle": "fehlbild:zeitfaktor_vergessen"
+    },
+    {
+     "rechnung": "600*4/100*3/100",
+     "antwort": "0,72",
+     "rolle": "fehlbild:zinszeit_falsch_umgerechnet"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "e9ac2c93-9310-446d-966b-c08e55253361",
+   "titel": "Teilzinsen · 800 € zu 3 % für 5 Monate",
+   "basis": {
+    "skill_key": "prozent_zins_teilzins",
+    "source_ref": "zins-teilzins-02",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 800 € wird mit einem Zinssatz von 3 % pro Jahr verzinst. Das Geld bleibt 5 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 5 Monate?",
+    "known_errors": {
+     "24": "zeitfaktor_vergessen",
+     "120": "zinszeit_falsch_umgerechnet",
+     "24 €": "zeitfaktor_vergessen",
+     "24€": "zeitfaktor_vergessen",
+     "120 €": "zinszeit_falsch_umgerechnet",
+     "120€": "zinszeit_falsch_umgerechnet",
+     "1,2": "zinszeit_falsch_umgerechnet",
+     "1.2": "zinszeit_falsch_umgerechnet",
+     "1,20": "zinszeit_falsch_umgerechnet",
+     "1.20": "zinszeit_falsch_umgerechnet",
+     "1,2 €": "zinszeit_falsch_umgerechnet",
+     "1,2€": "zinszeit_falsch_umgerechnet",
+     "1,20 €": "zinszeit_falsch_umgerechnet",
+     "1,20€": "zinszeit_falsch_umgerechnet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: wie Teilzins-01, Zeitanteil 5/12 ergibt glatt 10 €."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "10 €",
+      "10€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Jahreszinsen: 800 € · 3/100 = 24 €.\nZinsen für 5 Monate: 24 € · 5/12 = 10 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Zinsen für ein ganzes Jahr angegeben: 24 €.",
+       "socratic_question": "Liegt das Geld ein ganzes Jahr auf dem Konto?"
+      },
+      {
+       "error": "Mit 5 Jahren statt 5 Monaten gerechnet: 24 · 5 = 120.",
+       "socratic_question": "Sind 5 Monate mehr oder weniger als ein Jahr?"
+      },
+      {
+       "error": "Monate durch 100 statt durch 12 geteilt: 24 · 5/100 = 1,2.",
+       "socratic_question": "Welcher Teil eines Jahres sind 5 Monate?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeitfaktor_vergessen, zinszeit_falsch_umgerechnet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "800*3/100*5/12",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "800*3/100",
+     "antwort": "24",
+     "rolle": "fehlbild:zeitfaktor_vergessen"
+    },
+    {
+     "rechnung": "800*3/100*5",
+     "antwort": "120",
+     "rolle": "fehlbild:zinszeit_falsch_umgerechnet"
+    },
+    {
+     "rechnung": "800*3/100*5/100",
+     "antwort": "1,2",
+     "rolle": "fehlbild:zinszeit_falsch_umgerechnet"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "7b761feb-7873-48c8-99cc-c2106ae5d530",
+   "titel": "Teilzinsen · 720 € zu 5 % für 40 Tage",
+   "basis": {
+    "skill_key": "prozent_zins_teilzins",
+    "source_ref": "zins-teilzins-03",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 720 € wird mit einem Zinssatz von 5 % pro Jahr verzinst. Das Geld bleibt 40 Tage auf dem Konto.\nRechne wie bei Banken üblich: 1 Monat = 30 Tage, 1 Jahr = 360 Tage.\n\nWie viel Euro Zinsen gibt es für diese 40 Tage?",
+    "known_errors": {
+     "36": "zeitfaktor_vergessen",
+     "1440": "zinszeit_falsch_umgerechnet",
+     "36 €": "zeitfaktor_vergessen",
+     "36€": "zeitfaktor_vergessen",
+     "14,40": "zinszeit_falsch_umgerechnet",
+     "14.40": "zinszeit_falsch_umgerechnet",
+     "14,4": "zinszeit_falsch_umgerechnet",
+     "14.4": "zinszeit_falsch_umgerechnet",
+     "14,40 €": "zinszeit_falsch_umgerechnet",
+     "14,40€": "zinszeit_falsch_umgerechnet",
+     "14,4 €": "zinszeit_falsch_umgerechnet",
+     "14,4€": "zinszeit_falsch_umgerechnet",
+     "1440 €": "zinszeit_falsch_umgerechnet",
+     "1440€": "zinszeit_falsch_umgerechnet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Zeitanteil in Tagen nach der 360-Tage-Konvention."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "4 €",
+      "4€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Jahreszinsen: 720 € · 5/100 = 36 €.\n40 Tage sind 40/360 Jahr.\nZinsen: 36 € · 40/360 = 4 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Zinsen für ein ganzes Jahr angegeben: 36 €.",
+       "socratic_question": "Für welchen Zeitraum gilt der Zinssatz – und wie lange liegt das Geld auf dem Konto?"
+      },
+      {
+       "error": "Tage durch 100 statt durch 360 geteilt: 36 · 40/100 = 14,40.",
+       "socratic_question": "Wie viele Tage hat ein Zinsjahr laut Aufgabe?"
+      },
+      {
+       "error": "Mit 40 Jahren statt 40 Tagen gerechnet: 36 · 40 = 1440.",
+       "socratic_question": "Sind 40 Tage mehr oder weniger als ein Jahr?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeitfaktor_vergessen, zinszeit_falsch_umgerechnet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "720*5/100*40/360",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "720*5/100",
+     "antwort": "36",
+     "rolle": "fehlbild:zeitfaktor_vergessen"
+    },
+    {
+     "rechnung": "720*5/100*40/100",
+     "antwort": "14,40",
+     "rolle": "fehlbild:zinszeit_falsch_umgerechnet"
+    },
+    {
+     "rechnung": "720*5/100*40",
+     "antwort": "1440",
+     "rolle": "fehlbild:zinszeit_falsch_umgerechnet"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "745351dc-794d-4939-9c33-fea2492bd8ff",
+   "titel": "Teilzinsen · 900 € zu 2,5 % für 8 Monate",
+   "basis": {
+    "skill_key": "prozent_zins_teilzins",
+    "source_ref": "zins-teilzins-04",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 900 € wird mit einem Zinssatz von 2,5 % pro Jahr verzinst. Das Geld bleibt 8 Monate auf dem Konto.\n\nWie viel Euro Zinsen gibt es für diese 8 Monate?",
+    "known_errors": {
+     "22,50": "zeitfaktor_vergessen",
+     "22.50": "zeitfaktor_vergessen",
+     "22,5": "zeitfaktor_vergessen",
+     "22.5": "zeitfaktor_vergessen",
+     "22,50 €": "zeitfaktor_vergessen",
+     "22,50€": "zeitfaktor_vergessen",
+     "22,5 €": "zeitfaktor_vergessen",
+     "22,5€": "zeitfaktor_vergessen",
+     "1,80": "zinszeit_falsch_umgerechnet",
+     "1.80": "zinszeit_falsch_umgerechnet",
+     "1,8": "zinszeit_falsch_umgerechnet",
+     "1.8": "zinszeit_falsch_umgerechnet",
+     "1,80 €": "zinszeit_falsch_umgerechnet",
+     "1,80€": "zinszeit_falsch_umgerechnet",
+     "1,8 €": "zinszeit_falsch_umgerechnet",
+     "1,8€": "zinszeit_falsch_umgerechnet",
+     "15,08": "zu_frueh_gerundet",
+     "15.08": "zu_frueh_gerundet",
+     "15,08 €": "zu_frueh_gerundet",
+     "15,08€": "zu_frueh_gerundet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Dezimal-Zinssatz und Zeitanteil 8/12, der als Dezimalzahl nicht aufgeht."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "15",
+      "15 €",
+      "15€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Jahreszinsen: 900 € · 2,5/100 = 22,50 €.\nZinsen für 8 Monate: 22,50 € · 8/12 = 15 €.\n(Den Zeitanteil 8/12 als Bruch stehen lassen, nicht vorher runden.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Zinsen für ein ganzes Jahr angegeben: 22,50 €.",
+       "socratic_question": "Wie lange liegt das Geld auf dem Konto – und für wie lange gilt der Zinssatz?"
+      },
+      {
+       "error": "Monate durch 100 statt durch 12 geteilt: 22,50 · 8/100 = 1,80.",
+       "socratic_question": "Welcher Bruchteil eines Jahres sind 8 Monate?"
+      },
+      {
+       "error": "Zeitanteil 8/12 auf 0,67 gerundet und weitergerechnet: 22,50 · 0,67 = 15,08 (gerundet).",
+       "socratic_question": "Was passiert mit dem Ergebnis, wenn du 8/12 vor dem Multiplizieren rundest?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeitfaktor_vergessen, zinszeit_falsch_umgerechnet, zu_frueh_gerundet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "900*2.5/100*8/12",
+     "antwort": "15"
+    },
+    {
+     "rechnung": "900*2.5/100",
+     "antwort": "22,50",
+     "rolle": "fehlbild:zeitfaktor_vergessen"
+    },
+    {
+     "rechnung": "900*2.5/100*8/100",
+     "antwort": "1,80",
+     "rolle": "fehlbild:zinszeit_falsch_umgerechnet"
+    },
+    {
+     "rechnung": "round(900*2.5/100*0.67,2)",
+     "antwort": "15,08",
+     "rolle": "fehlbild:zu_frueh_gerundet"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "663cac41-81da-41a8-9092-b63e0101e769",
+   "titel": "Teilzinsen · überzogenes Konto · 500 € zu 12 % für 50 Tage",
+   "basis": {
+    "skill_key": "prozent_zins_teilzins",
+    "source_ref": "zins-teilzins-05",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Girokonto ist 50 Tage lang um 500 € überzogen. Für die Überziehung verlangt die Bank 12 % Zinsen pro Jahr.\nRechne wie bei Banken üblich: 1 Monat = 30 Tage, 1 Jahr = 360 Tage. Runde das Ergebnis auf Cent.\n\nWie viel Euro Zinsen muss man für die 50 Tage zahlen?",
+    "known_errors": {
+     "30": "zinszeit_falsch_umgerechnet",
+     "60": "zeitfaktor_vergessen",
+     "60 €": "zeitfaktor_vergessen",
+     "60€": "zeitfaktor_vergessen",
+     "30 €": "zinszeit_falsch_umgerechnet",
+     "30€": "zinszeit_falsch_umgerechnet",
+     "8,40": "zu_frueh_gerundet",
+     "8.40": "zu_frueh_gerundet",
+     "8,4": "zu_frueh_gerundet",
+     "8.4": "zu_frueh_gerundet",
+     "8,40 €": "zu_frueh_gerundet",
+     "8,40€": "zu_frueh_gerundet",
+     "8,4 €": "zu_frueh_gerundet",
+     "8,4€": "zu_frueh_gerundet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext Überziehung: Situation übersetzen, Tage-Konvention, Rundung erst am Ende."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8,33",
+      "8.33",
+      "8,33 €",
+      "8,33€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Jahreszinsen: 500 € · 12/100 = 60 €.\nZinsen für 50 Tage: 60 € · 50/360 = 8,333… €.\nAuf Cent gerundet: 8,33 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Zinsen für ein ganzes Jahr angegeben: 60 €.",
+       "socratic_question": "Wie lange war das Konto überzogen?"
+      },
+      {
+       "error": "Tage durch 100 statt durch 360 geteilt: 60 · 50/100 = 30.",
+       "socratic_question": "Wie viele Tage zählt ein Zinsjahr laut Aufgabe?"
+      },
+      {
+       "error": "Zeitanteil 50/360 auf 0,14 gerundet: 60 · 0,14 = 8,40.",
+       "socratic_question": "Wann solltest du runden – beim Zeitanteil oder erst beim Ergebnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeitfaktor_vergessen, zinszeit_falsch_umgerechnet, zu_frueh_gerundet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(500*12/100*50/360,2)",
+     "antwort": "8,33"
+    },
+    {
+     "rechnung": "500*12/100",
+     "antwort": "60",
+     "rolle": "fehlbild:zeitfaktor_vergessen"
+    },
+    {
+     "rechnung": "500*12/100*50/100",
+     "antwort": "30",
+     "rolle": "fehlbild:zinszeit_falsch_umgerechnet"
+    },
+    {
+     "rechnung": "500*12/100*0.14",
+     "antwort": "8,40",
+     "rolle": "fehlbild:zu_frueh_gerundet"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "2503c8e9-2f40-494e-865c-687d7256a771",
+   "titel": "Teilzinsen · Fahrrad finanziert · 840 € zu 9 % für 7 Monate",
+   "basis": {
+    "skill_key": "prozent_zins_teilzins",
+    "source_ref": "zins-teilzins-06",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Fahrrad kostet 840 €. Der Händler bietet an, den Preis erst später zu bezahlen. Dafür verlangt er 9 % Zinsen pro Jahr. Nach 7 Monaten wird alles auf einmal bezahlt.\n\nWie viel Euro werden insgesamt bezahlt?",
+    "known_errors": {
+     "44,10": "nur_prozentwert",
+     "44.10": "nur_prozentwert",
+     "44,1": "nur_prozentwert",
+     "44.1": "nur_prozentwert",
+     "44,10 €": "nur_prozentwert",
+     "44,10€": "nur_prozentwert",
+     "44,1 €": "nur_prozentwert",
+     "44,1€": "nur_prozentwert",
+     "915,60": "zeitfaktor_vergessen",
+     "915.60": "zeitfaktor_vergessen",
+     "915,6": "zeitfaktor_vergessen",
+     "915.6": "zeitfaktor_vergessen",
+     "915,60 €": "zeitfaktor_vergessen",
+     "915,60€": "zeitfaktor_vergessen",
+     "915,6 €": "zeitfaktor_vergessen",
+     "915,6€": "zeitfaktor_vergessen",
+     "883,85": "zu_frueh_gerundet",
+     "883.85": "zu_frueh_gerundet",
+     "883,85 €": "zu_frueh_gerundet",
+     "883,85€": "zu_frueh_gerundet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen im Sachkontext Ratenkauf: Teilzinsen mit Zeitanteil 7/12, danach zum Preis addieren; mehrere Schritte selbst ordnen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "884,10",
+      "884.10",
+      "884,1",
+      "884.1",
+      "884,10 €",
+      "884,10€",
+      "884,1 €",
+      "884,1€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Jahreszinsen: 840 € · 9/100 = 75,60 €.\nZinsen für 7 Monate: 75,60 € · 7/12 = 44,10 €.\nGesamt: 840 € + 44,10 € = 884,10 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Zinsen angegeben (44,10 €), nicht den Gesamtbetrag.",
+       "socratic_question": "Was wird nach 7 Monaten bezahlt – nur die Zinsen oder auch das Fahrrad?"
+      },
+      {
+       "error": "Zinsen für ein ganzes Jahr gerechnet: 840 + 75,60 = 915,60.",
+       "socratic_question": "Für wie viele Monate fallen Zinsen an?"
+      },
+      {
+       "error": "Zeitanteil 7/12 auf 0,58 gerundet: 75,60 · 0,58 ≈ 43,85, also 883,85.",
+       "socratic_question": "Was ändert sich, wenn du 7/12 als Bruch stehen lässt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_prozentwert, zeitfaktor_vergessen, zu_frueh_gerundet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "840+840*9/100*7/12",
+     "antwort": "884,10"
+    },
+    {
+     "rechnung": "840*9/100*7/12",
+     "antwort": "44,10",
+     "rolle": "fehlbild:nur_prozentwert"
+    },
+    {
+     "rechnung": "840+840*9/100",
+     "antwort": "915,60",
+     "rolle": "fehlbild:zeitfaktor_vergessen"
+    },
+    {
+     "rechnung": "840+round(840*9/100*0.58,2)",
+     "antwort": "883,85",
+     "rolle": "fehlbild:zu_frueh_gerundet"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "d0b5af07-3cd8-4da1-85ed-6a3e57cffc34",
+   "titel": "Rückrechnung · Kapital aus 28 € Zinsen bei 4 %",
+   "basis": {
+    "skill_key": "prozent_zins_rueckrechnung",
+    "source_ref": "zins-rueckrechnung-01",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben bringt bei einem Zinssatz von 4 % in einem Jahr 28 € Zinsen.\n\nWie viel Euro beträgt das Guthaben?",
+    "known_errors": {
+     "7": "faktor_100_vergessen",
+     "1,12": "multipliziert_statt_dividiert",
+     "1.12": "multipliziert_statt_dividiert",
+     "1,12 €": "multipliziert_statt_dividiert",
+     "1,12€": "multipliziert_statt_dividiert",
+     "7 €": "faktor_100_vergessen",
+     "7€": "faktor_100_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Grundwert aus Prozentwert und glattem Prozentsatz."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "700",
+      "700 €",
+      "700€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "4 % des Guthabens sind 28 €.\n1 % sind 28 € : 4 = 7 €.\n100 % sind 7 € · 100 = 700 €.\nProbe: 700 € · 4/100 = 28 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Multipliziert statt dividiert: 28 · 4/100 = 1,12.",
+       "socratic_question": "Ist das Guthaben größer oder kleiner als die Zinsen?"
+      },
+      {
+       "error": "Nur 1 % ausgerechnet: 28 : 4 = 7.",
+       "socratic_question": "Für wie viel Prozent steht dein Ergebnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (multipliziert_statt_dividiert, faktor_100_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "28*100/4",
+     "antwort": "700"
+    },
+    {
+     "probe": "A*4/100",
+     "antwort": "700",
+     "soll": "28",
+     "rolle": "probe"
+    },
+    {
+     "rechnung": "28*4/100",
+     "antwort": "1,12",
+     "rolle": "fehlbild:multipliziert_statt_dividiert"
+    },
+    {
+     "rechnung": "28/4",
+     "antwort": "7",
+     "rolle": "fehlbild:faktor_100_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "2d5e6e81-1f81-462c-8b70-db43a7454bb4",
+   "titel": "Rückrechnung · Zinssatz aus 15 € Zinsen bei 500 €",
+   "basis": {
+    "skill_key": "prozent_zins_rueckrechnung",
+    "source_ref": "zins-rueckrechnung-02",
+    "input_type": "NUMERIC",
+    "unit": "%",
+    "frage": "Ein Guthaben von 500 € bringt in einem Jahr 15 € Zinsen.\n\nWie hoch ist der Zinssatz in Prozent?",
+    "known_errors": {
+     "0,03": "faktor_100_vergessen",
+     "0.03": "faktor_100_vergessen",
+     "0,03 %": "faktor_100_vergessen",
+     "0,03%": "faktor_100_vergessen",
+     "33,33": "bezug_vertauscht",
+     "33.33": "bezug_vertauscht",
+     "33,33 %": "bezug_vertauscht",
+     "33,33%": "bezug_vertauscht",
+     "33,3": "bezug_vertauscht",
+     "33.3": "bezug_vertauscht",
+     "33,3 %": "bezug_vertauscht",
+     "33,3%": "bezug_vertauscht"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Prozentsatz aus zwei glatten Werten."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "3",
+      "3 %",
+      "3%"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "p % = Zinsen : Kapital = 15 € : 500 € = 0,03 = 3 %.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Als Dezimalzahl stehen gelassen: 0,03 statt 3 %.",
+       "socratic_question": "Wie schreibst du 0,03 in Prozent?"
+      },
+      {
+       "error": "Kapital durch Zinsen geteilt: 500 : 15 ≈ 33,33.",
+       "socratic_question": "Welcher Betrag ist der Anteil und welcher das Ganze?"
+      },
+      {
+       "error": "Kapital durch Zinsen geteilt: 500 : 15 ≈ 33,3.",
+       "socratic_question": "Welcher Betrag ist der Anteil und welcher das Ganze?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (faktor_100_vergessen, bezug_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "15/500*100",
+     "antwort": "3"
+    },
+    {
+     "rechnung": "15/500",
+     "antwort": "0,03",
+     "rolle": "fehlbild:faktor_100_vergessen"
+    },
+    {
+     "rechnung": "round(500/15,2)",
+     "antwort": "33,33",
+     "rolle": "fehlbild:bezug_vertauscht"
+    },
+    {
+     "rechnung": "round(500/15,1)",
+     "antwort": "33,3",
+     "rolle": "fehlbild:bezug_vertauscht"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "53f6be59-aaa0-450d-af10-6c9570a39ca9",
+   "titel": "Rückrechnung · Kapital aus 21 € Zinsen bei 3,5 %",
+   "basis": {
+    "skill_key": "prozent_zins_rueckrechnung",
+    "source_ref": "zins-rueckrechnung-03",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben bringt bei einem Zinssatz von 3,5 % in einem Jahr 21 € Zinsen.\n\nWie viel Euro beträgt das Guthaben?",
+    "known_errors": {
+     "6": "faktor_100_vergessen",
+     "0,735": "multipliziert_statt_dividiert",
+     "0.735": "multipliziert_statt_dividiert",
+     "0,735 €": "multipliziert_statt_dividiert",
+     "0,735€": "multipliziert_statt_dividiert",
+     "73,5": "multipliziert_statt_dividiert",
+     "73.5": "multipliziert_statt_dividiert",
+     "73,50": "multipliziert_statt_dividiert",
+     "73.50": "multipliziert_statt_dividiert",
+     "73,5 €": "multipliziert_statt_dividiert",
+     "73,5€": "multipliziert_statt_dividiert",
+     "73,50 €": "multipliziert_statt_dividiert",
+     "73,50€": "multipliziert_statt_dividiert",
+     "6 €": "faktor_100_vergessen",
+     "6€": "faktor_100_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Grundwert mit Dezimal-Zinssatz, Dreisatz nicht im Kopf."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "600",
+      "600 €",
+      "600€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Kapital = Zinsen : p/100 = 21 € : 0,035 = 600 €.\nProbe: 600 € · 3,5/100 = 21 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Multipliziert statt dividiert: 21 · 3,5/100 = 0,735.",
+       "socratic_question": "Muss das Guthaben größer oder kleiner sein als 21 €?"
+      },
+      {
+       "error": "Multipliziert statt dividiert: 21 · 3,5 = 73,5.",
+       "socratic_question": "Wenn du die Probe machst: Ergeben 3,5 % von deinem Ergebnis wirklich 21 €?"
+      },
+      {
+       "error": "Nur 1 % ausgerechnet: 21 : 3,5 = 6.",
+       "socratic_question": "Für wie viel Prozent steht dein Ergebnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (multipliziert_statt_dividiert, faktor_100_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "21*100/3.5",
+     "antwort": "600"
+    },
+    {
+     "probe": "A*3.5/100",
+     "antwort": "600",
+     "soll": "21",
+     "rolle": "probe"
+    },
+    {
+     "rechnung": "21*3.5/100",
+     "antwort": "0,735",
+     "rolle": "fehlbild:multipliziert_statt_dividiert"
+    },
+    {
+     "rechnung": "21*3.5",
+     "antwort": "73,5",
+     "rolle": "fehlbild:multipliziert_statt_dividiert"
+    },
+    {
+     "rechnung": "21/3.5",
+     "antwort": "6",
+     "rolle": "fehlbild:faktor_100_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "86f705e2-6364-4749-8faf-c031e6bf7110",
+   "titel": "Rückrechnung · Zinssatz aus 20,80 € Zinsen bei 640 €",
+   "basis": {
+    "skill_key": "prozent_zins_rueckrechnung",
+    "source_ref": "zins-rueckrechnung-04",
+    "input_type": "NUMERIC",
+    "unit": "%",
+    "frage": "Ein Guthaben von 640 € bringt in einem Jahr 20,80 € Zinsen.\n\nWie hoch ist der Zinssatz in Prozent?",
+    "known_errors": {
+     "0,0325": "faktor_100_vergessen",
+     "0.0325": "faktor_100_vergessen",
+     "0,0325 %": "faktor_100_vergessen",
+     "0,0325%": "faktor_100_vergessen",
+     "30,77": "bezug_vertauscht",
+     "30.77": "bezug_vertauscht",
+     "30,77 %": "bezug_vertauscht",
+     "30,77%": "bezug_vertauscht",
+     "30,8": "bezug_vertauscht",
+     "30.8": "bezug_vertauscht",
+     "30,8 %": "bezug_vertauscht",
+     "30,8%": "bezug_vertauscht"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Prozentsatz mit Cent-Betrag, Ergebnis ist ein Dezimal-Zinssatz."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "3,25",
+      "3.25",
+      "3,25 %",
+      "3,25%"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "p % = 20,80 € : 640 € = 0,0325 = 3,25 %.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Als Dezimalzahl stehen gelassen: 0,0325 statt 3,25 %.",
+       "socratic_question": "Wie wird aus 0,0325 eine Prozentangabe?"
+      },
+      {
+       "error": "Kapital durch Zinsen geteilt: 640 : 20,80 ≈ 30,77.",
+       "socratic_question": "Welcher Betrag ist der Grundwert?"
+      },
+      {
+       "error": "Kapital durch Zinsen geteilt: 640 : 20,80 ≈ 30,8.",
+       "socratic_question": "Welcher Betrag ist der Grundwert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (faktor_100_vergessen, bezug_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "20.8/640*100",
+     "antwort": "3,25"
+    },
+    {
+     "rechnung": "20.8/640",
+     "antwort": "0,0325",
+     "rolle": "fehlbild:faktor_100_vergessen"
+    },
+    {
+     "rechnung": "round(640/20.8,2)",
+     "antwort": "30,77",
+     "rolle": "fehlbild:bezug_vertauscht"
+    },
+    {
+     "rechnung": "round(640/20.8,1)",
+     "antwort": "30,8",
+     "rolle": "fehlbild:bezug_vertauscht"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "77a9dabf-1e92-4a40-a28b-ba72bea91169",
+   "titel": "Rückrechnung · Einzahlung aus Kontostand 765 € bei 2 %",
+   "basis": {
+    "skill_key": "prozent_zins_rueckrechnung",
+    "source_ref": "zins-rueckrechnung-05",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Auf einem Sparkonto stehen nach einem Jahr 765 €. Die Zinsen von 2 % sind darin schon enthalten.\n\nWie viel Euro wurden am Anfang eingezahlt?",
+    "known_errors": {
+     "749,70": "grundwert_verwechselt",
+     "749.70": "grundwert_verwechselt",
+     "749,7": "grundwert_verwechselt",
+     "749.7": "grundwert_verwechselt",
+     "749,70 €": "grundwert_verwechselt",
+     "749,70€": "grundwert_verwechselt",
+     "749,7 €": "grundwert_verwechselt",
+     "749,7€": "grundwert_verwechselt",
+     "780,30": "multipliziert_statt_dividiert",
+     "780.30": "multipliziert_statt_dividiert",
+     "780,3": "multipliziert_statt_dividiert",
+     "780.3": "multipliziert_statt_dividiert",
+     "780,30 €": "multipliziert_statt_dividiert",
+     "780,30€": "multipliziert_statt_dividiert",
+     "780,3 €": "multipliziert_statt_dividiert",
+     "780,3€": "multipliziert_statt_dividiert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung über den Wachstumsfaktor 1,02 – der naheliegende Weg (2 % vom Endbetrag abziehen) ist falsch und muss erkannt werden."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "750",
+      "750 €",
+      "750€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Der Kontostand ist 102 % der Einzahlung: Einzahlung · 1,02 = 765 €.\nEinzahlung = 765 € : 1,02 = 750 €.\nProbe: 750 € + 2 % von 750 € = 750 € + 15 € = 765 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "2 % vom Endbetrag abgezogen: 765 − 15,30 = 749,70.",
+       "socratic_question": "Von welchem Betrag wurden die 2 % Zinsen berechnet – vom Anfangs- oder vom Endbetrag?"
+      },
+      {
+       "error": "Mit 1,02 multipliziert statt dividiert: 765 · 1,02 = 780,30.",
+       "socratic_question": "War am Anfang mehr oder weniger Geld auf dem Konto als nach einem Jahr?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (grundwert_verwechselt, multipliziert_statt_dividiert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "765/1.02",
+     "antwort": "750"
+    },
+    {
+     "probe": "A*1.02",
+     "antwort": "750",
+     "soll": "765",
+     "rolle": "probe"
+    },
+    {
+     "rechnung": "765-765*2/100",
+     "antwort": "749,70",
+     "rolle": "fehlbild:grundwert_verwechselt"
+    },
+    {
+     "rechnung": "765*1.02",
+     "antwort": "780,30",
+     "rolle": "fehlbild:multipliziert_statt_dividiert"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "e059539e-120d-428b-ba3d-c11ae9c4a83d",
+   "titel": "Rückrechnung · Zinssatz eines Kredits · 400 € geliehen, 428 € zurück",
+   "basis": {
+    "skill_key": "prozent_zins_rueckrechnung",
+    "source_ref": "zins-rueckrechnung-06",
+    "input_type": "NUMERIC",
+    "unit": "%",
+    "frage": "Für einen Kredit über 400 € müssen nach einem Jahr 428 € zurückgezahlt werden.\n\nWie hoch ist der Zinssatz in Prozent?",
+    "known_errors": {
+     "107": "falsche_groesse_beantwortet",
+     "107 %": "falsche_groesse_beantwortet",
+     "107%": "falsche_groesse_beantwortet",
+     "0,07": "faktor_100_vergessen",
+     "0.07": "faktor_100_vergessen",
+     "0,07 %": "faktor_100_vergessen",
+     "0,07%": "faktor_100_vergessen",
+     "6,54": "grundwert_verwechselt",
+     "6.54": "grundwert_verwechselt",
+     "6,54 %": "grundwert_verwechselt",
+     "6,54%": "grundwert_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext Kredit: erst die Zinsen als Differenz bestimmen, dann den Prozentsatz."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "7 %",
+      "7%"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Zinsen: 428 € − 400 € = 28 €.\nZinssatz: 28 € : 400 € = 0,07 = 7 %.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Rückzahlung als Prozent des Kredits angegeben (107 %) statt des Zinssatzes.",
+       "socratic_question": "Welcher Teil der 107 % sind die Zinsen?"
+      },
+      {
+       "error": "Als Dezimalzahl stehen gelassen: 0,07 statt 7 %.",
+       "socratic_question": "Wie schreibst du 0,07 in Prozent?"
+      },
+      {
+       "error": "Zinsen auf den Rückzahlungsbetrag bezogen: 28 : 428 ≈ 6,54 %.",
+       "socratic_question": "Auf welchen Betrag bezieht sich der Zinssatz – das Geliehene oder das Zurückgezahlte?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, faktor_100_vergessen, grundwert_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(428-400)/400*100",
+     "antwort": "7"
+    },
+    {
+     "rechnung": "428/400*100",
+     "antwort": "107",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    },
+    {
+     "rechnung": "28/400",
+     "antwort": "0,07",
+     "rolle": "fehlbild:faktor_100_vergessen"
+    },
+    {
+     "rechnung": "round(28/428*100,2)",
+     "antwort": "6,54",
+     "rolle": "fehlbild:grundwert_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "736ea5a7-cc7f-44da-b042-8b0711207a15",
+   "titel": "Zinseszins · 500 € zu 4 % für 2 Jahre",
+   "basis": {
+    "skill_key": "prozent_zins_zinseszins",
+    "source_ref": "zins-zinseszins-01",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 500 € wird jedes Jahr mit 4 % verzinst. Die Zinsen bleiben auf dem Konto und werden im nächsten Jahr mitverzinst.\n\nWie viel Euro sind nach 2 Jahren auf dem Konto?",
+    "known_errors": {
+     "540": "prozente_addiert",
+     "980": "wachstumsfaktor_falsch",
+     "540 €": "prozente_addiert",
+     "540€": "prozente_addiert",
+     "40,80": "nur_prozentwert",
+     "40.80": "nur_prozentwert",
+     "40,8": "nur_prozentwert",
+     "40.8": "nur_prozentwert",
+     "40,80 €": "nur_prozentwert",
+     "40,80€": "nur_prozentwert",
+     "40,8 €": "nur_prozentwert",
+     "40,8€": "nur_prozentwert",
+     "980 €": "wachstumsfaktor_falsch",
+     "980€": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: zwei Jahre, Jahr für Jahr oder mit dem Faktor 1,04²."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "540,80",
+      "540.80",
+      "540,8",
+      "540.8",
+      "540,80 €",
+      "540,80€",
+      "540,8 €",
+      "540,8€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Nach 1 Jahr: 500 € · 1,04 = 520 €.\nNach 2 Jahren: 520 € · 1,04 = 540,80 €.\n(Oder: 500 € · 1,04² = 500 € · 1,0816 = 540,80 €.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Jedes Jahr nur 4 % vom Startkapital: 500 + 20 + 20 = 540.",
+       "socratic_question": "Wovon werden im zweiten Jahr die 4 % berechnet?"
+      },
+      {
+       "error": "Nur die Zinsen angegeben (40,80 €), nicht den Kontostand.",
+       "socratic_question": "Was steht nach 2 Jahren auf dem Konto?"
+      },
+      {
+       "error": "Faktor 1,4 statt 1,04: 500 · 1,4² = 980.",
+       "socratic_question": "Welcher Faktor gehört zu einer Zunahme um 4 %?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert, nur_prozentwert, wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "500*1.04^2",
+     "antwort": "540,80"
+    },
+    {
+     "rechnung": "500+2*500*4/100",
+     "antwort": "540",
+     "rolle": "fehlbild:prozente_addiert"
+    },
+    {
+     "rechnung": "500*1.04^2-500",
+     "antwort": "40,80",
+     "rolle": "fehlbild:nur_prozentwert"
+    },
+    {
+     "rechnung": "500*1.4^2",
+     "antwort": "980",
+     "rolle": "fehlbild:wachstumsfaktor_falsch"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "d9e29439-32a2-43b7-a35a-a0d166637802",
+   "titel": "Zinseszins · 800 € zu 5 % für 3 Jahre",
+   "basis": {
+    "skill_key": "prozent_zins_zinseszins",
+    "source_ref": "zins-zinseszins-02",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 800 € wird jedes Jahr mit 5 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nWie viel Euro sind nach 3 Jahren auf dem Konto?",
+    "known_errors": {
+     "920": "prozente_addiert",
+     "928": "zu_frueh_gerundet",
+     "2700": "wachstumsfaktor_falsch",
+     "920 €": "prozente_addiert",
+     "920€": "prozente_addiert",
+     "126,10": "nur_prozentwert",
+     "126.10": "nur_prozentwert",
+     "126,1": "nur_prozentwert",
+     "126.1": "nur_prozentwert",
+     "126,10 €": "nur_prozentwert",
+     "126,10€": "nur_prozentwert",
+     "126,1 €": "nur_prozentwert",
+     "126,1€": "nur_prozentwert",
+     "926,40": "zu_frueh_gerundet",
+     "926.40": "zu_frueh_gerundet",
+     "926,4": "zu_frueh_gerundet",
+     "926.4": "zu_frueh_gerundet",
+     "926,40 €": "zu_frueh_gerundet",
+     "926,40€": "zu_frueh_gerundet",
+     "926,4 €": "zu_frueh_gerundet",
+     "926,4€": "zu_frueh_gerundet",
+     "928 €": "zu_frueh_gerundet",
+     "928€": "zu_frueh_gerundet",
+     "2700 €": "wachstumsfaktor_falsch",
+     "2700€": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: drei Jahre, Faktor 1,05³ bzw. drei Schritte; Ergebnis mit Cent."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "926,10",
+      "926.10",
+      "926,1",
+      "926.1",
+      "926,10 €",
+      "926,10€",
+      "926,1 €",
+      "926,1€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Nach 1 Jahr: 800 € · 1,05 = 840 €.\nNach 2 Jahren: 840 € · 1,05 = 882 €.\nNach 3 Jahren: 882 € · 1,05 = 926,10 €.\n(Oder: 800 € · 1,05³ = 800 € · 1,157625 = 926,10 €.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Jedes Jahr nur 5 % vom Startkapital: 800 + 3 · 40 = 920.",
+       "socratic_question": "Wovon werden im dritten Jahr die 5 % berechnet?"
+      },
+      {
+       "error": "Nur die Zinsen angegeben (126,10 €), nicht den Kontostand.",
+       "socratic_question": "Was steht nach 3 Jahren auf dem Konto?"
+      },
+      {
+       "error": "Faktor 1,157625 auf 1,158 gerundet: 800 · 1,158 = 926,40.",
+       "socratic_question": "Rechne Jahr für Jahr nach: Geht jedes Jahr glatt auf?"
+      },
+      {
+       "error": "Faktor 1,157625 auf 1,16 gerundet: 800 · 1,16 = 928.",
+       "socratic_question": "Wann darfst du runden – vor oder nach dem Multiplizieren?"
+      },
+      {
+       "error": "Faktor 1,5 statt 1,05: 800 · 1,5³ = 2700.",
+       "socratic_question": "Welcher Faktor gehört zu einer Zunahme um 5 %?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert, nur_prozentwert, zu_frueh_gerundet, wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "800*1.05^3",
+     "antwort": "926,10"
+    },
+    {
+     "rechnung": "800+3*800*5/100",
+     "antwort": "920",
+     "rolle": "fehlbild:prozente_addiert"
+    },
+    {
+     "rechnung": "800*1.05^3-800",
+     "antwort": "126,10",
+     "rolle": "fehlbild:nur_prozentwert"
+    },
+    {
+     "rechnung": "800*1.158",
+     "antwort": "926,40",
+     "rolle": "fehlbild:zu_frueh_gerundet"
+    },
+    {
+     "rechnung": "800*1.16",
+     "antwort": "928",
+     "rolle": "fehlbild:zu_frueh_gerundet"
+    },
+    {
+     "rechnung": "800*1.5^3",
+     "antwort": "2700",
+     "rolle": "fehlbild:wachstumsfaktor_falsch"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "ab2df4fc-6d03-45a3-a974-7191461d00fc",
+   "titel": "Zinseszins · Zinsen nach 2 Jahren · 600 € zu 3 %",
+   "basis": {
+    "skill_key": "prozent_zins_zinseszins",
+    "source_ref": "zins-zinseszins-03",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Guthaben von 600 € wird jedes Jahr mit 3 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nWie viel Euro Zinsen sind nach 2 Jahren insgesamt dazugekommen?",
+    "known_errors": {
+     "36": "prozente_addiert",
+     "414": "wachstumsfaktor_falsch",
+     "36 €": "prozente_addiert",
+     "36€": "prozente_addiert",
+     "636,54": "falsche_groesse_beantwortet",
+     "636.54": "falsche_groesse_beantwortet",
+     "636,54 €": "falsche_groesse_beantwortet",
+     "636,54€": "falsche_groesse_beantwortet",
+     "414 €": "wachstumsfaktor_falsch",
+     "414€": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Zinseszins über zwei Jahre, dann die Zinsen als Differenz – gefragt ist nicht der Kontostand."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "36,54",
+      "36.54",
+      "36,54 €",
+      "36,54€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Nach 1 Jahr: 600 € · 1,03 = 618 €.\nNach 2 Jahren: 618 € · 1,03 = 636,54 €.\nZinsen insgesamt: 636,54 € − 600 € = 36,54 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Zweimal 3 % vom Startkapital: 18 + 18 = 36.",
+       "socratic_question": "Bekommen auch die Zinsen aus dem ersten Jahr im zweiten Jahr Zinsen?"
+      },
+      {
+       "error": "Kontostand statt der Zinsen angegeben: 636,54.",
+       "socratic_question": "Gefragt sind nur die Zinsen – was musst du vom Kontostand noch abziehen?"
+      },
+      {
+       "error": "Faktor 1,3 statt 1,03: 600 · 1,3² − 600 = 414.",
+       "socratic_question": "Welcher Faktor gehört zu einer Zunahme um 3 %?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert, falsche_groesse_beantwortet, wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "600*1.03^2-600",
+     "antwort": "36,54"
+    },
+    {
+     "rechnung": "2*600*3/100",
+     "antwort": "36",
+     "rolle": "fehlbild:prozente_addiert"
+    },
+    {
+     "rechnung": "600*1.03^2",
+     "antwort": "636,54",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    },
+    {
+     "rechnung": "600*1.3^2-600",
+     "antwort": "414",
+     "rolle": "fehlbild:wachstumsfaktor_falsch"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "3b7c2619-ae14-4c9c-b67b-89589310033f",
+   "titel": "Zinseszins · Laufzeit durch Probieren · 500 € zu 10 % über 700 €",
+   "basis": {
+    "skill_key": "prozent_zins_zinseszins",
+    "source_ref": "zins-zinseszins-04",
+    "input_type": "NUMERIC",
+    "unit": "Jahre",
+    "frage": "Ein Guthaben von 500 € wird jedes Jahr mit 10 % verzinst. Die Zinsen bleiben auf dem Konto und werden mitverzinst.\n\nNach wie vielen Jahren ist das Guthaben zum ersten Mal größer als 700 €?",
+    "known_errors": {
+     "5": "prozente_addiert",
+     "5 Jahre": "prozente_addiert",
+     "5Jahre": "prozente_addiert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen (Ari-8): die Hochzahl ist gesucht und wird durch systematisches Probieren Jahr für Jahr gefunden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "4 Jahre",
+      "4Jahre"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Jahr für Jahr mit dem Faktor 1,1 probieren:\n| Jahre | Guthaben |\n| 1 | 500 € · 1,1 = 550 € |\n| 2 | 550 € · 1,1 = 605 € |\n| 3 | 605 € · 1,1 = 665,50 € (noch nicht über 700 €) |\n| 4 | 665,50 € · 1,1 = 732,05 € (zum ersten Mal über 700 €) |\nNach 4 Jahren.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Jedes Jahr nur 50 € (10 % vom Start) gerechnet: nach 4 Jahren genau 700, erst nach 5 Jahren mehr.",
+       "socratic_question": "Bleiben die Zinsen jedes Jahr gleich, wenn sie mitverzinst werden?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "500*1.1^3",
+     "antwort": "665.5",
+     "rolle": "probier-tabelle"
+    },
+    {
+     "rechnung": "500*1.1^4",
+     "antwort": "732.05",
+     "rolle": "probier-tabelle"
+    },
+    {
+     "rechnung": "(700-500)/(500*10/100)+1",
+     "antwort": "5",
+     "rolle": "fehlbild:prozente_addiert"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "f07265aa-116a-4d92-9312-6cae6d7cba2d",
+   "titel": "Kombinierte Veränderung · Preis +20 %, dann −20 % · 400 €",
+   "basis": {
+    "skill_key": "prozent_zins_zinseszins",
+    "source_ref": "zins-zinseszins-05",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Fahrrad kostet 400 €. Der Preis wird zuerst um 20 % erhöht. Später wird der neue Preis um 20 % gesenkt.\n\nWie viel Euro kostet das Fahrrad danach?",
+    "known_errors": {
+     "320": "grundwert_verwechselt",
+     "400": "prozente_addiert",
+     "480": "bedingung_unvollstaendig",
+     "400 €": "prozente_addiert",
+     "400€": "prozente_addiert",
+     "320 €": "grundwert_verwechselt",
+     "320€": "grundwert_verwechselt",
+     "480 €": "bedingung_unvollstaendig",
+     "480€": "bedingung_unvollstaendig"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden (Fkt-9): zwei Veränderungen nacheinander, die zweite bezieht sich auf den neuen Preis."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "384",
+      "384 €",
+      "384€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Erhöhung: 400 € · 1,2 = 480 €.\nSenkung vom neuen Preis: 480 € · 0,8 = 384 €.\n(Oder: 400 € · 1,2 · 0,8 = 400 € · 0,96 = 384 €.)\nDer Preis ist also nicht wieder 400 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Plus 20 % und minus 20 % gegeneinander aufgehoben: wieder 400 €.",
+       "socratic_question": "Von welchem Preis werden die 20 % beim Senken berechnet?"
+      },
+      {
+       "error": "Die Senkung auf den alten Preis bezogen: 400 · 0,8 = 320.",
+       "socratic_question": "Welcher Preis gilt, wenn gesenkt wird – der alte oder der erhöhte?"
+      },
+      {
+       "error": "Nur die Erhöhung gerechnet: 480 €.",
+       "socratic_question": "Welche Preisänderung aus dem Text fehlt noch?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert, grundwert_verwechselt, bedingung_unvollstaendig)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "400*1.2*0.8",
+     "antwort": "384"
+    },
+    {
+     "rechnung": "400*(1+20/100-20/100)",
+     "antwort": "400",
+     "rolle": "fehlbild:prozente_addiert"
+    },
+    {
+     "rechnung": "400*0.8",
+     "antwort": "320",
+     "rolle": "fehlbild:grundwert_verwechselt"
+    },
+    {
+     "rechnung": "400*1.2",
+     "antwort": "480",
+     "rolle": "fehlbild:bedingung_unvollstaendig"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "9031703f-4b09-41be-a1a3-6a0b55bc0603",
+   "titel": "Zinseszins · Zinssatz gesucht · 500 € werden in 2 Jahren 551,25 €",
+   "basis": {
+    "skill_key": "prozent_zins_zinseszins",
+    "source_ref": "zins-zinseszins-06",
+    "input_type": "NUMERIC",
+    "unit": "%",
+    "frage": "Ein Guthaben wächst in 2 Jahren von 500 € auf 551,25 €. Der Zinssatz ist in beiden Jahren gleich, die Zinsen bleiben auf dem Konto.\n\nWie hoch ist der Zinssatz in Prozent?",
+    "known_errors": {
+     "5,125": "prozente_addiert",
+     "5.125": "prozente_addiert",
+     "5,125 %": "prozente_addiert",
+     "5,125%": "prozente_addiert",
+     "10,25": "falsche_groesse_beantwortet",
+     "10.25": "falsche_groesse_beantwortet",
+     "10,25 %": "falsche_groesse_beantwortet",
+     "10,25%": "falsche_groesse_beantwortet",
+     "1,05": "wachstumsfaktor_falsch",
+     "1.05": "wachstumsfaktor_falsch",
+     "1,05 %": "wachstumsfaktor_falsch",
+     "1,05%": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung über den Wachstumsfaktor – 1,1025 muss als 1,05² erkannt werden (Probieren mit Faktoren)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7: Erste Stufe (Fkt-8/Fkt-9/Ari-8); Kölner Gymnasien behandeln Zinsrechnung in Klasse 7."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie die Prozent-Voraussetzungen (Entscheidung Rasit, Phase 0)."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen: KLP G9 führt Prozent- und Zinsrechnung unter Fkt-8/Fkt-9."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5",
+      "5 %",
+      "5%"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Gesamtfaktor: 551,25 € : 500 € = 1,1025.\nGesucht ist q mit q · q = 1,1025.\nProbieren: 1,04² = 1,0816 (zu klein), 1,05² = 1,1025 (passt).\nq = 1,05, also 5 %.\nProbe: 500 € · 1,05 = 525 €, 525 € · 1,05 = 551,25 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Gesamtzunahme halbiert: 10,25 % : 2 = 5,125 %.",
+       "socratic_question": "Bekommen die Zinsen des ersten Jahres im zweiten Jahr wieder Zinsen?"
+      },
+      {
+       "error": "Die Zunahme über beide Jahre zusammen angegeben (10,25 %), nicht den Zinssatz pro Jahr.",
+       "socratic_question": "Gilt der gesuchte Zinssatz für beide Jahre zusammen oder für jedes Jahr?"
+      },
+      {
+       "error": "Den Faktor 1,05 als Zinssatz angegeben.",
+       "socratic_question": "Wie viel Prozent Zunahme stecken im Faktor 1,05?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert, falsche_groesse_beantwortet, wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "5",
+     "antwort": "5"
+    },
+    {
+     "probe": "500*(1+A/100)^2",
+     "antwort": "5",
+     "soll": "551.25",
+     "rolle": "probe"
+    },
+    {
+     "rechnung": "(551.25-500)/500*100/2",
+     "antwort": "5,125",
+     "rolle": "fehlbild:prozente_addiert"
+    },
+    {
+     "rechnung": "(551.25-500)/500*100",
+     "antwort": "10,25",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    },
+    {
+     "rechnung": "1.05",
+     "antwort": "1,05",
+     "rolle": "fehlbild:wachstumsfaktor_falsch"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "fd7c0327-2903-4199-a275-be6c4b46cd1e",
+   "titel": "Potenzen · 4³",
+   "basis": {
+    "skill_key": "potenzen",
+    "source_ref": "zins-potenzen-01",
+    "input_type": "NUMERIC",
+    "frage": "Berechne.\n\n4³ = ?",
+    "known_errors": {
+     "12": "mal_exponent",
+     "81": "basis_exponent_vertauscht"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Potenz mit natürlicher Basis und Hochzahl 3."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7 wie alle potenzen-Aufgaben im Bestand."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "64"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "4³ = 4 · 4 · 4 = 16 · 4 = 64.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Basis mal Hochzahl: 4 · 3 = 12.",
+       "socratic_question": "Was bedeutet die kleine 3 – wie oft wird 4 mit sich selbst multipliziert?"
+      },
+      {
+       "error": "Basis und Hochzahl vertauscht: 3⁴ = 81.",
+       "socratic_question": "Welche Zahl wird multipliziert, und wie oft?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_exponent, basis_exponent_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4^3",
+     "antwort": "64"
+    },
+    {
+     "rechnung": "4*3",
+     "antwort": "12",
+     "rolle": "fehlbild:mal_exponent"
+    },
+    {
+     "rechnung": "3^4",
+     "antwort": "81",
+     "rolle": "fehlbild:basis_exponent_vertauscht"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "e04a700d-23f0-4709-bf16-a4e65bca3cd2",
+   "titel": "Potenzen · 0,4²",
+   "basis": {
+    "skill_key": "potenzen",
+    "source_ref": "zins-potenzen-02",
+    "input_type": "NUMERIC",
+    "frage": "Berechne.\n\n0,4² = ?",
+    "known_errors": {
+     "0,8": "mal_exponent",
+     "0.8": "mal_exponent",
+     "1,6": "kommastellen_zu_wenig",
+     "1.6": "kommastellen_zu_wenig"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Quadrat einer Dezimalzahl mit einer Nachkommastelle."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7 wie alle potenzen-Aufgaben im Bestand."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,16",
+      "0.16"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "0,4² = 0,4 · 0,4 = 0,16.\n(4 · 4 = 16, und das Ergebnis hat zwei Nachkommastellen.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Basis mal Hochzahl: 0,4 · 2 = 0,8.",
+       "socratic_question": "Was bedeutet die kleine 2 – womit wird 0,4 multipliziert?"
+      },
+      {
+       "error": "Komma falsch gesetzt: 1,6 statt 0,16.",
+       "socratic_question": "Wie viele Nachkommastellen haben die beiden Faktoren zusammen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_exponent, kommastellen_zu_wenig)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0.4^2",
+     "antwort": "0,16"
+    },
+    {
+     "rechnung": "0.4*2",
+     "antwort": "0,8",
+     "rolle": "fehlbild:mal_exponent"
+    },
+    {
+     "rechnung": "0.4^2*10",
+     "antwort": "1,6",
+     "rolle": "fehlbild:kommastellen_zu_wenig"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "2fe1feb6-8551-4eb1-be91-f5092d383242",
+   "titel": "Potenzen · 2,5²",
+   "basis": {
+    "skill_key": "potenzen",
+    "source_ref": "zins-potenzen-03",
+    "input_type": "NUMERIC",
+    "frage": "Berechne.\n\n2,5² = ?",
+    "known_errors": {
+     "5": "mal_exponent",
+     "4,25": "quadrat_gliedweise",
+     "4.25": "quadrat_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Quadrat einer Dezimalzahl, das Ergebnis hat zwei Nachkommastellen und ist nicht auswendig bekannt."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7 wie alle potenzen-Aufgaben im Bestand."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6,25",
+      "6.25"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "2,5² = 2,5 · 2,5 = 6,25.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Basis mal Hochzahl: 2,5 · 2 = 5.",
+       "socratic_question": "Was bedeutet die kleine 2 – womit wird 2,5 multipliziert?"
+      },
+      {
+       "error": "Ganzen Teil und Nachkommateil einzeln quadriert: 2² + 0,5² = 4,25.",
+       "socratic_question": "Wenn du 2,5 · 2,5 ausführlich rechnest: Welche Teilprodukte entstehen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_exponent, quadrat_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2.5^2",
+     "antwort": "6,25"
+    },
+    {
+     "rechnung": "2.5*2",
+     "antwort": "5",
+     "rolle": "fehlbild:mal_exponent"
+    },
+    {
+     "rechnung": "2^2+0.5^2",
+     "antwort": "4,25",
+     "rolle": "fehlbild:quadrat_gliedweise"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "c5ff0008-b3f0-4ebf-aa68-31cff48d7342",
+   "titel": "Potenzen · 1,05²",
+   "basis": {
+    "skill_key": "potenzen",
+    "source_ref": "zins-potenzen-04",
+    "input_type": "NUMERIC",
+    "frage": "Berechne.\n\n1,05² = ?",
+    "known_errors": {
+     "2,1": "mal_exponent",
+     "2.1": "mal_exponent",
+     "1,0025": "quadrat_gliedweise",
+     "1.0025": "quadrat_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Quadrat einer Dezimalzahl mit zwei Nachkommastellen (Wachstumsfaktor)."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7 wie alle potenzen-Aufgaben im Bestand."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1,1025",
+      "1.1025"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "1,05² = 1,05 · 1,05 = 1,1025.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Basis mal Hochzahl: 1,05 · 2 = 2,1.",
+       "socratic_question": "Was bedeutet die kleine 2 – womit wird 1,05 multipliziert?"
+      },
+      {
+       "error": "Gliedweise quadriert: 1² + 0,05² = 1,0025 – das mittlere Glied fehlt.",
+       "socratic_question": "Rechne 1,05 · 1,05 ausführlich: Wie viele Teilprodukte entstehen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_exponent, quadrat_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1.05^2",
+     "antwort": "1,1025"
+    },
+    {
+     "rechnung": "1.05*2",
+     "antwort": "2,1",
+     "rolle": "fehlbild:mal_exponent"
+    },
+    {
+     "rechnung": "1^2+0.05^2",
+     "antwort": "1,0025",
+     "rolle": "fehlbild:quadrat_gliedweise"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "bb125765-c709-4f59-afff-4b4bd090dbbf",
+   "titel": "Potenzen · 1,05³",
+   "basis": {
+    "skill_key": "potenzen",
+    "source_ref": "zins-potenzen-05",
+    "input_type": "NUMERIC",
+    "frage": "Berechne.\n\n1,05³ = ?",
+    "known_errors": {
+     "3,15": "mal_exponent",
+     "3.15": "mal_exponent",
+     "1,1025": "basis_exponent_vertauscht",
+     "1.1025": "basis_exponent_vertauscht"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: dritte Potenz einer Dezimalzahl, zwei Multiplikationen nacheinander."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7 wie alle potenzen-Aufgaben im Bestand."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1,157625",
+      "1.157625"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "1,05² = 1,05 · 1,05 = 1,1025.\n1,05³ = 1,1025 · 1,05 = 1,157625.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Basis mal Hochzahl: 1,05 · 3 = 3,15.",
+       "socratic_question": "Was bedeutet die kleine 3 – wie oft steht 1,05 als Faktor da?"
+      },
+      {
+       "error": "Nur zweimal statt dreimal mit 1,05 multipliziert: 1,05² = 1,1025.",
+       "socratic_question": "Wie viele Faktoren 1,05 gehören zu 1,05³?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_exponent, basis_exponent_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1.05^3",
+     "antwort": "1,157625"
+    },
+    {
+     "rechnung": "1.05*3",
+     "antwort": "3,15",
+     "rolle": "fehlbild:mal_exponent"
+    },
+    {
+     "rechnung": "1.05^2",
+     "antwort": "1,1025",
+     "rolle": "fehlbild:basis_exponent_vertauscht"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "451bd34e-273d-40ac-a16d-3f13d271c5fa",
+   "titel": "Potenzen · Würfelvolumen · Kante 0,4 m",
+   "basis": {
+    "skill_key": "potenzen",
+    "source_ref": "zins-potenzen-06",
+    "input_type": "NUMERIC",
+    "unit": "m³",
+    "frage": "Ein würfelförmiger Karton hat die Kantenlänge 0,4 m. Für das Volumen gilt V = a³.\n\nWie viele Kubikmeter beträgt das Volumen?",
+    "known_errors": {
+     "1,2": "mal_exponent",
+     "1.2": "mal_exponent",
+     "1,2 m³": "mal_exponent",
+     "1,2m³": "mal_exponent",
+     "0,64": "kommastellen_zu_wenig",
+     "0.64": "kommastellen_zu_wenig",
+     "0,64 m³": "kommastellen_zu_wenig",
+     "0,64m³": "kommastellen_zu_wenig"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Formel gegeben, dritte Potenz einer Dezimalzahl mit Kommaverschiebung."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 7,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 7 wie alle potenzen-Aufgaben im Bestand."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra wie alle potenzen-Aufgaben im Bestand."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,064",
+      "0.064",
+      "0,064 m³",
+      "0,064m³"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "V = a³ = 0,4³ = 0,4 · 0,4 · 0,4 = 0,16 · 0,4 = 0,064.\nDas Volumen beträgt 0,064 m³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Basis mal Hochzahl: 0,4 · 3 = 1,2.",
+       "socratic_question": "Was bedeutet a³ – wie oft wird a mit sich selbst multipliziert?"
+      },
+      {
+       "error": "Komma falsch gesetzt: 0,64 statt 0,064.",
+       "socratic_question": "Wie viele Nachkommastellen haben drei Faktoren 0,4 zusammen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_exponent, kommastellen_zu_wenig)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-2: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0.4^3",
+     "antwort": "0,064"
+    },
+    {
+     "rechnung": "0.4*3",
+     "antwort": "1,2",
+     "rolle": "fehlbild:mal_exponent"
+    },
+    {
+     "rechnung": "0.4^3*10",
+     "antwort": "0,64",
+     "rolle": "fehlbild:kommastellen_zu_wenig"
+    }
+   ]
+  }
+ ]
+}

@@ -86,6 +86,12 @@ for (const a of charge.aufgaben) {
   proSkill.get(a.basis.skill_key).push(e);
 }
 for (const [skill, posten] of proSkill) {
+  // Auffuell-Skills (Charge-Feld ohne_sondierrang): Rang 1 und 2 tragen dort schon
+  // freigegebene Aufgaben; neue Entwuerfe bleiben NULL.
+  if ((charge.ohne_sondierrang ?? []).includes(skill)) {
+    begruendung[skill] = 'kein Rang: Auffuellung, Rang 1 und 2 liegen auf freigegebenen Bestandsaufgaben';
+    continue;
+  }
   const [r1, r2, grund] = waehle(posten);
   rang.set(r1.id, 1); rang.set(r2.id, 2);
   begruendung[skill] = `${r1.ref} = 1, ${r2.ref} = 2. ${grund}`;
@@ -178,11 +184,16 @@ if (fehler.length) {
   process.exit(1);
 }
 
-const kopf = `-- K8-/K9-Vorlauf, Migration 3 von 3 — ${charge.aufgaben.length} Aufgaben zu geo_koordinaten und term_einsetzen.
--- Erzeugt von tools/vorlauf-build.mjs aus ${chargePfad} — nicht von Hand editieren.
---
--- Einspiel-Reihenfolge: nach 20261001115718_tiefe_k8_vorlauf.sql und
--- 20261001115812_substrat_k8_vorlauf.sql (Knoten + Fehlbild-Slugs muessen stehen).
+// charge.kopf (Zeilen ohne "-- ") ersetzt Titel und Einspiel-Reihenfolge; ohne das Feld
+// bleibt der Vorlauf-Kopf unveraendert.
+const titel = charge.kopf ?? [
+  `K8-/K9-Vorlauf, Migration 3 von 3 — ${charge.aufgaben.length} Aufgaben zu geo_koordinaten und term_einsetzen.`,
+  `Erzeugt von tools/vorlauf-build.mjs aus ${chargePfad} — nicht von Hand editieren.`,
+  '',
+  'Einspiel-Reihenfolge: nach 20261001115718_tiefe_k8_vorlauf.sql und',
+  '20261001115812_substrat_k8_vorlauf.sql (Knoten + Fehlbild-Slugs muessen stehen).',
+];
+const kopf = `${titel.map((z) => (z ? `-- ${z}` : '--')).join('\n')}
 --
 -- ${charge.auswahl}
 --
