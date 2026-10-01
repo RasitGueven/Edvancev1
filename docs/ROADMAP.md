@@ -1,6 +1,16 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **Themenkatalog und Kölner Schulpläne (W1-4)** (Retro `2026-10-01-themen-schulplaene.md`):
+  `themen` nach KLP-Stufen mit `schlagworte` und `klp` (37 Mathe-Themen Kl. 5–10),
+  `thema_einstieg` (LSA-Einstiegsknoten), `schulen` um Schulform/Stadtteil/Träger/Website
+  erweitert (43 Kölner Gymnasien), `schul_themenplan` (1086 Unterrichtsvorhaben aus 32
+  Schulplänen, Quelle je Zeile), `lead_themen`, `leads.schule_id`, `lsa_sessions.thema_key`.
+  Beweis: SQL-Asserts im Trockenlauf und live grün, Zweitzuordnung 8 Schulen 247/248,
+  Stichwort-Probe 9/9.
+  **Offen:** Erstgespräch-Oberfläche und LSA-Auswahl nach Thema (eigene Aufträge);
+  Einstiegsknoten der Themen-Läufe Lineare Funktionen, Zins, Kreis; fehlende Jahrgänge
+  bei HvB, Leonardo, Irmgardis; 11 Schulen ohne Plan.
 - **Verträge P1–P4** (Retro `2026-09-29-vertraege-p4-pdf-mail.md`, PRs #164–#172):
   Vom Antrag bis zum Vertragsende. Datenmodell mit Ferienregel
   (`vertrag_ende_berechnen`), Abschlussstrecke (Weg A vor Ort, Wege B/C auf

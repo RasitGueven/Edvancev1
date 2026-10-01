@@ -1,0 +1,183 @@
+{
+  "slug": "gymnasium-nippes-toni-steingass-park",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Zahlen und Größen",
+      "stunden": 26,
+      "halbjahr": 1,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Symmetrie",
+      "stunden": 18,
+      "halbjahr": 1,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Rechnen mit natürlichen Zahlen",
+      "stunden": 22,
+      "halbjahr": 1,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Flächen",
+      "stunden": 14,
+      "halbjahr": 2,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Körper",
+      "stunden": 18,
+      "halbjahr": 2,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": 6,
+      "halbjahr": 2,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": 10,
+      "halbjahr": 1,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Brüche addieren, subtrahieren, multiplizieren, dividieren",
+      "stunden": 17,
+      "halbjahr": 1,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Daten",
+      "stunden": 12,
+      "halbjahr": 1,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Brüche in Dezimalschreibweise",
+      "stunden": 10,
+      "halbjahr": 2,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Dezimalzahlen addieren, subtrahieren, multiplizieren, dividieren",
+      "stunden": 16,
+      "halbjahr": 2,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Beziehungen zwischen Zahlen und Größen",
+      "stunden": 12,
+      "halbjahr": 2,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Muster und Figuren",
+      "stunden": 12,
+      "halbjahr": 2,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": 12,
+      "halbjahr": 1,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": 10,
+      "halbjahr": 1,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozentrechnung – Zinsrechnung",
+      "stunden": 12,
+      "halbjahr": 1,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": 16,
+      "halbjahr": 2,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": 10,
+      "halbjahr": 2,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Wahrscheinlichkeiten",
+      "stunden": 10,
+      "halbjahr": 2,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf"
+    }
+  ],
+  "befunde": [
+    "Plan endet nach Kl. 7; Kl. 8, 9 und 10 fehlen",
+    "Stunden sind 'ca.'-Angaben aus den Jahrgangsübersichten in 67,5-Minuten-Stunden",
+    "Kl. 5 UV 6 'Brüche' ist fakultativ (ca. 6 Std. laut Übersicht, Detailseite nennt ca. 18 Std. für 5.2 oder 6.1); wird als Kl. 6 UV 1 fortgesetzt",
+    "Kl. 6 UV 4 'Brüche in Dezimalschreibweise' steht im 2. Halbjahr, beginnt laut Anmerkung i.d.R. im 1. Halbjahr",
+    "Kl. 7 UV 6 'Wahrscheinlichkeiten' je nach Schuljahreslänge in Kl. 7 oder Kl. 8"
+  ]
+}

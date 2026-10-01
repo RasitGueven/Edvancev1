@@ -6363,6 +6363,22 @@ CREATE TABLE public.lead_assessments (
 
 
 --
+-- Name: lead_themen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lead_themen (
+    lead_id uuid NOT NULL,
+    fach text NOT NULL,
+    thema_key text NOT NULL,
+    status text NOT NULL,
+    quelle text NOT NULL,
+    angelegt timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT lead_themen_quelle_check CHECK ((quelle = ANY (ARRAY['gespraech'::text, 'schulplan'::text]))),
+    CONSTRAINT lead_themen_status_check CHECK ((status = ANY (ARRAY['aktuell'::text, 'behandelt'::text])))
+);
+
+
+--
 -- Name: leads; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6406,6 +6422,7 @@ CREATE TABLE public.leads (
     rejected_at timestamp with time zone,
     rejection_reason text,
     rejection_note text,
+    schule_id uuid,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
@@ -6485,6 +6502,7 @@ CREATE TABLE public.lsa_sessions (
     modus text DEFAULT 'fest'::text NOT NULL,
     uebernommen_zu_student_id uuid,
     uebernommen_am timestamp with time zone,
+    thema_key text,
     CONSTRAINT lsa_sessions_avatar_choice_form CHECK (((avatar_choice IS NULL) OR (((length(avatar_choice) >= 1) AND (length(avatar_choice) <= 40)) AND (avatar_choice = btrim(avatar_choice))))),
     CONSTRAINT lsa_sessions_grade_check CHECK (((grade >= 5) AND (grade <= 13))),
     CONSTRAINT lsa_sessions_modus_check CHECK ((modus = ANY (ARRAY['fest'::text, 'adaptiv'::text]))),
@@ -6683,16 +6701,46 @@ CREATE VIEW public.schuelerakten WITH (security_invoker='true') AS
 
 
 --
+-- Name: schul_themenplan; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schul_themenplan (
+    schule_id uuid NOT NULL,
+    fach text NOT NULL,
+    klasse integer NOT NULL,
+    "position" integer NOT NULL,
+    thema_key text,
+    uv_titel text NOT NULL,
+    stunden integer,
+    halbjahr integer,
+    quelle_url text NOT NULL,
+    stand text,
+    CONSTRAINT schul_themenplan_halbjahr_check CHECK (((halbjahr IS NULL) OR (halbjahr = ANY (ARRAY[1, 2])))),
+    CONSTRAINT schul_themenplan_klasse_check CHECK (((klasse >= 5) AND (klasse <= 10))),
+    CONSTRAINT schul_themenplan_position_check CHECK (("position" >= 1)),
+    CONSTRAINT schul_themenplan_quelle_url_check CHECK ((NULLIF(btrim(quelle_url), ''::text) IS NOT NULL)),
+    CONSTRAINT schul_themenplan_stunden_check CHECK (((stunden IS NULL) OR (stunden > 0))),
+    CONSTRAINT schul_themenplan_uv_titel_check CHECK ((NULLIF(btrim(uv_titel), ''::text) IS NOT NULL))
+);
+
+
+--
 -- Name: schulen; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.schulen (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     name text NOT NULL,
-    ort text,
+    ort text DEFAULT 'Köln'::text,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     created_by uuid,
-    CONSTRAINT schulen_name_nicht_leer CHECK ((NULLIF(btrim(name), ''::text) IS NOT NULL))
+    schulform text,
+    stadtteil text,
+    traeger text,
+    website text,
+    CONSTRAINT schulen_name_nicht_leer CHECK ((NULLIF(btrim(name), ''::text) IS NOT NULL)),
+    CONSTRAINT schulen_schulform_check CHECK (((schulform IS NULL) OR (schulform = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text])))),
+    CONSTRAINT schulen_traeger_check CHECK (((traeger IS NULL) OR (traeger = ANY (ARRAY['öffentlich'::text, 'privat'::text]))))
 );
 
 
@@ -6879,7 +6927,7 @@ CREATE TABLE public.skills (
     fach text DEFAULT 'mathematik'::text NOT NULL,
     klasse_herkunft integer NOT NULL,
     fundament_tiefe integer NOT NULL,
-    CONSTRAINT skills_fundament_tiefe_check CHECK (((fundament_tiefe >= 1) AND (fundament_tiefe <= 8)))
+    CONSTRAINT skills_fundament_tiefe_check CHECK (((fundament_tiefe >= 1) AND (fundament_tiefe <= 12)))
 );
 
 
@@ -7237,6 +7285,16 @@ END),
 
 
 --
+-- Name: thema_einstieg; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.thema_einstieg (
+    thema_key text NOT NULL,
+    skill_key text NOT NULL
+);
+
+
+--
 -- Name: themen; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7244,7 +7302,12 @@ CREATE TABLE public.themen (
     thema_key text NOT NULL,
     fach text NOT NULL,
     klasse integer NOT NULL,
-    label text
+    label text,
+    stufe text NOT NULL,
+    schlagworte text[] DEFAULT '{}'::text[] NOT NULL,
+    klp text[] DEFAULT '{}'::text[] NOT NULL,
+    sort integer,
+    CONSTRAINT themen_stufe_check CHECK ((stufe = ANY (ARRAY['erprobung'::text, 'erste'::text, 'zweite'::text])))
 );
 
 
@@ -7814,6 +7877,14 @@ ALTER TABLE ONLY public.lead_assessments
 
 
 --
+-- Name: lead_themen lead_themen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_themen
+    ADD CONSTRAINT lead_themen_pkey PRIMARY KEY (lead_id, thema_key);
+
+
+--
 -- Name: leads leads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7979,6 +8050,14 @@ ALTER TABLE ONLY public.report_bausteine
 
 ALTER TABLE ONLY public.schueler_notizen
     ADD CONSTRAINT schueler_notizen_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schul_themenplan schul_themenplan_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schul_themenplan
+    ADD CONSTRAINT schul_themenplan_uniq UNIQUE (schule_id, fach, klasse, "position");
 
 
 --
@@ -8235,6 +8314,14 @@ ALTER TABLE ONLY public.tasks
 
 ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT tasks_source_ref_unique UNIQUE (source, source_ref);
+
+
+--
+-- Name: thema_einstieg thema_einstieg_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.thema_einstieg
+    ADD CONSTRAINT thema_einstieg_pkey PRIMARY KEY (thema_key, skill_key);
 
 
 --
@@ -8510,10 +8597,31 @@ CREATE INDEX lead_assessments_lead_idx ON public.lead_assessments USING btree (l
 
 
 --
+-- Name: lead_themen_ein_aktuelles; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX lead_themen_ein_aktuelles ON public.lead_themen USING btree (lead_id, fach) WHERE (status = 'aktuell'::text);
+
+
+--
+-- Name: lead_themen_thema_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lead_themen_thema_idx ON public.lead_themen USING btree (thema_key);
+
+
+--
 -- Name: leads_owner_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX leads_owner_idx ON public.leads USING btree (owner_id);
+
+
+--
+-- Name: leads_schule_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX leads_schule_idx ON public.leads USING btree (schule_id);
 
 
 --
@@ -8612,6 +8720,13 @@ CREATE INDEX platz_assignments_session_idx ON public.platz_assignments USING btr
 --
 
 CREATE INDEX schueler_notizen_student_idx ON public.schueler_notizen USING btree (student_id, created_at DESC);
+
+
+--
+-- Name: schul_themenplan_thema_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX schul_themenplan_thema_idx ON public.schul_themenplan USING btree (thema_key);
 
 
 --
@@ -8927,6 +9042,13 @@ CREATE INDEX tasks_skill_key_idx ON public.tasks USING btree (skill_key) WHERE (
 --
 
 CREATE INDEX tasks_source_idx ON public.tasks USING btree (source);
+
+
+--
+-- Name: thema_einstieg_skill_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX thema_einstieg_skill_idx ON public.thema_einstieg USING btree (skill_key);
 
 
 --
@@ -9316,6 +9438,22 @@ ALTER TABLE ONLY public.lead_assessments
 
 
 --
+-- Name: lead_themen lead_themen_lead_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_themen
+    ADD CONSTRAINT lead_themen_lead_id_fkey FOREIGN KEY (lead_id) REFERENCES public.leads(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lead_themen lead_themen_thema_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_themen
+    ADD CONSTRAINT lead_themen_thema_key_fkey FOREIGN KEY (thema_key) REFERENCES public.themen(thema_key);
+
+
+--
 -- Name: leads leads_consent_dsgvo_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9345,6 +9483,14 @@ ALTER TABLE ONLY public.leads
 
 ALTER TABLE ONLY public.leads
     ADD CONSTRAINT leads_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: leads leads_schule_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.leads
+    ADD CONSTRAINT leads_schule_id_fkey FOREIGN KEY (schule_id) REFERENCES public.schulen(id) ON DELETE SET NULL;
 
 
 --
@@ -9401,6 +9547,14 @@ ALTER TABLE ONLY public.lsa_responses
 
 ALTER TABLE ONLY public.lsa_sessions
     ADD CONSTRAINT lsa_sessions_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lsa_sessions lsa_sessions_thema_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lsa_sessions
+    ADD CONSTRAINT lsa_sessions_thema_key_fkey FOREIGN KEY (thema_key) REFERENCES public.themen(thema_key);
 
 
 --
@@ -9545,6 +9699,22 @@ ALTER TABLE ONLY public.schueler_notizen
 
 ALTER TABLE ONLY public.schueler_notizen
     ADD CONSTRAINT schueler_notizen_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: schul_themenplan schul_themenplan_schule_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schul_themenplan
+    ADD CONSTRAINT schul_themenplan_schule_id_fkey FOREIGN KEY (schule_id) REFERENCES public.schulen(id) ON DELETE CASCADE;
+
+
+--
+-- Name: schul_themenplan schul_themenplan_thema_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schul_themenplan
+    ADD CONSTRAINT schul_themenplan_thema_key_fkey FOREIGN KEY (thema_key) REFERENCES public.themen(thema_key);
 
 
 --
@@ -10028,6 +10198,22 @@ ALTER TABLE ONLY public.tasks
 
 
 --
+-- Name: thema_einstieg thema_einstieg_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.thema_einstieg
+    ADD CONSTRAINT thema_einstieg_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON DELETE CASCADE;
+
+
+--
+-- Name: thema_einstieg thema_einstieg_thema_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.thema_einstieg
+    ADD CONSTRAINT thema_einstieg_thema_key_fkey FOREIGN KEY (thema_key) REFERENCES public.themen(thema_key) ON DELETE CASCADE;
+
+
+--
 -- Name: tier_laufzeiten tier_laufzeiten_tier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10494,6 +10680,19 @@ CREATE POLICY lead_assessments_coach_admin_all ON public.lead_assessments USING 
 
 
 --
+-- Name: lead_themen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lead_themen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lead_themen lead_themen_admin_all; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lead_themen_admin_all ON public.lead_themen USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
 -- Name: leads; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -10818,6 +11017,26 @@ CREATE POLICY schueler_notizen_admin_select ON public.schueler_notizen FOR SELEC
 --
 
 CREATE POLICY schueler_notizen_coach_select ON public.schueler_notizen FOR SELECT USING (((public.get_my_role() = 'coach'::text) AND public.akte_aktiv(student_id) AND (ausgeblendet_am IS NULL) AND (entfernt_am IS NULL)));
+
+
+--
+-- Name: schul_themenplan; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.schul_themenplan ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: schul_themenplan schul_themenplan_admin_write; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schul_themenplan_admin_write ON public.schul_themenplan USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: schul_themenplan schul_themenplan_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY schul_themenplan_read ON public.schul_themenplan FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
 
 
 --
@@ -11444,6 +11663,26 @@ ALTER TABLE public.task_solutions ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.tasks ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: thema_einstieg; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.thema_einstieg ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: thema_einstieg thema_einstieg_admin_write; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY thema_einstieg_admin_write ON public.thema_einstieg USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: thema_einstieg thema_einstieg_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY thema_einstieg_read ON public.thema_einstieg FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+
 
 --
 -- Name: themen; Type: ROW SECURITY; Schema: public; Owner: -

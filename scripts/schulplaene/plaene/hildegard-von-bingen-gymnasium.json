@@ -1,0 +1,173 @@
+{
+  "slug": "hildegard-von-bingen-gymnasium",
+  "eintraege": [
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozent- und Zinsrechnung",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Daten und Wahrscheinlichkeit (alternativ zu Kl. 7, ggf. Fortsetzung)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Terme mit mehreren Variablen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Flächen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Kreise und Dreiecke",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Reelle Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Kreise, Prismen und Zylinder",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "kreis",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Satz des Pythagoras",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Potenzen und Potenzgesetze",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Daten und Wahrscheinlichkeit (falls zeitlich machbar, sonst Kl. 10)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf"
+    }
+  ],
+  "befunde": [
+    "Nur Pläne für Kl. 7, 8 und 9 veröffentlicht; Kl. 5, 6 und 10 fehlen",
+    "Keine Stunden- und Halbjahresangaben",
+    "Kl. 7 UV VI 'Daten und Wahrscheinlichkeit' behandelt inhaltlich Wahrscheinlichkeit (Baumdiagramm, Pfadregel) → zufallsexperimente; Kl. 8 UV I ist dazu alternativ bzw. Fortsetzung",
+    "Kl. 9 Vorhaben 'Kreise, Prismen und Zylinder': Kreis und Prismen/Zylinder etwa 50/50 → kreis (alternativ prismen_zylinder)"
+  ]
+}

@@ -28,6 +28,16 @@
  *   node tools/verify-tasks.mjs --status draft --source edvance_fundament
  *   node tools/verify-tasks.mjs --nur-struktur        # ohne LLM, kostenlos
  *   node tools/verify-tasks.mjs --quelle datei --pfad out/k8-charge.json
+ *   node tools/verify-tasks.mjs --from-file docs/prefill/k8-vorlauf.json   # Charge-Format
+ *   node tools/verify-tasks.mjs --from-file <charge.json> --answers-from <antworten.json>
+ *
+ * --answers-from ersetzt den API-Loeser: Antworten eines Subagenten (tools/blind-loeser/),
+ * gewertet wie lsa_is_correct, dazu acceptance-Toleranz wie lsa_grade (gemeldet).
+ *
+ * --from-file liest eine Charge im Format von docs/prefill/<batch>.json (vorlauf-build.mjs)
+ * und prueft sie mit Stufe 1 und Blindloeser, bevor sie eingespielt ist. MULTI_PART: der
+ * Loeser bekommt die Teilprompts und antwortet "x;y" in Teil-Reihenfolge; verglichen wird
+ * je Teil gegen dessen Varianten.
  *
  * Vorbefuellung fuer Lenas Pruefung (siehe verify-prefill.mjs) — ohne LLM, ohne DB:
  *   node tools/verify-tasks.mjs --prefill docs/prefill/<charge>.json \
@@ -37,7 +47,7 @@
  */
 
 import fs from 'node:fs/promises';
-import { ausDatei, ausProduktion, filtere, QuellenFehler } from './verify-tasks-quellen.mjs';
+import { ausCharge, ausDatei, ausProduktion, filtere, QuellenFehler } from './verify-tasks-quellen.mjs';
 
 // Node liest .env nicht von selbst — ohne das hier fehlten SUPABASE_URL und
 // ANTHROPIC_API_KEY jedem Aufruf, der die Variablen nicht vorher exportiert hat.
@@ -74,8 +84,8 @@ if (flag('prefill')) {
 
 // ─── Aufgaben laden ──────────────────────────────────────────────────────────
 
-const QUELLE = opt('quelle', 'prod');
-if (QUELLE !== 'prod' && QUELLE !== 'datei') {
+const QUELLE = flag('from-file') ? 'charge' : opt('quelle', 'prod');
+if (QUELLE !== 'prod' && QUELLE !== 'datei' && QUELLE !== 'charge') {
   console.error(`--quelle kennt nur "prod" oder "datei", nicht "${QUELLE}".`);
   process.exit(2);
 }
@@ -84,9 +94,9 @@ const FILTER = { skill: opt('skill'), status: opt('status'), source: opt('source
 
 let tasks, loesungVon, herkunft;
 try {
-  if (QUELLE === 'datei') {
-    const pfad = opt('pfad');
-    ({ tasks, loesungVon } = await ausDatei(pfad));
+  if (QUELLE === 'datei' || QUELLE === 'charge') {
+    const pfad = QUELLE === 'charge' ? opt('from-file') : opt('pfad');
+    ({ tasks, loesungVon } = await (QUELLE === 'charge' ? ausCharge(pfad) : ausDatei(pfad)));
     tasks = filtere(tasks, FILTER);
     herkunft = pfad;
   } else {
@@ -108,6 +118,11 @@ try {
 if (!tasks.length) { console.error('Keine Aufgabe passt auf die Auswahl.'); process.exit(2); }
 
 console.log(`\n  ${tasks.length} Aufgabe(n) zu prüfen — Quelle: ${herkunft}\n`);
+const mitBild = tasks.filter((t) => t.needs_image === true).length;
+if (mitBild && !flag('answers-from')) {
+  console.log(`  Hinweis: ${mitBild} Aufgabe(n) brauchen eine Abbildung. Stufe 2 schickt nur den Text —`);
+  console.log('           dort ist "mehrdeutig" das erwartbare Urteil, kein Inhaltsfehler.\n');
+}
 
 // ─── Stufe 1 · Struktur ──────────────────────────────────────────────────────
 
@@ -136,7 +151,9 @@ for (const t of tasks) {
 
   if (s) {
     const antworten = s.correct_answers ?? s.correct_answer ?? null;
-    if (antworten == null || (Array.isArray(antworten) && !antworten.length)) {
+    const leerObjekt = antworten && typeof antworten === 'object' && !Array.isArray(antworten)
+      && !Object.values(antworten).some((v) => Array.isArray(v) && v.length);
+    if (antworten == null || (Array.isArray(antworten) && !antworten.length) || leerObjekt) {
       m.push('Lösung ohne Antwortwert');
     }
     if (s.acceptance && typeof s.acceptance === 'object') {
@@ -164,15 +181,55 @@ if (flag('nur-struktur')) {
 
 // ─── Stufe 2 · Blind lösen ───────────────────────────────────────────────────
 
+// Ohne API: Antworten eines Blind-Loesers (Subagent, tools/blind-loeser/AUFTRAG.md),
+// deterministisch gewertet wie im Schuelerpfad (tools/blind-loeser/bewertung.mjs).
+// Format: [{task_id, part?, antwort, unsicher?: 'ja'|'nein'}]. Kein Netz, kein Schluessel.
+if (flag('answers-from')) {
+  const pfad = opt('answers-from');
+  let roh;
+  try {
+    roh = JSON.parse(await fs.readFile(pfad, 'utf8'));
+  } catch (e) {
+    console.error(`--answers-from: ${pfad} nicht lesbar (${e.code ?? e.message})`);
+    process.exit(2);
+  }
+  if (!Array.isArray(roh)) {
+    console.error(`--answers-from: ${pfad} muss ein Array [{task_id, part?, antwort}] sein.`);
+    process.exit(2);
+  }
+  const { bewerteAufgabe } = await import('./blind-loeser/bewertung.mjs');
+  const nachAufgabe = new Map();
+  for (const r of roh) {
+    const id = String(r?.task_id ?? '').trim();
+    if (!id) continue;
+    if (!nachAufgabe.has(id)) nachAufgabe.set(id, []);
+    nachAufgabe.get(id).push({ part: r.part ?? null, antwort: r.antwort, unsicher: r.unsicher });
+  }
+  console.log(`\n  Rechnung:  Blind-Antworten aus ${pfad} — kein API-Aufruf`);
+  for (const t of tasks) {
+    const b = befund.get(t.id);
+    // Ohne Antwort: leere Liste → "keine Blind-Antwort" (ungeprueft), nicht stilles Weglassen.
+    const antworten = nachAufgabe.get(String(t.id)) ?? [];
+    if (b.struktur.length) continue;
+    b.rechnung = { eindeutig: true, bewertung: bewerteAufgabe(t, loesungVon.get(t.id), antworten) };
+  }
+  const fremd = [...nachAufgabe.keys()].filter((id) => !befund.has(id));
+  if (fremd.length) console.log(`  Hinweis: ${fremd.length} Antwort(en) passen zu keiner geprüften Aufgabe (${fremd.slice(0, 3).join(', ')}…)`);
+  const quote = await bericht();
+  process.exit(quote >= MIN_PASS ? 0 : 1);
+}
+
 if (!CFG.anthropic) {
   console.error(`
-  ANTHROPIC_API_KEY ist nicht gesetzt.
+  ANTHROPIC_API_KEY ist nicht gesetzt — Stufe 2 bricht ab, es geht kein API-Aufruf raus.
 
-  Stufe 2 (blind nachrechnen) ist der eigentliche Prüfer — ohne Schlüssel gibt es
-  kein Urteil, nur einen Abbruch. Weder gesetzt in der Umgebung noch in .env.
+  Stufe 2 (blind nachrechnen) ist der eigentliche Prüfer. Ohne Schlüssel:
 
-  Entweder:  export ANTHROPIC_API_KEY=...   bzw. Zeile in .env
-  Oder:      --nur-struktur                 (Stufe 1 allein, kostenlos)
+    1. node tools/blind-loeser/exportiere.mjs <charge.json> <ordner>
+    2. Subagent mit tools/blind-loeser/AUFTRAG.md lösen lassen → <antworten.json>
+    3. --answers-from <antworten.json>          (siehe tools/blind-loeser/README.md)
+
+  Oder:  --nur-struktur   (Stufe 1 allein)
 `);
   process.exit(2);
 }
@@ -271,6 +328,13 @@ const norm = (v) => String(v ?? '')
   .replace(/^[+]/, '').replace(/[€%]|cm2|cm²|m2|m²/g, '');
 
 function stimmtUeberein(erwartet, bekommen) {
+  // MULTI_PART: correct_answers = {"1": [...], "2": [...]}; der Loeser antwortet "a;b" in
+  // Teil-Reihenfolge. Jeder Teil muss gegen SEINE Varianten stimmen.
+  if (erwartet && typeof erwartet === 'object' && !Array.isArray(erwartet)) {
+    const teile = Object.keys(erwartet).sort((a, b) => Number(a) - Number(b));
+    const seine = String(bekommen ?? '').split(';');
+    return seine.length === teile.length && teile.every((k, i) => stimmtUeberein(erwartet[k], seine[i]));
+  }
   const e = Array.isArray(erwartet) ? erwartet : [erwartet];
   const b = norm(bekommen);
   for (const x of e) {
@@ -308,6 +372,7 @@ if (!flag('ohne-plausibel')) {
 async function bericht() {
   const zeilen = [];
   let ok = 0, falsch = 0, mehrdeutig = 0, unpruefbar = 0;
+  const nurToleranz = [], unsicher = [];
 
   for (const t of tasks) {
     const b = befund.get(t.id);
@@ -318,6 +383,20 @@ async function bericht() {
       urteil = 'struktur'; detail = b.struktur.join('; '); unpruefbar++;
     } else if (!b.rechnung) {
       urteil = 'ungeprueft'; detail = 'kein Urteil vom Prüfer'; unpruefbar++;
+    } else if (b.rechnung.bewertung) {
+      const w = b.rechnung.bewertung;
+      const erwartet = s?.correct_answers;
+      if (w.ok) {
+        urteil = 'ok'; ok++;
+        if (w.nurToleranz) nurToleranz.push(`${t.id}: ${w.anzeige} — nur über acceptance (lsa_grade); lsa_is_correct wertet falsch`);
+      } else if (w.falsch.length) {
+        urteil = 'abweichung'; falsch++;
+        detail = `hinterlegt: ${JSON.stringify(erwartet)} · Blind-Löser: ${w.anzeige}`;
+      } else {
+        urteil = 'ungeprueft'; unpruefbar++;
+        detail = `keine Blind-Antwort${w.fehlt[0] == null ? '' : ` für Teil ${w.fehlt.join(', ')}`}`;
+      }
+      if (w.unsicher) unsicher.push(`${t.id} (${urteil})`);
     } else if (b.rechnung.eindeutig === false) {
       urteil = 'mehrdeutig'; detail = b.rechnung.anmerkung || 'Prüfer hält die Aufgabe für unklar';
       mehrdeutig++;
@@ -361,6 +440,15 @@ async function bericht() {
       console.log(`                ${z.frage.slice(0, 90)}`);
     }
     if (schlecht.length > 20) console.log(`    … und ${schlecht.length - 20} weitere`);
+  }
+
+  if (nurToleranz.length) {
+    console.log(`\n  Nur über Toleranz/equivalents richtig — ${nurToleranz.length} (lsa_responses.correct wäre false):`);
+    for (const z of nurToleranz.slice(0, 10)) console.log(`    ${z}`);
+  }
+  if (unsicher.length) {
+    console.log(`\n  Blind-Löser unsicher — ${unsicher.length} (kein Gate, bitte ansehen):`);
+    for (const z of unsicher.slice(0, 10)) console.log(`    ${z}`);
   }
 
   const einwaende = zeilen.filter((z) => z.einwand);

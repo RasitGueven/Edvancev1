@@ -1,0 +1,347 @@
+{
+  "slug": "gymnasium-zusestrasse",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Wir lernen uns kennen – Daten erfassen und darstellen",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Zahlen und Größen",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Symmetrie",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Rechnen mit natürlichen Zahlen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Flächen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Körper",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 7,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Brüche in Dezimalschreibweise",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Zahlen addieren und subtrahieren",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Muster und Figuren",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "winkel",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Zahlen multiplizieren und dividieren",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Daten auswerten und darstellen",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Beziehungen zwischen Zahlen und Größen",
+      "stunden": 11,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozent und Zinsrechnung",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Wahrscheinlichkeit",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Terme mit mehreren Variablen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Flächen",
+      "stunden": 7,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Kreise und Dreiecke",
+      "stunden": 11,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Reelle Zahlen",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Kreise, Prismen und Zylinder",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "kreis",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Potenzen und Potenzgesetze",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "statistik_beurteilen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Daten und Wahrscheinlichkeit (Wiederholung)",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Quadratische Gleichungen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Ähnlichkeit",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Exponentielles Wachstum",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Trigonometrie",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 6,
+      "uv_titel": "Trigonometrische Funktionen",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf"
+    }
+  ],
+  "befunde": [
+    "Stundenangaben sind Unterrichtsstunden à 70 Min. (zzgl. Lernstandsüberprüfung), keine 45-Min.-Stunden",
+    "Halbjahre im Plan nicht angegeben",
+    "Kl. 6 Vorhaben 'Muster und Figuren': Kreis/Winkel und Abbildungen (Spiegelung, Verschiebung, Drehung) etwa 50/50 – winkel gewählt, symmetrie ebenso vertretbar",
+    "Kl. 8: Übersichtsraster nummeriert I, II, III, V, VI (UV IV fehlt); konkretisierte Vorhaben 8.1–8.5 bestätigen 5 Vorhaben",
+    "Kl. 9 Vorhaben 'Kreise, Prismen und Zylinder': Kreis und Prismen/Zylinder etwa 50/50 – kreis gewählt, prismen_zylinder ebenso vertretbar",
+    "Statistik in Kl. 9 → statistik_beurteilen (Vorhaben 'Daten und Wahrscheinlichkeit' mischt Statistik und bedingte Wahrscheinlichkeit etwa 50/50; wird in Kl. 10 als Wiederholung erneut unterrichtet, dort bedingte_wahrscheinlichkeit)",
+    "Kl. 10 Vorhaben 1 'Daten und Wahrscheinlichkeit' ist laut Plan Wiederholung von Kl. 9 UV 6; enthält ebenfalls Statistik-Anteil"
+  ]
+}

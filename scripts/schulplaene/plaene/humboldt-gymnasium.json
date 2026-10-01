@@ -1,0 +1,320 @@
+{
+ "slug": "humboldt-gymnasium",
+ "eintraege": [
+  {
+   "klasse": 5,
+   "position": 1,
+   "uv_titel": "Stochastik: Zahlen und Größen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 2,
+   "uv_titel": "Geometrie: Symmetrie",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "symmetrie",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 3,
+   "uv_titel": "Arithmetik/Algebra: Rechnen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 4,
+   "uv_titel": "Geometrie: Flächen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "flaeche_umfang",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 5,
+   "uv_titel": "Geometrie: Körper",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "koerper_quader",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 1,
+   "uv_titel": "Arithmetik/Algebra: Brüche – das Ganze und seine Teile",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 2,
+   "uv_titel": "Arithmetik/Algebra: Brüche in Dezimalschreibweise",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 3,
+   "uv_titel": "Arithmetik/Algebra: Zahlen addieren und subtrahieren",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 4,
+   "uv_titel": "Geometrie: Muster und Figuren",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "winkel",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 5,
+   "uv_titel": "Arithmetik/Algebra: Zahlen multiplizieren und dividieren",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 6,
+   "uv_titel": "Stochastik: Daten",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "daten_streumasse",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 7,
+   "uv_titel": "Arithmetik/Algebra: Beziehungen zwischen Zahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "ganze_zahlen_groessen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 1,
+   "uv_titel": "Arithmetik/Algebra: Rechnen mit rationalen Zahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rationale_zahlen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 2,
+   "uv_titel": "Funktionen: Zuordnungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zuordnungen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 3,
+   "uv_titel": "Funktionen: Prozent und Zinsrechnung",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zinsrechnung",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 4,
+   "uv_titel": "Arithmetik/Algebra: Terme und Gleichungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "terme_gleichungen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 5,
+   "uv_titel": "Geometrie: Konstruieren und Argumentieren",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 1,
+   "uv_titel": "Stochastik: Wahrscheinlichkeit",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 2,
+   "uv_titel": "Funktionen: Lineare Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "lineare_funktionen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 3,
+   "uv_titel": "Arithmetik/Algebra: Terme mit mehreren Variablen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "terme_binomische_formeln",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 4,
+   "uv_titel": "Geometrie: Flächen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "flaechen_vielecke",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 5,
+   "uv_titel": "Arithmetik/Algebra: Lineare Gleichungssysteme",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "lineare_gleichungen_lgs",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 6,
+   "uv_titel": "Geometrie: Kreise und Dreiecke",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "thales_konstruktionen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 1,
+   "uv_titel": "Arithmetik/Algebra: Reelle Zahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "reelle_zahlen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 2,
+   "uv_titel": "Funktionen: Quadratische Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "quadratische_funktionen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 3,
+   "uv_titel": "Geometrie: Kreise, Prismen und Zylinder",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "kreis",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 4,
+   "uv_titel": "Arithmetik/Algebra: Potenzen und Potenzgesetze",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "potenzen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 5,
+   "uv_titel": "Geometrie: Satz des Pythagoras und Berechnungen in Körpern",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "pythagoras",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 6,
+   "uv_titel": "Stochastik: Daten und Wahrscheinlichkeit",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "bedingte_wahrscheinlichkeit",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 1,
+   "uv_titel": "Funktionen/Arithmetik/Algebra: Quadratische Funktionen und Gleichungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "quadratische_gleichungen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 2,
+   "uv_titel": "Geometrie: Ähnlichkeit",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "aehnlichkeit",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 3,
+   "uv_titel": "Arithmetik/Algebra/Funktionen: Exponentialfunktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "exponentialfunktionen",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 4,
+   "uv_titel": "Geometrie: Trigonometrie",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "trigonometrie",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 5,
+   "uv_titel": "Funktionen: Trigonometrische Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "sinusfunktion",
+   "quelle_url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf"
+  }
+ ],
+ "befunde": [
+  "Keine Stunden- oder Halbjahresangaben in den Plänen",
+  "Kl. 9 'Daten und Wahrscheinlichkeit': Plan erlaubt es alternativ als erstes Vorhaben in Kl. 10 (dort ebenfalls gelistet); nur einmal in Kl. 9 erfasst",
+  "Kl. 9 'Daten und Wahrscheinlichkeit': mischt Statistik (Erhebung, Manipulation) und bedingte Wahrscheinlichkeit etwa 50/50 → bedingte_wahrscheinlichkeit",
+  "Kl. 10 'Trigonometrische Funktionen': laut Plan alternativ als letztes Vorhaben in Kl. 9 möglich",
+  "Kl. 9 'Kreise, Prismen und Zylinder': etwa 50/50 kreis und prismen_zylinder → kreis",
+  "Kl. 9 'Pythagoras und Berechnungen in Körpern': etwa 50/50 pythagoras und koerper_pyramide_kegel_kugel → pythagoras",
+  "Kl. 5/6 aus Plan Stand Dez. 2019, Kl. 7–10 aus Einzelplänen 2022/2023"
+ ]
+}

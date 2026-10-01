@@ -1,0 +1,338 @@
+{
+ "slug": "schiller-gymnasium",
+ "eintraege": [
+  {
+   "klasse": 5,
+   "position": 1,
+   "uv_titel": "Zahlen und Größen",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 2,
+   "uv_titel": "Symmetrie",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "symmetrie",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 3,
+   "uv_titel": "Rechnen mit natürlichen Zahlen",
+   "stunden": 25,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 4,
+   "uv_titel": "Flächen",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "flaeche_umfang",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 5,
+   "uv_titel": "Körper",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "koerper_quader",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 6,
+   "uv_titel": "Brüche – das Ganze und seine Teile (fakultativ)",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 1,
+   "uv_titel": "Brüche in Dezimalschreibweise",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 2,
+   "uv_titel": "Zahlen addieren und subtrahieren",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 3,
+   "uv_titel": "Muster und Figuren",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "winkel",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 4,
+   "uv_titel": "Zahlen multiplizieren und dividieren",
+   "stunden": 30,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 5,
+   "uv_titel": "Daten",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "daten_streumasse",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 6,
+   "uv_titel": "Beziehungen zwischen Zahlen",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "ganze_zahlen_groessen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 1,
+   "uv_titel": "Rechnen mit rationalen Zahlen",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "rationale_zahlen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 2,
+   "uv_titel": "Zuordnungen",
+   "stunden": 14,
+   "halbjahr": null,
+   "thema_key": "zuordnungen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 3,
+   "uv_titel": "Prozent und Zinsrechnung",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "zinsrechnung",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 4,
+   "uv_titel": "Terme und Gleichungen",
+   "stunden": 22,
+   "halbjahr": null,
+   "thema_key": "terme_gleichungen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 5,
+   "uv_titel": "Konstruieren und Argumentieren",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 6,
+   "uv_titel": "Wahrscheinlichkeit",
+   "stunden": 14,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 1,
+   "uv_titel": "Wahrscheinlichkeit",
+   "stunden": 14,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 2,
+   "uv_titel": "Lineare Funktionen",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "lineare_funktionen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 3,
+   "uv_titel": "Terme mit mehreren Variablen",
+   "stunden": 14,
+   "halbjahr": null,
+   "thema_key": "terme_binomische_formeln",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 4,
+   "uv_titel": "Flächen",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "flaechen_vielecke",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 5,
+   "uv_titel": "Lineare Gleichungssysteme",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "lineare_gleichungen_lgs",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 6,
+   "uv_titel": "Kreise und Dreiecke",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "thales_konstruktionen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 1,
+   "uv_titel": "Reelle Zahlen",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "reelle_zahlen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 2,
+   "uv_titel": "Quadratische Funktionen",
+   "stunden": 22,
+   "halbjahr": null,
+   "thema_key": "quadratische_funktionen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 3,
+   "uv_titel": "Kreise, Prismen und Zylinder",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "kreis",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 4,
+   "uv_titel": "Potenzen und Potenzgesetze",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "potenzen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 5,
+   "uv_titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "pythagoras",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 6,
+   "uv_titel": "Daten und Wahrscheinlichkeit",
+   "stunden": 13,
+   "halbjahr": null,
+   "thema_key": "bedingte_wahrscheinlichkeit",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 1,
+   "uv_titel": "Daten und Wahrscheinlichkeit",
+   "stunden": 13,
+   "halbjahr": null,
+   "thema_key": "bedingte_wahrscheinlichkeit",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 2,
+   "uv_titel": "Quadratische Funktionen und Gleichungen",
+   "stunden": 30,
+   "halbjahr": null,
+   "thema_key": "quadratische_gleichungen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 3,
+   "uv_titel": "Ähnlichkeit",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "aehnlichkeit",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 4,
+   "uv_titel": "Exponentialfunktionen",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "exponentialfunktionen",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 5,
+   "uv_titel": "Trigonometrie",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "trigonometrie",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 6,
+   "uv_titel": "Funktionen als Modell der Wirklichkeit (Sinusfunktionen)",
+   "stunden": 10,
+   "halbjahr": null,
+   "thema_key": "sinusfunktion",
+   "quelle_url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf"
+  }
+ ],
+ "befunde": [
+  "Stunden aus 'Zeitbedarf' bzw. 'ca. … Unterrichtsstunden' der konkreten Vorhaben (bei zerrissenen Übersichtszeilen Kl. 6/9/10 aus den Detailseiten); keine Halbjahresangaben",
+  "Kl. 5 Vorhaben VI (Brüche) fakultativ, bei Zeitmangel als erstes Vorhaben in Kl. 6",
+  "Kl. 7 Vorhaben VI und Kl. 8 Vorhaben I (Wahrscheinlichkeit) sind identisch (verschiebbar) – in beiden Klassen erfasst",
+  "Kl. 9 Vorhaben VI und Kl. 10 Vorhaben I (Daten und Wahrscheinlichkeit) sind identisch (verschiebbar) – in beiden Klassen erfasst",
+  "Kl. 9/10 'Daten und Wahrscheinlichkeit': mischt Statistik (Erhebung, Manipulation) und bedingte Wahrscheinlichkeit etwa 50/50 → bedingte_wahrscheinlichkeit",
+  "Kl. 9 'Kreise, Prismen und Zylinder': etwa 50/50 kreis und prismen_zylinder → kreis",
+  "Kl. 9 'Pythagoras und Berechnungen in Körpern': etwa 50/50 pythagoras und koerper_pyramide_kegel_kugel → pythagoras"
+ ]
+}
