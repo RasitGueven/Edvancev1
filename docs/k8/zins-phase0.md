@@ -325,3 +325,23 @@ Der Vorschlag aus dem Auftrag (7 · 8 · 8 · 9) passt unverändert.
 3. `potenzen` (dünn) diesem Lauf zuteilen? Wenn ja, wird mit Exponent 3 und Dezimalbasis aufgefüllt.
 4. Fehlbilder: Wiederverwendung wie oben, `prozente_addiert` zusammengelegt (Empfehlung), Familien und Klartexte bestätigen?
 5. Cluster „Zahl & Rechnen" bestätigen?
+
+---
+
+## Entscheidungen (Rasit, 01.10.2026)
+
+1. Kürzel `prozent_zins_*`: `prozent_zins_jahreszins` (7), `prozent_zins_teilzins` (8),
+   `prozent_zins_rueckrechnung` (8), `prozent_zins_zinseszins` (9).
+2. Kante `prozent_zins_teilzins → bruch_mult` wird aufgenommen.
+3. `potenzen` ist diesem Lauf zugeteilt. Aufgefüllt wird so, dass auch der Kreis-Lauf die Aufgaben nutzen kann:
+   Exponent 2 und 3, Dezimalbasis (1,05²; 1,05³), Quadrat einer Dezimalzahl (2,5²; 0,4²). Die vorhandenen
+   √-Aufgaben bleiben unverändert. In `befunde-k8-zins.md` wird vermerkt, dass Wurzeln unter `potenzen` hängen.
+4. Fehlbilder wie vorgeschlagen bestätigt, `zinseszins_linear` und `veraenderungen_addiert` werden zu
+   `prozente_addiert` zusammengelegt. Ausnahme: `zu_frueh_gerundet` ist verbindlich, weil der Kreis-Lauf ihn
+   auch braucht. Familie nach Bestand, Anlage mit `on conflict (slug) do nothing`, Klartext gleich wie im
+   Kreis-Lauf: „Rundet ein Zwischenergebnis und rechnet mit dem gerundeten Wert weiter – das Endergebnis
+   weicht deshalb leicht ab."
+5. Themengebiet „Zahl & Rechnen".
+
+Außerdem: Beträge unter 1000 €, falsche Werte in beiden Schreibweisen. Geprüft wird in Phase C mit
+`verify-tasks --from-file` aus dem Vorlauf. Phase A beginnt erst, wenn der Vorlauf eingespielt ist.
