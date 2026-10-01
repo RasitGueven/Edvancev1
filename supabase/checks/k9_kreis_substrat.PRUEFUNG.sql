@@ -1,4 +1,4 @@
--- Pruefquery zu 20261001125034_substrat_k9_kreis.sql (nur lesend).
+-- Pruefquery zu 20261001131855_substrat_k9_kreis.sql (nur lesend).
 -- Erwartung: 5 Knoten (Kl. 9, Tiefen 6/6/7/7/7), 16 Kanten, jede Kante echt
 -- flacher, 4 neue + 1 geteilter Fehlbild-Slug, alle neuen unfreigegeben.
 select 'knoten' as pruefung, count(*) = 5 as ok,
