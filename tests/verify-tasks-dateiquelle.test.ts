@@ -68,7 +68,10 @@ beforeAll(async () => {
 
       const antwort = bloecke(inhalt).map(({ id, frage }) => {
         if (istPlausibilitaet) return { id, ok: true, einwand: '' }
-        const wert = loese(frage)
+        // MULTI_PART: jede Zeile "(n) …" einzeln rechnen, Antworten mit ";" verbinden.
+        const teile = frage.match(/^\(\d+\) .*$/gm)
+        const werte = teile?.map(loese)
+        const wert = teile ? (werte!.every((w) => w !== null) ? werte!.join(';') : null) : loese(frage)
         return wert === null
           ? { id, antwort: '', eindeutig: false, anmerkung: 'kein rechenbarer Ausdruck' }
           : { id, antwort: wert, eindeutig: true, anmerkung: '' }
@@ -225,6 +228,45 @@ describe('Abbruch statt stillem Fehlschlag', () => {
   it('nennt Datei und Grund, wenn das JSON kaputt ist', async () => {
     const { code, ausgabe } = await pruefer(['--quelle', 'datei', '--pfad', SKRIPT])
     expect(ausgabe).toContain('ist kein gültiges JSON')
+    expect(code).toBe(2)
+  })
+})
+
+describe('--from-file (Charge-Format)', () => {
+  it('prüft eine korrekte Charge inkl. MULTI_PART je Teil — 100 %, Exit 0', async () => {
+    const { code, ausgabe } = await pruefer(['--from-file', FIX('charge-format-korrekt.json'), '--ohne-plausibel'])
+    expect(ausgabe).toContain('2 Aufgabe(n) zu prüfen')
+    expect(ausgabe).toContain('charge-format-korrekt.json')
+    expect(ausgabe).toMatch(/Trefferquote\s+100\.0 %/)
+    expect(code).toBe(0)
+  })
+
+  it('weist auf Aufgaben mit Abbildung hin', async () => {
+    const { ausgabe } = await pruefer(['--from-file', FIX('charge-format-korrekt.json'), '--ohne-plausibel'])
+    expect(ausgabe).toContain('1 Aufgabe(n) brauchen eine Abbildung')
+  })
+
+  it('erkennt einen falsch hinterlegten Teil und eine Teilaufgabe ohne Antwort', async () => {
+    const { code, ausgabe } = await pruefer(['--from-file', FIX('charge-format-falsch.json'), '--ohne-plausibel'])
+    // Teil 2: 5 - 12 = -7, hinterlegt ist 7.
+    expect(ausgabe).toContain('abweichung')
+    expect(ausgabe).toContain('Prüfer: 91;-7')
+    expect(ausgabe).toContain('Lösung ohne Antwortwert')
+    expect(code).toBe(1)
+  })
+
+  it('schickt die hinterlegten Teil-Lösungen NICHT an den Prüfer, wohl aber die Teilprompts', async () => {
+    await pruefer(['--from-file', FIX('charge-format-korrekt.json'), '--ohne-plausibel'])
+    const raus = gesendetesGanz()
+    for (const feld of ['correct_answers', 'antwort', 'teile', 'wert']) expect(raus).not.toContain(`"${feld}"`)
+    for (const wert of ['42', '91', '−7']) expect(raus).not.toContain(wert)
+    expect(raus).toContain('(1) 13 · 7 = ?')
+    expect(raus).toContain('(2) 5 - 12 = ?')
+  })
+
+  it('bricht bei einer Datei ohne "aufgaben" mit klarer Meldung ab', async () => {
+    const { code, ausgabe } = await pruefer(['--from-file', FIX('charge-korrekt.json'), '--nur-struktur'])
+    expect(ausgabe).toContain('Charge-Format')
     expect(code).toBe(2)
   })
 })

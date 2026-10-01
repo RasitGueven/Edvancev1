@@ -118,12 +118,76 @@ export async function ausDatei(pfad) {
 }
 
 /**
- * Liest die Aufgaben aus Produktion. Unverändertes Verhalten der Vorgabe-Quelle.
+ * Aufgabentext fuer den Loeser. Bei MULTI_PART haengen die Teilprompts nummeriert an —
+ * ohne sie sieht der Loeser nur den Stamm ("Lies die Koordinaten ab") und weiss nicht,
+ * welche Werte gefragt sind. Die Reihenfolge der Teile ist die Reihenfolge der Antworten.
+ */
+export function mitTeilen(frage, parts) {
+  const teile = (Array.isArray(parts) ? parts : []).filter((p) => p?.prompt);
+  if (!teile.length) return frage ?? null;
+  return `${frage ?? ''}\n\nTeilaufgaben (Antworten in dieser Reihenfolge, durch Semikolon getrennt):\n` +
+    teile.map((p) => `(${p.nr}) ${p.prompt}`).join('\n');
+}
+
+/**
+ * Liest eine Charge im Format der Vorbefuellung (docs/prefill/<batch>.json, siehe
+ * tools/vorlauf-build.mjs): { source, aufgaben: [{ id, basis, teile, loesung, felder }] }.
+ * Damit pruefen Themen-Laeufe ihre Aufgaben VOR dem Einspielen mit derselben Quelle,
+ * aus der die Migration erzeugt wird — keine zweite Abschrift.
+ *   basis.frage/parts/input_type/skill_key/unit   -> Aufgabe
+ *   loesung.correct_answers.wert (flach)            -> correct_answers
+ *   teile.<nr>.antwort.wert (MULTI_PART)            -> correct_answers.<nr>
+ * @returns {Promise<{tasks: object[], loesungVon: Map<string, object>}>}
+ */
+export async function ausCharge(pfad) {
+  if (!pfad) throw new QuellenFehler('--from-file braucht <charge.json>.');
+  let daten;
+  try {
+    daten = JSON.parse(await fs.readFile(pfad, 'utf8'));
+  } catch (e) {
+    throw new QuellenFehler(`Charge nicht lesbar: ${pfad} (${e.code ?? e.message})`);
+  }
+  if (!Array.isArray(daten?.aufgaben)) {
+    throw new QuellenFehler(`${pfad}: erwartet ein Objekt mit "aufgaben" (Charge-Format).`);
+  }
+  const tasks = [];
+  const loesungVon = new Map();
+  const gesehen = new Set();
+  daten.aufgaben.forEach((a, i) => {
+    const id = String(a?.id ?? '').trim();
+    if (!id) throw new QuellenFehler(`${pfad}: Aufgabe ${i} hat keine id.`);
+    if (gesehen.has(id)) throw new QuellenFehler(`${pfad}: id "${id}" kommt mehrfach vor.`);
+    gesehen.add(id);
+    const b = a.basis ?? {};
+    const mp = b.input_type === 'MULTI_PART';
+    tasks.push({
+      id,
+      question: mitTeilen(b.frage ?? null, mp ? b.parts : []),
+      skill_key: b.skill_key ?? null,
+      input_type: b.input_type ?? null,
+      status: daten.status ?? 'draft',
+      source: daten.source ?? null,
+      unit: b.unit ?? null,
+      created_at: null,
+      needs_image: a.felder?.needs_image?.wert ?? Boolean(b.figur),
+    });
+    const ca = mp
+      ? Object.fromEntries(Object.entries(a.teile ?? {})
+        .filter(([, t]) => Array.isArray(t?.antwort?.wert)).map(([nr, t]) => [nr, t.antwort.wert]))
+      : a.loesung?.correct_answers?.wert;
+    if (ca != null) loesungVon.set(id, { correct_answers: ca });
+  });
+  return { tasks, loesungVon };
+}
+
+/**
+ * Liest die Aufgaben aus Produktion. Bei MULTI_PART kommen die Teilprompts an den
+ * Aufgabentext (mitTeilen), sonst unveraendert.
  * @returns {Promise<{tasks: object[], loesungVon: Map<string, object>}>}
  */
 export async function ausProduktion(sb, filter) {
   let q = sb.from('tasks')
-    .select('id,question,skill_key,input_type,status,source,unit,created_at');
+    .select('id,question,skill_key,input_type,status,source,unit,created_at,parts,needs_image');
   if (filter.skill)  q = q.eq('skill_key', filter.skill);
   if (filter.status) q = q.eq('status', filter.status);
   if (filter.source) q = q.eq('source', filter.source);
@@ -138,7 +202,10 @@ export async function ausProduktion(sb, filter) {
     const { data: loesungen } = await sb.from('task_solutions').select('*').in('task_id', ids);
     for (const s of loesungen ?? []) loesungVon.set(s.task_id, s);
   }
-  return { tasks: tasks ?? [], loesungVon };
+  const raus = (tasks ?? []).map(({ parts, ...t }) => ({
+    ...t, question: t.input_type === 'MULTI_PART' ? mitTeilen(t.question, parts) : t.question,
+  }));
+  return { tasks: raus, loesungVon };
 }
 
 /**
