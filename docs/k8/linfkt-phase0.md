@@ -275,3 +275,28 @@ Offen:
 1. **Fehlbild-Slugs.** Neu: `steigung_kehrwert`, `m_b_vertauscht`, `achsenabschnitt_verwechselt`. Wiederverwendet: `seiten_verwechselt`, `betrag_fehler`, `groessen_vertauscht`. Kein Kästchen-Slug.
 2. **Steigung auf Tiefe 5** mit der Kante zu `proportionalitaet`: ja oder nein.
 3. **`dbread`:** Wo liegt es?
+
+## Phase A – Substrat (eingespielt 2026-10-01)
+
+Vorbedingungen live per `dbread` geprüft:
+- `skills_fundament_tiefe_check` erlaubt 1..12.
+- `geo_koordinaten` (6/2) und `term_einsetzen` (7/5) existieren.
+- `task_solution_upsert(uuid,jsonb,text,jsonb,jsonb,jsonb,jsonb,jsonb,jsonb)` existiert, `SECURITY DEFINER`. Phase B nutzt die Funktion mit `set_config`.
+
+Neue Dateien:
+- Migration: `supabase/migrations/20261001124808_substrat_k8_linfkt.sql`
+  - Version per `date -u`; weder in `schema_migrations` noch in einem Branch belegt.
+  - Inhalt: 5 Knoten, 12 Kanten mit Begründung, 3 Fehlbilder (`freigegeben_am` NULL).
+- Prüfskript: `supabase/checks/k8_linfkt_substrat.PRUEFUNG.sql`
+  - L1 Knoten, L2 Kanten, L3 echt flacher und Unterbau, L4 keine transitive Redundanz (mit Bruchprobe), L5 Fehlbild-Entwürfe, L6 Bruchprobe für den Guard.
+
+Ablauf:
+1. **Lokal:** Wegwerf-DB aus allen 82 Migrationen von `dev`, den zwei Vorlauf-Substratmigrationen und dieser einen: PRUEFUNG grün, L1–L6.
+2. **Eingespielt** mit `psql -1 -f`: `INSERT 0 5 / 0 12 / 0 3`. Danach Eintrag in `schema_migrations` (`statements` = Dateiinhalt, wie beim Vorlauf).
+3. **Prod-Nachprüfung per `dbread`** (read only): 5 Knoten, 12 Kanten (jede echt flacher), 3 Entwürfe, Versionszeile vorhanden.
+   Das PRUEFUNG-Skript selbst (mit Bruchproben) lief gegen Prod **nicht**. Es schreibt in einer Rollback-Transaktion und geht deshalb nicht über `dbread`; ein eigener Helfer wurde gesperrt.
+
+**Abhängigkeit:** Die Kanten zeigen auf `geo_koordinaten`/`term_einsetzen` aus PR #182.
+- Ein Neuaufbau nur aus `dev` (CI, `tools/schema-snapshot.sh`) bricht an `skill_kante` ab, bis #182 in `dev` gemergt ist.
+- Der PR dieses Laufs darf erst nach #182 gemergt werden.
+- `schema-snapshot.sh` lief deshalb noch nicht. Es ist eine reine Datenmigration, `schema-erwartet.sql` bleibt unverändert.
