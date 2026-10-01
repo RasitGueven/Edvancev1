@@ -17,6 +17,14 @@ Weil die Aufgaben neu entstehen, erzeugt `tools/vorlauf-build.mjs` statt `prefil
 `20261001120554_aufgaben_k8_vorlauf.sql`. Dazu kommen der Snapshot (Rohzustand) und die CSV. `verify-tasks.mjs --prefill`
 prüft wie gewohnt. Befunde, Einspiel-Reihenfolge und Prüfprotokoll stehen in `befunde-k8-vorlauf.md`.
 
+## Charge `k8-zins` (30 NEUE Aufgaben, nicht aus dem Bestand)
+
+Je sechs Aufgaben zu den vier `prozent_zins_*`-Knoten und sechs zur Auffüllung von `potenzen`, alle vorbefüllt
+(`status = 'draft'`). Quelle ist `tools/k8-zins-charge.mjs`: Es schreibt `k8-zins.json` und rechnet dabei jede Antwort
+und jeden falschen Wert exakt nach. `tools/vorlauf-build.mjs` erzeugt daraus die Migration
+`20261001125349_aufgaben_k8_zins.sql`, den Snapshot und die CSV. Befunde, Prüfprotokoll und Test-LSA stehen in
+`befunde-k8-zins.md`, die Blind-Antworten in `k8-zins-blind.json`.
+
 ## Dateien der Charge `mathe8-pilot` (18 Binom-Aufgaben)
 
 | Datei | Inhalt |
