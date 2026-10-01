@@ -27,7 +27,7 @@ Jede Datei klammert sich selbst mit `begin`/`commit`. Danach:
 | B5 | `lsa_normalize_answer` gleicht das Unicode-Minus „−“ nicht an das ASCII-„-“ an. | Antwortvarianten `-3`, `−3`, `- 3` und bei positiven Werten `+3`. Prüfpunkt V6 bestätigt, dass `−3` gewertet wird. |
 | B6 | Stoffanker `geo_koordinaten` ist Klasse 6 (Geo-6). Negative Koordinaten setzen aber `vorzeichen_add_sub` voraus, und das ist Klasse 7. | Die Kante bildet das ab. `klasse_herkunft` bleibt 6, so wie vorgeschlagen. Aufgabe 1 kommt ohne Minus aus. |
 | B7 | Der Fehlbild-Katalog hat 85 Slugs, 53 davon ohne Familie und ohne Klartext. | Wiederverwendet: `vorzeichen_potenz` (−2² statt (−2)²), `vorrang_ignoriert`, `vorzeichen_ignoriert`, `betrag_fehler`, `halbieren_vergessen`, `plus_statt_mal`. Neu: `koordinaten_vertauscht` und `koordinate_vorzeichen_verloren` (Begründung im Kopf von Migration 2). |
-| B8 | `ANTHROPIC_API_KEY` wird mit **401** abgewiesen. Stufe 2 von `verify-tasks.mjs` läuft nicht. | Stufe 1 ist grün (12/12). Als Ersatz hat ein unabhängiger Löser die Aufgaben blind gelöst. Er sah nur Text und gerenderte Abbildung, die Lösungen nicht. Ergebnis 18/18 im Blind-Abgleich von `verify-prefill`. **Stufe 2 bleibt offen, bis ein gültiger Schlüssel da ist.** |
+| B8 | `ANTHROPIC_API_KEY` wird mit **401** abgewiesen. Stufe 2 von `verify-tasks.mjs` läuft nicht. | Stufe 1 ist grün (12/12). Als Ersatz hat ein unabhängiger Löser die Aufgaben blind gelöst. Er sah nur Text und gerenderte Abbildung, die Lösungen nicht. Ergebnis 18/18 im Blind-Abgleich von `verify-prefill`. **Entscheidung 01.10.: kein API-Schlüssel mehr.** Stufe 2 läuft jetzt über `--answers-from` (tools/blind-loeser): 12/12, 100 %. |
 | B9 | `verify-tasks` Stufe 1, erster Lauf. **Ist:** 10 ok, 2 beanstandet („wortgleiche Dublette“). Die Aufgaben 2 und 3 hatten denselben Text wie Aufgabe 1 („… des Punktes P …“), nur die Abbildung war anders. **Soll:** 0 beanstandet. | Nur die Punktnamen geändert (P, Q, R, T). Rechnung und Lösung sind gleich geblieben. Danach 12 ok. |
 | B10 | Hinweise des Blindlösers. Aufgabe 4: „liegt nicht auf einer Gitterlinie“ war sachlich falsch, T liegt auf x = 3. Aufgabe 5: Die Beschriftungen A und B verdeckten die Skalenzahlen −4 und 3. | Text geändert zu „nicht auf einem Gitterpunkt“. A und B von y = −1 nach y = −3 verschoben, D bleibt (−4\|2). Aufgabe 5 danach erneut blind gelöst: ok. |
 | B11 | `pruefe_koordinatensystem` erkennt nicht, wenn eine Punktbeschriftung eine Skalenzahl überdeckt (siehe B10). | Vorschlag für einen späteren Generator-PR: Abstand zwischen Label und Achsenbeschriftung prüfen. In diesem PR nicht geändert. |
@@ -93,8 +93,8 @@ Verfahren aus `docs/sondierrang_vorschlag.md`, Profil = Menge der Slugs. Bei MUL
 
 1. **Familie für `koordinaten_vertauscht`:** Keine der fünf Familien passt. Eine neue Familie bräuchte einen Elterntext und eine Abnahme.
 2. **Klartexte der zwei neuen Fehlbilder abnehmen** (`freigegeben_am` ist NULL).
-3. **Gültigen `ANTHROPIC_API_KEY` hinterlegen**, damit Stufe 2 von `verify-tasks` nachläuft (B8).
-4. Abbildungen hochladen (`upload_figures.py`). Bis dahin liefert der Payload für die sechs Koordinaten-Aufgaben **kein Bild**, und sie sind nicht lösbar. Status `draft` schützt davor, dass sie ausgespielt werden.
+3. ~~API-Schlüssel~~ entfällt: Stufe 2 läuft über `--answers-from` (B8).
+4. ~~Abbildungen hochladen~~ erledigt am 01.10.: `upload_figures.py` mit `geladen=6 fehler=0`, alle sechs `task_figures`-Zeilen haben einen Hash.
 
 ## Prüfprotokoll
 
@@ -102,7 +102,7 @@ Verfahren aus `docs/sondierrang_vorschlag.md`, Profil = Menge der Slugs. Bei MUL
 |---|---|
 | `verify-tasks.mjs --prefill` (Constraints, Vollständigkeit, exakte Nachrechnung, Blind-Abgleich) | 0 Charge-Fehler, 18/18 Nachrechnungen, 18/18 Blind-Abgleich → `k8-vorlauf-verifikation.md` |
 | `verify-tasks.mjs` Stufe 1 (Struktur) | 12 ok, 0 beanstandet (erster Lauf: 2 Dubletten, siehe B9) |
-| `verify-tasks.mjs` Stufe 2 (LLM-Blindlöser) | **nicht gelaufen**: HTTP 401 (B8) |
+| `verify-tasks.mjs` Stufe 2 (`--from-file … --answers-from k8-vorlauf-blind.json --min-pass 1.0`) | 12 ok, 0 Abweichung, 100 %, kein API-Aufruf |
 | Trockenlauf: begin → M1, M2, M3 → V1–V9 → rollback | alle neun Prüfpunkte ok. Nach dem Rollback gilt wieder der alte Stand (43 Skills, CHECK 1..8). |
 | Einspielen wie Rasit (je Datei mit eigenem begin/commit), dann Prüfskript und Zweitlauf | ok, V1–V9 ok, Zweitlauf ohne Änderung (idempotent) |
 | Endstand Wegwerf-DB gegen Charge | 12 Aufgaben, 264 Feldvergleiche, 0 Abweichungen |

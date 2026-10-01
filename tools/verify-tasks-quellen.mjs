@@ -129,6 +129,9 @@ export function mitTeilen(frage, parts) {
     teile.map((p) => `(${p.nr}) ${p.prompt}`).join('\n');
 }
 
+/** Art je Teilaufgabe ({nr: 'mc'|'short_input'}) — bestimmt, wie --answers-from einen Teil wertet. */
+const teilArten = (parts) => Object.fromEntries((Array.isArray(parts) ? parts : []).map((p) => [String(p.nr), p.kind]));
+
 /**
  * Liest eine Charge im Format der Vorbefuellung (docs/prefill/<batch>.json, siehe
  * tools/vorlauf-build.mjs): { source, aufgaben: [{ id, basis, teile, loesung, felder }] }.
@@ -170,12 +173,13 @@ export async function ausCharge(pfad) {
       unit: b.unit ?? null,
       created_at: null,
       needs_image: a.felder?.needs_image?.wert ?? Boolean(b.figur),
+      teilArten: teilArten(mp ? b.parts : []),
     });
     const ca = mp
       ? Object.fromEntries(Object.entries(a.teile ?? {})
         .filter(([, t]) => Array.isArray(t?.antwort?.wert)).map(([nr, t]) => [nr, t.antwort.wert]))
       : a.loesung?.correct_answers?.wert;
-    if (ca != null) loesungVon.set(id, { correct_answers: ca });
+    if (ca != null) loesungVon.set(id, { correct_answers: ca, acceptance: a.loesung?.acceptance?.wert ?? null });
   });
   return { tasks, loesungVon };
 }
@@ -204,6 +208,7 @@ export async function ausProduktion(sb, filter) {
   }
   const raus = (tasks ?? []).map(({ parts, ...t }) => ({
     ...t, question: t.input_type === 'MULTI_PART' ? mitTeilen(t.question, parts) : t.question,
+    teilArten: teilArten(t.input_type === 'MULTI_PART' ? parts : []),
   }));
   return { tasks: raus, loesungVon };
 }
