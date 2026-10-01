@@ -263,6 +263,14 @@ Entschieden (Rasit, 2026-10-01):
 - Ich spiele die Migrationen in diesem Chat selbst ein. Ablauf nach CLAUDE.md §10: Version per `date -u`, Versionsprüfung, `psql -1 -f`, Eintrag in `schema_migrations`, danach `schema-snapshot.sh`.
 - Phase A beginnt erst, wenn der Vorlauf eingespielt ist und Rasit „weiter“ sagt.
 
+Phase C, Stufe 2 (Rasit, 2026-10-01): kein `ANTHROPIC_API_KEY`, stattdessen ein Blind-Löser-Subagent.
+- Ablauf und Auftrag stehen in `tools/blind-loeser/` auf `feat/k8-vorlauf` (PR #182). Übernehmen per `git fetch` + `git merge origin/feat/k8-vorlauf`, bei Konflikten nur `tools/`.
+  Stand 2026-10-01: PR #182 ist offen, `tools/blind-loeser/` gibt es dort noch nicht.
+- Der Subagent sieht nur Aufgabentext und Abbildung. Keine Lösungen, keine CSV, keine Migration, keine Hinweise.
+- Vergleich: `verify-tasks --from-file <charge.json> --answers-from <antworten.json> --min-pass 1.0`.
+- Fällt eine Aufgabe durch: Ist und Soll melden, nicht neu würfeln. Ein zweiter, frischer Subagent löst genau diese Aufgabe noch einmal. Erst wenn beide abweichen, gilt die Aufgabe als fehlerhaft.
+- Diese Prüfung läuft **vor** dem Einspielen der Aufgaben-Migration.
+
 Offen:
 1. **Fehlbild-Slugs.** Neu: `steigung_kehrwert`, `m_b_vertauscht`, `achsenabschnitt_verwechselt`. Wiederverwendet: `seiten_verwechselt`, `betrag_fehler`, `groessen_vertauscht`. Kein Kästchen-Slug.
 2. **Steigung auf Tiefe 5** mit der Kante zu `proportionalitaet`: ja oder nein.
