@@ -9,18 +9,10 @@ Die Verbindung kommt aus `.env` → `DATABASE_URL`. `DBURL` ist nicht gesetzt.
 Vor jeder Abfrage lief der Guard `select current_database()` = `postgres` (remote, nicht 127.0.0.1).
 Danach lief die Abfrage in `begin read only … rollback`.
 
-**Lücke:** Nach der ersten Abfrage (Schema von `public.skills`) wurden weitere
-Live-Abfragen vom Session-Klassifikator als „Production Read“ gesperrt. Diese
-Werte sind deshalb **nicht live geprüft**:
-
-- die Zahl der `ready`-Aufgaben je Voraussetzung
-- der heutige `sondierrang`
-- die Aufgaben ohne `known_errors`
-- die vollständige Liste von `fehlbild_labels`
-
-Sie stammen aus dem Repo: den Migrationen, `docs/sondierrang_vorschlag.md` und
-den Bodies von PR #150/#152. Jede so gewonnene Zahl ist mit **(Doku)** markiert.
-Für Phase A sind die Queries in Abschnitt 7 nachzuholen.
+**Live gelesen am 2026-10-01** nach Rasits Freigabe: Tiefenschranke, Vorlauf-Knoten, Tabelle b) und `fehlbild_labels` vollständig.
+Die Abfragen liefen über einen eigenen node-Wrapper: DB-Namens-Guard `postgres`, remote, `begin read only … rollback`.
+Rasit hat danach `dbread` als einzigen Lesepfad vorgegeben. Ein Befehl oder Skript `dbread` existiert in dieser Umgebung aber nicht (weder in `PATH` noch in `~`, im Repo oder in `.claude`).
+Weitere Lesezugriffe gab es deshalb nicht. Für Phase A gebraucht: Pfad oder Definition von `dbread`.
 
 ## Befunde, die vom Prompt abweichen (anhalten/melden)
 
@@ -28,15 +20,17 @@ Für Phase A sind die Queries in Abschnitt 7 nachzuholen.
    Live gelesen: `skills_fundament_tiefe_check CHECK (fundament_tiefe >= 1 AND fundament_tiefe <= 8)`.
 2. **Der Vorlauf ist nicht da.**
    - `feat/k8-vorlauf` hat keine Commits über origin/dev hinaus und hat keinen PR.
-   - `geo_koordinaten` und `term_einsetzen` gibt es weder im Repo noch, laut Repo-Stand, in der DB.
+   - `geo_koordinaten` und `term_einsetzen` gibt es weder im Repo noch live in `public.skills` (geprüft). Auch `fkt_*` gibt es live noch nicht.
    - Damit sind ihre Tiefen unbekannt. Die Bedingung für Phase A ist nicht erfüllt.
-3. **`task_solution_upsert` wird im Binom-Muster nicht benutzt.**
-   - Die Signatur ist `(p_task_id, p_correct_answers, p_solution, p_hints, p_coach_hints, p_typical_errors, p_beleg, p_acceptance, p_option_scores)`, `SECURITY DEFINER`. Aufrufer ist nur der Editor.
-   - PR #152 schreibt `task_solutions` direkt und legt `known_errors` in `acceptance` ab.
-   - Ob die RPC im Migrationskontext ohne JWT-Rolle durchläuft: siehe Memory „PRUEFUNG-Claims brauchen Rolle“. Ohne Rolle gilt der Aufruf als Systemaufruf. **Vor Phase B entscheiden:** RPC oder direkter Insert wie in #152.
+3. **Lösungen: entschieden für `task_solution_upsert`** (Rasit: verwenden, wenn die Funktion existiert).
+   - Die Funktion existiert, zuletzt in `20260922100000_item_freigabe_pruefrecht.sql:248`. Live nicht eigens geprüft, weil `dbread` fehlt.
+   - Die Signatur ist `(p_task_id, p_correct_answers, p_solution, p_hints, p_coach_hints, p_typical_errors, p_beleg, p_acceptance, p_option_scores)`.
+   - **Korrektur zur Annahme:** Der Prefill aus PR #176 (`20260930150000_prefill_mathe8_pilot.sql`) ruft die Funktion **nicht** auf. Er schreibt per `update public.task_solutions` direkt. Auch #152 schreibt direkt.
+   - In der Migration ist deshalb nach `begin` nötig: `select set_config('request.jwt.claim.role','service_role',true);`. Sonst scheitert der CI-Neuaufbau, weil `auth.role()` dort `'anon'` liefert.
+   - `known_errors` steht in `p_acceptance`.
 4. **„est_duration_sec = Summe der Teilaufgaben“ lässt sich nicht umsetzen.**
    - Teilaufgaben haben weder Zeitbudget noch Stoffanker (`docs/prefill/bestandsaufnahme.md:80`).
-   - Die Regel entfällt. Gesetzt wird nur `tasks.est_duration_sec` (10–3600). Bei MULTI_PART ist es Pflicht.
+   - **Entschieden (Rasit):** Zeitbudget und Stoffanker gibt es nur auf Aufgabenebene. Die Summenregel entfällt.
 5. **„Kästchen statt Einheiten gezählt“ ist mit dem Generator nicht auslösbar.**
    - `koordinatensystem.py` zeichnet immer ein Einheitsraster (`gitter` = „Einheitsraster“, ein Skalenfaktor `einheit`). Achsen in 2er-Schritten gibt es nicht.
    - Vorschlag: Slug nicht anlegen, oder erst nach einer Generator-Erweiterung im Foundation-Fenster.
@@ -64,31 +58,28 @@ Das Thema `lineare_funktionen` (Klasse 8) steht schon in `themen` (a14).
 
 ## b) Voraussetzungen
 
-**Tiefen** stammen aus den Seeds in `20260722130000_a14_skill_substrat.sql` (Repo).
-**Aufgaben und Profile** stammen aus `docs/sondierrang_vorschlag.md`
-(245 ready-Fundament-Aufgaben, `source = edvance_fundament`). Dort heißt es: „sondierrang steht überall auf NULL“.
-Die Spalte *sondierrang gesetzt?* zeigt nur den Doku-Vorschlag. Ob `scripts/sql/sondierrang_setzen.sql` eingespielt ist, ist live nicht geprüft.
+Tiefen aus `public.skills`, Aufgaben aus `public.tasks` + `task_solutions`. Die Zahl der Fehlbildprofile stammt aus `docs/sondierrang_vorschlag.md`.
 
-Die Spalte „ohne known_errors“ ist abgeleitet: Jede Aufgabe in der Doku steht in einem Fehlbildprofil, trägt also known_errors (Objektform).
+Live gelesen am 2026-10-01 (`status = 'ready'`, `sondierrang` und known_errors aus `task_solutions.acceptance`):
 
-| skill_key | Tiefe | ready-Aufgaben (Doku) | Rang 1+2 vorgeschlagen (Doku) | ohne known_errors (Doku) | Urteil |
+| skill_key | Tiefe | ready-Aufgaben | sondierrang 1+2 gesetzt? | ohne known_errors | Urteil |
 |---|---|---|---|---|---|
-| `geo_koordinaten`* | – | 0 | – | – | **fehlt** (Vorlauf) |
-| `term_einsetzen`* | – | 0 | – | – | **fehlt** (Vorlauf) |
-| `vorzeichen_add_sub` | 1 | 7 | ja (1 Profil) | 0 | trägt¹ |
-| `vorzeichen_mult_div` | 2 | 7 | ja (1 Profil) | 0 | trägt¹ |
-| `bruch_kuerzen` | 1 | 7 | ja (1 Profil) | 0 | trägt¹ |
-| `bruch_dezimal` | 4 | 6 | ja (2 Profile) | 0 | trägt |
-| `proportionalitaet` | 4 | 14 | ja (4 Profile) | 0 | trägt |
-| `gleichung_zweischrittig` | 6 | 6 | ja (1 Profil) | 0 | trägt¹ |
-| `gleichung_neg_koeffizient` | 7 | 5 | ja (1 Profil) | 0 | trägt¹ |
+| `geo_koordinaten`* | – | 0 (Knoten fehlt) | – | – | **fehlt** (Vorlauf) |
+| `term_einsetzen`* | – | 0 (Knoten fehlt) | – | – | **fehlt** (Vorlauf) |
+| `vorzeichen_add_sub` | 1 | 7 | ja (1×R1, 1×R2) | 0 | trägt¹ |
+| `vorzeichen_mult_div` | 2 | 7 | ja | 0 | trägt¹ |
+| `bruch_kuerzen` | 1 | 7 | ja | 0 | trägt¹ |
+| `bruch_dezimal` | 4 | 6 | ja | 0 | trägt |
+| `proportionalitaet` | 4 | 14 | ja | 0 | trägt |
+| `gleichung_einschrittig` (Ergänzung) | 5 | 6 | ja | 0 | trägt |
+| `gleichung_zweischrittig` | 6 | 6 | ja | 0 | trägt¹ |
+| `gleichung_neg_koeffizient` | 7 | 5 | ja | 0 | trägt¹ |
 
 \* aus dem Vorlauf.
-¹ Formal „trägt“: mindestens 4 Aufgaben, Rang 1+2 vorgeschlagen, alle mit known_errors.
-Bei nur einem Fehlbildprofil liegen Rang 1 und 2 aber zwangsläufig im selben Profil. Die zweite Sondierung bringt dort keine neue Information. Für die Zuteilung ist das kein „dünn“, aber erwähnenswert.
+**Zuteilung (Rasit):** Die sieben Fundament-Knoten sind zugeteilt, *falls* sie live dünn sind oder fehlen. Live ist keiner davon dünn. **In Phase B wird im Fundament also nichts aufgefüllt.**
+`gleichung_einschrittig` und die Vorlauf-Knoten fasse ich nicht an.
 
-**Live nachzuholen:** Status `ready`, gesetzter `sondierrang` und known_errors-Form. Query in Abschnitt 7.
-Zur Erinnerung die Regel für „dünn“: weniger als 4 ready-Aufgaben, kein Rang 1+2, oder mehr als die Hälfte ohne known_errors.
+¹ Nur ein Fehlbildprofil (laut `docs/sondierrang_vorschlag.md`). Rang 1 und 2 liegen deshalb im selben Profil. Das ist kein „dünn“, aber erwähnenswert.
 
 ### Fachlich nötige Ergänzungen
 
@@ -174,8 +165,11 @@ Freigabe-Gate `task_status_set` für review/ready verlangt: question, input_type
 
 ## e) fehlbild_labels
 
-**Nicht live gelesen.** PR #150 nennt 82 Slugs zum 30.08., davon 53 Altbestand ohne Familie.
-Aus dem Repo nachweisbar sind 33 Slugs mit Familie: AF4 (20), P5 (9), Binom (3), dazu `falsche_operation` aus AF3 ohne Familie.
+**Live gelesen:** 85 Slugs.
+- 32 davon haben eine Familie und einen Klartext; 29 sind freigegeben.
+- 53 sind Altbestand ohne Familie und ohne Klartext (z. B. `umgekehrt_geteilt`, `bezug_vertauscht`, `differenz_vergessen`).
+- Keiner der vorgeschlagenen neuen Slugs existiert schon.
+- Es gibt keine Slugs zu Steigung, Achsenabschnitt oder Nullstelle.
 
 Für Lineare Funktionen relevante vorhandene Slugs:
 
@@ -185,6 +179,7 @@ Für Lineare Funktionen relevante vorhandene Slugs:
 | `betrag_fehler` | vorzeichen | Betrag richtig, Vorzeichen des Ergebnisses gekippt. | **Nullstelle b/m statt −b/m** → wiederverwenden |
 | `vorzeichen_beim_umstellen` | vorzeichen | Betrag richtig, das Minus des Koeffizienten bleibt am Ergebnis hängen. | Alternative für die Nullstelle bei negativem m |
 | `groessen_vertauscht` | sachaufgaben | Vertauscht Grundbetrag und Rate beim Aufstellen. | **m und b vertauscht**, aber nur im Sachkontext (Grundgebühr/Preis pro km) |
+| `umgekehrt_geteilt` | – (Altbestand) | – | **Steigung als Δx/Δy**: inhaltlich derselbe Fehler (Divisor und Dividend vertauscht). Wiederverwendbar, braucht aber Familie und Klartext, sonst erscheint er nicht im Elternbericht. Das hieße, eine bestehende Zeile zu ändern. Deshalb schlage ich weiter `steigung_kehrwert` vor |
 | `falsche_richtung` | sachaufgaben | Rechnet den Kehrwert oder verschiebt das Komma um zwei Stellen. | Kehrwert, aber an Prozent/Komma gebunden → nicht passend |
 | `division_vergessen`, `b_ignoriert` | gleichungen_umformen | – | für Nullstellen-Aufgaben direkt nutzbar |
 
@@ -202,7 +197,7 @@ Für Lineare Funktionen relevante vorhandene Slugs:
 Die Familien sind gegen die fünf vorhandenen geprüft. `gleichungen_umformen`
 („kennt das Verfahren, … wendet sie in der falschen Richtung an“) trägt schon die
 Strukturfehler aus der Binom-Reihe. Eine neue Familie ist nicht nötig.
-Vor dem Anlegen der neuen Slugs live auf Altbestand-Dubletten prüfen (Abschnitt 7).
+Auf Altbestand-Dubletten live geprüft: keine.
 
 ## f) Tiefenplan und Kanten
 
@@ -241,29 +236,34 @@ Es gibt keine transitiven Doppelungen:
 
 Ein Hinweis zu `nullstelle` auf Tiefe 8: Kein späterer Knoten, etwa für LGS oder Schnittpunkte, kann auf ihr aufbauen, solange die Schranke bei 8 steht.
 
-## 7. Live nachzuholen (vor Phase A, nur lesend)
+## 7. Live-Abfragen (2026-10-01 gelaufen; vor Phase A per `dbread` die ersten zwei wiederholen)
 
 ```sql
--- Schranke + Vorlauf-Knoten
 select pg_get_constraintdef(oid) from pg_constraint where conname='skills_fundament_tiefe_check';
-select skill_key, fundament_tiefe from public.skills where skill_key in ('geo_koordinaten','term_einsetzen');
--- Tabelle b)
-select t.skill_key, s.fundament_tiefe,
+select skill_key, fundament_tiefe from public.skills where skill_key in ('geo_koordinaten','term_einsetzen') or skill_key like 'fkt_%';
+select t.skill_key, s.fundament_tiefe tiefe,
        count(*) filter (where t.status='ready') ready,
-       bool_or(t.sondierrang=1) r1, bool_or(t.sondierrang=2) r2,
-       count(*) filter (where t.status='ready' and jsonb_typeof(ts.acceptance->'known_errors') is distinct from 'object') ohne_ke
+       count(*) filter (where t.status='ready' and t.sondierrang=1) r1,
+       count(*) filter (where t.status='ready' and t.sondierrang=2) r2,
+       count(*) filter (where t.status='ready' and coalesce(jsonb_typeof(ts.acceptance->'known_errors'),'') <> 'object') ohne_ke
   from public.tasks t join public.skills s using (skill_key)
   left join public.task_solutions ts on ts.task_id=t.id
- where t.skill_key in ('geo_koordinaten','term_einsetzen','vorzeichen_add_sub','vorzeichen_mult_div','bruch_kuerzen','bruch_dezimal','proportionalitaet','gleichung_zweischrittig','gleichung_neg_koeffizient')
- group by 1,2 order by 2;
--- e) vollständig
-select slug, familie, klartext, freigegeben_am is not null frei from public.fehlbild_labels order by familie nulls last, slug;
+ where t.skill_key in ('geo_koordinaten','term_einsetzen','vorzeichen_add_sub','vorzeichen_mult_div','bruch_kuerzen','bruch_dezimal','proportionalitaet','gleichung_einschrittig','gleichung_zweischrittig','gleichung_neg_koeffizient')
+ group by 1,2 order by 2,1;
+select slug, familie, left(klartext,70) from public.fehlbild_labels order by familie nulls last, slug;
 ```
 
-## Entscheidungen für Rasit
+## Entscheidungen
 
-1. **Fundament-Zuteilung.** Alle Fundament-Knoten tragen laut Doku. „Fehlt“ sind nur die zwei Vorlauf-Knoten, und die liefert der Vorlauf.
-2. **Fehlbild-Slugs.** Neu: `steigung_kehrwert`, `m_b_vertauscht`, `achsenabschnitt_verwechselt`. Wiederverwendet: `seiten_verwechselt`, `betrag_fehler`, `groessen_vertauscht`. Kein Kästchen-Slug.
-3. **Steigung auf 5** mit der Kante zu `proportionalitaet`, ja oder nein.
-4. **Lösungen:** über `task_solution_upsert` oder per direktem Insert wie in #152.
-5. **Live-Lesezugriff** für die Queries in Abschnitt 7 freigeben.
+Entschieden (Rasit, 2026-10-01):
+- Fundament: zugeteilt, falls dünn oder fehlt. Live ist alles „trägt“, also nichts aufzufüllen.
+- Lösungen über `task_solution_upsert`, mit `set_config` für die Systemrolle.
+- Zeitbudget und Stoffanker nur auf Aufgabenebene.
+- AFB als `I`/`II`/`III`, `known_errors` in `task_solutions.acceptance`.
+- Ich spiele die Migrationen in diesem Chat selbst ein. Ablauf nach CLAUDE.md §10: Version per `date -u`, Versionsprüfung, `psql -1 -f`, Eintrag in `schema_migrations`, danach `schema-snapshot.sh`.
+- Phase A beginnt erst, wenn der Vorlauf eingespielt ist und Rasit „weiter“ sagt.
+
+Offen:
+1. **Fehlbild-Slugs.** Neu: `steigung_kehrwert`, `m_b_vertauscht`, `achsenabschnitt_verwechselt`. Wiederverwendet: `seiten_verwechselt`, `betrag_fehler`, `groessen_vertauscht`. Kein Kästchen-Slug.
+2. **Steigung auf Tiefe 5** mit der Kante zu `proportionalitaet`: ja oder nein.
+3. **`dbread`:** Wo liegt es?
