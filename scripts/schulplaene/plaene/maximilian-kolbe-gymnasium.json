@@ -1,0 +1,302 @@
+{
+  "slug": "maximilian-kolbe-gymnasium",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Wir lernen uns kennen: Erhebung und grafische Darstellung von Daten",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Die Welt, in der wir leben: Große Zahlen darstellen, ordnen, vergleichen",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Größen im Alltag: Rechnen mit Größen und Einheiten",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Rechnen mit System: Rechenterme und Rechengesetze",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Geometrische Erkundungen: Ebene Figuren, Konstruktionen, Koordinaten",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "geometrische_grundbegriffe",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Unsere Wohnung / Unser Klassenraum: Flächeninhalt und Umfang",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 7,
+      "uv_titel": "Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable",
+      "stunden": 4,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 8,
+      "uv_titel": "Modellieren einfacher Zusammenhänge: Fermi-Aufgaben",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 9,
+      "uv_titel": "Brüche begreifen: Anteil, Bruchteil und Ganzes",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 10,
+      "uv_titel": "Körper im Raum: Quader, Kegel, Zylinder und Co.",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Atome im Reich der natürlichen Zahlen: Zerlegung natürlicher Zahlen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "teilbarkeit",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Veränderungen und Zustände mit ganzen Zahlen beschreiben",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Geschenke verpacken: Rauminhalt und Oberfläche eines Quaders",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Die drei Gesichter einer Zahl: Einführung der rationalen Zahlen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Addition und Subtraktion von Brüchen und Dezimalzahlen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Kunst und Architektur: Ornamente ebener Figuren",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "winkel",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Planung des Schulgartens: Multiplikation und Division von Brüchen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 8,
+      "uv_titel": "Wir führen eine Befragung durch: Grundlagen der Stochastik",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 9,
+      "uv_titel": "Muster und Zahlenfolgen erkunden und mit Termen beschreiben",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 10,
+      "uv_titel": "Parkettierungen: Verschiebungen und Spiegelungen",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Zuordnungswerkstatt: Zuordnungen und ihre Darstellungen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "19 % auf alles: Rabatte, Mehrwertsteuer und Prozente",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Quod erat demonstrandum: Winkel und Winkelsätze",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Geometrische Konstruktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Verpackte Zahlen: Terme und Gleichungen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Die Variable im Nenner: Bruchterme und Bruchgleichungen",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Terme",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Flächen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Mehrstufige Zufallsexperimente",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Ähnlichkeit",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf"
+    }
+  ],
+  "befunde": [
+    "Plan endet nach Kl. 8 (Dateiname 'BIS Jg. 8 einschließlich'); Kl. 9 nur leere Tabellenvorlage, Kl. 10 fehlt",
+    "Halbjahre im Plan nicht angegeben",
+    "Kl. 5 Vorhaben 'Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable': Variable/Rechenterm im Flächenkontext etwa 50/50 – rechnen_natuerliche_zahlen gewählt",
+    "Kl. 6 Vorhaben 'Kunst und Architektur: Ornamente ebener Figuren': Winkel und Symmetrie/ebene Figuren etwa 50/50 – winkel gewählt (Symmetrie folgt eigens in 'Parkettierungen')",
+    "Kl. 6 Vorhaben 'Muster und Zahlenfolgen … mit Termen beschreiben': Inhaltsfeld Funktionen (Zusammenhang zwischen Größen, Dreisatz), Titel Terme/Muster – rechnen_natuerliche_zahlen gewählt, ganze_zahlen_groessen ebenso vertretbar",
+    "Kl. 7 Vorhaben 'Geometrische Konstruktionen': Kongruenzsätze plus Thales/besondere Linien; thales_konstruktionen gewählt; keine Stundenangabe",
+    "Kein eigenes Vorhaben 'Rationale Zahlen' in Kl. 7; Vorzeichenregeln stecken in 'Terme und Gleichungen', ganze Zahlen in Kl. 6"
+  ]
+}

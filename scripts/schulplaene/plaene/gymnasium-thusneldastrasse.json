@@ -1,0 +1,329 @@
+{
+ "slug": "gymnasium-thusneldastrasse",
+ "eintraege": [
+  {
+   "klasse": 5,
+   "position": 1,
+   "uv_titel": "Zahlen und Größen",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 2,
+   "uv_titel": "Symmetrie",
+   "stunden": 11,
+   "halbjahr": null,
+   "thema_key": "symmetrie",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 3,
+   "uv_titel": "Rechnen mit natürlichen Zahlen",
+   "stunden": 21,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 4,
+   "uv_titel": "Flächen – Größe und Umfang ebener Figuren",
+   "stunden": 14,
+   "halbjahr": null,
+   "thema_key": "flaeche_umfang",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 5,
+   "uv_titel": "Körper – 3D",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "koerper_quader",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 1,
+   "uv_titel": "Brüche – das Ganze und seine Teile",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 2,
+   "uv_titel": "Brüche in Dezimalschreibweise",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 3,
+   "uv_titel": "Zahlen addieren und subtrahieren",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 4,
+   "uv_titel": "Muster und Figuren",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "symmetrie",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 5,
+   "uv_titel": "Zahlen multiplizieren und dividieren",
+   "stunden": 24,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 6,
+   "uv_titel": "Statistische Erhebungen auswerten",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "daten_streumasse",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 7,
+   "uv_titel": "Beziehungen zwischen Zahlen und Größen",
+   "stunden": 3,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 1,
+   "uv_titel": "Rechnen mit rationalen Zahlen",
+   "stunden": 13,
+   "halbjahr": null,
+   "thema_key": "rationale_zahlen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 2,
+   "uv_titel": "Zuordnungen",
+   "stunden": 11,
+   "halbjahr": null,
+   "thema_key": "zuordnungen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 3,
+   "uv_titel": "Prozentrechnung",
+   "stunden": 13,
+   "halbjahr": null,
+   "thema_key": "zinsrechnung",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 4,
+   "uv_titel": "Terme und Gleichungen",
+   "stunden": 17,
+   "halbjahr": null,
+   "thema_key": "terme_gleichungen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 5,
+   "uv_titel": "Winkel und Dreiecke",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 6,
+   "uv_titel": "Daten und Wahrscheinlichkeit",
+   "stunden": 10,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 1,
+   "uv_titel": "Lineare Funktionen",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "lineare_funktionen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 2,
+   "uv_titel": "Terme mit mehreren Variablen",
+   "stunden": 13,
+   "halbjahr": null,
+   "thema_key": "terme_binomische_formeln",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 3,
+   "uv_titel": "Flächen",
+   "stunden": 8,
+   "halbjahr": null,
+   "thema_key": "flaechen_vielecke",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 4,
+   "uv_titel": "Lineare Gleichungssysteme",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "lineare_gleichungen_lgs",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 5,
+   "uv_titel": "Kreise und Dreiecke",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "thales_konstruktionen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 1,
+   "uv_titel": "Reelle Zahlen",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "reelle_zahlen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 2,
+   "uv_titel": "Quadratische Funktionen",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "quadratische_funktionen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 3,
+   "uv_titel": "Kreise, Prismen und Zylinder",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "prismen_zylinder",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 4,
+   "uv_titel": "Potenzen und Potenzgesetze",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "potenzen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 5,
+   "uv_titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+   "stunden": 9,
+   "halbjahr": null,
+   "thema_key": "pythagoras",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 6,
+   "uv_titel": "Daten und Wahrscheinlichkeit",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "statistik_beurteilen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 1,
+   "uv_titel": "Daten und Wahrscheinlichkeit (Wiederholung)",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "bedingte_wahrscheinlichkeit",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 2,
+   "uv_titel": "Quadratische Funktionen und Gleichungen",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "quadratische_gleichungen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 3,
+   "uv_titel": "Ähnlichkeit",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "aehnlichkeit",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 4,
+   "uv_titel": "Exponentialfunktionen",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "exponentialfunktionen",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 5,
+   "uv_titel": "Trigonometrie",
+   "stunden": 9,
+   "halbjahr": null,
+   "thema_key": "trigonometrie",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 6,
+   "uv_titel": "Trigonometrische Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "sinusfunktion",
+   "quelle_url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf"
+  }
+ ],
+ "befunde": [
+  "Kein Halbjahr im Plan angegeben.",
+  "Kl. 9 Vorhaben 'Daten und Wahrscheinlichkeit': Statistik in Kl. 9 → statistik_beurteilen; Vorhaben ist ca. 50/50 Statistik (Erhebung, Diagramm, Manipulation) und bedingte Wahrscheinlichkeit (Vierfeldertafel, Baumdiagramme)",
+  "Kl. 9 Vorhaben 'Daten und Wahrscheinlichkeit': Stunden nicht zuordenbar (Tabellenzelle im Text mit UV V verschmolzen) → null",
+  "Kl. 10 Vorhaben 'Trigonometrische Funktionen': keine Stundenangabe im Plan",
+  "Kl. 9 Vorhaben 'Kreise, Prismen und Zylinder': ca. 50/50 Kreis und Prismen/Zylinder → prismen_zylinder gewählt (Kreis ist Vorstufe)",
+  "Kl. 9 Vorhaben 'Der Satz des Pythagoras und Berechnungen in Körpern': ca. 50/50 Pythagoras und Pyramide/Kegel/Kugel → pythagoras gewählt",
+  "Kl. 6 Vorhaben 'Beziehungen zwischen Zahlen und Größen' (3 Std., Muster/Strukturen fortsetzen) → rechnen_natuerliche_zahlen (zahlenmuster)"
+ ]
+}

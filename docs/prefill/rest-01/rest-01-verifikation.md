@@ -67,7 +67,7 @@ Aufgaben: 28 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 - ok  #27 Gemischt · vereinfachen · (x + 4)² - x² - 16: (x + 4)² - x² - 16 ≡ Option b (gespeichert ["b"])
 - ok  #28 Gemischt · zwei Quadrate · (x + 3)² - (x - 3)²: (x + 3)² - (x - 3)² ≡ Option c (gespeichert ["c"])
 
-## Blind-Abgleich (docs/prefill/rest-01-blind.json)
+## Blind-Abgleich (docs/prefill/rest-01/rest-01-blind.json)
 
 - ok  #1 AFB I · Fläche · Dreieck g = 10 cm, h = 6 cm: Loeser 30 · gespeichert ["30"]
 - ok  #2 AFB I · Fläche · Dreieck g = 6 cm, h = 4 cm: Loeser 12 · gespeichert ["12"]

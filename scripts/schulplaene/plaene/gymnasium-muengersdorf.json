@@ -1,0 +1,230 @@
+{
+  "slug": "gymnasium-muengersdorf",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Zahlen und Größen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Ebene Figuren",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "geometrische_grundbegriffe",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Größen im Alltag",
+      "stunden": 25,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Flächen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Körper",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Brüche – Anteile von einem Ganzen",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche – Anteile von einem Ganzen",
+      "stunden": 25,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Zahlen addieren und subtrahieren",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Muster und Figuren",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Zahlen multiplizieren und dividieren",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Daten und Zufall",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Beziehungen zwischen Zahlen und Größen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozent und Zinsrechnung",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Wahrscheinlichkeit",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Zufall und Wahrscheinlichkeit – Mehrstufige Zufallsexperimente",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Terme",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Flächen",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Ähnlichkeit – Maßstabsgetreue Abbildungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf"
+    }
+  ],
+  "befunde": [
+    "Plan endet nach Kl. 8; Kl. 9 und 10 fehlen",
+    "Kl. 5 UV 6 'Brüche – Anteile von einem Ganzen' kann nach Kl. 6 verschoben werden; Kl. 6 UV 1 trägt denselben Titel",
+    "Kl. 7 UV 1 'Rechnen mit rationalen Zahlen': laut Plan i.d.R. schon in Kl. 6 behandelt, evtl. Wiederholung; kein Zeitbedarf angegeben",
+    "Kl. 8 UV 6 'Ähnlichkeit': kann nach Kl. 9 verschoben werden; kein Zeitbedarf angegeben",
+    "Kl. 7 UV 6 'Wahrscheinlichkeit' und Kl. 8 UV 1 'Zufall und Wahrscheinlichkeit' haben nahezu identische Schwerpunkte (beide zufallsexperimente)",
+    "Kl. 5 UV 1 'Zahlen und Größen': Detailteil führt es unter Inhaltsfeld Stochastik (Datenerhebung, Säulendiagramm); Übersicht nennt natürliche Zahlen/Größen → natuerliche_zahlen",
+    "Keine Halbjahresangaben im Plan"
+  ]
+}

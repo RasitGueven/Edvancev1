@@ -1,0 +1,347 @@
+{
+  "slug": "stadtgymnasium-koeln-porz",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Größen im Alltag: Rechnen mit Größen und Einheiten in einfachen Sachzusammenhängen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Geometrische Erkundungen: Ebene Figuren, Konstruktionen, Koordinatisierung, Symmetrie",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "geometrische_grundbegriffe",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Rechnen mit System: Rechenterme darstellen und mit Rechengesetzen ausrechnen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Berechnung von Flächeninhalt und Umfang ebener und zusammengesetzter Figuren",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Körper im Raum: Quader, Kegel, Zylinder und Co. erfassen und herstellen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Brüche begreifen: Anteil, Bruchteil und Ganzes",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche begreifen: Anteil, Bruchteil und Ganzes",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Die drei Gesichter einer Zahl: Einführung der rationalen Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Addition und Subtraktion von Brüchen und Dezimalzahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Figuren, ihre Veränderung im erweiterten Koordinatensystem, Kreise und Winkel",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "winkel",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Multiplikation und Division von Brüchen und Dezimalzahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Wir führen eine Befragung durch: Grundlagen der Stochastik",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Strukturen und Zahlenfolgen erkunden und mit Termen beschreiben",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen und ihre Darstellungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozent- und Zinsrechnung: Rabatte, Mehrwertsteuer und Prozente",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Konstruieren und Argumentieren in der Geometrie: Winkel und Winkelsätze",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Wahrscheinlichkeiten nicht nur in Laplace-Experimenten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Würfel gegen Legostein: Wahrscheinlichkeiten nicht nur in Laplace-Experimenten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Gleichmäßiges Wachstum: Lineare Funktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Mehr als nur ein Platzhalter: Terme mit mehreren Variablen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Termumformungen anschaulich: Umfang, Flächeninhalt zusammengesetzter Figuren",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Zusammenführung mathematischer Bedingungen: Lineare Gleichungssysteme",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Kreise und Dreiecke",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Reelle Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Kreise, Prismen, Zylinder",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "prismen_zylinder",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Potenzen und Potenzgesetze",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Quadratische Gleichungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Ähnlichkeit",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Exponentielles Wachstum",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Trigonometrie",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 6,
+      "uv_titel": "Trigonometrische Funktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf"
+    }
+  ],
+  "befunde": [
+    "Plan ohne Stunden- und Halbjahresangaben",
+    "Kl. 5 UV 5.6 und Kl. 6 UV 6.1 gleichlautend 'Brüche begreifen' (laut Fußnote ggf. teilweise/komplett in Kl. 6)",
+    "Kl. 7 UV 7.6 und Kl. 8 UV 8.1 beide Wahrscheinlichkeit (laut Fußnoten ggf. in Kl. 8 bzw. teilweise schon in Kl. 7)",
+    "Kl. 5 UV 5.1 'Größen im Alltag' enthält auch Datenerhebung/Diagramme → natuerliche_zahlen (Titel/Schwerpunkt Größen)",
+    "Kl. 6 UV 6.4: Kreis/Winkel und Abbildungen etwa 50/50 → winkel",
+    "Kl. 9 'Kreise, Prismen, Zylinder': Kreis und Prismen/Zylinder etwa 50/50 → prismen_zylinder",
+    "Kl. 9 UV 9.6 und Kl. 10 UV 10.1 beide 'Daten und Wahrscheinlichkeit' (Vierfeldertafel, bedingte Wahrscheinlichkeit) → bedingte_wahrscheinlichkeit; 10.1 laut Fußnote wahlweise schon in Kl. 9"
+  ]
+}
