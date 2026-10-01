@@ -1,0 +1,865 @@
+[
+  {
+    "slug": "albertus-magnus-gymnasium",
+    "name": "Albertus-Magnus-Gymnasium",
+    "stadtteil": "Ehrenfeld",
+    "traeger": "öffentlich",
+    "website": "https://www.amg-koeln.de/",
+    "stand": "06/2021",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "apostelgymnasium",
+    "name": "Apostelgymnasium",
+    "stadtteil": "Lindenthal",
+    "traeger": "öffentlich",
+    "website": "https://www.apostelgymnasium.de/",
+    "stand": "11/2019 · 10/2022",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.apostelgymnasium.de/images/apg/curricula/mathematik-05.pdf",
+        "klassen": [
+          5
+        ]
+      },
+      {
+        "url": "https://www.apostelgymnasium.de/images/apg/curricula/mathematik-06.pdf",
+        "klassen": [
+          6
+        ]
+      },
+      {
+        "url": "https://www.apostelgymnasium.de/images/apg/curricula/mathematik-07.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://www.apostelgymnasium.de/images/apg/curricula/mathematik-08.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://www.apostelgymnasium.de/images/apg/curricula/mathematik-09.pdf",
+        "klassen": [
+          9
+        ]
+      },
+      {
+        "url": "https://www.apostelgymnasium.de/images/apg/curricula/mathematik-10.pdf",
+        "klassen": [
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "deutzer-gymnasium-schaurtestrasse",
+    "name": "Deutzer Gymnasium Schaurtestraße",
+    "stadtteil": "Deutz",
+    "traeger": "öffentlich",
+    "website": "https://schaurte-koeln.de/",
+    "stand": "08/2021",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "dreikoenigsgymnasium",
+    "name": "Dreikönigsgymnasium",
+    "stadtteil": "Bilderstöckchen",
+    "traeger": "öffentlich",
+    "website": "https://dkg-koeln.de/",
+    "stand": "08/2025",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "elisabeth-von-thueringen-gymnasium",
+    "name": "Elisabeth-von-Thüringen-Gymnasium",
+    "stadtteil": "Sülz",
+    "traeger": "öffentlich",
+    "website": "https://www.evt-koeln.de/",
+    "stand": "06/2021 · 08/2022",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m5_g9.pdf",
+        "klassen": [
+          5
+        ]
+      },
+      {
+        "url": "https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m6_g9.pdf",
+        "klassen": [
+          6
+        ]
+      },
+      {
+        "url": "https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m7_g9.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m8_g9.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m9_2025.pdf",
+        "klassen": [
+          9
+        ]
+      },
+      {
+        "url": "https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m10_g9.pdf",
+        "klassen": [
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "erich-kaestner-gymnasium",
+    "name": "Erich Kästner-Gymnasium",
+    "stadtteil": "Niehl",
+    "traeger": "öffentlich",
+    "website": "https://www.ekg-koeln.de/",
+    "stand": "11/2022",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.ekg-koeln.de/download_file/view/1564",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "friedrich-wilhelm-gymnasium",
+    "name": "Friedrich-Wilhelm-Gymnasium",
+    "stadtteil": "Altstadt-Süd",
+    "traeger": "öffentlich",
+    "website": "https://www.fwg-koeln.de/",
+    "stand": "04/2023",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._05_-_Stand_April_2023.pdf",
+        "klassen": [
+          5
+        ]
+      },
+      {
+        "url": "https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._06_-_Stand_April_2023.pdf",
+        "klassen": [
+          6
+        ]
+      },
+      {
+        "url": "https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._07_-_Stand_April_2023.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._08_-_Stand_April_2023.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._09_-_Stand_April_2023.pdf",
+        "klassen": [
+          9
+        ]
+      },
+      {
+        "url": "https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._10_-_Stand_April_2023.pdf",
+        "klassen": [
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "genoveva-gymnasium",
+    "name": "Genoveva-Gymnasium",
+    "stadtteil": "Mülheim",
+    "traeger": "öffentlich",
+    "website": "https://www.genoveva-gymnasium.de/",
+    "stand": "02/2024",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "georg-buechner-gymnasium",
+    "name": "Georg-Büchner-Gymnasium",
+    "stadtteil": "Weiden",
+    "traeger": "öffentlich",
+    "website": "https://gbg.schule.koeln/",
+    "stand": "11/2022",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "gymnasium-bruegelmannstrasse",
+    "name": "Gymnasium Brügelmannstraße",
+    "stadtteil": "Deutz",
+    "traeger": "öffentlich",
+    "website": "https://www.gymnasium-bruegelmannstrasse.de/",
+    "stand": "10/2025",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "gymnasium-koeln-pesch",
+    "name": "Gymnasium Köln-Pesch",
+    "stadtteil": "Pesch",
+    "traeger": "öffentlich",
+    "website": "http://www.gymnasium-pesch.de/",
+    "stand": "02/2021 · 06/2023",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf",
+        "klassen": [
+          5
+        ]
+      },
+      {
+        "url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf",
+        "klassen": [
+          6
+        ]
+      },
+      {
+        "url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf",
+        "klassen": [
+          9
+        ]
+      },
+      {
+        "url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf",
+        "klassen": [
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "gymnasium-kreuzgasse",
+    "name": "Gymnasium Kreuzgasse",
+    "stadtteil": "Ehrenfeld",
+    "traeger": "öffentlich",
+    "website": "http://www.kreuzgasse.de/",
+    "stand": null,
+    "status": "nicht prüfbar",
+    "plaene": []
+  },
+  {
+    "slug": "gymnasium-muengersdorf",
+    "name": "Gymnasium Müngersdorf",
+    "stadtteil": "Müngersdorf",
+    "traeger": "öffentlich",
+    "website": "https://www.gymnasium-muengersdorf.de/",
+    "stand": "11/2025",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "gymnasium-neustadt-nord",
+    "name": "Gymnasium Neustadt/Nord",
+    "stadtteil": "Neustadt-Nord",
+    "traeger": "öffentlich",
+    "website": "https://www.gymnasium-neustadt-nord.de/",
+    "stand": null,
+    "status": "kein Plan gefunden",
+    "plaene": []
+  },
+  {
+    "slug": "gymnasium-nippes-toni-steingass-park",
+    "name": "Gymnasium Nippes (Toni-Steingass-Park)",
+    "stadtteil": "Nippes",
+    "traeger": "öffentlich",
+    "website": "http://www.gymnasium-steingasspark.de/",
+    "stand": "06/2026",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "gymnasium-rodenkirchen",
+    "name": "Gymnasium Rodenkirchen",
+    "stadtteil": "Rodenkirchen",
+    "traeger": "öffentlich",
+    "website": "https://gymnasium-rodenkirchen.de/",
+    "stand": "01/2022",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf",
+        "klassen": [
+          5
+        ]
+      },
+      {
+        "url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf",
+        "klassen": [
+          6
+        ]
+      },
+      {
+        "url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf",
+        "klassen": [
+          9
+        ]
+      },
+      {
+        "url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf",
+        "klassen": [
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "gymnasium-rondorf",
+    "name": "Gymnasium Rondorf",
+    "stadtteil": "Rondorf",
+    "traeger": "öffentlich",
+    "website": "https://www.gymnasium-rondorf.de/",
+    "stand": null,
+    "status": "kein Plan gefunden",
+    "plaene": []
+  },
+  {
+    "slug": "hansa-gymnasium",
+    "name": "Hansa-Gymnasium",
+    "stadtteil": "Neustadt-Nord",
+    "traeger": "öffentlich",
+    "website": "https://www.hansa-gymnasium-koeln.de/",
+    "stand": "08/2023",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "heinrich-heine-gymnasium",
+    "name": "Heinrich-Heine-Gymnasium",
+    "stadtteil": "Ostheim",
+    "traeger": "öffentlich",
+    "website": "https://hhg.koeln/",
+    "stand": "08/2021",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "heinrich-mann-gymnasium",
+    "name": "Heinrich-Mann-Gymnasium",
+    "stadtteil": "Chorweiler",
+    "traeger": "öffentlich",
+    "website": "https://hmg-koeln.de/",
+    "stand": null,
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "hildegard-von-bingen-gymnasium",
+    "name": "Hildegard-von-Bingen-Gymnasium",
+    "stadtteil": "Sülz",
+    "traeger": "öffentlich",
+    "website": "https://www.hvb-gymnasium.de/",
+    "stand": "09/2023",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf",
+        "klassen": [
+          9
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "hoelderlin-gymnasium",
+    "name": "Hölderlin-Gymnasium",
+    "stadtteil": "Mülheim",
+    "traeger": "öffentlich",
+    "website": "https://shg-koeln.de/",
+    "stand": null,
+    "status": "kein Plan gefunden",
+    "plaene": []
+  },
+  {
+    "slug": "humboldt-gymnasium",
+    "name": "Humboldt-Gymnasium",
+    "stadtteil": "Altstadt-Süd",
+    "traeger": "öffentlich",
+    "website": "http://www.humboldt-koeln.de/",
+    "stand": "08/2023 · 12/2022",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf",
+        "klassen": [
+          5,
+          6
+        ]
+      },
+      {
+        "url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf",
+        "klassen": [
+          9
+        ]
+      },
+      {
+        "url": "https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf",
+        "klassen": [
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "johann-gottfried-herder-gymnasium",
+    "name": "Johann-Gottfried-Herder-Gymnasium",
+    "stadtteil": "Buchheim",
+    "traeger": "öffentlich",
+    "website": "https://herder-koeln.de/",
+    "stand": null,
+    "status": "nicht prüfbar",
+    "plaene": []
+  },
+  {
+    "slug": "kaiserin-augusta-schule",
+    "name": "Kaiserin-Augusta-Schule",
+    "stadtteil": "Altstadt-Süd",
+    "traeger": "öffentlich",
+    "website": "https://kas-koeln.de/",
+    "stand": "10/2025",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/?wpdmdl=1769",
+        "klassen": null,
+        "quelle": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+      }
+    ]
+  },
+  {
+    "slug": "kaiserin-theophanu-schule",
+    "name": "Kaiserin-Theophanu-Schule",
+    "stadtteil": "Kalk",
+    "traeger": "öffentlich",
+    "website": "https://kts-koeln.de/",
+    "stand": null,
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "koenigin-luise-schule",
+    "name": "Königin-Luise-Schule",
+    "stadtteil": "Altstadt-Nord",
+    "traeger": "öffentlich",
+    "website": "https://www.koenigin-luise-schule.de/",
+    "stand": "09/2023",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.koenigin-luise-schule.de/files/downloads/faecher/Mathematik/KLS_Schulinterner_Lehrplan%20SI_G9-Mathematik%205%20bis%208%20-Stand%20September%202023.pdf",
+        "klassen": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "quelle": "https://www.koenigin-luise-schule.de/mathematik.html"
+      },
+      {
+        "url": "https://www.koenigin-luise-schule.de/files/downloads/faecher/Mathematik/KLS_Schulinterner%20Lehrplan%20Klasse%209.pdf",
+        "klassen": [
+          9
+        ],
+        "quelle": "https://www.koenigin-luise-schule.de/mathematik.html"
+      },
+      {
+        "url": "https://www.koenigin-luise-schule.de/files/downloads/faecher/Mathematik/KLS_Schulinterner%20Lehrplan_SI_G9-Mathematik-10%20-Stand%20Mai%202023.pdf",
+        "klassen": [
+          10
+        ],
+        "quelle": "https://www.koenigin-luise-schule.de/mathematik.html"
+      }
+    ]
+  },
+  {
+    "slug": "leonardo-da-vinci-gymnasium",
+    "name": "Leonardo-da-Vinci-Gymnasium",
+    "stadtteil": "Nippes",
+    "traeger": "öffentlich",
+    "website": "https://www.gymnasium-nippes.de/",
+    "stand": null,
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf",
+        "klassen": [
+          9
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "lessing-gymnasium",
+    "name": "Lessing-Gymnasium",
+    "stadtteil": "Porz",
+    "traeger": "öffentlich",
+    "website": "https://www.lessing-gymnasium.eu/",
+    "stand": "01/2021",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "maximilian-kolbe-gymnasium",
+    "name": "Maximilian-Kolbe-Gymnasium",
+    "stadtteil": "Porz-Wahn",
+    "traeger": "öffentlich",
+    "website": "https://mkg-koeln.de/",
+    "stand": "2021",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "montessori-gymnasium",
+    "name": "Montessori-Gymnasium",
+    "stadtteil": "Bickendorf",
+    "traeger": "öffentlich",
+    "website": "https://monte-koeln.de/",
+    "stand": null,
+    "status": "nicht prüfbar",
+    "plaene": []
+  },
+  {
+    "slug": "gymnasium-neue-sandkaul",
+    "name": "Gymnasium Neue Sandkaul",
+    "stadtteil": "Widdersdorf",
+    "traeger": "öffentlich",
+    "website": "https://www.gynesa.de/",
+    "stand": null,
+    "status": "nicht prüfbar",
+    "plaene": []
+  },
+  {
+    "slug": "rhein-gymnasium",
+    "name": "Rhein-Gymnasium",
+    "stadtteil": "Mülheim",
+    "traeger": "öffentlich",
+    "website": "https://rhein-gymnasium-koeln.de/",
+    "stand": "04/2023",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "schiller-gymnasium",
+    "name": "Schiller-Gymnasium",
+    "stadtteil": "Sülz",
+    "traeger": "öffentlich",
+    "website": "https://www.schillergymnasium-koeln.de/",
+    "stand": "02/2025",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "stadtgymnasium-koeln-porz",
+    "name": "Stadtgymnasium Köln-Porz",
+    "stadtteil": "Porz",
+    "traeger": "öffentlich",
+    "website": "https://www.stadtgymnasium-porz.de/",
+    "stand": "09/2026",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "gymnasium-thusneldastrasse",
+    "name": "Gymnasium Thusneldastraße",
+    "stadtteil": "Deutz",
+    "traeger": "öffentlich",
+    "website": "https://thusnelda-gymnasium.de/",
+    "stand": "05/2026",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "gymnasium-zusestrasse",
+    "name": "Gymnasium Zusestraße",
+    "stadtteil": "Lövenich",
+    "traeger": "öffentlich",
+    "website": "https://gymnasium-zusestrasse.de/",
+    "stand": "01/2026",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf",
+        "klassen": null
+      }
+    ]
+  },
+  {
+    "slug": "claudia-agrippina-privatgymnasium",
+    "name": "Claudia Agrippina Privatgymnasium",
+    "stadtteil": "Braunsfeld",
+    "traeger": "privat",
+    "website": "https://ca-privatgymnasium.de/",
+    "stand": null,
+    "status": "kein Plan gefunden",
+    "plaene": []
+  },
+  {
+    "slug": "erzbischoefliche-liebfrauenschule",
+    "name": "Erzbischöfliche Liebfrauenschule",
+    "stadtteil": null,
+    "traeger": "privat",
+    "website": "https://www.lfs-koeln.de/",
+    "stand": "05/2022",
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf",
+        "klassen": [
+          5
+        ]
+      },
+      {
+        "url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf",
+        "klassen": [
+          6
+        ]
+      },
+      {
+        "url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf",
+        "klassen": [
+          7
+        ]
+      },
+      {
+        "url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf",
+        "klassen": [
+          8
+        ]
+      },
+      {
+        "url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf",
+        "klassen": [
+          9
+        ]
+      },
+      {
+        "url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf",
+        "klassen": [
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "erzbischoefliche-ursulinenschule",
+    "name": "Erzbischöfliche Ursulinenschule",
+    "stadtteil": "Altstadt-Nord",
+    "traeger": "privat",
+    "website": "https://schule.erzbistum-koeln.de/ursulinenschule_koeln/",
+    "stand": null,
+    "status": "kein Plan gefunden",
+    "plaene": []
+  },
+  {
+    "slug": "erzbischoefliches-irmgardis-gymnasium",
+    "name": "Erzbischöfliches Irmgardis-Gymnasium",
+    "stadtteil": "Bayenthal",
+    "traeger": "privat",
+    "website": "https://schule.erzbistum-koeln.de/irmgardis-gymnasium-koeln",
+    "stand": null,
+    "status": "plan",
+    "plaene": [
+      {
+        "url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf",
+        "klassen": [
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "ferdinand-franz-wallraf-gymnasium",
+    "name": "Ferdinand Franz Wallraf Gymnasium",
+    "stadtteil": "Buchheim",
+    "traeger": "privat",
+    "website": "https://www.ffw-gym.de/",
+    "stand": null,
+    "status": "kein Plan gefunden",
+    "plaene": []
+  },
+  {
+    "slug": "internationale-friedensschule",
+    "name": "Internationale Friedensschule",
+    "stadtteil": "Vogelsang",
+    "traeger": "privat",
+    "website": "https://if-koeln.de/secondary-school/",
+    "stand": null,
+    "status": "kein Plan gefunden",
+    "plaene": []
+  }
+]

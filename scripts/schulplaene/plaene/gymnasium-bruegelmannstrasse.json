@@ -1,0 +1,75 @@
+{
+ "slug": "gymnasium-bruegelmannstrasse",
+ "eintraege": [
+  {
+   "klasse": 5,
+   "position": 1,
+   "uv_titel": "Zählen, Darstellen, Zahlen ordnen, große Zahlen und Runden",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 2,
+   "uv_titel": "Grundrechenarten; Rechnen mit Geld, Längen, Gewichten und Zeit",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 3,
+   "uv_titel": "Senkrechte und Parallelen, Koordinatensystem, Symmetrie, Vielecke",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "symmetrie",
+   "quelle_url": "https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 4,
+   "uv_titel": "Terme, Rechengesetze, Teilbarkeit, Primzahlen, schriftliches Rechnen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 5,
+   "uv_titel": "Flächeninhalt und Umfang, Maßstab",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "flaeche_umfang",
+   "quelle_url": "https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 6,
+   "uv_titel": "Körper, Netze, Schrägbilder, Volumen und Oberfläche von Quadern",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "koerper_quader",
+   "quelle_url": "https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 7,
+   "uv_titel": "Brüche: Bruch und Anteil, Kürzen und Erweitern (optional in Kl. 5)",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf"
+  }
+ ],
+ "befunde": [
+  "Plan (Fassung 23.10.2025) enthält nur die Unterrichtsvorhaben der Kl. 5; Kl. 6–10 fehlen",
+  "Vorhaben haben im Plan keine eigenen Titel (nur Nummern 5.1–5.7 mit Unterpunkten); Titel aus den Unterpunkten verdichtet",
+  "Zeitbedarf-Spalte leer; keine Stunden- oder Halbjahresangaben",
+  "Kl. 5 Vorhaben 5.7 (Brüche) laut Plan optional in Kl. 5",
+  "Kl. 5 Vorhaben 5.3: mischt Grundbegriffe (Parallelität, Koordinatensystem) und Symmetrie → symmetrie"
+ ]
+}

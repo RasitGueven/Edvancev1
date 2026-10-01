@@ -1,0 +1,401 @@
+{
+  "slug": "gymnasium-rodenkirchen",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Wir lernen uns kennen: Erhebung und grafische Darstellung von Daten",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Die Welt, in der wir leben: Große Zahlen darstellen, ordnen, vergleichen",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Größen im Alltag: Rechnen mit Größen und Einheiten",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Rechnen mit System: Rechenterme und Rechengesetze",
+      "stunden": 28,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Geometrische Erkundungen: Ebene Figuren, Konstruktionen, Koordinaten",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "geometrische_grundbegriffe",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Unsere Wohnung / Unser Klassenraum: Flächeninhalt und Umfang",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 7,
+      "uv_titel": "Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable",
+      "stunden": 4,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 8,
+      "uv_titel": "Modellieren einfacher Zusammenhänge: Fermi-Aufgaben",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 9,
+      "uv_titel": "Brüche begreifen: Anteil, Bruchteil und Ganzes (optional)",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 10,
+      "uv_titel": "Körper im Raum: Quader, Kegel, Zylinder und Co.",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Atome im Reich der natürlichen Zahlen: Zerlegung natürlicher Zahlen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "teilbarkeit",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Einführung der rationalen Zahlen in der Bruchdarstellung",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Grundrechenarten mit Brüchen",
+      "stunden": 25,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Die drei Gesichter einer Zahl: Einführung der rationalen Zahlen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Grundrechenarten mit Dezimalzahlen",
+      "stunden": 25,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Muster und Figuren: Verschiebungen, Kreise, Winkel, Drehungen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Wir führen eine Befragung durch: Grundlagen der Stochastik",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 8,
+      "uv_titel": "Beziehungen zwischen Zahlen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozentrechnung – Zinsrechnung",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Wahrscheinlichkeiten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Daten und Wahrscheinlichkeiten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Terme mit mehreren Variablen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Flächen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Kreise und Dreiecke",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Kann man das zählen? Die Irrationalität von Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Von Parabelflügen und Brücken: Quadratische Zusammenhänge",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Eine Zahl für alles, was rund ist: π und die Kreisberechnung",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "kreis",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Verpackungskünstler: Oberfläche und Volumen von Prismen und Zylindern",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "prismen_zylinder",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Potenzen und Wurzeln",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Der Satz des Pythagoras und Körper",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 7,
+      "uv_titel": "Fake-News: Wie lügt man mit Statistik? (optional)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "statistik_beurteilen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Quadratische Gleichungen",
+      "stunden": 23,
+      "halbjahr": null,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Ähnlichkeit",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Exponentielles Wachstum",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Trigonometrie",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 6,
+      "uv_titel": "Trigonometrische Funktionen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf"
+    }
+  ],
+  "befunde": [
+    "Kl. 7–9: keine Stundenangaben im Plan; Halbjahre in keiner Klasse angegeben",
+    "Kl. 5 Vorhaben 'Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable': Variable/Rechenterm im Flächenkontext etwa 50/50 – rechnen_natuerliche_zahlen gewählt, flaeche_umfang ebenso vertretbar",
+    "Kl. 5 Vorhaben 'Brüche begreifen' ist optional (normalerweise Stoff Kl. 6)",
+    "Kl. 6: Nummerierung im Plan uneinheitlich (6.1, 6.2, 6.3, 6.4 dreifach, 6.5, 6.9) – Positionen in Dokumentreihenfolge vergeben",
+    "Statistik in Kl. 8 → zufallsexperimente (Vorhaben 'Daten und Wahrscheinlichkeiten'; Inhalt laut Plan überwiegend Zufallsexperimente)",
+    "Statistik in Kl. 9 → statistik_beurteilen (Vorhaben 'Fake-News: Wie lügt man mit Statistik?', optional)",
+    "Kl. 10 Vorhaben 'Daten und Wahrscheinlichkeit' mischt Statistik und bedingte Wahrscheinlichkeit; laut Plan auch schon in Kl. 9 unterrichtbar"
+  ]
+}

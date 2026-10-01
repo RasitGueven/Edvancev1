@@ -1,0 +1,339 @@
+{
+  "slug": "kaiserin-augusta-schule",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Zahlen und Größen",
+      "stunden": 23,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Symmetrie",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Rechnen mit natürlichen Zahlen",
+      "stunden": 28,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Flächen",
+      "stunden": 23,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Körper",
+      "stunden": 23,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Brüche in Dezimalschreibweise",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Zahlen addieren und subtrahieren",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Muster und Figuren",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "winkel",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Zahlen multiplizieren und dividieren",
+      "stunden": 30,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Daten",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Beziehungen zwischen Zahlen und Größen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": 24,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozent und Zinsrechnung",
+      "stunden": 24,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": 30,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Wahrscheinlichkeit",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": 24,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Terme mit mehreren Variablen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Flächen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": 26,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Kreise und Dreiecke",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Reelle Zahlen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Kreise, Prismen und Zylinder",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "prismen_zylinder",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Potenzen und Potenzgesetze",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Satz des Pythagoras und Körper",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen und Gleichungen",
+      "stunden": 23,
+      "halbjahr": null,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Ähnlichkeit",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Exponentielles Wachstum",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Trigonometrie",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    },
+    {
+      "klasse": 10,
+      "position": 6,
+      "uv_titel": "Trigonometrische Funktionen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://kas-koeln.de/download/schulinternes-curriculum-mathematik/"
+    }
+  ],
+  "befunde": [
+    "Stunden aus 'Zeitbedarf' der Übersichtsraster (Kl. 7 als 'ca.'); keine Halbjahresangaben",
+    "Kl. 5 UV VI und Kl. 6 UV I gleichlautend 'Brüche – das Ganze und seine Teile'",
+    "Kl. 6 'Muster und Figuren': Kreis/Winkel und Abbildungen etwa 50/50 → winkel",
+    "Kl. 7 UV VI 'Wahrscheinlichkeit' kann laut Plan nach Kl. 8 verschoben werden",
+    "Kl. 9 'Kreise, Prismen und Zylinder': Kreis und Prismen/Zylinder etwa 50/50 → prismen_zylinder",
+    "Kl. 9 'Satz des Pythagoras und Körper': enthält auch Pyramide/Kegel/Kugel → pythagoras",
+    "Kl. 9 UV VI und Kl. 10 UV I identisch 'Daten und Wahrscheinlichkeit' (Statistik + bedingte Wahrscheinlichkeit, überwiegend bedingt) → bedingte_wahrscheinlichkeit; laut Plan wahlweise schon in Kl. 9",
+    "Kl. 10 'Quadratische Funktionen und Gleichungen': Schwerpunkt Lösungsverfahren → quadratische_gleichungen"
+  ]
+}

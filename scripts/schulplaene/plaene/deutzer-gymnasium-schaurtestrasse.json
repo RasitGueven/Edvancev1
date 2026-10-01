@@ -1,0 +1,457 @@
+{
+  "slug": "deutzer-gymnasium-schaurtestrasse",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Daten",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Rechnen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Größen und Einheiten",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Zahlen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Geometrie",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "geometrische_grundbegriffe",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Flächen- und Rauminhalt",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 7,
+      "uv_titel": "Teiler und Vielfache",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "teilbarkeit",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 8,
+      "uv_titel": "Brüche (fakultativ)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Kreise und Winkel",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "winkel",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Rechnen mit Brüchen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Rechnen mit Dezimalzahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Symmetrie",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Statistische Daten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Ganze Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 8,
+      "uv_titel": "Zusammenhänge beschreiben",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Umfang und Flächeninhalt von Figuren",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozent- und Zinsrechnung",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Winkel in Figuren",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Rationale Zahlen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Geometrische Konstruktionen an Dreiecken",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 7,
+      "uv_titel": "Wahrscheinlichkeitsrechnung",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 8,
+      "uv_titel": "Gleichungen",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Gleichungen (Wiederholung aus Kl. 7)",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Besondere Linien in Figuren – Entdecken und Begründen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Sprache der Algebra",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Wahrscheinlichkeitsrechnung",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 7,
+      "uv_titel": "Zinsrechnung",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 8,
+      "uv_titel": "Bruchterme",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Mit Maßband und Jakobsstab unterwegs: Zentrische Streckungen",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Kann man das zählen? Die Irrationalität von Zahlen",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Ein historischer Moment: Der Satz des Pythagoras",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Eine Zahl für alles, was rund ist: π und die Kreisberechnung",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "kreis",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Von Parabelflügen und Brücken: Quadratische Zusammenhänge",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Gewinn und Verlust: Nullstellen quadratischer Funktionen",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 7,
+      "uv_titel": "Verpackungskünstler: Oberfläche und Volumen von Prismen und Pyramiden",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "prismen_zylinder",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 8,
+      "uv_titel": "Potenzen und Wurzeln",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 9,
+      "uv_titel": "Fake-News: Wie lügt man mit Statistik?",
+      "stunden": 4,
+      "halbjahr": null,
+      "thema_key": "statistik_beurteilen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Potenzen und Wurzeln",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Wie wird die Welt vermessen? Einführung in Trigonometrie",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Riesenräder: Die Sinusfunktion",
+      "stunden": 7,
+      "halbjahr": null,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Produktdesign: Volumen und Oberfläche von Kugel, Kegel, Zylinder",
+      "stunden": 7,
+      "halbjahr": null,
+      "thema_key": "koerper_pyramide_kegel_kugel",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Eine neue Funktionsklasse: Exponentielle Funktionen",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 6,
+      "uv_titel": "Modellieren von Messreihen mit unterschiedlichen Funktionstypen",
+      "stunden": 7,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 7,
+      "uv_titel": "Bakterienwachstum und radioaktiver Zerfall",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 8,
+      "uv_titel": "Medizinische Tests: Bedingte Wahrscheinlichkeiten",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf"
+    }
+  ],
+  "befunde": [
+    "Stunden sind 60-Min.-Stunden (Kl. 5–8 laut Plan) bzw. 'U.-Std.' (Kl. 9–10); Halbjahre nicht angegeben",
+    "Kl. 6: keine Stundenangaben im Plan",
+    "Kl. 5 Vorhaben 'Zahlen' (Zahlenfolgen, Quadratzahlen, Stellenwertsysteme): natuerliche_zahlen gewählt, rechnen_natuerliche_zahlen ebenso vertretbar",
+    "Kl. 5 Vorhaben 'Geometrie': Körper/Netze/Schrägbilder und Grundbegriffe (parallel, senkrecht, Koordinatensystem, Vierecke) etwa 50/50 – geometrische_grundbegriffe gewählt, koerper_quader ebenso vertretbar",
+    "Kl. 5 Vorhaben 'Flächen- und Rauminhalt': Flächen und Quadervolumen etwa 50/50 – flaeche_umfang gewählt, koerper_quader ebenso vertretbar",
+    "Kl. 9 'Potenzen und Wurzeln' (9.8) und Kl. 10 'Potenzen und Wurzeln' (10.1) mit gleichem Titel – im Plan doppelt geführt",
+    "Kl. 10 Vorhaben 'Modellieren von Messreihen mit unterschiedlichen Funktionstypen': quadratische und exponentielle Funktionen gemischt – exponentialfunktionen gewählt",
+    "Kl. 10 Unterkapitel 10.2.1/10.2.2 und 10.4.1/10.4.2 als eigene Vorhaben gezählt",
+    "Statistik in Kl. 9 → statistik_beurteilen (Vorhaben 'Fake-News: Wie lügt man mit Statistik?')"
+  ]
+}

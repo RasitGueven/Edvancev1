@@ -1,0 +1,230 @@
+{
+ "slug": "heinrich-mann-gymnasium",
+ "eintraege": [
+  {
+   "klasse": 5,
+   "position": 1,
+   "uv_titel": "Natürliche Zahlen und Größen",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 2,
+   "uv_titel": "Rechnen mit natürlichen Zahlen",
+   "stunden": 22,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 3,
+   "uv_titel": "Figuren und Körper",
+   "stunden": 22,
+   "halbjahr": null,
+   "thema_key": "geometrische_grundbegriffe",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 4,
+   "uv_titel": "Flächen- und Rauminhalte",
+   "stunden": 22,
+   "halbjahr": null,
+   "thema_key": "flaeche_umfang",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 5,
+   "uv_titel": "Brüche",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 1,
+   "uv_titel": "Brüche – Addieren und Subtrahieren",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 2,
+   "uv_titel": "Dezimalzahlen – Addieren und Subtrahieren",
+   "stunden": 10,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 3,
+   "uv_titel": "Kreis – Winkel – Symmetrie",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "winkel",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 4,
+   "uv_titel": "Multiplizieren und Dividieren mit Brüchen und Dezimalzahlen",
+   "stunden": 24,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 5,
+   "uv_titel": "Statistische Daten",
+   "stunden": 11,
+   "halbjahr": null,
+   "thema_key": "daten_streumasse",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 6,
+   "uv_titel": "Ganze Zahlen",
+   "stunden": 10,
+   "halbjahr": null,
+   "thema_key": "ganze_zahlen_groessen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 7,
+   "uv_titel": "Zusammenhang zwischen Größen",
+   "stunden": 9,
+   "halbjahr": null,
+   "thema_key": "ganze_zahlen_groessen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 1,
+   "uv_titel": "Zuordnungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zuordnungen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 2,
+   "uv_titel": "Prozentrechnung",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zinsrechnung",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 3,
+   "uv_titel": "Winkel in Figuren",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 4,
+   "uv_titel": "Rationale Zahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rationale_zahlen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 5,
+   "uv_titel": "Zufall und Wahrscheinlichkeit",
+   "stunden": 6,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 6,
+   "uv_titel": "Dreiecke und Vierecke",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 7,
+   "uv_titel": "Gleichungen mit einer Variablen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "terme_gleichungen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 1,
+   "uv_titel": "Stochastik: Wahrscheinlichkeiten und Zufallsexperimente",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 2,
+   "uv_titel": "Geometrie: Flächen, geometrische Sätze und Konstruktionen",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "thales_konstruktionen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 3,
+   "uv_titel": "Funktionen: Lineare Funktionen, Prozent- und Zinsrechnung",
+   "stunden": 24,
+   "halbjahr": null,
+   "thema_key": "lineare_funktionen",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 4,
+   "uv_titel": "Arithmetik/Algebra: Lineare Gleichungen und Gleichungssysteme",
+   "stunden": 33,
+   "halbjahr": null,
+   "thema_key": "lineare_gleichungen_lgs",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 1,
+   "uv_titel": "Ähnlichkeit",
+   "stunden": 14,
+   "halbjahr": null,
+   "thema_key": "aehnlichkeit",
+   "quelle_url": "https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf"
+  }
+ ],
+ "befunde": [
+  "Plan endet in Kl. 9 nach dem ersten Vorhaben (Ähnlichkeit); Rest von Kl. 9 und Kl. 10 fehlen (Abschnitt 1.6 Jahrgangsstufe 10 leer)",
+  "Kl. 7: Zeitangaben nur als Spannen (z. B. 12-14, 8-10, 16-18) → stunden null; nur 'Zufall und Wahrscheinlichkeit' mit Einzelwert 6",
+  "Kl. 7 'Bleib fit im Umgang mit Bruchzahlen' und Kl. 9 'Bleib fit … Kongruenzsätze' sind Wiederholungsvorspann, nicht als eigenes Vorhaben erfasst",
+  "Kl. 8 ist nach Inhaltsfeldern statt nach Vorhaben gegliedert; Titel aus Inhaltsfeld + Schwerpunkt gebildet",
+  "Kl. 8 'Geometrie': mischt Flächen Dreieck/Viereck, Winkel-/Kongruenzsätze und Konstruktionen (Thales, besondere Linien) → thales_konstruktionen",
+  "Kl. 8 'Funktionen': enthält neben linearen Funktionen auch Prozent-/Zinsrechnung → lineare_funktionen",
+  "Keine Halbjahresangaben"
+ ]
+}

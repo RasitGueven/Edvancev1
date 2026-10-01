@@ -1,0 +1,1087 @@
+schule,klasse,position,uv_titel,thema_key,stunden,halbjahr,quelle_url
+Albertus-Magnus-Gymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,25,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,5,2,Symmetrie,symmetrie,15,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,30,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,5,4,Flächen,flaeche_umfang,25,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,5,5,Körper,koerper_quader,25,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,5,6,Brüche – das Ganze und seine Teile,brueche,20,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,6,4,Geometrische Abbildungen,symmetrie,20,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,6,6,Daten,daten_streumasse,15,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,6,7,Strukturen erkennen und beschreiben,ganze_zahlen_groessen,20,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,7,2,Zuordnungen,zuordnungen,14,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,7,3,Prozent und Zinsrechnung,zinsrechnung,18,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,22,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,16,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,7,6,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,8,1,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,8,2,Lineare Funktionen,lineare_funktionen,21,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,8,3,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,8,4,Flächen,flaechen_vielecke,11,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,22,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,16,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,9,5,Der Satz des Pythagoras und Körper,pythagoras,,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,10,2,Quadratische Funktionen & Gleichungen,quadratische_gleichungen,25,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,10,3,Ähnlichkeit,aehnlichkeit,12,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,10,4,Exponentielles Wachstum,exponentialfunktionen,17,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,10,5,Trigonometrie,trigonometrie,16,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Albertus-Magnus-Gymnasium,10,6,Trigonometrische Funktionen,sinusfunktion,10,,https://www.amg-koeln.de/images/Lernen/Fächer_und_Fachbereiche/Mathematik/Mathematik_SLP_SI.pdf
+Apostelgymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,25,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-05.pdf
+Apostelgymnasium,5,2,Symmetrie,symmetrie,15,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-05.pdf
+Apostelgymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,30,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-05.pdf
+Apostelgymnasium,5,4,Flächen,flaeche_umfang,25,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-05.pdf
+Apostelgymnasium,5,5,Körper,koerper_quader,25,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-05.pdf
+Apostelgymnasium,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-06.pdf
+Apostelgymnasium,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-06.pdf
+Apostelgymnasium,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-06.pdf
+Apostelgymnasium,6,4,Muster und Figuren,winkel,20,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-06.pdf
+Apostelgymnasium,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-06.pdf
+Apostelgymnasium,6,6,Daten,daten_streumasse,15,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-06.pdf
+Apostelgymnasium,6,7,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,20,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-06.pdf
+Apostelgymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,20,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-07.pdf
+Apostelgymnasium,7,2,Zuordnungen,zuordnungen,17,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-07.pdf
+Apostelgymnasium,7,3,Prozent- und Zinsrechnung,zinsrechnung,20,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-07.pdf
+Apostelgymnasium,7,4,Terme und Gleichungen,terme_gleichungen,26,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-07.pdf
+Apostelgymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,18,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-07.pdf
+Apostelgymnasium,7,6,Wahrscheinlichkeit,zufallsexperimente,16,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-07.pdf
+Apostelgymnasium,8,1,Lineare Funktionen,lineare_funktionen,18,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-08.pdf
+Apostelgymnasium,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-08.pdf
+Apostelgymnasium,8,3,Flächen,flaechen_vielecke,18,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-08.pdf
+Apostelgymnasium,8,4,Lineare Gleichungssysteme,lineare_gleichungen_lgs,18,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-08.pdf
+Apostelgymnasium,8,5,Kreise und Dreiecke,thales_konstruktionen,18,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-08.pdf
+Apostelgymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-09.pdf
+Apostelgymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-09.pdf
+Apostelgymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,20,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-09.pdf
+Apostelgymnasium,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-09.pdf
+Apostelgymnasium,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,12,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-09.pdf
+Apostelgymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-09.pdf
+Apostelgymnasium,10,1,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,12,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-10.pdf
+Apostelgymnasium,10,2,Berechnungen an Körpern,koerper_pyramide_kegel_kugel,12,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-10.pdf
+Apostelgymnasium,10,3,Exponentialfunktionen,exponentialfunktionen,27,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-10.pdf
+Apostelgymnasium,10,4,Trigonometrie,trigonometrie,21,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-10.pdf
+Apostelgymnasium,10,5,Funktionen als Modell der Wirklichkeit,sinusfunktion,18,,https://www.apostelgymnasium.de/images/apg/curricula/mathematik-10.pdf
+Deutzer Gymnasium Schaurtestraße,5,1,Daten,daten_streumasse,9,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,5,2,Rechnen,rechnen_natuerliche_zahlen,18,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,5,3,Größen und Einheiten,natuerliche_zahlen,12,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,5,4,Zahlen,natuerliche_zahlen,12,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,5,5,Geometrie,geometrische_grundbegriffe,20,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,5,6,Flächen- und Rauminhalt,flaeche_umfang,20,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,5,7,Teiler und Vielfache,teilbarkeit,16,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,5,8,Brüche (fakultativ),brueche,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,6,1,Brüche,brueche,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,6,2,Kreise und Winkel,winkel,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,6,3,Rechnen mit Brüchen,rechnen_brueche_dezimalzahlen,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,6,4,Rechnen mit Dezimalzahlen,rechnen_brueche_dezimalzahlen,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,6,5,Symmetrie,symmetrie,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,6,6,Statistische Daten,daten_streumasse,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,6,7,Ganze Zahlen,ganze_zahlen_groessen,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,6,8,Zusammenhänge beschreiben,ganze_zahlen_groessen,,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,7,1,Umfang und Flächeninhalt von Figuren,flaechen_vielecke,12,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,7,2,Zuordnungen,zuordnungen,18,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,7,3,Prozent- und Zinsrechnung,zinsrechnung,9,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,7,4,Winkel in Figuren,winkel_dreiecke,10,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,7,5,Rationale Zahlen,rationale_zahlen,12,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,7,6,Geometrische Konstruktionen an Dreiecken,winkel_dreiecke,10,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,7,7,Wahrscheinlichkeitsrechnung,zufallsexperimente,10,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,7,8,Gleichungen,terme_gleichungen,14,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,8,1,Gleichungen (Wiederholung aus Kl. 7),terme_gleichungen,6,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,8,2,Besondere Linien in Figuren – Entdecken und Begründen,thales_konstruktionen,12,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,8,3,Sprache der Algebra,terme_binomische_formeln,16,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,8,4,Wahrscheinlichkeitsrechnung,zufallsexperimente,9,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,8,5,Lineare Funktionen,lineare_funktionen,14,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,8,6,Lineare Gleichungssysteme,lineare_gleichungen_lgs,13,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,8,7,Zinsrechnung,zinsrechnung,6,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,8,8,Bruchterme,terme_binomische_formeln,9,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,1,Mit Maßband und Jakobsstab unterwegs: Zentrische Streckungen,aehnlichkeit,8,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,2,Kann man das zählen? Die Irrationalität von Zahlen,reelle_zahlen,6,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,3,Ein historischer Moment: Der Satz des Pythagoras,pythagoras,8,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,4,"Eine Zahl für alles, was rund ist: π und die Kreisberechnung",kreis,6,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,5,Von Parabelflügen und Brücken: Quadratische Zusammenhänge,quadratische_funktionen,8,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,6,Gewinn und Verlust: Nullstellen quadratischer Funktionen,quadratische_gleichungen,6,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,7,Verpackungskünstler: Oberfläche und Volumen von Prismen und Pyramiden,prismen_zylinder,6,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,8,Potenzen und Wurzeln,potenzen,9,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,9,9,Fake-News: Wie lügt man mit Statistik?,statistik_beurteilen,4,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,10,1,Potenzen und Wurzeln,potenzen,8,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,10,2,Wie wird die Welt vermessen? Einführung in Trigonometrie,trigonometrie,8,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,10,3,Riesenräder: Die Sinusfunktion,sinusfunktion,7,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,10,4,"Produktdesign: Volumen und Oberfläche von Kugel, Kegel, Zylinder",koerper_pyramide_kegel_kugel,7,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,10,5,Eine neue Funktionsklasse: Exponentielle Funktionen,exponentialfunktionen,8,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,10,6,Modellieren von Messreihen mit unterschiedlichen Funktionstypen,exponentialfunktionen,7,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,10,7,Bakterienwachstum und radioaktiver Zerfall,exponentialfunktionen,9,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Deutzer Gymnasium Schaurtestraße,10,8,Medizinische Tests: Bedingte Wahrscheinlichkeiten,bedingte_wahrscheinlichkeit,8,,https://schaurte-koeln.de/wp-content/uploads/2021/08/Schulinternes-Curriculum-G9-SekI.pdf
+Dreikönigsgymnasium,5,1,Natürliche Zahlen und Größen,natuerliche_zahlen,40,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,5,2,Grundbegriffe der Geometrie,geometrische_grundbegriffe,25,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,40,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,5,4,Flächeninhalt und Umfang,flaeche_umfang,25,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,5,5,Volumen und Oberflächeninhalt,koerper_quader,20,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,5,6,Brüche und Dezimalzahlen,brueche,25,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,6,1,Brüche und Dezimalzahlen,brueche,25,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,6,2,Brüche und Dezimalzahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,25,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,6,3,Brüche und Dezimalzahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,6,4,Kreis und Winkel,winkel,20,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,6,5,Daten und Häufigkeiten,daten_streumasse,20,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,6,6,Erweiterung des Zahlenbereichs,rationale_zahlen,10,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,7,1,Rationale Zahlen,rationale_zahlen,20,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,7,2,Zuordnungen,zuordnungen,20,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,7,3,Prozent- und Zinsrechnung,zinsrechnung,20,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,7,4,Winkelbetrachtungen,winkel_dreiecke,15,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,7,5,Gleichungen,terme_gleichungen,25,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,7,6,Geometrische Konstruktionen,thales_konstruktionen,20,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,7,7,Zufall und Wahrscheinlichkeit,zufallsexperimente,10,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,8,1,Terme,terme_binomische_formeln,18,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,8,2,"Zufall, Wahrscheinlichkeit, mehrstufige Zufallsexperimente",zufallsexperimente,24,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,8,3,Lineare Funktionen,lineare_funktionen,20,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,8,4,Lineare Gleichungssysteme,lineare_gleichungen_lgs,18,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,8,5,Flächen,flaechen_vielecke,10,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,8,6,Ähnlichkeit,aehnlichkeit,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,9,1,Ähnlichkeit,aehnlichkeit,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,9,2,Quadratwurzeln,reelle_zahlen,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,9,3,Satzgruppe des Pythagoras,pythagoras,14,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,9,4,Quadratische Funktionen und Gleichungen,quadratische_funktionen,28,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,9,5,Kreisberechnungen,kreis,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,9,6,"Körperberechnungen (Prisma, Zylinder)",prismen_zylinder,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,9,7,Potenzen,potenzen,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,10,1,Potenzen,potenzen,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,10,2,Exponentialfunktionen,exponentialfunktionen,18,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,10,3,"Körperberechnungen (Pyramide, Kegel, Kugel)",koerper_pyramide_kegel_kugel,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,10,4,Trigonometrie,trigonometrie,16,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,10,5,"Bedingte Wahrscheinlichkeiten, stoch. Unabhängigkeit und Datenmanipulation",bedingte_wahrscheinlichkeit,18,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,10,6,Trigonometrische Funktionen,sinusfunktion,12,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Dreikönigsgymnasium,10,7,Modellieren von Messreihen mit unterschiedlichen Funktionen,,6,,https://dkg-koeln.de/images/Fachseiten/Curricula/nach%20Fachern/ab2026/Mathematik%20EP_bis_OS_Aug25_erledigt.pdf
+Elisabeth-von-Thüringen-Gymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,25,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m5_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,5,2,Symmetrie,symmetrie,15,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m5_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,30,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m5_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,5,4,Flächen,flaeche_umfang,25,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m5_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,5,5,Körper,koerper_quader,25,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m5_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,5,6,Brüche – das Ganze und seine Teile,brueche,20,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m5_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m6_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m6_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m6_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,6,4,Muster und Figuren,winkel,20,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m6_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m6_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,6,6,Daten,daten_streumasse,15,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m6_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,6,7,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,20,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m6_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m7_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,7,2,Zuordnungen,zuordnungen,14,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m7_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,7,3,Prozent und Zinsrechnung,zinsrechnung,18,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m7_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,22,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m7_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,16,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m7_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,7,6,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m7_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,8,1,Lineare Funktionen,lineare_funktionen,21,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m8_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m8_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,8,3,Flächen,flaechen_vielecke,11,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m8_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,8,4,Lineare Gleichungssysteme,lineare_gleichungen_lgs,22,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m8_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,8,5,Kreise und Dreiecke,thales_konstruktionen,16,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m8_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m9_2025.pdf
+Elisabeth-von-Thüringen-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m9_2025.pdf
+Elisabeth-von-Thüringen-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,20,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m9_2025.pdf
+Elisabeth-von-Thüringen-Gymnasium,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m9_2025.pdf
+Elisabeth-von-Thüringen-Gymnasium,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,12,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m9_2025.pdf
+Elisabeth-von-Thüringen-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m9_2025.pdf
+Elisabeth-von-Thüringen-Gymnasium,10,1,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,23,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m10_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,10,2,Ähnlichkeit,aehnlichkeit,12,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m10_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,10,3,Exponentialfunktionen,exponentialfunktionen,22,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m10_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,10,4,Trigonometrie,trigonometrie,18,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m10_g9.pdf
+Elisabeth-von-Thüringen-Gymnasium,10,5,Trigonometrische Funktionen,sinusfunktion,20,,https://www.evt-koeln.de/images/evt/faecher/mathematik/curr_m10_g9.pdf
+Erich Kästner-Gymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,25,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,5,2,Symmetrie,symmetrie,15,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,30,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,5,4,Flächen,flaeche_umfang,25,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,5,5,Körper,koerper_quader,25,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,6,4,Geometrische Abbildungen,symmetrie,20,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,6,6,Daten,daten_streumasse,15,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,6,7,Strukturen erkennen und beschreiben,ganze_zahlen_groessen,20,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,7,2,Zuordnungen,zuordnungen,14,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,7,3,Prozent- und Zinsrechnung,zinsrechnung,18,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,22,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,16,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,7,6,Daten & Wahrscheinlichkeit,zufallsexperimente,14,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,8,1,Lineare Funktionen,lineare_funktionen,21,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,8,3,Flächen,flaechen_vielecke,11,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,8,4,Lineare Gleichungssysteme,lineare_gleichungen_lgs,22,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,8,5,Kreise und Dreiecke,thales_konstruktionen,16,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,20,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,9,5,Satz des Pythagoras und Körper,pythagoras,12,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,10,1,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,23,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,10,2,Ähnlichkeit,aehnlichkeit,12,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,10,3,Exponentialfunktionen,exponentialfunktionen,22,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,10,4,Trigonometrie,trigonometrie,18,,https://www.ekg-koeln.de/download_file/view/1564
+Erich Kästner-Gymnasium,10,5,Trigonometrische Funktionen,sinusfunktion,20,,https://www.ekg-koeln.de/download_file/view/1564
+Friedrich-Wilhelm-Gymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,20,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._05_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,5,2,Symmetrie,symmetrie,16,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._05_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,32,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._05_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,5,4,Flächen,flaeche_umfang,24,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._05_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,5,5,Brüche – das Ganze und seine Teile,brueche,24,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._05_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,5,6,Körper,koerper_quader,24,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._05_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,6,1,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._06_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,6,2,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._06_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,6,3,Muster und Figuren,winkel,20,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._06_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,6,4,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._06_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,6,5,Daten erheben und darstellen,daten_streumasse,15,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._06_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,6,6,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,20,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._06_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,22,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._07_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,7,2,Zuordnungen,zuordnungen,16,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._07_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,7,3,Prozent und Zinsrechnung,zinsrechnung,14,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._07_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,24,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._07_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,14,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._07_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,8,1,Lineare Funktionen,lineare_funktionen,18,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._08_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._08_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,8,3,Daten und Wahrscheinlichkeit,zufallsexperimente,16,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._08_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,8,4,Flächen,flaechen_vielecke,14,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._08_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,14,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._08_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,12,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._08_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._09_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._09_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,20,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._09_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._09_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,12,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._09_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._09_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._10_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,10,2,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,23,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._10_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,10,3,Ähnlichkeit,aehnlichkeit,12,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._10_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,10,4,Exponentialfunktionen,exponentialfunktionen,22,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._10_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,10,5,Trigonometrie,trigonometrie,18,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._10_-_Stand_April_2023.pdf
+Friedrich-Wilhelm-Gymnasium,10,6,Trigonometrische Funktionen,sinusfunktion,20,,https://www.fwg-koeln.de/images/Fachbereiche/Mathematik/Dokumente/Schulcurriculum_G9_Mathematik_Jgst._10_-_Stand_April_2023.pdf
+Genoveva-Gymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,25,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,5,2,Symmetrie,symmetrie,15,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,30,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,5,4,Flächen,flaeche_umfang,25,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,5,5,Körper,koerper_quader,25,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,5,6,Brüche – das Ganze und seine Teile,brueche,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,6,4,Muster und Figuren,winkel,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,6,6,Daten,daten_streumasse,15,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,6,7,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,22,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,7,2,Zuordnungen,zuordnungen,24,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,7,3,Prozent und Zinsrechnung,zinsrechnung,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,34,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,18,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,7,6,Wahrscheinlichkeit,zufallsexperimente,18,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,8,1,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,8,2,Lineare Funktionen,lineare_funktionen,21,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,8,3,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,8,4,Flächen,flaechen_vielecke,11,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,22,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,16,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,12,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,10,2,Quadratische Gleichungen,quadratische_gleichungen,23,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,10,3,Ähnlichkeit,aehnlichkeit,12,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,10,4,Exponentielles Wachstum,exponentialfunktionen,22,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,10,5,Trigonometrie,trigonometrie,18,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Genoveva-Gymnasium,10,6,Trigonometrische Funktionen,sinusfunktion,20,,https://www.genoveva-gymnasium.de/fileadmin/curricula/Curriculum_Mathematik_Geno_Sek_I.pdf
+Georg-Büchner-Gymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,25,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,5,2,Symmetrie,symmetrie,15,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,30,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,5,4,Flächen,flaeche_umfang,25,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,5,5,Körper,koerper_quader,25,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,5,6,Brüche – das Ganze und seine Teile,brueche,20,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,6,4,Muster und Figuren,winkel,20,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,6,6,Daten,daten_streumasse,15,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,6,7,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,20,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,7,2,Zuordnungen,zuordnungen,14,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,7,3,Prozent und Zinsrechnung,zinsrechnung,18,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,22,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,16,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,7,6,Wahrscheinlichkeit,zufallsexperimente,14,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,8,1,Wahrscheinlichkeit,zufallsexperimente,14,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,8,2,Lineare Funktionen,lineare_funktionen,21,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,8,3,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,8,4,Flächen,flaechen_vielecke,11,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,22,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,16,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,20,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,12,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,10,1,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,23,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,10,2,Ähnlichkeit,aehnlichkeit,12,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,10,3,Exponentialfunktionen,exponentialfunktionen,22,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,10,4,Trigonometrie,trigonometrie,18,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Georg-Büchner-Gymnasium,10,5,Trigonometrische Funktionen,sinusfunktion,20,,https://gbg.schule.koeln/v1/wp-content/uploads/2024/04/Mathematik-Schulinternes-Curriculum-Sek-I-Stand-11-2022.pdf
+Gymnasium Brügelmannstraße,5,1,"Zählen, Darstellen, Zahlen ordnen, große Zahlen und Runden",natuerliche_zahlen,,,https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf
+Gymnasium Brügelmannstraße,5,2,"Grundrechenarten; Rechnen mit Geld, Längen, Gewichten und Zeit",natuerliche_zahlen,,,https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf
+Gymnasium Brügelmannstraße,5,3,"Senkrechte und Parallelen, Koordinatensystem, Symmetrie, Vielecke",symmetrie,,,https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf
+Gymnasium Brügelmannstraße,5,4,"Terme, Rechengesetze, Teilbarkeit, Primzahlen, schriftliches Rechnen",rechnen_natuerliche_zahlen,,,https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf
+Gymnasium Brügelmannstraße,5,5,"Flächeninhalt und Umfang, Maßstab",flaeche_umfang,,,https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf
+Gymnasium Brügelmannstraße,5,6,"Körper, Netze, Schrägbilder, Volumen und Oberfläche von Quadern",koerper_quader,,,https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf
+Gymnasium Brügelmannstraße,5,7,"Brüche: Bruch und Anteil, Kürzen und Erweitern (optional in Kl. 5)",brueche,,,https://www.gymnasium-bruegelmannstrasse.de/_files/ugd/d50491_3c35329e68ec4d3abaffeaa4eef29782.pdf
+Gymnasium Köln-Pesch,5,1,Zahlen und Größen,natuerliche_zahlen,25,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf
+Gymnasium Köln-Pesch,5,2,Symmetrie,symmetrie,15,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf
+Gymnasium Köln-Pesch,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,30,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf
+Gymnasium Köln-Pesch,5,4,Flächen,flaeche_umfang,25,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf
+Gymnasium Köln-Pesch,5,5,Körper,koerper_quader,25,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf
+Gymnasium Köln-Pesch,5,6,Brüche – das Ganze und seine Teile,brueche,20,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf
+Gymnasium Köln-Pesch,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf
+Gymnasium Köln-Pesch,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf
+Gymnasium Köln-Pesch,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf
+Gymnasium Köln-Pesch,6,4,Muster und Figuren,winkel,20,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf
+Gymnasium Köln-Pesch,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf
+Gymnasium Köln-Pesch,6,6,Daten,daten_streumasse,15,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf
+Gymnasium Köln-Pesch,6,7,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,20,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf
+Gymnasium Köln-Pesch,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf
+Gymnasium Köln-Pesch,7,2,Zuordnungen,zuordnungen,14,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf
+Gymnasium Köln-Pesch,7,3,Prozent und Zinsrechnung,zinsrechnung,18,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf
+Gymnasium Köln-Pesch,7,4,Terme und Gleichungen,terme_gleichungen,22,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf
+Gymnasium Köln-Pesch,7,5,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf
+Gymnasium Köln-Pesch,7,6,Konstruieren und Argumentieren,winkel_dreiecke,16,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf
+Gymnasium Köln-Pesch,8,1,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf
+Gymnasium Köln-Pesch,8,2,Lineare Funktionen,lineare_funktionen,22,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf
+Gymnasium Köln-Pesch,8,3,Terme mit mehreren Variablen,terme_binomische_formeln,21,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf
+Gymnasium Köln-Pesch,8,4,Flächen,flaechen_vielecke,12,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf
+Gymnasium Köln-Pesch,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,17,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf
+Gymnasium Köln-Pesch,8,6,Kreise und Dreiecke,thales_konstruktionen,13,,https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf
+Gymnasium Köln-Pesch,9,1,Reelle Zahlen,reelle_zahlen,20,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf
+Gymnasium Köln-Pesch,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf
+Gymnasium Köln-Pesch,9,3,"Kreise, Prismen und Zylinder",kreis,17,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf
+Gymnasium Köln-Pesch,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf
+Gymnasium Köln-Pesch,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,17,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf
+Gymnasium Köln-Pesch,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf
+Gymnasium Köln-Pesch,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf
+Gymnasium Köln-Pesch,10,2,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,25,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf
+Gymnasium Köln-Pesch,10,3,Ähnlichkeit,aehnlichkeit,12,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf
+Gymnasium Köln-Pesch,10,4,Exponentialfunktionen,exponentialfunktionen,17,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf
+Gymnasium Köln-Pesch,10,5,Trigonometrie,trigonometrie,16,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf
+Gymnasium Köln-Pesch,10,6,Trigonometrische Funktionen,sinusfunktion,13,,https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf
+Gymnasium Müngersdorf,5,1,Zahlen und Größen,natuerliche_zahlen,15,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,5,2,Ebene Figuren,geometrische_grundbegriffe,10,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,5,3,Größen im Alltag,rechnen_natuerliche_zahlen,25,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,5,4,Flächen,flaeche_umfang,20,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,5,5,Körper,koerper_quader,20,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,5,6,Brüche – Anteile von einem Ganzen,brueche,10,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,6,1,Brüche – Anteile von einem Ganzen,brueche,25,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,6,2,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,12,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,6,3,Muster und Figuren,winkel,12,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,6,4,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,20,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,6,5,Daten und Zufall,daten_streumasse,12,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,6,6,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,15,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,7,2,Zuordnungen,zuordnungen,15,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,7,3,Prozent und Zinsrechnung,zinsrechnung,10,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,7,4,Konstruieren und Argumentieren,winkel_dreiecke,20,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,7,5,Terme und Gleichungen,terme_gleichungen,15,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,7,6,Wahrscheinlichkeit,zufallsexperimente,10,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,8,1,Zufall und Wahrscheinlichkeit – Mehrstufige Zufallsexperimente,zufallsexperimente,13,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,8,2,Terme,terme_binomische_formeln,13,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,8,3,Flächen,flaechen_vielecke,8,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,8,4,Lineare Funktionen,lineare_funktionen,18,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,18,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Müngersdorf,8,6,Ähnlichkeit – Maßstabsgetreue Abbildungen,aehnlichkeit,,,https://www.gymnasium-muengersdorf.de/wp-content/uploads/2026/01/SILP_Ma.pdf
+Gymnasium Nippes (Toni-Steingass-Park),5,1,Zahlen und Größen,natuerliche_zahlen,26,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),5,2,Symmetrie,symmetrie,18,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,22,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),5,4,Flächen,flaeche_umfang,14,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),5,5,Körper,koerper_quader,18,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),5,6,Brüche – das Ganze und seine Teile,brueche,6,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),6,1,Brüche – das Ganze und seine Teile,brueche,10,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),6,2,"Brüche addieren, subtrahieren, multiplizieren, dividieren",rechnen_brueche_dezimalzahlen,17,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),6,3,Daten,daten_streumasse,12,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),6,4,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,10,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),6,5,"Dezimalzahlen addieren, subtrahieren, multiplizieren, dividieren",rechnen_brueche_dezimalzahlen,16,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),6,6,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,12,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),6,7,Muster und Figuren,winkel,12,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,12,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),7,2,Zuordnungen,zuordnungen,10,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),7,3,Prozentrechnung – Zinsrechnung,zinsrechnung,12,1,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),7,4,Terme und Gleichungen,terme_gleichungen,16,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),7,5,Konstruieren und Argumentieren,winkel_dreiecke,10,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Nippes (Toni-Steingass-Park),7,6,Wahrscheinlichkeiten,zufallsexperimente,10,2,https://www.gymnasium-steingasspark.de/s/20260618_schulinterner_Lehrplan_Mathe_angepasst.pdf
+Gymnasium Rodenkirchen,5,1,Wir lernen uns kennen: Erhebung und grafische Darstellung von Daten,daten_streumasse,12,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,2,"Die Welt, in der wir leben: Große Zahlen darstellen, ordnen, vergleichen",natuerliche_zahlen,8,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,3,Größen im Alltag: Rechnen mit Größen und Einheiten,natuerliche_zahlen,16,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,4,Rechnen mit System: Rechenterme und Rechengesetze,rechnen_natuerliche_zahlen,28,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,5,"Geometrische Erkundungen: Ebene Figuren, Konstruktionen, Koordinaten",geometrische_grundbegriffe,16,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,6,Unsere Wohnung / Unser Klassenraum: Flächeninhalt und Umfang,flaeche_umfang,16,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,7,Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable,rechnen_natuerliche_zahlen,4,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,8,Modellieren einfacher Zusammenhänge: Fermi-Aufgaben,ganze_zahlen_groessen,8,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,9,"Brüche begreifen: Anteil, Bruchteil und Ganzes (optional)",brueche,12,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,5,10,"Körper im Raum: Quader, Kegel, Zylinder und Co.",koerper_quader,12,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse5_G9.pdf
+Gymnasium Rodenkirchen,6,1,Atome im Reich der natürlichen Zahlen: Zerlegung natürlicher Zahlen,teilbarkeit,15,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf
+Gymnasium Rodenkirchen,6,2,Einführung der rationalen Zahlen in der Bruchdarstellung,brueche,15,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf
+Gymnasium Rodenkirchen,6,3,Grundrechenarten mit Brüchen,rechnen_brueche_dezimalzahlen,25,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf
+Gymnasium Rodenkirchen,6,4,Die drei Gesichter einer Zahl: Einführung der rationalen Zahlen,rechnen_brueche_dezimalzahlen,15,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf
+Gymnasium Rodenkirchen,6,5,Grundrechenarten mit Dezimalzahlen,rechnen_brueche_dezimalzahlen,25,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf
+Gymnasium Rodenkirchen,6,6,"Muster und Figuren: Verschiebungen, Kreise, Winkel, Drehungen",winkel,15,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf
+Gymnasium Rodenkirchen,6,7,Wir führen eine Befragung durch: Grundlagen der Stochastik,daten_streumasse,20,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf
+Gymnasium Rodenkirchen,6,8,Beziehungen zwischen Zahlen,ganze_zahlen_groessen,15,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse6_G9.pdf
+Gymnasium Rodenkirchen,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf
+Gymnasium Rodenkirchen,7,2,Zuordnungen,zuordnungen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf
+Gymnasium Rodenkirchen,7,3,Prozentrechnung – Zinsrechnung,zinsrechnung,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf
+Gymnasium Rodenkirchen,7,4,Terme und Gleichungen,terme_gleichungen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf
+Gymnasium Rodenkirchen,7,5,Konstruieren und Argumentieren,winkel_dreiecke,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf
+Gymnasium Rodenkirchen,7,6,Wahrscheinlichkeiten,zufallsexperimente,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Klasse7_G9.pdf
+Gymnasium Rodenkirchen,8,1,Daten und Wahrscheinlichkeiten,zufallsexperimente,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf
+Gymnasium Rodenkirchen,8,2,Lineare Funktionen,lineare_funktionen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf
+Gymnasium Rodenkirchen,8,3,Terme mit mehreren Variablen,terme_binomische_formeln,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf
+Gymnasium Rodenkirchen,8,4,Flächen,flaechen_vielecke,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf
+Gymnasium Rodenkirchen,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf
+Gymnasium Rodenkirchen,8,6,Kreise und Dreiecke,thales_konstruktionen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_schulinterner-Lehrplan_Mathe_Klasse-8_G9.pdf
+Gymnasium Rodenkirchen,9,1,Kann man das zählen? Die Irrationalität von Zahlen,reelle_zahlen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf
+Gymnasium Rodenkirchen,9,2,Von Parabelflügen und Brücken: Quadratische Zusammenhänge,quadratische_funktionen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf
+Gymnasium Rodenkirchen,9,3,"Eine Zahl für alles, was rund ist: π und die Kreisberechnung",kreis,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf
+Gymnasium Rodenkirchen,9,4,Verpackungskünstler: Oberfläche und Volumen von Prismen und Zylindern,prismen_zylinder,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf
+Gymnasium Rodenkirchen,9,5,Potenzen und Wurzeln,potenzen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf
+Gymnasium Rodenkirchen,9,6,Der Satz des Pythagoras und Körper,pythagoras,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf
+Gymnasium Rodenkirchen,9,7,Fake-News: Wie lügt man mit Statistik? (optional),statistik_beurteilen,,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_9_G9.pdf
+Gymnasium Rodenkirchen,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf
+Gymnasium Rodenkirchen,10,2,Quadratische Gleichungen,quadratische_gleichungen,23,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf
+Gymnasium Rodenkirchen,10,3,Ähnlichkeit,aehnlichkeit,12,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf
+Gymnasium Rodenkirchen,10,4,Exponentielles Wachstum,exponentialfunktionen,22,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf
+Gymnasium Rodenkirchen,10,5,Trigonometrie,trigonometrie,18,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf
+Gymnasium Rodenkirchen,10,6,Trigonometrische Funktionen,sinusfunktion,20,,https://gymnasium-rodenkirchen.de/wp-content/uploads/GymRo_Curriculum_Mathe_Jgst_10_G9.pdf
+Hansa-Gymnasium,5,1,Wir lernen uns kennen: Erhebung und grafische Darstellung von Daten,daten_streumasse,8,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,2,Die Welt in der wir leben: Große Zahlen in Stellenwerttafel und Zahlenstrahl,natuerliche_zahlen,8,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,3,Größen im Alltag: Rechnen mit Größen und Einheiten,natuerliche_zahlen,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,4,Rechnen mit System: Rechenterme und Rechengesetze,rechnen_natuerliche_zahlen,18,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,5,"Geometrische Erkundungen: Ebene Figuren, erste Konstruktionen, Koordinatisierung",geometrische_grundbegriffe,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,6,Unsere Wohnung / Unser Klassenraum: Flächeninhalt und Umfang ebener Figuren,flaeche_umfang,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,7,Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable als Unbestimmte,rechnen_natuerliche_zahlen,10,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,8,Modellieren einfacher funktionaler Zusammenhänge,ganze_zahlen_groessen,10,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,9,Atome im Reich der natürlichen Zahlen: Zerlegung natürlicher Zahlen,teilbarkeit,14,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,10,"Körper im Raum: Quader, Kegel, Zylinder und Co.",koerper_quader,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,5,11,"Brüche begreifen: Anteil, Bruchteil und Ganzes",brueche,18,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,6,1,Die drei Gesichter einer Zahl: Einführung der rationalen Zahlen,brueche,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,6,2,Addition und Subtraktion von Brüchen und Dezimalzahlen,rechnen_brueche_dezimalzahlen,18,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,6,3,Kunst und Architektur: Ornamente ebener Figuren,symmetrie,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,6,4,Parkettierungen: Verschiebungen und Spiegelungen,symmetrie,8,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,6,5,Planung des Schulgartens: Multiplikation und Division von Brüchen und Dezimalzahlen,rechnen_brueche_dezimalzahlen,18,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,6,6,Wir führen eine Befragung durch: Grundlagen der Stochastik,daten_streumasse,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,6,7,Veränderungen und Zustände mit ganzen Zahlen beschreiben,ganze_zahlen_groessen,14,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,6,8,Raus aus den Schulden: Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,7,1,Funktionenwerkstatt: Zuordnungen und ihre Darstellungen,zuordnungen,20,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,7,2,"19 % auf alles: Rabatte, Mehrwertsteuer und Prozente",zinsrechnung,18,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,7,3,Quod erat demonstrandum: Winkel und Winkelsätze,winkel_dreiecke,18,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,7,4,Vermessung im Gelände: Geometrische Konstruktionen und Kongruenz,winkel_dreiecke,20,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,7,5,Muster und Zahlenfolgen erkunden und mit Termen beschreiben,terme_gleichungen,20,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,7,6,Die Variable im Nenner: Bruchterme und Bruchgleichungen,terme_binomische_formeln,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,7,7,Würfel gegen Legostein: Wahrscheinlichkeiten,zufallsexperimente,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,8,1,Verpackte Zahlen: Terme und Gleichungen,terme_gleichungen,26,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,8,2,Termumformungen anschaulich,flaechen_vielecke,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,8,3,Auf der Kirmes: Glücksrad und Lostrommel,zufallsexperimente,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,8,4,Nach Tarif abrechnen und mit Tempomat fahren: Lineare Funktionen,lineare_funktionen,20,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,8,5,Produktionsfaktoren und Zusammensetzungen: Lineare Gleichungssysteme,lineare_gleichungen_lgs,20,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,1,Ein historischer Moment: Der Satz des Pythagoras,pythagoras,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,2,Kann man das zählen? Die Irrationalität von Zahlen,reelle_zahlen,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,3,"Eine Zahl für alles, was rund ist: π und die Kreisberechnung",kreis,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,4,Von Parabelflügen und Brücken: Quadratische Zusammenhänge,quadratische_funktionen,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,5,Gewinn und Verlust: Nullstellen quadratischer Funktionen,quadratische_gleichungen,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,6,Verpackungskünstler: Oberfläche und Volumen von Prismen und Pyramiden,prismen_zylinder,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,7,Vom Bakterium bis zu den Sternen: Potenzen und Wurzeln,potenzen,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,8,Mit Maßband und Jakobsstab: Zentrische Streckungen,aehnlichkeit,16,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,9,9,Fake-News: Wie lügt man mit Statistik?,statistik_beurteilen,8,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,10,1,"Produktdesign: Volumen und Oberfläche von Kugel, Kegel und Zylinder",koerper_pyramide_kegel_kugel,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,10,2,Eine neue Funktionsklasse: Exponentielle Funktionen,exponentialfunktionen,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,10,3,Wie wird die Welt vermessen? Einführung in Trigonometrie,trigonometrie,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,10,4,Pythagoras für beliebige Dreiecke? Der Kosinussatz,trigonometrie,9,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,10,5,Bakterienwachstum und radioaktiver Zerfall: Exponentielle Funktionen,exponentialfunktionen,15,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,10,6,Medizinische Tests: Bedingte Wahrscheinlichkeiten,bedingte_wahrscheinlichkeit,12,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,10,7,Riesenräder: Die Sinusfunktion für periodische Vorgänge,sinusfunktion,9,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Hansa-Gymnasium,10,8,Modellieren von Messreihen mit unterschiedlichen Funktionstypen,,9,,https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf
+Heinrich-Heine-Gymnasium,5,1,Rechnen,rechnen_natuerliche_zahlen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,5,2,Zahlen und Größen,natuerliche_zahlen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,5,3,Symmetrie,symmetrie,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,5,4,Flächen,flaeche_umfang,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,5,5,Körper,koerper_quader,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,6,1,Brüche – das Ganze und seine Teile,brueche,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,6,4,Muster und Figuren,winkel,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,6,6,Daten,daten_streumasse,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,6,7,Beziehungen zwischen Zahlen,ganze_zahlen_groessen,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,7,2,Zuordnungen,zuordnungen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,7,3,Prozent- und Zinsrechnung,zinsrechnung,,,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,8,1,Lineare Funktionen,lineare_funktionen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,8,2,Terme mit Variablen,terme_binomische_formeln,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,8,3,Daten und Wahrscheinlichkeit,zufallsexperimente,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,8,4,Flächen,flaechen_vielecke,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,9,4,Potenzen und Potenzgesetze,potenzen,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,9,5,Der Satz des Pythagoras und Körper,pythagoras,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,10,1,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,10,2,Ähnlichkeit,aehnlichkeit,,1,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,10,3,Exponentialfunktionen,exponentialfunktionen,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,10,4,Trigonometrie,trigonometrie,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Heine-Gymnasium,10,5,Trigonometrische Funktionen,sinusfunktion,,2,https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf
+Heinrich-Mann-Gymnasium,5,1,Natürliche Zahlen und Größen,natuerliche_zahlen,20,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,5,2,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,22,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,5,3,Figuren und Körper,geometrische_grundbegriffe,22,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,5,4,Flächen- und Rauminhalte,flaeche_umfang,22,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,5,5,Brüche,brueche,12,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,6,1,Brüche – Addieren und Subtrahieren,brueche,16,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,6,2,Dezimalzahlen – Addieren und Subtrahieren,rechnen_brueche_dezimalzahlen,10,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,6,3,Kreis – Winkel – Symmetrie,winkel,16,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,6,4,Multiplizieren und Dividieren mit Brüchen und Dezimalzahlen,rechnen_brueche_dezimalzahlen,24,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,6,5,Statistische Daten,daten_streumasse,11,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,6,6,Ganze Zahlen,ganze_zahlen_groessen,10,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,6,7,Zusammenhang zwischen Größen,ganze_zahlen_groessen,9,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,7,1,Zuordnungen,zuordnungen,,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,7,2,Prozentrechnung,zinsrechnung,,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,7,3,Winkel in Figuren,winkel_dreiecke,,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,7,4,Rationale Zahlen,rationale_zahlen,,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,7,5,Zufall und Wahrscheinlichkeit,zufallsexperimente,6,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,7,6,Dreiecke und Vierecke,winkel_dreiecke,,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,7,7,Gleichungen mit einer Variablen,terme_gleichungen,,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,8,1,Stochastik: Wahrscheinlichkeiten und Zufallsexperimente,zufallsexperimente,12,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,8,2,"Geometrie: Flächen, geometrische Sätze und Konstruktionen",thales_konstruktionen,15,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,8,3,"Funktionen: Lineare Funktionen, Prozent- und Zinsrechnung",lineare_funktionen,24,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,8,4,Arithmetik/Algebra: Lineare Gleichungen und Gleichungssysteme,lineare_gleichungen_lgs,33,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Heinrich-Mann-Gymnasium,9,1,Ähnlichkeit,aehnlichkeit,14,,https://hmg-koeln.de/images/Facher/Mathe/Schulinternes_Curriculum_Mathematik_G9.pdf
+Hildegard-von-Bingen-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf
+Hildegard-von-Bingen-Gymnasium,7,2,Zuordnungen,zuordnungen,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf
+Hildegard-von-Bingen-Gymnasium,7,3,Prozent- und Zinsrechnung,zinsrechnung,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf
+Hildegard-von-Bingen-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf
+Hildegard-von-Bingen-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf
+Hildegard-von-Bingen-Gymnasium,7,6,Daten und Wahrscheinlichkeit,zufallsexperimente,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-7.pdf
+Hildegard-von-Bingen-Gymnasium,8,1,"Daten und Wahrscheinlichkeit (alternativ zu Kl. 7, ggf. Fortsetzung)",zufallsexperimente,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf
+Hildegard-von-Bingen-Gymnasium,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf
+Hildegard-von-Bingen-Gymnasium,8,3,Flächen,flaechen_vielecke,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf
+Hildegard-von-Bingen-Gymnasium,8,4,Lineare Funktionen,lineare_funktionen,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf
+Hildegard-von-Bingen-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf
+Hildegard-von-Bingen-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-8.pdf
+Hildegard-von-Bingen-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf
+Hildegard-von-Bingen-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf
+Hildegard-von-Bingen-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf
+Hildegard-von-Bingen-Gymnasium,9,4,Satz des Pythagoras,pythagoras,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf
+Hildegard-von-Bingen-Gymnasium,9,5,Potenzen und Potenzgesetze,potenzen,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf
+Hildegard-von-Bingen-Gymnasium,9,6,"Daten und Wahrscheinlichkeit (falls zeitlich machbar, sonst Kl. 10)",bedingte_wahrscheinlichkeit,,,https://www.hvb-gymnasium.de/wp-content/uploads/2023/09/Curriculum-Mathematik-9.pdf
+Humboldt-Gymnasium,5,1,Stochastik: Zahlen und Größen,natuerliche_zahlen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,5,2,Geometrie: Symmetrie,symmetrie,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,5,3,Arithmetik/Algebra: Rechnen,rechnen_natuerliche_zahlen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,5,4,Geometrie: Flächen,flaeche_umfang,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,5,5,Geometrie: Körper,koerper_quader,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,6,1,Arithmetik/Algebra: Brüche – das Ganze und seine Teile,brueche,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,6,2,Arithmetik/Algebra: Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,6,3,Arithmetik/Algebra: Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,6,4,Geometrie: Muster und Figuren,winkel,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,6,5,Arithmetik/Algebra: Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,6,6,Stochastik: Daten,daten_streumasse,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,6,7,Arithmetik/Algebra: Beziehungen zwischen Zahlen,ganze_zahlen_groessen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_5_6.pdf
+Humboldt-Gymnasium,7,1,Arithmetik/Algebra: Rechnen mit rationalen Zahlen,rationale_zahlen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf
+Humboldt-Gymnasium,7,2,Funktionen: Zuordnungen,zuordnungen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf
+Humboldt-Gymnasium,7,3,Funktionen: Prozent und Zinsrechnung,zinsrechnung,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf
+Humboldt-Gymnasium,7,4,Arithmetik/Algebra: Terme und Gleichungen,terme_gleichungen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf
+Humboldt-Gymnasium,7,5,Geometrie: Konstruieren und Argumentieren,winkel_dreiecke,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_7.pdf
+Humboldt-Gymnasium,8,1,Stochastik: Wahrscheinlichkeit,zufallsexperimente,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf
+Humboldt-Gymnasium,8,2,Funktionen: Lineare Funktionen,lineare_funktionen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf
+Humboldt-Gymnasium,8,3,Arithmetik/Algebra: Terme mit mehreren Variablen,terme_binomische_formeln,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf
+Humboldt-Gymnasium,8,4,Geometrie: Flächen,flaechen_vielecke,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf
+Humboldt-Gymnasium,8,5,Arithmetik/Algebra: Lineare Gleichungssysteme,lineare_gleichungen_lgs,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf
+Humboldt-Gymnasium,8,6,Geometrie: Kreise und Dreiecke,thales_konstruktionen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_8.pdf
+Humboldt-Gymnasium,9,1,Arithmetik/Algebra: Reelle Zahlen,reelle_zahlen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf
+Humboldt-Gymnasium,9,2,Funktionen: Quadratische Funktionen,quadratische_funktionen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf
+Humboldt-Gymnasium,9,3,"Geometrie: Kreise, Prismen und Zylinder",kreis,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf
+Humboldt-Gymnasium,9,4,Arithmetik/Algebra: Potenzen und Potenzgesetze,potenzen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf
+Humboldt-Gymnasium,9,5,Geometrie: Satz des Pythagoras und Berechnungen in Körpern,pythagoras,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf
+Humboldt-Gymnasium,9,6,Stochastik: Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_9.pdf
+Humboldt-Gymnasium,10,1,Funktionen/Arithmetik/Algebra: Quadratische Funktionen und Gleichungen,quadratische_gleichungen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf
+Humboldt-Gymnasium,10,2,Geometrie: Ähnlichkeit,aehnlichkeit,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf
+Humboldt-Gymnasium,10,3,Arithmetik/Algebra/Funktionen: Exponentialfunktionen,exponentialfunktionen,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf
+Humboldt-Gymnasium,10,4,Geometrie: Trigonometrie,trigonometrie,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf
+Humboldt-Gymnasium,10,5,Funktionen: Trigonometrische Funktionen,sinusfunktion,,,https://humboldt-koeln.de/fileadmin/OrdnerFuerZugangsbereiche/Mathematik/Schulinterner_Lehrplan_10.pdf
+Kaiserin-Augusta-Schule,5,1,Zahlen und Größen,natuerliche_zahlen,23,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,5,2,Symmetrie,symmetrie,13,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,28,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,5,4,Flächen,flaeche_umfang,23,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,5,5,Körper,koerper_quader,23,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,5,6,Brüche – das Ganze und seine Teile,brueche,18,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,6,4,Muster und Figuren,winkel,20,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,6,6,Daten,daten_streumasse,15,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,6,7,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,20,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,24,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,7,2,Zuordnungen,zuordnungen,18,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,7,3,Prozent und Zinsrechnung,zinsrechnung,24,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,7,4,Terme und Gleichungen,terme_gleichungen,30,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,7,5,Konstruieren und Argumentieren,winkel_dreiecke,22,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,7,6,Wahrscheinlichkeit,zufallsexperimente,18,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,8,1,Lineare Funktionen,lineare_funktionen,24,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,8,3,Flächen,flaechen_vielecke,12,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,8,4,Lineare Gleichungssysteme,lineare_gleichungen_lgs,26,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,8,5,Kreise und Dreiecke,thales_konstruktionen,22,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,9,1,Reelle Zahlen,reelle_zahlen,20,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,9,3,"Kreise, Prismen und Zylinder",kreis,16,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,9,5,Satz des Pythagoras und Körper,pythagoras,16,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,10,2,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,23,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,10,3,Ähnlichkeit,aehnlichkeit,12,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,10,4,Exponentielles Wachstum,exponentialfunktionen,22,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,10,5,Trigonometrie,trigonometrie,18,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Augusta-Schule,10,6,Trigonometrische Funktionen,sinusfunktion,20,,https://kas-koeln.de/download/schulinternes-curriculum-mathematik/
+Kaiserin-Theophanu-Schule,5,1,Natürliche Zahlen und Größen,natuerliche_zahlen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,5,2,Grundbegriffe der Geometrie,geometrische_grundbegriffe,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,5,4,Flächeninhalt und Umfang,flaeche_umfang,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,5,5,Volumen und Oberflächeninhalt,koerper_quader,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,5,6,Brüche und Dezimalzahlen,brueche,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,6,1,Brüche und Dezimalzahlen,brueche,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,6,2,Brüche und Dezimalzahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,6,3,Kreis und Winkel,winkel,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,6,4,Brüche und Dezimalzahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,6,5,Daten und Häufigkeiten,daten_streumasse,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,6,6,Erweiterung des Zahlbereichs,rationale_zahlen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,7,1,Erweiterung des Zahlbereichs (Wiederholung aus Klasse 6),rationale_zahlen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,7,2,Zuordnungen,zuordnungen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,7,3,Prozent- und Zinsrechnung,zinsrechnung,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,7,4,Winkelbetrachtungen,winkel_dreiecke,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,7,5,Geometrische Konstruktionen,thales_konstruktionen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,7,6,Gleichungen,terme_gleichungen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,7,7,Zufall und Wahrscheinlichkeit,zufallsexperimente,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,8,1,Zufall und Wahrscheinlichkeit (Wiederholung aus Klasse 7),zufallsexperimente,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,8,2,Terme,terme_binomische_formeln,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,8,3,Flächeninhalte,flaechen_vielecke,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,8,4,Mehrstufige Zufallsexperimente – Baumdiagramme,zufallsexperimente,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,8,5,Funktionen,lineare_funktionen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,8,6,Lineare Gleichungssysteme,lineare_gleichungen_lgs,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,8,7,Ähnlichkeit,aehnlichkeit,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,9,1,Ähnlichkeit (Wiederholung aus Klasse 8),aehnlichkeit,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,9,2,Quadratwurzeln – Reelle Zahlen,reelle_zahlen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,9,3,Satzgruppe des Pythagoras,pythagoras,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,9,4,Quadratische Funktionen und Gleichungen,quadratische_funktionen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,9,5,Kreisberechnungen,kreis,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,9,6,"Körperberechnungen (Prisma, Zylinder)",prismen_zylinder,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,9,7,Potenzen,potenzen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,10,1,Potenzen,potenzen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,10,2,"Körperberechnungen (Pyramide, Kegel, Kugel)",koerper_pyramide_kegel_kugel,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,10,3,Trigonometrie,trigonometrie,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,10,4,Exponentialfunktionen,exponentialfunktionen,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,10,5,Bedingte Wahrscheinlichkeit und stochastische Unabhängigkeit,bedingte_wahrscheinlichkeit,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Kaiserin-Theophanu-Schule,10,6,Trigonometrische Funktionen,sinusfunktion,,,https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf
+Königin-Luise-Schule,5,1,Zahlen und Größen,natuerliche_zahlen,24,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,5,2,Symmetrie,symmetrie,14,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,29,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,5,4,Flächen,flaeche_umfang,24,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,5,5,Körper,koerper_quader,24,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,5,6,Brüche – das Ganze und seine Teile,brueche,20,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,6,4,Geometrische Abbildungen,winkel,20,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,6,6,Daten,daten_streumasse,15,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,6,7,Strukturen erkennen und beschreiben,ganze_zahlen_groessen,15,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,21,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,7,2,Zuordnungen,zuordnungen,17,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,7,3,Prozent und Zinsrechnung,zinsrechnung,21,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,7,4,Terme und Gleichungen,terme_gleichungen,25,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,7,5,Konstruieren und Argumentieren,winkel_dreiecke,19,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,7,6,Wahrscheinlichkeit,zufallsexperimente,17,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,8,1,Wahrscheinlichkeit,zufallsexperimente,17,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,8,2,Lineare Funktionen,lineare_funktionen,23,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,8,3,Terme mit mehreren Variablen,terme_binomische_formeln,24,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,8,4,Flächen,flaechen_vielecke,12,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,24,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,8,6,Kreise und Dreiecke,thales_konstruktionen,20,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,9,3,"Kreise, Prismen und Zylinder",kreis,20,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,12,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,10,2,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,23,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,10,3,Ähnlichkeit,aehnlichkeit,12,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,10,4,Exponentialfunktionen,exponentialfunktionen,22,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,10,5,Trigonometrie,trigonometrie,18,,https://www.koenigin-luise-schule.de/mathematik.html
+Königin-Luise-Schule,10,6,Trigonometrische Funktionen,sinusfunktion,20,,https://www.koenigin-luise-schule.de/mathematik.html
+Leonardo-da-Vinci-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf
+Leonardo-da-Vinci-Gymnasium,7,2,Terme und Gleichungen (Teil Terme),terme_gleichungen,,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf
+Leonardo-da-Vinci-Gymnasium,7,3,Zuordnungen,zuordnungen,14,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf
+Leonardo-da-Vinci-Gymnasium,7,4,Terme und Gleichungen (Teil Gleichungen),terme_gleichungen,,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf
+Leonardo-da-Vinci-Gymnasium,7,5,Prozent und Zinsrechnung,zinsrechnung,18,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf
+Leonardo-da-Vinci-Gymnasium,7,6,Konstruieren und Argumentieren,winkel_dreiecke,16,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf
+Leonardo-da-Vinci-Gymnasium,7,7,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf
+Leonardo-da-Vinci-Gymnasium,8,1,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf
+Leonardo-da-Vinci-Gymnasium,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,18,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf
+Leonardo-da-Vinci-Gymnasium,8,3,Flächen,flaechen_vielecke,11,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf
+Leonardo-da-Vinci-Gymnasium,8,4,Lineare Funktionen,lineare_funktionen,21,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf
+Leonardo-da-Vinci-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,22,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf
+Leonardo-da-Vinci-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,16,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf
+Leonardo-da-Vinci-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf
+Leonardo-da-Vinci-Gymnasium,9,2,"Kreise, Prismen und Zylinder",kreis,20,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf
+Leonardo-da-Vinci-Gymnasium,9,3,Potenzen und Potenzgesetze,potenzen,15,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf
+Leonardo-da-Vinci-Gymnasium,9,4,Quadratische Funktionen,quadratische_funktionen,22,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf
+Leonardo-da-Vinci-Gymnasium,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,12,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf
+Leonardo-da-Vinci-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf
+Lessing-Gymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,25,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,5,2,Symmetrie,symmetrie,15,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,30,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,5,4,Flächen,flaeche_umfang,25,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,5,5,Körper,koerper_quader,25,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,6,1,Brüche – das Ganze und seine Teile,brueche,20,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,6,4,Geometrische Abbildungen,winkel,20,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,6,6,Daten,daten_streumasse,15,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,6,7,Strukturen erkennen und beschreiben,ganze_zahlen_groessen,20,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,7,2,Zuordnungen,zuordnungen,14,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,7,3,Prozent und Zinsrechnung,zinsrechnung,18,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,22,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,16,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,7,6,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,8,1,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,8,2,Lineare Funktionen,lineare_funktionen,25,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,8,3,Terme mit mehreren Variablen,terme_binomische_formeln,15,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,8,4,Flächen,flaechen_vielecke,15,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,15,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,15,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,9,1,Ähnlichkeit,aehnlichkeit,12,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,9,2,Reelle Zahlen,reelle_zahlen,20,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,9,3,Längen und Flächen in Figuren und Körpern,kreis,20,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,9,4,Quadratische Funktionen,quadratische_funktionen,22,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,9,5,Potenzen und Potenzgesetze,potenzen,15,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,10,2,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,10,3,Berechnungen an Körpern,koerper_pyramide_kegel_kugel,,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,10,4,Exponentialfunktionen,exponentialfunktionen,,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,10,5,Trigonometrie,trigonometrie,,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Lessing-Gymnasium,10,6,Funktionen als Modell der Wirklichkeit,sinusfunktion,,,https://www.lessing-gymnasium.eu/wp-content/uploads/2021/03/2021-01-24-Schulinterner-Lehrplan-M-Sek-1-mit-9-und-10-und-Distanz.pdf
+Maximilian-Kolbe-Gymnasium,5,1,Wir lernen uns kennen: Erhebung und grafische Darstellung von Daten,daten_streumasse,12,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,2,"Die Welt, in der wir leben: Große Zahlen darstellen, ordnen, vergleichen",natuerliche_zahlen,8,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,3,Größen im Alltag: Rechnen mit Größen und Einheiten,natuerliche_zahlen,16,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,4,Rechnen mit System: Rechenterme und Rechengesetze,rechnen_natuerliche_zahlen,16,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,5,"Geometrische Erkundungen: Ebene Figuren, Konstruktionen, Koordinaten",geometrische_grundbegriffe,16,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,6,Unsere Wohnung / Unser Klassenraum: Flächeninhalt und Umfang,flaeche_umfang,16,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,7,Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable,rechnen_natuerliche_zahlen,4,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,8,Modellieren einfacher Zusammenhänge: Fermi-Aufgaben,ganze_zahlen_groessen,8,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,9,"Brüche begreifen: Anteil, Bruchteil und Ganzes",brueche,12,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,5,10,"Körper im Raum: Quader, Kegel, Zylinder und Co.",koerper_quader,12,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,1,Atome im Reich der natürlichen Zahlen: Zerlegung natürlicher Zahlen,teilbarkeit,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,2,Veränderungen und Zustände mit ganzen Zahlen beschreiben,ganze_zahlen_groessen,10,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,3,Geschenke verpacken: Rauminhalt und Oberfläche eines Quaders,koerper_quader,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,4,Die drei Gesichter einer Zahl: Einführung der rationalen Zahlen,rechnen_brueche_dezimalzahlen,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,5,Addition und Subtraktion von Brüchen und Dezimalzahlen,rechnen_brueche_dezimalzahlen,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,6,Kunst und Architektur: Ornamente ebener Figuren,winkel,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,7,Planung des Schulgartens: Multiplikation und Division von Brüchen,rechnen_brueche_dezimalzahlen,20,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,8,Wir führen eine Befragung durch: Grundlagen der Stochastik,daten_streumasse,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,9,Muster und Zahlenfolgen erkunden und mit Termen beschreiben,rechnen_natuerliche_zahlen,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,6,10,Parkettierungen: Verschiebungen und Spiegelungen,symmetrie,10,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,7,1,Zuordnungswerkstatt: Zuordnungen und ihre Darstellungen,zuordnungen,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,7,2,"19 % auf alles: Rabatte, Mehrwertsteuer und Prozente",zinsrechnung,12,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,7,3,Quod erat demonstrandum: Winkel und Winkelsätze,winkel_dreiecke,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,7,4,Geometrische Konstruktionen,thales_konstruktionen,,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,7,5,Verpackte Zahlen: Terme und Gleichungen,terme_gleichungen,18,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,7,6,Die Variable im Nenner: Bruchterme und Bruchgleichungen,terme_gleichungen,9,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,8,1,Terme,terme_binomische_formeln,12,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,8,2,Flächen,flaechen_vielecke,15,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,8,3,Mehrstufige Zufallsexperimente,zufallsexperimente,12,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,8,4,Lineare Funktionen,lineare_funktionen,18,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,18,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Maximilian-Kolbe-Gymnasium,8,6,Ähnlichkeit,aehnlichkeit,16,,https://mkg-koeln.de/wp-content/uploads/2022/03/g9_m_silp_2021-BIS-Jg.-8-einschliesslich.pdf
+Rhein-Gymnasium,5,1,"WIR! Was Zahlen, Daten und Fakten über uns erzählen",natuerliche_zahlen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,5,2,Höher – Schwerer – Teurer – Später: Größen und Einheiten im Alltag,natuerliche_zahlen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,5,3,"Genauso, nur verkehrt herum: besondere Linien, Figuren und Objekte",geometrische_grundbegriffe,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,5,4,Rechnen mit System: Gesetze bei der Berechnung von Rechenausdrücken,rechnen_natuerliche_zahlen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,5,5,"Die Erde im Quadrat: Flächen vergleichen, vermessen, berechnen",flaeche_umfang,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,5,6,„Geradlinige“ Körperwelten,koerper_quader,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,5,7,Teile des Ganzen: Bruchdarstellungen (optional),brueche,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,6,1,Wir sind nur Teile des großen Ganzen: Bruchdarstellungen,brueche,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,6,2,Eine Frage des Stellenwertes: Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,6,3,Die Kunst der Strichrechnung: Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,6,4,"Irgendwie ähnlich: Muster und Figuren gestreckt, gedreht, gespiegelt",winkel,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,6,5,Verkehrte Welt: Multiplizieren und Dividieren rationaler Zahlen,rechnen_brueche_dezimalzahlen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,6,6,Datenmengen veranschaulichen und Kenngrößen bestimmen,daten_streumasse,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,6,7,Ein Beziehungsdrama in 3 Sätzen: Zahlen und Größen (optional),ganze_zahlen_groessen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,7,1,Raus aus den Schulden – Rechnen mit rationalen Zahlen,rationale_zahlen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,7,2,Leistungskurven im Sport – Zusammenhänge zwischen Größen,zuordnungen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,7,3,"19% auf alles: Rabatte, Mehrwertsteuer und Prozente",zinsrechnung,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,7,4,Knackt die Box – Terme und Gleichungen,terme_gleichungen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,7,5,Würfel gegen Legostein: Wahrscheinlichkeiten nicht nur in Laplace-Experimenten,zufallsexperimente,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,7,6,Quod erat demonstrandum – Konstruieren und Argumentieren an Winkeln und Dreiecken,winkel_dreiecke,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,8,1,Würfel gegen Legostein: Wahrscheinlichkeiten (Wdh.),zufallsexperimente,14,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,8,2,Wie funktioniert das? Den Geraden auf der Spur (lineare Funktionen),lineare_funktionen,21,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,8,3,"Verpackte Zahlen: Terme, Variablen und Gleichungen",terme_binomische_formeln,18,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,8,4,Figuren geschickt zerlegen: Flächeninhalte nicht rechtwinkliger Figuren,flaechen_vielecke,11,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,8,5,Produktionsfaktoren und Zusammensetzungen – Lineare Gleichungssysteme,lineare_gleichungen_lgs,22,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,8,6,Vermessung: Geometrische Konstruktionen an Kreis und Dreieck,thales_konstruktionen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,9,1,Kann man das zählen? Die Irrationalität von Zahlen,reelle_zahlen,20,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,9,2,Von Parabelflügen und Brücken: Quadratische Zusammenhänge erkunden,quadratische_funktionen,22,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,9,3,Das Runde muss ins Eckige – Kreisfläche; Prismen und Zylinder,kreis,20,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,9,4,Vom Weltall zum Einzeller – mit Potenzen Zahlen darstellen,potenzen,15,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,9,5,Mit Pythagoras und Maßband durch Mülheim – Berechnungen an Körpern,pythagoras,12,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,9,6,Dem Zufall und der Manipulation auf der Spur – Statistik und Wahrscheinlichkeit (optional),bedingte_wahrscheinlichkeit,13,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,10,1,Daten und Wahrscheinlichkeit (optional),bedingte_wahrscheinlichkeit,13,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,10,2,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,10,3,Ähnlichkeit,aehnlichkeit,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,10,4,Exponentialfunktionen,exponentialfunktionen,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,10,5,Trigonometrie,trigonometrie,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Rhein-Gymnasium,10,6,Trigonometrische Funktionen,sinusfunktion,,,https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf
+Schiller-Gymnasium,5,1,Zahlen und Größen,natuerliche_zahlen,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,5,2,Symmetrie,symmetrie,15,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,25,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,5,4,Flächen,flaeche_umfang,15,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,5,5,Körper,koerper_quader,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,5,6,Brüche – das Ganze und seine Teile (fakultativ),brueche,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,6,1,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,15,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,6,2,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,6,3,Muster und Figuren,winkel,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,6,4,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,30,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,6,5,Daten,daten_streumasse,15,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,6,6,Beziehungen zwischen Zahlen,ganze_zahlen_groessen,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,18,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,7,2,Zuordnungen,zuordnungen,14,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,7,3,Prozent und Zinsrechnung,zinsrechnung,18,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,7,4,Terme und Gleichungen,terme_gleichungen,22,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,7,5,Konstruieren und Argumentieren,winkel_dreiecke,16,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,7,6,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,8,1,Wahrscheinlichkeit,zufallsexperimente,14,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,8,2,Lineare Funktionen,lineare_funktionen,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,8,3,Terme mit mehreren Variablen,terme_binomische_formeln,14,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,8,4,Flächen,flaechen_vielecke,16,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,16,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,8,6,Kreise und Dreiecke,thales_konstruktionen,16,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,9,1,Reelle Zahlen,reelle_zahlen,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,9,2,Quadratische Funktionen,quadratische_funktionen,22,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,9,3,"Kreise, Prismen und Zylinder",kreis,20,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,9,4,Potenzen und Potenzgesetze,potenzen,15,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,12,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,13,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,10,2,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,30,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,10,3,Ähnlichkeit,aehnlichkeit,12,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,10,4,Exponentialfunktionen,exponentialfunktionen,15,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,10,5,Trigonometrie,trigonometrie,15,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Schiller-Gymnasium,10,6,Funktionen als Modell der Wirklichkeit (Sinusfunktionen),sinusfunktion,10,,https://www.schillergymnasium-koeln.de/images/stories/unterricht/mathe/SiLP_M_Schillergymnasium_Jg.%205%20bis%20Q2_2025_02_03.pdf
+Stadtgymnasium Köln-Porz,5,1,Größen im Alltag: Rechnen mit Größen und Einheiten in einfachen Sachzusammenhängen,natuerliche_zahlen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,5,2,"Geometrische Erkundungen: Ebene Figuren, Konstruktionen, Koordinatisierung, Symmetrie",geometrische_grundbegriffe,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,5,3,Rechnen mit System: Rechenterme darstellen und mit Rechengesetzen ausrechnen,rechnen_natuerliche_zahlen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,5,4,Berechnung von Flächeninhalt und Umfang ebener und zusammengesetzter Figuren,flaeche_umfang,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,5,5,"Körper im Raum: Quader, Kegel, Zylinder und Co. erfassen und herstellen",koerper_quader,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,5,6,"Brüche begreifen: Anteil, Bruchteil und Ganzes",brueche,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,6,1,"Brüche begreifen: Anteil, Bruchteil und Ganzes",brueche,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,6,2,Die drei Gesichter einer Zahl: Einführung der rationalen Zahlen,rechnen_brueche_dezimalzahlen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,6,3,Addition und Subtraktion von Brüchen und Dezimalzahlen,rechnen_brueche_dezimalzahlen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,6,4,"Figuren, ihre Veränderung im erweiterten Koordinatensystem, Kreise und Winkel",winkel,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,6,5,Multiplikation und Division von Brüchen und Dezimalzahlen,rechnen_brueche_dezimalzahlen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,6,6,Wir führen eine Befragung durch: Grundlagen der Stochastik,daten_streumasse,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,6,7,Strukturen und Zahlenfolgen erkunden und mit Termen beschreiben,rechnen_natuerliche_zahlen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,7,2,Zuordnungen und ihre Darstellungen,zuordnungen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,7,3,"Prozent- und Zinsrechnung: Rabatte, Mehrwertsteuer und Prozente",zinsrechnung,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,7,4,Terme und Gleichungen,terme_gleichungen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,7,5,Konstruieren und Argumentieren in der Geometrie: Winkel und Winkelsätze,winkel_dreiecke,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,7,6,Wahrscheinlichkeiten nicht nur in Laplace-Experimenten,zufallsexperimente,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,8,1,Würfel gegen Legostein: Wahrscheinlichkeiten nicht nur in Laplace-Experimenten,zufallsexperimente,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,8,2,Gleichmäßiges Wachstum: Lineare Funktionen,lineare_funktionen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,8,3,Mehr als nur ein Platzhalter: Terme mit mehreren Variablen,terme_binomische_formeln,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,8,4,"Termumformungen anschaulich: Umfang, Flächeninhalt zusammengesetzter Figuren",flaechen_vielecke,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,8,5,Zusammenführung mathematischer Bedingungen: Lineare Gleichungssysteme,lineare_gleichungen_lgs,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,8,6,Kreise und Dreiecke,thales_konstruktionen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,9,1,Reelle Zahlen,reelle_zahlen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,9,2,Quadratische Funktionen,quadratische_funktionen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,9,3,"Kreise, Prismen, Zylinder",kreis,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,9,4,Potenzen und Potenzgesetze,potenzen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,10,1,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,10,2,Quadratische Gleichungen,quadratische_gleichungen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,10,3,Ähnlichkeit,aehnlichkeit,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,10,4,Exponentielles Wachstum,exponentialfunktionen,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,10,5,Trigonometrie,trigonometrie,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Stadtgymnasium Köln-Porz,10,6,Trigonometrische Funktionen,sinusfunktion,,,https://www.stadtgymnasium-porz.de/pdf/Faecher/mathematik/SGP%20Mathematik%20Schulinternes%20Curriculum%205-10.pdf
+Gymnasium Thusneldastraße,5,1,Zahlen und Größen,natuerliche_zahlen,18,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,5,2,Symmetrie,symmetrie,11,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,5,3,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,21,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,5,4,Flächen – Größe und Umfang ebener Figuren,flaeche_umfang,14,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,5,5,Körper – 3D,koerper_quader,18,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,6,1,Brüche – das Ganze und seine Teile,brueche,16,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,12,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,16,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,6,4,Muster und Figuren,winkel,16,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,24,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,6,6,Statistische Erhebungen auswerten,daten_streumasse,12,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,6,7,Beziehungen zwischen Zahlen und Größen,rechnen_natuerliche_zahlen,3,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,13,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,7,2,Zuordnungen,zuordnungen,11,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,7,3,Prozentrechnung,zinsrechnung,13,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,7,4,Terme und Gleichungen,terme_gleichungen,17,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,7,5,Winkel und Dreiecke,winkel_dreiecke,12,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,7,6,Daten und Wahrscheinlichkeit,zufallsexperimente,10,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,8,1,Lineare Funktionen,lineare_funktionen,15,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,13,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,8,3,Flächen,flaechen_vielecke,8,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,8,4,Lineare Gleichungssysteme,lineare_gleichungen_lgs,16,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,8,5,Kreise und Dreiecke,thales_konstruktionen,12,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,9,1,Reelle Zahlen,reelle_zahlen,15,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,9,2,Quadratische Funktionen,quadratische_funktionen,16,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,9,3,"Kreise, Prismen und Zylinder",kreis,15,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,9,4,Potenzen und Potenzgesetze,potenzen,12,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,9,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,10,1,Daten und Wahrscheinlichkeit (Wiederholung),bedingte_wahrscheinlichkeit,15,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,10,2,Quadratische Funktionen und Gleichungen,quadratische_gleichungen,16,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,10,3,Ähnlichkeit,aehnlichkeit,15,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,10,4,Exponentialfunktionen,exponentialfunktionen,12,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,10,5,Trigonometrie,trigonometrie,9,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Thusneldastraße,10,6,Trigonometrische Funktionen,sinusfunktion,,,https://thusnelda-gymnasium.de/wp-content/uploads/2026/09/SiLP_Sek_I_G9.pdf
+Gymnasium Zusestraße,5,1,Wir lernen uns kennen – Daten erfassen und darstellen,daten_streumasse,6,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,5,2,Zahlen und Größen,natuerliche_zahlen,8,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,5,3,Symmetrie,symmetrie,8,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,5,4,Rechnen mit natürlichen Zahlen,rechnen_natuerliche_zahlen,12,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,5,5,Flächen,flaeche_umfang,12,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,5,6,Körper,koerper_quader,12,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,5,7,Brüche – das Ganze und seine Teile,brueche,10,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,6,1,Brüche – das Ganze und seine Teile,brueche,10,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,6,2,Brüche in Dezimalschreibweise,rechnen_brueche_dezimalzahlen,9,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,6,3,Zahlen addieren und subtrahieren,rechnen_brueche_dezimalzahlen,8,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,6,4,Muster und Figuren,winkel,8,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,6,5,Zahlen multiplizieren und dividieren,rechnen_brueche_dezimalzahlen,15,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,6,6,Daten auswerten und darstellen,daten_streumasse,6,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,6,7,Beziehungen zwischen Zahlen und Größen,ganze_zahlen_groessen,11,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,7,1,Rechnen mit rationalen Zahlen,rationale_zahlen,12,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,7,2,Zuordnungen,zuordnungen,9,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,7,3,Prozent und Zinsrechnung,zinsrechnung,12,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,7,4,Terme und Gleichungen,terme_gleichungen,14,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,7,5,Konstruieren und Argumentieren,winkel_dreiecke,10,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,7,6,Wahrscheinlichkeit,zufallsexperimente,9,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,8,1,Lineare Funktionen,lineare_funktionen,14,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,8,2,Terme mit mehreren Variablen,terme_binomische_formeln,12,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,8,3,Flächen,flaechen_vielecke,7,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,8,4,Lineare Gleichungssysteme,lineare_gleichungen_lgs,14,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,8,5,Kreise und Dreiecke,thales_konstruktionen,11,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,9,1,Reelle Zahlen,reelle_zahlen,13,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,9,2,Quadratische Funktionen,quadratische_funktionen,14,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,9,3,"Kreise, Prismen und Zylinder",kreis,13,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,9,4,Potenzen und Potenzgesetze,potenzen,10,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,9,5,Der Satz des Pythagoras und Berechnungen in Körpern,pythagoras,8,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,9,6,Daten und Wahrscheinlichkeit,bedingte_wahrscheinlichkeit,9,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,10,1,Daten und Wahrscheinlichkeit (Wiederholung),bedingte_wahrscheinlichkeit,9,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,10,2,Quadratische Gleichungen,quadratische_gleichungen,15,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,10,3,Ähnlichkeit,aehnlichkeit,8,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,10,4,Exponentielles Wachstum,exponentialfunktionen,14,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,10,5,Trigonometrie,trigonometrie,12,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Gymnasium Zusestraße,10,6,Trigonometrische Funktionen,sinusfunktion,13,,https://gymnasium-zusestrasse.de/wp-content/uploads/2026/07/GY-Zusestrasse-SilLP-Mathematik-Sek-I.pdf
+Erzbischöfliche Liebfrauenschule,5,1,Daten,daten_streumasse,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,5,2,Rechnen,rechnen_natuerliche_zahlen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,5,3,Größen und Einheiten,natuerliche_zahlen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,5,4,Zahlen,natuerliche_zahlen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,5,5,Geometrie,geometrische_grundbegriffe,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,5,6,Flächen- und Rauminhalt,flaeche_umfang,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,5,7,Teiler und Vielfache,teilbarkeit,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,5,8,Brüche,brueche,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,6,1,Brüche,brueche,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,6,2,Kreise und Winkel,winkel,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,6,3,Rechnen mit Brüchen,rechnen_brueche_dezimalzahlen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,6,4,Rechnen mit Dezimalzahlen,rechnen_brueche_dezimalzahlen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,6,5,Symmetrie,symmetrie,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,6,6,Statistische Daten,daten_streumasse,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,6,7,Ganze Zahlen,ganze_zahlen_groessen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,6,8,Zusammenhänge beschreiben,ganze_zahlen_groessen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,1,Termumformungen anschaulich: Umfang und Flächeninhalt von Dreiecken und Vielecken,flaechen_vielecke,6,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,2,Termumformungen algebraisch,terme_gleichungen,4,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,3,Funktionenwerkstatt: Zuordnungen und ihre Darstellungen,zuordnungen,16,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,4,"19 % auf alles: Rabatte, Mehrwertsteuer und Prozente",zinsrechnung,16,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,5,Winkel und Winkelsätze,winkel_dreiecke,10,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,6,Raus aus den Schulden: Rechnen mit rationalen Zahlen,rationale_zahlen,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,7,Geometrische Konstruktion an Dreiecken,winkel_dreiecke,10,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,8,Würfel gegen Legostein: Wahrscheinlichkeiten nicht nur in Laplace-Experimenten,zufallsexperimente,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,9,Terme,terme_gleichungen,8,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,7,10,Gleichungen,terme_gleichungen,10,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,8,1,Gleichungen,terme_gleichungen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,8,2,Wahrscheinlichkeitsrechnung,zufallsexperimente,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,8,3,Sprache der Algebra,terme_binomische_formeln,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,8,4,Lineare Funktionen,lineare_funktionen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,8,5,Lineare Gleichungssysteme,lineare_gleichungen_lgs,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,8,6,Zinsrechnung (falls in Klasse 7 nicht behandelt),zinsrechnung,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,8,7,Besondere Linien in Figuren – Entdecken und Begründen,thales_konstruktionen,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,8,8,Bruchterme,terme_binomische_formeln,,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf
+Erzbischöfliche Liebfrauenschule,9,1,Ein historischer Moment: Der Satz des Pythagoras,pythagoras,16,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,9,2,Kann man das zählen? Die Irrationalität von Zahlen,reelle_zahlen,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,9,3,"Eine Zahl für alles, was rund ist: π und die Kreisberechnung",kreis,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,9,4,Von Parabelflügen und Brücken: Quadratische Zusammenhänge erkunden,quadratische_funktionen,16,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,9,5,Gewinn und Verlust: Nullstellen quadratischer Funktionen,quadratische_gleichungen,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,9,6,Verpackungskünstler in Aktion: Oberfläche und Volumen von Prismen und Pyramiden,prismen_zylinder,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,9,7,Potenzen und Wurzeln,potenzen,16,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,9,8,Mit Maßband und Jakobsstab: Maßstabsgetreue Abbildungen mit zentrischer Streckung,aehnlichkeit,16,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,9,9,Fake-News: Wie lügt man mit Statistik?,statistik_beurteilen,8,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,10,1,"Produktdesign: Volumen und Oberfläche von Kugel, Kegel und Zylinder",koerper_pyramide_kegel_kugel,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,10,2,Eine neue Funktionsklasse stellt sich vor: Exponentielle Funktionen,exponentialfunktionen,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,10,3,Wie wird die Welt vermessen? Einführung in Trigonometrie,trigonometrie,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,10,4,Pythagoras auch für beliebige Dreiecke? Der Kosinussatz,trigonometrie,9,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,10,5,Bakterienwachstum und radioaktiver Zerfall: Modellieren mit exponentiellen Funktionen,exponentialfunktionen,15,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,10,6,Medizinische Tests: Bedingte Wahrscheinlichkeiten,bedingte_wahrscheinlichkeit,12,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,10,7,Riesenräder: Die Sinusfunktion zur Darstellung periodischer Vorgänge,sinusfunktion,9,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliche Liebfrauenschule,10,8,Modellieren von Messreihen mit unterschiedlichen Funktionstypen,,9,,https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf
+Erzbischöfliches Irmgardis-Gymnasium,7,1,Zuordnungen,zuordnungen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,7,2,Prozentrechnung,zinsrechnung,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,7,3,Winkel und Winkelsätze,winkel_dreiecke,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,7,4,Rationale Zahlen,rationale_zahlen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,7,5,Terme und Gleichungen,terme_gleichungen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,7,6,Termumformungen anschaulich,flaechen_vielecke,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,7,7,Zinseszins und Ratenkauf,zinsrechnung,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,7,8,Würfel gegen Legostein,zufallsexperimente,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,8,1,Geometrische Konstruktionen,thales_konstruktionen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,8,2,Lineare Funktionen,lineare_funktionen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,8,3,LGS,lineare_gleichungen_lgs,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,8,4,Die Irrationalität von Zahlen,reelle_zahlen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,8,5,Π und die Kreisberechnung,kreis,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,8,6,Glücksrad und Lostrommel,zufallsexperimente,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,9,1,Der Satz des Pythagoras,pythagoras,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,9,2,Quadratische Zusammenhänge erkunden,quadratische_funktionen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,9,3,Nullstellen quadratischer Funktionen,quadratische_gleichungen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,9,4,Oberfläche und Volumen von Prismen und Pyramiden,prismen_zylinder,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,9,5,Potenzen und Wurzeln,potenzen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,9,6,Maßstabsgetreue Abbildungen mithilfe der zentrischen Streckung,aehnlichkeit,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,9,7,Wie lügt man mit Statistik?,statistik_beurteilen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,10,1,"Volumen und Oberfläche von Kugel, Kegel und Zylinder",koerper_pyramide_kegel_kugel,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,10,2,Exponentielle Funktionen,exponentialfunktionen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,10,3,Einführung in die Trigonometrie,trigonometrie,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,10,4,Der Cosinussatz,trigonometrie,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,10,5,Modellieren mit exponentiellen Funktionen,exponentialfunktionen,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,10,6,Bedingte Wahrscheinlichkeiten,bedingte_wahrscheinlichkeit,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,10,7,Die Sinusfunktion zur Darstellung periodischer Vorgänge,sinusfunktion,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf
+Erzbischöfliches Irmgardis-Gymnasium,10,8,Modellieren von Messreihen mit unterschiedlichen Funktionen,,,,https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf

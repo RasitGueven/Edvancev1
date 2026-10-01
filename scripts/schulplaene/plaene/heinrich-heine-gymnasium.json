@@ -1,0 +1,321 @@
+{
+  "slug": "heinrich-heine-gymnasium",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Rechnen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Zahlen und Größen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Symmetrie",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Flächen",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Körper",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "brueche",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Brüche in Dezimalschreibweise",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Zahlen addieren und subtrahieren",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Muster und Figuren",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "winkel",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Zahlen multiplizieren und dividieren",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Daten",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Beziehungen zwischen Zahlen",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozent- und Zinsrechnung",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Terme mit Variablen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Flächen",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Kreise und Dreiecke",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Reelle Zahlen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Kreise, Prismen und Zylinder",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "prismen_zylinder",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Potenzen und Potenzgesetze",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "potenzen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Der Satz des Pythagoras und Körper",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Quadratische Funktionen und Gleichungen",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Ähnlichkeit",
+      "stunden": null,
+      "halbjahr": 1,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Exponentialfunktionen",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Trigonometrie",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Trigonometrische Funktionen",
+      "stunden": null,
+      "halbjahr": 2,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://hhg.koeln/wp-content/uploads/2021/08/Mathematik-Curriculum-Sek-I.pdf"
+    }
+  ],
+  "befunde": [
+    "Plan ist nach Lehrbuchkapiteln (Lambacher Schweizer) und Klasse.Halbjahr.Quartal gegliedert; Kapitel als Vorhaben übernommen, keine Stundenangaben",
+    "Kl. 5: Kapitel I 'Zahlen und Größen' wird geteilt (Abschnitt Grundrechenarten in Q1 zusammen mit Kap. III 'Rechnen', Rest in Q2) → Reihenfolge Rechnen vor Zahlen und Größen gewählt",
+    "Kl. 7 Vorhaben 'Prozent- und Zinsrechnung' läuft über beide Halbjahre (7.1.2–7.2.1) → halbjahr null",
+    "Kl. 7 enthält keine Wahrscheinlichkeit; Kapitel 'Daten und Wahrscheinlichkeit' (ein-/zweistufig, Pfadregel) liegt in Kl. 8",
+    "Kl. 9 Vorhaben 'Kreise, Prismen und Zylinder': Kreis (2 Abschnitte) und Prismen/Zylinder (3 Abschnitte) gemischt → prismen_zylinder",
+    "Kl. 9 Vorhaben 'Der Satz des Pythagoras und Körper': etwa 50/50 Pythagoras und Pyramide/Kegel/Kugel → pythagoras gewählt",
+    "Kl. 9 Vorhaben 'Daten und Wahrscheinlichkeit': ein Abschnitt Statistik beurteilen, Rest Vierfeldertafel/bedingte Wahrscheinlichkeit → bedingte_wahrscheinlichkeit",
+    "Kl. 10: Lehrbuch-Kapitel II fehlt im Plan (Sprung von Kap. I zu Kap. III)"
+  ]
+}

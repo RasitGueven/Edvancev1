@@ -1,0 +1,446 @@
+{
+ "slug": "hansa-gymnasium",
+ "eintraege": [
+  {
+   "klasse": 5,
+   "position": 1,
+   "uv_titel": "Wir lernen uns kennen: Erhebung und grafische Darstellung von Daten",
+   "stunden": 8,
+   "halbjahr": null,
+   "thema_key": "daten_streumasse",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 2,
+   "uv_titel": "Die Welt in der wir leben: Große Zahlen in Stellenwerttafel und Zahlenstrahl",
+   "stunden": 8,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 3,
+   "uv_titel": "Größen im Alltag: Rechnen mit Größen und Einheiten",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 4,
+   "uv_titel": "Rechnen mit System: Rechenterme und Rechengesetze",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 5,
+   "uv_titel": "Geometrische Erkundungen: Ebene Figuren, erste Konstruktionen, Koordinatisierung",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "geometrische_grundbegriffe",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 6,
+   "uv_titel": "Unsere Wohnung / Unser Klassenraum: Flächeninhalt und Umfang ebener Figuren",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "flaeche_umfang",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 7,
+   "uv_titel": "Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable als Unbestimmte",
+   "stunden": 10,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 8,
+   "uv_titel": "Modellieren einfacher funktionaler Zusammenhänge",
+   "stunden": 10,
+   "halbjahr": null,
+   "thema_key": "ganze_zahlen_groessen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 9,
+   "uv_titel": "Atome im Reich der natürlichen Zahlen: Zerlegung natürlicher Zahlen",
+   "stunden": 14,
+   "halbjahr": null,
+   "thema_key": "teilbarkeit",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 10,
+   "uv_titel": "Körper im Raum: Quader, Kegel, Zylinder und Co.",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "koerper_quader",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 11,
+   "uv_titel": "Brüche begreifen: Anteil, Bruchteil und Ganzes",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 1,
+   "uv_titel": "Die drei Gesichter einer Zahl: Einführung der rationalen Zahlen",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 2,
+   "uv_titel": "Addition und Subtraktion von Brüchen und Dezimalzahlen",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 3,
+   "uv_titel": "Kunst und Architektur: Ornamente ebener Figuren",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "symmetrie",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 4,
+   "uv_titel": "Parkettierungen: Verschiebungen und Spiegelungen",
+   "stunden": 8,
+   "halbjahr": null,
+   "thema_key": "symmetrie",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 5,
+   "uv_titel": "Planung des Schulgartens: Multiplikation und Division von Brüchen und Dezimalzahlen",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 6,
+   "uv_titel": "Wir führen eine Befragung durch: Grundlagen der Stochastik",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "daten_streumasse",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 7,
+   "uv_titel": "Veränderungen und Zustände mit ganzen Zahlen beschreiben",
+   "stunden": 14,
+   "halbjahr": null,
+   "thema_key": "ganze_zahlen_groessen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 8,
+   "uv_titel": "Raus aus den Schulden: Rechnen mit rationalen Zahlen",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "rationale_zahlen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 1,
+   "uv_titel": "Funktionenwerkstatt: Zuordnungen und ihre Darstellungen",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "zuordnungen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 2,
+   "uv_titel": "19 % auf alles: Rabatte, Mehrwertsteuer und Prozente",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "zinsrechnung",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 3,
+   "uv_titel": "Quod erat demonstrandum: Winkel und Winkelsätze",
+   "stunden": 18,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 4,
+   "uv_titel": "Vermessung im Gelände: Geometrische Konstruktionen und Kongruenz",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 5,
+   "uv_titel": "Muster und Zahlenfolgen erkunden und mit Termen beschreiben",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "terme_gleichungen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 6,
+   "uv_titel": "Die Variable im Nenner: Bruchterme und Bruchgleichungen",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "terme_binomische_formeln",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 7,
+   "uv_titel": "Würfel gegen Legostein: Wahrscheinlichkeiten",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 1,
+   "uv_titel": "Verpackte Zahlen: Terme und Gleichungen",
+   "stunden": 26,
+   "halbjahr": null,
+   "thema_key": "terme_gleichungen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 2,
+   "uv_titel": "Termumformungen anschaulich",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "flaechen_vielecke",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 3,
+   "uv_titel": "Auf der Kirmes: Glücksrad und Lostrommel",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 4,
+   "uv_titel": "Nach Tarif abrechnen und mit Tempomat fahren: Lineare Funktionen",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "lineare_funktionen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 5,
+   "uv_titel": "Produktionsfaktoren und Zusammensetzungen: Lineare Gleichungssysteme",
+   "stunden": 20,
+   "halbjahr": null,
+   "thema_key": "lineare_gleichungen_lgs",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 1,
+   "uv_titel": "Ein historischer Moment: Der Satz des Pythagoras",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "pythagoras",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 2,
+   "uv_titel": "Kann man das zählen? Die Irrationalität von Zahlen",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "reelle_zahlen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 3,
+   "uv_titel": "Eine Zahl für alles, was rund ist: π und die Kreisberechnung",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "kreis",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 4,
+   "uv_titel": "Von Parabelflügen und Brücken: Quadratische Zusammenhänge",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "quadratische_funktionen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 5,
+   "uv_titel": "Gewinn und Verlust: Nullstellen quadratischer Funktionen",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "quadratische_gleichungen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 6,
+   "uv_titel": "Verpackungskünstler: Oberfläche und Volumen von Prismen und Pyramiden",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "prismen_zylinder",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 7,
+   "uv_titel": "Vom Bakterium bis zu den Sternen: Potenzen und Wurzeln",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "potenzen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 8,
+   "uv_titel": "Mit Maßband und Jakobsstab: Zentrische Streckungen",
+   "stunden": 16,
+   "halbjahr": null,
+   "thema_key": "aehnlichkeit",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 9,
+   "uv_titel": "Fake-News: Wie lügt man mit Statistik?",
+   "stunden": 8,
+   "halbjahr": null,
+   "thema_key": "statistik_beurteilen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 1,
+   "uv_titel": "Produktdesign: Volumen und Oberfläche von Kugel, Kegel und Zylinder",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "koerper_pyramide_kegel_kugel",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 2,
+   "uv_titel": "Eine neue Funktionsklasse: Exponentielle Funktionen",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "exponentialfunktionen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 3,
+   "uv_titel": "Wie wird die Welt vermessen? Einführung in Trigonometrie",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "trigonometrie",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 4,
+   "uv_titel": "Pythagoras für beliebige Dreiecke? Der Kosinussatz",
+   "stunden": 9,
+   "halbjahr": null,
+   "thema_key": "trigonometrie",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 5,
+   "uv_titel": "Bakterienwachstum und radioaktiver Zerfall: Exponentielle Funktionen",
+   "stunden": 15,
+   "halbjahr": null,
+   "thema_key": "exponentialfunktionen",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 6,
+   "uv_titel": "Medizinische Tests: Bedingte Wahrscheinlichkeiten",
+   "stunden": 12,
+   "halbjahr": null,
+   "thema_key": "bedingte_wahrscheinlichkeit",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 7,
+   "uv_titel": "Riesenräder: Die Sinusfunktion für periodische Vorgänge",
+   "stunden": 9,
+   "halbjahr": null,
+   "thema_key": "sinusfunktion",
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 8,
+   "uv_titel": "Modellieren von Messreihen mit unterschiedlichen Funktionstypen",
+   "stunden": 9,
+   "halbjahr": null,
+   "thema_key": null,
+   "quelle_url": "https://www.hansa-gymnasium-koeln.de/wws/bin/279928-836728-1-silphansa_m_g9_sek_i_04.08.2023.pdf"
+  }
+ ],
+ "befunde": [
+  "Kein Halbjahr im Plan angegeben (nur Reihenfolge und Ustd.).",
+  "Kl. 9 Vorhaben 'Fake-News: Wie lügt man mit Statistik?': Statistik in Kl. 9 → statistik_beurteilen",
+  "Kl. 10 Vorhaben 'Modellieren von Messreihen mit unterschiedlichen Funktionstypen': kein passendes Thema (Mischung aus linearen, quadratischen, exponentiellen und Sinusfunktionen, Abschluss-Vernetzung)",
+  "Kl. 9 Vorhaben 'Prismen und Pyramiden': ca. 50/50 Prisma und Pyramide → prismen_zylinder gewählt (Kegel/Kugel folgt in 10.1)",
+  "Kl. 5 Vorhaben 'Umfang und Flächeninhalt zusammengesetzter Figuren: Die Variable als Unbestimmte': Inhaltsfeld nur Arithmetik (Variable, Term), Kontext Fläche → rechnen_natuerliche_zahlen statt flaeche_umfang",
+  "Kl. 7 Vorhaben 'Bruchterme und Bruchgleichungen' → terme_binomische_formeln (Bruchterme) statt terme_gleichungen; Grenzfall",
+  "Kl. 8 Vorhaben 'Termumformungen anschaulich': Inhaltsfeld Geometrie (Flächen Dreieck/Viereck) → flaechen_vielecke"
+ ]
+}

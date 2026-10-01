@@ -1,0 +1,362 @@
+{
+ "slug": "kaiserin-theophanu-schule",
+ "eintraege": [
+  {
+   "klasse": 5,
+   "position": 1,
+   "uv_titel": "Natürliche Zahlen und Größen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "natuerliche_zahlen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 2,
+   "uv_titel": "Grundbegriffe der Geometrie",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "geometrische_grundbegriffe",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 3,
+   "uv_titel": "Rechnen mit natürlichen Zahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rechnen_natuerliche_zahlen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 4,
+   "uv_titel": "Flächeninhalt und Umfang",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "flaeche_umfang",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 5,
+   "uv_titel": "Volumen und Oberflächeninhalt",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "koerper_quader",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 5,
+   "position": 6,
+   "uv_titel": "Brüche und Dezimalzahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 1,
+   "uv_titel": "Brüche und Dezimalzahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "brueche",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 2,
+   "uv_titel": "Brüche und Dezimalzahlen addieren und subtrahieren",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 3,
+   "uv_titel": "Kreis und Winkel",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "winkel",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 4,
+   "uv_titel": "Brüche und Dezimalzahlen multiplizieren und dividieren",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rechnen_brueche_dezimalzahlen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 5,
+   "uv_titel": "Daten und Häufigkeiten",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "daten_streumasse",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 6,
+   "position": 6,
+   "uv_titel": "Erweiterung des Zahlbereichs",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rationale_zahlen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 1,
+   "uv_titel": "Erweiterung des Zahlbereichs (Wiederholung aus Klasse 6)",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rationale_zahlen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 2,
+   "uv_titel": "Zuordnungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zuordnungen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 3,
+   "uv_titel": "Prozent- und Zinsrechnung",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zinsrechnung",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 4,
+   "uv_titel": "Winkelbetrachtungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 5,
+   "uv_titel": "Geometrische Konstruktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "thales_konstruktionen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 6,
+   "uv_titel": "Gleichungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "terme_gleichungen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 7,
+   "uv_titel": "Zufall und Wahrscheinlichkeit",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 1,
+   "uv_titel": "Zufall und Wahrscheinlichkeit (Wiederholung aus Klasse 7)",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 2,
+   "uv_titel": "Terme",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "terme_binomische_formeln",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 3,
+   "uv_titel": "Flächeninhalte",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "flaechen_vielecke",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 4,
+   "uv_titel": "Mehrstufige Zufallsexperimente – Baumdiagramme",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 5,
+   "uv_titel": "Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "lineare_funktionen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 6,
+   "uv_titel": "Lineare Gleichungssysteme",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "lineare_gleichungen_lgs",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 7,
+   "uv_titel": "Ähnlichkeit",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "aehnlichkeit",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 1,
+   "uv_titel": "Ähnlichkeit (Wiederholung aus Klasse 8)",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "aehnlichkeit",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 2,
+   "uv_titel": "Quadratwurzeln – Reelle Zahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "reelle_zahlen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 3,
+   "uv_titel": "Satzgruppe des Pythagoras",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "pythagoras",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 4,
+   "uv_titel": "Quadratische Funktionen und Gleichungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "quadratische_funktionen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 5,
+   "uv_titel": "Kreisberechnungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "kreis",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 6,
+   "uv_titel": "Körperberechnungen (Prisma, Zylinder)",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "prismen_zylinder",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 7,
+   "uv_titel": "Potenzen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "potenzen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 1,
+   "uv_titel": "Potenzen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "potenzen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 2,
+   "uv_titel": "Körperberechnungen (Pyramide, Kegel, Kugel)",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "koerper_pyramide_kegel_kugel",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 3,
+   "uv_titel": "Trigonometrie",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "trigonometrie",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 4,
+   "uv_titel": "Exponentialfunktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "exponentialfunktionen",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 5,
+   "uv_titel": "Bedingte Wahrscheinlichkeit und stochastische Unabhängigkeit",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "bedingte_wahrscheinlichkeit",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 6,
+   "uv_titel": "Trigonometrische Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "sinusfunktion",
+   "quelle_url": "https://kts-koeln.de/wp-content/uploads/KTS_SiLp_Mathe_SEKI.pdf"
+  }
+ ],
+ "befunde": [
+  "Keine Stunden- oder Halbjahresangaben; Plan folgt den Kapiteln des Lehrwerks 'Fundamente der Mathematik'",
+  "Doppelt geführte Kapitel (in beiden Klassen aufgeführt): Brüche und Dezimalzahlen (Kl. 5/6), Zahlbereichserweiterung (Kl. 6, Wdh. Kl. 7), Zufall (Kl. 7, Wdh. Kl. 8), Ähnlichkeit (Kl. 8, Wdh. Kl. 9), Potenzen (Kl. 9/10) – jeweils in beiden Klassen erfasst",
+  "Kl. 9 'Quadratische Funktionen und Gleichungen': etwa 50/50 quadratische_funktionen und quadratische_gleichungen → quadratische_funktionen",
+  "Kl. 10 'Bedingte Wahrscheinlichkeit': Statistik (Datenerhebung/-manipulation) nur als Streifzug enthalten, kein eigenes Statistik-Vorhaben in Kl. 9/10"
+ ]
+}

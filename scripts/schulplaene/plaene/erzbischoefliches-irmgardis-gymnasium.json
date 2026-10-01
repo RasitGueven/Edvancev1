@@ -1,0 +1,275 @@
+{
+ "slug": "erzbischoefliches-irmgardis-gymnasium",
+ "eintraege": [
+  {
+   "klasse": 7,
+   "position": 1,
+   "uv_titel": "Zuordnungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zuordnungen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 2,
+   "uv_titel": "Prozentrechnung",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zinsrechnung",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 3,
+   "uv_titel": "Winkel und Winkelsätze",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "winkel_dreiecke",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 4,
+   "uv_titel": "Rationale Zahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "rationale_zahlen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 5,
+   "uv_titel": "Terme und Gleichungen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "terme_gleichungen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 6,
+   "uv_titel": "Termumformungen anschaulich",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "flaechen_vielecke",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 7,
+   "uv_titel": "Zinseszins und Ratenkauf",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zinsrechnung",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 7,
+   "position": 8,
+   "uv_titel": "Würfel gegen Legostein",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 1,
+   "uv_titel": "Geometrische Konstruktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "thales_konstruktionen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 2,
+   "uv_titel": "Lineare Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "lineare_funktionen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 3,
+   "uv_titel": "LGS",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "lineare_gleichungen_lgs",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 4,
+   "uv_titel": "Die Irrationalität von Zahlen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "reelle_zahlen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 5,
+   "uv_titel": "Π und die Kreisberechnung",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "kreis",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 8,
+   "position": 6,
+   "uv_titel": "Glücksrad und Lostrommel",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "zufallsexperimente",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 1,
+   "uv_titel": "Der Satz des Pythagoras",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "pythagoras",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 2,
+   "uv_titel": "Quadratische Zusammenhänge erkunden",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "quadratische_funktionen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 3,
+   "uv_titel": "Nullstellen quadratischer Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "quadratische_gleichungen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 4,
+   "uv_titel": "Oberfläche und Volumen von Prismen und Pyramiden",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "prismen_zylinder",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 5,
+   "uv_titel": "Potenzen und Wurzeln",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "potenzen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 6,
+   "uv_titel": "Maßstabsgetreue Abbildungen mithilfe der zentrischen Streckung",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "aehnlichkeit",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 9,
+   "position": 7,
+   "uv_titel": "Wie lügt man mit Statistik?",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "statistik_beurteilen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 1,
+   "uv_titel": "Volumen und Oberfläche von Kugel, Kegel und Zylinder",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "koerper_pyramide_kegel_kugel",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 2,
+   "uv_titel": "Exponentielle Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "exponentialfunktionen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 3,
+   "uv_titel": "Einführung in die Trigonometrie",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "trigonometrie",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 4,
+   "uv_titel": "Der Cosinussatz",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "trigonometrie",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 5,
+   "uv_titel": "Modellieren mit exponentiellen Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "exponentialfunktionen",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 6,
+   "uv_titel": "Bedingte Wahrscheinlichkeiten",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "bedingte_wahrscheinlichkeit",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 7,
+   "uv_titel": "Die Sinusfunktion zur Darstellung periodischer Vorgänge",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": "sinusfunktion",
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  },
+  {
+   "klasse": 10,
+   "position": 8,
+   "uv_titel": "Modellieren von Messreihen mit unterschiedlichen Funktionen",
+   "stunden": null,
+   "halbjahr": null,
+   "thema_key": null,
+   "quelle_url": "https://schule.erzbistum-koeln.de/export/sites/schule/irmgardis-gymnasium-koeln/.content/.galleries/Fachbereiche/Mathematik/Mathematik7-10.pdf"
+  }
+ ],
+ "befunde": [
+  "Plan deckt nur Kl. 7–10 ab; Kl. 5–6 fehlen",
+  "Plan: 'Reihenfolge obliegt dem Fachlehrer' – Positionen folgen der Nummerierung 7.1, 7.2 …",
+  "Keine Stunden- oder Halbjahresangaben",
+  "Kl. 9 'Wie lügt man mit Statistik?': Statistik in Kl. 9 → statistik_beurteilen",
+  "Kl. 10 Vorhaben 'Modellieren von Messreihen mit unterschiedlichen Funktionen': kein passendes Thema (Wiederholung quadratischer, exponentieller und Sinusfunktionen, kein Schwerpunkt)",
+  "Kl. 9 'Prismen und Pyramiden': etwa 50/50 prismen_zylinder und koerper_pyramide_kegel_kugel → prismen_zylinder",
+  "Kl. 7 'Termumformungen anschaulich': mischt Flächeninhalt von Dreieck/Viereck mit Termen → flaechen_vielecke"
+ ]
+}

@@ -1,0 +1,478 @@
+{
+  "slug": "erzbischoefliche-liebfrauenschule",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Daten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Rechnen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Größen und Einheiten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Geometrie",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "geometrische_grundbegriffe",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Flächen- und Rauminhalt",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 7,
+      "uv_titel": "Teiler und Vielfache",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "teilbarkeit",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 8,
+      "uv_titel": "Brüche",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-5-Mai-2022.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Kreise und Winkel",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "winkel",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Rechnen mit Brüchen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Rechnen mit Dezimalzahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Symmetrie",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Statistische Daten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Ganze Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 8,
+      "uv_titel": "Zusammenhänge beschreiben",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-6-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Termumformungen anschaulich: Umfang und Flächeninhalt von Dreiecken und Vielecken",
+      "stunden": 6,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Termumformungen algebraisch",
+      "stunden": 4,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Funktionenwerkstatt: Zuordnungen und ihre Darstellungen",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "19 % auf alles: Rabatte, Mehrwertsteuer und Prozente",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Winkel und Winkelsätze",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Raus aus den Schulden: Rechnen mit rationalen Zahlen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 7,
+      "uv_titel": "Geometrische Konstruktion an Dreiecken",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 8,
+      "uv_titel": "Würfel gegen Legostein: Wahrscheinlichkeiten nicht nur in Laplace-Experimenten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 9,
+      "uv_titel": "Terme",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 10,
+      "uv_titel": "Gleichungen",
+      "stunden": 10,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-7-Mai-2022.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Gleichungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Wahrscheinlichkeitsrechnung",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Sprache der Algebra",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Zinsrechnung (falls in Klasse 7 nicht behandelt)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 7,
+      "uv_titel": "Besondere Linien in Figuren – Entdecken und Begründen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 8,
+      "uv_titel": "Bruchterme",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-8-Mai-2022.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Ein historischer Moment: Der Satz des Pythagoras",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Kann man das zählen? Die Irrationalität von Zahlen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Eine Zahl für alles, was rund ist: π und die Kreisberechnung",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "kreis",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Von Parabelflügen und Brücken: Quadratische Zusammenhänge erkunden",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Gewinn und Verlust: Nullstellen quadratischer Funktionen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Verpackungskünstler in Aktion: Oberfläche und Volumen von Prismen und Pyramiden",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "prismen_zylinder",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 7,
+      "uv_titel": "Potenzen und Wurzeln",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 8,
+      "uv_titel": "Mit Maßband und Jakobsstab: Maßstabsgetreue Abbildungen mit zentrischer Streckung",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 9,
+      "uv_titel": "Fake-News: Wie lügt man mit Statistik?",
+      "stunden": 8,
+      "halbjahr": null,
+      "thema_key": "statistik_beurteilen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-9-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Produktdesign: Volumen und Oberfläche von Kugel, Kegel und Zylinder",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "koerper_pyramide_kegel_kugel",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Eine neue Funktionsklasse stellt sich vor: Exponentielle Funktionen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Wie wird die Welt vermessen? Einführung in Trigonometrie",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Pythagoras auch für beliebige Dreiecke? Der Kosinussatz",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Bakterienwachstum und radioaktiver Zerfall: Modellieren mit exponentiellen Funktionen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 6,
+      "uv_titel": "Medizinische Tests: Bedingte Wahrscheinlichkeiten",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 7,
+      "uv_titel": "Riesenräder: Die Sinusfunktion zur Darstellung periodischer Vorgänge",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 8,
+      "uv_titel": "Modellieren von Messreihen mit unterschiedlichen Funktionstypen",
+      "stunden": 9,
+      "halbjahr": null,
+      "thema_key": null,
+      "quelle_url": "https://www.lfs-koeln.de/wp-content/uploads/2022/10/Mathematik-SILP-10-G9-vorlaeufiger-Lehrplan.pdf"
+    }
+  ],
+  "befunde": [
+    "Plan in sechs Einzel-PDFs je Klasse; Stundenangaben nur in Kl. 7, 9, 10; keine Halbjahresangaben",
+    "Kl. 5/6: UV sind die nummerierten Kapitel (Unterkapitel nicht einzeln erfasst); Durchstreichungen im PDF sind im Text nicht erkennbar",
+    "Kl. 5 'Brüche' und Kl. 6 'Brüche' mit identischen Unterkapiteln (8.1–8.8 / 1.1–1.8) – vermutlich in Kl. 5 durchgestrichen bzw. verschoben",
+    "Kl. 5 'Geometrie': Körper und Grundbegriffe etwa 50/50 → geometrische_grundbegriffe",
+    "Kl. 5 'Flächen- und Rauminhalt': Fläche/Umfang und Quadervolumen etwa 50/50 → flaeche_umfang",
+    "Kl. 7 UV 7.1 hat zwei Teile (anschaulich ca. 6 Std., algebraisch evtl. ca. 4 Std.) → als zwei Einträge erfasst",
+    "Kl. 7 'Würfel gegen Legostein': Stunden als Spanne 14–18 angegeben → stunden null",
+    "Kl. 8 Plan ohne Stundenangaben; 'Zinsrechnung' nur falls nicht in Kl. 7",
+    "Kl. 9 'Verpackungskünstler': Prismen und Pyramiden etwa 50/50 → prismen_zylinder",
+    "Statistik in Kl. 9 → statistik_beurteilen",
+    "Kl. 10 Vorhaben 'Modellieren von Messreihen mit unterschiedlichen Funktionstypen': kein passendes Thema (Mischung linear/quadratisch/exponentiell/trigonometrisch)",
+    "Kl. 9/10 als 'vorläufiger Lehrplan' (G9) gekennzeichnet"
+  ]
+}
