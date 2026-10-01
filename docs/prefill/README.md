@@ -10,6 +10,13 @@ wirkt an drei Stellen:
 - Jede Anweisung einer Prefill-Migration trägt `source is distinct from 'VERA8_IQB'`.
 - `verify-tasks.mjs --prefill` schlägt fehl, wenn eine Charge oder eine Prefill-Migration VERA8 anfassen könnte.
 
+## Charge `k8-vorlauf` (12 NEUE Aufgaben, nicht aus dem Bestand)
+
+Die Vorlauf-Knoten `geo_koordinaten` und `term_einsetzen` bekommen je sechs Aufgaben, alle vorbefüllt (`status = 'draft'`).
+Weil die Aufgaben neu entstehen, erzeugt `tools/vorlauf-build.mjs` statt `prefill-build.mjs` die Migration
+`20261001120554_aufgaben_k8_vorlauf.sql`. Dazu kommen der Snapshot (Rohzustand) und die CSV. `verify-tasks.mjs --prefill`
+prüft wie gewohnt. Befunde, Einspiel-Reihenfolge und Prüfprotokoll stehen in `befunde-k8-vorlauf.md`.
+
 ## Dateien der Charge `mathe8-pilot` (18 Binom-Aufgaben)
 
 | Datei | Inhalt |
