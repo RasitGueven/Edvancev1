@@ -1,0 +1,220 @@
+Aufgabe-ID,source_ref,Teilaufgabe,Feld,neuer Wert,Art,Unsicherheit,Begründung
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,afb,I,neu,hoch,"Reproduzieren: Ablesen im ersten Quadranten, beide Werte positiv, ganzzahlig."
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext (Teile 25 + 20 s)."
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,curriculum_grade,6,neu,hoch,"Stoffanker Klasse 6: KLP G9 Geo-6, Koordinatensystem in der Erprobungsstufe."
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,cluster_id,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,"Geometrie & Messen, wie geo_umfang und geo_flaeche_rechteck."
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,competency_content,geometrie,neu,hoch,Inhaltsfeld Geometrie (KLP Geo-6).
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,competency_process,Operieren,neu,mittel,Ablesen nach festem Verfahren.
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,needs_image,true,neu,hoch,"Ohne Abbildung (Koordinatensystem mit Punkt) nicht lösbar; Generator koordinatensystem, task_figures."
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,1,parts.1.afb,I,neu,hoch,Ein Wert an der x-Achse ablesen.
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,1,parts.1.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,1,correct_answers.1,"[""4"",""+4""]",neu,hoch,"Aus den Figurparametern; Varianten mit Vorzeichen."
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,2,parts.2.afb,I,neu,hoch,Ein Wert an der y-Achse ablesen.
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,2,parts.2.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,2,correct_answers.2,"[""3"",""+3""]",neu,hoch,"Aus den Figurparametern; Varianten mit Vorzeichen."
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,solution,"P liegt 4 Einheiten rechts vom Ursprung und 3 Einheiten darüber.
+x-Koordinate: 4, y-Koordinate: 3, also P(4|3).",neu,hoch,Aus den Figurparametern abgeleitet.
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,typical_errors,"[{""error"":""x- und y-Koordinate vertauscht: (3|4) statt (4|3)."",""socratic_question"":""Welche Achse liest du zuerst ab – die waagerechte oder die senkrechte?""}]",neu,hoch,Aus acceptance.known_errors (koordinaten_vertauscht).
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",25,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",20,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,1,acceptance.known_errors (keine UI),"{""3"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,2,acceptance.known_errors (keine UI),"{""4"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,sondierrang (keine UI),2,neu,mittel,"vorlauf-koord-02 = 1, vorlauf-koord-01 = 2. Rang 1 aus Profil {koordinate_vorzeichen_verloren,koordinaten_vertauscht}, Rang 2 aus Profil {koordinaten_vertauscht} (0 neue Fehlbilder)"
+650eed2a-79e5-4a6f-9ed2-a51053fe75c8,vorlauf-koord-01,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""punkte"":[{""x"":4,""y"":3,""label"":""P""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet ist der Punkt P."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,afb,I,neu,hoch,"Reproduzieren: Ablesen im zweiten Quadranten, ein negativer Wert."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext (Teile 25 + 20 s)."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,curriculum_grade,6,neu,mittel,"Stoffanker Klasse 6 (Geo-6); negative Koordinaten setzen Ari-1 voraus, Kante auf vorzeichen_add_sub."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,cluster_id,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,"Geometrie & Messen, wie geo_umfang und geo_flaeche_rechteck."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,competency_content,geometrie,neu,hoch,Inhaltsfeld Geometrie (KLP Geo-6).
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,competency_process,Operieren,neu,mittel,Ablesen nach festem Verfahren.
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,needs_image,true,neu,hoch,"Ohne Abbildung (Koordinatensystem mit Punkt) nicht lösbar; Generator koordinatensystem, task_figures."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,1,parts.1.afb,I,neu,hoch,Negativen Wert an der x-Achse ablesen.
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,1,parts.1.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,1,correct_answers.1,"[""-4"",""−4"",""- 4""]",neu,hoch,"Aus den Figurparametern; Minus als Bindestrich, Minuszeichen und mit Leerzeichen."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,2,parts.2.afb,I,neu,hoch,Positiven Wert an der y-Achse ablesen.
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,2,parts.2.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,2,correct_answers.2,"[""2"",""+2""]",neu,hoch,"Aus den Figurparametern; Varianten mit Vorzeichen."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,solution,"Q liegt 4 Einheiten links vom Ursprung und 2 Einheiten darüber.
+Links heißt negativ: x-Koordinate -4, y-Koordinate 2, also Q(-4|2).",neu,hoch,Aus den Figurparametern abgeleitet.
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,typical_errors,"[{""error"":""Minus der x-Koordinate fehlt: (4|2) statt (-4|2)."",""socratic_question"":""Liegt Q links oder rechts der y-Achse – und was bedeutet das für das Vorzeichen?""},{""error"":""x- und y-Koordinate vertauscht: (2|-4) statt (-4|2)."",""socratic_question"":""Welche Achse liest du zuerst ab – die waagerechte oder die senkrechte?""}]",neu,hoch,"Aus acceptance.known_errors (koordinate_vorzeichen_verloren, koordinaten_vertauscht)."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",25,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",20,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,1,acceptance.known_errors (keine UI),"{""2"":""koordinaten_vertauscht"",""4"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,2,acceptance.known_errors (keine UI),"{""-4"":""koordinaten_vertauscht"",""−4"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,sondierrang (keine UI),1,neu,mittel,"vorlauf-koord-02 = 1, vorlauf-koord-01 = 2. Rang 1 aus Profil {koordinate_vorzeichen_verloren,koordinaten_vertauscht}, Rang 2 aus Profil {koordinaten_vertauscht} (0 neue Fehlbilder)"
+a1fa4311-c631-47ba-a4a7-15e12149db4c,vorlauf-koord-02,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""punkte"":[{""x"":-4,""y"":2,""label"":""Q""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet ist der Punkt Q."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,afb,I,neu,mittel,"Reproduzieren: Ablesen im dritten Quadranten, beide Werte negativ; derselbe Ablauf wie in Aufgabe 2."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext (Teile 25 + 20 s)."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,curriculum_grade,6,neu,mittel,"Stoffanker Klasse 6 (Geo-6); negative Koordinaten setzen Ari-1 voraus, Kante auf vorzeichen_add_sub."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,cluster_id,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,"Geometrie & Messen, wie geo_umfang und geo_flaeche_rechteck."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,competency_content,geometrie,neu,hoch,Inhaltsfeld Geometrie (KLP Geo-6).
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,competency_process,Operieren,neu,mittel,Ablesen nach festem Verfahren.
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,needs_image,true,neu,hoch,"Ohne Abbildung (Koordinatensystem mit Punkt) nicht lösbar; Generator koordinatensystem, task_figures."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,1,parts.1.afb,I,neu,hoch,Negativen Wert an der x-Achse ablesen.
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,1,parts.1.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,1,correct_answers.1,"[""-2"",""−2"",""- 2""]",neu,hoch,"Aus den Figurparametern; Minus als Bindestrich, Minuszeichen und mit Leerzeichen."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,2,parts.2.afb,I,neu,hoch,Negativen Wert an der y-Achse ablesen.
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,2,parts.2.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,2,correct_answers.2,"[""-5"",""−5"",""- 5""]",neu,hoch,"Aus den Figurparametern; Minus als Bindestrich, Minuszeichen und mit Leerzeichen."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,solution,"R liegt 2 Einheiten links vom Ursprung und 5 Einheiten darunter.
+Links und unten heißt negativ: x-Koordinate -2, y-Koordinate -5, also R(-2|-5).",neu,hoch,Aus den Figurparametern abgeleitet.
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,typical_errors,"[{""error"":""Minus fehlt: (2|5) oder nur ein Wert ohne Minus."",""socratic_question"":""Liegt R oberhalb oder unterhalb der x-Achse – und links oder rechts der y-Achse?""},{""error"":""x- und y-Koordinate vertauscht: (-5|-2) statt (-2|-5)."",""socratic_question"":""Welche Achse liest du zuerst ab – die waagerechte oder die senkrechte?""}]",neu,hoch,"Aus acceptance.known_errors (koordinate_vorzeichen_verloren, koordinaten_vertauscht)."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",25,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",20,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,1,acceptance.known_errors (keine UI),"{""2"":""koordinate_vorzeichen_verloren"",""-5"":""koordinaten_vertauscht"",""−5"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,2,acceptance.known_errors (keine UI),"{""5"":""koordinate_vorzeichen_verloren"",""-2"":""koordinaten_vertauscht"",""−2"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d8195933-ba82-4768-ac40-064da27497a6,vorlauf-koord-03,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""punkte"":[{""x"":-2,""y"":-5,""label"":""R""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet ist der Punkt R."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,afb,II,neu,mittel,"Zusammenhänge herstellen: der y-Wert liegt zwischen zwei Gitterlinien und muss als halbe Einheit erschlossen werden, dazu negativ."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext (Teile 30 + 30 s)."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,curriculum_grade,6,neu,mittel,"Stoffanker Klasse 6 (Geo-6, Dezimalzahlen Klasse 6); negative Koordinaten setzen Ari-1 voraus."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,cluster_id,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,"Geometrie & Messen, wie geo_umfang und geo_flaeche_rechteck."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,competency_content,geometrie,neu,hoch,Inhaltsfeld Geometrie (KLP Geo-6).
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,competency_process,Operieren,neu,mittel,"Ablesen nach festem Verfahren, mit Zwischenwert."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,needs_image,true,neu,hoch,"Ohne Abbildung (Koordinatensystem mit Punkt) nicht lösbar; Generator koordinatensystem, task_figures."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,1,parts.1.afb,I,neu,hoch,Ganzzahligen Wert an der x-Achse ablesen.
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,1,parts.1.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,1,correct_answers.1,"[""3"",""+3""]",neu,hoch,"Aus den Figurparametern; Varianten mit Vorzeichen."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,2,parts.2.afb,II,neu,mittel,"Halbe Einheit zwischen zwei Gitterlinien, negativ."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,2,parts.2.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,2,correct_answers.2,"[""-2,5"",""-2.5"",""−2,5"",""- 2,5""]",neu,hoch,"Aus den Figurparametern; Komma und Punkt, Minus als Bindestrich, Minuszeichen und mit Leerzeichen."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,solution,"T liegt 3 Einheiten rechts vom Ursprung und genau in der Mitte zwischen -2 und -3 unterhalb der x-Achse.
+x-Koordinate 3, y-Koordinate -2,5, also T(3|-2,5).",neu,hoch,Aus den Figurparametern abgeleitet.
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,typical_errors,"[{""error"":""Minus der y-Koordinate fehlt: (3|2,5) statt (3|-2,5)."",""socratic_question"":""Liegt T oberhalb oder unterhalb der x-Achse?""},{""error"":""x- und y-Koordinate vertauscht: (-2,5|3) statt (3|-2,5)."",""socratic_question"":""Welche Achse liest du zuerst ab – die waagerechte oder die senkrechte?""}]",neu,hoch,"Aus acceptance.known_errors (koordinate_vorzeichen_verloren, koordinaten_vertauscht)."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,1,acceptance.known_errors (keine UI),"{""-2,5"":""koordinaten_vertauscht"",""−2,5"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,2,acceptance.known_errors (keine UI),"{""3"":""koordinaten_vertauscht"",""2,5"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+e0daa32b-4d16-49ae-82b4-ece970facc2f,vorlauf-koord-04,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""punkte"":[{""x"":3,""y"":-2.5,""label"":""T""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet ist der Punkt T zwischen zwei Gitterlinien."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,afb,II,neu,mittel,"Rückrichtung: D ist nicht abzulesen, sondern aus den Eigenschaften des Rechtecks zu erschließen (gleiche x-Koordinate wie A, gleiche y-Koordinate wie C)."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext (Teile 30 + 30 s)."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,curriculum_grade,6,neu,mittel,"Stoffanker Klasse 6 (Geo-6: ebene Figuren im Koordinatensystem); negative Koordinaten setzen Ari-1 voraus."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,cluster_id,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,"Geometrie & Messen, wie geo_umfang und geo_flaeche_rechteck."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,competency_content,geometrie,neu,hoch,Inhaltsfeld Geometrie (KLP Geo-6).
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,competency_process,"Problemlösen, Operieren",neu,mittel,"Fehlenden Punkt aus Figureigenschaften erschließen, dann Koordinaten angeben."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,needs_image,true,neu,hoch,"Ohne Abbildung (Koordinatensystem mit A, B, C) nicht lösbar; Generator koordinatensystem, task_figures."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,1,parts.1.afb,II,neu,mittel,x-Koordinate aus A übernehmen (senkrechte Seite AD).
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,1,parts.1.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,1,correct_answers.1,"[""-4"",""−4"",""- 4""]",neu,hoch,"Rechteck: D hat die x-Koordinate von A; Minus als Bindestrich, Minuszeichen und mit Leerzeichen."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,2,parts.2.afb,II,neu,mittel,y-Koordinate aus C übernehmen (waagerechte Seite CD).
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,2,parts.2.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,2,correct_answers.2,"[""2"",""+2""]",neu,hoch,"Rechteck: D hat die y-Koordinate von C; Varianten mit Vorzeichen."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,solution,"Abgelesen: A(-4|-3), B(3|-3), C(3|2).
+Im Rechteck ABCD liegt D senkrecht über A und waagerecht neben C.
+Also hat D die x-Koordinate von A (-4) und die y-Koordinate von C (2): D(-4|2).",neu,hoch,Aus den Figurparametern abgeleitet und am Rechteck geprüft.
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,typical_errors,"[{""error"":""Minus der x-Koordinate fehlt: (4|2) statt (-4|2)."",""socratic_question"":""Liegt D links oder rechts der y-Achse?""},{""error"":""x- und y-Koordinate vertauscht: (2|-4) statt (-4|2)."",""socratic_question"":""Welche Zahl gibt an, wie weit D nach links oder rechts liegt?""}]",neu,hoch,"Aus acceptance.known_errors (koordinate_vorzeichen_verloren, koordinaten_vertauscht)."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,1,acceptance.known_errors (keine UI),"{""2"":""koordinaten_vertauscht"",""4"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,2,acceptance.known_errors (keine UI),"{""-4"":""koordinaten_vertauscht"",""−4"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+cef62bbd-6d88-4dc4-a1cc-3c9960e67584,vorlauf-koord-05,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""punkte"":[{""x"":-4,""y"":-3,""label"":""A""},{""x"":3,""y"":-3,""label"":""B""},{""x"":3,""y"":2,""label"":""C""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet sind die Punkte A, B und C."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,afb,II,neu,mittel,"Zwei Schritte verknüpfen: S ablesen, dann die Verschiebung nach rechts und unten auf die Koordinaten übertragen; Ziel im vierten Quadranten."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext (Teile 45 + 45 s).
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,curriculum_grade,6,neu,mittel,"Stoffanker Klasse 6 (Geo-6); negative Koordinaten setzen Ari-1 voraus."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,cluster_id,3156b22e-ad3b-46c8-8c76-4155176cc52a,neu,hoch,"Geometrie & Messen, wie geo_umfang und geo_flaeche_rechteck."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,competency_content,geometrie,neu,hoch,Inhaltsfeld Geometrie (KLP Geo-6).
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,competency_process,"Modellieren, Operieren",neu,mittel,Bewegung im Sachkontext in Koordinaten übersetzen.
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,needs_image,true,neu,hoch,"Ohne Abbildung (Koordinatensystem mit Startpunkt S) nicht lösbar; Generator koordinatensystem, task_figures."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,1,parts.1.afb,II,neu,mittel,x-Wert von S ablesen und um 6 erhöhen.
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,1,parts.1.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,1,correct_answers.1,"[""4"",""+4""]",neu,hoch,"-2 + 6 = 4; Varianten mit Vorzeichen."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,2,parts.2.afb,II,neu,mittel,"y-Wert von S ablesen und um 4 verringern, Ergebnis negativ."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,2,parts.2.competency_content,geometrie,neu,hoch,Wie die Aufgabe.
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,2,correct_answers.2,"[""-3"",""−3"",""- 3""]",neu,hoch,"1 - 4 = -3; Minus als Bindestrich, Minuszeichen und mit Leerzeichen."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,solution,"Abgelesen: S(-2|1).
+6 nach rechts: x = -2 + 6 = 4.
+4 nach unten: y = 1 - 4 = -3.
+Das Boot kommt im Punkt (4|-3) an.",neu,hoch,Nachgerechnet.
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,typical_errors,"[{""error"":""Minus der y-Koordinate fehlt: (4|3) statt (4|-3)."",""socratic_question"":""Liegt der Zielpunkt oberhalb oder unterhalb der x-Achse?""},{""error"":""x- und y-Koordinate vertauscht: (-3|4) statt (4|-3)."",""socratic_question"":""Welcher Wert sagt, wie weit rechts das Boot ist – der erste oder der zweite?""}]",neu,hoch,"Aus acceptance.known_errors (koordinate_vorzeichen_verloren, koordinaten_vertauscht)."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,2,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,1,acceptance.known_errors (keine UI),"{""-3"":""koordinaten_vertauscht"",""−3"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,2,acceptance.known_errors (keine UI),"{""3"":""koordinate_vorzeichen_verloren"",""4"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+769c9fdb-c72a-46bd-9899-58c8773705d2,vorlauf-koord-06,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""punkte"":[{""x"":-2,""y"":1,""label"":""S""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet ist der Startpunkt S."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,afb,I,neu,hoch,"Reproduzieren: einen negativen Wert in einen linearen Term einsetzen, ein Rechenschritt je Operation."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,curriculum_grade,7,neu,hoch,"Stoffanker Klasse 7: KLP G9 Ari-4/Ari-5, Terme in der Ersten Stufe."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,"Zahl & Rechnen, wie term_zusammenfassen und term_ausmultiplizieren."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,competency_content,arithmetik_algebra,neu,hoch,Inhaltsfeld Arithmetik/Algebra (KLP Ari-4/Ari-5).
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,competency_process,Operieren,neu,hoch,Einsetzen und ausrechnen.
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,needs_image,false,neu,hoch,"Reiner Term, keine Abbildung nötig."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,correct_answers,"[""-3"",""−3"",""- 3""]",neu,hoch,"Nachgerechnet; Minus als Bindestrich, Minuszeichen und mit Leerzeichen."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,solution,"x = -4 mit Klammer einsetzen:
+2 · (-4) + 5 = -8 + 5 = -3.",neu,hoch,Nachgerechnet.
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,typical_errors,"[{""error"":""Minus beim Einsetzen weggelassen: 2 · 4 + 5 = 13."",""socratic_question"":""Welche Zahl steht für x – und wie schreibst du sie, wenn sie hinter einem Malpunkt steht?""},{""error"":""Vorzeichen des Ergebnisses gekippt: 3 statt -3."",""socratic_question"":""Ist -8 + 5 größer oder kleiner als null?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_ignoriert, betrag_fehler)."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+dea9fea4-6976-4632-a33d-547693f1fbc9,vorlauf-einsetzen-01,,acceptance.known_errors (keine UI),"{""3"":""betrag_fehler"",""13"":""vorzeichen_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,afb,I,neu,mittel,"Reproduzieren: Einsetzen mit Punkt vor Strich und Minus mal Minus — beides geübte Regeln, aber in einem Schritt kombiniert."
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,curriculum_grade,7,neu,hoch,"Stoffanker Klasse 7: KLP G9 Ari-4/Ari-5, Terme in der Ersten Stufe."
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,"Zahl & Rechnen, wie term_zusammenfassen und term_ausmultiplizieren."
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,competency_content,arithmetik_algebra,neu,hoch,Inhaltsfeld Arithmetik/Algebra (KLP Ari-4/Ari-5).
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,competency_process,Operieren,neu,hoch,Einsetzen und ausrechnen.
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,needs_image,false,neu,hoch,"Reiner Term, keine Abbildung nötig."
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,correct_answers,"[""11"",""+11""]",neu,hoch,"Nachgerechnet; Variante mit Vorzeichen."
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,solution,"x = -2 mit Klammer einsetzen, Punkt vor Strich:
+5 - 3 · (-2) = 5 - (-6) = 5 + 6 = 11.",neu,hoch,Nachgerechnet.
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,typical_errors,"[{""error"":""Von links nach rechts gerechnet: (5 - 3) · (-2) = -4."",""socratic_question"":""Was wird zuerst gerechnet – die Subtraktion oder die Multiplikation?""},{""error"":""Minus beim Einsetzen weggelassen: 5 - 3 · 2 = -1."",""socratic_question"":""Welche Zahl steht für x – und was ergibt Minus mal Minus?""}]",neu,hoch,"Aus acceptance.known_errors (vorrang_ignoriert, vorzeichen_ignoriert)."
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+18d3aeac-c9bf-4fee-993f-fb8adbe1e5fa,vorlauf-einsetzen-02,,acceptance.known_errors (keine UI),"{""-4"":""vorrang_ignoriert"",""−4"":""vorrang_ignoriert"",""-1"":""vorzeichen_ignoriert"",""−1"":""vorzeichen_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,afb,II,neu,mittel,"Zusammenhänge herstellen: das Quadrat bezieht sich nur auf x, und der eingesetzte negative Wert muss als Ganzes quadriert werden ((-2)² statt -2²)."
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,curriculum_grade,7,neu,hoch,"Stoffanker Klasse 7: KLP G9 Ari-4/Ari-5, Terme in der Ersten Stufe."
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,"Zahl & Rechnen, wie term_zusammenfassen und term_ausmultiplizieren."
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,competency_content,arithmetik_algebra,neu,hoch,Inhaltsfeld Arithmetik/Algebra (KLP Ari-4/Ari-5).
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,competency_process,Operieren,neu,hoch,Einsetzen und ausrechnen.
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,needs_image,false,neu,hoch,"Reiner Term, keine Abbildung nötig."
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,correct_answers,"[""12"",""+12""]",neu,hoch,"Nachgerechnet; Variante mit Vorzeichen."
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,solution,"x = -2 mit Klammer einsetzen, Potenz vor Punkt:
+3 · (-2)² = 3 · 4 = 12.",neu,hoch,Nachgerechnet.
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,typical_errors,"[{""error"":""Minus beim Einsetzen nicht geklammert: 3 · (-2²) = 3 · (-4) = -12."",""socratic_question"":""Was ergibt (-2) · (-2)?""},{""error"":""Erst multipliziert, dann quadriert: (3 · (-2))² = 36."",""socratic_question"":""Worauf bezieht sich das Quadrat – auf 3 · x oder nur auf x?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_potenz, vorrang_ignoriert)."
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+16352abe-36f9-482c-972d-a7b10493919d,vorlauf-einsetzen-03,,acceptance.known_errors (keine UI),"{""36"":""vorrang_ignoriert"",""-12"":""vorzeichen_potenz"",""−12"":""vorzeichen_potenz""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,afb,II,neu,mittel,"Zusammenhänge herstellen: x kommt zweimal vor, einmal quadriert und einmal hinter einem Minus; Potenz-, Vorrang- und Vorzeichenregel müssen zusammenwirken."
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,curriculum_grade,7,neu,hoch,"Stoffanker Klasse 7: KLP G9 Ari-4/Ari-5, Terme in der Ersten Stufe."
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,"Zahl & Rechnen, wie term_zusammenfassen und term_ausmultiplizieren."
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,competency_content,arithmetik_algebra,neu,hoch,Inhaltsfeld Arithmetik/Algebra (KLP Ari-4/Ari-5).
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,competency_process,Operieren,neu,hoch,Einsetzen und ausrechnen.
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,needs_image,false,neu,hoch,"Reiner Term, keine Abbildung nötig."
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,correct_answers,"[""15"",""+15""]",neu,hoch,"Nachgerechnet; Variante mit Vorzeichen."
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,solution,"x = -3 an beiden Stellen mit Klammer einsetzen:
+(-3)² - 2 · (-3) = 9 - (-6) = 9 + 6 = 15.",neu,hoch,Nachgerechnet.
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,typical_errors,"[{""error"":""Minus beim Einsetzen nicht geklammert: -3² = -9, also -9 + 6 = -3."",""socratic_question"":""Was ergibt (-3) · (-3)?""},{""error"":""Minus beim zweiten Einsetzen weggelassen: 9 - 2 · 3 = 3."",""socratic_question"":""Welche Zahl steht für x – auch an der zweiten Stelle?""},{""error"":""Von links nach rechts gerechnet: (9 - 2) · (-3) = -21."",""socratic_question"":""Was wird zuerst gerechnet – die Subtraktion oder die Multiplikation?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_potenz, vorzeichen_ignoriert, vorrang_ignoriert)."
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,acceptance.known_errors (keine UI),"{""3"":""vorzeichen_ignoriert"",""-3"":""vorzeichen_potenz"",""−3"":""vorzeichen_potenz"",""-21"":""vorrang_ignoriert"",""−21"":""vorrang_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d6aba9d2-91cc-4ba5-bf71-91ac5b1477dd,vorlauf-einsetzen-04,,sondierrang (keine UI),1,neu,mittel,"vorlauf-einsetzen-04 = 1, vorlauf-einsetzen-05 = 2. Rang 1 aus Profil {vorrang_ignoriert,vorzeichen_ignoriert,vorzeichen_potenz}, Rang 2 aus Profil {halbieren_vergessen,plus_statt_mal} (2 neue Fehlbilder)"
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,afb,II,neu,mittel,"Formel mit zwei Variablen lesen, Werte richtig zuordnen und einsetzen; Ergebnis ist ein Dezimalwert."
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext (Größen mit Einheit).
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,curriculum_grade,7,neu,mittel,"Stoffanker Klasse 7: Einsetzen in eine Formel (Ari-4/Ari-5); die Dreiecksformel selbst ist Klasse 6 und wird hier gegeben."
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,mittel,"Zahl & Rechnen wie die übrigen term_-Aufgaben; geprüft wird das Einsetzen, nicht die Geometrie."
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,competency_content,arithmetik_algebra,neu,mittel,Inhaltsfeld Arithmetik/Algebra: Formel als Rechenvorschrift (Ari-5).
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,competency_process,Operieren,neu,mittel,"Werte zuordnen, einsetzen, ausrechnen."
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,needs_image,false,neu,hoch,"Formel und Werte stehen im Text, keine Abbildung nötig."
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,correct_answers,"[""17,5"",""17.5""]",neu,hoch,"Nachgerechnet; Komma und Punkt."
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,solution,"g = 7 und h = 5 einsetzen:
+A = 7 · 5 : 2 = 35 : 2 = 17,5.
+Der Flächeninhalt beträgt 17,5 cm².",neu,hoch,Nachgerechnet.
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,typical_errors,"[{""error"":""Halbieren vergessen: 7 · 5 = 35."",""socratic_question"":""Welcher Teil der Formel ist nach 7 · 5 noch nicht gerechnet?""},{""error"":""Addiert statt multipliziert: (7 + 5) : 2 = 6."",""socratic_question"":""Welches Rechenzeichen steht in der Formel zwischen g und h?""}]",neu,hoch,"Aus acceptance.known_errors (halbieren_vergessen, plus_statt_mal)."
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,acceptance.known_errors (keine UI),"{""6"":""plus_statt_mal"",""35"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+6a5e2a64-9e1f-4638-a76e-d4c09fd5f4ca,vorlauf-einsetzen-05,,sondierrang (keine UI),2,neu,mittel,"vorlauf-einsetzen-04 = 1, vorlauf-einsetzen-05 = 2. Rang 1 aus Profil {vorrang_ignoriert,vorzeichen_ignoriert,vorzeichen_potenz}, Rang 2 aus Profil {halbieren_vergessen,plus_statt_mal} (2 neue Fehlbilder)"
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,afb,II,neu,mittel,"Sachformel lesen, negativen Wert mit Dezimalfaktor einsetzen, Vorrang beachten."
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext (Temperatur-Umrechnung).
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,curriculum_grade,7,neu,hoch,"Stoffanker Klasse 7: KLP G9 Ari-4/Ari-5, Formel als Rechenvorschrift, rationale Zahlen."
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,mittel,"Zahl & Rechnen wie die übrigen term_-Aufgaben; geprüft wird das Einsetzen."
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,competency_content,arithmetik_algebra,neu,hoch,Inhaltsfeld Arithmetik/Algebra: Formel als Rechenvorschrift (Ari-5).
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachangabe der Formelvariable zuordnen, dann rechnen."
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,needs_image,false,neu,hoch,"Formel und Wert stehen im Text, keine Abbildung nötig."
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,correct_answers,"[""14"",""+14""]",neu,hoch,"Nachgerechnet; Variante mit Vorzeichen."
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,solution,"C = -10 mit Klammer einsetzen, Punkt vor Strich:
+F = 1,8 · (-10) + 32 = -18 + 32 = 14.
+-10 Grad Celsius sind 14 Grad Fahrenheit.",neu,hoch,Nachgerechnet.
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,typical_errors,"[{""error"":""Minus beim Einsetzen weggelassen: 1,8 · 10 + 32 = 50."",""socratic_question"":""Welche Temperatur setzt du für C ein – über oder unter null?""},{""error"":""Vorzeichen des Ergebnisses gekippt: -14 statt 14."",""socratic_question"":""Ist -18 + 32 größer oder kleiner als null?""},{""error"":""Erst addiert, dann multipliziert: 1,8 · (-10 + 32) = 39,6."",""socratic_question"":""Was wird zuerst gerechnet – die Multiplikation oder die Addition?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_ignoriert, betrag_fehler, vorrang_ignoriert)."
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,hints,,bewusst leer,,"Vorlauf-Spec: ohne Hilfe lösbar (LSA), keine Hinweise."
+fbf4143f-5932-4a14-9337-575ea4c5d2b0,vorlauf-einsetzen-06,,acceptance.known_errors (keine UI),"{""50"":""vorzeichen_ignoriert"",""-14"":""betrag_fehler"",""−14"":""betrag_fehler"",""39,6"":""vorrang_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug

@@ -1,0 +1,13 @@
+{
+  "tasks": [
+    { "id": "aw-01", "skill_key": "s", "input_type": "NUMERIC", "status": "draft", "question": "Berechne 24 + 18.",
+      "solution": { "correct_answers": ["42"] } },
+    { "id": "aw-02", "skill_key": "s", "input_type": "NUMERIC", "status": "draft", "question": "Berechne 5 - 12.",
+      "solution": { "correct_answers": ["-7", "−7"] } },
+    { "id": "aw-03", "skill_key": "s", "input_type": "NUMERIC", "status": "draft", "question": "Teile 10 durch 3 und runde auf zwei Stellen.",
+      "solution": { "correct_answers": ["3,33"],
+                    "acceptance": { "canonical": "3.33", "tolerance": { "mode": "absolute", "value": 0.01 } } } },
+    { "id": "aw-04", "skill_key": "s", "input_type": "MC", "status": "draft", "question": "Welche Zahl ist gerade? a) 3 b) 4 c) 5",
+      "solution": { "correct_answers": ["b"] } }
+  ]
+}

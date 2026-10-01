@@ -10,6 +10,21 @@ wirkt an drei Stellen:
 - Jede Anweisung einer Prefill-Migration trägt `source is distinct from 'VERA8_IQB'`.
 - `verify-tasks.mjs --prefill` schlägt fehl, wenn eine Charge oder eine Prefill-Migration VERA8 anfassen könnte.
 
+## Charge `k8-vorlauf` (12 NEUE Aufgaben, nicht aus dem Bestand)
+
+Die Vorlauf-Knoten `geo_koordinaten` und `term_einsetzen` bekommen je sechs Aufgaben, alle vorbefüllt (`status = 'draft'`).
+Weil die Aufgaben neu entstehen, erzeugt `tools/vorlauf-build.mjs` statt `prefill-build.mjs` die Migration
+`20261001120554_aufgaben_k8_vorlauf.sql`. Dazu kommen der Snapshot (Rohzustand) und die CSV. `verify-tasks.mjs --prefill`
+prüft wie gewohnt. Befunde, Einspiel-Reihenfolge und Prüfprotokoll stehen in `befunde-k8-vorlauf.md`.
+
+## Charge `k8-zins` (30 NEUE Aufgaben, nicht aus dem Bestand)
+
+Je sechs Aufgaben zu den vier `prozent_zins_*`-Knoten und sechs zur Auffüllung von `potenzen`, alle vorbefüllt
+(`status = 'draft'`). Quelle ist `tools/k8-zins-charge.mjs`: Es schreibt `k8-zins.json` und rechnet dabei jede Antwort
+und jeden falschen Wert exakt nach. `tools/vorlauf-build.mjs` erzeugt daraus die Migration
+`20261001125349_aufgaben_k8_zins.sql`, den Snapshot und die CSV. Befunde, Prüfprotokoll und Test-LSA stehen in
+`befunde-k8-zins.md`, die Blind-Antworten in `k8-zins-blind.json`.
+
 ## Dateien der Charge `mathe8-pilot` (18 Binom-Aufgaben)
 
 | Datei | Inhalt |
@@ -31,7 +46,20 @@ Stand der Migrationen (30.09.2026):
 | `20260930130000_freigabe_cluster_ohne_vera8.sql` | „Alle geprüften freigeben" erfasst kein VERA8 | **eingespielt** (History-Eintrag, Definition per pg_proc bestätigt) |
 | `20260930140000_tasks_vorbefuellt.sql` | Kennzeichen `tasks.vorbefuellt` / `vorbefuellt_am` | **eingespielt** (Spalten, CHECK und Rechte bestätigt) |
 | `20260930150000_prefill_mathe8_pilot.sql` | Pilot-Daten (18 Binom-Aufgaben) | **eingespielt** am 30.09. — Ergebnis in `mathe8-pilot-eingespielt.md` (Versionsausnahme von #180, siehe Kopfkommentar) |
-| `docs/prefill/ENTWURF_prefill_rest_01.sql` | Erste Charge Restbestand (28 Aufgaben, 0 Überschreibungen) | **Entwurf, nicht eingespielt** — Version per `date -u` erst nach 15:00 UTC möglich; Befunde in `rest-01-befunde.md` |
+| `20260930150100_prefill_rest_01.sql` | Restbestand Charge 1: 28 Aufgaben (6 Binom, 22 fundament_afb1) | **eingespielt** — `rest-01/` |
+| `20260930150200_prefill_rest_02.sql` | Restbestand Charge 2: 47 Sachaufgaben (fundament_kontext) | **eingespielt** — `rest-02/` |
+
+Ab dem Restbestand liegt jede Charge in `docs/prefill/<charge>/`: Quelle, Snapshot, CSV, Blind-Antworten,
+Verifikation, Prod-Abgleich (vorher), Nachweis (nachher), Befunde.
+
+**Stand 30.09.2026 (Board ohne VERA8: 362 Aufgaben):**
+
+- Alle 93 offenen Aufgaben (`draft`) sind vorbefüllt und gekennzeichnet.
+  - 46 davon sind vollständig.
+  - 47 haben ein bewusst leeres Feld (Prozesskompetenz bei Sachaufgaben).
+  - Lücken ohne Grund: 0.
+- Nicht vorbefüllt sind 269 Aufgaben mit `ready`, `beanstandet` oder `review`. Sie hat ein Mensch bereits bearbeitet
+  oder freigegeben. Bei `ready` wären neue Hinweise sofort für Schüler:innen sichtbar, ohne Lenas Prüfung.
 
 Die Pilot-Datei ersetzt `20260930120000_prefill_mathe8_pilot` (Versionskollision mit S2b, nie eingespielt).
 Sie wird aus der JSON-Quelle erzeugt; bitte nicht von Hand editieren.

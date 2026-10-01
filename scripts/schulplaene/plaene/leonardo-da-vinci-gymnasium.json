@@ -1,0 +1,185 @@
+{
+  "slug": "leonardo-da-vinci-gymnasium",
+  "eintraege": [
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Terme und Gleichungen (Teil Terme)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Zuordnungen",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen (Teil Gleichungen)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Prozent und Zinsrechnung",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 7,
+      "uv_titel": "Wahrscheinlichkeit",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_7.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Wahrscheinlichkeit",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Terme mit mehreren Variablen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Flächen",
+      "stunden": 11,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": 21,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Kreise und Dreiecke",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_8.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Reelle Zahlen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Kreise, Prismen und Zylinder",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "prismen_zylinder",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Potenzen und Potenzgesetze",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Quadratische Funktionen",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://www.gymnasium-nippes.de/images/Lehrplan/Mathematik/Stoffverteilungsplan_Lambacher_Schweizer_G9_Kl_9.pdf"
+    }
+  ],
+  "befunde": [
+    "Plan liegt nur für Kl. 7, 8 und 9 vor (Stoffverteilungspläne Lambacher Schweizer G9); Kl. 5, 6 und 10 fehlen",
+    "Reihenfolge laut Plan-Hinweis übernommen, nicht nach UV-Nummer: Kl. 7 I, IV (Terme), II, IV (Gleichungen), III, V, (VI); Kl. 8 und 9 jeweils I, III, IV, II, V, (VI)",
+    "Kl. 7 UV IV 'Terme und Gleichungen' (22 Std.) wird laut Plan geteilt unterrichtet → zwei Einträge, Stunden je Teil nicht angegeben (null)",
+    "Kl. 7 UV VI 'Wahrscheinlichkeit' ist eingeklammert/optional und kann nach Kl. 8 verschoben werden; Kl. 8 UV I 'Wahrscheinlichkeit' ist dasselbe Vorhaben (kann auch schon in Kl. 7 liegen) – Doppelung",
+    "Kl. 9 UV VI 'Daten und Wahrscheinlichkeit' eingeklammert, kann nach Kl. 10 verschoben werden; enthält auch Statistik (Erhebung, Diagramm, Manipulation), Schwerpunkt bedingte Wahrscheinlichkeit → bedingte_wahrscheinlichkeit",
+    "Kl. 9 Vorhaben 'Kreise, Prismen und Zylinder': mischt Kreis und Prismen/Zylinder etwa 50/50 → prismen_zylinder gewählt",
+    "Keine Halbjahresangaben im Plan"
+  ]
+}

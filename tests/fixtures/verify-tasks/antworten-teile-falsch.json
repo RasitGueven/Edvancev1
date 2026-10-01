@@ -1,0 +1,5 @@
+[
+  { "task_id": "cf-flach-01", "part": null, "antwort": "42", "unsicher": "nein" },
+  { "task_id": "cf-teile-01", "part": "1", "antwort": "91", "unsicher": "nein" },
+  { "task_id": "cf-teile-01", "part": "2", "antwort": "7", "unsicher": "nein" }
+]
