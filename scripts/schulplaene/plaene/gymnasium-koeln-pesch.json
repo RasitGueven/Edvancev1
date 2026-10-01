@@ -1,0 +1,349 @@
+{
+  "slug": "gymnasium-koeln-pesch",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "Zahlen und Größen",
+      "stunden": 25,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Symmetrie",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Rechnen mit natürlichen Zahlen",
+      "stunden": 30,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Flächen",
+      "stunden": 25,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Körper",
+      "stunden": 25,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%205%20G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Brüche – das Ganze und seine Teile",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Brüche in Dezimalschreibweise",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Zahlen addieren und subtrahieren",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Muster und Figuren",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "winkel",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Zahlen multiplizieren und dividieren",
+      "stunden": 30,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Daten",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Beziehungen zwischen Zahlen und Größen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%206%20G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Rechnen mit rationalen Zahlen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Zuordnungen",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "Prozent und Zinsrechnung",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Terme und Gleichungen",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Wahrscheinlichkeit",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Konstruieren und Argumentieren",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%207%20G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Wahrscheinlichkeit",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Lineare Funktionen",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Terme mit mehreren Variablen",
+      "stunden": 21,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Flächen",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Lineare Gleichungssysteme",
+      "stunden": 17,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Kreise und Dreiecke",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://www.gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%208%20G9.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Reelle Zahlen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Kreise, Prismen und Zylinder",
+      "stunden": 17,
+      "halbjahr": null,
+      "thema_key": "kreis",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Potenzen und Potenzgesetze",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Der Satz des Pythagoras und Berechnungen in Körpern",
+      "stunden": 17,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%209%20G9_2023.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Daten und Wahrscheinlichkeit",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen und Gleichungen",
+      "stunden": 25,
+      "halbjahr": null,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Ähnlichkeit",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Exponentialfunktionen",
+      "stunden": 17,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Trigonometrie",
+      "stunden": 16,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 6,
+      "uv_titel": "Trigonometrische Funktionen",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://gymnasium-koeln-pesch.de/storage/app/media/Dokumente/Schulinterne%20Lehrpl%C3%A4ne/Mathematik/Schulinterner%20Lehrplan%20Mathe%20Klasse%2010%20G9_2023.pdf"
+    }
+  ],
+  "befunde": [
+    "Brüche-Vorhaben steht in Kl. 5 (VI, kann nach Kl. 6 verschoben werden) und Kl. 6 (I, kann in Kl. 5 unterrichtet werden)",
+    "Kl. 6 Vorhaben 'Muster und Figuren': Kreis/Winkel und Abbildungen (Verschiebung, Drehung) etwa 50/50 → winkel statt symmetrie",
+    "Kl. 9 Vorhaben 'Kreise, Prismen und Zylinder': Kreis und Prismen/Zylinder etwa 50/50 → kreis (prismen_zylinder mitbehandelt)",
+    "Kl. 9 Vorhaben 'Der Satz des Pythagoras und Berechnungen in Körpern': enthält auch Pyramide/Kegel/Kugel → pythagoras (koerper_pyramide_kegel_kugel mitbehandelt)",
+    "Kl. 9 Vorhaben 'Daten und Wahrscheinlichkeit': Statistik (Erhebung, Diagramm, Manipulation) und bedingte Wahrscheinlichkeit etwa 50/50 → bedingte_wahrscheinlichkeit (statistik_beurteilen mitbehandelt)",
+    "Kl. 10 Vorhaben 'Daten und Wahrscheinlichkeit': Statistik (Erhebung, Diagramm, Manipulation) und bedingte Wahrscheinlichkeit etwa 50/50 → bedingte_wahrscheinlichkeit (statistik_beurteilen mitbehandelt)",
+    "Vorhaben 'Daten und Wahrscheinlichkeit' steht in Kl. 9 (VI, kann nach Kl. 10 verschoben werden) und Kl. 10 (I) (Dublette)",
+    "Kl. 10 Vorhaben 'Quadratische Funktionen und Gleichungen': Funktionen bereits in Kl. 9 → quadratische_gleichungen",
+    "Kein Halbjahr angegeben"
+  ]
+}

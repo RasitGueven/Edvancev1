@@ -1,0 +1,354 @@
+{
+  "slug": "rhein-gymnasium",
+  "eintraege": [
+    {
+      "klasse": 5,
+      "position": 1,
+      "uv_titel": "WIR! Was Zahlen, Daten und Fakten über uns erzählen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 2,
+      "uv_titel": "Höher – Schwerer – Teurer – Später: Größen und Einheiten im Alltag",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "natuerliche_zahlen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 3,
+      "uv_titel": "Genauso, nur verkehrt herum: besondere Linien, Figuren und Objekte",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "geometrische_grundbegriffe",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 4,
+      "uv_titel": "Rechnen mit System: Gesetze bei der Berechnung von Rechenausdrücken",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_natuerliche_zahlen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 5,
+      "uv_titel": "Die Erde im Quadrat: Flächen vergleichen, vermessen, berechnen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "flaeche_umfang",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 6,
+      "uv_titel": "„Geradlinige“ Körperwelten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "koerper_quader",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 5,
+      "position": 7,
+      "uv_titel": "Teile des Ganzen: Bruchdarstellungen (optional)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 1,
+      "uv_titel": "Wir sind nur Teile des großen Ganzen: Bruchdarstellungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "brueche",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 2,
+      "uv_titel": "Eine Frage des Stellenwertes: Brüche in Dezimalschreibweise",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 3,
+      "uv_titel": "Die Kunst der Strichrechnung: Zahlen addieren und subtrahieren",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 4,
+      "uv_titel": "Irgendwie ähnlich: Muster und Figuren gestreckt, gedreht, gespiegelt",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "symmetrie",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 5,
+      "uv_titel": "Verkehrte Welt: Multiplizieren und Dividieren rationaler Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rechnen_brueche_dezimalzahlen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 6,
+      "uv_titel": "Datenmengen veranschaulichen und Kenngrößen bestimmen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "daten_streumasse",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 6,
+      "position": 7,
+      "uv_titel": "Ein Beziehungsdrama in 3 Sätzen: Zahlen und Größen (optional)",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "ganze_zahlen_groessen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 1,
+      "uv_titel": "Raus aus den Schulden – Rechnen mit rationalen Zahlen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "rationale_zahlen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 2,
+      "uv_titel": "Leistungskurven im Sport – Zusammenhänge zwischen Größen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zuordnungen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 3,
+      "uv_titel": "19% auf alles: Rabatte, Mehrwertsteuer und Prozente",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zinsrechnung",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 4,
+      "uv_titel": "Knackt die Box – Terme und Gleichungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "terme_gleichungen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 5,
+      "uv_titel": "Würfel gegen Legostein: Wahrscheinlichkeiten nicht nur in Laplace-Experimenten",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 7,
+      "position": 6,
+      "uv_titel": "Quod erat demonstrandum – Konstruieren und Argumentieren an Winkeln und Dreiecken",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "winkel_dreiecke",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 1,
+      "uv_titel": "Würfel gegen Legostein: Wahrscheinlichkeiten (Wdh.)",
+      "stunden": 14,
+      "halbjahr": null,
+      "thema_key": "zufallsexperimente",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 2,
+      "uv_titel": "Wie funktioniert das? Den Geraden auf der Spur (lineare Funktionen)",
+      "stunden": 21,
+      "halbjahr": null,
+      "thema_key": "lineare_funktionen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 3,
+      "uv_titel": "Verpackte Zahlen: Terme, Variablen und Gleichungen",
+      "stunden": 18,
+      "halbjahr": null,
+      "thema_key": "terme_binomische_formeln",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 4,
+      "uv_titel": "Figuren geschickt zerlegen: Flächeninhalte nicht rechtwinkliger Figuren",
+      "stunden": 11,
+      "halbjahr": null,
+      "thema_key": "flaechen_vielecke",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 5,
+      "uv_titel": "Produktionsfaktoren und Zusammensetzungen – Lineare Gleichungssysteme",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "lineare_gleichungen_lgs",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 8,
+      "position": 6,
+      "uv_titel": "Vermessung: Geometrische Konstruktionen an Kreis und Dreieck",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "thales_konstruktionen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 1,
+      "uv_titel": "Kann man das zählen? Die Irrationalität von Zahlen",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "reelle_zahlen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 2,
+      "uv_titel": "Von Parabelflügen und Brücken: Quadratische Zusammenhänge erkunden",
+      "stunden": 22,
+      "halbjahr": null,
+      "thema_key": "quadratische_funktionen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 3,
+      "uv_titel": "Das Runde muss ins Eckige – Kreisfläche; Prismen und Zylinder",
+      "stunden": 20,
+      "halbjahr": null,
+      "thema_key": "kreis",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 4,
+      "uv_titel": "Vom Weltall zum Einzeller – mit Potenzen Zahlen darstellen",
+      "stunden": 15,
+      "halbjahr": null,
+      "thema_key": "potenzen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 5,
+      "uv_titel": "Mit Pythagoras und Maßband durch Mülheim – Berechnungen an Körpern",
+      "stunden": 12,
+      "halbjahr": null,
+      "thema_key": "pythagoras",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 9,
+      "position": 6,
+      "uv_titel": "Dem Zufall und der Manipulation auf der Spur – Statistik und Wahrscheinlichkeit (optional)",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 1,
+      "uv_titel": "Daten und Wahrscheinlichkeit (optional)",
+      "stunden": 13,
+      "halbjahr": null,
+      "thema_key": "bedingte_wahrscheinlichkeit",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 2,
+      "uv_titel": "Quadratische Funktionen und Gleichungen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "quadratische_gleichungen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 3,
+      "uv_titel": "Ähnlichkeit",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "aehnlichkeit",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 4,
+      "uv_titel": "Exponentialfunktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "exponentialfunktionen",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 5,
+      "uv_titel": "Trigonometrie",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "trigonometrie",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    },
+    {
+      "klasse": 10,
+      "position": 6,
+      "uv_titel": "Trigonometrische Funktionen",
+      "stunden": null,
+      "halbjahr": null,
+      "thema_key": "sinusfunktion",
+      "quelle_url": "https://www.rhein-gymnasium-koeln.de/images/phocadownload/SiLp%20g9%2021.10.2024/mathe/Mathematik_Sekundarstufe%20I.pdf"
+    }
+  ],
+  "befunde": [
+    "Keine Halbjahresangaben; Stunden nur für Kl. 8 (I–V) und 9 sowie 10/I, in Kl. 10 sonst 'xx Std.' (Platzhalter) → null",
+    "Kl. 5 UV VI und Kl. 6 UV VII sind optional; Kl. 6 UV I darf alternativ in Kl. 5 unterrichtet werden",
+    "Kl. 7: Übersichtsraster nummeriert IV, VI, V; Reihenfolge nach konkretisierten UV (V = Wahrscheinlichkeit, VI = Winkel/Dreiecke)",
+    "Kl. 8 UV VI 'Vermessung' fehlt im Übersichtsraster, steht nur in den konkretisierten UV; kein Zeitbedarf",
+    "Kl. 9 Vorhaben 'Das Runde muss ins Eckige': Kreis und Prismen/Zylinder etwa 50/50 → kreis (alternativ prismen_zylinder)"
+  ]
+}
