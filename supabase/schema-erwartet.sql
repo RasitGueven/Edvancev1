@@ -6879,7 +6879,7 @@ CREATE TABLE public.skills (
     fach text DEFAULT 'mathematik'::text NOT NULL,
     klasse_herkunft integer NOT NULL,
     fundament_tiefe integer NOT NULL,
-    CONSTRAINT skills_fundament_tiefe_check CHECK (((fundament_tiefe >= 1) AND (fundament_tiefe <= 8)))
+    CONSTRAINT skills_fundament_tiefe_check CHECK (((fundament_tiefe >= 1) AND (fundament_tiefe <= 12)))
 );
 
 
