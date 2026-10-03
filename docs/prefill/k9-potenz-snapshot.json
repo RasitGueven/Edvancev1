@@ -1,0 +1,746 @@
+[
+ {
+  "task": {
+   "id": "0de77a9a-3e05-4e84-ac05-177a2a3012b6",
+   "title": "Potenzgesetze · 2³ · 2⁴ = 2ⁿ",
+   "question": "2³ · 2⁴ = 2ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "2³ · 2⁴ = 2ⁿ\n\nBestimme n. Gib n als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-gesetze-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "039682a2-4201-4933-92cc-da1031fee485",
+   "title": "Potenzgesetze · (3²)⁴ = 3ⁿ",
+   "question": "(3²)⁴ = 3ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "(3²)⁴ = 3ⁿ\n\nBestimme n. Gib n als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-gesetze-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570",
+   "title": "Potenzgesetze · (a⁴)³ : a⁵ = aⁿ",
+   "question": "(a⁴)³ : a⁵ = aⁿ   (a ≠ 0)\n\nBestimme n. Gib n als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "(a⁴)³ : a⁵ = aⁿ   (a ≠ 0)\n\nBestimme n. Gib n als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-gesetze-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "361f1762-0b48-473e-9883-815ab81f90fc",
+   "title": "Potenzgesetze · 2⁵ · 5⁵ = 10ⁿ",
+   "question": "2⁵ · 5⁵ = 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "2⁵ · 5⁵ = 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-gesetze-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1d743a81-124c-42c5-9235-163c2c4c5309",
+   "title": "Potenzgesetze · Zellkultur verdoppelt sich drei Stunden lang",
+   "question": "Eine Zellkultur verdoppelt ihre Zellzahl jede Stunde. Zu Beginn sind es 2⁵ Zellen.\n\nWie viele Zellen sind es nach 3 Stunden? Gib die Anzahl exakt als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Zellkultur verdoppelt ihre Zellzahl jede Stunde. Zu Beginn sind es 2⁵ Zellen.\n\nWie viele Zellen sind es nach 3 Stunden? Gib die Anzahl exakt als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-gesetze-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9daaeffc-8019-4a0e-a150-7f77026abc8e",
+   "title": "Potenzgesetze · großer Würfel in kleine Würfel zerlegt",
+   "question": "Ein großer Würfel hat die Kantenlänge 16 cm. Er wird vollständig in kleine Würfel mit der Kantenlänge 2 cm zerlegt.\n\nDie Anzahl der kleinen Würfel lässt sich als 2ⁿ schreiben. Bestimme n. Gib n als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein großer Würfel hat die Kantenlänge 16 cm. Er wird vollständig in kleine Würfel mit der Kantenlänge 2 cm zerlegt.\n\nDie Anzahl der kleinen Würfel lässt sich als 2ⁿ schreiben. Bestimme n. Gib n als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-gesetze-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "46f1792e-a330-4665-ba1b-90f442e0db25",
+   "title": "Negative Hochzahl · 2⁻³",
+   "question": "Berechne 2⁻³. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_negativ",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 2⁻³. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-negativ-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3b3119d4-20b2-44b5-b874-12863dbd8c0b",
+   "title": "Negative Hochzahl · 10⁻²",
+   "question": "Berechne 10⁻². Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_negativ",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 10⁻². Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-negativ-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f05fb05f-c11b-4b9f-9a79-b03e0aeec898",
+   "title": "Negative Hochzahl · 4⁻¹ · 4³",
+   "question": "Berechne 4⁻¹ · 4³. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_negativ",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne 4⁻¹ · 4³. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-negativ-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d4c57c1c-bfb2-455c-bc85-7149ca24c1cb",
+   "title": "Negative Hochzahl · (1/2)⁻² + 5⁰",
+   "question": "Berechne (1/2)⁻² + 5⁰. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_negativ",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne (1/2)⁻² + 5⁰. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-negativ-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "03c74739-8440-4d6d-9c7c-95ebdf5a163c",
+   "title": "Negative Hochzahl · Halbierung alle 4 Stunden",
+   "question": "Die Menge eines Stoffes halbiert sich alle 4 Stunden. Nach n Halbierungen ist noch der Anteil 2⁻ⁿ der Anfangsmenge vorhanden.\n\nWelcher Anteil der Anfangsmenge ist nach 20 Stunden noch vorhanden? Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_negativ",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Menge eines Stoffes halbiert sich alle 4 Stunden. Nach n Halbierungen ist noch der Anteil 2⁻ⁿ der Anfangsmenge vorhanden.\n\nWelcher Anteil der Anfangsmenge ist nach 20 Stunden noch vorhanden? Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-negativ-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2c76b7c8-5c80-43e6-95c9-0f06a7d8161e",
+   "title": "Negative Hochzahl · Faktor zwischen 2³ und 2⁻²",
+   "question": "Um welchen Faktor ist 2³ größer als 2⁻²?\n\nGib den Faktor exakt als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_negativ",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Um welchen Faktor ist 2³ größer als 2⁻²?\n\nGib den Faktor exakt als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-negativ-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fad44de2-b0f5-4aa8-9515-abc44cd5ab7e",
+   "title": "Zehnerpotenz · 3 200 000 = 3,2 · 10ⁿ",
+   "question": "3 200 000 = 3,2 · 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_zehner",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "3 200 000 = 3,2 · 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-zehner-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "52be6dbe-9275-4b83-9ff1-b369e1e1168b",
+   "title": "Zehnerpotenz · 0,00045 = 4,5 · 10ⁿ",
+   "question": "0,00045 = 4,5 · 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_zehner",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "0,00045 = 4,5 · 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-zehner-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "efac8563-dcac-4e79-9092-21d534c29667",
+   "title": "Zehnerpotenz · 7,2 · 10⁻³ als Dezimalzahl",
+   "question": "Schreibe 7,2 · 10⁻³ als Dezimalzahl. Gib die Zahl exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_zehner",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Schreibe 7,2 · 10⁻³ als Dezimalzahl. Gib die Zahl exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-zehner-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396",
+   "title": "Zehnerpotenz · 4,05 · 10⁵ als Zahl",
+   "question": "Schreibe 4,05 · 10⁵ als Zahl ohne Zehnerpotenz. Gib die Zahl exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_zehner",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Schreibe 4,05 · 10⁵ als Zahl ohne Zehnerpotenz. Gib die Zahl exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-zehner-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0723e9b4-0faf-4150-95b0-1065cb950a04",
+   "title": "Zehnerpotenz · Durchmesser eines roten Blutkörperchens",
+   "question": "Ein rotes Blutkörperchen hat einen Durchmesser von etwa 0,0000075 m.\n\nIn wissenschaftlicher Schreibweise ist das 7,5 · 10ⁿ m. Bestimme n. Gib n als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_zehner",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rotes Blutkörperchen hat einen Durchmesser von etwa 0,0000075 m.\n\nIn wissenschaftlicher Schreibweise ist das 7,5 · 10ⁿ m. Bestimme n. Gib n als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-zehner-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52",
+   "title": "Zehnerpotenz · Viren auf der Länge eines Sandkorns",
+   "question": "Ein Virus ist etwa 1 · 10⁻⁷ m lang, ein Sandkorn etwa 1 · 10⁻³ m.\n\nWie viele solcher Viren passen nebeneinander auf die Länge des Sandkorns? Gib die Anzahl exakt als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_potenz_zehner",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Virus ist etwa 1 · 10⁻⁷ m lang, ein Sandkorn etwa 1 · 10⁻³ m.\n\nWie viele solcher Viren passen nebeneinander auf die Länge des Sandkorns? Gib die Anzahl exakt als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-zehner-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a35d5827-c2d4-48a9-87b8-6c69c1078abe",
+   "title": "Wissenschaftliche Schreibweise · (3 · 10⁴) · (2 · 10⁻⁶)",
+   "question": "Berechne (3 · 10⁴) · (2 · 10⁻⁶).\n\nGib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+   "input_type": "MULTI_PART",
+   "skill_key": "zahl_potenz_rechnen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Vorfaktor a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Hochzahl n",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-rechnen-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3510e4f2-f006-4d20-bdf8-8d8520ed09e1",
+   "title": "Wissenschaftliche Schreibweise · (8 · 10⁶) : (2 · 10²)",
+   "question": "Berechne (8 · 10⁶) : (2 · 10²).\n\nGib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+   "input_type": "MULTI_PART",
+   "skill_key": "zahl_potenz_rechnen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Vorfaktor a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Hochzahl n",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-rechnen-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d6b3bddd-410d-42b8-b8cd-5139727b1ed8",
+   "title": "Wissenschaftliche Schreibweise · (5 · 10³) · (4 · 10⁵) normieren",
+   "question": "Berechne (5 · 10³) · (4 · 10⁵).\n\nGib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+   "input_type": "MULTI_PART",
+   "skill_key": "zahl_potenz_rechnen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Vorfaktor a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Hochzahl n",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-rechnen-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d7f1416b-ee9c-408c-8dd3-7e2bfc623a27",
+   "title": "Wissenschaftliche Schreibweise · (3 · 10⁵) : (6 · 10⁻²) normieren",
+   "question": "Berechne (3 · 10⁵) : (6 · 10⁻²).\n\nGib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+   "input_type": "MULTI_PART",
+   "skill_key": "zahl_potenz_rechnen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Vorfaktor a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Hochzahl n",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-rechnen-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "bbe4791e-1ec3-485e-9b4c-bbab72c6506a",
+   "title": "Wissenschaftliche Schreibweise · Lichtweg in einer Minute",
+   "question": "Licht legt in einer Sekunde etwa 3 · 10⁸ m zurück.\n\nWie viele Meter legt es in einer Minute, also in 6 · 10¹ s, zurück? Gib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+   "input_type": "MULTI_PART",
+   "skill_key": "zahl_potenz_rechnen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Vorfaktor a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Hochzahl n",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-rechnen-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0a6f5de1-82ab-4f20-8f71-3fab440b2e95",
+   "title": "Wissenschaftliche Schreibweise · Licht von der Sonne zur Erde",
+   "question": "Die Sonne ist etwa 1,5 · 10¹¹ m von der Erde entfernt. Licht legt in einer Sekunde etwa 3 · 10⁸ m zurück.\n\nWie viele Sekunden braucht das Licht von der Sonne bis zur Erde? Gib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+   "input_type": "MULTI_PART",
+   "skill_key": "zahl_potenz_rechnen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Vorfaktor a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Hochzahl n",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_potenz",
+   "source_ref": "potenz-rechnen-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

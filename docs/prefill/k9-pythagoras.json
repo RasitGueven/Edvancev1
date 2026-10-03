@@ -1,0 +1,3677 @@
+{
+ "batch": "k9-pythagoras",
+ "kopf": [
+  "K9-Rest, Thema pythagoras — 30 Aufgaben: je sechs zu geo_pythagoras_hypotenuse, _kathete, _umkehrung, _abstand und _anwendung.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k9-pythagoras.json (Quelle: tools/k9-pythagoras-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003105857_substrat_k9_pythagoras.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit und zwei mit Sachkontext oder Rückrichtung (Boot, Feld, Drachen, Mast, Gartenhaus, Latten, Karte, Leiter). Drei Abstands-Aufgaben mit Abbildung (Koordinatensystem, Punkte ablesen), alle übrigen ohne Abbildung lösbar. Jede Aufgabe nennt, ob exakt oder auf wie viele Stellen gerundet wird; Werte exakt nachgerechnet (Wurzel auf 40 Stellen).",
+ "source": "edvance_k9_pythagoras",
+ "class_level": 9,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "4a99bc6f-8dfe-4657-8d4f-11456d874baa",
+   "titel": "Hypotenuse · Katheten 6 cm und 8 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_hypotenuse",
+    "source_ref": "pyth-hypotenuse-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein rechtwinkliges Dreieck hat die Katheten a = 6 cm und b = 8 cm.\n\nWie lang ist die Hypotenuse c? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "14": "wurzel_gliedweise",
+     "100": "wurzel_vergessen",
+     "100 cm": "wurzel_vergessen",
+     "100cm": "wurzel_vergessen",
+     "14 cm": "wurzel_gliedweise",
+     "14cm": "wurzel_gliedweise",
+     "5,29": "hypotenuse_verwechselt",
+     "5.29": "hypotenuse_verwechselt",
+     "5,29 cm": "hypotenuse_verwechselt",
+     "5,29cm": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Satz des Pythagoras mit zwei gegebenen Katheten, Ergebnis ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "10 cm",
+      "10cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "c² = a² + b² = 6² + 8² = 36 + 64 = 100.\nc = √100 = 10 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "c² = 100 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon c ausgerechnet oder erst c²?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: √(6² + 8²) als 6 + 8.",
+       "socratic_question": "Ist √(36 + 64) dasselbe wie √36 + √64?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert, als wäre eine Kathete gesucht: √(64 − 36).",
+       "socratic_question": "Ist die Hypotenuse die längste oder eine kürzere Seite des Dreiecks?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, wurzel_gliedweise, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(10)",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "6^2+8^2",
+     "antwort": "100",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "6+8",
+     "antwort": "14",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "round((52915026221291811810032315072785208514205/10000000000000000000000000000000000000000),2)",
+     "antwort": "5.29",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "75194d46-60d2-4d4a-b988-db2b3c5c1a65",
+   "titel": "Hypotenuse · Katheten 5 cm und 7 cm, gerundet",
+   "basis": {
+    "skill_key": "geo_pythagoras_hypotenuse",
+    "source_ref": "pyth-hypotenuse-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein rechtwinkliges Dreieck hat die Katheten a = 5 cm und b = 7 cm.\n\nWie lang ist die Hypotenuse c? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "12": "wurzel_gliedweise",
+     "74": "wurzel_vergessen",
+     "74 cm": "wurzel_vergessen",
+     "74cm": "wurzel_vergessen",
+     "12 cm": "wurzel_gliedweise",
+     "12cm": "wurzel_gliedweise",
+     "4,90": "hypotenuse_verwechselt",
+     "4.90": "hypotenuse_verwechselt",
+     "4,9": "hypotenuse_verwechselt",
+     "4.9": "hypotenuse_verwechselt",
+     "4,90 cm": "hypotenuse_verwechselt",
+     "4,90cm": "hypotenuse_verwechselt",
+     "4,9 cm": "hypotenuse_verwechselt",
+     "4,9cm": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Satz des Pythagoras, Wurzel aus einer Nicht-Quadratzahl runden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8,60",
+      "8.60",
+      "8,6",
+      "8.6",
+      "8,60 cm",
+      "8,60cm",
+      "8,6 cm",
+      "8,6cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "c² = 5² + 7² = 25 + 49 = 74.\nc = √74 ≈ 8,60 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "c² = 74 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Kann die Hypotenuse länger sein als beide Katheten zusammen?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: c = 5 + 7.",
+       "socratic_question": "Ist √(25 + 49) dasselbe wie √25 + √49?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert: √(49 − 25).",
+       "socratic_question": "Muss die Hypotenuse länger oder kürzer als 7 cm sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, wurzel_gliedweise, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((86023252670426267717294735350497136320275/10000000000000000000000000000000000000000),2)",
+     "antwort": "8.60"
+    },
+    {
+     "rechnung": "5^2+7^2",
+     "antwort": "74",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "5+7",
+     "antwort": "12",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "round((48989794855663561963945681494117827839318/10000000000000000000000000000000000000000),2)",
+     "antwort": "4.90",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "ee07674f-0846-4f38-a0c7-247fd351b729",
+   "titel": "Hypotenuse · Katheten 4,5 cm und 6 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_hypotenuse",
+    "source_ref": "pyth-hypotenuse-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein rechtwinkliges Dreieck hat die Katheten a = 4,5 cm und b = 6 cm.\n\nWie lang ist die Hypotenuse c? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "56,25": "wurzel_vergessen",
+     "56.25": "wurzel_vergessen",
+     "56,25 cm": "wurzel_vergessen",
+     "56,25cm": "wurzel_vergessen",
+     "10,5": "wurzel_gliedweise",
+     "10.5": "wurzel_gliedweise",
+     "10,5 cm": "wurzel_gliedweise",
+     "10,5cm": "wurzel_gliedweise",
+     "4,58": "mal_exponent",
+     "4.58": "mal_exponent",
+     "4,58 cm": "mal_exponent",
+     "4,58cm": "mal_exponent",
+     "3,97": "hypotenuse_verwechselt",
+     "3.97": "hypotenuse_verwechselt",
+     "3,97 cm": "hypotenuse_verwechselt",
+     "3,97cm": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Quadrat einer Dezimalzahl und Wurzel aus einer Dezimalzahl."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7,5",
+      "7.5",
+      "7,5 cm",
+      "7,5cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "c² = 4,5² + 6² = 20,25 + 36 = 56,25.\nc = √56,25 = 7,5 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "c² = 56,25 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Ist 56,25 schon die Länge oder erst ihr Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: c = 4,5 + 6.",
+       "socratic_question": "Ist √(20,25 + 36) dasselbe wie √20,25 + √36?"
+      },
+      {
+       "error": "Quadrate als Verdopplung gerechnet: 4,5² als 2 · 4,5 und 6² als 2 · 6.",
+       "socratic_question": "Was bedeutet 4,5²: 4,5 · 2 oder 4,5 · 4,5?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert: √(36 − 20,25).",
+       "socratic_question": "Ist die Hypotenuse länger oder kürzer als die Katheten?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, wurzel_gliedweise, mal_exponent, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(15/2)",
+     "antwort": "7.5"
+    },
+    {
+     "rechnung": "4.5^2+6^2",
+     "antwort": "56.25",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "4.5+6",
+     "antwort": "10.5",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "round((45825756949558400065880471937280084889844/10000000000000000000000000000000000000000),2)",
+     "antwort": "4.58",
+     "rolle": "fehlbild:mal_exponent:"
+    },
+    {
+     "rechnung": "round((158745078663875435430096945218355625542615/40000000000000000000000000000000000000000),2)",
+     "antwort": "3.97",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "5875fe3f-394d-4a2b-8977-bf825b5f9518",
+   "titel": "Hypotenuse · Katheten 12 cm und 0,35 m",
+   "basis": {
+    "skill_key": "geo_pythagoras_hypotenuse",
+    "source_ref": "pyth-hypotenuse-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein rechtwinkliges Dreieck hat die Katheten a = 12 cm und b = 0,35 m.\n\nWie lang ist die Hypotenuse c in Zentimetern? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "47": "wurzel_gliedweise",
+     "1369": "wurzel_vergessen",
+     "12,01": "einheit_uebersprungen",
+     "12.01": "einheit_uebersprungen",
+     "12,01 cm": "einheit_uebersprungen",
+     "12,01cm": "einheit_uebersprungen",
+     "1369 cm": "wurzel_vergessen",
+     "1369cm": "wurzel_vergessen",
+     "47 cm": "wurzel_gliedweise",
+     "47cm": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Einheiten angleichen, dann Satz des Pythagoras mit größeren Zahlen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "37",
+      "37 cm",
+      "37cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "b = 0,35 m = 35 cm.\nc² = 12² + 35² = 144 + 1225 = 1369.\nc = √1369 = 37 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht umgerechnet: mit 12 und 0,35 gerechnet.",
+       "socratic_question": "Sind beide Katheten in derselben Einheit angegeben?"
+      },
+      {
+       "error": "c² = 1369 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon c ausgerechnet oder erst c²?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: c = 12 + 35.",
+       "socratic_question": "Ist √(144 + 1225) dasselbe wie √144 + √1225?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (einheit_uebersprungen, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(37)",
+     "antwort": "37"
+    },
+    {
+     "rechnung": "round((48020412326426352750220429493489762710731898/4000000000000000000000000000000000000000000),2)",
+     "antwort": "12.01",
+     "rolle": "fehlbild:einheit_uebersprungen:"
+    },
+    {
+     "rechnung": "12^2+35^2",
+     "antwort": "1369",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "12+35",
+     "antwort": "47",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "e63c2e2e-396f-46f6-91d1-c34595a88dbc",
+   "titel": "Hypotenuse · Boot 9 km nach Norden, 4 km nach Osten",
+   "basis": {
+    "skill_key": "geo_pythagoras_hypotenuse",
+    "source_ref": "pyth-hypotenuse-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Boot fährt vom Hafen aus 9 km genau nach Norden und danach 4 km genau nach Osten.\n\nWie weit ist das Boot jetzt in Luftlinie vom Hafen entfernt? Runde auf eine Stelle nach dem Komma.",
+    "unit": "km",
+    "known_errors": {
+     "13": "wurzel_gliedweise",
+     "97": "wurzel_vergessen",
+     "97 km": "wurzel_vergessen",
+     "97km": "wurzel_vergessen",
+     "13 km": "wurzel_gliedweise",
+     "13km": "wurzel_gliedweise",
+     "8,1": "hypotenuse_verwechselt",
+     "8.1": "hypotenuse_verwechselt",
+     "8,1 km": "hypotenuse_verwechselt",
+     "8,1km": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Die Luftlinie muss als Hypotenuse eines rechtwinkligen Dreiecks erkannt werden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9,8",
+      "9.8",
+      "9,8 km",
+      "9,8km"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Nord- und Ostrichtung stehen senkrecht aufeinander; die Luftlinie ist die Hypotenuse.\nc² = 9² + 4² = 81 + 16 = 97.\nc = √97 ≈ 9,8 km.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "c² = 97 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Kann die Luftlinie länger sein als der gefahrene Weg?"
+      },
+      {
+       "error": "Die gefahrenen Strecken addiert: 9 + 4.",
+       "socratic_question": "Ist die Luftlinie so lang wie der Umweg über beide Strecken?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert: √(81 − 16).",
+       "socratic_question": "Kann die Luftlinie kürzer sein als die 9 km nach Norden?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, wurzel_gliedweise, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((98488578017961047217462114149176244816961/10000000000000000000000000000000000000000),1)",
+     "antwort": "9.8"
+    },
+    {
+     "rechnung": "9^2+4^2",
+     "antwort": "97",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "9+4",
+     "antwort": "13",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "round((80622577482985496523666132303037711311343/10000000000000000000000000000000000000000),1)",
+     "antwort": "8.1",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "b7eab8c9-653e-4b7f-b806-6fa49c8193e5",
+   "titel": "Hypotenuse · Abkürzung über ein Feld",
+   "basis": {
+    "skill_key": "geo_pythagoras_hypotenuse",
+    "source_ref": "pyth-hypotenuse-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein rechteckiges Feld ist 120 m lang und 50 m breit. Ein Weg führt von einer Ecke an zwei Seiten entlang zur gegenüberliegenden Ecke. Quer über das Feld verläuft ein gerader Pfad zwischen denselben Ecken.\n\nWie viele Meter ist der Pfad kürzer als der Weg an den Seiten? Runde, falls nötig, auf ganze Meter.",
+    "unit": "m",
+    "known_errors": {
+     "61": "hypotenuse_verwechselt",
+     "130": "falsche_groesse_beantwortet",
+     "130 m": "falsche_groesse_beantwortet",
+     "130m": "falsche_groesse_beantwortet",
+     "61 m": "hypotenuse_verwechselt",
+     "61m": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Diagonale als Hypotenuse erkennen und mit dem Weg entlang zweier Seiten vergleichen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "40",
+      "40 m",
+      "40m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Weg an den Seiten: 120 m + 50 m = 170 m.\nPfad = Diagonale: √(120² + 50²) = √(14 400 + 2 500) = √16 900 = 130 m.\nErsparnis: 170 m − 130 m = 40 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Länge des Pfades angegeben statt des Unterschieds.",
+       "socratic_question": "Gefragt ist, um wie viel der Pfad kürzer ist – was fehlt noch?"
+      },
+      {
+       "error": "Für die Diagonale die Quadrate subtrahiert: √(120² − 50²).",
+       "socratic_question": "Ist die Diagonale länger oder kürzer als die lange Seite des Feldes?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(120+50-(130),0)",
+     "antwort": "40"
+    },
+    {
+     "rechnung": "round((130),0)",
+     "antwort": "130",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round(120+50-(1090871211463571441150215448737290187280513/10000000000000000000000000000000000000000),0)",
+     "antwort": "61",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "238657cc-aaf5-46a0-a9d6-da57c60556c0",
+   "titel": "Kathete · Hypotenuse 13 cm, Kathete 5 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_kathete",
+    "source_ref": "pyth-kathete-01",
+    "input_type": "NUMERIC",
+    "frage": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 13 cm lang und die Kathete a = 5 cm lang.\n\nWie lang ist die Kathete b? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "8": "wurzel_gliedweise",
+     "144": "wurzel_vergessen",
+     "13,93": "hypotenuse_verwechselt",
+     "13.93": "hypotenuse_verwechselt",
+     "13,93 cm": "hypotenuse_verwechselt",
+     "13,93cm": "hypotenuse_verwechselt",
+     "144 cm": "wurzel_vergessen",
+     "144cm": "wurzel_vergessen",
+     "8 cm": "wurzel_gliedweise",
+     "8cm": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Satz des Pythagoras nach einer Kathete umstellen, Ergebnis ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12",
+      "12 cm",
+      "12cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "b² = c² − a² = 13² − 5² = 169 − 25 = 144.\nb = √144 = 12 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Quadrate addiert, als wäre die Hypotenuse gesucht: √(169 + 25).",
+       "socratic_question": "Kann eine Kathete länger sein als die Hypotenuse?"
+      },
+      {
+       "error": "b² = 144 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon b ausgerechnet oder erst b²?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: √(13² − 5²) als 13 − 5.",
+       "socratic_question": "Ist √(169 − 25) dasselbe wie √169 − √25?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (hypotenuse_verwechselt, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(12)",
+     "antwort": "12"
+    },
+    {
+     "rechnung": "round((139283882771841193384677389285132937061943/10000000000000000000000000000000000000000),2)",
+     "antwort": "13.93",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    },
+    {
+     "rechnung": "13^2-5^2",
+     "antwort": "144",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "13-5",
+     "antwort": "8",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "379ce518-9974-42dc-9e4b-df29741ba395",
+   "titel": "Kathete · Hypotenuse 10 cm, Kathete 7 cm, gerundet",
+   "basis": {
+    "skill_key": "geo_pythagoras_kathete",
+    "source_ref": "pyth-kathete-02",
+    "input_type": "NUMERIC",
+    "frage": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 10 cm lang und die Kathete a = 7 cm lang.\n\nWie lang ist die Kathete b? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "3": "wurzel_gliedweise",
+     "51": "wurzel_vergessen",
+     "12,21": "hypotenuse_verwechselt",
+     "12.21": "hypotenuse_verwechselt",
+     "12,21 cm": "hypotenuse_verwechselt",
+     "12,21cm": "hypotenuse_verwechselt",
+     "51,00": "wurzel_vergessen",
+     "51.00": "wurzel_vergessen",
+     "51,00 cm": "wurzel_vergessen",
+     "51,00cm": "wurzel_vergessen",
+     "51 cm": "wurzel_vergessen",
+     "51cm": "wurzel_vergessen",
+     "3,00": "wurzel_gliedweise",
+     "3.00": "wurzel_gliedweise",
+     "3,00 cm": "wurzel_gliedweise",
+     "3,00cm": "wurzel_gliedweise",
+     "3 cm": "wurzel_gliedweise",
+     "3cm": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Kathete berechnen, Wurzel aus einer Nicht-Quadratzahl runden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7,14",
+      "7.14",
+      "7,14 cm",
+      "7,14cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "b² = c² − a² = 10² − 7² = 100 − 49 = 51.\nb = √51 ≈ 7,14 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Quadrate addiert: √(100 + 49).",
+       "socratic_question": "Kann eine Kathete länger sein als die Hypotenuse?"
+      },
+      {
+       "error": "b² = 51 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Kann eine Kathete länger sein als die Hypotenuse mit 10 cm?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: b = 10 − 7.",
+       "socratic_question": "Ist √(100 − 49) dasselbe wie √100 − √49?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (hypotenuse_verwechselt, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((71414284285428499979993998113672652787661/10000000000000000000000000000000000000000),2)",
+     "antwort": "7.14"
+    },
+    {
+     "rechnung": "round((122065556157337029518978552566229541360871/10000000000000000000000000000000000000000),2)",
+     "antwort": "12.21",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    },
+    {
+     "rechnung": "round(10^2-7^2,2)",
+     "antwort": "51.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "round(10-7,2)",
+     "antwort": "3.00",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "add6cee8-f9f3-494f-a321-cfaed9f5ac35",
+   "titel": "Kathete · Hypotenuse 7,5 cm, Kathete 4,5 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_kathete",
+    "source_ref": "pyth-kathete-03",
+    "input_type": "NUMERIC",
+    "frage": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 7,5 cm lang und die Kathete a = 4,5 cm lang.\n\nWie lang ist die Kathete b? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "3": "wurzel_gliedweise",
+     "36": "wurzel_vergessen",
+     "8,75": "hypotenuse_verwechselt",
+     "8.75": "hypotenuse_verwechselt",
+     "8,75 cm": "hypotenuse_verwechselt",
+     "8,75cm": "hypotenuse_verwechselt",
+     "36 cm": "wurzel_vergessen",
+     "36cm": "wurzel_vergessen",
+     "3 cm": "wurzel_gliedweise",
+     "3cm": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Kathete aus Dezimalzahlen, Quadrate von Dezimalzahlen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6",
+      "6 cm",
+      "6cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "b² = 7,5² − 4,5² = 56,25 − 20,25 = 36.\nb = √36 = 6 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Quadrate addiert: √(56,25 + 20,25).",
+       "socratic_question": "Welche Seite liegt dem rechten Winkel bei C gegenüber?"
+      },
+      {
+       "error": "b² = 36 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Ist 36 schon die Länge oder erst ihr Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: b = 7,5 − 4,5.",
+       "socratic_question": "Ist √(56,25 − 20,25) dasselbe wie 7,5 − 4,5?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (hypotenuse_verwechselt, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(6)",
+     "antwort": "6"
+    },
+    {
+     "rechnung": "round((174928556845359014126224586326367492295641/20000000000000000000000000000000000000000),2)",
+     "antwort": "8.75",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    },
+    {
+     "rechnung": "7.5^2-4.5^2",
+     "antwort": "36",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "7.5-4.5",
+     "antwort": "3",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "215a71de-a9ba-4d97-a94a-929c62c88601",
+   "titel": "Kathete · Flächeninhalt aus Hypotenuse 25 cm und Kathete 7 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_kathete",
+    "source_ref": "pyth-kathete-04",
+    "input_type": "NUMERIC",
+    "frage": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 25 cm lang und die Kathete a = 7 cm lang.\n\nWie groß ist der Flächeninhalt des Dreiecks? Gib das Ergebnis exakt an.",
+    "unit": "cm²",
+    "known_errors": {
+     "24": "falsche_groesse_beantwortet",
+     "168": "halbieren_vergessen",
+     "24 cm²": "falsche_groesse_beantwortet",
+     "24cm²": "falsche_groesse_beantwortet",
+     "168 cm²": "halbieren_vergessen",
+     "168cm²": "halbieren_vergessen",
+     "90,87": "hypotenuse_verwechselt",
+     "90.87": "hypotenuse_verwechselt",
+     "90,87 cm²": "hypotenuse_verwechselt",
+     "90,87cm²": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: erst die fehlende Kathete, dann den Flächeninhalt des Dreiecks berechnen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "84",
+      "84 cm²",
+      "84cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "b² = 25² − 7² = 625 − 49 = 576, also b = 24 cm.\nDie Katheten stehen senkrecht aufeinander: A = a · b : 2 = 7 cm · 24 cm : 2 = 84 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Kathete b angegeben statt des Flächeninhalts.",
+       "socratic_question": "Ist nach einer Seite oder nach der Fläche gefragt?"
+      },
+      {
+       "error": "Beim Flächeninhalt nicht halbiert: 7 · 24.",
+       "socratic_question": "Welchen Teil des Rechtecks mit den Seiten 7 cm und 24 cm bedeckt das Dreieck?"
+      },
+      {
+       "error": "Für b die Quadrate addiert: √(625 + 49).",
+       "socratic_question": "Kann die Kathete b länger sein als die Hypotenuse?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, halbieren_vergessen, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "7*(24)/2",
+     "antwort": "84"
+    },
+    {
+     "rechnung": "(24)",
+     "antwort": "24",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "7*(24)",
+     "antwort": "168",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "round(7*(259615099714943391040703583282765081553059/10000000000000000000000000000000000000000)/2,2)",
+     "antwort": "90.87",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "d0420f33-ea7e-47ff-9556-520c72a5dc4c",
+   "titel": "Kathete · Drachen an 60 m Schnur",
+   "basis": {
+    "skill_key": "geo_pythagoras_kathete",
+    "source_ref": "pyth-kathete-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Drachen hängt an einer 60 m langen, straff gespannten Schnur, die direkt am Boden festgehalten wird. Der Drachen steht genau über einem Punkt am Boden, der 25 m von dieser Stelle entfernt ist.\n\nIn welcher Höhe fliegt der Drachen? Runde auf eine Stelle nach dem Komma.",
+    "unit": "m",
+    "known_errors": {
+     "35": "wurzel_gliedweise",
+     "65": "hypotenuse_verwechselt",
+     "2975": "wurzel_vergessen",
+     "65,0": "hypotenuse_verwechselt",
+     "65.0": "hypotenuse_verwechselt",
+     "65,0 m": "hypotenuse_verwechselt",
+     "65,0m": "hypotenuse_verwechselt",
+     "65 m": "hypotenuse_verwechselt",
+     "65m": "hypotenuse_verwechselt",
+     "2975 m": "wurzel_vergessen",
+     "2975m": "wurzel_vergessen",
+     "35,0": "wurzel_gliedweise",
+     "35.0": "wurzel_gliedweise",
+     "35,0 m": "wurzel_gliedweise",
+     "35,0m": "wurzel_gliedweise",
+     "35 m": "wurzel_gliedweise",
+     "35m": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Schnur als Hypotenuse erkennen, die Höhe ist eine Kathete."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "54,5",
+      "54.5",
+      "54,5 m",
+      "54,5m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Schnur (60 m) = Hypotenuse, Abstand am Boden (25 m) und Höhe h = Katheten.\nh² = 60² − 25² = 3600 − 625 = 2975.\nh = √2975 ≈ 54,5 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Quadrate addiert: √(3600 + 625).",
+       "socratic_question": "Kann der Drachen höher fliegen, als die Schnur lang ist?"
+      },
+      {
+       "error": "h² = 2975 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Kann der Drachen höher sein, als die Schnur lang ist?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: h = 60 − 25.",
+       "socratic_question": "Ist √(3600 − 625) dasselbe wie 60 − 25?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (hypotenuse_verwechselt, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((545435605731785720575107724368645093640256/10000000000000000000000000000000000000000),1)",
+     "antwort": "54.5"
+    },
+    {
+     "rechnung": "round((65),1)",
+     "antwort": "65.0",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    },
+    {
+     "rechnung": "60^2-25^2",
+     "antwort": "2975",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "round(60-25,1)",
+     "antwort": "35.0",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "4939a58d-47b1-4dc0-9ec9-e4e34a07c87e",
+   "titel": "Kathete · Höhe eines abgespannten Mastes",
+   "basis": {
+    "skill_key": "geo_pythagoras_kathete",
+    "source_ref": "pyth-kathete-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein senkrechter Mast wird mit einem 25 m langen, straff gespannten Seil gehalten. Das Seil ist am Boden 7 m vom Fuß des Mastes entfernt befestigt. Am Mast ist es 2 m unterhalb der Spitze befestigt.\n\nWie hoch ist der Mast? Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "20": "wurzel_gliedweise",
+     "24": "falsche_groesse_beantwortet",
+     "24 m": "falsche_groesse_beantwortet",
+     "24m": "falsche_groesse_beantwortet",
+     "27,96": "hypotenuse_verwechselt",
+     "27.96": "hypotenuse_verwechselt",
+     "27,96 m": "hypotenuse_verwechselt",
+     "27,96m": "hypotenuse_verwechselt",
+     "20 m": "wurzel_gliedweise",
+     "20m": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: rechtwinkliges Dreieck in der Situation finden, Kathete berechnen und das Reststück ergänzen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "26",
+      "26 m",
+      "26m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Seil (25 m) = Hypotenuse, Bodenabstand (7 m) = Kathete.\nBefestigungshöhe: √(25² − 7²) = √(625 − 49) = √576 = 24 m.\nMasthöhe: 24 m + 2 m = 26 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Höhe der Befestigung angegeben, die 2 m bis zur Spitze fehlen.",
+       "socratic_question": "Ist das Seil an der Spitze des Mastes befestigt?"
+      },
+      {
+       "error": "Die Quadrate addiert: √(625 + 49).",
+       "socratic_question": "Kann die Befestigung höher liegen, als das Seil lang ist?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: 25 − 7.",
+       "socratic_question": "Ist √(625 − 49) dasselbe wie 25 − 7?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, hypotenuse_verwechselt, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(24)+2",
+     "antwort": "26"
+    },
+    {
+     "rechnung": "(24)",
+     "antwort": "24",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round((259615099714943391040703583282765081553059/10000000000000000000000000000000000000000)+2,2)",
+     "antwort": "27.96",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    },
+    {
+     "rechnung": "25-7+2",
+     "antwort": "20",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "235952a2-3970-41ff-839c-51869e6f4878",
+   "titel": "Umkehrung · längste Seite zu 9 cm und 12 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_umkehrung",
+    "source_ref": "pyth-umkehrung-01",
+    "input_type": "NUMERIC",
+    "frage": "Die beiden kürzeren Seiten eines Dreiecks sind 9 cm und 12 cm lang.\n\nWie lang muss die längste Seite sein, damit das Dreieck rechtwinklig ist? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "21": "wurzel_gliedweise",
+     "225": "wurzel_vergessen",
+     "225 cm": "wurzel_vergessen",
+     "225cm": "wurzel_vergessen",
+     "21 cm": "wurzel_gliedweise",
+     "21cm": "wurzel_gliedweise",
+     "7,94": "hypotenuse_verwechselt",
+     "7.94": "hypotenuse_verwechselt",
+     "7,94 cm": "hypotenuse_verwechselt",
+     "7,94cm": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Länge der dritten Seite aus der Umkehrung a² + b² = c², Ergebnis ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "15",
+      "15 cm",
+      "15cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Rechtwinklig genau dann, wenn 9² + 12² = c² für die längste Seite c.\nc² = 81 + 144 = 225, c = √225 = 15 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "c² = 225 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon die Seitenlänge oder erst ihr Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: c = 9 + 12.",
+       "socratic_question": "Kann ein Dreieck eine Seite haben, die so lang ist wie die beiden anderen zusammen?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert: √(144 − 81).",
+       "socratic_question": "Soll die gesuchte Seite die längste oder eine kürzere sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, wurzel_gliedweise, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(15)",
+     "antwort": "15"
+    },
+    {
+     "rechnung": "9^2+12^2",
+     "antwort": "225",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "9+12",
+     "antwort": "21",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "round((79372539331937717715048472609177812771307/10000000000000000000000000000000000000000),2)",
+     "antwort": "7.94",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "893d7877-d9bd-4fa0-88b7-eb36f6bbadad",
+   "titel": "Umkehrung · welches der vier Dreiecke ist rechtwinklig?",
+   "basis": {
+    "skill_key": "geo_pythagoras_umkehrung",
+    "source_ref": "pyth-umkehrung-02",
+    "input_type": "NUMERIC",
+    "frage": "Genau eines der vier Dreiecke ist rechtwinklig.\n(1) 5 cm, 6 cm, 8 cm\n(2) 7 cm, 24 cm, 25 cm\n(3) 5 cm, 7 cm, 8,6 cm\n(4) 2 cm, 2,5 cm, 3 cm\n\nGib die Nummer des rechtwinkligen Dreiecks an. Die Antwort ist eine ganze Zahl.",
+    "known_errors": {
+     "3": "zu_frueh_gerundet",
+     "4": "mal_exponent",
+     "+3": "zu_frueh_gerundet",
+     "+4": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: a² + b² = c² für vier gegebene Dreiecke prüfen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2",
+      "+2"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Prüfe jeweils: Summe der Quadrate der kürzeren Seiten = Quadrat der längsten Seite?\n(1) 25 + 36 = 61, 8² = 64: nein.\n(2) 49 + 576 = 625, 25² = 625: ja.\n(3) 25 + 49 = 74, 8,6² = 73,96: nein (nur ungefähr).\n(4) 4 + 6,25 = 10,25, 3² = 9: nein.\nRechtwinklig ist Dreieck 2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Dreieck (3) gewählt: √74 ≈ 8,6 wie eine Gleichheit behandelt, dabei ist 8,6² = 73,96 und nicht 74.",
+       "socratic_question": "Ist 8,6² genau 74 oder nur ungefähr?"
+      },
+      {
+       "error": "Dreieck (4) gewählt: 2,5² als 2 · 2,5 = 5 gerechnet, dann 4 + 5 = 9 = 3².",
+       "socratic_question": "Was ist 2,5²: 2,5 · 2 oder 2,5 · 2,5?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zu_frueh_gerundet, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2",
+     "antwort": "2"
+    },
+    {
+     "rechnung": "3",
+     "antwort": "3",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    },
+    {
+     "rechnung": "4",
+     "antwort": "4",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "070f3609-9adf-4c66-adaf-daabe4ae276c",
+   "titel": "Umkehrung · Abstand zur Rechtwinkligkeit bei 6, 7, 9 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_umkehrung",
+    "source_ref": "pyth-umkehrung-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein Dreieck hat die Seitenlängen 6 cm, 7 cm und 9 cm. Mit a und b sind die beiden kürzeren Seiten gemeint, mit c die längste.\n\nUm wie viele Quadratzentimeter ist a² + b² größer als c²? Gib das Ergebnis exakt an.",
+    "unit": "cm²",
+    "known_errors": {
+     "8": "mal_exponent",
+     "68": "hypotenuse_verwechselt",
+     "85": "falsche_groesse_beantwortet",
+     "68 cm²": "hypotenuse_verwechselt",
+     "68cm²": "hypotenuse_verwechselt",
+     "8 cm²": "mal_exponent",
+     "8cm²": "mal_exponent",
+     "85 cm²": "falsche_groesse_beantwortet",
+     "85cm²": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Summe der Kathetenquadrate mit dem Quadrat der längsten Seite vergleichen und den Unterschied angeben."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "4 cm²",
+      "4cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "a² + b² = 6² + 7² = 36 + 49 = 85.\nc² = 9² = 81.\n85 − 81 = 4 cm². Das Dreieck ist also nicht rechtwinklig.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die falsche Seite als c genommen: 6² + 9² − 7².",
+       "socratic_question": "Welche der drei Seiten ist die längste?"
+      },
+      {
+       "error": "Quadrate als Verdopplung gerechnet: 2 · 6 + 2 · 7 − 2 · 9.",
+       "socratic_question": "Was bedeutet 6²: 6 · 2 oder 6 · 6?"
+      },
+      {
+       "error": "Nur a² + b² angegeben statt des Unterschieds zu c².",
+       "socratic_question": "Gefragt ist, um wie viel a² + b² größer ist – was fehlt noch?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (hypotenuse_verwechselt, mal_exponent, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "6^2+7^2-9^2",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "6^2+9^2-7^2",
+     "antwort": "68",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    },
+    {
+     "rechnung": "2*6+2*7-2*9",
+     "antwort": "8",
+     "rolle": "fehlbild:mal_exponent:"
+    },
+    {
+     "rechnung": "6^2+7^2",
+     "antwort": "85",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "1a311c06-45ab-49c7-a4bf-413242d50c6a",
+   "titel": "Umkehrung · wie viel länger müsste die längste Seite sein?",
+   "basis": {
+    "skill_key": "geo_pythagoras_umkehrung",
+    "source_ref": "pyth-umkehrung-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein Dreieck hat die Seitenlängen 2,5 cm, 4 cm und 4,5 cm.\n\nUm wie viele Zentimeter müsste die längste Seite länger sein, damit das Dreieck mit den beiden anderen Seiten rechtwinklig wird? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "2": "wurzel_vergessen",
+     "2 cm": "wurzel_vergessen",
+     "2cm": "wurzel_vergessen",
+     "4,72": "falsche_groesse_beantwortet",
+     "4.72": "falsche_groesse_beantwortet",
+     "4,72 cm": "falsche_groesse_beantwortet",
+     "4,72cm": "falsche_groesse_beantwortet",
+     "0,20": "zu_frueh_gerundet",
+     "0.20": "zu_frueh_gerundet",
+     "0,2": "zu_frueh_gerundet",
+     "0.2": "zu_frueh_gerundet",
+     "0,20 cm": "zu_frueh_gerundet",
+     "0,20cm": "zu_frueh_gerundet",
+     "0,2 cm": "zu_frueh_gerundet",
+     "0,2cm": "zu_frueh_gerundet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Soll-Länge der längsten Seite aus der Umkehrung bestimmen und mit der Ist-Länge vergleichen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,22",
+      "0.22",
+      "0,22 cm",
+      "0,22cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Für einen rechten Winkel müsste die längste Seite √(2,5² + 4²) = √(6,25 + 16) = √22,25 ≈ 4,717 cm lang sein.\n4,717 cm − 4,5 cm ≈ 0,22 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Quadrate verglichen: 22,25 − 20,25 = 2, ohne Wurzel.",
+       "socratic_question": "Ist nach einem Unterschied von Längen oder von Quadraten gefragt?"
+      },
+      {
+       "error": "Die nötige Länge der Seite angegeben statt des Unterschieds.",
+       "socratic_question": "Gefragt ist, um wie viel die Seite länger sein müsste – was fehlt noch?"
+      },
+      {
+       "error": "√22,25 vorher auf 4,7 gerundet: 4,7 − 4,5 = 0,2.",
+       "socratic_question": "Was passiert mit einem kleinen Unterschied, wenn du vorher rundest?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, falsche_groesse_beantwortet, zu_frueh_gerundet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((188679622641132076226413207552452814339672/40000000000000000000000000000000000000000)-4.5,2)",
+     "antwort": "0.22"
+    },
+    {
+     "rechnung": "2.5^2+4^2-4.5^2",
+     "antwort": "2",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "round((188679622641132076226413207552452814339672/40000000000000000000000000000000000000000),2)",
+     "antwort": "4.72",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round(4.7-4.5,2)",
+     "antwort": "0.20",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "8ea1d77f-e430-4e8d-8fbd-8258f50c9133",
+   "titel": "Umkehrung · rechte Ecke beim Abstecken",
+   "basis": {
+    "skill_key": "geo_pythagoras_umkehrung",
+    "source_ref": "pyth-umkehrung-05",
+    "input_type": "NUMERIC",
+    "frage": "Beim Bau eines Gartenhauses soll eine Ecke genau rechtwinklig werden. Von der Ecke aus wird auf der einen Seite 1,2 m abgemessen, auf der anderen Seite 1,6 m. Die beiden Endpunkte werden markiert.\n\nWie groß muss der Abstand der beiden Markierungen sein, damit die Ecke ein rechter Winkel ist? Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "4": "wurzel_vergessen",
+     "4 m": "wurzel_vergessen",
+     "4m": "wurzel_vergessen",
+     "2,8": "wurzel_gliedweise",
+     "2.8": "wurzel_gliedweise",
+     "2,8 m": "wurzel_gliedweise",
+     "2,8m": "wurzel_gliedweise",
+     "1,06": "hypotenuse_verwechselt",
+     "1.06": "hypotenuse_verwechselt",
+     "1,06 m": "hypotenuse_verwechselt",
+     "1,06m": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Die Umkehrung des Satzes als Prüfverfahren für einen rechten Winkel erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2",
+      "2 m",
+      "2m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Ecke ist genau dann rechtwinklig, wenn der Abstand d die Gleichung 1,2² + 1,6² = d² erfüllt.\nd² = 1,44 + 2,56 = 4, d = √4 = 2 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "d² = 4 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Ist 4 schon der Abstand oder erst sein Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: d = 1,2 + 1,6.",
+       "socratic_question": "Ist der direkte Abstand so lang wie beide Seiten zusammen?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert: √(2,56 − 1,44).",
+       "socratic_question": "Liegt der gesuchte Abstand dem rechten Winkel gegenüber?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, wurzel_gliedweise, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(2)",
+     "antwort": "2"
+    },
+    {
+     "rechnung": "1.2^2+1.6^2",
+     "antwort": "4",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "1.2+1.6",
+     "antwort": "2.8",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "round((264575131106459059050161575363926042571025/250000000000000000000000000000000000000000),2)",
+     "antwort": "1.06",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "52d53fbc-2b53-48ec-a0b7-77f99826aa4d",
+   "titel": "Umkehrung · Latte um wie viele Zentimeter kürzen?",
+   "basis": {
+    "skill_key": "geo_pythagoras_umkehrung",
+    "source_ref": "pyth-umkehrung-06",
+    "input_type": "NUMERIC",
+    "frage": "Aus drei Latten wird ein Dreieck gelegt. Die beiden kürzeren Latten sind 3 m und 4 m lang, die längste ist 5,10 m lang. Der Winkel zwischen den beiden kürzeren Latten soll ein rechter Winkel werden.\n\nUm wie viele Zentimeter muss die längste Latte dafür gekürzt werden? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "101": "wurzel_vergessen",
+     "500": "falsche_groesse_beantwortet",
+     "500 cm": "falsche_groesse_beantwortet",
+     "500cm": "falsche_groesse_beantwortet",
+     "0,1": "einheit_uebersprungen",
+     "0.1": "einheit_uebersprungen",
+     "0,1 cm": "einheit_uebersprungen",
+     "0,1cm": "einheit_uebersprungen",
+     "101 cm": "wurzel_vergessen",
+     "101cm": "wurzel_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Soll-Länge über die Umkehrung bestimmen, mit der Ist-Länge vergleichen und in Zentimeter umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "10 cm",
+      "10cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Für einen rechten Winkel muss die längste Seite √(3² + 4²) m = √25 m = 5 m = 500 cm lang sein.\n510 cm − 500 cm = 10 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die nötige Länge der Latte angegeben statt des Stücks, das ab muss.",
+       "socratic_question": "Gefragt ist, wie viel abgesägt wird – was fehlt noch?"
+      },
+      {
+       "error": "Den Unterschied in Metern angegeben: 0,1.",
+       "socratic_question": "In welcher Einheit ist das Ergebnis gefragt?"
+      },
+      {
+       "error": "Nur die Quadrate verglichen: 26,01 − 25 = 1,01, ohne Wurzel, dann mal 100.",
+       "socratic_question": "Ist nach einem Unterschied von Längen oder von Quadraten gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, einheit_uebersprungen, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "510-(500)",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "(500)",
+     "antwort": "500",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "5.1-(5)",
+     "antwort": "0.1",
+     "rolle": "fehlbild:einheit_uebersprungen:"
+    },
+    {
+     "rechnung": "(5.1^2-(3^2+4^2))*100",
+     "antwort": "101",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "dacb0349-eb7f-428d-8c25-85a9dc562474",
+   "titel": "Abstand · P(1|2) und Q(4|6)",
+   "basis": {
+    "skill_key": "geo_pythagoras_abstand",
+    "source_ref": "pyth-abstand-01",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben sind die Punkte P(1|2) und Q(4|6) in einem Koordinatensystem.\n\nWie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "7": "wurzel_gliedweise",
+     "25": "wurzel_vergessen",
+     "+25": "wurzel_vergessen",
+     "+7": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Koordinatendifferenzen bilden und den Satz des Pythagoras anwenden, Ergebnis ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5",
+      "+5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Unterschied der x-Werte: 4 − 1 = 3, der y-Werte: 6 − 2 = 4.\nAbstand² = 3² + 4² = 9 + 16 = 25.\nAbstand = √25 = 5 Längeneinheiten.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Abstand² = 25 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon den Abstand oder erst sein Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: 3 + 4.",
+       "socratic_question": "Ist der direkte Weg so lang wie der Weg erst nach rechts und dann nach oben?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(5)",
+     "antwort": "5"
+    },
+    {
+     "rechnung": "3^2+4^2",
+     "antwort": "25",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "3+4",
+     "antwort": "7",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "719b3012-468a-48c0-8105-66f02c75fb0f",
+   "titel": "Abstand · zwei Punkte aus der Abbildung",
+   "basis": {
+    "skill_key": "geo_pythagoras_abstand",
+    "source_ref": "pyth-abstand-02",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt die Punkte P und Q in einem Koordinatensystem.\n\nLies ihre Koordinaten ab. Wie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an.",
+    "figur": {
+     "params": {
+      "x_min": -1,
+      "x_max": 8,
+      "y_min": -1,
+      "y_max": 10,
+      "punkte": [
+       {
+        "x": 1,
+        "y": 1,
+        "label": "P"
+       },
+       {
+        "x": 7,
+        "y": 9,
+        "label": "Q"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter und den Punkten P und Q."
+    },
+    "known_errors": {
+     "14": "wurzel_gliedweise",
+     "100": "wurzel_vergessen",
+     "+100": "wurzel_vergessen",
+     "+14": "wurzel_gliedweise",
+     "5,29": "hypotenuse_verwechselt",
+     "+5,29": "hypotenuse_verwechselt",
+     "5.29": "hypotenuse_verwechselt",
+     "+5.29": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Koordinaten im ersten Quadranten ablesen, Abstand mit dem Satz des Pythagoras, Ergebnis ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "+10"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Abgelesen: P(1|1), Q(7|9).\nUnterschied der x-Werte: 7 − 1 = 6, der y-Werte: 9 − 1 = 8.\nAbstand = √(6² + 8²) = √(36 + 64) = √100 = 10 Längeneinheiten.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Abstand² = 100 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon den Abstand oder erst sein Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: 6 + 8.",
+       "socratic_question": "Ist der direkte Weg so lang wie der Weg erst nach rechts und dann nach oben?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert: √(64 − 36).",
+       "socratic_question": "Ist der Abstand länger oder kürzer als die beiden Koordinatenunterschiede?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, wurzel_gliedweise, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(10)",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "6^2+8^2",
+     "antwort": "100",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "6+8",
+     "antwort": "14",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "round((52915026221291811810032315072785208514205/10000000000000000000000000000000000000000),2)",
+     "antwort": "5.29",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "b64244f5-d5d9-44f3-b0f9-cc51c25bef4c",
+   "titel": "Abstand · P(−2|3) und Q(4|−5) über die Achsen",
+   "basis": {
+    "skill_key": "geo_pythagoras_abstand",
+    "source_ref": "pyth-abstand-03",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben sind die Punkte P(−2|3) und Q(4|−5) in einem Koordinatensystem.\n\nWie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "14": "wurzel_gliedweise",
+     "100": "wurzel_vergessen",
+     "2,83": "vorzeichen_ignoriert",
+     "+2,83": "vorzeichen_ignoriert",
+     "2.83": "vorzeichen_ignoriert",
+     "+2.83": "vorzeichen_ignoriert",
+     "+100": "wurzel_vergessen",
+     "+14": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Koordinatendifferenzen über die Achsen hinweg mit Vorzeichen bilden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "+10"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Unterschied der x-Werte: 4 − (−2) = 6, der y-Werte: 3 − (−5) = 8.\nAbstand² = 6² + 8² = 36 + 64 = 100.\nAbstand = √100 = 10 Längeneinheiten.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Vorzeichen übersehen: 4 − 2 = 2 und 5 − 3 = 2, also √8.",
+       "socratic_question": "Wie viele Einheiten liegen auf der x-Achse zwischen −2 und 4?"
+      },
+      {
+       "error": "Abstand² = 100 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon den Abstand oder erst sein Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: 6 + 8.",
+       "socratic_question": "Ist √(36 + 64) dasselbe wie 6 + 8?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_ignoriert, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(10)",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "round((28284271247461900976033774484193961571393/10000000000000000000000000000000000000000),2)",
+     "antwort": "2.83",
+     "rolle": "fehlbild:vorzeichen_ignoriert:"
+    },
+    {
+     "rechnung": "6^2+8^2",
+     "antwort": "100",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "6+8",
+     "antwort": "14",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "d60ffe34-b219-4cfb-9eb6-727185238880",
+   "titel": "Abstand · zwei Punkte über die Achsen aus der Abbildung, gerundet",
+   "basis": {
+    "skill_key": "geo_pythagoras_abstand",
+    "source_ref": "pyth-abstand-04",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt die Punkte P und Q in einem Koordinatensystem.\n\nLies ihre Koordinaten ab. Wie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Runde auf zwei Stellen nach dem Komma.",
+    "figur": {
+     "params": {
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "punkte": [
+       {
+        "x": -3,
+        "y": 2,
+        "label": "P"
+       },
+       {
+        "x": 2,
+        "y": -1,
+        "label": "Q"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter und den Punkten P und Q."
+    },
+    "known_errors": {
+     "8": "wurzel_gliedweise",
+     "34": "wurzel_vergessen",
+     "1,41": "vorzeichen_ignoriert",
+     "+1,41": "vorzeichen_ignoriert",
+     "1.41": "vorzeichen_ignoriert",
+     "+1.41": "vorzeichen_ignoriert",
+     "+34": "wurzel_vergessen",
+     "+8": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Koordinaten in verschiedenen Quadranten ablesen, Differenzen mit Vorzeichen, Wurzel runden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5,83",
+      "+5,83",
+      "5.83",
+      "+5.83"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Abgelesen: P(−3|2), Q(2|−1).\nUnterschied der x-Werte: 2 − (−3) = 5, der y-Werte: 2 − (−1) = 3.\nAbstand = √(5² + 3²) = √(25 + 9) = √34 ≈ 5,83 Längeneinheiten.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Vorzeichen übersehen: 3 − 2 = 1 und 2 − 1 = 1, also √2.",
+       "socratic_question": "Wie viele Kästchen liegen zwischen P und Q in x-Richtung?"
+      },
+      {
+       "error": "Abstand² = 34 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon den Abstand oder erst sein Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: 5 + 3.",
+       "socratic_question": "Ist der direkte Weg so lang wie der Weg über die Kästchenlinien?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_ignoriert, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((58309518948453004708741528775455830765213/10000000000000000000000000000000000000000),2)",
+     "antwort": "5.83"
+    },
+    {
+     "rechnung": "round((14142135623730950488016887242096980785696/10000000000000000000000000000000000000000),2)",
+     "antwort": "1.41",
+     "rolle": "fehlbild:vorzeichen_ignoriert:"
+    },
+    {
+     "rechnung": "5^2+3^2",
+     "antwort": "34",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "5+3",
+     "antwort": "8",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "16d86280-3377-44a8-b009-07801586c50c",
+   "titel": "Abstand · Hafen und Leuchtturm auf einer Karte",
+   "basis": {
+    "skill_key": "geo_pythagoras_abstand",
+    "source_ref": "pyth-abstand-05",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt eine Karte mit Gitter. Der Punkt H ist ein Hafen, der Punkt L ein Leuchtturm. Eine Längeneinheit entspricht 1 km.\n\nWie weit ist der Leuchtturm in Luftlinie vom Hafen entfernt? Runde auf eine Stelle nach dem Komma.",
+    "unit": "km",
+    "figur": {
+     "params": {
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -3,
+      "y_max": 5,
+      "punkte": [
+       {
+        "x": -4,
+        "y": -2,
+        "label": "H"
+       },
+       {
+        "x": 3,
+        "y": 4,
+        "label": "L"
+       }
+      ]
+     },
+     "alt_text": "Karte als Koordinatensystem mit Gitter und den Punkten H und L."
+    },
+    "known_errors": {
+     "13": "wurzel_gliedweise",
+     "85": "wurzel_vergessen",
+     "2,2": "vorzeichen_ignoriert",
+     "2.2": "vorzeichen_ignoriert",
+     "2,2 km": "vorzeichen_ignoriert",
+     "2,2km": "vorzeichen_ignoriert",
+     "85 km": "wurzel_vergessen",
+     "85km": "wurzel_vergessen",
+     "13 km": "wurzel_gliedweise",
+     "13km": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Karte als Koordinatensystem lesen, Luftlinie als Abstand zweier Punkte berechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9,2",
+      "9.2",
+      "9,2 km",
+      "9,2km"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Abgelesen: H(−4|−2), L(3|4).\nUnterschied der x-Werte: 3 − (−4) = 7, der y-Werte: 4 − (−2) = 6.\nAbstand = √(7² + 6²) = √(49 + 36) = √85 ≈ 9,2 km.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Vorzeichen übersehen: 4 − 3 = 1 und 4 − 2 = 2, also √5.",
+       "socratic_question": "Wie viele Kästchen liegen zwischen H und L in x-Richtung?"
+      },
+      {
+       "error": "Abstand² = 85 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Kann die Luftlinie länger sein als der Weg entlang der Gitterlinien?"
+      },
+      {
+       "error": "Die Wege entlang der Gitterlinien addiert: 7 + 6.",
+       "socratic_question": "Ist die Luftlinie so lang wie der Weg erst nach rechts und dann nach oben?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_ignoriert, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((92195444572928873100022742817627931572468/10000000000000000000000000000000000000000),1)",
+     "antwort": "9.2"
+    },
+    {
+     "rechnung": "round((22360679774997896964091736687312762354406/10000000000000000000000000000000000000000),1)",
+     "antwort": "2.2",
+     "rolle": "fehlbild:vorzeichen_ignoriert:"
+    },
+    {
+     "rechnung": "7^2+6^2",
+     "antwort": "85",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "7+6",
+     "antwort": "13",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "79cd7e85-5477-4cf6-b8ef-9b5899215087",
+   "titel": "Abstand · fehlende Koordinate aus dem Abstand",
+   "basis": {
+    "skill_key": "geo_pythagoras_abstand",
+    "source_ref": "pyth-abstand-06",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben sind die Punkte P(−2|1) und Q(x|−5). Q liegt rechts von P. Der Abstand der Punkte P und Q beträgt 10 Längeneinheiten.\n\nWie groß ist die x-Koordinate von Q? Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "2": "wurzel_gliedweise",
+     "8": "falsche_groesse_beantwortet",
+     "62": "wurzel_vergessen",
+     "+8": "falsche_groesse_beantwortet",
+     "+2": "wurzel_gliedweise",
+     "+62": "wurzel_vergessen",
+     "7,17": "vorzeichen_ignoriert",
+     "+7,17": "vorzeichen_ignoriert",
+     "7.17": "vorzeichen_ignoriert",
+     "+7.17": "vorzeichen_ignoriert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung – aus Abstand und einer Koordinatendifferenz die andere Differenz und daraus die Koordinate bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6",
+      "+6"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Unterschied der y-Werte: 1 − (−5) = 6.\nUnterschied der x-Werte: √(10² − 6²) = √(100 − 36) = √64 = 8.\nQ liegt rechts von P: x = −2 + 8 = 6.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Unterschied der x-Werte angegeben statt der Koordinate von Q.",
+       "socratic_question": "Bei welcher x-Koordinate beginnst du, wenn du von P aus 8 Einheiten nach rechts gehst?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: √(10² − 6²) als 10 − 6.",
+       "socratic_question": "Ist √(100 − 36) dasselbe wie 10 − 6?"
+      },
+      {
+       "error": "Den x-Unterschied als 64 genommen, ohne die Wurzel zu ziehen.",
+       "socratic_question": "Ist 64 schon der Unterschied der x-Werte oder erst sein Quadrat?"
+      },
+      {
+       "error": "Die Vorzeichen übersehen: y-Unterschied 5 − 1 = 4 statt 6.",
+       "socratic_question": "Wie viele Einheiten liegen auf der y-Achse zwischen 1 und −5?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, wurzel_gliedweise, wurzel_vergessen, vorzeichen_ignoriert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0-2+(8)",
+     "antwort": "6"
+    },
+    {
+     "rechnung": "(8)",
+     "antwort": "8",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "0-2+(10-6)",
+     "antwort": "2",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "0-2+(10^2-6^2)",
+     "antwort": "62",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "round(0-2+(91651513899116800131760943874560169779689/10000000000000000000000000000000000000000),2)",
+     "antwort": "7.17",
+     "rolle": "fehlbild:vorzeichen_ignoriert:"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "21d8e109-03dd-4958-ab1f-4a9a2ba88a81",
+   "titel": "Anwendung · Diagonale eines Rechtecks 12 cm × 5 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_anwendung",
+    "source_ref": "pyth-anwendung-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein Rechteck ist 12 cm lang und 5 cm breit.\n\nWie lang ist seine Diagonale? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "17": "wurzel_gliedweise",
+     "169": "wurzel_vergessen",
+     "17 cm": "wurzel_gliedweise",
+     "17cm": "wurzel_gliedweise",
+     "169 cm": "wurzel_vergessen",
+     "169cm": "wurzel_vergessen",
+     "10,91": "hypotenuse_verwechselt",
+     "10.91": "hypotenuse_verwechselt",
+     "10,91 cm": "hypotenuse_verwechselt",
+     "10,91cm": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Diagonale als Hypotenuse im Rechteck erkennen, Ergebnis ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "13",
+      "13 cm",
+      "13cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Diagonale teilt das Rechteck in zwei rechtwinklige Dreiecke; sie ist die Hypotenuse.\nd² = 12² + 5² = 144 + 25 = 169.\nd = √169 = 13 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: d = 12 + 5.",
+       "socratic_question": "Ist die Diagonale so lang wie zwei Seiten zusammen?"
+      },
+      {
+       "error": "d² = 169 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon die Diagonale oder erst ihr Quadrat?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert: √(144 − 25).",
+       "socratic_question": "Kann die Diagonale kürzer sein als die lange Seite?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_gliedweise, wurzel_vergessen, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(13)",
+     "antwort": "13"
+    },
+    {
+     "rechnung": "12+5",
+     "antwort": "17",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    },
+    {
+     "rechnung": "12^2+5^2",
+     "antwort": "169",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "round((109087121146357144115021544873729018728051/10000000000000000000000000000000000000000),2)",
+     "antwort": "10.91",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "58c917d7-182f-4591-be02-374e86a79e41",
+   "titel": "Anwendung · Höhe eines gleichseitigen Dreiecks mit 6 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_anwendung",
+    "source_ref": "pyth-anwendung-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein gleichseitiges Dreieck hat die Seitenlänge 6 cm.\n\nWie lang ist seine Höhe? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "3": "wurzel_gliedweise",
+     "27": "wurzel_vergessen",
+     "6,71": "hypotenuse_verwechselt",
+     "6.71": "hypotenuse_verwechselt",
+     "6,71 cm": "hypotenuse_verwechselt",
+     "6,71cm": "hypotenuse_verwechselt",
+     "27,00": "wurzel_vergessen",
+     "27.00": "wurzel_vergessen",
+     "27,00 cm": "wurzel_vergessen",
+     "27,00cm": "wurzel_vergessen",
+     "27 cm": "wurzel_vergessen",
+     "27cm": "wurzel_vergessen",
+     "3,00": "wurzel_gliedweise",
+     "3.00": "wurzel_gliedweise",
+     "3,00 cm": "wurzel_gliedweise",
+     "3,00cm": "wurzel_gliedweise",
+     "3 cm": "wurzel_gliedweise",
+     "3cm": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Höhe teilt das gleichseitige Dreieck in zwei rechtwinklige Dreiecke mit halber Grundseite."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5,20",
+      "5.20",
+      "5,2",
+      "5.2",
+      "5,20 cm",
+      "5,20cm",
+      "5,2 cm",
+      "5,2cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Höhe halbiert die Grundseite: rechtwinkliges Dreieck mit Hypotenuse 6 cm und Kathete 3 cm.\nh² = 6² − 3² = 36 − 9 = 27.\nh = √27 ≈ 5,20 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Quadrate addiert: √(36 + 9).",
+       "socratic_question": "Kann die Höhe länger sein als eine Seite des Dreiecks?"
+      },
+      {
+       "error": "h² = 27 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Kann die Höhe länger sein als eine Seite des Dreiecks?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: h = 6 − 3.",
+       "socratic_question": "Ist √(36 − 9) dasselbe wie 6 − 3?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (hypotenuse_verwechselt, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((51961524227066318805823390245176171008284/10000000000000000000000000000000000000000),2)",
+     "antwort": "5.20"
+    },
+    {
+     "rechnung": "round((67082039324993690892275210061938287063218/10000000000000000000000000000000000000000),2)",
+     "antwort": "6.71",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    },
+    {
+     "rechnung": "round(6^2-3^2,2)",
+     "antwort": "27.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "round(6-3,2)",
+     "antwort": "3.00",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "437b6af2-c70c-4dc8-9f6b-9e155757405a",
+   "titel": "Anwendung · Raumdiagonale eines Quaders 4 × 6 × 10 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_anwendung",
+    "source_ref": "pyth-anwendung-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein Quader ist 4 cm breit, 6 cm tief und 10 cm hoch.\n\nWie lang ist seine Raumdiagonale? Runde auf eine Stelle nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "20": "wurzel_gliedweise",
+     "152": "wurzel_vergessen",
+     "7,2": "falsche_groesse_beantwortet",
+     "7.2": "falsche_groesse_beantwortet",
+     "7,2 cm": "falsche_groesse_beantwortet",
+     "7,2cm": "falsche_groesse_beantwortet",
+     "152 cm": "wurzel_vergessen",
+     "152cm": "wurzel_vergessen",
+     "20 cm": "wurzel_gliedweise",
+     "20cm": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: zweimal Satz des Pythagoras – erst Flächendiagonale der Grundfläche, dann Raumdiagonale."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12,3",
+      "12.3",
+      "12,3 cm",
+      "12,3cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Diagonale der Grundfläche: e² = 4² + 6² = 16 + 36 = 52.\nRaumdiagonale: d² = e² + 10² = 52 + 100 = 152.\nd = √152 ≈ 12,3 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Diagonale der Grundfläche angegeben, nicht die Raumdiagonale.",
+       "socratic_question": "Geht deine Diagonale auch durch den Raum nach oben?"
+      },
+      {
+       "error": "d² = 152 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon die Diagonale oder erst ihr Quadrat?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: 4 + 6 + 10.",
+       "socratic_question": "Ist die Raumdiagonale so lang wie alle drei Kanten zusammen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((123288280059379529005003847629084884504712/10000000000000000000000000000000000000000),1)",
+     "antwort": "12.3"
+    },
+    {
+     "rechnung": "round((72111025509279785862384425349409918925025/10000000000000000000000000000000000000000),1)",
+     "antwort": "7.2",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "4^2+6^2+10^2",
+     "antwort": "152",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "4+6+10",
+     "antwort": "20",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "a21f48d2-f097-495a-91ed-093327524d91",
+   "titel": "Anwendung · Flächeninhalt eines gleichseitigen Dreiecks mit 8 cm",
+   "basis": {
+    "skill_key": "geo_pythagoras_anwendung",
+    "source_ref": "pyth-anwendung-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein gleichseitiges Dreieck hat die Seitenlänge 8 cm.\n\nWie groß ist sein Flächeninhalt? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm²",
+    "known_errors": {
+     "55,43": "halbieren_vergessen",
+     "55.43": "halbieren_vergessen",
+     "55,43 cm²": "halbieren_vergessen",
+     "55,43cm²": "halbieren_vergessen",
+     "6,93": "falsche_groesse_beantwortet",
+     "6.93": "falsche_groesse_beantwortet",
+     "6,93 cm²": "falsche_groesse_beantwortet",
+     "6,93cm²": "falsche_groesse_beantwortet",
+     "35,78": "hypotenuse_verwechselt",
+     "35.78": "hypotenuse_verwechselt",
+     "35,78 cm²": "hypotenuse_verwechselt",
+     "35,78cm²": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Höhe mit dem Satz des Pythagoras, dann Flächeninhalt des Dreiecks."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "27,71",
+      "27.71",
+      "27,71 cm²",
+      "27,71cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Höhe: h² = 8² − 4² = 64 − 16 = 48, h = √48 ≈ 6,928 cm.\nA = g · h : 2 = 8 cm · √48 cm : 2 ≈ 27,71 cm².\n(Erst am Ende runden.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Beim Flächeninhalt nicht halbiert: 8 · h.",
+       "socratic_question": "Welcher Teil des Rechtecks mit den Seiten g und h ist das Dreieck?"
+      },
+      {
+       "error": "Nur die Höhe angegeben statt des Flächeninhalts.",
+       "socratic_question": "Ist nach der Höhe oder nach der Fläche gefragt?"
+      },
+      {
+       "error": "Für die Höhe die Quadrate addiert: √(64 + 16).",
+       "socratic_question": "Kann die Höhe länger sein als eine Seite des Dreiecks?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, falsche_groesse_beantwortet, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(8*(69282032302755091741097853660234894677712/10000000000000000000000000000000000000000)/2,2)",
+     "antwort": "27.71"
+    },
+    {
+     "rechnung": "round(8*(69282032302755091741097853660234894677712/10000000000000000000000000000000000000000),2)",
+     "antwort": "55.43",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "round((69282032302755091741097853660234894677712/10000000000000000000000000000000000000000),2)",
+     "antwort": "6.93",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round(8*(89442719099991587856366946749251049417624/10000000000000000000000000000000000000000)/2,2)",
+     "antwort": "35.78",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "208e0467-be77-4c56-9135-c9c93554aefd",
+   "titel": "Anwendung · Leiter an einer Wand",
+   "basis": {
+    "skill_key": "geo_pythagoras_anwendung",
+    "source_ref": "pyth-anwendung-05",
+    "input_type": "NUMERIC",
+    "frage": "Eine 5 m lange Leiter lehnt an einer senkrechten Hauswand. Ihr Fuß steht auf ebenem Boden 1,4 m von der Wand entfernt.\n\nIn welcher Höhe berührt die Leiter die Wand? Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "5,19": "hypotenuse_verwechselt",
+     "5.19": "hypotenuse_verwechselt",
+     "5,19 m": "hypotenuse_verwechselt",
+     "5,19m": "hypotenuse_verwechselt",
+     "23,04": "wurzel_vergessen",
+     "23.04": "wurzel_vergessen",
+     "23,04 m": "wurzel_vergessen",
+     "23,04m": "wurzel_vergessen",
+     "3,6": "wurzel_gliedweise",
+     "3.6": "wurzel_gliedweise",
+     "3,6 m": "wurzel_gliedweise",
+     "3,6m": "wurzel_gliedweise"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Leiter als Hypotenuse, Wandhöhe als Kathete erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4,8",
+      "4.8",
+      "4,8 m",
+      "4,8m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Leiter (5 m) = Hypotenuse, Bodenabstand (1,4 m) und Höhe h = Katheten.\nh² = 5² − 1,4² = 25 − 1,96 = 23,04.\nh = √23,04 = 4,8 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Quadrate addiert: √(25 + 1,96).",
+       "socratic_question": "Kann die Leiter höher reichen, als sie lang ist?"
+      },
+      {
+       "error": "h² = 23,04 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Kann die Leiter höher reichen, als sie lang ist?"
+      },
+      {
+       "error": "Die Wurzel Glied für Glied gezogen: h = 5 − 1,4.",
+       "socratic_question": "Ist √(25 − 1,96) dasselbe wie 5 − 1,4?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (hypotenuse_verwechselt, wurzel_vergessen, wurzel_gliedweise)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(24/5)",
+     "antwort": "4.8"
+    },
+    {
+     "rechnung": "round((1298075498574716955203517916413825407765297/250000000000000000000000000000000000000000),2)",
+     "antwort": "5.19",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    },
+    {
+     "rechnung": "5^2-1.4^2",
+     "antwort": "23.04",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "5-1.4",
+     "antwort": "3.6",
+     "rolle": "fehlbild:wurzel_gliedweise:"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "dc3376fa-bda3-4f10-9656-a9d234fca69f",
+   "titel": "Anwendung · Leiterfuß näher an die Wand rücken",
+   "basis": {
+    "skill_key": "geo_pythagoras_anwendung",
+    "source_ref": "pyth-anwendung-06",
+    "input_type": "NUMERIC",
+    "frage": "Eine 4 m lange Leiter lehnt an einer senkrechten Wand und reicht bis in 3,60 m Höhe. Sie soll bis in 3,80 m Höhe reichen.\n\nUm wie viele Zentimeter muss ihr Fuß dafür näher an die Wand gerückt werden? Runde auf ganze Zentimeter.",
+    "unit": "cm",
+    "known_errors": {
+     "14": "hypotenuse_verwechselt",
+     "50": "zu_frueh_gerundet",
+     "125": "falsche_groesse_beantwortet",
+     "125 cm": "falsche_groesse_beantwortet",
+     "125cm": "falsche_groesse_beantwortet",
+     "50 cm": "zu_frueh_gerundet",
+     "50cm": "zu_frueh_gerundet",
+     "14 cm": "hypotenuse_verwechselt",
+     "14cm": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: zwei Lagen der Leiter je mit dem Satz des Pythagoras berechnen, den Unterschied bilden und umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-1/Geo-2 (Satz des Pythagoras)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_kreis_* und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-1, Satz des Pythagoras)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "49",
+      "49 cm",
+      "49cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Abstand vorher: √(4² − 3,6²) = √(16 − 12,96) = √3,04 ≈ 1,7436 m.\nAbstand nachher: √(4² − 3,8²) = √(16 − 14,44) = √1,56 ≈ 1,2490 m.\nUnterschied: 1,7436 m − 1,2490 m ≈ 0,4946 m ≈ 49 cm.\n(Erst am Ende runden.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den neuen Abstand des Fußes angegeben statt des Unterschieds.",
+       "socratic_question": "Gefragt ist, um wie viel der Fuß gerückt wird – was fehlt noch?"
+      },
+      {
+       "error": "Die Abstände vorher auf 1,7 m und 1,2 m gerundet: 50 cm.",
+       "socratic_question": "Was passiert mit dem Unterschied, wenn du die Abstände vorher rundest?"
+      },
+      {
+       "error": "Für die Abstände die Quadrate addiert statt subtrahiert.",
+       "socratic_question": "Kann der Abstand am Boden länger sein als die Leiter?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, zu_frueh_gerundet, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(((435889894354067355223698198385961565913700/250000000000000000000000000000000000000000)-(312249899919919910292344656046989723053647/250000000000000000000000000000000000000000))*100,0)",
+     "antwort": "49"
+    },
+    {
+     "rechnung": "round((312249899919919910292344656046989723053647/250000000000000000000000000000000000000000)*100,0)",
+     "antwort": "125",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round((1.7-1.2)*100,0)",
+     "antwort": "50",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    },
+    {
+     "rechnung": "round(((1379311422413372171665059787960239316342675/250000000000000000000000000000000000000000)-(1345362404707371031716308546217040419387096/250000000000000000000000000000000000000000))*100,0)",
+     "antwort": "14",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,3619 @@
+{
+ "batch": "k9-quadrgl",
+ "kopf": [
+  "K9-Rest, Thema quadrgl — 24 Aufgaben: je sechs zu gleichung_quadr_wurzel, _faktor, _formel und _anzahl.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k9-quadrgl.json (Quelle: tools/k9-quadrgl-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003105854_substrat_k9_quadrgl.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit, eine mit Sachkontext (Beet, Ball, Rechteck, Zaun) und eine Problemlöse- oder Rückrichtungsaufgabe. Zwei Lösungen immer als MULTI_PART (Teil 1 kleinere, Teil 2 größere Lösung), eine Lösung als NUMERIC. Alle ohne Abbildung lösbar; jede Aufgabe nennt „exakt\" oder die Rundung (exakter Textvergleich, keine Toleranz).",
+ "source": "edvance_k9_quadrgl",
+ "class_level": 9,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "9264f90a-1f7b-4170-97da-198c1acc89a3",
+   "titel": "Wurzelziehen · x² = 49",
+   "basis": {
+    "skill_key": "gleichung_quadr_wurzel",
+    "source_ref": "quadrgl-wurzel-01",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung x² = 49.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "7": "negative_loesung_vergessen",
+      "+7": "negative_loesung_vergessen",
+      "-49": "wurzel_vergessen",
+      "−49": "wurzel_vergessen",
+      "- 49": "wurzel_vergessen"
+     },
+     "2": {
+      "49": "wurzel_vergessen",
+      "+49": "wurzel_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: reine Quadratgleichung, Wurzel einer Quadratzahl, beide Vorzeichen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-7",
+       "−7",
+       "- 7"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "7",
+       "+7"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "x² = 49 hat zwei Lösungen: x = √49 oder x = −√49.\n√49 = 7.\nKleinere Lösung: -7. Größere Lösung: 7.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die positive Lösung 7 gefunden, die negative fehlt.",
+       "socratic_question": "Welche Zahl ergibt mit sich selbst multipliziert ebenfalls 49?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: −49.",
+       "socratic_question": "Ist x selbst 49 oder ist x² gleich 49?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: 49.",
+       "socratic_question": "Ergibt 49 · 49 wirklich 49?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negative_loesung_vergessen, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "-(7)",
+     "antwort": "-7"
+    },
+    {
+     "teil": "1",
+     "rechnung": "(7)",
+     "antwort": "7",
+     "rolle": "fehlbild:negative_loesung_vergessen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-49",
+     "antwort": "-49",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(7)",
+     "antwort": "7"
+    },
+    {
+     "teil": "2",
+     "rechnung": "49",
+     "antwort": "49",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "4d1a2438-3610-4dc9-b5be-8d35cb5199bd",
+   "titel": "Wurzelziehen · 2x² − 18 = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_wurzel",
+    "source_ref": "quadrgl-wurzel-02",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung 2x² − 18 = 0.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "3": "negative_loesung_vergessen",
+      "+3": "negative_loesung_vergessen",
+      "-6": "falsche_gegenoperation",
+      "−6": "falsche_gegenoperation",
+      "- 6": "falsche_gegenoperation",
+      "-9": "wurzel_vergessen",
+      "−9": "wurzel_vergessen",
+      "- 9": "wurzel_vergessen"
+     },
+     "2": {
+      "6": "falsche_gegenoperation",
+      "9": "wurzel_vergessen",
+      "+6": "falsche_gegenoperation",
+      "+9": "wurzel_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: erst nach x² umstellen (zwei Schritte), dann Wurzel einer Quadratzahl."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-3",
+       "−3",
+       "- 3"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "3",
+       "+3"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "2x² − 18 = 0 | + 18\n2x² = 18 | : 2\nx² = 9\nx = −√9 oder x = √9.\nKleinere Lösung: -3. Größere Lösung: 3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die positive Lösung 3 gefunden, die negative fehlt.",
+       "socratic_question": "Welche zweite Zahl ergibt quadriert ebenfalls 9?"
+      },
+      {
+       "error": "Mit 2 multipliziert statt durch 2 geteilt: x² = 36.",
+       "socratic_question": "Wie macht man ein „mal 2\" rückgängig?"
+      },
+      {
+       "error": "Bei x² = 9 aufgehört, die Wurzel nicht gezogen.",
+       "socratic_question": "Steht nach dem Umstellen schon x oder noch x² da?"
+      },
+      {
+       "error": "Mit 2 multipliziert statt durch 2 geteilt: x² = 36.",
+       "socratic_question": "Wie macht man ein „mal 2\" rückgängig?"
+      },
+      {
+       "error": "Bei x² = 9 aufgehört, die Wurzel nicht gezogen.",
+       "socratic_question": "Steht nach dem Umstellen schon x oder noch x² da?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negative_loesung_vergessen, falsche_gegenoperation, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "-(3)",
+     "antwort": "-3"
+    },
+    {
+     "teil": "1",
+     "rechnung": "(3)",
+     "antwort": "3",
+     "rolle": "fehlbild:negative_loesung_vergessen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-(6)",
+     "antwort": "-6",
+     "rolle": "fehlbild:falsche_gegenoperation:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-18/2",
+     "antwort": "-9",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(3)",
+     "antwort": "3"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(6)",
+     "antwort": "6",
+     "rolle": "fehlbild:falsche_gegenoperation:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "18/2",
+     "antwort": "9",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "504bbd98-9c80-4124-a66a-9dc7b6651bb9",
+   "titel": "Wurzelziehen · (x − 2)² = 25",
+   "basis": {
+    "skill_key": "gleichung_quadr_wurzel",
+    "source_ref": "quadrgl-wurzel-03",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung (x − 2)² = 25.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "7": "negative_loesung_vergessen",
+      "-7": "vorzeichen_aus_klammer",
+      "−7": "vorzeichen_aus_klammer",
+      "- 7": "vorzeichen_aus_klammer",
+      "+7": "negative_loesung_vergessen",
+      "-23": "wurzel_vergessen",
+      "−23": "wurzel_vergessen",
+      "- 23": "wurzel_vergessen"
+     },
+     "2": {
+      "3": "vorzeichen_aus_klammer",
+      "27": "wurzel_vergessen",
+      "+3": "vorzeichen_aus_klammer",
+      "+27": "wurzel_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Wurzel aus der Klammer ziehen, zwei Fälle getrennt nach x auflösen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-3",
+       "−3",
+       "- 3"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "7",
+       "+7"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "(x − 2)² = 25\nx − 2 = 5 oder x − 2 = −5 | + 2\nx = 7 oder x = −3.\nKleinere Lösung: -3. Größere Lösung: 7.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die 2 aus der Klammer mit falschem Vorzeichen verrechnet: x + 2 = −5.",
+       "socratic_question": "Welche Zahl musst du zu x − 2 addieren, damit nur x übrig bleibt?"
+      },
+      {
+       "error": "Nur den Fall x − 2 = 5 gerechnet, der Fall x − 2 = −5 fehlt.",
+       "socratic_question": "Welche zweite Zahl ergibt quadriert ebenfalls 25?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: x − 2 = −25.",
+       "socratic_question": "Ist x − 2 gleich 25 oder ist das Quadrat von x − 2 gleich 25?"
+      },
+      {
+       "error": "Die 2 aus der Klammer mit falschem Vorzeichen verrechnet: x + 2 = 5.",
+       "socratic_question": "Welche Zahl musst du zu x − 2 addieren, damit nur x übrig bleibt?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: x − 2 = 25.",
+       "socratic_question": "Ist x − 2 gleich 25 oder ist das Quadrat von x − 2 gleich 25?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_aus_klammer, negative_loesung_vergessen, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "2-(5)",
+     "antwort": "-3"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-2-(5)",
+     "antwort": "-7",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "2+(5)",
+     "antwort": "7",
+     "rolle": "fehlbild:negative_loesung_vergessen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "2-25",
+     "antwort": "-23",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2+(5)",
+     "antwort": "7"
+    },
+    {
+     "teil": "2",
+     "rechnung": "-2+(5)",
+     "antwort": "3",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2+25",
+     "antwort": "27",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "cd6693f5-cc93-4628-baf9-f45436706641",
+   "titel": "Wurzelziehen · 3x² = 60, gerundet",
+   "basis": {
+    "skill_key": "gleichung_quadr_wurzel",
+    "source_ref": "quadrgl-wurzel-04",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung 3x² = 60.\n\nRunde die Lösungen auf zwei Stellen nach dem Komma.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "4,47": "negative_loesung_vergessen",
+      "+4,47": "negative_loesung_vergessen",
+      "4.47": "negative_loesung_vergessen",
+      "+4.47": "negative_loesung_vergessen",
+      "-7,75": "division_vergessen",
+      "−7,75": "division_vergessen",
+      "- 7,75": "division_vergessen",
+      "-7.75": "division_vergessen",
+      "−7.75": "division_vergessen",
+      "- 7.75": "division_vergessen",
+      "-20,00": "wurzel_vergessen",
+      "−20,00": "wurzel_vergessen",
+      "- 20,00": "wurzel_vergessen",
+      "-20.00": "wurzel_vergessen",
+      "−20.00": "wurzel_vergessen",
+      "- 20.00": "wurzel_vergessen",
+      "-20": "wurzel_vergessen",
+      "−20": "wurzel_vergessen",
+      "- 20": "wurzel_vergessen"
+     },
+     "2": {
+      "20": "wurzel_vergessen",
+      "7,75": "division_vergessen",
+      "+7,75": "division_vergessen",
+      "7.75": "division_vergessen",
+      "+7.75": "division_vergessen",
+      "20,00": "wurzel_vergessen",
+      "+20,00": "wurzel_vergessen",
+      "20.00": "wurzel_vergessen",
+      "+20.00": "wurzel_vergessen",
+      "+20": "wurzel_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Koeffizient abdividieren, Wurzel einer Nicht-Quadratzahl, runden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-4,47",
+       "−4,47",
+       "- 4,47",
+       "-4.47",
+       "−4.47",
+       "- 4.47"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "4,47",
+       "+4,47",
+       "4.47",
+       "+4.47"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "3x² = 60 | : 3\nx² = 20\nx = −√20 oder x = √20, √20 ≈ 4,472.\nKleinere Lösung: -4,47. Größere Lösung: 4,47.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die positive Lösung gefunden, die negative fehlt.",
+       "socratic_question": "Welche zweite Zahl ergibt quadriert ebenfalls 20?"
+      },
+      {
+       "error": "Nicht durch 3 geteilt: die Wurzel aus 60 gezogen.",
+       "socratic_question": "Steht vor x² noch ein Faktor, wenn du die Wurzel ziehst?"
+      },
+      {
+       "error": "Bei x² = 20 aufgehört, die Wurzel nicht gezogen.",
+       "socratic_question": "Ist x gleich 20 oder ist x² gleich 20?"
+      },
+      {
+       "error": "Nicht durch 3 geteilt: die Wurzel aus 60 gezogen.",
+       "socratic_question": "Steht vor x² noch ein Faktor, wenn du die Wurzel ziehst?"
+      },
+      {
+       "error": "Bei x² = 20 aufgehört, die Wurzel nicht gezogen.",
+       "socratic_question": "Ist x gleich 20 oder ist x² gleich 20?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negative_loesung_vergessen, division_vergessen, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "round(-(44721359549995793928183473374625524708812/10000000000000000000000000000000000000000),2)",
+     "antwort": "-4.47"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round((44721359549995793928183473374625524708812/10000000000000000000000000000000000000000),2)",
+     "antwort": "4.47",
+     "rolle": "fehlbild:negative_loesung_vergessen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round(-(77459666924148337703585307995647992216658/10000000000000000000000000000000000000000),2)",
+     "antwort": "-7.75",
+     "rolle": "fehlbild:division_vergessen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round(-60/3,2)",
+     "antwort": "-20.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round((44721359549995793928183473374625524708812/10000000000000000000000000000000000000000),2)",
+     "antwort": "4.47"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round((77459666924148337703585307995647992216658/10000000000000000000000000000000000000000),2)",
+     "antwort": "7.75",
+     "rolle": "fehlbild:division_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(60/3,2)",
+     "antwort": "20.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "bc0cdfe9-2416-4d02-a623-feb820083f07",
+   "titel": "Wurzelziehen · Rechteck doppelt so lang wie breit, 98 m²",
+   "basis": {
+    "skill_key": "gleichung_quadr_wurzel",
+    "source_ref": "quadrgl-wurzel-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein rechteckiges Beet ist doppelt so lang wie breit. Sein Flächeninhalt beträgt 98 m².\n\nWie breit ist das Beet? Als Breite ist nur eine positive Lösung sinnvoll. Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "14": "falsche_gegenoperation",
+     "49": "wurzel_vergessen",
+     "9,90": "division_vergessen",
+     "9.90": "division_vergessen",
+     "9,9": "division_vergessen",
+     "9.9": "division_vergessen",
+     "9,90 m": "division_vergessen",
+     "9,90m": "division_vergessen",
+     "9,9 m": "division_vergessen",
+     "9,9m": "division_vergessen",
+     "49 m": "wurzel_vergessen",
+     "49m": "wurzel_vergessen",
+     "14 m": "falsche_gegenoperation",
+     "14m": "falsche_gegenoperation"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Gleichung 2x² = 98 aufstellen, nur die positive Lösung ist eine Länge."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "7 m",
+      "7m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Breite x, Länge 2x: x · 2x = 98\n2x² = 98 | : 2\nx² = 49\nx = 7 oder x = −7; eine Breite ist positiv.\nDas Beet ist 7 m breit.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht durch 2 geteilt: die Wurzel aus 98 gezogen (≈ 9,90).",
+       "socratic_question": "Wie viele Breiten stecken im Flächeninhalt, wenn die Länge 2x ist?"
+      },
+      {
+       "error": "Bei x² = 49 aufgehört, die Wurzel nicht gezogen.",
+       "socratic_question": "Ist die Breite 49 m oder ist das Quadrat der Breite 49?"
+      },
+      {
+       "error": "Mit 2 multipliziert statt durch 2 geteilt: x² = 196.",
+       "socratic_question": "Wie macht man ein „mal 2\" rückgängig?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (division_vergessen, wurzel_vergessen, falsche_gegenoperation)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(7)",
+     "antwort": "7"
+    },
+    {
+     "rechnung": "round((98994949366116653416118210694678865499877/10000000000000000000000000000000000000000),2)",
+     "antwort": "9.90",
+     "rolle": "fehlbild:division_vergessen:"
+    },
+    {
+     "rechnung": "98/2",
+     "antwort": "49",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "(14)",
+     "antwort": "14",
+     "rolle": "fehlbild:falsche_gegenoperation:"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "3a42b89c-7f8a-4b64-94ff-d1d4ac576c32",
+   "titel": "Wurzelziehen · Quadratseite um 3 cm verlängert, 121 cm²",
+   "basis": {
+    "skill_key": "gleichung_quadr_wurzel",
+    "source_ref": "quadrgl-wurzel-06",
+    "input_type": "NUMERIC",
+    "frage": "Verlängert man jede Seite eines Quadrats um 3 cm, so hat das neue Quadrat einen Flächeninhalt von 121 cm².\n\nWie lang war eine Seite des ursprünglichen Quadrats? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "11": "falsche_groesse_beantwortet",
+     "14": "vorzeichen_aus_klammer",
+     "118": "wurzel_vergessen",
+     "14 cm": "vorzeichen_aus_klammer",
+     "14cm": "vorzeichen_aus_klammer",
+     "11 cm": "falsche_groesse_beantwortet",
+     "11cm": "falsche_groesse_beantwortet",
+     "10,58": "quadrat_gliedweise",
+     "10.58": "quadrat_gliedweise",
+     "10,58 cm": "quadrat_gliedweise",
+     "10,58cm": "quadrat_gliedweise",
+     "118 cm": "wurzel_vergessen",
+     "118cm": "wurzel_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Gleichung (x + 3)² = 121 selbst aufstellen, lösen und die sinnvolle Lösung wählen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8",
+      "8 cm",
+      "8cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Ursprüngliche Seite x: (x + 3)² = 121\nx + 3 = 11 oder x + 3 = −11 | − 3\nx = 8 oder x = −14; eine Seitenlänge ist positiv.\nDie Seite war 8 cm lang.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die 3 aus der Klammer mit falschem Vorzeichen verrechnet: 11 + 3.",
+       "socratic_question": "War das ursprüngliche Quadrat kleiner oder größer als das neue?"
+      },
+      {
+       "error": "Die Seite des neuen Quadrats angegeben, nicht die des ursprünglichen.",
+       "socratic_question": "Nach welchem der beiden Quadrate ist gefragt?"
+      },
+      {
+       "error": "Die Klammer gliedweise quadriert: x² + 9 = 121 (≈ 10,58).",
+       "socratic_question": "Was ergibt (x + 3) · (x + 3) ausmultipliziert?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: x + 3 = 121.",
+       "socratic_question": "Ist die neue Seite 121 cm lang oder ist ihr Quadrat 121?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_aus_klammer, falsche_groesse_beantwortet, quadrat_gliedweise, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(11)-3",
+     "antwort": "8"
+    },
+    {
+     "rechnung": "(11)+3",
+     "antwort": "14",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    },
+    {
+     "rechnung": "(11)",
+     "antwort": "11",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round((105830052442583623620064630145570417028410/10000000000000000000000000000000000000000),2)",
+     "antwort": "10.58",
+     "rolle": "fehlbild:quadrat_gliedweise:"
+    },
+    {
+     "rechnung": "121-3",
+     "antwort": "118",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "b47ef7d3-1933-416f-8fe8-edcbc8fe8929",
+   "titel": "Ausklammern · x² − 5x = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_faktor",
+    "source_ref": "quadrgl-faktor-01",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung x² − 5x = 0.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "5": "loesung_null_verloren",
+      "+5": "loesung_null_verloren",
+      "-5": "vorzeichen_aus_klammer",
+      "−5": "vorzeichen_aus_klammer",
+      "- 5": "vorzeichen_aus_klammer"
+     },
+     "2": {
+      "0": "vorzeichen_aus_klammer"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: x ausklammern, Satz vom Nullprodukt, ganzzahlige Lösungen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "0"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "5",
+       "+5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "x ausklammern: x · (x − 5) = 0.\nEin Produkt ist null, wenn ein Faktor null ist: x = 0 oder x − 5 = 0, also x = 5.\nKleinere Lösung: 0. Größere Lösung: 5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Durch x geteilt und dabei die Lösung x = 0 verloren.",
+       "socratic_question": "Was ergibt die linke Seite, wenn du x = 0 einsetzt?"
+      },
+      {
+       "error": "Aus (x − 5) den Wert −5 abgelesen statt 5.",
+       "socratic_question": "Für welches x wird x − 5 wirklich null?"
+      },
+      {
+       "error": "Aus (x − 5) den Wert −5 abgelesen; dann wäre 0 die größere Lösung.",
+       "socratic_question": "Setze −5 in x − 5 ein: Kommt null heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (loesung_null_verloren, vorzeichen_aus_klammer)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "0",
+     "antwort": "0"
+    },
+    {
+     "teil": "1",
+     "rechnung": "5",
+     "antwort": "5",
+     "rolle": "fehlbild:loesung_null_verloren:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-5",
+     "antwort": "-5",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "5",
+     "antwort": "5"
+    },
+    {
+     "teil": "2",
+     "rechnung": "0",
+     "antwort": "0",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "1c4a31af-20bc-4348-b8d9-cd83b273ff38",
+   "titel": "Nullprodukt · (x − 3)(x + 5) = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_faktor",
+    "source_ref": "quadrgl-faktor-02",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung (x − 3)(x + 5) = 0.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "-3": "vorzeichen_aus_klammer",
+      "−3": "vorzeichen_aus_klammer",
+      "- 3": "vorzeichen_aus_klammer"
+     },
+     "2": {
+      "5": "vorzeichen_aus_klammer",
+      "+5": "vorzeichen_aus_klammer"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Gleichung liegt schon als Produkt vor, Faktoren einzeln null setzen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-5",
+       "−5",
+       "- 5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "3",
+       "+3"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Ein Produkt ist null, wenn ein Faktor null ist.\nx − 3 = 0, also x = 3, oder x + 5 = 0, also x = −5.\nKleinere Lösung: -5. Größere Lösung: 3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Werte aus den Klammern mit falschem Vorzeichen abgelesen: 5 und −3.",
+       "socratic_question": "Für welches x wird x + 5 null?"
+      },
+      {
+       "error": "Die Werte aus den Klammern mit falschem Vorzeichen abgelesen: 5 und −3.",
+       "socratic_question": "Setze 5 in x + 5 ein: Kommt null heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_aus_klammer)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "-5",
+     "antwort": "-5"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-3",
+     "antwort": "-3",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "3",
+     "antwort": "3"
+    },
+    {
+     "teil": "2",
+     "rechnung": "5",
+     "antwort": "5",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "d7d81e80-6776-4308-a690-29675f7882d4",
+   "titel": "Ausklammern · 3x² = 12x",
+   "basis": {
+    "skill_key": "gleichung_quadr_faktor",
+    "source_ref": "quadrgl-faktor-03",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung 3x² = 12x.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "4": "loesung_null_verloren",
+      "+4": "loesung_null_verloren"
+     },
+     "2": {
+      "12": "division_vergessen",
+      "+12": "division_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: erst auf null bringen, dann 3x ausklammern; Versuchung, durch x zu teilen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "0"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "4",
+       "+4"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "3x² = 12x | − 12x\n3x² − 12x = 0\n3x ausklammern: 3x · (x − 4) = 0.\n3x = 0, also x = 0, oder x − 4 = 0, also x = 4.\nKleinere Lösung: 0. Größere Lösung: 4.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Durch x geteilt (3x = 12) und dabei die Lösung x = 0 verloren.",
+       "socratic_question": "Stimmt die Gleichung auch für x = 0?"
+      },
+      {
+       "error": "Nicht durch 3 geteilt: x = 12.",
+       "socratic_question": "Setze 12 ein: Ist 3 · 12² gleich 12 · 12?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (loesung_null_verloren, division_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "0",
+     "antwort": "0"
+    },
+    {
+     "teil": "1",
+     "rechnung": "12/3",
+     "antwort": "4",
+     "rolle": "fehlbild:loesung_null_verloren:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "12/3",
+     "antwort": "4"
+    },
+    {
+     "teil": "2",
+     "rechnung": "12",
+     "antwort": "12",
+     "rolle": "fehlbild:division_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "c3be2e88-1087-479f-bf95-9dbd732efa56",
+   "titel": "Nullprodukt · x(2x − 7) = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_faktor",
+    "source_ref": "quadrgl-faktor-04",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung x · (2x − 7) = 0.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "3,5": "loesung_null_verloren",
+      "+3,5": "loesung_null_verloren",
+      "3.5": "loesung_null_verloren",
+      "+3.5": "loesung_null_verloren",
+      "-3,5": "vorzeichen_aus_klammer",
+      "−3,5": "vorzeichen_aus_klammer",
+      "- 3,5": "vorzeichen_aus_klammer",
+      "-3.5": "vorzeichen_aus_klammer",
+      "−3.5": "vorzeichen_aus_klammer",
+      "- 3.5": "vorzeichen_aus_klammer"
+     },
+     "2": {
+      "0": "vorzeichen_aus_klammer",
+      "7": "division_vergessen",
+      "+7": "division_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: zweiter Faktor mit Koeffizient, Lösung als Dezimalzahl."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "0"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "3,5",
+       "+3,5",
+       "3.5",
+       "+3.5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Ein Produkt ist null, wenn ein Faktor null ist.\nx = 0 oder 2x − 7 = 0 | + 7, : 2, also x = 3,5.\nKleinere Lösung: 0. Größere Lösung: 3,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur den Faktor 2x − 7 betrachtet, die Lösung x = 0 verloren.",
+       "socratic_question": "Was ergibt x · (2x − 7), wenn x = 0 ist?"
+      },
+      {
+       "error": "Aus 2x − 7 den Wert −3,5 abgelesen statt 3,5.",
+       "socratic_question": "Setze −3,5 in 2x − 7 ein: Kommt null heraus?"
+      },
+      {
+       "error": "Aus 2x = 7 nicht durch 2 geteilt: x = 7.",
+       "socratic_question": "Wie kommst du von 2x = 7 zu x?"
+      },
+      {
+       "error": "Aus 2x − 7 den Wert −3,5 abgelesen; dann wäre 0 die größere Lösung.",
+       "socratic_question": "Setze −3,5 in 2x − 7 ein: Kommt null heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (loesung_null_verloren, vorzeichen_aus_klammer, division_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "0",
+     "antwort": "0"
+    },
+    {
+     "teil": "1",
+     "rechnung": "7/2",
+     "antwort": "3.5",
+     "rolle": "fehlbild:loesung_null_verloren:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-7/2",
+     "antwort": "-3.5",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "7/2",
+     "antwort": "3.5"
+    },
+    {
+     "teil": "2",
+     "rechnung": "7",
+     "antwort": "7",
+     "rolle": "fehlbild:division_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "0",
+     "antwort": "0",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "9879542e-bb69-41c6-a77f-3916a26ffad1",
+   "titel": "Nullprodukt · Ball landet wieder, h = 20t − 5t²",
+   "basis": {
+    "skill_key": "gleichung_quadr_faktor",
+    "source_ref": "quadrgl-faktor-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Ball wird vom Boden aus senkrecht nach oben geworfen. Seine Höhe in Metern nach t Sekunden ist h = 20t − 5t².\n\nNach wie vielen Sekunden ist der Ball wieder am Boden? Gib das Ergebnis exakt an.",
+    "unit": "s",
+    "known_errors": {
+     "20": "division_vergessen",
+     "20 s": "division_vergessen",
+     "20s": "division_vergessen",
+     "-4": "vorzeichen_beim_umstellen",
+     "−4": "vorzeichen_beim_umstellen",
+     "- 4": "vorzeichen_beim_umstellen",
+     "-4 s": "vorzeichen_beim_umstellen",
+     "-4s": "vorzeichen_beim_umstellen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: h = 0 setzen, t ausklammern, die sinnvolle Lösung t > 0 wählen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "4 s",
+      "4s"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Am Boden ist h = 0: 20t − 5t² = 0.\nt ausklammern: t · (20 − 5t) = 0.\nt = 0 (Abwurf) oder 20 − 5t = 0 | + 5t, : 5, also t = 4.\nDer Ball ist nach 4 s wieder am Boden.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Aus 20 = 5t nicht durch 5 geteilt: t = 20.",
+       "socratic_question": "Wie kommst du von 5t = 20 zu t?"
+      },
+      {
+       "error": "Beim Umstellen von 20 − 5t = 0 das Minus mitgenommen: t = −4.",
+       "socratic_question": "Kann eine Zeit nach dem Abwurf negativ sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (division_vergessen, vorzeichen_beim_umstellen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "20/5",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "20",
+     "antwort": "20",
+     "rolle": "fehlbild:division_vergessen:"
+    },
+    {
+     "rechnung": "-20/5",
+     "antwort": "-4",
+     "rolle": "fehlbild:vorzeichen_beim_umstellen:"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "90635757-ba7c-4bde-bd7c-04bd79bf8c35",
+   "titel": "Nullprodukt rückwärts · 2x² + bx = 0 mit Lösung 3",
+   "basis": {
+    "skill_key": "gleichung_quadr_faktor",
+    "source_ref": "quadrgl-faktor-06",
+    "input_type": "NUMERIC",
+    "frage": "Die Gleichung 2x² + bx = 0 hat die Lösungen x = 0 und x = 3.\n\nWelchen Wert hat b? Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "6": "vorzeichen_aus_klammer",
+     "+6": "vorzeichen_aus_klammer",
+     "-18": "division_vergessen",
+     "−18": "division_vergessen",
+     "- 18": "division_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung – aus einer bekannten Lösung den Koeffizienten b bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-6",
+      "−6",
+      "- 6"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "x ausklammern: x · (2x + b) = 0.\nDie Lösung 3 macht den zweiten Faktor null: 2 · 3 + b = 0, also b = −6.\nProbe: 2x² − 6x = 2x · (x − 3), Lösungen 0 und 3.\nb = -6.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Vorzeichen aus dem Faktor falsch übernommen: b = 6.",
+       "socratic_question": "Setze b = 6 ein: Ist 3 dann eine Lösung von 2x² + 6x = 0?"
+      },
+      {
+       "error": "x = 3 eingesetzt (18 + 3b = 0), aber nicht durch 3 geteilt: b = −18.",
+       "socratic_question": "Wie kommst du von 3b = −18 zu b?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_aus_klammer, division_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-2*3",
+     "antwort": "-6"
+    },
+    {
+     "rechnung": "2*3",
+     "antwort": "6",
+     "rolle": "fehlbild:vorzeichen_aus_klammer:"
+    },
+    {
+     "rechnung": "-2*3^2",
+     "antwort": "-18",
+     "rolle": "fehlbild:division_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "b6e77404-2577-4e03-b4ce-cb61a5f6a5f9",
+   "titel": "p-q-Formel · x² + 2x − 15 = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_formel",
+    "source_ref": "quadrgl-formel-01",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung x² + 2x − 15 = 0.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "-3": "pq_vorzeichen",
+      "−3": "pq_vorzeichen",
+      "- 3": "pq_vorzeichen",
+      "-17": "wurzel_vergessen",
+      "−17": "wurzel_vergessen",
+      "- 17": "wurzel_vergessen"
+     },
+     "2": {
+      "5": "pq_vorzeichen",
+      "15": "wurzel_vergessen",
+      "+5": "pq_vorzeichen",
+      "+15": "wurzel_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Normalform, p und q direkt ablesbar, Wurzel aus einer Quadratzahl."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-5",
+       "−5",
+       "- 5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "3",
+       "+3"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "p = 2, q = −15.\nx = −p/2 ± √((p/2)² − q) = −1 ± √(1 + 15) = −1 ± 4.\nKleinere Lösung: -5. Größere Lösung: 3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: 1 ± 4.",
+       "socratic_question": "Welches Vorzeichen hat der erste Summand −p/2, wenn p = 2 ist?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: −1 − 16.",
+       "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+      },
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: 1 ± 4.",
+       "socratic_question": "Welches Vorzeichen hat der erste Summand −p/2, wenn p = 2 ist?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: −1 + 16.",
+       "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (pq_vorzeichen, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "-(2)/2 - (4)",
+     "antwort": "-5"
+    },
+    {
+     "teil": "1",
+     "rechnung": "(2)/2 - (4)",
+     "antwort": "-3",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-(2)/2 - ((2/2)^2+15)",
+     "antwort": "-17",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "-(2)/2 + (4)",
+     "antwort": "3"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(2)/2 + (4)",
+     "antwort": "5",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "-(2)/2 + ((2/2)^2+15)",
+     "antwort": "15",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "43f39bc1-e7b4-48e6-8b77-ff8e41e77142",
+   "titel": "p-q-Formel · x² − 6x + 5 = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_formel",
+    "source_ref": "quadrgl-formel-02",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung x² − 6x + 5 = 0.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "-5": "pq_vorzeichen",
+      "−5": "pq_vorzeichen",
+      "- 5": "pq_vorzeichen",
+      "-1": "wurzel_vergessen",
+      "−1": "wurzel_vergessen",
+      "- 1": "wurzel_vergessen"
+     },
+     "2": {
+      "7": "wurzel_vergessen",
+      "-1": "pq_vorzeichen",
+      "−1": "pq_vorzeichen",
+      "- 1": "pq_vorzeichen",
+      "+7": "wurzel_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Normalform mit negativem p, Wurzel aus einer Quadratzahl."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "1",
+       "+1"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "5",
+       "+5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "p = −6, q = 5.\nx = −p/2 ± √((p/2)² − q) = 3 ± √(9 − 5) = 3 ± 2.\nKleinere Lösung: 1. Größere Lösung: 5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: −3 ± 2.",
+       "socratic_question": "Was ergibt −p/2, wenn p = −6 ist?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: 3 − 4.",
+       "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+      },
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: −3 ± 2.",
+       "socratic_question": "Was ergibt −p/2, wenn p = −6 ist?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: 3 + 4.",
+       "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (pq_vorzeichen, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "-(-6)/2 - (2)",
+     "antwort": "1"
+    },
+    {
+     "teil": "1",
+     "rechnung": "(-6)/2 - (2)",
+     "antwort": "-5",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "-(-6)/2 - ((6/2)^2-5)",
+     "antwort": "-1",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "-(-6)/2 + (2)",
+     "antwort": "5"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(-6)/2 + (2)",
+     "antwort": "-1",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "-(-6)/2 + ((6/2)^2-5)",
+     "antwort": "7",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "1f2a206f-1f63-4866-b446-c8305de6b725",
+   "titel": "p-q-Formel · 2x² − 4x − 6 = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_formel",
+    "source_ref": "quadrgl-formel-03",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung 2x² − 4x − 6 = 0.\n\nGib die Lösungen exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "-3": "pq_vorzeichen",
+      "−3": "pq_vorzeichen",
+      "- 3": "pq_vorzeichen",
+      "-1,16": "division_vergessen",
+      "−1,16": "division_vergessen",
+      "- 1,16": "division_vergessen",
+      "-1.16": "division_vergessen",
+      "−1.16": "division_vergessen",
+      "- 1.16": "division_vergessen"
+     },
+     "2": {
+      "1": "pq_vorzeichen",
+      "+1": "pq_vorzeichen",
+      "5,16": "division_vergessen",
+      "+5,16": "division_vergessen",
+      "5.16": "division_vergessen",
+      "+5.16": "division_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: erst durch 2 auf Normalform bringen, dann p-q-Formel mit zwei negativen Koeffizienten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-1",
+       "−1",
+       "- 1"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "3",
+       "+3"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Durch 2 teilen: x² − 2x − 3 = 0, also p = −2, q = −3.\nx = 1 ± √(1 + 3) = 1 ± 2.\nKleinere Lösung: -1. Größere Lösung: 3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: −1 ± 2.",
+       "socratic_question": "Was ergibt −p/2, wenn p = −2 ist?"
+      },
+      {
+       "error": "Nicht durch 2 geteilt: mit p = −4 und q = −6 gerechnet (2 − √10 ≈ −1,16).",
+       "socratic_question": "Steht vor x² eine 1, wenn du die p-q-Formel benutzt?"
+      },
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: −1 ± 2.",
+       "socratic_question": "Was ergibt −p/2, wenn p = −2 ist?"
+      },
+      {
+       "error": "Nicht durch 2 geteilt: mit p = −4 und q = −6 gerechnet (2 + √10 ≈ 5,16).",
+       "socratic_question": "Steht vor x² eine 1, wenn du die p-q-Formel benutzt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (pq_vorzeichen, division_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "-(-2)/2 - (2)",
+     "antwort": "-1"
+    },
+    {
+     "teil": "1",
+     "rechnung": "(-2)/2 - (2)",
+     "antwort": "-3",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round(-(-4)/2 - (31622776601683793319988935444327185337195/10000000000000000000000000000000000000000),2)",
+     "antwort": "-1.16",
+     "rolle": "fehlbild:division_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "-(-2)/2 + (2)",
+     "antwort": "3"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(-2)/2 + (2)",
+     "antwort": "1",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(-(-4)/2 + (31622776601683793319988935444327185337195/10000000000000000000000000000000000000000),2)",
+     "antwort": "5.16",
+     "rolle": "fehlbild:division_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "725448a1-10e2-4e88-beb8-fe57f6e54d06",
+   "titel": "p-q-Formel · x² + 4x − 1 = 0, gerundet",
+   "basis": {
+    "skill_key": "gleichung_quadr_formel",
+    "source_ref": "quadrgl-formel-04",
+    "input_type": "MULTI_PART",
+    "frage": "Löse die Gleichung x² + 4x − 1 = 0.\n\nRunde die Lösungen auf zwei Stellen nach dem Komma.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "kleinere Lösung"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "größere Lösung"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "-0,24": "pq_vorzeichen",
+      "−0,24": "pq_vorzeichen",
+      "- 0,24": "pq_vorzeichen",
+      "-0.24": "pq_vorzeichen",
+      "−0.24": "pq_vorzeichen",
+      "- 0.24": "pq_vorzeichen",
+      "-7,00": "wurzel_vergessen",
+      "−7,00": "wurzel_vergessen",
+      "- 7,00": "wurzel_vergessen",
+      "-7.00": "wurzel_vergessen",
+      "−7.00": "wurzel_vergessen",
+      "- 7.00": "wurzel_vergessen",
+      "-7": "wurzel_vergessen",
+      "−7": "wurzel_vergessen",
+      "- 7": "wurzel_vergessen"
+     },
+     "2": {
+      "3": "wurzel_vergessen",
+      "4,24": "pq_vorzeichen",
+      "+4,24": "pq_vorzeichen",
+      "4.24": "pq_vorzeichen",
+      "+4.24": "pq_vorzeichen",
+      "3,00": "wurzel_vergessen",
+      "+3,00": "wurzel_vergessen",
+      "3.00": "wurzel_vergessen",
+      "+3.00": "wurzel_vergessen",
+      "+3": "wurzel_vergessen"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Wurzel aus einer Nicht-Quadratzahl, Lösungen runden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-4,24",
+       "−4,24",
+       "- 4,24",
+       "-4.24",
+       "−4.24",
+       "- 4.24"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "0,24",
+       "+0,24",
+       "0.24",
+       "+0.24"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "p = 4, q = −1.\nx = −2 ± √(4 + 1) = −2 ± √5, √5 ≈ 2,236.\nKleinere Lösung: -4,24. Größere Lösung: 0,24.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: 2 ± √5.",
+       "socratic_question": "Welches Vorzeichen hat −p/2, wenn p = 4 ist?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: −2 − 5.",
+       "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+      },
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: 2 ± √5.",
+       "socratic_question": "Welches Vorzeichen hat −p/2, wenn p = 4 ist?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: −2 + 5.",
+       "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (pq_vorzeichen, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "round(-(4)/2 - (22360679774997896964091736687312762354406/10000000000000000000000000000000000000000),2)",
+     "antwort": "-4.24"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round((4)/2 - (22360679774997896964091736687312762354406/10000000000000000000000000000000000000000),2)",
+     "antwort": "-0.24",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round(-(4)/2 - ((4/2)^2+1),2)",
+     "antwort": "-7.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(-(4)/2 + (22360679774997896964091736687312762354406/10000000000000000000000000000000000000000),2)",
+     "antwort": "0.24"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round((4)/2 + (22360679774997896964091736687312762354406/10000000000000000000000000000000000000000),2)",
+     "antwort": "4.24",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(-(4)/2 + ((4/2)^2+1),2)",
+     "antwort": "3.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "1271aabc-2cc1-4b2e-a6c5-d7512c7a38ee",
+   "titel": "p-q-Formel · Rechteck 4 cm länger als breit, 60 cm²",
+   "basis": {
+    "skill_key": "gleichung_quadr_formel",
+    "source_ref": "quadrgl-formel-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Rechteck ist 4 cm länger als breit. Sein Flächeninhalt beträgt 60 cm².\n\nWie lang ist die längere Seite des Rechtecks? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "6": "falsche_groesse_beantwortet",
+     "14": "pq_vorzeichen",
+     "66": "wurzel_vergessen",
+     "14 cm": "pq_vorzeichen",
+     "14cm": "pq_vorzeichen",
+     "6 cm": "falsche_groesse_beantwortet",
+     "6cm": "falsche_groesse_beantwortet",
+     "66 cm": "wurzel_vergessen",
+     "66cm": "wurzel_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Gleichung x(x + 4) = 60 aufstellen, lösen, sinnvolle Lösung wählen, Länge bilden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "10 cm",
+      "10cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Breite x, Länge x + 4: x · (x + 4) = 60\nx² + 4x − 60 = 0, p = 4, q = −60.\nx = −2 ± √(4 + 60) = −2 ± 8, also x = 6 oder x = −10; eine Breite ist positiv.\nBreite 6 cm, längere Seite 6 cm + 4 cm = 10 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: Breite 2 + 8 = 10, Länge 14.",
+       "socratic_question": "Setze deine Breite ein: Ist Breite · (Breite + 4) wirklich 60?"
+      },
+      {
+       "error": "Die Breite angegeben, nicht die längere Seite.",
+       "socratic_question": "Ist nach der Breite oder nach der längeren Seite gefragt?"
+      },
+      {
+       "error": "Die Wurzel nicht gezogen: Breite −2 + 64.",
+       "socratic_question": "Was ist mit dem Term unter der Wurzel zu tun?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (pq_vorzeichen, falsche_groesse_beantwortet, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-(4)/2 + (8) + 4",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "(4)/2 + (8) + 4",
+     "antwort": "14",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "rechnung": "-(4)/2 + (8)",
+     "antwort": "6",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "-(4)/2 + ((4/2)^2+60) + 4",
+     "antwort": "66",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "5b36238f-c64c-4578-bd63-55249f185c78",
+   "titel": "p-q-Formel · Weg um ein Beet 20 m × 15 m, 500 m²",
+   "basis": {
+    "skill_key": "gleichung_quadr_formel",
+    "source_ref": "quadrgl-formel-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein rechteckiges Beet ist 20 m lang und 15 m breit. Rundherum wird ein Weg angelegt, der überall gleich breit ist. Beet und Weg zusammen bedecken 500 m².\n\nWie breit ist der Weg? Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "20": "pq_vorzeichen",
+     "20 m": "pq_vorzeichen",
+     "20m": "pq_vorzeichen",
+     "2,75": "division_vergessen",
+     "2.75": "division_vergessen",
+     "2,75 m": "division_vergessen",
+     "2,75m": "division_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Modell (20 + 2x)(15 + 2x) = 500 selbst aufstellen, auf Normalform bringen, Formel anwenden, sinnvolle Lösung wählen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,5",
+      "2.5",
+      "2,5 m",
+      "2,5m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Wegbreite x: (20 + 2x) · (15 + 2x) = 500\n300 + 70x + 4x² = 500\n4x² + 70x − 200 = 0 | : 4\nx² + 17,5x − 50 = 0, p = 17,5, q = −50.\nx = −8,75 ± √(76,5625 + 50) = −8,75 ± 11,25, also x = 2,5 oder x = −20; eine Breite ist positiv.\nDer Weg ist 2,5 m breit.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "p mit falschem Vorzeichen eingesetzt: 8,75 + 11,25 = 20.",
+       "socratic_question": "Setze 20 ein: Ist (20 + 40) · (15 + 40) gleich 500?"
+      },
+      {
+       "error": "Nicht durch 4 geteilt: mit p = 70 und q = −200 gerechnet (≈ 2,75).",
+       "socratic_question": "Steht vor x² eine 1, wenn du die p-q-Formel benutzt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (pq_vorzeichen, division_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-(35/2)/2 + (45/4)",
+     "antwort": "2.5"
+    },
+    {
+     "rechnung": "(35/2)/2 + (45/4)",
+     "antwort": "20",
+     "rolle": "fehlbild:pq_vorzeichen:"
+    },
+    {
+     "rechnung": "round(-(70)/2 + (377491721763537484861834240347305852911109/10000000000000000000000000000000000000000),2)",
+     "antwort": "2.75",
+     "rolle": "fehlbild:division_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "a549083d-c72d-44d6-9aba-a138ad6d2dc0",
+   "titel": "Anzahl der Lösungen · x² + 4x + 5 = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_anzahl",
+    "source_ref": "quadrgl-anzahl-01",
+    "input_type": "NUMERIC",
+    "frage": "Wie viele Lösungen hat die Gleichung x² + 4x + 5 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+    "known_errors": {
+     "2": "halbieren_vergessen",
+     "+2": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Diskriminante mit ablesbarem p und q, Vorzeichen deuten."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "p = 4, q = 5.\nD = (p/2)² − q = 2² − 5 = −1.\nD < 0: Unter der Wurzel stünde eine negative Zahl, es gibt keine Lösung.\nAnzahl: 0.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "p nicht halbiert: D = 16 − 5 = 11 > 0, also zwei Lösungen.",
+       "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0",
+     "antwort": "0"
+    },
+    {
+     "rechnung": "2",
+     "antwort": "2",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "9f9ab204-2b5e-49d7-aaab-28ddc96ea8b5",
+   "titel": "Diskriminante · x² − 6x + 8 = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_anzahl",
+    "source_ref": "quadrgl-anzahl-02",
+    "input_type": "NUMERIC",
+    "frage": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 6x + 8 = 0.\n\nGib das Ergebnis exakt an.",
+    "known_errors": {
+     "28": "halbieren_vergessen",
+     "-17": "vorzeichen_potenz",
+     "−17": "vorzeichen_potenz",
+     "- 17": "vorzeichen_potenz",
+     "+28": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Diskriminante nach Formel berechnen, p negativ."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1",
+      "+1"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "p = −6, q = 8.\nD = (−6/2)² − 8 = (−3)² − 8 = 9 − 8.\nD = 1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "(−3)² als −9 gerechnet: D = −9 − 8.",
+       "socratic_question": "Ist eine Zahl mal sich selbst je negativ?"
+      },
+      {
+       "error": "p nicht halbiert: D = 36 − 8.",
+       "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_potenz, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(-6/2)^2-8",
+     "antwort": "1"
+    },
+    {
+     "rechnung": "0-(6/2)^2-8",
+     "antwort": "-17",
+     "rolle": "fehlbild:vorzeichen_potenz:"
+    },
+    {
+     "rechnung": "6^2-8",
+     "antwort": "28",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "ef911123-949d-4ea9-a61d-beef95cc8dc0",
+   "titel": "Diskriminante · x² − 5x − 6 = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_anzahl",
+    "source_ref": "quadrgl-anzahl-03",
+    "input_type": "NUMERIC",
+    "frage": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 5x − 6 = 0.\n\nGib das Ergebnis exakt an.",
+    "known_errors": {
+     "31": "halbieren_vergessen",
+     "-0,25": "vorzeichen_potenz",
+     "−0,25": "vorzeichen_potenz",
+     "- 0,25": "vorzeichen_potenz",
+     "-0.25": "vorzeichen_potenz",
+     "−0.25": "vorzeichen_potenz",
+     "- 0.25": "vorzeichen_potenz",
+     "+31": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: p/2 als Dezimalzahl, q negativ – zwei Vorzeichen sind zu beachten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12,25",
+      "+12,25",
+      "12.25",
+      "+12.25"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "p = −5, q = −6.\nD = (−2,5)² − (−6) = 6,25 + 6.\nD = 12,25.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "(−2,5)² als −6,25 gerechnet: D = −6,25 + 6.",
+       "socratic_question": "Ist eine Zahl mal sich selbst je negativ?"
+      },
+      {
+       "error": "p nicht halbiert: D = 25 + 6.",
+       "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_potenz, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(-5/2)^2+6",
+     "antwort": "12.25"
+    },
+    {
+     "rechnung": "0-(5/2)^2+6",
+     "antwort": "-0.25",
+     "rolle": "fehlbild:vorzeichen_potenz:"
+    },
+    {
+     "rechnung": "5^2+6",
+     "antwort": "31",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "0c3d2396-131a-4cba-bd07-4597d92500cf",
+   "titel": "Anzahl der Lösungen · 2x² − 8x + 8 = 0",
+   "basis": {
+    "skill_key": "gleichung_quadr_anzahl",
+    "source_ref": "quadrgl-anzahl-04",
+    "input_type": "NUMERIC",
+    "frage": "Wie viele Lösungen hat die Gleichung 2x² − 8x + 8 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+    "known_errors": {
+     "0": "vorzeichen_potenz",
+     "2": "division_vergessen",
+     "+2": "division_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: erst auf Normalform bringen, dann Diskriminante null erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1",
+      "+1"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Durch 2 teilen: x² − 4x + 4 = 0, p = −4, q = 4.\nD = (−2)² − 4 = 0.\nD = 0: Es gibt genau eine Lösung (x = 2).\nAnzahl: 1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht durch 2 geteilt: D = (−4)² − 8 = 8 > 0, also zwei Lösungen.",
+       "socratic_question": "Steht vor x² eine 1, wenn du p und q abliest?"
+      },
+      {
+       "error": "(−2)² als −4 gerechnet: D = −8 < 0, also keine Lösung.",
+       "socratic_question": "Ist eine Zahl mal sich selbst je negativ?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (division_vergessen, vorzeichen_potenz)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1",
+     "antwort": "1"
+    },
+    {
+     "rechnung": "2",
+     "antwort": "2",
+     "rolle": "fehlbild:division_vergessen:"
+    },
+    {
+     "rechnung": "0",
+     "antwort": "0",
+     "rolle": "fehlbild:vorzeichen_potenz:"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "95077a87-7e8a-4463-83b0-dbbf6facc879",
+   "titel": "Anzahl der Lösungen · Zaun 20 m, Fläche 25 m²",
+   "basis": {
+    "skill_key": "gleichung_quadr_anzahl",
+    "source_ref": "quadrgl-anzahl-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein rechteckiges Feld wird mit 20 m Zaun eingezäunt und soll 25 m² Fläche haben. Für seine Breite x in Metern gilt x · (10 − x) = 25.\n\nWie viele Lösungen hat diese Gleichung? Gib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+    "known_errors": {
+     "0": "vorzeichen_potenz",
+     "2": "halbieren_vergessen",
+     "+2": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: gegebene Gleichung auf Normalform bringen, Diskriminante deuten."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1",
+      "+1"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "x · (10 − x) = 25\n10x − x² = 25 | + x² − 10x\n0 = x² − 10x + 25, also p = −10, q = 25.\nD = (−5)² − 25 = 0.\nD = 0: genau eine Lösung (x = 5, das Feld ist ein Quadrat).\nAnzahl: 1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "(−5)² als −25 gerechnet: D = −50 < 0, also keine Lösung.",
+       "socratic_question": "Ist eine Zahl mal sich selbst je negativ?"
+      },
+      {
+       "error": "p nicht halbiert: D = 100 − 25 > 0, also zwei Lösungen.",
+       "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_potenz, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1",
+     "antwort": "1"
+    },
+    {
+     "rechnung": "0",
+     "antwort": "0",
+     "rolle": "fehlbild:vorzeichen_potenz:"
+    },
+    {
+     "rechnung": "2",
+     "antwort": "2",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "56540a88-7b9e-4935-8702-26f9415e9d14",
+   "titel": "Diskriminante rückwärts · x² + 6x + q = 0 mit genau einer Lösung",
+   "basis": {
+    "skill_key": "gleichung_quadr_anzahl",
+    "source_ref": "quadrgl-anzahl-06",
+    "input_type": "NUMERIC",
+    "frage": "Für welchen Wert von q hat die Gleichung x² + 6x + q = 0 genau eine Lösung?\n\nGib q exakt an.",
+    "known_errors": {
+     "36": "halbieren_vergessen",
+     "-9": "betrag_fehler",
+     "−9": "betrag_fehler",
+     "- 9": "betrag_fehler",
+     "+36": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung – Bedingung D = 0 aufstellen und nach q auflösen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik NRW, Zweite Stufe Ari-8: quadratische Gleichungen lösen (Klasse 9)."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Themengebiet „Algebra & Funktionen\" (wie Binom und lineare Gleichungen)."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-8: quadratische Gleichungen)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9",
+      "+9"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Genau eine Lösung heißt D = 0.\nD = (6/2)² − q = 9 − q = 0, also q = 9.\nProbe: x² + 6x + 9 = (x + 3)², einzige Lösung x = −3.\nq = 9.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Aus 9 − q = 0 den Wert q = −9 gemacht.",
+       "socratic_question": "Setze q = −9 ein: Ist 9 − (−9) gleich null?"
+      },
+      {
+       "error": "p nicht halbiert: q = 6² = 36.",
+       "socratic_question": "Was steckt in der Klammer von (p/2)²?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(6/2)^2",
+     "antwort": "9"
+    },
+    {
+     "rechnung": "0-(6/2)^2",
+     "antwort": "-9",
+     "rolle": "fehlbild:betrag_fehler:"
+    },
+    {
+     "rechnung": "6^2",
+     "antwort": "36",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    }
+   ]
+  }
+ ]
+}

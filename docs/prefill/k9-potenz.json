@@ -1,0 +1,3154 @@
+{
+ "batch": "k9-potenz",
+ "kopf": [
+  "K9-Rest, Thema potenz — 24 Aufgaben: je sechs zu zahl_potenz_gesetze, _negativ, _zehner und _rechnen.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k9-potenz.json (Quelle: tools/k9-potenz-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003105853_substrat_k9_potenz.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit und zwei mit Sachkontext oder Problemlösen (Zellkultur, Würfelzerlegung, Halbierung, Blutkörperchen, Viren und Sandkorn, Lichtweg). Alle ohne Abbildung lösbar, alle exakt. Die wissenschaftliche Schreibweise wird nie als Eingabe verlangt: gefragt ist die Hochzahl allein oder Vorfaktor und Hochzahl als zwei Teile (MULTI_PART). Negative Hochzahlen: Bruch und Dezimalzahl werden beide akzeptiert.",
+ "source": "edvance_k9_potenz",
+ "class_level": 9,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "0de77a9a-3e05-4e84-ac05-177a2a3012b6",
+   "titel": "Potenzgesetze · 2³ · 2⁴ = 2ⁿ",
+   "basis": {
+    "skill_key": "zahl_potenz_gesetze",
+    "source_ref": "potenz-gesetze-01",
+    "input_type": "NUMERIC",
+    "frage": "2³ · 2⁴ = 2ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+    "known_errors": {
+     "12": "potenzgesetz_verwechselt",
+     "128": "falsche_groesse_beantwortet",
+     "+12": "potenzgesetz_verwechselt",
+     "+128": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Produkt gleicher Basen, Hochzahlen addieren."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "+7"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Gleiche Basis beim Malnehmen: Hochzahlen addieren.\n2³ · 2⁴ = 2³⁺⁴ = 2⁷, also n = 7.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Hochzahlen multipliziert statt addiert: 3 · 4 = 12.",
+       "socratic_question": "Wie viele Zweien stehen in 2³ · 2⁴, wenn du alles ausschreibst?"
+      },
+      {
+       "error": "Den Wert 2⁷ = 128 angegeben statt der Hochzahl n.",
+       "socratic_question": "Wird nach dem Wert der Potenz oder nach der Hochzahl n gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (potenzgesetz_verwechselt, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3+4",
+     "antwort": "7"
+    },
+    {
+     "rechnung": "3*4",
+     "antwort": "12",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "rechnung": "2^7",
+     "antwort": "128",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "039682a2-4201-4933-92cc-da1031fee485",
+   "titel": "Potenzgesetze · (3²)⁴ = 3ⁿ",
+   "basis": {
+    "skill_key": "zahl_potenz_gesetze",
+    "source_ref": "potenz-gesetze-02",
+    "input_type": "NUMERIC",
+    "frage": "(3²)⁴ = 3ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+    "known_errors": {
+     "6": "potenzgesetz_verwechselt",
+     "6561": "falsche_groesse_beantwortet",
+     "+6": "potenzgesetz_verwechselt",
+     "+6561": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Potenz einer Potenz, Hochzahlen multiplizieren."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8",
+      "+8"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Potenz einer Potenz: Hochzahlen multiplizieren.\n(3²)⁴ = 3² · 3² · 3² · 3² = 3²·⁴ = 3⁸, also n = 8.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Hochzahlen addiert statt multipliziert: 2 + 4 = 6.",
+       "socratic_question": "Wie oft steht 3² als Faktor in (3²)⁴?"
+      },
+      {
+       "error": "Den Wert 3⁸ = 6561 angegeben statt der Hochzahl n.",
+       "socratic_question": "Wird nach dem Wert der Potenz oder nach der Hochzahl n gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (potenzgesetz_verwechselt, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*4",
+     "antwort": "8"
+    },
+    {
+     "rechnung": "2+4",
+     "antwort": "6",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "rechnung": "3^8",
+     "antwort": "6561",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570",
+   "titel": "Potenzgesetze · (a⁴)³ : a⁵ = aⁿ",
+   "basis": {
+    "skill_key": "zahl_potenz_gesetze",
+    "source_ref": "potenz-gesetze-03",
+    "input_type": "NUMERIC",
+    "frage": "(a⁴)³ : a⁵ = aⁿ   (a ≠ 0)\n\nBestimme n. Gib n als ganze Zahl an.",
+    "known_errors": {
+     "2": "potenzgesetz_verwechselt",
+     "17": "potenzgesetz_verwechselt",
+     "+2": "potenzgesetz_verwechselt",
+     "+17": "potenzgesetz_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: zwei Potenzgesetze nacheinander (Potenz einer Potenz, dann Quotient)."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "+7"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "(a⁴)³ = a⁴·³ = a¹².\na¹² : a⁵ = a¹²⁻⁵ = a⁷, also n = 7.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei der Potenz einer Potenz die Hochzahlen addiert: a⁷ : a⁵ = a².",
+       "socratic_question": "Wie oft steht a⁴ als Faktor in (a⁴)³?"
+      },
+      {
+       "error": "Beim Teilen die Hochzahlen addiert wie beim Malnehmen: a¹²⁺⁵.",
+       "socratic_question": "Werden beim Teilen gleicher Basen die Hochzahlen addiert oder subtrahiert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (potenzgesetz_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4*3-5",
+     "antwort": "7"
+    },
+    {
+     "rechnung": "4+3-5",
+     "antwort": "2",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "rechnung": "4*3+5",
+     "antwort": "17",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "361f1762-0b48-473e-9883-815ab81f90fc",
+   "titel": "Potenzgesetze · 2⁵ · 5⁵ = 10ⁿ",
+   "basis": {
+    "skill_key": "zahl_potenz_gesetze",
+    "source_ref": "potenz-gesetze-04",
+    "input_type": "NUMERIC",
+    "frage": "2⁵ · 5⁵ = 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+    "known_errors": {
+     "10": "potenzgesetz_verwechselt",
+     "100000": "falsche_groesse_beantwortet",
+     "+10": "potenzgesetz_verwechselt",
+     "+100000": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: gleiche Hochzahl bei verschiedenen Basen erkennen und die Basen multiplizieren."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5",
+      "+5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Gleiche Hochzahl: die Basen multiplizieren.\n2⁵ · 5⁵ = (2 · 5)⁵ = 10⁵, also n = 5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Hochzahlen addiert, obwohl die Basen verschieden sind: 10¹⁰.",
+       "socratic_question": "Darfst du Hochzahlen addieren, wenn die Basen 2 und 5 verschieden sind?"
+      },
+      {
+       "error": "Den Wert 10⁵ = 100 000 angegeben statt der Hochzahl n.",
+       "socratic_question": "Wird nach dem Wert der Potenz oder nach der Hochzahl n gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (potenzgesetz_verwechselt, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "5",
+     "antwort": "5"
+    },
+    {
+     "rechnung": "5+5",
+     "antwort": "10",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "rechnung": "10^5",
+     "antwort": "100000",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "1d743a81-124c-42c5-9235-163c2c4c5309",
+   "titel": "Potenzgesetze · Zellkultur verdoppelt sich drei Stunden lang",
+   "basis": {
+    "skill_key": "zahl_potenz_gesetze",
+    "source_ref": "potenz-gesetze-05",
+    "input_type": "NUMERIC",
+    "frage": "Eine Zellkultur verdoppelt ihre Zellzahl jede Stunde. Zu Beginn sind es 2⁵ Zellen.\n\nWie viele Zellen sind es nach 3 Stunden? Gib die Anzahl exakt als ganze Zahl an.",
+    "known_errors": {
+     "8": "falsche_groesse_beantwortet",
+     "16": "mal_exponent",
+     "32768": "potenzgesetz_verwechselt",
+     "+32768": "potenzgesetz_verwechselt",
+     "+16": "mal_exponent",
+     "+8": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Verdoppeln als Multiplikation mit 2³ erkennen, dann den Wert berechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "256",
+      "+256"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Drei Verdopplungen: mal 2 · 2 · 2 = 2³.\n2⁵ · 2³ = 2⁸ = 256 Zellen.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Hochzahlen multipliziert: 2¹⁵ = 32 768.",
+       "socratic_question": "Wie viele Zweien stehen in 2⁵ · 2³, wenn du alles ausschreibst?"
+      },
+      {
+       "error": "Die Potenz 2⁸ als 2 · 8 = 16 gerechnet.",
+       "socratic_question": "Was bedeutet die Hochzahl 8 bei 2⁸?"
+      },
+      {
+       "error": "Nur die Hochzahl 8 angegeben statt der Zellzahl.",
+       "socratic_question": "Gefragt ist die Anzahl der Zellen – ist das 8?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (potenzgesetz_verwechselt, mal_exponent, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2^5*2^3",
+     "antwort": "256"
+    },
+    {
+     "rechnung": "2^15",
+     "antwort": "32768",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "rechnung": "2*8",
+     "antwort": "16",
+     "rolle": "fehlbild:mal_exponent:"
+    },
+    {
+     "rechnung": "8",
+     "antwort": "8",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "9daaeffc-8019-4a0e-a150-7f77026abc8e",
+   "titel": "Potenzgesetze · großer Würfel in kleine Würfel zerlegt",
+   "basis": {
+    "skill_key": "zahl_potenz_gesetze",
+    "source_ref": "potenz-gesetze-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein großer Würfel hat die Kantenlänge 16 cm. Er wird vollständig in kleine Würfel mit der Kantenlänge 2 cm zerlegt.\n\nDie Anzahl der kleinen Würfel lässt sich als 2ⁿ schreiben. Bestimme n. Gib n als ganze Zahl an.",
+    "known_errors": {
+     "3": "linearer_faktor",
+     "4": "potenzgesetz_verwechselt",
+     "512": "falsche_groesse_beantwortet",
+     "+3": "linearer_faktor",
+     "+4": "potenzgesetz_verwechselt",
+     "+512": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Anzahl als Quotient zweier Würfelvolumen modellieren und mit Potenzgesetzen als Zweierpotenz schreiben."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9",
+      "+9"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Volumen groß: 16³ cm³ = (2⁴)³ cm³ = 2¹² cm³.\nVolumen klein: 2³ cm³.\nAnzahl: 2¹² : 2³ = 2⁹ = 512, also n = 9.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Würfel entlang einer Kante gezählt: 16 : 2 = 8 = 2³.",
+       "socratic_question": "Wie viele kleine Würfel passen in eine Ebene, wie viele Ebenen gibt es?"
+      },
+      {
+       "error": "Die Hochzahlen geteilt statt subtrahiert: 2¹² : 2³ als 2⁴.",
+       "socratic_question": "Werden beim Teilen gleicher Basen die Hochzahlen geteilt oder subtrahiert?"
+      },
+      {
+       "error": "Die Anzahl 512 angegeben statt der Hochzahl n.",
+       "socratic_question": "Wird nach der Anzahl oder nach der Hochzahl n gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linearer_faktor, potenzgesetz_verwechselt, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4*3-3",
+     "antwort": "9"
+    },
+    {
+     "rechnung": "3",
+     "antwort": "3",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "12/3",
+     "antwort": "4",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "rechnung": "2^9",
+     "antwort": "512",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "46f1792e-a330-4665-ba1b-90f442e0db25",
+   "titel": "Negative Hochzahl · 2⁻³",
+   "basis": {
+    "skill_key": "zahl_potenz_negativ",
+    "source_ref": "potenz-negativ-01",
+    "input_type": "NUMERIC",
+    "frage": "Berechne 2⁻³. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+    "known_errors": {
+     "-8": "negativer_exponent_negativ",
+     "−8": "negativer_exponent_negativ",
+     "- 8": "negativer_exponent_negativ",
+     "-6": "mal_exponent",
+     "−6": "mal_exponent",
+     "- 6": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: negative Hochzahl als Kehrwert der Potenz."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,125",
+      "+0,125",
+      "0.125",
+      "+0.125",
+      "1/8",
+      "+1/8"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "2⁻³ = 1/2³ = 1/8 = 0,125.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die negative Hochzahl als Minuszeichen gelesen: −2³ = −8.",
+       "socratic_question": "Ist 2⁻³ ein Kehrwert oder eine negative Zahl?"
+      },
+      {
+       "error": "Die Potenz als 2 · (−3) = −6 gerechnet.",
+       "socratic_question": "Was bedeutet die Hochzahl bei einer Potenz – malnehmen mit 3 oder 3-mal malnehmen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1/2^3",
+     "antwort": "1/8"
+    },
+    {
+     "rechnung": "0-2^3",
+     "antwort": "-8",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    },
+    {
+     "rechnung": "2*(0-3)",
+     "antwort": "-6",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "3b3119d4-20b2-44b5-b874-12863dbd8c0b",
+   "titel": "Negative Hochzahl · 10⁻²",
+   "basis": {
+    "skill_key": "zahl_potenz_negativ",
+    "source_ref": "potenz-negativ-02",
+    "input_type": "NUMERIC",
+    "frage": "Berechne 10⁻². Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+    "known_errors": {
+     "-100": "negativer_exponent_negativ",
+     "−100": "negativer_exponent_negativ",
+     "- 100": "negativer_exponent_negativ",
+     "-20": "mal_exponent",
+     "−20": "mal_exponent",
+     "- 20": "mal_exponent",
+     "0,1": "faktor_zehn_daneben",
+     "+0,1": "faktor_zehn_daneben",
+     "0.1": "faktor_zehn_daneben",
+     "+0.1": "faktor_zehn_daneben",
+     "1/10": "faktor_zehn_daneben",
+     "+1/10": "faktor_zehn_daneben"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Zehnerpotenz mit negativer Hochzahl als Dezimalzahl."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,01",
+      "+0,01",
+      "0.01",
+      "+0.01",
+      "1/100",
+      "+1/100"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "10⁻² = 1/10² = 1/100 = 0,01.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die negative Hochzahl als Minuszeichen gelesen: −10² = −100.",
+       "socratic_question": "Ist 10⁻² kleiner als null oder kleiner als eins?"
+      },
+      {
+       "error": "Die Potenz als 10 · (−2) = −20 gerechnet.",
+       "socratic_question": "Was bedeutet die Hochzahl bei einer Potenz?"
+      },
+      {
+       "error": "Das Komma nur um eine Stelle verschoben: 0,1.",
+       "socratic_question": "Durch welche Zahl teilst du bei 1/10²?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent, faktor_zehn_daneben)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1/10^2",
+     "antwort": "1/100"
+    },
+    {
+     "rechnung": "0-10^2",
+     "antwort": "-100",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    },
+    {
+     "rechnung": "10*(0-2)",
+     "antwort": "-20",
+     "rolle": "fehlbild:mal_exponent:"
+    },
+    {
+     "rechnung": "1/10",
+     "antwort": "1/10",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "f05fb05f-c11b-4b9f-9a79-b03e0aeec898",
+   "titel": "Negative Hochzahl · 4⁻¹ · 4³",
+   "basis": {
+    "skill_key": "zahl_potenz_negativ",
+    "source_ref": "potenz-negativ-03",
+    "input_type": "NUMERIC",
+    "frage": "Berechne 4⁻¹ · 4³. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+    "known_errors": {
+     "-256": "negativer_exponent_negativ",
+     "−256": "negativer_exponent_negativ",
+     "- 256": "negativer_exponent_negativ",
+     "0,015625": "potenzgesetz_verwechselt",
+     "+0,015625": "potenzgesetz_verwechselt",
+     "0.015625": "potenzgesetz_verwechselt",
+     "+0.015625": "potenzgesetz_verwechselt",
+     "1/64": "potenzgesetz_verwechselt",
+     "+1/64": "potenzgesetz_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Produktgesetz mit einer negativen Hochzahl."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "16",
+      "+16"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Gleiche Basis: Hochzahlen addieren.\n4⁻¹ · 4³ = 4⁻¹⁺³ = 4² = 16.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "4⁻¹ als −4 gelesen: (−4) · 64 = −256.",
+       "socratic_question": "Ist 4⁻¹ gleich −4 oder gleich 1/4?"
+      },
+      {
+       "error": "Die Hochzahlen multipliziert: 4⁻³ = 1/64.",
+       "socratic_question": "Werden beim Malnehmen gleicher Basen die Hochzahlen multipliziert oder addiert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negativer_exponent_negativ, potenzgesetz_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4^2",
+     "antwort": "16"
+    },
+    {
+     "rechnung": "0-4*4^3",
+     "antwort": "-256",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    },
+    {
+     "rechnung": "1/4^3",
+     "antwort": "1/64",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "d4c57c1c-bfb2-455c-bc85-7149ca24c1cb",
+   "titel": "Negative Hochzahl · (1/2)⁻² + 5⁰",
+   "basis": {
+    "skill_key": "zahl_potenz_negativ",
+    "source_ref": "potenz-negativ-04",
+    "input_type": "NUMERIC",
+    "frage": "Berechne (1/2)⁻² + 5⁰. Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+    "known_errors": {
+     "4": "mal_exponent",
+     "0,75": "negativer_exponent_negativ",
+     "+0,75": "negativer_exponent_negativ",
+     "0.75": "negativer_exponent_negativ",
+     "+0.75": "negativer_exponent_negativ",
+     "3/4": "negativer_exponent_negativ",
+     "+3/4": "negativer_exponent_negativ",
+     "+4": "mal_exponent",
+     "-1": "mal_exponent",
+     "−1": "mal_exponent",
+     "- 1": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Bruch mit negativer Hochzahl und Hochzahl null in einem Term."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5",
+      "+5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "(1/2)⁻² = 2² = 4 (Kehrwert, dann quadrieren).\n5⁰ = 1.\n4 + 1 = 5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "(1/2)⁻² als −(1/2)² = −1/4 gelesen: −1/4 + 1 = 3/4.",
+       "socratic_question": "Wird bei einer negativen Hochzahl das Ergebnis negativ oder der Kehrwert gebildet?"
+      },
+      {
+       "error": "5⁰ als 5 · 0 = 0 gerechnet: 4 + 0 = 4.",
+       "socratic_question": "Welchen Wert hat jede Zahl (außer 0) hoch null?"
+      },
+      {
+       "error": "Beide Potenzen als Produkte gerechnet: (1/2) · (−2) + 5 · 0 = −1.",
+       "socratic_question": "Was bedeutet die Hochzahl bei einer Potenz?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2^2+1",
+     "antwort": "5"
+    },
+    {
+     "rechnung": "0-1/4+1",
+     "antwort": "3/4",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    },
+    {
+     "rechnung": "4+0",
+     "antwort": "4",
+     "rolle": "fehlbild:mal_exponent:"
+    },
+    {
+     "rechnung": "0-1+0",
+     "antwort": "-1",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "03c74739-8440-4d6d-9c7c-95ebdf5a163c",
+   "titel": "Negative Hochzahl · Halbierung alle 4 Stunden",
+   "basis": {
+    "skill_key": "zahl_potenz_negativ",
+    "source_ref": "potenz-negativ-05",
+    "input_type": "NUMERIC",
+    "frage": "Die Menge eines Stoffes halbiert sich alle 4 Stunden. Nach n Halbierungen ist noch der Anteil 2⁻ⁿ der Anfangsmenge vorhanden.\n\nWelcher Anteil der Anfangsmenge ist nach 20 Stunden noch vorhanden? Gib das Ergebnis exakt als Bruch oder als Dezimalzahl an.",
+    "known_errors": {
+     "-32": "negativer_exponent_negativ",
+     "−32": "negativer_exponent_negativ",
+     "- 32": "negativer_exponent_negativ",
+     "0,1": "mal_exponent",
+     "+0,1": "mal_exponent",
+     "0.1": "mal_exponent",
+     "+0.1": "mal_exponent",
+     "1/10": "mal_exponent",
+     "+1/10": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Anzahl der Halbierungen bestimmen, dann 2⁻ⁿ berechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,03125",
+      "+0,03125",
+      "0.03125",
+      "+0.03125",
+      "1/32",
+      "+1/32"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "20 Stunden : 4 Stunden = 5 Halbierungen.\n2⁻⁵ = 1/2⁵ = 1/32 = 0,03125.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die negative Hochzahl als Minuszeichen gelesen: −2⁵ = −32.",
+       "socratic_question": "Kann ein Anteil, der noch vorhanden ist, negativ sein?"
+      },
+      {
+       "error": "2⁵ als 2 · 5 = 10 gerechnet: 1/10.",
+       "socratic_question": "Wie oft wird bei 2⁵ mit 2 malgenommen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1/2^5",
+     "antwort": "1/32"
+    },
+    {
+     "rechnung": "0-2^5",
+     "antwort": "-32",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    },
+    {
+     "rechnung": "1/(2*5)",
+     "antwort": "1/10",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "2c76b7c8-5c80-43e6-95c9-0f06a7d8161e",
+   "titel": "Negative Hochzahl · Faktor zwischen 2³ und 2⁻²",
+   "basis": {
+    "skill_key": "zahl_potenz_negativ",
+    "source_ref": "potenz-negativ-06",
+    "input_type": "NUMERIC",
+    "frage": "Um welchen Faktor ist 2³ größer als 2⁻²?\n\nGib den Faktor exakt als ganze Zahl an.",
+    "known_errors": {
+     "2": "potenzgesetz_verwechselt",
+     "+2": "potenzgesetz_verwechselt",
+     "-2": "negativer_exponent_negativ",
+     "−2": "negativer_exponent_negativ",
+     "- 2": "negativer_exponent_negativ",
+     "7,75": "falsche_groesse_beantwortet",
+     "+7,75": "falsche_groesse_beantwortet",
+     "7.75": "falsche_groesse_beantwortet",
+     "+7.75": "falsche_groesse_beantwortet",
+     "31/4": "falsche_groesse_beantwortet",
+     "+31/4": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: den Faktor als Quotient erkennen und mit negativer Hochzahl rechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "32",
+      "+32"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Faktor = 2³ : 2⁻² = 2³⁻⁽⁻²⁾ = 2⁵ = 32.\nProbe: 2⁻² = 1/4, und 1/4 · 32 = 8 = 2³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Hochzahlen addiert statt subtrahiert: 2³⁺⁽⁻²⁾ = 2.",
+       "socratic_question": "Werden beim Teilen gleicher Basen die Hochzahlen addiert oder subtrahiert?"
+      },
+      {
+       "error": "2⁻² als −4 gelesen: 8 : (−4) = −2.",
+       "socratic_question": "Ist 2⁻² eine negative Zahl oder ein Bruch?"
+      },
+      {
+       "error": "Den Unterschied 8 − 1/4 berechnet statt des Faktors.",
+       "socratic_question": "Fragt „um welchen Faktor\" nach einer Differenz oder nach einem Quotienten?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (potenzgesetz_verwechselt, negativer_exponent_negativ, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2^3*2^2",
+     "antwort": "32"
+    },
+    {
+     "rechnung": "2^1",
+     "antwort": "2",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "rechnung": "2^3/(0-4)",
+     "antwort": "-2",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    },
+    {
+     "rechnung": "2^3-1/2^2",
+     "antwort": "31/4",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "fad44de2-b0f5-4aa8-9515-abc44cd5ab7e",
+   "titel": "Zehnerpotenz · 3 200 000 = 3,2 · 10ⁿ",
+   "basis": {
+    "skill_key": "zahl_potenz_zehner",
+    "source_ref": "potenz-zehner-01",
+    "input_type": "NUMERIC",
+    "frage": "3 200 000 = 3,2 · 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+    "known_errors": {
+     "5": "faktor_zehn_daneben",
+     "7": "faktor_zehn_daneben",
+     "-6": "zehnerexponent_vorzeichen",
+     "−6": "zehnerexponent_vorzeichen",
+     "- 6": "zehnerexponent_vorzeichen",
+     "+7": "faktor_zehn_daneben",
+     "+5": "faktor_zehn_daneben"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: große Zahl in wissenschaftlicher Schreibweise, Kommaverschiebung zählen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6",
+      "+6"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Das Komma wandert von 3 200 000,0 sechs Stellen nach links bis 3,2.\nAlso 3 200 000 = 3,2 · 10⁶, n = 6.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei einer großen Zahl eine negative Hochzahl angegeben.",
+       "socratic_question": "Ist 3 200 000 größer oder kleiner als 1 – welches Vorzeichen braucht n dann?"
+      },
+      {
+       "error": "Alle sieben Ziffern gezählt statt der Stellen, um die das Komma wandert.",
+       "socratic_question": "Um wie viele Stellen wandert das Komma von 3 200 000 bis 3,2?"
+      },
+      {
+       "error": "Eine Stelle zu wenig gezählt: 3,2 · 10⁵ = 320 000.",
+       "socratic_question": "Wie groß ist 3,2 · 10⁵ – stimmt das mit 3 200 000 überein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "6",
+     "antwort": "6"
+    },
+    {
+     "rechnung": "0-6",
+     "antwort": "-6",
+     "rolle": "fehlbild:zehnerexponent_vorzeichen:"
+    },
+    {
+     "rechnung": "7",
+     "antwort": "7",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "rechnung": "5",
+     "antwort": "5",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "52be6dbe-9275-4b83-9ff1-b369e1e1168b",
+   "titel": "Zehnerpotenz · 0,00045 = 4,5 · 10ⁿ",
+   "basis": {
+    "skill_key": "zahl_potenz_zehner",
+    "source_ref": "potenz-zehner-02",
+    "input_type": "NUMERIC",
+    "frage": "0,00045 = 4,5 · 10ⁿ\n\nBestimme n. Gib n als ganze Zahl an.",
+    "known_errors": {
+     "4": "zehnerexponent_vorzeichen",
+     "+4": "zehnerexponent_vorzeichen",
+     "-5": "faktor_zehn_daneben",
+     "−5": "faktor_zehn_daneben",
+     "- 5": "faktor_zehn_daneben",
+     "-3": "faktor_zehn_daneben",
+     "−3": "faktor_zehn_daneben",
+     "- 3": "faktor_zehn_daneben"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: kleine Zahl in wissenschaftlicher Schreibweise, negative Hochzahl."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-4",
+      "−4",
+      "- 4"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Das Komma wandert von 0,00045 vier Stellen nach rechts bis 4,5.\nDie Zahl ist kleiner als 1, die Hochzahl also negativ: 0,00045 = 4,5 · 10⁻⁴, n = -4.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei einer Zahl kleiner als 1 eine positive Hochzahl angegeben.",
+       "socratic_question": "Ist 4,5 · 10⁴ eine große oder eine kleine Zahl?"
+      },
+      {
+       "error": "Eine Stelle zu viel gezählt: 4,5 · 10⁻⁵ = 0,000045.",
+       "socratic_question": "Wie viele Nullen stehen nach dem Komma vor der 4?"
+      },
+      {
+       "error": "Nur die Nullen nach dem Komma gezählt: 4,5 · 10⁻³ = 0,0045.",
+       "socratic_question": "Um wie viele Stellen wandert das Komma, bis es hinter der 4 steht?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0-4",
+     "antwort": "-4"
+    },
+    {
+     "rechnung": "4",
+     "antwort": "4",
+     "rolle": "fehlbild:zehnerexponent_vorzeichen:"
+    },
+    {
+     "rechnung": "0-5",
+     "antwort": "-5",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "rechnung": "0-3",
+     "antwort": "-3",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "efac8563-dcac-4e79-9092-21d534c29667",
+   "titel": "Zehnerpotenz · 7,2 · 10⁻³ als Dezimalzahl",
+   "basis": {
+    "skill_key": "zahl_potenz_zehner",
+    "source_ref": "potenz-zehner-03",
+    "input_type": "NUMERIC",
+    "frage": "Schreibe 7,2 · 10⁻³ als Dezimalzahl. Gib die Zahl exakt an.",
+    "known_errors": {
+     "7200": "zehnerexponent_vorzeichen",
+     "+7200": "zehnerexponent_vorzeichen",
+     "0,072": "faktor_zehn_daneben",
+     "+0,072": "faktor_zehn_daneben",
+     "0.072": "faktor_zehn_daneben",
+     "+0.072": "faktor_zehn_daneben",
+     "0,00072": "faktor_zehn_daneben",
+     "+0,00072": "faktor_zehn_daneben",
+     "0.00072": "faktor_zehn_daneben",
+     "+0.00072": "faktor_zehn_daneben",
+     "-7200": "negativer_exponent_negativ",
+     "−7200": "negativer_exponent_negativ",
+     "- 7200": "negativer_exponent_negativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Rückrichtung, aus der wissenschaftlichen Schreibweise die Dezimalzahl bilden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,0072",
+      "+0,0072",
+      "0.0072",
+      "+0.0072"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "10⁻³ = 0,001: das Komma wandert drei Stellen nach links.\n7,2 · 10⁻³ = 0,0072.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Komma nach rechts verschoben: 7 200.",
+       "socratic_question": "Macht eine negative Hochzahl die Zahl größer oder kleiner?"
+      },
+      {
+       "error": "Das Komma nur zwei Stellen verschoben: 0,072.",
+       "socratic_question": "Wie viele Stellen muss das Komma bei 10⁻³ wandern?"
+      },
+      {
+       "error": "Das Komma vier Stellen verschoben: 0,00072.",
+       "socratic_question": "Wie viele Nullen hat 0,001 nach dem Komma, bevor die 1 kommt?"
+      },
+      {
+       "error": "10⁻³ als −1 000 gelesen: −7 200.",
+       "socratic_question": "Ist 10⁻³ eine negative Zahl oder ein Tausendstel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben, negativer_exponent_negativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "7.2/10^3",
+     "antwort": "0.0072"
+    },
+    {
+     "rechnung": "7.2*10^3",
+     "antwort": "7200",
+     "rolle": "fehlbild:zehnerexponent_vorzeichen:"
+    },
+    {
+     "rechnung": "7.2/10^2",
+     "antwort": "0.072",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "rechnung": "7.2/10^4",
+     "antwort": "0.00072",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "rechnung": "0-7.2*10^3",
+     "antwort": "-7200",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396",
+   "titel": "Zehnerpotenz · 4,05 · 10⁵ als Zahl",
+   "basis": {
+    "skill_key": "zahl_potenz_zehner",
+    "source_ref": "potenz-zehner-04",
+    "input_type": "NUMERIC",
+    "frage": "Schreibe 4,05 · 10⁵ als Zahl ohne Zehnerpotenz. Gib die Zahl exakt an.",
+    "known_errors": {
+     "40500": "faktor_zehn_daneben",
+     "4050000": "faktor_zehn_daneben",
+     "0,0000405": "zehnerexponent_vorzeichen",
+     "+0,0000405": "zehnerexponent_vorzeichen",
+     "0.0000405": "zehnerexponent_vorzeichen",
+     "+0.0000405": "zehnerexponent_vorzeichen",
+     "+40500": "faktor_zehn_daneben",
+     "+4050000": "faktor_zehn_daneben",
+     "202,5": "mal_exponent",
+     "+202,5": "mal_exponent",
+     "202.5": "mal_exponent",
+     "+202.5": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Rückrichtung mit Null im Vorfaktor, Stellen auffüllen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "405000",
+      "+405000"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Das Komma wandert fünf Stellen nach rechts; fehlende Stellen werden mit Nullen gefüllt.\n4,05 · 10⁵ = 405 000, eingegeben als 405000.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Komma nach links verschoben: 0,0000405.",
+       "socratic_question": "Macht eine positive Hochzahl die Zahl größer oder kleiner?"
+      },
+      {
+       "error": "Fünf Ziffern insgesamt geschrieben statt das Komma fünf Stellen zu verschieben: 40 500.",
+       "socratic_question": "Um wie viele Stellen wandert das Komma, und wo steht es danach?"
+      },
+      {
+       "error": "Das Komma sechs statt fünf Stellen verschoben: 4 050 000.",
+       "socratic_question": "Wie viele Nullen hat 10⁵, und um wie viele Stellen wandert das Komma?"
+      },
+      {
+       "error": "10⁵ als 10 · 5 = 50 gerechnet: 202,5.",
+       "socratic_question": "Was bedeutet die Hochzahl 5 bei 10⁵?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4.05*10^5",
+     "antwort": "405000"
+    },
+    {
+     "rechnung": "4.05/10^5",
+     "antwort": "0.0000405",
+     "rolle": "fehlbild:zehnerexponent_vorzeichen:"
+    },
+    {
+     "rechnung": "4.05*10^4",
+     "antwort": "40500",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "rechnung": "4.05*10^6",
+     "antwort": "4050000",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "rechnung": "4.05*10*5",
+     "antwort": "202.5",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "0723e9b4-0faf-4150-95b0-1065cb950a04",
+   "titel": "Zehnerpotenz · Durchmesser eines roten Blutkörperchens",
+   "basis": {
+    "skill_key": "zahl_potenz_zehner",
+    "source_ref": "potenz-zehner-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein rotes Blutkörperchen hat einen Durchmesser von etwa 0,0000075 m.\n\nIn wissenschaftlicher Schreibweise ist das 7,5 · 10ⁿ m. Bestimme n. Gib n als ganze Zahl an.",
+    "known_errors": {
+     "6": "zehnerexponent_vorzeichen",
+     "+6": "zehnerexponent_vorzeichen",
+     "-7": "faktor_zehn_daneben",
+     "−7": "faktor_zehn_daneben",
+     "- 7": "faktor_zehn_daneben",
+     "-5": "faktor_zehn_daneben",
+     "−5": "faktor_zehn_daneben",
+     "- 5": "faktor_zehn_daneben"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: sehr kleine Länge in wissenschaftlicher Schreibweise angeben."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-6",
+      "−6",
+      "- 6"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Das Komma wandert von 0,0000075 sechs Stellen nach rechts bis 7,5.\nDie Zahl ist kleiner als 1: 0,0000075 m = 7,5 · 10⁻⁶ m, n = -6.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei einer winzigen Länge eine positive Hochzahl angegeben.",
+       "socratic_question": "Wäre 7,5 · 10⁶ m eine winzige oder eine riesige Länge?"
+      },
+      {
+       "error": "Eine Stelle zu viel gezählt: 7,5 · 10⁻⁷ m.",
+       "socratic_question": "Um wie viele Stellen wandert das Komma, bis es hinter der 7 steht?"
+      },
+      {
+       "error": "Nur die Nullen nach dem Komma gezählt: 7,5 · 10⁻⁵ m.",
+       "socratic_question": "Muss das Komma bis hinter die 7 oder nur bis vor die 7 wandern?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0-6",
+     "antwort": "-6"
+    },
+    {
+     "rechnung": "6",
+     "antwort": "6",
+     "rolle": "fehlbild:zehnerexponent_vorzeichen:"
+    },
+    {
+     "rechnung": "0-7",
+     "antwort": "-7",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "rechnung": "0-5",
+     "antwort": "-5",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52",
+   "titel": "Zehnerpotenz · Viren auf der Länge eines Sandkorns",
+   "basis": {
+    "skill_key": "zahl_potenz_zehner",
+    "source_ref": "potenz-zehner-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein Virus ist etwa 1 · 10⁻⁷ m lang, ein Sandkorn etwa 1 · 10⁻³ m.\n\nWie viele solcher Viren passen nebeneinander auf die Länge des Sandkorns? Gib die Anzahl exakt als ganze Zahl an.",
+    "known_errors": {
+     "1000": "faktor_zehn_daneben",
+     "100000": "faktor_zehn_daneben",
+     "0,0001": "zehnerexponent_vorzeichen",
+     "+0,0001": "zehnerexponent_vorzeichen",
+     "0.0001": "zehnerexponent_vorzeichen",
+     "+0.0001": "zehnerexponent_vorzeichen",
+     "+1000": "faktor_zehn_daneben",
+     "+100000": "faktor_zehn_daneben"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Anzahl als Quotient zweier Längen in Zehnerpotenzen bilden und als Zahl angeben."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10000",
+      "+10000"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Anzahl = 10⁻³ m : 10⁻⁷ m = 10⁻³⁻⁽⁻⁷⁾ = 10⁴ = 10000.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Quotienten umgedreht: 10⁻⁷ : 10⁻³ = 10⁻⁴ = 0,0001.",
+       "socratic_question": "Kann eine Anzahl von Viren kleiner als 1 sein?"
+      },
+      {
+       "error": "Eine Zehnerpotenz zu wenig: 1 000.",
+       "socratic_question": "Wie viele Zehnerpotenzen liegen zwischen 10⁻⁷ und 10⁻³?"
+      },
+      {
+       "error": "Eine Zehnerpotenz zu viel: 100 000.",
+       "socratic_question": "Wie viele Zehnerpotenzen liegen zwischen 10⁻⁷ und 10⁻³?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "10^7/10^3",
+     "antwort": "10000"
+    },
+    {
+     "rechnung": "1/10^4",
+     "antwort": "0.0001",
+     "rolle": "fehlbild:zehnerexponent_vorzeichen:"
+    },
+    {
+     "rechnung": "10^3",
+     "antwort": "1000",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "rechnung": "10^5",
+     "antwort": "100000",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "a35d5827-c2d4-48a9-87b8-6c69c1078abe",
+   "titel": "Wissenschaftliche Schreibweise · (3 · 10⁴) · (2 · 10⁻⁶)",
+   "basis": {
+    "skill_key": "zahl_potenz_rechnen",
+    "source_ref": "potenz-rechnen-01",
+    "input_type": "MULTI_PART",
+    "frage": "Berechne (3 · 10⁴) · (2 · 10⁻⁶).\n\nGib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Vorfaktor a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Hochzahl n"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "5": "plus_statt_mal",
+      "+5": "plus_statt_mal"
+     },
+     "2": {
+      "2": "zehnerexponent_vorzeichen",
+      "-24": "potenzgesetz_verwechselt",
+      "−24": "potenzgesetz_verwechselt",
+      "- 24": "potenzgesetz_verwechselt",
+      "+2": "zehnerexponent_vorzeichen"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Vorfaktoren multiplizieren, Hochzahlen addieren, Ergebnis schon normiert."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "6",
+       "+6"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-2",
+       "−2",
+       "- 2"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Vorfaktoren: 3 · 2 = 6.\nZehnerpotenzen: 10⁴ · 10⁻⁶ = 10⁴⁺⁽⁻⁶⁾ = 10⁻².\nErgebnis: 6 · 10⁻², also a = 6 und n = -2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Vorfaktoren addiert statt multipliziert: 3 + 2 = 5.",
+       "socratic_question": "Werden die Vorfaktoren addiert oder multipliziert?"
+      },
+      {
+       "error": "Die Hochzahlen multipliziert: 4 · (−6) = −24.",
+       "socratic_question": "Werden beim Malnehmen von Zehnerpotenzen die Hochzahlen multipliziert oder addiert?"
+      },
+      {
+       "error": "Positive Hochzahl angegeben, obwohl das Ergebnis 0,06 kleiner als 1 ist.",
+       "socratic_question": "Ist das Ergebnis größer oder kleiner als 1?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (plus_statt_mal, potenzgesetz_verwechselt, zehnerexponent_vorzeichen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "3*2",
+     "antwort": "6"
+    },
+    {
+     "teil": "1",
+     "rechnung": "3+2",
+     "antwort": "5",
+     "rolle": "fehlbild:plus_statt_mal:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "4-6",
+     "antwort": "-2"
+    },
+    {
+     "teil": "2",
+     "rechnung": "4*(0-6)",
+     "antwort": "-24",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2",
+     "antwort": "2",
+     "rolle": "fehlbild:zehnerexponent_vorzeichen:"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "3510e4f2-f006-4d20-bdf8-8d8520ed09e1",
+   "titel": "Wissenschaftliche Schreibweise · (8 · 10⁶) : (2 · 10²)",
+   "basis": {
+    "skill_key": "zahl_potenz_rechnen",
+    "source_ref": "potenz-rechnen-02",
+    "input_type": "MULTI_PART",
+    "frage": "Berechne (8 · 10⁶) : (2 · 10²).\n\nGib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Vorfaktor a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Hochzahl n"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "16": "multipliziert_statt_dividiert",
+      "+16": "multipliziert_statt_dividiert"
+     },
+     "2": {
+      "3": "potenzgesetz_verwechselt",
+      "8": "potenzgesetz_verwechselt",
+      "+3": "potenzgesetz_verwechselt",
+      "+8": "potenzgesetz_verwechselt"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Vorfaktoren dividieren, Hochzahlen subtrahieren, Ergebnis schon normiert."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "4",
+       "+4"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "4",
+       "+4"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Vorfaktoren: 8 : 2 = 4.\nZehnerpotenzen: 10⁶ : 10² = 10⁶⁻² = 10⁴.\nErgebnis: 4 · 10⁴, also a = 4 und n = 4.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Vorfaktoren multipliziert statt geteilt: 8 · 2 = 16.",
+       "socratic_question": "Welche Rechenart steht zwischen den beiden Klammern?"
+      },
+      {
+       "error": "Die Hochzahlen geteilt statt subtrahiert: 6 : 2 = 3.",
+       "socratic_question": "Werden beim Teilen von Zehnerpotenzen die Hochzahlen geteilt oder subtrahiert?"
+      },
+      {
+       "error": "Die Hochzahlen addiert wie beim Malnehmen: 6 + 2 = 8.",
+       "socratic_question": "Werden beim Teilen von Zehnerpotenzen die Hochzahlen addiert oder subtrahiert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (multipliziert_statt_dividiert, potenzgesetz_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "8/2",
+     "antwort": "4"
+    },
+    {
+     "teil": "1",
+     "rechnung": "8*2",
+     "antwort": "16",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "6-2",
+     "antwort": "4"
+    },
+    {
+     "teil": "2",
+     "rechnung": "6/2",
+     "antwort": "3",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "6+2",
+     "antwort": "8",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "d6b3bddd-410d-42b8-b8cd-5139727b1ed8",
+   "titel": "Wissenschaftliche Schreibweise · (5 · 10³) · (4 · 10⁵) normieren",
+   "basis": {
+    "skill_key": "zahl_potenz_rechnen",
+    "source_ref": "potenz-rechnen-03",
+    "input_type": "MULTI_PART",
+    "frage": "Berechne (5 · 10³) · (4 · 10⁵).\n\nGib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Vorfaktor a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Hochzahl n"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "20": "faktor_zehn_daneben",
+      "+20": "faktor_zehn_daneben"
+     },
+     "2": {
+      "8": "faktor_zehn_daneben",
+      "15": "potenzgesetz_verwechselt",
+      "+8": "faktor_zehn_daneben",
+      "+15": "potenzgesetz_verwechselt"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Produkt mit Vorfaktor über 10, Ergebnis muss normiert werden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "2",
+       "+2"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "9",
+       "+9"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Vorfaktoren: 5 · 4 = 20. Zehnerpotenzen: 10³ · 10⁵ = 10⁸.\n20 · 10⁸ = 2 · 10¹ · 10⁸ = 2 · 10⁹.\nAlso a = 2 und n = 9.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht normiert: 20 ist kein Vorfaktor zwischen 1 und 10.",
+       "socratic_question": "Liegt 20 zwischen 1 und 10?"
+      },
+      {
+       "error": "Nicht normiert: 20 · 10⁸ ist richtig, aber nicht in der Form a · 10ⁿ mit a < 10.",
+       "socratic_question": "Wenn der Vorfaktor von 20 auf 2 schrumpft, was muss mit der Hochzahl passieren?"
+      },
+      {
+       "error": "Die Hochzahlen multipliziert: 3 · 5 = 15.",
+       "socratic_question": "Werden beim Malnehmen von Zehnerpotenzen die Hochzahlen multipliziert oder addiert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (faktor_zehn_daneben, potenzgesetz_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "5*4/10",
+     "antwort": "2"
+    },
+    {
+     "teil": "1",
+     "rechnung": "5*4",
+     "antwort": "20",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "3+5+1",
+     "antwort": "9"
+    },
+    {
+     "teil": "2",
+     "rechnung": "3+5",
+     "antwort": "8",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "3*5",
+     "antwort": "15",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "d7f1416b-ee9c-408c-8dd3-7e2bfc623a27",
+   "titel": "Wissenschaftliche Schreibweise · (3 · 10⁵) : (6 · 10⁻²) normieren",
+   "basis": {
+    "skill_key": "zahl_potenz_rechnen",
+    "source_ref": "potenz-rechnen-04",
+    "input_type": "MULTI_PART",
+    "frage": "Berechne (3 · 10⁵) : (6 · 10⁻²).\n\nGib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Vorfaktor a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Hochzahl n"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "18": "multipliziert_statt_dividiert",
+      "0,5": "faktor_zehn_daneben",
+      "+0,5": "faktor_zehn_daneben",
+      "0.5": "faktor_zehn_daneben",
+      "+0.5": "faktor_zehn_daneben",
+      "+18": "multipliziert_statt_dividiert"
+     },
+     "2": {
+      "3": "potenzgesetz_verwechselt",
+      "7": "faktor_zehn_daneben",
+      "+7": "faktor_zehn_daneben",
+      "+3": "potenzgesetz_verwechselt"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Quotient mit negativer Hochzahl, Vorfaktor unter 1 muss normiert werden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "5",
+       "+5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "6",
+       "+6"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Vorfaktoren: 3 : 6 = 0,5. Zehnerpotenzen: 10⁵ : 10⁻² = 10⁵⁻⁽⁻²⁾ = 10⁷.\n0,5 · 10⁷ = 5 · 10⁻¹ · 10⁷ = 5 · 10⁶.\nAlso a = 5 und n = 6.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht normiert: 0,5 ist kein Vorfaktor zwischen 1 und 10.",
+       "socratic_question": "Liegt 0,5 zwischen 1 und 10?"
+      },
+      {
+       "error": "Die Vorfaktoren multipliziert statt geteilt: 3 · 6 = 18.",
+       "socratic_question": "Welche Rechenart steht zwischen den beiden Klammern?"
+      },
+      {
+       "error": "Nicht normiert: 0,5 · 10⁷ ist richtig, aber a muss mindestens 1 sein.",
+       "socratic_question": "Wenn der Vorfaktor von 0,5 auf 5 wächst, was muss mit der Hochzahl passieren?"
+      },
+      {
+       "error": "Die Hochzahlen addiert statt subtrahiert: 10⁵⁺⁽⁻²⁾ = 10³.",
+       "socratic_question": "Was ergibt 5 − (−2)?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (faktor_zehn_daneben, multipliziert_statt_dividiert, potenzgesetz_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "3/6*10",
+     "antwort": "5"
+    },
+    {
+     "teil": "1",
+     "rechnung": "3/6",
+     "antwort": "0.5",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "3*6",
+     "antwort": "18",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "5+2-1",
+     "antwort": "6"
+    },
+    {
+     "teil": "2",
+     "rechnung": "5+2",
+     "antwort": "7",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "5-2",
+     "antwort": "3",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "bbe4791e-1ec3-485e-9b4c-bbab72c6506a",
+   "titel": "Wissenschaftliche Schreibweise · Lichtweg in einer Minute",
+   "basis": {
+    "skill_key": "zahl_potenz_rechnen",
+    "source_ref": "potenz-rechnen-05",
+    "input_type": "MULTI_PART",
+    "frage": "Licht legt in einer Sekunde etwa 3 · 10⁸ m zurück.\n\nWie viele Meter legt es in einer Minute, also in 6 · 10¹ s, zurück? Gib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Vorfaktor a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Hochzahl n"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "18": "faktor_zehn_daneben",
+      "+18": "faktor_zehn_daneben"
+     },
+     "2": {
+      "8": "potenzgesetz_verwechselt",
+      "9": "faktor_zehn_daneben",
+      "+9": "faktor_zehn_daneben",
+      "+8": "potenzgesetz_verwechselt"
+     }
+    },
+    "zeit_teile": {
+     "1": 45,
+     "2": 45
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Strecke = Geschwindigkeit · Zeit in wissenschaftlicher Schreibweise, Ergebnis normieren."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "1,8",
+       "+1,8",
+       "1.8",
+       "+1.8"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "10",
+       "+10"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Strecke = Geschwindigkeit · Zeit = (3 · 10⁸ m/s) · (6 · 10¹ s).\n3 · 6 = 18 und 10⁸ · 10¹ = 10⁹: 18 · 10⁹ m = 1,8 · 10¹⁰ m.\nAlso a = 1,8 und n = 10.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht normiert: 18 ist kein Vorfaktor zwischen 1 und 10.",
+       "socratic_question": "Liegt 18 zwischen 1 und 10?"
+      },
+      {
+       "error": "Nicht normiert: 18 · 10⁹ m ist richtig, aber a muss kleiner als 10 sein.",
+       "socratic_question": "Wenn der Vorfaktor von 18 auf 1,8 schrumpft, was muss mit der Hochzahl passieren?"
+      },
+      {
+       "error": "Die Hochzahlen multipliziert: 8 · 1 = 8.",
+       "socratic_question": "Werden beim Malnehmen von Zehnerpotenzen die Hochzahlen multipliziert oder addiert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (faktor_zehn_daneben, potenzgesetz_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "3*6/10",
+     "antwort": "1.8"
+    },
+    {
+     "teil": "1",
+     "rechnung": "3*6",
+     "antwort": "18",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "8+1+1",
+     "antwort": "10"
+    },
+    {
+     "teil": "2",
+     "rechnung": "8+1",
+     "antwort": "9",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "8*1",
+     "antwort": "8",
+     "rolle": "fehlbild:potenzgesetz_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "0a6f5de1-82ab-4f20-8f71-3fab440b2e95",
+   "titel": "Wissenschaftliche Schreibweise · Licht von der Sonne zur Erde",
+   "basis": {
+    "skill_key": "zahl_potenz_rechnen",
+    "source_ref": "potenz-rechnen-06",
+    "input_type": "MULTI_PART",
+    "frage": "Die Sonne ist etwa 1,5 · 10¹¹ m von der Erde entfernt. Licht legt in einer Sekunde etwa 3 · 10⁸ m zurück.\n\nWie viele Sekunden braucht das Licht von der Sonne bis zur Erde? Gib das Ergebnis in der Form a · 10ⁿ mit 1 ≤ a < 10 an. Trage den Vorfaktor a und die Hochzahl n getrennt ein, beide exakt.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Vorfaktor a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Hochzahl n"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "0,5": "faktor_zehn_daneben",
+      "+0,5": "faktor_zehn_daneben",
+      "0.5": "faktor_zehn_daneben",
+      "+0.5": "faktor_zehn_daneben",
+      "4,5": "multipliziert_statt_dividiert",
+      "+4,5": "multipliziert_statt_dividiert",
+      "4.5": "multipliziert_statt_dividiert",
+      "+4.5": "multipliziert_statt_dividiert"
+     },
+     "2": {
+      "3": "faktor_zehn_daneben",
+      "19": "multipliziert_statt_dividiert",
+      "+3": "faktor_zehn_daneben",
+      "+19": "multipliziert_statt_dividiert"
+     }
+    },
+    "zeit_teile": {
+     "1": 60,
+     "2": 60
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Zeit = Strecke : Geschwindigkeit selbst aufstellen, Quotient bilden und normieren."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+    },
+    "cluster_id": {
+     "wert": "e7108c9a-d19e-4021-8499-55b4f3d5d70c",
+     "sicher": "hoch",
+     "grund": "Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand."
+    },
+    "competency_content": {
+     "wert": "arithmetik_algebra",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "5",
+       "+5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "arithmetik_algebra",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "2",
+       "+2"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Zeit = Strecke : Geschwindigkeit = (1,5 · 10¹¹ m) : (3 · 10⁸ m/s).\n1,5 : 3 = 0,5 und 10¹¹ : 10⁸ = 10³: 0,5 · 10³ s = 5 · 10² s (500 s).\nAlso a = 5 und n = 2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht normiert: 0,5 ist kein Vorfaktor zwischen 1 und 10.",
+       "socratic_question": "Liegt 0,5 zwischen 1 und 10?"
+      },
+      {
+       "error": "Strecke mal Geschwindigkeit gerechnet: 1,5 · 3 = 4,5.",
+       "socratic_question": "Wie erhältst du aus Strecke und Geschwindigkeit die Zeit?"
+      },
+      {
+       "error": "Nicht normiert: 0,5 · 10³ s ist richtig, aber a muss mindestens 1 sein.",
+       "socratic_question": "Wenn der Vorfaktor von 0,5 auf 5 wächst, was muss mit der Hochzahl passieren?"
+      },
+      {
+       "error": "Strecke mal Geschwindigkeit gerechnet: 10¹¹ · 10⁸ = 10¹⁹.",
+       "socratic_question": "Wie erhältst du aus Strecke und Geschwindigkeit die Zeit?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (faktor_zehn_daneben, multipliziert_statt_dividiert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "1.5/3*10",
+     "antwort": "5"
+    },
+    {
+     "teil": "1",
+     "rechnung": "1.5/3",
+     "antwort": "0.5",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "1.5*3",
+     "antwort": "4.5",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "11-8-1",
+     "antwort": "2"
+    },
+    {
+     "teil": "2",
+     "rechnung": "11-8",
+     "antwort": "3",
+     "rolle": "fehlbild:faktor_zehn_daneben:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "11+8",
+     "antwort": "19",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:"
+    }
+   ]
+  }
+ ]
+}

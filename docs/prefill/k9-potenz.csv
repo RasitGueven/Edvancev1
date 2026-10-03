@@ -1,0 +1,374 @@
+Aufgabe-ID,source_ref,Teilaufgabe,Feld,neuer Wert,Art,Unsicherheit,Begründung
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,afb,I,neu,mittel,"Reproduzieren: Produkt gleicher Basen, Hochzahlen addieren."
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,correct_answers,"[""7"",""+7""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,solution,"Gleiche Basis beim Malnehmen: Hochzahlen addieren.
+2³ · 2⁴ = 2³⁺⁴ = 2⁷, also n = 7.",neu,hoch,Nachgerechnet.
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,typical_errors,"[{""error"":""Die Hochzahlen multipliziert statt addiert: 3 · 4 = 12."",""socratic_question"":""Wie viele Zweien stehen in 2³ · 2⁴, wenn du alles ausschreibst?""},{""error"":""Den Wert 2⁷ = 128 angegeben statt der Hochzahl n."",""socratic_question"":""Wird nach dem Wert der Potenz oder nach der Hochzahl n gefragt?""}]",neu,hoch,"Aus acceptance.known_errors (potenzgesetz_verwechselt, falsche_groesse_beantwortet)."
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0de77a9a-3e05-4e84-ac05-177a2a3012b6,potenz-gesetze-01,,acceptance.known_errors (keine UI),"{""12"":""potenzgesetz_verwechselt"",""128"":""falsche_groesse_beantwortet"",""+12"":""potenzgesetz_verwechselt"",""+128"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,afb,I,neu,mittel,"Reproduzieren: Potenz einer Potenz, Hochzahlen multiplizieren."
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,correct_answers,"[""8"",""+8""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,solution,"Potenz einer Potenz: Hochzahlen multiplizieren.
+(3²)⁴ = 3² · 3² · 3² · 3² = 3²·⁴ = 3⁸, also n = 8.",neu,hoch,Nachgerechnet.
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,typical_errors,"[{""error"":""Die Hochzahlen addiert statt multipliziert: 2 + 4 = 6."",""socratic_question"":""Wie oft steht 3² als Faktor in (3²)⁴?""},{""error"":""Den Wert 3⁸ = 6561 angegeben statt der Hochzahl n."",""socratic_question"":""Wird nach dem Wert der Potenz oder nach der Hochzahl n gefragt?""}]",neu,hoch,"Aus acceptance.known_errors (potenzgesetz_verwechselt, falsche_groesse_beantwortet)."
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+039682a2-4201-4933-92cc-da1031fee485,potenz-gesetze-02,,acceptance.known_errors (keine UI),"{""6"":""potenzgesetz_verwechselt"",""6561"":""falsche_groesse_beantwortet"",""+6"":""potenzgesetz_verwechselt"",""+6561"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,afb,II,neu,mittel,"Anwenden: zwei Potenzgesetze nacheinander (Potenz einer Potenz, dann Quotient)."
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,correct_answers,"[""7"",""+7""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,solution,"(a⁴)³ = a⁴·³ = a¹².
+a¹² : a⁵ = a¹²⁻⁵ = a⁷, also n = 7.",neu,hoch,Nachgerechnet.
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,typical_errors,"[{""error"":""Bei der Potenz einer Potenz die Hochzahlen addiert: a⁷ : a⁵ = a²."",""socratic_question"":""Wie oft steht a⁴ als Faktor in (a⁴)³?""},{""error"":""Beim Teilen die Hochzahlen addiert wie beim Malnehmen: a¹²⁺⁵."",""socratic_question"":""Werden beim Teilen gleicher Basen die Hochzahlen addiert oder subtrahiert?""}]",neu,hoch,Aus acceptance.known_errors (potenzgesetz_verwechselt).
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+d1e9b2a6-2dc9-4ac9-ae5b-5bf8b67ba570,potenz-gesetze-03,,acceptance.known_errors (keine UI),"{""2"":""potenzgesetz_verwechselt"",""17"":""potenzgesetz_verwechselt"",""+2"":""potenzgesetz_verwechselt"",""+17"":""potenzgesetz_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,afb,II,neu,mittel,Anwenden: gleiche Hochzahl bei verschiedenen Basen erkennen und die Basen multiplizieren.
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,correct_answers,"[""5"",""+5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,solution,"Gleiche Hochzahl: die Basen multiplizieren.
+2⁵ · 5⁵ = (2 · 5)⁵ = 10⁵, also n = 5.",neu,hoch,Nachgerechnet.
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,typical_errors,"[{""error"":""Die Hochzahlen addiert, obwohl die Basen verschieden sind: 10¹⁰."",""socratic_question"":""Darfst du Hochzahlen addieren, wenn die Basen 2 und 5 verschieden sind?""},{""error"":""Den Wert 10⁵ = 100 000 angegeben statt der Hochzahl n."",""socratic_question"":""Wird nach dem Wert der Potenz oder nach der Hochzahl n gefragt?""}]",neu,hoch,"Aus acceptance.known_errors (potenzgesetz_verwechselt, falsche_groesse_beantwortet)."
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+361f1762-0b48-473e-9883-815ab81f90fc,potenz-gesetze-04,,acceptance.known_errors (keine UI),"{""10"":""potenzgesetz_verwechselt"",""100000"":""falsche_groesse_beantwortet"",""+10"":""potenzgesetz_verwechselt"",""+100000"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: Verdoppeln als Multiplikation mit 2³ erkennen, dann den Wert berechnen."
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,correct_answers,"[""256"",""+256""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,solution,"Drei Verdopplungen: mal 2 · 2 · 2 = 2³.
+2⁵ · 2³ = 2⁸ = 256 Zellen.",neu,hoch,Nachgerechnet.
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,typical_errors,"[{""error"":""Die Hochzahlen multipliziert: 2¹⁵ = 32 768."",""socratic_question"":""Wie viele Zweien stehen in 2⁵ · 2³, wenn du alles ausschreibst?""},{""error"":""Die Potenz 2⁸ als 2 · 8 = 16 gerechnet."",""socratic_question"":""Was bedeutet die Hochzahl 8 bei 2⁸?""},{""error"":""Nur die Hochzahl 8 angegeben statt der Zellzahl."",""socratic_question"":""Gefragt ist die Anzahl der Zellen – ist das 8?""}]",neu,hoch,"Aus acceptance.known_errors (potenzgesetz_verwechselt, mal_exponent, falsche_groesse_beantwortet)."
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,acceptance.known_errors (keine UI),"{""8"":""falsche_groesse_beantwortet"",""16"":""mal_exponent"",""32768"":""potenzgesetz_verwechselt"",""+32768"":""potenzgesetz_verwechselt"",""+16"":""mal_exponent"",""+8"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1d743a81-124c-42c5-9235-163c2c4c5309,potenz-gesetze-05,,sondierrang (keine UI),1,neu,mittel,"potenz-gesetze-05 = 1, potenz-gesetze-06 = 2. Rang 1 aus Profil {falsche_groesse_beantwortet,mal_exponent,potenzgesetz_verwechselt}, Rang 2 aus Profil {falsche_groesse_beantwortet,linearer_faktor,potenzgesetz_verwechselt} (1 neue Fehlbilder)"
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,afb,III,neu,mittel,Problemlösen: Anzahl als Quotient zweier Würfelvolumen modellieren und mit Potenzgesetzen als Zweierpotenz schreiben.
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,correct_answers,"[""9"",""+9""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,solution,"Volumen groß: 16³ cm³ = (2⁴)³ cm³ = 2¹² cm³.
+Volumen klein: 2³ cm³.
+Anzahl: 2¹² : 2³ = 2⁹ = 512, also n = 9.",neu,hoch,Nachgerechnet.
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,typical_errors,"[{""error"":""Nur die Würfel entlang einer Kante gezählt: 16 : 2 = 8 = 2³."",""socratic_question"":""Wie viele kleine Würfel passen in eine Ebene, wie viele Ebenen gibt es?""},{""error"":""Die Hochzahlen geteilt statt subtrahiert: 2¹² : 2³ als 2⁴."",""socratic_question"":""Werden beim Teilen gleicher Basen die Hochzahlen geteilt oder subtrahiert?""},{""error"":""Die Anzahl 512 angegeben statt der Hochzahl n."",""socratic_question"":""Wird nach der Anzahl oder nach der Hochzahl n gefragt?""}]",neu,hoch,"Aus acceptance.known_errors (linearer_faktor, potenzgesetz_verwechselt, falsche_groesse_beantwortet)."
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,acceptance.known_errors (keine UI),"{""3"":""linearer_faktor"",""4"":""potenzgesetz_verwechselt"",""512"":""falsche_groesse_beantwortet"",""+3"":""linearer_faktor"",""+4"":""potenzgesetz_verwechselt"",""+512"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+9daaeffc-8019-4a0e-a150-7f77026abc8e,potenz-gesetze-06,,sondierrang (keine UI),2,neu,mittel,"potenz-gesetze-05 = 1, potenz-gesetze-06 = 2. Rang 1 aus Profil {falsche_groesse_beantwortet,mal_exponent,potenzgesetz_verwechselt}, Rang 2 aus Profil {falsche_groesse_beantwortet,linearer_faktor,potenzgesetz_verwechselt} (1 neue Fehlbilder)"
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,afb,I,neu,mittel,Reproduzieren: negative Hochzahl als Kehrwert der Potenz.
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,correct_answers,"[""0,125"",""+0,125"",""0.125"",""+0.125"",""1/8"",""+1/8""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,solution,"2⁻³ = 1/2³ = 1/8 = 0,125.",neu,hoch,Nachgerechnet.
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,typical_errors,"[{""error"":""Die negative Hochzahl als Minuszeichen gelesen: −2³ = −8."",""socratic_question"":""Ist 2⁻³ ein Kehrwert oder eine negative Zahl?""},{""error"":""Die Potenz als 2 · (−3) = −6 gerechnet."",""socratic_question"":""Was bedeutet die Hochzahl bei einer Potenz – malnehmen mit 3 oder 3-mal malnehmen?""}]",neu,hoch,"Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent)."
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+46f1792e-a330-4665-ba1b-90f442e0db25,potenz-negativ-01,,acceptance.known_errors (keine UI),"{""-8"":""negativer_exponent_negativ"",""−8"":""negativer_exponent_negativ"",""- 8"":""negativer_exponent_negativ"",""-6"":""mal_exponent"",""−6"":""mal_exponent"",""- 6"":""mal_exponent""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,afb,I,neu,mittel,Reproduzieren: Zehnerpotenz mit negativer Hochzahl als Dezimalzahl.
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,correct_answers,"[""0,01"",""+0,01"",""0.01"",""+0.01"",""1/100"",""+1/100""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,solution,"10⁻² = 1/10² = 1/100 = 0,01.",neu,hoch,Nachgerechnet.
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,typical_errors,"[{""error"":""Die negative Hochzahl als Minuszeichen gelesen: −10² = −100."",""socratic_question"":""Ist 10⁻² kleiner als null oder kleiner als eins?""},{""error"":""Die Potenz als 10 · (−2) = −20 gerechnet."",""socratic_question"":""Was bedeutet die Hochzahl bei einer Potenz?""},{""error"":""Das Komma nur um eine Stelle verschoben: 0,1."",""socratic_question"":""Durch welche Zahl teilst du bei 1/10²?""}]",neu,hoch,"Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent, faktor_zehn_daneben)."
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,acceptance.known_errors (keine UI),"{""-100"":""negativer_exponent_negativ"",""−100"":""negativer_exponent_negativ"",""- 100"":""negativer_exponent_negativ"",""-20"":""mal_exponent"",""−20"":""mal_exponent"",""- 20"":""mal_exponent"",""0,1"":""faktor_zehn_daneben"",""+0,1"":""faktor_zehn_daneben"",""0.1"":""faktor_zehn_daneben"",""+0.1"":""faktor_zehn_daneben"",""1/10"":""faktor_zehn_daneben"",""+1/10"":""faktor_zehn_daneben""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+3b3119d4-20b2-44b5-b874-12863dbd8c0b,potenz-negativ-02,,sondierrang (keine UI),2,neu,mittel,"potenz-negativ-06 = 1, potenz-negativ-02 = 2. Rang 1 aus Profil {falsche_groesse_beantwortet,negativer_exponent_negativ,potenzgesetz_verwechselt}, Rang 2 aus Profil {faktor_zehn_daneben,mal_exponent,negativer_exponent_negativ} (2 neue Fehlbilder)"
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,afb,II,neu,mittel,Anwenden: Produktgesetz mit einer negativen Hochzahl.
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,correct_answers,"[""16"",""+16""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,solution,"Gleiche Basis: Hochzahlen addieren.
+4⁻¹ · 4³ = 4⁻¹⁺³ = 4² = 16.",neu,hoch,Nachgerechnet.
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,typical_errors,"[{""error"":""4⁻¹ als −4 gelesen: (−4) · 64 = −256."",""socratic_question"":""Ist 4⁻¹ gleich −4 oder gleich 1/4?""},{""error"":""Die Hochzahlen multipliziert: 4⁻³ = 1/64."",""socratic_question"":""Werden beim Malnehmen gleicher Basen die Hochzahlen multipliziert oder addiert?""}]",neu,hoch,"Aus acceptance.known_errors (negativer_exponent_negativ, potenzgesetz_verwechselt)."
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f05fb05f-c11b-4b9f-9a79-b03e0aeec898,potenz-negativ-03,,acceptance.known_errors (keine UI),"{""-256"":""negativer_exponent_negativ"",""−256"":""negativer_exponent_negativ"",""- 256"":""negativer_exponent_negativ"",""0,015625"":""potenzgesetz_verwechselt"",""+0,015625"":""potenzgesetz_verwechselt"",""0.015625"":""potenzgesetz_verwechselt"",""+0.015625"":""potenzgesetz_verwechselt"",""1/64"":""potenzgesetz_verwechselt"",""+1/64"":""potenzgesetz_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,afb,II,neu,mittel,Anwenden: Bruch mit negativer Hochzahl und Hochzahl null in einem Term.
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,correct_answers,"[""5"",""+5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,solution,"(1/2)⁻² = 2² = 4 (Kehrwert, dann quadrieren).
+5⁰ = 1.
+4 + 1 = 5.",neu,hoch,Nachgerechnet.
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,typical_errors,"[{""error"":""(1/2)⁻² als −(1/2)² = −1/4 gelesen: −1/4 + 1 = 3/4."",""socratic_question"":""Wird bei einer negativen Hochzahl das Ergebnis negativ oder der Kehrwert gebildet?""},{""error"":""5⁰ als 5 · 0 = 0 gerechnet: 4 + 0 = 4."",""socratic_question"":""Welchen Wert hat jede Zahl (außer 0) hoch null?""},{""error"":""Beide Potenzen als Produkte gerechnet: (1/2) · (−2) + 5 · 0 = −1."",""socratic_question"":""Was bedeutet die Hochzahl bei einer Potenz?""}]",neu,hoch,"Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent)."
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+d4c57c1c-bfb2-455c-bc85-7149ca24c1cb,potenz-negativ-04,,acceptance.known_errors (keine UI),"{""4"":""mal_exponent"",""0,75"":""negativer_exponent_negativ"",""+0,75"":""negativer_exponent_negativ"",""0.75"":""negativer_exponent_negativ"",""+0.75"":""negativer_exponent_negativ"",""3/4"":""negativer_exponent_negativ"",""+3/4"":""negativer_exponent_negativ"",""+4"":""mal_exponent"",""-1"":""mal_exponent"",""−1"":""mal_exponent"",""- 1"":""mal_exponent""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: Anzahl der Halbierungen bestimmen, dann 2⁻ⁿ berechnen."
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,correct_answers,"[""0,03125"",""+0,03125"",""0.03125"",""+0.03125"",""1/32"",""+1/32""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,solution,"20 Stunden : 4 Stunden = 5 Halbierungen.
+2⁻⁵ = 1/2⁵ = 1/32 = 0,03125.",neu,hoch,Nachgerechnet.
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,typical_errors,"[{""error"":""Die negative Hochzahl als Minuszeichen gelesen: −2⁵ = −32."",""socratic_question"":""Kann ein Anteil, der noch vorhanden ist, negativ sein?""},{""error"":""2⁵ als 2 · 5 = 10 gerechnet: 1/10."",""socratic_question"":""Wie oft wird bei 2⁵ mit 2 malgenommen?""}]",neu,hoch,"Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent)."
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+03c74739-8440-4d6d-9c7c-95ebdf5a163c,potenz-negativ-05,,acceptance.known_errors (keine UI),"{""-32"":""negativer_exponent_negativ"",""−32"":""negativer_exponent_negativ"",""- 32"":""negativer_exponent_negativ"",""0,1"":""mal_exponent"",""+0,1"":""mal_exponent"",""0.1"":""mal_exponent"",""+0.1"":""mal_exponent"",""1/10"":""mal_exponent"",""+1/10"":""mal_exponent""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,afb,III,neu,mittel,Problemlösen: den Faktor als Quotient erkennen und mit negativer Hochzahl rechnen.
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,est_duration_sec,90,neu,mittel,"Zeitregel: AFB III, kein Sachkontext."
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,correct_answers,"[""32"",""+32""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,solution,"Faktor = 2³ : 2⁻² = 2³⁻⁽⁻²⁾ = 2⁵ = 32.
+Probe: 2⁻² = 1/4, und 1/4 · 32 = 8 = 2³.",neu,hoch,Nachgerechnet.
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,typical_errors,"[{""error"":""Die Hochzahlen addiert statt subtrahiert: 2³⁺⁽⁻²⁾ = 2."",""socratic_question"":""Werden beim Teilen gleicher Basen die Hochzahlen addiert oder subtrahiert?""},{""error"":""2⁻² als −4 gelesen: 8 : (−4) = −2."",""socratic_question"":""Ist 2⁻² eine negative Zahl oder ein Bruch?""},{""error"":""Den Unterschied 8 − 1/4 berechnet statt des Faktors."",""socratic_question"":""Fragt „um welchen Faktor\"" nach einer Differenz oder nach einem Quotienten?""}]",neu,hoch,"Aus acceptance.known_errors (potenzgesetz_verwechselt, negativer_exponent_negativ, falsche_groesse_beantwortet)."
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,acceptance.known_errors (keine UI),"{""2"":""potenzgesetz_verwechselt"",""+2"":""potenzgesetz_verwechselt"",""-2"":""negativer_exponent_negativ"",""−2"":""negativer_exponent_negativ"",""- 2"":""negativer_exponent_negativ"",""7,75"":""falsche_groesse_beantwortet"",""+7,75"":""falsche_groesse_beantwortet"",""7.75"":""falsche_groesse_beantwortet"",""+7.75"":""falsche_groesse_beantwortet"",""31/4"":""falsche_groesse_beantwortet"",""+31/4"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+2c76b7c8-5c80-43e6-95c9-0f06a7d8161e,potenz-negativ-06,,sondierrang (keine UI),1,neu,mittel,"potenz-negativ-06 = 1, potenz-negativ-02 = 2. Rang 1 aus Profil {falsche_groesse_beantwortet,negativer_exponent_negativ,potenzgesetz_verwechselt}, Rang 2 aus Profil {faktor_zehn_daneben,mal_exponent,negativer_exponent_negativ} (2 neue Fehlbilder)"
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,afb,I,neu,mittel,"Reproduzieren: große Zahl in wissenschaftlicher Schreibweise, Kommaverschiebung zählen."
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,correct_answers,"[""6"",""+6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,solution,"Das Komma wandert von 3 200 000,0 sechs Stellen nach links bis 3,2.
+Also 3 200 000 = 3,2 · 10⁶, n = 6.",neu,hoch,Nachgerechnet.
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,typical_errors,"[{""error"":""Bei einer großen Zahl eine negative Hochzahl angegeben."",""socratic_question"":""Ist 3 200 000 größer oder kleiner als 1 – welches Vorzeichen braucht n dann?""},{""error"":""Alle sieben Ziffern gezählt statt der Stellen, um die das Komma wandert."",""socratic_question"":""Um wie viele Stellen wandert das Komma von 3 200 000 bis 3,2?""},{""error"":""Eine Stelle zu wenig gezählt: 3,2 · 10⁵ = 320 000."",""socratic_question"":""Wie groß ist 3,2 · 10⁵ – stimmt das mit 3 200 000 überein?""}]",neu,hoch,"Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben)."
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+fad44de2-b0f5-4aa8-9515-abc44cd5ab7e,potenz-zehner-01,,acceptance.known_errors (keine UI),"{""5"":""faktor_zehn_daneben"",""7"":""faktor_zehn_daneben"",""-6"":""zehnerexponent_vorzeichen"",""−6"":""zehnerexponent_vorzeichen"",""- 6"":""zehnerexponent_vorzeichen"",""+7"":""faktor_zehn_daneben"",""+5"":""faktor_zehn_daneben""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,afb,I,neu,mittel,"Reproduzieren: kleine Zahl in wissenschaftlicher Schreibweise, negative Hochzahl."
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,correct_answers,"[""-4"",""−4"",""- 4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,solution,"Das Komma wandert von 0,00045 vier Stellen nach rechts bis 4,5.
+Die Zahl ist kleiner als 1, die Hochzahl also negativ: 0,00045 = 4,5 · 10⁻⁴, n = -4.",neu,hoch,Nachgerechnet.
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,typical_errors,"[{""error"":""Bei einer Zahl kleiner als 1 eine positive Hochzahl angegeben."",""socratic_question"":""Ist 4,5 · 10⁴ eine große oder eine kleine Zahl?""},{""error"":""Eine Stelle zu viel gezählt: 4,5 · 10⁻⁵ = 0,000045."",""socratic_question"":""Wie viele Nullen stehen nach dem Komma vor der 4?""},{""error"":""Nur die Nullen nach dem Komma gezählt: 4,5 · 10⁻³ = 0,0045."",""socratic_question"":""Um wie viele Stellen wandert das Komma, bis es hinter der 4 steht?""}]",neu,hoch,"Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben)."
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+52be6dbe-9275-4b83-9ff1-b369e1e1168b,potenz-zehner-02,,acceptance.known_errors (keine UI),"{""4"":""zehnerexponent_vorzeichen"",""+4"":""zehnerexponent_vorzeichen"",""-5"":""faktor_zehn_daneben"",""−5"":""faktor_zehn_daneben"",""- 5"":""faktor_zehn_daneben"",""-3"":""faktor_zehn_daneben"",""−3"":""faktor_zehn_daneben"",""- 3"":""faktor_zehn_daneben""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,afb,II,neu,mittel,"Anwenden: Rückrichtung, aus der wissenschaftlichen Schreibweise die Dezimalzahl bilden."
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,correct_answers,"[""0,0072"",""+0,0072"",""0.0072"",""+0.0072""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,solution,"10⁻³ = 0,001: das Komma wandert drei Stellen nach links.
+7,2 · 10⁻³ = 0,0072.",neu,hoch,Nachgerechnet.
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,typical_errors,"[{""error"":""Das Komma nach rechts verschoben: 7 200."",""socratic_question"":""Macht eine negative Hochzahl die Zahl größer oder kleiner?""},{""error"":""Das Komma nur zwei Stellen verschoben: 0,072."",""socratic_question"":""Wie viele Stellen muss das Komma bei 10⁻³ wandern?""},{""error"":""Das Komma vier Stellen verschoben: 0,00072."",""socratic_question"":""Wie viele Nullen hat 0,001 nach dem Komma, bevor die 1 kommt?""},{""error"":""10⁻³ als −1 000 gelesen: −7 200."",""socratic_question"":""Ist 10⁻³ eine negative Zahl oder ein Tausendstel?""}]",neu,hoch,"Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben, negativer_exponent_negativ)."
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,acceptance.known_errors (keine UI),"{""7200"":""zehnerexponent_vorzeichen"",""+7200"":""zehnerexponent_vorzeichen"",""0,072"":""faktor_zehn_daneben"",""+0,072"":""faktor_zehn_daneben"",""0.072"":""faktor_zehn_daneben"",""+0.072"":""faktor_zehn_daneben"",""0,00072"":""faktor_zehn_daneben"",""+0,00072"":""faktor_zehn_daneben"",""0.00072"":""faktor_zehn_daneben"",""+0.00072"":""faktor_zehn_daneben"",""-7200"":""negativer_exponent_negativ"",""−7200"":""negativer_exponent_negativ"",""- 7200"":""negativer_exponent_negativ""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+efac8563-dcac-4e79-9092-21d534c29667,potenz-zehner-03,,sondierrang (keine UI),2,neu,mittel,"potenz-zehner-04 = 1, potenz-zehner-03 = 2. Rang 1 aus Profil {faktor_zehn_daneben,mal_exponent,zehnerexponent_vorzeichen}, Rang 2 aus Profil {faktor_zehn_daneben,negativer_exponent_negativ,zehnerexponent_vorzeichen} (1 neue Fehlbilder)"
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,afb,II,neu,mittel,"Anwenden: Rückrichtung mit Null im Vorfaktor, Stellen auffüllen."
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,correct_answers,"[""405000"",""+405000""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,solution,"Das Komma wandert fünf Stellen nach rechts; fehlende Stellen werden mit Nullen gefüllt.
+4,05 · 10⁵ = 405 000, eingegeben als 405000.",neu,hoch,Nachgerechnet.
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,typical_errors,"[{""error"":""Das Komma nach links verschoben: 0,0000405."",""socratic_question"":""Macht eine positive Hochzahl die Zahl größer oder kleiner?""},{""error"":""Fünf Ziffern insgesamt geschrieben statt das Komma fünf Stellen zu verschieben: 40 500."",""socratic_question"":""Um wie viele Stellen wandert das Komma, und wo steht es danach?""},{""error"":""Das Komma sechs statt fünf Stellen verschoben: 4 050 000."",""socratic_question"":""Wie viele Nullen hat 10⁵, und um wie viele Stellen wandert das Komma?""},{""error"":""10⁵ als 10 · 5 = 50 gerechnet: 202,5."",""socratic_question"":""Was bedeutet die Hochzahl 5 bei 10⁵?""}]",neu,hoch,"Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben, mal_exponent)."
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,acceptance.known_errors (keine UI),"{""40500"":""faktor_zehn_daneben"",""4050000"":""faktor_zehn_daneben"",""0,0000405"":""zehnerexponent_vorzeichen"",""+0,0000405"":""zehnerexponent_vorzeichen"",""0.0000405"":""zehnerexponent_vorzeichen"",""+0.0000405"":""zehnerexponent_vorzeichen"",""+40500"":""faktor_zehn_daneben"",""+4050000"":""faktor_zehn_daneben"",""202,5"":""mal_exponent"",""+202,5"":""mal_exponent"",""202.5"":""mal_exponent"",""+202.5"":""mal_exponent""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+aeb4bcf2-43d5-4b95-80ec-b0ab2cd08396,potenz-zehner-04,,sondierrang (keine UI),1,neu,mittel,"potenz-zehner-04 = 1, potenz-zehner-03 = 2. Rang 1 aus Profil {faktor_zehn_daneben,mal_exponent,zehnerexponent_vorzeichen}, Rang 2 aus Profil {faktor_zehn_daneben,negativer_exponent_negativ,zehnerexponent_vorzeichen} (1 neue Fehlbilder)"
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,afb,II,neu,mittel,Anwenden im Sachkontext: sehr kleine Länge in wissenschaftlicher Schreibweise angeben.
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,correct_answers,"[""-6"",""−6"",""- 6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,solution,"Das Komma wandert von 0,0000075 sechs Stellen nach rechts bis 7,5.
+Die Zahl ist kleiner als 1: 0,0000075 m = 7,5 · 10⁻⁶ m, n = -6.",neu,hoch,Nachgerechnet.
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,typical_errors,"[{""error"":""Bei einer winzigen Länge eine positive Hochzahl angegeben."",""socratic_question"":""Wäre 7,5 · 10⁶ m eine winzige oder eine riesige Länge?""},{""error"":""Eine Stelle zu viel gezählt: 7,5 · 10⁻⁷ m."",""socratic_question"":""Um wie viele Stellen wandert das Komma, bis es hinter der 7 steht?""},{""error"":""Nur die Nullen nach dem Komma gezählt: 7,5 · 10⁻⁵ m."",""socratic_question"":""Muss das Komma bis hinter die 7 oder nur bis vor die 7 wandern?""}]",neu,hoch,"Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben)."
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0723e9b4-0faf-4150-95b0-1065cb950a04,potenz-zehner-05,,acceptance.known_errors (keine UI),"{""6"":""zehnerexponent_vorzeichen"",""+6"":""zehnerexponent_vorzeichen"",""-7"":""faktor_zehn_daneben"",""−7"":""faktor_zehn_daneben"",""- 7"":""faktor_zehn_daneben"",""-5"":""faktor_zehn_daneben"",""−5"":""faktor_zehn_daneben"",""- 5"":""faktor_zehn_daneben""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,afb,III,neu,mittel,Problemlösen: Anzahl als Quotient zweier Längen in Zehnerpotenzen bilden und als Zahl angeben.
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,correct_answers,"[""10000"",""+10000""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,solution,Anzahl = 10⁻³ m : 10⁻⁷ m = 10⁻³⁻⁽⁻⁷⁾ = 10⁴ = 10000.,neu,hoch,Nachgerechnet.
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,typical_errors,"[{""error"":""Den Quotienten umgedreht: 10⁻⁷ : 10⁻³ = 10⁻⁴ = 0,0001."",""socratic_question"":""Kann eine Anzahl von Viren kleiner als 1 sein?""},{""error"":""Eine Zehnerpotenz zu wenig: 1 000."",""socratic_question"":""Wie viele Zehnerpotenzen liegen zwischen 10⁻⁷ und 10⁻³?""},{""error"":""Eine Zehnerpotenz zu viel: 100 000."",""socratic_question"":""Wie viele Zehnerpotenzen liegen zwischen 10⁻⁷ und 10⁻³?""}]",neu,hoch,"Aus acceptance.known_errors (zehnerexponent_vorzeichen, faktor_zehn_daneben)."
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+446f3dc6-5f31-4c1a-a9e9-b9e0fd818f52,potenz-zehner-06,,acceptance.known_errors (keine UI),"{""1000"":""faktor_zehn_daneben"",""100000"":""faktor_zehn_daneben"",""0,0001"":""zehnerexponent_vorzeichen"",""+0,0001"":""zehnerexponent_vorzeichen"",""0.0001"":""zehnerexponent_vorzeichen"",""+0.0001"":""zehnerexponent_vorzeichen"",""+1000"":""faktor_zehn_daneben"",""+100000"":""faktor_zehn_daneben""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,afb,I,neu,mittel,"Reproduzieren: Vorfaktoren multiplizieren, Hochzahlen addieren, Ergebnis schon normiert."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,1,correct_answers.1,"[""6"",""+6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,2,correct_answers.2,"[""-2"",""−2"",""- 2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,solution,"Vorfaktoren: 3 · 2 = 6.
+Zehnerpotenzen: 10⁴ · 10⁻⁶ = 10⁴⁺⁽⁻⁶⁾ = 10⁻².
+Ergebnis: 6 · 10⁻², also a = 6 und n = -2.",neu,hoch,Nachgerechnet.
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,typical_errors,"[{""error"":""Die Vorfaktoren addiert statt multipliziert: 3 + 2 = 5."",""socratic_question"":""Werden die Vorfaktoren addiert oder multipliziert?""},{""error"":""Die Hochzahlen multipliziert: 4 · (−6) = −24."",""socratic_question"":""Werden beim Malnehmen von Zehnerpotenzen die Hochzahlen multipliziert oder addiert?""},{""error"":""Positive Hochzahl angegeben, obwohl das Ergebnis 0,06 kleiner als 1 ist."",""socratic_question"":""Ist das Ergebnis größer oder kleiner als 1?""}]",neu,hoch,"Aus acceptance.known_errors (plus_statt_mal, potenzgesetz_verwechselt, zehnerexponent_vorzeichen)."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,1,acceptance.known_errors (keine UI),"{""5"":""plus_statt_mal"",""+5"":""plus_statt_mal""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,2,acceptance.known_errors (keine UI),"{""2"":""zehnerexponent_vorzeichen"",""-24"":""potenzgesetz_verwechselt"",""−24"":""potenzgesetz_verwechselt"",""- 24"":""potenzgesetz_verwechselt"",""+2"":""zehnerexponent_vorzeichen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a35d5827-c2d4-48a9-87b8-6c69c1078abe,potenz-rechnen-01,,sondierrang (keine UI),1,neu,mittel,"potenz-rechnen-01 = 1, potenz-rechnen-04 = 2. Rang 1 aus Profil {plus_statt_mal,potenzgesetz_verwechselt,zehnerexponent_vorzeichen}, Rang 2 aus Profil {faktor_zehn_daneben,multipliziert_statt_dividiert,potenzgesetz_verwechselt} (2 neue Fehlbilder)"
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,afb,I,neu,mittel,"Reproduzieren: Vorfaktoren dividieren, Hochzahlen subtrahieren, Ergebnis schon normiert."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,1,correct_answers.1,"[""4"",""+4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,2,correct_answers.2,"[""4"",""+4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,solution,"Vorfaktoren: 8 : 2 = 4.
+Zehnerpotenzen: 10⁶ : 10² = 10⁶⁻² = 10⁴.
+Ergebnis: 4 · 10⁴, also a = 4 und n = 4.",neu,hoch,Nachgerechnet.
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,typical_errors,"[{""error"":""Die Vorfaktoren multipliziert statt geteilt: 8 · 2 = 16."",""socratic_question"":""Welche Rechenart steht zwischen den beiden Klammern?""},{""error"":""Die Hochzahlen geteilt statt subtrahiert: 6 : 2 = 3."",""socratic_question"":""Werden beim Teilen von Zehnerpotenzen die Hochzahlen geteilt oder subtrahiert?""},{""error"":""Die Hochzahlen addiert wie beim Malnehmen: 6 + 2 = 8."",""socratic_question"":""Werden beim Teilen von Zehnerpotenzen die Hochzahlen addiert oder subtrahiert?""}]",neu,hoch,"Aus acceptance.known_errors (multipliziert_statt_dividiert, potenzgesetz_verwechselt)."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,1,acceptance.known_errors (keine UI),"{""16"":""multipliziert_statt_dividiert"",""+16"":""multipliziert_statt_dividiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+3510e4f2-f006-4d20-bdf8-8d8520ed09e1,potenz-rechnen-02,2,acceptance.known_errors (keine UI),"{""3"":""potenzgesetz_verwechselt"",""8"":""potenzgesetz_verwechselt"",""+3"":""potenzgesetz_verwechselt"",""+8"":""potenzgesetz_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,afb,II,neu,mittel,"Anwenden: Produkt mit Vorfaktor über 10, Ergebnis muss normiert werden."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,1,correct_answers.1,"[""2"",""+2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,2,correct_answers.2,"[""9"",""+9""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,solution,"Vorfaktoren: 5 · 4 = 20. Zehnerpotenzen: 10³ · 10⁵ = 10⁸.
+20 · 10⁸ = 2 · 10¹ · 10⁸ = 2 · 10⁹.
+Also a = 2 und n = 9.",neu,hoch,Nachgerechnet.
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,typical_errors,"[{""error"":""Nicht normiert: 20 ist kein Vorfaktor zwischen 1 und 10."",""socratic_question"":""Liegt 20 zwischen 1 und 10?""},{""error"":""Nicht normiert: 20 · 10⁸ ist richtig, aber nicht in der Form a · 10ⁿ mit a < 10."",""socratic_question"":""Wenn der Vorfaktor von 20 auf 2 schrumpft, was muss mit der Hochzahl passieren?""},{""error"":""Die Hochzahlen multipliziert: 3 · 5 = 15."",""socratic_question"":""Werden beim Malnehmen von Zehnerpotenzen die Hochzahlen multipliziert oder addiert?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_zehn_daneben, potenzgesetz_verwechselt)."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,1,acceptance.known_errors (keine UI),"{""20"":""faktor_zehn_daneben"",""+20"":""faktor_zehn_daneben""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d6b3bddd-410d-42b8-b8cd-5139727b1ed8,potenz-rechnen-03,2,acceptance.known_errors (keine UI),"{""8"":""faktor_zehn_daneben"",""15"":""potenzgesetz_verwechselt"",""+8"":""faktor_zehn_daneben"",""+15"":""potenzgesetz_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,afb,II,neu,mittel,"Anwenden: Quotient mit negativer Hochzahl, Vorfaktor unter 1 muss normiert werden."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,1,correct_answers.1,"[""5"",""+5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,2,correct_answers.2,"[""6"",""+6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,solution,"Vorfaktoren: 3 : 6 = 0,5. Zehnerpotenzen: 10⁵ : 10⁻² = 10⁵⁻⁽⁻²⁾ = 10⁷.
+0,5 · 10⁷ = 5 · 10⁻¹ · 10⁷ = 5 · 10⁶.
+Also a = 5 und n = 6.",neu,hoch,Nachgerechnet.
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,typical_errors,"[{""error"":""Nicht normiert: 0,5 ist kein Vorfaktor zwischen 1 und 10."",""socratic_question"":""Liegt 0,5 zwischen 1 und 10?""},{""error"":""Die Vorfaktoren multipliziert statt geteilt: 3 · 6 = 18."",""socratic_question"":""Welche Rechenart steht zwischen den beiden Klammern?""},{""error"":""Nicht normiert: 0,5 · 10⁷ ist richtig, aber a muss mindestens 1 sein."",""socratic_question"":""Wenn der Vorfaktor von 0,5 auf 5 wächst, was muss mit der Hochzahl passieren?""},{""error"":""Die Hochzahlen addiert statt subtrahiert: 10⁵⁺⁽⁻²⁾ = 10³."",""socratic_question"":""Was ergibt 5 − (−2)?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_zehn_daneben, multipliziert_statt_dividiert, potenzgesetz_verwechselt)."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,1,acceptance.known_errors (keine UI),"{""18"":""multipliziert_statt_dividiert"",""0,5"":""faktor_zehn_daneben"",""+0,5"":""faktor_zehn_daneben"",""0.5"":""faktor_zehn_daneben"",""+0.5"":""faktor_zehn_daneben"",""+18"":""multipliziert_statt_dividiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,2,acceptance.known_errors (keine UI),"{""3"":""potenzgesetz_verwechselt"",""7"":""faktor_zehn_daneben"",""+7"":""faktor_zehn_daneben"",""+3"":""potenzgesetz_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d7f1416b-ee9c-408c-8dd3-7e2bfc623a27,potenz-rechnen-04,,sondierrang (keine UI),2,neu,mittel,"potenz-rechnen-01 = 1, potenz-rechnen-04 = 2. Rang 1 aus Profil {plus_statt_mal,potenzgesetz_verwechselt,zehnerexponent_vorzeichen}, Rang 2 aus Profil {faktor_zehn_daneben,multipliziert_statt_dividiert,potenzgesetz_verwechselt} (2 neue Fehlbilder)"
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: Strecke = Geschwindigkeit · Zeit in wissenschaftlicher Schreibweise, Ergebnis normieren."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,1,correct_answers.1,"[""1,8"",""+1,8"",""1.8"",""+1.8""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,2,correct_answers.2,"[""10"",""+10""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,solution,"Strecke = Geschwindigkeit · Zeit = (3 · 10⁸ m/s) · (6 · 10¹ s).
+3 · 6 = 18 und 10⁸ · 10¹ = 10⁹: 18 · 10⁹ m = 1,8 · 10¹⁰ m.
+Also a = 1,8 und n = 10.",neu,hoch,Nachgerechnet.
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,typical_errors,"[{""error"":""Nicht normiert: 18 ist kein Vorfaktor zwischen 1 und 10."",""socratic_question"":""Liegt 18 zwischen 1 und 10?""},{""error"":""Nicht normiert: 18 · 10⁹ m ist richtig, aber a muss kleiner als 10 sein."",""socratic_question"":""Wenn der Vorfaktor von 18 auf 1,8 schrumpft, was muss mit der Hochzahl passieren?""},{""error"":""Die Hochzahlen multipliziert: 8 · 1 = 8."",""socratic_question"":""Werden beim Malnehmen von Zehnerpotenzen die Hochzahlen multipliziert oder addiert?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_zehn_daneben, potenzgesetz_verwechselt)."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,1,acceptance.known_errors (keine UI),"{""18"":""faktor_zehn_daneben"",""+18"":""faktor_zehn_daneben""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+bbe4791e-1ec3-485e-9b4c-bbab72c6506a,potenz-rechnen-05,2,acceptance.known_errors (keine UI),"{""8"":""potenzgesetz_verwechselt"",""9"":""faktor_zehn_daneben"",""+9"":""faktor_zehn_daneben"",""+8"":""potenzgesetz_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,afb,III,neu,mittel,"Problemlösen: Zeit = Strecke : Geschwindigkeit selbst aufstellen, Quotient bilden und normieren."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-1/Ari-3/Ari-4 (Potenzen, Zehnerpotenzen)."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie der Fundament-Knoten potenzen im Bestand.
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-1, Ari-3, Ari-4)."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,1,parts.1.afb,III,neu,mittel,Wie die Aufgabe.
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,1,correct_answers.1,"[""5"",""+5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,2,parts.2.afb,III,neu,mittel,Wie die Aufgabe.
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,2,correct_answers.2,"[""2"",""+2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,solution,"Zeit = Strecke : Geschwindigkeit = (1,5 · 10¹¹ m) : (3 · 10⁸ m/s).
+1,5 : 3 = 0,5 und 10¹¹ : 10⁸ = 10³: 0,5 · 10³ s = 5 · 10² s (500 s).
+Also a = 5 und n = 2.",neu,hoch,Nachgerechnet.
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,typical_errors,"[{""error"":""Nicht normiert: 0,5 ist kein Vorfaktor zwischen 1 und 10."",""socratic_question"":""Liegt 0,5 zwischen 1 und 10?""},{""error"":""Strecke mal Geschwindigkeit gerechnet: 1,5 · 3 = 4,5."",""socratic_question"":""Wie erhältst du aus Strecke und Geschwindigkeit die Zeit?""},{""error"":""Nicht normiert: 0,5 · 10³ s ist richtig, aber a muss mindestens 1 sein."",""socratic_question"":""Wenn der Vorfaktor von 0,5 auf 5 wächst, was muss mit der Hochzahl passieren?""},{""error"":""Strecke mal Geschwindigkeit gerechnet: 10¹¹ · 10⁸ = 10¹⁹."",""socratic_question"":""Wie erhältst du aus Strecke und Geschwindigkeit die Zeit?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_zehn_daneben, multipliziert_statt_dividiert)."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,1,"zeit_teile (nur CSV, keine DB-Spalte)",60,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,2,"zeit_teile (nur CSV, keine DB-Spalte)",60,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,1,acceptance.known_errors (keine UI),"{""0,5"":""faktor_zehn_daneben"",""+0,5"":""faktor_zehn_daneben"",""0.5"":""faktor_zehn_daneben"",""+0.5"":""faktor_zehn_daneben"",""4,5"":""multipliziert_statt_dividiert"",""+4,5"":""multipliziert_statt_dividiert"",""4.5"":""multipliziert_statt_dividiert"",""+4.5"":""multipliziert_statt_dividiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0a6f5de1-82ab-4f20-8f71-3fab440b2e95,potenz-rechnen-06,2,acceptance.known_errors (keine UI),"{""3"":""faktor_zehn_daneben"",""19"":""multipliziert_statt_dividiert"",""+3"":""faktor_zehn_daneben"",""+19"":""multipliziert_statt_dividiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug

@@ -1,0 +1,2763 @@
+{
+ "batch": "k9-aehnlich",
+ "kopf": [
+  "K9-Rest, Thema aehnlich — 24 Aufgaben: je sechs zu geo_aehnlich_streckfaktor, _flaeche, _strahlen_abschnitt und _strahlen_parallel.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k9-aehnlich.json (Quelle: tools/k9-aehnlich-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003105900_substrat_k9_aehnlich.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit (AFB I, I, II, II), eine mit Sachkontext (AFB II) und eine Sachkontext- oder Rückrichtungsaufgabe (AFB III): Foto, Umfang des Bilddreiecks, Wandfarbe, Tankmodell im Maßstab, Straßen mit Querstraßen, Metallgestell, Schatten, Peilstab. Alles als Text ohne Abbildung; jede Strahlensatzfigur ist mit Scheitel S, Parallelen durch A, B und C, D und der Lage „A zwischen S und C, B zwischen S und D“ vollständig beschrieben. Alle Ergebnisse exakt.",
+ "source": "edvance_k9_aehnlich",
+ "class_level": 9,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "93dbda80-cd5e-4a40-b0f5-98953e8fb588",
+   "titel": "Streckfaktor · 4 cm werden 10 cm",
+   "basis": {
+    "skill_key": "geo_aehnlich_streckfaktor",
+    "source_ref": "aehnlich-streckfaktor-01",
+    "input_type": "NUMERIC",
+    "frage": "Bei einer zentrischen Streckung wird eine 4 cm lange Strecke auf eine 10 cm lange Bildstrecke abgebildet.\n\nWie groß ist der Streckfaktor k? Gib k exakt als Dezimalzahl an.",
+    "known_errors": {
+     "6": "additiv_statt_multiplikativ",
+     "0,4": "streckfaktor_kehrwert",
+     "+0,4": "streckfaktor_kehrwert",
+     "0.4": "streckfaktor_kehrwert",
+     "+0.4": "streckfaktor_kehrwert",
+     "+6": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: k = Bild : Original, eine Division."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,5",
+      "+2,5",
+      "2.5",
+      "+2.5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "k = Bildlänge : Originallänge = 10 cm : 4 cm = 2,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Original durch Bild geteilt: 4 : 10 = 0,4.",
+       "socratic_question": "Wird die Strecke länger oder kürzer – muss k dann größer oder kleiner als 1 sein?"
+      },
+      {
+       "error": "Den Zuwachs berechnet statt des Faktors: 10 − 4 = 6.",
+       "socratic_question": "Ist k ein Unterschied oder ein Faktor, mit dem man malnimmt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (streckfaktor_kehrwert, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "10/4",
+     "antwort": "2.5"
+    },
+    {
+     "rechnung": "4/10",
+     "antwort": "0.4",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    },
+    {
+     "rechnung": "10-4",
+     "antwort": "6",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "3efc2963-83cd-4bb7-b3ac-3f37534f4fd4",
+   "titel": "Bildlänge · 3,5 cm mit k = 4",
+   "basis": {
+    "skill_key": "geo_aehnlich_streckfaktor",
+    "source_ref": "aehnlich-streckfaktor-02",
+    "input_type": "NUMERIC",
+    "frage": "Eine 3,5 cm lange Strecke wird zentrisch mit dem Streckfaktor k = 4 gestreckt.\n\nWie lang ist die Bildstrecke? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "7,5": "additiv_statt_multiplikativ",
+     "7.5": "additiv_statt_multiplikativ",
+     "7,5 cm": "additiv_statt_multiplikativ",
+     "7,5cm": "additiv_statt_multiplikativ",
+     "0,875": "streckfaktor_kehrwert",
+     "0.875": "streckfaktor_kehrwert",
+     "0,875 cm": "streckfaktor_kehrwert",
+     "0,875cm": "streckfaktor_kehrwert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Bildlänge = k · Originallänge, eine Multiplikation."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "14",
+      "14 cm",
+      "14cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Bildlänge = k · Originallänge = 4 · 3,5 cm = 14 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "k addiert statt multipliziert: 3,5 + 4 = 7,5.",
+       "socratic_question": "Was bedeutet „Streckfaktor 4“ – 4 cm länger oder 4-mal so lang?"
+      },
+      {
+       "error": "Durch k geteilt statt mit k multipliziert: 3,5 : 4.",
+       "socratic_question": "Bei k = 4 wird die Strecke größer oder kleiner?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (additiv_statt_multiplikativ, streckfaktor_kehrwert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3.5*4",
+     "antwort": "14"
+    },
+    {
+     "rechnung": "3.5+4",
+     "antwort": "7.5",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    },
+    {
+     "rechnung": "3.5/4",
+     "antwort": "0.875",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "0644e069-c106-4cb4-8faa-bbad5edddb70",
+   "titel": "Verkleinerung · Seite b aus a = 12 cm, a′ = 9 cm",
+   "basis": {
+    "skill_key": "geo_aehnlich_streckfaktor",
+    "source_ref": "aehnlich-streckfaktor-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein Dreieck wird zentrisch gestreckt. Die Seite a ist 12 cm lang, ihre Bildseite a′ nur 9 cm. Die Seite b des Dreiecks ist 6 cm lang.\n\nWie lang ist die Bildseite b′? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "3": "additiv_statt_multiplikativ",
+     "8": "streckfaktor_kehrwert",
+     "8 cm": "streckfaktor_kehrwert",
+     "8cm": "streckfaktor_kehrwert",
+     "3 cm": "additiv_statt_multiplikativ",
+     "3cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Streckfaktor einer Verkleinerung (0 < k < 1) bestimmen und auf eine zweite Seite anwenden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4,5",
+      "4.5",
+      "4,5 cm",
+      "4,5cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "k = 9 cm : 12 cm = 0,75 (Verkleinerung, k < 1).\nb′ = k · b = 0,75 · 6 cm = 4,5 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit dem Kehrwert gerechnet: k = 12 : 9, also b′ = 8 cm.",
+       "socratic_question": "Wird das Dreieck größer oder kleiner – passt dazu ein b′ über 6 cm?"
+      },
+      {
+       "error": "Gleich viel abgezogen wie bei a: 6 cm − 3 cm.",
+       "socratic_question": "Wird jede Seite um gleich viel kürzer oder auf denselben Bruchteil verkleinert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (streckfaktor_kehrwert, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "6*9/12",
+     "antwort": "4.5"
+    },
+    {
+     "rechnung": "6*12/9",
+     "antwort": "8",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    },
+    {
+     "rechnung": "6-(12-9)",
+     "antwort": "3",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "75cb4657-94a9-4348-b6b1-807f241f4914",
+   "titel": "Rückrichtung · Original aus 7 cm Bild und k = 2,5",
+   "basis": {
+    "skill_key": "geo_aehnlich_streckfaktor",
+    "source_ref": "aehnlich-streckfaktor-04",
+    "input_type": "NUMERIC",
+    "frage": "Bei einer zentrischen Streckung mit dem Streckfaktor k = 2,5 entsteht eine 7 cm lange Bildstrecke.\n\nWie lang war die Originalstrecke? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "17,5": "streckfaktor_kehrwert",
+     "17.5": "streckfaktor_kehrwert",
+     "17,5 cm": "streckfaktor_kehrwert",
+     "17,5cm": "streckfaktor_kehrwert",
+     "4,5": "additiv_statt_multiplikativ",
+     "4.5": "additiv_statt_multiplikativ",
+     "4,5 cm": "additiv_statt_multiplikativ",
+     "4,5cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Rückrichtung, Originallänge = Bildlänge : k mit Dezimalfaktor."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,8",
+      "2.8",
+      "2,8 cm",
+      "2,8cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Bildlänge = k · Originallänge, also Originallänge = Bildlänge : k.\nOriginallänge = 7 cm : 2,5 = 2,8 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit k multipliziert statt durch k geteilt: 7 · 2,5.",
+       "socratic_question": "Ist die Originalstrecke bei k = 2,5 länger oder kürzer als ihr Bild?"
+      },
+      {
+       "error": "k abgezogen statt durch k geteilt: 7 − 2,5.",
+       "socratic_question": "Wie kommt man vom Bild zurück, wenn man beim Strecken malgenommen hat?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (streckfaktor_kehrwert, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "7/2.5",
+     "antwort": "2.8"
+    },
+    {
+     "rechnung": "7*2.5",
+     "antwort": "17.5",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    },
+    {
+     "rechnung": "7-2.5",
+     "antwort": "4.5",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "a1d203d7-0d30-42ae-8c54-d3e7dc04a7d6",
+   "titel": "Foto · 9 cm × 13 cm auf 27 cm Breite vergrößert",
+   "basis": {
+    "skill_key": "geo_aehnlich_streckfaktor",
+    "source_ref": "aehnlich-streckfaktor-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Foto ist 9 cm breit und 13 cm hoch. Es wird ohne Verzerrung vergrößert, sodass es 27 cm breit ist.\n\nWie hoch ist das vergrößerte Foto? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "3": "falsche_groesse_beantwortet",
+     "31": "additiv_statt_multiplikativ",
+     "31 cm": "additiv_statt_multiplikativ",
+     "31cm": "additiv_statt_multiplikativ",
+     "3 cm": "falsche_groesse_beantwortet",
+     "3cm": "falsche_groesse_beantwortet",
+     "4,33": "streckfaktor_kehrwert",
+     "4.33": "streckfaktor_kehrwert",
+     "4,33 cm": "streckfaktor_kehrwert",
+     "4,33cm": "streckfaktor_kehrwert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Faktor aus einer Seite erkennen und auf die andere Seite übertragen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "39",
+      "39 cm",
+      "39cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "k = 27 cm : 9 cm = 3.\nHöhe = 3 · 13 cm = 39 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Zur Höhe dieselben 18 cm addiert wie zur Breite: 13 + 18.",
+       "socratic_question": "Bleibt das Foto unverzerrt, wenn beide Seiten um gleich viel wachsen?"
+      },
+      {
+       "error": "Nur den Vergrößerungsfaktor 3 angegeben.",
+       "socratic_question": "Gefragt ist die Höhe in Zentimetern – was fehlt noch?"
+      },
+      {
+       "error": "Durch 3 geteilt statt mit 3 multipliziert: 13 : 3.",
+       "socratic_question": "Wird das Foto größer oder kleiner?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (additiv_statt_multiplikativ, falsche_groesse_beantwortet, streckfaktor_kehrwert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "13*27/9",
+     "antwort": "39"
+    },
+    {
+     "rechnung": "13+(27-9)",
+     "antwort": "31",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    },
+    {
+     "rechnung": "27/9",
+     "antwort": "3",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round(13*9/27,2)",
+     "antwort": "4.33",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "51490b4f-18e9-4a15-8ee2-7e160526f2d9",
+   "titel": "Rückrichtung · kürzeste Seite aus dem Bildumfang 45 cm",
+   "basis": {
+    "skill_key": "geo_aehnlich_streckfaktor",
+    "source_ref": "aehnlich-streckfaktor-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein Dreieck hat die Seitenlängen 5 cm, 6 cm und 7 cm. Es wird zentrisch gestreckt. Das Bilddreieck hat den Umfang 45 cm.\n\nWie lang ist die kürzeste Seite des Bilddreiecks? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "2": "streckfaktor_kehrwert",
+     "14": "additiv_statt_multiplikativ",
+     "14 cm": "additiv_statt_multiplikativ",
+     "14cm": "additiv_statt_multiplikativ",
+     "2 cm": "streckfaktor_kehrwert",
+     "2cm": "streckfaktor_kehrwert",
+     "2,5": "falsche_groesse_beantwortet",
+     "2.5": "falsche_groesse_beantwortet",
+     "2,5 cm": "falsche_groesse_beantwortet",
+     "2,5cm": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Den Streckfaktor über den Umfang erschließen, dann eine Seite strecken – Weg selbst finden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12,5",
+      "12.5",
+      "12,5 cm",
+      "12,5cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Umfang des Originals: 5 cm + 6 cm + 7 cm = 18 cm.\nAuch der Umfang wird mit k gestreckt: k = 45 cm : 18 cm = 2,5.\nKürzeste Bildseite: 2,5 · 5 cm = 12,5 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Zuwachs von 27 cm gleichmäßig verteilt: jede Seite 9 cm länger, also 14 cm.",
+       "socratic_question": "Wäre das Bilddreieck dann noch ähnlich zum Original?"
+      },
+      {
+       "error": "Durch k geteilt statt mit k multipliziert: 5 : 2,5.",
+       "socratic_question": "Das Bild hat einen größeren Umfang – muss die Seite länger oder kürzer werden?"
+      },
+      {
+       "error": "Nur den Streckfaktor 2,5 angegeben.",
+       "socratic_question": "Gefragt ist eine Seitenlänge – was musst du mit k noch tun?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (additiv_statt_multiplikativ, streckfaktor_kehrwert, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "5*45/(5+6+7)",
+     "antwort": "12.5"
+    },
+    {
+     "rechnung": "5+(45-18)/3",
+     "antwort": "14",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    },
+    {
+     "rechnung": "5/(45/18)",
+     "antwort": "2",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    },
+    {
+     "rechnung": "45/18",
+     "antwort": "2.5",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "6e18016e-5c62-4ba8-a1ed-a924506930e7",
+   "titel": "Bildfläche · 6 cm² mit k = 3",
+   "basis": {
+    "skill_key": "geo_aehnlich_flaeche",
+    "source_ref": "aehnlich-flaeche-01",
+    "input_type": "NUMERIC",
+    "frage": "Eine Figur hat den Flächeninhalt 6 cm². Sie wird zentrisch mit dem Streckfaktor k = 3 gestreckt.\n\nWie groß ist der Flächeninhalt der Bildfigur? Gib das Ergebnis exakt an.",
+    "unit": "cm²",
+    "known_errors": {
+     "18": "linearer_faktor",
+     "36": "mal_exponent",
+     "18 cm²": "linearer_faktor",
+     "18cm²": "linearer_faktor",
+     "36 cm²": "mal_exponent",
+     "36cm²": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Flächen wachsen mit k², ein Schritt."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "54",
+      "54 cm²",
+      "54cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Flächen wachsen mit k²: A′ = k² · A = 3² · 6 cm² = 9 · 6 cm² = 54 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit k multipliziert: 3 · 6 = 18.",
+       "socratic_question": "Wenn Länge und Breite je 3-mal so groß werden – wie viel mal so groß wird die Fläche?"
+      },
+      {
+       "error": "k² als 2 · k gerechnet: 6 · 6 = 36.",
+       "socratic_question": "Ist 3² dasselbe wie 2 · 3?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linearer_faktor, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "6*3^2",
+     "antwort": "54"
+    },
+    {
+     "rechnung": "6*3",
+     "antwort": "18",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "6*2*3",
+     "antwort": "36",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "1cba711e-7175-49db-b76a-8c3304b5bc64",
+   "titel": "Volumen · 5 cm³ mit k = 2",
+   "basis": {
+    "skill_key": "geo_aehnlich_flaeche",
+    "source_ref": "aehnlich-flaeche-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein Körper hat das Volumen 5 cm³. Ein dazu ähnlicher Körper ist mit dem Streckfaktor k = 2 vergrößert.\n\nWie groß ist das Volumen des vergrößerten Körpers? Gib das Ergebnis exakt an.",
+    "unit": "cm³",
+    "known_errors": {
+     "10": "linearer_faktor",
+     "20": "linearer_faktor",
+     "30": "mal_exponent",
+     "10 cm³": "linearer_faktor",
+     "10cm³": "linearer_faktor",
+     "20 cm³": "linearer_faktor",
+     "20cm³": "linearer_faktor",
+     "30 cm³": "mal_exponent",
+     "30cm³": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Volumen wachsen mit k³, ein Schritt."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "40",
+      "40 cm³",
+      "40cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Volumen wachsen mit k³: V′ = k³ · V = 2³ · 5 cm³ = 8 · 5 cm³ = 40 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit k multipliziert: 2 · 5 = 10.",
+       "socratic_question": "Wie viele Richtungen hat ein Körper – und in jeder wird mit k gestreckt?"
+      },
+      {
+       "error": "Mit k² gerechnet wie bei Flächen: 4 · 5 = 20.",
+       "socratic_question": "Wächst ein Volumen wie eine Fläche oder in einer Richtung mehr?"
+      },
+      {
+       "error": "k³ als 3 · k gerechnet: 6 · 5 = 30.",
+       "socratic_question": "Ist 2³ dasselbe wie 3 · 2?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linearer_faktor, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "5*2^3",
+     "antwort": "40"
+    },
+    {
+     "rechnung": "5*2",
+     "antwort": "10",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "5*2^2",
+     "antwort": "20",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "5*3*2",
+     "antwort": "30",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "4186f7c2-c0bf-4563-a14c-bc04d0817ee6",
+   "titel": "Streckfaktor aus 12 cm² und 75 cm²",
+   "basis": {
+    "skill_key": "geo_aehnlich_flaeche",
+    "source_ref": "aehnlich-flaeche-03",
+    "input_type": "NUMERIC",
+    "frage": "Eine Figur mit dem Flächeninhalt 12 cm² wird zentrisch gestreckt. Die Bildfigur hat den Flächeninhalt 75 cm².\n\nWie groß ist der Streckfaktor k? Gib k exakt als Dezimalzahl an.",
+    "known_errors": {
+     "6,25": "linearer_faktor",
+     "+6,25": "linearer_faktor",
+     "6.25": "linearer_faktor",
+     "+6.25": "linearer_faktor",
+     "0,4": "streckfaktor_kehrwert",
+     "+0,4": "streckfaktor_kehrwert",
+     "0.4": "streckfaktor_kehrwert",
+     "+0.4": "streckfaktor_kehrwert",
+     "3,125": "wurzel_halbiert",
+     "+3,125": "wurzel_halbiert",
+     "3.125": "wurzel_halbiert",
+     "+3.125": "wurzel_halbiert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Rückrichtung über das Flächenverhältnis, Wurzel ziehen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,5",
+      "+2,5",
+      "2.5",
+      "+2.5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Flächenverhältnis: k² = 75 cm² : 12 cm² = 6,25.\nk = √6,25 = 2,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Flächenverhältnis als Streckfaktor genommen: 6,25.",
+       "socratic_question": "Welcher Faktor gehört zu den Flächen – k oder k²?"
+      },
+      {
+       "error": "Original durch Bild geteilt: √(12 : 75) = 0,4.",
+       "socratic_question": "Die Figur wird größer – muss k dann größer oder kleiner als 1 sein?"
+      },
+      {
+       "error": "k² halbiert statt die Wurzel gezogen: 6,25 : 2.",
+       "socratic_question": "Welche Zahl ergibt mit sich selbst multipliziert 6,25?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linearer_faktor, streckfaktor_kehrwert, wurzel_halbiert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(5/2)",
+     "antwort": "2.5"
+    },
+    {
+     "rechnung": "75/12",
+     "antwort": "6.25",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "(2/5)",
+     "antwort": "0.4",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    },
+    {
+     "rechnung": "75/12/2",
+     "antwort": "3.125",
+     "rolle": "fehlbild:wurzel_halbiert:"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "e9add498-a88c-46e5-8905-25a5d1ec9ce7",
+   "titel": "Volumen · ähnliche Quader mit Kanten 4 cm und 6 cm",
+   "basis": {
+    "skill_key": "geo_aehnlich_flaeche",
+    "source_ref": "aehnlich-flaeche-04",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Quader sind zueinander ähnlich. Eine Kante des kleinen Quaders ist 4 cm lang, die entsprechende Kante des großen Quaders 6 cm. Der kleine Quader hat das Volumen 32 cm³.\n\nWie groß ist das Volumen des großen Quaders? Gib das Ergebnis exakt an.",
+    "unit": "cm³",
+    "known_errors": {
+     "48": "linearer_faktor",
+     "72": "linearer_faktor",
+     "48 cm³": "linearer_faktor",
+     "48cm³": "linearer_faktor",
+     "72 cm³": "linearer_faktor",
+     "72cm³": "linearer_faktor",
+     "9,48": "streckfaktor_kehrwert",
+     "9.48": "streckfaktor_kehrwert",
+     "9,48 cm³": "streckfaktor_kehrwert",
+     "9,48cm³": "streckfaktor_kehrwert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Streckfaktor aus entsprechenden Kanten bestimmen, dann mit k³ rechnen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "108",
+      "108 cm³",
+      "108cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "k = 6 cm : 4 cm = 1,5.\nk³ = 1,5³ = 3,375.\nV = 3,375 · 32 cm³ = 108 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit k multipliziert: 1,5 · 32 = 48.",
+       "socratic_question": "Wird ein Körper nur in einer Richtung gestreckt?"
+      },
+      {
+       "error": "Mit k² gerechnet wie bei Flächen: 2,25 · 32 = 72.",
+       "socratic_question": "Ein Volumen hat drei Richtungen – welche Hochzahl gehört zu k?"
+      },
+      {
+       "error": "Mit dem Kehrwert 4 : 6 gerechnet: das Volumen wird kleiner.",
+       "socratic_question": "Soll das Volumen des großen Quaders größer oder kleiner als 32 cm³ sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linearer_faktor, streckfaktor_kehrwert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "32*(6/4)^3",
+     "antwort": "108"
+    },
+    {
+     "rechnung": "32*6/4",
+     "antwort": "48",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "32*(6/4)^2",
+     "antwort": "72",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "round(32*(4/6)^3,2)",
+     "antwort": "9.48",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "93e695a0-efbe-490f-b931-299545068f26",
+   "titel": "Farbe · Wandbild mit 2,5-mal so langen Seiten",
+   "basis": {
+    "skill_key": "geo_aehnlich_flaeche",
+    "source_ref": "aehnlich-flaeche-05",
+    "input_type": "NUMERIC",
+    "frage": "Für ein Wandbild werden 0,4 Liter Farbe gebraucht. Ein zweites Wandbild hat dieselbe Form, aber alle Seiten sind 2,5-mal so lang. Die Farbe wird gleich dick aufgetragen.\n\nWie viele Liter Farbe braucht das zweite Wandbild? Gib das Ergebnis exakt an.",
+    "unit": "l",
+    "known_errors": {
+     "1": "linearer_faktor",
+     "2": "mal_exponent",
+     "1 l": "linearer_faktor",
+     "1l": "linearer_faktor",
+     "2 l": "mal_exponent",
+     "2l": "mal_exponent",
+     "6,25": "falsche_groesse_beantwortet",
+     "6.25": "falsche_groesse_beantwortet",
+     "6,25 l": "falsche_groesse_beantwortet",
+     "6,25l": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Die Farbmenge als Fläche erkennen und mit k² rechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,5",
+      "2.5",
+      "2,5 l",
+      "2,5l"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Farbmenge wächst wie die Fläche, also mit k².\nk² = 2,5² = 6,25.\nFarbe = 6,25 · 0,4 l = 2,5 l.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit k multipliziert: 2,5 · 0,4 = 1.",
+       "socratic_question": "Hängt die Farbmenge an einer Länge oder an einer Fläche?"
+      },
+      {
+       "error": "2,5² als 2 · 2,5 gerechnet: 5 · 0,4 = 2.",
+       "socratic_question": "Ist 2,5² dasselbe wie 2 · 2,5?"
+      },
+      {
+       "error": "Nur den Flächenfaktor 6,25 angegeben.",
+       "socratic_question": "Gefragt ist die Farbmenge in Litern – was fehlt noch?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linearer_faktor, mal_exponent, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0.4*2.5^2",
+     "antwort": "2.5"
+    },
+    {
+     "rechnung": "0.4*2.5",
+     "antwort": "1",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "0.4*2*2.5",
+     "antwort": "2",
+     "rolle": "fehlbild:mal_exponent:"
+    },
+    {
+     "rechnung": "2.5^2",
+     "antwort": "6.25",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "7f8af94f-4ac8-40e9-851e-7e36a48335cd",
+   "titel": "Modell · Tank im Maßstab 1 : 50 fasst 0,2 Liter",
+   "basis": {
+    "skill_key": "geo_aehnlich_flaeche",
+    "source_ref": "aehnlich-flaeche-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein Modell eines Wassertanks ist im Maßstab 1 : 50 gebaut. Das Modell fasst 0,2 Liter.\n\nWie viele Kubikmeter fasst der echte Tank? Gib das Ergebnis exakt an.",
+    "unit": "m³",
+    "known_errors": {
+     "25000": "einheit_uebersprungen",
+     "0,01": "linearer_faktor",
+     "0.01": "linearer_faktor",
+     "0,01 m³": "linearer_faktor",
+     "0,01m³": "linearer_faktor",
+     "0,5": "linearer_faktor",
+     "0.5": "linearer_faktor",
+     "0,5 m³": "linearer_faktor",
+     "0,5m³": "linearer_faktor",
+     "25000 m³": "einheit_uebersprungen",
+     "25000m³": "einheit_uebersprungen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen im Sachkontext: Maßstab als Streckfaktor, k³ und Umrechnung von Litern in Kubikmeter verbinden."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "25",
+      "25 m³",
+      "25m³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Der echte Tank ist in jeder Richtung 50-mal so groß: k = 50, Volumen wächst mit k³ = 125 000.\nV = 125 000 · 0,2 l = 25 000 l.\n1 m³ = 1000 l, also V = 25 000 l : 1000 = 25 m³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit k = 50 multipliziert: 10 l = 0,01 m³.",
+       "socratic_question": "Wird der Tank nur in einer Richtung 50-mal so groß?"
+      },
+      {
+       "error": "Mit k² gerechnet wie bei Flächen: 500 l = 0,5 m³.",
+       "socratic_question": "Ein Volumen hat drei Richtungen – welche Hochzahl gehört zu k?"
+      },
+      {
+       "error": "Nicht in Kubikmeter umgerechnet: 25 000 (Liter).",
+       "socratic_question": "In welcher Einheit ist das Volumen gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linearer_faktor, einheit_uebersprungen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0.2*50^3/1000",
+     "antwort": "25"
+    },
+    {
+     "rechnung": "0.2*50/1000",
+     "antwort": "0.01",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "0.2*50^2/1000",
+     "antwort": "0.5",
+     "rolle": "fehlbild:linearer_faktor:"
+    },
+    {
+     "rechnung": "0.2*50^3",
+     "antwort": "25000",
+     "rolle": "fehlbild:einheit_uebersprungen:"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "f8083d9b-72c9-4a72-a0c0-0adb8787bfce",
+   "titel": "Erster Strahlensatz · SD aus SA, SC und SB",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_abschnitt",
+    "source_ref": "aehnlich-abschnitt-01",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 3 cm lang, die Strecke von S bis C 7,5 cm und die Strecke von S bis B 4 cm.\n\nWie lang ist die Strecke von S bis D? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "1,6": "strahlensatz_falsch_zugeordnet",
+     "1.6": "strahlensatz_falsch_zugeordnet",
+     "1,6 cm": "strahlensatz_falsch_zugeordnet",
+     "1,6cm": "strahlensatz_falsch_zugeordnet",
+     "8,5": "additiv_statt_multiplikativ",
+     "8.5": "additiv_statt_multiplikativ",
+     "8,5 cm": "additiv_statt_multiplikativ",
+     "8,5cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Verhältnisgleichung SD : SB = SC : SA direkt aufstellen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "10 cm",
+      "10cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Erster Strahlensatz: SD : SB = SC : SA.\nSD = SB · SC : SA = 4 cm · 7,5 : 3 = 10 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Verhältnisse vertauscht: SD = SB · SA : SC = 1,6 cm.",
+       "socratic_question": "D liegt weiter von S entfernt als B – kann SD kürzer als SB sein?"
+      },
+      {
+       "error": "Auf dem zweiten Strahl gleich viel addiert wie auf dem ersten: 4 cm + 4,5 cm.",
+       "socratic_question": "Wachsen die Abschnitte um gleich viel oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4*7.5/3",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "4*3/7.5",
+     "antwort": "1.6",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "4+(7.5-3)",
+     "antwort": "8.5",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "234e8b8c-ce4d-47bb-8501-86744037c41d",
+   "titel": "Erster Strahlensatz · SC aus SA, SB und SD",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_abschnitt",
+    "source_ref": "aehnlich-abschnitt-02",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 2 cm lang, die Strecke von S bis B 5 cm und die Strecke von S bis D 15 cm.\n\nWie lang ist die Strecke von S bis C? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "12": "additiv_statt_multiplikativ",
+     "37,5": "strahlensatz_falsch_zugeordnet",
+     "37.5": "strahlensatz_falsch_zugeordnet",
+     "37,5 cm": "strahlensatz_falsch_zugeordnet",
+     "37,5cm": "strahlensatz_falsch_zugeordnet",
+     "12 cm": "additiv_statt_multiplikativ",
+     "12cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Verhältnisgleichung aufstellen und nach dem gesuchten Abschnitt auflösen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6",
+      "6 cm",
+      "6cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Erster Strahlensatz: SC : SA = SD : SB.\nSC = SA · SD : SB = 2 cm · 15 : 5 = 6 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Strecken falsch zugeordnet: SC = SB · SD : SA = 37,5 cm.",
+       "socratic_question": "Welche Strecke liegt auf demselben Strahl wie SC?"
+      },
+      {
+       "error": "Auf dem ersten Strahl gleich viel addiert wie auf dem zweiten: 2 cm + 10 cm.",
+       "socratic_question": "Wachsen die Abschnitte um gleich viel oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*15/5",
+     "antwort": "6"
+    },
+    {
+     "rechnung": "5*15/2",
+     "antwort": "37.5",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "2+(15-5)",
+     "antwort": "12",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "f06ce97a-7c42-400e-8cb0-7b53f6f98be1",
+   "titel": "Erster Strahlensatz · Teilstück BD",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_abschnitt",
+    "source_ref": "aehnlich-abschnitt-03",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 4 cm lang, die Strecke von A bis C 6 cm und die Strecke von S bis B 5 cm.\n\nWie lang ist die Strecke von B bis D? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "3": "strahlensatz_falsch_zugeordnet",
+     "7": "additiv_statt_multiplikativ",
+     "3 cm": "strahlensatz_falsch_zugeordnet",
+     "3cm": "strahlensatz_falsch_zugeordnet",
+     "12,5": "falsche_groesse_beantwortet",
+     "12.5": "falsche_groesse_beantwortet",
+     "12,5 cm": "falsche_groesse_beantwortet",
+     "12,5cm": "falsche_groesse_beantwortet",
+     "7 cm": "additiv_statt_multiplikativ",
+     "7cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Gegeben und gesucht sind Teilstücke; ganze Strecke und Teilstück sauber trennen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7,5",
+      "7.5",
+      "7,5 cm",
+      "7,5cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Erster Strahlensatz für die Teilstücke: BD : SB = AC : SA.\nBD = SB · AC : SA = 5 cm · 6 : 4 = 7,5 cm.\nProbe: SC = 10 cm, SD = 5 cm · 10 : 4 = 12,5 cm, BD = 12,5 cm − 5 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Teilstück AC mit der ganzen Strecke SC verglichen: BD = SB · AC : SC = 3 cm.",
+       "socratic_question": "Gehört zu SB auf dem ersten Strahl SA oder SC?"
+      },
+      {
+       "error": "Die ganze Strecke SD berechnet statt des Teilstücks BD.",
+       "socratic_question": "Ist nach der Strecke von S bis D oder von B bis D gefragt?"
+      },
+      {
+       "error": "Den Unterschied der Anfangsstücke addiert: 6 cm + 1 cm.",
+       "socratic_question": "Wachsen die Abschnitte um gleich viel oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, falsche_groesse_beantwortet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "5*6/4",
+     "antwort": "7.5"
+    },
+    {
+     "rechnung": "5*6/(4+6)",
+     "antwort": "3",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "5*(4+6)/4",
+     "antwort": "12.5",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "6+(5-4)",
+     "antwort": "7",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "9dc1b8dc-5c53-43dc-a32f-e5dcd77fb5cb",
+   "titel": "Erster Strahlensatz · BD aus SC, SD und AC",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_abschnitt",
+    "source_ref": "aehnlich-abschnitt-04",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis C ist 9 cm lang, die Strecke von A bis C 3 cm und die Strecke von S bis D 12 cm.\n\nWie lang ist die Strecke von B bis D? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "6": "strahlensatz_falsch_zugeordnet",
+     "8": "falsche_groesse_beantwortet",
+     "6 cm": "strahlensatz_falsch_zugeordnet",
+     "6cm": "strahlensatz_falsch_zugeordnet",
+     "8 cm": "falsche_groesse_beantwortet",
+     "8cm": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Teilstück auf dem zweiten Strahl aus ganzen Strecken und einem Teilstück."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "4 cm",
+      "4cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Erster Strahlensatz: BD : SD = AC : SC.\nBD = SD · AC : SC = 12 cm · 3 : 9 = 4 cm.\nProbe: SA = 6 cm, SB = 12 cm · 6 : 9 = 8 cm, BD = 12 cm − 8 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "BD : SD = AC : SA gesetzt, also SD mit SA statt mit SC verglichen: 12 · 3 : 6 = 6.",
+       "socratic_question": "Zu SD gehört auf dem ersten Strahl welche Strecke – SA oder SC?"
+      },
+      {
+       "error": "Die Strecke SB berechnet statt BD.",
+       "socratic_question": "Ist nach der Strecke von S bis B oder von B bis D gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "12*3/9",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "12*3/(9-3)",
+     "antwort": "6",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "12*(9-3)/9",
+     "antwort": "8",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "cff72027-8549-47c3-a12c-e1ff333fa4fd",
+   "titel": "Erster Strahlensatz · zwei Straßen mit parallelen Querstraßen",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_abschnitt",
+    "source_ref": "aehnlich-abschnitt-05",
+    "input_type": "NUMERIC",
+    "frage": "Zwei gerade Straßen gehen von einer Kreuzung S aus. Zwei zueinander parallele Querstraßen verbinden sie. Die erste Querstraße trifft die erste Straße im Punkt A und die zweite Straße im Punkt B. Die zweite Querstraße trifft die erste Straße im Punkt C und die zweite Straße im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nVon S bis A sind es 240 m, von A bis C 360 m und von S bis B 300 m.\n\nWie lang ist der Weg von B bis D? Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "180": "strahlensatz_falsch_zugeordnet",
+     "420": "additiv_statt_multiplikativ",
+     "750": "falsche_groesse_beantwortet",
+     "180 m": "strahlensatz_falsch_zugeordnet",
+     "180m": "strahlensatz_falsch_zugeordnet",
+     "750 m": "falsche_groesse_beantwortet",
+     "750m": "falsche_groesse_beantwortet",
+     "420 m": "additiv_statt_multiplikativ",
+     "420m": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Strahlensatzfigur in der Situation erkennen, Teilstück berechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "450",
+      "450 m",
+      "450m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Erster Strahlensatz: BD : SB = AC : SA.\nBD = 300 m · 360 : 240 = 450 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Teilstück AC mit der ganzen Strecke SC verglichen: 300 · 360 : 600 = 180.",
+       "socratic_question": "Gehört zu SB auf der ersten Straße SA oder SC?"
+      },
+      {
+       "error": "Die ganze Strecke von S bis D berechnet: 750 m.",
+       "socratic_question": "Ist nach dem Weg von S bis D oder von B bis D gefragt?"
+      },
+      {
+       "error": "Den Unterschied der Anfangsstücke addiert: 360 m + 60 m.",
+       "socratic_question": "Wachsen die Abschnitte um gleich viel oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, falsche_groesse_beantwortet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "300*360/240",
+     "antwort": "450"
+    },
+    {
+     "rechnung": "300*360/(240+360)",
+     "antwort": "180",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "300*(240+360)/240",
+     "antwort": "750",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "360+(300-240)",
+     "antwort": "420",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "421cad19-9629-4f75-8e01-c63e86692329",
+   "titel": "Erster Strahlensatz · Metallgestell mit parallelen Streben",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_abschnitt",
+    "source_ref": "aehnlich-abschnitt-06",
+    "input_type": "NUMERIC",
+    "frage": "Zwei gerade Metallstangen sind oben im Punkt S verbunden und laufen schräg auseinander nach unten. Zwei zueinander parallele Querstreben verbinden sie. Die obere Strebe ist an der ersten Stange im Punkt A und an der zweiten Stange im Punkt B befestigt, die untere Strebe an der ersten Stange im Punkt C und an der zweiten Stange im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nAuf der ersten Stange ist es von S bis A 1 m und von S bis C 2,5 m. Auf der zweiten Stange ist es von S bis D 3 m.\n\nWie weit ist B auf der zweiten Stange von D entfernt? Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "2": "strahlensatz_falsch_zugeordnet",
+     "1,2": "falsche_groesse_beantwortet",
+     "1.2": "falsche_groesse_beantwortet",
+     "1,2 m": "falsche_groesse_beantwortet",
+     "1,2m": "falsche_groesse_beantwortet",
+     "2 m": "strahlensatz_falsch_zugeordnet",
+     "2m": "strahlensatz_falsch_zugeordnet",
+     "1,5": "additiv_statt_multiplikativ",
+     "1.5": "additiv_statt_multiplikativ",
+     "1,5 m": "additiv_statt_multiplikativ",
+     "1,5m": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen im Sachkontext: Figur aus der Beschreibung aufbauen, erst SB, dann das Teilstück BD bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1,8",
+      "1.8",
+      "1,8 m",
+      "1,8m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Erster Strahlensatz: SB : SD = SA : SC.\nSB = 3 m · 1 : 2,5 = 1,2 m.\nBD = SD − SB = 3 m − 1,2 m = 1,8 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Strecke SB angegeben statt des Abstands von B bis D.",
+       "socratic_question": "Ist nach der Strecke von S bis B oder von B bis D gefragt?"
+      },
+      {
+       "error": "SA mit dem Teilstück AC statt mit SC verglichen: 3 · 1 : 1,5 = 2.",
+       "socratic_question": "Gehört zu SD auf der ersten Stange SC oder AC?"
+      },
+      {
+       "error": "Auf der zweiten Stange denselben Abstand angenommen wie auf der ersten: 1,5 m.",
+       "socratic_question": "Sind die Stangen gleich lang – wachsen die Abschnitte um gleich viel oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, strahlensatz_falsch_zugeordnet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3-3*1/2.5",
+     "antwort": "1.8"
+    },
+    {
+     "rechnung": "3*1/2.5",
+     "antwort": "1.2",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "3*1/(2.5-1)",
+     "antwort": "2",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "2.5-1",
+     "antwort": "1.5",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "627d8f56-d275-4994-bff9-f2185622d598",
+   "titel": "Zweiter Strahlensatz · CD aus SA, SC und AB",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_parallel",
+    "source_ref": "aehnlich-parallel-01",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 2 cm lang, die Strecke von S bis C 5 cm und die Strecke von A bis B 3 cm.\n\nWie lang ist die Strecke von C bis D? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "6": "additiv_statt_multiplikativ",
+     "1,2": "strahlensatz_falsch_zugeordnet",
+     "1.2": "strahlensatz_falsch_zugeordnet",
+     "1,2 cm": "strahlensatz_falsch_zugeordnet",
+     "1,2cm": "strahlensatz_falsch_zugeordnet",
+     "6 cm": "additiv_statt_multiplikativ",
+     "6cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Verhältnisgleichung CD : AB = SC : SA direkt aufstellen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7,5",
+      "7.5",
+      "7,5 cm",
+      "7,5cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Zweiter Strahlensatz: CD : AB = SC : SA.\nCD = AB · SC : SA = 3 cm · 5 : 2 = 7,5 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Verhältnisse vertauscht: CD = AB · SA : SC = 1,2 cm.",
+       "socratic_question": "Die Parallele durch C liegt weiter von S entfernt – muss CD länger oder kürzer als AB sein?"
+      },
+      {
+       "error": "Gleich viel addiert wie auf dem Strahl: 3 cm + 3 cm.",
+       "socratic_question": "Wachsen die Parallelstrecken um gleich viel oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3*5/2",
+     "antwort": "7.5"
+    },
+    {
+     "rechnung": "3*2/5",
+     "antwort": "1.2",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "3+(5-2)",
+     "antwort": "6",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "9e52eb0d-bf0a-4770-aec2-d9598a087c45",
+   "titel": "Zweiter Strahlensatz · SA aus den Parallelstrecken",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_parallel",
+    "source_ref": "aehnlich-parallel-02",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis C ist 10 cm lang, die Strecke von A bis B 3 cm und die Strecke von C bis D 7,5 cm.\n\nWie lang ist die Strecke von S bis A? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "25": "strahlensatz_falsch_zugeordnet",
+     "25 cm": "strahlensatz_falsch_zugeordnet",
+     "25cm": "strahlensatz_falsch_zugeordnet",
+     "5,5": "additiv_statt_multiplikativ",
+     "5.5": "additiv_statt_multiplikativ",
+     "5,5 cm": "additiv_statt_multiplikativ",
+     "5,5cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Verhältnisgleichung aufstellen und nach dem Scheitelabschnitt auflösen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "4 cm",
+      "4cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Zweiter Strahlensatz: SA : SC = AB : CD.\nSA = SC · AB : CD = 10 cm · 3 : 7,5 = 4 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Parallelstrecken vertauscht: SA = SC · CD : AB = 25 cm.",
+       "socratic_question": "A liegt zwischen S und C – kann SA länger als SC sein?"
+      },
+      {
+       "error": "Denselben Unterschied abgezogen wie bei den Parallelen: 10 cm − 4,5 cm.",
+       "socratic_question": "Hängen die Strecken über einen Unterschied oder über ein Verhältnis zusammen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "10*3/7.5",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "10*7.5/3",
+     "antwort": "25",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "10-(7.5-3)",
+     "antwort": "5.5",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "59b87dce-2116-4855-9e94-54dff17ff05a",
+   "titel": "Zweiter Strahlensatz · CD aus SA, AC und AB",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_parallel",
+    "source_ref": "aehnlich-parallel-03",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 5 cm lang, die Strecke von A bis C 3 cm und die Strecke von A bis B 4 cm.\n\nWie lang ist die Strecke von C bis D? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "7": "additiv_statt_multiplikativ",
+     "2,4": "strahlensatz_falsch_zugeordnet",
+     "2.4": "strahlensatz_falsch_zugeordnet",
+     "2,4 cm": "strahlensatz_falsch_zugeordnet",
+     "2,4cm": "strahlensatz_falsch_zugeordnet",
+     "2,5": "streckfaktor_kehrwert",
+     "2.5": "streckfaktor_kehrwert",
+     "2,5 cm": "streckfaktor_kehrwert",
+     "2,5cm": "streckfaktor_kehrwert",
+     "7 cm": "additiv_statt_multiplikativ",
+     "7cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Aus dem Teilstück AC erst SC bilden, dann den zweiten Strahlensatz anwenden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6,4",
+      "6.4",
+      "6,4 cm",
+      "6,4cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "SC = SA + AC = 5 cm + 3 cm = 8 cm.\nZweiter Strahlensatz: CD : AB = SC : SA.\nCD = 4 cm · 8 : 5 = 6,4 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Teilstück AC statt der ganzen Strecke SC verwendet: 4 · 3 : 5 = 2,4.",
+       "socratic_question": "Gehört zu den Parallelstrecken das Teilstück AC oder die Strecke vom Scheitel S aus?"
+      },
+      {
+       "error": "Mit dem Kehrwert des Faktors gerechnet: 4 · 5 : 8 = 2,5.",
+       "socratic_question": "Muss CD länger oder kürzer als AB sein?"
+      },
+      {
+       "error": "AC einfach zu AB addiert: 4 cm + 3 cm.",
+       "socratic_question": "Wachsen die Parallelstrecken um gleich viel oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, streckfaktor_kehrwert, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4*(5+3)/5",
+     "antwort": "6.4"
+    },
+    {
+     "rechnung": "4*3/5",
+     "antwort": "2.4",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "4*5/(5+3)",
+     "antwort": "2.5",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    },
+    {
+     "rechnung": "4+3",
+     "antwort": "7",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "59bdf7d8-248a-4c9a-8f96-01aba8f098c1",
+   "titel": "Zweiter Strahlensatz · AB aus SB, BD und CD",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_parallel",
+    "source_ref": "aehnlich-parallel-04",
+    "input_type": "NUMERIC",
+    "frage": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis B ist 6 cm lang, die Strecke von B bis D 4,5 cm und die Strecke von C bis D 7 cm.\n\nWie lang ist die Strecke von A bis B? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "5,25": "strahlensatz_falsch_zugeordnet",
+     "5.25": "strahlensatz_falsch_zugeordnet",
+     "5,25 cm": "strahlensatz_falsch_zugeordnet",
+     "5,25cm": "strahlensatz_falsch_zugeordnet",
+     "12,25": "strahlensatz_falsch_zugeordnet",
+     "12.25": "strahlensatz_falsch_zugeordnet",
+     "12,25 cm": "strahlensatz_falsch_zugeordnet",
+     "12,25cm": "strahlensatz_falsch_zugeordnet",
+     "2,5": "additiv_statt_multiplikativ",
+     "2.5": "additiv_statt_multiplikativ",
+     "2,5 cm": "additiv_statt_multiplikativ",
+     "2,5cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Werte auf dem zweiten Strahl, Teilstück BD, Rückrichtung zur kürzeren Parallelstrecke."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "4 cm",
+      "4cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "SD = SB + BD = 6 cm + 4,5 cm = 10,5 cm.\nZweiter Strahlensatz: AB : CD = SB : SD.\nAB = 7 cm · 6 : 10,5 = 4 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Teilstück BD mit SB verglichen: 7 · 4,5 : 6 = 5,25.",
+       "socratic_question": "Gehört zu den Parallelstrecken das Teilstück BD oder die Strecke vom Scheitel S aus?"
+      },
+      {
+       "error": "Die Verhältnisse vertauscht: 7 · 10,5 : 6 = 12,25.",
+       "socratic_question": "AB liegt näher an S als CD – muss AB länger oder kürzer sein?"
+      },
+      {
+       "error": "Den Abschnitt BD von CD abgezogen: 7 cm − 4,5 cm.",
+       "socratic_question": "Hängen die Strecken über einen Unterschied oder über ein Verhältnis zusammen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "7*6/(6+4.5)",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "7*4.5/6",
+     "antwort": "5.25",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "7*(6+4.5)/6",
+     "antwort": "12.25",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "7-4.5",
+     "antwort": "2.5",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "49d26b4c-2b05-4699-b637-3f0a13ba1bc7",
+   "titel": "Zweiter Strahlensatz · Baumhöhe über den Schatten",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_parallel",
+    "source_ref": "aehnlich-parallel-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein 1,5 m langer Stab steht senkrecht auf ebenem Boden und wirft einen 2 m langen Schatten. Ein senkrecht stehender Baum wirft zur selben Zeit einen 12 m langen Schatten.\n\nWie hoch ist der Baum? Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "16": "strahlensatz_falsch_zugeordnet",
+     "16 m": "strahlensatz_falsch_zugeordnet",
+     "16m": "strahlensatz_falsch_zugeordnet",
+     "11,5": "additiv_statt_multiplikativ",
+     "11.5": "additiv_statt_multiplikativ",
+     "11,5 m": "additiv_statt_multiplikativ",
+     "11,5m": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Stab und Baum als Parallelstrecken, Schatten als Abschnitte erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9",
+      "9 m",
+      "9m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Sonnenstrahlen sind parallel; Höhe und Schatten stehen beim Stab und beim Baum im selben Verhältnis.\nHöhe : 12 m = 1,5 m : 2 m.\nHöhe = 1,5 m · 12 : 2 = 9 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Höhe und Schatten vertauscht: 2 · 12 : 1,5 = 16.",
+       "socratic_question": "Der Stab ist kürzer als sein Schatten – gilt das dann auch für den Baum?"
+      },
+      {
+       "error": "Zur Stabhöhe den Unterschied der Schatten addiert: 1,5 m + 10 m.",
+       "socratic_question": "Wächst die Höhe um gleich viel wie der Schatten oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1.5*12/2",
+     "antwort": "9"
+    },
+    {
+     "rechnung": "2*12/1.5",
+     "antwort": "16",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "1.5+(12-2)",
+     "antwort": "11.5",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "ae9f75b4-3990-401b-bab1-479503f08594",
+   "titel": "Zweiter Strahlensatz · Baumhöhe über einen Peilstab",
+   "basis": {
+    "skill_key": "geo_aehnlich_strahlen_parallel",
+    "source_ref": "aehnlich-parallel-06",
+    "input_type": "NUMERIC",
+    "frage": "Auf ebenem Boden liegen ein Punkt S, der Fußpunkt eines senkrechten, 1,6 m hohen Stabs und der Fußpunkt eines senkrechten Baums in dieser Reihenfolge auf einer Geraden. Der Punkt S ist 2,5 m vom Stab entfernt, der Stab steht 10 m vom Baum entfernt. Die Gerade durch S und die Spitze des Stabs geht genau durch die Spitze des Baums.\n\nWie hoch ist der Baum? Gib das Ergebnis exakt an.",
+    "unit": "m",
+    "known_errors": {
+     "6,4": "strahlensatz_falsch_zugeordnet",
+     "6.4": "strahlensatz_falsch_zugeordnet",
+     "6,4 m": "strahlensatz_falsch_zugeordnet",
+     "6,4m": "strahlensatz_falsch_zugeordnet",
+     "0,32": "streckfaktor_kehrwert",
+     "0.32": "streckfaktor_kehrwert",
+     "0,32 m": "streckfaktor_kehrwert",
+     "0,32m": "streckfaktor_kehrwert",
+     "11,6": "additiv_statt_multiplikativ",
+     "11.6": "additiv_statt_multiplikativ",
+     "11,6 m": "additiv_statt_multiplikativ",
+     "11,6m": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen im Sachkontext: Strahlensatzfigur aus der Beschreibung bilden, die ganze Strecke von S bis zum Baum zusammensetzen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-2/Geo-9 (zentrische Streckung, Ähnlichkeit, Strahlensätze)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_massstab und die Kreis-Knoten im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-2, Geo-9)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8",
+      "8 m",
+      "8m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Entfernung von S bis zum Baum: 2,5 m + 10 m = 12,5 m.\nStab und Baum sind parallel. Zweiter Strahlensatz: Höhe : 1,6 m = 12,5 m : 2,5 m.\nHöhe = 1,6 m · 12,5 : 2,5 = 8 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Abstand Stab–Baum statt der ganzen Strecke von S bis zum Baum verwendet: 1,6 · 10 : 2,5 = 6,4.",
+       "socratic_question": "Gemessen von welchem Punkt aus stehen die Entfernungen im Verhältnis der Höhen?"
+      },
+      {
+       "error": "Mit dem Kehrwert des Faktors gerechnet: 1,6 · 2,5 : 12,5 = 0,32.",
+       "socratic_question": "Ist der Baum weiter von S entfernt als der Stab – muss er dann höher oder niedriger sein?"
+      },
+      {
+       "error": "Den Abstand zum Baum einfach zur Stabhöhe addiert: 1,6 m + 10 m.",
+       "socratic_question": "Wächst die Höhe um gleich viel wie die Entfernung oder im gleichen Verhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (strahlensatz_falsch_zugeordnet, streckfaktor_kehrwert, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1.6*(2.5+10)/2.5",
+     "antwort": "8"
+    },
+    {
+     "rechnung": "1.6*10/2.5",
+     "antwort": "6.4",
+     "rolle": "fehlbild:strahlensatz_falsch_zugeordnet:"
+    },
+    {
+     "rechnung": "1.6*2.5/(2.5+10)",
+     "antwort": "0.32",
+     "rolle": "fehlbild:streckfaktor_kehrwert:"
+    },
+    {
+     "rechnung": "1.6+10",
+     "antwort": "11.6",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  }
+ ]
+}

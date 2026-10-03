@@ -1,0 +1,674 @@
+[
+ {
+  "task": {
+   "id": "93dbda80-cd5e-4a40-b0f5-98953e8fb588",
+   "title": "Streckfaktor · 4 cm werden 10 cm",
+   "question": "Bei einer zentrischen Streckung wird eine 4 cm lange Strecke auf eine 10 cm lange Bildstrecke abgebildet.\n\nWie groß ist der Streckfaktor k? Gib k exakt als Dezimalzahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_streckfaktor",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Bei einer zentrischen Streckung wird eine 4 cm lange Strecke auf eine 10 cm lange Bildstrecke abgebildet.\n\nWie groß ist der Streckfaktor k? Gib k exakt als Dezimalzahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-streckfaktor-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3efc2963-83cd-4bb7-b3ac-3f37534f4fd4",
+   "title": "Bildlänge · 3,5 cm mit k = 4",
+   "question": "Eine 3,5 cm lange Strecke wird zentrisch mit dem Streckfaktor k = 4 gestreckt.\n\nWie lang ist die Bildstrecke? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_streckfaktor",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine 3,5 cm lange Strecke wird zentrisch mit dem Streckfaktor k = 4 gestreckt.\n\nWie lang ist die Bildstrecke? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-streckfaktor-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0644e069-c106-4cb4-8faa-bbad5edddb70",
+   "title": "Verkleinerung · Seite b aus a = 12 cm, a′ = 9 cm",
+   "question": "Ein Dreieck wird zentrisch gestreckt. Die Seite a ist 12 cm lang, ihre Bildseite a′ nur 9 cm. Die Seite b des Dreiecks ist 6 cm lang.\n\nWie lang ist die Bildseite b′? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_streckfaktor",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Dreieck wird zentrisch gestreckt. Die Seite a ist 12 cm lang, ihre Bildseite a′ nur 9 cm. Die Seite b des Dreiecks ist 6 cm lang.\n\nWie lang ist die Bildseite b′? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-streckfaktor-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "75cb4657-94a9-4348-b6b1-807f241f4914",
+   "title": "Rückrichtung · Original aus 7 cm Bild und k = 2,5",
+   "question": "Bei einer zentrischen Streckung mit dem Streckfaktor k = 2,5 entsteht eine 7 cm lange Bildstrecke.\n\nWie lang war die Originalstrecke? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_streckfaktor",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Bei einer zentrischen Streckung mit dem Streckfaktor k = 2,5 entsteht eine 7 cm lange Bildstrecke.\n\nWie lang war die Originalstrecke? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-streckfaktor-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a1d203d7-0d30-42ae-8c54-d3e7dc04a7d6",
+   "title": "Foto · 9 cm × 13 cm auf 27 cm Breite vergrößert",
+   "question": "Ein Foto ist 9 cm breit und 13 cm hoch. Es wird ohne Verzerrung vergrößert, sodass es 27 cm breit ist.\n\nWie hoch ist das vergrößerte Foto? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_streckfaktor",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Foto ist 9 cm breit und 13 cm hoch. Es wird ohne Verzerrung vergrößert, sodass es 27 cm breit ist.\n\nWie hoch ist das vergrößerte Foto? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-streckfaktor-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "51490b4f-18e9-4a15-8ee2-7e160526f2d9",
+   "title": "Rückrichtung · kürzeste Seite aus dem Bildumfang 45 cm",
+   "question": "Ein Dreieck hat die Seitenlängen 5 cm, 6 cm und 7 cm. Es wird zentrisch gestreckt. Das Bilddreieck hat den Umfang 45 cm.\n\nWie lang ist die kürzeste Seite des Bilddreiecks? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_streckfaktor",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Dreieck hat die Seitenlängen 5 cm, 6 cm und 7 cm. Es wird zentrisch gestreckt. Das Bilddreieck hat den Umfang 45 cm.\n\nWie lang ist die kürzeste Seite des Bilddreiecks? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-streckfaktor-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6e18016e-5c62-4ba8-a1ed-a924506930e7",
+   "title": "Bildfläche · 6 cm² mit k = 3",
+   "question": "Eine Figur hat den Flächeninhalt 6 cm². Sie wird zentrisch mit dem Streckfaktor k = 3 gestreckt.\n\nWie groß ist der Flächeninhalt der Bildfigur? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_flaeche",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Figur hat den Flächeninhalt 6 cm². Sie wird zentrisch mit dem Streckfaktor k = 3 gestreckt.\n\nWie groß ist der Flächeninhalt der Bildfigur? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-flaeche-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1cba711e-7175-49db-b76a-8c3304b5bc64",
+   "title": "Volumen · 5 cm³ mit k = 2",
+   "question": "Ein Körper hat das Volumen 5 cm³. Ein dazu ähnlicher Körper ist mit dem Streckfaktor k = 2 vergrößert.\n\nWie groß ist das Volumen des vergrößerten Körpers? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_flaeche",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Körper hat das Volumen 5 cm³. Ein dazu ähnlicher Körper ist mit dem Streckfaktor k = 2 vergrößert.\n\nWie groß ist das Volumen des vergrößerten Körpers? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-flaeche-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4186f7c2-c0bf-4563-a14c-bc04d0817ee6",
+   "title": "Streckfaktor aus 12 cm² und 75 cm²",
+   "question": "Eine Figur mit dem Flächeninhalt 12 cm² wird zentrisch gestreckt. Die Bildfigur hat den Flächeninhalt 75 cm².\n\nWie groß ist der Streckfaktor k? Gib k exakt als Dezimalzahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_flaeche",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Figur mit dem Flächeninhalt 12 cm² wird zentrisch gestreckt. Die Bildfigur hat den Flächeninhalt 75 cm².\n\nWie groß ist der Streckfaktor k? Gib k exakt als Dezimalzahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-flaeche-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e9add498-a88c-46e5-8905-25a5d1ec9ce7",
+   "title": "Volumen · ähnliche Quader mit Kanten 4 cm und 6 cm",
+   "question": "Zwei Quader sind zueinander ähnlich. Eine Kante des kleinen Quaders ist 4 cm lang, die entsprechende Kante des großen Quaders 6 cm. Der kleine Quader hat das Volumen 32 cm³.\n\nWie groß ist das Volumen des großen Quaders? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_flaeche",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Quader sind zueinander ähnlich. Eine Kante des kleinen Quaders ist 4 cm lang, die entsprechende Kante des großen Quaders 6 cm. Der kleine Quader hat das Volumen 32 cm³.\n\nWie groß ist das Volumen des großen Quaders? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-flaeche-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "93e695a0-efbe-490f-b931-299545068f26",
+   "title": "Farbe · Wandbild mit 2,5-mal so langen Seiten",
+   "question": "Für ein Wandbild werden 0,4 Liter Farbe gebraucht. Ein zweites Wandbild hat dieselbe Form, aber alle Seiten sind 2,5-mal so lang. Die Farbe wird gleich dick aufgetragen.\n\nWie viele Liter Farbe braucht das zweite Wandbild? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_flaeche",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für ein Wandbild werden 0,4 Liter Farbe gebraucht. Ein zweites Wandbild hat dieselbe Form, aber alle Seiten sind 2,5-mal so lang. Die Farbe wird gleich dick aufgetragen.\n\nWie viele Liter Farbe braucht das zweite Wandbild? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "l",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-flaeche-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7f8af94f-4ac8-40e9-851e-7e36a48335cd",
+   "title": "Modell · Tank im Maßstab 1 : 50 fasst 0,2 Liter",
+   "question": "Ein Modell eines Wassertanks ist im Maßstab 1 : 50 gebaut. Das Modell fasst 0,2 Liter.\n\nWie viele Kubikmeter fasst der echte Tank? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_flaeche",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Modell eines Wassertanks ist im Maßstab 1 : 50 gebaut. Das Modell fasst 0,2 Liter.\n\nWie viele Kubikmeter fasst der echte Tank? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m³",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-flaeche-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f8083d9b-72c9-4a72-a0c0-0adb8787bfce",
+   "title": "Erster Strahlensatz · SD aus SA, SC und SB",
+   "question": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 3 cm lang, die Strecke von S bis C 7,5 cm und die Strecke von S bis B 4 cm.\n\nWie lang ist die Strecke von S bis D? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_abschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 3 cm lang, die Strecke von S bis C 7,5 cm und die Strecke von S bis B 4 cm.\n\nWie lang ist die Strecke von S bis D? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-abschnitt-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "234e8b8c-ce4d-47bb-8501-86744037c41d",
+   "title": "Erster Strahlensatz · SC aus SA, SB und SD",
+   "question": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 2 cm lang, die Strecke von S bis B 5 cm und die Strecke von S bis D 15 cm.\n\nWie lang ist die Strecke von S bis C? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_abschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 2 cm lang, die Strecke von S bis B 5 cm und die Strecke von S bis D 15 cm.\n\nWie lang ist die Strecke von S bis C? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-abschnitt-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f06ce97a-7c42-400e-8cb0-7b53f6f98be1",
+   "title": "Erster Strahlensatz · Teilstück BD",
+   "question": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 4 cm lang, die Strecke von A bis C 6 cm und die Strecke von S bis B 5 cm.\n\nWie lang ist die Strecke von B bis D? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_abschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 4 cm lang, die Strecke von A bis C 6 cm und die Strecke von S bis B 5 cm.\n\nWie lang ist die Strecke von B bis D? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-abschnitt-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9dc1b8dc-5c53-43dc-a32f-e5dcd77fb5cb",
+   "title": "Erster Strahlensatz · BD aus SC, SD und AC",
+   "question": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis C ist 9 cm lang, die Strecke von A bis C 3 cm und die Strecke von S bis D 12 cm.\n\nWie lang ist die Strecke von B bis D? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_abschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis C ist 9 cm lang, die Strecke von A bis C 3 cm und die Strecke von S bis D 12 cm.\n\nWie lang ist die Strecke von B bis D? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-abschnitt-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cff72027-8549-47c3-a12c-e1ff333fa4fd",
+   "title": "Erster Strahlensatz · zwei Straßen mit parallelen Querstraßen",
+   "question": "Zwei gerade Straßen gehen von einer Kreuzung S aus. Zwei zueinander parallele Querstraßen verbinden sie. Die erste Querstraße trifft die erste Straße im Punkt A und die zweite Straße im Punkt B. Die zweite Querstraße trifft die erste Straße im Punkt C und die zweite Straße im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nVon S bis A sind es 240 m, von A bis C 360 m und von S bis B 300 m.\n\nWie lang ist der Weg von B bis D? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_abschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei gerade Straßen gehen von einer Kreuzung S aus. Zwei zueinander parallele Querstraßen verbinden sie. Die erste Querstraße trifft die erste Straße im Punkt A und die zweite Straße im Punkt B. Die zweite Querstraße trifft die erste Straße im Punkt C und die zweite Straße im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nVon S bis A sind es 240 m, von A bis C 360 m und von S bis B 300 m.\n\nWie lang ist der Weg von B bis D? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-abschnitt-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "421cad19-9629-4f75-8e01-c63e86692329",
+   "title": "Erster Strahlensatz · Metallgestell mit parallelen Streben",
+   "question": "Zwei gerade Metallstangen sind oben im Punkt S verbunden und laufen schräg auseinander nach unten. Zwei zueinander parallele Querstreben verbinden sie. Die obere Strebe ist an der ersten Stange im Punkt A und an der zweiten Stange im Punkt B befestigt, die untere Strebe an der ersten Stange im Punkt C und an der zweiten Stange im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nAuf der ersten Stange ist es von S bis A 1 m und von S bis C 2,5 m. Auf der zweiten Stange ist es von S bis D 3 m.\n\nWie weit ist B auf der zweiten Stange von D entfernt? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_abschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei gerade Metallstangen sind oben im Punkt S verbunden und laufen schräg auseinander nach unten. Zwei zueinander parallele Querstreben verbinden sie. Die obere Strebe ist an der ersten Stange im Punkt A und an der zweiten Stange im Punkt B befestigt, die untere Strebe an der ersten Stange im Punkt C und an der zweiten Stange im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nAuf der ersten Stange ist es von S bis A 1 m und von S bis C 2,5 m. Auf der zweiten Stange ist es von S bis D 3 m.\n\nWie weit ist B auf der zweiten Stange von D entfernt? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-abschnitt-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "627d8f56-d275-4994-bff9-f2185622d598",
+   "title": "Zweiter Strahlensatz · CD aus SA, SC und AB",
+   "question": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 2 cm lang, die Strecke von S bis C 5 cm und die Strecke von A bis B 3 cm.\n\nWie lang ist die Strecke von C bis D? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_parallel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 2 cm lang, die Strecke von S bis C 5 cm und die Strecke von A bis B 3 cm.\n\nWie lang ist die Strecke von C bis D? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-parallel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9e52eb0d-bf0a-4770-aec2-d9598a087c45",
+   "title": "Zweiter Strahlensatz · SA aus den Parallelstrecken",
+   "question": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis C ist 10 cm lang, die Strecke von A bis B 3 cm und die Strecke von C bis D 7,5 cm.\n\nWie lang ist die Strecke von S bis A? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_parallel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis C ist 10 cm lang, die Strecke von A bis B 3 cm und die Strecke von C bis D 7,5 cm.\n\nWie lang ist die Strecke von S bis A? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-parallel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "59b87dce-2116-4855-9e94-54dff17ff05a",
+   "title": "Zweiter Strahlensatz · CD aus SA, AC und AB",
+   "question": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 5 cm lang, die Strecke von A bis C 3 cm und die Strecke von A bis B 4 cm.\n\nWie lang ist die Strecke von C bis D? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_parallel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis A ist 5 cm lang, die Strecke von A bis C 3 cm und die Strecke von A bis B 4 cm.\n\nWie lang ist die Strecke von C bis D? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-parallel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "59bdf7d8-248a-4c9a-8f96-01aba8f098c1",
+   "title": "Zweiter Strahlensatz · AB aus SB, BD und CD",
+   "question": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis B ist 6 cm lang, die Strecke von B bis D 4,5 cm und die Strecke von C bis D 7 cm.\n\nWie lang ist die Strecke von A bis B? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_parallel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Strahlen beginnen im Punkt S. Eine Gerade schneidet den ersten Strahl im Punkt A und den zweiten im Punkt B. Eine dazu parallele Gerade schneidet den ersten Strahl im Punkt C und den zweiten im Punkt D. A liegt zwischen S und C, B zwischen S und D.\n\nDie Strecke von S bis B ist 6 cm lang, die Strecke von B bis D 4,5 cm und die Strecke von C bis D 7 cm.\n\nWie lang ist die Strecke von A bis B? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-parallel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "49d26b4c-2b05-4699-b637-3f0a13ba1bc7",
+   "title": "Zweiter Strahlensatz · Baumhöhe über den Schatten",
+   "question": "Ein 1,5 m langer Stab steht senkrecht auf ebenem Boden und wirft einen 2 m langen Schatten. Ein senkrecht stehender Baum wirft zur selben Zeit einen 12 m langen Schatten.\n\nWie hoch ist der Baum? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_parallel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein 1,5 m langer Stab steht senkrecht auf ebenem Boden und wirft einen 2 m langen Schatten. Ein senkrecht stehender Baum wirft zur selben Zeit einen 12 m langen Schatten.\n\nWie hoch ist der Baum? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-parallel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ae9f75b4-3990-401b-bab1-479503f08594",
+   "title": "Zweiter Strahlensatz · Baumhöhe über einen Peilstab",
+   "question": "Auf ebenem Boden liegen ein Punkt S, der Fußpunkt eines senkrechten, 1,6 m hohen Stabs und der Fußpunkt eines senkrechten Baums in dieser Reihenfolge auf einer Geraden. Der Punkt S ist 2,5 m vom Stab entfernt, der Stab steht 10 m vom Baum entfernt. Die Gerade durch S und die Spitze des Stabs geht genau durch die Spitze des Baums.\n\nWie hoch ist der Baum? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_aehnlich_strahlen_parallel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Auf ebenem Boden liegen ein Punkt S, der Fußpunkt eines senkrechten, 1,6 m hohen Stabs und der Fußpunkt eines senkrechten Baums in dieser Reihenfolge auf einer Geraden. Der Punkt S ist 2,5 m vom Stab entfernt, der Stab steht 10 m vom Baum entfernt. Die Gerade durch S und die Spitze des Stabs geht genau durch die Spitze des Baums.\n\nWie hoch ist der Baum? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_aehnlich",
+   "source_ref": "aehnlich-parallel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]
