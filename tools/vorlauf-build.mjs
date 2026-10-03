@@ -19,6 +19,7 @@
  *   - legt fuer Aufgaben mit Figur die task_figures-Zeile an (Upload macht Rasit),
  *   - ist idempotent: on conflict do nothing, Loesung nur, wenn noch keine Zeile besteht.
  * sondierrang: Rang 1 und 2 je Skill nach scripts/content/sondierrang_vorschlag.py.
+ * class_level: optionales Charge-Feld (Board-Klasse wie edvance_k8_binom); ohne das Feld null wie bisher.
  */
 
 import fs from 'node:fs';
@@ -163,7 +164,7 @@ for (const a of charge.aufgaben) {
     `  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am)\n` +
     `values (\n  ${q(a.id)}::uuid, 'exercise', ${q(a.titel)}, ${q(b.frage)},\n` +
     `  ${task.question_payload ? j(task.question_payload) : 'null'}, ${q(b.input_type)}, ${q(b.skill_key)},\n` +
-    `  null, ${task.curriculum_grade},\n` +
+    `  ${charge.class_level ?? 'null'}, ${task.curriculum_grade},\n` +
     `  (select c.id from public.skill_clusters c where c.id = ${q(task.cluster_id)}::uuid),\n` +
     `  ${q(task.afb)}, ${q(task.competency_content)}, ${q(task.competency_process)},\n` +
     `  ${task.est_duration_sec}, ${q(task.unit)}, ${task.needs_image}, ${rang.get(a.id) ?? 'null'}, 'draft', ${q(charge.source)}, ${q(b.source_ref)},\n` +

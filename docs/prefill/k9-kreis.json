@@ -9,6 +9,7 @@
  ],
  "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit und zwei mit Sachkontext oder Rückrichtung (Fahrradrad, Pizza, Baumstamm, runder Tisch, Torte, Winkel aus dem Bogen). Alle ohne Abbildung lösbar. Jede Aufgabe nennt π-Taste oder 3,14 und die Rundung; beide Ergebnisse stehen als Varianten in correct_answers und acceptance.equivalents (exakter Textvergleich, keine Toleranz).",
  "source": "edvance_k9_kreis",
+ "class_level": 9,
  "acceptance_equivalents": true,
  "zeitregel": {
   "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",

@@ -51,7 +51,7 @@ values (
 
 Wie groß ist sein Umfang? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Radius 4 cm.\n\nWie groß ist sein Umfang? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_umfang',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'I', 'geometrie', 'Operieren',
   45, 'cm', false, null, 'draft', 'edvance_k9_kreis', 'kreis-umfang-01',
@@ -81,7 +81,7 @@ values (
 
 Wie groß ist sein Umfang? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Durchmesser 10 cm.\n\nWie groß ist sein Umfang? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_umfang',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'I', 'geometrie', 'Operieren',
   45, 'cm', false, null, 'draft', 'edvance_k9_kreis', 'kreis-umfang-02',
@@ -111,7 +111,7 @@ values (
 
 Wie groß ist sein Umfang in Metern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Radius 3,6 m.\n\nWie groß ist sein Umfang in Metern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_umfang',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Operieren',
   60, 'm', false, 1, 'draft', 'edvance_k9_kreis', 'kreis-umfang-03',
@@ -141,7 +141,7 @@ values (
 
 Wie groß ist sein Umfang in Metern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Radius 45 cm.\n\nWie groß ist sein Umfang in Metern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_umfang',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Operieren',
   60, 'm', false, 2, 'draft', 'edvance_k9_kreis', 'kreis-umfang-04',
@@ -172,7 +172,7 @@ values (
 
 Wie viele Zentimeter legt das Rad bei einer vollen Umdrehung zurück? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Fahrradrad hat einen Durchmesser von 70 cm.\n\nWie viele Zentimeter legt das Rad bei einer vollen Umdrehung zurück? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_umfang',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Modellieren, Operieren',
   90, 'cm', false, null, 'draft', 'edvance_k9_kreis', 'kreis-umfang-05',
@@ -203,7 +203,7 @@ values (
 
 Wie viele volle Umdrehungen muss das Rad mindestens machen? Gib eine ganze Zahl an und runde dafür auf. Rechne mit der π-Taste oder mit π ≈ 3,14.',
   '{"kind":"short_input","prompt":"Ein Rad hat einen Durchmesser von 60 cm. Es soll eine Strecke von 100 m zurücklegen.\n\nWie viele volle Umdrehungen muss das Rad mindestens machen? Gib eine ganze Zahl an und runde dafür auf. Rechne mit der π-Taste oder mit π ≈ 3,14."}'::jsonb, 'NUMERIC', 'geo_kreis_umfang',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'III', 'geometrie', 'Problemlösen, Operieren',
   120, 'Umdrehungen', false, null, 'draft', 'edvance_k9_kreis', 'kreis-umfang-06',
@@ -235,7 +235,7 @@ values (
 
 Wie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Radius 6 cm.\n\nWie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_flaeche',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'I', 'geometrie', 'Operieren',
   45, 'cm²', false, null, 'draft', 'edvance_k9_kreis', 'kreis-flaeche-01',
@@ -265,7 +265,7 @@ values (
 
 Wie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Durchmesser 10 cm.\n\nWie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_flaeche',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'I', 'geometrie', 'Operieren',
   45, 'cm²', false, null, 'draft', 'edvance_k9_kreis', 'kreis-flaeche-02',
@@ -296,7 +296,7 @@ values (
 
 Wie groß ist sein Flächeninhalt in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Radius 2,4 m.\n\nWie groß ist sein Flächeninhalt in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_flaeche',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Operieren',
   60, 'm²', false, null, 'draft', 'edvance_k9_kreis', 'kreis-flaeche-03',
@@ -326,7 +326,7 @@ values (
 
 Wie groß ist sein Flächeninhalt in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Radius 80 cm.\n\nWie groß ist sein Flächeninhalt in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_flaeche',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Operieren',
   60, 'm²', false, 1, 'draft', 'edvance_k9_kreis', 'kreis-flaeche-04',
@@ -357,7 +357,7 @@ values (
 
 Wie viele Quadratzentimeter ist die Pizza groß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Eine runde Pizza hat einen Durchmesser von 30 cm.\n\nWie viele Quadratzentimeter ist die Pizza groß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_flaeche',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Modellieren, Operieren',
   90, 'cm²', false, null, 'draft', 'edvance_k9_kreis', 'kreis-flaeche-05',
@@ -388,7 +388,7 @@ values (
 
 Um wie viele Quadratzentimeter ist die große Pizza größer als zwei kleine Pizzen zusammen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Eine große Pizza hat einen Durchmesser von 30 cm. Eine kleine Pizza hat einen Durchmesser von 20 cm.\n\nUm wie viele Quadratzentimeter ist die große Pizza größer als zwei kleine Pizzen zusammen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_flaeche',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'III', 'geometrie', 'Problemlösen, Operieren',
   120, 'cm²', false, 2, 'draft', 'edvance_k9_kreis', 'kreis-flaeche-06',
@@ -420,7 +420,7 @@ values (
 
 Wie groß ist sein Durchmesser? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Umfang 50 cm.\n\nWie groß ist sein Durchmesser? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_rueck',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'I', 'geometrie', 'Operieren',
   45, 'cm', false, null, 'draft', 'edvance_k9_kreis', 'kreis-rueck-01',
@@ -451,7 +451,7 @@ values (
 
 Wie groß ist sein Radius? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Umfang 40 cm.\n\nWie groß ist sein Radius? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_rueck',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'I', 'geometrie', 'Operieren',
   45, 'cm', false, null, 'draft', 'edvance_k9_kreis', 'kreis-rueck-02',
@@ -482,7 +482,7 @@ values (
 
 Wie groß ist sein Durchmesser in Zentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Umfang 2 m.\n\nWie groß ist sein Durchmesser in Zentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_rueck',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Operieren',
   60, 'cm', false, 2, 'draft', 'edvance_k9_kreis', 'kreis-rueck-03',
@@ -513,7 +513,7 @@ values (
 
 Wie groß ist sein Radius? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreis hat den Umfang 12,5 m.\n\nWie groß ist sein Radius? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_rueck',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Operieren',
   60, 'm', false, null, 'draft', 'edvance_k9_kreis', 'kreis-rueck-04',
@@ -544,7 +544,7 @@ values (
 
 Wie dick ist der Stamm, also wie groß ist sein Durchmesser in Zentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Um einen runden Baumstamm wird ein Maßband gelegt. Es zeigt 2,20 m.\n\nWie dick ist der Stamm, also wie groß ist sein Durchmesser in Zentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_rueck',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Modellieren, Operieren',
   90, 'cm', false, null, 'draft', 'edvance_k9_kreis', 'kreis-rueck-05',
@@ -575,7 +575,7 @@ values (
 
 Wie groß muss der Durchmesser des Tisches mindestens sein? Gib ganze Zentimeter an und runde dafür auf. Rechne mit der π-Taste oder mit π ≈ 3,14.',
   '{"kind":"short_input","prompt":"An einem runden Tisch sollen 8 Personen sitzen. Jede Person braucht am Tischrand 60 cm Platz.\n\nWie groß muss der Durchmesser des Tisches mindestens sein? Gib ganze Zentimeter an und runde dafür auf. Rechne mit der π-Taste oder mit π ≈ 3,14."}'::jsonb, 'NUMERIC', 'geo_kreis_rueck',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'III', 'geometrie', 'Problemlösen, Operieren',
   120, 'cm', false, 1, 'draft', 'edvance_k9_kreis', 'kreis-rueck-06',
@@ -606,7 +606,7 @@ values (
 
 Wie lang ist der Kreisbogen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreisausschnitt hat den Radius 6 cm und den Mittelpunktswinkel 90°.\n\nWie lang ist der Kreisbogen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_sektor',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'I', 'geometrie', 'Operieren',
   45, 'cm', false, null, 'draft', 'edvance_k9_kreis', 'kreis-sektor-01',
@@ -637,7 +637,7 @@ values (
 
 Wie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreisausschnitt hat den Radius 4 cm und den Mittelpunktswinkel 90°.\n\nWie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_sektor',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'I', 'geometrie', 'Operieren',
   45, 'cm²', false, null, 'draft', 'edvance_k9_kreis', 'kreis-sektor-02',
@@ -668,7 +668,7 @@ values (
 
 Wie lang ist der Kreisbogen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreisausschnitt hat den Radius 9 cm und den Mittelpunktswinkel 120°.\n\nWie lang ist der Kreisbogen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_sektor',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Operieren',
   60, 'cm', false, 2, 'draft', 'edvance_k9_kreis', 'kreis-sektor-03',
@@ -699,7 +699,7 @@ values (
 
 Wie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Ein Kreisausschnitt hat den Radius 5 m und den Mittelpunktswinkel 72°.\n\nWie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_sektor',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Operieren',
   60, 'm²', false, null, 'draft', 'edvance_k9_kreis', 'kreis-sektor-04',
@@ -730,7 +730,7 @@ values (
 
 Wie groß ist die Oberseite eines Stücks in Quadratzentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.',
   '{"kind":"short_input","prompt":"Eine runde Torte hat einen Durchmesser von 26 cm. Sie wird in 12 gleich große Stücke geschnitten.\n\nWie groß ist die Oberseite eines Stücks in Quadratzentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."}'::jsonb, 'NUMERIC', 'geo_kreis_sektor',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'II', 'geometrie', 'Modellieren, Operieren',
   90, 'cm²', false, 1, 'draft', 'edvance_k9_kreis', 'kreis-sektor-05',
@@ -761,7 +761,7 @@ values (
 
 Wie groß ist der Mittelpunktswinkel? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Grad.',
   '{"kind":"short_input","prompt":"Ein Kreisbogen gehört zu einem Kreis mit dem Radius 10 cm. Der Bogen ist 12,56 cm lang.\n\nWie groß ist der Mittelpunktswinkel? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Grad."}'::jsonb, 'NUMERIC', 'geo_kreis_sektor',
-  null, 9,
+  9, 9,
   (select c.id from public.skill_clusters c where c.id = '3156b22e-ad3b-46c8-8c76-4155176cc52a'::uuid),
   'III', 'geometrie', 'Problemlösen, Operieren',
   90, '°', false, null, 'draft', 'edvance_k9_kreis', 'kreis-sektor-06',

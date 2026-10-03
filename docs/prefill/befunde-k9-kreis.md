@@ -57,14 +57,14 @@ Migrationen (identisches Schema laut CI `neuaufbau`).
 | K1 | `afb` ist `I/II/III`, nicht 1–3. | Römisch vergeben, Begründung je Aufgabe unten und in der CSV. |
 | K2 | `known_errors` liegt in `task_solutions.acceptance.known_errors`. | Objektform `{falscher_wert: slug}`. |
 | K3 | **`lsa_is_correct` (Flag `correct`, Fehlbild-Erfassung) vergleicht Text exakt, `lsa_grade` (Skill-Urteil) nur `canonical` + `equivalents`.** `vorlauf-build.mjs` schrieb bisher nur `canonical`. Der 3,14-Weg wäre im Urteil „nicht" gewesen. | Neues Charge-Feld `acceptance_equivalents` in `vorlauf-build.mjs` (opt-in, andere Chargen unverändert). Beide π-Ergebnisse stehen in `correct_answers` **und** in `equivalents`, je mit Komma, Punkt, Endnull und Einheit. Keine Toleranz. |
-| K4 | **`mal_exponent` (r² als 2r) und `umfang_statt_flaeche` sind am Kreis nicht zu trennen:** π · r · 2 = 2 · π · r, für jeden Radius. | Ein Wert kann nur einen Slug tragen. Die Kreisflächen-Aufgaben führen ihn als `umfang_statt_flaeche`, `mal_exponent` wird in dieser Charge nicht vergeben. Wenn Lena den Denkfehler „Quadrat als Verdopplung" höher gewichtet, lässt sich der Slug in den sieben betroffenen Aufgaben tauschen. Die Kante `flaeche → potenzen` bleibt fachlich richtig. |
+| K4 | **`mal_exponent` (r² als 2r) und `umfang_statt_flaeche` sind am Kreis nicht zu trennen:** π · r · 2 = 2 · π · r, für jeden Radius. | **Entschieden (Rasit): es gilt `umfang_statt_flaeche`**, die häufigere Deutung. `mal_exponent` bleibt am Kreis ungenutzt. **Für den Elternreport:** Dieser falsche Wert darf **nicht als Potenzfehler** gedeutet werden – weder als Hinweis auf `potenzen` noch im Klartext („rechnet Hochzahlen falsch"). Er belegt nur, dass Umfangs- statt Flächenformel benutzt wurde. Die Kante `flaeche → potenzen` bleibt fachlich richtig, wird über diesen Wert aber nicht diagnostiziert. |
 | K5 | `flaecheneinheit_nicht_quadriert`: Mit festem `tasks.unit` ist der Fehler nicht sichtbar. | **Nicht angelegt** (Entscheidung Rasit). Flächeneinheiten prüft das Fundament (`groessen_flaechen`). |
 | K6 | `halbieren_vergessen` und `seite_vergessen` sind bestätigt, kommen aber erst mit `geo_kreis_zusammen` (Halbkreis) zum Einsatz. | In dieser Charge nicht verwendet. Aufgaben zu `zusammen` folgen nach dem Generator (`specs/active/figur-kreis.md`). |
 | K7 | Alt-Slugs **ohne Klartext**, die diese Charge benutzt: `flaeche_statt_umfang`, `umfang_statt_flaeche`, `multipliziert_statt_dividiert`, `abgeschnitten`. Bestätigt, aber noch nicht benutzt: `mal_exponent`, `halbieren_vergessen`, `seite_vergessen`. | Wiederverwendet wie entschieden, bestehende Zeilen nicht geändert. Für den Elternreport brauchen sie Klartext und Familie (Fundament, Spec `fehlbild-labels-eltern.md`). |
 | K8 | Die drei neuen Slugs haben die Familie NULL. Keine der fünf Familien beschreibt eine falsch eingesetzte Größe in einer Formel. | Entscheidung Lena. |
 | K9 | Rückrichtung nur aus dem Umfang. r aus A bräuchte die Quadratwurzel (KLP Ari-6/7), dafür gibt es keinen Knoten. | Bewusste Lücke, `geo_kreis_rueck` = r/d aus U. |
 | K10 | Zwei Aufgaben (`umfang-06`, `rueck-06`) verlangen sinnvolles **Aufrunden**. Der Parser von `verify-prefill` kennt kein ceil. | Der Prüfeintrag belegt den Wert vor dem Runden (4 Stellen), das Aufrunden prüft `k9-kreis-charge.mjs`. Abrunden ist als Fehlbild `abgeschnitten` hinterlegt. |
-| K11 | `class_level` setzt `vorlauf-build.mjs` auf `null` (wie Fundament). Das Board zählt `null` als „Klasse 8". Der Stoffanker steht korrekt auf 9. | Übernommen. Folge für Lena: Die Kreis-Aufgaben erscheinen im Board unter „Klasse 8". |
+| K11 | `class_level` setzte `vorlauf-build.mjs` fest auf `null` (wie Fundament). Das Board zählt `null` als „Klasse 8". | **Behoben (Rasit):** neues optionales Charge-Feld `class_level` in `vorlauf-build.mjs`, hier `9` wie `edvance_k8_binom` (8). Alle 24 Aufgaben tragen `class_level = 9`. Zins und Lineare Funktionen erzeugen mit dem geänderten Generator byte-gleich dieselbe Migration (geprüft). |
 | K12 | `thema_einstieg` liest keine DB-Funktion, `lsa_start` hat keinen Themen-Parameter. | Kein Eintrag für `kreis`. Ein Einstieg „Kreis" erst mit W3-6. |
 
 ## Die Aufgaben
@@ -146,10 +146,84 @@ SQL
 # 5. Aufräumen: Testsession über den Seed-Abbau (Kennung ZZ_S2B) entfernen
 ```
 
+## K12 – ältere Chargen: Varianten, die nur `lsa_is_correct` kennt (nur gemeldet, nichts geändert)
+
+Geprüft am 03.10.2026, nur lesend per `dbread`, für `edvance_fundament_vorlauf`, `edvance_k8_zins` und
+`edvance_k8_linfkt`. Jede Soll-Variante aus der Charge-Datei (`docs/prefill/k8-*.json`) wurde in Prod durch
+`lsa_is_correct` (Flag `correct`, Fehlbild-Erfassung) und `lsa_grade` (Skill-Urteil) geschickt.
+
+| Quelle | Prüfeinheiten | Varianten | fehlt in `correct_answers` | `correct` = false | Urteil nicht „voll" | mit `equivalents` |
+|---|---|---|---|---|---|---|
+| edvance_fundament_vorlauf | 18 (6 Aufgaben + 12 Teilaufgaben) | 44 | 0 | 0 | 24 | 0 |
+| edvance_k8_linfkt | 30 | 128 | 0 | 0 | 69 | 0 |
+| edvance_k8_zins | 30 | 109 | 0 | 0 | 0 | 0 |
+
+**Befund:** `correct_answers` enthält in Prod **alle** Varianten der Charge (keine fehlt). Aber `acceptance` enthält nur
+`canonical`, keine `equivalents`. `lsa_grade` vergleicht zuerst als Zahl und fällt nur bei den hinterlegten Kandidaten auf
+den Textvergleich zurück. Schreibweisen, die der Zahlenparser nicht liest, gelten im Skill-Urteil deshalb als „nicht",
+obwohl `correct` = true ist. Betroffen sind **ausschließlich Schreibweisen**: `+n` (59), `- n` mit Leerzeichen (17),
+Unicode-Minus `−n` (17). Zahlenmäßig verschiedene Varianten (wie π-Taste/3,14) gibt es in diesen Chargen nicht. Zins ist
+nicht betroffen (Euro-Schreibweisen mit Komma, Punkt und Endnull liest der Parser).
+
+Wirkung: Eine Schülerin, die `+11` oder `−3` tippt, bekommt `correct = true`, im Skill-Urteil aber „nicht" bzw.
+`traegt_nicht`. Abhilfe wäre, diese Chargen mit `acceptance_equivalents: true` neu zu erzeugen. Das ist nicht Teil dieses
+Laufs und wäre ein UPDATE auf `task_solutions.acceptance`, nicht der bisherige INSERT-Weg.
+
+| Quelle | Aufgabe | Soll-Varianten (Charge) | Ist `correct_answers` | Ist `acceptance` | im Urteil nicht „voll" |
+|---|---|---|---|---|---|
+| edvance_fundament_vorlauf | vorlauf-einsetzen-01 | `-3` · `−3` · `- 3` | `-3` · `−3` · `- 3` | nur canonical `-3` | `−3` · `- 3` |
+| edvance_fundament_vorlauf | vorlauf-einsetzen-02 | `+11` · `11` | `11` · `+11` | nur canonical `11` | `+11` |
+| edvance_fundament_vorlauf | vorlauf-einsetzen-03 | `+12` · `12` | `12` · `+12` | nur canonical `12` | `+12` |
+| edvance_fundament_vorlauf | vorlauf-einsetzen-04 | `15` · `+15` | `15` · `+15` | nur canonical `15` | `+15` |
+| edvance_fundament_vorlauf | vorlauf-einsetzen-06 | `14` · `+14` | `14` · `+14` | nur canonical `14` | `+14` |
+| edvance_fundament_vorlauf | vorlauf-koord-01 T1 | `+4` · `4` | `4` · `+4` | nur canonical `4` | `+4` |
+| edvance_fundament_vorlauf | vorlauf-koord-01 T2 | `3` · `+3` | `3` · `+3` | nur canonical `3` | `+3` |
+| edvance_fundament_vorlauf | vorlauf-koord-02 T1 | `-4` · `- 4` · `−4` | `-4` · `−4` · `- 4` | nur canonical `-4` | `- 4` · `−4` |
+| edvance_fundament_vorlauf | vorlauf-koord-02 T2 | `+2` · `2` | `2` · `+2` | nur canonical `2` | `+2` |
+| edvance_fundament_vorlauf | vorlauf-koord-03 T1 | `-2` · `- 2` · `−2` | `-2` · `−2` · `- 2` | nur canonical `-2` | `- 2` · `−2` |
+| edvance_fundament_vorlauf | vorlauf-koord-03 T2 | `- 5` · `−5` · `-5` | `-5` · `−5` · `- 5` | nur canonical `-5` | `- 5` · `−5` |
+| edvance_fundament_vorlauf | vorlauf-koord-04 T1 | `3` · `+3` | `3` · `+3` | nur canonical `3` | `+3` |
+| edvance_fundament_vorlauf | vorlauf-koord-04 T2 | `-2,5` · `-2.5` · `−2,5` · `- 2,5` | `-2,5` · `-2.5` · `−2,5` · `- 2,5` | nur canonical `-2,5` | `−2,5` · `- 2,5` |
+| edvance_fundament_vorlauf | vorlauf-koord-05 T1 | `-4` · `- 4` · `−4` | `-4` · `−4` · `- 4` | nur canonical `-4` | `- 4` · `−4` |
+| edvance_fundament_vorlauf | vorlauf-koord-05 T2 | `+2` · `2` | `2` · `+2` | nur canonical `2` | `+2` |
+| edvance_fundament_vorlauf | vorlauf-koord-06 T1 | `4` · `+4` | `4` · `+4` | nur canonical `4` | `+4` |
+| edvance_fundament_vorlauf | vorlauf-koord-06 T2 | `- 3` · `-3` · `−3` | `-3` · `−3` · `- 3` | nur canonical `-3` | `- 3` · `−3` |
+| edvance_k8_linfkt | linfkt-gleichung-01 | `10` · `+10` | `10` · `+10` | nur canonical `10` | `+10` |
+| edvance_k8_linfkt | linfkt-gleichung-02 | `-1` · `- 1` · `−1` | `-1` · `−1` · `- 1` | nur canonical `-1` | `- 1` · `−1` |
+| edvance_k8_linfkt | linfkt-gleichung-03 | `+19` · `19` | `19` · `+19` | nur canonical `19` | `+19` |
+| edvance_k8_linfkt | linfkt-gleichung-04 | `- 2` · `−2` · `-2` | `-2` · `−2` · `- 2` | nur canonical `-2` | `- 2` · `−2` |
+| edvance_k8_linfkt | linfkt-gleichung-05 | `+11€` · `+11 €` · `11` · `+11` · `11 €` · `11€` | `11` · `+11` · `11 €` · `11€` · `+11 €` · `+11€` | nur canonical `11` | `+11€` · `+11 €` · `+11` |
+| edvance_k8_linfkt | linfkt-gleichung-06 | `+15cm` · `15` · `+15` · `15 cm` · `15cm` · `+15 cm` | `15` · `+15` · `15 cm` · `15cm` · `+15 cm` · `+15cm` | nur canonical `15` | `+15cm` · `+15` · `+15 cm` |
+| edvance_k8_linfkt | linfkt-graph-01 | `1` · `+1` | `1` · `+1` | nur canonical `1` | `+1` |
+| edvance_k8_linfkt | linfkt-graph-02 | `- 1` · `-1` · `−1` | `-1` · `−1` · `- 1` | nur canonical `-1` | `- 1` · `−1` |
+| edvance_k8_linfkt | linfkt-graph-03 | `1/2` · `+0.5` · `+0,5` · `0,5` · `+1/2` · `0.5` | `1/2` · `+1/2` · `0,5` · `+0,5` · `0.5` · `+0.5` | nur canonical `1/2` | `+0.5` · `+0,5` · `+1/2` |
+| edvance_k8_linfkt | linfkt-graph-04 | `-1` · `−1` · `- 1` | `-1` · `−1` · `- 1` | nur canonical `-1` | `−1` · `- 1` |
+| edvance_k8_linfkt | linfkt-graph-05 | `2` · `+2` | `2` · `+2` | nur canonical `2` | `+2` |
+| edvance_k8_linfkt | linfkt-graph-06 | `+2` · `+2€` · `+2 €` · `2€` · `2 €` · `2` | `2` · `+2` · `2 €` · `2€` · `+2 €` · `+2€` | nur canonical `2` | `+2` · `+2€` · `+2 €` |
+| edvance_k8_linfkt | linfkt-nullstelle-01 | `4` · `+4` | `4` · `+4` | nur canonical `4` | `+4` |
+| edvance_k8_linfkt | linfkt-nullstelle-02 | `-2` · `−2` · `- 2` | `-2` · `−2` · `- 2` | nur canonical `-2` | `−2` · `- 2` |
+| edvance_k8_linfkt | linfkt-nullstelle-03 | `+5/2` · `5/2` · `+2.5` · `2.5` · `+2,5` · `2,5` | `2,5` · `+2,5` · `2.5` · `+2.5` · `5/2` · `+5/2` | nur canonical `2,5` | `+5/2` · `+2.5` · `+2,5` |
+| edvance_k8_linfkt | linfkt-nullstelle-04 | `-6` · `- 6` · `−6` | `-6` · `−6` · `- 6` | nur canonical `-6` | `- 6` · `−6` |
+| edvance_k8_linfkt | linfkt-nullstelle-05 | `+5 h` · `5h` · `5 h` · `5` · `+5` · `+5h` | `5` · `+5` · `5 h` · `5h` · `+5 h` · `+5h` | nur canonical `5` | `+5 h` · `+5` · `+5h` |
+| edvance_k8_linfkt | linfkt-nullstelle-06 | `-6` · `- 6` · `−6` | `-6` · `−6` · `- 6` | nur canonical `-6` | `- 6` · `−6` |
+| edvance_k8_linfkt | linfkt-steigung-01 | `+3` · `3` | `3` · `+3` | nur canonical `3` | `+3` |
+| edvance_k8_linfkt | linfkt-steigung-02 | `2` · `+2` | `2` · `+2` | nur canonical `2` | `+2` |
+| edvance_k8_linfkt | linfkt-steigung-03 | `-2` · `- 2` · `−2` | `-2` · `−2` · `- 2` | nur canonical `-2` | `- 2` · `−2` |
+| edvance_k8_linfkt | linfkt-steigung-04 | `+0,5` · `0.5` · `+0.5` · `1/2` · `+1/2` · `0,5` | `1/2` · `+1/2` · `0,5` · `+0,5` · `0.5` · `+0.5` | nur canonical `1/2` | `+0,5` · `+0.5` · `+1/2` |
+| edvance_k8_linfkt | linfkt-steigung-05 | `1.5 €` · `1.5€` · `+1.5 €` · `+1.5€` · `1,50 €` · `1,50€` · `+1,50 €` · `+1,50€` · `1.50€` · `+1.50 €` · `+1.50€` · `1.50 €` · `1,5` · `+1,5` · `1.5` · `+1.5` · `1,50` · `+1,50` · `1.50` · `+1.50` · `1,5 €` · `1,5€` · `+1,5 €` · `+1,5€` | `1,5` · `+1,5` · `1.5` · `+1.5` · `1,50` · `+1,50` · `1.50` · `+1.50` · `1,5 €` · `1,5€` · `+1,5 €` · `+1,5€` · `1.5 €` · `1.5€` · `+1.5 €` · `+1.5€` · `1,50 €` · `1,50€` · `+1,50 €` · `+1,50€` · `1.50 €` · `1.50€` · `+1.50 €` · `+1.50€` | nur canonical `1,5` | `+1.5 €` · `+1.5€` · `+1,50 €` · `+1,50€` · `+1.50 €` · `+1.50€` · `+1,5` · `+1.5` · `+1,50` · `+1.50` · `+1,5 €` · `+1,5€` |
+| edvance_k8_linfkt | linfkt-steigung-06 | `9` · `+9` | `9` · `+9` | nur canonical `9` | `+9` |
+| edvance_k8_linfkt | linfkt-yabschnitt-01 | `5` · `+5` | `5` · `+5` | nur canonical `5` | `+5` |
+| edvance_k8_linfkt | linfkt-yabschnitt-02 | `7` · `+7` | `7` · `+7` | nur canonical `7` | `+7` |
+| edvance_k8_linfkt | linfkt-yabschnitt-03 | `-6` · `−6` · `- 6` | `-6` · `−6` · `- 6` | nur canonical `-6` | `−6` · `- 6` |
+| edvance_k8_linfkt | linfkt-yabschnitt-04 | `- 2` · `-2` · `−2` | `-2` · `−2` · `- 2` | nur canonical `-2` | `- 2` · `−2` |
+| edvance_k8_linfkt | linfkt-yabschnitt-05 | `8` · `+8` · `8 €` · `8€` · `+8 €` · `+8€` | `8` · `+8` · `8 €` · `8€` · `+8 €` · `+8€` | nur canonical `8` | `+8` · `+8 €` · `+8€` |
+| edvance_k8_linfkt | linfkt-yabschnitt-06 | `120cm` · `120` · `+120` · `120 cm` · `+120cm` · `+120 cm` | `120` · `+120` · `120 cm` · `120cm` · `+120 cm` · `+120cm` | nur canonical `120` | `+120` · `+120cm` · `+120 cm` |
+
+
 ## Offen
 
 1. **Einspielen** beider Migrationen (Befehle oben). Gesperrt durch die Rechteprüfung, nicht durch einen Befund.
 2. `geo_kreis_zusammen`: Generator nach `specs/active/figur-kreis.md` bauen, dann 6 Aufgaben (Halbkreis, Viertelkreis,
    Kreisring, Rechteck mit Halbkreis) mit `halbieren_vergessen` und `seite_vergessen`.
 3. Klartext und Familie für die Alt-Slugs aus K7 und die drei neuen Slugs (K8).
-4. K4: `mal_exponent` oder `umfang_statt_flaeche` für π · 2r. Lena entscheidet.
+4. K12 (unten): Schreibweisen-Varianten in Vorlauf und Lineare Funktionen, die das Skill-Urteil nicht als „voll“ wertet. Nur gemeldet.

@@ -21,6 +21,7 @@ union all select 'je sechs zu umfang, flaeche, rueck, sektor; keine zu zusammen'
        and not exists (select 1 from c where skill_key = 'geo_kreis_zusammen')
 union all select 'Pflichtfelder am Item gesetzt',
        bool_and(afb in ('I','II','III') and est_duration_sec between 10 and 3600 and curriculum_grade = 9
+                and class_level = 9
                 and competency_content = 'geometrie' and competency_process is not null
                 and needs_image = false and parts = '[]'::jsonb and source_ref is not null and unit is not null) from c
 union all select 'cluster_id = Geometrie & Messen (Prod)',
