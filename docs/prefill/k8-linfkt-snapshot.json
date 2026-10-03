@@ -1,0 +1,842 @@
+[
+ {
+  "task": {
+   "id": "d8958025-3016-4995-8011-6ad2abe63fe5",
+   "title": "Steigung · zwei Punkte · erster Quadrant",
+   "question": "Eine Gerade geht durch die Punkte A(1 | 2) und B(3 | 8).\n\nBerechne die Steigung m der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(1 | 2) und B(3 | 8).\n\nBerechne die Steigung m der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-steigung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a0451e78-948c-4ef6-90ce-50a16fed9f39",
+   "title": "Steigung · zwei Punkte · Punkt auf der y-Achse",
+   "question": "Eine Gerade geht durch die Punkte A(0 | 1) und B(2 | 5).\n\nBerechne die Steigung m der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(0 | 1) und B(2 | 5).\n\nBerechne die Steigung m der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-steigung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "438b3001-2778-4fec-be77-75354c88e454",
+   "title": "Steigung · zwei Punkte · fallende Gerade",
+   "question": "Eine Gerade geht durch die Punkte A(-1 | 4) und B(2 | -2).\n\nBerechne die Steigung m der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(-1 | 4) und B(2 | -2).\n\nBerechne die Steigung m der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-steigung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ffc758dc-dcdb-4b66-9281-4563b18c2dc8",
+   "title": "Steigung · zwei Punkte · Ergebnis als Bruch",
+   "question": "Eine Gerade geht durch die Punkte A(-2 | -1) und B(4 | 2).\n\nBerechne die Steigung m der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(-2 | -1) und B(4 | 2).\n\nBerechne die Steigung m der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-steigung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9f8674f1-2917-4082-ad94-20b3af6c84c0",
+   "title": "Steigung · Sachkontext · Preis je Kilometer",
+   "question": "Eine Taxifahrt kostet bei 4 km Strecke 11 € und bei 10 km Strecke 20 €. Der Preis steigt gleichmäßig mit der Strecke.\n\nWie viel Euro kostet jeder weitere Kilometer?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Taxifahrt kostet bei 4 km Strecke 11 € und bei 10 km Strecke 20 €. Der Preis steigt gleichmäßig mit der Strecke.\n\nWie viel Euro kostet jeder weitere Kilometer?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-steigung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7cd1b9af-433f-459f-90a6-cf241c245739",
+   "title": "Steigung · Rückrichtung · Punkt aus Steigung",
+   "question": "Eine Gerade hat die Steigung 2 und geht durch den Punkt P(1 | 3).\n\nWelche y-Koordinate hat der Punkt der Geraden mit der x-Koordinate 4?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_steigung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade hat die Steigung 2 und geht durch den Punkt P(1 | 3).\n\nWelche y-Koordinate hat der Punkt der Geraden mit der x-Koordinate 4?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-steigung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "de54e58b-fac9-4341-b38e-88c5233a90d3",
+   "title": "y-Achsenabschnitt · aus der Gleichung",
+   "question": "Gegeben ist die Funktion f(x) = 3x + 5.\n\nGib den y-Achsenabschnitt des Graphen von f an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 3x + 5.\n\nGib den y-Achsenabschnitt des Graphen von f an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-yabschnitt-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fa6fb2c7-da7b-44be-a425-f7dc8e06af6a",
+   "title": "y-Achsenabschnitt · fallende Gerade",
+   "question": "Gegeben ist die Funktion f(x) = -2x + 7.\n\nGib den y-Achsenabschnitt des Graphen von f an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = -2x + 7.\n\nGib den y-Achsenabschnitt des Graphen von f an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-yabschnitt-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e4611c3d-02b9-4a0b-8e42-795f8a15a925",
+   "title": "y-Achsenabschnitt · negativer Abschnitt",
+   "question": "Gegeben ist die Funktion f(x) = 4x - 6.\n\nGib den y-Achsenabschnitt des Graphen von f an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 4x - 6.\n\nGib den y-Achsenabschnitt des Graphen von f an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-yabschnitt-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c2f24a82-07ce-4db6-bdcb-f667e34f2439",
+   "title": "y-Achsenabschnitt · aus Steigung und Punkt",
+   "question": "Eine Gerade hat die Steigung 2 und geht durch den Punkt P(3 | 4).\n\nBestimme den y-Achsenabschnitt b der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade hat die Steigung 2 und geht durch den Punkt P(3 | 4).\n\nBestimme den y-Achsenabschnitt b der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-yabschnitt-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1c170c59-3c96-4767-b731-6d954e127025",
+   "title": "y-Achsenabschnitt · Sachkontext · Grundpreis",
+   "question": "Bei einem Handytarif setzen sich die monatlichen Kosten aus einem festen Grundpreis und einem Preis pro Minute zusammen. Die Kosten in Euro für x Minuten werden durch K(x) = 0,1x + 8 beschrieben.\n\nWie hoch ist der monatliche Grundpreis in Euro?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Bei einem Handytarif setzen sich die monatlichen Kosten aus einem festen Grundpreis und einem Preis pro Minute zusammen. Die Kosten in Euro für x Minuten werden durch K(x) = 0,1x + 8 beschrieben.\n\nWie hoch ist der monatliche Grundpreis in Euro?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-yabschnitt-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "871303c4-dcdb-4573-9dfb-6e3ca2085426",
+   "title": "y-Achsenabschnitt · Sachkontext · Anfangswert",
+   "question": "Ein Wassertank wird gleichmäßig geleert. Der Wasserstand in cm nach t Minuten wird durch h(t) = -4t + 120 beschrieben.\n\nWie hoch steht das Wasser zu Beginn, also bei t = 0?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_yabschnitt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Wassertank wird gleichmäßig geleert. Der Wasserstand in cm nach t Minuten wird durch h(t) = -4t + 120 beschrieben.\n\nWie hoch steht das Wasser zu Beginn, also bei t = 0?"
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-yabschnitt-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6c2393f4-f1d5-490e-adeb-c7b1c8fa611a",
+   "title": "Graph · y-Achsenabschnitt ablesen",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nLies den y-Achsenabschnitt des Graphen ab.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nLies den y-Achsenabschnitt des Graphen ab."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-graph-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e80dd66b-ea62-4fa2-acbd-fbfe5d8190a6",
+   "title": "Graph · Steigung ablesen · fallend",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nLies die Steigung m des Graphen ab.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nLies die Steigung m des Graphen ab."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-graph-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9a48fec6-1176-4303-82e6-4150f2ffcfc0",
+   "title": "Graph · Steigung ablesen · Bruch",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion g.\n\nLies die Steigung m des Graphen von g ab.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion g.\n\nLies die Steigung m des Graphen von g ab."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-graph-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "24a633b2-ca0b-4909-9907-26bb0e6c163b",
+   "title": "Graph · Funktionswert ablesen",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nWelchen y-Wert hat der Graph an der Stelle x = 2?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nWelchen y-Wert hat der Graph an der Stelle x = 2?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-graph-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ea0de2c5-d074-464b-a2ea-49a86dc907ab",
+   "title": "Graph · Rückrichtung · Stelle zu einem y-Wert",
+   "question": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nAn welcher Stelle x hat der Graph den y-Wert 1?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nAn welcher Stelle x hat der Graph den y-Wert 1?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-graph-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "45928556-74be-4aa8-837f-97fa04a4dce3",
+   "title": "Graph · Sachkontext · Leihgebühr pro Stunde",
+   "question": "Der Graph zeigt die Kosten y in Euro für das Ausleihen eines Fahrrads in Abhängigkeit von der Leihdauer x in Stunden.\n\nWie viel Euro kostet jede weitere Stunde?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Graph zeigt die Kosten y in Euro für das Ausleihen eines Fahrrads in Abhängigkeit von der Leihdauer x in Stunden.\n\nWie viel Euro kostet jede weitere Stunde?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-graph-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a61e8be9-b55f-4c43-9971-7b74e3d55a33",
+   "title": "Funktionsgleichung · aus m und b · Funktionswert",
+   "question": "Eine lineare Funktion f hat die Steigung 3 und den y-Achsenabschnitt -2.\n\nStelle die Funktionsgleichung auf und berechne damit f(4).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine lineare Funktion f hat die Steigung 3 und den y-Achsenabschnitt -2.\n\nStelle die Funktionsgleichung auf und berechne damit f(4)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-gleichung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1bbce78e-f996-4c03-a78a-09b47f5c7445",
+   "title": "Funktionsgleichung · fallend · Funktionswert",
+   "question": "Eine lineare Funktion f hat die Steigung -2 und schneidet die y-Achse bei y = 5.\n\nStelle die Funktionsgleichung auf und berechne damit f(3).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine lineare Funktion f hat die Steigung -2 und schneidet die y-Achse bei y = 5.\n\nStelle die Funktionsgleichung auf und berechne damit f(3)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-gleichung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b0f1b654-75da-4811-b7b4-065712b6e347",
+   "title": "Funktionsgleichung · aus zwei Punkten · Funktionswert",
+   "question": "Eine Gerade geht durch die Punkte A(0 | 4) und B(2 | 10).\n\nBestimme die Funktionsgleichung und berechne damit f(5).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(0 | 4) und B(2 | 10).\n\nBestimme die Funktionsgleichung und berechne damit f(5)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-gleichung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ffc76634-86ca-4c53-b816-d18d7f868443",
+   "title": "Funktionsgleichung · aus zwei Punkten · Achsenabschnitt",
+   "question": "Eine Gerade geht durch die Punkte A(1 | 1) und B(3 | 7). Ihre Funktionsgleichung hat die Form y = mx + b.\n\nWelchen Wert hat b?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade geht durch die Punkte A(1 | 1) und B(3 | 7). Ihre Funktionsgleichung hat die Form y = mx + b.\n\nWelchen Wert hat b?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-gleichung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "55d52e3e-cdd5-4e3c-9929-fb82aac16d33",
+   "title": "Funktionsgleichung · Sachkontext · Carsharing",
+   "question": "Ein Carsharing-Tarif kostet 5 € Grundgebühr pro Fahrt und zusätzlich 0,30 € pro gefahrenem Kilometer.\n\nStelle eine Funktionsgleichung für die Kosten auf und berechne die Kosten in Euro für eine Fahrt von 20 km.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Carsharing-Tarif kostet 5 € Grundgebühr pro Fahrt und zusätzlich 0,30 € pro gefahrenem Kilometer.\n\nStelle eine Funktionsgleichung für die Kosten auf und berechne die Kosten in Euro für eine Fahrt von 20 km."
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-gleichung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "07f970aa-ff64-4158-a713-9943054621a0",
+   "title": "Funktionsgleichung · Sachkontext · Kerze",
+   "question": "Eine Kerze ist 24 cm lang. Sie brennt gleichmäßig ab und wird dabei pro Stunde 1,5 cm kürzer.\n\nStelle eine Funktionsgleichung für die Länge der Kerze nach x Stunden auf. Wie lang ist die Kerze nach 6 Stunden noch?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Kerze ist 24 cm lang. Sie brennt gleichmäßig ab und wird dabei pro Stunde 1,5 cm kürzer.\n\nStelle eine Funktionsgleichung für die Länge der Kerze nach x Stunden auf. Wie lang ist die Kerze nach 6 Stunden noch?"
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-gleichung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "429c8aa1-d937-4231-a778-9a27cde1138c",
+   "title": "Nullstelle · positive Steigung",
+   "question": "Gegeben ist die Funktion f(x) = 2x - 8.\n\nBerechne die Nullstelle von f.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 2x - 8.\n\nBerechne die Nullstelle von f."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-nullstelle-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7e4040f5-19d5-474f-90d8-633835b9fdde",
+   "title": "Nullstelle · negative Nullstelle",
+   "question": "Gegeben ist die Funktion f(x) = 3x + 6.\n\nBerechne die Nullstelle von f.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 3x + 6.\n\nBerechne die Nullstelle von f."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-nullstelle-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "305c5063-1e7a-4919-a8ba-b97128fc0367",
+   "title": "Nullstelle · negative Steigung",
+   "question": "Gegeben ist die Funktion f(x) = -4x + 10.\n\nBerechne die Nullstelle von f.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = -4x + 10.\n\nBerechne die Nullstelle von f."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-nullstelle-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c291bd8a-ee36-44f4-b195-66c4859f0217",
+   "title": "Nullstelle · Steigung als Dezimalzahl",
+   "question": "Gegeben ist die Funktion f(x) = 0,5x + 3.\n\nBerechne die Nullstelle von f.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 0,5x + 3.\n\nBerechne die Nullstelle von f."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-nullstelle-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4edaa568-3b92-4a89-9105-3551d758e17e",
+   "title": "Nullstelle · Sachkontext · Akku leer",
+   "question": "Der Ladestand eines Akkus in Prozent nach t Stunden wird durch L(t) = -16t + 80 beschrieben.\n\nNach wie vielen Stunden ist der Akku leer?",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Ladestand eines Akkus in Prozent nach t Stunden wird durch L(t) = -16t + 80 beschrieben.\n\nNach wie vielen Stunden ist der Akku leer?"
+   },
+   "parts": [],
+   "unit": "h",
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-nullstelle-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f95fc1f6-7ab9-4a8d-bd97-83bdf1a024bb",
+   "title": "Nullstelle · Rückrichtung · Achsenabschnitt aus Nullstelle",
+   "question": "Eine Gerade hat die Steigung 3 und die Nullstelle x = 2.\n\nBestimme den y-Achsenabschnitt b der Geraden.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_linear_nullstelle",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gerade hat die Steigung 3 und die Nullstelle x = 2.\n\nBestimme den y-Achsenabschnitt b der Geraden."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_linfkt",
+   "source_ref": "linfkt-nullstelle-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

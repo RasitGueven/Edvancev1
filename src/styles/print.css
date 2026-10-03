@@ -38,15 +38,31 @@
     box-shadow: none !important;
   }
 
+  /* W2-7: die Suche ist mit drei Blöcken länger als eine halbe Seite. Als
+     Ganzes unteilbar rutschte sie komplett auf die nächste Seite und ließ eine
+     leere zurück — sie bricht deshalb zwischen den Zeilen, nie in einer. */
+  .report-block.report-suche {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+  .report-suche-zeile {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .report-suche-kopf,
+  .report-suche-hinweis,
+  .report-suche-stufe-name {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
   /* R3 — der Befund-Abschnitt steht im Druck OFFEN.
      Am Bildschirm ist er zugeklappt (Eltern öffnen ihn zu Hause), auf Papier
      gibt es kein Klicken: die UA-Regel für geschlossene <details> wird hier
      überschrieben, der Aufklapp-Hinweis und der Winkel verschwinden. */
-  /* Die Ebenenspur und das Profil tragen die Aussage — sie muessen mitdrucken,
+  /* Die Suchzeilen und das Profil tragen die Aussage — sie muessen mitdrucken,
      nicht als leerer Rahmen erscheinen. */
-  .report-ebene,
-  .report-ebene-spur,
-  .report-ebene-fuellung,
+  .report-suche-zeile,
   .report-befund-traegt,
   .report-rueckbezug-marke {
     -webkit-print-color-adjust: exact;

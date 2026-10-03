@@ -248,3 +248,12 @@ export type {
   LeadThemaQuelle,
   LeadThema,
 } from './themen'
+
+export type {
+  SucheEintrag,
+  SucheFall,
+  SucheSkill,
+  SucheStufe,
+  SucheZeile,
+  Suchweg,
+} from './reportSuche'
