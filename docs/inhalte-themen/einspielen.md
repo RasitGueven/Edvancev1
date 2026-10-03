@@ -31,3 +31,19 @@ bash tools/schema-snapshot.sh   # sollte keinen Diff gegen den Stand im PR zeige
 
 Bis auf die Kopfzeile „Dumped from database version“ ist der Abzug im PR aus
 der Wegwerf-DB erzeugt.
+
+## 4. Nachtrag (Teil 5, nach k8-rest und k9-rest)
+
+Die 19 K8-Rest-Knoten ordnet k8-rest selbst zu. Die 37 K9-Rest-Knoten hatten
+nach dem Einspielen kein Heimat-Thema. Die Zuordnung kommt aus
+`docs/k9-rest/skill_thema.md`. Vorab geprüft:
+
+- gegen Prod (lesend): 37 Treffer, 0 Konflikte, alle Themen der Zweiten Stufe
+- in einer Wegwerf-DB (dev + k8-rest + k9-rest + Nachtrag): 114 zugeordnet,
+  nur `potenzen` offen, `skill_thema.PRUEFUNG.sql` T1–T5 grün
+
+```bash
+mig 20261003113055 skill_thema_nachtrag && dbread -c "select (select count(*) from skill_thema) as zugeordnet, (select string_agg(s.skill_key, ',') from skills s left join skill_thema st using (skill_key) where st.skill_key is null) as ohne"
+```
+
+Erwartet: `114 | potenzen`.
