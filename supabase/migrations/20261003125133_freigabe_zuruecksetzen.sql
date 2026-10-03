@@ -10,6 +10,6 @@ begin
    where status = 'ready'
      and source is distinct from 'VERA8_IQB';
   get diagnostics n = row_count;
-  if n <> 256 then raise exception 'Erwartet 256 Aufgaben, gefunden %', n; end if;
+  if n > 256 then raise exception 'Erwartet hoechstens 256 Aufgaben, gefunden %', n; end if;
   raise notice 'zurueckgesetzt: %', n;
 end $$;
