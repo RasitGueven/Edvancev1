@@ -1,6 +1,13 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **K8 Lineare Funktionen prüfbar (W1-1)** (Retro `2026-10-01-k8-linfkt.md`, PR #186):
+  Fünf Knoten `fkt_linear_*` (Tiefen 5/6/7/7/8), zwölf Kanten ins Fundament, drei
+  Fehlbild-Entwürfe und 30 Aufgaben (`draft`, NUMERIC, 6 Figuren). Beides ist in Prod eingespielt.
+  Beweis: verify-prefill mit 0 Fehlern; Blind-Löser-Subagent 30/30; PRUEFUNG
+  L1–L6 und A1–A10 in der Wegwerf-DB grün und idempotent; Prod-Nachprüfung über `dbread`.
+  Figuren hochgeladen (6/6 mit Hash).
+  **Offen:** Freigabe durch Lena, `thema_einstieg` (Auftrag LSA-Auswahl), Test-LSA.
 - **Themenkatalog und Kölner Schulpläne (W1-4)** (Retro `2026-10-01-themen-schulplaene.md`):
   `themen` nach KLP-Stufen mit `schlagworte` und `klp` (37 Mathe-Themen Kl. 5–10),
   `thema_einstieg` (LSA-Einstiegsknoten), `schulen` um Schulform/Stadtteil/Träger/Website
