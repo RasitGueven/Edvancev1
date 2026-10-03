@@ -173,22 +173,3 @@ export function findeEinbruch(
     ? schlimmste
     : null
 }
-
-/**
- * Der Fall-Schlüssel für den Erzählbaustein in Abschnitt 02 (slot 'suche').
- *
- * Vier Fälle über zwei Achsen — trägt der Einstieg, trägt das darunter. Bis R4
- * kannte der Renderer nur `einstieg_luecken_fundament_luecken` und behauptete
- * ihn auch dann, wenn die Zahlen daneben das Gegenteil zeigten.
- */
-export function sucheFall(f: Fundament): string | null {
-  // Nichts unterhalb des Einstiegs geprüft: Es gab keinen Abstieg, also gibt es
-  // auch nichts über ihn zu erzählen. Der Slot bleibt leer, statt einen der
-  // vier Fälle zu behaupten — jeder davon würde etwas über das Fundament
-  // aussagen, das die Sitzung nicht angesehen hat.
-  if (!f.fundamentGeprueft) return null
-  if (f.einstiegTraegt && f.fundamentTraegt) return 'alles_traegt'
-  if (f.einstiegTraegt) return 'einstieg_traegt_fundament_luecken'
-  if (f.fundamentTraegt) return 'einstieg_luecken_fundament_traegt'
-  return 'einstieg_luecken_fundament_luecken'
-}

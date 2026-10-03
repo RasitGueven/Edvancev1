@@ -106,6 +106,10 @@ export function TerminModal({ lead, saving, onClose, onSave }: TerminModalProps)
             ))}
           </select>
         </div>
+        <div className="flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">
+          <p className="text-xs text-[var(--color-text-tertiary)]">{t('termin.mitbringenLabel')}</p>
+          <p className="text-sm text-[var(--color-text-primary)]">{t('termin.mitbringen')}</p>
+        </div>
       </div>
     </Modal>
   )

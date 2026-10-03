@@ -23,19 +23,14 @@
 // Grundgesamtheit, und "nicht geprueft" wird nie wie "nichts gekonnt"
 // gezeichnet.
 
-import {
-  alsWort,
-  Bausteinsatz,
-  ebeneAlsZeile,
-  ebeneImSatz,
-  ebenenUntertitel,
-} from '@/lib/report/bausteine'
+import { Bausteinsatz } from '@/lib/report/bausteine'
 import type { FamilienBefund } from '@/lib/report/familien'
-import { sucheFall } from '@/lib/report/fundament'
+import { STUFEN_ABSTEIGEND, stufeAusKlasse } from '@/lib/report/inhaltsbereiche'
 import type { ReportFehlbildFamilie } from '@/lib/reportFehlbilder'
-import type { Fundament, ReportAnsprechpartner, Rueckbezug } from '@/types'
+import type { Fundament, ReportAnsprechpartner, Rueckbezug, Suchweg } from '@/types'
 import { radarNenner, radarSvg } from './radar'
 import { REPORT_CSS } from './reportCss'
+import { sucheAbschnitt } from './sucheHtml'
 
 export type ReportEingabe = {
   sessionId: string
@@ -45,6 +40,10 @@ export type ReportEingabe = {
   datum: string
   aufgaben: number
   fundament: Fundament
+  /** Abschnitt 02 — dieselbe Gliederung wie ReportSuche in der App. */
+  suche: Suchweg
+  /** skills.klasse_herkunft je skill_key, für die Stufen im Aufklappbereich. */
+  klasseVon: Readonly<Record<string, number>>
   familien: ReportFehlbildFamilie[]
   /** Die sechs Achsen des Profils — immer alle sechs, auch die ungeprüften. */
   profil: FamilienBefund[]
@@ -66,48 +65,28 @@ export type ReportEingabe = {
 export const esc = (v: unknown): string =>
   String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-/** Die Ebenenspur: eine Zeile je geprüfter Ebene, mit dem, was dort liegt. */
-function ebenenspur(f: Fundament): string {
-  return f.ebenen
-    .map((e) => {
-      const pOk = Math.round((e.traegt / e.geprueft) * 100)
-      const track =
-        pOk === 100
-          ? '<span class="ok" style="width:100%"></span>'
-          : pOk === 0
-            ? '<span class="no" style="width:100%"></span>'
-            : `<span class="ok" style="width:${pOk}%"></span><span class="no" style="width:${100 - pOk}%"></span>`
-      const was = ebenenUntertitel(e.labels, e.weitere)
-      return `        <div class="layer">
-          <div class="row">
-            <span class="lv">${esc(ebeneAlsZeile(e.delta))}</span>
-            <span class="track">${track}</span>
-            <span class="cnt">${e.traegt} von ${e.geprueft}</span>
-          </div>
-          ${was ? `<p class="was">${esc(was)}</p>` : ''}
-        </div>`
-    })
-    .join('\n')
-}
-
 /**
- * Der Aufklappbereich: Lücken nach Ebenen gruppiert, tiefste zuerst.
+ * Der Aufklappbereich: Lücken nach Lehrplanstufe gruppiert, Klasse 5/6 zuerst.
  *
- * Bis R4 war die Liste flach. Sie WAR bereits von unten nach oben sortiert —
- * nur sah man das nicht, weil nichts die Ebenen markierte. Die Gruppierung
- * macht die Reihenfolge sichtbar, statt sie zu behaupten.
+ * Bis W2-7 gruppierte er nach fundament_tiefe („Zwei Ebenen tiefer"). Das ist
+ * eine Graphposition, keine Aussage für Eltern — jetzt dieselben Stufen wie in
+ * Abschnitt 02.
  *
  * Die Zeile „In den übrigen N geprüften Bereichen…" ist hier ersatzlos
  * entfallen: Dieselbe Zahl steht schon in Abschnitt 03 unter „Das trägt".
  * Zweimal dieselbe Aussage liest sich wie zwei verschiedene.
  */
-function aufklapp(f: Fundament): string {
-  const tiefen = [...new Set(f.luecken.map((l) => l.fundamentTiefe))].sort((a, b) => a - b)
-  return tiefen
-    .map((t) => {
-      const drauf = f.luecken.filter((l) => l.fundamentTiefe === t)
+const STUFE_NAME = { erprobung: 'Klasse 5/6', erste: 'Klasse 7/8', zweite: 'Klasse 9/10' }
+
+function aufklapp(f: Fundament, klasseVon: Readonly<Record<string, number>>): string {
+  const stufeVon = (k: string) => stufeAusKlasse(klasseVon[k] ?? 0)
+  return [...STUFEN_ABSTEIGEND]
+    .reverse()
+    .filter((st) => f.luecken.some((l) => stufeVon(l.skillKey) === st))
+    .map((st) => {
+      const drauf = f.luecken.filter((l) => stufeVon(l.skillKey) === st)
       return `        <div class="stufe">
-          <p class="lv">${esc(ebeneAlsZeile(f.einstiegTiefe - t))}</p>
+          <p class="lv">${esc(STUFE_NAME[st])}</p>
           <ul>
 ${drauf.map((l) => `            <li>${esc(l.label)}</li>`).join('\n')}
           </ul>
@@ -151,23 +130,6 @@ export function baueReport(e: ReportEingabe, satz: Bausteinsatz): string {
   const f = e.fundament
   const streuung = e.sessionId
 
-  const sucheText = satz.waehle('suche', sucheFall(f), streuung, {
-    geprueft: f.geprueft,
-    ebenen: alsWort(f.ebenen.length),
-  })
-  const einbruchText = f.einbruch
-    ? satz.waehle('abstieg_einbruch', 'standard', streuung, {
-        ebene: ebeneImSatz(f.einbruch.delta),
-        traegt: f.einbruch.traegt,
-        geprueft: f.einbruch.geprueft,
-      })
-    : null
-  // Nur sagen, wenn die unterste Ebene wirklich trägt UND es überhaupt einen
-  // Abstieg gab — sonst wäre es eine Aussage über das aktuelle Thema.
-  const bodenText =
-    f.bodenTraegt && f.fundamentGeprueft
-      ? satz.waehle('abstieg_boden', 'vollstaendig', streuung)
-      : null
   const traegtText = satz.waehle('befund_traegt', 'standard', streuung, {
     traegt: f.traegt,
     geprueft: f.geprueft,
@@ -249,18 +211,7 @@ ${e.anlass}
   <section>
     <div class="step"><span class="step-n">02</span><h3>Wie wir gesucht haben</h3></div>
     <div class="descent">
-${sucheText ? `      <p class="lead-copy">${esc(sucheText)}</p>` : ''}
-      <div class="layers">
-${ebenenspur(f)}
-      </div>
-${
-  einbruchText || bodenText
-    ? `      <div class="descent-note">
-${einbruchText ? `        <p>${esc(einbruchText)}</p>` : ''}
-${bodenText ? `        <p>${esc(bodenText)}</p>` : ''}
-      </div>`
-    : ''
-}
+${sucheAbschnitt(e.suche)}
     </div>
   </section>
 
@@ -321,7 +272,7 @@ ${musterAbschnitt}
       <div class="body">
         <p>Die Analyse ist eine Momentaufnahme aus wenigen Aufgaben. Der Coach prüft sie im
         Unterricht nach — von unten nach oben, weil das Obere auf dem Unteren aufbaut:</p>
-${aufklapp(f)}
+${aufklapp(f, e.klasseVon)}
       </div>
     </details>
   </section>

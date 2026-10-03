@@ -1,0 +1,283 @@
+# Verifikation k9-kreis
+
+Aufgaben: 24 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen: 0
+
+## Feldtabelle (was die Migration auf dem Snapshot-Stand tut)
+
+| Feld | neu | ueberschrieben | ergaenzt | bewusst leer (Kennzeichen) |
+|---|---|---|---|---|
+| hints | 0 | 0 | 0 | 24 |
+| afb | 24 | 0 | 0 | 0 |
+| est_duration_sec | 24 | 0 | 0 | 0 |
+| curriculum_grade | 24 | 0 | 0 | 0 |
+| cluster_id | 24 | 0 | 0 | 0 |
+| competency_content | 24 | 0 | 0 | 0 |
+| competency_process | 24 | 0 | 0 | 0 |
+| needs_image | 24 | 0 | 0 | 0 |
+| correct_answers | 24 | 0 | 0 | 0 |
+| solution | 24 | 0 | 0 | 0 |
+| typical_errors | 24 | 0 | 0 | 0 |
+
+## Ueberschreibungen (alt → neu)
+
+- keine
+
+## Vollstaendigkeit je Feld
+
+| Feld | vorher leer | jetzt befuellt | bewusst leer | ungeklaert |
+|---|---|---|---|---|
+| tasks.afb | 24 | 24 | 0 | 0 |
+| tasks.est_duration_sec | 24 | 24 | 0 | 0 |
+| tasks.curriculum_grade | 24 | 24 | 0 | 0 |
+| tasks.cluster_id | 24 | 24 | 0 | 0 |
+| tasks.needs_image | 24 | 24 | 0 | 0 |
+| task_solutions.solution | 24 | 24 | 0 | 0 |
+| task_solutions.hints | 24 | 0 | 24 | 0 |
+| task_solutions.typical_errors | 24 | 24 | 0 | 0 |
+| tasks.competency_content | 24 | 24 | 0 | 0 |
+| tasks.competency_process | 24 | 24 | 0 | 0 |
+| task_solutions.correct_answers | 24 | 24 | 0 | 0 |
+
+## Charge-Fehler (Gate)
+
+- keine
+
+## Bestands-Befunde (gesetzte Werte, nicht ueberschrieben)
+
+- keine
+
+## Nachrechnung (exakt, Skript)
+
+- ok  #1 Umfang · Radius 4 cm: round(2*3.14159265358979323846264338327950288*4,2) = 2513/100 (soll 2513/100)
+- ok  #1 Umfang · Radius 4 cm: round(2*3.14*4,2) = 628/25 (soll 628/25)
+- ok  #1 Umfang · Radius 4 cm: round(3.14159265358979323846264338327950288*4,2) = 1257/100 (soll 1257/100)
+- ok  #1 Umfang · Radius 4 cm: round(3.14*4,2) = 314/25 (soll 314/25)
+- ok  #1 Umfang · Radius 4 cm: round(2*4,2) = 8 (soll 8)
+- ok  #1 Umfang · Radius 4 cm: round(2*4,2) = 8 (soll 8)
+- ok  #1 Umfang · Radius 4 cm: round(3.14159265358979323846264338327950288*4^2,2) = 5027/100 (soll 5027/100)
+- ok  #1 Umfang · Radius 4 cm: round(3.14*4^2,2) = 1256/25 (soll 1256/25)
+- ok  #2 Umfang · Durchmesser 10 cm: round(3.14159265358979323846264338327950288*10,2) = 1571/50 (soll 1571/50)
+- ok  #2 Umfang · Durchmesser 10 cm: round(3.14*10,2) = 157/5 (soll 157/5)
+- ok  #2 Umfang · Durchmesser 10 cm: round(2*3.14159265358979323846264338327950288*10,2) = 6283/100 (soll 6283/100)
+- ok  #2 Umfang · Durchmesser 10 cm: round(2*3.14*10,2) = 314/5 (soll 314/5)
+- ok  #2 Umfang · Durchmesser 10 cm: round(10,2) = 10 (soll 10)
+- ok  #2 Umfang · Durchmesser 10 cm: round(10,2) = 10 (soll 10)
+- ok  #2 Umfang · Durchmesser 10 cm: round(3.14159265358979323846264338327950288*5^2,2) = 3927/50 (soll 3927/50)
+- ok  #2 Umfang · Durchmesser 10 cm: round(3.14*5^2,2) = 157/2 (soll 157/2)
+- ok  #3 Umfang · Radius 3,6 m: round(2*3.14159265358979323846264338327950288*3.6,2) = 1131/50 (soll 1131/50)
+- ok  #3 Umfang · Radius 3,6 m: round(2*3.14*3.6,2) = 2261/100 (soll 2261/100)
+- ok  #3 Umfang · Radius 3,6 m: round(3.14159265358979323846264338327950288*3.6,2) = 1131/100 (soll 1131/100)
+- ok  #3 Umfang · Radius 3,6 m: round(3.14*3.6,2) = 113/10 (soll 113/10)
+- ok  #3 Umfang · Radius 3,6 m: round(2*3.6,2) = 36/5 (soll 36/5)
+- ok  #3 Umfang · Radius 3,6 m: round(2*3.6,2) = 36/5 (soll 36/5)
+- ok  #3 Umfang · Radius 3,6 m: round(3.14159265358979323846264338327950288*3.6^2,2) = 1018/25 (soll 1018/25)
+- ok  #3 Umfang · Radius 3,6 m: round(3.14*3.6^2,2) = 4069/100 (soll 4069/100)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: round(2*3.14159265358979323846264338327950288*0.45,2) = 283/100 (soll 283/100)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: round(2*3.14*0.45,2) = 283/100 (soll 283/100)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: round(2*3.14159265358979323846264338327950288*45,2) = 14137/50 (soll 14137/50)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: round(2*3.14*45,2) = 1413/5 (soll 1413/5)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: round(3.14159265358979323846264338327950288*0.45,2) = 141/100 (soll 141/100)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: round(3.14*0.45,2) = 141/100 (soll 141/100)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: round(2*0.45,2) = 9/10 (soll 9/10)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: round(2*0.45,2) = 9/10 (soll 9/10)
+- ok  #5 Umfang · Fahrradrad mit 70 cm Durchmesser: round(3.14159265358979323846264338327950288*70,2) = 21991/100 (soll 21991/100)
+- ok  #5 Umfang · Fahrradrad mit 70 cm Durchmesser: round(3.14*70,2) = 1099/5 (soll 1099/5)
+- ok  #5 Umfang · Fahrradrad mit 70 cm Durchmesser: round(3.14159265358979323846264338327950288*140,2) = 21991/50 (soll 21991/50)
+- ok  #5 Umfang · Fahrradrad mit 70 cm Durchmesser: round(3.14*140,2) = 2198/5 (soll 2198/5)
+- ok  #5 Umfang · Fahrradrad mit 70 cm Durchmesser: round(70,2) = 70 (soll 70)
+- ok  #5 Umfang · Fahrradrad mit 70 cm Durchmesser: round(70,2) = 70 (soll 70)
+- ok  #5 Umfang · Fahrradrad mit 70 cm Durchmesser: round(3.14159265358979323846264338327950288*35^2,2) = 76969/20 (soll 76969/20)
+- ok  #5 Umfang · Fahrradrad mit 70 cm Durchmesser: round(3.14*35^2,2) = 7693/2 (soll 7693/2)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: round(10000/(3.14159265358979323846264338327950288*60),4) = 132629/2500 (soll 132629/2500)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: round(10000/(3.14*60),4) = 265393/5000 (soll 265393/5000)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: round(10000/(3.14159265358979323846264338327950288*60),4) = 132629/2500 (soll 132629/2500)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: round(10000/(3.14*60),4) = 265393/5000 (soll 265393/5000)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: round(10000/(2*3.14159265358979323846264338327950288*60),4) = 132629/5000 (soll 132629/5000)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: round(10000/(2*3.14*60),4) = 265393/10000 (soll 265393/10000)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: round(10000/60,4) = 1666667/10000 (soll 1666667/10000)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: round(10000/60,4) = 1666667/10000 (soll 1666667/10000)
+- ok  #7 Fläche · Radius 6 cm: round(3.14159265358979323846264338327950288*6^2,2) = 1131/10 (soll 1131/10)
+- ok  #7 Fläche · Radius 6 cm: round(3.14*6^2,2) = 2826/25 (soll 2826/25)
+- ok  #7 Fläche · Radius 6 cm: round(2*3.14159265358979323846264338327950288*6,2) = 377/10 (soll 377/10)
+- ok  #7 Fläche · Radius 6 cm: round(2*3.14*6,2) = 942/25 (soll 942/25)
+- ok  #7 Fläche · Radius 6 cm: round(6^2,2) = 36 (soll 36)
+- ok  #7 Fläche · Radius 6 cm: round(6^2,2) = 36 (soll 36)
+- ok  #7 Fläche · Radius 6 cm: round(3.14159265358979323846264338327950288*3^2,2) = 2827/100 (soll 2827/100)
+- ok  #7 Fläche · Radius 6 cm: round(3.14*3^2,2) = 1413/50 (soll 1413/50)
+- ok  #8 Fläche · Durchmesser 10 cm: round(3.14159265358979323846264338327950288*5^2,2) = 3927/50 (soll 3927/50)
+- ok  #8 Fläche · Durchmesser 10 cm: round(3.14*5^2,2) = 157/2 (soll 157/2)
+- ok  #8 Fläche · Durchmesser 10 cm: round(3.14159265358979323846264338327950288*10^2,2) = 7854/25 (soll 7854/25)
+- ok  #8 Fläche · Durchmesser 10 cm: round(3.14*10^2,2) = 314 (soll 314)
+- ok  #8 Fläche · Durchmesser 10 cm: round(5^2,2) = 25 (soll 25)
+- ok  #8 Fläche · Durchmesser 10 cm: round(5^2,2) = 25 (soll 25)
+- ok  #8 Fläche · Durchmesser 10 cm: round(3.14159265358979323846264338327950288*10,2) = 1571/50 (soll 1571/50)
+- ok  #8 Fläche · Durchmesser 10 cm: round(3.14*10,2) = 157/5 (soll 157/5)
+- ok  #9 Fläche · Radius 2,4 m: round(3.14159265358979323846264338327950288*2.4^2,2) = 181/10 (soll 181/10)
+- ok  #9 Fläche · Radius 2,4 m: round(3.14*2.4^2,2) = 1809/100 (soll 1809/100)
+- ok  #9 Fläche · Radius 2,4 m: round(2*3.14159265358979323846264338327950288*2.4,2) = 377/25 (soll 377/25)
+- ok  #9 Fläche · Radius 2,4 m: round(2*3.14*2.4,2) = 1507/100 (soll 1507/100)
+- ok  #9 Fläche · Radius 2,4 m: round(2.4^2,2) = 144/25 (soll 144/25)
+- ok  #9 Fläche · Radius 2,4 m: round(2.4^2,2) = 144/25 (soll 144/25)
+- ok  #9 Fläche · Radius 2,4 m: round(3.14159265358979323846264338327950288*1.2^2,2) = 113/25 (soll 113/25)
+- ok  #9 Fläche · Radius 2,4 m: round(3.14*1.2^2,2) = 113/25 (soll 113/25)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(3.14159265358979323846264338327950288*0.8^2,2) = 201/100 (soll 201/100)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(3.14*0.8^2,2) = 201/100 (soll 201/100)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(3.14159265358979323846264338327950288*80^2,2) = 2010619/100 (soll 2010619/100)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(3.14*80^2,2) = 20096 (soll 20096)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(3.14159265358979323846264338327950288*80^2/100,2) = 10053/50 (soll 10053/50)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(3.14*80^2/100,2) = 5024/25 (soll 5024/25)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(0.8^2,2) = 16/25 (soll 16/25)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(0.8^2,2) = 16/25 (soll 16/25)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(2*3.14159265358979323846264338327950288*0.8,2) = 503/100 (soll 503/100)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: round(2*3.14*0.8,2) = 251/50 (soll 251/50)
+- ok  #11 Fläche · Pizza mit 30 cm Durchmesser: round(3.14159265358979323846264338327950288*15^2,2) = 35343/50 (soll 35343/50)
+- ok  #11 Fläche · Pizza mit 30 cm Durchmesser: round(3.14*15^2,2) = 1413/2 (soll 1413/2)
+- ok  #11 Fläche · Pizza mit 30 cm Durchmesser: round(3.14159265358979323846264338327950288*30^2,2) = 282743/100 (soll 282743/100)
+- ok  #11 Fläche · Pizza mit 30 cm Durchmesser: round(3.14*30^2,2) = 2826 (soll 2826)
+- ok  #11 Fläche · Pizza mit 30 cm Durchmesser: round(3.14159265358979323846264338327950288*30,2) = 377/4 (soll 377/4)
+- ok  #11 Fläche · Pizza mit 30 cm Durchmesser: round(3.14*30,2) = 471/5 (soll 471/5)
+- ok  #11 Fläche · Pizza mit 30 cm Durchmesser: round(15^2,2) = 225 (soll 225)
+- ok  #11 Fläche · Pizza mit 30 cm Durchmesser: round(15^2,2) = 225 (soll 225)
+- ok  #12 Fläche · eine große Pizza gegen zwei kleine: round(3.14159265358979323846264338327950288*15^2-2*3.14159265358979323846264338327950288*10^2,2) = 3927/50 (soll 3927/50)
+- ok  #12 Fläche · eine große Pizza gegen zwei kleine: round(3.14*15^2-2*3.14*10^2,2) = 157/2 (soll 157/2)
+- ok  #12 Fläche · eine große Pizza gegen zwei kleine: round(3.14159265358979323846264338327950288*30^2-2*3.14159265358979323846264338327950288*20^2,2) = 7854/25 (soll 7854/25)
+- ok  #12 Fläche · eine große Pizza gegen zwei kleine: round(3.14*30^2-2*3.14*20^2,2) = 314 (soll 314)
+- ok  #12 Fläche · eine große Pizza gegen zwei kleine: round(3.14159265358979323846264338327950288*15^2,2) = 35343/50 (soll 35343/50)
+- ok  #12 Fläche · eine große Pizza gegen zwei kleine: round(3.14*15^2,2) = 1413/2 (soll 1413/2)
+- ok  #12 Fläche · eine große Pizza gegen zwei kleine: round(15^2-2*10^2,2) = 25 (soll 25)
+- ok  #12 Fläche · eine große Pizza gegen zwei kleine: round(15^2-2*10^2,2) = 25 (soll 25)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: round(50/3.14159265358979323846264338327950288,2) = 398/25 (soll 398/25)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: round(50/3.14,2) = 398/25 (soll 398/25)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: round(50/(2*3.14159265358979323846264338327950288),2) = 199/25 (soll 199/25)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: round(50/(2*3.14),2) = 199/25 (soll 199/25)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: round(50*3.14159265358979323846264338327950288,2) = 3927/25 (soll 3927/25)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: round(50*3.14,2) = 157 (soll 157)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: round(50,2) = 50 (soll 50)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: round(50,2) = 50 (soll 50)
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: round(40/(2*3.14159265358979323846264338327950288),2) = 637/100 (soll 637/100)
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: round(40/(2*3.14),2) = 637/100 (soll 637/100)
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: round(40/3.14159265358979323846264338327950288,2) = 1273/100 (soll 1273/100)
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: round(40/3.14,2) = 637/50 (soll 637/50)
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: round(40*2*3.14159265358979323846264338327950288,2) = 25133/100 (soll 25133/100)
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: round(40*2*3.14,2) = 1256/5 (soll 1256/5)
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: round(40/2,2) = 20 (soll 20)
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: round(40/2,2) = 20 (soll 20)
+- ok  #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: round(200/3.14159265358979323846264338327950288,2) = 3183/50 (soll 3183/50)
+- ok  #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: round(200/3.14,2) = 6369/100 (soll 6369/100)
+- ok  #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: round(2/3.14159265358979323846264338327950288,2) = 16/25 (soll 16/25)
+- ok  #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: round(2/3.14,2) = 16/25 (soll 16/25)
+- ok  #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: round(200/(2*3.14159265358979323846264338327950288),2) = 3183/100 (soll 3183/100)
+- ok  #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: round(200/(2*3.14),2) = 637/20 (soll 637/20)
+- ok  #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: round(200,2) = 200 (soll 200)
+- ok  #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: round(200,2) = 200 (soll 200)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: round(12.5/(2*3.14159265358979323846264338327950288),2) = 199/100 (soll 199/100)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: round(12.5/(2*3.14),2) = 199/100 (soll 199/100)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: round(12.5/3.14159265358979323846264338327950288,2) = 199/50 (soll 199/50)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: round(12.5/3.14,2) = 199/50 (soll 199/50)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: round(12.5/6.3,2) = 99/50 (soll 99/50)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: round(12.5/6.3,2) = 99/50 (soll 99/50)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: round(12.5/2,2) = 25/4 (soll 25/4)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: round(12.5/2,2) = 25/4 (soll 25/4)
+- ok  #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: round(220/3.14159265358979323846264338327950288,2) = 7003/100 (soll 7003/100)
+- ok  #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: round(220/3.14,2) = 3503/50 (soll 3503/50)
+- ok  #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: round(110/3.14159265358979323846264338327950288,2) = 3501/100 (soll 3501/100)
+- ok  #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: round(110/3.14,2) = 3503/100 (soll 3503/100)
+- ok  #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: round(2.2/3.14159265358979323846264338327950288,2) = 7/10 (soll 7/10)
+- ok  #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: round(2.2/3.14,2) = 7/10 (soll 7/10)
+- ok  #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: round(220,2) = 220 (soll 220)
+- ok  #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: round(220,2) = 220 (soll 220)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(480/3.14159265358979323846264338327950288,4) = 1527887/10000 (soll 1527887/10000)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(480/3.14,4) = 764331/5000 (soll 764331/5000)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(480/3.14159265358979323846264338327950288,4) = 1527887/10000 (soll 1527887/10000)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(480/3.14,4) = 764331/5000 (soll 764331/5000)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(480/(2*3.14159265358979323846264338327950288),4) = 95493/1250 (soll 95493/1250)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(480/(2*3.14),4) = 764331/10000 (soll 764331/10000)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(60/3.14159265358979323846264338327950288,4) = 95493/5000 (soll 95493/5000)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(60/3.14,4) = 191083/10000 (soll 191083/10000)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(480,4) = 480 (soll 480)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: round(480,4) = 480 (soll 480)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(90/360*2*3.14159265358979323846264338327950288*6,2) = 471/50 (soll 471/50)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(90/360*2*3.14*6,2) = 471/50 (soll 471/50)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(2*3.14159265358979323846264338327950288*6,2) = 377/10 (soll 377/10)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(2*3.14*6,2) = 942/25 (soll 942/25)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(360/90*2*3.14159265358979323846264338327950288*6,2) = 754/5 (soll 754/5)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(360/90*2*3.14*6,2) = 3768/25 (soll 3768/25)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(90/360*3.14159265358979323846264338327950288*6^2,2) = 2827/100 (soll 2827/100)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(90/360*3.14*6^2,2) = 1413/50 (soll 1413/50)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(90/360*2*6,2) = 3 (soll 3)
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: round(90/360*2*6,2) = 3 (soll 3)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(90/360*3.14159265358979323846264338327950288*4^2,2) = 1257/100 (soll 1257/100)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(90/360*3.14*4^2,2) = 314/25 (soll 314/25)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(3.14159265358979323846264338327950288*4^2,2) = 5027/100 (soll 5027/100)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(3.14*4^2,2) = 1256/25 (soll 1256/25)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(360/90*3.14159265358979323846264338327950288*4^2,2) = 10053/50 (soll 10053/50)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(360/90*3.14*4^2,2) = 5024/25 (soll 5024/25)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(90/360*2*3.14159265358979323846264338327950288*4,2) = 157/25 (soll 157/25)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(90/360*2*3.14*4,2) = 157/25 (soll 157/25)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(90/360*4^2,2) = 4 (soll 4)
+- ok  #20 Kreisausschnitt · Radius 4 cm, 90°: round(90/360*4^2,2) = 4 (soll 4)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(120/360*2*3.14159265358979323846264338327950288*9,2) = 377/20 (soll 377/20)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(120/360*2*3.14*9,2) = 471/25 (soll 471/25)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(0.33*2*3.14159265358979323846264338327950288*9,2) = 933/50 (soll 933/50)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(0.33*2*3.14*9,2) = 373/20 (soll 373/20)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(2*3.14159265358979323846264338327950288*9,2) = 1131/20 (soll 1131/20)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(2*3.14*9,2) = 1413/25 (soll 1413/25)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(120/360*3.14159265358979323846264338327950288*9^2,2) = 4241/50 (soll 4241/50)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(120/360*3.14*9^2,2) = 4239/50 (soll 4239/50)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(120/360*2*9,2) = 6 (soll 6)
+- ok  #21 Kreisbogen · Radius 9 cm, 120°: round(120/360*2*9,2) = 6 (soll 6)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(72/360*3.14159265358979323846264338327950288*5^2,2) = 1571/100 (soll 1571/100)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(72/360*3.14*5^2,2) = 157/10 (soll 157/10)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(3.14159265358979323846264338327950288*5^2,2) = 3927/50 (soll 3927/50)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(3.14*5^2,2) = 157/2 (soll 157/2)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(360/72*3.14159265358979323846264338327950288*5^2,2) = 3927/10 (soll 3927/10)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(360/72*3.14*5^2,2) = 785/2 (soll 785/2)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(72/360*2*3.14159265358979323846264338327950288*5,2) = 157/25 (soll 157/25)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(72/360*2*3.14*5,2) = 157/25 (soll 157/25)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(72/360*5^2,2) = 5 (soll 5)
+- ok  #22 Kreisausschnitt · Radius 5 m, 72°: round(72/360*5^2,2) = 5 (soll 5)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(1/12*3.14159265358979323846264338327950288*13^2,2) = 1106/25 (soll 1106/25)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(1/12*3.14*13^2,2) = 2211/50 (soll 2211/50)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(1/12*3.14159265358979323846264338327950288*26^2,2) = 8849/50 (soll 8849/50)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(1/12*3.14*26^2,2) = 17689/100 (soll 17689/100)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(3.14159265358979323846264338327950288*13^2,2) = 53093/100 (soll 53093/100)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(3.14*13^2,2) = 26533/50 (soll 26533/50)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(0.08*3.14159265358979323846264338327950288*13^2,2) = 4247/100 (soll 4247/100)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(0.08*3.14*13^2,2) = 849/20 (soll 849/20)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(1/12*13^2,2) = 352/25 (soll 352/25)
+- ok  #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: round(1/12*13^2,2) = 352/25 (soll 352/25)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/(2*3.14159265358979323846264338327950288*10)*360,0) = 72 (soll 72)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/(2*3.14*10)*360,0) = 72 (soll 72)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/(2*3.14159265358979323846264338327950288*10),2) = 1/5 (soll 1/5)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/(2*3.14*10),2) = 1/5 (soll 1/5)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/(3.14159265358979323846264338327950288*10)*360,0) = 144 (soll 144)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/(3.14*10)*360,0) = 144 (soll 144)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/20*360,0) = 226 (soll 226)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/20*360,0) = 226 (soll 226)
+
+## Blind-Abgleich (docs/prefill/k9-kreis-blind.json)
+
+- info #1 Umfang · Radius 4 cm: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 25,12.)
+- info #2 Umfang · Durchmesser 10 cm: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 31,40.)
+- info #3 Umfang · Radius 3,6 m: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 22,61.)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: Loeser 2.83 · gespeichert ["2,83","2.83","2,83 m","2,83m"]
+- info #5 Umfang · Fahrradrad mit 70 cm Durchmesser: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 219,80.)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: Loeser 54 · gespeichert ["54","54 Umdrehungen","54Umdrehungen"]
+- info #7 Fläche · Radius 6 cm: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 113,04.)
+- info #8 Fläche · Durchmesser 10 cm: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 78,50.)
+- info #9 Fläche · Radius 2,4 m: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 18,09.)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: Loeser 2.01 · gespeichert ["2,01","2.01","2,01 m²","2,01m²"]
+- info #11 Fläche · Pizza mit 30 cm Durchmesser: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 706,50.)
+- info #12 Fläche · eine große Pizza gegen zwei kleine: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 78,50.)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: Loeser 15.92 · gespeichert ["15,92","15.92","15,92 cm","15,92cm"]
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: Loeser 6.37 · gespeichert ["6,37","6.37","6,37 cm","6,37cm"]
+- info #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 63,69.)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: Loeser 1.99 · gespeichert ["1,99","1.99","1,99 m","1,99m"]
+- info #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 70,06.)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: Loeser 153 · gespeichert ["153","153 cm","153cm"]
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: Loeser 9.42 · gespeichert ["9,42","9.42","9,42 cm","9,42cm"]
+- info #20 Kreisausschnitt · Radius 4 cm, 90°: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 12,56.)
+- info #21 Kreisbogen · Radius 9 cm, 120°: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 18,84.)
+- info #22 Kreisausschnitt · Radius 5 m, 72°: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 15,70.)
+- info #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 44,22.)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: Loeser 72 · gespeichert ["72","72 °","72°"]

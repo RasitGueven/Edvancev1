@@ -197,7 +197,7 @@ Der Guard ist lokal mit einer Negativkontrolle belegt (Kante 6 → 7 wird abgewi
 
 # Phase A – Migration 1
 
-**Datei:** `supabase/migrations/20261001131855_substrat_k9_kreis.sql` (**nicht eingespielt**)
+**Datei:** `supabase/migrations/20261003091339_substrat_k9_kreis.sql` (**nicht eingespielt**)
 
 - 5 Knoten mit `klasse_herkunft = 9`. Im Kommentar stehen Geo-3, Geo-4 und die Zweite Stufe.
 - 16 Kanten, jede mit Begründung:

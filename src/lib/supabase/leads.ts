@@ -13,6 +13,7 @@ export async function createLead(input: LeadInput): Promise<SupabaseResult<Lead>
         class_level: input.class_level ?? null,
         school_type: input.school_type ?? null,
         school_name: input.school_name ?? null,
+        schule_id: input.schule_id ?? null,
         subjects: input.subjects ?? [],
         goal: input.goal ?? null,
         known_weak_topics: input.known_weak_topics ?? [],
@@ -27,7 +28,6 @@ export async function createLead(input: LeadInput): Promise<SupabaseResult<Lead>
         tried_before: input.tried_before ?? null,
         next_exam_date: input.next_exam_date ?? null,
         next_exam_topic: input.next_exam_topic ?? null,
-        current_topic_cluster_id: input.current_topic_cluster_id ?? null,
         notes: input.notes ?? null,
       })
       .select('*')
@@ -72,6 +72,7 @@ type LeadPatch = Partial<
     | 'class_level'
     | 'school_type'
     | 'school_name'
+    | 'schule_id'
     | 'subjects'
     | 'last_grade'
     | 'grade_trend'
@@ -79,7 +80,8 @@ type LeadPatch = Partial<
     | 'tried_before'
     | 'next_exam_date'
     | 'next_exam_topic'
-    | 'current_topic_cluster_id'
+    // current_topic_cluster_id wird nicht mehr beschrieben: das aktuelle
+    // Thema steht seit der Themenauswahl in lead_themen.
     | 'consent_dsgvo_at'
     | 'consent_dsgvo_by'
     | 'consent_dsgvo_signature'

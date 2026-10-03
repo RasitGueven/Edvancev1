@@ -19,6 +19,7 @@
  *   - legt fuer Aufgaben mit Figur die task_figures-Zeile an (Upload macht Rasit),
  *   - ist idempotent: on conflict do nothing, Loesung nur, wenn noch keine Zeile besteht.
  * sondierrang: Rang 1 und 2 je Skill nach scripts/content/sondierrang_vorschlag.py.
+ * class_level: optionales Charge-Feld (Board-Klasse wie edvance_k8_binom); ohne das Feld null wie bisher.
  */
 
 import fs from 'node:fs';
@@ -137,8 +138,13 @@ for (const a of charge.aufgaben) {
   if (!!b.figur !== task.needs_image) fehler.push(`#${a.nr}: needs_image passt nicht zur Figur`);
 
   // acceptance: canonical = erste Variante, known_errors in Objektform.
+  // Charge-Feld acceptance_equivalents: die uebrigen Varianten auch als equivalents, damit
+  // lsa_grade (Skill-Urteil) dieselben Werte gelten laesst wie lsa_is_correct (z. B. π-Taste
+  // und 3,14 als zwei richtige Rechenwege). Ohne das Feld bleibt alles wie bisher.
   const ca = sol.correct_answers;
-  const regel = (antw, ke) => ({ canonical: antw[0], known_errors: ke });
+  const regel = (antw, ke) => (charge.acceptance_equivalents && antw.length > 1
+    ? { canonical: antw[0], equivalents: antw.slice(1), known_errors: ke }
+    : { canonical: antw[0], known_errors: ke });
   const acceptance = mp
     ? Object.fromEntries(b.parts.map((p) => [String(p.nr), regel(ca[p.nr], b.known_errors[p.nr])]))
     : regel(ca, b.known_errors);
@@ -158,7 +164,7 @@ for (const a of charge.aufgaben) {
     `  is_diagnostic, is_active, dialog_enabled, is_tutorial, parts, assets, vorbefuellt, vorbefuellt_am)\n` +
     `values (\n  ${q(a.id)}::uuid, 'exercise', ${q(a.titel)}, ${q(b.frage)},\n` +
     `  ${task.question_payload ? j(task.question_payload) : 'null'}, ${q(b.input_type)}, ${q(b.skill_key)},\n` +
-    `  null, ${task.curriculum_grade},\n` +
+    `  ${charge.class_level ?? 'null'}, ${task.curriculum_grade},\n` +
     `  (select c.id from public.skill_clusters c where c.id = ${q(task.cluster_id)}::uuid),\n` +
     `  ${q(task.afb)}, ${q(task.competency_content)}, ${q(task.competency_process)},\n` +
     `  ${task.est_duration_sec}, ${q(task.unit)}, ${task.needs_image}, ${rang.get(a.id) ?? 'null'}, 'draft', ${q(charge.source)}, ${q(b.source_ref)},\n` +

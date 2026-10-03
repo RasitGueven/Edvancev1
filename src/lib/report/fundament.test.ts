@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { baueFundament, findeEinbruch, sucheFall } from '@/lib/report/fundament'
+import { baueFundament, findeEinbruch } from '@/lib/report/fundament'
 import type { FundamentSkill } from '@/types'
 
 /**
@@ -129,17 +129,10 @@ describe('baueFundament — die Schichtung der echten Sitzungen', () => {
   })
 })
 
-describe('Einstieg und Fundament — die Achsen der Fallwahl', () => {
+describe('Einstieg und Fundament', () => {
   it('erkennt bei beiden echten Sitzungen, dass der Einstieg trägt', () => {
     expect(baueFundament(TOLUNAY)!.einstiegTraegt).toBe(true)
     expect(baueFundament(RASIT)!.einstiegTraegt).toBe(true)
-  })
-
-  it('wählt für beide echten Sitzungen den Fall "Einstieg trägt, darunter Lücken"', () => {
-    // Genau dieser Fall fehlte bis R4 — der Renderer behauptete stattdessen,
-    // das Einstiegsthema säße noch nicht sicher.
-    expect(sucheFall(baueFundament(TOLUNAY)!)).toBe('einstieg_traegt_fundament_luecken')
-    expect(sucheFall(baueFundament(RASIT)!)).toBe('einstieg_traegt_fundament_luecken')
   })
 
   it('trennt "nichts darunter geprüft" von "darunter trägt nicht"', () => {
@@ -147,22 +140,6 @@ describe('Einstieg und Fundament — die Achsen der Fallwahl', () => {
     expect(nurEinstieg.einstiegTraegt).toBe(true)
     expect(nurEinstieg.fundamentGeprueft).toBe(false)
     expect(nurEinstieg.fundamentTraegt).toBe(false)
-    // Kein Abstieg stattgefunden -> kein Satz darüber.
-    expect(sucheFall(nurEinstieg)).toBeNull()
-  })
-
-  it('deckt die übrigen drei Fälle ab', () => {
-    const allesTraegt = baueFundament([s('a', 8, 'traegt'), s('b', 7, 'traegt')])!
-    expect(sucheFall(allesTraegt)).toBe('alles_traegt')
-
-    const einstiegHakt = baueFundament([s('a', 8, 'traegt_nicht'), s('b', 7, 'traegt')])!
-    expect(sucheFall(einstiegHakt)).toBe('einstieg_luecken_fundament_traegt')
-
-    const beides = baueFundament([
-      s('a', 8, 'traegt_nicht'),
-      s('b', 7, 'traegt_nicht'),
-    ])!
-    expect(sucheFall(beides)).toBe('einstieg_luecken_fundament_luecken')
   })
 })
 

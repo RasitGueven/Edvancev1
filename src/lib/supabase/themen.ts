@@ -1,0 +1,155 @@
+// Themenkatalog, Schulplaene und lead_themen fuer das Erstgespraech
+// (Migration 20261001114732). themen ist fuer alle lesbar, schul_themenplan
+// fuer Admin und Coach, lead_themen nur fuer Admins.
+
+import { supabase } from '@/lib/supabase/client'
+import type {
+  LeadThema,
+  LeadThemaQuelle,
+  SchulPlanZeile,
+  SupabaseResult,
+  Thema,
+} from '@/types'
+
+const fehler = (err: unknown, fallback: string): string =>
+  err instanceof Error ? err.message : fallback
+
+/** Fachname am Lead ("Mathematik") → fach im Katalog ("mathematik"). */
+export function fachSchluessel(fachName: string): string {
+  return fachName.trim().toLowerCase()
+}
+
+export async function listThemen(fach: string): Promise<SupabaseResult<Thema[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('themen')
+      .select('thema_key, fach, stufe, label, schlagworte, sort')
+      .eq('fach', fach)
+      .order('sort', { ascending: true })
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as Thema[], error: null }
+  } catch (err) {
+    return { data: null, error: fehler(err, 'Could not load topic catalog') }
+  }
+}
+
+export async function listSchulPlan(
+  schuleId: string,
+  fach: string,
+): Promise<SupabaseResult<SchulPlanZeile[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('schul_themenplan')
+      .select('klasse, position, thema_key, stand')
+      .eq('schule_id', schuleId)
+      .eq('fach', fach)
+      .order('klasse', { ascending: true })
+      .order('position', { ascending: true })
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as SchulPlanZeile[], error: null }
+  } catch (err) {
+    return { data: null, error: fehler(err, 'Could not load school plan') }
+  }
+}
+
+export async function listLeadThemen(
+  leadId: string,
+  fach: string,
+): Promise<SupabaseResult<LeadThema[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('lead_themen')
+      .select('thema_key, fach, status, quelle')
+      .eq('lead_id', leadId)
+      .eq('fach', fach)
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as LeadThema[], error: null }
+  } catch (err) {
+    return { data: null, error: fehler(err, 'Could not load lead topics') }
+  }
+}
+
+/**
+ * Setzt das aktuelle Thema. Ein altes 'aktuell' desselben Fachs faellt weg
+ * (Unique-Index: hoechstens eins je Lead und Fach); war das neue Thema schon
+ * als 'behandelt' erfasst, wird die Zeile umgestellt.
+ */
+export async function setAktuellesThema(
+  leadId: string,
+  fach: string,
+  themaKey: string,
+): Promise<SupabaseResult<null>> {
+  try {
+    const { error: delError } = await supabase
+      .from('lead_themen')
+      .delete()
+      .eq('lead_id', leadId)
+      .eq('fach', fach)
+      .eq('status', 'aktuell')
+      .neq('thema_key', themaKey)
+    if (delError) return { data: null, error: delError.message }
+    const { error } = await supabase.from('lead_themen').upsert(
+      {
+        lead_id: leadId,
+        fach,
+        thema_key: themaKey,
+        status: 'aktuell',
+        quelle: 'gespraech',
+        angelegt: new Date().toISOString(),
+      },
+      { onConflict: 'lead_id,thema_key' },
+    )
+    if (error) return { data: null, error: error.message }
+    return { data: null, error: null }
+  } catch (err) {
+    return { data: null, error: fehler(err, 'Could not set current topic') }
+  }
+}
+
+/** Legt 'behandelt'-Zeilen an; bestehende Zeilen bleiben unberuehrt. */
+export async function behandeltAnlegen(
+  leadId: string,
+  fach: string,
+  themaKeys: string[],
+  quelle: LeadThemaQuelle,
+): Promise<SupabaseResult<null>> {
+  if (themaKeys.length === 0) return { data: null, error: null }
+  try {
+    const angelegt = new Date().toISOString()
+    const { error } = await supabase.from('lead_themen').upsert(
+      themaKeys.map((thema_key) => ({
+        lead_id: leadId,
+        fach,
+        thema_key,
+        status: 'behandelt',
+        quelle,
+        angelegt,
+      })),
+      { onConflict: 'lead_id,thema_key', ignoreDuplicates: true },
+    )
+    if (error) return { data: null, error: error.message }
+    return { data: null, error: null }
+  } catch (err) {
+    return { data: null, error: fehler(err, 'Could not save covered topics') }
+  }
+}
+
+/** Entfernt 'behandelt'-Zeilen (Abwaehlen). 'aktuell' bleibt stehen. */
+export async function behandeltEntfernen(
+  leadId: string,
+  themaKeys: string[],
+): Promise<SupabaseResult<null>> {
+  if (themaKeys.length === 0) return { data: null, error: null }
+  try {
+    const { error } = await supabase
+      .from('lead_themen')
+      .delete()
+      .eq('lead_id', leadId)
+      .eq('status', 'behandelt')
+      .in('thema_key', themaKeys)
+    if (error) return { data: null, error: error.message }
+    return { data: null, error: null }
+  } catch (err) {
+    return { data: null, error: fehler(err, 'Could not remove covered topics') }
+  }
+}
