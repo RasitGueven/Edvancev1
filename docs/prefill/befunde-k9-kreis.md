@@ -226,4 +226,4 @@ Laufs und wäre ein UPDATE auf `task_solutions.acceptance`, nicht der bisherige 
 2. `geo_kreis_zusammen`: Generator nach `specs/active/figur-kreis.md` bauen, dann 6 Aufgaben (Halbkreis, Viertelkreis,
    Kreisring, Rechteck mit Halbkreis) mit `halbieren_vergessen` und `seite_vergessen`.
 3. Klartext und Familie für die Alt-Slugs aus K7 und die drei neuen Slugs (K8).
-4. K12 (unten): Schreibweisen-Varianten in Vorlauf und Lineare Funktionen, die das Skill-Urteil nicht als „voll“ wertet. Nur gemeldet.
+4. K12 (unten): Schreibweisen-Varianten in Vorlauf und Lineare Funktionen, die das Skill-Urteil nicht als „voll“ wertet. Ursache behoben in `20261003101556_lsa_grade_vorzeichen_normalisierung.sql` (noch nicht eingespielt), Gegenprobe in `docs/prefill/k12-gegenprobe.md`.

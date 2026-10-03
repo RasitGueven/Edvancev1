@@ -2349,6 +2349,30 @@ $$;
 
 
 --
+-- Name: lsa_normalize_number(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_normalize_number(p_raw text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  -- Auf lsa_normalize_answer aufgesetzt, nicht daneben: was dort gilt
+  -- (trimmen, Leerraum zusammenfassen, Komma -> Punkt, klein), gilt hier auch.
+  -- Die Vorzeichenregeln greifen nur unmittelbar vor einer Ziffer — "+ x" oder
+  -- ein Wort mit Bindestrich bleiben, wie sie sind.
+  select case
+    when p_raw is null then null
+    else btrim(
+      regexp_replace(
+        regexp_replace(
+          translate(public.lsa_normalize_answer(p_raw),
+                    chr(8722) || chr(8211) || chr(8212), '---'),
+          '^\+ ?(?=[0-9])', ''),
+        '^- (?=[0-9])', '-'))
+  end
+$$;
+
+
+--
 -- Name: lsa_normalize_term(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3081,13 +3105,13 @@ CREATE FUNCTION public.lsa_split_value_unit(p_raw text) RETURNS text[]
     when p_raw is null then null
     else array[
       coalesce(
-        substring(public.lsa_normalize_answer(p_raw)
+        substring(public.lsa_normalize_number(p_raw)
                   from '^(-?[0-9]+(?:[[:space:]]+[0-9]+/[0-9]+|/[0-9]+|\.[0-9]+)?)'),
         ''),
       btrim(coalesce(
-        substring(public.lsa_normalize_answer(p_raw)
+        substring(public.lsa_normalize_number(p_raw)
                   from '^-?[0-9]+(?:[[:space:]]+[0-9]+/[0-9]+|/[0-9]+|\.[0-9]+)?[[:space:]]*(.*)$'),
-        public.lsa_normalize_answer(p_raw)))
+        public.lsa_normalize_number(p_raw)))
     ]
   end
 $_$;
