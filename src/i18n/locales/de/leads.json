@@ -73,7 +73,9 @@
     "date": "Datum",
     "time": "Uhrzeit",
     "location": "Standort",
-    "missing": "Bitte Datum und Uhrzeit angeben."
+    "missing": "Bitte Datum und Uhrzeit angeben.",
+    "mitbringenLabel": "Beim Bestätigen den Eltern sagen:",
+    "mitbringen": "Bitte bringt das Mathe-Heft und, wenn vorhanden, die letzte Klassenarbeit mit."
   },
   "standort": {
     "koeln": "Köln"

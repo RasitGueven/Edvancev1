@@ -239,3 +239,12 @@ export type {
   Rueckbezug,
   RueckbezugRichtung,
 } from './reportFundament'
+
+export type {
+  Stufe,
+  Thema,
+  SchulPlanZeile,
+  LeadThemaStatus,
+  LeadThemaQuelle,
+  LeadThema,
+} from './themen'

@@ -45,6 +45,9 @@ export type Lead = {
   class_level: number | null
   school_type: SchoolKind | null
   school_name: string | null
+  // Schule aus public.schulen (Migration 20261001114732). school_name bleibt
+  // daneben als Freitext; Schulen ausserhalb der Liste haben nur den Namen.
+  schule_id: string | null
   subjects: string[]
   goal: LeadGoal | null
   known_weak_topics: string[]
@@ -68,9 +71,8 @@ export type Lead = {
   tried_before: string[] | null
   next_exam_date: string | null
   next_exam_topic: string | null
-  // Im Erstgespraech gewaehltes Themencluster (skill_clusters). Loest
-  // next_exam_topic ab; die alte Spalte bleibt bestehen, wird aber nicht
-  // mehr beschrieben.
+  // Altes Themencluster (skill_clusters). Seit der Themenauswahl ueber
+  // lead_themen wird die Spalte nicht mehr beschrieben, aber noch angezeigt.
   current_topic_cluster_id: string | null
   consent_dsgvo_at: string | null
   consent_dsgvo_by: string | null
@@ -93,6 +95,7 @@ export type LeadInput = {
   class_level?: number | null
   school_type?: SchoolKind | null
   school_name?: string | null
+  schule_id?: string | null
   subjects?: string[]
   goal?: LeadGoal | null
   known_weak_topics?: string[]

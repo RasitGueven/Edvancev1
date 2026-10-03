@@ -19,6 +19,8 @@ export type IntakeFormState = {
   // der Schulname hilft spaeter bei der Einordnung. Kein Einfluss auf die
   // Aufgabenwahl.
   school_name: string
+  // Schule aus der Liste; null bei Freitext oder ohne Angabe.
+  schule_id: string | null
   subjects: string[]
   contact_email: string
   contact_phone: string
@@ -27,8 +29,9 @@ export type IntakeFormState = {
   grade_trend: LeadGradeTrend | null
   struggling_since: LeadStrugglingSince | null
   tried_before: string[]
-  // Aktuelles Thema als Cluster-ID (skill_clusters). Loest das Freitextfeld
-  // next_exam_topic ab; next_exam_date wird nicht mehr erfasst.
+  // Altes Themencluster (skill_clusters), nur noch zur Anzeige bei
+  // Bestandsleads. Das aktuelle Thema steht in lead_themen und wird direkt
+  // dort gespeichert, nicht ueber den Lead-Payload.
   current_topic_cluster_id: string | null
   // Eltern-Einschaetzung (Gespraechskontext, nie Auswertungs-Input)
   parent_weak_topics: string[]
@@ -44,6 +47,7 @@ export const EMPTY_INTAKE: IntakeFormState = {
   class_level: null,
   school_type: null,
   school_name: '',
+  schule_id: null,
   subjects: [],
   contact_email: '',
   contact_phone: '',
@@ -66,6 +70,7 @@ export function intakeFromLead(lead: Lead): IntakeFormState {
     class_level: lead.class_level,
     school_type: lead.school_type,
     school_name: lead.school_name ?? '',
+    schule_id: lead.schule_id ?? null,
     subjects: lead.subjects ?? [],
     contact_email: lead.contact_email ?? '',
     contact_phone: lead.contact_phone ?? '',
@@ -93,14 +98,14 @@ export function intakeToLeadInput(form: IntakeFormState): LeadInput {
     class_level: form.class_level,
     school_type: form.school_type,
     school_name: nullIfEmpty(form.school_name),
+    schule_id: form.schule_id,
     subjects: form.subjects,
     last_grade: form.last_grade,
     grade_trend: form.grade_trend,
     struggling_since: form.struggling_since,
     tried_before: form.tried_before.length > 0 ? form.tried_before : null,
-    // next_exam_date und next_exam_topic werden nicht mehr beschrieben; die
-    // Spalten bleiben im Schema bestehen.
-    current_topic_cluster_id: form.current_topic_cluster_id,
+    // next_exam_date, next_exam_topic und current_topic_cluster_id werden
+    // nicht mehr beschrieben; die Spalten bleiben im Schema bestehen.
     notes: nullIfEmpty(form.notes),
   }
 }

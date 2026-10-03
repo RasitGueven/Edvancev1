@@ -85,5 +85,68 @@
     "zuweisen": "Zuweisen",
     "keinZugang": "Kein laufender Vertrag am {{datum}} — Platz kann nicht vergeben werden.",
     "keineKandidaten": "Kein weiteres Kind hat an diesem Datum einen laufenden Vertrag."
+  },
+  "intake": {
+    "lead": {
+      "firstName": "Rufname des Kindes *",
+      "firstNamePlaceholder": "z. B. Mia",
+      "firstNameHint": "Erscheint auf dem Tablet als „Hi {{name}}“ — muss exakt stimmen.",
+      "fullName": "Vollständiger Name *",
+      "birthDate": "Geburtsdatum",
+      "classLevel": "Klasse",
+      "classOption": "{{level}}. Klasse",
+      "none": "–",
+      "schoolType": "Schulform",
+      "contactEmail": "E-Mail (Eltern)",
+      "contactPhone": "Telefon (Eltern)",
+      "contactHint": "Mindestens eine der beiden Angaben ist erforderlich.",
+      "subjects": "Fach / Fächer"
+    },
+    "schule": {
+      "label": "Schule (optional)",
+      "placeholder": "Name oder Stadtteil, z. B. Kreuzgasse",
+      "hint": "Aus der Liste wählen, dann ist der Schulplan bekannt. Nicht dabei? Einfach den Namen eintragen.",
+      "ausListe": "Aus der Schulliste",
+      "aendern": "Andere Schule",
+      "freitext": "Nicht in der Liste – wird als Freitext gespeichert.",
+      "fehler": "Die Schulliste konnte nicht geladen werden – Name bitte frei eintragen."
+    },
+    "thema": {
+      "label": "Aktuelles Thema",
+      "heftHinweis": "Mathe-Heft: letzte Seiten = aktuelles Thema, weiter vorne = schon behandelt",
+      "placeholder": "Was sagt das Kind? z. B. „Wurzel“, „Zinsen“",
+      "andereStufen": "Andere Stufen ({{count}})",
+      "keinTreffer": "Kein passendes Thema – bitte mit dem Mathe-Heft abgleichen",
+      "aktuell": "Aktuell: {{label}}",
+      "altesThema": "Bisher erfasst (alte Auswahl): {{name}}",
+      "altesThemaHinweis": "Bitte ein Thema aus dem Katalog wählen – die alte Auswahl bleibt gespeichert.",
+      "fehltKlasse": "Für die Themenauswahl fehlt noch die Klasse.",
+      "fehltFach": "Für die Themenauswahl fehlt noch das Fach.",
+      "fehltBeides": "Für die Themenauswahl fehlen noch Klasse und Fach.",
+      "fachWaehlen": "Bitte unten das Fach wählen — danach lässt sich das Thema auswählen.",
+      "ladeFehler": "Die Themen konnten nicht geladen werden: {{fehler}}",
+      "speicherFehler": "Speichern fehlgeschlagen: {{fehler}}",
+      "leerTitel": "Noch kein Themenkatalog",
+      "leerText": "Für {{fach}} sind noch keine Themen hinterlegt. Die LSA lässt sich trotzdem freigeben."
+    },
+    "stufen": {
+      "titel": "Themen nach Stufe",
+      "kurz": {
+        "erprobung": "5/6",
+        "erste": "7/8",
+        "zweite": "9/10"
+      },
+      "klasse": "Kl. {{klasse}}",
+      "nichtImPlan": "Nicht im Schulplan",
+      "modusAktuell": "Als aktuelles Thema",
+      "modusBehandelt": "Als schon behandelt markieren"
+    },
+    "behandelt": {
+      "titel": "Schon behandelt",
+      "hinweis": "Mehrfachauswahl. Ein Tipp auf ein gewähltes Thema nimmt es wieder heraus.",
+      "ausPlan": "aus dem Schulplan (Stand {{stand}})",
+      "ausPlanOhneStand": "aus dem Schulplan",
+      "keinPlan": "Kein Schulplan hinterlegt – im Mathe-Heft nachsehen"
+    }
   }
 }

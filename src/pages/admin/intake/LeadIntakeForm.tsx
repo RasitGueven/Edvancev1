@@ -10,6 +10,7 @@ import { SectionLead } from './SectionLead'
 import { SectionErstgespraech } from './SectionErstgespraech'
 import { CONSENT_DOCUMENT_VERSION } from './consentDocument'
 import type { ConsentState } from './ConsentBlock'
+import type { ThemenStatus } from './ThemenAuswahl'
 import {
   EMPTY_INTAKE,
   intakeFromLead,
@@ -49,6 +50,10 @@ export function LeadIntakeForm({
     signature: existingLead?.consent_dsgvo_signature ?? null,
   })
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null)
+  const [themenStatus, setThemenStatus] = useState<ThemenStatus>({
+    aktuell: null,
+    katalogLeer: false,
+  })
   const [busy, setBusy] = useState(false)
   const [consentSaving, setConsentSaving] = useState(false)
   const [freigebenLoading, setFreigebenLoading] = useState(false)
@@ -184,7 +189,11 @@ export function LeadIntakeForm({
   const canFreigeben =
     form.class_level !== null &&
     subject !== null &&
-    form.current_topic_cluster_id !== null &&
+    // Aktuelles Thema aus lead_themen; Bestandsleads mit altem Cluster und
+    // Faecher ohne Katalog bleiben freigebbar.
+    (themenStatus.aktuell !== null ||
+      form.current_topic_cluster_id !== null ||
+      themenStatus.katalogLeer) &&
     consent.at !== null
 
   return (
@@ -242,6 +251,8 @@ export function LeadIntakeForm({
           patch={patch}
           subject={subject}
           onSelectSubject={setSelectedSubject}
+          leadId={leadId}
+          onThemenStatus={setThemenStatus}
           consent={consent}
           consentSaving={consentSaving}
           onSign={sign}

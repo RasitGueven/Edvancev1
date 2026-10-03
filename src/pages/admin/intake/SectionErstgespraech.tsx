@@ -10,7 +10,7 @@ import {
   TRIED_BEFORE,
 } from './intakeConstants'
 import { OptionChips } from './OptionChips'
-import { TopicSelect } from './TopicSelect'
+import { ThemenAuswahl, type ThemenStatus } from './ThemenAuswahl'
 import { ConsentBlock, type ConsentState } from './ConsentBlock'
 import type { IntakeFormState } from './formState'
 
@@ -20,6 +20,9 @@ type SectionErstgespraechProps = {
   /** Fach fuer die Themenauswahl — bei mehreren Faechern die Auswahl unten. */
   subject: string | null
   onSelectSubject: (subject: string) => void
+  /** Angelegter Lead; lead_themen haengen an ihm. */
+  leadId: string | null
+  onThemenStatus: (status: ThemenStatus) => void
   consent: ConsentState
   consentSaving: boolean
   onSign: (signature: string) => void
@@ -41,6 +44,8 @@ export function SectionErstgespraech({
   patch,
   subject,
   onSelectSubject,
+  leadId,
+  onThemenStatus,
   consent,
   consentSaving,
   onSign,
@@ -107,7 +112,13 @@ export function SectionErstgespraech({
         <OptionChips options={TRIED_BEFORE} selected={form.tried_before} onToggle={toggleTried} />
       </div>
 
-      <TopicSelect form={form} patch={patch} subject={subject} />
+      <ThemenAuswahl
+        form={form}
+        patch={patch}
+        subject={subject}
+        leadId={leadId}
+        onStatus={onThemenStatus}
+      />
 
       <div className="flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-4">
         <FieldLabel>Eltern-Einschätzung: Wo vermuten Sie die Schwierigkeiten?</FieldLabel>

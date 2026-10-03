@@ -21,6 +21,29 @@ export async function listSchulen(): Promise<SupabaseResult<Schule[]>> {
   }
 }
 
+export type SchuleAuswahl = {
+  id: string
+  name: string
+  stadtteil: string | null
+  schulform: string | null
+}
+
+/** Schulen fuer die Auswahl im Erstgespraech, optional auf eine Schulform. */
+export async function listSchulenAuswahl(
+  schulform: string | null,
+): Promise<SupabaseResult<SchuleAuswahl[]>> {
+  try {
+    let query = supabase.from('schulen').select('id, name, stadtteil, schulform')
+    if (schulform) query = query.eq('schulform', schulform)
+    const { data, error } = await query.order('name', { ascending: true })
+    if (error) return { data: null, error: error.message }
+    return { data: (data ?? []) as SchuleAuswahl[], error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Could not load schools'
+    return { data: null, error: message }
+  }
+}
+
 /** Legt eine Schule an. Gibt es sie schon, kommt die bestehende zurueck. */
 export async function schuleAnlegen(
   name: string,
