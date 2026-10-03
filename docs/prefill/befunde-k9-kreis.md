@@ -38,10 +38,12 @@ musste in diesem Lauf schon zweimal wandern, weil Zins, Schulpläne und Lineare 
 | Alle Lena-Felder | `verify-tasks --prefill` (verify-prefill) | **0 Charge-Fehler**, 0 Bestands-Befunde → `k9-kreis-verifikation.md` |
 | Struktur | `verify-tasks --from-file` Stufe 1 | 24 ok, 0 beanstandet |
 | Blind-Löser, Lauf 1 | frischer Subagent, nur `aufgaben.json` | 24 Antworten, 0 unsicher → `k9-kreis-blind-lauf1.json`, Abgleich **24/24** |
-| Textkorrektur | `kreis-umfang-06` nannte die Rundung nicht (eigene Prüfabfrage rot) | Satz „Runde auf ganze Umdrehungen." ergänzt |
-| Blind-Löser, Lauf 2 (Endstand) | frischer Subagent auf den korrigierten Export | BLIND2 |
+| Textkorrektur 1 | `kreis-umfang-06` nannte die Rundung nicht (eigene Prüfabfrage rot) | Satz „Runde auf ganze Umdrehungen." ergänzt |
+| Blind-Löser, Lauf 2 | frischer Subagent auf den korrigierten Export | Abgleich 24/24, aber **`umfang-06` unsicher**: „Runde auf ganze Umdrehungen" widerspricht „mindestens" (kaufmännisch 53, verlangt 54). Berechtigt, die Korrektur selbst war mehrdeutig → `k9-kreis-blind-lauf2.json` |
+| Textkorrektur 2 | `umfang-06` wie `rueck-06` formuliert | „Gib eine ganze Zahl an und runde dafür auf." |
+| Blind-Löser, Lauf 3 (Endstand) | frischer Subagent auf den Endstand | Abgleich **24/24, 100 %** → `k9-kreis-blind.json`. `umfang-06` jetzt eindeutig. 15 Aufgaben „unsicher" nur, weil π-Taste und 3,14 verschieden runden. Alle 15 vom Löser genannten 3,14-Werte stehen in `correct_answers` (geprüft). Kein zweiter Löser je Aufgabe nötig, keine Abweichung |
 | Wegwerf-DB | Grundlage + alle Migrationen, zweiter Lauf beider Kreis-Dateien | grün, idempotent |
-| Prüfabfrage M2 lokal | `k9_kreis_aufgaben.PRUEFUNG.sql` | 15 von 17 t lokal. Die zwei roten Zeilen: Alt-Slugs fehlen lokal (Datenimport, in Prod alle 9 vorhanden, geprüft) und die Rundungsangabe in `umfang-06` (behoben) |
+| Prüfabfrage M2 lokal | `k9_kreis_aufgaben.PRUEFUNG.sql` (nach dem Merge von dev, 95 Migrationen) | 16 von 17 t. Rot nur „alle Slugs existieren": Die Alt-Slugs fehlen lokal (Datenimport), in Prod sind alle 9 vorhanden (geprüft) |
 | Gegenprobe Bewertung | Prüfabfrage: `lsa_is_correct` und `lsa_grade` auf jede Variante, `lsa_fehlbild_match` auf jeden falschen Wert | alle Varianten richtig und „voll", jeder falsche Wert „nicht richtig" und trifft seinen Slug |
 
 Der **Trockenlauf gegen Prod** (begin → apply → assert → rollback) fehlt. Er schreibt in Prod, auch wenn er

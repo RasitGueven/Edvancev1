@@ -255,5 +255,29 @@ Aufgaben: 24 · Charge-Fehler: **0** · Bestands-Befunde: 0 · Ueberschreibungen
 - ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/20*360,0) = 226 (soll 226)
 - ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: round(12.56/20*360,0) = 226 (soll 226)
 
-## Blind-Abgleich (kein Loeser)
+## Blind-Abgleich (docs/prefill/k9-kreis-blind.json)
 
+- info #1 Umfang · Radius 4 cm: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 25,12.)
+- info #2 Umfang · Durchmesser 10 cm: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 31,40.)
+- info #3 Umfang · Radius 3,6 m: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 22,61.)
+- ok  #4 Umfang · Radius 45 cm, Ergebnis in Metern: Loeser 2.83 · gespeichert ["2,83","2.83","2,83 m","2,83m"]
+- info #5 Umfang · Fahrradrad mit 70 cm Durchmesser: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 219,80.)
+- ok  #6 Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser: Loeser 54 · gespeichert ["54","54 Umdrehungen","54Umdrehungen"]
+- info #7 Fläche · Radius 6 cm: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 113,04.)
+- info #8 Fläche · Durchmesser 10 cm: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 78,50.)
+- info #9 Fläche · Radius 2,4 m: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 18,09.)
+- ok  #10 Fläche · Radius 80 cm, Ergebnis in m²: Loeser 2.01 · gespeichert ["2,01","2.01","2,01 m²","2,01m²"]
+- info #11 Fläche · Pizza mit 30 cm Durchmesser: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 706,50.)
+- info #12 Fläche · eine große Pizza gegen zwei kleine: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 78,50.)
+- ok  #13 Rückrichtung · Durchmesser aus 50 cm Umfang: Loeser 15.92 · gespeichert ["15,92","15.92","15,92 cm","15,92cm"]
+- ok  #14 Rückrichtung · Radius aus 40 cm Umfang: Loeser 6.37 · gespeichert ["6,37","6.37","6,37 cm","6,37cm"]
+- info #15 Rückrichtung · Durchmesser in cm aus 2 m Umfang: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 63,69.)
+- ok  #16 Rückrichtung · Radius aus 12,5 m Umfang: Loeser 1.99 · gespeichert ["1,99","1.99","1,99 m","1,99m"]
+- info #17 Rückrichtung · Baumstamm mit 2,20 m Umfang: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 70,06.)
+- ok  #18 Rückrichtung · runder Tisch für 8 Personen: Loeser 153 · gespeichert ["153","153 cm","153cm"]
+- ok  #19 Kreisbogen · Radius 6 cm, 90°: Loeser 9.42 · gespeichert ["9,42","9.42","9,42 cm","9,42cm"]
+- info #20 Kreisausschnitt · Radius 4 cm, 90°: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 12,56.)
+- info #21 Kreisbogen · Radius 9 cm, 120°: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 18,84.)
+- info #22 Kreisausschnitt · Radius 5 m, 72°: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 15,70.)
+- info #23 Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke: Loeser nennt die Aufgabe nicht eindeutig (Mit π ≈ 3,14 ergibt sich 44,22.)
+- ok  #24 Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm: Loeser 72 · gespeichert ["72","72 °","72°"]
