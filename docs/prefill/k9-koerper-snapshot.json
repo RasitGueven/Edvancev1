@@ -1,0 +1,842 @@
+[
+ {
+  "task": {
+   "id": "ca18a102-4cf1-45fe-8461-82d860a7288c",
+   "title": "Prisma · Volumen eines Dreiecksprismas",
+   "question": "Ein gerades Prisma hat als Grundfläche ein Dreieck. Die Grundseite des Dreiecks ist 6 cm lang, die zugehörige Höhe des Dreiecks beträgt 4 cm. Das Prisma ist 10 cm hoch.\n\nWie groß ist das Volumen des Prismas? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_prisma",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein gerades Prisma hat als Grundfläche ein Dreieck. Die Grundseite des Dreiecks ist 6 cm lang, die zugehörige Höhe des Dreiecks beträgt 4 cm. Das Prisma ist 10 cm hoch.\n\nWie groß ist das Volumen des Prismas? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-prisma-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "edeb2812-e0a3-415b-b097-e57181b53d6d",
+   "title": "Prisma · Oberfläche eines Dreiecksprismas",
+   "question": "Ein gerades Prisma hat als Grundfläche ein rechtwinkliges Dreieck mit den Seiten 3 cm, 4 cm und 5 cm. Der rechte Winkel liegt zwischen den Seiten 3 cm und 4 cm. Das Prisma ist 8 cm hoch.\n\nWie groß ist die Oberfläche des Prismas? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_prisma",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein gerades Prisma hat als Grundfläche ein rechtwinkliges Dreieck mit den Seiten 3 cm, 4 cm und 5 cm. Der rechte Winkel liegt zwischen den Seiten 3 cm und 4 cm. Das Prisma ist 8 cm hoch.\n\nWie groß ist die Oberfläche des Prismas? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-prisma-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e958eb79-345a-4079-867b-46ecb652b478",
+   "title": "Prisma · Volumen mit Trapez als Grundfläche",
+   "question": "Ein gerades Prisma hat als Grundfläche ein Trapez. Die parallelen Seiten des Trapezes sind 8 cm und 5 cm lang, ihr Abstand beträgt 4 cm. Das Prisma ist 12 cm hoch.\n\nWie groß ist das Volumen des Prismas? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_prisma",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein gerades Prisma hat als Grundfläche ein Trapez. Die parallelen Seiten des Trapezes sind 8 cm und 5 cm lang, ihr Abstand beträgt 4 cm. Das Prisma ist 12 cm hoch.\n\nWie groß ist das Volumen des Prismas? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-prisma-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "807dd2a7-18a0-4ff1-93e4-d2d26052cd12",
+   "title": "Prisma · Höhe aus Volumen und Dreiecksgrundfläche",
+   "question": "Ein gerades Prisma hat das Volumen 180 cm³. Seine Grundfläche ist ein Dreieck mit der Grundseite 8 cm und der zugehörigen Höhe 5 cm.\n\nWie hoch ist das Prisma? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_prisma",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein gerades Prisma hat das Volumen 180 cm³. Seine Grundfläche ist ein Dreieck mit der Grundseite 8 cm und der zugehörigen Höhe 5 cm.\n\nWie hoch ist das Prisma? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-prisma-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9de789c5-cdc1-45c4-b38f-d809926410f5",
+   "title": "Prisma · Wassertrog mit dreieckigem Querschnitt",
+   "question": "Ein Wassertrog hat die Form eines liegenden Dreiecksprismas. Der Querschnitt ist ein Dreieck: oben 60 cm breit und 40 cm tief. Der Trog ist 2 m lang. Es gilt 1 dm³ = 1 l.\n\nWie viele Liter Wasser fasst der Trog, wenn er randvoll ist? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_prisma",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Wassertrog hat die Form eines liegenden Dreiecksprismas. Der Querschnitt ist ein Dreieck: oben 60 cm breit und 40 cm tief. Der Trog ist 2 m lang. Es gilt 1 dm³ = 1 l.\n\nWie viele Liter Wasser fasst der Trog, wenn er randvoll ist? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "l",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-prisma-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e8aa50eb-5f6b-4296-a408-05257f00fe34",
+   "title": "Prisma · Höhe aus der Oberfläche",
+   "question": "Ein gerades Prisma hat als Grundfläche ein rechtwinkliges Dreieck mit den Seiten 6 cm, 8 cm und 10 cm. Der rechte Winkel liegt zwischen den Seiten 6 cm und 8 cm. Die Oberfläche des Prismas beträgt 288 cm².\n\nWie hoch ist das Prisma? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_prisma",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein gerades Prisma hat als Grundfläche ein rechtwinkliges Dreieck mit den Seiten 6 cm, 8 cm und 10 cm. Der rechte Winkel liegt zwischen den Seiten 6 cm und 8 cm. Die Oberfläche des Prismas beträgt 288 cm².\n\nWie hoch ist das Prisma? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-prisma-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2fd67e4c-9093-4e51-bd98-46e7d76e3a9f",
+   "title": "Zylinder · Volumen, Radius 3 cm",
+   "question": "Ein Zylinder hat den Radius 3 cm und die Höhe 10 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_zylinder",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Zylinder hat den Radius 3 cm und die Höhe 10 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-zylinder-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d0b4dbc3-1278-4a60-bcbe-98ebc0060ad2",
+   "title": "Zylinder · Oberfläche, Durchmesser 8 cm",
+   "question": "Ein Zylinder hat den Durchmesser 8 cm und die Höhe 5 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_zylinder",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Zylinder hat den Durchmesser 8 cm und die Höhe 5 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-zylinder-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "267a9ef3-4ac7-4b54-ba99-f84b90ae1521",
+   "title": "Zylinder · Volumen, Radius 1,5 m",
+   "question": "Ein Zylinder hat den Radius 1,5 m und die Höhe 3,2 m.\n\nWie groß ist sein Volumen in Kubikmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_zylinder",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Zylinder hat den Radius 1,5 m und die Höhe 3,2 m.\n\nWie groß ist sein Volumen in Kubikmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-zylinder-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5dd22acb-5345-4c8e-97d6-8f5cf323627a",
+   "title": "Zylinder · Oberfläche in m² bei gemischten Einheiten",
+   "question": "Ein Zylinder hat den Radius 0,4 m und die Höhe 90 cm.\n\nWie groß ist seine Oberfläche in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_zylinder",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Zylinder hat den Radius 0,4 m und die Höhe 90 cm.\n\nWie groß ist seine Oberfläche in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-zylinder-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a64cbccb-268c-4d5d-97b6-f925daf460e4",
+   "title": "Zylinder · Wassertank in Litern",
+   "question": "Ein zylinderförmiger Wassertank hat innen einen Durchmesser von 1,2 m und eine Höhe von 1,5 m. Es gilt 1 dm³ = 1 l, also 1 m³ = 1000 l.\n\nWie viele Liter fasst der Tank? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Liter.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_zylinder",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein zylinderförmiger Wassertank hat innen einen Durchmesser von 1,2 m und eine Höhe von 1,5 m. Es gilt 1 dm³ = 1 l, also 1 m³ = 1000 l.\n\nWie viele Liter fasst der Tank? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Liter."
+   },
+   "parts": [],
+   "unit": "l",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-zylinder-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "bdee1a03-5e67-4293-a8b5-794de2e25331",
+   "title": "Zylinder · Dosenhöhe für einen Liter",
+   "question": "Eine zylinderförmige Dose soll genau 1 Liter fassen. Ihr Durchmesser innen beträgt 10 cm. Es gilt 1 l = 1 dm³ = 1000 cm³.\n\nWie hoch muss die Dose innen sein? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_zylinder",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine zylinderförmige Dose soll genau 1 Liter fassen. Ihr Durchmesser innen beträgt 10 cm. Es gilt 1 l = 1 dm³ = 1000 cm³.\n\nWie hoch muss die Dose innen sein? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-zylinder-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b844a22a-3ad5-40aa-88df-8d6b10531307",
+   "title": "Pyramide · Volumen einer quadratischen Pyramide",
+   "question": "Eine Pyramide hat eine quadratische Grundfläche mit der Seitenlänge 6 cm. Sie ist 10 cm hoch.\n\nWie groß ist ihr Volumen? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_pyramide",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Pyramide hat eine quadratische Grundfläche mit der Seitenlänge 6 cm. Sie ist 10 cm hoch.\n\nWie groß ist ihr Volumen? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-pyramide-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0f084da1-12ff-4672-9d00-dc5f65503c1a",
+   "title": "Pyramide · Oberfläche mit Körperhöhe und Seitenhöhe",
+   "question": "Eine Pyramide hat eine quadratische Grundfläche mit der Seitenlänge 8 cm. Die Pyramide ist 3 cm hoch. Jede dreieckige Seitenfläche hat die Höhe h_s = 5 cm.\n\nWie groß ist die Oberfläche der Pyramide? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_pyramide",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Pyramide hat eine quadratische Grundfläche mit der Seitenlänge 8 cm. Die Pyramide ist 3 cm hoch. Jede dreieckige Seitenfläche hat die Höhe h_s = 5 cm.\n\nWie groß ist die Oberfläche der Pyramide? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-pyramide-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0d01fa82-d4fb-4fc4-ba47-62d7175763ee",
+   "title": "Pyramide · Volumen mit rechteckiger Grundfläche",
+   "question": "Eine Pyramide hat eine rechteckige Grundfläche mit den Seiten 4,5 m und 3,2 m. Sie ist 5 m hoch.\n\nWie groß ist ihr Volumen in Kubikmetern? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_pyramide",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Pyramide hat eine rechteckige Grundfläche mit den Seiten 4,5 m und 3,2 m. Sie ist 5 m hoch.\n\nWie groß ist ihr Volumen in Kubikmetern? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "m³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-pyramide-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7fc20c4b-923f-4225-8df0-b20680379b53",
+   "title": "Pyramide · Oberfläche mit rechteckiger Grundfläche",
+   "question": "Eine Pyramide hat eine rechteckige Grundfläche mit den Seiten 10 cm und 4 cm. Die beiden dreieckigen Seitenflächen über den 10-cm-Seiten haben jeweils die Höhe 10 cm. Die beiden dreieckigen Seitenflächen über den 4-cm-Seiten haben jeweils die Höhe 11 cm.\n\nWie groß ist die Oberfläche der Pyramide? Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_pyramide",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Pyramide hat eine rechteckige Grundfläche mit den Seiten 10 cm und 4 cm. Die beiden dreieckigen Seitenflächen über den 10-cm-Seiten haben jeweils die Höhe 10 cm. Die beiden dreieckigen Seitenflächen über den 4-cm-Seiten haben jeweils die Höhe 11 cm.\n\nWie groß ist die Oberfläche der Pyramide? Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-pyramide-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5beb71a7-cbef-4392-bcca-446b1bc97354",
+   "title": "Pyramide · Dachfläche eines Pyramidendachs",
+   "question": "Ein Turm hat ein Dach in Form einer quadratischen Pyramide. Die Grundkante ist 6 m lang. Das Dach ist 4 m hoch, jede dreieckige Dachfläche hat die Höhe h_s = 5 m.\n\nWie viele Quadratmeter Dachfläche müssen gedeckt werden? Der Boden des Dachs gehört nicht dazu. Gib das Ergebnis genau an, ohne zu runden.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_pyramide",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Turm hat ein Dach in Form einer quadratischen Pyramide. Die Grundkante ist 6 m lang. Das Dach ist 4 m hoch, jede dreieckige Dachfläche hat die Höhe h_s = 5 m.\n\nWie viele Quadratmeter Dachfläche müssen gedeckt werden? Der Boden des Dachs gehört nicht dazu. Gib das Ergebnis genau an, ohne zu runden."
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-pyramide-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5cad7848-0d28-4198-93a0-6232e6f988b1",
+   "title": "Pyramide · Grundkante aus Volumen und Höhe",
+   "question": "Eine Pyramide mit quadratischer Grundfläche hat das Volumen 192 cm³ und ist 9 cm hoch.\n\nWie lang ist eine Seite der Grundfläche? Runde, falls nötig, auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_pyramide",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Pyramide mit quadratischer Grundfläche hat das Volumen 192 cm³ und ist 9 cm hoch.\n\nWie lang ist eine Seite der Grundfläche? Runde, falls nötig, auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-pyramide-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d8f2e2e3-5cc2-4bd6-bf37-e752b0132bea",
+   "title": "Kegel · Volumen, Radius 3 cm",
+   "question": "Ein Kegel hat den Radius 3 cm und die Höhe 8 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kegel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kegel hat den Radius 3 cm und die Höhe 8 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kegel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8a2febbd-299f-437a-abed-bde7fa31fa87",
+   "title": "Kegel · Mantellinie aus Radius und Höhe",
+   "question": "Ein Kegel hat den Radius 5 cm und die Höhe 12 cm.\n\nWie lang ist seine Mantellinie s (die Strecke von der Spitze zum Rand der Grundfläche)? Runde, falls nötig, auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kegel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kegel hat den Radius 5 cm und die Höhe 12 cm.\n\nWie lang ist seine Mantellinie s (die Strecke von der Spitze zum Rand der Grundfläche)? Runde, falls nötig, auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kegel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9373d252-76e6-4ef7-be85-4b2c095cd55b",
+   "title": "Kegel · Oberfläche aus Durchmesser und Mantellinie",
+   "question": "Ein Kegel hat den Durchmesser 12 cm und die Mantellinie s = 10 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kegel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kegel hat den Durchmesser 12 cm und die Mantellinie s = 10 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kegel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "285e2d3e-44af-431b-a520-485795c8bb8d",
+   "title": "Kegel · Oberfläche aus Radius und Höhe",
+   "question": "Ein Kegel hat den Radius 8 cm und die Höhe 6 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kegel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kegel hat den Radius 8 cm und die Höhe 6 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kegel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cd5d283c-6279-456d-8368-b7dbf8715e0f",
+   "title": "Kegel · Trichter in Millilitern",
+   "question": "Ein kegelförmiger Trichter ist oben innen 6 cm breit und innen 12 cm tief. Es gilt 1 cm³ = 1 ml.\n\nWie viele Milliliter passen in den Trichter, wenn unten zugehalten wird? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Milliliter.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kegel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein kegelförmiger Trichter ist oben innen 6 cm breit und innen 12 cm tief. Es gilt 1 cm³ = 1 ml.\n\nWie viele Milliliter passen in den Trichter, wenn unten zugehalten wird? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Milliliter."
+   },
+   "parts": [],
+   "unit": "ml",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kegel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e92deeb5-bccf-4343-b226-d7b2e0beb277",
+   "title": "Kegel · Volumen aus Mantellinie und Radius",
+   "question": "Ein Kegel hat den Radius 8 cm und die Mantellinie s = 17 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kegel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kegel hat den Radius 8 cm und die Mantellinie s = 17 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kegel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8c265caf-ebcd-4622-afbd-482483867036",
+   "title": "Kugel · Volumen, Radius 6 cm",
+   "question": "Eine Kugel hat den Radius 6 cm.\n\nWie groß ist ihr Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kugel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Kugel hat den Radius 6 cm.\n\nWie groß ist ihr Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kugel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "360647d6-fac1-40b9-a886-e1a5fdbe843c",
+   "title": "Kugel · Oberfläche, Durchmesser 10 cm",
+   "question": "Eine Kugel hat den Durchmesser 10 cm.\n\nWie groß ist ihre Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kugel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Kugel hat den Durchmesser 10 cm.\n\nWie groß ist ihre Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kugel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9cee13c3-67ba-418d-ab9d-819a5f8c3a46",
+   "title": "Kugel · Volumen, Radius 2,5 m",
+   "question": "Eine Kugel hat den Radius 2,5 m.\n\nWie groß ist ihr Volumen in Kubikmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kugel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Kugel hat den Radius 2,5 m.\n\nWie groß ist ihr Volumen in Kubikmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kugel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d885cc27-a9b5-4390-ba21-3561d1b8a86f",
+   "title": "Kugel · Oberfläche in m², Radius 40 cm",
+   "question": "Eine Kugel hat den Radius 40 cm.\n\nWie groß ist ihre Oberfläche in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kugel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Kugel hat den Radius 40 cm.\n\nWie groß ist ihre Oberfläche in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kugel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "62b5810c-b021-4032-b17a-e072ffa3182b",
+   "title": "Kugel · kugelförmiger Behälter in Litern",
+   "question": "Ein kugelförmiger Behälter hat innen einen Durchmesser von 40 cm. Es gilt 1 dm³ = 1 l.\n\nWie viele Liter fasst der Behälter? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kugel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein kugelförmiger Behälter hat innen einen Durchmesser von 40 cm. Es gilt 1 dm³ = 1 l.\n\nWie viele Liter fasst der Behälter? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "l",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kugel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ec4153b3-7ecd-404b-a2a4-8f111e3f4186",
+   "title": "Kugel · Halbkugel auf einem Zylinder",
+   "question": "Ein Körper besteht aus einem Zylinder mit aufgesetzter Halbkugel. Zylinder und Halbkugel haben beide den Durchmesser 6 cm. Der Zylinder ist 10 cm hoch.\n\nWie groß ist das Volumen des ganzen Körpers? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_koerper_kugel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Körper besteht aus einem Zylinder mit aufgesetzter Halbkugel. Zylinder und Halbkugel haben beide den Durchmesser 6 cm. Der Zylinder ist 10 cm hoch.\n\nWie groß ist das Volumen des ganzen Körpers? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm³",
+   "status": "draft",
+   "source": "edvance_k9_koerper",
+   "source_ref": "koerper-kugel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

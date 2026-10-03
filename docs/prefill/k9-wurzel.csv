@@ -1,0 +1,417 @@
+Aufgabe-ID,source_ref,Teilaufgabe,Feld,neuer Wert,Art,Unsicherheit,Begründung
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,afb,I,neu,mittel,"Reproduzieren: Wurzel aus einer bekannten Quadratzahl, ein Schritt."
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,correct_answers,"[""15"",""+15""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,solution,"Gesucht ist √225, also die positive Zahl, deren Quadrat 225 ist.
+15 · 15 = 225, also √225 = 15.",neu,hoch,Nachgerechnet.
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,typical_errors,"[{""error"":""Quadriert statt die Wurzel zu ziehen: 225² = 50625."",""socratic_question"":""Welche Rechnung macht das Quadrieren wieder rückgängig?""},{""error"":""Die Zahl halbiert statt die Wurzel zu ziehen: 225 : 2 = 112,5."",""socratic_question"":""Was kommt heraus, wenn du 112,5 mit sich selbst malnimmst?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_gegenoperation, wurzel_halbiert)."
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+4b3b14a9-0603-40d7-90b1-60f3517f7348,wurzel-quadrat-01,,acceptance.known_errors (keine UI),"{""50625"":""falsche_gegenoperation"",""+50625"":""falsche_gegenoperation"",""112,5"":""wurzel_halbiert"",""+112,5"":""wurzel_halbiert"",""112.5"":""wurzel_halbiert"",""+112.5"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,afb,I,neu,mittel,"Reproduzieren: Wurzel aus einer Dezimalzahl, die zu einer bekannten Quadratzahl gehört."
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,correct_answers,"[""0,7"",""+0,7"",""0.7"",""+0.7""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,solution,"0,7 · 0,7 = 0,49, also √0,49 = 0,7.",neu,hoch,Nachgerechnet.
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,typical_errors,"[{""error"":""Das Komma falsch gesetzt: 0,07 statt 0,7."",""socratic_question"":""Was ergibt 0,07 · 0,07 – wie viele Stellen nach dem Komma hat das Ergebnis?""},{""error"":""Das Komma weggelassen: √49 = 7 gerechnet."",""socratic_question"":""Ist 7 · 7 gleich 0,49?""},{""error"":""Halbiert statt die Wurzel gezogen: 0,49 : 2 = 0,245."",""socratic_question"":""Was ergibt 0,245 · 0,245 ungefähr?""}]",neu,hoch,"Aus acceptance.known_errors (kommastellen_zu_viel, kommastellen_zu_wenig, wurzel_halbiert)."
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+55239bfc-349a-4285-b29e-2b1c105e6033,wurzel-quadrat-02,,acceptance.known_errors (keine UI),"{""7"":""kommastellen_zu_wenig"",""0,07"":""kommastellen_zu_viel"",""+0,07"":""kommastellen_zu_viel"",""0.07"":""kommastellen_zu_viel"",""+0.07"":""kommastellen_zu_viel"",""+7"":""kommastellen_zu_wenig"",""0,245"":""wurzel_halbiert"",""+0,245"":""wurzel_halbiert"",""0.245"":""wurzel_halbiert"",""+0.245"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,afb,II,neu,mittel,"Anwenden: Wurzel aus einem Bruch, Zähler und Nenner getrennt."
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,correct_answers,"[""0,75"",""+0,75"",""0.75"",""+0.75"",""3/4"",""+3/4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,solution,"√(9/16) = √9 / √16 = 3/4.
+Als Dezimalzahl: 0,75.",neu,hoch,Nachgerechnet.
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,typical_errors,"[{""error"":""Die Wurzel nur aus dem Zähler gezogen, als stünde √9 / 16 da: 3/16."",""socratic_question"":""Steht nur die 9 oder der ganze Bruch unter der Wurzel?""},{""error"":""Halbiert statt die Wurzel gezogen: 9/32."",""socratic_question"":""Was ergibt 3/4 · 3/4?""}]",neu,hoch,"Aus acceptance.known_errors (klammer_vergessen, wurzel_halbiert)."
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+afc3b977-389b-4e8d-a157-9952b087c8e2,wurzel-quadrat-03,,acceptance.known_errors (keine UI),"{""0,1875"":""klammer_vergessen"",""+0,1875"":""klammer_vergessen"",""0.1875"":""klammer_vergessen"",""+0.1875"":""klammer_vergessen"",""3/16"":""klammer_vergessen"",""+3/16"":""klammer_vergessen"",""0,28125"":""wurzel_halbiert"",""+0,28125"":""wurzel_halbiert"",""0.28125"":""wurzel_halbiert"",""+0.28125"":""wurzel_halbiert"",""9/32"":""wurzel_halbiert"",""+9/32"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,afb,II,neu,mittel,"Anwenden: Wurzel aus einer kleinen Dezimalzahl, Kommastellen müssen stimmen."
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,correct_answers,"[""0,04"",""+0,04"",""0.04"",""+0.04""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,solution,"0,0016 hat vier Stellen nach dem Komma, die Wurzel daraus zwei.
+0,04 · 0,04 = 0,0016, also √0,0016 = 0,04.",neu,hoch,Nachgerechnet.
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,typical_errors,"[{""error"":""Das Komma falsch gesetzt: 0,4 statt 0,04."",""socratic_question"":""Was ergibt 0,4 · 0,4?""},{""error"":""Zu viele Stellen nach dem Komma: 0,004."",""socratic_question"":""Wie viele Stellen nach dem Komma hat 0,004 · 0,004?""},{""error"":""Halbiert statt die Wurzel gezogen: 0,0008."",""socratic_question"":""Ist die Wurzel aus einer Zahl zwischen 0 und 1 kleiner oder größer als die Zahl?""}]",neu,hoch,"Aus acceptance.known_errors (kommastellen_zu_wenig, kommastellen_zu_viel, wurzel_halbiert)."
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,acceptance.known_errors (keine UI),"{""0,4"":""kommastellen_zu_wenig"",""+0,4"":""kommastellen_zu_wenig"",""0.4"":""kommastellen_zu_wenig"",""+0.4"":""kommastellen_zu_wenig"",""0,004"":""kommastellen_zu_viel"",""+0,004"":""kommastellen_zu_viel"",""0.004"":""kommastellen_zu_viel"",""+0.004"":""kommastellen_zu_viel"",""0,0008"":""wurzel_halbiert"",""+0,0008"":""wurzel_halbiert"",""0.0008"":""wurzel_halbiert"",""+0.0008"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+16d6e3b7-86f0-4661-b750-70bf5764e3ba,wurzel-quadrat-04,,sondierrang (keine UI),1,neu,mittel,"wurzel-quadrat-04 = 1, wurzel-quadrat-05 = 2. Rang 1 aus Profil {kommastellen_zu_viel,kommastellen_zu_wenig,wurzel_halbiert}, Rang 2 aus Profil {einheit_uebersprungen,kommastellen_zu_viel,wurzel_halbiert} (1 neue Fehlbilder)"
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,afb,II,neu,mittel,Anwenden im Sachkontext: Seitenlänge als Wurzel der Fläche erkennen und umrechnen.
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,correct_answers,"[""150"",""150 cm"",""150cm""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,solution,"Seitenlänge = √(2,25 m²) = 1,5 m, denn 1,5 · 1,5 = 2,25.
+1,5 m = 150 cm.",neu,hoch,Nachgerechnet.
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,typical_errors,"[{""error"":""Nicht in Zentimeter umgerechnet: die Seitenlänge in Metern."",""socratic_question"":""In welcher Einheit ist die Seitenlänge gefragt?""},{""error"":""Das Komma falsch gesetzt: √2,25 als 0,15 gerechnet, also 15 cm."",""socratic_question"":""Ergibt 0,15 · 0,15 wirklich 2,25?""},{""error"":""Die Fläche halbiert statt die Wurzel gezogen: 1,125 m."",""socratic_question"":""Welche Zahl ergibt mit sich selbst malgenommen 2,25?""}]",neu,hoch,"Aus acceptance.known_errors (einheit_uebersprungen, kommastellen_zu_viel, wurzel_halbiert)."
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,acceptance.known_errors (keine UI),"{""15"":""kommastellen_zu_viel"",""1,5"":""einheit_uebersprungen"",""1.5"":""einheit_uebersprungen"",""1,5 cm"":""einheit_uebersprungen"",""1,5cm"":""einheit_uebersprungen"",""15 cm"":""kommastellen_zu_viel"",""15cm"":""kommastellen_zu_viel"",""112,5"":""wurzel_halbiert"",""112.5"":""wurzel_halbiert"",""112,5 cm"":""wurzel_halbiert"",""112,5cm"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+99b7829c-3536-4278-a84e-3dbeea10637c,wurzel-quadrat-05,,sondierrang (keine UI),2,neu,mittel,"wurzel-quadrat-04 = 1, wurzel-quadrat-05 = 2. Rang 1 aus Profil {kommastellen_zu_viel,kommastellen_zu_wenig,wurzel_halbiert}, Rang 2 aus Profil {einheit_uebersprungen,kommastellen_zu_viel,wurzel_halbiert} (1 neue Fehlbilder)"
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,afb,III,neu,mittel,"Problemlösen: aus der Fläche erst die Seite bestimmen, dann den Umfang bilden."
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,correct_answers,"[""144"",""144 m"",""144m""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,solution,"Seitenlänge: √1296 m = 36 m, denn 36 · 36 = 1296.
+Zaun = Umfang = 4 · 36 m = 144 m.",neu,hoch,Nachgerechnet.
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,typical_errors,"[{""error"":""Nur die Seitenlänge angegeben, nicht den ganzen Zaun."",""socratic_question"":""Wie viele Seiten hat der Platz, die eingezäunt werden?""},{""error"":""Die Fläche halbiert statt die Wurzel gezogen."",""socratic_question"":""Welche Zahl ergibt mit sich selbst malgenommen 1296?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, wurzel_halbiert)."
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+5f9d6c06-c962-4b38-9096-4a1ab9c97292,wurzel-quadrat-06,,acceptance.known_errors (keine UI),"{""36"":""falsche_groesse_beantwortet"",""2592"":""wurzel_halbiert"",""36 m"":""falsche_groesse_beantwortet"",""36m"":""falsche_groesse_beantwortet"",""2592 m"":""wurzel_halbiert"",""2592m"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,afb,I,neu,mittel,Reproduzieren: benachbarte Quadratzahlen 49 und 64 erkennen.
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,1,correct_answers.1,"[""7"",""+7""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,2,correct_answers.2,"[""8"",""+8""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,solution,"Benachbarte Quadratzahlen: 7² = 49 < 50 < 64 = 8².
+Also liegt √50 zwischen 7 und 8.",neu,hoch,Nachgerechnet.
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,typical_errors,"[{""error"":""Die Quadratzahl 49 angegeben statt ihrer Wurzel."",""socratic_question"":""Liegt √50 wirklich in der Nähe von 49?""},{""error"":""√50 als 50 : 2 = 25 genommen."",""socratic_question"":""Was ergibt 25 · 25 – liegt das in der Nähe von 50?""},{""error"":""Die Quadratzahl 64 angegeben statt ihrer Wurzel."",""socratic_question"":""Liegt √50 wirklich in der Nähe von 64?""},{""error"":""√50 als 50 : 2 = 25 genommen, dann 26 als nächste Zahl."",""socratic_question"":""Was ergibt 26 · 26 – liegt das in der Nähe von 50?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, wurzel_halbiert)."
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,1,acceptance.known_errors (keine UI),"{""25"":""wurzel_halbiert"",""49"":""falsche_groesse_beantwortet"",""+49"":""falsche_groesse_beantwortet"",""+25"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+6585552b-bb6b-4345-98cb-d427378cdfed,wurzel-naeherung-01,2,acceptance.known_errors (keine UI),"{""26"":""wurzel_halbiert"",""64"":""falsche_groesse_beantwortet"",""+64"":""falsche_groesse_beantwortet"",""+26"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,afb,I,neu,mittel,Reproduzieren: Näherungswert einer Wurzel bestimmen und auf eine Stelle runden.
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,correct_answers,"[""3,2"",""+3,2"",""3.2"",""+3.2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,solution,"√10 ≈ 3,162…
+Die zweite Stelle nach dem Komma ist eine 6, also aufrunden: √10 ≈ 3,2.",neu,hoch,Nachgerechnet.
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,typical_errors,"[{""error"":""Abgeschnitten statt gerundet: 3,1."",""socratic_question"":""Welche Ziffer steht nach der ersten Stelle – wird auf- oder abgerundet?""},{""error"":""Halbiert statt die Wurzel gezogen: 10 : 2 = 5."",""socratic_question"":""Was ergibt 5 · 5 – ist das 10?""}]",neu,hoch,"Aus acceptance.known_errors (abgeschnitten, wurzel_halbiert)."
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+fde9c9a1-f05a-42ff-ab98-d94ee6894d07,wurzel-naeherung-02,,acceptance.known_errors (keine UI),"{""5"":""wurzel_halbiert"",""3,1"":""abgeschnitten"",""+3,1"":""abgeschnitten"",""3.1"":""abgeschnitten"",""+3.1"":""abgeschnitten"",""5,0"":""wurzel_halbiert"",""+5,0"":""wurzel_halbiert"",""5.0"":""wurzel_halbiert"",""+5.0"":""wurzel_halbiert"",""+5"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,afb,II,neu,mittel,"Anwenden: Wurzel ohne nahe Quadratzahl, auf zwei Stellen runden."
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,correct_answers,"[""5,48"",""+5,48"",""5.48"",""+5.48""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,solution,"√30 ≈ 5,4772…
+Die dritte Stelle nach dem Komma ist eine 7, also aufrunden: √30 ≈ 5,48.
+Probe: 5² = 25 < 30 < 36 = 6².",neu,hoch,Nachgerechnet.
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,typical_errors,"[{""error"":""Abgeschnitten statt gerundet: 5,47."",""socratic_question"":""Welche Ziffer steht an der dritten Stelle nach dem Komma?""},{""error"":""Halbiert statt die Wurzel gezogen: 30 : 2 = 15."",""socratic_question"":""Zwischen welchen Quadratzahlen liegt 30 – passt 15 dazu?""}]",neu,hoch,"Aus acceptance.known_errors (abgeschnitten, wurzel_halbiert)."
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0b9229a0-db38-4fc4-8b64-1213b5198f50,wurzel-naeherung-03,,acceptance.known_errors (keine UI),"{""15"":""wurzel_halbiert"",""5,47"":""abgeschnitten"",""+5,47"":""abgeschnitten"",""5.47"":""abgeschnitten"",""+5.47"":""abgeschnitten"",""15,00"":""wurzel_halbiert"",""+15,00"":""wurzel_halbiert"",""15.00"":""wurzel_halbiert"",""+15.00"":""wurzel_halbiert"",""+15"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,afb,II,neu,mittel,"Anwenden: Wurzel aus einer Zahl zwischen 0 und 1 ist größer als die Zahl; auf zwei Stellen runden."
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,correct_answers,"[""0,95"",""+0,95"",""0.95"",""+0.95""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,solution,"√0,9 ≈ 0,9486…
+Die dritte Stelle nach dem Komma ist eine 8, also aufrunden: √0,9 ≈ 0,95.
+Die Wurzel aus einer Zahl zwischen 0 und 1 ist größer als die Zahl selbst.",neu,hoch,Nachgerechnet.
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,typical_errors,"[{""error"":""Halbiert statt die Wurzel gezogen: 0,9 : 2 = 0,45."",""socratic_question"":""Was ergibt 0,45 · 0,45 – ist das 0,9?""},{""error"":""Abgeschnitten statt gerundet: 0,94."",""socratic_question"":""Welche Ziffer steht an der dritten Stelle nach dem Komma?""}]",neu,hoch,"Aus acceptance.known_errors (wurzel_halbiert, abgeschnitten)."
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd,wurzel-naeherung-04,,acceptance.known_errors (keine UI),"{""0,45"":""wurzel_halbiert"",""+0,45"":""wurzel_halbiert"",""0.45"":""wurzel_halbiert"",""+0.45"":""wurzel_halbiert"",""0,94"":""abgeschnitten"",""+0,94"":""abgeschnitten"",""0.94"":""abgeschnitten"",""+0.94"":""abgeschnitten""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: Seitenlänge als Wurzel der Fläche, auf Zentimeter runden."
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,correct_answers,"[""3,32"",""3.32"",""3,32 m"",""3,32m""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,solution,"Seitenlänge = √(11 m²) ≈ 3,3166… m.
+Auf zwei Stellen gerundet: 3,32 m.",neu,hoch,Nachgerechnet.
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,typical_errors,"[{""error"":""Abgeschnitten statt gerundet: 3,31 m."",""socratic_question"":""Welche Ziffer steht an der dritten Stelle nach dem Komma?""},{""error"":""Die Fläche halbiert statt die Wurzel gezogen: 5,5 m."",""socratic_question"":""Wie groß wäre ein Beet mit 5,5 m Seitenlänge?""},{""error"":""Nur auf eine Stelle gerundet: 3,3 m."",""socratic_question"":""Auf wie viele Stellen nach dem Komma sollst du runden?""}]",neu,hoch,"Aus acceptance.known_errors (abgeschnitten, wurzel_halbiert, kommastellen_zu_wenig)."
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,acceptance.known_errors (keine UI),"{""3,31"":""abgeschnitten"",""3.31"":""abgeschnitten"",""3,31 m"":""abgeschnitten"",""3,31m"":""abgeschnitten"",""5,50"":""wurzel_halbiert"",""5.50"":""wurzel_halbiert"",""5,5"":""wurzel_halbiert"",""5.5"":""wurzel_halbiert"",""5,50 m"":""wurzel_halbiert"",""5,50m"":""wurzel_halbiert"",""5,5 m"":""wurzel_halbiert"",""5,5m"":""wurzel_halbiert"",""3,3"":""kommastellen_zu_wenig"",""3.3"":""kommastellen_zu_wenig"",""3,3 m"":""kommastellen_zu_wenig"",""3,3m"":""kommastellen_zu_wenig""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+cd35f4b2-62da-4f01-9215-bc9504f8e67a,wurzel-naeherung-05,,sondierrang (keine UI),2,neu,mittel,"wurzel-naeherung-06 = 1, wurzel-naeherung-05 = 2. Rang 1 aus Profil {abgeschnitten,einheit_uebersprungen,wurzel_halbiert}, Rang 2 aus Profil {abgeschnitten,kommastellen_zu_wenig,wurzel_halbiert} (1 neue Fehlbilder)"
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,afb,III,neu,mittel,"Problemlösen: Wurzel ziehen, in Zentimeter umrechnen und sinnvoll aufrunden."
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,correct_answers,"[""245"",""245 cm"",""245cm""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,solution,"Seitenlänge = √(6 m²) ≈ 2,4495 m = 244,95 cm.
+Mit 244 cm wäre der Teppich zu klein, also mindestens 245 cm.",neu,hoch,Nachgerechnet.
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,typical_errors,"[{""error"":""Abgerundet: Mit 244 cm sind es weniger als 6 m²."",""socratic_question"":""Reicht die Fläche, wenn du abrundest?""},{""error"":""Nicht in Zentimeter umgerechnet: die Seitenlänge in Metern."",""socratic_question"":""In welcher Einheit ist die Seitenlänge gefragt?""},{""error"":""Die Fläche halbiert statt die Wurzel gezogen: 3 m."",""socratic_question"":""Wie groß wäre ein Teppich mit 3 m Seitenlänge?""}]",neu,hoch,"Aus acceptance.known_errors (abgeschnitten, einheit_uebersprungen, wurzel_halbiert)."
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,acceptance.known_errors (keine UI),"{""244"":""abgeschnitten"",""300"":""wurzel_halbiert"",""244 cm"":""abgeschnitten"",""244cm"":""abgeschnitten"",""2,45"":""einheit_uebersprungen"",""2.45"":""einheit_uebersprungen"",""2,45 cm"":""einheit_uebersprungen"",""2,45cm"":""einheit_uebersprungen"",""300 cm"":""wurzel_halbiert"",""300cm"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+81015f65-8ac0-4ef3-abb8-9a7b87c44940,wurzel-naeherung-06,,sondierrang (keine UI),1,neu,mittel,"wurzel-naeherung-06 = 1, wurzel-naeherung-05 = 2. Rang 1 aus Profil {abgeschnitten,einheit_uebersprungen,wurzel_halbiert}, Rang 2 aus Profil {abgeschnitten,kommastellen_zu_wenig,wurzel_halbiert} (1 neue Fehlbilder)"
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,afb,I,neu,mittel,Reproduzieren: Wurzeln aus Nicht-Quadratzahlen als irrational erkennen.
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,correct_answers,"[""2"",""+2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,solution,"√9 = 3, 0,5 und 3/7 sind Brüche, also rational.
+√2 und √5 sind Wurzeln aus Zahlen, die keine Quadratzahlen sind: irrational.
+Anzahl: 2.",neu,hoch,Nachgerechnet.
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,typical_errors,"[{""error"":""√9 auch für irrational gehalten, obwohl √9 = 3."",""socratic_question"":""Welche ganze Zahl ergibt quadriert 9?""},{""error"":""√9 und 3/7 für irrational gehalten; 3/7 ist ein Bruch und damit rational."",""socratic_question"":""Lässt sich 3/7 als Bruch schreiben?""}]",neu,hoch,Aus acceptance.known_errors (irrational_verwechselt).
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+54382934-12e4-4819-8dc4-5f4f5650471f,wurzel-irrational-01,,acceptance.known_errors (keine UI),"{""3"":""irrational_verwechselt"",""4"":""irrational_verwechselt"",""+3"":""irrational_verwechselt"",""+4"":""irrational_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,afb,I,neu,mittel,Reproduzieren: abbrechende Dezimalzahl als Bruch schreiben und vollständig kürzen.
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,correct_answers,"[""8"",""+8""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,solution,"0,375 = 375/1000.
+ggT(375; 1000) = 125, also 375/1000 = 3/8.
+Nenner: 8.",neu,hoch,Nachgerechnet.
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,typical_errors,"[{""error"":""Gar nicht gekürzt: 375/1000."",""socratic_question"":""Haben 375 und 1000 noch einen gemeinsamen Teiler?""},{""error"":""Nur durch 5 gekürzt: 75/200."",""socratic_question"":""Lässt sich 75/200 noch weiter kürzen?""},{""error"":""Nur durch 25 gekürzt: 15/40."",""socratic_question"":""Lässt sich 15/40 noch weiter kürzen?""}]",neu,hoch,Aus acceptance.known_errors (teilgekuerzt).
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+9935f4bb-1222-4ead-bf3c-6b8cfd134395,wurzel-irrational-02,,acceptance.known_errors (keine UI),"{""40"":""teilgekuerzt"",""200"":""teilgekuerzt"",""1000"":""teilgekuerzt"",""+1000"":""teilgekuerzt"",""+200"":""teilgekuerzt"",""+40"":""teilgekuerzt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,afb,II,neu,mittel,Anwenden: periodische Dezimalzahl als Bruch schreiben (Periode durch 99) und kürzen.
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,correct_answers,"[""11"",""+11""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,solution,"0,454545… (Periode 45) = 45/99.
+ggT(45; 99) = 9, also 45/99 = 5/11.
+Nenner: 11.",neu,hoch,Nachgerechnet.
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,typical_errors,"[{""error"":""Nicht gekürzt: 45/99."",""socratic_question"":""Haben 45 und 99 noch einen gemeinsamen Teiler?""},{""error"":""Die Periode abgeschnitten: 0,45 = 45/100 = 9/20."",""socratic_question"":""Ist 0,45 genau gleich 0,454545…?""}]",neu,hoch,"Aus acceptance.known_errors (teilgekuerzt, abgeschnitten)."
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,acceptance.known_errors (keine UI),"{""20"":""abgeschnitten"",""99"":""teilgekuerzt"",""+99"":""teilgekuerzt"",""+20"":""abgeschnitten""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ae8478c7-f104-407a-a75a-087d71e20757,wurzel-irrational-03,,sondierrang (keine UI),1,neu,mittel,"wurzel-irrational-03 = 1, wurzel-irrational-06 = 2. Rang 1 aus Profil {abgeschnitten,teilgekuerzt}, Rang 2 aus Profil {falsche_groesse_beantwortet,irrational_verwechselt} (2 neue Fehlbilder)"
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,afb,II,neu,mittel,"Anwenden: Wurzeln, periodische Dezimalzahl, π und negative Zahl sicher zuordnen."
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,correct_answers,"[""4"",""+4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,solution,"Rational: √16 = 4, 0,333… (Periode 3) = 1/3, √0,25 = 0,5 und −5.
+Irrational: √12 (12 ist keine Quadratzahl) und π.
+Anzahl: 4.",neu,hoch,Nachgerechnet.
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,typical_errors,"[{""error"":""Die periodische Zahl 0,333… für irrational gehalten, obwohl sie 1/3 ist."",""socratic_question"":""Lässt sich 0,333… (Periode 3) als Bruch schreiben?""},{""error"":""Die periodische Zahl und √0,25 für irrational gehalten."",""socratic_question"":""Welche Zahl ergibt quadriert 0,25?""},{""error"":""π für rational gehalten, weil man oft mit 3,14 rechnet."",""socratic_question"":""Ist 3,14 der genaue Wert von π oder nur ein Näherungswert?""}]",neu,hoch,Aus acceptance.known_errors (irrational_verwechselt).
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+834de179-1fbd-4491-9d86-fd572310f3dd,wurzel-irrational-04,,acceptance.known_errors (keine UI),"{""2"":""irrational_verwechselt"",""3"":""irrational_verwechselt"",""5"":""irrational_verwechselt"",""+3"":""irrational_verwechselt"",""+2"":""irrational_verwechselt"",""+5"":""irrational_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: aus Flächeninhalten entscheiden, ob die Seitenlänge rational ist."
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,correct_answers,"[""3"",""+3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,solution,"Seitenlänge = Wurzel aus dem Flächeninhalt.
+Rational: √49 = 7, √2,25 = 1,5, √0,64 = 0,8.
+Irrational: √50, √8 und √12,1 (12,1 ist kein Quadrat einer Dezimalzahl, 3,4² = 11,56 und 3,5² = 12,25).
+Anzahl: 3.",neu,hoch,Nachgerechnet.
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,typical_errors,"[{""error"":""√12,1 für rational gehalten, weil 121 = 11² ist; 11² = 121, aber 1,1² = 1,21."",""socratic_question"":""Welche Zahl ergibt quadriert 12,1 – gibt es dafür eine abbrechende Dezimalzahl?""},{""error"":""Die Wurzeln aus den Dezimalzahlen 2,25 und 0,64 für irrational gehalten."",""socratic_question"":""Was ergibt 1,5 · 1,5?""}]",neu,hoch,Aus acceptance.known_errors (irrational_verwechselt).
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+d851f251-cbe5-4804-b74d-2458c7a855af,wurzel-irrational-05,,acceptance.known_errors (keine UI),"{""1"":""irrational_verwechselt"",""4"":""irrational_verwechselt"",""+4"":""irrational_verwechselt"",""+1"":""irrational_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,afb,III,neu,mittel,"Problemlösen: erkennen, dass √n für natürliches n genau bei Quadratzahlen rational ist, dann zählen."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,est_duration_sec,90,neu,mittel,"Zeitregel: AFB III, kein Sachkontext."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,correct_answers,"[""7"",""+7""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,solution,"√n ist für eine natürliche Zahl n genau dann rational, wenn n eine Quadratzahl ist.
+Quadratzahlen von 1 bis 60: 1, 4, 9, 16, 25, 36, 49 (64 ist schon zu groß).
+Anzahl: 7.",neu,hoch,Nachgerechnet.
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,typical_errors,"[{""error"":""Die irrationalen Wurzeln gezählt statt der rationalen."",""socratic_question"":""Wurde nach den rationalen oder nach den irrationalen Wurzeln gefragt?""},{""error"":""Alle Wurzeln für irrational gehalten, auch √1, √4, √9 …"",""socratic_question"":""Ist √4 = 2 eine irrationale Zahl?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, irrational_verwechselt)."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,acceptance.known_errors (keine UI),"{""0"":""irrational_verwechselt"",""53"":""falsche_groesse_beantwortet"",""+53"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0b7e781c-60ae-4a93-afb8-2ee2b400b15a,wurzel-irrational-06,,sondierrang (keine UI),2,neu,mittel,"wurzel-irrational-03 = 1, wurzel-irrational-06 = 2. Rang 1 aus Profil {abgeschnitten,teilgekuerzt}, Rang 2 aus Profil {falsche_groesse_beantwortet,irrational_verwechselt} (2 neue Fehlbilder)"
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,afb,I,neu,mittel,"Reproduzieren: Produktgesetz √a · √b = √(a · b), Ergebnis eine Quadratzahl."
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,correct_answers,"[""4"",""+4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,solution,√2 · √8 = √(2 · 8) = √16 = 4.,neu,hoch,Nachgerechnet.
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,typical_errors,"[{""error"":""Nur 2 · 8 = 16 gerechnet, die Wurzel aus 16 nicht gezogen."",""socratic_question"":""Steht 16 noch unter der Wurzel?""},{""error"":""√16 als 16 : 2 = 8 genommen."",""socratic_question"":""Was ergibt 8 · 8?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, wurzel_halbiert)."
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+a0a8c04b-145b-4010-8c46-b5c7520d54bb,wurzel-gesetze-01,,acceptance.known_errors (keine UI),"{""8"":""wurzel_halbiert"",""16"":""falsche_groesse_beantwortet"",""+16"":""falsche_groesse_beantwortet"",""+8"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,afb,I,neu,mittel,"Reproduzieren: Quotientengesetz √a : √b = √(a : b), Ergebnis eine Quadratzahl."
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,correct_answers,"[""5"",""+5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,solution,√50 : √2 = √(50 : 2) = √25 = 5.,neu,hoch,Nachgerechnet.
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,typical_errors,"[{""error"":""Nur 50 : 2 = 25 gerechnet, die Wurzel aus 25 nicht gezogen."",""socratic_question"":""Steht 25 noch unter der Wurzel?""},{""error"":""√25 als 25 : 2 = 12,5 genommen."",""socratic_question"":""Was ergibt 12,5 · 12,5?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, wurzel_halbiert)."
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+760fc0ad-d0c6-4a09-889b-c116a2f0ff78,wurzel-gesetze-02,,acceptance.known_errors (keine UI),"{""25"":""falsche_groesse_beantwortet"",""+25"":""falsche_groesse_beantwortet"",""12,5"":""wurzel_halbiert"",""+12,5"":""wurzel_halbiert"",""12.5"":""wurzel_halbiert"",""+12.5"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,afb,II,neu,mittel,"Anwenden: erkennen, dass es für die Summe kein Wurzelgesetz gibt; erst addieren, dann Wurzel ziehen."
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,correct_answers,"[""10"",""+10""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,solution,"Für Summen gibt es kein Wurzelgesetz: erst unter der Wurzel rechnen.
+√(36 + 64) = √100 = 10.",neu,hoch,Nachgerechnet.
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,typical_errors,"[{""error"":""Die Wurzel gliedweise gezogen: √36 + √64 = 6 + 8 = 14."",""socratic_question"":""Was ergibt 14 · 14 – ist das 36 + 64?""},{""error"":""Nur 36 + 64 = 100 gerechnet, die Wurzel nicht gezogen."",""socratic_question"":""Steht 100 noch unter der Wurzel?""},{""error"":""√100 als 100 : 2 = 50 genommen."",""socratic_question"":""Was ergibt 50 · 50?""}]",neu,hoch,"Aus acceptance.known_errors (wurzel_gliedweise, falsche_groesse_beantwortet, wurzel_halbiert)."
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+926f4f6e-7eca-43f5-92c2-855eff8167b4,wurzel-gesetze-03,,acceptance.known_errors (keine UI),"{""14"":""wurzel_gliedweise"",""50"":""wurzel_halbiert"",""100"":""falsche_groesse_beantwortet"",""+14"":""wurzel_gliedweise"",""+100"":""falsche_groesse_beantwortet"",""+50"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,afb,II,neu,mittel,"Anwenden: Summe mit Dezimalzahlen unter der Wurzel, gliedweises Wurzelziehen ist verlockend."
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,correct_answers,"[""1,5"",""+1,5"",""1.5"",""+1.5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,solution,"Erst unter der Wurzel addieren: 1,44 + 0,81 = 2,25.
+√2,25 = 1,5, denn 1,5 · 1,5 = 2,25.",neu,hoch,Nachgerechnet.
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,typical_errors,"[{""error"":""Die Wurzel gliedweise gezogen: √1,44 + √0,81 = 1,2 + 0,9 = 2,1."",""socratic_question"":""Was ergibt 2,1 · 2,1 – ist das 2,25?""},{""error"":""Nur 1,44 + 0,81 = 2,25 gerechnet, die Wurzel nicht gezogen."",""socratic_question"":""Steht 2,25 noch unter der Wurzel?""},{""error"":""√2,25 als 2,25 : 2 = 1,125 genommen."",""socratic_question"":""Was ergibt 1,125 · 1,125?""}]",neu,hoch,"Aus acceptance.known_errors (wurzel_gliedweise, falsche_groesse_beantwortet, wurzel_halbiert)."
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,acceptance.known_errors (keine UI),"{""2,1"":""wurzel_gliedweise"",""+2,1"":""wurzel_gliedweise"",""2.1"":""wurzel_gliedweise"",""+2.1"":""wurzel_gliedweise"",""2,25"":""falsche_groesse_beantwortet"",""+2,25"":""falsche_groesse_beantwortet"",""2.25"":""falsche_groesse_beantwortet"",""+2.25"":""falsche_groesse_beantwortet"",""1,125"":""wurzel_halbiert"",""+1,125"":""wurzel_halbiert"",""1.125"":""wurzel_halbiert"",""+1.125"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ce24db36-6dac-4b3f-8395-e815549a7689,wurzel-gesetze-04,,sondierrang (keine UI),1,neu,mittel,"wurzel-gesetze-04 = 1, wurzel-gesetze-05 = 2. Rang 1 aus Profil {falsche_groesse_beantwortet,wurzel_gliedweise,wurzel_halbiert}, Rang 2 aus Profil {falsche_groesse_beantwortet,plus_statt_mal,umfang_statt_flaeche} (2 neue Fehlbilder)"
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: Flächeninhalt als Produkt zweier Wurzeln, Produktgesetz nutzen."
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,correct_answers,"[""12"",""12 m²"",""12m²""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,solution,A = √8 m · √18 m = √(8 · 18) m² = √144 m² = 12 m².,neu,hoch,Nachgerechnet.
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,typical_errors,"[{""error"":""Nur 8 · 18 = 144 gerechnet, die Wurzel nicht gezogen."",""socratic_question"":""Steht 144 noch unter der Wurzel?""},{""error"":""Den Umfang berechnet statt des Flächeninhalts: etwa 14,14 m."",""socratic_question"":""Ist nach dem Rand oder nach der Fläche des Feldes gefragt?""},{""error"":""Unter der Wurzel addiert statt multipliziert: √26 ≈ 5,10."",""socratic_question"":""Wie berechnet man den Flächeninhalt eines Rechtecks?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, umfang_statt_flaeche, plus_statt_mal)."
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,acceptance.known_errors (keine UI),"{""144"":""falsche_groesse_beantwortet"",""144 m²"":""falsche_groesse_beantwortet"",""144m²"":""falsche_groesse_beantwortet"",""14,14"":""umfang_statt_flaeche"",""14.14"":""umfang_statt_flaeche"",""14,14 m²"":""umfang_statt_flaeche"",""14,14m²"":""umfang_statt_flaeche"",""5,10"":""plus_statt_mal"",""5.10"":""plus_statt_mal"",""5,1"":""plus_statt_mal"",""5.1"":""plus_statt_mal"",""5,10 m²"":""plus_statt_mal"",""5,10m²"":""plus_statt_mal"",""5,1 m²"":""plus_statt_mal"",""5,1m²"":""plus_statt_mal""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3,wurzel-gesetze-05,,sondierrang (keine UI),2,neu,mittel,"wurzel-gesetze-04 = 1, wurzel-gesetze-05 = 2. Rang 1 aus Profil {falsche_groesse_beantwortet,wurzel_gliedweise,wurzel_halbiert}, Rang 2 aus Profil {falsche_groesse_beantwortet,plus_statt_mal,umfang_statt_flaeche} (2 neue Fehlbilder)"
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,afb,III,neu,mittel,"Problemlösen: Flächen addieren und erst danach die Wurzel ziehen; die Seiten dürfen nicht addiert werden."
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,correct_answers,"[""5"",""5 m"",""5m""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,solution,"Fläche des neuen Beets: 9 m² + 16 m² = 25 m².
+Seitenlänge: √25 m = 5 m.
+(Nicht 3 m + 4 m: ein Quadrat mit 7 m Seite hätte 49 m².)",neu,hoch,Nachgerechnet.
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,typical_errors,"[{""error"":""Die Seitenlängen addiert: √9 + √16 = 3 + 4 = 7."",""socratic_question"":""Wie groß wäre ein quadratisches Beet mit 7 m Seitenlänge?""},{""error"":""Den Flächeninhalt 25 angegeben statt der Seitenlänge."",""socratic_question"":""Wurde nach der Fläche oder nach der Seite gefragt?""},{""error"":""√25 als 25 : 2 = 12,5 genommen."",""socratic_question"":""Was ergibt 12,5 · 12,5?""}]",neu,hoch,"Aus acceptance.known_errors (wurzel_gliedweise, falsche_groesse_beantwortet, wurzel_halbiert)."
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+88c99e21-a70e-42e5-b426-07e29b93d3fe,wurzel-gesetze-06,,acceptance.known_errors (keine UI),"{""7"":""wurzel_gliedweise"",""25"":""falsche_groesse_beantwortet"",""7 m"":""wurzel_gliedweise"",""7m"":""wurzel_gliedweise"",""25 m"":""falsche_groesse_beantwortet"",""25m"":""falsche_groesse_beantwortet"",""12,5"":""wurzel_halbiert"",""12.5"":""wurzel_halbiert"",""12,5 m"":""wurzel_halbiert"",""12,5m"":""wurzel_halbiert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,afb,I,neu,mittel,"Reproduzieren: Quadratzahl-Faktor 36 abspalten, Form vorgegeben."
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,correct_answers,"[""6"",""+6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,solution,"72 = 36 · 2, also √72 = √36 · √2 = 6 · √2.
+a = 6.",neu,hoch,Nachgerechnet.
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,typical_errors,"[{""error"":""Den Faktor 36 herausgezogen, ohne aus ihm die Wurzel zu ziehen."",""socratic_question"":""Was ergibt (36 · √2)² – ist das 72?""},{""error"":""√36 als 36 : 2 = 18 genommen."",""socratic_question"":""Was ergibt 18 · 18?""},{""error"":""Den Näherungswert von √72 angegeben statt a."",""socratic_question"":""Nach welcher Zahl ist gefragt: nach √72 oder nach dem Faktor vor √2?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_ohne_wurzel, wurzel_halbiert, falsche_groesse_beantwortet)."
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0bcc83c8-42f0-4956-b1d0-00446cb6e5e2,wurzel-teilweise-01,,acceptance.known_errors (keine UI),"{""18"":""wurzel_halbiert"",""36"":""faktor_ohne_wurzel"",""+36"":""faktor_ohne_wurzel"",""+18"":""wurzel_halbiert"",""8,49"":""falsche_groesse_beantwortet"",""+8,49"":""falsche_groesse_beantwortet"",""8.49"":""falsche_groesse_beantwortet"",""+8.49"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,afb,I,neu,mittel,"Reproduzieren: Quadratzahl-Faktor 16 abspalten, Form vorgegeben."
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,correct_answers,"[""4"",""+4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,solution,"48 = 16 · 3, also √48 = √16 · √3 = 4 · √3.
+a = 4.",neu,hoch,Nachgerechnet.
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,typical_errors,"[{""error"":""Den Faktor 16 herausgezogen, ohne aus ihm die Wurzel zu ziehen."",""socratic_question"":""Was ergibt (16 · √3)² – ist das 48?""},{""error"":""√16 als 16 : 2 = 8 genommen."",""socratic_question"":""Was ergibt 8 · 8?""},{""error"":""Den Näherungswert von √48 angegeben statt a."",""socratic_question"":""Nach welcher Zahl ist gefragt: nach √48 oder nach dem Faktor vor √3?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_ohne_wurzel, wurzel_halbiert, falsche_groesse_beantwortet)."
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+21427340-fc85-41c4-abea-99ad0121b83c,wurzel-teilweise-02,,acceptance.known_errors (keine UI),"{""8"":""wurzel_halbiert"",""16"":""faktor_ohne_wurzel"",""+16"":""faktor_ohne_wurzel"",""+8"":""wurzel_halbiert"",""6,93"":""falsche_groesse_beantwortet"",""+6,93"":""falsche_groesse_beantwortet"",""6.93"":""falsche_groesse_beantwortet"",""+6.93"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,afb,II,neu,mittel,"Anwenden: großer Radikand, der Quadratzahl-Faktor 100 muss erst gefunden werden."
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,correct_answers,"[""10"",""+10""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,solution,"200 = 100 · 2, also √200 = √100 · √2 = 10 · √2.
+a = 10.",neu,hoch,Nachgerechnet.
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,typical_errors,"[{""error"":""Den Faktor 100 herausgezogen, ohne aus ihm die Wurzel zu ziehen."",""socratic_question"":""Was ergibt (100 · √2)² – ist das 200?""},{""error"":""Den Näherungswert von √200 angegeben statt a."",""socratic_question"":""Nach welcher Zahl ist gefragt: nach √200 oder nach dem Faktor vor √2?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_ohne_wurzel, falsche_groesse_beantwortet)."
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+ad08897e-a44b-43fb-a779-96b889c069db,wurzel-teilweise-03,,acceptance.known_errors (keine UI),"{""100"":""faktor_ohne_wurzel"",""+100"":""faktor_ohne_wurzel"",""14,14"":""falsche_groesse_beantwortet"",""+14,14"":""falsche_groesse_beantwortet"",""14.14"":""falsche_groesse_beantwortet"",""+14.14"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,afb,II,neu,mittel,"Anwenden: erst das Produktgesetz, dann teilweise die Wurzel ziehen."
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,correct_answers,"[""6"",""+6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,solution,"√18 · √6 = √108.
+108 = 36 · 3, also √108 = √36 · √3 = 6 · √3.
+a = 6.",neu,hoch,Nachgerechnet.
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,typical_errors,"[{""error"":""Den Faktor 36 herausgezogen, ohne aus ihm die Wurzel zu ziehen."",""socratic_question"":""Was ergibt (36 · √3)² – ist das 108?""},{""error"":""√36 als 36 : 2 = 18 genommen."",""socratic_question"":""Was ergibt 18 · 18?""},{""error"":""Den Näherungswert von √108 angegeben statt a."",""socratic_question"":""Nach welcher Zahl ist gefragt: nach dem Produkt oder nach dem Faktor vor √3?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_ohne_wurzel, wurzel_halbiert, falsche_groesse_beantwortet)."
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,acceptance.known_errors (keine UI),"{""18"":""wurzel_halbiert"",""36"":""faktor_ohne_wurzel"",""+36"":""faktor_ohne_wurzel"",""+18"":""wurzel_halbiert"",""10,39"":""falsche_groesse_beantwortet"",""+10,39"":""falsche_groesse_beantwortet"",""10.39"":""falsche_groesse_beantwortet"",""+10.39"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1dece473-758d-4108-9969-02b495dbf4ed,wurzel-teilweise-04,,sondierrang (keine UI),1,neu,mittel,"wurzel-teilweise-04 = 1, wurzel-teilweise-06 = 2. Rang 1 aus Profil {faktor_ohne_wurzel,falsche_groesse_beantwortet,wurzel_halbiert}, Rang 2 aus Profil {faktor_ohne_wurzel,mal_exponent} (1 neue Fehlbilder)"
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: Seitenlänge als Wurzel der Fläche, dann teilweise die Wurzel ziehen."
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,correct_answers,"[""6"",""+6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,solution,"Seitenlänge = √180 m.
+180 = 36 · 5, also √180 = √36 · √5 = 6 · √5.
+a = 6.",neu,hoch,Nachgerechnet.
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,typical_errors,"[{""error"":""Den Faktor 36 herausgezogen, ohne aus ihm die Wurzel zu ziehen."",""socratic_question"":""Was ergibt (36 · √5)² – ist das 180?""},{""error"":""√36 als 36 : 2 = 18 genommen."",""socratic_question"":""Was ergibt 18 · 18?""},{""error"":""Die Seitenlänge als Näherungswert angegeben statt a."",""socratic_question"":""Nach welcher Zahl ist gefragt: nach der Seitenlänge oder nach dem Faktor vor √5?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_ohne_wurzel, wurzel_halbiert, falsche_groesse_beantwortet)."
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+df6b2bcd-8643-46b2-9553-db75854b597d,wurzel-teilweise-05,,acceptance.known_errors (keine UI),"{""18"":""wurzel_halbiert"",""36"":""faktor_ohne_wurzel"",""+36"":""faktor_ohne_wurzel"",""+18"":""wurzel_halbiert"",""13,42"":""falsche_groesse_beantwortet"",""+13,42"":""falsche_groesse_beantwortet"",""13.42"":""falsche_groesse_beantwortet"",""+13.42"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,afb,III,neu,mittel,Problemlösen: Rückrichtung – den Faktor quadrieren und unter die Wurzel bringen.
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,est_duration_sec,90,neu,mittel,"Zeitregel: AFB III, kein Sachkontext."
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,curriculum_grade,9,neu,hoch,"Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Ari-2/Ari-6/Ari-7 (Quadratwurzeln, reelle Zahlen)."
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,cluster_id,e7108c9a-d19e-4021-8499-55b4f3d5d70c,neu,hoch,Zahl & Rechnen wie potenzen (Quadratwurzeln) im Bestand.
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (Ari-2, Ari-6, Ari-7)."
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,correct_answers,"[""108"",""+108""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,solution,"6 = √36, also 6 · √3 = √36 · √3 = √(36 · 3) = √108.
+b = 108.",neu,hoch,Nachgerechnet.
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,typical_errors,"[{""error"":""Den Faktor 6 unter die Wurzel gebracht, ohne ihn zu quadrieren: √18."",""socratic_question"":""Was ergibt √18 ungefähr – ist das so viel wie 6 · √3?""},{""error"":""6² als 2 · 6 = 12 gerechnet: √36."",""socratic_question"":""Was ergibt 6 · 6?""}]",neu,hoch,"Aus acceptance.known_errors (faktor_ohne_wurzel, mal_exponent)."
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,acceptance.known_errors (keine UI),"{""18"":""faktor_ohne_wurzel"",""36"":""mal_exponent"",""+18"":""faktor_ohne_wurzel"",""+36"":""mal_exponent""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0,wurzel-teilweise-06,,sondierrang (keine UI),2,neu,mittel,"wurzel-teilweise-04 = 1, wurzel-teilweise-06 = 2. Rang 1 aus Profil {faktor_ohne_wurzel,falsche_groesse_beantwortet,wurzel_halbiert}, Rang 2 aus Profil {faktor_ohne_wurzel,mal_exponent} (1 neue Fehlbilder)"

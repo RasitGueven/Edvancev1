@@ -1,0 +1,1010 @@
+[
+ {
+  "task": {
+   "id": "0336c9f9-a802-4e69-b7aa-ee6373e590c2",
+   "title": "Funktionswert · f(4) bei f(x) = 2(x − 1)² + 3",
+   "question": "Gegeben ist die Funktion f(x) = 2(x − 1)² + 3.\n\nBerechne f(4). Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_parabel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 2(x − 1)² + 3.\n\nBerechne f(4). Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-parabel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8",
+   "title": "Verschiebung nach oben · aus der Abbildung",
+   "question": "Die Abbildung zeigt eine verschobene Normalparabel.\n\nUm wie viele Einheiten ist die Parabel gegenüber der Normalparabel nach oben verschoben? Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_parabel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt eine verschobene Normalparabel.\n\nUm wie viele Einheiten ist die Parabel gegenüber der Normalparabel nach oben verschoben? Die gesuchten Werte sind ganzzahlig."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-parabel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "191789f5-7435-4ba3-a6f5-a94155f2b954",
+   "title": "Funktionswert · f(−2) bei f(x) = 3(x − 1)² − 5",
+   "question": "Gegeben ist die Funktion f(x) = 3(x − 1)² − 5.\n\nBerechne f(−2). Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_parabel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 3(x − 1)² − 5.\n\nBerechne f(−2). Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-parabel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "81c9b40a-8ec6-4a45-8e15-126c75b4e2eb",
+   "title": "Streckfaktor · Parabel durch P(5|35)",
+   "question": "Die Parabel y = a · (x − 1)² + 3 geht durch den Punkt P(5|35).\n\nBestimme den Streckfaktor a. Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_parabel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Parabel y = a · (x − 1)² + 3 geht durch den Punkt P(5|35).\n\nBestimme den Streckfaktor a. Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-parabel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ab03e9ba-d464-476a-9197-11b131b32469",
+   "title": "Funktionswert · Wasserstrahl 5 m von der Düse",
+   "question": "Der Wasserstrahl eines Brunnens folgt der Funktion h(x) = −0,5 · (x − 2)² + 5. Dabei ist x der waagerechte Abstand von der Düse in Metern und h(x) die Höhe des Strahls in Metern.\n\nWie hoch ist der Strahl 5 m waagerecht von der Düse entfernt? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_parabel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Wasserstrahl eines Brunnens folgt der Funktion h(x) = −0,5 · (x − 2)² + 5. Dabei ist x der waagerechte Abstand von der Düse in Metern und h(x) die Höhe des Strahls in Metern.\n\nWie hoch ist der Strahl 5 m waagerecht von der Düse entfernt? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-parabel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "787e947c-ce58-403a-8057-a15a82b50f94",
+   "title": "Streckfaktor · aus Scheitel und Punkt in der Abbildung",
+   "question": "Die Abbildung zeigt eine Parabel, die aus der Normalparabel durch Strecken und Verschieben entsteht. Eingezeichnet sind ihr Scheitelpunkt S und ein weiterer Punkt P. Beide haben ganzzahlige Koordinaten.\n\nBestimme den Streckfaktor a der Parabel. Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_parabel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt eine Parabel, die aus der Normalparabel durch Strecken und Verschieben entsteht. Eingezeichnet sind ihr Scheitelpunkt S und ein weiterer Punkt P. Beide haben ganzzahlige Koordinaten.\n\nBestimme den Streckfaktor a der Parabel. Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-parabel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f96d3513-0ae9-4316-a871-4bf72aff96c3",
+   "title": "Scheitelpunkt · y = (x − 3)² + 1",
+   "question": "Gegeben ist die Parabel y = (x − 3)² + 1.\n\nGib die Koordinaten ihres Scheitelpunkts an. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_scheitel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-scheitel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a43a1329-4880-456e-8865-1b1cd82e2862",
+   "title": "Scheitelpunkt · aus der Abbildung ablesen",
+   "question": "Die Abbildung zeigt eine nach oben geöffnete Parabel.\n\nLies die Koordinaten ihres Scheitelpunkts ab. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_scheitel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-scheitel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1d8a70aa-9010-4259-9278-5cbc6425d3c0",
+   "title": "Scheitelpunkt · y = −2(x + 4)² − 5",
+   "question": "Gegeben ist die Parabel y = −2(x + 4)² − 5.\n\nGib die Koordinaten ihres Scheitelpunkts an. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_scheitel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-scheitel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f70e9312-b530-4b4b-9c7a-087ef87fbba9",
+   "title": "Scheitelpunkt · y = 4 − 2(x − 6)²",
+   "question": "Gegeben ist die Parabel y = 4 − 2(x − 6)².\n\nGib die Koordinaten ihres Scheitelpunkts an. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_scheitel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-scheitel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0d7af296-4ca7-4db4-8c2e-d0f922d9150c",
+   "title": "Scheitelpunkt · Brückenbogen",
+   "question": "Ein Brückenbogen hat die Form h(x) = −0,02 · (x − 25)² + 12,5. Dabei ist x der waagerechte Abstand vom linken Fußpunkt in Metern und h(x) die Höhe in Metern.\n\nWo liegt der höchste Punkt des Bogens? Gib das Ergebnis exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_scheitel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Abstand des höchsten Punkts vom linken Fußpunkt in m",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Höhe des höchsten Punkts in m",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-scheitel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f8f95f00-a759-4d59-8294-542bb7e5b0c7",
+   "title": "Rückrichtung · c aus dem Scheitel S(2|−1)",
+   "question": "Eine nach oben geöffnete Normalparabel (a = 1) hat den Scheitelpunkt S(2|−1). Ihre Gleichung lässt sich als y = x² + bx + c schreiben.\n\nWelchen Wert hat c? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_scheitel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine nach oben geöffnete Normalparabel (a = 1) hat den Scheitelpunkt S(2|−1). Ihre Gleichung lässt sich als y = x² + bx + c schreiben.\n\nWelchen Wert hat c? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-scheitel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ed2fb959-2f69-40c1-a8a7-7549097e3fb3",
+   "title": "Quadratische Ergänzung · y = x² − 6x + 5",
+   "question": "Gegeben ist die Parabel y = x² − 6x + 5.\n\nBestimme mit quadratischer Ergänzung die Koordinaten ihres Scheitelpunkts. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_normalform",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-normalform-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "dc585f12-7da2-4909-baeb-ceda0b4af570",
+   "title": "Quadratische Ergänzung · y = x² + 4x + 1",
+   "question": "Gegeben ist die Parabel y = x² + 4x + 1.\n\nBestimme mit quadratischer Ergänzung die Koordinaten ihres Scheitelpunkts. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_normalform",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-normalform-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "45076244-62bd-4ca6-83a7-52308dfcbc8f",
+   "title": "Quadratische Ergänzung · y = 2x² − 8x + 3",
+   "question": "Gegeben ist die Parabel y = 2x² − 8x + 3.\n\nBestimme mit quadratischer Ergänzung die Koordinaten ihres Scheitelpunkts. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_normalform",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-normalform-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cd17cea3-1055-4a70-a247-dab0845293c7",
+   "title": "Quadratische Ergänzung · y = x² − 5x + 2",
+   "question": "Gegeben ist die Parabel y = x² − 5x + 2.\n\nBestimme mit quadratischer Ergänzung die Koordinaten ihres Scheitelpunkts. Gib das Ergebnis exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_normalform",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate des Scheitelpunkts",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-normalform-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d72d1b39-b747-42a8-a1d6-66ae99c7718b",
+   "title": "Quadratische Ergänzung · höchster Punkt einer Wurfbahn",
+   "question": "Ein Ball fliegt auf der Bahn h(x) = −0,1x² + 2x + 1,5. Dabei ist x der waagerechte Abstand vom Abwurfpunkt in Metern und h(x) die Höhe des Balls in Metern.\n\nBestimme mit quadratischer Ergänzung, wo der Ball am höchsten ist. Gib das Ergebnis exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_normalform",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Waagerechter Abstand vom Abwurfpunkt am höchsten Punkt in m",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Größte Höhe des Balls in m",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-normalform-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "97e9d281-b7ad-4eee-8a25-f500ae6c2f02",
+   "title": "Problemlösen · Scheitelhöhe bei bekannter Scheitelstelle",
+   "question": "Die Parabel y = x² + bx + 7 hat ihren Scheitelpunkt bei x = 3.\n\nWelche y-Koordinate hat der Scheitelpunkt? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_normalform",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Parabel y = x² + bx + 7 hat ihren Scheitelpunkt bei x = 3.\n\nWelche y-Koordinate hat der Scheitelpunkt? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-normalform-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d",
+   "title": "Nullstellen · f(x) = x² − 2x − 8",
+   "question": "Gegeben ist die Funktion f(x) = x² − 2x − 8.\n\nBerechne ihre Nullstellen. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_nullstellen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Nullstelle",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Nullstelle",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-nullstellen-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "344b91f6-06af-4aec-93ae-52be49c38a2f",
+   "title": "Nullstellen · f(x) = (x − 1)² − 4",
+   "question": "Gegeben ist die Funktion f(x) = (x − 1)² − 4.\n\nBerechne ihre Nullstellen. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_nullstellen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Nullstelle",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Nullstelle",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-nullstellen-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9d10386c-d849-4387-85e1-2cd4e9c64bb4",
+   "title": "Nullstellen · aus der Abbildung ablesen",
+   "question": "Die Abbildung zeigt die Parabel einer quadratischen Funktion f.\n\nLies die Nullstellen von f ab. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_nullstellen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Nullstelle",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Nullstelle",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-nullstellen-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cb03b892-5d43-4818-85b9-7160debaea43",
+   "title": "Nullstellen · f(x) = 2x² + 4x − 6",
+   "question": "Gegeben ist die Funktion f(x) = 2x² + 4x − 6.\n\nBerechne ihre Nullstellen. Die gesuchten Werte sind ganzzahlig.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_quadr_nullstellen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Nullstelle",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Nullstelle",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-nullstellen-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2fbd2563-648f-4990-9cff-429936af589d",
+   "title": "Nullstelle · wann der Ball den Boden trifft",
+   "question": "Ein Ball wird geworfen. Seine Höhe über dem Boden ist h(t) = −5t² + 12t + 2 (t in Sekunden nach dem Abwurf, h in Metern).\n\nNach wie vielen Sekunden trifft der Ball auf dem Boden auf? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_nullstellen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Ball wird geworfen. Seine Höhe über dem Boden ist h(t) = −5t² + 12t + 2 (t in Sekunden nach dem Abwurf, h in Metern).\n\nNach wie vielen Sekunden trifft der Ball auf dem Boden auf? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "s",
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-nullstellen-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "52ca5f74-4822-4752-a21c-bba0800e0418",
+   "title": "Rückrichtung · Scheitelhöhe aus den Nullstellen",
+   "question": "Eine nach oben geöffnete Normalparabel hat die Nullstellen −1 und 5.\n\nWelche y-Koordinate hat ihr Scheitelpunkt? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_nullstellen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine nach oben geöffnete Normalparabel hat die Nullstellen −1 und 5.\n\nWelche y-Koordinate hat ihr Scheitelpunkt? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-nullstellen-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1be8b1ae-0f25-45cf-a65a-19ddabc06c6c",
+   "title": "Größter Funktionswert · f(x) = −(x − 4)² + 7",
+   "question": "Die Funktion f(x) = −(x − 4)² + 7 hat einen größten Funktionswert.\n\nWie groß ist dieser größte Funktionswert? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_extrem",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Funktion f(x) = −(x − 4)² + 7 hat einen größten Funktionswert.\n\nWie groß ist dieser größte Funktionswert? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-extrem-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c",
+   "title": "Kleinster Funktionswert · f(x) = x² − 8x + 10",
+   "question": "Die Funktion f(x) = x² − 8x + 10 hat einen kleinsten Funktionswert.\n\nWie groß ist dieser kleinste Funktionswert? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_extrem",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Funktion f(x) = x² − 8x + 10 hat einen kleinsten Funktionswert.\n\nWie groß ist dieser kleinste Funktionswert? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-extrem-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f1e39983-43c3-4048-a8fd-8efa86af128a",
+   "title": "Größter Funktionswert · f(x) = −2x² + 12x − 5",
+   "question": "Die Funktion f(x) = −2x² + 12x − 5 hat einen größten Funktionswert.\n\nWie groß ist dieser größte Funktionswert? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_extrem",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Funktion f(x) = −2x² + 12x − 5 hat einen größten Funktionswert.\n\nWie groß ist dieser größte Funktionswert? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-extrem-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "547e47ca-bd44-479d-ae44-932644219954",
+   "title": "Zahlenrätsel · Summe 20, größtes Produkt",
+   "question": "Zwei Zahlen haben die Summe 20. Ihr Produkt soll so groß wie möglich sein.\n\nWie groß ist das größte mögliche Produkt? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_extrem",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Zahlen haben die Summe 20. Ihr Produkt soll so groß wie möglich sein.\n\nWie groß ist das größte mögliche Produkt? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-extrem-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f38cec97-0b1e-400c-9708-fcf18e52b371",
+   "title": "Maximale Höhe · Wurfbahn h(t) = −5t² + 20t + 1",
+   "question": "Ein Ball wird senkrecht nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 1 (t in Sekunden nach dem Abwurf, h in Metern).\n\nWelche maximale Höhe erreicht der Ball? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_extrem",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Ball wird senkrecht nach oben geworfen. Seine Höhe ist h(t) = −5t² + 20t + 1 (t in Sekunden nach dem Abwurf, h in Metern).\n\nWelche maximale Höhe erreicht der Ball? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-extrem-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4a70a989-5a09-4037-af27-476e378e7120",
+   "title": "Größte Fläche · 40 m Zaun an einer Mauer",
+   "question": "An einer langen Mauer soll mit 40 m Zaun eine rechteckige Fläche eingezäunt werden. Die Mauer bildet eine Seite des Rechtecks, die anderen drei Seiten werden mit dem Zaun begrenzt. Der ganze Zaun wird verbraucht.\n\nWie groß ist der größtmögliche Flächeninhalt in Quadratmetern? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_quadr_extrem",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "An einer langen Mauer soll mit 40 m Zaun eine rechteckige Fläche eingezäunt werden. Die Mauer bildet eine Seite des Rechtecks, die anderen drei Seiten werden mit dem Zaun begrenzt. Der ganze Zaun wird verbraucht.\n\nWie groß ist der größtmögliche Flächeninhalt in Quadratmetern? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k9_quadrfkt",
+   "source_ref": "quadrfkt-extrem-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

@@ -1,0 +1,553 @@
+Aufgabe-ID,source_ref,Teilaufgabe,Feld,neuer Wert,Art,Unsicherheit,Begründung
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,afb,I,neu,mittel,Reproduzieren: eine positive Zahl in die Scheitelpunktform einsetzen.
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,correct_answers,"[""21"",""+21""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,solution,"Klammer zuerst: 4 − 1 = 3.
+Quadrieren: 3² = 9.
+Mal 2 und plus 3: f(4) = 2 · 9 + 3 = 21.",neu,hoch,Nachgerechnet.
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,typical_errors,"[{""error"":""Erst mit 2 multipliziert, dann quadriert: (2 · 3)² + 3 = 39."",""socratic_question"":""Was wird zuerst gerechnet: das Quadrat oder das Mal 2?""},{""error"":""Das Quadrat als „mal 2\"" gerechnet: 3² = 6."",""socratic_question"":""Was bedeutet die kleine 2 an der Klammer?""}]",neu,hoch,"Aus acceptance.known_errors (vorrang_ignoriert, mal_exponent)."
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0336c9f9-a802-4e69-b7aa-ee6373e590c2,quadrfkt-parabel-01,,acceptance.known_errors (keine UI),"{""15"":""mal_exponent"",""39"":""vorrang_ignoriert"",""+39"":""vorrang_ignoriert"",""+15"":""mal_exponent""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,afb,I,neu,mittel,Reproduzieren: die Verschiebung einer Normalparabel am Gitter ablesen.
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,needs_image,true,neu,hoch,"Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,correct_answers,"[""3"",""+3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,solution,"Der Scheitelpunkt der Normalparabel liegt bei (0|0).
+Der Scheitelpunkt der abgebildeten Parabel liegt bei (2|3).
+Die Parabel ist um 3 Einheiten nach oben (und um 2 nach rechts) verschoben.",neu,hoch,Nachgerechnet.
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,typical_errors,"[{""error"":""Die Verschiebung nach rechts angegeben statt nach oben."",""socratic_question"":""Welche Koordinate des Scheitelpunkts sagt etwas über oben und unten?""}]",neu,hoch,Aus acceptance.known_errors (koordinaten_vertauscht).
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,acceptance.known_errors (keine UI),"{""2"":""koordinaten_vertauscht"",""+2"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1e0aff9b-8268-4ac8-a77c-3a492d7c7dc8,quadrfkt-parabel-02,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-2,""x_max"":6,""y_min"":-1,""y_max"":9,""funktionen"":[{""typ"":""quadratisch"",""a"":1,""b"":-4,""c"":7}]}",neu,hoch,"Koordinatensystem mit Gitter und einer nach oben geöffneten, verschobenen Normalparabel."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,afb,II,neu,mittel,"Anwenden: negatives Argument, die Klammer wird negativ und muss richtig quadriert werden."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,correct_answers,"[""22"",""+22""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,solution,"Klammer zuerst: −2 − 1 = −3.
+Quadrieren: (−3)² = 9.
+Mal 3 und minus 5: f(−2) = 3 · 9 − 5 = 22.",neu,hoch,Nachgerechnet.
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,typical_errors,"[{""error"":""Das Quadrat einer negativen Zahl negativ gerechnet: (−3)² = −9."",""socratic_question"":""Welches Vorzeichen hat das Produkt (−3) · (−3)?""},{""error"":""Erst mit 3 multipliziert, dann quadriert: (3 · (−3))² − 5 = 76."",""socratic_question"":""Was wird zuerst gerechnet: das Quadrat oder das Mal 3?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_potenz, vorrang_ignoriert)."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,acceptance.known_errors (keine UI),"{""76"":""vorrang_ignoriert"",""-32"":""vorzeichen_potenz"",""−32"":""vorzeichen_potenz"",""- 32"":""vorzeichen_potenz"",""+76"":""vorrang_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+191789f5-7435-4ba3-a6f5-a94155f2b954,quadrfkt-parabel-03,,sondierrang (keine UI),2,neu,mittel,"quadrfkt-parabel-06 = 1, quadrfkt-parabel-03 = 2. Rang 1 aus Profil {koordinate_vorzeichen_verloren,mal_exponent,umgekehrt_geteilt}, Rang 2 aus Profil {vorrang_ignoriert,vorzeichen_potenz} (2 neue Fehlbilder)"
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,afb,II,neu,mittel,Anwenden: Punkt einsetzen und die Gleichung nach a umstellen.
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,correct_answers,"[""2"",""+2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,solution,"P einsetzen: 35 = a · (5 − 1)² + 3.
+35 = a · 16 + 3, also 32 = 16 · a.
+a = 32 : 16 = 2.",neu,hoch,Nachgerechnet.
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,typical_errors,"[{""error"":""Das Quadrat als „mal 2\"" gerechnet: (5 − 1)² = 8."",""socratic_question"":""Was bedeutet die kleine 2 an der Klammer?""},{""error"":""Die 3 beim Umstellen addiert statt subtrahiert: 38 : 16."",""socratic_question"":""Wie bringst du das „+ 3\"" auf die andere Seite?""}]",neu,hoch,"Aus acceptance.known_errors (mal_exponent, vorzeichen_beim_umstellen)."
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+81c9b40a-8ec6-4a45-8e15-126c75b4e2eb,quadrfkt-parabel-04,,acceptance.known_errors (keine UI),"{""4"":""mal_exponent"",""+4"":""mal_exponent"",""2,375"":""vorzeichen_beim_umstellen"",""+2,375"":""vorzeichen_beim_umstellen"",""2.375"":""vorzeichen_beim_umstellen"",""+2.375"":""vorzeichen_beim_umstellen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: waagerechten Abstand als x erkennen und einsetzen, negativer Streckfaktor."
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,correct_answers,"[""0,5"",""0.5"",""0,5 m"",""0,5m""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,solution,"x = 5 einsetzen: 5 − 2 = 3, 3² = 9.
+h(5) = −0,5 · 9 + 5 = −4,5 + 5 = 0,5 m.",neu,hoch,Nachgerechnet.
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,typical_errors,"[{""error"":""Erst mit −0,5 multipliziert, dann quadriert: (−1,5)² + 5 = 7,25."",""socratic_question"":""Was wird zuerst gerechnet: das Quadrat oder das Mal −0,5?""},{""error"":""Das Quadrat als „mal 2\"" gerechnet: 3² = 6."",""socratic_question"":""Was bedeutet die kleine 2 an der Klammer?""}]",neu,hoch,"Aus acceptance.known_errors (vorrang_ignoriert, mal_exponent)."
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+ab03e9ba-d464-476a-9197-11b131b32469,quadrfkt-parabel-05,,acceptance.known_errors (keine UI),"{""2"":""mal_exponent"",""7,25"":""vorrang_ignoriert"",""7.25"":""vorrang_ignoriert"",""7,25 m"":""vorrang_ignoriert"",""7,25m"":""vorrang_ignoriert"",""2 m"":""mal_exponent"",""2m"":""mal_exponent""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,afb,III,neu,mittel,"Problemlösen: Scheitelpunkt und zweiten Punkt ablesen, die Scheitelpunktform selbst aufstellen und nach a umstellen."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,est_duration_sec,90,neu,mittel,"Zeitregel: AFB III, kein Sachkontext."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,needs_image,true,neu,hoch,"Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,correct_answers,"[""0,5"",""+0,5"",""0.5"",""+0.5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,solution,"Ablesen: S(1|−3) und P(5|5).
+Scheitelpunktform: y = a · (x − 1)² − 3.
+P einsetzen: 5 = a · (5 − 1)² − 3, also 8 = 16 · a.
+a = 8 : 16 = 0,5.",neu,hoch,Nachgerechnet.
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,typical_errors,"[{""error"":""Das Quadrat als „mal 2\"" gerechnet: (5 − 1)² = 8."",""socratic_question"":""Was bedeutet die kleine 2 an der Klammer?""},{""error"":""Umgekehrt geteilt: 16 : 8 statt 8 : 16."",""socratic_question"":""Welche Zahl steht in 8 = a · 16 neben a – durch welche musst du teilen?""},{""error"":""Die y-Koordinate des Scheitels ohne Minus gelesen: S(1|3)."",""socratic_question"":""Liegt der Scheitelpunkt über oder unter der x-Achse?""}]",neu,hoch,"Aus acceptance.known_errors (mal_exponent, umgekehrt_geteilt, koordinate_vorzeichen_verloren)."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,acceptance.known_errors (keine UI),"{""1"":""mal_exponent"",""2"":""umgekehrt_geteilt"",""+1"":""mal_exponent"",""+2"":""umgekehrt_geteilt"",""0,125"":""koordinate_vorzeichen_verloren"",""+0,125"":""koordinate_vorzeichen_verloren"",""0.125"":""koordinate_vorzeichen_verloren"",""+0.125"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,sondierrang (keine UI),1,neu,mittel,"quadrfkt-parabel-06 = 1, quadrfkt-parabel-03 = 2. Rang 1 aus Profil {koordinate_vorzeichen_verloren,mal_exponent,umgekehrt_geteilt}, Rang 2 aus Profil {vorrang_ignoriert,vorzeichen_potenz} (2 neue Fehlbilder)"
+787e947c-ce58-403a-8057-a15a82b50f94,quadrfkt-parabel-06,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-4,""x_max"":6,""y_min"":-4,""y_max"":6,""funktionen"":[{""typ"":""quadratisch"",""a"":0.5,""b"":-1,""c"":-2.5}],""punkte"":[{""x"":1,""y"":-3,""label"":""S""},{""x"":5,""y"":5,""label"":""P""}]}",neu,hoch,"Koordinatensystem mit Gitter und einer nach oben geöffneten Parabel; ihr Scheitelpunkt S und ein Punkt P sind markiert."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,afb,I,neu,mittel,Reproduzieren: S(d|e) direkt aus der Scheitelpunktform ablesen.
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,1,correct_answers.1,"[""3"",""+3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,2,correct_answers.2,"[""1"",""+1""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,solution,"Scheitelpunktform y = (x − d)² + e mit S(d|e).
+(x − 3) wird null für x = 3, also d = 3.
+Außerhalb der Klammer steht + 1, also e = 1.
+S(3|1).",neu,hoch,Nachgerechnet.
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,typical_errors,"[{""error"":""Das Vorzeichen aus der Klammer übernommen: −3 statt 3."",""socratic_question"":""Für welches x wird die Klammer (x − 3) null?""},{""error"":""x- und y-Koordinate vertauscht."",""socratic_question"":""Welche Zahl steht außerhalb der Klammer?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, koordinaten_vertauscht)."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,1,acceptance.known_errors (keine UI),"{""-3"":""vorzeichen_aus_klammer"",""−3"":""vorzeichen_aus_klammer"",""- 3"":""vorzeichen_aus_klammer""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f96d3513-0ae9-4316-a871-4bf72aff96c3,quadrfkt-scheitel-01,2,acceptance.known_errors (keine UI),"{""3"":""koordinaten_vertauscht"",""+3"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,afb,I,neu,mittel,Reproduzieren: den tiefsten Punkt einer Parabel am Gitter ablesen.
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,needs_image,true,neu,hoch,"Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,1,correct_answers.1,"[""-2"",""−2"",""- 2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,2,correct_answers.2,"[""-3"",""−3"",""- 3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,solution,"Der tiefste Punkt der Parabel ist der Scheitelpunkt.
+Er liegt 2 Einheiten links der y-Achse: x = -2.
+Er liegt 3 Einheiten unter der x-Achse: y = -3.
+S(−2|−3).",neu,hoch,Nachgerechnet.
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,typical_errors,"[{""error"":""x- und y-Koordinate vertauscht."",""socratic_question"":""Welche Achse zeigt nach rechts?""},{""error"":""Das Minus vergessen: Der Scheitel liegt links der y-Achse."",""socratic_question"":""Liegt der Scheitelpunkt links oder rechts der y-Achse?""},{""error"":""x- und y-Koordinate vertauscht."",""socratic_question"":""Welche Achse zeigt nach oben?""},{""error"":""Das Minus vergessen: Der Scheitel liegt unter der x-Achse."",""socratic_question"":""Liegt der Scheitelpunkt über oder unter der x-Achse?""}]",neu,hoch,"Aus acceptance.known_errors (koordinaten_vertauscht, koordinate_vorzeichen_verloren)."
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,1,acceptance.known_errors (keine UI),"{""2"":""koordinate_vorzeichen_verloren"",""-3"":""koordinaten_vertauscht"",""−3"":""koordinaten_vertauscht"",""- 3"":""koordinaten_vertauscht"",""+2"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,2,acceptance.known_errors (keine UI),"{""3"":""koordinate_vorzeichen_verloren"",""-2"":""koordinaten_vertauscht"",""−2"":""koordinaten_vertauscht"",""- 2"":""koordinaten_vertauscht"",""+3"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a43a1329-4880-456e-8865-1b1cd82e2862,quadrfkt-scheitel-02,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-6,""x_max"":2,""y_min"":-4,""y_max"":5,""funktionen"":[{""typ"":""quadratisch"",""a"":1,""b"":4,""c"":1}]}",neu,hoch,Koordinatensystem mit Gitter und einer nach oben geöffneten Parabel.
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,afb,II,neu,mittel,"Anwenden: Plus in der Klammer und negativer Streckfaktor, der Faktor gehört nicht zum Scheitel."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,1,correct_answers.1,"[""-4"",""−4"",""- 4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,2,correct_answers.2,"[""-5"",""−5"",""- 5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,solution,"y = a(x − d)² + e mit S(d|e); der Faktor −2 ändert nur Öffnung und Streckung.
+(x + 4) wird null für x = −4, also d = -4.
+Außerhalb der Klammer steht − 5, also e = -5.
+S(−4|−5).",neu,hoch,Nachgerechnet.
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,typical_errors,"[{""error"":""Das Vorzeichen aus der Klammer übernommen: 4 statt −4."",""socratic_question"":""Für welches x wird die Klammer (x + 4) null?""},{""error"":""x- und y-Koordinate vertauscht."",""socratic_question"":""Welche Zahl steht in der Klammer?""},{""error"":""x- und y-Koordinate vertauscht."",""socratic_question"":""Welche Zahl steht außerhalb der Klammer?""},{""error"":""Das Minus vor der 5 nicht übernommen."",""socratic_question"":""Welches Rechenzeichen steht vor der 5?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, koordinaten_vertauscht, koordinate_vorzeichen_verloren)."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,1,acceptance.known_errors (keine UI),"{""4"":""vorzeichen_aus_klammer"",""+4"":""vorzeichen_aus_klammer"",""-5"":""koordinaten_vertauscht"",""−5"":""koordinaten_vertauscht"",""- 5"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,2,acceptance.known_errors (keine UI),"{""5"":""koordinate_vorzeichen_verloren"",""-4"":""koordinaten_vertauscht"",""−4"":""koordinaten_vertauscht"",""- 4"":""koordinaten_vertauscht"",""+5"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1d8a70aa-9010-4259-9278-5cbc6425d3c0,quadrfkt-scheitel-03,,sondierrang (keine UI),1,neu,mittel,"quadrfkt-scheitel-03 = 1, quadrfkt-scheitel-04 = 2. Rang 1 aus Profil {koordinate_vorzeichen_verloren,koordinaten_vertauscht,vorzeichen_aus_klammer}, Rang 2 aus Profil {koordinaten_vertauscht,vorrang_ignoriert,vorzeichen_aus_klammer} (1 neue Fehlbilder)"
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,afb,II,neu,mittel,"Anwenden: ungewohnte Reihenfolge, die Scheitelpunktform muss erst erkannt werden."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,1,correct_answers.1,"[""6"",""+6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,2,correct_answers.2,"[""4"",""+4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,solution,"Umgestellt: y = −2(x − 6)² + 4.
+(x − 6) wird null für x = 6, also d = 6.
+Außerhalb der Klammer steht + 4, also e = 4.
+S(6|4).",neu,hoch,Nachgerechnet.
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,typical_errors,"[{""error"":""Das Vorzeichen aus der Klammer übernommen: −6 statt 6."",""socratic_question"":""Für welches x wird die Klammer (x − 6) null?""},{""error"":""x- und y-Koordinate vertauscht."",""socratic_question"":""Welche Zahl steht in der Klammer?""},{""error"":""x- und y-Koordinate vertauscht."",""socratic_question"":""Welche Zahl steht außerhalb der Klammer?""},{""error"":""Die 4 mit der −2 verrechnet: 4 − 2 = 2."",""socratic_question"":""Gehört die −2 zur 4 oder zur Klammer?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, koordinaten_vertauscht, vorrang_ignoriert)."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,1,acceptance.known_errors (keine UI),"{""4"":""koordinaten_vertauscht"",""-6"":""vorzeichen_aus_klammer"",""−6"":""vorzeichen_aus_klammer"",""- 6"":""vorzeichen_aus_klammer"",""+4"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,2,acceptance.known_errors (keine UI),"{""2"":""vorrang_ignoriert"",""6"":""koordinaten_vertauscht"",""+6"":""koordinaten_vertauscht"",""+2"":""vorrang_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f70e9312-b530-4b4b-9c7a-087ef87fbba9,quadrfkt-scheitel-04,,sondierrang (keine UI),2,neu,mittel,"quadrfkt-scheitel-03 = 1, quadrfkt-scheitel-04 = 2. Rang 1 aus Profil {koordinate_vorzeichen_verloren,koordinaten_vertauscht,vorzeichen_aus_klammer}, Rang 2 aus Profil {koordinaten_vertauscht,vorrang_ignoriert,vorzeichen_aus_klammer} (1 neue Fehlbilder)"
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: den höchsten Punkt als Scheitelpunkt erkennen, Dezimalzahlen."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,1,correct_answers.1,"[""25"",""+25""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,2,correct_answers.2,"[""12,5"",""+12,5"",""12.5"",""+12.5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,solution,"Der Faktor −0,02 ist negativ: Die Parabel ist nach unten geöffnet, der Scheitel ist der höchste Punkt.
+S(25|12,5).
+Abstand vom linken Fußpunkt: 25 m. Höhe: 12,5 m.",neu,hoch,Nachgerechnet.
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,typical_errors,"[{""error"":""Das Vorzeichen aus der Klammer übernommen: −25 statt 25."",""socratic_question"":""Für welches x wird die Klammer (x − 25) null?""},{""error"":""Die Höhe angegeben statt des Abstands."",""socratic_question"":""Welche Zahl gehört zu x, welche zu h?""},{""error"":""Den Abstand angegeben statt der Höhe."",""socratic_question"":""Welche Zahl gehört zu x, welche zu h?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, koordinaten_vertauscht)."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,1,acceptance.known_errors (keine UI),"{""-25"":""vorzeichen_aus_klammer"",""−25"":""vorzeichen_aus_klammer"",""- 25"":""vorzeichen_aus_klammer"",""12,5"":""koordinaten_vertauscht"",""+12,5"":""koordinaten_vertauscht"",""12.5"":""koordinaten_vertauscht"",""+12.5"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0d7af296-4ca7-4db4-8c2e-d0f922d9150c,quadrfkt-scheitel-05,2,acceptance.known_errors (keine UI),"{""25"":""koordinaten_vertauscht"",""+25"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,afb,III,neu,mittel,Problemlösen: Rückrichtung – Scheitelpunktform aufstellen und in die Normalform ausmultiplizieren.
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,est_duration_sec,90,neu,mittel,"Zeitregel: AFB III, kein Sachkontext."
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,correct_answers,"[""3"",""+3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,solution,"Scheitelpunktform: y = (x − 2)² − 1.
+Ausmultiplizieren: (x − 2)² = x² − 4x + 4.
+y = x² − 4x + 4 − 1 = x² − 4x + 3, also c = 3.",neu,hoch,Nachgerechnet.
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,typical_errors,"[{""error"":""Das Quadrat von −2 negativ gerechnet: (−2)² = −4."",""socratic_question"":""Welches Vorzeichen hat (−2) · (−2)?""},{""error"":""Die y-Koordinate des Scheitels ohne Minus übernommen: + 1 statt − 1."",""socratic_question"":""Liegt der Scheitelpunkt über oder unter der x-Achse?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_potenz, koordinate_vorzeichen_verloren)."
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f8f95f00-a759-4d59-8294-542bb7e5b0c7,quadrfkt-scheitel-06,,acceptance.known_errors (keine UI),"{""5"":""koordinate_vorzeichen_verloren"",""-5"":""vorzeichen_potenz"",""−5"":""vorzeichen_potenz"",""- 5"":""vorzeichen_potenz"",""+5"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,afb,I,neu,mittel,Reproduzieren: quadratische Ergänzung mit a = 1 und geradem b.
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,1,correct_answers.1,"[""3"",""+3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,2,correct_answers.2,"[""-4"",""−4"",""- 4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,solution,"Halbe Zahl vor x: 6 : 2 = 3, ihr Quadrat 9.
+y = x² − 6x + 9 − 9 + 5 = (x − 3)² − 4.
+Scheitelpunkt: x = 3, y = -4, also S(3|−4).",neu,hoch,Nachgerechnet.
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,typical_errors,"[{""error"":""Aus (x − 3)² den Wert −3 abgelesen."",""socratic_question"":""Für welches x wird die Klammer (x − 3) null?""},{""error"":""Die Zahl vor x nicht halbiert: 6 statt 3."",""socratic_question"":""Welche Zahl steht in der binomischen Formel (x − ?)² = x² − 6x + …?""},{""error"":""Die Ergänzung 9 addiert statt abgezogen: 5 + 9 = 14."",""socratic_question"":""Du hast + 9 ergänzt – was musst du danach tun, damit der Term gleich bleibt?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, halbieren_vergessen, ergaenzung_vorzeichen)."
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,1,acceptance.known_errors (keine UI),"{""6"":""halbieren_vergessen"",""-3"":""vorzeichen_aus_klammer"",""−3"":""vorzeichen_aus_klammer"",""- 3"":""vorzeichen_aus_klammer"",""+6"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ed2fb959-2f69-40c1-a8a7-7549097e3fb3,quadrfkt-normalform-01,2,acceptance.known_errors (keine UI),"{""14"":""ergaenzung_vorzeichen"",""+14"":""ergaenzung_vorzeichen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,afb,I,neu,mittel,"Reproduzieren: quadratische Ergänzung mit a = 1, positives b."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,1,correct_answers.1,"[""-2"",""−2"",""- 2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,2,correct_answers.2,"[""-3"",""−3"",""- 3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,solution,"Halbe Zahl vor x: 4 : 2 = 2, ihr Quadrat 4.
+y = x² + 4x + 4 − 4 + 1 = (x + 2)² − 3.
+Scheitelpunkt: x = -2, y = -3, also S(−2|−3).",neu,hoch,Nachgerechnet.
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,typical_errors,"[{""error"":""Aus (x + 2)² den Wert 2 abgelesen."",""socratic_question"":""Für welches x wird die Klammer (x + 2) null?""},{""error"":""Die Zahl vor x nicht halbiert: −4 statt −2."",""socratic_question"":""Welche Zahl steht in der binomischen Formel (x + ?)² = x² + 4x + …?""},{""error"":""Die Ergänzung 4 addiert statt abgezogen: 1 + 4 = 5."",""socratic_question"":""Du hast + 4 ergänzt – was musst du danach tun, damit der Term gleich bleibt?""},{""error"":""Die Zahl vor x nicht halbiert und 4² = 16 ergänzt."",""socratic_question"":""Welche Zahl musst du quadrieren: 4 oder die Hälfte davon?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, halbieren_vergessen, ergaenzung_vorzeichen)."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,1,acceptance.known_errors (keine UI),"{""2"":""vorzeichen_aus_klammer"",""+2"":""vorzeichen_aus_klammer"",""-4"":""halbieren_vergessen"",""−4"":""halbieren_vergessen"",""- 4"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+dc585f12-7da2-4909-baeb-ceda0b4af570,quadrfkt-normalform-02,2,acceptance.known_errors (keine UI),"{""5"":""ergaenzung_vorzeichen"",""+5"":""ergaenzung_vorzeichen"",""-15"":""halbieren_vergessen"",""−15"":""halbieren_vergessen"",""- 15"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,afb,II,neu,mittel,"Anwenden: erst den Faktor 2 ausklammern, dann ergänzen; der Faktor wirkt auf die abgezogene Zahl."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,1,correct_answers.1,"[""2"",""+2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,2,correct_answers.2,"[""-5"",""−5"",""- 5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,solution,"Ausklammern: y = 2(x² − 4x) + 3.
+Ergänzen: y = 2(x² − 4x + 4 − 4) + 3 = 2(x − 2)² − 8 + 3 = 2(x − 2)² − 5.
+Scheitelpunkt: x = 2, y = -5, also S(2|−5).",neu,hoch,Nachgerechnet.
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,typical_errors,"[{""error"":""Aus (x − 2)² den Wert −2 abgelesen."",""socratic_question"":""Für welches x wird die Klammer (x − 2) null?""},{""error"":""Die Zahl vor x in der Klammer nicht halbiert: 4 statt 2."",""socratic_question"":""Welche Zahl steht in der binomischen Formel (x − ?)² = x² − 4x + …?""},{""error"":""Die Ergänzung addiert statt abgezogen: 2 · 4 + 3 = 11."",""socratic_question"":""Du hast in der Klammer + 4 ergänzt – was musst du danach abziehen?""},{""error"":""Die abgezogene 4 nicht mit dem ausgeklammerten Faktor 2 multipliziert: 3 − 4 = −1."",""socratic_question"":""Was passiert mit der − 4, wenn du die Klammer mit 2 wieder auflöst?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, halbieren_vergessen, ergaenzung_vorzeichen, mal_zwei_vergessen)."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,1,acceptance.known_errors (keine UI),"{""4"":""halbieren_vergessen"",""-2"":""vorzeichen_aus_klammer"",""−2"":""vorzeichen_aus_klammer"",""- 2"":""vorzeichen_aus_klammer"",""+4"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,2,acceptance.known_errors (keine UI),"{""11"":""ergaenzung_vorzeichen"",""+11"":""ergaenzung_vorzeichen"",""-1"":""mal_zwei_vergessen"",""−1"":""mal_zwei_vergessen"",""- 1"":""mal_zwei_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+45076244-62bd-4ca6-83a7-52308dfcbc8f,quadrfkt-normalform-03,,sondierrang (keine UI),1,neu,mittel,"quadrfkt-normalform-03 = 1, quadrfkt-normalform-06 = 2. Rang 1 aus Profil {ergaenzung_vorzeichen,halbieren_vergessen,mal_zwei_vergessen,vorzeichen_aus_klammer}, Rang 2 aus Profil {ergaenzung_vorzeichen,falsche_groesse_beantwortet} (1 neue Fehlbilder)"
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,afb,II,neu,mittel,"Anwenden: ungerades b, die Ergänzung ist eine Dezimalzahl."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,1,correct_answers.1,"[""2,5"",""+2,5"",""2.5"",""+2.5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,2,correct_answers.2,"[""-4,25"",""−4,25"",""- 4,25"",""-4.25"",""−4.25"",""- 4.25""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,solution,"Halbe Zahl vor x: 5 : 2 = 2,5, ihr Quadrat 6,25.
+y = x² − 5x + 6,25 − 6,25 + 2 = (x − 2,5)² − 4,25.
+Scheitelpunkt: x = 2,5, y = -4,25, also S(2,5|−4,25).",neu,hoch,Nachgerechnet.
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,typical_errors,"[{""error"":""Aus (x − 2,5)² den Wert −2,5 abgelesen."",""socratic_question"":""Für welches x wird die Klammer (x − 2,5) null?""},{""error"":""Die Zahl vor x nicht halbiert: 5 statt 2,5."",""socratic_question"":""Welche Zahl steht in der binomischen Formel (x − ?)² = x² − 5x + …?""},{""error"":""Die Ergänzung 6,25 addiert statt abgezogen: 2 + 6,25 = 8,25."",""socratic_question"":""Du hast + 6,25 ergänzt – was musst du danach tun, damit der Term gleich bleibt?""},{""error"":""Die Zahl vor x nicht halbiert und 5² = 25 ergänzt."",""socratic_question"":""Welche Zahl musst du quadrieren: 5 oder die Hälfte davon?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, halbieren_vergessen, ergaenzung_vorzeichen)."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,1,acceptance.known_errors (keine UI),"{""5"":""halbieren_vergessen"",""-2,5"":""vorzeichen_aus_klammer"",""−2,5"":""vorzeichen_aus_klammer"",""- 2,5"":""vorzeichen_aus_klammer"",""-2.5"":""vorzeichen_aus_klammer"",""−2.5"":""vorzeichen_aus_klammer"",""- 2.5"":""vorzeichen_aus_klammer"",""+5"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+cd17cea3-1055-4a70-a247-dab0845293c7,quadrfkt-normalform-04,2,acceptance.known_errors (keine UI),"{""8,25"":""ergaenzung_vorzeichen"",""+8,25"":""ergaenzung_vorzeichen"",""8.25"":""ergaenzung_vorzeichen"",""+8.25"":""ergaenzung_vorzeichen"",""-23"":""halbieren_vergessen"",""−23"":""halbieren_vergessen"",""- 23"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: negativen Dezimalfaktor ausklammern und ergänzen, Scheitel als höchsten Punkt deuten."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,1,correct_answers.1,"[""10"",""+10""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,2,correct_answers.2,"[""11,5"",""+11,5"",""11.5"",""+11.5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,solution,"Ausklammern: h(x) = −0,1(x² − 20x) + 1,5.
+Ergänzen: h(x) = −0,1(x² − 20x + 100 − 100) + 1,5 = −0,1(x − 10)² + 10 + 1,5.
+h(x) = −0,1(x − 10)² + 11,5: nach unten geöffnet, Scheitel S(10|11,5).
+Am höchsten 10 m vom Abwurfpunkt entfernt, Höhe 11,5 m.",neu,hoch,Nachgerechnet.
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,typical_errors,"[{""error"":""Aus (x − 10)² den Wert −10 abgelesen."",""socratic_question"":""Für welches x wird die Klammer (x − 10) null?""},{""error"":""Die Zahl vor x in der Klammer nicht halbiert: 20 statt 10."",""socratic_question"":""Welche Zahl steht in der binomischen Formel (x − ?)² = x² − 20x + …?""},{""error"":""In der Klammer + 100 ein zweites Mal addiert statt abgezogen: −10 + 1,5 = −8,5."",""socratic_question"":""Du hast in der Klammer + 100 ergänzt – was musst du danach abziehen?""},{""error"":""Die Zahl vor x nicht halbiert und 20² = 400 ergänzt."",""socratic_question"":""Welche Zahl musst du quadrieren: 20 oder die Hälfte davon?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_aus_klammer, halbieren_vergessen, ergaenzung_vorzeichen)."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,1,acceptance.known_errors (keine UI),"{""20"":""halbieren_vergessen"",""-10"":""vorzeichen_aus_klammer"",""−10"":""vorzeichen_aus_klammer"",""- 10"":""vorzeichen_aus_klammer"",""+20"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+d72d1b39-b747-42a8-a1d6-66ae99c7718b,quadrfkt-normalform-05,2,acceptance.known_errors (keine UI),"{""-8,5"":""ergaenzung_vorzeichen"",""−8,5"":""ergaenzung_vorzeichen"",""- 8,5"":""ergaenzung_vorzeichen"",""-8.5"":""ergaenzung_vorzeichen"",""−8.5"":""ergaenzung_vorzeichen"",""- 8.5"":""ergaenzung_vorzeichen"",""41,5"":""halbieren_vergessen"",""+41,5"":""halbieren_vergessen"",""41.5"":""halbieren_vergessen"",""+41.5"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,afb,III,neu,mittel,"Problemlösen: aus der Scheitelstelle erst b erschließen, dann ergänzen und den y-Wert bestimmen."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,est_duration_sec,90,neu,mittel,"Zeitregel: AFB III, kein Sachkontext."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,correct_answers,"[""-2"",""−2"",""- 2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,solution,"Scheitel bei x = 3 heißt: y = (x − 3)² + e.
+(x − 3)² = x² − 6x + 9, also b = −6.
+y = x² − 6x + 9 − 9 + 7 = (x − 3)² − 2.
+Die y-Koordinate ist -2.",neu,hoch,Nachgerechnet.
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,typical_errors,"[{""error"":""Die Ergänzung 9 addiert statt abgezogen: 7 + 9 = 16."",""socratic_question"":""Du hast + 9 ergänzt – was musst du danach tun, damit der Term gleich bleibt?""},{""error"":""Den Wert von b angegeben statt der y-Koordinate."",""socratic_question"":""Ist nach b oder nach der y-Koordinate des Scheitels gefragt?""}]",neu,hoch,"Aus acceptance.known_errors (ergaenzung_vorzeichen, falsche_groesse_beantwortet)."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,acceptance.known_errors (keine UI),"{""16"":""ergaenzung_vorzeichen"",""+16"":""ergaenzung_vorzeichen"",""-6"":""falsche_groesse_beantwortet"",""−6"":""falsche_groesse_beantwortet"",""- 6"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+97e9d281-b7ad-4eee-8a25-f500ae6c2f02,quadrfkt-normalform-06,,sondierrang (keine UI),2,neu,mittel,"quadrfkt-normalform-03 = 1, quadrfkt-normalform-06 = 2. Rang 1 aus Profil {ergaenzung_vorzeichen,halbieren_vergessen,mal_zwei_vergessen,vorzeichen_aus_klammer}, Rang 2 aus Profil {ergaenzung_vorzeichen,falsche_groesse_beantwortet} (1 neue Fehlbilder)"
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,afb,I,neu,mittel,Reproduzieren: p-q-Formel mit ganzzahligen Lösungen.
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,1,correct_answers.1,"[""-2"",""−2"",""- 2""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,2,correct_answers.2,"[""4"",""+4""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,solution,"f(x) = 0: x² − 2x − 8 = 0, p = −2, q = −8.
+x = 1 ± √(1 + 8) = 1 ± 3.
+Kleinere Nullstelle -2, größere Nullstelle 4.",neu,hoch,Nachgerechnet.
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,typical_errors,"[{""error"":""p mit falschem Vorzeichen eingesetzt: −1 ± 3, kleinere Lösung −4."",""socratic_question"":""Wie lautet −p/2, wenn p = −2 ist?""},{""error"":""p mit falschem Vorzeichen eingesetzt: −1 ± 3, größere Lösung 2."",""socratic_question"":""Wie lautet −p/2, wenn p = −2 ist?""}]",neu,hoch,Aus acceptance.known_errors (pq_vorzeichen).
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,1,acceptance.known_errors (keine UI),"{""-4"":""pq_vorzeichen"",""−4"":""pq_vorzeichen"",""- 4"":""pq_vorzeichen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+3e49f5d3-1f90-41e4-977b-5e5eb6d8a40d,quadrfkt-nullstellen-01,2,acceptance.known_errors (keine UI),"{""2"":""pq_vorzeichen"",""+2"":""pq_vorzeichen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,afb,I,neu,mittel,Reproduzieren: Nullstellen aus der Scheitelpunktform durch Wurzelziehen.
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,1,correct_answers.1,"[""-1"",""−1"",""- 1""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,2,correct_answers.2,"[""3"",""+3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,solution,"f(x) = 0: (x − 1)² = 4.
+x − 1 = 2 oder x − 1 = −2.
+x = 3 oder x = −1.
+Kleinere Nullstelle -1, größere Nullstelle 3.",neu,hoch,Nachgerechnet.
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,typical_errors,"[{""error"":""Aus (x − 1) den Wert −1 übernommen: x = −1 ± 2."",""socratic_question"":""Für welches x wird die Klammer (x − 1) null?""},{""error"":""Aus (x − 1) den Wert −1 übernommen: x = −1 ± 2."",""socratic_question"":""Für welches x wird die Klammer (x − 1) null?""}]",neu,hoch,Aus acceptance.known_errors (vorzeichen_aus_klammer).
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",23,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",22,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,1,acceptance.known_errors (keine UI),"{""-3"":""vorzeichen_aus_klammer"",""−3"":""vorzeichen_aus_klammer"",""- 3"":""vorzeichen_aus_klammer""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+344b91f6-06af-4aec-93ae-52be49c38a2f,quadrfkt-nullstellen-02,2,acceptance.known_errors (keine UI),"{""1"":""vorzeichen_aus_klammer"",""+1"":""vorzeichen_aus_klammer""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,afb,II,neu,mittel,"Anwenden: nach unten geöffnete Parabel, Schnittpunkte mit der x-Achse von Scheitel und y-Achsenabschnitt unterscheiden."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,needs_image,true,neu,hoch,"Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,1,correct_answers.1,"[""-5"",""−5"",""- 5""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,2,correct_answers.2,"[""3"",""+3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,solution,"Nullstellen sind die Stellen, an denen die Parabel die x-Achse schneidet.
+Linker Schnittpunkt: x = -5. Rechter Schnittpunkt: x = 3.",neu,hoch,Nachgerechnet.
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,typical_errors,"[{""error"":""Die x-Koordinate des Scheitelpunkts abgelesen statt einer Nullstelle."",""socratic_question"":""Wo schneidet die Parabel die x-Achse?""},{""error"":""Das Minus vergessen: Die Nullstelle liegt links der y-Achse."",""socratic_question"":""Liegt diese Nullstelle links oder rechts der y-Achse?""},{""error"":""Das Vorzeichen falsch: Die Nullstelle liegt rechts der y-Achse."",""socratic_question"":""Liegt diese Nullstelle links oder rechts der y-Achse?""},{""error"":""Den Schnittpunkt mit der y-Achse abgelesen statt mit der x-Achse."",""socratic_question"":""Auf welcher Achse liegen die Nullstellen?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, koordinate_vorzeichen_verloren, koordinaten_vertauscht)."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,1,acceptance.known_errors (keine UI),"{""5"":""koordinate_vorzeichen_verloren"",""-1"":""falsche_groesse_beantwortet"",""−1"":""falsche_groesse_beantwortet"",""- 1"":""falsche_groesse_beantwortet"",""+5"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,2,acceptance.known_errors (keine UI),"{""-3"":""koordinate_vorzeichen_verloren"",""−3"":""koordinate_vorzeichen_verloren"",""- 3"":""koordinate_vorzeichen_verloren"",""7,5"":""koordinaten_vertauscht"",""+7,5"":""koordinaten_vertauscht"",""7.5"":""koordinaten_vertauscht"",""+7.5"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,sondierrang (keine UI),1,neu,mittel,"quadrfkt-nullstellen-03 = 1, quadrfkt-nullstellen-05 = 2. Rang 1 aus Profil {falsche_groesse_beantwortet,koordinate_vorzeichen_verloren,koordinaten_vertauscht}, Rang 2 aus Profil {pq_vorzeichen,vorzeichen_beim_umstellen} (2 neue Fehlbilder)"
+9d10386c-d849-4387-85e1-2cd4e9c64bb4,quadrfkt-nullstellen-03,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-6,""x_max"":4,""y_min"":-2,""y_max"":9,""funktionen"":[{""typ"":""quadratisch"",""a"":-0.5,""b"":-1,""c"":7.5}]}",neu,hoch,"Koordinatensystem mit Gitter und einer nach unten geöffneten Parabel, die die x-Achse zweimal schneidet."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,afb,II,neu,mittel,"Anwenden: erst durch den Faktor 2 teilen, dann p-q-Formel."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,1,parts.1.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,1,correct_answers.1,"[""-3"",""−3"",""- 3""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,2,parts.2.competency_content,funktionen,neu,hoch,Wie die Aufgabe.
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,2,correct_answers.2,"[""1"",""+1""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,solution,"f(x) = 0, durch 2 teilen: x² + 2x − 3 = 0, p = 2, q = −3.
+x = −1 ± √(1 + 3) = −1 ± 2.
+Kleinere Nullstelle -3, größere Nullstelle 1.",neu,hoch,Nachgerechnet.
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,typical_errors,"[{""error"":""p mit falschem Vorzeichen eingesetzt: 1 ± 2, kleinere Lösung −1."",""socratic_question"":""Wie lautet −p/2, wenn p = 2 ist?""},{""error"":""p mit falschem Vorzeichen eingesetzt: 1 ± 2, größere Lösung 3."",""socratic_question"":""Wie lautet −p/2, wenn p = 2 ist?""}]",neu,hoch,Aus acceptance.known_errors (pq_vorzeichen).
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,1,acceptance.known_errors (keine UI),"{""-1"":""pq_vorzeichen"",""−1"":""pq_vorzeichen"",""- 1"":""pq_vorzeichen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+cb03b892-5d43-4818-85b9-7160debaea43,quadrfkt-nullstellen-04,2,acceptance.known_errors (keine UI),"{""3"":""pq_vorzeichen"",""+3"":""pq_vorzeichen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: Boden als h = 0 deuten, durch −5 teilen, p-q-Formel, negative Lösung verwerfen."
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,correct_answers,"[""2,56"",""2.56"",""2,56 s"",""2,56s""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,solution,"Boden: h(t) = 0. Durch −5 teilen: t² − 2,4t − 0,4 = 0, p = −2,4, q = −0,4.
+t = 1,2 ± √(1,44 + 0,4) = 1,2 ± √1,84 ≈ 1,2 ± 1,356.
+Die negative Lösung passt nicht (vor dem Abwurf). Der Ball trifft nach etwa 2,56 s auf.",neu,hoch,Nachgerechnet.
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,typical_errors,"[{""error"":""p mit falschem Vorzeichen eingesetzt: −1,2 + √1,84 ≈ 0,16."",""socratic_question"":""Wie lautet −p/2, wenn p = −2,4 ist?""},{""error"":""Beim Teilen durch −5 das Vorzeichen von q nicht umgedreht: q = 0,4."",""socratic_question"":""Welches Vorzeichen hat 2 : (−5)?""}]",neu,hoch,"Aus acceptance.known_errors (pq_vorzeichen, vorzeichen_beim_umstellen)."
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,acceptance.known_errors (keine UI),"{""0,16"":""pq_vorzeichen"",""0.16"":""pq_vorzeichen"",""0,16 s"":""pq_vorzeichen"",""0,16s"":""pq_vorzeichen"",""2,22"":""vorzeichen_beim_umstellen"",""2.22"":""vorzeichen_beim_umstellen"",""2,22 s"":""vorzeichen_beim_umstellen"",""2,22s"":""vorzeichen_beim_umstellen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+2fbd2563-648f-4990-9cff-429936af589d,quadrfkt-nullstellen-05,,sondierrang (keine UI),2,neu,mittel,"quadrfkt-nullstellen-03 = 1, quadrfkt-nullstellen-05 = 2. Rang 1 aus Profil {falsche_groesse_beantwortet,koordinate_vorzeichen_verloren,koordinaten_vertauscht}, Rang 2 aus Profil {pq_vorzeichen,vorzeichen_beim_umstellen} (2 neue Fehlbilder)"
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,afb,III,neu,mittel,Problemlösen: Scheitelstelle als Mitte der Nullstellen erkennen und den Funktionsterm selbst aufstellen.
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,est_duration_sec,90,neu,mittel,"Zeitregel: AFB III, kein Sachkontext."
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,correct_answers,"[""-9"",""−9"",""- 9""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,solution,"Funktionsterm aus den Nullstellen: f(x) = (x + 1)(x − 5).
+Der Scheitel liegt in der Mitte der Nullstellen: x = (−1 + 5) : 2 = 2.
+f(2) = 3 · (−3) = -9.",neu,hoch,Nachgerechnet.
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,typical_errors,"[{""error"":""Die x-Koordinate des Scheitels angegeben statt der y-Koordinate."",""socratic_question"":""Ist nach der Stelle oder nach dem Funktionswert am Scheitel gefragt?""},{""error"":""Die Mitte nicht halbiert: x = 4 statt 2 eingesetzt."",""socratic_question"":""Wie findest du die Mitte zwischen −1 und 5?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, halbieren_vergessen)."
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+52ca5f74-4822-4752-a21c-bba0800e0418,quadrfkt-nullstellen-06,,acceptance.known_errors (keine UI),"{""2"":""falsche_groesse_beantwortet"",""+2"":""falsche_groesse_beantwortet"",""-5"":""halbieren_vergessen"",""−5"":""halbieren_vergessen"",""- 5"":""halbieren_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,afb,I,neu,mittel,Reproduzieren: Extremwert direkt aus der Scheitelpunktform ablesen.
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,correct_answers,"[""7"",""+7""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,solution,"Die Parabel ist nach unten geöffnet (Minus vor der Klammer).
+Der größte Wert liegt am Scheitel S(4|7).
+Der größte Funktionswert ist 7.",neu,hoch,Nachgerechnet.
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,typical_errors,"[{""error"":""Die Stelle x = 4 angegeben statt des Funktionswerts."",""socratic_question"":""Ist nach der Stelle oder nach dem Funktionswert gefragt?""},{""error"":""Das Minus vor der Klammer auf die 7 übertragen."",""socratic_question"":""Welches Vorzeichen hat f(4) = −0² + 7?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, koordinate_vorzeichen_verloren)."
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+1be8b1ae-0f25-45cf-a65a-19ddabc06c6c,quadrfkt-extrem-01,,acceptance.known_errors (keine UI),"{""4"":""falsche_groesse_beantwortet"",""+4"":""falsche_groesse_beantwortet"",""-7"":""koordinate_vorzeichen_verloren"",""−7"":""koordinate_vorzeichen_verloren"",""- 7"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,afb,I,neu,mittel,"Reproduzieren: quadratische Ergänzung, dann den Extremwert am Scheitel ablesen."
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,correct_answers,"[""-6"",""−6"",""- 6""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,solution,"Quadratische Ergänzung: f(x) = x² − 8x + 16 − 16 + 10 = (x − 4)² − 6.
+Nach oben geöffnet, der kleinste Wert liegt am Scheitel S(4|−6).
+Der kleinste Funktionswert ist -6.",neu,hoch,Nachgerechnet.
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,typical_errors,"[{""error"":""Die Ergänzung 16 addiert statt abgezogen: 10 + 16 = 26."",""socratic_question"":""Du hast + 16 ergänzt – was musst du danach tun, damit der Term gleich bleibt?""},{""error"":""Die Stelle x = 4 angegeben statt des Funktionswerts."",""socratic_question"":""Ist nach der Stelle oder nach dem Funktionswert gefragt?""}]",neu,hoch,"Aus acceptance.known_errors (ergaenzung_vorzeichen, falsche_groesse_beantwortet)."
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+6fb41407-d8e5-4f86-8b5b-4a0b1eba8d1c,quadrfkt-extrem-02,,acceptance.known_errors (keine UI),"{""4"":""falsche_groesse_beantwortet"",""26"":""ergaenzung_vorzeichen"",""+26"":""ergaenzung_vorzeichen"",""+4"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,afb,II,neu,mittel,"Anwenden: negativen Faktor ausklammern, ergänzen, Extremwert bestimmen."
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,correct_answers,"[""13"",""+13""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,solution,"Ausklammern: f(x) = −2(x² − 6x) − 5.
+Ergänzen: f(x) = −2(x² − 6x + 9 − 9) − 5 = −2(x − 3)² + 18 − 5 = −2(x − 3)² + 13.
+Nach unten geöffnet, der größte Funktionswert ist 13.",neu,hoch,Nachgerechnet.
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,typical_errors,"[{""error"":""In der Klammer + 9 ein zweites Mal addiert statt abgezogen: −18 − 5 = −23."",""socratic_question"":""Du hast in der Klammer + 9 ergänzt – was musst du danach abziehen?""},{""error"":""Die Stelle x = 3 angegeben statt des Funktionswerts."",""socratic_question"":""Ist nach der Stelle oder nach dem Funktionswert gefragt?""},{""error"":""Die abgezogene 9 nicht mit dem ausgeklammerten Faktor −2 multipliziert: 9 − 5 = 4."",""socratic_question"":""Was passiert mit der − 9, wenn du die Klammer mit −2 wieder auflöst?""}]",neu,hoch,"Aus acceptance.known_errors (ergaenzung_vorzeichen, falsche_groesse_beantwortet, mal_zwei_vergessen)."
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,acceptance.known_errors (keine UI),"{""3"":""falsche_groesse_beantwortet"",""4"":""mal_zwei_vergessen"",""-23"":""ergaenzung_vorzeichen"",""−23"":""ergaenzung_vorzeichen"",""- 23"":""ergaenzung_vorzeichen"",""+3"":""falsche_groesse_beantwortet"",""+4"":""mal_zwei_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f1e39983-43c3-4048-a8fd-8efa86af128a,quadrfkt-extrem-03,,sondierrang (keine UI),1,neu,mittel,"quadrfkt-extrem-03 = 1, quadrfkt-extrem-05 = 2. Rang 1 aus Profil {ergaenzung_vorzeichen,falsche_groesse_beantwortet,mal_zwei_vergessen}, Rang 2 aus Profil {ergaenzung_vorzeichen,falsche_groesse_beantwortet,vorrang_ignoriert} (1 neue Fehlbilder)"
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,afb,II,neu,mittel,Anwenden: Produktfunktion P(x) = x · (20 − x) aufstellen und ihren Scheitel bestimmen.
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,competency_process,Operieren,neu,mittel,Rechnen nach festem Verfahren.
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,correct_answers,"[""100"",""+100""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,solution,"Erste Zahl x, zweite Zahl 20 − x. Produkt P(x) = x · (20 − x) = −x² + 20x.
+Ergänzen: P(x) = −(x² − 20x + 100 − 100) = −(x − 10)² + 100.
+Das größte Produkt ist 100 (für x = 10 und 20 − x = 10).",neu,hoch,Nachgerechnet.
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,typical_errors,"[{""error"":""Die Zahl x = 10 angegeben statt des Produkts."",""socratic_question"":""Ist nach einer der Zahlen oder nach ihrem Produkt gefragt?""},{""error"":""In der Klammer + 100 ein zweites Mal addiert statt abgezogen: P = −100."",""socratic_question"":""Kann das Produkt zweier Zahlen mit der Summe 20 negativ sein, wenn beide 10 sind?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, ergaenzung_vorzeichen)."
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+547e47ca-bd44-479d-ae44-932644219954,quadrfkt-extrem-04,,acceptance.known_errors (keine UI),"{""10"":""falsche_groesse_beantwortet"",""+10"":""falsche_groesse_beantwortet"",""-100"":""ergaenzung_vorzeichen"",""−100"":""ergaenzung_vorzeichen"",""- 100"":""ergaenzung_vorzeichen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,afb,II,neu,mittel,"Anwenden im Sachkontext: höchsten Punkt als Scheitel deuten, die Höhe und nicht den Zeitpunkt angeben."
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,competency_process,"Modellieren, Operieren",neu,mittel,"Sachsituation in eine Rechnung übersetzen, dann rechnen."
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,correct_answers,"[""21"",""21 m"",""21m""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,solution,"Ausklammern: h(t) = −5(t² − 4t) + 1.
+Ergänzen: h(t) = −5(t² − 4t + 4 − 4) + 1 = −5(t − 2)² + 20 + 1 = −5(t − 2)² + 21.
+Nach 2 s erreicht der Ball die maximale Höhe 21 m.",neu,hoch,Nachgerechnet.
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,typical_errors,"[{""error"":""Den Zeitpunkt t = 2 angegeben statt der Höhe."",""socratic_question"":""Ist nach dem Zeitpunkt oder nach der Höhe gefragt?""},{""error"":""In der Klammer + 4 ein zweites Mal addiert statt abgezogen: −20 + 1 = −19."",""socratic_question"":""Kann die maximale Höhe des Balls negativ sein?""},{""error"":""Beim Einsetzen von t = 2 erst mit −5 multipliziert, dann quadriert: (−10)² + 40 + 1."",""socratic_question"":""Was wird in −5t² zuerst gerechnet: das Quadrat oder das Mal −5?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, ergaenzung_vorzeichen, vorrang_ignoriert)."
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,acceptance.known_errors (keine UI),"{""2"":""falsche_groesse_beantwortet"",""141"":""vorrang_ignoriert"",""2 m"":""falsche_groesse_beantwortet"",""2m"":""falsche_groesse_beantwortet"",""-19"":""ergaenzung_vorzeichen"",""−19"":""ergaenzung_vorzeichen"",""- 19"":""ergaenzung_vorzeichen"",""-19 m"":""ergaenzung_vorzeichen"",""-19m"":""ergaenzung_vorzeichen"",""141 m"":""vorrang_ignoriert"",""141m"":""vorrang_ignoriert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f38cec97-0b1e-400c-9708-fcf18e52b371,quadrfkt-extrem-05,,sondierrang (keine UI),2,neu,mittel,"quadrfkt-extrem-03 = 1, quadrfkt-extrem-05 = 2. Rang 1 aus Profil {ergaenzung_vorzeichen,falsche_groesse_beantwortet,mal_zwei_vergessen}, Rang 2 aus Profil {ergaenzung_vorzeichen,falsche_groesse_beantwortet,vorrang_ignoriert} (1 neue Fehlbilder)"
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,afb,III,neu,mittel,"Problemlösen: Zielfunktion A(x) aus dem Sachtext selbst aufstellen (Mauer als vierte Seite), Scheitel bestimmen, Fläche angeben."
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,curriculum_grade,9,neu,hoch,"KLP Mathematik NRW, Klasse 9 (Zweite Stufe), Fkt-8/9: quadratische Funktionen, Scheitelpunktform, Nullstellen, Extremwertprobleme."
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Quadratische Funktionen gehören wie lineare Funktionen und binomische Formeln zu „Algebra & Funktionen""."
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,competency_content,funktionen,neu,hoch,Inhaltsbereich Funktionen (Parabeln und ihre Kennzahlen).
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,competency_process,"Problemlösen, Operieren",neu,mittel,"Lösungsweg selbst finden, dann rechnen."
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,correct_answers,"[""200"",""200 m²"",""200m²""]",neu,hoch,"Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,solution,"Zwei Seiten senkrecht zur Mauer je x m, die Seite parallel zur Mauer (40 − 2x) m.
+A(x) = x · (40 − 2x) = −2x² + 40x = −2(x² − 20x + 100 − 100) = −2(x − 10)² + 200.
+Für x = 10 m (Seiten 10 m, 20 m, 10 m) ist die Fläche am größten: 200 m².",neu,hoch,Nachgerechnet.
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,typical_errors,"[{""error"":""Die Seitenlänge x = 10 angegeben statt der Fläche."",""socratic_question"":""Ist nach einer Seitenlänge oder nach dem Flächeninhalt gefragt?""},{""error"":""Die Mauer nicht beachtet: Zaun auf allen vier Seiten, Quadrat 10 m · 10 m."",""socratic_question"":""Wie viele Seiten des Rechtecks braucht der Zaun?""}]",neu,hoch,"Aus acceptance.known_errors (falsche_groesse_beantwortet, bedingung_unvollstaendig)."
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,hints,,bewusst leer,,"Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+4a70a989-5a09-4037-af27-476e378e7120,quadrfkt-extrem-06,,acceptance.known_errors (keine UI),"{""10"":""falsche_groesse_beantwortet"",""100"":""bedingung_unvollstaendig"",""10 m²"":""falsche_groesse_beantwortet"",""10m²"":""falsche_groesse_beantwortet"",""100 m²"":""bedingung_unvollstaendig"",""100m²"":""bedingung_unvollstaendig""}",neu,hoch,Falscher Wert → Fehlbild-Slug

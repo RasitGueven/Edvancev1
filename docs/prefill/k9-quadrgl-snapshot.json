@@ -1,0 +1,818 @@
+[
+ {
+  "task": {
+   "id": "9264f90a-1f7b-4170-97da-198c1acc89a3",
+   "title": "Wurzelziehen · x² = 49",
+   "question": "Löse die Gleichung x² = 49.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_wurzel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-wurzel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4d1a2438-3610-4dc9-b5be-8d35cb5199bd",
+   "title": "Wurzelziehen · 2x² − 18 = 0",
+   "question": "Löse die Gleichung 2x² − 18 = 0.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_wurzel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-wurzel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "504bbd98-9c80-4124-a66a-9dc7b6651bb9",
+   "title": "Wurzelziehen · (x − 2)² = 25",
+   "question": "Löse die Gleichung (x − 2)² = 25.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_wurzel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-wurzel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cd6693f5-cc93-4628-baf9-f45436706641",
+   "title": "Wurzelziehen · 3x² = 60, gerundet",
+   "question": "Löse die Gleichung 3x² = 60.\n\nRunde die Lösungen auf zwei Stellen nach dem Komma.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_wurzel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-wurzel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "bc0cdfe9-2416-4d02-a623-feb820083f07",
+   "title": "Wurzelziehen · Rechteck doppelt so lang wie breit, 98 m²",
+   "question": "Ein rechteckiges Beet ist doppelt so lang wie breit. Sein Flächeninhalt beträgt 98 m².\n\nWie breit ist das Beet? Als Breite ist nur eine positive Lösung sinnvoll. Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_wurzel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Beet ist doppelt so lang wie breit. Sein Flächeninhalt beträgt 98 m².\n\nWie breit ist das Beet? Als Breite ist nur eine positive Lösung sinnvoll. Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-wurzel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3a42b89c-7f8a-4b64-94ff-d1d4ac576c32",
+   "title": "Wurzelziehen · Quadratseite um 3 cm verlängert, 121 cm²",
+   "question": "Verlängert man jede Seite eines Quadrats um 3 cm, so hat das neue Quadrat einen Flächeninhalt von 121 cm².\n\nWie lang war eine Seite des ursprünglichen Quadrats? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_wurzel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Verlängert man jede Seite eines Quadrats um 3 cm, so hat das neue Quadrat einen Flächeninhalt von 121 cm².\n\nWie lang war eine Seite des ursprünglichen Quadrats? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-wurzel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b47ef7d3-1933-416f-8fe8-edcbc8fe8929",
+   "title": "Ausklammern · x² − 5x = 0",
+   "question": "Löse die Gleichung x² − 5x = 0.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_faktor",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-faktor-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1c4a31af-20bc-4348-b8d9-cd83b273ff38",
+   "title": "Nullprodukt · (x − 3)(x + 5) = 0",
+   "question": "Löse die Gleichung (x − 3)(x + 5) = 0.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_faktor",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-faktor-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d7d81e80-6776-4308-a690-29675f7882d4",
+   "title": "Ausklammern · 3x² = 12x",
+   "question": "Löse die Gleichung 3x² = 12x.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_faktor",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-faktor-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c3be2e88-1087-479f-bf95-9dbd732efa56",
+   "title": "Nullprodukt · x(2x − 7) = 0",
+   "question": "Löse die Gleichung x · (2x − 7) = 0.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_faktor",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-faktor-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9879542e-bb69-41c6-a77f-3916a26ffad1",
+   "title": "Nullprodukt · Ball landet wieder, h = 20t − 5t²",
+   "question": "Ein Ball wird vom Boden aus senkrecht nach oben geworfen. Seine Höhe in Metern nach t Sekunden ist h = 20t − 5t².\n\nNach wie vielen Sekunden ist der Ball wieder am Boden? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_faktor",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Ball wird vom Boden aus senkrecht nach oben geworfen. Seine Höhe in Metern nach t Sekunden ist h = 20t − 5t².\n\nNach wie vielen Sekunden ist der Ball wieder am Boden? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "s",
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-faktor-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "90635757-ba7c-4bde-bd7c-04bd79bf8c35",
+   "title": "Nullprodukt rückwärts · 2x² + bx = 0 mit Lösung 3",
+   "question": "Die Gleichung 2x² + bx = 0 hat die Lösungen x = 0 und x = 3.\n\nWelchen Wert hat b? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_faktor",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Gleichung 2x² + bx = 0 hat die Lösungen x = 0 und x = 3.\n\nWelchen Wert hat b? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-faktor-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b6e77404-2577-4e03-b4ce-cb61a5f6a5f9",
+   "title": "p-q-Formel · x² + 2x − 15 = 0",
+   "question": "Löse die Gleichung x² + 2x − 15 = 0.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_formel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-formel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "43f39bc1-e7b4-48e6-8b77-ff8e41e77142",
+   "title": "p-q-Formel · x² − 6x + 5 = 0",
+   "question": "Löse die Gleichung x² − 6x + 5 = 0.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_formel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-formel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1f2a206f-1f63-4866-b446-c8305de6b725",
+   "title": "p-q-Formel · 2x² − 4x − 6 = 0",
+   "question": "Löse die Gleichung 2x² − 4x − 6 = 0.\n\nGib die Lösungen exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_formel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-formel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "725448a1-10e2-4e88-beb8-fe57f6e54d06",
+   "title": "p-q-Formel · x² + 4x − 1 = 0, gerundet",
+   "question": "Löse die Gleichung x² + 4x − 1 = 0.\n\nRunde die Lösungen auf zwei Stellen nach dem Komma.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_quadr_formel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "kleinere Lösung",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "größere Lösung",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-formel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1271aabc-2cc1-4b2e-a6c5-d7512c7a38ee",
+   "title": "p-q-Formel · Rechteck 4 cm länger als breit, 60 cm²",
+   "question": "Ein Rechteck ist 4 cm länger als breit. Sein Flächeninhalt beträgt 60 cm².\n\nWie lang ist die längere Seite des Rechtecks? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_formel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Rechteck ist 4 cm länger als breit. Sein Flächeninhalt beträgt 60 cm².\n\nWie lang ist die längere Seite des Rechtecks? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-formel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5b36238f-c64c-4578-bd63-55249f185c78",
+   "title": "p-q-Formel · Weg um ein Beet 20 m × 15 m, 500 m²",
+   "question": "Ein rechteckiges Beet ist 20 m lang und 15 m breit. Rundherum wird ein Weg angelegt, der überall gleich breit ist. Beet und Weg zusammen bedecken 500 m².\n\nWie breit ist der Weg? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_formel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Beet ist 20 m lang und 15 m breit. Rundherum wird ein Weg angelegt, der überall gleich breit ist. Beet und Weg zusammen bedecken 500 m².\n\nWie breit ist der Weg? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-formel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a549083d-c72d-44d6-9aba-a138ad6d2dc0",
+   "title": "Anzahl der Lösungen · x² + 4x + 5 = 0",
+   "question": "Wie viele Lösungen hat die Gleichung x² + 4x + 5 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_anzahl",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Wie viele Lösungen hat die Gleichung x² + 4x + 5 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-anzahl-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9f9ab204-2b5e-49d7-aaab-28ddc96ea8b5",
+   "title": "Diskriminante · x² − 6x + 8 = 0",
+   "question": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 6x + 8 = 0.\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_anzahl",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 6x + 8 = 0.\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-anzahl-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ef911123-949d-4ea9-a61d-beef95cc8dc0",
+   "title": "Diskriminante · x² − 5x − 6 = 0",
+   "question": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 5x − 6 = 0.\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_anzahl",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne die Diskriminante D = (p/2)² − q der Gleichung x² − 5x − 6 = 0.\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-anzahl-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0c3d2396-131a-4cba-bd07-4597d92500cf",
+   "title": "Anzahl der Lösungen · 2x² − 8x + 8 = 0",
+   "question": "Wie viele Lösungen hat die Gleichung 2x² − 8x + 8 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_anzahl",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Wie viele Lösungen hat die Gleichung 2x² − 8x + 8 = 0?\n\nGib die Anzahl als ganze Zahl an (0, 1 oder 2)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-anzahl-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "95077a87-7e8a-4463-83b0-dbbf6facc879",
+   "title": "Anzahl der Lösungen · Zaun 20 m, Fläche 25 m²",
+   "question": "Ein rechteckiges Feld wird mit 20 m Zaun eingezäunt und soll 25 m² Fläche haben. Für seine Breite x in Metern gilt x · (10 − x) = 25.\n\nWie viele Lösungen hat diese Gleichung? Gib die Anzahl als ganze Zahl an (0, 1 oder 2).",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_anzahl",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Feld wird mit 20 m Zaun eingezäunt und soll 25 m² Fläche haben. Für seine Breite x in Metern gilt x · (10 − x) = 25.\n\nWie viele Lösungen hat diese Gleichung? Gib die Anzahl als ganze Zahl an (0, 1 oder 2)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-anzahl-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "56540a88-7b9e-4935-8702-26f9415e9d14",
+   "title": "Diskriminante rückwärts · x² + 6x + q = 0 mit genau einer Lösung",
+   "question": "Für welchen Wert von q hat die Gleichung x² + 6x + q = 0 genau eine Lösung?\n\nGib q exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "gleichung_quadr_anzahl",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für welchen Wert von q hat die Gleichung x² + 6x + q = 0 genau eine Lösung?\n\nGib q exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_quadrgl",
+   "source_ref": "quadrgl-anzahl-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

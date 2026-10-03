@@ -1,0 +1,27 @@
+# K9-Rest – Entscheidungen
+
+Stand 03.10.2026, Auftrag `W4-k9-rest.md`. Alle Entscheidungen hat der Lauf selbst getroffen (Auftrag:
+„Alle anderen Entscheidungen triffst du selbst und begründest sie hier“). Je Thema stehen weitere,
+kleinere Entscheidungen in `thema-<kurz>.md`.
+
+| Nr. | Entscheidung | Begründung |
+|---|---|---|
+| E1 | **Thema 3 als zwei Themen** (`quadrgl`, `quadrfkt`) mit je eigenen Migrationen. | `public.themen` führt `quadratische_gleichungen` und `quadratische_funktionen` getrennt; mit einem Thema wären es 9 Knoten statt 4–5. |
+| E2 | **Körper als ein Thema** (eine Charge), Einstiege in zwei Themen-Keys. | Fünf Knoten passen in 4–5; der Katalog trennt `prismen_zylinder` und `koerper_pyramide_kegel_kugel`, beide bekommen ihre Einstiege (Auftrag Teil 3). |
+| E3 | **Substrate zentral aus `graph.json` erzeugt** (`tools/k9-rest-substrat.mjs`), die Subagenten bauen nur die Aufgaben. | Die Themen hängen voneinander ab (Wurzel → Pythagoras → Kegel; Wurzel → quadr. Gleichungen → Nullstellen). Der Graph wurde als Ganzes geplant und gegen Prod geprüft (`k9-rest-graph-check.mjs`); acht Hände hätten ihn nur auseinanderlaufen lassen. Jede Substrat-Migration bleibt eine eigene Datei je Thema, mit Begründung je Kante im Kommentar. |
+| E4 | **Keine Fundament-Auffüllung.** | Alle „dünnen“ Voraussetzungen (`term_einsetzen`, `geo_koordinaten`, `term_binom_quadrat`, `geo_kreis_*`) sind Entwürfe anderer Läufe mit Rang 1+2 und known_errors; es fehlt Lenas Freigabe, nicht Inhalt. `term_ausklammern` hat 6 ready MC-Aufgaben ohne `acceptance` — Fehlbilder nachzutragen wäre ein UPDATE bestehender Aufgaben (verboten). Gleiche Linie wie `docs/k8-rest/phase1.md` c). |
+| E5 | **`tools/vorlauf-build.mjs` wortgleich aus `feat/k8-rest`.** | Beide Läufe brauchen „Datei ohne begin/commit“. K8 hatte es bereits richtig gelöst (Systemrolle je `do`-Block, weil CI ohne Klammer einspielt). Identischer Inhalt merged konfliktfrei; Kreis/Zins/Linear bleiben byte-gleich. |
+| E6 | **Antworten immer Zahlen**, Mehrfachwerte als MULTI_PART. | Der Tablet-Player (`~/edvance-app`, `Zahleneingabe`) kennt nur Zahl, Bruch und linearen Term `ax+b`: kein √, keine Hochzahl, keine Scheitelpunktform. Zwei Lösungen: Teil 1 kleinere, Teil 2 größere; Scheitelpunkt: x und y; wissenschaftliche Schreibweise: Vorfaktor und Hochzahl. |
+| E7 | **Vierfeldertafel als Text mit benannten Feldern**, gesuchte Felder als MULTI_PART. | Der Player setzt den Aufgabentext als reinen Text (keine Markdown-Tabelle; `MathContent` mit GFM gibt es nur in der Web-App). |
+| E8 | **Pythagoras im Koordinatensystem nur über Punkte.** | Der Generator `koordinatensystem` hat keine Strecken/Polygone; die Abstandsaufgaben lesen zwei Punkte ab (3 Aufgaben). Dreiecke sonst als Text mit allen Maßen. |
+| E9 | **Parabeln über `quadratisch {a,b,c}`** (4 Aufgaben). | Vorhandener Generator; Scheitel und Nullstellen auf Gitterpunkten. |
+| E10 | **Körper und Ähnlichkeit ohne Abbildungen.** | Kein Generator; alles ist als Text eindeutig formulierbar (Strahlensatz-Figur in einem festen Satz mit Scheitel S, A zwischen S und C …). Ähnlichkeit wurde daher **nicht** übersprungen. Blind-Löser: 0 unsicher. |
+| E11 | **π wie beim Kreis**: „π-Taste oder π ≈ 3,14“, beide Ergebnisse als Varianten in `correct_answers` und `acceptance.equivalents`. | Exakter Textvergleich in `lsa_is_correct`; Toleranz würde „zu früh gerundet“ verschlucken. |
+| E12 | **22 neue Fehlbilder, zentral festgelegt**, Familie nur aus den fünf vorhandenen, sonst NULL. Mindestens drei Aufgaben im erstnennenden Thema. | Wiederverwendung vor Neuanlage (Bestand 98 Slugs geprüft, K8-Liste geprüft: keine gleichbedeutenden). Die Bibliothek lehnt jeden nicht geplanten Slug ab. |
+| E13 | **Keine Kante auf Knoten aus `feat/k8-rest`.** | Auftrag: unabhängig einspielbar. Fachlich fehlende Kanten stehen als Befund in `befunde.md`. |
+| E14 | **Einstiege nach „größter Abschluss, kein Einstieg im Abschluss eines anderen“.** 18 Zeilen für 9 Themen; Potenzen nur 1 (Kette), Prismen/Zylinder nur 1 (Zylinder enthält das Prisma). Sachaufgaben-/Anwendungsknoten keine Einstiege. | Phase T streicht mitbelegte Knoten; ein Einstieg im Abschluss eines anderen wäre wirkungslos (eigene Prüfabfrage dazu). `zahl_potenz_gesetze` war zunächst Einstieg und wurde deshalb gestrichen. |
+| E15 | **`statistik_beurteilen` bekommt keinen Einstieg**, `stoch_bedingt_irrefuehrend` als Heimat-Thema dort vorgeschlagen (`skill_thema.md`). | Das Thema ist nicht Teil dieses Laufs und nur zum Teil abgedeckt (Boxplot, Median fehlen). |
+| E16 | **`koerper-pyramide-04` ohne Pythagoras** umgebaut (Seitenhöhen gegeben). | Der Pyramiden-Knoten hat keine Kante auf Pythagoras; der Graph bleibt wie geprüft, Pythagoras im Körper gehört zum Kegel. |
+| E17 | **Prüfskripte erzeugt** (`tools/k9-rest-pruefung.mjs`): Substrat aus `graph.json` (unabhängig von der Migration), Aufgaben aus der Charge; lokal mit `-v lokal=true`. | Lokal fehlen die Alt-Slugs aus dem Datenimport und `skill_clusters`; gegen Prod laufen sie vollständig und nur lesend. |
+| E18 | **Parser-Fallstrick** (unäres Minus vor `^`) zentral geprüft: `tools/k9-rest-minuscheck.mjs`. | `-(6/2)^2` ergibt in prefill-rechnen +9. Alle 8 Chargen: keine mehrdeutigen Ausdrücke. |
+| E19 | **Blind-Löser schreibt seine Antworten zusätzlich in eine Datei** (`antworten.json` im Exportordner). | Spart das Abtippen von 30 UUIDs; sonst unverändert `tools/blind-loeser/AUFTRAG.md`. |

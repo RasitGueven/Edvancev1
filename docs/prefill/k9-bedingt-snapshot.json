@@ -1,0 +1,1014 @@
+[
+ {
+  "task": {
+   "id": "28ee89d3-0cdc-4842-869e-423c2bf78f8d",
+   "title": "Vierfeldertafel · Haustier, zwei Felder",
+   "question": "In einer Befragung wurden 200 Jugendliche gefragt, ob sie ein Haustier haben.\nMädchen mit Haustier: 48\nMädchen ohne Haustier: ?\nJungen mit Haustier: ?\nJungen ohne Haustier: 30\nMädchen insgesamt: 110\nMit Haustier insgesamt: 108\nAlle Befragten: 200\n\nErgänze die beiden fehlenden Felder. Gib jeweils die Anzahl als ganze Zahl an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_vierfeld",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Mädchen ohne Haustier",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Jungen mit Haustier",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-vierfeld-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cd7d81d2-819a-4887-ab77-6fa061b89358",
+   "title": "Vierfeldertafel · Bus und Stufe, drei Felder",
+   "question": "Eine Schule hat 300 Schülerinnen und Schüler gefragt, ob sie mit dem Bus zur Schule kommen.\nUnterstufe mit Bus: 72\nUnterstufe ohne Bus: ?\nOberstufe mit Bus: ?\nOberstufe ohne Bus: ?\nUnterstufe insgesamt: 160\nMit Bus insgesamt: 126\nAlle Befragten: 300\n\nErgänze die drei fehlenden Felder. Gib jeweils die Anzahl als ganze Zahl an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_vierfeld",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Unterstufe ohne Bus",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Oberstufe mit Bus",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 3,
+     "kind": "short_input",
+     "prompt": "Oberstufe ohne Bus",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-vierfeld-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e61dfd20-5b7c-4f12-94f9-f38a51ab64c5",
+   "title": "Vierfeldertafel · Feld und relative Häufigkeit",
+   "question": "Eine Gärtnerei hat 250 Pflanzen beobachtet. Ein Teil wurde gedüngt.\nGedüngt, blüht: 86\nGedüngt, blüht nicht: ?\nNicht gedüngt, blüht: ?\nNicht gedüngt, blüht nicht: ?\nGedüngt insgesamt: 120\nBlüht insgesamt: 140\nAlle Pflanzen: 250\n\nGib die Anzahl im Feld „Nicht gedüngt, blüht“ an und dann die relative Häufigkeit dieses Feldes bezogen auf alle 250 Pflanzen als Dezimalzahl, gerundet auf zwei Stellen nach dem Komma.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_vierfeld",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Nicht gedüngt, blüht (Anzahl)",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Relative Häufigkeit von „Nicht gedüngt, blüht“ (Dezimalzahl, zwei Stellen)",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-vierfeld-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "52f02da3-efb0-4667-8387-506d491e74c5",
+   "title": "Vierfeldertafel · aus Prozentangaben, Werkstücke",
+   "question": "Eine Fabrik prüft 400 Werkstücke. 60 % davon stammen von Maschine A, der Rest von Maschine B. Von den Werkstücken aus Maschine A sind 5 % fehlerhaft. Insgesamt sind 26 Werkstücke fehlerhaft.\n\nBestimme die drei Felder der Vierfeldertafel. Gib jeweils die Anzahl als ganze Zahl an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_vierfeld",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Fehlerhafte Werkstücke von Maschine A",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Fehlerhafte Werkstücke von Maschine B",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 3,
+     "kind": "short_input",
+     "prompt": "Fehlerfreie Werkstücke von Maschine B",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-vierfeld-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2f7128fa-73b2-4686-97b3-7a23bd286196",
+   "title": "Vierfeldertafel · relative Häufigkeiten, Verkehrszählung",
+   "question": "Bei einer Verkehrszählung an einer Kreuzung wurde festgehalten, ob ein Fahrzeug ein Auto ist und ob es abbiegt. Die Anteile beziehen sich auf alle gezählten Fahrzeuge.\nAutos, die abbiegen: 0,18\nAutos, die geradeaus fahren: ?\nAndere Fahrzeuge, die abbiegen: ?\nAndere Fahrzeuge, die geradeaus fahren: ?\nAutos insgesamt: 0,65\nAbbiegende Fahrzeuge insgesamt: 0,30\nAlle Fahrzeuge: 1\n\nGezählt wurden 400 Fahrzeuge. Ergänze die drei fehlenden Anteile exakt als Dezimalzahl und gib an, wie viele andere Fahrzeuge abgebogen sind.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_vierfeld",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Anteil: Autos, die geradeaus fahren",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Anteil: Andere Fahrzeuge, die abbiegen",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 3,
+     "kind": "short_input",
+     "prompt": "Anteil: Andere Fahrzeuge, die geradeaus fahren",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 4,
+     "kind": "short_input",
+     "prompt": "Anzahl anderer Fahrzeuge, die abgebogen sind",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-vierfeld-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1e23eb52-5227-413e-846c-db4109cc487b",
+   "title": "Vierfeldertafel · Instrument und Chor aus Prozentangaben",
+   "question": "In einer Jahrgangsstufe mit 150 Schülerinnen und Schülern spielen 40 % ein Instrument. Von denen, die ein Instrument spielen, singen 25 % im Chor. Insgesamt singen 33 Schülerinnen und Schüler im Chor.\n\nWie viele singen im Chor, spielen aber kein Instrument? Wie viele singen nicht im Chor und spielen auch kein Instrument? Gib jeweils die Anzahl als ganze Zahl an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_vierfeld",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Im Chor, kein Instrument",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Nicht im Chor, kein Instrument",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-vierfeld-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f1aa77f4-a66c-48a6-8981-1ec5e61cac94",
+   "title": "P(Haustier | Junge) · Dezimalzahl",
+   "question": "In einer Befragung wurden 200 Jugendliche gefragt, ob sie ein Haustier haben.\nMädchen mit Haustier: 48\nMädchen ohne Haustier: 62\nJungen mit Haustier: 60\nJungen ohne Haustier: 30\nMädchen insgesamt: 110\nJungen insgesamt: 90\nMit Haustier insgesamt: 108\nOhne Haustier insgesamt: 92\nAlle Befragten: 200\n\nEine zufällig ausgewählte befragte Person ist ein Junge. Wie groß ist die Wahrscheinlichkeit, dass er ein Haustier hat? Gib die Wahrscheinlichkeit als Dezimalzahl an und runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_wkeit",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Befragung wurden 200 Jugendliche gefragt, ob sie ein Haustier haben.\nMädchen mit Haustier: 48\nMädchen ohne Haustier: 62\nJungen mit Haustier: 60\nJungen ohne Haustier: 30\nMädchen insgesamt: 110\nJungen insgesamt: 90\nMit Haustier insgesamt: 108\nOhne Haustier insgesamt: 92\nAlle Befragten: 200\n\nEine zufällig ausgewählte befragte Person ist ein Junge. Wie groß ist die Wahrscheinlichkeit, dass er ein Haustier hat? Gib die Wahrscheinlichkeit als Dezimalzahl an und runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-wkeit-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "92bb0d6f-c6be-45ce-a0f1-d68021e5e95c",
+   "title": "P(Lieferant B | fehlerhaft) · Prozent",
+   "question": "Ein Materialprüfgerät hat 500 Bauteile von zwei Lieferanten geprüft.\nLieferant A, fehlerhaft: 18\nLieferant A, in Ordnung: 282\nLieferant B, fehlerhaft: 11\nLieferant B, in Ordnung: 189\nLieferant A insgesamt: 300\nLieferant B insgesamt: 200\nFehlerhaft insgesamt: 29\nIn Ordnung insgesamt: 471\nAlle Bauteile: 500\n\nAus den fehlerhaften Bauteilen wird eines zufällig ausgewählt. Mit welcher Wahrscheinlichkeit in Prozent stammt es von Lieferant B? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_wkeit",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Materialprüfgerät hat 500 Bauteile von zwei Lieferanten geprüft.\nLieferant A, fehlerhaft: 18\nLieferant A, in Ordnung: 282\nLieferant B, fehlerhaft: 11\nLieferant B, in Ordnung: 189\nLieferant A insgesamt: 300\nLieferant B insgesamt: 200\nFehlerhaft insgesamt: 29\nIn Ordnung insgesamt: 471\nAlle Bauteile: 500\n\nAus den fehlerhaften Bauteilen wird eines zufällig ausgewählt. Mit welcher Wahrscheinlichkeit in Prozent stammt es von Lieferant B? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-wkeit-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "15c3975c-0191-4062-9316-1000bf387b74",
+   "title": "P(Schwimmen | Erwachsene) · gekürzter Bruch",
+   "question": "Ein Sportverein hat 120 Mitglieder gefragt, ob sie das Schwimmangebot nutzen.\nKinder, schwimmen: 42\nKinder, schwimmen nicht: 28\nErwachsene, schwimmen: 18\nErwachsene, schwimmen nicht: 32\nKinder insgesamt: 70\nErwachsene insgesamt: 50\nSchwimmen insgesamt: 60\nSchwimmen nicht insgesamt: 60\nAlle Mitglieder: 120\n\nEin zufällig ausgewähltes Mitglied ist erwachsen. Wie groß ist die Wahrscheinlichkeit, dass es das Schwimmangebot nutzt? Gib die Wahrscheinlichkeit exakt als gekürzten Bruch oder als Dezimalzahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_wkeit",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Sportverein hat 120 Mitglieder gefragt, ob sie das Schwimmangebot nutzen.\nKinder, schwimmen: 42\nKinder, schwimmen nicht: 28\nErwachsene, schwimmen: 18\nErwachsene, schwimmen nicht: 32\nKinder insgesamt: 70\nErwachsene insgesamt: 50\nSchwimmen insgesamt: 60\nSchwimmen nicht insgesamt: 60\nAlle Mitglieder: 120\n\nEin zufällig ausgewähltes Mitglied ist erwachsen. Wie groß ist die Wahrscheinlichkeit, dass es das Schwimmangebot nutzt? Gib die Wahrscheinlichkeit exakt als gekürzten Bruch oder als Dezimalzahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-wkeit-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "860f4fc6-feff-4a62-86f4-83b799940023",
+   "title": "P(Popcorn | Kind) · erst ergänzen",
+   "question": "Ein Kino hat an einem Nachmittag 250 Besucherinnen und Besucher gezählt.\nErwachsene mit Popcorn: 45\nErwachsene insgesamt: 150\nMit Popcorn insgesamt: 105\nAlle Besucher: 250\n\nEine zufällig ausgewählte Person ist ein Kind. Wie groß ist die Wahrscheinlichkeit, dass es Popcorn gekauft hat? Gib die Wahrscheinlichkeit als Dezimalzahl an und runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_wkeit",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kino hat an einem Nachmittag 250 Besucherinnen und Besucher gezählt.\nErwachsene mit Popcorn: 45\nErwachsene insgesamt: 150\nMit Popcorn insgesamt: 105\nAlle Besucher: 250\n\nEine zufällig ausgewählte Person ist ein Kind. Wie groß ist die Wahrscheinlichkeit, dass es Popcorn gekauft hat? Gib die Wahrscheinlichkeit als Dezimalzahl an und runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-wkeit-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cdb39700-560b-4daa-9d8d-dc112752dcea",
+   "title": "Bibliothek · verlängerte Romane in Prozent",
+   "question": "Eine Bibliothek wertet 600 Ausleihen aus. 240 davon waren Sachbücher, der Rest Romane. 180 Ausleihen wurden verlängert, davon waren 96 Sachbücher.\n\nWie viel Prozent der ausgeliehenen Romane wurden verlängert? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_wkeit",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Bibliothek wertet 600 Ausleihen aus. 240 davon waren Sachbücher, der Rest Romane. 180 Ausleihen wurden verlängert, davon waren 96 Sachbücher.\n\nWie viel Prozent der ausgeliehenen Romane wurden verlängert? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-wkeit-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2ad35b16-c351-4f0d-9cb1-8a6f564e9015",
+   "title": "Rückrichtung · P(Junge | Haustier) aus P(Haustier | Junge)",
+   "question": "Von 250 befragten Jugendlichen sind 100 Jungen. 70 % der Jungen haben ein Haustier. Insgesamt haben 160 der Befragten ein Haustier.\n\nEine zufällig ausgewählte Person mit Haustier wird befragt. Wie groß ist die Wahrscheinlichkeit, dass es ein Junge ist? Gib die Wahrscheinlichkeit als Dezimalzahl an und runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_wkeit",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Von 250 befragten Jugendlichen sind 100 Jungen. 70 % der Jungen haben ein Haustier. Insgesamt haben 160 der Befragten ein Haustier.\n\nEine zufällig ausgewählte Person mit Haustier wird befragt. Wie groß ist die Wahrscheinlichkeit, dass es ein Junge ist? Gib die Wahrscheinlichkeit als Dezimalzahl an und runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-wkeit-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "91229203-0300-42ac-a9a5-e5bb1dd2e768",
+   "title": "Erwartete Anzahl bei Unabhängigkeit",
+   "question": "Von 200 befragten Jugendlichen sind 120 Mädchen. 90 der Befragten haben ein Haustier.\n\nWie viele Mädchen mit Haustier wären zu erwarten, wenn Geschlecht und Haustierbesitz unabhängig voneinander wären? Gib die Anzahl als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_unabhaengig",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Von 200 befragten Jugendlichen sind 120 Mädchen. 90 der Befragten haben ein Haustier.\n\nWie viele Mädchen mit Haustier wären zu erwarten, wenn Geschlecht und Haustierbesitz unabhängig voneinander wären? Gib die Anzahl als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-unabhaengig-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b67dead9-84f6-44fe-9ab9-86ae6134f716",
+   "title": "P(A | B) und P(A) vergleichen · Prozentpunkte",
+   "question": "Von 200 befragten Jugendlichen sind 120 Mädchen. 63 der Mädchen haben ein Haustier. Insgesamt haben 90 der Befragten ein Haustier.\n\nUm wie viele Prozentpunkte ist der Anteil der Haustierbesitzer unter den Mädchen größer als der Anteil der Haustierbesitzer unter allen Befragten? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_unabhaengig",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Von 200 befragten Jugendlichen sind 120 Mädchen. 63 der Mädchen haben ein Haustier. Insgesamt haben 90 der Befragten ein Haustier.\n\nUm wie viele Prozentpunkte ist der Anteil der Haustierbesitzer unter den Mädchen größer als der Anteil der Haustierbesitzer unter allen Befragten? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-unabhaengig-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "91fc34f7-0f5c-4fcb-bc9a-35c8e49f8d1c",
+   "title": "Fehlende Zahl für Unabhängigkeit · Pflanzen",
+   "question": "Von 300 Pflanzen wurden 120 gedüngt. Von den 180 nicht gedüngten Pflanzen blühen 117.\n\nWie viele der gedüngten Pflanzen müssten blühen, damit Blühen und Düngen unabhängig voneinander sind? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_unabhaengig",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Von 300 Pflanzen wurden 120 gedüngt. Von den 180 nicht gedüngten Pflanzen blühen 117.\n\nWie viele der gedüngten Pflanzen müssten blühen, damit Blühen und Düngen unabhängig voneinander sind? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-unabhaengig-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "36c037ea-2bf9-4d79-8dd6-e45bd85f7ef5",
+   "title": "Befall im Gewächshaus und Freiland · Prozentpunkte",
+   "question": "Eine Gärtnerei hat 240 Tomatenpflanzen auf Schädlingsbefall untersucht.\nGewächshaus mit Befall: 18\nGewächshaus ohne Befall: 132\nFreiland mit Befall: 24\nFreiland ohne Befall: 66\nGewächshaus insgesamt: 150\nFreiland insgesamt: 90\nMit Befall insgesamt: 42\nOhne Befall insgesamt: 198\nAlle Pflanzen: 240\n\nUm wie viele Prozentpunkte ist der Anteil befallener Pflanzen im Freiland größer als im Gewächshaus? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_unabhaengig",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gärtnerei hat 240 Tomatenpflanzen auf Schädlingsbefall untersucht.\nGewächshaus mit Befall: 18\nGewächshaus ohne Befall: 132\nFreiland mit Befall: 24\nFreiland ohne Befall: 66\nGewächshaus insgesamt: 150\nFreiland insgesamt: 90\nMit Befall insgesamt: 42\nOhne Befall insgesamt: 198\nAlle Pflanzen: 240\n\nUm wie viele Prozentpunkte ist der Anteil befallener Pflanzen im Freiland größer als im Gewächshaus? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-unabhaengig-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "239036c3-5e39-4ac1-83aa-bc320583b0ce",
+   "title": "Mensa und Unterstufe · Erwartung und Abweichung",
+   "question": "An einer Schule mit 400 Schülerinnen und Schülern essen 35 % regelmäßig in der Mensa. 55 % aller Schülerinnen und Schüler gehören zur Unterstufe.\n\nWie viele Unterstufenschüler würden regelmäßig in der Mensa essen, wenn Mensabesuch und Stufe unabhängig voneinander wären? Tatsächlich sind es 95 Unterstufenschüler. Um wie viele liegt die tatsächliche Zahl über der erwarteten? Gib jeweils die Anzahl als ganze Zahl an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_unabhaengig",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Erwartete Anzahl bei Unabhängigkeit",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Unterschied zur tatsächlichen Zahl",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-unabhaengig-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5d5efaf9-a722-422c-bb98-6eb56b710fb6",
+   "title": "Garten und Lastenrad · Unabhängigkeit und Abstand",
+   "question": "Eine Gemeinde hat 500 Haushalte befragt. 200 Haushalte haben einen Garten. Von den Haushalten mit Garten besitzen 30 % ein Lastenrad.\n\nWie viele Haushalte ohne Garten müssten ein Lastenrad besitzen, damit Garten und Lastenrad unabhängig voneinander sind?\nTatsächlich besitzen insgesamt 114 Haushalte ein Lastenrad. Um wie viele Prozentpunkte ist der Anteil der Lastenradbesitzer bei den Haushalten mit Garten größer als bei den Haushalten ohne Garten? Gib das Ergebnis exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_unabhaengig",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Haushalte ohne Garten mit Lastenrad bei Unabhängigkeit",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Unterschied der Anteile in Prozentpunkten",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-unabhaengig-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3635d7e9-fca6-4c09-87c1-2711f3d7e6e0",
+   "title": "Schnelltest · befallene und erkannte Proben",
+   "question": "Ein Labor untersucht 1000 Blattproben mit einem Schnelltest auf eine Pflanzenkrankheit. 2 % der Proben sind befallen. Der Test erkennt 90 % der befallenen Proben.\n\nWie viele Proben sind befallen? Wie viele Proben sind befallen und haben einen positiven Test? Gib jeweils die Anzahl als ganze Zahl an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_umkehr",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Befallene Proben",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Befallene Proben mit positivem Test",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-umkehr-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5da9ef15-5323-4556-9565-6ec5378a8b29",
+   "title": "Prüfgerät · intakte Teile und Fehlalarme",
+   "question": "Ein Prüfgerät kontrolliert 5000 Bauteile. 4 % der Bauteile sind defekt. Bei 3 % der intakten Bauteile meldet das Gerät fälschlich einen Defekt.\n\nWie viele Bauteile sind intakt? Bei wie vielen intakten Bauteilen meldet das Gerät fälschlich einen Defekt? Gib jeweils die Anzahl als ganze Zahl an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_umkehr",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Intakte Bauteile",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Intakte Bauteile mit Fehlalarm",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-umkehr-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6a8af2d6-7306-488b-bd73-405bd3865931",
+   "title": "Schnelltest · positive Tests und Anteil wirklich befallen",
+   "question": "Ein Labor untersucht 1000 Blattproben mit einem Schnelltest auf eine Pflanzenkrankheit. 2 % der Proben sind befallen. Der Test erkennt 90 % der befallenen Proben. Bei 5 % der gesunden Proben schlägt er fälschlich an.\n\nWie viele Proben haben insgesamt einen positiven Test? Wie viel Prozent der Proben mit positivem Test sind wirklich befallen? Gib die Anzahl als ganze Zahl an. Gib den Prozentsatz ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_umkehr",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Proben mit positivem Test insgesamt",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Anteil wirklich befallener Proben unter den positiven (in %)",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-umkehr-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a784100b-b7e6-4cef-b62d-231262ed65e8",
+   "title": "Schnelltest · 1 % Befall, Anteil wirklich befallen",
+   "question": "Eine Gärtnerei testet 10 000 Setzlinge auf einen Pilz. 1 % der Setzlinge ist befallen. Der Test erkennt 95 % der befallenen Setzlinge. Bei 2 % der gesunden Setzlinge schlägt er fälschlich an.\n\nWie viel Prozent der Setzlinge mit positivem Test sind wirklich befallen? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_umkehr",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Gärtnerei testet 10 000 Setzlinge auf einen Pilz. 1 % der Setzlinge ist befallen. Der Test erkennt 95 % der befallenen Setzlinge. Bei 2 % der gesunden Setzlinge schlägt er fälschlich an.\n\nWie viel Prozent der Setzlinge mit positivem Test sind wirklich befallen? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-umkehr-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5b30a658-06c2-4836-9084-91cd54095ab2",
+   "title": "Saatgut · positive Tests und Anteil befallen",
+   "question": "Ein Labor prüft 2000 Saatgutproben mit einem Schnelltest auf einen Pilz. 5 % der Proben sind befallen. Der Test erkennt 80 % der befallenen Proben. Bei 4 % der gesunden Proben schlägt er fälschlich an.\n\nWie viele Proben haben insgesamt einen positiven Test? Wie viel Prozent der positiv getesteten Proben sind wirklich befallen? Gib die Anzahl als ganze Zahl an. Gib den Prozentsatz ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "MULTI_PART",
+   "skill_key": "stoch_bedingt_umkehr",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Proben mit positivem Test insgesamt",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Anteil wirklich befallener Proben unter den positiven (in %)",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-umkehr-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "18fe10bb-53d2-42a3-9b10-e4b04c65469d",
+   "title": "Schweißnähte · Anteil echter Fehler ohne Gesamtzahl",
+   "question": "Ein Materialprüfgerät untersucht Schweißnähte. 4 % der Nähte sind fehlerhaft. Das Gerät meldet 95 % der fehlerhaften Nähte. Bei 10 % der fehlerfreien Nähte meldet es fälschlich einen Fehler.\n\nWie viel Prozent der gemeldeten Nähte sind tatsächlich fehlerhaft? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_umkehr",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Materialprüfgerät untersucht Schweißnähte. 4 % der Nähte sind fehlerhaft. Das Gerät meldet 95 % der fehlerhaften Nähte. Bei 10 % der fehlerfreien Nähte meldet es fälschlich einen Fehler.\n\nWie viel Prozent der gemeldeten Nähte sind tatsächlich fehlerhaft? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-umkehr-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d8be6909-8da5-4333-ac32-e6c6d1c34fa8",
+   "title": "Abgeschnittene Achse · gezeichnetes Verhältnis",
+   "question": "In einem Säulendiagramm steht Säule A für den Wert 52 und Säule B für den Wert 48. Die Hochachse beginnt nicht bei 0, sondern bei 44.\n\nWie viel mal so hoch ist Säule A gezeichnet wie Säule B? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_irrefuehrend",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einem Säulendiagramm steht Säule A für den Wert 52 und Säule B für den Wert 48. Die Hochachse beginnt nicht bei 0, sondern bei 44.\n\nWie viel mal so hoch ist Säule A gezeichnet wie Säule B? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-irrefuehrend-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0f94090d-dced-46dd-ab0d-ff9152c75529",
+   "title": "Abgeschnittene Achse · tatsächliches Verhältnis",
+   "question": "In einem Säulendiagramm steht Säule A für den Wert 75 und Säule B für den Wert 60. Die Hochachse beginnt bei 50, deshalb wirkt Säule A deutlich größer.\n\nWie viel mal so groß ist der Wert von A wie der Wert von B? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_irrefuehrend",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einem Säulendiagramm steht Säule A für den Wert 75 und Säule B für den Wert 60. Die Hochachse beginnt bei 50, deshalb wirkt Säule A deutlich größer.\n\nWie viel mal so groß ist der Wert von A wie der Wert von B? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-irrefuehrend-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a1c6838a-e550-4ed2-92cf-55244acded67",
+   "title": "Absolut oder relativ · Radfahrer an zwei Schulen",
+   "question": "Eine Meldung lautet: „An Schule A fahren mehr Jugendliche mit dem Rad zur Schule als an Schule B.“ An Schule A fahren 36 von 240 Jugendlichen mit dem Rad, an Schule B 22 von 88.\n\nUm wie viele Prozentpunkte ist der Anteil der Radfahrer an Schule B größer als an Schule A? Gib die Zahl ohne %-Zeichen exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_irrefuehrend",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Meldung lautet: „An Schule A fahren mehr Jugendliche mit dem Rad zur Schule als an Schule B.“ An Schule A fahren 36 von 240 Jugendlichen mit dem Rad, an Schule B 22 von 88.\n\nUm wie viele Prozentpunkte ist der Anteil der Radfahrer an Schule B größer als an Schule A? Gib die Zahl ohne %-Zeichen exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-irrefuehrend-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2708a240-7d4b-42bb-a028-d106ebe60765",
+   "title": "Schlagzeile mit vertauschter Bedingung · Kettenriss",
+   "question": "Eine Fahrradwerkstatt hat 1200 Fahrräder untersucht. 400 davon waren nie geölt worden. Bei 40 Fahrrädern war die Kette gerissen, 30 davon waren nie geölt worden.\nEine Schlagzeile lautet: „75 % der ungeölten Ketten reißen!“\n\nWie viel Prozent der nie geölten Fahrräder hatten tatsächlich eine gerissene Kette? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_irrefuehrend",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Fahrradwerkstatt hat 1200 Fahrräder untersucht. 400 davon waren nie geölt worden. Bei 40 Fahrrädern war die Kette gerissen, 30 davon waren nie geölt worden.\nEine Schlagzeile lautet: „75 % der ungeölten Ketten reißen!“\n\nWie viel Prozent der nie geölten Fahrräder hatten tatsächlich eine gerissene Kette? Gib die Zahl ohne %-Zeichen an und runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-irrefuehrend-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "982be3c3-2d1f-4d59-817a-b7bd45ade1d6",
+   "title": "Absolut oder relativ · Diebstähle je 1000 Einwohner",
+   "question": "Ein Bericht meldet: „In Ort A wurden im letzten Jahr 45 Fahrräder gestohlen, in Ort B nur 18. In Ort A ist das Rad also weniger sicher.“ Ort A hat 15 000 Einwohner, Ort B hat 4000 Einwohner.\n\nUm wie viele Diebstähle je 1000 Einwohner liegt Ort B über Ort A? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_irrefuehrend",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Bericht meldet: „In Ort A wurden im letzten Jahr 45 Fahrräder gestohlen, in Ort B nur 18. In Ort A ist das Rad also weniger sicher.“ Ort A hat 15 000 Einwohner, Ort B hat 4000 Einwohner.\n\nUm wie viele Diebstähle je 1000 Einwohner liegt Ort B über Ort A? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-irrefuehrend-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f8f3a464-6dea-4783-a9de-3d5dda5fd878",
+   "title": "Rückrichtung · Achsenbeginn aus dem gezeichneten Verhältnis",
+   "question": "Ein Werbeblatt zeigt ein Säulendiagramm. Säule A steht für den Wert 66, Säule B für den Wert 54. Gezeichnet ist Säule A genau dreimal so hoch wie Säule B, weil die Hochachse nicht bei 0 beginnt.\n\nBei welchem Wert beginnt die Hochachse? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_bedingt_irrefuehrend",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Werbeblatt zeigt ein Säulendiagramm. Säule A steht für den Wert 66, Säule B für den Wert 54. Gezeichnet ist Säule A genau dreimal so hoch wie Säule B, weil die Hochachse nicht bei 0 beginnt.\n\nBei welchem Wert beginnt die Hochachse? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_bedingt",
+   "source_ref": "bedingt-irrefuehrend-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

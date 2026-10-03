@@ -1,0 +1,854 @@
+[
+ {
+  "task": {
+   "id": "4b3b14a9-0603-40d7-90b1-60f3517f7348",
+   "title": "Quadratwurzel · Zahl, die quadriert 225 ergibt",
+   "question": "Welche positive Zahl ergibt quadriert 225?\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_quadrat",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Welche positive Zahl ergibt quadriert 225?\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-quadrat-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "55239bfc-349a-4285-b29e-2b1c105e6033",
+   "title": "Quadratwurzel · √0,49",
+   "question": "Berechne √0,49.\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_quadrat",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √0,49.\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-quadrat-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "afc3b977-389b-4e8d-a157-9952b087c8e2",
+   "title": "Quadratwurzel · √(9/16)",
+   "question": "Berechne √(9/16).\n\nGib das Ergebnis exakt an. Du kannst einen Bruch oder eine Dezimalzahl eingeben.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_quadrat",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √(9/16).\n\nGib das Ergebnis exakt an. Du kannst einen Bruch oder eine Dezimalzahl eingeben."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-quadrat-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "16d6e3b7-86f0-4661-b750-70bf5764e3ba",
+   "title": "Quadratwurzel · √0,0016",
+   "question": "Berechne √0,0016.\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_quadrat",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √0,0016.\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-quadrat-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "99b7829c-3536-4278-a84e-3dbeea10637c",
+   "title": "Quadratwurzel · Seite eines Quadrats mit 2,25 m²",
+   "question": "Eine quadratische Tischplatte hat einen Flächeninhalt von 2,25 m².\n\nWie lang ist eine Seite der Tischplatte in Zentimetern? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_quadrat",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine quadratische Tischplatte hat einen Flächeninhalt von 2,25 m².\n\nWie lang ist eine Seite der Tischplatte in Zentimetern? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-quadrat-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5f9d6c06-c962-4b38-9096-4a1ab9c97292",
+   "title": "Quadratwurzel · Zaun um einen Platz mit 1296 m²",
+   "question": "Ein quadratischer Platz hat einen Flächeninhalt von 1296 m². Er soll ringsum eingezäunt werden.\n\nWie viele Meter Zaun werden gebraucht? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_quadrat",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein quadratischer Platz hat einen Flächeninhalt von 1296 m². Er soll ringsum eingezäunt werden.\n\nWie viele Meter Zaun werden gebraucht? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-quadrat-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6585552b-bb6b-4345-98cb-d427378cdfed",
+   "title": "Näherung · √50 zwischen zwei ganzen Zahlen",
+   "question": "√50 liegt zwischen zwei aufeinanderfolgenden ganzen Zahlen.\n\nGib beide Zahlen an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "zahl_wurzel_naeherung",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Kleinere Zahl",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Größere Zahl",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-naeherung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fde9c9a1-f05a-42ff-ab98-d94ee6894d07",
+   "title": "Näherung · √10 auf eine Stelle",
+   "question": "Berechne √10.\n\nRunde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_naeherung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √10.\n\nRunde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-naeherung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0b9229a0-db38-4fc4-8b64-1213b5198f50",
+   "title": "Näherung · √30 auf zwei Stellen",
+   "question": "Berechne √30.\n\nRunde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_naeherung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √30.\n\nRunde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-naeherung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9af2a3ce-78dc-48b8-b5bc-c50b2fc1f9bd",
+   "title": "Näherung · √0,9 auf zwei Stellen",
+   "question": "Berechne √0,9.\n\nRunde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_naeherung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √0,9.\n\nRunde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-naeherung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "cd35f4b2-62da-4f01-9215-bc9504f8e67a",
+   "title": "Näherung · Seite eines Beets mit 11 m²",
+   "question": "Ein quadratisches Beet hat einen Flächeninhalt von 11 m².\n\nWie lang ist eine Seite des Beets? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_naeherung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein quadratisches Beet hat einen Flächeninhalt von 11 m².\n\nWie lang ist eine Seite des Beets? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-naeherung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "81015f65-8ac0-4ef3-abb8-9a7b87c44940",
+   "title": "Näherung · Teppich mit 6 m², Seite in ganzen Zentimetern",
+   "question": "Ein quadratischer Teppich soll einen Flächeninhalt von mindestens 6 m² haben.\n\nWie lang muss eine Seite mindestens sein? Gib ganze Zentimeter an und runde dafür auf.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_naeherung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein quadratischer Teppich soll einen Flächeninhalt von mindestens 6 m² haben.\n\nWie lang muss eine Seite mindestens sein? Gib ganze Zentimeter an und runde dafür auf."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-naeherung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "54382934-12e4-4819-8dc4-5f4f5650471f",
+   "title": "Irrational · Anzahl unter fünf Zahlen",
+   "question": "Wie viele der folgenden Zahlen sind irrational?\n\n√2;   √9;   0,5;   √5;   3/7\n\nGib die Anzahl als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_irrational",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Wie viele der folgenden Zahlen sind irrational?\n\n√2;   √9;   0,5;   √5;   3/7\n\nGib die Anzahl als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-irrational-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9935f4bb-1222-4ead-bf3c-6b8cfd134395",
+   "title": "Rational · 0,375 als gekürzter Bruch",
+   "question": "Schreibe 0,375 als vollständig gekürzten Bruch.\n\nGib den Nenner an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_irrational",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Schreibe 0,375 als vollständig gekürzten Bruch.\n\nGib den Nenner an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-irrational-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ae8478c7-f104-407a-a75a-087d71e20757",
+   "title": "Rational · 0,4545… als gekürzter Bruch",
+   "question": "Die Zahl 0,454545… (Periode 45) ist rational.\n\nSchreibe sie als vollständig gekürzten Bruch und gib den Nenner an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_irrational",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Zahl 0,454545… (Periode 45) ist rational.\n\nSchreibe sie als vollständig gekürzten Bruch und gib den Nenner an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-irrational-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "834de179-1fbd-4491-9d86-fd572310f3dd",
+   "title": "Rational · Anzahl unter sechs Zahlen",
+   "question": "Wie viele der folgenden Zahlen sind rational?\n\n√16;   √12;   0,333… (Periode 3);   π;   √0,25;   −5\n\nGib die Anzahl als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_irrational",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Wie viele der folgenden Zahlen sind rational?\n\n√16;   √12;   0,333… (Periode 3);   π;   √0,25;   −5\n\nGib die Anzahl als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-irrational-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d851f251-cbe5-4804-b74d-2458c7a855af",
+   "title": "Irrational · Fliesen mit rationaler Seitenlänge",
+   "question": "Ein Betrieb stellt quadratische Fliesen mit diesen Flächeninhalten her (in cm²):\n\n49;   50;   2,25;   8;   0,64;   12,1\n\nBei wie vielen dieser Fliesen ist die Seitenlänge in cm eine rationale Zahl? Gib die Anzahl als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_irrational",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Betrieb stellt quadratische Fliesen mit diesen Flächeninhalten her (in cm²):\n\n49;   50;   2,25;   8;   0,64;   12,1\n\nBei wie vielen dieser Fliesen ist die Seitenlänge in cm eine rationale Zahl? Gib die Anzahl als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-irrational-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0b7e781c-60ae-4a93-afb8-2ee2b400b15a",
+   "title": "Irrational · rationale Wurzeln von 1 bis 60",
+   "question": "Für wie viele natürliche Zahlen n von 1 bis 60 (jeweils einschließlich) ist √n eine rationale Zahl?\n\nGib die Anzahl als ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_irrational",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für wie viele natürliche Zahlen n von 1 bis 60 (jeweils einschließlich) ist √n eine rationale Zahl?\n\nGib die Anzahl als ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-irrational-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a0a8c04b-145b-4010-8c46-b5c7520d54bb",
+   "title": "Wurzelgesetz · √2 · √8",
+   "question": "Berechne √2 · √8.\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √2 · √8.\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-gesetze-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "760fc0ad-d0c6-4a09-889b-c116a2f0ff78",
+   "title": "Wurzelgesetz · √50 : √2",
+   "question": "Berechne √50 : √2.\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √50 : √2.\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-gesetze-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "926f4f6e-7eca-43f5-92c2-855eff8167b4",
+   "title": "Wurzel einer Summe · √(36 + 64)",
+   "question": "Berechne √(36 + 64).\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √(36 + 64).\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-gesetze-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ce24db36-6dac-4b3f-8395-e815549a7689",
+   "title": "Wurzel einer Summe · √(1,44 + 0,81)",
+   "question": "Berechne √(1,44 + 0,81).\n\nGib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne √(1,44 + 0,81).\n\nGib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-gesetze-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4f7652bf-34f5-46ce-b17b-54ffd1fdd0d3",
+   "title": "Wurzelgesetz · Rechteck √8 m mal √18 m",
+   "question": "Ein rechteckiges Feld ist √8 m lang und √18 m breit.\n\nWie groß ist sein Flächeninhalt in Quadratmetern? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Feld ist √8 m lang und √18 m breit.\n\nWie groß ist sein Flächeninhalt in Quadratmetern? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-gesetze-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "88c99e21-a70e-42e5-b426-07e29b93d3fe",
+   "title": "Wurzel einer Summe · ein Beet so groß wie zwei",
+   "question": "Zwei quadratische Beete haben die Flächeninhalte 9 m² und 16 m². Sie sollen durch ein einziges quadratisches Beet ersetzt werden, das genau so groß ist wie beide zusammen.\n\nWie lang ist eine Seite des neuen Beets? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_gesetze",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei quadratische Beete haben die Flächeninhalte 9 m² und 16 m². Sie sollen durch ein einziges quadratisches Beet ersetzt werden, das genau so groß ist wie beide zusammen.\n\nWie lang ist eine Seite des neuen Beets? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-gesetze-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0bcc83c8-42f0-4956-b1d0-00446cb6e5e2",
+   "title": "Teilweise Wurzel ziehen · √72 = a · √2",
+   "question": "Es gilt √72 = a · √2.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_teilweise",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Es gilt √72 = a · √2.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-teilweise-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "21427340-fc85-41c4-abea-99ad0121b83c",
+   "title": "Teilweise Wurzel ziehen · √48 = a · √3",
+   "question": "Es gilt √48 = a · √3.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_teilweise",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Es gilt √48 = a · √3.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-teilweise-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ad08897e-a44b-43fb-a779-96b889c069db",
+   "title": "Teilweise Wurzel ziehen · √200 = a · √2",
+   "question": "Es gilt √200 = a · √2.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_teilweise",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Es gilt √200 = a · √2.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-teilweise-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1dece473-758d-4108-9969-02b495dbf4ed",
+   "title": "Teilweise Wurzel ziehen · √18 · √6 = a · √3",
+   "question": "Es gilt √18 · √6 = a · √3.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_teilweise",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Es gilt √18 · √6 = a · √3.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-teilweise-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "df6b2bcd-8643-46b2-9553-db75854b597d",
+   "title": "Teilweise Wurzel ziehen · Spielplatz mit 180 m²",
+   "question": "Ein quadratischer Spielplatz hat einen Flächeninhalt von 180 m². Seine Seitenlänge lässt sich exakt als a · √5 m schreiben.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_teilweise",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein quadratischer Spielplatz hat einen Flächeninhalt von 180 m². Seine Seitenlänge lässt sich exakt als a · √5 m schreiben.\n\nBestimme a. a ist eine natürliche Zahl. Gib a exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-teilweise-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ef90a8ac-bbd4-4c36-9e02-26144cc9d9b0",
+   "title": "Rückrichtung · 6 · √3 = √b",
+   "question": "Es gilt 6 · √3 = √b.\n\nBestimme b. b ist eine natürliche Zahl. Gib b exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "zahl_wurzel_teilweise",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Es gilt 6 · √3 = √b.\n\nBestimme b. b ist eine natürliche Zahl. Gib b exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_wurzel",
+   "source_ref": "wurzel-teilweise-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

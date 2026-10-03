@@ -1,0 +1,4232 @@
+{
+ "batch": "k9-koerper",
+ "kopf": [
+  "K9-Rest, Thema koerper — 30 Aufgaben (Prisma, Zylinder, Pyramide, Kegel, Kugel; je Knoten 6, AFB I/I/II/II/II-Sach/III), alle als Text ohne Abbildung.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k9-koerper.json (Quelle: tools/k9-koerper-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003105858_substrat_k9_koerper.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit, eine mit Sachkontext (Wassertrog, Wassertank, Pyramidendach, Trichter, kugelförmiger Behälter) und eine AFB III (Rückrichtung oder zusammengesetzter Körper). Alle ohne Abbildung lösbar, alle Maße im Text. Jede Aufgabe nennt die Rundung; π-Aufgaben nennen π-Taste oder 3,14, beide Ergebnisse stehen als Varianten in correct_answers und acceptance.equivalents (exakter Textvergleich, keine Toleranz).",
+ "source": "edvance_k9_koerper",
+ "class_level": 9,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "ca18a102-4cf1-45fe-8461-82d860a7288c",
+   "titel": "Prisma · Volumen eines Dreiecksprismas",
+   "basis": {
+    "skill_key": "geo_koerper_prisma",
+    "source_ref": "koerper-prisma-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein gerades Prisma hat als Grundfläche ein Dreieck. Die Grundseite des Dreiecks ist 6 cm lang, die zugehörige Höhe des Dreiecks beträgt 4 cm. Das Prisma ist 10 cm hoch.\n\nWie groß ist das Volumen des Prismas? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "cm³",
+    "known_errors": {
+     "12": "falsche_groesse_beantwortet",
+     "240": "halbieren_vergessen",
+     "240 cm³": "halbieren_vergessen",
+     "240cm³": "halbieren_vergessen",
+     "12 cm³": "falsche_groesse_beantwortet",
+     "12cm³": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Dreiecksfläche als Grundfläche, dann V = G · h."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "120",
+      "120 cm³",
+      "120cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Grundfläche: G = ½ · 6 cm · 4 cm = 12 cm².\nV = G · h = 12 cm² · 10 cm = 120 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei der Dreiecksfläche das ½ vergessen: 6 · 4 · 10 = 240.",
+       "socratic_question": "Wie berechnest du den Flächeninhalt eines Dreiecks?"
+      },
+      {
+       "error": "Nur die Grundfläche berechnet, nicht das Volumen.",
+       "socratic_question": "Hast du die Höhe des Prismas schon verwendet?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1/2*6*4*10",
+     "antwort": "120"
+    },
+    {
+     "rechnung": "6*4*10",
+     "antwort": "240",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "1/2*6*4",
+     "antwort": "12",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "edeb2812-e0a3-415b-b097-e57181b53d6d",
+   "titel": "Prisma · Oberfläche eines Dreiecksprismas",
+   "basis": {
+    "skill_key": "geo_koerper_prisma",
+    "source_ref": "koerper-prisma-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein gerades Prisma hat als Grundfläche ein rechtwinkliges Dreieck mit den Seiten 3 cm, 4 cm und 5 cm. Der rechte Winkel liegt zwischen den Seiten 3 cm und 4 cm. Das Prisma ist 8 cm hoch.\n\nWie groß ist die Oberfläche des Prismas? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "cm²",
+    "known_errors": {
+     "48": "volumen_statt_oberflaeche",
+     "102": "mal_zwei_vergessen",
+     "120": "halbieren_vergessen",
+     "102 cm²": "mal_zwei_vergessen",
+     "102cm²": "mal_zwei_vergessen",
+     "120 cm²": "halbieren_vergessen",
+     "120cm²": "halbieren_vergessen",
+     "48 cm²": "volumen_statt_oberflaeche",
+     "48cm²": "volumen_statt_oberflaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: O = 2 · G + Mantel mit gegebenen Dreiecksseiten."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "108",
+      "108 cm²",
+      "108cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Grundfläche: G = ½ · 3 cm · 4 cm = 6 cm².\nMantel: M = Umfang · Höhe = (3 + 4 + 5) cm · 8 cm = 96 cm².\nO = 2 · G + M = 12 cm² + 96 cm² = 108 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur eine Grundfläche gezählt: 6 + 96 = 102.",
+       "socratic_question": "Wie viele Dreiecksflächen hat das Prisma?"
+      },
+      {
+       "error": "Bei der Dreiecksfläche das ½ vergessen: 2 · 12 + 96 = 120.",
+       "socratic_question": "Ist das Dreieck mit den Katheten 3 cm und 4 cm wirklich 12 cm² groß?"
+      },
+      {
+       "error": "Das Volumen berechnet statt der Oberfläche: 6 · 8 = 48.",
+       "socratic_question": "Ist nach dem Rauminhalt oder nach der Fläche aller Seiten gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_zwei_vergessen, halbieren_vergessen, volumen_statt_oberflaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*(1/2*3*4)+(3+4+5)*8",
+     "antwort": "108"
+    },
+    {
+     "rechnung": "1/2*3*4+(3+4+5)*8",
+     "antwort": "102",
+     "rolle": "fehlbild:mal_zwei_vergessen:"
+    },
+    {
+     "rechnung": "2*(3*4)+(3+4+5)*8",
+     "antwort": "120",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "1/2*3*4*8",
+     "antwort": "48",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "e958eb79-345a-4079-867b-46ecb652b478",
+   "titel": "Prisma · Volumen mit Trapez als Grundfläche",
+   "basis": {
+    "skill_key": "geo_koerper_prisma",
+    "source_ref": "koerper-prisma-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein gerades Prisma hat als Grundfläche ein Trapez. Die parallelen Seiten des Trapezes sind 8 cm und 5 cm lang, ihr Abstand beträgt 4 cm. Das Prisma ist 12 cm hoch.\n\nWie groß ist das Volumen des Prismas? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "cm³",
+    "known_errors": {
+     "26": "falsche_groesse_beantwortet",
+     "624": "halbieren_vergessen",
+     "624 cm³": "halbieren_vergessen",
+     "624cm³": "halbieren_vergessen",
+     "26 cm³": "falsche_groesse_beantwortet",
+     "26cm³": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Grundfläche ist ein Trapez, erst die Fläche bestimmen, dann V = G · h."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "312",
+      "312 cm³",
+      "312cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Grundfläche: G = (8 cm + 5 cm) : 2 · 4 cm = 26 cm².\nV = G · h = 26 cm² · 12 cm = 312 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei der Trapezfläche das Halbieren vergessen: 13 · 4 · 12 = 624.",
+       "socratic_question": "Wie lautet die Formel für den Flächeninhalt eines Trapezes?"
+      },
+      {
+       "error": "Nur die Grundfläche berechnet, nicht das Volumen.",
+       "socratic_question": "Hast du die Höhe des Prismas schon verwendet?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(8+5)/2*4*12",
+     "antwort": "312"
+    },
+    {
+     "rechnung": "(8+5)*4*12",
+     "antwort": "624",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "(8+5)/2*4",
+     "antwort": "26",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "807dd2a7-18a0-4ff1-93e4-d2d26052cd12",
+   "titel": "Prisma · Höhe aus Volumen und Dreiecksgrundfläche",
+   "basis": {
+    "skill_key": "geo_koerper_prisma",
+    "source_ref": "koerper-prisma-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein gerades Prisma hat das Volumen 180 cm³. Seine Grundfläche ist ein Dreieck mit der Grundseite 8 cm und der zugehörigen Höhe 5 cm.\n\nWie hoch ist das Prisma? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "cm",
+    "known_errors": {
+     "3600": "multipliziert_statt_dividiert",
+     "4,5": "halbieren_vergessen",
+     "4.5": "halbieren_vergessen",
+     "4,5 cm": "halbieren_vergessen",
+     "4,5cm": "halbieren_vergessen",
+     "3600 cm": "multipliziert_statt_dividiert",
+     "3600cm": "multipliziert_statt_dividiert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: V = G · h nach h umstellen, Grundfläche erst aus dem Dreieck bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9",
+      "9 cm",
+      "9cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Grundfläche: G = ½ · 8 cm · 5 cm = 20 cm².\nV = G · h, also h = V : G = 180 cm³ : 20 cm² = 9 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei der Dreiecksfläche das ½ vergessen: 180 : 40 = 4,5.",
+       "socratic_question": "Wie groß ist das Dreieck mit Grundseite 8 cm und Höhe 5 cm wirklich?"
+      },
+      {
+       "error": "Volumen mit der Grundfläche multipliziert statt durch sie geteilt.",
+       "socratic_question": "Kann ein Prisma mit 180 cm³ Volumen so hoch sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, multipliziert_statt_dividiert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180/(1/2*8*5)",
+     "antwort": "9"
+    },
+    {
+     "rechnung": "180/(8*5)",
+     "antwort": "4.5",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "180*(1/2*8*5)",
+     "antwort": "3600",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "9de789c5-cdc1-45c4-b38f-d809926410f5",
+   "titel": "Prisma · Wassertrog mit dreieckigem Querschnitt",
+   "basis": {
+    "skill_key": "geo_koerper_prisma",
+    "source_ref": "koerper-prisma-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Wassertrog hat die Form eines liegenden Dreiecksprismas. Der Querschnitt ist ein Dreieck: oben 60 cm breit und 40 cm tief. Der Trog ist 2 m lang. Es gilt 1 dm³ = 1 l.\n\nWie viele Liter Wasser fasst der Trog, wenn er randvoll ist? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "l",
+    "known_errors": {
+     "480": "halbieren_vergessen",
+     "2400": "einheit_uebersprungen",
+     "240000": "liter_kubik_falsch",
+     "480 l": "halbieren_vergessen",
+     "480l": "halbieren_vergessen",
+     "240000 l": "liter_kubik_falsch",
+     "240000l": "liter_kubik_falsch",
+     "2400 l": "einheit_uebersprungen",
+     "2400l": "einheit_uebersprungen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Trog als Dreiecksprisma erkennen, Einheiten angleichen und in Liter umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "240",
+      "240 l",
+      "240l"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "In Dezimeter umrechnen: 60 cm = 6 dm, 40 cm = 4 dm, 2 m = 20 dm.\nGrundfläche: G = ½ · 6 dm · 4 dm = 12 dm².\nV = G · Länge = 12 dm² · 20 dm = 240 dm³ = 240 l.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei der Dreiecksfläche das ½ vergessen: 24 · 20 = 480.",
+       "socratic_question": "Ist der Querschnitt ein Rechteck oder ein Dreieck?"
+      },
+      {
+       "error": "In Kubikzentimetern gerechnet und die Zahl als Liter angegeben.",
+       "socratic_question": "Wie viele Kubikzentimeter passen in einen Liter?"
+      },
+      {
+       "error": "Zentimeter und Meter gemischt, ohne umzurechnen.",
+       "socratic_question": "Sind alle drei Maße in derselben Einheit?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, liter_kubik_falsch, einheit_uebersprungen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1/2*6*4*20",
+     "antwort": "240"
+    },
+    {
+     "rechnung": "6*4*20",
+     "antwort": "480",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "1/2*60*40*200",
+     "antwort": "240000",
+     "rolle": "fehlbild:liter_kubik_falsch:"
+    },
+    {
+     "rechnung": "1/2*60*40*2",
+     "antwort": "2400",
+     "rolle": "fehlbild:einheit_uebersprungen:"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "e8aa50eb-5f6b-4296-a408-05257f00fe34",
+   "titel": "Prisma · Höhe aus der Oberfläche",
+   "basis": {
+    "skill_key": "geo_koerper_prisma",
+    "source_ref": "koerper-prisma-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein gerades Prisma hat als Grundfläche ein rechtwinkliges Dreieck mit den Seiten 6 cm, 8 cm und 10 cm. Der rechte Winkel liegt zwischen den Seiten 6 cm und 8 cm. Die Oberfläche des Prismas beträgt 288 cm².\n\nWie hoch ist das Prisma? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "cm",
+    "known_errors": {
+     "8": "halbieren_vergessen",
+     "11": "mal_zwei_vergessen",
+     "12": "volumen_statt_oberflaeche",
+     "11 cm": "mal_zwei_vergessen",
+     "11cm": "mal_zwei_vergessen",
+     "8 cm": "halbieren_vergessen",
+     "8cm": "halbieren_vergessen",
+     "12 cm": "volumen_statt_oberflaeche",
+     "12cm": "volumen_statt_oberflaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung über die Oberfläche – Grundflächen abziehen, dann durch den Umfang teilen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "10 cm",
+      "10cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Grundfläche: G = ½ · 6 cm · 8 cm = 24 cm², zwei Grundflächen: 48 cm².\nMantel: M = 288 cm² − 48 cm² = 240 cm².\nM = Umfang · h mit Umfang 6 cm + 8 cm + 10 cm = 24 cm.\nh = 240 cm² : 24 cm = 10 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur eine Grundfläche abgezogen: 264 : 24 = 11.",
+       "socratic_question": "Wie viele Dreiecksflächen gehören zur Oberfläche?"
+      },
+      {
+       "error": "Bei der Dreiecksfläche das ½ vergessen: (288 − 96) : 24 = 8.",
+       "socratic_question": "Wie groß ist ein rechtwinkliges Dreieck mit den Katheten 6 cm und 8 cm?"
+      },
+      {
+       "error": "Die Oberfläche wie ein Volumen durch die Grundfläche geteilt: 288 : 24 = 12.",
+       "socratic_question": "Ist 288 cm² ein Volumen oder eine Fläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_zwei_vergessen, halbieren_vergessen, volumen_statt_oberflaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(288-2*(1/2*6*8))/(6+8+10)",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "(288-1/2*6*8)/(6+8+10)",
+     "antwort": "11",
+     "rolle": "fehlbild:mal_zwei_vergessen:"
+    },
+    {
+     "rechnung": "(288-2*6*8)/(6+8+10)",
+     "antwort": "8",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "288/(1/2*6*8)",
+     "antwort": "12",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "2fd67e4c-9093-4e51-bd98-46e7d76e3a9f",
+   "titel": "Zylinder · Volumen, Radius 3 cm",
+   "basis": {
+    "skill_key": "geo_koerper_zylinder",
+    "source_ref": "koerper-zylinder-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein Zylinder hat den Radius 3 cm und die Höhe 10 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm³",
+    "known_errors": {
+     "90": "pi_vergessen",
+     "1130,97": "radius_durchmesser_verwechselt",
+     "1130.97": "radius_durchmesser_verwechselt",
+     "1130,97 cm³": "radius_durchmesser_verwechselt",
+     "1130,97cm³": "radius_durchmesser_verwechselt",
+     "1130,40": "radius_durchmesser_verwechselt",
+     "1130.40": "radius_durchmesser_verwechselt",
+     "1130,4": "radius_durchmesser_verwechselt",
+     "1130.4": "radius_durchmesser_verwechselt",
+     "1130,40 cm³": "radius_durchmesser_verwechselt",
+     "1130,40cm³": "radius_durchmesser_verwechselt",
+     "1130,4 cm³": "radius_durchmesser_verwechselt",
+     "1130,4cm³": "radius_durchmesser_verwechselt",
+     "90,00": "pi_vergessen",
+     "90.00": "pi_vergessen",
+     "90,00 cm³": "pi_vergessen",
+     "90,00cm³": "pi_vergessen",
+     "90 cm³": "pi_vergessen",
+     "90cm³": "pi_vergessen",
+     "245,04": "oberflaeche_statt_volumen",
+     "245.04": "oberflaeche_statt_volumen",
+     "245,04 cm³": "oberflaeche_statt_volumen",
+     "245,04cm³": "oberflaeche_statt_volumen",
+     "244,92": "oberflaeche_statt_volumen",
+     "244.92": "oberflaeche_statt_volumen",
+     "244,92 cm³": "oberflaeche_statt_volumen",
+     "244,92cm³": "oberflaeche_statt_volumen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Volumenformel mit gegebenem Radius und gegebener Höhe."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "282,74",
+      "282.74",
+      "282,74 cm³",
+      "282,74cm³",
+      "282,60",
+      "282.60",
+      "282,6",
+      "282.6",
+      "282,60 cm³",
+      "282,60cm³",
+      "282,6 cm³",
+      "282,6cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "V = π · r² · h = π · 9 cm² · 10 cm = π · 90 cm³ ≈ 282,74 cm³ (π-Taste).\nMit π ≈ 3,14: V = 3,14 · 90 cm³ = 282,60 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit 6 cm statt 3 cm gerechnet, Radius und Durchmesser verwechselt: π · 6² · 10.",
+       "socratic_question": "Ist 3 cm schon der Radius?"
+      },
+      {
+       "error": "π weggelassen: 9 · 10 = 90.",
+       "socratic_question": "Welcher Faktor gehört zur Kreisfläche?"
+      },
+      {
+       "error": "Die Oberfläche berechnet statt des Volumens.",
+       "socratic_question": "Ist nach dem Rauminhalt oder nach der Fläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, pi_vergessen, oberflaeche_statt_volumen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*3^2*10,2)",
+     "antwort": "282.74"
+    },
+    {
+     "rechnung": "round((3.14)*3^2*10,2)",
+     "antwort": "282.60"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*6^2*10,2)",
+     "antwort": "1130.97",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round((3.14)*6^2*10,2)",
+     "antwort": "1130.40",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(3^2*10,2)",
+     "antwort": "90.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(3^2*10,2)",
+     "antwort": "90.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*3^2+2*(3.14159265358979323846264338327950288)*3*10,2)",
+     "antwort": "245.04",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:pi"
+    },
+    {
+     "rechnung": "round(2*(3.14)*3^2+2*(3.14)*3*10,2)",
+     "antwort": "244.92",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:314"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "d0b4dbc3-1278-4a60-bcbe-98ebc0060ad2",
+   "titel": "Zylinder · Oberfläche, Durchmesser 8 cm",
+   "basis": {
+    "skill_key": "geo_koerper_zylinder",
+    "source_ref": "koerper-zylinder-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein Zylinder hat den Durchmesser 8 cm und die Höhe 5 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm²",
+    "known_errors": {
+     "653,45": "radius_durchmesser_verwechselt",
+     "653.45": "radius_durchmesser_verwechselt",
+     "653,45 cm²": "radius_durchmesser_verwechselt",
+     "653,45cm²": "radius_durchmesser_verwechselt",
+     "653,12": "radius_durchmesser_verwechselt",
+     "653.12": "radius_durchmesser_verwechselt",
+     "653,12 cm²": "radius_durchmesser_verwechselt",
+     "653,12cm²": "radius_durchmesser_verwechselt",
+     "175,93": "mal_zwei_vergessen",
+     "175.93": "mal_zwei_vergessen",
+     "175,93 cm²": "mal_zwei_vergessen",
+     "175,93cm²": "mal_zwei_vergessen",
+     "175,84": "mal_zwei_vergessen",
+     "175.84": "mal_zwei_vergessen",
+     "175,84 cm²": "mal_zwei_vergessen",
+     "175,84cm²": "mal_zwei_vergessen",
+     "251,33": "volumen_statt_oberflaeche",
+     "251.33": "volumen_statt_oberflaeche",
+     "251,33 cm²": "volumen_statt_oberflaeche",
+     "251,33cm²": "volumen_statt_oberflaeche",
+     "251,20": "volumen_statt_oberflaeche",
+     "251.20": "volumen_statt_oberflaeche",
+     "251,2": "volumen_statt_oberflaeche",
+     "251.2": "volumen_statt_oberflaeche",
+     "251,20 cm²": "volumen_statt_oberflaeche",
+     "251,20cm²": "volumen_statt_oberflaeche",
+     "251,2 cm²": "volumen_statt_oberflaeche",
+     "251,2cm²": "volumen_statt_oberflaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Radius aus dem Durchmesser, dann O = 2 · G + M."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "226,19",
+      "226.19",
+      "226,19 cm²",
+      "226,19cm²",
+      "226,08",
+      "226.08",
+      "226,08 cm²",
+      "226,08cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "r = 8 cm : 2 = 4 cm.\nZwei Grundflächen: 2 · π · (4 cm)² = π · 32 cm².\nMantel: 2 · π · 4 cm · 5 cm = π · 40 cm².\nO = π · 72 cm² ≈ 226,19 cm² (π-Taste).\nMit π ≈ 3,14: O = 3,14 · 72 cm² = 226,08 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt.",
+       "socratic_question": "Ist 8 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "Nur eine Kreisfläche gezählt (Deckel oder Boden fehlt).",
+       "socratic_question": "Wie viele Kreisflächen hat ein geschlossener Zylinder?"
+      },
+      {
+       "error": "Das Volumen berechnet statt der Oberfläche.",
+       "socratic_question": "Kommt bei deiner Rechnung cm² oder cm³ heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, mal_zwei_vergessen, volumen_statt_oberflaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*4^2+2*(3.14159265358979323846264338327950288)*4*5,2)",
+     "antwort": "226.19"
+    },
+    {
+     "rechnung": "round(2*(3.14)*4^2+2*(3.14)*4*5,2)",
+     "antwort": "226.08"
+    },
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*8^2+2*(3.14159265358979323846264338327950288)*8*5,2)",
+     "antwort": "653.45",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(2*(3.14)*8^2+2*(3.14)*8*5,2)",
+     "antwort": "653.12",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*4^2+2*(3.14159265358979323846264338327950288)*4*5,2)",
+     "antwort": "175.93",
+     "rolle": "fehlbild:mal_zwei_vergessen:pi"
+    },
+    {
+     "rechnung": "round((3.14)*4^2+2*(3.14)*4*5,2)",
+     "antwort": "175.84",
+     "rolle": "fehlbild:mal_zwei_vergessen:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*4^2*5,2)",
+     "antwort": "251.33",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:pi"
+    },
+    {
+     "rechnung": "round((3.14)*4^2*5,2)",
+     "antwort": "251.20",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:314"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "267a9ef3-4ac7-4b54-ba99-f84b90ae1521",
+   "titel": "Zylinder · Volumen, Radius 1,5 m",
+   "basis": {
+    "skill_key": "geo_koerper_zylinder",
+    "source_ref": "koerper-zylinder-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein Zylinder hat den Radius 1,5 m und die Höhe 3,2 m.\n\nWie groß ist sein Volumen in Kubikmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "m³",
+    "known_errors": {
+     "30,16": "mal_exponent",
+     "30.16": "mal_exponent",
+     "30,16 m³": "mal_exponent",
+     "30,16m³": "mal_exponent",
+     "30,14": "mal_exponent",
+     "30.14": "mal_exponent",
+     "30,14 m³": "mal_exponent",
+     "30,14m³": "mal_exponent",
+     "5,65": "radius_durchmesser_verwechselt",
+     "5.65": "radius_durchmesser_verwechselt",
+     "5,65 m³": "radius_durchmesser_verwechselt",
+     "5,65m³": "radius_durchmesser_verwechselt",
+     "7,20": "pi_vergessen",
+     "7.20": "pi_vergessen",
+     "7,2": "pi_vergessen",
+     "7.2": "pi_vergessen",
+     "7,20 m³": "pi_vergessen",
+     "7,20m³": "pi_vergessen",
+     "7,2 m³": "pi_vergessen",
+     "7,2m³": "pi_vergessen",
+     "44,30": "oberflaeche_statt_volumen",
+     "44.30": "oberflaeche_statt_volumen",
+     "44,3": "oberflaeche_statt_volumen",
+     "44.3": "oberflaeche_statt_volumen",
+     "44,30 m³": "oberflaeche_statt_volumen",
+     "44,30m³": "oberflaeche_statt_volumen",
+     "44,3 m³": "oberflaeche_statt_volumen",
+     "44,3m³": "oberflaeche_statt_volumen",
+     "44,27": "oberflaeche_statt_volumen",
+     "44.27": "oberflaeche_statt_volumen",
+     "44,27 m³": "oberflaeche_statt_volumen",
+     "44,27m³": "oberflaeche_statt_volumen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Quadrat einer Dezimalzahl in der Volumenformel."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "22,62",
+      "22.62",
+      "22,62 m³",
+      "22,62m³",
+      "22,61",
+      "22.61",
+      "22,61 m³",
+      "22,61m³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "V = π · (1,5 m)² · 3,2 m = π · 2,25 m² · 3,2 m = π · 7,2 m³ ≈ 22,62 m³ (π-Taste).\nMit π ≈ 3,14: V = 3,14 · 7,2 m³ ≈ 22,61 m³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "1,5² als 2 · 1,5 gerechnet: π · 3 · 3,2.",
+       "socratic_question": "Was ist 1,5² – 1,5 · 2 oder 1,5 · 1,5?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser halbiert: π · 0,75² · 3,2.",
+       "socratic_question": "Ist 1,5 m schon der Radius?"
+      },
+      {
+       "error": "π weggelassen: 2,25 · 3,2 = 7,2.",
+       "socratic_question": "Welcher Faktor gehört zur Kreisfläche?"
+      },
+      {
+       "error": "Die Oberfläche berechnet statt des Volumens.",
+       "socratic_question": "Ist nach dem Rauminhalt oder nach der Fläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_exponent, radius_durchmesser_verwechselt, pi_vergessen, oberflaeche_statt_volumen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*1.5^2*3.2,2)",
+     "antwort": "22.62"
+    },
+    {
+     "rechnung": "round((3.14)*1.5^2*3.2,2)",
+     "antwort": "22.61"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*2*1.5*3.2,2)",
+     "antwort": "30.16",
+     "rolle": "fehlbild:mal_exponent:pi"
+    },
+    {
+     "rechnung": "round((3.14)*2*1.5*3.2,2)",
+     "antwort": "30.14",
+     "rolle": "fehlbild:mal_exponent:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*0.75^2*3.2,2)",
+     "antwort": "5.65",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round((3.14)*0.75^2*3.2,2)",
+     "antwort": "5.65",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(1.5^2*3.2,2)",
+     "antwort": "7.20",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(1.5^2*3.2,2)",
+     "antwort": "7.20",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*1.5^2+2*(3.14159265358979323846264338327950288)*1.5*3.2,2)",
+     "antwort": "44.30",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:pi"
+    },
+    {
+     "rechnung": "round(2*(3.14)*1.5^2+2*(3.14)*1.5*3.2,2)",
+     "antwort": "44.27",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:314"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "5dd22acb-5345-4c8e-97d6-8f5cf323627a",
+   "titel": "Zylinder · Oberfläche in m² bei gemischten Einheiten",
+   "basis": {
+    "skill_key": "geo_koerper_zylinder",
+    "source_ref": "koerper-zylinder-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein Zylinder hat den Radius 0,4 m und die Höhe 90 cm.\n\nWie groß ist seine Oberfläche in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "m²",
+    "known_errors": {
+     "227,20": "einheit_uebersprungen",
+     "227.20": "einheit_uebersprungen",
+     "227,2": "einheit_uebersprungen",
+     "227.2": "einheit_uebersprungen",
+     "227,20 m²": "einheit_uebersprungen",
+     "227,20m²": "einheit_uebersprungen",
+     "227,2 m²": "einheit_uebersprungen",
+     "227,2m²": "einheit_uebersprungen",
+     "227,08": "einheit_uebersprungen",
+     "227.08": "einheit_uebersprungen",
+     "227,08 m²": "einheit_uebersprungen",
+     "227,08m²": "einheit_uebersprungen",
+     "2,76": "mal_zwei_vergessen",
+     "2.76": "mal_zwei_vergessen",
+     "2,76 m²": "mal_zwei_vergessen",
+     "2,76m²": "mal_zwei_vergessen",
+     "1,38": "radius_durchmesser_verwechselt",
+     "1.38": "radius_durchmesser_verwechselt",
+     "1,38 m²": "radius_durchmesser_verwechselt",
+     "1,38m²": "radius_durchmesser_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Oberflächenformel, vorher Zentimeter in Meter umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "3,27",
+      "3.27",
+      "3,27 m²",
+      "3,27m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "h = 90 cm = 0,9 m.\nZwei Grundflächen: 2 · π · (0,4 m)² = π · 0,32 m².\nMantel: 2 · π · 0,4 m · 0,9 m = π · 0,72 m².\nO = π · 1,04 m² ≈ 3,27 m² (π-Taste).\nMit π ≈ 3,14: O = 3,14 · 1,04 m² ≈ 3,27 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Höhe nicht in Meter umgerechnet: mit 90 statt 0,9 gerechnet.",
+       "socratic_question": "Sind Radius und Höhe in derselben Einheit?"
+      },
+      {
+       "error": "Nur eine Kreisfläche gezählt (Deckel oder Boden fehlt).",
+       "socratic_question": "Wie viele Kreisflächen hat ein geschlossener Zylinder?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser halbiert.",
+       "socratic_question": "Ist 0,4 m schon der Radius?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (einheit_uebersprungen, mal_zwei_vergessen, radius_durchmesser_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*0.4^2+2*(3.14159265358979323846264338327950288)*0.4*0.9,2)",
+     "antwort": "3.27"
+    },
+    {
+     "rechnung": "round(2*(3.14)*0.4^2+2*(3.14)*0.4*0.9,2)",
+     "antwort": "3.27"
+    },
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*0.4^2+2*(3.14159265358979323846264338327950288)*0.4*90,2)",
+     "antwort": "227.20",
+     "rolle": "fehlbild:einheit_uebersprungen:pi"
+    },
+    {
+     "rechnung": "round(2*(3.14)*0.4^2+2*(3.14)*0.4*90,2)",
+     "antwort": "227.08",
+     "rolle": "fehlbild:einheit_uebersprungen:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*0.4^2+2*(3.14159265358979323846264338327950288)*0.4*0.9,2)",
+     "antwort": "2.76",
+     "rolle": "fehlbild:mal_zwei_vergessen:pi"
+    },
+    {
+     "rechnung": "round((3.14)*0.4^2+2*(3.14)*0.4*0.9,2)",
+     "antwort": "2.76",
+     "rolle": "fehlbild:mal_zwei_vergessen:314"
+    },
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*0.2^2+2*(3.14159265358979323846264338327950288)*0.2*0.9,2)",
+     "antwort": "1.38",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(2*(3.14)*0.2^2+2*(3.14)*0.2*0.9,2)",
+     "antwort": "1.38",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "a64cbccb-268c-4d5d-97b6-f925daf460e4",
+   "titel": "Zylinder · Wassertank in Litern",
+   "basis": {
+    "skill_key": "geo_koerper_zylinder",
+    "source_ref": "koerper-zylinder-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein zylinderförmiger Wassertank hat innen einen Durchmesser von 1,2 m und eine Höhe von 1,5 m. Es gilt 1 dm³ = 1 l, also 1 m³ = 1000 l.\n\nWie viele Liter fasst der Tank? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Liter.",
+    "unit": "l",
+    "known_errors": {
+     "540": "pi_vergessen",
+     "6782": "radius_durchmesser_verwechselt",
+     "6786": "radius_durchmesser_verwechselt",
+     "6786 l": "radius_durchmesser_verwechselt",
+     "6786l": "radius_durchmesser_verwechselt",
+     "6782 l": "radius_durchmesser_verwechselt",
+     "6782l": "radius_durchmesser_verwechselt",
+     "1,70": "liter_kubik_falsch",
+     "1.70": "liter_kubik_falsch",
+     "1,7": "liter_kubik_falsch",
+     "1.7": "liter_kubik_falsch",
+     "1,70 l": "liter_kubik_falsch",
+     "1,70l": "liter_kubik_falsch",
+     "1,7 l": "liter_kubik_falsch",
+     "1,7l": "liter_kubik_falsch",
+     "540 l": "pi_vergessen",
+     "540l": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Durchmesser halbieren, Volumen in m³ berechnen und in Liter umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1696",
+      "1696 l",
+      "1696l"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "r = 1,2 m : 2 = 0,6 m.\nV = π · (0,6 m)² · 1,5 m = π · 0,54 m³ ≈ 1,69646 m³ (π-Taste), mit 3,14: 1,6956 m³.\n1 m³ = 1000 l: V ≈ 1696 l (π-Taste), mit π ≈ 3,14 ebenfalls ≈ 1696 l.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: π · 1,2² · 1,5.",
+       "socratic_question": "Ist 1,2 m der Radius oder der Durchmesser des Tanks?"
+      },
+      {
+       "error": "Den Wert in Kubikmetern als Liter angegeben.",
+       "socratic_question": "Wie viele Liter passen in einen Kubikmeter?"
+      },
+      {
+       "error": "π weggelassen: 0,54 m³ = 540 l.",
+       "socratic_question": "Welcher Faktor gehört zur Kreisfläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, liter_kubik_falsch, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*0.6^2*1.5*1000,0)",
+     "antwort": "1696"
+    },
+    {
+     "rechnung": "round((3.14)*0.6^2*1.5*1000,0)",
+     "antwort": "1696"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*1.2^2*1.5*1000,0)",
+     "antwort": "6786",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round((3.14)*1.2^2*1.5*1000,0)",
+     "antwort": "6782",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*0.6^2*1.5,2)",
+     "antwort": "1.70",
+     "rolle": "fehlbild:liter_kubik_falsch:pi"
+    },
+    {
+     "rechnung": "round((3.14)*0.6^2*1.5,2)",
+     "antwort": "1.70",
+     "rolle": "fehlbild:liter_kubik_falsch:314"
+    },
+    {
+     "rechnung": "round(0.6^2*1.5*1000,0)",
+     "antwort": "540",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(0.6^2*1.5*1000,0)",
+     "antwort": "540",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "bdee1a03-5e67-4293-a8b5-794de2e25331",
+   "titel": "Zylinder · Dosenhöhe für einen Liter",
+   "basis": {
+    "skill_key": "geo_koerper_zylinder",
+    "source_ref": "koerper-zylinder-06",
+    "input_type": "NUMERIC",
+    "frage": "Eine zylinderförmige Dose soll genau 1 Liter fassen. Ihr Durchmesser innen beträgt 10 cm. Es gilt 1 l = 1 dm³ = 1000 cm³.\n\nWie hoch muss die Dose innen sein? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf eine Stelle nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "40": "pi_vergessen",
+     "3,2": "radius_durchmesser_verwechselt",
+     "3.2": "radius_durchmesser_verwechselt",
+     "3,2 cm": "radius_durchmesser_verwechselt",
+     "3,2cm": "radius_durchmesser_verwechselt",
+     "1,3": "liter_kubik_falsch",
+     "1.3": "liter_kubik_falsch",
+     "1,3 cm": "liter_kubik_falsch",
+     "1,3cm": "liter_kubik_falsch",
+     "40,0": "pi_vergessen",
+     "40.0": "pi_vergessen",
+     "40,0 cm": "pi_vergessen",
+     "40,0cm": "pi_vergessen",
+     "40 cm": "pi_vergessen",
+     "40cm": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung – Liter in cm³ umrechnen, Volumenformel nach h umstellen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12,7",
+      "12.7",
+      "12,7 cm",
+      "12,7cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "V = 1 l = 1000 cm³, r = 10 cm : 2 = 5 cm.\nV = π · r² · h, also h = V : (π · r²) = 1000 cm³ : (π · 25 cm²) ≈ 12,73 cm, gerundet 12,7 cm (π-Taste).\nMit π ≈ 3,14: h = 1000 : 78,5 ≈ 12,74 cm, gerundet 12,7 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: 1000 : (π · 100).",
+       "socratic_question": "Ist 10 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "Mit 1 l = 100 cm³ gerechnet.",
+       "socratic_question": "Wie viele Kubikzentimeter hat ein Liter?"
+      },
+      {
+       "error": "π weggelassen: 1000 : 25 = 40.",
+       "socratic_question": "Welcher Faktor gehört zur Kreisfläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, liter_kubik_falsch, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(1000/((3.14159265358979323846264338327950288)*5^2),1)",
+     "antwort": "12.7"
+    },
+    {
+     "rechnung": "round(1000/((3.14)*5^2),1)",
+     "antwort": "12.7"
+    },
+    {
+     "rechnung": "round(1000/((3.14159265358979323846264338327950288)*10^2),1)",
+     "antwort": "3.2",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(1000/((3.14)*10^2),1)",
+     "antwort": "3.2",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(100/((3.14159265358979323846264338327950288)*5^2),1)",
+     "antwort": "1.3",
+     "rolle": "fehlbild:liter_kubik_falsch:pi"
+    },
+    {
+     "rechnung": "round(100/((3.14)*5^2),1)",
+     "antwort": "1.3",
+     "rolle": "fehlbild:liter_kubik_falsch:314"
+    },
+    {
+     "rechnung": "round(1000/5^2,1)",
+     "antwort": "40.0",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(1000/5^2,1)",
+     "antwort": "40.0",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "b844a22a-3ad5-40aa-88df-8d6b10531307",
+   "titel": "Pyramide · Volumen einer quadratischen Pyramide",
+   "basis": {
+    "skill_key": "geo_koerper_pyramide",
+    "source_ref": "koerper-pyramide-01",
+    "input_type": "NUMERIC",
+    "frage": "Eine Pyramide hat eine quadratische Grundfläche mit der Seitenlänge 6 cm. Sie ist 10 cm hoch.\n\nWie groß ist ihr Volumen? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "cm³",
+    "known_errors": {
+     "36": "falsche_groesse_beantwortet",
+     "360": "drittel_vergessen",
+     "360 cm³": "drittel_vergessen",
+     "360cm³": "drittel_vergessen",
+     "36 cm³": "falsche_groesse_beantwortet",
+     "36cm³": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: V = ⅓ · G · h mit quadratischer Grundfläche."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "120",
+      "120 cm³",
+      "120cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "G = (6 cm)² = 36 cm².\nV = ⅓ · G · h = ⅓ · 36 cm² · 10 cm = 120 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor ⅓ vergessen: 36 · 10 = 360.",
+       "socratic_question": "Wie viel von einem Prisma mit gleicher Grundfläche und Höhe füllt eine Pyramide?"
+      },
+      {
+       "error": "Nur die Grundfläche berechnet, nicht das Volumen.",
+       "socratic_question": "Hast du die Höhe der Pyramide schon verwendet?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (drittel_vergessen, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1/3*6^2*10",
+     "antwort": "120"
+    },
+    {
+     "rechnung": "6^2*10",
+     "antwort": "360",
+     "rolle": "fehlbild:drittel_vergessen:"
+    },
+    {
+     "rechnung": "6^2",
+     "antwort": "36",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "0f084da1-12ff-4672-9d00-dc5f65503c1a",
+   "titel": "Pyramide · Oberfläche mit Körperhöhe und Seitenhöhe",
+   "basis": {
+    "skill_key": "geo_koerper_pyramide",
+    "source_ref": "koerper-pyramide-02",
+    "input_type": "NUMERIC",
+    "frage": "Eine Pyramide hat eine quadratische Grundfläche mit der Seitenlänge 8 cm. Die Pyramide ist 3 cm hoch. Jede dreieckige Seitenfläche hat die Höhe h_s = 5 cm.\n\nWie groß ist die Oberfläche der Pyramide? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "cm²",
+    "known_errors": {
+     "64": "volumen_statt_oberflaeche",
+     "112": "falsche_hoehe",
+     "224": "halbieren_vergessen",
+     "112 cm²": "falsche_hoehe",
+     "112cm²": "falsche_hoehe",
+     "224 cm²": "halbieren_vergessen",
+     "224cm²": "halbieren_vergessen",
+     "64 cm²": "volumen_statt_oberflaeche",
+     "64cm²": "volumen_statt_oberflaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Grundfläche plus vier Dreiecke; die passende Höhe auswählen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "144",
+      "144 cm²",
+      "144cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Grundfläche: G = (8 cm)² = 64 cm².\nEine Seitenfläche: ½ · 8 cm · 5 cm = 20 cm², vier Seitenflächen: 80 cm².\nO = 64 cm² + 80 cm² = 144 cm².\n(Für die Dreiecke zählt die Seitenhöhe h_s, nicht die Körperhöhe.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Für die Seitenflächen die Körperhöhe 3 cm statt h_s = 5 cm verwendet.",
+       "socratic_question": "Welche Höhe steht senkrecht auf der Grundseite eines Seitendreiecks?"
+      },
+      {
+       "error": "Bei den Dreiecken das ½ vergessen: 64 + 160 = 224.",
+       "socratic_question": "Wie berechnest du den Flächeninhalt eines Dreiecks?"
+      },
+      {
+       "error": "Das Volumen berechnet statt der Oberfläche.",
+       "socratic_question": "Ist nach dem Rauminhalt oder nach der Fläche aller Seiten gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_hoehe, halbieren_vergessen, volumen_statt_oberflaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "8^2+4*(1/2*8*5)",
+     "antwort": "144"
+    },
+    {
+     "rechnung": "8^2+4*(1/2*8*3)",
+     "antwort": "112",
+     "rolle": "fehlbild:falsche_hoehe:"
+    },
+    {
+     "rechnung": "8^2+4*(8*5)",
+     "antwort": "224",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "1/3*8^2*3",
+     "antwort": "64",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "0d01fa82-d4fb-4fc4-ba47-62d7175763ee",
+   "titel": "Pyramide · Volumen mit rechteckiger Grundfläche",
+   "basis": {
+    "skill_key": "geo_koerper_pyramide",
+    "source_ref": "koerper-pyramide-03",
+    "input_type": "NUMERIC",
+    "frage": "Eine Pyramide hat eine rechteckige Grundfläche mit den Seiten 4,5 m und 3,2 m. Sie ist 5 m hoch.\n\nWie groß ist ihr Volumen in Kubikmetern? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "m³",
+    "known_errors": {
+     "72": "drittel_vergessen",
+     "72 m³": "drittel_vergessen",
+     "72m³": "drittel_vergessen",
+     "14,4": "falsche_groesse_beantwortet",
+     "14.4": "falsche_groesse_beantwortet",
+     "14,4 m³": "falsche_groesse_beantwortet",
+     "14,4m³": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: rechteckige Grundfläche mit Dezimalzahlen, dann V = ⅓ · G · h."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "24",
+      "24 m³",
+      "24m³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "G = 4,5 m · 3,2 m = 14,4 m².\nV = ⅓ · 14,4 m² · 5 m = ⅓ · 72 m³ = 24 m³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor ⅓ vergessen: 14,4 · 5 = 72.",
+       "socratic_question": "Wie viel von einem Quader mit gleicher Grundfläche und Höhe füllt eine Pyramide?"
+      },
+      {
+       "error": "Nur die Grundfläche berechnet, nicht das Volumen.",
+       "socratic_question": "Hast du die Höhe der Pyramide schon verwendet?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (drittel_vergessen, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1/3*4.5*3.2*5",
+     "antwort": "24"
+    },
+    {
+     "rechnung": "4.5*3.2*5",
+     "antwort": "72",
+     "rolle": "fehlbild:drittel_vergessen:"
+    },
+    {
+     "rechnung": "4.5*3.2",
+     "antwort": "14.4",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "7fc20c4b-923f-4225-8df0-b20680379b53",
+   "titel": "Pyramide · Oberfläche mit rechteckiger Grundfläche",
+   "basis": {
+    "skill_key": "geo_koerper_pyramide",
+    "source_ref": "koerper-pyramide-04",
+    "input_type": "NUMERIC",
+    "frage": "Eine Pyramide hat eine rechteckige Grundfläche mit den Seiten 10 cm und 4 cm. Die beiden dreieckigen Seitenflächen über den 10-cm-Seiten haben jeweils die Höhe 10 cm. Die beiden dreieckigen Seitenflächen über den 4-cm-Seiten haben jeweils die Höhe 11 cm.\n\nWie groß ist die Oberfläche der Pyramide? Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "cm²",
+    "known_errors": {
+     "144": "falsche_groesse_beantwortet",
+     "190": "falsche_hoehe",
+     "328": "halbieren_vergessen",
+     "190 cm²": "falsche_hoehe",
+     "190cm²": "falsche_hoehe",
+     "328 cm²": "halbieren_vergessen",
+     "328cm²": "halbieren_vergessen",
+     "144 cm²": "falsche_groesse_beantwortet",
+     "144cm²": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: zwei Sorten Seitendreiecke mit verschiedenen Seitenhöhen richtig zuordnen, dann Grundfläche plus Mantel."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "184",
+      "184 cm²",
+      "184cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Grundfläche: G = 10 cm · 4 cm = 40 cm².\nZwei Dreiecke über den 10-cm-Seiten: 2 · ½ · 10 cm · 10 cm = 100 cm².\nZwei Dreiecke über den 4-cm-Seiten: 2 · ½ · 4 cm · 11 cm = 44 cm².\nO = 40 cm² + 100 cm² + 44 cm² = 184 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Seitenhöhen vertauscht: zur 10-cm-Seite die Höhe 11 cm genommen.",
+       "socratic_question": "Welche Höhe gehört zu dem Dreieck über der 10-cm-Seite?"
+      },
+      {
+       "error": "Bei den Dreiecken das ½ vergessen: 40 + 200 + 88 = 328.",
+       "socratic_question": "Wie berechnest du den Flächeninhalt eines Dreiecks?"
+      },
+      {
+       "error": "Nur die vier Seitenflächen berechnet, die Grundfläche fehlt.",
+       "socratic_question": "Gehört die rechteckige Grundfläche zur Oberfläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_hoehe, halbieren_vergessen, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "10*4+2*(1/2*10*10)+2*(1/2*4*11)",
+     "antwort": "184"
+    },
+    {
+     "rechnung": "10*4+2*(1/2*10*11)+2*(1/2*4*10)",
+     "antwort": "190",
+     "rolle": "fehlbild:falsche_hoehe:"
+    },
+    {
+     "rechnung": "10*4+2*(10*10)+2*(4*11)",
+     "antwort": "328",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "2*(1/2*10*10)+2*(1/2*4*11)",
+     "antwort": "144",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "5beb71a7-cbef-4392-bcca-446b1bc97354",
+   "titel": "Pyramide · Dachfläche eines Pyramidendachs",
+   "basis": {
+    "skill_key": "geo_koerper_pyramide",
+    "source_ref": "koerper-pyramide-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Turm hat ein Dach in Form einer quadratischen Pyramide. Die Grundkante ist 6 m lang. Das Dach ist 4 m hoch, jede dreieckige Dachfläche hat die Höhe h_s = 5 m.\n\nWie viele Quadratmeter Dachfläche müssen gedeckt werden? Der Boden des Dachs gehört nicht dazu. Gib das Ergebnis genau an, ohne zu runden.",
+    "unit": "m²",
+    "known_errors": {
+     "48": "falsche_hoehe",
+     "96": "falsche_groesse_beantwortet",
+     "120": "halbieren_vergessen",
+     "120 m²": "halbieren_vergessen",
+     "120m²": "halbieren_vergessen",
+     "48 m²": "falsche_hoehe",
+     "48m²": "falsche_hoehe",
+     "96 m²": "falsche_groesse_beantwortet",
+     "96m²": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Dachfläche als vier Seitendreiecke erkennen, ohne Boden, mit der Seitenhöhe."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "60",
+      "60 m²",
+      "60m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Gedeckt werden nur die vier dreieckigen Dachflächen.\nEine Fläche: ½ · 6 m · 5 m = 15 m².\nDachfläche: 4 · 15 m² = 60 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bei den Dreiecken das ½ vergessen: 4 · 30 = 120.",
+       "socratic_question": "Wie berechnest du den Flächeninhalt eines Dreiecks?"
+      },
+      {
+       "error": "Die Dachhöhe 4 m statt der Höhe der Dachfläche verwendet.",
+       "socratic_question": "Welche Höhe gehört zu einer dreieckigen Dachfläche?"
+      },
+      {
+       "error": "Den Boden mitgezählt: ganze Oberfläche statt Dachfläche.",
+       "socratic_question": "Wird der Boden des Dachs auch gedeckt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, falsche_hoehe, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4*(1/2*6*5)",
+     "antwort": "60"
+    },
+    {
+     "rechnung": "4*(6*5)",
+     "antwort": "120",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "4*(1/2*6*4)",
+     "antwort": "48",
+     "rolle": "fehlbild:falsche_hoehe:"
+    },
+    {
+     "rechnung": "6^2+4*(1/2*6*5)",
+     "antwort": "96",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "5cad7848-0d28-4198-93a0-6232e6f988b1",
+   "titel": "Pyramide · Grundkante aus Volumen und Höhe",
+   "basis": {
+    "skill_key": "geo_koerper_pyramide",
+    "source_ref": "koerper-pyramide-06",
+    "input_type": "NUMERIC",
+    "frage": "Eine Pyramide mit quadratischer Grundfläche hat das Volumen 192 cm³ und ist 9 cm hoch.\n\nWie lang ist eine Seite der Grundfläche? Runde, falls nötig, auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "32": "mal_exponent",
+     "64": "wurzel_vergessen",
+     "4,62": "drittel_vergessen",
+     "4.62": "drittel_vergessen",
+     "4,62 cm": "drittel_vergessen",
+     "4,62cm": "drittel_vergessen",
+     "64,00": "wurzel_vergessen",
+     "64.00": "wurzel_vergessen",
+     "64,00 cm": "wurzel_vergessen",
+     "64,00cm": "wurzel_vergessen",
+     "64 cm": "wurzel_vergessen",
+     "64cm": "wurzel_vergessen",
+     "32,00": "mal_exponent",
+     "32.00": "mal_exponent",
+     "32,00 cm": "mal_exponent",
+     "32,00cm": "mal_exponent",
+     "32 cm": "mal_exponent",
+     "32cm": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung in zwei Schritten – aus V = ⅓ · G · h die Grundfläche, daraus die Seitenlänge."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8,00",
+      "8.00",
+      "8",
+      "8,00 cm",
+      "8,00cm",
+      "8 cm",
+      "8cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "V = ⅓ · G · h, also G = 3 · V : h = 3 · 192 cm³ : 9 cm = 64 cm².\nG = a², also a = √64 cm = 8,00 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor ⅓ vergessen: G = 192 : 9, a = √21,33.",
+       "socratic_question": "Wie viel von einem Prisma mit gleicher Grundfläche und Höhe füllt eine Pyramide?"
+      },
+      {
+       "error": "Die Grundfläche 64 cm² angegeben statt der Seitenlänge.",
+       "socratic_question": "Ist nach einer Fläche oder nach einer Länge gefragt?"
+      },
+      {
+       "error": "a² als 2 · a gelesen: a = 64 : 2 = 32.",
+       "socratic_question": "Was bedeutet a² – a · 2 oder a · a?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (drittel_vergessen, wurzel_vergessen, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((8),2)",
+     "antwort": "8.00"
+    },
+    {
+     "rechnung": "round((138564064605510183482195707320469789355424/30000000000000000000000000000000000000000),2)",
+     "antwort": "4.62",
+     "rolle": "fehlbild:drittel_vergessen:"
+    },
+    {
+     "rechnung": "round(3*192/9,2)",
+     "antwort": "64.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "round(3*192/9/2,2)",
+     "antwort": "32.00",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "d8f2e2e3-5cc2-4bd6-bf37-e752b0132bea",
+   "titel": "Kegel · Volumen, Radius 3 cm",
+   "basis": {
+    "skill_key": "geo_koerper_kegel",
+    "source_ref": "koerper-kegel-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein Kegel hat den Radius 3 cm und die Höhe 8 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm³",
+    "known_errors": {
+     "24": "pi_vergessen",
+     "226,19": "drittel_vergessen",
+     "226.19": "drittel_vergessen",
+     "226,19 cm³": "drittel_vergessen",
+     "226,19cm³": "drittel_vergessen",
+     "226,08": "drittel_vergessen",
+     "226.08": "drittel_vergessen",
+     "226,08 cm³": "drittel_vergessen",
+     "226,08cm³": "drittel_vergessen",
+     "24,00": "pi_vergessen",
+     "24.00": "pi_vergessen",
+     "24,00 cm³": "pi_vergessen",
+     "24,00cm³": "pi_vergessen",
+     "24 cm³": "pi_vergessen",
+     "24cm³": "pi_vergessen",
+     "18,85": "radius_durchmesser_verwechselt",
+     "18.85": "radius_durchmesser_verwechselt",
+     "18,85 cm³": "radius_durchmesser_verwechselt",
+     "18,85cm³": "radius_durchmesser_verwechselt",
+     "18,84": "radius_durchmesser_verwechselt",
+     "18.84": "radius_durchmesser_verwechselt",
+     "18,84 cm³": "radius_durchmesser_verwechselt",
+     "18,84cm³": "radius_durchmesser_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: V = ⅓ · π · r² · h mit gegebenem Radius und Höhe."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "75,40",
+      "75.40",
+      "75,4",
+      "75.4",
+      "75,40 cm³",
+      "75,40cm³",
+      "75,4 cm³",
+      "75,4cm³",
+      "75,36",
+      "75.36",
+      "75,36 cm³",
+      "75,36cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "V = ⅓ · π · r² · h = ⅓ · π · 9 cm² · 8 cm = π · 24 cm³ ≈ 75,40 cm³ (π-Taste).\nMit π ≈ 3,14: V = 3,14 · 24 cm³ = 75,36 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor ⅓ vergessen: π · 9 · 8 = π · 72.",
+       "socratic_question": "Wie viel von einem Zylinder mit gleicher Grundfläche und Höhe füllt ein Kegel?"
+      },
+      {
+       "error": "π weggelassen: ⅓ · 9 · 8 = 24.",
+       "socratic_question": "Welcher Faktor gehört zur Kreisfläche?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser halbiert.",
+       "socratic_question": "Ist 3 cm schon der Radius?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (drittel_vergessen, pi_vergessen, radius_durchmesser_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(1/3*(3.14159265358979323846264338327950288)*3^2*8,2)",
+     "antwort": "75.40"
+    },
+    {
+     "rechnung": "round(1/3*(3.14)*3^2*8,2)",
+     "antwort": "75.36"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*3^2*8,2)",
+     "antwort": "226.19",
+     "rolle": "fehlbild:drittel_vergessen:pi"
+    },
+    {
+     "rechnung": "round((3.14)*3^2*8,2)",
+     "antwort": "226.08",
+     "rolle": "fehlbild:drittel_vergessen:314"
+    },
+    {
+     "rechnung": "round(1/3*3^2*8,2)",
+     "antwort": "24.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(1/3*3^2*8,2)",
+     "antwort": "24.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(1/3*(3.14159265358979323846264338327950288)*1.5^2*8,2)",
+     "antwort": "18.85",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(1/3*(3.14)*1.5^2*8,2)",
+     "antwort": "18.84",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "8a2febbd-299f-437a-abed-bde7fa31fa87",
+   "titel": "Kegel · Mantellinie aus Radius und Höhe",
+   "basis": {
+    "skill_key": "geo_koerper_kegel",
+    "source_ref": "koerper-kegel-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein Kegel hat den Radius 5 cm und die Höhe 12 cm.\n\nWie lang ist seine Mantellinie s (die Strecke von der Spitze zum Rand der Grundfläche)? Runde, falls nötig, auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "169": "wurzel_vergessen",
+     "169,00": "wurzel_vergessen",
+     "169.00": "wurzel_vergessen",
+     "169,00 cm": "wurzel_vergessen",
+     "169,00cm": "wurzel_vergessen",
+     "169 cm": "wurzel_vergessen",
+     "169cm": "wurzel_vergessen",
+     "10,91": "hypotenuse_verwechselt",
+     "10.91": "hypotenuse_verwechselt",
+     "10,91 cm": "hypotenuse_verwechselt",
+     "10,91cm": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Mantellinie mit dem Satz des Pythagoras, s = √(r² + h²)."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "13,00",
+      "13.00",
+      "13",
+      "13,00 cm",
+      "13,00cm",
+      "13 cm",
+      "13cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Radius, Höhe und Mantellinie bilden ein rechtwinkliges Dreieck, s ist die Hypotenuse.\ns = √(r² + h²) = √(25 + 144) cm = √169 cm = 13,00 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Wurzel nicht gezogen: s² = 169 als Länge angegeben.",
+       "socratic_question": "Hast du s oder s² ausgerechnet?"
+      },
+      {
+       "error": "Die Quadrate subtrahiert statt addiert: √(144 − 25).",
+       "socratic_question": "Welche Seite liegt dem rechten Winkel gegenüber?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((13),2)",
+     "antwort": "13.00"
+    },
+    {
+     "rechnung": "round(5^2+12^2,2)",
+     "antwort": "169.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "rechnung": "round((109087121146357144115021544873729018728051/10000000000000000000000000000000000000000),2)",
+     "antwort": "10.91",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "9373d252-76e6-4ef7-be85-4b2c095cd55b",
+   "titel": "Kegel · Oberfläche aus Durchmesser und Mantellinie",
+   "basis": {
+    "skill_key": "geo_koerper_kegel",
+    "source_ref": "koerper-kegel-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein Kegel hat den Durchmesser 12 cm und die Mantellinie s = 10 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm²",
+    "known_errors": {
+     "96": "pi_vergessen",
+     "829,38": "radius_durchmesser_verwechselt",
+     "829.38": "radius_durchmesser_verwechselt",
+     "829,38 cm²": "radius_durchmesser_verwechselt",
+     "829,38cm²": "radius_durchmesser_verwechselt",
+     "828,96": "radius_durchmesser_verwechselt",
+     "828.96": "radius_durchmesser_verwechselt",
+     "828,96 cm²": "radius_durchmesser_verwechselt",
+     "828,96cm²": "radius_durchmesser_verwechselt",
+     "188,50": "falsche_groesse_beantwortet",
+     "188.50": "falsche_groesse_beantwortet",
+     "188,5": "falsche_groesse_beantwortet",
+     "188.5": "falsche_groesse_beantwortet",
+     "188,50 cm²": "falsche_groesse_beantwortet",
+     "188,50cm²": "falsche_groesse_beantwortet",
+     "188,5 cm²": "falsche_groesse_beantwortet",
+     "188,5cm²": "falsche_groesse_beantwortet",
+     "188,40": "falsche_groesse_beantwortet",
+     "188.40": "falsche_groesse_beantwortet",
+     "188,4": "falsche_groesse_beantwortet",
+     "188.4": "falsche_groesse_beantwortet",
+     "188,40 cm²": "falsche_groesse_beantwortet",
+     "188,40cm²": "falsche_groesse_beantwortet",
+     "188,4 cm²": "falsche_groesse_beantwortet",
+     "188,4cm²": "falsche_groesse_beantwortet",
+     "96,00": "pi_vergessen",
+     "96.00": "pi_vergessen",
+     "96,00 cm²": "pi_vergessen",
+     "96,00cm²": "pi_vergessen",
+     "96 cm²": "pi_vergessen",
+     "96cm²": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Radius aus dem Durchmesser, Grundfläche und Mantel M = π · r · s addieren."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "301,59",
+      "301.59",
+      "301,59 cm²",
+      "301,59cm²",
+      "301,44",
+      "301.44",
+      "301,44 cm²",
+      "301,44cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "r = 12 cm : 2 = 6 cm.\nGrundfläche: π · (6 cm)² = π · 36 cm².\nMantel: M = π · r · s = π · 6 cm · 10 cm = π · 60 cm².\nO = π · 96 cm² ≈ 301,59 cm² (π-Taste).\nMit π ≈ 3,14: O = 3,14 · 96 cm² = 301,44 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt.",
+       "socratic_question": "Ist 12 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "Nur den Mantel berechnet, die Grundfläche fehlt.",
+       "socratic_question": "Gehört die runde Grundfläche zur Oberfläche?"
+      },
+      {
+       "error": "π weggelassen: 36 + 60 = 96.",
+       "socratic_question": "Welcher Faktor gehört zu Kreisfläche und Mantel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, falsche_groesse_beantwortet, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*6^2+(3.14159265358979323846264338327950288)*6*10,2)",
+     "antwort": "301.59"
+    },
+    {
+     "rechnung": "round((3.14)*6^2+(3.14)*6*10,2)",
+     "antwort": "301.44"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*12^2+(3.14159265358979323846264338327950288)*12*10,2)",
+     "antwort": "829.38",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round((3.14)*12^2+(3.14)*12*10,2)",
+     "antwort": "828.96",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*6*10,2)",
+     "antwort": "188.50",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:pi"
+    },
+    {
+     "rechnung": "round((3.14)*6*10,2)",
+     "antwort": "188.40",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:314"
+    },
+    {
+     "rechnung": "round(6^2+6*10,2)",
+     "antwort": "96.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(6^2+6*10,2)",
+     "antwort": "96.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "285e2d3e-44af-431b-a520-485795c8bb8d",
+   "titel": "Kegel · Oberfläche aus Radius und Höhe",
+   "basis": {
+    "skill_key": "geo_koerper_kegel",
+    "source_ref": "koerper-kegel-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein Kegel hat den Radius 8 cm und die Höhe 6 cm.\n\nWie groß ist seine Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm²",
+    "known_errors": {
+     "351,86": "falsche_hoehe",
+     "351.86": "falsche_hoehe",
+     "351,86 cm²": "falsche_hoehe",
+     "351,86cm²": "falsche_hoehe",
+     "351,68": "falsche_hoehe",
+     "351.68": "falsche_hoehe",
+     "351,68 cm²": "falsche_hoehe",
+     "351,68cm²": "falsche_hoehe",
+     "2714,34": "wurzel_vergessen",
+     "2714.34": "wurzel_vergessen",
+     "2714,34 cm²": "wurzel_vergessen",
+     "2714,34cm²": "wurzel_vergessen",
+     "2712,96": "wurzel_vergessen",
+     "2712.96": "wurzel_vergessen",
+     "2712,96 cm²": "wurzel_vergessen",
+     "2712,96cm²": "wurzel_vergessen",
+     "334,05": "hypotenuse_verwechselt",
+     "334.05": "hypotenuse_verwechselt",
+     "334,05 cm²": "hypotenuse_verwechselt",
+     "334,05cm²": "hypotenuse_verwechselt",
+     "333,88": "hypotenuse_verwechselt",
+     "333.88": "hypotenuse_verwechselt",
+     "333,88 cm²": "hypotenuse_verwechselt",
+     "333,88cm²": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: erst die Mantellinie mit dem Satz des Pythagoras, dann Grundfläche plus Mantel."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "452,39",
+      "452.39",
+      "452,39 cm²",
+      "452,39cm²",
+      "452,16",
+      "452.16",
+      "452,16 cm²",
+      "452,16cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "s = √(r² + h²) = √(64 + 36) cm = √100 cm = 10 cm.\nGrundfläche: π · 64 cm², Mantel: π · 8 cm · 10 cm = π · 80 cm².\nO = π · 144 cm² ≈ 452,39 cm² (π-Taste).\nMit π ≈ 3,14: O = 3,14 · 144 cm² = 452,16 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Im Mantel die Höhe 6 cm statt der Mantellinie verwendet.",
+       "socratic_question": "Welche Strecke steht in der Mantelformel M = π · r · s?"
+      },
+      {
+       "error": "Für s die Wurzel nicht gezogen: mit s = 100 gerechnet.",
+       "socratic_question": "Kann die Mantellinie länger sein als Radius und Höhe zusammen?"
+      },
+      {
+       "error": "Für s die Quadrate subtrahiert statt addiert: √(64 − 36).",
+       "socratic_question": "Ist die Mantellinie kürzer oder länger als der Radius?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_hoehe, wurzel_vergessen, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*8^2+(3.14159265358979323846264338327950288)*8*(10),2)",
+     "antwort": "452.39"
+    },
+    {
+     "rechnung": "round((3.14)*8^2+(3.14)*8*(10),2)",
+     "antwort": "452.16"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*8^2+(3.14159265358979323846264338327950288)*8*6,2)",
+     "antwort": "351.86",
+     "rolle": "fehlbild:falsche_hoehe:pi"
+    },
+    {
+     "rechnung": "round((3.14)*8^2+(3.14)*8*6,2)",
+     "antwort": "351.68",
+     "rolle": "fehlbild:falsche_hoehe:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*8^2+(3.14159265358979323846264338327950288)*8*(8^2+6^2),2)",
+     "antwort": "2714.34",
+     "rolle": "fehlbild:wurzel_vergessen:pi"
+    },
+    {
+     "rechnung": "round((3.14)*8^2+(3.14)*8*(8^2+6^2),2)",
+     "antwort": "2712.96",
+     "rolle": "fehlbild:wurzel_vergessen:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*8^2+(3.14159265358979323846264338327950288)*8*(52915026221291811810032315072785208514205/10000000000000000000000000000000000000000),2)",
+     "antwort": "334.05",
+     "rolle": "fehlbild:hypotenuse_verwechselt:pi"
+    },
+    {
+     "rechnung": "round((3.14)*8^2+(3.14)*8*(52915026221291811810032315072785208514205/10000000000000000000000000000000000000000),2)",
+     "antwort": "333.88",
+     "rolle": "fehlbild:hypotenuse_verwechselt:314"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "cd5d283c-6279-456d-8368-b7dbf8715e0f",
+   "titel": "Kegel · Trichter in Millilitern",
+   "basis": {
+    "skill_key": "geo_koerper_kegel",
+    "source_ref": "koerper-kegel-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein kegelförmiger Trichter ist oben innen 6 cm breit und innen 12 cm tief. Es gilt 1 cm³ = 1 ml.\n\nWie viele Milliliter passen in den Trichter, wenn unten zugehalten wird? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Milliliter.",
+    "unit": "ml",
+    "known_errors": {
+     "36": "pi_vergessen",
+     "339": "drittel_vergessen",
+     "452": "radius_durchmesser_verwechselt",
+     "339 ml": "drittel_vergessen",
+     "339ml": "drittel_vergessen",
+     "452 ml": "radius_durchmesser_verwechselt",
+     "452ml": "radius_durchmesser_verwechselt",
+     "36 ml": "pi_vergessen",
+     "36ml": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Trichter als Kegel erkennen, Durchmesser halbieren, cm³ als ml angeben."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "113",
+      "113 ml",
+      "113ml"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die obere Öffnung ist der Durchmesser: r = 6 cm : 2 = 3 cm.\nV = ⅓ · π · (3 cm)² · 12 cm = π · 36 cm³ ≈ 113,10 cm³ (π-Taste), mit 3,14: 113,04 cm³.\nGerundet: 113 ml (π-Taste), mit π ≈ 3,14 ebenfalls 113 ml.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor ⅓ vergessen: π · 9 · 12 = π · 108.",
+       "socratic_question": "Wie viel von einem Zylinder mit gleicher Grundfläche und Höhe füllt ein Kegel?"
+      },
+      {
+       "error": "Die Breite 6 cm als Radius eingesetzt.",
+       "socratic_question": "Ist die Breite der Öffnung der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "π weggelassen: ⅓ · 9 · 12 = 36.",
+       "socratic_question": "Welcher Faktor gehört zur Kreisfläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (drittel_vergessen, radius_durchmesser_verwechselt, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(1/3*(3.14159265358979323846264338327950288)*3^2*12,0)",
+     "antwort": "113"
+    },
+    {
+     "rechnung": "round(1/3*(3.14)*3^2*12,0)",
+     "antwort": "113"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*3^2*12,0)",
+     "antwort": "339",
+     "rolle": "fehlbild:drittel_vergessen:pi"
+    },
+    {
+     "rechnung": "round((3.14)*3^2*12,0)",
+     "antwort": "339",
+     "rolle": "fehlbild:drittel_vergessen:314"
+    },
+    {
+     "rechnung": "round(1/3*(3.14159265358979323846264338327950288)*6^2*12,0)",
+     "antwort": "452",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(1/3*(3.14)*6^2*12,0)",
+     "antwort": "452",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(1/3*3^2*12,0)",
+     "antwort": "36",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(1/3*3^2*12,0)",
+     "antwort": "36",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "e92deeb5-bccf-4343-b226-d7b2e0beb277",
+   "titel": "Kegel · Volumen aus Mantellinie und Radius",
+   "basis": {
+    "skill_key": "geo_koerper_kegel",
+    "source_ref": "koerper-kegel-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein Kegel hat den Radius 8 cm und die Mantellinie s = 17 cm.\n\nWie groß ist sein Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm³",
+    "known_errors": {
+     "1259,20": "hypotenuse_verwechselt",
+     "1259.20": "hypotenuse_verwechselt",
+     "1259,2": "hypotenuse_verwechselt",
+     "1259.2": "hypotenuse_verwechselt",
+     "1259,20 cm³": "hypotenuse_verwechselt",
+     "1259,20cm³": "hypotenuse_verwechselt",
+     "1259,2 cm³": "hypotenuse_verwechselt",
+     "1259,2cm³": "hypotenuse_verwechselt",
+     "1258,57": "hypotenuse_verwechselt",
+     "1258.57": "hypotenuse_verwechselt",
+     "1258,57 cm³": "hypotenuse_verwechselt",
+     "1258,57cm³": "hypotenuse_verwechselt",
+     "1139,35": "falsche_hoehe",
+     "1139.35": "falsche_hoehe",
+     "1139,35 cm³": "falsche_hoehe",
+     "1139,35cm³": "falsche_hoehe",
+     "1138,77": "falsche_hoehe",
+     "1138.77": "falsche_hoehe",
+     "1138,77 cm³": "falsche_hoehe",
+     "1138,77cm³": "falsche_hoehe",
+     "3015,93": "drittel_vergessen",
+     "3015.93": "drittel_vergessen",
+     "3015,93 cm³": "drittel_vergessen",
+     "3015,93cm³": "drittel_vergessen",
+     "3014,40": "drittel_vergessen",
+     "3014.40": "drittel_vergessen",
+     "3014,4": "drittel_vergessen",
+     "3014.4": "drittel_vergessen",
+     "3014,40 cm³": "drittel_vergessen",
+     "3014,40cm³": "drittel_vergessen",
+     "3014,4 cm³": "drittel_vergessen",
+     "3014,4cm³": "drittel_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: die fehlende Höhe erst mit dem Satz des Pythagoras aus s und r gewinnen, dann das Volumen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1005,31",
+      "1005.31",
+      "1005,31 cm³",
+      "1005,31cm³",
+      "1004,80",
+      "1004.80",
+      "1004,8",
+      "1004.8",
+      "1004,80 cm³",
+      "1004,80cm³",
+      "1004,8 cm³",
+      "1004,8cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Mantellinie ist die Hypotenuse: h = √(s² − r²) = √(289 − 64) cm = √225 cm = 15 cm.\nV = ⅓ · π · 64 cm² · 15 cm = π · 320 cm³ ≈ 1005,31 cm³ (π-Taste).\nMit π ≈ 3,14: V = 3,14 · 320 cm³ = 1004,80 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Für h die Quadrate addiert statt subtrahiert: √(289 + 64).",
+       "socratic_question": "Ist die Höhe kürzer oder länger als die Mantellinie?"
+      },
+      {
+       "error": "Die Mantellinie 17 cm als Höhe eingesetzt.",
+       "socratic_question": "Steht die Mantellinie senkrecht auf der Grundfläche?"
+      },
+      {
+       "error": "Den Faktor ⅓ vergessen: π · 64 · 15 = π · 960.",
+       "socratic_question": "Wie viel von einem Zylinder mit gleicher Grundfläche und Höhe füllt ein Kegel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (hypotenuse_verwechselt, falsche_hoehe, drittel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(1/3*(3.14159265358979323846264338327950288)*8^2*(15),2)",
+     "antwort": "1005.31"
+    },
+    {
+     "rechnung": "round(1/3*(3.14)*8^2*(15),2)",
+     "antwort": "1004.80"
+    },
+    {
+     "rechnung": "round(1/3*(3.14159265358979323846264338327950288)*8^2*(187882942280559359990452048386989635247523/10000000000000000000000000000000000000000),2)",
+     "antwort": "1259.20",
+     "rolle": "fehlbild:hypotenuse_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(1/3*(3.14)*8^2*(187882942280559359990452048386989635247523/10000000000000000000000000000000000000000),2)",
+     "antwort": "1258.57",
+     "rolle": "fehlbild:hypotenuse_verwechselt:314"
+    },
+    {
+     "rechnung": "round(1/3*(3.14159265358979323846264338327950288)*8^2*17,2)",
+     "antwort": "1139.35",
+     "rolle": "fehlbild:falsche_hoehe:pi"
+    },
+    {
+     "rechnung": "round(1/3*(3.14)*8^2*17,2)",
+     "antwort": "1138.77",
+     "rolle": "fehlbild:falsche_hoehe:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*8^2*(15),2)",
+     "antwort": "3015.93",
+     "rolle": "fehlbild:drittel_vergessen:pi"
+    },
+    {
+     "rechnung": "round((3.14)*8^2*(15),2)",
+     "antwort": "3014.40",
+     "rolle": "fehlbild:drittel_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "8c265caf-ebcd-4622-afbd-482483867036",
+   "titel": "Kugel · Volumen, Radius 6 cm",
+   "basis": {
+    "skill_key": "geo_koerper_kugel",
+    "source_ref": "koerper-kugel-01",
+    "input_type": "NUMERIC",
+    "frage": "Eine Kugel hat den Radius 6 cm.\n\nWie groß ist ihr Volumen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm³",
+    "known_errors": {
+     "288": "pi_vergessen",
+     "452,39": "oberflaeche_statt_volumen",
+     "452.39": "oberflaeche_statt_volumen",
+     "452,39 cm³": "oberflaeche_statt_volumen",
+     "452,39cm³": "oberflaeche_statt_volumen",
+     "452,16": "oberflaeche_statt_volumen",
+     "452.16": "oberflaeche_statt_volumen",
+     "452,16 cm³": "oberflaeche_statt_volumen",
+     "452,16cm³": "oberflaeche_statt_volumen",
+     "113,10": "radius_durchmesser_verwechselt",
+     "113.10": "radius_durchmesser_verwechselt",
+     "113,1": "radius_durchmesser_verwechselt",
+     "113.1": "radius_durchmesser_verwechselt",
+     "113,10 cm³": "radius_durchmesser_verwechselt",
+     "113,10cm³": "radius_durchmesser_verwechselt",
+     "113,1 cm³": "radius_durchmesser_verwechselt",
+     "113,1cm³": "radius_durchmesser_verwechselt",
+     "113,04": "radius_durchmesser_verwechselt",
+     "113.04": "radius_durchmesser_verwechselt",
+     "113,04 cm³": "radius_durchmesser_verwechselt",
+     "113,04cm³": "radius_durchmesser_verwechselt",
+     "288,00": "pi_vergessen",
+     "288.00": "pi_vergessen",
+     "288,00 cm³": "pi_vergessen",
+     "288,00cm³": "pi_vergessen",
+     "288 cm³": "pi_vergessen",
+     "288cm³": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: V = 4/3 · π · r³ mit gegebenem Radius."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "904,78",
+      "904.78",
+      "904,78 cm³",
+      "904,78cm³",
+      "904,32",
+      "904.32",
+      "904,32 cm³",
+      "904,32cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "V = 4/3 · π · r³ = 4/3 · π · 216 cm³ = π · 288 cm³ ≈ 904,78 cm³ (π-Taste).\nMit π ≈ 3,14: V = 3,14 · 288 cm³ = 904,32 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Oberfläche berechnet statt des Volumens: 4 · π · 36.",
+       "socratic_question": "Ist nach dem Rauminhalt oder nach der Fläche gefragt?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser halbiert.",
+       "socratic_question": "Ist 6 cm schon der Radius?"
+      },
+      {
+       "error": "π weggelassen: 4/3 · 216 = 288.",
+       "socratic_question": "Welcher Faktor fehlt in der Volumenformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (oberflaeche_statt_volumen, radius_durchmesser_verwechselt, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*6^3,2)",
+     "antwort": "904.78"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*6^3,2)",
+     "antwort": "904.32"
+    },
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)*6^2,2)",
+     "antwort": "452.39",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:pi"
+    },
+    {
+     "rechnung": "round(4*(3.14)*6^2,2)",
+     "antwort": "452.16",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:314"
+    },
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*3^3,2)",
+     "antwort": "113.10",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*3^3,2)",
+     "antwort": "113.04",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(4/3*6^3,2)",
+     "antwort": "288.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(4/3*6^3,2)",
+     "antwort": "288.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "360647d6-fac1-40b9-a886-e1a5fdbe843c",
+   "titel": "Kugel · Oberfläche, Durchmesser 10 cm",
+   "basis": {
+    "skill_key": "geo_koerper_kugel",
+    "source_ref": "koerper-kugel-02",
+    "input_type": "NUMERIC",
+    "frage": "Eine Kugel hat den Durchmesser 10 cm.\n\nWie groß ist ihre Oberfläche? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm²",
+    "known_errors": {
+     "100": "pi_vergessen",
+     "1256": "radius_durchmesser_verwechselt",
+     "1256,64": "radius_durchmesser_verwechselt",
+     "1256.64": "radius_durchmesser_verwechselt",
+     "1256,64 cm²": "radius_durchmesser_verwechselt",
+     "1256,64cm²": "radius_durchmesser_verwechselt",
+     "1256,00": "radius_durchmesser_verwechselt",
+     "1256.00": "radius_durchmesser_verwechselt",
+     "1256,00 cm²": "radius_durchmesser_verwechselt",
+     "1256,00cm²": "radius_durchmesser_verwechselt",
+     "1256 cm²": "radius_durchmesser_verwechselt",
+     "1256cm²": "radius_durchmesser_verwechselt",
+     "523,60": "volumen_statt_oberflaeche",
+     "523.60": "volumen_statt_oberflaeche",
+     "523,6": "volumen_statt_oberflaeche",
+     "523.6": "volumen_statt_oberflaeche",
+     "523,60 cm²": "volumen_statt_oberflaeche",
+     "523,60cm²": "volumen_statt_oberflaeche",
+     "523,6 cm²": "volumen_statt_oberflaeche",
+     "523,6cm²": "volumen_statt_oberflaeche",
+     "523,33": "volumen_statt_oberflaeche",
+     "523.33": "volumen_statt_oberflaeche",
+     "523,33 cm²": "volumen_statt_oberflaeche",
+     "523,33cm²": "volumen_statt_oberflaeche",
+     "100,00": "pi_vergessen",
+     "100.00": "pi_vergessen",
+     "100,00 cm²": "pi_vergessen",
+     "100,00cm²": "pi_vergessen",
+     "100 cm²": "pi_vergessen",
+     "100cm²": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Radius aus dem Durchmesser, dann O = 4 · π · r²."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "314,16",
+      "314.16",
+      "314,16 cm²",
+      "314,16cm²",
+      "314,00",
+      "314.00",
+      "314",
+      "314,00 cm²",
+      "314,00cm²",
+      "314 cm²",
+      "314cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "r = 10 cm : 2 = 5 cm.\nO = 4 · π · r² = 4 · π · 25 cm² = π · 100 cm² ≈ 314,16 cm² (π-Taste).\nMit π ≈ 3,14: O = 3,14 · 100 cm² = 314,00 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: 4 · π · 100.",
+       "socratic_question": "Ist 10 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "Das Volumen berechnet statt der Oberfläche.",
+       "socratic_question": "Kommt bei deiner Rechnung cm² oder cm³ heraus?"
+      },
+      {
+       "error": "π weggelassen: 4 · 25 = 100.",
+       "socratic_question": "Welcher Faktor fehlt in der Oberflächenformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, volumen_statt_oberflaeche, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)*5^2,2)",
+     "antwort": "314.16"
+    },
+    {
+     "rechnung": "round(4*(3.14)*5^2,2)",
+     "antwort": "314.00"
+    },
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)*10^2,2)",
+     "antwort": "1256.64",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(4*(3.14)*10^2,2)",
+     "antwort": "1256.00",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*5^3,2)",
+     "antwort": "523.60",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:pi"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*5^3,2)",
+     "antwort": "523.33",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:314"
+    },
+    {
+     "rechnung": "round(4*5^2,2)",
+     "antwort": "100.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(4*5^2,2)",
+     "antwort": "100.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "9cee13c3-67ba-418d-ab9d-819a5f8c3a46",
+   "titel": "Kugel · Volumen, Radius 2,5 m",
+   "basis": {
+    "skill_key": "geo_koerper_kugel",
+    "source_ref": "koerper-kugel-03",
+    "input_type": "NUMERIC",
+    "frage": "Eine Kugel hat den Radius 2,5 m.\n\nWie groß ist ihr Volumen in Kubikmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "m³",
+    "known_errors": {
+     "31,42": "mal_exponent",
+     "31.42": "mal_exponent",
+     "31,42 m³": "mal_exponent",
+     "31,42m³": "mal_exponent",
+     "31,40": "mal_exponent",
+     "31.40": "mal_exponent",
+     "31,4": "mal_exponent",
+     "31.4": "mal_exponent",
+     "31,40 m³": "mal_exponent",
+     "31,40m³": "mal_exponent",
+     "31,4 m³": "mal_exponent",
+     "31,4m³": "mal_exponent",
+     "78,54": "oberflaeche_statt_volumen",
+     "78.54": "oberflaeche_statt_volumen",
+     "78,54 m³": "oberflaeche_statt_volumen",
+     "78,54m³": "oberflaeche_statt_volumen",
+     "78,50": "oberflaeche_statt_volumen",
+     "78.50": "oberflaeche_statt_volumen",
+     "78,5": "oberflaeche_statt_volumen",
+     "78.5": "oberflaeche_statt_volumen",
+     "78,50 m³": "oberflaeche_statt_volumen",
+     "78,50m³": "oberflaeche_statt_volumen",
+     "78,5 m³": "oberflaeche_statt_volumen",
+     "78,5m³": "oberflaeche_statt_volumen",
+     "8,18": "radius_durchmesser_verwechselt",
+     "8.18": "radius_durchmesser_verwechselt",
+     "8,18 m³": "radius_durchmesser_verwechselt",
+     "8,18m³": "radius_durchmesser_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: dritte Potenz einer Dezimalzahl in der Volumenformel."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "65,45",
+      "65.45",
+      "65,45 m³",
+      "65,45m³",
+      "65,42",
+      "65.42",
+      "65,42 m³",
+      "65,42m³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "r³ = 2,5 · 2,5 · 2,5 m³ = 15,625 m³.\nV = 4/3 · π · 15,625 m³ ≈ 65,45 m³ (π-Taste).\nMit π ≈ 3,14: V = 4/3 · 3,14 · 15,625 m³ ≈ 65,42 m³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "2,5³ als 3 · 2,5 gerechnet.",
+       "socratic_question": "Was ist 2,5³ – 2,5 · 3 oder 2,5 · 2,5 · 2,5?"
+      },
+      {
+       "error": "Die Oberfläche berechnet statt des Volumens.",
+       "socratic_question": "Ist nach dem Rauminhalt oder nach der Fläche gefragt?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser halbiert.",
+       "socratic_question": "Ist 2,5 m schon der Radius?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (mal_exponent, oberflaeche_statt_volumen, radius_durchmesser_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*2.5^3,2)",
+     "antwort": "65.45"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*2.5^3,2)",
+     "antwort": "65.42"
+    },
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*3*2.5,2)",
+     "antwort": "31.42",
+     "rolle": "fehlbild:mal_exponent:pi"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*3*2.5,2)",
+     "antwort": "31.40",
+     "rolle": "fehlbild:mal_exponent:314"
+    },
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)*2.5^2,2)",
+     "antwort": "78.54",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:pi"
+    },
+    {
+     "rechnung": "round(4*(3.14)*2.5^2,2)",
+     "antwort": "78.50",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:314"
+    },
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*1.25^3,2)",
+     "antwort": "8.18",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*1.25^3,2)",
+     "antwort": "8.18",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "d885cc27-a9b5-4390-ba21-3561d1b8a86f",
+   "titel": "Kugel · Oberfläche in m², Radius 40 cm",
+   "basis": {
+    "skill_key": "geo_koerper_kugel",
+    "source_ref": "koerper-kugel-04",
+    "input_type": "NUMERIC",
+    "frage": "Eine Kugel hat den Radius 40 cm.\n\nWie groß ist ihre Oberfläche in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "m²",
+    "known_errors": {
+     "20096": "einheit_uebersprungen",
+     "20106,19": "einheit_uebersprungen",
+     "20106.19": "einheit_uebersprungen",
+     "20106,19 m²": "einheit_uebersprungen",
+     "20106,19m²": "einheit_uebersprungen",
+     "20096,00": "einheit_uebersprungen",
+     "20096.00": "einheit_uebersprungen",
+     "20096,00 m²": "einheit_uebersprungen",
+     "20096,00m²": "einheit_uebersprungen",
+     "20096 m²": "einheit_uebersprungen",
+     "20096m²": "einheit_uebersprungen",
+     "0,27": "volumen_statt_oberflaeche",
+     "0.27": "volumen_statt_oberflaeche",
+     "0,27 m²": "volumen_statt_oberflaeche",
+     "0,27m²": "volumen_statt_oberflaeche",
+     "0,50": "radius_durchmesser_verwechselt",
+     "0.50": "radius_durchmesser_verwechselt",
+     "0,5": "radius_durchmesser_verwechselt",
+     "0.5": "radius_durchmesser_verwechselt",
+     "0,50 m²": "radius_durchmesser_verwechselt",
+     "0,50m²": "radius_durchmesser_verwechselt",
+     "0,5 m²": "radius_durchmesser_verwechselt",
+     "0,5m²": "radius_durchmesser_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Oberflächenformel plus Umrechnung von Zentimetern in Meter."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,01",
+      "2.01",
+      "2,01 m²",
+      "2,01m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "r = 40 cm = 0,4 m.\nO = 4 · π · (0,4 m)² = π · 0,64 m² ≈ 2,01 m² (π-Taste).\nMit π ≈ 3,14: O = 3,14 · 0,64 m² ≈ 2,01 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht umgerechnet: die Oberfläche in Quadratzentimetern.",
+       "socratic_question": "In welcher Einheit ist das Ergebnis gefragt?"
+      },
+      {
+       "error": "Das Volumen berechnet statt der Oberfläche.",
+       "socratic_question": "Kommt bei deiner Rechnung m² oder m³ heraus?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser halbiert.",
+       "socratic_question": "Ist 40 cm schon der Radius?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (einheit_uebersprungen, volumen_statt_oberflaeche, radius_durchmesser_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)*0.4^2,2)",
+     "antwort": "2.01"
+    },
+    {
+     "rechnung": "round(4*(3.14)*0.4^2,2)",
+     "antwort": "2.01"
+    },
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)*40^2,2)",
+     "antwort": "20106.19",
+     "rolle": "fehlbild:einheit_uebersprungen:pi"
+    },
+    {
+     "rechnung": "round(4*(3.14)*40^2,2)",
+     "antwort": "20096.00",
+     "rolle": "fehlbild:einheit_uebersprungen:314"
+    },
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*0.4^3,2)",
+     "antwort": "0.27",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:pi"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*0.4^3,2)",
+     "antwort": "0.27",
+     "rolle": "fehlbild:volumen_statt_oberflaeche:314"
+    },
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)*0.2^2,2)",
+     "antwort": "0.50",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(4*(3.14)*0.2^2,2)",
+     "antwort": "0.50",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "62b5810c-b021-4032-b17a-e072ffa3182b",
+   "titel": "Kugel · kugelförmiger Behälter in Litern",
+   "basis": {
+    "skill_key": "geo_koerper_kugel",
+    "source_ref": "koerper-kugel-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein kugelförmiger Behälter hat innen einen Durchmesser von 40 cm. Es gilt 1 dm³ = 1 l.\n\nWie viele Liter fasst der Behälter? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf eine Stelle nach dem Komma.",
+    "unit": "l",
+    "known_errors": {
+     "268,1": "radius_durchmesser_verwechselt",
+     "268.1": "radius_durchmesser_verwechselt",
+     "268,1 l": "radius_durchmesser_verwechselt",
+     "268,1l": "radius_durchmesser_verwechselt",
+     "267,9": "radius_durchmesser_verwechselt",
+     "267.9": "radius_durchmesser_verwechselt",
+     "267,9 l": "radius_durchmesser_verwechselt",
+     "267,9l": "radius_durchmesser_verwechselt",
+     "50,3": "oberflaeche_statt_volumen",
+     "50.3": "oberflaeche_statt_volumen",
+     "50,3 l": "oberflaeche_statt_volumen",
+     "50,3l": "oberflaeche_statt_volumen",
+     "50,2": "oberflaeche_statt_volumen",
+     "50.2": "oberflaeche_statt_volumen",
+     "50,2 l": "oberflaeche_statt_volumen",
+     "50,2l": "oberflaeche_statt_volumen",
+     "335,1": "liter_kubik_falsch",
+     "335.1": "liter_kubik_falsch",
+     "335,1 l": "liter_kubik_falsch",
+     "335,1l": "liter_kubik_falsch",
+     "334,9": "liter_kubik_falsch",
+     "334.9": "liter_kubik_falsch",
+     "334,9 l": "liter_kubik_falsch",
+     "334,9l": "liter_kubik_falsch",
+     "10,7": "pi_vergessen",
+     "10.7": "pi_vergessen",
+     "10,7 l": "pi_vergessen",
+     "10,7l": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Durchmesser halbieren, in Dezimeter umrechnen, Volumen als Liter angeben."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "33,5",
+      "33.5",
+      "33,5 l",
+      "33,5l"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "r = 40 cm : 2 = 20 cm = 2 dm.\nV = 4/3 · π · (2 dm)³ = 4/3 · π · 8 dm³ ≈ 33,51 dm³ (π-Taste), mit 3,14: 33,49 dm³.\nGerundet: 33,5 l (π-Taste), mit π ≈ 3,14 ebenfalls 33,5 l.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: 4/3 · π · 4³.",
+       "socratic_question": "Ist 40 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "Die Oberfläche berechnet statt des Volumens.",
+       "socratic_question": "Ist nach dem Inhalt oder nach der Hülle gefragt?"
+      },
+      {
+       "error": "In Kubikzentimetern gerechnet und mit 1 l = 100 cm³ umgerechnet.",
+       "socratic_question": "Wie viele Kubikzentimeter hat ein Liter?"
+      },
+      {
+       "error": "π weggelassen: 4/3 · 8 ≈ 10,7.",
+       "socratic_question": "Welcher Faktor fehlt in der Volumenformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, oberflaeche_statt_volumen, liter_kubik_falsch, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*2^3,1)",
+     "antwort": "33.5"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*2^3,1)",
+     "antwort": "33.5"
+    },
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*4^3,1)",
+     "antwort": "268.1",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*4^3,1)",
+     "antwort": "267.9",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)*2^2,1)",
+     "antwort": "50.3",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:pi"
+    },
+    {
+     "rechnung": "round(4*(3.14)*2^2,1)",
+     "antwort": "50.2",
+     "rolle": "fehlbild:oberflaeche_statt_volumen:314"
+    },
+    {
+     "rechnung": "round(4/3*(3.14159265358979323846264338327950288)*20^3/100,1)",
+     "antwort": "335.1",
+     "rolle": "fehlbild:liter_kubik_falsch:pi"
+    },
+    {
+     "rechnung": "round(4/3*(3.14)*20^3/100,1)",
+     "antwort": "334.9",
+     "rolle": "fehlbild:liter_kubik_falsch:314"
+    },
+    {
+     "rechnung": "round(4/3*2^3,1)",
+     "antwort": "10.7",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(4/3*2^3,1)",
+     "antwort": "10.7",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "ec4153b3-7ecd-404b-a2a4-8f111e3f4186",
+   "titel": "Kugel · Halbkugel auf einem Zylinder",
+   "basis": {
+    "skill_key": "geo_koerper_kugel",
+    "source_ref": "koerper-kugel-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein Körper besteht aus einem Zylinder mit aufgesetzter Halbkugel. Zylinder und Halbkugel haben beide den Durchmesser 6 cm. Der Zylinder ist 10 cm hoch.\n\nWie groß ist das Volumen des ganzen Körpers? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "unit": "cm³",
+    "known_errors": {
+     "108": "pi_vergessen",
+     "395,84": "halbieren_vergessen",
+     "395.84": "halbieren_vergessen",
+     "395,84 cm³": "halbieren_vergessen",
+     "395,84cm³": "halbieren_vergessen",
+     "395,64": "halbieren_vergessen",
+     "395.64": "halbieren_vergessen",
+     "395,64 cm³": "halbieren_vergessen",
+     "395,64cm³": "halbieren_vergessen",
+     "1583,36": "radius_durchmesser_verwechselt",
+     "1583.36": "radius_durchmesser_verwechselt",
+     "1583,36 cm³": "radius_durchmesser_verwechselt",
+     "1583,36cm³": "radius_durchmesser_verwechselt",
+     "1582,56": "radius_durchmesser_verwechselt",
+     "1582.56": "radius_durchmesser_verwechselt",
+     "1582,56 cm³": "radius_durchmesser_verwechselt",
+     "1582,56cm³": "radius_durchmesser_verwechselt",
+     "282,74": "falsche_groesse_beantwortet",
+     "282.74": "falsche_groesse_beantwortet",
+     "282,74 cm³": "falsche_groesse_beantwortet",
+     "282,74cm³": "falsche_groesse_beantwortet",
+     "282,60": "falsche_groesse_beantwortet",
+     "282.60": "falsche_groesse_beantwortet",
+     "282,6": "falsche_groesse_beantwortet",
+     "282.6": "falsche_groesse_beantwortet",
+     "282,60 cm³": "falsche_groesse_beantwortet",
+     "282,60cm³": "falsche_groesse_beantwortet",
+     "282,6 cm³": "falsche_groesse_beantwortet",
+     "282,6cm³": "falsche_groesse_beantwortet",
+     "108,00": "pi_vergessen",
+     "108.00": "pi_vergessen",
+     "108,00 cm³": "pi_vergessen",
+     "108,00cm³": "pi_vergessen",
+     "108 cm³": "pi_vergessen",
+     "108cm³": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: zusammengesetzten Körper zerlegen, Halbkugel als halbe Kugel erkennen und Volumen addieren."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-5 (Oberfläche und Volumen von Prisma, Zylinder, Pyramide, Kegel, Kugel)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_volumen_quader und geo_kreis_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-5)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "339,29",
+      "339.29",
+      "339,29 cm³",
+      "339,29cm³",
+      "339,12",
+      "339.12",
+      "339,12 cm³",
+      "339,12cm³"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "r = 6 cm : 2 = 3 cm.\nZylinder: π · (3 cm)² · 10 cm = π · 90 cm³.\nHalbkugel: ½ · 4/3 · π · (3 cm)³ = π · 18 cm³.\nV = π · 108 cm³ ≈ 339,29 cm³ (π-Taste).\nMit π ≈ 3,14: V = 3,14 · 108 cm³ = 339,12 cm³.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Eine ganze Kugel statt einer Halbkugel addiert.",
+       "socratic_question": "Wie viel von einer Kugel sitzt auf dem Zylinder?"
+      },
+      {
+       "error": "Den Durchmesser als Radius eingesetzt.",
+       "socratic_question": "Ist 6 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "Nur den Zylinder berechnet, die Halbkugel fehlt.",
+       "socratic_question": "Aus welchen Teilen besteht der Körper?"
+      },
+      {
+       "error": "π weggelassen: 90 + 18 = 108.",
+       "socratic_question": "Welcher Faktor gehört zu Zylinder und Kugel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, radius_durchmesser_verwechselt, falsche_groesse_beantwortet, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k9-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*3^2*10+1/2*4/3*(3.14159265358979323846264338327950288)*3^3,2)",
+     "antwort": "339.29"
+    },
+    {
+     "rechnung": "round((3.14)*3^2*10+1/2*4/3*(3.14)*3^3,2)",
+     "antwort": "339.12"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*3^2*10+4/3*(3.14159265358979323846264338327950288)*3^3,2)",
+     "antwort": "395.84",
+     "rolle": "fehlbild:halbieren_vergessen:pi"
+    },
+    {
+     "rechnung": "round((3.14)*3^2*10+4/3*(3.14)*3^3,2)",
+     "antwort": "395.64",
+     "rolle": "fehlbild:halbieren_vergessen:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*6^2*10+1/2*4/3*(3.14159265358979323846264338327950288)*6^3,2)",
+     "antwort": "1583.36",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round((3.14)*6^2*10+1/2*4/3*(3.14)*6^3,2)",
+     "antwort": "1582.56",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round((3.14159265358979323846264338327950288)*3^2*10,2)",
+     "antwort": "282.74",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:pi"
+    },
+    {
+     "rechnung": "round((3.14)*3^2*10,2)",
+     "antwort": "282.60",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:314"
+    },
+    {
+     "rechnung": "round(3^2*10+1/2*4/3*3^3,2)",
+     "antwort": "108.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(3^2*10+1/2*4/3*3^3,2)",
+     "antwort": "108.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  }
+ ]
+}

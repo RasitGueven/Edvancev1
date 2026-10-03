@@ -1,0 +1,842 @@
+[
+ {
+  "task": {
+   "id": "4a99bc6f-8dfe-4657-8d4f-11456d874baa",
+   "title": "Hypotenuse · Katheten 6 cm und 8 cm",
+   "question": "Ein rechtwinkliges Dreieck hat die Katheten a = 6 cm und b = 8 cm.\n\nWie lang ist die Hypotenuse c? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_hypotenuse",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechtwinkliges Dreieck hat die Katheten a = 6 cm und b = 8 cm.\n\nWie lang ist die Hypotenuse c? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-hypotenuse-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "75194d46-60d2-4d4a-b988-db2b3c5c1a65",
+   "title": "Hypotenuse · Katheten 5 cm und 7 cm, gerundet",
+   "question": "Ein rechtwinkliges Dreieck hat die Katheten a = 5 cm und b = 7 cm.\n\nWie lang ist die Hypotenuse c? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_hypotenuse",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechtwinkliges Dreieck hat die Katheten a = 5 cm und b = 7 cm.\n\nWie lang ist die Hypotenuse c? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-hypotenuse-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ee07674f-0846-4f38-a0c7-247fd351b729",
+   "title": "Hypotenuse · Katheten 4,5 cm und 6 cm",
+   "question": "Ein rechtwinkliges Dreieck hat die Katheten a = 4,5 cm und b = 6 cm.\n\nWie lang ist die Hypotenuse c? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_hypotenuse",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechtwinkliges Dreieck hat die Katheten a = 4,5 cm und b = 6 cm.\n\nWie lang ist die Hypotenuse c? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-hypotenuse-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5875fe3f-394d-4a2b-8977-bf825b5f9518",
+   "title": "Hypotenuse · Katheten 12 cm und 0,35 m",
+   "question": "Ein rechtwinkliges Dreieck hat die Katheten a = 12 cm und b = 0,35 m.\n\nWie lang ist die Hypotenuse c in Zentimetern? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_hypotenuse",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechtwinkliges Dreieck hat die Katheten a = 12 cm und b = 0,35 m.\n\nWie lang ist die Hypotenuse c in Zentimetern? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-hypotenuse-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e63c2e2e-396f-46f6-91d1-c34595a88dbc",
+   "title": "Hypotenuse · Boot 9 km nach Norden, 4 km nach Osten",
+   "question": "Ein Boot fährt vom Hafen aus 9 km genau nach Norden und danach 4 km genau nach Osten.\n\nWie weit ist das Boot jetzt in Luftlinie vom Hafen entfernt? Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_hypotenuse",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Boot fährt vom Hafen aus 9 km genau nach Norden und danach 4 km genau nach Osten.\n\nWie weit ist das Boot jetzt in Luftlinie vom Hafen entfernt? Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "km",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-hypotenuse-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b7eab8c9-653e-4b7f-b806-6fa49c8193e5",
+   "title": "Hypotenuse · Abkürzung über ein Feld",
+   "question": "Ein rechteckiges Feld ist 120 m lang und 50 m breit. Ein Weg führt von einer Ecke an zwei Seiten entlang zur gegenüberliegenden Ecke. Quer über das Feld verläuft ein gerader Pfad zwischen denselben Ecken.\n\nWie viele Meter ist der Pfad kürzer als der Weg an den Seiten? Runde, falls nötig, auf ganze Meter.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_hypotenuse",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Feld ist 120 m lang und 50 m breit. Ein Weg führt von einer Ecke an zwei Seiten entlang zur gegenüberliegenden Ecke. Quer über das Feld verläuft ein gerader Pfad zwischen denselben Ecken.\n\nWie viele Meter ist der Pfad kürzer als der Weg an den Seiten? Runde, falls nötig, auf ganze Meter."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-hypotenuse-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "238657cc-aaf5-46a0-a9d6-da57c60556c0",
+   "title": "Kathete · Hypotenuse 13 cm, Kathete 5 cm",
+   "question": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 13 cm lang und die Kathete a = 5 cm lang.\n\nWie lang ist die Kathete b? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_kathete",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 13 cm lang und die Kathete a = 5 cm lang.\n\nWie lang ist die Kathete b? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-kathete-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "379ce518-9974-42dc-9e4b-df29741ba395",
+   "title": "Kathete · Hypotenuse 10 cm, Kathete 7 cm, gerundet",
+   "question": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 10 cm lang und die Kathete a = 7 cm lang.\n\nWie lang ist die Kathete b? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_kathete",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 10 cm lang und die Kathete a = 7 cm lang.\n\nWie lang ist die Kathete b? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-kathete-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "add6cee8-f9f3-494f-a321-cfaed9f5ac35",
+   "title": "Kathete · Hypotenuse 7,5 cm, Kathete 4,5 cm",
+   "question": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 7,5 cm lang und die Kathete a = 4,5 cm lang.\n\nWie lang ist die Kathete b? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_kathete",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 7,5 cm lang und die Kathete a = 4,5 cm lang.\n\nWie lang ist die Kathete b? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-kathete-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "215a71de-a9ba-4d97-a94a-929c62c88601",
+   "title": "Kathete · Flächeninhalt aus Hypotenuse 25 cm und Kathete 7 cm",
+   "question": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 25 cm lang und die Kathete a = 7 cm lang.\n\nWie groß ist der Flächeninhalt des Dreiecks? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_kathete",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im rechtwinkligen Dreieck ABC mit dem rechten Winkel bei C ist die Hypotenuse c = 25 cm lang und die Kathete a = 7 cm lang.\n\nWie groß ist der Flächeninhalt des Dreiecks? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-kathete-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d0420f33-ea7e-47ff-9556-520c72a5dc4c",
+   "title": "Kathete · Drachen an 60 m Schnur",
+   "question": "Ein Drachen hängt an einer 60 m langen, straff gespannten Schnur, die direkt am Boden festgehalten wird. Der Drachen steht genau über einem Punkt am Boden, der 25 m von dieser Stelle entfernt ist.\n\nIn welcher Höhe fliegt der Drachen? Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_kathete",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Drachen hängt an einer 60 m langen, straff gespannten Schnur, die direkt am Boden festgehalten wird. Der Drachen steht genau über einem Punkt am Boden, der 25 m von dieser Stelle entfernt ist.\n\nIn welcher Höhe fliegt der Drachen? Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-kathete-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4939a58d-47b1-4dc0-9ec9-e4e34a07c87e",
+   "title": "Kathete · Höhe eines abgespannten Mastes",
+   "question": "Ein senkrechter Mast wird mit einem 25 m langen, straff gespannten Seil gehalten. Das Seil ist am Boden 7 m vom Fuß des Mastes entfernt befestigt. Am Mast ist es 2 m unterhalb der Spitze befestigt.\n\nWie hoch ist der Mast? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_kathete",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein senkrechter Mast wird mit einem 25 m langen, straff gespannten Seil gehalten. Das Seil ist am Boden 7 m vom Fuß des Mastes entfernt befestigt. Am Mast ist es 2 m unterhalb der Spitze befestigt.\n\nWie hoch ist der Mast? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-kathete-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "235952a2-3970-41ff-839c-51869e6f4878",
+   "title": "Umkehrung · längste Seite zu 9 cm und 12 cm",
+   "question": "Die beiden kürzeren Seiten eines Dreiecks sind 9 cm und 12 cm lang.\n\nWie lang muss die längste Seite sein, damit das Dreieck rechtwinklig ist? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_umkehrung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die beiden kürzeren Seiten eines Dreiecks sind 9 cm und 12 cm lang.\n\nWie lang muss die längste Seite sein, damit das Dreieck rechtwinklig ist? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-umkehrung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "893d7877-d9bd-4fa0-88b7-eb36f6bbadad",
+   "title": "Umkehrung · welches der vier Dreiecke ist rechtwinklig?",
+   "question": "Genau eines der vier Dreiecke ist rechtwinklig.\n(1) 5 cm, 6 cm, 8 cm\n(2) 7 cm, 24 cm, 25 cm\n(3) 5 cm, 7 cm, 8,6 cm\n(4) 2 cm, 2,5 cm, 3 cm\n\nGib die Nummer des rechtwinkligen Dreiecks an. Die Antwort ist eine ganze Zahl.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_umkehrung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Genau eines der vier Dreiecke ist rechtwinklig.\n(1) 5 cm, 6 cm, 8 cm\n(2) 7 cm, 24 cm, 25 cm\n(3) 5 cm, 7 cm, 8,6 cm\n(4) 2 cm, 2,5 cm, 3 cm\n\nGib die Nummer des rechtwinkligen Dreiecks an. Die Antwort ist eine ganze Zahl."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-umkehrung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "070f3609-9adf-4c66-adaf-daabe4ae276c",
+   "title": "Umkehrung · Abstand zur Rechtwinkligkeit bei 6, 7, 9 cm",
+   "question": "Ein Dreieck hat die Seitenlängen 6 cm, 7 cm und 9 cm. Mit a und b sind die beiden kürzeren Seiten gemeint, mit c die längste.\n\nUm wie viele Quadratzentimeter ist a² + b² größer als c²? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_umkehrung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Dreieck hat die Seitenlängen 6 cm, 7 cm und 9 cm. Mit a und b sind die beiden kürzeren Seiten gemeint, mit c die längste.\n\nUm wie viele Quadratzentimeter ist a² + b² größer als c²? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-umkehrung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1a311c06-45ab-49c7-a4bf-413242d50c6a",
+   "title": "Umkehrung · wie viel länger müsste die längste Seite sein?",
+   "question": "Ein Dreieck hat die Seitenlängen 2,5 cm, 4 cm und 4,5 cm.\n\nUm wie viele Zentimeter müsste die längste Seite länger sein, damit das Dreieck mit den beiden anderen Seiten rechtwinklig wird? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_umkehrung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Dreieck hat die Seitenlängen 2,5 cm, 4 cm und 4,5 cm.\n\nUm wie viele Zentimeter müsste die längste Seite länger sein, damit das Dreieck mit den beiden anderen Seiten rechtwinklig wird? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-umkehrung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8ea1d77f-e430-4e8d-8fbd-8258f50c9133",
+   "title": "Umkehrung · rechte Ecke beim Abstecken",
+   "question": "Beim Bau eines Gartenhauses soll eine Ecke genau rechtwinklig werden. Von der Ecke aus wird auf der einen Seite 1,2 m abgemessen, auf der anderen Seite 1,6 m. Die beiden Endpunkte werden markiert.\n\nWie groß muss der Abstand der beiden Markierungen sein, damit die Ecke ein rechter Winkel ist? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_umkehrung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Beim Bau eines Gartenhauses soll eine Ecke genau rechtwinklig werden. Von der Ecke aus wird auf der einen Seite 1,2 m abgemessen, auf der anderen Seite 1,6 m. Die beiden Endpunkte werden markiert.\n\nWie groß muss der Abstand der beiden Markierungen sein, damit die Ecke ein rechter Winkel ist? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-umkehrung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "52d53fbc-2b53-48ec-a0b7-77f99826aa4d",
+   "title": "Umkehrung · Latte um wie viele Zentimeter kürzen?",
+   "question": "Aus drei Latten wird ein Dreieck gelegt. Die beiden kürzeren Latten sind 3 m und 4 m lang, die längste ist 5,10 m lang. Der Winkel zwischen den beiden kürzeren Latten soll ein rechter Winkel werden.\n\nUm wie viele Zentimeter muss die längste Latte dafür gekürzt werden? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_umkehrung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Aus drei Latten wird ein Dreieck gelegt. Die beiden kürzeren Latten sind 3 m und 4 m lang, die längste ist 5,10 m lang. Der Winkel zwischen den beiden kürzeren Latten soll ein rechter Winkel werden.\n\nUm wie viele Zentimeter muss die längste Latte dafür gekürzt werden? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-umkehrung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "dacb0349-eb7f-428d-8c25-85a9dc562474",
+   "title": "Abstand · P(1|2) und Q(4|6)",
+   "question": "Gegeben sind die Punkte P(1|2) und Q(4|6) in einem Koordinatensystem.\n\nWie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_abstand",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben sind die Punkte P(1|2) und Q(4|6) in einem Koordinatensystem.\n\nWie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-abstand-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "719b3012-468a-48c0-8105-66f02c75fb0f",
+   "title": "Abstand · zwei Punkte aus der Abbildung",
+   "question": "Die Abbildung zeigt die Punkte P und Q in einem Koordinatensystem.\n\nLies ihre Koordinaten ab. Wie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_abstand",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt die Punkte P und Q in einem Koordinatensystem.\n\nLies ihre Koordinaten ab. Wie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-abstand-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b64244f5-d5d9-44f3-b0f9-cc51c25bef4c",
+   "title": "Abstand · P(−2|3) und Q(4|−5) über die Achsen",
+   "question": "Gegeben sind die Punkte P(−2|3) und Q(4|−5) in einem Koordinatensystem.\n\nWie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_abstand",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben sind die Punkte P(−2|3) und Q(4|−5) in einem Koordinatensystem.\n\nWie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-abstand-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d60ffe34-b219-4cfb-9eb6-727185238880",
+   "title": "Abstand · zwei Punkte über die Achsen aus der Abbildung, gerundet",
+   "question": "Die Abbildung zeigt die Punkte P und Q in einem Koordinatensystem.\n\nLies ihre Koordinaten ab. Wie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_abstand",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt die Punkte P und Q in einem Koordinatensystem.\n\nLies ihre Koordinaten ab. Wie groß ist der Abstand der Punkte P und Q in Längeneinheiten? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-abstand-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "16d86280-3377-44a8-b009-07801586c50c",
+   "title": "Abstand · Hafen und Leuchtturm auf einer Karte",
+   "question": "Die Abbildung zeigt eine Karte mit Gitter. Der Punkt H ist ein Hafen, der Punkt L ein Leuchtturm. Eine Längeneinheit entspricht 1 km.\n\nWie weit ist der Leuchtturm in Luftlinie vom Hafen entfernt? Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_abstand",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt eine Karte mit Gitter. Der Punkt H ist ein Hafen, der Punkt L ein Leuchtturm. Eine Längeneinheit entspricht 1 km.\n\nWie weit ist der Leuchtturm in Luftlinie vom Hafen entfernt? Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "km",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-abstand-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "79cd7e85-5477-4cf6-b8ef-9b5899215087",
+   "title": "Abstand · fehlende Koordinate aus dem Abstand",
+   "question": "Gegeben sind die Punkte P(−2|1) und Q(x|−5). Q liegt rechts von P. Der Abstand der Punkte P und Q beträgt 10 Längeneinheiten.\n\nWie groß ist die x-Koordinate von Q? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_abstand",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben sind die Punkte P(−2|1) und Q(x|−5). Q liegt rechts von P. Der Abstand der Punkte P und Q beträgt 10 Längeneinheiten.\n\nWie groß ist die x-Koordinate von Q? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-abstand-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "21d8e109-03dd-4958-ab1f-4a9a2ba88a81",
+   "title": "Anwendung · Diagonale eines Rechtecks 12 cm × 5 cm",
+   "question": "Ein Rechteck ist 12 cm lang und 5 cm breit.\n\nWie lang ist seine Diagonale? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Rechteck ist 12 cm lang und 5 cm breit.\n\nWie lang ist seine Diagonale? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-anwendung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "58c917d7-182f-4591-be02-374e86a79e41",
+   "title": "Anwendung · Höhe eines gleichseitigen Dreiecks mit 6 cm",
+   "question": "Ein gleichseitiges Dreieck hat die Seitenlänge 6 cm.\n\nWie lang ist seine Höhe? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein gleichseitiges Dreieck hat die Seitenlänge 6 cm.\n\nWie lang ist seine Höhe? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-anwendung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "437b6af2-c70c-4dc8-9f6b-9e155757405a",
+   "title": "Anwendung · Raumdiagonale eines Quaders 4 × 6 × 10 cm",
+   "question": "Ein Quader ist 4 cm breit, 6 cm tief und 10 cm hoch.\n\nWie lang ist seine Raumdiagonale? Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Quader ist 4 cm breit, 6 cm tief und 10 cm hoch.\n\nWie lang ist seine Raumdiagonale? Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-anwendung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a21f48d2-f097-495a-91ed-093327524d91",
+   "title": "Anwendung · Flächeninhalt eines gleichseitigen Dreiecks mit 8 cm",
+   "question": "Ein gleichseitiges Dreieck hat die Seitenlänge 8 cm.\n\nWie groß ist sein Flächeninhalt? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein gleichseitiges Dreieck hat die Seitenlänge 8 cm.\n\nWie groß ist sein Flächeninhalt? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-anwendung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "208e0467-be77-4c56-9135-c9c93554aefd",
+   "title": "Anwendung · Leiter an einer Wand",
+   "question": "Eine 5 m lange Leiter lehnt an einer senkrechten Hauswand. Ihr Fuß steht auf ebenem Boden 1,4 m von der Wand entfernt.\n\nIn welcher Höhe berührt die Leiter die Wand? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine 5 m lange Leiter lehnt an einer senkrechten Hauswand. Ihr Fuß steht auf ebenem Boden 1,4 m von der Wand entfernt.\n\nIn welcher Höhe berührt die Leiter die Wand? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-anwendung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "dc3376fa-bda3-4f10-9656-a9d234fca69f",
+   "title": "Anwendung · Leiterfuß näher an die Wand rücken",
+   "question": "Eine 4 m lange Leiter lehnt an einer senkrechten Wand und reicht bis in 3,60 m Höhe. Sie soll bis in 3,80 m Höhe reichen.\n\nUm wie viele Zentimeter muss ihr Fuß dafür näher an die Wand gerückt werden? Runde auf ganze Zentimeter.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_pythagoras_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine 4 m lange Leiter lehnt an einer senkrechten Wand und reicht bis in 3,60 m Höhe. Sie soll bis in 3,80 m Höhe reichen.\n\nUm wie viele Zentimeter muss ihr Fuß dafür näher an die Wand gerückt werden? Runde auf ganze Zentimeter."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k9_pythagoras",
+   "source_ref": "pyth-anwendung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

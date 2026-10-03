@@ -61,6 +61,13 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Klasse 9 vervollständigen (W4-k9-rest)** (Retro `2026-10-03-k9-rest.md`, Branch `feat/k9-rest`,
+  Befunde `docs/k9-rest/befunde.md`): 37 neue Knoten (Tiefe 5–9) zu Wurzeln, Potenzen,
+  quadratischen Gleichungen/Funktionen, Pythagoras, Körpern, bedingter Wahrscheinlichkeit,
+  Ähnlichkeit; 22 neue Fehlbilder; 222 Aufgaben (draft), 18 Einstiege für 9 Themen.
+  Beweis: verify-prefill 0 Fehler, Blind-Löser 222/222, Wegwerf-DB idempotent, 182/182 Prüfungen.
+  **Offen:** Einspielen (17 Migrationen, `docs/k9-rest/einspielen.md`), Figuren-Upload (7),
+  Freigabe durch Lena, Kanten auf K8-Knoten nachtragen.
 - **LSA-Auswahl nach Thema (W3-6)** (Retro `2026-10-03-lsa-thema-einstieg.md`, Branch
   `feat/lsa-thema-einstieg`, Bericht `docs/themen/w3-6-lsa-auswahl.md`): `lsa_start` hält
   das aktuell-Thema des Leads in `thema_key` fest. `lsa_select_next_core` prüft zuerst die
