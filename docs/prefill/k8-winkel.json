@@ -1,0 +1,2700 @@
+{
+ "batch": "k8-winkel",
+ "kopf": [
+  "K8 Thales und Winkelsätze, Migration 2 von 2 — 24 Aufgaben, je sechs zu den vier geo_winkel_*-Knoten.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k8-winkel.json (Quelle: tools/k8-winkel-aufgaben.mjs,",
+  "tools/k8-winkel-aufgaben-2.mjs und tools/k8-winkel-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003104946_substrat_k8_winkel.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendungen mit steigender Schwierigkeit (AFB I, I, II, II) und zwei mit Sachkontext (Leiter, Straßenkreuzung, Bahnschienen, Zaunlatten, Satteldach, Halbkreisfenster) oder Rückrichtung. Alle NUMERIC mit Einheit °, ganzzahlige Grad. Parallelen, Dreiecke und Thaleskreise sind als Text beschrieben (kein Generator zeichnet sie); zwei Aufgaben zu Neben- und Scheitelwinkel zeigen einen einzelnen Winkel (Generator winkel). Keine Konstruktionen, keine Hinweise, keine Personen.",
+ "source": "edvance_k8_winkel",
+ "class_level": 8,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "ohne_sondierrang": [],
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Linear/Kreis: AFB I 45 s, AFB II 60 s, AFB III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "a2f85a2b-0c8c-4eae-a78c-5a97f39d2fbd",
+   "titel": "Nebenwinkel · Winkel aus der Abbildung",
+   "basis": {
+    "skill_key": "geo_winkel_neben_scheitel",
+    "source_ref": "winkel-neben-01",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Abbildung zeigt den Winkel α. Verlängert man einen seiner Schenkel über den Scheitel hinaus, entsteht ein Nebenwinkel von α.\n\nWie groß ist dieser Nebenwinkel?",
+    "known_errors": {
+     "50": "winkelbeziehung_verwechselt",
+     "310": "summe_360_statt_180",
+     "+50": "winkelbeziehung_verwechselt",
+     "50 °": "winkelbeziehung_verwechselt",
+     "50°": "winkelbeziehung_verwechselt",
+     "+50 °": "winkelbeziehung_verwechselt",
+     "+50°": "winkelbeziehung_verwechselt",
+     "+310": "summe_360_statt_180",
+     "310 °": "summe_360_statt_180",
+     "310°": "summe_360_statt_180",
+     "+310 °": "summe_360_statt_180",
+     "+310°": "summe_360_statt_180"
+    },
+    "figur": {
+     "generator": "winkel",
+     "params": {
+      "grad": 50,
+      "benennung": "α",
+      "mit_bogen": true
+     },
+     "alt_text": "Ein Winkel α: zwei Schenkel mit gemeinsamem Scheitel, Winkelbogen und Gradangabe."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Nebenwinkel als Ergänzung zu 180°, Gradzahl im Bild."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Die Gradzahl steht nur in der Abbildung (Generator winkel, task_figures)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "130",
+      "+130",
+      "130 °",
+      "130°",
+      "+130 °",
+      "+130°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "α = 50° (Abbildung).\nNebenwinkel ergänzen sich zu 180°: 180° - 50° = 130°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Nebenwinkel für gleich groß gehalten: 50°.",
+       "socratic_question": "Bilden α und sein Nebenwinkel zusammen eine gerade Linie? Wie viel Grad hat sie?"
+      },
+      {
+       "error": "Zu 360° statt zu 180° ergänzt: 360° - 50° = 310°.",
+       "socratic_question": "Ist der Nebenwinkel spitz, stumpf oder überstumpf?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-50",
+     "antwort": "130"
+    },
+    {
+     "rechnung": "50",
+     "antwort": "50",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    },
+    {
+     "rechnung": "360-50",
+     "antwort": "310",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "f0c5bda4-158b-4117-9239-7261065e16bb",
+   "titel": "Scheitelwinkel · Winkel aus der Abbildung",
+   "basis": {
+    "skill_key": "geo_winkel_neben_scheitel",
+    "source_ref": "winkel-neben-02",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Abbildung zeigt den Winkel α. Verlängert man beide Schenkel über den Scheitel hinaus, entsteht gegenüber von α sein Scheitelwinkel.\n\nWie groß ist der Scheitelwinkel von α?",
+    "known_errors": {
+     "65": "winkelbeziehung_verwechselt",
+     "+65": "winkelbeziehung_verwechselt",
+     "65 °": "winkelbeziehung_verwechselt",
+     "65°": "winkelbeziehung_verwechselt",
+     "+65 °": "winkelbeziehung_verwechselt",
+     "+65°": "winkelbeziehung_verwechselt"
+    },
+    "figur": {
+     "generator": "winkel",
+     "params": {
+      "grad": 115,
+      "benennung": "α",
+      "mit_bogen": true
+     },
+     "alt_text": "Ein Winkel α: zwei Schenkel mit gemeinsamem Scheitel, Winkelbogen und Gradangabe."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Scheitelwinkel sind gleich groß, Gradzahl im Bild."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Die Gradzahl steht nur in der Abbildung (Generator winkel, task_figures)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "115",
+      "+115",
+      "115 °",
+      "115°",
+      "+115 °",
+      "+115°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "α = 115° (Abbildung).\nScheitelwinkel sind gleich groß: Der Scheitelwinkel ist 115°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Scheitelwinkel wie einen Nebenwinkel zu 180° ergänzt: 180° - 115° = 65°.",
+       "socratic_question": "Liegt der gesuchte Winkel neben α oder gegenüber?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "115",
+     "antwort": "115"
+    },
+    {
+     "rechnung": "180-115",
+     "antwort": "65",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "c0b1c3c5-0c12-4815-bce5-377fca8504c4",
+   "titel": "Nebenwinkel · Schnitt zweier Geraden",
+   "basis": {
+    "skill_key": "geo_winkel_neben_scheitel",
+    "source_ref": "winkel-neben-03",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Zwei Geraden schneiden sich im Punkt S. Rund um S liegen der Reihe nach die vier Winkel α, β, γ und δ: α liegt γ gegenüber, β liegt δ gegenüber. Der Winkel α ist 72° groß.\n\nWie groß ist β?",
+    "known_errors": {
+     "72": "winkelbeziehung_verwechselt",
+     "288": "summe_360_statt_180",
+     "+72": "winkelbeziehung_verwechselt",
+     "72 °": "winkelbeziehung_verwechselt",
+     "72°": "winkelbeziehung_verwechselt",
+     "+72 °": "winkelbeziehung_verwechselt",
+     "+72°": "winkelbeziehung_verwechselt",
+     "+288": "summe_360_statt_180",
+     "288 °": "summe_360_statt_180",
+     "288°": "summe_360_statt_180",
+     "+288 °": "summe_360_statt_180",
+     "+288°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Lage aus dem Text erschließen (β liegt neben α), dann Nebenwinkel."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "108",
+      "+108",
+      "108 °",
+      "108°",
+      "+108 °",
+      "+108°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "β liegt neben α, beide zusammen bilden eine gerade Linie: Nebenwinkel.\nβ = 180° - 72° = 108°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "β für den Scheitelwinkel von α gehalten: 72°.",
+       "socratic_question": "Liegt β gegenüber von α oder direkt daneben?"
+      },
+      {
+       "error": "Zu 360° statt zu 180° ergänzt: 360° - 72° = 288°.",
+       "socratic_question": "Wie viel Grad haben zwei Winkel, die zusammen eine gerade Linie bilden?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-72",
+     "antwort": "108"
+    },
+    {
+     "rechnung": "72",
+     "antwort": "72",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    },
+    {
+     "rechnung": "360-72",
+     "antwort": "288",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "e04364d3-e946-4be1-8aca-0b3b1c52353d",
+   "titel": "Neben- und Scheitelwinkel · Summe zweier Gegenwinkel",
+   "basis": {
+    "skill_key": "geo_winkel_neben_scheitel",
+    "source_ref": "winkel-neben-04",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Zwei Geraden schneiden sich im Punkt S. Rund um S liegen der Reihe nach die vier Winkel α, β, γ und δ: α liegt γ gegenüber, β liegt δ gegenüber. Die Winkel α und γ sind zusammen 140° groß.\n\nWie groß ist β?",
+    "known_errors": {
+     "70": "winkelbeziehung_verwechselt",
+     "220": "halbieren_vergessen",
+     "+70": "winkelbeziehung_verwechselt",
+     "70 °": "winkelbeziehung_verwechselt",
+     "70°": "winkelbeziehung_verwechselt",
+     "+70 °": "winkelbeziehung_verwechselt",
+     "+70°": "winkelbeziehung_verwechselt",
+     "+220": "halbieren_vergessen",
+     "220 °": "halbieren_vergessen",
+     "220°": "halbieren_vergessen",
+     "+220 °": "halbieren_vergessen",
+     "+220°": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Scheitelwinkel (α = γ) und Nebenwinkel kombinieren, zwei Schritte."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Beziehung selbst erkennen oder Rückrichtung: Weg finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "110",
+      "+110",
+      "110 °",
+      "110°",
+      "+110 °",
+      "+110°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "α und γ sind Scheitelwinkel, also gleich groß: α = 140° : 2 = 70°.\nβ ist Nebenwinkel von α: β = 180° - 70° = 110°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "β für gleich groß wie α gehalten: 70°.",
+       "socratic_question": "Liegt β gegenüber von α oder direkt daneben?"
+      },
+      {
+       "error": "β und δ zusammen berechnet, aber nicht halbiert: 360° - 140° = 220°.",
+       "socratic_question": "Ist 220° ein einzelner Winkel oder zwei zusammen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-140/2",
+     "antwort": "110"
+    },
+    {
+     "rechnung": "140/2",
+     "antwort": "70",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    },
+    {
+     "rechnung": "360-140",
+     "antwort": "220",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "9e26a451-8496-4a05-9f4d-752d05fcddf9",
+   "titel": "Nebenwinkel · Leiter auf dem Boden",
+   "basis": {
+    "skill_key": "geo_winkel_neben_scheitel",
+    "source_ref": "winkel-neben-05",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Eine gerade Leiter lehnt an einer Wand und steht auf einem waagerechten Boden. Auf der Seite zur Wand hin bilden Leiter und Boden einen Winkel von 68°.\n\nWie groß ist der Winkel zwischen Leiter und Boden auf der anderen Seite der Leiter, von der Wand weg?",
+    "known_errors": {
+     "68": "winkelbeziehung_verwechselt",
+     "292": "summe_360_statt_180",
+     "+68": "winkelbeziehung_verwechselt",
+     "68 °": "winkelbeziehung_verwechselt",
+     "68°": "winkelbeziehung_verwechselt",
+     "+68 °": "winkelbeziehung_verwechselt",
+     "+68°": "winkelbeziehung_verwechselt",
+     "+292": "summe_360_statt_180",
+     "292 °": "summe_360_statt_180",
+     "292°": "summe_360_statt_180",
+     "+292 °": "summe_360_statt_180",
+     "+292°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Die beiden Winkel am Fuß der Leiter als Nebenwinkel erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation (Leiter, Kreuzung, Schienen, Zaun, Dach, Fenster) in eine Winkelfigur übersetzen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "112",
+      "+112",
+      "112 °",
+      "112°",
+      "+112 °",
+      "+112°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Der Boden ist eine gerade Linie; die Leiter teilt den gestreckten Winkel am Fuß in zwei Nebenwinkel.\n180° - 68° = 112°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Winkel auf der anderen Seite für gleich groß gehalten: 68°.",
+       "socratic_question": "Ergeben die beiden Winkel am Fuß der Leiter zusammen den geraden Boden?"
+      },
+      {
+       "error": "Zu 360° statt zu 180° ergänzt: 360° - 68° = 292°.",
+       "socratic_question": "Wie viel Grad hat der gerade Boden an der Stelle, an der die Leiter steht?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-68",
+     "antwort": "112"
+    },
+    {
+     "rechnung": "68",
+     "antwort": "68",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    },
+    {
+     "rechnung": "360-68",
+     "antwort": "292",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "7849cb37-1c84-425f-956a-44213a721a9f",
+   "titel": "Nebenwinkel · Kreuzung, ein Winkel viermal so groß",
+   "basis": {
+    "skill_key": "geo_winkel_neben_scheitel",
+    "source_ref": "winkel-neben-06",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Zwei gerade Straßen kreuzen sich. An der Kreuzung entstehen vier Winkel. Einer davon ist viermal so groß wie ein Winkel, der direkt neben ihm liegt.\n\nWie groß ist der kleinere dieser beiden Winkel?",
+    "known_errors": {
+     "72": "summe_360_statt_180",
+     "+72": "summe_360_statt_180",
+     "72 °": "summe_360_statt_180",
+     "72°": "summe_360_statt_180",
+     "+72 °": "summe_360_statt_180",
+     "+72°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Rückrichtung: aus dem Verhältnis zweier Nebenwinkel und ihrer Summe 180° den kleineren bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Sachsituation (Leiter, Kreuzung, Schienen, Zaun, Dach, Fenster) in eine Winkelfigur übersetzen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "36",
+      "+36",
+      "36 °",
+      "36°",
+      "+36 °",
+      "+36°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Zwei Winkel, die direkt nebeneinander liegen, sind Nebenwinkel: zusammen 180°.\nKleiner Winkel x, großer 4x: x + 4x = 5x = 180°, also x = 36°.\n(Probe: 4 · 36° = 144°, 36° + 144° = 180°.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit 360° statt 180° gerechnet: 360° : 5 = 72°.",
+       "socratic_question": "Wie viel Grad haben zwei Winkel, die direkt nebeneinander an einer geraden Straße liegen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180/5",
+     "antwort": "36"
+    },
+    {
+     "rechnung": "360/5",
+     "antwort": "72",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "e1fa2b31-a4fb-44ca-848b-188d7d7ca0dd",
+   "titel": "Stufenwinkel · benannt",
+   "basis": {
+    "skill_key": "geo_winkel_parallelen",
+    "source_ref": "winkel-parallel-01",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A oberhalb von g und rechts von s, er ist 65° groß. Der Winkel β liegt bei B oberhalb von h und rechts von s. α und β sind Stufenwinkel.\n\nWie groß ist β?",
+    "known_errors": {
+     "115": "winkelbeziehung_verwechselt",
+     "+115": "winkelbeziehung_verwechselt",
+     "115 °": "winkelbeziehung_verwechselt",
+     "115°": "winkelbeziehung_verwechselt",
+     "+115 °": "winkelbeziehung_verwechselt",
+     "+115°": "winkelbeziehung_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Stufenwinkel an Parallelen sind gleich groß, Beziehung genannt."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "65",
+      "+65",
+      "65 °",
+      "65°",
+      "+65 °",
+      "+65°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Stufenwinkel an parallelen Geraden sind gleich groß: β = α = 65°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Stufenwinkel zu 180° ergänzt: 180° - 65° = 115°.",
+       "socratic_question": "Liegen α und β an ihrer Geraden an derselben Stelle – oben rechts?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "65",
+     "antwort": "65"
+    },
+    {
+     "rechnung": "180-65",
+     "antwort": "115",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "facf174b-aad5-41c4-9f42-916eaafd9e20",
+   "titel": "Wechselwinkel · benannt",
+   "basis": {
+    "skill_key": "geo_winkel_parallelen",
+    "source_ref": "winkel-parallel-02",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A unterhalb von g und rechts von s, er ist 48° groß. Der Winkel β liegt bei B oberhalb von h und links von s. α und β sind Wechselwinkel.\n\nWie groß ist β?",
+    "known_errors": {
+     "132": "winkelbeziehung_verwechselt",
+     "+132": "winkelbeziehung_verwechselt",
+     "132 °": "winkelbeziehung_verwechselt",
+     "132°": "winkelbeziehung_verwechselt",
+     "+132 °": "winkelbeziehung_verwechselt",
+     "+132°": "winkelbeziehung_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Wechselwinkel an Parallelen sind gleich groß, Beziehung genannt."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "48",
+      "+48",
+      "48 °",
+      "48°",
+      "+48 °",
+      "+48°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Wechselwinkel an parallelen Geraden sind gleich groß: β = α = 48°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Wechselwinkel zu 180° ergänzt: 180° - 48° = 132°.",
+       "socratic_question": "Was gilt für Wechselwinkel an Parallelen: gleich groß oder zusammen 180°?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "48",
+     "antwort": "48"
+    },
+    {
+     "rechnung": "180-48",
+     "antwort": "132",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "f9f4e093-605a-4c0a-87da-172d58b74ae0",
+   "titel": "Stufen- und Nebenwinkel · Lage gegeben",
+   "basis": {
+    "skill_key": "geo_winkel_parallelen",
+    "source_ref": "winkel-parallel-03",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A oberhalb von g und rechts von s, er ist 70° groß. Der Winkel β liegt bei B oberhalb von h und links von s.\n\nWie groß ist β?",
+    "known_errors": {
+     "70": "winkelbeziehung_verwechselt",
+     "290": "summe_360_statt_180",
+     "+70": "winkelbeziehung_verwechselt",
+     "70 °": "winkelbeziehung_verwechselt",
+     "70°": "winkelbeziehung_verwechselt",
+     "+70 °": "winkelbeziehung_verwechselt",
+     "+70°": "winkelbeziehung_verwechselt",
+     "+290": "summe_360_statt_180",
+     "290 °": "summe_360_statt_180",
+     "290°": "summe_360_statt_180",
+     "+290 °": "summe_360_statt_180",
+     "+290°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Beziehung selbst erkennen, zwei Schritte (Stufenwinkel, dann Nebenwinkel)."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "110",
+      "+110",
+      "110 °",
+      "110°",
+      "+110 °",
+      "+110°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Bei B oberhalb von h und rechts von s liegt der Stufenwinkel von α: 70°.\nβ ist dessen Nebenwinkel: β = 180° - 70° = 110°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "β für einen Stufenwinkel von α gehalten: 70°.",
+       "socratic_question": "Liegt β bei B auf derselben Seite von s wie α bei A?"
+      },
+      {
+       "error": "Zu 360° statt zu 180° ergänzt: 360° - 70° = 290°.",
+       "socratic_question": "Wie viel Grad haben zwei Nebenwinkel zusammen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-70",
+     "antwort": "110"
+    },
+    {
+     "rechnung": "70",
+     "antwort": "70",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    },
+    {
+     "rechnung": "360-70",
+     "antwort": "290",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "83a2860a-f361-447a-a164-c3d71a545095",
+   "titel": "Wechsel-, Stufen- und Nebenwinkel · Lage gegeben",
+   "basis": {
+    "skill_key": "geo_winkel_parallelen",
+    "source_ref": "winkel-parallel-04",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A unterhalb von g und rechts von s, er ist 105° groß. Der Winkel β liegt bei B unterhalb von h und links von s.\n\nWie groß ist β?",
+    "known_errors": {
+     "105": "winkelbeziehung_verwechselt",
+     "255": "summe_360_statt_180",
+     "+105": "winkelbeziehung_verwechselt",
+     "105 °": "winkelbeziehung_verwechselt",
+     "105°": "winkelbeziehung_verwechselt",
+     "+105 °": "winkelbeziehung_verwechselt",
+     "+105°": "winkelbeziehung_verwechselt",
+     "+255": "summe_360_statt_180",
+     "255 °": "summe_360_statt_180",
+     "255°": "summe_360_statt_180",
+     "+255 °": "summe_360_statt_180",
+     "+255°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Beziehung selbst erkennen, Kette aus Nebenwinkel und Wechselwinkel."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Beziehung selbst erkennen oder Rückrichtung: Weg finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "75",
+      "+75",
+      "75 °",
+      "75°",
+      "+75 °",
+      "+75°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Bei A oberhalb von g und rechts von s liegt der Nebenwinkel von α: 180° - 105° = 75°.\nDessen Stufenwinkel bei B (oberhalb von h, rechts von s) ist ebenfalls 75°, und β ist sein Scheitelwinkel: β = 75°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "β für gleich groß wie α gehalten: 105°.",
+       "socratic_question": "Ist β spitz oder stumpf, wenn α stumpf ist und β auf der anderen Seite von s liegt?"
+      },
+      {
+       "error": "Zu 360° statt zu 180° ergänzt: 360° - 105° = 255°.",
+       "socratic_question": "Kann ein Winkel zwischen zwei Geraden größer als 180° sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-105",
+     "antwort": "75"
+    },
+    {
+     "rechnung": "105",
+     "antwort": "105",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    },
+    {
+     "rechnung": "360-105",
+     "antwort": "255",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "c648786e-49ab-4451-bd09-85f9c82c4d1d",
+   "titel": "Nachbarwinkel · Weg über zwei Bahnschienen",
+   "basis": {
+    "skill_key": "geo_winkel_parallelen",
+    "source_ref": "winkel-parallel-05",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Zwei gerade Bahnschienen verlaufen parallel. Ein gerader Weg überquert beide Schienen schräg. Zwischen den Schienen bildet der Weg mit der ersten Schiene auf der rechten Seite des Weges einen Winkel von 58°.\n\nWie groß ist der Winkel, den der Weg zwischen den Schienen mit der zweiten Schiene auf der rechten Seite des Weges bildet?",
+    "known_errors": {
+     "58": "winkelbeziehung_verwechselt",
+     "302": "summe_360_statt_180",
+     "+58": "winkelbeziehung_verwechselt",
+     "58 °": "winkelbeziehung_verwechselt",
+     "58°": "winkelbeziehung_verwechselt",
+     "+58 °": "winkelbeziehung_verwechselt",
+     "+58°": "winkelbeziehung_verwechselt",
+     "+302": "summe_360_statt_180",
+     "302 °": "summe_360_statt_180",
+     "302°": "summe_360_statt_180",
+     "+302 °": "summe_360_statt_180",
+     "+302°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Lage übersetzen, Beziehung selbst erkennen (Ergänzung zu 180°)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation (Leiter, Kreuzung, Schienen, Zaun, Dach, Fenster) in eine Winkelfigur übersetzen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "122",
+      "+122",
+      "122 °",
+      "122°",
+      "+122 °",
+      "+122°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Schienen = Parallelen, Weg = schneidende Gerade. Beide Winkel liegen zwischen den Schienen auf derselben Seite des Weges.\nDer Stufenwinkel des 58°-Winkels an der zweiten Schiene liegt außerhalb der Schienen; der gesuchte Winkel ist sein Nebenwinkel: 180° - 58° = 122°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die beiden Winkel für gleich groß gehalten: 58°.",
+       "socratic_question": "Liegen beide Winkel auf derselben Seite des Weges und zwischen den Schienen – was gilt dann?"
+      },
+      {
+       "error": "Zu 360° statt zu 180° ergänzt: 360° - 58° = 302°.",
+       "socratic_question": "Kann der Winkel zwischen Weg und Schiene größer als 180° sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-58",
+     "antwort": "122"
+    },
+    {
+     "rechnung": "58",
+     "antwort": "58",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    },
+    {
+     "rechnung": "360-58",
+     "antwort": "302",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "dce9301f-2897-4941-b2e7-87d6d6995ccb",
+   "titel": "Wechselwinkel · schräge Querlatte am Zaun",
+   "basis": {
+    "skill_key": "geo_winkel_parallelen",
+    "source_ref": "winkel-parallel-06",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Bei einem Gartenzaun stehen die senkrechten Latten parallel zueinander. Eine gerade Querlatte ist schräg über alle Latten genagelt. An der ersten Latte schließen Latte und Querlatte oberhalb der Querlatte und rechts der Latte einen Winkel von 112° ein.\n\nWie groß ist an der zweiten Latte, die rechts neben der ersten steht, der Winkel unterhalb der Querlatte und links der Latte?",
+    "known_errors": {
+     "68": "winkelbeziehung_verwechselt",
+     "+68": "winkelbeziehung_verwechselt",
+     "68 °": "winkelbeziehung_verwechselt",
+     "68°": "winkelbeziehung_verwechselt",
+     "+68 °": "winkelbeziehung_verwechselt",
+     "+68°": "winkelbeziehung_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Beziehung selbst erkennen (Wechselwinkel zwischen zwei Latten)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation (Leiter, Kreuzung, Schienen, Zaun, Dach, Fenster) in eine Winkelfigur übersetzen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "112",
+      "+112",
+      "112 °",
+      "112°",
+      "+112 °",
+      "+112°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Latten = Parallelen, Querlatte = schneidende Gerade. Beide Winkel liegen zwischen den beiden Latten, auf verschiedenen Seiten der Querlatte: Wechselwinkel.\nWechselwinkel sind gleich groß: 112°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Wechselwinkel zu 180° ergänzt: 180° - 112° = 68°.",
+       "socratic_question": "Liegen die beiden Winkel auf derselben Seite der Querlatte oder auf verschiedenen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (winkelbeziehung_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "112",
+     "antwort": "112"
+    },
+    {
+     "rechnung": "180-112",
+     "antwort": "68",
+     "rolle": "fehlbild:winkelbeziehung_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "e26cdb23-39dd-4547-b72f-0d73ef7a247c",
+   "titel": "Basiswinkel · aus dem Winkel an der Spitze",
+   "basis": {
+    "skill_key": "geo_winkel_dreieck",
+    "source_ref": "winkel-dreieck-01",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Das Dreieck ABC ist gleichschenklig mit den gleich langen Seiten AC und BC. Der Winkel γ bei C ist 40° groß.\n\nWie groß ist der Winkel α bei A?",
+    "known_errors": {
+     "40": "basiswinkel_falsch_zugeordnet",
+     "140": "halbieren_vergessen",
+     "160": "summe_360_statt_180",
+     "+40": "basiswinkel_falsch_zugeordnet",
+     "40 °": "basiswinkel_falsch_zugeordnet",
+     "40°": "basiswinkel_falsch_zugeordnet",
+     "+40 °": "basiswinkel_falsch_zugeordnet",
+     "+40°": "basiswinkel_falsch_zugeordnet",
+     "+140": "halbieren_vergessen",
+     "140 °": "halbieren_vergessen",
+     "140°": "halbieren_vergessen",
+     "+140 °": "halbieren_vergessen",
+     "+140°": "halbieren_vergessen",
+     "+160": "summe_360_statt_180",
+     "160 °": "summe_360_statt_180",
+     "160°": "summe_360_statt_180",
+     "+160 °": "summe_360_statt_180",
+     "+160°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Basiswinkelsatz und Winkelsumme, Spitze gegeben."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "70",
+      "+70",
+      "70 °",
+      "70°",
+      "+70 °",
+      "+70°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "C liegt zwischen den gleich langen Seiten, also ist γ der Winkel an der Spitze; α und β sind die gleich großen Basiswinkel.\nα = (180° - 40°) : 2 = 70°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Winkel an der Spitze für einen Basiswinkel gehalten: α = 40°.",
+       "socratic_question": "Welche Ecke liegt zwischen den beiden gleich langen Seiten?"
+      },
+      {
+       "error": "Den Rest für beide Basiswinkel zusammen nicht halbiert: 180° - 40° = 140°.",
+       "socratic_question": "Wie viele Basiswinkel teilen sich die restlichen 140°?"
+      },
+      {
+       "error": "Mit 360° statt 180° als Winkelsumme gerechnet: (360° - 40°) : 2 = 160°.",
+       "socratic_question": "Wie groß ist die Winkelsumme in einem Dreieck?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (basiswinkel_falsch_zugeordnet, halbieren_vergessen, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(180-40)/2",
+     "antwort": "70"
+    },
+    {
+     "rechnung": "40",
+     "antwort": "40",
+     "rolle": "fehlbild:basiswinkel_falsch_zugeordnet"
+    },
+    {
+     "rechnung": "180-40",
+     "antwort": "140",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "(360-40)/2",
+     "antwort": "160",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "b86dc520-f0cc-4ef1-b931-56c66ca4729f",
+   "titel": "Außenwinkel · aus zwei Innenwinkeln",
+   "basis": {
+    "skill_key": "geo_winkel_dreieck",
+    "source_ref": "winkel-dreieck-02",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Im Dreieck ABC ist α = 50° und β = 60°. Der Außenwinkel bei C liegt zwischen der Seite BC und der Verlängerung der Seite AC über C hinaus; er ist der Nebenwinkel von γ.\n\nWie groß ist der Außenwinkel bei C?",
+    "known_errors": {
+     "70": "aussenwinkel_verwechselt",
+     "+70": "aussenwinkel_verwechselt",
+     "70 °": "aussenwinkel_verwechselt",
+     "70°": "aussenwinkel_verwechselt",
+     "+70 °": "aussenwinkel_verwechselt",
+     "+70°": "aussenwinkel_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Außenwinkel als Nebenwinkel des Innenwinkels (oder Außenwinkelsatz)."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "110",
+      "+110",
+      "110 °",
+      "110°",
+      "+110 °",
+      "+110°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "γ = 180° - 50° - 60° = 70°.\nAußenwinkel bei C = 180° - 70° = 110°.\n(Außenwinkelsatz: 50° + 60° = 110°.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Innenwinkel γ angegeben statt des Außenwinkels: 70°.",
+       "socratic_question": "Liegt der gesuchte Winkel innerhalb oder außerhalb des Dreiecks?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (aussenwinkel_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "50+60",
+     "antwort": "110"
+    },
+    {
+     "rechnung": "180-50-60",
+     "antwort": "70",
+     "rolle": "fehlbild:aussenwinkel_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "90281ee4-13f9-4108-939c-5220439e4c71",
+   "titel": "Dreieck und Parallele · Winkel bei B",
+   "basis": {
+    "skill_key": "geo_winkel_dreieck",
+    "source_ref": "winkel-dreieck-03",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Im Dreieck ABC liegt A links und B rechts. Die Gerade g geht durch C und ist parallel zur Seite AB. Auf g liegt links von C der Punkt P und rechts von C der Punkt Q. Der Winkel ∠PCA ist 52° groß, der Winkel γ = ∠ACB ist 67° groß.\n\nWie groß ist der Winkel β bei B?",
+    "known_errors": {
+     "119": "differenz_vergessen",
+     "241": "summe_360_statt_180",
+     "+119": "differenz_vergessen",
+     "119 °": "differenz_vergessen",
+     "119°": "differenz_vergessen",
+     "+119 °": "differenz_vergessen",
+     "+119°": "differenz_vergessen",
+     "+241": "summe_360_statt_180",
+     "241 °": "summe_360_statt_180",
+     "241°": "summe_360_statt_180",
+     "+241 °": "summe_360_statt_180",
+     "+241°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: gestreckter Winkel auf g und Wechselwinkel an Parallelen kombinieren."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Beziehung selbst erkennen oder Rückrichtung: Weg finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "61",
+      "+61",
+      "61 °",
+      "61°",
+      "+61 °",
+      "+61°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Auf g bilden ∠PCA, γ und ∠QCB zusammen einen gestreckten Winkel: ∠QCB = 180° - 52° - 67° = 61°.\n∠QCB und β sind Wechselwinkel an den Parallelen g und AB: β = 61°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die beiden bekannten Winkel nur addiert, nicht von 180° abgezogen: 52° + 67° = 119°.",
+       "socratic_question": "Wie viel Grad haben die drei Winkel auf der Geraden g bei C zusammen?"
+      },
+      {
+       "error": "Mit 360° statt 180° gerechnet: 360° - 52° - 67° = 241°.",
+       "socratic_question": "Bilden die drei Winkel bei C eine gerade Linie oder eine volle Drehung?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (differenz_vergessen, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-52-67",
+     "antwort": "61"
+    },
+    {
+     "rechnung": "52+67",
+     "antwort": "119",
+     "rolle": "fehlbild:differenz_vergessen"
+    },
+    {
+     "rechnung": "360-52-67",
+     "antwort": "241",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "875bb8b8-fd63-4cc6-989d-c0c41029dd5d",
+   "titel": "Außenwinkel · gleichschenkliges Dreieck",
+   "basis": {
+    "skill_key": "geo_winkel_dreieck",
+    "source_ref": "winkel-dreieck-04",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Das Dreieck ABC ist gleichschenklig mit den gleich langen Seiten AC und BC. Der Winkel γ bei C ist 50° groß. Der Außenwinkel bei A liegt zwischen der Seite AC und der Verlängerung der Seite BA über A hinaus.\n\nWie groß ist der Außenwinkel bei A?",
+    "known_errors": {
+     "65": "aussenwinkel_verwechselt",
+     "130": "basiswinkel_falsch_zugeordnet",
+     "+65": "aussenwinkel_verwechselt",
+     "65 °": "aussenwinkel_verwechselt",
+     "65°": "aussenwinkel_verwechselt",
+     "+65 °": "aussenwinkel_verwechselt",
+     "+65°": "aussenwinkel_verwechselt",
+     "+130": "basiswinkel_falsch_zugeordnet",
+     "130 °": "basiswinkel_falsch_zugeordnet",
+     "130°": "basiswinkel_falsch_zugeordnet",
+     "+130 °": "basiswinkel_falsch_zugeordnet",
+     "+130°": "basiswinkel_falsch_zugeordnet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Basiswinkelsatz, Winkelsumme und Außenwinkel in drei Schritten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "115",
+      "+115",
+      "115 °",
+      "115°",
+      "+115 °",
+      "+115°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "γ liegt an der Spitze, α und β sind Basiswinkel: α = (180° - 50°) : 2 = 65°.\nAußenwinkel bei A = 180° - 65° = 115°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Innenwinkel α angegeben statt des Außenwinkels: 65°.",
+       "socratic_question": "Liegt der gesuchte Winkel innerhalb oder außerhalb des Dreiecks?"
+      },
+      {
+       "error": "γ als Basiswinkel bei A genommen und davon den Außenwinkel gebildet: 180° - 50° = 130°.",
+       "socratic_question": "Welche Ecke liegt zwischen den beiden gleich langen Seiten?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (aussenwinkel_verwechselt, basiswinkel_falsch_zugeordnet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-(180-50)/2",
+     "antwort": "115"
+    },
+    {
+     "rechnung": "(180-50)/2",
+     "antwort": "65",
+     "rolle": "fehlbild:aussenwinkel_verwechselt"
+    },
+    {
+     "rechnung": "180-50",
+     "antwort": "130",
+     "rolle": "fehlbild:basiswinkel_falsch_zugeordnet"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "1a1092b8-1ddd-4b8a-9560-7647b94f4307",
+   "titel": "Basiswinkel · Neigung eines Satteldachs",
+   "basis": {
+    "skill_key": "geo_winkel_dreieck",
+    "source_ref": "winkel-dreieck-05",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Der Querschnitt eines Satteldachs ist ein gleichschenkliges Dreieck: Die beiden Dachflächen sind gleich lang, die Grundseite ist der waagerechte Dachboden. Oben am First schließen die beiden Dachflächen einen Winkel von 110° ein.\n\nWie groß ist der Winkel zwischen einer Dachfläche und dem Dachboden?",
+    "known_errors": {
+     "70": "halbieren_vergessen",
+     "110": "basiswinkel_falsch_zugeordnet",
+     "125": "summe_360_statt_180",
+     "+110": "basiswinkel_falsch_zugeordnet",
+     "110 °": "basiswinkel_falsch_zugeordnet",
+     "110°": "basiswinkel_falsch_zugeordnet",
+     "+110 °": "basiswinkel_falsch_zugeordnet",
+     "+110°": "basiswinkel_falsch_zugeordnet",
+     "+70": "halbieren_vergessen",
+     "70 °": "halbieren_vergessen",
+     "70°": "halbieren_vergessen",
+     "+70 °": "halbieren_vergessen",
+     "+70°": "halbieren_vergessen",
+     "+125": "summe_360_statt_180",
+     "125 °": "summe_360_statt_180",
+     "125°": "summe_360_statt_180",
+     "+125 °": "summe_360_statt_180",
+     "+125°": "summe_360_statt_180"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Querschnitt als gleichschenkliges Dreieck lesen, Spitze am First."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation (Leiter, Kreuzung, Schienen, Zaun, Dach, Fenster) in eine Winkelfigur übersetzen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "35",
+      "+35",
+      "35 °",
+      "35°",
+      "+35 °",
+      "+35°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "Der First liegt zwischen den gleich langen Dachflächen: Er ist die Spitze. Die Winkel am Dachboden sind die gleich großen Basiswinkel.\n(180° - 110°) : 2 = 35°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Winkel am First für einen Basiswinkel gehalten: 110°.",
+       "socratic_question": "Liegt der Winkel am First zwischen den beiden gleich langen Seiten oder an der Grundseite?"
+      },
+      {
+       "error": "Den Rest für beide Basiswinkel zusammen nicht halbiert: 180° - 110° = 70°.",
+       "socratic_question": "Auf wie viele Winkel am Dachboden verteilen sich die restlichen 70°?"
+      },
+      {
+       "error": "Mit 360° statt 180° als Winkelsumme gerechnet: (360° - 110°) : 2 = 125°.",
+       "socratic_question": "Wie groß ist die Winkelsumme in einem Dreieck?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (basiswinkel_falsch_zugeordnet, halbieren_vergessen, summe_360_statt_180)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(180-110)/2",
+     "antwort": "35"
+    },
+    {
+     "rechnung": "110",
+     "antwort": "110",
+     "rolle": "fehlbild:basiswinkel_falsch_zugeordnet"
+    },
+    {
+     "rechnung": "180-110",
+     "antwort": "70",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "(360-110)/2",
+     "antwort": "125",
+     "rolle": "fehlbild:summe_360_statt_180"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "fee2cf1f-4ecc-4f68-ab73-03fdcee03528",
+   "titel": "Außenwinkel · Rückrichtung, Innenwinkel gesucht",
+   "basis": {
+    "skill_key": "geo_winkel_dreieck",
+    "source_ref": "winkel-dreieck-06",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Im Dreieck ABC ist α = 48°. Der Außenwinkel bei C (der Nebenwinkel von γ) ist 125° groß.\n\nWie groß ist der Winkel β bei B?",
+    "known_errors": {
+     "7": "aussenwinkel_verwechselt",
+     "173": "differenz_vergessen",
+     "+7": "aussenwinkel_verwechselt",
+     "7 °": "aussenwinkel_verwechselt",
+     "7°": "aussenwinkel_verwechselt",
+     "+7 °": "aussenwinkel_verwechselt",
+     "+7°": "aussenwinkel_verwechselt",
+     "+173": "differenz_vergessen",
+     "173 °": "differenz_vergessen",
+     "173°": "differenz_vergessen",
+     "+173 °": "differenz_vergessen",
+     "+173°": "differenz_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Rückrichtung: aus Außenwinkel und einem Innenwinkel den dritten Winkel erschließen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Beziehung selbst erkennen oder Rückrichtung: Weg finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "77",
+      "+77",
+      "77 °",
+      "77°",
+      "+77 °",
+      "+77°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "γ = 180° - 125° = 55°.\nβ = 180° - 48° - 55° = 77°.\n(Außenwinkelsatz: 125° = 48° + β, also β = 77°.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Außenwinkel wie den Innenwinkel γ verwendet: 180° - 125° - 48° = 7°.",
+       "socratic_question": "Ist 125° der Winkel im Dreieck bei C oder der daneben?"
+      },
+      {
+       "error": "Die beiden gegebenen Winkel addiert statt subtrahiert: 125° + 48° = 173°.",
+       "socratic_question": "Der Außenwinkel ist so groß wie zwei Innenwinkel zusammen – welcher davon fehlt noch?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (aussenwinkel_verwechselt, differenz_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "125-48",
+     "antwort": "77"
+    },
+    {
+     "rechnung": "180-125-48",
+     "antwort": "7",
+     "rolle": "fehlbild:aussenwinkel_verwechselt"
+    },
+    {
+     "rechnung": "125+48",
+     "antwort": "173",
+     "rolle": "fehlbild:differenz_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "9f171c32-9786-4617-b2e4-161c88071ea5",
+   "titel": "Thales · Winkel β aus α",
+   "basis": {
+    "skill_key": "geo_winkel_thales",
+    "source_ref": "winkel-thales-01",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 35° groß.\n\nWie groß ist β?",
+    "known_errors": {
+     "90": "rechter_winkel_falsche_ecke",
+     "125": "differenz_vergessen",
+     "+90": "rechter_winkel_falsche_ecke",
+     "90 °": "rechter_winkel_falsche_ecke",
+     "90°": "rechter_winkel_falsche_ecke",
+     "+90 °": "rechter_winkel_falsche_ecke",
+     "+90°": "rechter_winkel_falsche_ecke",
+     "+125": "differenz_vergessen",
+     "125 °": "differenz_vergessen",
+     "125°": "differenz_vergessen",
+     "+125 °": "differenz_vergessen",
+     "+125°": "differenz_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Satz des Thales (γ = 90°) und Winkelsumme."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "55",
+      "+55",
+      "55 °",
+      "55°",
+      "+55 °",
+      "+55°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "C liegt auf dem Kreis über dem Durchmesser AB: Nach dem Satz des Thales ist γ = 90°.\nβ = 180° - 90° - 35° = 55°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den rechten Winkel bei B statt bei C angenommen: β = 90°.",
+       "socratic_question": "Welche Ecke liegt auf dem Kreis und nicht am Durchmesser?"
+      },
+      {
+       "error": "Die bekannten Winkel nur addiert, nicht von 180° abgezogen: 90° + 35° = 125°.",
+       "socratic_question": "Wie groß ist die Winkelsumme, und was fehlt noch bis dahin?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (rechter_winkel_falsche_ecke, differenz_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-90-35",
+     "antwort": "55"
+    },
+    {
+     "rechnung": "90",
+     "antwort": "90",
+     "rolle": "fehlbild:rechter_winkel_falsche_ecke"
+    },
+    {
+     "rechnung": "90+35",
+     "antwort": "125",
+     "rolle": "fehlbild:differenz_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "22e90366-5528-4685-993e-42e88f3623f6",
+   "titel": "Thales · Winkel bei C",
+   "basis": {
+    "skill_key": "geo_winkel_thales",
+    "source_ref": "winkel-thales-02",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 28° groß.\n\nWie groß ist γ?",
+    "known_errors": {
+     "62": "rechter_winkel_falsche_ecke",
+     "+62": "rechter_winkel_falsche_ecke",
+     "62 °": "rechter_winkel_falsche_ecke",
+     "62°": "rechter_winkel_falsche_ecke",
+     "+62 °": "rechter_winkel_falsche_ecke",
+     "+62°": "rechter_winkel_falsche_ecke"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Satz des Thales erkennen, der gegebene Winkel ist Ablenkung."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Satz (Beziehung genannt oder direkt erkennbar)."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "90",
+      "+90",
+      "90 °",
+      "90°",
+      "+90 °",
+      "+90°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "C liegt auf dem Kreis über dem Durchmesser AB: Nach dem Satz des Thales ist γ = 90°, unabhängig von α.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den rechten Winkel bei B angenommen und γ aus der Winkelsumme berechnet: 180° - 90° - 28° = 62°.",
+       "socratic_question": "Welche Ecke liegt dem Durchmesser gegenüber?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (rechter_winkel_falsche_ecke)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "90",
+     "antwort": "90"
+    },
+    {
+     "rechnung": "180-90-28",
+     "antwort": "62",
+     "rolle": "fehlbild:rechter_winkel_falsche_ecke"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "9e7c1e4b-d317-44cf-8865-071c653ef2cf",
+   "titel": "Thales · Winkel am Mittelpunkt-Dreieck AMC",
+   "basis": {
+    "skill_key": "geo_winkel_thales",
+    "source_ref": "winkel-thales-03",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 40° groß.\n\nWie groß ist der Winkel ∠ACM zwischen den Strecken CA und CM?",
+    "known_errors": {
+     "70": "basiswinkel_falsch_zugeordnet",
+     "+70": "basiswinkel_falsch_zugeordnet",
+     "70 °": "basiswinkel_falsch_zugeordnet",
+     "70°": "basiswinkel_falsch_zugeordnet",
+     "+70 °": "basiswinkel_falsch_zugeordnet",
+     "+70°": "basiswinkel_falsch_zugeordnet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Dreieck AMC als gleichschenklig erkennen (MA = MC = Radius)."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Beziehung selbst erkennen oder Rückrichtung: Weg finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "40",
+      "+40",
+      "40 °",
+      "40°",
+      "+40 °",
+      "+40°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "MA und MC sind Radien, also gleich lang: Das Dreieck AMC ist gleichschenklig mit der Spitze M.\nDie Basiswinkel bei A und C sind gleich: ∠ACM = α = 40°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "α für den Winkel an der Spitze von Dreieck AMC gehalten: (180° - 40°) : 2 = 70°.",
+       "socratic_question": "Welche Ecke von Dreieck AMC liegt zwischen den beiden gleich langen Radien?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (basiswinkel_falsch_zugeordnet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "40",
+     "antwort": "40"
+    },
+    {
+     "rechnung": "(180-40)/2",
+     "antwort": "70",
+     "rolle": "fehlbild:basiswinkel_falsch_zugeordnet"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "9ca300e1-76b9-4bb9-96cf-44cfda31824b",
+   "titel": "Thales · α aus dem Winkel bei M",
+   "basis": {
+    "skill_key": "geo_winkel_thales",
+    "source_ref": "winkel-thales-04",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel ∠BMC zwischen den Strecken MB und MC ist 64° groß.\n\nWie groß ist α?",
+    "known_errors": {
+     "26": "basiswinkel_falsch_zugeordnet",
+     "64": "halbieren_vergessen",
+     "+26": "basiswinkel_falsch_zugeordnet",
+     "26 °": "basiswinkel_falsch_zugeordnet",
+     "26°": "basiswinkel_falsch_zugeordnet",
+     "+26 °": "basiswinkel_falsch_zugeordnet",
+     "+26°": "basiswinkel_falsch_zugeordnet",
+     "+64": "halbieren_vergessen",
+     "64 °": "halbieren_vergessen",
+     "64°": "halbieren_vergessen",
+     "+64 °": "halbieren_vergessen",
+     "+64°": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Nebenwinkel bei M, dann gleichschenkliges Dreieck AMC (zwei Schritte)."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Beziehung selbst erkennen oder Rückrichtung: Weg finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "32",
+      "+32",
+      "32 °",
+      "32°",
+      "+32 °",
+      "+32°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "∠AMC ist Nebenwinkel von ∠BMC: 180° - 64° = 116°.\nDas Dreieck AMC ist gleichschenklig (MA = MC), Spitze M: α = (180° - 116°) : 2 = 32°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "64° als Basiswinkel β im Dreieck BMC genommen, dann α = 90° - 64° = 26°.",
+       "socratic_question": "Liegt der Winkel bei M zwischen den beiden gleich langen Radien?"
+      },
+      {
+       "error": "Den Rest im Dreieck AMC nicht halbiert: 180° - 116° = 64°.",
+       "socratic_question": "Auf wie viele gleich große Winkel verteilen sich die restlichen 64° im Dreieck AMC?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (basiswinkel_falsch_zugeordnet, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(180-(180-64))/2",
+     "antwort": "32"
+    },
+    {
+     "rechnung": "90-64",
+     "antwort": "26",
+     "rolle": "fehlbild:basiswinkel_falsch_zugeordnet"
+    },
+    {
+     "rechnung": "180-(180-64)",
+     "antwort": "64",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "11aebc7c-d30e-4577-89d5-52efed7d379f",
+   "titel": "Thales · Streben im Halbkreisfenster",
+   "basis": {
+    "skill_key": "geo_winkel_thales",
+    "source_ref": "winkel-thales-05",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Ein Fenster hat oben einen Halbkreisbogen. Die waagerechte Unterkante AB des Bogens ist ein Durchmesser des Halbkreises. Eine gerade Strebe verläuft von A zu einem Punkt C auf dem Bogen, eine zweite von C zu B. Die Strebe AC bildet mit der Unterkante einen Winkel von 32°.\n\nWie groß ist der Winkel zwischen der Strebe CB und der Unterkante?",
+    "known_errors": {
+     "90": "rechter_winkel_falsche_ecke",
+     "122": "differenz_vergessen",
+     "+90": "rechter_winkel_falsche_ecke",
+     "90 °": "rechter_winkel_falsche_ecke",
+     "90°": "rechter_winkel_falsche_ecke",
+     "+90 °": "rechter_winkel_falsche_ecke",
+     "+90°": "rechter_winkel_falsche_ecke",
+     "+122": "differenz_vergessen",
+     "122 °": "differenz_vergessen",
+     "122°": "differenz_vergessen",
+     "+122 °": "differenz_vergessen",
+     "+122°": "differenz_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Thales-Situation im Fenster erkennen, dann Winkelsumme."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation (Leiter, Kreuzung, Schienen, Zaun, Dach, Fenster) in eine Winkelfigur übersetzen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "58",
+      "+58",
+      "58 °",
+      "58°",
+      "+58 °",
+      "+58°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "AB ist Durchmesser, C liegt auf dem Bogen: Nach dem Satz des Thales ist der Winkel bei C ein rechter.\nWinkel bei B = 180° - 90° - 32° = 58°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den rechten Winkel bei B angenommen: 90°.",
+       "socratic_question": "Welche Ecke des Dreiecks liegt auf dem Bogen?"
+      },
+      {
+       "error": "Die bekannten Winkel nur addiert: 90° + 32° = 122°.",
+       "socratic_question": "Was muss mit 122° noch geschehen, damit der dritte Winkel herauskommt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (rechter_winkel_falsche_ecke, differenz_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-90-32",
+     "antwort": "58"
+    },
+    {
+     "rechnung": "90",
+     "antwort": "90",
+     "rolle": "fehlbild:rechter_winkel_falsche_ecke"
+    },
+    {
+     "rechnung": "90+32",
+     "antwort": "122",
+     "rolle": "fehlbild:differenz_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "3e087e16-bd3e-4489-b3d9-6c6759c4ce74",
+   "titel": "Thales · Rückrichtung über die Winkel bei M",
+   "basis": {
+    "skill_key": "geo_winkel_thales",
+    "source_ref": "winkel-thales-06",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel ∠AMC ist um 40° größer als der Winkel ∠BMC.\n\nWie groß ist α?",
+    "known_errors": {
+     "70": "halbieren_vergessen",
+     "+70": "halbieren_vergessen",
+     "70 °": "halbieren_vergessen",
+     "70°": "halbieren_vergessen",
+     "+70 °": "halbieren_vergessen",
+     "+70°": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Rückrichtung: Winkel bei M aus Summe und Unterschied bestimmen, dann gleichschenkliges Dreieck AMC."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geometrie (Geo-1, Geo-2, Geo-7); in Köln üblich in Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_winkel_summe und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Winkelbeziehungen, Winkelsätze, Satz des Thales)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Beziehung selbst erkennen oder Rückrichtung: Weg finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben und die Lage stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "35",
+      "+35",
+      "35 °",
+      "35°",
+      "+35 °",
+      "+35°"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit und ohne Plus, mit und ohne °."
+    },
+    "solution": {
+     "wert": "∠AMC und ∠BMC sind Nebenwinkel: zusammen 180°. ∠BMC = (180° - 40°) : 2 = 70°, ∠AMC = 110°.\nDreieck AMC ist gleichschenklig (MA = MC), Spitze M: α = (180° - 110°) : 2 = 35°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Rest im Dreieck AMC nicht halbiert: 180° - 110° = 70°.",
+       "socratic_question": "Auf wie viele gleich große Winkel verteilen sich die restlichen 70° im Dreieck AMC?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(180-(180+40)/2)/2",
+     "antwort": "35"
+    },
+    {
+     "rechnung": "180-(180+40)/2",
+     "antwort": "70",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  }
+ ]
+}

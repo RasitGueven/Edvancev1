@@ -1,0 +1,749 @@
+Aufgabe-ID,source_ref,Teilaufgabe,Feld,neuer Wert,Art,Unsicherheit,Begründung
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,afb,I,neu,mittel,"Reproduzieren: y ist schon freigestellt, Einsetzen mit einer Plusklammer, Ergebnis ganzzahlig."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,1,correct_answers.1,"[""3"",""+3""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,2,correct_answers.2,"[""4"",""+4""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,solution,"I in II einsetzen: 3x + 2·(x + 1) = 17
+3x + 2x + 2 = 17
+5x + 2 = 17 | -2
+5x = 15 | :5
+x = 3
+In I einsetzen: y = 3 + 1 = 4
+Lösung: x = 3, y = 4.",neu,hoch,Nachgerechnet.
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,typical_errors,"[{""error"":""Ohne Klammer eingesetzt: 3x + 2x + 1 = 17, also 5x = 16 und x = 3,2."",""socratic_question"":""Womit wird die 2 in 2y multipliziert, wenn du für y den ganzen Term x + 1 einsetzt?""},{""error"":""Bei 5x = 15 stehen geblieben und 15 als x genommen."",""socratic_question"":""Steht in der Zeile 5x = 15 schon x allein auf einer Seite?""}]",neu,hoch,"Aus acceptance.known_errors (klammer_vergessen, division_vergessen)."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,1,acceptance.known_errors (keine UI),"{""15"":""division_vergessen"",""3,2"":""klammer_vergessen"",""+3,2"":""klammer_vergessen"",""3.2"":""klammer_vergessen"",""+3.2"":""klammer_vergessen"",""+15"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9,lgs-einsetzen-01,2,acceptance.known_errors (keine UI),"{""16"":""division_vergessen"",""4,2"":""klammer_vergessen"",""+4,2"":""klammer_vergessen"",""4.2"":""klammer_vergessen"",""+4.2"":""klammer_vergessen"",""+16"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,afb,I,neu,mittel,"Reproduzieren: x ist freigestellt, Einsetzen ohne Klammer, gleichartige Glieder zusammenfassen."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,1,correct_answers.1,"[""8"",""+8""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,2,correct_answers.2,"[""4"",""+4""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,solution,"I in II einsetzen: 2y + 3y = 20
+5y = 20 | :5
+y = 4
+In I einsetzen: x = 2·4 = 8
+Lösung: x = 8, y = 4.",neu,hoch,Nachgerechnet.
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,typical_errors,"[{""error"":""Bei 5y = 20 stehen geblieben: y = 20 und dann x = 40."",""socratic_question"":""Was musst du mit 5y = 20 noch tun, damit y allein steht?""},{""error"":""Den Wert von y als x angegeben, das Rückeinsetzen in I fehlt."",""socratic_question"":""Welche Variable hast du mit 5y = 20 berechnet, und wie kommst du jetzt an x?""}]",neu,hoch,"Aus acceptance.known_errors (division_vergessen, falsche_groesse_beantwortet)."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,1,acceptance.known_errors (keine UI),"{""4"":""falsche_groesse_beantwortet"",""40"":""division_vergessen"",""+40"":""division_vergessen"",""+4"":""falsche_groesse_beantwortet""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+686a3356-9cec-46b5-9625-24e8b3159661,lgs-einsetzen-02,2,acceptance.known_errors (keine UI),"{""20"":""division_vergessen"",""+20"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,afb,II,neu,mittel,"Anwenden: Einsetzen in ein Minus, die Klammer muss aufgelöst werden (Vorzeichenwechsel)."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,1,correct_answers.1,"[""2"",""+2""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,2,correct_answers.2,"[""1"",""+1""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,solution,"I in II einsetzen: 4x - (2x - 3) = 7
+4x - 2x + 3 = 7
+2x + 3 = 7 | -3
+2x = 4 | :2
+x = 2
+In I einsetzen: y = 2·2 - 3 = 1
+Lösung: x = 2, y = 1.",neu,hoch,Nachgerechnet.
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,typical_errors,"[{""error"":""Ohne Klammer eingesetzt: 4x - 2x - 3 = 7, das Minus trifft nur 2x."",""socratic_question"":""Was wird von 4x abgezogen: nur 2x oder der ganze Term 2x - 3?""},{""error"":""Bei 2x = 4 stehen geblieben und 4 als x genommen."",""socratic_question"":""Steht in 2x = 4 schon x allein?""}]",neu,hoch,"Aus acceptance.known_errors (klammer_vergessen, division_vergessen)."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,1,acceptance.known_errors (keine UI),"{""4"":""division_vergessen"",""5"":""klammer_vergessen"",""+5"":""klammer_vergessen"",""+4"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,2,acceptance.known_errors (keine UI),"{""5"":""division_vergessen"",""7"":""klammer_vergessen"",""+7"":""klammer_vergessen"",""+5"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+fd5eeb1f-97c2-49a8-ba75-d620da074fc2,lgs-einsetzen-03,,sondierrang (keine UI),1,neu,mittel,"lgs-einsetzen-03 = 1, lgs-einsetzen-04 = 2. Rang 1 aus Profil {division_vergessen,klammer_vergessen}, Rang 2 aus Profil {klammer_vergessen,vorzeichen_beim_umstellen} (1 neue Fehlbilder)"
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,afb,II,neu,mittel,"Anwenden: erst umstellen, dann einen Term mit zwei Gliedern in eine Klammer einsetzen und ausmultiplizieren."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,1,correct_answers.1,"[""5"",""+5""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,2,correct_answers.2,"[""3"",""+3""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,solution,"I nach x umstellen: x = 11 - 2y
+In II einsetzen: 3·(11 - 2y) - 4y = 3
+33 - 6y - 4y = 3
+33 - 10y = 3 | -33
+-10y = -30 | :(-10)
+y = 3
+In I einsetzen: x = 11 - 2·3 = 5
+Lösung: x = 5, y = 3.",neu,hoch,Nachgerechnet.
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,typical_errors,"[{""error"":""Ohne Klammer eingesetzt: 3·11 - 2y - 4y = 3, die 3 trifft nur die 11."",""socratic_question"":""Womit wird die 3 multipliziert, wenn du für x den Term 11 - 2y einsetzt?""},{""error"":""Bei -10y = -30 das Minus am Ergebnis gelassen: y = -3."",""socratic_question"":""Was ergibt eine negative Zahl geteilt durch eine negative Zahl?""}]",neu,hoch,"Aus acceptance.known_errors (klammer_vergessen, vorzeichen_beim_umstellen)."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,1,acceptance.known_errors (keine UI),"{""1"":""klammer_vergessen"",""17"":""vorzeichen_beim_umstellen"",""+1"":""klammer_vergessen"",""+17"":""vorzeichen_beim_umstellen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,2,acceptance.known_errors (keine UI),"{""5"":""klammer_vergessen"",""+5"":""klammer_vergessen"",""-3"":""vorzeichen_beim_umstellen"",""−3"":""vorzeichen_beim_umstellen"",""- 3"":""vorzeichen_beim_umstellen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+158c874c-248c-40ed-b8b5-af3eb627517a,lgs-einsetzen-04,,sondierrang (keine UI),2,neu,mittel,"lgs-einsetzen-03 = 1, lgs-einsetzen-04 = 2. Rang 1 aus Profil {division_vergessen,klammer_vergessen}, Rang 2 aus Profil {klammer_vergessen,vorzeichen_beim_umstellen} (1 neue Fehlbilder)"
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,afb,II,neu,mittel,"Anwenden: zwei Bedingungen aus dem Text als Gleichungen aufstellen, dann einsetzen mit Klammer."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,1,correct_answers.1,"[""30"",""+30""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,2,correct_answers.2,"[""20"",""+20""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,solution,"I: x + y = 50 (Anzahl der Karten)
+II: 6x + 9y = 360 (Einnahmen in €)
+I nach x umstellen: x = 50 - y
+In II einsetzen: 6·(50 - y) + 9y = 360
+300 - 6y + 9y = 360
+300 + 3y = 360 | -300
+3y = 60 | :3
+y = 20
+x = 50 - 20 = 30
+Lösung: x = 30 Kinderkarten, y = 20 Erwachsenenkarten.",neu,hoch,Nachgerechnet.
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,typical_errors,"[{""error"":""Die Preise vertauscht: 9x + 6y = 360 statt 6x + 9y = 360."",""socratic_question"":""Welcher Preis gehört zu x, der Anzahl der Kinderkarten?""},{""error"":""Ohne Klammer eingesetzt: 6·50 - y + 9y = 360, die 6 trifft nur die 50."",""socratic_question"":""Womit wird die 6 multipliziert, wenn du für x den Term 50 - y einsetzt?""}]",neu,hoch,"Aus acceptance.known_errors (groessen_vertauscht, klammer_vergessen)."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",75,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,1,acceptance.known_errors (keine UI),"{""20"":""groessen_vertauscht"",""+20"":""groessen_vertauscht"",""42,5"":""klammer_vergessen"",""+42,5"":""klammer_vergessen"",""42.5"":""klammer_vergessen"",""+42.5"":""klammer_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+6ffa3e34-6e9c-4b46-b615-0ea96683fa4f,lgs-einsetzen-05,2,acceptance.known_errors (keine UI),"{""30"":""groessen_vertauscht"",""+30"":""groessen_vertauscht"",""7,5"":""klammer_vergessen"",""+7,5"":""klammer_vergessen"",""7.5"":""klammer_vergessen"",""+7.5"":""klammer_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,afb,II,neu,mittel,"Anwenden: Zahlenrätsel in zwei Gleichungen übersetzen, „um 6 größer“ richtig zuordnen, mit Klammer einsetzen."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,1,correct_answers.1,"[""14"",""+14""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,2,correct_answers.2,"[""8"",""+8""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,solution,"I: x = y + 6
+II: 2x + y = 36
+I in II einsetzen: 2·(y + 6) + y = 36
+2y + 12 + y = 36
+3y + 12 = 36 | -12
+3y = 24 | :3
+y = 8
+x = 8 + 6 = 14
+Lösung: x = 14, y = 8.",neu,hoch,Nachgerechnet.
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,typical_errors,"[{""error"":""Ohne Klammer eingesetzt: 2y + 6 + y = 36, die 2 trifft nur das y."",""socratic_question"":""Was wird verdoppelt: nur y oder die ganze erste Zahl y + 6?""},{""error"":""Die zweite Zahl um 6 größer gemacht: y = x + 6 statt x = y + 6."",""socratic_question"":""Welche der beiden Zahlen ist die größere?""}]",neu,hoch,"Aus acceptance.known_errors (klammer_vergessen, groessen_vertauscht)."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,1,"zeit_teile (nur CSV, keine DB-Spalte)",75,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,1,acceptance.known_errors (keine UI),"{""10"":""groessen_vertauscht"",""16"":""klammer_vergessen"",""+16"":""klammer_vergessen"",""+10"":""groessen_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+8ccd8989-eb3b-4954-bcb6-5bd202d6710e,lgs-einsetzen-06,2,acceptance.known_errors (keine UI),"{""10"":""klammer_vergessen"",""16"":""groessen_vertauscht"",""+10"":""klammer_vergessen"",""+16"":""groessen_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,afb,I,neu,mittel,"Reproduzieren: beide Gleichungen nach y aufgelöst, positive Koeffizienten, ganzzahlige Lösung."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,1,correct_answers.1,"[""3"",""+3""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,2,correct_answers.2,"[""7"",""+7""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,solution,"Gleichsetzen: 2x + 1 = x + 4 | -x
+x + 1 = 4 | -1
+x = 3
+In II einsetzen: y = 3 + 4 = 7
+Lösung: x = 3, y = 7.",neu,hoch,Nachgerechnet.
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,typical_errors,"[{""error"":""Das x auf der rechten Seite nicht abgezogen und durch 2 geteilt: x = 3 : 2 = 1,5."",""socratic_question"":""Auf welchen Seiten steht x? Wie bringst du alle x auf eine Seite?""},{""error"":""Die 1 addiert statt abgezogen: x = 4 + 1 = 5."",""socratic_question"":""Wie bekommst du die +1 von der linken Seite weg?""}]",neu,hoch,"Aus acceptance.known_errors (variablen_nicht_zusammengefuehrt, falsches_vorzeichen_beim_zusammenfuehren)."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,1,acceptance.known_errors (keine UI),"{""5"":""falsches_vorzeichen_beim_zusammenfuehren"",""1,5"":""variablen_nicht_zusammengefuehrt"",""+1,5"":""variablen_nicht_zusammengefuehrt"",""1.5"":""variablen_nicht_zusammengefuehrt"",""+1.5"":""variablen_nicht_zusammengefuehrt"",""+5"":""falsches_vorzeichen_beim_zusammenfuehren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,2,acceptance.known_errors (keine UI),"{""4"":""variablen_nicht_zusammengefuehrt"",""9"":""falsches_vorzeichen_beim_zusammenfuehren"",""+4"":""variablen_nicht_zusammengefuehrt"",""+9"":""falsches_vorzeichen_beim_zusammenfuehren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+5b073ffe-951e-4339-bceb-fefd24b204e4,lgs-gleichsetzen-01,,sondierrang (keine UI),1,neu,mittel,"lgs-gleichsetzen-01 = 1, lgs-gleichsetzen-06 = 2. Rang 1 aus Profil {falsches_vorzeichen_beim_zusammenfuehren,variablen_nicht_zusammengefuehrt}, Rang 2 aus Profil {loesungsanzahl_verwechselt,parallele_uebersehen} (2 neue Fehlbilder)"
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,afb,I,neu,mittel,"Reproduzieren: beide nach y aufgelöst, eine negative Konstante, ganzzahlige Lösung."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,1,correct_answers.1,"[""4"",""+4""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,2,correct_answers.2,"[""10"",""+10""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,solution,"Gleichsetzen: 3x - 2 = x + 6 | -x
+2x - 2 = 6 | +2
+2x = 8 | :2
+x = 4
+In II einsetzen: y = 4 + 6 = 10
+Lösung: x = 4, y = 10.",neu,hoch,Nachgerechnet.
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,typical_errors,"[{""error"":""Die -2 falsch herübergebracht: 2x = 6 - 2 = 4 statt 2x = 6 + 2 = 8."",""socratic_question"":""Mit welcher Rechnung verschwindet die -2 auf der linken Seite?""},{""error"":""Bei 2x = 8 stehen geblieben und 8 als x genommen."",""socratic_question"":""Steht in 2x = 8 schon x allein?""}]",neu,hoch,"Aus acceptance.known_errors (falsches_vorzeichen_beim_zusammenfuehren, division_vergessen)."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,1,acceptance.known_errors (keine UI),"{""2"":""falsches_vorzeichen_beim_zusammenfuehren"",""8"":""division_vergessen"",""+2"":""falsches_vorzeichen_beim_zusammenfuehren"",""+8"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0a8987a7-5605-43d6-b24b-16436d3d8096,lgs-gleichsetzen-02,2,acceptance.known_errors (keine UI),"{""8"":""falsches_vorzeichen_beim_zusammenfuehren"",""14"":""division_vergessen"",""+8"":""falsches_vorzeichen_beim_zusammenfuehren"",""+14"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,afb,II,neu,mittel,"Anwenden: negativer Koeffizient, Division durch eine negative Zahl, negatives y."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,1,correct_answers.1,"[""4"",""+4""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,2,correct_answers.2,"[""-1"",""−1"",""- 1""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,solution,"Gleichsetzen: -2x + 7 = x - 5 | -x
+-3x + 7 = -5 | -7
+-3x = -12 | :(-3)
+x = 4
+In II einsetzen: y = 4 - 5 = -1
+Lösung: x = 4, y = -1.",neu,hoch,Nachgerechnet.
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,typical_errors,"[{""error"":""Bei -3x = -12 das Minus am Ergebnis gelassen: x = -4."",""socratic_question"":""Was ergibt -12 geteilt durch -3?""},{""error"":""Nur durch den linken Koeffizienten -2 geteilt, das x von rechts nicht abgezogen."",""socratic_question"":""Wie viele x stehen links, nachdem du das x von der rechten Seite herübergebracht hast?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_beim_umstellen, variablen_nicht_zusammengefuehrt)."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,1,acceptance.known_errors (keine UI),"{""6"":""variablen_nicht_zusammengefuehrt"",""-4"":""vorzeichen_beim_umstellen"",""−4"":""vorzeichen_beim_umstellen"",""- 4"":""vorzeichen_beim_umstellen"",""+6"":""variablen_nicht_zusammengefuehrt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f028a616-4848-4839-86c5-b8520f6a0e15,lgs-gleichsetzen-03,2,acceptance.known_errors (keine UI),"{""1"":""variablen_nicht_zusammengefuehrt"",""-9"":""vorzeichen_beim_umstellen"",""−9"":""vorzeichen_beim_umstellen"",""- 9"":""vorzeichen_beim_umstellen"",""+1"":""variablen_nicht_zusammengefuehrt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,afb,II,neu,mittel,"Anwenden: beide Gleichungen erst nach y umstellen (II mit -y), dann gleichsetzen, negativer Koeffizient."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,1,correct_answers.1,"[""3"",""+3""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,2,correct_answers.2,"[""2"",""+2""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,solution,"I nach y: y = -x + 5
+II nach y: -y = -2x + 4, also y = 2x - 4
+Gleichsetzen: -x + 5 = 2x - 4 | -2x
+-3x + 5 = -4 | -5
+-3x = -9 | :(-3)
+x = 3
+In I einsetzen: y = -3 + 5 = 2
+Lösung: x = 3, y = 2.",neu,hoch,Nachgerechnet.
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,typical_errors,"[{""error"":""Bei -3x = -9 das Minus am Ergebnis gelassen: x = -3."",""socratic_question"":""Welches Vorzeichen hat der Quotient zweier negativer Zahlen?""},{""error"":""Nur durch den linken Koeffizienten -1 geteilt, das 2x von rechts nicht herübergebracht."",""socratic_question"":""Stehen nach deinem Schritt alle x auf einer Seite?""}]",neu,hoch,"Aus acceptance.known_errors (vorzeichen_beim_umstellen, variablen_nicht_zusammengefuehrt)."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,1,acceptance.known_errors (keine UI),"{""9"":""variablen_nicht_zusammengefuehrt"",""-3"":""vorzeichen_beim_umstellen"",""−3"":""vorzeichen_beim_umstellen"",""- 3"":""vorzeichen_beim_umstellen"",""+9"":""variablen_nicht_zusammengefuehrt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+2d1d05f3-9234-4580-ac86-76776714e9c1,lgs-gleichsetzen-04,2,acceptance.known_errors (keine UI),"{""8"":""vorzeichen_beim_umstellen"",""+8"":""vorzeichen_beim_umstellen"",""-4"":""variablen_nicht_zusammengefuehrt"",""−4"":""variablen_nicht_zusammengefuehrt"",""- 4"":""variablen_nicht_zusammengefuehrt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,afb,II,neu,mittel,"Anwenden: zwei Tarife als Gleichungen y = mx + b aufstellen, gleichsetzen, Ergebnis im Kontext deuten."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,1,correct_answers.1,"[""6"",""+6""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,2,correct_answers.2,"[""17"",""+17"",""17 €"",""17€"",""+17 €"",""+17€""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,solution,"Tarif A: y = 2x + 5
+Tarif B: y = x + 11
+Gleichsetzen: 2x + 5 = x + 11 | -x
+x + 5 = 11 | -5
+x = 6
+In B einsetzen: y = 6 + 11 = 17
+Nach 6 Stunden kosten beide Tarife 17 €.",neu,hoch,Nachgerechnet.
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,typical_errors,"[{""error"":""Das x von Tarif B nicht abgezogen und durch 2 geteilt: x = 6 : 2 = 3."",""socratic_question"":""Auf welchen Seiten der Gleichung 2x + 5 = x + 11 steht x?""},{""error"":""Die 5 addiert statt abgezogen: x = 11 + 5 = 16."",""socratic_question"":""Wie bekommst du die +5 von der linken Seite weg?""}]",neu,hoch,"Aus acceptance.known_errors (variablen_nicht_zusammengefuehrt, falsches_vorzeichen_beim_zusammenfuehren)."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",75,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,1,acceptance.known_errors (keine UI),"{""3"":""variablen_nicht_zusammengefuehrt"",""16"":""falsches_vorzeichen_beim_zusammenfuehren"",""+3"":""variablen_nicht_zusammengefuehrt"",""+16"":""falsches_vorzeichen_beim_zusammenfuehren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+4d293e0f-925f-4025-8b92-7c8a6236e2bb,lgs-gleichsetzen-05,2,acceptance.known_errors (keine UI),"{""11"":""variablen_nicht_zusammengefuehrt"",""27"":""falsches_vorzeichen_beim_zusammenfuehren"",""+11"":""variablen_nicht_zusammengefuehrt"",""11 €"":""variablen_nicht_zusammengefuehrt"",""11€"":""variablen_nicht_zusammengefuehrt"",""+11 €"":""variablen_nicht_zusammengefuehrt"",""+11€"":""variablen_nicht_zusammengefuehrt"",""+27"":""falsches_vorzeichen_beim_zusammenfuehren"",""27 €"":""falsches_vorzeichen_beim_zusammenfuehren"",""27€"":""falsches_vorzeichen_beim_zusammenfuehren"",""+27 €"":""falsches_vorzeichen_beim_zusammenfuehren"",""+27€"":""falsches_vorzeichen_beim_zusammenfuehren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,afb,II,neu,mittel,"Anwenden und deuten: Gleichsetzen endet mit einer falschen Aussage, daraus die Lösungsanzahl schließen."
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,competency_process,Argumentieren,neu,mittel,Lösungsanzahl aus Rechnung oder Lage der Geraden begründen.
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,correct_answers,"[""b""]",neu,hoch,"Lösungsanzahl aus dem Koeffizientensystem nachgerechnet (Determinante, Verträglichkeit)."
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,solution,"Gleichsetzen: 2x + 4 = 2x + 6 | -2x
+4 = 6
+Das ist eine falsche Aussage, für kein x erfüllt.
+Das Gleichungssystem hat keine Lösung: Tarif B ist immer 2 € teurer, die Geraden sind parallel.",neu,hoch,Nachgerechnet.
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,typical_errors,"[{""error"":""Genau eine Lösung angenommen, obwohl beide Tarife denselben Stundenpreis haben."",""socratic_question"":""Wie groß ist der Preisunterschied nach einer, nach zwei, nach zehn Stunden?""},{""error"":""Die falsche Aussage 4 = 6 als „unendlich viele Lösungen“ gelesen."",""socratic_question"":""Gibt es eine Stundenzahl, für die 4 = 6 stimmt?""}]",neu,hoch,"Aus acceptance.known_errors (parallele_uebersehen, loesungsanzahl_verwechselt)."
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,acceptance.known_errors (keine UI),"{""a"":""parallele_uebersehen"",""c"":""loesungsanzahl_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+341951eb-c62b-414a-aedf-c86e61d27bf5,lgs-gleichsetzen-06,,sondierrang (keine UI),2,neu,mittel,"lgs-gleichsetzen-01 = 1, lgs-gleichsetzen-06 = 2. Rang 1 aus Profil {falsches_vorzeichen_beim_zusammenfuehren,variablen_nicht_zusammengefuehrt}, Rang 2 aus Profil {loesungsanzahl_verwechselt,parallele_uebersehen} (2 neue Fehlbilder)"
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,afb,I,neu,mittel,"Reproduzieren: Addieren genügt, y fällt sofort weg, ganzzahlige Lösung."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,1,correct_answers.1,"[""8"",""+8""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,2,correct_answers.2,"[""2"",""+2""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,solution,"I + II: (x + 2y) + (x - 2y) = 12 + 4
+2x = 16 | :2
+x = 8
+In I einsetzen: 8 + 2y = 12 | -8
+2y = 4 | :2
+y = 2
+Lösung: x = 8, y = 2.",neu,hoch,Nachgerechnet.
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,typical_errors,"[{""error"":""Links addiert, rechts subtrahiert: 2x = 12 - 4 = 8."",""socratic_question"":""Hast du links und rechts dieselbe Rechenart benutzt?""},{""error"":""Bei 2x = 16 stehen geblieben und 16 als x genommen."",""socratic_question"":""Steht in 2x = 16 schon x allein?""}]",neu,hoch,"Aus acceptance.known_errors (seiten_ungleich_verknuepft, division_vergessen)."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,1,acceptance.known_errors (keine UI),"{""4"":""seiten_ungleich_verknuepft"",""16"":""division_vergessen"",""+4"":""seiten_ungleich_verknuepft"",""+16"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+04167489-16b6-4f8e-bd85-5aff2f8433a9,lgs-addition-01,2,acceptance.known_errors (keine UI),"{""4"":""seiten_ungleich_verknuepft"",""+4"":""seiten_ungleich_verknuepft"",""-2"":""division_vergessen"",""−2"":""division_vergessen"",""- 2"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,afb,I,neu,mittel,"Reproduzieren: Addieren genügt, rechts wird eine negative Zahl addiert."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,1,correct_answers.1,"[""4"",""+4""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,2,correct_answers.2,"[""3"",""+3""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,solution,"I + II: 4x = 18 + (-2) = 16 | :4
+x = 4
+In I einsetzen: 12 + 2y = 18 | -12
+2y = 6 | :2
+y = 3
+Lösung: x = 4, y = 3.",neu,hoch,Nachgerechnet.
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,typical_errors,"[{""error"":""Links addiert, rechts subtrahiert: 4x = 18 - (-2) = 20."",""socratic_question"":""Wenn du links die Gleichungen addierst, was musst du dann rechts mit 18 und -2 tun?""},{""error"":""Bei 4x = 16 stehen geblieben und 16 als x genommen."",""socratic_question"":""Steht in 4x = 16 schon x allein?""}]",neu,hoch,"Aus acceptance.known_errors (seiten_ungleich_verknuepft, division_vergessen)."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,1,acceptance.known_errors (keine UI),"{""5"":""seiten_ungleich_verknuepft"",""16"":""division_vergessen"",""+5"":""seiten_ungleich_verknuepft"",""+16"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+8a6667f5-f069-4df5-8411-c4533e44b757,lgs-addition-02,2,acceptance.known_errors (keine UI),"{""1,5"":""seiten_ungleich_verknuepft"",""+1,5"":""seiten_ungleich_verknuepft"",""1.5"":""seiten_ungleich_verknuepft"",""+1.5"":""seiten_ungleich_verknuepft"",""-15"":""division_vergessen"",""−15"":""division_vergessen"",""- 15"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,afb,II,neu,mittel,"Anwenden: eine Gleichung mit einem Faktor multiplizieren, dann subtrahieren."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,competency_process,Operieren,neu,mittel,Lösen nach festem Verfahren.
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,1,correct_answers.1,"[""2"",""+2""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,2,correct_answers.2,"[""3"",""+3""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,solution,"II · 2: 2x + 2y = 10
+I - 2·II: (2x + 3y) - (2x + 2y) = 13 - 10
+y = 3
+In II einsetzen: x + 3 = 5 | -3
+x = 2
+Lösung: x = 2, y = 3.",neu,hoch,Nachgerechnet.
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,typical_errors,"[{""error"":""Beim Multiplizieren die rechte Seite vergessen: 2x + 2y = 5 statt 10."",""socratic_question"":""Hast du nach dem Malnehmen mit 2 jedes Glied der Gleichung II verdoppelt, auch die 5?""},{""error"":""Links subtrahiert, rechts addiert: y = 13 + 10 = 23."",""socratic_question"":""Welche Rechenart hast du links benutzt, welche rechts?""}]",neu,hoch,"Aus acceptance.known_errors (nicht_alle_glieder_multipliziert, seiten_ungleich_verknuepft)."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,1,acceptance.known_errors (keine UI),"{""-3"":""nicht_alle_glieder_multipliziert"",""−3"":""nicht_alle_glieder_multipliziert"",""- 3"":""nicht_alle_glieder_multipliziert"",""-18"":""seiten_ungleich_verknuepft"",""−18"":""seiten_ungleich_verknuepft"",""- 18"":""seiten_ungleich_verknuepft""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+b0a46ab7-8546-455a-af17-41d97b6da549,lgs-addition-03,2,acceptance.known_errors (keine UI),"{""8"":""nicht_alle_glieder_multipliziert"",""23"":""seiten_ungleich_verknuepft"",""+8"":""nicht_alle_glieder_multipliziert"",""+23"":""seiten_ungleich_verknuepft""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,afb,II,neu,mittel,"Anwenden: den Faktor selbst wählen (II mal 3), negativer Koeffizient, negatives y."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,competency_process,Problemlösen,neu,mittel,"Rechenweg (Faktor) selbst finden, dann lösen."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,1,correct_answers.1,"[""2"",""+2""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,2,correct_answers.2,"[""-1"",""−1"",""- 1""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,solution,"II · 3: 6x - 3y = 15
+I + 3·II: (4x + 3y) + (6x - 3y) = 5 + 15
+10x = 20 | :10
+x = 2
+In II einsetzen: 2·2 - y = 5, also y = 4 - 5 = -1
+Lösung: x = 2, y = -1.",neu,hoch,Nachgerechnet.
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,typical_errors,"[{""error"":""Beim Multiplizieren die rechte Seite vergessen: 6x - 3y = 5 statt 15."",""socratic_question"":""Hast du nach dem Malnehmen mit 3 auch die rechte Seite von II verdreifacht?""},{""error"":""Links addiert, rechts subtrahiert: 10x = 5 - 15 = -10."",""socratic_question"":""Hast du die rechten Seiten genauso verknüpft wie die linken?""}]",neu,hoch,"Aus acceptance.known_errors (nicht_alle_glieder_multipliziert, seiten_ungleich_verknuepft)."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,1,acceptance.known_errors (keine UI),"{""1"":""nicht_alle_glieder_multipliziert"",""+1"":""nicht_alle_glieder_multipliziert"",""-1"":""seiten_ungleich_verknuepft"",""−1"":""seiten_ungleich_verknuepft"",""- 1"":""seiten_ungleich_verknuepft""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,2,acceptance.known_errors (keine UI),"{""-3"":""nicht_alle_glieder_multipliziert"",""−3"":""nicht_alle_glieder_multipliziert"",""- 3"":""nicht_alle_glieder_multipliziert"",""-7"":""seiten_ungleich_verknuepft"",""−7"":""seiten_ungleich_verknuepft"",""- 7"":""seiten_ungleich_verknuepft""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ca914e37-5069-4fe6-bbec-d3965feca69a,lgs-addition-04,,sondierrang (keine UI),1,neu,mittel,"lgs-addition-04 = 1, lgs-addition-06 = 2. Rang 1 aus Profil {nicht_alle_glieder_multipliziert,seiten_ungleich_verknuepft}, Rang 2 aus Profil {loesungsanzahl_verwechselt,parallele_uebersehen} (2 neue Fehlbilder)"
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,afb,II,neu,mittel,"Anwenden: zwei Preisangaben als Gleichungen aufstellen, eine Gleichung mit 2 multiplizieren und subtrahieren."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,1,correct_answers.1,"[""8"",""+8"",""8 €"",""8€"",""+8 €"",""+8€""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,2,correct_answers.2,"[""6"",""+6"",""6 €"",""6€"",""+6 €"",""+6€""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,solution,"I: 2x + 3y = 34
+II: x + 2y = 20
+II · 2: 2x + 4y = 40
+2·II - I: (2x + 4y) - (2x + 3y) = 40 - 34
+y = 6
+In II einsetzen: x + 12 = 20, also x = 8
+Eine Karte für Erwachsene kostet 8 €, für Kinder 6 €.",neu,hoch,Nachgerechnet.
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,typical_errors,"[{""error"":""Erwachsene und Kinder beim Aufstellen vertauscht: 3x + 2y = 34 und 2x + y = 20."",""socratic_question"":""Zu welcher Variablen gehört die Anzahl der Erwachsenen in der ersten Angabe?""},{""error"":""Beim Multiplizieren die rechte Seite vergessen: 2x + 4y = 20 statt 40."",""socratic_question"":""Hast du beim Verdoppeln von II auch die 20 verdoppelt?""}]",neu,hoch,"Aus acceptance.known_errors (groessen_vertauscht, nicht_alle_glieder_multipliziert)."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",75,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,1,acceptance.known_errors (keine UI),"{""6"":""groessen_vertauscht"",""48"":""nicht_alle_glieder_multipliziert"",""+6"":""groessen_vertauscht"",""6 €"":""groessen_vertauscht"",""6€"":""groessen_vertauscht"",""+6 €"":""groessen_vertauscht"",""+6€"":""groessen_vertauscht"",""+48"":""nicht_alle_glieder_multipliziert"",""48 €"":""nicht_alle_glieder_multipliziert"",""48€"":""nicht_alle_glieder_multipliziert"",""+48 €"":""nicht_alle_glieder_multipliziert"",""+48€"":""nicht_alle_glieder_multipliziert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb,lgs-addition-05,2,acceptance.known_errors (keine UI),"{""8"":""groessen_vertauscht"",""+8"":""groessen_vertauscht"",""8 €"":""groessen_vertauscht"",""8€"":""groessen_vertauscht"",""+8 €"":""groessen_vertauscht"",""+8€"":""groessen_vertauscht"",""-14"":""nicht_alle_glieder_multipliziert"",""−14"":""nicht_alle_glieder_multipliziert"",""- 14"":""nicht_alle_glieder_multipliziert"",""-14 €"":""nicht_alle_glieder_multipliziert"",""-14€"":""nicht_alle_glieder_multipliziert"",""−14 €"":""nicht_alle_glieder_multipliziert"",""−14€"":""nicht_alle_glieder_multipliziert"",""- 14 €"":""nicht_alle_glieder_multipliziert"",""- 14€"":""nicht_alle_glieder_multipliziert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,afb,II,neu,mittel,"Anwenden und deuten: Das Verfahren endet mit einer wahren Aussage, daraus die Lösungsanzahl schließen."
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,competency_process,Argumentieren,neu,mittel,Lösungsanzahl aus Rechnung oder Lage der Geraden begründen.
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,correct_answers,"[""c""]",neu,hoch,"Lösungsanzahl aus dem Koeffizientensystem nachgerechnet (Determinante, Verträglichkeit)."
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,solution,"I · 2: 4x + 6y = 14
+II - 2·I: 0 = 0
+Das ist eine wahre Aussage, jedes Zahlenpaar, das I erfüllt, erfüllt auch II.
+Das Gleichungssystem hat unendlich viele Lösungen: Die zweite Angabe ist nur die doppelte erste, die Preise lassen sich so nicht eindeutig bestimmen.",neu,hoch,Nachgerechnet.
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,typical_errors,"[{""error"":""Genau eine Lösung angenommen, obwohl II nur das Doppelte von I ist."",""socratic_question"":""Was erhältst du, wenn du Gleichung I mit 2 multiplizierst?""},{""error"":""Die wahre Aussage 0 = 0 als „keine Lösung“ gelesen."",""socratic_question"":""Stimmt 0 = 0? Für welche Zahlenpaare?""}]",neu,hoch,"Aus acceptance.known_errors (parallele_uebersehen, loesungsanzahl_verwechselt)."
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,acceptance.known_errors (keine UI),"{""a"":""parallele_uebersehen"",""b"":""loesungsanzahl_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+ffd185a0-239d-4e19-8600-87934606fffc,lgs-addition-06,,sondierrang (keine UI),2,neu,mittel,"lgs-addition-04 = 1, lgs-addition-06 = 2. Rang 1 aus Profil {nicht_alle_glieder_multipliziert,seiten_ungleich_verknuepft}, Rang 2 aus Profil {loesungsanzahl_verwechselt,parallele_uebersehen} (2 neue Fehlbilder)"
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,afb,I,neu,mittel,Reproduzieren: Schnittpunkt im ersten Quadranten auf einem Gitterpunkt ablesen.
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,competency_process,Darstellen,neu,mittel,Lösung aus der grafischen Darstellung ablesen.
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,needs_image,true,neu,hoch,"Ohne Abbildung (zwei Geraden im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,1,correct_answers.1,"[""2"",""+2""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,2,correct_answers.2,"[""3"",""+3""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,solution,"Die Geraden schneiden sich im Punkt S(2 | 3).
+Die Koordinaten des Schnittpunkts sind die Lösung: x = 2, y = 3.",neu,hoch,Nachgerechnet.
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,typical_errors,"[{""error"":""x- und y-Koordinate des Schnittpunkts vertauscht: (3 | 2) statt (2 | 3)."",""socratic_question"":""Welche Koordinate liest du an der waagerechten Achse ab?""}]",neu,hoch,Aus acceptance.known_errors (koordinaten_vertauscht).
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,1,acceptance.known_errors (keine UI),"{""3"":""koordinaten_vertauscht"",""+3"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,2,acceptance.known_errors (keine UI),"{""2"":""koordinaten_vertauscht"",""+2"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+635ae61a-bd3c-4180-9a0f-c47f66e6bc62,lgs-grafisch-01,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""funktionen"":[{""typ"":""linear"",""m"":1,""b"":1,""label"":""f""},{""typ"":""linear"",""m"":-0.5,""b"":4,""label"":""g""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,afb,I,neu,mittel,"Reproduzieren: Schnittpunkt im ersten Quadranten ablesen, eine Gerade mit gebrochener Steigung."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,est_duration_sec,45,neu,mittel,"Zeitregel: AFB I, kein Sachkontext."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,competency_process,Darstellen,neu,mittel,Lösung aus der grafischen Darstellung ablesen.
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,needs_image,true,neu,hoch,"Ohne Abbildung (zwei Geraden im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,1,parts.1.afb,I,neu,mittel,Wie die Aufgabe.
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,1,correct_answers.1,"[""4"",""+4""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,2,parts.2.afb,I,neu,mittel,Wie die Aufgabe.
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,2,correct_answers.2,"[""1"",""+1""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,solution,"Die Geraden schneiden sich im Punkt S(4 | 1).
+Lösung: x = 4, y = 1.",neu,hoch,Nachgerechnet.
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,typical_errors,"[{""error"":""x- und y-Koordinate des Schnittpunkts vertauscht: (1 | 4) statt (4 | 1)."",""socratic_question"":""Wie weit liegt der Schnittpunkt rechts von der y-Achse, wie weit über der x-Achse?""}]",neu,hoch,Aus acceptance.known_errors (koordinaten_vertauscht).
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,1,acceptance.known_errors (keine UI),"{""1"":""koordinaten_vertauscht"",""+1"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,2,acceptance.known_errors (keine UI),"{""4"":""koordinaten_vertauscht"",""+4"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+a4edd0b8-6298-45c2-b050-72d8d32c91ba,lgs-grafisch-02,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-2,""x_max"":7,""y_min"":-3,""y_max"":6,""funktionen"":[{""typ"":""linear"",""m"":0.5,""b"":-1,""label"":""f""},{""typ"":""linear"",""m"":-1,""b"":5,""label"":""g""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,afb,II,neu,mittel,Anwenden: Schnittpunkt mit zwei negativen Koordinaten ablesen.
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,competency_process,Darstellen,neu,mittel,Lösung aus der grafischen Darstellung ablesen.
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,needs_image,true,neu,hoch,"Ohne Abbildung (zwei Geraden im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,1,correct_answers.1,"[""-2"",""−2"",""- 2""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,2,correct_answers.2,"[""-1"",""−1"",""- 1""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,solution,"Die Geraden schneiden sich im Punkt S(-2 | -1), links unterhalb des Ursprungs.
+Lösung: x = -2, y = -1.",neu,hoch,Nachgerechnet.
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,typical_errors,"[{""error"":""x- und y-Koordinate des Schnittpunkts vertauscht: (-1 | -2) statt (-2 | -1)."",""socratic_question"":""Welche Koordinate gehört zur waagerechten Achse?""},{""error"":""Die Beträge richtig abgelesen, die Minuszeichen fehlen: (2 | 1)."",""socratic_question"":""Liegt der Schnittpunkt rechts oder links von der y-Achse?""}]",neu,hoch,"Aus acceptance.known_errors (koordinaten_vertauscht, koordinate_vorzeichen_verloren)."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,1,acceptance.known_errors (keine UI),"{""2"":""koordinate_vorzeichen_verloren"",""-1"":""koordinaten_vertauscht"",""−1"":""koordinaten_vertauscht"",""- 1"":""koordinaten_vertauscht"",""+2"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,2,acceptance.known_errors (keine UI),"{""1"":""koordinate_vorzeichen_verloren"",""-2"":""koordinaten_vertauscht"",""−2"":""koordinaten_vertauscht"",""- 2"":""koordinaten_vertauscht"",""+1"":""koordinate_vorzeichen_verloren""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,sondierrang (keine UI),1,neu,mittel,"lgs-grafisch-03 = 1, lgs-grafisch-06 = 2. Rang 1 aus Profil {koordinate_vorzeichen_verloren,koordinaten_vertauscht}, Rang 2 aus Profil {loesungsanzahl_verwechselt,parallele_uebersehen} (2 neue Fehlbilder)"
+6bc7dd64-72ef-461c-b6cc-661ef4f08c78,lgs-grafisch-03,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""funktionen"":[{""typ"":""linear"",""m"":1,""b"":1,""label"":""f""},{""typ"":""linear"",""m"":-0.5,""b"":-2,""label"":""g""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,afb,II,neu,mittel,"Anwenden: II in die Form y = mx + b bringen, Steigung und y-Achsenabschnitt vergleichen."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,competency_process,Argumentieren,neu,mittel,Lösungsanzahl aus Rechnung oder Lage der Geraden begründen.
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,correct_answers,"[""c""]",neu,hoch,"Lösungsanzahl aus dem Koeffizientensystem nachgerechnet (Determinante, Verträglichkeit)."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,solution,"II durch 2 teilen: y = 0,5x + 1.
+Beide Gleichungen haben dieselbe Steigung 0,5 und denselben y-Achsenabschnitt 1.
+Die Geraden liegen aufeinander, jeder Punkt der Geraden ist eine Lösung: unendlich viele Lösungen.",neu,hoch,Nachgerechnet.
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,typical_errors,"[{""error"":""Einen Schnittpunkt angenommen, ohne die Gleichungen in die Form y = mx + b zu bringen und zu vergleichen."",""socratic_question"":""Was erhältst du, wenn du II durch 2 teilst?""},{""error"":""Gleiche Steigung als „keine Lösung“ gelesen, obwohl auch der y-Achsenabschnitt gleich ist."",""socratic_question"":""Haben die beiden Geraden einen gemeinsamen Punkt, zum Beispiel auf der y-Achse?""}]",neu,hoch,"Aus acceptance.known_errors (parallele_uebersehen, loesungsanzahl_verwechselt)."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+49e51e4e-c935-489b-af30-a41f8d0a932f,lgs-grafisch-04,,acceptance.known_errors (keine UI),"{""a"":""parallele_uebersehen"",""b"":""loesungsanzahl_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,afb,II,neu,mittel,Anwenden: Schnittpunkt im Sachkontext ablesen und beide Koordinaten deuten.
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,needs_image,true,neu,hoch,"Ohne Abbildung (zwei Geraden im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,1,correct_answers.1,"[""4"",""+4""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,2,correct_answers.2,"[""6"",""+6"",""6 €"",""6€"",""+6 €"",""+6€""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,solution,"Die Geraden schneiden sich im Punkt S(4 | 6).
+Nach 4 Stunden kosten beide Tarife 6 €.",neu,hoch,Nachgerechnet.
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,typical_errors,"[{""error"":""Leihdauer und Kosten vertauscht: (6 | 4) statt (4 | 6)."",""socratic_question"":""An welcher Achse stehen die Stunden, an welcher die Euro?""}]",neu,hoch,Aus acceptance.known_errors (koordinaten_vertauscht).
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",75,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,1,acceptance.known_errors (keine UI),"{""6"":""koordinaten_vertauscht"",""+6"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,2,acceptance.known_errors (keine UI),"{""4"":""koordinaten_vertauscht"",""+4"":""koordinaten_vertauscht"",""4 €"":""koordinaten_vertauscht"",""4€"":""koordinaten_vertauscht"",""+4 €"":""koordinaten_vertauscht"",""+4€"":""koordinaten_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+0315634a-9c1d-4961-b214-07617add2874,lgs-grafisch-05,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-1,""x_max"":8,""y_min"":-1,""y_max"":9,""funktionen"":[{""typ"":""linear"",""m"":1,""b"":2,""label"":""f""},{""typ"":""linear"",""m"":0.5,""b"":4,""label"":""g""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,afb,II,neu,mittel,Anwenden und deuten: aus der Lage der Geraden (parallel) auf die Lösungsanzahl schließen.
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,est_duration_sec,60,neu,mittel,"Zeitregel: AFB II, kein Sachkontext."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,competency_process,Argumentieren,neu,mittel,Lösungsanzahl aus Rechnung oder Lage der Geraden begründen.
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,needs_image,true,neu,hoch,"Ohne Abbildung (zwei Geraden im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,correct_answers,"[""b""]",neu,hoch,"Lösungsanzahl aus dem Koeffizientensystem nachgerechnet (Determinante, Verträglichkeit)."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,solution,"Die Geraden f und g sind parallel: Sie haben dieselbe Steigung, aber verschiedene y-Achsenabschnitte.
+Parallele Geraden schneiden sich nie. Das Gleichungssystem hat keine Lösung.",neu,hoch,Nachgerechnet.
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,typical_errors,"[{""error"":""Einen Schnittpunkt außerhalb des Bildes angenommen, obwohl die Geraden parallel sind."",""socratic_question"":""Kommen sich f und g näher, wenn du weiter nach rechts oder links schaust?""},{""error"":""Parallele Geraden als „unendlich viele Lösungen“ gelesen."",""socratic_question"":""Gibt es einen Punkt, der auf beiden Geraden liegt?""}]",neu,hoch,"Aus acceptance.known_errors (parallele_uebersehen, loesungsanzahl_verwechselt)."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,acceptance.known_errors (keine UI),"{""a"":""parallele_uebersehen"",""c"":""loesungsanzahl_verwechselt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,sondierrang (keine UI),2,neu,mittel,"lgs-grafisch-03 = 1, lgs-grafisch-06 = 2. Rang 1 aus Profil {koordinate_vorzeichen_verloren,koordinaten_vertauscht}, Rang 2 aus Profil {loesungsanzahl_verwechselt,parallele_uebersehen} (2 neue Fehlbilder)"
+4888b388-56c9-4c9a-8388-46367317b245,lgs-grafisch-06,,task_figures (Upload: scripts/figures/upload_figures.py),"{""x_min"":-5,""x_max"":5,""y_min"":-5,""y_max"":5,""funktionen"":[{""typ"":""linear"",""m"":0.5,""b"":2,""label"":""f""},{""typ"":""linear"",""m"":0.5,""b"":-1,""label"":""g""}]}",neu,hoch,"Koordinatensystem mit Gitter, eingezeichnet sind die Geraden f und g."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,afb,II,neu,mittel,"Anwenden: passendes System zu Anzahl und Einnahmen erkennen, dann mit Einsetzen lösen."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,1,correct_answers.1,"[""b""]",neu,hoch,Option gleichwertig zum nachgerechneten System (Koeffizientenvergleich).
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,2,correct_answers.2,"[""70"",""+70""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,3,parts.3.afb,II,neu,mittel,Wie die Aufgabe.
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,3,parts.3.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,3,correct_answers.3,"[""50"",""+50""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,solution,"Anzahl: x + y = 120, Einnahmen: 3x + 5y = 460, also System b.
+I nach y: y = 120 - x
+In II: 3x + 5·(120 - x) = 460
+3x + 600 - 5x = 460
+-2x = -140 | :(-2)
+x = 70
+y = 120 - 70 = 50
+Es wurden 70 Kinderkarten und 50 Erwachsenenkarten verkauft.",neu,hoch,Nachgerechnet.
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,typical_errors,"[{""error"":""Die Preise vertauscht: 5x + 3y = 460 statt 3x + 5y = 460."",""socratic_question"":""Was kostet eine Kinderkarte, und welche Variable zählt die Kinderkarten?""},{""error"":""Anzahl und Einnahmen vertauscht: x + y = 460."",""socratic_question"":""Was zählt x + y: Karten oder Euro?""},{""error"":""Bei -2x = -140 das Minus am Ergebnis gelassen: x = -70."",""socratic_question"":""Kann eine Anzahl von Karten negativ sein? Was ergibt -140 : (-2)?""}]",neu,hoch,"Aus acceptance.known_errors (groessen_vertauscht, vorzeichen_beim_umstellen)."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,2,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,3,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,1,acceptance.known_errors (keine UI),"{""a"":""groessen_vertauscht"",""c"":""groessen_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,2,acceptance.known_errors (keine UI),"{""50"":""groessen_vertauscht"",""+50"":""groessen_vertauscht"",""-70"":""vorzeichen_beim_umstellen"",""−70"":""vorzeichen_beim_umstellen"",""- 70"":""vorzeichen_beim_umstellen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+17e1d7e8-12f6-478e-a4c3-cb2ebc905145,lgs-sach-01,3,acceptance.known_errors (keine UI),"{""70"":""groessen_vertauscht"",""190"":""vorzeichen_beim_umstellen"",""+70"":""groessen_vertauscht"",""+190"":""vorzeichen_beim_umstellen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,afb,II,neu,mittel,"Anwenden: Gesamtwert der Mischung (30 · 14 €) als zweite Gleichung erkennen, dann lösen."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,1,correct_answers.1,"[""c""]",neu,hoch,Option gleichwertig zum nachgerechneten System (Koeffizientenvergleich).
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,2,correct_answers.2,"[""20"",""+20"",""20 kg"",""20kg"",""+20 kg"",""+20kg""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,3,parts.3.afb,II,neu,mittel,Wie die Aufgabe.
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,3,parts.3.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,3,correct_answers.3,"[""10"",""+10"",""10 kg"",""10kg"",""+10 kg"",""+10kg""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,solution,"Menge: x + y = 30, Wert: 12x + 18y = 30 · 14 = 420, also System c.
+I nach y: y = 30 - x
+In II: 12x + 18·(30 - x) = 420
+12x + 540 - 18x = 420
+-6x = -120 | :(-6)
+x = 20
+y = 30 - 20 = 10
+Gemischt werden 20 kg von Sorte A und 10 kg von Sorte B.",neu,hoch,Nachgerechnet.
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,typical_errors,"[{""error"":""Den Preis je kg als Gesamtwert genommen: 12x + 18y = 14, die 30 kg fehlen."",""socratic_question"":""Was kosten 30 kg der Mischung zusammen?""},{""error"":""Die Preise der Sorten vertauscht: 18x + 12y = 420."",""socratic_question"":""Welche Sorte kostet 12 € je kg, und welche Variable gehört zu ihr?""},{""error"":""Bei -6x = -120 das Minus am Ergebnis gelassen: x = -20."",""socratic_question"":""Kann eine Menge negativ sein? Was ergibt -120 : (-6)?""}]",neu,hoch,"Aus acceptance.known_errors (bedingung_unvollstaendig, groessen_vertauscht, vorzeichen_beim_umstellen)."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,2,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,3,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,1,acceptance.known_errors (keine UI),"{""a"":""bedingung_unvollstaendig"",""b"":""groessen_vertauscht""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,2,acceptance.known_errors (keine UI),"{""10"":""groessen_vertauscht"",""+10"":""groessen_vertauscht"",""10 kg"":""groessen_vertauscht"",""10kg"":""groessen_vertauscht"",""+10 kg"":""groessen_vertauscht"",""+10kg"":""groessen_vertauscht"",""-20"":""vorzeichen_beim_umstellen"",""−20"":""vorzeichen_beim_umstellen"",""- 20"":""vorzeichen_beim_umstellen"",""-20 kg"":""vorzeichen_beim_umstellen"",""-20kg"":""vorzeichen_beim_umstellen"",""−20 kg"":""vorzeichen_beim_umstellen"",""−20kg"":""vorzeichen_beim_umstellen"",""- 20 kg"":""vorzeichen_beim_umstellen"",""- 20kg"":""vorzeichen_beim_umstellen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1,lgs-sach-02,3,acceptance.known_errors (keine UI),"{""20"":""groessen_vertauscht"",""50"":""vorzeichen_beim_umstellen"",""+20"":""groessen_vertauscht"",""20 kg"":""groessen_vertauscht"",""20kg"":""groessen_vertauscht"",""+20 kg"":""groessen_vertauscht"",""+20kg"":""groessen_vertauscht"",""+50"":""vorzeichen_beim_umstellen"",""50 kg"":""vorzeichen_beim_umstellen"",""50kg"":""vorzeichen_beim_umstellen"",""+50 kg"":""vorzeichen_beim_umstellen"",""+50kg"":""vorzeichen_beim_umstellen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,afb,II,neu,mittel,"Anwenden: Zahlenrätsel in Gleichungen übersetzen (das Dreifache nur von x), mit Addieren lösen."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,1,correct_answers.1,"[""a""]",neu,hoch,Option gleichwertig zum nachgerechneten System (Koeffizientenvergleich).
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,2,correct_answers.2,"[""7"",""+7""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,3,parts.3.afb,II,neu,mittel,Wie die Aufgabe.
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,3,parts.3.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,3,correct_answers.3,"[""5"",""+5""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,solution,"Das Dreifache von x plus y: 3x + y = 26, x minus y: x - y = 2, also System a.
+I + II: 4x = 28 | :4
+x = 7
+In II: 7 - y = 2, also y = 5
+Die Zahlen sind x = 7 und y = 5.",neu,hoch,Nachgerechnet.
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,typical_errors,"[{""error"":""Das Dreifache der falschen Zahl zugeordnet: x + 3y = 26."",""socratic_question"":""Von welcher Zahl wird das Dreifache genommen?""},{""error"":""Eine Klammer um x + y gesetzt: Damit wird auch y verdreifacht."",""socratic_question"":""Wird im Text die Summe verdreifacht oder nur die Zahl x?""},{""error"":""Links addiert, rechts subtrahiert: 4x = 26 - 2 = 24."",""socratic_question"":""Hast du die rechten Seiten genauso verknüpft wie die linken?""}]",neu,hoch,"Aus acceptance.known_errors (groessen_vertauscht, klammer_falsch_gesetzt, seiten_ungleich_verknuepft)."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,2,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,3,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,1,acceptance.known_errors (keine UI),"{""b"":""groessen_vertauscht"",""c"":""klammer_falsch_gesetzt""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,2,acceptance.known_errors (keine UI),"{""6"":""seiten_ungleich_verknuepft"",""8"":""groessen_vertauscht"",""+8"":""groessen_vertauscht"",""+6"":""seiten_ungleich_verknuepft""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,3,acceptance.known_errors (keine UI),"{""4"":""seiten_ungleich_verknuepft"",""6"":""groessen_vertauscht"",""+6"":""groessen_vertauscht"",""+4"":""seiten_ungleich_verknuepft""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+67e26196-727d-4fc1-bcf5-0ba79078adeb,lgs-sach-03,,sondierrang (keine UI),2,neu,mittel,"lgs-sach-04 = 1, lgs-sach-03 = 2. Rang 1 aus Profil {bedingung_unvollstaendig,division_vergessen,groessen_vertauscht,variablen_nicht_zusammengefuehrt}, Rang 2 aus Profil {groessen_vertauscht,klammer_falsch_gesetzt,seiten_ungleich_verknuepft} (2 neue Fehlbilder)"
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,afb,II,neu,mittel,"Anwenden: Grundgebühr und Preis je km den Parametern zuordnen, gleichsetzen mit Dezimalkoeffizient."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,est_duration_sec,90,neu,mittel,Zeitregel: AFB II + Sachkontext.
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,1,parts.1.afb,II,neu,mittel,Wie die Aufgabe.
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,1,correct_answers.1,"[""c""]",neu,hoch,Option gleichwertig zum nachgerechneten System (Koeffizientenvergleich).
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,2,parts.2.afb,II,neu,mittel,Wie die Aufgabe.
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,2,correct_answers.2,"[""6"",""+6"",""6 km"",""6km"",""+6 km"",""+6km""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,3,parts.3.afb,II,neu,mittel,Wie die Aufgabe.
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,3,parts.3.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,3,correct_answers.3,"[""16"",""+16"",""16 €"",""16€"",""+16 €"",""+16€""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,solution,"A: y = 2x + 4, B: y = 1,5x + 7, also System c.
+Gleichsetzen: 2x + 4 = 1,5x + 7 | -1,5x
+0,5x + 4 = 7 | -4
+0,5x = 3 | :0,5
+x = 6
+In A: y = 2·6 + 4 = 16
+Bei 6 km kosten beide Fahrten 16 €.",neu,hoch,Nachgerechnet.
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,typical_errors,"[{""error"":""Grundgebühr und Preis je km vertauscht: y = 4x + 2."",""socratic_question"":""Welcher Betrag wird für jeden Kilometer neu fällig, welcher nur einmal?""},{""error"":""Die Grundgebühr von Unternehmen B weggelassen: y = 1,5x."",""socratic_question"":""Was zahlt man bei Unternehmen B, bevor der erste Kilometer gefahren ist?""},{""error"":""Durch 2 geteilt statt durch 2 - 1,5 = 0,5: x = 3 : 2 = 1,5."",""socratic_question"":""Wie viele x bleiben links, wenn du 1,5x auf beiden Seiten abziehst?""},{""error"":""Bei 0,5x = 3 stehen geblieben und 3 als x genommen."",""socratic_question"":""Steht in 0,5x = 3 schon x allein?""}]",neu,hoch,"Aus acceptance.known_errors (groessen_vertauscht, bedingung_unvollstaendig, variablen_nicht_zusammengefuehrt, division_vergessen)."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,1,"zeit_teile (nur CSV, keine DB-Spalte)",30,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,2,"zeit_teile (nur CSV, keine DB-Spalte)",45,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,3,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,1,acceptance.known_errors (keine UI),"{""a"":""groessen_vertauscht"",""b"":""bedingung_unvollstaendig""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,2,acceptance.known_errors (keine UI),"{""3"":""division_vergessen"",""1,5"":""variablen_nicht_zusammengefuehrt"",""+1,5"":""variablen_nicht_zusammengefuehrt"",""1.5"":""variablen_nicht_zusammengefuehrt"",""+1.5"":""variablen_nicht_zusammengefuehrt"",""1,5 km"":""variablen_nicht_zusammengefuehrt"",""1,5km"":""variablen_nicht_zusammengefuehrt"",""+1,5 km"":""variablen_nicht_zusammengefuehrt"",""+1,5km"":""variablen_nicht_zusammengefuehrt"",""1.5 km"":""variablen_nicht_zusammengefuehrt"",""1.5km"":""variablen_nicht_zusammengefuehrt"",""+1.5 km"":""variablen_nicht_zusammengefuehrt"",""+1.5km"":""variablen_nicht_zusammengefuehrt"",""+3"":""division_vergessen"",""3 km"":""division_vergessen"",""3km"":""division_vergessen"",""+3 km"":""division_vergessen"",""+3km"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,3,acceptance.known_errors (keine UI),"{""7"":""variablen_nicht_zusammengefuehrt"",""10"":""division_vergessen"",""+7"":""variablen_nicht_zusammengefuehrt"",""7 €"":""variablen_nicht_zusammengefuehrt"",""7€"":""variablen_nicht_zusammengefuehrt"",""+7 €"":""variablen_nicht_zusammengefuehrt"",""+7€"":""variablen_nicht_zusammengefuehrt"",""+10"":""division_vergessen"",""10 €"":""division_vergessen"",""10€"":""division_vergessen"",""+10 €"":""division_vergessen"",""+10€"":""division_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+614b148f-4f0a-48ed-8796-a060b35a63b8,lgs-sach-04,,sondierrang (keine UI),1,neu,mittel,"lgs-sach-04 = 1, lgs-sach-03 = 2. Rang 1 aus Profil {bedingung_unvollstaendig,division_vergessen,groessen_vertauscht,variablen_nicht_zusammengefuehrt}, Rang 2 aus Profil {groessen_vertauscht,klammer_falsch_gesetzt,seiten_ungleich_verknuepft} (2 neue Fehlbilder)"
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,afb,III,neu,mittel,"Problemlösen: System ohne Vorgabe aufstellen, beide Gleichungen mit verschiedenen Faktoren multiplizieren."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,1,parts.1.afb,III,neu,mittel,Wie die Aufgabe.
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,1,correct_answers.1,"[""10"",""+10"",""10 €"",""10€"",""+10 €"",""+10€""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,2,parts.2.afb,III,neu,mittel,Wie die Aufgabe.
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,2,correct_answers.2,"[""5"",""+5"",""5 €"",""5€"",""+5 €"",""+5€""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,solution,"I: 2x + 3y = 35
+II: 3x + 2y = 40
+I · 3: 6x + 9y = 105
+II · 2: 6x + 4y = 80
+3·I - 2·II: 5y = 25 | :5
+y = 5
+In I: 2x + 15 = 35, also 2x = 20 und x = 10
+Erwachsene zahlen 10 €, Kinder 5 €.",neu,hoch,Nachgerechnet.
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,typical_errors,"[{""error"":""Erwachsene und Kinder beim Aufstellen vertauscht: 3x + 2y = 35 und 2x + 3y = 40."",""socratic_question"":""Zu welcher Variablen gehören die 2 Erwachsenen in der ersten Angabe?""},{""error"":""Beim Multiplizieren von II die rechte Seite vergessen: 6x + 4y = 40 statt 80."",""socratic_question"":""Hast du beim Verdoppeln von II auch die 40 verdoppelt?""}]",neu,hoch,"Aus acceptance.known_errors (groessen_vertauscht, nicht_alle_glieder_multipliziert)."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,1,"zeit_teile (nur CSV, keine DB-Spalte)",105,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,1,acceptance.known_errors (keine UI),"{""5"":""groessen_vertauscht"",""+5"":""groessen_vertauscht"",""5 €"":""groessen_vertauscht"",""5€"":""groessen_vertauscht"",""+5 €"":""groessen_vertauscht"",""+5€"":""groessen_vertauscht"",""-2"":""nicht_alle_glieder_multipliziert"",""−2"":""nicht_alle_glieder_multipliziert"",""- 2"":""nicht_alle_glieder_multipliziert"",""-2 €"":""nicht_alle_glieder_multipliziert"",""-2€"":""nicht_alle_glieder_multipliziert"",""−2 €"":""nicht_alle_glieder_multipliziert"",""−2€"":""nicht_alle_glieder_multipliziert"",""- 2 €"":""nicht_alle_glieder_multipliziert"",""- 2€"":""nicht_alle_glieder_multipliziert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f3595c06-e95a-4b72-b137-75b3cd8f38c8,lgs-sach-05,2,acceptance.known_errors (keine UI),"{""10"":""groessen_vertauscht"",""13"":""nicht_alle_glieder_multipliziert"",""+10"":""groessen_vertauscht"",""10 €"":""groessen_vertauscht"",""10€"":""groessen_vertauscht"",""+10 €"":""groessen_vertauscht"",""+10€"":""groessen_vertauscht"",""+13"":""nicht_alle_glieder_multipliziert"",""13 €"":""nicht_alle_glieder_multipliziert"",""13€"":""nicht_alle_glieder_multipliziert"",""+13 €"":""nicht_alle_glieder_multipliziert"",""+13€"":""nicht_alle_glieder_multipliziert""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,afb,III,neu,mittel,Problemlösen: Umfang mit allen vier Seiten und den Unterschied selbst als System aufstellen und lösen.
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,est_duration_sec,120,neu,mittel,Zeitregel: AFB III + Sachkontext.
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,curriculum_grade,8,neu,hoch,"Stoffanker Klasse 8: KLP G9 Arithmetik/Algebra, Erste Stufe (Ari-9 LGS lösen, Ari-10 Sachsituationen); üblich in Klasse 8."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,cluster_id,edbb548a-54d9-4a8f-8be4-3052f9025524,neu,hoch,"Algebra & Funktionen, wie die Gleichungs-Voraussetzungen."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,competency_content,arithmetik_algebra,neu,hoch,"Inhaltsfeld Arithmetik/Algebra (KLP Ari-9, Ari-10)."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,competency_process,Modellieren,neu,mittel,"Sachsituation in ein Gleichungssystem übersetzen, lösen und deuten."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,needs_image,false,neu,hoch,"Alle Angaben stehen im Text, keine Abbildung nötig."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,1,parts.1.afb,III,neu,mittel,Wie die Aufgabe.
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,1,parts.1.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,1,correct_answers.1,"[""11"",""+11"",""11 m"",""11m"",""+11 m"",""+11m""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,2,parts.2.afb,III,neu,mittel,Wie die Aufgabe.
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,2,parts.2.competency_content,arithmetik_algebra,neu,hoch,Wie die Aufgabe.
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,2,correct_answers.2,"[""6"",""+6"",""6 m"",""6m"",""+6 m"",""+6m""]",neu,hoch,"Nachgerechnet (Cramer); Schreibweisen mit Komma/Punkt, Minus/Plus-Formen und Einheit."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,solution,"I: 2x + 2y = 34 (Umfang)
+II: x = y + 5
+II in I: 2·(y + 5) + 2y = 34
+2y + 10 + 2y = 34
+4y = 24 | :4
+y = 6
+x = 6 + 5 = 11
+Das Beet ist 11 m lang und 6 m breit.",neu,hoch,Nachgerechnet.
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,typical_errors,"[{""error"":""Den Umfang mit nur zwei Seiten angesetzt: x + y = 34."",""socratic_question"":""Wie viele Seiten hat ein Rechteck, und wie viele davon gehören zum Umfang?""},{""error"":""Ohne Klammer eingesetzt: 2y + 5 + 2y = 34, die 2 trifft nur das y."",""socratic_question"":""Was wird verdoppelt, wenn du für x den Term y + 5 einsetzt?""}]",neu,hoch,"Aus acceptance.known_errors (umfang_falsch_modelliert, klammer_vergessen)."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,,hints,,bewusst leer,,"Auftrag K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,1,"zeit_teile (nur CSV, keine DB-Spalte)",105,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,2,"zeit_teile (nur CSV, keine DB-Spalte)",15,neu,mittel,"Teilbudget; Summe = est_duration_sec"
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,1,acceptance.known_errors (keine UI),"{""19,5"":""umfang_falsch_modelliert"",""+19,5"":""umfang_falsch_modelliert"",""19.5"":""umfang_falsch_modelliert"",""+19.5"":""umfang_falsch_modelliert"",""19,5 m"":""umfang_falsch_modelliert"",""19,5m"":""umfang_falsch_modelliert"",""+19,5 m"":""umfang_falsch_modelliert"",""+19,5m"":""umfang_falsch_modelliert"",""19.5 m"":""umfang_falsch_modelliert"",""19.5m"":""umfang_falsch_modelliert"",""+19.5 m"":""umfang_falsch_modelliert"",""+19.5m"":""umfang_falsch_modelliert"",""12,25"":""klammer_vergessen"",""+12,25"":""klammer_vergessen"",""12.25"":""klammer_vergessen"",""+12.25"":""klammer_vergessen"",""12,25 m"":""klammer_vergessen"",""12,25m"":""klammer_vergessen"",""+12,25 m"":""klammer_vergessen"",""+12,25m"":""klammer_vergessen"",""12.25 m"":""klammer_vergessen"",""12.25m"":""klammer_vergessen"",""+12.25 m"":""klammer_vergessen"",""+12.25m"":""klammer_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug
+f2cff506-af02-4ea8-93b5-91957cab930e,lgs-sach-06,2,acceptance.known_errors (keine UI),"{""14,5"":""umfang_falsch_modelliert"",""+14,5"":""umfang_falsch_modelliert"",""14.5"":""umfang_falsch_modelliert"",""+14.5"":""umfang_falsch_modelliert"",""14,5 m"":""umfang_falsch_modelliert"",""14,5m"":""umfang_falsch_modelliert"",""+14,5 m"":""umfang_falsch_modelliert"",""+14,5m"":""umfang_falsch_modelliert"",""14.5 m"":""umfang_falsch_modelliert"",""14.5m"":""umfang_falsch_modelliert"",""+14.5 m"":""umfang_falsch_modelliert"",""+14.5m"":""umfang_falsch_modelliert"",""7,25"":""klammer_vergessen"",""+7,25"":""klammer_vergessen"",""7.25"":""klammer_vergessen"",""+7.25"":""klammer_vergessen"",""7,25 m"":""klammer_vergessen"",""7,25m"":""klammer_vergessen"",""+7,25 m"":""klammer_vergessen"",""+7,25m"":""klammer_vergessen"",""7.25 m"":""klammer_vergessen"",""7.25m"":""klammer_vergessen"",""+7.25 m"":""klammer_vergessen"",""+7.25m"":""klammer_vergessen""}",neu,hoch,Falscher Wert → Fehlbild-Slug

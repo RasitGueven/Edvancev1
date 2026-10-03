@@ -1,0 +1,842 @@
+[
+ {
+  "task": {
+   "id": "68137794-b1f9-4c37-8a4a-cca2281bafcd",
+   "title": "Median · ungerade Anzahl",
+   "question": "Gegeben ist die Datenreihe\n8, 3, 11, 5, 18\n\nBestimme den Median.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_kenngroessen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Datenreihe\n8, 3, 11, 5, 18\n\nBestimme den Median."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-kenngroessen-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a7c6d101-1eee-49ef-a446-c0af40fe25da",
+   "title": "Median · gerade Anzahl",
+   "question": "Gegeben ist die Datenreihe\n14, 9, 21, 12, 17, 11\n\nBestimme den Median.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_kenngroessen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Datenreihe\n14, 9, 21, 12, 17, 11\n\nBestimme den Median."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-kenngroessen-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4615926e-2f06-4780-9b12-d153117c045e",
+   "title": "Unteres Quartil · acht Werte",
+   "question": "Gegeben ist die Datenreihe\n11, 6, 18, 4, 15, 9, 6, 15\n\nBestimme das untere Quartil.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_kenngroessen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Datenreihe\n11, 6, 18, 4, 15, 9, 6, 15\n\nBestimme das untere Quartil."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-kenngroessen-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f91e5425-b56b-434f-9ae1-814649f9aba3",
+   "title": "Oberes Quartil · neun Werte",
+   "question": "Gegeben ist die Datenreihe\n10, 5, 2, 12, 8, 3, 10, 7, 5\n\nBestimme das obere Quartil.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_kenngroessen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Datenreihe\n10, 5, 2, 12, 8, 3, 10, 7, 5\n\nBestimme das obere Quartil."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-kenngroessen-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ae38bcca-7313-4863-95a6-8117a7b524d1",
+   "title": "Spannweite · Sachkontext · Morgentemperaturen",
+   "question": "An sieben Tagen wurde jeweils um 7 Uhr die Temperatur gemessen (in °C):\n3, −2, 5, −5, 1, 0, 7\n\nBestimme die Spannweite der Messwerte.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_kenngroessen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "An sieben Tagen wurde jeweils um 7 Uhr die Temperatur gemessen (in °C):\n3, −2, 5, −5, 1, 0, 7\n\nBestimme die Spannweite der Messwerte."
+   },
+   "parts": [],
+   "unit": "°C",
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-kenngroessen-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "de46168f-2460-44ed-a479-5e81786512c9",
+   "title": "Median · Sachkontext · Tore mit Ausreißer",
+   "question": "Eine Handballmannschaft hat in zehn Spielen folgende Anzahlen an Toren erzielt:\n12, 7, 15, 9, 30, 11, 8, 14, 10, 13\n\nBestimme den Median der Torzahlen.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_kenngroessen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Handballmannschaft hat in zehn Spielen folgende Anzahlen an Toren erzielt:\n12, 7, 15, 9, 30, 11, 8, 14, 10, 13\n\nBestimme den Median der Torzahlen."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-kenngroessen-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "df9fd43a-6a01-41a5-b08a-193c0afabb55",
+   "title": "Laplace · Würfel · größer als vier",
+   "question": "Ein fairer Würfel wird einmal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, eine Zahl größer als 4 zu werfen? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_laplace",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein fairer Würfel wird einmal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, eine Zahl größer als 4 zu werfen? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-laplace-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d1f84813-9f5b-43ec-8e69-f3d566cffb09",
+   "title": "Laplace · Urne · rote Kugel",
+   "question": "In einer Urne liegen 3 rote und 2 blaue Kugeln. Eine Kugel wird zufällig gezogen.\n\nWie groß ist die Wahrscheinlichkeit, eine rote Kugel zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_laplace",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Urne liegen 3 rote und 2 blaue Kugeln. Eine Kugel wird zufällig gezogen.\n\nWie groß ist die Wahrscheinlichkeit, eine rote Kugel zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-laplace-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "743dc783-c0c1-4b97-957c-e8dfff38e3b6",
+   "title": "Laplace · Glücksrad · Primzahl",
+   "question": "Ein Glücksrad hat 12 gleich große Felder mit den Zahlen 1 bis 12. Es wird einmal gedreht.\n\nWie groß ist die Wahrscheinlichkeit, dass es auf einer Primzahl stehen bleibt? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_laplace",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Glücksrad hat 12 gleich große Felder mit den Zahlen 1 bis 12. Es wird einmal gedreht.\n\nWie groß ist die Wahrscheinlichkeit, dass es auf einer Primzahl stehen bleibt? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-laplace-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7e7ce00a-733b-404a-88fe-b41cf327f2f5",
+   "title": "Laplace · Lostrommel · Niete",
+   "question": "In einer Lostrommel liegen 40 Lose: 6 Hauptgewinne, 10 Trostpreise und sonst nur Nieten. Ein Los wird zufällig gezogen.\n\nWie groß ist die Wahrscheinlichkeit, eine Niete zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_laplace",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Lostrommel liegen 40 Lose: 6 Hauptgewinne, 10 Trostpreise und sonst nur Nieten. Ein Los wird zufällig gezogen.\n\nWie groß ist die Wahrscheinlichkeit, eine Niete zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-laplace-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5bcca7e7-8a84-49b8-b115-6598e4b337c6",
+   "title": "Laplace · Sachkontext · Tombola in Prozent",
+   "question": "Bei einer Tombola werden 150 Lose verkauft, 30 davon sind Gewinne. Ein Los wird zufällig gekauft.\n\nWie groß ist die Wahrscheinlichkeit für einen Gewinn? Gib das Ergebnis in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_laplace",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Bei einer Tombola werden 150 Lose verkauft, 30 davon sind Gewinne. Ein Los wird zufällig gekauft.\n\nWie groß ist die Wahrscheinlichkeit für einen Gewinn? Gib das Ergebnis in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-laplace-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fdd119e8-2192-4691-bda5-d6a5a03317d4",
+   "title": "Laplace · Rückrichtung · Gesamtzahl der Kugeln",
+   "question": "In einer Urne liegen nur rote und blaue Kugeln. 6 Kugeln sind rot. Die Wahrscheinlichkeit, zufällig eine rote Kugel zu ziehen, beträgt 2/5.\n\nWie viele Kugeln liegen insgesamt in der Urne?",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_laplace",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Urne liegen nur rote und blaue Kugeln. 6 Kugeln sind rot. Die Wahrscheinlichkeit, zufällig eine rote Kugel zu ziehen, beträgt 2/5.\n\nWie viele Kugeln liegen insgesamt in der Urne?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-laplace-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f7a7bba2-dadd-4d81-8beb-91fca75ac78f",
+   "title": "Gegenereignis · Würfel · keine Sechs",
+   "question": "Ein fairer Würfel wird einmal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, keine Sechs zu werfen? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_gegenereignis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein fairer Würfel wird einmal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, keine Sechs zu werfen? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-gegenereignis-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2b7059d7-e6f1-46a6-98bf-4ba1dbe57768",
+   "title": "Gegenereignis · Dezimalzahl",
+   "question": "Für ein Ereignis E gilt P(E) = 0,35.\n\nBerechne die Wahrscheinlichkeit des Gegenereignisses von E. Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_gegenereignis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für ein Ereignis E gilt P(E) = 0,35.\n\nBerechne die Wahrscheinlichkeit des Gegenereignisses von E. Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-gegenereignis-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "eaf9ec0c-d93b-4d7a-b5da-f586538e84ad",
+   "title": "Gegenereignis · Urne · keine blaue Kugel",
+   "question": "In einer Urne liegen 4 rote, 5 blaue und 3 grüne Kugeln. Eine Kugel wird zufällig gezogen.\n\nWie groß ist die Wahrscheinlichkeit, keine blaue Kugel zu ziehen? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_gegenereignis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Urne liegen 4 rote, 5 blaue und 3 grüne Kugeln. Eine Kugel wird zufällig gezogen.\n\nWie groß ist die Wahrscheinlichkeit, keine blaue Kugel zu ziehen? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-gegenereignis-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "15164236-c70e-4a67-a567-e8dbb080d7af",
+   "title": "Gegenereignis · Glücksrad · weder rot noch blau",
+   "question": "Ein Glücksrad hat rote, blaue und gelbe Felder. Es bleibt mit der Wahrscheinlichkeit 1/4 auf Rot und mit der Wahrscheinlichkeit 1/8 auf Blau stehen.\n\nWie groß ist die Wahrscheinlichkeit, dass es auf Gelb stehen bleibt? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_gegenereignis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Glücksrad hat rote, blaue und gelbe Felder. Es bleibt mit der Wahrscheinlichkeit 1/4 auf Rot und mit der Wahrscheinlichkeit 1/8 auf Blau stehen.\n\nWie groß ist die Wahrscheinlichkeit, dass es auf Gelb stehen bleibt? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-gegenereignis-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d38afe88-221f-43a3-a3ec-469ea309dc42",
+   "title": "Gegenereignis · Sachkontext · keine Niete",
+   "question": "In einer Lostrommel liegen 200 Lose. 30 davon sind Gewinne, 50 sind Trostpreise, alle übrigen sind Nieten. Ein Los wird zufällig gezogen.\n\nWie groß ist die Wahrscheinlichkeit, keine Niete zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_gegenereignis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Lostrommel liegen 200 Lose. 30 davon sind Gewinne, 50 sind Trostpreise, alle übrigen sind Nieten. Ein Los wird zufällig gezogen.\n\nWie groß ist die Wahrscheinlichkeit, keine Niete zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-gegenereignis-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a45f865a-4684-4125-86cb-8df459348238",
+   "title": "Gegenereignis · Rückrichtung · Zahl der roten Kugeln",
+   "question": "In einer Urne liegen 30 Kugeln. Die Wahrscheinlichkeit, zufällig keine rote Kugel zu ziehen, beträgt 0,7.\n\nWie viele rote Kugeln liegen in der Urne?",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_gegenereignis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Urne liegen 30 Kugeln. Die Wahrscheinlichkeit, zufällig keine rote Kugel zu ziehen, beträgt 0,7.\n\nWie viele rote Kugeln liegen in der Urne?"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-gegenereignis-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "df337432-9db5-4a28-be26-e64132f93659",
+   "title": "Produktregel · Münze · zweimal Kopf",
+   "question": "Eine faire Münze wird zweimal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, zweimal Kopf zu werfen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_produkt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine faire Münze wird zweimal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, zweimal Kopf zu werfen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-produkt-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "aab137cc-edfd-411f-ba49-af6a353a97e5",
+   "title": "Produktregel · Würfel · zweimal Sechs",
+   "question": "Ein fairer Würfel wird zweimal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, zweimal eine Sechs zu werfen? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_produkt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein fairer Würfel wird zweimal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, zweimal eine Sechs zu werfen? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-produkt-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8bc01e5b-acf8-4808-a6ef-ce19acb8ea77",
+   "title": "Produktregel · Urne · mit Zurücklegen",
+   "question": "In einer Urne liegen 3 rote und 2 blaue Kugeln. Es wird zweimal eine Kugel gezogen. Nach dem ersten Zug wird die Kugel zurückgelegt.\n\nWie groß ist die Wahrscheinlichkeit, zweimal eine rote Kugel zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_produkt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Urne liegen 3 rote und 2 blaue Kugeln. Es wird zweimal eine Kugel gezogen. Nach dem ersten Zug wird die Kugel zurückgelegt.\n\nWie groß ist die Wahrscheinlichkeit, zweimal eine rote Kugel zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-produkt-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "71295abb-8ccc-418c-bff3-b70585fd60aa",
+   "title": "Produktregel · Urne · ohne Zurücklegen",
+   "question": "In einer Urne liegen 4 rote und 6 blaue Kugeln. Es werden nacheinander zwei Kugeln ohne Zurücklegen gezogen.\n\nWie groß ist die Wahrscheinlichkeit, zwei blaue Kugeln zu ziehen? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_produkt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Urne liegen 4 rote und 6 blaue Kugeln. Es werden nacheinander zwei Kugeln ohne Zurücklegen gezogen.\n\nWie groß ist die Wahrscheinlichkeit, zwei blaue Kugeln zu ziehen? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-produkt-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3c2b1997-3c6d-4b1b-b074-60cf1280946d",
+   "title": "Produktregel · Sachkontext · zwei Gewinnlose",
+   "question": "In einer Lostrommel liegen 10 Lose, 3 davon sind Gewinne. Es werden nacheinander zwei Lose gezogen, ein gezogenes Los kommt nicht zurück.\n\nWie groß ist die Wahrscheinlichkeit, dass beide Lose Gewinne sind? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_produkt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Lostrommel liegen 10 Lose, 3 davon sind Gewinne. Es werden nacheinander zwei Lose gezogen, ein gezogenes Los kommt nicht zurück.\n\nWie groß ist die Wahrscheinlichkeit, dass beide Lose Gewinne sind? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-produkt-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ddaa4ecd-1fff-4dec-ba4b-59e4069cfa9a",
+   "title": "Produktregel · Sachkontext · drei Stufen",
+   "question": "Eine Maschine füllt Tüten ab. 10 % der Tüten sind zu leicht. Es werden drei Tüten zufällig und unabhängig voneinander geprüft.\n\nWie groß ist die Wahrscheinlichkeit, dass alle drei Tüten zu leicht sind? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_produkt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Maschine füllt Tüten ab. 10 % der Tüten sind zu leicht. Es werden drei Tüten zufällig und unabhängig voneinander geprüft.\n\nWie groß ist die Wahrscheinlichkeit, dass alle drei Tüten zu leicht sind? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-produkt-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "939baa76-0207-496c-a768-4df2988f7f12",
+   "title": "Summenregel · Münze · genau einmal Kopf",
+   "question": "Eine faire Münze wird zweimal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, genau einmal Kopf zu werfen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_summe",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine faire Münze wird zweimal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, genau einmal Kopf zu werfen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-summe-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "54f5e1df-adc9-4fa3-b9c1-c15301c29cbe",
+   "title": "Summenregel · Urne · zwei Farben mit Zurücklegen",
+   "question": "In einer Urne liegen 3 rote und 2 blaue Kugeln. Es wird zweimal eine Kugel gezogen. Nach dem ersten Zug wird die Kugel zurückgelegt.\n\nWie groß ist die Wahrscheinlichkeit, zwei verschiedenfarbige Kugeln zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_summe",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Urne liegen 3 rote und 2 blaue Kugeln. Es wird zweimal eine Kugel gezogen. Nach dem ersten Zug wird die Kugel zurückgelegt.\n\nWie groß ist die Wahrscheinlichkeit, zwei verschiedenfarbige Kugeln zu ziehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-summe-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8b6561e6-1e6c-4c56-a35f-6ccc22f77807",
+   "title": "Summenregel · Urne · gleiche Farbe ohne Zurücklegen",
+   "question": "In einer Urne liegen 4 rote und 6 blaue Kugeln. Es werden nacheinander zwei Kugeln ohne Zurücklegen gezogen.\n\nWie groß ist die Wahrscheinlichkeit, zwei Kugeln derselben Farbe zu ziehen? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_summe",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Urne liegen 4 rote und 6 blaue Kugeln. Es werden nacheinander zwei Kugeln ohne Zurücklegen gezogen.\n\nWie groß ist die Wahrscheinlichkeit, zwei Kugeln derselben Farbe zu ziehen? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-summe-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "64091830-731d-4ab2-b1f6-2166bb8539e6",
+   "title": "Summenregel · Würfel · mindestens eine Sechs",
+   "question": "Ein fairer Würfel wird zweimal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, mindestens eine Sechs zu werfen? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_summe",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein fairer Würfel wird zweimal geworfen.\n\nWie groß ist die Wahrscheinlichkeit, mindestens eine Sechs zu werfen? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-summe-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3cb3aa9d-a6ad-4bbb-9c1a-703b9868241f",
+   "title": "Summenregel · Sachkontext · mindestens ein Gewinn",
+   "question": "Bei einem Glücksspiel auf einem Jahrmarkt gewinnt man bei jeder Drehung eines Glücksrads mit der Wahrscheinlichkeit 0,2. Man dreht dreimal.\n\nWie groß ist die Wahrscheinlichkeit, mindestens einmal zu gewinnen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_summe",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Bei einem Glücksspiel auf einem Jahrmarkt gewinnt man bei jeder Drehung eines Glücksrads mit der Wahrscheinlichkeit 0,2. Man dreht dreimal.\n\nWie groß ist die Wahrscheinlichkeit, mindestens einmal zu gewinnen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalzahl oder in Prozent an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-summe-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2d6edc4b-15e0-4090-b9af-1711ece32395",
+   "title": "Summenregel · Sachkontext · genau ein Gewinnlos",
+   "question": "In einer Lostrommel liegen 10 Lose, 3 davon sind Gewinne. Es werden nacheinander zwei Lose gezogen, ein gezogenes Los kommt nicht zurück.\n\nWie groß ist die Wahrscheinlichkeit, genau ein Gewinnlos zu ziehen? Gib die Wahrscheinlichkeit als Bruch an.",
+   "input_type": "NUMERIC",
+   "skill_key": "stoch_pfad_summe",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einer Lostrommel liegen 10 Lose, 3 davon sind Gewinne. Es werden nacheinander zwei Lose gezogen, ein gezogenes Los kommt nicht zurück.\n\nWie groß ist die Wahrscheinlichkeit, genau ein Gewinnlos zu ziehen? Gib die Wahrscheinlichkeit als Bruch an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_stoch",
+   "source_ref": "stoch-pfad-summe-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

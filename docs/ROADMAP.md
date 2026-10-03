@@ -1,6 +1,14 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **K8-Rest: LGS, Wahrscheinlichkeit, Flächen, Thales/Winkel (W4)** (Retro `2026-10-03-k8-rest.md`,
+  Branch `feat/k8-rest`): 19 Knoten, 36 Kanten, 17 Fehlbild-Entwürfe, 114 Aufgaben (`draft`,
+  7 Figuren), 9 Einstiege in 5 Themen; neun Migrationen ohne begin/commit, lokal geprüft.
+  Beweis: verify-prefill 0 Fehler (4 Chargen); Blind-Löser 30/30, 30/30 (nach Korrektur),
+  30/30, 24/24; Wegwerf-DB aus allen Migrationen idempotent, 9 Prüfskripte ohne rote Zeile;
+  upload_figures --dry-run fehler=0; Schema unverändert; Heimat-Themen (`skill_thema`, #192) für alle 19 Knoten.
+  **Offen:** Einspielen (`docs/k8-rest/einspielen.md`), Figuren-Upload, Freigabe durch Lena,
+  Generatoren für Polygone/Parallelen/Baumdiagramm (Befunde `docs/k8-rest/befunde.md`).
 - **K8 Lineare Funktionen prüfbar (W1-1)** (Retro `2026-10-01-k8-linfkt.md`, PR #186):
   Fünf Knoten `fkt_linear_*` (Tiefen 5/6/7/7/8), zwölf Kanten ins Fundament, drei
   Fehlbild-Entwürfe und 30 Aufgaben (`draft`, NUMERIC, 6 Figuren). Beides ist in Prod eingespielt.
