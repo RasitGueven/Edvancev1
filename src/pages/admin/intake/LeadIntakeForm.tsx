@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { EdvanceCard } from '@/components/edvance'
@@ -27,7 +28,7 @@ type LeadIntakeFormProps = {
   onClose: () => void
 }
 
-const STEPS = ['Stammdaten', 'Erstgespräch'] as const
+const STEPS = ['lead', 'erstgespraech'] as const
 
 export function LeadIntakeForm({
   existingLead,
@@ -35,6 +36,7 @@ export function LeadIntakeForm({
   onRefresh,
   onClose,
 }: LeadIntakeFormProps): JSX.Element {
+  const { t } = useTranslation('admin')
   const { user } = useAuthContext()
   const [form, setForm] = useState<IntakeFormState>(
     existingLead ? intakeFromLead(existingLead) : EMPTY_INTAKE,
@@ -73,7 +75,7 @@ export function LeadIntakeForm({
     opts?: { markContacted?: boolean },
   ): Promise<string | null> => {
     if (form.full_name.trim() === '') {
-      setError('Vollständiger Name ist erforderlich.')
+      setError(t('intake.wizard.fullNameRequired'))
       return null
     }
     setBusy(true)
@@ -101,7 +103,7 @@ export function LeadIntakeForm({
     const { data, error: err } = await createLead(payload)
     setBusy(false)
     if (err || !data) {
-      setError(err ?? 'Lead konnte nicht angelegt werden.')
+      setError(err ?? t('intake.wizard.createFailed'))
       return null
     }
     setLeadId(data.id)
@@ -174,7 +176,7 @@ export function LeadIntakeForm({
     const { error: err } = await leadLsaFreigeben(id, form.class_level, subject)
     setFreigebenLoading(false)
     if (err) {
-      setError(err ?? 'LSA-Freigabe fehlgeschlagen.')
+      setError(err ?? t('intake.wizard.freigabeFailed'))
       return
     }
     onRefresh()
@@ -201,16 +203,16 @@ export function LeadIntakeForm({
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-            {existingLead ? 'Lead weiterpflegen' : 'Neuer Lead — Erstgespräch'}
+            {existingLead ? t('intake.wizard.eyebrowEdit') : t('intake.wizard.eyebrowNew')}
           </p>
           <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">
-            {form.first_name.trim() || form.full_name.trim() || 'Empfang'}
+            {form.first_name.trim() || form.full_name.trim() || t('intake.wizard.titleFallback')}
           </h2>
         </div>
         <button
           type="button"
           onClick={onClose}
-          aria-label="Schließen"
+          aria-label={t('intake.wizard.close')}
           className="rounded-full p-2 text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-surface)]"
         >
           <X className="h-5 w-5" />
@@ -219,12 +221,12 @@ export function LeadIntakeForm({
 
       {/* Stepper */}
       <div className="flex gap-2">
-        {STEPS.map((label, index) => {
+        {STEPS.map((stepKey, index) => {
           const reachable = index === 0 || leadId !== null
           const active = index === step
           return (
             <button
-              key={label}
+              key={stepKey}
               type="button"
               disabled={!reachable}
               onClick={() => setStep(index)}
@@ -236,7 +238,10 @@ export function LeadIntakeForm({
                     : 'border-[var(--color-border)] text-[var(--color-text-tertiary)] opacity-50'
               }`}
             >
-              {index + 1}. {label}
+              {t('intake.wizard.stepLabel', {
+                nr: index + 1,
+                label: t(`intake.wizard.steps.${stepKey}`),
+              })}
             </button>
           )
         })}
@@ -270,13 +275,13 @@ export function LeadIntakeForm({
               onClick={() => void submitStep1('continue')}
               disabled={busy || !canLeaveStep1}
             >
-              Weiter zum Erstgespräch
+              {t('intake.wizard.continue')}
             </Button>
             <Button
               onClick={() => void submitStep1('close')}
               disabled={busy || !canLeaveStep1}
             >
-              {busy ? 'Speichert …' : 'Speichern'}
+              {busy ? t('intake.wizard.saving') : t('intake.wizard.save')}
             </Button>
           </>
         )}
@@ -287,13 +292,13 @@ export function LeadIntakeForm({
               onClick={() => void saveStep2()}
               disabled={busy || freigebenLoading || !canLeaveStep1}
             >
-              {busy ? 'Speichert …' : 'Speichern'}
+              {busy ? t('intake.wizard.saving') : t('intake.wizard.save')}
             </Button>
             <Button
               onClick={freigeben}
               disabled={busy || freigebenLoading || !canFreigeben}
             >
-              {freigebenLoading ? 'Gibt frei …' : 'Für die LSA freigeben'}
+              {freigebenLoading ? t('intake.wizard.freigebend') : t('intake.wizard.freigeben')}
             </Button>
           </>
         )}

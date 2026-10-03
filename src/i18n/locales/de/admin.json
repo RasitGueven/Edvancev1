@@ -147,6 +147,63 @@
       "ausPlan": "aus dem Schulplan (Stand {{stand}})",
       "ausPlanOhneStand": "aus dem Schulplan",
       "keinPlan": "Kein Schulplan hinterlegt – im Mathe-Heft nachsehen"
+    },
+    "wizard": {
+      "steps": {
+        "lead": "Stammdaten",
+        "erstgespraech": "Erstgespräch"
+      },
+      "stepLabel": "{{nr}}. {{label}}",
+      "eyebrowEdit": "Lead weiterpflegen",
+      "eyebrowNew": "Neuer Lead — Erstgespräch",
+      "titleFallback": "Empfang",
+      "close": "Schließen",
+      "fullNameRequired": "Vollständiger Name ist erforderlich.",
+      "createFailed": "Lead konnte nicht angelegt werden.",
+      "freigabeFailed": "LSA-Freigabe fehlgeschlagen.",
+      "continue": "Weiter zum Erstgespräch",
+      "save": "Speichern",
+      "saving": "Speichert …",
+      "freigeben": "Für die LSA freigeben",
+      "freigebend": "Gibt frei …"
+    },
+    "erstgespraech": {
+      "lastGrade": "Letzte Zeugnisnote",
+      "gradeTrend": "Tendenz",
+      "strugglingSince": "Seit wann fällt es schwer?",
+      "triedBefore": "Was wurde schon versucht?",
+      "parentWeak": "Eltern-Einschätzung: Wo vermuten Sie die Schwierigkeiten?",
+      "parentWeakHint": "Fließt nicht in die Auswertung ein — Gesprächskontext für den Coach.",
+      "parentNotePlaceholder": "Kurze Ergänzung der Eltern (optional)",
+      "notes": "Notiz",
+      "notesPlaceholder": "Freie Notiz zum Gespräch"
+    },
+    "optionen": {
+      "gradeTrend": {
+        "besser": "Besser geworden",
+        "stabil": "Stabil",
+        "schlechter": "Schlechter geworden"
+      },
+      "strugglingSince": {
+        "dieses_halbjahr": "Dieses Halbjahr",
+        "letztes_schuljahr": "Letztes Schuljahr",
+        "laenger": "Schon länger"
+      },
+      "triedBefore": {
+        "nachhilfe": "Nachhilfe",
+        "lernvideos": "Lernvideos",
+        "lern_app": "Lern-App",
+        "elternhilfe": "Elternhilfe",
+        "nichts": "Noch nichts"
+      },
+      "parentWeak": {
+        "grundlagen": "Grundlagen fehlen",
+        "textverstaendnis": "Textverständnis",
+        "rechenwege": "Rechenwege",
+        "konzentration": "Konzentration",
+        "pruefungsangst": "Prüfungsangst",
+        "zeiteinteilung": "Zeiteinteilung"
+      }
     }
   }
 }

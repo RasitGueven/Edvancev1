@@ -13,7 +13,11 @@
 - Freigabe der LSA verlangt ein aktuelles Thema – oder einen alten Cluster-Wert, oder ein Fach ohne Katalog.
 - `current_topic_cluster_id` wird nicht mehr geschrieben, nur angezeigt.
 
+## Nachtrag (Review)
+- i18n: `SectionErstgespraech`, `LeadIntakeForm` und die Label-Listen in `intakeConstants` laufen jetzt über `admin:intake.*`. Gespeicherte Werte (u. a. `PARENT_WEAK_TOPICS`) bleiben unverändert, nur die Anzeige wird über einen semantischen Key gemappt. `SUBJECTS`/`SCHOOL_TYPES` sind DB-Werte und werden auch in Verträgen/Filter genutzt – unverändert.
+- „Kein aktuelles Thema bekannt“: angehalten. Am Lead gibt es kein passendes Feld. `next_exam_topic` wird von `lsa_lead_kontext` und vom Report als Thementext gelesen (ein Marker landete in LSA und Elternbericht), `goal` hat einen festen CHECK, `known_weak_topics` bedeutet etwas anderes, `notes` ist Freitext. Braucht eine Spalte (z. B. `leads.thema_unbekannt boolean`) → Foundation-/Schema-Fenster.
+
 ## Offen
-- Keine Mail-Vorlage für die Terminbestätigung im Repo; Hinweis steht nur im Termin-Dialog.
-- `SectionErstgespraech`, `LeadIntakeForm`, `intakeConstants` haben noch hardcodierte Strings (nicht Teil dieses Auftrags).
-- `setAktuellesThema` ist zweistufig (delete + upsert), nicht atomar; ein RPC wäre sauberer (Foundation).
+- „Kein aktuelles Thema bekannt“ als bewusste Auswahl, die die LSA-Freigabe ohne Thema erlaubt (wartet auf Schemaentscheidung, s. o.).
+- Thema setzen als eine DB-Funktion statt delete + upsert (Foundation-Fenster).
+- Bestätigungsmail ans Elternhaus mit Mathe-Heft-Hinweis über hello@ (eigener Auftrag).

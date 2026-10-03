@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { TEXTAREA_MD } from '@/lib/formStyles'
@@ -52,6 +53,7 @@ export function SectionErstgespraech({
   consentByLabel,
   consentDisabled,
 }: SectionErstgespraechProps): JSX.Element {
+  const { t } = useTranslation('admin')
   const toggleTried = (value: string): void => {
     const list = form.tried_before
     patch({
@@ -77,7 +79,7 @@ export function SectionErstgespraech({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <FieldLabel>Letzte Zeugnisnote</FieldLabel>
+        <FieldLabel>{t('intake.erstgespraech.lastGrade')}</FieldLabel>
         <OptionChips
           options={GRADES.map((g) => ({ value: g, label: g }))}
           selected={form.last_grade ? [form.last_grade] : []}
@@ -86,9 +88,12 @@ export function SectionErstgespraech({
       </div>
 
       <div className="flex flex-col gap-2">
-        <FieldLabel>Tendenz</FieldLabel>
+        <FieldLabel>{t('intake.erstgespraech.gradeTrend')}</FieldLabel>
         <OptionChips
-          options={GRADE_TRENDS}
+          options={GRADE_TRENDS.map((v) => ({
+            value: v,
+            label: t(`intake.optionen.gradeTrend.${v}`),
+          }))}
           selected={form.grade_trend ? [form.grade_trend] : []}
           onToggle={(v) =>
             patch({ grade_trend: single<LeadGradeTrend>(form.grade_trend, v) })
@@ -97,9 +102,12 @@ export function SectionErstgespraech({
       </div>
 
       <div className="flex flex-col gap-2">
-        <FieldLabel>Seit wann fällt es schwer?</FieldLabel>
+        <FieldLabel>{t('intake.erstgespraech.strugglingSince')}</FieldLabel>
         <OptionChips
-          options={STRUGGLING_SINCE}
+          options={STRUGGLING_SINCE.map((v) => ({
+            value: v,
+            label: t(`intake.optionen.strugglingSince.${v}`),
+          }))}
           selected={form.struggling_since ? [form.struggling_since] : []}
           onToggle={(v) =>
             patch({ struggling_since: single<LeadStrugglingSince>(form.struggling_since, v) })
@@ -108,8 +116,15 @@ export function SectionErstgespraech({
       </div>
 
       <div className="flex flex-col gap-2">
-        <FieldLabel>Was wurde schon versucht?</FieldLabel>
-        <OptionChips options={TRIED_BEFORE} selected={form.tried_before} onToggle={toggleTried} />
+        <FieldLabel>{t('intake.erstgespraech.triedBefore')}</FieldLabel>
+        <OptionChips
+          options={TRIED_BEFORE.map((v) => ({
+            value: v,
+            label: t(`intake.optionen.triedBefore.${v}`),
+          }))}
+          selected={form.tried_before}
+          onToggle={toggleTried}
+        />
       </div>
 
       <ThemenAuswahl
@@ -121,13 +136,16 @@ export function SectionErstgespraech({
       />
 
       <div className="flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-4">
-        <FieldLabel>Eltern-Einschätzung: Wo vermuten Sie die Schwierigkeiten?</FieldLabel>
+        <FieldLabel>{t('intake.erstgespraech.parentWeak')}</FieldLabel>
         <p className="text-xs text-[var(--color-text-tertiary)]">
-          Fließt nicht in die Auswertung ein — Gesprächskontext für den Coach.
+          {t('intake.erstgespraech.parentWeakHint')}
         </p>
         <div className="mt-1">
           <OptionChips
-            options={PARENT_WEAK_TOPICS.map((t) => ({ value: t, label: t }))}
+            options={PARENT_WEAK_TOPICS.map((o) => ({
+              value: o.value,
+              label: t(`intake.optionen.parentWeak.${o.key}`),
+            }))}
             selected={form.parent_weak_topics}
             onToggle={toggleTopic}
             columns
@@ -137,18 +155,18 @@ export function SectionErstgespraech({
           className="mt-2"
           value={form.parent_note}
           onChange={(e) => patch({ parent_note: e.target.value })}
-          placeholder="Kurze Ergänzung der Eltern (optional)"
+          placeholder={t('intake.erstgespraech.parentNotePlaceholder')}
         />
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="intake-notes">Notiz</Label>
+        <Label htmlFor="intake-notes">{t('intake.erstgespraech.notes')}</Label>
         <textarea
           id="intake-notes"
           className={TEXTAREA_MD}
           value={form.notes}
           onChange={(e) => patch({ notes: e.target.value })}
-          placeholder="Freie Notiz zum Gespräch"
+          placeholder={t('intake.erstgespraech.notesPlaceholder')}
         />
       </div>
 
