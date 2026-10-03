@@ -137,8 +137,13 @@ for (const a of charge.aufgaben) {
   if (!!b.figur !== task.needs_image) fehler.push(`#${a.nr}: needs_image passt nicht zur Figur`);
 
   // acceptance: canonical = erste Variante, known_errors in Objektform.
+  // Charge-Feld acceptance_equivalents: die uebrigen Varianten auch als equivalents, damit
+  // lsa_grade (Skill-Urteil) dieselben Werte gelten laesst wie lsa_is_correct (z. B. π-Taste
+  // und 3,14 als zwei richtige Rechenwege). Ohne das Feld bleibt alles wie bisher.
   const ca = sol.correct_answers;
-  const regel = (antw, ke) => ({ canonical: antw[0], known_errors: ke });
+  const regel = (antw, ke) => (charge.acceptance_equivalents && antw.length > 1
+    ? { canonical: antw[0], equivalents: antw.slice(1), known_errors: ke }
+    : { canonical: antw[0], known_errors: ke });
   const acceptance = mp
     ? Object.fromEntries(b.parts.map((p) => [String(p.nr), regel(ca[p.nr], b.known_errors[p.nr])]))
     : regel(ca, b.known_errors);

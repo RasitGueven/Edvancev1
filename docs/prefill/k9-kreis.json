@@ -1,0 +1,3914 @@
+{
+ "batch": "k9-kreis",
+ "kopf": [
+  "K9 Kreis, Migration 2 von 2 — 24 Aufgaben: je sechs zu geo_kreis_umfang, _flaeche, _rueck und _sektor.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k9-kreis.json (Quelle: tools/k9-kreis-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach <...>_substrat_k9_kreis.sql (Knoten + Fehlbild-Slugs muessen stehen).",
+  "geo_kreis_zusammen bekommt hier KEINE Aufgaben (Abbildungen; Generator specs/active/figur-kreis.md fehlt)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit und zwei mit Sachkontext oder Rückrichtung (Fahrradrad, Pizza, Baumstamm, runder Tisch, Torte, Winkel aus dem Bogen). Alle ohne Abbildung lösbar. Jede Aufgabe nennt π-Taste oder 3,14 und die Rundung; beide Ergebnisse stehen als Varianten in correct_answers und acceptance.equivalents (exakter Textvergleich, keine Toleranz).",
+ "source": "edvance_k9_kreis",
+ "acceptance_equivalents": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "7723a47c-0524-45d7-89f7-42d2e0e85d00",
+   "titel": "Umfang · Radius 4 cm",
+   "basis": {
+    "skill_key": "geo_kreis_umfang",
+    "source_ref": "kreis-umfang-01",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Kreis hat den Radius 4 cm.\n\nWie groß ist sein Umfang? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "8": "pi_vergessen",
+     "12,57": "radius_durchmesser_verwechselt",
+     "12.57": "radius_durchmesser_verwechselt",
+     "12,57 cm": "radius_durchmesser_verwechselt",
+     "12,57cm": "radius_durchmesser_verwechselt",
+     "12,56": "radius_durchmesser_verwechselt",
+     "12.56": "radius_durchmesser_verwechselt",
+     "12,56 cm": "radius_durchmesser_verwechselt",
+     "12,56cm": "radius_durchmesser_verwechselt",
+     "8,00": "pi_vergessen",
+     "8.00": "pi_vergessen",
+     "8,00 cm": "pi_vergessen",
+     "8,00cm": "pi_vergessen",
+     "8 cm": "pi_vergessen",
+     "8cm": "pi_vergessen",
+     "50,27": "flaeche_statt_umfang",
+     "50.27": "flaeche_statt_umfang",
+     "50,27 cm": "flaeche_statt_umfang",
+     "50,27cm": "flaeche_statt_umfang",
+     "50,24": "flaeche_statt_umfang",
+     "50.24": "flaeche_statt_umfang",
+     "50,24 cm": "flaeche_statt_umfang",
+     "50,24cm": "flaeche_statt_umfang"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Umfangsformel mit gegebenem Radius, ein Schritt."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "25,13",
+      "25.13",
+      "25,13 cm",
+      "25,13cm",
+      "25,12",
+      "25.12",
+      "25,12 cm",
+      "25,12cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "U = 2 · π · r = 2 · π · 4 cm ≈ 25,13 cm (π-Taste).\nMit π ≈ 3,14: U = 2 · 3,14 · 4 cm = 25,12 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Radius wie einen Durchmesser eingesetzt: π · 4.",
+       "socratic_question": "Ist 4 cm der Abstand vom Mittelpunkt zum Rand oder einmal ganz durch den Kreis?"
+      },
+      {
+       "error": "π weggelassen: 2 · 4 = 8.",
+       "socratic_question": "Welche Zahl gehört in jede Formel am Kreis?"
+      },
+      {
+       "error": "Mit der Flächenformel gerechnet: π · 4².",
+       "socratic_question": "Ist nach der Länge der Randlinie oder nach der Fläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, pi_vergessen, flaeche_statt_umfang)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*4,2)",
+     "antwort": "25.13"
+    },
+    {
+     "rechnung": "round(2*3.14*4,2)",
+     "antwort": "25.12"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*4,2)",
+     "antwort": "12.57",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*4,2)",
+     "antwort": "12.56",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(2*4,2)",
+     "antwort": "8.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(2*4,2)",
+     "antwort": "8.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*4^2,2)",
+     "antwort": "50.27",
+     "rolle": "fehlbild:flaeche_statt_umfang:pi"
+    },
+    {
+     "rechnung": "round(3.14*4^2,2)",
+     "antwort": "50.24",
+     "rolle": "fehlbild:flaeche_statt_umfang:314"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "322960fb-0bfb-4396-b59b-75fd21a23652",
+   "titel": "Umfang · Durchmesser 10 cm",
+   "basis": {
+    "skill_key": "geo_kreis_umfang",
+    "source_ref": "kreis-umfang-02",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Kreis hat den Durchmesser 10 cm.\n\nWie groß ist sein Umfang? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "10": "pi_vergessen",
+     "62,83": "radius_durchmesser_verwechselt",
+     "62.83": "radius_durchmesser_verwechselt",
+     "62,83 cm": "radius_durchmesser_verwechselt",
+     "62,83cm": "radius_durchmesser_verwechselt",
+     "62,80": "radius_durchmesser_verwechselt",
+     "62.80": "radius_durchmesser_verwechselt",
+     "62,8": "radius_durchmesser_verwechselt",
+     "62.8": "radius_durchmesser_verwechselt",
+     "62,80 cm": "radius_durchmesser_verwechselt",
+     "62,80cm": "radius_durchmesser_verwechselt",
+     "62,8 cm": "radius_durchmesser_verwechselt",
+     "62,8cm": "radius_durchmesser_verwechselt",
+     "10,00": "pi_vergessen",
+     "10.00": "pi_vergessen",
+     "10,00 cm": "pi_vergessen",
+     "10,00cm": "pi_vergessen",
+     "10 cm": "pi_vergessen",
+     "10cm": "pi_vergessen",
+     "78,54": "flaeche_statt_umfang",
+     "78.54": "flaeche_statt_umfang",
+     "78,54 cm": "flaeche_statt_umfang",
+     "78,54cm": "flaeche_statt_umfang",
+     "78,50": "flaeche_statt_umfang",
+     "78.50": "flaeche_statt_umfang",
+     "78,5": "flaeche_statt_umfang",
+     "78.5": "flaeche_statt_umfang",
+     "78,50 cm": "flaeche_statt_umfang",
+     "78,50cm": "flaeche_statt_umfang",
+     "78,5 cm": "flaeche_statt_umfang",
+     "78,5cm": "flaeche_statt_umfang"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Umfang aus dem Durchmesser, ein Schritt."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "31,42",
+      "31.42",
+      "31,42 cm",
+      "31,42cm",
+      "31,40",
+      "31.40",
+      "31,4",
+      "31.4",
+      "31,40 cm",
+      "31,40cm",
+      "31,4 cm",
+      "31,4cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "U = π · d = π · 10 cm ≈ 31,42 cm (π-Taste).\nMit π ≈ 3,14: U = 3,14 · 10 cm = 31,40 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: 2 · π · 10.",
+       "socratic_question": "Ist 10 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "π weggelassen: Umfang = Durchmesser.",
+       "socratic_question": "Ist der Rand eines Kreises wirklich so lang wie sein Durchmesser?"
+      },
+      {
+       "error": "Mit der Flächenformel gerechnet: π · 5².",
+       "socratic_question": "Ist nach der Randlinie oder nach der Fläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, pi_vergessen, flaeche_statt_umfang)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*10,2)",
+     "antwort": "31.42"
+    },
+    {
+     "rechnung": "round(3.14*10,2)",
+     "antwort": "31.40"
+    },
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*10,2)",
+     "antwort": "62.83",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(2*3.14*10,2)",
+     "antwort": "62.80",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(10,2)",
+     "antwort": "10.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(10,2)",
+     "antwort": "10.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*5^2,2)",
+     "antwort": "78.54",
+     "rolle": "fehlbild:flaeche_statt_umfang:pi"
+    },
+    {
+     "rechnung": "round(3.14*5^2,2)",
+     "antwort": "78.50",
+     "rolle": "fehlbild:flaeche_statt_umfang:314"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "8e3e60dc-01bc-4a59-ae8e-65c20321deea",
+   "titel": "Umfang · Radius 3,6 m",
+   "basis": {
+    "skill_key": "geo_kreis_umfang",
+    "source_ref": "kreis-umfang-03",
+    "input_type": "NUMERIC",
+    "unit": "m",
+    "frage": "Ein Kreis hat den Radius 3,6 m.\n\nWie groß ist sein Umfang in Metern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "11,31": "radius_durchmesser_verwechselt",
+     "11.31": "radius_durchmesser_verwechselt",
+     "11,31 m": "radius_durchmesser_verwechselt",
+     "11,31m": "radius_durchmesser_verwechselt",
+     "11,30": "radius_durchmesser_verwechselt",
+     "11.30": "radius_durchmesser_verwechselt",
+     "11,3": "radius_durchmesser_verwechselt",
+     "11.3": "radius_durchmesser_verwechselt",
+     "11,30 m": "radius_durchmesser_verwechselt",
+     "11,30m": "radius_durchmesser_verwechselt",
+     "11,3 m": "radius_durchmesser_verwechselt",
+     "11,3m": "radius_durchmesser_verwechselt",
+     "7,20": "pi_vergessen",
+     "7.20": "pi_vergessen",
+     "7,2": "pi_vergessen",
+     "7.2": "pi_vergessen",
+     "7,20 m": "pi_vergessen",
+     "7,20m": "pi_vergessen",
+     "7,2 m": "pi_vergessen",
+     "7,2m": "pi_vergessen",
+     "40,72": "flaeche_statt_umfang",
+     "40.72": "flaeche_statt_umfang",
+     "40,72 m": "flaeche_statt_umfang",
+     "40,72m": "flaeche_statt_umfang",
+     "40,69": "flaeche_statt_umfang",
+     "40.69": "flaeche_statt_umfang",
+     "40,69 m": "flaeche_statt_umfang",
+     "40,69m": "flaeche_statt_umfang"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Dezimalradius, Ergebnis nicht im Kopf überschlagbar."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "22,62",
+      "22.62",
+      "22,62 m",
+      "22,62m",
+      "22,61",
+      "22.61",
+      "22,61 m",
+      "22,61m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "U = 2 · π · 3,6 m ≈ 22,62 m (π-Taste).\nMit π ≈ 3,14: U = 2 · 3,14 · 3,6 m ≈ 22,61 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Radius wie einen Durchmesser eingesetzt: π · 3,6.",
+       "socratic_question": "Wie viele Radien passen in einen Durchmesser?"
+      },
+      {
+       "error": "π weggelassen: 2 · 3,6 = 7,2.",
+       "socratic_question": "Welcher Faktor fehlt in deiner Rechnung?"
+      },
+      {
+       "error": "Mit der Flächenformel gerechnet: π · 3,6².",
+       "socratic_question": "Kommt bei deiner Formel eine Länge oder eine Fläche heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, pi_vergessen, flaeche_statt_umfang)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*3.6,2)",
+     "antwort": "22.62"
+    },
+    {
+     "rechnung": "round(2*3.14*3.6,2)",
+     "antwort": "22.61"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*3.6,2)",
+     "antwort": "11.31",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*3.6,2)",
+     "antwort": "11.30",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(2*3.6,2)",
+     "antwort": "7.20",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(2*3.6,2)",
+     "antwort": "7.20",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*3.6^2,2)",
+     "antwort": "40.72",
+     "rolle": "fehlbild:flaeche_statt_umfang:pi"
+    },
+    {
+     "rechnung": "round(3.14*3.6^2,2)",
+     "antwort": "40.69",
+     "rolle": "fehlbild:flaeche_statt_umfang:314"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "eabc5d92-2564-456e-9296-c60d17809021",
+   "titel": "Umfang · Radius 45 cm, Ergebnis in Metern",
+   "basis": {
+    "skill_key": "geo_kreis_umfang",
+    "source_ref": "kreis-umfang-04",
+    "input_type": "NUMERIC",
+    "unit": "m",
+    "frage": "Ein Kreis hat den Radius 45 cm.\n\nWie groß ist sein Umfang in Metern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "282,74": "einheit_uebersprungen",
+     "282.74": "einheit_uebersprungen",
+     "282,74 m": "einheit_uebersprungen",
+     "282,74m": "einheit_uebersprungen",
+     "282,60": "einheit_uebersprungen",
+     "282.60": "einheit_uebersprungen",
+     "282,6": "einheit_uebersprungen",
+     "282.6": "einheit_uebersprungen",
+     "282,60 m": "einheit_uebersprungen",
+     "282,60m": "einheit_uebersprungen",
+     "282,6 m": "einheit_uebersprungen",
+     "282,6m": "einheit_uebersprungen",
+     "1,41": "radius_durchmesser_verwechselt",
+     "1.41": "radius_durchmesser_verwechselt",
+     "1,41 m": "radius_durchmesser_verwechselt",
+     "1,41m": "radius_durchmesser_verwechselt",
+     "0,90": "pi_vergessen",
+     "0.90": "pi_vergessen",
+     "0,9": "pi_vergessen",
+     "0.9": "pi_vergessen",
+     "0,90 m": "pi_vergessen",
+     "0,90m": "pi_vergessen",
+     "0,9 m": "pi_vergessen",
+     "0,9m": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Umfang plus Umrechnung von Zentimetern in Meter."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,83",
+      "2.83",
+      "2,83 m",
+      "2,83m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "r = 45 cm = 0,45 m.\nU = 2 · π · 0,45 m ≈ 2,83 m (π-Taste).\nMit π ≈ 3,14: U = 2 · 3,14 · 0,45 m ≈ 2,83 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht in Meter umgerechnet: der Umfang in Zentimetern.",
+       "socratic_question": "In welcher Einheit ist das Ergebnis gefragt?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser eingesetzt: π · 0,45.",
+       "socratic_question": "Ist 45 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "π weggelassen: 2 · 0,45 = 0,9.",
+       "socratic_question": "Welche Zahl fehlt in der Umfangsformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (einheit_uebersprungen, radius_durchmesser_verwechselt, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*0.45,2)",
+     "antwort": "2.83"
+    },
+    {
+     "rechnung": "round(2*3.14*0.45,2)",
+     "antwort": "2.83"
+    },
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*45,2)",
+     "antwort": "282.74",
+     "rolle": "fehlbild:einheit_uebersprungen:pi"
+    },
+    {
+     "rechnung": "round(2*3.14*45,2)",
+     "antwort": "282.60",
+     "rolle": "fehlbild:einheit_uebersprungen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*0.45,2)",
+     "antwort": "1.41",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*0.45,2)",
+     "antwort": "1.41",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(2*0.45,2)",
+     "antwort": "0.90",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(2*0.45,2)",
+     "antwort": "0.90",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "2ffd9c4c-46cf-4a66-a843-f5df51941807",
+   "titel": "Umfang · Fahrradrad mit 70 cm Durchmesser",
+   "basis": {
+    "skill_key": "geo_kreis_umfang",
+    "source_ref": "kreis-umfang-05",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Fahrradrad hat einen Durchmesser von 70 cm.\n\nWie viele Zentimeter legt das Rad bei einer vollen Umdrehung zurück? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "70": "pi_vergessen",
+     "439,82": "radius_durchmesser_verwechselt",
+     "439.82": "radius_durchmesser_verwechselt",
+     "439,82 cm": "radius_durchmesser_verwechselt",
+     "439,82cm": "radius_durchmesser_verwechselt",
+     "439,60": "radius_durchmesser_verwechselt",
+     "439.60": "radius_durchmesser_verwechselt",
+     "439,6": "radius_durchmesser_verwechselt",
+     "439.6": "radius_durchmesser_verwechselt",
+     "439,60 cm": "radius_durchmesser_verwechselt",
+     "439,60cm": "radius_durchmesser_verwechselt",
+     "439,6 cm": "radius_durchmesser_verwechselt",
+     "439,6cm": "radius_durchmesser_verwechselt",
+     "70,00": "pi_vergessen",
+     "70.00": "pi_vergessen",
+     "70,00 cm": "pi_vergessen",
+     "70,00cm": "pi_vergessen",
+     "70 cm": "pi_vergessen",
+     "70cm": "pi_vergessen",
+     "3848,45": "flaeche_statt_umfang",
+     "3848.45": "flaeche_statt_umfang",
+     "3848,45 cm": "flaeche_statt_umfang",
+     "3848,45cm": "flaeche_statt_umfang",
+     "3846,50": "flaeche_statt_umfang",
+     "3846.50": "flaeche_statt_umfang",
+     "3846,5": "flaeche_statt_umfang",
+     "3846.5": "flaeche_statt_umfang",
+     "3846,50 cm": "flaeche_statt_umfang",
+     "3846,50cm": "flaeche_statt_umfang",
+     "3846,5 cm": "flaeche_statt_umfang",
+     "3846,5cm": "flaeche_statt_umfang"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Eine Radumdrehung muss als Umfang erkannt werden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Kreisformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "219,91",
+      "219.91",
+      "219,91 cm",
+      "219,91cm",
+      "219,80",
+      "219.80",
+      "219,8",
+      "219.8",
+      "219,80 cm",
+      "219,80cm",
+      "219,8 cm",
+      "219,8cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Bei einer Umdrehung rollt der ganze Rand einmal ab: Weg = Umfang.\nU = π · 70 cm ≈ 219,91 cm (π-Taste).\nMit π ≈ 3,14: U = 3,14 · 70 cm = 219,80 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: 2 · π · 70.",
+       "socratic_question": "Sind 70 cm der Radius oder der Durchmesser des Rades?"
+      },
+      {
+       "error": "π weggelassen: Weg = Durchmesser.",
+       "socratic_question": "Rollt das Rad bei einer Umdrehung nur so weit, wie es hoch ist?"
+      },
+      {
+       "error": "Die Fläche des Rades berechnet statt seines Umfangs.",
+       "socratic_question": "Ist ein zurückgelegter Weg eine Länge oder eine Fläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, pi_vergessen, flaeche_statt_umfang)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*70,2)",
+     "antwort": "219.91"
+    },
+    {
+     "rechnung": "round(3.14*70,2)",
+     "antwort": "219.80"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*140,2)",
+     "antwort": "439.82",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*140,2)",
+     "antwort": "439.60",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(70,2)",
+     "antwort": "70.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(70,2)",
+     "antwort": "70.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*35^2,2)",
+     "antwort": "3848.45",
+     "rolle": "fehlbild:flaeche_statt_umfang:pi"
+    },
+    {
+     "rechnung": "round(3.14*35^2,2)",
+     "antwort": "3846.50",
+     "rolle": "fehlbild:flaeche_statt_umfang:314"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "e8a7a4ff-bdbc-49a5-afd8-709da6edc93a",
+   "titel": "Umfang · Umdrehungen für 100 m bei 60 cm Durchmesser",
+   "basis": {
+    "skill_key": "geo_kreis_umfang",
+    "source_ref": "kreis-umfang-06",
+    "input_type": "NUMERIC",
+    "unit": "Umdrehungen",
+    "frage": "Ein Rad hat einen Durchmesser von 60 cm. Es soll eine Strecke von 100 m zurücklegen.\n\nWie viele volle Umdrehungen muss das Rad mindestens machen? Gib eine ganze Zahl an und runde dafür auf. Rechne mit der π-Taste oder mit π ≈ 3,14.",
+    "known_errors": {
+     "27": "radius_durchmesser_verwechselt",
+     "53": "abgeschnitten",
+     "167": "pi_vergessen",
+     "53 Umdrehungen": "abgeschnitten",
+     "53Umdrehungen": "abgeschnitten",
+     "27 Umdrehungen": "radius_durchmesser_verwechselt",
+     "27Umdrehungen": "radius_durchmesser_verwechselt",
+     "167 Umdrehungen": "pi_vergessen",
+     "167Umdrehungen": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Strecke durch Umfang teilen, Einheiten angleichen und sinnvoll aufrunden."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "54",
+      "54 Umdrehungen",
+      "54Umdrehungen"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "U = π · 60 cm ≈ 188,50 cm (mit 3,14: 188,40 cm).\n100 m = 10 000 cm.\n10 000 cm : 188,50 cm ≈ 53,05 (mit 3,14: ≈ 53,08).\nNach 53 Umdrehungen fehlt noch ein Stück, also mindestens 54 Umdrehungen.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Abgerundet: 53 Umdrehungen reichen noch nicht ganz.",
+       "socratic_question": "Kommt das Rad nach 53 Umdrehungen schon ganz bis 100 m?"
+      },
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: Umfang doppelt so groß.",
+       "socratic_question": "Sind 60 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "π weggelassen: durch den Durchmesser statt durch den Umfang geteilt.",
+       "socratic_question": "Wie weit kommt das Rad bei einer Umdrehung?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (abgeschnitten, radius_durchmesser_verwechselt, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(10000/(3.14159265358979323846264338327950288*60),4)",
+     "antwort": "53.0516",
+     "rolle": "richtig:vor-aufrunden=54"
+    },
+    {
+     "rechnung": "round(10000/(3.14*60),4)",
+     "antwort": "53.0786",
+     "rolle": "richtig:vor-aufrunden=54"
+    },
+    {
+     "rechnung": "round(10000/(3.14159265358979323846264338327950288*60),4)",
+     "antwort": "53.0516",
+     "rolle": "fehlbild:abgeschnitten:pi:vor-abrunden=53"
+    },
+    {
+     "rechnung": "round(10000/(3.14*60),4)",
+     "antwort": "53.0786",
+     "rolle": "fehlbild:abgeschnitten:314:vor-abrunden=53"
+    },
+    {
+     "rechnung": "round(10000/(2*3.14159265358979323846264338327950288*60),4)",
+     "antwort": "26.5258",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi:vor-aufrunden=27"
+    },
+    {
+     "rechnung": "round(10000/(2*3.14*60),4)",
+     "antwort": "26.5393",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314:vor-aufrunden=27"
+    },
+    {
+     "rechnung": "round(10000/60,4)",
+     "antwort": "166.6667",
+     "rolle": "fehlbild:pi_vergessen:pi:vor-aufrunden=167"
+    },
+    {
+     "rechnung": "round(10000/60,4)",
+     "antwort": "166.6667",
+     "rolle": "fehlbild:pi_vergessen:314:vor-aufrunden=167"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "8e606b89-1825-4147-9f71-871d36199218",
+   "titel": "Fläche · Radius 6 cm",
+   "basis": {
+    "skill_key": "geo_kreis_flaeche",
+    "source_ref": "kreis-flaeche-01",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "frage": "Ein Kreis hat den Radius 6 cm.\n\nWie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "36": "pi_vergessen",
+     "37,70": "umfang_statt_flaeche",
+     "37.70": "umfang_statt_flaeche",
+     "37,7": "umfang_statt_flaeche",
+     "37.7": "umfang_statt_flaeche",
+     "37,70 cm²": "umfang_statt_flaeche",
+     "37,70cm²": "umfang_statt_flaeche",
+     "37,7 cm²": "umfang_statt_flaeche",
+     "37,7cm²": "umfang_statt_flaeche",
+     "37,68": "umfang_statt_flaeche",
+     "37.68": "umfang_statt_flaeche",
+     "37,68 cm²": "umfang_statt_flaeche",
+     "37,68cm²": "umfang_statt_flaeche",
+     "36,00": "pi_vergessen",
+     "36.00": "pi_vergessen",
+     "36,00 cm²": "pi_vergessen",
+     "36,00cm²": "pi_vergessen",
+     "36 cm²": "pi_vergessen",
+     "36cm²": "pi_vergessen",
+     "28,27": "radius_durchmesser_verwechselt",
+     "28.27": "radius_durchmesser_verwechselt",
+     "28,27 cm²": "radius_durchmesser_verwechselt",
+     "28,27cm²": "radius_durchmesser_verwechselt",
+     "28,26": "radius_durchmesser_verwechselt",
+     "28.26": "radius_durchmesser_verwechselt",
+     "28,26 cm²": "radius_durchmesser_verwechselt",
+     "28,26cm²": "radius_durchmesser_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Flächenformel mit gegebenem Radius."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "113,10",
+      "113.10",
+      "113,1",
+      "113.1",
+      "113,10 cm²",
+      "113,10cm²",
+      "113,1 cm²",
+      "113,1cm²",
+      "113,04",
+      "113.04",
+      "113,04 cm²",
+      "113,04cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "A = π · r² = π · (6 cm)² = π · 36 cm² ≈ 113,10 cm² (π-Taste).\nMit π ≈ 3,14: A = 3,14 · 36 cm² = 113,04 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Umfang berechnet (oder r² als 2 · r): 2 · π · 6.",
+       "socratic_question": "Was bedeutet das Hoch-Zwei bei r²?"
+      },
+      {
+       "error": "π weggelassen: 6² = 36.",
+       "socratic_question": "Welcher Faktor fehlt in der Flächenformel?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser halbiert: π · 3².",
+       "socratic_question": "Ist 6 cm schon der Radius?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (umfang_statt_flaeche, pi_vergessen, radius_durchmesser_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*6^2,2)",
+     "antwort": "113.10"
+    },
+    {
+     "rechnung": "round(3.14*6^2,2)",
+     "antwort": "113.04"
+    },
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*6,2)",
+     "antwort": "37.70",
+     "rolle": "fehlbild:umfang_statt_flaeche:pi"
+    },
+    {
+     "rechnung": "round(2*3.14*6,2)",
+     "antwort": "37.68",
+     "rolle": "fehlbild:umfang_statt_flaeche:314"
+    },
+    {
+     "rechnung": "round(6^2,2)",
+     "antwort": "36.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(6^2,2)",
+     "antwort": "36.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*3^2,2)",
+     "antwort": "28.27",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*3^2,2)",
+     "antwort": "28.26",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "1338a319-aa9f-4b2e-8deb-d1b21393a798",
+   "titel": "Fläche · Durchmesser 10 cm",
+   "basis": {
+    "skill_key": "geo_kreis_flaeche",
+    "source_ref": "kreis-flaeche-02",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "frage": "Ein Kreis hat den Durchmesser 10 cm.\n\nWie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "25": "pi_vergessen",
+     "314": "radius_durchmesser_verwechselt",
+     "314,16": "radius_durchmesser_verwechselt",
+     "314.16": "radius_durchmesser_verwechselt",
+     "314,16 cm²": "radius_durchmesser_verwechselt",
+     "314,16cm²": "radius_durchmesser_verwechselt",
+     "314,00": "radius_durchmesser_verwechselt",
+     "314.00": "radius_durchmesser_verwechselt",
+     "314,00 cm²": "radius_durchmesser_verwechselt",
+     "314,00cm²": "radius_durchmesser_verwechselt",
+     "314 cm²": "radius_durchmesser_verwechselt",
+     "314cm²": "radius_durchmesser_verwechselt",
+     "25,00": "pi_vergessen",
+     "25.00": "pi_vergessen",
+     "25,00 cm²": "pi_vergessen",
+     "25,00cm²": "pi_vergessen",
+     "25 cm²": "pi_vergessen",
+     "25cm²": "pi_vergessen",
+     "31,42": "umfang_statt_flaeche",
+     "31.42": "umfang_statt_flaeche",
+     "31,42 cm²": "umfang_statt_flaeche",
+     "31,42cm²": "umfang_statt_flaeche",
+     "31,40": "umfang_statt_flaeche",
+     "31.40": "umfang_statt_flaeche",
+     "31,4": "umfang_statt_flaeche",
+     "31.4": "umfang_statt_flaeche",
+     "31,40 cm²": "umfang_statt_flaeche",
+     "31,40cm²": "umfang_statt_flaeche",
+     "31,4 cm²": "umfang_statt_flaeche",
+     "31,4cm²": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Radius aus dem Durchmesser, dann Flächenformel."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "78,54",
+      "78.54",
+      "78,54 cm²",
+      "78,54cm²",
+      "78,50",
+      "78.50",
+      "78,5",
+      "78.5",
+      "78,50 cm²",
+      "78,50cm²",
+      "78,5 cm²",
+      "78,5cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "r = 10 cm : 2 = 5 cm.\nA = π · (5 cm)² = π · 25 cm² ≈ 78,54 cm² (π-Taste).\nMit π ≈ 3,14: A = 3,14 · 25 cm² = 78,50 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: π · 10².",
+       "socratic_question": "Ist 10 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "π weggelassen: 5² = 25.",
+       "socratic_question": "Welcher Faktor fehlt in der Flächenformel?"
+      },
+      {
+       "error": "Den Umfang berechnet: π · 10.",
+       "socratic_question": "Kommt bei π · d eine Fläche heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, pi_vergessen, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*5^2,2)",
+     "antwort": "78.54"
+    },
+    {
+     "rechnung": "round(3.14*5^2,2)",
+     "antwort": "78.50"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*10^2,2)",
+     "antwort": "314.16",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*10^2,2)",
+     "antwort": "314.00",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(5^2,2)",
+     "antwort": "25.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(5^2,2)",
+     "antwort": "25.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*10,2)",
+     "antwort": "31.42",
+     "rolle": "fehlbild:umfang_statt_flaeche:pi"
+    },
+    {
+     "rechnung": "round(3.14*10,2)",
+     "antwort": "31.40",
+     "rolle": "fehlbild:umfang_statt_flaeche:314"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "7223ee1a-3043-487e-850c-e9da8501d935",
+   "titel": "Fläche · Radius 2,4 m",
+   "basis": {
+    "skill_key": "geo_kreis_flaeche",
+    "source_ref": "kreis-flaeche-03",
+    "input_type": "NUMERIC",
+    "unit": "m²",
+    "frage": "Ein Kreis hat den Radius 2,4 m.\n\nWie groß ist sein Flächeninhalt in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "15,08": "umfang_statt_flaeche",
+     "15.08": "umfang_statt_flaeche",
+     "15,08 m²": "umfang_statt_flaeche",
+     "15,08m²": "umfang_statt_flaeche",
+     "15,07": "umfang_statt_flaeche",
+     "15.07": "umfang_statt_flaeche",
+     "15,07 m²": "umfang_statt_flaeche",
+     "15,07m²": "umfang_statt_flaeche",
+     "5,76": "pi_vergessen",
+     "5.76": "pi_vergessen",
+     "5,76 m²": "pi_vergessen",
+     "5,76m²": "pi_vergessen",
+     "4,52": "radius_durchmesser_verwechselt",
+     "4.52": "radius_durchmesser_verwechselt",
+     "4,52 m²": "radius_durchmesser_verwechselt",
+     "4,52m²": "radius_durchmesser_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Quadrat einer Dezimalzahl in der Flächenformel."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "18,10",
+      "18.10",
+      "18,1",
+      "18.1",
+      "18,10 m²",
+      "18,10m²",
+      "18,1 m²",
+      "18,1m²",
+      "18,09",
+      "18.09",
+      "18,09 m²",
+      "18,09m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "A = π · (2,4 m)² = π · 5,76 m² ≈ 18,10 m² (π-Taste).\nMit π ≈ 3,14: A = 3,14 · 5,76 m² ≈ 18,09 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Umfang berechnet (oder 2,4² als 2 · 2,4): 2 · π · 2,4.",
+       "socratic_question": "Was ist 2,4² – 2,4 · 2 oder 2,4 · 2,4?"
+      },
+      {
+       "error": "π weggelassen: 2,4² = 5,76.",
+       "socratic_question": "Welcher Faktor fehlt in der Flächenformel?"
+      },
+      {
+       "error": "Den Radius wie einen Durchmesser halbiert: π · 1,2².",
+       "socratic_question": "Ist 2,4 m schon der Radius?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (umfang_statt_flaeche, pi_vergessen, radius_durchmesser_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*2.4^2,2)",
+     "antwort": "18.10"
+    },
+    {
+     "rechnung": "round(3.14*2.4^2,2)",
+     "antwort": "18.09"
+    },
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*2.4,2)",
+     "antwort": "15.08",
+     "rolle": "fehlbild:umfang_statt_flaeche:pi"
+    },
+    {
+     "rechnung": "round(2*3.14*2.4,2)",
+     "antwort": "15.07",
+     "rolle": "fehlbild:umfang_statt_flaeche:314"
+    },
+    {
+     "rechnung": "round(2.4^2,2)",
+     "antwort": "5.76",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(2.4^2,2)",
+     "antwort": "5.76",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*1.2^2,2)",
+     "antwort": "4.52",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*1.2^2,2)",
+     "antwort": "4.52",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "e0cfc702-9b40-450e-b530-1b6bb53976a8",
+   "titel": "Fläche · Radius 80 cm, Ergebnis in m²",
+   "basis": {
+    "skill_key": "geo_kreis_flaeche",
+    "source_ref": "kreis-flaeche-04",
+    "input_type": "NUMERIC",
+    "unit": "m²",
+    "frage": "Ein Kreis hat den Radius 80 cm.\n\nWie groß ist sein Flächeninhalt in Quadratmetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "20096": "einheit_uebersprungen",
+     "20106,19": "einheit_uebersprungen",
+     "20106.19": "einheit_uebersprungen",
+     "20106,19 m²": "einheit_uebersprungen",
+     "20106,19m²": "einheit_uebersprungen",
+     "20096,00": "einheit_uebersprungen",
+     "20096.00": "einheit_uebersprungen",
+     "20096,00 m²": "einheit_uebersprungen",
+     "20096,00m²": "einheit_uebersprungen",
+     "20096 m²": "einheit_uebersprungen",
+     "20096m²": "einheit_uebersprungen",
+     "201,06": "linearer_faktor",
+     "201.06": "linearer_faktor",
+     "201,06 m²": "linearer_faktor",
+     "201,06m²": "linearer_faktor",
+     "200,96": "linearer_faktor",
+     "200.96": "linearer_faktor",
+     "200,96 m²": "linearer_faktor",
+     "200,96m²": "linearer_faktor",
+     "0,64": "pi_vergessen",
+     "0.64": "pi_vergessen",
+     "0,64 m²": "pi_vergessen",
+     "0,64m²": "pi_vergessen",
+     "5,03": "umfang_statt_flaeche",
+     "5.03": "umfang_statt_flaeche",
+     "5,03 m²": "umfang_statt_flaeche",
+     "5,03m²": "umfang_statt_flaeche",
+     "5,02": "umfang_statt_flaeche",
+     "5.02": "umfang_statt_flaeche",
+     "5,02 m²": "umfang_statt_flaeche",
+     "5,02m²": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Flächenformel plus Umrechnung in eine Flächeneinheit."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,01",
+      "2.01",
+      "2,01 m²",
+      "2,01m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "r = 80 cm = 0,8 m.\nA = π · (0,8 m)² = π · 0,64 m² ≈ 2,01 m² (π-Taste).\nMit π ≈ 3,14: A = 3,14 · 0,64 m² ≈ 2,01 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht umgerechnet: die Fläche in Quadratzentimetern.",
+       "socratic_question": "In welcher Einheit ist das Ergebnis gefragt?"
+      },
+      {
+       "error": "Mit 100 statt mit 10 000 umgerechnet.",
+       "socratic_question": "Wie viele Quadratzentimeter hat ein Quadratmeter?"
+      },
+      {
+       "error": "π weggelassen: 0,8² = 0,64.",
+       "socratic_question": "Welcher Faktor fehlt in der Flächenformel?"
+      },
+      {
+       "error": "Den Umfang berechnet: 2 · π · 0,8.",
+       "socratic_question": "Kommt bei deiner Formel eine Fläche heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (einheit_uebersprungen, linearer_faktor, pi_vergessen, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*0.8^2,2)",
+     "antwort": "2.01"
+    },
+    {
+     "rechnung": "round(3.14*0.8^2,2)",
+     "antwort": "2.01"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*80^2,2)",
+     "antwort": "20106.19",
+     "rolle": "fehlbild:einheit_uebersprungen:pi"
+    },
+    {
+     "rechnung": "round(3.14*80^2,2)",
+     "antwort": "20096.00",
+     "rolle": "fehlbild:einheit_uebersprungen:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*80^2/100,2)",
+     "antwort": "201.06",
+     "rolle": "fehlbild:linearer_faktor:pi"
+    },
+    {
+     "rechnung": "round(3.14*80^2/100,2)",
+     "antwort": "200.96",
+     "rolle": "fehlbild:linearer_faktor:314"
+    },
+    {
+     "rechnung": "round(0.8^2,2)",
+     "antwort": "0.64",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(0.8^2,2)",
+     "antwort": "0.64",
+     "rolle": "fehlbild:pi_vergessen:314"
+    },
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*0.8,2)",
+     "antwort": "5.03",
+     "rolle": "fehlbild:umfang_statt_flaeche:pi"
+    },
+    {
+     "rechnung": "round(2*3.14*0.8,2)",
+     "antwort": "5.02",
+     "rolle": "fehlbild:umfang_statt_flaeche:314"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "6f8c3f6a-68ad-4be5-9e1e-9a85259d2ecd",
+   "titel": "Fläche · Pizza mit 30 cm Durchmesser",
+   "basis": {
+    "skill_key": "geo_kreis_flaeche",
+    "source_ref": "kreis-flaeche-05",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "frage": "Eine runde Pizza hat einen Durchmesser von 30 cm.\n\nWie viele Quadratzentimeter ist die Pizza groß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "225": "pi_vergessen",
+     "2826": "radius_durchmesser_verwechselt",
+     "2827,43": "radius_durchmesser_verwechselt",
+     "2827.43": "radius_durchmesser_verwechselt",
+     "2827,43 cm²": "radius_durchmesser_verwechselt",
+     "2827,43cm²": "radius_durchmesser_verwechselt",
+     "2826,00": "radius_durchmesser_verwechselt",
+     "2826.00": "radius_durchmesser_verwechselt",
+     "2826,00 cm²": "radius_durchmesser_verwechselt",
+     "2826,00cm²": "radius_durchmesser_verwechselt",
+     "2826 cm²": "radius_durchmesser_verwechselt",
+     "2826cm²": "radius_durchmesser_verwechselt",
+     "94,25": "umfang_statt_flaeche",
+     "94.25": "umfang_statt_flaeche",
+     "94,25 cm²": "umfang_statt_flaeche",
+     "94,25cm²": "umfang_statt_flaeche",
+     "94,20": "umfang_statt_flaeche",
+     "94.20": "umfang_statt_flaeche",
+     "94,2": "umfang_statt_flaeche",
+     "94.2": "umfang_statt_flaeche",
+     "94,20 cm²": "umfang_statt_flaeche",
+     "94,20cm²": "umfang_statt_flaeche",
+     "94,2 cm²": "umfang_statt_flaeche",
+     "94,2cm²": "umfang_statt_flaeche",
+     "225,00": "pi_vergessen",
+     "225.00": "pi_vergessen",
+     "225,00 cm²": "pi_vergessen",
+     "225,00cm²": "pi_vergessen",
+     "225 cm²": "pi_vergessen",
+     "225cm²": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Der Durchmesser muss als solcher erkannt und halbiert werden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Kreisformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "706,86",
+      "706.86",
+      "706,86 cm²",
+      "706,86cm²",
+      "706,50",
+      "706.50",
+      "706,5",
+      "706.5",
+      "706,50 cm²",
+      "706,50cm²",
+      "706,5 cm²",
+      "706,5cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "r = 30 cm : 2 = 15 cm.\nA = π · (15 cm)² = π · 225 cm² ≈ 706,86 cm² (π-Taste).\nMit π ≈ 3,14: A = 3,14 · 225 cm² = 706,50 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: π · 30².",
+       "socratic_question": "Sind 30 cm der Radius oder der Durchmesser der Pizza?"
+      },
+      {
+       "error": "Den Rand der Pizza berechnet statt ihrer Fläche.",
+       "socratic_question": "Wird nach dem Rand oder nach der ganzen Pizza gefragt?"
+      },
+      {
+       "error": "π weggelassen: 15² = 225.",
+       "socratic_question": "Welcher Faktor fehlt in der Flächenformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, umfang_statt_flaeche, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*15^2,2)",
+     "antwort": "706.86"
+    },
+    {
+     "rechnung": "round(3.14*15^2,2)",
+     "antwort": "706.50"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*30^2,2)",
+     "antwort": "2827.43",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*30^2,2)",
+     "antwort": "2826.00",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*30,2)",
+     "antwort": "94.25",
+     "rolle": "fehlbild:umfang_statt_flaeche:pi"
+    },
+    {
+     "rechnung": "round(3.14*30,2)",
+     "antwort": "94.20",
+     "rolle": "fehlbild:umfang_statt_flaeche:314"
+    },
+    {
+     "rechnung": "round(15^2,2)",
+     "antwort": "225.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(15^2,2)",
+     "antwort": "225.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "9ef4de2a-1a55-49a3-ac80-2a03594006b8",
+   "titel": "Fläche · eine große Pizza gegen zwei kleine",
+   "basis": {
+    "skill_key": "geo_kreis_flaeche",
+    "source_ref": "kreis-flaeche-06",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "frage": "Eine große Pizza hat einen Durchmesser von 30 cm. Eine kleine Pizza hat einen Durchmesser von 20 cm.\n\nUm wie viele Quadratzentimeter ist die große Pizza größer als zwei kleine Pizzen zusammen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "25": "pi_vergessen",
+     "314": "radius_durchmesser_verwechselt",
+     "314,16": "radius_durchmesser_verwechselt",
+     "314.16": "radius_durchmesser_verwechselt",
+     "314,16 cm²": "radius_durchmesser_verwechselt",
+     "314,16cm²": "radius_durchmesser_verwechselt",
+     "314,00": "radius_durchmesser_verwechselt",
+     "314.00": "radius_durchmesser_verwechselt",
+     "314,00 cm²": "radius_durchmesser_verwechselt",
+     "314,00cm²": "radius_durchmesser_verwechselt",
+     "314 cm²": "radius_durchmesser_verwechselt",
+     "314cm²": "radius_durchmesser_verwechselt",
+     "706,86": "falsche_groesse_beantwortet",
+     "706.86": "falsche_groesse_beantwortet",
+     "706,86 cm²": "falsche_groesse_beantwortet",
+     "706,86cm²": "falsche_groesse_beantwortet",
+     "706,50": "falsche_groesse_beantwortet",
+     "706.50": "falsche_groesse_beantwortet",
+     "706,5": "falsche_groesse_beantwortet",
+     "706.5": "falsche_groesse_beantwortet",
+     "706,50 cm²": "falsche_groesse_beantwortet",
+     "706,50cm²": "falsche_groesse_beantwortet",
+     "706,5 cm²": "falsche_groesse_beantwortet",
+     "706,5cm²": "falsche_groesse_beantwortet",
+     "25,00": "pi_vergessen",
+     "25.00": "pi_vergessen",
+     "25,00 cm²": "pi_vergessen",
+     "25,00cm²": "pi_vergessen",
+     "25 cm²": "pi_vergessen",
+     "25cm²": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: zwei Flächen modellieren, verdoppeln und vergleichen – Rechenweg selbst wählen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "78,54",
+      "78.54",
+      "78,54 cm²",
+      "78,54cm²",
+      "78,50",
+      "78.50",
+      "78,5",
+      "78.5",
+      "78,50 cm²",
+      "78,50cm²",
+      "78,5 cm²",
+      "78,5cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Große Pizza: π · (15 cm)² = π · 225 cm².\nZwei kleine: 2 · π · (10 cm)² = π · 200 cm².\nUnterschied: π · 25 cm² ≈ 78,54 cm² (π-Taste).\nMit π ≈ 3,14: 706,50 cm² − 628,00 cm² = 78,50 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Durchmesser als Radien eingesetzt.",
+       "socratic_question": "Sind 30 cm und 20 cm Radien oder Durchmesser?"
+      },
+      {
+       "error": "Die Fläche der großen Pizza angegeben statt des Unterschieds.",
+       "socratic_question": "Gefragt ist, um wie viel die große Pizza größer ist – was fehlt noch?"
+      },
+      {
+       "error": "π weggelassen: 225 − 200 = 25.",
+       "socratic_question": "Welcher Faktor gehört zu jeder Kreisfläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, falsche_groesse_beantwortet, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*15^2-2*3.14159265358979323846264338327950288*10^2,2)",
+     "antwort": "78.54"
+    },
+    {
+     "rechnung": "round(3.14*15^2-2*3.14*10^2,2)",
+     "antwort": "78.50"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*30^2-2*3.14159265358979323846264338327950288*20^2,2)",
+     "antwort": "314.16",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(3.14*30^2-2*3.14*20^2,2)",
+     "antwort": "314.00",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*15^2,2)",
+     "antwort": "706.86",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:pi"
+    },
+    {
+     "rechnung": "round(3.14*15^2,2)",
+     "antwort": "706.50",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:314"
+    },
+    {
+     "rechnung": "round(15^2-2*10^2,2)",
+     "antwort": "25.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(15^2-2*10^2,2)",
+     "antwort": "25.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "d54793cf-fe41-46a5-bc1b-8aa7fd73e44b",
+   "titel": "Rückrichtung · Durchmesser aus 50 cm Umfang",
+   "basis": {
+    "skill_key": "geo_kreis_rueck",
+    "source_ref": "kreis-rueck-01",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Kreis hat den Umfang 50 cm.\n\nWie groß ist sein Durchmesser? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "50": "pi_vergessen",
+     "157": "multipliziert_statt_dividiert",
+     "7,96": "radius_durchmesser_verwechselt",
+     "7.96": "radius_durchmesser_verwechselt",
+     "7,96 cm": "radius_durchmesser_verwechselt",
+     "7,96cm": "radius_durchmesser_verwechselt",
+     "157,08": "multipliziert_statt_dividiert",
+     "157.08": "multipliziert_statt_dividiert",
+     "157,08 cm": "multipliziert_statt_dividiert",
+     "157,08cm": "multipliziert_statt_dividiert",
+     "157,00": "multipliziert_statt_dividiert",
+     "157.00": "multipliziert_statt_dividiert",
+     "157,00 cm": "multipliziert_statt_dividiert",
+     "157,00cm": "multipliziert_statt_dividiert",
+     "157 cm": "multipliziert_statt_dividiert",
+     "157cm": "multipliziert_statt_dividiert",
+     "50,00": "pi_vergessen",
+     "50.00": "pi_vergessen",
+     "50,00 cm": "pi_vergessen",
+     "50,00cm": "pi_vergessen",
+     "50 cm": "pi_vergessen",
+     "50cm": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Umfangsformel nach d umstellen, eine Division."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "15,92",
+      "15.92",
+      "15,92 cm",
+      "15,92cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "U = π · d, also d = U : π.\nd = 50 cm : π ≈ 15,92 cm (π-Taste).\nMit π ≈ 3,14: d = 50 cm : 3,14 ≈ 15,92 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Radius berechnet statt des Durchmessers.",
+       "socratic_question": "Ist nach dem Radius oder nach dem Durchmesser gefragt?"
+      },
+      {
+       "error": "Mit π multipliziert statt durch π geteilt.",
+       "socratic_question": "Ist der Durchmesser größer oder kleiner als der Umfang?"
+      },
+      {
+       "error": "π weggelassen: Durchmesser = Umfang.",
+       "socratic_question": "Kann der Durchmesser so lang sein wie der ganze Rand?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, multipliziert_statt_dividiert, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(50/3.14159265358979323846264338327950288,2)",
+     "antwort": "15.92"
+    },
+    {
+     "rechnung": "round(50/3.14,2)",
+     "antwort": "15.92"
+    },
+    {
+     "rechnung": "round(50/(2*3.14159265358979323846264338327950288),2)",
+     "antwort": "7.96",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(50/(2*3.14),2)",
+     "antwort": "7.96",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(50*3.14159265358979323846264338327950288,2)",
+     "antwort": "157.08",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:pi"
+    },
+    {
+     "rechnung": "round(50*3.14,2)",
+     "antwort": "157.00",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:314"
+    },
+    {
+     "rechnung": "round(50,2)",
+     "antwort": "50.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(50,2)",
+     "antwort": "50.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "23fcb661-3095-4ad3-9cfd-d6048893a0c7",
+   "titel": "Rückrichtung · Radius aus 40 cm Umfang",
+   "basis": {
+    "skill_key": "geo_kreis_rueck",
+    "source_ref": "kreis-rueck-02",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Kreis hat den Umfang 40 cm.\n\nWie groß ist sein Radius? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "20": "pi_vergessen",
+     "12,73": "radius_durchmesser_verwechselt",
+     "12.73": "radius_durchmesser_verwechselt",
+     "12,73 cm": "radius_durchmesser_verwechselt",
+     "12,73cm": "radius_durchmesser_verwechselt",
+     "12,74": "radius_durchmesser_verwechselt",
+     "12.74": "radius_durchmesser_verwechselt",
+     "12,74 cm": "radius_durchmesser_verwechselt",
+     "12,74cm": "radius_durchmesser_verwechselt",
+     "251,33": "multipliziert_statt_dividiert",
+     "251.33": "multipliziert_statt_dividiert",
+     "251,33 cm": "multipliziert_statt_dividiert",
+     "251,33cm": "multipliziert_statt_dividiert",
+     "251,20": "multipliziert_statt_dividiert",
+     "251.20": "multipliziert_statt_dividiert",
+     "251,2": "multipliziert_statt_dividiert",
+     "251.2": "multipliziert_statt_dividiert",
+     "251,20 cm": "multipliziert_statt_dividiert",
+     "251,20cm": "multipliziert_statt_dividiert",
+     "251,2 cm": "multipliziert_statt_dividiert",
+     "251,2cm": "multipliziert_statt_dividiert",
+     "20,00": "pi_vergessen",
+     "20.00": "pi_vergessen",
+     "20,00 cm": "pi_vergessen",
+     "20,00cm": "pi_vergessen",
+     "20 cm": "pi_vergessen",
+     "20cm": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Umfangsformel nach r umstellen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6,37",
+      "6.37",
+      "6,37 cm",
+      "6,37cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "U = 2 · π · r, also r = U : (2 · π).\nr = 40 cm : (2 · π) ≈ 6,37 cm (π-Taste).\nMit π ≈ 3,14: r = 40 cm : 6,28 ≈ 6,37 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser berechnet statt des Radius.",
+       "socratic_question": "Ist nach dem Radius oder nach dem Durchmesser gefragt?"
+      },
+      {
+       "error": "Mit 2 · π multipliziert statt dadurch geteilt.",
+       "socratic_question": "Muss der Radius kleiner oder größer als der Umfang sein?"
+      },
+      {
+       "error": "π weggelassen: 40 : 2 = 20.",
+       "socratic_question": "Durch welche Zahl musst du neben der 2 noch teilen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, multipliziert_statt_dividiert, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(40/(2*3.14159265358979323846264338327950288),2)",
+     "antwort": "6.37"
+    },
+    {
+     "rechnung": "round(40/(2*3.14),2)",
+     "antwort": "6.37"
+    },
+    {
+     "rechnung": "round(40/3.14159265358979323846264338327950288,2)",
+     "antwort": "12.73",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(40/3.14,2)",
+     "antwort": "12.74",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(40*2*3.14159265358979323846264338327950288,2)",
+     "antwort": "251.33",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:pi"
+    },
+    {
+     "rechnung": "round(40*2*3.14,2)",
+     "antwort": "251.20",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:314"
+    },
+    {
+     "rechnung": "round(40/2,2)",
+     "antwort": "20.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(40/2,2)",
+     "antwort": "20.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "b450d36c-e3bf-4cbf-ab4f-3c874a8cbf63",
+   "titel": "Rückrichtung · Durchmesser in cm aus 2 m Umfang",
+   "basis": {
+    "skill_key": "geo_kreis_rueck",
+    "source_ref": "kreis-rueck-03",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Kreis hat den Umfang 2 m.\n\nWie groß ist sein Durchmesser in Zentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "200": "pi_vergessen",
+     "0,64": "einheit_uebersprungen",
+     "0.64": "einheit_uebersprungen",
+     "0,64 cm": "einheit_uebersprungen",
+     "0,64cm": "einheit_uebersprungen",
+     "31,83": "radius_durchmesser_verwechselt",
+     "31.83": "radius_durchmesser_verwechselt",
+     "31,83 cm": "radius_durchmesser_verwechselt",
+     "31,83cm": "radius_durchmesser_verwechselt",
+     "31,85": "radius_durchmesser_verwechselt",
+     "31.85": "radius_durchmesser_verwechselt",
+     "31,85 cm": "radius_durchmesser_verwechselt",
+     "31,85cm": "radius_durchmesser_verwechselt",
+     "200,00": "pi_vergessen",
+     "200.00": "pi_vergessen",
+     "200,00 cm": "pi_vergessen",
+     "200,00cm": "pi_vergessen",
+     "200 cm": "pi_vergessen",
+     "200cm": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Umstellen und dabei von Metern in Zentimeter umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "63,66",
+      "63.66",
+      "63,66 cm",
+      "63,66cm",
+      "63,69",
+      "63.69",
+      "63,69 cm",
+      "63,69cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "U = 2 m = 200 cm.\nd = 200 cm : π ≈ 63,66 cm (π-Taste).\nMit π ≈ 3,14: d = 200 cm : 3,14 ≈ 63,69 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht in Zentimeter umgerechnet: der Durchmesser in Metern.",
+       "socratic_question": "In welcher Einheit ist der Durchmesser gefragt?"
+      },
+      {
+       "error": "Den Radius berechnet statt des Durchmessers.",
+       "socratic_question": "Ist nach dem Radius oder nach dem Durchmesser gefragt?"
+      },
+      {
+       "error": "π weggelassen: Durchmesser = Umfang.",
+       "socratic_question": "Kann der Durchmesser so lang sein wie der ganze Rand?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (einheit_uebersprungen, radius_durchmesser_verwechselt, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(200/3.14159265358979323846264338327950288,2)",
+     "antwort": "63.66"
+    },
+    {
+     "rechnung": "round(200/3.14,2)",
+     "antwort": "63.69"
+    },
+    {
+     "rechnung": "round(2/3.14159265358979323846264338327950288,2)",
+     "antwort": "0.64",
+     "rolle": "fehlbild:einheit_uebersprungen:pi"
+    },
+    {
+     "rechnung": "round(2/3.14,2)",
+     "antwort": "0.64",
+     "rolle": "fehlbild:einheit_uebersprungen:314"
+    },
+    {
+     "rechnung": "round(200/(2*3.14159265358979323846264338327950288),2)",
+     "antwort": "31.83",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(200/(2*3.14),2)",
+     "antwort": "31.85",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(200,2)",
+     "antwort": "200.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(200,2)",
+     "antwort": "200.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "8815c3c7-740c-4037-ae21-1c8a931dfa42",
+   "titel": "Rückrichtung · Radius aus 12,5 m Umfang",
+   "basis": {
+    "skill_key": "geo_kreis_rueck",
+    "source_ref": "kreis-rueck-04",
+    "input_type": "NUMERIC",
+    "unit": "m",
+    "frage": "Ein Kreis hat den Umfang 12,5 m.\n\nWie groß ist sein Radius? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "3,98": "radius_durchmesser_verwechselt",
+     "3.98": "radius_durchmesser_verwechselt",
+     "3,98 m": "radius_durchmesser_verwechselt",
+     "3,98m": "radius_durchmesser_verwechselt",
+     "1,98": "zu_frueh_gerundet",
+     "1.98": "zu_frueh_gerundet",
+     "1,98 m": "zu_frueh_gerundet",
+     "1,98m": "zu_frueh_gerundet",
+     "6,25": "pi_vergessen",
+     "6.25": "pi_vergessen",
+     "6,25 m": "pi_vergessen",
+     "6,25m": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Dezimalumfang, Division durch 2π, Rundung erst am Ende."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1,99",
+      "1.99",
+      "1,99 m",
+      "1,99m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "r = U : (2 · π) = 12,5 m : (2 · π) ≈ 1,99 m (π-Taste).\nMit π ≈ 3,14: r = 12,5 m : 6,28 ≈ 1,99 m.\n(2 · π nicht vorher auf 6,3 runden.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser berechnet statt des Radius.",
+       "socratic_question": "Ist nach dem Radius oder nach dem Durchmesser gefragt?"
+      },
+      {
+       "error": "2 · π auf 6,3 gerundet und damit weitergerechnet.",
+       "socratic_question": "Was passiert mit dem Ergebnis, wenn du 2 · π vor dem Teilen rundest?"
+      },
+      {
+       "error": "π weggelassen: 12,5 : 2 = 6,25.",
+       "socratic_question": "Durch welche Zahl musst du neben der 2 noch teilen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, zu_frueh_gerundet, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(12.5/(2*3.14159265358979323846264338327950288),2)",
+     "antwort": "1.99"
+    },
+    {
+     "rechnung": "round(12.5/(2*3.14),2)",
+     "antwort": "1.99"
+    },
+    {
+     "rechnung": "round(12.5/3.14159265358979323846264338327950288,2)",
+     "antwort": "3.98",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(12.5/3.14,2)",
+     "antwort": "3.98",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(12.5/6.3,2)",
+     "antwort": "1.98",
+     "rolle": "fehlbild:zu_frueh_gerundet:pi"
+    },
+    {
+     "rechnung": "round(12.5/6.3,2)",
+     "antwort": "1.98",
+     "rolle": "fehlbild:zu_frueh_gerundet:314"
+    },
+    {
+     "rechnung": "round(12.5/2,2)",
+     "antwort": "6.25",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(12.5/2,2)",
+     "antwort": "6.25",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "9794ca24-edb8-4285-b09c-ca20ca1d44da",
+   "titel": "Rückrichtung · Baumstamm mit 2,20 m Umfang",
+   "basis": {
+    "skill_key": "geo_kreis_rueck",
+    "source_ref": "kreis-rueck-05",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Um einen runden Baumstamm wird ein Maßband gelegt. Es zeigt 2,20 m.\n\nWie dick ist der Stamm, also wie groß ist sein Durchmesser in Zentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "220": "pi_vergessen",
+     "35,01": "radius_durchmesser_verwechselt",
+     "35.01": "radius_durchmesser_verwechselt",
+     "35,01 cm": "radius_durchmesser_verwechselt",
+     "35,01cm": "radius_durchmesser_verwechselt",
+     "35,03": "radius_durchmesser_verwechselt",
+     "35.03": "radius_durchmesser_verwechselt",
+     "35,03 cm": "radius_durchmesser_verwechselt",
+     "35,03cm": "radius_durchmesser_verwechselt",
+     "0,70": "einheit_uebersprungen",
+     "0.70": "einheit_uebersprungen",
+     "0,7": "einheit_uebersprungen",
+     "0.7": "einheit_uebersprungen",
+     "0,70 cm": "einheit_uebersprungen",
+     "0,70cm": "einheit_uebersprungen",
+     "0,7 cm": "einheit_uebersprungen",
+     "0,7cm": "einheit_uebersprungen",
+     "220,00": "pi_vergessen",
+     "220.00": "pi_vergessen",
+     "220,00 cm": "pi_vergessen",
+     "220,00cm": "pi_vergessen",
+     "220 cm": "pi_vergessen",
+     "220cm": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: gemessener Umfang, Durchmesser in anderer Einheit gesucht."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Kreisformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "70,03",
+      "70.03",
+      "70,03 cm",
+      "70,03cm",
+      "70,06",
+      "70.06",
+      "70,06 cm",
+      "70,06cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Das Maßband misst den Umfang: U = 2,20 m = 220 cm.\nd = 220 cm : π ≈ 70,03 cm (π-Taste).\nMit π ≈ 3,14: d = 220 cm : 3,14 ≈ 70,06 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Radius berechnet statt des Durchmessers.",
+       "socratic_question": "Ist die Dicke des Stamms der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "Nicht in Zentimeter umgerechnet: der Durchmesser in Metern.",
+       "socratic_question": "In welcher Einheit ist die Dicke gefragt?"
+      },
+      {
+       "error": "π weggelassen: Durchmesser = Umfang.",
+       "socratic_question": "Kann der Stamm so dick sein, wie das Maßband lang ist?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, einheit_uebersprungen, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(220/3.14159265358979323846264338327950288,2)",
+     "antwort": "70.03"
+    },
+    {
+     "rechnung": "round(220/3.14,2)",
+     "antwort": "70.06"
+    },
+    {
+     "rechnung": "round(110/3.14159265358979323846264338327950288,2)",
+     "antwort": "35.01",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(110/3.14,2)",
+     "antwort": "35.03",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(2.2/3.14159265358979323846264338327950288,2)",
+     "antwort": "0.70",
+     "rolle": "fehlbild:einheit_uebersprungen:pi"
+    },
+    {
+     "rechnung": "round(2.2/3.14,2)",
+     "antwort": "0.70",
+     "rolle": "fehlbild:einheit_uebersprungen:314"
+    },
+    {
+     "rechnung": "round(220,2)",
+     "antwort": "220.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(220,2)",
+     "antwort": "220.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "cbc04c90-4544-45ca-b0a1-f7d0c2bfd50d",
+   "titel": "Rückrichtung · runder Tisch für 8 Personen",
+   "basis": {
+    "skill_key": "geo_kreis_rueck",
+    "source_ref": "kreis-rueck-06",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "An einem runden Tisch sollen 8 Personen sitzen. Jede Person braucht am Tischrand 60 cm Platz.\n\nWie groß muss der Durchmesser des Tisches mindestens sein? Gib ganze Zentimeter an und runde dafür auf. Rechne mit der π-Taste oder mit π ≈ 3,14.",
+    "known_errors": {
+     "20": "bedingung_unvollstaendig",
+     "77": "radius_durchmesser_verwechselt",
+     "152": "abgeschnitten",
+     "480": "pi_vergessen",
+     "152 cm": "abgeschnitten",
+     "152cm": "abgeschnitten",
+     "77 cm": "radius_durchmesser_verwechselt",
+     "77cm": "radius_durchmesser_verwechselt",
+     "20 cm": "bedingung_unvollstaendig",
+     "20cm": "bedingung_unvollstaendig",
+     "480 cm": "pi_vergessen",
+     "480cm": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: den nötigen Umfang erst aus der Situation bilden, dann umstellen und sinnvoll aufrunden."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "153",
+      "153 cm",
+      "153cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Nötiger Umfang: 8 · 60 cm = 480 cm.\nd = 480 cm : π ≈ 152,79 cm (mit 3,14: ≈ 152,87 cm).\nAufgerundet: mindestens 153 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Abgerundet: Mit 152 cm reicht der Rand nicht ganz.",
+       "socratic_question": "Reicht der Rand, wenn du abrundest?"
+      },
+      {
+       "error": "Den Radius berechnet statt des Durchmessers.",
+       "socratic_question": "Ist nach dem Radius oder nach dem Durchmesser gefragt?"
+      },
+      {
+       "error": "Nur mit dem Platz für eine Person gerechnet.",
+       "socratic_question": "Wie viele Personen sollen am Tisch sitzen?"
+      },
+      {
+       "error": "π weggelassen: Durchmesser = Umfang.",
+       "socratic_question": "Kann der Durchmesser so lang sein wie der ganze Rand?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (abgeschnitten, radius_durchmesser_verwechselt, bedingung_unvollstaendig, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(480/3.14159265358979323846264338327950288,4)",
+     "antwort": "152.7887",
+     "rolle": "richtig:vor-aufrunden=153"
+    },
+    {
+     "rechnung": "round(480/3.14,4)",
+     "antwort": "152.8662",
+     "rolle": "richtig:vor-aufrunden=153"
+    },
+    {
+     "rechnung": "round(480/3.14159265358979323846264338327950288,4)",
+     "antwort": "152.7887",
+     "rolle": "fehlbild:abgeschnitten:pi:vor-abrunden=152"
+    },
+    {
+     "rechnung": "round(480/3.14,4)",
+     "antwort": "152.8662",
+     "rolle": "fehlbild:abgeschnitten:314:vor-abrunden=152"
+    },
+    {
+     "rechnung": "round(480/(2*3.14159265358979323846264338327950288),4)",
+     "antwort": "76.3944",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi:vor-aufrunden=77"
+    },
+    {
+     "rechnung": "round(480/(2*3.14),4)",
+     "antwort": "76.4331",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314:vor-aufrunden=77"
+    },
+    {
+     "rechnung": "round(60/3.14159265358979323846264338327950288,4)",
+     "antwort": "19.0986",
+     "rolle": "fehlbild:bedingung_unvollstaendig:pi:vor-aufrunden=20"
+    },
+    {
+     "rechnung": "round(60/3.14,4)",
+     "antwort": "19.1083",
+     "rolle": "fehlbild:bedingung_unvollstaendig:314:vor-aufrunden=20"
+    },
+    {
+     "rechnung": "round(480,4)",
+     "antwort": "480.0000",
+     "rolle": "fehlbild:pi_vergessen:pi:vor-aufrunden=480"
+    },
+    {
+     "rechnung": "round(480,4)",
+     "antwort": "480.0000",
+     "rolle": "fehlbild:pi_vergessen:314:vor-aufrunden=480"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "d6136873-fa24-4c78-841f-1d9408da6053",
+   "titel": "Kreisbogen · Radius 6 cm, 90°",
+   "basis": {
+    "skill_key": "geo_kreis_sektor",
+    "source_ref": "kreis-sektor-01",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Kreisausschnitt hat den Radius 6 cm und den Mittelpunktswinkel 90°.\n\nWie lang ist der Kreisbogen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "3": "pi_vergessen",
+     "37,70": "kreisanteil_falsch",
+     "37.70": "kreisanteil_falsch",
+     "37,7": "kreisanteil_falsch",
+     "37.7": "kreisanteil_falsch",
+     "37,70 cm": "kreisanteil_falsch",
+     "37,70cm": "kreisanteil_falsch",
+     "37,7 cm": "kreisanteil_falsch",
+     "37,7cm": "kreisanteil_falsch",
+     "37,68": "kreisanteil_falsch",
+     "37.68": "kreisanteil_falsch",
+     "37,68 cm": "kreisanteil_falsch",
+     "37,68cm": "kreisanteil_falsch",
+     "150,80": "kreisanteil_falsch",
+     "150.80": "kreisanteil_falsch",
+     "150,8": "kreisanteil_falsch",
+     "150.8": "kreisanteil_falsch",
+     "150,80 cm": "kreisanteil_falsch",
+     "150,80cm": "kreisanteil_falsch",
+     "150,8 cm": "kreisanteil_falsch",
+     "150,8cm": "kreisanteil_falsch",
+     "150,72": "kreisanteil_falsch",
+     "150.72": "kreisanteil_falsch",
+     "150,72 cm": "kreisanteil_falsch",
+     "150,72cm": "kreisanteil_falsch",
+     "28,27": "flaeche_statt_umfang",
+     "28.27": "flaeche_statt_umfang",
+     "28,27 cm": "flaeche_statt_umfang",
+     "28,27cm": "flaeche_statt_umfang",
+     "28,26": "flaeche_statt_umfang",
+     "28.26": "flaeche_statt_umfang",
+     "28,26 cm": "flaeche_statt_umfang",
+     "28,26cm": "flaeche_statt_umfang",
+     "3,00": "pi_vergessen",
+     "3.00": "pi_vergessen",
+     "3,00 cm": "pi_vergessen",
+     "3,00cm": "pi_vergessen",
+     "3 cm": "pi_vergessen",
+     "3cm": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Viertel des Umfangs, Anteil direkt erkennbar."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9,42",
+      "9.42",
+      "9,42 cm",
+      "9,42cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Anteil: 90° von 360° = 1/4.\nb = 1/4 · 2 · π · 6 cm ≈ 9,42 cm (π-Taste).\nMit π ≈ 3,14: b = 1/4 · 2 · 3,14 · 6 cm ≈ 9,42 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den ganzen Umfang angegeben, der Anteil 90°/360° fehlt.",
+       "socratic_question": "Welcher Teil des ganzen Kreises ist der Ausschnitt?"
+      },
+      {
+       "error": "Den Anteil umgedreht: mal 4 statt mal 1/4.",
+       "socratic_question": "Ist der Bogen länger oder kürzer als der ganze Umfang?"
+      },
+      {
+       "error": "Die Fläche des Ausschnitts berechnet statt des Bogens.",
+       "socratic_question": "Ist eine Länge oder eine Fläche gefragt?"
+      },
+      {
+       "error": "π weggelassen: 1/4 · 2 · 6 = 3.",
+       "socratic_question": "Welcher Faktor fehlt in der Umfangsformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kreisanteil_falsch, flaeche_statt_umfang, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(90/360*2*3.14159265358979323846264338327950288*6,2)",
+     "antwort": "9.42"
+    },
+    {
+     "rechnung": "round(90/360*2*3.14*6,2)",
+     "antwort": "9.42"
+    },
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*6,2)",
+     "antwort": "37.70",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(2*3.14*6,2)",
+     "antwort": "37.68",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(360/90*2*3.14159265358979323846264338327950288*6,2)",
+     "antwort": "150.80",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(360/90*2*3.14*6,2)",
+     "antwort": "150.72",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(90/360*3.14159265358979323846264338327950288*6^2,2)",
+     "antwort": "28.27",
+     "rolle": "fehlbild:flaeche_statt_umfang:pi"
+    },
+    {
+     "rechnung": "round(90/360*3.14*6^2,2)",
+     "antwort": "28.26",
+     "rolle": "fehlbild:flaeche_statt_umfang:314"
+    },
+    {
+     "rechnung": "round(90/360*2*6,2)",
+     "antwort": "3.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(90/360*2*6,2)",
+     "antwort": "3.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "eb59f15c-4906-4497-abf7-340b7430bd8a",
+   "titel": "Kreisausschnitt · Radius 4 cm, 90°",
+   "basis": {
+    "skill_key": "geo_kreis_sektor",
+    "source_ref": "kreis-sektor-02",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "frage": "Ein Kreisausschnitt hat den Radius 4 cm und den Mittelpunktswinkel 90°.\n\nWie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "4": "pi_vergessen",
+     "50,27": "kreisanteil_falsch",
+     "50.27": "kreisanteil_falsch",
+     "50,27 cm²": "kreisanteil_falsch",
+     "50,27cm²": "kreisanteil_falsch",
+     "50,24": "kreisanteil_falsch",
+     "50.24": "kreisanteil_falsch",
+     "50,24 cm²": "kreisanteil_falsch",
+     "50,24cm²": "kreisanteil_falsch",
+     "201,06": "kreisanteil_falsch",
+     "201.06": "kreisanteil_falsch",
+     "201,06 cm²": "kreisanteil_falsch",
+     "201,06cm²": "kreisanteil_falsch",
+     "200,96": "kreisanteil_falsch",
+     "200.96": "kreisanteil_falsch",
+     "200,96 cm²": "kreisanteil_falsch",
+     "200,96cm²": "kreisanteil_falsch",
+     "6,28": "umfang_statt_flaeche",
+     "6.28": "umfang_statt_flaeche",
+     "6,28 cm²": "umfang_statt_flaeche",
+     "6,28cm²": "umfang_statt_flaeche",
+     "4,00": "pi_vergessen",
+     "4.00": "pi_vergessen",
+     "4,00 cm²": "pi_vergessen",
+     "4,00cm²": "pi_vergessen",
+     "4 cm²": "pi_vergessen",
+     "4cm²": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Viertel der Kreisfläche, Anteil direkt erkennbar."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12,57",
+      "12.57",
+      "12,57 cm²",
+      "12,57cm²",
+      "12,56",
+      "12.56",
+      "12,56 cm²",
+      "12,56cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Anteil: 90° von 360° = 1/4.\nA = 1/4 · π · (4 cm)² = 1/4 · π · 16 cm² ≈ 12,57 cm² (π-Taste).\nMit π ≈ 3,14: A = 1/4 · 3,14 · 16 cm² = 12,56 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die ganze Kreisfläche angegeben, der Anteil 90°/360° fehlt.",
+       "socratic_question": "Welcher Teil des ganzen Kreises ist der Ausschnitt?"
+      },
+      {
+       "error": "Den Anteil umgedreht: mal 4 statt mal 1/4.",
+       "socratic_question": "Ist der Ausschnitt größer oder kleiner als der ganze Kreis?"
+      },
+      {
+       "error": "Den Kreisbogen berechnet statt der Fläche.",
+       "socratic_question": "Ist eine Länge oder eine Fläche gefragt?"
+      },
+      {
+       "error": "π weggelassen: 1/4 · 16 = 4.",
+       "socratic_question": "Welcher Faktor fehlt in der Flächenformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kreisanteil_falsch, umfang_statt_flaeche, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(90/360*3.14159265358979323846264338327950288*4^2,2)",
+     "antwort": "12.57"
+    },
+    {
+     "rechnung": "round(90/360*3.14*4^2,2)",
+     "antwort": "12.56"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*4^2,2)",
+     "antwort": "50.27",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(3.14*4^2,2)",
+     "antwort": "50.24",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(360/90*3.14159265358979323846264338327950288*4^2,2)",
+     "antwort": "201.06",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(360/90*3.14*4^2,2)",
+     "antwort": "200.96",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(90/360*2*3.14159265358979323846264338327950288*4,2)",
+     "antwort": "6.28",
+     "rolle": "fehlbild:umfang_statt_flaeche:pi"
+    },
+    {
+     "rechnung": "round(90/360*2*3.14*4,2)",
+     "antwort": "6.28",
+     "rolle": "fehlbild:umfang_statt_flaeche:314"
+    },
+    {
+     "rechnung": "round(90/360*4^2,2)",
+     "antwort": "4.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(90/360*4^2,2)",
+     "antwort": "4.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "910071fc-b31d-41bf-85f7-bb70d2c01f1c",
+   "titel": "Kreisbogen · Radius 9 cm, 120°",
+   "basis": {
+    "skill_key": "geo_kreis_sektor",
+    "source_ref": "kreis-sektor-03",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Kreisausschnitt hat den Radius 9 cm und den Mittelpunktswinkel 120°.\n\nWie lang ist der Kreisbogen? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "6": "pi_vergessen",
+     "18,66": "zu_frueh_gerundet",
+     "18.66": "zu_frueh_gerundet",
+     "18,66 cm": "zu_frueh_gerundet",
+     "18,66cm": "zu_frueh_gerundet",
+     "18,65": "zu_frueh_gerundet",
+     "18.65": "zu_frueh_gerundet",
+     "18,65 cm": "zu_frueh_gerundet",
+     "18,65cm": "zu_frueh_gerundet",
+     "56,55": "kreisanteil_falsch",
+     "56.55": "kreisanteil_falsch",
+     "56,55 cm": "kreisanteil_falsch",
+     "56,55cm": "kreisanteil_falsch",
+     "56,52": "kreisanteil_falsch",
+     "56.52": "kreisanteil_falsch",
+     "56,52 cm": "kreisanteil_falsch",
+     "56,52cm": "kreisanteil_falsch",
+     "84,82": "flaeche_statt_umfang",
+     "84.82": "flaeche_statt_umfang",
+     "84,82 cm": "flaeche_statt_umfang",
+     "84,82cm": "flaeche_statt_umfang",
+     "84,78": "flaeche_statt_umfang",
+     "84.78": "flaeche_statt_umfang",
+     "84,78 cm": "flaeche_statt_umfang",
+     "84,78cm": "flaeche_statt_umfang",
+     "6,00": "pi_vergessen",
+     "6.00": "pi_vergessen",
+     "6,00 cm": "pi_vergessen",
+     "6,00cm": "pi_vergessen",
+     "6 cm": "pi_vergessen",
+     "6cm": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Anteil 120°/360° = 1/3, als Dezimalzahl nicht abbrechend."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "18,85",
+      "18.85",
+      "18,85 cm",
+      "18,85cm",
+      "18,84",
+      "18.84",
+      "18,84 cm",
+      "18,84cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Anteil: 120° von 360° = 1/3 (nicht als 0,33 runden).\nb = 1/3 · 2 · π · 9 cm = 6 · π cm ≈ 18,85 cm (π-Taste).\nMit π ≈ 3,14: b = 6 · 3,14 cm = 18,84 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Anteil 1/3 auf 0,33 gerundet und damit weitergerechnet.",
+       "socratic_question": "Was passiert, wenn du 1/3 als Bruch stehen lässt?"
+      },
+      {
+       "error": "Den ganzen Umfang angegeben, der Anteil 120°/360° fehlt.",
+       "socratic_question": "Welcher Teil des ganzen Kreises ist der Ausschnitt?"
+      },
+      {
+       "error": "Die Fläche des Ausschnitts berechnet statt des Bogens.",
+       "socratic_question": "Ist eine Länge oder eine Fläche gefragt?"
+      },
+      {
+       "error": "π weggelassen: 1/3 · 18 = 6.",
+       "socratic_question": "Welcher Faktor fehlt in der Umfangsformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zu_frueh_gerundet, kreisanteil_falsch, flaeche_statt_umfang, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(120/360*2*3.14159265358979323846264338327950288*9,2)",
+     "antwort": "18.85"
+    },
+    {
+     "rechnung": "round(120/360*2*3.14*9,2)",
+     "antwort": "18.84"
+    },
+    {
+     "rechnung": "round(0.33*2*3.14159265358979323846264338327950288*9,2)",
+     "antwort": "18.66",
+     "rolle": "fehlbild:zu_frueh_gerundet:pi"
+    },
+    {
+     "rechnung": "round(0.33*2*3.14*9,2)",
+     "antwort": "18.65",
+     "rolle": "fehlbild:zu_frueh_gerundet:314"
+    },
+    {
+     "rechnung": "round(2*3.14159265358979323846264338327950288*9,2)",
+     "antwort": "56.55",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(2*3.14*9,2)",
+     "antwort": "56.52",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(120/360*3.14159265358979323846264338327950288*9^2,2)",
+     "antwort": "84.82",
+     "rolle": "fehlbild:flaeche_statt_umfang:pi"
+    },
+    {
+     "rechnung": "round(120/360*3.14*9^2,2)",
+     "antwort": "84.78",
+     "rolle": "fehlbild:flaeche_statt_umfang:314"
+    },
+    {
+     "rechnung": "round(120/360*2*9,2)",
+     "antwort": "6.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(120/360*2*9,2)",
+     "antwort": "6.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "1f4b915d-49dd-441f-a09b-69264ad8ff94",
+   "titel": "Kreisausschnitt · Radius 5 m, 72°",
+   "basis": {
+    "skill_key": "geo_kreis_sektor",
+    "source_ref": "kreis-sektor-04",
+    "input_type": "NUMERIC",
+    "unit": "m²",
+    "frage": "Ein Kreisausschnitt hat den Radius 5 m und den Mittelpunktswinkel 72°.\n\nWie groß ist sein Flächeninhalt? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "5": "pi_vergessen",
+     "78,54": "kreisanteil_falsch",
+     "78.54": "kreisanteil_falsch",
+     "78,54 m²": "kreisanteil_falsch",
+     "78,54m²": "kreisanteil_falsch",
+     "78,50": "kreisanteil_falsch",
+     "78.50": "kreisanteil_falsch",
+     "78,5": "kreisanteil_falsch",
+     "78.5": "kreisanteil_falsch",
+     "78,50 m²": "kreisanteil_falsch",
+     "78,50m²": "kreisanteil_falsch",
+     "78,5 m²": "kreisanteil_falsch",
+     "78,5m²": "kreisanteil_falsch",
+     "392,70": "kreisanteil_falsch",
+     "392.70": "kreisanteil_falsch",
+     "392,7": "kreisanteil_falsch",
+     "392.7": "kreisanteil_falsch",
+     "392,70 m²": "kreisanteil_falsch",
+     "392,70m²": "kreisanteil_falsch",
+     "392,7 m²": "kreisanteil_falsch",
+     "392,7m²": "kreisanteil_falsch",
+     "392,50": "kreisanteil_falsch",
+     "392.50": "kreisanteil_falsch",
+     "392,5": "kreisanteil_falsch",
+     "392.5": "kreisanteil_falsch",
+     "392,50 m²": "kreisanteil_falsch",
+     "392,50m²": "kreisanteil_falsch",
+     "392,5 m²": "kreisanteil_falsch",
+     "392,5m²": "kreisanteil_falsch",
+     "6,28": "umfang_statt_flaeche",
+     "6.28": "umfang_statt_flaeche",
+     "6,28 m²": "umfang_statt_flaeche",
+     "6,28m²": "umfang_statt_flaeche",
+     "5,00": "pi_vergessen",
+     "5.00": "pi_vergessen",
+     "5,00 m²": "pi_vergessen",
+     "5,00m²": "pi_vergessen",
+     "5 m²": "pi_vergessen",
+     "5m²": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Anteil 72°/360° muss erst gekürzt werden (1/5)."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "15,71",
+      "15.71",
+      "15,71 m²",
+      "15,71m²",
+      "15,70",
+      "15.70",
+      "15,7",
+      "15.7",
+      "15,70 m²",
+      "15,70m²",
+      "15,7 m²",
+      "15,7m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Anteil: 72° von 360° = 1/5.\nA = 1/5 · π · (5 m)² = 5 · π m² ≈ 15,71 m² (π-Taste).\nMit π ≈ 3,14: A = 5 · 3,14 m² = 15,70 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die ganze Kreisfläche angegeben, der Anteil 72°/360° fehlt.",
+       "socratic_question": "Welcher Teil des ganzen Kreises ist der Ausschnitt?"
+      },
+      {
+       "error": "Den Anteil umgedreht: mal 5 statt mal 1/5.",
+       "socratic_question": "Ist der Ausschnitt größer oder kleiner als der ganze Kreis?"
+      },
+      {
+       "error": "Den Kreisbogen berechnet statt der Fläche.",
+       "socratic_question": "Ist eine Länge oder eine Fläche gefragt?"
+      },
+      {
+       "error": "π weggelassen: 1/5 · 25 = 5.",
+       "socratic_question": "Welcher Faktor fehlt in der Flächenformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kreisanteil_falsch, umfang_statt_flaeche, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(72/360*3.14159265358979323846264338327950288*5^2,2)",
+     "antwort": "15.71"
+    },
+    {
+     "rechnung": "round(72/360*3.14*5^2,2)",
+     "antwort": "15.70"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*5^2,2)",
+     "antwort": "78.54",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(3.14*5^2,2)",
+     "antwort": "78.50",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(360/72*3.14159265358979323846264338327950288*5^2,2)",
+     "antwort": "392.70",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(360/72*3.14*5^2,2)",
+     "antwort": "392.50",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(72/360*2*3.14159265358979323846264338327950288*5,2)",
+     "antwort": "6.28",
+     "rolle": "fehlbild:umfang_statt_flaeche:pi"
+    },
+    {
+     "rechnung": "round(72/360*2*3.14*5,2)",
+     "antwort": "6.28",
+     "rolle": "fehlbild:umfang_statt_flaeche:314"
+    },
+    {
+     "rechnung": "round(72/360*5^2,2)",
+     "antwort": "5.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(72/360*5^2,2)",
+     "antwort": "5.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "dce69732-829b-4a5b-8ce8-186093c118a6",
+   "titel": "Kreisausschnitt · Tortenstück, 26 cm Durchmesser, 12 Stücke",
+   "basis": {
+    "skill_key": "geo_kreis_sektor",
+    "source_ref": "kreis-sektor-05",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "frage": "Eine runde Torte hat einen Durchmesser von 26 cm. Sie wird in 12 gleich große Stücke geschnitten.\n\nWie groß ist die Oberseite eines Stücks in Quadratzentimetern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "176,98": "radius_durchmesser_verwechselt",
+     "176.98": "radius_durchmesser_verwechselt",
+     "176,98 cm²": "radius_durchmesser_verwechselt",
+     "176,98cm²": "radius_durchmesser_verwechselt",
+     "176,89": "radius_durchmesser_verwechselt",
+     "176.89": "radius_durchmesser_verwechselt",
+     "176,89 cm²": "radius_durchmesser_verwechselt",
+     "176,89cm²": "radius_durchmesser_verwechselt",
+     "530,93": "kreisanteil_falsch",
+     "530.93": "kreisanteil_falsch",
+     "530,93 cm²": "kreisanteil_falsch",
+     "530,93cm²": "kreisanteil_falsch",
+     "530,66": "kreisanteil_falsch",
+     "530.66": "kreisanteil_falsch",
+     "530,66 cm²": "kreisanteil_falsch",
+     "530,66cm²": "kreisanteil_falsch",
+     "42,47": "zu_frueh_gerundet",
+     "42.47": "zu_frueh_gerundet",
+     "42,47 cm²": "zu_frueh_gerundet",
+     "42,47cm²": "zu_frueh_gerundet",
+     "42,45": "zu_frueh_gerundet",
+     "42.45": "zu_frueh_gerundet",
+     "42,45 cm²": "zu_frueh_gerundet",
+     "42,45cm²": "zu_frueh_gerundet",
+     "14,08": "pi_vergessen",
+     "14.08": "pi_vergessen",
+     "14,08 cm²": "pi_vergessen",
+     "14,08cm²": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Anteil aus der Stückzahl, Radius aus dem Durchmesser."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Kreisformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "44,24",
+      "44.24",
+      "44,24 cm²",
+      "44,24cm²",
+      "44,22",
+      "44.22",
+      "44,22 cm²",
+      "44,22cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "r = 26 cm : 2 = 13 cm. Ein Stück ist 1/12 der Torte (30° von 360°).\nA = 1/12 · π · (13 cm)² = 1/12 · π · 169 cm² ≈ 44,24 cm² (π-Taste).\nMit π ≈ 3,14: A = 1/12 · 3,14 · 169 cm² ≈ 44,22 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Durchmesser als Radius eingesetzt: π · 26².",
+       "socratic_question": "Sind 26 cm der Radius oder der Durchmesser der Torte?"
+      },
+      {
+       "error": "Die ganze Torte berechnet, der Anteil 1/12 fehlt.",
+       "socratic_question": "Wie viel von der Torte ist ein Stück?"
+      },
+      {
+       "error": "Den Anteil 1/12 auf 0,08 gerundet und damit weitergerechnet.",
+       "socratic_question": "Was passiert, wenn du 1/12 als Bruch stehen lässt?"
+      },
+      {
+       "error": "π weggelassen: 169 : 12.",
+       "socratic_question": "Welcher Faktor fehlt in der Flächenformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (radius_durchmesser_verwechselt, kreisanteil_falsch, zu_frueh_gerundet, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(1/12*3.14159265358979323846264338327950288*13^2,2)",
+     "antwort": "44.24"
+    },
+    {
+     "rechnung": "round(1/12*3.14*13^2,2)",
+     "antwort": "44.22"
+    },
+    {
+     "rechnung": "round(1/12*3.14159265358979323846264338327950288*26^2,2)",
+     "antwort": "176.98",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(1/12*3.14*26^2,2)",
+     "antwort": "176.89",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(3.14159265358979323846264338327950288*13^2,2)",
+     "antwort": "530.93",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(3.14*13^2,2)",
+     "antwort": "530.66",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(0.08*3.14159265358979323846264338327950288*13^2,2)",
+     "antwort": "42.47",
+     "rolle": "fehlbild:zu_frueh_gerundet:pi"
+    },
+    {
+     "rechnung": "round(0.08*3.14*13^2,2)",
+     "antwort": "42.45",
+     "rolle": "fehlbild:zu_frueh_gerundet:314"
+    },
+    {
+     "rechnung": "round(1/12*13^2,2)",
+     "antwort": "14.08",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(1/12*13^2,2)",
+     "antwort": "14.08",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "a7b29e3e-5330-41fe-ae91-a44403e93157",
+   "titel": "Kreisausschnitt · Winkel aus 12,56 cm Bogen bei Radius 10 cm",
+   "basis": {
+    "skill_key": "geo_kreis_sektor",
+    "source_ref": "kreis-sektor-06",
+    "input_type": "NUMERIC",
+    "unit": "°",
+    "frage": "Ein Kreisbogen gehört zu einem Kreis mit dem Radius 10 cm. Der Bogen ist 12,56 cm lang.\n\nWie groß ist der Mittelpunktswinkel? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf ganze Grad.",
+    "known_errors": {
+     "144": "radius_durchmesser_verwechselt",
+     "226": "pi_vergessen",
+     "0,20": "falsche_groesse_beantwortet",
+     "0.20": "falsche_groesse_beantwortet",
+     "0,2": "falsche_groesse_beantwortet",
+     "0.2": "falsche_groesse_beantwortet",
+     "0,20 °": "falsche_groesse_beantwortet",
+     "0,20°": "falsche_groesse_beantwortet",
+     "0,2 °": "falsche_groesse_beantwortet",
+     "0,2°": "falsche_groesse_beantwortet",
+     "144 °": "radius_durchmesser_verwechselt",
+     "144°": "radius_durchmesser_verwechselt",
+     "226 °": "pi_vergessen",
+     "226°": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung im Sektor – Anteil aus Bogen und Umfang bilden, dann in Grad umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 9,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 9: KLP G9 NRW, Zweite Stufe, Geo-3/Geo-4."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_umfang und geo_flaeche_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-3)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "72",
+      "72 °",
+      "72°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; Schreibweisen mit Komma/Punkt, Endnull und Einheit."
+    },
+    "solution": {
+     "wert": "Umfang: U = 2 · π · 10 cm ≈ 62,83 cm (mit 3,14: 62,8 cm).\nAnteil: 12,56 : 62,83 ≈ 0,2 (mit 3,14: genau 0,2).\nα = 0,2 · 360° ≈ 72°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Anteil angegeben statt des Winkels.",
+       "socratic_question": "Ist nach dem Anteil oder nach dem Winkel in Grad gefragt?"
+      },
+      {
+       "error": "Den Radius als Durchmesser eingesetzt: Umfang nur π · 10.",
+       "socratic_question": "Ist 10 cm der Radius oder der Durchmesser?"
+      },
+      {
+       "error": "π weggelassen: Umfang als 2 · 10 gerechnet.",
+       "socratic_question": "Welcher Faktor fehlt in der Umfangsformel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, radius_durchmesser_verwechselt, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-3: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(12.56/(2*3.14159265358979323846264338327950288*10)*360,0)",
+     "antwort": "72"
+    },
+    {
+     "rechnung": "round(12.56/(2*3.14*10)*360,0)",
+     "antwort": "72"
+    },
+    {
+     "rechnung": "round(12.56/(2*3.14159265358979323846264338327950288*10),2)",
+     "antwort": "0.20",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:pi"
+    },
+    {
+     "rechnung": "round(12.56/(2*3.14*10),2)",
+     "antwort": "0.20",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:314"
+    },
+    {
+     "rechnung": "round(12.56/(3.14159265358979323846264338327950288*10)*360,0)",
+     "antwort": "144",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:pi"
+    },
+    {
+     "rechnung": "round(12.56/(3.14*10)*360,0)",
+     "antwort": "144",
+     "rolle": "fehlbild:radius_durchmesser_verwechselt:314"
+    },
+    {
+     "rechnung": "round(12.56/20*360,0)",
+     "antwort": "226",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(12.56/20*360,0)",
+     "antwort": "226",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  }
+ ]
+}
