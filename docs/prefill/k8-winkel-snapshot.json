@@ -1,0 +1,674 @@
+[
+ {
+  "task": {
+   "id": "a2f85a2b-0c8c-4eae-a78c-5a97f39d2fbd",
+   "title": "Nebenwinkel · Winkel aus der Abbildung",
+   "question": "Die Abbildung zeigt den Winkel α. Verlängert man einen seiner Schenkel über den Scheitel hinaus, entsteht ein Nebenwinkel von α.\n\nWie groß ist dieser Nebenwinkel?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_neben_scheitel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Winkel α. Verlängert man einen seiner Schenkel über den Scheitel hinaus, entsteht ein Nebenwinkel von α.\n\nWie groß ist dieser Nebenwinkel?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-neben-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f0c5bda4-158b-4117-9239-7261065e16bb",
+   "title": "Scheitelwinkel · Winkel aus der Abbildung",
+   "question": "Die Abbildung zeigt den Winkel α. Verlängert man beide Schenkel über den Scheitel hinaus, entsteht gegenüber von α sein Scheitelwinkel.\n\nWie groß ist der Scheitelwinkel von α?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_neben_scheitel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Abbildung zeigt den Winkel α. Verlängert man beide Schenkel über den Scheitel hinaus, entsteht gegenüber von α sein Scheitelwinkel.\n\nWie groß ist der Scheitelwinkel von α?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-neben-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c0b1c3c5-0c12-4815-bce5-377fca8504c4",
+   "title": "Nebenwinkel · Schnitt zweier Geraden",
+   "question": "Zwei Geraden schneiden sich im Punkt S. Rund um S liegen der Reihe nach die vier Winkel α, β, γ und δ: α liegt γ gegenüber, β liegt δ gegenüber. Der Winkel α ist 72° groß.\n\nWie groß ist β?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_neben_scheitel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Geraden schneiden sich im Punkt S. Rund um S liegen der Reihe nach die vier Winkel α, β, γ und δ: α liegt γ gegenüber, β liegt δ gegenüber. Der Winkel α ist 72° groß.\n\nWie groß ist β?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-neben-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e04364d3-e946-4be1-8aca-0b3b1c52353d",
+   "title": "Neben- und Scheitelwinkel · Summe zweier Gegenwinkel",
+   "question": "Zwei Geraden schneiden sich im Punkt S. Rund um S liegen der Reihe nach die vier Winkel α, β, γ und δ: α liegt γ gegenüber, β liegt δ gegenüber. Die Winkel α und γ sind zusammen 140° groß.\n\nWie groß ist β?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_neben_scheitel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei Geraden schneiden sich im Punkt S. Rund um S liegen der Reihe nach die vier Winkel α, β, γ und δ: α liegt γ gegenüber, β liegt δ gegenüber. Die Winkel α und γ sind zusammen 140° groß.\n\nWie groß ist β?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-neben-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9e26a451-8496-4a05-9f4d-752d05fcddf9",
+   "title": "Nebenwinkel · Leiter auf dem Boden",
+   "question": "Eine gerade Leiter lehnt an einer Wand und steht auf einem waagerechten Boden. Auf der Seite zur Wand hin bilden Leiter und Boden einen Winkel von 68°.\n\nWie groß ist der Winkel zwischen Leiter und Boden auf der anderen Seite der Leiter, von der Wand weg?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_neben_scheitel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine gerade Leiter lehnt an einer Wand und steht auf einem waagerechten Boden. Auf der Seite zur Wand hin bilden Leiter und Boden einen Winkel von 68°.\n\nWie groß ist der Winkel zwischen Leiter und Boden auf der anderen Seite der Leiter, von der Wand weg?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-neben-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7849cb37-1c84-425f-956a-44213a721a9f",
+   "title": "Nebenwinkel · Kreuzung, ein Winkel viermal so groß",
+   "question": "Zwei gerade Straßen kreuzen sich. An der Kreuzung entstehen vier Winkel. Einer davon ist viermal so groß wie ein Winkel, der direkt neben ihm liegt.\n\nWie groß ist der kleinere dieser beiden Winkel?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_neben_scheitel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei gerade Straßen kreuzen sich. An der Kreuzung entstehen vier Winkel. Einer davon ist viermal so groß wie ein Winkel, der direkt neben ihm liegt.\n\nWie groß ist der kleinere dieser beiden Winkel?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-neben-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e1fa2b31-a4fb-44ca-848b-188d7d7ca0dd",
+   "title": "Stufenwinkel · benannt",
+   "question": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A oberhalb von g und rechts von s, er ist 65° groß. Der Winkel β liegt bei B oberhalb von h und rechts von s. α und β sind Stufenwinkel.\n\nWie groß ist β?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_parallelen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A oberhalb von g und rechts von s, er ist 65° groß. Der Winkel β liegt bei B oberhalb von h und rechts von s. α und β sind Stufenwinkel.\n\nWie groß ist β?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-parallel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "facf174b-aad5-41c4-9f42-916eaafd9e20",
+   "title": "Wechselwinkel · benannt",
+   "question": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A unterhalb von g und rechts von s, er ist 48° groß. Der Winkel β liegt bei B oberhalb von h und links von s. α und β sind Wechselwinkel.\n\nWie groß ist β?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_parallelen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A unterhalb von g und rechts von s, er ist 48° groß. Der Winkel β liegt bei B oberhalb von h und links von s. α und β sind Wechselwinkel.\n\nWie groß ist β?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-parallel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f9f4e093-605a-4c0a-87da-172d58b74ae0",
+   "title": "Stufen- und Nebenwinkel · Lage gegeben",
+   "question": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A oberhalb von g und rechts von s, er ist 70° groß. Der Winkel β liegt bei B oberhalb von h und links von s.\n\nWie groß ist β?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_parallelen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A oberhalb von g und rechts von s, er ist 70° groß. Der Winkel β liegt bei B oberhalb von h und links von s.\n\nWie groß ist β?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-parallel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "83a2860a-f361-447a-a164-c3d71a545095",
+   "title": "Wechsel-, Stufen- und Nebenwinkel · Lage gegeben",
+   "question": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A unterhalb von g und rechts von s, er ist 105° groß. Der Winkel β liegt bei B unterhalb von h und links von s.\n\nWie groß ist β?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_parallelen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Geraden g und h sind parallel, g liegt oberhalb von h. Eine dritte Gerade s schneidet g im Punkt A und h im Punkt B. Der Winkel α liegt bei A unterhalb von g und rechts von s, er ist 105° groß. Der Winkel β liegt bei B unterhalb von h und links von s.\n\nWie groß ist β?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-parallel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c648786e-49ab-4451-bd09-85f9c82c4d1d",
+   "title": "Nachbarwinkel · Weg über zwei Bahnschienen",
+   "question": "Zwei gerade Bahnschienen verlaufen parallel. Ein gerader Weg überquert beide Schienen schräg. Zwischen den Schienen bildet der Weg mit der ersten Schiene auf der rechten Seite des Weges einen Winkel von 58°.\n\nWie groß ist der Winkel, den der Weg zwischen den Schienen mit der zweiten Schiene auf der rechten Seite des Weges bildet?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_parallelen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Zwei gerade Bahnschienen verlaufen parallel. Ein gerader Weg überquert beide Schienen schräg. Zwischen den Schienen bildet der Weg mit der ersten Schiene auf der rechten Seite des Weges einen Winkel von 58°.\n\nWie groß ist der Winkel, den der Weg zwischen den Schienen mit der zweiten Schiene auf der rechten Seite des Weges bildet?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-parallel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "dce9301f-2897-4941-b2e7-87d6d6995ccb",
+   "title": "Wechselwinkel · schräge Querlatte am Zaun",
+   "question": "Bei einem Gartenzaun stehen die senkrechten Latten parallel zueinander. Eine gerade Querlatte ist schräg über alle Latten genagelt. An der ersten Latte schließen Latte und Querlatte oberhalb der Querlatte und rechts der Latte einen Winkel von 112° ein.\n\nWie groß ist an der zweiten Latte, die rechts neben der ersten steht, der Winkel unterhalb der Querlatte und links der Latte?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_parallelen",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Bei einem Gartenzaun stehen die senkrechten Latten parallel zueinander. Eine gerade Querlatte ist schräg über alle Latten genagelt. An der ersten Latte schließen Latte und Querlatte oberhalb der Querlatte und rechts der Latte einen Winkel von 112° ein.\n\nWie groß ist an der zweiten Latte, die rechts neben der ersten steht, der Winkel unterhalb der Querlatte und links der Latte?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-parallel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e26cdb23-39dd-4547-b72f-0d73ef7a247c",
+   "title": "Basiswinkel · aus dem Winkel an der Spitze",
+   "question": "Das Dreieck ABC ist gleichschenklig mit den gleich langen Seiten AC und BC. Der Winkel γ bei C ist 40° groß.\n\nWie groß ist der Winkel α bei A?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_dreieck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Das Dreieck ABC ist gleichschenklig mit den gleich langen Seiten AC und BC. Der Winkel γ bei C ist 40° groß.\n\nWie groß ist der Winkel α bei A?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-dreieck-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b86dc520-f0cc-4ef1-b931-56c66ca4729f",
+   "title": "Außenwinkel · aus zwei Innenwinkeln",
+   "question": "Im Dreieck ABC ist α = 50° und β = 60°. Der Außenwinkel bei C liegt zwischen der Seite BC und der Verlängerung der Seite AC über C hinaus; er ist der Nebenwinkel von γ.\n\nWie groß ist der Außenwinkel bei C?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_dreieck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist α = 50° und β = 60°. Der Außenwinkel bei C liegt zwischen der Seite BC und der Verlängerung der Seite AC über C hinaus; er ist der Nebenwinkel von γ.\n\nWie groß ist der Außenwinkel bei C?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-dreieck-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "90281ee4-13f9-4108-939c-5220439e4c71",
+   "title": "Dreieck und Parallele · Winkel bei B",
+   "question": "Im Dreieck ABC liegt A links und B rechts. Die Gerade g geht durch C und ist parallel zur Seite AB. Auf g liegt links von C der Punkt P und rechts von C der Punkt Q. Der Winkel ∠PCA ist 52° groß, der Winkel γ = ∠ACB ist 67° groß.\n\nWie groß ist der Winkel β bei B?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_dreieck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC liegt A links und B rechts. Die Gerade g geht durch C und ist parallel zur Seite AB. Auf g liegt links von C der Punkt P und rechts von C der Punkt Q. Der Winkel ∠PCA ist 52° groß, der Winkel γ = ∠ACB ist 67° groß.\n\nWie groß ist der Winkel β bei B?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-dreieck-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "875bb8b8-fd63-4cc6-989d-c0c41029dd5d",
+   "title": "Außenwinkel · gleichschenkliges Dreieck",
+   "question": "Das Dreieck ABC ist gleichschenklig mit den gleich langen Seiten AC und BC. Der Winkel γ bei C ist 50° groß. Der Außenwinkel bei A liegt zwischen der Seite AC und der Verlängerung der Seite BA über A hinaus.\n\nWie groß ist der Außenwinkel bei A?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_dreieck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Das Dreieck ABC ist gleichschenklig mit den gleich langen Seiten AC und BC. Der Winkel γ bei C ist 50° groß. Der Außenwinkel bei A liegt zwischen der Seite AC und der Verlängerung der Seite BA über A hinaus.\n\nWie groß ist der Außenwinkel bei A?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-dreieck-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1a1092b8-1ddd-4b8a-9560-7647b94f4307",
+   "title": "Basiswinkel · Neigung eines Satteldachs",
+   "question": "Der Querschnitt eines Satteldachs ist ein gleichschenkliges Dreieck: Die beiden Dachflächen sind gleich lang, die Grundseite ist der waagerechte Dachboden. Oben am First schließen die beiden Dachflächen einen Winkel von 110° ein.\n\nWie groß ist der Winkel zwischen einer Dachfläche und dem Dachboden?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_dreieck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Querschnitt eines Satteldachs ist ein gleichschenkliges Dreieck: Die beiden Dachflächen sind gleich lang, die Grundseite ist der waagerechte Dachboden. Oben am First schließen die beiden Dachflächen einen Winkel von 110° ein.\n\nWie groß ist der Winkel zwischen einer Dachfläche und dem Dachboden?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-dreieck-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fee2cf1f-4ecc-4f68-ab73-03fdcee03528",
+   "title": "Außenwinkel · Rückrichtung, Innenwinkel gesucht",
+   "question": "Im Dreieck ABC ist α = 48°. Der Außenwinkel bei C (der Nebenwinkel von γ) ist 125° groß.\n\nWie groß ist der Winkel β bei B?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_dreieck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist α = 48°. Der Außenwinkel bei C (der Nebenwinkel von γ) ist 125° groß.\n\nWie groß ist der Winkel β bei B?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-dreieck-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9f171c32-9786-4617-b2e4-161c88071ea5",
+   "title": "Thales · Winkel β aus α",
+   "question": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 35° groß.\n\nWie groß ist β?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_thales",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 35° groß.\n\nWie groß ist β?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-thales-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "22e90366-5528-4685-993e-42e88f3623f6",
+   "title": "Thales · Winkel bei C",
+   "question": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 28° groß.\n\nWie groß ist γ?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_thales",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 28° groß.\n\nWie groß ist γ?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-thales-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9e7c1e4b-d317-44cf-8865-071c653ef2cf",
+   "title": "Thales · Winkel am Mittelpunkt-Dreieck AMC",
+   "question": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 40° groß.\n\nWie groß ist der Winkel ∠ACM zwischen den Strecken CA und CM?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_thales",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel α ist 40° groß.\n\nWie groß ist der Winkel ∠ACM zwischen den Strecken CA und CM?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-thales-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9ca300e1-76b9-4bb9-96cf-44cfda31824b",
+   "title": "Thales · α aus dem Winkel bei M",
+   "question": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel ∠BMC zwischen den Strecken MB und MC ist 64° groß.\n\nWie groß ist α?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_thales",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel ∠BMC zwischen den Strecken MB und MC ist 64° groß.\n\nWie groß ist α?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-thales-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "11aebc7c-d30e-4577-89d5-52efed7d379f",
+   "title": "Thales · Streben im Halbkreisfenster",
+   "question": "Ein Fenster hat oben einen Halbkreisbogen. Die waagerechte Unterkante AB des Bogens ist ein Durchmesser des Halbkreises. Eine gerade Strebe verläuft von A zu einem Punkt C auf dem Bogen, eine zweite von C zu B. Die Strebe AC bildet mit der Unterkante einen Winkel von 32°.\n\nWie groß ist der Winkel zwischen der Strebe CB und der Unterkante?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_thales",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Fenster hat oben einen Halbkreisbogen. Die waagerechte Unterkante AB des Bogens ist ein Durchmesser des Halbkreises. Eine gerade Strebe verläuft von A zu einem Punkt C auf dem Bogen, eine zweite von C zu B. Die Strebe AC bildet mit der Unterkante einen Winkel von 32°.\n\nWie groß ist der Winkel zwischen der Strebe CB und der Unterkante?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-thales-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3e087e16-bd3e-4489-b3d9-6c6759c4ce74",
+   "title": "Thales · Rückrichtung über die Winkel bei M",
+   "question": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel ∠AMC ist um 40° größer als der Winkel ∠BMC.\n\nWie groß ist α?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_winkel_thales",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Strecke AB ist ein Durchmesser eines Kreises mit dem Mittelpunkt M. Der Punkt C liegt auf dem Kreis (C ≠ A, B); so entsteht das Dreieck ABC mit den Winkeln α bei A, β bei B und γ bei C. Der Winkel ∠AMC ist um 40° größer als der Winkel ∠BMC.\n\nWie groß ist α?"
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k8_winkel",
+   "source_ref": "winkel-thales-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

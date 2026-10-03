@@ -1,0 +1,3863 @@
+{
+ "batch": "k8-flaeche",
+ "kopf": [
+  "K8 Flaechen, Migration 2 von 2 — 30 Aufgaben, je sechs zu den fuenf geo_flaeche_*-Knoten (Geo-8).",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k8-flaeche.json (Quelle: tools/k8-flaeche-aufgaben.mjs,",
+  "tools/k8-flaeche-aufgaben-2.mjs und tools/k8-flaeche-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003104945_substrat_k8_flaeche.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendungen mit steigender Schwierigkeit und zwei mit Sachkontext oder Rückrichtung (Dachfläche, Grundstück, Papierdrachen, Fliesen, Garten, Giebelwand, Terrasse, Beet, Segel). Keine Abbildungen: jede Figur ist mit allen Maßen und ihrer Lage im Text beschrieben. Flächenterme als MC (falsche Optionen → Fehlbild) oder NUMERIC (Term aufstellen und auswerten), nie TERM. Keine Hinweise, keine Personen.",
+ "source": "edvance_k8_flaeche",
+ "class_level": 8,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "ohne_sondierrang": [],
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, AFB II 60 s, AFB III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "4bfe5d6e-3f3b-4a91-964c-6eb3f4157273",
+   "titel": "Trapez · a = 8 cm, c = 4 cm, h = 5 cm",
+   "basis": {
+    "skill_key": "geo_flaeche_trapez",
+    "source_ref": "flaeche-trapez-01",
+    "frage": "Ein Trapez hat die parallelen Seiten a = 8 cm und c = 4 cm und die Höhe h = 5 cm.\n\nWie groß ist sein Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "20": "nur_eine_grundseite",
+     "40": "nur_eine_grundseite",
+     "60": "halbieren_vergessen",
+     "+40": "nur_eine_grundseite",
+     "40 cm²": "nur_eine_grundseite",
+     "40cm²": "nur_eine_grundseite",
+     "+40 cm²": "nur_eine_grundseite",
+     "+40cm²": "nur_eine_grundseite",
+     "+20": "nur_eine_grundseite",
+     "20 cm²": "nur_eine_grundseite",
+     "20cm²": "nur_eine_grundseite",
+     "+20 cm²": "nur_eine_grundseite",
+     "+20cm²": "nur_eine_grundseite",
+     "+60": "halbieren_vergessen",
+     "60 cm²": "halbieren_vergessen",
+     "60cm²": "halbieren_vergessen",
+     "+60 cm²": "halbieren_vergessen",
+     "+60cm²": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Trapezformel mit ganzen Zahlen, Mittelwert der Grundseiten ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "30",
+      "+30",
+      "30 cm²",
+      "30cm²",
+      "+30 cm²",
+      "+30cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = (a + c) : 2 · h = (8 cm + 4 cm) : 2 · 5 cm = 6 cm · 5 cm = 30 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit der Seite a gerechnet: 8 · 5 = 40.",
+       "socratic_question": "Welche beiden Seiten des Trapezes sind parallel – und kommen beide in deiner Rechnung vor?"
+      },
+      {
+       "error": "Nur mit der Seite c gerechnet: 4 · 5 = 20.",
+       "socratic_question": "Welche beiden Seiten des Trapezes sind parallel – und kommen beide in deiner Rechnung vor?"
+      },
+      {
+       "error": "Die Summe der parallelen Seiten nicht halbiert: 12 · 5 = 60.",
+       "socratic_question": "Wie viel ist der Mittelwert von 8 cm und 4 cm?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_eine_grundseite, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(8+4)/2*5",
+     "antwort": "30"
+    },
+    {
+     "rechnung": "8*5",
+     "antwort": "40",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "4*5",
+     "antwort": "20",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "(8+4)*5",
+     "antwort": "60",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "f1ecd67e-e9b9-4aed-9604-cf9dbf8826f5",
+   "titel": "Trapez · a = 10 cm, c = 6 cm, h = 7 cm",
+   "basis": {
+    "skill_key": "geo_flaeche_trapez",
+    "source_ref": "flaeche-trapez-02",
+    "frage": "Ein Trapez hat die parallelen Seiten a = 10 cm und c = 6 cm und die Höhe h = 7 cm.\n\nWie groß ist sein Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "31": "klammer_vergessen",
+     "42": "nur_eine_grundseite",
+     "70": "nur_eine_grundseite",
+     "112": "halbieren_vergessen",
+     "+70": "nur_eine_grundseite",
+     "70 cm²": "nur_eine_grundseite",
+     "70cm²": "nur_eine_grundseite",
+     "+70 cm²": "nur_eine_grundseite",
+     "+70cm²": "nur_eine_grundseite",
+     "+42": "nur_eine_grundseite",
+     "42 cm²": "nur_eine_grundseite",
+     "42cm²": "nur_eine_grundseite",
+     "+42 cm²": "nur_eine_grundseite",
+     "+42cm²": "nur_eine_grundseite",
+     "+112": "halbieren_vergessen",
+     "112 cm²": "halbieren_vergessen",
+     "112cm²": "halbieren_vergessen",
+     "+112 cm²": "halbieren_vergessen",
+     "+112cm²": "halbieren_vergessen",
+     "+31": "klammer_vergessen",
+     "31 cm²": "klammer_vergessen",
+     "31cm²": "klammer_vergessen",
+     "+31 cm²": "klammer_vergessen",
+     "+31cm²": "klammer_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Trapezformel mit ganzen Zahlen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "56",
+      "+56",
+      "56 cm²",
+      "56cm²",
+      "+56 cm²",
+      "+56cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = (a + c) : 2 · h = (10 cm + 6 cm) : 2 · 7 cm = 8 cm · 7 cm = 56 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit der Seite a gerechnet: 10 · 7 = 70.",
+       "socratic_question": "Ist ein Trapez ein Parallelogramm, bei dem eine Seite reicht?"
+      },
+      {
+       "error": "Nur mit der Seite c gerechnet: 6 · 7 = 42.",
+       "socratic_question": "Ist ein Trapez ein Parallelogramm, bei dem eine Seite reicht?"
+      },
+      {
+       "error": "Die Summe der parallelen Seiten nicht halbiert: 16 · 7 = 112.",
+       "socratic_question": "Wäre ein Rechteck mit 10 cm Länge und 7 cm Breite größer oder kleiner als dein Ergebnis?"
+      },
+      {
+       "error": "Ohne Klammer gerechnet: 10 + 6 : 2 · 7 = 10 + 21 = 31.",
+       "socratic_question": "Welche Rechnung muss zuerst passieren, damit beide Seiten halbiert werden?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_eine_grundseite, halbieren_vergessen, klammer_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(10+6)/2*7",
+     "antwort": "56"
+    },
+    {
+     "rechnung": "10*7",
+     "antwort": "70",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "6*7",
+     "antwort": "42",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "(10+6)*7",
+     "antwort": "112",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "10+6/2*7",
+     "antwort": "31",
+     "rolle": "fehlbild:klammer_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "5c219db6-804b-4819-b671-9cb512ab1b0b",
+   "titel": "Trapez · gleichschenklig, Schenkel als Ablenker",
+   "basis": {
+    "skill_key": "geo_flaeche_trapez",
+    "source_ref": "flaeche-trapez-03",
+    "frage": "Ein gleichschenkliges Trapez hat die parallelen Seiten a = 11 cm und c = 5 cm. Die beiden Schenkel sind je 5 cm lang, die Höhe beträgt h = 4 cm.\n\nWie groß ist sein Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "20": "nur_eine_grundseite",
+     "40": "falsche_hoehe",
+     "44": "nur_eine_grundseite",
+     "64": "halbieren_vergessen",
+     "+40": "falsche_hoehe",
+     "40 cm²": "falsche_hoehe",
+     "40cm²": "falsche_hoehe",
+     "+40 cm²": "falsche_hoehe",
+     "+40cm²": "falsche_hoehe",
+     "+44": "nur_eine_grundseite",
+     "44 cm²": "nur_eine_grundseite",
+     "44cm²": "nur_eine_grundseite",
+     "+44 cm²": "nur_eine_grundseite",
+     "+44cm²": "nur_eine_grundseite",
+     "+20": "nur_eine_grundseite",
+     "20 cm²": "nur_eine_grundseite",
+     "20cm²": "nur_eine_grundseite",
+     "+20 cm²": "nur_eine_grundseite",
+     "+20cm²": "nur_eine_grundseite",
+     "+64": "halbieren_vergessen",
+     "64 cm²": "halbieren_vergessen",
+     "64cm²": "halbieren_vergessen",
+     "+64 cm²": "halbieren_vergessen",
+     "+64cm²": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Die Schenkellänge ist angegeben, aber nicht die Höhe; die richtige Länge muss ausgewählt werden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "32",
+      "+32",
+      "32 cm²",
+      "32cm²",
+      "+32 cm²",
+      "+32cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Die Schenkel stehen schräg, gebraucht wird die Höhe h = 4 cm.\nA = (11 cm + 5 cm) : 2 · 4 cm = 8 cm · 4 cm = 32 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Schenkellänge statt der Höhe eingesetzt: 8 · 5 = 40.",
+       "socratic_question": "Steht ein Schenkel senkrecht auf den parallelen Seiten?"
+      },
+      {
+       "error": "Nur mit der Seite a gerechnet: 11 · 4 = 44.",
+       "socratic_question": "Welche beiden Seiten sind parallel – und kommen beide in deiner Rechnung vor?"
+      },
+      {
+       "error": "Nur mit der Seite c gerechnet: 5 · 4 = 20.",
+       "socratic_question": "Welche beiden Seiten sind parallel – und kommen beide in deiner Rechnung vor?"
+      },
+      {
+       "error": "Die Summe der parallelen Seiten nicht halbiert: 16 · 4 = 64.",
+       "socratic_question": "Wie viel ist der Mittelwert von 11 cm und 5 cm?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_hoehe, nur_eine_grundseite, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(11+5)/2*4",
+     "antwort": "32"
+    },
+    {
+     "rechnung": "(11+5)/2*5",
+     "antwort": "40",
+     "rolle": "fehlbild:falsche_hoehe"
+    },
+    {
+     "rechnung": "11*4",
+     "antwort": "44",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "5*4",
+     "antwort": "20",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "(11+5)*4",
+     "antwort": "64",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "ffcbb7db-a7ab-4718-8e19-351a74a056c0",
+   "titel": "Trapez · Dezimalmaße",
+   "basis": {
+    "skill_key": "geo_flaeche_trapez",
+    "source_ref": "flaeche-trapez-04",
+    "frage": "Ein Trapez hat die parallelen Seiten a = 6,5 cm und c = 3,5 cm und die Höhe h = 4,2 cm.\n\nWie groß ist sein Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "42": "halbieren_vergessen",
+     "27,3": "nur_eine_grundseite",
+     "+27,3": "nur_eine_grundseite",
+     "27.3": "nur_eine_grundseite",
+     "+27.3": "nur_eine_grundseite",
+     "27,3 cm²": "nur_eine_grundseite",
+     "27,3cm²": "nur_eine_grundseite",
+     "+27,3 cm²": "nur_eine_grundseite",
+     "+27,3cm²": "nur_eine_grundseite",
+     "27.3 cm²": "nur_eine_grundseite",
+     "27.3cm²": "nur_eine_grundseite",
+     "+27.3 cm²": "nur_eine_grundseite",
+     "+27.3cm²": "nur_eine_grundseite",
+     "14,7": "nur_eine_grundseite",
+     "+14,7": "nur_eine_grundseite",
+     "14.7": "nur_eine_grundseite",
+     "+14.7": "nur_eine_grundseite",
+     "14,7 cm²": "nur_eine_grundseite",
+     "14,7cm²": "nur_eine_grundseite",
+     "+14,7 cm²": "nur_eine_grundseite",
+     "+14,7cm²": "nur_eine_grundseite",
+     "14.7 cm²": "nur_eine_grundseite",
+     "14.7cm²": "nur_eine_grundseite",
+     "+14.7 cm²": "nur_eine_grundseite",
+     "+14.7cm²": "nur_eine_grundseite",
+     "+42": "halbieren_vergessen",
+     "42 cm²": "halbieren_vergessen",
+     "42cm²": "halbieren_vergessen",
+     "+42 cm²": "halbieren_vergessen",
+     "+42cm²": "halbieren_vergessen",
+     "13,85": "klammer_vergessen",
+     "+13,85": "klammer_vergessen",
+     "13.85": "klammer_vergessen",
+     "+13.85": "klammer_vergessen",
+     "13,85 cm²": "klammer_vergessen",
+     "13,85cm²": "klammer_vergessen",
+     "+13,85 cm²": "klammer_vergessen",
+     "+13,85cm²": "klammer_vergessen",
+     "13.85 cm²": "klammer_vergessen",
+     "13.85cm²": "klammer_vergessen",
+     "+13.85 cm²": "klammer_vergessen",
+     "+13.85cm²": "klammer_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Trapezformel mit Dezimalzahlen, Produkt mit einer Dezimalstelle."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "21",
+      "+21",
+      "21 cm²",
+      "21cm²",
+      "+21 cm²",
+      "+21cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = (6,5 cm + 3,5 cm) : 2 · 4,2 cm = 5 cm · 4,2 cm = 21 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit der Seite a gerechnet: 6,5 · 4,2 = 27,3.",
+       "socratic_question": "Kommen beide parallelen Seiten in deiner Rechnung vor?"
+      },
+      {
+       "error": "Nur mit der Seite c gerechnet: 3,5 · 4,2 = 14,7.",
+       "socratic_question": "Kommen beide parallelen Seiten in deiner Rechnung vor?"
+      },
+      {
+       "error": "Die Summe der parallelen Seiten nicht halbiert: 10 · 4,2 = 42.",
+       "socratic_question": "Wie viel ist der Mittelwert von 6,5 cm und 3,5 cm?"
+      },
+      {
+       "error": "Ohne Klammer gerechnet: 6,5 + 3,5 : 2 · 4,2 = 6,5 + 7,35 = 13,85.",
+       "socratic_question": "Wird bei dir die Seite a überhaupt halbiert und mit der Höhe malgenommen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_eine_grundseite, halbieren_vergessen, klammer_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(6.5+3.5)/2*4.2",
+     "antwort": "21"
+    },
+    {
+     "rechnung": "6.5*4.2",
+     "antwort": "27.3",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "3.5*4.2",
+     "antwort": "14.7",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "(6.5+3.5)*4.2",
+     "antwort": "42",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "6.5+3.5/2*4.2",
+     "antwort": "13.85",
+     "rolle": "fehlbild:klammer_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "fd558d3f-2e73-450f-a8e7-7c989eb1b314",
+   "titel": "Trapez · Sachkontext · Dachfläche",
+   "basis": {
+    "skill_key": "geo_flaeche_trapez",
+    "source_ref": "flaeche-trapez-05",
+    "frage": "Eine Dachfläche hat die Form eines Trapezes. Die untere Dachkante ist 12 m lang, die obere Dachkante 8 m. Beide Kanten sind parallel, ihr Abstand auf der Dachfläche beträgt 5 m.\n\nWie groß ist die Dachfläche?",
+    "input_type": "NUMERIC",
+    "unit": "m²",
+    "known_errors": {
+     "40": "nur_eine_grundseite",
+     "60": "nur_eine_grundseite",
+     "100": "halbieren_vergessen",
+     "+60": "nur_eine_grundseite",
+     "60 m²": "nur_eine_grundseite",
+     "60m²": "nur_eine_grundseite",
+     "+60 m²": "nur_eine_grundseite",
+     "+60m²": "nur_eine_grundseite",
+     "+40": "nur_eine_grundseite",
+     "40 m²": "nur_eine_grundseite",
+     "40m²": "nur_eine_grundseite",
+     "+40 m²": "nur_eine_grundseite",
+     "+40m²": "nur_eine_grundseite",
+     "+100": "halbieren_vergessen",
+     "100 m²": "halbieren_vergessen",
+     "100m²": "halbieren_vergessen",
+     "+100 m²": "halbieren_vergessen",
+     "+100m²": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: parallele Kanten und Abstand als a, c und h erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "50",
+      "+50",
+      "50 m²",
+      "50m²",
+      "+50 m²",
+      "+50m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "a = 12 m, c = 8 m, h = 5 m.\nA = (12 m + 8 m) : 2 · 5 m = 10 m · 5 m = 50 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit der unteren Kante gerechnet: 12 · 5 = 60.",
+       "socratic_question": "Ist das Dach oben genauso breit wie unten?"
+      },
+      {
+       "error": "Nur mit der oberen Kante gerechnet: 8 · 5 = 40.",
+       "socratic_question": "Ist das Dach unten genauso breit wie oben?"
+      },
+      {
+       "error": "Die Summe der Kanten nicht halbiert: 20 · 5 = 100.",
+       "socratic_question": "Kann das Dach größer sein als ein Rechteck mit 12 m und 5 m?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_eine_grundseite, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(12+8)/2*5",
+     "antwort": "50"
+    },
+    {
+     "rechnung": "12*5",
+     "antwort": "60",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "8*5",
+     "antwort": "40",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "(12+8)*5",
+     "antwort": "100",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "94fcae6b-947a-4db7-ab54-b4f13cc48c9b",
+   "titel": "Trapez · Sachkontext · Grundstückspreis",
+   "basis": {
+    "skill_key": "geo_flaeche_trapez",
+    "source_ref": "flaeche-trapez-06",
+    "frage": "Ein Grundstück hat die Form eines Trapezes. Die beiden parallelen Grundstücksseiten sind 32 m und 24 m lang, ihr Abstand beträgt 18 m. Ein Quadratmeter kostet 150 €.\n\nWie viel kostet das Grundstück?",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "known_errors": {
+     "64800": "nur_eine_grundseite",
+     "86400": "nur_eine_grundseite",
+     "151200": "halbieren_vergessen",
+     "+86400": "nur_eine_grundseite",
+     "86400,00": "nur_eine_grundseite",
+     "+86400,00": "nur_eine_grundseite",
+     "86400.00": "nur_eine_grundseite",
+     "+86400.00": "nur_eine_grundseite",
+     "86400 €": "nur_eine_grundseite",
+     "86400€": "nur_eine_grundseite",
+     "+86400 €": "nur_eine_grundseite",
+     "+86400€": "nur_eine_grundseite",
+     "86400,00 €": "nur_eine_grundseite",
+     "86400,00€": "nur_eine_grundseite",
+     "+86400,00 €": "nur_eine_grundseite",
+     "+86400,00€": "nur_eine_grundseite",
+     "86400.00 €": "nur_eine_grundseite",
+     "86400.00€": "nur_eine_grundseite",
+     "+86400.00 €": "nur_eine_grundseite",
+     "+86400.00€": "nur_eine_grundseite",
+     "+64800": "nur_eine_grundseite",
+     "64800,00": "nur_eine_grundseite",
+     "+64800,00": "nur_eine_grundseite",
+     "64800.00": "nur_eine_grundseite",
+     "+64800.00": "nur_eine_grundseite",
+     "64800 €": "nur_eine_grundseite",
+     "64800€": "nur_eine_grundseite",
+     "+64800 €": "nur_eine_grundseite",
+     "+64800€": "nur_eine_grundseite",
+     "64800,00 €": "nur_eine_grundseite",
+     "64800,00€": "nur_eine_grundseite",
+     "+64800,00 €": "nur_eine_grundseite",
+     "+64800,00€": "nur_eine_grundseite",
+     "64800.00 €": "nur_eine_grundseite",
+     "64800.00€": "nur_eine_grundseite",
+     "+64800.00 €": "nur_eine_grundseite",
+     "+64800.00€": "nur_eine_grundseite",
+     "+151200": "halbieren_vergessen",
+     "151200,00": "halbieren_vergessen",
+     "+151200,00": "halbieren_vergessen",
+     "151200.00": "halbieren_vergessen",
+     "+151200.00": "halbieren_vergessen",
+     "151200 €": "halbieren_vergessen",
+     "151200€": "halbieren_vergessen",
+     "+151200 €": "halbieren_vergessen",
+     "+151200€": "halbieren_vergessen",
+     "151200,00 €": "halbieren_vergessen",
+     "151200,00€": "halbieren_vergessen",
+     "+151200,00 €": "halbieren_vergessen",
+     "+151200,00€": "halbieren_vergessen",
+     "151200.00 €": "halbieren_vergessen",
+     "151200.00€": "halbieren_vergessen",
+     "+151200.00 €": "halbieren_vergessen",
+     "+151200.00€": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Trapezfläche und anschließend Preis, zwei Schritte."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "75600",
+      "+75600",
+      "75600,00",
+      "+75600,00",
+      "75600.00",
+      "+75600.00",
+      "75600 €",
+      "75600€",
+      "+75600 €",
+      "+75600€",
+      "75600,00 €",
+      "75600,00€",
+      "+75600,00 €",
+      "+75600,00€",
+      "75600.00 €",
+      "75600.00€",
+      "+75600.00 €",
+      "+75600.00€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = (32 m + 24 m) : 2 · 18 m = 28 m · 18 m = 504 m².\nPreis = 504 · 150 € = 75600 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit der längeren Seite gerechnet: 32 · 18 = 576 m², 576 · 150 € = 86400 €.",
+       "socratic_question": "Ist das Grundstück auf beiden parallelen Seiten gleich breit?"
+      },
+      {
+       "error": "Nur mit der kürzeren Seite gerechnet: 24 · 18 = 432 m², 432 · 150 € = 64800 €.",
+       "socratic_question": "Ist das Grundstück auf beiden parallelen Seiten gleich breit?"
+      },
+      {
+       "error": "Die Summe der Seiten nicht halbiert: 1008 m², 1008 · 150 € = 151200 €.",
+       "socratic_question": "Wie viel ist der Mittelwert von 32 m und 24 m?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_eine_grundseite, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(32+24)/2*18*150",
+     "antwort": "75600"
+    },
+    {
+     "rechnung": "32*18*150",
+     "antwort": "86400",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "24*18*150",
+     "antwort": "64800",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "(32+24)*18*150",
+     "antwort": "151200",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "c1440c89-6139-41c2-9aac-6f65cf638e2f",
+   "titel": "Drachenviereck · e = 8 cm, f = 6 cm",
+   "basis": {
+    "skill_key": "geo_flaeche_drachen_raute",
+    "source_ref": "flaeche-drachen-01",
+    "frage": "Ein Drachenviereck hat die Diagonalen e = 8 cm und f = 6 cm.\n\nWie groß ist sein Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "14": "plus_statt_mal",
+     "48": "halbieren_vergessen",
+     "+48": "halbieren_vergessen",
+     "48 cm²": "halbieren_vergessen",
+     "48cm²": "halbieren_vergessen",
+     "+48 cm²": "halbieren_vergessen",
+     "+48cm²": "halbieren_vergessen",
+     "+14": "plus_statt_mal",
+     "14 cm²": "plus_statt_mal",
+     "14cm²": "plus_statt_mal",
+     "+14 cm²": "plus_statt_mal",
+     "+14cm²": "plus_statt_mal"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Formel A = e · f : 2 mit ganzen Zahlen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "24",
+      "+24",
+      "24 cm²",
+      "24cm²",
+      "+24 cm²",
+      "+24cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = e · f : 2 = 8 cm · 6 cm : 2 = 48 cm² : 2 = 24 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht halbiert: 8 · 6 = 48 ist das umschließende Rechteck.",
+       "socratic_question": "Füllt der Drachen das Rechteck aus den beiden Diagonalen ganz aus?"
+      },
+      {
+       "error": "Die Diagonalen addiert: 8 + 6 = 14.",
+       "socratic_question": "Kommt bei einer Summe von Längen eine Fläche heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, plus_statt_mal)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "8*6/2",
+     "antwort": "24"
+    },
+    {
+     "rechnung": "8*6",
+     "antwort": "48",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "8+6",
+     "antwort": "14",
+     "rolle": "fehlbild:plus_statt_mal"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "f8054c53-9d2a-4d33-88b4-c3086fa96bfd",
+   "titel": "Raute · e = 10 cm, f = 7 cm",
+   "basis": {
+    "skill_key": "geo_flaeche_drachen_raute",
+    "source_ref": "flaeche-raute-02",
+    "frage": "Eine Raute hat die Diagonalen e = 10 cm und f = 7 cm.\n\nWie groß ist ihr Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "17": "plus_statt_mal",
+     "70": "halbieren_vergessen",
+     "+70": "halbieren_vergessen",
+     "70 cm²": "halbieren_vergessen",
+     "70cm²": "halbieren_vergessen",
+     "+70 cm²": "halbieren_vergessen",
+     "+70cm²": "halbieren_vergessen",
+     "+17": "plus_statt_mal",
+     "17 cm²": "plus_statt_mal",
+     "17cm²": "plus_statt_mal",
+     "+17 cm²": "plus_statt_mal",
+     "+17cm²": "plus_statt_mal"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Formel A = e · f : 2 mit ganzen Zahlen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "35",
+      "+35",
+      "35 cm²",
+      "35cm²",
+      "+35 cm²",
+      "+35cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = e · f : 2 = 10 cm · 7 cm : 2 = 70 cm² : 2 = 35 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht halbiert: 10 · 7 = 70 ist das umschließende Rechteck.",
+       "socratic_question": "Welcher Teil des Rechtecks aus den Diagonalen gehört zur Raute?"
+      },
+      {
+       "error": "Die Diagonalen addiert: 10 + 7 = 17.",
+       "socratic_question": "Kommt bei einer Summe von Längen eine Fläche heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, plus_statt_mal)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "10*7/2",
+     "antwort": "35"
+    },
+    {
+     "rechnung": "10*7",
+     "antwort": "70",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "10+7",
+     "antwort": "17",
+     "rolle": "fehlbild:plus_statt_mal"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "6274f6a5-65e5-40f4-be09-36fa8931c424",
+   "titel": "Raute · Seitenlänge als Ablenker",
+   "basis": {
+    "skill_key": "geo_flaeche_drachen_raute",
+    "source_ref": "flaeche-raute-03",
+    "frage": "Eine Raute hat die Seitenlänge 13 cm. Ihre Diagonalen sind e = 24 cm und f = 10 cm lang.\n\nWie groß ist ihr Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "52": "umfang_statt_flaeche",
+     "169": "falsche_hoehe",
+     "240": "halbieren_vergessen",
+     "+240": "halbieren_vergessen",
+     "240 cm²": "halbieren_vergessen",
+     "240cm²": "halbieren_vergessen",
+     "+240 cm²": "halbieren_vergessen",
+     "+240cm²": "halbieren_vergessen",
+     "+169": "falsche_hoehe",
+     "169 cm²": "falsche_hoehe",
+     "169cm²": "falsche_hoehe",
+     "+169 cm²": "falsche_hoehe",
+     "+169cm²": "falsche_hoehe",
+     "+52": "umfang_statt_flaeche",
+     "52 cm²": "umfang_statt_flaeche",
+     "52cm²": "umfang_statt_flaeche",
+     "+52 cm²": "umfang_statt_flaeche",
+     "+52cm²": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Seitenlänge ist gegeben, aber nicht nötig; die Diagonalen müssen ausgewählt werden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "120",
+      "+120",
+      "120 cm²",
+      "120cm²",
+      "+120 cm²",
+      "+120cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Die Seitenlänge wird nicht gebraucht.\nA = e · f : 2 = 24 cm · 10 cm : 2 = 240 cm² : 2 = 120 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht halbiert: 24 · 10 = 240.",
+       "socratic_question": "Füllt die Raute das Rechteck aus den beiden Diagonalen ganz aus?"
+      },
+      {
+       "error": "Die Seite als Höhe genommen: 13 · 13 = 169, als wäre die Raute ein Quadrat.",
+       "socratic_question": "Steht bei einer Raute eine Seite senkrecht auf der anderen?"
+      },
+      {
+       "error": "Den Umfang berechnet: 4 · 13 = 52.",
+       "socratic_question": "Ist nach der Randlänge oder nach der Fläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, falsche_hoehe, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "24*10/2",
+     "antwort": "120"
+    },
+    {
+     "rechnung": "24*10",
+     "antwort": "240",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "13*13",
+     "antwort": "169",
+     "rolle": "fehlbild:falsche_hoehe"
+    },
+    {
+     "rechnung": "4*13",
+     "antwort": "52",
+     "rolle": "fehlbild:umfang_statt_flaeche"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "ef5c0139-1f43-4f58-9395-11b5e84364d0",
+   "titel": "Drachenviereck · Dezimalmaße",
+   "basis": {
+    "skill_key": "geo_flaeche_drachen_raute",
+    "source_ref": "flaeche-drachen-04",
+    "frage": "Ein Drachenviereck hat die Diagonalen e = 7,5 cm und f = 4,8 cm.\n\nWie groß ist sein Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "36": "halbieren_vergessen",
+     "+36": "halbieren_vergessen",
+     "36 cm²": "halbieren_vergessen",
+     "36cm²": "halbieren_vergessen",
+     "+36 cm²": "halbieren_vergessen",
+     "+36cm²": "halbieren_vergessen",
+     "12,3": "plus_statt_mal",
+     "+12,3": "plus_statt_mal",
+     "12.3": "plus_statt_mal",
+     "+12.3": "plus_statt_mal",
+     "12,3 cm²": "plus_statt_mal",
+     "12,3cm²": "plus_statt_mal",
+     "+12,3 cm²": "plus_statt_mal",
+     "+12,3cm²": "plus_statt_mal",
+     "12.3 cm²": "plus_statt_mal",
+     "12.3cm²": "plus_statt_mal",
+     "+12.3 cm²": "plus_statt_mal",
+     "+12.3cm²": "plus_statt_mal"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Produkt zweier Dezimalzahlen, dann halbieren."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "18",
+      "+18",
+      "18 cm²",
+      "18cm²",
+      "+18 cm²",
+      "+18cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = e · f : 2 = 7,5 cm · 4,8 cm : 2 = 36 cm² : 2 = 18 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht halbiert: 7,5 · 4,8 = 36.",
+       "socratic_question": "Füllt der Drachen das Rechteck aus den beiden Diagonalen ganz aus?"
+      },
+      {
+       "error": "Die Diagonalen addiert: 7,5 + 4,8 = 12,3.",
+       "socratic_question": "Kommt bei einer Summe von Längen eine Fläche heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, plus_statt_mal)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "7.5*4.8/2",
+     "antwort": "18"
+    },
+    {
+     "rechnung": "7.5*4.8",
+     "antwort": "36",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "7.5+4.8",
+     "antwort": "12.3",
+     "rolle": "fehlbild:plus_statt_mal"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "7cfb5d9f-a6d9-48d5-85e1-d470eee978c7",
+   "titel": "Drachen · Sachkontext · Papierdrachen",
+   "basis": {
+    "skill_key": "geo_flaeche_drachen_raute",
+    "source_ref": "flaeche-drachen-05",
+    "frage": "Ein Drachen aus Papier hat die Form eines Drachenvierecks. Seine beiden Holzstäbe bilden die Diagonalen: Der Längsstab ist 90 cm lang, der Querstab 60 cm.\n\nWie groß ist die Fläche des Drachens?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "150": "plus_statt_mal",
+     "5400": "halbieren_vergessen",
+     "+5400": "halbieren_vergessen",
+     "5400 cm²": "halbieren_vergessen",
+     "5400cm²": "halbieren_vergessen",
+     "+5400 cm²": "halbieren_vergessen",
+     "+5400cm²": "halbieren_vergessen",
+     "+150": "plus_statt_mal",
+     "150 cm²": "plus_statt_mal",
+     "150cm²": "plus_statt_mal",
+     "+150 cm²": "plus_statt_mal",
+     "+150cm²": "plus_statt_mal"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Holzstäbe als Diagonalen erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2700",
+      "+2700",
+      "2700 cm²",
+      "2700cm²",
+      "+2700 cm²",
+      "+2700cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Die Stäbe sind die Diagonalen: e = 90 cm, f = 60 cm.\nA = 90 cm · 60 cm : 2 = 5400 cm² : 2 = 2700 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht halbiert: 90 · 60 = 5400 ist das Rechteck um den Drachen.",
+       "socratic_question": "Füllt der Drachen das Rechteck aus Längsstab und Querstab ganz aus?"
+      },
+      {
+       "error": "Die Stablängen addiert: 90 + 60 = 150.",
+       "socratic_question": "Kommt bei einer Summe von Längen eine Fläche heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, plus_statt_mal)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "90*60/2",
+     "antwort": "2700"
+    },
+    {
+     "rechnung": "90*60",
+     "antwort": "5400",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "90+60",
+     "antwort": "150",
+     "rolle": "fehlbild:plus_statt_mal"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "0802547a-2b81-4d03-8c5c-941705076285",
+   "titel": "Raute · Sachkontext · vierzig Fliesen",
+   "basis": {
+    "skill_key": "geo_flaeche_drachen_raute",
+    "source_ref": "flaeche-raute-06",
+    "frage": "Eine Wand wird mit 40 rautenförmigen Fliesen belegt. Jede Fliese hat die Diagonalen 20 cm und 12 cm. Die Fliesen liegen ohne Fugen aneinander.\n\nWie groß ist die belegte Fläche insgesamt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "1280": "plus_statt_mal",
+     "9600": "halbieren_vergessen",
+     "+9600": "halbieren_vergessen",
+     "9600 cm²": "halbieren_vergessen",
+     "9600cm²": "halbieren_vergessen",
+     "+9600 cm²": "halbieren_vergessen",
+     "+9600cm²": "halbieren_vergessen",
+     "+1280": "plus_statt_mal",
+     "1280 cm²": "plus_statt_mal",
+     "1280cm²": "plus_statt_mal",
+     "+1280 cm²": "plus_statt_mal",
+     "+1280cm²": "plus_statt_mal"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Rautenfläche, dann mit der Anzahl malnehmen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4800",
+      "+4800",
+      "4800 cm²",
+      "4800cm²",
+      "+4800 cm²",
+      "+4800cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Eine Fliese: A = 20 cm · 12 cm : 2 = 120 cm².\n40 Fliesen: 40 · 120 cm² = 4800 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht halbiert: 20 · 12 = 240 je Fliese, 40 · 240 = 9600.",
+       "socratic_question": "Ist eine Fliese so groß wie das Rechteck aus ihren beiden Diagonalen?"
+      },
+      {
+       "error": "Die Diagonalen addiert: 20 + 12 = 32 je Fliese, 40 · 32 = 1280.",
+       "socratic_question": "Kommt bei einer Summe von Längen eine Fläche heraus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, plus_statt_mal)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "40*20*12/2",
+     "antwort": "4800"
+    },
+    {
+     "rechnung": "40*20*12",
+     "antwort": "9600",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "40*(20+12)",
+     "antwort": "1280",
+     "rolle": "fehlbild:plus_statt_mal"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "7585618a-0557-49ed-89be-997629dfaf03",
+   "titel": "Haus-Form · Rechteck mit aufgesetztem Dreieck",
+   "basis": {
+    "skill_key": "geo_flaeche_zusammengesetzt",
+    "source_ref": "flaeche-zus-01",
+    "frage": "Eine Figur besteht aus einem Rechteck mit der Länge 8 cm und der Breite 5 cm. Auf die obere, 8 cm lange Rechteckseite ist ein Dreieck aufgesetzt: Seine Grundseite ist genau diese Rechteckseite, seine Höhe beträgt 3 cm.\n\nWie groß ist der Flächeninhalt der ganzen Figur?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "12": "teilflaeche_vergessen",
+     "40": "teilflaeche_vergessen",
+     "64": "halbieren_vergessen",
+     "+40": "teilflaeche_vergessen",
+     "40 cm²": "teilflaeche_vergessen",
+     "40cm²": "teilflaeche_vergessen",
+     "+40 cm²": "teilflaeche_vergessen",
+     "+40cm²": "teilflaeche_vergessen",
+     "+12": "teilflaeche_vergessen",
+     "12 cm²": "teilflaeche_vergessen",
+     "12cm²": "teilflaeche_vergessen",
+     "+12 cm²": "teilflaeche_vergessen",
+     "+12cm²": "teilflaeche_vergessen",
+     "+64": "halbieren_vergessen",
+     "64 cm²": "halbieren_vergessen",
+     "64cm²": "halbieren_vergessen",
+     "+64 cm²": "halbieren_vergessen",
+     "+64cm²": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: zwei bekannte Teilflächen addieren."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "52",
+      "+52",
+      "52 cm²",
+      "52cm²",
+      "+52 cm²",
+      "+52cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Rechteck: 8 cm · 5 cm = 40 cm².\nDreieck: 8 cm · 3 cm : 2 = 12 cm².\nGanze Figur: 40 cm² + 12 cm² = 52 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur das Rechteck berechnet, das Dreieck fehlt.",
+       "socratic_question": "Gehört das aufgesetzte Dreieck zur Figur dazu?"
+      },
+      {
+       "error": "Nur das Dreieck berechnet, das Rechteck fehlt.",
+       "socratic_question": "Aus welchen Teilen besteht die ganze Figur?"
+      },
+      {
+       "error": "Das Dreieck nicht halbiert: 40 + 24 = 64.",
+       "socratic_question": "Ist das Dreieck so groß wie ein Rechteck mit 8 cm und 3 cm?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (teilflaeche_vergessen, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "8*5+8*3/2",
+     "antwort": "52"
+    },
+    {
+     "rechnung": "8*5",
+     "antwort": "40",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "8*3/2",
+     "antwort": "12",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "8*5+8*3",
+     "antwort": "64",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "4379159d-98dc-49fd-a6da-8e9cbc916c71",
+   "titel": "L-Form · Rechteck mit ausgeschnittener Ecke",
+   "basis": {
+    "skill_key": "geo_flaeche_zusammengesetzt",
+    "source_ref": "flaeche-zus-02",
+    "frage": "Aus einem Rechteck mit der Länge 10 cm und der Breite 8 cm wird an einer Ecke ein kleineres Rechteck mit den Seiten 4 cm und 3 cm herausgeschnitten. Übrig bleibt eine L-förmige Figur.\n\nWie groß ist ihr Flächeninhalt?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "36": "umfang_statt_flaeche",
+     "80": "teilflaeche_vergessen",
+     "+80": "teilflaeche_vergessen",
+     "80 cm²": "teilflaeche_vergessen",
+     "80cm²": "teilflaeche_vergessen",
+     "+80 cm²": "teilflaeche_vergessen",
+     "+80cm²": "teilflaeche_vergessen",
+     "+36": "umfang_statt_flaeche",
+     "36 cm²": "umfang_statt_flaeche",
+     "36cm²": "umfang_statt_flaeche",
+     "+36 cm²": "umfang_statt_flaeche",
+     "+36cm²": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: große Rechteckfläche minus kleine Rechteckfläche."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "68",
+      "+68",
+      "68 cm²",
+      "68cm²",
+      "+68 cm²",
+      "+68cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Großes Rechteck: 10 cm · 8 cm = 80 cm².\nAusschnitt: 4 cm · 3 cm = 12 cm².\nL-Form: 80 cm² - 12 cm² = 68 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Ausschnitt nicht abgezogen: nur das große Rechteck.",
+       "socratic_question": "Was passiert mit der Fläche, wenn eine Ecke herausgeschnitten wird?"
+      },
+      {
+       "error": "Den Umfang berechnet: 2 · (10 + 8) = 36.",
+       "socratic_question": "Ist nach der Randlänge oder nach der Fläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (teilflaeche_vergessen, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "10*8-4*3",
+     "antwort": "68"
+    },
+    {
+     "rechnung": "10*8",
+     "antwort": "80",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "2*(10+8)",
+     "antwort": "36",
+     "rolle": "fehlbild:umfang_statt_flaeche"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "4320eb31-3cbb-4733-ab23-e15fcb60d849",
+   "titel": "Rechteck mit angesetztem Trapez",
+   "basis": {
+    "skill_key": "geo_flaeche_zusammengesetzt",
+    "source_ref": "flaeche-zus-03",
+    "frage": "Eine Figur besteht aus einem Rechteck und einem Trapez. Das Rechteck ist 6 cm lang und 4 cm breit. An eine 6 cm lange Rechteckseite ist ein Trapez so angesetzt, dass diese Seite seine längere parallele Seite ist. Die kürzere parallele Seite des Trapezes ist 2 cm lang, seine Höhe beträgt 3 cm.\n\nWie groß ist der Flächeninhalt der ganzen Figur?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "12": "teilflaeche_vergessen",
+     "24": "teilflaeche_vergessen",
+     "30": "nur_eine_grundseite",
+     "42": "nur_eine_grundseite",
+     "48": "halbieren_vergessen",
+     "+24": "teilflaeche_vergessen",
+     "24 cm²": "teilflaeche_vergessen",
+     "24cm²": "teilflaeche_vergessen",
+     "+24 cm²": "teilflaeche_vergessen",
+     "+24cm²": "teilflaeche_vergessen",
+     "+12": "teilflaeche_vergessen",
+     "12 cm²": "teilflaeche_vergessen",
+     "12cm²": "teilflaeche_vergessen",
+     "+12 cm²": "teilflaeche_vergessen",
+     "+12cm²": "teilflaeche_vergessen",
+     "+42": "nur_eine_grundseite",
+     "42 cm²": "nur_eine_grundseite",
+     "42cm²": "nur_eine_grundseite",
+     "+42 cm²": "nur_eine_grundseite",
+     "+42cm²": "nur_eine_grundseite",
+     "+30": "nur_eine_grundseite",
+     "30 cm²": "nur_eine_grundseite",
+     "30cm²": "nur_eine_grundseite",
+     "+30 cm²": "nur_eine_grundseite",
+     "+30cm²": "nur_eine_grundseite",
+     "+48": "halbieren_vergessen",
+     "48 cm²": "halbieren_vergessen",
+     "48cm²": "halbieren_vergessen",
+     "+48 cm²": "halbieren_vergessen",
+     "+48cm²": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Zerlegung in Rechteck und Trapez, Trapezformel als Teilschritt."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "36",
+      "+36",
+      "36 cm²",
+      "36cm²",
+      "+36 cm²",
+      "+36cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Rechteck: 6 cm · 4 cm = 24 cm².\nTrapez: (6 cm + 2 cm) : 2 · 3 cm = 12 cm².\nGanze Figur: 24 cm² + 12 cm² = 36 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur das Rechteck berechnet, das Trapez fehlt.",
+       "socratic_question": "Gehört das angesetzte Trapez zur Figur dazu?"
+      },
+      {
+       "error": "Nur das Trapez berechnet, das Rechteck fehlt.",
+       "socratic_question": "Aus welchen Teilen besteht die ganze Figur?"
+      },
+      {
+       "error": "Beim Trapez nur die längere Seite genommen: 24 + 18 = 42.",
+       "socratic_question": "Welche beiden Seiten des Trapezes sind parallel?"
+      },
+      {
+       "error": "Beim Trapez nur die kürzere Seite genommen: 24 + 6 = 30.",
+       "socratic_question": "Welche beiden Seiten des Trapezes sind parallel?"
+      },
+      {
+       "error": "Beim Trapez nicht halbiert: 24 + 24 = 48.",
+       "socratic_question": "Wie viel ist der Mittelwert von 6 cm und 2 cm?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (teilflaeche_vergessen, nur_eine_grundseite, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "6*4+(6+2)/2*3",
+     "antwort": "36"
+    },
+    {
+     "rechnung": "6*4",
+     "antwort": "24",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "(6+2)/2*3",
+     "antwort": "12",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "6*4+6*3",
+     "antwort": "42",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "6*4+2*3",
+     "antwort": "30",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "6*4+(6+2)*3",
+     "antwort": "48",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "1155ecca-ce4c-41bb-bf6c-b6fe51ee455d",
+   "titel": "Quadrat mit ausgeschnittener Raute",
+   "basis": {
+    "skill_key": "geo_flaeche_zusammengesetzt",
+    "source_ref": "flaeche-zus-04",
+    "frage": "Aus einer quadratischen Platte mit der Seitenlänge 10 cm wird in der Mitte eine Raute ausgeschnitten. Die Diagonalen der Raute sind 6 cm und 4 cm lang.\n\nWie groß ist der Flächeninhalt der Platte nach dem Ausschneiden?",
+    "input_type": "NUMERIC",
+    "unit": "cm²",
+    "known_errors": {
+     "12": "falsche_groesse_beantwortet",
+     "76": "halbieren_vergessen",
+     "100": "teilflaeche_vergessen",
+     "+100": "teilflaeche_vergessen",
+     "100 cm²": "teilflaeche_vergessen",
+     "100cm²": "teilflaeche_vergessen",
+     "+100 cm²": "teilflaeche_vergessen",
+     "+100cm²": "teilflaeche_vergessen",
+     "+76": "halbieren_vergessen",
+     "76 cm²": "halbieren_vergessen",
+     "76cm²": "halbieren_vergessen",
+     "+76 cm²": "halbieren_vergessen",
+     "+76cm²": "halbieren_vergessen",
+     "+12": "falsche_groesse_beantwortet",
+     "12 cm²": "falsche_groesse_beantwortet",
+     "12cm²": "falsche_groesse_beantwortet",
+     "+12 cm²": "falsche_groesse_beantwortet",
+     "+12cm²": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Quadrat minus Raute, Rautenformel als Teilschritt."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "88",
+      "+88",
+      "88 cm²",
+      "88cm²",
+      "+88 cm²",
+      "+88cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Quadrat: 10 cm · 10 cm = 100 cm².\nRaute: 6 cm · 4 cm : 2 = 12 cm².\nRest: 100 cm² - 12 cm² = 88 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Raute nicht abgezogen: nur das Quadrat.",
+       "socratic_question": "Was passiert mit der Fläche der Platte, wenn ein Stück herausgeschnitten wird?"
+      },
+      {
+       "error": "Die Raute nicht halbiert: 100 - 24 = 76.",
+       "socratic_question": "Ist die Raute so groß wie das Rechteck aus ihren Diagonalen?"
+      },
+      {
+       "error": "Die Fläche des Ausschnitts angegeben statt der Restfläche.",
+       "socratic_question": "Ist nach dem Loch oder nach der übrigen Platte gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (teilflaeche_vergessen, halbieren_vergessen, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "10*10-6*4/2",
+     "antwort": "88"
+    },
+    {
+     "rechnung": "10*10",
+     "antwort": "100",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "10*10-6*4",
+     "antwort": "76",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "6*4/2",
+     "antwort": "12",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "00682950-b934-4ded-9d9b-c8e68ed4313d",
+   "titel": "Sachkontext · Rasen um ein dreieckiges Beet",
+   "basis": {
+    "skill_key": "geo_flaeche_zusammengesetzt",
+    "source_ref": "flaeche-zus-05",
+    "frage": "Ein rechteckiger Garten ist 12 m lang und 9 m breit. Darin liegt ein dreieckiges Beet mit der Grundseite 4 m und der zugehörigen Höhe 3 m. Der Rest des Gartens ist Rasen.\n\nWie groß ist die Rasenfläche?",
+    "input_type": "NUMERIC",
+    "unit": "m²",
+    "known_errors": {
+     "42": "umfang_statt_flaeche",
+     "96": "halbieren_vergessen",
+     "108": "teilflaeche_vergessen",
+     "+108": "teilflaeche_vergessen",
+     "108 m²": "teilflaeche_vergessen",
+     "108m²": "teilflaeche_vergessen",
+     "+108 m²": "teilflaeche_vergessen",
+     "+108m²": "teilflaeche_vergessen",
+     "+96": "halbieren_vergessen",
+     "96 m²": "halbieren_vergessen",
+     "96m²": "halbieren_vergessen",
+     "+96 m²": "halbieren_vergessen",
+     "+96m²": "halbieren_vergessen",
+     "+42": "umfang_statt_flaeche",
+     "42 m²": "umfang_statt_flaeche",
+     "42m²": "umfang_statt_flaeche",
+     "+42 m²": "umfang_statt_flaeche",
+     "+42m²": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Rasen als Rechteck minus Dreieck erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "102",
+      "+102",
+      "102 m²",
+      "102m²",
+      "+102 m²",
+      "+102m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Garten: 12 m · 9 m = 108 m².\nBeet: 4 m · 3 m : 2 = 6 m².\nRasen: 108 m² - 6 m² = 102 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Beet nicht abgezogen: der ganze Garten.",
+       "socratic_question": "Ist das Beet auch Rasen?"
+      },
+      {
+       "error": "Das Dreieck nicht halbiert: 108 - 12 = 96.",
+       "socratic_question": "Ist das Beet so groß wie ein Rechteck mit 4 m und 3 m?"
+      },
+      {
+       "error": "Den Umfang des Gartens berechnet: 2 · (12 + 9) = 42.",
+       "socratic_question": "Ist nach dem Zaun oder nach der Rasenfläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (teilflaeche_vergessen, halbieren_vergessen, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "12*9-4*3/2",
+     "antwort": "102"
+    },
+    {
+     "rechnung": "12*9",
+     "antwort": "108",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "12*9-4*3",
+     "antwort": "96",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "2*(12+9)",
+     "antwort": "42",
+     "rolle": "fehlbild:umfang_statt_flaeche"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "7502a1e1-ab78-4418-83f6-fd0d045ccc86",
+   "titel": "Sachkontext · Giebelwand mit Fenster",
+   "basis": {
+    "skill_key": "geo_flaeche_zusammengesetzt",
+    "source_ref": "flaeche-zus-06",
+    "frage": "Die Giebelwand eines Hauses besteht aus einem Rechteck, das 9 m breit und 6 m hoch ist, und einem darauf sitzenden Dreieck mit der Grundseite 9 m und der Höhe 4 m. In der Wand ist ein rechteckiges Fenster, 1,5 m breit und 1,2 m hoch. Das Fenster wird nicht gestrichen.\n\nWie viele Quadratmeter Wandfläche müssen gestrichen werden?",
+    "input_type": "NUMERIC",
+    "unit": "m²",
+    "known_errors": {
+     "72": "teilflaeche_vergessen",
+     "+72": "teilflaeche_vergessen",
+     "72 m²": "teilflaeche_vergessen",
+     "72m²": "teilflaeche_vergessen",
+     "+72 m²": "teilflaeche_vergessen",
+     "+72m²": "teilflaeche_vergessen",
+     "52,2": "teilflaeche_vergessen",
+     "+52,2": "teilflaeche_vergessen",
+     "52.2": "teilflaeche_vergessen",
+     "+52.2": "teilflaeche_vergessen",
+     "52,2 m²": "teilflaeche_vergessen",
+     "52,2m²": "teilflaeche_vergessen",
+     "+52,2 m²": "teilflaeche_vergessen",
+     "+52,2m²": "teilflaeche_vergessen",
+     "52.2 m²": "teilflaeche_vergessen",
+     "52.2m²": "teilflaeche_vergessen",
+     "+52.2 m²": "teilflaeche_vergessen",
+     "+52.2m²": "teilflaeche_vergessen",
+     "88,2": "halbieren_vergessen",
+     "+88,2": "halbieren_vergessen",
+     "88.2": "halbieren_vergessen",
+     "+88.2": "halbieren_vergessen",
+     "88,2 m²": "halbieren_vergessen",
+     "88,2m²": "halbieren_vergessen",
+     "+88,2 m²": "halbieren_vergessen",
+     "+88,2m²": "halbieren_vergessen",
+     "88.2 m²": "halbieren_vergessen",
+     "88.2m²": "halbieren_vergessen",
+     "+88.2 m²": "halbieren_vergessen",
+     "+88.2m²": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: drei Teilflächen, zwei addieren und eine abziehen, mit Dezimalzahlen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "70,2",
+      "+70,2",
+      "70.2",
+      "+70.2",
+      "70,2 m²",
+      "70,2m²",
+      "+70,2 m²",
+      "+70,2m²",
+      "70.2 m²",
+      "70.2m²",
+      "+70.2 m²",
+      "+70.2m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Rechteck: 9 m · 6 m = 54 m².\nDreieck: 9 m · 4 m : 2 = 18 m².\nFenster: 1,5 m · 1,2 m = 1,8 m².\nZu streichen: 54 m² + 18 m² - 1,8 m² = 70,2 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Fenster nicht abgezogen: 54 + 18 = 72.",
+       "socratic_question": "Wird das Fenster mitgestrichen?"
+      },
+      {
+       "error": "Das Dreieck oben vergessen: 54 - 1,8 = 52,2.",
+       "socratic_question": "Aus welchen Teilen besteht die Giebelwand?"
+      },
+      {
+       "error": "Das Dreieck nicht halbiert: 54 + 36 - 1,8 = 88,2.",
+       "socratic_question": "Ist das Giebeldreieck so groß wie ein Rechteck mit 9 m und 4 m?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (teilflaeche_vergessen, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "9*6+9*4/2-1.5*1.2",
+     "antwort": "70.2"
+    },
+    {
+     "rechnung": "9*6+9*4/2",
+     "antwort": "72",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "9*6-1.5*1.2",
+     "antwort": "52.2",
+     "rolle": "fehlbild:teilflaeche_vergessen"
+    },
+    {
+     "rechnung": "9*6+9*4-1.5*1.2",
+     "antwort": "88.2",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "46192474-3c40-4cec-a9de-742684e86e01",
+   "titel": "Term · Rechteck x mal 5",
+   "basis": {
+    "skill_key": "geo_flaeche_term",
+    "source_ref": "flaeche-term-01",
+    "frage": "Ein Rechteck ist x cm lang und 5 cm breit.\n\nWelcher Term beschreibt seinen Flächeninhalt in cm²?",
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "x + 5"
+     },
+     {
+      "id": "b",
+      "label": "5x"
+     },
+     {
+      "id": "c",
+      "label": "2x + 10"
+     },
+     {
+      "id": "d",
+      "label": "x²"
+     }
+    ],
+    "known_errors": {
+     "a": "plus_statt_mal",
+     "c": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Rechteckformel mit einer Variablen als Seitenlänge."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Darstellen, Operieren",
+     "sicher": "mittel",
+     "grund": "Flächeninhalt als Term darstellen und gleichwertige Form erkennen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "b"
+     ],
+     "sicher": "hoch",
+     "grund": "Einzige Option, die als Term in x gleichwertig zum Flächenterm ist (prefill-rechnen)."
+    },
+    "solution": {
+     "wert": "A = Länge · Breite = x · 5 = 5x.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Länge und Breite addiert statt multipliziert.",
+       "socratic_question": "Rechnest du beim Rechteck die Seiten zusammen oder malgenommen?"
+      },
+      {
+       "error": "Den Umfang beschrieben: 2 · (x + 5).",
+       "socratic_question": "Beschreibt dein Term die Randlänge oder die Fläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (plus_statt_mal, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "term": "x*5"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "770f72e9-c73c-45fc-9803-e3b20846de70",
+   "titel": "Term · Rechteck (x + 3) mal 4",
+   "basis": {
+    "skill_key": "geo_flaeche_term",
+    "source_ref": "flaeche-term-02",
+    "frage": "Ein Rechteck ist (x + 3) cm lang und 4 cm breit.\n\nWelcher Term beschreibt seinen Flächeninhalt in cm²?",
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "4x + 3"
+     },
+     {
+      "id": "b",
+      "label": "x + 7"
+     },
+     {
+      "id": "c",
+      "label": "4x + 12"
+     },
+     {
+      "id": "d",
+      "label": "2x + 14"
+     }
+    ],
+    "known_errors": {
+     "a": "klammer_vergessen",
+     "b": "plus_statt_mal",
+     "d": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Rechteckformel, die Summe als Seitenlänge muss als Ganzes multipliziert werden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Darstellen, Operieren",
+     "sicher": "mittel",
+     "grund": "Flächeninhalt als Term darstellen und gleichwertige Form erkennen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "c"
+     ],
+     "sicher": "hoch",
+     "grund": "Einzige Option, die als Term in x gleichwertig zum Flächenterm ist (prefill-rechnen)."
+    },
+    "solution": {
+     "wert": "A = 4 · (x + 3) = 4x + 12.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Ohne Klammer gerechnet: nur x mit 4 multipliziert.",
+       "socratic_question": "Ist die ganze Länge x + 3 mit der Breite malzunehmen oder nur das x?"
+      },
+      {
+       "error": "Länge und Breite addiert: x + 3 + 4.",
+       "socratic_question": "Rechnest du beim Rechteck die Seiten zusammen oder malgenommen?"
+      },
+      {
+       "error": "Den Umfang beschrieben: 2 · (x + 3) + 2 · 4.",
+       "socratic_question": "Beschreibt dein Term die Randlänge oder die Fläche?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (klammer_vergessen, plus_statt_mal, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "term": "4*(x+3)"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "10f112ad-b1cc-4690-8925-773ef92d20e3",
+   "titel": "Term · Dreieck mit Grundseite x + 4",
+   "basis": {
+    "skill_key": "geo_flaeche_term",
+    "source_ref": "flaeche-term-03",
+    "frage": "Ein Dreieck hat die Grundseite (x + 4) cm und die zugehörige Höhe 6 cm.\n\nWelcher Term beschreibt seinen Flächeninhalt in cm²?",
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "6x + 24"
+     },
+     {
+      "id": "b",
+      "label": "3x + 12"
+     },
+     {
+      "id": "c",
+      "label": "3x + 4"
+     },
+     {
+      "id": "d",
+      "label": "x + 10"
+     }
+    ],
+    "known_errors": {
+     "a": "halbieren_vergessen",
+     "c": "klammer_vergessen",
+     "d": "plus_statt_mal"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Dreiecksformel mit Summe als Grundseite, halbieren und ausmultiplizieren."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Darstellen, Operieren",
+     "sicher": "mittel",
+     "grund": "Flächeninhalt als Term darstellen und gleichwertige Form erkennen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "b"
+     ],
+     "sicher": "hoch",
+     "grund": "Einzige Option, die als Term in x gleichwertig zum Flächenterm ist (prefill-rechnen)."
+    },
+    "solution": {
+     "wert": "A = g · h : 2 = (x + 4) · 6 : 2 = 3 · (x + 4) = 3x + 12.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nicht halbiert: (x + 4) · 6.",
+       "socratic_question": "Ist ein Dreieck so groß wie das Rechteck aus Grundseite und Höhe?"
+      },
+      {
+       "error": "Ohne Klammer gerechnet: nur x mit 6 multipliziert und halbiert.",
+       "socratic_question": "Ist die ganze Grundseite x + 4 mit der Höhe malzunehmen oder nur das x?"
+      },
+      {
+       "error": "Grundseite und Höhe addiert: x + 4 + 6.",
+       "socratic_question": "Rechnest du Grundseite und Höhe zusammen oder malgenommen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, klammer_vergessen, plus_statt_mal)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "term": "(x+4)*6/2"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "11390e1a-2fc1-4cf1-93da-890ac936b56a",
+   "titel": "Term · Rechteck mit angesetztem Quadrat",
+   "basis": {
+    "skill_key": "geo_flaeche_term",
+    "source_ref": "flaeche-term-04",
+    "frage": "Eine Figur besteht aus einem Rechteck und einem Quadrat. Das Rechteck ist x cm lang und 4 cm breit. An eine 4 cm lange Seite des Rechtecks ist ein Quadrat mit der Seitenlänge 4 cm angesetzt.\n\nWelcher Term beschreibt den Flächeninhalt der ganzen Figur in cm²?",
+    "input_type": "MC",
+    "options": [
+     {
+      "id": "a",
+      "label": "4x"
+     },
+     {
+      "id": "b",
+      "label": "4x + 8"
+     },
+     {
+      "id": "c",
+      "label": "4x + 16"
+     },
+     {
+      "id": "d",
+      "label": "8x"
+     }
+    ],
+    "known_errors": {
+     "a": "teilflaeche_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Teilflächen als Terme aufstellen und zusammenfassen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Darstellen, Operieren",
+     "sicher": "mittel",
+     "grund": "Flächeninhalt als Term darstellen und gleichwertige Form erkennen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "c"
+     ],
+     "sicher": "hoch",
+     "grund": "Einzige Option, die als Term in x gleichwertig zum Flächenterm ist (prefill-rechnen)."
+    },
+    "solution": {
+     "wert": "Rechteck: x · 4 = 4x.\nQuadrat: 4 · 4 = 16.\nGanze Figur: 4x + 16.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur das Rechteck beschrieben, das Quadrat fehlt.",
+       "socratic_question": "Gehört das angesetzte Quadrat zur Figur dazu?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (teilflaeche_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "term": "x*4+4*4"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "214345b8-69d2-43d4-8c1b-1e8e7c428e1d",
+   "titel": "Term · Sachkontext · Terrasse 3 m länger als breit",
+   "basis": {
+    "skill_key": "geo_flaeche_term",
+    "source_ref": "flaeche-term-05",
+    "frage": "Eine rechteckige Terrasse ist 3 m länger als breit. Ihre Breite beträgt x m.\n\nStelle einen Term für ihren Flächeninhalt auf und berechne den Flächeninhalt für x = 4.",
+    "input_type": "NUMERIC",
+    "unit": "m²",
+    "known_errors": {
+     "11": "plus_statt_mal",
+     "16": "klammer_vergessen",
+     "22": "umfang_statt_flaeche",
+     "+16": "klammer_vergessen",
+     "16 m²": "klammer_vergessen",
+     "16m²": "klammer_vergessen",
+     "+16 m²": "klammer_vergessen",
+     "+16m²": "klammer_vergessen",
+     "+11": "plus_statt_mal",
+     "11 m²": "plus_statt_mal",
+     "11m²": "plus_statt_mal",
+     "+11 m²": "plus_statt_mal",
+     "+11m²": "plus_statt_mal",
+     "+22": "umfang_statt_flaeche",
+     "22 m²": "umfang_statt_flaeche",
+     "22m²": "umfang_statt_flaeche",
+     "+22 m²": "umfang_statt_flaeche",
+     "+22m²": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Länge als x + 3 erkennen, Term aufstellen und auswerten."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "28",
+      "+28",
+      "28 m²",
+      "28m²",
+      "+28 m²",
+      "+28m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Länge: x + 3, Breite: x.\nA = (x + 3) · x.\nFür x = 4: A = 7 · 4 = 28, also 28 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Ohne Klammer gerechnet: x + 3 · x = 4 + 12 = 16.",
+       "socratic_question": "Wird die ganze Länge x + 3 mit der Breite malgenommen?"
+      },
+      {
+       "error": "Länge und Breite addiert: 7 + 4 = 11.",
+       "socratic_question": "Rechnest du beim Rechteck die Seiten zusammen oder malgenommen?"
+      },
+      {
+       "error": "Den Umfang berechnet: 2 · (7 + 4) = 22.",
+       "socratic_question": "Ist nach dem Rand der Terrasse oder nach ihrer Fläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (klammer_vergessen, plus_statt_mal, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(4+3)*4",
+     "antwort": "28"
+    },
+    {
+     "rechnung": "4+3*4",
+     "antwort": "16",
+     "rolle": "fehlbild:klammer_vergessen"
+    },
+    {
+     "rechnung": "(4+3)+4",
+     "antwort": "11",
+     "rolle": "fehlbild:plus_statt_mal"
+    },
+    {
+     "rechnung": "2*((4+3)+4)",
+     "antwort": "22",
+     "rolle": "fehlbild:umfang_statt_flaeche"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "1f27364f-e37a-4203-8097-4c3331ea9940",
+   "titel": "Term · Sachkontext · Beet doppelt so lang wie breit",
+   "basis": {
+    "skill_key": "geo_flaeche_term",
+    "source_ref": "flaeche-term-06",
+    "frage": "Ein rechteckiges Beet ist doppelt so lang wie breit. Seine Breite beträgt x m.\n\nStelle einen Term für den Flächeninhalt des Beetes auf und berechne ihn für x = 3,5.",
+    "input_type": "NUMERIC",
+    "unit": "m²",
+    "known_errors": {
+     "21": "umfang_statt_flaeche",
+     "10,5": "plus_statt_mal",
+     "+10,5": "plus_statt_mal",
+     "10.5": "plus_statt_mal",
+     "+10.5": "plus_statt_mal",
+     "10,5 m²": "plus_statt_mal",
+     "10,5m²": "plus_statt_mal",
+     "+10,5 m²": "plus_statt_mal",
+     "+10,5m²": "plus_statt_mal",
+     "10.5 m²": "plus_statt_mal",
+     "10.5m²": "plus_statt_mal",
+     "+10.5 m²": "plus_statt_mal",
+     "+10.5m²": "plus_statt_mal",
+     "+21": "umfang_statt_flaeche",
+     "21 m²": "umfang_statt_flaeche",
+     "21m²": "umfang_statt_flaeche",
+     "+21 m²": "umfang_statt_flaeche",
+     "+21m²": "umfang_statt_flaeche"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Länge als 2x erkennen, Term 2x · x mit Dezimalzahl auswerten."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "24,5",
+      "+24,5",
+      "24.5",
+      "+24.5",
+      "24,5 m²",
+      "24,5m²",
+      "+24,5 m²",
+      "+24,5m²",
+      "24.5 m²",
+      "24.5m²",
+      "+24.5 m²",
+      "+24.5m²"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "Länge: 2x, Breite: x.\nA = 2x · x = 2x².\nFür x = 3,5: A = 2 · 3,5 · 3,5 = 7 · 3,5 = 24,5, also 24,5 m².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Länge und Breite addiert: 7 + 3,5 = 10,5.",
+       "socratic_question": "Rechnest du beim Rechteck die Seiten zusammen oder malgenommen?"
+      },
+      {
+       "error": "Den Umfang berechnet: 2 · (7 + 3,5) = 21.",
+       "socratic_question": "Ist nach dem Rand des Beetes oder nach seiner Fläche gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (plus_statt_mal, umfang_statt_flaeche)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*3.5*3.5",
+     "antwort": "24.5"
+    },
+    {
+     "rechnung": "2*3.5+3.5",
+     "antwort": "10.5",
+     "rolle": "fehlbild:plus_statt_mal"
+    },
+    {
+     "rechnung": "2*(2*3.5+3.5)",
+     "antwort": "21",
+     "rolle": "fehlbild:umfang_statt_flaeche"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "2fd82f3b-10ca-42b2-91f2-ab53c1eda527",
+   "titel": "Rückrichtung · Höhe im Parallelogramm",
+   "basis": {
+    "skill_key": "geo_flaeche_rueck",
+    "source_ref": "flaeche-rueck-01",
+    "frage": "Ein Parallelogramm hat den Flächeninhalt 42 cm² und die Grundseite g = 7 cm.\n\nWie lang ist die zugehörige Höhe h?",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "known_errors": {
+     "12": "halbieren_faelschlich",
+     "294": "falsche_gegenoperation",
+     "+294": "falsche_gegenoperation",
+     "294 cm": "falsche_gegenoperation",
+     "294cm": "falsche_gegenoperation",
+     "+294 cm": "falsche_gegenoperation",
+     "+294cm": "falsche_gegenoperation",
+     "+12": "halbieren_faelschlich",
+     "12 cm": "halbieren_faelschlich",
+     "12cm": "halbieren_faelschlich",
+     "+12 cm": "halbieren_faelschlich",
+     "+12cm": "halbieren_faelschlich"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: A = g · h nach h umstellen, eine Division."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6",
+      "+6",
+      "6 cm",
+      "6cm",
+      "+6 cm",
+      "+6cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = g · h, also h = A : g = 42 cm² : 7 cm = 6 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Multipliziert statt geteilt: 42 · 7 = 294.",
+       "socratic_question": "Welche Rechnung macht das „mal g“ aus der Formel rückgängig?"
+      },
+      {
+       "error": "Mit der Dreiecksformel gerechnet: h = 2 · 42 : 7 = 12.",
+       "socratic_question": "Wird beim Parallelogramm halbiert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_gegenoperation, halbieren_faelschlich)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "42/7",
+     "antwort": "6"
+    },
+    {
+     "rechnung": "42*7",
+     "antwort": "294",
+     "rolle": "fehlbild:falsche_gegenoperation"
+    },
+    {
+     "rechnung": "2*42/7",
+     "antwort": "12",
+     "rolle": "fehlbild:halbieren_faelschlich"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "fc23183f-db11-441d-ac0d-83baa0000aa0",
+   "titel": "Rückrichtung · Höhe im Dreieck",
+   "basis": {
+    "skill_key": "geo_flaeche_rueck",
+    "source_ref": "flaeche-rueck-02",
+    "frage": "Ein Dreieck hat den Flächeninhalt 30 cm² und die Grundseite g = 12 cm.\n\nWie lang ist die zugehörige Höhe h?",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "known_errors": {
+     "180": "falsche_gegenoperation",
+     "2,5": "halbieren_vergessen",
+     "+2,5": "halbieren_vergessen",
+     "2.5": "halbieren_vergessen",
+     "+2.5": "halbieren_vergessen",
+     "2,5 cm": "halbieren_vergessen",
+     "2,5cm": "halbieren_vergessen",
+     "+2,5 cm": "halbieren_vergessen",
+     "+2,5cm": "halbieren_vergessen",
+     "2.5 cm": "halbieren_vergessen",
+     "2.5cm": "halbieren_vergessen",
+     "+2.5 cm": "halbieren_vergessen",
+     "+2.5cm": "halbieren_vergessen",
+     "+180": "falsche_gegenoperation",
+     "180 cm": "falsche_gegenoperation",
+     "180cm": "falsche_gegenoperation",
+     "+180 cm": "falsche_gegenoperation",
+     "+180cm": "falsche_gegenoperation"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: A = g · h : 2 nach h umstellen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5",
+      "+5",
+      "5 cm",
+      "5cm",
+      "+5 cm",
+      "+5cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = g · h : 2, also h = 2 · A : g = 2 · 30 cm² : 12 cm = 60 cm² : 12 cm = 5 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Halbieren beim Umstellen vergessen: 30 : 12 = 2,5.",
+       "socratic_question": "Wie groß wäre die Fläche mit h = 2,5 cm wirklich?"
+      },
+      {
+       "error": "Die Formel vorwärts angewendet statt umgestellt: 30 · 12 : 2 = 180.",
+       "socratic_question": "Welche Rechnung macht das „mal g“ aus der Formel rückgängig?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, falsche_gegenoperation)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*30/12",
+     "antwort": "5"
+    },
+    {
+     "rechnung": "30/12",
+     "antwort": "2.5",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "30*12/2",
+     "antwort": "180",
+     "rolle": "fehlbild:falsche_gegenoperation"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "bcd7aec3-3c43-4d3c-807b-7fe6a2641e70",
+   "titel": "Rückrichtung · Höhe im Trapez",
+   "basis": {
+    "skill_key": "geo_flaeche_rueck",
+    "source_ref": "flaeche-rueck-03",
+    "frage": "Ein Trapez hat den Flächeninhalt 63 cm² und die parallelen Seiten a = 12 cm und c = 6 cm.\n\nWie groß ist seine Höhe h?",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "known_errors": {
+     "21": "nur_eine_grundseite",
+     "10,5": "nur_eine_grundseite",
+     "+10,5": "nur_eine_grundseite",
+     "10.5": "nur_eine_grundseite",
+     "+10.5": "nur_eine_grundseite",
+     "10,5 cm": "nur_eine_grundseite",
+     "10,5cm": "nur_eine_grundseite",
+     "+10,5 cm": "nur_eine_grundseite",
+     "+10,5cm": "nur_eine_grundseite",
+     "10.5 cm": "nur_eine_grundseite",
+     "10.5cm": "nur_eine_grundseite",
+     "+10.5 cm": "nur_eine_grundseite",
+     "+10.5cm": "nur_eine_grundseite",
+     "+21": "nur_eine_grundseite",
+     "21 cm": "nur_eine_grundseite",
+     "21cm": "nur_eine_grundseite",
+     "+21 cm": "nur_eine_grundseite",
+     "+21cm": "nur_eine_grundseite",
+     "3,5": "halbieren_vergessen",
+     "+3,5": "halbieren_vergessen",
+     "3.5": "halbieren_vergessen",
+     "+3.5": "halbieren_vergessen",
+     "3,5 cm": "halbieren_vergessen",
+     "3,5cm": "halbieren_vergessen",
+     "+3,5 cm": "halbieren_vergessen",
+     "+3,5cm": "halbieren_vergessen",
+     "3.5 cm": "halbieren_vergessen",
+     "3.5cm": "halbieren_vergessen",
+     "+3.5 cm": "halbieren_vergessen",
+     "+3.5cm": "halbieren_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Trapezformel umstellen, Mittelwert der parallelen Seiten bilden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "+7",
+      "7 cm",
+      "7cm",
+      "+7 cm",
+      "+7cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = (a + c) : 2 · h, also h = A : ((a + c) : 2).\n(12 cm + 6 cm) : 2 = 9 cm.\nh = 63 cm² : 9 cm = 7 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur mit der Seite a gerechnet: 2 · 63 : 12 = 10,5.",
+       "socratic_question": "Kommen beide parallelen Seiten in deiner Rechnung vor?"
+      },
+      {
+       "error": "Nur mit der Seite c gerechnet: 2 · 63 : 6 = 21.",
+       "socratic_question": "Kommen beide parallelen Seiten in deiner Rechnung vor?"
+      },
+      {
+       "error": "Durch die Summe statt durch den Mittelwert geteilt: 63 : 18 = 3,5.",
+       "socratic_question": "Wie groß wäre die Fläche mit h = 3,5 cm wirklich?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_eine_grundseite, halbieren_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "63/((12+6)/2)",
+     "antwort": "7"
+    },
+    {
+     "rechnung": "63/12*2",
+     "antwort": "10.5",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "63/6*2",
+     "antwort": "21",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "63/(12+6)",
+     "antwort": "3.5",
+     "rolle": "fehlbild:halbieren_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "c2d4c950-beab-4c0b-b4be-cee13fcbffbe",
+   "titel": "Rückrichtung · fehlende parallele Seite im Trapez",
+   "basis": {
+    "skill_key": "geo_flaeche_rueck",
+    "source_ref": "flaeche-rueck-04",
+    "frage": "Ein Trapez hat den Flächeninhalt 40 cm². Die parallele Seite a ist 9 cm lang, die Höhe beträgt h = 5 cm.\n\nWie lang ist die andere parallele Seite c?",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "known_errors": {
+     "8": "nur_eine_grundseite",
+     "16": "falsche_groesse_beantwortet",
+     "+8": "nur_eine_grundseite",
+     "8 cm": "nur_eine_grundseite",
+     "8cm": "nur_eine_grundseite",
+     "+8 cm": "nur_eine_grundseite",
+     "+8cm": "nur_eine_grundseite",
+     "+16": "falsche_groesse_beantwortet",
+     "16 cm": "falsche_groesse_beantwortet",
+     "16cm": "falsche_groesse_beantwortet",
+     "+16 cm": "falsche_groesse_beantwortet",
+     "+16cm": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Trapezformel in zwei Schritten umstellen (Summe a + c, dann c)."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Rückrichtung in zwei Schritten: Lösungsweg selbst finden."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "+7",
+      "7 cm",
+      "7cm",
+      "+7 cm",
+      "+7cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = (a + c) : 2 · h, also a + c = 2 · A : h = 2 · 40 cm² : 5 cm = 16 cm.\nc = 16 cm - 9 cm = 7 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Gerechnet, als gäbe es nur eine parallele Seite: 40 : 5 = 8.",
+       "socratic_question": "Welche Rolle spielt die Seite a in der Trapezformel?"
+      },
+      {
+       "error": "Die Summe a + c angegeben statt der Seite c.",
+       "socratic_question": "Ist nach a + c oder nach c allein gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (nur_eine_grundseite, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*40/5-9",
+     "antwort": "7"
+    },
+    {
+     "rechnung": "40/5",
+     "antwort": "8",
+     "rolle": "fehlbild:nur_eine_grundseite"
+    },
+    {
+     "rechnung": "2*40/5",
+     "antwort": "16",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "27c84f21-51c3-4fb3-a654-331c8c312f00",
+   "titel": "Rückrichtung · Sachkontext · Beet als Parallelogramm",
+   "basis": {
+    "skill_key": "geo_flaeche_rueck",
+    "source_ref": "flaeche-rueck-05",
+    "frage": "Ein Beet hat die Form eines Parallelogramms und ist 18 m² groß. Eine Seite des Beetes ist 4,5 m lang.\n\nWie groß ist die Höhe des Beetes zu dieser Seite?",
+    "input_type": "NUMERIC",
+    "unit": "m",
+    "known_errors": {
+     "8": "halbieren_faelschlich",
+     "81": "falsche_gegenoperation",
+     "+81": "falsche_gegenoperation",
+     "81 m": "falsche_gegenoperation",
+     "81m": "falsche_gegenoperation",
+     "+81 m": "falsche_gegenoperation",
+     "+81m": "falsche_gegenoperation",
+     "+8": "halbieren_faelschlich",
+     "8 m": "halbieren_faelschlich",
+     "8m": "halbieren_faelschlich",
+     "+8 m": "halbieren_faelschlich",
+     "+8m": "halbieren_faelschlich"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Parallelogrammformel umstellen, Division durch eine Dezimalzahl."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "+4",
+      "4 m",
+      "4m",
+      "+4 m",
+      "+4m"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = g · h mit g = 4,5 m, also h = 18 m² : 4,5 m = 4 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Multipliziert statt geteilt: 18 · 4,5 = 81.",
+       "socratic_question": "Welche Rechnung macht das „mal g“ aus der Formel rückgängig?"
+      },
+      {
+       "error": "Mit der Dreiecksformel gerechnet: 2 · 18 : 4,5 = 8.",
+       "socratic_question": "Wird beim Parallelogramm halbiert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_gegenoperation, halbieren_faelschlich)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "18/4.5",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "18*4.5",
+     "antwort": "81",
+     "rolle": "fehlbild:falsche_gegenoperation"
+    },
+    {
+     "rechnung": "2*18/4.5",
+     "antwort": "8",
+     "rolle": "fehlbild:halbieren_faelschlich"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "380c4ca9-3efc-45e9-8c4c-87b751e2f414",
+   "titel": "Rückrichtung · Sachkontext · dreieckiges Segel",
+   "basis": {
+    "skill_key": "geo_flaeche_rueck",
+    "source_ref": "flaeche-rueck-06",
+    "frage": "Ein dreieckiges Segel hat den Flächeninhalt 7,5 m². Seine untere Kante ist 3 m lang.\n\nWie lang ist die Höhe des Segels zu dieser Kante?",
+    "input_type": "NUMERIC",
+    "unit": "m",
+    "known_errors": {
+     "2,5": "halbieren_vergessen",
+     "+2,5": "halbieren_vergessen",
+     "2.5": "halbieren_vergessen",
+     "+2.5": "halbieren_vergessen",
+     "2,5 m": "halbieren_vergessen",
+     "2,5m": "halbieren_vergessen",
+     "+2,5 m": "halbieren_vergessen",
+     "+2,5m": "halbieren_vergessen",
+     "2.5 m": "halbieren_vergessen",
+     "2.5m": "halbieren_vergessen",
+     "+2.5 m": "halbieren_vergessen",
+     "+2.5m": "halbieren_vergessen",
+     "11,25": "falsche_gegenoperation",
+     "+11,25": "falsche_gegenoperation",
+     "11.25": "falsche_gegenoperation",
+     "+11.25": "falsche_gegenoperation",
+     "11,25 m": "falsche_gegenoperation",
+     "11,25m": "falsche_gegenoperation",
+     "+11,25 m": "falsche_gegenoperation",
+     "+11,25m": "falsche_gegenoperation",
+     "11.25 m": "falsche_gegenoperation",
+     "11.25m": "falsche_gegenoperation",
+     "+11.25 m": "falsche_gegenoperation",
+     "+11.25m": "falsche_gegenoperation"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Dreiecksformel umstellen, Dezimalfläche."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 NRW, Erste Stufe, Geo-8 (Trapez, Drachen, Raute, zusammengesetzte Figuren, Flächenterme)."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_flaeche_rechteck und geo_flaeche_dreieck im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (KLP Geo-8)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Flächenformel übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Maße und die Lage der Teilfiguren stehen im Text; kein Generator zeichnet Trapez, Drachen oder Raute (phase1 a)."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5",
+      "+5",
+      "5 m",
+      "5m",
+      "+5 m",
+      "+5m"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Plus-Form und Einheit."
+    },
+    "solution": {
+     "wert": "A = g · h : 2 mit g = 3 m, also h = 2 · 7,5 m² : 3 m = 15 m² : 3 m = 5 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Halbieren beim Umstellen vergessen: 7,5 : 3 = 2,5.",
+       "socratic_question": "Wie groß wäre das Segel mit h = 2,5 m wirklich?"
+      },
+      {
+       "error": "Die Formel vorwärts angewendet statt umgestellt: 7,5 · 3 : 2 = 11,25.",
+       "socratic_question": "Welche Rechnung macht das „mal g“ aus der Formel rückgängig?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, falsche_gegenoperation)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4 K8-Rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*7.5/3",
+     "antwort": "5"
+    },
+    {
+     "rechnung": "7.5/3",
+     "antwort": "2.5",
+     "rolle": "fehlbild:halbieren_vergessen"
+    },
+    {
+     "rechnung": "7.5*3/2",
+     "antwort": "11.25",
+     "rolle": "fehlbild:falsche_gegenoperation"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1290 @@
+[
+ {
+  "task": {
+   "id": "59fc7bef-3dd3-4c74-b0b1-4f2cea3a38d9",
+   "title": "Einsetzungsverfahren · y steht frei · Klammer",
+   "question": "Löse das Gleichungssystem mit dem Einsetzungsverfahren.\n\nI: y = x + 1\nII: 3x + 2y = 17",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_einsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-einsetzen-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "686a3356-9cec-46b5-9625-24e8b3159661",
+   "title": "Einsetzungsverfahren · x steht frei",
+   "question": "Löse das Gleichungssystem mit dem Einsetzungsverfahren.\n\nI: x = 2y\nII: x + 3y = 20",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_einsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-einsetzen-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fd5eeb1f-97c2-49a8-ba75-d620da074fc2",
+   "title": "Einsetzungsverfahren · Minusklammer",
+   "question": "Löse das Gleichungssystem mit dem Einsetzungsverfahren.\n\nI: y = 2x - 3\nII: 4x - y = 7",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_einsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-einsetzen-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "158c874c-248c-40ed-b8b5-af3eb627517a",
+   "title": "Einsetzungsverfahren · erst umstellen",
+   "question": "Löse das Gleichungssystem mit dem Einsetzungsverfahren. Stelle dazu zuerst Gleichung I nach x um.\n\nI: x + 2y = 11\nII: 3x - 4y = 3",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_einsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-einsetzen-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6ffa3e34-6e9c-4b46-b615-0ea96683fa4f",
+   "title": "Einsetzungsverfahren · Sachkontext · Kinokarten",
+   "question": "Ein Kino verkauft an einem Nachmittag 50 Karten. Eine Kinderkarte kostet 6 €, eine Erwachsenenkarte 9 €. Zusammen nimmt das Kino 360 € ein.\n\nStelle ein Gleichungssystem auf (x: Anzahl der Kinderkarten, y: Anzahl der Erwachsenenkarten) und löse es mit dem Einsetzungsverfahren.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_einsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Anzahl der Kinderkarten: x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Anzahl der Erwachsenenkarten: y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-einsetzen-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8ccd8989-eb3b-4954-bcb6-5bd202d6710e",
+   "title": "Einsetzungsverfahren · Zahlenrätsel",
+   "question": "Von zwei Zahlen ist die erste um 6 größer als die zweite. Das Doppelte der ersten Zahl und die zweite Zahl ergeben zusammen 36.\n\nBestimme beide Zahlen mit dem Einsetzungsverfahren (x: erste Zahl, y: zweite Zahl).",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_einsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "erste Zahl: x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "zweite Zahl: y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-einsetzen-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5b073ffe-951e-4339-bceb-fefd24b204e4",
+   "title": "Gleichsetzungsverfahren · beide nach y aufgelöst",
+   "question": "Löse das Gleichungssystem mit dem Gleichsetzungsverfahren.\n\nI: y = 2x + 1\nII: y = x + 4",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_gleichsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-gleichsetzen-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0a8987a7-5605-43d6-b24b-16436d3d8096",
+   "title": "Gleichsetzungsverfahren · Konstante mit Minus",
+   "question": "Löse das Gleichungssystem mit dem Gleichsetzungsverfahren.\n\nI: y = 3x - 2\nII: y = x + 6",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_gleichsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-gleichsetzen-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f028a616-4848-4839-86c5-b8520f6a0e15",
+   "title": "Gleichsetzungsverfahren · negativer Koeffizient",
+   "question": "Löse das Gleichungssystem mit dem Gleichsetzungsverfahren.\n\nI: y = -2x + 7\nII: y = x - 5",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_gleichsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-gleichsetzen-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2d1d05f3-9234-4580-ac86-76776714e9c1",
+   "title": "Gleichsetzungsverfahren · erst nach y auflösen",
+   "question": "Löse das Gleichungssystem mit dem Gleichsetzungsverfahren. Löse dazu zuerst beide Gleichungen nach y auf.\n\nI: x + y = 5\nII: 2x - y = 4",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_gleichsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-gleichsetzen-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4d293e0f-925f-4025-8b92-7c8a6236e2bb",
+   "title": "Gleichsetzungsverfahren · Sachkontext · zwei Tarife",
+   "question": "Ein Fahrradverleih bietet zwei Tarife an. Tarif A: 5 € Grundgebühr und 2 € je Stunde. Tarif B: 11 € Grundgebühr und 1 € je Stunde.\n\nBei welcher Leihdauer kosten beide Tarife gleich viel, und wie viel kostet es dann? Stelle für jeden Tarif eine Gleichung auf (x: Leihdauer in Stunden, y: Kosten in €) und löse mit dem Gleichsetzungsverfahren.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_gleichsetzen",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Leihdauer in Stunden: x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Kosten in €: y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-gleichsetzen-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "341951eb-c62b-414a-aedf-c86e61d27bf5",
+   "title": "Gleichsetzungsverfahren · Sachkontext · gleiche Stundenpreise",
+   "question": "Ein Kletterpark bietet zwei Tarife an. Tarif A: 4 € Grundgebühr und 2 € je Stunde. Tarif B: 6 € Grundgebühr und 2 € je Stunde.\n\nMit x = Stunden und y = Kosten in € gilt:\nI: y = 2x + 4\nII: y = 2x + 6\n\nWie viele Lösungen hat das Gleichungssystem? Nutze das Gleichsetzungsverfahren.",
+   "input_type": "MC",
+   "skill_key": "gleichung_lgs_gleichsetzen",
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "genau eine Lösung"
+     },
+     {
+      "id": "b",
+      "label": "keine Lösung"
+     },
+     {
+      "id": "c",
+      "label": "unendlich viele Lösungen"
+     }
+    ],
+    "input_type": "MC"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-gleichsetzen-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "04167489-16b6-4f8e-bd85-5aff2f8433a9",
+   "title": "Additionsverfahren · y fällt direkt weg",
+   "question": "Löse das Gleichungssystem mit dem Additionsverfahren.\n\nI: x + 2y = 12\nII: x - 2y = 4",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_addition",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-addition-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8a6667f5-f069-4df5-8411-c4533e44b757",
+   "title": "Additionsverfahren · negative rechte Seite",
+   "question": "Löse das Gleichungssystem mit dem Additionsverfahren.\n\nI: 3x + 2y = 18\nII: x - 2y = -2",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_addition",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-addition-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b0a46ab7-8546-455a-af17-41d97b6da549",
+   "title": "Additionsverfahren · eine Gleichung mal Faktor",
+   "question": "Löse das Gleichungssystem mit dem Additionsverfahren. Multipliziere dazu Gleichung II mit 2.\n\nI: 2x + 3y = 13\nII: x + y = 5",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_addition",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-addition-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ca914e37-5069-4fe6-bbec-d3965feca69a",
+   "title": "Additionsverfahren · Faktor selbst finden",
+   "question": "Löse das Gleichungssystem mit dem Additionsverfahren. Multipliziere dazu eine Gleichung mit einer passenden Zahl.\n\nI: 4x + 3y = 5\nII: 2x - y = 5",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_addition",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-addition-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5fcdd8c8-f87d-4b0a-b5d3-6207fb130eeb",
+   "title": "Additionsverfahren · Sachkontext · Eintrittspreise",
+   "question": "In einem Museum zahlen 2 Erwachsene und 3 Kinder zusammen 34 € Eintritt. 1 Erwachsener und 2 Kinder zahlen zusammen 20 €.\n\nWie viel kostet eine Karte für Erwachsene und wie viel eine Karte für Kinder? Stelle ein Gleichungssystem auf (x: Preis für Erwachsene, y: Preis für Kinder, in €) und löse es mit dem Additionsverfahren.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_addition",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Preis für Erwachsene in €: x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Preis für Kinder in €: y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-addition-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ffd185a0-239d-4e19-8600-87934606fffc",
+   "title": "Additionsverfahren · Sachkontext · Vielfaches",
+   "question": "In einem Schreibwarenladen kosten 2 Hefte und 3 Stifte zusammen 7 €. 4 Hefte und 6 Stifte kosten zusammen 14 €.\n\nMit x = Preis eines Heftes und y = Preis eines Stiftes (in €) gilt:\nI: 2x + 3y = 7\nII: 4x + 6y = 14\n\nWie viele Lösungen hat das Gleichungssystem? Nutze das Additionsverfahren.",
+   "input_type": "MC",
+   "skill_key": "gleichung_lgs_addition",
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "genau eine Lösung"
+     },
+     {
+      "id": "b",
+      "label": "keine Lösung"
+     },
+     {
+      "id": "c",
+      "label": "unendlich viele Lösungen"
+     }
+    ],
+    "input_type": "MC"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-addition-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "635ae61a-bd3c-4180-9a0f-c47f66e6bc62",
+   "title": "LGS grafisch · Schnittpunkt ablesen",
+   "question": "Die Geraden f und g im Koordinatensystem gehören zu den beiden Gleichungen eines linearen Gleichungssystems.\n\nLies die Lösung des Gleichungssystems am Schnittpunkt der Geraden ab.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_grafisch",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-grafisch-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a4edd0b8-6298-45c2-b050-72d8d32c91ba",
+   "title": "LGS grafisch · flache Gerade",
+   "question": "Im Koordinatensystem sind die Graphen der Funktionen f und g gezeichnet. Sie stellen ein lineares Gleichungssystem dar.\n\nBestimme die Lösung des Gleichungssystems mithilfe der Zeichnung.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_grafisch",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-grafisch-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6bc7dd64-72ef-461c-b6cc-661ef4f08c78",
+   "title": "LGS grafisch · Schnittpunkt im dritten Quadranten",
+   "question": "Die Geraden f und g gehören zu einem linearen Gleichungssystem.\n\nGib die Lösung des Gleichungssystems an. Lies dazu den Schnittpunkt der beiden Geraden ab.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_grafisch",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-grafisch-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "49e51e4e-c935-489b-af30-a41f8d0a932f",
+   "title": "LGS · Lösungsanzahl · Geraden aufeinander",
+   "question": "Gegeben ist das Gleichungssystem\nI: y = 0,5x + 1\nII: 2y = x + 2\n\nWie viele Lösungen hat es? Denke an die Lage der beiden zugehörigen Geraden.",
+   "input_type": "MC",
+   "skill_key": "gleichung_lgs_grafisch",
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "genau eine Lösung"
+     },
+     {
+      "id": "b",
+      "label": "keine Lösung"
+     },
+     {
+      "id": "c",
+      "label": "unendlich viele Lösungen"
+     }
+    ],
+    "input_type": "MC"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-grafisch-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0315634a-9c1d-4961-b214-07617add2874",
+   "title": "LGS grafisch · Sachkontext · zwei Tarife",
+   "question": "Ein Kanuverleih bietet zwei Tarife an. Im Koordinatensystem gibt x die Leihdauer in Stunden an und y die Kosten in €. Die Gerade f gehört zu Tarif A, die Gerade g zu Tarif B.\n\nLies ab: Bei welcher Leihdauer kosten beide Tarife gleich viel, und wie viel kostet es dann?",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_grafisch",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Leihdauer in Stunden: x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Kosten in €: y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-grafisch-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4888b388-56c9-4c9a-8388-46367317b245",
+   "title": "LGS grafisch · parallele Geraden deuten",
+   "question": "Die Geraden f und g im Koordinatensystem gehören zu den beiden Gleichungen eines linearen Gleichungssystems.\n\nWie viele Lösungen hat das Gleichungssystem?",
+   "input_type": "MC",
+   "skill_key": "gleichung_lgs_grafisch",
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "genau eine Lösung"
+     },
+     {
+      "id": "b",
+      "label": "keine Lösung"
+     },
+     {
+      "id": "c",
+      "label": "unendlich viele Lösungen"
+     }
+    ],
+    "input_type": "MC"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-grafisch-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "17e1d7e8-12f6-478e-a4c3-cb2ebc905145",
+   "title": "LGS Sachaufgabe · Eintrittskarten · System wählen",
+   "question": "Ein Schwimmbad verkauft an einem Tag 120 Eintrittskarten. Eine Kinderkarte kostet 3 €, eine Erwachsenenkarte 5 €. Zusammen nimmt das Schwimmbad 460 € ein.\n\nx ist die Anzahl der Kinderkarten, y die Anzahl der Erwachsenenkarten.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_sachaufgabe",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "mc",
+     "prompt": "Welches Gleichungssystem passt zu der Situation?",
+     "unit": null,
+     "competency_process": null,
+     "options": [
+      {
+       "id": "a",
+       "label": "I: x + y = 120; II: 5x + 3y = 460"
+      },
+      {
+       "id": "b",
+       "label": "I: x + y = 120; II: 3x + 5y = 460"
+      },
+      {
+       "id": "c",
+       "label": "I: x + y = 460; II: 3x + 5y = 120"
+      }
+     ]
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Wie viele Kinderkarten wurden verkauft? x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 3,
+     "kind": "short_input",
+     "prompt": "Wie viele Erwachsenenkarten wurden verkauft? y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-sach-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7eb5ad20-a022-4e0e-8fd4-2a7ec2f655f1",
+   "title": "LGS Sachaufgabe · Mischung · System wählen",
+   "question": "Eine Rösterei mischt zwei Kaffeesorten. Sorte A kostet 12 € je kg, Sorte B 18 € je kg. Es sollen 30 kg einer Mischung entstehen, die 14 € je kg kostet.\n\nx ist die Menge von Sorte A in kg, y die Menge von Sorte B in kg.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_sachaufgabe",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "mc",
+     "prompt": "Welches Gleichungssystem passt zu der Situation?",
+     "unit": null,
+     "competency_process": null,
+     "options": [
+      {
+       "id": "a",
+       "label": "I: x + y = 30; II: 12x + 18y = 14"
+      },
+      {
+       "id": "b",
+       "label": "I: x + y = 30; II: 18x + 12y = 420"
+      },
+      {
+       "id": "c",
+       "label": "I: x + y = 30; II: 12x + 18y = 420"
+      }
+     ]
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Menge von Sorte A in kg: x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 3,
+     "kind": "short_input",
+     "prompt": "Menge von Sorte B in kg: y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-sach-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "67e26196-727d-4fc1-bcf5-0ba79078adeb",
+   "title": "LGS Sachaufgabe · Zahlenrätsel · System wählen",
+   "question": "Das Dreifache einer Zahl x und eine zweite Zahl y ergeben zusammen 26. Subtrahiert man y von x, erhält man 2.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_sachaufgabe",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "mc",
+     "prompt": "Welches Gleichungssystem passt zu der Situation?",
+     "unit": null,
+     "competency_process": null,
+     "options": [
+      {
+       "id": "a",
+       "label": "I: 3x + y = 26; II: x - y = 2"
+      },
+      {
+       "id": "b",
+       "label": "I: x + 3y = 26; II: x - y = 2"
+      },
+      {
+       "id": "c",
+       "label": "I: 3(x + y) = 26; II: x - y = 2"
+      }
+     ]
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Die Zahl x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 3,
+     "kind": "short_input",
+     "prompt": "Die Zahl y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-sach-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "614b148f-4f0a-48ed-8796-a060b35a63b8",
+   "title": "LGS Sachaufgabe · zwei Tarife · System wählen",
+   "question": "Zwei Taxiunternehmen berechnen ihre Preise so: Unternehmen A verlangt 4 € Grundgebühr und 2 € je Kilometer, Unternehmen B 7 € Grundgebühr und 1,50 € je Kilometer.\n\nx ist die Strecke in km, y der Fahrpreis in €.",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_sachaufgabe",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "mc",
+     "prompt": "Welches Gleichungssystem passt zu der Situation?",
+     "unit": null,
+     "competency_process": null,
+     "options": [
+      {
+       "id": "a",
+       "label": "I: y = 4x + 2; II: y = 7x + 1,5"
+      },
+      {
+       "id": "b",
+       "label": "I: y = 2x + 4; II: y = 1,5x"
+      },
+      {
+       "id": "c",
+       "label": "I: y = 2x + 4; II: y = 1,5x + 7"
+      }
+     ]
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Bei welcher Strecke in km kosten beide Fahrten gleich viel? x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 3,
+     "kind": "short_input",
+     "prompt": "Wie viel Euro kostet die Fahrt dann? y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-sach-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f3595c06-e95a-4b72-b137-75b3cd8f38c8",
+   "title": "LGS Sachaufgabe · Eintrittspreise · selbst aufstellen",
+   "question": "Ein Zoo verlangt für Erwachsene und Kinder unterschiedliche Eintrittspreise. 2 Erwachsene und 3 Kinder zahlen zusammen 35 €, 3 Erwachsene und 2 Kinder zahlen zusammen 40 €.\n\nStelle ein Gleichungssystem auf und berechne beide Eintrittspreise (x: Preis für Erwachsene, y: Preis für Kinder, in €).",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_sachaufgabe",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Preis für Erwachsene in €: x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Preis für Kinder in €: y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-sach-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f2cff506-af02-4ea8-93b5-91957cab930e",
+   "title": "LGS Sachaufgabe · Rechteck · selbst aufstellen",
+   "question": "Ein rechteckiges Beet hat einen Umfang von 34 m. Es ist 5 m länger als breit.\n\nStelle ein Gleichungssystem auf und berechne Länge und Breite des Beets (x: Länge, y: Breite, in m).",
+   "input_type": "MULTI_PART",
+   "skill_key": "gleichung_lgs_sachaufgabe",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Länge in m: x =",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Breite in m: y =",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_lgs",
+   "source_ref": "lgs-sach-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

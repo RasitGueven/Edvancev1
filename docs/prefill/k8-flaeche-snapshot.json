@@ -1,0 +1,910 @@
+[
+ {
+  "task": {
+   "id": "4bfe5d6e-3f3b-4a91-964c-6eb3f4157273",
+   "title": "Trapez · a = 8 cm, c = 4 cm, h = 5 cm",
+   "question": "Ein Trapez hat die parallelen Seiten a = 8 cm und c = 4 cm und die Höhe h = 5 cm.\n\nWie groß ist sein Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_trapez",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Trapez hat die parallelen Seiten a = 8 cm und c = 4 cm und die Höhe h = 5 cm.\n\nWie groß ist sein Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-trapez-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f1ecd67e-e9b9-4aed-9604-cf9dbf8826f5",
+   "title": "Trapez · a = 10 cm, c = 6 cm, h = 7 cm",
+   "question": "Ein Trapez hat die parallelen Seiten a = 10 cm und c = 6 cm und die Höhe h = 7 cm.\n\nWie groß ist sein Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_trapez",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Trapez hat die parallelen Seiten a = 10 cm und c = 6 cm und die Höhe h = 7 cm.\n\nWie groß ist sein Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-trapez-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5c219db6-804b-4819-b671-9cb512ab1b0b",
+   "title": "Trapez · gleichschenklig, Schenkel als Ablenker",
+   "question": "Ein gleichschenkliges Trapez hat die parallelen Seiten a = 11 cm und c = 5 cm. Die beiden Schenkel sind je 5 cm lang, die Höhe beträgt h = 4 cm.\n\nWie groß ist sein Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_trapez",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein gleichschenkliges Trapez hat die parallelen Seiten a = 11 cm und c = 5 cm. Die beiden Schenkel sind je 5 cm lang, die Höhe beträgt h = 4 cm.\n\nWie groß ist sein Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-trapez-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ffcbb7db-a7ab-4718-8e19-351a74a056c0",
+   "title": "Trapez · Dezimalmaße",
+   "question": "Ein Trapez hat die parallelen Seiten a = 6,5 cm und c = 3,5 cm und die Höhe h = 4,2 cm.\n\nWie groß ist sein Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_trapez",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Trapez hat die parallelen Seiten a = 6,5 cm und c = 3,5 cm und die Höhe h = 4,2 cm.\n\nWie groß ist sein Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-trapez-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fd558d3f-2e73-450f-a8e7-7c989eb1b314",
+   "title": "Trapez · Sachkontext · Dachfläche",
+   "question": "Eine Dachfläche hat die Form eines Trapezes. Die untere Dachkante ist 12 m lang, die obere Dachkante 8 m. Beide Kanten sind parallel, ihr Abstand auf der Dachfläche beträgt 5 m.\n\nWie groß ist die Dachfläche?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_trapez",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Dachfläche hat die Form eines Trapezes. Die untere Dachkante ist 12 m lang, die obere Dachkante 8 m. Beide Kanten sind parallel, ihr Abstand auf der Dachfläche beträgt 5 m.\n\nWie groß ist die Dachfläche?"
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-trapez-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "94fcae6b-947a-4db7-ab54-b4f13cc48c9b",
+   "title": "Trapez · Sachkontext · Grundstückspreis",
+   "question": "Ein Grundstück hat die Form eines Trapezes. Die beiden parallelen Grundstücksseiten sind 32 m und 24 m lang, ihr Abstand beträgt 18 m. Ein Quadratmeter kostet 150 €.\n\nWie viel kostet das Grundstück?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_trapez",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Grundstück hat die Form eines Trapezes. Die beiden parallelen Grundstücksseiten sind 32 m und 24 m lang, ihr Abstand beträgt 18 m. Ein Quadratmeter kostet 150 €.\n\nWie viel kostet das Grundstück?"
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-trapez-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c1440c89-6139-41c2-9aac-6f65cf638e2f",
+   "title": "Drachenviereck · e = 8 cm, f = 6 cm",
+   "question": "Ein Drachenviereck hat die Diagonalen e = 8 cm und f = 6 cm.\n\nWie groß ist sein Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_drachen_raute",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Drachenviereck hat die Diagonalen e = 8 cm und f = 6 cm.\n\nWie groß ist sein Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-drachen-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f8054c53-9d2a-4d33-88b4-c3086fa96bfd",
+   "title": "Raute · e = 10 cm, f = 7 cm",
+   "question": "Eine Raute hat die Diagonalen e = 10 cm und f = 7 cm.\n\nWie groß ist ihr Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_drachen_raute",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Raute hat die Diagonalen e = 10 cm und f = 7 cm.\n\nWie groß ist ihr Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-raute-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6274f6a5-65e5-40f4-be09-36fa8931c424",
+   "title": "Raute · Seitenlänge als Ablenker",
+   "question": "Eine Raute hat die Seitenlänge 13 cm. Ihre Diagonalen sind e = 24 cm und f = 10 cm lang.\n\nWie groß ist ihr Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_drachen_raute",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Raute hat die Seitenlänge 13 cm. Ihre Diagonalen sind e = 24 cm und f = 10 cm lang.\n\nWie groß ist ihr Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-raute-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ef5c0139-1f43-4f58-9395-11b5e84364d0",
+   "title": "Drachenviereck · Dezimalmaße",
+   "question": "Ein Drachenviereck hat die Diagonalen e = 7,5 cm und f = 4,8 cm.\n\nWie groß ist sein Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_drachen_raute",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Drachenviereck hat die Diagonalen e = 7,5 cm und f = 4,8 cm.\n\nWie groß ist sein Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-drachen-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7cfb5d9f-a6d9-48d5-85e1-d470eee978c7",
+   "title": "Drachen · Sachkontext · Papierdrachen",
+   "question": "Ein Drachen aus Papier hat die Form eines Drachenvierecks. Seine beiden Holzstäbe bilden die Diagonalen: Der Längsstab ist 90 cm lang, der Querstab 60 cm.\n\nWie groß ist die Fläche des Drachens?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_drachen_raute",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Drachen aus Papier hat die Form eines Drachenvierecks. Seine beiden Holzstäbe bilden die Diagonalen: Der Längsstab ist 90 cm lang, der Querstab 60 cm.\n\nWie groß ist die Fläche des Drachens?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-drachen-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0802547a-2b81-4d03-8c5c-941705076285",
+   "title": "Raute · Sachkontext · vierzig Fliesen",
+   "question": "Eine Wand wird mit 40 rautenförmigen Fliesen belegt. Jede Fliese hat die Diagonalen 20 cm und 12 cm. Die Fliesen liegen ohne Fugen aneinander.\n\nWie groß ist die belegte Fläche insgesamt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_drachen_raute",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Wand wird mit 40 rautenförmigen Fliesen belegt. Jede Fliese hat die Diagonalen 20 cm und 12 cm. Die Fliesen liegen ohne Fugen aneinander.\n\nWie groß ist die belegte Fläche insgesamt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-raute-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7585618a-0557-49ed-89be-997629dfaf03",
+   "title": "Haus-Form · Rechteck mit aufgesetztem Dreieck",
+   "question": "Eine Figur besteht aus einem Rechteck mit der Länge 8 cm und der Breite 5 cm. Auf die obere, 8 cm lange Rechteckseite ist ein Dreieck aufgesetzt: Seine Grundseite ist genau diese Rechteckseite, seine Höhe beträgt 3 cm.\n\nWie groß ist der Flächeninhalt der ganzen Figur?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_zusammengesetzt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Figur besteht aus einem Rechteck mit der Länge 8 cm und der Breite 5 cm. Auf die obere, 8 cm lange Rechteckseite ist ein Dreieck aufgesetzt: Seine Grundseite ist genau diese Rechteckseite, seine Höhe beträgt 3 cm.\n\nWie groß ist der Flächeninhalt der ganzen Figur?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-zus-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4379159d-98dc-49fd-a6da-8e9cbc916c71",
+   "title": "L-Form · Rechteck mit ausgeschnittener Ecke",
+   "question": "Aus einem Rechteck mit der Länge 10 cm und der Breite 8 cm wird an einer Ecke ein kleineres Rechteck mit den Seiten 4 cm und 3 cm herausgeschnitten. Übrig bleibt eine L-förmige Figur.\n\nWie groß ist ihr Flächeninhalt?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_zusammengesetzt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Aus einem Rechteck mit der Länge 10 cm und der Breite 8 cm wird an einer Ecke ein kleineres Rechteck mit den Seiten 4 cm und 3 cm herausgeschnitten. Übrig bleibt eine L-förmige Figur.\n\nWie groß ist ihr Flächeninhalt?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-zus-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4320eb31-3cbb-4733-ab23-e15fcb60d849",
+   "title": "Rechteck mit angesetztem Trapez",
+   "question": "Eine Figur besteht aus einem Rechteck und einem Trapez. Das Rechteck ist 6 cm lang und 4 cm breit. An eine 6 cm lange Rechteckseite ist ein Trapez so angesetzt, dass diese Seite seine längere parallele Seite ist. Die kürzere parallele Seite des Trapezes ist 2 cm lang, seine Höhe beträgt 3 cm.\n\nWie groß ist der Flächeninhalt der ganzen Figur?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_zusammengesetzt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Figur besteht aus einem Rechteck und einem Trapez. Das Rechteck ist 6 cm lang und 4 cm breit. An eine 6 cm lange Rechteckseite ist ein Trapez so angesetzt, dass diese Seite seine längere parallele Seite ist. Die kürzere parallele Seite des Trapezes ist 2 cm lang, seine Höhe beträgt 3 cm.\n\nWie groß ist der Flächeninhalt der ganzen Figur?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-zus-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1155ecca-ce4c-41bb-bf6c-b6fe51ee455d",
+   "title": "Quadrat mit ausgeschnittener Raute",
+   "question": "Aus einer quadratischen Platte mit der Seitenlänge 10 cm wird in der Mitte eine Raute ausgeschnitten. Die Diagonalen der Raute sind 6 cm und 4 cm lang.\n\nWie groß ist der Flächeninhalt der Platte nach dem Ausschneiden?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_zusammengesetzt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Aus einer quadratischen Platte mit der Seitenlänge 10 cm wird in der Mitte eine Raute ausgeschnitten. Die Diagonalen der Raute sind 6 cm und 4 cm lang.\n\nWie groß ist der Flächeninhalt der Platte nach dem Ausschneiden?"
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-zus-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "00682950-b934-4ded-9d9b-c8e68ed4313d",
+   "title": "Sachkontext · Rasen um ein dreieckiges Beet",
+   "question": "Ein rechteckiger Garten ist 12 m lang und 9 m breit. Darin liegt ein dreieckiges Beet mit der Grundseite 4 m und der zugehörigen Höhe 3 m. Der Rest des Gartens ist Rasen.\n\nWie groß ist die Rasenfläche?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_zusammengesetzt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiger Garten ist 12 m lang und 9 m breit. Darin liegt ein dreieckiges Beet mit der Grundseite 4 m und der zugehörigen Höhe 3 m. Der Rest des Gartens ist Rasen.\n\nWie groß ist die Rasenfläche?"
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-zus-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7502a1e1-ab78-4418-83f6-fd0d045ccc86",
+   "title": "Sachkontext · Giebelwand mit Fenster",
+   "question": "Die Giebelwand eines Hauses besteht aus einem Rechteck, das 9 m breit und 6 m hoch ist, und einem darauf sitzenden Dreieck mit der Grundseite 9 m und der Höhe 4 m. In der Wand ist ein rechteckiges Fenster, 1,5 m breit und 1,2 m hoch. Das Fenster wird nicht gestrichen.\n\nWie viele Quadratmeter Wandfläche müssen gestrichen werden?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_zusammengesetzt",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Giebelwand eines Hauses besteht aus einem Rechteck, das 9 m breit und 6 m hoch ist, und einem darauf sitzenden Dreieck mit der Grundseite 9 m und der Höhe 4 m. In der Wand ist ein rechteckiges Fenster, 1,5 m breit und 1,2 m hoch. Das Fenster wird nicht gestrichen.\n\nWie viele Quadratmeter Wandfläche müssen gestrichen werden?"
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-zus-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "46192474-3c40-4cec-a9de-742684e86e01",
+   "title": "Term · Rechteck x mal 5",
+   "question": "Ein Rechteck ist x cm lang und 5 cm breit.\n\nWelcher Term beschreibt seinen Flächeninhalt in cm²?",
+   "input_type": "MC",
+   "skill_key": "geo_flaeche_term",
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "x + 5"
+     },
+     {
+      "id": "b",
+      "label": "5x"
+     },
+     {
+      "id": "c",
+      "label": "2x + 10"
+     },
+     {
+      "id": "d",
+      "label": "x²"
+     }
+    ],
+    "input_type": "MC"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-term-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "770f72e9-c73c-45fc-9803-e3b20846de70",
+   "title": "Term · Rechteck (x + 3) mal 4",
+   "question": "Ein Rechteck ist (x + 3) cm lang und 4 cm breit.\n\nWelcher Term beschreibt seinen Flächeninhalt in cm²?",
+   "input_type": "MC",
+   "skill_key": "geo_flaeche_term",
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "4x + 3"
+     },
+     {
+      "id": "b",
+      "label": "x + 7"
+     },
+     {
+      "id": "c",
+      "label": "4x + 12"
+     },
+     {
+      "id": "d",
+      "label": "2x + 14"
+     }
+    ],
+    "input_type": "MC"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-term-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "10f112ad-b1cc-4690-8925-773ef92d20e3",
+   "title": "Term · Dreieck mit Grundseite x + 4",
+   "question": "Ein Dreieck hat die Grundseite (x + 4) cm und die zugehörige Höhe 6 cm.\n\nWelcher Term beschreibt seinen Flächeninhalt in cm²?",
+   "input_type": "MC",
+   "skill_key": "geo_flaeche_term",
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "6x + 24"
+     },
+     {
+      "id": "b",
+      "label": "3x + 12"
+     },
+     {
+      "id": "c",
+      "label": "3x + 4"
+     },
+     {
+      "id": "d",
+      "label": "x + 10"
+     }
+    ],
+    "input_type": "MC"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-term-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "11390e1a-2fc1-4cf1-93da-890ac936b56a",
+   "title": "Term · Rechteck mit angesetztem Quadrat",
+   "question": "Eine Figur besteht aus einem Rechteck und einem Quadrat. Das Rechteck ist x cm lang und 4 cm breit. An eine 4 cm lange Seite des Rechtecks ist ein Quadrat mit der Seitenlänge 4 cm angesetzt.\n\nWelcher Term beschreibt den Flächeninhalt der ganzen Figur in cm²?",
+   "input_type": "MC",
+   "skill_key": "geo_flaeche_term",
+   "question_payload": {
+    "options": [
+     {
+      "id": "a",
+      "label": "4x"
+     },
+     {
+      "id": "b",
+      "label": "4x + 8"
+     },
+     {
+      "id": "c",
+      "label": "4x + 16"
+     },
+     {
+      "id": "d",
+      "label": "8x"
+     }
+    ],
+    "input_type": "MC"
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-term-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "214345b8-69d2-43d4-8c1b-1e8e7c428e1d",
+   "title": "Term · Sachkontext · Terrasse 3 m länger als breit",
+   "question": "Eine rechteckige Terrasse ist 3 m länger als breit. Ihre Breite beträgt x m.\n\nStelle einen Term für ihren Flächeninhalt auf und berechne den Flächeninhalt für x = 4.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_term",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine rechteckige Terrasse ist 3 m länger als breit. Ihre Breite beträgt x m.\n\nStelle einen Term für ihren Flächeninhalt auf und berechne den Flächeninhalt für x = 4."
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-term-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1f27364f-e37a-4203-8097-4c3331ea9940",
+   "title": "Term · Sachkontext · Beet doppelt so lang wie breit",
+   "question": "Ein rechteckiges Beet ist doppelt so lang wie breit. Seine Breite beträgt x m.\n\nStelle einen Term für den Flächeninhalt des Beetes auf und berechne ihn für x = 3,5.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_term",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein rechteckiges Beet ist doppelt so lang wie breit. Seine Breite beträgt x m.\n\nStelle einen Term für den Flächeninhalt des Beetes auf und berechne ihn für x = 3,5."
+   },
+   "parts": [],
+   "unit": "m²",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-term-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2fd82f3b-10ca-42b2-91f2-ab53c1eda527",
+   "title": "Rückrichtung · Höhe im Parallelogramm",
+   "question": "Ein Parallelogramm hat den Flächeninhalt 42 cm² und die Grundseite g = 7 cm.\n\nWie lang ist die zugehörige Höhe h?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_rueck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Parallelogramm hat den Flächeninhalt 42 cm² und die Grundseite g = 7 cm.\n\nWie lang ist die zugehörige Höhe h?"
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-rueck-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fc23183f-db11-441d-ac0d-83baa0000aa0",
+   "title": "Rückrichtung · Höhe im Dreieck",
+   "question": "Ein Dreieck hat den Flächeninhalt 30 cm² und die Grundseite g = 12 cm.\n\nWie lang ist die zugehörige Höhe h?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_rueck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Dreieck hat den Flächeninhalt 30 cm² und die Grundseite g = 12 cm.\n\nWie lang ist die zugehörige Höhe h?"
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-rueck-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "bcd7aec3-3c43-4d3c-807b-7fe6a2641e70",
+   "title": "Rückrichtung · Höhe im Trapez",
+   "question": "Ein Trapez hat den Flächeninhalt 63 cm² und die parallelen Seiten a = 12 cm und c = 6 cm.\n\nWie groß ist seine Höhe h?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_rueck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Trapez hat den Flächeninhalt 63 cm² und die parallelen Seiten a = 12 cm und c = 6 cm.\n\nWie groß ist seine Höhe h?"
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-rueck-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c2d4c950-beab-4c0b-b4be-cee13fcbffbe",
+   "title": "Rückrichtung · fehlende parallele Seite im Trapez",
+   "question": "Ein Trapez hat den Flächeninhalt 40 cm². Die parallele Seite a ist 9 cm lang, die Höhe beträgt h = 5 cm.\n\nWie lang ist die andere parallele Seite c?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_rueck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Trapez hat den Flächeninhalt 40 cm². Die parallele Seite a ist 9 cm lang, die Höhe beträgt h = 5 cm.\n\nWie lang ist die andere parallele Seite c?"
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-rueck-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "27c84f21-51c3-4fb3-a654-331c8c312f00",
+   "title": "Rückrichtung · Sachkontext · Beet als Parallelogramm",
+   "question": "Ein Beet hat die Form eines Parallelogramms und ist 18 m² groß. Eine Seite des Beetes ist 4,5 m lang.\n\nWie groß ist die Höhe des Beetes zu dieser Seite?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_rueck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Beet hat die Form eines Parallelogramms und ist 18 m² groß. Eine Seite des Beetes ist 4,5 m lang.\n\nWie groß ist die Höhe des Beetes zu dieser Seite?"
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-rueck-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "380c4ca9-3efc-45e9-8c4c-87b751e2f414",
+   "title": "Rückrichtung · Sachkontext · dreieckiges Segel",
+   "question": "Ein dreieckiges Segel hat den Flächeninhalt 7,5 m². Seine untere Kante ist 3 m lang.\n\nWie lang ist die Höhe des Segels zu dieser Kante?",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_flaeche_rueck",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein dreieckiges Segel hat den Flächeninhalt 7,5 m². Seine untere Kante ist 3 m lang.\n\nWie lang ist die Höhe des Segels zu dieser Kante?"
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k8_flaeche",
+   "source_ref": "flaeche-rueck-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]
