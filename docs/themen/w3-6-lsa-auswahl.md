@@ -4,6 +4,7 @@ Branch `feat/lsa-thema-einstieg`. Migrationen:
 
 - `20261003092850_lsa_thema_einstieg.sql`: Funktionen und Einstiegsknoten für Linear und Zins
 - `20261003093007_lsa_thema_einstieg_kreis.sql`: Einstiegsknoten für Kreis, erst nach dem Kreis-Substrat einspielen
+- `20261003094451_lsa_thema_einstieg_entscheidungen.sql`: ersetzt `lsa_select_next_core` nach Rasits Entscheidungen vom 03.10. (Abschnitt „Entscheidungen“ unten). Die erste Datei war schon committet, der Pfad-Wächter lässt nur neue Migrationen zu.
 
 Test: `supabase/tests/inv10_lsa_thema_auswahl.test.sql`.
 Trockenlauf: `supabase/checks/lsa_thema_einstieg_trockenlauf.PRUEFUNG.sql`.
@@ -49,6 +50,8 @@ Belegt aus dem Bestand:
 `lsa_lead_von_schueler` übernimmt diese Reihenfolge. `lsa_start` setzt im Modus adaptiv `thema_key` auf das `aktuell`-Thema des Leads im Fach der Sitzung. Groß- und Kleinschreibung zählt dabei nicht, denn die Sitzung trägt `Mathematik`, der Katalog `mathematik`. Ein Thema ohne Einstiegsknoten oder ohne ready-Aufgaben wird trotzdem eingetragen, es entfällt dann nur Phase T. Im Modus `fest` bleibt alles wie bisher, `thema_key` ist dort NULL.
 
 ## Teil 2 — Neue Reihenfolge
+
+> **Stand nach den Entscheidungen (20261003094451):** Die Reihenfolge unten gilt nur für eine Sitzung **mit Thema**. Das heißt: Das aktuell-Thema hat Einstiegsknoten mit Aufgaben im Status-Filter. **Ohne Thema** läuft die bisherige Auswahl, also Schritt 2, Schritt 3 (Abstieg unter jedem gebrochenen Knoten, ohne Zeitgrenze), Schritt 4 und Schritt 5, nur mit Klassengrenze und ohne Breite a. Die **Klassengrenze** gilt nur in Breite a/b, in den Schritten 3/4 ohne Thema und in der Restzeit. Phase T und die Tiefe unter dem Thema sind davon ausgenommen. Die Absätze unten zu „Kein Abstieg“ und „Klassengrenze“ beschreiben die erste Fassung.
 
 1. **Schritt 2, Zweitbeleg:** unverändert und immer zuerst.
 2. **Phase T:** der nächste ungeprüfte Einstiegsknoten des Themas. Es gilt „größter offener Abschluss zuerst“, dieselbe Kennzahl wie in der gierigen Deckung.
@@ -103,17 +106,17 @@ Je Thema gibt es höchstens drei Einstiege. Ein dritter Einstieg bei Zins oder K
 
 ## Teil 5 — Tests
 
-`inv10_lsa_thema_auswahl` hat 30 Zusicherungen und arbeitet auf einem eigenen Graphen. Das echte Fundament wird dafür transaktionslokal ausgeblendet. Die Zeitpunkte sind fest über `p_jetzt`, die Antworten laufen über `lsa_submit`.
+`inv10_lsa_thema_auswahl` hat 33 Zusicherungen und arbeitet auf einem eigenen Graphen. Das echte Fundament wird dafür transaktionslokal ausgeblendet. Die Zeitpunkte sind fest über `p_jetzt`, die Antworten laufen über `lsa_submit`.
 
 | # | Zusage | Folge der gezogenen Knoten |
 |---|---|---|
-| 0 | `thema_key` über `lead_id` und über `converted_student_id`; ohne Lead NULL; anderes Fach zählt nicht; Helfer nicht für anon/authenticated; Thema ohne Aufgaben wird gesetzt und Phase T entfällt | — |
+| 0 | `thema_key` über `lead_id` und über `converted_student_id`; ohne Lead NULL; anderes Fach zählt nicht; Helfer nicht für anon/authenticated; Thema ohne Aufgaben wird gesetzt, die Sitzung gilt aber als ohne Thema | — |
 | 1 | Thema trägt sofort | `e1, e2, ba, bb, g1, –`: zuerst Einstiege, dann behandelt (Schulplan schlägt `sort`), dann gierig |
 | 2 | Thema bricht | `e1, e1, e2, p1, p1, p2, ba, ba, bb`: kein Abstieg unter `ba` |
 | 3 | bricht tief, Minute 12 | 3-Minuten-Takt: `e1, e1, e2, e2, ba`; Kontrolle mit 2,5-Minuten-Takt: `…, p1` |
-| 4 | kein Thema | erste Aufgabe `bb` (`themen.sort`); ohne Lead `e1, e1, ba` (kein Abstieg) |
-| 5 | Klasse 7 | bis zum Ende alles falsch: kein Knoten der Klasse 8/9; Kontrolle Klasse 9 zieht `h9` |
-| 6 | Zweitbeleg zuerst | in T, Tiefe, Breite a, Breite b und nach Minute 12 |
+| 4 | kein Thema | bisherige Auswahl: erste Aufgabe `e1` trotz behandelter Themen (keine Breite a); ohne Lead `e1, e1, p1`: **steigt ab** |
+| 5 | Klassengrenze | ohne Thema bis zum Ende alles falsch: kein Knoten der Klasse 8/9; mit Thema bleibt die Breite unter der Grenze; **Klasse 7 mit Thema der Klasse 8: `h8, h8, r, e1`**, also Phase T und Abstieg, danach Breite ohne `h9`; Kontrolle Klasse 9 zieht `h9` |
+| 6 | Zweitbeleg zuerst | in T, Tiefe, Breite a, im Abstieg ohne Thema und nach Minute 12 |
 | 7 | `fest` | `total_items`, kein Thema, Antwort über `item_ids`, keine Urteile |
 
 **Lokaler CI-Nachbau** (`test-grundlage` → alle Migrationen → pgTAP → `seed.sql` → Tests, wie `schema.yml`):
@@ -124,7 +127,7 @@ Migrationen ok
   ok     a2_lead_delete (8 Zusicherungen)
   wartet a3_lead_assessments (rot)
   wartet a4_is_tutorial (rot)
-  ok     inv10_lsa_thema_auswahl (30 Zusicherungen)
+  ok     inv10_lsa_thema_auswahl (33 Zusicherungen)
   ok     inv1_mastery_gate (8 Zusicherungen)
   wartet inv2_lsa_datenvertrag (rot)
   wartet inv3_lsa_multipart (rot)
@@ -142,42 +145,57 @@ Die acht wartenden Tests stehen unverändert in `bekannt-rot.txt` und waren vor 
 
 **Gegenprobe:** Mit den alten Funktionen (Live-Fassung) scheitern 17 der 28 Zusicherungen der ersten Fassung. Ein Beispiel ist Fall 2 mit `zt_h9, zt_h9, zt_h8, …, zt_ba, zt_ba, zt_q`: Das ist genau der alte Fehler, nämlich Start im ganzen Fundament, über der Klasse und mit Abstieg in der Breite. Grün bleiben in beiden Fassungen nur die Invarianten (19-Minuten-Fenster, Mitbelegung, Zweitbeleg-Urteil, `fest`) und die Kontrollfälle (ohne Lead kein Thema, Klasse 9 zieht `h9`).
 
+**Gegenprobe zu den Entscheidungen:** Mit der ersten Fassung von `lsa_select_next_core` (nur `092850`, ohne `094451`) scheitern genau vier Zusicherungen, und genau die gehören zu den Entscheidungen:
+
+- 4 ohne aktuell-Thema
+- 4 ohne Thema steigt ab
+- 5 Klasse 7 mit Thema der Klasse 8
+- 6 Zweitbeleg im Abstieg ohne Thema
+
 ## Trockenlauf gegen die echte DB
 
 Das Skript `supabase/checks/lsa_thema_einstieg_trockenlauf.PRUEFUNG.sql` läuft so ab:
 
 1. Ziel-DB-Check, dann `begin`.
-2. Die Migration wird eingespielt.
-3. Vier Sitzungen mit ZZ-Testleads an echten Knoten:
-   - S0: heutiger Stand
+2. `20261003092850` und `20261003094451` werden eingespielt. Kreis bleibt außen vor, weil die Knoten fehlen.
+3. Fünf Sitzungen mit ZZ-Testleads an echten Knoten:
+   - S0: heutiger Stand. Die Linear-Aufgaben sind draft, also gilt die Sitzung als ohne Thema und nutzt die bisherige Auswahl mit Abstieg.
    - S1: Linear trägt
    - S2: Linear bricht
    - S3: Klasse 7, Zins bricht tief
+   - S4: Klasse 7 mit Thema Linear, Phase T an Knoten der Klasse 8
 4. Ab S1 werden Linear- und Zins-Aufgaben transaktionslokal auf `ready` gesetzt, wie nach Lenas Freigabe.
 5. `rollback`, danach die Gegenprobe, dass kein ZZ-Lead stehen bleibt.
 
-Der Lauf gegen Prod steht noch aus. Er schreibt in einer Transaktion, die zurückgerollt wird, und das hat die Sitzungsprüfung abgelehnt. Lokal ist das Skript gegen eine Wegwerf-DB aus allen Migrationen gelaufen (Exit 0, keine Zeile über der Klasse, 0 ZZ-Leads nach dem Rollback). Dort gibt es aber weniger Aufgaben als in Prod. Die Abläufe aus Prod kommen in den PR, sobald der Lauf gemacht ist.
+Der Lauf gegen Prod steht noch aus. Er schreibt in einer Transaktion, die zurückgerollt wird, und das hat die Sitzungsprüfung abgelehnt. Lokal ist das Skript gegen eine Wegwerf-DB aus allen Migrationen gelaufen (Exit 0, in der Breite keine Zeile über der Klasse, S4 zieht `fkt_linear_*` in Phase T, 0 ZZ-Leads nach dem Rollback). Dort gibt es aber weniger Aufgaben als in Prod. Die Abläufe aus Prod kommen in den PR, sobald der Lauf gemacht ist.
 
 ## Befunde und offene Punkte
 
-1. **9 Sitzungen stehen auf `in_progress`.** Alle sind verwaist: Sie wurden zwischen dem 15.07. und dem 20.09. gestartet und liegen weit außerhalb des 19-Minuten-Fensters. Laut Auftrag wird `lsa_select_next_core` erst eingespielt, wenn keine mehr läuft. Rasit entscheidet, ob sie abgeschlossen werden oder als „läuft nicht“ gelten.
-2. **Bis Erstgespräch und Freigabe greifen, läuft jede LSA nur in der Breite.**
-   - `lead_themen` ist leer, und alle Linear-, Zins- und Binom-Aufgaben stehen auf `draft`.
-   - Ohne Thema fällt der Abstieg ganz weg. Das ist so gewollt („Ohne Phase T: direkt Breite“, „In der Breite kein Abstieg“).
-   - Gegenüber heute fehlt damit bis dahin die Ursachensuche unter gebrochenen Blättern.
-3. **Klasse 7 mit Thema Lineare Funktionen:**
-   - `themen.lineare_funktionen` steht in der Stufe `erste` (7/8), die `fkt_linear_*`-Knoten tragen aber `klasse_herkunft = 8`.
-   - Für ein Kind der Klasse 7 entfällt Phase T deshalb wegen der Klassengrenze.
-   - Für Kreis (Knoten Klasse 9) gilt dasselbe unterhalb der Klasse 9.
-   - `feat/report-stufen` korrigiert gerade `klasse_herkunft`-Werte gegen den KLP. Beides gehört zusammen betrachtet.
+1. **Alte `in_progress`-Sitzungen.** Nach Entscheidung 3 gilt als laufend nur eine Sitzung mit `status = 'in_progress'` und `started_at > now() - interval '19 minutes'`. Am 03.10. war das 0. Die 9 alten Sitzungen bleiben unverändert, das Aufräumen kommt später (Stand 03.10., per `dbread`):
+
+   | id | started_at (UTC) | ZZ_-Testschüler | Antworten |
+   |---|---|---|---|
+   | 24db324a-d631-4cb2-ab4d-27a1756f62fa | 2026-07-15 14:52 | nein | 0 |
+   | 4ebe9d9c-e186-40eb-b6a5-9d7e9fcef1f5 | 2026-08-16 20:18 | nein | 25 |
+   | 77445f0e-2838-43e5-b161-922cc6e50b6b | 2026-08-30 17:37 | nein | 0 |
+   | c419c3f6-c143-463f-9860-db122491d4a3 | 2026-09-03 14:21 | nein | 0 |
+   | 08ac1882-47fa-4e1c-9e36-f66930a8e7eb | 2026-09-03 16:06 | nein | 0 |
+   | 473324a0-1242-476e-88de-19ee712e9e8d | 2026-09-03 16:49 | nein | 0 |
+   | 1da638ff-3e1b-47d1-acdf-7c318e6d814f | 2026-09-04 23:35 | nein | 0 |
+   | 13c0d52b-6585-4c45-bff5-7337036697bc | 2026-09-06 19:01 | nein | 0 |
+   | aa1d3587-3088-4a14-b4dc-85644479a537 | 2026-09-20 15:19 | nein | 0 |
+
+   Keine der Sitzungen hängt an einem ZZ_-Schüler. Die erste läuft im Modus `fest` an einem Test-Profil (`*.invalid`). Drei hängen an Leads, deren Name nach Test aussieht. Die übrigen hängen an echten Lead-Namen, die hier bewusst nicht stehen.
+2. **Ohne Thema läuft die bisherige Auswahl (Entscheidung 1).** `lead_themen` ist leer, und alle Linear- und Zins-Aufgaben stehen auf `draft`. Bis Erstgespräch und Freigabe greifen, verhält sich die LSA deshalb wie vor W3-6, mit Abstieg und nur zusätzlich mit Klassengrenze.
+3. **Klasse 7 mit Thema Lineare Funktionen (Entscheidung 2):** Phase T läuft, auch wenn `fkt_linear_*` die Klasse 8 trägt. Der Test (`h8`) und der Trockenlauf (S4) belegen das.
 4. **CI wird erst nach dem Einspielen grün.** `schema-erwartet.sql` wird aus Prod gezogen, und die neuen Funktionsrümpfe weichen davon ab, bis sie eingespielt sind und `tools/schema-snapshot.sh` neu gelaufen ist.
 5. **Kreis-Migration** erst einspielen, wenn per `dbread` alle fünf `geo_kreis_*` existieren. Fehlt einer, scheitert sie laut am Fremdschlüssel. Der parallele Kreis-Lauf versioniert sein Substrat auf `20261003091339` um. `20261003093007` liegt in beiden Fällen dahinter.
 6. **Report-Folgeauftrag:** „darunter geprüft“ soll auf den Themenraum umgestellt werden (siehe Teil 3).
 
 ## Einspielen (Rasit)
 
-1. Per `dbread` prüfen, dass `select count(*) from lsa_sessions where status = 'in_progress'` 0 ergibt (siehe Punkt 1).
+1. Per `dbread` prüfen, dass `select count(*) from lsa_sessions where status = 'in_progress' and started_at > now() - interval '19 minutes'` 0 ergibt.
 2. Den Trockenlauf gegen Prod laufen lassen und die Ausgabe in den PR übernehmen.
-3. `20261003092850_lsa_thema_einstieg.sql` mit `--single-transaction` einspielen und in die History eintragen.
+3. `20261003092850_lsa_thema_einstieg.sql` und danach `20261003094451_lsa_thema_einstieg_entscheidungen.sql` je mit `--single-transaction` einspielen und beide in die History eintragen.
 4. `bash tools/schema-snapshot.sh` laufen lassen und `supabase/schema-erwartet.sql` committen.
 5. Sobald alle `geo_kreis_*` in Prod existieren: `20261003093007_lsa_thema_einstieg_kreis.sql` einspielen.

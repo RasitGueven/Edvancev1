@@ -4,14 +4,17 @@
 -- Zusagen:
 --   0) lsa_start haelt das 'aktuell'-Thema des Leads in thema_key fest — ueber
 --      students.lead_id wie ueber leads.converted_student_id. Kein Lead/kein
---      Thema: NULL. Thema ohne Aufgaben: thema_key gesetzt, Phase T entfaellt.
+--      Thema: NULL. Thema ohne Aufgaben: thema_key gesetzt, gilt als ohne Thema.
 --   1) Thema traegt sofort -> nach den Einstiegsknoten die Breite, zuerst ein
 --      'behandelt'-Thema (Schulplan vor themen.sort).
 --   2) Thema bricht -> Abstieg nur unter dem Thema, bis sicher; danach Breite,
 --      dort kein Abstieg mehr.
 --   3) Thema bricht tief -> ab Minute 12 keine Tiefe, die Breite beginnt.
---   4) Kein Thema -> erste Aufgabe aus der Breite, kein Abstieg.
---   5) Klasse 7 -> nie ein Knoten mit klasse_herkunft 8 oder 9.
+--   4) Kein Thema -> bisherige Auswahl: gierige Deckung MIT Abstieg, keine
+--      Breite a, Klassengrenze.
+--   5) Klassengrenze nur in Breite/Restzeit (und ohne Thema): Klasse 7 zieht
+--      dort nie Klasse 8/9 — aber Klasse 7 mit einem Thema der Klasse 8
+--      bekommt Phase T und den Abstieg darunter.
 --   6) Offener Zweitbeleg hat in jeder Phase Vorrang.
 --   7) Modus 'fest' unveraendert.
 --
@@ -28,11 +31,12 @@
 --   uebriges       : zt_g1 (3,7) -> zt_r (1,5)
 --                    zt_h9 (7,9) -> zt_h8 (6,8) -> zt_r
 --   Thema zt_leer  : zt_leer_e (2,7) ohne Aufgaben
+--   Thema zt_hoch  : Einstieg zt_h8 (Klasse 8, wie fkt_linear_* fuer Klasse 7)
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(30);
+select plan(33);
 
 -- --- Isolation --------------------------------------------------------------
 update tasks set skill_key = null where skill_key is not null;
@@ -58,12 +62,13 @@ insert into themen (thema_key, fach, klasse, label, stufe, sort) values
   ('zt_akt',   'mathematik', 7, 'ZT aktuell',     'erste', 990),
   ('zt_alt_a', 'mathematik', 7, 'ZT behandelt A', 'erste', 900),
   ('zt_alt_b', 'mathematik', 7, 'ZT behandelt B', 'erste', 950),
-  ('zt_leer',  'mathematik', 7, 'ZT ohne Aufgaben', 'erste', 995);
+  ('zt_leer',  'mathematik', 7, 'ZT ohne Aufgaben', 'erste', 995),
+  ('zt_hoch',  'mathematik', 8, 'ZT Klasse 8',     'erste', 980);
 
 insert into thema_einstieg (thema_key, skill_key) values
   ('zt_akt', 'zt_e1'), ('zt_akt', 'zt_e2'),
   ('zt_alt_a', 'zt_ba'), ('zt_alt_b', 'zt_bb'),
-  ('zt_leer', 'zt_leer_e');
+  ('zt_leer', 'zt_leer_e'), ('zt_hoch', 'zt_h8');
 
 -- Zwei NUMERIC-Aufgaben je Knoten (ausser zt_leer_e), Antwort "5".
 insert into tasks (cluster_id, content_type, input_type, status, question,
@@ -194,7 +199,7 @@ select pg_temp.start(:'k_leer') as s_leer \gset
 select is((select thema_key from lsa_sessions where id = :'s_leer'), 'zt_leer',
   '0d: Thema ohne Aufgaben wird trotzdem festgehalten');
 select is(pg_temp.folge(:'s_leer', '', '1 minute'), 'zt_e1',
-  '0d: ... Phase T entfaellt, die erste Aufgabe kommt aus der Breite');
+  '0d: ... gilt als ohne Thema, die erste Aufgabe kommt aus der gierigen Deckung');
 
 select pg_temp.kind('ZT Fach', null, false, false) as k_fach \gset
 insert into lead_themen (lead_id, fach, thema_key, status, quelle)
@@ -255,11 +260,11 @@ select pg_temp.kind('ZT Vier', null, true, false) as k_vier \gset
 select pg_temp.start(:'k_vier') as s_vier \gset
 select is((select thema_key from lsa_sessions where id = :'s_vier'), null,
   '4: Lead ohne aktuell-Thema -> thema_key NULL');
-select is(pg_temp.folge(:'s_vier', '', '1 minute'), 'zt_bb',
-  '4: erste Aufgabe aus der Breite, behandelt ohne Schulplan nach themen.sort absteigend');
+select is(pg_temp.folge(:'s_vier', '', '1 minute'), 'zt_e1',
+  '4: ohne aktuell-Thema bisherige Auswahl — groesstes Blatt, keine Breite a trotz behandelter Themen');
 
-select is(pg_temp.folge(:'s_ohne', 'ff', '1 minute'), 'zt_e1,zt_e1,zt_ba',
-  '4: ohne Lead gierige Deckung — und kein Abstieg unter dem gebrochenen Blatt');
+select is(pg_temp.folge(:'s_ohne', 'ff', '1 minute'), 'zt_e1,zt_e1,zt_p1',
+  '4: ohne Thema steigt die Sitzung unter dem gebrochenen Blatt ab (wie vor W3-6)');
 
 -- ============================================================================
 -- 5) Klassengrenze
@@ -278,10 +283,19 @@ select is((select count(*)::int from lsa_ausgegeben a join tasks t on t.id = a.t
             where a.session_id = :'s_fuenf' and s.klasse_herkunft > 7), 0,
   '5: ... auch in lsa_ausgegeben nicht (Schritt 5 eingeschlossen)');
 select ok((select count(*) from lsa_ausgegeben where session_id = :'s_fuenf') >= 20,
-  '5: die Sitzung lief bis in Schritt 5 (alle 10 Knoten der Klasse <= 7 doppelt geprobt)');
+  '5: die Sitzung lief bis zum Ende (alle 10 Knoten der Klasse <= 7 doppelt geprobt)');
 
 select is(pg_temp.folge(:'s_null', '', '1 minute'), '-',
   '5: Fall 1 ist am Ende — zt_h8/zt_h9 bleiben auch in Schritt 5 aussen vor');
+select is((select count(*)::int from lsa_ausgegeben a join tasks t on t.id = a.task_id
+             join skills s on s.skill_key = t.skill_key
+            where a.session_id in (:'s_null', :'s_zwei', :'s_drei') and s.klasse_herkunft > 7), 0,
+  '5: mit Thema bleibt die Breite unter der Klassengrenze');
+
+select pg_temp.kind('ZT Hoch', 'zt_hoch', false, false) as k_hoch \gset
+select pg_temp.start(:'k_hoch') as s_hoch \gset
+select is(pg_temp.folge(:'s_hoch', 'ffr', '1 minute'), 'zt_h8,zt_h8,zt_r,zt_e1',
+  '5: Klasse 7 mit Thema der Klasse 8 — Phase T und Abstieg laufen, danach Breite ohne zt_h9');
 
 -- ============================================================================
 -- 6) Zweitbeleg hat in jeder Phase Vorrang
@@ -289,8 +303,10 @@ select is(pg_temp.folge(:'s_null', '', '1 minute'), '-',
 -- Die Folgen oben zeigen ihn: Phase T (zt_e1,zt_e1), Tiefe (zt_p1,zt_p1),
 -- Breite a (zt_ba,zt_ba), nach Minute 12 (zt_e2,zt_e2 in Fall 3). Hier
 -- zusaetzlich in der gierigen Deckung und gegen einen offenen Einstieg:
-select is(pg_temp.folge(:'s_ohne', 'ff', '1 minute'), 'zt_ba,zt_ba,zt_e2',
-  '6: Breite b — erst der Zweitbeleg zu zt_ba, dann das naechste Blatt');
+select is(pg_temp.folge(:'s_ohne', 'ff', '1 minute'), 'zt_p1,zt_p1,zt_p2',
+  '6: ohne Thema im Abstieg — erst der Zweitbeleg zu zt_p1, dann tiefer');
+select is(pg_temp.folge(:'s_zwei', 'f', '1 minute'), 'zt_bb,zt_bb',
+  '6: Breite a — der Zweitbeleg zu zt_bb kommt vor dem naechsten Knoten');
 
 select pg_temp.kind('ZT Sechs', 'zt_akt', false, false) as k_sechs \gset
 select pg_temp.start(:'k_sechs') as s_sechs \gset

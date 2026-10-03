@@ -1,9 +1,11 @@
--- W3-6 Trockenlauf gegen die echte DB: begin -> Migration 20261003092850 ->
+-- W3-6 Trockenlauf gegen die echte DB: begin -> Migrationen 20261003092850
+-- und 20261003094451 ->
 -- drei simulierte Sitzungen mit eigenen Testdaten (ZZ-Leads) -> rollback.
 -- Nichts bleibt stehen. Aus dem Repo-Wurzelverzeichnis starten:
 --   set -a; . ./.env; set +a
 --   psql "$DATABASE_URL" -X -v ON_ERROR_STOP=1 -f supabase/checks/lsa_thema_einstieg_trockenlauf.PRUEFUNG.sql
 -- Nur VOR dem Einspielen sinnvoll (danach existiert lsa_lead_von_schueler schon).
+-- Kreis (20261003093007) fehlt bewusst: die geo_kreis_*-Knoten sind noch nicht in Prod.
 \set ON_ERROR_STOP 1
 \pset pager off
 select current_database() = 'postgres' as ist_ziel \gset
@@ -19,6 +21,7 @@ set local statement_timeout = '180s';
 select current_database() as db, now() as jetzt \gx
 
 \i supabase/migrations/20261003092850_lsa_thema_einstieg.sql
+\i supabase/migrations/20261003094451_lsa_thema_einstieg_entscheidungen.sql
 
 select thema_key, string_agg(skill_key, ', ' order by skill_key) as einstieg
   from thema_einstieg group by 1 order by 1;
@@ -72,11 +75,14 @@ returns void language plpgsql as $$
 declare
   v_t0 timestamptz := date_trunc('minute', now());
   v_sess uuid; v_task uuid; v_sk text; v_prev text; i int := 0;
-  v_ein text[]; v_raum text[]; v_beh text[]; v_phase text;
+  v_ein text[]; v_raum text[]; v_beh text[]; v_phase text; v_mit boolean;
 begin
   v_sess := (public.lsa_start(p_student, p_klasse, 'Mathematik', 'adaptiv', v_t0) ->> 'session_id')::uuid;
   select array_agg(te.skill_key) into v_ein
     from thema_einstieg te join lsa_sessions s on s.thema_key = te.thema_key where s.id = v_sess;
+  v_mit := exists (select 1 from thema_einstieg te join tasks t on t.skill_key = te.skill_key
+                    join lsa_sessions s on s.thema_key = te.thema_key
+                   where s.id = v_sess and t.status = 'ready');
   v_raum := coalesce(v_ein, '{}') || array(select a.skill_key from unnest(v_ein) e(sk), public.lsa_abschluss(e.sk) a);
   select array_agg(te.skill_key) into v_beh
     from lead_themen lt join thema_einstieg te on te.thema_key = lt.thema_key
@@ -87,6 +93,7 @@ begin
     exit when v_task is null or i > length(p_muster);
     v_sk := (select skill_key from tasks where id = v_task);
     v_phase := case when v_sk = v_prev then 'Zweitbeleg'
+                    when not v_mit then 'ohne Thema (bisherig)'
                     when v_sk = any (v_ein) then 'T'
                     when v_sk = any (v_raum) then 'Tiefe'
                     when v_sk = any (v_beh) then 'Breite a'
@@ -108,11 +115,11 @@ begin
 end $$;
 
 -- Sitzung 0: heutiger Stand — die fkt_linear_*-Aufgaben sind noch draft,
--- Phase T entfaellt, die Sitzung beginnt in der Breite.
+-- das Thema gilt als ohne Einstiegsknoten: bisherige Auswahl mit Abstieg.
 select pg_temp.lauf('S0 Kl8 linfkt heute',
   pg_temp.kind('ZZ Trockenlauf W3-6 S0', 8, 'lineare_funktionen', array['zinsrechnung','terme_gleichungen'],
                '07ae78ae-17b9-46c2-9a59-8a5be2290d81'),
-  8, 'rrrr', '1 minute');
+  8, 'ffrrff', '1 minute');
 
 -- Ab hier wie nach Lenas Freigabe: Linear- und Zins-Aufgaben transaktionslokal
 -- auf ready (faellt mit dem rollback weg).
@@ -132,14 +139,21 @@ select pg_temp.lauf('S2 Kl8 linfkt bricht',
   8, 'ffffffrffrffrrffffrr', '50 seconds');
 
 -- Sitzung 3: Klasse 7, Thema Zinsrechnung, bricht tief, ohne Schule.
+-- (Sitzung 4 unten: Klasse 7 mit Thema Lineare Funktionen -> Phase T laeuft.)
 select pg_temp.lauf('S3 Kl7 zins bricht tief',
   pg_temp.kind('ZZ Trockenlauf W3-6 S3', 7, 'zinsrechnung', array[]::text[], null),
   7, repeat('f', 30), '75 seconds');
 
+-- Sitzung 4: Klasse 7, Thema Lineare Funktionen (Knoten Klasse 8).
+select pg_temp.lauf('S4 Kl7 linfkt',
+  pg_temp.kind('ZZ Trockenlauf W3-6 S4', 7, 'lineare_funktionen', array['zinsrechnung']::text[], null),
+  7, 'ffffrr', '1 minute');
+
 select sitzung, nr, minute, phase, skill_key, klasse, input_type, antwort, urteil
   from ablauf order by sitzung, nr, phase = 'Ende';
 
-select sitzung, count(*) filter (where klasse > case when sitzung like '%Kl7%' then 7 else 8 end) as ueber_klasse
+select sitzung, count(*) filter (where klasse > case when sitzung like '%Kl7%' then 7 else 8 end
+                                           and phase not in ('T', 'Tiefe', 'Zweitbeleg')) as ueber_klasse_in_breite
   from ablauf where phase <> 'Ende' and skill_key is not null group by 1 order by 1;
 
 rollback;

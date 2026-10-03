@@ -67,9 +67,10 @@
   Einstiegsknoten des Themas, steigt dann nur unter dem Thema ab (bis Minute 12) und nutzt
   die Restzeit für die Breite: zuerst die behandelten Themen nach Schulplan, dann die
   gierige Deckung, ohne Abstieg. Nichts liegt über der Klasse. Einstiegsknoten für Linear,
-  Zins und Kreis (Kreis als eigene Migration). Beweis: `inv10` mit 30/30 grün im lokalen
+  Zins und Kreis (Kreis als eigene Migration). Beweis: `inv10` mit 33/33 grün im lokalen
   CI-Nachbau, Gegenprobe gegen die alte Auswahl 17 rot.
-  **Offen:** Einspielen (9 verwaiste `in_progress`-Sitzungen klären), Trockenlauf gegen
+  Ohne Thema bleibt die bisherige Auswahl mit Abstieg, Phase T ist von der Klassengrenze ausgenommen (Korrektur `20261003094451`).
+  **Offen:** Einspielen, Aufräumen der 9 alten `in_progress`-Sitzungen, Trockenlauf gegen
   Prod, Schema-Abzug, Kreis nach dem Kreis-Substrat, Report auf den Themenraum umstellen.
 - **R6 Eltern-Report in der App** (Retro `2026-08-19-r6-reportbody-v3.md`, Branch
   `feature/r6-reportbody-v3`): `ReportBody.tsx` zeigt die abgestimmte Erzählung in
