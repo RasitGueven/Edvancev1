@@ -1,0 +1,3633 @@
+{
+ "batch": "k10-exp",
+ "kopf": [
+  "K10-Rest, Thema exp — 30 Aufgaben: je sechs zu fkt_exp_wachstum, _term, _halbwert, _gleichung und _anwendung.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k10-exp.json (Quelle: tools/k10-exp-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003121328_substrat_k10_exp.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit und zwei mit Sachkontext oder Rückrichtung (Maschine, Zinseszins, Bakterien, Medikament, Tierpopulation, Fische, Zerfall, Gemeinde, zwei Anlagen). Terme f(x) = a·bˣ über zwei Teile a und b (MULTI_PART). Zwei Term-Aufgaben mit Abbildung (Koordinatensystem, nur Punkte des Graphen ablesen), alle übrigen ohne Abbildung lösbar. Jede Aufgabe nennt die Rundung; Logarithmen und gebrochene Hochzahlen auf 60 Stellen nachgerechnet.",
+ "source": "edvance_k10_exp",
+ "class_level": 10,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "fef2acea-a040-46f5-8ebd-73f1bb5c6383",
+   "titel": "Wachstumsfaktor · Zunahme um 4 %",
+   "basis": {
+    "skill_key": "fkt_exp_wachstum",
+    "source_ref": "exp-wachstum-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein Bestand nimmt in jedem Jahr um 4 % zu.\n\nMit welchem Faktor wird der Bestand jedes Jahr multipliziert? Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "1,4": "wachstumsfaktor_falsch",
+     "+1,4": "wachstumsfaktor_falsch",
+     "1.4": "wachstumsfaktor_falsch",
+     "+1.4": "wachstumsfaktor_falsch",
+     "0,04": "wachstumsfaktor_falsch",
+     "+0,04": "wachstumsfaktor_falsch",
+     "0.04": "wachstumsfaktor_falsch",
+     "+0.04": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Wachstumsfaktor q = 1 + p/100 aus einem ganzzahligen Prozentsatz bilden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1,04",
+      "+1,04",
+      "1.04",
+      "+1.04"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Zunahme um 4 %: zum Ganzen (100 % = 1) kommen 4 % = 0,04 dazu.\nq = 1 + 0,04 = 1,04.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Prozentsatz als Zehntel angehängt: 1,4 statt 1,04.",
+       "socratic_question": "Wie viel ist 4 % als Dezimalzahl – 0,4 oder 0,04?"
+      },
+      {
+       "error": "Nur den Zuwachs 0,04 angegeben, die 1 für den alten Bestand fehlt.",
+       "socratic_question": "Was passiert mit dem Bestand, wenn du ihn mit 0,04 multiplizierst?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1+4/100",
+     "antwort": "1.04"
+    },
+    {
+     "rechnung": "1+4/10",
+     "antwort": "1.4",
+     "rolle": "fehlbild:wachstumsfaktor_falsch:"
+    },
+    {
+     "rechnung": "4/100",
+     "antwort": "0.04",
+     "rolle": "fehlbild:wachstumsfaktor_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "3f468bf7-9fb7-4dab-a316-c5af7d852acd",
+   "titel": "Abnahmefaktor · Abnahme um 15 %",
+   "basis": {
+    "skill_key": "fkt_exp_wachstum",
+    "source_ref": "exp-wachstum-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein Bestand nimmt in jedem Jahr um 15 % ab.\n\nMit welchem Faktor wird der Bestand jedes Jahr multipliziert? Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "0,15": "abnahmefaktor_falsch",
+     "+0,15": "abnahmefaktor_falsch",
+     "0.15": "abnahmefaktor_falsch",
+     "+0.15": "abnahmefaktor_falsch",
+     "1,15": "abnahmefaktor_falsch",
+     "+1,15": "abnahmefaktor_falsch",
+     "1.15": "abnahmefaktor_falsch",
+     "+1.15": "abnahmefaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Faktor q = 1 − p/100 bei prozentualer Abnahme bilden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,85",
+      "+0,85",
+      "0.85",
+      "+0.85"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Abnahme um 15 %: Vom Ganzen (100 %) bleiben 100 % − 15 % = 85 % übrig.\nq = 1 − 0,15 = 0,85.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Anteil genommen, der wegfällt: 0,15 statt 0,85.",
+       "socratic_question": "Wie viel Prozent des Bestands sind nach einem Jahr noch da?"
+      },
+      {
+       "error": "Die 15 % zum Ganzen addiert, obwohl der Bestand abnimmt: 1,15.",
+       "socratic_question": "Wird der Bestand größer oder kleiner, wenn du mit 1,15 multiplizierst?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (abnahmefaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1-15/100",
+     "antwort": "0.85"
+    },
+    {
+     "rechnung": "15/100",
+     "antwort": "0.15",
+     "rolle": "fehlbild:abnahmefaktor_falsch:"
+    },
+    {
+     "rechnung": "1+15/100",
+     "antwort": "1.15",
+     "rolle": "fehlbild:abnahmefaktor_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "f7e14298-714a-44b5-b2c8-6b93442256b5",
+   "titel": "Fortschreiben · 500 bei 6 % Zunahme, 4 Schritte",
+   "basis": {
+    "skill_key": "fkt_exp_wachstum",
+    "source_ref": "exp-wachstum-03",
+    "input_type": "NUMERIC",
+    "frage": "Eine Größe hat den Anfangswert 500. Sie nimmt in jedem Schritt um 6 % zu.\n\nWelchen Wert hat sie nach 4 Schritten? Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "620": "prozente_addiert",
+     "2120": "mal_exponent",
+     "+620": "prozente_addiert",
+     "+2120": "mal_exponent",
+     "3276,80": "wachstumsfaktor_falsch",
+     "+3276,80": "wachstumsfaktor_falsch",
+     "3276.80": "wachstumsfaktor_falsch",
+     "+3276.80": "wachstumsfaktor_falsch",
+     "3276,8": "wachstumsfaktor_falsch",
+     "+3276,8": "wachstumsfaktor_falsch",
+     "3276.8": "wachstumsfaktor_falsch",
+     "+3276.8": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Wachstumsfaktor bilden und als Potenz über mehrere Schritte anwenden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "631,24",
+      "+631,24",
+      "631.24",
+      "+631.24"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Wachstumsfaktor q = 1,06.\nNach 4 Schritten: 500 · 1,06⁴ ≈ 500 · 1,26248 ≈ 631,24.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Jeden Schritt 6 % vom Anfangswert addiert: 500 + 4 · 30 = 620.",
+       "socratic_question": "Wovon werden im zweiten Schritt die 6 % berechnet?"
+      },
+      {
+       "error": "1,06⁴ als 1,06 · 4 gerechnet.",
+       "socratic_question": "Was bedeutet die kleine 4 an 1,06?"
+      },
+      {
+       "error": "Mit dem Faktor 1,6 statt 1,06 gerechnet.",
+       "socratic_question": "Wie viel ist 6 % als Dezimalzahl?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert, mal_exponent, wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(500*1.06^4,2)",
+     "antwort": "631.24"
+    },
+    {
+     "rechnung": "500+4*500*6/100",
+     "antwort": "620",
+     "rolle": "fehlbild:prozente_addiert:"
+    },
+    {
+     "rechnung": "500*1.06*4",
+     "antwort": "2120",
+     "rolle": "fehlbild:mal_exponent:"
+    },
+    {
+     "rechnung": "round(500*1.6^4,2)",
+     "antwort": "3276.80",
+     "rolle": "fehlbild:wachstumsfaktor_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "36b07433-c75c-4ea5-8f7d-62ac59599228",
+   "titel": "Exponentiell fortsetzen · 40, 60, 90, …",
+   "basis": {
+    "skill_key": "fkt_exp_wachstum",
+    "source_ref": "exp-wachstum-04",
+    "input_type": "NUMERIC",
+    "frage": "Die Werte 40, 60, 90, … wachsen exponentiell: Von einem Wert zum nächsten wird immer mit demselben Faktor multipliziert.\n\nWelcher Wert steht zwei Schritte nach 90? Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "150": "linear_statt_exponentiell",
+     "270": "mal_exponent",
+     "+150": "linear_statt_exponentiell",
+     "+270": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: konstanten Quotienten statt konstanter Differenz erkennen und zwei Schritte weiterrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "202,5",
+      "+202,5",
+      "202.5",
+      "+202.5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Faktor: 60 : 40 = 1,5 (auch 90 : 60 = 1,5).\nNächster Wert: 90 · 1,5 = 135, danach 135 · 1,5 = 202,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Linear fortgeschrieben: zweimal 30 addiert, 90 + 60 = 150.",
+       "socratic_question": "Ist der Abstand 40 → 60 derselbe wie 60 → 90 – oder bleibt etwas anderes gleich?"
+      },
+      {
+       "error": "1,5² als 1,5 · 2 gerechnet: 90 · 3 = 270.",
+       "socratic_question": "Was bedeutet es, zweimal hintereinander mit 1,5 zu multiplizieren?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linear_statt_exponentiell, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "90*(60/40)^2",
+     "antwort": "202.5"
+    },
+    {
+     "rechnung": "90+2*(90-60)",
+     "antwort": "150",
+     "rolle": "fehlbild:linear_statt_exponentiell:"
+    },
+    {
+     "rechnung": "90*(60/40)*2",
+     "antwort": "270",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "f91618d9-3bbf-4b57-8901-8f898829fdef",
+   "titel": "Prozentsatz aus Faktor · Wert einer Maschine, Faktor 0,88",
+   "basis": {
+    "skill_key": "fkt_exp_wachstum",
+    "source_ref": "exp-wachstum-05",
+    "input_type": "NUMERIC",
+    "frage": "Der Wert einer Maschine wird jedes Jahr mit dem Faktor 0,88 multipliziert.\n\nUm wie viel Prozent nimmt der Wert jedes Jahr ab? Gib das Ergebnis exakt an.",
+    "unit": "%",
+    "known_errors": {
+     "88": "rate_aus_faktor_falsch",
+     "88 %": "rate_aus_faktor_falsch",
+     "88%": "rate_aus_faktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in der Rückrichtung: aus dem Abnahmefaktor die prozentuale Abnahme ablesen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12",
+      "12 %",
+      "12%"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Faktor 0,88 heißt: 88 % des Werts bleiben übrig.\nAbnahme: 100 % − 88 % = 12 %.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor 0,88 als 88 % Abnahme gelesen.",
+       "socratic_question": "Wie viel Prozent des Werts sind nach einem Jahr noch da – und wie viel fehlen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (rate_aus_faktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(1-0.88)*100",
+     "antwort": "12"
+    },
+    {
+     "rechnung": "0.88*100",
+     "antwort": "88",
+     "rolle": "fehlbild:rate_aus_faktor_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "530dd080-d2cc-4e4b-b4ad-31963a32158a",
+   "titel": "Zinseszins gegen einfache Zinsen · 2000 € zu 3 %, 5 Jahre",
+   "basis": {
+    "skill_key": "fkt_exp_wachstum",
+    "source_ref": "exp-wachstum-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein Kapital von 2000 € wird 5 Jahre lang mit 3 % Zinseszins verzinst: Die Zinsen werden jedes Jahr mitverzinst. Zum Vergleich gibt es bei einer anderen Anlage jedes Jahr nur 3 % des Startkapitals als Zinsen, die nicht mitverzinst werden.\n\nUm wie viel Euro ist das Kapital nach 5 Jahren mit Zinseszins größer als bei der anderen Anlage? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "€",
+    "known_errors": {
+     "2318,55": "falsche_groesse_beantwortet",
+     "2318.55": "falsche_groesse_beantwortet",
+     "2318,55 €": "falsche_groesse_beantwortet",
+     "2318,55€": "falsche_groesse_beantwortet",
+     "318,55": "falsche_groesse_beantwortet",
+     "318.55": "falsche_groesse_beantwortet",
+     "318,55 €": "falsche_groesse_beantwortet",
+     "318,55€": "falsche_groesse_beantwortet",
+     "5125,86": "wachstumsfaktor_falsch",
+     "5125.86": "wachstumsfaktor_falsch",
+     "5125,86 €": "wachstumsfaktor_falsch",
+     "5125,86€": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: exponentielles und lineares Fortschreiben selbst aufstellen und den Unterschied bilden."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "18,55",
+      "18.55",
+      "18,55 €",
+      "18,55€"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Mit Zinseszins: 2000 € · 1,03⁵ ≈ 2318,55 €.\nOhne Zinseszins: jedes Jahr 60 €, also 2000 € + 5 · 60 € = 2300 €.\nUnterschied: 2318,55 € − 2300 € ≈ 18,55 €.\n(Erst am Ende runden.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Endkapital mit Zinseszins angegeben statt des Unterschieds.",
+       "socratic_question": "Gefragt ist, um wie viel es mehr ist – was fehlt noch?"
+      },
+      {
+       "error": "Die Zinsen mit Zinseszins angegeben statt des Unterschieds zur anderen Anlage.",
+       "socratic_question": "Womit sollst du das Kapital mit Zinseszins vergleichen?"
+      },
+      {
+       "error": "Mit dem Faktor 1,3 statt 1,03 gerechnet.",
+       "socratic_question": "Wie viel ist 3 % als Dezimalzahl?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2000*1.03^5-(2000+5*2000*3/100),2)",
+     "antwort": "18.55"
+    },
+    {
+     "rechnung": "round(2000*1.03^5,2)",
+     "antwort": "2318.55",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round(2000*1.03^5-2000,2)",
+     "antwort": "318.55",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round(2000*1.3^5-(2000+5*2000*3/100),2)",
+     "antwort": "5125.86",
+     "rolle": "fehlbild:wachstumsfaktor_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "f52ef418-8b90-4c8f-903f-975f8bd8da41",
+   "titel": "Term lesen · f(x) = 250 · 1,08ˣ",
+   "basis": {
+    "skill_key": "fkt_exp_term",
+    "source_ref": "exp-term-01",
+    "input_type": "MULTI_PART",
+    "frage": "Gegeben ist die Exponentialfunktion f(x) = 250 · 1,08ˣ.\n\nGib den Anfangswert an und um wie viel Prozent der Funktionswert zunimmt, wenn x um 1 größer wird. Gib das Ergebnis exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Anfangswert f(0)"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Zunahme in Prozent, wenn x um 1 größer wird"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "1,08": "anfangswert_faktor_vertauscht",
+      "+1,08": "anfangswert_faktor_vertauscht",
+      "1.08": "anfangswert_faktor_vertauscht",
+      "+1.08": "anfangswert_faktor_vertauscht"
+     },
+     "2": {
+      "108": "rate_aus_faktor_falsch",
+      "+108": "rate_aus_faktor_falsch"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Anfangswert und Wachstumsrate aus dem Funktionsterm ablesen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "250",
+       "+250"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "8",
+       "+8"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "f(x) = a · bˣ: a ist der Anfangswert, b der Wachstumsfaktor.\nf(0) = 250 · 1,08⁰ = 250.\nb = 1,08 = 108 %, also Zunahme um 108 % − 100 % = 8 %.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Wachstumsfaktor 1,08 als Anfangswert genommen.",
+       "socratic_question": "Welchen Wert hat f(x) für x = 0?"
+      },
+      {
+       "error": "Den Faktor 1,08 als 108 % Zunahme gelesen.",
+       "socratic_question": "Wenn 108 % des alten Werts da sind – um wie viel Prozent ist er gewachsen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (anfangswert_faktor_vertauscht, rate_aus_faktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "250",
+     "antwort": "250"
+    },
+    {
+     "teil": "1",
+     "rechnung": "1.08",
+     "antwort": "1.08",
+     "rolle": "fehlbild:anfangswert_faktor_vertauscht:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(1.08-1)*100",
+     "antwort": "8"
+    },
+    {
+     "teil": "2",
+     "rechnung": "1.08*100",
+     "antwort": "108",
+     "rolle": "fehlbild:rate_aus_faktor_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "a30145c7-5bc0-4f21-80ee-5237c1df2756",
+   "titel": "Term aufstellen · Anfangswert 200, Abnahme 10 %",
+   "basis": {
+    "skill_key": "fkt_exp_term",
+    "source_ref": "exp-term-02",
+    "input_type": "MULTI_PART",
+    "frage": "Eine Exponentialfunktion f(x) = a · bˣ hat an der Stelle x = 0 den Wert 200. Wenn x um 1 größer wird, nimmt der Funktionswert jeweils um 10 % ab.\n\nGib a und b an. Gib das Ergebnis exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "b"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "0,9": "anfangswert_faktor_vertauscht",
+      "+0,9": "anfangswert_faktor_vertauscht",
+      "0.9": "anfangswert_faktor_vertauscht",
+      "+0.9": "anfangswert_faktor_vertauscht"
+     },
+     "2": {
+      "200": "anfangswert_faktor_vertauscht",
+      "0,1": "abnahmefaktor_falsch",
+      "+0,1": "abnahmefaktor_falsch",
+      "0.1": "abnahmefaktor_falsch",
+      "+0.1": "abnahmefaktor_falsch",
+      "1,1": "abnahmefaktor_falsch",
+      "+1,1": "abnahmefaktor_falsch",
+      "1.1": "abnahmefaktor_falsch",
+      "+1.1": "abnahmefaktor_falsch",
+      "+200": "anfangswert_faktor_vertauscht"
+     }
+    },
+    "zeit_teile": {
+     "1": 23,
+     "2": 22
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: a und b aus Anfangswert und prozentualer Abnahme bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "200",
+       "+200"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "I",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "0,9",
+       "+0,9",
+       "0.9",
+       "+0.9"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "f(0) = a · b⁰ = a, also a = 200.\nAbnahme um 10 %: Es bleiben 90 %, also b = 1 − 0,1 = 0,9.\nf(x) = 200 · 0,9ˣ.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Anfangswert und Faktor vertauscht: a = 0,9.",
+       "socratic_question": "Welche Zahl in a · bˣ ist der Wert bei x = 0?"
+      },
+      {
+       "error": "Den Anteil genommen, der wegfällt: b = 0,1.",
+       "socratic_question": "Wie viel Prozent des Werts bleiben bei jedem Schritt übrig?"
+      },
+      {
+       "error": "Die 10 % addiert, obwohl der Wert abnimmt: b = 1,1.",
+       "socratic_question": "Wird der Wert größer oder kleiner, wenn du mit 1,1 multiplizierst?"
+      },
+      {
+       "error": "Anfangswert und Faktor vertauscht: b = 200.",
+       "socratic_question": "Welche Zahl wird bei jedem Schritt erneut multipliziert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (anfangswert_faktor_vertauscht, abnahmefaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "200",
+     "antwort": "200"
+    },
+    {
+     "teil": "1",
+     "rechnung": "1-10/100",
+     "antwort": "0.9",
+     "rolle": "fehlbild:anfangswert_faktor_vertauscht:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "1-10/100",
+     "antwort": "0.9"
+    },
+    {
+     "teil": "2",
+     "rechnung": "10/100",
+     "antwort": "0.1",
+     "rolle": "fehlbild:abnahmefaktor_falsch:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "1+10/100",
+     "antwort": "1.1",
+     "rolle": "fehlbild:abnahmefaktor_falsch:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "200",
+     "antwort": "200",
+     "rolle": "fehlbild:anfangswert_faktor_vertauscht:"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "0b9ee008-01c1-4a82-8b69-cfe266a23af1",
+   "titel": "Funktionswert · f(−2) bei f(x) = 80 · 0,5ˣ",
+   "basis": {
+    "skill_key": "fkt_exp_term",
+    "source_ref": "exp-term-03",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = 80 · 0,5ˣ.\n\nBerechne f(−2). Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "-20": "negativer_exponent_negativ",
+     "−20": "negativer_exponent_negativ",
+     "- 20": "negativer_exponent_negativ",
+     "-80": "mal_exponent",
+     "−80": "mal_exponent",
+     "- 80": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: negative Hochzahl als Kehrwert deuten und mit dem Anfangswert multiplizieren."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "320",
+      "+320"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "0,5⁻² = 1 : 0,5² = 1 : 0,25 = 4.\nf(−2) = 80 · 4 = 320.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die negative Hochzahl als Minus vor dem Ergebnis gelesen: 0,5⁻² = −0,25.",
+       "socratic_question": "Was bedeutet eine negative Hochzahl: ein negatives Ergebnis oder der Kehrwert?"
+      },
+      {
+       "error": "0,5⁻² als 0,5 · (−2) gerechnet.",
+       "socratic_question": "Was bedeutet die Hochzahl −2 an 0,5?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "80*1/0.5^2",
+     "antwort": "320"
+    },
+    {
+     "rechnung": "80*(0-0.5^2)",
+     "antwort": "-20",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    },
+    {
+     "rechnung": "80*0.5*(0-2)",
+     "antwort": "-80",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "f8140fab-2e2f-43cf-9b1f-646865613fa1",
+   "titel": "Punkte ablesen · f(3) aus zwei Punkten des Graphen",
+   "basis": {
+    "skill_key": "fkt_exp_term",
+    "source_ref": "exp-term-04",
+    "input_type": "NUMERIC",
+    "frage": "Die Punkte P und Q in der Abbildung liegen auf dem Graphen von f(x) = a · bˣ. P liegt auf der y-Achse. Beide Punkte haben ganzzahlige Koordinaten.\n\nLies ihre Koordinaten ab und berechne f(3). Gib das Ergebnis exakt an.",
+    "figur": {
+     "params": {
+      "x_min": -1,
+      "x_max": 4,
+      "y_min": -1,
+      "y_max": 8,
+      "punkte": [
+       {
+        "x": 0,
+        "y": 2,
+        "label": "P"
+       },
+       {
+        "x": 1,
+        "y": 6,
+        "label": "Q"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter und den Punkten P und Q."
+    },
+    "known_errors": {
+     "14": "linear_statt_exponentiell",
+     "18": "mal_exponent",
+     "24": "anfangswert_faktor_vertauscht",
+     "+24": "anfangswert_faktor_vertauscht",
+     "+14": "linear_statt_exponentiell",
+     "+18": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Anfangswert und Faktor aus zwei abgelesenen Punkten bestimmen, dann auswerten."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "54",
+      "+54"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Ablesen: P(0|2) und Q(1|6).\nP auf der y-Achse: a = f(0) = 2.\nQ: f(1) = 2 · b = 6, also b = 3.\nf(3) = 2 · 3³ = 2 · 27 = 54.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Anfangswert und Faktor vertauscht: f(x) = 3 · 2ˣ.",
+       "socratic_question": "Welcher der beiden Punkte zeigt den Wert bei x = 0?"
+      },
+      {
+       "error": "Linear fortgeschrieben: bei jedem Schritt 4 addiert.",
+       "socratic_question": "Wird bei f(x) = a · bˣ in jedem Schritt addiert oder multipliziert?"
+      },
+      {
+       "error": "3³ als 3 · 3 gerechnet.",
+       "socratic_question": "Was bedeutet die kleine 3 an der 3?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (anfangswert_faktor_vertauscht, linear_statt_exponentiell, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*3^3",
+     "antwort": "54"
+    },
+    {
+     "rechnung": "3*2^3",
+     "antwort": "24",
+     "rolle": "fehlbild:anfangswert_faktor_vertauscht:"
+    },
+    {
+     "rechnung": "2+3*(6-2)",
+     "antwort": "14",
+     "rolle": "fehlbild:linear_statt_exponentiell:"
+    },
+    {
+     "rechnung": "2*3*3",
+     "antwort": "18",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "785c92ab-e234-469f-bb6a-59c0c11db8fd",
+   "titel": "Term aus zwei Punkten · Abbildung, Punkte bei x = 1 und x = 3",
+   "basis": {
+    "skill_key": "fkt_exp_term",
+    "source_ref": "exp-term-05",
+    "input_type": "MULTI_PART",
+    "frage": "Die Punkte P und Q in der Abbildung liegen auf dem Graphen von f(x) = a · bˣ mit b > 0. Beide Punkte haben ganzzahlige Koordinaten.\n\nLies ihre Koordinaten ab und bestimme a und b. Gib das Ergebnis exakt an.",
+    "figur": {
+     "params": {
+      "x_min": -1,
+      "x_max": 4,
+      "y_min": -1,
+      "y_max": 13,
+      "punkte": [
+       {
+        "x": 1,
+        "y": 3,
+        "label": "P"
+       },
+       {
+        "x": 3,
+        "y": 12,
+        "label": "Q"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter und den Punkten P und Q."
+    },
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "b"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "2": "anfangswert_faktor_vertauscht",
+      "0,75": "wurzel_vergessen",
+      "+0,75": "wurzel_vergessen",
+      "0.75": "wurzel_vergessen",
+      "+0.75": "wurzel_vergessen",
+      "3/4": "wurzel_vergessen",
+      "+3/4": "wurzel_vergessen",
+      "+2": "anfangswert_faktor_vertauscht"
+     },
+     "2": {
+      "4": "wurzel_vergessen",
+      "+4": "wurzel_vergessen",
+      "4,5": "linear_statt_exponentiell",
+      "+4,5": "linear_statt_exponentiell",
+      "4.5": "linear_statt_exponentiell",
+      "+4.5": "linear_statt_exponentiell",
+      "1,5": "anfangswert_faktor_vertauscht",
+      "+1,5": "anfangswert_faktor_vertauscht",
+      "1.5": "anfangswert_faktor_vertauscht",
+      "+1.5": "anfangswert_faktor_vertauscht"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in der Rückrichtung: aus zwei Punkten den Faktor über zwei Schritte und daraus a bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Abbildung (Koordinatensystem) gehört zur Aufgabe; Generator koordinatensystem, task_figures."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "1,5",
+       "+1,5",
+       "1.5",
+       "+1.5",
+       "3/2",
+       "+3/2"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "2",
+       "+2"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Ablesen: P(1|3) und Q(3|12).\nVon x = 1 bis x = 3 wird zweimal mit b multipliziert: b² = 12 : 3 = 4, b = 2.\nf(1) = a · 2 = 3, also a = 3 : 2 = 1,5.\nf(x) = 1,5 · 2ˣ.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "b² = 4 als b genommen und deshalb a = 3 : 4 gerechnet.",
+       "socratic_question": "Liegen zwischen P und Q ein oder zwei Schritte in x-Richtung?"
+      },
+      {
+       "error": "Anfangswert und Faktor vertauscht: a = 2.",
+       "socratic_question": "Welche Zahl in a · bˣ wird bei jedem Schritt erneut multipliziert?"
+      },
+      {
+       "error": "b² = 4 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Von x = 1 bis x = 3 wird zweimal mit b multipliziert – was ist dann 12 : 3?"
+      },
+      {
+       "error": "Wie bei einer Geraden die Steigung berechnet: 9 : 2.",
+       "socratic_question": "Wird bei f(x) = a · bˣ in jedem Schritt addiert oder multipliziert?"
+      },
+      {
+       "error": "Anfangswert und Faktor vertauscht: b = 1,5.",
+       "socratic_question": "Welche Zahl in a · bˣ ist der Wert bei x = 0?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (wurzel_vergessen, anfangswert_faktor_vertauscht, linear_statt_exponentiell)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "3/(2)",
+     "antwort": "3/2"
+    },
+    {
+     "teil": "1",
+     "rechnung": "3/(12/3)",
+     "antwort": "3/4",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "(2)",
+     "antwort": "2",
+     "rolle": "fehlbild:anfangswert_faktor_vertauscht:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(2)",
+     "antwort": "2"
+    },
+    {
+     "teil": "2",
+     "rechnung": "12/3",
+     "antwort": "4",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(12-3)/(3-1)",
+     "antwort": "4.5",
+     "rolle": "fehlbild:linear_statt_exponentiell:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "3/(2)",
+     "antwort": "1.5",
+     "rolle": "fehlbild:anfangswert_faktor_vertauscht:"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "0a568e4e-b3e1-408c-89e1-ba380e9845a3",
+   "titel": "Term aufstellen · Bakterien nach 2 und 4 Stunden",
+   "basis": {
+    "skill_key": "fkt_exp_term",
+    "source_ref": "exp-term-06",
+    "input_type": "MULTI_PART",
+    "frage": "In einer Bakterienkultur werden nach 2 Stunden 360 Bakterien und nach 4 Stunden 810 Bakterien gezählt. Die Anzahl wächst exponentiell und wird durch f(x) = a · bˣ beschrieben (x in Stunden seit Beginn der Beobachtung).\n\nBestimme a und b. Gib das Ergebnis exakt an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "a (Anzahl zu Beginn)"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "b (Wachstumsfaktor pro Stunde)"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "-90": "linear_statt_exponentiell",
+      "−90": "linear_statt_exponentiell",
+      "- 90": "linear_statt_exponentiell",
+      "1,5": "anfangswert_faktor_vertauscht",
+      "+1,5": "anfangswert_faktor_vertauscht",
+      "1.5": "anfangswert_faktor_vertauscht",
+      "+1.5": "anfangswert_faktor_vertauscht"
+     },
+     "2": {
+      "160": "anfangswert_faktor_vertauscht",
+      "2,25": "wurzel_vergessen",
+      "+2,25": "wurzel_vergessen",
+      "2.25": "wurzel_vergessen",
+      "+2.25": "wurzel_vergessen",
+      "+160": "anfangswert_faktor_vertauscht"
+     }
+    },
+    "zeit_teile": {
+     "1": 60,
+     "2": 60
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: aus zwei Messwerten den Faktor über zwei Schritte und den Anfangswert durch Zurückrechnen bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "160",
+       "+160"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "1,5",
+       "+1,5",
+       "1.5",
+       "+1.5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Von x = 2 bis x = 4 wird zweimal mit b multipliziert: b² = 810 : 360 = 2,25, b = 1,5.\nZurückrechnen: f(2) = a · 1,5² = 360, also a = 360 : 2,25 = 160.\nf(x) = 160 · 1,5ˣ.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Linear zurückgerechnet: 360 − 450 = −90.",
+       "socratic_question": "Wird die Anzahl in jeder Stunde um denselben Betrag größer oder mit demselben Faktor?"
+      },
+      {
+       "error": "Anfangswert und Faktor vertauscht: a = 1,5.",
+       "socratic_question": "Welche Zahl in a · bˣ ist die Anzahl bei x = 0?"
+      },
+      {
+       "error": "b² = 2,25 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Wie viele Stunden liegen zwischen den beiden Zählungen – und wie oft wird dabei mit b multipliziert?"
+      },
+      {
+       "error": "Anfangswert und Faktor vertauscht: b = 160.",
+       "socratic_question": "Welche Zahl in a · bˣ wird jede Stunde erneut multipliziert?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (linear_statt_exponentiell, anfangswert_faktor_vertauscht, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "360/((3/2))^2",
+     "antwort": "160"
+    },
+    {
+     "teil": "1",
+     "rechnung": "360-(810-360)",
+     "antwort": "-90",
+     "rolle": "fehlbild:linear_statt_exponentiell:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "(3/2)",
+     "antwort": "1.5",
+     "rolle": "fehlbild:anfangswert_faktor_vertauscht:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(3/2)",
+     "antwort": "1.5"
+    },
+    {
+     "teil": "2",
+     "rechnung": "810/360",
+     "antwort": "2.25",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "360/((3/2))^2",
+     "antwort": "160",
+     "rolle": "fehlbild:anfangswert_faktor_vertauscht:"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "67e561b4-fcbf-40c1-a24f-6180f39bb1f3",
+   "titel": "Halbwertszeit · 64 g, 5 Jahre, nach 15 Jahren",
+   "basis": {
+    "skill_key": "fkt_exp_halbwert",
+    "source_ref": "exp-halbwert-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein Stoff hat eine Halbwertszeit von 5 Jahren. Zu Beginn sind 64 g vorhanden.\n\nWie viel Gramm sind nach 15 Jahren noch vorhanden? Gib das Ergebnis exakt an.",
+    "unit": "g",
+    "known_errors": {
+     "96": "mal_exponent",
+     "0,001953125": "zeit_statt_perioden",
+     "0.001953125": "zeit_statt_perioden",
+     "0,001953125 g": "zeit_statt_perioden",
+     "0,001953125g": "zeit_statt_perioden",
+     "96 g": "mal_exponent",
+     "96g": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Anzahl der Halbwertszeiten bestimmen und entsprechend oft halbieren."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8",
+      "8 g",
+      "8g"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "15 Jahre sind 15 : 5 = 3 Halbwertszeiten.\n64 g · 0,5³ = 64 g : 8 = 8 g.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die 15 Jahre direkt als Hochzahl genommen: 64 · 0,5¹⁵.",
+       "socratic_question": "Wie oft halbiert sich die Menge in 15 Jahren, wenn sie sich alle 5 Jahre halbiert?"
+      },
+      {
+       "error": "0,5³ als 0,5 · 3 gerechnet: 64 · 1,5 = 96.",
+       "socratic_question": "Kann nach drei Halbierungen mehr übrig sein als am Anfang?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeit_statt_perioden, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "64*((1/2)^3)",
+     "antwort": "8"
+    },
+    {
+     "rechnung": "64*0.5^15",
+     "antwort": "0.001953125",
+     "rolle": "fehlbild:zeit_statt_perioden:"
+    },
+    {
+     "rechnung": "64*0.5*3",
+     "antwort": "96",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "10179c4f-fa4f-439c-81e5-c5d0957ac2e7",
+   "titel": "Verdopplungszeit · 300, alle 4 Stunden, nach 12 Stunden",
+   "basis": {
+    "skill_key": "fkt_exp_halbwert",
+    "source_ref": "exp-halbwert-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein Bestand von 300 verdoppelt sich alle 4 Stunden.\n\nWie groß ist der Bestand nach 12 Stunden? Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "1200": "linear_statt_exponentiell",
+     "1800": "mal_exponent",
+     "1228800": "zeit_statt_perioden",
+     "+1228800": "zeit_statt_perioden",
+     "+1200": "linear_statt_exponentiell",
+     "+1800": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Anzahl der Verdopplungszeiten bestimmen und entsprechend oft verdoppeln."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2400",
+      "+2400"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "12 Stunden sind 12 : 4 = 3 Verdopplungszeiten.\n300 · 2³ = 300 · 8 = 2400.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die 12 Stunden direkt als Hochzahl genommen: 300 · 2¹².",
+       "socratic_question": "Wie oft verdoppelt sich der Bestand in 12 Stunden?"
+      },
+      {
+       "error": "Bei jeder Verdopplungszeit nur 300 addiert: 300 + 3 · 300.",
+       "socratic_question": "Was wird verdoppelt: der Anfangsbestand oder der jeweils aktuelle Bestand?"
+      },
+      {
+       "error": "2³ als 2 · 3 gerechnet: 300 · 6.",
+       "socratic_question": "Was ergibt 2 · 2 · 2?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeit_statt_perioden, linear_statt_exponentiell, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "300*((2/1)^3)",
+     "antwort": "2400"
+    },
+    {
+     "rechnung": "300*2^12",
+     "antwort": "1228800",
+     "rolle": "fehlbild:zeit_statt_perioden:"
+    },
+    {
+     "rechnung": "300+3*300",
+     "antwort": "1200",
+     "rolle": "fehlbild:linear_statt_exponentiell:"
+    },
+    {
+     "rechnung": "300*2*3",
+     "antwort": "1800",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "6557a84f-4c11-4e4d-8fbe-ec66210f6027",
+   "titel": "Zeit aus Menge · 400 mg auf 25 mg, Halbwertszeit 8 Tage",
+   "basis": {
+    "skill_key": "fkt_exp_halbwert",
+    "source_ref": "exp-halbwert-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein Stoff hat eine Halbwertszeit von 8 Tagen. Zu Beginn sind 400 mg vorhanden.\n\nNach wie vielen Tagen sind nur noch 25 mg vorhanden? Gib das Ergebnis exakt an.",
+    "unit": "Tage",
+    "known_errors": {
+     "4": "falsche_groesse_beantwortet",
+     "4 Tage": "falsche_groesse_beantwortet",
+     "4Tage": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Verhältnis als Zweierpotenz erkennen, Anzahl der Halbwertszeiten in Zeit umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "32",
+      "32 Tage",
+      "32Tage"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "400 mg : 25 mg = 16 = 2⁴: Die Menge hat sich 4-mal halbiert (400 → 200 → 100 → 50 → 25).\n4 Halbwertszeiten: 4 · 8 Tage = 32 Tage.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Anzahl der Halbwertszeiten angegeben statt der Tage.",
+       "socratic_question": "Gefragt sind Tage – wie lang dauert eine Halbwertszeit?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "8*4",
+     "antwort": "32"
+    },
+    {
+     "rechnung": "4",
+     "antwort": "4",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "3e496b46-156d-45cc-9b77-596261829fb8",
+   "titel": "Verdopplung durch Probieren · 12 % pro Jahr",
+   "basis": {
+    "skill_key": "fkt_exp_halbwert",
+    "source_ref": "exp-halbwert-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein Bestand wächst in jedem Jahr um 12 %.\n\nGib die Anzahl der ganzen Jahre an, nach denen sich der Bestand erstmals mindestens verdoppelt hat.",
+    "unit": "Jahre",
+    "known_errors": {
+     "4": "wachstumsfaktor_falsch",
+     "9": "prozente_addiert",
+     "9 Jahre": "prozente_addiert",
+     "9Jahre": "prozente_addiert",
+     "4 Jahre": "wachstumsfaktor_falsch",
+     "4Jahre": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Potenzen des Wachstumsfaktors probieren (oder logarithmieren) und die erste ganze Zahl über der Grenze wählen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "7 Jahre",
+      "7Jahre"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Gesucht ist das kleinste ganze n mit 1,12ⁿ ≥ 2.\n1,12⁶ ≈ 1,974 < 2, aber 1,12⁷ ≈ 2,211 ≥ 2.\n(Oder: log 2 : log 1,12 ≈ 6,12, also aufrunden.)\nNach 7 Jahren.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Jedes Jahr nur 12 % vom Anfangsbestand addiert: 100 % : 12 % ≈ 8,3, also 9 Jahre.",
+       "socratic_question": "Wovon werden im zweiten Jahr die 12 % berechnet?"
+      },
+      {
+       "error": "Mit dem Faktor 1,2 statt 1,12 gerechnet.",
+       "socratic_question": "Wie viel ist 12 % als Dezimalzahl, und wie heißt dann der Faktor?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert, wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((1386294361119890618834464242916353136151/2000000000000000000000000000000000000000)/(1133286853070031747382983199071575867369/10000000000000000000000000000000000000000),4)",
+     "antwort": "6.1163",
+     "rolle": "richtig:vor-aufrunden=7"
+    },
+    {
+     "rechnung": "round(100/12,4)",
+     "antwort": "8.3333",
+     "rolle": "fehlbild:prozente_addiert::vor-aufrunden=9"
+    },
+    {
+     "rechnung": "round((1386294361119890618834464242916353136151/2000000000000000000000000000000000000000)/(911607783969773131058590125772573165987/5000000000000000000000000000000000000000),4)",
+     "antwort": "3.8018",
+     "rolle": "fehlbild:wachstumsfaktor_falsch::vor-aufrunden=4"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "b034cc64-2773-4753-a08d-be9bbb6319c6",
+   "titel": "Halbwertszeit bestimmen · Medikament, 12,5 % nach 12 Stunden",
+   "basis": {
+    "skill_key": "fkt_exp_halbwert",
+    "source_ref": "exp-halbwert-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Medikament wird im Körper abgebaut; die Menge halbiert sich immer in derselben Zeit. 12 Stunden nach der Einnahme sind noch 12,5 % der eingenommenen Menge im Körper.\n\nWie groß ist die Halbwertszeit in Stunden? Gib das Ergebnis exakt an.",
+    "unit": "h",
+    "known_errors": {
+     "3": "falsche_groesse_beantwortet",
+     "3 h": "falsche_groesse_beantwortet",
+     "3h": "falsche_groesse_beantwortet",
+     "6,86": "linear_statt_exponentiell",
+     "6.86": "linear_statt_exponentiell",
+     "6,86 h": "linear_statt_exponentiell",
+     "6,86h": "linear_statt_exponentiell"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in der Rückrichtung: aus dem Restanteil die Anzahl der Halbierungen und daraus die Halbwertszeit bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "4 h",
+      "4h"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "12,5 % = 0,125 = 1/8 = (1/2)³: In 12 Stunden hat sich die Menge 3-mal halbiert (100 % → 50 % → 25 % → 12,5 %).\nHalbwertszeit: 12 h : 3 = 4 h.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Anzahl der Halbierungen angegeben statt der Halbwertszeit.",
+       "socratic_question": "Gefragt ist eine Zeit in Stunden – wie viele Stunden dauert eine Halbierung?"
+      },
+      {
+       "error": "Linear gerechnet: 87,5 % Abbau in 12 Stunden, 50 % Abbau also in 12 · 50 : 87,5 Stunden.",
+       "socratic_question": "Wird in jeder Stunde dieselbe Menge abgebaut oder derselbe Anteil?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, linear_statt_exponentiell)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "12/3",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "3",
+     "antwort": "3",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round(12*50/87.5,2)",
+     "antwort": "6.86",
+     "rolle": "fehlbild:linear_statt_exponentiell:"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "01afa83d-dfd8-44a6-b6e4-b75c28c273a0",
+   "titel": "Verdopplungszeit · Population 500, alle 3 Jahre, nach 10 Jahren",
+   "basis": {
+    "skill_key": "fkt_exp_halbwert",
+    "source_ref": "exp-halbwert-06",
+    "input_type": "NUMERIC",
+    "frage": "Eine Tierpopulation von 500 Tieren verdoppelt sich alle 3 Jahre.\n\nWie viele Tiere sind es nach 10 Jahren? Runde auf ganze Tiere.",
+    "known_errors": {
+     "2167": "linear_statt_exponentiell",
+     "5028": "zu_frueh_gerundet",
+     "512000": "zeit_statt_perioden",
+     "+512000": "zeit_statt_perioden",
+     "+2167": "linear_statt_exponentiell",
+     "+5028": "zu_frueh_gerundet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: nicht ganzzahlige Anzahl von Verdopplungszeiten als gebrochene Hochzahl einsetzen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5040",
+      "+5040"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "10 Jahre sind 10 : 3 Verdopplungszeiten.\n500 · 2^(10/3) ≈ 500 · 10,0794 ≈ 5039,7.\nGerundet: 5040 Tiere.\n(Die Hochzahl 10/3 nicht vorher runden.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die 10 Jahre direkt als Hochzahl genommen: 500 · 2¹⁰.",
+       "socratic_question": "Wie oft verdoppelt sich die Population in 10 Jahren, wenn sie sich alle 3 Jahre verdoppelt?"
+      },
+      {
+       "error": "Linear gerechnet: alle 3 Jahre 500 Tiere dazu.",
+       "socratic_question": "Was wird verdoppelt: die Anfangszahl oder die jeweils aktuelle Zahl?"
+      },
+      {
+       "error": "Die Hochzahl 10/3 vorher auf 3,33 gerundet.",
+       "socratic_question": "Was passiert mit dem Ergebnis, wenn du 10/3 vor dem Potenzieren rundest?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeit_statt_perioden, linear_statt_exponentiell, zu_frueh_gerundet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(500*(5039684199579492659068842429112913402281/500000000000000000000000000000000000000),0)",
+     "antwort": "5040"
+    },
+    {
+     "rechnung": "round(500*2^10,0)",
+     "antwort": "512000",
+     "rolle": "fehlbild:zeit_statt_perioden:"
+    },
+    {
+     "rechnung": "round(500+500*10/3,0)",
+     "antwort": "2167",
+     "rolle": "fehlbild:linear_statt_exponentiell:"
+    },
+    {
+     "rechnung": "round(500*(12570133745218283521861316893273405563761/1250000000000000000000000000000000000000),0)",
+     "antwort": "5028",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "c145fae7-4001-4d15-9218-64948c1964af",
+   "titel": "Probieren · 3ˣ = 81",
+   "basis": {
+    "skill_key": "fkt_exp_gleichung",
+    "source_ref": "exp-gleichung-01",
+    "input_type": "NUMERIC",
+    "frage": "Löse die Gleichung 3ˣ = 81. Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "27": "log_falsch_geteilt",
+     "+27": "log_falsch_geteilt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: ganzzahlige Lösung durch Potenzen der Basis finden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "+4"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Potenzen von 3: 3¹ = 3, 3² = 9, 3³ = 27, 3⁴ = 81.\nx = 4.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "c durch b geteilt: 81 : 3 = 27.",
+       "socratic_question": "Setze 27 ein: Ist 3²⁷ wirklich 81?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (log_falsch_geteilt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "81/3",
+     "antwort": "27",
+     "rolle": "fehlbild:log_falsch_geteilt:"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "b08dd57c-00cd-4d8d-b035-0d37075d6331",
+   "titel": "Probieren mit negativer Lösung · 2ˣ = 1/8",
+   "basis": {
+    "skill_key": "fkt_exp_gleichung",
+    "source_ref": "exp-gleichung-02",
+    "input_type": "NUMERIC",
+    "frage": "Löse die Gleichung 2ˣ = 1/8. Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "3": "betrag_fehler",
+     "+3": "betrag_fehler",
+     "0,0625": "log_falsch_geteilt",
+     "+0,0625": "log_falsch_geteilt",
+     "0.0625": "log_falsch_geteilt",
+     "+0.0625": "log_falsch_geteilt",
+     "1/16": "log_falsch_geteilt",
+     "+1/16": "log_falsch_geteilt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Kehrwert einer Zweierpotenz als negative Hochzahl erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-3",
+      "−3",
+      "- 3"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "2³ = 8, also 1/8 = 1/2³ = 2⁻³.\nx = -3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Hochzahl ohne Minus angegeben: 2³ = 8, nicht 1/8.",
+       "socratic_question": "Ist 2³ gleich 8 oder gleich 1/8?"
+      },
+      {
+       "error": "c durch b geteilt: 1/8 : 2 = 1/16.",
+       "socratic_question": "Setze dein Ergebnis ein: Ergibt 2 hoch diese Zahl wirklich 1/8?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, log_falsch_geteilt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0-3",
+     "antwort": "-3"
+    },
+    {
+     "rechnung": "3",
+     "antwort": "3",
+     "rolle": "fehlbild:betrag_fehler:"
+    },
+    {
+     "rechnung": "1/8/2",
+     "antwort": "1/16",
+     "rolle": "fehlbild:log_falsch_geteilt:"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "3f87ce05-a113-439a-8b18-18160b63ca52",
+   "titel": "Logarithmus · Bakterien verzwanzigfachen sich, 1,5ˣ = 20",
+   "basis": {
+    "skill_key": "fkt_exp_gleichung",
+    "source_ref": "exp-gleichung-03",
+    "input_type": "NUMERIC",
+    "frage": "Eine Bakterienzahl wächst jede Stunde mit dem Faktor 1,5. Nach x Stunden hat sie sich verzwanzigfacht; dafür gilt 1,5ˣ = 20.\n\nBestimme x mit dem Logarithmus. Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "13,33": "log_falsch_geteilt",
+     "+13,33": "log_falsch_geteilt",
+     "13.33": "log_falsch_geteilt",
+     "+13.33": "log_falsch_geteilt",
+     "0,14": "umgekehrt_geteilt",
+     "+0,14": "umgekehrt_geteilt",
+     "0.14": "umgekehrt_geteilt",
+     "+0.14": "umgekehrt_geteilt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Gleichung bˣ = c mit x = log c : log b lösen und runden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7,39",
+      "+7,39",
+      "7.39",
+      "+7.39"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "x = log 20 : log 1,5 ≈ 1,30103 : 0,17609 ≈ 7,39.\nNach etwa 7,39 Stunden.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "c durch b geteilt statt log c durch log b: 20 : 1,5.",
+       "socratic_question": "Setze dein Ergebnis ein: Ist 1,5 hoch diese Zahl wirklich 20?"
+      },
+      {
+       "error": "Umgekehrt geteilt: log 1,5 : log 20.",
+       "socratic_question": "Welcher Logarithmus gehört in den Zähler – der von c oder der von b?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (log_falsch_geteilt, umgekehrt_geteilt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((14978661367769954967176117880712703878383/5000000000000000000000000000000000000000)/(101366277027041095494503278866087284143/250000000000000000000000000000000000000),2)",
+     "antwort": "7.39"
+    },
+    {
+     "rechnung": "round(20/1.5,2)",
+     "antwort": "13.33",
+     "rolle": "fehlbild:log_falsch_geteilt:"
+    },
+    {
+     "rechnung": "round((101366277027041095494503278866087284143/250000000000000000000000000000000000000)/(14978661367769954967176117880712703878383/5000000000000000000000000000000000000000),2)",
+     "antwort": "0.14",
+     "rolle": "fehlbild:umgekehrt_geteilt:"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "970789a3-e052-48e9-b5c8-7509083a901c",
+   "titel": "Logarithmus · 2,5 · 1,04ˣ = 4",
+   "basis": {
+    "skill_key": "fkt_exp_gleichung",
+    "source_ref": "exp-gleichung-04",
+    "input_type": "NUMERIC",
+    "frage": "Löse die Gleichung 2,5 · 1,04ˣ = 4. Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "1,45": "vorrang_ignoriert",
+     "+1,45": "vorrang_ignoriert",
+     "1.45": "vorrang_ignoriert",
+     "+1.45": "vorrang_ignoriert",
+     "1,54": "log_falsch_geteilt",
+     "+1,54": "log_falsch_geteilt",
+     "1.54": "log_falsch_geteilt",
+     "+1.54": "log_falsch_geteilt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: erst durch den Vorfaktor teilen, dann logarithmieren und runden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "11,98",
+      "+11,98",
+      "11.98",
+      "+11.98"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Durch 2,5 teilen: 1,04ˣ = 4 : 2,5 = 1,6.\nx = log 1,6 : log 1,04 ≈ 0,20412 : 0,01703 ≈ 11,98.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Erst 2,5 · 1,04 = 2,6 gerechnet und dann 2,6ˣ = 4 gelöst.",
+       "socratic_question": "Wird in 2,5 · 1,04ˣ zuerst potenziert oder zuerst multipliziert?"
+      },
+      {
+       "error": "Nach dem Teilen c durch b geteilt: 1,6 : 1,04.",
+       "socratic_question": "Setze dein Ergebnis ein: Ist 1,04 hoch diese Zahl wirklich 1,6?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorrang_ignoriert, log_falsch_geteilt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((4700036292457355536509370311483420647009/10000000000000000000000000000000000000000)/(49025891441601620336501120713899867287/1250000000000000000000000000000000000000),2)",
+     "antwort": "11.98"
+    },
+    {
+     "rechnung": "round((1386294361119890618834464242916353136151/1000000000000000000000000000000000000000)/(9555114450274363614527281083391309652797/10000000000000000000000000000000000000000),2)",
+     "antwort": "1.45",
+     "rolle": "fehlbild:vorrang_ignoriert:"
+    },
+    {
+     "rechnung": "round(4/2.5/1.04,2)",
+     "antwort": "1.54",
+     "rolle": "fehlbild:log_falsch_geteilt:"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "356c43e5-5443-4664-83f9-e81054644920",
+   "titel": "Rückrichtung · 2ˣ = c hat die Lösung x = −4",
+   "basis": {
+    "skill_key": "fkt_exp_gleichung",
+    "source_ref": "exp-gleichung-05",
+    "input_type": "NUMERIC",
+    "frage": "Die Gleichung 2ˣ = c hat die Lösung x = −4.\n\nWie groß ist c? Gib das Ergebnis exakt an. Du kannst auch einen Bruch eingeben.",
+    "known_errors": {
+     "-16": "negativer_exponent_negativ",
+     "−16": "negativer_exponent_negativ",
+     "- 16": "negativer_exponent_negativ",
+     "-8": "mal_exponent",
+     "−8": "mal_exponent",
+     "- 8": "mal_exponent"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in der Rückrichtung: aus der Lösung den Wert c als Potenz mit negativer Hochzahl berechnen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,0625",
+      "+0,0625",
+      "0.0625",
+      "+0.0625",
+      "1/16",
+      "+1/16"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "c = 2⁻⁴ = 1 : 2⁴ = 1/16 = 0,0625.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die negative Hochzahl als Minus vor dem Ergebnis gelesen: 2⁻⁴ = −16.",
+       "socratic_question": "Kann eine Potenz von 2 negativ sein?"
+      },
+      {
+       "error": "2⁻⁴ als 2 · (−4) gerechnet.",
+       "socratic_question": "Was bedeutet die Hochzahl −4 an der 2?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (negativer_exponent_negativ, mal_exponent)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1/2^4",
+     "antwort": "1/16"
+    },
+    {
+     "rechnung": "0-2^4",
+     "antwort": "-16",
+     "rolle": "fehlbild:negativer_exponent_negativ:"
+    },
+    {
+     "rechnung": "2*(0-4)",
+     "antwort": "-8",
+     "rolle": "fehlbild:mal_exponent:"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "282318bf-0748-4764-8f2f-ac39dfd14d22",
+   "titel": "Erst teilen, dann probieren · 3 · 2ˣ = 3/32",
+   "basis": {
+    "skill_key": "fkt_exp_gleichung",
+    "source_ref": "exp-gleichung-06",
+    "input_type": "NUMERIC",
+    "frage": "Löse die Gleichung 3 · 2ˣ = 3/32. Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "5": "betrag_fehler",
+     "+5": "betrag_fehler",
+     "-1,32": "vorrang_ignoriert",
+     "−1,32": "vorrang_ignoriert",
+     "- 1,32": "vorrang_ignoriert",
+     "-1.32": "vorrang_ignoriert",
+     "−1.32": "vorrang_ignoriert",
+     "- 1.32": "vorrang_ignoriert",
+     "0,015625": "log_falsch_geteilt",
+     "+0,015625": "log_falsch_geteilt",
+     "0.015625": "log_falsch_geteilt",
+     "+0.015625": "log_falsch_geteilt",
+     "1/64": "log_falsch_geteilt",
+     "+1/64": "log_falsch_geteilt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Vorfaktor abspalten, Bruch als Zweierpotenz mit negativer Hochzahl erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-5",
+      "−5",
+      "- 5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Durch 3 teilen: 2ˣ = 1/32.\n2⁵ = 32, also 1/32 = 2⁻⁵.\nx = -5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Hochzahl ohne Minus angegeben: 2⁵ = 32, nicht 1/32.",
+       "socratic_question": "Ist 2⁵ gleich 32 oder gleich 1/32?"
+      },
+      {
+       "error": "Erst 3 · 2 = 6 gerechnet und dann 6ˣ = 3/32 gelöst.",
+       "socratic_question": "Wird in 3 · 2ˣ zuerst potenziert oder zuerst multipliziert?"
+      },
+      {
+       "error": "Nach dem Teilen c durch b geteilt: 1/32 : 2.",
+       "socratic_question": "Setze dein Ergebnis ein: Ergibt 2 hoch diese Zahl wirklich 1/32?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, vorrang_ignoriert, log_falsch_geteilt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0-5",
+     "antwort": "-5"
+    },
+    {
+     "rechnung": "5",
+     "antwort": "5",
+     "rolle": "fehlbild:betrag_fehler:"
+    },
+    {
+     "rechnung": "round((0-236712361413161685569091537036835713573/100000000000000000000000000000000000000)/(1791759469228055000812477358380702272723/1000000000000000000000000000000000000000),2)",
+     "antwort": "-1.32",
+     "rolle": "fehlbild:vorrang_ignoriert:"
+    },
+    {
+     "rechnung": "1/32/2",
+     "antwort": "1/64",
+     "rolle": "fehlbild:log_falsch_geteilt:"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "380b85ad-3967-4fad-b370-e113276310a6",
+   "titel": "Kapital · 1000 € zu 5 %, erstmals mindestens 1500 €",
+   "basis": {
+    "skill_key": "fkt_exp_anwendung",
+    "source_ref": "exp-anwendung-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein Kapital von 1000 € wird mit 5 % pro Jahr verzinst; die Zinsen werden mitverzinst.\n\nGib die Anzahl der ganzen Jahre an, nach denen das Kapital erstmals mindestens 1500 € beträgt.",
+    "unit": "Jahre",
+    "known_errors": {
+     "1": "wachstumsfaktor_falsch",
+     "10": "prozente_addiert",
+     "10 Jahre": "prozente_addiert",
+     "10Jahre": "prozente_addiert",
+     "1 Jahre": "wachstumsfaktor_falsch",
+     "1Jahre": "wachstumsfaktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Zinseszins-Gleichung aufstellen und die kleinste ganze Jahreszahl über der Grenze bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 75,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9",
+      "9 Jahre",
+      "9Jahre"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "1000 · 1,05ⁿ ≥ 1500, also 1,05ⁿ ≥ 1,5.\nlog 1,5 : log 1,05 ≈ 8,31; ganze Jahre: aufrunden.\nProbe: 1,05⁸ ≈ 1,477 < 1,5 und 1,05⁹ ≈ 1,551 ≥ 1,5.\nNach 9 Jahren.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Jedes Jahr nur 50 € (5 % vom Startkapital) gerechnet: 500 : 50 = 10.",
+       "socratic_question": "Wovon werden im zweiten Jahr die 5 % berechnet?"
+      },
+      {
+       "error": "Mit dem Faktor 1,5 statt 1,05 gerechnet.",
+       "socratic_question": "Wie viel ist 5 % als Dezimalzahl, und wie heißt dann der Faktor?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (prozente_addiert, wachstumsfaktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((101366277027041095494503278866087284143/250000000000000000000000000000000000000)/(3049385260589500191585900263947791163/62500000000000000000000000000000000000),4)",
+     "antwort": "8.3104",
+     "rolle": "richtig:vor-aufrunden=9"
+    },
+    {
+     "rechnung": "(1500-1000)/(1000*5/100)",
+     "antwort": "10",
+     "rolle": "fehlbild:prozente_addiert:"
+    },
+    {
+     "rechnung": "round((101366277027041095494503278866087284143/250000000000000000000000000000000000000)/(101366277027041095494503278866087284143/250000000000000000000000000000000000000),4)",
+     "antwort": "1.0000",
+     "rolle": "fehlbild:wachstumsfaktor_falsch::vor-aufrunden=1"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "167c44e0-d197-4696-951a-a17b5f8337c4",
+   "titel": "Abbau · 80 mg, 15 % pro Stunde, höchstens 20 mg",
+   "basis": {
+    "skill_key": "fkt_exp_anwendung",
+    "source_ref": "exp-anwendung-02",
+    "input_type": "NUMERIC",
+    "frage": "Von einem Stoff sind zu Beginn 80 mg im Blut. Die Menge nimmt jede Stunde um 15 % ab.\n\nGib die Anzahl der ganzen Stunden an, nach denen erstmals höchstens 20 mg im Blut sind.",
+    "unit": "h",
+    "known_errors": {
+     "1": "abnahmefaktor_falsch",
+     "5": "prozente_addiert",
+     "1 h": "abnahmefaktor_falsch",
+     "1h": "abnahmefaktor_falsch",
+     "5 h": "prozente_addiert",
+     "5h": "prozente_addiert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Abnahmefaktor bilden, Gleichung lösen und auf ganze Stunden aufrunden."
+    },
+    "est_duration_sec": {
+     "wert": 75,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9",
+      "9 h",
+      "9h"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "80 · 0,85ⁿ ≤ 20, also 0,85ⁿ ≤ 0,25.\nlog 0,25 : log 0,85 ≈ 8,53; ganze Stunden: aufrunden.\nProbe: 0,85⁸ ≈ 0,272 > 0,25 und 0,85⁹ ≈ 0,232 ≤ 0,25.\nNach 9 Stunden.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit dem Faktor 0,15 statt 0,85 gerechnet.",
+       "socratic_question": "Wie viel Prozent der Menge sind nach einer Stunde noch da?"
+      },
+      {
+       "error": "Jede Stunde 15 % der Anfangsmenge (12 mg) abgezogen: 60 : 12 = 5.",
+       "socratic_question": "Wovon werden in der zweiten Stunde die 15 % berechnet?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (abnahmefaktor_falsch, prozente_addiert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((0-1386294361119890618834464242916353136151/1000000000000000000000000000000000000000)/(0-406297323744437282964222395673535600221/2500000000000000000000000000000000000000),4)",
+     "antwort": "8.5300",
+     "rolle": "richtig:vor-aufrunden=9"
+    },
+    {
+     "rechnung": "round((0-1386294361119890618834464242916353136151/1000000000000000000000000000000000000000)/(0-18971199848858813020399783392200150710291/10000000000000000000000000000000000000000),4)",
+     "antwort": "0.7307",
+     "rolle": "fehlbild:abnahmefaktor_falsch::vor-aufrunden=1"
+    },
+    {
+     "rechnung": "(80-20)/(80*15/100)",
+     "antwort": "5",
+     "rolle": "fehlbild:prozente_addiert:"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "e53c873e-f152-495a-a550-23751c7be490",
+   "titel": "Bestand · Fische, jedes Jahr auf 80 %, unter 500",
+   "basis": {
+    "skill_key": "fkt_exp_anwendung",
+    "source_ref": "exp-anwendung-03",
+    "input_type": "NUMERIC",
+    "frage": "In einem See leben 2000 Fische. Der Bestand sinkt jedes Jahr auf 80 % des Vorjahres.\n\nGib die Anzahl der ganzen Jahre an, nach denen erstmals weniger als 500 Fische im See leben.",
+    "unit": "Jahre",
+    "known_errors": {
+     "1": "rate_aus_faktor_falsch",
+     "4": "linear_statt_exponentiell",
+     "1 Jahre": "rate_aus_faktor_falsch",
+     "1Jahre": "rate_aus_faktor_falsch",
+     "4 Jahre": "linear_statt_exponentiell",
+     "4Jahre": "linear_statt_exponentiell"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: „auf 80 %\" als Faktor 0,8 deuten, Gleichung lösen, auf ganze Jahre aufrunden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "7 Jahre",
+      "7Jahre"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "2000 · 0,8ⁿ < 500, also 0,8ⁿ < 0,25.\nlog 0,25 : log 0,8 ≈ 6,21; ganze Jahre: aufrunden.\nProbe: 0,8⁶ ≈ 0,262 ≥ 0,25 und 0,8⁷ ≈ 0,210 < 0,25.\nNach 7 Jahren.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "„Auf 80 %\" als Abnahme um 80 % gelesen und mit dem Faktor 0,2 gerechnet.",
+       "socratic_question": "Heißt „sinkt auf 80 %\", dass 80 % übrig bleiben oder dass 80 % wegfallen?"
+      },
+      {
+       "error": "Jedes Jahr 400 Fische abgezogen: 1500 : 400 = 3,75, also 4 Jahre.",
+       "socratic_question": "Sinkt der Bestand jedes Jahr um dieselbe Anzahl oder auf denselben Anteil?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (rate_aus_faktor_falsch, linear_statt_exponentiell)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((0-1386294361119890618834464242916353136151/1000000000000000000000000000000000000000)/(0-1115717756571048778831475451549172516873/5000000000000000000000000000000000000000),4)",
+     "antwort": "6.2126",
+     "rolle": "richtig:vor-aufrunden=7"
+    },
+    {
+     "rechnung": "round((0-1386294361119890618834464242916353136151/1000000000000000000000000000000000000000)/(0-2011797390542625468250949166532734549407/1250000000000000000000000000000000000000),4)",
+     "antwort": "0.8614",
+     "rolle": "fehlbild:rate_aus_faktor_falsch::vor-aufrunden=1"
+    },
+    {
+     "rechnung": "round((2000-500)/(2000-0.8*2000),4)",
+     "antwort": "3.7500",
+     "rolle": "fehlbild:linear_statt_exponentiell::vor-aufrunden=4"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "0054a031-7aae-4035-a3e5-1e3c698c35d6",
+   "titel": "Zerfall · Halbwertszeit 6 Stunden, unter 10 %",
+   "basis": {
+    "skill_key": "fkt_exp_anwendung",
+    "source_ref": "exp-anwendung-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein radioaktiver Stoff hat eine Halbwertszeit von 6 Stunden.\n\nGib die Anzahl der ganzen Stunden an, nach denen erstmals weniger als 10 % der Anfangsmenge vorhanden sind.",
+    "unit": "h",
+    "known_errors": {
+     "4": "zeit_statt_perioden",
+     "11": "linear_statt_exponentiell",
+     "4 h": "zeit_statt_perioden",
+     "4h": "zeit_statt_perioden",
+     "11 h": "linear_statt_exponentiell",
+     "11h": "linear_statt_exponentiell"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Zeit über die Halbwertszeit in die Hochzahl einbauen, logarithmieren und aufrunden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "20",
+      "20 h",
+      "20h"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Nach t Stunden ist der Anteil 0,5^(t/6).\n0,5^(t/6) < 0,1 ergibt t/6 > log 0,1 : log 0,5 ≈ 3,32, also t > 6 · 3,32 ≈ 19,93.\nGanze Stunden: aufrunden, nach 20 Stunden.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Stunden direkt als Hochzahl genommen: 0,5ᵗ < 0,1.",
+       "socratic_question": "Halbiert sich die Menge jede Stunde oder alle 6 Stunden?"
+      },
+      {
+       "error": "Linear gerechnet: alle 6 Stunden 50 % der Anfangsmenge weg, für 90 % also 10,8 Stunden.",
+       "socratic_question": "Wird in jeder Halbwertszeit dieselbe Menge abgebaut oder derselbe Anteil?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zeit_statt_perioden, linear_statt_exponentiell)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(6*(0-23025850929940456840179914546843642076011/10000000000000000000000000000000000000000)/(0-1386294361119890618834464242916353136151/2000000000000000000000000000000000000000),4)",
+     "antwort": "19.9316",
+     "rolle": "richtig:vor-aufrunden=20"
+    },
+    {
+     "rechnung": "round((0-23025850929940456840179914546843642076011/10000000000000000000000000000000000000000)/(0-1386294361119890618834464242916353136151/2000000000000000000000000000000000000000),4)",
+     "antwort": "3.3219",
+     "rolle": "fehlbild:zeit_statt_perioden::vor-aufrunden=4"
+    },
+    {
+     "rechnung": "round(6*0.9/0.5,4)",
+     "antwort": "10.8000",
+     "rolle": "fehlbild:linear_statt_exponentiell::vor-aufrunden=11"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "c6e6dac0-bbb7-49ce-b424-f3ce3806c1a1",
+   "titel": "Einwohner · Gemeinde 8000, 1,5 % pro Jahr, Jahreszahl",
+   "basis": {
+    "skill_key": "fkt_exp_anwendung",
+    "source_ref": "exp-anwendung-05",
+    "input_type": "NUMERIC",
+    "frage": "Am Ende des Jahres 2020 hat eine Gemeinde 8000 Einwohner. Die Einwohnerzahl wächst jedes Jahr um 1,5 %.\n\nAm Ende welchen Jahres hat die Gemeinde erstmals mehr als 9000 Einwohner? Rechne mit ganzen Jahren und gib die Jahreszahl an.",
+    "known_errors": {
+     "8": "falsche_groesse_beantwortet",
+     "2029": "prozente_addiert",
+     "+8": "falsche_groesse_beantwortet",
+     "+2029": "prozente_addiert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Zeitpunkt berechnen und als Jahreszahl angeben (Anzahl der Jahre zum Startjahr addieren)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2028",
+      "+2028"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "8000 · 1,015ⁿ > 9000, also 1,015ⁿ > 1,125.\nlog 1,125 : log 1,015 ≈ 7,91; ganze Jahre: n = 8.\nProbe: 1,015⁷ ≈ 1,110 < 1,125 und 1,015⁸ ≈ 1,126 > 1,125.\n2020 + 8 = 2028.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Anzahl der Jahre angegeben statt der Jahreszahl.",
+       "socratic_question": "Gefragt ist ein Jahr – in welchem Jahr ist das?"
+      },
+      {
+       "error": "Jedes Jahr nur 1,5 % der Anfangszahl (120 Einwohner) addiert: 1000 : 120 ≈ 8,3, also 9 Jahre.",
+       "socratic_question": "Wovon werden im zweiten Jahr die 1,5 % berechnet?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, prozente_addiert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2020+(235566071312766909077588218941043410137/2000000000000000000000000000000000000000)/(148886124937506548354097449781863518539/10000000000000000000000000000000000000000),4)",
+     "antwort": "2027.9109",
+     "rolle": "richtig:vor-aufrunden=2028"
+    },
+    {
+     "rechnung": "round((235566071312766909077588218941043410137/2000000000000000000000000000000000000000)/(148886124937506548354097449781863518539/10000000000000000000000000000000000000000),4)",
+     "antwort": "7.9109",
+     "rolle": "fehlbild:falsche_groesse_beantwortet::vor-aufrunden=8"
+    },
+    {
+     "rechnung": "round(2020+(9000-8000)/(8000*1.5/100),4)",
+     "antwort": "2028.3333",
+     "rolle": "fehlbild:prozente_addiert::vor-aufrunden=2029"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "7e3a4210-981c-424c-ba76-6d326165e335",
+   "titel": "Zwei Anlagen · 2000 € zu 8 % überholt 5000 € zu 3 %",
+   "basis": {
+    "skill_key": "fkt_exp_anwendung",
+    "source_ref": "exp-anwendung-06",
+    "input_type": "NUMERIC",
+    "frage": "Anlage A: 2000 € werden mit 8 % pro Jahr verzinst. Anlage B: 5000 € werden mit 3 % pro Jahr verzinst. Bei beiden werden die Zinsen mitverzinst.\n\nGib die Anzahl der ganzen Jahre an, nach denen Anlage A erstmals mehr Geld enthält als Anlage B.",
+    "unit": "Jahre",
+    "known_errors": {
+     "19": "zu_frueh_gerundet",
+     "301": "prozente_addiert",
+     "19 Jahre": "zu_frueh_gerundet",
+     "19Jahre": "zu_frueh_gerundet",
+     "301 Jahre": "prozente_addiert",
+     "301Jahre": "prozente_addiert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: zwei exponentielle Modelle gleichsetzen, durch Umformen auf bˣ = c bringen, logarithmieren und aufrunden."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Fkt-10/Fkt-12 (exponentielles Wachstum, Exponentialfunktionen) und Ari-10/Ari-11 (Exponentialgleichungen); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen wie lineare und quadratische Funktionen im Bestand."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (exponentielle Zu- und Abnahme, f(x) = a·bˣ)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "20",
+      "20 Jahre",
+      "20Jahre"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "2000 · 1,08ⁿ > 5000 · 1,03ⁿ, also (1,08 : 1,03)ⁿ > 5000 : 2000 = 2,5.\nn > log 2,5 : log(1,08 : 1,03) ≈ 0,39794 : 0,02059 ≈ 19,33.\nGanze Jahre: aufrunden, nach 20 Jahren.\n(Den Quotienten 1,08 : 1,03 nicht vorher runden.)",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Quotienten 1,08 : 1,03 ≈ 1,0485 auf 1,05 gerundet.",
+       "socratic_question": "Was passiert mit dem Ergebnis, wenn du den Faktor vor dem Logarithmieren rundest?"
+      },
+      {
+       "error": "Jedes Jahr gleiche Zinsen gerechnet: A + 160 €, B + 150 €, also erst nach 301 Jahren.",
+       "socratic_question": "Bleiben die Zinsen jedes Jahr gleich, wenn sie mitverzinst werden?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (zu_frueh_gerundet, prozente_addiert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((9162907318741550651835272117680110714501/10000000000000000000000000000000000000000)/(118505597236459805628994096576223573663/2500000000000000000000000000000000000000),4)",
+     "antwort": "19.3301",
+     "rolle": "richtig:vor-aufrunden=20"
+    },
+    {
+     "rechnung": "round((9162907318741550651835272117680110714501/10000000000000000000000000000000000000000)/(3049385260589500191585900263947791163/62500000000000000000000000000000000000),4)",
+     "antwort": "18.7802",
+     "rolle": "fehlbild:zu_frueh_gerundet::vor-aufrunden=19"
+    },
+    {
+     "rechnung": "(5000-2000)/(2000*8/100-5000*3/100)+1",
+     "antwort": "301",
+     "rolle": "fehlbild:prozente_addiert:"
+    }
+   ]
+  }
+ ]
+}

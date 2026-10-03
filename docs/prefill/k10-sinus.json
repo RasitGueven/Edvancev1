@@ -1,0 +1,4166 @@
+{
+ "batch": "k10-sinus",
+ "kopf": [
+  "K10-Rest, Thema sinus — 30 Aufgaben: je sechs zu fkt_sinus_einheitskreis, _bogenmass, _graph, _parameter und _periodisch.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k10-sinus.json (Quelle: tools/k10-sinus-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003121329_substrat_k10_trigo.sql und 20261003121331_substrat_k10_sinus.sql (Knoten + Fehlbild-Slugs muessen stehen).",
+  "Keine Abbildungen: Der Generator koordinatensystem zeichnet keine Sinuskurve; Graph-Eigenschaften stehen im Text."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit und zwei mit Sachkontext oder Rückrichtung (zweiter Winkel mit gleichem Sinus, Punkt aus y-Koordinate, Bogen → Winkel, Stelle mit gleichem Funktionswert, a und b aus Amplitude/Periode bzw. Hoch-/Tiefpunkt; Karussell, Riesenrad, Gezeiten, Tageslänge, Schaukel). Koordinaten und Parameter als MULTI_PART (Eingabe nur Zahlen). Bogenmaß als Dezimalzahl (π-Regel, beide Rechenwege richtig) oder als Faktor k in k · π (Bruch erlaubt). Jede Aufgabe nennt die Winkeleinheit und die Rundung; keine Abbildungen; alle Werte exakt nachgerechnet.",
+ "source": "edvance_k10_sinus",
+ "class_level": 10,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "5564f507-357e-4975-98fb-80ee85d1de4a",
+   "titel": "sin 150° · exakter Wert",
+   "basis": {
+    "skill_key": "fkt_sinus_einheitskreis",
+    "source_ref": "sinus-einheitskreis-01",
+    "input_type": "NUMERIC",
+    "frage": "Der Winkel α = 150° ist im Gradmaß angegeben.\n\nBestimme sin 150°. Gib den exakten Wert an.",
+    "known_errors": {
+     "-0,5": "quadrant_vorzeichen",
+     "−0,5": "quadrant_vorzeichen",
+     "- 0,5": "quadrant_vorzeichen",
+     "-0.5": "quadrant_vorzeichen",
+     "−0.5": "quadrant_vorzeichen",
+     "- 0.5": "quadrant_vorzeichen",
+     "-0,71": "bogenmass_modus",
+     "−0,71": "bogenmass_modus",
+     "- 0,71": "bogenmass_modus",
+     "-0.71": "bogenmass_modus",
+     "−0.71": "bogenmass_modus",
+     "- 0.71": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Sinuswert im zweiten Viertel über den Bezugswinkel 30° bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,5",
+      "+0,5",
+      "0.5",
+      "+0.5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Am Einheitskreis liegt der Punkt zu 150° im zweiten Viertel, oberhalb der x-Achse.\nBezugswinkel: 180° − 150° = 30°, sin 30° = 0,5.\nIm zweiten Viertel ist der Sinus positiv: sin 150° = 0,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Im zweiten Viertel ein Minus vor den Sinus gesetzt: −0,5.",
+       "socratic_question": "Liegt der Punkt zu 150° oberhalb oder unterhalb der x-Achse?"
+      },
+      {
+       "error": "Den Taschenrechner im Bogenmaß gelassen: sin(150) im Bogenmaß ≈ −0,71.",
+       "socratic_question": "Steht dein Taschenrechner auf DEG oder auf RAD?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (quadrant_vorzeichen, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(1/2)",
+     "antwort": "0.5"
+    },
+    {
+     "rechnung": "0-(1/2)",
+     "antwort": "-0.5",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "rechnung": "round((0-7148764296291646314363860973966299893729/10000000000000000000000000000000000000000),2)",
+     "antwort": "-0.71",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "c142139e-ecfa-4583-980d-dd926f0b874d",
+   "titel": "cos 200° · gerundet",
+   "basis": {
+    "skill_key": "fkt_sinus_einheitskreis",
+    "source_ref": "sinus-einheitskreis-02",
+    "input_type": "NUMERIC",
+    "frage": "Der Winkel α = 200° ist im Gradmaß angegeben.\n\nBestimme cos 200°. Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "0,94": "quadrant_vorzeichen",
+     "+0,94": "quadrant_vorzeichen",
+     "0.94": "quadrant_vorzeichen",
+     "+0.94": "quadrant_vorzeichen",
+     "0,49": "bogenmass_modus",
+     "+0,49": "bogenmass_modus",
+     "0.49": "bogenmass_modus",
+     "+0.49": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Kosinuswert im dritten Viertel mit dem Taschenrechner bestimmen und runden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-0,94",
+      "−0,94",
+      "- 0,94",
+      "-0.94",
+      "−0.94",
+      "- 0.94"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Taschenrechner im Gradmaß (DEG): cos 200° ≈ −0,9397.\nDer Punkt zu 200° liegt im dritten Viertel links der y-Achse, der Kosinus ist negativ.\ncos 200° ≈ -0,94.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur den Wert des Bezugswinkels 20° genommen, ohne Minus: 0,94.",
+       "socratic_question": "Liegt der Punkt zu 200° links oder rechts der y-Achse?"
+      },
+      {
+       "error": "Den Taschenrechner im Bogenmaß gelassen: cos(200) im Bogenmaß ≈ 0,49.",
+       "socratic_question": "Steht dein Taschenrechner auf DEG oder auf RAD?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (quadrant_vorzeichen, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((0-4698463103929541920270546386623657349681/5000000000000000000000000000000000000000),2)",
+     "antwort": "-0.94"
+    },
+    {
+     "rechnung": "round((4698463103929541920270546386623657349681/5000000000000000000000000000000000000000),2)",
+     "antwort": "0.94",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "rechnung": "round((974375350014011820709495802669048395163/2000000000000000000000000000000000000000),2)",
+     "antwort": "0.49",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "82cb7f14-5213-4aea-a297-c480c557463c",
+   "titel": "Punkt auf dem Einheitskreis · α = 240°",
+   "basis": {
+    "skill_key": "fkt_sinus_einheitskreis",
+    "source_ref": "sinus-einheitskreis-03",
+    "input_type": "MULTI_PART",
+    "frage": "Der Punkt P liegt auf dem Einheitskreis (Mittelpunkt im Ursprung, Radius 1). Die Strecke vom Ursprung zu P bildet mit der positiven x-Achse den Winkel α = 240° (Gradmaß, gegen den Uhrzeigersinn gemessen).\n\nGib die Koordinaten von P an. Runde auf zwei Stellen nach dem Komma.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "x-Koordinate von P"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "y-Koordinate von P"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "0,50": "quadrant_vorzeichen",
+      "+0,50": "quadrant_vorzeichen",
+      "0.50": "quadrant_vorzeichen",
+      "+0.50": "quadrant_vorzeichen",
+      "0,5": "quadrant_vorzeichen",
+      "+0,5": "quadrant_vorzeichen",
+      "0.5": "quadrant_vorzeichen",
+      "+0.5": "quadrant_vorzeichen",
+      "-0,87": "koordinaten_vertauscht",
+      "−0,87": "koordinaten_vertauscht",
+      "- 0,87": "koordinaten_vertauscht",
+      "-0.87": "koordinaten_vertauscht",
+      "−0.87": "koordinaten_vertauscht",
+      "- 0.87": "koordinaten_vertauscht"
+     },
+     "2": {
+      "0,87": "quadrant_vorzeichen",
+      "+0,87": "quadrant_vorzeichen",
+      "0.87": "quadrant_vorzeichen",
+      "+0.87": "quadrant_vorzeichen",
+      "-0,50": "koordinaten_vertauscht",
+      "−0,50": "koordinaten_vertauscht",
+      "- 0,50": "koordinaten_vertauscht",
+      "-0.50": "koordinaten_vertauscht",
+      "−0.50": "koordinaten_vertauscht",
+      "- 0.50": "koordinaten_vertauscht",
+      "-0,5": "koordinaten_vertauscht",
+      "−0,5": "koordinaten_vertauscht",
+      "- 0,5": "koordinaten_vertauscht",
+      "-0.5": "koordinaten_vertauscht",
+      "−0.5": "koordinaten_vertauscht",
+      "- 0.5": "koordinaten_vertauscht"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Koordinaten (cos α | sin α) im dritten Viertel mit beiden Vorzeichen angeben."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-0,50",
+       "−0,50",
+       "- 0,50",
+       "-0.50",
+       "−0.50",
+       "- 0.50",
+       "-0,5",
+       "−0,5",
+       "- 0,5",
+       "-0.5",
+       "−0.5",
+       "- 0.5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "-0,87",
+       "−0,87",
+       "- 0,87",
+       "-0.87",
+       "−0.87",
+       "- 0.87"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Am Einheitskreis gilt P(cos α | sin α).\n240° liegt im dritten Viertel: beide Koordinaten sind negativ. Bezugswinkel 240° − 180° = 60°.\nx = cos 240° = −cos 60° = -0,50.\ny = sin 240° = −sin 60° ≈ -0,87.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Minus im dritten Viertel übersehen: 0,5 statt −0,5.",
+       "socratic_question": "Liegt P links oder rechts der y-Achse?"
+      },
+      {
+       "error": "Den Sinus als x-Koordinate genommen.",
+       "socratic_question": "Welche Koordinate gehört am Einheitskreis zum Kosinus?"
+      },
+      {
+       "error": "Das Minus im dritten Viertel übersehen: 0,87 statt −0,87.",
+       "socratic_question": "Liegt P oberhalb oder unterhalb der x-Achse?"
+      },
+      {
+       "error": "Den Kosinus als y-Koordinate genommen.",
+       "socratic_question": "Welche Koordinate gehört am Einheitskreis zum Sinus?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (quadrant_vorzeichen, koordinaten_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "round((0-1/2),2)",
+     "antwort": "-0.50"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round((1/2),2)",
+     "antwort": "0.50",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round((0-4330127018922193233818615853764680917357/5000000000000000000000000000000000000000),2)",
+     "antwort": "-0.87",
+     "rolle": "fehlbild:koordinaten_vertauscht:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round((0-4330127018922193233818615853764680917357/5000000000000000000000000000000000000000),2)",
+     "antwort": "-0.87"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round((4330127018922193233818615853764680917357/5000000000000000000000000000000000000000),2)",
+     "antwort": "0.87",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round((0-1/2),2)",
+     "antwort": "-0.50",
+     "rolle": "fehlbild:koordinaten_vertauscht:"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "5511e07a-0da1-4f7b-8da7-38ad45dc41ea",
+   "titel": "Winkel aus cos α = −0,6 · zweites Viertel",
+   "basis": {
+    "skill_key": "fkt_sinus_einheitskreis",
+    "source_ref": "sinus-einheitskreis-04",
+    "input_type": "NUMERIC",
+    "frage": "Für einen Winkel α zwischen 90° und 180° gilt cos α = −0,6.\n\nWie groß ist α im Gradmaß? Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "53,1": "quadrant_vorzeichen",
+     "53.1": "quadrant_vorzeichen",
+     "53,1 °": "quadrant_vorzeichen",
+     "53,1°": "quadrant_vorzeichen",
+     "2,2": "bogenmass_modus",
+     "2.2": "bogenmass_modus",
+     "2,2 °": "bogenmass_modus",
+     "2,2°": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Winkel aus einem negativen Kosinuswert mit cos⁻¹ bestimmen und das Viertel prüfen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "126,9",
+      "126.9",
+      "126,9 °",
+      "126,9°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Taschenrechner im Gradmaß: α = cos⁻¹(−0,6) ≈ 126,87°.\nDer Wert liegt zwischen 90° und 180°, passt also.\nα ≈ 126,9°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Minus weggelassen: cos⁻¹(0,6) ≈ 53,1° liegt im ersten Viertel.",
+       "socratic_question": "Ist der Kosinus im ersten Viertel positiv oder negativ?"
+      },
+      {
+       "error": "Den Taschenrechner im Bogenmaß gelassen: cos⁻¹(−0,6) ≈ 2,2.",
+       "socratic_question": "Kann ein Winkel zwischen 90° und 180° die Größe 2,2 haben?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (quadrant_vorzeichen, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((317174744114610053242139031397733526643979/2500000000000000000000000000000000000000),1)",
+     "antwort": "126.9"
+    },
+    {
+     "rechnung": "round((132825255885389946757860968602266473356021/2500000000000000000000000000000000000000),1)",
+     "antwort": "53.1",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "rechnung": "round((317174744114610053242139031397733526643979/2500000000000000000000000000000000000000)*(3.14159265358979323846264338327950288)/180,1)",
+     "antwort": "2.2",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "d051d804-ac22-4995-a537-703ad36ed510",
+   "titel": "Rückrichtung · zweiter Winkel mit sin α = sin 50°",
+   "basis": {
+    "skill_key": "fkt_sinus_einheitskreis",
+    "source_ref": "sinus-einheitskreis-05",
+    "input_type": "NUMERIC",
+    "frage": "Es gilt sin 50° ≈ 0,77 (Gradmaß).\n\nEs gibt einen zweiten Winkel α zwischen 0° und 360°, für den sin α = sin 50° gilt. Wie groß ist α im Gradmaß? Gib den exakten Wert an.",
+    "unit": "°",
+    "known_errors": {
+     "230": "quadrant_vorzeichen",
+     "310": "quadrant_vorzeichen",
+     "310 °": "quadrant_vorzeichen",
+     "310°": "quadrant_vorzeichen",
+     "230 °": "quadrant_vorzeichen",
+     "230°": "quadrant_vorzeichen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in der Rückrichtung: den zweiten Winkel mit gleichem Sinuswert über die Symmetrie zur y-Achse finden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "130",
+      "130 °",
+      "130°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Gleicher Sinus heißt gleiche y-Koordinate am Einheitskreis.\nDer zweite Punkt liegt spiegelbildlich zur y-Achse im zweiten Viertel.\nα = 180° − 50° = 130°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Winkel im vierten Viertel genommen: Dort ist der Sinus negativ, sin 310° ≈ −0,77.",
+       "socratic_question": "Liegt der Punkt zu 310° oberhalb oder unterhalb der x-Achse?"
+      },
+      {
+       "error": "Den Winkel im dritten Viertel genommen: Dort ist der Sinus negativ, sin 230° ≈ −0,77.",
+       "socratic_question": "Welches Vorzeichen hat der Sinus im dritten Viertel?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (quadrant_vorzeichen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "180-50",
+     "antwort": "130"
+    },
+    {
+     "rechnung": "360-50",
+     "antwort": "310",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "rechnung": "180+50",
+     "antwort": "230",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "0b3bf2b5-29bc-4b79-9fa5-2e1016d65e97",
+   "titel": "Rückrichtung · Punkt mit y = −0,6 im vierten Viertel",
+   "basis": {
+    "skill_key": "fkt_sinus_einheitskreis",
+    "source_ref": "sinus-einheitskreis-06",
+    "input_type": "MULTI_PART",
+    "frage": "Ein Punkt P auf dem Einheitskreis (Mittelpunkt im Ursprung, Radius 1) liegt im vierten Viertel und hat die y-Koordinate −0,6. α ist der Winkel zwischen der positiven x-Achse und der Strecke vom Ursprung zu P, gegen den Uhrzeigersinn gemessen, mit 0° ≤ α < 360°.\n\nBestimme die x-Koordinate von P und den Winkel α im Gradmaß. Runde auf zwei Stellen nach dem Komma.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "x-Koordinate von P"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Winkel α in Grad"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "-0,80": "quadrant_vorzeichen",
+      "−0,80": "quadrant_vorzeichen",
+      "- 0,80": "quadrant_vorzeichen",
+      "-0.80": "quadrant_vorzeichen",
+      "−0.80": "quadrant_vorzeichen",
+      "- 0.80": "quadrant_vorzeichen",
+      "-0,8": "quadrant_vorzeichen",
+      "−0,8": "quadrant_vorzeichen",
+      "- 0,8": "quadrant_vorzeichen",
+      "-0.8": "quadrant_vorzeichen",
+      "−0.8": "quadrant_vorzeichen",
+      "- 0.8": "quadrant_vorzeichen",
+      "0,64": "wurzel_vergessen",
+      "+0,64": "wurzel_vergessen",
+      "0.64": "wurzel_vergessen",
+      "+0.64": "wurzel_vergessen"
+     },
+     "2": {
+      "216,87": "quadrant_vorzeichen",
+      "+216,87": "quadrant_vorzeichen",
+      "216.87": "quadrant_vorzeichen",
+      "+216.87": "quadrant_vorzeichen",
+      "5,64": "bogenmass_modus",
+      "+5,64": "bogenmass_modus",
+      "5.64": "bogenmass_modus",
+      "+5.64": "bogenmass_modus"
+     }
+    },
+    "zeit_teile": {
+     "1": 45,
+     "2": 45
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: aus der y-Koordinate über x² + y² = 1 die x-Koordinate und über sin⁻¹ den Winkel im vierten Viertel bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "0,80",
+       "+0,80",
+       "0.80",
+       "+0.80",
+       "0,8",
+       "+0,8",
+       "0.8",
+       "+0.8"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "323,13",
+       "+323,13",
+       "323.13",
+       "+323.13"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Am Einheitskreis gilt x² + y² = 1, also x² = 1 − 0,36 = 0,64.\nIm vierten Viertel ist x positiv: x = √0,64 = 0,80.\nsin⁻¹(−0,6) ≈ −36,87°; im Bereich 0° bis 360°: α = 360° − 36,87° ≈ 323,13°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Ein Minus gesetzt: Im vierten Viertel liegt P rechts der y-Achse, x ist positiv.",
+       "socratic_question": "Liegt das vierte Viertel links oder rechts der y-Achse?"
+      },
+      {
+       "error": "x² = 0,64 ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du x oder x² berechnet?"
+      },
+      {
+       "error": "Den Winkel im dritten Viertel genommen: Dort ist der Kosinus negativ, P läge links der y-Achse.",
+       "socratic_question": "Liegt dein Winkel im vierten Viertel, also zwischen 270° und 360°?"
+      },
+      {
+       "error": "Im Bogenmaß gerechnet: 2π + sin⁻¹(−0,6) ≈ 5,64.",
+       "socratic_question": "Ist nach dem Winkel im Gradmaß gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (quadrant_vorzeichen, wurzel_vergessen, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "round((4/5),2)",
+     "antwort": "0.80"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round(0-(4/5),2)",
+     "antwort": "-0.80",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round(1-0.6^2,2)",
+     "antwort": "0.64",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(360+(0-92174744114610053242139031397733526643979/2500000000000000000000000000000000000000),2)",
+     "antwort": "323.13"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(180+(92174744114610053242139031397733526643979/2500000000000000000000000000000000000000),2)",
+     "antwort": "216.87",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)+(0-92174744114610053242139031397733526643979/2500000000000000000000000000000000000000)*(3.14159265358979323846264338327950288)/180,2)",
+     "antwort": "5.64",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "d24bac46-6ac1-4560-bd4f-ab856150108e",
+   "titel": "60° als Vielfaches von π",
+   "basis": {
+    "skill_key": "fkt_sinus_bogenmass",
+    "source_ref": "sinus-bogenmass-01",
+    "input_type": "NUMERIC",
+    "frage": "Der Winkel 60° ist im Gradmaß angegeben. Im Bogenmaß lässt er sich als k · π schreiben.\n\nWie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+    "known_errors": {
+     "3": "grad_bogen_faktor_falsch",
+     "1/6": "kreisanteil_falsch",
+     "+1/6": "kreisanteil_falsch",
+     "+3": "grad_bogen_faktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Gradmaß über 180° = π in einen Faktor von π umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1/3",
+      "+1/3"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "180° entsprechen π.\n60° = 60/180 · π = 1/3 · π.\nk = 1/3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit 360° = π gerechnet: 60/360 = 1/6.",
+       "socratic_question": "Wie viel Grad entsprechen π: ein halber oder ein ganzer Kreis?"
+      },
+      {
+       "error": "Den Faktor umgedreht: 180/60 = 3.",
+       "socratic_question": "Muss 60° ein größerer oder ein kleinerer Teil von π sein als 180°?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kreisanteil_falsch, grad_bogen_faktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "60/180",
+     "antwort": "1/3"
+    },
+    {
+     "rechnung": "60/360",
+     "antwort": "1/6",
+     "rolle": "fehlbild:kreisanteil_falsch:"
+    },
+    {
+     "rechnung": "180/60",
+     "antwort": "3",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "718f0c9a-6a29-4ce7-b8ea-ce46d94c3f65",
+   "titel": "50° im Bogenmaß · Dezimalzahl",
+   "basis": {
+    "skill_key": "fkt_sinus_bogenmass",
+    "source_ref": "sinus-bogenmass-02",
+    "input_type": "NUMERIC",
+    "frage": "Der Winkel 50° ist im Gradmaß angegeben.\n\nRechne ihn ins Bogenmaß um und gib das Ergebnis als Dezimalzahl an. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "2864,79": "grad_bogen_faktor_falsch",
+     "+2864,79": "grad_bogen_faktor_falsch",
+     "2864.79": "grad_bogen_faktor_falsch",
+     "+2864.79": "grad_bogen_faktor_falsch",
+     "2866,24": "grad_bogen_faktor_falsch",
+     "+2866,24": "grad_bogen_faktor_falsch",
+     "2866.24": "grad_bogen_faktor_falsch",
+     "+2866.24": "grad_bogen_faktor_falsch",
+     "0,28": "pi_vergessen",
+     "+0,28": "pi_vergessen",
+     "0.28": "pi_vergessen",
+     "+0.28": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Gradmaß mit dem Faktor π/180 ins Bogenmaß umrechnen und runden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,87",
+      "+0,87",
+      "0.87",
+      "+0.87"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "x = 50 · π/180 ≈ 0,87 (π-Taste).\nMit π ≈ 3,14: x = 50 · 3,14 : 180 ≈ 0,87.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit 180/π statt π/180 multipliziert: ≈ 2864,79.",
+       "socratic_question": "Ein voller Kreis hat im Bogenmaß etwa 6,28 – kann 50° dann über 2000 sein?"
+      },
+      {
+       "error": "π weggelassen: 50/180 ≈ 0,28.",
+       "socratic_question": "Welcher Faktor gehört zu 180° im Bogenmaß?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (grad_bogen_faktor_falsch, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(50*(3.14159265358979323846264338327950288)/180,2)",
+     "antwort": "0.87"
+    },
+    {
+     "rechnung": "round(50*(3.14)/180,2)",
+     "antwort": "0.87"
+    },
+    {
+     "rechnung": "round(50*180/(3.14159265358979323846264338327950288),2)",
+     "antwort": "2864.79",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:pi"
+    },
+    {
+     "rechnung": "round(50*180/(3.14),2)",
+     "antwort": "2866.24",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:314"
+    },
+    {
+     "rechnung": "round(50/180,2)",
+     "antwort": "0.28",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(50/180,2)",
+     "antwort": "0.28",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "0caf97f5-5562-4905-9329-0e884f7e566d",
+   "titel": "x = 4 im Bogenmaß · in Grad",
+   "basis": {
+    "skill_key": "fkt_sinus_bogenmass",
+    "source_ref": "sinus-bogenmass-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein Winkel hat im Bogenmaß die Größe x = 4.\n\nWie groß ist er im Gradmaß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "720": "pi_vergessen",
+     "0,07": "grad_bogen_faktor_falsch",
+     "0.07": "grad_bogen_faktor_falsch",
+     "0,07 °": "grad_bogen_faktor_falsch",
+     "0,07°": "grad_bogen_faktor_falsch",
+     "720,0": "pi_vergessen",
+     "720.0": "pi_vergessen",
+     "720,0 °": "pi_vergessen",
+     "720,0°": "pi_vergessen",
+     "720 °": "pi_vergessen",
+     "720°": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Rückrichtung vom Bogenmaß ins Gradmaß ohne π im Ausgangswert."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "229,2",
+      "229.2",
+      "229,2 °",
+      "229,2°",
+      "229,3",
+      "229.3",
+      "229,3 °",
+      "229,3°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Bogenmaß → Gradmaß: mit 180/π multiplizieren.\nα = 4 · 180°/π ≈ 229,2° (π-Taste).\nMit π ≈ 3,14: α = 720° : 3,14 ≈ 229,3°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit π/180 statt 180/π multipliziert: ≈ 0,07.",
+       "socratic_question": "π im Bogenmaß sind 180°. Ist 4 mehr oder weniger als π?"
+      },
+      {
+       "error": "Nicht durch π geteilt: 4 · 180 = 720.",
+       "socratic_question": "Welche Bogenmaß-Zahl gehört zu 180°: 1 oder π?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (grad_bogen_faktor_falsch, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(4*180/(3.14159265358979323846264338327950288),1)",
+     "antwort": "229.2"
+    },
+    {
+     "rechnung": "round(4*180/(3.14),1)",
+     "antwort": "229.3"
+    },
+    {
+     "rechnung": "round(4*(3.14159265358979323846264338327950288)/180,2)",
+     "antwort": "0.07",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:pi"
+    },
+    {
+     "rechnung": "round(4*(3.14)/180,2)",
+     "antwort": "0.07",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:314"
+    },
+    {
+     "rechnung": "round(4*180,1)",
+     "antwort": "720.0",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(4*180,1)",
+     "antwort": "720.0",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "80a3d680-4289-4cc6-8b87-793c602c5c1f",
+   "titel": "x = 5π/4 im Bogenmaß · in Grad",
+   "basis": {
+    "skill_key": "fkt_sinus_bogenmass",
+    "source_ref": "sinus-bogenmass-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein Winkel hat im Bogenmaß die Größe x = 5π/4.\n\nWie groß ist er im Gradmaß? Gib den exakten Wert an.",
+    "unit": "°",
+    "known_errors": {
+     "450": "kreisanteil_falsch",
+     "450 °": "kreisanteil_falsch",
+     "450°": "kreisanteil_falsch",
+     "0,07": "grad_bogen_faktor_falsch",
+     "0.07": "grad_bogen_faktor_falsch",
+     "0,07 °": "grad_bogen_faktor_falsch",
+     "0,07°": "grad_bogen_faktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Bogenmaß mit π im Bruch ins Gradmaß umrechnen, π kürzt sich."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "225",
+      "225 °",
+      "225°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "π entspricht 180°.\nx = 5/4 · π entspricht 5/4 · 180° = 225°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit π = 360° gerechnet: 5/4 · 360° = 450°.",
+       "socratic_question": "Entspricht π einem halben oder einem ganzen Kreis?"
+      },
+      {
+       "error": "Mit π/180 statt 180/π multipliziert: ≈ 0,07.",
+       "socratic_question": "Ist 5π/4 mehr oder weniger als π, also mehr oder weniger als 180°?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kreisanteil_falsch, grad_bogen_faktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "5/4*180",
+     "antwort": "225"
+    },
+    {
+     "rechnung": "5/4*360",
+     "antwort": "450",
+     "rolle": "fehlbild:kreisanteil_falsch:"
+    },
+    {
+     "rechnung": "round(5/4*(3.14159265358979323846264338327950288)*(3.14159265358979323846264338327950288)/180,2)",
+     "antwort": "0.07",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "b3ce89d7-2f07-4438-802b-b3653ad330da",
+   "titel": "Bogenlänge · Karussellsitz dreht sich um 130°",
+   "basis": {
+    "skill_key": "fkt_sinus_bogenmass",
+    "source_ref": "sinus-bogenmass-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Karussellsitz bewegt sich auf einem Kreis mit dem Radius 1 m. Er dreht sich um 130° (Gradmaß) weiter.\n\nWie viele Meter legt der Sitz auf dem Kreisbogen zurück? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma.",
+    "unit": "m",
+    "known_errors": {
+     "7448,45": "grad_bogen_faktor_falsch",
+     "7448.45": "grad_bogen_faktor_falsch",
+     "7448,45 m": "grad_bogen_faktor_falsch",
+     "7448,45m": "grad_bogen_faktor_falsch",
+     "7452,23": "grad_bogen_faktor_falsch",
+     "7452.23": "grad_bogen_faktor_falsch",
+     "7452,23 m": "grad_bogen_faktor_falsch",
+     "7452,23m": "grad_bogen_faktor_falsch",
+     "17,40": "kreisanteil_falsch",
+     "17.40": "kreisanteil_falsch",
+     "17,4": "kreisanteil_falsch",
+     "17.4": "kreisanteil_falsch",
+     "17,40 m": "kreisanteil_falsch",
+     "17,40m": "kreisanteil_falsch",
+     "17,4 m": "kreisanteil_falsch",
+     "17,4m": "kreisanteil_falsch",
+     "17,39": "kreisanteil_falsch",
+     "17.39": "kreisanteil_falsch",
+     "17,39 m": "kreisanteil_falsch",
+     "17,39m": "kreisanteil_falsch",
+     "0,72": "pi_vergessen",
+     "0.72": "pi_vergessen",
+     "0,72 m": "pi_vergessen",
+     "0,72m": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Am Kreis mit Radius 1 ist die Bogenlänge gleich dem Bogenmaß des Winkels."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,27",
+      "2.27",
+      "2,27 m",
+      "2,27m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Am Kreis mit Radius 1 ist die Bogenlänge gleich dem Bogenmaß: b = 130 · π/180.\nb ≈ 2,27 m (π-Taste).\nMit π ≈ 3,14: b = 130 · 3,14 : 180 ≈ 2,27 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit 180/π statt π/180 multipliziert: ≈ 7448 m.",
+       "socratic_question": "Ein ganzer Umlauf ist etwa 6,28 m lang – kann ein Teil davon länger sein?"
+      },
+      {
+       "error": "Den Anteil umgedreht: 360/130 statt 130/360 vom Umfang.",
+       "socratic_question": "Ist der Bogen kürzer oder länger als ein ganzer Umlauf?"
+      },
+      {
+       "error": "π weggelassen: 130/180 ≈ 0,72.",
+       "socratic_question": "Welche Bogenlänge hat ein halber Kreis mit Radius 1?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (grad_bogen_faktor_falsch, kreisanteil_falsch, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(130*(3.14159265358979323846264338327950288)/180,2)",
+     "antwort": "2.27"
+    },
+    {
+     "rechnung": "round(130*(3.14)/180,2)",
+     "antwort": "2.27"
+    },
+    {
+     "rechnung": "round(130*180/(3.14159265358979323846264338327950288),2)",
+     "antwort": "7448.45",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:pi"
+    },
+    {
+     "rechnung": "round(130*180/(3.14),2)",
+     "antwort": "7452.23",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:314"
+    },
+    {
+     "rechnung": "round(360/130*2*(3.14159265358979323846264338327950288),2)",
+     "antwort": "17.40",
+     "rolle": "fehlbild:kreisanteil_falsch:pi"
+    },
+    {
+     "rechnung": "round(360/130*2*(3.14),2)",
+     "antwort": "17.39",
+     "rolle": "fehlbild:kreisanteil_falsch:314"
+    },
+    {
+     "rechnung": "round(130/180,2)",
+     "antwort": "0.72",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(130/180,2)",
+     "antwort": "0.72",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "4bea8500-6a8c-4719-98b7-8c68d02543b1",
+   "titel": "Rückrichtung · Winkel aus Bogen 5 cm am Kreis mit r = 3 cm",
+   "basis": {
+    "skill_key": "fkt_sinus_bogenmass",
+    "source_ref": "sinus-bogenmass-06",
+    "input_type": "NUMERIC",
+    "frage": "Ein Kreis hat den Radius 3 cm. Ein Kreisbogen auf diesem Kreis ist 5 cm lang.\n\nWie groß ist der zugehörige Mittelpunktswinkel im Gradmaß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "859,4": "multipliziert_statt_dividiert",
+     "859.4": "multipliziert_statt_dividiert",
+     "859,4 °": "multipliziert_statt_dividiert",
+     "859,4°": "multipliziert_statt_dividiert",
+     "859,9": "multipliziert_statt_dividiert",
+     "859.9": "multipliziert_statt_dividiert",
+     "859,9 °": "multipliziert_statt_dividiert",
+     "859,9°": "multipliziert_statt_dividiert",
+     "0,03": "grad_bogen_faktor_falsch",
+     "0.03": "grad_bogen_faktor_falsch",
+     "0,03 °": "grad_bogen_faktor_falsch",
+     "0,03°": "grad_bogen_faktor_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Bogenmaß als Bogenlänge durch Radius bilden, dann ins Gradmaß umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "95,5",
+      "95.5",
+      "95,5 °",
+      "95,5°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Bogenmaß: x = Bogenlänge : Radius = 5 : 3.\nIn Grad: α = 5/3 · 180°/π ≈ 95,5° (π-Taste).\nMit π ≈ 3,14: α = 300° : 3,14 ≈ 95,5°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Bogenlänge mal Radius statt geteilt durch den Radius.",
+       "socratic_question": "Wie hängen Bogenlänge, Radius und Bogenmaß zusammen: b = x · r?"
+      },
+      {
+       "error": "Mit π/180 statt 180/π multipliziert: ≈ 0,03.",
+       "socratic_question": "Ein Bogen von 5 cm bei 3 cm Radius: Ist der Winkel eher klein oder fast ein rechter?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (multipliziert_statt_dividiert, grad_bogen_faktor_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(5/3*180/(3.14159265358979323846264338327950288),1)",
+     "antwort": "95.5"
+    },
+    {
+     "rechnung": "round(5/3*180/(3.14),1)",
+     "antwort": "95.5"
+    },
+    {
+     "rechnung": "round(5*3*180/(3.14159265358979323846264338327950288),1)",
+     "antwort": "859.4",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:pi"
+    },
+    {
+     "rechnung": "round(5*3*180/(3.14),1)",
+     "antwort": "859.9",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:314"
+    },
+    {
+     "rechnung": "round(5/3*(3.14159265358979323846264338327950288)/180,2)",
+     "antwort": "0.03",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:pi"
+    },
+    {
+     "rechnung": "round(5/3*(3.14)/180,2)",
+     "antwort": "0.03",
+     "rolle": "fehlbild:grad_bogen_faktor_falsch:314"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "50da3bb2-6650-498a-804f-05863e2da59b",
+   "titel": "Funktionswert · sin(7π/6)",
+   "basis": {
+    "skill_key": "fkt_sinus_graph",
+    "source_ref": "sinus-graph-01",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(7π/6). Gib den exakten Wert an.",
+    "known_errors": {
+     "0,5": "quadrant_vorzeichen",
+     "+0,5": "quadrant_vorzeichen",
+     "0.5": "quadrant_vorzeichen",
+     "+0.5": "quadrant_vorzeichen",
+     "0,06": "bogenmass_modus",
+     "+0,06": "bogenmass_modus",
+     "0.06": "bogenmass_modus",
+     "+0.06": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Funktionswert an einer Bogenmaß-Stelle über den Einheitskreis bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-0,5",
+      "−0,5",
+      "- 0,5",
+      "-0.5",
+      "−0.5",
+      "- 0.5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "7π/6 im Bogenmaß entspricht 7/6 · 180° = 210°.\n210° liegt im dritten Viertel, der Sinus ist negativ. Bezugswinkel 30°, sin 30° = 0,5.\nf(7π/6) = sin 210° = -0,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Das Minus im dritten Viertel übersehen: 0,5.",
+       "socratic_question": "Liegt der Punkt zu 7π/6 oberhalb oder unterhalb der x-Achse?"
+      },
+      {
+       "error": "Den Taschenrechner im Gradmaß gelassen: sin(3,67°) ≈ 0,06.",
+       "socratic_question": "Steht dein Taschenrechner auf DEG oder auf RAD?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (quadrant_vorzeichen, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(0-1/2)",
+     "antwort": "-0.5"
+    },
+    {
+     "rechnung": "(1/2)",
+     "antwort": "0.5",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "rechnung": "round((63926038524973307064628397765727631761/1000000000000000000000000000000000000000),2)",
+     "antwort": "0.06",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "957ef3a2-42ec-4e74-97d7-b75be722fc12",
+   "titel": "Funktionswert · sin(π/3) gerundet",
+   "basis": {
+    "skill_key": "fkt_sinus_graph",
+    "source_ref": "sinus-graph-02",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(π/3). Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "0,02": "bogenmass_modus",
+     "+0,02": "bogenmass_modus",
+     "0.02": "bogenmass_modus",
+     "+0.02": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Funktionswert an einer Bogenmaß-Stelle im ersten Viertel bestimmen und runden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,87",
+      "+0,87",
+      "0.87",
+      "+0.87"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Taschenrechner im Bogenmaß (RAD): sin(π/3) ≈ 0,8660.\n(Gleichwertig: π/3 entspricht 60°, sin 60° ≈ 0,8660.)\nf(π/3) ≈ 0,87.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Taschenrechner im Gradmaß gelassen: sin(1,05°) ≈ 0,02.",
+       "socratic_question": "Steht dein Taschenrechner auf DEG oder auf RAD?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((4330127018922193233818615853764680917357/5000000000000000000000000000000000000000),2)",
+     "antwort": "0.87"
+    },
+    {
+     "rechnung": "round((91380138142738764254193480349946660711/5000000000000000000000000000000000000000),2)",
+     "antwort": "0.02",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "3b59c4a1-2216-48a5-9462-64c03187acd9",
+   "titel": "Hoch- und Tiefpunkt in [0; 2π] als Vielfache von π",
+   "basis": {
+    "skill_key": "fkt_sinus_graph",
+    "source_ref": "sinus-graph-03",
+    "input_type": "MULTI_PART",
+    "frage": "Der Graph von f(x) = sin x (x im Bogenmaß) hat im Intervall [0; 2π] genau einen Hochpunkt und genau einen Tiefpunkt. Ihre x-Koordinaten lassen sich als k · π schreiben.\n\nGib jeweils k an. Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "k für den Hochpunkt"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "k für den Tiefpunkt"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "90": "einheit_uebersprungen",
+      "1,5": "falsche_groesse_beantwortet",
+      "+1,5": "falsche_groesse_beantwortet",
+      "1.5": "falsche_groesse_beantwortet",
+      "+1.5": "falsche_groesse_beantwortet",
+      "3/2": "falsche_groesse_beantwortet",
+      "+3/2": "falsche_groesse_beantwortet",
+      "+90": "einheit_uebersprungen"
+     },
+     "2": {
+      "270": "einheit_uebersprungen",
+      "0,5": "falsche_groesse_beantwortet",
+      "+0,5": "falsche_groesse_beantwortet",
+      "0.5": "falsche_groesse_beantwortet",
+      "+0.5": "falsche_groesse_beantwortet",
+      "1/2": "falsche_groesse_beantwortet",
+      "+1/2": "falsche_groesse_beantwortet",
+      "+270": "einheit_uebersprungen"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Lage von Hoch- und Tiefpunkt des Graphen aus dem Einheitskreis ins Bogenmaß übertragen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "0,5",
+       "+0,5",
+       "0.5",
+       "+0.5",
+       "1/2",
+       "+1/2"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "1,5",
+       "+1,5",
+       "1.5",
+       "+1.5",
+       "3/2",
+       "+3/2"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Der Sinus ist am größten (1) bei 90° und am kleinsten (−1) bei 270°.\n90° = π/2, also k = 0,5 für den Hochpunkt.\n270° = 3π/2, also k = 1,5 für den Tiefpunkt.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Stelle des Tiefpunkts angegeben.",
+       "socratic_question": "Ist sin x an deiner Stelle 1 oder −1?"
+      },
+      {
+       "error": "Den Winkel im Gradmaß angegeben: 90.",
+       "socratic_question": "Ist nach dem Gradmaß oder nach dem Faktor vor π gefragt?"
+      },
+      {
+       "error": "Die Stelle des Hochpunkts angegeben.",
+       "socratic_question": "Ist sin x an deiner Stelle 1 oder −1?"
+      },
+      {
+       "error": "Den Winkel im Gradmaß angegeben: 270.",
+       "socratic_question": "Ist nach dem Gradmaß oder nach dem Faktor vor π gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, einheit_uebersprungen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "90/180",
+     "antwort": "1/2"
+    },
+    {
+     "teil": "1",
+     "rechnung": "270/180",
+     "antwort": "3/2",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "90",
+     "antwort": "90",
+     "rolle": "fehlbild:einheit_uebersprungen:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "270/180",
+     "antwort": "3/2"
+    },
+    {
+     "teil": "2",
+     "rechnung": "90/180",
+     "antwort": "1/2",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "270",
+     "antwort": "270",
+     "rolle": "fehlbild:einheit_uebersprungen:"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "516304d3-5cb1-4223-8afd-69958fe1890a",
+   "titel": "Funktionswert · sin(5) mit Vorzeichen",
+   "basis": {
+    "skill_key": "fkt_sinus_graph",
+    "source_ref": "sinus-graph-04",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(5). Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "0,09": "bogenmass_modus",
+     "+0,09": "bogenmass_modus",
+     "0.09": "bogenmass_modus",
+     "+0.09": "bogenmass_modus",
+     "0,96": "quadrant_vorzeichen",
+     "+0,96": "quadrant_vorzeichen",
+     "0.96": "quadrant_vorzeichen",
+     "+0.96": "quadrant_vorzeichen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Bogenmaß-Stelle ohne π, Lage im vierten Viertel erkennen, negatives Ergebnis."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-0,96",
+      "−0,96",
+      "- 0,96",
+      "-0.96",
+      "−0.96",
+      "- 0.96"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Taschenrechner im Bogenmaß (RAD): sin(5) ≈ −0,9589.\nProbe: 3π/2 ≈ 4,71 < 5 < 2π ≈ 6,28, die Stelle liegt im vierten Viertel, dort ist sin x negativ.\nf(5) ≈ -0,96.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Taschenrechner im Gradmaß gelassen: sin 5° ≈ 0,09.",
+       "socratic_question": "Steht dein Taschenrechner auf DEG oder auf RAD?"
+      },
+      {
+       "error": "Das Minus weggelassen: 0,96.",
+       "socratic_question": "Liegt x = 5 zwischen 3π/2 und 2π? Welches Vorzeichen hat sin x dort?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (bogenmass_modus, quadrant_vorzeichen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((0-383569709865255387557261762462397589341/400000000000000000000000000000000000000),2)",
+     "antwort": "-0.96"
+    },
+    {
+     "rechnung": "round((871557427476581735580642708374735513777/10000000000000000000000000000000000000000),2)",
+     "antwort": "0.09",
+     "rolle": "fehlbild:bogenmass_modus:"
+    },
+    {
+     "rechnung": "round(0-(0-383569709865255387557261762462397589341/400000000000000000000000000000000000000),2)",
+     "antwort": "0.96",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "b0fd871b-5f23-478b-b8c2-3b34a8e3aa02",
+   "titel": "Rückrichtung · zweite Stelle mit sin x = sin(π/5)",
+   "basis": {
+    "skill_key": "fkt_sinus_graph",
+    "source_ref": "sinus-graph-05",
+    "input_type": "NUMERIC",
+    "frage": "Der Graph von f(x) = sin x (x im Bogenmaß) hat an der Stelle x = π/5 den Wert f(π/5) ≈ 0,59.\n\nEs gibt genau eine weitere Stelle im Intervall [0; 2π] mit demselben Funktionswert. Sie lässt sich als k · π schreiben. Wie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+    "known_errors": {
+     "1,2": "quadrant_vorzeichen",
+     "+1,2": "quadrant_vorzeichen",
+     "1.2": "quadrant_vorzeichen",
+     "+1.2": "quadrant_vorzeichen",
+     "6/5": "quadrant_vorzeichen",
+     "+6/5": "quadrant_vorzeichen",
+     "1,8": "quadrant_vorzeichen",
+     "+1,8": "quadrant_vorzeichen",
+     "1.8": "quadrant_vorzeichen",
+     "+1.8": "quadrant_vorzeichen",
+     "9/5": "quadrant_vorzeichen",
+     "+9/5": "quadrant_vorzeichen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in der Rückrichtung: Symmetrie des Graphen zur Geraden x = π/2 nutzen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,8",
+      "+0,8",
+      "0.8",
+      "+0.8",
+      "4/5",
+      "+4/5"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Der Graph ist zwischen 0 und π symmetrisch zur Geraden x = π/2.\nZweite Stelle: π − π/5 = 4π/5.\nk = 0,8.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "π + π/5 genommen: Dort ist sin x negativ (≈ −0,59).",
+       "socratic_question": "Ist sin x zwischen π und 2π positiv oder negativ?"
+      },
+      {
+       "error": "2π − π/5 genommen: Dort ist sin x negativ (≈ −0,59).",
+       "socratic_question": "Ist sin x zwischen π und 2π positiv oder negativ?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (quadrant_vorzeichen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1-1/5",
+     "antwort": "4/5"
+    },
+    {
+     "rechnung": "1+1/5",
+     "antwort": "6/5",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    },
+    {
+     "rechnung": "2-1/5",
+     "antwort": "9/5",
+     "rolle": "fehlbild:quadrant_vorzeichen:"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "2c93e7d0-82d4-4abb-8493-cc03f04ad49b",
+   "titel": "Anzahl der Nullstellen in [0; 20]",
+   "basis": {
+    "skill_key": "fkt_sinus_graph",
+    "source_ref": "sinus-graph-06",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nWie viele Nullstellen hat f im Intervall [0; 20]? Die Intervallgrenzen gehören dazu. Gib eine ganze Zahl an.",
+    "known_errors": {
+     "1": "bogenmass_modus",
+     "21": "pi_vergessen",
+     "+21": "pi_vergessen",
+     "+1": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Nullstellen als Vielfache von π erkennen und im Intervall abzählen, Randstelle 0 mitzählen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "+7"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Nullstellen von sin x sind 0, π, 2π, 3π, …\n20 : π ≈ 6,37, also liegen 0, π, 2π, …, 6π im Intervall (6π ≈ 18,85; 7π ≈ 21,99 liegt außerhalb).\nDas sind 7 Nullstellen.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "π weggelassen: Nullstellen bei 0, 1, 2, …, 20 gezählt.",
+       "socratic_question": "Wo schneidet der Graph von sin x die x-Achse zum zweiten Mal: bei 1 oder bei π?"
+      },
+      {
+       "error": "Im Gradmaß gedacht: Zwischen 0° und 20° liegt nur die Nullstelle 0.",
+       "socratic_question": "Ist das Intervall [0; 20] im Gradmaß oder im Bogenmaß gemeint?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (pi_vergessen, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(20/(3.14159265358979323846264338327950288)+1,4)",
+     "antwort": "7.3662",
+     "rolle": "richtig:vor-abrunden=7"
+    },
+    {
+     "rechnung": "round(20/1+1,4)",
+     "antwort": "21.0000",
+     "rolle": "fehlbild:pi_vergessen::vor-abrunden=21"
+    },
+    {
+     "rechnung": "round(20/180+1,4)",
+     "antwort": "1.1111",
+     "rolle": "fehlbild:bogenmass_modus::vor-abrunden=1"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "ee9a28cd-1129-405c-9b83-d8972ddf4681",
+   "titel": "Amplitude · f(x) = 3·sin(2x)",
+   "basis": {
+    "skill_key": "fkt_sinus_parameter",
+    "source_ref": "sinus-parameter-01",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist f(x) = 3 · sin(2x), x im Bogenmaß.\n\nWie groß ist die Amplitude von f? Gib den exakten Wert an.",
+    "known_errors": {
+     "6": "amplitude_verwechselt",
+     "+6": "amplitude_verwechselt",
+     "1,5": "amplitude_verwechselt",
+     "+1,5": "amplitude_verwechselt",
+     "1.5": "amplitude_verwechselt",
+     "+1.5": "amplitude_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Amplitude als Faktor a vor dem Sinus ablesen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "3",
+      "+3"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Bei f(x) = a · sin(b · x) ist die Amplitude |a|.\nHier ist a = 3, die Amplitude ist 3.\nDie Funktionswerte liegen zwischen −3 und 3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Abstand zwischen Hoch- und Tiefpunkt angegeben: 3 − (−3) = 6.",
+       "socratic_question": "Wie weit liegt der Hochpunkt über der x-Achse?"
+      },
+      {
+       "error": "Die Amplitude halbiert: 1,5.",
+       "socratic_question": "Welchen größten Wert nimmt 3 · sin(2x) an?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (amplitude_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3",
+     "antwort": "3"
+    },
+    {
+     "rechnung": "2*3",
+     "antwort": "6",
+     "rolle": "fehlbild:amplitude_verwechselt:"
+    },
+    {
+     "rechnung": "3/2",
+     "antwort": "1.5",
+     "rolle": "fehlbild:amplitude_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "5d143147-03ad-46b0-a2d2-6308111eac90",
+   "titel": "Periode · f(x) = sin(4x) als Vielfaches von π",
+   "basis": {
+    "skill_key": "fkt_sinus_parameter",
+    "source_ref": "sinus-parameter-02",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist f(x) = sin(4x), x im Bogenmaß. Die Periode p von f lässt sich als p = k · π schreiben.\n\nWie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+    "known_errors": {
+     "4": "periode_falsch",
+     "8": "periode_falsch",
+     "+4": "periode_falsch",
+     "+8": "periode_falsch"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Periode mit p = 2π : b bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,5",
+      "+0,5",
+      "0.5",
+      "+0.5",
+      "1/2",
+      "+1/2"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Periode p = 2π : b = 2π : 4 = π/2.\nk = 0,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor b = 4 als Periode genommen.",
+       "socratic_question": "Wird der Graph durch b = 4 gestreckt oder gestaucht?"
+      },
+      {
+       "error": "2π · 4 = 8π statt 2π : 4 gerechnet.",
+       "socratic_question": "Wiederholt sich sin(4x) schneller oder langsamer als sin x?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (periode_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2/4",
+     "antwort": "1/2"
+    },
+    {
+     "rechnung": "4",
+     "antwort": "4",
+     "rolle": "fehlbild:periode_falsch:"
+    },
+    {
+     "rechnung": "2*4",
+     "antwort": "8",
+     "rolle": "fehlbild:periode_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "9958d2ae-a87d-41b5-a7b7-f9e453c879d1",
+   "titel": "Periode · f(x) = 2·sin(0,5x) als Dezimalzahl",
+   "basis": {
+    "skill_key": "fkt_sinus_parameter",
+    "source_ref": "sinus-parameter-03",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist f(x) = 2 · sin(0,5x), x im Bogenmaß.\n\nWie groß ist die Periode von f? Gib sie als Dezimalzahl an. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "4": "pi_vergessen",
+     "3,14": "periode_falsch",
+     "+3,14": "periode_falsch",
+     "3.14": "periode_falsch",
+     "+3.14": "periode_falsch",
+     "0,50": "periode_falsch",
+     "+0,50": "periode_falsch",
+     "0.50": "periode_falsch",
+     "+0.50": "periode_falsch",
+     "0,5": "periode_falsch",
+     "+0,5": "periode_falsch",
+     "0.5": "periode_falsch",
+     "+0.5": "periode_falsch",
+     "4,00": "pi_vergessen",
+     "+4,00": "pi_vergessen",
+     "4.00": "pi_vergessen",
+     "+4.00": "pi_vergessen",
+     "+4": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Periode bei b < 1 berechnen (Streckung) und als Dezimalzahl runden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12,57",
+      "+12,57",
+      "12.57",
+      "+12.57",
+      "12,56",
+      "+12,56",
+      "12.56",
+      "+12.56"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Periode p = 2π : b = 2π : 0,5 = 4π.\np ≈ 12,57 (π-Taste).\nMit π ≈ 3,14: p = 4 · 3,14 = 12,56.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "2π · 0,5 = π statt 2π : 0,5 gerechnet.",
+       "socratic_question": "Wiederholt sich sin(0,5x) schneller oder langsamer als sin x?"
+      },
+      {
+       "error": "Den Faktor b = 0,5 als Periode genommen.",
+       "socratic_question": "Welche Periode hat sin x – und was macht der Faktor 0,5 damit?"
+      },
+      {
+       "error": "π weggelassen: 2 : 0,5 = 4.",
+       "socratic_question": "Welche Periode hat sin x im Bogenmaß?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (periode_falsch, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)/0.5,2)",
+     "antwort": "12.57"
+    },
+    {
+     "rechnung": "round(2*(3.14)/0.5,2)",
+     "antwort": "12.56"
+    },
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*0.5,2)",
+     "antwort": "3.14",
+     "rolle": "fehlbild:periode_falsch:pi"
+    },
+    {
+     "rechnung": "round(2*(3.14)*0.5,2)",
+     "antwort": "3.14",
+     "rolle": "fehlbild:periode_falsch:314"
+    },
+    {
+     "rechnung": "round(0.5,2)",
+     "antwort": "0.50",
+     "rolle": "fehlbild:periode_falsch:pi"
+    },
+    {
+     "rechnung": "round(0.5,2)",
+     "antwort": "0.50",
+     "rolle": "fehlbild:periode_falsch:314"
+    },
+    {
+     "rechnung": "round(2/0.5,2)",
+     "antwort": "4.00",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(2/0.5,2)",
+     "antwort": "4.00",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "6e99f959-15b4-4f00-9631-5d39754d4982",
+   "titel": "Größter Wert und Periode · f(x) = −4·sin(2x)",
+   "basis": {
+    "skill_key": "fkt_sinus_parameter",
+    "source_ref": "sinus-parameter-04",
+    "input_type": "MULTI_PART",
+    "frage": "Gegeben ist f(x) = −4 · sin(2x), x im Bogenmaß.\n\nBestimme den größten Funktionswert von f und die Periode p = k · π. Gib den exakten Wert an. Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "größter Funktionswert"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "k in p = k · π"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "8": "amplitude_verwechselt",
+      "-4": "betrag_fehler",
+      "−4": "betrag_fehler",
+      "- 4": "betrag_fehler",
+      "+8": "amplitude_verwechselt"
+     },
+     "2": {
+      "4": "periode_falsch",
+      "+4": "periode_falsch",
+      "0,5": "periode_falsch",
+      "+0,5": "periode_falsch",
+      "0.5": "periode_falsch",
+      "+0.5": "periode_falsch",
+      "1/2": "periode_falsch",
+      "+1/2": "periode_falsch"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: negativer Faktor a – größter Funktionswert ist |a|; Periode als Vielfaches von π."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "4",
+       "+4"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "1",
+       "+1"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Das Minus spiegelt den Graphen an der x-Achse, die Werte liegen weiter zwischen −4 und 4.\nGrößter Funktionswert: 4 (z. B. bei sin(2x) = −1).\nPeriode: p = 2π : 2 = π, also k = 1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor −4 als größten Wert genommen.",
+       "socratic_question": "Welchen Wert hat f an einer Stelle, an der sin(2x) = −1 ist?"
+      },
+      {
+       "error": "Den Abstand zwischen größtem und kleinstem Wert angegeben: 8.",
+       "socratic_question": "Wie weit liegt der höchste Punkt über der x-Achse?"
+      },
+      {
+       "error": "2π · 2 = 4π statt 2π : 2 gerechnet.",
+       "socratic_question": "Wiederholt sich sin(2x) schneller oder langsamer als sin x?"
+      },
+      {
+       "error": "Mit p = π : b statt 2π : b gerechnet.",
+       "socratic_question": "Welche Periode hat sin x?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, amplitude_verwechselt, periode_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "4",
+     "antwort": "4"
+    },
+    {
+     "teil": "1",
+     "rechnung": "0-4",
+     "antwort": "-4",
+     "rolle": "fehlbild:betrag_fehler:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "2*4",
+     "antwort": "8",
+     "rolle": "fehlbild:amplitude_verwechselt:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2/2",
+     "antwort": "1"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2*2",
+     "antwort": "4",
+     "rolle": "fehlbild:periode_falsch:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "1/2",
+     "antwort": "1/2",
+     "rolle": "fehlbild:periode_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "095a8d5c-4a0b-4fd3-97a0-01996b207163",
+   "titel": "Rückrichtung · a und b aus Amplitude 1,5 und Periode π",
+   "basis": {
+    "skill_key": "fkt_sinus_parameter",
+    "source_ref": "sinus-parameter-05",
+    "input_type": "MULTI_PART",
+    "frage": "Eine Funktion f(x) = a · sin(b · x) mit a > 0 und b > 0 (x im Bogenmaß) hat die Amplitude 1,5 und die Periode π.\n\nBestimme a und b. Gib den exakten Wert an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "b"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "3": "amplitude_verwechselt",
+      "+3": "amplitude_verwechselt",
+      "0,75": "amplitude_verwechselt",
+      "+0,75": "amplitude_verwechselt",
+      "0.75": "amplitude_verwechselt",
+      "+0.75": "amplitude_verwechselt"
+     },
+     "2": {
+      "3,14": "periode_falsch",
+      "+3,14": "periode_falsch",
+      "3.14": "periode_falsch",
+      "+3.14": "periode_falsch",
+      "0,5": "periode_falsch",
+      "+0,5": "periode_falsch",
+      "0.5": "periode_falsch",
+      "+0.5": "periode_falsch"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in der Rückrichtung: a aus der Amplitude, b aus b = 2π : p."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "1,5",
+       "+1,5",
+       "1.5",
+       "+1.5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "2",
+       "+2"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Die Amplitude ist a, also a = 1,5.\nAus p = 2π : b folgt b = 2π : p = 2π : π = 2.\nf(x) = 1,5 · sin(2x).",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Amplitude verdoppelt: a = 3.",
+       "socratic_question": "Wie weit liegt der Hochpunkt von f über der x-Achse?"
+      },
+      {
+       "error": "Die Amplitude halbiert: a = 0,75.",
+       "socratic_question": "Welchen größten Wert hat a · sin(b · x)?"
+      },
+      {
+       "error": "Die Periode π als b genommen: b ≈ 3,14.",
+       "socratic_question": "Ist b die Periode oder der Faktor, der die Periode bestimmt?"
+      },
+      {
+       "error": "b = p : 2π statt 2π : p gerechnet.",
+       "socratic_question": "Wird der Graph mit Periode π gegenüber sin x gestaucht oder gestreckt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (amplitude_verwechselt, periode_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "1.5",
+     "antwort": "1.5"
+    },
+    {
+     "teil": "1",
+     "rechnung": "2*1.5",
+     "antwort": "3",
+     "rolle": "fehlbild:amplitude_verwechselt:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "1.5/2",
+     "antwort": "0.75",
+     "rolle": "fehlbild:amplitude_verwechselt:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2*(3.14159265358979323846264338327950288)/(3.14159265358979323846264338327950288)",
+     "antwort": "2"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round((3.14159265358979323846264338327950288),2)",
+     "antwort": "3.14",
+     "rolle": "fehlbild:periode_falsch:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(3.14159265358979323846264338327950288)/(2*(3.14159265358979323846264338327950288))",
+     "antwort": "0.5",
+     "rolle": "fehlbild:periode_falsch:"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "742d6386-43fd-4a38-9f29-f9c31e828916",
+   "titel": "Rückrichtung · a und b aus Hoch- und Tiefpunkt",
+   "basis": {
+    "skill_key": "fkt_sinus_parameter",
+    "source_ref": "sinus-parameter-06",
+    "input_type": "MULTI_PART",
+    "frage": "Der Graph von f(x) = a · sin(b · x) mit a > 0 und b > 0 (x im Bogenmaß) hat den Hochpunkt H(π/8 | 2,5). Der nächste Tiefpunkt rechts davon ist T(3π/8 | −2,5).\n\nBestimme a und b. Gib den exakten Wert an.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "a"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "b"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "5": "amplitude_verwechselt",
+      "+5": "amplitude_verwechselt"
+     },
+     "2": {
+      "8": "falsche_groesse_beantwortet",
+      "0,25": "periode_falsch",
+      "+0,25": "periode_falsch",
+      "0.25": "periode_falsch",
+      "+0.25": "periode_falsch",
+      "+8": "falsche_groesse_beantwortet"
+     }
+    },
+    "zeit_teile": {
+     "1": 45,
+     "2": 45
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: aus benachbartem Hoch- und Tiefpunkt Amplitude und halbe Periode gewinnen, dann b bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "2,5",
+       "+2,5",
+       "2.5",
+       "+2.5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "4",
+       "+4"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Die Amplitude ist der Abstand des Hochpunkts von der x-Achse: a = 2,5.\nVon H zu T ist eine halbe Periode: 3π/8 − π/8 = π/4, also p = π/2.\nb = 2π : p = 2π : π/2 = 4.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Abstand zwischen Hoch- und Tiefpunkt als a genommen: 5.",
+       "socratic_question": "Wie weit liegt H über der x-Achse?"
+      },
+      {
+       "error": "b = p : 2π statt 2π : p gerechnet: 0,25.",
+       "socratic_question": "Wird der Graph gegenüber sin x gestaucht oder gestreckt?"
+      },
+      {
+       "error": "Den Abstand von H zu T als ganze Periode genommen: b = 8.",
+       "socratic_question": "Wie viele Perioden liegen zwischen einem Hochpunkt und dem nächsten Tiefpunkt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (amplitude_verwechselt, periode_falsch, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "2.5",
+     "antwort": "2.5"
+    },
+    {
+     "teil": "1",
+     "rechnung": "2.5-(0-2.5)",
+     "antwort": "5",
+     "rolle": "fehlbild:amplitude_verwechselt:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2*(3.14159265358979323846264338327950288)/(2*(3*(3.14159265358979323846264338327950288)/8-(3.14159265358979323846264338327950288)/8))",
+     "antwort": "4"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2*(3*(3.14159265358979323846264338327950288)/8-(3.14159265358979323846264338327950288)/8)/(2*(3.14159265358979323846264338327950288))",
+     "antwort": "0.25",
+     "rolle": "fehlbild:periode_falsch:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "2*(3.14159265358979323846264338327950288)/(3*(3.14159265358979323846264338327950288)/8-(3.14159265358979323846264338327950288)/8)",
+     "antwort": "8",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "0fa3adaa-2c0f-4a5f-95a6-d809a1a67d49",
+   "titel": "Riesenrad · größte Höhe der Gondel",
+   "basis": {
+    "skill_key": "fkt_sinus_periodisch",
+    "source_ref": "sinus-periodisch-01",
+    "input_type": "NUMERIC",
+    "frage": "Die Höhe einer Gondel eines Riesenrads über dem Boden wird beschrieben durch h(t) = 18 · sin(0,2 · t) + 20. Dabei ist t die Zeit in Minuten und h(t) die Höhe in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie hoch ist die Gondel höchstens über dem Boden? Gib den exakten Wert an.",
+    "unit": "m",
+    "known_errors": {
+     "18": "falsche_groesse_beantwortet",
+     "36": "amplitude_verwechselt",
+     "18 m": "falsche_groesse_beantwortet",
+     "18m": "falsche_groesse_beantwortet",
+     "36 m": "amplitude_verwechselt",
+     "36m": "amplitude_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren im Sachkontext: Höchstwert als Mittellinie plus Amplitude ablesen."
+    },
+    "est_duration_sec": {
+     "wert": 75,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "38",
+      "38 m",
+      "38m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Der Sinus nimmt höchstens den Wert 1 an.\nh = 18 · 1 + 20 = 38 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Amplitude angegeben, die Mittellinie 20 m fehlt.",
+       "socratic_question": "In welcher Höhe liegt die Mitte des Riesenrads?"
+      },
+      {
+       "error": "Den Abstand zwischen höchstem und tiefstem Punkt angegeben: 36 m.",
+       "socratic_question": "Ist nach der größten Höhe über dem Boden oder nach dem Durchmesser gefragt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (falsche_groesse_beantwortet, amplitude_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "20+18",
+     "antwort": "38"
+    },
+    {
+     "rechnung": "18",
+     "antwort": "18",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "2*18",
+     "antwort": "36",
+     "rolle": "fehlbild:amplitude_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "21de966d-ff18-47b4-a99f-76331cb4b55b",
+   "titel": "Gezeiten · Unterschied zwischen Hoch- und Niedrigwasser",
+   "basis": {
+    "skill_key": "fkt_sinus_periodisch",
+    "source_ref": "sinus-periodisch-02",
+    "input_type": "NUMERIC",
+    "frage": "An einem Hafen wird der Wasserstand gegenüber dem mittleren Wasserstand beschrieben durch w(t) = 1,8 · sin(0,5 · t). Dabei ist t die Zeit in Stunden und w(t) der Wasserstand in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie viele Meter liegt Hochwasser über Niedrigwasser? Gib den exakten Wert an.",
+    "unit": "m",
+    "known_errors": {
+     "1,8": "amplitude_verwechselt",
+     "1.8": "amplitude_verwechselt",
+     "1,8 m": "amplitude_verwechselt",
+     "1,8m": "amplitude_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren im Sachkontext: Abstand von Höchst- und Tiefstwert als doppelte Amplitude."
+    },
+    "est_duration_sec": {
+     "wert": 75,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "3,6",
+      "3.6",
+      "3,6 m",
+      "3,6m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Hochwasser: w = 1,8 m über dem Mittel. Niedrigwasser: w = −1,8 m.\nUnterschied: 1,8 m − (−1,8 m) = 3,6 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Nur die Amplitude angegeben: Abstand vom Mittel, nicht von Hoch- zu Niedrigwasser.",
+       "socratic_question": "Wie tief liegt Niedrigwasser unter dem mittleren Wasserstand?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (amplitude_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1.8-(0-1.8)",
+     "antwort": "3.6"
+    },
+    {
+     "rechnung": "1.8",
+     "antwort": "1.8",
+     "rolle": "fehlbild:amplitude_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "0e776143-4575-4bd0-9237-df42d9b71283",
+   "titel": "Riesenrad · Dauer einer Umdrehung",
+   "basis": {
+    "skill_key": "fkt_sinus_periodisch",
+    "source_ref": "sinus-periodisch-03",
+    "input_type": "NUMERIC",
+    "frage": "Die Höhe einer Gondel eines Riesenrads über dem Boden wird beschrieben durch h(t) = 18 · sin(0,2 · t) + 20. Dabei ist t die Zeit in Minuten und h(t) die Höhe in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie viele Minuten dauert eine volle Umdrehung? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma.",
+    "unit": "min",
+    "known_errors": {
+     "10": "pi_vergessen",
+     "1,3": "periode_falsch",
+     "1.3": "periode_falsch",
+     "1,3 min": "periode_falsch",
+     "1,3min": "periode_falsch",
+     "10,0": "pi_vergessen",
+     "10.0": "pi_vergessen",
+     "10,0 min": "pi_vergessen",
+     "10,0min": "pi_vergessen",
+     "10 min": "pi_vergessen",
+     "10min": "pi_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Umlaufzeit als Periode 2π : b deuten."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "31,4",
+      "31.4",
+      "31,4 min",
+      "31,4min"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Eine Umdrehung ist eine Periode: p = 2π : b = 2π : 0,2 = 10π.\np ≈ 31,4 min (π-Taste).\nMit π ≈ 3,14: p = 10 · 3,14 = 31,4 min.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "2π · 0,2 statt 2π : 0,2 gerechnet: ≈ 1,3 min.",
+       "socratic_question": "Dreht sich ein großes Riesenrad in gut einer Minute einmal herum?"
+      },
+      {
+       "error": "π weggelassen: 2 : 0,2 = 10 min.",
+       "socratic_question": "Welche Periode hat sin t?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (periode_falsch, pi_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)/0.2,1)",
+     "antwort": "31.4"
+    },
+    {
+     "rechnung": "round(2*(3.14)/0.2,1)",
+     "antwort": "31.4"
+    },
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*0.2,1)",
+     "antwort": "1.3",
+     "rolle": "fehlbild:periode_falsch:pi"
+    },
+    {
+     "rechnung": "round(2*(3.14)*0.2,1)",
+     "antwort": "1.3",
+     "rolle": "fehlbild:periode_falsch:314"
+    },
+    {
+     "rechnung": "round(2/0.2,1)",
+     "antwort": "10.0",
+     "rolle": "fehlbild:pi_vergessen:pi"
+    },
+    {
+     "rechnung": "round(2/0.2,1)",
+     "antwort": "10.0",
+     "rolle": "fehlbild:pi_vergessen:314"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "2d925ba5-b5d2-4d1d-b8d6-8477b072fa17",
+   "titel": "Tageslänge · 50 Tage nach Frühlingsanfang",
+   "basis": {
+    "skill_key": "fkt_sinus_periodisch",
+    "source_ref": "sinus-periodisch-04",
+    "input_type": "NUMERIC",
+    "frage": "Die Tageslänge an einem Ort wird beschrieben durch L(t) = 4,3 · sin(0,0172 · t) + 12,2. Dabei ist t die Zeit in Tagen nach Frühlingsanfang und L(t) die Tageslänge in Stunden; das Argument des Sinus ist im Bogenmaß.\n\nWie lang ist der Tag 50 Tage nach Frühlingsanfang? Rechne ohne Zwischenrunden. Runde auf eine Stelle nach dem Komma.",
+    "unit": "h",
+    "known_errors": {
+     "12,3": "bogenmass_modus",
+     "12.3": "bogenmass_modus",
+     "12,3 h": "bogenmass_modus",
+     "12,3h": "bogenmass_modus",
+     "15,6": "zu_frueh_gerundet",
+     "15.6": "zu_frueh_gerundet",
+     "15,6 h": "zu_frueh_gerundet",
+     "15,6h": "zu_frueh_gerundet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Zeitpunkt in einen Sinusterm mit Mittellinie einsetzen, Taschenrechner im Bogenmaß."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "15,5",
+      "15.5",
+      "15,5 h",
+      "15,5h"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Argument: 0,0172 · 50 = 0,86 (Bogenmaß).\nsin(0,86) ≈ 0,7578 (Taschenrechner auf RAD).\nL(50) = 4,3 · 0,7578… + 12,2 ≈ 15,5 h.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Taschenrechner im Gradmaß gelassen: sin(0,86°) ≈ 0,015.",
+       "socratic_question": "Steht dein Taschenrechner auf DEG oder auf RAD?"
+      },
+      {
+       "error": "sin(0,86) auf 0,8 gerundet und damit weitergerechnet.",
+       "socratic_question": "Mit wie vielen Stellen hast du den Sinuswert weiterverwendet?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (bogenmass_modus, zu_frueh_gerundet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(4.3*(1515685125790553944589177459057291156627/2000000000000000000000000000000000000000)+12.2,1)",
+     "antwort": "15.5"
+    },
+    {
+     "rechnung": "round(4.3*(37523169916809200564133152340818995997/2500000000000000000000000000000000000000)+12.2,1)",
+     "antwort": "12.3",
+     "rolle": "fehlbild:bogenmass_modus:"
+    },
+    {
+     "rechnung": "round(4.3*0.8+12.2,1)",
+     "antwort": "15.6",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "6b3e8dcf-463e-47c5-9596-4416e1a50bcb",
+   "titel": "Schaukel · b aus der Schwingungsdauer 3 s",
+   "basis": {
+    "skill_key": "fkt_sinus_periodisch",
+    "source_ref": "sinus-periodisch-05",
+    "input_type": "NUMERIC",
+    "frage": "Die Auslenkung einer Schaukel aus der Ruhelage wird beschrieben durch s(t) = 1,2 · sin(b · t). Dabei ist t die Zeit in Sekunden und s(t) die Auslenkung in Metern; das Argument des Sinus ist im Bogenmaß. Eine volle Schwingung dauert 3 s.\n\nBestimme b. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma.",
+    "known_errors": {
+     "3": "periode_falsch",
+     "3,00": "periode_falsch",
+     "+3,00": "periode_falsch",
+     "3.00": "periode_falsch",
+     "+3.00": "periode_falsch",
+     "+3": "periode_falsch",
+     "18,85": "periode_falsch",
+     "+18,85": "periode_falsch",
+     "18.85": "periode_falsch",
+     "+18.85": "periode_falsch",
+     "18,84": "periode_falsch",
+     "+18,84": "periode_falsch",
+     "18.84": "periode_falsch",
+     "+18.84": "periode_falsch",
+     "1,20": "falsche_groesse_beantwortet",
+     "+1,20": "falsche_groesse_beantwortet",
+     "1.20": "falsche_groesse_beantwortet",
+     "+1.20": "falsche_groesse_beantwortet",
+     "1,2": "falsche_groesse_beantwortet",
+     "+1,2": "falsche_groesse_beantwortet",
+     "1.2": "falsche_groesse_beantwortet",
+     "+1.2": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext, Rückrichtung: aus der Periode den Faktor b = 2π : p bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,09",
+      "+2,09",
+      "2.09",
+      "+2.09"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet mit π-Taste und mit 3,14; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Schwingungsdauer ist die Periode: p = 3.\nb = 2π : p = 2π : 3 ≈ 2,09 (π-Taste).\nMit π ≈ 3,14: b = 6,28 : 3 ≈ 2,09.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Periode 3 als b genommen.",
+       "socratic_question": "Ist b die Schwingungsdauer oder der Faktor, der sie bestimmt?"
+      },
+      {
+       "error": "2π · 3 statt 2π : 3 gerechnet.",
+       "socratic_question": "Schwingt die Schaukel mit größerem b schneller oder langsamer?"
+      },
+      {
+       "error": "Die Amplitude 1,2 m als b angegeben.",
+       "socratic_question": "Welche Zahl im Term gibt an, wie weit die Schaukel ausschlägt, und welche, wie schnell?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (periode_falsch, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)/3,2)",
+     "antwort": "2.09"
+    },
+    {
+     "rechnung": "round(2*(3.14)/3,2)",
+     "antwort": "2.09"
+    },
+    {
+     "rechnung": "round(3,2)",
+     "antwort": "3.00",
+     "rolle": "fehlbild:periode_falsch:pi"
+    },
+    {
+     "rechnung": "round(3,2)",
+     "antwort": "3.00",
+     "rolle": "fehlbild:periode_falsch:314"
+    },
+    {
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)*3,2)",
+     "antwort": "18.85",
+     "rolle": "fehlbild:periode_falsch:pi"
+    },
+    {
+     "rechnung": "round(2*(3.14)*3,2)",
+     "antwort": "18.84",
+     "rolle": "fehlbild:periode_falsch:314"
+    },
+    {
+     "rechnung": "round(1.2,2)",
+     "antwort": "1.20",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:pi"
+    },
+    {
+     "rechnung": "round(1.2,2)",
+     "antwort": "1.20",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:314"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "413a5fa5-cf54-4e4d-a9bb-44d1abba7215",
+   "titel": "Gezeiten · Modell w(t) = a·sin(b·t) + d aufstellen",
+   "basis": {
+    "skill_key": "fkt_sinus_periodisch",
+    "source_ref": "sinus-periodisch-06",
+    "input_type": "MULTI_PART",
+    "frage": "An einer Küste beträgt der Wasserstand bei Hochwasser 6,5 m und bei Niedrigwasser 1,5 m. Von einem Hochwasser bis zum nächsten Niedrigwasser vergehen 6,2 Stunden. Der Wasserstand soll durch w(t) = a · sin(b · t) + d beschrieben werden, mit a > 0 und b > 0, t in Stunden, w(t) in Metern, das Argument des Sinus im Bogenmaß. d ist der mittlere Wasserstand.\n\nBestimme a, d und b. Gib a und d exakt an, b auf zwei Stellen nach dem Komma gerundet. Rechne mit der π-Taste oder mit π ≈ 3,14.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "a in m"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "d in m"
+     },
+     {
+      "nr": 3,
+      "kind": "short_input",
+      "prompt": "b"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "5": "amplitude_verwechselt",
+      "+5": "amplitude_verwechselt"
+     },
+     "2": {
+      "2,5": "falsche_groesse_beantwortet",
+      "+2,5": "falsche_groesse_beantwortet",
+      "2.5": "falsche_groesse_beantwortet",
+      "+2.5": "falsche_groesse_beantwortet"
+     },
+     "3": {
+      "1,97": "periode_falsch",
+      "+1,97": "periode_falsch",
+      "1.97": "periode_falsch",
+      "+1.97": "periode_falsch",
+      "1,01": "falsche_groesse_beantwortet",
+      "+1,01": "falsche_groesse_beantwortet",
+      "1.01": "falsche_groesse_beantwortet",
+      "+1.01": "falsche_groesse_beantwortet"
+     }
+    },
+    "zeit_teile": {
+     "1": 40,
+     "2": 40,
+     "3": 40
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Amplitude, Mittellinie und Periode aus Hoch- und Niedrigwasser selbst bestimmen, b aus der Periode."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "KLP Mathematik G9 NRW, Zweite Stufe, Fkt-13/Fkt-14: Sinus und Kosinus am Einheitskreis, Sinusfunktion, periodische Vorgänge; alle Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Die Sinusfunktion gehört wie lineare, quadratische und exponentielle Funktionen zu „Algebra & Funktionen\"."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsbereich Funktionen (Sinusfunktion, Einheitskreis, Bogenmaß)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "2,5",
+       "+2,5",
+       "2.5",
+       "+2.5"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "4",
+       "+4"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "3": {
+     "afb": {
+      "wert": "III",
+      "sicher": "mittel",
+      "grund": "Wie die Aufgabe."
+     },
+     "competency_content": {
+      "wert": "funktionen",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "0,51",
+       "+0,51",
+       "0.51",
+       "+0.51"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "Amplitude: a = (6,5 − 1,5) : 2 = 2,5 m.\nMittlerer Wasserstand: d = (6,5 + 1,5) : 2 = 4 m.\nVon Hoch- zu Niedrigwasser ist eine halbe Periode: p = 2 · 6,2 h = 12,4 h.\nb = 2π : 12,4 ≈ 0,51 (π-Taste; mit π ≈ 3,14 ebenfalls 0,51).",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den ganzen Unterschied zwischen Hoch- und Niedrigwasser als a genommen: 5 m.",
+       "socratic_question": "Wie weit liegt Hochwasser über dem mittleren Wasserstand?"
+      },
+      {
+       "error": "Die Amplitude statt des mittleren Wasserstands angegeben: 2,5 m.",
+       "socratic_question": "Welcher Wasserstand liegt genau in der Mitte zwischen 1,5 m und 6,5 m?"
+      },
+      {
+       "error": "b = p : 2π statt 2π : p gerechnet: ≈ 1,97.",
+       "socratic_question": "Wird die Kurve mit Periode 12,4 h gegenüber sin t gestreckt oder gestaucht?"
+      },
+      {
+       "error": "Die Zeit von Hoch- bis Niedrigwasser als ganze Periode genommen: ≈ 1,01.",
+       "socratic_question": "Ist nach 6,2 h wieder Hochwasser oder erst Niedrigwasser?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (amplitude_verwechselt, falsche_groesse_beantwortet, periode_falsch)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "(6.5-1.5)/2",
+     "antwort": "2.5"
+    },
+    {
+     "teil": "1",
+     "rechnung": "(6.5-1.5)/2",
+     "antwort": "2.5"
+    },
+    {
+     "teil": "1",
+     "rechnung": "6.5-1.5",
+     "antwort": "5",
+     "rolle": "fehlbild:amplitude_verwechselt:pi"
+    },
+    {
+     "teil": "1",
+     "rechnung": "6.5-1.5",
+     "antwort": "5",
+     "rolle": "fehlbild:amplitude_verwechselt:314"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(6.5+1.5)/2",
+     "antwort": "4"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(6.5+1.5)/2",
+     "antwort": "4"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(6.5-1.5)/2",
+     "antwort": "2.5",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:pi"
+    },
+    {
+     "teil": "2",
+     "rechnung": "(6.5-1.5)/2",
+     "antwort": "2.5",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:314"
+    },
+    {
+     "teil": "3",
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)/(2*6.2),2)",
+     "antwort": "0.51"
+    },
+    {
+     "teil": "3",
+     "rechnung": "round(2*(3.14)/(2*6.2),2)",
+     "antwort": "0.51"
+    },
+    {
+     "teil": "3",
+     "rechnung": "round(2*6.2/(2*(3.14159265358979323846264338327950288)),2)",
+     "antwort": "1.97",
+     "rolle": "fehlbild:periode_falsch:pi"
+    },
+    {
+     "teil": "3",
+     "rechnung": "round(2*6.2/(2*(3.14)),2)",
+     "antwort": "1.97",
+     "rolle": "fehlbild:periode_falsch:314"
+    },
+    {
+     "teil": "3",
+     "rechnung": "round(2*(3.14159265358979323846264338327950288)/6.2,2)",
+     "antwort": "1.01",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:pi"
+    },
+    {
+     "teil": "3",
+     "rechnung": "round(2*(3.14)/6.2,2)",
+     "antwort": "1.01",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:314"
+    }
+   ]
+  }
+ ]
+}

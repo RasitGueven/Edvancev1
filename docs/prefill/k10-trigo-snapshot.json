@@ -1,0 +1,854 @@
+[
+ {
+  "task": {
+   "id": "d2fd3cef-0e18-4a8c-9ae2-1c8dc92c4b86",
+   "title": "Sinus als Seitenverhältnis · a = 3 cm, c = 5 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 3 cm, b = 4 cm und c = 5 cm.\n\nBestimme sin α als Seitenverhältnis. Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_verhaeltnis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 3 cm, b = 4 cm und c = 5 cm.\n\nBestimme sin α als Seitenverhältnis. Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-verhaeltnis-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3ba41acb-6f44-46cf-bfb8-006789699045",
+   "title": "Sinuswert · sin 35° mit dem Taschenrechner",
+   "question": "Berechne sin 35° mit dem Taschenrechner. Winkel sind im Gradmaß angegeben.\n\nRunde auf vier Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_verhaeltnis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Berechne sin 35° mit dem Taschenrechner. Winkel sind im Gradmaß angegeben.\n\nRunde auf vier Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-verhaeltnis-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3ba007ed-a9f6-44fd-9800-07b92ffdbb65",
+   "title": "Tangens · erst die fehlende Kathete, a = 9 cm, c = 15 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 9 cm und c = 15 cm.\n\nBestimme tan α. Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_verhaeltnis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 9 cm und c = 15 cm.\n\nBestimme tan α. Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-verhaeltnis-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "8d008461-ba47-4c47-9cfa-e485a413611d",
+   "title": "Kosinus von β · a = 5 cm, b = 12 cm, c = 13 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A. β ist der Winkel bei B.\n\nGegeben sind a = 5 cm, b = 12 cm und c = 13 cm.\n\nBestimme cos β. Runde auf vier Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_verhaeltnis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A. β ist der Winkel bei B.\n\nGegeben sind a = 5 cm, b = 12 cm und c = 13 cm.\n\nBestimme cos β. Runde auf vier Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-verhaeltnis-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "1b979a6a-de0f-434e-96c3-c5859a536a36",
+   "title": "Ähnliche Dreiecke · gleicher Sinus, c' = 12 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nEs ist a = 3 cm und c = 5 cm.\n\nEin zweites Dreieck A'B'C' hat ebenfalls bei C' einen rechten Winkel und bei A' denselben Winkel α. Die Seite a' liegt der Ecke A' gegenüber, die Hypotenuse ist c' = 12 cm.\n\nWie lang ist a'? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_verhaeltnis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nEs ist a = 3 cm und c = 5 cm.\n\nEin zweites Dreieck A'B'C' hat ebenfalls bei C' einen rechten Winkel und bei A' denselben Winkel α. Die Seite a' liegt der Ecke A' gegenüber, die Hypotenuse ist c' = 12 cm.\n\nWie lang ist a'? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-verhaeltnis-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "be954f3b-2fd0-4e36-b508-662e15d93cdc",
+   "title": "Aus tan α = 0,75 und c = 20 cm die Seite a",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nEs ist tan α = 0,75 und c = 20 cm.\n\nWie lang ist die Seite a? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_verhaeltnis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nEs ist tan α = 0,75 und c = 20 cm.\n\nWie lang ist die Seite a? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-verhaeltnis-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "fc481b89-f335-4f1a-924e-3dc94fb5768d",
+   "title": "Gegenkathete · α = 35°, c = 10 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 35° und c = 10 cm.\n\nWie lang ist die Seite a? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_seite",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 35° und c = 10 cm.\n\nWie lang ist die Seite a? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-seite-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "881bdddb-0984-422c-bf46-c2a8446155fe",
+   "title": "Gegenkathete über den Tangens · α = 40°, b = 6 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 40° und b = 6 cm.\n\nWie lang ist die Seite a? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_seite",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 40° und b = 6 cm.\n\nWie lang ist die Seite a? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-seite-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "13d6dc4d-737e-4fd3-a67d-fb401ff5e223",
+   "title": "Hypotenuse im Nenner · α = 28°, a = 4,5 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 28° und a = 4,5 cm.\n\nWie lang ist die Hypotenuse c? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_seite",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 28° und a = 4,5 cm.\n\nWie lang ist die Hypotenuse c? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-seite-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "33bdde50-6f8d-4d2e-a80c-62601488e4a2",
+   "title": "Ankathete · α = 52°, c = 8,4 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 52° und c = 8,4 cm.\n\nWie lang ist die Seite b? Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_seite",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 52° und c = 8,4 cm.\n\nWie lang ist die Seite b? Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-seite-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "35cf2123-394c-461b-a303-5073c5cfb2d4",
+   "title": "Rampe · 0,8 m Höhe unter 6°",
+   "question": "Eine Rampe steigt gleichmäßig unter einem Winkel von 6° gegen die Waagerechte an. Winkel sind im Gradmaß angegeben. Sie überwindet einen Höhenunterschied von 0,8 m.\n\nWie lang ist die schräge Fläche der Rampe? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_seite",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Rampe steigt gleichmäßig unter einem Winkel von 6° gegen die Waagerechte an. Winkel sind im Gradmaß angegeben. Sie überwindet einen Höhenunterschied von 0,8 m.\n\nWie lang ist die schräge Fläche der Rampe? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-seite-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6778b0b4-e325-4ce4-b2a9-c083b57a5987",
+   "title": "Flächeninhalt · α = 38°, c = 12 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 38° und c = 12 cm.\n\nBerechne den Flächeninhalt des Dreiecks. Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_seite",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 38° und c = 12 cm.\n\nBerechne den Flächeninhalt des Dreiecks. Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm²",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-seite-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ccd00ca0-8589-4826-9f85-ed97dbb37116",
+   "title": "Winkel über den Sinus · a = 3 cm, c = 5 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 3 cm und c = 5 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_winkel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 3 cm und c = 5 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-winkel-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b986435e-8d79-45e5-b7fe-69fb72db8bcb",
+   "title": "Winkel über den Tangens · a = 4 cm, b = 9 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 4 cm und b = 9 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_winkel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 4 cm und b = 9 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-winkel-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ef367809-6ed4-4541-ab31-b1f5e19c643f",
+   "title": "Winkel über den Kosinus · b = 6,5 cm, c = 9 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind b = 6,5 cm und c = 9 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_winkel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind b = 6,5 cm und c = 9 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-winkel-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0c5d8ee8-fed2-4022-9d27-23860d1d7cc7",
+   "title": "Beide spitzen Winkel · a = 5 cm, c = 8 cm",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A. β ist der Winkel bei B.\n\nGegeben sind a = 5 cm und c = 8 cm.\n\nBerechne die Winkel α und β. Gib die Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "MULTI_PART",
+   "skill_key": "geo_trigo_winkel",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Winkel α in Grad",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Winkel β in Grad",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-winkel-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7a00ab4b-d497-46fc-87c4-8e706fc3aaff",
+   "title": "Dachneigung · Sparren 5,2 m, Höhe 2,4 m",
+   "question": "Ein Dachsparren ist 5,2 m lang. Er reicht von der waagerechten Decke bis zum First, der 2,4 m senkrecht über der Decke liegt.\n\nUnter welchem Winkel ist der Sparren gegen die Waagerechte geneigt? Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_winkel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Dachsparren ist 5,2 m lang. Er reicht von der waagerechten Decke bis zum First, der 2,4 m senkrecht über der Decke liegt.\n\nUnter welchem Winkel ist der Sparren gegen die Waagerechte geneigt? Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-winkel-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a8e2cd6c-586b-46d4-a25e-55aa33f9e02d",
+   "title": "Winkel aus Flächeninhalt · a = 6 cm, A = 27 cm²",
+   "question": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nDie Seite a ist 6 cm lang, der Flächeninhalt des Dreiecks beträgt 27 cm².\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_winkel",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nDie Seite a ist 6 cm lang, der Flächeninhalt des Dreiecks beträgt 27 cm².\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-winkel-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b35bdec8-b1e3-415c-b9eb-7de20660cfdb",
+   "title": "Steigungswinkel · Straße mit 12 % Steigung",
+   "question": "Ein Verkehrsschild zeigt für eine Straße 12 % Steigung. Das heißt: Auf 100 m waagerechter Strecke steigt die Straße um 12 m.\n\nUnter welchem Winkel steigt die Straße gegen die Waagerechte an? Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Verkehrsschild zeigt für eine Straße 12 % Steigung. Das heißt: Auf 100 m waagerechter Strecke steigt die Straße um 12 m.\n\nUnter welchem Winkel steigt die Straße gegen die Waagerechte an? Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-anwendung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f9f98b88-0b52-4ade-8354-f7bb0894db0f",
+   "title": "Turmhöhe · 40 m Entfernung, Höhenwinkel 38°",
+   "question": "Ein Punkt am Boden ist 40 m waagerecht vom Fuß eines senkrechten Turms entfernt. Von diesem Punkt aus sieht man die Turmspitze unter einem Winkel von 38° gegen die Waagerechte. Winkel sind im Gradmaß angegeben.\n\nWie hoch ist der Turm? Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Punkt am Boden ist 40 m waagerecht vom Fuß eines senkrechten Turms entfernt. Von diesem Punkt aus sieht man die Turmspitze unter einem Winkel von 38° gegen die Waagerechte. Winkel sind im Gradmaß angegeben.\n\nWie hoch ist der Turm? Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-anwendung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "52d18200-7696-4bed-bba7-352cbb35436c",
+   "title": "Steigung in Prozent · Steigungswinkel 8°",
+   "question": "Ein Weg steigt gleichmäßig unter einem Winkel von 8° gegen die Waagerechte an. Winkel sind im Gradmaß angegeben.\n\nWie viel Prozent Steigung hat der Weg? Die Steigung in Prozent gibt an, um wie viele Meter der Weg auf 100 m waagerechter Strecke ansteigt. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Weg steigt gleichmäßig unter einem Winkel von 8° gegen die Waagerechte an. Winkel sind im Gradmaß angegeben.\n\nWie viel Prozent Steigung hat der Weg? Die Steigung in Prozent gibt an, um wie viele Meter der Weg auf 100 m waagerechter Strecke ansteigt. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "%",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-anwendung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "17b68c02-51e8-4484-b955-5ee77729c024",
+   "title": "Entfernung vom Leuchtturm · 25 m hoch, Sichtwinkel 9°",
+   "question": "Ein Beobachter steht oben auf einem 25 m hohen Leuchtturm. Die Sichtlinie von dort zu einem Boot auf dem Wasser bildet mit der Waagerechten einen Winkel von 9°. Winkel sind im Gradmaß angegeben.\n\nWie weit ist das Boot waagerecht vom Fuß des Leuchtturms entfernt? Runde auf ganze Meter.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Beobachter steht oben auf einem 25 m hohen Leuchtturm. Die Sichtlinie von dort zu einem Boot auf dem Wasser bildet mit der Waagerechten einen Winkel von 9°. Winkel sind im Gradmaß angegeben.\n\nWie weit ist das Boot waagerecht vom Fuß des Leuchtturms entfernt? Runde auf ganze Meter."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-anwendung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "725e786e-b402-4264-a990-ad5db129fa6a",
+   "title": "Leiter · 6 m lang, 70° zum Boden",
+   "question": "Eine 6 m lange Leiter lehnt an einer senkrechten Hauswand. Sie bildet mit dem waagerechten Boden einen Winkel von 70°. Winkel sind im Gradmaß angegeben.\n\nIn welcher Höhe berührt die Leiter die Wand? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine 6 m lange Leiter lehnt an einer senkrechten Hauswand. Sie bildet mit dem waagerechten Boden einen Winkel von 70°. Winkel sind im Gradmaß angegeben.\n\nIn welcher Höhe berührt die Leiter die Wand? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-anwendung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "32f15d20-ea8e-4ff0-9d43-d10daa9500bc",
+   "title": "Höhengewinn · 500 m Straße mit 8 % Steigung",
+   "question": "Eine Straße hat 8 % Steigung: Auf 100 m waagerechter Strecke steigt sie um 8 m. Ein Wagen fährt 500 m entlang der Straße bergauf.\n\nWie viele Meter Höhe gewinnt er dabei? Rechne ohne gerundete Zwischenergebnisse. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Straße hat 8 % Steigung: Auf 100 m waagerechter Strecke steigt sie um 8 m. Ein Wagen fährt 500 m entlang der Straße bergauf.\n\nWie viele Meter Höhe gewinnt er dabei? Rechne ohne gerundete Zwischenergebnisse. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-anwendung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0fe09783-e4c8-41cc-b7f5-5dfcaaed760a",
+   "title": "Dritte Seite · a = 5 cm, b = 7 cm, γ = 50°",
+   "question": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 5 cm, b = 7 cm und γ = 50°.\n\nWie lang ist die Seite c? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_kosinussatz",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 5 cm, b = 7 cm und γ = 50°.\n\nWie lang ist die Seite c? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-kosinussatz-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "77d9bfd8-a0f1-4714-90d6-1667633d6f67",
+   "title": "Dritte Seite · a = 6 cm, b = 9 cm, γ = 72°",
+   "question": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 6 cm, b = 9 cm und γ = 72°.\n\nWie lang ist die Seite c? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_kosinussatz",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 6 cm, b = 9 cm und γ = 72°.\n\nWie lang ist die Seite c? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-kosinussatz-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "516c5bcd-87cf-4efb-8d02-2117ab4b6e94",
+   "title": "Winkel aus drei Seiten · 7 cm, 8 cm, 10 cm",
+   "question": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 7 cm, b = 8 cm und c = 10 cm.\n\nBerechne den Winkel γ. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_kosinussatz",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 7 cm, b = 8 cm und c = 10 cm.\n\nBerechne den Winkel γ. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-kosinussatz-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c75c2c98-1bae-4ea9-92fa-f4353fdcddb2",
+   "title": "Dritte Seite bei stumpfem Winkel · γ = 115°",
+   "question": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 4 cm, b = 6,5 cm und γ = 115°.\n\nWie lang ist die Seite c? Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_kosinussatz",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 4 cm, b = 6,5 cm und γ = 115°.\n\nWie lang ist die Seite c? Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "cm",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-kosinussatz-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "79463f55-7678-49a4-8f1a-226cbe5e4e85",
+   "title": "Breite eines Sees · 320 m, 450 m, 64°",
+   "question": "Die Punkte A und B liegen an gegenüberliegenden Ufern eines Sees. Von einem Messpunkt C an Land misst man: C ist 320 m von A und 450 m von B entfernt, der Winkel bei C zwischen den beiden Richtungen beträgt 64°. Winkel sind im Gradmaß angegeben. Das Dreieck ABC hat keinen rechten Winkel.\n\nWie weit sind A und B voneinander entfernt? Runde auf ganze Meter.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_kosinussatz",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Punkte A und B liegen an gegenüberliegenden Ufern eines Sees. Von einem Messpunkt C an Land misst man: C ist 320 m von A und 450 m von B entfernt, der Winkel bei C zwischen den beiden Richtungen beträgt 64°. Winkel sind im Gradmaß angegeben. Das Dreieck ABC hat keinen rechten Winkel.\n\nWie weit sind A und B voneinander entfernt? Runde auf ganze Meter."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-kosinussatz-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d2eeb8e8-ab12-47a0-be00-874e25cf172f",
+   "title": "Größter Winkel · Seiten 5 cm, 6 cm, 9 cm",
+   "question": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 5 cm, b = 6 cm und c = 9 cm.\n\nBerechne den größten Winkel des Dreiecks. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "geo_trigo_kosinussatz",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 5 cm, b = 6 cm und c = 9 cm.\n\nBerechne den größten Winkel des Dreiecks. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_trigo",
+   "source_ref": "trigo-kosinussatz-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]
