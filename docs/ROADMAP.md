@@ -61,6 +61,17 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **LSA-Auswahl nach Thema (W3-6)** (Retro `2026-10-03-lsa-thema-einstieg.md`, Branch
+  `feat/lsa-thema-einstieg`, Bericht `docs/themen/w3-6-lsa-auswahl.md`): `lsa_start` hält
+  das aktuell-Thema des Leads in `thema_key` fest. `lsa_select_next_core` prüft zuerst die
+  Einstiegsknoten des Themas, steigt dann nur unter dem Thema ab (bis Minute 12) und nutzt
+  die Restzeit für die Breite: zuerst die behandelten Themen nach Schulplan, dann die
+  gierige Deckung, ohne Abstieg. Nichts liegt über der Klasse. Einstiegsknoten für Linear,
+  Zins und Kreis (Kreis als eigene Migration). Beweis: `inv10` mit 33/33 grün im lokalen
+  CI-Nachbau, Gegenprobe gegen die alte Auswahl 17 rot.
+  Ohne Thema bleibt die bisherige Auswahl mit Abstieg, Phase T ist von der Klassengrenze ausgenommen (Korrektur `20261003094451`).
+  **Offen:** Einspielen, Aufräumen der 9 alten `in_progress`-Sitzungen, Trockenlauf gegen
+  Prod, Schema-Abzug, Kreis nach dem Kreis-Substrat, Report auf den Themenraum umstellen.
 - **R6 Eltern-Report in der App** (Retro `2026-08-19-r6-reportbody-v3.md`, Branch
   `feature/r6-reportbody-v3`): `ReportBody.tsx` zeigt die abgestimmte Erzählung in
   sechs Schritten — Anlass, Ebenenspur mit Untertiteln, Profil über die
