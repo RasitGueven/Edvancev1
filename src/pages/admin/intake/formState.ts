@@ -85,7 +85,30 @@ export function intakeFromLead(lead: Lead): IntakeFormState {
   }
 }
 
-const nullIfEmpty = (value: string): string | null => (value.trim() === '' ? null : value.trim())
+export type FreigabeZustand = 'gesperrt' | 'bereit' | 'bestaetigen'
+
+/**
+ * Ob die LSA freigegeben werden kann. Ohne Klasse, Fach oder Einwilligung:
+ * gesperrt. Mit aktuellem Thema, altem Cluster (Bestandslead) oder fuer ein
+ * Fach ohne Katalog: bereit. Sonst geht es nur mit bewusster Bestaetigung —
+ * die LSA prueft dann ohne Schwerpunkt in der Breite. Gespeichert wird nichts.
+ */
+export function freigabeZustand(args: {
+  klasse: number | null
+  fach: string | null
+  einwilligung: boolean
+  aktuellesThema: string | null
+  altesCluster: string | null
+  katalogLeer: boolean
+}): FreigabeZustand {
+  if (args.klasse === null || args.fach === null || !args.einwilligung) return 'gesperrt'
+  if (args.aktuellesThema !== null || args.altesCluster !== null || args.katalogLeer) {
+    return 'bereit'
+  }
+  return 'bestaetigen'
+}
+
+const nullIfEmpty =(value: string): string | null => (value.trim() === '' ? null : value.trim())
 
 // Stammdaten + Erstgespraech-Felder als Lead-Payload (fuer create und update).
 export function intakeToLeadInput(form: IntakeFormState): LeadInput {

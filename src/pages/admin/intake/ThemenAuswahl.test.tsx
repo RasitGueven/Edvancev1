@@ -13,7 +13,9 @@ let leadThemen: LeadThema[] = []
 
 vi.mock('@/lib/supabase/themen', () => ({
   fachSchluessel: (f: string) => f.toLowerCase(),
-  listThemen: vi.fn(() => Promise.resolve({ data: TEST_KATALOG, error: null })),
+  listThemen: vi.fn((fach: string) =>
+    Promise.resolve({ data: fach === 'mathematik' ? TEST_KATALOG : [], error: null }),
+  ),
   listSchulPlan: vi.fn(() =>
     Promise.resolve({
       data: [
@@ -51,18 +53,19 @@ vi.mock('@/lib/supabase/schulen', () => ({
 }))
 vi.mock('@/lib/supabase/leads', () => ({
   createLead: vi.fn(),
-  updateLead: vi.fn(),
+  updateLead: vi.fn(() => Promise.resolve({ data: null, error: null })),
   setLeadConsent: vi.fn(),
 }))
 vi.mock('@/lib/supabase/leadLsa', () => ({
   leadAssessmentUpsert: vi.fn(),
-  leadLsaFreigeben: vi.fn(),
+  leadLsaFreigeben: vi.fn(() => Promise.resolve({ data: null, error: null })),
 }))
 vi.mock('@/context/AuthContext', () => ({
   useAuthContext: () => ({ user: { id: 'ZZ_admin', email: 'admin@edvance.de' } }),
 }))
 
 import { behandeltAnlegen, setAktuellesThema } from '@/lib/supabase/themen'
+import { leadLsaFreigeben } from '@/lib/supabase/leadLsa'
 import { LeadIntakeForm } from './LeadIntakeForm'
 
 function bestandsLead(over: Partial<Lead> = {}): Lead {
@@ -165,5 +168,50 @@ describe('ThemenAuswahl im Erstgespraech', () => {
     )
     expect(await screen.findByText('aus dem Schulplan (Stand 08/2021)')).toBeInTheDocument()
     expect(screen.getByText('Aktuell: Zufall und Wahrscheinlichkeit')).toBeInTheDocument()
+  })
+})
+
+describe('LSA-Freigabe ohne aktuelles Thema', () => {
+  const mitEinwilligung = (over: Partial<Lead> = {}): Lead =>
+    bestandsLead({ consent_dsgvo_at: '2026-10-01T10:00:00.000Z', ...over })
+  const HINWEIS =
+    'Kein aktuelles Thema gewählt – die Lernstandsanalyse prüft dann ohne Schwerpunkt in der Breite.'
+
+  beforeEach(() => {
+    leadThemen = []
+    vi.clearAllMocks()
+    // jsdom kennt scrollIntoView nicht.
+    Element.prototype.scrollIntoView = vi.fn()
+  })
+
+  it('mit Thema: direkt freigeben, keine Bestaetigung', async () => {
+    leadThemen = [
+      { thema_key: 'reelle_zahlen', fach: 'mathematik', status: 'aktuell', quelle: 'gespraech' },
+    ]
+    oeffnen(mitEinwilligung())
+    const knopf = await screen.findByRole('button', { name: 'Für die LSA freigeben' })
+    await waitFor(() => expect(knopf).toBeEnabled())
+    expect(screen.queryByText(HINWEIS)).not.toBeInTheDocument()
+    fireEvent.click(knopf)
+    await waitFor(() => expect(leadLsaFreigeben).toHaveBeenCalledWith('ZZ_lead', 8, 'Mathematik'))
+  })
+
+  it('ohne Thema: Hinweis, primaer "Thema wählen", Freigabe erst nach bewusstem Klick', async () => {
+    oeffnen(mitEinwilligung())
+    expect(await screen.findByText(HINWEIS)).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Für die LSA freigeben' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Thema wählen' }))
+    expect(document.activeElement?.id).toBe('thema-suche')
+    expect(leadLsaFreigeben).not.toHaveBeenCalled()
+    fireEvent.click(screen.getByRole('button', { name: 'Ohne Thema freigeben' }))
+    await waitFor(() => expect(leadLsaFreigeben).toHaveBeenCalledWith('ZZ_lead', 8, 'Mathematik'))
+  })
+
+  it('Deutsch (kein Katalog): keine Bestaetigung', async () => {
+    oeffnen(mitEinwilligung({ subjects: ['Deutsch'] }))
+    expect(await screen.findByText('Noch kein Themenkatalog')).toBeInTheDocument()
+    const knopf = screen.getByRole('button', { name: 'Für die LSA freigeben' })
+    expect(knopf).toBeEnabled()
+    expect(screen.queryByText(HINWEIS)).not.toBeInTheDocument()
   })
 })

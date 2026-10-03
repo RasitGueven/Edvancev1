@@ -15,9 +15,10 @@
 
 ## Nachtrag (Review)
 - i18n: `SectionErstgespraech`, `LeadIntakeForm` und die Label-Listen in `intakeConstants` laufen jetzt über `admin:intake.*`. Gespeicherte Werte (u. a. `PARENT_WEAK_TOPICS`) bleiben unverändert, nur die Anzeige wird über einen semantischen Key gemappt. `SUBJECTS`/`SCHOOL_TYPES` sind DB-Werte und werden auch in Verträgen/Filter genutzt – unverändert.
-- „Kein aktuelles Thema bekannt“: angehalten. Am Lead gibt es kein passendes Feld. `next_exam_topic` wird von `lsa_lead_kontext` und vom Report als Thementext gelesen (ein Marker landete in LSA und Elternbericht), `goal` hat einen festen CHECK, `known_weak_topics` bedeutet etwas anderes, `notes` ist Freitext. Braucht eine Spalte (z. B. `leads.thema_unbekannt boolean`) → Foundation-/Schema-Fenster.
+- „Kein aktuelles Thema bekannt“: Am Lead gibt es kein passendes Feld (`next_exam_topic` lesen `lsa_lead_kontext` und der Report als Thementext, `goal` hat einen festen CHECK, `known_weak_topics`/`notes` passen nicht).
+  - **Verworfen:** `leads.thema_unbekannt`. Ein Lead-Feld gilt nicht je Fach, und die LSA-Auswahl braucht es nicht, weil sie ohne `lead_themen`-Eintrag ohnehin in der Breite startet.
+  - **Umgesetzt ohne Schema:** Ohne aktuelles Thema ist die Freigabe nicht mehr gesperrt, sondern verlangt im Fußbereich eine Bestätigung (inline, kein Modal). Primär ist „Thema wählen“ (springt ins Suchfeld), nachrangig „Ohne Thema freigeben“. Nichts davon wird gespeichert. Ohne Bestätigung freigeben dürfen weiterhin Bestandsleads mit altem Cluster und Fächer ohne Katalog. Die Logik liegt in `freigabeZustand` (`formState.ts`).
 
 ## Offen
-- „Kein aktuelles Thema bekannt“ als bewusste Auswahl, die die LSA-Freigabe ohne Thema erlaubt (wartet auf Schemaentscheidung, s. o.).
 - Thema setzen als eine DB-Funktion statt delete + upsert (Foundation-Fenster).
 - Bestätigungsmail ans Elternhaus mit Mathe-Heft-Hinweis über hello@ (eigener Auftrag).

@@ -12,9 +12,11 @@ import { SectionErstgespraech } from './SectionErstgespraech'
 import { CONSENT_DOCUMENT_VERSION } from './consentDocument'
 import type { ConsentState } from './ConsentBlock'
 import type { ThemenStatus } from './ThemenAuswahl'
+import { FreigabeOhneThema } from './FreigabeOhneThema'
 import {
   EMPTY_INTAKE,
   intakeFromLead,
+  freigabeZustand,
   intakeToLeadInput,
   type IntakeFormState,
 } from './formState'
@@ -188,15 +190,14 @@ export function LeadIntakeForm({
     form.full_name.trim() !== '' &&
     (form.contact_email.trim() !== '' || form.contact_phone.trim() !== '')
 
-  const canFreigeben =
-    form.class_level !== null &&
-    subject !== null &&
-    // Aktuelles Thema aus lead_themen; Bestandsleads mit altem Cluster und
-    // Faecher ohne Katalog bleiben freigebbar.
-    (themenStatus.aktuell !== null ||
-      form.current_topic_cluster_id !== null ||
-      themenStatus.katalogLeer) &&
-    consent.at !== null
+  const freigabe = freigabeZustand({
+    klasse: form.class_level,
+    fach: subject,
+    einwilligung: consent.at !== null,
+    aktuellesThema: themenStatus.aktuell,
+    altesCluster: form.current_topic_cluster_id,
+    katalogLeer: themenStatus.katalogLeer,
+  })
 
   return (
     <EdvanceCard className="flex flex-col gap-6 p-6">
@@ -285,7 +286,15 @@ export function LeadIntakeForm({
             </Button>
           </>
         )}
-        {step === 1 && (
+        {step === 1 && freigabe === 'bestaetigen' && (
+          <FreigabeOhneThema
+            busy={busy}
+            freigebenLoading={freigebenLoading}
+            onSave={() => void saveStep2()}
+            onFreigeben={() => void freigeben()}
+          />
+        )}
+        {step === 1 && freigabe !== 'bestaetigen' && (
           <>
             <Button
               variant="outline"
@@ -296,7 +305,7 @@ export function LeadIntakeForm({
             </Button>
             <Button
               onClick={freigeben}
-              disabled={busy || freigebenLoading || !canFreigeben}
+              disabled={busy || freigebenLoading || freigabe === 'gesperrt'}
             >
               {freigebenLoading ? t('intake.wizard.freigebend') : t('intake.wizard.freigeben')}
             </Button>

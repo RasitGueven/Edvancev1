@@ -204,6 +204,11 @@
         "pruefungsangst": "Prüfungsangst",
         "zeiteinteilung": "Zeiteinteilung"
       }
+    },
+    "freigabe": {
+      "ohneThemaHinweis": "Kein aktuelles Thema gewählt – die Lernstandsanalyse prüft dann ohne Schwerpunkt in der Breite.",
+      "ohneThema": "Ohne Thema freigeben",
+      "themaWaehlen": "Thema wählen"
     }
   }
 }
