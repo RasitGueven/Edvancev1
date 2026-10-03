@@ -242,6 +242,14 @@ export type {
 
 export type {
   Stufe,
+  Thema,
+  SchulPlanZeile,
+  LeadThemaStatus,
+  LeadThemaQuelle,
+  LeadThema,
+} from './themen'
+
+export type {
   SucheEintrag,
   SucheFall,
   SucheSkill,

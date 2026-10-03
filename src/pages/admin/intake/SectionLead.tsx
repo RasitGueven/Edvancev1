@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SELECT_MD } from '@/lib/formStyles'
 import type { SchoolKind } from '@/types'
 import { CLASS_LEVELS, SCHOOL_TYPES, SUBJECTS } from './intakeConstants'
 import { OptionChips } from './OptionChips'
+import { SchulAuswahl } from './SchulAuswahl'
 import type { IntakeFormState } from './formState'
 
 type SectionLeadProps = {
@@ -14,6 +16,7 @@ type SectionLeadProps = {
 // Schritt 1 — Stammdaten in einem Rutsch. first_name gross und prominent, weil
 // der Rufname auf dem Tablet erscheint.
 export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
+  const { t } = useTranslation('admin')
   const toggleSubject = (subject: string): void => {
     const list = form.subjects
     patch({
@@ -27,23 +30,23 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
         <Label htmlFor="lead-first-name" className="text-base font-semibold">
-          Rufname des Kindes *
+          {t('intake.lead.firstName')}
         </Label>
         <Input
           id="lead-first-name"
           className="h-12 text-lg"
           value={form.first_name}
           onChange={(e) => patch({ first_name: e.target.value })}
-          placeholder="z. B. Mia"
+          placeholder={t('intake.lead.firstNamePlaceholder')}
         />
         <p className="text-xs text-[var(--color-text-tertiary)]">
-          Erscheint auf dem Tablet als „Hi {form.first_name.trim() || '…'}" — muss exakt stimmen.
+          {t('intake.lead.firstNameHint', { name: form.first_name.trim() || '…' })}
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <Label htmlFor="lead-full-name">Vollständiger Name *</Label>
+          <Label htmlFor="lead-full-name">{t('intake.lead.fullName')}</Label>
           <Input
             id="lead-full-name"
             value={form.full_name}
@@ -51,7 +54,7 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="lead-birth">Geburtsdatum</Label>
+          <Label htmlFor="lead-birth">{t('intake.lead.birthDate')}</Label>
           <Input
             id="lead-birth"
             type="date"
@@ -60,7 +63,7 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="lead-class">Klasse</Label>
+          <Label htmlFor="lead-class">{t('intake.lead.classLevel')}</Label>
           <select
             id="lead-class"
             className={SELECT_MD}
@@ -69,16 +72,16 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
               patch({ class_level: e.target.value ? Number(e.target.value) : null })
             }
           >
-            <option value="">–</option>
-            {CLASS_LEVELS.map((lvl) => (
-              <option key={lvl} value={lvl}>
-                {lvl}. Klasse
+            <option value="">{t('intake.lead.none')}</option>
+            {CLASS_LEVELS.map((level) => (
+              <option key={level} value={level}>
+                {t('intake.lead.classOption', { level })}
               </option>
             ))}
           </select>
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="lead-schooltype">Schulform</Label>
+          <Label htmlFor="lead-schooltype">{t('intake.lead.schoolType')}</Label>
           <select
             id="lead-schooltype"
             className={SELECT_MD}
@@ -87,29 +90,24 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
               patch({ school_type: (e.target.value || null) as SchoolKind | null })
             }
           >
-            <option value="">–</option>
-            {SCHOOL_TYPES.map((t) => (
-              <option key={t} value={t}>
-                {t}
+            <option value="">{t('intake.lead.none')}</option>
+            {SCHOOL_TYPES.map((type) => (
+              <option key={type} value={type}>
+                {type}
               </option>
             ))}
           </select>
         </div>
-        <div className="flex flex-col gap-2 sm:col-span-2">
-          <Label htmlFor="lead-schoolname">Schule (optional)</Label>
-          <Input
-            id="lead-schoolname"
-            value={form.school_name}
-            onChange={(e) => patch({ school_name: e.target.value })}
-            placeholder="z. B. Gymnasium Köln-Nippes"
+        <div className="sm:col-span-2">
+          <SchulAuswahl
+            schulform={form.school_type}
+            schuleId={form.schule_id}
+            schoolName={form.school_name}
+            onChange={patch}
           />
-          <p className="text-xs text-[var(--color-text-tertiary)]">
-            Schulen setzen Themen in unterschiedlichen Jahrgangsstufen an — hilft
-            später bei der Einordnung. Kein Einfluss auf die Aufgabenwahl.
-          </p>
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="lead-email">E-Mail (Eltern)</Label>
+          <Label htmlFor="lead-email">{t('intake.lead.contactEmail')}</Label>
           <Input
             id="lead-email"
             type="email"
@@ -118,7 +116,7 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="lead-phone">Telefon (Eltern)</Label>
+          <Label htmlFor="lead-phone">{t('intake.lead.contactPhone')}</Label>
           <Input
             id="lead-phone"
             value={form.contact_phone}
@@ -126,12 +124,12 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
           />
         </div>
         <p className="text-xs text-[var(--color-text-tertiary)] sm:col-span-2">
-          Mindestens eine der beiden Angaben ist erforderlich.
+          {t('intake.lead.contactHint')}
         </p>
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Fach / Fächer</Label>
+        <Label>{t('intake.lead.subjects')}</Label>
         <OptionChips
           options={SUBJECTS.map((s) => ({ value: s, label: s }))}
           selected={form.subjects}

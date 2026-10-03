@@ -22,6 +22,7 @@ function lead(over: Partial<Lead> & { id: string }): Lead {
     class_level: null,
     school_type: null,
     school_name: null,
+    schule_id: null,
     subjects: [],
     goal: null,
     known_weak_topics: [],

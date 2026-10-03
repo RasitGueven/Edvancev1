@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { EdvanceCard } from '@/components/edvance'
@@ -10,9 +11,12 @@ import { SectionLead } from './SectionLead'
 import { SectionErstgespraech } from './SectionErstgespraech'
 import { CONSENT_DOCUMENT_VERSION } from './consentDocument'
 import type { ConsentState } from './ConsentBlock'
+import type { ThemenStatus } from './ThemenAuswahl'
+import { FreigabeOhneThema } from './FreigabeOhneThema'
 import {
   EMPTY_INTAKE,
   intakeFromLead,
+  freigabeZustand,
   intakeToLeadInput,
   type IntakeFormState,
 } from './formState'
@@ -26,7 +30,7 @@ type LeadIntakeFormProps = {
   onClose: () => void
 }
 
-const STEPS = ['Stammdaten', 'Erstgespräch'] as const
+const STEPS = ['lead', 'erstgespraech'] as const
 
 export function LeadIntakeForm({
   existingLead,
@@ -34,6 +38,7 @@ export function LeadIntakeForm({
   onRefresh,
   onClose,
 }: LeadIntakeFormProps): JSX.Element {
+  const { t } = useTranslation('admin')
   const { user } = useAuthContext()
   const [form, setForm] = useState<IntakeFormState>(
     existingLead ? intakeFromLead(existingLead) : EMPTY_INTAKE,
@@ -49,6 +54,10 @@ export function LeadIntakeForm({
     signature: existingLead?.consent_dsgvo_signature ?? null,
   })
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null)
+  const [themenStatus, setThemenStatus] = useState<ThemenStatus>({
+    aktuell: null,
+    katalogLeer: false,
+  })
   const [busy, setBusy] = useState(false)
   const [consentSaving, setConsentSaving] = useState(false)
   const [freigebenLoading, setFreigebenLoading] = useState(false)
@@ -68,7 +77,7 @@ export function LeadIntakeForm({
     opts?: { markContacted?: boolean },
   ): Promise<string | null> => {
     if (form.full_name.trim() === '') {
-      setError('Vollständiger Name ist erforderlich.')
+      setError(t('intake.wizard.fullNameRequired'))
       return null
     }
     setBusy(true)
@@ -96,7 +105,7 @@ export function LeadIntakeForm({
     const { data, error: err } = await createLead(payload)
     setBusy(false)
     if (err || !data) {
-      setError(err ?? 'Lead konnte nicht angelegt werden.')
+      setError(err ?? t('intake.wizard.createFailed'))
       return null
     }
     setLeadId(data.id)
@@ -169,7 +178,7 @@ export function LeadIntakeForm({
     const { error: err } = await leadLsaFreigeben(id, form.class_level, subject)
     setFreigebenLoading(false)
     if (err) {
-      setError(err ?? 'LSA-Freigabe fehlgeschlagen.')
+      setError(err ?? t('intake.wizard.freigabeFailed'))
       return
     }
     onRefresh()
@@ -181,27 +190,30 @@ export function LeadIntakeForm({
     form.full_name.trim() !== '' &&
     (form.contact_email.trim() !== '' || form.contact_phone.trim() !== '')
 
-  const canFreigeben =
-    form.class_level !== null &&
-    subject !== null &&
-    form.current_topic_cluster_id !== null &&
-    consent.at !== null
+  const freigabe = freigabeZustand({
+    klasse: form.class_level,
+    fach: subject,
+    einwilligung: consent.at !== null,
+    aktuellesThema: themenStatus.aktuell,
+    altesCluster: form.current_topic_cluster_id,
+    katalogLeer: themenStatus.katalogLeer,
+  })
 
   return (
     <EdvanceCard className="flex flex-col gap-6 p-6">
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-            {existingLead ? 'Lead weiterpflegen' : 'Neuer Lead — Erstgespräch'}
+            {existingLead ? t('intake.wizard.eyebrowEdit') : t('intake.wizard.eyebrowNew')}
           </p>
           <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">
-            {form.first_name.trim() || form.full_name.trim() || 'Empfang'}
+            {form.first_name.trim() || form.full_name.trim() || t('intake.wizard.titleFallback')}
           </h2>
         </div>
         <button
           type="button"
           onClick={onClose}
-          aria-label="Schließen"
+          aria-label={t('intake.wizard.close')}
           className="rounded-full p-2 text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-surface)]"
         >
           <X className="h-5 w-5" />
@@ -210,12 +222,12 @@ export function LeadIntakeForm({
 
       {/* Stepper */}
       <div className="flex gap-2">
-        {STEPS.map((label, index) => {
+        {STEPS.map((stepKey, index) => {
           const reachable = index === 0 || leadId !== null
           const active = index === step
           return (
             <button
-              key={label}
+              key={stepKey}
               type="button"
               disabled={!reachable}
               onClick={() => setStep(index)}
@@ -227,7 +239,10 @@ export function LeadIntakeForm({
                     : 'border-[var(--color-border)] text-[var(--color-text-tertiary)] opacity-50'
               }`}
             >
-              {index + 1}. {label}
+              {t('intake.wizard.stepLabel', {
+                nr: index + 1,
+                label: t(`intake.wizard.steps.${stepKey}`),
+              })}
             </button>
           )
         })}
@@ -242,6 +257,8 @@ export function LeadIntakeForm({
           patch={patch}
           subject={subject}
           onSelectSubject={setSelectedSubject}
+          leadId={leadId}
+          onThemenStatus={setThemenStatus}
           consent={consent}
           consentSaving={consentSaving}
           onSign={sign}
@@ -259,30 +276,38 @@ export function LeadIntakeForm({
               onClick={() => void submitStep1('continue')}
               disabled={busy || !canLeaveStep1}
             >
-              Weiter zum Erstgespräch
+              {t('intake.wizard.continue')}
             </Button>
             <Button
               onClick={() => void submitStep1('close')}
               disabled={busy || !canLeaveStep1}
             >
-              {busy ? 'Speichert …' : 'Speichern'}
+              {busy ? t('intake.wizard.saving') : t('intake.wizard.save')}
             </Button>
           </>
         )}
-        {step === 1 && (
+        {step === 1 && freigabe === 'bestaetigen' && (
+          <FreigabeOhneThema
+            busy={busy}
+            freigebenLoading={freigebenLoading}
+            onSave={() => void saveStep2()}
+            onFreigeben={() => void freigeben()}
+          />
+        )}
+        {step === 1 && freigabe !== 'bestaetigen' && (
           <>
             <Button
               variant="outline"
               onClick={() => void saveStep2()}
               disabled={busy || freigebenLoading || !canLeaveStep1}
             >
-              {busy ? 'Speichert …' : 'Speichern'}
+              {busy ? t('intake.wizard.saving') : t('intake.wizard.save')}
             </Button>
             <Button
               onClick={freigeben}
-              disabled={busy || freigebenLoading || !canFreigeben}
+              disabled={busy || freigebenLoading || freigabe === 'gesperrt'}
             >
-              {freigebenLoading ? 'Gibt frei …' : 'Für die LSA freigeben'}
+              {freigebenLoading ? t('intake.wizard.freigebend') : t('intake.wizard.freigeben')}
             </Button>
           </>
         )}
