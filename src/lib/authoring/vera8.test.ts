@@ -1,5 +1,5 @@
 // Die VERA8-Definition gibt es einmal (vera8.json). Board, Prefill-Werkzeuge und
-// die SQL-Bedingung in freigabe_cluster muessen dieselbe Kennung benutzen.
+// die SQL-Bedingungen in freigabe_cluster und freigabe_thema muessen dieselbe Kennung benutzen.
 
 import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
@@ -16,6 +16,11 @@ describe('VERA8-Definition', () => {
   it('freigabe_cluster schliesst dieselbe Kennung aus', () => {
     const sql = fs.readFileSync('supabase/migrations/20260930130000_freigabe_cluster_ohne_vera8.sql', 'utf8')
     expect(sql).toContain(`and source is distinct from '${VERA8_SOURCE}'`)
+  })
+
+  it('freigabe_thema schliesst dieselbe Kennung aus', () => {
+    const sql = fs.readFileSync('supabase/migrations/20261003104615_skill_thema_schema.sql', 'utf8')
+    expect(sql).toContain(`and t.source is distinct from '${VERA8_SOURCE}'`)
   })
 
   it('jede Prefill-Migration traegt den Ausschluss in jeder Anweisung', () => {

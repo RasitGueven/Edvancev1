@@ -1,6 +1,7 @@
 // Der Arbeitsbildschirm des Boards: ein Fach einer Klasse. Oben der Stand
 // ("33 von 361 geprueft") mit Balken, darunter vier Filter mit Anzahl und der
-// Durchlauf ueber alles im Filter; darunter die Themengebiete.
+// Durchlauf ueber alles im Filter; darunter die Themen, nach Stufe gruppiert
+// (die Stufe der Klasse zuerst, "Ohne Thema" zuletzt).
 //
 // Der Filter wirkt auf beide Ebenen: Themen ohne passende Aufgabe fallen weg,
 // aufgeklappt stehen nur die passenden Aufgaben. Ein Durchlauf nimmt genau das,
@@ -16,14 +17,15 @@ import {
   BOARD_FILTER,
   passtZuFilter,
   standVon,
+  stufenGruppen,
   themenVon,
   warteschlange,
   warteschlangeAb,
-  type BoardCluster,
   type BoardFilter,
   type Thema,
+  type Zuordnung,
 } from '@/lib/authoring/board'
-import { freigabeCluster, type LetzteBeanstandung } from '@/lib/supabase/freigabe'
+import { freigabeThema, type LetzteBeanstandung } from '@/lib/supabase/freigabe'
 import type { AuthoringTask } from '@/types'
 import { ChoiceChip } from '../wizard/ChoiceChip'
 import { FortschrittsBalken } from './FortschrittsBalken'
@@ -32,8 +34,9 @@ import { ThemaZeile } from './ThemaZeile'
 export function Arbeitsbereich({
   titel,
   returnTo,
+  klasse,
   tasks,
-  clusters,
+  zuordnung,
   beanstandungen,
   isAdmin,
   onReload,
@@ -42,8 +45,10 @@ export function Arbeitsbereich({
   titel: string
   /** Die URL dieses Bildschirms — hierhin fuehrt die Strecke zurueck. */
   returnTo: string
+  /** Die Klasse des Boards — bestimmt Stufenfolge und Freigabe-Umfang. */
+  klasse: number
   tasks: AuthoringTask[]
-  clusters: Map<string, BoardCluster>
+  zuordnung: Zuordnung
   beanstandungen: Map<string, LetzteBeanstandung>
   isAdmin: boolean
   onReload: () => void
@@ -56,8 +61,9 @@ export function Arbeitsbereich({
   const [meldung, setMeldung] = useState<string | null>(null)
 
   const stand = useMemo(() => standVon(tasks), [tasks])
-  const themen = useMemo(() => themenVon(tasks, clusters), [tasks, clusters])
+  const themen = useMemo(() => themenVon(tasks, zuordnung, klasse), [tasks, zuordnung, klasse])
   const sichtbar = themen.filter((th) => th.tasks.some((task) => passtZuFilter(task, filter)))
+  const abschnitte = stufenGruppen(sichtbar)
 
   const starte = (ids: string[], label: string): void => {
     if (ids.length === 0) return
@@ -70,7 +76,7 @@ export function Arbeitsbereich({
     if (!th.id) return
     setBusy(true)
     setMeldung(null)
-    const res = await freigabeCluster(th.id)
+    const res = await freigabeThema(th.id, klasse)
     setBusy(false)
     if (res.error || res.data === null) {
       setMeldung(t('clusterRelease.failed', { error: res.error ?? '' }))
@@ -120,40 +126,49 @@ export function Arbeitsbereich({
         )}
       </EdvanceCard>
 
-      <EdvanceCard className="flex flex-col px-6">
-        {sichtbar.length === 0 ? (
+      {sichtbar.length === 0 ? (
+        <EdvanceCard className="flex flex-col px-6">
           <EmptyState
             icon="🔍"
             title={t('board.keinThemaTitel')}
             description={t(`board.keinThema.${filter}`)}
           />
-        ) : (
-          sichtbar.map((th) => (
-            <ThemaZeile
-              key={themaKey(th)}
-              thema={th}
-              filter={filter}
-              offen={offenesThema === themaKey(th)}
-              isAdmin={isAdmin}
-              busy={busy}
-              beanstandungen={beanstandungen}
-              onToggle={() =>
-                setOffenesThema((o) => (o === themaKey(th) ? null : themaKey(th)))
-              }
-              onDurchlauf={() =>
-                starte(
-                  th.tasks.filter((task) => passtZuFilter(task, filter)).map((task) => task.id),
-                  t('board.queueLabel', { titel, thema: themaName(th) }),
-                )
-              }
-              onAufgabe={(id) =>
-                starte(warteschlangeAb(th, id, 'offen'), t('board.queueLabel', { titel, thema: themaName(th) }))
-              }
-              onFreigeben={() => void freigeben(th)}
-            />
-          ))
-        )}
-      </EdvanceCard>
+        </EdvanceCard>
+      ) : (
+        abschnitte.map((abschnitt) => (
+          <section key={abschnitt.stufe ?? 'ohne'} className="flex flex-col gap-2">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+              {abschnitt.stufe ? t(`board.stufe.${abschnitt.stufe}`) : t('board.ohneZuordnung')}
+            </h3>
+            <EdvanceCard className="flex flex-col px-6">
+              {abschnitt.themen.map((th) => (
+                <ThemaZeile
+                  key={themaKey(th)}
+                  thema={th}
+                  filter={filter}
+                  offen={offenesThema === themaKey(th)}
+                  isAdmin={isAdmin}
+                  busy={busy}
+                  beanstandungen={beanstandungen}
+                  onToggle={() =>
+                    setOffenesThema((o) => (o === themaKey(th) ? null : themaKey(th)))
+                  }
+                  onDurchlauf={() =>
+                    starte(
+                      th.tasks.filter((task) => passtZuFilter(task, filter)).map((task) => task.id),
+                      t('board.queueLabel', { titel, thema: themaName(th) }),
+                    )
+                  }
+                  onAufgabe={(id) =>
+                    starte(warteschlangeAb(th, id, 'offen'), t('board.queueLabel', { titel, thema: themaName(th) }))
+                  }
+                  onFreigeben={() => void freigeben(th)}
+                />
+              ))}
+            </EdvanceCard>
+          </section>
+        ))
+      )}
     </div>
   )
 }

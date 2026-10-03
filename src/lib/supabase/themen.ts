@@ -7,6 +7,8 @@ import type {
   LeadThema,
   LeadThemaQuelle,
   SchulPlanZeile,
+  SkillThema,
+  Stufe,
   SupabaseResult,
   Thema,
 } from '@/types'
@@ -30,6 +32,41 @@ export async function listThemen(fach: string): Promise<SupabaseResult<Thema[]>>
     return { data: (data ?? []) as Thema[], error: null }
   } catch (err) {
     return { data: null, error: fehler(err, 'Could not load topic catalog') }
+  }
+}
+
+/**
+ * Alle Heimat-Themen der Skills in einem Abruf (skill_thema mit eingebettetem
+ * themen). Lesbar fuer admin und coach; ein Skill ohne Zeile hat kein Thema.
+ */
+export async function listSkillThemen(): Promise<SupabaseResult<SkillThema[]>> {
+  try {
+    const { data, error } = await supabase
+      .from('skill_thema')
+      .select('skill_key, thema_key, themen(label, stufe, sort)')
+    if (error) return { data: null, error: error.message }
+    type Eingebettet = { label: string | null; stufe: Stufe; sort: number | null }
+    const rows = (data ?? []) as unknown as {
+      skill_key: string
+      thema_key: string
+      themen: Eingebettet | Eingebettet[] | null
+    }[]
+    return {
+      data: rows.flatMap((r) => {
+        const th = Array.isArray(r.themen) ? r.themen[0] : r.themen
+        if (!th) return []
+        return [{
+          skill_key: r.skill_key,
+          thema_key: r.thema_key,
+          label: th.label ?? r.thema_key,
+          stufe: th.stufe,
+          sort: th.sort,
+        }]
+      }),
+      error: null,
+    }
+  } catch (err) {
+    return { data: null, error: fehler(err, 'Could not load skill topics') }
   }
 }
 

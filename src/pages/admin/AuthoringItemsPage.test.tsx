@@ -25,6 +25,19 @@ vi.mock('@/lib/supabase/freigabe', () => ({
   freigabeZuruecknehmen: vi.fn(),
 }))
 
+// Seit W4 ein DRITTER Wrapper: die Heimat-Themen fuer den Thema-Filter.
+vi.mock('@/lib/supabase/themen', () => ({
+  listSkillThemen: vi.fn(() =>
+    Promise.resolve({
+      data: [
+        { skill_key: 'prozent_prozentwert', thema_key: 'zinsrechnung', label: 'Prozent- und Zinsrechnung', stufe: 'erste', sort: 230 },
+        { skill_key: 'bruch_kuerzen', thema_key: 'brueche', label: 'Brüche und Anteile', stufe: 'erprobung', sort: 90 },
+      ],
+      error: null,
+    }),
+  ),
+}))
+
 // Die Navbar zieht useAuth → supabase/client, und der braucht Env-Variablen, die
 // im Test nicht gesetzt sind. Auth ist hier ohnehin nicht Gegenstand.
 vi.mock('@/hooks/useAuth', () => ({
@@ -157,6 +170,27 @@ describe('AuthoringItemsPage', () => {
       expect(screen.queryByText('Zwanzig Prozent')).not.toBeInTheDocument(),
     )
     expect(screen.getByText('VERA-Aufgabe')).toBeInTheDocument()
+  })
+
+  it('filtert nach Heimat-Thema, auch nach "Ohne Thema"', async () => {
+    setup([
+      task({}),
+      task({ id: 'id-2', title: 'Kürzen', skill_key: 'bruch_kuerzen' }),
+      task({ id: 'id-3', title: 'Potenz', skill_key: 'potenzen' }),
+    ])
+    await screen.findByText('Kürzen')
+    const optionen = [...(screen.getByLabelText('Thema') as HTMLSelectElement).options].map((o) => o.text)
+    // Nach Stufe sortiert: Erprobung vor der Ersten Stufe, "Ohne Thema" zuletzt.
+    expect(optionen).toEqual(['Thema: Alle', 'Brüche und Anteile', 'Prozent- und Zinsrechnung', 'Ohne Thema'])
+
+    fireEvent.change(screen.getByLabelText('Thema'), { target: { value: 'brueche' } })
+    await waitFor(() => expect(screen.queryByText('Zwanzig Prozent')).not.toBeInTheDocument())
+    expect(screen.getByText('Kürzen')).toBeInTheDocument()
+    expect(screen.queryByText('Potenz')).not.toBeInTheDocument()
+
+    fireEvent.change(screen.getByLabelText('Thema'), { target: { value: 'ohne' } })
+    expect(await screen.findByText('Potenz')).toBeInTheDocument()
+    expect(screen.queryByText('Kürzen')).not.toBeInTheDocument()
   })
 
   it('warnt, wenn die Datenbank die A01-Felder noch nicht hat', async () => {
