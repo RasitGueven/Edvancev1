@@ -5,8 +5,8 @@
 // (299 Aufgaben, Stand 30.09.2026; keine anderen VERA-Jahrgaenge, keine Grenzfaelle).
 //
 // Die Kennung steht in vera8.json, damit Board (dieses Modul), Prefill-Werkzeuge
-// (tools/prefill-lib.mjs) und die SQL-Bedingung in freigabe_cluster dieselbe
-// Quelle haben — vera8.test.ts prueft den Gleichlauf.
+// (tools/prefill-lib.mjs) und die SQL-Bedingungen in freigabe_cluster und
+// freigabe_thema dieselbe Quelle haben — vera8.test.ts prueft den Gleichlauf.
 
 import definition from './vera8.json'
 

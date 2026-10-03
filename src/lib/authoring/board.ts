@@ -3,18 +3,22 @@
 // Festlegungen (Klaerung 22.09.2026):
 //   * Bereich: alles zaehlt als Lernstandsanalyse; "Sessions" ist sichtbar,
 //     aber leer — es gibt noch kein Merkmal, das eine Session-Aufgabe kennzeichnet.
-//   * Klasse 8 = class_level <= 8 oder leer (so zieht lsa_start). 9 und 10 sind
-//     ausgegraut, bis es fuer sie eigene Aufgaben gibt.
+//   * Klasse k = class_level <= k oder leer (so zieht lsa_start). Aktiv ist eine
+//     Klasse, sobald es eine Aufgabe mit genau diesem class_level gibt — aus den
+//     Daten, nicht hart codiert (W4). Die uebrigen sind ausgegraut.
 //   * Fach kommt ueber den Cluster (skill_clusters.subject_id). Ohne Cluster gibt
 //     es kein Fach — solange der Bestand reines Mathe ist, faellt eine Aufgabe
-//     ohne Cluster unter FACH_OHNE_CLUSTER und landet dort in "Ohne Themengebiet".
-//   * Themengebiet = Cluster.
+//     ohne Cluster unter FACH_OHNE_CLUSTER.
+//   * Themengebiet = Heimat-Thema des Skills (tasks.skill_key -> skill_thema ->
+//     themen), seit W4 statt des Clusters. Ohne Skill oder ohne Zuordnung:
+//     "Ohne Thema", immer zuletzt. Innerhalb einer Klasse nach Stufe gruppiert,
+//     die Stufe der Klasse zuerst, darin nach themen.sort.
 //   * Vier Zustaende: Offen (draft), Zur Freigabe (review), Freigegeben (ready),
 //     Zurueckgewiesen (beanstandet). Gepruefter Fortschritt = review + ready.
 //
 // Reine Funktionen, kein React, kein Supabase — testbar (board.test.ts).
 
-import type { AuthoringTask, TaskStatus } from '@/types'
+import type { AuthoringTask, SkillThema, Stufe, TaskStatus } from '@/types'
 import { istVera8 } from './vera8'
 
 export type BoardCluster = { id: string; name: string; subject_name: string }
@@ -31,9 +35,8 @@ const STATUS_JE_FILTER: Record<BoardFilter, TaskStatus> = {
   zurueckgewiesen: 'beanstandet',
 }
 
-export const KLASSEN = [8, 9, 10] as const
-/** Klassen, fuer die es heute Aufgaben gibt. */
-export const AKTIVE_KLASSEN: readonly number[] = [8]
+/** Klassen, die das Board immer zeigt — aktiv oder ausgegraut. */
+export const KLASSEN: readonly number[] = [8, 9, 10]
 export const FAECHER = ['Mathematik', 'Deutsch', 'Englisch'] as const
 export const FACH_OHNE_CLUSTER = 'Mathematik'
 
@@ -54,8 +57,20 @@ export function passtZuFilter(task: AuthoringTask, filter: BoardFilter): boolean
   return task.status === STATUS_JE_FILTER[filter]
 }
 
-export function inKlasse(task: AuthoringTask, klasse: number): boolean {
-  if (!AKTIVE_KLASSEN.includes(klasse)) return false
+/** Aktive Klassen: jedes class_level, das im Bestand vorkommt, aufsteigend. */
+export function aktiveKlassen(tasks: Pick<AuthoringTask, 'class_level'>[]): number[] {
+  const set = new Set<number>()
+  for (const task of tasks) if (task.class_level != null) set.add(task.class_level)
+  return [...set].sort((a, b) => a - b)
+}
+
+/** Die Klassenkacheln: KLASSEN plus jede weitere aktive Klasse, aufsteigend. */
+export function boardKlassen(aktive: readonly number[]): number[] {
+  return [...new Set([...KLASSEN, ...aktive])].sort((a, b) => a - b)
+}
+
+export function inKlasse(task: AuthoringTask, klasse: number, aktive: readonly number[]): boolean {
+  if (!aktive.includes(klasse)) return false
   return task.class_level == null || task.class_level <= klasse
 }
 
@@ -83,38 +98,96 @@ export function standVon(tasks: AuthoringTask[]): Stand {
   return s
 }
 
+/** Die KLP-Stufen von unten nach oben. */
+export const STUFEN: readonly Stufe[] = ['erprobung', 'erste', 'zweite']
+
+export function stufeVonKlasse(klasse: number): Stufe {
+  if (klasse <= 6) return 'erprobung'
+  if (klasse <= 8) return 'erste'
+  return 'zweite'
+}
+
+/**
+ * Reihenfolge der Stufen in einer Klasse: die eigene zuerst, dann die darunter
+ * absteigend ("Klasse 9/10", "7/8", "5/6"), Hoeheres zuletzt.
+ */
+export function stufenFolge(klasse: number): Stufe[] {
+  const eigene = STUFEN.indexOf(stufeVonKlasse(klasse))
+  return [
+    ...STUFEN.slice(0, eigene + 1).reverse(),
+    ...STUFEN.slice(eigene + 1),
+  ]
+}
+
+/** Heimat-Themen je skill_key — die Zuordnung aus einem Abruf. */
+export type Zuordnung = Map<string, SkillThema>
+
+export function zuordnungAus(zeilen: SkillThema[]): Zuordnung {
+  return new Map(zeilen.map((z) => [z.skill_key, z]))
+}
+
+export function themaVon(task: Pick<AuthoringTask, 'skill_key'>, zuordnung: Zuordnung): SkillThema | null {
+  return (task.skill_key && zuordnung.get(task.skill_key)) || null
+}
+
 export type Thema = {
-  /** Cluster-ID oder null fuer "Ohne Themengebiet". */
+  /** thema_key oder null fuer "Ohne Thema". */
   id: string | null
   name: string | null
+  stufe: Stufe | null
+  sort: number | null
   tasks: AuthoringTask[]
   stand: Stand
 }
 
 /**
- * Themengebiete eines Fachs, stabil sortiert: nach Cluster-Name, "Ohne
- * Themengebiet" zuletzt; darin die Aufgaben nach Titel. Dieselbe Reihenfolge
- * speist die Warteschlange — ein zweiter Start ergibt dieselbe Folge.
+ * Themen einer Klasse, stabil sortiert: nach stufenFolge(klasse), darin nach
+ * themen.sort (dann Name), "Ohne Thema" zuletzt; darin die Aufgaben nach
+ * Titel. Dieselbe Reihenfolge speist die Warteschlange — ein zweiter Start
+ * ergibt dieselbe Folge.
  */
-export function themenVon(tasks: AuthoringTask[], clusters: Map<string, BoardCluster>): Thema[] {
-  const gruppen = new Map<string | null, AuthoringTask[]>()
+export function themenVon(tasks: AuthoringTask[], zuordnung: Zuordnung, klasse: number): Thema[] {
+  const gruppen = new Map<string | null, { info: SkillThema | null; tasks: AuthoringTask[] }>()
   for (const task of tasks) {
-    const key = task.cluster_id && clusters.has(task.cluster_id) ? task.cluster_id : null
-    const liste = gruppen.get(key)
-    if (liste) liste.push(task)
-    else gruppen.set(key, [task])
+    const info = themaVon(task, zuordnung)
+    const key = info?.thema_key ?? null
+    const gruppe = gruppen.get(key)
+    if (gruppe) gruppe.tasks.push(task)
+    else gruppen.set(key, { info, tasks: [task] })
   }
-  const themen: Thema[] = [...gruppen.entries()].map(([id, liste]) => ({
+  const folge = stufenFolge(klasse)
+  const rang = (th: Thema): number => (th.stufe ? folge.indexOf(th.stufe) : folge.length)
+  const themen: Thema[] = [...gruppen.entries()].map(([id, g]) => ({
     id,
-    name: id ? (clusters.get(id)?.name ?? null) : null,
-    tasks: [...liste].sort(nachTitel),
-    stand: standVon(liste),
+    name: g.info?.label ?? null,
+    stufe: g.info?.stufe ?? null,
+    sort: g.info?.sort ?? null,
+    tasks: [...g.tasks].sort(nachTitel),
+    stand: standVon(g.tasks),
   }))
-  return themen.sort((a, b) => {
-    if (a.id === null) return 1
-    if (b.id === null) return -1
-    return (a.name ?? '').localeCompare(b.name ?? '', 'de')
-  })
+  return themen.sort(
+    (a, b) =>
+      rang(a) - rang(b) ||
+      (a.sort ?? Number.MAX_SAFE_INTEGER) - (b.sort ?? Number.MAX_SAFE_INTEGER) ||
+      (a.name ?? '').localeCompare(b.name ?? '', 'de'),
+  )
+}
+
+export type StufenGruppe = {
+  /** null fuer "Ohne Thema". */
+  stufe: Stufe | null
+  themen: Thema[]
+}
+
+/** Die sortierten Themen in Stufen-Abschnitte geschnitten, Reihenfolge bleibt. */
+export function stufenGruppen(themen: Thema[]): StufenGruppe[] {
+  const gruppen: StufenGruppe[] = []
+  for (const th of themen) {
+    const letzte = gruppen[gruppen.length - 1]
+    if (letzte && letzte.stufe === th.stufe) letzte.themen.push(th)
+    else gruppen.push({ stufe: th.stufe, themen: [th] })
+  }
+  return gruppen
 }
 
 function nachTitel(a: AuthoringTask, b: AuthoringTask): number {

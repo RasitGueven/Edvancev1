@@ -14,6 +14,9 @@ export type FlagFilter = 'all' | 'blocking' | 'any' | 'none'
 export type TriFilter = 'all' | 'yes' | 'no'
 export type SortKey = 'flags' | 'title' | 'status' | 'newest' | 'skill'
 
+/** Wert des Thema-Filters fuer Aufgaben ohne Heimat-Thema (kein thema_key). */
+export const THEMA_OHNE = 'ohne'
+
 /** Herkunft: 'eigene' = alles ausser VERA, 'vera' = nur VERA, 'all' = beides. */
 export type SourceFilter = 'all' | 'eigene' | 'vera'
 
@@ -26,6 +29,8 @@ export type FilterState = {
   source: SourceFilter
   /** Fundament-Skill (A14/A18) oder 'all'. */
   skill: string
+  /** Heimat-Thema (thema_key), THEMA_OHNE oder 'all' (W4). */
+  thema: string
   /** Ein Fehlbild-Slug (A20) oder 'all' — trifft Aufgaben, die es tragen. */
   fehlbild: string
   /** 'yes' = nur Aufgaben mit noch unvollstaendigem Label (klartext/erklaerung fehlt). */
@@ -47,6 +52,7 @@ export const EMPTY_FILTERS: FilterState = {
   // Ausgeblendet, nicht geloescht — ein Griff ins Dropdown holt ihn zurueck.
   source: 'eigene',
   skill: 'all',
+  thema: 'all',
   fehlbild: 'all',
   labelIncomplete: 'all',
   flags: 'all',
@@ -60,6 +66,7 @@ export function AuthoringFilters({
   subjects,
   competencies,
   skills,
+  themen,
   labels,
   onChange,
 }: {
@@ -67,6 +74,8 @@ export function AuthoringFilters({
   subjects: string[]
   competencies: string[]
   skills: string[]
+  /** Heimat-Themen der geladenen Aufgaben, schon sortiert. */
+  themen: { key: string; label: string }[]
   labels: string[]
   onChange: (next: FilterState) => void
 }): JSX.Element {
@@ -112,6 +121,23 @@ export function AuthoringFilters({
               {s}
             </option>
           ))}
+        </select>
+
+        <select
+          className={SELECT_SM}
+          value={value.thema}
+          aria-label={t('filter.thema')}
+          onChange={(e) => set('thema', e.target.value)}
+        >
+          <option value="all">
+            {t('filter.thema')}: {t('filter.all')}
+          </option>
+          {themen.map((th) => (
+            <option key={th.key} value={th.key}>
+              {th.label}
+            </option>
+          ))}
+          <option value={THEMA_OHNE}>{t('filter.themaOhne')}</option>
         </select>
 
         <select

@@ -12,6 +12,19 @@ export type Thema = {
   sort: number | null
 }
 
+/**
+ * Heimat-Thema eines Skills (skill_thema + themen, Migration 20261003104615):
+ * das Thema, in dem der Stoff im KLP eingefuehrt wird. Gliedert das
+ * Freigabe-Board der Item-Pflege.
+ */
+export type SkillThema = {
+  skill_key: string
+  thema_key: string
+  label: string
+  stufe: Stufe
+  sort: number | null
+}
+
 /** Eine Zeile aus schul_themenplan; thema_key null = nicht zuordenbar. */
 export type SchulPlanZeile = {
   klasse: number

@@ -118,14 +118,19 @@ export async function beanstandeAufgabe(
 }
 
 /**
- * Gibt alle Aufgaben eines Clusters frei, die auf 'review' ("Zur Freigabe")
- * stehen. Nur admin. Jede laeuft durch das task_status_set-Gate; unvollstaendige
- * bleiben liegen. Rueckgabe: Anzahl tatsaechlich freigegebener Aufgaben.
+ * Gibt alle Aufgaben eines Themas frei, die auf 'review' ("Zur Freigabe")
+ * stehen — genau die, die das Board in dieser Klasse unter dem Thema zeigt
+ * (Heimat-Thema des Skills, class_level <= klasse oder leer, ohne VERA8). Nur
+ * admin. Jede laeuft durch das task_status_set-Gate; unvollstaendige bleiben
+ * liegen. Rueckgabe: Anzahl tatsaechlich freigegebener Aufgaben.
  */
-export async function freigabeCluster(clusterId: string): Promise<SupabaseResult<number>> {
+export async function freigabeThema(
+  themaKey: string,
+  klasse: number,
+): Promise<SupabaseResult<number>> {
   try {
     const rpc = supabase.rpc as unknown as RpcZahl
-    const { data, error } = await rpc('freigabe_cluster', { p_cluster_id: clusterId })
+    const { data, error } = await rpc('freigabe_thema', { p_thema_key: themaKey, p_klasse: klasse })
     if (error) return { data: null, error: error.message }
     return { data: data ?? 0, error: null }
   } catch (err) {

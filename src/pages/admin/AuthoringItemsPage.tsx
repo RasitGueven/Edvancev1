@@ -22,12 +22,14 @@ import { Button } from '@/components/ui/button'
 import {
   AuthoringFilters,
   EMPTY_FILTERS,
+  THEMA_OHNE,
   type FilterState,
 } from '@/components/edvance/authoring/AuthoringFilters'
 import { ItemRow, type ItemRowData } from '@/components/edvance/authoring/ItemRow'
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
 import { computeFlags, hasTable } from '@/lib/authoring/flags'
 import { isGroundedSource } from '@/lib/authoring/grounding'
+import { STUFEN, themaVon, zuordnungAus, type Zuordnung } from '@/lib/authoring/board'
 import {
   listAuthoringTasks,
   listClustersWithSubject,
@@ -37,7 +39,8 @@ import {
   type ReviewMeta,
 } from '@/lib/supabase/taskAuthoring'
 import { freigabeMuster, freigabeZuruecknehmen } from '@/lib/supabase/freigabe'
-import type { AuthoringSchema, AuthoringTask, TaskSolution, TaskStatus } from '@/types'
+import { listSkillThemen } from '@/lib/supabase/themen'
+import type { AuthoringSchema, AuthoringTask, SkillThema, TaskSolution, TaskStatus } from '@/types'
 
 /**
  * Die Liste kennt die Loesung nicht (siehe Kopf). computeFlags bekommt eine leere
@@ -103,6 +106,7 @@ export function AuthoringItemsPage(): JSX.Element {
   const [error, setError] = useState<string | null>(null)
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS)
   const [meta, setMeta] = useState<Map<string, ReviewMeta>>(new Map())
+  const [zuordnung, setZuordnung] = useState<Zuordnung>(new Map())
   // Nach einer Sammelfreigabe hochzaehlen -> der Effekt laedt die Liste neu.
   const [reloadKey, setReloadKey] = useState(0)
   // skill_key der Gruppe, die gerade eine Aktion laeuft (Buttons sperren).
@@ -110,16 +114,18 @@ export function AuthoringItemsPage(): JSX.Element {
 
   useEffect(() => {
     void (async () => {
-      const [detected, taskRes, clusterRes, metaMap] = await Promise.all([
+      const [detected, taskRes, clusterRes, metaMap, themaRes] = await Promise.all([
         probeAuthoringSchema(),
         listAuthoringTasks(),
         listClustersWithSubject(),
         // Faellt der RPC aus (A20 noch nicht eingespielt), bleibt die Liste
         // bedienbar — die Label-Filter finden dann nur nichts.
         listReviewMeta(),
+        listSkillThemen(),
       ])
       setSchema(detected)
       setClusters(clusterRes.data ?? [])
+      setZuordnung(zuordnungAus(themaRes.data ?? []))
       setMeta(metaMap)
       if (taskRes.error || !taskRes.data) {
         setError(taskRes.error ?? t('list.errorTitle'))
@@ -160,6 +166,18 @@ export function AuthoringItemsPage(): JSX.Element {
     [rows],
   )
 
+  // Heimat-Themen der geladenen Aufgaben, nach Stufe und themen.sort (W4).
+  const themen = useMemo(() => {
+    const map = new Map<string, SkillThema>()
+    for (const r of rows) {
+      const th = themaVon(r.task, zuordnung)
+      if (th) map.set(th.thema_key, th)
+    }
+    return [...map.values()]
+      .sort((a, b) => STUFEN.indexOf(a.stufe) - STUFEN.indexOf(b.stufe) || (a.sort ?? 0) - (b.sort ?? 0))
+      .map((th) => ({ key: th.thema_key, label: th.label }))
+  }, [rows, zuordnung])
+
   // Nur die tatsaechlich vergebenen Fehlbild-Slugs — die volle Registry waere
   // ein Dropdown voller Labels, die keine Aufgabe traegt.
   const labels = useMemo(
@@ -190,6 +208,10 @@ export function AuthoringItemsPage(): JSX.Element {
         if (filters.source === 'vera' && !vera) return false
       }
       if (filters.skill !== 'all' && task.skill_key !== filters.skill) return false
+      if (filters.thema !== 'all') {
+        const themaKey = themaVon(task, zuordnung)?.thema_key ?? THEMA_OHNE
+        if (themaKey !== filters.thema) return false
+      }
       const rowMeta = meta.get(task.id)
       if (filters.fehlbild !== 'all' && !(rowMeta?.labels ?? []).includes(filters.fehlbild)) {
         return false
@@ -230,7 +252,7 @@ export function AuthoringItemsPage(): JSX.Element {
           )
       }
     })
-  }, [rows, filters, subjectOf, meta])
+  }, [rows, filters, subjectOf, meta, zuordnung])
 
   /**
    * Sammelfreigabe einer Skill-Gruppe. Der Bestaetigungsdialog nennt die Anzahl
@@ -283,6 +305,7 @@ export function AuthoringItemsPage(): JSX.Element {
           subjects={subjects}
           competencies={competencies}
           skills={skills}
+          themen={themen}
           labels={labels}
           onChange={setFilters}
         />
