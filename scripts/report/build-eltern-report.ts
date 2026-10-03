@@ -32,6 +32,7 @@ import {
 } from '@/lib/report/familien'
 import { baueFundament } from '@/lib/report/fundament'
 import { baueRueckbezuege } from '@/lib/report/rueckbezug'
+import { baueSuche } from '@/lib/report/suche'
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 import type { AnlassZuordnung, ReportFehlbild } from '@/types'
 
@@ -91,13 +92,19 @@ type Roh = {
   gestartet: string
   aufgaben: number
   next_exam_topic: string | null
+  thema_key: string | null
+  thema_label: string | null
+  einstieg: string[]
+  kanten: [string, string][]
   weak_topics: string[] | null
   urteile: {
     skill_key: string
     label: string
     tiefe: number
+    klasse: number
     zustand: string
     proben: number
+    offen: boolean
   }[]
   fehlbilder: {
     slug: string
@@ -247,16 +254,24 @@ function main(): void {
   mkdirSync(ziel, { recursive: true })
 
   for (const r of rohdaten) {
-    const fundament = baueFundament(
-      r.urteile.map((u) => ({
-        skillKey: u.skill_key,
-        label: u.label,
-        fundamentTiefe: u.tiefe,
-        zustand: u.zustand,
-        proben: u.proben,
-      })),
-    )
-    if (!fundament) {
+    const skills = r.urteile.map((u) => ({
+      skillKey: u.skill_key,
+      label: u.label,
+      fundamentTiefe: u.tiefe,
+      klasseHerkunft: u.klasse,
+      zustand: u.zustand,
+      proben: u.proben,
+      offen: u.offen,
+    }))
+    const fundament = baueFundament(skills)
+    const suche = baueSuche({
+      skills,
+      themaKey: r.thema_key,
+      themaLabel: r.thema_label,
+      einstieg: r.einstieg,
+      kanten: r.kanten.map(([skillKey, voraussetzt]) => ({ skillKey, voraussetzt })),
+    })
+    if (!fundament || !suche) {
       console.error(`${r.session_id}: kein direkt geprüfter Skill — übersprungen`)
       continue
     }
@@ -317,6 +332,8 @@ function main(): void {
       }).format(new Date(r.gestartet)),
       aufgaben: Number(r.aufgaben),
       fundament,
+      suche,
+      klasseVon: Object.fromEntries(skills.map((x) => [x.skillKey, x.klasseHerkunft])),
       familien,
       profil,
       rueckbezuege,
@@ -337,9 +354,7 @@ function main(): void {
     console.log(`${(r.vorname ?? '?').padEnd(9)} -> ${datei}`)
     console.log(
       `  geprüft ${fundament.geprueft} | trägt ${fundament.traegt}` +
-        ` | Einstieg ${fundament.einstiegTraegt ? 'trägt' : 'trägt nicht'}` +
-        ` | Einbruch Δ${fundament.einbruch?.delta ?? '—'}` +
-        ` | Boden ${fundament.bodenTraegt ? 'trägt' : 'trägt nicht'}` +
+        ` | Suche ${suche.fall}${suche.themaLabel ? ` (${suche.themaLabel})` : ''}` +
         ` | ${paket}`,
     )
     console.log(

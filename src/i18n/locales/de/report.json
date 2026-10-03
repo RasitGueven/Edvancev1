@@ -83,9 +83,61 @@
     "genannt_other": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeiten sehen.",
     "thema": "Als nächstes Thema steht {{thema}} an — genau dort haben wir angesetzt."
   },
-  "ebenen": {
+  "suche": {
     "title": "Wie wir gesucht haben",
-    "zaehlung": "{{traegt}} von {{geprueft}}"
+    "themaOhneName": "Ihrer Wahl",
+    "zaehlung": "{{sicher}} von {{geprueft}} sicher",
+    "zustand": {
+      "sicher": "sicher",
+      "offen": "noch nicht sicher"
+    },
+    "nurEineAufgabe": "nur eine Aufgabe",
+    "block": {
+      "aktuell": "Aktuelles Thema",
+      "grundlagen": "Grundlagen darunter",
+      "grundlagenHinweis": "Bereiche, auf denen das Thema aufbaut.",
+      "ausserdem": "Außerdem angesehen",
+      "ausserdemHinweis": "Diese Bereiche haben wir zusätzlich angesehen. Sie gehören nicht zu den Grundlagen des Themas.",
+      "angesehen": "Angesehen"
+    },
+    "stufe": {
+      "erprobung": "Klasse 5/6",
+      "erste": "Klasse 7/8",
+      "zweite": "Klasse 9/10"
+    },
+    "bereich": {
+      "brueche": "Brüche",
+      "dezimalzahlen": "Dezimalzahlen",
+      "negative_zahlen": "Negative Zahlen",
+      "groessen": "Größen",
+      "geometrie": "Geometrie",
+      "terme": "Terme",
+      "gleichungen": "Gleichungen",
+      "prozent": "Prozent",
+      "zuordnungen": "Zuordnungen und Dreisatz",
+      "potenzen": "Potenzen",
+      "funktionen": "Funktionen",
+      "zahlen": "Zahlen und Rechnen",
+      "weitere": "Weitere Bereiche"
+    },
+    "liste": {
+      "weitere_one": "{{liste}} und ein weiterer Bereich",
+      "weitere_other": "{{liste}} und {{count}} weitere Bereiche"
+    },
+    "satz": {
+      "ohneThema": "Diese Analyse lief ohne gewähltes Thema.",
+      "themaUngeprueft": "Gewählt war das Thema „{{thema}}“. Aufgaben direkt zu diesem Thema kamen in dieser Analyse nicht vor.",
+      "uebersicht_one": "Angesehen haben wir einen Bereich; unten steht er nach Klassenstufe und Inhaltsbereich.",
+      "uebersicht_other": "Angesehen haben wir {{count}} Bereiche; unten stehen sie nach Klassenstufe und Inhaltsbereich.",
+      "themaSicher": "Beim Thema „{{thema}}“ war Ihr Kind sicher: {{sicher}}.",
+      "themaOffen": "Beim Thema „{{thema}}“ war Ihr Kind noch nicht sicher: {{offen}}.",
+      "themaGemischt": "Das Thema „{{thema}}“ war noch nicht durchgehend sicher: {{sicher}} sicher, {{offen}} noch nicht.",
+      "grundlagenNichtGeprueft": "Die Grundlagen, auf denen das Thema aufbaut, kamen in dieser Analyse nicht dran.",
+      "grundlagenOffen": "Auch bei den Grundlagen, auf denen das Thema aufbaut, war Ihr Kind noch nicht sicher: {{offen}}.",
+      "grundlagenBoden": "Wir haben die Grundlagen geprüft, auf denen das Thema aufbaut, bis wir sicheren Boden gefunden haben: {{sicher}} sicher.",
+      "grundlagenAuch": "Auch die Grundlagen, auf denen das Thema aufbaut, haben wir angesehen: {{sicher}} sicher.",
+      "grundlagenRest": "Noch nicht sicher: {{offen}}."
+    }
   },
   "profil": {
     "title": "Profil über die Themenfamilien",

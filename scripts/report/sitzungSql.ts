@@ -11,7 +11,7 @@
 
 export const SITZUNG_SQL = `
 with sess as (
-  select s.id, s.student_id, s.subject, s.grade, s.started_at,
+  select s.id, s.student_id, s.subject, s.grade, s.started_at, s.thema_key,
          st.lead_id, l.first_name, l.next_exam_topic
     from lsa_sessions s
     join students st on st.id = s.student_id
@@ -23,7 +23,7 @@ urteil as (
   -- Voraussetzungsgraphen gefolgert — eine Schlussfolgerung, keine
   -- Beobachtung — und gehören nicht in ein Elterngespräch.
   select u.session_id, u.skill_key, sk.label, sk.fundament_tiefe as tiefe,
-         u.zustand, u.proben_anzahl
+         sk.klasse_herkunft, u.zustand, u.proben_anzahl, u.offen
     from lsa_skill_urteil u
     join skills sk on sk.skill_key = u.skill_key
    where u.belegt_direkt
@@ -48,13 +48,23 @@ select coalesce(jsonb_agg(x order by x->>'session_id'), '[]'::jsonb) from (
     -- belegt ist — der Report formuliert entsprechend vorsichtiger.
     'next_exam_topic', se.next_exam_topic,
 
+    -- Abschnitt 02 (W2-7): das gewählte Thema, seine Einstiegsknoten und der
+    -- Graph für den Abschluss. Alte Sitzungen: thema_key NULL, Liste leer.
+    'thema_key',       se.thema_key,
+    'thema_label',     (select th.label from themen th where th.thema_key = se.thema_key),
+    'einstieg',        coalesce((select jsonb_agg(e.skill_key order by e.skill_key)
+                          from thema_einstieg e where e.thema_key = se.thema_key), '[]'::jsonb),
+    'kanten',          coalesce((select jsonb_agg(jsonb_build_array(k.skill_key, k.voraussetzt_skill_key))
+                          from skill_kante k), '[]'::jsonb),
+
     'weak_topics',     (select la.weak_topics from lead_assessments la
                          where la.lead_id = se.lead_id and la.source = 'parent'),
 
     'urteile',         coalesce((select jsonb_agg(jsonb_build_object(
                             'skill_key', u.skill_key, 'label', u.label,
-                            'tiefe', u.tiefe, 'zustand', u.zustand,
-                            'proben', u.proben_anzahl)
+                            'tiefe', u.tiefe, 'klasse', u.klasse_herkunft,
+                            'zustand', u.zustand, 'proben', u.proben_anzahl,
+                            'offen', u.offen)
                           order by u.tiefe desc, u.skill_key)
                           from urteil u where u.session_id = se.id), '[]'::jsonb),
 

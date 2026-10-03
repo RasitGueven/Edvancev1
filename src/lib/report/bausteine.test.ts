@@ -2,9 +2,6 @@ import { describe, expect, it } from 'vitest'
 
 import {
   Bausteinsatz,
-  ebeneAlsZeile,
-  ebeneImSatz,
-  ebenenUntertitel,
   setzePlatzhalter,
   streuwert,
 } from '@/lib/report/bausteine'
@@ -89,44 +86,5 @@ describe('streuwert', () => {
   it('ist stabil und unterscheidet ähnliche Eingaben', () => {
     expect(streuwert('abc')).toBe(streuwert('abc'))
     expect(streuwert('abc')).not.toBe(streuwert('abd'))
-  })
-})
-
-describe('Ebenenbeschriftung', () => {
-  it('formuliert die Ebene für den Fließtext', () => {
-    expect(ebeneImSatz(0)).toBe('beim aktuellen Thema selbst')
-    expect(ebeneImSatz(1)).toBe('eine Ebene unter dem aktuellen Thema')
-    expect(ebeneImSatz(2)).toBe('zwei Ebenen unter dem aktuellen Thema')
-  })
-
-  it('formuliert die Ebene als Zeilenkopf', () => {
-    expect(ebeneAlsZeile(0)).toBe('Aktuelles Thema')
-    expect(ebeneAlsZeile(1)).toBe('Eine Ebene tiefer')
-    expect(ebeneAlsZeile(5)).toBe('Fünf Ebenen tiefer')
-  })
-
-  it('nennt nie eine Klassenstufe', () => {
-    // fundament_tiefe ist die Position im Voraussetzungsgraphen, nicht der
-    // Lehrplan. „Stoff aus Klasse 6" an einer Ebene wäre schlicht falsch.
-    for (let d = 0; d <= 10; d++) {
-      expect(ebeneImSatz(d)).not.toMatch(/Klasse/i)
-      expect(ebeneAlsZeile(d)).not.toMatch(/Klasse/i)
-    }
-  })
-})
-
-describe('ebenenUntertitel', () => {
-  it('zählt die Bereiche auf', () => {
-    expect(ebenenUntertitel(['Maßstab', 'Flächeneinheiten'], 0)).toBe(
-      'Maßstab, Flächeneinheiten',
-    )
-  })
-
-  it('kürzt mit "u. a." ab', () => {
-    expect(ebenenUntertitel(['A', 'B', 'C'], 1)).toBe('A, B, C u. a.')
-  })
-
-  it('bleibt leer, wenn nichts auf der Ebene liegt', () => {
-    expect(ebenenUntertitel([], 0)).toBe('')
   })
 })

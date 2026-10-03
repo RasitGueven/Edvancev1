@@ -239,3 +239,13 @@ export type {
   Rueckbezug,
   RueckbezugRichtung,
 } from './reportFundament'
+
+export type {
+  Stufe,
+  SucheEintrag,
+  SucheFall,
+  SucheSkill,
+  SucheStufe,
+  SucheZeile,
+  Suchweg,
+} from './reportSuche'

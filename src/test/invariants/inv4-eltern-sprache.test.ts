@@ -49,7 +49,7 @@ const REPORT_BODY = 'components/edvance/report/ReportBody.tsx'
 const REPORT_FEHLBILDER = 'components/edvance/report/ReportFehlbilder.tsx'
 const FEHLBILD_GRUPPIERUNG = 'lib/reportFehlbilder.ts'
 const SKILLBEFUNDE = 'components/edvance/report/ReportSkillbefunde.tsx'
-const REPORT_EBENEN = 'components/edvance/report/ReportEbenen.tsx'
+const REPORT_SUCHE = 'components/edvance/report/ReportSuche.tsx'
 const REPORT_PROFIL = 'components/edvance/report/ReportProfil.tsx'
 const REPORT_BEFUND = 'components/edvance/report/ReportBefund.tsx'
 const REPORT_RUECKBEZUG = 'components/edvance/report/ReportRueckbezug.tsx'
@@ -230,7 +230,7 @@ describe('INV-4.3 — Eltern sehen nie einen rohen Fehlbild-Schlüssel', () => {
 describe('INV-4.4 — der Report zeigt Koennen, keine Note', () => {
   const REPORT_FLAECHEN = [
     REPORT_BODY,
-    REPORT_EBENEN,
+    REPORT_SUCHE,
     REPORT_PROFIL,
     REPORT_BEFUND,
     REPORT_RUECKBEZUG,
@@ -240,9 +240,7 @@ describe('INV-4.4 — der Report zeigt Koennen, keine Note', () => {
   ]
 
   it('keine Quote und keine Prozentzahl als Aussage', () => {
-    // REPORT_EBENEN rechnet als einzige Flaeche mit 100 — dort ist es eine
-    // Balkenbreite, kein Text. Der eigene Test dafuer steht unten.
-    for (const datei of REPORT_FLAECHEN.filter((f) => f !== REPORT_EBENEN)) {
+    for (const datei of REPORT_FLAECHEN) {
       const src = code(datei)
       // Prozentrechnung im Renderpfad — der klassische Weg zur Note.
       expect(src, datei).not.toMatch(/\*\s*100\b/)
@@ -267,27 +265,22 @@ describe('INV-4.4 — der Report zeigt Koennen, keine Note', () => {
     }
   })
 
-  it('die Ebenenspur ist eine Zusammensetzung, keine Skala', () => {
-    // R3 verbot dem Themenbalken jede variable Breite: Sie ist immer ein
-    // Maximum, auf das man zulaeuft — eine Skala von schlecht nach gut.
-    //
-    // Die Ebenenspur (R6) hat eine variable Breite und ist trotzdem keine
-    // Skala: Sie zeigt, wie sich die geprueften Bereiche EINER Ebene
-    // aufteilen, und beide Summanden stehen als Text daneben. Damit das so
-    // bleibt, wird hier festgehalten, was den Unterschied ausmacht.
-    const src = code(REPORT_EBENEN)
+  it('die Suche nennt beide Summanden im Klartext, ohne Balken', () => {
+    // Die Ebenenspur (R6) trug einen Balken mit variabler Breite. Die Gliederung
+    // nach Stufen (W2-7) braucht ihn nicht: Jede Zeile nennt „x von y sicher"
+    // und die Bereiche einzeln. Eine Breite käme ohne Not als Skala zurück.
+    const src = code(REPORT_SUCHE)
+    expect(src).not.toMatch(/width/)
+    expect(src).toMatch(/suche\.zaehlung/)
+    expect(reportStrings['suche.zaehlung']).toBe('{{sicher}} von {{geprueft}} sicher')
+  })
 
-    // Die Breite fliesst ausschliesslich in einen style-Wert, nie in Text.
-    expect([...src.matchAll(/\*\s*100\b/g)]).toHaveLength(1)
-    expect(src).toMatch(/style=\{\{ width: `\$\{anteil\}%` \}\}/)
-
-    // Die Zahl daneben nennt beide Summanden im Klartext. Faellt sie weg,
-    // traegt der Balken die Aussage allein — und wird zur Skala.
-    expect(src).toMatch(/ebenen\.zaehlung/)
-    expect(reportStrings['ebenen.zaehlung']).toBe('{{traegt}} von {{geprueft}}')
-
-    // Der Balken ist fuer Vorlesewerkzeuge unsichtbar; die Zahl reicht.
-    expect(src).toMatch(/report-ebene-spur[\s\S]{0,120}aria-hidden/)
+  it('der Suchabschnitt sagt „sicher", nie „trägt" oder „gemeistert"', () => {
+    const suche = Object.entries(reportStrings).filter(([k]) => k.startsWith('suche.'))
+    expect(suche.length).toBeGreaterThan(0)
+    for (const [k, text] of suche) {
+      expect(text, k).not.toMatch(/trägt|trug|gemeistert|Ebene/i)
+    }
   })
 
   it('das Profil schreibt keine Zahl an die Achsen', () => {

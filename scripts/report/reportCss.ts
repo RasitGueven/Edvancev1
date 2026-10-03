@@ -57,22 +57,18 @@ section{margin-bottom:34px}
 .descent{background:var(--primary-light);border-radius:var(--r-lg);padding:22px 24px}
 .layers{display:flex;flex-direction:column;gap:6px;margin-top:16px}
 
-/* Zwei Zeilen statt einer: oben die Spur, darunter die Bereiche, die auf
-   dieser Ebene tatsaechlich liegen. "Zwei Ebenen tiefer" allein sagt nichts. */
+/* W2-7: eine Zeile je Bereich — Name, "x von y sicher", darunter die Bereiche
+   einzeln mit Zustand. Kein Balken: die Zahl nennt beide Summanden. */
+.layers .block{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);
+  font-weight:600}
+.layers .hint{font-size:13px;color:var(--t2);margin:0}
+.layers .lv{font-size:12px;color:var(--t3);letter-spacing:.04em;margin-top:6px}
 .layer{background:#fff;border-radius:var(--r-md);padding:9px 14px}
-.layer .row{display:grid;grid-template-columns:118px 1fr auto;align-items:center;gap:14px;
-  font-size:14px}
-.layer .lv{font-size:12px;color:var(--t3);letter-spacing:.04em}
-.layer .track{height:8px;border-radius:99px;background:var(--subtle);overflow:hidden;display:flex}
-.layer .ok{background:var(--str)}
-.layer .no{background:var(--gap)}
+.layer .row{display:flex;justify-content:space-between;gap:14px;font-size:14px}
 .layer .cnt{font-size:13px;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
-.layer .was{margin:5px 0 0 132px;font-size:12.5px;line-height:1.5;color:var(--t2)}
+.layer .was{list-style:none;margin:5px 0 0;padding:0;font-size:12.5px;line-height:1.6;color:var(--t3)}
+.layer .was .ok{color:var(--t1)}
 
-/* Der Kommentar unter der Spur — Einbruch und tragende Sohle. */
-.descent-note{margin-top:16px;padding-top:14px;border-top:1px solid rgba(51,77,122,.12);
-  display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.6;color:var(--t2)}
-.descent-note b{color:var(--t1);font-weight:600}
 
 /* Profil ueber die Themenfamilien — das Bild, auf das der Coach zeigt. */
 .profil{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);
