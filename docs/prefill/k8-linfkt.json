@@ -1,0 +1,3423 @@
+{
+ "batch": "k8-linfkt",
+ "kopf": [
+  "K8 Lineare Funktionen, Migration 2 von 2 — 30 Aufgaben, je sechs zu den fuenf fkt_linear_*-Knoten.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k8-linfkt.json (Quelle: tools/k8-linfkt-aufgaben.mjs",
+  "und tools/k8-linfkt-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261001124808_substrat_k8_linfkt.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendungen mit steigender Schwierigkeit (AFB I, I, II, II) und zwei mit Sachkontext (Fkt-6: Grundgebühr, Preis je km/Stunde/Minute, Anfangswert) oder Rückrichtung. Alle NUMERIC, damit die Fehlbild-Erkennung greift; die Graph-Aufgaben lesen am Generator koordinatensystem ab. Keine Hinweise, keine Personen.",
+ "source": "edvance_k8_linfkt",
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie im Pilot/Vorlauf/Zins: AFB I 45 s, AFB II 60 s, AFB III 90 s; +30 s bei Sachkontext. Zeitbudget und Stoffanker nur auf Aufgabenebene (Entscheidung Rasit).",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "d8958025-3016-4995-8011-6ad2abe63fe5",
+   "titel": "Steigung · zwei Punkte · erster Quadrant",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "linfkt-steigung-01",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(1 | 2) und B(3 | 8).\n\nBerechne die Steigung m der Geraden.",
+    "known_errors": {
+     "1/3": "steigung_kehrwert",
+     "+1/3": "steigung_kehrwert",
+     "-3": "seiten_verwechselt",
+     "−3": "seiten_verwechselt",
+     "- 3": "seiten_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Steigungsformel mit positiven, ganzzahligen Koordinaten, Ergebnis ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "3",
+      "+3"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "m = (y₂ - y₁) / (x₂ - x₁) = (8 - 2) / (3 - 1) = 6 / 2 = 3.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Waagerechte durch senkrechte Änderung geteilt: 2 / 6 = 1/3.",
+       "socratic_question": "Um wie viel geht es nach oben, wenn du einen Schritt nach rechts gehst?"
+      },
+      {
+       "error": "Die Differenzen in verschiedener Reihenfolge gebildet: 6 / (-2) = -3.",
+       "socratic_question": "Hast du oben und unten mit demselben Punkt angefangen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (steigung_kehrwert, seiten_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(8-2)/(3-1)",
+     "antwort": "3"
+    },
+    {
+     "rechnung": "(3-1)/(8-2)",
+     "antwort": "1/3",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "(8-2)/(1-3)",
+     "antwort": "-3",
+     "rolle": "fehlbild:seiten_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "a0451e78-948c-4ef6-90ce-50a16fed9f39",
+   "titel": "Steigung · zwei Punkte · Punkt auf der y-Achse",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "linfkt-steigung-02",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(0 | 1) und B(2 | 5).\n\nBerechne die Steigung m der Geraden.",
+    "known_errors": {
+     "1/2": "steigung_kehrwert",
+     "+1/2": "steigung_kehrwert",
+     "-2": "seiten_verwechselt",
+     "−2": "seiten_verwechselt",
+     "- 2": "seiten_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Steigungsformel, ein Punkt auf der y-Achse, kleine ganze Zahlen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2",
+      "+2"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "m = (5 - 1) / (2 - 0) = 4 / 2 = 2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Waagerechte durch senkrechte Änderung geteilt: 2 / 4 = 1/2.",
+       "socratic_question": "Welche Änderung gehört in den Zähler: die nach oben oder die nach rechts?"
+      },
+      {
+       "error": "Die Differenzen in verschiedener Reihenfolge gebildet: 4 / (-2) = -2.",
+       "socratic_question": "Steigt die Gerade von A nach B oder fällt sie? Passt dein Vorzeichen dazu?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (steigung_kehrwert, seiten_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(5-1)/(2-0)",
+     "antwort": "2"
+    },
+    {
+     "rechnung": "(2-0)/(5-1)",
+     "antwort": "1/2",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "(5-1)/(0-2)",
+     "antwort": "-2",
+     "rolle": "fehlbild:seiten_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "438b3001-2778-4fec-be77-75354c88e454",
+   "titel": "Steigung · zwei Punkte · fallende Gerade",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "linfkt-steigung-03",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(-1 | 4) und B(2 | -2).\n\nBerechne die Steigung m der Geraden.",
+    "known_errors": {
+     "2": "betrag_fehler",
+     "-1/2": "steigung_kehrwert",
+     "−1/2": "steigung_kehrwert",
+     "- 1/2": "steigung_kehrwert",
+     "+2": "betrag_fehler"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Differenzen mit negativen Koordinaten, Minus vor Minus im Nenner."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-2",
+      "−2",
+      "- 2"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "m = (-2 - 4) / (2 - (-1)) = -6 / 3 = -2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Waagerechte durch senkrechte Änderung geteilt: 3 / (-6) = -1/2.",
+       "socratic_question": "Wie weit geht es von A nach B nach rechts, wie weit nach unten – und was davon steht im Zähler?"
+      },
+      {
+       "error": "Betrag richtig, das Vorzeichen gekippt: 2 statt -2.",
+       "socratic_question": "Fällt die Gerade von links nach rechts oder steigt sie?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (steigung_kehrwert, betrag_fehler)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(-2-4)/(2-(-1))",
+     "antwort": "-2"
+    },
+    {
+     "rechnung": "(2-(-1))/(-2-4)",
+     "antwort": "-1/2",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "-(-2-4)/(2-(-1))",
+     "antwort": "2",
+     "rolle": "fehlbild:betrag_fehler"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "ffc758dc-dcdb-4b66-9281-4563b18c2dc8",
+   "titel": "Steigung · zwei Punkte · Ergebnis als Bruch",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "linfkt-steigung-04",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(-2 | -1) und B(4 | 2).\n\nBerechne die Steigung m der Geraden.",
+    "known_errors": {
+     "2": "steigung_kehrwert",
+     "+2": "steigung_kehrwert",
+     "-1/2": "seiten_verwechselt",
+     "−1/2": "seiten_verwechselt",
+     "- 1/2": "seiten_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: negative Koordinaten in beiden Punkten, Ergebnis als gekürzter Bruch."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1/2",
+      "+1/2",
+      "0,5",
+      "+0,5",
+      "0.5",
+      "+0.5"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "m = (2 - (-1)) / (4 - (-2)) = 3 / 6 = 1/2 = 0,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Waagerechte durch senkrechte Änderung geteilt: 6 / 3 = 2.",
+       "socratic_question": "Geht die Gerade bei einem Schritt nach rechts um mehr oder um weniger als eins nach oben?"
+      },
+      {
+       "error": "Die Differenzen in verschiedener Reihenfolge gebildet: 3 / (-6) = -1/2.",
+       "socratic_question": "Hast du oben und unten mit demselben Punkt angefangen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (steigung_kehrwert, seiten_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(2-(-1))/(4-(-2))",
+     "antwort": "1/2"
+    },
+    {
+     "rechnung": "(4-(-2))/(2-(-1))",
+     "antwort": "2",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "(2-(-1))/(-2-4)",
+     "antwort": "-1/2",
+     "rolle": "fehlbild:seiten_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "9f8674f1-2917-4082-ad94-20b3af6c84c0",
+   "titel": "Steigung · Sachkontext · Preis je Kilometer",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "linfkt-steigung-05",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Eine Taxifahrt kostet bei 4 km Strecke 11 € und bei 10 km Strecke 20 €. Der Preis steigt gleichmäßig mit der Strecke.\n\nWie viel Euro kostet jeder weitere Kilometer?",
+    "known_errors": {
+     "2/3": "steigung_kehrwert",
+     "+2/3": "steigung_kehrwert",
+     "2/3 €": "steigung_kehrwert",
+     "2/3€": "steigung_kehrwert",
+     "+2/3 €": "steigung_kehrwert",
+     "+2/3€": "steigung_kehrwert",
+     "2,75": "b_ignoriert",
+     "+2,75": "b_ignoriert",
+     "2.75": "b_ignoriert",
+     "+2.75": "b_ignoriert",
+     "2,75 €": "b_ignoriert",
+     "2,75€": "b_ignoriert",
+     "+2,75 €": "b_ignoriert",
+     "+2,75€": "b_ignoriert",
+     "2.75 €": "b_ignoriert",
+     "2.75€": "b_ignoriert",
+     "+2.75 €": "b_ignoriert",
+     "+2.75€": "b_ignoriert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Sachsituation als zwei Punkte lesen, Steigung als Preis je km deuten (Fkt-6)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in Parameter einer linearen Funktion übersetzen und deuten."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1,5",
+      "+1,5",
+      "1.5",
+      "+1.5",
+      "1,50",
+      "+1,50",
+      "1.50",
+      "+1.50",
+      "1,5 €",
+      "1,5€",
+      "+1,5 €",
+      "+1,5€",
+      "1.5 €",
+      "1.5€",
+      "+1.5 €",
+      "+1.5€",
+      "1,50 €",
+      "1,50€",
+      "+1,50 €",
+      "+1,50€",
+      "1.50 €",
+      "1.50€",
+      "+1.50 €",
+      "+1.50€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Punkte (4 | 11) und (10 | 20).\nm = (20 - 11) / (10 - 4) = 9 / 6 = 1,50 € pro km.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Kilometer durch Euro geteilt: 6 / 9 = 2/3.",
+       "socratic_question": "Gefragt sind Euro pro Kilometer – was gehört dann in den Zähler?"
+      },
+      {
+       "error": "Den Gesamtpreis durch die Strecke geteilt, als gäbe es keinen Grundpreis: 11 / 4 = 2,75.",
+       "socratic_question": "Kostet die Fahrt bei 10 km dann wirklich 20 €?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (steigung_kehrwert, b_ignoriert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(20-11)/(10-4)",
+     "antwort": "1,5"
+    },
+    {
+     "rechnung": "(10-4)/(20-11)",
+     "antwort": "2/3",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "11/4",
+     "antwort": "2,75",
+     "rolle": "fehlbild:b_ignoriert"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "7cd1b9af-433f-459f-90a6-cf241c245739",
+   "titel": "Steigung · Rückrichtung · Punkt aus Steigung",
+   "basis": {
+    "skill_key": "fkt_linear_steigung",
+    "source_ref": "linfkt-steigung-06",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade hat die Steigung 2 und geht durch den Punkt P(1 | 3).\n\nWelche y-Koordinate hat der Punkt der Geraden mit der x-Koordinate 4?",
+    "known_errors": {
+     "5": "nur_einmal_addiert",
+     "8": "b_ignoriert",
+     "4,5": "steigung_kehrwert",
+     "+4,5": "steigung_kehrwert",
+     "4.5": "steigung_kehrwert",
+     "+4.5": "steigung_kehrwert",
+     "+5": "nur_einmal_addiert",
+     "+8": "b_ignoriert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in Rückrichtung: aus Steigung und Punkt den Zuwachs über drei Schritte bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Rückrichtung: Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9",
+      "+9"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Von x = 1 bis x = 4 sind es 3 Schritte nach rechts.\nJeder Schritt bringt 2 nach oben: 3 + 3 · 2 = 9.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit dem Kehrwert der Steigung gerechnet: 3 + 3 · 1/2 = 4,5.",
+       "socratic_question": "Wie viel geht es bei einem Schritt nach rechts nach oben?"
+      },
+      {
+       "error": "Die Steigung nur einmal addiert: 3 + 2 = 5.",
+       "socratic_question": "Wie viele Schritte nach rechts liegen zwischen x = 1 und x = 4?"
+      },
+      {
+       "error": "Wie bei einer Ursprungsgeraden gerechnet: 2 · 4 = 8.",
+       "socratic_question": "Geht die Gerade durch den Ursprung? Prüfe es mit dem Punkt P."
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (steigung_kehrwert, nur_einmal_addiert, b_ignoriert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3+2*(4-1)",
+     "antwort": "9"
+    },
+    {
+     "rechnung": "3+(4-1)/2",
+     "antwort": "4,5",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "3+2",
+     "antwort": "5",
+     "rolle": "fehlbild:nur_einmal_addiert"
+    },
+    {
+     "rechnung": "2*4",
+     "antwort": "8",
+     "rolle": "fehlbild:b_ignoriert"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "de54e58b-fac9-4341-b38e-88c5233a90d3",
+   "titel": "y-Achsenabschnitt · aus der Gleichung",
+   "basis": {
+    "skill_key": "fkt_linear_yabschnitt",
+    "source_ref": "linfkt-yabschnitt-01",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = 3x + 5.\n\nGib den y-Achsenabschnitt des Graphen von f an.",
+    "known_errors": {
+     "3": "m_b_vertauscht",
+     "+3": "m_b_vertauscht"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: b direkt aus y = mx + b ablesen, beide Zahlen positiv."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5",
+      "+5"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "In f(x) = mx + b ist b der y-Achsenabschnitt: b = 5 (f(0) = 3 · 0 + 5 = 5).",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Steigung statt des y-Achsenabschnitts angegeben.",
+       "socratic_question": "Welche Zahl steht beim x – und welche steht allein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (m_b_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3*0+5",
+     "antwort": "5"
+    },
+    {
+     "rechnung": "3",
+     "antwort": "3",
+     "rolle": "fehlbild:m_b_vertauscht"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "fa6fb2c7-da7b-44be-a425-f7dc8e06af6a",
+   "titel": "y-Achsenabschnitt · fallende Gerade",
+   "basis": {
+    "skill_key": "fkt_linear_yabschnitt",
+    "source_ref": "linfkt-yabschnitt-02",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = -2x + 7.\n\nGib den y-Achsenabschnitt des Graphen von f an.",
+    "known_errors": {
+     "-2": "m_b_vertauscht",
+     "−2": "m_b_vertauscht",
+     "- 2": "m_b_vertauscht",
+     "3,5": "achsenabschnitt_verwechselt",
+     "+3,5": "achsenabschnitt_verwechselt",
+     "3.5": "achsenabschnitt_verwechselt",
+     "+3.5": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: b ablesen, Steigung negativ als Ablenkung."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7",
+      "+7"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "b ist die Zahl ohne x: b = 7 (f(0) = -2 · 0 + 7 = 7).",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Steigung statt des y-Achsenabschnitts angegeben.",
+       "socratic_question": "Welchen Wert hat f, wenn x = 0 ist?"
+      },
+      {
+       "error": "Die Nullstelle statt des y-Achsenabschnitts berechnet: -2x + 7 = 0 ergibt 3,5.",
+       "socratic_question": "Wo schneidet der Graph die senkrechte Achse – bei x = 0 oder bei y = 0?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (m_b_vertauscht, achsenabschnitt_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-2*0+7",
+     "antwort": "7"
+    },
+    {
+     "rechnung": "-2",
+     "antwort": "-2",
+     "rolle": "fehlbild:m_b_vertauscht"
+    },
+    {
+     "rechnung": "7/2",
+     "antwort": "3,5",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "e4611c3d-02b9-4a0b-8e42-795f8a15a925",
+   "titel": "y-Achsenabschnitt · negativer Abschnitt",
+   "basis": {
+    "skill_key": "fkt_linear_yabschnitt",
+    "source_ref": "linfkt-yabschnitt-03",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = 4x - 6.\n\nGib den y-Achsenabschnitt des Graphen von f an.",
+    "known_errors": {
+     "4": "m_b_vertauscht",
+     "6": "betrag_fehler",
+     "+4": "m_b_vertauscht",
+     "+6": "betrag_fehler",
+     "1,5": "achsenabschnitt_verwechselt",
+     "+1,5": "achsenabschnitt_verwechselt",
+     "1.5": "achsenabschnitt_verwechselt",
+     "+1.5": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: b steht als Subtraktion da und muss als negative Zahl gelesen werden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-6",
+      "−6",
+      "- 6"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "f(x) = 4x - 6 = 4x + (-6), also b = -6 (f(0) = -6).",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Steigung statt des y-Achsenabschnitts angegeben.",
+       "socratic_question": "Welche Zahl steht beim x – und welche steht allein?"
+      },
+      {
+       "error": "Betrag richtig, das Minus vor der 6 nicht übernommen.",
+       "socratic_question": "Schneidet der Graph die y-Achse oberhalb oder unterhalb des Ursprungs?"
+      },
+      {
+       "error": "Die Nullstelle statt des y-Achsenabschnitts berechnet: 4x - 6 = 0 ergibt 1,5.",
+       "socratic_question": "Wo schneidet der Graph die senkrechte Achse – bei x = 0 oder bei y = 0?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (m_b_vertauscht, betrag_fehler, achsenabschnitt_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4*0-6",
+     "antwort": "-6"
+    },
+    {
+     "rechnung": "4",
+     "antwort": "4",
+     "rolle": "fehlbild:m_b_vertauscht"
+    },
+    {
+     "rechnung": "6",
+     "antwort": "6",
+     "rolle": "fehlbild:betrag_fehler"
+    },
+    {
+     "rechnung": "6/4",
+     "antwort": "1,5",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "c2f24a82-07ce-4db6-bdcb-f667e34f2439",
+   "titel": "y-Achsenabschnitt · aus Steigung und Punkt",
+   "basis": {
+    "skill_key": "fkt_linear_yabschnitt",
+    "source_ref": "linfkt-yabschnitt-04",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade hat die Steigung 2 und geht durch den Punkt P(3 | 4).\n\nBestimme den y-Achsenabschnitt b der Geraden.",
+    "known_errors": {
+     "2": "betrag_fehler",
+     "10": "addiert_statt_subtrahiert",
+     "+10": "addiert_statt_subtrahiert",
+     "+2": "betrag_fehler"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Punkt in y = mx + b einsetzen und nach b auflösen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-2",
+      "−2",
+      "- 2"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "P einsetzen: 4 = 2 · 3 + b, also 4 = 6 + b und b = 4 - 6 = -2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Beim Auflösen addiert statt subtrahiert: b = 4 + 6 = 10.",
+       "socratic_question": "Was musst du auf beiden Seiten tun, damit die 6 neben dem b verschwindet?"
+      },
+      {
+       "error": "Betrag richtig, Vorzeichen gekippt: 6 - 4 = 2.",
+       "socratic_question": "Liegt der Punkt P unter- oder oberhalb der Geraden y = 2x? Was heißt das für b?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (addiert_statt_subtrahiert, betrag_fehler)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "4-2*3",
+     "antwort": "-2"
+    },
+    {
+     "rechnung": "4+2*3",
+     "antwort": "10",
+     "rolle": "fehlbild:addiert_statt_subtrahiert"
+    },
+    {
+     "rechnung": "2*3-4",
+     "antwort": "2",
+     "rolle": "fehlbild:betrag_fehler"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "1c170c59-3c96-4767-b731-6d954e127025",
+   "titel": "y-Achsenabschnitt · Sachkontext · Grundpreis",
+   "basis": {
+    "skill_key": "fkt_linear_yabschnitt",
+    "source_ref": "linfkt-yabschnitt-05",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Bei einem Handytarif setzen sich die monatlichen Kosten aus einem festen Grundpreis und einem Preis pro Minute zusammen. Die Kosten in Euro für x Minuten werden durch K(x) = 0,1x + 8 beschrieben.\n\nWie hoch ist der monatliche Grundpreis in Euro?",
+    "known_errors": {
+     "0,1": "groessen_vertauscht",
+     "+0,1": "groessen_vertauscht",
+     "0.1": "groessen_vertauscht",
+     "+0.1": "groessen_vertauscht",
+     "0,10": "groessen_vertauscht",
+     "+0,10": "groessen_vertauscht",
+     "0.10": "groessen_vertauscht",
+     "+0.10": "groessen_vertauscht",
+     "0,1 €": "groessen_vertauscht",
+     "0,1€": "groessen_vertauscht",
+     "+0,1 €": "groessen_vertauscht",
+     "+0,1€": "groessen_vertauscht",
+     "0.1 €": "groessen_vertauscht",
+     "0.1€": "groessen_vertauscht",
+     "+0.1 €": "groessen_vertauscht",
+     "+0.1€": "groessen_vertauscht",
+     "0,10 €": "groessen_vertauscht",
+     "0,10€": "groessen_vertauscht",
+     "+0,10 €": "groessen_vertauscht",
+     "+0,10€": "groessen_vertauscht",
+     "0.10 €": "groessen_vertauscht",
+     "0.10€": "groessen_vertauscht",
+     "+0.10 €": "groessen_vertauscht",
+     "+0.10€": "groessen_vertauscht",
+     "-80": "achsenabschnitt_verwechselt",
+     "−80": "achsenabschnitt_verwechselt",
+     "- 80": "achsenabschnitt_verwechselt",
+     "-80 €": "achsenabschnitt_verwechselt",
+     "-80€": "achsenabschnitt_verwechselt",
+     "−80 €": "achsenabschnitt_verwechselt",
+     "−80€": "achsenabschnitt_verwechselt",
+     "- 80 €": "achsenabschnitt_verwechselt",
+     "- 80€": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Parameter b in der Sachsituation als Grundpreis deuten (Fkt-6)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in Parameter einer linearen Funktion übersetzen und deuten."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8",
+      "+8",
+      "8 €",
+      "8€",
+      "+8 €",
+      "+8€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Der Grundpreis fällt auch bei 0 Minuten an: K(0) = 0,1 · 0 + 8 = 8 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Preis pro Minute statt des Grundpreises angegeben.",
+       "socratic_question": "Was kostet der Monat, wenn man gar nicht telefoniert?"
+      },
+      {
+       "error": "Die Nullstelle von K berechnet: 0,1x + 8 = 0 ergibt -80.",
+       "socratic_question": "Welche Bedeutung hat x = 0 in diesem Tarif?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (groessen_vertauscht, achsenabschnitt_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0.1*0+8",
+     "antwort": "8"
+    },
+    {
+     "rechnung": "0.1",
+     "antwort": "0,1",
+     "rolle": "fehlbild:groessen_vertauscht"
+    },
+    {
+     "rechnung": "-8/0.1",
+     "antwort": "-80",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "871303c4-dcdb-4573-9dfb-6e3ca2085426",
+   "titel": "y-Achsenabschnitt · Sachkontext · Anfangswert",
+   "basis": {
+    "skill_key": "fkt_linear_yabschnitt",
+    "source_ref": "linfkt-yabschnitt-06",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Ein Wassertank wird gleichmäßig geleert. Der Wasserstand in cm nach t Minuten wird durch h(t) = -4t + 120 beschrieben.\n\nWie hoch steht das Wasser zu Beginn, also bei t = 0?",
+    "known_errors": {
+     "30": "achsenabschnitt_verwechselt",
+     "-4": "groessen_vertauscht",
+     "−4": "groessen_vertauscht",
+     "- 4": "groessen_vertauscht",
+     "-4 cm": "groessen_vertauscht",
+     "-4cm": "groessen_vertauscht",
+     "−4 cm": "groessen_vertauscht",
+     "−4cm": "groessen_vertauscht",
+     "- 4 cm": "groessen_vertauscht",
+     "- 4cm": "groessen_vertauscht",
+     "+30": "achsenabschnitt_verwechselt",
+     "30 cm": "achsenabschnitt_verwechselt",
+     "30cm": "achsenabschnitt_verwechselt",
+     "+30 cm": "achsenabschnitt_verwechselt",
+     "+30cm": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: y-Achsenabschnitt als Anfangswert einer Sachsituation deuten (Fkt-6)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in Parameter einer linearen Funktion übersetzen und deuten."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "120",
+      "+120",
+      "120 cm",
+      "120cm",
+      "+120 cm",
+      "+120cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Zu Beginn ist t = 0: h(0) = -4 · 0 + 120 = 120 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Änderung pro Minute statt des Anfangswerts angegeben.",
+       "socratic_question": "Was beschreibt die -4 – einen Wasserstand oder eine Änderung?"
+      },
+      {
+       "error": "Den Zeitpunkt berechnet, an dem der Tank leer ist: -4t + 120 = 0 ergibt 30.",
+       "socratic_question": "Gefragt ist ein Wasserstand – passt dazu die Zeit, nach der der Tank leer ist?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (groessen_vertauscht, achsenabschnitt_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-4*0+120",
+     "antwort": "120"
+    },
+    {
+     "rechnung": "-4",
+     "antwort": "-4",
+     "rolle": "fehlbild:groessen_vertauscht"
+    },
+    {
+     "rechnung": "120/4",
+     "antwort": "30",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "6c2393f4-f1d5-490e-adeb-c7b1c8fa611a",
+   "titel": "Graph · y-Achsenabschnitt ablesen",
+   "basis": {
+    "skill_key": "fkt_linear_graph",
+    "source_ref": "linfkt-graph-01",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nLies den y-Achsenabschnitt des Graphen ab.",
+    "known_errors": {
+     "2": "m_b_vertauscht",
+     "-0,5": "achsenabschnitt_verwechselt",
+     "−0,5": "achsenabschnitt_verwechselt",
+     "- 0,5": "achsenabschnitt_verwechselt",
+     "-0.5": "achsenabschnitt_verwechselt",
+     "−0.5": "achsenabschnitt_verwechselt",
+     "- 0.5": "achsenabschnitt_verwechselt",
+     "+2": "m_b_vertauscht"
+    },
+    "figur": {
+     "params": {
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": 2,
+        "b": 1,
+        "label": "f"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter, eingezeichnet ist der Graph der linearen Funktion f."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Schnittpunkt mit der y-Achse auf einem Gitterpunkt ablesen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung (Graph im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1",
+      "+1"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Der Graph schneidet die y-Achse im Punkt (0 | 1), also b = 1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Schnittpunkt mit der x-Achse statt mit der y-Achse abgelesen.",
+       "socratic_question": "Welche der beiden Achsen ist die senkrechte?"
+      },
+      {
+       "error": "Die Steigung statt des y-Achsenabschnitts abgelesen.",
+       "socratic_question": "Gefragt ist ein Punkt auf einer Achse – oder eine Änderung?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (achsenabschnitt_verwechselt, m_b_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "2*0+1",
+     "antwort": "1"
+    },
+    {
+     "rechnung": "-1/2",
+     "antwort": "-0,5",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    },
+    {
+     "rechnung": "(3-1)/1",
+     "antwort": "2",
+     "rolle": "fehlbild:m_b_vertauscht"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "e80dd66b-ea62-4fa2-acbd-fbfe5d8190a6",
+   "titel": "Graph · Steigung ablesen · fallend",
+   "basis": {
+    "skill_key": "fkt_linear_graph",
+    "source_ref": "linfkt-graph-02",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nLies die Steigung m des Graphen ab.",
+    "known_errors": {
+     "1": "betrag_fehler",
+     "2": "m_b_vertauscht",
+     "+1": "betrag_fehler",
+     "+2": "m_b_vertauscht"
+    },
+    "figur": {
+     "params": {
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": -1,
+        "b": 2,
+        "label": "f"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter, eingezeichnet ist der Graph der linearen Funktion f."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Steigungsdreieck mit einem Schritt nach rechts, Steigung ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung (Graph im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-1",
+      "−1",
+      "- 1"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Von (0 | 2) einen Schritt nach rechts geht der Graph einen Schritt nach unten, also m = -1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Betrag richtig, die Richtung übersehen: der Graph fällt.",
+       "socratic_question": "Geht der Graph von links nach rechts nach oben oder nach unten?"
+      },
+      {
+       "error": "Den y-Achsenabschnitt statt der Steigung abgelesen.",
+       "socratic_question": "Gefragt ist eine Änderung – oder ein Punkt auf der y-Achse?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, m_b_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(1-2)/(1-0)",
+     "antwort": "-1"
+    },
+    {
+     "rechnung": "1",
+     "antwort": "1",
+     "rolle": "fehlbild:betrag_fehler"
+    },
+    {
+     "rechnung": "2",
+     "antwort": "2",
+     "rolle": "fehlbild:m_b_vertauscht"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "9a48fec6-1176-4303-82e6-4150f2ffcfc0",
+   "titel": "Graph · Steigung ablesen · Bruch",
+   "basis": {
+    "skill_key": "fkt_linear_graph",
+    "source_ref": "linfkt-graph-03",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt den Graphen einer linearen Funktion g.\n\nLies die Steigung m des Graphen von g ab.",
+    "known_errors": {
+     "2": "steigung_kehrwert",
+     "+2": "steigung_kehrwert",
+     "-1": "m_b_vertauscht",
+     "−1": "m_b_vertauscht",
+     "- 1": "m_b_vertauscht"
+    },
+    "figur": {
+     "params": {
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": 0.5,
+        "b": -1,
+        "label": "g"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter, eingezeichnet ist der Graph der linearen Funktion g."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Steigungsdreieck über zwei Kästchen nach rechts, Steigung als Bruch."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung (Graph im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "1/2",
+      "+1/2",
+      "0,5",
+      "+0,5",
+      "0.5",
+      "+0.5"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Von (0 | -1) zwei Schritte nach rechts und einen nach oben bis (2 | 0): m = 1/2 = 0,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Zwei nach rechts durch eins nach oben geteilt: 2 statt 1/2.",
+       "socratic_question": "Ist der Graph steiler oder flacher als eine Gerade, die bei jedem Schritt nach rechts einen nach oben geht?"
+      },
+      {
+       "error": "Den y-Achsenabschnitt statt der Steigung abgelesen.",
+       "socratic_question": "Gefragt ist eine Änderung – oder ein Punkt auf der y-Achse?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (steigung_kehrwert, m_b_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(0-(-1))/(2-0)",
+     "antwort": "1/2"
+    },
+    {
+     "rechnung": "(2-0)/(0-(-1))",
+     "antwort": "2",
+     "rolle": "fehlbild:steigung_kehrwert"
+    },
+    {
+     "rechnung": "-1",
+     "antwort": "-1",
+     "rolle": "fehlbild:m_b_vertauscht"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "24a633b2-ca0b-4909-9907-26bb0e6c163b",
+   "titel": "Graph · Funktionswert ablesen",
+   "basis": {
+    "skill_key": "fkt_linear_graph",
+    "source_ref": "linfkt-graph-04",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nWelchen y-Wert hat der Graph an der Stelle x = 2?",
+    "known_errors": {
+     "1": "koordinate_vorzeichen_verloren",
+     "0,5": "koordinaten_vertauscht",
+     "+0,5": "koordinaten_vertauscht",
+     "0.5": "koordinaten_vertauscht",
+     "+0.5": "koordinaten_vertauscht",
+     "+1": "koordinate_vorzeichen_verloren"
+    },
+    "figur": {
+     "params": {
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": -2,
+        "b": 3,
+        "label": "f"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter, eingezeichnet ist der Graph der linearen Funktion f."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Funktionswert im vierten Quadranten ablesen, Ergebnis negativ."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung (Graph im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-1",
+      "−1",
+      "- 1"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Bei x = 2 senkrecht zum Graphen: der Punkt liegt bei (2 | -1), also f(2) = -1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Stelle gesucht, an der der y-Wert 2 ist: x = 0,5.",
+       "socratic_question": "Ist 2 hier ein x-Wert oder ein y-Wert?"
+      },
+      {
+       "error": "Den Abstand zur x-Achse richtig abgelesen, das Minus fehlt.",
+       "socratic_question": "Liegt der Punkt über oder unter der x-Achse?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (koordinaten_vertauscht, koordinate_vorzeichen_verloren)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-2*2+3",
+     "antwort": "-1"
+    },
+    {
+     "rechnung": "(3-2)/2",
+     "antwort": "0,5",
+     "rolle": "fehlbild:koordinaten_vertauscht"
+    },
+    {
+     "rechnung": "1",
+     "antwort": "1",
+     "rolle": "fehlbild:koordinate_vorzeichen_verloren"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "ea0de2c5-d074-464b-a2ea-49a86dc907ab",
+   "titel": "Graph · Rückrichtung · Stelle zu einem y-Wert",
+   "basis": {
+    "skill_key": "fkt_linear_graph",
+    "source_ref": "linfkt-graph-05",
+    "input_type": "NUMERIC",
+    "frage": "Die Abbildung zeigt den Graphen einer linearen Funktion f.\n\nAn welcher Stelle x hat der Graph den y-Wert 1?",
+    "known_errors": {
+     "1": "falsche_groesse_beantwortet",
+     "-0,5": "koordinaten_vertauscht",
+     "−0,5": "koordinaten_vertauscht",
+     "- 0,5": "koordinaten_vertauscht",
+     "-0.5": "koordinaten_vertauscht",
+     "−0.5": "koordinaten_vertauscht",
+     "- 0.5": "koordinaten_vertauscht",
+     "+1": "falsche_groesse_beantwortet"
+    },
+    "figur": {
+     "params": {
+      "x_min": -5,
+      "x_max": 5,
+      "y_min": -5,
+      "y_max": 5,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": 1.5,
+        "b": -2,
+        "label": "f"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter, eingezeichnet ist der Graph der linearen Funktion f."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden in Rückrichtung: vom y-Wert waagerecht zum Graphen, dann die Stelle ablesen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Rückrichtung: Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung (Graph im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2",
+      "+2"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Waagerecht bei y = 1 zum Graphen: der Punkt liegt bei (2 | 1), also x = 2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den y-Wert an der Stelle x = 1 abgelesen statt die Stelle zum y-Wert 1.",
+       "socratic_question": "Ist 1 hier ein x-Wert oder ein y-Wert?"
+      },
+      {
+       "error": "Den gegebenen y-Wert als Antwort wiederholt.",
+       "socratic_question": "Gesucht ist ein x-Wert – auf welcher Achse liest du ihn ab?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (koordinaten_vertauscht, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(1-(-2))/1.5",
+     "antwort": "2"
+    },
+    {
+     "rechnung": "1.5*1-2",
+     "antwort": "-0,5",
+     "rolle": "fehlbild:koordinaten_vertauscht"
+    },
+    {
+     "rechnung": "1",
+     "antwort": "1",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "45928556-74be-4aa8-837f-97fa04a4dce3",
+   "titel": "Graph · Sachkontext · Leihgebühr pro Stunde",
+   "basis": {
+    "skill_key": "fkt_linear_graph",
+    "source_ref": "linfkt-graph-06",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Der Graph zeigt die Kosten y in Euro für das Ausleihen eines Fahrrads in Abhängigkeit von der Leihdauer x in Stunden.\n\nWie viel Euro kostet jede weitere Stunde?",
+    "known_errors": {
+     "3": "groessen_vertauscht",
+     "+3": "groessen_vertauscht",
+     "3 €": "groessen_vertauscht",
+     "3€": "groessen_vertauscht",
+     "+3 €": "groessen_vertauscht",
+     "+3€": "groessen_vertauscht",
+     "1/2": "steigung_kehrwert",
+     "+1/2": "steigung_kehrwert",
+     "1/2 €": "steigung_kehrwert",
+     "1/2€": "steigung_kehrwert",
+     "+1/2 €": "steigung_kehrwert",
+     "+1/2€": "steigung_kehrwert"
+    },
+    "figur": {
+     "params": {
+      "x_min": 0,
+      "x_max": 5,
+      "y_min": 0,
+      "y_max": 13,
+      "funktionen": [
+       {
+        "typ": "linear",
+        "m": 2,
+        "b": 3,
+        "label": "f"
+       }
+      ]
+     },
+     "alt_text": "Koordinatensystem mit Gitter, eingezeichnet ist der Graph der linearen Funktion f."
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Steigung am Graphen ablesen und als Preis pro Stunde deuten (Fkt-6)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in Parameter einer linearen Funktion übersetzen und deuten."
+    },
+    "needs_image": {
+     "wert": true,
+     "sicher": "hoch",
+     "grund": "Ohne Abbildung (Graph im Koordinatensystem) nicht lösbar; Generator koordinatensystem, task_figures."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2",
+      "+2",
+      "2 €",
+      "2€",
+      "+2 €",
+      "+2€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Der Graph beginnt bei (0 | 3) und steigt pro Stunde um 2: (1 | 5), (2 | 7), …\nJede weitere Stunde kostet 2 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Grundpreis statt des Preises pro Stunde abgelesen.",
+       "socratic_question": "Was kostet die Ausleihe für 0 Stunden – und was kommt pro Stunde dazu?"
+      },
+      {
+       "error": "Stunden durch Euro geteilt: 1 / 2.",
+       "socratic_question": "Gefragt sind Euro pro Stunde – was gehört in den Zähler?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (groessen_vertauscht, steigung_kehrwert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(5-3)/(1-0)",
+     "antwort": "2"
+    },
+    {
+     "rechnung": "3",
+     "antwort": "3",
+     "rolle": "fehlbild:groessen_vertauscht"
+    },
+    {
+     "rechnung": "1/2",
+     "antwort": "1/2",
+     "rolle": "fehlbild:steigung_kehrwert"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "a61e8be9-b55f-4c43-9971-7b74e3d55a33",
+   "titel": "Funktionsgleichung · aus m und b · Funktionswert",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "linfkt-gleichung-01",
+    "input_type": "NUMERIC",
+    "frage": "Eine lineare Funktion f hat die Steigung 3 und den y-Achsenabschnitt -2.\n\nStelle die Funktionsgleichung auf und berechne damit f(4).",
+    "known_errors": {
+     "14": "vorzeichen_ignoriert",
+     "-5": "m_b_vertauscht",
+     "−5": "m_b_vertauscht",
+     "- 5": "m_b_vertauscht",
+     "+14": "vorzeichen_ignoriert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: m und b in y = mx + b einsetzen, dann einen Wert berechnen."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "10",
+      "+10"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "f(x) = 3x - 2.\nf(4) = 3 · 4 - 2 = 12 - 2 = 10.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Steigung und Achsenabschnitt vertauscht: f(x) = -2x + 3, f(4) = -5.",
+       "socratic_question": "Welche der beiden Zahlen gehört zum x?"
+      },
+      {
+       "error": "Das Minus vor der 2 weggelassen: 3 · 4 + 2 = 14.",
+       "socratic_question": "Liegt der Schnittpunkt mit der y-Achse über oder unter null?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (m_b_vertauscht, vorzeichen_ignoriert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3*4-2",
+     "antwort": "10"
+    },
+    {
+     "rechnung": "-2*4+3",
+     "antwort": "-5",
+     "rolle": "fehlbild:m_b_vertauscht"
+    },
+    {
+     "rechnung": "3*4+2",
+     "antwort": "14",
+     "rolle": "fehlbild:vorzeichen_ignoriert"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "1bbce78e-f996-4c03-a78a-09b47f5c7445",
+   "titel": "Funktionsgleichung · fallend · Funktionswert",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "linfkt-gleichung-02",
+    "input_type": "NUMERIC",
+    "frage": "Eine lineare Funktion f hat die Steigung -2 und schneidet die y-Achse bei y = 5.\n\nStelle die Funktionsgleichung auf und berechne damit f(3).",
+    "known_errors": {
+     "1": "betrag_fehler",
+     "13": "m_b_vertauscht",
+     "+13": "m_b_vertauscht",
+     "+1": "betrag_fehler"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Gleichung aus m und b, Einsetzen mit negativem Faktor."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-1",
+      "−1",
+      "- 1"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "f(x) = -2x + 5.\nf(3) = -2 · 3 + 5 = -6 + 5 = -1.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Steigung und Achsenabschnitt vertauscht: f(x) = 5x - 2, f(3) = 13.",
+       "socratic_question": "Welche der beiden Zahlen gehört zum x?"
+      },
+      {
+       "error": "Betrag richtig, Vorzeichen gekippt: 1 statt -1.",
+       "socratic_question": "Ist -6 + 5 größer oder kleiner als null?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (m_b_vertauscht, betrag_fehler)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-2*3+5",
+     "antwort": "-1"
+    },
+    {
+     "rechnung": "5*3-2",
+     "antwort": "13",
+     "rolle": "fehlbild:m_b_vertauscht"
+    },
+    {
+     "rechnung": "-(-2*3+5)",
+     "antwort": "1",
+     "rolle": "fehlbild:betrag_fehler"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "b0f1b654-75da-4811-b7b4-065712b6e347",
+   "titel": "Funktionsgleichung · aus zwei Punkten · Funktionswert",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "linfkt-gleichung-03",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(0 | 4) und B(2 | 10).\n\nBestimme die Funktionsgleichung und berechne damit f(5).",
+    "known_errors": {
+     "23": "m_b_vertauscht",
+     "+23": "m_b_vertauscht",
+     "-11": "seiten_verwechselt",
+     "−11": "seiten_verwechselt",
+     "- 11": "seiten_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: m aus zwei Punkten, b aus dem Punkt auf der y-Achse, dann einsetzen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "19",
+      "+19"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "m = (10 - 4) / (2 - 0) = 3, b = 4 (A liegt auf der y-Achse).\nf(x) = 3x + 4, f(5) = 15 + 4 = 19.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Steigung und Achsenabschnitt vertauscht: f(x) = 4x + 3, f(5) = 23.",
+       "socratic_question": "Welche Zahl hast du als Änderung pro Schritt berechnet, welche abgelesen?"
+      },
+      {
+       "error": "Die Differenzen in verschiedener Reihenfolge gebildet: m = -3, f(5) = -11.",
+       "socratic_question": "Steigt die Gerade von A nach B oder fällt sie?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (m_b_vertauscht, seiten_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "(10-4)/(2-0)*5+4",
+     "antwort": "19"
+    },
+    {
+     "rechnung": "4*5+3",
+     "antwort": "23",
+     "rolle": "fehlbild:m_b_vertauscht"
+    },
+    {
+     "rechnung": "(10-4)/(0-2)*5+4",
+     "antwort": "-11",
+     "rolle": "fehlbild:seiten_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "ffc76634-86ca-4c53-b816-d18d7f868443",
+   "titel": "Funktionsgleichung · aus zwei Punkten · Achsenabschnitt",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "linfkt-gleichung-04",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade geht durch die Punkte A(1 | 1) und B(3 | 7). Ihre Funktionsgleichung hat die Form y = mx + b.\n\nWelchen Wert hat b?",
+    "known_errors": {
+     "4": "addiert_statt_subtrahiert",
+     "+4": "addiert_statt_subtrahiert",
+     "2/3": "steigung_kehrwert",
+     "+2/3": "steigung_kehrwert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: erst m aus zwei Punkten, dann b durch Einsetzen; kein Punkt auf der y-Achse."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-2",
+      "−2",
+      "- 2"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "m = (7 - 1) / (3 - 1) = 3.\nA einsetzen: 1 = 3 · 1 + b, also b = 1 - 3 = -2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Beim Auflösen nach b addiert statt subtrahiert: 1 + 3 = 4.",
+       "socratic_question": "Was musst du auf beiden Seiten tun, damit die 3 neben dem b verschwindet?"
+      },
+      {
+       "error": "Mit dem Kehrwert der Steigung gerechnet: m = 1/3, b = 2/3.",
+       "socratic_question": "Um wie viel geht es nach oben, wenn du einen Schritt nach rechts gehst?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (addiert_statt_subtrahiert, steigung_kehrwert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "1-(7-1)/(3-1)*1",
+     "antwort": "-2"
+    },
+    {
+     "rechnung": "1+3",
+     "antwort": "4",
+     "rolle": "fehlbild:addiert_statt_subtrahiert"
+    },
+    {
+     "rechnung": "1-(3-1)/(7-1)",
+     "antwort": "2/3",
+     "rolle": "fehlbild:steigung_kehrwert"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "55d52e3e-cdd5-4e3c-9929-fb82aac16d33",
+   "titel": "Funktionsgleichung · Sachkontext · Carsharing",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "linfkt-gleichung-05",
+    "input_type": "NUMERIC",
+    "unit": "€",
+    "frage": "Ein Carsharing-Tarif kostet 5 € Grundgebühr pro Fahrt und zusätzlich 0,30 € pro gefahrenem Kilometer.\n\nStelle eine Funktionsgleichung für die Kosten auf und berechne die Kosten in Euro für eine Fahrt von 20 km.",
+    "known_errors": {
+     "6": "b_ignoriert",
+     "100,3": "groessen_vertauscht",
+     "+100,3": "groessen_vertauscht",
+     "100.3": "groessen_vertauscht",
+     "+100.3": "groessen_vertauscht",
+     "100,30": "groessen_vertauscht",
+     "+100,30": "groessen_vertauscht",
+     "100.30": "groessen_vertauscht",
+     "+100.30": "groessen_vertauscht",
+     "100,3 €": "groessen_vertauscht",
+     "100,3€": "groessen_vertauscht",
+     "+100,3 €": "groessen_vertauscht",
+     "+100,3€": "groessen_vertauscht",
+     "100.3 €": "groessen_vertauscht",
+     "100.3€": "groessen_vertauscht",
+     "+100.3 €": "groessen_vertauscht",
+     "+100.3€": "groessen_vertauscht",
+     "100,30 €": "groessen_vertauscht",
+     "100,30€": "groessen_vertauscht",
+     "+100,30 €": "groessen_vertauscht",
+     "+100,30€": "groessen_vertauscht",
+     "100.30 €": "groessen_vertauscht",
+     "100.30€": "groessen_vertauscht",
+     "+100.30 €": "groessen_vertauscht",
+     "+100.30€": "groessen_vertauscht",
+     "+6": "b_ignoriert",
+     "6 €": "b_ignoriert",
+     "6€": "b_ignoriert",
+     "+6 €": "b_ignoriert",
+     "+6€": "b_ignoriert"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Grundgebühr und Preis pro km als b und m deuten, Gleichung aufstellen und auswerten (Fkt-6)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in Parameter einer linearen Funktion übersetzen und deuten."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "11",
+      "+11",
+      "11 €",
+      "11€",
+      "+11 €",
+      "+11€"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "K(x) = 0,3x + 5 (x in km, K in €).\nK(20) = 0,3 · 20 + 5 = 6 + 5 = 11 €.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Grundgebühr und Kilometerpreis vertauscht: 5 · 20 + 0,30 = 100,30.",
+       "socratic_question": "Welcher Betrag fällt bei jedem Kilometer an, welcher nur einmal?"
+      },
+      {
+       "error": "Nur die Kilometerkosten berechnet, die Grundgebühr fehlt.",
+       "socratic_question": "Was kostet die Fahrt, wenn man null Kilometer fährt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (groessen_vertauscht, b_ignoriert)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0.3*20+5",
+     "antwort": "11"
+    },
+    {
+     "rechnung": "5*20+0.3",
+     "antwort": "100,3",
+     "rolle": "fehlbild:groessen_vertauscht"
+    },
+    {
+     "rechnung": "0.3*20",
+     "antwort": "6",
+     "rolle": "fehlbild:b_ignoriert"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "07f970aa-ff64-4158-a713-9943054621a0",
+   "titel": "Funktionsgleichung · Sachkontext · Kerze",
+   "basis": {
+    "skill_key": "fkt_linear_gleichung",
+    "source_ref": "linfkt-gleichung-06",
+    "input_type": "NUMERIC",
+    "unit": "cm",
+    "frage": "Eine Kerze ist 24 cm lang. Sie brennt gleichmäßig ab und wird dabei pro Stunde 1,5 cm kürzer.\n\nStelle eine Funktionsgleichung für die Länge der Kerze nach x Stunden auf. Wie lang ist die Kerze nach 6 Stunden noch?",
+    "known_errors": {
+     "9": "falsche_groesse_beantwortet",
+     "33": "vorzeichen_ignoriert",
+     "+33": "vorzeichen_ignoriert",
+     "33 cm": "vorzeichen_ignoriert",
+     "33cm": "vorzeichen_ignoriert",
+     "+33 cm": "vorzeichen_ignoriert",
+     "+33cm": "vorzeichen_ignoriert",
+     "+9": "falsche_groesse_beantwortet",
+     "9 cm": "falsche_groesse_beantwortet",
+     "9cm": "falsche_groesse_beantwortet",
+     "+9 cm": "falsche_groesse_beantwortet",
+     "+9cm": "falsche_groesse_beantwortet"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: fallende Größe als negative Steigung modellieren, dann auswerten (Fkt-6)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in Parameter einer linearen Funktion übersetzen und deuten."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "15",
+      "+15",
+      "15 cm",
+      "15cm",
+      "+15 cm",
+      "+15cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "L(x) = -1,5x + 24 (x in Stunden, L in cm).\nL(6) = -1,5 · 6 + 24 = -9 + 24 = 15 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit positiver Steigung gerechnet, als würde die Kerze wachsen: 9 + 24 = 33.",
+       "socratic_question": "Wird die Kerze länger oder kürzer? Welches Vorzeichen hat dann die Steigung?"
+      },
+      {
+       "error": "Die abgebrannte Länge statt der Restlänge angegeben.",
+       "socratic_question": "Gefragt ist, wie lang die Kerze noch ist – ist das der abgebrannte Teil?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_ignoriert, falsche_groesse_beantwortet)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-1.5*6+24",
+     "antwort": "15"
+    },
+    {
+     "rechnung": "1.5*6+24",
+     "antwort": "33",
+     "rolle": "fehlbild:vorzeichen_ignoriert"
+    },
+    {
+     "rechnung": "1.5*6",
+     "antwort": "9",
+     "rolle": "fehlbild:falsche_groesse_beantwortet"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "429c8aa1-d937-4231-a778-9a27cde1138c",
+   "titel": "Nullstelle · positive Steigung",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "linfkt-nullstelle-01",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = 2x - 8.\n\nBerechne die Nullstelle von f.",
+    "known_errors": {
+     "8": "division_vergessen",
+     "-4": "betrag_fehler",
+     "−4": "betrag_fehler",
+     "- 4": "betrag_fehler",
+     "+8": "division_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: f(x) = 0 setzen, zwei Umformungsschritte, Ergebnis ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "4",
+      "+4"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "2x - 8 = 0 | + 8\n2x = 8 | : 2\nx = 4.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Betrag richtig, Vorzeichen gekippt: b / m statt -b / m.",
+       "socratic_question": "Setze dein Ergebnis in f ein – kommt 0 heraus?"
+      },
+      {
+       "error": "Nach dem ersten Schritt aufgehört: 2x = 8, aber nicht durch 2 geteilt.",
+       "socratic_question": "Steht nach deinem letzten Schritt wirklich x allein da?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, division_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "8/2",
+     "antwort": "4"
+    },
+    {
+     "rechnung": "-8/2",
+     "antwort": "-4",
+     "rolle": "fehlbild:betrag_fehler"
+    },
+    {
+     "rechnung": "8",
+     "antwort": "8",
+     "rolle": "fehlbild:division_vergessen"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "7e4040f5-19d5-474f-90d8-633835b9fdde",
+   "titel": "Nullstelle · negative Nullstelle",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "linfkt-nullstelle-02",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = 3x + 6.\n\nBerechne die Nullstelle von f.",
+    "known_errors": {
+     "2": "betrag_fehler",
+     "6": "achsenabschnitt_verwechselt",
+     "+2": "betrag_fehler",
+     "-6": "division_vergessen",
+     "−6": "division_vergessen",
+     "- 6": "division_vergessen",
+     "+6": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: f(x) = 0 setzen und auflösen, Ergebnis negativ und ganzzahlig."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-2",
+      "−2",
+      "- 2"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "3x + 6 = 0 | - 6\n3x = -6 | : 3\nx = -2.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Betrag richtig, Vorzeichen gekippt: b / m statt -b / m.",
+       "socratic_question": "Setze dein Ergebnis in f ein – kommt 0 heraus?"
+      },
+      {
+       "error": "Nach dem ersten Schritt aufgehört: 3x = -6, aber nicht durch 3 geteilt.",
+       "socratic_question": "Steht nach deinem letzten Schritt wirklich x allein da?"
+      },
+      {
+       "error": "Den y-Achsenabschnitt statt der Nullstelle angegeben.",
+       "socratic_question": "An welcher Achse liegt die Nullstelle?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, division_vergessen, achsenabschnitt_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-6/3",
+     "antwort": "-2"
+    },
+    {
+     "rechnung": "6/3",
+     "antwort": "2",
+     "rolle": "fehlbild:betrag_fehler"
+    },
+    {
+     "rechnung": "-6",
+     "antwort": "-6",
+     "rolle": "fehlbild:division_vergessen"
+    },
+    {
+     "rechnung": "3*0+6",
+     "antwort": "6",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "305c5063-1e7a-4919-a8ba-b97128fc0367",
+   "titel": "Nullstelle · negative Steigung",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "linfkt-nullstelle-03",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = -4x + 10.\n\nBerechne die Nullstelle von f.",
+    "known_errors": {
+     "10": "achsenabschnitt_verwechselt",
+     "-2,5": "vorzeichen_beim_umstellen",
+     "−2,5": "vorzeichen_beim_umstellen",
+     "- 2,5": "vorzeichen_beim_umstellen",
+     "-2.5": "vorzeichen_beim_umstellen",
+     "−2.5": "vorzeichen_beim_umstellen",
+     "- 2.5": "vorzeichen_beim_umstellen",
+     "+10": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Division durch einen negativen Koeffizienten, Ergebnis als Dezimalzahl."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "2,5",
+      "+2,5",
+      "2.5",
+      "+2.5",
+      "5/2",
+      "+5/2"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "-4x + 10 = 0 | - 10\n-4x = -10 | : (-4)\nx = 2,5.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Betrag richtig, das Minus des Koeffizienten bleibt am Ergebnis hängen.",
+       "socratic_question": "Was kommt heraus, wenn du eine negative Zahl durch eine negative Zahl teilst?"
+      },
+      {
+       "error": "Den y-Achsenabschnitt statt der Nullstelle angegeben.",
+       "socratic_question": "An welcher Achse liegt die Nullstelle?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (vorzeichen_beim_umstellen, achsenabschnitt_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-10/(-4)",
+     "antwort": "2,5"
+    },
+    {
+     "rechnung": "-10/4",
+     "antwort": "-2,5",
+     "rolle": "fehlbild:vorzeichen_beim_umstellen"
+    },
+    {
+     "rechnung": "-4*0+10",
+     "antwort": "10",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "c291bd8a-ee36-44f4-b195-66c4859f0217",
+   "titel": "Nullstelle · Steigung als Dezimalzahl",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "linfkt-nullstelle-04",
+    "input_type": "NUMERIC",
+    "frage": "Gegeben ist die Funktion f(x) = 0,5x + 3.\n\nBerechne die Nullstelle von f.",
+    "known_errors": {
+     "6": "betrag_fehler",
+     "+6": "betrag_fehler",
+     "-1,5": "falsche_gegenoperation",
+     "−1,5": "falsche_gegenoperation",
+     "- 1,5": "falsche_gegenoperation",
+     "-1.5": "falsche_gegenoperation",
+     "−1.5": "falsche_gegenoperation",
+     "- 1.5": "falsche_gegenoperation"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Division durch eine Dezimalzahl kleiner als eins, das Ergebnis wird betragsmäßig größer."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen bzw. Ablesen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-6",
+      "−6",
+      "- 6"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "0,5x + 3 = 0 | - 3\n0,5x = -3 | : 0,5\nx = -6.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Betrag richtig, Vorzeichen gekippt: b / m statt -b / m.",
+       "socratic_question": "Setze dein Ergebnis in f ein – kommt 0 heraus?"
+      },
+      {
+       "error": "Mit 0,5 multipliziert statt durch 0,5 geteilt.",
+       "socratic_question": "Wie oft passt 0,5 in 3?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, falsche_gegenoperation)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-3/0.5",
+     "antwort": "-6"
+    },
+    {
+     "rechnung": "3/0.5",
+     "antwort": "6",
+     "rolle": "fehlbild:betrag_fehler"
+    },
+    {
+     "rechnung": "-3*0.5",
+     "antwort": "-1,5",
+     "rolle": "fehlbild:falsche_gegenoperation"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "4edaa568-3b92-4a89-9105-3551d758e17e",
+   "titel": "Nullstelle · Sachkontext · Akku leer",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "linfkt-nullstelle-05",
+    "input_type": "NUMERIC",
+    "unit": "h",
+    "frage": "Der Ladestand eines Akkus in Prozent nach t Stunden wird durch L(t) = -16t + 80 beschrieben.\n\nNach wie vielen Stunden ist der Akku leer?",
+    "known_errors": {
+     "80": "achsenabschnitt_verwechselt",
+     "+80": "achsenabschnitt_verwechselt",
+     "80 h": "achsenabschnitt_verwechselt",
+     "80h": "achsenabschnitt_verwechselt",
+     "+80 h": "achsenabschnitt_verwechselt",
+     "+80h": "achsenabschnitt_verwechselt",
+     "-5": "vorzeichen_beim_umstellen",
+     "−5": "vorzeichen_beim_umstellen",
+     "- 5": "vorzeichen_beim_umstellen",
+     "-5 h": "vorzeichen_beim_umstellen",
+     "-5h": "vorzeichen_beim_umstellen",
+     "−5 h": "vorzeichen_beim_umstellen",
+     "−5h": "vorzeichen_beim_umstellen",
+     "- 5 h": "vorzeichen_beim_umstellen",
+     "- 5h": "vorzeichen_beim_umstellen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: die Frage „leer\" als Nullstelle erkennen und im Sachkontext deuten (Fkt-6/7)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Modellieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in Parameter einer linearen Funktion übersetzen und deuten."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5",
+      "+5",
+      "5 h",
+      "5h",
+      "+5 h",
+      "+5h"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Leer heißt L(t) = 0:\n-16t + 80 = 0 | - 80\n-16t = -80 | : (-16)\nt = 5 Stunden.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Anfangswert statt der Nullstelle angegeben.",
+       "socratic_question": "Beschreibt 80 den Ladestand am Anfang oder am Ende?"
+      },
+      {
+       "error": "Betrag richtig, das Minus des Koeffizienten bleibt am Ergebnis hängen.",
+       "socratic_question": "Kann eine Zeitdauer negativ sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (achsenabschnitt_verwechselt, vorzeichen_beim_umstellen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "-80/(-16)",
+     "antwort": "5"
+    },
+    {
+     "rechnung": "-16*0+80",
+     "antwort": "80",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    },
+    {
+     "rechnung": "-80/16",
+     "antwort": "-5",
+     "rolle": "fehlbild:vorzeichen_beim_umstellen"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "f95fc1f6-7ab9-4a8d-bd97-83bdf1a024bb",
+   "titel": "Nullstelle · Rückrichtung · Achsenabschnitt aus Nullstelle",
+   "basis": {
+    "skill_key": "fkt_linear_nullstelle",
+    "source_ref": "linfkt-nullstelle-06",
+    "input_type": "NUMERIC",
+    "frage": "Eine Gerade hat die Steigung 3 und die Nullstelle x = 2.\n\nBestimme den y-Achsenabschnitt b der Geraden.",
+    "known_errors": {
+     "2": "achsenabschnitt_verwechselt",
+     "6": "betrag_fehler",
+     "+6": "betrag_fehler",
+     "+2": "achsenabschnitt_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Verallgemeinern/Rückrichtung: die Bedingung f(2) = 0 selbst aufstellen und nach dem Parameter b auflösen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 8,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); Thema lineare_funktionen steht im Katalog auf Klasse 8."
+    },
+    "cluster_id": {
+     "wert": "edbb548a-54d9-4a8f-8be4-3052f9025524",
+     "sicher": "hoch",
+     "grund": "Algebra & Funktionen, wie die Binom-Reihe und die Gleichungs-Voraussetzungen."
+    },
+    "competency_content": {
+     "wert": "funktionen",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Funktionen (KLP Fkt-4 bis Fkt-7)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen",
+     "sicher": "mittel",
+     "grund": "Rückrichtung: Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "-6",
+      "−6",
+      "- 6"
+     ],
+     "sicher": "hoch",
+     "grund": "Nachgerechnet; Schreibweisen mit Komma/Punkt, Minus/Plus-Formen, Bruch/Dezimal und Einheit."
+    },
+    "solution": {
+     "wert": "Die Nullstelle liegt auf der Geraden: f(2) = 0.\n3 · 2 + b = 0, also b = -6.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Betrag richtig, Vorzeichen gekippt: b = 6 statt -6.",
+       "socratic_question": "Setze x = 2 in f(x) = 3x + b mit deinem b ein – kommt 0 heraus?"
+      },
+      {
+       "error": "Die Nullstelle als y-Achsenabschnitt übernommen.",
+       "socratic_question": "An welcher Achse liegt die Nullstelle, an welcher der y-Achsenabschnitt?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (betrag_fehler, achsenabschnitt_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W1-1: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "0-3*2",
+     "antwort": "-6"
+    },
+    {
+     "rechnung": "3*2",
+     "antwort": "6",
+     "rolle": "fehlbild:betrag_fehler"
+    },
+    {
+     "rechnung": "2",
+     "antwort": "2",
+     "rolle": "fehlbild:achsenabschnitt_verwechselt"
+    }
+   ]
+  }
+ ]
+}
