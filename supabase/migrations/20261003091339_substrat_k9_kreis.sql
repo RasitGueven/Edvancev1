@@ -1,4 +1,4 @@
--- K9 Kreis, Migration 1 von 2 — fuenf Knoten, sechzehn Kanten, vier neue
+-- K9 Kreis, Migration 1 von 2 — fuenf Knoten, sechzehn Kanten, drei neue
 -- Fehlbilder (+ zu_frueh_gerundet idempotent). KEINE Aufgaben.
 --
 -- Kernlehrplan NRW G9, Inhaltsfeld Geometrie, ZWEITE Stufe (9/10), nicht die
@@ -130,13 +130,14 @@ on conflict do nothing;
 -- Neu, weil nichts passt:
 --   radius_durchmesser_verwechselt — kein Slug fuer Radius/Durchmesser.
 --   pi_vergessen — kein Slug fuer eine weggelassene Konstante.
---   flaecheneinheit_nicht_quadriert — linearer_faktor meint den
---     Umrechnungsfaktor (100 statt 10000), nicht die Einheit am Ergebnis.
+--   NICHT angelegt: flaecheneinheit_nicht_quadriert. Die Einheit steht im
+--     Bestand fest am Eingabefeld (tasks.unit), der Fehler ist so nicht
+--     sichtbar; Flaecheneinheiten prueft das Fundament (groessen_flaechen).
 --   kreisanteil_falsch — anteil_falsch_verteilt meint eine Summe von Anteilen
 --     im Sachtext, nicht den Faktor α/360°.
 --
 -- Familien (AF4), gegen die fuenf vorhandenen geprueft, keine neue erfunden:
---   alle vier -> NULL. Keine Familie beschreibt eine falsch eingesetzte Groesse
+--   alle drei -> NULL. Keine Familie beschreibt eine falsch eingesetzte Groesse
 --   in einer Formel ("einheiten_massstab" meint das Umwandeln). NULL heisst:
 --   im Elternreport nicht gebuendelt. Ob eine Familie dafuer kommt,
 --   entscheidet Lena.
@@ -159,13 +160,6 @@ values
    'Die Rechnung mit Radius oder Durchmesser stimmt, nur der Faktor π fehlt. '
    'Das Ergebnis ist dadurch rund ein Drittel so groß wie richtig. Geübt wird, '
    'die Formel vollständig hinzuschreiben, bevor eingesetzt wird.'),
-
-  ('flaecheneinheit_nicht_quadriert', null,
-   'Rechnet die Fläche richtig, gibt sie aber in einer Längeneinheit an (cm statt cm²).',
-   'Der Zahlenwert stimmt, die Einheit nicht: Eine Fläche wird in '
-   'Quadratzentimetern oder Quadratmetern gemessen, nicht in Zentimetern oder '
-   'Metern. Geübt wird, an der Formel abzulesen, ob eine Länge oder eine Fläche '
-   'herauskommt.'),
 
   ('kreisanteil_falsch', null,
    'Rechnet beim Kreisausschnitt mit dem ganzen Kreis oder dreht den Anteil um.',
