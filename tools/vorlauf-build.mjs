@@ -20,6 +20,10 @@
  *   - ist idempotent: on conflict do nothing, Loesung nur, wenn noch keine Zeile besteht.
  * sondierrang: Rang 1 und 2 je Skill nach scripts/content/sondierrang_vorschlag.py.
  * class_level: optionales Charge-Feld (Board-Klasse wie edvance_k8_binom); ohne das Feld null wie bisher.
+ * ohne_transaktion: optionales Charge-Feld — Datei ohne begin/commit (Einspielen mit mig = psql -1),
+ *   jede Loesung in einem eigenen do-Block mit transaktionslokaler Systemrolle (CI ohne Klammer).
+ * MC: basis.options [{id, label}] -> question_payload; MULTI_PART-Teile mit kind 'mc' tragen options.
+ * Figur: basis.figur.generator ('koordinatensystem' | 'winkel'), ohne Angabe koordinatensystem.
  */
 
 import fs from 'node:fs';
@@ -42,8 +46,10 @@ const roh = (a) => {
   return {
     task: {
       id: a.id, title: a.titel, question: b.frage, input_type: b.input_type, skill_key: b.skill_key,
-      question_payload: mp ? null : { kind: 'short_input', prompt: b.frage },
-      parts: (b.parts ?? []).map((p) => ({ nr: p.nr, kind: p.kind, prompt: p.prompt, unit: null, competency_process: null })),
+      question_payload: mp ? null : b.input_type === 'MC' ? { options: b.options, input_type: 'MC' }
+        : { kind: 'short_input', prompt: b.frage },
+      parts: (b.parts ?? []).map((p) => ({ nr: p.nr, kind: p.kind, prompt: p.prompt, unit: null, competency_process: null,
+        ...(p.options ? { options: p.options } : {}) })),
       unit: b.unit ?? null, status: 'draft', source: charge.source, source_ref: b.source_ref, created_at: null,
       afb: null, est_duration_sec: null, curriculum_grade: null, cluster_id: null,
       competency_content: null, competency_process: null, needs_image: null, vorbefuellt: {},
@@ -156,7 +162,10 @@ for (const a of charge.aufgaben) {
   if (rang.has(a.id)) csv.push([a.id, b.source_ref, '', 'sondierrang (keine UI)', rang.get(a.id), 'neu', 'mittel', begruendung[b.skill_key]]);
 
   const parts = task.parts.map((p) => ({ nr: p.nr, kind: p.kind, prompt: p.prompt, unit: p.unit,
-    afb: p.afb, competency_content: p.competency_content, competency_process: p.competency_process }));
+    afb: p.afb, competency_content: p.competency_content, competency_process: p.competency_process,
+    ...(p.options ? { options: p.options } : {}) }));
+  if (b.input_type === 'MC' && !(b.options?.length >= 2)) fehler.push(`#${a.nr}: MC ohne Optionen`);
+  for (const p of mp ? b.parts : []) if (p.kind === 'mc' && !(p.options?.length >= 2)) fehler.push(`#${a.nr} Teil ${p.nr}: mc ohne Optionen`);
   sql.push(`\n-- #${a.nr} ${b.source_ref} · ${a.titel}`);
   sql.push(`insert into public.tasks (\n  id, content_type, title, question, question_payload, input_type, skill_key,\n` +
     `  class_level, curriculum_grade, cluster_id, afb, competency_content, competency_process,\n` +
@@ -170,15 +179,24 @@ for (const a of charge.aufgaben) {
     `  ${task.est_duration_sec}, ${q(task.unit)}, ${task.needs_image}, ${rang.get(a.id) ?? 'null'}, 'draft', ${q(charge.source)}, ${q(b.source_ref)},\n` +
     `  false, true, false, false, ${j(mp ? parts : [])}, '[]'::jsonb,\n  ${j(vb)}, now())\n` +
     `on conflict do nothing;`);
-  sql.push(`select public.task_solution_upsert(\n  p_task_id         => ${q(a.id)}::uuid,\n` +
+  const upsert = `public.task_solution_upsert(\n  p_task_id         => ${q(a.id)}::uuid,\n` +
     `  p_correct_answers => ${j(ca)},\n  p_solution        => ${q(sol.solution)},\n` +
     `  p_hints           => '[]'::jsonb,\n  p_coach_hints     => '[]'::jsonb,\n` +
-    `  p_typical_errors  => ${j(sol.typical_errors)},\n  p_acceptance      => ${j(acceptance)})\n` +
-    ` where exists (select 1 from public.tasks t where t.id = ${q(a.id)}::uuid and t.status = 'draft' and t.source = ${q(charge.source)})\n` +
-    `   and not exists (select 1 from public.task_solutions s where s.task_id = ${q(a.id)}::uuid);`);
+    `  p_typical_errors  => ${j(sol.typical_errors)},\n  p_acceptance      => ${j(acceptance)})`;
+  const bedingung = `exists (select 1 from public.tasks t where t.id = ${q(a.id)}::uuid and t.status = 'draft' and t.source = ${q(charge.source)})\n` +
+    `   and not exists (select 1 from public.task_solutions s where s.task_id = ${q(a.id)}::uuid)`;
+  // ohne_transaktion: die Datei traegt kein begin/commit (mig klammert mit -1, CI spielt
+  // ohne Klammer ein). Die Systemrolle gilt dann je do-Block — eine Transaktion in
+  // beiden Faellen — statt bis zum commit der Datei.
+  sql.push(charge.ohne_transaktion
+    ? `do $loesung$\nbegin\n  if ${bedingung} then\n    perform set_config('request.jwt.claim.role', 'service_role', true);\n` +
+      `    perform ${upsert};\n  end if;\nend\n$loesung$;`
+    : `select ${upsert}\n where ${bedingung};`);
   if (b.figur) {
+    const generator = b.figur.generator ?? 'koordinatensystem';
+    if (!['koordinatensystem', 'winkel'].includes(generator)) fehler.push(`#${a.nr}: unbekannter Generator ${generator}`);
     sql.push(`insert into public.task_figures (task_id, generator, params, alt_text)\n` +
-      `select ${q(a.id)}::uuid, 'koordinatensystem', ${j(b.figur.params)}, ${q(b.figur.alt_text)}\n` +
+      `select ${q(a.id)}::uuid, ${q(generator)}, ${j(b.figur.params)}, ${q(b.figur.alt_text)}\n` +
       ` where exists (select 1 from public.tasks t where t.id = ${q(a.id)}::uuid and t.source = ${q(charge.source)})\n` +
       `on conflict (task_id) do nothing;`);
     csv.push([a.id, b.source_ref, '', 'task_figures (Upload: scripts/figures/upload_figures.py)', b.figur.params, 'neu', 'hoch', b.figur.alt_text]);
@@ -227,15 +245,18 @@ const kopf = `${titel.map((z) => (z ? `-- ${z}` : '--')).join('\n')}
 ${Object.entries(begruendung).map(([s, g]) => `--   ${s}: ${g}`).join('\n')}
 --
 -- Idempotent: on conflict do nothing; die Loesung nur, wenn noch keine Zeile besteht.
--- begin/commit in der Datei: scripts/db-migrate.sh laeuft ohne --single-transaction, und
+${charge.ohne_transaktion ? `-- Kein begin/commit in der Datei: mig spielt sie mit psql -1 in EINER Transaktion ein,
+-- CI (schema.yml) und die Wegwerf-DB ohne Klammer. Die Systemrolle setzt deshalb jeder
+-- do-Block selbst (set_config(..., true) gilt bis zum Ende der umgebenden Transaktion).
+` : `-- begin/commit in der Datei: scripts/db-migrate.sh laeuft ohne --single-transaction, und
 -- eine Aufgabe ohne Loesung waere still kaputt.
 
 begin;
 
 select set_config('request.jwt.claim.role', 'service_role', true);
-`;
+`}`;
 const migPfad = path.join('supabase/migrations', `${version}_${name}.sql`);
-fs.writeFileSync(migPfad, kopf + sql.join('\n') + '\n\ncommit;\n');
+fs.writeFileSync(migPfad, kopf + sql.join('\n') + (charge.ohne_transaktion ? '\n' : '\n\ncommit;\n'));
 fs.writeFileSync(`${basisPfad}-snapshot.json`, JSON.stringify(snapshot, null, 1) + '\n');
 const csvZelle = (v) => (/[",\n;]/.test(v) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
 fs.writeFileSync(`docs/prefill/${charge.batch}.csv`, csv.map((r) => r.map((v) => csvZelle(zelle(v))).join(',')).join('\n') + '\n');
