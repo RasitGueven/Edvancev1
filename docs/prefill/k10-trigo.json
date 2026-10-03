@@ -1,0 +1,3786 @@
+{
+ "batch": "k10-trigo",
+ "kopf": [
+  "K10-Rest, Thema trigo — 30 Aufgaben: je sechs zu geo_trigo_verhaeltnis, _seite, _winkel, _anwendung und _kosinussatz.",
+  "Erzeugt von tools/vorlauf-build.mjs aus docs/prefill/k10-trigo.json (Quelle: tools/k10-trigo-charge.mjs) — nicht von Hand editieren.",
+  "",
+  "Einspiel-Reihenfolge: nach 20261003121329_substrat_k10_trigo.sql (Knoten + Fehlbild-Slugs muessen stehen)."
+ ],
+ "auswahl": "Je Knoten vier reine Anwendung mit steigender Schwierigkeit und zwei mit Sachkontext oder Rückrichtung (ähnliche Dreiecke, Rampe, Dach, Turm, Leuchtturm, Leiter, Straße, See); geo_trigo_anwendung ist durchgehend Sachkontext. Dreiecke als Text mit fester Benennung (rechter Winkel bei C, α bei A), keine Abbildung. Jede Aufgabe nennt Rundung und Gradmaß; Werte exakt nachgerechnet (Winkelfunktionen auf 40 Stellen).",
+ "source": "edvance_k10_trigo",
+ "class_level": 10,
+ "acceptance_equivalents": true,
+ "ohne_transaktion": true,
+ "zeitregel": {
+  "beschreibung": "est_duration_sec wie Pilot/Vorlauf/Zins/Kreis: AFB I 45 s, II 60 s, III 90 s; +30 s bei Sachkontext.",
+  "basis": {
+   "I": 45,
+   "II": 60,
+   "III": 90
+  },
+  "sachkontext_zuschlag": 30
+ },
+ "aufgaben": [
+  {
+   "nr": 1,
+   "id": "d2fd3cef-0e18-4a8c-9ae2-1c8dc92c4b86",
+   "titel": "Sinus als Seitenverhältnis · a = 3 cm, c = 5 cm",
+   "basis": {
+    "skill_key": "geo_trigo_verhaeltnis",
+    "source_ref": "trigo-verhaeltnis-01",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 3 cm, b = 4 cm und c = 5 cm.\n\nBestimme sin α als Seitenverhältnis. Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "0,8": "sin_cos_vertauscht",
+     "+0,8": "sin_cos_vertauscht",
+     "0.8": "sin_cos_vertauscht",
+     "+0.8": "sin_cos_vertauscht",
+     "0,75": "tangens_verwechselt",
+     "+0,75": "tangens_verwechselt",
+     "0.75": "tangens_verwechselt",
+     "+0.75": "tangens_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: sin α = Gegenkathete : Hypotenuse mit allen drei gegebenen Seiten."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,6",
+      "+0,6",
+      "0.6",
+      "+0.6"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Für α ist a die Gegenkathete und c die Hypotenuse.\nsin α = a : c = 3 : 5 = 0,6.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Ankathete statt Gegenkathete genommen: b : c = 0,8 ist cos α.",
+       "socratic_question": "Welche Seite liegt dem Winkel α gegenüber?"
+      },
+      {
+       "error": "Durch die Kathete b statt durch die Hypotenuse geteilt: a : b = 0,75 ist tan α.",
+       "socratic_question": "Welche Seite steht beim Sinus im Nenner?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, tangens_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "3/5",
+     "antwort": "0.6"
+    },
+    {
+     "rechnung": "4/5",
+     "antwort": "0.8",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "3/4",
+     "antwort": "0.75",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "3ba41acb-6f44-46cf-bfb8-006789699045",
+   "titel": "Sinuswert · sin 35° mit dem Taschenrechner",
+   "basis": {
+    "skill_key": "geo_trigo_verhaeltnis",
+    "source_ref": "trigo-verhaeltnis-02",
+    "input_type": "NUMERIC",
+    "frage": "Berechne sin 35° mit dem Taschenrechner. Winkel sind im Gradmaß angegeben.\n\nRunde auf vier Stellen nach dem Komma.",
+    "known_errors": {
+     "-0,4282": "bogenmass_modus",
+     "−0,4282": "bogenmass_modus",
+     "- 0,4282": "bogenmass_modus",
+     "-0.4282": "bogenmass_modus",
+     "−0.4282": "bogenmass_modus",
+     "- 0.4282": "bogenmass_modus",
+     "0,8192": "sin_cos_vertauscht",
+     "+0,8192": "sin_cos_vertauscht",
+     "0.8192": "sin_cos_vertauscht",
+     "+0.8192": "sin_cos_vertauscht",
+     "0,7002": "tangens_verwechselt",
+     "+0,7002": "tangens_verwechselt",
+     "0.7002": "tangens_verwechselt",
+     "+0.7002": "tangens_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: einen Sinuswert im Gradmaß mit dem Taschenrechner bestimmen und runden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,5736",
+      "+0,5736",
+      "0.5736",
+      "+0.5736"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Taschenrechner auf Gradmaß (DEG) stellen.\nsin 35° ≈ 0,5736.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: sin(35) ≈ −0,4282.",
+       "socratic_question": "Kann der Sinus eines spitzen Winkels negativ sein?"
+      },
+      {
+       "error": "cos 35° ≈ 0,8192 statt sin 35° berechnet.",
+       "socratic_question": "Welche Taste hast du gedrückt: sin oder cos?"
+      },
+      {
+       "error": "tan 35° ≈ 0,7002 statt sin 35° berechnet.",
+       "socratic_question": "Welche Taste hast du gedrückt: sin oder tan?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (bogenmass_modus, sin_cos_vertauscht, tangens_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((1433941090877615240270079782065394661551/2500000000000000000000000000000000000000),4)",
+     "antwort": "0.5736"
+    },
+    {
+     "rechnung": "round((0-856365338992302008813505783491881331309/2000000000000000000000000000000000000000),4)",
+     "antwort": "-0.4282",
+     "rolle": "fehlbild:bogenmass_modus:"
+    },
+    {
+     "rechnung": "round((81915204428899178968448838591684343189/100000000000000000000000000000000000000),4)",
+     "antwort": "0.8192",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round((7002075382097097794585227194448326518529/10000000000000000000000000000000000000000),4)",
+     "antwort": "0.7002",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "3ba007ed-a9f6-44fd-9800-07b92ffdbb65",
+   "titel": "Tangens · erst die fehlende Kathete, a = 9 cm, c = 15 cm",
+   "basis": {
+    "skill_key": "geo_trigo_verhaeltnis",
+    "source_ref": "trigo-verhaeltnis-03",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 9 cm und c = 15 cm.\n\nBestimme tan α. Gib das Ergebnis exakt an.",
+    "known_errors": {
+     "0,6": "tangens_verwechselt",
+     "+0,6": "tangens_verwechselt",
+     "0.6": "tangens_verwechselt",
+     "+0.6": "tangens_verwechselt",
+     "1,33": "sin_cos_vertauscht",
+     "+1,33": "sin_cos_vertauscht",
+     "1.33": "sin_cos_vertauscht",
+     "+1.33": "sin_cos_vertauscht",
+     "0,51": "hypotenuse_verwechselt",
+     "+0,51": "hypotenuse_verwechselt",
+     "0.51": "hypotenuse_verwechselt",
+     "+0.51": "hypotenuse_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: fehlende Kathete mit dem Satz des Pythagoras, dann tan α als Kathetenverhältnis."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,75",
+      "+0,75",
+      "0.75",
+      "+0.75"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Fehlende Kathete: b = √(c² − a²) = √(225 − 81) = √144 = 12 cm.\ntan α = Gegenkathete : Ankathete = a : b = 9 : 12 = 0,75.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Durch die Hypotenuse statt durch die Ankathete geteilt: a : c = 0,6 ist sin α.",
+       "socratic_question": "Welche zwei Seiten setzt der Tangens ins Verhältnis?"
+      },
+      {
+       "error": "Gegenkathete und Ankathete vertauscht: b : a = 12 : 9.",
+       "socratic_question": "Welche Kathete liegt dem Winkel α gegenüber?"
+      },
+      {
+       "error": "Für b die Quadrate addiert statt subtrahiert: b = √306.",
+       "socratic_question": "Kann die Kathete b länger sein als die Hypotenuse c?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (tangens_verwechselt, sin_cos_vertauscht, hypotenuse_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "9/(12)",
+     "antwort": "0.75"
+    },
+    {
+     "rechnung": "9/15",
+     "antwort": "0.6",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round((12)/9,2)",
+     "antwort": "1.33",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round(9/(174928556845359014126224586326367492295641/10000000000000000000000000000000000000000),2)",
+     "antwort": "0.51",
+     "rolle": "fehlbild:hypotenuse_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "id": "8d008461-ba47-4c47-9cfa-e485a413611d",
+   "titel": "Kosinus von β · a = 5 cm, b = 12 cm, c = 13 cm",
+   "basis": {
+    "skill_key": "geo_trigo_verhaeltnis",
+    "source_ref": "trigo-verhaeltnis-04",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A. β ist der Winkel bei B.\n\nGegeben sind a = 5 cm, b = 12 cm und c = 13 cm.\n\nBestimme cos β. Runde auf vier Stellen nach dem Komma.",
+    "known_errors": {
+     "0,9231": "sin_cos_vertauscht",
+     "+0,9231": "sin_cos_vertauscht",
+     "0.9231": "sin_cos_vertauscht",
+     "+0.9231": "sin_cos_vertauscht",
+     "0,4167": "tangens_verwechselt",
+     "+0,4167": "tangens_verwechselt",
+     "0.4167": "tangens_verwechselt",
+     "+0.4167": "tangens_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Gegen- und Ankathete für den Winkel β neu zuordnen, Bruch runden."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "0,3846",
+      "+0,3846",
+      "0.3846",
+      "+0.3846"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Für β liegt b gegenüber (Gegenkathete), a liegt an β an (Ankathete).\ncos β = Ankathete : Hypotenuse = a : c = 5 : 13 ≈ 0,3846.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die Rollen von α übernommen: b : c ist sin β, nicht cos β.",
+       "socratic_question": "Welche Kathete liegt am Winkel β an?"
+      },
+      {
+       "error": "Durch die Kathete b statt durch die Hypotenuse geteilt: 5 : 12.",
+       "socratic_question": "Welche Seite steht beim Kosinus im Nenner?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, tangens_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(5/13,4)",
+     "antwort": "0.3846"
+    },
+    {
+     "rechnung": "round(12/13,4)",
+     "antwort": "0.9231",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round(5/12,4)",
+     "antwort": "0.4167",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "id": "1b979a6a-de0f-434e-96c3-c5859a536a36",
+   "titel": "Ähnliche Dreiecke · gleicher Sinus, c' = 12 cm",
+   "basis": {
+    "skill_key": "geo_trigo_verhaeltnis",
+    "source_ref": "trigo-verhaeltnis-05",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nEs ist a = 3 cm und c = 5 cm.\n\nEin zweites Dreieck A'B'C' hat ebenfalls bei C' einen rechten Winkel und bei A' denselben Winkel α. Die Seite a' liegt der Ecke A' gegenüber, die Hypotenuse ist c' = 12 cm.\n\nWie lang ist a'? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "9": "tangens_verwechselt",
+     "10": "additiv_statt_multiplikativ",
+     "9,6": "sin_cos_vertauscht",
+     "9.6": "sin_cos_vertauscht",
+     "9,6 cm": "sin_cos_vertauscht",
+     "9,6cm": "sin_cos_vertauscht",
+     "9 cm": "tangens_verwechselt",
+     "9cm": "tangens_verwechselt",
+     "10 cm": "additiv_statt_multiplikativ",
+     "10cm": "additiv_statt_multiplikativ"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Rückrichtung: Das Seitenverhältnis bleibt in ähnlichen Dreiecken gleich; aus ihm eine Seite des zweiten Dreiecks bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7,2",
+      "7.2",
+      "7,2 cm",
+      "7,2cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Gleicher Winkel α, also gleiches Verhältnis: sin α = a : c = 3 : 5 = 0,6.\na' = c' · sin α = 12 cm · 0,6 = 7,2 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit b : c = 4 : 5 gerechnet, also mit cos α: 12 · 0,8.",
+       "socratic_question": "Welche Seite liegt dem Winkel α gegenüber?"
+      },
+      {
+       "error": "Mit a : b = 3 : 4 gerechnet, also mit tan α: 12 · 0,75.",
+       "socratic_question": "Welches Verhältnis verbindet a mit der Hypotenuse?"
+      },
+      {
+       "error": "Die Hypotenuse wächst um 7 cm, also a um 7 cm: 3 + 7.",
+       "socratic_question": "Bleibt in ähnlichen Dreiecken der Unterschied oder das Verhältnis der Seiten gleich?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, tangens_verwechselt, additiv_statt_multiplikativ)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "12*3/5",
+     "antwort": "7.2"
+    },
+    {
+     "rechnung": "12*(4)/5",
+     "antwort": "9.6",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "12*3/(4)",
+     "antwort": "9",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "3+(12-5)",
+     "antwort": "10",
+     "rolle": "fehlbild:additiv_statt_multiplikativ:"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "id": "be954f3b-2fd0-4e36-b508-662e15d93cdc",
+   "titel": "Aus tan α = 0,75 und c = 20 cm die Seite a",
+   "basis": {
+    "skill_key": "geo_trigo_verhaeltnis",
+    "source_ref": "trigo-verhaeltnis-06",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nEs ist tan α = 0,75 und c = 20 cm.\n\nWie lang ist die Seite a? Gib das Ergebnis exakt an.",
+    "unit": "cm",
+    "known_errors": {
+     "15": "tangens_verwechselt",
+     "16": "sin_cos_vertauscht",
+     "15 cm": "tangens_verwechselt",
+     "15cm": "tangens_verwechselt",
+     "16 cm": "sin_cos_vertauscht",
+     "16cm": "sin_cos_vertauscht"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung vom Verhältnis zu den Seiten; Seitenverhältnis 3 : 4 erkennen, mit Pythagoras auf die Hypotenuse schließen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "12",
+      "12 cm",
+      "12cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "tan α = a : b = 0,75 = 3 : 4, also a = 3k und b = 4k.\nPythagoras: c = √((3k)² + (4k)²) = 5k = 20 cm, also k = 4 cm.\na = 3 · 4 cm = 12 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "tan α wie sin α benutzt: a = 0,75 · 20 cm.",
+       "socratic_question": "Steht beim Tangens die Hypotenuse im Verhältnis?"
+      },
+      {
+       "error": "Die Ankathete b = 4k berechnet statt der Gegenkathete a.",
+       "socratic_question": "Welche Kathete liegt dem Winkel α gegenüber?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (tangens_verwechselt, sin_cos_vertauscht)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "20*3/(5)",
+     "antwort": "12"
+    },
+    {
+     "rechnung": "0.75*20",
+     "antwort": "15",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "20*4/(5)",
+     "antwort": "16",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "id": "fc481b89-f335-4f1a-924e-3dc94fb5768d",
+   "titel": "Gegenkathete · α = 35°, c = 10 cm",
+   "basis": {
+    "skill_key": "geo_trigo_seite",
+    "source_ref": "trigo-seite-01",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 35° und c = 10 cm.\n\nWie lang ist die Seite a? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "7": "tangens_verwechselt",
+     "8,19": "sin_cos_vertauscht",
+     "8.19": "sin_cos_vertauscht",
+     "8,19 cm": "sin_cos_vertauscht",
+     "8,19cm": "sin_cos_vertauscht",
+     "7,00": "tangens_verwechselt",
+     "7.00": "tangens_verwechselt",
+     "7,00 cm": "tangens_verwechselt",
+     "7,00cm": "tangens_verwechselt",
+     "7 cm": "tangens_verwechselt",
+     "7cm": "tangens_verwechselt",
+     "-4,28": "bogenmass_modus",
+     "−4,28": "bogenmass_modus",
+     "- 4,28": "bogenmass_modus",
+     "-4.28": "bogenmass_modus",
+     "−4.28": "bogenmass_modus",
+     "- 4.28": "bogenmass_modus",
+     "-4,28 cm": "bogenmass_modus",
+     "-4,28cm": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: a = c · sin α, gesuchte Seite im Zähler."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5,74",
+      "5.74",
+      "5,74 cm",
+      "5,74cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "sin α = a : c, also a = c · sin α.\na = 10 cm · sin 35° ≈ 10 cm · 0,5736 ≈ 5,74 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit cos 35° gerechnet: Das ist die Ankathete b.",
+       "socratic_question": "Liegt a dem Winkel α gegenüber oder an ihm an?"
+      },
+      {
+       "error": "Mit tan 35° gerechnet, obwohl die Hypotenuse gegeben ist.",
+       "socratic_question": "Welches Verhältnis enthält die Hypotenuse und die Gegenkathete?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: sin(35) ist negativ.",
+       "socratic_question": "Kann eine Seite negativ lang sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, tangens_verwechselt, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(10*(1433941090877615240270079782065394661551/2500000000000000000000000000000000000000),2)",
+     "antwort": "5.74"
+    },
+    {
+     "rechnung": "round(10*(81915204428899178968448838591684343189/100000000000000000000000000000000000000),2)",
+     "antwort": "8.19",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round(10*(7002075382097097794585227194448326518529/10000000000000000000000000000000000000000),2)",
+     "antwort": "7.00",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(10*(0-856365338992302008813505783491881331309/2000000000000000000000000000000000000000),2)",
+     "antwort": "-4.28",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "id": "881bdddb-0984-422c-bf46-c2a8446155fe",
+   "titel": "Gegenkathete über den Tangens · α = 40°, b = 6 cm",
+   "basis": {
+    "skill_key": "geo_trigo_seite",
+    "source_ref": "trigo-seite-02",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 40° und b = 6 cm.\n\nWie lang ist die Seite a? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "7,15": "sin_cos_vertauscht",
+     "7.15": "sin_cos_vertauscht",
+     "7,15 cm": "sin_cos_vertauscht",
+     "7,15cm": "sin_cos_vertauscht",
+     "3,86": "tangens_verwechselt",
+     "3.86": "tangens_verwechselt",
+     "3,86 cm": "tangens_verwechselt",
+     "3,86cm": "tangens_verwechselt",
+     "-6,70": "bogenmass_modus",
+     "−6,70": "bogenmass_modus",
+     "- 6,70": "bogenmass_modus",
+     "-6.70": "bogenmass_modus",
+     "−6.70": "bogenmass_modus",
+     "- 6.70": "bogenmass_modus",
+     "-6,7": "bogenmass_modus",
+     "−6,7": "bogenmass_modus",
+     "- 6,7": "bogenmass_modus",
+     "-6.7": "bogenmass_modus",
+     "−6.7": "bogenmass_modus",
+     "- 6.7": "bogenmass_modus",
+     "-6,70 cm": "bogenmass_modus",
+     "-6,70cm": "bogenmass_modus",
+     "-6,7 cm": "bogenmass_modus",
+     "-6,7cm": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: a = b · tan α, zwei Katheten im Verhältnis."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5,03",
+      "5.03",
+      "5,03 cm",
+      "5,03cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "tan α = a : b, also a = b · tan α.\na = 6 cm · tan 40° ≈ 6 cm · 0,8391 ≈ 5,03 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Gegen- und Ankathete vertauscht: tan α = b : a, also a = b : tan α.",
+       "socratic_question": "Welche Kathete liegt dem Winkel α gegenüber?"
+      },
+      {
+       "error": "Mit sin 40° gerechnet, als wäre b die Hypotenuse.",
+       "socratic_question": "Ist b eine Kathete oder die Hypotenuse?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: tan(40) ist negativ.",
+       "socratic_question": "Kann eine Seite negativ lang sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, tangens_verwechselt, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(6*(4195498155886400058815636490615906823437/5000000000000000000000000000000000000000),2)",
+     "antwort": "5.03"
+    },
+    {
+     "rechnung": "round(6/(4195498155886400058815636490615906823437/5000000000000000000000000000000000000000),2)",
+     "antwort": "7.15",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round(6*(1606969024216348315806608524768158582269/2500000000000000000000000000000000000000),2)",
+     "antwort": "3.86",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(6*(0-5586074654619479840796207040463136700119/5000000000000000000000000000000000000000),2)",
+     "antwort": "-6.70",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "id": "13d6dc4d-737e-4fd3-a67d-fb401ff5e223",
+   "titel": "Hypotenuse im Nenner · α = 28°, a = 4,5 cm",
+   "basis": {
+    "skill_key": "geo_trigo_seite",
+    "source_ref": "trigo-seite-03",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 28° und a = 4,5 cm.\n\nWie lang ist die Hypotenuse c? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "2,11": "multipliziert_statt_dividiert",
+     "2.11": "multipliziert_statt_dividiert",
+     "2,11 cm": "multipliziert_statt_dividiert",
+     "2,11cm": "multipliziert_statt_dividiert",
+     "5,10": "sin_cos_vertauscht",
+     "5.10": "sin_cos_vertauscht",
+     "5,1": "sin_cos_vertauscht",
+     "5.1": "sin_cos_vertauscht",
+     "5,10 cm": "sin_cos_vertauscht",
+     "5,10cm": "sin_cos_vertauscht",
+     "5,1 cm": "sin_cos_vertauscht",
+     "5,1cm": "sin_cos_vertauscht",
+     "8,46": "tangens_verwechselt",
+     "8.46": "tangens_verwechselt",
+     "8,46 cm": "tangens_verwechselt",
+     "8,46cm": "tangens_verwechselt",
+     "16,61": "bogenmass_modus",
+     "16.61": "bogenmass_modus",
+     "16,61 cm": "bogenmass_modus",
+     "16,61cm": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Die gesuchte Seite steht im Nenner; sin α = a : c nach c umstellen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9,59",
+      "9.59",
+      "9,59 cm",
+      "9,59cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "sin α = a : c, also c = a : sin α.\nc = 4,5 cm : sin 28° ≈ 4,5 cm : 0,4695 ≈ 9,59 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "a · sin α statt a : sin α gerechnet.",
+       "socratic_question": "Kann die Hypotenuse kürzer sein als die Kathete a?"
+      },
+      {
+       "error": "Mit cos 28° gerechnet, als läge a am Winkel α an.",
+       "socratic_question": "Liegt a dem Winkel α gegenüber oder an ihm an?"
+      },
+      {
+       "error": "Mit tan 28° gerechnet: Das ergibt die Kathete b, nicht die Hypotenuse.",
+       "socratic_question": "Welches Verhältnis enthält die Hypotenuse?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß.",
+       "socratic_question": "Hast du DEG oder RAD in der Anzeige?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (multipliziert_statt_dividiert, sin_cos_vertauscht, tangens_verwechselt, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(4.5/(293419726741181734974663930142402059827/625000000000000000000000000000000000000),2)",
+     "antwort": "9.59"
+    },
+    {
+     "rechnung": "round(4.5*(293419726741181734974663930142402059827/625000000000000000000000000000000000000),2)",
+     "antwort": "2.11",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:"
+    },
+    {
+     "rechnung": "round(4.5/(1765895185717853884064342720631438772167/2000000000000000000000000000000000000000),2)",
+     "antwort": "5.10",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round(4.5/(1063418863322957496151831743680117960611/2000000000000000000000000000000000000000),2)",
+     "antwort": "8.46",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(4.5/(2709057883078690199863430927787925334429/10000000000000000000000000000000000000000),2)",
+     "antwort": "16.61",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "id": "33bdde50-6f8d-4d2e-a80c-62601488e4a2",
+   "titel": "Ankathete · α = 52°, c = 8,4 cm",
+   "basis": {
+    "skill_key": "geo_trigo_seite",
+    "source_ref": "trigo-seite-04",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 52° und c = 8,4 cm.\n\nWie lang ist die Seite b? Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "6,62": "sin_cos_vertauscht",
+     "6.62": "sin_cos_vertauscht",
+     "6,62 cm": "sin_cos_vertauscht",
+     "6,62cm": "sin_cos_vertauscht",
+     "5,21": "zu_frueh_gerundet",
+     "5.21": "zu_frueh_gerundet",
+     "5,21 cm": "zu_frueh_gerundet",
+     "5,21cm": "zu_frueh_gerundet",
+     "-1,37": "bogenmass_modus",
+     "−1,37": "bogenmass_modus",
+     "- 1,37": "bogenmass_modus",
+     "-1.37": "bogenmass_modus",
+     "−1.37": "bogenmass_modus",
+     "- 1.37": "bogenmass_modus",
+     "-1,37 cm": "bogenmass_modus",
+     "-1,37cm": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Ankathete erkennen, Kosinus wählen, ohne gerundeten Zwischenwert rechnen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5,17",
+      "5.17",
+      "5,17 cm",
+      "5,17cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "b liegt am Winkel α an (Ankathete): cos α = b : c, also b = c · cos α.\nb = 8,4 cm · cos 52° ≈ 8,4 cm · 0,6157 ≈ 5,17 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit sin 52° gerechnet: Das ist die Gegenkathete a.",
+       "socratic_question": "Liegt b dem Winkel α gegenüber oder an ihm an?"
+      },
+      {
+       "error": "cos 52° auf 0,62 gerundet und damit weitergerechnet.",
+       "socratic_question": "Wie stark ändert sich das Ergebnis, wenn du cos 52° vorher rundest?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: cos(52) ist negativ.",
+       "socratic_question": "Kann eine Seite negativ lang sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, zu_frueh_gerundet, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(8.4*(6156614753256582796688110928436556282509/10000000000000000000000000000000000000000),2)",
+     "antwort": "5.17"
+    },
+    {
+     "rechnung": "round(8.4*(7880107536067219566939777878358516666417/10000000000000000000000000000000000000000),2)",
+     "antwort": "6.62",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round(8.4*0.62,2)",
+     "antwort": "5.21",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    },
+    {
+     "rechnung": "round(8.4*(0-1629907807957054810033298154252116862153/10000000000000000000000000000000000000000),2)",
+     "antwort": "-1.37",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "id": "35cf2123-394c-461b-a303-5073c5cfb2d4",
+   "titel": "Rampe · 0,8 m Höhe unter 6°",
+   "basis": {
+    "skill_key": "geo_trigo_seite",
+    "source_ref": "trigo-seite-05",
+    "input_type": "NUMERIC",
+    "frage": "Eine Rampe steigt gleichmäßig unter einem Winkel von 6° gegen die Waagerechte an. Winkel sind im Gradmaß angegeben. Sie überwindet einen Höhenunterschied von 0,8 m.\n\nWie lang ist die schräge Fläche der Rampe? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "m",
+    "known_errors": {
+     "0,08": "multipliziert_statt_dividiert",
+     "0.08": "multipliziert_statt_dividiert",
+     "0,08 m": "multipliziert_statt_dividiert",
+     "0,08m": "multipliziert_statt_dividiert",
+     "7,61": "tangens_verwechselt",
+     "7.61": "tangens_verwechselt",
+     "7,61 m": "tangens_verwechselt",
+     "7,61m": "tangens_verwechselt",
+     "-2,86": "bogenmass_modus",
+     "−2,86": "bogenmass_modus",
+     "- 2,86": "bogenmass_modus",
+     "-2.86": "bogenmass_modus",
+     "−2.86": "bogenmass_modus",
+     "- 2.86": "bogenmass_modus",
+     "-2,86 m": "bogenmass_modus",
+     "-2,86m": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Rampe als Hypotenuse erkennen, gesuchte Länge im Nenner."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "7,65",
+      "7.65",
+      "7,65 m",
+      "7,65m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Höhenunterschied, waagerechte Strecke und Rampe bilden ein rechtwinkliges Dreieck. Die Rampe ist die Hypotenuse, die Höhe liegt dem 6°-Winkel gegenüber.\nsin 6° = 0,8 m : Rampe, also Rampe = 0,8 m : sin 6° ≈ 0,8 m : 0,1045 ≈ 7,65 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "0,8 · sin 6° statt 0,8 : sin 6° gerechnet.",
+       "socratic_question": "Kann die Rampe kürzer sein als der Höhenunterschied?"
+      },
+      {
+       "error": "Mit tan 6° gerechnet: Das ist die waagerechte Strecke, nicht die Rampe.",
+       "socratic_question": "Ist die Rampe eine Kathete oder die Hypotenuse?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: sin(6) ist negativ.",
+       "socratic_question": "Kann eine Länge negativ sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (multipliziert_statt_dividiert, tangens_verwechselt, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(0.8/(1045284632676534713998341548024981190807/10000000000000000000000000000000000000000),2)",
+     "antwort": "7.65"
+    },
+    {
+     "rechnung": "round(0.8*(1045284632676534713998341548024981190807/10000000000000000000000000000000000000000),2)",
+     "antwort": "0.08",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:"
+    },
+    {
+     "rechnung": "round(0.8/(525521176328382312557511900699409576251/5000000000000000000000000000000000000000),2)",
+     "antwort": "7.61",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(0.8/(0-69853874549731468202888861652973689907/250000000000000000000000000000000000000),2)",
+     "antwort": "-2.86",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "id": "6778b0b4-e325-4ce4-b2a9-c083b57a5987",
+   "titel": "Flächeninhalt · α = 38°, c = 12 cm",
+   "basis": {
+    "skill_key": "geo_trigo_seite",
+    "source_ref": "trigo-seite-06",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind α = 38° und c = 12 cm.\n\nBerechne den Flächeninhalt des Dreiecks. Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm²",
+    "known_errors": {
+     "69,86": "halbieren_vergessen",
+     "69.86": "halbieren_vergessen",
+     "69,86 cm²": "halbieren_vergessen",
+     "69,86cm²": "halbieren_vergessen",
+     "35,27": "zu_frueh_gerundet",
+     "35.27": "zu_frueh_gerundet",
+     "35,27 cm²": "zu_frueh_gerundet",
+     "35,27cm²": "zu_frueh_gerundet",
+     "20,38": "bogenmass_modus",
+     "20.38": "bogenmass_modus",
+     "20,38 cm²": "bogenmass_modus",
+     "20,38cm²": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: beide Katheten über Sinus und Kosinus bestimmen und den Flächeninhalt bilden."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "34,93",
+      "34.93",
+      "34,93 cm²",
+      "34,93cm²"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "a = c · sin α = 12 cm · sin 38° ≈ 7,3879 cm.\nb = c · cos α = 12 cm · cos 38° ≈ 9,4561 cm.\nDie Katheten stehen senkrecht aufeinander: A = ½ · a · b ≈ 34,93 cm².",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "a · b ohne den Faktor ½ gerechnet.",
+       "socratic_question": "Welcher Anteil des Rechtecks aus a und b ist das Dreieck?"
+      },
+      {
+       "error": "sin 38° ≈ 0,62 und cos 38° ≈ 0,79 gerundet und damit weitergerechnet.",
+       "socratic_question": "Wie stark ändert sich das Ergebnis, wenn du die Werte vorher rundest?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß.",
+       "socratic_question": "Hast du DEG oder RAD in der Anzeige?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, zu_frueh_gerundet, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(1/2*12*(6156614753256582796688110928436556282509/10000000000000000000000000000000000000000)*12*(7880107536067219566939777878358516666417/10000000000000000000000000000000000000000),2)",
+     "antwort": "34.93"
+    },
+    {
+     "rechnung": "round(12*(6156614753256582796688110928436556282509/10000000000000000000000000000000000000000)*12*(7880107536067219566939777878358516666417/10000000000000000000000000000000000000000),2)",
+     "antwort": "69.86",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "round(1/2*12*0.62*12*0.79,2)",
+     "antwort": "35.27",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    },
+    {
+     "rechnung": "round(1/2*12*(740921446773463293480741624622543303189/2500000000000000000000000000000000000000)*12*(9550736440472948575865362354058769544029/10000000000000000000000000000000000000000),2)",
+     "antwort": "20.38",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 13,
+   "id": "ccd00ca0-8589-4826-9f85-ed97dbb37116",
+   "titel": "Winkel über den Sinus · a = 3 cm, c = 5 cm",
+   "basis": {
+    "skill_key": "geo_trigo_winkel",
+    "source_ref": "trigo-winkel-01",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 3 cm und c = 5 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "31": "tangens_verwechselt",
+     "0,6": "umkehrfunktion_vergessen",
+     "0.6": "umkehrfunktion_vergessen",
+     "0,6 °": "umkehrfunktion_vergessen",
+     "0,6°": "umkehrfunktion_vergessen",
+     "53,1": "sin_cos_vertauscht",
+     "53.1": "sin_cos_vertauscht",
+     "53,1 °": "sin_cos_vertauscht",
+     "53,1°": "sin_cos_vertauscht",
+     "31,0": "tangens_verwechselt",
+     "31.0": "tangens_verwechselt",
+     "31,0 °": "tangens_verwechselt",
+     "31,0°": "tangens_verwechselt",
+     "31 °": "tangens_verwechselt",
+     "31°": "tangens_verwechselt",
+     "0,64": "bogenmass_modus",
+     "0.64": "bogenmass_modus",
+     "0,64 °": "bogenmass_modus",
+     "0,64°": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: sin α aus zwei Seiten, dann α mit sin⁻¹."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "36,9",
+      "36.9",
+      "36,9 °",
+      "36,9°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "sin α = a : c = 3 : 5 = 0,6.\nα = sin⁻¹(0,6) ≈ 36,9°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Sinuswert 0,6 als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      },
+      {
+       "error": "cos⁻¹ statt sin⁻¹ genommen: Das ist der Winkel β.",
+       "socratic_question": "Liegt a dem Winkel α gegenüber oder an ihm an?"
+      },
+      {
+       "error": "tan⁻¹ genommen, obwohl die Hypotenuse gegeben ist.",
+       "socratic_question": "Welches Verhältnis enthält die Hypotenuse?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: Der Winkel kommt im Bogenmaß heraus.",
+       "socratic_question": "Passt ein Winkel unter 1° zu einem Dreieck mit den Seiten 3 cm und 5 cm?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (umkehrfunktion_vergessen, sin_cos_vertauscht, tangens_verwechselt, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((92174744114610053242139031397733526643979/2500000000000000000000000000000000000000),1)",
+     "antwort": "36.9"
+    },
+    {
+     "rechnung": "3/5",
+     "antwort": "0.6",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    },
+    {
+     "rechnung": "round((132825255885389946757860968602266473356021/2500000000000000000000000000000000000000),1)",
+     "antwort": "53.1",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round((19352347832545950885692299900522859799391/625000000000000000000000000000000000000),1)",
+     "antwort": "31.0",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round((92174744114610053242139031397733526643979/2500000000000000000000000000000000000000)*(3.14159265358979323846264338327950288)/180,2)",
+     "antwort": "0.64",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 14,
+   "id": "b986435e-8d79-45e5-b7fe-69fb72db8bcb",
+   "titel": "Winkel über den Tangens · a = 4 cm, b = 9 cm",
+   "basis": {
+    "skill_key": "geo_trigo_winkel",
+    "source_ref": "trigo-winkel-02",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind a = 4 cm und b = 9 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "66": "sin_cos_vertauscht",
+     "0,4": "umkehrfunktion_vergessen",
+     "0.4": "umkehrfunktion_vergessen",
+     "0,4 °": "umkehrfunktion_vergessen",
+     "0,4°": "umkehrfunktion_vergessen",
+     "66,0": "sin_cos_vertauscht",
+     "66.0": "sin_cos_vertauscht",
+     "66,0 °": "sin_cos_vertauscht",
+     "66,0°": "sin_cos_vertauscht",
+     "66 °": "sin_cos_vertauscht",
+     "66°": "sin_cos_vertauscht",
+     "26,4": "tangens_verwechselt",
+     "26.4": "tangens_verwechselt",
+     "26,4 °": "tangens_verwechselt",
+     "26,4°": "tangens_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: tan α aus zwei Katheten, dann α mit tan⁻¹."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "24,0",
+      "24.0",
+      "24",
+      "24,0 °",
+      "24,0°",
+      "24 °",
+      "24°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "tan α = a : b = 4 : 9 ≈ 0,4444.\nα = tan⁻¹(4 : 9) ≈ 24,0°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Tangenswert 4 : 9 als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      },
+      {
+       "error": "Gegen- und Ankathete vertauscht: tan⁻¹(9 : 4) ist der Winkel β.",
+       "socratic_question": "Welche Kathete liegt dem Winkel α gegenüber?"
+      },
+      {
+       "error": "sin⁻¹ genommen, als wäre b die Hypotenuse.",
+       "socratic_question": "Ist b eine Kathete oder die Hypotenuse?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (umkehrfunktion_vergessen, sin_cos_vertauscht, tangens_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((47924977949156366479743658782144495795821/2000000000000000000000000000000000000000),1)",
+     "antwort": "24.0"
+    },
+    {
+     "rechnung": "round(4/9,1)",
+     "antwort": "0.4",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    },
+    {
+     "rechnung": "round((132075022050843633520256341217855504204179/2000000000000000000000000000000000000000),1)",
+     "antwort": "66.0",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round((52775599922485995505345648712941798014407/2000000000000000000000000000000000000000),1)",
+     "antwort": "26.4",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 15,
+   "id": "ef367809-6ed4-4541-ab31-b1f5e19c643f",
+   "titel": "Winkel über den Kosinus · b = 6,5 cm, c = 9 cm",
+   "basis": {
+    "skill_key": "geo_trigo_winkel",
+    "source_ref": "trigo-winkel-03",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nGegeben sind b = 6,5 cm und c = 9 cm.\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "46,2": "sin_cos_vertauscht",
+     "46.2": "sin_cos_vertauscht",
+     "46,2 °": "sin_cos_vertauscht",
+     "46,2°": "sin_cos_vertauscht",
+     "35,8": "tangens_verwechselt",
+     "35.8": "tangens_verwechselt",
+     "35,8 °": "tangens_verwechselt",
+     "35,8°": "tangens_verwechselt",
+     "0,7": "umkehrfunktion_vergessen",
+     "0.7": "umkehrfunktion_vergessen",
+     "0,7 °": "umkehrfunktion_vergessen",
+     "0,7°": "umkehrfunktion_vergessen",
+     "0,8": "bogenmass_modus",
+     "0.8": "bogenmass_modus",
+     "0,8 °": "bogenmass_modus",
+     "0,8°": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Ankathete erkennen, Kosinus wählen, Dezimalzahlen."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "43,8",
+      "43.8",
+      "43,8 °",
+      "43,8°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "b liegt am Winkel α an: cos α = b : c = 6,5 : 9 ≈ 0,7222.\nα = cos⁻¹(6,5 : 9) ≈ 43,8°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "sin⁻¹ statt cos⁻¹ genommen: Das ist der Winkel β.",
+       "socratic_question": "Liegt b dem Winkel α gegenüber oder an ihm an?"
+      },
+      {
+       "error": "tan⁻¹ genommen, als wäre c eine Kathete.",
+       "socratic_question": "Ist c eine Kathete oder die Hypotenuse?"
+      },
+      {
+       "error": "Den Kosinuswert als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: Der Winkel kommt im Bogenmaß heraus.",
+       "socratic_question": "Passt ein Winkel unter 1° zu diesem Dreieck?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, tangens_verwechselt, umkehrfunktion_vergessen, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((437617426926798023660362546627518635209123/10000000000000000000000000000000000000000),1)",
+     "antwort": "43.8"
+    },
+    {
+     "rechnung": "round((462382573073201976339637453372481364790877/10000000000000000000000000000000000000000),1)",
+     "antwort": "46.2",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round((179188264771391451765685931230535444443199/5000000000000000000000000000000000000000),1)",
+     "antwort": "35.8",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(6.5/9,1)",
+     "antwort": "0.7",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    },
+    {
+     "rechnung": "round((437617426926798023660362546627518635209123/10000000000000000000000000000000000000000)*(3.14159265358979323846264338327950288)/180,1)",
+     "antwort": "0.8",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 16,
+   "id": "0c5d8ee8-fed2-4022-9d27-23860d1d7cc7",
+   "titel": "Beide spitzen Winkel · a = 5 cm, c = 8 cm",
+   "basis": {
+    "skill_key": "geo_trigo_winkel",
+    "source_ref": "trigo-winkel-04",
+    "input_type": "MULTI_PART",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A. β ist der Winkel bei B.\n\nGegeben sind a = 5 cm und c = 8 cm.\n\nBerechne die Winkel α und β. Gib die Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "parts": [
+     {
+      "nr": 1,
+      "kind": "short_input",
+      "prompt": "Winkel α in Grad"
+     },
+     {
+      "nr": 2,
+      "kind": "short_input",
+      "prompt": "Winkel β in Grad"
+     }
+    ],
+    "known_errors": {
+     "1": {
+      "0,625": "umkehrfunktion_vergessen",
+      "0.625": "umkehrfunktion_vergessen",
+      "0,625 °": "umkehrfunktion_vergessen",
+      "0,625°": "umkehrfunktion_vergessen",
+      "51,3": "sin_cos_vertauscht",
+      "51.3": "sin_cos_vertauscht",
+      "51,3 °": "sin_cos_vertauscht",
+      "51,3°": "sin_cos_vertauscht"
+     },
+     "2": {
+      "89,3": "bogenmass_modus",
+      "89.3": "bogenmass_modus",
+      "89,3 °": "bogenmass_modus",
+      "89,3°": "bogenmass_modus"
+     }
+    },
+    "zeit_teile": {
+     "1": 30,
+     "2": 30
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: α mit sin⁻¹, dann β über die Winkelsumme als 90° − α."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "teile": {
+    "1": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Anwenden: sin α aus zwei Seiten, dann sin⁻¹."
+     },
+     "competency_content": {
+      "wert": "geometrie",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "38,7",
+       "38.7",
+       "38,7 °",
+       "38,7°"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    },
+    "2": {
+     "afb": {
+      "wert": "II",
+      "sicher": "mittel",
+      "grund": "Anwenden: zweiter spitzer Winkel über 90° − α."
+     },
+     "competency_content": {
+      "wert": "geometrie",
+      "sicher": "hoch",
+      "grund": "Wie die Aufgabe."
+     },
+     "antwort": {
+      "wert": [
+       "51,3",
+       "51.3",
+       "51,3 °",
+       "51,3°"
+      ],
+      "sicher": "hoch",
+      "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+     }
+    }
+   },
+   "loesung": {
+    "solution": {
+     "wert": "sin α = a : c = 5 : 8 = 0,625.\nα = sin⁻¹(0,625) ≈ 38,7°.\nWinkelsumme: α + β = 180° − 90° = 90°, also β = 90° − α ≈ 51,3°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Sinuswert 0,625 als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      },
+      {
+       "error": "cos⁻¹ statt sin⁻¹ genommen: Das ist der Winkel β.",
+       "socratic_question": "Liegt a dem Winkel α gegenüber oder an ihm an?"
+      },
+      {
+       "error": "α im Bogenmaß berechnet und von 90 abgezogen.",
+       "socratic_question": "Passt ein Winkel von fast 90° zu den Seiten 5 cm und 8 cm?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (umkehrfunktion_vergessen, sin_cos_vertauscht, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "teil": "1",
+     "rechnung": "round((386821874534894399909387483743243573408319/10000000000000000000000000000000000000000),1)",
+     "antwort": "38.7"
+    },
+    {
+     "teil": "1",
+     "rechnung": "5/8",
+     "antwort": "0.625",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    },
+    {
+     "teil": "1",
+     "rechnung": "round((513178125465105600090612516256756426591681/10000000000000000000000000000000000000000),1)",
+     "antwort": "51.3",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(90-(386821874534894399909387483743243573408319/10000000000000000000000000000000000000000),1)",
+     "antwort": "51.3"
+    },
+    {
+     "teil": "2",
+     "rechnung": "round(90-(386821874534894399909387483743243573408319/10000000000000000000000000000000000000000)*(3.14159265358979323846264338327950288)/180,1)",
+     "antwort": "89.3",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 17,
+   "id": "7a00ab4b-d497-46fc-87c4-8e706fc3aaff",
+   "titel": "Dachneigung · Sparren 5,2 m, Höhe 2,4 m",
+   "basis": {
+    "skill_key": "geo_trigo_winkel",
+    "source_ref": "trigo-winkel-05",
+    "input_type": "NUMERIC",
+    "frage": "Ein Dachsparren ist 5,2 m lang. Er reicht von der waagerechten Decke bis zum First, der 2,4 m senkrecht über der Decke liegt.\n\nUnter welchem Winkel ist der Sparren gegen die Waagerechte geneigt? Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "62,5": "sin_cos_vertauscht",
+     "62.5": "sin_cos_vertauscht",
+     "62,5 °": "sin_cos_vertauscht",
+     "62,5°": "sin_cos_vertauscht",
+     "24,8": "tangens_verwechselt",
+     "24.8": "tangens_verwechselt",
+     "24,8 °": "tangens_verwechselt",
+     "24,8°": "tangens_verwechselt",
+     "0,5": "umkehrfunktion_vergessen",
+     "0.5": "umkehrfunktion_vergessen",
+     "0,5 °": "umkehrfunktion_vergessen",
+     "0,5°": "umkehrfunktion_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Sparren als Hypotenuse und Dachhöhe als Gegenkathete erkennen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "27,5",
+      "27.5",
+      "27,5 °",
+      "27,5°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Sparren, Höhe und waagerechte Strecke bilden ein rechtwinkliges Dreieck; der Sparren ist die Hypotenuse, die Höhe liegt dem Neigungswinkel gegenüber.\nsin α = 2,4 : 5,2 ≈ 0,4615.\nα = sin⁻¹(2,4 : 5,2) ≈ 27,5°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "cos⁻¹ genommen: Das ist der Winkel am First.",
+       "socratic_question": "Liegt die Höhe dem gesuchten Winkel gegenüber oder an ihm an?"
+      },
+      {
+       "error": "tan⁻¹ genommen, als wäre der Sparren die waagerechte Kathete.",
+       "socratic_question": "Ist der Sparren eine Kathete oder die Hypotenuse?"
+      },
+      {
+       "error": "Den Sinuswert als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, tangens_verwechselt, umkehrfunktion_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((13743213125190641432388061590436073222493/500000000000000000000000000000000000000),1)",
+     "antwort": "27.5"
+    },
+    {
+     "rechnung": "round((31256786874809358567611938409563926777507/500000000000000000000000000000000000000),1)",
+     "antwort": "62.5",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round((123875702844159600222109719721870999755239/5000000000000000000000000000000000000000),1)",
+     "antwort": "24.8",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(2.4/5.2,1)",
+     "antwort": "0.5",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 18,
+   "id": "a8e2cd6c-586b-46d4-a25e-55aa33f9e02d",
+   "titel": "Winkel aus Flächeninhalt · a = 6 cm, A = 27 cm²",
+   "basis": {
+    "skill_key": "geo_trigo_winkel",
+    "source_ref": "trigo-winkel-06",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC ist der Winkel bei C ein rechter Winkel. Die Seite a liegt der Ecke A gegenüber, b der Ecke B, c ist die Hypotenuse. α ist der Winkel bei A.\n\nDie Seite a ist 6 cm lang, der Flächeninhalt des Dreiecks beträgt 27 cm².\n\nBerechne den Winkel α. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "53,1": "halbieren_vergessen",
+     "53.1": "halbieren_vergessen",
+     "53,1 °": "halbieren_vergessen",
+     "53,1°": "halbieren_vergessen",
+     "41,8": "tangens_verwechselt",
+     "41.8": "tangens_verwechselt",
+     "41,8 °": "tangens_verwechselt",
+     "41,8°": "tangens_verwechselt",
+     "0,7": "umkehrfunktion_vergessen",
+     "0.7": "umkehrfunktion_vergessen",
+     "0,7 °": "umkehrfunktion_vergessen",
+     "0,7°": "umkehrfunktion_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Rückrichtung über den Flächeninhalt zur zweiten Kathete, dann Winkel mit tan⁻¹."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "33,7",
+      "33.7",
+      "33,7 °",
+      "33,7°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Katheten stehen senkrecht aufeinander: A = ½ · a · b, also b = 2 · 27 cm² : 6 cm = 9 cm.\ntan α = a : b = 6 : 9.\nα = tan⁻¹(6 : 9) ≈ 33,7°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Faktor ½ im Flächeninhalt vergessen: b = 27 : 6 = 4,5 cm.",
+       "socratic_question": "Welcher Anteil des Rechtecks aus a und b ist das Dreieck?"
+      },
+      {
+       "error": "sin⁻¹(6 : 9) genommen, als wäre b die Hypotenuse.",
+       "socratic_question": "Ist b eine Kathete oder die Hypotenuse?"
+      },
+      {
+       "error": "Den Tangenswert 6 : 9 als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (halbieren_vergessen, tangens_verwechselt, umkehrfunktion_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((84225168814949467283813736404150348550641/2500000000000000000000000000000000000000),1)",
+     "antwort": "33.7"
+    },
+    {
+     "rechnung": "round((132825255885389946757860968602266473356021/2500000000000000000000000000000000000000),1)",
+     "antwort": "53.1",
+     "rolle": "fehlbild:halbieren_vergessen:"
+    },
+    {
+     "rechnung": "round((418103148957785980658579167305782595310141/10000000000000000000000000000000000000000),1)",
+     "antwort": "41.8",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(6/(2*27/6),1)",
+     "antwort": "0.7",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 19,
+   "id": "b35bdec8-b1e3-415c-b9eb-7de20660cfdb",
+   "titel": "Steigungswinkel · Straße mit 12 % Steigung",
+   "basis": {
+    "skill_key": "geo_trigo_anwendung",
+    "source_ref": "trigo-anwendung-01",
+    "input_type": "NUMERIC",
+    "frage": "Ein Verkehrsschild zeigt für eine Straße 12 % Steigung. Das heißt: Auf 100 m waagerechter Strecke steigt die Straße um 12 m.\n\nUnter welchem Winkel steigt die Straße gegen die Waagerechte an? Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "0,12": "umkehrfunktion_vergessen",
+     "0.12": "umkehrfunktion_vergessen",
+     "0,12 °": "umkehrfunktion_vergessen",
+     "0,12°": "umkehrfunktion_vergessen",
+     "6,9": "tangens_verwechselt",
+     "6.9": "tangens_verwechselt",
+     "6,9 °": "tangens_verwechselt",
+     "6,9°": "tangens_verwechselt"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Steigung in Prozent als tan α lesen, Winkel mit tan⁻¹."
+    },
+    "est_duration_sec": {
+     "wert": 75,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "6,8",
+      "6.8",
+      "6,8 °",
+      "6,8°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Steigung = Höhenunterschied : waagerechte Strecke = tan α.\ntan α = 12 : 100 = 0,12.\nα = tan⁻¹(0,12) ≈ 6,8°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Tangenswert 0,12 als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      },
+      {
+       "error": "sin⁻¹ genommen, als wären die 100 m die Länge der Straße selbst.",
+       "socratic_question": "Sind die 100 m waagerecht oder entlang der Straße gemessen?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (umkehrfunktion_vergessen, tangens_verwechselt)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((68427734126309404232325611631863206643883/10000000000000000000000000000000000000000),1)",
+     "antwort": "6.8"
+    },
+    {
+     "rechnung": "12/100",
+     "antwort": "0.12",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    },
+    {
+     "rechnung": "round((2153782056045743788538078736091209874597/312500000000000000000000000000000000000),1)",
+     "antwort": "6.9",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    }
+   ]
+  },
+  {
+   "nr": 20,
+   "id": "f9f98b88-0b52-4ade-8354-f7bb0894db0f",
+   "titel": "Turmhöhe · 40 m Entfernung, Höhenwinkel 38°",
+   "basis": {
+    "skill_key": "geo_trigo_anwendung",
+    "source_ref": "trigo-anwendung-02",
+    "input_type": "NUMERIC",
+    "frage": "Ein Punkt am Boden ist 40 m waagerecht vom Fuß eines senkrechten Turms entfernt. Von diesem Punkt aus sieht man die Turmspitze unter einem Winkel von 38° gegen die Waagerechte. Winkel sind im Gradmaß angegeben.\n\nWie hoch ist der Turm? Runde auf eine Stelle nach dem Komma.",
+    "unit": "m",
+    "known_errors": {
+     "24,6": "tangens_verwechselt",
+     "24.6": "tangens_verwechselt",
+     "24,6 m": "tangens_verwechselt",
+     "24,6m": "tangens_verwechselt",
+     "51,2": "sin_cos_vertauscht",
+     "51.2": "sin_cos_vertauscht",
+     "51,2 m": "sin_cos_vertauscht",
+     "51,2m": "sin_cos_vertauscht",
+     "12,4": "bogenmass_modus",
+     "12.4": "bogenmass_modus",
+     "12,4 m": "bogenmass_modus",
+     "12,4m": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Höhe = Entfernung · tan(Höhenwinkel), Standardsituation."
+    },
+    "est_duration_sec": {
+     "wert": 75,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "31,3",
+      "31.3",
+      "31,3 m",
+      "31,3m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Boden, Turm und Sichtlinie bilden ein rechtwinkliges Dreieck mit dem rechten Winkel am Fuß des Turms.\nDer Turm liegt dem 38°-Winkel gegenüber, die 40 m liegen an ihm an: tan 38° = h : 40 m.\nh = 40 m · tan 38° ≈ 40 m · 0,7813 ≈ 31,3 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit sin 38° gerechnet, als wäre die Entfernung die Sichtlinie.",
+       "socratic_question": "Sind die 40 m eine Kathete oder die Hypotenuse?"
+      },
+      {
+       "error": "Gegen- und Ankathete vertauscht: h = 40 m : tan 38°.",
+       "socratic_question": "Welche Seite liegt dem 38°-Winkel gegenüber?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß.",
+       "socratic_question": "Hast du DEG oder RAD in der Anzeige?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (tangens_verwechselt, sin_cos_vertauscht, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(40*(1562571253013434794125899943924533713171/2000000000000000000000000000000000000000),1)",
+     "antwort": "31.3"
+    },
+    {
+     "rechnung": "round(40*(6156614753256582796688110928436556282509/10000000000000000000000000000000000000000),1)",
+     "antwort": "24.6",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(40/(1562571253013434794125899943924533713171/2000000000000000000000000000000000000000),1)",
+     "antwort": "51.2",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round(40*(193943538121750631572122252715566318191/625000000000000000000000000000000000000),1)",
+     "antwort": "12.4",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 21,
+   "id": "52d18200-7696-4bed-bba7-352cbb35436c",
+   "titel": "Steigung in Prozent · Steigungswinkel 8°",
+   "basis": {
+    "skill_key": "geo_trigo_anwendung",
+    "source_ref": "trigo-anwendung-03",
+    "input_type": "NUMERIC",
+    "frage": "Ein Weg steigt gleichmäßig unter einem Winkel von 8° gegen die Waagerechte an. Winkel sind im Gradmaß angegeben.\n\nWie viel Prozent Steigung hat der Weg? Die Steigung in Prozent gibt an, um wie viele Meter der Weg auf 100 m waagerechter Strecke ansteigt. Runde auf eine Stelle nach dem Komma.",
+    "unit": "%",
+    "known_errors": {
+     "13,9": "tangens_verwechselt",
+     "13.9": "tangens_verwechselt",
+     "13,9 %": "tangens_verwechselt",
+     "13,9%": "tangens_verwechselt",
+     "-680,0": "bogenmass_modus",
+     "−680,0": "bogenmass_modus",
+     "- 680,0": "bogenmass_modus",
+     "-680.0": "bogenmass_modus",
+     "−680.0": "bogenmass_modus",
+     "- 680.0": "bogenmass_modus",
+     "-680": "bogenmass_modus",
+     "−680": "bogenmass_modus",
+     "- 680": "bogenmass_modus",
+     "-680,0 %": "bogenmass_modus",
+     "-680,0%": "bogenmass_modus",
+     "-680 %": "bogenmass_modus",
+     "-680%": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Rückrichtung vom Winkel zur Steigung, tan α in Prozent umrechnen."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "14,1",
+      "14.1",
+      "14,1 %",
+      "14,1%"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Steigung = Höhenunterschied : waagerechte Strecke = tan 8° ≈ 0,1405.\nAuf 100 m waagerecht: 0,1405 · 100 ≈ 14,1 m, also 14,1 %.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit sin 8° gerechnet, als wären die 100 m entlang des Weges gemessen.",
+       "socratic_question": "Ist die waagerechte Strecke eine Kathete oder die Hypotenuse?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: tan(8) ist negativ.",
+       "socratic_question": "Kann ein ansteigender Weg eine negative Steigung haben?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (tangens_verwechselt, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((351352086755978617095294233582035339183/2500000000000000000000000000000000000000)*100,1)",
+     "antwort": "14.1"
+    },
+    {
+     "rechnung": "round((1391731009600654441124966633011052754559/10000000000000000000000000000000000000000)*100,1)",
+     "antwort": "13.9",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round((0-33998557276101893499626313798043166824407/5000000000000000000000000000000000000000)*100,1)",
+     "antwort": "-680.0",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 22,
+   "id": "17b68c02-51e8-4484-b955-5ee77729c024",
+   "titel": "Entfernung vom Leuchtturm · 25 m hoch, Sichtwinkel 9°",
+   "basis": {
+    "skill_key": "geo_trigo_anwendung",
+    "source_ref": "trigo-anwendung-04",
+    "input_type": "NUMERIC",
+    "frage": "Ein Beobachter steht oben auf einem 25 m hohen Leuchtturm. Die Sichtlinie von dort zu einem Boot auf dem Wasser bildet mit der Waagerechten einen Winkel von 9°. Winkel sind im Gradmaß angegeben.\n\nWie weit ist das Boot waagerecht vom Fuß des Leuchtturms entfernt? Runde auf ganze Meter.",
+    "unit": "m",
+    "known_errors": {
+     "4": "multipliziert_statt_dividiert",
+     "160": "tangens_verwechselt",
+     "4 m": "multipliziert_statt_dividiert",
+     "4m": "multipliziert_statt_dividiert",
+     "160 m": "tangens_verwechselt",
+     "160m": "tangens_verwechselt",
+     "-55": "bogenmass_modus",
+     "−55": "bogenmass_modus",
+     "- 55": "bogenmass_modus",
+     "-55 m": "bogenmass_modus",
+     "-55m": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Wechselwinkel erkennen, gesuchte Strecke im Nenner (Entfernung = Höhe : tan)."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "158",
+      "158 m",
+      "158m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Die Sichtlinie bildet auch mit der Wasserfläche beim Boot einen Winkel von 9° (Wechselwinkel).\nDort liegt der Turm (25 m) gegenüber, die gesuchte Entfernung e an: tan 9° = 25 m : e.\ne = 25 m : tan 9° ≈ 25 m : 0,1584 ≈ 158 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "25 · tan 9° statt 25 : tan 9° gerechnet.",
+       "socratic_question": "Kann das Boot näher sein als der Turm hoch ist, wenn man so flach hinabschaut?"
+      },
+      {
+       "error": "Mit sin 9° gerechnet: Das ist die Länge der Sichtlinie, nicht die waagerechte Entfernung.",
+       "socratic_question": "Ist die gesuchte Entfernung eine Kathete oder die Hypotenuse?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: tan(9) ist negativ.",
+       "socratic_question": "Kann eine Entfernung negativ sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (multipliziert_statt_dividiert, tangens_verwechselt, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(25/(1583844403245362938388830926943664114339/10000000000000000000000000000000000000000),0)",
+     "antwort": "158"
+    },
+    {
+     "rechnung": "round(25*(1583844403245362938388830926943664114339/10000000000000000000000000000000000000000),0)",
+     "antwort": "4",
+     "rolle": "fehlbild:multipliziert_statt_dividiert:"
+    },
+    {
+     "rechnung": "round(25/(1564344650402308690101053194671668923139/10000000000000000000000000000000000000000),0)",
+     "antwort": "160",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(25/(0-4523156594418098405903708757987855343087/10000000000000000000000000000000000000000),0)",
+     "antwort": "-55",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 23,
+   "id": "725e786e-b402-4264-a990-ad5db129fa6a",
+   "titel": "Leiter · 6 m lang, 70° zum Boden",
+   "basis": {
+    "skill_key": "geo_trigo_anwendung",
+    "source_ref": "trigo-anwendung-05",
+    "input_type": "NUMERIC",
+    "frage": "Eine 6 m lange Leiter lehnt an einer senkrechten Hauswand. Sie bildet mit dem waagerechten Boden einen Winkel von 70°. Winkel sind im Gradmaß angegeben.\n\nIn welcher Höhe berührt die Leiter die Wand? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "m",
+    "known_errors": {
+     "2,05": "sin_cos_vertauscht",
+     "2.05": "sin_cos_vertauscht",
+     "2,05 m": "sin_cos_vertauscht",
+     "2,05m": "sin_cos_vertauscht",
+     "16,48": "tangens_verwechselt",
+     "16.48": "tangens_verwechselt",
+     "16,48 m": "tangens_verwechselt",
+     "16,48m": "tangens_verwechselt",
+     "4,64": "bogenmass_modus",
+     "4.64": "bogenmass_modus",
+     "4,64 m": "bogenmass_modus",
+     "4,64m": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Leiter als Hypotenuse, Höhe an der Wand als Gegenkathete."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5,64",
+      "5.64",
+      "5,64 m",
+      "5,64m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Leiter, Wand und Boden bilden ein rechtwinkliges Dreieck; die Leiter ist die Hypotenuse, die Höhe liegt dem 70°-Winkel gegenüber.\nh = 6 m · sin 70° ≈ 6 m · 0,9397 ≈ 5,64 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit cos 70° gerechnet: Das ist der Abstand des Fußes von der Wand.",
+       "socratic_question": "Liegt die Höhe dem 70°-Winkel gegenüber oder an ihm an?"
+      },
+      {
+       "error": "Mit tan 70° gerechnet, als wäre die Leiter eine Kathete.",
+       "socratic_question": "Kann die Höhe größer sein als die Leiter lang ist?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß.",
+       "socratic_question": "Hast du DEG oder RAD in der Anzeige?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (sin_cos_vertauscht, tangens_verwechselt, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(6*(4698463103929541920270546386623657349681/5000000000000000000000000000000000000000),2)",
+     "antwort": "5.64"
+    },
+    {
+     "rechnung": "round(6*(3420201433256687330440996146822595807631/10000000000000000000000000000000000000000),2)",
+     "antwort": "2.05",
+     "rolle": "fehlbild:sin_cos_vertauscht:"
+    },
+    {
+     "rechnung": "round(6*(27474774194546222787616640264976727177519/10000000000000000000000000000000000000000),2)",
+     "antwort": "16.48",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(6*(7738906815578890977873306251419897527109/10000000000000000000000000000000000000000),2)",
+     "antwort": "4.64",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 24,
+   "id": "32f15d20-ea8e-4ff0-9d43-d10daa9500bc",
+   "titel": "Höhengewinn · 500 m Straße mit 8 % Steigung",
+   "basis": {
+    "skill_key": "geo_trigo_anwendung",
+    "source_ref": "trigo-anwendung-06",
+    "input_type": "NUMERIC",
+    "frage": "Eine Straße hat 8 % Steigung: Auf 100 m waagerechter Strecke steigt sie um 8 m. Ein Wagen fährt 500 m entlang der Straße bergauf.\n\nWie viele Meter Höhe gewinnt er dabei? Rechne ohne gerundete Zwischenergebnisse. Runde auf eine Stelle nach dem Komma.",
+    "unit": "m",
+    "known_errors": {
+     "40": "tangens_verwechselt",
+     "40,0": "tangens_verwechselt",
+     "40.0": "tangens_verwechselt",
+     "40,0 m": "tangens_verwechselt",
+     "40,0m": "tangens_verwechselt",
+     "40 m": "tangens_verwechselt",
+     "40m": "tangens_verwechselt",
+     "40,1": "zu_frueh_gerundet",
+     "40.1": "zu_frueh_gerundet",
+     "40,1 m": "zu_frueh_gerundet",
+     "40,1m": "zu_frueh_gerundet",
+     "0,7": "umkehrfunktion_vergessen",
+     "0.7": "umkehrfunktion_vergessen",
+     "0,7 m": "umkehrfunktion_vergessen",
+     "0,7m": "umkehrfunktion_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: Steigung zuerst in einen Winkel umrechnen, dann mit der Straßenlänge als Hypotenuse die Höhe bestimmen."
+    },
+    "est_duration_sec": {
+     "wert": 120,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "39,9",
+      "39.9",
+      "39,9 m",
+      "39,9m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Steigungswinkel: tan α = 8 : 100 = 0,08, also α = tan⁻¹(0,08) ≈ 4,5739°.\nDie 500 m sind die Hypotenuse (entlang der Straße), die Höhe liegt α gegenüber.\nh = 500 m · sin α ≈ 500 m · 0,0797 ≈ 39,9 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Die 500 m wie eine waagerechte Strecke behandelt: 500 · 0,08.",
+       "socratic_question": "Sind die 500 m waagerecht oder entlang der Straße gemessen?"
+      },
+      {
+       "error": "Den Steigungswinkel auf 4,6° gerundet und damit weitergerechnet.",
+       "socratic_question": "Wie stark ändert sich das Ergebnis, wenn du den Winkel vorher rundest?"
+      },
+      {
+       "error": "Den Tangenswert 0,08 als Winkel in den Sinus eingesetzt.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (tangens_verwechselt, zu_frueh_gerundet, umkehrfunktion_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round(500*(199363055707224999809995368325782584807/2500000000000000000000000000000000000000),1)",
+     "antwort": "39.9"
+    },
+    {
+     "rechnung": "round(500*8/100,1)",
+     "antwort": "40.0",
+     "rolle": "fehlbild:tangens_verwechselt:"
+    },
+    {
+     "rechnung": "round(500*(801989243288589220311700009380413229747/10000000000000000000000000000000000000000),1)",
+     "antwort": "40.1",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    },
+    {
+     "rechnung": "round(500*(279252589582855233243660693817471589/200000000000000000000000000000000000000),1)",
+     "antwort": "0.7",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 25,
+   "id": "0fe09783-e4c8-41cc-b7f5-5dfcaaed760a",
+   "titel": "Dritte Seite · a = 5 cm, b = 7 cm, γ = 50°",
+   "basis": {
+    "skill_key": "geo_trigo_kosinussatz",
+    "source_ref": "trigo-kosinussatz-01",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 5 cm, b = 7 cm und γ = 50°.\n\nWie lang ist die Seite c? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "29": "wurzel_vergessen",
+     "10,91": "kosinussatz_vorzeichen",
+     "10.91": "kosinussatz_vorzeichen",
+     "10,91 cm": "kosinussatz_vorzeichen",
+     "10,91cm": "kosinussatz_vorzeichen",
+     "8,60": "pythagoras_ohne_rechten_winkel",
+     "8.60": "pythagoras_ohne_rechten_winkel",
+     "8,6": "pythagoras_ohne_rechten_winkel",
+     "8.6": "pythagoras_ohne_rechten_winkel",
+     "8,60 cm": "pythagoras_ohne_rechten_winkel",
+     "8,60cm": "pythagoras_ohne_rechten_winkel",
+     "8,6 cm": "pythagoras_ohne_rechten_winkel",
+     "8,6cm": "pythagoras_ohne_rechten_winkel",
+     "29,00": "wurzel_vergessen",
+     "29.00": "wurzel_vergessen",
+     "29,00 cm": "wurzel_vergessen",
+     "29,00cm": "wurzel_vergessen",
+     "29 cm": "wurzel_vergessen",
+     "29cm": "wurzel_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Kosinussatz c² = a² + b² − 2ab · cos γ direkt anwenden."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "5,39",
+      "5.39",
+      "5,39 cm",
+      "5,39cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Kosinussatz: c² = a² + b² − 2ab · cos γ.\nc² = 25 + 49 − 70 · cos 50° ≈ 29,0049 cm².\nc ≈ 5,39 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Term 2ab · cos γ addiert statt abgezogen.",
+       "socratic_question": "Was bleibt vom Kosinussatz übrig, wenn γ = 90° ist?"
+      },
+      {
+       "error": "Mit dem Satz des Pythagoras gerechnet: c = √74.",
+       "socratic_question": "Hat das Dreieck einen rechten Winkel?"
+      },
+      {
+       "error": "c² ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon c ausgerechnet oder erst c²?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kosinussatz_vorzeichen, pythagoras_ohne_rechten_winkel, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((13464041769176856082836036175532758079242856655167254369059662264185904562767061/2500000000000000000000000000000000000000000000000000000000000000000000000000000),2)",
+     "antwort": "5.39"
+    },
+    {
+     "rechnung": "round((27271222547547459652851931599231487039330621942767023244525528816272217487574691/2500000000000000000000000000000000000000000000000000000000000000000000000000000),2)",
+     "antwort": "10.91",
+     "rolle": "fehlbild:kosinussatz_vorzeichen:"
+    },
+    {
+     "rechnung": "round((86023252670426267717294735350497136320275/10000000000000000000000000000000000000000),2)",
+     "antwort": "8.60",
+     "rolle": "fehlbild:pythagoras_ohne_rechten_winkel:"
+    },
+    {
+     "rechnung": "round(5^2+7^2-2*5*7*(1606969024216348315806608524768158582269/2500000000000000000000000000000000000000),2)",
+     "antwort": "29.00",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 26,
+   "id": "77d9bfd8-a0f1-4714-90d6-1667633d6f67",
+   "titel": "Dritte Seite · a = 6 cm, b = 9 cm, γ = 72°",
+   "basis": {
+    "skill_key": "geo_trigo_kosinussatz",
+    "source_ref": "trigo-kosinussatz-02",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 6 cm, b = 9 cm und γ = 72°.\n\nWie lang ist die Seite c? Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "12,26": "kosinussatz_vorzeichen",
+     "12.26": "kosinussatz_vorzeichen",
+     "12,26 cm": "kosinussatz_vorzeichen",
+     "12,26cm": "kosinussatz_vorzeichen",
+     "10,82": "pythagoras_ohne_rechten_winkel",
+     "10.82": "pythagoras_ohne_rechten_winkel",
+     "10,82 cm": "pythagoras_ohne_rechten_winkel",
+     "10,82cm": "pythagoras_ohne_rechten_winkel",
+     "14,88": "bogenmass_modus",
+     "14.88": "bogenmass_modus",
+     "14,88 cm": "bogenmass_modus",
+     "14,88cm": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "I",
+     "sicher": "mittel",
+     "grund": "Reproduzieren: Kosinussatz mit anderen Zahlen, Taschenrechner im Gradmaß."
+    },
+    "est_duration_sec": {
+     "wert": 45,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB I, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "9,14",
+      "9.14",
+      "9,14 cm",
+      "9,14cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Kosinussatz: c² = a² + b² − 2ab · cos γ.\nc² = 36 + 81 − 108 · cos 72° ≈ 83,6262 cm².\nc ≈ 9,14 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Term 2ab · cos γ addiert statt abgezogen.",
+       "socratic_question": "Muss c bei einem spitzen Winkel γ kürzer oder länger sein als beim rechten Winkel?"
+      },
+      {
+       "error": "Mit dem Satz des Pythagoras gerechnet: c = √117.",
+       "socratic_question": "Hat das Dreieck einen rechten Winkel?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß.",
+       "socratic_question": "Hast du DEG oder RAD in der Anzeige?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kosinussatz_vorzeichen, pythagoras_ohne_rechten_winkel, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((114309178196340656826891647588545753697365164389468585535277193442667622147316512/12500000000000000000000000000000000000000000000000000000000000000000000000000000),2)",
+     "antwort": "9.14"
+    },
+    {
+     "rechnung": "round((153283762284454767298873075596565930989323134840719144655461947153456372465599948/12500000000000000000000000000000000000000000000000000000000000000000000000000000),2)",
+     "antwort": "12.26",
+     "rolle": "fehlbild:kosinussatz_vorzeichen:"
+    },
+    {
+     "rechnung": "round((108166538263919678793576638024114878387538/10000000000000000000000000000000000000000),2)",
+     "antwort": "10.82",
+     "rolle": "fehlbild:pythagoras_ohne_rechten_winkel:"
+    },
+    {
+     "rechnung": "round((11626277429330374543540334346628416986519091328849463919138735155479364184518893/781250000000000000000000000000000000000000000000000000000000000000000000000000),2)",
+     "antwort": "14.88",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 27,
+   "id": "516c5bcd-87cf-4efb-8d02-2117ab4b6e94",
+   "titel": "Winkel aus drei Seiten · 7 cm, 8 cm, 10 cm",
+   "basis": {
+    "skill_key": "geo_trigo_kosinussatz",
+    "source_ref": "trigo-kosinussatz-03",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 7 cm, b = 8 cm und c = 10 cm.\n\nBerechne den Winkel γ. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "96,7": "kosinussatz_vorzeichen",
+     "96.7": "kosinussatz_vorzeichen",
+     "96,7 °": "kosinussatz_vorzeichen",
+     "96,7°": "kosinussatz_vorzeichen",
+     "0,1": "umkehrfunktion_vergessen",
+     "0.1": "umkehrfunktion_vergessen",
+     "0,1 °": "umkehrfunktion_vergessen",
+     "0,1°": "umkehrfunktion_vergessen",
+     "1,5": "bogenmass_modus",
+     "1.5": "bogenmass_modus",
+     "1,5 °": "bogenmass_modus",
+     "1,5°": "bogenmass_modus"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: Kosinussatz nach cos γ umstellen, dann cos⁻¹."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "83,3",
+      "83.3",
+      "83,3 °",
+      "83,3°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Kosinussatz nach cos γ umgestellt: cos γ = (a² + b² − c²) : (2ab).\ncos γ = (49 + 64 − 100) : 112 = 13 : 112 ≈ 0,1161.\nγ = cos⁻¹(13 : 112) ≈ 83,3°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit c² = a² + b² + 2ab · cos γ umgestellt: cos γ = −13 : 112.",
+       "socratic_question": "Welches Rechenzeichen steht vor 2ab · cos γ?"
+      },
+      {
+       "error": "Den Kosinuswert als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      },
+      {
+       "error": "Der Taschenrechner stand auf Bogenmaß: Der Winkel kommt im Bogenmaß heraus.",
+       "socratic_question": "Passt ein Winkel von gut 1° zu diesem Dreieck?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kosinussatz_vorzeichen, umkehrfunktion_vergessen, bogenmass_modus)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((13021026991215711908347268503605467121113/156250000000000000000000000000000000000),1)",
+     "antwort": "83.3"
+    },
+    {
+     "rechnung": "round((15103973008784288091652731496394532878887/156250000000000000000000000000000000000),1)",
+     "antwort": "96.7",
+     "rolle": "fehlbild:kosinussatz_vorzeichen:"
+    },
+    {
+     "rechnung": "round((7^2+8^2-10^2)/(2*7*8),1)",
+     "antwort": "0.1",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    },
+    {
+     "rechnung": "round((13021026991215711908347268503605467121113/156250000000000000000000000000000000000)*(3.14159265358979323846264338327950288)/180,1)",
+     "antwort": "1.5",
+     "rolle": "fehlbild:bogenmass_modus:"
+    }
+   ]
+  },
+  {
+   "nr": 28,
+   "id": "c75c2c98-1bae-4ea9-92fa-f4353fdcddb2",
+   "titel": "Dritte Seite bei stumpfem Winkel · γ = 115°",
+   "basis": {
+    "skill_key": "geo_trigo_kosinussatz",
+    "source_ref": "trigo-kosinussatz-04",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 4 cm, b = 6,5 cm und γ = 115°.\n\nWie lang ist die Seite c? Rechne ohne gerundete Zwischenergebnisse. Runde auf zwei Stellen nach dem Komma.",
+    "unit": "cm",
+    "known_errors": {
+     "6,02": "kosinussatz_vorzeichen",
+     "6.02": "kosinussatz_vorzeichen",
+     "6,02 cm": "kosinussatz_vorzeichen",
+     "6,02cm": "kosinussatz_vorzeichen",
+     "7,63": "pythagoras_ohne_rechten_winkel",
+     "7.63": "pythagoras_ohne_rechten_winkel",
+     "7,63 cm": "pythagoras_ohne_rechten_winkel",
+     "7,63cm": "pythagoras_ohne_rechten_winkel",
+     "8,89": "zu_frueh_gerundet",
+     "8.89": "zu_frueh_gerundet",
+     "8,89 cm": "zu_frueh_gerundet",
+     "8,89cm": "zu_frueh_gerundet",
+     "80,23": "wurzel_vergessen",
+     "80.23": "wurzel_vergessen",
+     "80,23 cm": "wurzel_vergessen",
+     "80,23cm": "wurzel_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden: stumpfer Winkel, cos γ ist negativ; das Minus im Kosinussatz macht c länger."
+    },
+    "est_duration_sec": {
+     "wert": 60,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Operieren",
+     "sicher": "mittel",
+     "grund": "Rechnen nach festem Verfahren."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "8,96",
+      "8.96",
+      "8,96 cm",
+      "8,96cm"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Kosinussatz: c² = a² + b² − 2ab · cos γ.\ncos 115° ≈ −0,4226 ist negativ, das Minus macht daraus ein Plus.\nc² = 16 + 42,25 − 52 · cos 115° ≈ 80,2261 cm².\nc ≈ 8,96 cm.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Term 2ab · cos γ addiert statt abgezogen.",
+       "socratic_question": "Muss c gegenüber einem stumpfen Winkel länger oder kürzer sein als beim rechten Winkel?"
+      },
+      {
+       "error": "Mit dem Satz des Pythagoras gerechnet: c = √58,25.",
+       "socratic_question": "Hat das Dreieck einen rechten Winkel?"
+      },
+      {
+       "error": "cos 115° auf −0,4 gerundet und damit weitergerechnet.",
+       "socratic_question": "Wie stark ändert sich das Ergebnis, wenn du cos 115° vorher rundest?"
+      },
+      {
+       "error": "c² ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Hast du schon c ausgerechnet oder erst c²?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kosinussatz_vorzeichen, pythagoras_ohne_rechten_winkel, zu_frueh_gerundet, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((223922628393319668259199868523390575710572928815024050517546401401975794829544144/25000000000000000000000000000000000000000000000000000000000000000000000000000000),2)",
+     "antwort": "8.96"
+    },
+    {
+     "rechnung": "round((150569440768793679955505834208190041792182073842341530114552164047716209032358181/25000000000000000000000000000000000000000000000000000000000000000000000000000000),2)",
+     "antwort": "6.02",
+     "rolle": "fehlbild:kosinussatz_vorzeichen:"
+    },
+    {
+     "rechnung": "round((305286750449474960505118974012009591746573/40000000000000000000000000000000000000000),2)",
+     "antwort": "7.63",
+     "rolle": "fehlbild:pythagoras_ohne_rechten_winkel:"
+    },
+    {
+     "rechnung": "round((1778201338431618659543969292844348069339599/200000000000000000000000000000000000000000),2)",
+     "antwort": "8.89",
+     "rolle": "fehlbild:zu_frueh_gerundet:"
+    },
+    {
+     "rechnung": "round(4^2+6.5^2-2*4*6.5*(0-4226182617406994361869784896477301815631/10000000000000000000000000000000000000000),2)",
+     "antwort": "80.23",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 29,
+   "id": "79463f55-7678-49a4-8f1a-226cbe5e4e85",
+   "titel": "Breite eines Sees · 320 m, 450 m, 64°",
+   "basis": {
+    "skill_key": "geo_trigo_kosinussatz",
+    "source_ref": "trigo-kosinussatz-05",
+    "input_type": "NUMERIC",
+    "frage": "Die Punkte A und B liegen an gegenüberliegenden Ufern eines Sees. Von einem Messpunkt C an Land misst man: C ist 320 m von A und 450 m von B entfernt, der Winkel bei C zwischen den beiden Richtungen beträgt 64°. Winkel sind im Gradmaß angegeben. Das Dreieck ABC hat keinen rechten Winkel.\n\nWie weit sind A und B voneinander entfernt? Runde auf ganze Meter.",
+    "unit": "m",
+    "known_errors": {
+     "552": "pythagoras_ohne_rechten_winkel",
+     "657": "kosinussatz_vorzeichen",
+     "178649": "wurzel_vergessen",
+     "657 m": "kosinussatz_vorzeichen",
+     "657m": "kosinussatz_vorzeichen",
+     "552 m": "pythagoras_ohne_rechten_winkel",
+     "552m": "pythagoras_ohne_rechten_winkel",
+     "178649 m": "wurzel_vergessen",
+     "178649m": "wurzel_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "II",
+     "sicher": "mittel",
+     "grund": "Anwenden im Sachkontext: Messpunkt als Ecke C mit eingeschlossenem Winkel erkennen, Kosinussatz."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB II + Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Modellieren, Operieren",
+     "sicher": "mittel",
+     "grund": "Sachsituation in eine Rechnung übersetzen, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "423",
+      "423 m",
+      "423m"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Im Dreieck ABC sind die Seiten an C bekannt: 320 m und 450 m, eingeschlossener Winkel γ = 64°.\nKosinussatz: AB² = 320² + 450² − 2 · 320 · 450 · cos 64° ≈ 178649 m².\nAB ≈ 423 m.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Den Term 2ab · cos γ addiert statt abgezogen.",
+       "socratic_question": "Was bleibt vom Kosinussatz übrig, wenn γ = 90° ist?"
+      },
+      {
+       "error": "Mit dem Satz des Pythagoras gerechnet, obwohl der Winkel bei C 64° beträgt.",
+       "socratic_question": "Hat das Dreieck einen rechten Winkel?"
+      },
+      {
+       "error": "AB² ausgerechnet, aber die Wurzel nicht gezogen.",
+       "socratic_question": "Kann der See über 100 km breit sein?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kosinussatz_vorzeichen, pythagoras_ohne_rechten_winkel, wurzel_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((330210180430180688294241991484948218128554525043928603653146000900382221175981/781250000000000000000000000000000000000000000000000000000000000000000000000),0)",
+     "antwort": "423"
+    },
+    {
+     "rechnung": "round((512985009091657097311212529007420459951572066946768971078197746102338269832899/781250000000000000000000000000000000000000000000000000000000000000000000000),0)",
+     "antwort": "657",
+     "rolle": "fehlbild:kosinussatz_vorzeichen:"
+    },
+    {
+     "rechnung": "round((5521775076911409291816048349194961778230448/10000000000000000000000000000000000000000),0)",
+     "antwort": "552",
+     "rolle": "fehlbild:pythagoras_ohne_rechten_winkel:"
+    },
+    {
+     "rechnung": "round(320^2+450^2-2*320*450*(1095927866972693543631836351645664347657/2500000000000000000000000000000000000000),0)",
+     "antwort": "178649",
+     "rolle": "fehlbild:wurzel_vergessen:"
+    }
+   ]
+  },
+  {
+   "nr": 30,
+   "id": "d2eeb8e8-ab12-47a0-be00-874e25cf172f",
+   "titel": "Größter Winkel · Seiten 5 cm, 6 cm, 9 cm",
+   "basis": {
+    "skill_key": "geo_trigo_kosinussatz",
+    "source_ref": "trigo-kosinussatz-06",
+    "input_type": "NUMERIC",
+    "frage": "Im Dreieck ABC liegt die Seite a der Ecke A gegenüber, b der Ecke B und c der Ecke C. γ ist der Winkel bei C. Das Dreieck hat keinen rechten Winkel.\n\nGegeben sind a = 5 cm, b = 6 cm und c = 9 cm.\n\nBerechne den größten Winkel des Dreiecks. Gib den Winkel im Gradmaß an. Runde auf eine Stelle nach dem Komma.",
+    "unit": "°",
+    "known_errors": {
+     "70,5": "kosinussatz_vorzeichen",
+     "70.5": "kosinussatz_vorzeichen",
+     "70,5 °": "kosinussatz_vorzeichen",
+     "70,5°": "kosinussatz_vorzeichen",
+     "31,6": "falsche_groesse_beantwortet",
+     "31.6": "falsche_groesse_beantwortet",
+     "31,6 °": "falsche_groesse_beantwortet",
+     "31,6°": "falsche_groesse_beantwortet",
+     "-0,3": "umkehrfunktion_vergessen",
+     "−0,3": "umkehrfunktion_vergessen",
+     "- 0,3": "umkehrfunktion_vergessen",
+     "-0.3": "umkehrfunktion_vergessen",
+     "−0.3": "umkehrfunktion_vergessen",
+     "- 0.3": "umkehrfunktion_vergessen",
+     "-0,3 °": "umkehrfunktion_vergessen",
+     "-0,3°": "umkehrfunktion_vergessen"
+    }
+   },
+   "felder": {
+    "afb": {
+     "wert": "III",
+     "sicher": "mittel",
+     "grund": "Problemlösen: den größten Winkel der längsten Seite gegenüber erkennen, Kosinussatz umstellen, negativer Kosinuswert."
+    },
+    "est_duration_sec": {
+     "wert": 90,
+     "sicher": "mittel",
+     "grund": "Zeitregel: AFB III, kein Sachkontext."
+    },
+    "curriculum_grade": {
+     "wert": 10,
+     "sicher": "hoch",
+     "grund": "Stoffanker Klasse 10: KLP G9 NRW, Zweite Stufe, Geo-7 bis Geo-10 (Trigonometrie); alle 25 Kölner Schulpläne legen das Thema in Klasse 10."
+    },
+    "cluster_id": {
+     "wert": "3156b22e-ad3b-46c8-8c76-4155176cc52a",
+     "sicher": "hoch",
+     "grund": "Geometrie & Messen wie geo_pythagoras_* und geo_aehnlich_* im Bestand."
+    },
+    "competency_content": {
+     "wert": "geometrie",
+     "sicher": "hoch",
+     "grund": "Inhaltsfeld Geometrie (Geo-7 bis Geo-10, Trigonometrie)."
+    },
+    "competency_process": {
+     "wert": "Problemlösen, Operieren",
+     "sicher": "mittel",
+     "grund": "Lösungsweg selbst finden, dann rechnen."
+    },
+    "needs_image": {
+     "wert": false,
+     "sicher": "hoch",
+     "grund": "Alle Angaben stehen im Text, keine Abbildung nötig."
+    }
+   },
+   "loesung": {
+    "correct_answers": {
+     "wert": [
+      "109,5",
+      "109.5",
+      "109,5 °",
+      "109,5°"
+     ],
+     "sicher": "hoch",
+     "grund": "Exakt nachgerechnet; alle gleichwertigen Schreibweisen."
+    },
+    "solution": {
+     "wert": "Der größte Winkel liegt der längsten Seite c gegenüber, also γ.\ncos γ = (a² + b² − c²) : (2ab) = (25 + 36 − 81) : 60 = −20 : 60 ≈ −0,3333.\nγ = cos⁻¹(−1/3) ≈ 109,5°.",
+     "sicher": "hoch",
+     "grund": "Nachgerechnet."
+    },
+    "typical_errors": {
+     "wert": [
+      {
+       "error": "Mit c² = a² + b² + 2ab · cos γ umgestellt: cos γ = 20 : 60.",
+       "socratic_question": "Welches Rechenzeichen steht vor 2ab · cos γ?"
+      },
+      {
+       "error": "Den Winkel α gegenüber der kürzesten Seite berechnet.",
+       "socratic_question": "Welcher Seite liegt der größte Winkel gegenüber?"
+      },
+      {
+       "error": "Den Kosinuswert als Winkel angegeben.",
+       "socratic_question": "Ist dein Ergebnis ein Winkel oder ein Seitenverhältnis?"
+      }
+     ],
+     "sicher": "hoch",
+     "grund": "Aus acceptance.known_errors (kosinussatz_vorzeichen, falsche_groesse_beantwortet, umkehrfunktion_vergessen)."
+    }
+   },
+   "leer": {
+    "hints": "Auftrag W4-k10-rest: ohne Hilfe lösbar (LSA), keine Hinweise."
+   },
+   "pruefung": [
+    {
+     "rechnung": "round((273678051586226728423114998349906089907517/2500000000000000000000000000000000000000),1)",
+     "antwort": "109.5"
+    },
+    {
+     "rechnung": "round((176321948413773271576885001650093910092483/2500000000000000000000000000000000000000),1)",
+     "antwort": "70.5",
+     "rolle": "fehlbild:kosinussatz_vorzeichen:"
+    },
+    {
+     "rechnung": "round((63172676193055851784524003960225384221959/2000000000000000000000000000000000000000),1)",
+     "antwort": "31.6",
+     "rolle": "fehlbild:falsche_groesse_beantwortet:"
+    },
+    {
+     "rechnung": "round((5^2+6^2-9^2)/(2*5*6),1)",
+     "antwort": "-0.3",
+     "rolle": "fehlbild:umkehrfunktion_vergessen:"
+    }
+   ]
+  }
+ ]
+}

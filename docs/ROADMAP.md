@@ -69,6 +69,12 @@
   - Beweis: pgTAP 48/48 (`inv1` Mastery-Gate, `inv2` Datenvertrag, `inv3` Multi-Part)
 
 ## In Arbeit
+- **Klasse 10: Exponentialfunktionen, Trigonometrie, Sinusfunktion (W4-k10-rest)** (Retro
+  `2026-10-03-k10-rest.md`, Branch `feat/k10-rest`, Befunde `docs/k10-rest/befunde.md`): 15 neue Knoten
+  (Tiefe 7–12), 16 neue Fehlbilder, 90 Aufgaben (draft), 6 Einstiege für 3 Themen, Heimat-Themen.
+  Beweis: verify-prefill 0 Fehler, Blind-Löser 90/90, Wegwerf-DB idempotent, 76/76 Prüfungen.
+  **Offen:** Einspielen (8 Migrationen, `docs/k10-rest/einspielen.md`), Figuren-Upload (2), Freigabe
+  durch Lena, Generator für Exponential-/Sinuskurven.
 - **Klasse 9 vervollständigen (W4-k9-rest)** (Retro `2026-10-03-k9-rest.md`, Branch `feat/k9-rest`,
   Befunde `docs/k9-rest/befunde.md`): 37 neue Knoten (Tiefe 5–9) zu Wurzeln, Potenzen,
   quadratischen Gleichungen/Funktionen, Pythagoras, Körpern, bedingter Wahrscheinlichkeit,

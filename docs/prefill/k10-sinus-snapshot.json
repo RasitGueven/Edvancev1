@@ -1,0 +1,933 @@
+[
+ {
+  "task": {
+   "id": "5564f507-357e-4975-98fb-80ee85d1de4a",
+   "title": "sin 150° · exakter Wert",
+   "question": "Der Winkel α = 150° ist im Gradmaß angegeben.\n\nBestimme sin 150°. Gib den exakten Wert an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_einheitskreis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Winkel α = 150° ist im Gradmaß angegeben.\n\nBestimme sin 150°. Gib den exakten Wert an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-einheitskreis-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c142139e-ecfa-4583-980d-dd926f0b874d",
+   "title": "cos 200° · gerundet",
+   "question": "Der Winkel α = 200° ist im Gradmaß angegeben.\n\nBestimme cos 200°. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_einheitskreis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Winkel α = 200° ist im Gradmaß angegeben.\n\nBestimme cos 200°. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-einheitskreis-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "82cb7f14-5213-4aea-a297-c480c557463c",
+   "title": "Punkt auf dem Einheitskreis · α = 240°",
+   "question": "Der Punkt P liegt auf dem Einheitskreis (Mittelpunkt im Ursprung, Radius 1). Die Strecke vom Ursprung zu P bildet mit der positiven x-Achse den Winkel α = 240° (Gradmaß, gegen den Uhrzeigersinn gemessen).\n\nGib die Koordinaten von P an. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_sinus_einheitskreis",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate von P",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "y-Koordinate von P",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-einheitskreis-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5511e07a-0da1-4f7b-8da7-38ad45dc41ea",
+   "title": "Winkel aus cos α = −0,6 · zweites Viertel",
+   "question": "Für einen Winkel α zwischen 90° und 180° gilt cos α = −0,6.\n\nWie groß ist α im Gradmaß? Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_einheitskreis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Für einen Winkel α zwischen 90° und 180° gilt cos α = −0,6.\n\nWie groß ist α im Gradmaß? Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-einheitskreis-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d051d804-ac22-4995-a537-703ad36ed510",
+   "title": "Rückrichtung · zweiter Winkel mit sin α = sin 50°",
+   "question": "Es gilt sin 50° ≈ 0,77 (Gradmaß).\n\nEs gibt einen zweiten Winkel α zwischen 0° und 360°, für den sin α = sin 50° gilt. Wie groß ist α im Gradmaß? Gib den exakten Wert an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_einheitskreis",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Es gilt sin 50° ≈ 0,77 (Gradmaß).\n\nEs gibt einen zweiten Winkel α zwischen 0° und 360°, für den sin α = sin 50° gilt. Wie groß ist α im Gradmaß? Gib den exakten Wert an."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-einheitskreis-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0b3bf2b5-29bc-4b79-9fa5-2e1016d65e97",
+   "title": "Rückrichtung · Punkt mit y = −0,6 im vierten Viertel",
+   "question": "Ein Punkt P auf dem Einheitskreis (Mittelpunkt im Ursprung, Radius 1) liegt im vierten Viertel und hat die y-Koordinate −0,6. α ist der Winkel zwischen der positiven x-Achse und der Strecke vom Ursprung zu P, gegen den Uhrzeigersinn gemessen, mit 0° ≤ α < 360°.\n\nBestimme die x-Koordinate von P und den Winkel α im Gradmaß. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_sinus_einheitskreis",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "x-Koordinate von P",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Winkel α in Grad",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-einheitskreis-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "d24bac46-6ac1-4560-bd4f-ab856150108e",
+   "title": "60° als Vielfaches von π",
+   "question": "Der Winkel 60° ist im Gradmaß angegeben. Im Bogenmaß lässt er sich als k · π schreiben.\n\nWie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_bogenmass",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Winkel 60° ist im Gradmaß angegeben. Im Bogenmaß lässt er sich als k · π schreiben.\n\nWie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-bogenmass-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "718f0c9a-6a29-4ce7-b8ea-ce46d94c3f65",
+   "title": "50° im Bogenmaß · Dezimalzahl",
+   "question": "Der Winkel 50° ist im Gradmaß angegeben.\n\nRechne ihn ins Bogenmaß um und gib das Ergebnis als Dezimalzahl an. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_bogenmass",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Winkel 50° ist im Gradmaß angegeben.\n\nRechne ihn ins Bogenmaß um und gib das Ergebnis als Dezimalzahl an. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-bogenmass-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0caf97f5-5562-4905-9329-0e884f7e566d",
+   "title": "x = 4 im Bogenmaß · in Grad",
+   "question": "Ein Winkel hat im Bogenmaß die Größe x = 4.\n\nWie groß ist er im Gradmaß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_bogenmass",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Winkel hat im Bogenmaß die Größe x = 4.\n\nWie groß ist er im Gradmaß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-bogenmass-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "80a3d680-4289-4cc6-8b87-793c602c5c1f",
+   "title": "x = 5π/4 im Bogenmaß · in Grad",
+   "question": "Ein Winkel hat im Bogenmaß die Größe x = 5π/4.\n\nWie groß ist er im Gradmaß? Gib den exakten Wert an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_bogenmass",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Winkel hat im Bogenmaß die Größe x = 5π/4.\n\nWie groß ist er im Gradmaß? Gib den exakten Wert an."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-bogenmass-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b3ce89d7-2f07-4438-802b-b3653ad330da",
+   "title": "Bogenlänge · Karussellsitz dreht sich um 130°",
+   "question": "Ein Karussellsitz bewegt sich auf einem Kreis mit dem Radius 1 m. Er dreht sich um 130° (Gradmaß) weiter.\n\nWie viele Meter legt der Sitz auf dem Kreisbogen zurück? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_bogenmass",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Karussellsitz bewegt sich auf einem Kreis mit dem Radius 1 m. Er dreht sich um 130° (Gradmaß) weiter.\n\nWie viele Meter legt der Sitz auf dem Kreisbogen zurück? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-bogenmass-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "4bea8500-6a8c-4719-98b7-8c68d02543b1",
+   "title": "Rückrichtung · Winkel aus Bogen 5 cm am Kreis mit r = 3 cm",
+   "question": "Ein Kreis hat den Radius 3 cm. Ein Kreisbogen auf diesem Kreis ist 5 cm lang.\n\nWie groß ist der zugehörige Mittelpunktswinkel im Gradmaß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_bogenmass",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kreis hat den Radius 3 cm. Ein Kreisbogen auf diesem Kreis ist 5 cm lang.\n\nWie groß ist der zugehörige Mittelpunktswinkel im Gradmaß? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "°",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-bogenmass-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "50da3bb2-6650-498a-804f-05863e2da59b",
+   "title": "Funktionswert · sin(7π/6)",
+   "question": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(7π/6). Gib den exakten Wert an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(7π/6). Gib den exakten Wert an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-graph-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "957ef3a2-42ec-4e74-97d7-b75be722fc12",
+   "title": "Funktionswert · sin(π/3) gerundet",
+   "question": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(π/3). Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(π/3). Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-graph-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3b59c4a1-2216-48a5-9462-64c03187acd9",
+   "title": "Hoch- und Tiefpunkt in [0; 2π] als Vielfache von π",
+   "question": "Der Graph von f(x) = sin x (x im Bogenmaß) hat im Intervall [0; 2π] genau einen Hochpunkt und genau einen Tiefpunkt. Ihre x-Koordinaten lassen sich als k · π schreiben.\n\nGib jeweils k an. Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_sinus_graph",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "k für den Hochpunkt",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "k für den Tiefpunkt",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-graph-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "516304d3-5cb1-4223-8afd-69958fe1890a",
+   "title": "Funktionswert · sin(5) mit Vorzeichen",
+   "question": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(5). Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nBerechne f(5). Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-graph-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b0fd871b-5f23-478b-b8c2-3b34a8e3aa02",
+   "title": "Rückrichtung · zweite Stelle mit sin x = sin(π/5)",
+   "question": "Der Graph von f(x) = sin x (x im Bogenmaß) hat an der Stelle x = π/5 den Wert f(π/5) ≈ 0,59.\n\nEs gibt genau eine weitere Stelle im Intervall [0; 2π] mit demselben Funktionswert. Sie lässt sich als k · π schreiben. Wie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Graph von f(x) = sin x (x im Bogenmaß) hat an der Stelle x = π/5 den Wert f(π/5) ≈ 0,59.\n\nEs gibt genau eine weitere Stelle im Intervall [0; 2π] mit demselben Funktionswert. Sie lässt sich als k · π schreiben. Wie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-graph-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2c93e7d0-82d4-4abb-8493-cc03f04ad49b",
+   "title": "Anzahl der Nullstellen in [0; 20]",
+   "question": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nWie viele Nullstellen hat f im Intervall [0; 20]? Die Intervallgrenzen gehören dazu. Gib eine ganze Zahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_graph",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist f(x) = sin x, x im Bogenmaß.\n\nWie viele Nullstellen hat f im Intervall [0; 20]? Die Intervallgrenzen gehören dazu. Gib eine ganze Zahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-graph-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "ee9a28cd-1129-405c-9b83-d8972ddf4681",
+   "title": "Amplitude · f(x) = 3·sin(2x)",
+   "question": "Gegeben ist f(x) = 3 · sin(2x), x im Bogenmaß.\n\nWie groß ist die Amplitude von f? Gib den exakten Wert an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_parameter",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist f(x) = 3 · sin(2x), x im Bogenmaß.\n\nWie groß ist die Amplitude von f? Gib den exakten Wert an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-parameter-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "5d143147-03ad-46b0-a2d2-6308111eac90",
+   "title": "Periode · f(x) = sin(4x) als Vielfaches von π",
+   "question": "Gegeben ist f(x) = sin(4x), x im Bogenmaß. Die Periode p von f lässt sich als p = k · π schreiben.\n\nWie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_parameter",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist f(x) = sin(4x), x im Bogenmaß. Die Periode p von f lässt sich als p = k · π schreiben.\n\nWie groß ist k? Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3)."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-parameter-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "9958d2ae-a87d-41b5-a7b7-f9e453c879d1",
+   "title": "Periode · f(x) = 2·sin(0,5x) als Dezimalzahl",
+   "question": "Gegeben ist f(x) = 2 · sin(0,5x), x im Bogenmaß.\n\nWie groß ist die Periode von f? Gib sie als Dezimalzahl an. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_parameter",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist f(x) = 2 · sin(0,5x), x im Bogenmaß.\n\nWie groß ist die Periode von f? Gib sie als Dezimalzahl an. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-parameter-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6e99f959-15b4-4f00-9631-5d39754d4982",
+   "title": "Größter Wert und Periode · f(x) = −4·sin(2x)",
+   "question": "Gegeben ist f(x) = −4 · sin(2x), x im Bogenmaß.\n\nBestimme den größten Funktionswert von f und die Periode p = k · π. Gib den exakten Wert an. Gib k exakt an, als ganze Zahl oder als Bruch (zum Beispiel 2/3).",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_sinus_parameter",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "größter Funktionswert",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "k in p = k · π",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-parameter-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "095a8d5c-4a0b-4fd3-97a0-01996b207163",
+   "title": "Rückrichtung · a und b aus Amplitude 1,5 und Periode π",
+   "question": "Eine Funktion f(x) = a · sin(b · x) mit a > 0 und b > 0 (x im Bogenmaß) hat die Amplitude 1,5 und die Periode π.\n\nBestimme a und b. Gib den exakten Wert an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_sinus_parameter",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "b",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-parameter-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "742d6386-43fd-4a38-9f29-f9c31e828916",
+   "title": "Rückrichtung · a und b aus Hoch- und Tiefpunkt",
+   "question": "Der Graph von f(x) = a · sin(b · x) mit a > 0 und b > 0 (x im Bogenmaß) hat den Hochpunkt H(π/8 | 2,5). Der nächste Tiefpunkt rechts davon ist T(3π/8 | −2,5).\n\nBestimme a und b. Gib den exakten Wert an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_sinus_parameter",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "b",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-parameter-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0fa3adaa-2c0f-4a5f-95a6-d809a1a67d49",
+   "title": "Riesenrad · größte Höhe der Gondel",
+   "question": "Die Höhe einer Gondel eines Riesenrads über dem Boden wird beschrieben durch h(t) = 18 · sin(0,2 · t) + 20. Dabei ist t die Zeit in Minuten und h(t) die Höhe in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie hoch ist die Gondel höchstens über dem Boden? Gib den exakten Wert an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_periodisch",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Höhe einer Gondel eines Riesenrads über dem Boden wird beschrieben durch h(t) = 18 · sin(0,2 · t) + 20. Dabei ist t die Zeit in Minuten und h(t) die Höhe in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie hoch ist die Gondel höchstens über dem Boden? Gib den exakten Wert an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-periodisch-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "21de966d-ff18-47b4-a99f-76331cb4b55b",
+   "title": "Gezeiten · Unterschied zwischen Hoch- und Niedrigwasser",
+   "question": "An einem Hafen wird der Wasserstand gegenüber dem mittleren Wasserstand beschrieben durch w(t) = 1,8 · sin(0,5 · t). Dabei ist t die Zeit in Stunden und w(t) der Wasserstand in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie viele Meter liegt Hochwasser über Niedrigwasser? Gib den exakten Wert an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_periodisch",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "An einem Hafen wird der Wasserstand gegenüber dem mittleren Wasserstand beschrieben durch w(t) = 1,8 · sin(0,5 · t). Dabei ist t die Zeit in Stunden und w(t) der Wasserstand in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie viele Meter liegt Hochwasser über Niedrigwasser? Gib den exakten Wert an."
+   },
+   "parts": [],
+   "unit": "m",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-periodisch-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0e776143-4575-4bd0-9237-df42d9b71283",
+   "title": "Riesenrad · Dauer einer Umdrehung",
+   "question": "Die Höhe einer Gondel eines Riesenrads über dem Boden wird beschrieben durch h(t) = 18 · sin(0,2 · t) + 20. Dabei ist t die Zeit in Minuten und h(t) die Höhe in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie viele Minuten dauert eine volle Umdrehung? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_periodisch",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Höhe einer Gondel eines Riesenrads über dem Boden wird beschrieben durch h(t) = 18 · sin(0,2 · t) + 20. Dabei ist t die Zeit in Minuten und h(t) die Höhe in Metern; das Argument des Sinus ist im Bogenmaß.\n\nWie viele Minuten dauert eine volle Umdrehung? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "min",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-periodisch-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "2d925ba5-b5d2-4d1d-b8d6-8477b072fa17",
+   "title": "Tageslänge · 50 Tage nach Frühlingsanfang",
+   "question": "Die Tageslänge an einem Ort wird beschrieben durch L(t) = 4,3 · sin(0,0172 · t) + 12,2. Dabei ist t die Zeit in Tagen nach Frühlingsanfang und L(t) die Tageslänge in Stunden; das Argument des Sinus ist im Bogenmaß.\n\nWie lang ist der Tag 50 Tage nach Frühlingsanfang? Rechne ohne Zwischenrunden. Runde auf eine Stelle nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_periodisch",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Tageslänge an einem Ort wird beschrieben durch L(t) = 4,3 · sin(0,0172 · t) + 12,2. Dabei ist t die Zeit in Tagen nach Frühlingsanfang und L(t) die Tageslänge in Stunden; das Argument des Sinus ist im Bogenmaß.\n\nWie lang ist der Tag 50 Tage nach Frühlingsanfang? Rechne ohne Zwischenrunden. Runde auf eine Stelle nach dem Komma."
+   },
+   "parts": [],
+   "unit": "h",
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-periodisch-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6b3e8dcf-463e-47c5-9596-4416e1a50bcb",
+   "title": "Schaukel · b aus der Schwingungsdauer 3 s",
+   "question": "Die Auslenkung einer Schaukel aus der Ruhelage wird beschrieben durch s(t) = 1,2 · sin(b · t). Dabei ist t die Zeit in Sekunden und s(t) die Auslenkung in Metern; das Argument des Sinus ist im Bogenmaß. Eine volle Schwingung dauert 3 s.\n\nBestimme b. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_sinus_periodisch",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Auslenkung einer Schaukel aus der Ruhelage wird beschrieben durch s(t) = 1,2 · sin(b · t). Dabei ist t die Zeit in Sekunden und s(t) die Auslenkung in Metern; das Argument des Sinus ist im Bogenmaß. Eine volle Schwingung dauert 3 s.\n\nBestimme b. Rechne mit der π-Taste oder mit π ≈ 3,14. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-periodisch-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "413a5fa5-cf54-4e4d-a9bb-44d1abba7215",
+   "title": "Gezeiten · Modell w(t) = a·sin(b·t) + d aufstellen",
+   "question": "An einer Küste beträgt der Wasserstand bei Hochwasser 6,5 m und bei Niedrigwasser 1,5 m. Von einem Hochwasser bis zum nächsten Niedrigwasser vergehen 6,2 Stunden. Der Wasserstand soll durch w(t) = a · sin(b · t) + d beschrieben werden, mit a > 0 und b > 0, t in Stunden, w(t) in Metern, das Argument des Sinus im Bogenmaß. d ist der mittlere Wasserstand.\n\nBestimme a, d und b. Gib a und d exakt an, b auf zwei Stellen nach dem Komma gerundet. Rechne mit der π-Taste oder mit π ≈ 3,14.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_sinus_periodisch",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "a in m",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "d in m",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 3,
+     "kind": "short_input",
+     "prompt": "b",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_sinus",
+   "source_ref": "sinus-periodisch-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]

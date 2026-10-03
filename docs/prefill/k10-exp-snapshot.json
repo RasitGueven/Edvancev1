@@ -1,0 +1,890 @@
+[
+ {
+  "task": {
+   "id": "fef2acea-a040-46f5-8ebd-73f1bb5c6383",
+   "title": "Wachstumsfaktor · Zunahme um 4 %",
+   "question": "Ein Bestand nimmt in jedem Jahr um 4 % zu.\n\nMit welchem Faktor wird der Bestand jedes Jahr multipliziert? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_wachstum",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Bestand nimmt in jedem Jahr um 4 % zu.\n\nMit welchem Faktor wird der Bestand jedes Jahr multipliziert? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-wachstum-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3f468bf7-9fb7-4dab-a316-c5af7d852acd",
+   "title": "Abnahmefaktor · Abnahme um 15 %",
+   "question": "Ein Bestand nimmt in jedem Jahr um 15 % ab.\n\nMit welchem Faktor wird der Bestand jedes Jahr multipliziert? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_wachstum",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Bestand nimmt in jedem Jahr um 15 % ab.\n\nMit welchem Faktor wird der Bestand jedes Jahr multipliziert? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-wachstum-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f7e14298-714a-44b5-b2c8-6b93442256b5",
+   "title": "Fortschreiben · 500 bei 6 % Zunahme, 4 Schritte",
+   "question": "Eine Größe hat den Anfangswert 500. Sie nimmt in jedem Schritt um 6 % zu.\n\nWelchen Wert hat sie nach 4 Schritten? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_wachstum",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Größe hat den Anfangswert 500. Sie nimmt in jedem Schritt um 6 % zu.\n\nWelchen Wert hat sie nach 4 Schritten? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-wachstum-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "36b07433-c75c-4ea5-8f7d-62ac59599228",
+   "title": "Exponentiell fortsetzen · 40, 60, 90, …",
+   "question": "Die Werte 40, 60, 90, … wachsen exponentiell: Von einem Wert zum nächsten wird immer mit demselben Faktor multipliziert.\n\nWelcher Wert steht zwei Schritte nach 90? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_wachstum",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Werte 40, 60, 90, … wachsen exponentiell: Von einem Wert zum nächsten wird immer mit demselben Faktor multipliziert.\n\nWelcher Wert steht zwei Schritte nach 90? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-wachstum-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f91618d9-3bbf-4b57-8901-8f898829fdef",
+   "title": "Prozentsatz aus Faktor · Wert einer Maschine, Faktor 0,88",
+   "question": "Der Wert einer Maschine wird jedes Jahr mit dem Faktor 0,88 multipliziert.\n\nUm wie viel Prozent nimmt der Wert jedes Jahr ab? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_wachstum",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Der Wert einer Maschine wird jedes Jahr mit dem Faktor 0,88 multipliziert.\n\nUm wie viel Prozent nimmt der Wert jedes Jahr ab? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "%",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-wachstum-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "530dd080-d2cc-4e4b-b4ad-31963a32158a",
+   "title": "Zinseszins gegen einfache Zinsen · 2000 € zu 3 %, 5 Jahre",
+   "question": "Ein Kapital von 2000 € wird 5 Jahre lang mit 3 % Zinseszins verzinst: Die Zinsen werden jedes Jahr mitverzinst. Zum Vergleich gibt es bei einer anderen Anlage jedes Jahr nur 3 % des Startkapitals als Zinsen, die nicht mitverzinst werden.\n\nUm wie viel Euro ist das Kapital nach 5 Jahren mit Zinseszins größer als bei der anderen Anlage? Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_wachstum",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kapital von 2000 € wird 5 Jahre lang mit 3 % Zinseszins verzinst: Die Zinsen werden jedes Jahr mitverzinst. Zum Vergleich gibt es bei einer anderen Anlage jedes Jahr nur 3 % des Startkapitals als Zinsen, die nicht mitverzinst werden.\n\nUm wie viel Euro ist das Kapital nach 5 Jahren mit Zinseszins größer als bei der anderen Anlage? Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": "€",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-wachstum-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f52ef418-8b90-4c8f-903f-975f8bd8da41",
+   "title": "Term lesen · f(x) = 250 · 1,08ˣ",
+   "question": "Gegeben ist die Exponentialfunktion f(x) = 250 · 1,08ˣ.\n\nGib den Anfangswert an und um wie viel Prozent der Funktionswert zunimmt, wenn x um 1 größer wird. Gib das Ergebnis exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_exp_term",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "Anfangswert f(0)",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "Zunahme in Prozent, wenn x um 1 größer wird",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-term-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "a30145c7-5bc0-4f21-80ee-5237c1df2756",
+   "title": "Term aufstellen · Anfangswert 200, Abnahme 10 %",
+   "question": "Eine Exponentialfunktion f(x) = a · bˣ hat an der Stelle x = 0 den Wert 200. Wenn x um 1 größer wird, nimmt der Funktionswert jeweils um 10 % ab.\n\nGib a und b an. Gib das Ergebnis exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_exp_term",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "b",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-term-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0b9ee008-01c1-4a82-8b69-cfe266a23af1",
+   "title": "Funktionswert · f(−2) bei f(x) = 80 · 0,5ˣ",
+   "question": "Gegeben ist die Funktion f(x) = 80 · 0,5ˣ.\n\nBerechne f(−2). Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_term",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Gegeben ist die Funktion f(x) = 80 · 0,5ˣ.\n\nBerechne f(−2). Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-term-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "f8140fab-2e2f-43cf-9b1f-646865613fa1",
+   "title": "Punkte ablesen · f(3) aus zwei Punkten des Graphen",
+   "question": "Die Punkte P und Q in der Abbildung liegen auf dem Graphen von f(x) = a · bˣ. P liegt auf der y-Achse. Beide Punkte haben ganzzahlige Koordinaten.\n\nLies ihre Koordinaten ab und berechne f(3). Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_term",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Punkte P und Q in der Abbildung liegen auf dem Graphen von f(x) = a · bˣ. P liegt auf der y-Achse. Beide Punkte haben ganzzahlige Koordinaten.\n\nLies ihre Koordinaten ab und berechne f(3). Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-term-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "785c92ab-e234-469f-bb6a-59c0c11db8fd",
+   "title": "Term aus zwei Punkten · Abbildung, Punkte bei x = 1 und x = 3",
+   "question": "Die Punkte P und Q in der Abbildung liegen auf dem Graphen von f(x) = a · bˣ mit b > 0. Beide Punkte haben ganzzahlige Koordinaten.\n\nLies ihre Koordinaten ab und bestimme a und b. Gib das Ergebnis exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_exp_term",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "a",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "b",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-term-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0a568e4e-b3e1-408c-89e1-ba380e9845a3",
+   "title": "Term aufstellen · Bakterien nach 2 und 4 Stunden",
+   "question": "In einer Bakterienkultur werden nach 2 Stunden 360 Bakterien und nach 4 Stunden 810 Bakterien gezählt. Die Anzahl wächst exponentiell und wird durch f(x) = a · bˣ beschrieben (x in Stunden seit Beginn der Beobachtung).\n\nBestimme a und b. Gib das Ergebnis exakt an.",
+   "input_type": "MULTI_PART",
+   "skill_key": "fkt_exp_term",
+   "question_payload": null,
+   "parts": [
+    {
+     "nr": 1,
+     "kind": "short_input",
+     "prompt": "a (Anzahl zu Beginn)",
+     "unit": null,
+     "competency_process": null
+    },
+    {
+     "nr": 2,
+     "kind": "short_input",
+     "prompt": "b (Wachstumsfaktor pro Stunde)",
+     "unit": null,
+     "competency_process": null
+    }
+   ],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-term-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "67e561b4-fcbf-40c1-a24f-6180f39bb1f3",
+   "title": "Halbwertszeit · 64 g, 5 Jahre, nach 15 Jahren",
+   "question": "Ein Stoff hat eine Halbwertszeit von 5 Jahren. Zu Beginn sind 64 g vorhanden.\n\nWie viel Gramm sind nach 15 Jahren noch vorhanden? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_halbwert",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Stoff hat eine Halbwertszeit von 5 Jahren. Zu Beginn sind 64 g vorhanden.\n\nWie viel Gramm sind nach 15 Jahren noch vorhanden? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "g",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-halbwert-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "10179c4f-fa4f-439c-81e5-c5d0957ac2e7",
+   "title": "Verdopplungszeit · 300, alle 4 Stunden, nach 12 Stunden",
+   "question": "Ein Bestand von 300 verdoppelt sich alle 4 Stunden.\n\nWie groß ist der Bestand nach 12 Stunden? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_halbwert",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Bestand von 300 verdoppelt sich alle 4 Stunden.\n\nWie groß ist der Bestand nach 12 Stunden? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-halbwert-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "6557a84f-4c11-4e4d-8fbe-ec66210f6027",
+   "title": "Zeit aus Menge · 400 mg auf 25 mg, Halbwertszeit 8 Tage",
+   "question": "Ein Stoff hat eine Halbwertszeit von 8 Tagen. Zu Beginn sind 400 mg vorhanden.\n\nNach wie vielen Tagen sind nur noch 25 mg vorhanden? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_halbwert",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Stoff hat eine Halbwertszeit von 8 Tagen. Zu Beginn sind 400 mg vorhanden.\n\nNach wie vielen Tagen sind nur noch 25 mg vorhanden? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "Tage",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-halbwert-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3e496b46-156d-45cc-9b77-596261829fb8",
+   "title": "Verdopplung durch Probieren · 12 % pro Jahr",
+   "question": "Ein Bestand wächst in jedem Jahr um 12 %.\n\nGib die Anzahl der ganzen Jahre an, nach denen sich der Bestand erstmals mindestens verdoppelt hat.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_halbwert",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Bestand wächst in jedem Jahr um 12 %.\n\nGib die Anzahl der ganzen Jahre an, nach denen sich der Bestand erstmals mindestens verdoppelt hat."
+   },
+   "parts": [],
+   "unit": "Jahre",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-halbwert-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b034cc64-2773-4753-a08d-be9bbb6319c6",
+   "title": "Halbwertszeit bestimmen · Medikament, 12,5 % nach 12 Stunden",
+   "question": "Ein Medikament wird im Körper abgebaut; die Menge halbiert sich immer in derselben Zeit. 12 Stunden nach der Einnahme sind noch 12,5 % der eingenommenen Menge im Körper.\n\nWie groß ist die Halbwertszeit in Stunden? Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_halbwert",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Medikament wird im Körper abgebaut; die Menge halbiert sich immer in derselben Zeit. 12 Stunden nach der Einnahme sind noch 12,5 % der eingenommenen Menge im Körper.\n\nWie groß ist die Halbwertszeit in Stunden? Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": "h",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-halbwert-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "01afa83d-dfd8-44a6-b6e4-b75c28c273a0",
+   "title": "Verdopplungszeit · Population 500, alle 3 Jahre, nach 10 Jahren",
+   "question": "Eine Tierpopulation von 500 Tieren verdoppelt sich alle 3 Jahre.\n\nWie viele Tiere sind es nach 10 Jahren? Runde auf ganze Tiere.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_halbwert",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Tierpopulation von 500 Tieren verdoppelt sich alle 3 Jahre.\n\nWie viele Tiere sind es nach 10 Jahren? Runde auf ganze Tiere."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-halbwert-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c145fae7-4001-4d15-9218-64948c1964af",
+   "title": "Probieren · 3ˣ = 81",
+   "question": "Löse die Gleichung 3ˣ = 81. Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung 3ˣ = 81. Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-gleichung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "b08dd57c-00cd-4d8d-b035-0d37075d6331",
+   "title": "Probieren mit negativer Lösung · 2ˣ = 1/8",
+   "question": "Löse die Gleichung 2ˣ = 1/8. Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung 2ˣ = 1/8. Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-gleichung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "3f87ce05-a113-439a-8b18-18160b63ca52",
+   "title": "Logarithmus · Bakterien verzwanzigfachen sich, 1,5ˣ = 20",
+   "question": "Eine Bakterienzahl wächst jede Stunde mit dem Faktor 1,5. Nach x Stunden hat sie sich verzwanzigfacht; dafür gilt 1,5ˣ = 20.\n\nBestimme x mit dem Logarithmus. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Eine Bakterienzahl wächst jede Stunde mit dem Faktor 1,5. Nach x Stunden hat sie sich verzwanzigfacht; dafür gilt 1,5ˣ = 20.\n\nBestimme x mit dem Logarithmus. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-gleichung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "970789a3-e052-48e9-b5c8-7509083a901c",
+   "title": "Logarithmus · 2,5 · 1,04ˣ = 4",
+   "question": "Löse die Gleichung 2,5 · 1,04ˣ = 4. Runde auf zwei Stellen nach dem Komma.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung 2,5 · 1,04ˣ = 4. Runde auf zwei Stellen nach dem Komma."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-gleichung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "356c43e5-5443-4664-83f9-e81054644920",
+   "title": "Rückrichtung · 2ˣ = c hat die Lösung x = −4",
+   "question": "Die Gleichung 2ˣ = c hat die Lösung x = −4.\n\nWie groß ist c? Gib das Ergebnis exakt an. Du kannst auch einen Bruch eingeben.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Die Gleichung 2ˣ = c hat die Lösung x = −4.\n\nWie groß ist c? Gib das Ergebnis exakt an. Du kannst auch einen Bruch eingeben."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-gleichung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "282318bf-0748-4764-8f2f-ac39dfd14d22",
+   "title": "Erst teilen, dann probieren · 3 · 2ˣ = 3/32",
+   "question": "Löse die Gleichung 3 · 2ˣ = 3/32. Gib das Ergebnis exakt an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_gleichung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Löse die Gleichung 3 · 2ˣ = 3/32. Gib das Ergebnis exakt an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-gleichung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "380b85ad-3967-4fad-b370-e113276310a6",
+   "title": "Kapital · 1000 € zu 5 %, erstmals mindestens 1500 €",
+   "question": "Ein Kapital von 1000 € wird mit 5 % pro Jahr verzinst; die Zinsen werden mitverzinst.\n\nGib die Anzahl der ganzen Jahre an, nach denen das Kapital erstmals mindestens 1500 € beträgt.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein Kapital von 1000 € wird mit 5 % pro Jahr verzinst; die Zinsen werden mitverzinst.\n\nGib die Anzahl der ganzen Jahre an, nach denen das Kapital erstmals mindestens 1500 € beträgt."
+   },
+   "parts": [],
+   "unit": "Jahre",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-anwendung-01",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "167c44e0-d197-4696-951a-a17b5f8337c4",
+   "title": "Abbau · 80 mg, 15 % pro Stunde, höchstens 20 mg",
+   "question": "Von einem Stoff sind zu Beginn 80 mg im Blut. Die Menge nimmt jede Stunde um 15 % ab.\n\nGib die Anzahl der ganzen Stunden an, nach denen erstmals höchstens 20 mg im Blut sind.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Von einem Stoff sind zu Beginn 80 mg im Blut. Die Menge nimmt jede Stunde um 15 % ab.\n\nGib die Anzahl der ganzen Stunden an, nach denen erstmals höchstens 20 mg im Blut sind."
+   },
+   "parts": [],
+   "unit": "h",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-anwendung-02",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "e53c873e-f152-495a-a550-23751c7be490",
+   "title": "Bestand · Fische, jedes Jahr auf 80 %, unter 500",
+   "question": "In einem See leben 2000 Fische. Der Bestand sinkt jedes Jahr auf 80 % des Vorjahres.\n\nGib die Anzahl der ganzen Jahre an, nach denen erstmals weniger als 500 Fische im See leben.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "In einem See leben 2000 Fische. Der Bestand sinkt jedes Jahr auf 80 % des Vorjahres.\n\nGib die Anzahl der ganzen Jahre an, nach denen erstmals weniger als 500 Fische im See leben."
+   },
+   "parts": [],
+   "unit": "Jahre",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-anwendung-03",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "0054a031-7aae-4035-a3e5-1e3c698c35d6",
+   "title": "Zerfall · Halbwertszeit 6 Stunden, unter 10 %",
+   "question": "Ein radioaktiver Stoff hat eine Halbwertszeit von 6 Stunden.\n\nGib die Anzahl der ganzen Stunden an, nach denen erstmals weniger als 10 % der Anfangsmenge vorhanden sind.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Ein radioaktiver Stoff hat eine Halbwertszeit von 6 Stunden.\n\nGib die Anzahl der ganzen Stunden an, nach denen erstmals weniger als 10 % der Anfangsmenge vorhanden sind."
+   },
+   "parts": [],
+   "unit": "h",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-anwendung-04",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "c6e6dac0-bbb7-49ce-b424-f3ce3806c1a1",
+   "title": "Einwohner · Gemeinde 8000, 1,5 % pro Jahr, Jahreszahl",
+   "question": "Am Ende des Jahres 2020 hat eine Gemeinde 8000 Einwohner. Die Einwohnerzahl wächst jedes Jahr um 1,5 %.\n\nAm Ende welchen Jahres hat die Gemeinde erstmals mehr als 9000 Einwohner? Rechne mit ganzen Jahren und gib die Jahreszahl an.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Am Ende des Jahres 2020 hat eine Gemeinde 8000 Einwohner. Die Einwohnerzahl wächst jedes Jahr um 1,5 %.\n\nAm Ende welchen Jahres hat die Gemeinde erstmals mehr als 9000 Einwohner? Rechne mit ganzen Jahren und gib die Jahreszahl an."
+   },
+   "parts": [],
+   "unit": null,
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-anwendung-05",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ },
+ {
+  "task": {
+   "id": "7e3a4210-981c-424c-ba76-6d326165e335",
+   "title": "Zwei Anlagen · 2000 € zu 8 % überholt 5000 € zu 3 %",
+   "question": "Anlage A: 2000 € werden mit 8 % pro Jahr verzinst. Anlage B: 5000 € werden mit 3 % pro Jahr verzinst. Bei beiden werden die Zinsen mitverzinst.\n\nGib die Anzahl der ganzen Jahre an, nach denen Anlage A erstmals mehr Geld enthält als Anlage B.",
+   "input_type": "NUMERIC",
+   "skill_key": "fkt_exp_anwendung",
+   "question_payload": {
+    "kind": "short_input",
+    "prompt": "Anlage A: 2000 € werden mit 8 % pro Jahr verzinst. Anlage B: 5000 € werden mit 3 % pro Jahr verzinst. Bei beiden werden die Zinsen mitverzinst.\n\nGib die Anzahl der ganzen Jahre an, nach denen Anlage A erstmals mehr Geld enthält als Anlage B."
+   },
+   "parts": [],
+   "unit": "Jahre",
+   "status": "draft",
+   "source": "edvance_k10_exp",
+   "source_ref": "exp-anwendung-06",
+   "created_at": null,
+   "afb": null,
+   "est_duration_sec": null,
+   "curriculum_grade": null,
+   "cluster_id": null,
+   "competency_content": null,
+   "competency_process": null,
+   "needs_image": null,
+   "vorbefuellt": {}
+  },
+  "sol": null
+ }
+]
