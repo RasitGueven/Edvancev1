@@ -15,6 +15,7 @@ import type {
   ReportBaustein,
   Rueckbezug,
 } from '@/types/reportFundament'
+import type { Suchweg } from '@/types/reportSuche'
 
 export type LsaSessionState = 'in_progress' | 'completed' | 'aborted'
 
@@ -182,8 +183,10 @@ export type ReportData = {
  * src/lib/supabase/lsaReportErzaehlung.ts.
  */
 export type ReportErzaehlung = {
-  /** null, wenn kein Skill direkt geprüft wurde. Dann entfallen 02 und 03. */
+  /** null, wenn kein Skill direkt geprüft wurde. Dann entfällt 03. */
   fundament: Fundament | null
+  /** Schritt 02 nach Thema und Stufe. null, wenn nichts direkt geprüft wurde. */
+  suche: Suchweg | null
   /** Immer sechs Achsen — auch die ungeprüften, als solche gekennzeichnet. */
   profil: FamilienBefund[]
   /** Der Aufgriff der Eltern-Einschätzung im Schluss. */

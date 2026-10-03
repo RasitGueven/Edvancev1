@@ -2,11 +2,11 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ReportBefund } from '@/components/edvance/report/ReportBefund'
-import { ReportEbenen } from '@/components/edvance/report/ReportEbenen'
 import { ReportFehlbilder } from '@/components/edvance/report/ReportFehlbilder'
 import { ReportProfil } from '@/components/edvance/report/ReportProfil'
 import { ReportSchluss } from '@/components/edvance/report/ReportSchluss'
 import { ReportSkillbefunde } from '@/components/edvance/report/ReportSkillbefunde'
+import { ReportSuche } from '@/components/edvance/report/ReportSuche'
 import { Bausteinsatz } from '@/lib/report/bausteine'
 import type { ReportData } from '@/types'
 
@@ -15,7 +15,7 @@ import type { ReportData } from '@/types'
  * Schritten (R6).
  *
  * 01 Warum wir geschaut haben   was die Eltern genannt haben, wörtlich
- * 02 Wie wir gesucht haben      der Abstieg durch die Fundamentebenen
+ * 02 Wie wir gesucht haben      Thema, Grundlagen darunter, außerdem angesehen
  * 03 Was wir gefunden haben     Profil über die Themen, dann die zwei Listen
  * 04 Wie es sich zeigt          wiederkehrende Denkschritte (Fehlbilder)
  *    Aufklappbereich            was der Coach zuerst nachprüft
@@ -122,13 +122,8 @@ export function ReportBody({ data }: { data: ReportData }): JSX.Element {
         </section>
       )}
 
-      {/* 02 SUCHE */}
-      <ReportEbenen
-        fundament={erzaehlung.fundament}
-        satz={satz}
-        sessionId={data.sessionId}
-        titleClassName={titelHaupt}
-      />
+      {/* 02 SUCHE — nach Thema und Lehrplanstufe, nicht nach Graphtiefe (W2-7). */}
+      <ReportSuche suche={erzaehlung.suche} titleClassName={titelHaupt} />
 
       {/* 03 BEFUND — erst das Bild, dann die Listen. */}
       {erzaehlung.fundament && (

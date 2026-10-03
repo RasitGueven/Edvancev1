@@ -131,77 +131,82 @@
 
 /* ── R6: die Erzählung in sechs Schritten ────────────────────────────────── */
 
-/* Ebenenspur (Schritt 02).
-   Der Balken ist eine ZUSAMMENSETZUNG, keine Skala: Er zeigt, wie sich die
-   geprüften Bereiche einer Ebene aufteilen, und die Zahl daneben nennt beide
-   Summanden. Deshalb Navy und offen — kein Rot, kein Grün, keine Ampel
-   (INV-4.4). Die Farbe sagt „das steht", nicht „das ist gut". */
-.report-ebenen {
-  list-style: none;
-  margin: 0.25rem 0 0;
-  padding: 0;
+/* Suche (Schritt 02, W2-7): drei Blöcke nach Thema und Lehrplanstufe.
+   Jede Zeile nennt „x von y sicher" im Klartext und die Bereiche einzeln —
+   kein Balken, keine Ampel (INV-4.4). Sichere Bereiche tragen Navy, die
+   übrigen bleiben gedämpft; die Farbe sagt „das steht", nicht „das ist gut". */
+.report-suche-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.report-suche-kopf {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-report-gold);
+}
+
+.report-suche-hinweis {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-report-navy) 70%, transparent);
+}
+
+.report-suche-stufe {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
 }
 
-.report-ebene {
-  border-radius: var(--radius-md);
-  background: var(--color-report-cream);
-  padding: 0.5rem 0.875rem;
-}
-
-.report-ebene-kopf {
-  display: grid;
-  grid-template-columns: 8.5rem 1fr auto;
-  align-items: center;
-  gap: 0.875rem;
-}
-
-.report-ebene-name {
+.report-suche-stufe-name {
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   color: color-mix(in srgb, var(--color-report-navy) 62%, transparent);
 }
 
-.report-ebene-spur {
-  height: 0.5rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-report-navy) 12%, transparent);
-  overflow: hidden;
-  display: block;
+.report-suche-zeile {
+  border-radius: var(--radius-md);
+  background: var(--color-report-cream);
+  padding: 0.5rem 0.875rem;
+  break-inside: avoid;
 }
 
-.report-ebene-fuellung {
-  display: block;
-  height: 100%;
-  background: var(--color-report-navy);
+.report-suche-zeile-kopf {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-report-navy);
 }
 
-.report-ebene-zahl {
-  font-size: 0.8125rem;
+.report-suche-zahl {
+  font-weight: 400;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   color: color-mix(in srgb, var(--color-report-navy) 78%, transparent);
 }
 
-.report-ebene-was {
-  margin: 0.3rem 0 0 9.375rem;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--color-report-navy) 70%, transparent);
+.report-suche-skills {
+  list-style: none;
+  margin: 0.3rem 0 0;
+  padding: 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-report-navy) 62%, transparent);
 }
 
-.report-ebenen-notiz {
-  margin-top: 0.5rem;
-  padding-top: 0.625rem;
-  border-top: 1px solid color-mix(in srgb, var(--color-report-navy) 12%, transparent);
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: color-mix(in srgb, var(--color-report-navy) 80%, transparent);
+.report-suche-skill-sicher {
+  color: var(--color-report-navy);
+}
+
+.report-suche-duenn {
+  font-style: italic;
+  color: color-mix(in srgb, var(--color-report-navy) 55%, transparent);
 }
 
 /* Profil (Schritt 03). Ein Farbton, keine Skalenbeschriftung, keine Zahl an
@@ -420,12 +425,5 @@
   .report-profil,
   .report-befund {
     grid-template-columns: 1fr;
-  }
-  .report-ebene-kopf {
-    grid-template-columns: 6rem 1fr auto;
-    gap: 0.5rem;
-  }
-  .report-ebene-was {
-    margin-left: 0;
   }
 }

@@ -7,6 +7,8 @@ import { ReportBody } from '@/components/edvance/report/ReportBody'
 import deReport from '@/i18n/locales/de/report.json'
 import { familienBefunde, familienBestand } from '@/lib/report/familien'
 import { baueFundament } from '@/lib/report/fundament'
+import { baueSuche, type SucheEingabe } from '@/lib/report/suche'
+import { FALL_A, FALL_B, FALL_C, FALL_D } from '@/lib/report/suche.fixtures'
 import type { FundamentSkill, ReportBaustein, ReportData } from '@/types'
 
 /**
@@ -74,7 +76,7 @@ const BAUSTEINE: ReportBaustein[] = [
   ...b('rueckbezug', 'grundlagen_bestaetigend_mitte', 'Ihr Eindruck bestätigt sich — allerdings nicht ganz unten.'),
 ]
 
-function baueDaten(): ReportData {
+function baueDaten(fall: SucheEingabe = FALL_A): ReportData {
   const fundament = baueFundament(TOLUNAY)!
   return {
     sessionId: 'd8b0d885-b72d-4b68-a17b-6b35db301103',
@@ -90,6 +92,7 @@ function baueDaten(): ReportData {
     fehlbilder: [],
     erzaehlung: {
       fundament,
+      suche: baueSuche(fall),
       profil: familienBefunde(TOLUNAY, BESTAND),
       rueckbezuege: [
         { thema: 'Textverständnis', fall: 'textverstaendnis_entlastend_schmal', richtung: 'entlastend', belege: 1 },
@@ -128,15 +131,59 @@ describe('ReportBody — die sechs Schritte', () => {
     expect(screen.getByText(/Lineare Gleichungen/)).toBeInTheDocument()
   })
 
-  it('zeigt die Ebenenspur mit Untertiteln und Zählung', () => {
-    render(<ReportBody data={baueDaten()} />)
-    expect(screen.getByText('Aktuelles Thema')).toBeInTheDocument()
-    expect(screen.getByText('Fünf Ebenen tiefer')).toBeInTheDocument()
-    // Die schärfste Ebene der Sitzung.
-    expect(screen.getByText('0 von 2')).toBeInTheDocument()
-    expect(
-      screen.getByText('Minusklammer auflösen, Volumeneinheiten'),
-    ).toBeInTheDocument()
+  it('a) gliedert nach Thema, Grundlagen darunter und außerdem angesehen', () => {
+    render(<ReportBody data={baueDaten(FALL_A)} />)
+    const aktuell = screen.getByTestId('suche-aktuell')
+    expect(within(aktuell).getByText('Terme und Gleichungen')).toBeInTheDocument()
+    expect(within(aktuell).getByText('0 von 1 sicher')).toBeInTheDocument()
+
+    const grundlagen = screen.getByTestId('suche-grundlagen')
+    expect(within(grundlagen).getByText('Grundlagen darunter')).toBeInTheDocument()
+    expect(within(grundlagen).getByText('Klasse 7/8')).toBeInTheDocument()
+    expect(grundlagen.textContent).toMatch(/Beidseitige Gleichungen · sicher/)
+    expect(grundlagen.textContent).not.toMatch(/Volumeneinheiten|Brüche/)
+
+    const angesehen = screen.getByTestId('suche-angesehen')
+    expect(within(angesehen).getByText('Außerdem angesehen')).toBeInTheDocument()
+    expect(angesehen.textContent).toMatch(/Volumeneinheiten · noch nicht sicher/)
+    expect(angesehen.textContent).toMatch(/Brüche dividieren · noch nicht sicher/)
+    expect(within(angesehen).getByText('Klasse 5/6')).toBeInTheDocument()
+    expect(within(angesehen).getAllByText('1 von 3 sicher')).toHaveLength(2)
+    expect(screen.getByText(/bis wir sicheren Boden gefunden haben/)).toBeInTheDocument()
+  })
+
+  it.each([
+    ['b', FALL_B],
+    ['c', FALL_C],
+    ['d', FALL_D],
+  ])('%s) kein „sicherer Boden", kein „darunter" ohne Abstieg', (_, fall) => {
+    const { container } = render(<ReportBody data={baueDaten(fall)} />)
+    expect(container.textContent).not.toMatch(/sicheren Boden/)
+    expect(screen.queryByTestId('suche-grundlagen')).toBeNull()
+  })
+
+  it('b) alte Sitzung: alles unter „Angesehen", mit Satz zum fehlenden Thema', () => {
+    render(<ReportBody data={baueDaten(FALL_B)} />)
+    expect(screen.queryByTestId('suche-aktuell')).toBeNull()
+    expect(screen.getByText('Angesehen')).toBeInTheDocument()
+    expect(screen.getByText(/Diese Analyse lief ohne gewähltes Thema/)).toBeInTheDocument()
+  })
+
+  it('markiert Urteile aus nur einer Aufgabe', () => {
+    render(<ReportBody data={baueDaten(FALL_C)} />)
+    expect(screen.getByText('(nur eine Aufgabe)')).toBeInTheDocument()
+  })
+
+  it.each([
+    ['a', FALL_A],
+    ['b', FALL_B],
+    ['c', FALL_C],
+    ['d', FALL_D],
+  ])('%s) keine Ebenen mehr, kein „trägt" im Suchabschnitt', (_, fall) => {
+    const { container } = render(<ReportBody data={baueDaten(fall)} />)
+    expect(container.textContent).not.toMatch(/Ebene tiefer|Ebenen tiefer/)
+    const suche = container.querySelector('section:has(.report-suche-block)')!
+    expect(suche.textContent).not.toMatch(/trägt|trug|gemeistert/)
   })
 
   it('setzt die Platzhalter der Bausteine ein', () => {
@@ -191,6 +238,7 @@ describe('ReportBody — die sechs Schritte', () => {
       naechstesThema: null,
       erzaehlung: {
         fundament: null,
+        suche: null,
         profil: [],
         rueckbezuege: [],
         verteilung: null,
