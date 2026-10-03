@@ -37,7 +37,11 @@ const aufgaben = charge.aufgaben.map((a) => {
   const b = a.basis ?? {};
   const eintrag = { task_id: a.id, frage: b.frage };
   if (b.unit) eintrag.einheit = b.unit;
-  if (b.input_type === 'MULTI_PART') eintrag.teile = (b.parts ?? []).map((p) => ({ part: String(p.nr), prompt: p.prompt }));
+  // Auswahlaufgaben: die Optionen (id + Text) gehoeren zur Aufgabe, die richtige id nicht.
+  const optionen = (o) => o.map(({ id, label }) => ({ id, text: label }));
+  if (b.input_type === 'MC') eintrag.optionen = optionen(b.options ?? []);
+  if (b.input_type === 'MULTI_PART') eintrag.teile = (b.parts ?? []).map((p) => ({ part: String(p.nr), prompt: p.prompt,
+    ...(p.kind === 'mc' ? { optionen: optionen(p.options ?? []) } : {}) }));
   if (b.figur) {
     const r = spawnSync('python3', ['-c', PY], {
       input: JSON.stringify({ generator: b.figur.generator ?? 'koordinatensystem', params: b.figur.params }),
