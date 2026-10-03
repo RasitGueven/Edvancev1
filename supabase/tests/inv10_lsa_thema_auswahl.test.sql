@@ -32,7 +32,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(28);
+select plan(30);
 
 -- --- Isolation --------------------------------------------------------------
 update tasks set skill_key = null where skill_key is not null;
@@ -195,6 +195,17 @@ select is((select thema_key from lsa_sessions where id = :'s_leer'), 'zt_leer',
   '0d: Thema ohne Aufgaben wird trotzdem festgehalten');
 select is(pg_temp.folge(:'s_leer', '', '1 minute'), 'zt_e1',
   '0d: ... Phase T entfaellt, die erste Aufgabe kommt aus der Breite');
+
+select pg_temp.kind('ZT Fach', null, false, false) as k_fach \gset
+insert into lead_themen (lead_id, fach, thema_key, status, quelle)
+select lead_id, 'physik', 'zt_akt', 'aktuell', 'gespraech' from students where id = :'k_fach';
+select pg_temp.start(:'k_fach') as s_fach \gset
+select is((select thema_key from lsa_sessions where id = :'s_fach'), null,
+  '0e: ein aktuell-Thema in einem anderen Fach zaehlt nicht');
+
+select ok(not has_function_privilege('authenticated', 'public.lsa_lead_von_schueler(uuid)', 'execute')
+          and not has_function_privilege('anon', 'public.lsa_lead_von_schueler(uuid)', 'execute'),
+  '0f: lsa_lead_von_schueler ist fuer anon/authenticated nicht aufrufbar');
 
 -- ============================================================================
 -- 1) Thema traegt sofort

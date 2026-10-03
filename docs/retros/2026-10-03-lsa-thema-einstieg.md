@@ -10,7 +10,7 @@ Branch `feat/lsa-thema-einstieg`. Bericht: `docs/themen/w3-6-lsa-auswahl.md`.
   - `lsa_select_next_core` mit Phase T, Tiefe bis Minute 12, Breite a/b und Klassengrenze
   - Einstiegsknoten für Linear (3) und Zins (2)
 - `20261003093007_lsa_thema_einstieg_kreis.sql`: Einstiegsknoten für Kreis (2), getrennt eingespielt.
-- `supabase/tests/inv10_lsa_thema_auswahl.test.sql`: 28 Zusicherungen auf einem eigenen Graphen.
+- `supabase/tests/inv10_lsa_thema_auswahl.test.sql`: 30 Zusicherungen auf einem eigenen Graphen.
 - `supabase/checks/lsa_thema_einstieg_trockenlauf.PRUEFUNG.sql`: begin, Migration, vier Sitzungen, rollback.
 
 ## Entscheidungen
@@ -24,7 +24,7 @@ Branch `feat/lsa-thema-einstieg`. Bericht: `docs/themen/w3-6-lsa-auswahl.md`.
 ## Was gut lief
 
 - pgTAP ließ sich ohne Systeminstallation als reines SQL (`pgtap.sql.in` mit sed) in eine Wegwerf-DB laden. Damit lief der CI-Testschritt komplett lokal.
-- Die Gegenprobe gegen die alten Funktionen zeigt, dass der Test die Änderung wirklich misst: 17 von 28 werden rot.
+- Die Gegenprobe gegen die alten Funktionen zeigt, dass der Test die Änderung wirklich misst: 17 von 28 (erste Fassung) werden rot.
 
 ## Was hakte
 

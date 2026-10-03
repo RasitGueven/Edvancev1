@@ -103,11 +103,11 @@ Je Thema gibt es höchstens drei Einstiege. Ein dritter Einstieg bei Zins oder K
 
 ## Teil 5 — Tests
 
-`inv10_lsa_thema_auswahl` hat 28 Zusicherungen und arbeitet auf einem eigenen Graphen. Das echte Fundament wird dafür transaktionslokal ausgeblendet. Die Zeitpunkte sind fest über `p_jetzt`, die Antworten laufen über `lsa_submit`.
+`inv10_lsa_thema_auswahl` hat 30 Zusicherungen und arbeitet auf einem eigenen Graphen. Das echte Fundament wird dafür transaktionslokal ausgeblendet. Die Zeitpunkte sind fest über `p_jetzt`, die Antworten laufen über `lsa_submit`.
 
 | # | Zusage | Folge der gezogenen Knoten |
 |---|---|---|
-| 0 | `thema_key` über `lead_id` und über `converted_student_id`; ohne Lead NULL; Thema ohne Aufgaben wird gesetzt und Phase T entfällt | — |
+| 0 | `thema_key` über `lead_id` und über `converted_student_id`; ohne Lead NULL; anderes Fach zählt nicht; Helfer nicht für anon/authenticated; Thema ohne Aufgaben wird gesetzt und Phase T entfällt | — |
 | 1 | Thema trägt sofort | `e1, e2, ba, bb, g1, –`: zuerst Einstiege, dann behandelt (Schulplan schlägt `sort`), dann gierig |
 | 2 | Thema bricht | `e1, e1, e2, p1, p1, p2, ba, ba, bb`: kein Abstieg unter `ba` |
 | 3 | bricht tief, Minute 12 | 3-Minuten-Takt: `e1, e1, e2, e2, ba`; Kontrolle mit 2,5-Minuten-Takt: `…, p1` |
@@ -124,7 +124,7 @@ Migrationen ok
   ok     a2_lead_delete (8 Zusicherungen)
   wartet a3_lead_assessments (rot)
   wartet a4_is_tutorial (rot)
-  ok     inv10_lsa_thema_auswahl (28 Zusicherungen)
+  ok     inv10_lsa_thema_auswahl (30 Zusicherungen)
   ok     inv1_mastery_gate (8 Zusicherungen)
   wartet inv2_lsa_datenvertrag (rot)
   wartet inv3_lsa_multipart (rot)
@@ -140,7 +140,7 @@ Migrationen ok
 
 Die acht wartenden Tests stehen unverändert in `bekannt-rot.txt` und waren vor der Änderung genauso rot.
 
-**Gegenprobe:** Mit den alten Funktionen (Live-Fassung) scheitern 17 der 28 Zusicherungen. Ein Beispiel ist Fall 2 mit `zt_h9, zt_h9, zt_h8, …, zt_ba, zt_ba, zt_q`: Das ist genau der alte Fehler, nämlich Start im ganzen Fundament, über der Klasse und mit Abstieg in der Breite. Grün bleiben in beiden Fassungen nur die Invarianten (19-Minuten-Fenster, Mitbelegung, Zweitbeleg-Urteil, `fest`) und die Kontrollfälle (ohne Lead kein Thema, Klasse 9 zieht `h9`).
+**Gegenprobe:** Mit den alten Funktionen (Live-Fassung) scheitern 17 der 28 Zusicherungen der ersten Fassung. Ein Beispiel ist Fall 2 mit `zt_h9, zt_h9, zt_h8, …, zt_ba, zt_ba, zt_q`: Das ist genau der alte Fehler, nämlich Start im ganzen Fundament, über der Klasse und mit Abstieg in der Breite. Grün bleiben in beiden Fassungen nur die Invarianten (19-Minuten-Fenster, Mitbelegung, Zweitbeleg-Urteil, `fest`) und die Kontrollfälle (ohne Lead kein Thema, Klasse 9 zieht `h9`).
 
 ## Trockenlauf gegen die echte DB
 

@@ -67,7 +67,7 @@
   Einstiegsknoten des Themas, steigt dann nur unter dem Thema ab (bis Minute 12) und nutzt
   die Restzeit für die Breite: zuerst die behandelten Themen nach Schulplan, dann die
   gierige Deckung, ohne Abstieg. Nichts liegt über der Klasse. Einstiegsknoten für Linear,
-  Zins und Kreis (Kreis als eigene Migration). Beweis: `inv10` mit 28/28 grün im lokalen
+  Zins und Kreis (Kreis als eigene Migration). Beweis: `inv10` mit 30/30 grün im lokalen
   CI-Nachbau, Gegenprobe gegen die alte Auswahl 17 rot.
   **Offen:** Einspielen (9 verwaiste `in_progress`-Sitzungen klären), Trockenlauf gegen
   Prod, Schema-Abzug, Kreis nach dem Kreis-Substrat, Report auf den Themenraum umstellen.
