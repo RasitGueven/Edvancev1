@@ -34,6 +34,7 @@ Voraussetzung waren die Vorlauf-Migrationen (`20261001115718`, `…115812`), jet
 | Idempotenz | Wegwerf-DB: Grundlage + alle 93 Migrationen, Aufgaben-Migration ein zweites Mal | weiter 30 Aufgaben, 30 Lösungen, 6 Figuren |
 | Prod nach dem Einspielen | `dbread`, Assertions aus A1–A9 ohne Bruchprobe | 30/30 Felder, 30/30 Lösungen, Sondierrang 5×(1,2), 0 unbekannte Slugs, Stichproben Bruch/Unicode-Minus/Fehlbild ok |
 | Figuren | `upload_figures.py --dry-run` gegen eine **lokale** Wegwerf-DB | alle 6 linfkt-Figuren erzeugt und geprüft (dunkel + hell), `fehler=0` |
+| Figuren-Upload Prod (03.10., auf Rasits Anweisung) | `--dry-run` gegen Prod: `geladen=6 uebersprungen=6 fehler=0`, offen nur `edvance_k8_linfkt:6`; direkt davor per `dbread` erneut geprüft; dann der echte Lauf | `geladen=6 fehler=0`; per `dbread`: 6/6 mit `svg_hash` (gleich dem Dry-Run), 0 offene Zeilen in `task_figures`, Payload liefert das Bild |
 | Dubletten | `dbread`: Fragetext gegen 703 Prod-Aufgaben, ids, Quelle | 0 |
 | Frontend-Gate | `npm ci && typecheck && lint && test` | grün, 598/598 |
 | `schema/neuaufbau` (CI) | PR #186 | grün |
@@ -46,8 +47,6 @@ Aufgabe“; das sind hier 37 Scheinfehler. Neue Aufgaben mit `source = 'edvance_
 - **PRUEFUNG-Skripte gegen Prod:** Ihre Bruchproben schreiben in einer Rollback-Transaktion, das geht über das
   schreibgeschützte `dbread` nicht, und ein eigener Helfer ist gesperrt. Ersatz ist die `dbread`-Nachprüfung oben.
   Wer es in Prod sehen will: `psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/checks/k8_linfkt_<substrat|aufgaben>.PRUEFUNG.sql`.
-- **`upload_figures.py` gegen Prod:** Das Skript sagt im Kopf „WIRD VON RASIT AUSGEFUEHRT, NICHT VON CLAUDE“. Die
-  6 Figuren tragen deshalb noch keinen `svg_hash`, und der Payload liefert bis zum Upload kein Bild.
 - **Trockenlauf in Prod** (begin → apply → assert → rollback): Er braucht Schreibrechte außerhalb von `dbread`.
   Ersetzt wurde er durch den Trockenlauf in der Wegwerf-DB mit allen Migrationen.
 
@@ -56,21 +55,12 @@ Aufgabe“; das sind hier 37 Scheinfehler. Neue Aufgaben mit `source = 'edvance_
 | # | Befund | Entscheidung |
 |---|---|---|
 | B1 | graph-02 und graph-03 hatten wortgleichen Text, sie unterschieden sich nur in der Abbildung; Stufe 1 meldet das als Dublette. | graph-03 heißt jetzt Funktion **g** (Text und Figur). Lösung unverändert, nichts neu gewürfelt. Ein zweiter, frischer Löser hat die Aufgabe danach neu gelöst. |
-| B2 | Der Blind-Löser merkt an: Bei graph-04 ist die Beschriftung „f“ am rechten Bildrand halb abgeschnitten. Er hält das für unkritisch. | Generator-Sache (Label-Anker bei steilen Geraden), nicht in diesem Lauf. Offener Punkt fürs Foundation-Fenster. |
-| B3 | `nur_einmal_addiert` (steigung-06) ist Altbestand ohne Familie, von A20 aus Prod-Daten geseedet. Ein Neuaufbau kennt ihn nicht. | Der Slug existiert live und passt fachlich. A4 prüft streng, sobald der Altbestand da ist, sonst Hinweis. Im Elternbericht erscheint er erst mit Familie und Klartext. |
-| B4 | Seit W1-4 (`themen_katalog_mathe`) steht `themen.lineare_funktionen` auf **Klasse 7** (Stufe erste), nicht mehr auf 8. Der Kommentar in Migration 1 und der Stoffanker-Grund in `tasks.vorbefuellt` sagen noch „Katalog auf Klasse 8“. | Wert bleibt **8**: Alle 30 Kölner Schulpläne mit diesem Thema legen es in Klasse 8 (`schul_themenplan`, 30/30). Nur der Begründungstext ist überholt. Korrektur-Vorschlag unten, nicht eingespielt. |
-| B5 | `thema_einstieg` hat keinen Eintrag für `lineare_funktionen`. | Nicht Teil von W1-1. Vorschlag: `fkt_linear_nullstelle` (8) und `fkt_linear_graph` (7) als Einstieg. Die Entscheidung liegt beim Themen-Lauf. |
+| B2 | Der Blind-Löser merkt an: Bei graph-04 ist die Beschriftung „f“ am rechten Bildrand halb abgeschnitten. Er hält das für unkritisch. | **Entschieden (Rasit, 03.10.):** Nur vermerkt. Der Blind-Löser hat 30/30 gelöst, die angeschnittene Beschriftung stört die Lösbarkeit also nicht. Generator und Aufgaben bleiben unverändert. |
+| B3 | `nur_einmal_addiert` (steigung-06) ist Altbestand ohne Familie, von A20 aus Prod-Daten geseedet. Ein Neuaufbau kennt ihn nicht. | **Entschieden (Rasit, 03.10.):** Altbestand-Drift. Der Slug ist live vorhanden, im Neuaufbau aus Migrationen nicht. Nichts zu tun. A4 prüft streng, sobald der Altbestand da ist. |
+| B4 | Seit W1-4 (`themen_katalog_mathe`) steht `themen.lineare_funktionen` auf **Klasse 7** (Stufe erste), nicht mehr auf 8. Der Kommentar in Migration 1 und der Stoffanker-Grund in `tasks.vorbefuellt` sagen noch „Katalog auf Klasse 8“. | **Entschieden (Rasit, 03.10.):** Kein UPDATE. `themen.klasse` ist veraltet, maßgeblich ist `themen.stufe` (`erste`). Der Stoffanker 8 an den Aufgaben bleibt (30/30 Kölner Schulpläne: Klasse 8). |
+| B5 | `thema_einstieg` hat keinen Eintrag für `lineare_funktionen`. | **Entschieden (Rasit, 03.10.):** `thema_einstieg` für `lineare_funktionen` legt der Auftrag zur LSA-Auswahl an, nicht dieser Lauf. |
 | B6 | Keine MULTI_PART-Aufgaben. | `vorlauf-build.mjs` erzwingt dort Teilbudgets mit Summe gleich Aufgabe, und die Summenregel ist gestrichen (Rasit). Alle 30 sind NUMERIC. Damit greift die Fehlbild-Erkennung, und „Lösung je Teilaufgabe“ entfällt. |
 | B7 | Aufgaben, deren Ergebnis ein Funktionsterm ist, gibt es nicht. | TERM sperrt Fehlbilder (`lsa_term_acceptance_guard`), MC kennt `vorlauf-build` nicht. Die Gleichungs-Aufgaben fragen deshalb nach einem Funktionswert oder nach b; dafür muss die Gleichung vorher aufgestellt sein. |
-
-Korrektur zu B4, falls gewünscht. Es ist eine reine Textänderung im Kennzeichen, der Wert bleibt:
-
-```sql
-update public.tasks
-   set vorbefuellt = jsonb_set(vorbefuellt, '{curriculum_grade,grund}',
-         to_jsonb('Stoffanker Klasse 8: KLP G9 Funktionen, Erste Stufe (Fkt-4 bis Fkt-7); alle 30 Kölner Schulpläne mit dem Thema legen es in Klasse 8.'::text))
- where source = 'edvance_k8_linfkt' and status = 'draft';
-```
 
 ## Die Aufgaben
 
@@ -168,7 +158,7 @@ und als Dezimalzahl und mit Einheit. `lsa_is_correct` normalisiert das Unicode-M
 2. **Aufgaben** einzeln im Editor prüfen und auf `ready` setzen: `task_status_set`, das Freigabe-Gate prüft die Pflichtfelder.
    Für einen Abstieg müssen auch die Vorlauf-Aufgaben zu `geo_koordinaten` und `term_einsetzen` freigegeben sein;
    beide stehen heute auf `draft`.
-3. **Figuren:** Rasit lädt sie hoch mit `python3 scripts/figures/upload_figures.py`. Danach haben die 6 `task_figures`-Zeilen einen `svg_hash`.
+3. **Figuren:** erledigt am 03.10. Alle 6 `task_figures`-Zeilen haben einen `svg_hash`.
 
 ## Test-LSA mit Einstieg Lineare Funktionen (läuft erst nach Lenas Freigabe)
 
