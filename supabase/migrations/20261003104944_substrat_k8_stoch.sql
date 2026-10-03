@@ -49,6 +49,23 @@ values
   ('stoch_pfad_summe',    'Mehrstufige Zufallsexperimente: Summenregel',           'mathematik', 8, 7)
 on conflict (skill_key) do nothing;
 
+-- Heimat-Thema (skill_thema, PR #192): das Thema, in dem der Stoff im KLP
+-- eingefuehrt wird. Ohne Zeile findet freigabe_thema die Aufgaben nicht.
+-- Median, Spannweite und Quartile stehen im Katalog unter daten_streumasse
+-- (Schlagworte median, quartile, spannweite, boxplot), nicht unter
+-- zufallsexperimente. Join auf themen wie in 20261003104647_skill_thema_daten.
+insert into public.skill_thema (skill_key, thema_key)
+select v.skill_key, v.thema_key
+  from (values
+    ('stoch_kenngroessen',  'daten_streumasse'),
+    ('stoch_laplace',       'zufallsexperimente'),
+    ('stoch_gegenereignis', 'zufallsexperimente'),
+    ('stoch_pfad_produkt',  'zufallsexperimente'),
+    ('stoch_pfad_summe',    'zufallsexperimente')
+  ) as v (skill_key, thema_key)
+  join public.themen th on th.thema_key = v.thema_key
+on conflict (skill_key) do nothing;
+
 
 -- ── 2. Neun Kanten ──────────────────────────────────────────────────────────
 --

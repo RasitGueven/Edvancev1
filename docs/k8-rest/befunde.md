@@ -16,7 +16,7 @@ ohne Hinweise, `class_level` 8, Stoffanker 8.
 | Thales und Winkelsätze | 4 | **24** | 2 | 24 NUMERIC | `docs/prefill/k8-winkel.csv` |
 | **Summe** | **19** | **114** | **7** | | |
 
-Dazu 36 Kanten, 17 neue Fehlbilder (unfreigegeben, Klartext + Erklärung für Eltern) und 9
+Dazu 36 Kanten, 19 Heimat-Themen-Zuordnungen (`skill_thema`), 17 neue Fehlbilder (unfreigegeben, Klartext + Erklärung für Eltern) und 9
 Einstiege in 5 Themen.
 
 ## Prüfprotokoll (Teil 4)
@@ -32,11 +32,11 @@ Einstiege in 5 Themen.
 | Blind-Löser Stochastik | Lauf 1: 28/30. `laplace-05` Ist „20“, Soll „20 %“; `gegenereignis-04` Ist „3/8“, Soll „5/8“. Lauf 2 (frischer Subagent, nur diese zwei): „20“ und „0.625“. `gegenereignis-04` damit Rechenfehler von Lauf 1, Aufgabe richtig. `laplace-05`: beide weichen ab → **Aufgabe korrigiert** (nackte Prozentzahl gilt, Regel für alle elf Prozent-Aufgaben). Lauf 3 (frischer Subagent, ganze Charge): **30/30** |
 | Wegwerf-DB (frisch, Grundlage + 100 Migrationen + 9 neue) | eingespielt ohne Fehler; zweiter Lauf der 9 Dateien: Zeilenzahlen gleich → **idempotent** |
 | Tiefen-Guard | hält (jede neue Kante echt flacher, Prüfzeile in allen vier Substrat-Skripten) |
-| Prüfskripte lokal (`-v lokal=true`) | 9 Dateien, **0 rote Zeilen** (8+9+6+8 Substrat, 22+18+19+21 Aufgaben, 6 Einstieg) |
+| Prüfskripte lokal (`-v lokal=true`) | 9 Dateien, **0 rote Zeilen** (8+9+6+8 Substrat, 22+18+19+21 Aufgaben, 7 Einstieg + Heimat-Thema); nach Rebase auf dev (#192) erneut aus 102 + 9 Migrationen |
 | Prüfskripte gegen Prod (dbread) | laufen fehlerfrei read-only (vor dem Einspielen erwartbar rot) |
 | Figuren | `upload_figures.py --dry-run` gegen die Wegwerf-DB: geladen=19 (7 neue + 12 Alt-Zeilen ohne Hash lokal), **fehler=0** |
 | Schema | `pg_dump --schema-only` Basis-DB vs. Gesamt-DB: identisch (nur die zufälligen `\restrict`-Tokens) → reine Datenmigrationen |
-| Frontend | `npx tsc --noEmit` exit 0, `npm run typecheck` ok, `npm run lint` 0 Warnungen, `npm run test` 674/674 (67 Dateien) |
+| Frontend | `npx tsc --noEmit` exit 0, `npm run typecheck` ok, `npm run lint` 0 Warnungen, `npm run test` 686/686 (67 Dateien, nach Rebase auf dev) |
 
 Kein Schreibbefehl gegen Prod, auch kein Trockenlauf mit rollback. Gelesen nur über `~/bin/dbread`.
 

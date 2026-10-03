@@ -40,6 +40,21 @@ values
   ('geo_flaeche_rueck',           'Seite oder Höhe aus dem Flächeninhalt',              'mathematik', 8, 6)
 on conflict (skill_key) do nothing;
 
+-- Heimat-Thema (skill_thema, PR #192): das Thema, in dem der Stoff im KLP
+-- eingefuehrt wird (geo_flaeche_dreieck steht dort ebenfalls auf
+-- flaechen_vielecke). Ohne Zeile findet freigabe_thema die Aufgaben nicht.
+insert into public.skill_thema (skill_key, thema_key)
+select v.skill_key, v.thema_key
+  from (values
+    ('geo_flaeche_trapez',          'flaechen_vielecke'),
+    ('geo_flaeche_drachen_raute',   'flaechen_vielecke'),
+    ('geo_flaeche_zusammengesetzt', 'flaechen_vielecke'),
+    ('geo_flaeche_term',            'flaechen_vielecke'),
+    ('geo_flaeche_rueck',           'flaechen_vielecke')
+  ) as v (skill_key, thema_key)
+  join public.themen th on th.thema_key = v.thema_key
+on conflict (skill_key) do nothing;
+
 
 -- ── 2. Neun Kanten ──────────────────────────────────────────────────────────
 --

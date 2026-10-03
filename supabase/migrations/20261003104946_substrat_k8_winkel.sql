@@ -44,6 +44,20 @@ values
   ('geo_winkel_thales',         'Satz des Thales (Winkel berechnen)',           'mathematik', 8, 5)
 on conflict (skill_key) do nothing;
 
+-- Heimat-Thema (skill_thema, PR #192): das Thema, in dem der Stoff im KLP
+-- eingefuehrt wird (geo_winkel_summe steht auf winkel_dreiecke). Thales hat
+-- sein eigenes Katalogthema. Ohne Zeile findet freigabe_thema die Aufgaben nicht.
+insert into public.skill_thema (skill_key, thema_key)
+select v.skill_key, v.thema_key
+  from (values
+    ('geo_winkel_neben_scheitel', 'winkel_dreiecke'),
+    ('geo_winkel_parallelen',     'winkel_dreiecke'),
+    ('geo_winkel_dreieck',        'winkel_dreiecke'),
+    ('geo_winkel_thales',         'thales_konstruktionen')
+  ) as v (skill_key, thema_key)
+  join public.themen th on th.thema_key = v.thema_key
+on conflict (skill_key) do nothing;
+
 
 -- ── 2. Fuenf Kanten ─────────────────────────────────────────────────────────
 --

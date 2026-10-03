@@ -41,6 +41,21 @@ values
   ('gleichung_lgs_sachaufgabe', 'LGS aus Sachsituationen aufstellen und lösen',      'mathematik', 8, 9)
 on conflict (skill_key) do nothing;
 
+-- Heimat-Thema (skill_thema, PR #192): das Thema, in dem der Stoff im KLP
+-- eingefuehrt wird. Ohne Zeile findet freigabe_thema die Aufgaben nicht.
+-- Join auf themen wie in 20261003104647_skill_thema_daten.
+insert into public.skill_thema (skill_key, thema_key)
+select v.skill_key, v.thema_key
+  from (values
+    ('gleichung_lgs_einsetzen',    'lineare_gleichungen_lgs'),
+    ('gleichung_lgs_gleichsetzen', 'lineare_gleichungen_lgs'),
+    ('gleichung_lgs_addition',     'lineare_gleichungen_lgs'),
+    ('gleichung_lgs_grafisch',     'lineare_gleichungen_lgs'),
+    ('gleichung_lgs_sachaufgabe',  'lineare_gleichungen_lgs')
+  ) as v (skill_key, thema_key)
+  join public.themen th on th.thema_key = v.thema_key
+on conflict (skill_key) do nothing;
+
 
 -- ── 2. Dreizehn Kanten ──────────────────────────────────────────────────────
 --

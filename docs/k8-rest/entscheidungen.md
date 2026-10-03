@@ -18,6 +18,7 @@ Hier stehen die übergreifenden Entscheidungen des Hubs und je Thema die wichtig
 | H6 | Wiederverwendung über die phase1-Liste hinaus erlaubt, wenn der Slug in Prod existiert und sein Klartext passt | Die Themen haben sechs weitere Alt-Slugs genutzt (`falsche_groesse_beantwortet`, `falsche_gegenoperation`, `bedingung_unvollstaendig`, `seiten_verwechselt`, `multipliziert_statt_dividiert`, `halbieren_vergessen` bei Winkeln u. a.); unverändert gelassen. |
 | H7 | Prüfskripte mit psql-Variable `lokal` | Lokal fehlen 52 Alt-Slugs (Datenimport) und `skill_clusters`; mit `-v lokal=true` entfallen genau diese Prüfungen, gegen Prod läuft alles. |
 | H8 | Einstiege (Teil 3) nach Abschlussgröße, gemessen in der Wegwerf-DB | siehe unten |
+| H10 | **Heimat-Thema (`skill_thema`) im Substrat** für alle 19 Knoten; `stoch_kenngroessen` → `daten_streumasse`, `geo_winkel_thales` → `thales_konstruktionen`, sonst das Themen-Key des Laufs | `skill_thema` kam während des Laufs mit PR #192 (Versionen 104615/104647, vor diesem Lauf). `freigabe_thema` findet Aufgaben nur darüber. Heimat = Ort der Einführung im KLP; Median/Quartile stehen im Katalog unter `daten_streumasse`. Gegenprobe Wegwerf-DB: alle 114 Aufgaben einem Thema zugeordnet. |
 | H9 | Stochastik: „in Prozent“ akzeptiert die nackte Prozentzahl, wenn > 1 | Blind-Abgleich: zwei Löser schrieben bei der Tombola „20“; das Feld hat keine Einheit. Regel im Charge-Skript. |
 
 ## Teil 3 – Einstiege

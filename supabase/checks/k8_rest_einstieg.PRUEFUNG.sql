@@ -24,4 +24,15 @@ union all select 'jeder Einstiegsknoten hat Aufgaben (draft oder ready)',
 union all select 'kein Einstieg ist ein Sachknoten',
        not exists (select 1 from soll where skill_key like '%sachaufgabe%')
 union all select 'uebrige Einstiege unveraendert (12)',
-       (select count(*) from public.thema_einstieg e where e.thema_key not in (select k from themen)) = 12;
+       (select count(*) from public.thema_einstieg e where e.thema_key not in (select k from themen)) = 12
+union all select 'Heimat-Thema (skill_thema) fuer alle 19 neuen Knoten wie vorgesehen',
+       (select count(*) from public.skill_thema st where
+          (st.skill_key like 'gleichung_lgs\_%' and st.thema_key = 'lineare_gleichungen_lgs')
+       or (st.skill_key = 'stoch_kenngroessen' and st.thema_key = 'daten_streumasse')
+       or (st.skill_key in ('stoch_laplace', 'stoch_gegenereignis', 'stoch_pfad_produkt', 'stoch_pfad_summe')
+           and st.thema_key = 'zufallsexperimente')
+       or (st.skill_key in ('geo_flaeche_trapez', 'geo_flaeche_drachen_raute', 'geo_flaeche_zusammengesetzt',
+                            'geo_flaeche_term', 'geo_flaeche_rueck') and st.thema_key = 'flaechen_vielecke')
+       or (st.skill_key in ('geo_winkel_neben_scheitel', 'geo_winkel_parallelen', 'geo_winkel_dreieck')
+           and st.thema_key = 'winkel_dreiecke')
+       or (st.skill_key = 'geo_winkel_thales' and st.thema_key = 'thales_konstruktionen')) = 19;
