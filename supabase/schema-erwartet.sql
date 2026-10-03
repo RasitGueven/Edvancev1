@@ -7,7 +7,7 @@
 --
 
 
--- Dumped from database version 17.6
+-- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 
 SET statement_timeout = 0;
@@ -958,6 +958,43 @@ begin
     exception
       -- P0001 = Pflichtfeld oder Loesung unvollstaendig (task_status_set-Gate).
       -- Das Item bleibt 'draft', die Gruppe laeuft weiter.
+      when sqlstate 'P0001' then null;
+    end;
+  end loop;
+
+  return v_n;
+end $$;
+
+
+--
+-- Name: freigabe_thema(text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.freigabe_thema(p_thema_key text, p_klasse integer) RETURNS integer
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+declare
+  v_id uuid;
+  v_n  integer := 0;
+begin
+  if public.get_my_role() is distinct from 'admin' then
+    raise exception 'freigabe_thema: nur admin darf freigeben' using errcode = '42501';
+  end if;
+
+  for v_id in
+    select t.id
+      from public.tasks t
+      join public.skill_thema st on st.skill_key = t.skill_key
+     where st.thema_key = p_thema_key
+       and t.status = 'review'
+       and t.source is distinct from 'VERA8_IQB'
+       and (t.class_level is null or t.class_level <= p_klasse)
+  loop
+    begin
+      perform public.task_status_set(v_id, 'ready');
+      v_n := v_n + 1;
+    exception
       when sqlstate 'P0001' then null;
     end;
   end loop;
@@ -7100,6 +7137,16 @@ CREATE TABLE public.skill_kante (
 
 
 --
+-- Name: skill_thema; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.skill_thema (
+    skill_key text NOT NULL,
+    thema_key text NOT NULL
+);
+
+
+--
 -- Name: skill_voraussetzung; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -8335,6 +8382,14 @@ ALTER TABLE ONLY public.skill_kante
 
 
 --
+-- Name: skill_thema skill_thema_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_thema
+    ADD CONSTRAINT skill_thema_pkey PRIMARY KEY (skill_key);
+
+
+--
 -- Name: skill_voraussetzung skill_voraussetzung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9061,6 +9116,13 @@ CREATE UNIQUE INDEX sfa_skill_herkunft_unique ON public.student_focus_areas USIN
 --
 
 CREATE INDEX skill_kante_voraussetzt_idx ON public.skill_kante USING btree (voraussetzt_skill_key);
+
+
+--
+-- Name: skill_thema_thema_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX skill_thema_thema_idx ON public.skill_thema USING btree (thema_key);
 
 
 --
@@ -10061,6 +10123,22 @@ ALTER TABLE ONLY public.skill_kante
 
 ALTER TABLE ONLY public.skill_kante
     ADD CONSTRAINT skill_kante_voraussetzt_skill_key_fkey FOREIGN KEY (voraussetzt_skill_key) REFERENCES public.skills(skill_key) ON DELETE CASCADE;
+
+
+--
+-- Name: skill_thema skill_thema_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_thema
+    ADD CONSTRAINT skill_thema_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key) ON DELETE CASCADE;
+
+
+--
+-- Name: skill_thema skill_thema_thema_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_thema
+    ADD CONSTRAINT skill_thema_thema_key_fkey FOREIGN KEY (thema_key) REFERENCES public.themen(thema_key);
 
 
 --
@@ -11498,6 +11576,19 @@ ALTER TABLE public.skill_kante ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY skill_kante_read_all ON public.skill_kante FOR SELECT TO anon, authenticated, service_role USING (true);
+
+
+--
+-- Name: skill_thema; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.skill_thema ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: skill_thema skill_thema_read; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY skill_thema_read ON public.skill_thema FOR SELECT TO authenticated USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
 
 
 --

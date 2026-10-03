@@ -51,7 +51,9 @@
     "skill": "Skill",
     "fehlbild": "Fehlbild-Label",
     "labelIncomplete": "Label",
-    "labelIncompleteYes": "Label unvollständig"
+    "labelIncompleteYes": "Label unvollständig",
+    "thema": "Thema",
+    "themaOhne": "Ohne Thema"
   },
   "sort": {
     "flags": "Offene Punkte zuerst",
@@ -503,7 +505,7 @@
       "bereich": "Aufgaben prüfen und freigeben",
       "klasse": "Klassenstufe wählen — gemeint ist die Zielklasse der Lernstandsanalyse, nicht der Stoffjahrgang.",
       "fach": "Fach wählen",
-      "arbeit": "Themengebiete durchgehen, prüfen und freigeben"
+      "arbeit": "Themen durchgehen, prüfen und freigeben"
     },
     "klasse": "Klasse {{klasse}}",
     "fach": {
@@ -529,7 +531,7 @@
     "durchlauf": "Durchlauf",
     "zaehler": "{{geprueft}} / {{total}}",
     "fertig": "fertig",
-    "ohneThema": "Ohne Themengebiet",
+    "ohneThema": "Ohne Thema",
     "ohneTitel": "Ohne Titel",
     "keineImFilter": "Keine Aufgabe in diesem Filter",
     "keinThemaTitel": "Nichts in diesem Filter",
@@ -546,6 +548,12 @@
       "beanstandet": "Zurückgewiesen"
     },
     "grundMitNotiz": "{{grund}} — {{notiz}}",
-    "queueLabel": "{{titel}} · {{thema}}"
+    "queueLabel": "{{titel}} · {{thema}}",
+    "ohneZuordnung": "Nicht zugeordnet",
+    "stufe": {
+      "erprobung": "Klasse 5/6",
+      "erste": "Klasse 7/8",
+      "zweite": "Klasse 9/10"
+    }
   }
 }

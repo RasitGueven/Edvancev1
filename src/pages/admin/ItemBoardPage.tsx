@@ -6,6 +6,9 @@
 //
 //   Bereich (Lernstandsanalyse | Sessions) › Klasse (8 | 9 | 10) › Fach › Arbeit
 //
+// Auf dem Arbeitsbildschirm stehen die Heimat-Themen der Aufgaben (skill_thema),
+// nicht mehr die Cluster/Inhaltsfelder (W4).
+//
 // Die Zuordnungsregeln stehen in src/lib/authoring/board.ts. Die bisherige
 // Filterliste bleibt als Expertenansicht unter /admin/authoring/liste.
 
@@ -19,16 +22,20 @@ import { buttonVariants } from '@/components/ui/button'
 import { Arbeitsbereich } from '@/components/edvance/authoring/board/Arbeitsbereich'
 import { BoardKachel } from '@/components/edvance/authoring/board/BoardKachel'
 import {
+  aktiveKlassen,
   boardBestand,
+  boardKlassen,
   FAECHER,
-  KLASSEN,
   fachVon,
   inKlasse,
   standVon,
+  zuordnungAus,
   type BoardCluster,
+  type Zuordnung,
 } from '@/lib/authoring/board'
 import { listLetzteBeanstandungen, type LetzteBeanstandung } from '@/lib/supabase/freigabe'
 import { listAuthoringTasks, listClustersWithSubject } from '@/lib/supabase/taskAuthoring'
+import { listSkillThemen } from '@/lib/supabase/themen'
 import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringTask } from '@/types'
 
@@ -44,6 +51,7 @@ export function ItemBoardPage(): JSX.Element {
 
   const [tasks, setTasks] = useState<AuthoringTask[]>([])
   const [clusters, setClusters] = useState<Map<string, BoardCluster>>(new Map())
+  const [zuordnung, setZuordnung] = useState<Zuordnung>(new Map())
   const [beanstandungen, setBeanstandungen] = useState<Map<string, LetzteBeanstandung>>(new Map())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -52,9 +60,10 @@ export function ItemBoardPage(): JSX.Element {
   useEffect(() => {
     let alive = true
     void (async () => {
-      const [taskRes, clusterRes, reviewRes] = await Promise.all([
+      const [taskRes, clusterRes, themaRes, reviewRes] = await Promise.all([
         listAuthoringTasks(),
         listClustersWithSubject(),
+        listSkillThemen(),
         listLetzteBeanstandungen(),
       ])
       if (!alive) return
@@ -66,6 +75,8 @@ export function ItemBoardPage(): JSX.Element {
         setTasks(boardBestand(taskRes.data))
       }
       setClusters(new Map((clusterRes.data ?? []).map((c) => [c.id, c])))
+      // Ohne Zuordnung bleibt das Board bedienbar — alles steht dann unter "Ohne Thema".
+      setZuordnung(zuordnungAus(themaRes.data ?? []))
       // Ohne Gruende bleibt das Board bedienbar — sie fehlen dann nur unter den Aufgaben.
       setBeanstandungen(reviewRes.data ?? new Map())
       setLoading(false)
@@ -76,9 +87,10 @@ export function ItemBoardPage(): JSX.Element {
   }, [reloadKey, t])
 
   const inBereich = useMemo(() => (bereich === 'lsa' ? tasks : []), [bereich, tasks])
+  const aktive = useMemo(() => aktiveKlassen(tasks), [tasks])
   const inKlasseListe = useMemo(
-    () => (klasse == null ? [] : inBereich.filter((task) => inKlasse(task, klasse))),
-    [inBereich, klasse],
+    () => (klasse == null ? [] : inBereich.filter((task) => inKlasse(task, klasse, aktive))),
+    [inBereich, klasse, aktive],
   )
   const imFach = useMemo(
     () => (fach == null ? [] : inKlasseListe.filter((task) => fachVon(task, clusters) === fach)),
@@ -160,11 +172,11 @@ export function ItemBoardPage(): JSX.Element {
 
         {!error && !loading && bereich && klasse == null && (
           <div className="grid gap-4 sm:grid-cols-3">
-            {KLASSEN.map((k) => (
+            {boardKlassen(aktive).map((k) => (
               <BoardKachel
                 key={k}
                 titel={klasseLabel(k)}
-                stand={standVon(inBereich.filter((task) => inKlasse(task, k)))}
+                stand={standVon(inBereich.filter((task) => inKlasse(task, k, aktive)))}
                 onOpen={() => gehe({ bereich, klasse: String(k) })}
               />
             ))}
@@ -188,8 +200,9 @@ export function ItemBoardPage(): JSX.Element {
           <Arbeitsbereich
             titel={titel}
             returnTo={url({ bereich, klasse: String(klasse), fach })}
+            klasse={klasse}
             tasks={imFach}
-            clusters={clusters}
+            zuordnung={zuordnung}
             beanstandungen={beanstandungen}
             isAdmin={role === 'admin'}
             onReload={() => setReloadKey((k) => k + 1)}

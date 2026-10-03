@@ -243,6 +243,7 @@ export type {
 export type {
   Stufe,
   Thema,
+  SkillThema,
   SchulPlanZeile,
   LeadThemaStatus,
   LeadThemaQuelle,

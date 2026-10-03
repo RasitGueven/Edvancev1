@@ -2,7 +2,7 @@
 // eigener Durchlauf. Aufgeklappt die Aufgaben im aktiven Filter — mit Titel,
 // Aufgabentext, Zustand und bei zurueckgewiesenen dem Grund.
 //
-// admin sieht zusaetzlich "Alle geprueften freigeben" (freigabe_cluster), sobald
+// admin sieht zusaetzlich "Alle geprueften freigeben" (freigabe_thema), sobald
 // Aufgaben des Themas auf "Zur Freigabe" stehen.
 
 import type { JSX } from 'react'
