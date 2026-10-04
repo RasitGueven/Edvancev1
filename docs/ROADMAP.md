@@ -99,7 +99,8 @@
   `report_bausteine.entwurf` (`docs/report/rueckbezug-texte.md`).
   Teil 5: vier alte Sitzungen mit nachgetragenem Thema; Report sagt dort „Ausgangspunkt" statt „Gewählt".
   **Offen:** Einspielen `20261004093449`, nach dem Merge `20261004093450`; Abnahme der Entwürfe durch
-  Lena (Rückbezug, Ausgangspunkt, `fazit.keine.a`).
+  Lena (Rückbezug, Ausgangspunkt, `fazit.keine.a`, fünf weitere Bausteine mit „tragen" aus
+  `20261004095314`). Danach: i18n-Texte „Das trägt" (Befund, Profil).
 - **LSA-Auswahl nach Thema (W3-6)** (Retro `2026-10-03-lsa-thema-einstieg.md`, Branch
   `feat/lsa-thema-einstieg`, Bericht `docs/themen/w3-6-lsa-auswahl.md`): `lsa_start` hält
   das aktuell-Thema des Leads in `thema_key` fest. `lsa_select_next_core` prüft zuerst die

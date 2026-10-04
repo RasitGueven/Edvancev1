@@ -42,5 +42,6 @@ Siehe `docs/report/themenraum-entscheidungen.md`. Kern: Feld statt Spalte; eine 
 - Teil-5-Migrationen einspielen: Bausteine sofort, Sitzungs-Nachtrag erst nach dem Merge von #201.
 - Abnahme der Entwürfe (Lena): elf Rückbezug-Sätze, vier Ausgangspunkt-Sätze, `fazit.keine.a` — siehe
   `docs/report/rueckbezug-texte.md`.
-- Weitere Bausteine mit „tragen" (`befund_traegt`, `empfehlung.keine.b`, `fazit.mehrere.b`, `fazit.zwei.b`).
+- Weitere Bausteine mit „tragen": Entwürfe in `20261004095314_bausteine_tragen_entwuerfe` (eigener PR),
+  Abnahme durch Lena. Danach sagen nur noch i18n-Texte „trägt" (Befund-Überschriften, Profil).
 - `skillBestand.ts` bei neuen Knoten neu ziehen.

@@ -127,3 +127,51 @@ describe('INV-4.7 — Ausgangspunkt-Bausteine setzen keine Wahl voraus', () => {
     }
   })
 })
+
+/**
+ * INV-4.8 — die übrigen Bausteine ohne „tragen" (W5-d, offener Punkt).
+ *
+ * befund_traegt, empfehlung.keine.b, fazit.mehrere.b und fazit.zwei.b sprachen
+ * noch von „tragen". Die Entwürfe sagen „sicher" und behalten die Platzhalter,
+ * die der Renderer für den Slot füllt.
+ */
+describe('INV-4.8 — Befund-, Fazit- und Empfehlungs-Entwürfe ohne „tragen"', () => {
+  const roh = readFileSync(
+    resolve(__dirname, '../../../supabase/migrations/20261004095314_bausteine_tragen_entwuerfe.sql'),
+    'utf8',
+  )
+  const entwuerfe = [
+    ...roh.matchAll(/\('([a-z_]+\.[a-z_]+\.(?:a|b))',\n\s*'((?:[^']|'')*)',\n\s*'((?:[^']|'')*)'\)/g),
+  ].map((m) => ({ key: m[1], alt: m[2].replace(/''/g, "'"), text: m[3].replace(/''/g, "'") }))
+
+  it('findet genau die fünf Sätze', () => {
+    expect(entwuerfe.map((e) => e.key)).toEqual([
+      'befund_traegt.standard.a',
+      'befund_traegt.standard.b',
+      'empfehlung.keine.b',
+      'fazit.mehrere.b',
+      'fazit.zwei.b',
+    ])
+  })
+
+  it('sagt „sicher", nie „tragen"', () => {
+    for (const { key, text } of entwuerfe) {
+      // Platzhalter wie {traegt} sind interne Namen, kein sichtbarer Text.
+      const sichtbar = text.replace(/\{\w+\}/g, '')
+      expect(sichtbar, key).not.toMatch(/tr(ä|ae)gt|trug|getragen|\btragen|Ebene|Fundament/i)
+      expect(sichtbar, key).toMatch(/sicher/)
+    }
+  })
+
+  it('behält genau die Platzhalter des alten Satzes', () => {
+    const namen = (s: string) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort()
+    for (const { key, alt, text } of entwuerfe) expect(namen(text), key).toEqual(namen(alt))
+  })
+
+  it('folgt den übrigen Sprachregeln', () => {
+    for (const { key, text } of entwuerfe) {
+      expect(text, key).not.toMatch(/\b(du|dich|dir|dein\w*)\b/i)
+      expect(text, key).not.toMatch(/\bNote\b|gemeistert|gew(ä|ae)hlt|aktuell/i)
+    }
+  })
+})
