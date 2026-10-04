@@ -107,35 +107,24 @@ export async function listLeadThemen(
 }
 
 /**
- * Setzt das aktuelle Thema. Ein altes 'aktuell' desselben Fachs faellt weg
- * (Unique-Index: hoechstens eins je Lead und Fach); war das neue Thema schon
- * als 'behandelt' erfasst, wird die Zeile umgestellt.
+ * Setzt das aktuelle Thema in einem Schritt (RPC lead_thema_setzen, Migration
+ * 20261004001333). Ein altes 'aktuell' desselben Fachs faellt weg; war das
+ * neue Thema schon als 'behandelt' erfasst, wird die Zeile umgestellt.
+ * themaKey null entfernt das aktuelle Thema.
  */
 export async function setAktuellesThema(
   leadId: string,
   fach: string,
-  themaKey: string,
+  themaKey: string | null,
+  quelle: LeadThemaQuelle = 'gespraech',
 ): Promise<SupabaseResult<null>> {
   try {
-    const { error: delError } = await supabase
-      .from('lead_themen')
-      .delete()
-      .eq('lead_id', leadId)
-      .eq('fach', fach)
-      .eq('status', 'aktuell')
-      .neq('thema_key', themaKey)
-    if (delError) return { data: null, error: delError.message }
-    const { error } = await supabase.from('lead_themen').upsert(
-      {
-        lead_id: leadId,
-        fach,
-        thema_key: themaKey,
-        status: 'aktuell',
-        quelle: 'gespraech',
-        angelegt: new Date().toISOString(),
-      },
-      { onConflict: 'lead_id,thema_key' },
-    )
+    const { error } = await supabase.rpc('lead_thema_setzen', {
+      p_lead_id: leadId,
+      p_fach: fach,
+      p_thema_key: themaKey,
+      p_quelle: quelle,
+    })
     if (error) return { data: null, error: error.message }
     return { data: null, error: null }
   } catch (err) {

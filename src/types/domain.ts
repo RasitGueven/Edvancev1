@@ -116,6 +116,19 @@ export type LeadInput = {
   consent_dsgvo_document_version?: string | null
 }
 
+// Mails an Eltern eines Leads (Migration 20261004001351), je Versuch eine
+// Zeile. fehler null = zugestellt; termin_at = der Termin, der in der Mail stand.
+export type LeadMailAnlass = 'terminbestaetigung'
+
+export type LeadMailVersand = {
+  id: string
+  anlass: LeadMailAnlass
+  empfaenger: string
+  termin_at: string | null
+  fehler: string | null
+  erfolgt_at: string
+}
+
 export type Student = {
   id: string
   // NULL bei provisorischen Schülern (A1 Option 1: kein Auth-Konto vor Vertrag).
