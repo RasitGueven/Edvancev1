@@ -67,5 +67,11 @@ select left(id::text, 8) as sitzung, grade, thema_key,
        result_summary -> 'themenraum' ->> 'stand' as stand,
        jsonb_array_length(result_summary -> 'themenraum' -> 'darunter') as darunter
   from lsa_sessions where thema_key is not null order by completed_at;
-select schluessel, case when freigegeben_am is null then 'Entwurf offen' else 'abgenommen' end as stand
+-- Drei Zustaende: neue Zeile ohne Abnahme, alter Satz live mit offenem Entwurf,
+-- Entwurf abgenommen. "abgenommen" allein hiesse bei fazit.keine.a sonst auch
+-- "alter Satz live" — genau das, was die Uebersicht unterscheiden soll.
+select schluessel,
+       case when freigegeben_am is null then 'Entwurf offen (neu, nicht live)'
+            when entwurf is not null    then 'Entwurf offen (alter Satz live)'
+            else 'abgenommen' end as stand
   from report_bausteine where slot = 'ausgangspunkt' or schluessel = 'fazit.keine.a' order by 1;
