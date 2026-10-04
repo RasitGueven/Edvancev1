@@ -52,6 +52,8 @@ export type {
   ErstgespraechStandort,
   Lead,
   LeadInput,
+  LeadMailAnlass,
+  LeadMailVersand,
   Student,
   StudentInput,
   StudentWithName,

@@ -16,6 +16,7 @@ import { PlatzPanel } from './intake/PlatzPanel'
 import { LeadBoard } from './leads/LeadBoard'
 import { LeadFilterBar } from './leads/LeadFilterBar'
 import { RejectModal } from './leads/RejectModal'
+import { TerminBestaetigungModal } from './leads/TerminBestaetigungModal'
 import { TerminModal, type TerminInput } from './leads/TerminModal'
 import {
   BOARD_COLUMNS,
@@ -39,6 +40,7 @@ export function LeadsPage(): JSX.Element {
   const [editingStep, setEditingStep] = useState<0 | 1>(0)
   const [platzLead, setPlatzLead] = useState<Lead | null>(null)
   const [terminLead, setTerminLead] = useState<Lead | null>(null)
+  const [bestaetigungLead, setBestaetigungLead] = useState<Lead | null>(null)
   const [rejectLead, setRejectLead] = useState<Lead | null>(null)
   const [saving, setSaving] = useState(false)
   // Lead, fuer den gerade "Vertrag starten" laeuft — sperrt den Doppelklick
@@ -201,6 +203,7 @@ export function LeadsPage(): JSX.Element {
               onOpen={(lead) => openLead(lead, 0)}
               onOpenErstgespraech={(lead) => openLead(lead, 1)}
               onTermin={setTerminLead}
+              onBestaetigung={role === 'admin' ? setBestaetigungLead : undefined}
               onAssignPlatz={setPlatzLead}
               onReject={setRejectLead}
               onStartContract={(lead) => void startContract(lead)}
@@ -215,6 +218,7 @@ export function LeadsPage(): JSX.Element {
         onClose={() => setTerminLead(null)}
         onSave={(lead, termin) => void saveTermin(lead, termin)}
       />
+      <TerminBestaetigungModal lead={bestaetigungLead} onClose={() => setBestaetigungLead(null)} />
       {/* key: jeder Lead startet mit leerer Auswahl. */}
       <RejectModal
         key={rejectLead?.id ?? 'none'}

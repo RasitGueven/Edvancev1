@@ -16,6 +16,8 @@ type LeadBoardProps = {
   onOpen: (lead: Lead) => void
   onOpenErstgespraech: (lead: Lead) => void
   onTermin: (lead: Lead) => void
+  /** Terminbestaetigung an die Eltern — nur fuer Admins gesetzt. */
+  onBestaetigung?: (lead: Lead) => void
   onAssignPlatz: (lead: Lead) => void
   onReject: (lead: Lead) => void
   onStartContract: (lead: Lead) => void

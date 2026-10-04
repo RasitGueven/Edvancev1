@@ -1,8 +1,10 @@
 // Edge Function: mail_senden
 //
-// Der Versand der Vertragsunterlagen ueber hello@edvanceacademy.de. Drei
-// Anlaesse: die Bestaetigung nach dem Abschluss, die Unterlagen zum
-// Ausdrucken (Weg B) und ein neu erzeugter Zugangscode.
+// Der Versand an Eltern ueber hello@edvanceacademy.de. Drei Anlaesse zum
+// Vertrag: die Bestaetigung nach dem Abschluss, die Unterlagen zum
+// Ausdrucken (Weg B) und ein neu erzeugter Zugangscode. Ein Anlass zum Lead:
+// die Terminbestaetigung des Erstgespraechs (termin.ts, mit lead_id statt
+// vertrag_id).
 //
 // Jeder Versuch wird protokolliert — auch der gescheiterte. Ein Protokoll,
 // das nur die geglueckten Versuche kennt, beantwortet die eine Frage nicht,
@@ -20,6 +22,7 @@ import {
   buendelPfade,
   type Umschlagstueck,
 } from '../_shared/vertrag_pdf_erzeugen.ts'
+import { terminBestaetigung } from './termin.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -27,7 +30,7 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
-type Anlass = 'bestaetigung' | 'unterlagen' | 'zugangscode'
+type Anlass = 'bestaetigung' | 'unterlagen' | 'zugangscode' | 'terminbestaetigung'
 
 // Ein Literal, keine Verkettung: supabase-js leitet die Zeilentypen aus dem
 // Text dieser Zeichenkette ab und kann ein zusammengesetztes nicht lesen.
@@ -75,16 +78,27 @@ Deno.serve(async (req: Request) => {
   const anonKey = Deno.env.get('SUPABASE_ANON_KEY')
   if (!url || !serviceKey || !anonKey) return json(500, { error: 'Service-Config fehlt' })
 
-  let body: { vertrag_id?: string; anlass?: Anlass; empfaenger?: string }
+  let body: {
+    vertrag_id?: string
+    lead_id?: string
+    anlass?: Anlass
+    empfaenger?: string
+    ort?: string
+  }
   try {
     body = await req.json()
   } catch {
     return json(400, { error: 'Ungueltiger Request-Body' })
   }
   const anlass = body.anlass
-  if (!body.vertrag_id) return json(400, { error: 'vertrag_id erforderlich' })
-  if (anlass !== 'bestaetigung' && anlass !== 'unterlagen' && anlass !== 'zugangscode') {
-    return json(400, { error: 'anlass muss bestaetigung, unterlagen oder zugangscode sein' })
+  if (anlass === 'terminbestaetigung') {
+    if (!body.lead_id) return json(400, { error: 'lead_id erforderlich' })
+  } else if (!body.vertrag_id) {
+    return json(400, { error: 'vertrag_id erforderlich' })
+  } else if (anlass !== 'bestaetigung' && anlass !== 'unterlagen' && anlass !== 'zugangscode') {
+    return json(400, {
+      error: 'anlass muss bestaetigung, unterlagen, zugangscode oder terminbestaetigung sein',
+    })
   }
 
   const admin = createClient(url, serviceKey, {
@@ -110,11 +124,17 @@ Deno.serve(async (req: Request) => {
     .maybeSingle()
   if (prof?.role !== 'admin') return json(403, { error: 'Nur Admin darf versenden' })
 
+  if (anlass === 'terminbestaetigung') {
+    const r = await terminBestaetigung(admin, caller, body.lead_id as string, body.ort)
+    return json(r.status, r.payload)
+  }
+  const vertragId = body.vertrag_id as string
+
   // ---- Empfaenger und Inhalt ----------------------------------------------
   const { data: v, error: vErr } = await admin
     .from('vertraege')
     .select(VERSAND_SPALTEN)
-    .eq('id', body.vertrag_id)
+    .eq('id', vertragId)
     .single()
   if (vErr || !v) return json(404, { error: 'Vertrag nicht gefunden' })
 
@@ -126,7 +146,7 @@ Deno.serve(async (req: Request) => {
 
   let stuecke: Umschlagstueck[] = []
   try {
-    if (anlass !== 'zugangscode') stuecke = await buendelPfade(admin, body.vertrag_id, anlass)
+    if (anlass !== 'zugangscode') stuecke = await buendelPfade(admin, vertragId, anlass)
   } catch (err) {
     return json(400, { error: err instanceof Error ? err.message : 'Anhaenge fehlen' })
   }
@@ -160,11 +180,11 @@ Deno.serve(async (req: Request) => {
     await mailSenden({ an, betreff, text, anhaenge })
   } catch (err) {
     fehler = err instanceof Error ? err.message : 'Versand fehlgeschlagen'
-    console.error('mail_senden', body.vertrag_id, anlass, fehler)
+    console.error('mail_senden', vertragId, anlass, fehler)
   }
 
   const { error: protErr } = await caller.rpc('vertrag_versand_protokollieren', {
-    p_vertrag_id: body.vertrag_id,
+    p_vertrag_id: vertragId,
     p_weg: 'email',
     p_anlass: anlass,
     p_empfaenger: an,

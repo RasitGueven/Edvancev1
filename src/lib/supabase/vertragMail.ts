@@ -14,7 +14,7 @@ export type Versandanlass = 'bestaetigung' | 'unterlagen' | 'zugangscode'
 export type VersandErgebnis = { an: string; anhaenge: string[] }
 
 /** Die Meldung aus dem Antwortrumpf holen — invoke() sagt nur "non-2xx". */
-async function meldung(error: unknown, ersatz: string): Promise<string> {
+export async function meldung(error: unknown, ersatz: string): Promise<string> {
   const e = error as { message?: string; context?: Response }
   try {
     const antwort = (await e.context?.json()) as { error?: string } | undefined

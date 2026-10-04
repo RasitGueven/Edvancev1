@@ -1236,6 +1236,73 @@ $$;
 
 
 --
+-- Name: lead_mail_protokollieren(uuid, text, text, text, timestamp with time zone, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lead_mail_protokollieren(p_lead_id uuid, p_anlass text, p_empfaenger text, p_ort text, p_termin_at timestamp with time zone DEFAULT NULL::timestamp with time zone, p_fehler text DEFAULT NULL::text) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_id uuid;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'lead_mail_protokollieren: nur Admin' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.leads where id = p_lead_id) then
+    raise exception 'lead_mail_protokollieren: Lead nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  insert into public.lead_mail_versand
+    (lead_id, anlass, empfaenger, ort, termin_at, fehler, erfolgt_von)
+  values
+    (p_lead_id, p_anlass, p_empfaenger, btrim(p_ort), p_termin_at,
+     nullif(btrim(coalesce(p_fehler, '')), ''), auth.uid())
+  returning id into v_id;
+
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: lead_thema_setzen(uuid, text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lead_thema_setzen(p_lead_id uuid, p_fach text, p_thema_key text, p_quelle text DEFAULT 'gespraech'::text) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'lead_thema_setzen: nur Admin' using errcode = '42501';
+  end if;
+  if p_lead_id is null or nullif(btrim(coalesce(p_fach, '')), '') is null then
+    raise exception 'lead_thema_setzen: Lead und Fach sind Pflicht' using errcode = '22023';
+  end if;
+
+  delete from public.lead_themen
+   where lead_id = p_lead_id
+     and fach = p_fach
+     and status = 'aktuell'
+     and thema_key is distinct from p_thema_key;
+
+  if p_thema_key is null then
+    return;
+  end if;
+
+  insert into public.lead_themen (lead_id, fach, thema_key, status, quelle, angelegt)
+  values (p_lead_id, p_fach, p_thema_key, 'aktuell', p_quelle, now())
+  on conflict (lead_id, thema_key) do update
+     set fach     = excluded.fach,
+         status   = 'aktuell',
+         quelle   = excluded.quelle,
+         angelegt = excluded.angelegt;
+end;
+$$;
+
+
+--
 -- Name: leads_status_zeitstempel(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -6594,6 +6661,25 @@ CREATE TABLE public.lead_assessments (
 
 
 --
+-- Name: lead_mail_versand; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lead_mail_versand (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    lead_id uuid NOT NULL,
+    anlass text NOT NULL,
+    empfaenger text NOT NULL,
+    termin_at timestamp with time zone,
+    fehler text,
+    erfolgt_at timestamp with time zone DEFAULT now() NOT NULL,
+    erfolgt_von uuid,
+    ort text NOT NULL,
+    CONSTRAINT lead_mail_versand_anlass_check CHECK ((anlass = 'terminbestaetigung'::text)),
+    CONSTRAINT lead_mail_versand_ort_check CHECK (((btrim(ort) <> ''::text) AND (char_length(ort) <= 300)))
+);
+
+
+--
 -- Name: lead_themen; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -8118,6 +8204,14 @@ ALTER TABLE ONLY public.lead_assessments
 
 
 --
+-- Name: lead_mail_versand lead_mail_versand_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_mail_versand
+    ADD CONSTRAINT lead_mail_versand_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: lead_themen lead_themen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8843,6 +8937,13 @@ CREATE INDEX interventions_student_idx ON public.interventions USING btree (stud
 --
 
 CREATE INDEX lead_assessments_lead_idx ON public.lead_assessments USING btree (lead_id);
+
+
+--
+-- Name: lead_mail_versand_lead_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lead_mail_versand_lead_idx ON public.lead_mail_versand USING btree (lead_id, erfolgt_at DESC);
 
 
 --
@@ -9691,6 +9792,22 @@ ALTER TABLE ONLY public.interventions
 
 ALTER TABLE ONLY public.lead_assessments
     ADD CONSTRAINT lead_assessments_lead_id_fkey FOREIGN KEY (lead_id) REFERENCES public.leads(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lead_mail_versand lead_mail_versand_erfolgt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_mail_versand
+    ADD CONSTRAINT lead_mail_versand_erfolgt_von_fkey FOREIGN KEY (erfolgt_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lead_mail_versand lead_mail_versand_lead_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_mail_versand
+    ADD CONSTRAINT lead_mail_versand_lead_id_fkey FOREIGN KEY (lead_id) REFERENCES public.leads(id) ON DELETE CASCADE;
 
 
 --
@@ -10949,6 +11066,19 @@ ALTER TABLE public.lead_assessments ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY lead_assessments_coach_admin_all ON public.lead_assessments USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+
+
+--
+-- Name: lead_mail_versand; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lead_mail_versand ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lead_mail_versand lead_mail_versand_admin_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lead_mail_versand_admin_select ON public.lead_mail_versand FOR SELECT USING ((public.get_my_role() = 'admin'::text));
 
 
 --
