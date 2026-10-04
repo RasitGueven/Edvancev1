@@ -26,6 +26,8 @@ type LeadCardProps = {
   onOpenErstgespraech: (lead: Lead) => void
   /** Termin-Modal: erstmals (Spalte 1) oder zum Aendern. */
   onTermin: (lead: Lead) => void
+  /** Terminbestaetigung an die Eltern (nur Admin; sonst nicht gesetzt). */
+  onBestaetigung?: (lead: Lead) => void
   onAssignPlatz: (lead: Lead) => void
   onReject: (lead: Lead) => void
   onStartContract: (lead: Lead) => void
@@ -41,6 +43,7 @@ export function LeadCard({
   onOpen,
   onOpenErstgespraech,
   onTermin,
+  onBestaetigung,
   onAssignPlatz,
   onReject,
   onStartContract,
@@ -62,11 +65,15 @@ export function LeadCard({
     onSelect: () => onReject(lead),
     danger: true,
   }
+  const bestaetigung: CardMenuItem[] =
+    onBestaetigung && lead.erstgespraech_at
+      ? [{ label: t('card.terminBestaetigung'), onSelect: () => onBestaetigung(lead) }]
+      : []
   const menuItems: CardMenuItem[] =
     column.key === 'neu'
       ? [{ label: t('card.captureErstgespraech'), onSelect: () => onOpenErstgespraech(lead) }, reject]
       : column.key === 'gespraech'
-        ? [{ label: t('card.editTermin'), onSelect: () => onTermin(lead) }, reject]
+        ? [{ label: t('card.editTermin'), onSelect: () => onTermin(lead) }, ...bestaetigung, reject]
         : column.key === 'analyse'
           ? [reject]
           : []

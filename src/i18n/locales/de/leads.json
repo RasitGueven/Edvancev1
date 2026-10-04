@@ -64,6 +64,7 @@
     "termin": "Erstgespräch: {{date}}",
     "terminAt": "{{date}} · {{location}}",
     "editTermin": "Termin ändern",
+    "terminBestaetigung": "Terminbestätigung senden",
     "rejectedReason": "Abgelehnt: {{reason}}"
   },
   "termin": {
@@ -76,6 +77,25 @@
     "missing": "Bitte Datum und Uhrzeit angeben.",
     "mitbringenLabel": "Beim Bestätigen den Eltern sagen:",
     "mitbringen": "Bitte bringt das Mathe-Heft und, wenn vorhanden, die letzte Klassenarbeit mit."
+  },
+  "bestaetigung": {
+    "title": "Terminbestätigung senden",
+    "description": "Erstgespräch mit {{name}}: Mail an die Eltern aus hello@",
+    "an": "An: {{email}}",
+    "ort": "Ort des Gesprächs *",
+    "ortPlaceholder": "z. B. Adresse der Familie oder des Coworkings",
+    "ortHinweis": "Steht so in der Mail und im Versandprotokoll.",
+    "ortFehlt": "Bitte den Ort des Gesprächs eintragen.",
+    "ortLeer": "(Ort noch nicht eingetragen)",
+    "vorschau": "Vorschau",
+    "senden": "Bestätigung senden",
+    "erneut": "Erneut senden",
+    "gesendet": "Gesendet an {{email}}.",
+    "schonGesendet": "Bereits gesendet am {{date}} an {{email}} (Ort: {{ort}}). Erneut senden schickt die Mail noch einmal.",
+    "alterTermin": "Diese Mail nannte noch den alten Termin ({{date}}).",
+    "letzterFehler": "Letzter Versuch am {{date}} gescheitert: {{fehler}}",
+    "keineMail": "Am Lead ist keine Eltern-Mail hinterlegt. Bitte zuerst in den Stammdaten eintragen.",
+    "keinTermin": "Für diesen Lead ist noch kein Termin eingetragen."
   },
   "standort": {
     "koeln": "Köln"
