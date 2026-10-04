@@ -384,8 +384,7 @@
     "zugangscodeText": "Guten Tag {{eltern}},\n\nder Zugangscode für {{kind}} lautet:\n\n    {{code}}\n\nDer bisherige Code gilt nicht mehr. Geben Sie den Code bitte nicht weiter — er gehört zu diesem einen Zugang.\n\nHerzliche Grüße\nIhr Edvance-Team",
     "terminBetreff": "Ihr Erstgespräch bei Edvance am {{datum}}",
     "terminText": "Guten Tag,\n\nhiermit bestätigen wir den Termin für das Erstgespräch mit {{kind}}:\n\nTermin: {{datum}}, {{uhrzeit}} Uhr\nOrt: {{ort}}\nDauer: {{dauer}}\n\nZu Beginn sprechen wir mit Ihnen und {{kind}} über die Schule und darüber, was gerade schwerfällt. Danach bearbeitet {{kind}} etwa 20 Minuten lang Aufgaben am Tablet, während wir mit Ihnen weitersprechen; anschließend besprechen wir gemeinsam, was wir gesehen haben.\n\nBitte bringen Sie mit: das Mathe-Heft (Schulheft), das Hausaufgabenheft und – falls vorhanden – die letzte Klassenarbeit.\n\nFalls der Termin nicht passt oder Sie Fragen haben, antworten Sie einfach auf diese Mail.\n\nHerzliche Grüße\nIhr Edvance-Team",
-    "terminDauer": "etwa 60 Minuten",
-    "terminOrt_koeln": "[ADRESSE FEHLT: Standort Köln]",
+    "terminDauer": "etwa 60 Minuten – Gespräch und eine 20-minütige Lernstandsanalyse am Tablet",
     "anhangZeile": "- {{name}}"
   }
 }

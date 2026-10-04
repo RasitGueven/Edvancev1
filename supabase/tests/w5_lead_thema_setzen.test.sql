@@ -8,14 +8,15 @@
 --      bisher in der Oberflaeche); ein 'behandelt' wird auf 'aktuell' umgestellt.
 --   4) Entfernen (null): 'aktuell' weg, 'behandelt' bleibt.
 --   5) Atomar: scheitert das Schreiben, steht das alte Thema noch.
---   6) lead_mail_protokollieren: nur Admin, Urheber wird festgehalten.
+--   6) lead_mail_protokollieren: nur Admin, Urheber und Ort werden festgehalten,
+--      ohne Ort kein Protokoll.
 --
 -- Lauf: npx supabase test db
 -- ============================================================================
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(12);
+select plan(14);
 
 \set admin_uid 'dddddddd-0005-4000-8000-000000000001'
 \set coach_uid 'dddddddd-0005-4000-8000-000000000002'
@@ -50,7 +51,7 @@ select throws_ok(
   format($f$select public.lead_thema_setzen(%L, 'mathematik', 'zz_w5c_a')$f$, :'lead'),
   '42501', NULL, 'Coach darf kein Thema setzen');
 select throws_ok(
-  format($f$select public.lead_mail_protokollieren(%L, 'terminbestaetigung', 'x@test.local')$f$, :'lead'),
+  format($f$select public.lead_mail_protokollieren(%L, 'terminbestaetigung', 'x@test.local', 'Ort')$f$, :'lead'),
   '42501', NULL, 'Coach darf keinen Versand protokollieren');
 
 select pg_temp.act_as(:'admin_uid');
@@ -98,11 +99,17 @@ select is(
 
 -- 6) Versandprotokoll
 select lives_ok(
-  format($f$select public.lead_mail_protokollieren(%L, 'terminbestaetigung', 'x@test.local', now(), null)$f$, :'lead'),
+  format($f$select public.lead_mail_protokollieren(%L, 'terminbestaetigung', 'x@test.local', 'Musterweg 1, Köln', now(), null)$f$, :'lead'),
   'Admin protokolliert einen Versand');
 select is(
   (select erfolgt_von from lead_mail_versand where lead_id = :'lead'),
   :'admin_uid'::uuid, 'Urheber ist der Admin');
+select is(
+  (select ort from lead_mail_versand where lead_id = :'lead'),
+  'Musterweg 1, Köln', 'Ort steht im Protokoll');
+select throws_ok(
+  format($f$select public.lead_mail_protokollieren(%L, 'terminbestaetigung', 'x@test.local', '  ')$f$, :'lead'),
+  '23514', NULL, 'Ohne Ort kein Protokoll');
 
 select * from finish();
 rollback;

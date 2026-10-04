@@ -6,6 +6,9 @@
 // gleich) und formatieren Datum und Uhrzeit mit denselben Intl-Optionen. Die
 // Mail geht immer auf Deutsch raus, deshalb hier fest 'de-DE' statt der
 // UI-Sprache: die Vorschau zeigt, was die Eltern bekommen.
+//
+// Den Ort traegt der Admin im Dialog ein (Edvance hat keinen festen Standort);
+// er wird hier wie dort getrimmt eingesetzt.
 
 import type { Lead } from '@/types'
 
@@ -17,20 +20,16 @@ const UHRZEIT = new Intl.DateTimeFormat('de-DE', {
   hour: '2-digit', minute: '2-digit', timeZone: ZONE,
 })
 
-/** Ein Wert, der vor dem Echtbetrieb noch eingetragen werden muss. */
-const PLATZHALTER = /\[[^\]]*FEHLT[^\]]*\]/
+/** Wie lead_mail_versand_ort_check und ORT_MAX in termin.ts. */
+export const ORT_MAX = 300
 
 type Uebersetzer = (key: string, werte?: Record<string, string>) => string
 
-export type TerminMail = {
-  betreff: string
-  text: string
-  /** true = ein Wert fehlt noch (z. B. die Adresse); so nicht versenden. */
-  platzhalter: boolean
-}
+export type TerminMail = { betreff: string; text: string }
 
 export function terminMail(
-  lead: Pick<Lead, 'full_name' | 'first_name' | 'erstgespraech_at' | 'erstgespraech_standort'>,
+  lead: Pick<Lead, 'full_name' | 'first_name' | 'erstgespraech_at'>,
+  ort: string,
   t: Uebersetzer,
 ): TerminMail | null {
   if (!lead.erstgespraech_at) return null
@@ -39,9 +38,8 @@ export function terminMail(
     kind: (lead.first_name ?? '').trim() || lead.full_name,
     datum: DATUM.format(termin),
     uhrzeit: UHRZEIT.format(termin),
-    ort: t(`mail.terminOrt_${lead.erstgespraech_standort ?? 'koeln'}`),
+    ort: ort.trim(),
     dauer: t('mail.terminDauer'),
   }
-  const text = t('mail.terminText', werte)
-  return { betreff: t('mail.terminBetreff', werte), text, platzhalter: PLATZHALTER.test(text) }
+  return { betreff: t('mail.terminBetreff', werte), text: t('mail.terminText', werte) }
 }

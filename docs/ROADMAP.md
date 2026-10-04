@@ -4,9 +4,10 @@
 - **Erstgespräch nachziehen (W5-c)** (Retro `2026-10-04-erstgespraech-nachziehen.md`,
   Branch `feat/erstgespraech-nachziehen`): Thema in einem Schritt (`lead_thema_setzen`),
   Terminbestätigung an die Eltern über `mail_senden` mit Vorschau und Protokoll
-  (`lead_mail_versand`). Beweis: pgTAP 12/12, Prüfskript, Deno 4/4, Vitest grün.
-  **Offen:** Standortadresse in `mail.terminOrt_koeln` (bis dahin Senden gesperrt), Dauer
-  bestätigen, Einspielen + Deploy (`docs/intake/erstgespraech-nachziehen.md`).
+  (`lead_mail_versand`, Ort des Gesprächs als Pflichtfeld). Beweis: pgTAP 14/14,
+  Prüfskript, Deno 6/6, Vitest grün.
+  **Offen:** `20261004003339` einspielen, dann `mail_senden` deployen
+  (`docs/intake/erstgespraech-nachziehen.md`).
 - **K8-Rest: LGS, Wahrscheinlichkeit, Flächen, Thales/Winkel (W4)** (Retro `2026-10-03-k8-rest.md`,
   Branch `feat/k8-rest`): 19 Knoten, 36 Kanten, 17 Fehlbild-Entwürfe, 114 Aufgaben (`draft`,
   7 Figuren), 9 Einstiege in 5 Themen; neun Migrationen ohne begin/commit, lokal geprüft.

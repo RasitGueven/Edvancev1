@@ -1,10 +1,11 @@
-// Terminbestaetigung: Vorschau vor dem Senden, Sperre ohne Adresse/Mail,
-// Versand ueber den (gemockten) Wrapper, Hinweis beim erneuten Senden.
+// Terminbestaetigung: Ort ist Pflicht und erscheint in der Vorschau, Sperre
+// ohne Ort/Mail, Versand ueber den (gemockten) Wrapper mit Ort, Hinweis und
+// vorbelegter Ort beim erneuten Senden.
 // Kein echter Versand: leadMail ist vollstaendig gemockt.
 
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import i18n from '@/i18n'
+import '@/i18n'
 import type { Lead, LeadMailVersand } from '@/types'
 
 let log: LeadMailVersand[] = []
@@ -18,9 +19,6 @@ vi.mock('@/lib/supabase/leadMail', () => ({
 
 import { terminBestaetigungSenden } from '@/lib/supabase/leadMail'
 import { TerminBestaetigungModal } from './TerminBestaetigungModal'
-
-const ORT = 'mail.terminOrt_koeln'
-const original = i18n.t(ORT, { ns: 'vertraege' })
 
 function lead(over: Partial<Lead> = {}): Lead {
   return {
@@ -75,51 +73,63 @@ describe('TerminBestaetigungModal', () => {
     log = []
     vi.clearAllMocks()
   })
-  afterEach(() => {
-    i18n.addResource('de', 'vertraege', ORT, original)
-  })
 
-  it('zeigt die Vorschau und sperrt das Senden, solange die Adresse fehlt', async () => {
+  const ortFeld = (): HTMLElement => screen.getByLabelText(/Ort des Gesprächs/)
+
+  it('sperrt das Senden ohne Ort und zeigt den eingetragenen Ort in der Vorschau', async () => {
     render(<TerminBestaetigungModal lead={lead()} onClose={vi.fn()} />)
-    expect(await screen.findByTestId('termin-mail-text')).toHaveTextContent(
-      'Termin: Donnerstag, 8. Oktober 2026, 16:00 Uhr',
-    )
+    const text = await screen.findByTestId('termin-mail-text')
+    expect(text).toHaveTextContent('Termin: Donnerstag, 8. Oktober 2026, 16:00 Uhr')
+    expect(text).toHaveTextContent('Ort: (Ort noch nicht eingetragen)')
     expect(screen.getByText('An: zz@example.org')).toBeInTheDocument()
-    expect(screen.getAllByText(/Adresse des Standorts fehlt/).length).toBeGreaterThan(0)
     await waitFor(() => expect(sendenKnopf()).toBeDisabled())
+    expect(sendenKnopf().parentElement).toHaveAttribute('title', 'Bitte den Ort des Gesprächs eintragen.')
+
+    fireEvent.change(ortFeld(), { target: { value: 'ZZ_Musterweg 1, Köln' } })
+    expect(text).toHaveTextContent('Ort: ZZ_Musterweg 1, Köln')
+    expect(sendenKnopf()).toBeEnabled()
+
+    fireEvent.change(ortFeld(), { target: { value: '   ' } })
+    expect(sendenKnopf()).toBeDisabled()
   })
 
-  it('sendet nach der Vorschau ueber mail_senden und meldet den Empfaenger', async () => {
-    i18n.addResource('de', 'vertraege', ORT, 'ZZ_Teststraße 1, 50667 Köln')
+  it('sendet mit dem Ort ueber mail_senden und meldet den Empfaenger', async () => {
     render(<TerminBestaetigungModal lead={lead()} onClose={vi.fn()} />)
+    await screen.findByTestId('termin-mail-text')
+    fireEvent.change(ortFeld(), { target: { value: '  ZZ_Coworking Ehrenfeld  ' } })
     await waitFor(() => expect(sendenKnopf()).toBeEnabled())
     fireEvent.click(sendenKnopf())
     expect(await screen.findByText('Gesendet an zz@example.org.')).toBeInTheDocument()
-    expect(terminBestaetigungSenden).toHaveBeenCalledWith('ZZ_lead')
+    expect(terminBestaetigungSenden).toHaveBeenCalledWith('ZZ_lead', 'ZZ_Coworking Ehrenfeld')
     expect(sendenKnopf()).toHaveTextContent('Erneut senden')
   })
 
-  it('sperrt ohne Eltern-Mail', async () => {
-    i18n.addResource('de', 'vertraege', ORT, 'ZZ_Teststraße 1, 50667 Köln')
+  it('sperrt ohne Eltern-Mail, auch mit Ort', async () => {
     render(<TerminBestaetigungModal lead={lead({ contact_email: null })} onClose={vi.fn()} />)
+    await screen.findByTestId('termin-mail-text')
+    fireEvent.change(ortFeld(), { target: { value: 'ZZ_Musterweg 1' } })
     await waitFor(() => expect(sendenKnopf()).toBeDisabled())
     expect(screen.getAllByText(/keine Eltern-Mail/).length).toBeGreaterThan(0)
   })
 
-  it('weist beim erneuten Senden auf den letzten Versand und einen alten Termin hin', async () => {
-    i18n.addResource('de', 'vertraege', ORT, 'ZZ_Teststraße 1, 50667 Köln')
+  it('belegt beim erneuten Senden den letzten Ort vor und weist auf den alten Termin hin', async () => {
     log = [
       {
         id: 'ZZ_v1',
         anlass: 'terminbestaetigung',
         empfaenger: 'zz@example.org',
+        ort: 'ZZ_Musterweg 1, Köln',
         termin_at: '2026-10-06T14:00:00.000Z',
         fehler: null,
         erfolgt_at: '2026-10-04T08:00:00.000Z',
       },
     ]
     render(<TerminBestaetigungModal lead={lead()} onClose={vi.fn()} />)
-    expect(await screen.findByText(/Bereits gesendet am/)).toHaveTextContent(/alten Termin/)
+    const hinweis = await screen.findByText(/Bereits gesendet am/)
+    expect(hinweis).toHaveTextContent(/Ort: ZZ_Musterweg 1, Köln/)
+    expect(hinweis).toHaveTextContent(/alten Termin/)
+    await waitFor(() => expect(ortFeld()).toHaveValue('ZZ_Musterweg 1, Köln'))
     expect(sendenKnopf()).toHaveTextContent('Erneut senden')
+    expect(sendenKnopf()).toBeEnabled()
   })
 })

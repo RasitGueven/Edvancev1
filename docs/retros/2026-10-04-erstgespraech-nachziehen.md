@@ -13,9 +13,13 @@
 ## Entscheidungen
 Siehe `docs/intake/erstgespraech-nachziehen.md`.
 
+## Nachtrag (nach dem Einspielen)
+- Kein fester Standort: Der Ort ist jetzt Pflichtfeld im Versand-Dialog und wird mit dem
+  Termin protokolliert (`lead_mail_versand.ort`, Migration `20261004003339`). Die
+  Standortvorlage ist entfallen. Die Dauer hat den Wortlaut von Rasit.
+
 ## Offen
-- Standortadresse fehlt: Senden ist gesperrt, bis `mail.terminOrt_koeln` gesetzt ist.
-- Dauer „etwa 60 Minuten“ bestätigen.
+- `20261004003339` einspielen, dann `mail_senden` deployen.
 - „Thema entfernen“ kann die DB, die Oberfläche bietet es nicht an.
 
 ## Gelernt

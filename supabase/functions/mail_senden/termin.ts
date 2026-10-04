@@ -2,6 +2,10 @@
 // Eltern eines Leads. Kein Vertrag, keine Anhaenge — Termin, Ort, Dauer, Ablauf,
 // Mitbring-Hinweis.
 //
+// Edvance hat keinen festen Standort. Der Ort ist deshalb Pflichtangabe des
+// Admins im Versand-Dialog (Freitext: Adresse der Familie, Coworking …) und
+// wird mit dem Termin protokolliert.
+//
 // Die Texte kommen aus MAIL (de/vertraege.json → mail.termin*), dieselben, aus
 // denen die Oberflaeche die Vorschau baut. Datum und Uhrzeit werden hier wie
 // dort mit denselben Intl-Optionen formatiert (src/lib/terminBestaetigung.ts).
@@ -21,8 +25,8 @@ const UHRZEIT = new Intl.DateTimeFormat('de-DE', {
   hour: '2-digit', minute: '2-digit', timeZone: ZONE,
 })
 
-/** Ein Wert, der vor dem Echtbetrieb noch eingetragen werden muss. */
-const PLATZHALTER = /\[[^\]]*FEHLT[^\]]*\]/
+/** Wie lead_mail_versand_ort_check. */
+export const ORT_MAX = 300
 
 type Antwort = { status: number; payload: Record<string, unknown> }
 
@@ -34,10 +38,17 @@ export async function terminBestaetigung(
   admin: SupabaseClient,
   caller: SupabaseClient,
   leadId: string,
+  ortRoh: unknown,
 ): Promise<Antwort> {
+  const ort = typeof ortRoh === 'string' ? ortRoh.trim() : ''
+  if (ort === '') return { status: 400, payload: { error: 'Ort des Gespraechs fehlt' } }
+  if (ort.length > ORT_MAX) {
+    return { status: 400, payload: { error: `Ort ist laenger als ${ORT_MAX} Zeichen` } }
+  }
+
   const { data: lead, error } = await admin
     .from('leads')
-    .select('id, full_name, first_name, contact_email, erstgespraech_at, erstgespraech_standort')
+    .select('id, full_name, first_name, contact_email, erstgespraech_at')
     .eq('id', leadId)
     .single()
   if (error || !lead) return { status: 404, payload: { error: 'Lead nicht gefunden' } }
@@ -51,17 +62,11 @@ export async function terminBestaetigung(
     kind: (lead.first_name ?? '').trim() || lead.full_name,
     datum: DATUM.format(termin),
     uhrzeit: UHRZEIT.format(termin),
-    ort: MAIL[`terminOrt_${lead.erstgespraech_standort ?? 'koeln'}`] ?? '[ADRESSE FEHLT]',
+    ort,
     dauer: MAIL.terminDauer,
   }
   const betreff = einsetzen(MAIL.terminBetreff, werte)
   const text = einsetzen(MAIL.terminText, werte)
-
-  // Nicht mit Platzhalter an echte Eltern. Kein Protokoll: es wurde nichts
-  // versucht.
-  if (PLATZHALTER.test(text)) {
-    return { status: 400, payload: { error: 'Die Mail enthaelt noch einen Platzhalter (Adresse des Standorts)' } }
-  }
 
   let fehler: string | null = null
   try {
@@ -75,6 +80,7 @@ export async function terminBestaetigung(
     p_lead_id: leadId,
     p_anlass: 'terminbestaetigung',
     p_empfaenger: an,
+    p_ort: ort,
     p_termin_at: lead.erstgespraech_at,
     p_fehler: fehler,
   })

@@ -5,13 +5,13 @@
 // Attrappen mit genau den Aufrufen, die termin.ts macht.
 //
 // Geprueft: derselbe Text wie in der Vorschau (src/lib/terminBestaetigung.test.ts),
-// Empfaenger aus dem Lead, Sperre bei Platzhalter, Protokoll auch bei Fehler.
+// Empfaenger aus dem Lead, Ort ist Pflicht und steht in Mail und Protokoll,
+// Protokoll auch bei Fehler.
 //
 // Lauf:  npx deno test --allow-env --allow-net supabase/functions/mail_senden/termin_test.ts
 
 import { assert, assertEquals, assertStringIncludes } from 'https://deno.land/std@0.224.0/assert/mod.ts'
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { MAIL } from '../_shared/dokumente/texte.ts'
 import { terminBestaetigung } from './termin.ts'
 
 const LEAD = {
@@ -20,7 +20,6 @@ const LEAD = {
   first_name: 'ZZ_Tim',
   contact_email: 'zz@example.org',
   erstgespraech_at: '2026-10-08T14:00:00.000Z',
-  erstgespraech_standort: 'koeln',
 }
 
 type Gesendet = { an: string; betreff: string; text: string }
@@ -64,70 +63,66 @@ function graphStub(sendStatus: number): { gesendet: Gesendet[]; zurueck: () => v
   return { gesendet, zurueck: () => { globalThis.fetch = echt } }
 }
 
-const ORT = 'terminOrt_koeln'
-const original = MAIL[ORT]
+const ORT = 'ZZ_Musterweg 1, 50667 Köln'
 
-Deno.test('sperrt, solange die Adresse ein Platzhalter ist — ohne Versand, ohne Protokoll', async () => {
-  MAIL[ORT] = original
+for (const [fall, ort] of [['ohne Ort', undefined], ['mit leerem Ort', '   '], ['mit zu langem Ort', 'x'.repeat(301)]] as const) {
+  Deno.test(`sperrt ${fall} — ohne Versand, ohne Protokoll`, async () => {
+    const { admin, caller, protokoll } = attrappen(LEAD)
+    const g = graphStub(202)
+    try {
+      const r = await terminBestaetigung(admin, caller, 'ZZ_lead', ort)
+      assertEquals(r.status, 400)
+      assertEquals(g.gesendet.length + protokoll.length, 0)
+    } finally {
+      g.zurueck()
+    }
+  })
+}
+
+Deno.test('sendet an die Eltern-Mail des Leads und protokolliert Termin und Ort', async () => {
   const { admin, caller, protokoll } = attrappen(LEAD)
   const g = graphStub(202)
   try {
-    const r = await terminBestaetigung(admin, caller, 'ZZ_lead')
-    assertEquals(r.status, 400)
-    assertEquals(g.gesendet.length, 0)
-    assertEquals(protokoll.length, 0)
-  } finally {
-    g.zurueck()
-  }
-})
-
-Deno.test('sendet an die Eltern-Mail des Leads und protokolliert den Termin', async () => {
-  MAIL[ORT] = 'ZZ_Teststraße 1, 50667 Köln'
-  const { admin, caller, protokoll } = attrappen(LEAD)
-  const g = graphStub(202)
-  try {
-    const r = await terminBestaetigung(admin, caller, 'ZZ_lead')
+    const r = await terminBestaetigung(admin, caller, 'ZZ_lead', `  ${ORT} `)
     assertEquals(r.status, 200)
     assertEquals(g.gesendet.length, 1)
     const m = g.gesendet[0]
     assertEquals(m.an, 'zz@example.org')
     assertEquals(m.betreff, 'Ihr Erstgespräch bei Edvance am Donnerstag, 8. Oktober 2026')
     assertStringIncludes(m.text, 'Termin: Donnerstag, 8. Oktober 2026, 16:00 Uhr')
-    assertStringIncludes(m.text, 'Ort: ZZ_Teststraße 1, 50667 Köln')
+    assertStringIncludes(m.text, `Ort: ${ORT}\n`)
+    assertStringIncludes(m.text, 'Dauer: etwa 60 Minuten – Gespräch und eine 20-minütige Lernstandsanalyse am Tablet')
     assertStringIncludes(m.text, 'Hausaufgabenheft')
     assertEquals(protokoll[0].name, 'lead_mail_protokollieren')
+    assertEquals(protokoll[0].p_ort, ORT)
     assertEquals(protokoll[0].p_termin_at, LEAD.erstgespraech_at)
     assertEquals(protokoll[0].p_fehler, null)
   } finally {
     g.zurueck()
-    MAIL[ORT] = original
   }
 })
 
-Deno.test('ein gescheiterter Versand wird ebenfalls protokolliert', async () => {
-  MAIL[ORT] = 'ZZ_Teststraße 1, 50667 Köln'
+Deno.test('ein gescheiterter Versand wird ebenfalls protokolliert, mit Ort', async () => {
   const { admin, caller, protokoll } = attrappen(LEAD)
   const g = graphStub(403)
   try {
-    const r = await terminBestaetigung(admin, caller, 'ZZ_lead')
+    const r = await terminBestaetigung(admin, caller, 'ZZ_lead', ORT)
     assertEquals(r.status, 502)
     assert(String(protokoll[0].p_fehler).includes('403'))
+    assertEquals(protokoll[0].p_ort, ORT)
   } finally {
     g.zurueck()
-    MAIL[ORT] = original
   }
 })
 
 Deno.test('ohne Eltern-Mail kein Versand', async () => {
-  MAIL[ORT] = 'ZZ_Teststraße 1, 50667 Köln'
   const { admin, caller, protokoll } = attrappen({ ...LEAD, contact_email: null })
   const g = graphStub(202)
   try {
-    const r = await terminBestaetigung(admin, caller, 'ZZ_lead')
+    const r = await terminBestaetigung(admin, caller, 'ZZ_lead', ORT)
     assertEquals(r.status, 400)
     assertEquals(g.gesendet.length + protokoll.length, 0)
   } finally {
     g.zurueck()
-    MAIL[ORT] = original
   }
 })

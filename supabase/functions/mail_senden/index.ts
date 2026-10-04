@@ -78,7 +78,13 @@ Deno.serve(async (req: Request) => {
   const anonKey = Deno.env.get('SUPABASE_ANON_KEY')
   if (!url || !serviceKey || !anonKey) return json(500, { error: 'Service-Config fehlt' })
 
-  let body: { vertrag_id?: string; lead_id?: string; anlass?: Anlass; empfaenger?: string }
+  let body: {
+    vertrag_id?: string
+    lead_id?: string
+    anlass?: Anlass
+    empfaenger?: string
+    ort?: string
+  }
   try {
     body = await req.json()
   } catch {
@@ -119,7 +125,7 @@ Deno.serve(async (req: Request) => {
   if (prof?.role !== 'admin') return json(403, { error: 'Nur Admin darf versenden' })
 
   if (anlass === 'terminbestaetigung') {
-    const r = await terminBestaetigung(admin, caller, body.lead_id as string)
+    const r = await terminBestaetigung(admin, caller, body.lead_id as string, body.ort)
     return json(r.status, r.payload)
   }
   const vertragId = body.vertrag_id as string

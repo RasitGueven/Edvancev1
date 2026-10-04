@@ -1236,10 +1236,10 @@ $$;
 
 
 --
--- Name: lead_mail_protokollieren(uuid, text, text, timestamp with time zone, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: lead_mail_protokollieren(uuid, text, text, text, timestamp with time zone, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.lead_mail_protokollieren(p_lead_id uuid, p_anlass text, p_empfaenger text, p_termin_at timestamp with time zone DEFAULT NULL::timestamp with time zone, p_fehler text DEFAULT NULL::text) RETURNS uuid
+CREATE FUNCTION public.lead_mail_protokollieren(p_lead_id uuid, p_anlass text, p_empfaenger text, p_ort text, p_termin_at timestamp with time zone DEFAULT NULL::timestamp with time zone, p_fehler text DEFAULT NULL::text) RETURNS uuid
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -1254,9 +1254,9 @@ begin
   end if;
 
   insert into public.lead_mail_versand
-    (lead_id, anlass, empfaenger, termin_at, fehler, erfolgt_von)
+    (lead_id, anlass, empfaenger, ort, termin_at, fehler, erfolgt_von)
   values
-    (p_lead_id, p_anlass, p_empfaenger, p_termin_at,
+    (p_lead_id, p_anlass, p_empfaenger, btrim(p_ort), p_termin_at,
      nullif(btrim(coalesce(p_fehler, '')), ''), auth.uid())
   returning id into v_id;
 
@@ -6673,7 +6673,9 @@ CREATE TABLE public.lead_mail_versand (
     fehler text,
     erfolgt_at timestamp with time zone DEFAULT now() NOT NULL,
     erfolgt_von uuid,
-    CONSTRAINT lead_mail_versand_anlass_check CHECK ((anlass = 'terminbestaetigung'::text))
+    ort text NOT NULL,
+    CONSTRAINT lead_mail_versand_anlass_check CHECK ((anlass = 'terminbestaetigung'::text)),
+    CONSTRAINT lead_mail_versand_ort_check CHECK (((btrim(ort) <> ''::text) AND (char_length(ort) <= 300)))
 );
 
 

@@ -116,14 +116,16 @@ export type LeadInput = {
   consent_dsgvo_document_version?: string | null
 }
 
-// Mails an Eltern eines Leads (Migration 20261004001351), je Versuch eine
-// Zeile. fehler null = zugestellt; termin_at = der Termin, der in der Mail stand.
+// Mails an Eltern eines Leads (Migrationen 20261004001351, 20261004003339), je
+// Versuch eine Zeile. fehler null = zugestellt; termin_at und ort = Termin und
+// Ort, wie sie in der Mail standen.
 export type LeadMailAnlass = 'terminbestaetigung'
 
 export type LeadMailVersand = {
   id: string
   anlass: LeadMailAnlass
   empfaenger: string
+  ort: string
   termin_at: string | null
   fehler: string | null
   erfolgt_at: string

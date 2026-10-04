@@ -4,9 +4,11 @@ import { CheckCircle2, Mail } from 'lucide-react'
 import { LoadingPulse } from '@/components/edvance'
 import { Modal } from '@/components/edvance/Modal'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { formatBerlinDateTime } from '@/lib/datetime'
 import { listLeadMailVersand, terminBestaetigungSenden } from '@/lib/supabase/leadMail'
-import { terminMail } from '@/lib/terminBestaetigung'
+import { ORT_MAX, terminMail } from '@/lib/terminBestaetigung'
 import type { Lead, LeadMailVersand } from '@/types'
 
 type TerminBestaetigungModalProps = {
@@ -19,8 +21,11 @@ const HINWEIS =
   'rounded-xl border border-[var(--color-gold-warning)] bg-[var(--color-gold-warning-light)] px-4 py-3 text-sm leading-relaxed text-[var(--color-text-primary)]'
 
 /**
- * Terminbestaetigung an die Eltern: Vorschau der Mail, dann Senden ueber
- * hello@ (Edge Function mail_senden). Kein Automatismus — der Admin loest aus.
+ * Terminbestaetigung an die Eltern: Ort eintragen, Vorschau der Mail, dann
+ * Senden ueber hello@ (Edge Function mail_senden). Kein Automatismus — der
+ * Admin loest aus. Edvance hat keinen festen Standort: der Ort ist Pflicht und
+ * wird mit dem Termin protokolliert; beim erneuten Senden steht der letzte Ort
+ * vorbelegt drin.
  * Erneut senden geht; der Hinweis darueber sagt, wann zuletzt und ob die
  * letzte Mail noch den aktuellen Termin nannte.
  */
@@ -32,6 +37,7 @@ export function TerminBestaetigungModal({ lead, onClose }: TerminBestaetigungMod
   const [sending, setSending] = useState(false)
   const [fehler, setFehler] = useState<string | null>(null)
   const [gesendetAn, setGesendetAn] = useState<string | null>(null)
+  const [ort, setOrt] = useState('')
 
   const leadId = lead?.id ?? null
   useEffect(() => {
@@ -40,9 +46,12 @@ export function TerminBestaetigungModal({ lead, onClose }: TerminBestaetigungMod
     setLog(null)
     setFehler(null)
     setGesendetAn(null)
+    setOrt('')
     void listLeadMailVersand(leadId).then(({ data, error }) => {
       if (!active) return
       setLog(data ?? [])
+      const letzterOrt = data?.find((v) => v.anlass === 'terminbestaetigung')?.ort
+      if (letzterOrt) setOrt(letzterOrt)
       if (error) setFehler(error)
     })
     return () => {
@@ -50,7 +59,8 @@ export function TerminBestaetigungModal({ lead, onClose }: TerminBestaetigungMod
     }
   }, [leadId])
 
-  const mail = lead ? terminMail(lead, (k, v) => tv(k, v)) : null
+  const ortWert = ort.trim()
+  const mail = lead ? terminMail(lead, ortWert || t('bestaetigung.ortLeer'), (k, v) => tv(k, v)) : null
   const an = (lead?.contact_email ?? '').trim()
   const letzte = log?.find((v) => v.anlass === 'terminbestaetigung') ?? null
   const letzteOk = log?.find((v) => v.anlass === 'terminbestaetigung' && v.fehler === null) ?? null
@@ -61,15 +71,15 @@ export function TerminBestaetigungModal({ lead, onClose }: TerminBestaetigungMod
       ? t('bestaetigung.keineMail')
       : mail === null
         ? t('bestaetigung.keinTermin')
-        : mail.platzhalter
-          ? t('bestaetigung.platzhalter')
+        : ortWert === ''
+          ? t('bestaetigung.ortFehlt')
           : null
 
   const senden = async (): Promise<void> => {
     if (!leadId || sperre !== null || sending) return
     setSending(true)
     setFehler(null)
-    const res = await terminBestaetigungSenden(leadId)
+    const res = await terminBestaetigungSenden(leadId, ortWert)
     const neu = await listLeadMailVersand(leadId)
     setLog(neu.data ?? log)
     setSending(false)
@@ -124,6 +134,7 @@ export function TerminBestaetigungModal({ lead, onClose }: TerminBestaetigungMod
             {t('bestaetigung.schonGesendet', {
               date: datum(letzteOk.erfolgt_at),
               email: letzteOk.empfaenger,
+              ort: letzteOk.ort,
             })}
             {letzteOk.termin_at !== lead?.erstgespraech_at && letzteOk.termin_at && (
               <> {t('bestaetigung.alterTermin', { date: datum(letzteOk.termin_at) })}</>
@@ -137,7 +148,19 @@ export function TerminBestaetigungModal({ lead, onClose }: TerminBestaetigungMod
           </p>
         )}
 
-        {mail?.platzhalter && <p className={HINWEIS}>{t('bestaetigung.platzhalter')}</p>}
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="termin-ort">{t('bestaetigung.ort')}</Label>
+          <Input
+            id="termin-ort"
+            value={ort}
+            maxLength={ORT_MAX}
+            required
+            disabled={sending}
+            placeholder={t('bestaetigung.ortPlaceholder')}
+            onChange={(e) => setOrt(e.target.value)}
+          />
+          <p className="text-xs text-[var(--color-text-tertiary)]">{t('bestaetigung.ortHinweis')}</p>
+        </div>
 
         {mail && (
           <div className="flex flex-col gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-subtle)] p-4">

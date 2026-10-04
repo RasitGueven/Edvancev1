@@ -1,5 +1,5 @@
 -- PRUEFUNG: lead_thema_setzen und lead_mail_protokollieren
--- (Migrationen 20261004001333, 20261004001351).
+-- (Migrationen 20261004001333, 20261004001351, 20261004003339).
 --
 -- Laeuft in begin … rollback, legt die Testdaten selbst an (Praefix ZZ_).
 -- Claims MIT Rolle — ohne 'role' gilt der Aufruf als Systemaufruf.
@@ -12,7 +12,7 @@
 --
 -- Signaturen gegen den Schema-Abzug abgeglichen:
 --   lead_thema_setzen(uuid, text, text, text) -> void
---   lead_mail_protokollieren(uuid, text, text, timestamptz, text) -> uuid
+--   lead_mail_protokollieren(uuid, text, text, text, timestamptz, text) -> uuid
 
 begin;
 
@@ -27,7 +27,7 @@ begin
     from pg_proc p join pg_namespace n on n.oid = p.pronamespace
    where n.nspname = 'public'
      and p.oid in ('public.lead_thema_setzen(uuid, text, text, text)'::regprocedure,
-                   'public.lead_mail_protokollieren(uuid, text, text, timestamptz, text)'::regprocedure)
+                   'public.lead_mail_protokollieren(uuid, text, text, text, timestamptz, text)'::regprocedure)
      and p.prosecdef
      and p.proconfig @> array['search_path=public, pg_temp'];
   assert v_n = 2, 'Funktionen fehlen oder sind nicht security definer mit search_path';
@@ -49,7 +49,7 @@ declare
 begin
   foreach f in array array[
     'public.lead_thema_setzen(uuid, text, text, text)',
-    'public.lead_mail_protokollieren(uuid, text, text, timestamptz, text)'
+    'public.lead_mail_protokollieren(uuid, text, text, text, timestamptz, text)'
   ] loop
     assert has_function_privilege('authenticated', f, 'execute'), 'authenticated fehlt: ' || f;
     assert not has_function_privilege('anon', f, 'execute'), 'anon darf: ' || f;
@@ -103,7 +103,7 @@ begin
   assert v_ok, 'lead_thema_setzen ohne Admin moeglich';
   v_ok := false;
   begin
-    perform public.lead_mail_protokollieren(v_lead, 'terminbestaetigung', 'zz@edvance.invalid');
+    perform public.lead_mail_protokollieren(v_lead, 'terminbestaetigung', 'zz@edvance.invalid', 'ZZ_Ort');
   exception when insufficient_privilege then v_ok := true; end;
   assert v_ok, 'lead_mail_protokollieren ohne Admin moeglich';
   raise notice '3a ok  fremde Rolle abgewiesen';
@@ -157,15 +157,27 @@ begin
 
   -- 3f. Versandprotokoll: Urheber, Termin, Fehlerzeile
   v_id := public.lead_mail_protokollieren(v_lead, 'terminbestaetigung',
-    'zz@edvance.invalid', timestamptz '2026-10-08 14:00+00', '  ');
+    'zz@edvance.invalid', '  ZZ_Musterweg 1, Köln ', timestamptz '2026-10-08 14:00+00', '  ');
   select count(*) into v_n from lead_mail_versand
-   where id = v_id and erfolgt_von = v_admin and fehler is null and termin_at is not null;
-  assert v_n = 1, 'Protokoll: Urheber/Termin fehlen oder Leerfehler nicht genullt';
+   where id = v_id and erfolgt_von = v_admin and fehler is null and termin_at is not null
+     and ort = 'ZZ_Musterweg 1, Köln';
+  assert v_n = 1, 'Protokoll: Urheber/Termin/Ort fehlen oder Leerfehler nicht genullt';
   v_id := public.lead_mail_protokollieren(v_lead, 'terminbestaetigung',
-    'zz@edvance.invalid', null, 'Graph 403');
+    'zz@edvance.invalid', 'ZZ_Ort', null, 'Graph 403');
   select count(*) into v_n from lead_mail_versand where id = v_id and fehler = 'Graph 403';
   assert v_n = 1, 'Protokoll: Fehlerzeile fehlt';
-  raise notice '3f ok  Versandprotokoll';
+  -- Ort ist Pflicht: leer und null werden abgewiesen.
+  v_ok := false;
+  begin
+    perform public.lead_mail_protokollieren(v_lead, 'terminbestaetigung', 'zz@edvance.invalid', '   ');
+  exception when check_violation then v_ok := true; end;
+  assert v_ok, 'Protokoll ohne Ort (leer) moeglich';
+  v_ok := false;
+  begin
+    perform public.lead_mail_protokollieren(v_lead, 'terminbestaetigung', 'zz@edvance.invalid', null);
+  exception when not_null_violation then v_ok := true; end;
+  assert v_ok, 'Protokoll ohne Ort (null) moeglich';
+  raise notice '3f ok  Versandprotokoll mit Pflicht-Ort';
 end $$;
 
 rollback;

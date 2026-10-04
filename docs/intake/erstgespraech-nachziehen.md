@@ -57,6 +57,20 @@ Entscheidungen:
   der gescheiterte. Neu ist `termin_at`: der Termin, der in der Mail stand. Wird der
   Termin danach verschoben, zeigt das Modal „Diese Mail nannte noch den alten Termin“.
   RLS: Lesen nur Admin, Schreiben nur über die RPC.
+- **Ort des Gesprächs als Pflichtfeld im Versand-Dialog** (Nachtrag nach Rasits Vorgabe,
+  Migration `20261004003339`). Edvance hat keinen festen Standort, das Gespräch findet
+  bei der Familie, im Coworking oder anderswo statt. Die Vorlage hat deshalb keinen
+  Standorttext mehr, `mail.terminOrt_koeln` ist entfallen. Der Admin trägt den Ort als
+  Freitext ein (max. 300 Zeichen); er steht in der Vorschau, in der Mail und mit dem
+  Termin in `lead_mail_versand.ort` (`not null`, nicht leer). Ohne Ort ist Senden
+  gesperrt: in der Oberfläche (Knopf mit Begründung als Tooltip), in der Edge Function
+  (400, kein Versand, kein Protokoll) und in der Datenbank (Check). Beim erneuten Senden
+  ist der Ort des letzten Versands vorbelegt.
+  `lead_mail_protokollieren` bekommt dafür `p_ort`. Weil sich die Signatur ändert, wird
+  die Funktion per drop + create ersetzt, nicht überladen. Aufrufer gab es noch keine,
+  `mail_senden` war nicht deployt, und die Tabelle war beim Einspielen leer (per `dbread`
+  geprüft), deshalb geht `not null` ohne Vorbelegung.
+  `leads.erstgespraech_standort` bleibt unverändert; die Mail liest es nicht mehr.
 - **Der Empfänger ist immer `leads.contact_email`.** Die Function liest die Adresse
   selbst und nimmt keine aus dem Request an. So taugt sie nicht als Versandweg an
   beliebige Adressen.
@@ -75,40 +89,33 @@ Entscheidungen:
 - **Anrede „Guten Tag,“** ohne Namen, weil der Lead keinen Elternnamen trägt
   (`full_name` und `first_name` sind die des Kindes). Das Kind wird mit Rufnamen
   genannt, ohne Rufnamen mit dem vollen Namen.
+- **Dauer:** „etwa 60 Minuten – Gespräch und eine 20-minütige Lernstandsanalyse am
+  Tablet“ (`mail.terminDauer`, Vorgabe Rasit).
 - **Mitbring-Hinweis** wörtlich aus dem Auftrag: Mathe-Heft (Schulheft), Hausaufgabenheft,
   falls vorhanden die letzte Klassenarbeit. Er nennt fest Mathe; bisher gibt es nur den
   Mathe-Katalog.
 - **Ablauf in zwei Sätzen** nach `docs/specs/SPEC-prozess-erstgespraech.md`
   (P1 Intake, P2 LSA am Tablet parallel zum Elterngespräch, P4 Ergebnisgespräch).
 
-## Befunde (für Rasit)
+## Befunde
 
-1. **Die Adresse des Standorts fehlt im Bestand.** `leads.erstgespraech_standort` kennt
-   nur `'koeln'`, eine Anschrift steht nirgends: nicht im Schema, nicht in i18n, nicht in
-   `docs/`. In der Vorlage steht deshalb der Platzhalter `[ADRESSE FEHLT: Standort Köln]`.
-   **Solange er drin steht, ist Senden gesperrt.** Das Modal zeigt den Grund, und die
-   Edge Function lehnt mit 400 ab. Eine Mail mit Platzhalter soll nicht an die erste
-   echte Familie gehen.
-   *Freischalten:* in `src/i18n/locales/de/vertraege.json` den Wert `mail.terminOrt_koeln`
-   durch die Anschrift ersetzen, `node tools/dokumente-buendeln.mjs` laufen lassen,
-   committen und `mail_senden` erneut deployen.
-2. **Die Dauer ist abgeleitet, nicht bestätigt.** Eingetragen ist „etwa 60 Minuten“: P1
-   ~10 min, P2 20 min, P3 2–3 min, dazu das Ergebnisgespräch ohne Zeitangabe in der Spec.
-   Bitte bestätigen. Ändern lässt es sich in `mail.terminDauer` mit demselben Ablauf wie
-   bei 1.
-3. Ein Kontakt außer „antworten Sie auf diese Mail“ (Telefon) ist im Bestand nicht
-   hinterlegt, deshalb nennt die Mail nur die Antwort an `hello@`.
+- Eine Telefonnummer als Kontakt ist im Bestand nicht hinterlegt. Die Mail nennt nur
+  die Antwort an `hello@`.
 
 ## Einspielen
 
+Eingespielt und per `dbread` geprüft (04.10.):
+`20261004001333_lead_thema_setzen`, `20261004001351_lead_mail_versand`. Das Prüfskript lief
+in Teil 1 und 2 grün, und der Schema-Abzug aus Prod stimmt in diesen Teilen mit dem Repo
+überein.
+
+Noch offen, in dieser Reihenfolge:
+
 ```
-mig 20261004001333 lead_thema_setzen
-mig 20261004001351 lead_mail_versand
+mig 20261004003339 lead_mail_versand_ort
 npx supabase functions deploy mail_senden --project-ref ztcppihxqcphlqaguhma
 ```
 
-Die Reihenfolge ist wichtig: Das Frontend ruft `lead_thema_setzen` auf, sobald `dev`
-ausgeliefert ist. Die Function protokolliert über `lead_mail_protokollieren`.
-Danach `~/bin/dbread -f supabase/checks/lead_thema_setzen.PRUEFUNG.sql` (Teile 1–2;
-Teil 3 überspringt sich read-only) und `bash tools/schema-snapshot.sh`. Der Abzug in
-diesem PR stammt aus der Wegwerf-DB und muss danach unverändert bleiben.
+Die Migration muss vor dem Deploy kommen, weil die Function `lead_mail_protokollieren`
+mit `p_ort` aufruft. Danach `~/bin/dbread -f supabase/checks/lead_thema_setzen.PRUEFUNG.sql`
+(es erwartet die neue Signatur) und `bash tools/schema-snapshot.sh`.
