@@ -60,6 +60,9 @@ Je Familie zu prüfen: Stimmt der Elternsatz für **jedes** Fehlbild darunter?
 
 > Ihr Kind rechnet richtig, rundet das Ergebnis aber anders als verlangt, schneidet Stellen nur ab oder lässt das Runden ganz weg.
 
+⚠ **Vorschlag für Lena — neutralere Fassung:** Ihr Kind rundet das Ergebnis anders als verlangt, schneidet Stellen nur ab oder lässt das Runden ganz weg.  
+*Grund:* „Ihr Kind rechnet richtig, …“ behauptet mehr, als das Fehlbild belegt — der Slug zeigt nur, dass anders gerundet bzw. eine andere Rechenart oder Formel genommen wurde, nicht dass der Rest stimmt. Eingespielt ist die obere Fassung; bei Zustimmung ersetzt Rasit sie vor der Freigabe.
+
 | | Slug | Klartext | Häufigkeit |
 |---|---|---|---|
 | LSA | `abgeschnitten` | Überzählige Nachkommastellen wurden einfach weggelassen. | 16 |
@@ -69,6 +72,9 @@ Je Familie zu prüfen: Stimmt der Elternsatz für **jedes** Fehlbild darunter?
 ### Rechenart oder Formel verwechselt (`rechenart_formel`)
 
 > Ihr Kind rechnet sauber, nimmt aber eine andere Rechenart oder Formel, als die Aufgabe verlangt, etwa Plus statt Mal oder den Umfang statt der Fläche.
+
+⚠ **Vorschlag für Lena — neutralere Fassung:** Ihr Kind nimmt eine andere Rechenart oder Formel, als die Aufgabe verlangt, etwa Plus statt Mal oder den Umfang statt der Fläche.  
+*Grund:* „Ihr Kind rechnet sauber, …“ behauptet mehr, als das Fehlbild belegt — der Slug zeigt nur, dass anders gerundet bzw. eine andere Rechenart oder Formel genommen wurde, nicht dass der Rest stimmt. Eingespielt ist die obere Fassung; bei Zustimmung ersetzt Rasit sie vor der Freigabe.
 
 | | Slug | Klartext | Häufigkeit |
 |---|---|---|---|
@@ -84,6 +90,10 @@ Abnahme einer Familie (Rasit, nach Lenas Durchsicht — zusammen mit den Slugs d
 
 ```sql
 update public.fehlbild_familien set freigegeben_am = now(), freigegeben_von = '<lenas-profil-uuid>'
+ where schluessel = '<familie>' and freigegeben_am is null;
+
+-- Falls Lena eine neutralere Fassung (⚠) wählt — VOR der Freigabe:
+update public.fehlbild_familien set elterntext = '<neue Fassung>'
  where schluessel = '<familie>' and freigegeben_am is null;
 ```
 
