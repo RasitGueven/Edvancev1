@@ -185,7 +185,7 @@ Der Lauf gegen Prod steht noch aus. Er schreibt in einer Transaktion, die zurüc
    | 13c0d52b-6585-4c45-bff5-7337036697bc | 2026-09-06 19:01 | nein | 0 |
    | aa1d3587-3088-4a14-b4dc-85644479a537 | 2026-09-20 15:19 | nein | 0 |
 
-   Keine der Sitzungen hängt an einem ZZ_-Schüler. Die erste läuft im Modus `fest` an einem Test-Profil (`*.invalid`). Drei hängen an Leads, deren Name nach Test aussieht. Die übrigen hängen an echten Lead-Namen, die hier bewusst nicht stehen.
+   Keine der Sitzungen hängt an einem ZZ_-Schüler. Die erste läuft im Modus `fest` an einem Test-Profil (`*.invalid`). Drei hängen an Leads, deren Name nach Test aussieht. Die übrigen hängen an echten Lead-Namen, die hier bewusst nicht stehen. Einordnung und Abschluss: `docs/themen/verwaiste-sitzungen.md` (W5-b).
 2. **Ohne Thema läuft die bisherige Auswahl (Entscheidung 1).** `lead_themen` ist leer, und alle Linear- und Zins-Aufgaben stehen auf `draft`. Bis Erstgespräch und Freigabe greifen, verhält sich die LSA deshalb wie vor W3-6, mit Abstieg und nur zusätzlich mit Klassengrenze.
 3. **Klasse 7 mit Thema Lineare Funktionen (Entscheidung 2):** Phase T läuft, auch wenn `fkt_linear_*` die Klasse 8 trägt. Der Test (`h8`) und der Trockenlauf (S4) belegen das.
 4. **CI wird erst nach dem Einspielen grün.** `schema-erwartet.sql` wird aus Prod gezogen, und die neuen Funktionsrümpfe weichen davon ab, bis sie eingespielt sind und `tools/schema-snapshot.sh` neu gelaufen ist.
