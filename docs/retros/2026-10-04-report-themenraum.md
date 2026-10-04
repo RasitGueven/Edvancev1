@@ -30,7 +30,17 @@ Siehe `docs/report/themenraum-entscheidungen.md`. Kern: Feld statt Spalte; eine 
   abgenommene Entwürfe im Lauf auf den alten Text zurückgedreht. Er stellt jetzt nur Migrationen nach,
   die in der Ziel-DB fehlen. Die Spalten-Migration ist wiederholbar, und die Abnahme läuft je Fall.
 
+## Teil 5 (bisherige Reports)
+- Thema `terme_gleichungen` nachgetragen für vier alte Sitzungen (Entscheidung Rasit); `stand = 'nachgetragen'`
+  schaltet jede Formulierung ab, die eine Wahl voraussetzt. Neuer Slot `ausgangspunkt` als Entwurf, ohne
+  Abnahme entfällt der Satz. Entwurf für `fazit.keine.a`.
+- Nebenbefund: Der Befund-Fuß „liegen unter dem aktuellen Thema" rechnete noch mit der Graphtiefe; jetzt mit
+  dem Themenraum.
+- Vorher/Nachher per echtem Generator und ersetztem psql-Aufruf (Daten per dbread), nur lokal abgelegt.
+
 ## Offen
-- Nachtrag-Migrationen einspielen (Rasit), danach `dbread`-Prüfung.
-- Abnahme der elf Entwürfe (Lena), siehe `docs/report/rueckbezug-texte.md`.
+- Teil-5-Migrationen einspielen: Bausteine sofort, Sitzungs-Nachtrag erst nach dem Merge von #201.
+- Abnahme der Entwürfe (Lena): elf Rückbezug-Sätze, vier Ausgangspunkt-Sätze, `fazit.keine.a` — siehe
+  `docs/report/rueckbezug-texte.md`.
+- Weitere Bausteine mit „tragen" (`befund_traegt`, `empfehlung.keine.b`, `fazit.mehrere.b`, `fazit.zwei.b`).
 - `skillBestand.ts` bei neuen Knoten neu ziehen.

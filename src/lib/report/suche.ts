@@ -15,6 +15,7 @@
 // Jetzt behauptet nur noch Block 2 einen Zusammenhang, und Block 2 enthält
 // ausschließlich Skills im Voraussetzungsabschluss der Einstiegsknoten.
 
+import type { Bausteinsatz } from '@/lib/report/bausteine'
 import { INHALTSBEREICHE, STUFEN_ABSTEIGEND, inhaltsbereich, stufeAusKlasse } from '@/lib/report/inhaltsbereiche'
 import type {
   SucheEintrag,
@@ -103,6 +104,7 @@ export function baueSuche(e: SucheEingabe): Suchweg | null {
       angesehen: nachStufe(e.skills),
       grundlageSicher: false,
       geprueft: e.skills.length,
+      nachgetragen: e.raum?.herkunft === 'nachgetragen',
     }
   }
 
@@ -120,6 +122,7 @@ export function baueSuche(e: SucheEingabe): Suchweg | null {
     angesehen: nachStufe(rest),
     grundlageSicher: grundlagen.some((s) => s.zustand === SICHER),
     geprueft: e.skills.length,
+    nachgetragen: e.raum.herkunft === 'nachgetragen',
   }
 }
 
@@ -146,22 +149,52 @@ const alle = (stufen: readonly SucheStufe[]) =>
   stufen.flatMap((s) => s.zeilen.flatMap((z) => z.eintraege))
 
 /**
+ * Der Satz „Ausgangspunkt der Analyse war …" für nachgetragene Themenräume.
+ *
+ * Er steht in report_bausteine (Slot 'ausgangspunkt') und braucht Lenas
+ * Abnahme. Ohne abgenommenen Baustein: null — dann entfällt der Satz. Nie fällt
+ * er auf „Gewählt war das Thema" zurück.
+ */
+export function ausgangspunktSatz(
+  s: Suchweg,
+  satz: Bausteinsatz,
+  streuung: string,
+): string | null {
+  if (!s.nachgetragen || s.fall === 'ohne_thema') return null
+  const fall = s.fall === 'thema' ? 'thema' : 'ungeprueft'
+  return satz.waehle('ausgangspunkt', fall, streuung, { thema: s.themaLabel ?? '' })
+}
+
+/** Kopf über Block 1: „Aktuelles Thema" nur, wenn das Thema gewählt wurde. */
+export const aktuellKopf = (s: Suchweg) =>
+  s.nachgetragen ? 'suche.block.ausgangspunkt' : 'suche.block.aktuell'
+
+/**
  * Die Sätze über den Zeilen, gebaut aus Block 1 und 2.
  *
  * Block 3 kommt im Text nicht vor: er ist kein Teil der Suche nach dem Thema.
  * „Sicherer Boden" nur, wenn das Thema offen war UND unter ihm, auf dem
  * Abstiegsweg, wirklich ein sicherer Skill liegt.
  */
-export function sucheSaetze(s: Suchweg, t: Uebersetzer, sprache: string): string[] {
+export function sucheSaetze(
+  s: Suchweg,
+  t: Uebersetzer,
+  sprache: string,
+  ausgangspunkt: string | null = null,
+): string[] {
   const thema = s.themaLabel ?? t('suche.themaOhneName')
   if (s.fall === 'ohne_thema') {
     return [t('suche.satz.ohneThema'), t('suche.satz.uebersicht', { count: s.geprueft })]
   }
+  // Nachgetragen: nie „Gewählt war das Thema" — der Ausgangspunkt-Baustein
+  // oder gar nichts.
+  const kopfsatz = s.nachgetragen ? ausgangspunkt : null
   if (s.fall === 'thema_ungeprueft' || !s.aktuell) {
-    return [t('suche.satz.themaUngeprueft', { thema }), t('suche.satz.uebersicht', { count: s.geprueft })]
+    const erster = s.nachgetragen ? kopfsatz : t('suche.satz.themaUngeprueft', { thema })
+    return [...(erster ? [erster] : []), t('suche.satz.uebersicht', { count: s.geprueft })]
   }
 
-  const saetze: string[] = []
+  const saetze: string[] = kopfsatz ? [kopfsatz] : []
   const a = s.aktuell.eintraege
   const aSicher = a.filter((x) => x.sicher).map((x) => x.label)
   const aOffen = a.filter((x) => !x.sicher).map((x) => x.label)

@@ -81,7 +81,8 @@
     "title": "Warum wir geschaut haben",
     "genannt_one": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeit sehen.",
     "genannt_other": "Sie sind zu uns gekommen, weil Sie {{punkte}} als Schwierigkeiten sehen.",
-    "thema": "Als nächstes Thema steht {{thema}} an — genau dort haben wir angesetzt."
+    "thema": "Als nächstes Thema steht {{thema}} an — genau dort haben wir angesetzt.",
+    "themaOhneAnsatz": "Als nächstes Thema steht {{thema}} an."
   },
   "suche": {
     "title": "Wie wir gesucht haben",
@@ -94,6 +95,7 @@
     "nurEineAufgabe": "nur eine Aufgabe",
     "block": {
       "aktuell": "Aktuelles Thema",
+        "ausgangspunkt": "Ausgangspunkt der Analyse",
       "grundlagen": "Grundlagen darunter",
       "grundlagenHinweis": "Bereiche, auf denen das Thema aufbaut.",
       "ausserdem": "Außerdem angesehen",

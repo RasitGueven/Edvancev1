@@ -162,6 +162,7 @@ function anlassSatz(
   weakTopics: readonly string[],
   zuordnungen: readonly AnlassZuordnung[],
   thema: string | null,
+  nachgetragen: boolean,
 ): string {
   const nachThema = new Map(zuordnungen.map((z) => [z.thema, z]))
   const teile: string[] = []
@@ -187,7 +188,9 @@ function anlassSatz(
   }
   if (thema) {
     teile.push(
-      `Als nächstes Thema steht <span class="em">${esc(thema)}</span> an — genau dort haben wir angesetzt.`,
+      // Nachgetragener Themenraum (W5-d): niemand hat dort gezielt angesetzt.
+      `Als nächstes Thema steht <span class="em">${esc(thema)}</span> an` +
+        (nachgetragen ? '.' : ' — genau dort haben wir angesetzt.'),
     )
   }
   if (teile.length === 0) {
@@ -344,12 +347,13 @@ function main(): void {
       aufgaben: Number(r.aufgaben),
       fundament,
       suche,
+      raum,
       klasseVon: Object.fromEntries(skills.map((x) => [x.skillKey, x.klasseHerkunft])),
       familien,
       profil,
       rueckbezuege,
       ansprechpartner: r.ansprechpartner ?? { name: null, email: null },
-      anlass: anlassSatz(r.weak_topics ?? [], zuordnungen, r.next_exam_topic),
+      anlass: anlassSatz(r.weak_topics ?? [], zuordnungen, r.next_exam_topic, suche.nachgetragen),
       verteilung,
       paket,
       frequenz: tier?.features?.[0] ?? '',

@@ -15,7 +15,7 @@ import type {
   ReportBaustein,
   Rueckbezug,
 } from '@/types/reportFundament'
-import type { Suchweg } from '@/types/reportSuche'
+import type { Suchweg, Themenraum } from '@/types/reportSuche'
 
 export type LsaSessionState = 'in_progress' | 'completed' | 'aborted'
 
@@ -187,6 +187,8 @@ export type ReportErzaehlung = {
   fundament: Fundament | null
   /** Schritt 02 nach Thema und Stufe. null, wenn nichts direkt geprüft wurde. */
   suche: Suchweg | null
+  /** Der Themenraum der Sitzung (W5-d) — gespeichert oder berechnet; null ohne Thema. */
+  raum: Themenraum | null
   /** Immer sechs Achsen — auch die ungeprüften, als solche gekennzeichnet. */
   profil: FamilienBefund[]
   /** Der Aufgriff der Eltern-Einschätzung im Schluss. */

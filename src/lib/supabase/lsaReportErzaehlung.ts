@@ -227,6 +227,7 @@ export async function loadErzaehlung(
     return {
       fundament: null,
       suche,
+      raum: thema.raum,
       profil,
       rueckbezuege: [],
       verteilung: null,
@@ -254,6 +255,7 @@ export async function loadErzaehlung(
   return {
     fundament,
     suche,
+    raum: thema.raum,
     profil,
     rueckbezuege,
     verteilung,

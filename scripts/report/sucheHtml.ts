@@ -9,7 +9,7 @@
 import i18next from 'i18next'
 
 import deReport from '@/i18n/locales/de/report.json'
-import { sucheSaetze } from '@/lib/report/suche'
+import { aktuellKopf, sucheSaetze } from '@/lib/report/suche'
 import type { SucheStufe, SucheZeile, Suchweg } from '@/types'
 
 const i18n = i18next.createInstance()
@@ -60,13 +60,12 @@ ${inhalt}
 }
 
 /** Der Inhalt von Abschnitt 02 — Erzähltext und die drei Blöcke. */
-export function sucheAbschnitt(s: Suchweg): string {
+export function sucheAbschnitt(s: Suchweg, ausgangspunkt: string | null = null): string {
   const mitThema = s.fall === 'thema'
-  const teile = [`      <p class="lead-copy">${esc(sucheSaetze(s, t, 'de').join(' '))}</p>`]
+  const saetze = sucheSaetze(s, t, 'de', ausgangspunkt)
+  const teile = [`      <p class="lead-copy">${esc(saetze.join(' '))}</p>`]
   if (s.aktuell) {
-    teile.push(
-      block(t('suche.block.aktuell'), null, zeile(s.aktuell, s.themaLabel ?? t('suche.block.aktuell'))),
-    )
+    teile.push(block(t(aktuellKopf(s)), null, zeile(s.aktuell, s.themaLabel ?? t(aktuellKopf(s)))))
   }
   if (s.grundlagen.length > 0) {
     teile.push(

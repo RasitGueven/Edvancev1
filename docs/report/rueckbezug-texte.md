@@ -40,13 +40,16 @@ gleich dem Text sind. Bis zur Abnahme sehen Eltern den alten Satz.
 
 ## Abnahme (Lena)
 
-Je Fall eine Anweisung; sie übernimmt beide Varianten (a und b) und nimmt sie im selben Schritt ab:
+Je Fall eine Anweisung. Sie übernimmt beide Varianten (a und b) und nimmt sie im selben Schritt ab.
+Sie gilt für Entwürfe in `entwurf` UND für neue, noch nie abgenommene Zeilen (Slot `ausgangspunkt`,
+dort steht der Entwurf in `text`):
 
 ```sql
 update report_bausteine
-   set text = entwurf, entwurf = null,
+   set text = coalesce(entwurf, text), entwurf = null,
        freigegeben_am = now(), freigegeben_von = '<profil-uuid>'
- where slot = 'rueckbezug' and fall = '<fall>' and entwurf is not null;
+ where slot = '<slot>' and fall = '<fall>'
+   and (entwurf is not null or freigegeben_am is null);
 ```
 
 Neu gegenüber den alten Sätzen: `grundlagen_entlastend` nennt die Zahl der geprüften Grundlagen
@@ -123,3 +126,37 @@ Darum wird je Fall abgenommen: sonst stehen je nach Sitzung alte und neue Sprach
 - **Warum:** „trägt noch nicht“ statt „noch nicht sicher“ (Variante a ist schon richtig).
 - **Heute (abgenommen):** Was Sie zum Textverständnis gesagt haben, findet sich in der Analyse wieder — der Schritt vom Text zur Rechnung trägt noch nicht.
 - **Entwurf:** Was Sie zum Textverständnis gesagt haben, findet sich in der Analyse wieder — beim Schritt vom Text zur Rechnung ist Ihr Kind noch nicht sicher.
+
+## Teil 5: Ausgangspunkt statt Wahl, Fazit ohne „aktuelles Thema"
+
+Migration `20261004093449_report_ausgangspunkt_entwuerfe`. Vier alte Sitzungen bekommen nachträglich
+das Thema „Terme und Gleichungen" (`stand = 'nachgetragen'`). Gewählt hat es niemand, denn die alte
+LSA begann für alle bei den Gleichungen. Deshalb sagt der Report dort nie „Gewählt war das Thema …".
+Er zieht stattdessen den Slot `ausgangspunkt`. Solange der nicht abgenommen ist, **entfällt der Satz**.
+
+### `ausgangspunkt.thema` (Einstieg geprüft; steht vor „Beim Thema … war Ihr Kind …")
+
+- **a:** Ausgangspunkt der Analyse war das Thema „{thema}“.
+- **b:** Die Analyse hat beim Thema „{thema}“ begonnen.
+
+### `ausgangspunkt.ungeprueft` (Einstieg nicht geprüft; ersetzt „Gewählt war das Thema …")
+
+- **a:** Ausgangspunkt der Analyse war das Thema „{thema}“. Aufgaben direkt zu diesem Thema kamen darin nicht vor.
+- **b:** Die Analyse hat im Umfeld des Themas „{thema}“ begonnen; Aufgaben direkt zu diesem Thema kamen dabei nicht vor.
+
+### `fazit.keine.a` (Entwurf in `entwurf`)
+
+- **Warum:** „Das aktuelle Thema steht" setzt ein gewähltes, aktuelles Thema voraus; „tragen".
+- **Heute (abgenommen):** Das aktuelle Thema steht, und die Grundlagen darunter tragen. Wir halten dieses Niveau und arbeiten am kommenden Stoff weiter.
+- **Entwurf:** In den Bereichen, die wir geprüft haben, ist Ihr Kind sicher. Wir halten dieses Niveau und arbeiten am kommenden Stoff weiter.
+
+### Geprüft, ohne Entwurf
+
+- Die i18n-Texte, die eine Wahl voraussetzen, sind keine Bausteine. Bei nachgetragenem Raum wechselt der
+  Code sie aus:
+  - Kopf „Aktuelles Thema" → „Ausgangspunkt der Analyse"
+  - „… — genau dort haben wir angesetzt." → nur „Als nächstes Thema steht … an."
+  - „Diese Bereiche liegen unter dem aktuellen Thema" entfällt.
+- `empfehlung.mehrere.a` („unter dem aktuellen Stoff") meint den Schulstoff und setzt keine Wahl voraus.
+- Ohne Wahl-Bezug, aber noch mit „tragen": `befund_traegt.standard.a/b`, `empfehlung.keine.b`,
+  `fazit.mehrere.b`, `fazit.zwei.b`. Offener Punkt, kein Entwurf in diesem PR.

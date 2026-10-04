@@ -42,3 +42,13 @@ describe('sucheAbschnitt — Entwurf', () => {
     expect(html).not.toMatch(/Ebene|trägt|gemeistert/)
   })
 })
+
+describe('sucheAbschnitt — nachgetragener Themenraum (W5-d Teil 5)', () => {
+  it('sagt nie „Gewählt war das Thema", auch ohne Ausgangspunkt-Baustein', () => {
+    const fall = { ...FALL_D, raum: { ...FALL_D.raum!, herkunft: 'nachgetragen' as const } }
+    const ohne = sucheAbschnitt(baueSuche(fall)!)
+    expect(ohne).not.toMatch(/Gewählt/)
+    const mit = sucheAbschnitt(baueSuche(fall)!, 'Ausgangspunkt der Analyse war das Thema „X“.')
+    expect(mit).toMatch(/Ausgangspunkt der Analyse war/)
+  })
+})

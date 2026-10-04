@@ -67,6 +67,12 @@ export type Suchweg = {
   angesehen: SucheStufe[]
   /** Liegt in Block 2 mindestens ein sicherer Skill? */
   grundlageSicher: boolean
+  /**
+   * Der Themenraum wurde nachgetragen (stand = 'nachgetragen', W5-d Teil 5):
+   * Das Thema hat niemand im Gespräch gewählt — die alte LSA begann für alle
+   * bei den Gleichungen. Kein Satz darf dann eine Wahl voraussetzen.
+   */
+  nachgetragen: boolean
   geprueft: number
 }
 

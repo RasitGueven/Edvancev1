@@ -117,13 +117,21 @@ export function ReportBody({ data }: { data: ReportData }): JSX.Element {
               })}
             {punkte.length > 0 && data.naechstesThema ? ' ' : ''}
             {data.naechstesThema &&
-              t('anlass.thema', { thema: data.naechstesThema })}
+              // Nachgetragener Themenraum: niemand hat dort gezielt angesetzt.
+              t(erzaehlung.suche?.nachgetragen ? 'anlass.themaOhneAnsatz' : 'anlass.thema', {
+                thema: data.naechstesThema,
+              })}
           </p>
         </section>
       )}
 
       {/* 02 SUCHE — nach Thema und Lehrplanstufe, nicht nach Graphtiefe (W2-7). */}
-      <ReportSuche suche={erzaehlung.suche} titleClassName={titelHaupt} />
+      <ReportSuche
+        suche={erzaehlung.suche}
+        satz={satz}
+        sessionId={data.sessionId}
+        titleClassName={titelHaupt}
+      />
 
       {/* 03 BEFUND — erst das Bild, dann die Listen. */}
       {erzaehlung.fundament && (
@@ -135,6 +143,7 @@ export function ReportBody({ data }: { data: ReportData }): JSX.Element {
           <ReportProfil profil={erzaehlung.profil} titleClassName={titelBeleg} />
           <ReportBefund
             fundament={erzaehlung.fundament}
+            raum={erzaehlung.raum}
             satz={satz}
             sessionId={data.sessionId}
             titleClassName={titelBeleg}

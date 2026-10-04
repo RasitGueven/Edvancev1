@@ -97,8 +97,9 @@
   rechnet nur ohne ihn. „Grundlagen fehlen" stützt sich nur noch auf `themenraum.darunter`.
   Inhaltsbereiche decken alle 130 Prod-Skills ab. Für die Rückbezug-Texte gibt es Entwürfe in
   `report_bausteine.entwurf` (`docs/report/rueckbezug-texte.md`).
-  **Offen:** Einspielen der Nachträge (`20261004003309`, `20261004003310`), Abnahme der elf
-  Entwürfe durch Lena.
+  Teil 5: vier alte Sitzungen mit nachgetragenem Thema; Report sagt dort „Ausgangspunkt" statt „Gewählt".
+  **Offen:** Einspielen `20261004093449`, nach dem Merge `20261004093450`; Abnahme der Entwürfe durch
+  Lena (Rückbezug, Ausgangspunkt, `fazit.keine.a`).
 - **LSA-Auswahl nach Thema (W3-6)** (Retro `2026-10-03-lsa-thema-einstieg.md`, Branch
   `feat/lsa-thema-einstieg`, Bericht `docs/themen/w3-6-lsa-auswahl.md`): `lsa_start` hält
   das aktuell-Thema des Leads in `thema_key` fest. `lsa_select_next_core` prüft zuerst die

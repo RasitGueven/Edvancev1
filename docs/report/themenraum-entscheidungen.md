@@ -102,3 +102,35 @@ LSA-Reports ist der Druck von `ReportBody` (App-Pfad) bzw. der HTML-Entwurf aus
 - **Rückbezug-Texte:** Elf abgenommene Sätze sprechen von „tragen"/„Ebenen". Es gibt jetzt Entwürfe
   in einer neuen Spalte `report_bausteine.entwurf`; die Abnahme macht Lena. Erklärung und
   Abnahmeliste: `docs/report/rueckbezug-texte.md`.
+
+## Teil 5: bisherige Reports auf die neue Logik
+
+**Bestand (a):** 21 abgeschlossene Sitzungen, keine mit Thema. 9 Juli-Sitzungen ohne direkte Urteile,
+4 Testprofile, 2 kurze Läufe, 6 echte Analysen mit Urteilen.
+
+**Entscheidung (b, Rasit):** `terme_gleichungen` nachtragen für 143215f5 (Leon), d0ba7a1b und
+4fe409f0 (Batu), 6d868c5f (Ilkay). Nicht nachgetragen werden:
+- 920d00ae, d8b0d885, 6f64b51e, e7b63e2d (Gründer-Testläufe)
+- ed93da46 (Einstieg nicht geprüft)
+- alle Testprofile und die Juli-Sitzungen
+
+**Umsetzung (c):**
+- `20261004093450_lsa_thema_nachtrag_alt` setzt nur dort, wo `thema_key` leer ist, höchstens 4 Zeilen,
+  Themenraum mit `stand = 'nachgetragen'`.
+- `Suchweg.nachgetragen` schaltet alle Texte ab, die eine Wahl voraussetzen:
+  - kein „Gewählt war das Thema"; stattdessen der Baustein `ausgangspunkt.*` oder gar nichts
+  - Kopf „Ausgangspunkt der Analyse"
+  - Anlass ohne „genau dort haben wir angesetzt"
+  - kein Fuß „liegen unter dem aktuellen Thema"
+- Derselbe Fuß stützt sich jetzt auch sonst auf `themenraum.darunter` statt auf die Graphtiefe.
+  Das war die letzte Stelle mit der alten Ebenen-Logik.
+
+**Vergleich (d):** Screenshots vorher / nachher / nach Abnahme in `~/edvance-report-vergleich/`, bewusst
+nicht im Repo, weil sie echte Kinderdaten enthalten. Erzeugt mit dem unveränderten Generator; die Daten
+kamen read-only per dbread.
+
+**Reihenfolge beim Einspielen:** Erst wenn der Code aus #201 läuft (App-Deploy bzw.
+Entwurfs-Generator von dev), erkennt der Report `stand = 'nachgetragen'`. Code ohne #201 würde für die
+beiden Batu-Sitzungen „Gewählt war das Thema …" zeigen und hätte den Ausgangspunkt-Kopf nicht.
+Deshalb: Bausteine (`20261004093449`) jederzeit einspielen, den Sitzungs-Nachtrag (`20261004093450`)
+erst nach dem Merge von #201, oder dazwischen keinen Report dieser vier Sitzungen öffnen oder erzeugen.

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
-import { sucheSaetze } from '@/lib/report/suche'
+import type { Bausteinsatz } from '@/lib/report/bausteine'
+import { aktuellKopf, ausgangspunktSatz, sucheSaetze } from '@/lib/report/suche'
 import type { SucheStufe, SucheZeile, Suchweg } from '@/types'
 
 /**
@@ -18,15 +19,24 @@ import type { SucheStufe, SucheZeile, Suchweg } from '@/types'
  */
 export function ReportSuche({
   suche,
+  satz,
+  sessionId,
   titleClassName,
 }: {
   suche: Suchweg | null
+  satz: Bausteinsatz
+  sessionId: string
   titleClassName: string
 }): JSX.Element | null {
   const { t, i18n } = useTranslation('report')
   if (!suche) return null
 
-  const saetze = sucheSaetze(suche, (k, w) => t(k, w), i18n.language)
+  const saetze = sucheSaetze(
+    suche,
+    (k, w) => t(k, w),
+    i18n.language,
+    ausgangspunktSatz(suche, satz, sessionId),
+  )
   const mitThema = suche.fall === 'thema'
 
   return (
@@ -38,8 +48,8 @@ export function ReportSuche({
 
       {suche.aktuell && (
         <div className="report-suche-block" data-testid="suche-aktuell">
-          <p className="report-suche-kopf">{t('suche.block.aktuell')}</p>
-          <ZeileView zeile={suche.aktuell} name={suche.themaLabel ?? t('suche.block.aktuell')} />
+          <p className="report-suche-kopf">{t(aktuellKopf(suche))}</p>
+          <ZeileView zeile={suche.aktuell} name={suche.themaLabel ?? t(aktuellKopf(suche))} />
         </div>
       )}
 
