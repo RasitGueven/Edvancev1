@@ -15,3 +15,11 @@ vorbei in den Elternbericht schalten), keine Erklärung unter alter Abnahme,
   22 LSA-relevante Fehlbilder nie im Elternbericht.
 - `teilgekuerzt` umbenennen; Slug-Befunde (Abschnitt 3 der Abnahmeliste)
   bei den Aufgaben-Schlüsseln nachziehen.
+
+## Nachtrag (nach dem Einspielen von 20261004002101)
+
+Migration `20261004003939_fehlbild_familien_entwuerfe.sql`: fünf Entwurfs-Familien
+(brueche_anteile, kommazahlen, potenzen_wurzeln, runden, rechenart_formel), 33 Slugs
+zugeordnet, darunter alle 21 LSA-Slugs ohne Familie. Elternschranke per Funktionstest
+`fehlbild_familien_entwurf.PRUEFUNG.sql` belegt. Offen: Lenas Abnahme der Familien
+(Abschnitt 0 der Abnahmeliste).

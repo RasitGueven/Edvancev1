@@ -1,4 +1,5 @@
--- PRUEFUNG: Klartext-Entwürfe für Fehlbilder (Migration 20261004002101).
+-- PRUEFUNG: Klartext-Entwürfe für Fehlbilder (Migration 20261004002101)
+-- und Entwurfs-Familien (Migration 20261004003939).
 --
 -- Nur lesend, läuft mit dbread gegen Prod und gegen eine Wegwerf-DB:
 --
@@ -78,5 +79,53 @@ begin
     raise exception 'K3: teilgekuerzt trägt einen Klartext';
   end if;
   raise notice 'K3 ok: teilgekuerzt unbestückt';
+
+  -- K4 (Nachtrag 20261004003939): fünf Entwurfs-Familien, keine freigegeben.
+  select count(*) filter (where elterntext is not null and btrim(elterntext) <> ''),
+         string_agg(schluessel, ', ' order by schluessel) filter (where freigegeben_am is not null)
+    into v_n, v_liste
+    from public.fehlbild_familien
+   where schluessel in ('brueche_anteile', 'kommazahlen', 'potenzen_wurzeln',
+                        'runden', 'rechenart_formel');
+  if v_n <> 5 then
+    raise exception 'K4: % von 5 Entwurfs-Familien mit Elterntext vorhanden', v_n;
+  end if;
+  if v_liste is not null then
+    raise exception 'K4: Entwurfs-Familien tragen schon freigegeben_am: %', v_liste;
+  end if;
+  raise notice 'K4 ok: 5 Entwurfs-Familien, freigegeben_am bei allen NULL';
+
+  -- K5: Elternschranke. Für jeden Slug einer Entwurfs-Familie liefert die
+  -- Auswertung keinen Elterntext — strukturell geprüft am Funktionskörper,
+  -- weil dbread keine Testsitzung anlegen darf. Der Funktionstest steht in
+  -- fehlbild_familien_entwurf.PRUEFUNG.sql (Wegwerf-DB).
+  if position('when fam.freigegeben_am is null then null' in
+              pg_get_functiondef('public.lsa_fehlbild_auswertung(uuid)'::regprocedure)) = 0 then
+    raise exception 'K5: lsa_fehlbild_auswertung prüft die Familien-Abnahme nicht mehr';
+  end if;
+  raise notice 'K5 ok: Elterntext hängt an fehlbild_familien.freigegeben_am';
+
+  -- K6: Alle 21 LSA-Slugs ohne Familie haben jetzt eine (außer teilgekuerzt).
+  select count(*), string_agg(e.slug, ', ' order by e.slug)
+    into v_n, v_liste
+    from unnest(array[
+      'mal_exponent', 'wurzel_halbiert', 'plus_statt_mal', 'umfang_statt_flaeche',
+      'abgeschnitten', 'vorzeichen_potenz', 'falsche_operation', 'falsche_stelle',
+      'basis_exponent_vertauscht', 'kommastellen_zu_viel', 'kommastellen_zu_wenig',
+      'umgekehrt_geteilt', 'komma_ignoriert', 'komma_nicht_verschoben',
+      'stellenwert_ignoriert', 'additiv_gekuerzt', 'faktor_ohne_wurzel',
+      'ziffern_gelesen', 'immer_aufgerundet', 'irrational_verwechselt',
+      'uebertrag_vergessen'
+         ]) as e(slug)
+    left join public.fehlbild_labels l on l.slug = e.slug
+   where l.familie is null;
+  if v_n <> 0 then
+    raise exception 'K6: % LSA-Slugs ohne Familie: %', v_n, v_liste;
+  end if;
+  if exists (select 1 from public.fehlbild_labels
+              where slug = 'teilgekuerzt' and familie is not null) then
+    raise exception 'K6: teilgekuerzt hat eine Familie (F14)';
+  end if;
+  raise notice 'K6 ok: 21 LSA-Slugs mit Entwurfs-Familie, teilgekuerzt ohne';
 end
 $$;

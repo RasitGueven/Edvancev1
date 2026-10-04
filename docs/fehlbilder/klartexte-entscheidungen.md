@@ -1,6 +1,7 @@
 # Fehlbild-Klartexte (W5-a) — Bestand und Entscheidungen
 
-Stand 2026-10-04. Migration `20261004002101_fehlbild_klartexte_entwuerfe.sql`,
+Stand 2026-10-04. Migrationen `20261004002101_fehlbild_klartexte_entwuerfe.sql`
+(eingespielt) und `20261004003939_fehlbild_familien_entwuerfe.sql` (Nachtrag),
 Prüfskript `supabase/checks/fehlbild_klartexte.PRUEFUNG.sql`, Abnahmeliste
 [klartexte-abnahme.md](klartexte-abnahme.md).
 
@@ -45,7 +46,7 @@ gelesen, nicht nur gegen zwei Beispiele; wo die Aufgaben auseinanderlaufen,
 ist der Satz allgemeiner und der Unterschied steht als Befund im
 Abnahme-Dokument (Abschnitt 3).
 
-**E2 — Keine Familie in der Migration.** Der Auftrag sieht vor, leere
+**E2 — Keine Familie in der ersten Migration** (durch E7 ergänzt). Der Auftrag sieht vor, leere
 Familien zu füllen. Das tut die Migration bewusst nicht.
 `lsa_fehlbild_auswertung` gibt den Familien-Elterntext aus, sobald die
 **Familie** abgenommen ist (`fehlbild_familien.freigegeben_am`), und prüft die
@@ -82,6 +83,31 @@ legt sie die meisten neu an (lokal: 51 neu, 1 ergänzt).
 es bisher kaum; die Zahl der Aufgaben, in denen ein Slug hinterlegt ist,
 zeigt besser, wie oft Lena den Satz später lesen wird.
 
+**E7 — Nachtrag: fünf Entwurfs-Familien (Migration 20261004003939).** Auf
+Rasits Auftrag nach dem Einspielen der ersten Migration. Neu sind
+`brueche_anteile`, `kommazahlen`, `potenzen_wurzeln`, `runden` und
+`rechenart_formel`, jeweils mit Elterntext, aber ohne `freigegeben_am`.
+Zugeordnet sind 33 Slugs: alle 21 LSA-Slugs ohne Familie (außer
+`teilgekuerzt`, F14) und 12 weitere, die inhaltlich passen (Bruchrechnung,
+Formel-Verwechslungen). Zugeordnet wird nur, wo `familie` leer ist, und nur zu
+einer Familie, die nicht freigegeben ist; eine schon freigegebene Familie
+bekommt nie neue Slugs. Die 14 Vorschläge zu den alten Familien (E2) bleiben
+deshalb unverändert Vorschläge.
+
+Dass eine Entwurfs-Familie den Elternbericht nicht erreicht, ist dreifach
+belegt:
+- `lsa_fehlbild_auswertung` liefert `familie_elterntext` nur bei gesetztem
+  `fehlbild_familien.freigegeben_am`.
+- `src/lib/reportFehlbilder.ts` verwirft Zeilen ohne Elterntext (Test
+  `reportFehlbilder.test.ts`).
+- Der Funktionstest `fehlbild_familien_entwurf.PRUEFUNG.sql` legt in der
+  Wegwerf-DB eine Sitzung mit `mal_exponent` und `komma_ignoriert` an: kein
+  Elterntext; nach Freigabe von `potenzen_wurzeln` genau dessen Text.
+
+`rueckbezug.ts` nutzt Familienschlüssel nur aus den schon gebündelten,
+also freigegebenen Familien. Alle fünf Familientexte prüfte derselbe
+Zweitprüfer; Beanstandungen sind eingearbeitet.
+
 ## Befund für die erste LSA: der Elternbericht hängt an der Familie
 
 Der Auftrag geht davon aus, dass ein Fehlbild im Elternbericht erscheint,
@@ -101,7 +127,7 @@ der fünf Familien `vorzeichen`, `gleichungen_umformen`, `rechenreihenfolge`,
 `einheiten_massstab`, `sachaufgaben`. Vor der ersten LSA braucht es deshalb
 wahrscheinlich neue Familien mit eigenem Elterntext, zum Beispiel
 „Kommazahlen“, „Brüche“, „Potenzen und Wurzeln“, „Runden“. Das ist eine
-Entscheidung für Lena und gehört nicht in diese Migration.
+Entscheidung für Lena. Der Nachtrag (E7) legt diese Familien als Entwurf an.
 
 Verwendete Slugs mit Klartext, aber ohne Familie (32, außerhalb der Lückenliste):
 pi_vergessen, radius_durchmesser_verwechselt, bogenmass_modus,
