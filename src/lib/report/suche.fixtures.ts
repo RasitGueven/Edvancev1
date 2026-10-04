@@ -5,7 +5,8 @@
 // standen. Urteile, Probenzahl und offen wörtlich aus lsa_skill_urteil;
 // klasse_herkunft nach der Stufen-Migration 20261003092318.
 
-import type { SucheEingabe, SucheKante } from '@/lib/report/suche'
+import type { SucheEingabe } from '@/lib/report/suche'
+import { berechneThemenraum, type SucheKante } from '@/lib/report/themenraum'
 import type { SucheSkill } from '@/types'
 
 const s = (
@@ -56,10 +57,10 @@ export const ABSCHLUSS_MODELLIEREN = [
   'vorzeichen_mult_div',
 ]
 
+/** Thema der Gleichungen, Raum berechnet aus KANTEN (alte Sitzung ohne gespeicherten Raum). */
 export const THEMA_GLEICHUNGEN = {
-  themaKey: 'terme_gleichungen',
   themaLabel: 'Terme und Gleichungen',
-  einstieg: ['gleichung_modellieren'],
+  raum: berechneThemenraum('terme_gleichungen', ['gleichung_modellieren'], KANTEN),
 }
 
 const SITZUNG_143215F5: SucheSkill[] = [
@@ -81,16 +82,13 @@ const SITZUNG_143215F5: SucheSkill[] = [
 export const FALL_A: SucheEingabe = {
   skills: SITZUNG_143215F5,
   ...THEMA_GLEICHUNGEN,
-  kanten: KANTEN,
 }
 
 /** b) dieselbe Sitzung als alte Sitzung: thema_key NULL. */
 export const FALL_B: SucheEingabe = {
   skills: SITZUNG_143215F5,
-  themaKey: null,
   themaLabel: null,
-  einstieg: [],
-  kanten: KANTEN,
+  raum: null,
 }
 
 /** c) Thema sofort sicher, danach nur Breite. */
@@ -103,7 +101,6 @@ export const FALL_C: SucheEingabe = {
     s('groessen_laengen', 'Längen umrechnen', 5, 'traegt', 1, true),
   ],
   ...THEMA_GLEICHUNGEN,
-  kanten: KANTEN,
 }
 
 /** d) Thema gewählt, für das noch kein Einstiegsknoten hinterlegt ist. */
@@ -113,8 +110,6 @@ export const FALL_D: SucheEingabe = {
     s('bruch_kuerzen', 'Brüche kürzen', 6, 'traegt'),
     s('dezimal_mult', 'Dezimalzahlen multiplizieren', 6, 'traegt_nicht', 1, true),
   ],
-  themaKey: 'zuordnungen',
   themaLabel: 'Proportionale und antiproportionale Zuordnungen',
-  einstieg: [],
-  kanten: KANTEN,
+  raum: berechneThemenraum('zuordnungen', [], KANTEN),
 }

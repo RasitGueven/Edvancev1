@@ -2,31 +2,46 @@ import { describe, expect, it } from 'vitest'
 
 import deReport from '@/i18n/locales/de/report.json'
 import { INHALTSBEREICHE, inhaltsbereich, stufeAusKlasse } from '@/lib/report/inhaltsbereiche'
-
-/** Alle 54 skill_keys in Prod, Stand 03.10.2026. */
-const BESTAND = [
-  'dezimal_add_sub', 'geo_flaeche_rechteck', 'geo_umfang', 'groessen_laengen', 'groessen_massen',
-  'groessen_zeit', 'runden_ueberschlag', 'bruch_add', 'bruch_dezimal', 'bruch_div',
-  'bruch_kuerzen', 'bruch_mult', 'dezimal_div', 'dezimal_mult', 'geo_flaeche_dreieck',
-  'geo_koordinaten', 'geo_massstab', 'geo_volumen_quader', 'groessen_flaechen',
-  'groessen_gemischt', 'groessen_volumen', 'geo_winkel_summe', 'gleichung_beidseitig',
-  'gleichung_einschrittig', 'gleichung_neg_koeffizient', 'gleichung_zweischrittig', 'potenzen',
-  'proportionalitaet', 'prozent_grundwert', 'prozent_prozentsatz', 'prozent_prozentwert',
-  'prozent_veraenderung', 'prozent_zins_jahreszins', 'prozent_zins_rueckrechnung',
-  'prozent_zins_teilzins', 'prozent_zins_zinseszins', 'term_ausklammern',
-  'term_ausmultiplizieren', 'term_einsetzen', 'term_minusklammer', 'term_zusammenfassen',
-  'vorzeichen_add_sub', 'vorzeichen_mult_div', 'vorzeichen_vorrang', 'fkt_linear_gleichung',
-  'fkt_linear_graph', 'fkt_linear_nullstelle', 'fkt_linear_steigung', 'fkt_linear_yabschnitt',
-  'gleichung_modellieren', 'term_binom_faktorisieren', 'term_binom_gemischt',
-  'term_binom_quadrat', 'term_binom_quadratdifferenz',
-]
+import { SKILL_BESTAND } from '@/lib/report/skillBestand'
 
 describe('inhaltsbereich', () => {
-  it('ordnet jeden Skill im Bestand einem echten Bereich zu', () => {
-    expect(BESTAND).toHaveLength(54)
-    for (const key of BESTAND) {
-      expect(inhaltsbereich(key), key).not.toBe('weitere')
+  it('ordnet jeden Skill aus dem Prod-Abzug einem benannten Bereich zu', () => {
+    expect(SKILL_BESTAND).toHaveLength(130)
+    const weitere = SKILL_BESTAND.filter((key) => inhaltsbereich(key) === 'weitere')
+    expect(weitere).toEqual([])
+  })
+
+  it('ordnet die Familien aus K8–K10 zu', () => {
+    const erwartet: [string, string][] = [
+      ['zahl_wurzel_quadrat', 'wurzeln'],
+      ['zahl_wurzel_irrational', 'wurzeln'],
+      ['zahl_potenz_gesetze', 'potenzen'],
+      ['zahl_potenz_zehner', 'potenzen'],
+      ['fkt_quadr_scheitel', 'funktionen'],
+      ['fkt_exp_halbwert', 'funktionen'],
+      ['fkt_sinus_graph', 'funktionen'],
+      ['geo_pythagoras_kathete', 'geometrie'],
+      ['geo_trigo_kosinussatz', 'geometrie'],
+      ['geo_koerper_kegel', 'geometrie'],
+      ['geo_aehnlich_streckfaktor', 'geometrie'],
+      ['geo_kreis_sektor', 'geometrie'],
+      ['geo_flaeche_trapez', 'geometrie'],
+      ['geo_winkel_thales', 'geometrie'],
+      ['stoch_laplace', 'stochastik'],
+      ['stoch_bedingt_vierfeld', 'stochastik'],
+      ['stoch_pfad_produkt', 'stochastik'],
+      ['gleichung_lgs_addition', 'gleichungen'],
+      ['gleichung_quadr_formel', 'gleichungen'],
+      ['prozent_zins_zinseszins', 'prozent'],
+    ]
+    for (const [key, bereich] of erwartet) {
+      expect(inhaltsbereich(key), key).toBe(bereich)
     }
+  })
+
+  it('nimmt den längsten Präfix: zahl_wurzel vor zahl', () => {
+    expect(inhaltsbereich('zahl_wurzel_neu')).toBe('wurzeln')
+    expect(inhaltsbereich('zahl_neu')).toBe('zahlen')
   })
 
   it('leitet aus der Familie ab', () => {

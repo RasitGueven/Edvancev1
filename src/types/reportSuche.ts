@@ -67,5 +67,28 @@ export type Suchweg = {
   angesehen: SucheStufe[]
   /** Liegt in Block 2 mindestens ein sicherer Skill? */
   grundlageSicher: boolean
+  /**
+   * Der Themenraum wurde nachgetragen (stand = 'nachgetragen', W5-d Teil 5):
+   * Das Thema hat niemand im Gespräch gewählt — die alte LSA begann für alle
+   * bei den Gleichungen. Kein Satz darf dann eine Wahl voraussetzen.
+   */
+  nachgetragen: boolean
   geprueft: number
+}
+
+/**
+ * Der Themenraum einer Sitzung (W5-d): die Einstiegsknoten des Themas und ihr
+ * Voraussetzungsabschluss ohne die Einstiege selbst. Nur `darunter` darf als
+ * Grundlage des Themas erzählt werden.
+ */
+export type Themenraum = {
+  themaKey: string
+  einstieg: string[]
+  darunter: string[]
+  /**
+   *   abschluss    beim Abschluss der Sitzung gespeichert (lsa_finish)
+   *   nachgetragen per Migration aus dem Stand vom Nachtrag gespeichert
+   *   berechnet    nichts gespeichert, aus dem heutigen Stand gerechnet
+   */
+  herkunft: 'abschluss' | 'nachgetragen' | 'berechnet'
 }

@@ -89,6 +89,17 @@
   Beweis: verify-prefill 0 Fehler, Blind-Löser 222/222, Wegwerf-DB idempotent, 182/182 Prüfungen.
   **Offen:** Einspielen (17 Migrationen, `docs/k9-rest/einspielen.md`), Figuren-Upload (7),
   Freigabe durch Lena, Kanten auf K8-Knoten nachtragen.
+- **Report auf den Themenraum, Themenraum beim Abschluss gesichert (W5-d)** (Retro
+  `2026-10-04-report-themenraum.md`, Branch `feat/report-themenraum`, Entscheidungen
+  `docs/report/themenraum-entscheidungen.md`): `lsa_finish` schreibt bei Sitzungen mit Thema
+  `result_summary.themenraum` (Einstiege, darunter, stand); Nachtrag für ältere Sitzungen mit
+  `stand = 'nachgetragen'`. Report (App + Entwurfs-Generator) liest den gespeicherten Raum,
+  rechnet nur ohne ihn. „Grundlagen fehlen" stützt sich nur noch auf `themenraum.darunter`.
+  Inhaltsbereiche decken alle 130 Prod-Skills ab. Für die Rückbezug-Texte gibt es Entwürfe in
+  `report_bausteine.entwurf` (`docs/report/rueckbezug-texte.md`).
+  Teil 5: vier alte Sitzungen mit nachgetragenem Thema; Report sagt dort „Ausgangspunkt" statt „Gewählt".
+  **Offen:** Einspielen `20261004093449`, nach dem Merge `20261004093450`; Abnahme der Entwürfe durch
+  Lena (Rückbezug, Ausgangspunkt, `fazit.keine.a`).
 - **LSA-Auswahl nach Thema (W3-6)** (Retro `2026-10-03-lsa-thema-einstieg.md`, Branch
   `feat/lsa-thema-einstieg`, Bericht `docs/themen/w3-6-lsa-auswahl.md`): `lsa_start` hält
   das aktuell-Thema des Leads in `thema_key` fest. `lsa_select_next_core` prüft zuerst die

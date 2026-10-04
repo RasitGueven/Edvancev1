@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import type { Bausteinsatz } from '@/lib/report/bausteine'
-import type { Fundament } from '@/types'
+import type { Fundament, Themenraum } from '@/types'
 
 /**
  * „Was wir gefunden haben" — die beiden Listen (R6).
@@ -19,11 +19,13 @@ import type { Fundament } from '@/types'
  */
 export function ReportBefund({
   fundament,
+  raum,
   satz,
   sessionId,
   titleClassName,
 }: {
   fundament: Fundament | null
+  raum: Themenraum | null
   satz: Bausteinsatz
   sessionId: string
   titleClassName: string
@@ -36,11 +38,11 @@ export function ReportBefund({
     geprueft: fundament.geprueft,
   })
 
-  // Nur behaupten, wenn es stimmt: Liegt eine Lücke AUF der Einstiegsebene,
-  // ist sie nicht „unter dem aktuellen Thema", sondern Teil davon.
-  const alleDarunter = fundament.luecken.every(
-    (l) => l.fundamentTiefe < fundament.einstiegTiefe,
-  )
+  // Nur behaupten, wenn es stimmt: „unter dem aktuellen Thema" heißt im
+  // Themenraum darunter (W5-d), nicht bloß tiefer im Graphen. Ohne Thema und
+  // bei nachgetragenem Raum (kein gewähltes „aktuelles Thema") entfällt der Satz.
+  const unten = new Set(raum?.herkunft === 'nachgetragen' ? [] : (raum?.darunter ?? []))
+  const alleDarunter = fundament.luecken.every((l) => unten.has(l.skillKey))
 
   return (
     <div className="report-befund">

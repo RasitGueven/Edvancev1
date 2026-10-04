@@ -27,7 +27,8 @@ import { Bausteinsatz } from '@/lib/report/bausteine'
 import type { FamilienBefund } from '@/lib/report/familien'
 import { STUFEN_ABSTEIGEND, stufeAusKlasse } from '@/lib/report/inhaltsbereiche'
 import type { ReportFehlbildFamilie } from '@/lib/reportFehlbilder'
-import type { Fundament, ReportAnsprechpartner, Rueckbezug, Suchweg } from '@/types'
+import { ausgangspunktSatz } from '@/lib/report/suche'
+import type { Fundament, ReportAnsprechpartner, Rueckbezug, Suchweg, Themenraum } from '@/types'
 import { radarNenner, radarSvg } from './radar'
 import { REPORT_CSS } from './reportCss'
 import { sucheAbschnitt } from './sucheHtml'
@@ -42,6 +43,8 @@ export type ReportEingabe = {
   fundament: Fundament
   /** Abschnitt 02 — dieselbe Gliederung wie ReportSuche in der App. */
   suche: Suchweg
+  /** Der Themenraum (W5-d) — trägt den Satz „liegen unter dem aktuellen Thema". */
+  raum: Themenraum | null
   /** skills.klasse_herkunft je skill_key, für die Stufen im Aufklappbereich. */
   klasseVon: Readonly<Record<string, number>>
   familien: ReportFehlbildFamilie[]
@@ -211,7 +214,7 @@ ${e.anlass}
   <section>
     <div class="step"><span class="step-n">02</span><h3>Wie wir gesucht haben</h3></div>
     <div class="descent">
-${sucheAbschnitt(e.suche)}
+${sucheAbschnitt(e.suche, ausgangspunktSatz(e.suche, satz, e.sessionId))}
     </div>
   </section>
 
@@ -254,9 +257,10 @@ ${traegtText ? `        <p class="tiefe">${esc(traegtText)}</p>` : ''}
 ${[...f.luecken].reverse().map((x) => `          <li>${esc(x.label)}</li>`).join('\n')}
         </ul>
 ${
-  // Nur behaupten, wenn es stimmt: Liegt eine Lücke AUF der Einstiegsebene,
-  // ist sie nicht „unter dem aktuellen Thema", sondern Teil davon.
-  f.luecken.every((l) => l.fundamentTiefe < f.einstiegTiefe)
+  // Nur behaupten, wenn es stimmt: im Themenraum darunter (W5-d), nicht bloß
+  // tiefer im Graphen; nie ohne Thema oder bei nachgetragenem Raum — wie ReportBefund.
+  e.raum && e.raum.herkunft !== 'nachgetragen' &&
+  f.luecken.every((l) => e.raum!.darunter.includes(l.skillKey))
     ? `        <p class="tiefe">Diese Bereiche liegen <b>unter</b> dem aktuellen Thema — sie
         werden dort vorausgesetzt.</p>`
     : ''

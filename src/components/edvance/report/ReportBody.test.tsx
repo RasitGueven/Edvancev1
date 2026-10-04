@@ -93,6 +93,7 @@ function baueDaten(fall: SucheEingabe = FALL_A): ReportData {
     erzaehlung: {
       fundament,
       suche: baueSuche(fall),
+      raum: fall.raum,
       profil: familienBefunde(TOLUNAY, BESTAND),
       rueckbezuege: [
         { thema: 'Textverständnis', fall: 'textverstaendnis_entlastend_schmal', richtung: 'entlastend', belege: 1 },
@@ -239,6 +240,7 @@ describe('ReportBody — die sechs Schritte', () => {
       erzaehlung: {
         fundament: null,
         suche: null,
+        raum: null,
         profil: [],
         rueckbezuege: [],
         verteilung: null,
@@ -254,5 +256,57 @@ describe('ReportBody — die sechs Schritte', () => {
     expect(within(container).queryByText('Wie wir gesucht haben')).toBeNull()
     expect(within(container).queryByText('Was wir gefunden haben')).toBeNull()
     expect(within(container).queryByText(/Diese Analyse hat/)).toBeNull()
+  })
+})
+
+describe('ReportBody — nachgetragener Themenraum (W5-d Teil 5)', () => {
+  // Das Thema hat niemand gewählt: Die alte LSA begann für alle bei den
+  // Gleichungen. Kein Satz darf eine Wahl im Gespräch voraussetzen.
+  const nach = (f: SucheEingabe): SucheEingabe => ({
+    ...f,
+    raum: f.raum && { ...f.raum, herkunft: 'nachgetragen' },
+  })
+  const AUSGANGSPUNKT = [
+    ...b('ausgangspunkt', 'ungeprueft', 'Ausgangspunkt der Analyse war das Thema „{thema}“.'),
+    ...b('ausgangspunkt', 'thema', 'Ausgangspunkt der Analyse war das Thema „{thema}“.'),
+  ]
+  const mitBausteinen = (d: ReportData, extra: ReportBaustein[]): ReportData => ({
+    ...d,
+    erzaehlung: { ...d.erzaehlung, bausteine: [...d.erzaehlung.bausteine, ...extra] },
+  })
+
+  it('zeigt nie „Gewählt war das Thema" — ohne abgenommenen Baustein entfällt der Satz', () => {
+    const { container } = render(<ReportBody data={baueDaten(nach(FALL_D))} />)
+    expect(container.textContent).not.toMatch(/Gewählt|gewählt/)
+    expect(container.textContent).not.toMatch(/Ausgangspunkt der Analyse war/)
+    expect(container.textContent).toMatch(/Angesehen haben wir 3 Bereiche/)
+  })
+
+  it('nimmt den abgenommenen Ausgangspunkt-Baustein', () => {
+    const d = mitBausteinen(baueDaten(nach(FALL_D)), AUSGANGSPUNKT)
+    const { container } = render(<ReportBody data={d} />)
+    expect(container.textContent).toMatch(
+      /Ausgangspunkt der Analyse war das Thema „Proportionale und antiproportionale Zuordnungen“/,
+    )
+    expect(container.textContent).not.toMatch(/Gewählt/)
+  })
+
+  it('sagt beim Anlass nicht „genau dort haben wir angesetzt"', () => {
+    const { container } = render(<ReportBody data={baueDaten(nach(FALL_A))} />)
+    expect(container.textContent).toMatch(/Als nächstes Thema steht Lineare Gleichungen an\./)
+    expect(container.textContent).not.toMatch(/angesetzt/)
+  })
+
+  it('heißt Block 1 „Ausgangspunkt der Analyse", nicht „Aktuelles Thema"', () => {
+    render(<ReportBody data={baueDaten(nach(FALL_A))} />)
+    const aktuell = screen.getByTestId('suche-aktuell')
+    expect(within(aktuell).getByText('Ausgangspunkt der Analyse')).toBeInTheDocument()
+    expect(within(aktuell).queryByText('Aktuelles Thema')).toBeNull()
+  })
+
+  it('bleibt bei gespeichertem Raum wie bisher', () => {
+    const { container } = render(<ReportBody data={baueDaten(FALL_D)} />)
+    expect(container.textContent).toMatch(/Gewählt war das Thema/)
+    expect(container.textContent).toMatch(/genau dort haben wir angesetzt/)
   })
 })

@@ -259,4 +259,5 @@ export type {
   SucheStufe,
   SucheZeile,
   Suchweg,
+  Themenraum,
 } from './reportSuche'

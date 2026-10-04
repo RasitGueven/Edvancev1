@@ -15,47 +15,29 @@
 // Jetzt behauptet nur noch Block 2 einen Zusammenhang, und Block 2 enthält
 // ausschließlich Skills im Voraussetzungsabschluss der Einstiegsknoten.
 
+import type { Bausteinsatz } from '@/lib/report/bausteine'
 import { INHALTSBEREICHE, STUFEN_ABSTEIGEND, inhaltsbereich, stufeAusKlasse } from '@/lib/report/inhaltsbereiche'
-import type { SucheEintrag, SucheSkill, SucheStufe, SucheZeile, Suchweg } from '@/types'
+import type {
+  SucheEintrag,
+  SucheSkill,
+  SucheStufe,
+  SucheZeile,
+  Suchweg,
+  Themenraum,
+} from '@/types'
 
 /** Nur dieser Zustand ist „sicher". Alles andere ist „noch nicht sicher". */
 const SICHER = 'traegt'
 
-/** Eine Kante aus skill_kante: `skillKey` setzt `voraussetzt` voraus. */
-export type SucheKante = { skillKey: string; voraussetzt: string }
-
 export type SucheEingabe = {
   /** NUR direkt geprüfte Skills (belegt_direkt), wie bei baueFundament. */
   skills: readonly SucheSkill[]
-  /** lsa_sessions.thema_key; null bei alten Sitzungen. */
-  themaKey: string | null
   themaLabel: string | null
-  /** thema_einstieg.skill_key des Themas. */
-  einstieg: readonly string[]
-  kanten: readonly SucheKante[]
-}
-
-/**
- * Alle Skills, die `start` transitiv voraussetzt — dieselbe Rekursion wie
- * public.lsa_abschluss. Nachgerechnet statt per RPC, weil lsa_abschluss nur
- * für service_role ausführbar ist.
- */
-export function abschluss(start: readonly string[], kanten: readonly SucheKante[]): Set<string> {
-  const nach = new Map<string, string[]>()
-  for (const k of kanten) {
-    const liste = nach.get(k.skillKey)
-    if (liste) liste.push(k.voraussetzt)
-    else nach.set(k.skillKey, [k.voraussetzt])
-  }
-  const gesehen = new Set<string>()
-  const offen = start.flatMap((s) => nach.get(s) ?? [])
-  while (offen.length > 0) {
-    const sk = offen.pop()!
-    if (gesehen.has(sk)) continue
-    gesehen.add(sk)
-    offen.push(...(nach.get(sk) ?? []))
-  }
-  return gesehen
+  /**
+   * Der Themenraum der Sitzung (src/lib/report/themenraum.ts) — gespeichert
+   * oder, bei alten Sitzungen, berechnet. null bei Sitzungen ohne Thema.
+   */
+  raum: Themenraum | null
 }
 
 /**
@@ -107,25 +89,28 @@ function nachStufe(skills: readonly SucheSkill[]): SucheStufe[] {
 export function baueSuche(e: SucheEingabe): Suchweg | null {
   if (e.skills.length === 0) return null
 
-  const themaLabel = e.themaKey ? e.themaLabel?.trim() || null : null
-  const einstieg = new Set(e.einstieg)
-  const aktuell = e.themaKey ? e.skills.filter((s) => einstieg.has(s.skillKey)) : []
+  const themaLabel = e.raum ? e.themaLabel?.trim() || null : null
+  const einstieg = new Set(e.raum?.einstieg ?? [])
+  const aktuell = e.skills.filter((s) => einstieg.has(s.skillKey))
 
   // Ohne geprüften Einstieg gibt es keinen Abstiegsweg, auf dem etwas
   // „darunter" liegen könnte: alles steht unter „Angesehen".
-  if (aktuell.length === 0) {
+  if (!e.raum || aktuell.length === 0) {
     return {
-      fall: e.themaKey ? 'thema_ungeprueft' : 'ohne_thema',
+      fall: e.raum ? 'thema_ungeprueft' : 'ohne_thema',
       themaLabel,
       aktuell: null,
       grundlagen: [],
       angesehen: nachStufe(e.skills),
       grundlageSicher: false,
       geprueft: e.skills.length,
+      nachgetragen: e.raum?.herkunft === 'nachgetragen',
     }
   }
 
-  const unten = abschluss([...einstieg], e.kanten)
+  // Block 2 nur aus dem Themenraum — gespeichert, nicht aus den heutigen
+  // Kanten, damit ein alter Report sich nicht verschiebt (W5-d).
+  const unten = new Set(e.raum.darunter)
   const grundlagen = e.skills.filter((s) => !einstieg.has(s.skillKey) && unten.has(s.skillKey))
   const rest = e.skills.filter((s) => !einstieg.has(s.skillKey) && !unten.has(s.skillKey))
 
@@ -137,6 +122,7 @@ export function baueSuche(e: SucheEingabe): Suchweg | null {
     angesehen: nachStufe(rest),
     grundlageSicher: grundlagen.some((s) => s.zustand === SICHER),
     geprueft: e.skills.length,
+    nachgetragen: e.raum.herkunft === 'nachgetragen',
   }
 }
 
@@ -163,22 +149,52 @@ const alle = (stufen: readonly SucheStufe[]) =>
   stufen.flatMap((s) => s.zeilen.flatMap((z) => z.eintraege))
 
 /**
+ * Der Satz „Ausgangspunkt der Analyse war …" für nachgetragene Themenräume.
+ *
+ * Er steht in report_bausteine (Slot 'ausgangspunkt') und braucht Lenas
+ * Abnahme. Ohne abgenommenen Baustein: null — dann entfällt der Satz. Nie fällt
+ * er auf „Gewählt war das Thema" zurück.
+ */
+export function ausgangspunktSatz(
+  s: Suchweg,
+  satz: Bausteinsatz,
+  streuung: string,
+): string | null {
+  if (!s.nachgetragen || s.fall === 'ohne_thema') return null
+  const fall = s.fall === 'thema' ? 'thema' : 'ungeprueft'
+  return satz.waehle('ausgangspunkt', fall, streuung, { thema: s.themaLabel ?? '' })
+}
+
+/** Kopf über Block 1: „Aktuelles Thema" nur, wenn das Thema gewählt wurde. */
+export const aktuellKopf = (s: Suchweg) =>
+  s.nachgetragen ? 'suche.block.ausgangspunkt' : 'suche.block.aktuell'
+
+/**
  * Die Sätze über den Zeilen, gebaut aus Block 1 und 2.
  *
  * Block 3 kommt im Text nicht vor: er ist kein Teil der Suche nach dem Thema.
  * „Sicherer Boden" nur, wenn das Thema offen war UND unter ihm, auf dem
  * Abstiegsweg, wirklich ein sicherer Skill liegt.
  */
-export function sucheSaetze(s: Suchweg, t: Uebersetzer, sprache: string): string[] {
+export function sucheSaetze(
+  s: Suchweg,
+  t: Uebersetzer,
+  sprache: string,
+  ausgangspunkt: string | null = null,
+): string[] {
   const thema = s.themaLabel ?? t('suche.themaOhneName')
   if (s.fall === 'ohne_thema') {
     return [t('suche.satz.ohneThema'), t('suche.satz.uebersicht', { count: s.geprueft })]
   }
+  // Nachgetragen: nie „Gewählt war das Thema" — der Ausgangspunkt-Baustein
+  // oder gar nichts.
+  const kopfsatz = s.nachgetragen ? ausgangspunkt : null
   if (s.fall === 'thema_ungeprueft' || !s.aktuell) {
-    return [t('suche.satz.themaUngeprueft', { thema }), t('suche.satz.uebersicht', { count: s.geprueft })]
+    const erster = s.nachgetragen ? kopfsatz : t('suche.satz.themaUngeprueft', { thema })
+    return [...(erster ? [erster] : []), t('suche.satz.uebersicht', { count: s.geprueft })]
   }
 
-  const saetze: string[] = []
+  const saetze: string[] = kopfsatz ? [kopfsatz] : []
   const a = s.aktuell.eintraege
   const aSicher = a.filter((x) => x.sicher).map((x) => x.label)
   const aOffen = a.filter((x) => !x.sicher).map((x) => x.label)

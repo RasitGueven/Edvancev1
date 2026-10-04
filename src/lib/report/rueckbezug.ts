@@ -39,12 +39,7 @@
 // ausdrücklich vorgesehen — der Report zeigt weakTopics seit R1 an. Hier wird
 // nichts gestellt, nur gelesen, und zwar erst nach Abschluss der Sitzung.
 
-import type {
-  AnlassZuordnung,
-  Fundament,
-  FundamentSkill,
-  Rueckbezug,
-} from '@/types'
+import type { AnlassZuordnung, FundamentSkill, Rueckbezug, Themenraum } from '@/types'
 import type { ReportFehlbildFamilie } from '@/lib/reportFehlbilder'
 
 const TRAEGT = 'traegt'
@@ -85,8 +80,11 @@ export type RueckbezugInput = {
   skills: readonly FundamentSkill[]
   /** Die bereits gebündelten Fehlbild-Familien über der Schwelle. */
   familien: readonly ReportFehlbildFamilie[]
-  /** Die Schichtung — trägt den strukturellen Beleg für „Grundlagen fehlen". */
-  fundament: Fundament
+  /**
+   * Der Themenraum der Sitzung (src/lib/report/themenraum.ts) — trägt den
+   * strukturellen Beleg für „Grundlagen fehlen". null ohne Thema.
+   */
+  raum: Themenraum | null
 }
 
 /**
@@ -132,7 +130,7 @@ export function baueRueckbezuege(input: RueckbezugInput): Rueckbezug[] {
     }
 
     const rb = zuordnung.strukturell
-      ? strukturell(stamm, input.fundament)
+      ? strukturell(stamm, input.skills, input.raum)
       : ueberBelege(stamm, zuordnung, input.skills, familienKeys)
 
     // Messbar, aber diese Sitzung gibt nichts her — in KEINE Richtung. Auch das
@@ -150,21 +148,34 @@ export function baueRueckbezuege(input: RueckbezugInput): Rueckbezug[] {
 type Teil = Omit<Rueckbezug, 'thema'>
 
 /**
- * „Grundlagen fehlen" — belegt an der Form des Fundaments, nicht an Skills.
+ * „Grundlagen fehlen" — belegt an den Grundlagen DES THEMAS, nicht an Skills.
+ *
+ * Bis W5-d zählte hier alles mit kleinerer fundament_tiefe als der Einstieg als
+ * „darunter geprüft". Damit stand z. B. eine Flächen-Aufgabe als Grundlage der
+ * Wurzeln da, obwohl das Thema nicht auf ihr aufbaut — und der Satz behauptete
+ * eine Ursache. Jetzt zählt nur, was im Themenraum unter den Einstiegsknoten
+ * liegt (`raum.darunter`). Alles andere ist „außerdem angesehen" (Abschnitt 02)
+ * und kommt in diesem Satz nicht vor. Ohne Thema gibt es keinen Raum: dann ist
+ * über die Grundlagen nichts gesagt, in keine Richtung.
  *
  * Drei Fälle, und der mittlere ist der interessante: Die Lücken liegen typisch
- * NICHT ganz unten. Bei beiden Sitzungen vom 16.08. trägt die unterste geprüfte
- * Ebene vollständig, der Einbruch sitzt in der Mitte. „Es fehlen Grundlagen"
- * stimmt dann — aber nicht so, wie Eltern es meinen, und der Report sagt das.
+ * NICHT ganz unten. Trägt die tiefste geprüfte Lage im Raum, sitzt der Einbruch
+ * dazwischen. „Es fehlen Grundlagen" stimmt dann — aber nicht so, wie Eltern es
+ * meinen, und der Report sagt das.
  */
-function strukturell(stamm: string, f: Fundament): Teil | null {
-  // Nichts unterhalb des Einstiegs geprüft: über die Grundlagen ist nichts
-  // bekannt, in keine Richtung.
-  if (!f.fundamentGeprueft) return null
+function strukturell(
+  stamm: string,
+  skills: readonly FundamentSkill[],
+  raum: Themenraum | null,
+): Teil | null {
+  const unten = new Set(raum?.darunter ?? [])
+  const darunter = skills.filter((s) => unten.has(s.skillKey))
+  // Nichts im Raum unterhalb des Einstiegs geprüft: über die Grundlagen ist
+  // nichts bekannt, in keine Richtung.
+  if (darunter.length === 0) return null
 
-  const darunter = f.ebenen.slice(1)
-  const luecken = darunter.reduce((n, e) => n + (e.geprueft - e.traegt), 0)
-  const geprueft = darunter.reduce((n, e) => n + e.geprueft, 0)
+  const geprueft = darunter.length
+  const luecken = darunter.filter((s) => s.zustand !== TRAEGT).length
 
   if (luecken === 0) {
     // Wie bei den Skills: Entlastung auf einem einzigen geprüften Bereich ist
@@ -178,8 +189,13 @@ function strukturell(stamm: string, f: Fundament): Teil | null {
       belege: geprueft,
     }
   }
+
+  const sohle = Math.min(...darunter.map((s) => s.fundamentTiefe))
+  const sohleTraegt = darunter
+    .filter((s) => s.fundamentTiefe === sohle)
+    .every((s) => s.zustand === TRAEGT)
   return {
-    fall: f.bodenTraegt
+    fall: sohleTraegt
       ? `${stamm}_bestaetigend_mitte`
       : `${stamm}_bestaetigend_durchgehend`,
     richtung: 'bestaetigend',
