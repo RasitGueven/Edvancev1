@@ -159,4 +159,46 @@ Er zieht stattdessen den Slot `ausgangspunkt`. Solange der nicht abgenommen ist,
   - „Diese Bereiche liegen unter dem aktuellen Thema" entfällt.
 - `empfehlung.mehrere.a` („unter dem aktuellen Stoff") meint den Schulstoff und setzt keine Wahl voraus.
 - Ohne Wahl-Bezug, aber noch mit „tragen": `befund_traegt.standard.a/b`, `empfehlung.keine.b`,
-  `fazit.mehrere.b`, `fazit.zwei.b`. Offener Punkt, kein Entwurf in diesem PR.
+  `fazit.mehrere.b`, `fazit.zwei.b`. Siehe den nächsten Abschnitt.
+
+## Weitere Bausteine mit „tragen" (Migration `20261004095314_bausteine_tragen_entwuerfe`)
+
+Es sind die letzten fünf gerenderten Bausteine, die noch „tragen" sagen. Der Inhalt bleibt gleich, nur
+das Wort wechselt zu „sicher". Die Platzhalter (`{traegt}`, `{geprueft}`) bleiben; sie sind interne
+Namen und erscheinen nicht im Text. Abnahme je Fall mit derselben Anweisung wie oben
+(`slot = 'befund_traegt' and fall = 'standard'`, `slot = 'fazit' and fall = 'zwei'` usw.).
+
+Damit spricht kein Baustein mehr von „tragen". Die i18n-Texte tun es noch, und zwar ausgerechnet
+neben `befund_traegt`: die Überschriften „Das trägt" und „Das trägt noch nicht", die Lesehilfe und
+Legende des Profils sowie `befund.description`. Das sind Code-Texte, keine Bausteine; sie bekommen
+einen eigenen Schritt.
+
+### `befund_traegt.standard.a`
+
+- **Wo:** Fuß unter der Liste „Das trägt“ (Abschnitt 03)
+- **Heute (abgenommen):** {traegt} von {geprueft} geprüften Bereichen tragen sicher.
+- **Entwurf:** {traegt} von {geprueft} geprüften Bereichen sind sicher.
+
+### `befund_traegt.standard.b`
+
+- **Wo:** Fuß unter der Liste „Das trägt“ (Abschnitt 03)
+- **Heute (abgenommen):** Von {geprueft} geprüften Bereichen tragen {traegt}.
+- **Entwurf:** Von {geprueft} geprüften Bereichen sind {traegt} sicher.
+
+### `empfehlung.keine.b`
+
+- **Wo:** Empfehlung im Schluss
+- **Heute (abgenommen):** Der Lernstand trägt. Dieser Rhythmus genügt, um ihn zu halten.
+- **Entwurf:** Was wir geprüft haben, ist sicher. Dieser Rhythmus genügt, um diesen Stand zu halten.
+
+### `fazit.mehrere.b`
+
+- **Wo:** Fazit im Schluss
+- **Heute (abgenommen):** Was noch nicht trägt, liegt in mehreren Themen verteilt. Deshalb gehen wir der Reihe nach vor und fangen bei den Grundlagen an, auf denen das Übrige aufbaut.
+- **Entwurf:** Was noch nicht sicher ist, liegt in mehreren Themen verteilt. Deshalb gehen wir der Reihe nach vor und fangen bei den Grundlagen an, auf denen das Übrige aufbaut.
+
+### `fazit.zwei.b`
+
+- **Wo:** Fazit im Schluss
+- **Heute (abgenommen):** Was noch nicht trägt, liegt in zwei Themen. Wir beginnen mit dem, was weiter unten liegt, und gehen von dort nach oben.
+- **Entwurf:** Was noch nicht sicher ist, liegt in zwei Themen. Wir beginnen mit dem, was weiter unten liegt, und gehen von dort nach oben.
