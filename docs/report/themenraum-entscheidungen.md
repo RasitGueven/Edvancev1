@@ -92,10 +92,13 @@ LSA-Reports ist der Druck von `ReportBody` (App-Pfad) bzw. der HTML-Entwurf aus
   lokal gegengeprüft: rot bei fehlendem Raum, grün nach Nachtrag.
 - Screenshots: `docs/report/w5-d/themenraum-fall-a.png`, `themenraum-fall-d.png`.
 
-## Offen
+## Nachträge im selben PR
 
-- Die abgenommenen Rückbezug-Bausteine (`grundlagen_*`) sprechen noch von „tragen" und „Ebenen".
-  Inhaltlich passen sie (sie beziehen sich auf „unterhalb des aktuellen Themas"), sprachlich nicht
-  zur Regel „sicher / noch nicht sicher" — Neufassung über die Baustein-Abnahme.
-- `inhaltsbereiche.ts` kennt `zahl_wurzel_*` nicht; die Quadratwurzel steht unter „Weitere Bereiche"
-  (siehe Screenshot d).
+- **Inhaltsbereiche:** `inhaltsbereiche.ts` ordnet jetzt über den längsten Präfix zu und kennt alle
+  Familien aus Prod (130 Skills, Abzug 04.10. in `src/lib/report/skillBestand.ts`). Neu sind die
+  Bereiche „Wurzeln und reelle Zahlen" (`zahl_wurzel_*`) und „Daten und Zufall" (`stoch_*`);
+  `zahl_potenz_*` gehört zu Potenzen. Der Test verlangt, dass kein Skill unter „Weitere Bereiche"
+  landet.
+- **Rückbezug-Texte:** Elf abgenommene Sätze sprechen von „tragen"/„Ebenen". Es gibt jetzt Entwürfe
+  in einer neuen Spalte `report_bausteine.entwurf`; die Abnahme macht Lena. Erklärung und
+  Abnahmeliste: `docs/report/rueckbezug-texte.md`.

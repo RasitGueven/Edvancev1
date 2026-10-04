@@ -20,7 +20,7 @@
 
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { dirname, join, resolve } from 'node:path'
+import { basename, dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { Bausteinsatz } from '@/lib/report/bausteine'
@@ -47,10 +47,10 @@ const REPO = resolve(HIER, '../..')
  *
  * Der Generator stellt sie in einer Transaktion nach und rollt zurück, damit
  * die Entwürfe aus GENAU den Sätzen der Migration entstehen, auch wenn sie noch
- * nicht eingespielt ist. Eine bereits eingespielte Migration erneut
- * nachzustellen ist unschädlich: Alle Anweisungen sind idempotent
- * (`create table if not exists`, `add column if not exists`,
- * `drop policy if exists`, Upserts).
+ * nicht eingespielt ist. Seit W5-d nur noch die, die in der Ziel-DB FEHLEN:
+ * Die Upserts setzen `text = excluded.text` und würden einen inzwischen
+ * abgenommenen Entwurf (report_bausteine.entwurf) im Lauf auf den alten Satz
+ * zurückdrehen.
  */
 const NACHSTELL_MIGRATIONEN = [
   'supabase/migrations/20260818120000_r4_report_bausteine.sql',
@@ -234,8 +234,16 @@ function main(): void {
     process.exit(1)
   }
 
+  const eingespielt = new Set(
+    frage(
+      "select coalesce(jsonb_agg(version), '[]') from supabase_migrations.schema_migrations",
+    ) as string[],
+  )
+  const fehlend = NACHSTELL_MIGRATIONEN.filter(
+    (f) => !eingespielt.has(basename(f).split('_')[0]),
+  )
   const migration = nachstellen
-    ? NACHSTELL_MIGRATIONEN.map((f) =>
+    ? fehlend.map((f) =>
         readFileSync(f, 'utf8').replace(/^\s*(begin|commit);\s*$/gm, ''),
       ).join('\n')
     : ''

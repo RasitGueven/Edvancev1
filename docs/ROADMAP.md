@@ -88,8 +88,10 @@
   `result_summary.themenraum` (Einstiege, darunter, stand); Nachtrag für ältere Sitzungen mit
   `stand = 'nachgetragen'`. Report (App + Entwurfs-Generator) liest den gespeicherten Raum,
   rechnet nur ohne ihn. „Grundlagen fehlen" stützt sich nur noch auf `themenraum.darunter`.
-  **Offen:** Einspielen (`20261004001437`, `20261004001517`), Baustein-Texte des Rückbezugs
-  sprechen noch von „tragen"/„Ebenen", Inhaltsbereich für `zahl_wurzel_*`.
+  Inhaltsbereiche decken alle 130 Prod-Skills ab. Für die Rückbezug-Texte gibt es Entwürfe in
+  `report_bausteine.entwurf` (`docs/report/rueckbezug-texte.md`).
+  **Offen:** Einspielen der Nachträge (`20261004003309`, `20261004003310`), Abnahme der elf
+  Entwürfe durch Lena.
 - **LSA-Auswahl nach Thema (W3-6)** (Retro `2026-10-03-lsa-thema-einstieg.md`, Branch
   `feat/lsa-thema-einstieg`, Bericht `docs/themen/w3-6-lsa-auswahl.md`): `lsa_start` hält
   das aktuell-Thema des Leads in `thema_key` fest. `lsa_select_next_core` prüft zuerst die

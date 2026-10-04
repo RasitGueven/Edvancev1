@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict pFXYefFCFiVfPD23STeeOcxbBbk5ynfO3oZ8QxwofO4FWE4u3liZFgnpfkVg1CJ
+\restrict yCDfnK3gKWHxxQ0R3aedk4MFf1pNTnAESvIH6hfVBGlwYJII4bG5CxS5iog1yNP
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -6915,6 +6915,8 @@ CREATE TABLE public.report_bausteine (
     text text NOT NULL,
     freigegeben_am timestamp with time zone,
     freigegeben_von uuid,
+    entwurf text,
+    CONSTRAINT report_bausteine_entwurf_check CHECK (((entwurf IS NULL) OR ((btrim(entwurf) <> ''::text) AND (entwurf <> text)))),
     CONSTRAINT report_bausteine_variante_check CHECK ((variante = ANY (ARRAY['a'::text, 'b'::text])))
 );
 
@@ -12269,5 +12271,5 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
-\unrestrict pFXYefFCFiVfPD23STeeOcxbBbk5ynfO3oZ8QxwofO4FWE4u3liZFgnpfkVg1CJ
+\unrestrict yCDfnK3gKWHxxQ0R3aedk4MFf1pNTnAESvIH6hfVBGlwYJII4bG5CxS5iog1yNP
 

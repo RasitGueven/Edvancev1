@@ -21,7 +21,16 @@ Siehe `docs/report/themenraum-entscheidungen.md`. Kern: Feld statt Spalte; eine 
 - `schema-erwartet.sql` vor dem Einspielen aus der Wegwerf-DB abziehen (gleiche pg_dump-Optionen),
   sonst wird der CI-Vergleich rot; der Abgleich gegen den alten Stand zeigt nur die eigenen Funktionen.
 
+## Nachtrag (nach dem Einspielen von Teil 1)
+- `inhaltsbereiche.ts`: alle 130 Prod-Skills sind einem benannten Bereich zugeordnet (längster Präfix),
+  neu „Wurzeln und reelle Zahlen" und „Daten und Zufall".
+- Rückbezug: die neue Spalte `report_bausteine.entwurf` (`20261004003309`) und elf Entwürfe
+  (`20261004003310`). Die alten Sätze bleiben live, bis Lena abnimmt. INV-4.6 prüft die Entwürfe.
+- Zweitprüfung (Schema-Änderung, §8): Der Entwurfs-Generator stellte R4/R5 per Upsert nach und hätte
+  abgenommene Entwürfe im Lauf auf den alten Text zurückgedreht. Er stellt jetzt nur Migrationen nach,
+  die in der Ziel-DB fehlen. Die Spalten-Migration ist wiederholbar, und die Abnahme läuft je Fall.
+
 ## Offen
-- Einspielen (Rasit), danach `dbread`-Prüfung.
-- Rückbezug-Bausteine `grundlagen_*` sprachlich auf „sicher / noch nicht sicher".
-- Inhaltsbereich für `zahl_wurzel_*`.
+- Nachtrag-Migrationen einspielen (Rasit), danach `dbread`-Prüfung.
+- Abnahme der elf Entwürfe (Lena), siehe `docs/report/rueckbezug-texte.md`.
+- `skillBestand.ts` bei neuen Knoten neu ziehen.
