@@ -11,7 +11,7 @@
 
 export const SITZUNG_SQL = `
 with sess as (
-  select s.id, s.student_id, s.subject, s.grade, s.started_at, s.thema_key,
+  select s.id, s.student_id, s.subject, s.grade, s.started_at, s.thema_key, s.result_summary,
          st.lead_id, l.first_name, l.next_exam_topic
     from lsa_sessions s
     join students st on st.id = s.student_id
@@ -56,6 +56,9 @@ select coalesce(jsonb_agg(x order by x->>'session_id'), '[]'::jsonb) from (
                           from thema_einstieg e where e.thema_key = se.thema_key), '[]'::jsonb),
     'kanten',          coalesce((select jsonb_agg(jsonb_build_array(k.skill_key, k.voraussetzt_skill_key))
                           from skill_kante k), '[]'::jsonb),
+    -- W5-d: der beim Abschluss gespeicherte Themenraum. Ist er da, gelten
+    -- einstieg/kanten oben nicht — sie sind nur der Rückfall für alte Sitzungen.
+    'themenraum',      se.result_summary -> 'themenraum',
 
     'weak_topics',     (select la.weak_topics from lead_assessments la
                          where la.lead_id = se.lead_id and la.source = 'parent'),

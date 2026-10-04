@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { baueFundament } from '@/lib/report/fundament'
 import { baueRueckbezuege } from '@/lib/report/rueckbezug'
 import type { ReportFehlbildFamilie } from '@/lib/reportFehlbilder'
-import type { AnlassZuordnung, FundamentSkill } from '@/types'
+import type { AnlassZuordnung, FundamentSkill, Themenraum } from '@/types'
 
 const s = (
   skillKey: string,
@@ -64,17 +63,34 @@ const ECHTE_SKILLS: FundamentSkill[] = [
   s('bruch_div', 3, 'traegt'),
 ]
 
+/**
+ * Ein Raum, in dem alles Geprüfte zum Thema gehört: die oberste Lage ist der
+ * Einstieg, alles darunter liegt im Abschluss. So prüfen die Fälle unten die
+ * Form der Grundlagen, nicht die Abgrenzung des Raums (die steht in
+ * themenraum.test.ts).
+ */
+function raumUeberAllem(skills: readonly FundamentSkill[]): Themenraum {
+  const oben = Math.max(...skills.map((x) => x.fundamentTiefe))
+  return {
+    themaKey: 'test',
+    einstieg: skills.filter((x) => x.fundamentTiefe === oben).map((x) => x.skillKey),
+    darunter: skills.filter((x) => x.fundamentTiefe < oben).map((x) => x.skillKey),
+    herkunft: 'abschluss',
+  }
+}
+
 function lauf(
   weakTopics: string[],
   skills = ECHTE_SKILLS,
   familien: ReportFehlbildFamilie[] = [],
+  raum: Themenraum | null = raumUeberAllem(skills),
 ) {
   return baueRueckbezuege({
     weakTopics,
     zuordnungen: ZUORDNUNGEN,
     skills,
     familien,
-    fundament: baueFundament(skills)!,
+    raum,
   })
 }
 
@@ -160,7 +176,7 @@ describe('Entlastung braucht positive Evidenz', () => {
   })
 })
 
-describe('"Grundlagen fehlen" — belegt an der Form des Fundaments', () => {
+describe('"Grundlagen fehlen" — belegt an den Grundlagen des Themas', () => {
   it('bestätigt, benennt aber die tragende Sohle', () => {
     const r = lauf(['Grundlagen fehlen'])
     expect(r[0].richtung).toBe('bestaetigend')
@@ -199,6 +215,21 @@ describe('"Grundlagen fehlen" — belegt an der Form des Fundaments', () => {
   it('meldet den Bereich als offen, wenn gar kein Abstieg stattgefunden hat', () => {
     const nurEinstieg = [s('a', 8, 'traegt'), s('b', 8, 'traegt')]
     const r = lauf(['Grundlagen fehlen'], nurEinstieg)
+    expect(r[0].richtung).toBe('offen')
+    expect(r[0].fall).toBe('grundlagen_offen')
+  })
+
+  it('zählt nur Skills in raum.darunter, nicht alles mit kleinerer Tiefe', () => {
+    // Die Lücke b liegt tiefer als der Einstieg, aber außerhalb des Raums.
+    const skills = [s('a', 8, 'traegt'), s('b', 6, 'traegt_nicht', 2), s('c', 3, 'traegt')]
+    const raum: Themenraum = { themaKey: 't', einstieg: ['a'], darunter: ['c'], herkunft: 'abschluss' }
+    const r = lauf(['Grundlagen fehlen'], skills, [], raum)
+    expect(r[0].fall).toBe('grundlagen_entlastend_schmal')
+    expect(r[0].belege).toBe(1)
+  })
+
+  it('ohne Thema (kein Raum) sagt der Satz nichts über die Grundlagen', () => {
+    const r = lauf(['Grundlagen fehlen'], ECHTE_SKILLS, [], null)
     expect(r[0].richtung).toBe('offen')
     expect(r[0].fall).toBe('grundlagen_offen')
   })

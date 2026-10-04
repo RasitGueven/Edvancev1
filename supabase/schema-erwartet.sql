@@ -1,11 +1,8 @@
--- schema-erwartet.sql
--- Erzeugt von tools/schema-snapshot.sh (read-only Abzug der Ziel-DB, Schema public).
--- Nicht von Hand bearbeiten — nach dem Einspielen einer Schemaaenderung neu erzeugen.
-
 --
 -- PostgreSQL database dump
 --
 
+\restrict pFXYefFCFiVfPD23STeeOcxbBbk5ynfO3oZ8QxwofO4FWE4u3liZFgnpfkVg1CJ
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -1939,6 +1936,18 @@ begin
          )
     into v_summary;
 
+  -- W5-d: den Themenraum der Sitzung festhalten, wie er JETZT gilt. Der
+  -- Report liest ihn spaeter von hier statt aus den heutigen Kanten — die
+  -- aendern sich mit jedem Inhalts-Lauf, ein alter Report saehe sonst anders
+  -- aus als am Tag des Gespraechs. Ohne thema_key kein Feld. Nur ergaenzt:
+  -- alle bisherigen Felder entstehen oben unveraendert.
+  if v_session.thema_key is not null then
+    v_summary := v_summary || jsonb_build_object(
+      'themenraum',
+      public.lsa_themenraum(v_session.thema_key)
+        || jsonb_build_object('stand', to_jsonb(now())));
+  end if;
+
   update lsa_sessions
      set status         = 'completed',
          completed_at   = now(),
@@ -3498,6 +3507,29 @@ begin
   end if;
   return new;
 end;
+$$;
+
+
+--
+-- Name: lsa_themenraum(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_themenraum(p_thema_key text) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public'
+    AS $$
+  with e as (
+    select te.skill_key from thema_einstieg te where te.thema_key = p_thema_key
+  ),
+  d as (
+    select distinct a.skill_key
+      from e cross join lateral public.lsa_abschluss(e.skill_key) a
+     where a.skill_key not in (select skill_key from e)
+  )
+  select jsonb_build_object(
+           'thema_key', p_thema_key,
+           'einstieg',  coalesce((select jsonb_agg(skill_key order by skill_key) from e), '[]'::jsonb),
+           'darunter',  coalesce((select jsonb_agg(skill_key order by skill_key) from d), '[]'::jsonb))
 $$;
 
 
@@ -12237,4 +12269,5 @@ CREATE POLICY xp_rules_staff_read ON public.xp_rules FOR SELECT USING ((public.g
 -- PostgreSQL database dump complete
 --
 
+\unrestrict pFXYefFCFiVfPD23STeeOcxbBbk5ynfO3oZ8QxwofO4FWE4u3liZFgnpfkVg1CJ
 

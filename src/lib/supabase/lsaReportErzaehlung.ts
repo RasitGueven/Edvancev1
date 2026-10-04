@@ -21,7 +21,8 @@ import {
 } from '@/lib/report/familien'
 import { baueFundament } from '@/lib/report/fundament'
 import { baueRueckbezuege } from '@/lib/report/rueckbezug'
-import { baueSuche, type SucheKante } from '@/lib/report/suche'
+import { baueSuche } from '@/lib/report/suche'
+import { themenraumFuer, type SucheKante } from '@/lib/report/themenraum'
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 import {
   loadAnlassZuordnungen,
@@ -33,6 +34,7 @@ import type {
   ReportFehlbild,
   ReportBaustein,
   SucheSkill,
+  Themenraum,
 } from '@/types'
 
 /**
@@ -110,40 +112,52 @@ async function loadUrteile(sessionId: string): Promise<SucheSkill[]> {
 }
 
 type ThemaDaten = {
-  key: string | null
   label: string | null
-  einstieg: string[]
+  raum: Themenraum | null
 }
 
 /**
- * Das gewählte Thema der Sitzung mit seinen Einstiegsknoten.
+ * Das gewählte Thema der Sitzung und sein Themenraum.
  *
- * Alte Sitzungen tragen thema_key NULL — dann bleibt alles leer, und der
- * Abschnitt gliedert ohne Thema. thema_einstieg ist nur für admin/coach lesbar;
- * der Report läuft im Admin-Bereich.
+ * Der Raum kommt bevorzugt aus result_summary.themenraum (beim Abschluss
+ * gespeichert, W5-d). Nur wenn er fehlt, wird er wie in #189 aus den heutigen
+ * Einstiegen und Kanten gerechnet — die werden dann erst geladen.
+ *
+ * Alte Sitzungen tragen thema_key NULL — dann kein Raum, und der Abschnitt
+ * gliedert ohne Thema. thema_einstieg ist nur für admin/coach lesbar; der
+ * Report läuft im Admin-Bereich.
  */
 async function loadThema(sessionId: string): Promise<ThemaDaten> {
-  const leer: ThemaDaten = { key: null, label: null, einstieg: [] }
+  const leer: ThemaDaten = { label: null, raum: null }
   try {
     const { data: s, error } = await supabase
       .from('lsa_sessions')
-      .select('thema_key')
+      .select('thema_key, themenraum:result_summary->themenraum')
       .eq('id', sessionId)
       .maybeSingle()
-    const key = (s as { thema_key: string | null } | null)?.thema_key ?? null
+    const zeile = s as { thema_key: string | null; themenraum: unknown } | null
+    const key = zeile?.thema_key ?? null
     if (error || !key) return leer
 
-    const [thema, einstieg] = await Promise.all([
+    const gespeichert = zeile?.themenraum ?? null
+    const [thema, einstieg, kanten] = await Promise.all([
       supabase.from('themen').select('label').eq('thema_key', key).maybeSingle(),
-      supabase.from('thema_einstieg').select('skill_key').eq('thema_key', key),
+      gespeichert
+        ? Promise.resolve({ data: [], error: null })
+        : supabase.from('thema_einstieg').select('skill_key').eq('thema_key', key),
+      gespeichert ? Promise.resolve([]) : loadKanten(),
     ])
     if (thema.error || einstieg.error) {
       console.warn('report: thema lookup failed', thema.error ?? einstieg.error)
     }
     return {
-      key,
       label: (thema.data as { label: string | null } | null)?.label ?? null,
-      einstieg: ((einstieg.data ?? []) as { skill_key: string }[]).map((e) => e.skill_key),
+      raum: themenraumFuer({
+        themaKey: key,
+        gespeichert,
+        einstieg: ((einstieg.data ?? []) as { skill_key: string }[]).map((e) => e.skill_key),
+        kanten,
+      }),
     }
   } catch (e) {
     console.warn('report: thema lookup failed', e)
@@ -187,7 +201,7 @@ export async function loadErzaehlung(
   weakTopics: readonly string[],
   fehlbilder: readonly ReportFehlbild[],
 ): Promise<ReportErzaehlung> {
-  const [urteile, bestand, bausteine, zuordnungen, ansprechpartner, thema, kanten] =
+  const [urteile, bestand, bausteine, zuordnungen, ansprechpartner, thema] =
     await Promise.all([
       loadUrteile(sessionId),
       loadBestand(),
@@ -195,17 +209,10 @@ export async function loadErzaehlung(
       loadAnlassZuordnungen(),
       loadAnsprechpartner(sessionId),
       loadThema(sessionId),
-      loadKanten(),
     ])
 
   const fundament = baueFundament(urteile)
-  const suche = baueSuche({
-    skills: urteile,
-    themaKey: thema.key,
-    themaLabel: thema.label,
-    einstieg: thema.einstieg,
-    kanten,
-  })
+  const suche = baueSuche({ skills: urteile, themaLabel: thema.label, raum: thema.raum })
   const profil = familienBefunde(urteile, familienBestand(bestand))
 
   // Die Anzeigenamen der genannten Punkte, für die Aufzählung in Abschnitt 01.
@@ -235,7 +242,7 @@ export async function loadErzaehlung(
     zuordnungen,
     skills: urteile,
     familien,
-    fundament,
+    raum: thema.raum,
   })
 
   // Fazit und Empfehlung hängen an der VERTEILUNG der Lücken, nicht am Paket —

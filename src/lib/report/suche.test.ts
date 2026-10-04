@@ -10,7 +10,8 @@ import {
   FALL_D,
   KANTEN,
 } from '@/lib/report/suche.fixtures'
-import { abschluss, baueSuche, nurEineAufgabe, sucheSaetze } from '@/lib/report/suche'
+import { baueSuche, nurEineAufgabe, sucheSaetze } from '@/lib/report/suche'
+import { abschluss, berechneThemenraum } from '@/lib/report/themenraum'
 import type { SucheStufe, Suchweg } from '@/types'
 
 const i18n = i18next.createInstance()
@@ -186,7 +187,11 @@ describe('Textregeln', () => {
   it('kürzt lange Listen auf drei Labels', () => {
     const viele = baueSuche({
       ...FALL_A,
-      einstieg: ['bruch_div', 'bruch_mult', 'groessen_volumen', 'geo_flaeche_dreieck', 'gleichung_modellieren'],
+      raum: berechneThemenraum(
+        'terme_gleichungen',
+        ['bruch_div', 'bruch_mult', 'groessen_volumen', 'geo_flaeche_dreieck', 'gleichung_modellieren'],
+        KANTEN,
+      ),
     })!
     expect(text(viele)).toMatch(/und 2 weitere Bereiche/)
   })

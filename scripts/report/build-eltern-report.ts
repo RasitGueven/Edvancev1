@@ -33,6 +33,7 @@ import {
 import { baueFundament } from '@/lib/report/fundament'
 import { baueRueckbezuege } from '@/lib/report/rueckbezug'
 import { baueSuche } from '@/lib/report/suche'
+import { themenraumFuer } from '@/lib/report/themenraum'
 import { gruppiereFehlbilderNachFamilie } from '@/lib/reportFehlbilder'
 import type { AnlassZuordnung, ReportFehlbild } from '@/types'
 
@@ -96,6 +97,7 @@ type Roh = {
   thema_label: string | null
   einstieg: string[]
   kanten: [string, string][]
+  themenraum: unknown
   weak_topics: string[] | null
   urteile: {
     skill_key: string
@@ -264,13 +266,14 @@ function main(): void {
       offen: u.offen,
     }))
     const fundament = baueFundament(skills)
-    const suche = baueSuche({
-      skills,
+    // Gespeicherter Themenraum vor dem heutigen Stand (W5-d) — wie die App.
+    const raum = themenraumFuer({
       themaKey: r.thema_key,
-      themaLabel: r.thema_label,
+      gespeichert: r.themenraum,
       einstieg: r.einstieg,
       kanten: r.kanten.map(([skillKey, voraussetzt]) => ({ skillKey, voraussetzt })),
     })
+    const suche = baueSuche({ skills, themaLabel: r.thema_label, raum })
     if (!fundament || !suche) {
       console.error(`${r.session_id}: kein direkt geprüfter Skill — übersprungen`)
       continue
@@ -302,7 +305,7 @@ function main(): void {
       zuordnungen,
       skills: fundament.tragend.concat(fundament.luecken),
       familien,
-      fundament,
+      raum,
     })
 
     const paket = paketFuer(fundament.luecken, fundament.einstiegTiefe)
@@ -355,6 +358,7 @@ function main(): void {
     console.log(
       `  geprüft ${fundament.geprueft} | trägt ${fundament.traegt}` +
         ` | Suche ${suche.fall}${suche.themaLabel ? ` (${suche.themaLabel})` : ''}` +
+        `${raum ? ` | Raum ${raum.herkunft}` : ''}` +
         ` | ${paket}`,
     )
     console.log(

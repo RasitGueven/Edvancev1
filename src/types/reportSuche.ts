@@ -69,3 +69,20 @@ export type Suchweg = {
   grundlageSicher: boolean
   geprueft: number
 }
+
+/**
+ * Der Themenraum einer Sitzung (W5-d): die Einstiegsknoten des Themas und ihr
+ * Voraussetzungsabschluss ohne die Einstiege selbst. Nur `darunter` darf als
+ * Grundlage des Themas erzählt werden.
+ */
+export type Themenraum = {
+  themaKey: string
+  einstieg: string[]
+  darunter: string[]
+  /**
+   *   abschluss    beim Abschluss der Sitzung gespeichert (lsa_finish)
+   *   nachgetragen per Migration aus dem Stand vom Nachtrag gespeichert
+   *   berechnet    nichts gespeichert, aus dem heutigen Stand gerechnet
+   */
+  herkunft: 'abschluss' | 'nachgetragen' | 'berechnet'
+}
