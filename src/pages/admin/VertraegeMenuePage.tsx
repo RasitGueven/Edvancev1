@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { AdminHeader, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { LoadingPulse } from '@/components/edvance'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { berlinToday } from '@/lib/datetime'
 import { listTiers } from '@/lib/supabase/subscriptions'
 import { listVertraege, vertragAblehnen } from '@/lib/supabase/vertraege'
@@ -148,66 +148,59 @@ export function VertraegeMenuePage(): JSX.Element {
   ]
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('page.subtitle')} sticky />
-      <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8">
-        <AdminHeader
-          eyebrow={t('page.eyebrow')}
-          title={t('page.title')}
-          description={t('menue.beschreibung')}
+    <>
+      <PageHeader rubrik={t('page.eyebrow')} titel={t('page.title')} satz={t('menue.beschreibung')} />
+
+      <Reiterleiste reiter={reiterListe} aktiv={reiter} onWechsel={setReiter} />
+
+      {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
+
+      {loading ? (
+        <LoadingPulse type="list" lines={4} />
+      ) : reiter === 'antraege' ? (
+        <ReiterAntraege
+          antraege={antraege}
+          tiers={tiers}
+          zeigeAbgelehnte={zeigeAbgelehnte}
+          onZeigeAbgelehnte={setZeigeAbgelehnte}
+          heute={berlinToday()}
+          onFortsetzen={(v) => navigate(`/admin/vertraege/${v.id}`)}
+          onAblehnen={setAblehnen}
         />
-
-        <Reiterleiste reiter={reiterListe} aktiv={reiter} onWechsel={setReiter} />
-
-        {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
-
-        {loading ? (
-          <LoadingPulse type="list" lines={4} />
-        ) : reiter === 'antraege' ? (
-          <ReiterAntraege
-            antraege={antraege}
-            tiers={tiers}
-            zeigeAbgelehnte={zeigeAbgelehnte}
-            onZeigeAbgelehnte={setZeigeAbgelehnte}
-            heute={berlinToday()}
-            onFortsetzen={(v) => navigate(`/admin/vertraege/${v.id}`)}
-            onAblehnen={setAblehnen}
-          />
-        ) : reiter === 'uebersicht' ? (
-          <ReiterUebersicht
-            vertraege={vertraege}
-            tiers={tiers}
-            filter={filter}
-            onFilter={(next) => setFilter((f) => ({ ...f, ...next }))}
-            onZeile={(v) => navigate(`/admin/vertraege/${v.id}/detail`)}
-          />
-        ) : reiter === 'auslaufend' ? (
-          <ReiterAuslaufend
-            vertraege={vertraege}
-            tiers={tiers}
-            busyId={busyId}
-            onStatus={setzeVerlaengerung}
-            onWiedervorlage={(v, datum) =>
-              void run(v.id, () =>
-                vertragVerlaengerungSetzen(
-                  v.id,
-                  (v.verlaengerung_status ?? 'offen') as Exclude<VerlaengerungStatus, 'verlaengert'>,
-                  v.verlaengerung_grund,
-                  datum === '' ? null : datum,
-                ),
-              )
-            }
-            onNeuerVertrag={(v) => void folgevertrag(v)}
-          />
-        ) : (
-          <ReiterVerzug
-            vertraege={vertraege}
-            busyId={busyId}
-            onNaechsteStufe={(v) => setFrage({ art: 'naechste_stufe', vertrag: v })}
-            onBezahlt={(v) => void run(v.id, () => vertragZahlungsstatusSetzen(v.id, 'in_ordnung'))}
-          />
-        )}
-      </main>
+      ) : reiter === 'uebersicht' ? (
+        <ReiterUebersicht
+          vertraege={vertraege}
+          tiers={tiers}
+          filter={filter}
+          onFilter={(next) => setFilter((f) => ({ ...f, ...next }))}
+          onZeile={(v) => navigate(`/admin/vertraege/${v.id}/detail`)}
+        />
+      ) : reiter === 'auslaufend' ? (
+        <ReiterAuslaufend
+          vertraege={vertraege}
+          tiers={tiers}
+          busyId={busyId}
+          onStatus={setzeVerlaengerung}
+          onWiedervorlage={(v, datum) =>
+            void run(v.id, () =>
+              vertragVerlaengerungSetzen(
+                v.id,
+                (v.verlaengerung_status ?? 'offen') as Exclude<VerlaengerungStatus, 'verlaengert'>,
+                v.verlaengerung_grund,
+                datum === '' ? null : datum,
+              ),
+            )
+          }
+          onNeuerVertrag={(v) => void folgevertrag(v)}
+        />
+      ) : (
+        <ReiterVerzug
+          vertraege={vertraege}
+          busyId={busyId}
+          onNaechsteStufe={(v) => setFrage({ art: 'naechste_stufe', vertrag: v })}
+          onBezahlt={(v) => void run(v.id, () => vertragZahlungsstatusSetzen(v.id, 'in_ordnung'))}
+        />
+      )}
 
       <EingabeDialog
         key={frage ? `${frage.art}-${frage.vertrag.id}` : 'zu'}
@@ -237,6 +230,6 @@ export function VertraegeMenuePage(): JSX.Element {
           })
         }}
       />
-    </div>
+    </>
   )
 }

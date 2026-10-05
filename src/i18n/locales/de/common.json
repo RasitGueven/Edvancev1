@@ -17,5 +17,18 @@
   "yes": "Ja",
   "no": "Nein",
   "moveUp": "Nach oben",
-  "moveDown": "Nach unten"
+  "moveDown": "Nach unten",
+  "shell": {
+    "navigation": "Hauptnavigation",
+    "menue": "Menü",
+    "menueAusklappen": "Menü ausklappen",
+    "menueEinklappen": "Menü einklappen",
+    "menueOeffnen": "Menü öffnen",
+    "menueSchliessen": "Menü schließen",
+    "abmelden": "Abmelden",
+    "bald": "bald",
+    "baldHinweis": "{{name}} kommt bald — noch nicht verfügbar.",
+    "zaehlerLabel_one": "{{count}} offen",
+    "zaehlerLabel_other": "{{count}} offen"
+  }
 }
