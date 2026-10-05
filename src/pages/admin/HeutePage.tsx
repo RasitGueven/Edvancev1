@@ -17,6 +17,7 @@ import { KennzahlenLeiste, type Kennzahl } from './heute/KennzahlenLeiste'
 import { InhalteListe, RueckstandListe, VertraegeListe } from './heute/ListenBetrieb'
 import { ErstgespraecheListe, LsaListe, NeueLeadsListe } from './heute/ListenVertrieb'
 import {
+  berlinStunde,
   erstgespraeche,
   freigabeGruppen,
   imRueckstand,
@@ -29,12 +30,6 @@ import {
 import { useHeuteDaten } from './heute/useHeuteDaten'
 import { TerminModal, type TerminInput } from './leads/TerminModal'
 import { formatEuro } from './vertraege/VertragForm'
-
-function berlinStunde(now: Date): number {
-  return Number(
-    new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', hour: '2-digit', hourCycle: 'h23' }).format(now),
-  )
-}
 
 /**
  * Startseite „Heute“ (/admin, Entscheidung 7): Kennzahlen als schmale Leiste,

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { BoardSchueler, Lead, SkillThema, VertragMitLead } from '@/types'
 import {
+  berlinStunde,
   erstgespraeche,
   freigabeGruppen,
   imRueckstand,
@@ -27,18 +28,20 @@ describe('heuteModel', () => {
     expect(r.map((l) => l.id)).toEqual(['a', 'b'])
   })
 
-  it('Erstgespräche: contacted mit Termin ab Tagesbeginn, nächster zuerst', () => {
+  it('Erstgespräche: contacted und onboarding_scheduled mit Termin ab Tagesbeginn, nächster zuerst', () => {
     const r = erstgespraeche(
       [
         lead('spaeter', { status: 'contacted', erstgespraech_at: '2026-10-09T14:00:00Z' }),
         lead('gestern', { status: 'contacted', erstgespraech_at: '2026-10-04T14:00:00Z' }),
         lead('heute', { status: 'contacted', erstgespraech_at: '2026-10-05T07:00:00Z' }),
         lead('ohne', { status: 'contacted' }),
+        lead('onboarding', { status: 'onboarding_scheduled', erstgespraech_at: '2026-10-07T09:00:00Z' }),
+        lead('onboarding_alt', { status: 'onboarding_scheduled', erstgespraech_at: '2026-10-03T09:00:00Z' }),
         lead('neu', { status: 'new', erstgespraech_at: '2026-10-06T14:00:00Z' }),
       ],
       '2026-10-04T22:00:00.000Z',
     )
-    expect(r.map((l) => l.id)).toEqual(['heute', 'spaeter'])
+    expect(r.map((l) => l.id)).toEqual(['heute', 'onboarding', 'spaeter'])
   })
 
   it('Lernstandsanalysen: fertige vor freigegebenen', () => {
@@ -84,6 +87,12 @@ describe('heuteModel', () => {
       { themaKey: 'bruch', label: 'Brüche', stufe: 'erprobung', anzahl: 2 },
       { themaKey: null, label: null, stufe: null, anzahl: 1 },
     ])
+  })
+
+  it('Berliner Stunde als Zahl, auch im Winter', () => {
+    expect(berlinStunde(new Date('2026-10-05T08:10:00Z'))).toBe(10)
+    expect(berlinStunde(new Date('2026-12-01T22:30:00Z'))).toBe(23)
+    expect(tageszeit(berlinStunde(new Date('2026-10-05T08:10:00Z')))).toBe('morgen')
   })
 
   it('Gruß und Vorname', () => {

@@ -14,15 +14,19 @@
 ## Entscheidungen
 - Listen benutzen dieselben Quellen und Mengen wie ihr Bereich: Lead-Status, `auslaufende()`/`imVerzug()`,
   `summen()` für Kennzahlen, `board_schueler().ampel` (nur aktive Akten, wie die Board-Vorgabe).
-- „Erstgespräche“ = status `contacted` mit Termin ab Tagesbeginn (Bauauftrag). `onboarding_scheduled` steht
-  auf dem Board in derselben Spalte, hier nicht.
+- „Erstgespräche“ = status `contacted` und `onboarding_scheduled` (wie die Board-Spalte „Termin vereinbart“)
+  mit Termin ab Tagesbeginn (Nachtrag zu PR 207).
 - LSA-Fertig-Signal: der Name einer fertigen Analyse verlinkt den Report, der Knopf heißt wie auf dem Board
   („Vertragsprozess“). Die Analysen von heute stehen in „Heute im Betrieb“ mit Pille „LSA“.
 - Freigabe-Knopf führt nach `/admin/authoring?bereich=lsa`; Stufe aus `authoring:board.stufe.*`.
 - Lena-Board (`rueckfrage`) war beim Bau nicht in dev → keine Rückfragen-Zeile.
 - `.admin-cta-gold` wurde schon vor H3 von keiner Seite mehr benutzt; es gab keinen Knopf zu ersetzen.
 
+## Nachträge (PR 207)
+- Erstgespräche zählen `contacted` und `onboarding_scheduled` wie die Board-Spalte.
+- Screenshots aus der echten App mit Fake-Client und erfundenen Beispieldaten (`docs/screenshots/admin-h3/`).
+  Dabei gefunden: `Intl.DateTimeFormat('de-DE', { hour })` liefert „10 Uhr“, `Number()` daraus NaN → der Gruß
+  war immer „Guten Abend“. Jetzt `berlinStunde()` über `formatToParts`, mit Test.
+
 ## Offen
-- Screenshots in drei Größen fehlen: Der Vite-Harness mit Fake-Client über einen lokalen Prod-Abzug wurde
-  vom Auto-Mode-Classifier abgelehnt. Rasit macht sie im Browser oder gibt den Harness frei.
 - Absagen in „Heute im Betrieb“ kommen mit dem Slots-Feature.

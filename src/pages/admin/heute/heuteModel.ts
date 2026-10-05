@@ -3,7 +3,7 @@
 // Rückstand kommen aus board_schueler(), Ausläufer und Verzüge aus
 // auslaufende()/imVerzug() (src/lib/vertrag/menue.ts).
 
-import type { BoardSchueler, Lead, SkillThema, Stufe, VertragMitLead } from '@/types'
+import type { BoardSchueler, Lead, LeadStatus, SkillThema, Stufe, VertragMitLead } from '@/types'
 import type { AufgabeInReview } from '@/lib/supabase/heute'
 
 /** Wie viele Einträge eine Liste höchstens zeigt (Entscheidung 7). */
@@ -22,11 +22,14 @@ export function neueLeads(leads: Lead[]): Lead[] {
   return leads.filter((l) => l.status === 'new').sort((a, b) => zeit(a.created_at) - zeit(b.created_at))
 }
 
+/** Dieselben Status wie die Board-Spalte „Termin vereinbart“ (leads/boardModel). */
+const TERMIN_STATUS: LeadStatus[] = ['contacted', 'onboarding_scheduled']
+
 /** Vereinbarte Erstgespräche ab Beginn des heutigen Tags, nächstes zuerst. */
 export function erstgespraeche(leads: Lead[], tagesBeginn: string): Lead[] {
   const ab = zeit(tagesBeginn)
   return leads
-    .filter((l) => l.status === 'contacted' && l.erstgespraech_at !== null && zeit(l.erstgespraech_at) >= ab)
+    .filter((l) => TERMIN_STATUS.includes(l.status) && l.erstgespraech_at !== null && zeit(l.erstgespraech_at) >= ab)
     .sort((a, b) => zeit(a.erstgespraech_at) - zeit(b.erstgespraech_at))
 }
 
@@ -82,6 +85,17 @@ export function freigabeGruppen(aufgaben: AufgabeInReview[], skillThemen: SkillT
   return [...gruppen.values()].sort(
     (a, b) => b.anzahl - a.anzahl || (a.label ?? '￿').localeCompare(b.label ?? '￿', 'de'),
   )
+}
+
+/**
+ * Stunde in Berlin (0–23). Über formatToParts: format() liefert in de-DE
+ * „10 Uhr“, und Number() daraus wäre NaN.
+ */
+export function berlinStunde(now: Date): number {
+  const teil = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', hour: '2-digit', hourCycle: 'h23' })
+    .formatToParts(now)
+    .find((p) => p.type === 'hour')
+  return Number(teil?.value ?? 0)
 }
 
 /** Tageszeit für den Gruß, nach der Berliner Stunde. */
