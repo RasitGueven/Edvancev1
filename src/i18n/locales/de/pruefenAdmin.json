@@ -1,0 +1,37 @@
+{
+  "ausgelassen": {
+    "schon_freigegeben": "schon freigegeben",
+    "vera8": "VERA-8, einzeln freigeben",
+    "rueckfrage_offen": "Rückfrage offen",
+    "team_beanstandet": "vom Team beanstandet",
+    "lena_passt_nicht": "Lena: Passt nicht",
+    "noch_nicht_bewertet": "noch nicht von Lena bewertet",
+    "geaendert": "geändert, einzeln prüfen",
+    "befund": "Befund vor der Freigabe: {{text}}",
+    "freigegeben": "freigegeben, erst Freigabe zurücknehmen",
+    "nicht_bei_lena": "nicht bei Lena ({{grund}})",
+    "schon_offen": "schon offen und unbewertet",
+    "schon_im_pilot": "schon im Pilot",
+    "nicht_im_pilot": "nicht im Pilot",
+    "schon_ausgeschlossen": "schon nicht bei Lena ({{grund}})",
+    "nicht_von_hand": "nicht von Hand herausgenommen ({{grund}})",
+    "schon_drin": "ist schon in Lenas Liste",
+    "ausgeschlossen": "hier nicht bearbeitbar ({{grund}}), nur im Editor",
+    "schon_gesetzt": "hat diesen Wert schon",
+    "nicht_erlaubt": "Fertigkeit passt nicht zum Thema der Aufgabe",
+    "nicht_gefunden": "Aufgabe nicht gefunden",
+    "fehler": "Fehler: {{text}}"
+  },
+  "fehler": {
+    "erst_an_lena": "Erst überarbeiten, dann zurück an Lena. Freigeben geht hier nicht.",
+    "nicht_freigegeben": "Die Aufgabe ist nicht freigegeben.",
+    "wert_fehlt": "Bitte zuerst einen Wert wählen."
+  },
+  "herkunft": {
+    "liste": "Expertenliste",
+    "auswahl": "Expertenliste",
+    "board": "Item-Pflege",
+    "gesundheit": "Content-Gesundheit",
+    "heute": "Heute"
+  }
+}

@@ -21,8 +21,11 @@ vi.mock('@/lib/supabase/pruefung', () => ({
   getFehlbilder: vi.fn().mockResolvedValue({ data: [], error: null }),
   getPruefEinstellungen: vi.fn().mockResolvedValue({ data: null, error: null }),
   setPruefEinstellungen: vi.fn(),
-  setPruefPilot: vi.fn(),
   pruefRueckfrageKlaeren: vi.fn(),
+}))
+vi.mock('@/lib/supabase/pruefungAdmin', () => ({
+  setzePilot: vi.fn(),
+  pruefSammel: vi.fn(),
 }))
 vi.mock('@/lib/supabase/themen', () => ({
   listSkillThemen: vi.fn(),

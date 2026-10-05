@@ -23,12 +23,12 @@ import type {
  * "inzwischen geaendert", ED422 traegt im HINT den Schluessel fuer i18n (pruefung/fehler.ts).
  */
 
-type RpcFehler = { message: string; code?: string; hint?: string | null }
+export type RpcFehler = { message: string; code?: string; hint?: string | null }
 type Rpc = <T>(fn: string, args?: Record<string, unknown>) => Promise<{ data: T | null; error: RpcFehler | null }>
 
 const rpc = supabase.rpc.bind(supabase) as unknown as Rpc
 
-function alsFehler(err: RpcFehler | unknown): PruefFehlerInfo {
+export function alsFehler(err: RpcFehler | unknown): PruefFehlerInfo {
   if (err && typeof err === 'object' && 'message' in err) {
     const e = err as RpcFehler
     return { code: e.code ?? null, hint: e.hint ?? null, message: e.message }
@@ -36,7 +36,7 @@ function alsFehler(err: RpcFehler | unknown): PruefFehlerInfo {
   return { code: null, hint: null, message: err instanceof Error ? err.message : 'Unbekannter Fehler' }
 }
 
-async function rufe<T>(fn: string, args?: Record<string, unknown>): Promise<PruefResult<T>> {
+export async function rufe<T>(fn: string, args?: Record<string, unknown>): Promise<PruefResult<T>> {
   try {
     const { data, error } = await rpc<T>(fn, args)
     if (error) return { data: null, error: alsFehler(error) }
@@ -187,17 +187,6 @@ export async function getPruefEinstellungen(): Promise<PruefResult<PruefEinstell
 export async function setPruefEinstellungen(werte: PruefEinstellungen): Promise<PruefResult<true>> {
   try {
     const { error } = await tabelle('pruef_einstellungen').update(werte).eq('id', true)
-    if (error) return { data: null, error: alsFehler(error) }
-    return { data: true, error: null }
-  } catch (err) {
-    return { data: null, error: alsFehler(err) }
-  }
-}
-
-/** Pilotmarke je Aufgabe. Nur admin (RLS admin_write_tasks). */
-export async function setPruefPilot(taskId: string, pilot: boolean): Promise<PruefResult<true>> {
-  try {
-    const { error } = await tabelle('tasks').update({ pruef_pilot: pilot }).eq('id', taskId)
     if (error) return { data: null, error: alsFehler(error) }
     return { data: true, error: null }
   } catch (err) {
