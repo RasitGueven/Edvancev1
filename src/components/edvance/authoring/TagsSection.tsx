@@ -41,6 +41,8 @@ export function TagsSection({
 
   return (
     <div className="flex flex-col gap-4">
+      {/* Sprungziel „Stoffanker“ (Admin-Pruefansicht, ?abschnitt=stoffanker). */}
+      <div id="abschnitt-stoffanker" className="scroll-mt-6">
       <Field
         feld="curriculum_grade"
         label={t('stoffanker.label')}
@@ -71,6 +73,7 @@ export function TagsSection({
           </span>
         </div>
       </Field>
+      </div>
 
       <Field label={t('fields.cluster')} feld="cluster_id">
         <select

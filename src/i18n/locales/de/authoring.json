@@ -242,7 +242,8 @@
     "reviewedAt": "am {{date}}",
     "noAudit": "Freigabe ohne Prüfer-Stempel — die Audit-Spalten fehlen in dieser Datenbank.",
     "adminOnly": "Nur Admins können freigeben.",
-    "failed": "Statuswechsel fehlgeschlagen: {{error}}"
+    "failed": "Statuswechsel fehlgeschlagen: {{error}}",
+    "erstAnLena": "Erst überarbeiten, dann in der Admin-Prüfansicht zurück an Lena."
   },
   "save": {
     "dirty": "Ungespeicherte Änderungen",
@@ -606,5 +607,9 @@
     "zurueckweisenMenue": "Zurückweisen …",
     "zurueckweisenGruende": "Warum zurückweisen? Mindestens ein Grund.",
     "abbrechen": "Abbrechen"
+  },
+  "editor": {
+    "zurueckPruefen": "Zurück zur Prüfansicht",
+    "gespeichert": "Gespeichert."
   }
 }

@@ -27,28 +27,27 @@ export function Section({
   children,
   collapsible = false,
   defaultOpen = true,
+  anker,
 }: {
   title: string
   action?: ReactNode
   children: ReactNode
   collapsible?: boolean
   defaultOpen?: boolean
+  /** Sprungziel im Editor (id="abschnitt-<anker>", ?abschnitt= aus der Admin-Pruefansicht). */
+  anker?: string
 }): JSX.Element {
   const [open, setOpen] = useState(defaultOpen)
 
-  if (!collapsible) {
-    return (
-      <EdvanceCard className="p-6">
-        <div className="mb-4 flex items-center justify-between gap-2">
-          <h3 className={SECTION_TITLE_CLS}>{title}</h3>
-          {action}
-        </div>
-        <div className="flex flex-col gap-4">{children}</div>
-      </EdvanceCard>
-    )
-  }
-
-  return (
+  const karte = !collapsible ? (
+    <EdvanceCard className="p-6">
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <h3 className={SECTION_TITLE_CLS}>{title}</h3>
+        {action}
+      </div>
+      <div className="flex flex-col gap-4">{children}</div>
+    </EdvanceCard>
+  ) : (
     <EdvanceCard className="p-6">
       <div className="flex items-center justify-between gap-2">
         <button
@@ -70,6 +69,7 @@ export function Section({
       {open && <div className="mt-4 flex flex-col gap-4">{children}</div>}
     </EdvanceCard>
   )
+  return anker ? <div id={`abschnitt-${anker}`} className="scroll-mt-6">{karte}</div> : karte
 }
 
 export function Field({
