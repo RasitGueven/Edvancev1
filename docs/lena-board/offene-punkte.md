@@ -55,13 +55,15 @@ Entscheidung 15 sperrt den Schalter „Einheit muss dabei sein“ in der Oberfl�
 `pruef_speichern` lehnt das Einschalten in diesem Fall zusätzlich mit ED422 `einheit_am_feld` ab: Steht die
 Einheit am Feld, tippt kein Kind sie mit, und jede Antwort würde „teilweise“.
 
-## OP-9 · Admin-Beanstandung und Sammelfreigabe (Consensus-Check)
+## OP-9 · Vom Team beanstandete Aufgaben — entschieden (Rasit, PR 208)
 
-Lena darf jede Aufgabe neu bewerten, solange sie nicht freigegeben ist (Entscheidung 17), also auch eine vom
-Admin beanstandete. Damit eine Admin-Beanstandung so nicht still in die Sammelfreigabe kippt, lassen
-`freigabe_thema` und `freigabe_cluster` jede Aufgabe aus, zu der ein Admin oder ein Systemaufruf eine
-`task_reviews`-Zeile geschrieben hat. Ein Admin gibt sie einzeln frei. Fachlich zu bestätigen: Soll Lena
-admin-beanstandete Aufgaben überhaupt neu bewerten dürfen?
+Lena kann eine vom Admin beanstandete Aufgabe nicht neu bewerten. Sie sieht sie nur lesend mit dem Hinweis
+„Vom Team beanstandet, wird überarbeitet“. Nach der Überarbeitung setzt der Admin sie auf `draft`; die
+Ausgangsfassung fällt weg (Entscheidung 7), und die Aufgabe kommt als offen zurück. Umgesetzt in Migration 5
+`20261005082412_pruefung_team_beanstandet` (`pruef_team_beanstandet`, ED422 `team_beanstandet` in `pruef_sperren`),
+Frontend `PruefansichtPage.tsx`; pgTAP und Vitest. „Vom Team“ = Status `beanstandet`, jüngste `task_reviews`-Zeile
+von einem Admin oder Systemaufruf. Lenas eigenes „Passt nicht“ bleibt neu bewertbar. Die Sammelfreigabe lässt
+Aufgaben mit einer Admin-Beanstandung weiter aus (Consensus-Check, Befund 1); ein Admin gibt sie einzeln frei.
 
 ## OP-10 · Lösungen für Coaches (Bestand, Consensus-Check)
 
@@ -69,12 +71,10 @@ admin-beanstandete Aufgaben überhaupt neu bewerten dürfen?
 Rolle mit `get_my_role() not in (…)`, was bei einem Login ohne Profil (NULL) nicht greift. Das ist Bestand und
 nicht Teil dieses Auftrags. `pruef_aufgabe` und `pruef_wertung_testen` verlangen `darf_pruefen()`.
 
-## OP-11 · Drei Aktionen bei der Rückfrage (L4)
+## OP-11 · Rückfrage-Karte — entschieden (Rasit, PR 208)
 
-Entscheidung 40 verlangt bei einer Rückfrage Freigeben, Zurückweisen und Zurück an Lena. CLAUDE.md §11 verbietet
-mehr als zwei CTAs pro Card. Die drei Knöpfe stehen in einem eigenen Klärungsbereich unter Lenas Ergebnis
-(`LenaInfo.tsx`); „Freigeben“ ist der einzige gefüllte Knopf, die anderen sind Varianten `destructive` bzw.
-`outline`. Bitte bestätigen oder eine andere Anordnung vorgeben.
+Höchstens zwei Knöpfe: „Freigeben“ primär, „Zurück an Lena“ sekundär; „Zurückweisen“ steckt im „…“-Menü und
+verlangt weiter mindestens einen Grund (`RueckfrageKlaeren.tsx`).
 
 ## OP-12 · Alte Strings im Coach-Dashboard (L4)
 

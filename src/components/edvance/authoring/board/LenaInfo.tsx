@@ -1,18 +1,15 @@
 // Lenas Ergebnis zu einer Aufgabe in der Item-Pflege (Entscheidungen 39, 40, 43, 44): Status mit
 // "geaendert", Gruende oder Frage, geprueft von/am, Dauer, aufklappbar die Aenderungsliste mit Grund.
-// Bei einer Rueckfrage: Antwort an Lena und Freigeben / Zurueckweisen / Zurueck an Lena.
+// Bei einer Rueckfrage: Antwort an Lena und Klaerung (RueckfrageKlaeren).
 
 import { useState, type JSX } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import { formatBerlinDateTime } from '@/lib/datetime'
 import { aenderungText } from '@/lib/pruefung/anzeige'
-import { fehlerSchluessel } from '@/lib/pruefung/texte'
-import { pruefRueckfrageKlaeren, setPruefPilot } from '@/lib/supabase/pruefung'
-import { GRUENDE } from '@/components/edvance/pruefen/Entscheidungsleiste'
-import type { PasstNichtGrund, PruefAdminZeile, PruefRueckfrageAktion } from '@/types'
+import { setPruefPilot } from '@/lib/supabase/pruefung'
+import type { PruefAdminZeile } from '@/types'
+import { RueckfrageKlaeren } from './RueckfrageKlaeren'
 
 type Props = {
   taskId: string
@@ -25,21 +22,9 @@ export function LenaInfo({ taskId, zeile, fehlbildName, onReload }: Props): JSX.
   const { t, i18n } = useTranslation('authoring')
   const { t: tp } = useTranslation('pruefen')
   const [auf, setAuf] = useState(false)
-  const [antwort, setAntwort] = useState('')
-  const [gruende, setGruende] = useState<PasstNichtGrund[]>([])
-  const [busy, setBusy] = useState(false)
   const [meldung, setMeldung] = useState<string | null>(null)
   if (!zeile) return null
 
-  const klaeren = async (aktion: PruefRueckfrageAktion): Promise<void> => {
-    if (aktion === 'zurueckweisen' && gruende.length === 0) return setMeldung(t('lena.fehltGrund'))
-    setBusy(true)
-    setMeldung(null)
-    const res = await pruefRueckfrageKlaeren(taskId, aktion, antwort, aktion === 'zurueckweisen' ? gruende : undefined)
-    setBusy(false)
-    if (res.error) return setMeldung(res.error.code === 'P0001' ? res.error.message : tp(fehlerSchluessel(res.error) ?? 'fehlermeldung.allgemein'))
-    onReload()
-  }
   const pilot = async (an: boolean): Promise<void> => {
     const res = await setPruefPilot(taskId, an)
     if (res.error) setMeldung(res.error.message)
@@ -94,31 +79,7 @@ export function LenaInfo({ taskId, zeile, fehlbildName, onReload }: Props): JSX.
           )}
         </div>
       )}
-      {zeile.lena_status === 'unsicher' && (
-        <div className="flex flex-col gap-2 border-t border-[var(--color-border)] pt-2">
-          <label htmlFor={`antwort-${taskId}`}>{t('lena.antwortLabel')}</label>
-          <textarea id={`antwort-${taskId}`} rows={2} value={antwort} placeholder={t('lena.antwortPlatzhalter')}
-            onChange={(e) => setAntwort(e.target.value)}
-            className="w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-2 text-sm" />
-          <div className="flex flex-wrap gap-2">
-            {GRUENDE.map((g) => {
-              const an = gruende.includes(g)
-              return (
-                <button key={g} type="button" aria-pressed={an} onClick={() => setGruende(an ? gruende.filter((x) => x !== g) : [...gruende, g])}
-                  className={cn('min-h-[44px] rounded-[var(--radius-full)] border px-3',
-                    an ? 'border-[var(--color-destructive)] text-[var(--color-destructive)]' : 'border-[var(--color-border)]')}>
-                  {tp(`gruende.${g}`)}
-                </button>
-              )
-            })}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button size="sm" loading={busy} onClick={() => void klaeren('freigeben')}>{t('lena.freigeben')}</Button>
-            <Button size="sm" variant="destructive" disabled={busy} onClick={() => void klaeren('zurueckweisen')}>{t('lena.zurueckweisen')}</Button>
-            <Button size="sm" variant="outline" disabled={busy} onClick={() => void klaeren('an_lena')}>{t('lena.anLena')}</Button>
-          </div>
-        </div>
-      )}
+      {zeile.lena_status === 'unsicher' && <RueckfrageKlaeren taskId={taskId} onReload={onReload} />}
       {meldung && <p role="alert" className="text-[var(--color-destructive)]">{meldung}</p>}
     </div>
   )

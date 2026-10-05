@@ -602,6 +602,10 @@
       "pilotAnzahl_one": "{{count}} Aufgabe im Pilot",
       "pilotAnzahl_other": "{{count}} Aufgaben im Pilot",
       "fehler": "Speichern ging nicht: {{fehler}}"
-    }
+    },
+    "weitereAktionen": "Weitere Aktionen",
+    "zurueckweisenMenue": "Zurückweisen …",
+    "zurueckweisenGruende": "Warum zurückweisen? Mindestens ein Grund.",
+    "abbrechen": "Abbrechen"
   }
 }
