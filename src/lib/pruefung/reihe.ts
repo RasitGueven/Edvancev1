@@ -80,6 +80,12 @@ export function vergissReihe(): void {
   }
 }
 
+/** Merkt die Reihe und liefert die Adresse ihrer ersten (oder der angegebenen) Aufgabe — fuer alle Einstiege. */
+export function reiheStarten(reihe: Reihe, startId?: string): string {
+  speichereReihe(reihe)
+  return `/admin/pruefen/${startId && reihe.ids.includes(startId) ? startId : reihe.ids[0]}`
+}
+
 /** Die Reihe, wenn sie die Aufgabe enthaelt — sonst null (direkter Link ohne Reihe). */
 export function reiheFuer(reihe: Reihe | null, taskId: string | undefined): Reihe | null {
   return reihe && taskId && reihe.ids.includes(taskId) ? reihe : null

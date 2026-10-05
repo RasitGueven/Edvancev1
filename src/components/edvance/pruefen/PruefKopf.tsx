@@ -18,6 +18,18 @@ type Props = {
   onPause: () => void
 }
 
+/** Kopfzeile: Stufe · Lernstandsanalyse Mathe · Erlaubt: ⟨Hilfsmittel⟩ ⓘ (auch in der Admin-Pruefansicht). */
+export function KopfMeta({ aufgabe }: { aufgabe: PruefAufgabe }): JSX.Element {
+  const { t } = useTranslation('pruefen')
+  const k = aufgabe.kopf
+  return (
+    <p className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
+      {t('ansicht.meta', { stufe: k.stufe ? t(`stufe.${k.stufe}`) : '', hilfsmittel: k.hilfsmittel ?? '' })}
+      <InfoTip schluessel="hilfsmittel" />
+    </p>
+  )
+}
+
 export function PruefKopf({ aufgabe, position, hatVorige, onZurueck, onUeberspringen, onPause }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
   const k = aufgabe.kopf
@@ -26,10 +38,7 @@ export function PruefKopf({ aufgabe, position, hatVorige, onZurueck, onUeberspri
     <EdvanceCard className="flex flex-col gap-3">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex min-w-0 flex-col gap-1">
-          <p className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
-            {t('ansicht.meta', { stufe: k.stufe ? t(`stufe.${k.stufe}`) : '', hilfsmittel: k.hilfsmittel ?? '' })}
-            <InfoTip schluessel="hilfsmittel" />
-          </p>
+          <KopfMeta aufgabe={aufgabe} />
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">{k.thema_label ?? k.kurztitel}</h1>
         </div>
         <div className="flex flex-wrap items-center gap-2">

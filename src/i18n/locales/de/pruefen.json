@@ -215,7 +215,11 @@
     "fehlerErgaenzt": "Typischer Fehler ergänzt: {{werte}} → {{name}}",
     "fehlerGeaendert": "Typischer Fehler geändert: {{name}} ({{werte}})",
     "fertigkeit": "Fertigkeit: {{vorher}} → {{nachher}}",
-    "afb": "Anforderungsbereich: {{vorher}} → {{nachher}}"
+    "afb": "Anforderungsbereich: {{vorher}} → {{nachher}}",
+    "herkunft": {
+      "lena": "Lena",
+      "team": "Team"
+    }
   },
   "leiste": {
     "allesVorbefuellt": "Alles ist vorbefüllt. Wenn es stimmt: „Passt“.",

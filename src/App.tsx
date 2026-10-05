@@ -11,6 +11,8 @@ import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
 import { ItemBoardPage } from '@/pages/admin/ItemBoardPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
 import { PflegeWizardPage } from '@/pages/admin/PflegeWizardPage'
+import { AdminPruefansichtPage } from '@/pages/admin/pruefen/AdminPruefansichtPage'
+import { ReiheEndePage } from '@/pages/admin/pruefen/ReiheEndePage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
 import { LeadsPage } from '@/pages/admin/LeadsPage'
 import { SchedulePage } from '@/pages/admin/SchedulePage'
@@ -320,6 +322,23 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <VertragUnterlagenPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Admin-Pruefansicht: eine Aufgabe auf einem Bildschirm, mit Reihe (Fokusseite, nur admin). */}
+        <Route
+          path="/admin/pruefen/ende"
+          element={
+            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+              <ReiheEndePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/pruefen/:taskId"
+          element={
+            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+              <AdminPruefansichtPage />
             </ProtectedRoute>
           }
         />

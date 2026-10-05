@@ -33,5 +33,157 @@
     "board": "Item-Pflege",
     "gesundheit": "Content-Gesundheit",
     "heute": "Heute"
+  },
+  "kopf": {
+    "titel": "Admin-Prüfansicht",
+    "themaFertigkeit": "{{thema}} · {{fertigkeit}}",
+    "position": "{{nr}} von {{anzahl}}",
+    "einzeln": "Einzelne Aufgabe",
+    "zurueck": "Zurück",
+    "ueberspringen": "Überspringen",
+    "editor": "Im Editor öffnen",
+    "schliessen": "Schließen",
+    "ersteAufgabe": "Das ist die erste Aufgabe der Reihe.",
+    "keineReihe": "Ohne Reihe gibt es keine vorige Aufgabe.",
+    "pilot": "Im Pilot",
+    "pilotAn": "Im Pilot.",
+    "pilotAus": "Nicht mehr im Pilot."
+  },
+  "lena": {
+    "titel": "Lenas Ergebnis",
+    "marke": {
+      "offen": "Offen",
+      "passt": "Passt",
+      "passtGeaendert": "Passt · geändert",
+      "unsicher": "Unsicher",
+      "passt_nicht": "Passt nicht",
+      "team": "Vom Team beanstandet",
+      "freigegeben": "Freigegeben"
+    },
+    "nichtBeiLena": "Nicht bei Lena: {{grund}}",
+    "hand": "Von Hand herausgenommen: „{{grund}}“",
+    "handVon": "{{wer}}, {{am}}",
+    "geprueft": "{{wer}} · {{am}}",
+    "dauer": "{{n}} s",
+    "frage": "Lenas Frage",
+    "gruende": "Gründe und „Was genau?“",
+    "team": "Vom Team beanstandet · {{wer}}, {{am}}",
+    "antwort": "Antwort vom Team · {{wer}}, {{am}}",
+    "aenderungen": "Lenas Änderungen · {{count}}",
+    "aenderungenZeigen_one": "{{count}} Änderung zeigen",
+    "aenderungenZeigen_other": "{{count}} Änderungen zeigen",
+    "aenderungenVerbergen": "Änderungen verbergen",
+    "warum": "„{{grund}}“",
+    "nochNicht": "Lena hat diese Aufgabe noch nicht geprüft.",
+    "unbekannt": "—"
+  },
+  "klaeren": {
+    "titel": "Vor der Freigabe klären",
+    "beheben": "im Editor beheben",
+    "hinweise_one": "{{count}} Hinweis",
+    "hinweise_other": "{{count}} Hinweise"
+  },
+  "befund": {
+    "toterPfad": "Toter Bildpfad: Das Bild liegt nicht im Speicher.",
+    "bildFehlt": "Bild fehlt: Die Aufgabe braucht ein Bild, es gibt aber keins."
+  },
+  "karte": {
+    "imEditor": "im Editor",
+    "freigegeben": "Freigegeben am {{am}} von {{wer}}. Zum Ändern erst die Freigabe zurücknehmen oder im Editor öffnen.",
+    "nichtBearbeitbar": "Diese Aufgabe lässt sich hier nicht bearbeiten ({{grund}}). Änderungen gehen über den Editor."
+  },
+  "verlauf": {
+    "titel_one": "Verlauf · {{count}} Eintrag",
+    "titel_other": "Verlauf · {{count}} Einträge",
+    "leer": "Noch keine Admin-Aktion an dieser Aufgabe.",
+    "sammel": "Sammelaktion",
+    "zeile": "{{am}} · {{wer}}",
+    "aktion": {
+      "freigeben": "Freigegeben",
+      "an_lena": "Zurück an Lena",
+      "zurueckweisen": "Zurückgewiesen",
+      "freigabe_zurueck": "Freigabe zurückgenommen",
+      "ausschliessen": "Aus Lenas Liste genommen",
+      "aufnehmen": "Wieder in Lenas Liste",
+      "pilot_an": "Pilot an",
+      "pilot_aus": "Pilot aus",
+      "fertigkeit": "Fertigkeit geändert",
+      "afb": "Anforderungsbereich gesetzt",
+      "rueckfrage_freigeben": "Rückfrage: freigegeben",
+      "rueckfrage_an_lena": "Rückfrage: zurück an Lena",
+      "rueckfrage_zurueckweisen": "Rückfrage: zurückgewiesen"
+    }
+  },
+  "leiste": {
+    "freigeben": "Freigeben",
+    "anLena": "Zurück an Lena",
+    "aufOffen": "Auf Offen setzen",
+    "zurueckweisen": "Zurückweisen",
+    "editor": "Im Editor öffnen",
+    "freigabeZurueck": "Freigabe zurücknehmen",
+    "mehr": "Weitere Aktionen",
+    "abbrechen": "Abbrechen",
+    "antwortLabel": "Antwort an Lena",
+    "optional": "(optional)",
+    "antwortPlatzhalter": "zum Beispiel: Ja, 22,61 zählt auch. Ist eingetragen.",
+    "nachrichtLabel": "Nachricht an Lena",
+    "nachrichtHinweis": "(optional, sie sieht sie als „Antwort vom Team“)",
+    "nachrichtGesperrt": "Lena hat diese Aufgabe noch nicht bewertet.",
+    "aufOffenText": "Die Aufgabe steht danach wieder auf Offen. Lena sieht sie nicht ({{grund}}).",
+    "zurueckweisenTitel": "Zurückweisen: Gründe",
+    "wasGenau": "Was genau?",
+    "fehltGrund": "Bitte mindestens einen Grund wählen.",
+    "zuruecknehmenFrage": "Die Aufgabe verlässt den LSA-Pool. Freigabe zurücknehmen?",
+    "zuruecknehmen": "Zurücknehmen",
+    "info": {
+      "freigegeben": "Freigegeben. Zum Ändern erst die Freigabe zurücknehmen.",
+      "beanstandet": "Freigeben geht hier nicht. Erst überarbeiten, dann zurück an Lena.",
+      "beanstandetOffen": "Freigeben geht hier nicht. Erst überarbeiten, dann auf Offen setzen.",
+      "befund": "Freigeben gesperrt: {{befund}}",
+      "rueckfrage": "Lena wartet auf eine Antwort. Sie geht mit, egal wie du entscheidest.",
+      "nichtBeiLena": "Nicht bei Lena. Du kannst die Aufgabe direkt freigeben.",
+      "offen": "Lena hat die Aufgabe noch nicht geprüft. Du kannst sie trotzdem freigeben.",
+      "geaendert_one": "{{count}} Änderung gegenüber der Ausgangsfassung. Bitte ansehen, dann freigeben.",
+      "geaendert_other": "{{count}} Änderungen gegenüber der Ausgangsfassung. Bitte ansehen, dann freigeben.",
+      "passt": "Lena: Passt, unverändert. Freigeben nimmt die Aufgabe in den LSA-Pool."
+    }
+  },
+  "meldung": {
+    "freigeben": "Freigegeben: {{titel}}",
+    "anLena": "Zurück an Lena: {{titel}}",
+    "aufOffen": "Auf Offen gesetzt: {{titel}}",
+    "zurueckweisen": "Zurückgewiesen: {{titel}}",
+    "freigabeZurueck": "Freigabe zurückgenommen: {{titel}}",
+    "oeffnen": "Öffnen"
+  },
+  "ende": {
+    "titel": "Reihe durch",
+    "freigegeben": "Freigegeben",
+    "anLena": "Zurück an Lena",
+    "zurueckgewiesen": "Zurückgewiesen",
+    "uebersprungen": "Übersprungen",
+    "uebersprungenePruefen": "Übersprungene prüfen",
+    "zurueck": {
+      "liste": "Zurück zur Expertenliste",
+      "auswahl": "Zurück zur Expertenliste",
+      "board": "Zurück zur Item-Pflege",
+      "gesundheit": "Zurück zur Content-Gesundheit",
+      "heute": "Zurück zu Heute"
+    },
+    "keineReihe": "Es gibt keine Reihe mehr. Starte einen Durchlauf in der Expertenliste."
+  },
+  "ansicht": {
+    "ladeFehler": "Die Aufgabe konnte nicht geladen werden.",
+    "zurListe": "Zur Expertenliste"
+  },
+  "reihe": {
+    "liste": "Expertenliste · {{filter}}",
+    "alleAufgaben": "alle Aufgaben",
+    "filter": "Filter: {{filter}}",
+    "auswahl": "Expertenliste · Auswahl",
+    "board": "{{titel}}",
+    "gesundheit": "Content-Gesundheit · {{mangel}}",
+    "heute": "Heute · Rückfragen",
+    "ausgelassene": "Ausgelassene"
   }
 }

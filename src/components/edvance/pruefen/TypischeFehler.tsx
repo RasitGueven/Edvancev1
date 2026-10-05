@@ -1,7 +1,7 @@
 // Pruefkarte, Abschnitt "Typische Fehler" (32.6): Gruppen je Denkfehler mit Klartext, Werten und dem
 // Satz zur Aufgabe. Entfernen / Wieder rein; Ergaenzen nur mit einem bestehenden Denkfehler.
 
-import { useState, type JSX } from 'react'
+import { useState, type JSX, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui'
@@ -20,9 +20,11 @@ type Props = {
   lesend: boolean
   onChange: (b: Bearbeitung) => void
   onZurueck: () => void
+  /** Rechts im Abschnittskopf, z. B. „im Editor“ in der Admin-Pruefansicht. */
+  kopfAktion?: ReactNode
 }
 
-export function TypischeFehler({ aufgabe, b, fehlbilder, geaendert, lesend, onChange, onZurueck }: Props): JSX.Element {
+export function TypischeFehler({ aufgabe, b, fehlbilder, geaendert, lesend, onChange, onZurueck, kopfAktion }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
   const [form, setForm] = useState(false)
   const [wert, setWert] = useState('')
@@ -57,6 +59,7 @@ export function TypischeFehler({ aufgabe, b, fehlbilder, geaendert, lesend, onCh
       <h3 className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
         <span className="inline-flex items-center gap-2">{t('fehler.titel')} <InfoTip schluessel="fehler" /></span>
         <GeaendertMarke an={geaendert && !lesend} onZurueck={onZurueck} />
+        {kopfAktion && <span className="ml-auto normal-case tracking-normal">{kopfAktion}</span>}
       </h3>
       {aufgabe.ohne_erkennung ? (
         <p className="text-sm text-[var(--color-text-secondary)]">{t('fehler.ohneErkennung')}</p>
