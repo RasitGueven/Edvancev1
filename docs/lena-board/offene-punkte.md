@@ -87,3 +87,15 @@ Auftrags.
 `/admin/authoring`, `/admin/authoring/liste`, `/admin/authoring/:id` und `/admin/pflege` lassen nur noch admin zu
 (Entscheidung 3); ein Coach wird auf `/coach` umgeleitet. `/admin/content-gesundheit` steht weiter für coach offen
 (nicht genannt, unverändert).
+
+## OP-14 · Typische Fehler ohne Fehlbild-Zuordnung (L5)
+
+Datenpunkt 25 ordnet nur zu, wenn der Chargen-Grund die Slugs einzeln nennt. 172 Aufgaben tragen den Grund
+„Aus acceptance.known_errors der Aufgabe abgeleitet.“ ohne Slug-Liste oder mit abweichender Anzahl; ihre Sätze
+bleiben ohne `fehlbild` und erscheinen bei Lena als „weitere Hinweise“ (nicht in der Prüfkarte). Zahlen:
+`daten-zahlen.md`. Nachpflege wäre eine eigene Charge.
+
+## OP-15 · Pilot schaltet das Board um (L5)
+
+Migration 4 setzt `nur_pilot = true`. Bis ein Admin das in der Item-Pflege abschaltet, sieht Lena nur die
+100 Pilot-Aufgaben, auch über die direkte Adresse (Consensus-Check, Befund 2).

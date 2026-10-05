@@ -1,6 +1,15 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **Aufgaben prüfen — Lena-Board** (Retro `2026-10-05-lena-board.md`, Branch `feat/rasit-lena-board`):
+  Lena prüft vorbefüllte LSA-Aufgaben auf einem Bildschirm (`/coach/pruefen`) und entscheidet mit
+  Passt / Unsicher / Passt nicht; Admins sehen Lenas Ergebnis in der Item-Pflege, klären Rückfragen und
+  geben frei. Neun Migrationen (`20261005071058` … `20261005080222`): Status `rueckfrage`, Versionsprüfung,
+  Ausgangsfassung, Prüfprotokoll, `pruef_*`-Funktionen, alte Prüfer-Wege geschlossen, Datenmigration mit
+  Pilot (100 Aufgaben). Beweis: pgTAP `lena_board` 78/78 in frischer Wegwerf-DB, Prüfskripte grün,
+  Consensus-Check ohne Blocker, Vitest grün.
+  **Offen:** Einspielen 1 → 2a…2e → 3 → 4, Schema-Abzug, Lenas Konto mit Prüfrecht
+  (`docs/lena-board/offene-punkte.md`).
 - **Erstgespräch nachziehen (W5-c)** (Retro `2026-10-04-erstgespraech-nachziehen.md`,
   Branch `feat/erstgespraech-nachziehen`): Thema in einem Schritt (`lead_thema_setzen`),
   Terminbestätigung an die Eltern über `mail_senden` mit Vorschau und Protokoll

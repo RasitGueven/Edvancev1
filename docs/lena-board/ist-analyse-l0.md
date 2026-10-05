@@ -108,6 +108,8 @@ Diese Befunde fallen im Report heute still aus (Feldkatalog 3). Nicht Teil diese
 | tasks_pruefer_guard() | – | – | – |
 
 Weitere Sammelwege: `freigabe_zuruecknehmen(text)` (ready → draft je Skill, nur admin).
+Weitere Schreibwege mit Lena-Bezug: `lena_text_aendern(uuid,text)` und `lena_beanstande_muster(text,text,text,text)`
+— beide nur admin (`get_my_role() is distinct from 'admin'` → 42501), kein Prüfer-Zweig, unverändert (Nachtrag L1).
 Policies mit `darf_pruefen`: nur `tasks.pruefer_update_tasks`. CHECK mit Status: `tasks_status_check`.
 Views mit Aufgabenstatus: keine (`vertraege_aktuell` meint Verträge).
 
