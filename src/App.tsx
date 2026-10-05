@@ -30,6 +30,8 @@ import { VertragUnterlagenPage } from '@/pages/admin/VertragUnterlagenPage'
 import { IntakePage } from '@/pages/coach/IntakePage'
 import { ScreeningResultsPage } from '@/pages/coach/ScreeningResultsPage'
 import { ReportsPage } from '@/pages/coach/ReportsPage'
+import { PruefenUebersichtPage } from '@/pages/coach/pruefen/PruefenUebersichtPage'
+import { PruefansichtPage } from '@/pages/coach/pruefen/PruefansichtPage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayer } from '@/pages/student/TaskPlayer'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
@@ -77,6 +79,23 @@ export default function App(): JSX.Element {
           element={
             <ProtectedRoute allowedRoles={['coach']}>
               <CoachDashboard />
+            </ProtectedRoute>
+          }
+        />
+        {/* Aufgaben pruefen (Lena-Board): admin und coach, jeweils nur mit Pruefrecht. */}
+        <Route
+          path="/coach/pruefen"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+              <PruefenUebersichtPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/coach/pruefen/:taskId"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'coach']} pruefrecht>
+              <PruefansichtPage />
             </ProtectedRoute>
           }
         />
@@ -239,12 +258,12 @@ export default function App(): JSX.Element {
               </ProtectedRoute>
             }
           />
-          {/* Item-Pflege. Coach darf sehen (Lena sichtet), schreiben darf laut RLS
-              und task_solution_upsert nur Admin — die Seiten schalten selbst um. */}
+          {/* Item-Pflege, Expertenliste und Editor: nur admin (Lena-Board). Lena prueft
+              unter /coach/pruefen; Coaches landen auf /coach. */}
           <Route
             path="/admin/authoring"
             element={
-              <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
                 <ItemBoardPage />
               </ProtectedRoute>
             }
@@ -253,7 +272,7 @@ export default function App(): JSX.Element {
           <Route
             path="/admin/authoring/liste"
             element={
-              <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
                 <AuthoringItemsPage />
               </ProtectedRoute>
             }
@@ -261,7 +280,7 @@ export default function App(): JSX.Element {
           <Route
             path="/admin/authoring/:id"
             element={
-              <ProtectedRoute allowedRoles={['coach', 'admin']}>
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
                 <AuthoringEditorPage />
               </ProtectedRoute>
             }
@@ -304,12 +323,11 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
-        {/* Pflege-Strecke (A07): der gefuehrte Fluss ueber der Editor-Maschinerie.
-            Coach prueft (review), freigeben bleibt admin-only — die Seite schaltet um. */}
+        {/* Pflege-Strecke (A07): der gefuehrte Fluss ueber der Editor-Maschinerie. */}
         <Route
           path="/admin/pflege"
           element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
               <PflegeWizardPage />
             </ProtectedRoute>
           }

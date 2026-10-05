@@ -110,7 +110,7 @@ describe('standVon', () => {
       task('c', { status: 'ready' }),
       task('d', { status: 'beanstandet' }),
     ])
-    expect(s).toMatchObject({ total: 4, offen: 1, zurFreigabe: 1, freigegeben: 1, zurueckgewiesen: 1, geprueft: 2 })
+    expect(s).toMatchObject({ total: 4, offen: 1, zurFreigabe: 1, rueckfrage: 0, freigegeben: 1, zurueckgewiesen: 1, geprueft: 2 })
   })
 })
 

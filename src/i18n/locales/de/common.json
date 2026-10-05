@@ -18,6 +18,10 @@
   "no": "Nein",
   "moveUp": "Nach oben",
   "moveDown": "Nach unten",
+  "zugriff": {
+    "keinTitel": "Kein Zugriff",
+    "keinText": "Du hast keine Berechtigung für diese Seite."
+  },
   "shell": {
     "navigation": "Hauptnavigation",
     "menue": "Menü",

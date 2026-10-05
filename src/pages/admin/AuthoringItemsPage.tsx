@@ -22,14 +22,15 @@ import { Button } from '@/components/ui/button'
 import {
   AuthoringFilters,
   EMPTY_FILTERS,
-  THEMA_OHNE,
   type FilterState,
 } from '@/components/edvance/authoring/AuthoringFilters'
 import { ItemRow, type ItemRowData } from '@/components/edvance/authoring/ItemRow'
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
 import { computeFlags, hasTable } from '@/lib/authoring/flags'
-import { isGroundedSource } from '@/lib/authoring/grounding'
 import { STUFEN, themaVon, zuordnungAus, type Zuordnung } from '@/lib/authoring/board'
+import { filtereUndSortiere, groupBySkill } from '@/lib/authoring/itemFilter'
+import { getFehlbilder, getPruefAdminListe } from '@/lib/supabase/pruefung'
+import { LenaInfo } from '@/components/edvance/authoring/board/LenaInfo'
 import {
   listAuthoringTasks,
   listClustersWithSubject,
@@ -40,7 +41,7 @@ import {
 } from '@/lib/supabase/taskAuthoring'
 import { freigabeMuster, freigabeZuruecknehmen } from '@/lib/supabase/freigabe'
 import { listSkillThemen } from '@/lib/supabase/themen'
-import type { AuthoringSchema, AuthoringTask, SkillThema, TaskSolution, TaskStatus } from '@/types'
+import type { AuthoringSchema, AuthoringTask, Fehlbild, PruefAdminZeile, SkillThema, TaskSolution } from '@/types'
 
 /**
  * Die Liste kennt die Loesung nicht (siehe Kopf). computeFlags bekommt eine leere
@@ -76,24 +77,6 @@ function buildRow(task: AuthoringTask, schema: AuthoringSchema): ItemRowData {
   }
 }
 
-const STATUS_ORDER: Record<TaskStatus, number> = {
-  beanstandet: 0,
-  draft: 1,
-  review: 2,
-  ready: 3,
-}
-
-/** Erhaelt die (bereits nach Skill sortierten) Zeilen als Gruppen [skill, rows]. */
-function groupBySkill(rows: ItemRowData[]): [string, ItemRowData[]][] {
-  const groups = new Map<string, ItemRowData[]>()
-  for (const row of rows) {
-    const key = row.task.skill_key ?? '—'
-    const group = groups.get(key)
-    if (group) group.push(row)
-    else groups.set(key, [row])
-  }
-  return [...groups.entries()]
-}
 
 export function AuthoringItemsPage(): JSX.Element {
   const { t } = useTranslation('authoring')
@@ -107,6 +90,8 @@ export function AuthoringItemsPage(): JSX.Element {
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS)
   const [meta, setMeta] = useState<Map<string, ReviewMeta>>(new Map())
   const [zuordnung, setZuordnung] = useState<Zuordnung>(new Map())
+  const [lena, setLena] = useState<Map<string, PruefAdminZeile>>(new Map())
+  const [fehlbilder, setFehlbilder] = useState<Fehlbild[]>([])
   // Nach einer Sammelfreigabe hochzaehlen -> der Effekt laedt die Liste neu.
   const [reloadKey, setReloadKey] = useState(0)
   // skill_key der Gruppe, die gerade eine Aktion laeuft (Buttons sperren).
@@ -114,7 +99,7 @@ export function AuthoringItemsPage(): JSX.Element {
 
   useEffect(() => {
     void (async () => {
-      const [detected, taskRes, clusterRes, metaMap, themaRes] = await Promise.all([
+      const [detected, taskRes, clusterRes, metaMap, themaRes, lenaRes, fehlbildRes] = await Promise.all([
         probeAuthoringSchema(),
         listAuthoringTasks(),
         listClustersWithSubject(),
@@ -122,7 +107,11 @@ export function AuthoringItemsPage(): JSX.Element {
         // bedienbar — die Label-Filter finden dann nur nichts.
         listReviewMeta(),
         listSkillThemen(),
+        getPruefAdminListe(),
+        getFehlbilder(),
       ])
+      setLena(new Map((lenaRes.data ?? []).map((z) => [z.task_id, z])))
+      setFehlbilder(fehlbildRes.data ?? [])
       setSchema(detected)
       setClusters(clusterRes.data ?? [])
       setZuordnung(zuordnungAus(themaRes.data ?? []))
@@ -185,74 +174,10 @@ export function AuthoringItemsPage(): JSX.Element {
     [meta],
   )
 
-  const visible = useMemo(() => {
-    const needle = filters.search.trim().toLowerCase()
-
-    const filtered = rows.filter((row) => {
-      const { task, flagCount, blockingCount } = row
-      if (needle && !(task.title ?? '').toLowerCase().includes(needle)) return false
-      if (filters.status !== 'all' && task.status !== filters.status) return false
-      if (
-        filters.subject !== 'all' &&
-        subjectOf.get(task.cluster_id ?? '') !== filters.subject
-      ) {
-        return false
-      }
-      if (filters.competency !== 'all' && task.competency_content !== filters.competency) {
-        return false
-      }
-      if (filters.afb !== 'all' && task.afb !== filters.afb) return false
-      if (filters.source !== 'all') {
-        const vera = isGroundedSource(task.source)
-        if (filters.source === 'eigene' && vera) return false
-        if (filters.source === 'vera' && !vera) return false
-      }
-      if (filters.skill !== 'all' && task.skill_key !== filters.skill) return false
-      if (filters.thema !== 'all') {
-        const themaKey = themaVon(task, zuordnung)?.thema_key ?? THEMA_OHNE
-        if (themaKey !== filters.thema) return false
-      }
-      const rowMeta = meta.get(task.id)
-      if (filters.fehlbild !== 'all' && !(rowMeta?.labels ?? []).includes(filters.fehlbild)) {
-        return false
-      }
-      if (filters.labelIncomplete === 'yes' && !rowMeta?.hasIncomplete) return false
-      if (filters.flags === 'blocking' && blockingCount === 0) return false
-      if (filters.flags === 'any' && flagCount === 0) return false
-      if (filters.flags === 'none' && flagCount > 0) return false
-      if (filters.asset === 'yes' && task.assets.length === 0) return false
-      if (filters.asset === 'no' && task.assets.length > 0) return false
-      if (filters.table === 'yes' && !row.hasTable) return false
-      if (filters.table === 'no' && row.hasTable) return false
-      return true
-    })
-
-    return [...filtered].sort((a, b) => {
-      switch (filters.sort) {
-        case 'title':
-          return (a.task.title ?? '').localeCompare(b.task.title ?? '', 'de')
-        case 'status':
-          return STATUS_ORDER[a.task.status] - STATUS_ORDER[b.task.status]
-        case 'newest':
-          return b.task.created_at.localeCompare(a.task.created_at)
-        case 'skill':
-          // Nach Skill gruppiert (Aufgaben eines Skills stammen aus demselben
-          // Muster — Lena arbeitet sie am Stueck durch). Ohne Skill nach unten.
-          return (
-            (a.task.skill_key ?? '￿').localeCompare(b.task.skill_key ?? '￿', 'de') ||
-            (a.task.title ?? '').localeCompare(b.task.title ?? '', 'de')
-          )
-        case 'flags':
-        default:
-          // Blockierendes zuerst — das ist die Arbeit, die wirklich ansteht.
-          return (
-            b.blockingCount - a.blockingCount ||
-            b.flagCount - a.flagCount ||
-            (a.task.title ?? '').localeCompare(b.task.title ?? '', 'de')
-          )
-      }
-    })
-  }, [rows, filters, subjectOf, meta, zuordnung])
+  const visible = useMemo(
+    () => filtereUndSortiere(rows, filters, { subjectOf, meta, zuordnung, lena }),
+    [rows, filters, subjectOf, meta, zuordnung, lena],
+  )
 
   /**
    * Sammelfreigabe einer Skill-Gruppe. Der Bestaetigungsdialog nennt die Anzahl
@@ -287,6 +212,15 @@ export function AuthoringItemsPage(): JSX.Element {
     window.alert(t('freigabe.zurueckgenommen', { count: res.data }))
     setReloadKey((k) => k + 1)
   }
+
+  // Lenas Ergebnis unter der Zeile (Lena-Board, Entscheidungen 39 und 42).
+  const zeile = (row: ItemRowData): JSX.Element => (
+    <div key={row.task.id} className="flex flex-col gap-2">
+      <ItemRow row={row} />
+      <LenaInfo taskId={row.task.id} zeile={lena.get(row.task.id)} onReload={() => setReloadKey((k) => k + 1)}
+        fehlbildName={(slug) => fehlbilder.find((f) => f.slug === slug)?.klartext ?? slug} />
+    </div>
+  )
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
@@ -372,17 +306,13 @@ export function AuthoringItemsPage(): JSX.Element {
                         </Button>
                       </div>
                     </div>
-                    {group.map((row) => (
-                      <ItemRow key={row.task.id} row={row} />
-                    ))}
+                    {group.map((row) => zeile(row))}
                   </div>
                 )
               })
             ) : (
               <div className="flex flex-col gap-4">
-                {visible.map((row) => (
-                  <ItemRow key={row.task.id} row={row} />
-                ))}
+                {visible.map((row) => zeile(row))}
               </div>
             )}
           </>

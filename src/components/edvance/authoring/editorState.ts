@@ -28,7 +28,9 @@ import type {
 import { geaenderteSpalten, hatEintraege, ohneSpalten } from '@/lib/authoring/vorbefuellt'
 
 export type Hint = { level?: number; text: string }
-export type TypicalError = { error: string; socratic_question?: string }
+/** fehlbild: Zuordnung zum Fehlbild (Lena-Board). Der Editor zeigt sie nicht, muss sie aber
+ *  beim Speichern erhalten — sonst loescht jedes Speichern die Zuordnung. */
+export type TypicalError = { error: string; socratic_question?: string; fehlbild?: string }
 
 export type FormState = {
   title: string
@@ -267,6 +269,7 @@ export function toSolution(state: FormState): TaskSolutionPatch {
       .map((e) => ({
         error: e.error.trim(),
         ...(e.socratic_question?.trim() ? { socratic_question: e.socratic_question.trim() } : {}),
+        ...(e.fehlbild?.trim() ? { fehlbild: e.fehlbild.trim() } : {}),
       })),
   }
 }

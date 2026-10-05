@@ -66,7 +66,8 @@
     "draft": "Entwurf",
     "review": "Zur Freigabe",
     "ready": "Freigegeben",
-    "beanstandet": "Beanstandet"
+    "beanstandet": "Beanstandet",
+    "rueckfrage": "Rückfrage"
   },
   "sections": {
     "stem": "Stamm",
@@ -251,7 +252,7 @@
     "saving": "Speichert …",
     "discard": "Verwerfen",
     "failed": "Speichern fehlgeschlagen: {{error}}",
-    "readOnly": "Nur-Lese-Modus: Schreiben darf nur die Rolle Admin."
+    "readOnly": "Nur lesen: Ändern dürfen hier nur Admins. Geprüft wird unter „Aufgaben prüfen“ im Coach-Bereich."
   },
   "schema": {
     "title": "Diese Datenbank ist noch nicht auf Stand A01",
@@ -524,7 +525,8 @@
       "offen": "Offen {{count}}",
       "zurFreigabe": "Zur Freigabe {{count}}",
       "freigegeben": "Freigegeben {{count}}",
-      "zurueckgewiesen": "Zurückgewiesen {{count}}"
+      "zurueckgewiesen": "Zurückgewiesen {{count}}",
+      "rueckfrage": "Rückfrage {{count}}"
     },
     "durchlaufAlle_one": "Durchlauf über {{count}} Aufgabe",
     "durchlaufAlle_other": "Durchlauf über alle {{count}}",
@@ -539,13 +541,15 @@
       "offen": "Alle Aufgaben dieses Fachs sind bearbeitet.",
       "zurFreigabe": "Gerade wartet keine Aufgabe auf die Freigabe.",
       "freigegeben": "Noch ist keine Aufgabe freigegeben.",
-      "zurueckgewiesen": "Keine Aufgabe ist zurückgewiesen."
+      "zurueckgewiesen": "Keine Aufgabe ist zurückgewiesen.",
+      "rueckfrage": "Gerade gibt es keine Rückfrage von Lena."
     },
     "zustand": {
       "draft": "Prüfbereit",
       "review": "Zur Freigabe",
       "ready": "Freigegeben",
-      "beanstandet": "Zurückgewiesen"
+      "beanstandet": "Zurückgewiesen",
+      "rueckfrage": "Rückfrage"
     },
     "grundMitNotiz": "{{grund}} — {{notiz}}",
     "queueLabel": "{{titel}} · {{thema}}",
@@ -555,5 +559,53 @@
       "erste": "Klasse 7/8",
       "zweite": "Klasse 9/10"
     }
+  },
+  "lena": {
+    "status": "Lena: {{status}}",
+    "gruende": "Gründe: {{gruende}}",
+    "frage": "Frage: „{{frage}}“",
+    "notiz": "Notiz: „{{notiz}}“",
+    "geprueft": "geprüft von {{wer}} am {{am}}",
+    "dauer": "{{n}} s",
+    "aenderungenZeigen_one": "{{count}} Änderung zeigen",
+    "aenderungenZeigen_other": "{{count}} Änderungen zeigen",
+    "aenderungenVerbergen": "Änderungen verbergen",
+    "grund": "Grund: {{grund}}",
+    "inPruefansicht": "In Prüfansicht öffnen",
+    "pilot": "Im Pilot",
+    "antwortLabel": "Antwort an Lena",
+    "antwortPlatzhalter": "z. B. Die Fertigkeit passt, bitte so freigeben.",
+    "freigeben": "Freigeben",
+    "zurueckweisen": "Zurückweisen",
+    "anLena": "Zurück an Lena",
+    "fehltGrund": "Zum Zurückweisen bitte mindestens einen Grund wählen.",
+    "antwortTeam": "Antwort vom Team: „{{antwort}}“",
+    "ausgelassen": "Lässt {{geaendert}} geänderte Aufgaben und {{rueckfragen}} Rückfragen aus.",
+    "nichtBeiLena": "Nicht bei Lena: {{grund}}",
+    "filterNichtBeiLena": "Nicht bei Lena",
+    "ausschluss": {
+      "vera8": "VERA-8",
+      "inaktiv": "inaktiv oder Tutorial",
+      "typ": "Aufgabentyp nicht prüfbar",
+      "ohne_fertigkeit": "ohne Fertigkeit oder Heimat-Thema",
+      "ohne_loesung": "ohne Lösung",
+      "gate": "Pflichtfeld fehlt",
+      "bild_fehlt": "Bild nötig, aber keins vorhanden"
+    },
+    "einstellungen": {
+      "titel": "Aufgaben prüfen (Lena)",
+      "hilfsmittel": "Hilfsmittel in der LSA",
+      "nurPilot": "Nur Pilot-Aufgaben zeigen",
+      "grundPflicht": "Grund für Änderungen ist Pflicht",
+      "speichern": "Speichern",
+      "gespeichert": "Gespeichert.",
+      "pilotAnzahl_one": "{{count}} Aufgabe im Pilot",
+      "pilotAnzahl_other": "{{count}} Aufgaben im Pilot",
+      "fehler": "Speichern ging nicht: {{fehler}}"
+    },
+    "weitereAktionen": "Weitere Aktionen",
+    "zurueckweisenMenue": "Zurückweisen …",
+    "zurueckweisenGruende": "Warum zurückweisen? Mindestens ein Grund.",
+    "abbrechen": "Abbrechen"
   }
 }

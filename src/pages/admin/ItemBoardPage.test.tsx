@@ -16,6 +16,14 @@ vi.mock('@/lib/supabase/freigabe', () => ({
   freigabeThema: vi.fn(),
   listLetzteBeanstandungen: vi.fn(),
 }))
+vi.mock('@/lib/supabase/pruefung', () => ({
+  getPruefAdminListe: vi.fn().mockResolvedValue({ data: [], error: null }),
+  getFehlbilder: vi.fn().mockResolvedValue({ data: [], error: null }),
+  getPruefEinstellungen: vi.fn().mockResolvedValue({ data: null, error: null }),
+  setPruefEinstellungen: vi.fn(),
+  setPruefPilot: vi.fn(),
+  pruefRueckfrageKlaeren: vi.fn(),
+}))
 vi.mock('@/lib/supabase/themen', () => ({
   listSkillThemen: vi.fn(),
 }))

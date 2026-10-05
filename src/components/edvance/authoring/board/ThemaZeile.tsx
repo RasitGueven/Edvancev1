@@ -3,7 +3,8 @@
 // Aufgabentext, Zustand und bei zurueckgewiesenen dem Grund.
 //
 // admin sieht zusaetzlich "Alle geprueften freigeben" (freigabe_thema), sobald
-// Aufgaben des Themas auf "Zur Freigabe" stehen.
+// Aufgaben des Themas auf "Zur Freigabe" stehen, mit der Zahl der ausgelassenen geaenderten
+// Aufgaben und Rueckfragen (Lena-Board, Entscheidung 41). Unter jeder Aufgabe Lenas Ergebnis.
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +12,8 @@ import { ChevronDown, ChevronRight, Play, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { passtZuFilter, type BoardFilter, type Thema } from '@/lib/authoring/board'
 import type { LetzteBeanstandung } from '@/lib/supabase/freigabe'
+import type { PruefAdminZeile } from '@/types'
+import { LenaInfo } from './LenaInfo'
 import { StatusBadge } from '../ui'
 import { FortschrittsBalken } from './FortschrittsBalken'
 
@@ -21,6 +24,9 @@ export function ThemaZeile({
   isAdmin,
   busy,
   beanstandungen,
+  lena,
+  fehlbildName,
+  onReload,
   onToggle,
   onDurchlauf,
   onAufgabe,
@@ -32,6 +38,9 @@ export function ThemaZeile({
   isAdmin: boolean
   busy: boolean
   beanstandungen: Map<string, LetzteBeanstandung>
+  lena: Map<string, PruefAdminZeile>
+  fehlbildName: (slug: string) => string
+  onReload: () => void
   onToggle: () => void
   onDurchlauf: () => void
   onAufgabe: (taskId: string) => void
@@ -42,6 +51,10 @@ export function ThemaZeile({
   const fertig = stand.total > 0 && stand.freigegeben === stand.total
   const aufgaben = thema.tasks.filter((task) => passtZuFilter(task, filter))
   const name = thema.name ?? t('board.ohneThema')
+  const ausgelassen = {
+    geaendert: thema.tasks.filter((x) => x.status === 'review' && lena.get(x.id)?.geaendert).length,
+    rueckfragen: thema.tasks.filter((x) => x.status === 'rueckfrage').length,
+  }
 
   return (
     <div className="flex flex-col border-b border-[var(--color-border)] last:border-b-0">
@@ -69,10 +82,15 @@ export function ThemaZeile({
         </span>
         <div className="flex gap-2">
           {isAdmin && thema.id && stand.zurFreigabe > 0 && (
-            <Button size="sm" disabled={busy} onClick={onFreigeben}>
-              <ShieldCheck className="h-4 w-4" aria-hidden="true" />
-              {t('clusterRelease.button', { count: stand.zurFreigabe })}
-            </Button>
+            <span className="flex flex-col items-end gap-1">
+              <Button size="sm" disabled={busy} onClick={onFreigeben}>
+                <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+                {t('clusterRelease.button', { count: stand.zurFreigabe })}
+              </Button>
+              {(ausgelassen.geaendert > 0 || ausgelassen.rueckfragen > 0) && (
+                <span className="text-xs text-[var(--color-text-tertiary)]">{t('lena.ausgelassen', ausgelassen)}</span>
+              )}
+            </span>
           )}
           <Button
             size="sm"
@@ -95,34 +113,38 @@ export function ThemaZeile({
           {aufgaben.map((task) => {
             const grund = task.status === 'beanstandet' ? beanstandungen.get(task.id) : undefined
             return (
-              <button
-                key={task.id}
-                type="button"
-                onClick={() => onAufgabe(task.id)}
-                className="flex min-h-[44px] flex-col gap-2 rounded-[var(--radius-md)] p-2 text-left transition hover:bg-[var(--color-bg-app)]"
-              >
-                <span className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-semibold text-[var(--color-text-primary)]">
-                    {task.title ?? t('board.ohneTitel')}
+              <div key={task.id} className="flex flex-col gap-2 rounded-[var(--radius-md)] p-2 transition hover:bg-[var(--color-bg-app)]">
+                <button
+                  type="button"
+                  onClick={() => onAufgabe(task.id)}
+                  className="flex min-h-[44px] flex-col gap-2 text-left"
+                >
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="text-sm font-semibold text-[var(--color-text-primary)]">
+                      {task.title ?? t('board.ohneTitel')}
+                    </span>
+                    <StatusBadge status={task.status} label={t(`board.zustand.${task.status}`)} />
                   </span>
-                  <StatusBadge status={task.status} label={t(`board.zustand.${task.status}`)} />
-                </span>
-                {task.question && (
-                  <span className="line-clamp-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                    {task.question}
-                  </span>
+                  {task.question && (
+                    <span className="line-clamp-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                      {task.question}
+                    </span>
+                  )}
+                  {grund && (
+                    <span className="text-xs leading-relaxed text-[var(--color-destructive)]">
+                      {grund.notiz
+                        ? t('board.grundMitNotiz', {
+                            grund: t(`reject.kategorie.${grund.kategorie}`),
+                            notiz: grund.notiz,
+                          })
+                        : t(`reject.kategorie.${grund.kategorie}`)}
+                    </span>
+                  )}
+                </button>
+                {isAdmin && (
+                  <LenaInfo taskId={task.id} zeile={lena.get(task.id)} fehlbildName={fehlbildName} onReload={onReload} />
                 )}
-                {grund && (
-                  <span className="text-xs leading-relaxed text-[var(--color-destructive)]">
-                    {grund.notiz
-                      ? t('board.grundMitNotiz', {
-                          grund: t(`reject.kategorie.${grund.kategorie}`),
-                          notiz: grund.notiz,
-                        })
-                      : t(`reject.kategorie.${grund.kategorie}`)}
-                  </span>
-                )}
-              </button>
+              </div>
             )
           })}
         </div>

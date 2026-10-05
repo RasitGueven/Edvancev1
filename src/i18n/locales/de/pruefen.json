@@ -1,0 +1,420 @@
+{
+  "kachel": {
+    "titel": "Aufgaben prüfen",
+    "beschreibung": "Vorbefüllte Aufgaben der Lernstandsanalyse prüfen und bewerten"
+  },
+  "keinRecht": "Für „Aufgaben prüfen“ fehlt dir das Prüfrecht. Bitte wende dich an das Edvance-Team.",
+  "kopf": {
+    "titel": "Aufgaben prüfen",
+    "text": "Lernstandsanalyse Mathe. Jede Aufgabe ist vorbefüllt: richtige Antwort, typische Fehler, Fertigkeit. Du schaust drüber, korrigierst, was nicht stimmt, und entscheidest mit einem Klick."
+  },
+  "stufe": {
+    "erprobung": "Klasse 5/6",
+    "erste": "Klasse 7/8",
+    "zweite": "Klasse 9/10"
+  },
+  "status": {
+    "offen": "Offen",
+    "passt": "Passt",
+    "passtGeaendert": "Passt · geändert",
+    "unsicher": "Unsicher",
+    "passt_nicht": "Passt nicht",
+    "freigegeben": "Freigegeben"
+  },
+  "naechstes": {
+    "eyebrow": "Als Nächstes",
+    "fertigEyebrow": "Geschafft",
+    "position": "{{thema}} · Aufgabe {{nr}} von {{anzahl}}",
+    "weiter": "Du machst dort weiter, wo du aufgehört hast.",
+    "erstesMal": "{{stufe}}, erstes Thema.",
+    "alleBewertet": "Alle Aufgaben sind bewertet",
+    "alleBewertetText": "Das Edvance-Team gibt die Aufgaben jetzt frei.",
+    "knopf": "Weiter prüfen",
+    "geprueft": "{{x}} von {{y}} geprüft",
+    "passt": "Passt {{n}}",
+    "geaendert": "geändert {{n}}",
+    "unsicher": "Unsicher {{n}}",
+    "passtNicht": "Passt nicht {{n}}"
+  },
+  "themen": {
+    "reiter": "{{stufe}}",
+    "reiterZahl": "{{x}} / {{y}}",
+    "zaehler": "{{x}} / {{y}}",
+    "geprueftVon": "{{x}} von {{y}} geprüft",
+    "pruefen": "Prüfen",
+    "aufklappen": "{{thema}} aufklappen",
+    "zuklappen": "{{thema}} zuklappen",
+    "aufgabe": "{{nr}}. {{titel}}",
+    "leer": "Keine Aufgaben zum Prüfen",
+    "leerText": "Sobald Aufgaben vorbefüllt sind, erscheinen sie hier."
+  },
+  "pausiert": "Pausiert. Dein Stand ist gespeichert.",
+  "abschluss": {
+    "titel": "Alle Aufgaben bewertet",
+    "text": "Danke! Das Edvance-Team sieht deine Bewertungen und gibt die Aufgaben frei.",
+    "passt": "Passt",
+    "davonGeaendert": "davon {{n}} geändert",
+    "unsicher": "Unsicher",
+    "passtNicht": "Passt nicht",
+    "offen": "Noch offen",
+    "schnitt_one": "Im Schnitt {{count}} Sekunde pro Aufgabe.",
+    "schnitt_other": "Im Schnitt {{count}} Sekunden pro Aufgabe.",
+    "offenePruefen": "Offene Aufgaben prüfen",
+    "zurUebersicht": "Zur Übersicht"
+  },
+  "ansicht": {
+    "meta": "{{stufe}} · Lernstandsanalyse Mathe · Erlaubt: {{hilfsmittel}}",
+    "position": "Aufgabe {{nr}} von {{anzahl}}",
+    "zurueck": "‹ Zurück",
+    "ersteAufgabe": "Das ist die erste Aufgabe.",
+    "ueberspringen": "Überspringen ›",
+    "pause": "Pause",
+    "fortschritt": "{{x}} von {{y}} im Thema bewertet",
+    "schonBewertet": "Schon bewertet: {{status}}",
+    "schonBewertetNeu": "Du kannst die Aufgabe neu bewerten.",
+    "antwortTeam": "Antwort vom Team: „{{antwort}}“",
+    "freigegeben": "Diese Aufgabe ist freigegeben. Du kannst sie lesen, aber nicht mehr ändern.",
+    "nichtImBoard": "Diese Aufgabe gehört nicht zu den Aufgaben, die du prüfst.",
+    "konflikt": "Die Aufgabe wurde inzwischen geändert. Bitte neu laden.",
+    "neuLaden": "Neu laden",
+    "speichert": "Wird gespeichert …",
+    "gespeichert": "Alle Änderungen gespeichert",
+    "expertenmodus": "Im Expertenmodus öffnen",
+    "ladeFehler": "Die Aufgabe konnte nicht geladen werden.",
+    "teamBeanstandet": "Vom Team beanstandet, wird überarbeitet. Danach kommt die Aufgabe wieder zu dir."
+  },
+  "kind": {
+    "titel": "So sieht das Kind die Aufgabe",
+    "bildGross": "Bild vergrößern",
+    "bildTitel": "Bild in groß",
+    "danach": "In der Lernstandsanalyse bekommt es keine Rückmeldung und keine Lösung."
+  },
+  "antworttyp": {
+    "zahl": "Das Kind tippt eine Zahl ein.",
+    "zahl_einheit": "Das Kind tippt eine Zahl ein. Die Einheit {{einheit}} steht schon am Antwortfeld.",
+    "text": "Das Kind tippt eine kurze Antwort ein.",
+    "text_einheit": "Das Kind tippt eine kurze Antwort ein. Die Einheit {{einheit}} steht schon am Antwortfeld.",
+    "term": "Das Kind tippt einen Term ein.",
+    "mc_one": "Das Kind wählt eine von {{count}} Antworten.",
+    "mc_other": "Das Kind wählt eine von {{count}} Antworten.",
+    "teile_one": "Das Kind beantwortet eine Teilfrage.",
+    "teile_other": "Das Kind beantwortet {{count}} Teilfragen."
+  },
+  "auffaellig": {
+    "titel": "Bitte genauer ansehen",
+    "fehler_als_richtig": "„{{wert}}“ steht als typischer Fehler, würde aber als richtig gewertet.",
+    "werte_widersprechen": "„{{wert}}“ steht bei den richtigen Antworten, würde aber nicht als ganz richtig gewertet.",
+    "mc_richtig_ist_fehler": "Antwort {{wert}}) ist als richtig markiert und steht gleichzeitig bei den typischen Fehlern.",
+    "mc_ablenker_ohne_fehlbild": "Antwort {{wert}}) ist weder richtig noch einem Denkfehler zugeordnet. Wählt ein Kind sie, erfährt das System nichts darüber, woran es hakt.",
+    "teil_fehler_ist_richtig": "{{teil}} {{wert}} steht als typischer Fehler und zugleich als richtige Antwort.",
+    "loesungsweg_endet_falsch": "Der Lösungsweg endet mit {{wert}}. Das würde das System als falsch werten.",
+    "loesungsweg_endet_teilweise": "Der Lösungsweg endet mit {{wert}}. Das würde das System nur als teilweise richtig werten."
+  },
+  "antwort": {
+    "titel": "Richtige Antwort",
+    "titelTeile": "Richtige Antworten",
+    "sub": "Antwort anklicken zum Ändern, × zum Löschen.",
+    "subTeile": "Hier zählt nur, was in der Liste steht. Trag jede übliche Schreibweise ein.",
+    "subMc": "Die richtige Antwort ist markiert. Zum Ändern eine andere anklicken.",
+    "subTerm": "Hier zählt nur, was in der Liste steht.",
+    "schreibweisen": "Andere Schreibweisen desselben Werts zählen automatisch, zum Beispiel {{beispiele}}.",
+    "oder": " oder ",
+    "plus": "+ Antwort",
+    "aendern": "Antwort {{wert}} ändern",
+    "loeschen": "Antwort {{wert}} löschen",
+    "neu": "Neue Antwort",
+    "richtig": "richtig",
+    "keine": "keine"
+  },
+  "regel": {
+    "titel": "Gewertet wird",
+    "wert": "genau dieser Wert",
+    "bereich": "Bereich: Wert ± Toleranz",
+    "bereichSub": "Jeder Wert in diesem Bereich zählt als richtig.",
+    "mitte": "Wert",
+    "toleranz": "Toleranz",
+    "von": "also {{von}} bis {{bis}}",
+    "einheit": "Einheit ({{einheit}}) muss dabei sein",
+    "einheitSub": "Fehlt sie, zählt die Antwort als teilweise richtig.",
+    "einheitAmFeld": "Nicht nötig: Die Einheit {{einheit}} steht schon am Antwortfeld."
+  },
+  "testen": {
+    "link": "Antwort ausprobieren",
+    "titel": "Antwort ausprobieren",
+    "platzhalter": "z. B. eine Zahl",
+    "teil": "Teilfrage",
+    "voll": "✓ würde als richtig gewertet",
+    "teilweise": "◐ würde als teilweise richtig gewertet",
+    "nicht": "✗ würde als falsch gewertet",
+    "erkannt": "Erkannt als typischer Fehler: {{klartext}}",
+    "nichtErkannt": "Kein typischer Fehler erkannt."
+  },
+  "weg": {
+    "titel": "Lösungsweg zum Nachlesen",
+    "leer": "Kein Lösungsweg hinterlegt."
+  },
+  "fehler": {
+    "titel": "Typische Fehler",
+    "sub": "Antworten, die Kinder hier oft geben, und der Denkfehler dahinter. Unpassendes einfach entfernen.",
+    "keine": "Keine typischen Fehler hinterlegt.",
+    "ohneErkennung": "Bei diesem Antworttyp erkennt das System keine typischen Fehler.",
+    "antwort": "Antwort:",
+    "hier": "Hier:",
+    "entfernen": "Entfernen",
+    "wiederRein": "Wieder rein",
+    "neu": "neu",
+    "ergaenzen": "+ Fehler ergänzen",
+    "formWert": "Falsche Antwort",
+    "formTeil": "Teilfrage",
+    "formOption": "Antwortmöglichkeit",
+    "formDenkfehler": "Denkfehler wählen …",
+    "formSatz": "Was hat das Kind hier gerechnet? (optional)",
+    "formHinweis": "Passender Denkfehler fehlt? Dann „Unsicher“ und kurz beschreiben.",
+    "formFehltWert": "Bitte die falsche Antwort eintragen.",
+    "formFehltDenkfehler": "Bitte einen Denkfehler wählen.",
+    "abbrechen": "Abbrechen",
+    "hinzufuegen": "Hinzufügen"
+  },
+  "einordnung": {
+    "titel": "Einordnung",
+    "fertigkeit": "Fertigkeit",
+    "imThema": "Im Thema {{thema}}",
+    "voraussetzungen": "Voraussetzungen",
+    "thema": "Thema:",
+    "klasse": "{{stufe}}",
+    "bautAuf": "Baut auf:",
+    "neueFertigkeit": "Die neue Fertigkeit bestätigt das Team bei der Freigabe.",
+    "afb": "Anforderungsbereich",
+    "afbName": {
+      "I": "Reproduzieren",
+      "II": "Zusammenhänge herstellen",
+      "III": "Verallgemeinern und reflektieren"
+    },
+    "mittelSicher": "mittel sicher"
+  },
+  "marke": {
+    "geaendert": "geändert",
+    "zuruecksetzen": "Auf Vorbefüllung zurücksetzen"
+  },
+  "aenderungen": {
+    "titel_one": "{{count}} Änderung",
+    "titel_other": "{{count}} Änderungen",
+    "warum": "Kurz warum?",
+    "optional": "(optional)",
+    "pflicht": "(Pflicht)",
+    "warumPlatzhalter": "z. B. Hinterlegte Lösung war falsch",
+    "richtigeAntwort": "Richtige Antwort: {{vorher}} → {{nachher}}",
+    "richtigeAntwortTeil": "Richtige Antwort {{teil}}: {{vorher}} → {{nachher}}",
+    "wertung": "Wertung: {{vorher}} → {{nachher}}",
+    "wertungWert": "genau dieser Wert",
+    "wertungBereich": "Bereich {{von}} bis {{bis}}",
+    "einheit": "Einheit muss dabei sein: {{vorher}} → {{nachher}}",
+    "ja": "ja",
+    "nein": "nein",
+    "fehlerEntfernt": "Typischer Fehler entfernt: {{name}} ({{werte}})",
+    "fehlerErgaenzt": "Typischer Fehler ergänzt: {{werte}} → {{name}}",
+    "fehlerGeaendert": "Typischer Fehler geändert: {{name}} ({{werte}})",
+    "fertigkeit": "Fertigkeit: {{vorher}} → {{nachher}}",
+    "afb": "Anforderungsbereich: {{vorher}} → {{nachher}}"
+  },
+  "leiste": {
+    "allesVorbefuellt": "Alles ist vorbefüllt. Wenn es stimmt: „Passt“.",
+    "aenderungen_one": "Deine Änderung wird mit der Bewertung gespeichert.",
+    "aenderungen_other": "Deine {{count}} Änderungen werden mit der Bewertung gespeichert.",
+    "sperre": {
+      "antwort_fehlt": "Bitte mindestens eine richtige Antwort eintragen.",
+      "teil_fehlt": "Bitte für jede Teilfrage eine richtige Antwort eintragen.",
+      "bereich_ungueltig": "Bitte einen gültigen Bereich eintragen."
+    },
+    "passtNicht": "Passt nicht",
+    "unsicher": "Unsicher",
+    "passt": "✓ Passt",
+    "nichtTitel": "Was stimmt nicht?",
+    "nichtWas": "Was genau? (optional, bei „Sonstiges“ bitte ausfüllen)",
+    "nichtSpeichern": "Als „Passt nicht“ speichern",
+    "unsicherTitel": "Was ist dir unklar?",
+    "unsicherPlatzhalter": "z. B. Passender Denkfehler fehlt: Kinder setzen den Durchmesser ins Quadrat.",
+    "unsicherSpeichern": "Als „Unsicher“ speichern",
+    "abbrechen": "Abbrechen",
+    "fehltGrund": "Bitte mindestens einen Grund wählen.",
+    "fehltSonstiges": "Bei „Sonstiges“ bitte kurz beschreiben, was nicht stimmt.",
+    "fehltFrage": "Bitte kurz schreiben, was dir unklar ist.",
+    "gesperrtFreigegeben": "Freigegebene Aufgaben kannst du nicht mehr bewerten.",
+    "gesperrtTeam": "Vom Team beanstandet, wird überarbeitet."
+  },
+  "gruende": {
+    "aufgabe_fehlerhaft": "Aufgabe fehlerhaft oder nicht lösbar",
+    "aufgabe_unklar": "Aufgabe unklar oder mehrdeutig",
+    "bild_falsch": "Bild fehlt oder ist falsch",
+    "sprache_zu_schwer": "Sprachlich zu schwer für Kinder",
+    "tablet_umbauen": "Am Tablet so nicht beantwortbar, bitte umbauen",
+    "passt_nicht_in_lsa": "Passt nicht in eine Lernstandsanalyse",
+    "sonstiges": "Sonstiges"
+  },
+  "meldung": {
+    "entschieden": "{{thema}}, Aufgabe {{nr}}: {{status}}",
+    "rueckgaengig": "Rückgängig",
+    "schliessen": "Meldung schließen"
+  },
+  "fehlermeldung": {
+    "version": "Die Aufgabe wurde inzwischen geändert. Bitte neu laden.",
+    "eingabe": "Diese Eingabe kann so nicht gespeichert werden.",
+    "kein_recht": "Dafür fehlt dir das Prüfrecht.",
+    "nicht_gefunden": "Die Aufgabe gibt es nicht mehr.",
+    "allgemein": "Das hat nicht geklappt. Bitte versuch es noch einmal.",
+    "freigegeben": "Die Aufgabe ist schon freigegeben.",
+    "ausgeschlossen": "Diese Aufgabe gehört nicht zu den Aufgaben, die du prüfst.",
+    "mc_unbekannt": "Diese Antwortmöglichkeit gibt es nicht.",
+    "options_bewertet": "Bei dieser Aufgabe sind die Antwortmöglichkeiten einzeln gewertet. Die richtige Antwort ändert das Team.",
+    "bereich_ungueltig": "Bitte einen gültigen Bereich eintragen.",
+    "einheit_unzulaessig": "Bei dieser Aufgabe gibt es keine Einheit zu werten.",
+    "einheit_fehlt": "Bei dieser Aufgabe ist keine Einheit hinterlegt.",
+    "einheit_am_feld": "Die Einheit steht schon am Antwortfeld.",
+    "fehlbild_unbekannt": "Diesen Denkfehler gibt es nicht.",
+    "fehler_wert_fehlt": "Bitte die falsche Antwort eintragen.",
+    "teil_unbekannt": "Diese Teilfrage gibt es nicht.",
+    "fertigkeit_unzulaessig": "Diese Fertigkeit steht hier nicht zur Auswahl.",
+    "afb_ungueltig": "Bitte einen Anforderungsbereich wählen.",
+    "regel_ungueltig": "So kann die Wertung nicht gespeichert werden.",
+    "aenderung_grund_fehlt": "Bitte kurz schreiben, warum du etwas geändert hast.",
+    "antwort_fehlt": "Bitte mindestens eine richtige Antwort eintragen.",
+    "gate": "Für „Passt“ fehlt der Aufgabe noch etwas. Bitte „Unsicher“ wählen.",
+    "notiz_fehlt": "Bitte kurz beschreiben, worum es geht.",
+    "grund_fehlt": "Bitte mindestens einen Grund wählen.",
+    "grund_unbekannt": "Diesen Grund gibt es nicht.",
+    "nicht_bewertet": "Die Aufgabe ist noch nicht bewertet.",
+    "keine_rueckfrage": "Zu dieser Aufgabe gibt es keine Rückfrage.",
+    "team_beanstandet": "Vom Team beanstandet, wird überarbeitet."
+  },
+  "info": {
+    "erklaerung": "Erklärung: {{was}}",
+    "antwort": [
+      {
+        "t": "Die Werte, die als richtig zählen. Das System vergleicht Zahlen nach ihrem Wert: 22,62 und 22.62 und 22,620 zählen gleich, ebenso mit oder ohne Einheit."
+      },
+      {
+        "t": "Trag deshalb nur echte Alternativen ein, zum Beispiel das Ergebnis mit π ≈ 3,14 neben dem mit der π-Taste."
+      }
+    ],
+    "teile": [
+      {
+        "t": "Je Teilfrage die Antworten, die als richtig zählen. Bei Teilfragen vergleicht das System den Text, nicht den Zahlenwert: 3 und 3,0 sind für das System verschieden."
+      },
+      {
+        "t": "Trag deshalb jede übliche Schreibweise ein."
+      }
+    ],
+    "mc": [
+      {
+        "t": "Die Antwortmöglichkeit, die als richtig zählt. Das Kind sieht alle vier Möglichkeiten ohne Markierung."
+      }
+    ],
+    "regel": [
+      {
+        "t": "Wie das System die Antwort wertet:"
+      },
+      {
+        "b": "Genau dieser Wert",
+        "t": "Der Zahlenwert muss stimmen, die Schreibweise ist egal."
+      },
+      {
+        "b": "Bereich",
+        "t": "Jeder Wert im Bereich zählt. Sinnvoll beim Ablesen aus Fotos oder Diagrammen ohne Gitter."
+      },
+      {
+        "b": "Einheit muss dabei sein",
+        "t": "Fehlt die Einheit, zählt die Antwort als teilweise richtig. So erkennt der Bericht, wenn ein Kind richtig rechnet, aber Einheiten vergisst."
+      }
+    ],
+    "weg": [
+      {
+        "t": "Eine kurze Musterlösung für uns. Das Kind sieht sie nicht, und sie fließt nicht in den Bericht."
+      },
+      {
+        "t": "Sie soll dir das Prüfen erleichtern: Du liest den Weg, statt selbst zu rechnen."
+      }
+    ],
+    "fehler": [
+      {
+        "t": "Falsche Antworten, die Kinder hier häufig geben, und der Denkfehler dahinter. Gibt ein Kind genau diese Antwort, erkennt das System den Denkfehler. Wiederholt er sich, steht er im Elternbericht."
+      },
+      {
+        "t": "Entferne, was dir unrealistisch vorkommt. Ergänzen kannst du mit einem Denkfehler aus der Liste. Fehlt der passende, schreib es bei „Unsicher“."
+      }
+    ],
+    "fert": [
+      {
+        "t": "Die Fertigkeit, für die diese Aufgabe ein Beleg ist. Die Lernstandsanalyse wählt Aufgaben nach Fertigkeiten aus, und der Bericht sagt je Fertigkeit, ob sie sicher ist."
+      },
+      {
+        "t": "Prüf deshalb: Scheitern Kinder an dieser Aufgabe vor allem an dieser Fertigkeit? Wenn eher an einer Voraussetzung, wähl die passende aus."
+      },
+      {
+        "t": "Thema und Klasse ergeben sich aus der Fertigkeit."
+      }
+    ],
+    "afb": [
+      {
+        "t": "Welche Art von Denkleistung die Aufgabe verlangt:"
+      },
+      {
+        "b": "I",
+        "t": "Reproduzieren: ein bekanntes Verfahren direkt anwenden."
+      },
+      {
+        "b": "II",
+        "t": "Zusammenhänge herstellen: mehrere Schritte verknüpfen oder Gelerntes übertragen, zum Beispiel einen Text in eine Rechnung übersetzen."
+      },
+      {
+        "b": "III",
+        "t": "Verallgemeinern und reflektieren: begründen, verallgemeinern, eigene Lösungswege finden."
+      }
+    ],
+    "sicher": [
+      {
+        "t": "Dieser Wert ist vorbefüllt, aber nur mit mittlerer Sicherheit. Bitte besonders genau ansehen."
+      }
+    ],
+    "testen": [
+      {
+        "t": "Tipp eine Antwort ein und sieh, wie das System sie werten würde und ob es einen typischen Fehler erkennt."
+      },
+      {
+        "t": "Freiwillig, zum Beispiel wenn du nicht sicher bist, ob eine Schreibweise erkannt wird."
+      }
+    ],
+    "hilfsmittel": [
+      {
+        "t": "Was das Kind in der Lernstandsanalyse benutzen darf. Denk daran, wenn du die Schwierigkeit einschätzt."
+      }
+    ],
+    "entscheidung": [
+      {
+        "b": "Passt",
+        "t": "Die Aufgabe geht an das Edvance-Team zur endgültigen Freigabe. Deine Änderungen gehen mit, eine geänderte Fertigkeit bestätigt das Team."
+      },
+      {
+        "b": "Unsicher",
+        "t": "Das Team schaut sich deine Frage an und meldet sich."
+      },
+      {
+        "b": "Passt nicht",
+        "t": "Die Aufgabe geht mit deinem Grund zur Überarbeitung zurück."
+      }
+    ],
+    "was": {
+      "antwort": "Richtige Antwort",
+      "teile": "Richtige Antworten",
+      "mc": "Richtige Antwort",
+      "regel": "Wie wird gewertet?",
+      "weg": "Lösungsweg",
+      "fehler": "Typische Fehler",
+      "fert": "Fertigkeit",
+      "afb": "Anforderungsbereich",
+      "sicher": "Sicherheit der Vorbefüllung",
+      "testen": "Antwort ausprobieren",
+      "hilfsmittel": "Hilfsmittel",
+      "entscheidung": "Was passiert nach der Bewertung?"
+    }
+  }
+}

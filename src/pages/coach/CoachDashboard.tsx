@@ -17,7 +17,10 @@ import {
 import { listStudentsWithName } from '@/lib/supabase/students'
 import { formatDateLongDe } from '@/lib/utils'
 import { berlinYMD, isoWeek } from '@/lib/datetime'
-import { CalendarDays, Users, Clock, ClipboardList, FlaskConical, FolderOpen } from 'lucide-react'
+import { CalendarDays, Users, Clock, ClipboardList, ClipboardCheck, FlaskConical, FolderOpen } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
+import { getDarfPruefen } from '@/lib/supabase/freigabe'
+import { HINWEIS_KEIN_PRUEFRECHT } from '@/components/edvance/ProtectedRoute'
 import { useTranslation } from 'react-i18next'
 import { datum } from '@/lib/akte/format'
 import { amSelbenBerlinerTag, naechsteSession } from '@/lib/coachKennzahlen'
@@ -80,6 +83,7 @@ function DashStatCard({
 
 export function CoachDashboard(): JSX.Element {
   const { t, i18n } = useTranslation('coach')
+  const { t: tPruefen } = useTranslation('pruefen')
   const { user } = useAuth()
   const [vms, setVms] = useState<SessionVM[]>([])
   const [intervBySession, setIntervBySession] = useState<
@@ -90,6 +94,12 @@ export function CoachDashboard(): JSX.Element {
   const [range, setRange] = useState<RangeFilter>('today')
 
   const [aktiveSchueler, setAktiveSchueler] = useState<number | null>(null)
+  // Kachel "Aufgaben pruefen" nur mit Pruefrecht (Lena-Board); die DB entscheidet.
+  const [darfPruefen, setDarfPruefen] = useState(false)
+  const keinPruefrecht = (useLocation().state as { hinweis?: string } | null)?.hinweis === HINWEIS_KEIN_PRUEFRECHT
+  useEffect(() => {
+    void getDarfPruefen().then((res) => setDarfPruefen(res.data === true))
+  }, [])
 
   // "Sessions heute" zaehlt nach Berliner Kalendertag (berlinYMD fuer jetzt
   // und fuer die Session) — war schon vor S2b so (Prod-Beleg im PR).
@@ -211,12 +221,26 @@ export function CoachDashboard(): JSX.Element {
           <p className="mt-0.5 text-sm text-muted">{formatDateLongDe()}</p>
         </div>
 
+        {keinPruefrecht && (
+          <EdvanceCard className="mb-6 text-sm text-[var(--color-text-secondary)]">
+            {tPruefen('keinRecht')}
+          </EdvanceCard>
+        )}
+
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-          Schnellzugriff
+          {t('tiles.schnellzugriff')}
         </h2>
         <div className="mb-8">
           <DashboardTiles
             tiles={[
+              ...(darfPruefen
+                ? [{
+                    to: '/coach/pruefen',
+                    icon: <ClipboardCheck className="h-5 w-5" />,
+                    title: t('tiles.pruefen.title'),
+                    description: t('tiles.pruefen.description'),
+                  }]
+                : []),
               {
                 to: '/admin/akten',
                 icon: <FolderOpen className="h-5 w-5" />,
@@ -226,20 +250,20 @@ export function CoachDashboard(): JSX.Element {
               {
                 to: '/coach/intake',
                 icon: <ClipboardList className="h-5 w-5" />,
-                title: 'Erstgespräch-Protokoll',
-                description: 'Strukturiertes Erstgespräch erfassen und finalisieren',
+                title: t('tiles.intake.title'),
+                description: t('tiles.intake.description'),
               },
               {
                 to: '/screening?view=coach',
                 icon: <FlaskConical className="h-5 w-5" />,
-                title: 'Screening (Coach-Sicht)',
-                description: 'Lernstand-Diagnose begleiten und bewerten',
+                title: t('tiles.screening.title'),
+                description: t('tiles.screening.description'),
               },
               {
                 to: '/coach/screening-results',
                 icon: <ClipboardList className="h-5 w-5" />,
-                title: 'Screening-Ergebnisse',
-                description: 'Abgeschlossene Lernstand-Diagnosen einsehen',
+                title: t('tiles.ergebnisse.title'),
+                description: t('tiles.ergebnisse.description'),
               },
             ]}
           />
