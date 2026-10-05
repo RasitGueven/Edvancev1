@@ -26,6 +26,9 @@ vi.mock('@/lib/supabase/vertraege', () => ({
     }),
   ),
 }))
+vi.mock('@/lib/supabase/akte', () => ({
+  profilNamen: vi.fn(() => Promise.resolve(new Map())),
+}))
 vi.mock('@/lib/supabase/taskAuthoring', () => ({
   countTasksInReview: vi.fn(() => Promise.resolve({ data: 12, error: null })),
 }))

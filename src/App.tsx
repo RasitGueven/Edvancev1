@@ -6,7 +6,7 @@ import { StudentDashboard } from '@/pages/student/StudentDashboard'
 import { CoachDashboard } from '@/pages/coach/CoachDashboard'
 import { ParentDashboard } from '@/pages/parent/ParentDashboard'
 import { ScreeningReportPage as ParentScreeningReportPage } from '@/pages/parent/ScreeningReportPage'
-import { AdminDashboard } from '@/pages/admin/AdminDashboard'
+import { HeutePage } from '@/pages/admin/HeutePage'
 import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
 import { ItemBoardPage } from '@/pages/admin/ItemBoardPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
@@ -147,7 +147,7 @@ export default function App(): JSX.Element {
             path="/admin"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <AdminDashboard />
+                <HeutePage />
               </ProtectedRoute>
             }
           />

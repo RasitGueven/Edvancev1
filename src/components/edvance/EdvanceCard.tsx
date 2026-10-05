@@ -20,7 +20,6 @@ export type EdvanceCardVariant =
   | 'subtle'
   | 'hero-student'
   | 'hero-parent'
-  | 'admin-tile'
   | 'raised'
   | 'navy'
   | 'blue-pale'
@@ -62,7 +61,6 @@ const VARIANT_STYLES: Record<EdvanceCardVariant, string> = {
   subtle:         'bg-[var(--color-bg-subtle)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-6',
   'hero-student': 'student-hero light-source text-white border-0 rounded-[var(--radius-xl)] p-6 shadow-xl',
   'hero-parent':  'bg-[var(--color-bg-surface)] border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 shadow-md',
-  'admin-tile':   'admin-tile text-[var(--color-stage-text)] border-0 rounded-[var(--radius-xl)] p-6',
   /* Legacy-Aliase */
   raised:         'bg-[var(--color-bg-surface)] border border-[var(--color-border)] shadow-md rounded-[var(--radius-lg)] p-6',
   premium:        'bg-[var(--color-bg-surface)] border border-[var(--color-border)] shadow-md rounded-[var(--radius-lg)] p-6',
@@ -102,8 +100,7 @@ export function EdvanceCard({
   const isDark =
     variant === 'hero-student' ||
     variant === 'navy' ||
-    variant === 'hero' ||
-    variant === 'admin-tile'
+    variant === 'hero'
 
   return (
     <div

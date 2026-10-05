@@ -424,6 +424,14 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Platzhaltern, Gläubiger-ID in `vertrag_einstellungen`, Schülerakte auf Basis
   von `vertraege`.
 
+- **Admin-Hülle H3 · Startseite „Heute“** (Branch `feat/rasit-admin-h3-heute`, Retro
+  `docs/retros/2026-10-05-admin-h3-heute.md`): `/admin` zeigt statt Kacheln
+  Kennzahlen-Leiste, sechs Arbeitslisten und „Heute im Betrieb“. Neue
+  Lesefunktionen in `src/lib/supabase/heute.ts`. `AdminDashboard`,
+  `AdminWidgetGrid`, `LsaTodayCard` und die `.admin-*`-Klassen sind entfernt.
+  **Offen:** Absagen in „Heute im Betrieb“ (Slots-Feature), Zeile „Rückfragen von
+  Lena“, sobald es den Status `rueckfrage` in dev gibt.
+
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
   KI-Erklärartikel → Eskalations-Trigger.

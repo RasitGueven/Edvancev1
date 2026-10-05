@@ -19,6 +19,12 @@
   --container-board-spalte:   300px;
   --container-board-leads:    1000px;
   --container-board-akten:    700px;
+  /* Startseite „Heute“ (H3): Kennzahlen nebeneinander, Listen zweispaltig,
+     „Heute im Betrieb“ als rechte Spalte — gemessen an der Inhaltsbreite. */
+  --container-heute-kpi:      700px;
+  --container-heute-listen:   640px;
+  --container-heute-spalte:   980px;
+  --container-heute-betrieb:  340px;
 }
 
 /* ─── Tailwind v4: map CSS variables to utility classes ───────────────────────── */
@@ -269,50 +275,6 @@
   }
 }
 
-/* ─── Admin „Midnight Academy" ─ Bühne + Kacheln (matt, KEIN Glow) ────────────────
-   Die Admin-Oberfläche leiht sich die Schüler-Sprache: der EINE benannte
-   Midnight-Gradient (var(--gradient-midnight)) als Bühne, warme Off-White-Typo
-   (reuse der .text-warm*-Utilities), navy Kacheln mit warmer Gold-Kante. Bewusst
-   matt — kein Glow wie die Schüler-CTA-Karte. Alle Farben aus Tokens; inline nur
-   weiße Material-Alphas (Kanten/Highlights) wie in session.css. */
-@layer utilities {
-  .admin-stage {
-    --session-text:    var(--color-stage-text);
-    --session-text-72: color-mix(in srgb, var(--color-stage-text) 72%, transparent);
-    --session-text-56: color-mix(in srgb, var(--color-stage-text) 56%, transparent);
-    --session-text-42: color-mix(in srgb, var(--color-stage-text) 42%, transparent);
-    color: var(--session-text);
-    background: var(--gradient-midnight);
-    background-attachment: fixed;
-  }
-
-  /* Navy-Kachel auf der Bühne: matt, ruhige Elevation, warme Oberkante. */
-  /* Deckend seit der Admin-Hülle (H2): die Kacheln stehen bis H3 auf hellem
-     Grund, ohne Bühne dahinter wären sie durchscheinend und blass. */
-  .admin-tile {
-    background: linear-gradient(135deg, var(--color-stage-cta-top), var(--color-stage-cta-bottom));
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-top-color: rgba(255, 255, 255, 0.20);
-    box-shadow: var(--shadow-lg);
-    transition: border-color var(--duration-base) var(--ease-out);
-  }
-  /* Gold-getöntes Icon-Tile — matt. */
-  .admin-icon-tile {
-    background: color-mix(in srgb, var(--color-stage-gold-edge) 18%, transparent);
-    color: var(--color-accent);
-    box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--color-stage-gold-edge) 40%, transparent);
-  }
-  /* Matte Gold-CTA — nur auf dunklen Flächen (Button-Farblogik). */
-  .admin-cta-gold {
-    background: var(--color-gold-altgold);
-    color: var(--color-navy-deep);
-    transition: background var(--duration-base) var(--ease-out);
-  }
-  .admin-cta-gold:hover {
-    background: var(--color-gold-champagner);
-  }
-}
-
 /* ─── Keyframes (v2) ──────────────────────────────────────────────────────────── */
 @keyframes skeleton-shimmer {
   0% { opacity: 0.5; }
@@ -373,16 +335,6 @@
 /* ─── Base reset ──────────────────────────────────────────────────────────────── */
 * {
   border-color: var(--color-border);
-}
-
-/* Hover einer verlinkten Admin-Kachel: nur die warme Gold-Kante — keine
-   Bewegung, kein zusätzlicher Schatten, kein Glow. Inaktive Kacheln sind keine
-   Links und reagieren deshalb nicht.
-   Steht bewusst ungelayert und hinter dem `*`-Reset darüber: der Reset ist
-   selbst ungelayert und schlägt damit jede border-color aus @layer utilities,
-   unabhängig von der Spezifität. */
-.admin-tile-link:hover .admin-tile {
-  border-color: var(--color-stage-gold-edge);
 }
 
 html,
