@@ -85,16 +85,16 @@ describe('Kurztitel und Satz zum Antworttyp', () => {
 
 describe('Uebersetzung von ED409 und ED422', () => {
   it('ED409 heisst: inzwischen geaendert', () => {
-    expect(fehlerSchluessel({ code: 'ED409', hint: 'version', message: 'x' })).toBe('fehler.version')
+    expect(fehlerSchluessel({ code: 'ED409', hint: 'version', message: 'x' })).toBe('fehlermeldung.version')
   })
   it('ED422 uebersetzt den HINT, Unbekanntes faellt auf eingabe', () => {
-    expect(fehlerSchluessel({ code: 'ED422', hint: 'notiz_fehlt', message: 'x' })).toBe('fehler.notiz_fehlt')
-    expect(fehlerSchluessel({ code: 'ED422', hint: 'fertigkeit_unzulaessig', message: 'x' })).toBe('fehler.fertigkeit_unzulaessig')
-    expect(fehlerSchluessel({ code: 'ED422', hint: 'gibt_es_nicht', message: 'x' })).toBe('fehler.eingabe')
+    expect(fehlerSchluessel({ code: 'ED422', hint: 'notiz_fehlt', message: 'x' })).toBe('fehlermeldung.notiz_fehlt')
+    expect(fehlerSchluessel({ code: 'ED422', hint: 'fertigkeit_unzulaessig', message: 'x' })).toBe('fehlermeldung.fertigkeit_unzulaessig')
+    expect(fehlerSchluessel({ code: 'ED422', hint: 'gibt_es_nicht', message: 'x' })).toBe('fehlermeldung.eingabe')
   })
   it('Rechte und Sonstiges', () => {
-    expect(fehlerSchluessel({ code: '42501', hint: null, message: 'x' })).toBe('fehler.kein_recht')
-    expect(fehlerSchluessel({ code: null, hint: null, message: 'Netz' })).toBe('fehler.allgemein')
+    expect(fehlerSchluessel({ code: '42501', hint: null, message: 'x' })).toBe('fehlermeldung.kein_recht')
+    expect(fehlerSchluessel({ code: null, hint: null, message: 'Netz' })).toBe('fehlermeldung.allgemein')
     expect(fehlerSchluessel(null)).toBeNull()
   })
 })

@@ -58,12 +58,12 @@ export const BEKANNTE_HINWEISE = [
 /** i18n-Schluessel (Namespace pruefen) zu einem Fehler aus einem pruef_*-Aufruf. */
 export function fehlerSchluessel(err: PruefFehlerInfo | null): string | null {
   if (!err) return null
-  if (err.code === 'ED409') return 'fehler.version'
+  if (err.code === 'ED409') return 'fehlermeldung.version'
   if (err.code === 'ED422') {
     const hint = err.hint ?? ''
-    return (BEKANNTE_HINWEISE as readonly string[]).includes(hint) ? `fehler.${hint}` : 'fehler.eingabe'
+    return (BEKANNTE_HINWEISE as readonly string[]).includes(hint) ? `fehlermeldung.${hint}` : 'fehlermeldung.eingabe'
   }
-  if (err.code === '42501') return 'fehler.kein_recht'
-  if (err.code === 'P0002') return 'fehler.nicht_gefunden'
-  return 'fehler.allgemein'
+  if (err.code === '42501') return 'fehlermeldung.kein_recht'
+  if (err.code === 'P0002') return 'fehlermeldung.nicht_gefunden'
+  return 'fehlermeldung.allgemein'
 }
