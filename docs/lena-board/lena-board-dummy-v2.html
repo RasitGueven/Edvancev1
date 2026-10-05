@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lena-Board v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Version 2 des Klick-Dummys. Gleiche Bausteine wie v1 (lena-board-dummy.html), Prüfkarte nach
+   Bewertung-Lena-Board.md und Feldkatalog-Lena-Board.md umgebaut, echte Aufgaben aus den Chargen. */
+:root{
+  --navy:#102038; --navy-2:#1B2A4A;
+  --primary:#334D7A; --primary-hover:#253D6A; --primary-light:#EEF2F8; --primary-line:#D3DCEA;
+  --bg:#F7F7F5; --surface:#FFFFFF; --subtle:#EFEFED; --hover:#FAFAF8; --border:#E8E8E5; --line:#DCDCD8;
+  --t1:#1A1A18; --t2:#4A4A47; --t3:#888884; --disabled:#B8B8B4;
+  --ok:#2A8A4A; --ok-hover:#237A40; --ok-bg:#EAF5EE; --ok-line:#CDE6D6;
+  --amb:#C87E00; --amb-hover:#A86A00; --amb-bg:#FEF3E2; --amb-line:#F1D9AE;
+  --bad:#B91C1C; --bad-hover:#991818; --bad-bg:#FEF2F2; --bad-line:#F3C7C7;
+  --gold:#DA9721;
+  --hint-bg:#FBF6EA; --hint-line:#DA9721; --hint-ink:#8A5E10;
+  --on-dark:#FFFFFF; --on-dark-2:rgba(255,255,255,.72); --glass:rgba(255,255,255,.12); --glass-line:rgba(255,255,255,.25);
+  --scrim:rgba(16,32,56,.55);
+  --sh-xs:0 1px 3px rgba(51,77,122,.06); --sh-md:0 4px 12px rgba(51,77,122,.10);
+  --sh-lg:0 8px 24px rgba(51,77,122,.15); --sh-up:0 -4px 16px rgba(51,77,122,.08);
+  --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:20px;
+  --f-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --f-body:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--t1);font-family:var(--f-body);font-size:15px;line-height:1.55}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+kbd{font:inherit;font-size:11px;font-weight:500;border:1px solid currentColor;border-radius:4px;padding:0 5px;opacity:.6;line-height:1.5}
+@media (hover:none){kbd{display:none}}
+
+/* Kopfzeile */
+.topbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-inline:20px;padding-block:10px;
+  background:var(--surface);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--f-display);font-size:21px;font-weight:500;color:var(--primary)}
+.crumb{font-size:14px;color:var(--t2)}
+.crumb b{color:var(--t1);font-weight:600}
+.tright{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--t3)}
+.sw{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);
+  border-radius:999px;padding:4px 12px 4px 4px;font-size:13px;color:var(--t2);cursor:pointer}
+.sw .knob{width:28px;height:16px;border-radius:999px;background:var(--line);position:relative;flex:none}
+.sw .knob::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;
+  background:var(--surface);transition:left .15s ease-out}
+.sw[aria-pressed="true"]{border-color:var(--hint-line);color:var(--hint-ink)}
+.sw[aria-pressed="true"] .knob{background:var(--hint-line)}
+.sw[aria-pressed="true"] .knob::after{left:14px}
+.tlink{border:none;background:none;color:var(--primary);cursor:pointer;font-size:13px;padding:4px 2px}
+.tlink:hover{text-decoration:underline}
+.vtag{font-size:11.5px;font-weight:600;color:var(--hint-ink);background:var(--hint-bg);border:1px solid var(--hint-line);border-radius:999px;padding:1px 8px}
+
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:22px 180px}
+@media (max-width:600px){.wrap,.topbar{padding-inline:16px}}
+
+/* Grundbausteine */
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:var(--on-dark);border:1px solid var(--primary);
+  border-radius:var(--r-md);padding:9px 18px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;
+  transition:background .15s ease-out}
+.btn:hover{background:var(--primary-hover)}
+.btn-ghost{background:var(--surface);color:var(--t2);border-color:var(--line)}
+.btn-ghost:hover{background:var(--subtle);color:var(--t1)}
+.btn-sm{padding:6px 13px;font-size:13px}
+.btn-big{padding:14px 26px;font-size:16px}
+.btn-bad{background:var(--bad);border-color:var(--bad)} .btn-bad:hover{background:var(--bad-hover)}
+.btn-amb{background:var(--amb);border-color:var(--amb)} .btn-amb:hover{background:var(--amb-hover)}
+input[type=text],input[type=number],select,textarea{font:inherit;font-size:14px;color:var(--t1);background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r-md);padding:7px 10px}
+textarea{width:100%;resize:vertical}
+.hint{display:none;border:1.5px dashed var(--hint-line);background:var(--hint-bg);border-radius:var(--r-md);
+  padding:9px 12px;font-size:13px;line-height:1.5;color:var(--t2);margin-top:12px}
+.hint b{color:var(--hint-ink);font-weight:600;margin-right:4px}
+.hint i{font-style:normal;font-weight:600;color:var(--hint-ink)}
+.hint code{font-size:12px;background:rgba(218,151,33,.12);border-radius:4px;padding:0 4px}
+body.hints .hint{display:block}
+
+/* Übersicht */
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:var(--r-xl);padding:22px 26px;
+  color:var(--on-dark);box-shadow:var(--sh-lg)}
+.hero h1{font-family:var(--f-display);font-weight:600;font-size:28px;line-height:1.2;margin:0 0 6px;text-wrap:balance}
+.hero p{margin:0;color:var(--on-dark-2);font-size:14px;max-width:66ch}
+.next{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;margin-top:16px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 22px;box-shadow:var(--sh-md)}
+.eyebrow{font-size:12px;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;font-weight:600}
+.what{font-family:var(--f-display);font-size:21px;font-weight:600;line-height:1.3;margin:3px 0 2px;text-wrap:balance}
+.nsub{font-size:14px;color:var(--t2)}
+.stats{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.pill{font-size:12.5px;padding:3px 10px;border-radius:999px;background:var(--subtle);color:var(--t2);white-space:nowrap}
+.pill b{font-variant-numeric:tabular-nums;font-weight:600}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.amb{background:var(--amb-bg);color:var(--amb)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.chg{background:var(--primary-light);color:var(--primary)}
+@media (max-width:640px){.next{grid-template-columns:minmax(0,1fr)} .next .btn-big{justify-content:center}}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:26px 0 12px}
+.tab{border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:8px 16px;font-size:14px;
+  color:var(--t2);cursor:pointer}
+.tab span{opacity:.75;margin-left:6px;font-variant-numeric:tabular-nums}
+.tab:hover{border-color:var(--primary);color:var(--primary)}
+.tab[aria-selected="true"]{background:var(--primary);border-color:var(--primary);color:var(--on-dark);font-weight:600}
+
+.topics{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.trow{display:grid;grid-template-columns:20px minmax(0,1fr) 150px 64px auto;gap:14px;align-items:center;
+  padding:14px 18px;border-top:1px solid var(--subtle);cursor:pointer}
+.topics > .trow:first-child{border-top:none}
+.trow:hover{background:var(--hover)}
+.chev{color:var(--t3);transition:transform .15s ease-out}
+.trow.open .chev{transform:rotate(90deg)}
+.tn{font-weight:500}
+.tmeta{display:none;font-size:13px;color:var(--t3)}
+.bar{height:6px;background:var(--subtle);border-radius:3px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.b-ok{background:var(--ok)} .b-amb{background:var(--amb)} .b-bad{background:var(--bad)}
+.count{font-variant-numeric:tabular-nums;color:var(--t2);font-size:14px;text-align:right}
+@media (max-width:640px){
+  .trow{grid-template-columns:18px minmax(0,1fr) auto;gap:10px;padding:12px 14px}
+  .trow .bar,.trow .count{display:none} .tmeta{display:block}
+}
+.tasks{background:var(--bg);border-top:1px solid var(--subtle);padding:4px 18px 10px 52px}
+.task{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:none;
+  border-bottom:1px solid var(--border);padding:9px 4px;font-size:14px;cursor:pointer}
+.task:hover .tt b{color:var(--primary);text-decoration:underline}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line);flex:none}
+.dot.ok{background:var(--ok)} .dot.amb{background:var(--amb)} .dot.bad{background:var(--bad)}
+.tt{min-width:0;display:flex;flex-direction:column}
+.tt b{font-weight:500}
+.tt small{font-size:12.5px;color:var(--t3)}
+.st{margin-left:auto;font-size:12.5px;color:var(--t3);white-space:nowrap}
+.st.ok{color:var(--ok)} .st.amb{color:var(--amb)} .st.bad{color:var(--bad)}
+.tempty{font-size:13px;color:var(--t3);padding:10px 4px 2px}
+@media (max-width:640px){.tasks{padding-left:16px;padding-right:12px}}
+
+/* Prüfansicht */
+.rhead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;align-items:center;
+  background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:var(--r-xl);padding:14px 20px 16px;
+  color:var(--on-dark);box-shadow:var(--sh-lg)}
+.rmeta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;color:var(--on-dark-2);font-size:12.5px}
+.rhead h1{font-family:var(--f-display);font-weight:600;font-size:22px;line-height:1.25;margin:0}
+.rhead .ib{border-color:var(--glass-line);background:var(--glass);color:var(--on-dark)}
+.rnav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.pos{font-size:14px;color:var(--on-dark-2);margin-right:4px;font-variant-numeric:tabular-nums}
+.pos b{color:var(--on-dark);font-size:17px}
+.gbtn{background:var(--glass);border:1px solid var(--glass-line);color:var(--on-dark);border-radius:var(--r-md);
+  padding:6px 12px;font-size:13px;cursor:pointer}
+.gbtn:hover{background:rgba(255,255,255,.2)}
+.gbtn:disabled{opacity:.35;cursor:default}
+.rprog{grid-column:1/-1;height:4px;background:var(--glass);border-radius:2px;overflow:hidden}
+.rprog i{display:block;height:100%;background:var(--gold);transition:width .2s ease-out}
+@media (max-width:640px){.rhead{grid-template-columns:minmax(0,1fr)} .rnav{justify-content:flex-start}}
+
+.done{border-radius:var(--r-md);padding:9px 14px;font-size:14px;margin-top:14px;background:var(--subtle);color:var(--t2)}
+.done.ok{background:var(--ok-bg);color:var(--ok)}
+.done.amb{background:var(--amb-bg);color:var(--amb)}
+.done.bad{background:var(--bad-bg);color:var(--bad)}
+
+.rgrid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:18px;margin-top:16px;align-items:start}
+@media (max-width:920px){.rgrid{grid-template-columns:minmax(0,1fr)}}
+.lbl{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);font-weight:600}
+
+.pv{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--sh-xs)}
+@media (min-width:921px){.pv{position:sticky;top:16px}}
+.pvhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pvframe{background:linear-gradient(160deg,var(--navy-2),var(--navy));border-radius:var(--r-lg);padding:16px;margin-top:10px}
+.pvcard{background:var(--surface);border-radius:var(--r-md);padding:18px 20px}
+.pvcard p{margin:0 0 6px}
+.term{font-size:20px;font-weight:500;letter-spacing:.02em;font-variant-numeric:tabular-nums;margin:8px 0 4px!important}
+.pvin{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:var(--r-md);
+  padding:10px 14px;color:var(--t3);margin-top:12px;font-size:15px}
+.pvunit{color:var(--t1);font-weight:600}
+.pvrow{display:grid;grid-template-columns:3.2em minmax(0,1fr);gap:10px;align-items:center;margin-top:10px}
+.pvrow .pvin{margin-top:0}
+.pvrow b{font-variant-numeric:tabular-nums}
+.pvopts{display:grid;gap:8px;margin-top:12px}
+.pvopt{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--r-md);padding:10px 14px}
+.pvopt b{color:var(--t3);font-weight:600}
+.pvbtn{display:flex;justify-content:flex-end;margin-top:12px}
+.pvbtn span{background:var(--glass);color:var(--on-dark-2);border-radius:999px;padding:8px 22px;font-weight:600;font-size:15px}
+.art{font-size:13px;color:var(--t2);margin:12px 0 0}
+.graph{display:block;width:100%;max-width:300px;height:auto;margin:8px 0}
+.g-grid{stroke:var(--line);stroke-width:1}
+.g-ax{stroke:var(--t2);stroke-width:1.5}
+.g-line{stroke:var(--primary);stroke-width:2.5;stroke-linecap:round}
+.g-t{fill:var(--t2);font-size:11px;font-family:var(--f-body)}
+.g-f{fill:var(--primary);font-size:13px;font-weight:600;font-family:var(--f-body);font-style:italic}
+
+.ck{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-xs);overflow:hidden}
+.auff{background:var(--amb-bg);border-bottom:1px solid var(--amb-line);padding:12px 20px}
+.auff b{color:var(--amb)}
+.auff ul{margin:4px 0 0;padding-left:18px;font-size:13.5px;color:var(--t1)}
+.sec{padding:16px 20px;border-top:1px solid var(--subtle)}
+.sec:first-child,.auff + .sec{border-top:none}
+.sec h2{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin:0 0 10px;font-weight:600;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sub{font-size:13px;color:var(--t2);margin:-4px 0 8px}
+.chg{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:600;
+  color:var(--primary);background:var(--primary-light);border-radius:var(--r-sm);padding:1px 4px 1px 8px}
+.chg button{border:none;background:none;color:var(--primary);cursor:pointer;font-size:12px;padding:0 4px;border-radius:4px;font-weight:500}
+.chg button:hover{background:var(--primary-line)}
+.sicher{display:inline-flex;align-items:center;font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:600;
+  color:var(--amb);background:var(--amb-bg);border-radius:var(--r-sm);padding:1px 8px;white-space:nowrap}
+
+.teil{display:grid;grid-template-columns:3.2em minmax(0,1fr);gap:8px;align-items:center;margin-bottom:8px}
+.teil.nolabel{display:block}
+.tl{font-weight:600;color:var(--t2);font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-md);
+  font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}
+.chip .val{border:none;background:none;cursor:text;padding:5px 4px 5px 12px;font-weight:600}
+.chip .x{border:none;background:none;color:var(--t3);cursor:pointer;width:28px;height:30px;border-radius:0 var(--r-md) var(--r-md) 0;font-size:16px}
+.chip .x:hover{background:var(--bad-bg);color:var(--bad)}
+.chip-in{width:9ch;font-size:16px!important;font-weight:600;padding:5px 10px!important;border-color:var(--primary)!important}
+.addchip{border:1px dashed var(--line);background:none;border-radius:var(--r-md);padding:6px 12px;color:var(--primary);font-size:14px;cursor:pointer}
+.addchip:hover{border-color:var(--primary);background:var(--primary-light)}
+.spell{font-size:13px;color:var(--t3);margin:8px 0 0}
+
+.regel{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:14px;color:var(--t2)}
+.regel select{min-width:0;max-width:100%}
+.bereich{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:15px;color:var(--t2)}
+.bereich input{width:8ch;font-weight:600;font-size:16px;text-align:center}
+.bereich .bres{font-size:13.5px;color:var(--t3)}
+.cbx{display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:14px;color:var(--t2)}
+.cbx input{margin-top:4px;flex:none}
+.cbx small{display:block;font-size:12.5px;color:var(--t3)}
+.cbx.off{color:var(--t3)}
+
+.test{margin-top:12px}
+.test label{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--t3);margin-bottom:4px}
+.tline{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tline input{width:16ch}
+.tline select{width:auto}
+.tres{font-size:13.5px}
+.tok{color:var(--ok);font-weight:600} .tno{color:var(--bad);font-weight:600} .tpa{color:var(--amb);font-weight:600} .tgr{color:var(--t3)}
+.tfb{display:block;font-size:13px;color:var(--t2);margin-top:2px}
+
+.mcl{display:grid;gap:6px}
+.mco{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:1px solid var(--line);background:var(--surface);
+  border-radius:var(--r-md);padding:8px 12px;cursor:pointer;font-size:15px}
+.mco:hover{border-color:var(--primary)}
+.mco .radio{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line);flex:none}
+.mco.on{border-color:var(--ok);background:var(--ok-bg)}
+.mco.on .radio{border:5px solid var(--ok)}
+.mco b{color:var(--t3);font-weight:600}
+.mcr{margin-left:auto;font-size:12.5px;color:var(--ok);font-weight:600}
+
+.weg{margin-top:14px;font-size:14px;color:var(--t2);background:var(--bg);border-radius:var(--r-md);padding:10px 12px}
+.wl{font-size:13px;color:var(--t3);display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:2px}
+.weg p{margin:0;white-space:pre-line}
+.link{border:none;background:none;color:var(--primary);cursor:pointer;font-size:13px;padding:0}
+.link:hover{text-decoration:underline}
+
+.fbrow{padding:10px 0;border-top:1px solid var(--subtle)}
+.fbrow:first-of-type{border-top:none}
+.fbhead{display:flex;gap:10px;align-items:flex-start}
+.fbname{font-weight:600;font-size:14px;flex:1;min-width:0}
+.fbwerte{font-size:14px;color:var(--t2);margin-top:3px;font-variant-numeric:tabular-nums}
+.fbwerte b{color:var(--t1);font-weight:600}
+.fbtext{font-size:13.5px;color:var(--t2);margin-top:2px}
+.fbtext span{color:var(--t3)}
+.fbrow.off .fbname,.fbrow.off .fbwerte,.fbrow.off .fbtext{text-decoration:line-through;color:var(--t3)}
+.fbrow.off .fbwerte b{color:var(--t3)}
+.neu{font-size:11.5px;color:var(--primary);background:var(--primary-light);border-radius:var(--r-sm);padding:0 6px;font-weight:600;margin-left:6px;vertical-align:1px}
+.tog{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-md);padding:4px 10px;font-size:13px;cursor:pointer;color:var(--t2);white-space:nowrap;flex:none}
+.tog:hover{border-color:var(--bad-line);color:var(--bad);background:var(--bad-bg)}
+.fbrow.off .tog:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+.fform{display:grid;gap:8px;margin-top:10px;background:var(--bg);border-radius:var(--r-md);padding:12px}
+.fform .frow{display:flex;gap:8px;flex-wrap:wrap}
+.fform .frow > *{flex:1 1 140px;min-width:0}
+.fform .fsmall{font-size:12.5px;color:var(--t3)}
+.fform .facts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.perr{font-size:13px;color:var(--bad)}
+.perr:empty{display:none}
+
+.einrow{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px;align-items:start;margin-bottom:12px}
+.einrow:last-child{margin-bottom:0}
+.el{font-size:14px;color:var(--t2);display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding-top:6px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;flex:none}
+.seg button{border:none;border-left:1px solid var(--line);background:var(--surface);padding:6px 14px;font-size:14px;cursor:pointer;color:var(--t2);font-variant-numeric:tabular-nums}
+.seg button:first-child{border-left:none}
+.seg button:hover{background:var(--subtle)}
+.seg button[aria-pressed="true"]{background:var(--primary);color:var(--on-dark);font-weight:600}
+.ctl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;min-width:0}
+.ctl select{max-width:100%;min-width:0;width:100%}
+.ctx{font-size:13px;color:var(--t2);margin-top:6px;line-height:1.5}
+.ctx span{color:var(--t3)}
+.ctxnote{font-size:13px;color:var(--primary);margin-top:4px}
+.afbname{font-size:13px;color:var(--t3)}
+@media (max-width:560px){.einrow{grid-template-columns:minmax(0,1fr);gap:4px}.el{padding-top:0}}
+
+.why{background:var(--primary-light);border-top:1px solid var(--primary-line);padding:14px 20px 16px}
+.whyh{font-weight:600;color:var(--primary);font-size:14px}
+.why ul{margin:4px 0 10px;padding-left:18px;font-size:13.5px;color:var(--t2)}
+.why label{display:block;font-size:13px;color:var(--t2);margin-bottom:4px}
+.why label span{color:var(--t3)}
+.why input{width:100%}
+
+/* Entscheidungsleiste */
+.dbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--border);
+  box-shadow:var(--sh-up);padding-inline:20px;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.dbar .in{max-width:1240px;margin:0 auto}
+.drow{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.info{flex:1 1 240px;min-width:0;font-size:13.5px;color:var(--t2)}
+.bwarn{color:var(--amb);font-weight:600}
+.dbtns{display:flex;gap:8px;flex-wrap:wrap}
+.dbtn{display:inline-flex;gap:8px;align-items:center;border-radius:var(--r-md);padding:11px 18px;font-size:15px;font-weight:600;
+  cursor:pointer;background:var(--surface);transition:background .15s ease-out}
+.d-bad{color:var(--bad);border:1px solid var(--bad-line)} .d-bad:hover,.d-bad[aria-pressed="true"]{background:var(--bad-bg)}
+.d-amb{color:var(--amb);border:1px solid var(--amb-line)} .d-amb:hover,.d-amb[aria-pressed="true"]{background:var(--amb-bg)}
+.d-ok{background:var(--ok);color:var(--on-dark);border:1px solid var(--ok);padding-inline:30px}
+.d-ok:hover{background:var(--ok-hover)}
+.d-ok:disabled{background:var(--disabled);border-color:var(--disabled);cursor:not-allowed}
+.dpanel{border:1px solid var(--border);background:var(--bg);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px}
+.ph{font-weight:600;margin-bottom:8px}
+.rchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.rchip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13.5px;cursor:pointer;color:var(--t2)}
+.rchip:hover{border-color:var(--bad-line)}
+.rchip[aria-pressed="true"]{background:var(--bad-bg);border-color:var(--bad);color:var(--bad);font-weight:600}
+.dpanel input[type=text]{width:100%}
+.pacts{display:flex;gap:8px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap}
+@media (max-width:600px){
+  .dbar{padding-inline:12px}
+  .dbtns{width:100%} .dbtn{flex:1 1 auto;justify-content:center;padding-inline:12px}
+}
+
+/* Abschluss */
+.endcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;margin-top:16px;box-shadow:var(--sh-md)}
+.big{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.bk{background:var(--bg);border-radius:var(--r-md);padding:12px 14px}
+.bk span{display:block;font-size:13px;color:var(--t2)}
+.bk b{font-family:var(--f-display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--t1)}
+.bk small{display:block;font-size:12.5px;color:var(--primary)}
+.bk.ok b{color:var(--ok)} .bk.amb b{color:var(--amb)} .bk.bad b{color:var(--bad)}
+.avg{font-size:14px;color:var(--t2);margin:14px 0 0}
+.eacts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+@media (max-width:640px){.big{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Bild vergrößern */
+.zoom{position:fixed;inset:0;z-index:50;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:16px}
+.zbox{background:var(--surface);border-radius:var(--r-xl);padding:16px 18px;width:min(640px,100%);max-height:100%;overflow:auto;box-shadow:var(--sh-lg)}
+.zhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.zbox .graph{max-width:none}
+
+/* Toast */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:100px;z-index:30;background:var(--navy);color:var(--on-dark);
+  border-radius:var(--r-md);padding:10px 12px 10px 16px;display:flex;gap:14px;align-items:center;font-size:14px;
+  box-shadow:var(--sh-lg);max-width:calc(100% - 32px)}
+.toast.low{bottom:24px}
+.toast button{background:none;border:1px solid var(--glass-line);color:var(--on-dark);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer;white-space:nowrap}
+.toast button:hover{background:var(--glass)}
+@media (max-width:600px){.toast{bottom:150px}}
+
+/* Info-Symbol mit Erklärung */
+.ib{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;flex:none;
+  border:1px solid var(--line);background:var(--surface);color:var(--t3);font-family:var(--f-display);font-style:italic;
+  font-size:11px;font-weight:600;line-height:1;text-transform:none;letter-spacing:0;cursor:help;padding:0;vertical-align:middle}
+.ib:hover,.ib:focus-visible{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+.elt{display:inline-flex;align-items:center;gap:6px}
+#tip{position:fixed;z-index:60;max-width:min(340px,calc(100vw - 24px));background:var(--navy);color:var(--on-dark);
+  border-radius:var(--r-md);padding:10px 13px;font-size:13px;line-height:1.5;box-shadow:var(--sh-lg);pointer-events:none}
+#tip p{margin:0 0 6px} #tip p:last-child{margin-bottom:0}
+#tip b{color:var(--gold);font-weight:600;margin-right:4px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="logo">edvance</span>
+  <span class="crumb">Coach-Bereich · <b>Aufgaben prüfen</b></span>
+  <div class="tright">
+    <span class="vtag">Version 2</span>
+    <span>Klick-Dummy · angemeldet als Lena</span>
+    <button class="sw" id="sw-hints" aria-pressed="false" onclick="toggleHints()"><span class="knob"></span>Hinweise</button>
+    <button class="tlink" onclick="zuruecksetzen()">Zurücksetzen</button>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+<div class="dbar" id="dbar" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<div id="zoom" hidden></div>
+<div id="tip" role="tooltip" hidden></div>
+
+<script>
+/* ================= Katalog (echt, Kernlehrplan G9 NRW, aus den Migrationen) ================= */
+const STUFEN=["7/8","9/10","5/6"];          // Reihenfolge für „Weiter prüfen“ (offene Frage 15)
+// [thema_key, Label, Aufgabenzahl]. Zahlen bei Lineare Funktionen, Flächen, LGS und Kreis aus den Chargen, sonst Beispielwerte.
+const THEMEN={
+  "7/8":[["rationale_zahlen","Rationale Zahlen",24],["zuordnungen","Proportionale und antiproportionale Zuordnungen",22],
+    ["zinsrechnung","Prozent- und Zinsrechnung",30],["terme_gleichungen","Terme und Gleichungen",48],
+    ["winkel_dreiecke","Winkelsätze, Dreiecke und Konstruktionen",26],["lineare_funktionen","Lineare Funktionen",30],
+    ["terme_binomische_formeln","Terme mit mehreren Variablen und binomische Formeln",24],["zufallsexperimente","Zufall und Wahrscheinlichkeit",18],
+    ["flaechen_vielecke","Flächen von Dreiecken und Vierecken",30],["lineare_gleichungen_lgs","Lineare Gleichungssysteme",30],
+    ["thales_konstruktionen","Kreise und Dreiecke: Thales und besondere Linien",12]],
+  "9/10":[["reelle_zahlen","Reelle Zahlen und Wurzeln",30],["potenzen","Potenzen",24],["quadratische_funktionen","Quadratische Funktionen",30],
+    ["quadratische_gleichungen","Quadratische Gleichungen",30],["pythagoras","Satz des Pythagoras",24],["aehnlichkeit","Ähnlichkeit und zentrische Streckung",18],
+    ["kreis","Kreis: Umfang und Fläche",24],["prismen_zylinder","Prismen und Zylinder",18],["koerper_pyramide_kegel_kugel","Pyramide, Kegel und Kugel",18],
+    ["trigonometrie","Trigonometrie",18],["exponentialfunktionen","Exponentielles Wachstum",18],["sinusfunktion","Sinusfunktion und periodische Vorgänge",12],
+    ["bedingte_wahrscheinlichkeit","Bedingte Wahrscheinlichkeit",18],["statistik_beurteilen","Statistische Erhebungen beurteilen",6]],
+  "5/6":[["natuerliche_zahlen","Natürliche Zahlen und Größen",30],["rechnen_natuerliche_zahlen","Rechnen mit natürlichen Zahlen",24],
+    ["daten_streumasse","Daten, Diagramme und Kenngrößen",12],["geometrische_grundbegriffe","Geometrische Grundbegriffe und Figuren",18],
+    ["symmetrie","Symmetrie und Abbildungen",6],["teilbarkeit","Teilbarkeit und Primzahlen",12],["flaeche_umfang","Flächen und Umfang",24],
+    ["koerper_quader","Körper, Netze und Quadervolumen",12],["brueche","Brüche und Anteile",24],["rechnen_brueche_dezimalzahlen","Rechnen mit Brüchen und Dezimalzahlen",36],
+    ["winkel","Winkel und Kreise",12],["ganze_zahlen_groessen","Negative Zahlen, Zuordnungen und Dreisatz",24]]
+};
+const THEMA={}; for(const s of STUFEN)THEMEN[s].forEach(([k,l,n],i)=>THEMA[k]={label:l,stufe:s,anz:n,pos:i});
+
+// Fertigkeiten (skills.label) mit Heimat-Thema (skill_thema)
+const FERT={
+  fkt_linear_steigung:["Steigung einer linearen Funktion","lineare_funktionen"],
+  fkt_linear_yabschnitt:["y-Achsenabschnitt einer linearen Funktion","lineare_funktionen"],
+  fkt_linear_graph:["Graph einer linearen Funktion","lineare_funktionen"],
+  fkt_linear_gleichung:["Funktionsgleichung y = mx + b aufstellen","lineare_funktionen"],
+  fkt_linear_nullstelle:["Nullstelle einer linearen Funktion","lineare_funktionen"],
+  geo_flaeche_dreieck:["Fläche von Dreieck und Parallelogramm","flaechen_vielecke"],
+  geo_flaeche_trapez:["Flächeninhalt des Trapezes","flaechen_vielecke"],
+  geo_flaeche_drachen_raute:["Flächeninhalt von Drachen und Raute","flaechen_vielecke"],
+  geo_flaeche_zusammengesetzt:["Zusammengesetzte Vielecke","flaechen_vielecke"],
+  geo_flaeche_term:["Terme für Flächeninhalte","flaechen_vielecke"],
+  geo_flaeche_rueck:["Seite oder Höhe aus dem Flächeninhalt","flaechen_vielecke"],
+  gleichung_lgs_einsetzen:["Einsetzungsverfahren","lineare_gleichungen_lgs"],
+  gleichung_lgs_gleichsetzen:["Gleichsetzungsverfahren","lineare_gleichungen_lgs"],
+  gleichung_lgs_addition:["Additionsverfahren","lineare_gleichungen_lgs"],
+  gleichung_lgs_grafisch:["LGS grafisch lösen (Schnittpunkt)","lineare_gleichungen_lgs"],
+  gleichung_lgs_sachaufgabe:["LGS aus Sachsituationen aufstellen und lösen","lineare_gleichungen_lgs"],
+  geo_kreis_umfang:["Umfang des Kreises","kreis"],
+  geo_kreis_flaeche:["Flächeninhalt des Kreises","kreis"],
+  geo_kreis_rueck:["Radius und Durchmesser aus dem Umfang","kreis"],
+  geo_kreis_sektor:["Kreisbogen und Kreisausschnitt","kreis"],
+  geo_kreis_zusammen:["Zusammengesetzte Figuren mit Kreisteilen","kreis"],
+  term_einsetzen:["Werte in Terme einsetzen","terme_gleichungen"],
+  gleichung_zweischrittig:["Zweischrittige Gleichungen","terme_gleichungen"],
+  term_minusklammer:["Minusklammer auflösen","terme_gleichungen"],
+  term_ausmultiplizieren:["Ausmultiplizieren","terme_gleichungen"],
+  geo_umfang:["Umfang von Rechteck und Dreieck","flaeche_umfang"],
+  runden_ueberschlag:["Runden und Überschlag","natuerliche_zahlen"],
+  geo_koordinaten:["Punkte im Koordinatensystem","geometrische_grundbegriffe"]
+};
+// Voraussetzungen (skill_kante)
+const KANTEN={
+  fkt_linear_yabschnitt:["term_einsetzen","geo_koordinaten"],
+  fkt_linear_graph:["fkt_linear_steigung","fkt_linear_yabschnitt"],
+  geo_flaeche_term:["geo_flaeche_dreieck","term_ausmultiplizieren","term_einsetzen"],
+  gleichung_lgs_einsetzen:["term_minusklammer","gleichung_zweischrittig","term_einsetzen"],
+  geo_kreis_umfang:["term_einsetzen","geo_umfang","runden_ueberschlag"]
+};
+// Denkfehler (fehlbild_labels.klartext, Familie laut Migrationen)
+const FB={
+  m_b_vertauscht:["Liest Steigung und y-Achsenabschnitt vertauscht aus der Gleichung ab.","gleichungen_umformen"],
+  achsenabschnitt_verwechselt:["Gibt die Nullstelle als y-Achsenabschnitt an oder umgekehrt.","gleichungen_umformen"],
+  koordinaten_vertauscht:["Liest x- und y-Koordinate in vertauschter Reihenfolge ab.",null],
+  koordinate_vorzeichen_verloren:["Koordinate richtig abgelesen, aber das Minus fehlt.","vorzeichen"],
+  plus_statt_mal:["Es wurde addiert, wo malgenommen werden muss.","rechenart_formel"],
+  umfang_statt_flaeche:["Statt der Fläche wurde der Umfang berechnet.","rechenart_formel"],
+  flaeche_statt_umfang:["Statt des Umfangs wurde die Fläche berechnet.","rechenart_formel"],
+  klammer_vergessen:["Setzt keine Klammer, die Operation trifft nur einen Teil des Terms.","gleichungen_umformen"],
+  division_vergessen:["Umformung richtig, der letzte Schritt (Division durch den Koeffizienten) fehlt.","gleichungen_umformen"],
+  radius_durchmesser_verwechselt:["Setzt den Durchmesser ein, wo der Radius gebraucht wird, oder umgekehrt.",null],
+  pi_vergessen:["Lässt die Kreiszahl π in der Rechnung weg.",null]
+};
+
+const ROT=["Aufgabe fehlerhaft oder nicht lösbar","Aufgabe unklar oder mehrdeutig","Bild fehlt oder ist falsch",
+  "Sprachlich zu schwer für Kinder","Am Tablet so nicht beantwortbar, bitte umbauen","Passt nicht in eine Lernstandsanalyse","Sonstiges"];
+const AFB={I:"Reproduzieren",II:"Zusammenhänge herstellen",III:"Verallgemeinern und reflektieren"};
+const HILFSMITTEL="Taschenrechner, Stift und Zettel";
+
+const INFO={
+  antwort:`<p>Die Werte, die als richtig zählen. Das System vergleicht Zahlen nach ihrem Wert: 22,62 und 22.62 und 22,620 zählen gleich, ebenso mit oder ohne Einheit.</p><p>Trag deshalb nur echte Alternativen ein, zum Beispiel das Ergebnis mit π ≈ 3,14 neben dem mit der π-Taste.</p>`,
+  teile:`<p>Je Teilfrage die Antworten, die als richtig zählen. Bei Teilfragen vergleicht das System den Text, nicht den Zahlenwert: 3 und 3,0 sind für das System verschieden.</p><p>Trag deshalb jede übliche Schreibweise ein.</p>`,
+  mc:`<p>Die Antwortmöglichkeit, die als richtig zählt. Das Kind sieht alle vier Möglichkeiten ohne Markierung.</p>`,
+  regel:`<p>Wie das System die Antwort wertet:</p><p><b>Genau dieser Wert</b>Der Zahlenwert muss stimmen, die Schreibweise ist egal.</p><p><b>Bereich</b>Jeder Wert im Bereich zählt. Sinnvoll beim Ablesen aus Fotos oder Diagrammen ohne Gitter.</p><p><b>Einheit muss dabei sein</b>Fehlt die Einheit, zählt die Antwort als teilweise richtig. So erkennt der Bericht, wenn ein Kind richtig rechnet, aber Einheiten vergisst.</p>`,
+  weg:`<p>Eine kurze Musterlösung für uns. Das Kind sieht sie nicht, und sie fließt nicht in den Bericht.</p><p>Sie soll dir das Prüfen erleichtern: Du liest den Weg, statt selbst zu rechnen.</p>`,
+  fehler:`<p>Falsche Antworten, die Kinder hier häufig geben, und der Denkfehler dahinter. Gibt ein Kind genau diese Antwort, erkennt das System den Denkfehler. Wiederholt er sich, steht er im Elternbericht.</p><p>Entferne, was dir unrealistisch vorkommt. Ergänzen kannst du mit einem Denkfehler aus der Liste. Fehlt der passende, schreib es bei „Unsicher“.</p>`,
+  fert:`<p>Die Fertigkeit, für die diese Aufgabe ein Beleg ist. Die Lernstandsanalyse wählt Aufgaben nach Fertigkeiten aus, und der Bericht sagt je Fertigkeit, ob sie sicher ist.</p><p>Prüf deshalb: Scheitern Kinder an dieser Aufgabe vor allem an dieser Fertigkeit? Wenn eher an einer Voraussetzung, wähl die passende aus.</p><p>Thema und Klasse ergeben sich aus der Fertigkeit.</p>`,
+  afb:`<p>Welche Art von Denkleistung die Aufgabe verlangt:</p><p><b>I</b>Reproduzieren: ein bekanntes Verfahren direkt anwenden.</p><p><b>II</b>Zusammenhänge herstellen: mehrere Schritte verknüpfen oder Gelerntes übertragen, zum Beispiel einen Text in eine Rechnung übersetzen.</p><p><b>III</b>Verallgemeinern und reflektieren: begründen, verallgemeinern, eigene Lösungswege finden.</p>`,
+  sicher:`<p>Dieser Wert ist vorbefüllt, aber nur mit mittlerer Sicherheit. Bitte besonders genau ansehen.</p>`,
+  testen:`<p>Tipp eine Antwort ein und sieh, wie das System sie werten würde und ob es einen typischen Fehler erkennt.</p><p>Freiwillig, zum Beispiel wenn du nicht sicher bist, ob eine Schreibweise erkannt wird.</p>`,
+  hilfsmittel:`<p>Was das Kind in der Lernstandsanalyse benutzen darf. Denk daran, wenn du die Schwierigkeit einschätzt.</p>`,
+  entscheidung:`<p><b>Passt</b>Die Aufgabe geht an das Edvance-Team zur endgültigen Freigabe. Deine Änderungen gehen mit, eine geänderte Fertigkeit bestätigt das Team.</p><p><b>Unsicher</b>Das Team schaut sich deine Frage an und meldet sich.</p><p><b>Passt nicht</b>Die Aufgabe geht mit deinem Grund zur Überarbeitung zurück.</p>`
+};
+const ib=(key,label)=>`<button type="button" class="ib" data-tip="${key}" aria-label="Erklärung: ${label}">i</button>`;
+
+/* Koordinatensystem wie der Generator koordinatensystem (task_figures): Gitter −5…5, Gerade y = m·x + b */
+function graphSvg(m,b){
+  const X=x=>20+(x+5)*22, Y=y=>20+(5-y)*22;
+  let g="",lab="";
+  for(let k=-5;k<=5;k++){g+=`<line class="g-grid" x1="${X(k)}" y1="${Y(-5)}" x2="${X(k)}" y2="${Y(5)}"/><line class="g-grid" x1="${X(-5)}" y1="${Y(k)}" x2="${X(5)}" y2="${Y(k)}"/>`;}
+  for(const k of [-4,-2,2,4]){lab+=`<text class="g-t" x="${X(k)}" y="${Y(0)+14}" text-anchor="middle">${k<0?"−"+(-k):k}</text><text class="g-t" x="${X(0)-5}" y="${Y(k)+4}" text-anchor="end">${k<0?"−"+(-k):k}</text>`;}
+  // Gerade auf das Fenster zuschneiden
+  const pts=[];for(let x=-5;x<=5.0001;x+=0.01){const y=m*x+b;if(y>=-5&&y<=5)pts.push([x,y]);}
+  const [p,q]=[pts[0],pts[pts.length-1]];
+  const lx=Math.abs(m*3+b)<=4.5?3:-3, ly=m*lx+b;   // Beschriftung „f“ abseits der Achsen
+  return `<svg class="graph" viewBox="0 0 260 260" role="img" aria-label="Koordinatensystem mit Gitter, eingezeichnet ist der Graph der linearen Funktion f.">${g}
+    <line class="g-ax" x1="${X(-5)}" y1="${Y(0)}" x2="${X(5)}" y2="${Y(0)}"/><line class="g-ax" x1="${X(0)}" y1="${Y(-5)}" x2="${X(0)}" y2="${Y(5)}"/>
+    ${lab}<text class="g-t" x="${X(5)-2}" y="${Y(0)-6}" text-anchor="end">x</text><text class="g-t" x="${X(0)+6}" y="${Y(5)+10}">y</text>
+    <line class="g-line" x1="${X(p[0])}" y1="${Y(p[1])}" x2="${X(q[0])}" y2="${Y(q[1])}"/>
+    <text class="g-f" x="${X(lx)+8}" y="${Y(ly)+4}">f</text></svg>`;
+}
+
+/* ================= Beispielaufgaben (aus den Chargen) =================
+   typ: zahl | teile | mc. werte = richtige Werte (je Teil eine Liste). fehler.werte: {t: Teil-Index oder null, w: Wert}. */
+const AUFGABEN=[
+ {ref:"linfkt-yabschnitt-01",charge:"k8-linfkt",titel:"y-Achsenabschnitt · aus der Gleichung",typ:"zahl",fert:"fkt_linear_yabschnitt",
+  art:"Das Kind tippt eine Zahl ein.",verfaelscht:true,
+  stamm:`<p>Gegeben ist die Funktion</p><p class="term">f(x) = 3x + 5</p><p>Gib den y-Achsenabschnitt des Graphen von f an.</p>`,
+  teile:[{label:null,werte:["3"]}],
+  weg:"In f(x) = mx + b ist b der y-Achsenabschnitt: b = 5 (f(0) = 3 · 0 + 5 = 5).",
+  fehler:[{fb:"m_b_vertauscht",werte:[{t:null,w:"3"}],text:"Die Steigung statt des y-Achsenabschnitts angegeben."}],
+  afb:"I",afbSicher:"mittel"},
+ {ref:"linfkt-graph-04",charge:"k8-linfkt",titel:"Graph · Funktionswert ablesen",typ:"zahl",fert:"fkt_linear_graph",
+  art:"Das Kind liest einen Wert am Graphen ab und tippt ihn ein.",bild:{m:-2,b:3},
+  stamm:`<p>Die Abbildung zeigt den Graphen einer linearen Funktion f.</p>GRAPH<p>Welchen y-Wert hat der Graph an der Stelle x = 2?</p>`,
+  teile:[{label:null,werte:["-1"]}],
+  weg:"Bei x = 2 senkrecht zum Graphen: Der Punkt liegt bei (2 | −1), also f(2) = −1.",
+  fehler:[{fb:"koordinaten_vertauscht",werte:[{t:null,w:"0,5"}],text:"Die Stelle gesucht, an der der y-Wert 2 ist: x = 0,5."},
+          {fb:"koordinate_vorzeichen_verloren",werte:[{t:null,w:"1"}],text:"Den Abstand zur x-Achse richtig abgelesen, das Minus fehlt."}],
+  afb:"II",afbSicher:"mittel"},
+ {ref:"flaeche-term-01",charge:"k8-flaeche",titel:"Term · Rechteck x mal 5",typ:"mc",fert:"geo_flaeche_term",
+  art:"Das Kind wählt eine von vier Antworten.",
+  stamm:`<p>Ein Rechteck ist x cm lang und 5 cm breit.</p><p>Welcher Term beschreibt seinen Flächeninhalt in cm²?</p>`,
+  optionen:["x + 5","5x","2x + 10","x²"],mc:1,
+  weg:"A = Länge · Breite = x · 5 = 5x.",
+  fehler:[{fb:"plus_statt_mal",werte:[{t:null,w:"a"}],text:"Länge und Breite addiert statt multipliziert."},
+          {fb:"umfang_statt_flaeche",werte:[{t:null,w:"c"}],text:"Den Umfang beschrieben: 2 · (x + 5)."}],
+  afb:"I",afbSicher:"mittel"},
+ {ref:"lgs-einsetzen-01",charge:"k8-lgs",titel:"Einsetzungsverfahren · y steht frei · Klammer",typ:"teile",fert:"gleichung_lgs_einsetzen",
+  art:"Das Kind beantwortet zwei Teilfragen.",
+  stamm:`<p>Löse das Gleichungssystem mit dem Einsetzungsverfahren.</p><p class="term">I: y = x + 1</p><p class="term">II: 3x + 2y = 17</p>`,
+  teile:[{label:"x",frage:"x =",werte:["3","+3"]},{label:"y",frage:"y =",werte:["4","+4"]}],
+  weg:"I in II einsetzen: 3x + 2 · (x + 1) = 17\n3x + 2x + 2 = 17\n5x + 2 = 17 | −2\n5x = 15 | : 5\nx = 3\nIn I einsetzen: y = 3 + 1 = 4.",
+  fehler:[{fb:"klammer_vergessen",werte:[{t:0,w:"3,2"},{t:1,w:"4,2"}],text:"Ohne Klammer eingesetzt: 3x + 2x + 1 = 17, also 5x = 16 und x = 3,2."},
+          {fb:"division_vergessen",werte:[{t:0,w:"15"},{t:1,w:"16"}],text:"Bei 5x = 15 stehen geblieben und 15 als x genommen."}],
+  afb:"I",afbSicher:"mittel"},
+ {ref:"kreis-umfang-03",charge:"k9-kreis",titel:"Umfang · Radius 3,6 m",typ:"zahl",fert:"geo_kreis_umfang",einheit:"m",
+  art:"Das Kind tippt eine Zahl ein. Die Einheit m steht schon am Antwortfeld.",
+  stamm:`<p>Ein Kreis hat den Radius 3,6 m.</p><p>Wie groß ist sein Umfang in Metern? Rechne mit der π-Taste oder mit π ≈ 3,14. Runde das Ergebnis auf zwei Stellen nach dem Komma.</p>`,
+  teile:[{label:null,werte:["22,62","22,61"]}],
+  weg:"U = 2 · π · 3,6 m ≈ 22,62 m (π-Taste).\nMit π ≈ 3,14: U = 2 · 3,14 · 3,6 m ≈ 22,61 m.",
+  fehler:[{fb:"radius_durchmesser_verwechselt",werte:[{t:null,w:"11,31"},{t:null,w:"11,30"},{t:null,w:"11,3"}],text:"Den Radius wie einen Durchmesser eingesetzt: π · 3,6."},
+          {fb:"pi_vergessen",werte:[{t:null,w:"7,20"},{t:null,w:"7,2"}],text:"π weggelassen: 2 · 3,6 = 7,2."},
+          {fb:"flaeche_statt_umfang",werte:[{t:null,w:"40,72"},{t:null,w:"40,69"}],text:"Mit der Flächenformel gerechnet: π · 3,6²."}],
+  afb:"II",afbSicher:"mittel"}
+];
+
+/* ================= Zustand ================= */
+const clone=o=>JSON.parse(JSON.stringify(o));
+function snap(a){return {teile:a.teile?a.teile.map(t=>t.werte.slice()):null,mc:a.typ==="mc"?a.mc:null,
+  regel:{art:"wert",mitte:null,tol:null,einheit:false},
+  fehler:a.fehler.map(f=>({fb:f.fb,werte:clone(f.werte),text:f.text,raus:false,neu:false})),fert:a.fert,afb:a.afb};}
+let S=null;
+function neu(){const h=S&&S.hints;
+  S={view:"uebersicht",tab:"7/8",offen:{},idx:0,hints:!!h,
+     tasks:AUFGABEN.map(a=>({orig:snap(a),cur:snap(a),entscheidung:null,gruende:[],notiz:"",warum:"",start:null,dauer:null}))};
+  resetEphemeral();}
+function resetEphemeral(){Object.assign(S,{panel:null,rot:[],rotText:"",unsicherText:"",edit:null,
+  fehlerForm:false,focus:null,testOpen:false,testVal:"",testTeil:0,zoom:false});}
+const cur=()=>S.tasks[S.idx].cur;
+
+/* ================= Hilfen ================= */
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const minus=s=>String(s).replace(/-/g,"−");
+const zeige=s=>esc(minus(s));
+const liste=a=>a.length?a.map(minus).join(" / "):"keine";
+const fmt=n=>{const r=Math.round(n*1000)/1000;return minus(String(r).replace(".",","));};
+const hint=t=>`<div class="hint"><b>Hinweis</b>${t}</div>`;
+const CHEV=`<svg class="chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>`;
+const summe=a=>a.reduce((x,y)=>x+y,0);
+const fertLabel=k=>FERT[k]?FERT[k][0]:k;
+const themaVon=k=>FERT[k]?FERT[k][1]:null;
+const aThema=i=>themaVon(AUFGABEN[i].fert);              // Thema laut Vorbefüllung (Board-Ordnung)
+const imThema=th=>AUFGABEN.map((a,i)=>i).filter(i=>aThema(i)===th);
+const posImThema=i=>imThema(aThema(i)).indexOf(i)+1;
+const idsStufe=s=>AUFGABEN.map((a,i)=>i).filter(i=>THEMA[aThema(i)].stufe===s);
+const optText=(a,w)=>{const k="abcd".indexOf(w);return k>-1?`${w}) ${a.optionen[k]}`:w;};
+function wertAnzeige(a,v){if(a.typ==="mc")return `<b>${esc(optText(a,v.w))}</b>`;
+  if(a.typ==="teile"&&v.t!==null)return `${a.teile[v.t].label}: <b>${zeige(v.w)}</b>`;return `<b>${zeige(v.w)}</b>`;}
+function regelText(r){if(r.art==="bereich")return `Bereich ${fmt(r.mitte-r.tol)} bis ${fmt(r.mitte+r.tol)}`;return "genau dieser Wert";}
+
+/* ---- Wertung, nachgebaut wie lsa_grade / lsa_is_correct / lsa_fehlbild_match ---- */
+const normText=s=>String(s).trim().toLowerCase().replace(/−/g,"-").replace(/\s+/g," ").replace(/,/g,".");
+function parseZahl(s){
+  const t=String(s).trim().replace(/−/g,"-").replace(/^([-+])\s+/,"$1");
+  const m=t.match(/^([-+]?\d+(?:[.,]\d+)?(?:\/\d+)?)\s*(.*)$/);if(!m)return null;
+  const rest=m[2].trim();if(rest&&!/^[a-zäöüß°%€²³ ]+$/i.test(rest))return null;
+  let n=m[1].replace(",",".");let v;
+  if(n.includes("/")){const [p,q]=n.split("/");v=parseFloat(p)/parseFloat(q);}else v=parseFloat(n);
+  return isFinite(v)?{v,unit:rest}:null;}
+// Schreibweisen, die das System zu einem Wert selbst ergänzt (Punkt, Plus, Einheit)
+function varianten(w,einheit){const p=String(w).replace(",","."),out=new Set([w,p]);
+  if(!/^[-−]/.test(w)){out.add("+"+w);out.add("+"+p);}
+  if(einheit)for(const x of [...out]){out.add(x+" "+einheit);out.add(x+einheit);}
+  return [...out];}
+function erkannterFehler(a,c,k,ein){
+  const n=normText(ein);
+  for(const f of c.fehler){if(f.raus)continue;
+    for(const v of f.werte){
+      if(a.typ==="teile"&&v.t!==k)continue;
+      if(varianten(v.w,a.einheit).some(x=>normText(x)===n))return f.fb;}}
+  return null;}
+function wertung(a,c,k,ein){
+  const e=String(ein).trim();if(!e)return null;
+  let res;
+  if(a.typ==="teile"){
+    const ok=c.teile[k].some(v=>normText(v)===normText(e));
+    res={stufe:ok?"voll":"nicht",t:ok?"steht in der Liste":"steht nicht in der Liste"};
+  }else{
+    const r=c.regel,p=parseZahl(e);
+    if(!p)return {stufe:"nicht",t:"keine Zahl erkannt",fb:erkannterFehler(a,c,k,e)};
+    let ok;
+    if(r.art==="bereich"){
+      if(r.mitte===null||r.tol===null)return null;
+      ok=Math.abs(p.v-r.mitte)<=r.tol+1e-9;
+      res={stufe:ok?"voll":"nicht",t:ok?`liegt zwischen ${fmt(r.mitte-r.tol)} und ${fmt(r.mitte+r.tol)}`:`liegt nicht zwischen ${fmt(r.mitte-r.tol)} und ${fmt(r.mitte+r.tol)}`};
+    }else{
+      const hit=c.teile[0].find(v=>{const q=parseZahl(v);return q&&Math.abs(q.v-p.v)<1e-9;});
+      ok=!!hit;res={stufe:ok?"voll":"nicht",t:ok?`gleicher Zahlenwert wie ${minus(hit)}`:"anderer Zahlenwert"};
+    }
+    if(ok&&r.einheit&&!a.einheit&&!p.unit)res={stufe:"teilweise",t:"Zahl stimmt, Einheit fehlt"};
+  }
+  if(res.stufe!=="voll")res.fb=erkannterFehler(a,c,k,e);
+  return res;}
+
+function auffaelligkeiten(i){
+  const a=AUFGABEN[i],c=S.tasks[i].cur,L=[];
+  if(a.typ==="zahl"){
+    const w=a.weg,idx=Math.max(w.lastIndexOf("="),w.lastIndexOf("≈"));
+    if(idx>-1){const m=w.slice(idx+1).match(/[-−+]?\s?\d+(?:[.,]\d+)?(?:\/\d+)?/);
+      if(m){const r=wertung(a,c,0,m[0]);if(r&&r.stufe!=="voll")L.push(`Der Lösungsweg endet mit ${minus(m[0].trim())}. Das würde das System als falsch werten (${r.t}).`);}}
+    c.fehler.forEach(f=>{if(f.raus)return;f.werte.forEach(v=>{const r=wertung(a,c,0,v.w);
+      if(r&&r.stufe==="voll")L.push(`${minus(v.w)} steht als typischer Fehler, würde aber als richtig gewertet.`);});});
+  }else if(a.typ==="teile"){
+    c.fehler.forEach(f=>{if(f.raus)return;f.werte.forEach(v=>{if(c.teile[v.t].some(x=>normText(x)===normText(v.w)))
+      L.push(`${a.teile[v.t].label}: ${minus(v.w)} steht als typischer Fehler und zugleich als richtige Antwort.`);});});
+  }else{
+    const r="abcd"[c.mc];
+    if(c.fehler.some(f=>!f.raus&&f.werte.some(v=>v.w===r)))L.push(`Antwort ${r}) ist als richtig markiert und steht gleichzeitig bei den typischen Fehlern.`);
+    "abcd".split("").forEach((o,k)=>{if(k===c.mc)return;
+      if(!c.fehler.some(f=>!f.raus&&f.werte.some(v=>v.w===o)))L.push(`Antwort ${o}) „${a.optionen[k]}“ ist weder richtig noch einem Denkfehler zugeordnet. Wählt ein Kind sie, erfährt das System nichts darüber, woran es hakt.`);});
+  }
+  return L;}
+
+function aenderungen(i){
+  const a=AUFGABEN[i],t=S.tasks[i],o=t.orig,c=t.cur,L=[];
+  if(a.typ==="mc"){if(o.mc!==c.mc)L.push(`Richtige Antwort: ${"abcd"[o.mc]}) → ${"abcd"[c.mc]})`);}
+  else o.teile.forEach((ant,k)=>{if(JSON.stringify(ant)!==JSON.stringify(c.teile[k]))
+    L.push(`Richtige Antwort${a.teile[k].label?" "+a.teile[k].label:""}: ${liste(ant)} → ${liste(c.teile[k])}`);});
+  if(JSON.stringify(o.regel)!==JSON.stringify(c.regel)){
+    if(o.regel.art!==c.regel.art||o.regel.mitte!==c.regel.mitte||o.regel.tol!==c.regel.tol)L.push(`Wertung: ${regelText(o.regel)} → ${regelText(c.regel)}`);
+    if(o.regel.einheit!==c.regel.einheit)L.push(`Einheit muss dabei sein: ${o.regel.einheit?"ja":"nein"} → ${c.regel.einheit?"ja":"nein"}`);}
+  c.fehler.forEach(f=>{const ws=f.werte.map(v=>a.typ==="mc"?v.w+")":(a.typ==="teile"?a.teile[v.t].label+": ":"")+minus(v.w)).join(" / ");
+    if(f.raus&&!f.neu)L.push(`Typischer Fehler entfernt: ${FB[f.fb][0]} (${ws})`);
+    if(f.neu)L.push(`Typischer Fehler ergänzt: ${ws} → ${FB[f.fb][0]}`);});
+  if(o.fert!==c.fert)L.push(`Fertigkeit: ${fertLabel(o.fert)} → ${fertLabel(c.fert)}`);
+  if(o.afb!==c.afb)L.push(`Anforderungsbereich: ${o.afb} → ${c.afb}`);
+  return L;}
+function statusOf(i){const t=S.tasks[i];
+  if(!t.entscheidung)return{cls:"",label:"Offen"};
+  if(t.entscheidung==="passt")return{cls:"ok",label:aenderungen(i).length?"Passt · geändert":"Passt"};
+  if(t.entscheidung==="unsicher")return{cls:"amb",label:"Unsicher"};
+  return{cls:"bad",label:"Passt nicht"};}
+function blocker(i){const a=AUFGABEN[i],c=S.tasks[i].cur;
+  if(a.typ==="mc")return null;
+  if(c.regel.art==="bereich"){if(c.regel.mitte===null||c.regel.tol===null||c.regel.tol<=0)return"Bitte einen gültigen Bereich eintragen.";return null;}
+  if(c.teile.some(x=>!x.length))return a.typ==="teile"?"Bitte für jede Teilfrage eine richtige Antwort eintragen.":"Bitte mindestens eine richtige Antwort eintragen.";
+  return null;}
+function naechsteOffene(nach){
+  for(let j=nach+1;j<S.tasks.length;j++)if(!S.tasks[j].entscheidung)return j;
+  for(let j=0;j<=nach&&j<S.tasks.length;j++)if(!S.tasks[j].entscheidung)return j;
+  return -1;}
+const zaehle=(e,ids)=>(ids||AUFGABEN.map((a,i)=>i)).filter(i=>S.tasks[i].entscheidung===e).length;
+
+/* ================= Übersicht ================= */
+function rUebersicht(){
+  const fertig=S.tasks.filter(t=>t.entscheidung).length;
+  const geaendert=S.tasks.filter((t,i)=>t.entscheidung&&aenderungen(i).length).length;
+  const gesamt=summe(STUFEN.map(s=>summe(THEMEN[s].map(x=>x[2]))));
+  const nx=naechsteOffene(-1);
+  const rows=THEMEN[S.tab].map(([key,name,anz])=>{
+    const ids=imThema(key),demo=ids.length>0,open=!!S.offen[key];
+    const c={p:zaehle("passt",ids),u:zaehle("unsicher",ids),x:zaehle("nicht",ids)};
+    const d=c.p+c.u+c.x,pct=v=>(v/anz*100).toFixed(1)+"%";
+    return `<div class="trow${open?" open":""}" role="button" tabindex="0" aria-expanded="${open}"
+        onclick="toggleThema('${key}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleThema('${key}')}">
+      ${CHEV}<div class="tname"><div class="tn">${name}</div><div class="tmeta">${d} von ${anz} geprüft</div></div>
+      <div class="bar" aria-hidden="true"><i class="b-ok" style="width:${pct(c.p)}"></i><i class="b-amb" style="width:${pct(c.u)}"></i><i class="b-bad" style="width:${pct(c.x)}"></i></div>
+      <div class="count">${d} / ${anz}</div>
+      <button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();pruefeThema('${key}')">Prüfen</button>
+    </div>${open?(demo?aufgabenListe(key,anz):`<div class="tasks"><div class="tempty">Im Dummy nicht befüllt.</div></div>`):""}`;
+  }).join("");
+  const tabZahl=s=>{const ids=idsStufe(s);return `${zaehle("passt",ids)+zaehle("unsicher",ids)+zaehle("nicht",ids)} / ${summe(THEMEN[s].map(x=>x[2]))}`;};
+  const na=nx>=0?AUFGABEN[nx]:null;
+  return `<section class="hero"><h1>Aufgaben prüfen</h1>
+      <p>Lernstandsanalyse Mathe. Jede Aufgabe ist vorbefüllt: richtige Antwort, typische Fehler, Fertigkeit. Du schaust drüber, korrigierst, was nicht stimmt, und entscheidest mit einem Klick.</p></section>
+    ${hint(`<i>Version 2 (04.10.2026).</i> Überarbeitet nach <code>Bewertung-Lena-Board.md</code> und <code>Feldkatalog-Lena-Board.md</code>. Das Original <code>lena-board-dummy.html</code> bleibt unverändert. Alle fünf Aufgaben stammen aus den Chargen k8-linfkt, k8-flaeche, k8-lgs und k9-kreis: Text, richtige Antworten, typische Fehler, Lösungsweg und Anforderungsbereich wie in der Datenbank. Eine Aufgabe ist absichtlich verfälscht, um die Auffälligkeiten zu zeigen. Themen und Stufen sind der echte Katalog (Kernlehrplan G9). Die Aufgabenzahlen bei Lineare Funktionen, Flächen, Gleichungssysteme und Kreis stammen aus den Chargen, die übrigen sind Beispielwerte.`)}
+    <section class="next">
+      <div><div class="eyebrow">${na?"Als Nächstes":"Geschafft"}</div>
+        <div class="what">${na?`${THEMA[aThema(nx)].label} · Aufgabe ${posImThema(nx)} von ${THEMA[aThema(nx)].anz}`:"Alle Beispielaufgaben sind bewertet"}</div>
+        <div class="nsub">${!na?"Im echten System ginge es hier mit dem nächsten Thema weiter.":fertig?"Du machst dort weiter, wo du aufgehört hast.":"Klasse 7/8, erstes Thema mit offenen Aufgaben."}</div>
+        <div class="stats"><span class="pill"><b>${fertig}</b> von ${gesamt} geprüft</span>
+          <span class="pill ok">Passt <b>${zaehle("passt")}</b></span>
+          ${geaendert?`<span class="pill chg">geändert <b>${geaendert}</b></span>`:""}
+          <span class="pill amb">Unsicher <b>${zaehle("unsicher")}</b></span>
+          <span class="pill bad">Passt nicht <b>${zaehle("nicht")}</b></span></div></div>
+      ${na?`<button class="btn btn-big" onclick="weiterPruefen()">Weiter prüfen <kbd>Enter</kbd></button>`
+          :`<button class="btn btn-big btn-ghost" onclick="zuruecksetzen()">Dummy zurücksetzen</button>`}
+    </section>
+    ${hint(`<i>Geändert:</i> Klasse 9/10 ist ein eigener Reiter, weil die Chargen Kreis, Pythagoras, Potenzen usw. enthalten. Reihenfolge von „Weiter prüfen“: Stufe für Stufe (7/8, 9/10, 5/6; offene Frage 15), Themen in Lehrplan-Reihenfolge (<code>themen.sort</code>), im Thema nach Fertigkeit und Sondierrang. Übersprungene Aufgaben kommen am Ende wieder.`)}
+    <div class="tabs" role="tablist">${STUFEN.map(s=>`<button class="tab" role="tab" aria-selected="${S.tab===s}" onclick="S.tab='${s}';render()">Klasse ${s}<span>${tabZahl(s)}</span></button>`).join("")}</div>
+    <section class="topics">${rows}</section>
+    ${hint(`<i>Geändert:</i> Ein Thema ist die Lehrplan-Gruppe der Fertigkeiten (<code>skill_thema</code>). Aufgeklappt steht unter jeder Aufgabe ihre Fertigkeit, denn für die steht die Aufgabe in der Lernstandsanalyse als Beleg. Die Zuordnung zum Thema kommt aus der Fertigkeit der Vorbefüllung. Ändert Lena die Fertigkeit, bleibt die Aufgabe bis zur Freigabe in ihrem Thema.`)}`;
+}
+function aufgabenListe(th,anz){
+  const ids=imThema(th);
+  return `<div class="tasks">${ids.map((i,n)=>{const st=statusOf(i);
+    return `<button class="task" onclick="openTask(${i})"><span class="dot ${st.cls}"></span><span class="tt"><b>${n+1}. ${esc(AUFGABEN[i].titel)}</b><small>${esc(fertLabel(S.tasks[i].cur.fert))}</small></span><span class="st ${st.cls}">${st.label}</span></button>`;}).join("")}
+    <div class="tempty">… und ${anz-ids.length} weitere Aufgaben (im Dummy nicht befüllt)</div></div>`;
+}
+
+/* ================= Prüfansicht ================= */
+function rPruefen(){
+  const i=S.idx,a=AUFGABEN[i],t=S.tasks[i],st=statusOf(i),th=THEMA[aThema(i)];
+  if(!t.start)t.start=Date.now();
+  const ids=imThema(aThema(i));
+  const fertig=ids.filter(j=>S.tasks[j].entscheidung).length;
+  return `<section class="rhead">
+      <div><div class="rmeta">Klasse ${th.stufe} · Lernstandsanalyse Mathe · Erlaubt: ${HILFSMITTEL} ${ib("hilfsmittel","Hilfsmittel")}</div><h1>${th.label}</h1></div>
+      <div class="rnav"><span class="pos">Aufgabe <b>${posImThema(i)}</b> von ${th.anz}</span>
+        <button class="gbtn" onclick="geh(-1)" ${i===0?"disabled":""}>‹ Zurück</button>
+        <button class="gbtn" onclick="geh(1)">Überspringen ›</button>
+        <button class="gbtn" onclick="pause()">Pause</button></div>
+      <div class="rprog" title="${fertig} von ${th.anz} bewertet"><i style="width:${(fertig/th.anz*100).toFixed(1)}%"></i></div>
+    </section>
+    ${hint(`<i>Geändert:</i> „Erlaubt: Taschenrechner“. Die Kreis-Aufgaben der Charge verlangen die π-Taste. Der Platzhalter „kein Taschenrechner“ aus v1 passt nicht zu den Chargen. Die Hilfsmittel-Regel (Frage 14) muss trotzdem entschieden werden. Tasten wie in v1: 1 / 2 / 3 entscheiden, ← und → blättern, Esc pausiert.`)}
+    ${t.entscheidung?`<div class="done ${st.cls}">Schon bewertet: <b>${st.label}</b>${t.gruende.length?` · ${esc(t.gruende.join(", "))}`:""}${t.notiz?` · „${esc(t.notiz)}“`:""}. Du kannst die Aufgabe neu bewerten.</div>`:""}
+    <div class="rgrid">${rVorschau(a)}<div>${rKarte(i,a,t)}
+      ${hint(`Entscheidung wie in v1. In der Datenbank: Passt → <code>review</code>, Unsicher → neuer Status Rückfrage, Passt nicht → <code>beanstandet</code> mit Gründen (<code>task_reviews</code> braucht dafür die neuen Kategorien). Aufgaben mit geänderter Antwort oder Fertigkeit gibt ein Admin einzeln frei, nicht über die Sammelfreigabe je Thema.`)}</div></div>`;
+}
+function rVorschau(a){
+  let inner=a.stamm.replace("GRAPH",a.bild?graphSvg(a.bild.m,a.bild.b):"");
+  const feld=`<div class="pvin"><span>Deine Antwort</span>${a.einheit?`<span class="pvunit">${a.einheit}</span>`:""}</div>`;
+  if(a.typ==="zahl")inner+=feld;
+  if(a.typ==="mc")inner+=`<div class="pvopts">${a.optionen.map((o,k)=>`<div class="pvopt"><b>${"abcd"[k]})</b><span>${o}</span></div>`).join("")}</div>`;
+  if(a.typ==="teile")inner+=a.teile.map(x=>`<div class="pvrow"><b>${x.frage}</b><div class="pvin"><span>Deine Antwort</span></div></div>`).join("");
+  return `<section class="pv"><div class="pvhead"><div class="lbl">So sieht das Kind die Aufgabe</div>
+      ${a.bild?`<button class="btn btn-sm btn-ghost" onclick="S.zoom=true;render()">Bild vergrößern</button>`:""}</div>
+    <div class="pvframe"><div class="pvcard">${inner}</div><div class="pvbtn"><span>Antworten</span></div></div>
+    <p class="art">${a.art} In der Lernstandsanalyse bekommt es keine Rückmeldung und keine Lösung.</p>
+    ${hint(`<i>Neu:</i> Die Einheit am Antwortfeld (<code>tasks.unit</code>) ist zu sehen, weil sie bestimmt, was Kinder eintippen. Steht „m“ am Feld, tippt kaum ein Kind „22,62 m“. Aufgabentext, Antwortformat, Einheit und Bild prüft Lena, ändert sie aber nicht. Fehler laufen über „Passt nicht“.`)}
+    ${a.bild?hint(`Das Bild kommt aus dem Generator <code>koordinatensystem</code> (<code>task_figures</code>), der Graph liegt auf Gitterpunkten. Aufgaben mit „Bild nötig“, aber ohne Bild erscheinen gar nicht erst bei Lena.`):""}
+  </section>`;
+}
+function tag(on,feld){return on?`<span class="chg">geändert<button onclick="zuruecksetzenFeld('${feld}')" title="Auf Vorbefüllung zurücksetzen" aria-label="Zurücksetzen">↺</button></span>`:"";}
+function sicherTag(level){return level==="mittel"?`<span class="elt"><span class="sicher" title="Vorbefüllt mit mittlerer Sicherheit">mittel sicher</span>${ib("sicher","Sicherheit der Vorbefüllung")}</span>`:"";}
+function rAntwort(i,a,t){
+  const o=t.orig,c=t.cur;
+  if(a.typ==="mc")return `<p class="sub">Die richtige Antwort ist markiert. Zum Ändern eine andere anklicken.</p>
+    <div class="mcl">${a.optionen.map((op,k)=>`<button class="mco${c.mc===k?" on":""}" aria-pressed="${c.mc===k}" onclick="setMc(${k})"><span class="radio"></span><b>${"abcd"[k]})</b><span>${op}</span>${c.mc===k?`<span class="mcr">richtig</span>`:""}</button>`).join("")}</div>`;
+  if(a.typ==="zahl"&&c.regel.art==="bereich")return `<p class="sub">Jeder Wert in diesem Bereich zählt als richtig.</p>
+    <div class="bereich">Wert <input id="b-mitte" type="text" inputmode="decimal" value="${c.regel.mitte===null?"":fmt(c.regel.mitte)}" onchange="setBereich('mitte',this.value)" aria-label="Wert">
+      ± <input id="b-tol" type="text" inputmode="decimal" value="${c.regel.tol===null?"":fmt(c.regel.tol)}" onchange="setBereich('tol',this.value)" aria-label="Toleranz"> ${a.einheit||""}
+      ${c.regel.mitte!==null&&c.regel.tol!==null?`<span class="bres">also ${fmt(c.regel.mitte-c.regel.tol)} bis ${fmt(c.regel.mitte+c.regel.tol)}</span>`:""}</div>`;
+  const sub=a.typ==="teile"?`<p class="sub">Hier zählt nur, was in der Liste steht. Trag jede übliche Schreibweise ein.</p>`
+    :`<p class="sub">Antwort anklicken zum Ändern, × zum Löschen.</p>`;
+  const zeilen=c.teile.map((ant,k)=>{const l=a.teile[k].label;
+      const neuEdit=S.edit&&S.edit.k===k&&S.edit.j==="neu";
+      return `<div class="teil${l?"":" nolabel"}">${l?`<span class="tl">${a.teile[k].frage}</span>`:""}<div class="chips">${ant.map((v,j)=>chip(k,j,v)).join("")}${neuEdit?editInput(""):`<button class="addchip" onclick="startEdit(${k},'neu')">+ Antwort</button>`}</div></div>`;}).join("");
+  let spell="";
+  if(a.typ==="zahl"&&c.teile[0].length){const v=c.teile[0][0];
+    const ex=v.includes(",")?[v.replace(",","."),v+"0"]:[v+",0"].concat(/^-/.test(v)?[]:["+"+v]);
+    if(a.einheit)ex.push(v+" "+a.einheit);
+    spell=`<p class="spell">Andere Schreibweisen desselben Werts zählen automatisch, zum Beispiel ${ex.map(zeige).join(" oder ")}.</p>`;}
+  return sub+zeilen+spell;
+}
+function rRegel(a,t){
+  if(a.typ!=="zahl")return "";
+  const c=t.cur,o=t.orig,anders=JSON.stringify(o.regel)!==JSON.stringify(c.regel);
+  const einheitAus=!!a.einheit;
+  return `<div class="regel"><label class="elt" for="sel-regel">Gewertet wird ${ib("regel","Wie wird gewertet?")}</label>
+    <select id="sel-regel" onchange="setRegel(this.value)"><option value="wert" ${c.regel.art==="wert"?"selected":""}>genau dieser Wert</option><option value="bereich" ${c.regel.art==="bereich"?"selected":""}>Bereich: Wert ± Toleranz</option></select>${tag(anders,"regel")}</div>
+    <label class="cbx${einheitAus?" off":""}"><input type="checkbox" ${c.regel.einheit?"checked":""} ${einheitAus?"disabled":""} onchange="setEinheit(this.checked)">
+      <span>Einheit muss dabei sein<small>${einheitAus?`Nicht nötig: Die Einheit ${a.einheit} steht schon am Antwortfeld.`:"Fehlt sie, zählt die Antwort als teilweise richtig."}</small></span></label>`;
+}
+function rTest(a,t){
+  if(a.typ==="mc")return "";
+  if(!S.testOpen)return `<div class="test"><button class="link" onclick="S.testOpen=true;S.focus='in-test';render()">Antwort ausprobieren</button></div>`;
+  const teilWahl=a.typ==="teile"?`<select id="sel-teil" onchange="S.testTeil=+this.value;testen(document.getElementById('in-test').value)" aria-label="Teilfrage">${a.teile.map((x,k)=>`<option value="${k}" ${S.testTeil===k?"selected":""}>${x.frage}</option>`).join("")}</select>`:"";
+  return `<div class="test"><label for="in-test">Antwort ausprobieren ${ib("testen","Antwort ausprobieren")}</label>
+    <div class="tline">${teilWahl}<input id="in-test" type="text" value="${esc(S.testVal)}" oninput="testen(this.value)" placeholder="z. B. ${a.typ==="teile"?"3,0":"eine Zahl"}"><span id="test-res" class="tres">${testRes()}</span></div></div>`;
+}
+function testRes(){const a=AUFGABEN[S.idx],k=a.typ==="teile"?S.testTeil:0,w=wertung(a,cur(),k,S.testVal);if(!w)return "";
+  const kopf=w.stufe==="voll"?`<span class="tok">✓ würde als richtig gewertet</span>`:w.stufe==="teilweise"?`<span class="tpa">◐ würde als teilweise richtig gewertet</span>`:`<span class="tno">✗ würde als falsch gewertet</span>`;
+  const fb=w.stufe==="voll"?"":w.fb?`<span class="tfb">Erkannt als typischer Fehler: ${esc(FB[w.fb][0])}</span>`:`<span class="tfb">Kein typischer Fehler erkannt.</span>`;
+  return `${kopf} <span class="tgr">(${esc(w.t)})</span>${fb}`;}
+function rFehler(i,a,t){
+  const c=t.cur,anders=c.fehler.some(f=>f.raus||f.neu);
+  const rows=c.fehler.map((f,k)=>`<div class="fbrow${f.raus?" off":""}"><div class="fbhead"><span class="fbname">${esc(FB[f.fb][0])}${f.neu?`<span class="neu">neu</span>`:""}</span>
+      ${f.raus?`<button class="tog" onclick="fehlerRaus(${k},false)">Wieder rein</button>`:`<button class="tog" onclick="fehlerRaus(${k},true)">Entfernen</button>`}</div>
+      <div class="fbwerte">Antwort: ${f.werte.map(v=>wertAnzeige(a,v)).join(" · ")}</div>
+      ${f.text?`<div class="fbtext"><span>Hier:</span> ${esc(f.text)}</div>`:""}</div>`).join("");
+  let form="";
+  if(S.fehlerForm){
+    const wahl=a.typ==="mc"?`<select id="fe-a" aria-label="Antwortmöglichkeit">${a.optionen.map((o,k)=>k===c.mc?"":`<option value="${"abcd"[k]}">${"abcd"[k]}) ${esc(o)}</option>`).join("")}</select>`
+      :`${a.typ==="teile"?`<select id="fe-t" aria-label="Teilfrage">${a.teile.map((x,k)=>`<option value="${k}">${x.frage}</option>`).join("")}</select>`:""}<input id="fe-a" type="text" placeholder="Falsche Antwort" aria-label="Falsche Antwort">`;
+    form=`<div class="fform"><div class="frow">${wahl}</div>
+      <div class="frow"><select id="fe-fb" aria-label="Denkfehler"><option value="">Denkfehler wählen …</option>${Object.entries(FB).map(([k,v])=>`<option value="${k}">${esc(v[0])}</option>`).join("")}</select></div>
+      <div class="frow"><input id="fe-x" type="text" placeholder="Was hat das Kind hier gerechnet? (optional)" aria-label="Denkfehler zu dieser Aufgabe"></div>
+      <div class="fsmall">Passender Denkfehler fehlt? Dann „Unsicher“ und kurz beschreiben.</div>
+      <div class="perr" id="fe-err"></div>
+      <div class="facts"><button class="btn btn-sm btn-ghost" onclick="S.fehlerForm=false;render()">Abbrechen</button><button class="btn btn-sm" onclick="fehlerAdd()">Hinzufügen</button></div></div>`;
+  }else form=`<button class="addchip" style="margin-top:8px" onclick="S.fehlerForm=true;S.focus='fe-a';render()">+ Fehler ergänzen</button>`;
+  return `<div class="sec"><h2><span class="elt">Typische Fehler ${ib("fehler","Typische Fehler")}</span> ${tag(anders,"fehler")}</h2>
+      <p class="sub">Antworten, die Kinder hier oft geben, und der Denkfehler dahinter. Unpassendes einfach entfernen.</p>
+      <div>${rows||`<div class="tempty">Keine typischen Fehler hinterlegt.</div>`}</div>${form}
+      ${hint(`<i>Geändert:</i> gruppiert nach Denkfehler. Fett steht der Text aus <code>fehlbild_labels</code>; er gilt für alle Aufgaben, und Eltern sehen ihn über die Fehlbild-Familie. Darunter steht der Satz zu dieser Aufgabe aus <code>task_solutions.typical_errors</code>. Die Werte selbst kommen aus <code>acceptance.known_errors</code>, andere Schreibweisen (Punkt, Plus, Einheit) ergänzt das System. Ergänzen geht nur mit einem vorhandenen Denkfehler. Laut Migrationen haben „π vergessen“, „Radius/Durchmesser“ und „Koordinaten vertauscht“ keine Familie und erscheinen deshalb nicht im Elternbericht.`)}
+      ${a.typ==="teile"?hint(`Die y-Werte 4,2 und 16 sind Folgewerte aus x: Ein Fehler in x ergibt zwei Treffer in derselben Aufgabe. Der Bericht verlangt einen Denkfehler in mindestens zwei Aufgaben, er zählt das also nicht doppelt.`):""}
+      ${a.typ==="mc"?hint(`Ablenker d) hat keinen Denkfehler: Wer d) wählt, liefert keine Diagnose. Ob d) bleibt oder ersetzt wird, entscheidet ein Admin; Lena meldet es über „Unsicher“.`):""}
+    </div>`;
+}
+function rKarte(i,a,t){
+  const o=t.orig,c=t.cur,chg=aenderungen(i),auff=auffaelligkeiten(i);
+  const antAnders=a.typ==="mc"?o.mc!==c.mc:JSON.stringify(o.teile)!==JSON.stringify(c.teile);
+  const titel=a.typ==="teile"?"Richtige Antworten":"Richtige Antwort";
+  const fertAnders=o.fert!==c.fert;
+  const th=THEMA[themaVon(c.fert)];
+  const kanten=(KANTEN[c.fert]||[]).map(fertLabel);
+  const imTh=Object.keys(FERT).filter(k=>themaVon(k)===themaVon(o.fert));
+  const vor=(KANTEN[o.fert]||[]).filter(k=>!imTh.includes(k));
+  const optFert=k=>`<option value="${k}" ${c.fert===k?"selected":""}>${esc(fertLabel(k))}</option>`;
+  return `<section class="ck">
+    ${auff.length?`<div class="auff"><b>Bitte genauer ansehen</b><ul>${auff.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+      ${hint(`Prüfungen über die Wertung der Engine: Der Lösungsweg endet mit einem Wert, der als falsch gewertet würde; ein typischer Fehler würde als richtig gewertet; ein MC-Ablenker hat keinen Denkfehler. <i>Entfallen</i> ist „Ableseaufgabe ohne Bereich“: Die Graphen der Chargen kommen aus dem Generator und liegen auf Gitterpunkten.${a.verfaelscht?` <i>Im Dummy absichtlich verfälscht:</i> Richtig ist 5, nicht 3. Ändert Lena die Antwort auf 5, verschwinden beide Hinweise.`:""}`)}</div>`:""}
+    <div class="sec"><h2><span class="elt">${titel} ${ib(a.typ==="mc"?"mc":a.typ==="teile"?"teile":"antwort",titel)}</span> ${tag(antAnders,"antwort")}</h2>
+      ${rAntwort(i,a,t)}${rRegel(a,t)}${rTest(a,t)}
+      <div class="weg"><div class="wl"><span class="elt">Lösungsweg zum Nachlesen ${ib("weg","Lösungsweg")}</span></div><p>${esc(a.weg)}</p></div>
+      ${hint(`<i>Geändert:</i> eine Liste mit Werten. Das System schreibt daraus beide Datenfelder: <code>correct_answers</code> (Antwortzeile, Gate) und <code>acceptance</code> (Urteil über die Fertigkeit, typische Fehler). Heute schreibt der Editor nur <code>correct_answers</code>, siehe Bewertung. „Genau dieser Wert“ vergleicht nach Zahlenwert (<code>lsa_grade</code>). „Bereich“ ist Wert ± Toleranz (<code>tolerance absolute</code>), deshalb immer symmetrisch. „Einheit muss dabei sein“ (<code>unit_graded</code>) erzeugt „teilweise“, die Grundlage für „rechnet richtig, vergisst Einheiten“ im Bericht. <i>Entfallen:</i> „Term gleichwertig“ (die Engine vergleicht Terme nur als Text) und Tabellen (keine in den Chargen). Der Lösungsweg ist nur noch zum Lesen: LSA und Bericht nutzen ihn nicht.`)}
+      ${a.typ==="teile"?hint(`Bei Teilfragen wertet die Engine heute nur die Textliste (<code>lsa_is_correct</code>): 3,0 ist falsch, wenn nur 3 eingetragen ist, und es gibt keine Regeln. Ist x falsch, zählt die ganze Aufgabe als „nicht“, auch wenn y folgerichtig ist. Vorschlag: die Wertung je Teil auf <code>acceptance</code> umstellen. Probier „Antwort ausprobieren“ mit 3,0.`):""}
+      ${S.testOpen?hint(`<i>Neu:</i> drei Stufen wie <code>lsa_grade</code> (richtig, teilweise, falsch) und der erkannte typische Fehler wie <code>lsa_fehlbild_match</code>. Ein RPC ruft dieselben Funktionen mit Lenas ungespeichertem Entwurf auf. Die Wertung hier ist nachgebaut.`):""}
+    </div>
+    ${rFehler(i,a,t)}
+    <div class="sec"><h2>Einordnung</h2>
+      <div class="einrow"><label class="el" for="sel-fert"><span class="elt">Fertigkeit ${ib("fert","Fertigkeit")}</span>${tag(fertAnders,"fert")}</label>
+        <div><div class="ctl"><select id="sel-fert" onchange="setFert(this.value)">
+          <optgroup label="Im Thema ${esc(THEMA[themaVon(o.fert)].label)}">${imTh.map(optFert).join("")}</optgroup>
+          ${vor.length?`<optgroup label="Voraussetzungen">${vor.map(optFert).join("")}</optgroup>`:""}</select></div>
+          <div class="ctx"><span>Thema:</span> ${esc(th.label)} · <span>Klasse</span> ${th.stufe}${kanten.length?`<br><span>Baut auf:</span> ${esc(kanten.join(" · "))}`:""}</div>
+          ${fertAnders?`<div class="ctxnote">Die neue Fertigkeit bestätigt das Team bei der Freigabe.</div>`:""}</div></div>
+      <div class="einrow"><span class="el"><span class="elt">Anforderungsbereich ${ib("afb","Anforderungsbereich")}</span>${o.afb===c.afb?sicherTag(a.afbSicher):""}${tag(o.afb!==c.afb,"afb")}</span>
+        <div class="ctl"><div class="seg" role="group" aria-label="Anforderungsbereich">${["I","II","III"].map(x=>`<button aria-pressed="${c.afb===x}" title="${AFB[x]}" onclick="setAfb('${x}')">${x}</button>`).join("")}</div><span class="afbname">${AFB[c.afb]}</span></div></div>
+      ${hint(`<i>Geändert:</i> Fertigkeit statt Klasse und Thema. Die Lernstandsanalyse zieht Aufgaben über die Fertigkeit (<code>skill_key</code>), Thema und Klasse folgen aus ihr (<code>skill_thema</code>, <code>themen.stufe</code>) und werden nur angezeigt. Zur Auswahl stehen die Fertigkeiten des Themas und die Voraussetzungen (<code>skill_kante</code>), weil eine falsche Zuordnung meist dorthin gehört. Heute sperrt die Datenbank <code>skill_key</code> für Prüfer (<code>tasks_pruefer_guard</code>), deshalb bestätigt ein Admin. <i>Entfallen:</i> Zeit fürs Kind (die adaptive LSA nutzt sie nicht, und das System kann die echte Dauer messen), Stoffanker, Leitidee. „mittel sicher“ stammt aus der Charge (<code>docs/prefill/*.json</code>) und steht heute nicht in der Datenbank.`)}
+    </div>
+    ${chg.length?`<div class="why"><div class="whyh">${chg.length===1?"1 Änderung":chg.length+" Änderungen"}</div>
+      <ul>${chg.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+      <label for="in-warum">Kurz warum? <span>(optional)</span></label>
+      <input id="in-warum" type="text" value="${esc(t.warum)}" oninput="S.tasks[${i}].warum=this.value" placeholder="z. B. Hinterlegte Lösung war falsch">
+      ${hint(`Vorher → nachher und ↺ brauchen eine eingefrorene Kopie der Vorbefüllung. <code>tasks.vorbefuellt</code> speichert nur Art und Grund, keine Werte. Ob der Grund Pflicht wird, entscheidet der Pilot.`)}</div>`:""}
+  </section>`;
+}
+function chip(k,j,v){
+  if(S.edit&&S.edit.k===k&&S.edit.j===j)return editInput(minus(v));
+  return `<span class="chip"><button class="val" onclick="startEdit(${k},${j})" title="Antwort ändern">${zeige(v)}</button><button class="x" onclick="loescheAntwort(${k},${j})" aria-label="Antwort ${zeige(v)} löschen">×</button></span>`;
+}
+function editInput(v){return `<input id="edit-in" class="chip-in" type="text" value="${esc(v)}" aria-label="Antwort" onkeydown="editKey(event)" onblur="commitEdit(this.value)">`;}
+
+/* ================= Entscheidungsleiste ================= */
+function rBar(){
+  const i=S.idx,chg=aenderungen(i),blk=blocker(i);
+  let panel="";
+  if(S.panel==="nicht")panel=`<div class="dpanel"><div class="ph">Was stimmt nicht?</div>
+      <div class="rchips">${ROT.map((r,k)=>`<button class="rchip" aria-pressed="${S.rot.includes(k)}" onclick="toggleRot(${k})">${r}</button>`).join("")}</div>
+      <input id="rot-text" type="text" value="${esc(S.rotText)}" oninput="S.rotText=this.value" placeholder="Was genau? (optional, bei „Sonstiges“ bitte ausfüllen)" aria-label="Was genau stimmt nicht?">
+      <div class="perr" id="perr"></div>
+      <div class="pacts"><button class="btn btn-sm btn-ghost" onclick="closePanel()">Abbrechen</button><button class="btn btn-sm btn-bad" onclick="speichernNicht()">Als „Passt nicht“ speichern</button></div></div>`;
+  if(S.panel==="unsicher")panel=`<div class="dpanel"><div class="ph">Was ist dir unklar?</div>
+      <textarea id="uns-text" rows="2" oninput="S.unsicherText=this.value" placeholder="z. B. Passender Denkfehler fehlt: Kinder setzen den Durchmesser ins Quadrat." aria-label="Was ist dir unklar?">${esc(S.unsicherText)}</textarea>
+      <div class="perr" id="perr"></div>
+      <div class="pacts"><button class="btn btn-sm btn-ghost" onclick="closePanel()">Abbrechen</button><button class="btn btn-sm btn-amb" onclick="speichernUnsicher()">Als „Unsicher“ speichern</button></div></div>`;
+  const info=blk?`<span class="bwarn">${blk}</span>`
+    :chg.length?`Deine ${chg.length===1?"Änderung wird":chg.length+" Änderungen werden"} mit der Bewertung gespeichert.`
+    :"Alles ist vorbefüllt. Wenn es stimmt: „Passt“.";
+  return `<div class="in">${panel}<div class="drow"><div class="info"><span class="elt">${ib("entscheidung","Was passiert nach der Bewertung?")}<span>${info}</span></span></div><div class="dbtns">
+      <button class="dbtn d-bad" aria-pressed="${S.panel==="nicht"}" onclick="openPanel('nicht')">Passt nicht <kbd>1</kbd></button>
+      <button class="dbtn d-amb" aria-pressed="${S.panel==="unsicher"}" onclick="openPanel('unsicher')">Unsicher <kbd>2</kbd></button>
+      <button class="dbtn d-ok" onclick="passt()" ${blk?"disabled":""}>✓ Passt <kbd>3</kbd></button></div></div></div>`;
+}
+
+/* ================= Abschluss ================= */
+function rEnde(){
+  const offen=S.tasks.filter(t=>!t.entscheidung).length;
+  const ge=S.tasks.filter((t,i)=>t.entscheidung==="passt"&&aenderungen(i).length).length;
+  const d=S.tasks.filter(t=>t.dauer).map(t=>t.dauer);
+  const avg=d.length?Math.round(summe(d)/d.length):null;
+  const nThemen=new Set(AUFGABEN.map((a,i)=>aThema(i))).size;
+  return `<section class="hero"><h1>Ende der Beispielaufgaben</h1>
+      <p>Im Dummy sind ${AUFGABEN.length} Aufgaben aus ${nThemen} Themen befüllt. Im echten System ginge es hier mit den übrigen Aufgaben und Themen weiter.</p></section>
+    <section class="endcard"><div class="big">
+      <div class="bk ok"><span>Passt</span><b>${zaehle("passt")}</b>${ge?`<small>davon ${ge} geändert</small>`:""}</div>
+      <div class="bk amb"><span>Unsicher</span><b>${zaehle("unsicher")}</b></div>
+      <div class="bk bad"><span>Passt nicht</span><b>${zaehle("nicht")}</b></div>
+      <div class="bk"><span>Noch offen</span><b>${offen}</b></div></div>
+      ${avg!==null?`<p class="avg">Im Schnitt ${avg} ${avg===1?"Sekunde":"Sekunden"} pro Aufgabe.</p>`:""}
+      <div class="eacts">${offen?`<button class="btn" onclick="weiterPruefen()">Offene Aufgaben prüfen</button>`:""}
+        <button class="btn btn-ghost" onclick="pause(true)">Zur Übersicht</button></div>
+      ${hint(`Wie in v1: Die gemessene Zeit pro Aufgabe ist die Grundlage für die Auswertung des Piloten. Sie gehört ins Prüfprotokoll (geprüft von, am, Dauer, Gründe, vorher → nachher). Für den Piloten die ersten 100 Aufgaben aus den neuen Chargen nehmen: einheitlich Zahl, mehrteilig und MC, alle mit typischen Fehlern.`)}
+    </section>`;
+}
+function rZoom(){
+  const a=AUFGABEN[S.idx];
+  return `<div class="zoom" onclick="if(event.target===this){S.zoom=false;render();}"><div class="zbox" role="dialog" aria-label="Bild in groß">
+    <div class="zhead"><span class="lbl">Bild in groß</span><button class="btn btn-sm btn-ghost" onclick="S.zoom=false;render()">Schließen</button></div>
+    ${a.bild?graphSvg(a.bild.m,a.bild.b):""}</div></div>`;
+}
+
+/* ================= Erklärungen (ⓘ) ================= */
+const tip=document.getElementById("tip"); let tipFor=null;
+function zeigeTip(b){
+  const html=INFO[b.dataset.tip]; if(!html)return;
+  tip.innerHTML=html; tip.hidden=false; tipFor=b;
+  const r=b.getBoundingClientRect(), w=tip.offsetWidth, h=tip.offsetHeight;
+  const vw=document.documentElement.clientWidth, vh=window.innerHeight;
+  const left=Math.min(Math.max(12,r.left+r.width/2-w/2),vw-w-12);
+  let top=r.bottom+8; if(top+h>vh-12)top=r.top-h-8;
+  tip.style.left=left+"px"; tip.style.top=Math.max(12,top)+"px";
+}
+function versteckeTip(){tip.hidden=true;tipFor=null;}
+document.addEventListener("pointerover",e=>{if(e.pointerType!=="mouse")return;
+  const b=e.target.closest&&e.target.closest(".ib");if(b&&tipFor!==b)zeigeTip(b);});
+document.addEventListener("pointerout",e=>{if(e.pointerType!=="mouse")return;
+  const b=e.target.closest&&e.target.closest(".ib");if(b&&!b.contains(e.relatedTarget))versteckeTip();});
+document.addEventListener("focusin",e=>{const b=e.target;if(b.classList&&b.classList.contains("ib")&&b.matches(":focus-visible"))zeigeTip(b);});
+document.addEventListener("focusout",e=>{if(e.target===tipFor)versteckeTip();});
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".ib");
+  if(b){e.preventDefault();e.stopPropagation();zeigeTip(b);return;}
+  if(!tip.hidden)versteckeTip();},true);
+function tipNachziehen(){if(tip.hidden||!tipFor)return; if(!document.body.contains(tipFor))versteckeTip(); else zeigeTip(tipFor);}
+window.addEventListener("scroll",tipNachziehen,{passive:true});
+window.addEventListener("resize",tipNachziehen);
+
+/* ================= Aktionen ================= */
+function render(){
+  versteckeTip();
+  const app=document.getElementById("app"),bar=document.getElementById("dbar"),zoom=document.getElementById("zoom");
+  document.body.classList.toggle("hints",!!S.hints);
+  document.getElementById("sw-hints").setAttribute("aria-pressed",String(!!S.hints));
+  if(S.view==="uebersicht"){app.innerHTML=rUebersicht();bar.hidden=true;}
+  else if(S.view==="pruefen"){app.innerHTML=rPruefen();bar.innerHTML=rBar();bar.hidden=false;}
+  else{app.innerHTML=rEnde();bar.hidden=true;}
+  zoom.hidden=!(S.view==="pruefen"&&S.zoom); zoom.innerHTML=zoom.hidden?"":rZoom();
+  fokus();
+}
+function renderBar(){versteckeTip();document.getElementById("dbar").innerHTML=rBar();fokus();}
+function fokus(){
+  const id=S.edit?"edit-in":S.focus; S.focus=null;
+  if(!id)return; const el=document.getElementById(id);
+  if(el&&document.activeElement!==el){el.focus();if(id==="edit-in")el.select();}
+}
+function toggleHints(){S.hints=!S.hints;render();}
+function zuruecksetzen(){neu();render();window.scrollTo({top:0});toast("Dummy zurückgesetzt.");}
+function toggleThema(id){S.offen[id]=!S.offen[id];render();}
+function pruefeThema(th){const ids=imThema(th);
+  if(!ids.length){toast("Dieses Thema ist im Dummy nicht befüllt.");return;}
+  const offen=ids.find(i=>!S.tasks[i].entscheidung); openTask(offen!==undefined?offen:ids[0]);}
+function weiterPruefen(){const nx=naechsteOffene(-1);
+  if(nx<0){toast("Alle Beispielaufgaben sind bewertet.");return;} openTask(nx);}
+function openTask(i){S.idx=i;S.view="pruefen";resetEphemeral();render();window.scrollTo({top:0});}
+function geh(d){const j=S.idx+d;if(j<0)return;
+  resetEphemeral(); if(j>=AUFGABEN.length)S.view="ende"; else S.idx=j;
+  render();window.scrollTo({top:0});}
+function pause(still){const th=aThema(S.idx);
+  S.view="uebersicht";S.tab=THEMA[th].stufe;S.offen[th]=true;resetEphemeral();render();window.scrollTo({top:0});
+  if(!still)toast("Pausiert. Dein Stand ist gespeichert.");}
+
+function startEdit(k,j){S.edit={k,j};render();}
+function editKey(e){
+  if(e.key==="Enter"){e.preventDefault();e.stopPropagation();commitEdit(e.target.value);}
+  else if(e.key==="Escape"){e.preventDefault();e.stopPropagation();S.edit=null;render();}
+}
+function commitEdit(v){
+  if(!S.edit)return; const {k,j}=S.edit; S.edit=null;
+  v=v.trim().replace(/−/g,"-").replace(/\s+/g," "); const arr=cur().teile[k];
+  if(j==="neu"){if(v&&!arr.includes(v))arr.push(v);} else if(v)arr[j]=v; else arr.splice(j,1);
+  render();
+}
+function loescheAntwort(k,j){cur().teile[k].splice(j,1);S.edit=null;render();}
+function setMc(k){cur().mc=k;render();}
+function setRegel(v){const c=cur();
+  if(v==="bereich"){const p=parseZahl(c.teile[0][0]||"");const m=p?p.v:null;
+    const tol=m===null?null:Math.abs(m)<=5?0.5:Math.abs(m)<=20?1:Math.round(Math.abs(m)*0.05*10)/10;
+    c.regel={art:"bereich",mitte:m,tol,einheit:c.regel.einheit};}
+  else c.regel={art:"wert",mitte:null,tol:null,einheit:c.regel.einheit};
+  S.testVal="";render();}
+function setBereich(f,v){const p=parseZahl(v);cur().regel[f]=p?(f==="tol"?Math.abs(p.v):p.v):null;render();}
+function setEinheit(on){cur().regel.einheit=on;render();}
+function testen(v){S.testVal=v;const el=document.getElementById("test-res");if(el)el.innerHTML=testRes();}
+function fehlerRaus(k,v){const f=cur().fehler[k];if(f.neu&&v)cur().fehler.splice(k,1);else f.raus=v;render();}
+function fehlerAdd(){
+  const a=AUFGABEN[S.idx],err=document.getElementById("fe-err");
+  const w=document.getElementById("fe-a").value.trim().replace(/−/g,"-");
+  const fb=document.getElementById("fe-fb").value,x=document.getElementById("fe-x").value.trim();
+  const t=a.typ==="teile"?+document.getElementById("fe-t").value:null;
+  if(!w){err.textContent="Bitte die falsche Antwort eintragen.";return;}
+  if(!fb){err.textContent="Bitte einen Denkfehler wählen.";return;}
+  cur().fehler.push({fb,werte:[{t,w}],text:x,raus:false,neu:true});S.fehlerForm=false;render();
+}
+function setFert(k){cur().fert=k;render();}
+function setAfb(x){cur().afb=x;render();}
+function zuruecksetzenFeld(f){const t=S.tasks[S.idx],o=t.orig,c=t.cur;
+  if(f==="antwort"){if(AUFGABEN[S.idx].typ==="mc")c.mc=o.mc;else c.teile=clone(o.teile);S.edit=null;}
+  else if(f==="regel")c.regel=clone(o.regel);
+  else if(f==="fehler")c.fehler=clone(o.fehler);
+  else c[f]=o[f];
+  render();}
+
+function openPanel(p){S.panel=S.panel===p?null:p;S.focus=S.panel==="unsicher"?"uns-text":null;renderBar();}
+function closePanel(){S.panel=null;S.rot=[];S.rotText="";S.unsicherText="";renderBar();}
+function toggleRot(k){const x=S.rot.indexOf(k);if(x>-1)S.rot.splice(x,1);else S.rot.push(k);renderBar();}
+function perr(t){const el=document.getElementById("perr");if(el)el.textContent=t;}
+function speichernNicht(){
+  if(!S.rot.length)return perr("Bitte mindestens einen Grund wählen.");
+  if(S.rot.includes(ROT.length-1)&&!S.rotText.trim())return perr("Bei „Sonstiges“ bitte kurz beschreiben, was nicht stimmt.");
+  entscheide("nicht",S.rot.slice().sort((a,b)=>a-b).map(k=>ROT[k]),S.rotText.trim());
+}
+function speichernUnsicher(){
+  if(!S.unsicherText.trim())return perr("Bitte kurz schreiben, was dir unklar ist.");
+  entscheide("unsicher",[],S.unsicherText.trim());
+}
+function passt(){if(blocker(S.idx))return;entscheide("passt",[],"");}
+function entscheide(e,gruende,notiz){
+  const i=S.idx,t=S.tasks[i];
+  t.entscheidung=e;t.gruende=gruende;t.notiz=notiz;
+  t.dauer=Math.max(1,Math.round((Date.now()-(t.start||Date.now()))/1000));t.start=null;
+  const label=statusOf(i).label;
+  resetEphemeral();
+  const nx=naechsteOffene(i);
+  if(nx>=0){S.idx=nx;S.view="pruefen";}else S.view="ende";
+  render();window.scrollTo({top:0});
+  toast(`${THEMA[aThema(i)].label}, Aufgabe ${posImThema(i)}: ${label}`,()=>{t.entscheidung=null;t.gruende=[];t.notiz="";S.idx=i;S.view="pruefen";resetEphemeral();render();window.scrollTo({top:0});});
+}
+
+let TT=null;
+function toast(msg,undo){
+  const el=document.getElementById("toast");
+  el.innerHTML=`<span>${esc(msg)}</span>${undo?`<button type="button" id="t-undo">Rückgängig</button>`:""}`;
+  el.classList.toggle("low",S.view!=="pruefen"); el.hidden=false;
+  if(undo)document.getElementById("t-undo").onclick=()=>{el.hidden=true;clearTimeout(TT);undo();};
+  clearTimeout(TT);TT=setTimeout(()=>{el.hidden=true;},undo?5000:3000);
+}
+
+document.addEventListener("keydown",e=>{
+  const ae=document.activeElement, tagName=ae?ae.tagName:"";
+  const tippt=["INPUT","TEXTAREA","SELECT"].includes(tagName);
+  if(e.key==="Escape"&&!tip.hidden){versteckeTip();return;}
+  if(e.key==="Escape"&&S.zoom){S.zoom=false;render();return;}
+  if(e.key==="Escape"){
+    if(tippt){ae.blur();return;}
+    if(S.view==="pruefen"){if(S.panel)closePanel();else pause();}
+    return;
+  }
+  if(tippt||e.metaKey||e.ctrlKey||e.altKey||S.zoom)return;
+  const aufKnopf=tagName==="BUTTON"||(ae&&ae.getAttribute&&ae.getAttribute("role")==="button");
+  if(S.view==="pruefen"){
+    if(S.panel)return;
+    if(e.key==="1"){e.preventDefault();openPanel("nicht");}
+    else if(e.key==="2"){e.preventDefault();openPanel("unsicher");}
+    else if(e.key==="3"||(e.key==="Enter"&&!aufKnopf)){e.preventDefault();passt();}
+    else if(e.key==="ArrowLeft"){geh(-1);}
+    else if(e.key==="ArrowRight"){geh(1);}
+  } else if(S.view==="uebersicht"&&e.key==="Enter"&&!aufKnopf){e.preventDefault();weiterPruefen();}
+});
+
+neu();render();
+</script>
+</body>
+</html>
