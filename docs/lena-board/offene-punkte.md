@@ -28,3 +28,43 @@ Betroffen in Prod: 0 Aufgaben (alle flachen NUMERIC haben eine Regel, `ist-analy
 
 85 Fehlbild-Slugs im Board haben keine freigegebene Familie (`ist-analyse-l0.md` Abschnitt 4). Lena sieht den
 Klartext aus `fehlbild_labels`; im Report fallen diese Befunde weiter still aus. Nicht Teil dieses Auftrags.
+
+## OP-5 · Migration 2 in fünf Dateien (L1)
+
+Entscheidung C sieht 2a und 2b vor. Mit der Grenze von 400 Zeilen je Datei reichen zwei Dateien nicht
+(zusammen rund 1.380 Zeilen). Migration 2 besteht deshalb aus 2a bis 2e
+(`20261005071059_pruefung_funktionen_a` … `20261005071649_pruefung_funktionen_e`). Einspielreihenfolge:
+1 → 2a → 2b → 2c → 2d → 2e → 3 → 4.
+
+## OP-6 · Ausgangsfassung trägt zusätzlich den Sondierrang (L1)
+
+Entscheidung 7 nennt fünf Felder. `task_pruefung_ausgang.ausgang` enthält zusätzlich `sondierrang`. Grund:
+Ändert Lena die Fertigkeit, wird `sondierrang` leer (Entscheidung 16); die Reihenfolge im Board (14) soll aber bis
+zur Freigabe stabil bleiben und stellt beim Zurückwechseln den alten Rang wieder her. In der Änderungsliste
+erscheint der Sondierrang nicht.
+
+## OP-7 · „werte_widersprechen“ bei „Einheit muss dabei sein“ (L1)
+
+`correct_answers` enthält nach `pruef_schreibweisen` Werte mit und ohne Einheit. Mit `unit_graded` wertet
+`lsa_grade` einen Wert ohne Einheit als „teilweise“. Das ist gewollt und kein Widerspruch; die Prüfung
+`werte_widersprechen` lässt genau diesen Fall aus (`pruef_auffaelligkeiten`, 2b).
+
+## OP-8 · Gesperrter Einheiten-Schalter auch serverseitig (L1)
+
+Entscheidung 15 sperrt den Schalter „Einheit muss dabei sein“ in der Oberfläche, wenn `tasks.unit` gesetzt ist.
+`pruef_speichern` lehnt das Einschalten in diesem Fall zusätzlich mit ED422 `einheit_am_feld` ab: Steht die
+Einheit am Feld, tippt kein Kind sie mit, und jede Antwort würde „teilweise“.
+
+## OP-9 · Admin-Beanstandung und Sammelfreigabe (Consensus-Check)
+
+Lena darf jede Aufgabe neu bewerten, solange sie nicht freigegeben ist (Entscheidung 17), also auch eine vom
+Admin beanstandete. Damit eine Admin-Beanstandung so nicht still in die Sammelfreigabe kippt, lassen
+`freigabe_thema` und `freigabe_cluster` jede Aufgabe aus, zu der ein Admin oder ein Systemaufruf eine
+`task_reviews`-Zeile geschrieben hat. Ein Admin gibt sie einzeln frei. Fachlich zu bestätigen: Soll Lena
+admin-beanstandete Aufgaben überhaupt neu bewerten dürfen?
+
+## OP-10 · Lösungen für Coaches (Bestand, Consensus-Check)
+
+`task_solution_get` gibt jedem Coach alle Lösungen, und `task_preview_payload` sowie `task_solution_get` prüfen die
+Rolle mit `get_my_role() not in (…)`, was bei einem Login ohne Profil (NULL) nicht greift. Das ist Bestand und
+nicht Teil dieses Auftrags. `pruef_aufgabe` und `pruef_wertung_testen` verlangen `darf_pruefen()`.
