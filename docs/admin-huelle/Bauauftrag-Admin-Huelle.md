@@ -1,6 +1,6 @@
-# Bauauftrag Admin-Hülle — Arbeitspakete für Claude Code (Fassung 1)
+# Bauauftrag Admin-Hülle — Arbeitspakete für Claude Code (Fassung 1.2)
 
-**Stand:** 05.10.2026 · **Entscheider:** Rasit
+**Stand:** 05.10.2026 · **Entscheider:** Rasit · **Fassung 1.1:** Hülle rollenneutral gebaut, weil die Coach-Sicht direkt danach dieselbe Hülle bekommt (Entscheidung Rasit 05.10.2026). Betrifft Entscheidung 12 und H2. **Fassung 1.2:** H2 beginnt mit Schritt 0, der diese Datei aus den Windows-Downloads ins Repo holt (Dateiname dort: `Bauauftrag-Admin-Huelle-H2.md`).
 **Grundlage:** Bewertung der Admin-App vom 05.10.2026 (dev-Stand `93fb3d6`), Klick-Dummy `admin-huelle-dummy.html`, Designsystem (Edvance UX Skill: „Coach/Admin = Eltern-Sprache, flach“), Farben aus `edvance-app/src/design/tokens.ts`.
 
 ## Warum
@@ -23,7 +23,7 @@ Die Admin-App hat keinen gemeinsamen Rahmen. Jede Seite baut Navbar, Navy-Kopfba
 9. **Touch:** jedes Bedienelement hat mindestens 44 px Trefferfläche, auch „…“-Menüs und Chips.
 10. **Noch ohne Route:** Eltern-Reports und LSA-Ergebnisse stehen in der Leiste, ausgegraut mit „bald“, nicht klickbar.
 11. **Fokus-Seiten ohne Leiste:** Die Vertrags-Abschlussstrecke (`VertragPage`, Unterschrift am iPad mit den Eltern), `VertragUnterlagenPage` und der Pflege-Wizard (`PflegeWizardPage`) laufen im Vollbild ohne Leiste, mit eigenem Zurück-Link.
-12. **Coaches** bekommen die Hülle nicht. Wer als Coach `/admin/akten` öffnet, sieht die bisherige Kopfzeile, bis es eine Coach-Hülle gibt. Die Hülle prüft dafür die Rolle.
+12. **Coaches** bekommen die Hülle in diesem Auftrag noch nicht, aber direkt danach (Coach-Sicht, eigener Auftrag). Deshalb wird die Hülle rollenneutral gebaut (`shell/`), die Admin-Leiste ist nur eine Konfiguration. Bis dahin sieht ein Coach auf `/admin/akten` die bisherige Kopfzeile.
 
 ## Pakete
 
@@ -94,6 +94,14 @@ Keine Datei in src/ benutzt eine undefinierte CSS-Variable. Screenshots wie im B
 ```text
 Du arbeitest im Repo Edvancev1. Paket H2 des Bauauftrags Admin-Hülle. H1 ist gemergt.
 
+SCHRITT 0 (vor allem anderen, direkt nach dem Anlegen des Branches)
+- Die gültige Fassung 1.2 des Bauauftrags liegt in den Windows-Downloads:
+  /mnt/c/Users/*/Downloads/Bauauftrag-Admin-Huelle-H2.md
+- Prüfe, dass es genau eine solche Datei gibt und ihre erste Zeile "(Fassung 1.2)" enthält. Sonst abbrechen und melden.
+- Kopiere sie nach docs/admin-huelle/Bauauftrag-Admin-Huelle.md (ersetzt Fassung 1) und mach das zum ersten Commit
+  im H2-PR: "docs: Bauauftrag Admin-Huelle Fassung 1.2".
+- Danach liest du nur noch die Datei im Repo.
+
 LEITPLANKEN
 - Branch: git fetch && git checkout -b feat/rasit-admin-h2-huelle origin/dev · PR gegen dev, niemals main · nichts unter .github/.
 - Kein DDL, keine Migrationen. Datenzugriff nur über bestehende Funktionen in src/lib/. Fehlt eine Zählfunktion
@@ -111,34 +119,43 @@ docs/admin-huelle/Bauauftrag-Admin-Huelle.md (Entscheidungen 1–12 sind maßgeb
 Laptop, iPad quer, iPad hoch; Schalter "Hinweise" zeigt Quellen und Abweichungen).
 
 UMFANG
-1. Neue Bausteine unter src/components/edvance/admin/:
-   - adminNav.ts: Konfiguration der Leiste. Gruppen und Einträge in dieser Reihenfolge:
-     Heute (/admin) · Vertrieb: Leads (/admin/leads) · Betrieb: Stundenplan (/admin/schedule, aktiv auch für
-     /admin/slots und /admin/slot-auswahl), Schüler (/admin/akten*), Coaches (/admin/coaches, /admin/assignments) ·
-     Verwaltung: Verträge (/admin/vertraege*), Eltern-Reports (bald), LSA-Ergebnisse (bald) ·
-     Inhalte: Item-Pflege (/admin/authoring*, /admin/pflege, /admin/content-gesundheit, /admin/qs,
-     /admin/diagnostics, /admin/report/*). Je Eintrag: i18n-Schlüssel für Name und Kurzname, Lucide-Symbol.
+1. Neue Bausteine, aufgeteilt in eine rollenneutrale Hülle und die Admin-Konfiguration. Die Coach-Sicht bekommt
+   direkt nach diesem Auftrag dieselbe Hülle; in src/components/edvance/shell/ darf deshalb nichts Admin-
+   Spezifisches stehen (keine Admin-Routen, keine Admin-Zähler, keine Rollenprüfung auf 'admin').
+   Unter src/components/edvance/shell/:
+   - navTypes.ts: Typen für die Leisten-Konfiguration (Gruppe, Eintrag mit Route, aktiv-Muster, i18n-Schlüssel für
+     Name und Kurzname, Lucide-Symbol, optional Zähler, optional "bald").
    - useLayoutModus.ts: 'schublade' unter 900 px, 'spalte' 900–1279 px, 'voll' ab 1280 px (matchMedia).
      Breakpoints als Tokens in globals.css (@theme), nicht als Zahl im Code.
-   - AdminSidebar.tsx: Logo (EdvanceSymbol + Wortmarke, auf Navy in Creme mit Gold-Pfeil), Einträge mit Zähler,
-     Fuß mit Name, E-Mail und Abmelden. Zähler: Leads = neue Leads (getAdminStats().leadsNew), Verträge = offene
-     Anträge (wie Reiter "Offene Anträge"), Item-Pflege = Aufgaben im Status review. Zähler-Pille: Gold
+   - ShellSidebar.tsx: bekommt Konfiguration und Zählerwerte als Props. Logo (EdvanceSymbol + Wortmarke, auf Navy
+     in Creme mit Gold-Pfeil), Einträge mit Zähler, Fuß mit Name, E-Mail und Abmelden. Zähler-Pille: Gold
      (--color-gold-altgold) mit --color-on-cream auf Navy; Navy mit Creme bei heller Leiste.
      Aktiver Eintrag: Creme 14 % Fläche, Symbol in Gold (navy) bzw. --color-primary-light (hell).
      In der schmalen Spalte: Symbol über Kurzname (11 px), Gruppen als feine Trennlinie, Zähler als Punkt oben rechts,
      unten ein Knopf "Menü", der die volle Leiste als Überlagerung ausklappt.
      Schublade: volle Leiste von links mit Abdunklung dahinter; schließt bei Tippen daneben, Escape und Seitenwechsel.
-   - AdminPageHeader.tsx: Rubrik, Titel (font-serif, 30 px), ein Satz, Aktionen rechts, umbrechend. Optional
+   - PageHeader.tsx: Rubrik, Titel (font-serif, 30 px), ein Satz, Aktionen rechts, umbrechend. Optional
      zurueckZu/zurueckLabel für Detailseiten.
-   - AdminLayout.tsx: CSS-Grid Leiste | Inhalt, Inhalt scrollt für sich, die Leiste steht. In schublade: Kopfzeile
+   - AppShell.tsx: CSS-Grid Leiste | Inhalt, Inhalt scrollt für sich, die Leiste steht. In schublade: Kopfzeile
      mit Menü-Knopf (44 px) und Logo. Inhalt: max-w 1400 px zentriert, Ränder 16 / 28 / 36 px je Modus.
-     Rolle admin → Hülle. Andere Rollen → nur <Outlet/> (Coach sieht auf /admin/akten weiter die bisherige Kopfzeile).
+     Props: Konfiguration, Zählerwerte, Inhalt (<Outlet/>).
+   Unter src/components/edvance/admin/:
+   - adminNav.ts: die Admin-Konfiguration. Gruppen und Einträge in dieser Reihenfolge:
+     Heute (/admin) · Vertrieb: Leads (/admin/leads) · Betrieb: Stundenplan (/admin/schedule, aktiv auch für
+     /admin/slots und /admin/slot-auswahl), Schüler (/admin/akten*), Coaches (/admin/coaches, /admin/assignments) ·
+     Verwaltung: Verträge (/admin/vertraege*), Eltern-Reports (bald), LSA-Ergebnisse (bald) ·
+     Inhalte: Item-Pflege (/admin/authoring*, /admin/pflege, /admin/content-gesundheit, /admin/qs,
+     /admin/diagnostics, /admin/report/*).
+   - useAdminZaehler.ts: Leads = neue Leads (getAdminStats().leadsNew), Verträge = offene Anträge (wie Reiter
+     "Offene Anträge"), Item-Pflege = Aufgaben im Status review.
+   - AdminLayout.tsx: Rolle admin → AppShell mit adminNav und Zählern. Andere Rollen → nur <Outlet/>
+     (Coach sieht auf /admin/akten bis zur Coach-Sicht weiter die bisherige Kopfzeile).
 2. App.tsx: Admin-Routen als Kinder einer Layout-Route mit AdminLayout. Jede Kind-Route behält ihre
    ProtectedRoute unverändert. VertragPage, VertragUnterlagenPage und PflegeWizardPage bleiben AUSSERHALB der
    Layout-Route (Fokus-Seiten, Entscheidung 11).
 3. Diese Seiten umziehen: LeadsPage, VertraegeMenuePage, akten/BoardPage, akten/AktePage.
    Je Seite: EdvanceNavbar, AdminHeader, den äußeren min-h-screen-Wrapper und das eigene max-w-* entfernen,
-   AdminPageHeader einsetzen. AktePage bekommt "← Schüler".
+   PageHeader einsetzen. AktePage bekommt "← Schüler".
 4. Boards (Entscheidung 8): leads/BoardColumns und akten/BoardSpalte: Spalten teilen die Breite
    (grid, minmax(0,1fr)); unter der Schwelle seitlich wischbar mit scroll-snap, Spaltenbreite 300 px
    (Tailwind-v4-Container-Queries auf dem Inhaltsbereich, nicht Viewport).
@@ -226,7 +243,7 @@ LEITPLANKEN
 
 UMFANG
 Seiten: SchedulePage, SlotsManagePage, SlotPickerPage, CoachesPage, AssignmentsPage, VertragDetailPage.
-Je Seite: EdvanceNavbar, AdminHeader, äußeren Wrapper und eigenes max-w-* entfernen, AdminPageHeader einsetzen.
+Je Seite: EdvanceNavbar, AdminHeader, äußeren Wrapper und eigenes max-w-* entfernen, PageHeader einsetzen.
 Formulare, die heute schmal sind (Stundenplan 768 px), dürfen schmal bleiben, stehen aber links im Inhaltsbereich
 statt mittig; Listen und Raster nutzen die volle Breite. VertragDetailPage bekommt "← Verträge".
 
@@ -279,5 +296,5 @@ Namen; Tastatur hoch/runter/Enter funktioniert.
 
 - **React 19:** Die aktuellen shadcn-Bausteine (Sidebar, Command, Dialog) sind auf React 19 ausgelegt. Ein Upgrade von Edvancev1 (React 18.3) ist eine eigene Entscheidung; die Hülle braucht es nicht.
 - **Dark Mode:** weiterhin offen (DESIGN_SYSTEM.md). Die Hülle arbeitet nur über Tokens, ein späterer Dark Mode muss nur die Tokens umdefinieren.
-- **Coach-Hülle:** gleiche Bausteine mit eigener Leiste (Schüler, Sessions), später.
+- **Coach-Sicht:** folgt direkt nach diesem Auftrag als eigener Bauauftrag. Sie nutzt `AppShell`, `ShellSidebar` und `PageHeader` aus H2 mit einer eigenen `coachNav.ts`. Der Coach arbeitet in der Session am iPad, deshalb zählen dort die Breiten iPad quer und hoch zuerst.
 - **Wortmarke:** Space Grotesk wird nur für „edvance“ im Logo geladen. Als SVG-Pfad gespeichert fiele die Schrift weg.
