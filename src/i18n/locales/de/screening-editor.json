@@ -122,5 +122,38 @@
     "clusterMissing": "Cluster fehlt – bitte zurück zur Liste und Cluster wählen.",
     "saveFailed": "Speichern fehlgeschlagen: {{error}}"
   },
-  "loadError": "Aufgabe konnte nicht geladen werden."
+  "loadError": "Aufgabe konnte nicht geladen werden.",
+  "qs": {
+    "titel": "Aufgaben-QS & Tagging",
+    "neueAufgabe": "Neue Aufgabe",
+    "suchen": "Suchen …",
+    "keinMicroskill": "kein Microskill",
+    "zeile": "Kl.{{klasse}} · {{typ}}",
+    "zeileAktiv": "Kl.{{klasse}} · {{typ}} · aktiv",
+    "leer": "Keine Aufgaben.",
+    "weiter": "Weiter",
+    "vorschau": {
+      "titel": "Vorschau · so sieht es der Schüler",
+      "leer": "Sobald du einen Aufgabentext eingibst, erscheint hier die echte Schüler-Ansicht.",
+      "nurAnsicht": "Nur Vorschau — hier wird nichts abgeschickt."
+    },
+    "freigabe": {
+      "titel": "QS & Freigabe",
+      "hinweis": "Prüfe die Hinweise, speichere — und schalte die Aufgabe erst dann aktiv.",
+      "keineOffenen": "Keine offenen QS-Punkte.",
+      "aktivSchalten": "Aktiv schalten",
+      "deaktivieren": "Aktiv — deaktivieren",
+      "erstSpeichern": "Erst speichern.",
+      "erstSpeichernDannFreigeben": "Erst speichern, dann freigeben.",
+      "erstFehlerBeheben": "Erst die QS-Fehler beheben, dann aktiv schalten.",
+      "bestaetigen": "Aktiv schalten?\n\nAktiv = im Screening für Schüler:innen sichtbar.",
+      "sichtbar": "Für Schüler:innen sichtbar.",
+      "fehlerBeheben": "QS-Fehler beheben, dann freischaltbar.",
+      "bereit": "Bereit zum Freischalten."
+    }
+  },
+  "save": {
+    "dirty": "Ungespeicherte Änderungen",
+    "clean": "Alle Änderungen gespeichert"
+  }
 }

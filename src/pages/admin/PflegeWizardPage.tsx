@@ -16,7 +16,6 @@ import { useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'rea
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { buttonVariants } from '@/components/ui/button'
 import { PreviewModal } from '@/components/edvance/authoring/PreviewModal'
 import { draftSolution, draftTask, fromTask, patchFuerSpeichern, toPatch, type FormState } from '@/components/edvance/authoring/editorState'
@@ -258,7 +257,6 @@ export function PflegeWizardPage(): JSX.Element {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('wizard.subtitle')} sticky />
       {hinweis && <ToastBanner key={hinweis} type="success" message={hinweis} onClose={() => setHinweis(null)} />}
       <VorbefuelltContext.Provider value={task?.vorbefuellt}>
       <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-36 pt-6">

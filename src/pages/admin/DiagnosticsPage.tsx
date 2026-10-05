@@ -1,8 +1,7 @@
 import { useEffect, useState, type JSX } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import {
   getClustersBySubject,
   getSubjects,
@@ -14,6 +13,7 @@ import { TaskRow } from './diagnostics/TaskRow'
 import { SELECT_CLASS } from './diagnostics/shared'
 
 export function DiagnosticsPage(): JSX.Element {
+  const { t } = useTranslation('admin')
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [subjectId, setSubjectId] = useState('')
   const [clusters, setClusters] = useState<SkillCluster[]>([])
@@ -53,27 +53,20 @@ export function DiagnosticsPage(): JSX.Element {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <EdvanceNavbar subtitle="Diagnostik-Verwaltung" sticky />
-      <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
-        <div>
-          <Link
-            to="/admin"
-            className="mb-2 flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
-          >
-            <ArrowLeft className="h-4 w-4" /> Admin
-          </Link>
-          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
-            Diagnose-Aufgaben verwalten
-          </h1>
-          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-            Aufgaben ansehen, Schwierigkeit/Format anpassen und festlegen,
-            welche im Diagnose-Test erscheinen.
-          </p>
-        </div>
+    <>
+      <PageHeader
+        rubrik={t('nav.gruppe.inhalte')}
+        titel={t('diagnostik.titel')}
+        satz={t('diagnostik.satz')}
+        zurueckZu="/admin/authoring"
+        zurueckLabel={t('nav.itemPflege')}
+      />
 
+      {/* Formular und Aufgaben bleiben in Lesebreite und stehen links. */}
+      <div className="flex flex-col gap-6 @4xl:max-w-3xl">
         <div className="flex flex-wrap gap-3">
           <select
+            aria-label={t('diagnostik.fach')}
             className={SELECT_CLASS}
             value={subjectId}
             onChange={(e) => setSubjectId(e.target.value)}
@@ -85,11 +78,12 @@ export function DiagnosticsPage(): JSX.Element {
             ))}
           </select>
           <select
+            aria-label={t('diagnostik.cluster')}
             className={SELECT_CLASS}
             value={clusterId}
             onChange={(e) => loadTasks(e.target.value)}
           >
-            <option value="">– Cluster wählen –</option>
+            <option value="">{t('diagnostik.clusterOption')}</option>
             {clusters.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
@@ -110,27 +104,27 @@ export function DiagnosticsPage(): JSX.Element {
         ) : !clusterId ? (
           <EmptyState
             icon="🧪"
-            title="Cluster wählen"
-            description="Wähle ein Cluster, um dessen Aufgaben anzusehen und zu justieren."
+            title={t('diagnostik.ohneCluster.titel')}
+            description={t('diagnostik.ohneCluster.beschreibung')}
           />
         ) : tasks.length === 0 ? (
           <EmptyState
             icon="📭"
-            title="Keine Aufgaben"
-            description="In diesem Cluster gibt es noch keine Aufgaben."
+            title={t('diagnostik.leer.titel')}
+            description={t('diagnostik.leer.beschreibung')}
           />
         ) : (
           <div className="flex flex-col gap-4">
-            {tasks.map((t) => (
+            {tasks.map((task) => (
               <TaskRow
-                key={t.id}
-                task={t}
+                key={task.id}
+                task={task}
                 onSaved={() => clusterId && loadTasks(clusterId)}
               />
             ))}
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </>
   )
 }

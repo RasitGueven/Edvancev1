@@ -107,8 +107,10 @@ export function SaveBar({
 }): JSX.Element {
   const { t } = useTranslation('screening-editor')
   return (
-    <div className="fixed inset-x-0 bottom-0 z-20 border-t border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-3 shadow-lg">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3">
+    // sticky statt fixed: klebt am unteren Rand des Inhaltsbereichs der Hülle,
+    // fixed läge über der Leiste.
+    <div className="sticky bottom-0 z-20 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-3 shadow-elevation-lg">
+      <div className="flex flex-wrap items-center gap-3">
         <span
           className={`flex items-center gap-2 text-xs font-semibold ${
             dirty ? 'text-[var(--color-gold-warning)]' : 'text-[var(--color-text-tertiary)]'
@@ -119,9 +121,7 @@ export function SaveBar({
               dirty ? 'bg-[var(--color-gold-warning)]' : 'bg-[var(--color-success)]'
             }`}
           />
-          {dirty
-            ? 'Ungespeicherte Änderungen'
-            : 'Alle Änderungen gespeichert'}
+          {dirty ? t('save.dirty') : t('save.clean')}
         </span>
         {error && (
           <span className="text-xs text-[var(--color-error-exam)]">{error}</span>

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft, Plus, Trash2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Plus, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { EdvanceCard, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { MathContent } from '@/lib/render/MathContent'
 import {
   TaskRenderer,
@@ -232,6 +232,7 @@ function itemTitle(it: ScreeningItem): string {
 }
 
 export function QsPage(): JSX.Element {
+  const { t } = useTranslation('screening-editor')
   const [items, setItems] = useState<ScreeningItem[]>([])
   const [loadingList, setLoadingList] = useState(true)
   const [search, setSearch] = useState('')
@@ -399,19 +400,19 @@ export function QsPage(): JSX.Element {
 
   const toggleActive = async (): Promise<void> => {
     if (!loaded) {
-      setErr('Erst speichern, dann freigeben.')
+      setErr(t('qs.freigabe.erstSpeichernDannFreigeben'))
       return
     }
     if (dirty) {
-      setErr('Erst speichern, dann freigeben.')
+      setErr(t('qs.freigabe.erstSpeichernDannFreigeben'))
       return
     }
     if (!active) {
       if (errorCount > 0) {
-        setErr('Erst die QS-Fehler beheben, dann aktiv schalten.')
+        setErr(t('qs.freigabe.erstFehlerBeheben'))
         return
       }
-      if (!window.confirm('Aktiv schalten?\n\nAktiv = im Screening für Schüler:innen sichtbar.')) return
+      if (!window.confirm(t('qs.freigabe.bestaetigen'))) return
     }
     const next = !active
     setActive(next)
@@ -431,132 +432,130 @@ export function QsPage(): JSX.Element {
   })
 
   return (
-    <div className="min-h-screen bg-background">
-      <EdvanceNavbar subtitle="Aufgaben-QS & Tagging" sticky />
-      <main className="mx-auto max-w-[1400px] px-4 pb-32 pt-6">
-        <Link
-          to="/admin"
-          className="mb-3 inline-flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
-        >
-          <ArrowLeft className="h-4 w-4" /> Admin
-        </Link>
+    <>
+      <PageHeader
+        rubrik={t('admin:nav.gruppe.inhalte')}
+        titel={t('qs.titel')}
+        zurueckZu="/admin/authoring"
+        zurueckLabel={t('admin:nav.itemPflege')}
+      />
 
-        <div className="grid gap-5 lg:grid-cols-[260px_1fr_minmax(320px,400px)]">
-          {/* LEFT: item list */}
-          <aside className="flex flex-col gap-3">
-            <Button onClick={startNew} className="w-full">
-              <Plus className="h-4 w-4" /> Neue Aufgabe
-            </Button>
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Suchen …"
-            />
-            <div className="flex max-h-[70vh] flex-col gap-1.5 overflow-y-auto pr-1">
-              {loadingList ? (
-                <LoadingPulse type="list" lines={6} />
-              ) : (
-                filtered.map((it) => {
-                  const sel = loaded?.id === it.id
-                  return (
-                    <button
-                      key={it.id}
-                      type="button"
-                      onClick={() => selectItem(it)}
-                      className={`rounded-xl border p-2.5 text-left text-sm transition ${
-                        sel
-                          ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)]'
-                          : 'border-[var(--color-border)] bg-[var(--color-bg-surface)] hover:border-[var(--color-primary)]'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="truncate font-medium text-[var(--color-text-primary)]">
-                          {itemTitle(it)}
+      {/* Drei Spalten erst, wenn der Inhaltsbereich (nicht das Fenster) breit genug ist. */}
+      <div className="grid gap-5 @5xl:grid-cols-[260px_1fr_minmax(320px,400px)]">
+        {/* LEFT: item list */}
+        <aside className="flex flex-col gap-3">
+          <Button onClick={startNew} className="w-full">
+            <Plus className="h-4 w-4" /> {t('qs.neueAufgabe')}
+          </Button>
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={t('qs.suchen')}
+            aria-label={t('qs.suchen')}
+          />
+          <div className="flex max-h-[70vh] flex-col gap-1.5 overflow-y-auto pr-1">
+            {loadingList ? (
+              <LoadingPulse type="list" lines={6} />
+            ) : (
+              filtered.map((it) => {
+                const sel = loaded?.id === it.id
+                return (
+                  <button
+                    key={it.id}
+                    type="button"
+                    onClick={() => selectItem(it)}
+                    className={`rounded-xl border p-2.5 text-left text-sm transition ${
+                      sel
+                        ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)]'
+                        : 'border-[var(--color-border)] bg-[var(--color-bg-surface)] hover:border-[var(--color-primary)]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="truncate font-medium text-[var(--color-text-primary)]">
+                        {itemTitle(it)}
+                      </span>
+                      {!it.microskill_id && (
+                        <span
+                          title={t('qs.keinMicroskill')}
+                          className="ml-auto shrink-0 text-[var(--color-gold-warning)]"
+                        >
+                          ◌
                         </span>
-                        {!it.microskill_id && (
-                          <span
-                            title="kein Microskill"
-                            className="ml-auto shrink-0 text-[var(--color-gold-warning)]"
-                          >
-                            ◌
-                          </span>
-                        )}
-                      </div>
-                      <div className="mt-0.5 text-xs text-[var(--color-text-tertiary)]">
-                        Kl.{it.class_level} · {it.input_type}
-                        {it.active ? ' · aktiv' : ''}
-                      </div>
-                    </button>
-                  )
-                })
-              )}
-              {!loadingList && filtered.length === 0 && (
-                <p className="px-1 py-6 text-center text-sm text-[var(--color-text-tertiary)]">
-                  Keine Aufgaben.
-                </p>
-              )}
-            </div>
-          </aside>
+                      )}
+                    </div>
+                    <div className="mt-0.5 text-xs text-[var(--color-text-tertiary)]">
+                      {t(it.active ? 'qs.zeileAktiv' : 'qs.zeile', { klasse: it.class_level, typ: it.input_type })}
+                    </div>
+                  </button>
+                )
+              })
+            )}
+            {!loadingList && filtered.length === 0 && (
+              <p className="px-1 py-6 text-center text-sm text-[var(--color-text-tertiary)]">
+                {t('qs.leer')}
+              </p>
+            )}
+          </div>
+        </aside>
 
-          {/* CENTER: guided steps */}
-          <section className="flex flex-col gap-4">
-            <StepNav step={step} onStep={setStep} errorCount={errorCount} />
-            <EdvanceCard className="p-5">{renderStep()}</EdvanceCard>
-            <div className="flex items-center justify-between">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setStep((s) => Math.max(0, s - 1))}
-                disabled={step === 0}
-              >
-                Zurück
+        {/* CENTER: guided steps */}
+        <section className="flex flex-col gap-4">
+          <StepNav step={step} onStep={setStep} errorCount={errorCount} />
+          <EdvanceCard className="p-5">{renderStep()}</EdvanceCard>
+          <div className="flex items-center justify-between">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setStep((s) => Math.max(0, s - 1))}
+              disabled={step === 0}
+            >
+              {t('common:back')}
+            </Button>
+            {step < STEPS.length - 1 ? (
+              <Button size="sm" onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}>
+                {t('qs.weiter')}
               </Button>
-              {step < STEPS.length - 1 ? (
-                <Button size="sm" onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}>
-                  Weiter
-                </Button>
-              ) : (
-                <Button size="sm" onClick={save} disabled={busy}>
-                  {busy ? 'Speichert…' : loaded ? 'Speichern' : 'Anlegen'}
-                </Button>
-              )}
-            </div>
-          </section>
+            ) : (
+              <Button size="sm" onClick={save} disabled={busy}>
+                {busy ? t('common:saving') : loaded ? t('common:save') : t('common:create')}
+              </Button>
+            )}
+          </div>
+        </section>
 
-          {/* RIGHT: live student preview */}
-          <aside className="lg:sticky lg:top-20 lg:self-start">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
-              Vorschau · so sieht es der Schüler
-            </p>
-            <EdvanceCard className="p-6">
-              {d.prompt.trim() ? (
-                <>
-                  <div className="text-[var(--color-text-primary)]">
-                    <MathContent text={d.prompt} />
-                  </div>
-                  <div className="mt-5">
-                    <TaskRenderer
-                      item={previewItem}
-                      state={previewState}
-                      onChange={setPreviewState}
-                      disabled={false}
-                      studentId={null}
-                    />
-                  </div>
-                  <Button className="mt-6 w-full rounded-xl" disabled>
-                    Weiter
-                  </Button>
-                </>
-              ) : (
-                <p className="py-10 text-center text-sm text-[var(--color-text-tertiary)]">
-                  Sobald du einen Aufgabentext eingibst, erscheint hier die echte Schüler-Ansicht.
-                </p>
-              )}
-            </EdvanceCard>
-            <CoachAnswerNote d={d} />
-          </aside>
-        </div>
-      </main>
+        {/* RIGHT: live student preview */}
+        <aside className="@5xl:sticky @5xl:top-8 @5xl:self-start">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+            {t('qs.vorschau.titel')}
+          </p>
+          <EdvanceCard className="p-6">
+            {d.prompt.trim() ? (
+              <>
+                <div className="text-[var(--color-text-primary)]">
+                  <MathContent text={d.prompt} />
+                </div>
+                <div className="mt-5">
+                  <TaskRenderer
+                    item={previewItem}
+                    state={previewState}
+                    onChange={setPreviewState}
+                    disabled={false}
+                    studentId={null}
+                  />
+                </div>
+                <Button className="mt-6 w-full rounded-xl" disabled title={t('qs.vorschau.nurAnsicht')}>
+                  {t('qs.weiter')}
+                </Button>
+              </>
+            ) : (
+              <p className="py-10 text-center text-sm text-[var(--color-text-tertiary)]">
+                {t('qs.vorschau.leer')}
+              </p>
+            )}
+          </EdvanceCard>
+          <CoachAnswerNote d={d} />
+        </aside>
+      </div>
 
       <SaveBar
         dirty={dirty}
@@ -570,7 +569,7 @@ export function QsPage(): JSX.Element {
           setErr(null)
         }}
       />
-    </div>
+    </>
   )
 
   function renderStep(): JSX.Element {
@@ -808,11 +807,11 @@ export function QsPage(): JSX.Element {
   function ReleaseStep(): JSX.Element {
     return (
       <div className="flex flex-col gap-4">
-        <StepHead title="QS & Freigabe" hint="Prüfe die Hinweise, speichere — und schalte die Aufgabe erst dann aktiv." />
+        <StepHead title={t('qs.freigabe.titel')} hint={t('qs.freigabe.hinweis')} />
         <div className="flex flex-col gap-1.5">
           {checks.length === 0 ? (
-            <div className="rounded-xl bg-[var(--color-success-soft,#E3F1EB)] px-3 py-2 text-sm font-semibold text-[var(--color-success,#0F6E56)]">
-              ✓ Keine offenen QS-Punkte.
+            <div className="rounded-xl bg-[var(--color-success-light)] px-3 py-2 text-sm font-semibold text-[var(--color-success)]">
+              ✓ {t('qs.freigabe.keineOffenen')}
             </div>
           ) : (
             checks.map((c, i) => (
@@ -820,9 +819,9 @@ export function QsPage(): JSX.Element {
                 key={i}
                 className={`rounded-xl px-3 py-2 text-sm ${
                   c.lvl === 'error'
-                    ? 'bg-[var(--color-danger-soft,#FBE3E3)] text-[var(--color-danger,#DC2626)]'
+                    ? 'bg-[var(--color-error-coach-light)] text-[var(--color-error-coach)]'
                     : c.lvl === 'warn'
-                      ? 'bg-[var(--color-warning-soft,#FBEEDC)] text-[var(--color-warning,#D97706)]'
+                      ? 'bg-[var(--color-gold-warning-light)] text-[var(--color-gold-warning)]'
                       : 'bg-[var(--color-bg-subtle)] text-[var(--color-text-secondary)]'
                 }`}
               >
@@ -840,24 +839,24 @@ export function QsPage(): JSX.Element {
               onClick={toggleActive}
               disabled={!loaded || dirty}
             >
-              {active ? 'Aktiv — deaktivieren' : 'Aktiv schalten'}
+              {active ? t('qs.freigabe.deaktivieren') : t('qs.freigabe.aktivSchalten')}
             </Button>
             <span className="text-xs text-[var(--color-text-tertiary)]">
               {!loaded
-                ? 'Erst speichern.'
+                ? t('qs.freigabe.erstSpeichern')
                 : dirty
-                  ? 'Erst speichern, dann freigeben.'
+                  ? t('qs.freigabe.erstSpeichernDannFreigeben')
                   : active
-                    ? 'Für Schüler:innen sichtbar.'
+                    ? t('qs.freigabe.sichtbar')
                     : errorCount > 0
-                      ? 'QS-Fehler beheben, dann freischaltbar.'
-                      : 'Bereit zum Freischalten.'}
+                      ? t('qs.freigabe.fehlerBeheben')
+                      : t('qs.freigabe.bereit')}
             </span>
           </div>
         </div>
 
         <Button onClick={save} disabled={busy} className="self-start">
-          {busy ? 'Speichert…' : loaded ? 'Speichern' : 'Anlegen'}
+          {busy ? t('common:saving') : loaded ? t('common:save') : t('common:create')}
         </Button>
       </div>
     )
@@ -894,7 +893,7 @@ function StepNav({
             </span>
             {label}
             {isRelease && errorCount > 0 && (
-              <span className="ml-1 rounded-full bg-[var(--color-danger,#DC2626)] px-1.5 text-[10px] text-white">
+              <span className="ml-1 rounded-full bg-[var(--color-error-coach)] px-1.5 text-[10px] text-white">
                 {errorCount}
               </span>
             )}

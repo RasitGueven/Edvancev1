@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Printer, Mail } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { AdminHeader, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { LoadingPulse } from '@/components/edvance'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
+import { useImShell } from '@/components/edvance/shell/shellContext'
 import { ReportBody } from '@/components/edvance/report/ReportBody'
 import { ReportOutlook } from '@/components/edvance/report/ReportOutlook'
 import { Button } from '@/components/ui/button'
@@ -14,6 +15,7 @@ import {
   saveReportNotes,
 } from '@/lib/supabase/reportNotes'
 import type { ReportData, ReportNotes } from '@/types'
+import { AltRahmen } from './akten/AltRahmen'
 
 /**
  * Eltern-Report zu einer LSA-Sitzung (/admin/report/:sessionId).
@@ -26,6 +28,7 @@ import type { ReportData, ReportNotes } from '@/types'
 export function ReportPage(): JSX.Element {
   const { sessionId } = useParams<{ sessionId: string }>()
   const { t } = useTranslation('report')
+  const imShell = useImShell()
 
   const [data, setData] = useState<ReportData | null>(null)
   const [notes, setNotes] = useState<ReportNotes>(EMPTY_NOTES)
@@ -74,80 +77,88 @@ export function ReportPage(): JSX.Element {
   }, [sessionId, notes])
 
   const name = data?.firstName?.trim() || t('head.childFallback')
+  const titel = loading ? t('head.title') : name
 
+  const aktionen = (
+    <>
+      <Button type="button" variant="secondary" onClick={() => window.print()}>
+        <Printer className="mr-2 h-4 w-4" />
+        {t('actions.print')}
+      </Button>
+      {/* Es gibt im Projekt keine Mail-Infrastruktur (kein Resend/
+          SMTP, keine sendende Edge Function). Der Knopf bleibt
+          deshalb bewusst deaktiviert statt zu scheitern. */}
+      <Button type="button" variant="secondary" disabled title={t('actions.emailTooltip')}>
+        <Mail className="mr-2 h-4 w-4" />
+        {t('actions.email')}
+      </Button>
+    </>
+  )
+
+  const inhalt = (
+    <>
+      {error && (
+        <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-error-gap-light)] p-3 text-sm text-[var(--color-error-gap)]">
+          {error}
+        </p>
+      )}
+
+      {loading ? (
+        <LoadingPulse type="card" lines={5} />
+      ) : (
+        data && (
+          <>
+            {data.status === 'in_progress' && (
+              <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-gold-warning-light)] p-3 text-sm text-[var(--color-gold-warning)]">
+                {t('page.notFinished', { name })}
+              </p>
+            )}
+            <ReportBody data={data} />
+            <ReportOutlook
+              name={name}
+              notes={notes}
+              onChange={(next) => {
+                setNotes(next)
+                setSaved(false)
+              }}
+              onSave={() => void handleSave()}
+              saving={saving}
+              saved={saved}
+              unavailable={notesUnavailable}
+            />
+          </>
+        )
+      )}
+    </>
+  )
+
+  // Coach: bisheriger Rahmen außerhalb der Hülle (Entscheidung 12).
+  if (!imShell) {
+    return (
+      <AltRahmen
+        untertitel={t('page.untertitel')}
+        breite="max-w-3xl"
+        blatt
+        kopf={{ eyebrow: t('page.eyebrow'), title: titel, backTo: '/admin/leads', backLabel: t('page.back'), actions: aktionen }}
+      >
+        {inhalt}
+      </AltRahmen>
+    )
+  }
+
+  // Ein Dokument: Lesebreite wie das Druckblatt, links im Inhaltsbereich.
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
+    <div className="report-sheet flex flex-col gap-6 @4xl:max-w-3xl">
       <div className="print-hide">
-        <EdvanceNavbar subtitle="Report" sticky />
+        <PageHeader
+          rubrik={t('page.eyebrow')}
+          titel={titel}
+          zurueckZu="/admin/leads"
+          zurueckLabel={t('page.back')}
+          aktionen={aktionen}
+        />
       </div>
-
-      <main className="report-sheet mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
-        <div className="print-hide">
-          <AdminHeader
-            eyebrow={t('page.eyebrow')}
-            title={loading ? t('head.title') : name}
-            backTo="/admin/leads"
-            backLabel={t('page.back')}
-            actions={
-              <>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  onClick={() => window.print()}
-                >
-                  <Printer className="mr-2 h-4 w-4" />
-                  {t('actions.print')}
-                </Button>
-                {/* Es gibt im Projekt keine Mail-Infrastruktur (kein Resend/
-                    SMTP, keine sendende Edge Function). Der Knopf bleibt
-                    deshalb bewusst deaktiviert statt zu scheitern. */}
-                <Button
-                  type="button"
-                  variant="secondary"
-                  disabled
-                  title={t('actions.emailTooltip')}
-                >
-                  <Mail className="mr-2 h-4 w-4" />
-                  {t('actions.email')}
-                </Button>
-              </>
-            }
-          />
-        </div>
-
-        {error && (
-          <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-error-gap-light)] p-3 text-sm text-[var(--color-error-gap)]">
-            {error}
-          </p>
-        )}
-
-        {loading ? (
-          <LoadingPulse type="card" lines={5} />
-        ) : (
-          data && (
-            <>
-              {data.status === 'in_progress' && (
-                <p className="print-hide rounded-[var(--radius-md)] bg-[var(--color-gold-warning-light)] p-3 text-sm text-[var(--color-gold-warning)]">
-                  {t('page.notFinished', { name })}
-                </p>
-              )}
-              <ReportBody data={data} />
-              <ReportOutlook
-                name={name}
-                notes={notes}
-                onChange={(next) => {
-                  setNotes(next)
-                  setSaved(false)
-                }}
-                onSave={() => void handleSave()}
-                saving={saving}
-                saved={saved}
-                unavailable={notesUnavailable}
-              />
-            </>
-          )
-        )}
-      </main>
+      {inhalt}
     </div>
   )
 }

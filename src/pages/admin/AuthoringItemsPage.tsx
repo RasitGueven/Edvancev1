@@ -16,8 +16,8 @@ import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ListChecks } from 'lucide-react'
-import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { Button } from '@/components/ui/button'
 import {
   AuthoringFilters,
@@ -229,101 +229,100 @@ export function AuthoringItemsPage(): JSX.Element {
   )
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('page.listSubtitle')} sticky />
-      <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8">
-        <AdminHeader
-          title={t('page.listTitle')}
-          backLabel={t('page.back')}
-          description={t('list.count', { shown: visible.length, total: rows.length })}
+    <>
+      <PageHeader
+        rubrik={t('page.listTitle')}
+        titel={t('board.expertenliste')}
+        satz={t('list.count', { shown: visible.length, total: rows.length })}
+        zurueckZu="/admin/authoring"
+        zurueckLabel={t('page.backToList')}
+      />
+
+      {schema && <SchemaBanner schema={schema} />}
+
+      <AuthoringFilters
+        value={filters}
+        subjects={subjects}
+        competencies={competencies}
+        skills={skills}
+        themen={themen}
+        labels={labels}
+        onChange={setFilters}
+      />
+
+      {error && <EmptyState icon="⚠️" title={t('list.errorTitle')} description={error} />}
+
+      {!error && loading && <LoadingPulse type="list" lines={5} />}
+
+      {!error && !loading && visible.length === 0 && (
+        <EmptyState
+          icon="🔍"
+          title={t('list.emptyTitle')}
+          description={t('list.emptyDescription')}
         />
+      )}
 
-        {schema && <SchemaBanner schema={schema} />}
-
-        <AuthoringFilters
-          value={filters}
-          subjects={subjects}
-          competencies={competencies}
-          skills={skills}
-          themen={themen}
-          labels={labels}
-          onChange={setFilters}
-        />
-
-        {error && <EmptyState icon="⚠️" title={t('list.errorTitle')} description={error} />}
-
-        {!error && loading && <LoadingPulse type="list" lines={5} />}
-
-        {!error && !loading && visible.length === 0 && (
-          <EmptyState
-            icon="🔍"
-            title={t('list.emptyTitle')}
-            description={t('list.emptyDescription')}
-          />
-        )}
-
-        {!error && !loading && visible.length > 0 && (
-          <>
-            {/* Der Einstieg in die Pflege-Strecke (A07): der AKTIVE Filter wird
-                zur Warteschlange — "diese 47 Items durcharbeiten". */}
-            <div className="flex justify-end">
-              <Button
-                onClick={() =>
-                  navigate('/admin/pflege', {
-                    state: {
-                      ids: visible.map((row) => row.task.id),
-                      label: t('wizard.sourceList'),
-                    },
-                  })
-                }
-              >
-                <ListChecks className="h-4 w-4" aria-hidden="true" />
-                {t('wizard.start', { count: visible.length })}
-              </Button>
-            </div>
-            {filters.sort === 'skill' ? (
-              // Nach Skill gruppiert: je Skill eine Überschrift mit Anzahl —
-              // Aufgaben eines Skills stammen aus demselben Muster.
-              groupBySkill(visible).map(([skill, group]) => {
-                const draftCount = group.filter((r) => r.task.status === 'draft').length
-                const readyCount = group.filter((r) => r.task.status === 'ready').length
-                return (
-                  <div key={skill} className="flex flex-col gap-4">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-                        {skill} · {group.length}
-                      </h2>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          disabled={gruppeBusy !== null || draftCount === 0}
-                          onClick={() => void gruppeFreigeben(skill, draftCount)}
-                        >
-                          {t('freigabe.freigeben', { count: draftCount })}
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          disabled={gruppeBusy !== null || readyCount === 0}
-                          onClick={() => void gruppeZuruecknehmen(skill, readyCount)}
-                        >
-                          {t('freigabe.zuruecknehmen')}
-                        </Button>
-                      </div>
+      {!error && !loading && visible.length > 0 && (
+        <>
+          {/* Der Einstieg in die Pflege-Strecke (A07): der AKTIVE Filter wird
+              zur Warteschlange — "diese 47 Items durcharbeiten". */}
+          <div className="flex justify-end">
+            <Button
+              onClick={() =>
+                navigate('/admin/pflege', {
+                  state: {
+                    ids: visible.map((row) => row.task.id),
+                    label: t('wizard.sourceList'),
+                  },
+                })
+              }
+            >
+              <ListChecks className="h-4 w-4" aria-hidden="true" />
+              {t('wizard.start', { count: visible.length })}
+            </Button>
+          </div>
+          {filters.sort === 'skill' ? (
+            // Nach Skill gruppiert: je Skill eine Überschrift mit Anzahl —
+            // Aufgaben eines Skills stammen aus demselben Muster.
+            groupBySkill(visible).map(([skill, group]) => {
+              const draftCount = group.filter((r) => r.task.status === 'draft').length
+              const readyCount = group.filter((r) => r.task.status === 'ready').length
+              return (
+                <div key={skill} className="flex flex-col gap-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+                      {skill} · {group.length}
+                    </h2>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={gruppeBusy !== null || draftCount === 0}
+                        onClick={() => void gruppeFreigeben(skill, draftCount)}
+                      >
+                        {t('freigabe.freigeben', { count: draftCount })}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        disabled={gruppeBusy !== null || readyCount === 0}
+                        onClick={() => void gruppeZuruecknehmen(skill, readyCount)}
+                      >
+                        {t('freigabe.zuruecknehmen')}
+                      </Button>
                     </div>
-                    {group.map((row) => zeile(row))}
                   </div>
-                )
-              })
-            ) : (
-              <div className="flex flex-col gap-4">
-                {visible.map((row) => zeile(row))}
-              </div>
-            )}
-          </>
-        )}
-      </main>
-    </div>
+                  {group.map((row) => zeile(row))}
+                </div>
+              )
+            })
+          ) : (
+            <div className="flex flex-col gap-4">
+              {visible.map((row) => zeile(row))}
+            </div>
+          )}
+        </>
+      )}
+    </>
   )
 }

@@ -1,5 +1,6 @@
 // Speicherleiste. Zeigt an, ob es ungespeicherte Aenderungen gibt — und was
-// schiefging.
+// schiefging. Klebt am unteren Rand des Inhaltsbereichs der Hülle (sticky statt
+// fixed — fixed läge über der Leiste).
 
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -23,8 +24,8 @@ export function SaveBar({
   const { t } = useTranslation('authoring')
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-20 border-t border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-3 shadow-elevation-lg">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4">
+    <div className="sticky bottom-0 z-20 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-3 shadow-elevation-lg">
+      <div className="flex flex-wrap items-center gap-4">
         <span
           className={`flex items-center gap-2 text-xs font-semibold ${
             dirty

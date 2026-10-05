@@ -9,12 +9,11 @@
 // hat, waere die schlimmste Luege, die dieses Werkzeug erzaehlen koennte.
 
 import { useCallback, useEffect, useMemo, useState, type JSX } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft, Eye } from 'lucide-react'
+import { Eye } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { AnswerSection } from '@/components/edvance/authoring/AnswerSection'
 import { AssetsBlock } from '@/components/edvance/authoring/AssetsBlock'
 import { FlagList } from '@/components/edvance/authoring/FlagList'
@@ -27,6 +26,7 @@ import { SaveBar } from '@/components/edvance/authoring/SaveBar'
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
 import { TagsSection } from '@/components/edvance/authoring/TagsSection'
 import { usePflegeRueckweg } from '@/components/edvance/authoring/wizard/usePflegeRueckweg'
+import { EditorKopf } from '@/components/edvance/authoring/EditorKopf'
 import { Field, Section } from '@/components/edvance/authoring/ui'
 import {
   draftSolution,
@@ -227,17 +227,9 @@ export function AuthoringEditorPage(): JSX.Element {
   const multi = isMultiPart(state)
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('page.editorSubtitle')} sticky />
+    <>
       <VorbefuelltContext.Provider value={task?.vorbefuellt}>
-      <main className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-32 pt-6">
-        <Link
-          to={rueckweg.zurueck.to}
-          state={rueckweg.zurueck.state}
-          className="inline-flex items-center gap-1 text-sm text-[var(--color-text-tertiary)]"
-        >
-          <ArrowLeft className="h-4 w-4" /> {t(rueckweg.zurueck.labelKey)}
-        </Link>
+        <EditorKopf titel={task.title} />
 
         <SchemaBanner schema={schema} />
 
@@ -323,7 +315,7 @@ export function AuthoringEditorPage(): JSX.Element {
             <GroundingPanel source={task.source} sourceRef={task.source_ref} />
           </div>
 
-          <div className="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+          <div className="flex flex-col gap-6 lg:sticky lg:top-8 lg:self-start">
             <button
               type="button"
               onClick={() => setPreviewOpen(true)}
@@ -361,7 +353,6 @@ export function AuthoringEditorPage(): JSX.Element {
             </Section>
           </div>
         </div>
-      </main>
       </VorbefuelltContext.Provider>
 
       {id && previewDraft && (
@@ -385,16 +376,15 @@ export function AuthoringEditorPage(): JSX.Element {
           setSaveError(null)
         }}
       />
-    </div>
+    </>
   )
 }
 
 function Shell({ children }: { children: JSX.Element }): JSX.Element {
-  const { t } = useTranslation('authoring')
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('page.editorSubtitle')} sticky />
-      <main className="mx-auto max-w-7xl px-4 py-8">{children}</main>
-    </div>
+    <>
+      <EditorKopf />
+      {children}
+    </>
   )
 }

@@ -39,7 +39,7 @@ export function DokumentCheckliste({
         />
         <span className="min-w-0">
           {t('docs.accept', { titel: dok.titel })}
-          <span className="block text-xs text-[var(--color-text-muted)]">
+          <span className="block text-xs text-[var(--color-text-tertiary)]">
             {t('docs.version', { version: dok.version })}
           </span>
         </span>
@@ -61,7 +61,7 @@ export function DokumentCheckliste({
       <ul className="flex flex-col gap-2">{pflicht.map(zeile)}</ul>
       {optional.length > 0 && (
         <div className="flex flex-col gap-2 border-t border-[var(--color-border)] pt-4">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
             {t('docs.optional')}
           </p>
           <ul className="flex flex-col gap-2">{optional.map(zeile)}</ul>

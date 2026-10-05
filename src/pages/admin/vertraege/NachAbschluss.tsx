@@ -56,7 +56,7 @@ export function NachAbschluss({
       )}
 
       <EdvanceCard className="flex flex-col gap-4 p-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
           {t('proof.title')}
         </h2>
         <ul className="flex flex-col gap-2 text-sm text-[var(--color-text-secondary)]">

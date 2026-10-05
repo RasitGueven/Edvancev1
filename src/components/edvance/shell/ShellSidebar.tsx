@@ -49,7 +49,7 @@ export function ShellSidebar({
   return (
     <nav
       aria-label={tc('shell.navigation')}
-      className={`flex h-full min-h-0 flex-col gap-4 ${schmal ? 'px-2' : 'px-4'} py-4 ${ton.flaeche} ${ton.text}`}
+      className={`print-hide flex h-full min-h-0 flex-col gap-4 ${schmal ? 'px-2' : 'px-4'} py-4 ${ton.flaeche} ${ton.text}`}
     >
       <div className={`flex min-h-[44px] items-center ${schmal ? 'justify-center' : 'justify-between gap-2 px-2'}`}>
         {schmal ? (
