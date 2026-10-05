@@ -12,7 +12,7 @@
 
 import type { InputType, TaskAsset } from './content'
 
-export type TaskStatus = 'draft' | 'review' | 'ready' | 'beanstandet'
+export type TaskStatus = 'draft' | 'review' | 'ready' | 'beanstandet' | 'rueckfrage'
 
 /**
  * Die Status, die ein Mensch ueber den Editor (task_status_set) selbst setzen
@@ -269,7 +269,8 @@ export type TaskSolution = {
   beleg: GroundingBeleg[]
   hints: { level?: number; text: string }[]
   coach_hints: string[]
-  typical_errors: { error: string; socratic_question?: string }[]
+  /** fehlbild: Slug aus fehlbild_labels, gesetzt vom Lena-Board (Entscheidung 23). */
+  typical_errors: { error: string; socratic_question?: string; fehlbild?: string }[]
   updated_at?: string
 }
 

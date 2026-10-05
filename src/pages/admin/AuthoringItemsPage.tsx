@@ -78,6 +78,7 @@ function buildRow(task: AuthoringTask, schema: AuthoringSchema): ItemRowData {
 
 const STATUS_ORDER: Record<TaskStatus, number> = {
   beanstandet: 0,
+  rueckfrage: 0,
   draft: 1,
   review: 2,
   ready: 3,

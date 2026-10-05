@@ -199,3 +199,21 @@ describe('patchFuerSpeichern — Vorbefuellt-Kennzeichen', () => {
     expect('vorbefuellt' in patchFuerSpeichern(fromTask(t, solution), t)).toBe(false)
   })
 })
+
+describe('toSolution — typical_errors[].fehlbild (Lena-Board, Entscheidung 23)', () => {
+  it('erhaelt die Fehlbild-Zuordnung beim Speichern im Expertenmodus', () => {
+    const mitFehlbild: TaskSolution = {
+      ...solution,
+      typical_errors: [
+        { error: 'π weggelassen.', socratic_question: 'Welcher Faktor fehlt?', fehlbild: 'pi_vergessen' },
+        { error: 'Ohne Zuordnung.' },
+      ],
+    }
+    const state = fromTask(task(), mitFehlbild)
+    state.typicalErrors[0] = { ...state.typicalErrors[0], error: 'π vergessen.' }
+    expect(toSolution(state).typical_errors).toEqual([
+      { error: 'π vergessen.', socratic_question: 'Welcher Faktor fehlt?', fehlbild: 'pi_vergessen' },
+      { error: 'Ohne Zuordnung.' },
+    ])
+  })
+})

@@ -105,6 +105,7 @@ export function AuthoringFilters({
           <option value="review">{t('status.review')}</option>
           <option value="ready">{t('status.ready')}</option>
           <option value="beanstandet">{t('status.beanstandet')}</option>
+          <option value="rueckfrage">{t('status.rueckfrage')}</option>
         </select>
 
         <select
