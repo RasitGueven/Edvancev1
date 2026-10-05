@@ -101,7 +101,12 @@ export function berlinStunde(now: Date): number {
 
 /** Lenas Rückfragen (Status rueckfrage, Lena-Board). */
 export function rueckfragen(aufgaben: AufgabeFuerAdmin[]): number {
-  return aufgaben.filter((a) => a.status === 'rueckfrage').length
+  return rueckfrageIds(aufgaben).length
+}
+
+/** Die Rückfragen als Reihe für die Admin-Prüfansicht. */
+export function rueckfrageIds(aufgaben: AufgabeFuerAdmin[]): string[] {
+  return aufgaben.filter((a) => a.status === 'rueckfrage').map((a) => a.id)
 }
 
 /** Tageszeit für den Gruß, nach der Berliner Stunde. */

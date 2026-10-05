@@ -2,7 +2,7 @@
 // Fertigkeit als Auswahl mit den Gruppen "Im Thema …" und "Voraussetzungen"; darunter Thema · Klasse
 // und "Baut auf"; Anforderungsbereich I/II/III mit Namen und der Marke "mittel sicher".
 
-import type { JSX } from 'react'
+import type { JSX, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { aenderungText, type Namen } from '@/lib/pruefung/anzeige'
@@ -21,9 +21,11 @@ type Props = {
   lesend: boolean
   onChange: (b: Bearbeitung) => void
   onZurueck: (feld: 'fertigkeit' | 'afb') => void
+  /** Rechts im Abschnittskopf, z. B. „im Editor“ in der Admin-Pruefansicht. */
+  kopfAktion?: ReactNode
 }
 
-export function Einordnung({ aufgabe, b, ausgang, fertigkeitGeaendert, afbGeaendert, lesend, onChange, onZurueck }: Props): JSX.Element {
+export function Einordnung({ aufgabe, b, ausgang, fertigkeitGeaendert, afbGeaendert, lesend, onChange, onZurueck, kopfAktion }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
   const im = aufgabe.fertigkeit_optionen.filter((o) => o.gruppe === 'thema')
   const vor = aufgabe.fertigkeit_optionen.filter((o) => o.gruppe === 'voraussetzung')
@@ -31,7 +33,10 @@ export function Einordnung({ aufgabe, b, ausgang, fertigkeitGeaendert, afbGeaend
   const zeigeKontext = f && f.key === b.skill_key
   return (
     <section className="flex flex-col gap-4 border-t border-[var(--color-border)] pt-6">
-      <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">{t('einordnung.titel')}</h3>
+      <h3 className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
+        {t('einordnung.titel')}
+        {kopfAktion && <span className="ml-auto normal-case tracking-normal">{kopfAktion}</span>}
+      </h3>
       <div className="grid gap-2 sm:grid-cols-[170px_minmax(0,1fr)]">
         <label htmlFor="pruef-fertigkeit" className="flex flex-col items-start gap-1 text-sm text-[var(--color-text-secondary)]">
           <span className="inline-flex items-center gap-2">{t('einordnung.fertigkeit')} <InfoTip schluessel="fert" /></span>
@@ -102,23 +107,38 @@ type AenderungenProps = {
   grund: string
   grundPflicht: boolean
   onGrund: (g: string) => void
+  /** Admin-Pruefansicht: Marke „Lena“ oder „Team“ je Eintrag, ohne Feld „Kurz warum?“. */
+  herkunft?: (a: PruefAenderung) => 'lena' | 'team'
+  kopfAktion?: ReactNode
 }
 
-export function AenderungenBox({ aenderungen, namen, mc, grund, grundPflicht, onGrund }: AenderungenProps): JSX.Element | null {
+export function AenderungenBox({ aenderungen, namen, mc, grund, grundPflicht, onGrund, herkunft, kopfAktion }: AenderungenProps): JSX.Element | null {
   const { t } = useTranslation('pruefen')
   if (aenderungen.length === 0) return null
   return (
     <section className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-[var(--color-primary-light)] bg-[var(--color-primary-light)] p-4">
-      <h3 className="text-sm font-semibold text-[var(--color-primary)]">{t('aenderungen.titel', { count: aenderungen.length })}</h3>
+      <h3 className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[var(--color-primary)]">
+        {t('aenderungen.titel', { count: aenderungen.length })}
+        {kopfAktion && <span className="ml-auto font-normal">{kopfAktion}</span>}
+      </h3>
       <ul className="list-disc pl-5 text-sm text-[var(--color-text-secondary)]">
-        {aenderungen.map((a, i) => <li key={i}>{aenderungText(t, a, namen, mc)}</li>)}
+        {aenderungen.map((a, i) => (
+          <li key={i}>
+            {aenderungText(t, a, namen, mc)}
+            {herkunft && (
+              <span className="ml-2 rounded-[var(--radius-full)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-2 text-xs">
+                {t(`aenderungen.herkunft.${herkunft(a)}`)}
+              </span>
+            )}
+          </li>
+        ))}
       </ul>
-      <label htmlFor="pruef-warum" className="text-xs text-[var(--color-text-secondary)]">
+      {!herkunft && <><label htmlFor="pruef-warum" className="text-xs text-[var(--color-text-secondary)]">
         {t('aenderungen.warum')}{' '}
         <span className="text-[var(--color-text-tertiary)]">{grundPflicht ? t('aenderungen.pflicht') : t('aenderungen.optional')}</span>
       </label>
       <input id="pruef-warum" value={grund} onChange={(e) => onGrund(e.target.value)} placeholder={t('aenderungen.warumPlatzhalter')}
-        className="min-h-[44px] w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm" />
+        className="min-h-[44px] w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 text-sm" /></>}
     </section>
   )
 }

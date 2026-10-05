@@ -17,17 +17,20 @@ export function AssetsBlock({
   taskId,
   multi,
   canWrite,
+  offen = false,
 }: {
   state: FormState
   set: <K extends keyof FormState>(key: K, value: FormState[K]) => void
   taskId: string
   multi: boolean
   canWrite: boolean
+  /** Aus der Admin-Pruefansicht direkt hierher gesprungen: offen starten. */
+  offen?: boolean
 }): JSX.Element {
   const { t } = useTranslation('authoring')
 
   return (
-    <Section title={t('sections.assets')} collapsible defaultOpen={false}>
+    <Section title={t('sections.assets')} collapsible defaultOpen={offen} anker="bilder">
       <NeedsImageSection
         needsImage={state.needs_image}
         parts={state.parts}

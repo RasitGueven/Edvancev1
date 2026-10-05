@@ -1,7 +1,7 @@
 // Pruefkarte, Abschnitt "Richtige Antwort" (Entscheidung 32.2). Eine Liste je Teil; bei Multiple
 // Choice alle Optionen, ein Klick setzt die richtige; bei "Bereich" Wert ± Toleranz statt Liste.
 
-import { useState, type JSX, type KeyboardEvent } from 'react'
+import { useState, type JSX, type KeyboardEvent, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -19,6 +19,8 @@ type Props = {
   lesend: boolean
   onChange: (b: Bearbeitung) => void
   onZurueck: () => void
+  /** Rechts im Abschnittskopf, z. B. „im Editor“ in der Admin-Pruefansicht. */
+  kopfAktion?: ReactNode
 }
 
 function ChipFeld({ wert, onFertig }: { wert: string; onFertig: (w: string | null) => void }): JSX.Element {
@@ -48,7 +50,7 @@ function ChipFeld({ wert, onFertig }: { wert: string; onFertig: (w: string | nul
   )
 }
 
-export function RichtigeAntwort({ aufgabe, b, geaendert, lesend, onChange, onZurueck }: Props): JSX.Element {
+export function RichtigeAntwort({ aufgabe, b, geaendert, lesend, onChange, onZurueck, kopfAktion }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
   const [edit, setEdit] = useState<{ teil: number | null; i: number | 'neu' } | null>(null)
   const typ = aufgabe.aufgabe.input_type
@@ -74,6 +76,7 @@ export function RichtigeAntwort({ aufgabe, b, geaendert, lesend, onChange, onZur
     <h3 className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
       <span className="inline-flex items-center gap-2">{titel} <InfoTip schluessel={info} /></span>
       <GeaendertMarke an={geaendert && !lesend} onZurueck={onZurueck} />
+      {kopfAktion && <span className="ml-auto normal-case tracking-normal">{kopfAktion}</span>}
     </h3>
   )
 

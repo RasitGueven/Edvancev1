@@ -226,6 +226,10 @@ export type PruefAdminZeile = {
   antwort: string | null
   beantwortet_am: string | null
   geaendert: boolean
+  /** Von Hand aus Lenas Liste genommen (task_pruef_ausschluss, Admin-Pruefansicht). */
+  ausschluss_grund: string | null
+  ausschluss_von: string | null
+  ausschluss_am: string | null
 }
 
 export type Fehlbild = { slug: string; klartext: string | null }

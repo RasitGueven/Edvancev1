@@ -25,7 +25,7 @@ import { ReleaseGate } from '@/components/edvance/authoring/ReleaseGate'
 import { SaveBar } from '@/components/edvance/authoring/SaveBar'
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
 import { TagsSection } from '@/components/edvance/authoring/TagsSection'
-import { usePflegeRueckweg } from '@/components/edvance/authoring/wizard/usePflegeRueckweg'
+import { usePruefRueckweg } from '@/components/edvance/authoring/usePruefRueckweg'
 import { EditorKopf } from '@/components/edvance/authoring/EditorKopf'
 import { Field, Section } from '@/components/edvance/authoring/ui'
 import {
@@ -64,7 +64,7 @@ export function AuthoringEditorPage(): JSX.Element {
   const { id } = useParams<{ id: string }>()
   const { role } = useAuth()
   const isAdmin = role === 'admin'
-  const rueckweg = usePflegeRueckweg()
+  const [gespeichert, setGespeichert] = useState(false)
   const [darfPruefen, setDarfPruefen] = useState(false)
   useEffect(() => {
     void getDarfPruefen().then((res) => setDarfPruefen(res.data === true))
@@ -164,6 +164,8 @@ export function AuthoringEditorPage(): JSX.Element {
   const blockingFlags = useMemo(() => flags.filter((f) => f.blocking), [flags])
 
   const competencies = useMemo(() => kompetenzenVon(task), [task])
+  // Sprungziel aus der Admin-Pruefansicht (?abschnitt=): Abschnitt offen, nach dem Laden dorthin scrollen.
+  const rueckweg = usePruefRueckweg(!loading && !!task)
 
   const save = async (): Promise<void> => {
     if (!id || !state || !task) return
@@ -188,7 +190,7 @@ export function AuthoringEditorPage(): JSX.Element {
     setBusy(false)
     setTask(fertig.data ?? taskRes.data)
     setBaseline(state)
-    rueckweg.nachSpeichern()
+    setGespeichert(true)
   }
 
   const changeStatus = async (next: EditorSettableStatus): Promise<void> => {
@@ -229,13 +231,13 @@ export function AuthoringEditorPage(): JSX.Element {
   return (
     <>
       <VorbefuelltContext.Provider value={task?.vorbefuellt}>
-        <EditorKopf titel={task.title} />
+        <EditorKopf titel={task.title} gespeichert={gespeichert && !dirty} />
 
         <SchemaBanner schema={schema} />
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
           <div className="flex flex-col gap-6">
-            <Section title={t('sections.stem')} collapsible>
+            <Section title={t('sections.stem')} collapsible anker="aufgabe">
               <Field label={t('fields.title')}>
                 <Input
                   value={state.title}
@@ -280,7 +282,7 @@ export function AuthoringEditorPage(): JSX.Element {
             </Section>
 
             {multi ? (
-              <Section title={t('sections.parts')} collapsible>
+              <Section title={t('sections.parts')} collapsible anker="antwort">
                 <PartsEditor
                   parts={state.parts}
                   partAnswers={state.partAnswers}
@@ -290,12 +292,12 @@ export function AuthoringEditorPage(): JSX.Element {
                 />
               </Section>
             ) : (
-              <Section title={t('sections.answer')} collapsible>
+              <Section title={t('sections.answer')} collapsible anker="antwort">
                 <AnswerSection state={state} set={set} />
               </Section>
             )}
 
-            <Section title={t('sections.tags')} collapsible defaultOpen={false}>
+            <Section title={t('sections.tags')} collapsible defaultOpen={rueckweg.offen('einordnung')} anker="einordnung">
               <TagsSection
                 state={state}
                 set={set}
@@ -306,11 +308,11 @@ export function AuthoringEditorPage(): JSX.Element {
               />
             </Section>
 
-            <Section title={t('sections.pedagogy')} collapsible defaultOpen={false}>
+            <Section title={t('sections.pedagogy')} collapsible defaultOpen={rueckweg.offen('antwort')}>
               <PedagogySection state={state} set={set} beleg={beleg} />
             </Section>
 
-            <AssetsBlock state={state} set={set} taskId={task.id} multi={multi} canWrite={canWrite} />
+            <AssetsBlock state={state} set={set} taskId={task.id} multi={multi} canWrite={canWrite} offen={rueckweg.offen('bilder')} />
 
             <GroundingPanel source={task.source} sourceRef={task.source_ref} />
           </div>

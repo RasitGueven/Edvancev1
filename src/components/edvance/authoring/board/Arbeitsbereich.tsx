@@ -26,8 +26,9 @@ import {
   type Zuordnung,
 } from '@/lib/authoring/board'
 import { freigabeThema, type LetzteBeanstandung } from '@/lib/supabase/freigabe'
+import { neueReihe, reiheStarten } from '@/lib/pruefung/reihe'
 import type { AuthoringTask, PruefAdminZeile } from '@/types'
-import { ChoiceChip } from '../wizard/ChoiceChip'
+import { ChoiceChip } from '../ChoiceChip'
 import { FortschrittsBalken } from './FortschrittsBalken'
 import { ThemaZeile } from './ThemaZeile'
 
@@ -45,7 +46,7 @@ export function Arbeitsbereich({
 }: {
   /** "Mathematik · Klasse 8" — auch Label der Warteschlange. */
   titel: string
-  /** Die URL dieses Bildschirms — hierhin fuehrt die Strecke zurueck. */
+  /** Die URL dieses Bildschirms — hierhin fuehrt „Schließen“ der Admin-Pruefansicht zurueck. */
   returnTo: string
   /** Die Klasse des Boards — bestimmt Stufenfolge und Freigabe-Umfang. */
   klasse: number
@@ -70,9 +71,10 @@ export function Arbeitsbereich({
   const sichtbar = themen.filter((th) => th.tasks.some((task) => passtZuFilter(task, filter)))
   const abschnitte = stufenGruppen(sichtbar)
 
+  // Durchlauf: die Admin-Pruefansicht mit diesen Aufgaben als Reihe (ersetzt die Pflege-Strecke).
   const starte = (ids: string[], label: string): void => {
     if (ids.length === 0) return
-    navigate('/admin/pflege', { state: { ids, label, returnTo, kontext: 'board' } })
+    navigate(reiheStarten(neueReihe(ids, 'board', label, returnTo)))
   }
   const themaName = (th: Thema): string => th.name ?? t('board.ohneThema')
   const themaKey = (th: Thema): string => th.id ?? 'ohne'

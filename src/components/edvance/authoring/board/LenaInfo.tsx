@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { formatBerlinDateTime } from '@/lib/datetime'
 import { aenderungText } from '@/lib/pruefung/anzeige'
-import { setPruefPilot } from '@/lib/supabase/pruefung'
+import { setzePilot } from '@/lib/supabase/pruefungAdmin'
 import type { PruefAdminZeile } from '@/types'
 import { RueckfrageKlaeren } from './RueckfrageKlaeren'
 
@@ -26,7 +26,7 @@ export function LenaInfo({ taskId, zeile, fehlbildName, onReload }: Props): JSX.
   if (!zeile) return null
 
   const pilot = async (an: boolean): Promise<void> => {
-    const res = await setPruefPilot(taskId, an)
+    const res = await setzePilot(taskId, an)
     if (res.error) setMeldung(res.error.message)
     else onReload()
   }

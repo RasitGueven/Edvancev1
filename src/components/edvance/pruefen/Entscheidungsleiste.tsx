@@ -143,14 +143,20 @@ export function Entscheidungsleiste(p: LeisteProps): JSX.Element {
 }
 
 /** Meldung nach einer Entscheidung, 5 s lang mit "Rueckgaengig" (Entscheidung 34). */
-export function EntscheidungsMeldung({ text, onRueckgaengig, onZu }: { text: string; onRueckgaengig?: () => void; onZu: () => void }): JSX.Element {
+export function EntscheidungsMeldung({ text, onRueckgaengig, onZu, aktionLabel }: {
+  text: string
+  onRueckgaengig?: () => void
+  onZu: () => void
+  /** Text des Knopfs; ohne Angabe „Rückgängig“ (Admin-Pruefansicht: „Öffnen“). */
+  aktionLabel?: string
+}): JSX.Element {
   const { t } = useTranslation('pruefen')
   return (
     <div role="status" className="fixed bottom-36 left-1/2 z-40 flex max-w-[calc(100%-32px)] -translate-x-1/2 items-center gap-3 rounded-[var(--radius-md)] bg-[var(--color-navy-deep)] py-2 pl-4 pr-2 text-sm text-[var(--color-stage-text)] shadow-lg animate-scale-in sm:bottom-28">
       <span>{text}</span>
       {onRueckgaengig && (
         <button type="button" onClick={onRueckgaengig} className="min-h-[44px] rounded-[var(--radius-sm)] border border-[var(--color-stage-text)] px-3 text-sm">
-          {t('meldung.rueckgaengig')}
+          {aktionLabel ?? t('meldung.rueckgaengig')}
         </button>
       )}
       <button type="button" onClick={onZu} aria-label={t('meldung.schliessen')} className="min-h-[44px] min-w-[44px] text-lg leading-none">×</button>

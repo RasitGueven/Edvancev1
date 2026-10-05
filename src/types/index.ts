@@ -293,3 +293,16 @@ export type {
   PruefAdminZeile,
   Fehlbild,
 } from './pruefung'
+export type {
+  SammelAktion,
+  SammelGrund,
+  SammelAusgelassen,
+  SammelErgebnis,
+  SammelWerte,
+  AdminProtokollAktion,
+  AdminProtokollZeile,
+  LenaEntscheidung,
+  TeamBeanstandung,
+  HandAusschluss,
+  AdminPruefKontext,
+} from './pruefungAdmin'

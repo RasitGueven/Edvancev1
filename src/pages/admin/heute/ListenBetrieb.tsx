@@ -1,10 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Gauge, PenLine, ScrollText } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceBadge } from '@/components/edvance'
 import { Button } from '@/components/ui/button'
 import { formatDateOnly } from '@/lib/datetime'
 import { kind, vertragspartner } from '@/lib/vertrag/menue'
+import { neueReihe, reiheStarten } from '@/lib/pruefung/reihe'
 import type { BoardSchueler, VertragAktuell, VertragMitLead } from '@/types'
 import { AMPEL_BADGE } from '../akten/ampel'
 import { kindName } from '../vertraege/vertragModel'
@@ -104,15 +105,13 @@ export function RueckstandListe({ schueler }: { schueler: BoardSchueler[] }): JS
 
 /** Ziel der Freigabe: die Item-Pflege, Bereich LSA. */
 const ITEM_PFLEGE = '/admin/authoring?bereich=lsa'
-/** Ziel der Rückfragen: die Item-Pflege mit dem Filter „Rückfrage“. */
-const ITEM_PFLEGE_RUECKFRAGE = '/admin/authoring/liste?status=rueckfrage'
+type InhalteProps = { gruppen: FreigabeGruppe[]; rueckfragen: string[]; anzahl: number }
 
-type InhalteProps = { gruppen: FreigabeGruppe[]; rueckfragen: number; anzahl: number }
-
-/** Aufgaben im Status review je Thema, dazu eine Zeile für Lenas Rückfragen. */
+/** Aufgaben im Status review je Thema, dazu eine Zeile für Lenas Rückfragen: sie öffnet die Admin-Prüfansicht. */
 export function InhalteListe({ gruppen, rueckfragen, anzahl }: InhalteProps): JSX.Element {
   const { t } = useTranslation('admin')
   const { t: tau } = useTranslation('authoring')
+  const { t: ta } = useTranslation('pruefenAdmin')
   const navigate = useNavigate()
   const zeilen: ListenZeile[] = gruppen.map((g) => ({
     key: g.themaKey ?? 'ohne',
@@ -127,13 +126,14 @@ export function InhalteListe({ gruppen, rueckfragen, anzahl }: InhalteProps): JS
     ),
   }))
   // Oben, damit die Zeile nicht hinter „und n weitere“ verschwindet.
-  if (rueckfragen > 0) {
+  if (rueckfragen.length > 0) {
     zeilen.unshift({
       key: 'rueckfragen',
       titel: (
-        <Link to={ITEM_PFLEGE_RUECKFRAGE} className="text-[var(--color-text-link)] hover:underline">
-          {t('heute.listen.inhalte.rueckfragen', { count: rueckfragen })}
-        </Link>
+        <button type="button" className="min-h-[44px] text-left text-[var(--color-text-link)] hover:underline"
+          onClick={() => navigate(reiheStarten(neueReihe(rueckfragen, 'heute', ta('reihe.heute'), '/admin')))}>
+          {t('heute.listen.inhalte.rueckfragen', { count: rueckfragen.length })}
+        </button>
       ),
       unterzeile: t('heute.listen.inhalte.rueckfragenSub'),
       rechts: <EdvanceBadge variant="warning">{t('heute.listen.inhalte.unsicher')}</EdvanceBadge>,

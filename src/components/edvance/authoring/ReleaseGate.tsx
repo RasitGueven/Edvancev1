@@ -50,6 +50,8 @@ export function ReleaseGate({
   // das gegen einen Stand freigibt, den der Pfleger gerade verworfen hat, waere
   // ein falsch ausgestellter Stempel.
   const releaseDisabled = !canWrite || busy || blocked || dirty
+  // Beanstandet geht nicht direkt in die Freigabe, auch nicht ueber review: erst zurueck an Lena (task_status_set).
+  const erstAnLena = status === 'beanstandet' ? t('release.erstAnLena') : undefined
 
   const formatDate = (iso: string): string =>
     new Intl.DateTimeFormat(i18n.language, {
@@ -118,25 +120,31 @@ export function ReleaseGate({
           </Button>
         )}
         {status !== 'review' && (
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={!canWrite || busy}
-            onClick={() => onSetStatus('review')}
-          >
-            {t('release.toReview')}
-          </Button>
+          <span title={erstAnLena}>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={!canWrite || busy || !!erstAnLena}
+              onClick={() => onSetStatus('review')}
+            >
+              {t('release.toReview')}
+            </Button>
+          </span>
         )}
         {status !== 'ready' && (
-          <Button size="sm" disabled={releaseDisabled} onClick={() => onSetStatus('ready')}>
-            {blocked && <Lock className="mr-1 h-4 w-4" />}
-            {t('release.toReady')}
-          </Button>
+          <span title={erstAnLena}>
+            <Button size="sm" disabled={releaseDisabled || !!erstAnLena} onClick={() => onSetStatus('ready')}>
+              {blocked && <Lock className="mr-1 h-4 w-4" />}
+              {t('release.toReady')}
+            </Button>
+          </span>
         )}
       </div>
 
       <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
-        {!canWrite
+        {erstAnLena
+          ? erstAnLena
+          : !canWrite
           ? t('release.adminOnly')
           : blocked
             ? t('release.blockedHint', { count: blockingCount })

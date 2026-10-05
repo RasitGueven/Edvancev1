@@ -13,7 +13,7 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ListChecks } from 'lucide-react'
+import { Play } from 'lucide-react'
 import { EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { useImShell } from '@/components/edvance/shell/shellContext'
@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button'
 import { HealthOverview, type HealthFilter } from '@/components/edvance/authoring/HealthOverview'
 import { HealthItemRow, type HealthItem } from '@/components/edvance/authoring/HealthItemRow'
 import { getGrounding } from '@/lib/authoring/grounding'
+import { neueReihe, reiheStarten } from '@/lib/pruefung/reihe'
 import {
   computeDefects,
   countDefects,
@@ -64,6 +65,7 @@ function buildItem(task: AuthoringTask, hasStoffanker: boolean): Omit<HealthItem
 
 export function ContentHealthPage(): JSX.Element {
   const { t } = useTranslation('authoring')
+  const { t: ta } = useTranslation('pruefenAdmin')
   const navigate = useNavigate()
   const { role } = useAuth()
   const canWrite = role === 'admin'
@@ -186,23 +188,23 @@ export function ContentHealthPage(): JSX.Element {
             />
           ) : (
             <>
-              {/* Der Einstieg in die Pflege-Strecke (A07): die aktive Mangel-
-                  Kachel wird zur Warteschlange. */}
-              <div className="flex justify-end">
-                <Button
-                  onClick={() =>
-                    navigate('/admin/pflege', {
-                      state: {
-                        ids: visible.map((item) => item.task.id),
-                        label: t('wizard.sourceHealth'),
-                      },
-                    })
-                  }
-                >
-                  <ListChecks className="h-4 w-4" aria-hidden="true" />
-                  {t('wizard.start', { count: visible.length })}
-                </Button>
-              </div>
+              {/* Durchlauf ueber den Mangel: die aktive Kachel wird zur Reihe der Admin-Pruefansicht
+                  (nur admin, die Pruefansicht ist admin-only). */}
+              {canWrite && (
+                <div className="flex justify-end">
+                  <Button
+                    onClick={() =>
+                      navigate(reiheStarten(neueReihe(visible.map((item) => item.task.id), 'gesundheit',
+                        ta('reihe.gesundheit', { mangel: filter === 'all' ? ta('reihe.alleMaengel')
+                          : filter.startsWith('status:') ? t(`status.${filter.slice(7)}`) : t(`health.tiles.${filter}`) }),
+                        '/admin/content-gesundheit')))
+                    }
+                  >
+                    <Play className="h-4 w-4" aria-hidden="true" />
+                    {ta('liste.durchlauf', { count: visible.length })}
+                  </Button>
+                </div>
+              )}
               <div className="flex flex-col gap-4">
                 {visible.map((item) => (
                   <HealthItemRow
