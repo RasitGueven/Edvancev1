@@ -26,6 +26,12 @@ vi.mock('@/lib/supabase/freigabe', () => ({
 }))
 
 // Seit W4 ein DRITTER Wrapper: die Heimat-Themen fuer den Thema-Filter.
+vi.mock('@/lib/supabase/pruefung', () => ({
+  getPruefAdminListe: vi.fn().mockResolvedValue({ data: [], error: null }),
+  getFehlbilder: vi.fn().mockResolvedValue({ data: [], error: null }),
+  setPruefPilot: vi.fn(),
+  pruefRueckfrageKlaeren: vi.fn(),
+}))
 vi.mock('@/lib/supabase/themen', () => ({
   listSkillThemen: vi.fn(() =>
     Promise.resolve({

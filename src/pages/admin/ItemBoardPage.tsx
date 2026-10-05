@@ -37,7 +37,9 @@ import { listLetzteBeanstandungen, type LetzteBeanstandung } from '@/lib/supabas
 import { listAuthoringTasks, listClustersWithSubject } from '@/lib/supabase/taskAuthoring'
 import { listSkillThemen } from '@/lib/supabase/themen'
 import { useAuth } from '@/hooks/useAuth'
-import type { AuthoringTask } from '@/types'
+import type { AuthoringTask, Fehlbild, PruefAdminZeile } from '@/types'
+import { getFehlbilder, getPruefAdminListe } from '@/lib/supabase/pruefung'
+import { PruefEinstellungenKarte } from '@/components/edvance/authoring/board/PruefEinstellungenKarte'
 
 const BASIS = '/admin/authoring'
 
@@ -53,6 +55,8 @@ export function ItemBoardPage(): JSX.Element {
   const [clusters, setClusters] = useState<Map<string, BoardCluster>>(new Map())
   const [zuordnung, setZuordnung] = useState<Zuordnung>(new Map())
   const [beanstandungen, setBeanstandungen] = useState<Map<string, LetzteBeanstandung>>(new Map())
+  const [lena, setLena] = useState<Map<string, PruefAdminZeile>>(new Map())
+  const [fehlbilder, setFehlbilder] = useState<Fehlbild[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [reloadKey, setReloadKey] = useState(0)
@@ -60,11 +64,13 @@ export function ItemBoardPage(): JSX.Element {
   useEffect(() => {
     let alive = true
     void (async () => {
-      const [taskRes, clusterRes, themaRes, reviewRes] = await Promise.all([
+      const [taskRes, clusterRes, themaRes, reviewRes, lenaRes, fehlbildRes] = await Promise.all([
         listAuthoringTasks(),
         listClustersWithSubject(),
         listSkillThemen(),
         listLetzteBeanstandungen(),
+        getPruefAdminListe(),
+        getFehlbilder(),
       ])
       if (!alive) return
       if (taskRes.error || !taskRes.data) {
@@ -79,6 +85,9 @@ export function ItemBoardPage(): JSX.Element {
       setZuordnung(zuordnungAus(themaRes.data ?? []))
       // Ohne Gruende bleibt das Board bedienbar — sie fehlen dann nur unter den Aufgaben.
       setBeanstandungen(reviewRes.data ?? new Map())
+      // Lenas Ergebnis (Lena-Board). Ohne es bleibt das Board bedienbar.
+      setLena(new Map((lenaRes.data ?? []).map((z) => [z.task_id, z])))
+      setFehlbilder(fehlbildRes.data ?? [])
       setLoading(false)
     })()
     return () => {
@@ -163,6 +172,10 @@ export function ItemBoardPage(): JSX.Element {
         {error && <EmptyState icon="⚠️" title={t('list.errorTitle')} description={error} />}
         {!error && loading && <LoadingPulse type="list" lines={4} />}
 
+        {!error && !loading && !bereich && role === 'admin' && (
+          <PruefEinstellungenKarte pilotAnzahl={[...lena.values()].filter((z) => z.pilot).length} />
+        )}
+
         {!error && !loading && !bereich && (
           <div className="grid gap-4 sm:grid-cols-2">
             <BoardKachel titel={t('board.bereich.lsa')} stand={standVon(tasks)} onOpen={() => gehe({ bereich: 'lsa' })} />
@@ -204,6 +217,8 @@ export function ItemBoardPage(): JSX.Element {
             tasks={imFach}
             zuordnung={zuordnung}
             beanstandungen={beanstandungen}
+            lena={lena}
+            fehlbildName={(slug) => fehlbilder.find((f) => f.slug === slug)?.klartext ?? slug}
             isAdmin={role === 'admin'}
             onReload={() => setReloadKey((k) => k + 1)}
           />

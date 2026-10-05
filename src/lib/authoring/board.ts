@@ -13,8 +13,8 @@
 //     themen), seit W4 statt des Clusters. Ohne Skill oder ohne Zuordnung:
 //     "Ohne Thema", immer zuletzt. Innerhalb einer Klasse nach Stufe gruppiert,
 //     die Stufe der Klasse zuerst, darin nach themen.sort.
-//   * Vier Zustaende: Offen (draft), Zur Freigabe (review), Freigegeben (ready),
-//     Zurueckgewiesen (beanstandet). Gepruefter Fortschritt = review + ready.
+//   * Fuenf Zustaende: Offen (draft), Zur Freigabe (review), Rueckfrage (rueckfrage,
+//     Lena-Board), Freigegeben (ready), Zurueckgewiesen (beanstandet). Gepruefter Fortschritt = review + ready.
 //
 // Reine Funktionen, kein React, kein Supabase — testbar (board.test.ts).
 
@@ -24,13 +24,15 @@ import { istVera8 } from './vera8'
 export type BoardCluster = { id: string; name: string; subject_name: string }
 
 /** Filter des Arbeitsbildschirms — je einer pro Status. */
-export type BoardFilter = 'offen' | 'zurFreigabe' | 'freigegeben' | 'zurueckgewiesen'
+export type BoardFilter = 'offen' | 'zurFreigabe' | 'rueckfrage' | 'freigegeben' | 'zurueckgewiesen'
 
-export const BOARD_FILTER: BoardFilter[] = ['offen', 'zurFreigabe', 'freigegeben', 'zurueckgewiesen']
+export const BOARD_FILTER: BoardFilter[] = ['offen', 'zurFreigabe', 'rueckfrage', 'freigegeben', 'zurueckgewiesen']
 
 const STATUS_JE_FILTER: Record<BoardFilter, TaskStatus> = {
   offen: 'draft',
   zurFreigabe: 'review',
+  // Lena war unsicher (Lena-Board): das Team klaert die Rueckfrage.
+  rueckfrage: 'rueckfrage',
   freigegeben: 'ready',
   zurueckgewiesen: 'beanstandet',
 }
@@ -83,6 +85,7 @@ export type Stand = {
   total: number
   offen: number
   zurFreigabe: number
+  rueckfrage: number
   freigegeben: number
   zurueckgewiesen: number
   /** Gepruefter Fortschritt: zur Freigabe + freigegeben. */
@@ -90,7 +93,7 @@ export type Stand = {
 }
 
 export function standVon(tasks: AuthoringTask[]): Stand {
-  const s: Stand = { total: tasks.length, offen: 0, zurFreigabe: 0, freigegeben: 0, zurueckgewiesen: 0, geprueft: 0 }
+  const s: Stand = { total: tasks.length, offen: 0, zurFreigabe: 0, rueckfrage: 0, freigegeben: 0, zurueckgewiesen: 0, geprueft: 0 }
   for (const task of tasks) {
     for (const f of BOARD_FILTER) if (passtZuFilter(task, f)) s[f] += 1
   }

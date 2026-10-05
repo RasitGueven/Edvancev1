@@ -26,7 +26,7 @@ import {
   type Zuordnung,
 } from '@/lib/authoring/board'
 import { freigabeThema, type LetzteBeanstandung } from '@/lib/supabase/freigabe'
-import type { AuthoringTask } from '@/types'
+import type { AuthoringTask, PruefAdminZeile } from '@/types'
 import { ChoiceChip } from '../wizard/ChoiceChip'
 import { FortschrittsBalken } from './FortschrittsBalken'
 import { ThemaZeile } from './ThemaZeile'
@@ -38,6 +38,8 @@ export function Arbeitsbereich({
   tasks,
   zuordnung,
   beanstandungen,
+  lena,
+  fehlbildName,
   isAdmin,
   onReload,
 }: {
@@ -50,6 +52,9 @@ export function Arbeitsbereich({
   tasks: AuthoringTask[]
   zuordnung: Zuordnung
   beanstandungen: Map<string, LetzteBeanstandung>
+  /** Lenas Ergebnis je Aufgabe (pruef_admin_liste), leer fuer Nicht-Admins. */
+  lena: Map<string, PruefAdminZeile>
+  fehlbildName: (slug: string) => string
   isAdmin: boolean
   onReload: () => void
 }): JSX.Element {
@@ -150,6 +155,9 @@ export function Arbeitsbereich({
                   isAdmin={isAdmin}
                   busy={busy}
                   beanstandungen={beanstandungen}
+                  lena={lena}
+                  fehlbildName={fehlbildName}
+                  onReload={onReload}
                   onToggle={() =>
                     setOffenesThema((o) => (o === themaKey(th) ? null : themaKey(th)))
                   }

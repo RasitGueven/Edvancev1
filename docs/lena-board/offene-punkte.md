@@ -68,3 +68,22 @@ admin-beanstandete Aufgaben überhaupt neu bewerten dürfen?
 `task_solution_get` gibt jedem Coach alle Lösungen, und `task_preview_payload` sowie `task_solution_get` prüfen die
 Rolle mit `get_my_role() not in (…)`, was bei einem Login ohne Profil (NULL) nicht greift. Das ist Bestand und
 nicht Teil dieses Auftrags. `pruef_aufgabe` und `pruef_wertung_testen` verlangen `darf_pruefen()`.
+
+## OP-11 · Drei Aktionen bei der Rückfrage (L4)
+
+Entscheidung 40 verlangt bei einer Rückfrage Freigeben, Zurückweisen und Zurück an Lena. CLAUDE.md §11 verbietet
+mehr als zwei CTAs pro Card. Die drei Knöpfe stehen in einem eigenen Klärungsbereich unter Lenas Ergebnis
+(`LenaInfo.tsx`); „Freigeben“ ist der einzige gefüllte Knopf, die anderen sind Varianten `destructive` bzw.
+`outline`. Bitte bestätigen oder eine andere Anordnung vorgeben.
+
+## OP-12 · Alte Strings im Coach-Dashboard (L4)
+
+Beim Einbau der Kachel sind die Texte des Abschnitts „Schnellzugriff“ nach `coach.json` gewandert. Der Rest von
+`CoachDashboard.tsx` enthält weiter fest verdrahtete deutsche Texte (Begrüßung, Kennzahlen). Nicht Teil dieses
+Auftrags.
+
+## OP-13 · Item-Pflege nur noch für admin (L4)
+
+`/admin/authoring`, `/admin/authoring/liste`, `/admin/authoring/:id` und `/admin/pflege` lassen nur noch admin zu
+(Entscheidung 3); ein Coach wird auf `/coach` umgeleitet. `/admin/content-gesundheit` steht weiter für coach offen
+(nicht genannt, unverändert).

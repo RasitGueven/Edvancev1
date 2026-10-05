@@ -38,6 +38,8 @@ export type FilterState = {
   flags: FlagFilter
   asset: TriFilter
   table: TriFilter
+  /** 'nicht' = nur Aufgaben, die nicht bei Lena erscheinen (pruef_ausschluss, Lena-Board). */
+  lena: 'all' | 'nicht'
   sort: SortKey
 }
 
@@ -58,6 +60,7 @@ export const EMPTY_FILTERS: FilterState = {
   flags: 'all',
   asset: 'all',
   table: 'all',
+  lena: 'all',
   sort: 'flags',
 }
 
@@ -266,6 +269,18 @@ export function AuthoringFilters({
           </option>
           <option value="yes">{t('filter.hasTable')}</option>
           <option value="no">{t('filter.noTable')}</option>
+        </select>
+
+        <select
+          className={SELECT_SM}
+          value={value.lena}
+          aria-label={t('lena.filterNichtBeiLena')}
+          onChange={(e) => set('lena', e.target.value as FilterState['lena'])}
+        >
+          <option value="all">
+            {t('lena.filterNichtBeiLena')}: {t('filter.all')}
+          </option>
+          <option value="nicht">{t('lena.filterNichtBeiLena')}</option>
         </select>
 
         <select
