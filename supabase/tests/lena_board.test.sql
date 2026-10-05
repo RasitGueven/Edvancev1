@@ -31,6 +31,8 @@ insert into profiles (id, email, role, full_name, darf_pruefen) values
   (:'student_uid', 'lb-student@test.local', 'student', 'LB Schueler', false),
   (:'parent_uid',  'lb-parent@test.local',  'parent',  'LB Eltern',  false);
 insert into parent_student (parent_id, student_id) values (:'parent_uid', :'student_uid');
+-- Datenmigration 4 schaltet den Pilot ein; die Tests brauchen das ganze Board.
+update pruef_einstellungen set nur_pilot = false;
 
 -- Eine Kreis-Aufgabe als Vorlage: NUMERIC, flach mit Regel, Fehlbild pi_vergessen.
 create function pg_temp.aufgabe(p_ref text, p_ca jsonb, p_acc jsonb, p_loesung text,

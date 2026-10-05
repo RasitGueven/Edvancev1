@@ -40,6 +40,8 @@ begin
   if v_admin is null or v_coach is null then raise exception 'admin/coach fehlt im Bestand'; end if;
   -- Wiederholbar, auch wenn das Recht live schon vergeben ist.
   update public.profiles set darf_pruefen = false where id = v_coach;
+  -- Laeuft der Pilot (nur_pilot, Datenpunkt 26), waere jede andere Aufgabe fuer den Pruefer gesperrt.
+  update public.pruef_einstellungen set nur_pilot = false;
 
   -- Eine vollstaendige Board-Aufgabe (nicht VERA8, kein Ausschluss) auf draft gelegt.
   select id, cluster_id into v_task, v_cluster from public.tasks
