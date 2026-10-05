@@ -1,7 +1,9 @@
 @layer base {
   :root {
     /* ── TYPOGRAFIE ───────────────────────────────────────────── */
-    --font-sans: 'Sora', ui-sans-serif, system-ui;
+    /* --font-sans zeigt auf die Body-Schrift (Schibsted Grotesk). Sora ist
+       entfallen (Bauauftrag Admin-Hülle H1); --font-body bleibt die Quelle. */
+    --font-sans: var(--font-body);
     /* Marken-Fonts: Fraunces trägt die Headlines (Serif, wertig), Schibsted
        Grotesk den Flächentext. Als benannte Achse, damit Utilities (font-serif/
        font-body) und Komponenten dieselbe Referenz nutzen statt loser Strings. */
@@ -17,22 +19,24 @@
 
     /* ── MIDNIGHT-GRADIENT — die EINE benannte Hintergrund-Achse ─
        Ein Hintergrund nutzt EINE Referenz (var(--gradient-midnight))
-       statt drei lose Navy-Werte zusammenzustückeln. Achse: HELL oben
-       (Content-Zone) → DUNKEL unten (Tiefe), linear `to bottom`.
-         0%   #334D7A  = var(--color-primary)    — Content-Zone, hell
-         50%  #1E2B49                            — Übergang
-         100% #14213D  = var(--color-navy-deep)  — Boden, Tiefe
+       statt loser Navy-Werte. Achse: HELL oben (Content-Zone) → DUNKEL
+       unten (Tiefe), linear `to bottom`, fünf gleichmäßig verteilte Stopps.
+       Beleg: edvance-app/src/design/tokens.ts `midnightGradient`
+       (Vorgabe Rasit 30.08.2026) — beide Repos tragen dieselben Werte;
+       ändert sich einer, zieht der andere nach.
        --color-primary bleibt Flächen-/Akzentfarbe; dieser Gradient ist
-       ZUSÄTZLICH (Hero-/Hintergrundflächen). Bevor eine vierte Blau-
+       ZUSÄTZLICH (Hero-/Hintergrundflächen). Bevor eine weitere Blau-
        variante erfunden wird: diese Achse nutzen.
        NB: Die dunkle Schüler-BÜHNE (.session-stage) ist bewusst ein
        EIGENER Gradient (--color-stage-top #2E3E63, 168°, + Radial-Glows)
        und wird NICHT durch dieses Token ersetzt. */
     --gradient-midnight: linear-gradient(
       to bottom,
-      var(--color-primary)   0%,
-      #1E2B49                50%,
-      var(--color-navy-deep) 100%
+      #43608F   0%,
+      #3E5985  25%,
+      #334B73  50%,
+      #263A5B  75%,
+      #17263F 100%
     );
 
     /* ── HINTERGRUND ──────────────────────────────────────────── */
@@ -46,6 +50,11 @@
     --color-text-secondary:         #4A4A47;
     --color-text-tertiary:          #888884;
     --color-text-link:              #334D7A;
+    /* Schrift auf Navy-/Midnight-Flächen (aktiver Reiter, aktiver Schritt). */
+    --color-text-inverse:           var(--color-stage-text);
+    /* Schrift auf Creme-Flächen. Beleg: edvance-app/src/design/tokens.ts
+       colors.onCream (Textfarbe auf Creme-Buttons). */
+    --color-on-cream:               #1A2E4A;
 
     /* ── AKZENT (Streak-Aktiv-Amber & Co.) ────────────────────── */
     --color-accent:                 #E8A020;
@@ -145,6 +154,19 @@
     --color-stage-hero-depth-b:     #140A3C;   /* Hero Tiefe-Radial (dunkel) */
     --color-stage-cta-top:          #566698;   /* CTA-Karten-Glas Verlauf oben */
     --color-stage-cta-bottom:       #3C4670;   /* CTA-Karten-Glas Verlauf unten */
+
+    /* ── ALIASE — Namen, die in src/ benutzt, aber nie definiert waren ──
+       (Abgleich Bauauftrag Admin-Hülle H1, 05.10.2026). Keine neuen Werte,
+       nur Verweise auf bestehende Tokens. Neuer Code nutzt die Zielnamen. */
+    --color-text-muted:             var(--color-text-tertiary);
+    --text-muted:                   var(--color-text-tertiary);
+    --muted:                        var(--color-bg-subtle);
+    --color-error:                  var(--color-error-exam);
+    --color-error-light:            var(--color-error-exam-light);
+    --color-danger:                 var(--color-error-coach);
+    --color-danger-soft:            var(--color-error-coach-light);
+    --color-success-soft:           var(--color-success-light);
+    --color-warning-soft:           var(--color-gold-warning-light);
 
     /* ── SCHATTEN (blau getönt, Lichtquelle oben links) ───────── */
     --shadow-xs: 0 1px 3px rgba(51,77,122,0.06), 0 1px 2px rgba(0,0,0,0.04);
