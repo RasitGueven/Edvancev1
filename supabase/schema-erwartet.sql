@@ -899,7 +899,7 @@ $$;
 
 CREATE FUNCTION public.freigabe_cluster(p_cluster_id uuid) RETURNS integer
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_id uuid;
@@ -908,11 +908,11 @@ begin
   if public.get_my_role() is distinct from 'admin' then
     raise exception 'freigabe_cluster: nur admin darf freigeben' using errcode = '42501';
   end if;
-
   for v_id in
     select id from public.tasks
      where cluster_id = p_cluster_id and status = 'review'
        and source is distinct from 'VERA8_IQB'
+       and public.pruef_freigabe_erlaubt(id)
   loop
     begin
       perform public.task_status_set(v_id, 'ready');
@@ -921,8 +921,33 @@ begin
       when sqlstate 'P0001' then null;
     end;
   end loop;
-
   return v_n;
+end $$;
+
+
+--
+-- Name: freigabe_gate_fehler(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.freigabe_gate_fehler(p_task_id uuid) RETURNS text
+    LANGUAGE plpgsql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare v public.tasks%rowtype;
+begin
+  select * into v from public.tasks where id = p_task_id;
+  if not found then return null; end if;
+  if coalesce(btrim(v.question), '') = '' then return 'task_status_set: Stamm fehlt'; end if;
+  if v.input_type is null then return 'task_status_set: input_type fehlt'; end if;
+  if v.afb is null then return 'task_status_set: AFB fehlt'; end if;
+  if v.cluster_id is null then return 'task_status_set: Cluster fehlt (sonst nie im LSA-Pool)'; end if;
+  if v.curriculum_grade is null then return 'task_status_set: Stoffanker (curriculum_grade) fehlt'; end if;
+  if not exists (select 1 from public.task_solutions s
+                  where s.task_id = p_task_id
+                    and public.lsa_has_answers(v.input_type, v.parts, s.correct_answers)) then
+    return 'task_status_set: Loesung unvollstaendig';
+  end if;
+  return null;
 end $$;
 
 
@@ -932,36 +957,31 @@ end $$;
 
 CREATE FUNCTION public.freigabe_muster(p_skill_key text, p_task_ids uuid[] DEFAULT NULL::uuid[]) RETURNS integer
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_id uuid;
   v_n  integer := 0;
 begin
-  -- `is distinct from` statt `<>`: get_my_role() ist NULL fuer einen nicht
-  -- angemeldeten Aufrufer, und `NULL <> 'admin'` waere NULL — die Pruefung
-  -- feuerte dann nicht. `is distinct from` liefert bei NULL true.
+  -- `is distinct from` statt `<>`: get_my_role() ist NULL fuer einen nicht angemeldeten Aufrufer.
   if public.get_my_role() is distinct from 'admin' then
-    raise exception 'A21: nur die fachliche Freigabe (admin) darf freigeben'
-      using errcode = '42501';
+    raise exception 'A21: nur die fachliche Freigabe (admin) darf freigeben' using errcode = '42501';
   end if;
-
   for v_id in
-    select id from public.tasks
-     where skill_key = p_skill_key
-       and status = 'draft'
-       and (p_task_ids is null or id = any (p_task_ids))
+    select t.id from public.tasks t
+     where t.skill_key = p_skill_key
+       and t.status = 'draft'
+       and (p_task_ids is null or t.id = any (p_task_ids))
+       and not exists (select 1 from public.task_pruefungen p where p.task_id = t.id)
   loop
     begin
       perform public.task_status_set(v_id, 'ready');
       v_n := v_n + 1;
     exception
       -- P0001 = Pflichtfeld oder Loesung unvollstaendig (task_status_set-Gate).
-      -- Das Item bleibt 'draft', die Gruppe laeuft weiter.
       when sqlstate 'P0001' then null;
     end;
   end loop;
-
   return v_n;
 end $$;
 
@@ -972,7 +992,7 @@ end $$;
 
 CREATE FUNCTION public.freigabe_thema(p_thema_key text, p_klasse integer) RETURNS integer
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_id uuid;
@@ -981,7 +1001,6 @@ begin
   if public.get_my_role() is distinct from 'admin' then
     raise exception 'freigabe_thema: nur admin darf freigeben' using errcode = '42501';
   end if;
-
   for v_id in
     select t.id
       from public.tasks t
@@ -990,6 +1009,7 @@ begin
        and t.status = 'review'
        and t.source is distinct from 'VERA8_IQB'
        and (t.class_level is null or t.class_level <= p_klasse)
+       and public.pruef_freigabe_erlaubt(t.id)
   loop
     begin
       perform public.task_status_set(v_id, 'ready');
@@ -998,7 +1018,6 @@ begin
       when sqlstate 'P0001' then null;
     end;
   end loop;
-
   return v_n;
 end $$;
 
@@ -1332,26 +1351,21 @@ $$;
 
 CREATE FUNCTION public.lena_beanstande(p_task_id uuid, p_kategorie text, p_notiz text DEFAULT NULL::text) RETURNS integer
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
-declare v_status text;
 begin
-  if not public.darf_pruefen() then
-    raise exception 'A20: kein Pruefrecht fuer Beanstandungen' using errcode = '42501';
+  if not (public.get_my_role() is not distinct from 'admin' or public.ist_systemaufruf()) then
+    raise exception 'A20: Beanstandungen nur admin' using errcode = '42501';
   end if;
-  select status into v_status from public.tasks where id = p_task_id for update;
+  perform 1 from public.tasks where id = p_task_id for update;
   if not found then
     raise exception 'A20: Aufgabe % nicht gefunden', p_task_id using errcode = 'P0002';
-  end if;
-  if v_status = 'ready' and public.get_my_role() is distinct from 'admin' then
-    raise exception 'A20: eine freigegebene Aufgabe beanstandet nur admin'
-      using errcode = '42501';
   end if;
   update public.tasks
      set status = 'beanstandet', reviewed_by = null, reviewed_at = null
    where id = p_task_id;
-  insert into public.task_reviews (task_id, kategorie, notiz, geprueft_von)
-    values (p_task_id, p_kategorie, p_notiz, auth.uid());
+  insert into public.task_reviews (task_id, kategorie, notiz, geprueft_von, geprueft_am)
+    values (p_task_id, p_kategorie, p_notiz, auth.uid(), clock_timestamp());
   return 1;
 end $$;
 
@@ -4521,6 +4535,1380 @@ $$;
 
 
 --
+-- Name: pruef_acceptance_angleichen(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_acceptance_angleichen(p_acc jsonb, p_ca jsonb) RETURNS jsonb
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case
+    when jsonb_typeof(p_acc) is distinct from 'object' then p_acc
+    when p_acc ? 'canonical' then public.pruef_liste_setzen(p_acc, p_ca)
+    when jsonb_typeof(p_ca) = 'object' then coalesce((
+      select jsonb_object_agg(k, case when jsonb_typeof(v) = 'object' and v ? 'canonical'
+                                      then public.pruef_liste_setzen(v, p_ca -> k) else v end)
+        from jsonb_each(p_acc) e(k, v)), p_acc)
+    else p_acc end
+$$;
+
+
+--
+-- Name: pruef_admin_liste(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_admin_liste() RETURNS TABLE(task_id uuid, lena_status text, ausschluss text, pilot boolean, entscheidung text, gruende text[], notiz text, aenderungen jsonb, aenderung_grund text, dauer_sek integer, geprueft_von text, geprueft_am timestamp with time zone, antwort text, beantwortet_am timestamp with time zone, geaendert boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if public.get_my_role() is distinct from 'admin' then
+    raise exception 'pruef_admin_liste: nur admin' using errcode = '42501';
+  end if;
+  return query
+  select t.id, public.pruef_lena_status(t.status), public.pruef_ausschluss(t.id), t.pruef_pilot,
+         lp.entscheidung, lp.gruende, lp.notiz, lp.aenderungen, lp.aenderung_grund, lp.dauer_sek,
+         pr.full_name, lp.geprueft_am, lp.antwort, lp.beantwortet_am,
+         coalesce(jsonb_array_length(lp.aenderungen) > 0, false)
+    from public.tasks t
+    left join lateral (select p.* from public.task_pruefungen p where p.task_id = t.id
+                        order by p.geprueft_am desc limit 1) lp on true
+    left join public.profiles pr on pr.id = lp.geprueft_von;
+end $$;
+
+
+--
+-- Name: pruef_aenderungen(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_aenderungen(p_vorher jsonb, p_nachher jsonb) RETURNS jsonb
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  with
+  wv as (select (w ->> 'teil')::int teil, coalesce((select jsonb_agg(x ->> 'wert') from jsonb_array_elements(w -> 'werte') x), '[]') l
+           from jsonb_array_elements(coalesce(p_vorher -> 'werte', '[]')) w),
+  wn as (select (w ->> 'teil')::int teil, coalesce((select jsonb_agg(x ->> 'wert') from jsonb_array_elements(w -> 'werte') x), '[]') l
+           from jsonb_array_elements(coalesce(p_nachher -> 'werte', '[]')) w),
+  rv as (select nullif(p_vorher -> 'regel', 'null') r), rn as (select nullif(p_nachher -> 'regel', 'null') r),
+  fv as (select f ->> 'slug' slug, f - 'slug' || jsonb_build_object('werte', (select jsonb_agg(x order by x ->> 'teil', x ->> 'wert') from jsonb_array_elements(f -> 'werte') x)) f
+           from jsonb_array_elements(coalesce(p_vorher -> 'fehler', '[]')) f),
+  fn as (select f ->> 'slug' slug, f - 'slug' || jsonb_build_object('werte', (select jsonb_agg(x order by x ->> 'teil', x ->> 'wert') from jsonb_array_elements(f -> 'werte') x)) f
+           from jsonb_array_elements(coalesce(p_nachher -> 'fehler', '[]')) f),
+  l(n, e) as (
+    select 1, jsonb_build_object('feld', 'richtige_antwort', 'teil', coalesce(wv.teil, wn.teil),
+                                 'vorher', coalesce(wv.l, '[]'), 'nachher', coalesce(wn.l, '[]'))
+      from wv full join wn on coalesce(wv.teil, 0) = coalesce(wn.teil, 0)
+     where wv.l is distinct from wn.l
+    union all
+    select 2, jsonb_build_object('feld', 'wertung', 'teil', null,
+             'vorher', rv.r - array['einheit_pflicht', 'einheit', 'einheit_am_feld'],
+             'nachher', rn.r - array['einheit_pflicht', 'einheit', 'einheit_am_feld'])
+      from rv, rn
+     where (rv.r - array['einheit_pflicht', 'einheit', 'einheit_am_feld'])
+           is distinct from (rn.r - array['einheit_pflicht', 'einheit', 'einheit_am_feld'])
+    union all
+    select 3, jsonb_build_object('feld', 'einheit_pflicht', 'teil', null,
+             'vorher', coalesce(rv.r -> 'einheit_pflicht', 'false'), 'nachher', coalesce(rn.r -> 'einheit_pflicht', 'false'))
+      from rv, rn
+     where coalesce(rv.r -> 'einheit_pflicht', 'false') <> coalesce(rn.r -> 'einheit_pflicht', 'false')
+    union all
+    select 4, jsonb_build_object('feld', 'typischer_fehler', 'teil', null,
+             'vorher', case when fv.slug is not null then jsonb_build_object('slug', fv.slug) || fv.f end,
+             'nachher', case when fn.slug is not null then jsonb_build_object('slug', fn.slug) || fn.f end)
+      from fv full join fn on fv.slug = fn.slug
+     where fv.f is distinct from fn.f
+    union all
+    select 5, jsonb_build_object('feld', 'fertigkeit', 'teil', null,
+             'vorher', p_vorher -> 'skill_key', 'nachher', p_nachher -> 'skill_key')
+     where p_vorher -> 'skill_key' is distinct from p_nachher -> 'skill_key'
+    union all
+    select 6, jsonb_build_object('feld', 'anforderungsbereich', 'teil', null,
+             'vorher', p_vorher -> 'afb', 'nachher', p_nachher -> 'afb')
+     where p_vorher -> 'afb' is distinct from p_nachher -> 'afb')
+  select coalesce(jsonb_agg(e order by n, e ->> 'teil', e -> 'vorher' ->> 'slug', e -> 'nachher' ->> 'slug'), '[]') from l
+$$;
+
+
+--
+-- Name: vorbefuellt_valid(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.vorbefuellt_valid(p jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select jsonb_typeof(p) = 'object'
+     and not exists (
+       select 1 from jsonb_each(p) as e(k, v)
+        where btrim(k) = ''
+           or jsonb_typeof(v) <> 'object'
+           or coalesce(v ->> 'art', '') not in ('neu', 'ueberschrieben', 'ergaenzt', 'leer')
+           or coalesce(btrim(v ->> 'grund'), '') = ''
+           or v ?| array['alt', 'wert', 'neu']
+     )
+$$;
+
+
+--
+-- Name: tasks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tasks (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    microskill_id uuid,
+    cluster_id uuid,
+    content_type text NOT NULL,
+    title text,
+    question text,
+    hint text,
+    common_errors text,
+    coach_note text,
+    difficulty integer,
+    estimated_minutes integer DEFAULT 3,
+    class_level integer,
+    is_active boolean DEFAULT true,
+    created_at timestamp with time zone DEFAULT now(),
+    cognitive_type text,
+    input_type text,
+    is_diagnostic boolean DEFAULT false,
+    curriculum_ref text,
+    question_payload jsonb,
+    typical_errors text[],
+    source text DEFAULT 'unbekannt'::text NOT NULL,
+    source_ref text,
+    assets jsonb DEFAULT '[]'::jsonb NOT NULL,
+    competency_id uuid,
+    status text DEFAULT 'draft'::text NOT NULL,
+    competency_content text,
+    competency_process text,
+    afb text,
+    est_duration_sec integer,
+    unit text,
+    dialog_enabled boolean DEFAULT false NOT NULL,
+    parts jsonb DEFAULT '[]'::jsonb NOT NULL,
+    curriculum_grade smallint,
+    reviewed_by uuid,
+    reviewed_at timestamp with time zone,
+    is_tutorial boolean DEFAULT false NOT NULL,
+    needs_image boolean,
+    licence_text text,
+    skill_key text,
+    sondierrang integer,
+    vorbefuellt jsonb DEFAULT '{}'::jsonb NOT NULL,
+    vorbefuellt_am timestamp with time zone,
+    pruef_version bigint DEFAULT 1 NOT NULL,
+    pruef_pilot boolean DEFAULT false NOT NULL,
+    CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
+    CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
+    CONSTRAINT tasks_cognitive_type_check CHECK ((cognitive_type = ANY (ARRAY['FACT'::text, 'TRANSFER'::text, 'ANALYSIS'::text]))),
+    CONSTRAINT tasks_content_type_check CHECK ((content_type = ANY (ARRAY['exercise'::text, 'exercise_group'::text, 'article'::text, 'video'::text, 'course'::text]))),
+    CONSTRAINT tasks_curriculum_grade_check CHECK (((curriculum_grade IS NULL) OR ((curriculum_grade >= 5) AND (curriculum_grade <= 13)))),
+    CONSTRAINT tasks_difficulty_check CHECK (((difficulty >= 1) AND (difficulty <= 5))),
+    CONSTRAINT tasks_est_duration_sec_check CHECK (((est_duration_sec IS NULL) OR ((est_duration_sec >= 10) AND (est_duration_sec <= 3600)))),
+    CONSTRAINT tasks_input_type_check CHECK ((input_type = ANY (ARRAY['MC'::text, 'NUMERIC'::text, 'SHORT_TEXT'::text, 'TRUE_FALSE'::text, 'FREE_TEXT'::text, 'MATCHING'::text, 'CLOZE'::text, 'COORDINATE'::text, 'MULTI_PART'::text, 'TERM'::text]))),
+    CONSTRAINT tasks_multipart_check CHECK (
+CASE
+    WHEN (input_type = 'MULTI_PART'::text) THEN (public.lsa_parts_valid(parts) AND (COALESCE(btrim(question), ''::text) <> ''::text) AND (est_duration_sec IS NOT NULL))
+    ELSE (parts = '[]'::jsonb)
+END),
+    CONSTRAINT tasks_question_payload_no_solution CHECK (((question_payload IS NULL) OR (NOT (question_payload ?| ARRAY['correct'::text, 'accepted'::text, 'pairs'::text, 'blanks'::text, 'expected'::text])))),
+    CONSTRAINT tasks_question_table_check CHECK (((question_payload IS NULL) OR (NOT (question_payload ? 'table'::text)) OR public.lsa_table_valid((question_payload -> 'table'::text)))),
+    CONSTRAINT tasks_sondierrang_check CHECK (((sondierrang IS NULL) OR (sondierrang >= 1))),
+    CONSTRAINT tasks_status_check CHECK ((status = ANY (ARRAY['draft'::text, 'review'::text, 'ready'::text, 'beanstandet'::text, 'rueckfrage'::text]))),
+    CONSTRAINT tasks_vorbefuellt_check CHECK (public.vorbefuellt_valid(vorbefuellt))
+);
+
+
+--
+-- Name: pruef_auffaelligkeiten(public.tasks, jsonb, jsonb, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_auffaelligkeiten(p_task public.tasks, p_ca jsonb, p_acc jsonb, p_solution text) RETURNS jsonb
+    LANGUAGE plpgsql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+declare
+  it    text := p_task.input_type;
+  acc   jsonb := nullif(p_acc, 'null'::jsonb);
+  ca    jsonb := coalesce(p_ca, '[]');
+  flach boolean := public.pruef_flach_regel(it, acc);
+  ke    jsonb;
+  r     jsonb := '[]';
+  treffer jsonb;
+  x text; rest text; zahl text; stufe text; p jsonb; kind text; liste jsonb;
+begin
+  if it not in ('MULTI_PART', 'MC', 'TERM') then
+    ke := case when jsonb_typeof(acc -> 'known_errors') = 'object' then acc -> 'known_errors' else '{}' end;
+    -- fehler_als_richtig: ein typischer Fehler wuerde als voll gewertet
+    treffer := coalesce((select jsonb_agg(k order by length(k), k) from jsonb_object_keys(ke) k
+      where case when flach then public.lsa_grade(it, acc, ca, jsonb_build_object('text', k)) = 'voll'
+                 else coalesce(public.lsa_is_correct(it, ca, jsonb_build_object('text', k)), false) end), '[]');
+    r := r || coalesce((select jsonb_agg(jsonb_build_object('code', 'fehler_als_richtig', 'teil', null, 'wert', g ->> 0))
+                          from jsonb_array_elements(public.pruef_gruppen(treffer)) g), '[]');
+    -- werte_widersprechen: ein richtiger Wert waere nach lsa_grade nicht voll. Fehlt bei
+    -- "Einheit muss dabei sein" nur die Einheit, ist "teilweise" gewollt und kein Widerspruch.
+    if flach then
+      treffer := coalesce((select jsonb_agg(v) from jsonb_array_elements_text(ca) v
+        where public.lsa_grade(it, acc, ca, jsonb_build_object('text', v)) is distinct from 'voll'
+          and not (coalesce((acc ->> 'unit_graded')::boolean, false) and public.pruef_einheit_von(v) is null
+                   and public.lsa_grade(it, acc, ca, jsonb_build_object('text', v)) = 'teilweise')), '[]');
+      r := r || coalesce((select jsonb_agg(jsonb_build_object('code', 'werte_widersprechen', 'teil', null, 'wert', g ->> 0))
+                            from jsonb_array_elements(public.pruef_gruppen(treffer)) g), '[]');
+    end if;
+    -- loesungsweg_endet_falsch: letzte Zahl nach dem letzten "=" oder "≈"
+    if it = 'NUMERIC' and p_solution is not null then
+      rest := substring(p_solution from '.*[=≈](.*)$');
+      select m[1] into zahl
+        from regexp_matches(coalesce(rest, ''),
+               '([-+−–]?\s?[0-9]+(?:[.,][0-9]+)?(?:/[0-9]+)?(?:\s?[a-zA-ZäöüßÄÖÜ°%€²³]+)?)', 'g')
+             with ordinality t(m, i)
+       order by i desc limit 1;
+      if zahl is not null then
+        stufe := case when flach then public.lsa_grade(it, acc, ca, jsonb_build_object('text', btrim(zahl)))
+                      when coalesce(public.lsa_is_correct(it, ca, jsonb_build_object('text', btrim(zahl))), false)
+                      then 'voll' else 'nicht' end;
+        if stufe <> 'voll' then
+          r := r || jsonb_build_array(jsonb_build_object('code', 'loesungsweg_endet_falsch', 'teil', null,
+                                                         'wert', btrim(zahl), 'stufe', stufe));
+        end if;
+      end if;
+    end if;
+  elsif it = 'MC' then
+    ke := case when jsonb_typeof(acc -> 'known_errors') = 'object' then acc -> 'known_errors' else '{}' end;
+    if ke ? (ca ->> 0) then
+      r := r || jsonb_build_array(jsonb_build_object('code', 'mc_richtig_ist_fehler', 'teil', null, 'wert', ca ->> 0));
+    end if;
+    r := r || coalesce((select jsonb_agg(jsonb_build_object('code', 'mc_ablenker_ohne_fehlbild', 'teil', null, 'wert', o ->> 'id') order by i)
+                          from jsonb_array_elements(coalesce(p_task.question_payload -> 'options', '[]')) with ordinality q(o, i)
+                         where not (ca ? (o ->> 'id')) and not (ke ? (o ->> 'id'))), '[]');
+  elsif it = 'MULTI_PART' then
+    for p in select e from jsonb_array_elements(p_task.parts) e loop
+      kind := p ->> 'kind';
+      liste := case when jsonb_typeof(ca -> (p ->> 'nr')) = 'array' then ca -> (p ->> 'nr') else '[]' end;
+      ke := case when jsonb_typeof(acc -> (p ->> 'nr') -> 'known_errors') = 'object'
+                 then acc -> (p ->> 'nr') -> 'known_errors' else '{}' end;
+      r := r || coalesce((select jsonb_agg(jsonb_build_object('code', 'teil_fehler_ist_richtig', 'teil', (p ->> 'nr')::int, 'wert', k) order by length(k), k)
+                            from jsonb_object_keys(ke) k
+                           where coalesce(public.lsa_is_correct(case when kind = 'mc' then 'MC' else 'SHORT_TEXT' end,
+                                   liste, public.lsa_part_answer(kind, to_jsonb(k))), false)), '[]');
+      if kind = 'mc' then
+        r := r || coalesce((select jsonb_agg(jsonb_build_object('code', 'mc_ablenker_ohne_fehlbild', 'teil', (p ->> 'nr')::int, 'wert', o ->> 'id') order by i)
+                              from jsonb_array_elements(coalesce(p -> 'options', '[]')) with ordinality q(o, i)
+                             where not (liste ? (o ->> 'id')) and not (ke ? (o ->> 'id'))), '[]');
+      end if;
+    end loop;
+  end if;
+  return r;
+end $_$;
+
+
+--
+-- Name: pruef_aufgabe(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_aufgabe(p_task_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks; s public.task_solutions; aus jsonb; sicht jsonb; sicht_aus jsonb;
+  ausschluss text; sk_aus text; th record; lp record;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'pruef_aufgabe: kein Pruefrecht' using errcode = '42501';
+  end if;
+  select * into t from public.tasks where id = p_task_id;
+  if not found then
+    raise exception 'pruef_aufgabe: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  ausschluss := public.pruef_ausschluss(p_task_id);
+  if t.status <> 'ready' and coalesce(ausschluss, '') not in ('vera8', 'inaktiv', 'typ')
+     and public.pruef_im_pilot(t) and not public.pruef_team_beanstandet(p_task_id) then
+    aus := public.pruef_ausgang_sichern(p_task_id);
+  else
+    select a.ausgang into aus from public.task_pruefung_ausgang a where a.task_id = p_task_id;
+  end if;
+  select * into s from public.task_solutions where task_id = p_task_id;
+  sicht := public.pruef_sicht(t, public.pruef_fassung(p_task_id));
+  sicht_aus := case when aus is not null then public.pruef_sicht(t, aus) end;
+  sk_aus := coalesce(aus ->> 'skill_key', t.skill_key);
+  select x.thema_key, x.label, x.stufe into th
+    from public.skill_thema st join public.themen x on x.thema_key = st.thema_key
+   where st.skill_key = sk_aus;
+  select * into lp from public.task_pruefungen where task_id = p_task_id order by geprueft_am desc limit 1;
+
+  return jsonb_build_object(
+    'task_id', t.id,
+    'kopf', jsonb_build_object('kurztitel', public.pruef_kurztitel(t.title), 'stufe', th.stufe,
+              'thema_key', th.thema_key, 'thema_label', th.label,
+              'hilfsmittel', (select e.hilfsmittel from public.pruef_einstellungen e limit 1)),
+    'aufgabe', jsonb_build_object(
+      'input_type', t.input_type, 'unit', t.unit, 'status', t.status,
+      'lena_status', public.pruef_lena_status(t.status), 'pruef_version', t.pruef_version,
+      'ausschluss', ausschluss, 'pilot', t.pruef_pilot,
+      'team_beanstandet', public.pruef_team_beanstandet(p_task_id),
+      'parts', coalesce((select jsonb_agg(jsonb_build_object('nr', (p ->> 'nr')::int, 'kind', p ->> 'kind',
+                 'prompt', p ->> 'prompt', 'unit', p ->> 'unit',
+                 'options', coalesce((select jsonb_agg(jsonb_build_object('id', o ->> 'id', 'label', o ->> 'label') order by i)
+                                        from jsonb_array_elements(coalesce(p -> 'options', '[]')) with ordinality z(o, i)), '[]'))
+                 order by k) from jsonb_array_elements(t.parts) with ordinality q(p, k)), '[]'),
+      'optionen', coalesce((select jsonb_agg(jsonb_build_object('id', o ->> 'id', 'label', o ->> 'label') order by i)
+                              from jsonb_array_elements(case when t.input_type = 'MC'
+                                     then coalesce(t.question_payload -> 'options', '[]') else '[]' end)
+                                   with ordinality z(o, i)), '[]'),
+      'bild_vorhanden', jsonb_array_length(t.assets) > 0
+                        or exists (select 1 from public.task_figures f where f.task_id = t.id and f.svg_hash is not null)),
+    'werte', sicht -> 'werte', 'mc', sicht -> 'mc', 'regel', sicht -> 'regel',
+    'fehler', coalesce((select jsonb_agg(f || jsonb_build_object('klartext', fl.klartext) order by f ->> 'slug')
+                          from jsonb_array_elements(sicht -> 'fehler') f
+                          left join public.fehlbild_labels fl on fl.slug = f ->> 'slug'), '[]'),
+    'weitere_hinweise', sicht -> 'weitere_hinweise',
+    'flach_regel', sicht -> 'flach_regel', 'ohne_erkennung', sicht -> 'ohne_erkennung',
+    'loesungsweg', s.solution,
+    'fertigkeit', (select jsonb_build_object('key', k.skill_key, 'label', k.label, 'thema_key', x.thema_key,
+                     'thema_label', x.label, 'stufe', x.stufe,
+                     'voraussetzungen', coalesce((select jsonb_agg(v.label order by v.fundament_tiefe, v.skill_key)
+                                                    from public.skill_kante sk join public.skills v on v.skill_key = sk.voraussetzt_skill_key
+                                                   where sk.skill_key = k.skill_key), '[]'))
+                     from public.skills k
+                     left join public.skill_thema st on st.skill_key = k.skill_key
+                     left join public.themen x on x.thema_key = st.thema_key
+                    where k.skill_key = t.skill_key),
+    'fertigkeit_optionen', public.pruef_fertigkeit_optionen(sk_aus),
+    'afb', t.afb, 'afb_sicher', t.vorbefuellt #>> '{afb,sicher}',
+    'ausgang', sicht_aus,
+    'aenderungen', case when sicht_aus is not null then public.pruef_aenderungen(sicht_aus, sicht) else '[]'::jsonb end,
+    'letzte_pruefung', case when lp.id is not null then jsonb_build_object(
+      'entscheidung', lp.entscheidung, 'gruende', to_jsonb(lp.gruende), 'notiz', lp.notiz,
+      'antwort', lp.antwort, 'beantwortet_am', lp.beantwortet_am, 'geprueft_am', lp.geprueft_am) end,
+    'auffaelligkeiten', public.pruef_auffaelligkeiten(t, coalesce(s.correct_answers, '[]'), s.acceptance, s.solution));
+end $$;
+
+
+--
+-- Name: pruef_ausgang_sichern(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_ausgang_sichern(p_task_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare v jsonb;
+begin
+  insert into public.task_pruefung_ausgang (task_id, ausgang)
+  values (p_task_id, public.pruef_fassung(p_task_id))
+  on conflict (task_id) do nothing;
+  select ausgang into v from public.task_pruefung_ausgang where task_id = p_task_id;
+  return v;
+end $$;
+
+
+--
+-- Name: pruef_ausschluss(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_ausschluss(p_task_id uuid) RETURNS text
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case
+    when t.source = 'VERA8_IQB' then 'vera8'
+    when not coalesce(t.is_active, false) or t.is_tutorial or t.content_type <> 'exercise' then 'inaktiv'
+    when t.input_type is null
+      or t.input_type not in ('MC', 'NUMERIC', 'SHORT_TEXT', 'MULTI_PART', 'TERM') then 'typ'
+    when t.skill_key is null
+      or not exists (select 1 from public.skill_thema st where st.skill_key = t.skill_key) then 'ohne_fertigkeit'
+    when not exists (select 1 from public.task_solutions s where s.task_id = t.id
+                        and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)) then 'ohne_loesung'
+    when public.freigabe_gate_fehler(t.id) is not null then 'gate'
+    when (coalesce(t.needs_image, false)
+          or exists (select 1 from jsonb_array_elements(t.parts) p where p -> 'needs_image' = 'true'::jsonb))
+     and jsonb_array_length(t.assets) = 0
+     and not exists (select 1 from public.task_figures f where f.task_id = t.id and f.svg_hash is not null)
+      then 'bild_fehlt'
+  end
+  from public.tasks t where t.id = p_task_id
+$$;
+
+
+--
+-- Name: pruef_board(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_board() RETURNS TABLE(task_id uuid, stufe text, thema_key text, thema_label text, thema_sort integer, skill_key text, skill_label text, kurztitel text, reihenfolge bigint, lena_status text, geaendert boolean, letzte_dauer_sek integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not public.darf_pruefen() then
+    raise exception 'pruef_board: kein Pruefrecht' using errcode = '42501';
+  end if;
+  return query
+  with b as (
+    select t.id, t.title, t.status, t.source_ref, t.skill_key sk_jetzt,
+           coalesce(a.ausgang ->> 'skill_key', t.skill_key) sk,
+           case when a.task_id is not null then (a.ausgang ->> 'sondierrang')::int else t.sondierrang end sr
+      from public.tasks t
+      left join public.task_pruefung_ausgang a on a.task_id = t.id
+     where public.pruef_ausschluss(t.id) is null
+       and (t.pruef_pilot or not coalesce((select e.nur_pilot from public.pruef_einstellungen e limit 1), false)))
+  select b.id, th.stufe, th.thema_key, th.label, th.sort, b.sk_jetzt, sj.label,
+         public.pruef_kurztitel(b.title),
+         row_number() over (order by case th.stufe when 'erste' then 1 when 'zweite' then 2 else 3 end,
+                                     th.sort nulls last, s.fundament_tiefe, b.sk, b.sr nulls last,
+                                     b.source_ref, b.id),
+         public.pruef_lena_status(b.status),
+         coalesce(jsonb_array_length(lp.aenderungen) > 0, false),
+         lp.dauer_sek
+    from b
+    join public.skills s on s.skill_key = b.sk
+    join public.skill_thema st on st.skill_key = b.sk
+    join public.themen th on th.thema_key = st.thema_key
+    left join public.skills sj on sj.skill_key = b.sk_jetzt
+    left join lateral (select p.aenderungen, p.dauer_sek from public.task_pruefungen p
+                        where p.task_id = b.id order by p.geprueft_am desc limit 1) lp on true;
+end $$;
+
+
+--
+-- Name: pruef_einheit(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_einheit(p_acceptance jsonb, p_ca jsonb) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select coalesce(nullif(btrim(p_acceptance ->> 'unit'), ''),
+                  public.pruef_einheit_von(p_acceptance ->> 'canonical'),
+                  (select public.pruef_einheit_von(x) from jsonb_array_elements_text(
+                     case when jsonb_typeof(p_ca) = 'array' then p_ca else '[]' end)
+                     with ordinality e(x, i)
+                    where public.pruef_einheit_von(x) is not null order by i limit 1))
+$$;
+
+
+--
+-- Name: pruef_einheit_von(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_einheit_von(p_wert text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case when public.pruef_ist_zahl(p_wert) then nullif(btrim(regexp_replace(btrim(p_wert),
+    '^[-+−–]?\s?[0-9]+(?:\s+[0-9]+/[0-9]+|/[0-9]+|[.,][0-9]+)?', '')), '') end
+$$;
+
+
+--
+-- Name: pruef_entscheiden(uuid, bigint, text, text[], text, text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_entscheiden(p_task_id uuid, p_version bigint, p_entscheidung text, p_gruende text[] DEFAULT NULL::text[], p_notiz text DEFAULT NULL::text, p_aenderung_grund text DEFAULT NULL::text, p_dauer_sek integer DEFAULT NULL::integer) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks; aus jsonb; aend jsonb; neu text; g text;
+  notiz text := nullif(btrim(p_notiz), '');
+  grund text := nullif(btrim(p_aenderung_grund), '');
+  gruende text[] := array(select distinct btrim(x) from unnest(coalesce(p_gruende, '{}')) x where btrim(x) <> '');
+begin
+  t := public.pruef_sperren(p_task_id, p_version);
+  if p_entscheidung is null or p_entscheidung not in ('passt', 'unsicher', 'passt_nicht') then
+    raise exception 'pruef_entscheiden: unbekannte Entscheidung %', p_entscheidung using errcode = '22023';
+  end if;
+  aus := public.pruef_ausgang_sichern(p_task_id);
+  aend := public.pruef_aenderungen(public.pruef_sicht(t, aus), public.pruef_sicht(t, public.pruef_fassung(p_task_id)));
+  if jsonb_array_length(aend) > 0 and grund is null
+     and coalesce((select e.grund_pflicht from public.pruef_einstellungen e limit 1), false) then
+    perform public.pruef_fehler('aenderung_grund_fehlt');
+  end if;
+
+  if p_entscheidung = 'passt' then
+    if not exists (select 1 from public.task_solutions s where s.task_id = p_task_id
+                      and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)) then
+      perform public.pruef_fehler('antwort_fehlt');
+    end if;
+    if public.freigabe_gate_fehler(p_task_id) is not null then
+      perform public.pruef_fehler('gate', public.freigabe_gate_fehler(p_task_id));
+    end if;
+    neu := 'review';
+    gruende := '{}';
+  elsif p_entscheidung = 'unsicher' then
+    if notiz is null then perform public.pruef_fehler('notiz_fehlt'); end if;
+    neu := 'rueckfrage';
+    gruende := '{}';
+  else
+    if cardinality(gruende) = 0 then perform public.pruef_fehler('grund_fehlt'); end if;
+    if exists (select 1 from unnest(gruende) x where x not in ('aufgabe_fehlerhaft', 'aufgabe_unklar',
+                 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen', 'passt_nicht_in_lsa', 'sonstiges')) then
+      perform public.pruef_fehler('grund_unbekannt');
+    end if;
+    if 'sonstiges' = any (gruende) and notiz is null then perform public.pruef_fehler('notiz_fehlt'); end if;
+    neu := 'beanstandet';
+    foreach g in array gruende loop
+      insert into public.task_reviews (task_id, kategorie, notiz, geprueft_von, geprueft_am)
+      values (p_task_id, g, notiz, auth.uid(), clock_timestamp());
+    end loop;
+  end if;
+
+  -- Lena gibt nie frei: reviewed_by/at bleiben leer, die Freigabe stempelt task_status_set.
+  update public.tasks set status = neu, reviewed_by = null, reviewed_at = null where id = p_task_id;
+  insert into public.task_pruefungen (task_id, entscheidung, gruende, notiz, aenderungen, aenderung_grund,
+                                      dauer_sek, geprueft_von, geprueft_am)
+  values (p_task_id, p_entscheidung, gruende, notiz, aend, grund,
+          least(greatest(p_dauer_sek, 0), 86400), auth.uid(), clock_timestamp());
+
+  select * into t from public.tasks where id = p_task_id;
+  return jsonb_build_object('pruef_version', t.pruef_version, 'lena_status', public.pruef_lena_status(t.status));
+end $$;
+
+
+--
+-- Name: pruef_entwurf_anwenden(public.tasks, jsonb, jsonb, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_entwurf_anwenden(p_task public.tasks, p_jetzt jsonb, p_ausgang jsonb, p_entwurf jsonb, p_option_scores jsonb) RETURNS jsonb
+    LANGUAGE plpgsql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  it       text := p_task.input_type;
+  e        jsonb := coalesce(p_entwurf, '{}');
+  ca       jsonb := coalesce(p_jetzt -> 'correct_answers', '[]');
+  acc0     jsonb := nullif(p_jetzt -> 'acceptance', 'null'::jsonb);
+  acc      jsonb := nullif(p_jetzt -> 'acceptance', 'null'::jsonb);
+  acc_alt  jsonb := nullif(p_ausgang -> 'acceptance', 'null'::jsonb);
+  te       jsonb := coalesce(nullif(p_jetzt -> 'typical_errors', 'null'::jsonb), '[]');
+  flach    boolean := public.pruef_flach_regel(it, acc0);
+  regel_ok boolean := public.pruef_regel_erlaubt(it, coalesce(p_jetzt -> 'correct_answers', '[]'), acc0);
+  einheit  text := public.pruef_einheit(acc0, coalesce(p_jetzt -> 'correct_answers', '[]'));
+  regel    jsonb := nullif(e -> 'regel', 'null'::jsonb);
+  pflicht  boolean := coalesce((acc0 ->> 'unit_graded')::boolean, false);
+  bereich  boolean := false;
+  mitte    text;
+  tol      numeric;
+  sk       text := p_jetzt ->> 'skill_key';
+  afb      text := p_jetzt ->> 'afb';
+  sr       jsonb := coalesce(p_jetzt -> 'sondierrang', 'null');
+  p jsonb; nr text; liste jsonb; ids jsonb; scope jsonb; ke jsonb;
+begin
+  -- Teilangaben der typischen Fehler muessen zu den Teilen passen.
+  if exists (select 1 from jsonb_array_elements(coalesce(e -> 'fehler', '[]')) f,
+                           jsonb_array_elements(coalesce(f -> 'werte', '[]')) v
+              where case when it = 'MULTI_PART'
+                         then not exists (select 1 from jsonb_array_elements(p_task.parts) q
+                                           where q ->> 'nr' = v ->> 'teil')
+                         else v ->> 'teil' is not null end) then
+    perform public.pruef_fehler('teil_unbekannt');
+  end if;
+
+  -- Richtige Antwort
+  if it = 'MC' and (e ? 'mc' or e ? 'werte') then
+    liste := jsonb_build_array(coalesce(e ->> 'mc', e #>> '{werte,0,werte,0}'));
+    ids := coalesce((select jsonb_agg(o -> 'id') from jsonb_array_elements(
+             coalesce(p_task.question_payload -> 'options', '[]')) o), '[]');
+    if liste ->> 0 is null or not ids @> liste then perform public.pruef_fehler('mc_unbekannt'); end if;
+    if jsonb_typeof(p_option_scores) = 'object' and p_option_scores <> '{}' and liste is distinct from ca then
+      perform public.pruef_fehler('options_bewertet');
+    end if;
+    ca := liste;
+  elsif it = 'MULTI_PART' and e ? 'werte' then
+    for p in select x from jsonb_array_elements(p_task.parts) x loop
+      nr := p ->> 'nr';
+      liste := (select x -> 'werte' from jsonb_array_elements(e -> 'werte') x where x ->> 'teil' = nr limit 1);
+      continue when liste is null;
+      liste := public.pruef_werte_schreiben(liste, '[]', null, false);
+      if p ->> 'kind' = 'mc' then
+        ids := coalesce((select jsonb_agg(o -> 'id') from jsonb_array_elements(coalesce(p -> 'options', '[]')) o), '[]');
+        if not ids @> liste then perform public.pruef_fehler('mc_unbekannt'); end if;
+        if jsonb_typeof(p_option_scores -> nr) = 'object' and (p_option_scores -> nr) <> '{}'
+           and liste is distinct from ca -> nr then
+          perform public.pruef_fehler('options_bewertet');
+        end if;
+      end if;
+      ca := case when jsonb_typeof(ca) = 'object' then ca else '{}' end || jsonb_build_object(nr, liste);
+    end loop;
+  elsif e ? 'werte' then
+    liste := coalesce((select x -> 'werte' from jsonb_array_elements(e -> 'werte') x limit 1), '[]');
+    ca := case when flach
+      then public.pruef_werte_schreiben(liste,
+             public.pruef_gruppen(ca) || public.pruef_gruppen(coalesce(p_ausgang -> 'correct_answers', '[]')),
+             einheit, true)
+      else public.pruef_werte_schreiben(liste, '[]', null, false) end;
+  end if;
+
+  -- Gewertet wird (nur flach mit Regel)
+  if regel is not null and it not in ('MC', 'MULTI_PART', 'TERM') then
+    if regel ->> 'art' = 'bereich' then
+      mitte := public.pruef_zahl_von(regel ->> 'mitte');
+      begin
+        tol := replace(regel ->> 'toleranz', ',', '.')::numeric;
+      exception when others then
+        tol := null;
+      end;
+      -- Der Bereich bleibt um den Wert: hoechstens so breit wie der Wert selbst (mindestens 1).
+      if not regel_ok or mitte is null or tol is null or tol <= 0
+         or tol > greatest(abs((public.lsa_parse_fraction(mitte))[1] / (public.lsa_parse_fraction(mitte))[2]), 1) then
+        perform public.pruef_fehler('bereich_ungueltig');
+      end if;
+      bereich := true;
+    end if;
+    if coalesce((regel ->> 'einheit_pflicht')::boolean, false) <> pflicht then
+      if not regel_ok then perform public.pruef_fehler('einheit_unzulaessig'); end if;
+      if not pflicht and einheit is null then perform public.pruef_fehler('einheit_fehlt'); end if;
+      if not pflicht and coalesce(btrim(p_task.unit), '') <> '' then perform public.pruef_fehler('einheit_am_feld'); end if;
+      pflicht := not pflicht;
+    end if;
+  end if;
+
+  -- acceptance: richtige Antwort, Regel, typische Fehler
+  if it = 'MULTI_PART' then
+    for p in select x from jsonb_array_elements(p_task.parts) x loop
+      nr := p ->> 'nr';
+      scope := nullif(acc -> nr, 'null'::jsonb);
+      liste := case when jsonb_typeof(ca -> nr) = 'array' then ca -> nr else '[]' end;
+      ke := case when e ? 'fehler'
+        then public.pruef_known_errors(e -> 'fehler', nr::int,
+               case when p ->> 'kind' = 'mc' then coalesce((select jsonb_agg(o -> 'id')
+                 from jsonb_array_elements(coalesce(p -> 'options', '[]')) o), '[]') end,
+               acc0, acc_alt, null)
+        else scope -> 'known_errors' end;
+      continue when scope is null and (coalesce(ke, '{}') = '{}' or jsonb_array_length(liste) = 0);
+      scope := public.pruef_liste_setzen(coalesce(scope, '{}'), liste);
+      scope := case when coalesce(ke, '{}') = '{}' then scope - 'known_errors'
+                    else scope || jsonb_build_object('known_errors', ke) end;
+      acc := coalesce(acc, '{}') || jsonb_build_object(nr, scope);
+    end loop;
+  elsif it = 'MC' then
+    ke := case when e ? 'fehler'
+      then public.pruef_known_errors(e -> 'fehler', null, coalesce((select jsonb_agg(o -> 'id')
+             from jsonb_array_elements(coalesce(p_task.question_payload -> 'options', '[]')) o), '[]'),
+             acc0, acc_alt, null)
+      else acc -> 'known_errors' end;
+    if acc is not null or coalesce(ke, '{}') <> '{}' then
+      acc := public.pruef_liste_setzen(coalesce(acc, '{}'), ca);
+      acc := case when coalesce(ke, '{}') = '{}' then acc - 'known_errors'
+                  else acc || jsonb_build_object('known_errors', ke) end;
+    end if;
+  elsif flach then
+    if bereich then
+      acc := acc || jsonb_build_object(
+        'canonical', mitte || case when pflicht then ' ' || einheit else '' end,
+        'equivalents', '[]'::jsonb,
+        'tolerance', jsonb_build_object('mode', 'absolute', 'value', tol));
+    else
+      acc := public.pruef_liste_setzen(acc, case when pflicht then public.pruef_mit_einheit(ca, einheit) else ca end);
+      if regel is not null and acc #>> '{tolerance,mode}' = 'absolute' then acc := acc - 'tolerance'; end if;
+    end if;
+    if pflicht then
+      acc := (acc || jsonb_build_object('unit_graded', true, 'unit', einheit)) #- '{notation,unit_optional}';
+      if acc -> 'notation' = '{}'::jsonb then acc := acc - 'notation'; end if;
+    elsif regel is not null then
+      acc := acc - 'unit_graded';
+    end if;
+    if e ? 'fehler' then
+      ke := public.pruef_known_errors(e -> 'fehler', null, null, acc0, acc_alt, einheit);
+      acc := case when ke = '{}' then acc - 'known_errors' else acc || jsonb_build_object('known_errors', ke) end;
+    end if;
+  end if;
+  -- TERM und flach ohne Regel: acceptance bleibt, wie es ist (TERM darf keins tragen, OP-3).
+
+  -- Saetze zu den typischen Fehlern (typical_errors[].fehlbild)
+  if e ? 'fehler' and (it in ('MC', 'MULTI_PART') or flach) then
+    te := coalesce((select jsonb_agg(case when coalesce(t ->> 'fehlbild', '') = '' then t
+                                          else t || jsonb_build_object('error', fl.satz) end order by i)
+                      from jsonb_array_elements(te) with ordinality q(t, i)
+                      left join lateral (select nullif(btrim(fx ->> 'text'), '') satz
+                                           from jsonb_array_elements(e -> 'fehler') fx
+                                          where fx ->> 'slug' = t ->> 'fehlbild' limit 1) fl on true
+                     where coalesce(t ->> 'fehlbild', '') = '' or fl.satz is not null), '[]');
+    te := te || coalesce((select jsonb_agg(jsonb_build_object('error', btrim(fx ->> 'text'),
+                                   'socratic_question', '', 'fehlbild', fx ->> 'slug') order by i)
+                            from jsonb_array_elements(e -> 'fehler') with ordinality q(fx, i)
+                           where coalesce(btrim(fx ->> 'text'), '') <> ''
+                             and not exists (select 1 from jsonb_array_elements(te) t
+                                              where t ->> 'fehlbild' = fx ->> 'slug')), '[]');
+  end if;
+
+  -- Einordnung
+  if e ? 'skill_key' and (e ->> 'skill_key') is distinct from sk then
+    if not exists (select 1 from jsonb_array_elements(public.pruef_fertigkeit_optionen(
+                     coalesce(p_ausgang ->> 'skill_key', sk))) o where o ->> 'key' = e ->> 'skill_key') then
+      perform public.pruef_fehler('fertigkeit_unzulaessig');
+    end if;
+    sk := e ->> 'skill_key';
+    -- Der Sondierrang gilt nur fuer die Fertigkeit, fuer die er berechnet wurde.
+    sr := case when sk = p_ausgang ->> 'skill_key' then coalesce(p_ausgang -> 'sondierrang', 'null') else 'null' end;
+  end if;
+  if e ? 'afb' and (e ->> 'afb') is distinct from afb then
+    if coalesce(e ->> 'afb', '') not in ('I', 'II', 'III') then perform public.pruef_fehler('afb_ungueltig'); end if;
+    afb := e ->> 'afb';
+  end if;
+
+  if acc is not null and not public.lsa_acceptance_valid(acc) then
+    perform public.pruef_fehler('regel_ungueltig');
+  end if;
+  return jsonb_build_object('skill_key', sk, 'afb', afb, 'sondierrang', sr,
+    'correct_answers', ca, 'acceptance', acc, 'typical_errors', te);
+end $$;
+
+
+--
+-- Name: pruef_fassung(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_fassung(p_task_id uuid) RETURNS jsonb
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object(
+    'skill_key', t.skill_key, 'afb', t.afb, 'sondierrang', t.sondierrang,
+    'correct_answers', coalesce(s.correct_answers, '[]'), 'acceptance', s.acceptance,
+    'typical_errors', coalesce(s.typical_errors, '[]'))
+  from public.tasks t left join public.task_solutions s on s.task_id = t.id
+  where t.id = p_task_id
+$$;
+
+
+--
+-- Name: pruef_fehler(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_fehler(p_hint text, p_text text DEFAULT NULL::text) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+begin
+  raise exception '%', coalesce(p_text, 'pruefen: ' || p_hint) using errcode = 'ED422', hint = p_hint;
+end $$;
+
+
+--
+-- Name: pruef_fehler_gruppen(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_fehler_gruppen(p_acc jsonb) RETURNS TABLE(slug text, teil integer, gruppen jsonb)
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+  with ke(teil, k, slug) as (
+    select null::int, e.key, e.value #>> '{}'
+      from jsonb_each(case when jsonb_typeof(p_acc -> 'known_errors') = 'object'
+                           then p_acc -> 'known_errors' else '{}' end) e
+    union all
+    select p.key::int, e.key, e.value #>> '{}'
+      from jsonb_each(case when jsonb_typeof(p_acc) = 'object' and not (p_acc ? 'canonical')
+                           then p_acc else '{}' end) p,
+           jsonb_each(case when jsonb_typeof(p.value -> 'known_errors') = 'object'
+                           then p.value -> 'known_errors' else '{}' end) e
+     where p.key ~ '^[1-9][0-9]*$')
+  select slug, teil, public.pruef_gruppen(jsonb_agg(k order by length(k), k))
+    from ke group by slug, teil
+$_$;
+
+
+--
+-- Name: pruef_fertigkeit_optionen(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_fertigkeit_optionen(p_skill_key text) RETURNS jsonb
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with thema as (select thema_key from public.skill_thema where skill_key = p_skill_key),
+  im_thema as (
+    select s.skill_key, s.label, 'thema' gruppe, 1 n, s.fundament_tiefe t
+      from public.skills s join public.skill_thema st on st.skill_key = s.skill_key
+     where st.thema_key = (select thema_key from thema)),
+  vor as (
+    select s.skill_key, s.label, 'voraussetzung' gruppe, 2 n, s.fundament_tiefe t
+      from public.skill_kante k join public.skills s on s.skill_key = k.voraussetzt_skill_key
+     where k.skill_key = p_skill_key
+       and exists (select 1 from public.skill_thema st where st.skill_key = s.skill_key)
+       and s.skill_key not in (select skill_key from im_thema))
+  select coalesce(jsonb_agg(jsonb_build_object('key', skill_key, 'label', label, 'gruppe', gruppe)
+                            order by n, t, skill_key), '[]')
+    from (select * from im_thema union all select * from vor) o
+$$;
+
+
+--
+-- Name: pruef_flach_regel(text, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_flach_regel(p_input_type text, p_acceptance jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select coalesce(p_input_type not in ('MULTI_PART', 'MC', 'TERM')
+                  and jsonb_typeof(p_acceptance) = 'object' and p_acceptance ? 'canonical', false)
+$$;
+
+
+--
+-- Name: pruef_freigabe_erlaubt(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_freigabe_erlaubt(p_task_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select p.entscheidung = 'passt' and p.aenderungen = '[]'::jsonb
+                     from public.task_pruefungen p where p.task_id = t.id
+                    order by p.geprueft_am desc limit 1), false)
+     and not exists (select 1 from public.task_reviews r
+                      left join public.profiles pr on pr.id = r.geprueft_von
+                     where r.task_id = t.id and (r.geprueft_von is null or pr.role = 'admin'))
+     and (a.task_id is null
+          or public.pruef_aenderungen(public.pruef_sicht(t, a.ausgang),
+                                      public.pruef_sicht(t, public.pruef_fassung(t.id))) = '[]'::jsonb)
+    from public.tasks t left join public.task_pruefung_ausgang a on a.task_id = t.id
+   where t.id = p_task_id
+$$;
+
+
+--
+-- Name: pruef_gleich(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_gleich(p_a text, p_b text) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select public.lsa_normalize_answer(p_a) = public.lsa_normalize_answer(p_b)
+      or (public.pruef_ist_zahl(p_a) and public.pruef_ist_zahl(p_b)
+          and public.lsa_values_equal(p_a, p_b)
+          and (coalesce(public.pruef_einheit_von(p_a), '') = ''
+               or coalesce(public.pruef_einheit_von(p_b), '') = ''
+               or lower(public.pruef_einheit_von(p_a)) = lower(public.pruef_einheit_von(p_b))))
+$$;
+
+
+--
+-- Name: pruef_gruppen(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_gruppen(p_liste jsonb) RETURNS jsonb
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+declare g jsonb := '[]'; x text; i int; hit boolean;
+begin
+  if jsonb_typeof(p_liste) <> 'array' then return '[]'; end if;
+  for x in select e from jsonb_array_elements_text(p_liste) e loop
+    hit := false;
+    for i in 0 .. jsonb_array_length(g) - 1 loop
+      if public.pruef_gleich(g -> i ->> 0, x) then
+        g := jsonb_set(g, array[i::text], (g -> i) || to_jsonb(x)); hit := true; exit;
+      end if;
+    end loop;
+    if not hit then g := g || jsonb_build_array(jsonb_build_array(x)); end if;
+  end loop;
+  return g;
+end $$;
+
+
+--
+-- Name: pruef_im_pilot(public.tasks); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_im_pilot(p_task public.tasks) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select p_task.pruef_pilot
+      or not coalesce((select e.nur_pilot from public.pruef_einstellungen e limit 1), false)
+$$;
+
+
+--
+-- Name: pruef_ist_zahl(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_ist_zahl(p_wert text) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select coalesce(public.lsa_parse_fraction(p_wert) is not null
+                  and public.lsa_is_unit((public.lsa_split_value_unit(p_wert))[2]), false)
+$$;
+
+
+--
+-- Name: pruef_known_errors(jsonb, integer, jsonb, jsonb, jsonb, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_known_errors(p_fehler jsonb, p_teil integer, p_ids jsonb, p_acc jsonb, p_acc_alt jsonb, p_einheit text) RETURNS jsonb
+    LANGUAGE plpgsql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare aus jsonb := '{}'; f jsonb; v jsonb; w text; schl jsonb; alt jsonb;
+begin
+  for f in select x from jsonb_array_elements(coalesce(p_fehler, '[]')) x loop
+    if not exists (select 1 from public.fehlbild_labels where slug = f ->> 'slug') then
+      perform public.pruef_fehler('fehlbild_unbekannt');
+    end if;
+    for v in select x from jsonb_array_elements(coalesce(f -> 'werte', '[]')) x
+              where (x ->> 'teil')::int is not distinct from p_teil loop
+      w := btrim(v ->> 'wert');
+      if coalesce(w, '') = '' then perform public.pruef_fehler('fehler_wert_fehlt'); end if;
+      if p_ids is not null then
+        if not p_ids @> jsonb_build_array(w) then perform public.pruef_fehler('mc_unbekannt'); end if;
+        schl := jsonb_build_array(w);
+      else
+        alt := coalesce((select jsonb_agg(g) from (
+                 select jsonb_array_elements(gruppen) g from public.pruef_fehler_gruppen(p_acc)
+                  where slug = f ->> 'slug' and teil is not distinct from p_teil
+                 union all
+                 select jsonb_array_elements(gruppen) from public.pruef_fehler_gruppen(p_acc_alt)
+                  where slug = f ->> 'slug' and teil is not distinct from p_teil) q), '[]');
+        schl := public.pruef_werte_schreiben(jsonb_build_array(w), alt, p_einheit, true);
+      end if;
+      -- Schon vergebene Schluessel behalten ihr Fehlbild.
+      aus := coalesce((select jsonb_object_agg(k, f ->> 'slug') from jsonb_array_elements_text(schl) k), '{}') || aus;
+    end loop;
+  end loop;
+  return aus;
+end $$;
+
+
+--
+-- Name: pruef_kurztitel(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_kurztitel(p_title text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select regexp_replace(coalesce(p_title, ''), '^AFB (I|II|III) · ', '')
+$$;
+
+
+--
+-- Name: pruef_lena_status(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_lena_status(p_status text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case p_status when 'draft' then 'offen' when 'review' then 'passt'
+    when 'rueckfrage' then 'unsicher' when 'beanstandet' then 'passt_nicht'
+    when 'ready' then 'freigegeben' end
+$$;
+
+
+--
+-- Name: pruef_liste_setzen(jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_liste_setzen(p_scope jsonb, p_liste jsonb) RETURNS jsonb
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  with l as (
+    select coalesce(jsonb_agg(to_jsonb(btrim(x)) order by i), '[]') l
+      from jsonb_array_elements_text(case when jsonb_typeof(p_liste) = 'array' then p_liste else '[]' end)
+           with ordinality e(x, i)
+     where btrim(x) <> '')
+  select case when jsonb_array_length(l) = 0 then p_scope
+    else coalesce(p_scope, '{}') || jsonb_build_object('canonical', l ->> 0)
+         || case when jsonb_array_length(l) > 1 or coalesce(p_scope ? 'equivalents', false)
+                 then jsonb_build_object('equivalents', l - 0) else '{}' end end
+  from l
+$$;
+
+
+--
+-- Name: pruef_mit_einheit(jsonb, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_mit_einheit(p_liste jsonb, p_einheit text) RETURNS jsonb
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select coalesce(jsonb_agg(to_jsonb(x) order by i), '[]') from (
+    select x, min(i) i from (
+      select case when public.pruef_ist_zahl(v) and public.pruef_einheit_von(v) is null
+                  then public.pruef_zahl_von(v) || ' ' || p_einheit else v end x, i
+        from jsonb_array_elements_text(coalesce(p_liste, '[]')) with ordinality e(v, i)) a
+    group by x) b
+$$;
+
+
+--
+-- Name: pruef_regel_erlaubt(text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_regel_erlaubt(p_input_type text, p_ca jsonb, p_acceptance jsonb) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select public.pruef_flach_regel(p_input_type, p_acceptance)
+     and (p_input_type = 'NUMERIC'
+          or (p_input_type = 'SHORT_TEXT' and jsonb_typeof(p_ca) = 'array'
+              and jsonb_array_length(p_ca) > 0
+              and not exists (select 1 from jsonb_array_elements_text(p_ca) x
+                               where not public.pruef_ist_zahl(x))))
+$$;
+
+
+--
+-- Name: pruef_rueckfrage_klaeren(uuid, text, text, text[]); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_rueckfrage_klaeren(p_task_id uuid, p_aktion text, p_antwort text, p_gruende text[] DEFAULT NULL::text[]) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks; v_id uuid; g text;
+  gruende text[] := array(select distinct btrim(x) from unnest(coalesce(p_gruende, '{}')) x where btrim(x) <> '');
+begin
+  if public.get_my_role() is distinct from 'admin' then
+    raise exception 'pruef_rueckfrage_klaeren: nur admin' using errcode = '42501';
+  end if;
+  if p_aktion is null or p_aktion not in ('freigeben', 'zurueckweisen', 'an_lena') then
+    raise exception 'pruef_rueckfrage_klaeren: unbekannte Aktion %', p_aktion using errcode = '22023';
+  end if;
+  select * into t from public.tasks where id = p_task_id for update;
+  if not found then
+    raise exception 'pruef_rueckfrage_klaeren: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if t.status <> 'rueckfrage' then perform public.pruef_fehler('keine_rueckfrage'); end if;
+
+  if p_aktion = 'freigeben' then
+    perform public.task_status_set(p_task_id, 'ready');
+  elsif p_aktion = 'zurueckweisen' then
+    if cardinality(gruende) = 0 then perform public.pruef_fehler('grund_fehlt'); end if;
+    if exists (select 1 from unnest(gruende) x where x not in (
+         'aufgabe_fehlerhaft', 'aufgabe_unklar', 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen',
+         'passt_nicht_in_lsa', 'sonstiges', 'fehlbild_falsch', 'fehlbild_unrealistisch',
+         'zahlen_unguenstig', 'formulierung', 'didaktisch', 'kontext', 'loesung_passt_nicht')) then
+      perform public.pruef_fehler('grund_unbekannt');
+    end if;
+    update public.tasks set status = 'beanstandet', reviewed_by = null, reviewed_at = null where id = p_task_id;
+    foreach g in array gruende loop
+      insert into public.task_reviews (task_id, kategorie, notiz, geprueft_von, geprueft_am)
+      values (p_task_id, g, nullif(btrim(p_antwort), ''), auth.uid(), clock_timestamp());
+    end loop;
+  else
+    update public.tasks set status = 'draft', reviewed_by = null, reviewed_at = null where id = p_task_id;
+    delete from public.task_pruefung_ausgang where task_id = p_task_id;
+  end if;
+
+  select p.id into v_id from public.task_pruefungen p where p.task_id = p_task_id
+   order by p.geprueft_am desc limit 1;
+  if v_id is not null then
+    update public.task_pruefungen
+       set antwort = nullif(btrim(p_antwort), ''), beantwortet_von = auth.uid(), beantwortet_am = now()
+     where id = v_id;
+  end if;
+
+  return jsonb_build_object('status', (select x.status from public.tasks x where x.id = p_task_id));
+end $$;
+
+
+--
+-- Name: pruef_rueckgaengig(uuid, bigint); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_rueckgaengig(p_task_id uuid, p_version bigint) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare t public.tasks; aus jsonb;
+begin
+  t := public.pruef_sperren(p_task_id, p_version);
+  if t.status not in ('review', 'rueckfrage', 'beanstandet') then
+    perform public.pruef_fehler('nicht_bewertet');
+  end if;
+  select a.ausgang into aus from public.task_pruefung_ausgang a where a.task_id = p_task_id;
+  update public.tasks set status = 'draft', reviewed_by = null, reviewed_at = null where id = p_task_id;
+  insert into public.task_pruefungen (task_id, entscheidung, aenderungen, geprueft_von, geprueft_am)
+  values (p_task_id, 'zurueckgenommen',
+          case when aus is null then '[]'::jsonb
+               else public.pruef_aenderungen(public.pruef_sicht(t, aus), public.pruef_sicht(t, public.pruef_fassung(p_task_id))) end,
+          auth.uid(), clock_timestamp());
+  select * into t from public.tasks where id = p_task_id;
+  return jsonb_build_object('pruef_version', t.pruef_version, 'lena_status', public.pruef_lena_status(t.status));
+end $$;
+
+
+--
+-- Name: pruef_schreibweisen(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_schreibweisen(p_wert text, p_einheit text) RETURNS text[]
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+declare
+  w text := btrim(p_wert); n text; body text; e text; f text; basis text[]; formen text[]; aus text[];
+begin
+  if w is null or w = '' then return '{}'; end if;
+  if not public.pruef_ist_zahl(w) then return array[w]; end if;
+  n := (public.lsa_split_value_unit(w))[1];
+  body := ltrim(n, '-');
+  basis := case when position('.' in body) > 0 then array[replace(body, '.', ','), body]
+                else array[body] end;
+  formen := case when left(n, 1) = '-'
+    then array(select s || b from unnest(basis) b, unnest(array['-', '−']) s)
+    else basis || array(select '+' || b from unnest(basis) b) end;
+  e := coalesce(public.pruef_einheit_von(w), nullif(btrim(p_einheit), ''));
+  aus := array[w];
+  foreach f in array formen loop
+    aus := aus || f;
+    if e is not null then aus := aus || (f || ' ' || e) || (f || e); end if;
+  end loop;
+  return array(select x from unnest(aus) with ordinality u(x, i)
+                group by x order by min(i));
+end $$;
+
+
+--
+-- Name: pruef_sicht(public.tasks, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_sicht(p_task public.tasks, p_fassung jsonb) RETURNS jsonb
+    LANGUAGE plpgsql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  it    text := p_task.input_type;
+  ca    jsonb := coalesce(p_fassung -> 'correct_answers', '[]');
+  acc   jsonb := nullif(p_fassung -> 'acceptance', 'null'::jsonb);
+  te    jsonb := coalesce(nullif(p_fassung -> 'typical_errors', 'null'::jsonb), '[]');
+  flach boolean := public.pruef_flach_regel(it, acc);
+  werte jsonb;
+  regel jsonb;
+begin
+  if it = 'MULTI_PART' then
+    werte := coalesce((select jsonb_agg(jsonb_build_object('teil', (p ->> 'nr')::int, 'werte',
+      coalesce((select jsonb_agg(jsonb_build_object('wert', x, 'schreibweisen', jsonb_build_array(x)) order by i)
+                  from jsonb_array_elements_text(case when jsonb_typeof(ca -> (p ->> 'nr')) = 'array'
+                                                      then ca -> (p ->> 'nr') else '[]' end)
+                       with ordinality y(x, i)), '[]')) order by o)
+      from jsonb_array_elements(p_task.parts) with ordinality q(p, o)), '[]');
+  else
+    werte := jsonb_build_array(jsonb_build_object('teil', null, 'werte', coalesce(case when flach then
+      (select jsonb_agg(jsonb_build_object('wert', g ->> 0, 'schreibweisen', g) order by i)
+         from jsonb_array_elements(public.pruef_gruppen(ca)) with ordinality z(g, i))
+    else
+      (select jsonb_agg(jsonb_build_object('wert', x, 'schreibweisen', jsonb_build_array(x)) order by i)
+         from jsonb_array_elements_text(case when jsonb_typeof(ca) = 'array' then ca else '[]' end)
+              with ordinality y(x, i))
+    end, '[]')));
+  end if;
+
+  if public.pruef_regel_erlaubt(it, ca, acc) then
+    regel := jsonb_build_object(
+      'art', case when acc #>> '{tolerance,mode}' = 'absolute' then 'bereich' else 'wert' end,
+      'mitte', case when acc #>> '{tolerance,mode}' = 'absolute'
+                    then coalesce(public.pruef_zahl_von(acc ->> 'canonical'), acc ->> 'canonical') end,
+      'toleranz', case when acc #>> '{tolerance,mode}' = 'absolute' then acc #> '{tolerance,value}' end,
+      'einheit_pflicht', coalesce((acc ->> 'unit_graded')::boolean, false),
+      'einheit', public.pruef_einheit(acc, ca),
+      'einheit_am_feld', coalesce(btrim(p_task.unit), '') <> '');
+  end if;
+
+  return jsonb_build_object(
+    'werte', werte,
+    'mc', case when it = 'MC' then ca ->> 0 end,
+    'regel', regel,
+    'fehler', case when it = 'TERM' then '[]'::jsonb else coalesce((
+      select jsonb_agg(jsonb_build_object(
+               'slug', f.slug,
+               'werte', f.werte,
+               'text', (select e ->> 'error' from jsonb_array_elements(te) e
+                         where e ->> 'fehlbild' = f.slug limit 1)) order by f.slug)
+        from (select fg.slug, jsonb_agg(jsonb_build_object('teil', fg.teil, 'wert', g ->> 0)
+                                        order by fg.teil nulls first, g ->> 0) werte
+                from public.pruef_fehler_gruppen(acc) fg, jsonb_array_elements(fg.gruppen) g
+               group by fg.slug) f), '[]') end,
+    'weitere_hinweise', coalesce((select jsonb_agg(e) from jsonb_array_elements(te) e
+                                   where coalesce(e ->> 'fehlbild', '') = ''), '[]'),
+    'skill_key', p_fassung ->> 'skill_key',
+    'afb', p_fassung ->> 'afb',
+    'flach_regel', flach,
+    'ohne_erkennung', it = 'TERM' or (it not in ('MC', 'MULTI_PART') and not flach));
+end $$;
+
+
+--
+-- Name: pruef_speichern(uuid, bigint, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_speichern(p_task_id uuid, p_version bigint, p_entwurf jsonb) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare t public.tasks; aus jsonb; jetzt jsonb; neu jsonb; os jsonb; sol text;
+begin
+  t := public.pruef_sperren(p_task_id, p_version);
+  aus := public.pruef_ausgang_sichern(p_task_id);
+  jetzt := public.pruef_fassung(p_task_id);
+  select option_scores, solution into os, sol from public.task_solutions where task_id = p_task_id;
+  neu := public.pruef_entwurf_anwenden(t, jetzt, aus, p_entwurf, os);
+
+  if (neu -> 'correct_answers', neu -> 'acceptance', neu -> 'typical_errors')
+     is distinct from (jetzt -> 'correct_answers', jetzt -> 'acceptance', jetzt -> 'typical_errors') then
+    insert into public.task_solutions as x (task_id, correct_answers, acceptance, typical_errors, updated_at)
+    values (p_task_id, neu -> 'correct_answers', nullif(neu -> 'acceptance', 'null'::jsonb), neu -> 'typical_errors', now())
+    on conflict (task_id) do update
+      set correct_answers = excluded.correct_answers, acceptance = excluded.acceptance,
+          typical_errors = excluded.typical_errors, updated_at = now();
+  end if;
+  if (neu ->> 'skill_key', neu ->> 'afb', neu -> 'sondierrang')
+     is distinct from (jetzt ->> 'skill_key', jetzt ->> 'afb', jetzt -> 'sondierrang') then
+    update public.tasks
+       set skill_key = neu ->> 'skill_key', afb = neu ->> 'afb', sondierrang = (neu ->> 'sondierrang')::int
+     where id = p_task_id;
+  end if;
+
+  select * into t from public.tasks where id = p_task_id;
+  return jsonb_build_object(
+    'pruef_version', t.pruef_version,
+    'auffaelligkeiten', public.pruef_auffaelligkeiten(t, neu -> 'correct_answers', neu -> 'acceptance', sol),
+    'aenderungen', public.pruef_aenderungen(public.pruef_sicht(t, aus), public.pruef_sicht(t, public.pruef_fassung(p_task_id))));
+end $$;
+
+
+--
+-- Name: pruef_sperren(uuid, bigint); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_sperren(p_task_id uuid, p_version bigint) RETURNS public.tasks
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare t public.tasks;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'pruefen: kein Pruefrecht' using errcode = '42501';
+  end if;
+  select * into t from public.tasks where id = p_task_id for update;
+  if not found then
+    raise exception 'pruefen: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if t.pruef_version is distinct from p_version then
+    raise exception 'pruefen: Die Aufgabe wurde inzwischen geaendert. Bitte neu laden.'
+      using errcode = 'ED409', hint = 'version';
+  end if;
+  if t.status = 'ready' then perform public.pruef_fehler('freigegeben'); end if;
+  if public.pruef_ausschluss(p_task_id) in ('vera8', 'inaktiv', 'typ')
+     or not public.pruef_im_pilot(t) then
+    perform public.pruef_fehler('ausgeschlossen');
+  end if;
+  -- Vom Team beanstandet: wird ueberarbeitet, Lena liest nur (Rasit, PR 208).
+  if public.pruef_team_beanstandet(p_task_id) then
+    perform public.pruef_fehler('team_beanstandet');
+  end if;
+  return t;
+end $$;
+
+
+--
+-- Name: pruef_team_beanstandet(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_team_beanstandet(p_task_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((
+    select t.status = 'beanstandet'
+       and coalesce((select r.geprueft_von is null or pr.role = 'admin'
+                       from public.task_reviews r
+                       left join public.profiles pr on pr.id = r.geprueft_von
+                      where r.task_id = t.id
+                      order by r.geprueft_am desc limit 1), true)
+      from public.tasks t where t.id = p_task_id), false)
+$$;
+
+
+--
+-- Name: pruef_werte_schreiben(jsonb, jsonb, text, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_werte_schreiben(p_werte jsonb, p_alt jsonb, p_einheit text, p_erweitern boolean) RETURNS jsonb
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+declare aus text[] := '{}'; w text; g jsonb;
+begin
+  for w in select btrim(e) from jsonb_array_elements_text(coalesce(p_werte, '[]')) e loop
+    continue when w = '';
+    select x into g from jsonb_array_elements(coalesce(p_alt, '[]')) x where x ->> 0 = w limit 1;
+    if g is not null then
+      aus := aus || array(select jsonb_array_elements_text(g));
+    elsif p_erweitern then
+      aus := aus || public.pruef_schreibweisen(w, p_einheit);
+    else
+      aus := aus || w;
+    end if;
+  end loop;
+  return coalesce((select jsonb_agg(x order by i) from (
+    select x, min(i) i from unnest(aus) with ordinality u(x, i) group by x) d), '[]');
+end $$;
+
+
+--
+-- Name: pruef_wertung_testen(uuid, integer, text, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_wertung_testen(p_task_id uuid, p_teil integer, p_antwort text, p_entwurf jsonb DEFAULT NULL::jsonb) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks; aus jsonb; neu jsonb; ca jsonb; acc jsonb; kind text; resp jsonb; ke jsonb;
+  richtig boolean; stufe text; v_slug text; p jsonb; h text;
+begin
+  if not public.darf_pruefen() then
+    raise exception 'pruef_wertung_testen: kein Pruefrecht' using errcode = '42501';
+  end if;
+  select * into t from public.tasks where id = p_task_id;
+  if not found then
+    raise exception 'pruef_wertung_testen: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if coalesce(btrim(p_antwort), '') = '' then return jsonb_build_object('stufe', null); end if;
+  select a.ausgang into aus from public.task_pruefung_ausgang a where a.task_id = p_task_id;
+  begin
+    neu := public.pruef_entwurf_anwenden(t, public.pruef_fassung(p_task_id), coalesce(aus, public.pruef_fassung(p_task_id)),
+             p_entwurf, (select option_scores from public.task_solutions where task_id = p_task_id));
+  exception when sqlstate 'ED422' then
+    get stacked diagnostics h = pg_exception_hint;
+    return jsonb_build_object('stufe', null, 'fehler', h);
+  end;
+  ca := neu -> 'correct_answers';
+  acc := nullif(neu -> 'acceptance', 'null'::jsonb);
+
+  if t.input_type = 'MULTI_PART' then
+    select x into p from jsonb_array_elements(t.parts) x where (x ->> 'nr')::int = p_teil;
+    if p is null then perform public.pruef_fehler('teil_unbekannt'); end if;
+    kind := p ->> 'kind';
+    resp := public.lsa_part_answer(kind, to_jsonb(btrim(p_antwort)));
+    richtig := coalesce(public.lsa_is_correct(case when kind = 'mc' then 'MC' else 'SHORT_TEXT' end,
+                 case when jsonb_typeof(ca -> (p ->> 'nr')) = 'array' then ca -> (p ->> 'nr') else '[]' end, resp), false);
+    stufe := case when richtig then 'voll' else 'nicht' end;
+    ke := coalesce(acc -> (p ->> 'nr') -> 'known_errors', acc -> 'known_errors');
+  else
+    kind := lower(t.input_type);
+    resp := case when t.input_type = 'MC' then jsonb_build_object('selected', jsonb_build_array(btrim(p_antwort)))
+                 else jsonb_build_object('text', p_antwort) end;
+    richtig := coalesce(public.lsa_is_correct(t.input_type, ca, resp), false);
+    stufe := case when t.input_type in ('MC', 'TERM') then case when richtig then 'voll' else 'nicht' end
+                  else public.lsa_grade(t.input_type, acc, ca, resp) end;
+    ke := acc -> 'known_errors';
+  end if;
+
+  if not richtig then
+    v_slug := public.lsa_fehlbild_match(kind, ke, public.lsa_part_answer(kind, resp));
+  end if;
+  return jsonb_build_object('stufe', stufe, 'fehlbild_slug', v_slug,
+    'fehlbild_klartext', (select fl.klartext from public.fehlbild_labels fl where fl.slug = v_slug));
+end $$;
+
+
+--
+-- Name: pruef_zahl_von(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_zahl_von(p_wert text) RETURNS text
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select case when public.pruef_ist_zahl(p_wert) then
+    (regexp_match(btrim(p_wert), '^([-+−–]?\s?[0-9]+(?:\s+[0-9]+/[0-9]+|/[0-9]+|[.,][0-9]+)?)'))[1] end
+$$;
+
+
+--
 -- Name: schueler_notizen_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4973,6 +6361,27 @@ $$;
 
 
 --
+-- Name: task_pruefungen_nur_anhaengen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.task_pruefungen_nur_anhaengen() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if (new.id, new.task_id, new.entscheidung, new.gruende, new.notiz, new.aenderungen,
+      new.aenderung_grund, new.dauer_sek, new.geprueft_von, new.geprueft_am)
+     is distinct from
+     (old.id, old.task_id, old.entscheidung, old.gruende, old.notiz, old.aenderungen,
+      old.aenderung_grund, old.dauer_sek, old.geprueft_von, old.geprueft_am) then
+    raise exception 'task_pruefungen: das Protokoll wird nur angehaengt, nicht geaendert'
+      using errcode = '42501';
+  end if;
+  return new;
+end $$;
+
+
+--
 -- Name: task_solution_get(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5016,31 +6425,30 @@ $$;
 
 CREATE FUNCTION public.task_solution_upsert(p_task_id uuid, p_correct_answers jsonb DEFAULT NULL::jsonb, p_solution text DEFAULT NULL::text, p_hints jsonb DEFAULT NULL::jsonb, p_coach_hints jsonb DEFAULT NULL::jsonb, p_typical_errors jsonb DEFAULT NULL::jsonb, p_beleg jsonb DEFAULT NULL::jsonb, p_acceptance jsonb DEFAULT NULL::jsonb, p_option_scores jsonb DEFAULT NULL::jsonb) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_admin  boolean := public.get_my_role() is not distinct from 'admin'
-                      or public.ist_systemaufruf();
-  v_status text;
+  v_typ text;
+  v_alt jsonb;
 begin
-  if not (v_admin or public.darf_pruefen()) then
-    raise exception 'task_solution_upsert: kein Pruefrecht' using errcode = '42501';
+  if not (public.get_my_role() is not distinct from 'admin' or public.ist_systemaufruf()) then
+    raise exception 'task_solution_upsert: nur admin' using errcode = '42501';
   end if;
-  select status into v_status from tasks where id = p_task_id for update;
+  select input_type into v_typ from tasks where id = p_task_id for update;
   if not found then
     raise exception 'task_solution_upsert: Aufgabe nicht gefunden' using errcode = 'P0002';
-  end if;
-  -- Wie beim tasks_pruefer_guard: unter einer Freigabe aendert nur admin.
-  if not v_admin and v_status = 'ready' then
-    raise exception 'task_solution_upsert: eine freigegebene Aufgabe aendert nur admin'
-      using errcode = '42501';
   end if;
   if p_beleg is not null and jsonb_typeof(p_beleg) not in ('array', 'null') then
     raise exception 'task_solution_upsert: beleg muss ein Array sein (oder JSON-null zum Leeren)'
       using errcode = '22023';
   end if;
-  -- Frueh und mit Klartext statt erst im CHECK: der Editor soll wissen, WAS
-  -- nicht stimmt, nicht nur dass ein Constraint gefeuert hat.
+  -- Sicherheitsnetz (Entscheidung 23): acceptance an correct_answers angleichen.
+  if p_correct_answers is not null and p_acceptance is null and v_typ is distinct from 'TERM' then
+    select acceptance into v_alt from task_solutions where task_id = p_task_id;
+    if v_alt is not null and public.pruef_acceptance_angleichen(v_alt, p_correct_answers) is distinct from v_alt then
+      p_acceptance := public.pruef_acceptance_angleichen(v_alt, p_correct_answers);
+    end if;
+  end if;
   if p_acceptance is not null and jsonb_typeof(p_acceptance) <> 'null'
      and not public.lsa_acceptance_valid(p_acceptance) then
     raise exception 'task_solution_upsert: acceptance verletzt den Strukturvertrag '
@@ -5060,39 +6468,43 @@ begin
     (task_id, correct_answers, solution, hints, coach_hints, typical_errors, beleg,
      acceptance, option_scores, updated_at)
   values
-    (p_task_id,
-     coalesce(p_correct_answers, '[]'::jsonb),
-     nullif(p_solution, ''),
-     coalesce(p_hints, '[]'::jsonb),
-     coalesce(p_coach_hints, '[]'::jsonb),
+    (p_task_id, coalesce(p_correct_answers, '[]'::jsonb), nullif(p_solution, ''),
+     coalesce(p_hints, '[]'::jsonb), coalesce(p_coach_hints, '[]'::jsonb),
      coalesce(p_typical_errors, '[]'::jsonb),
      case when p_beleg is null or jsonb_typeof(p_beleg) = 'null' then null else p_beleg end,
-     case when p_acceptance is null or jsonb_typeof(p_acceptance) = 'null'
-          then null else p_acceptance end,
-     case when p_option_scores is null or jsonb_typeof(p_option_scores) = 'null'
-          then null else p_option_scores end,
+     case when p_acceptance is null or jsonb_typeof(p_acceptance) = 'null' then null else p_acceptance end,
+     case when p_option_scores is null or jsonb_typeof(p_option_scores) = 'null' then null else p_option_scores end,
      now())
   on conflict (task_id) do update
      set correct_answers = coalesce(p_correct_answers, s.correct_answers),
-         solution        = case when p_solution is null then s.solution
-                                else nullif(p_solution, '') end,
+         solution        = case when p_solution is null then s.solution else nullif(p_solution, '') end,
          hints           = coalesce(p_hints, s.hints),
          coach_hints     = coalesce(p_coach_hints, s.coach_hints),
          typical_errors  = coalesce(p_typical_errors, s.typical_errors),
          beleg           = case when p_beleg is null then s.beleg
-                                when jsonb_typeof(p_beleg) = 'null' then null
-                                else p_beleg end,
+                                when jsonb_typeof(p_beleg) = 'null' then null else p_beleg end,
          acceptance      = case when p_acceptance is null then s.acceptance
-                                when jsonb_typeof(p_acceptance) = 'null' then null
-                                else p_acceptance end,
+                                when jsonb_typeof(p_acceptance) = 'null' then null else p_acceptance end,
          option_scores   = case when p_option_scores is null then s.option_scores
-                                when jsonb_typeof(p_option_scores) = 'null' then null
-                                else p_option_scores end,
+                                when jsonb_typeof(p_option_scores) = 'null' then null else p_option_scores end,
          updated_at      = now();
 
   return jsonb_build_object('ok', true, 'task_id', p_task_id);
-end;
-$$;
+end $$;
+
+
+--
+-- Name: task_solutions_pruef_version(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.task_solutions_pruef_version() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  update public.tasks set pruef_version = pruef_version where id = new.task_id;
+  return null;
+end $$;
 
 
 --
@@ -5120,65 +6532,27 @@ end $$;
 
 CREATE FUNCTION public.task_status_set(p_task_id uuid, p_status text) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_task  tasks%rowtype;
-  v_admin boolean := public.get_my_role() is not distinct from 'admin'
-                     or public.ist_systemaufruf();
+  v_task tasks%rowtype;
+  v_gate text;
 begin
-  if not (v_admin or public.darf_pruefen()) then
-    raise exception 'task_status_set: kein Pruefrecht' using errcode = '42501';
+  if not (public.get_my_role() is not distinct from 'admin' or public.ist_systemaufruf()) then
+    raise exception 'task_status_set: nur admin' using errcode = '42501';
   end if;
   if p_status not in ('draft', 'review', 'ready') then
-    raise exception 'task_status_set: unbekannter Status %', p_status
-      using errcode = '22023';
+    raise exception 'task_status_set: unbekannter Status %', p_status using errcode = '22023';
   end if;
-
-  -- for update: sonst liest ein Pruefer 'review', waehrend admin gerade
-  -- freigibt, und ueberschreibt danach das 'ready'.
   select * into v_task from tasks where id = p_task_id for update;
   if not found then
     raise exception 'task_status_set: Aufgabe nicht gefunden' using errcode = 'P0002';
   end if;
-
-  if not v_admin and (p_status = 'ready' or v_task.status = 'ready') then
-    raise exception 'task_status_set: freigeben und zuruecknehmen nur admin'
-      using errcode = '42501';
-  end if;
-
-  -- Das Gate. Was hier durchfaellt, kommt nicht in den LSA-Pool — unabhaengig
-  -- davon, was das Frontend meint. Es sind dieselben Pflichtfelder, die
-  -- src/lib/authoring/flags.ts prueft; hier stehen die, die die DB selbst
-  -- beantworten kann (das Tool prueft zusaetzlich Alt-Texte u.a.).
+  -- Das Gate (Migration 2c). Was hier durchfaellt, kommt nicht in den LSA-Pool.
   if p_status in ('review', 'ready') then
-    if coalesce(btrim(v_task.question), '') = '' then
-      raise exception 'task_status_set: Stamm fehlt' using errcode = 'P0001';
-    end if;
-    if v_task.input_type is null then
-      raise exception 'task_status_set: input_type fehlt' using errcode = 'P0001';
-    end if;
-    if v_task.afb is null then
-      raise exception 'task_status_set: AFB fehlt' using errcode = 'P0001';
-    end if;
-    if v_task.cluster_id is null then
-      raise exception 'task_status_set: Cluster fehlt (sonst nie im LSA-Pool)'
-        using errcode = 'P0001';
-    end if;
-    -- Der Stoffanker ist der Grund, warum es dieses Tool gibt. Ohne ihn zieht die
-    -- LSA das Item auf dem falschen Jahrgang.
-    if v_task.curriculum_grade is null then
-      raise exception 'task_status_set: Stoffanker (curriculum_grade) fehlt'
-        using errcode = 'P0001';
-    end if;
-    -- Loesung: lsa_has_answers (P02) kennt beide Formen — flach + Multi-Part — und
-    -- verlangt bei MULTI_PART eine Loesung JE Teilaufgabe. Kein zweites Regelwerk.
-    if not exists (
-      select 1 from task_solutions s
-       where s.task_id = p_task_id
-         and public.lsa_has_answers(v_task.input_type, v_task.parts, s.correct_answers)
-    ) then
-      raise exception 'task_status_set: Loesung unvollstaendig' using errcode = 'P0001';
+    v_gate := public.freigabe_gate_fehler(p_task_id);
+    if v_gate is not null then
+      raise exception '%', v_gate using errcode = 'P0001';
     end if;
   end if;
 
@@ -5188,9 +6562,26 @@ begin
          reviewed_at = case when p_status = 'ready' then now()      else null end
    where id = p_task_id;
 
+  if p_status = 'draft' and v_task.status in ('review', 'rueckfrage', 'beanstandet') then
+    delete from task_pruefung_ausgang where task_id = p_task_id;
+  end if;
+
   return jsonb_build_object('ok', true, 'task_id', p_task_id, 'status', p_status);
-end;
-$$;
+end $$;
+
+
+--
+-- Name: tasks_pruef_version(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.tasks_pruef_version() RETURNS trigger
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  new.pruef_version := old.pruef_version + 1;
+  return new;
+end $$;
 
 
 --
@@ -6372,25 +7763,6 @@ $$;
 
 
 --
--- Name: vorbefuellt_valid(jsonb); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.vorbefuellt_valid(p jsonb) RETURNS boolean
-    LANGUAGE sql IMMUTABLE
-    AS $$
-  select jsonb_typeof(p) = 'object'
-     and not exists (
-       select 1 from jsonb_each(p) as e(k, v)
-        where btrim(k) = ''
-           or jsonb_typeof(v) <> 'object'
-           or coalesce(v ->> 'art', '') not in ('neu', 'ueberschrieben', 'ergaenzt', 'leer')
-           or coalesce(btrim(v ->> 'grund'), '') = ''
-           or v ?| array['alt', 'wert', 'neu']
-     )
-$$;
-
-
---
 -- Name: werktage(date, date); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -6979,6 +8351,19 @@ CREATE TABLE public.profiles (
 
 
 --
+-- Name: pruef_einstellungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pruef_einstellungen (
+    id boolean DEFAULT true NOT NULL,
+    hilfsmittel text DEFAULT 'Taschenrechner, Stift und Zettel'::text NOT NULL,
+    nur_pilot boolean DEFAULT false NOT NULL,
+    grund_pflicht boolean DEFAULT false NOT NULL,
+    CONSTRAINT pruef_einstellungen_id_check CHECK (id)
+);
+
+
+--
 -- Name: report_anlass_zuordnung; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7540,6 +8925,42 @@ CREATE TABLE public.task_figures (
 
 
 --
+-- Name: task_pruefung_ausgang; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.task_pruefung_ausgang (
+    task_id uuid NOT NULL,
+    ausgang jsonb NOT NULL,
+    erstellt_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT task_pruefung_ausgang_ausgang_check CHECK ((jsonb_typeof(ausgang) = 'object'::text))
+);
+
+
+--
+-- Name: task_pruefungen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.task_pruefungen (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    task_id uuid NOT NULL,
+    entscheidung text NOT NULL,
+    gruende text[] DEFAULT '{}'::text[] NOT NULL,
+    notiz text,
+    aenderungen jsonb DEFAULT '[]'::jsonb NOT NULL,
+    aenderung_grund text,
+    dauer_sek integer,
+    geprueft_von uuid,
+    geprueft_am timestamp with time zone DEFAULT now() NOT NULL,
+    antwort text,
+    beantwortet_von uuid,
+    beantwortet_am timestamp with time zone,
+    CONSTRAINT task_pruefungen_aenderungen_check CHECK ((jsonb_typeof(aenderungen) = 'array'::text)),
+    CONSTRAINT task_pruefungen_dauer_sek_check CHECK (((dauer_sek >= 0) AND (dauer_sek <= 86400))),
+    CONSTRAINT task_pruefungen_entscheidung_check CHECK ((entscheidung = ANY (ARRAY['passt'::text, 'unsicher'::text, 'passt_nicht'::text, 'zurueckgenommen'::text])))
+);
+
+
+--
 -- Name: task_reviews; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7550,7 +8971,7 @@ CREATE TABLE public.task_reviews (
     notiz text,
     geprueft_von uuid,
     geprueft_am timestamp with time zone DEFAULT now() NOT NULL,
-    CONSTRAINT task_reviews_kategorie_check CHECK ((kategorie = ANY (ARRAY['fehlbild_falsch'::text, 'fehlbild_unrealistisch'::text, 'zahlen_unguenstig'::text, 'formulierung'::text, 'didaktisch'::text, 'kontext'::text, 'loesung_passt_nicht'::text])))
+    CONSTRAINT task_reviews_kategorie_check CHECK ((kategorie = ANY (ARRAY['fehlbild_falsch'::text, 'fehlbild_unrealistisch'::text, 'zahlen_unguenstig'::text, 'formulierung'::text, 'didaktisch'::text, 'kontext'::text, 'loesung_passt_nicht'::text, 'aufgabe_fehlerhaft'::text, 'aufgabe_unklar'::text, 'bild_falsch'::text, 'sprache_zu_schwer'::text, 'tablet_umbauen'::text, 'passt_nicht_in_lsa'::text, 'sonstiges'::text])))
 );
 
 
@@ -7577,74 +8998,6 @@ CREATE TABLE public.task_solutions (
     CONSTRAINT task_solutions_hints_check CHECK ((jsonb_typeof(hints) = 'array'::text)),
     CONSTRAINT task_solutions_option_scores_check CHECK (((option_scores IS NULL) OR public.lsa_option_scores_valid(option_scores))),
     CONSTRAINT task_solutions_typical_errors_check CHECK ((jsonb_typeof(typical_errors) = 'array'::text))
-);
-
-
---
--- Name: tasks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.tasks (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    microskill_id uuid,
-    cluster_id uuid,
-    content_type text NOT NULL,
-    title text,
-    question text,
-    hint text,
-    common_errors text,
-    coach_note text,
-    difficulty integer,
-    estimated_minutes integer DEFAULT 3,
-    class_level integer,
-    is_active boolean DEFAULT true,
-    created_at timestamp with time zone DEFAULT now(),
-    cognitive_type text,
-    input_type text,
-    is_diagnostic boolean DEFAULT false,
-    curriculum_ref text,
-    question_payload jsonb,
-    typical_errors text[],
-    source text DEFAULT 'unbekannt'::text NOT NULL,
-    source_ref text,
-    assets jsonb DEFAULT '[]'::jsonb NOT NULL,
-    competency_id uuid,
-    status text DEFAULT 'draft'::text NOT NULL,
-    competency_content text,
-    competency_process text,
-    afb text,
-    est_duration_sec integer,
-    unit text,
-    dialog_enabled boolean DEFAULT false NOT NULL,
-    parts jsonb DEFAULT '[]'::jsonb NOT NULL,
-    curriculum_grade smallint,
-    reviewed_by uuid,
-    reviewed_at timestamp with time zone,
-    is_tutorial boolean DEFAULT false NOT NULL,
-    needs_image boolean,
-    licence_text text,
-    skill_key text,
-    sondierrang integer,
-    vorbefuellt jsonb DEFAULT '{}'::jsonb NOT NULL,
-    vorbefuellt_am timestamp with time zone,
-    CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
-    CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
-    CONSTRAINT tasks_cognitive_type_check CHECK ((cognitive_type = ANY (ARRAY['FACT'::text, 'TRANSFER'::text, 'ANALYSIS'::text]))),
-    CONSTRAINT tasks_content_type_check CHECK ((content_type = ANY (ARRAY['exercise'::text, 'exercise_group'::text, 'article'::text, 'video'::text, 'course'::text]))),
-    CONSTRAINT tasks_curriculum_grade_check CHECK (((curriculum_grade IS NULL) OR ((curriculum_grade >= 5) AND (curriculum_grade <= 13)))),
-    CONSTRAINT tasks_difficulty_check CHECK (((difficulty >= 1) AND (difficulty <= 5))),
-    CONSTRAINT tasks_est_duration_sec_check CHECK (((est_duration_sec IS NULL) OR ((est_duration_sec >= 10) AND (est_duration_sec <= 3600)))),
-    CONSTRAINT tasks_input_type_check CHECK ((input_type = ANY (ARRAY['MC'::text, 'NUMERIC'::text, 'SHORT_TEXT'::text, 'TRUE_FALSE'::text, 'FREE_TEXT'::text, 'MATCHING'::text, 'CLOZE'::text, 'COORDINATE'::text, 'MULTI_PART'::text, 'TERM'::text]))),
-    CONSTRAINT tasks_multipart_check CHECK (
-CASE
-    WHEN (input_type = 'MULTI_PART'::text) THEN (public.lsa_parts_valid(parts) AND (COALESCE(btrim(question), ''::text) <> ''::text) AND (est_duration_sec IS NOT NULL))
-    ELSE (parts = '[]'::jsonb)
-END),
-    CONSTRAINT tasks_question_payload_no_solution CHECK (((question_payload IS NULL) OR (NOT (question_payload ?| ARRAY['correct'::text, 'accepted'::text, 'pairs'::text, 'blanks'::text, 'expected'::text])))),
-    CONSTRAINT tasks_question_table_check CHECK (((question_payload IS NULL) OR (NOT (question_payload ? 'table'::text)) OR public.lsa_table_valid((question_payload -> 'table'::text)))),
-    CONSTRAINT tasks_sondierrang_check CHECK (((sondierrang IS NULL) OR (sondierrang >= 1))),
-    CONSTRAINT tasks_status_check CHECK ((status = ANY (ARRAY['draft'::text, 'review'::text, 'ready'::text, 'beanstandet'::text]))),
-    CONSTRAINT tasks_vorbefuellt_check CHECK (public.vorbefuellt_valid(vorbefuellt))
 );
 
 
@@ -8393,6 +9746,14 @@ ALTER TABLE ONLY public.profiles
 
 
 --
+-- Name: pruef_einstellungen pruef_einstellungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pruef_einstellungen
+    ADD CONSTRAINT pruef_einstellungen_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: report_anlass_zuordnung report_anlass_zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8662,6 +10023,22 @@ ALTER TABLE ONLY public.task_coach_metadata
 
 ALTER TABLE ONLY public.task_figures
     ADD CONSTRAINT task_figures_pkey PRIMARY KEY (task_id);
+
+
+--
+-- Name: task_pruefung_ausgang task_pruefung_ausgang_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruefung_ausgang
+    ADD CONSTRAINT task_pruefung_ausgang_pkey PRIMARY KEY (task_id);
+
+
+--
+-- Name: task_pruefungen task_pruefungen_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruefungen
+    ADD CONSTRAINT task_pruefungen_pkey PRIMARY KEY (id);
 
 
 --
@@ -9369,6 +10746,13 @@ CREATE INDEX students_schule_idx ON public.students USING btree (schule_id);
 
 
 --
+-- Name: task_pruefungen_task_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX task_pruefungen_task_idx ON public.task_pruefungen USING btree (task_id, geprueft_am DESC);
+
+
+--
 -- Name: task_reviews_task_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9586,6 +10970,20 @@ CREATE TRIGGER subscriptions_guard_provisional_trg BEFORE INSERT OR UPDATE OF st
 
 
 --
+-- Name: task_pruefungen task_pruefungen_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER task_pruefungen_nur_anhaengen BEFORE UPDATE ON public.task_pruefungen FOR EACH ROW EXECUTE FUNCTION public.task_pruefungen_nur_anhaengen();
+
+
+--
+-- Name: task_solutions task_solutions_pruef_version; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER task_solutions_pruef_version AFTER INSERT OR UPDATE ON public.task_solutions FOR EACH ROW EXECUTE FUNCTION public.task_solutions_pruef_version();
+
+
+--
 -- Name: task_solutions task_solutions_term_acceptance; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -9597,6 +10995,13 @@ CREATE TRIGGER task_solutions_term_acceptance BEFORE INSERT OR UPDATE OF accepta
 --
 
 CREATE TRIGGER task_solutions_zahlen_guard BEFORE UPDATE OF correct_answers, acceptance ON public.task_solutions FOR EACH ROW EXECUTE FUNCTION public.task_solutions_zahlen_guard();
+
+
+--
+-- Name: tasks tasks_pruef_version; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tasks_pruef_version BEFORE UPDATE ON public.tasks FOR EACH ROW EXECUTE FUNCTION public.tasks_pruef_version();
 
 
 --
@@ -10560,6 +11965,38 @@ ALTER TABLE ONLY public.task_figures
 
 
 --
+-- Name: task_pruefung_ausgang task_pruefung_ausgang_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruefung_ausgang
+    ADD CONSTRAINT task_pruefung_ausgang_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: task_pruefungen task_pruefungen_beantwortet_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruefungen
+    ADD CONSTRAINT task_pruefungen_beantwortet_von_fkey FOREIGN KEY (beantwortet_von) REFERENCES public.profiles(id);
+
+
+--
+-- Name: task_pruefungen task_pruefungen_geprueft_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruefungen
+    ADD CONSTRAINT task_pruefungen_geprueft_von_fkey FOREIGN KEY (geprueft_von) REFERENCES public.profiles(id);
+
+
+--
+-- Name: task_pruefungen task_pruefungen_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruefungen
+    ADD CONSTRAINT task_pruefungen_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
 -- Name: task_reviews task_reviews_geprueft_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11399,10 +12836,23 @@ CREATE POLICY profiles_coach_select ON public.profiles FOR SELECT USING (((publi
 
 
 --
--- Name: tasks pruefer_update_tasks; Type: POLICY; Schema: public; Owner: -
+-- Name: pruef_einstellungen; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
-CREATE POLICY pruefer_update_tasks ON public.tasks FOR UPDATE TO authenticated USING (public.darf_pruefen()) WITH CHECK (public.darf_pruefen());
+ALTER TABLE public.pruef_einstellungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: pruef_einstellungen pruef_einstellungen_admin; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY pruef_einstellungen_admin ON public.pruef_einstellungen FOR UPDATE TO authenticated USING ((public.get_my_role() = 'admin'::text)) WITH CHECK ((public.get_my_role() = 'admin'::text));
+
+
+--
+-- Name: pruef_einstellungen pruef_einstellungen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY pruef_einstellungen_lesen ON public.pruef_einstellungen FOR SELECT TO authenticated USING (true);
 
 
 --
@@ -12090,6 +13540,32 @@ ALTER TABLE public.task_coach_metadata ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.task_figures ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: task_pruefung_ausgang; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.task_pruefung_ausgang ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: task_pruefung_ausgang task_pruefung_ausgang_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY task_pruefung_ausgang_lesen ON public.task_pruefung_ausgang FOR SELECT TO authenticated USING (public.darf_pruefen());
+
+
+--
+-- Name: task_pruefungen; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.task_pruefungen ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: task_pruefungen task_pruefungen_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY task_pruefungen_lesen ON public.task_pruefungen FOR SELECT TO authenticated USING (public.darf_pruefen());
+
 
 --
 -- Name: task_reviews; Type: ROW SECURITY; Schema: public; Owner: -
