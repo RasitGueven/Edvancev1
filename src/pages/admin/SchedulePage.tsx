@@ -4,13 +4,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
-  AdminHeader,
   EdvanceCard,
   EdvanceBadge,
   EmptyState,
   LoadingPulse,
 } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { getCoaches } from '@/lib/supabase/profiles'
 import { listStudentsWithName } from '@/lib/supabase/students'
 import {
@@ -219,15 +218,15 @@ export function SchedulePage(): JSX.Element {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('schedule.titel')} sticky />
-      <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">
-        <AdminHeader
-          eyebrow={t('schedule.eyebrow')}
-          title={t('schedule.titel')}
-          description={t('schedule.beschreibung')}
-        />
+    <>
+      <PageHeader
+        rubrik={t('schedule.eyebrow')}
+        titel={t('schedule.titel')}
+        satz={t('schedule.beschreibung')}
+      />
 
+      {/* Formular bleibt schmal und steht links; die Sessions nutzen die volle Breite. */}
+      <div className="flex flex-col gap-6 @4xl:max-w-3xl">
         {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
 
         <EdvanceCard className="flex flex-col gap-4 p-6">
@@ -292,23 +291,23 @@ export function SchedulePage(): JSX.Element {
             ))}
           </select>
         </div>
+      </div>
 
-        {!viewCoach ? null : loadingSessions ? (
-          <LoadingPulse type="list" lines={4} />
-        ) : sessions.length === 0 ? (
-          <EmptyState
-            icon="📅"
-            title={t('schedule.leer.titel')}
-            description={t('schedule.leer.beschreibung')}
-          />
-        ) : (
-          <div className="flex flex-col gap-4">
-            {sessions.map((s) => (
-              <SessionRow key={s.id} session={s} students={students} />
-            ))}
-          </div>
-        )}
-      </main>
-    </div>
+      {!viewCoach ? null : loadingSessions ? (
+        <LoadingPulse type="list" lines={4} />
+      ) : sessions.length === 0 ? (
+        <EmptyState
+          icon="📅"
+          title={t('schedule.leer.titel')}
+          description={t('schedule.leer.beschreibung')}
+        />
+      ) : (
+        <div className="grid grid-cols-1 gap-4 @4xl:grid-cols-2">
+          {sessions.map((s) => (
+            <SessionRow key={s.id} session={s} students={students} />
+          ))}
+        </div>
+      )}
+    </>
   )
 }
