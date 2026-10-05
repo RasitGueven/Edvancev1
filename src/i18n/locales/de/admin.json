@@ -1,8 +1,4 @@
 {
-  "breadcrumbs": {
-    "admin": "Admin",
-    "screeningItems": "Screening-Items"
-  },
   "heute": {
     "gruss": {
       "morgen": "Guten Morgen",
@@ -331,5 +327,20 @@
     "keinCoach": "Kein Coach",
     "keinCoachOption": "— kein Coach",
     "coachFuer": "Coach für {{name}}"
+  },
+  "diagnostik": {
+    "titel": "Diagnose-Aufgaben verwalten",
+    "satz": "Aufgaben ansehen, Schwierigkeit/Format anpassen und festlegen, welche im Diagnose-Test erscheinen.",
+    "fach": "Fach",
+    "cluster": "Cluster",
+    "clusterOption": "– Cluster wählen –",
+    "ohneCluster": {
+      "titel": "Cluster wählen",
+      "beschreibung": "Wähle ein Cluster, um dessen Aufgaben anzusehen und zu justieren."
+    },
+    "leer": {
+      "titel": "Keine Aufgaben",
+      "beschreibung": "In diesem Cluster gibt es noch keine Aufgaben."
+    }
   }
 }

@@ -192,7 +192,7 @@ export function Login(): JSX.Element {
             </div>
 
             {error && (
-              <p className="rounded-lg bg-[var(--color-error-light)] px-3 py-2 text-sm font-medium text-[var(--color-error)]">
+              <p className="rounded-lg bg-[var(--color-error-exam-light)] px-3 py-2 text-sm font-medium text-[var(--color-error-exam)]">
                 {error}
               </p>
             )}

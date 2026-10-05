@@ -3,7 +3,8 @@
     "back": "Zurück",
     "eyebrow": "Lernstandsanalyse",
     "loadError": "Der Report konnte nicht geladen werden.",
-    "notFinished": "Diese Analyse läuft noch. Der Report ist vollständig, sobald {{name}} fertig ist."
+    "notFinished": "Diese Analyse läuft noch. Der Report ist vollständig, sobald {{name}} fertig ist.",
+    "untertitel": "Report"
   },
   "head": {
     "title": "Lernstandsanalyse",
@@ -78,7 +79,7 @@
     "nurEineAufgabe": "nur eine Aufgabe",
     "block": {
       "aktuell": "Aktuelles Thema",
-        "ausgangspunkt": "Ausgangspunkt der Analyse",
+      "ausgangspunkt": "Ausgangspunkt der Analyse",
       "grundlagen": "Grundlagen darunter",
       "grundlagenHinweis": "Bereiche, auf denen das Thema aufbaut.",
       "ausserdem": "Außerdem angesehen",
@@ -101,9 +102,9 @@
       "prozent": "Prozent",
       "zuordnungen": "Zuordnungen und Dreisatz",
       "potenzen": "Potenzen",
-        "wurzeln": "Wurzeln und reelle Zahlen",
+      "wurzeln": "Wurzeln und reelle Zahlen",
       "funktionen": "Funktionen",
-        "stochastik": "Daten und Zufall",
+      "stochastik": "Daten und Zufall",
       "zahlen": "Zahlen und Rechnen",
       "weitere": "Weitere Bereiche"
     },

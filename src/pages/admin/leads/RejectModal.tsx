@@ -60,7 +60,7 @@ export function RejectModal({ name, saving, onClose, onConfirm }: RejectModalPro
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
             {t('reject.reason')}
           </p>
           <OptionChips

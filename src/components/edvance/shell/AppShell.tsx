@@ -51,9 +51,9 @@ export function AppShell({ konfig, zaehler, ton = 'navy', children }: Props): JS
 
   return (
     <ShellContext.Provider value={true}>
-      <div className={`grid h-dvh overflow-hidden bg-[var(--color-bg-app)] font-[family-name:var(--font-body)] ${raster}`}>
+      <div className={`grid h-dvh overflow-hidden bg-[var(--color-bg-app)] font-[family-name:var(--font-body)] print:block print:h-auto print:overflow-visible ${raster}`}>
         {modus === 'schublade' ? (
-          <header className="flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2">
+          <header className="print-hide flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2">
             <button
               type="button"
               onClick={() => setOffen(true)}
@@ -75,8 +75,8 @@ export function AppShell({ konfig, zaehler, ton = 'navy', children }: Props): JS
           />
         )}
 
-        <div className="@container min-h-0 overflow-y-auto">
-          <main className="mx-auto flex w-full max-w-shell flex-col gap-6 px-4 py-8 spalte:px-7 voll:px-9">
+        <div className="@container min-h-0 overflow-y-auto print:overflow-visible">
+          <main className="mx-auto flex w-full max-w-shell flex-col gap-6 px-4 py-8 spalte:px-7 voll:px-9 print:max-w-none print:p-0">
             {children}
           </main>
         </div>

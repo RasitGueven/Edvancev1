@@ -14,8 +14,9 @@ import { useEffect, useMemo, useState, type JSX } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ListChecks } from 'lucide-react'
-import { AdminHeader, EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { EmptyState, LoadingPulse, ToastBanner } from '@/components/edvance'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
+import { useImShell } from '@/components/edvance/shell/shellContext'
 import { Button } from '@/components/ui/button'
 import { HealthOverview, type HealthFilter } from '@/components/edvance/authoring/HealthOverview'
 import { HealthItemRow, type HealthItem } from '@/components/edvance/authoring/HealthItemRow'
@@ -36,6 +37,7 @@ import {
 } from '@/lib/supabase/taskAuthoring'
 import { useAuth } from '@/hooks/useAuth'
 import type { AuthoringTask, TaskStatus } from '@/types'
+import { AltRahmen } from './akten/AltRahmen'
 
 const EMPTY_STATUS_COUNTS: Record<TaskStatus, number> = {
   draft: 0,
@@ -65,6 +67,7 @@ export function ContentHealthPage(): JSX.Element {
   const navigate = useNavigate()
   const { role } = useAuth()
   const canWrite = role === 'admin'
+  const imShell = useImShell()
 
   const [items, setItems] = useState<HealthItem[]>([])
   const [hasStoffanker, setHasStoffanker] = useState(false)
@@ -158,71 +161,63 @@ export function ContentHealthPage(): JSX.Element {
     showToast('success', t('health.toast.removed'))
   }
 
-  return (
-    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('health.subtitle')} sticky />
-      <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8">
-        <AdminHeader
-          eyebrow={t('health.eyebrow')}
-          title={t('health.title')}
-          backLabel={t('health.back')}
-          description={t('health.count', { shown: visible.length, total: items.length })}
-        />
+  const satz = t('health.count', { shown: visible.length, total: items.length })
 
-        {error && <EmptyState icon="⚠️" title={t('health.errorTitle')} description={error} />}
+  const inhalt = (
+    <>
+      {error && <EmptyState icon="⚠️" title={t('health.errorTitle')} description={error} />}
 
-        {!error && loading && <LoadingPulse type="list" lines={5} />}
+      {!error && loading && <LoadingPulse type="list" lines={5} />}
 
-        {!error && !loading && (
-          <>
-            <HealthOverview
-              counts={counts}
-              statusCounts={statusCounts}
-              active={filter}
-              onSelect={setFilter}
+      {!error && !loading && (
+        <>
+          <HealthOverview
+            counts={counts}
+            statusCounts={statusCounts}
+            active={filter}
+            onSelect={setFilter}
+          />
+
+          {visible.length === 0 ? (
+            <EmptyState
+              icon="✅"
+              title={t('health.emptyTitle')}
+              description={t('health.emptyDescription')}
             />
-
-            {visible.length === 0 ? (
-              <EmptyState
-                icon="✅"
-                title={t('health.emptyTitle')}
-                description={t('health.emptyDescription')}
-              />
-            ) : (
-              <>
-                {/* Der Einstieg in die Pflege-Strecke (A07): die aktive Mangel-
-                    Kachel wird zur Warteschlange. */}
-                <div className="flex justify-end">
-                  <Button
-                    onClick={() =>
-                      navigate('/admin/pflege', {
-                        state: {
-                          ids: visible.map((item) => item.task.id),
-                          label: t('wizard.sourceHealth'),
-                        },
-                      })
-                    }
-                  >
-                    <ListChecks className="h-4 w-4" aria-hidden="true" />
-                    {t('wizard.start', { count: visible.length })}
-                  </Button>
-                </div>
-                <div className="flex flex-col gap-4">
-                  {visible.map((item) => (
-                    <HealthItemRow
-                      key={item.task.id}
-                      item={item}
-                      canWrite={canWrite}
-                      removing={removingId === item.task.id}
-                      onRemovePath={handleRemovePath}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </>
-        )}
-      </main>
+          ) : (
+            <>
+              {/* Der Einstieg in die Pflege-Strecke (A07): die aktive Mangel-
+                  Kachel wird zur Warteschlange. */}
+              <div className="flex justify-end">
+                <Button
+                  onClick={() =>
+                    navigate('/admin/pflege', {
+                      state: {
+                        ids: visible.map((item) => item.task.id),
+                        label: t('wizard.sourceHealth'),
+                      },
+                    })
+                  }
+                >
+                  <ListChecks className="h-4 w-4" aria-hidden="true" />
+                  {t('wizard.start', { count: visible.length })}
+                </Button>
+              </div>
+              <div className="flex flex-col gap-4">
+                {visible.map((item) => (
+                  <HealthItemRow
+                    key={item.task.id}
+                    item={item}
+                    canWrite={canWrite}
+                    removing={removingId === item.task.id}
+                    onRemovePath={handleRemovePath}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </>
+      )}
 
       {toast && (
         <ToastBanner
@@ -232,6 +227,32 @@ export function ContentHealthPage(): JSX.Element {
           onClose={() => setToast(null)}
         />
       )}
-    </div>
+    </>
+  )
+
+  // Coach: bisheriger Rahmen außerhalb der Hülle (Entscheidung 12).
+  if (!imShell) {
+    return (
+      <AltRahmen
+        untertitel={t('health.subtitle')}
+        breite="max-w-5xl"
+        kopf={{ eyebrow: t('health.eyebrow'), title: t('health.title'), description: satz, backTo: '/admin', backLabel: t('health.back') }}
+      >
+        {inhalt}
+      </AltRahmen>
+    )
+  }
+
+  return (
+    <>
+      <PageHeader
+        rubrik={t('health.eyebrow')}
+        titel={t('health.title')}
+        satz={satz}
+        zurueckZu="/admin/authoring"
+        zurueckLabel={t('page.backToList')}
+      />
+      {inhalt}
+    </>
   )
 }

@@ -155,19 +155,6 @@
     --color-stage-cta-top:          #566698;   /* CTA-Karten-Glas Verlauf oben */
     --color-stage-cta-bottom:       #3C4670;   /* CTA-Karten-Glas Verlauf unten */
 
-    /* ── ALIASE — Namen, die in src/ benutzt, aber nie definiert waren ──
-       (Abgleich Bauauftrag Admin-Hülle H1, 05.10.2026). Keine neuen Werte,
-       nur Verweise auf bestehende Tokens. Neuer Code nutzt die Zielnamen. */
-    --color-text-muted:             var(--color-text-tertiary);
-    --text-muted:                   var(--color-text-tertiary);
-    --muted:                        var(--color-bg-subtle);
-    --color-error:                  var(--color-error-exam);
-    --color-error-light:            var(--color-error-exam-light);
-    --color-danger:                 var(--color-error-coach);
-    --color-danger-soft:            var(--color-error-coach-light);
-    --color-success-soft:           var(--color-success-light);
-    --color-warning-soft:           var(--color-gold-warning-light);
-
     /* ── SCHATTEN (blau getönt, Lichtquelle oben links) ───────── */
     --shadow-xs: 0 1px 3px rgba(51,77,122,0.06), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 12px rgba(51,77,122,0.10), 0 2px 4px rgba(0,0,0,0.05);

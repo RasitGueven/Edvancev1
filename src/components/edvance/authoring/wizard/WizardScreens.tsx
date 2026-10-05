@@ -6,16 +6,14 @@ import type { JSX, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { EmptyState } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
 import { buttonVariants } from '@/components/ui/button'
 
 export type WizardOutcome = 'released' | 'reviewed' | 'rejected' | 'revoked' | 'skipped'
 
+/** Fokus-Seite ohne Leiste und ohne Navbar (Entscheidung 11): nur der Inhalt. */
 export function WizardShell({ children }: { children: ReactNode }): JSX.Element {
-  const { t } = useTranslation('authoring')
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('wizard.subtitle')} sticky />
       <main className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-8">{children}</main>
     </div>
   )

@@ -1,10 +1,9 @@
 {
   "page": {
     "listTitle": "Item-Pflege",
-    "listSubtitle": "Aufgaben prüfen, nachpflegen, freigeben",
     "editorSubtitle": "Item bearbeiten",
     "back": "Zurück",
-    "backToList": "Zurück zur Liste",
+    "backToList": "Item-Pflege",
     "loadError": "Item konnte nicht geladen werden.",
     "notFound": "Dieses Item gibt es nicht."
   },
@@ -287,7 +286,6 @@
   },
   "wizard": {
     "title": "Pflege-Strecke",
-    "subtitle": "Ein Item nach dem anderen",
     "eyebrow": "Autoren-Tool",
     "exit": "Strecke beenden",
     "queuePosition": "Aufgabe {{pos}} von {{total}}",

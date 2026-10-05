@@ -193,7 +193,7 @@ export function PendingRatingsInbox({ results, clusterNames }: Props): JSX.Eleme
                       return (
                         <div
                           key={path}
-                          className="h-24 w-24 animate-pulse rounded border border-[var(--color-border)] bg-[var(--muted)]"
+                          className="h-24 w-24 animate-pulse rounded border border-[var(--color-border)] bg-[var(--color-bg-subtle)]"
                         />
                       )
                     }

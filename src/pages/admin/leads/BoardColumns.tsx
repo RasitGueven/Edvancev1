@@ -51,7 +51,7 @@ export function BoardColumns<T>({
           <section key={column.key} aria-label={column.title} className={spalte}>
             {/* Die Anzahl steht direkt hinter dem eigenen Spaltennamen, damit
                 sie nicht wie der Anfang der naechsten Spalte wirkt. */}
-            <h2 className="flex min-w-0 items-baseline gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+            <h2 className="flex min-w-0 items-baseline gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
               <span className="truncate">{column.title}</span>
               <span className="text-[var(--color-text-tertiary)]">{column.items.length}</span>
             </h2>

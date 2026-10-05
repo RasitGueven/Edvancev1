@@ -2,8 +2,10 @@
 // Warteschlange (12/47) und der duennen Fortschrittsleiste.
 //
 // "Hell arbeitet, Midnight inszeniert": das Band ist der einzige dunkle Streifen
-// des Screens — Fraunces-Titel, matte Gold-Haarlinie, kein Glow, keine Pills.
-// Darunter bleibt alles helle Arbeitsflaeche.
+// des Screens — Midnight-Verlauf der Schueler-App (--gradient-midnight, H1),
+// Fraunces-Titel, matte Gold-Haarlinie, kein Glow, keine Pills. Darunter bleibt
+// alles helle Arbeitsflaeche. Die Strecke ist eine Fokus-Seite ohne Leiste und
+// ohne Navbar: das Band ist ihr einziger Kopf, das X fuehrt hinaus.
 
 import type { JSX } from 'react'
 import { Link } from 'react-router-dom'
@@ -36,7 +38,7 @@ export function WizardTopBar({
 
   return (
     <header className="relative overflow-hidden rounded-[var(--radius-xl)] bg-[image:var(--gradient-midnight)] px-6 py-4 shadow-lg">
-      {/* Matte Gold-Haarlinie als Akzent — kein Glow (wie AdminHeader). */}
+      {/* Matte Gold-Haarlinie als Akzent — kein Glow. */}
       <span
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-px bg-[color-mix(in_srgb,var(--color-stage-gold-edge)_45%,transparent)]"

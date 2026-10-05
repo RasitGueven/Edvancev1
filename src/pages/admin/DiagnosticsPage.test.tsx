@@ -7,6 +7,7 @@ import {
   getTasksByCluster,
 } from '@/lib/supabase/tasks'
 import type { Task } from '@/types'
+import '@/i18n'
 import { DiagnosticsPage } from './DiagnosticsPage'
 import { makeCluster, makeSubject, makeTask } from './diagnostics/testFixtures'
 

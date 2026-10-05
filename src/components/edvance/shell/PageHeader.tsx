@@ -13,15 +13,18 @@ type Props = {
   /** Detailseiten: Zurück-Link zu ihrer Liste. */
   zurueckZu?: string
   zurueckLabel?: string
+  /** Router-State für den Zurück-Link (Editor → Pflege-Strecke). */
+  zurueckState?: unknown
 }
 
 /** Kompakter Seitenkopf der Hülle: kein Navy-Band, Titel in Fraunces 30 px. */
-export function PageHeader({ rubrik, titel, satz, aktionen, zurueckZu, zurueckLabel }: Props): JSX.Element {
+export function PageHeader({ rubrik, titel, satz, aktionen, zurueckZu, zurueckLabel, zurueckState }: Props): JSX.Element {
   return (
     <header className="flex flex-col gap-2">
       {zurueckZu && zurueckLabel && (
         <Link
           to={zurueckZu}
+          state={zurueckState}
           className="inline-flex min-h-[44px] items-center gap-2 self-start text-sm font-semibold text-[var(--color-text-link)] hover:underline"
         >
           <ArrowLeft aria-hidden="true" className="h-4 w-4" />

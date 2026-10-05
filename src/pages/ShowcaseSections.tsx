@@ -114,7 +114,7 @@ const COLOR_GROUPS = [
   { group: 'Text & Surface', tokens: [
     { label: 'Text Primary',   var: '--text-primary' },
     { label: 'Text Secondary', var: '--text-secondary' },
-    { label: 'Text Muted',     var: '--text-muted' },
+    { label: 'Text Muted',     var: '--color-text-tertiary' },
     { label: 'Surface',        var: '--surface' },
   ]},
 ]

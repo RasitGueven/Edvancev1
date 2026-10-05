@@ -89,7 +89,7 @@ export function VertragUnterlagenPage(): JSX.Element {
     <div className="min-h-screen bg-[var(--color-bg-surface)] font-[family-name:var(--font-body)]">
       <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-8 print:max-w-none print:p-0">
         <div className="flex items-center justify-between gap-4 print:hidden">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">
             {t('docsView.title', { ref: daten.vertrag.mandatsreferenz })}
           </p>
           <Button onClick={() => window.print()}>
@@ -123,7 +123,7 @@ export function VertragUnterlagenPage(): JSX.Element {
               ) : (
                 <DokumentText text={fillDokument(quelle.text, werte)} />
               )}
-              <p className="text-xs text-[var(--color-text-muted)]">
+              <p className="text-xs text-[var(--color-text-tertiary)]">
                 {t('docs.version', { version: dok.version })}
                 {zustimmung &&
                   ` · ${t('docsView.accepted', {
@@ -135,14 +135,14 @@ export function VertragUnterlagenPage(): JSX.Element {
                   {unterschrift ? (
                     <>
                       <img src={unterschrift.signatur} alt={t(`art.${art}`)} className="h-20 w-auto self-start" />
-                      <p className="text-xs text-[var(--color-text-muted)]">
+                      <p className="text-xs text-[var(--color-text-tertiary)]">
                         {t('docsView.signedAt', {
                           date: formatBerlinDateTime(unterschrift.unterschrieben_at, i18n.language),
                         })}
                       </p>
                     </>
                   ) : (
-                    <p className="pt-12 text-xs text-[var(--color-text-muted)]">{t('docsView.signLine')}</p>
+                    <p className="pt-12 text-xs text-[var(--color-text-tertiary)]">{t('docsView.signLine')}</p>
                   )}
                 </div>
               )}
