@@ -63,7 +63,7 @@ export function BoardSpalte({
   return (
     <section
       aria-label={titel}
-      className="flex w-72 shrink-0 flex-col gap-4 rounded-[var(--radius-lg)] bg-[var(--color-bg-subtle)] p-4"
+      className="flex w-board-spalte shrink-0 snap-start flex-col gap-4 rounded-[var(--radius-lg)] bg-[var(--color-bg-subtle)] p-4 @board-akten:w-auto @board-akten:min-w-0"
     >
       <div className="flex items-center justify-between gap-2">
         <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-tertiary)]">

@@ -21,5 +21,18 @@
   "zugriff": {
     "keinTitel": "Kein Zugriff",
     "keinText": "Du hast keine Berechtigung für diese Seite."
+  },
+  "shell": {
+    "navigation": "Hauptnavigation",
+    "menue": "Menü",
+    "menueAusklappen": "Menü ausklappen",
+    "menueEinklappen": "Menü einklappen",
+    "menueOeffnen": "Menü öffnen",
+    "menueSchliessen": "Menü schließen",
+    "abmelden": "Abmelden",
+    "bald": "bald",
+    "baldHinweis": "{{name}} kommt bald — noch nicht verfügbar.",
+    "zaehlerLabel_one": "{{count}} offen",
+    "zaehlerLabel_other": "{{count}} offen"
   }
 }

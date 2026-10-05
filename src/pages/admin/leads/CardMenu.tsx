@@ -31,7 +31,7 @@ export function CardMenu({ items }: { items: CardMenuItem[] }): JSX.Element | nu
         onKeyDown={(e) => {
           if (e.key === 'Escape') setOpen(false)
         }}
-        className="rounded-full p-2 text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-surface)]"
+        className="flex h-11 w-11 items-center justify-center rounded-full text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-app)]"
       >
         <MoreHorizontal className="h-5 w-5" />
       </button>

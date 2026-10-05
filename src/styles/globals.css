@@ -4,6 +4,23 @@
 @import "./print.css";
 @import "./report.css";
 
+/* ─── Hülle (Admin, später Coach) — Breiten als Tokens ────────────────────────────
+   Bauauftrag Admin-Hülle, Entscheidungen 4, 5 und 8. `static`, damit die Werte
+   auch dann auf :root stehen, wenn keine Utility sie benutzt: useLayoutModus
+   liest die beiden Breakpoints zur Laufzeit für matchMedia.
+   --breakpoint-*  → Varianten spalte: / voll: (unter spalte = Schublade)
+   --container-*   → max-w-/w-Utilities und Container-Varianten (@board-leads:) */
+@theme static {
+  --breakpoint-spalte:        900px;
+  --breakpoint-voll:          1280px;
+  --container-shell:          1400px;
+  --container-leiste:         256px;
+  --container-leiste-schmal:  88px;
+  --container-board-spalte:   300px;
+  --container-board-leads:    1000px;
+  --container-board-akten:    700px;
+}
+
 /* ─── Tailwind v4: map CSS variables to utility classes ───────────────────────── */
 @theme inline {
   /* Primär */
@@ -270,12 +287,10 @@
   }
 
   /* Navy-Kachel auf der Bühne: matt, ruhige Elevation, warme Oberkante. */
+  /* Deckend seit der Admin-Hülle (H2): die Kacheln stehen bis H3 auf hellem
+     Grund, ohne Bühne dahinter wären sie durchscheinend und blass. */
   .admin-tile {
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--color-stage-cta-top) 46%, transparent),
-      color-mix(in srgb, var(--color-stage-cta-bottom) 38%, transparent)
-    );
+    background: linear-gradient(135deg, var(--color-stage-cta-top), var(--color-stage-cta-bottom));
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-top-color: rgba(255, 255, 255, 0.20);
     box-shadow: var(--shadow-lg);

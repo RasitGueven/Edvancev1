@@ -1,0 +1,791 @@
+<title>Edvance Admin-Hülle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Schibsted+Grotesk:wght@400;500;600;700&family=Space+Grotesk:wght@400&display=swap">
+<style>
+/* Layout: Dummy-Leiste oben, darunter ein Geräterahmen (volle Breite, Laptop oder iPad).
+   Darin die Admin-App: Leiste links im Midnight der Schüler-App, heller Arbeitsbereich rechts.
+   Bewusst nur hell: die Admin-App hat (noch) keinen Dark Mode. Alle Farben aus edvance-app/src/design/tokens.ts. */
+:root{
+  /* Midnight — exakt der Verlauf der Schüler-App (midnightGradient) */
+  --mid-1:#43608F; --mid-2:#3E5985; --mid-3:#334B73; --mid-4:#263A5B; --mid-5:#17263F;
+  --navy:#334D7A; --navy-hover:#253D6A; --navy-light:#EEF2F8; --navy-line:#D3DCEA;
+  --on-cream:#1A2E4A;
+  --gold:#D4A843; --gold-soft:#E8D5A3; --gold-star:#F0DFAE;
+  --cream:#F7F5EE; --cream-80:rgba(247,245,238,.80); --cream-60:rgba(247,245,238,.60);
+  --cream-14:rgba(247,245,238,.14); --cream-08:rgba(247,245,238,.08);
+  /* Hub der Schüler-App: heller Grund, weiße Karten, Tinte */
+  --bg:#F7F7F5; --surface:#FFFFFF; --subtle:#EFEFED; --hover:#FAFAF8; --border:#E8E8E5; --line:#DCDCD8;
+  --t1:#1A1A18; --t2:#4A4A47; --t3:#888884;
+  /* Zustände */
+  --ok:#2A8A4A; --ok-bg:#EAF5EE; --warn:#C87E00; --warn-bg:#FEF3E2; --bad:#B91C1C; --bad-bg:#FEF2F2;
+  /* Dummy-Werkzeug (nicht Teil der App) */
+  --hint-bg:#FBF6EA; --hint-line:#D4A843; --hint-ink:#7A5610;
+  --stage:#E3E6EB; --bezel:#0B111F; --scrim:rgba(11,17,31,.42);
+  --sh-xs:0 1px 2px rgba(51,77,122,.06);
+  --sh-sm:0 1px 3px rgba(51,77,122,.07),0 1px 2px rgba(51,77,122,.04);
+  --sh-md:0 4px 14px rgba(51,77,122,.10);
+  --sh-lg:0 16px 40px rgba(51,77,122,.20);
+  --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:20px;
+  --f-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --f-body:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mark:"Space Grotesk","Schibsted Grotesk",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--stage);color:var(--t1);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.sm{width:16px;height:16px}
+kbd{font:inherit;font-size:11px;font-weight:500;border:1px solid currentColor;border-radius:4px;padding:0 5px;opacity:.6;line-height:1.5}
+@media (hover:none){kbd{display:none}}
+
+/* ========== Dummy-Leiste ========== */
+.dbar{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;padding-inline:16px;padding-block:10px;
+  background:var(--surface);border-bottom:1px solid var(--border);position:relative;z-index:5}
+.dbar .tt{display:flex;flex-direction:column;line-height:1.25;margin-right:auto;min-width:0}
+.dbar .tt b{font-family:var(--f-display);font-weight:600;font-size:17px}
+.dbar .tt span{font-size:12.5px;color:var(--t3)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--surface);flex-wrap:wrap}
+.seg button{border:none;border-left:1px solid var(--line);background:none;padding:7px 12px;font-size:13px;color:var(--t2);cursor:pointer;white-space:nowrap}
+.seg button:first-child{border-left:none}
+.seg button:hover{background:var(--subtle)}
+.seg button[aria-pressed="true"]{background:var(--navy);color:var(--cream);font-weight:600}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--t3)}
+.sw{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);
+  border-radius:999px;padding:4px 12px 4px 4px;font-size:13px;color:var(--t2);cursor:pointer}
+.sw .knob{width:28px;height:16px;border-radius:999px;background:var(--line);position:relative;flex:none}
+.sw .knob::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--surface);transition:left .15s ease-out}
+.sw[aria-pressed="true"]{border-color:var(--hint-line);color:var(--hint-ink)}
+.sw[aria-pressed="true"] .knob{background:var(--hint-line)}
+.sw[aria-pressed="true"] .knob::after{left:14px}
+
+/* ========== Bühne und Gerät ========== */
+.stage{display:flex;flex-direction:column;align-items:center;padding-inline:16px;padding-block:20px 28px}
+.stage.full{padding:0}
+.frame{position:relative}
+.device{position:absolute;top:0;left:0;transform-origin:top left;background:var(--bg);overflow:hidden}
+.stage.full .frame{width:100%}
+.stage.full .device{position:relative}
+.device.laptop{border-radius:12px;box-shadow:0 0 0 1px rgba(11,17,31,.18),var(--sh-lg)}
+.device.ipad{border-radius:26px;box-shadow:0 0 0 12px var(--bezel),0 24px 60px rgba(11,17,31,.35)}
+.devlabel{font-size:12.5px;color:var(--t3);margin-top:22px;text-align:center}
+.stage.full .devlabel{display:none}
+
+/* ========== App-Hülle ========== */
+.app{position:relative;display:grid;height:100%;grid-template-columns:minmax(0,1fr)}
+.app[data-layout="full"]{grid-template-columns:256px minmax(0,1fr)}
+.app[data-layout="rail"]{grid-template-columns:88px minmax(0,1fr)}
+.side{grid-column:1}
+.mainwrap{grid-column:-2/-1;grid-row:1;display:flex;flex-direction:column;min-width:0;height:100%;overflow:hidden}
+.mtop{display:none;align-items:center;gap:8px;padding-inline:8px;padding-block:6px;background:var(--surface);border-bottom:1px solid var(--border)}
+.app[data-layout="narrow"] .mtop{display:flex}
+.mtop .sp{flex:1}
+.ibtn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:none;background:none;border-radius:var(--r-md);color:var(--t2);cursor:pointer}
+.ibtn:hover{background:var(--subtle);color:var(--t1)}
+.scroll{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
+.main{container:main / inline-size;max-width:1400px;margin-inline:auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+.app[data-layout="rail"] .main{padding-inline:28px;padding-block:28px 56px;gap:24px}
+.app[data-layout="full"] .main{padding-inline:36px;padding-block:32px 64px;gap:24px}
+
+/* ---- Leiste ---- */
+.side{display:flex;flex-direction:column;gap:6px;min-height:0;overflow-y:auto;padding:16px 12px;
+  background:linear-gradient(to bottom,var(--mid-1),var(--mid-2) 25%,var(--mid-3) 50%,var(--mid-4) 75%,var(--mid-5));color:var(--cream)}
+.side.light{background:var(--surface);color:var(--t1);border-right:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:8px;padding:4px 8px 14px;min-height:48px}
+.brand svg{width:34px;height:34px;flex:none}
+.brand .wm{font-family:var(--f-mark);font-size:20px;letter-spacing:.045em;line-height:1}
+.brand .role{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-60)}
+.side.light .brand .role{color:var(--t3)}
+.sbtn{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;border:1px solid var(--cream-14);background:var(--cream-08);
+  color:var(--cream-80);border-radius:var(--r-md);padding:0 12px;cursor:pointer;font-size:14px;text-align:left}
+.sbtn:hover{background:var(--cream-14);color:var(--cream)}
+.sbtn kbd{margin-left:auto}
+.side.light .sbtn{border-color:var(--line);background:var(--bg);color:var(--t3)}
+.side.light .sbtn:hover{color:var(--t1);background:var(--subtle)}
+.nav{display:flex;flex-direction:column;gap:2px;margin-top:10px}
+.ngrp{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--cream-60);padding:14px 12px 6px}
+.side.light .ngrp{color:var(--t3)}
+.ni{position:relative;display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:var(--r-md);border:none;background:none;
+  color:var(--cream-80);font-size:14.5px;font-weight:500;cursor:pointer;text-align:left;width:100%;text-decoration:none}
+.ni:hover{background:var(--cream-08);color:var(--cream)}
+.ni[aria-current="page"]{background:var(--cream-14);color:var(--cream);font-weight:600}
+.ni[aria-current="page"] .ic{color:var(--gold)}
+.ni .short,.sbtn .short{display:none}
+.ni .soon{margin-left:auto;font-size:11px;font-weight:500;color:var(--cream-60)}
+.ni.is-soon{color:var(--cream-60)}
+.cnt{margin-left:auto;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:var(--gold);color:var(--on-cream);
+  font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.side.light .ni{color:var(--t2)}
+.side.light .ni:hover{background:var(--bg);color:var(--t1)}
+.side.light .ni[aria-current="page"]{background:var(--navy-light);color:var(--navy)}
+.side.light .ni[aria-current="page"] .ic{color:var(--navy)}
+.side.light .ni.is-soon,.side.light .ni .soon{color:var(--t3)}
+.side.light .cnt{background:var(--navy);color:var(--cream)}
+.sfoot{margin-top:auto;padding-top:14px;border-top:1px solid var(--cream-14);display:flex;flex-direction:column;gap:2px}
+.side.light .sfoot{border-top-color:var(--border)}
+.me{display:flex;align-items:center;gap:10px;padding:8px 12px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--cream);color:var(--on-cream);display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex:none}
+.side.light .av{background:var(--navy);color:var(--cream)}
+.me .lbl{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.me small{font-size:12px;color:var(--cream-60)}
+.side.light .me small{color:var(--t3)}
+
+/* Leiste als schmale Spalte (iPad quer) */
+.app[data-layout="rail"]:not(.side-open) .side{padding:14px 8px;align-items:stretch}
+.app[data-layout="rail"]:not(.side-open) .brand{justify-content:center;padding:4px 0 12px}
+.app[data-layout="rail"]:not(.side-open) .brand .wm,
+.app[data-layout="rail"]:not(.side-open) .brand .role,
+.app[data-layout="rail"]:not(.side-open) .me .lbl,
+.app[data-layout="rail"]:not(.side-open) .ni.logout,
+.app[data-layout="rail"]:not(.side-open) .ni .long,
+.app[data-layout="rail"]:not(.side-open) .sbtn .long,
+.app[data-layout="rail"]:not(.side-open) .ni .soon,
+.app[data-layout="rail"]:not(.side-open) .sbtn kbd{display:none}
+.app[data-layout="rail"]:not(.side-open) .ni,
+.app[data-layout="rail"]:not(.side-open) .sbtn{flex-direction:column;justify-content:center;gap:3px;min-height:52px;padding:4px 2px;font-size:11px;font-weight:500;text-align:center}
+.app[data-layout="rail"]:not(.side-open) .ngrp{font-size:0;padding:0;height:1px;background:var(--cream-14);margin:5px 14px}
+.app[data-layout="rail"]:not(.side-open) .side.light .ngrp{background:var(--border)}
+.app[data-layout="rail"]:not(.side-open) .nav{margin-top:4px}
+.app[data-layout="rail"]:not(.side-open) .sbtn{border:none;background:none}
+.app[data-layout="rail"]:not(.side-open) .ni .short,
+.app[data-layout="rail"]:not(.side-open) .sbtn .short{display:block;line-height:1.15}
+.app[data-layout="rail"]:not(.side-open) .nav{gap:2px}
+.app[data-layout="rail"]:not(.side-open) .cnt{position:absolute;top:4px;right:12px;min-width:18px;height:18px;font-size:10.5px;padding:0 5px}
+.app[data-layout="rail"]:not(.side-open) .me{justify-content:center;padding:8px 0}
+.railx{display:none}
+.app[data-layout="rail"] .railx{display:flex}
+
+/* Leiste ausgeklappt (iPad quer) bzw. als Schublade (iPad hoch, Telefon) */
+.app[data-layout="rail"].side-open .side,
+.app[data-layout="narrow"] .side{position:absolute;top:0;bottom:0;left:0;width:280px;z-index:30;box-shadow:var(--sh-lg)}
+.app[data-layout="narrow"] .side{transform:translateX(-105%);transition:transform .2s ease-out}
+.app[data-layout="narrow"].side-open .side{transform:none}
+.scrim{position:absolute;inset:0;background:var(--scrim);z-index:20}
+
+/* ========== Bausteine ========== */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:var(--r-md);
+  border:1px solid var(--navy);background:var(--navy);color:var(--cream);font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap;
+  transition:background .15s ease-out}
+.btn:hover{background:var(--navy-hover)}
+.btn.ghost{background:var(--surface);color:var(--t1);border-color:var(--line)}
+.btn.ghost:hover{background:var(--subtle)}
+.btn.sm{min-height:34px;padding:0 12px;font-size:13px}
+.btn.sm::after{content:"";position:absolute;inset:-5px -2px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap;
+  background:var(--subtle);color:var(--t2)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.navy{background:var(--navy-light);color:var(--navy)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-sm)}
+.link{display:inline-flex;align-items:center;gap:6px;min-height:44px;border:none;background:none;padding:0;color:var(--navy);font-size:14px;font-weight:600;cursor:pointer}
+.link:hover{text-decoration:underline;text-underline-offset:3px}
+input.inp{width:100%;min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-md);padding:0 12px 0 40px;font-size:14.5px}
+.searchf{position:relative;flex:1 1 260px;min-width:0}
+.searchf .ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chips .lab{font-size:12.5px;color:var(--t3);margin-right:2px}
+.chip{min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13.5px;color:var(--t2);cursor:pointer;position:relative}
+.chip::after{content:"";position:absolute;inset:-4px -1px}
+.chip:hover{border-color:var(--navy);color:var(--navy)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--cream);font-weight:600}
+.num{font-variant-numeric:tabular-nums}
+
+/* Seitenkopf: kompakt, kein Navy-Band mehr */
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 20px}
+.ph .txt{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 320px}
+.ph h1{font-family:var(--f-display);font-weight:500;font-size:30px;line-height:1.15;margin:0;letter-spacing:-.005em;text-wrap:balance}
+.ph p{margin:0;color:var(--t2);font-size:14.5px;max-width:64ch}
+.ph .acts{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Hinweise (Dummy) */
+.hint{display:none;border:1.5px dashed var(--hint-line);background:var(--hint-bg);border-radius:var(--r-md);padding:10px 13px;font-size:13px;line-height:1.55;color:var(--t2)}
+.hint b{color:var(--hint-ink);font-weight:600;margin-right:4px}
+.hint code{font-size:12px;background:rgba(212,168,67,.16);border-radius:4px;padding:0 4px}
+body.hints .hint{display:block}
+
+/* ========== Heute ========== */
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.kpi{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border:none;background:none;text-align:left;cursor:pointer;border-top:1px solid var(--subtle);border-left:1px solid var(--subtle);min-width:0}
+.kpi:hover{background:var(--hover)}
+.kpi .k{font-size:12.5px;color:var(--t3);font-weight:500}
+.kpi .v{font-family:var(--f-display);font-weight:500;font-size:26px;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--t1)}
+.kpi .s{font-size:12.5px;color:var(--t2)}
+.kpi:nth-child(-n+2){border-top:none}
+.kpi:nth-child(2n+1){border-left:none}
+.kpis .kpi:last-child:nth-child(odd){grid-column:1/-1}
+@container main (min-width:700px){
+  .kpis{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .kpi{border-top:none;border-left:1px solid var(--subtle)}
+  .kpi:nth-child(2n+1){border-left:1px solid var(--subtle)}
+  .kpi:first-child{border-left:none}
+  .kpis .kpi:last-child:nth-child(odd){grid-column:auto}
+}
+.today{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
+@container main (min-width:980px){.today{grid-template-columns:minmax(0,1fr) 340px;gap:24px}}
+.secth{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.secth h2{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin:0}
+.secth span{font-size:13px;color:var(--t3)}
+.queues{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+@container main (min-width:640px){.queues{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.q{display:flex;flex-direction:column;padding:16px 18px 6px}
+.qh{display:flex;align-items:flex-start;gap:12px;padding-bottom:10px}
+.qi{width:36px;height:36px;border-radius:var(--r-md);background:var(--navy-light);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.qi.ok{background:var(--ok-bg);color:var(--ok)}
+.qt{flex:1;min-width:0}
+.qt h3{margin:0;font-size:16px;font-weight:600;line-height:1.3}
+.qt p{margin:1px 0 0;font-size:13px;color:var(--t3)}
+.qc{font-family:var(--f-display);font-size:24px;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--t1)}
+.qc.zero{color:var(--ok)}
+.ql{list-style:none;margin:0;padding:0}
+.qr{display:flex;align-items:center;gap:10px;min-height:54px;padding:8px 0;border-top:1px solid var(--subtle)}
+.qm{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.35}
+.qm b{font-weight:600;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qm span{font-size:13px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qr .right{display:flex;align-items:center;gap:8px;flex:none}
+.qmore{font-size:13px;color:var(--t3);padding:6px 0 0}
+.qf{display:flex;justify-content:flex-end;border-top:1px solid var(--subtle);margin-top:auto}
+.okline{display:flex;align-items:center;gap:8px;color:var(--ok);font-size:13.5px;font-weight:500}
+
+.ops{padding:18px 18px 8px}
+.ops h3{margin:2px 0 0;font-family:var(--f-display);font-weight:500;font-size:21px;line-height:1.25}
+.ops .sub{font-size:13px;color:var(--t3);margin:2px 0 0}
+.tl{list-style:none;margin:14px 0 0;padding:0}
+.tli{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;min-height:56px;padding:8px 0;border-top:1px solid var(--subtle)}
+.tli time{font-variant-numeric:tabular-nums;font-weight:600;font-size:14px;color:var(--t1)}
+.tli .w{display:flex;flex-direction:column;min-width:0;line-height:1.35}
+.tli .w b{font-weight:600;font-size:14px}
+.tli .w span{font-size:12.5px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tli.now time{color:var(--navy)}
+.seats{display:inline-flex;gap:3px;align-items:center}
+.seats i{width:8px;height:8px;border-radius:50%;background:var(--subtle);box-shadow:inset 0 0 0 1px var(--line)}
+.seats i.on{background:var(--navy);box-shadow:none}
+.seats small{font-size:12px;color:var(--t3);margin-left:4px;font-variant-numeric:tabular-nums}
+.abs{margin-top:6px;border-top:1px solid var(--subtle);padding:12px 0 4px;display:flex;flex-direction:column;gap:6px}
+.abs .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px}
+.abs .note{font-size:12.5px;color:var(--t3)}
+
+/* ========== Boards (Leads, Schüler) ========== */
+.filters{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.board{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:14px;align-items:start}
+.lane{background:var(--subtle);border-radius:var(--r-lg);padding:10px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.laneh{display:flex;align-items:center;gap:8px;padding:4px 6px 2px}
+.laneh b{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t2)}
+.laneh span{font-size:12px;color:var(--t3);font-variant-numeric:tabular-nums;margin-left:auto;background:var(--surface);border-radius:999px;padding:0 8px;border:1px solid var(--border)}
+.lc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--sh-xs);padding:12px 12px 12px 14px;display:flex;flex-direction:column;gap:6px}
+.lc .top{display:flex;align-items:flex-start;gap:6px}
+.lc .nm{flex:1;min-width:0;font-weight:600;font-size:15px;line-height:1.3}
+.lc .meta{font-size:13px;color:var(--t3);line-height:1.4}
+.lc .tags{display:flex;gap:5px;flex-wrap:wrap}
+.lc .tag{font-size:12px;padding:1px 8px;border-radius:var(--r-sm);background:var(--bg);border:1px solid var(--border);color:var(--t2)}
+.lc .info{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t2)}
+.lc .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.lc .acts .btn{flex:1 1 auto}
+.more{width:36px;height:36px;margin:-6px -6px 0 0;position:relative}
+.more::after{content:"";position:absolute;inset:-4px}
+.empty{font-size:13px;color:var(--t3);padding:8px 6px}
+.bar{height:6px;border-radius:3px;background:var(--subtle);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--navy);border-radius:3px}
+@container main (max-width:999px){
+  .board.scrolls{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin-inline:-4px;padding-inline:4px}
+  .board.scrolls .lane{flex:0 0 min(300px,82%);scroll-snap-align:start}
+}
+@container main (max-width:699px){
+  .board.scrolls3{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin-inline:-4px;padding-inline:4px}
+  .board.scrolls3 .lane{flex:0 0 min(300px,82%);scroll-snap-align:start}
+}
+
+/* ========== Verträge ========== */
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--border);background:var(--surface);
+  color:var(--t2);font-size:14px;font-weight:500;cursor:pointer}
+.tab:hover{border-color:var(--navy);color:var(--navy)}
+.tab .n{font-size:12px;font-weight:700;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--subtle);color:var(--t2);display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.tab[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:var(--cream);font-weight:600}
+.tab[aria-selected="true"] .n{background:var(--cream);color:var(--on-cream)}
+.minikpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.minikpis .kpi{cursor:default}
+.minikpis .kpi:hover{background:none}
+.minikpis .kpi:nth-child(n){border-top:none;border-left:1px solid var(--subtle)}
+.minikpis .kpi:first-child{border-left:none}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);padding:12px 14px;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--hover)}
+td{padding:12px 14px;border-bottom:1px solid var(--subtle);vertical-align:middle}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--hover)}
+tbody tr:last-child td{border-bottom:none}
+td .two{display:flex;flex-direction:column;line-height:1.35}
+td .two b{font-weight:600}
+td .two span{font-size:13px;color:var(--t3)}
+td.r,th.r{text-align:right}
+@container main (max-width:820px){.opt{display:none}}
+
+/* Platzhalter-Seiten */
+.soonbox{padding:22px 24px;display:flex;flex-direction:column;gap:8px;max-width:640px}
+.soonbox h2{margin:0;font-family:var(--f-display);font-weight:500;font-size:21px}
+.soonbox p{margin:0;color:var(--t2);font-size:14.5px}
+
+/* ========== Suche (⌘K) ========== */
+.cmdk{position:absolute;inset:0;z-index:40;background:var(--scrim);display:flex;justify-content:center;align-items:flex-start;padding:72px 16px 16px}
+.cbox{width:min(600px,100%);background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--sh-lg);overflow:hidden;display:flex;flex-direction:column;max-height:100%}
+.cin{display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid var(--border)}
+.cin input{flex:1;min-height:56px;border:none;outline:none;font-size:16px;background:none}
+.cres{overflow:auto;padding:6px}
+.cgrp{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);padding:10px 12px 4px}
+.copt{display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0 12px;border:none;background:none;border-radius:var(--r-md);text-align:left;cursor:pointer;font-size:14.5px}
+.copt span{margin-left:auto;font-size:12.5px;color:var(--t3)}
+.copt[aria-selected="true"]{background:var(--navy-light);color:var(--navy)}
+.cnone{padding:18px 14px;color:var(--t3);font-size:14px}
+
+/* Toast */
+.toast{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;background:var(--on-cream);color:var(--cream);border-radius:var(--r-md);
+  padding:10px 16px;font-size:14px;box-shadow:var(--sh-lg);max-width:calc(100% - 32px)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="dbar">
+  <div class="tt"><b>Admin-Hülle · Klick-Dummy</b><span>Edvancev1 · Beispieldaten · Stand 05.10.2026</span></div>
+  <div class="ctl"><span>Ansicht</span>
+    <div class="seg" role="group" aria-label="Gerät">
+      <button type="button" id="m-full" onclick="setMode('full')">Ganze Breite</button>
+      <button type="button" id="m-laptop" onclick="setMode('laptop')">Laptop</button>
+      <button type="button" id="m-ipadQ" onclick="setMode('ipadQ')">iPad quer</button>
+      <button type="button" id="m-ipadH" onclick="setMode('ipadH')">iPad hoch</button>
+    </div></div>
+  <div class="ctl"><span>Leiste</span>
+    <div class="seg" role="group" aria-label="Farbe der Leiste">
+      <button type="button" id="s-navy" onclick="setSide('navy')">Navy</button>
+      <button type="button" id="s-light" onclick="setSide('light')">Hell</button>
+    </div></div>
+  <button type="button" class="sw" id="sw-hints" aria-pressed="false" onclick="toggleHints()"><span class="knob"></span>Hinweise</button>
+</header>
+
+<div class="stage" id="stage">
+  <div class="frame" id="frame">
+    <div class="device" id="device">
+      <div class="app" id="app" data-layout="full">
+        <aside class="side" id="side" aria-label="Hauptmenü"></aside>
+        <div class="mainwrap">
+          <div class="mtop">
+            <button type="button" class="ibtn" aria-label="Menü öffnen" onclick="openSide()"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <span id="mtop-logo"></span>
+            <span class="sp"></span>
+            <button type="button" class="ibtn" aria-label="Suchen" onclick="openCmdk()"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+          </div>
+          <div class="scroll" id="scroll"><main class="main" id="main"></main></div>
+        </div>
+        <div class="scrim" id="scrim" hidden onclick="closeSide()"></div>
+        <div class="cmdk" id="cmdk" hidden onclick="if(event.target===this)closeCmdk()">
+          <div class="cbox" role="dialog" aria-label="Suche">
+            <div class="cin"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input id="cmdk-in" type="text" placeholder="Schüler, Leads, Verträge oder Seiten suchen" aria-label="Suchen" autocomplete="off"></div>
+            <div class="cres" id="cmdk-res" role="listbox"></div>
+          </div>
+        </div>
+        <div class="toast" id="toast" role="status" hidden></div>
+      </div>
+    </div>
+  </div>
+  <div class="devlabel" id="devlabel"></div>
+</div>
+
+<script>
+/* ================= Symbole (Lucide, wie in der App) ================= */
+const P={
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+  inbox:'<polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+  cal:'<path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4M8 2v4M3 10h5"/><path d="M17.5 17.5 16 16.3V14"/><circle cx="16" cy="16" r="6"/>',
+  folder:'<path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/>',
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  scroll:'<path d="M15 12h-5M15 8h-5M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>',
+  file:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/>',
+  clip:'<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+  pen:'<path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.85z"/>',
+  search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><path d="M21 12H9"/>',
+  plus:'<path d="M5 12h14M12 5v14"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  more:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+  panel:'<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18M14 9l3 3-3 3"/>',
+  x:'<path d="M18 6 6 18M6 6l12 12"/>',
+  check:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  chat:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+  gauge:'<path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>'
+};
+const I=(n,c="")=>`<svg class="ic ${c}" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
+function logo(dark){
+  const c=dark?"var(--cream)":"var(--navy)";
+  return `<svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M 8,36 C 12,52 28,60 34,58 C 52,54 70,14 90,8" stroke="${c}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="36" r="4" fill="${c}"/><path d="M 83,14 L 90,8 L 81,7" stroke="var(--gold)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="wm">edvance</span>`;
+}
+
+/* ================= Beispieldaten ================= */
+const LEADS=[
+  {id:"l1",name:"Lea Fischer",kl:10,schule:"Schiller-Gymnasium",f:["Deutsch"],status:"new",seit:7},
+  {id:"l2",name:"Jonas Weber",kl:9,schule:"Humboldt-Gymnasium",f:["Mathematik","Englisch"],status:"new",seit:5},
+  {id:"l3",name:"Mia Schneider",kl:8,schule:"Gymnasium Kreuzgasse",f:["Mathematik"],status:"new",seit:3},
+  {id:"l4",name:"Emma Hoffmann",kl:9,schule:"Gymnasium Rodenkirchen",f:["Mathematik"],status:"contacted",seit:5,termin:"Mi, 07.10. · 16:00"},
+  {id:"l5",name:"Noah Becker",kl:8,schule:"Dreikönigsgymnasium",f:["Mathematik"],status:"contacted",seit:4,termin:"Do, 08.10. · 17:30"},
+  {id:"l6",name:"Paul Schäfer",kl:9,schule:"Albertus-Magnus-Gymnasium",f:["Mathematik"],status:"lsa_freigegeben",seit:1,lsa:"heute 15:00 · Raum 2"},
+  {id:"l7",name:"Hannah Koch",kl:10,schule:"Gymnasium Kreuzgasse",f:["Mathematik","Deutsch"],status:"lsa_fertig",seit:0,lsa:"fertig heute 11:20"},
+  {id:"l8",name:"Ben Richter",kl:8,schule:"Humboldt-Gymnasium",f:["Mathematik"],status:"lsa_fertig",seit:0,lsa:"fertig heute 09:40"}
+];
+const LANES=[["new","Offene Leads"],["contacted","Termin vereinbart"],["lsa_freigegeben","Analyse"],["lsa_fertig","Analyse abgeschlossen"]];
+const AMPEL={im_plan:["ok","im Plan"],leicht:["warn","leicht im Rückstand"],deutlich:["bad","deutlich im Rückstand"]};
+const SCHUELER=[
+  ["Ali Yılmaz",8,"Gymnasium Kreuzgasse","im_plan",7,"04.10."],["Sophie Wagner",8,"Humboldt-Gymnasium","im_plan",9,"02.10."],
+  ["Finn Braun",8,"Schiller-Gymnasium","leicht",8,"30.09."],["Lina Zimmermann",9,"Gymnasium Kreuzgasse","im_plan",10,"02.10."],
+  ["Elias Krüger",9,"Humboldt-Gymnasium","deutlich",6,"24.09."],["Marie Hartmann",9,"Schiller-Gymnasium","im_plan",2,"01.10."],
+  ["Luca Lange",9,"Gymnasium Kreuzgasse","im_plan",3,"02.10."],["Clara Schmitt",10,"Humboldt-Gymnasium","leicht",9,"28.09."],
+  ["Theo Werner",10,"Schiller-Gymnasium","im_plan",8,"01.10."],["Ella Krause",10,"Gymnasium Kreuzgasse","deutlich",7,"23.09."]
+].map(([name,kl,schule,ampel,verbraucht,letzte])=>({name,kl,schule,ampel,verbraucht,einheiten:24,letzte}));
+// Vertragspartner, Kind, Klasse, Paket, Laufzeit, Beginn, Ende, wirksamer Status, Beitrag (Cent), Zahlung, endet in Tagen
+const VERTRAEGE=[
+  ["Andrea Braun","Finn Braun",8,"Standard","Jahr","01.09.2026","31.08.2027","aktiv",26990,"in_ordnung",330],
+  ["Thomas Wagner","Sophie Wagner",8,"Basic","Halbjahr","01.03.2026","31.10.2026","aktiv",21990,"in_ordnung",26],
+  ["Murat Yılmaz","Ali Yılmaz",8,"Premium","Jahr","01.09.2026","31.08.2027","aktiv",34990,"in_ordnung",330],
+  ["Peter Zimmermann","Lina Zimmermann",9,"Premium","Jahr","01.09.2026","31.08.2027","aktiv",34990,"in_ordnung",330],
+  ["Sabine Krüger","Elias Krüger",9,"Standard","Jahr","01.09.2026","31.08.2027","aktiv",26990,"in_ordnung",330],
+  ["Julia Hartmann","Marie Hartmann",9,"Basic","Jahr","01.10.2026","30.09.2027","im_widerruf",19990,"in_ordnung",360],
+  ["Stefan Lange","Luca Lange",9,"Standard","Halbjahr","01.10.2026","31.05.2027","aktiv",29990,"in_ordnung",238],
+  ["Claudia Schmitt","Clara Schmitt",10,"Premium","Halbjahr","01.09.2026","30.04.2027","aktiv",38990,"in_ordnung",207],
+  ["Markus Werner","Theo Werner",10,"Basic","Jahr","01.09.2026","31.08.2027","aktiv",19990,"in_ordnung",330],
+  ["Nicole Krause","Ella Krause",10,"Standard","Jahr","01.09.2026","31.08.2027","aktiv",26990,"in_ordnung",330]
+].map(([partner,kind,kl,paket,laufzeit,beginn,ende,status,cent,zahlung,endetIn])=>({partner,kind,kl,paket,laufzeit,beginn,ende,status,cent,zahlung,endetIn}));
+const ANTRAEGE=[{partner:"Daniel Neumann",kind:"Jakob Neumann",kl:9,paket:"Standard",laufzeit:"Jahr",beginn:"01.11.2026",seit:2}];
+const SESSIONS=[
+  {t:"15:00",art:"LSA",titel:"Lernstandsanalyse · Raum 2",wer:"Paul Schäfer · mit Rasit"},
+  {t:"15:00",titel:"Session · Raum 1",wer:"Coach Sara Özdemir",belegt:4},
+  {t:"16:30",titel:"Session · Raum 1",wer:"Coach Sara Özdemir",belegt:5},
+  {t:"16:30",titel:"Session · Raum 2",wer:"Coach Jonas Brandt",belegt:2},
+  {t:"18:00",titel:"Session · Raum 1",wer:"Coach Jonas Brandt",belegt:3}
+];
+const FREIGABE=[["Lineare Funktionen","Klasse 7/8",8],["Kreis: Umfang und Fläche","Klasse 9/10",4]];
+const RUECKFRAGEN=2;
+
+const euro=c=>new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR"}).format(c/100);
+const laufend=VERTRAEGE.filter(v=>v.status==="aktiv"||v.status==="im_widerruf");
+const abbuchung=laufend.reduce((s,v)=>s+v.cent,0);
+const auslaufend=VERTRAEGE.filter(v=>v.endetIn<=60);
+const rueckstand=SCHUELER.filter(s=>s.ampel!=="im_plan").sort((a,b)=>(a.ampel==="deutlich"?0:1)-(b.ampel==="deutlich"?0:1));
+const nNeu=LEADS.filter(l=>l.status==="new").length;
+const nFreigabe=FREIGABE.reduce((s,x)=>s+x[2],0);
+
+/* ================= Menü und Seiten ================= */
+const NAV=[
+  {id:"heute",label:"Heute",icon:"sun"},
+  {grp:"Vertrieb"},
+  {id:"leads",label:"Leads",icon:"inbox",cnt:nNeu},
+  {grp:"Betrieb"},
+  {id:"stundenplan",label:"Stundenplan",short:"Plan",icon:"cal"},
+  {id:"schueler",label:"Schüler",icon:"folder"},
+  {id:"coaches",label:"Coaches",icon:"users"},
+  {grp:"Verwaltung"},
+  {id:"vertraege",label:"Verträge",icon:"scroll",cnt:ANTRAEGE.length},
+  {id:"reports",label:"Eltern-Reports",short:"Reports",icon:"file",soon:true},
+  {id:"lsa",label:"LSA-Ergebnisse",short:"LSA",icon:"clip",soon:true},
+  {grp:"Inhalte"},
+  {id:"pflege",label:"Item-Pflege",short:"Inhalte",icon:"pen",cnt:nFreigabe}
+];
+const PAGES={
+  leads:{grp:"Vertrieb",title:"Leads",desc:"Interessenten erfassen, qualifizieren und in den Vertrag überführen."},
+  stundenplan:{grp:"Betrieb",title:"Stundenplan",desc:"Präsenz-Sessions anlegen und Kinder einem Coach-Termin zuweisen."},
+  schueler:{grp:"Betrieb",title:"Schüler",desc:"Alle Akten nach Klassenstufe: Einheiten-Stand, letzte Session, schnell auffindbar."},
+  coaches:{grp:"Betrieb",title:"Coaches",desc:"Coach-Accounts anlegen und Zugangsdaten vergeben."},
+  vertraege:{grp:"Verwaltung",title:"Verträge",desc:"Anträge, laufende und auslaufende Verträge und Zahlungsverzüge an einer Stelle."},
+  reports:{grp:"Verwaltung",title:"Eltern-Reports",desc:"Monatliche Zwischenberichte freigeben und versenden.",soon:true},
+  lsa:{grp:"Verwaltung",title:"LSA-Ergebnisse",desc:"Ausgewertete Lernstandsanalysen prüfen und fürs Elterngespräch freigeben.",soon:true},
+  pflege:{grp:"Inhalte",title:"Item-Pflege",desc:"Aufgaben prüfen, nachpflegen und für die Lernstandsanalyse freigeben."}
+};
+
+/* ================= Zustand ================= */
+const MODES={full:null,laptop:[1440,900,"Laptop · 1440 × 900 · Leiste ausgeklappt"],ipadQ:[1180,820,"iPad Air quer · 1180 × 820 · Leiste schmal"],ipadH:[820,1180,"iPad Air hoch · 820 × 1180 · Leiste als Schublade"]};
+const S={page:"heute",mode:"full",side:"navy",hints:false,sideOpen:false,
+  leadQ:"",leadFach:"Alle",leadKl:"Alle",schuelerQ:"",tab:"uebersicht",vertragQ:"",cmdSel:0};
+try{const m=localStorage.getItem("eh-mode");if(m&&m in MODES)S.mode=m;const s=localStorage.getItem("eh-side");if(s==="light"||s==="navy")S.side=s;}catch(e){}
+
+/* ================= Hilfen ================= */
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const hint=t=>`<div class="hint"><b>Hinweis</b>${t}</div>`;
+const initials=n=>n.split(" ").map(x=>x[0]).join("").slice(0,2);
+function seats(n){let h="";for(let i=0;i<5;i++)h+=`<i class="${i<n?"on":""}"></i>`;return `<span class="seats" title="${n} von 5 Plätzen belegt">${h}<small>${n}/5</small></span>`;}
+function head(id,acts=""){const p=PAGES[id];
+  return `<header class="ph"><div class="txt"><span class="eyebrow">${p.grp}</span><h1>${p.title}</h1><p>${p.desc}</p></div>${acts?`<div class="acts">${acts}</div>`:""}</header>`;}
+const neuerLead=`<button type="button" class="btn" onclick="toast('Formular „Neuer Lead“ öffnet sich wie heute.')">${I("plus","sm")} Neuer Lead</button>`;
+
+/* ================= Leiste ================= */
+function renderSide(){
+  const side=document.getElementById("side");
+  side.className="side"+(S.side==="light"?" light":"");
+  const dark=S.side==="navy";
+  const items=NAV.map(n=>{
+    if(n.grp)return `<div class="ngrp">${n.grp}</div>`;
+    const cur=S.page===n.id?' aria-current="page"':"";
+    return `<button type="button" class="ni${n.soon?" is-soon":""}"${cur} onclick="go('${n.id}')" title="${n.label}">${I(n.icon)}<span class="long">${n.label}</span><span class="short">${n.short||n.label}</span>${n.soon?`<span class="soon">bald</span>`:""}${n.cnt?`<span class="cnt">${n.cnt}</span>`:""}</button>`;
+  }).join("");
+  side.innerHTML=`<div class="brand">${logo(dark)}<span class="role">Admin</span></div>
+    <button type="button" class="sbtn" onclick="openCmdk()">${I("search")}<span class="long">Suchen</span><span class="short">Suchen</span><kbd>⌘K</kbd></button>
+    <nav class="nav">${items}</nav>
+    <div class="sfoot">
+      <button type="button" class="ni railx" onclick="toggleSide()" title="Menü ausklappen">${I("panel")}<span class="long">${S.sideOpen?"Menü einklappen":"Menü ausklappen"}</span><span class="short">Menü</span></button>
+      <div class="me"><span class="av">RG</span><span class="lbl"><b>Rasit Güven</b><small>rasit@edvanceacademy.de</small></span></div>
+      <button type="button" class="ni logout" onclick="toast('Abmelden ist im Dummy ausgeschaltet.')">${I("out")}<span class="long">Abmelden</span><span class="short">Abmelden</span></button>
+    </div>`;
+  document.getElementById("mtop-logo").innerHTML=`<span class="brand" style="padding:0;min-height:0">${logo(false)}</span>`;
+}
+
+/* ================= Seite: Heute ================= */
+function qcard({icon,title,sub,count,zero,rows,more,foot}){
+  return `<section class="card q"><header class="qh"><span class="qi${zero?" ok":""}">${I(zero?"check":icon)}</span>
+      <div class="qt"><h3>${title}</h3><p>${sub}</p></div><span class="qc${zero?" zero":""}">${count}</span></header>
+    <ul class="ql">${rows.join("")}</ul>${more?`<div class="qmore">${more}</div>`:""}
+    <div class="qf">${foot}</div></section>`;
+}
+const row=(b,s,right="")=>`<li class="qr"><div class="qm"><b>${b}</b><span>${s}</span></div>${right?`<div class="right">${right}</div>`:""}</li>`;
+const footLink=(label,page)=>`<button type="button" class="link" onclick="go('${page}')">${label} ${I("arrow","sm")}</button>`;
+
+function pHeute(){
+  const d=new Date(), h=d.getHours();
+  const gruss=h<11?"Guten Morgen":h<18?"Guten Tag":"Guten Abend";
+  const datum=new Intl.DateTimeFormat("de-DE",{weekday:"long",day:"numeric",month:"long"}).format(d);
+  const neu=LEADS.filter(l=>l.status==="new").sort((a,b)=>b.seit-a.seit);
+  const termine=LEADS.filter(l=>l.status==="contacted");
+  const lsa=LEADS.filter(l=>l.status==="lsa_freigegeben"||l.status==="lsa_fertig");
+  const offen=neu.length+termine.length+lsa.length+ANTRAEGE.length+auslaufend.length+rueckstand.length+nFreigabe+RUECKFRAGEN;
+  const kids=SESSIONS.reduce((s,x)=>s+(x.belegt||0),0)+SESSIONS.filter(x=>x.art==="LSA").length;
+  return `
+  <header class="ph"><div class="txt"><span class="eyebrow">${datum}</span><h1>${gruss}, Rasit</h1>
+    <p>${offen} offene Punkte in sechs Listen. Oben links steht, was am längsten wartet.</p></div>
+    <div class="acts">${neuerLead}</div></header>
+  ${hint(`Ersetzt das Kachelraster (<code>AdminWidgetGrid</code>, <code>AdminTile</code>) und die dunkle Bühne <code>.admin-stage</code>. Die Navigation macht jetzt die Leiste, deshalb muss die Startseite nichts mehr verlinken und kann zeigen, was zu tun ist. Jede Liste zeigt höchstens drei Einträge, die ältesten zuerst.`)}
+  <section class="card kpis" aria-label="Kennzahlen">
+    <button type="button" class="kpi" onclick="go('schueler')"><span class="k">Aktive Schüler</span><span class="v">${SCHUELER.length}</span><span class="s">Klasse 8 bis 10</span></button>
+    <button type="button" class="kpi" onclick="go('leads')"><span class="k">Offene Leads</span><span class="v">${LEADS.length}</span><span class="s">${nNeu} neu</span></button>
+    <button type="button" class="kpi" onclick="go('vertraege')"><span class="k">Laufende Verträge</span><span class="v">${laufend.length}</span><span class="s">1 im Widerruf</span></button>
+    <button type="button" class="kpi" onclick="go('vertraege')"><span class="k">Abbuchung Oktober</span><span class="v">${euro(abbuchung)}</span><span class="s">${laufend.length} Lastschriften</span></button>
+    <button type="button" class="kpi" onclick="go('coaches')"><span class="k">Coaches</span><span class="v">2</span><span class="s">heute im Einsatz</span></button>
+  </section>
+  ${hint(`Kennzahlen aus <code>getAdminStats()</code>; die Abbuchung ist die Summe von <code>vertraege_aktuell.beitrag_diesen_monat_cents</code>. Jede Kennzahl führt in ihren Bereich. Klein gehalten: Die Zahlen sind Überblick, nicht der Inhalt der Seite.`)}
+  <div class="today">
+    <div>
+      <div class="secth"><h2>Zu erledigen</h2></div>
+      <div class="queues">
+        ${qcard({icon:"inbox",title:"Neue Leads",sub:"Termin fürs Erstgespräch vereinbaren",count:neu.length,
+          rows:neu.slice(0,3).map(l=>row(l.name,`Kl. ${l.kl} · ${l.f.join(", ")}`,`<span class="pill ${l.seit>=7?"warn":""}">seit ${l.seit} Tagen</span><button type="button" class="btn sm ghost" onclick="toast('Termin-Dialog wie heute.')">Termin</button>`)),
+          foot:footLink("Zum Lead-Board","leads")})}
+        ${qcard({icon:"chat",title:"Erstgespräche",sub:"vereinbarte Termine, nächste zuerst",count:termine.length,
+          rows:termine.map(l=>row(l.name,`${l.termin} · Köln`,`<span class="pill navy">Kl. ${l.kl}</span>`)),
+          foot:footLink("Alle Termine","leads")})}
+        ${qcard({icon:"clip",title:"Lernstandsanalysen",sub:"läuft heute oder ist fertig",count:lsa.length,
+          rows:lsa.map(l=>l.status==="lsa_fertig"
+            ?row(l.name,`Analyse ${l.lsa} · Report bereit`,`<button type="button" class="btn sm" onclick="toast('Startet den Vertragsprozess wie heute.')">Vertrag starten</button>`)
+            :row(l.name,`LSA ${l.lsa}`,`<span class="pill navy">heute</span>`)),
+          foot:footLink("Zum Lead-Board","leads")})}
+        ${qcard({icon:"scroll",title:"Verträge",sub:"Anträge, Ausläufer, Zahlungen",count:ANTRAEGE.length+auslaufend.length,
+          rows:[
+            ...ANTRAEGE.map(a=>row(`Antrag ${a.partner}`,`für ${a.kind} · Unterschrift ausstehend seit ${a.seit} Tagen`,`<button type="button" class="btn sm ghost" onclick="S.tab='antraege';go('vertraege')">Öffnen</button>`)),
+            ...auslaufend.map(v=>row(`${v.kind} läuft aus`,`${v.paket} · ${v.laufzeit} · endet ${v.ende}`,`<span class="pill warn">in ${v.endetIn} Tagen</span>`)),
+            `<li class="qr"><span class="okline">${I("check","sm")} Keine Zahlungsverzüge</span></li>`],
+          foot:footLink("Zu den Verträgen","vertraege")})}
+        ${qcard({icon:"gauge",title:"Schüler im Rückstand",sub:"Einheiten-Stand unter Plan",count:rueckstand.length,
+          rows:rueckstand.slice(0,3).map(s=>row(s.name,`Kl. ${s.kl} · ${s.verbraucht} von ${s.einheiten} verbraucht`,`<span class="pill ${AMPEL[s.ampel][0]}">${AMPEL[s.ampel][1]}</span>`)),
+          more:rueckstand.length>3?`und ${rueckstand.length-3} weitere`:"",
+          foot:footLink("Alle Akten","schueler")})}
+        ${qcard({icon:"pen",title:"Inhalte freigeben",sub:"von Lena geprüft, wartet auf dich",count:nFreigabe,
+          rows:[...FREIGABE.map(([t,st,n])=>row(t,`${st} · ${n} Aufgaben`,`<button type="button" class="btn sm ghost" onclick="toast('Öffnet die Freigabe je Thema in der Item-Pflege.')">Freigeben</button>`)),
+            row(`${RUECKFRAGEN} Rückfragen von Lena`,"als „Unsicher“ markiert",`<span class="pill warn">Unsicher</span>`)],
+          foot:footLink("Zur Item-Pflege","pflege")})}
+      </div>
+      ${hint(`Quellen je Liste: <code>leads.status</code> (new, contacted mit <code>erstgespraech_at</code>, lsa_freigegeben, lsa_fertig) · <code>vertraege_aktuell</code> mit denselben Zählern wie die Reiter im Menü Verträge · <code>board_schueler().ampel</code> · Aufgaben im Status <code>review</code>. Leere Liste: Die Karte bleibt stehen und zeigt grün „nichts offen“, damit die Null sichtbar ist.`)}
+    </div>
+    <aside>
+      <div class="secth"><h2>Heute im Betrieb</h2></div>
+      <section class="card ops">
+        <span class="eyebrow">14 bis 20 Uhr</span>
+        <h3>${SESSIONS.filter(s=>!s.art).length} Sessions · ${kids} Kinder</h3>
+        <p class="sub">dazu eine Lernstandsanalyse</p>
+        <ol class="tl">${SESSIONS.map(s=>`<li class="tli"><time>${s.t}</time><div class="w"><b>${s.titel}</b><span>${s.wer}</span></div>${s.art?`<span class="pill navy">LSA</span>`:seats(s.belegt)}</li>`).join("")}</ol>
+        <div class="abs"><span class="eyebrow">Absagen heute</span>
+          <div class="row"><span>Clara Schmitt · 16:30 · abgesagt um 08:12</span><span class="pill ok">rechtzeitig</span></div>
+          <span class="note">Bis 10 Uhr am Session-Tag gilt eine Absage als rechtzeitig, danach verbraucht sie die Einheit.</span></div>
+        <div class="qf">${footLink("Zum Stundenplan","stundenplan")}</div>
+      </section>
+      ${hint(`Aus <code>coaching_sessions</code> von heute plus die LSA aus <code>lsa_sessions</code>. Die fünf Punkte sind die Plätze im Raum (höchstens fünf Kinder). Absagen und die 10-Uhr-Regel kommen mit dem Slots-Feature; bis dahin entfällt der Block. Uhrzeiten sind Beispiele, laut Slots-Anforderung noch offen.`)}
+    </aside>
+  </div>`;
+}
+
+/* ================= Seite: Leads ================= */
+function leadCard(l){
+  const alt=l.status==="new"?`<div class="info"><span class="pill ${l.seit>=7?"warn":""}">seit ${l.seit} Tagen</span></div>`:"";
+  const termin=l.termin?`<div class="info">${I("clock","sm")} ${l.termin} · Köln</div>`:"";
+  const lsa=l.lsa?`<div class="info">${I("clip","sm")} ${l.status==="lsa_fertig"?"Analyse "+l.lsa:"LSA "+l.lsa}</div>`:"";
+  const act={
+    new:`<button type="button" class="btn sm" onclick="toast('Termin-Dialog wie heute.')">Termin vereinbaren</button>`,
+    contacted:`<button type="button" class="btn sm" onclick="toast('Öffnet das Erstgespräch.')">Erstgespräch erfassen</button>`,
+    lsa_freigegeben:`<button type="button" class="btn sm ghost" onclick="toast('Platz-Panel wie heute.')">Platz ansehen</button>`,
+    lsa_fertig:`<button type="button" class="btn sm ghost" onclick="toast('Ablehnen-Dialog wie heute.')">Ablehnen</button><button type="button" class="btn sm" onclick="toast('Startet den Vertragsprozess.')">Vertrag starten</button>`
+  }[l.status];
+  return `<article class="lc"><div class="top"><span class="nm">${esc(l.name)}</span><button type="button" class="ibtn more" aria-label="Weitere Aktionen" onclick="toast('Menü: Bearbeiten, Ablehnen, Verlauf.')">${I("more")}</button></div>
+    <div class="meta">Kl. ${l.kl} · ${esc(l.schule)}</div>
+    <div class="tags">${l.f.map(f=>`<span class="tag">${f}</span>`).join("")}</div>${alt}${termin}${lsa}
+    <div class="acts">${act}</div></article>`;
+}
+function pLeads(){
+  const q=S.leadQ.trim().toLowerCase();
+  const list=LEADS.filter(l=>(!q||l.name.toLowerCase().includes(q))&&(S.leadFach==="Alle"||l.f.includes(S.leadFach))&&(S.leadKl==="Alle"||String(l.kl)===S.leadKl));
+  const chips=(lab,key,vals)=>`<div class="chips" role="group" aria-label="${lab}"><span class="lab">${lab}</span>${vals.map(v=>`<button type="button" class="chip" aria-pressed="${S[key]===v}" onclick="S.${key}='${v}';render()">${v}</button>`).join("")}</div>`;
+  return `${head("leads",neuerLead)}
+  ${hint(`Kompakter Kopf statt Navy-Band: Das Board beginnt rund 300 px weiter oben. Die Karte „Heute abgeschlossen“ (<code>LsaTodayCard</code>) wandert auf die Startseite in die Liste „Lernstandsanalysen“.`)}
+  <div class="filters">
+    <label class="searchf">${I("search")}<input class="inp" id="lead-q" type="search" placeholder="Rufname oder vollständiger Name" value="${esc(S.leadQ)}" oninput="S.leadQ=this.value;render('lead-q')" aria-label="Leads suchen"></label>
+    ${chips("Fach","leadFach",["Alle","Mathematik","Deutsch","Englisch"])}
+    ${chips("Klasse","leadKl",["Alle","8","9","10"])}
+  </div>
+  <div class="board scrolls" style="--cols:4">${LANES.map(([st,lab])=>{const ls=list.filter(l=>l.status===st);
+    return `<section class="lane"><div class="laneh"><b>${lab}</b><span>${ls.length}</span></div>${ls.length?ls.map(leadCard).join(""):`<div class="empty">Keine Leads in dieser Spalte.</div>`}</section>`;}).join("")}</div>
+  ${hint(`Auf schmalen Breiten (iPad hoch) bleiben die vier Spalten nebeneinander und lassen sich seitlich wischen, statt in 2 × 2 umzubrechen. Filter als Chips statt nativer Auswahllisten; alle Bedienelemente mindestens 44 px hoch, auch das „…“-Menü.`)}`;
+}
+
+/* ================= Seite: Schüler ================= */
+function pSchueler(){
+  const q=S.schuelerQ.trim().toLowerCase();
+  const list=SCHUELER.filter(s=>!q||s.name.toLowerCase().includes(q)||s.schule.toLowerCase().includes(q));
+  return `${head("schueler")}
+  <div class="filters"><label class="searchf">${I("search")}<input class="inp" id="sch-q" type="search" placeholder="Name oder Schule" value="${esc(S.schuelerQ)}" oninput="S.schuelerQ=this.value;render('sch-q')" aria-label="Schüler suchen"></label>
+    <div class="chips"><span class="lab">Zustand</span><button type="button" class="chip" aria-pressed="true">aktiv</button><button type="button" class="chip" aria-pressed="false" onclick="toast('Filter wie heute.')">ruhend</button></div></div>
+  <div class="board scrolls3" style="--cols:3">${[8,9,10].map(k=>{const ls=list.filter(s=>s.kl===k);
+    return `<section class="lane"><div class="laneh"><b>Klasse ${k}</b><span>${ls.length}</span></div>${ls.length?ls.map(s=>`<article class="lc" role="button" tabindex="0" onclick="toast('Öffnet die Akte wie heute.')">
+      <div class="top"><span class="nm">${s.name}</span></div><div class="meta">${s.schule}</div>
+      <div class="info"><span class="pill ${AMPEL[s.ampel][0]}">${AMPEL[s.ampel][1]}</span><span class="num">${s.verbraucht} von ${s.einheiten} verbraucht</span></div>
+      <div class="bar" aria-hidden="true"><i style="width:${(s.verbraucht/s.einheiten*100).toFixed(1)}%"></i></div>
+      <div class="meta">Letzte Session ${s.letzte}</div></article>`).join(""):`<div class="empty">Keine Treffer in Klasse ${k}.</div>`}</section>`;}).join("")}</div>
+  ${hint(`Spalten teilen sich die volle Breite (heute feste 300 px, rechts bleibt ein Viertel leer). Daten unverändert aus <code>board_schueler()</code>; die Suche je Spalte aus S2 bleibt, im Dummy weggelassen.`)}`;
+}
+
+/* ================= Seite: Verträge ================= */
+function pVertraege(){
+  const tabs=[["antraege","Offene Anträge",ANTRAEGE.length],["uebersicht","Vertragsübersicht",null],["auslaufend","Auslaufende Verträge",auslaufend.length],["verzug","Zahlungsverzüge",0]];
+  const q=S.vertragQ.trim().toLowerCase();
+  const wirksam={aktiv:["ok","Aktiv"],im_widerruf:["warn","Im Widerruf"]};
+  let body="";
+  if(S.tab==="antraege"){
+    body=`<div class="card tablewrap"><table><thead><tr><th>Vertragspartner / Kind</th><th>Paket</th><th class="opt">Beginn</th><th>Status</th><th class="r">Aktionen</th></tr></thead><tbody>${ANTRAEGE.map(a=>`<tr><td><div class="two"><b>${a.partner}</b><span>${a.kind} · Kl. ${a.kl}</span></div></td><td>${a.paket} · ${a.laufzeit}</td><td class="opt num">${a.beginn}</td><td><span class="pill warn">Unterschrift ausstehend</span></td><td class="r"><button type="button" class="btn sm" onclick="toast('Öffnet die Abschlussstrecke.')">Weiter</button></td></tr>`).join("")}</tbody></table></div>`;
+  }else if(S.tab==="verzug"){
+    body=`<div class="card soonbox"><h2>Keine Zahlungsverzüge</h2><p>Alle laufenden Lastschriften sind eingezogen. Schlägt eine fehl, steht der Vertrag hier mit Mahnstufe.</p></div>`;
+  }else{
+    const rows=(S.tab==="auslaufend"?auslaufend:VERTRAEGE).filter(v=>!q||v.partner.toLowerCase().includes(q)||v.kind.toLowerCase().includes(q));
+    body=`<div class="filters"><label class="searchf">${I("search")}<input class="inp" id="v-q" type="search" placeholder="Vertragspartner oder Kind" value="${esc(S.vertragQ)}" oninput="S.vertragQ=this.value;render('v-q')" aria-label="Verträge suchen"></label></div>
+    <div class="card tablewrap"><table><thead><tr><th>Vertragspartner / Kind</th><th>Paket</th><th class="opt">Laufzeit von – bis</th><th>Vertragsstatus</th><th class="r">Betrag / Monat</th><th class="opt">Zahlung</th></tr></thead>
+    <tbody>${rows.map(v=>`<tr onclick="toast('Öffnet die Vertragsdetails wie heute.')"><td><div class="two"><b>${v.partner}</b><span>${v.kind} · Kl. ${v.kl}</span></div></td>
+      <td>${v.paket} · ${v.laufzeit}</td><td class="opt num">${v.beginn} – ${v.ende}</td>
+      <td><span class="pill ${wirksam[v.status][0]}">${wirksam[v.status][1]}</span></td><td class="r num">${euro(v.cent)}</td><td class="opt"><span class="pill ok">In Ordnung</span></td></tr>`).join("")||`<tr><td colspan="6" class="empty">Kein Vertrag zu dieser Suche.</td></tr>`}</tbody></table></div>`;
+  }
+  return `${head("vertraege",`<button type="button" class="btn" onclick="toast('Startet einen Vertrag ohne Lead, wie heute.')">${I("plus","sm")} Neuer Vertrag</button>`)}
+  <div class="tabs" role="tablist">${tabs.map(([k,l,n])=>`<button type="button" class="tab" role="tab" aria-selected="${S.tab===k}" onclick="S.tab='${k}';render()">${l}${n!==null?`<span class="n">${n}</span>`:""}</button>`).join("")}</div>
+  ${hint(`Der aktive Reiter ist navy mit cremefarbener Schrift. Heute ist er unlesbar, weil <code>--color-text-inverse</code> nirgends definiert ist (<code>Reiterleiste.tsx</code>, <code>WizardKopf.tsx</code>, <code>Schritt3Weg.tsx</code>). Tabelle bleibt (Admin-Ausnahme); auf schmalen Breiten fallen Laufzeit und Zahlung weg, die Tabelle scrollt nicht seitlich.`)}
+  <section class="card minikpis"><div class="kpi"><span class="k">Laufende Verträge</span><span class="v">${laufend.length}</span></div><div class="kpi"><span class="k">Abbuchung diesen Monat</span><span class="v">${euro(abbuchung)}</span></div><div class="kpi"><span class="k">Im Widerruf</span><span class="v">1</span></div></section>
+  ${body}`;
+}
+
+/* ================= Platzhalter ================= */
+function pSoon(id){const p=PAGES[id];
+  return `${head(id)}<section class="card soonbox">${p.soon
+    ?`<h2>Kommt mit dem Feature ${p.title}</h2><p>Bis dahin steht der Punkt ausgegraut in der Leiste, damit klar ist, dass er geplant ist.</p>`
+    :`<h2>Im Dummy nicht ausgebaut</h2><p>Die Seite bekommt dieselbe Hülle wie alle anderen: Leiste links, kompakter Kopf, volle Breite. Der Inhalt bleibt, wie er heute ist.</p>`}</section>
+  ${hint(id==="stundenplan"?`Heute ist der Stundenplan 768 px breit (<code>max-w-3xl</code>). In der Hülle nutzt er die volle Breite; das Wochenraster aus der Slots-Anforderung passt dann nebeneinander.`:`Gleiche Inhaltsbreite auf allen Seiten statt heute fünf verschiedener (768 bis 1280 px).`)}`;
+}
+
+/* ================= Suche ================= */
+function cmdItems(){
+  return [
+    ...NAV.filter(n=>n.id).map(n=>({g:"Seiten",l:n.label,s:n.soon?"bald":"",go:n.id,icon:n.icon})),
+    ...SCHUELER.map(s=>({g:"Schüler",l:s.name,s:`Kl. ${s.kl}`,go:"schueler",q:s.name,icon:"folder"})),
+    ...LEADS.map(l=>({g:"Leads",l:l.name,s:LANES.find(x=>x[0]===l.status)[1],go:"leads",q:l.name,icon:"inbox"})),
+    ...VERTRAEGE.map(v=>({g:"Verträge",l:v.partner,s:`für ${v.kind}`,go:"vertraege",q:v.partner,icon:"scroll"}))
+  ];
+}
+let CMD=[];
+function renderCmd(){
+  const q=document.getElementById("cmdk-in").value.trim().toLowerCase();
+  CMD=cmdItems().filter(x=>!q||x.l.toLowerCase().includes(q)||x.g.toLowerCase().includes(q)).slice(0,12);
+  if(S.cmdSel>=CMD.length)S.cmdSel=Math.max(0,CMD.length-1);
+  let g="",h="";
+  CMD.forEach((x,i)=>{if(x.g!==g){g=x.g;h+=`<div class="cgrp">${g}</div>`;}
+    h+=`<button type="button" class="copt" role="option" aria-selected="${i===S.cmdSel}" onmousemove="S.cmdSel=${i};markCmd()" onclick="pickCmd(${i})">${I(x.icon)}${esc(x.l)}<span>${esc(x.s)}</span></button>`;});
+  document.getElementById("cmdk-res").innerHTML=h||`<div class="cnone">Nichts gefunden.</div>`;
+}
+function markCmd(){document.querySelectorAll(".copt").forEach((b,i)=>b.setAttribute("aria-selected",String(i===S.cmdSel)));}
+function pickCmd(i){const x=CMD[i];if(!x)return;closeCmdk();
+  if(x.go==="schueler"&&x.q)S.schuelerQ=x.q;if(x.go==="leads"&&x.q)S.leadQ=x.q;if(x.go==="vertraege"&&x.q){S.vertragQ=x.q;S.tab="uebersicht";}
+  go(x.go);}
+function openCmdk(){closeSide();const c=document.getElementById("cmdk");c.hidden=false;const i=document.getElementById("cmdk-in");i.value="";S.cmdSel=0;renderCmd();i.focus();}
+function closeCmdk(){document.getElementById("cmdk").hidden=true;}
+document.getElementById("cmdk-in").addEventListener("input",()=>{S.cmdSel=0;renderCmd();});
+document.getElementById("cmdk-in").addEventListener("keydown",e=>{
+  if(e.key==="ArrowDown"){e.preventDefault();S.cmdSel=Math.min(S.cmdSel+1,CMD.length-1);markCmd();}
+  else if(e.key==="ArrowUp"){e.preventDefault();S.cmdSel=Math.max(S.cmdSel-1,0);markCmd();}
+  else if(e.key==="Enter"){e.preventDefault();pickCmd(S.cmdSel);}
+});
+
+/* ================= Rendern ================= */
+function render(keepFocus){
+  document.body.classList.toggle("hints",S.hints);
+  document.getElementById("sw-hints").setAttribute("aria-pressed",String(S.hints));
+  for(const m in MODES)document.getElementById("m-"+m).setAttribute("aria-pressed",String(S.mode===m));
+  document.getElementById("s-navy").setAttribute("aria-pressed",String(S.side==="navy"));
+  document.getElementById("s-light").setAttribute("aria-pressed",String(S.side==="light"));
+  renderSide();
+  const main=document.getElementById("main");
+  main.innerHTML=S.page==="heute"?pHeute():S.page==="leads"?pLeads():S.page==="schueler"?pSchueler():S.page==="vertraege"?pVertraege():pSoon(S.page);
+  if(keepFocus){const el=document.getElementById(keepFocus);if(el){el.focus();const v=el.value;el.setSelectionRange(v.length,v.length);}}
+}
+function go(id){S.page=id;closeSide(false);render();document.getElementById("scroll").scrollTop=0;}
+function openSide(){S.sideOpen=true;applySide();}
+function closeSide(re=true){if(!S.sideOpen)return;S.sideOpen=false;applySide();}
+function toggleSide(){S.sideOpen?closeSide():openSide();}
+function applySide(){const app=document.getElementById("app");app.classList.toggle("side-open",S.sideOpen);
+  document.getElementById("scrim").hidden=!(S.sideOpen&&app.dataset.layout!=="full");renderSide();}
+function toggleHints(){S.hints=!S.hints;render();}
+function setSide(v){S.side=v;try{localStorage.setItem("eh-side",v);}catch(e){}render();}
+function setMode(m){S.mode=m;S.sideOpen=false;try{localStorage.setItem("eh-mode",m);}catch(e){}layout();render();}
+let TT=null;
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.hidden=false;clearTimeout(TT);TT=setTimeout(()=>{t.hidden=true;},2600);}
+
+/* ================= Gerät und Breiten ================= */
+function layout(){
+  const stage=document.getElementById("stage"),frame=document.getElementById("frame"),dev=document.getElementById("device");
+  const dbarH=document.querySelector(".dbar").offsetHeight;
+  const label=document.getElementById("devlabel");
+  dev.classList.remove("laptop","ipad");
+  if(S.mode==="full"){
+    stage.classList.add("full");frame.style.width="";frame.style.height="";
+    dev.style.width="100%";dev.style.height=Math.max(480,window.innerHeight-dbarH)+"px";dev.style.transform="";label.textContent="";
+  }else{
+    const [w,h,txt]=MODES[S.mode];stage.classList.remove("full");
+    dev.classList.add(S.mode==="laptop"?"laptop":"ipad");
+    const avail=Math.max(280,stage.clientWidth-32-(S.mode==="laptop"?0:24));
+    const s=Math.min(1,avail/w);
+    dev.style.width=w+"px";dev.style.height=h+"px";dev.style.transform=s<1?`scale(${s})`:"";
+    frame.style.width=(w*s)+"px";frame.style.height=(h*s)+"px";
+    label.textContent=txt+(s<1?` · verkleinert auf ${Math.round(s*100)} %`:"");
+  }
+  const w=dev.offsetWidth, app=document.getElementById("app");
+  const lay=w<900?"narrow":w<1280?"rail":"full";
+  if(app.dataset.layout!==lay){app.dataset.layout=lay;S.sideOpen=false;app.classList.remove("side-open");document.getElementById("scrim").hidden=true;}
+}
+window.addEventListener("resize",()=>{layout();renderSide();});
+document.addEventListener("keydown",e=>{
+  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openCmdk();return;}
+  if(e.key==="Escape"){if(!document.getElementById("cmdk").hidden)closeCmdk();else closeSide();}
+});
+
+layout();render();
+</script>

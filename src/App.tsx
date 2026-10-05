@@ -35,6 +35,7 @@ import { PruefansichtPage } from '@/pages/coach/pruefen/PruefansichtPage'
 import { ClusterView } from '@/pages/student/ClusterView'
 import { TaskPlayer } from '@/pages/student/TaskPlayer'
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
+import { AdminLayout } from '@/components/edvance/admin/AdminLayout'
 import { ThemePanel } from '@/components/edvance/ThemePanel'
 import { DiagnosisProvider } from '@/context/DiagnosisContext'
 import { ScreeningSession } from '@/pages/ScreeningSession'
@@ -138,46 +139,179 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/leads"
-          element={
-            // Schuelerakte S1: Coaches lesen leads nicht mehr (coach_rls).
-            // Wer die alte Adresse aufruft, landet auf dem Coach-Dashboard.
-            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
-              <LeadsPage />
-            </ProtectedRoute>
-          }
-        />
-        {/* Vertragsprozess — nur Verwaltung (Vertrag & Zahlung). */}
-        <Route
-          path="/admin/vertraege"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <VertraegeMenuePage />
-            </ProtectedRoute>
-          }
-        />
+        {/* Admin-Hülle (Bauauftrag Admin-Hülle H2): alle Admin-Seiten als Kinder
+            einer Layout-Route. AdminLayout gibt nur der Rolle admin die Leiste;
+            die Zugriffsprüfung bleibt in der ProtectedRoute jeder Kind-Route. */}
+        <Route element={<AdminLayout />}>
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/leads"
+            element={
+              // Schuelerakte S1: Coaches lesen leads nicht mehr (coach_rls).
+              // Wer die alte Adresse aufruft, landet auf dem Coach-Dashboard.
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+                <LeadsPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Vertragsprozess — nur Verwaltung (Vertrag & Zahlung). */}
+          <Route
+            path="/admin/vertraege"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <VertraegeMenuePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/vertraege/:id/detail"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <VertragDetailPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/schedule"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <SchedulePage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Slot-System (S10): Verwaltung des Wochen-Zeitrasters und die
+              iPad-Ansicht fuers Elterngespraech — seit Schuelerakte S1 beides nur
+              Admin, weil die Auswahl leads liest (coach_rls). */}
+          <Route
+            path="/admin/slots"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <SlotsManagePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/slot-auswahl"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+                <SlotPickerPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/coaches"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <CoachesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/assignments"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AssignmentsPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Eltern-Report zu einer LSA-Sitzung. Coach darf ihn öffnen — er
+              führt damit das Elterngespräch. */}
+          {/* Menue "Schueler" (Schuelerakte S2): Board und Akte fuer Admin und
+              Coach. Welche Akten jemand sieht, entscheidet die Datenbank
+              (board_schueler / schuelerakten: Coach nur aktive Akten). */}
+          <Route
+            path="/admin/akten"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']}>
+                <AktenBoardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/akten/:studentId"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']}>
+                <AktePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/report/:sessionId"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'coach']}>
+                <ReportPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/diagnostics"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <DiagnosticsPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Item-Pflege, Expertenliste und Editor: nur admin (Lena-Board). Lena prueft
+              unter /coach/pruefen; Coaches landen auf /coach. */}
+          <Route
+            path="/admin/authoring"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+                <ItemBoardPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Die Filterliste (A05) bleibt als Expertenansicht neben dem Board. */}
+          <Route
+            path="/admin/authoring/liste"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+                <AuthoringItemsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/authoring/:id"
+            element={
+              <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
+                <AuthoringEditorPage />
+              </ProtectedRoute>
+            }
+          />
+          {/* Content-Gesundheit: Mängel-Übersicht des Bestands. Coach sichtet,
+              entfernen (Admin-Write) darf laut RLS nur Admin — die Seite schaltet um. */}
+          <Route
+            path="/admin/content-gesundheit"
+            element={
+              <ProtectedRoute allowedRoles={['coach', 'admin']}>
+                <ContentHealthPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/qs"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <QsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+
+        {/* Fokus-Seiten ohne Leiste (Entscheidung 11): Vertrags-Abschluss mit den
+            Eltern am iPad, Unterlagen und die Pflege-Strecke laufen im Vollbild. */}
         <Route
           path="/admin/vertraege/:id"
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <VertragPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/vertraege/:id/detail"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <VertragDetailPage />
             </ProtectedRoute>
           }
         />
@@ -189,137 +323,12 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/admin/schedule"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <SchedulePage />
-            </ProtectedRoute>
-          }
-        />
-        {/* Slot-System (S10): Verwaltung des Wochen-Zeitrasters und die
-            iPad-Ansicht fuers Elterngespraech — seit Schuelerakte S1 beides nur
-            Admin, weil die Auswahl leads liest (coach_rls). */}
-        <Route
-          path="/admin/slots"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <SlotsManagePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/slot-auswahl"
-          element={
-            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
-              <SlotPickerPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/coaches"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <CoachesPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/assignments"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <AssignmentsPage />
-            </ProtectedRoute>
-          }
-        />
-        {/* Eltern-Report zu einer LSA-Sitzung. Coach darf ihn öffnen — er
-            führt damit das Elterngespräch. */}
-        {/* Menue "Schueler" (Schuelerakte S2): Board und Akte fuer Admin und
-            Coach. Welche Akten jemand sieht, entscheidet die Datenbank
-            (board_schueler / schuelerakten: Coach nur aktive Akten). */}
-        <Route
-          path="/admin/akten"
-          element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']}>
-              <AktenBoardPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/akten/:studentId"
-          element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']}>
-              <AktePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/report/:sessionId"
-          element={
-            <ProtectedRoute allowedRoles={['admin', 'coach']}>
-              <ReportPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/diagnostics"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <DiagnosticsPage />
-            </ProtectedRoute>
-          }
-        />
-        {/* Item-Pflege, Expertenliste, Editor und Pflege-Strecke: nur admin (Lena-Board).
-            Lena prueft unter /coach/pruefen; Coaches landen auf /coach. */}
-        <Route
-          path="/admin/authoring"
-          element={
-            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
-              <ItemBoardPage />
-            </ProtectedRoute>
-          }
-        />
-        {/* Die Filterliste (A05) bleibt als Expertenansicht neben dem Board. */}
-        <Route
-          path="/admin/authoring/liste"
-          element={
-            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
-              <AuthoringItemsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/authoring/:id"
-          element={
-            <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
-              <AuthoringEditorPage />
-            </ProtectedRoute>
-          }
-        />
         {/* Pflege-Strecke (A07): der gefuehrte Fluss ueber der Editor-Maschinerie. */}
         <Route
           path="/admin/pflege"
           element={
             <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
               <PflegeWizardPage />
-            </ProtectedRoute>
-          }
-        />
-        {/* Content-Gesundheit: Mängel-Übersicht des Bestands. Coach sichtet,
-            entfernen (Admin-Write) darf laut RLS nur Admin — die Seite schaltet um. */}
-        <Route
-          path="/admin/content-gesundheit"
-          element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
-              <ContentHealthPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/qs"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <QsPage />
             </ProtectedRoute>
           }
         />

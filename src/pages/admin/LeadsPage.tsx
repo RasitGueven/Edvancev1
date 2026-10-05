@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
-import { EdvanceNavbar } from '@/components/edvance/EdvanceNavbar'
+import { EmptyState, LoadingPulse } from '@/components/edvance'
+import { PageHeader } from '@/components/edvance/shell/PageHeader'
+import { Button } from '@/components/ui/button'
 import { LsaTodayCard } from '@/components/edvance/report/LsaTodayCard'
 import { useAuthContext } from '@/context/AuthContext'
 import { listReportSessionsByLead } from '@/lib/supabase/leadLsa'
@@ -136,81 +137,77 @@ export function LeadsPage(): JSX.Element {
   const columns = showDone ? [...BOARD_COLUMNS, DONE_COLUMN] : BOARD_COLUMNS
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-app)] font-[family-name:var(--font-body)]">
-      <EdvanceNavbar subtitle={t('page.subtitle')} sticky />
-      <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8">
-        <AdminHeader
-          eyebrow={t('page.eyebrow')}
-          title={t('page.title')}
-          description={t('page.description')}
-          actions={
-            <button
-              type="button"
-              onClick={() => {
-                setEditingLead(null)
-                setEditingStep(0)
-                setShowForm((v) => !v)
-              }}
-              className="admin-cta-gold inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--radius-full)] px-4 text-sm font-semibold"
-            >
-              <Plus className="h-4 w-4" /> {showForm ? tc('close') : t('page.newLead')}
-            </button>
-          }
+    <>
+      <PageHeader
+        rubrik={t('page.eyebrow')}
+        titel={t('page.title')}
+        satz={t('page.description')}
+        aktionen={
+          <Button
+            type="button"
+            onClick={() => {
+              setEditingLead(null)
+              setEditingStep(0)
+              setShowForm((v) => !v)
+            }}
+          >
+            <Plus aria-hidden="true" className="h-4 w-4" /> {showForm ? tc('close') : t('page.newLead')}
+          </Button>
+        }
+      />
+
+      {editingLead ? (
+        <LeadIntakeForm
+          key={editingLead.id}
+          existingLead={editingLead}
+          initialStep={editingStep}
+          onRefresh={load}
+          onClose={closeForm}
         />
+      ) : (
+        showForm && <LeadIntakeForm onRefresh={load} onClose={closeForm} />
+      )}
 
-        {/* Fertig-Signal: „ist das Kind durch?" — direkt neben der Freigabe,
-            die im Intake-Formular darunter passiert. */}
-        <LsaTodayCard />
+      {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
 
-        {editingLead ? (
-          <LeadIntakeForm
-            key={editingLead.id}
-            existingLead={editingLead}
-            initialStep={editingStep}
-            onRefresh={load}
-            onClose={closeForm}
+      {loading ? (
+        <LoadingPulse type="list" lines={4} />
+      ) : leads.length === 0 ? (
+        <EmptyState
+          icon="📥"
+          title={t('page.emptyTitle')}
+          description={t('page.emptyDescription')}
+        />
+      ) : (
+        <>
+          <LeadFilterBar
+            filters={filters}
+            onChange={(next) => setFilters((f) => ({ ...f, ...next }))}
+            showDone={showDone}
+            onToggleDone={setShowDone}
           />
-        ) : (
-          showForm && <LeadIntakeForm onRefresh={load} onClose={closeForm} />
-        )}
-
-        {error && <p className="text-sm text-[var(--color-error-exam)]">{error}</p>}
-
-        {loading ? (
-          <LoadingPulse type="list" lines={4} />
-        ) : leads.length === 0 ? (
-          <EmptyState
-            icon="📥"
-            title={t('page.emptyTitle')}
-            description={t('page.emptyDescription')}
+          <LeadBoard
+            columns={columns}
+            leads={leads}
+            filters={filters}
+            platzByLead={platzByLead}
+            reportByLead={reportByLead}
+            canStartContract={role === 'admin'}
+            busyLeadId={busyLeadId}
+            onOpen={(lead) => openLead(lead, 0)}
+            onOpenErstgespraech={(lead) => openLead(lead, 1)}
+            onTermin={setTerminLead}
+            onBestaetigung={role === 'admin' ? setBestaetigungLead : undefined}
+            onAssignPlatz={setPlatzLead}
+            onReject={setRejectLead}
+            onStartContract={(lead) => void startContract(lead)}
           />
-        ) : (
-          <>
-            <LeadFilterBar
-              filters={filters}
-              onChange={(next) => setFilters((f) => ({ ...f, ...next }))}
-              showDone={showDone}
-              onToggleDone={setShowDone}
-            />
-            <LeadBoard
-              columns={columns}
-              leads={leads}
-              filters={filters}
-              platzByLead={platzByLead}
-              reportByLead={reportByLead}
-              canStartContract={role === 'admin'}
-              busyLeadId={busyLeadId}
-              onOpen={(lead) => openLead(lead, 0)}
-              onOpenErstgespraech={(lead) => openLead(lead, 1)}
-              onTermin={setTerminLead}
-              onBestaetigung={role === 'admin' ? setBestaetigungLead : undefined}
-              onAssignPlatz={setPlatzLead}
-              onReject={setRejectLead}
-              onStartContract={(lead) => void startContract(lead)}
-            />
-          </>
-        )}
-      </main>
+        </>
+      )}
+
+      {/* Fertig-Signal: „ist das Kind durch?". Unter dem Board, damit das Board
+          auf dem Laptop oberhalb von 300 px beginnt (Bauauftrag Admin-Hülle H2). */}
+      <LsaTodayCard />
 
       <TerminModal
         lead={terminLead}
@@ -237,6 +234,6 @@ export function LeadsPage(): JSX.Element {
           onChanged={load}
         />
       )}
-    </div>
+    </>
   )
 }

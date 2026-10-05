@@ -384,6 +384,17 @@ export async function getReviewerNames(
   }
 }
 
+/** Zaehler der Item-Pflege in der Leiste: Aufgaben, die auf Pruefung warten. */
+export async function countTasksInReview(): Promise<SupabaseResult<number>> {
+  try {
+    const { count, error } = await supabase.from('tasks').select('id', { count: 'exact', head: true })
+      .eq('content_type', 'exercise').eq('status', 'review')
+    return error ? { data: null, error: error.message } : { data: count ?? 0, error: null }
+  } catch (err) {
+    return { data: null, error: toMessage(err, 'Pruefzaehler konnte nicht geladen werden') }
+  }
+}
+
 function toMessage(err: unknown, fallback: string): string {
   return err instanceof Error ? err.message : fallback
 }
