@@ -210,5 +210,34 @@
       "ohneThema": "Ohne Thema freigeben",
       "themaWaehlen": "Thema wählen"
     }
+  },
+  "nav": {
+    "rolle": "Admin",
+    "heute": "Heute",
+    "leads": "Leads",
+    "stundenplan": "Stundenplan",
+    "schueler": "Schüler",
+    "coaches": "Coaches",
+    "vertraege": "Verträge",
+    "elternReports": "Eltern-Reports",
+    "lsaErgebnisse": "LSA-Ergebnisse",
+    "itemPflege": "Item-Pflege",
+    "gruppe": {
+      "vertrieb": "Vertrieb",
+      "betrieb": "Betrieb",
+      "verwaltung": "Verwaltung",
+      "inhalte": "Inhalte"
+    },
+    "kurz": {
+      "heute": "Heute",
+      "leads": "Leads",
+      "stundenplan": "Plan",
+      "schueler": "Schüler",
+      "coaches": "Coaches",
+      "vertraege": "Verträge",
+      "elternReports": "Reports",
+      "lsaErgebnisse": "LSA",
+      "itemPflege": "Inhalte"
+    }
   }
 }
