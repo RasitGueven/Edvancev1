@@ -31,7 +31,7 @@ export async function freigabeMuster(
   taskIds?: string[],
 ): Promise<SupabaseResult<number>> {
   try {
-    const rpc = supabase.rpc as unknown as RpcZahl
+    const rpc = supabase.rpc.bind(supabase) as unknown as RpcZahl
     const { data, error } = await rpc('freigabe_muster', {
       p_skill_key: skillKey,
       ...(taskIds ? { p_task_ids: taskIds } : {}),
@@ -52,7 +52,7 @@ export async function freigabeZuruecknehmen(
   skillKey: string,
 ): Promise<SupabaseResult<number>> {
   try {
-    const rpc = supabase.rpc as unknown as RpcZahl
+    const rpc = supabase.rpc.bind(supabase) as unknown as RpcZahl
     const { data, error } = await rpc('freigabe_zuruecknehmen', { p_skill_key: skillKey })
     if (error) return { data: null, error: error.message }
     return { data: data ?? 0, error: null }
@@ -85,7 +85,7 @@ type RpcWert<T> = (
  */
 export async function getDarfPruefen(): Promise<SupabaseResult<boolean>> {
   try {
-    const rpc = supabase.rpc as unknown as RpcWert<boolean>
+    const rpc = supabase.rpc.bind(supabase) as unknown as RpcWert<boolean>
     const { data, error } = await rpc('darf_pruefen')
     if (error) return { data: null, error: error.message }
     return { data: data === true, error: null }
@@ -104,7 +104,7 @@ export async function beanstandeAufgabe(
   notiz: string | null,
 ): Promise<SupabaseResult<true>> {
   try {
-    const rpc = supabase.rpc as unknown as RpcZahl
+    const rpc = supabase.rpc.bind(supabase) as unknown as RpcZahl
     const { error } = await rpc('lena_beanstande', {
       p_task_id: taskId,
       p_kategorie: kategorie,
@@ -129,7 +129,7 @@ export async function freigabeThema(
   klasse: number,
 ): Promise<SupabaseResult<number>> {
   try {
-    const rpc = supabase.rpc as unknown as RpcZahl
+    const rpc = supabase.rpc.bind(supabase) as unknown as RpcZahl
     const { data, error } = await rpc('freigabe_thema', { p_thema_key: themaKey, p_klasse: klasse })
     if (error) return { data: null, error: error.message }
     return { data: data ?? 0, error: null }
@@ -161,7 +161,7 @@ export async function listLetzteBeanstandungen(): Promise<
   SupabaseResult<Map<string, LetzteBeanstandung>>
 > {
   try {
-    const from = supabase.from as unknown as (table: string) => ReviewAbfrage
+    const from = supabase.from.bind(supabase) as unknown as (table: string) => ReviewAbfrage
     const { data, error } = await from('task_reviews')
       .select('task_id,kategorie,notiz')
       .order('geprueft_am', { ascending: false })
