@@ -12,10 +12,10 @@
 // fehlende Loesung haben. Lieber diese Ehrlichkeit als ein Haken, der nichts
 // bedeutet.
 
-import { useEffect, useMemo, useState, type JSX } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ListChecks } from 'lucide-react'
+import { Play } from 'lucide-react'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { Button } from '@/components/ui/button'
@@ -31,6 +31,13 @@ import { STUFEN, themaVon, zuordnungAus, type Zuordnung } from '@/lib/authoring/
 import { filtereUndSortiere, groupBySkill, STATUS_ORDER } from '@/lib/authoring/itemFilter'
 import { getFehlbilder, getPruefAdminListe } from '@/lib/supabase/pruefung'
 import { LenaInfo } from '@/components/edvance/authoring/board/LenaInfo'
+import { EntscheidungsMeldung } from '@/components/edvance/pruefen/Entscheidungsleiste'
+import { alleUmschalten, kopfZustand, umschalten } from '@/lib/authoring/auswahl'
+import { neueReihe, reiheStarten } from '@/lib/pruefung/reihe'
+import { SammelDialog } from './expertenliste/SammelDialog'
+import { Sammelleiste } from './expertenliste/Sammelleiste'
+import { LISTE_ZURUECK, useListenZustand } from './expertenliste/useListenZustand'
+import { useSammelaktionen } from './expertenliste/useSammelaktionen'
 import {
   listAuthoringTasks,
   listClustersWithSubject,
@@ -80,7 +87,9 @@ function buildRow(task: AuthoringTask, schema: AuthoringSchema): ItemRowData {
 
 export function AuthoringItemsPage(): JSX.Element {
   const { t } = useTranslation('authoring')
+  const { t: ta } = useTranslation('pruefenAdmin')
   const navigate = useNavigate()
+  const anker = useRef<HTMLDivElement>(null)
 
   const [rows, setRows] = useState<ItemRowData[]>([])
   const [clusters, setClusters] = useState<AuthoringCluster[]>([])
@@ -90,10 +99,13 @@ export function AuthoringItemsPage(): JSX.Element {
   // ?status= als Startwert (Startseite „Heute“: ?status=rueckfrage). Unbekannte
   // Werte zählen nicht, der Filter bleibt dann auf dem Standard.
   const [params] = useSearchParams()
-  const [filters, setFilters] = useState<FilterState>(() => {
+  const [start] = useState<FilterState>(() => {
     const status = params.get('status')
     return status && Object.hasOwn(STATUS_ORDER, status) ? { ...EMPTY_FILTERS, status: status as TaskStatus } : EMPTY_FILTERS
   })
+  // Filter, Auswahl und Scrollposition; „Schließen“ in der Prüfansicht stellt sie wieder her.
+  const liste = useListenZustand(start, params.get('wiederherstellen') === '1', anker, !loading)
+  const { filters, setFilters, auswahl, setAuswahl } = liste
   const [meta, setMeta] = useState<Map<string, ReviewMeta>>(new Map())
   const [zuordnung, setZuordnung] = useState<Zuordnung>(new Map())
   const [lena, setLena] = useState<Map<string, PruefAdminZeile>>(new Map())
@@ -184,6 +196,30 @@ export function AuthoringItemsPage(): JSX.Element {
     () => filtereUndSortiere(rows, filters, { subjectOf, meta, zuordnung, lena }),
     [rows, filters, subjectOf, meta, zuordnung, lena],
   )
+  const imFilter = useMemo(() => visible.map((r) => r.task.id), [visible])
+  const auswahlIds = useMemo(() => imFilter.filter((id) => auswahl.has(id)), [imFilter, auswahl])
+  const kopf = kopfZustand(imFilter, auswahl)
+  const zeileVon = useMemo(() => new Map(rows.map((r) => [r.task.id, r.task])), [rows])
+  const skillVon = useCallback((id: string) => zeileVon.get(id)?.skill_key ?? null, [zeileVon])
+  const sammel = useSammelaktionen({
+    auswahlIds, skillVon, themen: [...zuordnung.values()], setFiltersRoh: liste.setFiltersRoh, setAuswahl,
+    neuLaden: () => setReloadKey((k) => k + 1),
+  })
+
+  // Reihe fuer die Admin-Pruefansicht: der Filter (Durchlauf, Klick auf eine Zeile) oder die Auswahl.
+  const filterText = [
+    filters.status !== 'all' ? t(`status.${filters.status}`) : null,
+    filters.thema !== 'all' ? themen.find((th) => th.key === filters.thema)?.label ?? null : null,
+    filters.lena === 'nicht' ? t('lena.filterNichtBeiLena') : null,
+    filters.search.trim() ? `„${filters.search.trim()}“` : null,
+  ].filter(Boolean).join(' · ')
+  const pruefen = (ids: string[], auswahlReihe: boolean, startId?: string): void => {
+    if (ids.length === 0) return
+    liste.merke()
+    const label = auswahlReihe ? ta('reihe.auswahl')
+      : ta('reihe.liste', { filter: filterText ? ta('reihe.filter', { filter: filterText }) : ta('reihe.alleAufgaben') })
+    navigate(reiheStarten(neueReihe(ids, auswahlReihe ? 'auswahl' : 'liste', label, LISTE_ZURUECK), startId))
+  }
 
   /**
    * Sammelfreigabe einer Skill-Gruppe. Der Bestaetigungsdialog nennt die Anzahl
@@ -222,7 +258,9 @@ export function AuthoringItemsPage(): JSX.Element {
   // Lenas Ergebnis unter der Zeile (Lena-Board, Entscheidungen 39 und 42).
   const zeile = (row: ItemRowData): JSX.Element => (
     <div key={row.task.id} className="flex flex-col gap-2">
-      <ItemRow row={row} />
+      <ItemRow row={row} onOeffnen={() => pruefen(imFilter, false, row.task.id)}
+        auswahl={{ an: auswahl.has(row.task.id), label: ta('liste.auswaehlen', { titel: row.task.title ?? '' }),
+          onChange: () => setAuswahl(umschalten(auswahl, row.task.id)) }} />
       <LenaInfo taskId={row.task.id} zeile={lena.get(row.task.id)} onReload={() => setReloadKey((k) => k + 1)}
         fehlbildName={(slug) => fehlbilder.find((f) => f.slug === slug)?.klartext ?? slug} />
     </div>
@@ -264,21 +302,17 @@ export function AuthoringItemsPage(): JSX.Element {
 
       {!error && !loading && visible.length > 0 && (
         <>
-          {/* Der Einstieg in die Pflege-Strecke (A07): der AKTIVE Filter wird
-              zur Warteschlange — "diese 47 Items durcharbeiten". */}
-          <div className="flex justify-end">
-            <Button
-              onClick={() =>
-                navigate('/admin/pflege', {
-                  state: {
-                    ids: visible.map((row) => row.task.id),
-                    label: t('wizard.sourceList'),
-                  },
-                })
-              }
-            >
-              <ListChecks className="h-4 w-4" aria-hidden="true" />
-              {t('wizard.start', { count: visible.length })}
+          {/* Kopf der Liste: „Alle im Filter (n)“ (halb markiert bei Teilauswahl) und der Durchlauf. */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 text-sm font-semibold text-[var(--color-text-primary)]">
+              <input type="checkbox" className="h-5 w-5 accent-[var(--color-primary)]" checked={kopf === 'alle'}
+                ref={(el) => { if (el) el.indeterminate = kopf === 'teil' }}
+                onChange={() => setAuswahl(alleUmschalten(imFilter, auswahl))} />
+              {ta('liste.alleImFilter', { count: imFilter.length })}
+            </label>
+            <Button onClick={() => pruefen(imFilter, false)}>
+              <Play className="h-4 w-4" aria-hidden="true" />
+              {ta('liste.durchlauf', { count: visible.length })}
             </Button>
           </div>
           {filters.sort === 'skill' ? (
@@ -322,6 +356,24 @@ export function AuthoringItemsPage(): JSX.Element {
             </div>
           )}
         </>
+      )}
+      <div ref={anker} />
+      {auswahlIds.length > 0 && (
+        <Sammelleiste anzahl={auswahlIds.length} onAufheben={() => setAuswahl(new Set())}
+          onPruefen={() => pruefen(auswahlIds, true)} onAktion={sammel.setDialog} />
+      )}
+      {sammel.dialog && (
+        <SammelDialog aktion={sammel.dialog} ids={auswahlIds} lena={lena} fertigkeiten={sammel.fertigkeiten}
+          zeile={(id) => {
+            const task = zeileVon.get(id)
+            return { titel: task?.title ?? id, thema: (task && themaVon(task, zuordnung)?.label) ?? t('board.ohneThema') }
+          }}
+          onClose={() => sammel.setDialog(null)} onFertig={sammel.fertig} />
+      )}
+      {(sammel.meldung || liste.hinweis) && (
+        <EntscheidungsMeldung text={sammel.meldung?.text ?? ta('liste.auswahlAufgehoben')}
+          onRueckgaengig={sammel.meldung?.aktion?.los} aktionLabel={sammel.meldung?.aktion?.label}
+          onZu={() => { sammel.setMeldung(null); liste.setHinweis(null) }} />
       )}
     </>
   )

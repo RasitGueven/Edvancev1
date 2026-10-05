@@ -145,3 +145,21 @@ export async function getAdminPruefKontext(taskId: string): Promise<PruefResult<
     return { data: null, error: alsFehler(err) }
   }
 }
+
+export type Fertigkeitsgraph = {
+  skills: { skill_key: string; label: string; fundament_tiefe: number | null }[]
+  kanten: { skill_key: string; voraussetzt_skill_key: string }[]
+}
+
+/** Fertigkeiten und Voraussetzungskanten fuer die Auswahl „Fertigkeit ändern“ (Sammelaktion). */
+export async function getFertigkeitsgraph(): Promise<PruefResult<Fertigkeitsgraph>> {
+  try {
+    const [skills, kanten] = await Promise.all([
+      lies(aus<Fertigkeitsgraph['skills'][number]>('skills').select('skill_key,label,fundament_tiefe')),
+      lies(aus<Fertigkeitsgraph['kanten'][number]>('skill_kante').select('skill_key,voraussetzt_skill_key')),
+    ])
+    return { data: { skills, kanten }, error: null }
+  } catch (err) {
+    return { data: null, error: alsFehler(err) }
+  }
+}

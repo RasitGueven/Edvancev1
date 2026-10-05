@@ -27,20 +27,43 @@ export type ItemRowData = {
   hasTable: boolean
 }
 
-export function ItemRow({ row }: { row: ItemRowData }): JSX.Element {
+type Props = {
+  row: ItemRowData
+  /** Expertenliste: Auswahlfeld je Zeile (Sammelaktionen). */
+  auswahl?: { an: boolean; onChange: () => void; label: string }
+  /** Expertenliste: ein Klick auf die uebrige Zeile oeffnet die Admin-Pruefansicht. */
+  onOeffnen?: () => void
+}
+
+export function ItemRow({ row, auswahl, onOeffnen }: Props): JSX.Element {
   const { t } = useTranslation('authoring')
   const { task } = row
+  const titel = task.title ?? t('fields.none')
 
   return (
-    <EdvanceCard className="flex flex-col gap-3 p-5">
+    <EdvanceCard className={`flex flex-col gap-3 p-5 ${onOeffnen ? 'cursor-pointer hover:shadow-elevation-md' : ''} ${auswahl?.an ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)]' : ''}`}
+      onClick={onOeffnen}>
       <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex items-start gap-3">
+        {auswahl && (
+          <label className="-m-2 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <input type="checkbox" className="h-5 w-5 accent-[var(--color-primary)]" checked={auswahl.an}
+              aria-label={auswahl.label} onChange={auswahl.onChange} />
+          </label>
+        )}
         <div className="flex flex-col gap-1">
-          <span className="text-base font-semibold text-[var(--color-text-primary)]">
-            {task.title ?? t('fields.none')}
-          </span>
+          {onOeffnen ? (
+            <button type="button" className="text-left text-base font-semibold text-[var(--color-text-primary)] hover:underline"
+              onClick={(e) => { e.stopPropagation(); onOeffnen() }}>
+              {titel}
+            </button>
+          ) : (
+            <span className="text-base font-semibold text-[var(--color-text-primary)]">{titel}</span>
+          )}
           <span className="text-xs text-[var(--color-text-tertiary)]">
             {task.competency_content ?? t('fields.none')}
           </span>
+        </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <StatusBadge status={task.status} label={t(`status.${task.status}`)} />
@@ -92,6 +115,7 @@ export function ItemRow({ row }: { row: ItemRowData }): JSX.Element {
         )}
         <Link
           to={`/admin/authoring/${task.id}`}
+          onClick={(e) => e.stopPropagation()}
           className={buttonVariants({ variant: 'outline', size: 'sm' })}
         >
           {t('list.edit')}
