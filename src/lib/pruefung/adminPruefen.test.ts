@@ -103,7 +103,8 @@ describe('Uebersetzung der Auslass-Gruende und HINTs', () => {
   it('uebersetzt einen HINT als Grund und faellt sonst auf „Fehler“ zurueck', () => {
     expect(uebersetze(t, auslassText({ grund: 'regel_ungueltig', text: 'x' }))).toBe(t('pruefen:fehlermeldung.regel_ungueltig'))
     expect(uebersetze(t, auslassText({ grund: 'unbekannt', text: 'kaputt' }))).toBe('Fehler: kaputt')
-    expect(adminFehler({ code: 'P0001', hint: null, message: 'task_status_set: Stoffanker fehlt' })).toEqual({ text: 'task_status_set: Stoffanker fehlt' })
+    expect(adminFehler({ code: 'P0001', hint: null, message: 'task_status_set: Stoffanker fehlt' })).toEqual({ text: 'Stoffanker fehlt' })
+    expect(uebersetze(t, auslassText({ grund: 'befund', text: 'task_status_set: Cluster fehlt' }))).toBe('Befund vor der Freigabe: Cluster fehlt')
   })
 
   it('gruppiert Ausgelassene nach Grund', () => {

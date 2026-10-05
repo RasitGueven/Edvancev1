@@ -19,6 +19,9 @@ export const ADMIN_HINWEISE = ['erst_an_lena', 'nicht_freigegeben', 'wert_fehlt'
 /** Gruende, deren text ein Ausschluss-Schluessel ist (pruef_ausschluss) — uebersetzt ueber authoring:lena.ausschluss.*. */
 const MIT_AUSSCHLUSS = new Set(['nicht_bei_lena', 'schon_ausgeschlossen', 'nicht_von_hand', 'ausgeschlossen'])
 
+/** Der Gate-Text ohne den Funktionsnamen davor („task_status_set: Stoffanker … fehlt“ → „Stoffanker … fehlt“). */
+export const gateText = (text: string): string => text.replace(/^task_status_set:\s*/, '')
+
 /** Ein i18n-Schluessel (mit Namespace) samt Werten; grundKey wird vorher uebersetzt und als {{grund}} eingesetzt. */
 export type Uebersetzung = { key: string; werte?: Record<string, string>; grundKey?: string } | { text: string }
 
@@ -39,7 +42,7 @@ export function adminFehler(err: PruefFehlerInfo | null): Uebersetzung | null {
   if (err.code === 'ED422' && (ADMIN_HINWEISE as readonly string[]).includes(err.hint ?? '')) {
     return { key: `pruefenAdmin:fehler.${err.hint}` }
   }
-  if (err.code === 'P0001') return { text: err.message }
+  if (err.code === 'P0001') return { text: gateText(err.message) }
   return { key: `pruefen:${fehlerSchluessel(err) ?? 'fehlermeldung.allgemein'}` }
 }
 
@@ -50,7 +53,7 @@ export function auslassText(a: Pick<SammelAusgelassen, 'grund' | 'text'>): Ueber
     if (MIT_AUSSCHLUSS.has(g)) {
       return { key: `pruefenAdmin:ausgelassen.${g}`, grundKey: `authoring:lena.ausschluss.${a.text ?? ''}` }
     }
-    return { key: `pruefenAdmin:ausgelassen.${g}`, werte: { text: a.text ?? '' } }
+    return { key: `pruefenAdmin:ausgelassen.${g}`, werte: { text: gateText(a.text ?? '') } }
   }
   // Ein ED422 beim Schreiben traegt den HINT als Grund.
   if ((ADMIN_HINWEISE as readonly string[]).includes(g)) return { key: `pruefenAdmin:fehler.${g}` }

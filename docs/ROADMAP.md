@@ -1,6 +1,15 @@
 # Edvance – Roadmap
 
 ## Fertig
+- **Admin-Prüfansicht, Sammelaktionen, Pflege-Strecke entfernt** (Retro `2026-10-05-admin-pruefansicht.md`,
+  Branch `feat/rasit-admin-pruefansicht`): Admins prüfen eine Aufgabe auf Lenas Bildschirm
+  (`/admin/pruefen/:taskId`) mit „Lenas Ergebnis“, „Vor der Freigabe klären“, Verlauf und eigener Leiste
+  (Freigeben, Zurück an Lena, Zurückweisen, Freigabe zurücknehmen); Reihe aus Expertenliste, Board,
+  Content-Gesundheit und „Heute“; Editor mit Sprungzielen und Rückweg; Expertenliste mit Mehrfachauswahl und
+  Sammelaktionen mit Vorschau (`pruef_sammel`). Drei Migrationen (`20261005131059`, `…131220`, `…131306`).
+  Beweis: pgTAP `admin_pruefansicht` 66/66 und `lena_board` 85/85 in frischer Wegwerf-DB, Consensus-Check ohne
+  kritischen Befund, Vitest grün. **Offen:** Einspielen 1 → 2a → 2b, Schema-Abzug, Typen neu generieren
+  (`docs/admin-pruefansicht/offene-punkte.md`).
 - **Aufgaben prüfen — Lena-Board** (Retro `2026-10-05-lena-board.md`, Branch `feat/rasit-lena-board`):
   Lena prüft vorbefüllte LSA-Aufgaben auf einem Bildschirm (`/coach/pruefen`) und entscheidet mit
   Passt / Unsicher / Passt nicht; Admins sehen Lenas Ergebnis in der Item-Pflege, klären Rückfragen und
