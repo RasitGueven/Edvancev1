@@ -4553,10 +4553,45 @@ $$;
 
 
 --
+-- Name: pruef_admin_freigeben(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_admin_freigeben(p_task_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare t public.tasks;
+begin
+  perform public.pruef_nur_admin('pruef_admin_freigeben');
+  select * into t from public.tasks where id = p_task_id for update;
+  if not found then
+    raise exception 'pruef_admin_freigeben: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if t.status = 'ready' then perform public.pruef_fehler('freigegeben'); end if;
+  perform public.task_status_set(p_task_id, 'ready');
+  perform public.pruef_protokoll(p_task_id, 'freigeben', '[]', null, false);
+  return jsonb_build_object('status', 'ready');
+end $$;
+
+
+--
+-- Name: pruef_admin_gruende(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_admin_gruende() RETURNS text[]
+    LANGUAGE sql IMMUTABLE
+    AS $$
+  select array['aufgabe_fehlerhaft', 'aufgabe_unklar', 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen',
+               'passt_nicht_in_lsa', 'sonstiges', 'fehlbild_falsch', 'fehlbild_unrealistisch',
+               'zahlen_unguenstig', 'formulierung', 'didaktisch', 'kontext', 'loesung_passt_nicht']
+$$;
+
+
+--
 -- Name: pruef_admin_liste(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.pruef_admin_liste() RETURNS TABLE(task_id uuid, lena_status text, ausschluss text, pilot boolean, entscheidung text, gruende text[], notiz text, aenderungen jsonb, aenderung_grund text, dauer_sek integer, geprueft_von text, geprueft_am timestamp with time zone, antwort text, beantwortet_am timestamp with time zone, geaendert boolean)
+CREATE FUNCTION public.pruef_admin_liste() RETURNS TABLE(task_id uuid, lena_status text, ausschluss text, pilot boolean, entscheidung text, gruende text[], notiz text, aenderungen jsonb, aenderung_grund text, dauer_sek integer, geprueft_von text, geprueft_am timestamp with time zone, antwort text, beantwortet_am timestamp with time zone, geaendert boolean, ausschluss_grund text, ausschluss_von text, ausschluss_am timestamp with time zone)
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -4568,11 +4603,45 @@ begin
   select t.id, public.pruef_lena_status(t.status), public.pruef_ausschluss(t.id), t.pruef_pilot,
          lp.entscheidung, lp.gruende, lp.notiz, lp.aenderungen, lp.aenderung_grund, lp.dauer_sek,
          pr.full_name, lp.geprueft_am, lp.antwort, lp.beantwortet_am,
-         coalesce(jsonb_array_length(lp.aenderungen) > 0, false)
+         coalesce(jsonb_array_length(lp.aenderungen) > 0, false),
+         h.grund, hv.full_name, h.am
     from public.tasks t
     left join lateral (select p.* from public.task_pruefungen p where p.task_id = t.id
                         order by p.geprueft_am desc limit 1) lp on true
-    left join public.profiles pr on pr.id = lp.geprueft_von;
+    left join public.profiles pr on pr.id = lp.geprueft_von
+    left join public.task_pruef_ausschluss h on h.task_id = t.id
+    left join public.profiles hv on hv.id = h.von;
+end $$;
+
+
+--
+-- Name: pruef_admin_zurueckweisen(uuid, text[], text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_admin_zurueckweisen(p_task_id uuid, p_gruende text[], p_notiz text DEFAULT NULL::text) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t public.tasks; g text;
+  notiz text := nullif(btrim(p_notiz), '');
+  gruende text[] := array(select distinct btrim(x) from unnest(coalesce(p_gruende, '{}')) x where btrim(x) <> '');
+begin
+  perform public.pruef_nur_admin('pruef_admin_zurueckweisen');
+  select * into t from public.tasks where id = p_task_id for update;
+  if not found then
+    raise exception 'pruef_admin_zurueckweisen: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if t.status = 'ready' then perform public.pruef_fehler('freigegeben'); end if;
+  if cardinality(gruende) = 0 then perform public.pruef_fehler('grund_fehlt'); end if;
+  if not gruende <@ public.pruef_admin_gruende() then perform public.pruef_fehler('grund_unbekannt'); end if;
+  update public.tasks set status = 'beanstandet', reviewed_by = null, reviewed_at = null where id = p_task_id;
+  foreach g in array gruende loop
+    insert into public.task_reviews (task_id, kategorie, notiz, geprueft_von, geprueft_am)
+    values (p_task_id, g, notiz, auth.uid(), clock_timestamp());
+  end loop;
+  perform public.pruef_protokoll(p_task_id, 'zurueckweisen', '[]', notiz, false);
+  return jsonb_build_object('status', 'beanstandet');
 end $$;
 
 
@@ -4626,6 +4695,52 @@ CREATE FUNCTION public.pruef_aenderungen(p_vorher jsonb, p_nachher jsonb) RETURN
      where p_vorher -> 'afb' is distinct from p_nachher -> 'afb')
   select coalesce(jsonb_agg(e order by n, e ->> 'teil', e -> 'vorher' ->> 'slug', e -> 'nachher' ->> 'slug'), '[]') from l
 $$;
+
+
+--
+-- Name: pruef_an_lena(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_an_lena(p_task_id uuid, p_nachricht text DEFAULT NULL::text) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare t public.tasks;
+begin
+  perform public.pruef_nur_admin('pruef_an_lena');
+  select * into t from public.tasks where id = p_task_id for update;
+  if not found then
+    raise exception 'pruef_an_lena: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if t.status = 'ready' then perform public.pruef_fehler('freigegeben'); end if;
+  perform public.pruef_an_lena_schreiben(p_task_id, p_nachricht, null, false);
+  return jsonb_build_object('status', 'draft');
+end $$;
+
+
+--
+-- Name: pruef_an_lena_schreiben(uuid, text, text, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_an_lena_schreiben(p_task_id uuid, p_nachricht text, p_grund text, p_sammel boolean) RETURNS void
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare v_id uuid; n text := nullif(btrim(p_nachricht), '');
+begin
+  update public.tasks set status = 'draft', reviewed_by = null, reviewed_at = null where id = p_task_id;
+  delete from public.task_pruefung_ausgang where task_id = p_task_id;
+  if n is not null then
+    select p.id into v_id from public.task_pruefungen p where p.task_id = p_task_id
+     order by p.geprueft_am desc limit 1;
+    if v_id is not null then
+      update public.task_pruefungen
+         set antwort = n, beantwortet_von = auth.uid(), beantwortet_am = now()
+       where id = v_id;
+    end if;
+  end if;
+  perform public.pruef_protokoll(p_task_id, 'an_lena', '[]', coalesce(nullif(btrim(p_grund), ''), n), p_sammel);
+end $$;
 
 
 --
@@ -4811,6 +4926,7 @@ CREATE FUNCTION public.pruef_aufgabe(p_task_id uuid) RETURNS jsonb
 declare
   t public.tasks; s public.task_solutions; aus jsonb; sicht jsonb; sicht_aus jsonb;
   ausschluss text; sk_aus text; th record; lp record;
+  admin boolean := public.get_my_role() is not distinct from 'admin';
 begin
   if not public.darf_pruefen() then
     raise exception 'pruef_aufgabe: kein Pruefrecht' using errcode = '42501';
@@ -4821,7 +4937,8 @@ begin
   end if;
   ausschluss := public.pruef_ausschluss(p_task_id);
   if t.status <> 'ready' and coalesce(ausschluss, '') not in ('vera8', 'inaktiv', 'typ')
-     and public.pruef_im_pilot(t) and not public.pruef_team_beanstandet(p_task_id) then
+     and (admin or (ausschluss is distinct from 'hand' and public.pruef_im_pilot(t)
+                    and not public.pruef_team_beanstandet(p_task_id))) then
     aus := public.pruef_ausgang_sichern(p_task_id);
   else
     select a.ausgang into aus from public.task_pruefung_ausgang a where a.task_id = p_task_id;
@@ -4914,6 +5031,7 @@ CREATE FUNCTION public.pruef_ausschluss(p_task_id uuid) RETURNS text
     when not coalesce(t.is_active, false) or t.is_tutorial or t.content_type <> 'exercise' then 'inaktiv'
     when t.input_type is null
       or t.input_type not in ('MC', 'NUMERIC', 'SHORT_TEXT', 'MULTI_PART', 'TERM') then 'typ'
+    when exists (select 1 from public.task_pruef_ausschluss h where h.task_id = t.id) then 'hand'
     when t.skill_key is null
       or not exists (select 1 from public.skill_thema st where st.skill_key = t.skill_key) then 'ohne_fertigkeit'
     when not exists (select 1 from public.task_solutions s where s.task_id = t.id
@@ -5011,6 +5129,7 @@ declare
   gruende text[] := array(select distinct btrim(x) from unnest(coalesce(p_gruende, '{}')) x where btrim(x) <> '');
 begin
   t := public.pruef_sperren(p_task_id, p_version);
+  perform public.pruef_lena_sperren(t);
   if p_entscheidung is null or p_entscheidung not in ('passt', 'unsicher', 'passt_nicht') then
     raise exception 'pruef_entscheiden: unbekannte Entscheidung %', p_entscheidung using errcode = '22023';
   end if;
@@ -5363,6 +5482,28 @@ $$;
 
 
 --
+-- Name: pruef_freigabe_zuruecknehmen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_freigabe_zuruecknehmen(p_task_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare t public.tasks;
+begin
+  perform public.pruef_nur_admin('pruef_freigabe_zuruecknehmen');
+  select * into t from public.tasks where id = p_task_id for update;
+  if not found then
+    raise exception 'pruef_freigabe_zuruecknehmen: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  if t.status <> 'ready' then perform public.pruef_fehler('nicht_freigegeben'); end if;
+  perform public.task_status_set(p_task_id, 'draft');
+  perform public.pruef_protokoll(p_task_id, 'freigabe_zurueck', '[]', null, false);
+  return jsonb_build_object('status', 'draft');
+end $$;
+
+
+--
 -- Name: pruef_gleich(text, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5476,6 +5617,41 @@ $$;
 
 
 --
+-- Name: pruef_lena_bewertet(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_lena_bewertet(p_task_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((
+    select p.entscheidung <> 'zurueckgenommen'
+       and p.geprueft_am > coalesce((select max(x.am) from public.task_admin_protokoll x
+                                      where x.task_id = p_task_id
+                                        and x.aktion in ('an_lena', 'rueckfrage_an_lena')), '-infinity')
+      from public.task_pruefungen p where p.task_id = p_task_id
+     order by p.geprueft_am desc limit 1), false)
+$$;
+
+
+--
+-- Name: pruef_lena_sperren(public.tasks); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_lena_sperren(t public.tasks) RETURNS void
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if public.pruef_ausschluss(t.id) = 'hand' or not public.pruef_im_pilot(t) then
+    perform public.pruef_fehler('ausgeschlossen');
+  end if;
+  -- Vom Team beanstandet, wird ueberarbeitet (Rasit, PR 208).
+  if public.pruef_team_beanstandet(t.id) then perform public.pruef_fehler('team_beanstandet'); end if;
+end $$;
+
+
+--
 -- Name: pruef_lena_status(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5525,6 +5701,36 @@ $$;
 
 
 --
+-- Name: pruef_nur_admin(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_nur_admin(p_fn text) RETURNS void
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if public.get_my_role() is distinct from 'admin' then
+    raise exception '%: nur admin', p_fn using errcode = '42501';
+  end if;
+end $$;
+
+
+--
+-- Name: pruef_protokoll(uuid, text, jsonb, text, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_protokoll(p_task_id uuid, p_aktion text, p_aenderungen jsonb, p_grund text, p_sammel boolean) RETURNS void
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  insert into public.task_admin_protokoll (task_id, aktion, aenderungen, grund, sammel, von, am)
+  values (p_task_id, p_aktion, coalesce(p_aenderungen, '[]'), nullif(btrim(p_grund), ''),
+          coalesce(p_sammel, false), auth.uid(), clock_timestamp());
+end $$;
+
+
+--
 -- Name: pruef_regel_erlaubt(text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -5568,12 +5774,7 @@ begin
     perform public.task_status_set(p_task_id, 'ready');
   elsif p_aktion = 'zurueckweisen' then
     if cardinality(gruende) = 0 then perform public.pruef_fehler('grund_fehlt'); end if;
-    if exists (select 1 from unnest(gruende) x where x not in (
-         'aufgabe_fehlerhaft', 'aufgabe_unklar', 'bild_falsch', 'sprache_zu_schwer', 'tablet_umbauen',
-         'passt_nicht_in_lsa', 'sonstiges', 'fehlbild_falsch', 'fehlbild_unrealistisch',
-         'zahlen_unguenstig', 'formulierung', 'didaktisch', 'kontext', 'loesung_passt_nicht')) then
-      perform public.pruef_fehler('grund_unbekannt');
-    end if;
+    if not gruende <@ public.pruef_admin_gruende() then perform public.pruef_fehler('grund_unbekannt'); end if;
     update public.tasks set status = 'beanstandet', reviewed_by = null, reviewed_at = null where id = p_task_id;
     foreach g in array gruende loop
       insert into public.task_reviews (task_id, kategorie, notiz, geprueft_von, geprueft_am)
@@ -5591,6 +5792,7 @@ begin
        set antwort = nullif(btrim(p_antwort), ''), beantwortet_von = auth.uid(), beantwortet_am = now()
      where id = v_id;
   end if;
+  perform public.pruef_protokoll(p_task_id, 'rueckfrage_' || p_aktion, '[]', p_antwort, false);
 
   return jsonb_build_object('status', (select x.status from public.tasks x where x.id = p_task_id));
 end $$;
@@ -5607,6 +5809,7 @@ CREATE FUNCTION public.pruef_rueckgaengig(p_task_id uuid, p_version bigint) RETU
 declare t public.tasks; aus jsonb;
 begin
   t := public.pruef_sperren(p_task_id, p_version);
+  perform public.pruef_lena_sperren(t);
   if t.status not in ('review', 'rueckfrage', 'beanstandet') then
     perform public.pruef_fehler('nicht_bewertet');
   end if;
@@ -5619,6 +5822,192 @@ begin
           auth.uid(), clock_timestamp());
   select * into t from public.tasks where id = p_task_id;
   return jsonb_build_object('pruef_version', t.pruef_version, 'lena_status', public.pruef_lena_status(t.status));
+end $$;
+
+
+--
+-- Name: pruef_sammel(text, uuid[], jsonb, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_sammel(p_aktion text, p_task_ids uuid[], p_werte jsonb DEFAULT '{}'::jsonb, p_nur_vorschau boolean DEFAULT true) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  w jsonb := coalesce(p_werte, '{}');
+  betrifft uuid[] := '{}';
+  ausgelassen jsonb := '[]';
+  v_id uuid; t public.tasks; g jsonb; st text; h text; m text;
+begin
+  perform public.pruef_nur_admin('pruef_sammel');
+  if p_aktion is null or p_aktion not in ('freigeben', 'an_lena', 'pilot_an', 'pilot_aus', 'ausschliessen',
+                                          'aufnehmen', 'fertigkeit', 'afb') then
+    raise exception 'pruef_sammel: unbekannte Aktion %', p_aktion using errcode = '22023';
+  end if;
+  -- Eingaben, ohne die die Aktion fuer keine Aufgabe Sinn ergibt: Fehler fuer den ganzen Aufruf.
+  if p_aktion = 'fertigkeit' and coalesce(btrim(w ->> 'skill_key'), '') = '' then
+    perform public.pruef_fehler('wert_fehlt');
+  end if;
+  if p_aktion = 'afb' and coalesce(w ->> 'afb', '') not in ('I', 'II', 'III') then
+    perform public.pruef_fehler('afb_ungueltig');
+  end if;
+  -- Der Grund wird erst zum Schreiben gebraucht; die Vorschau zeigt schon vorher, was die Aktion trifft.
+  if p_aktion = 'ausschliessen' and not coalesce(p_nur_vorschau, true)
+     and coalesce(btrim(w ->> 'grund'), '') = '' then
+    perform public.pruef_fehler('grund_fehlt');
+  end if;
+
+  for v_id in select u.x from unnest(coalesce(p_task_ids, '{}')) with ordinality u(x, i)
+               where u.x is not null group by u.x order by min(u.i) loop
+    begin
+      select * into t from public.tasks where id = v_id for update;
+      if not found then
+        g := jsonb_build_object('grund', 'nicht_gefunden');
+      else
+        g := public.pruef_sammel_grund(p_aktion, t, w);
+        if g is null and not coalesce(p_nur_vorschau, true) then
+          perform public.pruef_sammel_schreiben(p_aktion, t, w);
+        end if;
+      end if;
+    exception when others then
+      get stacked diagnostics st = returned_sqlstate, h = pg_exception_hint, m = message_text;
+      g := jsonb_build_object(
+        'grund', case when st = 'ED422' and coalesce(h, '') <> '' then h
+                      when st = 'P0001' and p_aktion = 'freigeben' then 'befund' else 'fehler' end,
+        'text', m);
+    end;
+    if g is null then
+      betrifft := betrifft || v_id;
+    else
+      ausgelassen := ausgelassen || jsonb_build_array(jsonb_build_object('task_id', v_id) || g);
+    end if;
+  end loop;
+
+  return jsonb_build_object('betrifft', to_jsonb(betrifft), 'ausgelassen', ausgelassen);
+end $$;
+
+
+--
+-- Name: pruef_sammel_grund(text, public.tasks, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_sammel_grund(p_aktion text, t public.tasks, p_werte jsonb) RETURNS jsonb
+    LANGUAGE plpgsql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  aus text := public.pruef_ausschluss(t.id);
+  lp public.task_pruefungen;
+  gate text;
+  basis text;
+begin
+  if p_aktion = 'freigeben' then
+    if t.status = 'ready' then return jsonb_build_object('grund', 'schon_freigegeben'); end if;
+    if t.source = 'VERA8_IQB' then return jsonb_build_object('grund', 'vera8'); end if;
+    if t.status = 'rueckfrage' then return jsonb_build_object('grund', 'rueckfrage_offen'); end if;
+    if t.status = 'beanstandet' then
+      return jsonb_build_object('grund', case when public.pruef_team_beanstandet(t.id)
+                                              then 'team_beanstandet' else 'lena_passt_nicht' end);
+    end if;
+    select * into lp from public.task_pruefungen p where p.task_id = t.id order by p.geprueft_am desc limit 1;
+    if t.status <> 'review' or lp.id is null or lp.entscheidung <> 'passt' then
+      return jsonb_build_object('grund', 'noch_nicht_bewertet');
+    end if;
+    -- Eine fruehere Admin-Beanstandung ueberstimmt Lenas spaeteres "Passt" nicht still (Lena-Board OP-9).
+    if exists (select 1 from public.task_reviews r left join public.profiles pr on pr.id = r.geprueft_von
+                where r.task_id = t.id and (r.geprueft_von is null or pr.role = 'admin')) then
+      return jsonb_build_object('grund', 'team_beanstandet');
+    end if;
+    if not public.pruef_freigabe_erlaubt(t.id) then return jsonb_build_object('grund', 'geaendert'); end if;
+    gate := public.freigabe_gate_fehler(t.id);
+    if gate is not null then return jsonb_build_object('grund', 'befund', 'text', gate); end if;
+  elsif p_aktion = 'an_lena' then
+    if t.status = 'ready' then return jsonb_build_object('grund', 'freigegeben'); end if;
+    if aus is not null then return jsonb_build_object('grund', 'nicht_bei_lena', 'text', aus); end if;
+    if t.status = 'draft' and not public.pruef_lena_bewertet(t.id) then
+      return jsonb_build_object('grund', 'schon_offen');
+    end if;
+  elsif p_aktion = 'pilot_an' then
+    if aus is not null then return jsonb_build_object('grund', 'nicht_bei_lena', 'text', aus); end if;
+    if t.pruef_pilot then return jsonb_build_object('grund', 'schon_im_pilot'); end if;
+  elsif p_aktion = 'pilot_aus' then
+    if not t.pruef_pilot then return jsonb_build_object('grund', 'nicht_im_pilot'); end if;
+  elsif p_aktion = 'ausschliessen' then
+    -- Ein berechneter Grund (ohne Loesung, Gate …) haelt die Aufgabe nur, bis er behoben ist; von Hand
+    -- herausnehmen geht deshalb trotzdem (Consensus-Check G-b). Nur feste Ausschluesse sperren.
+    if aus in ('vera8', 'inaktiv', 'typ', 'hand') then
+      return jsonb_build_object('grund', 'schon_ausgeschlossen', 'text', aus);
+    end if;
+    if t.status = 'ready' then return jsonb_build_object('grund', 'freigegeben'); end if;
+  elsif p_aktion = 'aufnehmen' then
+    if exists (select 1 from public.task_pruef_ausschluss h where h.task_id = t.id) then return null; end if;
+    if aus is not null then return jsonb_build_object('grund', 'nicht_von_hand', 'text', aus); end if;
+    return jsonb_build_object('grund', 'schon_drin');
+  elsif p_aktion in ('fertigkeit', 'afb') then
+    if t.status = 'ready' then return jsonb_build_object('grund', 'freigegeben'); end if;
+    -- Wie pruef_sperren fuer admin: VERA8, inaktiv und fremde Typen nur ueber den Editor.
+    if aus in ('vera8', 'inaktiv', 'typ') then return jsonb_build_object('grund', 'ausgeschlossen', 'text', aus); end if;
+    if p_aktion = 'afb' then
+      if t.afb is not distinct from p_werte ->> 'afb' then return jsonb_build_object('grund', 'schon_gesetzt'); end if;
+    else
+      if t.skill_key is not distinct from p_werte ->> 'skill_key' then
+        return jsonb_build_object('grund', 'schon_gesetzt');
+      end if;
+      -- Dieselbe Auswahl wie in der Pruefkarte: Thema der Ausgangsfassung plus direkte Voraussetzungen.
+      basis := coalesce((select a.ausgang ->> 'skill_key' from public.task_pruefung_ausgang a where a.task_id = t.id),
+                        t.skill_key);
+      if not exists (select 1 from jsonb_array_elements(public.pruef_fertigkeit_optionen(basis)) o
+                      where o ->> 'key' = p_werte ->> 'skill_key') then
+        return jsonb_build_object('grund', 'nicht_erlaubt');
+      end if;
+    end if;
+  end if;
+  return null;
+end $$;
+
+
+--
+-- Name: pruef_sammel_schreiben(text, public.tasks, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pruef_sammel_schreiben(p_aktion text, t public.tasks, p_werte jsonb) RETURNS void
+    LANGUAGE plpgsql
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  grund text := nullif(btrim(p_werte ->> 'grund'), '');
+  aus jsonb; jetzt jsonb; neu jsonb; danach public.tasks;
+begin
+  if p_aktion = 'freigeben' then
+    perform public.task_status_set(t.id, 'ready');
+    perform public.pruef_protokoll(t.id, 'freigeben', '[]', grund, true);
+  elsif p_aktion = 'an_lena' then
+    perform public.pruef_an_lena_schreiben(t.id, p_werte ->> 'nachricht', grund, true);
+  elsif p_aktion in ('pilot_an', 'pilot_aus') then
+    update public.tasks set pruef_pilot = (p_aktion = 'pilot_an') where id = t.id;
+    perform public.pruef_protokoll(t.id, p_aktion, '[]', grund, true);
+  elsif p_aktion = 'ausschliessen' then
+    insert into public.task_pruef_ausschluss (task_id, grund, von, am)
+    values (t.id, grund, auth.uid(), clock_timestamp());
+    perform public.pruef_protokoll(t.id, 'ausschliessen', '[]', grund, true);
+  elsif p_aktion = 'aufnehmen' then
+    delete from public.task_pruef_ausschluss where task_id = t.id;
+    perform public.pruef_protokoll(t.id, 'aufnehmen', '[]', grund, true);
+  elsif p_aktion in ('fertigkeit', 'afb') then
+    aus := public.pruef_ausgang_sichern(t.id);
+    jetzt := public.pruef_fassung(t.id);
+    neu := public.pruef_entwurf_anwenden(t, jetzt, aus,
+             case when p_aktion = 'fertigkeit' then jsonb_build_object('skill_key', p_werte ->> 'skill_key')
+                  else jsonb_build_object('afb', p_werte ->> 'afb') end,
+             (select s.option_scores from public.task_solutions s where s.task_id = t.id));
+    update public.tasks
+       set skill_key = neu ->> 'skill_key', afb = neu ->> 'afb', sondierrang = (neu ->> 'sondierrang')::int
+     where id = t.id;
+    select * into danach from public.tasks where id = t.id;
+    perform public.pruef_protokoll(t.id, p_aktion,
+      public.pruef_aenderungen(public.pruef_sicht(t, jetzt), public.pruef_sicht(danach, public.pruef_fassung(t.id))),
+      grund, true);
+  end if;
 end $$;
 
 
@@ -5782,14 +6171,11 @@ begin
       using errcode = 'ED409', hint = 'version';
   end if;
   if t.status = 'ready' then perform public.pruef_fehler('freigegeben'); end if;
-  if public.pruef_ausschluss(p_task_id) in ('vera8', 'inaktiv', 'typ')
-     or not public.pruef_im_pilot(t) then
+  -- Fuer alle: VERA8, inaktiv und fremde Antworttypen bearbeitet nur der Editor.
+  if public.pruef_ausschluss(p_task_id) in ('vera8', 'inaktiv', 'typ') then
     perform public.pruef_fehler('ausgeschlossen');
   end if;
-  -- Vom Team beanstandet: wird ueberarbeitet, Lena liest nur (Rasit, PR 208).
-  if public.pruef_team_beanstandet(p_task_id) then
-    perform public.pruef_fehler('team_beanstandet');
-  end if;
+  if public.get_my_role() is distinct from 'admin' then perform public.pruef_lena_sperren(t); end if;
   return t;
 end $$;
 
@@ -6547,6 +6933,11 @@ begin
   select * into v_task from tasks where id = p_task_id for update;
   if not found then
     raise exception 'task_status_set: Aufgabe nicht gefunden' using errcode = 'P0002';
+  end if;
+  -- "Passt nicht" und "Vom Team beanstandet" werden nicht freigegeben, auch nicht ueber review: erst
+  -- ueberarbeiten, dann zurueck an Lena (Entscheidung Rasit, 05.10.2026; Consensus-Check W2).
+  if p_status in ('review', 'ready') and v_task.status = 'beanstandet' then
+    perform public.pruef_fehler('erst_an_lena', 'task_status_set: erst zurueck an Lena');
   end if;
   -- Das Gate (Migration 2c). Was hier durchfaellt, kommt nicht in den LSA-Pool.
   if p_status in ('review', 'ready') then
@@ -8894,6 +9285,24 @@ CREATE TABLE public.subjects (
 
 
 --
+-- Name: task_admin_protokoll; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.task_admin_protokoll (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    task_id uuid NOT NULL,
+    aktion text NOT NULL,
+    aenderungen jsonb DEFAULT '[]'::jsonb NOT NULL,
+    grund text,
+    sammel boolean DEFAULT false NOT NULL,
+    von uuid,
+    am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT task_admin_protokoll_aenderungen_check CHECK ((jsonb_typeof(aenderungen) = 'array'::text)),
+    CONSTRAINT task_admin_protokoll_aktion_check CHECK ((aktion = ANY (ARRAY['freigeben'::text, 'an_lena'::text, 'zurueckweisen'::text, 'freigabe_zurueck'::text, 'ausschliessen'::text, 'aufnehmen'::text, 'pilot_an'::text, 'pilot_aus'::text, 'fertigkeit'::text, 'afb'::text, 'rueckfrage_freigeben'::text, 'rueckfrage_an_lena'::text, 'rueckfrage_zurueckweisen'::text])))
+);
+
+
+--
 -- Name: task_coach_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -8921,6 +9330,19 @@ CREATE TABLE public.task_figures (
     CONSTRAINT task_figures_alt_no_digit CHECK ((alt_text !~ '[0-9]'::text)),
     CONSTRAINT task_figures_alt_not_empty CHECK ((btrim(alt_text) <> ''::text)),
     CONSTRAINT task_figures_generator_check CHECK ((generator = ANY (ARRAY['koordinatensystem'::text, 'winkel'::text])))
+);
+
+
+--
+-- Name: task_pruef_ausschluss; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.task_pruef_ausschluss (
+    task_id uuid NOT NULL,
+    grund text NOT NULL,
+    von uuid,
+    am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT task_pruef_ausschluss_grund_check CHECK ((btrim(grund) <> ''::text))
 );
 
 
@@ -10010,6 +10432,14 @@ ALTER TABLE ONLY public.subjects
 
 
 --
+-- Name: task_admin_protokoll task_admin_protokoll_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_admin_protokoll
+    ADD CONSTRAINT task_admin_protokoll_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: task_coach_metadata task_coach_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10023,6 +10453,14 @@ ALTER TABLE ONLY public.task_coach_metadata
 
 ALTER TABLE ONLY public.task_figures
     ADD CONSTRAINT task_figures_pkey PRIMARY KEY (task_id);
+
+
+--
+-- Name: task_pruef_ausschluss task_pruef_ausschluss_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruef_ausschluss
+    ADD CONSTRAINT task_pruef_ausschluss_pkey PRIMARY KEY (task_id);
 
 
 --
@@ -10743,6 +11181,13 @@ CREATE UNIQUE INDEX students_lead_unique ON public.students USING btree (lead_id
 --
 
 CREATE INDEX students_schule_idx ON public.students USING btree (schule_id);
+
+
+--
+-- Name: task_admin_protokoll_task_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX task_admin_protokoll_task_idx ON public.task_admin_protokoll USING btree (task_id, am DESC);
 
 
 --
@@ -11949,6 +12394,22 @@ ALTER TABLE ONLY public.students
 
 
 --
+-- Name: task_admin_protokoll task_admin_protokoll_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_admin_protokoll
+    ADD CONSTRAINT task_admin_protokoll_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: task_admin_protokoll task_admin_protokoll_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_admin_protokoll
+    ADD CONSTRAINT task_admin_protokoll_von_fkey FOREIGN KEY (von) REFERENCES public.profiles(id);
+
+
+--
 -- Name: task_coach_metadata task_coach_metadata_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11962,6 +12423,22 @@ ALTER TABLE ONLY public.task_coach_metadata
 
 ALTER TABLE ONLY public.task_figures
     ADD CONSTRAINT task_figures_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: task_pruef_ausschluss task_pruef_ausschluss_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruef_ausschluss
+    ADD CONSTRAINT task_pruef_ausschluss_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: task_pruef_ausschluss task_pruef_ausschluss_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.task_pruef_ausschluss
+    ADD CONSTRAINT task_pruef_ausschluss_von_fkey FOREIGN KEY (von) REFERENCES public.profiles(id);
 
 
 --
@@ -13530,6 +14007,19 @@ CREATE POLICY students_select_own ON public.students FOR SELECT USING ((profile_
 ALTER TABLE public.subjects ENABLE ROW LEVEL SECURITY;
 
 --
+-- Name: task_admin_protokoll; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.task_admin_protokoll ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: task_admin_protokoll task_admin_protokoll_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY task_admin_protokoll_lesen ON public.task_admin_protokoll FOR SELECT TO authenticated USING ((public.get_my_role() = 'admin'::text));
+
+
+--
 -- Name: task_coach_metadata; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -13540,6 +14030,19 @@ ALTER TABLE public.task_coach_metadata ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.task_figures ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: task_pruef_ausschluss; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.task_pruef_ausschluss ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: task_pruef_ausschluss task_pruef_ausschluss_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY task_pruef_ausschluss_lesen ON public.task_pruef_ausschluss FOR SELECT TO authenticated USING (public.darf_pruefen());
+
 
 --
 -- Name: task_pruefung_ausgang; Type: ROW SECURITY; Schema: public; Owner: -
