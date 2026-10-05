@@ -14,7 +14,10 @@ declare
   n bigint;
   client text[] := array['pruef_board', 'pruef_aufgabe', 'pruef_speichern', 'pruef_entscheiden',
                          'pruef_rueckgaengig', 'pruef_wertung_testen', 'pruef_rueckfrage_klaeren',
-                         'pruef_admin_liste'];
+                         'pruef_admin_liste',
+                         -- Admin-Pruefansicht (20261005131220, 20261005131306)
+                         'pruef_an_lena', 'pruef_admin_freigeben', 'pruef_freigabe_zuruecknehmen',
+                         'pruef_admin_zurueckweisen', 'pruef_sammel'];
 begin
   -- Zahlen je Status (Lenas Sicht) und je Ausschlussgrund
   for r in select coalesce(public.pruef_ausschluss(id), '(im Board)') grund, public.pruef_lena_status(status) lena, count(*) n
