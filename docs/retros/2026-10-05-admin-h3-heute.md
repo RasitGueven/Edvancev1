@@ -19,7 +19,7 @@
 - LSA-Fertig-Signal: der Name einer fertigen Analyse verlinkt den Report, der Knopf heißt wie auf dem Board
   („Vertragsprozess“). Die Analysen von heute stehen in „Heute im Betrieb“ mit Pille „LSA“.
 - Freigabe-Knopf führt nach `/admin/authoring?bereich=lsa`; Stufe aus `authoring:board.stufe.*`.
-- Lena-Board (`rueckfrage`) war beim Bau nicht in dev → keine Rückfragen-Zeile.
+- Lena-Board (`rueckfrage`) kam mit PR 208 nach dev → Nachtrag H3-N (unten).
 - `.admin-cta-gold` wurde schon vor H3 von keiner Seite mehr benutzt; es gab keinen Knopf zu ersetzen.
 
 ## Nachträge (PR 207)
@@ -27,6 +27,14 @@
 - Screenshots aus der echten App mit Fake-Client und erfundenen Beispieldaten (`docs/screenshots/admin-h3/`).
   Dabei gefunden: `Intl.DateTimeFormat('de-DE', { hour })` liefert „10 Uhr“, `Number()` daraus NaN → der Gruß
   war immer „Guten Abend“. Jetzt `berlinStunde()` über `formatToParts`, mit Test.
+
+## Nachtrag H3-N (nach PR 208)
+- Rebase auf dev ohne Konflikte.
+- „Inhalte freigeben“: Zeile „n Rückfragen von Lena“ mit Pille „Unsicher“, oben in der Liste, Ziel
+  `/admin/authoring/liste?status=rueckfrage`. Neue Lesefunktionen `listAufgabenFuerAdmin()` und
+  `countAufgabenFuerAdmin()` (review + rueckfrage) in `heute.ts`; der Leisten-Zähler „Item-Pflege“ zählt beides.
+- Mit Freigabe von Rasit: `AuthoringItemsPage` liest `?status=` als Startwert des Status-Filters; unbekannte Werte
+  (auch Prototyp-Namen wie `toString`) werden ignoriert. Sonst keine Item-Pflege-Datei geändert.
 
 ## Offen
 - Absagen in „Heute im Betrieb“ kommen mit dem Slots-Feature.

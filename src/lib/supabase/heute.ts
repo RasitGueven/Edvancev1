@@ -72,24 +72,39 @@ export async function listSessionsHeute(now: Date = new Date()): Promise<Supabas
   }
 }
 
-/** Eine Aufgabe, die auf die Freigabe wartet. */
-export type AufgabeInReview = { id: string; skill_key: string | null }
+/** Status, die auf den Admin warten: zur Freigabe (review) und Lenas Rückfragen. */
+export const STATUS_FUER_ADMIN = ['review', 'rueckfrage'] as const
 
-/**
- * Aufgaben im Status review — dieselbe Menge wie countTasksInReview() (Zähler
- * der Leiste), hier mit skill_key für die Gruppierung nach Thema.
- */
-export async function listAufgabenInReview(): Promise<SupabaseResult<AufgabeInReview[]>> {
+/** Eine Aufgabe, die auf den Admin wartet. */
+export type AufgabeFuerAdmin = { id: string; skill_key: string | null; status: (typeof STATUS_FUER_ADMIN)[number] }
+
+/** Aufgaben im Status review oder rueckfrage, mit skill_key für die Gruppierung nach Thema. */
+export async function listAufgabenFuerAdmin(): Promise<SupabaseResult<AufgabeFuerAdmin[]>> {
   try {
     const { data, error } = await supabase
       .from('tasks')
-      .select('id, skill_key')
+      .select('id, skill_key, status')
       .eq('content_type', 'exercise')
-      .eq('status', 'review')
+      .in('status', [...STATUS_FUER_ADMIN])
     if (error) return { data: null, error: error.message }
-    return { data: (data ?? []) as AufgabeInReview[], error: null }
+    return { data: (data ?? []) as AufgabeFuerAdmin[], error: null }
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Aufgaben zur Freigabe konnten nicht geladen werden'
+    const message = err instanceof Error ? err.message : 'Aufgaben für die Freigabe konnten nicht geladen werden'
+    return { data: null, error: message }
+  }
+}
+
+/** Zähler der Leiste „Item-Pflege“: review + rueckfrage. */
+export async function countAufgabenFuerAdmin(): Promise<SupabaseResult<number>> {
+  try {
+    const { count, error } = await supabase
+      .from('tasks')
+      .select('id', { count: 'exact', head: true })
+      .eq('content_type', 'exercise')
+      .in('status', [...STATUS_FUER_ADMIN])
+    return error ? { data: null, error: error.message } : { data: count ?? 0, error: null }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Prüfzähler konnte nicht geladen werden'
     return { data: null, error: message }
   }
 }

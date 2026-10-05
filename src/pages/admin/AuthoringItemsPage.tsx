@@ -13,7 +13,7 @@
 // bedeutet.
 
 import { useEffect, useMemo, useState, type JSX } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ListChecks } from 'lucide-react'
 import { AdminHeader, EmptyState, LoadingPulse } from '@/components/edvance'
@@ -28,7 +28,7 @@ import { ItemRow, type ItemRowData } from '@/components/edvance/authoring/ItemRo
 import { SchemaBanner } from '@/components/edvance/authoring/SchemaBanner'
 import { computeFlags, hasTable } from '@/lib/authoring/flags'
 import { STUFEN, themaVon, zuordnungAus, type Zuordnung } from '@/lib/authoring/board'
-import { filtereUndSortiere, groupBySkill } from '@/lib/authoring/itemFilter'
+import { filtereUndSortiere, groupBySkill, STATUS_ORDER } from '@/lib/authoring/itemFilter'
 import { getFehlbilder, getPruefAdminListe } from '@/lib/supabase/pruefung'
 import { LenaInfo } from '@/components/edvance/authoring/board/LenaInfo'
 import {
@@ -41,7 +41,7 @@ import {
 } from '@/lib/supabase/taskAuthoring'
 import { freigabeMuster, freigabeZuruecknehmen } from '@/lib/supabase/freigabe'
 import { listSkillThemen } from '@/lib/supabase/themen'
-import type { AuthoringSchema, AuthoringTask, Fehlbild, PruefAdminZeile, SkillThema, TaskSolution } from '@/types'
+import type { AuthoringSchema, AuthoringTask, Fehlbild, PruefAdminZeile, SkillThema, TaskSolution, TaskStatus } from '@/types'
 
 /**
  * Die Liste kennt die Loesung nicht (siehe Kopf). computeFlags bekommt eine leere
@@ -87,7 +87,13 @@ export function AuthoringItemsPage(): JSX.Element {
   const [schema, setSchema] = useState<AuthoringSchema | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS)
+  // ?status= als Startwert (Startseite „Heute“: ?status=rueckfrage). Unbekannte
+  // Werte zählen nicht, der Filter bleibt dann auf dem Standard.
+  const [params] = useSearchParams()
+  const [filters, setFilters] = useState<FilterState>(() => {
+    const status = params.get('status')
+    return status && Object.hasOwn(STATUS_ORDER, status) ? { ...EMPTY_FILTERS, status: status as TaskStatus } : EMPTY_FILTERS
+  })
   const [meta, setMeta] = useState<Map<string, ReviewMeta>>(new Map())
   const [zuordnung, setZuordnung] = useState<Zuordnung>(new Map())
   const [lena, setLena] = useState<Map<string, PruefAdminZeile>>(new Map())

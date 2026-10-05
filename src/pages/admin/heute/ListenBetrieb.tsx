@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Gauge, PenLine, ScrollText } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EdvanceBadge } from '@/components/edvance'
@@ -104,9 +104,13 @@ export function RueckstandListe({ schueler }: { schueler: BoardSchueler[] }): JS
 
 /** Ziel der Freigabe: die Item-Pflege, Bereich LSA. */
 const ITEM_PFLEGE = '/admin/authoring?bereich=lsa'
+/** Ziel der Rückfragen: die Item-Pflege mit dem Filter „Rückfrage“. */
+const ITEM_PFLEGE_RUECKFRAGE = '/admin/authoring/liste?status=rueckfrage'
 
-/** Aufgaben im Status review, je Thema eine Zeile. */
-export function InhalteListe({ gruppen, anzahl }: { gruppen: FreigabeGruppe[]; anzahl: number }): JSX.Element {
+type InhalteProps = { gruppen: FreigabeGruppe[]; rueckfragen: number; anzahl: number }
+
+/** Aufgaben im Status review je Thema, dazu eine Zeile für Lenas Rückfragen. */
+export function InhalteListe({ gruppen, rueckfragen, anzahl }: InhalteProps): JSX.Element {
   const { t } = useTranslation('admin')
   const { t: tau } = useTranslation('authoring')
   const navigate = useNavigate()
@@ -122,6 +126,19 @@ export function InhalteListe({ gruppen, anzahl }: { gruppen: FreigabeGruppe[]; a
       </Button>
     ),
   }))
+  // Oben, damit die Zeile nicht hinter „und n weitere“ verschwindet.
+  if (rueckfragen > 0) {
+    zeilen.unshift({
+      key: 'rueckfragen',
+      titel: (
+        <Link to={ITEM_PFLEGE_RUECKFRAGE} className="text-[var(--color-text-link)] hover:underline">
+          {t('heute.listen.inhalte.rueckfragen', { count: rueckfragen })}
+        </Link>
+      ),
+      unterzeile: t('heute.listen.inhalte.rueckfragenSub'),
+      rechts: <EdvanceBadge variant="warning">{t('heute.listen.inhalte.unsicher')}</EdvanceBadge>,
+    })
+  }
   return (
     <ArbeitsListe
       icon={PenLine}

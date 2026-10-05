@@ -77,11 +77,15 @@
       },
       "inhalte": {
         "titel": "Inhalte freigeben",
-        "unterzeile": "geprüft, wartet auf Freigabe",
+        "unterzeile": "geprüft oder mit Rückfrage, wartet auf dich",
         "aufgaben_one": "{{count}} Aufgabe",
         "aufgaben_other": "{{count}} Aufgaben",
         "freigeben": "Freigeben",
-        "fuss": "Zur Item-Pflege"
+        "fuss": "Zur Item-Pflege",
+        "rueckfragen_one": "{{count}} Rückfrage von Lena",
+        "rueckfragen_other": "{{count}} Rückfragen von Lena",
+        "rueckfragenSub": "als „Unsicher“ markiert",
+        "unsicher": "Unsicher"
       }
     },
     "betrieb": {

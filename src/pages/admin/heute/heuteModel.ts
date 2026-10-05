@@ -4,7 +4,7 @@
 // auslaufende()/imVerzug() (src/lib/vertrag/menue.ts).
 
 import type { BoardSchueler, Lead, LeadStatus, SkillThema, Stufe, VertragMitLead } from '@/types'
-import type { AufgabeInReview } from '@/lib/supabase/heute'
+import type { AufgabeFuerAdmin } from '@/lib/supabase/heute'
 
 /** Wie viele Einträge eine Liste höchstens zeigt (Entscheidung 7). */
 export const MAX_ZEILEN = 3
@@ -67,10 +67,11 @@ export type FreigabeGruppe = {
 }
 
 /** Aufgaben im Status review, gruppiert nach Thema (skill_key → skill_thema); größte Gruppe zuerst. */
-export function freigabeGruppen(aufgaben: AufgabeInReview[], skillThemen: SkillThema[]): FreigabeGruppe[] {
+export function freigabeGruppen(aufgaben: AufgabeFuerAdmin[], skillThemen: SkillThema[]): FreigabeGruppe[] {
   const themaVon = new Map(skillThemen.map((s) => [s.skill_key, s]))
   const gruppen = new Map<string, FreigabeGruppe>()
   for (const a of aufgaben) {
+    if (a.status !== 'review') continue
     const thema = a.skill_key ? themaVon.get(a.skill_key) : undefined
     const key = thema?.thema_key ?? ''
     const g = gruppen.get(key) ?? {
@@ -96,6 +97,11 @@ export function berlinStunde(now: Date): number {
     .formatToParts(now)
     .find((p) => p.type === 'hour')
   return Number(teil?.value ?? 0)
+}
+
+/** Lenas Rückfragen (Status rueckfrage, Lena-Board). */
+export function rueckfragen(aufgaben: AufgabeFuerAdmin[]): number {
+  return aufgaben.filter((a) => a.status === 'rueckfrage').length
 }
 
 /** Tageszeit für den Gruß, nach der Berliner Stunde. */

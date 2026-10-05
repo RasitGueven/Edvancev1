@@ -1,8 +1,27 @@
 import { describe, expect, it, vi } from 'vitest'
 
-vi.mock('@/lib/supabase/client', () => ({ supabase: {} }))
+const aufrufe = vi.hoisted(() => ({ liste: [] as [string, unknown[]][] }))
+vi.mock('@/lib/supabase/client', () => {
+  const builder = {
+    select: () => builder,
+    eq: (c: string, v: unknown) => (aufrufe.liste.push([`eq:${c}`, [v]]), builder),
+    in: (c: string, v: unknown[]) => (aufrufe.liste.push([`in:${c}`, v]), builder),
+    then: (res: (v: unknown) => unknown) => Promise.resolve({ count: 5, error: null }).then(res),
+  }
+  return { supabase: { from: () => builder } }
+})
 
-import { berlinTagesGrenzen } from './heute'
+import { berlinTagesGrenzen, countAufgabenFuerAdmin } from './heute'
+
+describe('countAufgabenFuerAdmin', () => {
+  it('zählt Übungen im Status review und rueckfrage (Zähler „Item-Pflege“)', async () => {
+    expect(await countAufgabenFuerAdmin()).toEqual({ data: 5, error: null })
+    expect(aufrufe.liste).toEqual([
+      ['eq:content_type', ['exercise']],
+      ['in:status', ['review', 'rueckfrage']],
+    ])
+  })
+})
 
 describe('berlinTagesGrenzen', () => {
   it('Sommerzeit: Berliner Mitternacht ist 22:00 UTC', () => {

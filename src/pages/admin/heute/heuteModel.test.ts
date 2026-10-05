@@ -8,6 +8,7 @@ import {
   lsaLeads,
   neueLeads,
   offeneAntraege,
+  rueckfragen,
   tageszeit,
   vorname,
 } from './heuteModel'
@@ -77,9 +78,10 @@ describe('heuteModel', () => {
     ]
     const r = freigabeGruppen(
       [
-        { id: '1', skill_key: 's1' },
-        { id: '2', skill_key: 's2' },
-        { id: '3', skill_key: null },
+        { id: '1', skill_key: 's1', status: 'review' },
+        { id: '2', skill_key: 's2', status: 'review' },
+        { id: '3', skill_key: null, status: 'review' },
+        { id: '4', skill_key: 's1', status: 'rueckfrage' },
       ],
       themen,
     )
@@ -93,6 +95,16 @@ describe('heuteModel', () => {
     expect(berlinStunde(new Date('2026-10-05T08:10:00Z'))).toBe(10)
     expect(berlinStunde(new Date('2026-12-01T22:30:00Z'))).toBe(23)
     expect(tageszeit(berlinStunde(new Date('2026-10-05T08:10:00Z')))).toBe('morgen')
+  })
+
+  it('Rückfragen: nur Status rueckfrage', () => {
+    expect(
+      rueckfragen([
+        { id: '1', skill_key: 's1', status: 'review' },
+        { id: '2', skill_key: 's1', status: 'rueckfrage' },
+        { id: '3', skill_key: null, status: 'rueckfrage' },
+      ]),
+    ).toBe(2)
   })
 
   it('Gruß und Vorname', () => {

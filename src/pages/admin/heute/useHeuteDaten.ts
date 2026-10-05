@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { getAdminStats, type AdminStats } from '@/lib/supabase/adminStats'
 import { listBoardSchueler } from '@/lib/supabase/akte'
-import { listAufgabenInReview, listSessionsHeute, type AufgabeInReview, type SessionHeute } from '@/lib/supabase/heute'
+import { listAufgabenFuerAdmin, listSessionsHeute, type AufgabeFuerAdmin, type SessionHeute } from '@/lib/supabase/heute'
 import { listReportSessionsByLead } from '@/lib/supabase/leadLsa'
 import { listLeads } from '@/lib/supabase/leads'
 import { listTodaysLsaSessions } from '@/lib/supabase/lsaReport'
@@ -26,7 +26,7 @@ export type HeuteDaten = {
   vertraege: VertragAktuell[]
   antraege: VertragMitLead[]
   schueler: BoardSchueler[]
-  aufgaben: AufgabeInReview[]
+  aufgaben: AufgabeFuerAdmin[]
   skillThemen: SkillThema[]
   sessions: SessionHeute[]
   lsaHeute: LsaSessionListItem[]
@@ -67,7 +67,7 @@ export function useHeuteDaten(): { daten: HeuteDaten; loading: boolean; error: s
           listVertraegeAktuell(),
           listVertraege(),
           listBoardSchueler(),
-          listAufgabenInReview(),
+          listAufgabenFuerAdmin(),
           listSkillThemen(),
           listSessionsHeute(),
           listTodaysLsaSessions(),

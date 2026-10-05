@@ -31,7 +31,16 @@ vi.mock('@/lib/supabase/akte', () => ({
 }))
 vi.mock('@/lib/supabase/heute', async (orig) => ({
   ...(await orig<typeof import('@/lib/supabase/heute')>()),
-  listAufgabenInReview: vi.fn(() => Promise.resolve({ data: [], error: null })),
+  listAufgabenFuerAdmin: vi.fn(() =>
+    Promise.resolve({
+      data: [
+        { id: 't1', skill_key: 'bruch', status: 'review' },
+        { id: 't2', skill_key: 'bruch', status: 'rueckfrage' },
+        { id: 't3', skill_key: null, status: 'rueckfrage' },
+      ],
+      error: null,
+    }),
+  ),
   listSessionsHeute: vi.fn(() =>
     Promise.resolve({ data: [{ id: 'cs1', scheduled_at: heute, room: 'A1', coach_id: 'c1', coach_name: 'ZZ_Coach', belegt: 3 }], error: null }),
   ),
@@ -93,8 +102,8 @@ describe('HeutePage', () => {
   it('Gruß mit Vornamen aus profiles und Summe offener Punkte', async () => {
     setup()
     expect(await screen.findByRole('heading', { level: 1, name: /, ZZ_Rasit$/ })).toBeTruthy()
-    // 2 neue Leads + 1 LSA + 1 Schüler im Rückstand
-    expect(screen.getByText(/^4 offene Punkte/)).toBeTruthy()
+    // 2 neue Leads + 1 LSA + 1 Schüler im Rückstand + 1 review + 2 Rückfragen
+    expect(screen.getByText(/^7 offene Punkte/)).toBeTruthy()
   })
 
   it('Listen: älteste zuerst, Amber ab 7 Tagen, leere Liste grün', async () => {
@@ -104,7 +113,6 @@ describe('HeutePage', () => {
     const namen = within(leads).getAllByText(/^ZZ_/).map((e) => e.textContent)
     expect(namen).toEqual(['ZZ_Alt', 'ZZ_Neu'])
     expect(within(karte('Erstgespräche')).getByText('nichts offen')).toBeTruthy()
-    expect(within(karte('Inhalte freigeben')).getByText('nichts offen')).toBeTruthy()
     expect(within(karte('Schüler im Rückstand')).getByText('deutlich im Rückstand')).toBeTruthy()
     expect(within(karte('Schüler im Rückstand')).queryByText('ZZ_Lea')).toBeNull()
     expect(screen.queryByText(/gemeistert/i)).toBeNull()
@@ -115,6 +123,17 @@ describe('HeutePage', () => {
     const link = await screen.findByRole('link', { name: 'ZZ_Fertig' })
     expect(link.getAttribute('href')).toBe('/admin/report/r1')
     expect(within(karte('Lernstandsanalysen')).getByRole('button', { name: 'Vertragsprozess' })).toBeTruthy()
+  })
+
+  it('Inhalte freigeben: Zeile „Rückfragen von Lena“ mit Pille „Unsicher“ führt zum Filter Rückfrage', async () => {
+    setup()
+    await screen.findByRole('heading', { name: 'Inhalte freigeben', level: 3 })
+    const inhalte = karte('Inhalte freigeben')
+    expect(within(inhalte).getByText('3')).toBeTruthy()
+    const link = within(inhalte).getByRole('link', { name: '2 Rückfragen von Lena' })
+    expect(link.getAttribute('href')).toBe('/admin/authoring/liste?status=rueckfrage')
+    expect(within(inhalte).getByText('Unsicher')).toBeTruthy()
+    expect(within(inhalte).getByText('Nicht zugeordnet')).toBeTruthy()
   })
 
   it('Heute im Betrieb: Session mit Raum, Coach und Plätzen', async () => {

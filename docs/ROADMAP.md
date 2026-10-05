@@ -429,8 +429,8 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   Kennzahlen-Leiste, sechs Arbeitslisten und „Heute im Betrieb“. Neue
   Lesefunktionen in `src/lib/supabase/heute.ts`. `AdminDashboard`,
   `AdminWidgetGrid`, `LsaTodayCard` und die `.admin-*`-Klassen sind entfernt.
-  **Offen:** Absagen in „Heute im Betrieb“ (Slots-Feature), Zeile „Rückfragen von
-  Lena“, sobald es den Status `rueckfrage` in dev gibt.
+  „Inhalte freigeben“ zeigt Lenas Rückfragen (Nachtrag H3-N), der Leisten-Zähler
+  zählt review + rueckfrage. **Offen:** Absagen in „Heute im Betrieb“ (Slots-Feature).
 
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
