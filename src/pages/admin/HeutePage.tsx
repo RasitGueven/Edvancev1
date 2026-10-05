@@ -24,7 +24,7 @@ import {
   lsaLeads,
   neueLeads,
   offeneAntraege,
-  rueckfragen,
+  rueckfrageIds,
   tageszeit,
   vorname,
 } from './heute/heuteModel'
@@ -63,7 +63,7 @@ export function HeutePage(): JSX.Element {
       verzug: imVerzug(daten.vertraege),
       rueckstand: imRueckstand(daten.schueler),
       freigabe: freigabeGruppen(daten.aufgaben, daten.skillThemen),
-      rueckfragen: rueckfragen(daten.aufgaben),
+      rueckfragen: rueckfrageIds(daten.aufgaben),
     }
   }, [daten, jetzt])
 

@@ -1,5 +1,5 @@
-// Die Klick-Auswahl der Pflege-Strecke: Jahrgang, Themengebiet, Inhaltsfeld,
-// Rueckweisungsgrund. Ein Aussehen fuer alle — gross genug fuer Touch (44px).
+// Die Klick-Auswahl (Chip) — gross genug fuer Touch (44px). Frueher Teil der Pflege-Strecke, heute fuer die
+// Filter im Item-Pflege-Board.
 
 import type { JSX, ReactNode } from 'react'
 

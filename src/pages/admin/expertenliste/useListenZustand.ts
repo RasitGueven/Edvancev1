@@ -36,17 +36,24 @@ function behaelter(el: HTMLElement | null): HTMLElement | null {
   return null
 }
 
-export function useListenZustand(start: FilterState, wiederherstellen: boolean, anker: RefObject<HTMLElement | null>, bereit: boolean) {
+export function useListenZustand(
+  start: FilterState,
+  wiederherstellen: boolean,
+  anker: RefObject<HTMLElement | null>,
+  bereit: boolean,
+  /** i18n-Schluessel (pruefenAdmin) eines Hinweises beim Oeffnen, z. B. nach /admin/pflege. */
+  startHinweis: string | null = null,
+) {
   const [gemerkt] = useState(() => (wiederherstellen ? lese() : null))
   const [filters, setFiltersRoh] = useState<FilterState>(gemerkt?.filters ?? start)
   const [auswahl, setAuswahl] = useState<Set<string>>(() => new Set(gemerkt?.auswahl ?? []))
-  const [hinweis, setHinweis] = useState<string | null>(null)
+  const [hinweis, setHinweis] = useState<string | null>(startHinweis)
   const gescrollt = useRef(false)
 
   const setFilters = useCallback((neu: FilterState): void => {
     if (filterGeaendert(filters, neu) && auswahl.size > 0) {
       setAuswahl(new Set())
-      setHinweis('aufgehoben')
+      setHinweis('liste.auswahlAufgehoben')
     }
     setFiltersRoh(neu)
   }, [filters, auswahl])

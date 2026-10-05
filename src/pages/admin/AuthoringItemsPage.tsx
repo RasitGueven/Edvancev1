@@ -104,7 +104,8 @@ export function AuthoringItemsPage(): JSX.Element {
     return status && Object.hasOwn(STATUS_ORDER, status) ? { ...EMPTY_FILTERS, status: status as TaskStatus } : EMPTY_FILTERS
   })
   // Filter, Auswahl und Scrollposition; „Schließen“ in der Prüfansicht stellt sie wieder her.
-  const liste = useListenZustand(start, params.get('wiederherstellen') === '1', anker, !loading)
+  const liste = useListenZustand(start, params.get('wiederherstellen') === '1', anker, !loading,
+    params.get('hinweis') === 'pflege' ? 'liste.pflegeErsetzt' : null)
   const { filters, setFilters, auswahl, setAuswahl } = liste
   const [meta, setMeta] = useState<Map<string, ReviewMeta>>(new Map())
   const [zuordnung, setZuordnung] = useState<Zuordnung>(new Map())
@@ -371,7 +372,7 @@ export function AuthoringItemsPage(): JSX.Element {
           onClose={() => sammel.setDialog(null)} onFertig={sammel.fertig} />
       )}
       {(sammel.meldung || liste.hinweis) && (
-        <EntscheidungsMeldung text={sammel.meldung?.text ?? ta('liste.auswahlAufgehoben')}
+        <EntscheidungsMeldung text={sammel.meldung?.text ?? ta(liste.hinweis ?? '')}
           onRueckgaengig={sammel.meldung?.aktion?.los} aktionLabel={sammel.meldung?.aktion?.label}
           onZu={() => { sammel.setMeldung(null); liste.setHinweis(null) }} />
       )}

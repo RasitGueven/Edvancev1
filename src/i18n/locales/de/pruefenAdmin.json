@@ -184,13 +184,15 @@
     "board": "{{titel}}",
     "gesundheit": "Content-Gesundheit · {{mangel}}",
     "heute": "Heute · Rückfragen",
-    "ausgelassene": "Ausgelassene"
+    "ausgelassene": "Ausgelassene",
+    "alleMaengel": "alle Mängel"
   },
   "liste": {
     "alleImFilter": "Alle im Filter ({{count}})",
     "durchlauf": "Durchlauf starten · {{count}}",
     "auswaehlen": "{{titel}} auswählen",
-    "auswahlAufgehoben": "Auswahl aufgehoben, weil der Filter geändert wurde."
+    "auswahlAufgehoben": "Auswahl aufgehoben, weil der Filter geändert wurde.",
+    "pflegeErsetzt": "Die Pflege-Strecke ist durch die Prüfansicht ersetzt."
   },
   "sammel": {
     "leiste": "Sammelaktionen",

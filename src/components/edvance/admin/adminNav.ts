@@ -76,7 +76,6 @@ export const ADMIN_NAV: NavKonfiguration = {
           route: '/admin/authoring',
           aktivBei: [
             '/admin/authoring*',
-            '/admin/pflege',
             '/admin/content-gesundheit',
             '/admin/qs',
             '/admin/diagnostics',

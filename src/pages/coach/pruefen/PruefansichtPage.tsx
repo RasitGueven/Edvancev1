@@ -223,8 +223,8 @@ export function PruefansichtPage(): JSX.Element {
                   {s.speichert ? t('ansicht.speichert') : t('ansicht.gespeichert')}
                 </p>
                 {role === 'admin' && (
-                  <Link to={`/admin/authoring/${a.task_id}`} className="min-h-[44px] text-sm text-[var(--color-text-link)] hover:underline">
-                    {t('ansicht.expertenmodus')}
+                  <Link to={`/admin/pruefen/${a.task_id}`} className="min-h-[44px] text-sm text-[var(--color-text-link)] hover:underline">
+                    {t('ansicht.adminPruefansicht')}
                   </Link>
                 )}
               </EdvanceCard>

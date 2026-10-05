@@ -88,3 +88,16 @@ Ausgangsfassung als „geändert“. Wer das nicht will, schickt die Aufgabe dan
 `supabase/schema-erwartet.sql`, `schema.sql` und `schema_content.sql` sind nicht angefasst (Auftrag). Der CI-Job
 „schema“ endet beim Schemavergleich, bis Rasit eingespielt und `tools/schema-snapshot.sh` gelaufen ist.
 `src/types/database.ts` ist nicht neu generiert (Anforderung Daten 5); die Wrapper casten wie `pruefung.ts`.
+
+## OP-14 · „Schließen“ bei Board und Content-Gesundheit
+
+Die Expertenliste stellt beim „Schließen“ Filter, Auswahl und Scrollposition wieder her. Das Board (`returnTo` des
+Arbeitsbereichs) und die Content-Gesundheit (`/admin/content-gesundheit`) öffnen dagegen nur ihre Seite, ohne das
+zuletzt offene Thema bzw. die gewählte Mangel-Kachel; beide halten diesen Zustand heute nur im Komponenten-State.
+Die Startseite „Heute“ braucht keinen Zustand.
+
+## OP-15 · usePruefSitzung liegt unter pages/coach
+
+Die Admin-Prüfansicht nutzt Lenas `usePruefSitzung` (`src/pages/coach/pruefen/usePruefSitzung.ts`) direkt, statt ihn
+zu kopieren (Auftrag B 3). Ein Umzug nach `components/edvance/pruefen/` hätte Lenas Seite geändert; er kann mit der
+Coach-Sicht kommen.

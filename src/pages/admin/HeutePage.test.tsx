@@ -125,15 +125,16 @@ describe('HeutePage', () => {
     expect(within(karte('Lernstandsanalysen')).getByRole('button', { name: 'Vertragsprozess' })).toBeTruthy()
   })
 
-  it('Inhalte freigeben: Zeile „Rückfragen von Lena“ mit Pille „Unsicher“ führt zum Filter Rückfrage', async () => {
+  it('Inhalte freigeben: Zeile „Rückfragen von Lena“ mit Pille „Unsicher“ öffnet die Rückfragen als Reihe', async () => {
     setup()
     await screen.findByRole('heading', { name: 'Inhalte freigeben', level: 3 })
     const inhalte = karte('Inhalte freigeben')
     expect(within(inhalte).getByText('3')).toBeTruthy()
-    const link = within(inhalte).getByRole('link', { name: '2 Rückfragen von Lena' })
-    expect(link.getAttribute('href')).toBe('/admin/authoring/liste?status=rueckfrage')
     expect(within(inhalte).getByText('Unsicher')).toBeTruthy()
     expect(within(inhalte).getByText('Nicht zugeordnet')).toBeTruthy()
+    // Seit der Admin-Prüfansicht öffnet die Zeile die Rückfragen direkt, als Reihe (Bauauftrag F 19).
+    fireEvent.click(within(inhalte).getByRole('button', { name: '2 Rückfragen von Lena' }))
+    expect(JSON.parse(sessionStorage.getItem('edvance.adminPruefReihe') ?? '{}').ids).toEqual(['t2', 't3'])
   })
 
   it('Heute im Betrieb: Session mit Raum, Coach und Plätzen', async () => {

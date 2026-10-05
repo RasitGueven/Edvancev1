@@ -10,7 +10,6 @@ import { HeutePage } from '@/pages/admin/HeutePage'
 import { AuthoringItemsPage } from '@/pages/admin/AuthoringItemsPage'
 import { ItemBoardPage } from '@/pages/admin/ItemBoardPage'
 import { AuthoringEditorPage } from '@/pages/admin/AuthoringEditorPage'
-import { PflegeWizardPage } from '@/pages/admin/PflegeWizardPage'
 import { AdminPruefansichtPage } from '@/pages/admin/pruefen/AdminPruefansichtPage'
 import { ReiheEndePage } from '@/pages/admin/pruefen/ReiheEndePage'
 import { ContentHealthPage } from '@/pages/admin/ContentHealthPage'
@@ -308,7 +307,7 @@ export default function App(): JSX.Element {
         </Route>
 
         {/* Fokus-Seiten ohne Leiste (Entscheidung 11): Vertrags-Abschluss mit den
-            Eltern am iPad, Unterlagen und die Pflege-Strecke laufen im Vollbild. */}
+            Eltern am iPad, Unterlagen und die Admin-Pruefansicht laufen im Vollbild. */}
         <Route
           path="/admin/vertraege/:id"
           element={
@@ -342,12 +341,12 @@ export default function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
-        {/* Pflege-Strecke (A07): der gefuehrte Fluss ueber der Editor-Maschinerie. */}
+        {/* Die Pflege-Strecke ist durch die Admin-Pruefansicht ersetzt: alte Links landen in der Expertenliste. */}
         <Route
           path="/admin/pflege"
           element={
             <ProtectedRoute allowedRoles={['admin']} umleitungFuer={{ coach: '/coach' }}>
-              <PflegeWizardPage />
+              <Navigate to="/admin/authoring/liste?hinweis=pflege" replace />
             </ProtectedRoute>
           }
         />
