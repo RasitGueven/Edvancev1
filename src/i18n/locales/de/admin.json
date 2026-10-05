@@ -3,53 +3,109 @@
     "admin": "Admin",
     "screeningItems": "Screening-Items"
   },
-  "dashboard": {
-    "eyebrow": "Edvance · Verwaltung",
-    "title": "Übersicht",
-    "overview": {
-      "heading": "Überblick",
-      "students": "Aktive Schüler",
-      "leadsOpen": "Offene Leads",
-      "coaches": "Coaches"
+  "heute": {
+    "gruss": {
+      "morgen": "Guten Morgen",
+      "tag": "Guten Tag",
+      "abend": "Guten Abend"
     },
-    "pending": "in Arbeit",
-    "badges": {
-      "leadsNew_one": "{{count}} neu",
-      "leadsNew_other": "{{count}} neu"
+    "grussName": "{{gruss}}, {{name}}",
+    "offen_one": "{{count}} offener Punkt in sechs Listen. Oben links steht, was am längsten wartet.",
+    "offen_other": "{{count}} offene Punkte in sechs Listen. Oben links steht, was am längsten wartet.",
+    "neuerLead": "Neuer Lead",
+    "zuErledigen": "Zu erledigen",
+    "nichtsOffen": "nichts offen",
+    "weitere_one": "und {{count}} weiterer",
+    "weitere_other": "und {{count}} weitere",
+    "kpi": {
+      "label": "Kennzahlen",
+      "schueler": "Aktive Schüler",
+      "schuelerSub_one": "{{count}} im Rückstand",
+      "schuelerSub_other": "{{count}} im Rückstand",
+      "leads": "Offene Leads",
+      "leadsSub_one": "davon {{count}} neu",
+      "leadsSub_other": "davon {{count}} neu",
+      "vertraege": "Laufende Verträge",
+      "vertraegeSub_one": "davon {{count}} im Widerruf",
+      "vertraegeSub_other": "davon {{count}} im Widerruf",
+      "abbuchung": "Abbuchung {{monat}}",
+      "abbuchungSub": "Summe der laufenden Verträge",
+      "coaches": "Coaches",
+      "coachesSub_one": "{{count}} heute im Einsatz",
+      "coachesSub_other": "{{count}} heute im Einsatz"
     },
-    "tiles": {
-      "leads": {
-        "title": "Leads",
-        "description": "Anfragen sichten, qualifizieren und ins Erstgespräch überführen."
+    "listen": {
+      "neueLeads": {
+        "titel": "Neue Leads",
+        "unterzeile": "Termin fürs Erstgespräch vereinbaren",
+        "seit_one": "seit {{count}} Tag",
+        "seit_other": "seit {{count}} Tagen",
+        "termin": "Termin",
+        "fuss": "Zum Lead-Board"
       },
-      "slots": {
-        "title": "Slots",
-        "description": "Sessions anlegen, Schüler zuweisen und das Wochenraster der Kleingruppen pflegen."
+      "erstgespraeche": {
+        "titel": "Erstgespräche",
+        "unterzeile": "vereinbarte Termine, nächste zuerst",
+        "termin": "{{zeit}} · {{ort}}",
+        "fuss": "Alle Termine"
       },
-      "studentRecord": {
-        "title": "Schüler",
-        "description": "Alle Akten nach Klassenstufe: Einheiten-Stand, Sessions, Notizen und Reports je Kind."
+      "lsa": {
+        "titel": "Lernstandsanalysen",
+        "unterzeile": "freigegeben oder fertig",
+        "fertigAm": "fertig {{zeit}} · Report bereit",
+        "fertig": "fertig · Report bereit",
+        "platz": "{{platz}} · Platz bis {{bis}}",
+        "ohnePlatz": "freigegeben, noch kein Platz",
+        "laeuft": "läuft",
+        "fuss": "Zum Lead-Board"
       },
-      "coaches": {
-        "title": "Coaches",
-        "description": "Coach-Accounts anlegen und Zugangsdaten vergeben."
+      "vertraege": {
+        "titel": "Verträge",
+        "unterzeile": "Anträge, Ausläufer, Zahlungen",
+        "antrag": "Antrag {{name}}",
+        "fuer": "für {{kind}} · {{status}}",
+        "oeffnen": "Öffnen",
+        "laeuftAus": "{{kind}} läuft aus",
+        "endet": "endet am {{datum}}",
+        "keinVerzug": "Keine Zahlungsverzüge",
+        "fuss": "Zu den Verträgen"
       },
-      "parentReports": {
-        "title": "Eltern-Reports",
-        "description": "Berichte fürs Elterngespräch zusammenstellen, kommentieren und versenden."
+      "rueckstand": {
+        "titel": "Schüler im Rückstand",
+        "unterzeile": "Einheiten-Stand unter Plan",
+        "fuss": "Alle Akten"
       },
-      "lsaResults": {
-        "title": "LSA-Ergebnisse",
-        "description": "Ausgewertete Lernstandsanalysen prüfen und fürs Elterngespräch freigeben."
-      },
-      "content": {
-        "title": "Inhalte",
-        "description": "Aufgaben erstellen, prüfen, Stoffanker setzen und für die LSA freigeben."
-      },
-      "contracts": {
-        "title": "Verträge",
-        "description": "Verträge vorbereiten, unterschreiben lassen und nachhalten."
+      "inhalte": {
+        "titel": "Inhalte freigeben",
+        "unterzeile": "geprüft oder mit Rückfrage, wartet auf dich",
+        "aufgaben_one": "{{count}} Aufgabe",
+        "aufgaben_other": "{{count}} Aufgaben",
+        "freigeben": "Freigeben",
+        "fuss": "Zur Item-Pflege",
+        "rueckfragen_one": "{{count}} Rückfrage von Lena",
+        "rueckfragen_other": "{{count}} Rückfragen von Lena",
+        "rueckfragenSub": "als „Unsicher“ markiert",
+        "unsicher": "Unsicher"
       }
+    },
+    "betrieb": {
+      "titel": "Heute im Betrieb",
+      "sessions_one": "{{count}} Session",
+      "sessions_other": "{{count}} Sessions",
+      "kinder_one": "{{count}} Kind",
+      "kinder_other": "{{count}} Kinder",
+      "lsaAnzahl_zero": "keine Lernstandsanalyse",
+      "lsaAnzahl_one": "dazu {{count}} Lernstandsanalyse",
+      "lsaAnzahl_other": "dazu {{count}} Lernstandsanalysen",
+      "raum": "Raum {{raum}}",
+      "session": "Session",
+      "ohneCoach": "ohne Coach",
+      "plaetze": "{{belegt}} von {{max}} Plätzen belegt",
+      "lsa": "LSA",
+      "lsaMeta": "Klasse {{klasse}} · {{fach}}",
+      "leerTitel": "Heute ist es ruhig",
+      "leerText": "Für heute sind keine Sessions und keine Lernstandsanalysen geplant.",
+      "fuss": "Zum Stundenplan"
     }
   },
   "schedule": {

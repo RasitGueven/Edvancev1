@@ -1,21 +1,4 @@
 {
-  "today": {
-    "title": "Heute abgeschlossen",
-    "description": "Analysen, die heute fertig geworden sind. Der Report lässt sich direkt öffnen.",
-    "refresh": "Aktualisieren",
-    "state": {
-      "in_progress": "läuft",
-      "completed": "fertig",
-      "aborted": "abgebrochen"
-    },
-    "progress": "{{answered}} von {{planned}} Aufgaben",
-    "openReport": "Report öffnen",
-    "empty": {
-      "title": "Heute noch nichts abgeschlossen",
-      "description": "Sobald eine Lernstandsanalyse fertig ist, erscheint sie hier."
-    },
-    "meta": "Klasse {{grade}} · {{subject}}"
-  },
   "page": {
     "back": "Zurück",
     "eyebrow": "Lernstandsanalyse",

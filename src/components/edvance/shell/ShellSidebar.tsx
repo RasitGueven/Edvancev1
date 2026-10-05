@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { LEISTEN_TON } from './leistenTon'
 import { istAktiv, type LeistenTon, type NavKonfiguration, type Zaehlerwerte } from './navTypes'
 import { ShellNavEintrag } from './ShellNavEintrag'
+import { useProfilName } from './useProfilName'
 
 type Props = {
   konfig: NavKonfiguration
@@ -17,12 +18,6 @@ type Props = {
   onMenue?: () => void
   /** Ausgeklappt (Überlagerung/Schublade): „Menü einklappen“. */
   onSchliessen?: () => void
-}
-
-/** Name aus den Auth-Metadaten, sonst nichts — die E-Mail steht ohnehin darunter. */
-function anzeigeName(meta: Record<string, unknown> | undefined): string | null {
-  const name = meta?.full_name
-  return typeof name === 'string' && name.trim() ? name.trim() : null
 }
 
 /**
@@ -44,7 +39,8 @@ export function ShellSidebar({
   const ton = LEISTEN_TON[tonName]
   const schmal = variante === 'schmal'
   const email = user?.email ?? ''
-  const name = anzeigeName(user?.user_metadata) ?? email
+  // Name aus profiles.full_name; fehlt er, steht nur die E-Mail da.
+  const name = useProfilName() ?? email
 
   const fussKnopf = `flex min-h-[44px] w-full items-center rounded-[var(--radius-md)] text-sm font-medium ${ton.gedimmt} ${ton.hover} ${
     schmal ? 'flex-col justify-center gap-1 px-1 py-2' : 'gap-3 px-3'

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Plus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { EmptyState, LoadingPulse } from '@/components/edvance'
 import { PageHeader } from '@/components/edvance/shell/PageHeader'
 import { Button } from '@/components/ui/button'
-import { LsaTodayCard } from '@/components/edvance/report/LsaTodayCard'
 import { useAuthContext } from '@/context/AuthContext'
 import { listReportSessionsByLead } from '@/lib/supabase/leadLsa'
 import { listLeads, updateLead } from '@/lib/supabase/leads'
@@ -31,6 +30,7 @@ export function LeadsPage(): JSX.Element {
   const { t: tc } = useTranslation('common')
   const { role } = useAuthContext()
   const navigate = useNavigate()
+  const [params, setParams] = useSearchParams()
   const [leads, setLeads] = useState<Lead[]>([])
   const [platzByLead, setPlatzByLead] = useState<Record<string, LeadPlatz>>({})
   const [reportByLead, setReportByLead] = useState<Record<string, string>>({})
@@ -67,6 +67,19 @@ export function LeadsPage(): JSX.Element {
   }
 
   useEffect(load, [])
+
+  // „Neuer Lead“ von der Startseite (/admin/leads?neu=1): Formular öffnen und
+  // den Parameter entfernen, damit Neuladen es nicht erneut öffnet.
+  useEffect(() => {
+    if (params.get('neu') !== '1') return
+    setEditingLead(null)
+    setEditingStep(0)
+    setShowForm(true)
+    setParams((p) => {
+      p.delete('neu')
+      return p
+    }, { replace: true })
+  }, [params, setParams])
 
   // Termin speichern. Aus Spalte 1 wechselt der Lead erst jetzt nach
   // "Termin vereinbart"; spaeter aendert es nur den Termin.
@@ -204,10 +217,6 @@ export function LeadsPage(): JSX.Element {
           />
         </>
       )}
-
-      {/* Fertig-Signal: „ist das Kind durch?". Unter dem Board, damit das Board
-          auf dem Laptop oberhalb von 300 px beginnt (Bauauftrag Admin-Hülle H2). */}
-      <LsaTodayCard />
 
       <TerminModal
         lead={terminLead}

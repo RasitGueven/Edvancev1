@@ -92,7 +92,7 @@ const veraTask = (over: Partial<AuthoringTask> = {}): AuthoringTask =>
 
 const FULL_SCHEMA = { hasStoffanker: true, hasSolutionRead: true, hasStatusGate: true, hasVorbefuellt: true }
 
-function setup(tasks: AuthoringTask[], schema = FULL_SCHEMA): void {
+function setup(tasks: AuthoringTask[], schema = FULL_SCHEMA, url = '/admin/authoring/liste'): void {
   vi.mocked(probeAuthoringSchema).mockResolvedValue(schema)
   vi.mocked(listAuthoringTasks).mockResolvedValue({ data: tasks, error: null })
   vi.mocked(listClustersWithSubject).mockResolvedValue({
@@ -100,7 +100,7 @@ function setup(tasks: AuthoringTask[], schema = FULL_SCHEMA): void {
     error: null,
   })
   render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[url]}>
       <AuthoringItemsPage />
     </MemoryRouter>,
   )
@@ -128,6 +128,23 @@ describe('AuthoringItemsPage', () => {
     setup([task({})])
     await screen.findByText('Zwanzig Prozent')
     expect(screen.queryByText(/Lösung/)).not.toBeInTheDocument()
+  })
+
+  it('startet den Status-Filter aus ?status= (Startseite „Heute“: Rückfragen)', async () => {
+    setup(
+      [task({}), task({ id: 'id-2', title: 'Unsicher markiert', status: 'rueckfrage' })],
+      FULL_SCHEMA,
+      '/admin/authoring/liste?status=rueckfrage',
+    )
+    expect(await screen.findByText('Unsicher markiert')).toBeInTheDocument()
+    expect(screen.queryByText('Zwanzig Prozent')).not.toBeInTheDocument()
+    expect(screen.getByLabelText('Status')).toHaveValue('rueckfrage')
+  })
+
+  it('ignoriert einen unbekannten ?status= und bleibt beim Standard', async () => {
+    setup([task({})], FULL_SCHEMA, '/admin/authoring/liste?status=toString')
+    expect(await screen.findByText('Zwanzig Prozent')).toBeInTheDocument()
+    expect(screen.getByLabelText('Status')).toHaveValue('all')
   })
 
   it('filtert ueber die Suche im Titel', async () => {
