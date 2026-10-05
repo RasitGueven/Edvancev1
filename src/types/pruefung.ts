@@ -144,6 +144,8 @@ export type PruefAufgabe = {
     pruef_version: number
     ausschluss: string | null
     pilot: boolean
+    /** Vom Team (Admin) beanstandet: Lena liest nur, bis die Aufgabe ueberarbeitet ist. */
+    team_beanstandet: boolean
     parts: PruefTeil[]
     optionen: PruefOption[]
     bild_vorhanden: boolean

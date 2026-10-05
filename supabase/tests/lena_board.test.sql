@@ -8,7 +8,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(78);
+select plan(85);
 
 -- --- Fixtures --------------------------------------------------------------
 \set admin_uid   '1b000000-0000-4000-8000-00000000000a'
@@ -350,11 +350,30 @@ select is(pg_temp.fehler(format('select public.pruef_speichern(%L, %s, %L)', :'u
 update pruef_einstellungen set nur_pilot = false;
 select pg_temp.act_as(:'admin_uid');
 select lives_ok(format('select public.lena_beanstande(%L, %L, %L)', :'editor', 'formulierung', 'Admin'), 'Admin beanstandet');
+-- Vom Team beanstandet (Entscheidung Rasit zu PR 208): Lena liest nur, bis der Admin ueberarbeitet hat.
 select pg_temp.act_as(:'lena_uid');
-select is(public.pruef_entscheiden(:'editor', pg_temp.v(:'editor'), 'passt') ->> 'lena_status', 'passt',
-  'Lena bewertet neu: Passt');
+select is(pg_temp.fehler(format('select public.pruef_entscheiden(%L, %s, %L)', :'editor', pg_temp.v(:'editor'), 'passt')),
+  'ED422:team_beanstandet', 'Vom Team beanstandet: Lena kann nicht neu bewerten');
+select is(pg_temp.fehler(format('select public.pruef_speichern(%L, %s, %L)', :'editor', pg_temp.v(:'editor'), '{"afb": "III"}')),
+  'ED422:team_beanstandet', 'Vom Team beanstandet: Lena kann nichts aendern');
+select is(public.pruef_aufgabe(:'editor') -> 'aufgabe' ->> 'team_beanstandet', 'true',
+  'Pruefkarte meldet: vom Team beanstandet');
 select pg_temp.act_as(:'admin_uid');
-select is(public.freigabe_thema('kreis', 13), 0, 'Sammelfreigabe laesst die vom Admin beanstandete Aufgabe aus');
+select lives_ok(format('select public.task_status_set(%L, %L)', :'editor', 'draft'), 'Admin hat ueberarbeitet: zurueck auf draft');
+select pg_temp.act_as(:'lena_uid');
+select results_eq(format($q$select a -> 'aufgabe' ->> 'lena_status', a -> 'aufgabe' ->> 'team_beanstandet'
+                            from (select public.pruef_aufgabe(%L) a) x$q$, :'editor'),
+  $$values ('offen'::text, 'false'::text)$$, 'Nach der Ueberarbeitung kommt die Aufgabe als offen zurueck');
+select is(public.pruef_entscheiden(:'editor', pg_temp.v(:'editor'), 'passt') ->> 'lena_status', 'passt',
+  'Lena bewertet die ueberarbeitete Aufgabe');
+select pg_temp.act_as(:'admin_uid');
+select is(public.freigabe_thema('kreis', 13), 0, 'Sammelfreigabe laesst die einmal vom Admin beanstandete Aufgabe aus');
+-- Lenas eigenes "Passt nicht" bleibt neu bewertbar.
+select pg_temp.act_as(:'lena_uid');
+select is(public.pruef_entscheiden(:'unsicher', pg_temp.v(:'unsicher'), 'passt_nicht', '{aufgabe_unklar}', 'Mehrdeutig') ->> 'lena_status',
+  'passt_nicht', 'Lena: Passt nicht');
+select is(public.pruef_entscheiden(:'unsicher', pg_temp.v(:'unsicher'), 'passt') ->> 'lena_status', 'passt',
+  'Lenas eigenes Passt nicht kann sie neu bewerten');
 
 -- Freigegebene Aufgaben liest Lena, aendert sie aber nicht.
 select pg_temp.act_as(:'lena_uid');

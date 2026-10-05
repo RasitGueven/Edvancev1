@@ -80,7 +80,8 @@
     "speichert": "Wird gespeichert …",
     "gespeichert": "Alle Änderungen gespeichert",
     "expertenmodus": "Im Expertenmodus öffnen",
-    "ladeFehler": "Die Aufgabe konnte nicht geladen werden."
+    "ladeFehler": "Die Aufgabe konnte nicht geladen werden.",
+    "teamBeanstandet": "Vom Team beanstandet, wird überarbeitet. Danach kommt die Aufgabe wieder zu dir."
   },
   "kind": {
     "titel": "So sieht das Kind die Aufgabe",
@@ -238,7 +239,8 @@
     "fehltGrund": "Bitte mindestens einen Grund wählen.",
     "fehltSonstiges": "Bei „Sonstiges“ bitte kurz beschreiben, was nicht stimmt.",
     "fehltFrage": "Bitte kurz schreiben, was dir unklar ist.",
-    "gesperrtFreigegeben": "Freigegebene Aufgaben kannst du nicht mehr bewerten."
+    "gesperrtFreigegeben": "Freigegebene Aufgaben kannst du nicht mehr bewerten.",
+    "gesperrtTeam": "Vom Team beanstandet, wird überarbeitet."
   },
   "gruende": {
     "aufgabe_fehlerhaft": "Aufgabe fehlerhaft oder nicht lösbar",
@@ -281,60 +283,124 @@
     "grund_fehlt": "Bitte mindestens einen Grund wählen.",
     "grund_unbekannt": "Diesen Grund gibt es nicht.",
     "nicht_bewertet": "Die Aufgabe ist noch nicht bewertet.",
-    "keine_rueckfrage": "Zu dieser Aufgabe gibt es keine Rückfrage."
+    "keine_rueckfrage": "Zu dieser Aufgabe gibt es keine Rückfrage.",
+    "team_beanstandet": "Vom Team beanstandet, wird überarbeitet."
   },
   "info": {
     "erklaerung": "Erklärung: {{was}}",
     "antwort": [
-      { "t": "Die Werte, die als richtig zählen. Das System vergleicht Zahlen nach ihrem Wert: 22,62 und 22.62 und 22,620 zählen gleich, ebenso mit oder ohne Einheit." },
-      { "t": "Trag deshalb nur echte Alternativen ein, zum Beispiel das Ergebnis mit π ≈ 3,14 neben dem mit der π-Taste." }
+      {
+        "t": "Die Werte, die als richtig zählen. Das System vergleicht Zahlen nach ihrem Wert: 22,62 und 22.62 und 22,620 zählen gleich, ebenso mit oder ohne Einheit."
+      },
+      {
+        "t": "Trag deshalb nur echte Alternativen ein, zum Beispiel das Ergebnis mit π ≈ 3,14 neben dem mit der π-Taste."
+      }
     ],
     "teile": [
-      { "t": "Je Teilfrage die Antworten, die als richtig zählen. Bei Teilfragen vergleicht das System den Text, nicht den Zahlenwert: 3 und 3,0 sind für das System verschieden." },
-      { "t": "Trag deshalb jede übliche Schreibweise ein." }
+      {
+        "t": "Je Teilfrage die Antworten, die als richtig zählen. Bei Teilfragen vergleicht das System den Text, nicht den Zahlenwert: 3 und 3,0 sind für das System verschieden."
+      },
+      {
+        "t": "Trag deshalb jede übliche Schreibweise ein."
+      }
     ],
     "mc": [
-      { "t": "Die Antwortmöglichkeit, die als richtig zählt. Das Kind sieht alle vier Möglichkeiten ohne Markierung." }
+      {
+        "t": "Die Antwortmöglichkeit, die als richtig zählt. Das Kind sieht alle vier Möglichkeiten ohne Markierung."
+      }
     ],
     "regel": [
-      { "t": "Wie das System die Antwort wertet:" },
-      { "b": "Genau dieser Wert", "t": "Der Zahlenwert muss stimmen, die Schreibweise ist egal." },
-      { "b": "Bereich", "t": "Jeder Wert im Bereich zählt. Sinnvoll beim Ablesen aus Fotos oder Diagrammen ohne Gitter." },
-      { "b": "Einheit muss dabei sein", "t": "Fehlt die Einheit, zählt die Antwort als teilweise richtig. So erkennt der Bericht, wenn ein Kind richtig rechnet, aber Einheiten vergisst." }
+      {
+        "t": "Wie das System die Antwort wertet:"
+      },
+      {
+        "b": "Genau dieser Wert",
+        "t": "Der Zahlenwert muss stimmen, die Schreibweise ist egal."
+      },
+      {
+        "b": "Bereich",
+        "t": "Jeder Wert im Bereich zählt. Sinnvoll beim Ablesen aus Fotos oder Diagrammen ohne Gitter."
+      },
+      {
+        "b": "Einheit muss dabei sein",
+        "t": "Fehlt die Einheit, zählt die Antwort als teilweise richtig. So erkennt der Bericht, wenn ein Kind richtig rechnet, aber Einheiten vergisst."
+      }
     ],
     "weg": [
-      { "t": "Eine kurze Musterlösung für uns. Das Kind sieht sie nicht, und sie fließt nicht in den Bericht." },
-      { "t": "Sie soll dir das Prüfen erleichtern: Du liest den Weg, statt selbst zu rechnen." }
+      {
+        "t": "Eine kurze Musterlösung für uns. Das Kind sieht sie nicht, und sie fließt nicht in den Bericht."
+      },
+      {
+        "t": "Sie soll dir das Prüfen erleichtern: Du liest den Weg, statt selbst zu rechnen."
+      }
     ],
     "fehler": [
-      { "t": "Falsche Antworten, die Kinder hier häufig geben, und der Denkfehler dahinter. Gibt ein Kind genau diese Antwort, erkennt das System den Denkfehler. Wiederholt er sich, steht er im Elternbericht." },
-      { "t": "Entferne, was dir unrealistisch vorkommt. Ergänzen kannst du mit einem Denkfehler aus der Liste. Fehlt der passende, schreib es bei „Unsicher“." }
+      {
+        "t": "Falsche Antworten, die Kinder hier häufig geben, und der Denkfehler dahinter. Gibt ein Kind genau diese Antwort, erkennt das System den Denkfehler. Wiederholt er sich, steht er im Elternbericht."
+      },
+      {
+        "t": "Entferne, was dir unrealistisch vorkommt. Ergänzen kannst du mit einem Denkfehler aus der Liste. Fehlt der passende, schreib es bei „Unsicher“."
+      }
     ],
     "fert": [
-      { "t": "Die Fertigkeit, für die diese Aufgabe ein Beleg ist. Die Lernstandsanalyse wählt Aufgaben nach Fertigkeiten aus, und der Bericht sagt je Fertigkeit, ob sie sicher ist." },
-      { "t": "Prüf deshalb: Scheitern Kinder an dieser Aufgabe vor allem an dieser Fertigkeit? Wenn eher an einer Voraussetzung, wähl die passende aus." },
-      { "t": "Thema und Klasse ergeben sich aus der Fertigkeit." }
+      {
+        "t": "Die Fertigkeit, für die diese Aufgabe ein Beleg ist. Die Lernstandsanalyse wählt Aufgaben nach Fertigkeiten aus, und der Bericht sagt je Fertigkeit, ob sie sicher ist."
+      },
+      {
+        "t": "Prüf deshalb: Scheitern Kinder an dieser Aufgabe vor allem an dieser Fertigkeit? Wenn eher an einer Voraussetzung, wähl die passende aus."
+      },
+      {
+        "t": "Thema und Klasse ergeben sich aus der Fertigkeit."
+      }
     ],
     "afb": [
-      { "t": "Welche Art von Denkleistung die Aufgabe verlangt:" },
-      { "b": "I", "t": "Reproduzieren: ein bekanntes Verfahren direkt anwenden." },
-      { "b": "II", "t": "Zusammenhänge herstellen: mehrere Schritte verknüpfen oder Gelerntes übertragen, zum Beispiel einen Text in eine Rechnung übersetzen." },
-      { "b": "III", "t": "Verallgemeinern und reflektieren: begründen, verallgemeinern, eigene Lösungswege finden." }
+      {
+        "t": "Welche Art von Denkleistung die Aufgabe verlangt:"
+      },
+      {
+        "b": "I",
+        "t": "Reproduzieren: ein bekanntes Verfahren direkt anwenden."
+      },
+      {
+        "b": "II",
+        "t": "Zusammenhänge herstellen: mehrere Schritte verknüpfen oder Gelerntes übertragen, zum Beispiel einen Text in eine Rechnung übersetzen."
+      },
+      {
+        "b": "III",
+        "t": "Verallgemeinern und reflektieren: begründen, verallgemeinern, eigene Lösungswege finden."
+      }
     ],
     "sicher": [
-      { "t": "Dieser Wert ist vorbefüllt, aber nur mit mittlerer Sicherheit. Bitte besonders genau ansehen." }
+      {
+        "t": "Dieser Wert ist vorbefüllt, aber nur mit mittlerer Sicherheit. Bitte besonders genau ansehen."
+      }
     ],
     "testen": [
-      { "t": "Tipp eine Antwort ein und sieh, wie das System sie werten würde und ob es einen typischen Fehler erkennt." },
-      { "t": "Freiwillig, zum Beispiel wenn du nicht sicher bist, ob eine Schreibweise erkannt wird." }
+      {
+        "t": "Tipp eine Antwort ein und sieh, wie das System sie werten würde und ob es einen typischen Fehler erkennt."
+      },
+      {
+        "t": "Freiwillig, zum Beispiel wenn du nicht sicher bist, ob eine Schreibweise erkannt wird."
+      }
     ],
     "hilfsmittel": [
-      { "t": "Was das Kind in der Lernstandsanalyse benutzen darf. Denk daran, wenn du die Schwierigkeit einschätzt." }
+      {
+        "t": "Was das Kind in der Lernstandsanalyse benutzen darf. Denk daran, wenn du die Schwierigkeit einschätzt."
+      }
     ],
     "entscheidung": [
-      { "b": "Passt", "t": "Die Aufgabe geht an das Edvance-Team zur endgültigen Freigabe. Deine Änderungen gehen mit, eine geänderte Fertigkeit bestätigt das Team." },
-      { "b": "Unsicher", "t": "Das Team schaut sich deine Frage an und meldet sich." },
-      { "b": "Passt nicht", "t": "Die Aufgabe geht mit deinem Grund zur Überarbeitung zurück." }
+      {
+        "b": "Passt",
+        "t": "Die Aufgabe geht an das Edvance-Team zur endgültigen Freigabe. Deine Änderungen gehen mit, eine geänderte Fertigkeit bestätigt das Team."
+      },
+      {
+        "b": "Unsicher",
+        "t": "Das Team schaut sich deine Frage an und meldet sich."
+      },
+      {
+        "b": "Passt nicht",
+        "t": "Die Aufgabe geht mit deinem Grund zur Überarbeitung zurück."
+      }
     ],
     "was": {
       "antwort": "Richtige Antwort",

@@ -52,7 +52,7 @@ const sicht = {
 const aufgabe: PruefAufgabe = {
   task_id: 't1',
   kopf: { kurztitel: 'Umfang · Radius 3,6 m', stufe: 'zweite', thema_key: 'kreis', thema_label: 'Kreis: Umfang und Fläche', hilfsmittel: 'Taschenrechner, Stift und Zettel' },
-  aufgabe: { input_type: 'NUMERIC', unit: 'm', status: 'draft', lena_status: 'offen', pruef_version: 3, ausschluss: null, pilot: false, parts: [], optionen: [], bild_vorhanden: false },
+  aufgabe: { input_type: 'NUMERIC', unit: 'm', status: 'draft', lena_status: 'offen', pruef_version: 3, ausschluss: null, pilot: false, team_beanstandet: false, parts: [], optionen: [], bild_vorhanden: false },
   ...sicht,
   loesungsweg: 'U = 2 · π · 3,6 m ≈ 22,62 m',
   fertigkeit: { key: 'geo_kreis_umfang', label: 'Umfang des Kreises', thema_key: 'kreis', thema_label: 'Kreis: Umfang und Fläche', stufe: 'zweite', voraussetzungen: ['Werte in Terme einsetzen'] },
@@ -77,6 +77,7 @@ function zeige(): void {
 
 describe('PruefansichtPage', () => {
   beforeEach(() => {
+    vi.clearAllMocks()
     vi.mocked(getPruefAufgabe).mockResolvedValue({ data: aufgabe, error: null })
     vi.mocked(getPruefBoard).mockResolvedValue({ data: [zeile('t1', 1), zeile('t2', 2)], error: null })
     vi.mocked(getFehlbilder).mockResolvedValue({ data: [{ slug: 'pi_vergessen', klartext: 'Lässt π weg.' }], error: null })
@@ -110,5 +111,20 @@ describe('PruefansichtPage', () => {
       expect.objectContaining({ taskId: 't1', version: 3, entscheidung: 'passt' })))
     expect(await screen.findByText(/Kreis: Umfang und Fläche, Aufgabe 1: Passt/)).toBeTruthy()
     await waitFor(() => expect(getPruefAufgabe).toHaveBeenLastCalledWith('t2'))
+  })
+
+  it('vom Team beanstandet: nur lesen, Hinweis, keine Entscheidung', async () => {
+    vi.mocked(getPruefAufgabe).mockResolvedValue({
+      data: { ...aufgabe, aufgabe: { ...aufgabe.aufgabe, status: 'beanstandet', lena_status: 'passt_nicht', team_beanstandet: true } },
+      error: null,
+    })
+    zeige()
+    expect(await screen.findByText(/Vom Team beanstandet, wird überarbeitet\. Danach kommt/)).toBeTruthy()
+    expect(screen.queryByText(/Schon bewertet/)).toBeNull()
+    expect((screen.getByRole('button', { name: /✓ Passt/ }) as HTMLButtonElement).disabled).toBe(true)
+    expect((screen.getByRole('button', { name: /^Passt nicht/ }) as HTMLButtonElement).disabled).toBe(true)
+    expect(screen.queryByRole('button', { name: /Antwort 22,62 löschen/ })).toBeNull()
+    fireEvent.keyDown(window, { key: '3' })
+    expect(pruefEntscheiden).not.toHaveBeenCalled()
   })
 })

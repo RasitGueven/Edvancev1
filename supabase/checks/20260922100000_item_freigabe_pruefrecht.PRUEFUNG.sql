@@ -128,6 +128,13 @@ begin
   perform public.lena_beanstande(v_task, 'loesung_passt_nicht', 'Probe');
   select status into v_status from public.tasks where id = v_task;
   if v_status <> 'beanstandet' then raise exception 'P4: nicht beanstandet'; end if;
+  -- Vom Team beanstandet: der Pruefer liest nur, bis der Admin ueberarbeitet hat (PR 208).
+  perform pg_temp.als(v_coach, 'authenticated');
+  perform pg_temp.muss_scheitern('P4 Team-Beanstandung neu bewerten',
+    format('select public.pruef_entscheiden(%L, %s, %L)', v_task,
+           (select pruef_version from public.tasks where id = v_task), 'passt'), 'ED422');
+  perform pg_temp.als(v_admin, 'authenticated');
+  perform public.task_status_set(v_task, 'draft');                  -- ueberarbeitet, wieder offen
   perform pg_temp.als(v_coach, 'authenticated');
   perform public.pruef_entscheiden(v_task, (select pruef_version from public.tasks where id = v_task),
                                    'passt_nicht', array['aufgabe_unklar'], 'Probe');
@@ -135,7 +142,7 @@ begin
     raise exception 'P4: Grund aus "Passt nicht" fehlt in task_reviews';
   end if;
   perform public.pruef_entscheiden(v_task, (select pruef_version from public.tasks where id = v_task), 'passt');
-  raise notice 'P4 ok: Beanstandung + Rueckweg beanstandet -> review';
+  raise notice 'P4 ok: Team-Beanstandung gesperrt, nach Ueberarbeitung offen; eigenes Passt nicht -> review';
 
   -- ── P5: direktes UPDATE als authenticated ────────────────────────────────
   -- RLS verweigert ein UPDATE still (0 Zeilen) — deshalb row_count pruefen.

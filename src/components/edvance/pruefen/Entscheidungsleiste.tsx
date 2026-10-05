@@ -36,7 +36,7 @@ export function Auffaelligkeiten({ aufgabe, liste }: { aufgabe: PruefAufgabe; li
 type LeisteProps = {
   panel: Panel
   setPanel: (p: Panel) => void
-  info: { art: 'sperre' | 'aenderungen' | 'vorbefuellt' | 'freigegeben'; text: string }
+  info: { art: 'sperre' | 'aenderungen' | 'vorbefuellt' | 'gesperrt'; text: string }
   passtGesperrt: string | null
   arbeitet: boolean
   fehler: string | null
@@ -51,7 +51,8 @@ export function Entscheidungsleiste(p: LeisteProps): JSX.Element {
   const [notiz, setNotiz] = useState('')
   const [frage, setFrage] = useState('')
   const [lokal, setLokal] = useState<string | null>(null)
-  const gesperrt = p.info.art === 'freigegeben'
+  // Freigegeben oder vom Team beanstandet: Lena liest nur.
+  const gesperrt = p.info.art === 'gesperrt'
 
   const schliessen = (): void => {
     p.setPanel(null)
@@ -118,15 +119,15 @@ export function Entscheidungsleiste(p: LeisteProps): JSX.Element {
             <span className={cn(p.info.art === 'sperre' && 'font-semibold text-[var(--color-warning)]')}>{p.info.text}</span>
           </p>
           <div className="flex w-full flex-wrap gap-2 sm:w-auto">
-            <button type="button" disabled={gesperrt} aria-pressed={p.panel === 'nicht'} onClick={() => p.setPanel(p.panel === 'nicht' ? null : 'nicht')}
+            <button type="button" disabled={gesperrt} title={gesperrt ? p.info.text : undefined} aria-pressed={p.panel === 'nicht'} onClick={() => p.setPanel(p.panel === 'nicht' ? null : 'nicht')}
               className="flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-destructive)] px-4 text-sm font-semibold text-[var(--color-destructive)] hover:bg-[var(--color-destructive-light)] disabled:opacity-40 sm:flex-none">
               {t('leiste.passtNicht')} <Taste>1</Taste>
             </button>
-            <button type="button" disabled={gesperrt} aria-pressed={p.panel === 'unsicher'} onClick={() => p.setPanel(p.panel === 'unsicher' ? null : 'unsicher')}
+            <button type="button" disabled={gesperrt} title={gesperrt ? p.info.text : undefined} aria-pressed={p.panel === 'unsicher'} onClick={() => p.setPanel(p.panel === 'unsicher' ? null : 'unsicher')}
               className="flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-warning)] px-4 text-sm font-semibold text-[var(--color-warning)] hover:bg-[var(--color-warning-light)] disabled:opacity-40 sm:flex-none">
               {t('leiste.unsicher')} <Taste>2</Taste>
             </button>
-            <span title={p.passtGesperrt ?? undefined} className="flex flex-1 sm:flex-none">
+            <span title={p.passtGesperrt ?? (gesperrt ? p.info.text : undefined)} className="flex flex-1 sm:flex-none">
               <button type="button" disabled={!!p.passtGesperrt || gesperrt || p.arbeitet} onClick={p.onPasst}
                 aria-describedby={p.passtGesperrt ? 'pruef-sperre' : undefined}
                 className="flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-success)] px-8 text-sm font-semibold text-white hover:brightness-110 disabled:cursor-not-allowed disabled:bg-[var(--color-neutral-disabled)]">

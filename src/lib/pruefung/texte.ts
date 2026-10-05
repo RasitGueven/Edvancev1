@@ -53,6 +53,7 @@ export const BEKANNTE_HINWEISE = [
   'grund_unbekannt',
   'nicht_bewertet',
   'keine_rueckfrage',
+  'team_beanstandet',
 ] as const
 
 /** i18n-Schluessel (Namespace pruefen) zu einem Fehler aus einem pruef_*-Aufruf. */

@@ -64,7 +64,8 @@ export function PruefansichtPage(): JSX.Element {
   }, [meldung])
 
   const a = s.aufgabe
-  const lesend = !a || a.aufgabe.status === 'ready' || NICHT_IM_BOARD.includes(a.aufgabe.ausschluss ?? '') || s.konflikt
+  const team = !!a?.aufgabe.team_beanstandet
+  const lesend = !a || a.aufgabe.status === 'ready' || team || NICHT_IM_BOARD.includes(a.aufgabe.ausschluss ?? '') || s.konflikt
   const felder = useMemo(() => (s.b && s.ausgang ? geaenderteFelder(s.ausgang, s.b) : new Set<Feld>()), [s.b, s.ausgang])
   const aenderungen = useMemo(() => (s.b && s.ausgang ? lokaleAenderungen(s.ausgang, s.b) : []), [s.b, s.ausgang])
   const sperre = a && s.b ? sperrgrund(a.aufgabe.input_type, s.b) : null
@@ -157,13 +158,14 @@ export function PruefansichtPage(): JSX.Element {
   }
 
   const info = !a || a.aufgabe.status === 'ready'
-    ? { art: 'freigegeben' as const, text: t('leiste.gesperrtFreigegeben') }
+    ? { art: 'gesperrt' as const, text: t('leiste.gesperrtFreigegeben') }
+    : team ? { art: 'gesperrt' as const, text: t('leiste.gesperrtTeam') }
     : sperre ? { art: 'sperre' as const, text: t(`leiste.sperre.${sperre}`) }
       : aenderungen.length ? { art: 'aenderungen' as const, text: t('leiste.aenderungen', { count: aenderungen.length }) }
         : { art: 'vorbefuellt' as const, text: t('leiste.allesVorbefuellt') }
 
   const letzte = a?.letzte_pruefung
-  const bewertet = a && a.aufgabe.lena_status !== 'offen' && a.aufgabe.lena_status !== 'freigegeben'
+  const bewertet = a && !team && a.aufgabe.lena_status !== 'offen' && a.aufgabe.lena_status !== 'freigegeben'
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-app)]">
@@ -185,6 +187,11 @@ export function PruefansichtPage(): JSX.Element {
               </EdvanceCard>
             )}
             {a.aufgabe.status === 'ready' && <p className="text-sm text-[var(--color-text-secondary)]">{t('ansicht.freigegeben')}</p>}
+            {team && (
+              <p role="status" className="rounded-[var(--radius-md)] bg-[var(--color-destructive-light)] p-3 text-sm font-semibold text-[var(--color-destructive)]">
+                {t('ansicht.teamBeanstandet')}
+              </p>
+            )}
             {a.aufgabe.ausschluss && <p className="text-sm text-[var(--color-text-secondary)]">{t('ansicht.nichtImBoard')}</p>}
             {bewertet && (
               <p className="rounded-[var(--radius-md)] bg-[var(--color-bg-subtle)] p-3 text-sm text-[var(--color-text-secondary)]">
