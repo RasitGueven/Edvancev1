@@ -35,7 +35,7 @@ returns boolean
 language sql
 stable
 security definer
-set search_path = public
+set search_path = public, pg_temp
 as $$
   select public.get_my_role() = 'admin'
       or (public.get_my_role() = 'coach' and public.akte_aktiv(p_student_id))

@@ -209,6 +209,14 @@ Deno.serve(async (req: Request) => {
       return json(403, { error: 'Nur Admin/Coach' })
     }
     callerId = u.user.id
+    // X0 (Entscheidung 26): ein Coach nur fuer Kinder mit aktiver Akte. Die
+    // Daten liest diese Funktion mit der Service-Role, RLS greift also nicht.
+    if (prof.role === 'coach') {
+      const { data: aktiv, error: aErr } = await caller.rpc('akte_aktiv', {
+        p_student_id: body.student_id,
+      })
+      if (aErr || aktiv !== true) return json(403, { error: 'Keine aktive Akte' })
+    }
   }
 
   const sId = body.student_id

@@ -120,7 +120,8 @@ export default function App(): JSX.Element {
         <Route
           path="/coach/reports"
           element={
-            <ProtectedRoute allowedRoles={['coach', 'admin']}>
+            // Eltern-Reports schreibt nur der Admin (S2b, Entscheidung 26).
+            <ProtectedRoute allowedRoles={['admin']}>
               <ReportsPage />
             </ProtectedRoute>
           }

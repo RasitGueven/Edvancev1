@@ -9,7 +9,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(72);
+select plan(79);
 
 -- --- Konten ----------------------------------------------------------------
 \set admin_uid   '0c000000-0000-4000-8000-00000000000a'
@@ -97,7 +97,7 @@ insert into vertraege (lead_id, status, vertrag_status, student_id, einheiten, l
 
 select gen_random_uuid() as platz_session, gen_random_uuid() as test_session \gset
 insert into coaching_sessions (id, coach_id, scheduled_at, status) values
-  (:'platz_session', :'coach_uid', now() - interval '2 days', 'active');
+  (:'platz_session', :'coach_uid', now() - interval '2 hours', 'active');
 insert into session_students (session_id, student_id, attendance) values (:'platz_session', :'a', 'present');
 
 -- LSA-Daten je Kind (je eine Sitzung, eine Antwort, ein Urteil)
@@ -217,6 +217,7 @@ select is(public.xp_buchen(:'a', 50, 'Test', 'x0:quest:1'), true,  '3: erster Au
 select is(public.xp_buchen(:'a', 50, 'Test', 'x0:quest:1'), false, '3: gleicher Schluessel bucht nicht noch einmal');
 select is((select count(*)::int from xp_events where buchungs_schluessel = 'x0:quest:1'), 1, '3: genau eine Zeile');
 select is((select xp_total from student_progress where student_id = :'a'), 50, '3: student_progress zaehlt 50 XP');
+select is(public.xp_buchen(:'c', 50, 'Test', 'x0:quest:1'), true, '3: derselbe Schluessel bucht fuer ein anderes Kind');
 select throws_ok(format('select public.xp_buchen(%L, 0, %L, %L)', :'a', 'Test', 'x0:null'), '22023', null,
   '3: Betrag 0 → 22023');
 select pg_temp.act_as(:'admin_uid');
@@ -257,6 +258,10 @@ select is((select count(*)::int from public.lsa_fehlbild_report(:'lsa_l')), 0,
   '4: lsa_fehlbild_report Lead ohne Vertrag → leer');
 select is((select count(*)::int from public.lsa_fehlbild_report(:'lsa_a')), 1,
   '4: lsa_fehlbild_report mit Vertrag liefert den Befund');
+select throws_ok(format('select public.lsa_uebernahme(%L, %L)', :'lsa_b', :'b'), '42501', null,
+  '4: Coach schreibt keinen Lernpfad fuer eine ruhende Akte (lsa_uebernahme)');
+select throws_ok(format('select public.lsa_confirm_focus(%L, %L::uuid[])', :'lsa_l', '{}'), '42501', null,
+  '4: Coach schreibt keinen Lernpfad fuer einen Lead ohne Vertrag (lsa_confirm_focus)');
 
 -- ============================================================================
 -- 5 · Zugangscode: nur Admin
@@ -275,6 +280,12 @@ select pg_temp.act_as(:'admin_uid');
 set local role authenticated;
 select is((select zugangscode from vertraege where student_id = :'a'), 'EDV-ABCD-EFG2', '5: Admin liest den Zugangscode');
 reset role;
+-- Waechter: der Schutz haengt an diesen beiden Tatsachen.
+select is((select count(*)::int from pg_policies where schemaname = 'public' and tablename = 'vertraege'
+            and cmd in ('SELECT', 'ALL') and qual not like '%''admin''%'), 0,
+  '5: keine Nicht-Admin-Lese-Policy auf vertraege');
+select ok((select 'security_invoker=true' = any (reloptions) from pg_class where oid = 'public.vertraege_aktuell'::regclass),
+  '5: vertraege_aktuell bleibt security_invoker');
 
 -- ============================================================================
 -- 6 · LSA-Pool: kein Tutorial, keine ohne Loesung, keine ohne 'lsa'
@@ -300,6 +311,8 @@ select is(public.lsa_select_next(:'lsa_c', array['draft', 'review']), null::uuid
 select pg_temp.act_as(:'admin_uid');
 select throws_ok(format('select public.lsa_start(%L, 9, %L, p_testlauf => true)', :'b', 'Mathematik'), '22023', null,
   '7: Testlauf mit Nicht-Testkonto → abgelehnt');
+select is(pg_temp.fehler(format($$select public.testkonto_setzen('lead', %L, true)$$, :'lb')), 'kein Fehler',
+  '7: Admin setzt Testkonto an einem Lead ohne Kind');
 select is(pg_temp.fehler(format($$select public.testkonto_setzen('student', %L, true)$$, :'a')), 'kein Fehler',
   '7: Admin setzt Testkonto');
 select pg_temp.act_as(:'coach_uid');
@@ -317,6 +330,8 @@ select ok(:'d_ok'::uuid = any (pg_temp.ziehe_alle(:'lsa_test')), '7: Testlauf zi
 select ok(not (:'d_bad'::uuid = any (pg_temp.ziehe_alle(:'lsa_test'))), '7: Testlauf zieht die ausgeschlossene nicht');
 select throws_ok(format('update lsa_sessions set testlauf = false where id = %L', :'lsa_test'), '42501', null,
   '7: Testlauf-Kennzeichen ist nach dem Start fest');
+select throws_ok(format('update lsa_sessions set student_id = %L where id = %L', :'b', :'lsa_test'), '42501', null,
+  '7: das Kind eines Testlaufs ist fest');
 
 -- ============================================================================
 -- 8 · Testlauf erscheint in keiner Kennzahl, keinem Report, keiner Akte

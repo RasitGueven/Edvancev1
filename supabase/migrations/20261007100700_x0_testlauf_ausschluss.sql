@@ -6,8 +6,8 @@
 --   einheiten_stand_intern  verbrauchte Einheiten ohne Test-Sessions
 --   akte_sessions           Sessions-Kachel der Akte ohne Test-Sessions
 --   eltern_report_eintragen kein Report aus einem LSA-Testlauf
---   lsa_uebernahme          kein Lernpfad aus einem Testlauf
---   lsa_confirm_focus       kein Lernpfad aus einem Testlauf
+--   lsa_uebernahme          kein Lernpfad aus einem Testlauf; Coach nur aktive Akte
+--   lsa_confirm_focus       kein Lernpfad aus einem Testlauf; Coach nur aktive Akte
 -- vertrag_abschliessen (Report 1) folgt in 20261007100800.
 -- Lead-Trichter: Testlaeufe gibt es nur mit Test-Leads (lead_lsa_freigeben),
 -- und Test-Leads zaehlen in keinem Lead-Zaehler der Oberflaeche.
@@ -219,6 +219,10 @@ begin
   if v_session.testlauf then
     raise exception 'lsa_uebernahme: Testlauf wird nicht uebernommen' using errcode = '22023';
   end if;
+  -- X0 (Entscheidung 26): Coach nur fuer Kinder mit aktiver Akte.
+  if public.get_my_role() = 'coach' and not public.akte_aktiv(v_session.student_id) then
+    raise exception 'lsa_uebernahme: keine aktive Akte' using errcode = '42501';
+  end if;
 
   -- Frage 1 = JA: die Sitzung haengt am (spaeter echten) Schueler. Der
   -- uebergebene Schueler MUSS dieser sein. Nie "die neueste Sitzung" raten.
@@ -294,6 +298,10 @@ begin
   -- X0: ein Testlauf geht nie in den Lernpfad.
   if v_session.testlauf then
     raise exception 'LSA: Testlauf wird nicht uebernommen' using errcode = '22023';
+  end if;
+  -- X0 (Entscheidung 26): Coach nur fuer Kinder mit aktiver Akte.
+  if public.get_my_role() = 'coach' and not public.akte_aktiv(v_session.student_id) then
+    raise exception 'LSA: keine aktive Akte' using errcode = '42501';
   end if;
   if v_session.status <> 'completed' then
     raise exception 'LSA: Session ist noch nicht ausgewertet' using errcode = 'P0001';

@@ -80,6 +80,9 @@ begin
     if new.testlauf is distinct from old.testlauf then
       raise exception 'Testlauf: nur beim Start einer LSA setzbar' using errcode = '42501';
     end if;
+    if new.testlauf and new.student_id is distinct from old.student_id then
+      raise exception 'Testlauf: das Kind eines Testlaufs ist fest' using errcode = '42501';
+    end if;
     return new;
   end if;
   if new.testlauf then
@@ -96,7 +99,7 @@ $$;
 revoke all on function public.lsa_sessions_testlauf_pruefen() from public, anon, authenticated;
 
 create trigger lsa_sessions_testlauf_trg
-  before insert or update of testlauf on public.lsa_sessions
+  before insert or update of testlauf, student_id on public.lsa_sessions
   for each row execute function public.lsa_sessions_testlauf_pruefen();
 
 -- Session: testlauf aendert nur der Admin (Coaches duerfen per RLS ihre
@@ -161,6 +164,8 @@ volatile
 security definer
 set search_path = public, pg_temp
 as $$
+declare
+  v_n integer;
 begin
   if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'testkonto_setzen: nur Admin' using errcode = '42501';
@@ -170,13 +175,14 @@ begin
   end if;
   if p_art = 'student' then
     update public.students set ist_test = p_wert where id = p_id;
+    get diagnostics v_n = row_count;
   else
     update public.leads set ist_test = p_wert where id = p_id;
-    if found then
-      update public.students set ist_test = p_wert where lead_id = p_id;
-    end if;
+    get diagnostics v_n = row_count;
+    -- Ein Lead hat vor der LSA-Freigabe meist noch kein Kind; dann nur der Lead.
+    update public.students set ist_test = p_wert where lead_id = p_id;
   end if;
-  if not found then
+  if v_n = 0 then
     raise exception 'testkonto_setzen: nicht gefunden' using errcode = 'P0002';
   end if;
 end;

@@ -4,8 +4,9 @@
 -- nur lsa_start enthaelt "insert into lsa_sessions"; lead_lsa_freigeben ruft
 -- lsa_start). Direktes INSERT per RLS sperrt 20261007100600 (Coach nur noch lesen).
 --
--- lsa_darf_starten: Admin ja; Coach nur fuer ein Kind, das in einer seiner nicht
--- abgeschlossenen Sessions einen Platz (session_students, nicht abgesagt) hat;
+-- lsa_darf_starten: Admin ja; Coach nur fuer ein Kind mit aktiver Akte, das in
+-- einer seiner nicht abgeschlossenen Sessions von gestern bis morgen einen Platz
+-- (session_students, nicht abgesagt) hat;
 -- Schuelerkonten (auch das Platz-Geraetekonto, Rolle student) nie -> 42501.
 --
 -- lsa_start und lead_lsa_freigeben bekommen p_testlauf (Default false). Weil
@@ -23,6 +24,7 @@ security definer
 set search_path = public, pg_temp
 as $$
   select public.get_my_role() = 'coach'
+     and public.akte_aktiv(p_student_id)
      and exists (
        select 1
          from public.session_students ss
@@ -30,12 +32,16 @@ as $$
         where ss.student_id = p_student_id
           and cs.coach_id = auth.uid()
           and cs.status <> 'done'
+          -- nur eine Session um heute (Berlin), nicht irgendeine alte offene
+          and (cs.scheduled_at at time zone 'Europe/Berlin')::date
+              between (now() at time zone 'Europe/Berlin')::date - 1
+                  and (now() at time zone 'Europe/Berlin')::date + 1
           and ss.attendance not in ('cancelled', 'cancelled_by_us')
      )
 $$;
 revoke all on function public.coach_hat_platz(uuid) from public, anon, authenticated;
 comment on function public.coach_hat_platz(uuid) is
-  'true, wenn der angemeldete Coach das Kind in einer eigenen, nicht abgeschlossenen Session gebucht hat (Session-Platz).';
+  'true, wenn der angemeldete Coach das Kind (aktive Akte) in einer eigenen, nicht abgeschlossenen Session von gestern bis morgen gebucht hat (Session-Platz).';
 
 create function public.lsa_darf_starten(p_student_id uuid)
 returns boolean
@@ -56,7 +62,7 @@ CREATE FUNCTION public.lsa_start(p_student_id uuid, p_grade integer, p_subject t
  RETURNS jsonb
  LANGUAGE plpgsql
  SECURITY DEFINER
- SET search_path TO 'public'
+ SET search_path TO 'public', 'pg_temp'
 AS $function$
 declare
   v_session_id uuid;
@@ -187,7 +193,7 @@ CREATE FUNCTION public.lead_lsa_freigeben(p_lead_id uuid, p_grade integer, p_sub
  RETURNS jsonb
  LANGUAGE plpgsql
  SECURITY DEFINER
- SET search_path TO 'public'
+ SET search_path TO 'public', 'pg_temp'
 AS $function$
 declare
   v_lead       leads%rowtype;

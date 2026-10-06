@@ -13,9 +13,9 @@
 
 alter table public.xp_events add column if not exists buchungs_schluessel text;
 create unique index if not exists xp_events_buchungs_schluessel_key
-  on public.xp_events (buchungs_schluessel);
+  on public.xp_events (student_id, buchungs_schluessel);
 comment on column public.xp_events.buchungs_schluessel is
-  'Idempotenz-Schluessel von xp_buchen (z. B. quest:<id>). Derselbe Schluessel bucht genau einmal.';
+  'Idempotenz-Schluessel von xp_buchen (z. B. quest:<id>). Je Kind bucht derselbe Schluessel genau einmal.';
 
 drop policy if exists xp_events_insert_own on public.xp_events;
 revoke insert, update, delete on public.xp_events from anon, authenticated;
@@ -56,7 +56,7 @@ begin
 
   insert into public.xp_events (student_id, task_id, xp, reason, buchungs_schluessel)
   values (p_student_id, p_task_id, p_xp, p_grund, p_schluessel)
-  on conflict (buchungs_schluessel) do nothing;
+  on conflict (student_id, buchungs_schluessel) do nothing;
   get diagnostics v_n = row_count;
   return v_n = 1;
 end;
@@ -93,14 +93,14 @@ revoke all on function public.xp_buchen(uuid, integer, text, text, uuid) from pu
 grant execute on function public.xp_buchen(uuid, integer, text, text, uuid) to authenticated;
 
 comment on function public.xp_buchen(uuid, integer, text, text, uuid) is
-  'Bucht XP genau einmal je Buchungsschluessel. Nur Admin oder Systemaufruf (X0, Entscheidung 24).';
+  'Bucht XP genau einmal je Kind und Buchungsschluessel. Nur Admin oder Systemaufruf (X0, Entscheidung 24).';
 
 -- complete_task (stillgelegt, siehe 20261007100000) bucht ueber denselben Kern.
 create or replace function public.complete_task(p_task_id uuid)
 returns table(newly_completed boolean, awarded_xp integer)
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, pg_temp
 as $$
 declare
   v_student uuid;
