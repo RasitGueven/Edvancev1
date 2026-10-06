@@ -77,7 +77,7 @@ CREATE FUNCTION public.akte_basis() RETURNS TABLE(student_id uuid, name text, kl
     SET search_path TO 'public', 'pg_temp'
     AS $$
   with ich as (
-    select public.get_my_role() as rolle
+    select coalesce(public.get_my_role(), '') as rolle
   ),
   vertrag as (
     select v.student_id,
@@ -99,6 +99,7 @@ CREATE FUNCTION public.akte_basis() RETURNS TABLE(student_id uuid, name text, kl
       from public.session_students ss
       join public.coaching_sessions cs on cs.id = ss.session_id
      where ss.attendance = 'present'
+       and not cs.testlauf
      group by ss.student_id
   )
   select s.id,
@@ -130,7 +131,7 @@ CREATE FUNCTION public.akte_sessions(p_student_id uuid) RETURNS TABLE(session_id
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_rolle text := public.get_my_role();
+  v_rolle text := coalesce(public.get_my_role(), '');
   v_seit  date;
 begin
   if v_rolle = 'admin' then
@@ -151,6 +152,7 @@ begin
       join public.coaching_sessions cs on cs.id = ss.session_id
       left join public.profiles p on p.id = cs.coach_id
      where ss.student_id = p_student_id
+       and not cs.testlauf
        and v_seit is not null
        and (cs.scheduled_at at time zone 'Europe/Berlin')::date >= v_seit
      order by cs.scheduled_at desc;
@@ -461,12 +463,65 @@ $$;
 
 
 --
+-- Name: coach_hat_platz(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.coach_hat_platz(p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(public.get_my_role(), '') = 'coach'
+     and public.akte_aktiv(p_student_id)
+     and exists (
+       select 1
+         from public.session_students ss
+         join public.coaching_sessions cs on cs.id = ss.session_id
+        where ss.student_id = p_student_id
+          and cs.coach_id = auth.uid()
+          and cs.status <> 'done'
+          -- nur eine Session um heute (Berlin), nicht irgendeine alte offene
+          and (cs.scheduled_at at time zone 'Europe/Berlin')::date
+              between (now() at time zone 'Europe/Berlin')::date - 1
+                  and (now() at time zone 'Europe/Berlin')::date + 1
+          and ss.attendance not in ('cancelled', 'cancelled_by_us')
+     )
+$$;
+
+
+--
+-- Name: coaching_sessions_testlauf_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.coaching_sessions_testlauf_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if (tg_op = 'INSERT' and new.testlauf)
+     or (tg_op = 'UPDATE' and new.testlauf is distinct from old.testlauf) then
+    if coalesce(public.get_my_role(), '') <> 'admin' then
+      raise exception 'Testlauf: nur Admin' using errcode = '42501';
+    end if;
+    if new.testlauf and exists (
+      select 1 from public.session_students ss
+        join public.students s on s.id = ss.student_id
+       where ss.session_id = new.id and not s.ist_test
+    ) then
+      raise exception 'Testlauf: nur mit Testkonten' using errcode = '22023';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: complete_task(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.complete_task(p_task_id uuid) RETURNS TABLE(newly_completed boolean, awarded_xp integer)
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_student uuid;
@@ -497,8 +552,8 @@ begin
   v_xp := coalesce(v_xp, 0);
 
   if v_xp > 0 then
-    insert into xp_events (student_id, task_id, xp, reason)
-    values (v_student, p_task_id, v_xp, 'Aufgabe abgeschlossen');
+    perform public.xp_buchen_intern(v_student, least(v_xp, 1000), 'Aufgabe abgeschlossen',
+                                    'task:' || v_student || ':' || p_task_id, p_task_id);
   end if;
 
   return query select true, v_xp;
@@ -677,6 +732,7 @@ CREATE FUNCTION public.einheiten_stand_intern(p_student_id uuid, p_heute date) R
       join public.session_students ss on ss.student_id = p_student_id
       join public.coaching_sessions cs on cs.id = ss.session_id
      where public.einheit_verbraucht(ss.attendance)
+       and not cs.testlauf
        and (cs.scheduled_at at time zone 'Europe/Berlin')::date
            between vt.vertragsbeginn and vt.vertrag_ende
   )
@@ -726,6 +782,12 @@ begin
     select 1 from public.lsa_sessions where id = p_lsa_session_id and student_id = p_student_id
   ) then
     raise exception 'eltern_report_eintragen: die LSA gehoert nicht zu diesem Kind' using errcode = '22023';
+  end if;
+  -- X0: aus einem Testlauf entsteht nie ein Eltern-Report.
+  if p_lsa_session_id is not null and exists (
+    select 1 from public.lsa_sessions where id = p_lsa_session_id and testlauf
+  ) then
+    raise exception 'eltern_report_eintragen: Testlauf ergibt keinen Report' using errcode = '22023';
   end if;
 
   select coalesce(max(nr), 0) + 1 into v_nr from public.eltern_reports where student_id = p_student_id;
@@ -1127,6 +1189,24 @@ $$;
 
 
 --
+-- Name: ist_test_schuetzen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ist_test_schuetzen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if new.ist_test is distinct from old.ist_test
+     and not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin') then
+    raise exception 'ist_test: nur Admin' using errcode = '42501';
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: lead_assessment_upsert(uuid, text, text, text[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1199,19 +1279,19 @@ $$;
 
 
 --
--- Name: lead_lsa_freigeben(uuid, integer, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: lead_lsa_freigeben(uuid, integer, text, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.lead_lsa_freigeben(p_lead_id uuid, p_grade integer, p_subject text) RETURNS jsonb
+CREATE FUNCTION public.lead_lsa_freigeben(p_lead_id uuid, p_grade integer, p_subject text, p_testlauf boolean DEFAULT false) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_lead       leads%rowtype;
   v_student_id uuid;
   v_result     jsonb;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'lead_lsa_freigeben: nur Admin' using errcode = '42501';
   end if;
 
@@ -1239,8 +1319,15 @@ begin
   end if;
 
   -- A17: adaptiv (Default). Der 'fest'-Pin aus A16 ist entfernt.
-  v_result := public.lsa_start(v_student_id, p_grade, p_subject);
+  -- X0: Testlauf nur mit Test-Lead. Das Kind erbt ist_test beim Anlegen;
+  -- lsa_start prueft danach Admin und Testkonto noch einmal.
+  if coalesce(p_testlauf, false) and not v_lead.ist_test then
+    raise exception 'lead_lsa_freigeben: Testlauf nur mit Test-Lead' using errcode = '22023';
+  end if;
+  v_result := public.lsa_start(v_student_id, p_grade, p_subject, p_testlauf => coalesce(p_testlauf, false));
 
+  -- Ein Test-Lead laeuft den Trichter normal durch (Platz, Report); er zaehlt
+  -- in keinem Lead-Zaehler (Oberflaeche filtert leads.ist_test, X0).
   update leads set status = 'lsa_freigegeben' where id = p_lead_id;
 
   -- total_items existiert im adaptiven Rueckgabeobjekt bewusst nicht (die
@@ -1248,7 +1335,8 @@ begin
   return jsonb_build_object(
     'session_id',  v_result -> 'session_id',
     'student_id',  to_jsonb(v_student_id),
-    'total_items', v_result -> 'total_items'
+    'total_items', v_result -> 'total_items',
+    'testlauf',    to_jsonb(coalesce(p_testlauf, false))
   );
 end;
 $$;
@@ -1903,13 +1991,21 @@ declare
   v_clusters uuid[];
   v_written  integer := 0;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'LSA: Lernpfad-Freigabe nur durch Coach (FernUSG)' using errcode = '42501';
   end if;
 
   select * into v_session from lsa_sessions where id = p_session_id;
   if not found then
     raise exception 'LSA: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+  -- X0: ein Testlauf geht nie in den Lernpfad.
+  if v_session.testlauf then
+    raise exception 'LSA: Testlauf wird nicht uebernommen' using errcode = '22023';
+  end if;
+  -- X0 (Entscheidung 26): Coach nur fuer Kinder mit aktiver Akte.
+  if coalesce(public.get_my_role(), '') = 'coach' and not public.akte_aktiv(v_session.student_id) then
+    raise exception 'LSA: keine aktive Akte' using errcode = '42501';
   end if;
   if v_session.status <> 'completed' then
     raise exception 'LSA: Session ist noch nicht ausgewertet' using errcode = 'P0001';
@@ -1951,6 +2047,19 @@ begin
 
   return jsonb_build_object('applied', true, 'focus_areas_written', v_written);
 end;
+$$;
+
+
+--
+-- Name: lsa_darf_starten(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_darf_starten(p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(public.get_my_role(), '') = 'admin'
+      or public.coach_hat_platz(p_student_id)
 $$;
 
 
@@ -2590,6 +2699,33 @@ $$;
 
 
 --
+-- Name: lsa_im_pool(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_im_pool(p_task_id uuid, p_testlauf boolean DEFAULT false) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.tasks t
+     where t.id = p_task_id
+       and coalesce(t.is_active, false)
+       and not coalesce(t.is_tutorial, false)
+       and t.content_type = 'exercise'
+       and 'lsa' = any (t.einsatz)
+       and exists (select 1 from public.task_solutions s
+                    where s.task_id = t.id
+                      and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers))
+       and (t.status = 'ready'
+            or (coalesce(p_testlauf, false)
+                and t.status in ('draft', 'review', 'rueckfrage')
+                and public.pruef_ausschluss(t.id) is null))
+  )
+$$;
+
+
+--
 -- Name: lsa_is_correct(text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -2763,10 +2899,13 @@ $$;
 
 CREATE FUNCTION public.lsa_may_act_for(p_student_id uuid) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
-  select public.get_my_role() in ('coach','admin')
-      or public.get_my_student_id() = p_student_id
+  select coalesce(public.get_my_role(), '') = 'admin'
+      or (coalesce(public.get_my_role(), '') = 'coach' and public.akte_aktiv(p_student_id))
+      -- coalesce: ohne Profil/Schuelerzeile ist der Vergleich NULL, und ein
+      -- "if not lsa_may_act_for(…)" liesse NULL durch.
+      or coalesce(public.get_my_student_id() = p_student_id, false)
 $$;
 
 
@@ -3248,7 +3387,7 @@ begin
   -- gebrochenen Knoten, ohne Zeitgrenze, keine Breite a.
   v_mit_thema := exists (
     select 1 from thema_einstieg te join tasks t on t.skill_key = te.skill_key
-     where te.thema_key = v_sess.thema_key and t.status = any (p_status_filter));
+     where te.thema_key = v_sess.thema_key and public.lsa_im_pool(t.id, v_sess.testlauf));
 
   if v_mit_thema then
     v_einstieg := array(
@@ -3282,7 +3421,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_open
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3318,7 +3457,7 @@ begin
          and exists (
                select 1 from tasks t
                 where t.skill_key = s.skill_key
-                  and t.status = any (p_status_filter)
+                  and public.lsa_im_pool(t.id, v_sess.testlauf)
                   and t.id not in (
                         select task_id from lsa_ausgegeben where session_id = p_session_id
                         union
@@ -3331,7 +3470,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3369,7 +3508,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_desc
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3417,7 +3556,7 @@ begin
          and exists (
                select 1 from tasks t
                 where t.skill_key = te.skill_key
-                  and t.status = any (p_status_filter)
+                  and public.lsa_im_pool(t.id, v_sess.testlauf)
                   and t.id not in (
                         select task_id from lsa_ausgegeben where session_id = p_session_id
                         union
@@ -3430,7 +3569,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3462,7 +3601,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3483,7 +3622,7 @@ begin
       from tasks t
       join skills s on s.skill_key = t.skill_key
      where s.klasse_herkunft <= v_sess.grade
-       and t.status = any (p_status_filter)
+       and public.lsa_im_pool(t.id, v_sess.testlauf)
        and t.id not in (
              select task_id from lsa_ausgegeben where session_id = p_session_id
              union
@@ -3500,6 +3639,21 @@ begin
     return null;
   end loop;
 end;
+$$;
+
+
+--
+-- Name: lsa_session_akte_aktiv(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_session_akte_aktiv(p_session_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1 from public.lsa_sessions l
+     where l.id = p_session_id and public.akte_aktiv(l.student_id)
+  )
 $$;
 
 
@@ -3543,6 +3697,37 @@ $$;
 
 
 --
+-- Name: lsa_sessions_testlauf_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_sessions_testlauf_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if tg_op = 'UPDATE' then
+    if new.testlauf is distinct from old.testlauf then
+      raise exception 'Testlauf: nur beim Start einer LSA setzbar' using errcode = '42501';
+    end if;
+    if new.testlauf and new.student_id is distinct from old.student_id then
+      raise exception 'Testlauf: das Kind eines Testlaufs ist fest' using errcode = '42501';
+    end if;
+    return new;
+  end if;
+  if new.testlauf then
+    if coalesce(public.get_my_role(), '') <> 'admin' then
+      raise exception 'Testlauf: nur Admin' using errcode = '42501';
+    end if;
+    if not coalesce((select s.ist_test from public.students s where s.id = new.student_id), false) then
+      raise exception 'Testlauf: nur mit Testkonto' using errcode = '22023';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: lsa_split_value_unit(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3569,12 +3754,12 @@ $_$;
 
 
 --
--- Name: lsa_start(uuid, integer, text, text, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+-- Name: lsa_start(uuid, integer, text, text, timestamp with time zone, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.lsa_start(p_student_id uuid, p_grade integer, p_subject text, p_modus text DEFAULT 'adaptiv'::text, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+CREATE FUNCTION public.lsa_start(p_student_id uuid, p_grade integer, p_subject text, p_modus text DEFAULT 'adaptiv'::text, p_jetzt timestamp with time zone DEFAULT now(), p_testlauf boolean DEFAULT false) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_session_id uuid;
@@ -3582,11 +3767,21 @@ declare
   v_first      uuid;
   v_thema      text;
 begin
-  if not public.lsa_may_act_for(p_student_id) then
-    raise exception 'LSA: kein Zugriff auf diesen Schueler' using errcode = '42501';
+  -- X0 (Entscheidung 24): kein Schuelerkonto startet eine LSA; Admin ja,
+  -- Coach nur fuer ein Kind mit Platz in einer seiner Sessions.
+  if not public.lsa_darf_starten(p_student_id) then
+    raise exception 'LSA: Start nur durch Admin oder Coach ueber einen Platz' using errcode = '42501';
   end if;
   if not exists (select 1 from students where id = p_student_id) then
     raise exception 'LSA: Schueler nicht gefunden' using errcode = 'P0002';
+  end if;
+  if coalesce(p_testlauf, false) then
+    if coalesce(public.get_my_role(), '') <> 'admin' then
+      raise exception 'LSA: Testlauf nur durch Admin' using errcode = '42501';
+    end if;
+    if not coalesce((select ist_test from students where id = p_student_id), false) then
+      raise exception 'LSA: Testlauf nur mit Testkonto' using errcode = '22023';
+    end if;
   end if;
   if p_modus not in ('fest','adaptiv') then
     raise exception 'LSA: unbekannter Modus %', p_modus using errcode = '22023';
@@ -3609,8 +3804,8 @@ begin
        and lt.status = 'aktuell'
        and lower(lt.fach) = lower(p_subject);
 
-    insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus, thema_key)
-    values (p_student_id, p_subject, p_grade, '{}'::uuid[], p_jetzt, 'in_progress', 'adaptiv', v_thema)
+    insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus, thema_key, testlauf)
+    values (p_student_id, p_subject, p_grade, '{}'::uuid[], p_jetzt, 'in_progress', 'adaptiv', v_thema, coalesce(p_testlauf, false))
     returning id into v_session_id;
 
     v_first := public.lsa_select_next_core(v_session_id, array['ready'], p_jetzt);
@@ -3626,6 +3821,7 @@ begin
     -- falls sie total_items liest).
     return jsonb_build_object(
       'session_id', v_session_id,
+      'testlauf',   coalesce(p_testlauf, false),
       'item',       public.lsa_question_payload(v_first)
     );
   end if;
@@ -3641,9 +3837,7 @@ begin
       join task_solutions s on s.task_id = t.id
       join skill_clusters c on c.id = t.cluster_id
       join subjects sub     on sub.id = c.subject_id
-     where t.status = 'ready'
-       and coalesce(t.is_active, true)
-       and coalesce(t.is_tutorial, false) = false
+     where public.lsa_im_pool(t.id, coalesce(p_testlauf, false))
        and t.input_type in ('MC','SHORT_TEXT','NUMERIC','MULTI_PART')
        and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)
        and sub.name = p_subject
@@ -3672,12 +3866,13 @@ begin
       using errcode = 'P0002';
   end if;
 
-  insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus)
-  values (p_student_id, p_subject, p_grade, v_items, p_jetzt, 'in_progress', 'fest')
+  insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus, testlauf)
+  values (p_student_id, p_subject, p_grade, v_items, p_jetzt, 'in_progress', 'fest', coalesce(p_testlauf, false))
   returning id into v_session_id;
 
   return jsonb_build_object(
     'session_id',  v_session_id,
+    'testlauf',    coalesce(p_testlauf, false),
     'total_items', array_length(v_items, 1),
     'item',        public.lsa_question_payload(v_items[1])
   );
@@ -3951,13 +4146,21 @@ declare
   v_lead_id uuid;
   v_n       int;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'lsa_uebernahme: nur Coach/Admin' using errcode = '42501';
   end if;
 
   select * into v_session from lsa_sessions where id = p_session_id;
   if not found then
     raise exception 'lsa_uebernahme: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+  -- X0: ein Testlauf geht nie in den Lernpfad.
+  if v_session.testlauf then
+    raise exception 'lsa_uebernahme: Testlauf wird nicht uebernommen' using errcode = '22023';
+  end if;
+  -- X0 (Entscheidung 26): Coach nur fuer Kinder mit aktiver Akte.
+  if coalesce(public.get_my_role(), '') = 'coach' and not public.akte_aktiv(v_session.student_id) then
+    raise exception 'lsa_uebernahme: keine aktive Akte' using errcode = '42501';
   end if;
 
   -- Frage 1 = JA: die Sitzung haengt am (spaeter echten) Schueler. Der
@@ -5012,7 +5215,8 @@ begin
     return jsonb_build_object(
       'status',     'zugewiesen',
       'first_name', v_first_name,
-      'expires_at', v_a.expires_at
+      'expires_at', v_a.expires_at,
+      'testlauf',   v_session.testlauf
     );
   end if;
 
@@ -5025,7 +5229,8 @@ begin
     'progress',   jsonb_build_object(
                     'answered', v_answered,
                     'total',    coalesce(array_length(v_session.item_ids, 1), 0)),
-    'expires_at', v_a.expires_at
+    'expires_at', v_a.expires_at,
+    'testlauf',   v_session.testlauf
   );
 end;
 $$;
@@ -5397,12 +5602,14 @@ CREATE TABLE public.tasks (
     vorbefuellt_am timestamp with time zone,
     pruef_version bigint DEFAULT 1 NOT NULL,
     pruef_pilot boolean DEFAULT false NOT NULL,
+    einsatz text[] DEFAULT '{lsa,session}'::text[] NOT NULL,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
     CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT tasks_cognitive_type_check CHECK ((cognitive_type = ANY (ARRAY['FACT'::text, 'TRANSFER'::text, 'ANALYSIS'::text]))),
     CONSTRAINT tasks_content_type_check CHECK ((content_type = ANY (ARRAY['exercise'::text, 'exercise_group'::text, 'article'::text, 'video'::text, 'course'::text]))),
     CONSTRAINT tasks_curriculum_grade_check CHECK (((curriculum_grade IS NULL) OR ((curriculum_grade >= 5) AND (curriculum_grade <= 13)))),
     CONSTRAINT tasks_difficulty_check CHECK (((difficulty >= 1) AND (difficulty <= 5))),
+    CONSTRAINT tasks_einsatz_check CHECK ((einsatz <@ ARRAY['lsa'::text, 'session'::text, 'check'::text, 'quest'::text])),
     CONSTRAINT tasks_est_duration_sec_check CHECK (((est_duration_sec IS NULL) OR ((est_duration_sec >= 10) AND (est_duration_sec <= 3600)))),
     CONSTRAINT tasks_input_type_check CHECK ((input_type = ANY (ARRAY['MC'::text, 'NUMERIC'::text, 'SHORT_TEXT'::text, 'TRUE_FALSE'::text, 'FREE_TEXT'::text, 'MATCHING'::text, 'CLOZE'::text, 'COORDINATE'::text, 'MULTI_PART'::text, 'TERM'::text]))),
     CONSTRAINT tasks_multipart_check CHECK (
@@ -7060,6 +7267,44 @@ $$;
 
 
 --
+-- Name: session_students_testlauf_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_students_testlauf_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if exists (select 1 from public.coaching_sessions cs where cs.id = new.session_id and cs.testlauf)
+     and not coalesce((select s.ist_test from public.students s where s.id = new.student_id), false) then
+    raise exception 'Testlauf: nur Testkonten in einer Test-Session' using errcode = '22023';
+  end if;
+  return new;
+end;
+$$;
+
+
+--
+-- Name: session_testlauf_setzen(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_testlauf_setzen(p_session_id uuid, p_testlauf boolean) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'session_testlauf_setzen: nur Admin' using errcode = '42501';
+  end if;
+  update public.coaching_sessions set testlauf = coalesce(p_testlauf, false) where id = p_session_id;
+  if not found then
+    raise exception 'session_testlauf_setzen: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+end;
+$$;
+
+
+--
 -- Name: session_verschieben_zugang_pruefen(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -7262,6 +7507,23 @@ begin
     raise exception
       'students: provisorische Zeilen entstehen nur ueber lead_lsa_freigeben'
       using errcode = '42501';
+  end if;
+  return new;
+end;
+$$;
+
+
+--
+-- Name: students_ist_test_erben(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.students_ist_test_erben() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if new.lead_id is not null and not new.ist_test then
+    new.ist_test := coalesce((select l.ist_test from public.leads l where l.id = new.lead_id), false);
   end if;
   return new;
 end;
@@ -7644,6 +7906,39 @@ end $$;
 
 
 --
+-- Name: testkonto_setzen(text, uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.testkonto_setzen(p_art text, p_id uuid, p_wert boolean) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n integer;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'testkonto_setzen: nur Admin' using errcode = '42501';
+  end if;
+  if p_id is null or p_wert is null or p_art not in ('student', 'lead') then
+    raise exception 'testkonto_setzen: Art student|lead, Id und Wert sind Pflicht' using errcode = '22023';
+  end if;
+  if p_art = 'student' then
+    update public.students set ist_test = p_wert where id = p_id;
+    get diagnostics v_n = row_count;
+  else
+    update public.leads set ist_test = p_wert where id = p_id;
+    get diagnostics v_n = row_count;
+    -- Ein Lead hat vor der LSA-Freigabe meist noch kein Kind; dann nur der Lead.
+    update public.students set ist_test = p_wert where lead_id = p_id;
+  end if;
+  if v_n = 0 then
+    raise exception 'testkonto_setzen: nicht gefunden' using errcode = 'P0002';
+  end if;
+end;
+$$;
+
+
+--
 -- Name: vertraege_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -8002,6 +8297,7 @@ begin
     select l.id into v_lsa
       from public.lsa_sessions l
      where l.student_id = v_student and l.status = 'completed'
+       and not l.testlauf
      order by l.completed_at desc nulls last
      limit 1;
     if v_lsa is not null
@@ -8777,6 +9073,54 @@ $$;
 
 
 --
+-- Name: xp_buchen(uuid, integer, text, text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.xp_buchen(p_student_id uuid, p_xp integer, p_grund text, p_schluessel text, p_task_id uuid DEFAULT NULL::uuid) RETURNS boolean
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin') then
+    raise exception 'xp_buchen: nur Admin oder Systemaufruf' using errcode = '42501';
+  end if;
+  return public.xp_buchen_intern(p_student_id, p_xp, p_grund, p_schluessel, p_task_id);
+end;
+$$;
+
+
+--
+-- Name: xp_buchen_intern(uuid, integer, text, text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.xp_buchen_intern(p_student_id uuid, p_xp integer, p_grund text, p_schluessel text, p_task_id uuid DEFAULT NULL::uuid) RETURNS boolean
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n integer;
+begin
+  if p_student_id is null or p_xp is null or p_xp < 1 or p_xp > 1000 then
+    raise exception 'xp_buchen: Kind und Betrag 1..1000 sind Pflicht' using errcode = '22023';
+  end if;
+  if nullif(btrim(coalesce(p_grund, '')), '') is null
+     or nullif(btrim(coalesce(p_schluessel, '')), '') is null then
+    raise exception 'xp_buchen: Grund und Buchungsschluessel sind Pflicht' using errcode = '22023';
+  end if;
+  if not exists (select 1 from public.students where id = p_student_id) then
+    raise exception 'xp_buchen: Kind nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  insert into public.xp_events (student_id, task_id, xp, reason, buchungs_schluessel)
+  values (p_student_id, p_task_id, p_xp, p_grund, p_schluessel)
+  on conflict (student_id, buchungs_schluessel) do nothing;
+  get diagnostics v_n = row_count;
+  return v_n = 1;
+end;
+$$;
+
+
+--
 -- Name: ziel_fertigkeiten(uuid, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -8978,6 +9322,7 @@ CREATE TABLE public.coaching_sessions (
     scheduled_at timestamp with time zone NOT NULL,
     status text DEFAULT 'upcoming'::text NOT NULL,
     slot_id uuid,
+    testlauf boolean DEFAULT false NOT NULL,
     CONSTRAINT coaching_sessions_status_check CHECK ((status = ANY (ARRAY['upcoming'::text, 'active'::text, 'done'::text])))
 );
 
@@ -9217,6 +9562,7 @@ CREATE TABLE public.leads (
     rejection_reason text,
     rejection_note text,
     schule_id uuid,
+    ist_test boolean DEFAULT false NOT NULL,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
@@ -9364,6 +9710,7 @@ CREATE TABLE public.lsa_sessions (
     uebernommen_zu_student_id uuid,
     uebernommen_am timestamp with time zone,
     thema_key text,
+    testlauf boolean DEFAULT false NOT NULL,
     CONSTRAINT lsa_sessions_avatar_choice_form CHECK (((avatar_choice IS NULL) OR (((length(avatar_choice) >= 1) AND (length(avatar_choice) <= 40)) AND (avatar_choice = btrim(avatar_choice))))),
     CONSTRAINT lsa_sessions_grade_check CHECK (((grade >= 5) AND (grade <= 13))),
     CONSTRAINT lsa_sessions_modus_check CHECK ((modus = ANY (ARRAY['fest'::text, 'adaptiv'::text]))),
@@ -10033,6 +10380,7 @@ CREATE TABLE public.students (
     is_provisional boolean DEFAULT false NOT NULL,
     lead_id uuid,
     schule_id uuid,
+    ist_test boolean DEFAULT false NOT NULL,
     CONSTRAINT students_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT students_provisional_lead_ck CHECK ((is_provisional = (lead_id IS NOT NULL))),
     CONSTRAINT students_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text])))
@@ -10612,7 +10960,8 @@ CREATE TABLE public.xp_events (
     student_id uuid NOT NULL,
     task_id uuid,
     xp integer NOT NULL,
-    reason text
+    reason text,
+    buchungs_schluessel text
 );
 
 
@@ -12171,10 +12520,24 @@ CREATE INDEX vertrag_versand_vertrag_idx ON public.vertrag_versand USING btree (
 
 
 --
+-- Name: xp_events_buchungs_schluessel_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX xp_events_buchungs_schluessel_key ON public.xp_events USING btree (student_id, buchungs_schluessel);
+
+
+--
 -- Name: xp_events_student_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX xp_events_student_idx ON public.xp_events USING btree (student_id);
+
+
+--
+-- Name: coaching_sessions coaching_sessions_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER coaching_sessions_testlauf_trg BEFORE INSERT OR UPDATE OF testlauf ON public.coaching_sessions FOR EACH ROW EXECUTE FUNCTION public.coaching_sessions_testlauf_pruefen();
 
 
 --
@@ -12189,6 +12552,13 @@ CREATE TRIGGER coaching_sessions_verschieben_zugang_trg BEFORE UPDATE OF schedul
 --
 
 CREATE TRIGGER eltern_reports_guard_trg BEFORE UPDATE ON public.eltern_reports FOR EACH ROW EXECUTE FUNCTION public.eltern_reports_guard();
+
+
+--
+-- Name: leads leads_ist_test_schuetzen_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER leads_ist_test_schuetzen_trg BEFORE UPDATE OF ist_test ON public.leads FOR EACH ROW EXECUTE FUNCTION public.ist_test_schuetzen();
 
 
 --
@@ -12213,10 +12583,24 @@ CREATE TRIGGER lsa_session_platz_release_trg AFTER UPDATE OF status ON public.ls
 
 
 --
+-- Name: lsa_sessions lsa_sessions_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_sessions_testlauf_trg BEFORE INSERT OR UPDATE OF testlauf, student_id ON public.lsa_sessions FOR EACH ROW EXECUTE FUNCTION public.lsa_sessions_testlauf_pruefen();
+
+
+--
 -- Name: schueler_notizen schueler_notizen_guard_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER schueler_notizen_guard_trg BEFORE UPDATE ON public.schueler_notizen FOR EACH ROW EXECUTE FUNCTION public.schueler_notizen_guard();
+
+
+--
+-- Name: session_students session_students_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER session_students_testlauf_trg BEFORE INSERT OR UPDATE OF student_id, session_id ON public.session_students FOR EACH ROW EXECUTE FUNCTION public.session_students_testlauf_pruefen();
 
 
 --
@@ -12238,6 +12622,20 @@ CREATE CONSTRAINT TRIGGER skill_kante_tiefe AFTER INSERT OR UPDATE ON public.ski
 --
 
 CREATE TRIGGER students_guard_provisional_trg BEFORE INSERT OR UPDATE OF is_provisional ON public.students FOR EACH ROW EXECUTE FUNCTION public.students_guard_provisional();
+
+
+--
+-- Name: students students_ist_test_erben_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER students_ist_test_erben_trg BEFORE INSERT ON public.students FOR EACH ROW EXECUTE FUNCTION public.students_ist_test_erben();
+
+
+--
+-- Name: students students_ist_test_schuetzen_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER students_ist_test_schuetzen_trg BEFORE UPDATE OF ist_test ON public.students FOR EACH ROW EXECUTE FUNCTION public.ist_test_schuetzen();
 
 
 --
@@ -13759,10 +14157,19 @@ CREATE POLICY badge_catalog_read_all ON public.badge_catalog FOR SELECT USING (t
 ALTER TABLE public.behavior_snapshots ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: behavior_snapshots coaches_admins_see_all_snapshots; Type: POLICY; Schema: public; Owner: -
+-- Name: behavior_snapshots behavior_snapshots_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY coaches_admins_see_all_snapshots ON public.behavior_snapshots FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY behavior_snapshots_admin_read ON public.behavior_snapshots FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: behavior_snapshots behavior_snapshots_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY behavior_snapshots_coach_select ON public.behavior_snapshots FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND (EXISTS ( SELECT 1
+   FROM public.students s
+  WHERE ((s.profile_id = behavior_snapshots.user_id) AND public.akte_aktiv(s.id))))));
 
 
 --
@@ -14049,10 +14456,17 @@ CREATE POLICY lernpfad_protokoll_lesen ON public.lernpfad_protokoll FOR SELECT T
 ALTER TABLE public.lsa_ausgegeben ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_ausgegeben lsa_ausgegeben_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_ausgegeben lsa_ausgegeben_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_ausgegeben_coach_admin_read ON public.lsa_ausgegeben FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_ausgegeben_admin_read ON public.lsa_ausgegeben FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_ausgegeben lsa_ausgegeben_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_ausgegeben_coach_select ON public.lsa_ausgegeben FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.lsa_session_akte_aktiv(session_id)));
 
 
 --
@@ -14071,10 +14485,17 @@ CREATE POLICY lsa_ausgegeben_parent_read ON public.lsa_ausgegeben FOR SELECT USI
 ALTER TABLE public.lsa_report_notes ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_report_notes lsa_report_notes_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_report_notes lsa_report_notes_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_report_notes_coach_admin_all ON public.lsa_report_notes USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_report_notes_admin_all ON public.lsa_report_notes USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_report_notes lsa_report_notes_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_report_notes_coach_select ON public.lsa_report_notes FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.lsa_session_akte_aktiv(session_id)));
 
 
 --
@@ -14084,10 +14505,17 @@ CREATE POLICY lsa_report_notes_coach_admin_all ON public.lsa_report_notes USING 
 ALTER TABLE public.lsa_responses ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_responses lsa_responses_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_responses lsa_responses_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_responses_coach_admin_read ON public.lsa_responses FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_responses_admin_read ON public.lsa_responses FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_responses lsa_responses_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_responses_coach_select ON public.lsa_responses FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.lsa_session_akte_aktiv(session_id)));
 
 
 --
@@ -14106,10 +14534,17 @@ CREATE POLICY lsa_responses_parent_read ON public.lsa_responses FOR SELECT USING
 ALTER TABLE public.lsa_sessions ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_sessions lsa_sessions_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_sessions lsa_sessions_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_sessions_coach_admin_all ON public.lsa_sessions USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_sessions_admin_all ON public.lsa_sessions USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_sessions lsa_sessions_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_sessions_coach_select ON public.lsa_sessions FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -14126,10 +14561,17 @@ CREATE POLICY lsa_sessions_parent_read ON public.lsa_sessions FOR SELECT USING (
 ALTER TABLE public.lsa_skill_urteil ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_skill_urteil lsa_skill_urteil_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_skill_urteil lsa_skill_urteil_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_skill_urteil_coach_admin_read ON public.lsa_skill_urteil FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_skill_urteil_admin_read ON public.lsa_skill_urteil FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_skill_urteil lsa_skill_urteil_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_skill_urteil_coach_select ON public.lsa_skill_urteil FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.lsa_session_akte_aktiv(session_id)));
 
 
 --
@@ -14160,10 +14602,17 @@ ALTER TABLE public.parent_report_generations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.parent_reports ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: parent_reports parent_reports_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: parent_reports parent_reports_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY parent_reports_coach_admin_all ON public.parent_reports USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY parent_reports_admin_all ON public.parent_reports USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: parent_reports parent_reports_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY parent_reports_coach_select ON public.parent_reports FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -14779,16 +15228,16 @@ ALTER TABLE public.student_badges ENABLE ROW LEVEL SECURITY;
 -- Name: student_badges student_badges_admin_write; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_badges_admin_write ON public.student_badges USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+CREATE POLICY student_badges_admin_write ON public.student_badges USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
 -- Name: student_badges student_badges_self_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_badges_self_read ON public.student_badges FOR SELECT USING (((student_id IN ( SELECT students.id
-   FROM public.students
-  WHERE (students.profile_id = auth.uid()))) OR (public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])) OR (EXISTS ( SELECT 1
+CREATE POLICY student_badges_self_read ON public.student_badges FOR SELECT USING (((student_id IN ( SELECT s.id
+   FROM public.students s
+  WHERE (s.profile_id = auth.uid()))) OR (COALESCE(public.get_my_role(), ''::text) = 'admin'::text) OR ((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)) OR (EXISTS ( SELECT 1
    FROM public.parent_student ps
   WHERE ((ps.student_id = student_badges.student_id) AND (ps.parent_id = auth.uid()))))));
 
@@ -14840,10 +15289,17 @@ ALTER TABLE public.student_competency_mastery ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.student_focus_areas ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: student_focus_areas student_focus_areas_coach_all; Type: POLICY; Schema: public; Owner: -
+-- Name: student_focus_areas student_focus_areas_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_focus_areas_coach_all ON public.student_focus_areas USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY student_focus_areas_admin_all ON public.student_focus_areas USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: student_focus_areas student_focus_areas_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY student_focus_areas_coach_select ON public.student_focus_areas FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -14862,10 +15318,17 @@ CREATE POLICY student_focus_areas_parent_read ON public.student_focus_areas FOR 
 ALTER TABLE public.student_progress ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: student_progress student_progress_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: student_progress student_progress_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_progress_coach_admin_read ON public.student_progress FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY student_progress_admin_read ON public.student_progress FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: student_progress student_progress_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY student_progress_coach_select ON public.student_progress FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -14943,17 +15406,17 @@ CREATE POLICY student_subscriptions_select_own ON public.student_subscriptions F
 ALTER TABLE public.student_task_progress ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: student_task_progress student_task_progress_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: student_task_progress student_task_progress_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_task_progress_coach_admin_read ON public.student_task_progress FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY student_task_progress_admin_read ON public.student_task_progress FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
--- Name: student_task_progress student_task_progress_own_rw; Type: POLICY; Schema: public; Owner: -
+-- Name: student_task_progress student_task_progress_coach_select; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_task_progress_own_rw ON public.student_task_progress USING ((student_id = public.get_my_student_id())) WITH CHECK ((student_id = public.get_my_student_id()));
+CREATE POLICY student_task_progress_coach_select ON public.student_task_progress FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -14961,6 +15424,13 @@ CREATE POLICY student_task_progress_own_rw ON public.student_task_progress USING
 --
 
 CREATE POLICY student_task_progress_parent_read ON public.student_task_progress FOR SELECT USING (public.is_parent_of_student(student_id));
+
+
+--
+-- Name: student_task_progress student_task_progress_select_own; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY student_task_progress_select_own ON public.student_task_progress FOR SELECT USING ((student_id = public.get_my_student_id()));
 
 
 --
@@ -15166,13 +15636,6 @@ CREATE POLICY tiers_authenticated_read ON public.tiers FOR SELECT USING ((auth.r
 
 
 --
--- Name: behavior_snapshots users_insert_own_snapshots; Type: POLICY; Schema: public; Owner: -
---
-
-CREATE POLICY users_insert_own_snapshots ON public.behavior_snapshots FOR INSERT WITH CHECK ((auth.uid() = user_id));
-
-
---
 -- Name: profiles users_see_own_profile; Type: POLICY; Schema: public; Owner: -
 --
 
@@ -15329,17 +15792,17 @@ CREATE POLICY vertrag_zustimmungen_admin_select ON public.vertrag_zustimmungen F
 ALTER TABLE public.xp_events ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: xp_events xp_events_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: xp_events xp_events_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY xp_events_coach_admin_read ON public.xp_events FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY xp_events_admin_read ON public.xp_events FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
--- Name: xp_events xp_events_insert_own; Type: POLICY; Schema: public; Owner: -
+-- Name: xp_events xp_events_coach_select; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY xp_events_insert_own ON public.xp_events FOR INSERT WITH CHECK ((student_id = public.get_my_student_id()));
+CREATE POLICY xp_events_coach_select ON public.xp_events FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
