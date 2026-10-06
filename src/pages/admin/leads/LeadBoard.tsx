@@ -46,6 +46,7 @@ export function LeadBoard({
         items: leadsForColumn(leads, column, filters),
       }))}
       itemKey={(lead) => lead.id}
+      zaehlt={(lead) => lead.ist_test !== true}
       renderItem={(lead, columnKey) => (
         <LeadCard
           lead={lead}

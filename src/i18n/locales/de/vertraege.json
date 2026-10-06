@@ -211,7 +211,9 @@
     "title": "Zugangscode",
     "created": "Erzeugt am {{date}}",
     "blocked": "Gesperrt seit {{date}}",
-    "hint": "Entsteht im Moment des Abschlusses."
+    "hint": "Entsteht im Moment des Abschlusses.",
+    "anzeigen": "Code anzeigen",
+    "verbergen": "Code verbergen"
   },
   "doc": {
     "ferienklausel": "Geschuldet sind {{einheiten}} Coaching-Einheiten. Das Vertragsende ist der Stichtag, bis zu dem sie abgerufen werden können — es verschiebt sich um die {{tage}} Ferientage der Laufzeit auf den {{ende}}. Der Beitrag wird in den ersten sechs Monaten erhoben; die darüber hinausgehende Laufzeit ist beitragsfrei.",

@@ -77,7 +77,7 @@ CREATE FUNCTION public.akte_basis() RETURNS TABLE(student_id uuid, name text, kl
     SET search_path TO 'public', 'pg_temp'
     AS $$
   with ich as (
-    select public.get_my_role() as rolle
+    select coalesce(public.get_my_role(), '') as rolle
   ),
   vertrag as (
     select v.student_id,
@@ -99,6 +99,7 @@ CREATE FUNCTION public.akte_basis() RETURNS TABLE(student_id uuid, name text, kl
       from public.session_students ss
       join public.coaching_sessions cs on cs.id = ss.session_id
      where ss.attendance = 'present'
+       and not cs.testlauf
      group by ss.student_id
   )
   select s.id,
@@ -130,7 +131,7 @@ CREATE FUNCTION public.akte_sessions(p_student_id uuid) RETURNS TABLE(session_id
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_rolle text := public.get_my_role();
+  v_rolle text := coalesce(public.get_my_role(), '');
   v_seit  date;
 begin
   if v_rolle = 'admin' then
@@ -151,6 +152,7 @@ begin
       join public.coaching_sessions cs on cs.id = ss.session_id
       left join public.profiles p on p.id = cs.coach_id
      where ss.student_id = p_student_id
+       and not cs.testlauf
        and v_seit is not null
        and (cs.scheduled_at at time zone 'Europe/Berlin')::date >= v_seit
      order by cs.scheduled_at desc;
@@ -461,12 +463,65 @@ $$;
 
 
 --
+-- Name: coach_hat_platz(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.coach_hat_platz(p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(public.get_my_role(), '') = 'coach'
+     and public.akte_aktiv(p_student_id)
+     and exists (
+       select 1
+         from public.session_students ss
+         join public.coaching_sessions cs on cs.id = ss.session_id
+        where ss.student_id = p_student_id
+          and cs.coach_id = auth.uid()
+          and cs.status <> 'done'
+          -- nur eine Session um heute (Berlin), nicht irgendeine alte offene
+          and (cs.scheduled_at at time zone 'Europe/Berlin')::date
+              between (now() at time zone 'Europe/Berlin')::date - 1
+                  and (now() at time zone 'Europe/Berlin')::date + 1
+          and ss.attendance not in ('cancelled', 'cancelled_by_us')
+     )
+$$;
+
+
+--
+-- Name: coaching_sessions_testlauf_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.coaching_sessions_testlauf_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if (tg_op = 'INSERT' and new.testlauf)
+     or (tg_op = 'UPDATE' and new.testlauf is distinct from old.testlauf) then
+    if coalesce(public.get_my_role(), '') <> 'admin' then
+      raise exception 'Testlauf: nur Admin' using errcode = '42501';
+    end if;
+    if new.testlauf and exists (
+      select 1 from public.session_students ss
+        join public.students s on s.id = ss.student_id
+       where ss.session_id = new.id and not s.ist_test
+    ) then
+      raise exception 'Testlauf: nur mit Testkonten' using errcode = '22023';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: complete_task(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.complete_task(p_task_id uuid) RETURNS TABLE(newly_completed boolean, awarded_xp integer)
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_student uuid;
@@ -497,8 +552,8 @@ begin
   v_xp := coalesce(v_xp, 0);
 
   if v_xp > 0 then
-    insert into xp_events (student_id, task_id, xp, reason)
-    values (v_student, p_task_id, v_xp, 'Aufgabe abgeschlossen');
+    perform public.xp_buchen_intern(v_student, least(v_xp, 1000), 'Aufgabe abgeschlossen',
+                                    'task:' || v_student || ':' || p_task_id, p_task_id);
   end if;
 
   return query select true, v_xp;
@@ -677,6 +732,7 @@ CREATE FUNCTION public.einheiten_stand_intern(p_student_id uuid, p_heute date) R
       join public.session_students ss on ss.student_id = p_student_id
       join public.coaching_sessions cs on cs.id = ss.session_id
      where public.einheit_verbraucht(ss.attendance)
+       and not cs.testlauf
        and (cs.scheduled_at at time zone 'Europe/Berlin')::date
            between vt.vertragsbeginn and vt.vertrag_ende
   )
@@ -726,6 +782,12 @@ begin
     select 1 from public.lsa_sessions where id = p_lsa_session_id and student_id = p_student_id
   ) then
     raise exception 'eltern_report_eintragen: die LSA gehoert nicht zu diesem Kind' using errcode = '22023';
+  end if;
+  -- X0: aus einem Testlauf entsteht nie ein Eltern-Report.
+  if p_lsa_session_id is not null and exists (
+    select 1 from public.lsa_sessions where id = p_lsa_session_id and testlauf
+  ) then
+    raise exception 'eltern_report_eintragen: Testlauf ergibt keinen Report' using errcode = '22023';
   end if;
 
   select coalesce(max(nr), 0) + 1 into v_nr from public.eltern_reports where student_id = p_student_id;
@@ -1127,6 +1189,24 @@ $$;
 
 
 --
+-- Name: ist_test_schuetzen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ist_test_schuetzen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if new.ist_test is distinct from old.ist_test
+     and not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin') then
+    raise exception 'ist_test: nur Admin' using errcode = '42501';
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: lead_assessment_upsert(uuid, text, text, text[]); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1199,19 +1279,19 @@ $$;
 
 
 --
--- Name: lead_lsa_freigeben(uuid, integer, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: lead_lsa_freigeben(uuid, integer, text, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.lead_lsa_freigeben(p_lead_id uuid, p_grade integer, p_subject text) RETURNS jsonb
+CREATE FUNCTION public.lead_lsa_freigeben(p_lead_id uuid, p_grade integer, p_subject text, p_testlauf boolean DEFAULT false) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_lead       leads%rowtype;
   v_student_id uuid;
   v_result     jsonb;
 begin
-  if public.get_my_role() <> 'admin' then
+  if coalesce(public.get_my_role(), '') <> 'admin' then
     raise exception 'lead_lsa_freigeben: nur Admin' using errcode = '42501';
   end if;
 
@@ -1239,8 +1319,15 @@ begin
   end if;
 
   -- A17: adaptiv (Default). Der 'fest'-Pin aus A16 ist entfernt.
-  v_result := public.lsa_start(v_student_id, p_grade, p_subject);
+  -- X0: Testlauf nur mit Test-Lead. Das Kind erbt ist_test beim Anlegen;
+  -- lsa_start prueft danach Admin und Testkonto noch einmal.
+  if coalesce(p_testlauf, false) and not v_lead.ist_test then
+    raise exception 'lead_lsa_freigeben: Testlauf nur mit Test-Lead' using errcode = '22023';
+  end if;
+  v_result := public.lsa_start(v_student_id, p_grade, p_subject, p_testlauf => coalesce(p_testlauf, false));
 
+  -- Ein Test-Lead laeuft den Trichter normal durch (Platz, Report); er zaehlt
+  -- in keinem Lead-Zaehler (Oberflaeche filtert leads.ist_test, X0).
   update leads set status = 'lsa_freigegeben' where id = p_lead_id;
 
   -- total_items existiert im adaptiven Rueckgabeobjekt bewusst nicht (die
@@ -1248,7 +1335,8 @@ begin
   return jsonb_build_object(
     'session_id',  v_result -> 'session_id',
     'student_id',  to_jsonb(v_student_id),
-    'total_items', v_result -> 'total_items'
+    'total_items', v_result -> 'total_items',
+    'testlauf',    to_jsonb(coalesce(p_testlauf, false))
   );
 end;
 $$;
@@ -1434,6 +1522,327 @@ end $$;
 
 
 --
+-- Name: lernpfad_aus_lsa(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_aus_lsa(p_student_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_angelegt     int;
+  v_aktualisiert int;
+begin
+  if not (public.ist_systemaufruf() or public.lernpfad_darf_lesen(p_student_id)) then
+    raise exception 'lernpfad_aus_lsa: nur Admin oder Coach bei laufendem Vertrag' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.students where id = p_student_id) then
+    raise exception 'lernpfad_aus_lsa: Kind nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  with quelle as (
+    select u.skill_key,
+           case when u.zustand = 'traegt' then 'sicher' else 'noch_nicht_sicher' end as stand,
+           u.lsa_session_id
+      from public.lernpfad_lsa_urteile(p_student_id) u
+    union all
+    -- Fokus-Zeilen auf Skill-Ebene ohne eigenes Urteil (z. B. von Hand angelegt).
+    select * from (
+      select distinct on (f.skill_key) f.skill_key, 'noch_nicht_sicher', f.herkunfts_session_id
+        from public.student_focus_areas f
+       where f.student_id = p_student_id
+         and f.skill_key is not null
+         and f.status <> 'verworfen'
+         and f.skill_key not in (select u.skill_key from public.lernpfad_lsa_urteile(p_student_id) u)
+       order by f.skill_key, f.created_at desc
+    ) fokus
+  ),
+  geschrieben as (
+    insert into public.lernpfad as l (student_id, skill_key, stand_system, quelle, lsa_session_id)
+    select p_student_id, q.skill_key, q.stand, 'lsa', q.lsa_session_id
+      from quelle q
+    on conflict (student_id, skill_key) do update
+       set stand_system      = excluded.stand_system,
+           stand_system_seit = now(),
+           lsa_session_id    = excluded.lsa_session_id,
+           aktualisiert      = now()
+     -- Nur reine LSA-Zeilen auffrischen: nie nach Session-Belegen, nie nach
+     -- einer Coach-Entscheidung, nie ohne Aenderung.
+     where l.quelle = 'lsa'
+       and l.belege = '[]'::jsonb
+       and l.stand_coach is null
+       and (l.stand_system, l.lsa_session_id) is distinct from (excluded.stand_system, excluded.lsa_session_id)
+    returning l.skill_key, l.stand_system, l.lsa_session_id, (xmax = 0) as angelegt
+  ),
+  protokolliert as (
+    insert into public.lernpfad_protokoll (student_id, skill_key, aktion, anlass, neu, von)
+    select p_student_id, g.skill_key, 'uebernahme', 'lsa',
+           jsonb_build_object('stand_system', g.stand_system, 'lsa_session_id', g.lsa_session_id,
+                              'angelegt', g.angelegt),
+           auth.uid()
+      from geschrieben g
+  )
+  select count(*) filter (where g.angelegt), count(*) filter (where not g.angelegt)
+    into v_angelegt, v_aktualisiert
+    from geschrieben g;
+
+  return jsonb_build_object('ok', true, 'angelegt', v_angelegt, 'aktualisiert', v_aktualisiert);
+end;
+$$;
+
+
+--
+-- Name: lernpfad_beleg(uuid, text, uuid, text, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_beleg(p_student_id uuid, p_skill_key text, p_session_id uuid, p_ergebnis text, p_hinweis_genutzt boolean) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not (public.ist_systemaufruf()
+          or coalesce(public.get_my_role(), '') = 'admin'
+          or public.lernpfad_coach_der_session(p_session_id, p_student_id)) then
+    raise exception 'lernpfad_beleg: nur Coach der Session oder Admin' using errcode = '42501';
+  end if;
+  return public.lernpfad_beleg_core(p_student_id, p_skill_key, p_session_id, p_ergebnis, p_hinweis_genutzt);
+end;
+$$;
+
+
+--
+-- Name: lernpfad_beleg_core(uuid, text, uuid, text, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_beleg_core(p_student_id uuid, p_skill_key text, p_session_id uuid, p_ergebnis text, p_hinweis_genutzt boolean) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_abstand  numeric := public.lernpfad_stellschraube('mastery_abstand_sessions', p_session_id);
+  v_n        numeric := public.lernpfad_stellschraube('mastery_richtig_ohne_hinweis', p_session_id);
+  v_alt      text;
+  v_neu      text;
+  v_kandidat boolean;
+  v_heute    record;
+  v_belege   jsonb;
+begin
+  if p_ergebnis is null or p_ergebnis not in ('richtig', 'teilweise', 'falsch') then
+    raise exception 'lernpfad_beleg: ergebnis muss richtig, teilweise oder falsch sein' using errcode = '22023';
+  end if;
+  if p_hinweis_genutzt is null then
+    raise exception 'lernpfad_beleg: hinweis_genutzt ist Pflicht' using errcode = '22023';
+  end if;
+  if not exists (select 1 from public.skills where skill_key = p_skill_key) then
+    raise exception 'lernpfad_beleg: Skill % unbekannt', p_skill_key using errcode = 'P0002';
+  end if;
+  -- Nur Sessions vor Ort, in denen das Kind gebucht und anwesend ist
+  -- (Entscheidung 4; R1 setzt 'present' bei der Tablet-Zuweisung).
+  if not exists (select 1 from public.session_students ss
+                  where ss.session_id = p_session_id and ss.student_id = p_student_id
+                    and ss.attendance = 'present') then
+    raise exception 'lernpfad_beleg: Kind ist in dieser Session nicht anwesend' using errcode = 'P0001';
+  end if;
+
+  insert into public.lernpfad_belege (student_id, skill_key, session_id, ergebnis, hinweis_genutzt)
+  values (p_student_id, p_skill_key, p_session_id, p_ergebnis, p_hinweis_genutzt);
+
+  insert into public.lernpfad (student_id, skill_key, quelle)
+  values (p_student_id, p_skill_key, 'session')
+  on conflict (student_id, skill_key) do nothing;
+
+  select stand_system into v_alt
+    from public.lernpfad
+   where student_id = p_student_id and skill_key = p_skill_key
+   for update;
+
+  with je_session as (
+    select b.session_id,
+           cs.scheduled_at,
+           min(b.zeit) as am,
+           count(*)::int as gesamt,
+           count(*) filter (where b.ergebnis = 'richtig' and not b.hinweis_genutzt)::int as ohne_hinweis,
+           count(*) filter (where b.ergebnis = 'richtig')::int as richtig,
+           count(*) filter (where b.ergebnis = 'falsch')::int as falsch
+      from public.lernpfad_belege b
+      join public.coaching_sessions cs on cs.id = b.session_id
+     where b.student_id = p_student_id and b.skill_key = p_skill_key
+     group by b.session_id, cs.scheduled_at
+  ),
+  nummeriert as (
+    select *, row_number() over (order by scheduled_at, session_id) as nr
+      from je_session
+  )
+  select bool_or(nr > v_abstand and ohne_hinweis >= v_n),
+         jsonb_agg(jsonb_build_object('session_id', session_id, 'am', am, 'gesamt', gesamt,
+                                      'richtig_ohne_hinweis', ohne_hinweis) order by nr)
+    into v_kandidat, v_belege
+    from nummeriert;
+
+  select count(*) filter (where ergebnis = 'richtig' and not hinweis_genutzt) as ohne_hinweis,
+         count(*) filter (where ergebnis = 'richtig') as richtig,
+         count(*) filter (where ergebnis = 'falsch') as falsch
+    into v_heute
+    from public.lernpfad_belege
+   where student_id = p_student_id and skill_key = p_skill_key and session_id = p_session_id;
+
+  v_neu := case
+             when v_kandidat then 'kandidat'
+             when v_heute.ohne_hinweis >= v_n then 'sicher'
+             when v_alt = 'sicher' and v_heute.falsch > v_heute.richtig then 'noch_nicht_sicher'
+             when v_alt = 'sicher' then 'sicher'
+             else 'aktiv'
+           end;
+
+  update public.lernpfad
+     set stand_system      = v_neu,
+         stand_system_seit = case when v_neu is distinct from v_alt then now() else stand_system_seit end,
+         letzte_uebung_am  = now(),
+         letzte_session_id = p_session_id,
+         belege            = coalesce(v_belege, '[]'::jsonb),
+         aktualisiert      = now()
+   where student_id = p_student_id and skill_key = p_skill_key;
+
+  return v_neu;
+end;
+$$;
+
+
+--
+-- Name: lernpfad_coach_der_session(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_coach_der_session(p_session_id uuid, p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select public.get_my_role() = 'coach'
+     and exists (
+       select 1
+         from public.coaching_sessions cs
+         join public.session_students ss on ss.session_id = cs.id
+        where cs.id = p_session_id
+          and cs.coach_id = auth.uid()
+          and ss.student_id = p_student_id
+     );
+$$;
+
+
+--
+-- Name: lernpfad_darf_lesen(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_darf_lesen(p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case public.get_my_role()
+           when 'admin' then true
+           when 'coach' then public.akte_aktiv(p_student_id)
+           else false
+         end;
+$$;
+
+
+--
+-- Name: lernpfad_lsa_urteile(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_lsa_urteile(p_student_id uuid) RETURNS TABLE(skill_key text, zustand text, lsa_session_id uuid)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select distinct on (u.skill_key) u.skill_key, u.zustand, u.session_id
+    from public.lsa_skill_urteil u
+    join public.lsa_sessions ls on ls.id = u.session_id
+   where (ls.student_id = p_student_id or ls.uebernommen_zu_student_id = p_student_id)
+     and ls.status = 'completed'
+     -- Testlauf-Spalte kommt mit X0; ueber to_jsonb, damit A1 auch ohne sie laeuft.
+     and not coalesce((to_jsonb(ls) ->> 'testlauf')::boolean, false)
+     and u.zustand <> 'ungeprueft'
+   order by u.skill_key, ls.completed_at desc nulls last, u.aktualisiert desc;
+$$;
+
+
+--
+-- Name: lernpfad_pruefung_faellig(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_pruefung_faellig(p_student_id uuid, p_skill_key text) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((
+    select case
+             when l.stand_system <> 'kandidat' or l.stand_coach = 'gemeistert' then false
+             when l.stand_coach is null then true
+             else exists (
+               select 1
+                 from public.lernpfad_belege b
+                 join public.coaching_sessions cs on cs.id = b.session_id
+                where b.student_id = l.student_id
+                  and b.skill_key = l.skill_key
+                  and b.zeit > l.coach_am
+                  and b.session_id is distinct from l.coach_session_id
+                  and (l.coach_session_id is null
+                       or cs.scheduled_at > (select c2.scheduled_at from public.coaching_sessions c2
+                                              where c2.id = l.coach_session_id))
+                group by b.session_id
+               having count(*) filter (where b.ergebnis = 'richtig' and not b.hinweis_genutzt)
+                      >= public.lernpfad_stellschraube('mastery_richtig_ohne_hinweis', b.session_id))
+           end
+      from public.lernpfad l
+     where l.student_id = p_student_id and l.skill_key = p_skill_key), false);
+$$;
+
+
+--
+-- Name: lernpfad_stellschraube(text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lernpfad_stellschraube(p_schluessel text, p_session_id uuid DEFAULT NULL::uuid) RETURNS numeric
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+declare
+  v_wert  text;
+  v_start numeric := case p_schluessel
+                       when 'mastery_abstand_sessions'     then 1
+                       when 'mastery_richtig_ohne_hinweis' then 2
+                     end;
+begin
+  if p_session_id is not null then
+    begin
+      select to_jsonb(cs) -> 'einstellungen' ->> p_schluessel
+        into v_wert
+        from public.coaching_sessions cs
+       where cs.id = p_session_id;
+    exception when others then
+      v_wert := null;
+    end;
+  end if;
+
+  if v_wert is null and to_regclass('public.session_einstellungen') is not null then
+    begin
+      execute 'select to_jsonb(e) ->> ''wert'' from public.session_einstellungen e
+                where to_jsonb(e) ->> ''schluessel'' = $1'
+         into v_wert
+        using p_schluessel;
+    exception when others then
+      v_wert := null;
+    end;
+  end if;
+
+  begin
+    return coalesce(v_wert::numeric, v_start);
+  exception when others then
+    return v_start;
+  end;
+end;
+$_$;
+
+
+--
 -- Name: lsa_abgabeart(text, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1582,13 +1991,21 @@ declare
   v_clusters uuid[];
   v_written  integer := 0;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'LSA: Lernpfad-Freigabe nur durch Coach (FernUSG)' using errcode = '42501';
   end if;
 
   select * into v_session from lsa_sessions where id = p_session_id;
   if not found then
     raise exception 'LSA: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+  -- X0: ein Testlauf geht nie in den Lernpfad.
+  if v_session.testlauf then
+    raise exception 'LSA: Testlauf wird nicht uebernommen' using errcode = '22023';
+  end if;
+  -- X0 (Entscheidung 26): Coach nur fuer Kinder mit aktiver Akte.
+  if coalesce(public.get_my_role(), '') = 'coach' and not public.akte_aktiv(v_session.student_id) then
+    raise exception 'LSA: keine aktive Akte' using errcode = '42501';
   end if;
   if v_session.status <> 'completed' then
     raise exception 'LSA: Session ist noch nicht ausgewertet' using errcode = 'P0001';
@@ -1630,6 +2047,19 @@ begin
 
   return jsonb_build_object('applied', true, 'focus_areas_written', v_written);
 end;
+$$;
+
+
+--
+-- Name: lsa_darf_starten(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_darf_starten(p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(public.get_my_role(), '') = 'admin'
+      or public.coach_hat_platz(p_student_id)
 $$;
 
 
@@ -2269,6 +2699,33 @@ $$;
 
 
 --
+-- Name: lsa_im_pool(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_im_pool(p_task_id uuid, p_testlauf boolean DEFAULT false) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.tasks t
+     where t.id = p_task_id
+       and coalesce(t.is_active, false)
+       and not coalesce(t.is_tutorial, false)
+       and t.content_type = 'exercise'
+       and 'lsa' = any (t.einsatz)
+       and exists (select 1 from public.task_solutions s
+                    where s.task_id = t.id
+                      and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers))
+       and (t.status = 'ready'
+            or (coalesce(p_testlauf, false)
+                and t.status in ('draft', 'review', 'rueckfrage')
+                and public.pruef_ausschluss(t.id) is null))
+  )
+$$;
+
+
+--
 -- Name: lsa_is_correct(text, jsonb, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -2442,10 +2899,13 @@ $$;
 
 CREATE FUNCTION public.lsa_may_act_for(p_student_id uuid) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
-  select public.get_my_role() in ('coach','admin')
-      or public.get_my_student_id() = p_student_id
+  select coalesce(public.get_my_role(), '') = 'admin'
+      or (coalesce(public.get_my_role(), '') = 'coach' and public.akte_aktiv(p_student_id))
+      -- coalesce: ohne Profil/Schuelerzeile ist der Vergleich NULL, und ein
+      -- "if not lsa_may_act_for(…)" liesse NULL durch.
+      or coalesce(public.get_my_student_id() = p_student_id, false)
 $$;
 
 
@@ -2927,7 +3387,7 @@ begin
   -- gebrochenen Knoten, ohne Zeitgrenze, keine Breite a.
   v_mit_thema := exists (
     select 1 from thema_einstieg te join tasks t on t.skill_key = te.skill_key
-     where te.thema_key = v_sess.thema_key and t.status = any (p_status_filter));
+     where te.thema_key = v_sess.thema_key and public.lsa_im_pool(t.id, v_sess.testlauf));
 
   if v_mit_thema then
     v_einstieg := array(
@@ -2961,7 +3421,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_open
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -2997,7 +3457,7 @@ begin
          and exists (
                select 1 from tasks t
                 where t.skill_key = s.skill_key
-                  and t.status = any (p_status_filter)
+                  and public.lsa_im_pool(t.id, v_sess.testlauf)
                   and t.id not in (
                         select task_id from lsa_ausgegeben where session_id = p_session_id
                         union
@@ -3010,7 +3470,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3048,7 +3508,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_desc
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3096,7 +3556,7 @@ begin
          and exists (
                select 1 from tasks t
                 where t.skill_key = te.skill_key
-                  and t.status = any (p_status_filter)
+                  and public.lsa_im_pool(t.id, v_sess.testlauf)
                   and t.id not in (
                         select task_id from lsa_ausgegeben where session_id = p_session_id
                         union
@@ -3109,7 +3569,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3141,7 +3601,7 @@ begin
       select t.id into v_task
         from tasks t
        where t.skill_key = v_leaf
-         and t.status = any (p_status_filter)
+         and public.lsa_im_pool(t.id, v_sess.testlauf)
          and t.id not in (
                select task_id from lsa_ausgegeben where session_id = p_session_id
                union
@@ -3162,7 +3622,7 @@ begin
       from tasks t
       join skills s on s.skill_key = t.skill_key
      where s.klasse_herkunft <= v_sess.grade
-       and t.status = any (p_status_filter)
+       and public.lsa_im_pool(t.id, v_sess.testlauf)
        and t.id not in (
              select task_id from lsa_ausgegeben where session_id = p_session_id
              union
@@ -3179,6 +3639,21 @@ begin
     return null;
   end loop;
 end;
+$$;
+
+
+--
+-- Name: lsa_session_akte_aktiv(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_session_akte_aktiv(p_session_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1 from public.lsa_sessions l
+     where l.id = p_session_id and public.akte_aktiv(l.student_id)
+  )
 $$;
 
 
@@ -3222,6 +3697,37 @@ $$;
 
 
 --
+-- Name: lsa_sessions_testlauf_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.lsa_sessions_testlauf_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if tg_op = 'UPDATE' then
+    if new.testlauf is distinct from old.testlauf then
+      raise exception 'Testlauf: nur beim Start einer LSA setzbar' using errcode = '42501';
+    end if;
+    if new.testlauf and new.student_id is distinct from old.student_id then
+      raise exception 'Testlauf: das Kind eines Testlaufs ist fest' using errcode = '42501';
+    end if;
+    return new;
+  end if;
+  if new.testlauf then
+    if coalesce(public.get_my_role(), '') <> 'admin' then
+      raise exception 'Testlauf: nur Admin' using errcode = '42501';
+    end if;
+    if not coalesce((select s.ist_test from public.students s where s.id = new.student_id), false) then
+      raise exception 'Testlauf: nur mit Testkonto' using errcode = '22023';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+
+--
 -- Name: lsa_split_value_unit(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3248,12 +3754,12 @@ $_$;
 
 
 --
--- Name: lsa_start(uuid, integer, text, text, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+-- Name: lsa_start(uuid, integer, text, text, timestamp with time zone, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.lsa_start(p_student_id uuid, p_grade integer, p_subject text, p_modus text DEFAULT 'adaptiv'::text, p_jetzt timestamp with time zone DEFAULT now()) RETURNS jsonb
+CREATE FUNCTION public.lsa_start(p_student_id uuid, p_grade integer, p_subject text, p_modus text DEFAULT 'adaptiv'::text, p_jetzt timestamp with time zone DEFAULT now(), p_testlauf boolean DEFAULT false) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
-    SET search_path TO 'public'
+    SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
   v_session_id uuid;
@@ -3261,11 +3767,21 @@ declare
   v_first      uuid;
   v_thema      text;
 begin
-  if not public.lsa_may_act_for(p_student_id) then
-    raise exception 'LSA: kein Zugriff auf diesen Schueler' using errcode = '42501';
+  -- X0 (Entscheidung 24): kein Schuelerkonto startet eine LSA; Admin ja,
+  -- Coach nur fuer ein Kind mit Platz in einer seiner Sessions.
+  if not public.lsa_darf_starten(p_student_id) then
+    raise exception 'LSA: Start nur durch Admin oder Coach ueber einen Platz' using errcode = '42501';
   end if;
   if not exists (select 1 from students where id = p_student_id) then
     raise exception 'LSA: Schueler nicht gefunden' using errcode = 'P0002';
+  end if;
+  if coalesce(p_testlauf, false) then
+    if coalesce(public.get_my_role(), '') <> 'admin' then
+      raise exception 'LSA: Testlauf nur durch Admin' using errcode = '42501';
+    end if;
+    if not coalesce((select ist_test from students where id = p_student_id), false) then
+      raise exception 'LSA: Testlauf nur mit Testkonto' using errcode = '22023';
+    end if;
   end if;
   if p_modus not in ('fest','adaptiv') then
     raise exception 'LSA: unbekannter Modus %', p_modus using errcode = '22023';
@@ -3288,8 +3804,8 @@ begin
        and lt.status = 'aktuell'
        and lower(lt.fach) = lower(p_subject);
 
-    insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus, thema_key)
-    values (p_student_id, p_subject, p_grade, '{}'::uuid[], p_jetzt, 'in_progress', 'adaptiv', v_thema)
+    insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus, thema_key, testlauf)
+    values (p_student_id, p_subject, p_grade, '{}'::uuid[], p_jetzt, 'in_progress', 'adaptiv', v_thema, coalesce(p_testlauf, false))
     returning id into v_session_id;
 
     v_first := public.lsa_select_next_core(v_session_id, array['ready'], p_jetzt);
@@ -3305,6 +3821,7 @@ begin
     -- falls sie total_items liest).
     return jsonb_build_object(
       'session_id', v_session_id,
+      'testlauf',   coalesce(p_testlauf, false),
       'item',       public.lsa_question_payload(v_first)
     );
   end if;
@@ -3320,9 +3837,7 @@ begin
       join task_solutions s on s.task_id = t.id
       join skill_clusters c on c.id = t.cluster_id
       join subjects sub     on sub.id = c.subject_id
-     where t.status = 'ready'
-       and coalesce(t.is_active, true)
-       and coalesce(t.is_tutorial, false) = false
+     where public.lsa_im_pool(t.id, coalesce(p_testlauf, false))
        and t.input_type in ('MC','SHORT_TEXT','NUMERIC','MULTI_PART')
        and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers)
        and sub.name = p_subject
@@ -3351,12 +3866,13 @@ begin
       using errcode = 'P0002';
   end if;
 
-  insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus)
-  values (p_student_id, p_subject, p_grade, v_items, p_jetzt, 'in_progress', 'fest')
+  insert into lsa_sessions (student_id, subject, grade, item_ids, started_at, status, modus, testlauf)
+  values (p_student_id, p_subject, p_grade, v_items, p_jetzt, 'in_progress', 'fest', coalesce(p_testlauf, false))
   returning id into v_session_id;
 
   return jsonb_build_object(
     'session_id',  v_session_id,
+    'testlauf',    coalesce(p_testlauf, false),
     'total_items', array_length(v_items, 1),
     'item',        public.lsa_question_payload(v_items[1])
   );
@@ -3630,13 +4146,21 @@ declare
   v_lead_id uuid;
   v_n       int;
 begin
-  if public.get_my_role() not in ('coach','admin') then
+  if coalesce(public.get_my_role(), '') not in ('coach','admin') then
     raise exception 'lsa_uebernahme: nur Coach/Admin' using errcode = '42501';
   end if;
 
   select * into v_session from lsa_sessions where id = p_session_id;
   if not found then
     raise exception 'lsa_uebernahme: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+  -- X0: ein Testlauf geht nie in den Lernpfad.
+  if v_session.testlauf then
+    raise exception 'lsa_uebernahme: Testlauf wird nicht uebernommen' using errcode = '22023';
+  end if;
+  -- X0 (Entscheidung 26): Coach nur fuer Kinder mit aktiver Akte.
+  if coalesce(public.get_my_role(), '') = 'coach' and not public.akte_aktiv(v_session.student_id) then
+    raise exception 'lsa_uebernahme: keine aktive Akte' using errcode = '42501';
   end if;
 
   -- Frage 1 = JA: die Sitzung haengt am (spaeter echten) Schueler. Der
@@ -3963,6 +4487,64 @@ $$;
 
 
 --
+-- Name: mastery_entscheiden(uuid, text, text, text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.mastery_entscheiden(p_student_id uuid, p_skill_key text, p_entscheidung text, p_grund text DEFAULT NULL::text, p_session_id uuid DEFAULT NULL::uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_alt public.lernpfad;
+begin
+  -- Kein Systemaufruf: „gemeistert“ entsteht nur durch einen Menschen (FernUSG).
+  if not (coalesce(public.get_my_role(), '') = 'admin'
+          or public.lernpfad_coach_der_session(p_session_id, p_student_id)) then
+    raise exception 'mastery_entscheiden: nur Coach der Session oder Admin' using errcode = '42501';
+  end if;
+  if p_entscheidung is null or p_entscheidung not in ('gemeistert', 'vertagt') then
+    raise exception 'mastery_entscheiden: Entscheidung muss gemeistert oder vertagt sein' using errcode = '22023';
+  end if;
+
+  select * into v_alt from public.lernpfad
+   where student_id = p_student_id and skill_key = p_skill_key
+   for update;
+  if not found or v_alt.stand_system <> 'kandidat' then
+    raise exception 'mastery_entscheiden: % ist kein Mastery-Kandidat', p_skill_key using errcode = 'P0001';
+  end if;
+  if v_alt.stand_coach = 'gemeistert' then
+    raise exception 'mastery_entscheiden: % ist bereits gemeistert', p_skill_key using errcode = 'P0001';
+  end if;
+  if not public.lernpfad_pruefung_faellig(p_student_id, p_skill_key) then
+    raise exception 'mastery_entscheiden: % ist vertagt; neu vorgeschlagen erst mit neuen Belegen aus einer spaeteren Session',
+      p_skill_key using errcode = 'P0001';
+  end if;
+  if p_entscheidung = 'vertagt' and nullif(btrim(coalesce(p_grund, '')), '') is null then
+    raise exception 'mastery_entscheiden: Vertagen braucht einen Grund' using errcode = '22023';
+  end if;
+
+  update public.lernpfad
+     set stand_coach      = p_entscheidung,
+         coach_grund      = nullif(btrim(coalesce(p_grund, '')), ''),
+         coach_von        = auth.uid(),
+         coach_am         = clock_timestamp(),
+         coach_session_id = p_session_id,
+         aktualisiert     = now()
+   where id = v_alt.id;
+
+  insert into public.lernpfad_protokoll (student_id, skill_key, aktion, anlass, alt, neu, grund, von, session_id)
+  values (p_student_id, p_skill_key, 'mastery', 'pruefung',
+          jsonb_build_object('stand_system', v_alt.stand_system, 'stand_coach', v_alt.stand_coach),
+          jsonb_build_object('stand_coach', p_entscheidung),
+          nullif(btrim(coalesce(p_grund, '')), ''), auth.uid(), p_session_id);
+
+  return jsonb_build_object('ok', true, 'skill_key', p_skill_key,
+                            'stand_system', v_alt.stand_system, 'stand_coach', p_entscheidung);
+end;
+$$;
+
+
+--
 -- Name: mastery_stage(numeric); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3987,6 +4569,128 @@ CREATE FUNCTION public.mastery_stage_from_level(lvl integer) RETURNS text
     LANGUAGE sql IMMUTABLE
     AS $$
   select public.mastery_stage(lvl * 10.0)
+$$;
+
+
+--
+-- Name: mastery_vorschlaege(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.mastery_vorschlaege(p_student_id uuid) RETURNS TABLE(skill_key text, label text, stand_coach text, coach_grund text, letzte_uebung_am timestamp with time zone)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not (public.ist_systemaufruf() or public.lernpfad_darf_lesen(p_student_id)) then
+    raise exception 'mastery_vorschlaege: nur Admin oder Coach bei laufendem Vertrag' using errcode = '42501';
+  end if;
+  return query
+    select l.skill_key, s.label, l.stand_coach, l.coach_grund, l.letzte_uebung_am
+      from public.lernpfad l
+      join public.skills s on s.skill_key = l.skill_key
+     where l.student_id = p_student_id
+       and public.lernpfad_pruefung_faellig(l.student_id, l.skill_key)
+     order by l.stand_system_seit, l.skill_key;
+end;
+$$;
+
+
+--
+-- Name: mein_lernpfad(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.mein_lernpfad() RETURNS TABLE(skill_key text, label text, stand text, seit timestamp with time zone)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_student uuid := public.get_my_student_id();
+begin
+  if v_student is null then
+    raise exception 'mein_lernpfad: nur fuer Schuelerkonten' using errcode = '42501';
+  end if;
+  return query
+    select l.skill_key, s.label,
+           case when l.stand_coach = 'gemeistert' then 'gemeistert'
+                when l.stand_system = 'kandidat'  then 'sicher'
+                else l.stand_system end,
+           case when l.stand_coach = 'gemeistert' then l.coach_am else l.stand_system_seit end
+      from public.lernpfad l
+      join public.skills s on s.skill_key = l.skill_key
+     where l.student_id = v_student
+     order by s.klasse_herkunft, s.fundament_tiefe, l.skill_key;
+end;
+$$;
+
+
+--
+-- Name: naechste_luecke(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.naechste_luecke(p_student_id uuid) RETURNS TABLE(skill_key text, label text, thema_key text, stand_system text, quelle text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not (public.ist_systemaufruf() or public.lernpfad_darf_lesen(p_student_id)) then
+    raise exception 'naechste_luecke: nur Admin oder Coach bei laufendem Vertrag' using errcode = '42501';
+  end if;
+
+  return query
+    select l.skill_key, s.label, st.thema_key, l.stand_system,
+           case when l.quelle = 'lsa' and l.belege = '[]'::jsonb then 'lsa' else 'lernpfad' end
+      from public.lernpfad l
+      join public.skills s on s.skill_key = l.skill_key
+      left join public.skill_thema st on st.skill_key = l.skill_key
+     where l.student_id = p_student_id
+       and l.stand_system = 'aktiv'
+       and l.stand_coach is distinct from 'gemeistert'
+     order by l.stand_system_seit desc, l.skill_key
+     limit 1;
+  if found then
+    return;
+  end if;
+
+  return query
+    with luecke as (
+      select l.skill_key, l.stand_system, l.quelle, l.belege
+        from public.lernpfad l
+       where l.student_id = p_student_id
+         and l.stand_system = 'noch_nicht_sicher'
+         and l.stand_coach is distinct from 'gemeistert'
+    )
+    select g.skill_key, s.label, st.thema_key, g.stand_system,
+           case when g.quelle = 'lsa' and g.belege = '[]'::jsonb then 'lsa' else 'lernpfad' end
+      from luecke g
+      join public.skills s on s.skill_key = g.skill_key
+      left join public.skill_thema st on st.skill_key = g.skill_key
+     order by (select count(*) from public.lsa_abschluss(g.skill_key) a
+                where a.skill_key in (select skill_key from luecke)),
+              s.klasse_herkunft desc, s.fundament_tiefe desc, g.skill_key
+     limit 1;
+  if found then
+    return;
+  end if;
+
+  -- Erste Session nach der LSA, Lernpfad noch nicht uebernommen.
+  if not exists (select 1 from public.lernpfad l where l.student_id = p_student_id) then
+    return query
+      with luecke as (
+        select u.skill_key from public.lernpfad_lsa_urteile(p_student_id) u where u.zustand <> 'traegt'
+      )
+      select g.skill_key, s.label, st.thema_key, 'noch_nicht_sicher'::text, 'lsa'::text
+        from luecke g
+        join public.skills s on s.skill_key = g.skill_key
+        left join public.skill_thema st on st.skill_key = g.skill_key
+       order by (select count(*) from public.lsa_abschluss(g.skill_key) a
+                  where a.skill_key in (select skill_key from luecke)),
+                s.klasse_herkunft desc, s.fundament_tiefe desc, g.skill_key
+       limit 1;
+  end if;
+end;
 $$;
 
 
@@ -4115,6 +4819,91 @@ begin
   end if;
 
   perform public.audit_log_schreiben('notiz_gesundheit_entfernen', 'schueler_notiz', p_notiz_id);
+end;
+$$;
+
+
+--
+-- Name: pfad_tiefer(uuid, text, uuid, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pfad_tiefer(p_student_id uuid, p_skill_key text, p_session_id uuid DEFAULT NULL::uuid, p_voraussetzung text DEFAULT NULL::text, p_anlass text DEFAULT 'warmup'::text) RETURNS text
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_ziel     text;
+  v_alt      public.lernpfad;
+begin
+  if not (public.ist_systemaufruf()
+          or coalesce(public.get_my_role(), '') = 'admin'
+          or public.lernpfad_coach_der_session(p_session_id, p_student_id)) then
+    raise exception 'pfad_tiefer: nur Coach der Session oder Admin' using errcode = '42501';
+  end if;
+  if p_anlass is null or p_anlass not in ('warmup', 'eingriff') then
+    raise exception 'pfad_tiefer: Anlass muss warmup oder eingriff sein' using errcode = '22023';
+  end if;
+  if not exists (select 1 from public.skills where skill_key = p_skill_key) then
+    raise exception 'pfad_tiefer: Skill % unbekannt', p_skill_key using errcode = 'P0002';
+  end if;
+
+  if p_voraussetzung is not null then
+    if p_voraussetzung not in (select a.skill_key from public.lsa_abschluss(p_skill_key) a) then
+      raise exception 'pfad_tiefer: % ist keine Voraussetzung von %', p_voraussetzung, p_skill_key
+        using errcode = '22023';
+    end if;
+    v_ziel := p_voraussetzung;
+  else
+    -- Direkte Voraussetzung, die noch nicht sicher ist: zuerst belegte
+    -- Luecken, dann aktive, dann unbekannte; bei Gleichstand die hoehere Klasse.
+    select k.voraussetzt_skill_key into v_ziel
+      from public.skill_kante k
+      join public.skills s on s.skill_key = k.voraussetzt_skill_key
+      left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = k.voraussetzt_skill_key
+     where k.skill_key = p_skill_key
+       and coalesce(l.stand_system, 'offen') not in ('sicher', 'kandidat')
+       and l.stand_coach is distinct from 'gemeistert'
+     order by case coalesce(l.stand_system, 'offen')
+                when 'noch_nicht_sicher' then 0 when 'aktiv' then 1 else 2 end,
+              s.klasse_herkunft desc, k.voraussetzt_skill_key
+     limit 1;
+    if v_ziel is null then
+      raise exception 'pfad_tiefer: % hat keine offene Voraussetzung', p_skill_key using errcode = 'P0002';
+    end if;
+  end if;
+
+  select * into v_alt from public.lernpfad
+   where student_id = p_student_id and skill_key = v_ziel
+   for update;
+  if v_alt.stand_system = 'kandidat' or v_alt.stand_coach = 'gemeistert' then
+    raise exception 'pfad_tiefer: % ist Mastery-Kandidat oder gemeistert', v_ziel using errcode = 'P0001';
+  end if;
+
+  insert into public.lernpfad (student_id, skill_key, stand_system, quelle)
+  values (p_student_id, v_ziel, 'aktiv', 'coach')
+  on conflict (student_id, skill_key) do update
+     set stand_system      = 'aktiv',
+         stand_system_seit = case when public.lernpfad.stand_system = 'aktiv'
+                                  then public.lernpfad.stand_system_seit else now() end,
+         aktualisiert      = now();
+
+  -- Der bisherige Skill wartet, bis die Voraussetzung sitzt.
+  insert into public.lernpfad (student_id, skill_key, stand_system, quelle)
+  values (p_student_id, p_skill_key, 'offen', 'coach')
+  on conflict (student_id, skill_key) do update
+     set stand_system      = 'offen',
+         stand_system_seit = now(),
+         aktualisiert      = now()
+   where public.lernpfad.stand_system = 'aktiv';
+
+  -- Jeder Aufruf wird protokolliert: wer, wann, Session, Anlass (Rasit 06.10.).
+  insert into public.lernpfad_protokoll (student_id, skill_key, aktion, anlass, alt, neu, von, session_id)
+  values (p_student_id, v_ziel, 'pfad_tiefer', p_anlass,
+          jsonb_build_object('stand_system', v_alt.stand_system),
+          jsonb_build_object('stand_system', 'aktiv', 'statt', p_skill_key),
+          auth.uid(), p_session_id);
+
+  return v_ziel;
 end;
 $$;
 
@@ -4426,7 +5215,8 @@ begin
     return jsonb_build_object(
       'status',     'zugewiesen',
       'first_name', v_first_name,
-      'expires_at', v_a.expires_at
+      'expires_at', v_a.expires_at,
+      'testlauf',   v_session.testlauf
     );
   end if;
 
@@ -4439,7 +5229,8 @@ begin
     'progress',   jsonb_build_object(
                     'answered', v_answered,
                     'total',    coalesce(array_length(v_session.item_ids, 1), 0)),
-    'expires_at', v_a.expires_at
+    'expires_at', v_a.expires_at,
+    'testlauf',   v_session.testlauf
   );
 end;
 $$;
@@ -4811,12 +5602,14 @@ CREATE TABLE public.tasks (
     vorbefuellt_am timestamp with time zone,
     pruef_version bigint DEFAULT 1 NOT NULL,
     pruef_pilot boolean DEFAULT false NOT NULL,
+    einsatz text[] DEFAULT '{lsa,session}'::text[] NOT NULL,
     CONSTRAINT tasks_afb_check CHECK ((afb = ANY (ARRAY['I'::text, 'II'::text, 'III'::text]))),
     CONSTRAINT tasks_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT tasks_cognitive_type_check CHECK ((cognitive_type = ANY (ARRAY['FACT'::text, 'TRANSFER'::text, 'ANALYSIS'::text]))),
     CONSTRAINT tasks_content_type_check CHECK ((content_type = ANY (ARRAY['exercise'::text, 'exercise_group'::text, 'article'::text, 'video'::text, 'course'::text]))),
     CONSTRAINT tasks_curriculum_grade_check CHECK (((curriculum_grade IS NULL) OR ((curriculum_grade >= 5) AND (curriculum_grade <= 13)))),
     CONSTRAINT tasks_difficulty_check CHECK (((difficulty >= 1) AND (difficulty <= 5))),
+    CONSTRAINT tasks_einsatz_check CHECK ((einsatz <@ ARRAY['lsa'::text, 'session'::text, 'check'::text, 'quest'::text])),
     CONSTRAINT tasks_est_duration_sec_check CHECK (((est_duration_sec IS NULL) OR ((est_duration_sec >= 10) AND (est_duration_sec <= 3600)))),
     CONSTRAINT tasks_input_type_check CHECK ((input_type = ANY (ARRAY['MC'::text, 'NUMERIC'::text, 'SHORT_TEXT'::text, 'TRUE_FALSE'::text, 'FREE_TEXT'::text, 'MATCHING'::text, 'CLOZE'::text, 'COORDINATE'::text, 'MULTI_PART'::text, 'TERM'::text]))),
     CONSTRAINT tasks_multipart_check CHECK (
@@ -6474,6 +7267,44 @@ $$;
 
 
 --
+-- Name: session_students_testlauf_pruefen(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_students_testlauf_pruefen() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if exists (select 1 from public.coaching_sessions cs where cs.id = new.session_id and cs.testlauf)
+     and not coalesce((select s.ist_test from public.students s where s.id = new.student_id), false) then
+    raise exception 'Testlauf: nur Testkonten in einer Test-Session' using errcode = '22023';
+  end if;
+  return new;
+end;
+$$;
+
+
+--
+-- Name: session_testlauf_setzen(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_testlauf_setzen(p_session_id uuid, p_testlauf boolean) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'session_testlauf_setzen: nur Admin' using errcode = '42501';
+  end if;
+  update public.coaching_sessions set testlauf = coalesce(p_testlauf, false) where id = p_session_id;
+  if not found then
+    raise exception 'session_testlauf_setzen: Session nicht gefunden' using errcode = 'P0002';
+  end if;
+end;
+$$;
+
+
+--
 -- Name: session_verschieben_zugang_pruefen(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -6527,6 +7358,29 @@ begin
       using errcode = '23514';
   end if;
   return null;
+end;
+$$;
+
+
+--
+-- Name: skill_pruefung_lesen(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.skill_pruefung_lesen(p_skill_key text) RETURNS TABLE(id uuid, skill_key text, frage text, erwartung text, kriterium text, quelle text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if coalesce(public.get_my_role(), '') not in ('coach', 'admin') then
+    raise exception 'skill_pruefung_lesen: nur Coach oder Admin' using errcode = '42501';
+  end if;
+  return query
+    select p.id, p.skill_key, p.frage, p.erwartung, p.kriterium, p.quelle
+      from public.skill_pruefung p
+     where p.skill_key = p_skill_key
+       and p.status = 'freigegeben'
+     order by p.angelegt, p.id;
 end;
 $$;
 
@@ -6653,6 +7507,23 @@ begin
     raise exception
       'students: provisorische Zeilen entstehen nur ueber lead_lsa_freigeben'
       using errcode = '42501';
+  end if;
+  return new;
+end;
+$$;
+
+
+--
+-- Name: students_ist_test_erben(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.students_ist_test_erben() RETURNS trigger
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if new.lead_id is not null and not new.ist_test then
+    new.ist_test := coalesce((select l.ist_test from public.leads l where l.id = new.lead_id), false);
   end if;
   return new;
 end;
@@ -7035,6 +7906,39 @@ end $$;
 
 
 --
+-- Name: testkonto_setzen(text, uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.testkonto_setzen(p_art text, p_id uuid, p_wert boolean) RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n integer;
+begin
+  if coalesce(public.get_my_role(), '') <> 'admin' then
+    raise exception 'testkonto_setzen: nur Admin' using errcode = '42501';
+  end if;
+  if p_id is null or p_wert is null or p_art not in ('student', 'lead') then
+    raise exception 'testkonto_setzen: Art student|lead, Id und Wert sind Pflicht' using errcode = '22023';
+  end if;
+  if p_art = 'student' then
+    update public.students set ist_test = p_wert where id = p_id;
+    get diagnostics v_n = row_count;
+  else
+    update public.leads set ist_test = p_wert where id = p_id;
+    get diagnostics v_n = row_count;
+    -- Ein Lead hat vor der LSA-Freigabe meist noch kein Kind; dann nur der Lead.
+    update public.students set ist_test = p_wert where lead_id = p_id;
+  end if;
+  if v_n = 0 then
+    raise exception 'testkonto_setzen: nicht gefunden' using errcode = 'P0002';
+  end if;
+end;
+$$;
+
+
+--
 -- Name: vertraege_guard(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -7393,6 +8297,7 @@ begin
     select l.id into v_lsa
       from public.lsa_sessions l
      where l.student_id = v_student and l.status = 'completed'
+       and not l.testlauf
      order by l.completed_at desc nulls last
      limit 1;
     if v_lsa is not null
@@ -8168,6 +9073,124 @@ $$;
 
 
 --
+-- Name: xp_buchen(uuid, integer, text, text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.xp_buchen(p_student_id uuid, p_xp integer, p_grund text, p_schluessel text, p_task_id uuid DEFAULT NULL::uuid) RETURNS boolean
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not (public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin') then
+    raise exception 'xp_buchen: nur Admin oder Systemaufruf' using errcode = '42501';
+  end if;
+  return public.xp_buchen_intern(p_student_id, p_xp, p_grund, p_schluessel, p_task_id);
+end;
+$$;
+
+
+--
+-- Name: xp_buchen_intern(uuid, integer, text, text, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.xp_buchen_intern(p_student_id uuid, p_xp integer, p_grund text, p_schluessel text, p_task_id uuid DEFAULT NULL::uuid) RETURNS boolean
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n integer;
+begin
+  if p_student_id is null or p_xp is null or p_xp < 1 or p_xp > 1000 then
+    raise exception 'xp_buchen: Kind und Betrag 1..1000 sind Pflicht' using errcode = '22023';
+  end if;
+  if nullif(btrim(coalesce(p_grund, '')), '') is null
+     or nullif(btrim(coalesce(p_schluessel, '')), '') is null then
+    raise exception 'xp_buchen: Grund und Buchungsschluessel sind Pflicht' using errcode = '22023';
+  end if;
+  if not exists (select 1 from public.students where id = p_student_id) then
+    raise exception 'xp_buchen: Kind nicht gefunden' using errcode = 'P0002';
+  end if;
+
+  insert into public.xp_events (student_id, task_id, xp, reason, buchungs_schluessel)
+  values (p_student_id, p_task_id, p_xp, p_grund, p_schluessel)
+  on conflict (student_id, buchungs_schluessel) do nothing;
+  get diagnostics v_n = row_count;
+  return v_n = 1;
+end;
+$$;
+
+
+--
+-- Name: ziel_fertigkeiten(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ziel_fertigkeiten(p_student_id uuid, p_thema_key text) RETURNS TABLE(reihenfolge integer, skill_key text, label text, klasse_herkunft integer, rolle text, stand_system text, stand_coach text, stand text, pruefung_faellig boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
+  if not (public.ist_systemaufruf() or public.lernpfad_darf_lesen(p_student_id)) then
+    raise exception 'ziel_fertigkeiten: nur Admin oder Coach bei laufendem Vertrag' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.themen t where t.thema_key = p_thema_key) then
+    raise exception 'ziel_fertigkeiten: Thema % unbekannt', p_thema_key using errcode = 'P0002';
+  end if;
+
+  return query
+    with thema as (
+      select te.skill_key, 'einstieg'::text as rolle
+        from public.thema_einstieg te where te.thema_key = p_thema_key
+      union
+      select st.skill_key, 'thema'
+        from public.skill_thema st
+       where st.thema_key = p_thema_key
+         and st.skill_key not in (select te.skill_key from public.thema_einstieg te
+                                   where te.thema_key = p_thema_key)
+    ),
+    darunter as (
+      select distinct a.skill_key
+        from thema t cross join lateral public.lsa_abschluss(t.skill_key) a
+       where a.skill_key not in (select skill_key from thema)
+    ),
+    direkt as (
+      select distinct k.voraussetzt_skill_key as skill_key
+        from public.skill_kante k
+       where k.skill_key in (select skill_key from thema)
+         and k.voraussetzt_skill_key not in (select skill_key from thema)
+    ),
+    voraus as (
+      select d.skill_key,
+             case when l.stand_coach = 'gemeistert' or l.stand_system in ('sicher', 'kandidat')
+                  then 'voraussetzung_sicher' else 'voraussetzung' end as rolle
+        from darunter d
+        join public.lernpfad l on l.student_id = p_student_id and l.skill_key = d.skill_key
+       where (l.stand_system in ('offen', 'aktiv', 'noch_nicht_sicher') and l.stand_coach is distinct from 'gemeistert')
+          or d.skill_key in (select skill_key from direkt)
+    ),
+    liste as (
+      select skill_key, rolle from thema
+      union all
+      select skill_key, rolle from voraus
+    )
+    select (row_number() over (
+              order by (select count(*) from public.lsa_abschluss(li.skill_key) a
+                         where a.skill_key in (select skill_key from liste)),
+                       s.klasse_herkunft, s.fundament_tiefe, li.skill_key))::int,
+           li.skill_key, s.label, s.klasse_herkunft, li.rolle,
+           l.stand_system, l.stand_coach,
+           case when l.stand_coach = 'gemeistert' then 'gemeistert'
+                else coalesce(l.stand_system, 'offen') end,
+           public.lernpfad_pruefung_faellig(p_student_id, li.skill_key)
+      from liste li
+      join public.skills s on s.skill_key = li.skill_key
+      left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = li.skill_key
+     order by 1;
+end;
+$$;
+
+
+--
 -- Name: zugangscode_erzeugen(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -8299,6 +9322,7 @@ CREATE TABLE public.coaching_sessions (
     scheduled_at timestamp with time zone NOT NULL,
     status text DEFAULT 'upcoming'::text NOT NULL,
     slot_id uuid,
+    testlauf boolean DEFAULT false NOT NULL,
     CONSTRAINT coaching_sessions_status_check CHECK ((status = ANY (ARRAY['upcoming'::text, 'active'::text, 'done'::text])))
 );
 
@@ -8538,6 +9562,7 @@ CREATE TABLE public.leads (
     rejection_reason text,
     rejection_note text,
     schule_id uuid,
+    ist_test boolean DEFAULT false NOT NULL,
     CONSTRAINT leads_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT leads_erstgespraech_standort_check CHECK (((erstgespraech_standort IS NULL) OR (erstgespraech_standort = 'koeln'::text))),
     CONSTRAINT leads_goal_check CHECK ((goal = ANY (ARRAY['IMPROVE_GRADES'::text, 'CLOSE_GAPS'::text, 'EXAM_PREP'::text, 'GENERAL'::text]))),
@@ -8547,6 +9572,73 @@ CREATE TABLE public.leads (
     CONSTRAINT leads_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text]))),
     CONSTRAINT leads_status_check CHECK ((status = ANY (ARRAY['new'::text, 'contacted'::text, 'onboarding_scheduled'::text, 'converted'::text, 'rejected'::text, 'lsa_freigegeben'::text, 'lsa_fertig'::text, 'vertrag'::text]))),
     CONSTRAINT leads_struggling_since_check CHECK (((struggling_since IS NULL) OR (struggling_since = ANY (ARRAY['dieses_halbjahr'::text, 'letztes_schuljahr'::text, 'laenger'::text]))))
+);
+
+
+--
+-- Name: lernpfad; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lernpfad (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    skill_key text NOT NULL,
+    stand_system text DEFAULT 'offen'::text NOT NULL,
+    stand_system_seit timestamp with time zone DEFAULT now() NOT NULL,
+    stand_coach text,
+    coach_grund text,
+    coach_von uuid,
+    coach_am timestamp with time zone,
+    coach_session_id uuid,
+    quelle text NOT NULL,
+    lsa_session_id uuid,
+    letzte_uebung_am timestamp with time zone,
+    letzte_session_id uuid,
+    belege jsonb DEFAULT '[]'::jsonb NOT NULL,
+    angelegt timestamp with time zone DEFAULT now() NOT NULL,
+    aktualisiert timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT lernpfad_coach_vollstaendig CHECK (((stand_coach IS NULL) OR (coach_am IS NOT NULL))),
+    CONSTRAINT lernpfad_quelle_check CHECK ((quelle = ANY (ARRAY['lsa'::text, 'session'::text, 'coach'::text]))),
+    CONSTRAINT lernpfad_stand_coach_check CHECK ((stand_coach = ANY (ARRAY['gemeistert'::text, 'vertagt'::text]))),
+    CONSTRAINT lernpfad_stand_system_check CHECK ((stand_system = ANY (ARRAY['offen'::text, 'aktiv'::text, 'sicher'::text, 'noch_nicht_sicher'::text, 'kandidat'::text]))),
+    CONSTRAINT lernpfad_vertagt_braucht_grund CHECK (((stand_coach IS DISTINCT FROM 'vertagt'::text) OR (NULLIF(btrim(coach_grund), ''::text) IS NOT NULL)))
+);
+
+
+--
+-- Name: lernpfad_belege; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lernpfad_belege (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    skill_key text NOT NULL,
+    session_id uuid NOT NULL,
+    ergebnis text NOT NULL,
+    hinweis_genutzt boolean NOT NULL,
+    zeit timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    CONSTRAINT lernpfad_belege_ergebnis_check CHECK ((ergebnis = ANY (ARRAY['richtig'::text, 'teilweise'::text, 'falsch'::text])))
+);
+
+
+--
+-- Name: lernpfad_protokoll; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lernpfad_protokoll (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    skill_key text NOT NULL,
+    aktion text NOT NULL,
+    anlass text NOT NULL,
+    alt jsonb,
+    neu jsonb,
+    grund text,
+    von uuid,
+    session_id uuid,
+    am timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    CONSTRAINT lernpfad_protokoll_aktion_check CHECK ((aktion = ANY (ARRAY['mastery'::text, 'pfad_tiefer'::text, 'uebernahme'::text]))),
+    CONSTRAINT lernpfad_protokoll_anlass_check CHECK ((anlass = ANY (ARRAY['lsa'::text, 'pruefung'::text, 'warmup'::text, 'eingriff'::text])))
 );
 
 
@@ -8618,6 +9710,7 @@ CREATE TABLE public.lsa_sessions (
     uebernommen_zu_student_id uuid,
     uebernommen_am timestamp with time zone,
     thema_key text,
+    testlauf boolean DEFAULT false NOT NULL,
     CONSTRAINT lsa_sessions_avatar_choice_form CHECK (((avatar_choice IS NULL) OR (((length(avatar_choice) >= 1) AND (length(avatar_choice) <= 40)) AND (avatar_choice = btrim(avatar_choice))))),
     CONSTRAINT lsa_sessions_grade_check CHECK (((grade >= 5) AND (grade <= 13))),
     CONSTRAINT lsa_sessions_modus_check CHECK ((modus = ANY (ARRAY['fest'::text, 'adaptiv'::text]))),
@@ -9036,6 +10129,25 @@ CREATE TABLE public.skill_kante (
 
 
 --
+-- Name: skill_pruefung; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.skill_pruefung (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    skill_key text NOT NULL,
+    frage text NOT NULL,
+    erwartung text NOT NULL,
+    kriterium text NOT NULL,
+    status text DEFAULT 'entwurf'::text NOT NULL,
+    quelle text NOT NULL,
+    angelegt timestamp with time zone DEFAULT now() NOT NULL,
+    aktualisiert timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT skill_pruefung_quelle_check CHECK ((quelle = ANY (ARRAY['ki'::text, 'mensch'::text]))),
+    CONSTRAINT skill_pruefung_status_check CHECK ((status = ANY (ARRAY['entwurf'::text, 'geprueft'::text, 'freigegeben'::text])))
+);
+
+
+--
 -- Name: skill_thema; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -9268,6 +10380,7 @@ CREATE TABLE public.students (
     is_provisional boolean DEFAULT false NOT NULL,
     lead_id uuid,
     schule_id uuid,
+    ist_test boolean DEFAULT false NOT NULL,
     CONSTRAINT students_class_level_check CHECK (((class_level >= 5) AND (class_level <= 13))),
     CONSTRAINT students_provisional_lead_ck CHECK ((is_provisional = (lead_id IS NOT NULL))),
     CONSTRAINT students_school_type_check CHECK ((school_type = ANY (ARRAY['Gymnasium'::text, 'Gesamtschule'::text, 'Realschule'::text, 'Hauptschule'::text])))
@@ -9847,7 +10960,8 @@ CREATE TABLE public.xp_events (
     student_id uuid NOT NULL,
     task_id uuid,
     xp integer NOT NULL,
-    reason text
+    reason text,
+    buchungs_schluessel text
 );
 
 
@@ -10037,6 +11151,38 @@ ALTER TABLE ONLY public.lead_themen
 
 ALTER TABLE ONLY public.leads
     ADD CONSTRAINT leads_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lernpfad_belege lernpfad_belege_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_belege
+    ADD CONSTRAINT lernpfad_belege_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lernpfad lernpfad_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad
+    ADD CONSTRAINT lernpfad_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lernpfad_protokoll lernpfad_protokoll_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_protokoll
+    ADD CONSTRAINT lernpfad_protokoll_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lernpfad lernpfad_student_skill_uq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad
+    ADD CONSTRAINT lernpfad_student_skill_uq UNIQUE (student_id, skill_key);
 
 
 --
@@ -10293,6 +11439,14 @@ ALTER TABLE ONLY public.skill_clusters
 
 ALTER TABLE ONLY public.skill_kante
     ADD CONSTRAINT skill_kante_pkey PRIMARY KEY (skill_key, voraussetzt_skill_key);
+
+
+--
+-- Name: skill_pruefung skill_pruefung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_pruefung
+    ADD CONSTRAINT skill_pruefung_pkey PRIMARY KEY (id);
 
 
 --
@@ -10834,6 +11988,27 @@ CREATE INDEX leads_status_idx ON public.leads USING btree (status);
 
 
 --
+-- Name: lernpfad_belege_student_skill_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lernpfad_belege_student_skill_idx ON public.lernpfad_belege USING btree (student_id, skill_key);
+
+
+--
+-- Name: lernpfad_protokoll_student_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lernpfad_protokoll_student_idx ON public.lernpfad_protokoll USING btree (student_id, am);
+
+
+--
+-- Name: lernpfad_student_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lernpfad_student_idx ON public.lernpfad USING btree (student_id);
+
+
+--
 -- Name: lsa_report_notes_session_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11069,6 +12244,13 @@ CREATE UNIQUE INDEX sfa_skill_herkunft_unique ON public.student_focus_areas USIN
 --
 
 CREATE INDEX skill_kante_voraussetzt_idx ON public.skill_kante USING btree (voraussetzt_skill_key);
+
+
+--
+-- Name: skill_pruefung_skill_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX skill_pruefung_skill_idx ON public.skill_pruefung USING btree (skill_key);
 
 
 --
@@ -11338,10 +12520,24 @@ CREATE INDEX vertrag_versand_vertrag_idx ON public.vertrag_versand USING btree (
 
 
 --
+-- Name: xp_events_buchungs_schluessel_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX xp_events_buchungs_schluessel_key ON public.xp_events USING btree (student_id, buchungs_schluessel);
+
+
+--
 -- Name: xp_events_student_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX xp_events_student_idx ON public.xp_events USING btree (student_id);
+
+
+--
+-- Name: coaching_sessions coaching_sessions_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER coaching_sessions_testlauf_trg BEFORE INSERT OR UPDATE OF testlauf ON public.coaching_sessions FOR EACH ROW EXECUTE FUNCTION public.coaching_sessions_testlauf_pruefen();
 
 
 --
@@ -11356,6 +12552,13 @@ CREATE TRIGGER coaching_sessions_verschieben_zugang_trg BEFORE UPDATE OF schedul
 --
 
 CREATE TRIGGER eltern_reports_guard_trg BEFORE UPDATE ON public.eltern_reports FOR EACH ROW EXECUTE FUNCTION public.eltern_reports_guard();
+
+
+--
+-- Name: leads leads_ist_test_schuetzen_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER leads_ist_test_schuetzen_trg BEFORE UPDATE OF ist_test ON public.leads FOR EACH ROW EXECUTE FUNCTION public.ist_test_schuetzen();
 
 
 --
@@ -11380,10 +12583,24 @@ CREATE TRIGGER lsa_session_platz_release_trg AFTER UPDATE OF status ON public.ls
 
 
 --
+-- Name: lsa_sessions lsa_sessions_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER lsa_sessions_testlauf_trg BEFORE INSERT OR UPDATE OF testlauf, student_id ON public.lsa_sessions FOR EACH ROW EXECUTE FUNCTION public.lsa_sessions_testlauf_pruefen();
+
+
+--
 -- Name: schueler_notizen schueler_notizen_guard_trg; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER schueler_notizen_guard_trg BEFORE UPDATE ON public.schueler_notizen FOR EACH ROW EXECUTE FUNCTION public.schueler_notizen_guard();
+
+
+--
+-- Name: session_students session_students_testlauf_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER session_students_testlauf_trg BEFORE INSERT OR UPDATE OF student_id, session_id ON public.session_students FOR EACH ROW EXECUTE FUNCTION public.session_students_testlauf_pruefen();
 
 
 --
@@ -11405,6 +12622,20 @@ CREATE CONSTRAINT TRIGGER skill_kante_tiefe AFTER INSERT OR UPDATE ON public.ski
 --
 
 CREATE TRIGGER students_guard_provisional_trg BEFORE INSERT OR UPDATE OF is_provisional ON public.students FOR EACH ROW EXECUTE FUNCTION public.students_guard_provisional();
+
+
+--
+-- Name: students students_ist_test_erben_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER students_ist_test_erben_trg BEFORE INSERT ON public.students FOR EACH ROW EXECUTE FUNCTION public.students_ist_test_erben();
+
+
+--
+-- Name: students students_ist_test_schuetzen_trg; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER students_ist_test_schuetzen_trg BEFORE UPDATE OF ist_test ON public.students FOR EACH ROW EXECUTE FUNCTION public.ist_test_schuetzen();
 
 
 --
@@ -11751,6 +12982,110 @@ ALTER TABLE ONLY public.leads
 
 ALTER TABLE ONLY public.leads
     ADD CONSTRAINT leads_schule_id_fkey FOREIGN KEY (schule_id) REFERENCES public.schulen(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lernpfad_belege lernpfad_belege_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_belege
+    ADD CONSTRAINT lernpfad_belege_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: lernpfad_belege lernpfad_belege_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_belege
+    ADD CONSTRAINT lernpfad_belege_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
+
+
+--
+-- Name: lernpfad_belege lernpfad_belege_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_belege
+    ADD CONSTRAINT lernpfad_belege_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lernpfad lernpfad_coach_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad
+    ADD CONSTRAINT lernpfad_coach_session_id_fkey FOREIGN KEY (coach_session_id) REFERENCES public.coaching_sessions(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lernpfad lernpfad_coach_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad
+    ADD CONSTRAINT lernpfad_coach_von_fkey FOREIGN KEY (coach_von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lernpfad lernpfad_letzte_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad
+    ADD CONSTRAINT lernpfad_letzte_session_id_fkey FOREIGN KEY (letzte_session_id) REFERENCES public.coaching_sessions(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lernpfad lernpfad_lsa_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad
+    ADD CONSTRAINT lernpfad_lsa_session_id_fkey FOREIGN KEY (lsa_session_id) REFERENCES public.lsa_sessions(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lernpfad_protokoll lernpfad_protokoll_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_protokoll
+    ADD CONSTRAINT lernpfad_protokoll_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lernpfad_protokoll lernpfad_protokoll_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_protokoll
+    ADD CONSTRAINT lernpfad_protokoll_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
+
+
+--
+-- Name: lernpfad_protokoll lernpfad_protokoll_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_protokoll
+    ADD CONSTRAINT lernpfad_protokoll_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lernpfad_protokoll lernpfad_protokoll_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad_protokoll
+    ADD CONSTRAINT lernpfad_protokoll_von_fkey FOREIGN KEY (von) REFERENCES public.profiles(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lernpfad lernpfad_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad
+    ADD CONSTRAINT lernpfad_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
+
+
+--
+-- Name: lernpfad lernpfad_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lernpfad
+    ADD CONSTRAINT lernpfad_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
 
 
 --
@@ -12127,6 +13462,14 @@ ALTER TABLE ONLY public.skill_kante
 
 ALTER TABLE ONLY public.skill_kante
     ADD CONSTRAINT skill_kante_voraussetzt_skill_key_fkey FOREIGN KEY (voraussetzt_skill_key) REFERENCES public.skills(skill_key) ON DELETE CASCADE;
+
+
+--
+-- Name: skill_pruefung skill_pruefung_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_pruefung
+    ADD CONSTRAINT skill_pruefung_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
 
 
 --
@@ -12814,10 +14157,19 @@ CREATE POLICY badge_catalog_read_all ON public.badge_catalog FOR SELECT USING (t
 ALTER TABLE public.behavior_snapshots ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: behavior_snapshots coaches_admins_see_all_snapshots; Type: POLICY; Schema: public; Owner: -
+-- Name: behavior_snapshots behavior_snapshots_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY coaches_admins_see_all_snapshots ON public.behavior_snapshots FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY behavior_snapshots_admin_read ON public.behavior_snapshots FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: behavior_snapshots behavior_snapshots_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY behavior_snapshots_coach_select ON public.behavior_snapshots FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND (EXISTS ( SELECT 1
+   FROM public.students s
+  WHERE ((s.profile_id = behavior_snapshots.user_id) AND public.akte_aktiv(s.id))))));
 
 
 --
@@ -13059,16 +14411,62 @@ CREATE POLICY leads_admin_all ON public.leads USING ((public.get_my_role() = 'ad
 
 
 --
+-- Name: lernpfad; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lernpfad ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lernpfad_belege; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lernpfad_belege ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lernpfad_belege lernpfad_belege_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lernpfad_belege_lesen ON public.lernpfad_belege FOR SELECT TO authenticated USING (public.lernpfad_darf_lesen(student_id));
+
+
+--
+-- Name: lernpfad lernpfad_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lernpfad_lesen ON public.lernpfad FOR SELECT TO authenticated USING (public.lernpfad_darf_lesen(student_id));
+
+
+--
+-- Name: lernpfad_protokoll; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.lernpfad_protokoll ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: lernpfad_protokoll lernpfad_protokoll_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lernpfad_protokoll_lesen ON public.lernpfad_protokoll FOR SELECT TO authenticated USING (public.lernpfad_darf_lesen(student_id));
+
+
+--
 -- Name: lsa_ausgegeben; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
 ALTER TABLE public.lsa_ausgegeben ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_ausgegeben lsa_ausgegeben_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_ausgegeben lsa_ausgegeben_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_ausgegeben_coach_admin_read ON public.lsa_ausgegeben FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_ausgegeben_admin_read ON public.lsa_ausgegeben FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_ausgegeben lsa_ausgegeben_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_ausgegeben_coach_select ON public.lsa_ausgegeben FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.lsa_session_akte_aktiv(session_id)));
 
 
 --
@@ -13087,10 +14485,17 @@ CREATE POLICY lsa_ausgegeben_parent_read ON public.lsa_ausgegeben FOR SELECT USI
 ALTER TABLE public.lsa_report_notes ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_report_notes lsa_report_notes_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_report_notes lsa_report_notes_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_report_notes_coach_admin_all ON public.lsa_report_notes USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_report_notes_admin_all ON public.lsa_report_notes USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_report_notes lsa_report_notes_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_report_notes_coach_select ON public.lsa_report_notes FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.lsa_session_akte_aktiv(session_id)));
 
 
 --
@@ -13100,10 +14505,17 @@ CREATE POLICY lsa_report_notes_coach_admin_all ON public.lsa_report_notes USING 
 ALTER TABLE public.lsa_responses ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_responses lsa_responses_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_responses lsa_responses_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_responses_coach_admin_read ON public.lsa_responses FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_responses_admin_read ON public.lsa_responses FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_responses lsa_responses_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_responses_coach_select ON public.lsa_responses FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.lsa_session_akte_aktiv(session_id)));
 
 
 --
@@ -13122,10 +14534,17 @@ CREATE POLICY lsa_responses_parent_read ON public.lsa_responses FOR SELECT USING
 ALTER TABLE public.lsa_sessions ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_sessions lsa_sessions_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_sessions lsa_sessions_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_sessions_coach_admin_all ON public.lsa_sessions USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_sessions_admin_all ON public.lsa_sessions USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_sessions lsa_sessions_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_sessions_coach_select ON public.lsa_sessions FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -13142,10 +14561,17 @@ CREATE POLICY lsa_sessions_parent_read ON public.lsa_sessions FOR SELECT USING (
 ALTER TABLE public.lsa_skill_urteil ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: lsa_skill_urteil lsa_skill_urteil_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: lsa_skill_urteil lsa_skill_urteil_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY lsa_skill_urteil_coach_admin_read ON public.lsa_skill_urteil FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY lsa_skill_urteil_admin_read ON public.lsa_skill_urteil FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: lsa_skill_urteil lsa_skill_urteil_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY lsa_skill_urteil_coach_select ON public.lsa_skill_urteil FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.lsa_session_akte_aktiv(session_id)));
 
 
 --
@@ -13176,10 +14602,17 @@ ALTER TABLE public.parent_report_generations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.parent_reports ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: parent_reports parent_reports_coach_admin_all; Type: POLICY; Schema: public; Owner: -
+-- Name: parent_reports parent_reports_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY parent_reports_coach_admin_all ON public.parent_reports USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY parent_reports_admin_all ON public.parent_reports USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: parent_reports parent_reports_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY parent_reports_coach_select ON public.parent_reports FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -13673,6 +15106,19 @@ CREATE POLICY skill_kante_read_all ON public.skill_kante FOR SELECT TO anon, aut
 
 
 --
+-- Name: skill_pruefung; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.skill_pruefung ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: skill_pruefung skill_pruefung_admin_lesen; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY skill_pruefung_admin_lesen ON public.skill_pruefung FOR SELECT TO authenticated USING ((public.get_my_role() = 'admin'::text));
+
+
+--
 -- Name: skill_thema; Type: ROW SECURITY; Schema: public; Owner: -
 --
 
@@ -13782,16 +15228,16 @@ ALTER TABLE public.student_badges ENABLE ROW LEVEL SECURITY;
 -- Name: student_badges student_badges_admin_write; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_badges_admin_write ON public.student_badges USING ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['admin'::text, 'coach'::text])));
+CREATE POLICY student_badges_admin_write ON public.student_badges USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
 -- Name: student_badges student_badges_self_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_badges_self_read ON public.student_badges FOR SELECT USING (((student_id IN ( SELECT students.id
-   FROM public.students
-  WHERE (students.profile_id = auth.uid()))) OR (public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])) OR (EXISTS ( SELECT 1
+CREATE POLICY student_badges_self_read ON public.student_badges FOR SELECT USING (((student_id IN ( SELECT s.id
+   FROM public.students s
+  WHERE (s.profile_id = auth.uid()))) OR (COALESCE(public.get_my_role(), ''::text) = 'admin'::text) OR ((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)) OR (EXISTS ( SELECT 1
    FROM public.parent_student ps
   WHERE ((ps.student_id = student_badges.student_id) AND (ps.parent_id = auth.uid()))))));
 
@@ -13843,10 +15289,17 @@ ALTER TABLE public.student_competency_mastery ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.student_focus_areas ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: student_focus_areas student_focus_areas_coach_all; Type: POLICY; Schema: public; Owner: -
+-- Name: student_focus_areas student_focus_areas_admin_all; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_focus_areas_coach_all ON public.student_focus_areas USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text]))) WITH CHECK ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY student_focus_areas_admin_all ON public.student_focus_areas USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text)) WITH CHECK ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: student_focus_areas student_focus_areas_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY student_focus_areas_coach_select ON public.student_focus_areas FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -13865,10 +15318,17 @@ CREATE POLICY student_focus_areas_parent_read ON public.student_focus_areas FOR 
 ALTER TABLE public.student_progress ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: student_progress student_progress_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: student_progress student_progress_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_progress_coach_admin_read ON public.student_progress FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY student_progress_admin_read ON public.student_progress FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: student_progress student_progress_coach_select; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY student_progress_coach_select ON public.student_progress FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -13946,17 +15406,17 @@ CREATE POLICY student_subscriptions_select_own ON public.student_subscriptions F
 ALTER TABLE public.student_task_progress ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: student_task_progress student_task_progress_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: student_task_progress student_task_progress_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_task_progress_coach_admin_read ON public.student_task_progress FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY student_task_progress_admin_read ON public.student_task_progress FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
--- Name: student_task_progress student_task_progress_own_rw; Type: POLICY; Schema: public; Owner: -
+-- Name: student_task_progress student_task_progress_coach_select; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY student_task_progress_own_rw ON public.student_task_progress USING ((student_id = public.get_my_student_id())) WITH CHECK ((student_id = public.get_my_student_id()));
+CREATE POLICY student_task_progress_coach_select ON public.student_task_progress FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --
@@ -13964,6 +15424,13 @@ CREATE POLICY student_task_progress_own_rw ON public.student_task_progress USING
 --
 
 CREATE POLICY student_task_progress_parent_read ON public.student_task_progress FOR SELECT USING (public.is_parent_of_student(student_id));
+
+
+--
+-- Name: student_task_progress student_task_progress_select_own; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY student_task_progress_select_own ON public.student_task_progress FOR SELECT USING ((student_id = public.get_my_student_id()));
 
 
 --
@@ -14169,13 +15636,6 @@ CREATE POLICY tiers_authenticated_read ON public.tiers FOR SELECT USING ((auth.r
 
 
 --
--- Name: behavior_snapshots users_insert_own_snapshots; Type: POLICY; Schema: public; Owner: -
---
-
-CREATE POLICY users_insert_own_snapshots ON public.behavior_snapshots FOR INSERT WITH CHECK ((auth.uid() = user_id));
-
-
---
 -- Name: profiles users_see_own_profile; Type: POLICY; Schema: public; Owner: -
 --
 
@@ -14332,17 +15792,17 @@ CREATE POLICY vertrag_zustimmungen_admin_select ON public.vertrag_zustimmungen F
 ALTER TABLE public.xp_events ENABLE ROW LEVEL SECURITY;
 
 --
--- Name: xp_events xp_events_coach_admin_read; Type: POLICY; Schema: public; Owner: -
+-- Name: xp_events xp_events_admin_read; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY xp_events_coach_admin_read ON public.xp_events FOR SELECT USING ((public.get_my_role() = ANY (ARRAY['coach'::text, 'admin'::text])));
+CREATE POLICY xp_events_admin_read ON public.xp_events FOR SELECT USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
 
 
 --
--- Name: xp_events xp_events_insert_own; Type: POLICY; Schema: public; Owner: -
+-- Name: xp_events xp_events_coach_select; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY xp_events_insert_own ON public.xp_events FOR INSERT WITH CHECK ((student_id = public.get_my_student_id()));
+CREATE POLICY xp_events_coach_select ON public.xp_events FOR SELECT USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.akte_aktiv(student_id)));
 
 
 --

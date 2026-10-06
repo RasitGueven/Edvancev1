@@ -66,6 +66,10 @@ vi.mock('@/lib/supabase/akteNotizen', () => ({
   notizEinblenden: vi.fn(),
   notizGesundheitEntfernen: vi.fn(),
 }))
+vi.mock('@/lib/supabase/testmodus', () => ({
+  getStudentIstTest: vi.fn(() => Promise.resolve({ data: false, error: null })),
+  testkontoSetzen: vi.fn(() => Promise.resolve({ data: true, error: null })),
+}))
 vi.mock('@/lib/supabase/schulen', () => ({
   listSchulen: vi.fn(() => Promise.resolve({ data: [], error: null })),
   schuleAnlegen: vi.fn(),

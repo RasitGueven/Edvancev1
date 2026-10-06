@@ -342,5 +342,23 @@
       "titel": "Keine Aufgaben",
       "beschreibung": "In diesem Cluster gibt es noch keine Aufgaben."
     }
+  },
+  "testmodus": {
+    "banner": {
+      "titel": "Testlauf",
+      "text": "Zählt in keiner Kennzahl, keinem Report und keiner Akte."
+    },
+    "schalter": {
+      "label": "Testlauf",
+      "hilfe": "Nur für Testkonten. Zieht auch ungeprüfte Aufgaben, die die Prüfung bestehen. Taucht nirgends in Kennzahlen auf."
+    },
+    "haken": {
+      "label": "Testkonto",
+      "hilfe": {
+        "student": "Nur Testkonten dürfen Testläufe machen.",
+        "lead": "Das Kind zu diesem Lead wird ebenfalls Testkonto."
+      },
+      "fehler": "Der Testkonto-Haken konnte nicht gespeichert werden."
+    }
   }
 }

@@ -62,6 +62,8 @@ export type Lead = {
   // Trigger leads_status_zeitstempel_trg). Bei Leads von vor der Migration null.
   lsa_freigegeben_at: string | null
   lsa_fertig_at: string | null
+  // Testkonto (Entscheidung 27, Migration 20261007100200). Nur Admin setzt es.
+  ist_test?: boolean
   // Intake-Felder (S7, Erstgespräch) — bewusst KEINE Diagnose-Felder.
   first_name: string | null
   birth_date: string | null

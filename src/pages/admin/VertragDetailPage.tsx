@@ -31,6 +31,7 @@ import { AktionenKarte } from './vertraege/detail/AktionenKarte'
 import { ArchivListe } from './vertraege/detail/ArchivListe'
 import { Datenblock } from './vertraege/detail/Datenblock'
 import { IbanFeld } from './vertraege/detail/IbanFeld'
+import { ZugangscodeFeld } from './vertraege/ZugangscodeFeld'
 import { KuendigungDialog } from './vertraege/detail/KuendigungDialog'
 import { VertragHistorie } from './vertraege/detail/VertragHistorie'
 import { EingabeDialog } from './vertraege/menue/EingabeDialog'
@@ -267,9 +268,7 @@ export function VertragDetailPage(): JSX.Element {
             titel={t('code.title')}
             kinder={
               <div className="flex flex-col gap-3">
-                <p className="font-mono text-3xl font-bold tracking-widest text-[var(--color-text-primary)]">
-                  {v.zugangscode ?? '—'}
-                </p>
+                <ZugangscodeFeld code={v.zugangscode} />
                 <p className="text-xs text-[var(--color-text-tertiary)]">
                   {v.zugangscode_gesperrt_am
                     ? t('code.blocked', { date: datum(v.zugangscode_gesperrt_am) })

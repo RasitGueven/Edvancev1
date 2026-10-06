@@ -32,6 +32,7 @@ import { NotizenKachel } from './NotizenKachel'
 import { ReportsKachel } from './ReportsKachel'
 import { SessionsKachel } from './SessionsKachel'
 import { StammdatenKachel } from './StammdatenKachel'
+import { TestkontoAkte } from '../testmodus/TestkontoAkte'
 
 type Daten = {
   stand: EinheitenStand | null
@@ -143,6 +144,8 @@ export function AktePage(): JSX.Element {
           )}
         </EdvanceCard>
       )}
+
+      <TestkontoAkte studentId={studentId} istAdmin={istAdmin} onFehler={setError} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {!ruhend && <EinheitenKachel stand={daten.stand} />}
