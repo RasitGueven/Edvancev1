@@ -1231,6 +1231,42 @@ $$;
 
 
 --
+-- Name: eltern_quest_wochenstand(date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.eltern_quest_wochenstand(p_woche date) RETURNS TABLE(student_id uuid, woche_ab date, erledigt integer, offen integer, eltern_email text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_montag date;
+begin
+  if not coalesce(public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin', false) then
+    raise exception 'eltern_quest_wochenstand: nur Admin oder Systemaufruf' using errcode = '42501';
+  end if;
+  if p_woche is null then
+    raise exception 'eltern_quest_wochenstand: Woche ist Pflicht' using errcode = '22023';
+  end if;
+  v_montag := date_trunc('week', p_woche)::date;
+
+  -- Eltern sehen nur "erledigt" oder "offen"; verfallene Quests zaehlen als offen.
+  return query
+    select q.student_id, v_montag,
+           count(*) filter (where q.status = 'erledigt')::integer,
+           count(*) filter (where q.status <> 'erledigt')::integer,
+           (select va.eltern_email from public.vertraege_aktuell va
+             where va.student_id = q.student_id and va.wirksamer_status in ('im_widerruf', 'aktiv')
+             order by va.vertragsbeginn desc nulls last limit 1)
+      from public.quests q
+      join public.coaching_sessions cs on cs.id = q.session_id and not cs.testlauf
+     where q.faellig_ab >= v_montag and q.faellig_ab < v_montag + 7
+     group by q.student_id
+     order by q.student_id;
+end;
+$$;
+
+
+--
 -- Name: eltern_report_eintragen(uuid, text, date, jsonb, uuid, timestamp with time zone, timestamp with time zone, text, text, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -2466,6 +2502,18 @@ CREATE FUNCTION public.hinweise_status_gueltig(p_hints jsonb) RETURNS boolean
       or not exists (select 1 from jsonb_array_elements(p_hints) h
                       where h ? 'status'
                         and coalesce(h ->> 'status', '') not in ('entwurf', 'geprueft'))
+$$;
+
+
+--
+-- Name: home_quests_aktiv(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.home_quests_aktiv() RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select lower(coalesce(public.quest_einstellung('home_quests_aktiv'), 'aus')) in ('an', 'true', '1', 'ja');
 $$;
 
 
@@ -6973,6 +7021,7 @@ CREATE TABLE public.tasks (
     CONSTRAINT tasks_curriculum_grade_check CHECK (((curriculum_grade IS NULL) OR ((curriculum_grade >= 5) AND (curriculum_grade <= 13)))),
     CONSTRAINT tasks_difficulty_check CHECK (((difficulty >= 1) AND (difficulty <= 5))),
     CONSTRAINT tasks_einsatz_check CHECK ((einsatz <@ ARRAY['lsa'::text, 'session'::text, 'check'::text, 'quest'::text])),
+    CONSTRAINT tasks_einsatz_quest_allein CHECK ((NOT (('quest'::text = ANY (einsatz)) AND (einsatz && ARRAY['lsa'::text, 'session'::text])))),
     CONSTRAINT tasks_est_duration_sec_check CHECK (((est_duration_sec IS NULL) OR ((est_duration_sec >= 10) AND (est_duration_sec <= 3600)))),
     CONSTRAINT tasks_input_type_check CHECK ((input_type = ANY (ARRAY['MC'::text, 'NUMERIC'::text, 'SHORT_TEXT'::text, 'TRUE_FALSE'::text, 'FREE_TEXT'::text, 'MATCHING'::text, 'CLOZE'::text, 'COORDINATE'::text, 'MULTI_PART'::text, 'TERM'::text]))),
     CONSTRAINT tasks_multipart_check CHECK (
@@ -8447,6 +8496,469 @@ CREATE FUNCTION public.pruef_zahl_von(p_wert text) RETURNS text
     AS $$
   select case when public.pruef_ist_zahl(p_wert) then
     (regexp_match(btrim(p_wert), '^([-+−–]?\s?[0-9]+(?:\s+[0-9]+/[0-9]+|/[0-9]+|[.,][0-9]+)?)'))[1] end
+$$;
+
+
+--
+-- Name: push_token_registrieren(text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.push_token_registrieren(p_token text, p_plattform text, p_geraet text DEFAULT NULL::text) RETURNS uuid
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_student uuid := public.get_my_student_id();
+  v_id      uuid;
+begin
+  if v_student is null then
+    raise exception 'push_token_registrieren: nur fuer ein Schuelerkonto' using errcode = '42501';
+  end if;
+  if nullif(btrim(coalesce(p_token, '')), '') is null or length(p_token) > 4096 then
+    raise exception 'push_token_registrieren: Token fehlt oder ist zu lang' using errcode = '22023';
+  end if;
+  if p_plattform is null or p_plattform not in ('ios', 'android', 'web') then
+    raise exception 'push_token_registrieren: Plattform ios, android oder web' using errcode = '22023';
+  end if;
+
+  -- Ein Token gehoert immer dem Konto, das es zuletzt angemeldet hat (Geraetewechsel).
+  insert into public.push_tokens as pt (student_id, geraet, plattform, token)
+  values (v_student, nullif(btrim(coalesce(p_geraet, '')), ''), p_plattform, btrim(p_token))
+  on conflict (token) do update
+     set student_id  = excluded.student_id,
+         geraet      = excluded.geraet,
+         plattform   = excluded.plattform,
+         angelegt_am = now()
+  returning pt.id into v_id;
+  return v_id;
+end;
+$$;
+
+
+--
+-- Name: quest_aufgaben_waehlen(uuid, uuid, text[], boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.quest_aufgaben_waehlen(p_quest_id uuid, p_student_id uuid, p_skill_keys text[], p_mischen boolean) RETURNS integer
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_budget   integer := (public.quest_einstellung_zahl('quest_minuten', 10) * 60)::integer;
+  v_anteil   numeric := least(greatest(public.quest_einstellung_zahl('mischanteil', 0.30), 0), 1);
+  v_alt_max  integer;
+  v_summe    integer := 0;
+  v_gewaehlt uuid[]  := '{}';
+  v_alt      text[];
+  r          record;
+begin
+  v_alt_max := case when p_mischen then floor(v_budget * v_anteil)::integer else 0 end;
+
+  select coalesce(array_agg(distinct t.skill_key), '{}') into v_alt
+    from public.quest_aufgaben qa
+    join public.quests q on q.id = qa.quest_id
+    join public.tasks  t on t.id = qa.task_id
+   where q.student_id = p_student_id
+     and q.id <> p_quest_id
+     and t.skill_key is not null
+     and not (t.skill_key = any (p_skill_keys));
+
+  -- Drei Durchgaenge: Aelteres bis zum Mischanteil, dann das Neue, dann mit Aelterem
+  -- auffuellen. Bereits in Quests des Kindes genutzte Aufgaben kommen zuletzt dran.
+  for r in
+    with pool as (
+      select t.id, t.est_duration_sec as dauer, t.skill_key,
+             exists (select 1 from public.quest_aufgaben qa join public.quests q on q.id = qa.quest_id
+                      where qa.task_id = t.id and q.student_id = p_student_id) as genutzt
+        from public.tasks t
+        join public.task_solutions s on s.task_id = t.id
+       where t.status = 'ready'
+         and 'quest' = any (t.einsatz)
+         and not (t.einsatz && array['lsa', 'session']::text[])
+         and t.is_active
+         and not t.is_tutorial
+         and t.content_type = 'exercise'
+         and t.skill_key is not null
+         and t.est_duration_sec is not null
+         and nullif(btrim(coalesce(s.solution, '')), '') is not null
+    )
+    select p.id, p.dauer, d.durchgang
+      from (values (1), (2), (3)) as d(durchgang)
+      join pool p
+        on (d.durchgang in (1, 3) and p.skill_key = any (v_alt))
+        or (d.durchgang = 2       and p.skill_key = any (p_skill_keys))
+     where d.durchgang <> 1 or p_mischen
+     order by d.durchgang, p.genutzt, md5(p_quest_id::text || p.id::text)
+  loop
+    continue when r.id = any (v_gewaehlt);
+    continue when r.durchgang = 1 and v_summe + r.dauer > v_alt_max;
+    continue when r.durchgang = 3 and not p_mischen;
+    continue when v_summe + r.dauer > v_budget;
+    v_gewaehlt := v_gewaehlt || r.id;
+    v_summe    := v_summe + r.dauer;
+  end loop;
+
+  insert into public.quest_aufgaben (quest_id, task_id, reihenfolge)
+  select p_quest_id, g.id, row_number() over (order by md5(p_quest_id::text || g.id::text))
+    from unnest(v_gewaehlt) as g(id);
+
+  return coalesce(array_length(v_gewaehlt, 1), 0);
+end;
+$$;
+
+
+--
+-- Name: quest_einstellung(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.quest_einstellung(p_schluessel text) RETURNS text
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $_$
+declare
+  v_wert text;
+begin
+  if to_regclass('public.session_einstellungen') is not null then
+    begin
+      execute 'select wert::text from public.session_einstellungen where schluessel = $1'
+         into v_wert using p_schluessel;
+    exception when undefined_column or undefined_table then
+      v_wert := null;
+    end;
+  end if;
+
+  v_wert := nullif(btrim(v_wert, ' "'), '');
+  return coalesce(v_wert, case p_schluessel
+    when 'quests_pro_woche'     then '2'
+    when 'quest_minuten'        then '10'
+    when 'quest_a_abstand_tage' then '2'
+    when 'quest_xp'             then '50'
+    when 'mischanteil'          then '0.30'
+    when 'home_quests_aktiv'    then 'aus'
+  end);
+end;
+$_$;
+
+
+--
+-- Name: quest_einstellung_zahl(text, numeric); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.quest_einstellung_zahl(p_schluessel text, p_rueckfall numeric) RETURNS numeric
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  return coalesce(public.quest_einstellung(p_schluessel)::numeric, p_rueckfall);
+exception when invalid_text_representation then
+  return p_rueckfall;
+end;
+$$;
+
+
+--
+-- Name: quest_erinnerungen_faellig(timestamp with time zone, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.quest_erinnerungen_faellig(p_bis timestamp with time zone, p_von timestamp with time zone DEFAULT now()) RETURNS TABLE(student_id uuid, quest_id uuid, termin timestamp with time zone)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+begin
+  if not coalesce(public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin', false) then
+    raise exception 'quest_erinnerungen_faellig: nur Admin oder Systemaufruf' using errcode = '42501';
+  end if;
+  if p_bis is null or p_von is null or p_bis < p_von then
+    raise exception 'quest_erinnerungen_faellig: Fenster ungueltig' using errcode = '22023';
+  end if;
+
+  return query
+    select q.student_id, q.id, q.termin
+      from public.quests q
+      join public.coaching_sessions cs on cs.id = q.session_id and not cs.testlauf
+     where q.status = 'offen'
+       and q.termin is not null
+       and q.termin >  p_von
+       and q.termin <= p_bis
+     order by q.termin, q.id;
+end;
+$$;
+
+
+--
+-- Name: quest_erledigt(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.quest_erledigt(p_quest_id uuid) RETURNS TABLE(status text, xp_neu integer, wochenserie integer)
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  v_quest  public.quests%rowtype;
+  v_xp     integer;
+  v_woche  date := date_trunc('week', now() at time zone 'Europe/Berlin')::date;
+  v_serie  integer;
+begin
+  select q.* into v_quest from public.quests q where q.id = p_quest_id for update;
+  if not found then
+    raise exception 'quest_erledigt: kein Zugriff' using errcode = '42501';
+  end if;
+  if public.get_my_student_id() is distinct from v_quest.student_id then
+    raise exception 'quest_erledigt: nur fuer das Kind dieser Quest' using errcode = '42501';
+  end if;
+
+  if v_quest.status = 'erledigt' then
+    -- Zweiter Aufruf: nichts buchen.
+    select sp.home_streak_sessions into v_serie from public.student_progress sp where sp.student_id = v_quest.student_id;
+    status := 'erledigt'; xp_neu := 0; wochenserie := coalesce(v_serie, 0);
+    return next;
+    return;
+  end if;
+  if v_quest.status = 'verfallen' then
+    raise exception 'quest_erledigt: Quest ist verfallen' using errcode = '55000';
+  end if;
+  if v_quest.faellig_ab > (now() at time zone 'Europe/Berlin')::date then
+    raise exception 'quest_erledigt: Quest ist erst ab % abrufbar', v_quest.faellig_ab using errcode = '55000';
+  end if;
+
+  -- XP fuers Bearbeiten, nie fuers Richtig-Haben. Gebucht wird ueber den Kern von xp_buchen
+  -- (X0); der Schluessel quest:<id> bucht je Quest genau einmal, auch neben xp_gebucht.
+  v_xp := least(greatest(public.quest_einstellung_zahl('quest_xp', 50)::integer, 0), 1000);
+
+  update public.quests
+     set status = 'erledigt', erledigt_am = now(), xp_gebucht = v_xp
+   where id = p_quest_id;
+
+  if v_xp > 0 and not public.xp_buchen_intern(v_quest.student_id, v_xp, 'home_quest', 'quest:' || p_quest_id) then
+    -- Schluessel schon gebucht (darf bei xp_gebucht = null nicht vorkommen): nichts doppelt.
+    v_xp := 0;
+    update public.quests set xp_gebucht = 0 where id = p_quest_id;
+  end if;
+
+  -- Wochenserie: jede Kalenderwoche (Europe/Berlin) mit mindestens einer erledigten
+  -- Quest zaehlt einmal. Eine Woche ohne Quest pausiert die Serie; sie wird nie zurueckgesetzt.
+  insert into public.student_progress as sp (student_id, home_streak_sessions, home_streak_last_completed_at)
+  values (v_quest.student_id, 1, now())
+  on conflict (student_id) do update
+     set home_streak_sessions = sp.home_streak_sessions
+           + case when sp.home_streak_last_completed_at is null
+                    or date_trunc('week', sp.home_streak_last_completed_at at time zone 'Europe/Berlin')::date < v_woche
+                  then 1 else 0 end,
+         home_streak_last_completed_at = now()
+  returning sp.home_streak_sessions into v_serie;
+
+  status := 'erledigt'; xp_neu := v_xp; wochenserie := v_serie;
+  return next;
+end;
+$$;
+
+
+--
+-- Name: quest_erzeugen(uuid, uuid, text[], text, date); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.quest_erzeugen(p_session_id uuid, p_student_id uuid, p_skill_keys text[], p_ka_thema_key text DEFAULT NULL::text, p_ka_datum date DEFAULT NULL::date) RETURNS TABLE(quest_id uuid, art text, faellig_ab date, aufgaben integer)
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_session   public.coaching_sessions%rowtype;
+  v_tag       date;
+  v_naechste  date;
+  v_anzahl    integer := public.quest_einstellung_zahl('quests_pro_woche', 2)::integer;
+  v_abstand   integer := public.quest_einstellung_zahl('quest_a_abstand_tage', 2)::integer;
+  v_a_tag     date;
+  v_b_tag     date;
+  v_ka        boolean;
+  v_ka_skills text[];
+  v_plan      record;
+  v_id        uuid;
+  v_n         integer;
+begin
+  select * into v_session from public.coaching_sessions where id = p_session_id;
+  if not found then
+    -- Nur Admin und System erfahren, dass es die Session nicht gibt (kein Existenz-Orakel).
+    if coalesce(public.ist_systemaufruf() or coalesce(public.get_my_role(), '') = 'admin', false) then
+      raise exception 'quest_erzeugen: Session unbekannt' using errcode = '22023';
+    end if;
+    raise exception 'quest_erzeugen: kein Zugriff' using errcode = '42501';
+  end if;
+
+  -- coalesce: ohne Profil liefert get_my_role() null, und "not null" liesse durch.
+  if not coalesce(public.ist_systemaufruf()
+                  or coalesce(public.get_my_role(), '') = 'admin'
+                  or (coalesce(public.get_my_role(), '') = 'coach' and v_session.coach_id = auth.uid()
+                      and public.hat_zugang(p_student_id)), false) then
+    raise exception 'quest_erzeugen: nur Coach der Session (bei laufendem Vertrag), Admin oder Systemaufruf' using errcode = '42501';
+  end if;
+
+  -- FernUSG: solange die Clinic prueft, bleibt home_quests_aktiv aus. Dann legt nur ein
+  -- Systemaufruf (Test, Durchlauf) Quests an, nie ein Coach aus dem Check-out.
+  if not public.home_quests_aktiv() and not public.ist_systemaufruf() then
+    raise exception 'quest_erzeugen: Home Quests sind ausgeschaltet (home_quests_aktiv)' using errcode = '55000';
+  end if;
+
+  if not exists (select 1 from public.session_students ss
+                  where ss.session_id = p_session_id and ss.student_id = p_student_id
+                    and ss.attendance not in ('cancelled', 'cancelled_by_us', 'unexcused')) then
+    raise exception 'quest_erzeugen: Kind ist in dieser Session nicht gebucht' using errcode = '22023';
+  end if;
+
+  if coalesce(cardinality(p_skill_keys), 0) = 0 and p_ka_thema_key is null then
+    raise exception 'quest_erzeugen: skill_keys oder ka_thema_key ist Pflicht' using errcode = '22023';
+  end if;
+
+  -- Parallele Aufrufe fuer dasselbe Kind und dieselbe Session nacheinander.
+  perform pg_advisory_xact_lock(hashtextextended(p_session_id::text || p_student_id::text, 0));
+
+  -- Schon erzeugt: bestehende Quests unveraendert zurueckgeben (wiederholbar).
+  if exists (select 1 from public.quests q where q.session_id = p_session_id and q.student_id = p_student_id) then
+    return query
+      select q.id, q.art, q.faellig_ab, (select count(*)::integer from public.quest_aufgaben qa where qa.quest_id = q.id)
+        from public.quests q
+       where q.session_id = p_session_id and q.student_id = p_student_id
+       order by q.faellig_ab, q.art;
+    return;
+  end if;
+
+  v_tag := (v_session.scheduled_at at time zone 'Europe/Berlin')::date;
+
+  select min((cs.scheduled_at at time zone 'Europe/Berlin')::date) into v_naechste
+    from public.coaching_sessions cs
+    join public.session_students ss on ss.session_id = cs.id
+   where ss.student_id = p_student_id
+     and cs.id <> p_session_id
+     and cs.scheduled_at > v_session.scheduled_at
+     and ss.attendance not in ('cancelled', 'cancelled_by_us');
+
+  -- Ohne naechste Buchung gilt der Wochenrhythmus (offener Punkt).
+  v_b_tag := coalesce(v_naechste, v_tag + 7) - 1;
+  v_a_tag := greatest(v_tag + 1, least(v_tag + v_abstand, v_b_tag));
+
+  v_ka := p_ka_thema_key is not null
+          and (p_ka_datum is null or (p_ka_datum > v_tag and (v_naechste is null or p_ka_datum <= v_naechste)));
+  if v_ka then
+    select coalesce(array_agg(distinct k), '{}') into v_ka_skills
+      from (select st.skill_key as k from public.skill_thema st where st.thema_key = p_ka_thema_key
+            union
+            select te.skill_key from public.thema_einstieg te where te.thema_key = p_ka_thema_key) s;
+    v_b_tag := greatest(v_tag + 1, least(coalesce(p_ka_datum - 1, v_b_tag), v_b_tag));
+  end if;
+
+  -- Neue Quests loesen die offenen aus frueheren Sessions ab.
+  update public.quests q
+     set status = 'verfallen'
+   where q.student_id = p_student_id and q.status = 'offen' and q.session_id <> p_session_id;
+
+  for v_plan in
+    select x.art, x.tag, x.skills, x.mischen
+      from (values
+              (1, 'A',  v_a_tag, p_skill_keys, true),
+              (2, case when v_ka then 'KA' else 'B' end, v_b_tag,
+                  case when v_ka then v_ka_skills else p_skill_keys end, not v_ka)
+           ) as x(nr, art, tag, skills, mischen)
+     where x.nr <= v_anzahl
+       and coalesce(cardinality(x.skills), 0) > 0
+       -- B nur, wenn sie nach A liegt; das KA-Paket immer.
+       and (x.nr = 1 or x.art = 'KA' or x.tag > v_a_tag)
+     order by x.nr
+  loop
+    insert into public.quests (student_id, session_id, art, ka_thema_key, faellig_ab)
+    values (p_student_id, p_session_id, v_plan.art,
+            case when v_plan.art = 'KA' then p_ka_thema_key end, v_plan.tag)
+    returning id into v_id;
+
+    v_n := public.quest_aufgaben_waehlen(v_id, p_student_id, v_plan.skills, v_plan.mischen);
+    if v_n = 0 then
+      -- Ohne passende Aufgabe keine leere Quest.
+      delete from public.quests where id = v_id;
+      raise notice 'quest_erzeugen: keine freigegebene Aufgabe fuer Quest %', v_plan.art;
+      continue;
+    end if;
+
+    quest_id := v_id; art := v_plan.art; faellig_ab := v_plan.tag; aufgaben := v_n;
+    return next;
+  end loop;
+end;
+$$;
+
+
+--
+-- Name: quest_inhalt(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.quest_inhalt(p_quest_id uuid) RETURNS TABLE(reihenfolge smallint, task_id uuid, titel text, aufgabe jsonb, loesungsweg text, dauer_sec integer)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_quest public.quests%rowtype;
+begin
+  select q.* into v_quest from public.quests q where q.id = p_quest_id;
+  if not found then
+    raise exception 'quest_inhalt: kein Zugriff' using errcode = '42501';
+  end if;
+  -- Nur das Konto des Kindes. Die Anmeldung zuhause mit Zugangscode kommt mit der
+  -- Schueler-App (offener Punkt); Coach, Eltern und Admin bekommen hier nichts.
+  if public.get_my_student_id() is distinct from v_quest.student_id then
+    raise exception 'quest_inhalt: nur fuer das Kind dieser Quest' using errcode = '42501';
+  end if;
+  -- Den Loesungsweg gibt es nur, solange die Quest offen ist (Consensus-Check).
+  if v_quest.status <> 'offen' then
+    raise exception 'quest_inhalt: Quest ist nicht mehr offen' using errcode = '55000';
+  end if;
+  if v_quest.faellig_ab > (now() at time zone 'Europe/Berlin')::date then
+    raise exception 'quest_inhalt: Quest ist erst ab % abrufbar', v_quest.faellig_ab using errcode = '55000';
+  end if;
+
+  return query
+    select qa.reihenfolge, t.id, t.title, public.lsa_question_payload(t.id), s.solution, t.est_duration_sec
+      from public.quest_aufgaben qa
+      join public.tasks t           on t.id = qa.task_id
+      join public.task_solutions s  on s.task_id = t.id
+     where qa.quest_id = p_quest_id
+     order by qa.reihenfolge;
+end;
+$$;
+
+
+--
+-- Name: quest_termin_setzen(uuid, timestamp with time zone); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.quest_termin_setzen(p_quest_id uuid, p_termin timestamp with time zone) RETURNS timestamp with time zone
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_quest public.quests%rowtype;
+  v_coach uuid;
+begin
+  select q.* into v_quest from public.quests q where q.id = p_quest_id for update;
+  if not found then
+    raise exception 'quest_termin_setzen: kein Zugriff' using errcode = '42501';
+  end if;
+  select cs.coach_id into v_coach from public.coaching_sessions cs where cs.id = v_quest.session_id;
+
+  -- coalesce: ein null-Vergleich (kein Profil, kein Schuelerkonto) darf nie durchlassen.
+  if not coalesce(coalesce(public.get_my_role(), '') = 'admin'
+                  or (coalesce(public.get_my_role(), '') = 'coach' and v_coach = auth.uid()
+                      and public.hat_zugang(v_quest.student_id))
+                  or public.get_my_student_id() = v_quest.student_id, false) then
+    raise exception 'quest_termin_setzen: nur Coach der Session, Admin oder das Kind' using errcode = '42501';
+  end if;
+
+  if v_quest.status <> 'offen' then
+    raise exception 'quest_termin_setzen: Quest ist nicht offen' using errcode = '55000';
+  end if;
+  if p_termin is null or (p_termin at time zone 'Europe/Berlin')::date < v_quest.faellig_ab then
+    raise exception 'quest_termin_setzen: Termin frühestens am %', v_quest.faellig_ab using errcode = '22023';
+  end if;
+
+  update public.quests set termin = p_termin where id = p_quest_id;
+  return p_termin;
+end;
 $$;
 
 
@@ -12213,6 +12725,58 @@ CREATE TABLE public.pruef_einstellungen (
 
 
 --
+-- Name: push_tokens; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.push_tokens (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    geraet text,
+    plattform text NOT NULL,
+    token text NOT NULL,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT push_tokens_plattform_check CHECK ((plattform = ANY (ARRAY['ios'::text, 'android'::text, 'web'::text]))),
+    CONSTRAINT push_tokens_token_check CHECK (((length(btrim(token)) >= 1) AND (length(btrim(token)) <= 4096)))
+);
+
+
+--
+-- Name: quest_aufgaben; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.quest_aufgaben (
+    quest_id uuid NOT NULL,
+    task_id uuid NOT NULL,
+    reihenfolge smallint NOT NULL,
+    CONSTRAINT quest_aufgaben_reihenfolge_check CHECK ((reihenfolge >= 1))
+);
+
+
+--
+-- Name: quests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.quests (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    student_id uuid NOT NULL,
+    session_id uuid NOT NULL,
+    art text NOT NULL,
+    ka_thema_key text,
+    faellig_ab date NOT NULL,
+    termin timestamp with time zone,
+    status text DEFAULT 'offen'::text NOT NULL,
+    erledigt_am timestamp with time zone,
+    xp_gebucht integer,
+    angelegt_am timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT quests_art_check CHECK ((art = ANY (ARRAY['A'::text, 'B'::text, 'KA'::text]))),
+    CONSTRAINT quests_erledigt_check CHECK (((status = 'erledigt'::text) = (erledigt_am IS NOT NULL))),
+    CONSTRAINT quests_ka_thema_check CHECK (((art = 'KA'::text) = (ka_thema_key IS NOT NULL))),
+    CONSTRAINT quests_status_check CHECK ((status = ANY (ARRAY['offen'::text, 'erledigt'::text, 'verfallen'::text]))),
+    CONSTRAINT quests_xp_check CHECK (((xp_gebucht IS NULL) OR ((xp_gebucht >= 0) AND (status = 'erledigt'::text))))
+);
+
+
+--
 -- Name: report_anlass_zuordnung; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -13890,6 +14454,54 @@ ALTER TABLE ONLY public.pruef_einstellungen
 
 
 --
+-- Name: push_tokens push_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.push_tokens
+    ADD CONSTRAINT push_tokens_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: push_tokens push_tokens_token_einmal; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.push_tokens
+    ADD CONSTRAINT push_tokens_token_einmal UNIQUE (token);
+
+
+--
+-- Name: quest_aufgaben quest_aufgaben_einmal; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.quest_aufgaben
+    ADD CONSTRAINT quest_aufgaben_einmal UNIQUE (quest_id, task_id);
+
+
+--
+-- Name: quest_aufgaben quest_aufgaben_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.quest_aufgaben
+    ADD CONSTRAINT quest_aufgaben_pkey PRIMARY KEY (quest_id, reihenfolge);
+
+
+--
+-- Name: quests quests_einmal_je_art; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.quests
+    ADD CONSTRAINT quests_einmal_je_art UNIQUE (session_id, student_id, art);
+
+
+--
+-- Name: quests quests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.quests
+    ADD CONSTRAINT quests_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: report_anlass_zuordnung report_anlass_zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -14765,6 +15377,20 @@ CREATE INDEX platz_assignments_session_idx ON public.platz_assignments USING btr
 --
 
 CREATE UNIQUE INDEX platz_devices_tablet_nr_key ON public.platz_devices USING btree (tablet_nr);
+
+
+--
+-- Name: quests_student_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX quests_student_idx ON public.quests USING btree (student_id, faellig_ab);
+
+
+--
+-- Name: quests_termin_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX quests_termin_idx ON public.quests USING btree (termin) WHERE (status = 'offen'::text);
 
 
 --
@@ -16098,6 +16724,46 @@ ALTER TABLE ONLY public.platz_devices
 
 ALTER TABLE ONLY public.profiles
     ADD CONSTRAINT profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: push_tokens push_tokens_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.push_tokens
+    ADD CONSTRAINT push_tokens_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: quest_aufgaben quest_aufgaben_quest_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.quest_aufgaben
+    ADD CONSTRAINT quest_aufgaben_quest_id_fkey FOREIGN KEY (quest_id) REFERENCES public.quests(id) ON DELETE CASCADE;
+
+
+--
+-- Name: quest_aufgaben quest_aufgaben_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.quest_aufgaben
+    ADD CONSTRAINT quest_aufgaben_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: quests quests_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.quests
+    ADD CONSTRAINT quests_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE CASCADE;
+
+
+--
+-- Name: quests quests_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.quests
+    ADD CONSTRAINT quests_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
 
 
 --
@@ -17957,6 +18623,59 @@ CREATE POLICY pruef_einstellungen_admin ON public.pruef_einstellungen FOR UPDATE
 --
 
 CREATE POLICY pruef_einstellungen_lesen ON public.pruef_einstellungen FOR SELECT TO authenticated USING (true);
+
+
+--
+-- Name: push_tokens; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.push_tokens ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: quest_aufgaben; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.quest_aufgaben ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: quest_aufgaben quest_aufgaben_select_admin; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY quest_aufgaben_select_admin ON public.quest_aufgaben FOR SELECT TO authenticated USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: quests; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.quests ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: quests quests_select_admin; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY quests_select_admin ON public.quests FOR SELECT TO authenticated USING ((COALESCE(public.get_my_role(), ''::text) = 'admin'::text));
+
+
+--
+-- Name: quests quests_select_coach; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY quests_select_coach ON public.quests FOR SELECT TO authenticated USING (((COALESCE(public.get_my_role(), ''::text) = 'coach'::text) AND public.hat_zugang(student_id)));
+
+
+--
+-- Name: quests quests_select_own; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY quests_select_own ON public.quests FOR SELECT TO authenticated USING ((student_id = public.get_my_student_id()));
+
+
+--
+-- Name: quests quests_select_parent; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY quests_select_parent ON public.quests FOR SELECT TO authenticated USING (public.is_parent_of_student(student_id));
 
 
 --
