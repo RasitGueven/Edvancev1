@@ -444,6 +444,12 @@ Aufwand: `UI` reine Oberfläche auf fertigem Schema · `BE+` kleine Backend-Arbe
   „Inhalte freigeben“ zeigt Lenas Rückfragen (Nachtrag H3-N), der Leisten-Zähler
   zählt review + rueckfrage. **Offen:** Absagen in „Heute im Betrieb“ (Slots-Feature).
 
+- **Coach-Hülle H6** (Branch `feat/rasit-coach-h6-huelle`, Retro
+  `docs/retros/2026-10-06-coach-h6-huelle.md`): Coaches arbeiten in derselben Hülle wie
+  Admins, mit eigener Leiste (Heute, Schüler, Aufgaben prüfen, Content-Gesundheit). Die Rolle
+  entscheidet die Hülle auf geteilten Routen. `AltRahmen` entfernt. **Offen:**
+  `docs/admin-huelle/offene-punkte-h6.md`.
+
 ## Aktiver Slice
 - **Welle 2 · weiter:** Home-Quest-Übersicht → Klausurkalender →
   KI-Erklärartikel → Eskalations-Trigger.
