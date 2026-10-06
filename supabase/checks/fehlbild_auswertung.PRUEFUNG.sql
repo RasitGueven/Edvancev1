@@ -40,8 +40,10 @@ begin
   -- Identitaet setzen: ohne Rolle liefert get_my_role() null, lsa_may_act_for
   -- gibt null zurueck und coalesce(...,false) in AF2 sperrt alles weg.
   insert into auth.users (id, email) values (v_coach, 'pruef-coach@edvance.test');
+  -- Seit X0 (Entscheidung 26) liest ein Coach LSA-Daten nur bei laufendem
+  -- Vertrag; das Probe-Kind hat keinen. Gepruefte Rolle daher Admin.
   insert into public.profiles (id, email, role)
-    values (v_coach, 'pruef-coach@edvance.test', 'coach');
+    values (v_coach, 'pruef-coach@edvance.test', 'admin');
   perform set_config('request.jwt.claim.sub', v_coach::text, true);
 
   -- Zwei Skills — Fall 5 braucht ein Fehlbild, das ueber beide laeuft.
