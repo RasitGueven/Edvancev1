@@ -137,6 +137,8 @@ begin
     values (p_kernidee_id, p_task_id, p_reihenfolge)
     on conflict (kernidee_id, task_id) do update set reihenfolge = excluded.reihenfolge;
   end if;
+  -- Andere Checks heissen neu pruefen: die Kernidee faellt auf entwurf.
+  update public.erklaer_kernidee set status = 'entwurf' where id = p_kernidee_id;
   perform public.erklaer_version_hoch(p_kernidee_id);
 end;
 $$;
@@ -232,7 +234,12 @@ begin
      or exists (select 1 from unnest(p_formeln) h where h is null or h !~ '^[0-9a-f]{64}$') then
     raise exception 'erklaer_formeln_setzen: Anzahl oder Form der Hashes passt nicht' using errcode = '22023';
   end if;
-  update public.erklaer_schritt set formeln = p_formeln where id = p_schritt_id;
+  -- Neue SVGs an einem freigegebenen Schritt gehen erst nach erneuter Freigabe ans Kind.
+  update public.erklaer_schritt
+     set formeln = p_formeln,
+         status  = case when status = 'freigegeben' and formeln is distinct from p_formeln
+                        then 'geprueft' else status end
+   where id = p_schritt_id;
 end;
 $$;
 

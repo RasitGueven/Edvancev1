@@ -62,6 +62,8 @@ select (select id from students where profile_id = :'student_uid') as sid,
 \gset
 
 -- Die Loesung lebt AUSSCHLIESSLICH hier — markiert mit dem Sentinel.
+-- Hinweis als geprueft anlegen (E1: sonst setzt der Trigger entwurf, lsa_hint liefert ihn nicht).
+select set_config('edvance.hinweis_status', 'setzen', true);
 insert into task_solutions (task_id, correct_answers, solution, hints, typical_errors) values
   (:'tid',
    format('["%s"]', :'sentinel')::jsonb,

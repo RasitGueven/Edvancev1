@@ -6,11 +6,14 @@
 --
 -- Regel "der Status haengt am Text" (Trigger hinweise_status_folgt_text):
 --   - Aendert sich der Text eines Hinweises (gleiches level), faellt er auf entwurf.
---   - Bleibt der Text gleich und bringt der Schreiber keinen Status mit, bleibt der
---     alte Status. So verliert der Admin-Editor (editorState.ts schickt nur
---     {level, text}) beim Speichern keinen geprueften Hinweis, und ein geaenderter
---     Hinweis geht nie ungeprueft an ein Kind.
--- Den Status setzen nur Pruefer und Admin ueber hinweis_status_setzen.
+--   - Bleibt der Text gleich, bleibt der alte Status, egal was der Schreiber mitschickt.
+--     So verliert der Admin-Editor (editorState.ts schickt nur {level, text}) beim
+--     Speichern keinen geprueften Hinweis, und ein geaenderter Hinweis geht nie
+--     ungeprueft an ein Kind.
+--   - Neue Zeilen (INSERT) bekommen fuer jeden Hinweis entwurf.
+-- Den Status setzen nur Pruefer und Admin ueber hinweis_status_setzen; nur diese Funktion
+-- (bzw. eine Migration, die es ausdruecklich will) setzt transaktionslokal das Flag
+-- edvance.hinweis_status = 'setzen', mit dem der Trigger den neuen Status uebernimmt.
 -- lsa_hint liefert nur geprueft (gleiche Signatur, gleiche Rueckgabe, gleiche Rechte).
 
 create function public.hinweise_status_gueltig(p_hints jsonb) returns boolean
@@ -31,23 +34,24 @@ create function public.hinweise_status_folgt_text() returns trigger
 language plpgsql
 set search_path = public, pg_temp
 as $$
+declare
+  v_setzen boolean := coalesce(current_setting('edvance.hinweis_status', true), '') = 'setzen';
+  v_alt    jsonb   := case when tg_op = 'UPDATE' and jsonb_typeof(old.hints) = 'array' then old.hints else '[]' end;
 begin
-  if jsonb_typeof(new.hints) <> 'array' or new.hints is not distinct from old.hints then
+  if jsonb_typeof(new.hints) <> 'array' or (tg_op = 'UPDATE' and new.hints is not distinct from old.hints) then
     return new;
   end if;
   new.hints := coalesce((
     select jsonb_agg(
              case
+               when v_setzen and n.h ? 'status' then n.h
                when a.h is null or a.h ->> 'text' is distinct from n.h ->> 'text'
                  then n.h || '{"status":"entwurf"}'
-               when n.h ? 'status' then n.h
-               when a.h ? 'status' then n.h || jsonb_build_object('status', a.h -> 'status')
-               else n.h
+               else n.h || jsonb_build_object('status', coalesce(a.h -> 'status', '"entwurf"'))
              end order by n.ord)
       from jsonb_array_elements(new.hints) with ordinality as n(h, ord)
       left join lateral (
-        select o.h from jsonb_array_elements(
-                 case when jsonb_typeof(old.hints) = 'array' then old.hints else '[]' end) as o(h)
+        select o.h from jsonb_array_elements(v_alt) as o(h)
          where o.h ->> 'level' = n.h ->> 'level'
          limit 1) a on true), '[]'::jsonb);
   return new;
@@ -55,7 +59,7 @@ end;
 $$;
 
 create trigger task_solutions_hinweise_status
-  before update of hints on public.task_solutions
+  before insert or update of hints on public.task_solutions
   for each row execute function public.hinweise_status_folgt_text();
 
 create or replace function public.lsa_hint(p_session_id uuid, p_task_id uuid, p_level integer default 1)
@@ -123,6 +127,7 @@ begin
     raise exception 'hinweis_status_setzen: Hinweis nicht gefunden' using errcode = 'P0002';
   end if;
 
+  perform set_config('edvance.hinweis_status', 'setzen', true);
   update public.task_solutions
      set hints = (select jsonb_agg(case when (h ->> 'level')::int = p_level
                                         then h || jsonb_build_object('status', p_status)
@@ -131,6 +136,7 @@ begin
          updated_at = now()
    where task_id = p_task_id
   returning hints into v_hints;
+  perform set_config('edvance.hinweis_status', '', true);
   return v_hints;
 end;
 $$;
@@ -138,6 +144,7 @@ $$;
 comment on function public.hinweis_status_setzen(uuid, integer, text) is
   'Setzt den Pruefstatus eines Hinweises (entwurf/geprueft). Nur darf_pruefen(). Pruefoberflaeche folgt in P2.';
 
+revoke all on function public.hinweise_status_gueltig(jsonb) from public, anon, authenticated;
 revoke all on function public.hinweise_status_folgt_text() from public, anon, authenticated;
 revoke all on function public.hinweis_status_setzen(uuid, integer, text) from public, anon, authenticated;
 grant execute on function public.hinweis_status_setzen(uuid, integer, text) to authenticated;

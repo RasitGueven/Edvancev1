@@ -31,9 +31,10 @@ Stand 06.10.2026, Branch `feat/rasit-session-e1-erklaersequenz`. Verdrahtung mit
 9. **`hinweis_status_setzen` erhöht `tasks.pruef_version`**: Das kommt über den bestehenden Trigger
    `task_solutions_pruef_version` (`schema-erwartet.sql:11428`). Eine in Lenas Prüfansicht offene Aufgabe meldet danach
    „veraltet“. In P2 entscheiden, ob ein reiner Statuswechsel das darf.
-10. **Insert setzt den Status mit**: Der Trigger `task_solutions_hinweise_status` greift nur bei UPDATE. Wer eine Zeile
-    neu anlegt (nur Admin bzw. Systemaufruf über `task_solution_upsert` oder Migration), kann `geprueft` direkt
-    mitgeben.
+10. **Status-Flag `edvance.hinweis_status`**: Den Status übernimmt der Trigger nur, wenn `hinweis_status_setzen` das Flag
+    transaktionslokal setzt. Sonst gilt: neuer Hinweis heißt entwurf, gleicher Text behält den alten Status
+    (Auflage 2 der Zweitprüfung). Eine Migration, die geprüfte Hinweise einspielen soll, muss das Flag ausdrücklich
+    setzen (so auch die Fixtures von `inv2` und `inv6`).
 11. **`pruef_version`** liegt nach Bauauftrag nur an der Kernidee. Änderungen an Schritten und Checks erhöhen die Version
     der Kernidee; `erklaer_status_setzen` prüft gegen sie.
 
@@ -54,6 +55,11 @@ Stand 06.10.2026, Branch `feat/rasit-session-e1-erklaersequenz`. Verdrahtung mit
 
 15. **Das Kind sieht „falsch“ indirekt**: `aktion = 'variante'` heißt, dass der Check nicht gereicht hat (E0, Frage 5).
     So verlangt es der Bauauftrag; Urteil und Fehlbild selbst gehen nie ans Kind.
-16. **`erklaer_nachlesen`** ist nicht auf Skills beschränkt, die das Kind in einer Session schon begonnen hat.
-17. **Schema-Abzug**: `supabase/schema-erwartet.sql` bleibt nach Leitplanke unverändert. Der CI-Job `neuaufbau` ist rot,
+16. **Löschen per Kaskade**: `erklaer_fortschritt` ist append-only, lässt aber das Löschen per Kaskade zu (Session oder
+    Kind wird gelöscht, z. B. DSGVO; `pg_trigger_depth() > 1`). Rasit bestätigt, ob das so gewollt ist.
+17. **Freigabe nach Änderung**: Ändern sich die Checks einer Kernidee, fällt sie auf entwurf. Ändern sich die
+    Formel-Hashes eines freigegebenen Schritts, fällt er auf geprueft und braucht eine neue Freigabe.
+18. **`bild.url`** muss mit `https://` beginnen (`erklaer_bild_gueltig`).
+19. **`erklaer_nachlesen`** ist nicht auf Skills beschränkt, die das Kind in einer Session schon begonnen hat.
+20. **Schema-Abzug**: `supabase/schema-erwartet.sql` bleibt nach Leitplanke unverändert. Der CI-Job `neuaufbau` ist rot,
     bis ein neuer Abzug vorliegt.

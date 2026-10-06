@@ -9,7 +9,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(32);
+select plan(37);
 
 \ir session_e1_fixture.sql
 
@@ -67,6 +67,20 @@ select throws_ok(
   format($f$select public.erklaer_check_abgeben(%L, %L, %L, '{"text":"2"}')$f$, :'session_id', :'kind_id', :'check1'),
   'P0001', null, '2d alter Check ist nicht mehr offen');
 
+-- Check inzwischen nicht mehr freigegeben: weder Wiederaufnahme noch Abgabe liefern ihn aus.
+reset role;
+update tasks set status = 'review' where id = :'check2';
+select pg_temp.act_as(:'kind_uid');
+select throws_ok(
+  format($f$select public.erklaer_start(%L, %L, 'fkt_linear_steigung')$f$, :'session_id', :'kind_id'),
+  'P0002', null, '2e Wiederaufnahme mit nicht mehr freigegebenem Check -> P0002');
+select throws_ok(
+  format($f$select public.erklaer_check_abgeben(%L, %L, %L, '{"text":"0,5"}')$f$, :'session_id', :'kind_id', :'check2'),
+  'P0002', null, '2f Abgabe auf nicht mehr freigegebenen Check -> P0002');
+reset role;
+update tasks set status = 'ready' where id = :'check2';
+select pg_temp.act_as(:'kind_uid');
+
 -- --- 3  Falsch mit Fehlbild x -> Variante mit x in fehlbild_slugs -----------------
 insert into e1_antwort (fall, antwort)
 select 'k2_kehrwert', public.erklaer_check_abgeben(:'session_id', :'kind_id', :'check2', '{"text":"2"}');
@@ -109,6 +123,17 @@ reset role;
 update task_solutions set hints = '[{"level":1,"text":"HINWEIS-ENTWURF-E1"},{"level":2,"text":"Neuer Text"}]'
  where task_id = :'check1';
 select is(public.lsa_hint(:'lsa_sid', :'check1', 2) ->> 'available', 'false', '7c geaenderter Text faellt auf entwurf');
+select pg_temp.act_as(:'admin_uid');
+select public.task_solution_upsert(:'check1',
+  p_hints => '[{"level":1,"text":"HINWEIS-ENTWURF-E1","status":"geprueft"}]'::jsonb);
+select is((select hints -> 0 ->> 'status' from task_solutions where task_id = :'check1'), 'entwurf',
+          '7d Admin-Editor kann den Status nicht am Pruefweg vorbei auf geprueft setzen');
+reset role;
+insert into task_solutions (task_id, correct_answers, hints)
+values (:'check3', '["-2"]', '[{"level":1,"text":"neu","status":"geprueft"}]')
+on conflict (task_id) do update set hints = excluded.hints;
+select is((select hints -> 0 ->> 'status' from task_solutions where task_id = :'check3'), 'entwurf',
+          '7e neuer Hinweis mit mitgeschicktem Status bleibt entwurf');
 
 -- --- 8  erklaer_nachlesen liefert keine Checks ----------------------------------
 select pg_temp.act_as(:'kind_uid');
@@ -132,6 +157,11 @@ set local role authenticated;
 select throws_ok($$insert into erklaer_kernidee (skill_key, nr, titel) values ('fkt_linear_steigung', 5, 'x')$$,
   '42501', null, '9d Kind: direkter Insert in erklaer_kernidee -> 42501');
 reset role;
+
+-- Loeschen per Kaskade (Session geloescht) ist erlaubt, direktes Loeschen nicht (5c).
+delete from coaching_sessions where id = :'session_id';
+select is((select count(*)::int from erklaer_fortschritt where session_id = :'session_id'), 0,
+          '5d Kaskade beim Loeschen der Session entfernt den Fortschritt');
 
 select * from finish();
 rollback;

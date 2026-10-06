@@ -104,6 +104,14 @@ as $$
    where s.kernidee_id = p_kernidee_id and s.variante = p_variante and s.status = 'freigegeben'
 $$;
 
+-- Eine Abgabe bzw. ein Start je Session und Kind zur Zeit (Doppelklick, zwei Geraete).
+create function public.erklaer_sperren(p_session_id uuid, p_student_id uuid) returns void
+language sql volatile
+set search_path = public, pg_temp
+as $$
+  select pg_advisory_xact_lock(hashtext('erklaer:' || p_session_id::text || ':' || p_student_id::text))
+$$;
+
 -- Zeigt Kernidee + Variante in Runde p_runde: schreibt 'gezeigt' und liefert das Paket.
 create function public.erklaer_zeigen(
   p_session_id uuid, p_student_id uuid, p_kernidee public.erklaer_kernidee,
@@ -116,8 +124,13 @@ set search_path = public, pg_temp
 as $$
 declare
   v_checks uuid[] := public.erklaer_checks(p_kernidee.id);
-  v_check  uuid   := v_checks[((p_runde - 1) % cardinality(v_checks)) + 1];
+  v_check  uuid;
 begin
+  if cardinality(v_checks) = 0 or p_variante is null then
+    raise exception 'erklaer: Kernidee % hat keine freigegebene Variante oder Check-Aufgabe', p_kernidee.nr
+      using errcode = 'P0002';
+  end if;
+  v_check := v_checks[((p_runde - 1) % cardinality(v_checks)) + 1];
   insert into public.erklaer_fortschritt
     (session_id, student_id, kernidee_id, runde, variante, check_task_id, ergebnis)
   values (p_session_id, p_student_id, p_kernidee.id, p_runde, p_variante, v_check, 'gezeigt');
@@ -189,6 +202,7 @@ declare
   v_k     public.erklaer_kernidee;
 begin
   perform public.erklaer_zugang(p_session_id, p_student_id);
+  perform public.erklaer_sperren(p_session_id, p_student_id);
 
   select f.* into v_letzt from public.erklaer_fortschritt f
     join public.erklaer_kernidee k on k.id = f.kernidee_id
@@ -202,6 +216,12 @@ begin
       return jsonb_build_object('aktion', 'signal');
     elsif v_letzt.ergebnis = 'richtig' then
       return jsonb_build_object('aktion', 'weiter', 'uebergang', 'ueben');
+    end if;
+    -- Inzwischen nicht mehr freigegeben (Kernidee, Variante oder Check): nicht ausliefern.
+    if v_k.status <> 'freigegeben'
+       or not (v_letzt.variante = any (public.erklaer_varianten(v_k.id)))
+       or not (v_letzt.check_task_id = any (public.erklaer_checks(v_k.id))) then
+      raise exception 'erklaer_start: Erklaerung inzwischen nicht mehr freigegeben' using errcode = 'P0002';
     end if;
     return jsonb_build_object(
       'aktion', 'start',
@@ -242,16 +262,19 @@ declare
   v_wahl     text;
 begin
   perform public.erklaer_zugang(p_session_id, p_student_id);
+  perform public.erklaer_sperren(p_session_id, p_student_id);
 
   select * into v_letzt from public.erklaer_fortschritt
    where session_id = p_session_id and student_id = p_student_id
-   order by id desc limit 1
-   for update;
+   order by id desc limit 1;
   if v_letzt.id is null or v_letzt.ergebnis <> 'gezeigt'
      or v_letzt.check_task_id is distinct from p_check_task_id then
     raise exception 'erklaer_check_abgeben: nicht der offene Check' using errcode = 'P0001';
   end if;
   select * into v_k from public.erklaer_kernidee where id = v_letzt.kernidee_id;
+  if v_k.status <> 'freigegeben' or not (p_check_task_id = any (public.erklaer_checks(v_k.id))) then
+    raise exception 'erklaer_check_abgeben: Check inzwischen nicht mehr freigegeben' using errcode = 'P0002';
+  end if;
 
   v_urteil := public.erklaer_bewerten(p_check_task_id, p_eingabe);
   v_fb := v_urteil ->> 'fehlbild';
@@ -330,7 +353,8 @@ begin
 end;
 $$;
 
-revoke all on function public.erklaer_runden_bis_signal() from public, anon;
+revoke all on function public.erklaer_runden_bis_signal() from public, anon, authenticated;
+revoke all on function public.erklaer_sperren(uuid, uuid) from public, anon, authenticated;
 revoke all on function public.erklaer_zugang(uuid, uuid) from public, anon, authenticated;
 revoke all on function public.erklaer_checks(uuid) from public, anon, authenticated;
 revoke all on function public.erklaer_varianten(uuid) from public, anon, authenticated;

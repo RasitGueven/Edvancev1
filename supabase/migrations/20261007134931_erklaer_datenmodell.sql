@@ -43,6 +43,7 @@ as $$
           and coalesce(btrim(p_bild ->> 'alt'), '') <> ''
           and ((p_bild ? 'url') <> (p_bild ? 'svg_hash'))
           and coalesce(p_bild ->> 'svg_hash', 'a') ~ '^[0-9a-f]+$'
+          and coalesce(p_bild ->> 'url', 'https://') ~ '^https://'
           and not exists (select 1 from jsonb_object_keys(p_bild) k
                            where k not in ('url', 'svg_hash', 'alt')))
 $$;
@@ -106,15 +107,24 @@ comment on table public.erklaer_fortschritt is
 
 create index erklaer_fortschritt_kind_idx
   on public.erklaer_fortschritt (session_id, student_id, id);
+-- Zweite Sicherung neben der Sperre in erklaer_check_abgeben: je Runde hoechstens ein Ergebnis.
+create unique index erklaer_fortschritt_ergebnis_einmal
+  on public.erklaer_fortschritt (session_id, student_id, kernidee_id, runde, ergebnis)
+  where ergebnis <> 'gezeigt';
 create index erklaer_schritt_kernidee_idx on public.erklaer_schritt (kernidee_id);
 create index erklaer_check_task_idx on public.erklaer_check (task_id);
 
 -- Append-only wie behavior_snapshots (CLAUDE.md §6): kein Update, kein Delete.
+-- Ausnahme: das Loeschen per Kaskade (Session oder Kind wird geloescht, z. B. DSGVO).
+-- Das laeuft ueber die Fremdschluessel-Trigger, also mit pg_trigger_depth() > 1.
 create function public.erklaer_fortschritt_nur_anhaengen() returns trigger
 language plpgsql
 set search_path = public, pg_temp
 as $$
 begin
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1 then
+    return old;
+  end if;
   raise exception 'erklaer_fortschritt ist append-only' using errcode = '42501';
 end;
 $$;
@@ -150,4 +160,6 @@ create policy erklaer_fortschritt_admin_coach_lesen on public.erklaer_fortschrit
                      where cs.id = erklaer_fortschritt.session_id
                        and cs.coach_id = auth.uid()));
 
+revoke all on function public.erklaer_bild_gueltig(jsonb) from public, anon, authenticated;
+revoke all on function public.erklaer_formel_anzahl(text) from public, anon, authenticated;
 revoke all on function public.erklaer_fortschritt_nur_anhaengen() from public, anon, authenticated;
