@@ -78,9 +78,11 @@ select (select id from students where profile_id = :'student_uid')      as sid,
        (select cluster_id from tasks where source_ref = 'inv2-mc')      as cid
 \gset
 
+-- Hinweis als geprueft anlegen (E1: sonst setzt der Trigger entwurf, lsa_hint liefert ihn nicht).
+select set_config('edvance.hinweis_status', 'setzen', true);
 insert into task_solutions (task_id, correct_answers, solution, hints, coach_hints, typical_errors) values
   (:'t_short', '["0,3 m","30 cm"]'::jsonb, 'DIE-GEHEIME-MUSTERLOESUNG',
-   '[{"level":1,"text":"Denk an die Einheit."},{"level":2,"text":"1 m = 100 cm."}]'::jsonb,
+   '[{"level":1,"text":"Denk an die Einheit.","status":"geprueft"},{"level":2,"text":"1 m = 100 cm."}]'::jsonb,
    '[{"text":"Frag nach der Einheit."}]'::jsonb,
    '[{"error":"Einheit vergessen","socratic_question":"In welcher Einheit misst du?"}]'::jsonb),
   (:'t_mc', '["b"]'::jsonb, 'x+x = 2x', '[]'::jsonb, '[]'::jsonb, '[]'::jsonb);
