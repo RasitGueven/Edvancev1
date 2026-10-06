@@ -222,14 +222,16 @@ begin
   end if;
 
   -- A17: adaptiv (Default). Der 'fest'-Pin aus A16 ist entfernt.
-  -- X0: ob ein Testlauf erlaubt ist, prueft lsa_start (Admin, Kind ist
-  -- Testkonto; ein neu angelegtes Kind erbt ist_test vom Lead).
+  -- X0: Testlauf nur mit Test-Lead. Das Kind erbt ist_test beim Anlegen;
+  -- lsa_start prueft danach Admin und Testkonto noch einmal.
+  if coalesce(p_testlauf, false) and not v_lead.ist_test then
+    raise exception 'lead_lsa_freigeben: Testlauf nur mit Test-Lead' using errcode = '22023';
+  end if;
   v_result := public.lsa_start(v_student_id, p_grade, p_subject, p_testlauf => coalesce(p_testlauf, false));
 
-  -- Ein Testlauf bewegt den Lead nicht im Trichter (Lead-Board-Zaehler, X0).
-  if not coalesce(p_testlauf, false) then
-    update leads set status = 'lsa_freigegeben' where id = p_lead_id;
-  end if;
+  -- Ein Test-Lead laeuft den Trichter normal durch (Platz, Report); er zaehlt
+  -- in keinem Lead-Zaehler (Oberflaeche filtert leads.ist_test, X0).
+  update leads set status = 'lsa_freigegeben' where id = p_lead_id;
 
   -- total_items existiert im adaptiven Rueckgabeobjekt bewusst nicht (die
   -- Aufgabenzahl bleibt verborgen) -> jsonb-Feldzugriff liefert dann NULL.
@@ -246,4 +248,4 @@ $function$
 revoke all on function public.lead_lsa_freigeben(uuid, integer, text, boolean) from public, anon;
 grant execute on function public.lead_lsa_freigeben(uuid, integer, text, boolean) to authenticated;
 comment on function public.lead_lsa_freigeben(uuid, integer, text, boolean) is
-  'Admin gibt die LSA eines Leads frei (legt bei Bedarf das Kind an). Testlauf: nur Testkonto, Lead-Status bleibt (X0).';
+  'Admin gibt die LSA eines Leads frei (legt bei Bedarf das Kind an). Testlauf nur mit Test-Lead und Testkonto (X0).';

@@ -340,16 +340,15 @@ select throws_ok(format('select public.lsa_uebernahme(%L, %L)', :'lsa_test', :'a
 select throws_ok(format('select public.lsa_confirm_focus(%L, %L::uuid[])', :'lsa_test', '{}'), '22023', null,
   '8: Testlauf geht nicht in den Lernpfad (lsa_confirm_focus)');
 
--- Lead-Trichter: Test-Lead mit Testlauf bleibt stehen; ein Kind erbt ist_test vom Lead.
+-- Lead-Trichter: Testlauf nur mit Test-Lead; ein Kind erbt ist_test vom Lead.
 insert into leads (id, full_name, first_name, contact_email, status, ist_test)
 values (:'lt', 'X0 Testlead', 'Tom', 'x0t@example.invalid', 'lsa_freigegeben', true);
 insert into students (class_level, is_provisional, lead_id) values (9, true, :'lt');
 select id as t_kind from students where lead_id = :'lt' \gset
 select is((select ist_test from students where id = :'t_kind'), true, '8: Kind eines Test-Leads ist Testkonto');
-insert into lsa_sessions (student_id, subject, grade, status, modus, testlauf)
-values (:'t_kind', 'Mathematik', 9, 'in_progress', 'adaptiv', true) returning id as lsa_lt \gset
-update lsa_sessions set status = 'completed', completed_at = now() where id = :'lsa_lt';
-select is((select status from leads where id = :'lt'), 'lsa_freigegeben', '8: Testlauf setzt den Lead nicht auf lsa_fertig');
+update leads set consent_dsgvo_at = now() where id = :'ll';
+select throws_ok(format('select public.lead_lsa_freigeben(%L, 9, %L, p_testlauf => true)', :'ll', 'Mathematik'), '22023', null,
+  '8: Testlauf mit echtem Lead → abgelehnt');
 
 select * from finish();
 rollback;

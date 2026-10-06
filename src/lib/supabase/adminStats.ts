@@ -56,9 +56,10 @@ export async function getAdminStats(): Promise<SupabaseResult<AdminStats>> {
       // "Aktive Schueler" = aktive Akten (schuelerakten, zustand = aktiv), wie
       // im Coach-Dashboard (S2b). Provisorische Lead-Kinder haben keine Akte.
       safeCount(countOf('schuelerakten').eq('zustand', 'aktiv')),
-      safeCount(countOf('leads')),
-      safeCount(countOf('leads').eq('status', 'new')),
-      safeCount(countOf('leads').in('status', OPEN_LEAD_STATUS)),
+      // Test-Leads zaehlen in keiner Kennzahl (Entscheidung 27).
+      safeCount(countOf('leads').eq('ist_test', false)),
+      safeCount(countOf('leads').eq('ist_test', false).eq('status', 'new')),
+      safeCount(countOf('leads').eq('ist_test', false).in('status', OPEN_LEAD_STATUS)),
       safeCount(countOf('profiles').eq('role', 'coach')),
       safeCount(countOf('tiers').eq('active', true)),
       safeCount(countOf('tiers')),

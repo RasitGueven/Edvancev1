@@ -8,8 +8,9 @@
 --   eltern_report_eintragen kein Report aus einem LSA-Testlauf
 --   lsa_uebernahme          kein Lernpfad aus einem Testlauf
 --   lsa_confirm_focus       kein Lernpfad aus einem Testlauf
---   lsa_session_lead_fertig ein Testlauf setzt den Lead nicht auf lsa_fertig
 -- vertrag_abschliessen (Report 1) folgt in 20261007100800.
+-- Lead-Trichter: Testlaeufe gibt es nur mit Test-Leads (lead_lsa_freigeben),
+-- und Test-Leads zaehlen in keinem Lead-Zaehler der Oberflaeche.
 
 CREATE OR REPLACE FUNCTION public.akte_basis()
  RETURNS TABLE(student_id uuid, name text, klasse integer, schule_id uuid, schule text, akte_seit date, zustand text, ruhend_seit date, letzte_session timestamp with time zone)
@@ -333,27 +334,5 @@ begin
    where id = p_session_id;
 
   return jsonb_build_object('applied', true, 'focus_areas_written', v_written);
-end;
-$function$;
-
-CREATE OR REPLACE FUNCTION public.lsa_session_lead_fertig()
- RETURNS trigger
- LANGUAGE plpgsql
- SECURITY DEFINER
- SET search_path TO 'public'
-AS $function$
-begin
-  -- X0: ein Testlauf bewegt den Lead nicht im Trichter.
-  if new.testlauf then
-    return new;
-  end if;
-  update leads l
-     set status = 'lsa_fertig'
-    from students s
-   where s.id = new.student_id
-     and s.is_provisional
-     and l.id = s.lead_id
-     and l.status = 'lsa_freigegeben';
-  return new;
 end;
 $function$;
