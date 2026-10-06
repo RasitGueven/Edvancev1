@@ -5,11 +5,10 @@ Jeder Punkt mit Ort im Code. **Erledigt** markierte Punkte bleiben zur Nachvollz
 
 ## Verdrahtung mit anderen Paketen (P2)
 
-1. **Stellschrauben aus R1.** `quest_einstellung` liest `session_einstellungen.wert` per `schluessel`,
-   solange die Tabelle fehlt mit den Startwerten aus Entscheidung 22
-   (`20261007141352_quests_tabellen.sql`, Funktion `quest_einstellung`). Die Spaltennamen
-   `schluessel`/`wert` sind eine Annahme. Weichen sie in R1 ab, greift still der Startwert
-   (`undefined_column` wird abgefangen). Nach dem Einspielen von R1 abgleichen.
+1. **Erledigt: Stellschrauben aus R1.** `quest_einstellung` liest `session_einstellungen.wert` (jsonb) per
+   `schluessel`. Die Spalten von R1 passen (`20261007110100_session_einstellungen.sql`). Die Quest-Schlüssel stehen
+   dort mit den Startwerten, `home_quests_aktiv = false`; in Prod per dbread geprüft (06.10.). Fehlt ein
+   Schlüssel, greift weiter der Startwert. Gelesen wird beim Aufruf, nicht aus dem Snapshot der Session.
 2. **Erledigt: XP über `xp_buchen` (X0).** `quest_erledigt` bucht über `xp_buchen_intern`
    (`reason = 'home_quest'`, Schlüssel `quest:<id>`). Das ist der Kern von `xp_buchen`, ohne
    Rechteprüfung. `xp_buchen` selbst lässt nur Admin oder System zu, und das Kind ruft
@@ -34,8 +33,8 @@ Jeder Punkt mit Ort im Code. **Erledigt** markierte Punkte bleiben zur Nachvollz
 8. **Erledigt: Testläufe (X0).** Quests aus einer Session mit `coaching_sessions.testlauf` werden angelegt,
    damit sich der Ablauf mit Testkonten durchspielen lässt. Sie erscheinen aber weder in
    `quest_erinnerungen_faellig` noch in `eltern_quest_wochenstand` (`20261007141355_quest_benachrichtigung.sql`).
-   **Offen:** Die Coach-Policy `quests_select_coach` filtert Testläufe nicht. Das Briefing in C2 muss
-   das selbst tun, wie die Akte.
+   **Offen für C2 (Rasit 06.10.):** Die Coach-Policy `quests_select_coach` filtert Testläufe nicht. Das Briefing
+   in C2 muss das selbst tun, wie die Akte.
 
 ## Anmeldung, Versand
 
@@ -62,8 +61,9 @@ Jeder Punkt mit Ort im Code. **Erledigt** markierte Punkte bleiben zur Nachvollz
     können. **Entschieden (Rasit 06.10.): eigener Quest-Pool** (Punkt 7). Quest-Aufgaben haben weder `lsa`
     noch `session` im Einsatz und kommen deshalb vor Ort nie dran. Die Abmilderung bleibt zusätzlich:
     nur eigene Quests, erst ab `faellig_ab`, nur solange die Quest offen ist, nur Lösungsweg
-    (kein `correct_answers`). Wer Aufgaben anlegt, darf `quest` nicht mit `lsa`/`session` kombinieren.
-    Die Auswahl ignoriert solche Aufgaben, ein CHECK verbietet die Kombination aber nicht.
+    (kein `correct_answers`). **Erledigt:** Die CHECK-Regel `tasks_einsatz_quest_allein`
+    (`20261007141356_quest_einsatz_allein.sql`) verbietet `quest` zusammen mit `lsa` oder `session`. Sie steht
+    neben `tasks_einsatz_check` aus X0, die unverändert bleibt. Vorher per dbread geprüft: 0 Verstöße in Prod.
 14. **Dauer.** Aufgaben ohne `est_duration_sec` werden nicht gewählt, damit die Summe garantiert
     `quest_minuten` einhält. Einen Rückfall auf `estimated_minutes` gibt es nicht.
 15. **`quests_pro_woche`.** 0 heißt keine Quest, 1 nur Quest A, 2 A plus B bzw. KA-Paket. Den Wert 3
@@ -99,7 +99,7 @@ Jeder Punkt mit Ort im Code. **Erledigt** markierte Punkte bleiben zur Nachvollz
 
 23. Der Bauauftrag gibt den Bereich `20261007140000–145959` vor, also den 07.10.2026. Erstellt wurden
     die Dateien am 06.10. Das widerspricht CLAUDE.md §10 (Version = `date -u`). Gewählt wurden
-    `20261007141352`–`…355`, nicht rund und im vorgegebenen Bereich. Bestätigt (Rasit 06.10.).
+    `20261007141352`–`…356`, nicht rund und im vorgegebenen Bereich. Bestätigt (Rasit 06.10.).
 
 ## Datenschutz (für Windweiss)
 

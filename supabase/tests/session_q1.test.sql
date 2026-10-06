@@ -4,7 +4,8 @@
 -- Zusagen (Nummern wie im Bauauftrag):
 --   1) quest_erzeugen legt A und B mit den richtigen Tagen an; mit Klassenarbeit vor
 --      der naechsten Session ein KA-Paket statt B, mit Klassenarbeit danach B.
---   2) Aufgaben nur aus dem Quest-Pool (Einsatz quest, weder lsa noch session), freigegeben,
+--   2) Aufgaben nur aus dem Quest-Pool (Einsatz quest, weder lsa noch session; die CHECK-Regel
+--      tasks_einsatz_quest_allein verbietet die Kombination), freigegeben,
 --      aktiv, mit Loesungsweg; Summe <= quest_minuten.
 --   3) quest_inhalt fuer ein fremdes Kind (und einen Coach) -> 42501.
 --   4) quest_erledigt bucht XP genau einmal; der zweite Aufruf bucht nichts.
@@ -21,7 +22,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(54);
+select plan(56);
 
 \set admin_uid  'dddddddd-0071-4000-8000-000000000001'
 \set coach_uid  'dddddddd-0071-4000-8000-000000000002'
@@ -69,7 +70,7 @@ insert into skill_thema (skill_key, thema_key) values ('zz_q1_ka', 'zz_q1_thema'
 
 insert into tasks (content_type, input_type, status, is_active, question, skill_key, est_duration_sec, source, source_ref, einsatz)
 select 'exercise', 'SHORT_TEXT', x.status, x.aktiv, 'Q1 Frage ' || x.ref, x.skill, x.dauer, 'test', x.ref,
-       case x.ref when 'q1-neu-lsa' then '{lsa,session}'::text[] when 'q1-neu-gemischt' then '{quest,session}'::text[]
+       case x.ref when 'q1-neu-lsa' then '{lsa,session}'::text[]
                   else '{quest}'::text[] end
   from (values
     ('q1-neu-1', 'zz_q1_neu', 180, 'ready', true), ('q1-neu-2', 'zz_q1_neu', 180, 'ready', true),
@@ -79,7 +80,6 @@ select 'exercise', 'SHORT_TEXT', x.status, x.aktiv, 'Q1 Frage ' || x.ref, x.skil
     ('q1-neu-inaktiv',      'zz_q1_neu', 60, 'ready', false),
     ('q1-neu-ohne-dauer',   'zz_q1_neu', null, 'ready', true),
     ('q1-neu-lsa',          'zz_q1_neu', 60, 'ready', true),
-    ('q1-neu-gemischt',     'zz_q1_neu', 60, 'ready', true),
     ('q1-alt-1', 'zz_q1_alt', 120, 'ready', true), ('q1-alt-2', 'zz_q1_alt', 120, 'ready', true),
     ('q1-ka-1', 'zz_q1_ka', 200, 'ready', true), ('q1-ka-2', 'zz_q1_ka', 200, 'ready', true),
     ('q1-ka-3', 'zz_q1_ka', 200, 'ready', true), ('q1-ka-4', 'zz_q1_ka', 200, 'ready', true)
@@ -87,6 +87,13 @@ select 'exercise', 'SHORT_TEXT', x.status, x.aktiv, 'Q1 Frage ' || x.ref, x.skil
 insert into task_solutions (task_id, correct_answers, solution)
 select t.id, '["1"]'::jsonb, case when t.source_ref = 'q1-neu-ohne-loesung' then '  ' else 'Loesungsweg ' || t.source_ref end
   from tasks t where t.source_ref like 'q1-%';
+
+-- tasks_einsatz_quest_allein: 'quest' nie zusammen mit 'lsa' oder 'session'.
+select throws_ok($$insert into tasks (content_type, input_type, status, question, skill_key, est_duration_sec, source, source_ref, einsatz)
+                   values ('exercise', 'SHORT_TEXT', 'ready', 'Q1 verboten', 'zz_q1_neu', 60, 'test', 'q1-verboten', '{quest,lsa}')$$,
+  '23514', null, 'Einsatz: quest zusammen mit lsa ist nicht einfuegbar');
+select throws_ok($$update tasks set einsatz = '{quest,session}' where source_ref = 'q1-neu-1'$$,
+  '23514', null, 'Einsatz: eine Quest-Aufgabe kann nicht zusaetzlich session bekommen');
 
 -- Sessions (Europe/Berlin): S0 25.08., S1 01.09., S2 08.09. fuer Kind 1;
 -- S3 15.09., S4 22.09., S5 29.09. fuer Kind 3.

@@ -49,7 +49,7 @@ begin
   perform set_config('request.jwt.claims', json_build_object('sub', uid, 'role', 'authenticated')::text, true);
 end $$;
 
-\echo '== 0. Stellschrauben (session_einstellungen fehlt bis R1 -> Startwerte)'
+\echo '== 0. Stellschrauben aus session_einstellungen (R1)'
 select k as schluessel, public.quest_einstellung(k) as wert
   from unnest(array['home_quests_aktiv','quests_pro_woche','quest_minuten','quest_a_abstand_tage','quest_xp','mischanteil']) k;
 
