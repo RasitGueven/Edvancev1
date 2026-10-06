@@ -12,11 +12,15 @@ import type { UserRole } from '@/types'
 import type { LiveZeitpunkt } from '@/types/coachLive'
 import type { SupabaseResult } from '@/types/ui'
 import { BeispielLeiste } from './BeispielLeiste'
+import { CheckinAnsicht } from './CheckinAnsicht'
+import { CheckoutAnsicht } from './CheckoutAnsicht'
+import { DanachAnsicht } from './DanachAnsicht'
 import { LiveKontext, type LiveKontextWert } from './LiveKontext'
 import { LiveKopf } from './LiveKopf'
 import { LiveRaster } from './LiveRaster'
 import { Schublade } from './Schublade'
 import { useLiveTexte } from './useLiveTexte'
+import { VorherAnsicht } from './VorherAnsicht'
 
 /** Coach und Admin; Schuelerkonten kommen nicht hinein (ProtectedRoute in App.tsx). */
 export const COACH_LIVE_ROLLEN: UserRole[] = ['coach', 'admin']
@@ -25,7 +29,10 @@ type Meldung = { art: 'success' | 'error'; text: string; id: number }
 
 function Ansicht({ zeitpunkt, gewaehlt }: { zeitpunkt: LiveZeitpunkt; gewaehlt: string | null }): JSX.Element | null {
   if (istArbeitsphase(zeitpunkt)) return <LiveRaster gewaehlt={gewaehlt} />
-  return null
+  if (zeitpunkt === 'vorher') return <VorherAnsicht />
+  if (zeitpunkt === 'checkin') return <CheckinAnsicht />
+  if (zeitpunkt === 'checkout') return <CheckoutAnsicht />
+  return <DanachAnsicht />
 }
 
 /**

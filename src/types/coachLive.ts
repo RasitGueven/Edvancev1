@@ -219,6 +219,8 @@ export type LiveCheckout = {
   gesagt: boolean
   /** Quest A waehlt das Kind am Tablet; der Coach kann nachtragen. */
   questA: { termin: string | null; von: 'kind' | 'coach' | null }
+  /** Termine, die der Coach fuer Quest A nachtragen kann, falls das Kind keinen gewaehlt hat. */
+  questAVorschlaege: string[]
   /** Quest B ist vorbelegt (kurz vor der naechsten Session). */
   questB: { termin: string; paketKlassenarbeit: boolean }
   notiz: string

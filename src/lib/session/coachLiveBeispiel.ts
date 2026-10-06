@@ -266,7 +266,7 @@ export const BEISPIEL_PFAD: Record<string, Omit<PfadVorschlag, 'entscheidung'>> 
   },
 }
 
-type CheckoutBasis = Omit<LiveCheckout, 'satz' | 'gesagt' | 'flags'> & { satzNachMastery?: string[] }
+type CheckoutBasis = Omit<LiveCheckout, 'satz' | 'gesagt' | 'flags' | 'questAVorschlaege'> & { satzNachMastery?: string[] }
 
 /** Check-out: Exit, Zusammenfassung, Satzbausteine, Quests, Notiz (Dummy: CO). */
 export const BEISPIEL_CHECKOUT: Record<string, CheckoutBasis> = {

@@ -1,9 +1,9 @@
-// C1 Tests 5 und 6: Die Route weist Schuelerkonten ab (dieselben Rollen wie in
-// App.tsx), und Musterloesung und Fehlbild erscheinen nur in der Schublade.
-// Die Datenquelle liefert Beispieldaten ohne Supabase; useAuth ist gemockt.
+// C1 Tests 5, 6 und 7: Die Route weist Schuelerkonten ab (dieselben Rollen wie in
+// App.tsx), Musterloesung und Fehlbild erscheinen nur in der Schublade, und der
+// Abschluss wartet auf „nicht erschienen“. Datenquelle mit Beispieldaten, useAuth gemockt.
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import '@/i18n'
 
@@ -15,7 +15,7 @@ vi.mock('@/hooks/useAuth', () => ({
 vi.mock('@/lib/supabase/freigabe', () => ({ getDarfPruefen: vi.fn() }))
 
 import { ProtectedRoute } from '@/components/edvance/ProtectedRoute'
-import { beispielZuruecksetzen } from '@/lib/session/coachLive'
+import { beispielZeitpunktSetzen, beispielZuruecksetzen, sessionAbschliessen, tabletLoesen } from '@/lib/session/coachLive'
 import { COACH_LIVE_ROLLEN, CoachLivePage } from './CoachLivePage'
 
 function zeige(): void {
@@ -89,5 +89,44 @@ describe('6 Musterlösung und Fehlbild nur in der Schublade', () => {
 
     fireEvent.click(within(schublade).getByRole('button', { name: 'Schließen' }))
     expect(screen.queryByTestId('musterloesung')).toBeNull()
+  })
+})
+
+describe('7 Abschluss nur nach Bestätigung der Kinder ohne Tablet', () => {
+  it('sperrt den Abschluss, bis „nicht erschienen“ bestätigt ist', async () => {
+    await tabletLoesen('s1', 'deniz')
+    await beispielZeitpunktSetzen('s1', 'danach')
+    expect((await sessionAbschliessen('s1')).error).toBe('ohneTabletOffen')
+
+    zeige()
+    const knopf = await screen.findByRole('button', { name: 'Session abschließen' })
+    expect((knopf as HTMLButtonElement).disabled).toBe(true)
+    const liste = screen.getByTestId('ohne-tablet')
+    expect(within(liste).getByText('Deniz Arslan')).toBeTruthy()
+
+    fireEvent.click(within(liste).getByRole('button', { name: 'Nicht erschienen bestätigen' }))
+    await waitFor(() => expect((screen.getByRole('button', { name: 'Session abschließen' }) as HTMLButtonElement).disabled).toBe(false))
+    fireEvent.click(screen.getByRole('button', { name: 'Session abschließen' }))
+    expect(await screen.findByText('Abgeschlossen um 17:34')).toBeTruthy()
+  })
+})
+
+describe('Beispielleiste', () => {
+  it('schaltet alle sechs Zeitpunkte durch', async () => {
+    zeige()
+    await screen.findByText('Session 16:30 · Raum 1')
+    const leiste = screen.getByTestId('beispiel-leiste')
+    const erwartet: [string, string][] = [
+      ['Vorher', 'Wer kommt'],
+      ['Check-in', 'Check-in am Tablet'],
+      ['Warm-up', 'Raum 1 · Warm-up'],
+      ['Kernarbeit', 'Raum 1 · Kernarbeit'],
+      ['Check-out', 'Check-out · ein konkreter Satz je Kind'],
+      ['Danach', 'Geht in die Akten'],
+    ]
+    for (const [knopf, titel] of erwartet) {
+      fireEvent.click(within(leiste).getByRole('button', { name: knopf }))
+      expect(await screen.findByText(titel)).toBeTruthy()
+    }
   })
 })
