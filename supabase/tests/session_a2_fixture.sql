@@ -170,10 +170,20 @@ begin
   perform public.checkin_kind_speichern(p_s, 'gut', p_ka, p_ka_thema, 'noch_dran');
 end $$;
 
-create or replace function pg_temp.schritt(p_s uuid, p_tablet int) returns jsonb language plpgsql as $$
+-- Schritt vom Tablet. Grund und Stufe sieht das Tablet nicht (Coach-Wissen); fuer Tests und
+-- Durchlauf haengt der Helfer sie aus session_schritte an, wie sie der Coach sieht.
+create or replace function pg_temp.schritt_tablet(p_s uuid, p_tablet int) returns jsonb language plpgsql as $$
 begin
   perform pg_temp.act_as(pg_temp.tablet(p_tablet));
   return public.session_naechster_schritt(p_s, null);
+end $$;
+create or replace function pg_temp.schritt(p_s uuid, p_tablet int) returns jsonb language plpgsql as $$
+declare v jsonb := pg_temp.schritt_tablet(p_s, p_tablet);
+begin
+  return v || coalesce((select jsonb_build_object('grund', x.grund, 'schwierigkeit', x.schwierigkeit)
+                          from session_schritte x join session_tablets t on t.session_id = x.session_id
+                           and t.student_id = x.student_id and t.tablet_nr = p_tablet and t.geloest_am is null
+                         where x.session_id = p_s order by x.id desc limit 1), '{}');
 end $$;
 
 -- Antwort auf die offene Aufgabe des Tablets (richtig = "7"), optional nach Hinweis Stufe 1.

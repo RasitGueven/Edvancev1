@@ -26,6 +26,8 @@ declare
   v_label  text;
   v_kand   jsonb;
   v_kern   jsonb;
+  v_alt    text;
+  v_alt_r  jsonb;
   r        jsonb;
 begin
   select * into s from public.coaching_sessions where id = p_session_id;
@@ -54,8 +56,7 @@ begin
   if (v_letzt.art in ('aufgabe', 'exit')
       and not coalesce((public.session_aufgabe_stand(p_session_id, p_student_id, v_letzt.task_id)).erledigt, false))
      or v_letzt.art = 'fertig'
-     or (v_letzt.art = 'termin' and not exists (select 1 from public.session_kind_abschluss k
-            where k.session_id = p_session_id and k.student_id = p_student_id and k.quest_termin is not null)) then
+     or (v_letzt.art = 'termin' and not public.session_termin_gewaehlt(p_session_id, p_student_id)) then
     return public.session_schritt(v_letzt.art, v_letzt.phase, v_letzt.skill_key, v_letzt.task_id, v_letzt.modus,
       v_letzt.eingemischt, v_letzt.schwierigkeit, v_letzt.grund, v_letzt.grund_code,
       jsonb_build_object('offen', true, 'nach_beispiel', v_letzt.nach_beispiel));
@@ -90,6 +91,19 @@ begin
       else
         v_kern := public.session_plan_kern(p_session_id, p_student_id, s.testlauf, v_akt, v_vert,
                                            coalesce(v_ziel, '{}'), v_label, f.fall, f.thema_key, v_letzt);
+        -- Consensus-Check Befund 3: Pool des aktuellen Skills leer -> naechster offener Skill des Ziels.
+        if v_kern ->> 'grund_code' = 'pool_leer' then
+          for v_alt in select z.skill_key from public.session_zielliste(p_session_id, p_student_id) z
+                        where z.offen and z.skill_key <> v_akt order by z.reihenfolge loop
+            v_alt_r := public.session_plan_kern(p_session_id, p_student_id, s.testlauf, v_alt, false,
+                         coalesce(v_ziel, '{}'), v_label, f.fall, f.thema_key, v_letzt);
+            if v_alt_r ->> 'grund_code' <> 'pool_leer' then
+              v_kern := v_alt_r || jsonb_build_object('grund', (v_alt_r ->> 'grund') || ' (keine Aufgabe mehr zu '
+                                                               || public.session_label(v_akt) || ')');
+              exit;
+            end if;
+          end loop;
+        end if;
         r := v_kern || jsonb_build_object('signale', coalesce(r -> 'signale', '[]') || (v_kern -> 'signale'));
       end if;
     end if;
@@ -102,7 +116,7 @@ $$;
 
 -- Was das Tablet bzw. die Vorschau sieht: ohne interne Felder; Aufgabe ohne Loesung
 -- (lsa_question_payload), beim Beispiel zusaetzlich der Loesungsweg.
-create function public.session_schritt_oeffentlich(p_schritt jsonb)
+create function public.session_schritt_oeffentlich(p_schritt jsonb, p_coach boolean default false)
 returns jsonb
 language sql
 stable
@@ -115,13 +129,17 @@ as $$
                                then public.session_label(p_schritt ->> 'skill_key') end,
            'task_id', p_schritt ->> 'task_id', 'modus', p_schritt ->> 'modus',
            'eingemischt', coalesce((p_schritt ->> 'eingemischt')::boolean, false),
-           'schwierigkeit', (p_schritt ->> 'schwierigkeit')::int,
-           'grund', p_schritt ->> 'grund', 'grund_code', p_schritt ->> 'grund_code',
+           'grund_code', p_schritt ->> 'grund_code',
            'hinweise_erlaubt', p_schritt ->> 'art' = 'aufgabe',
            'aufgabe', case when p_schritt ->> 'art' in ('aufgabe', 'exit', 'beispiel')
                            then public.lsa_question_payload((p_schritt ->> 'task_id')::uuid) end)
          || case when p_schritt ->> 'art' = 'beispiel' then jsonb_build_object('loesungsweg',
               (select ts.solution from public.task_solutions ts where ts.task_id = (p_schritt ->> 'task_id')::uuid))
+            else '{}'::jsonb end
+         -- Grund und Stufe sind Coach-Wissen (Quoten, Fehlversuche, Exit-Ergebnis): nie ans Tablet
+         -- (CLAUDE.md §6, Consensus-Check Befund 1).
+         || case when p_coach then jsonb_build_object('grund', p_schritt ->> 'grund',
+                                                      'schwierigkeit', (p_schritt ->> 'schwierigkeit')::int)
             else '{}'::jsonb end
          || case when p_schritt ? 'erklaerung_weg' then jsonb_build_object('erklaerung_weg', p_schritt ->> 'erklaerung_weg')
             else '{}'::jsonb end
@@ -145,7 +163,7 @@ begin
     if not exists (select 1 from public.session_students where session_id = p_session_id and student_id = p_student_id) then
       raise exception 'session_naechster_schritt: Kind ist in dieser Session nicht gebucht' using errcode = 'P0002';
     end if;
-    return public.session_schritt_oeffentlich(public.session_schritt_planen(p_session_id, p_student_id))
+    return public.session_schritt_oeffentlich(public.session_schritt_planen(p_session_id, p_student_id), true)
            || jsonb_build_object('vorschau', true);
   end if;
 
@@ -170,8 +188,9 @@ begin
 
   select * into v_letzt from public.session_schritte x
    where x.session_id = p_session_id and x.student_id = t.student_id order by x.id desc limit 1;
-  -- Wiederholtes Warten mit demselben Grund wird nicht erneut eingetragen.
-  if not (v ->> 'art' = 'warten' and v_letzt.art = 'warten' and v_letzt.grund_code = v ->> 'grund_code'
+  -- Wiederholtes Warten bzw. dieselbe laufende Erklaerung wird nicht erneut eingetragen.
+  if not (v ->> 'art' in ('warten', 'erklaerung') and v_letzt.art = v ->> 'art'
+          and v_letzt.grund_code = v ->> 'grund_code'
           and v_letzt.skill_key is not distinct from v ->> 'skill_key') then
     insert into public.session_schritte (session_id, student_id, art, phase, skill_key, task_id, modus, eingemischt,
            nach_beispiel, schwierigkeit, grund, grund_code)
@@ -207,7 +226,7 @@ comment on function public.session_naechster_schritt(uuid, uuid) is
   'A2: naechster Schritt eines Kindes (art, phase, skill_key, task_id, modus, eingemischt, grund). Vom Tablet gebucht; Coach der Session und Admin: Vorschau ohne Buchung.';
 
 revoke all on function
-  public.session_schritt_planen(uuid, uuid), public.session_schritt_oeffentlich(jsonb),
+  public.session_schritt_planen(uuid, uuid), public.session_schritt_oeffentlich(jsonb, boolean),
   public.session_naechster_schritt(uuid, uuid)
   from public, anon, authenticated;
 grant execute on function public.session_naechster_schritt(uuid, uuid) to authenticated;

@@ -6,6 +6,20 @@
 -- sein Pool nicht, die anderen heute geuebten Skills. Danach das Ergebnis fuer
 -- session_kind_abschluss.exit_ergebnis und art = termin (home_quests_aktiv) bzw. fertig.
 
+-- Termin gewaehlt: im Check-out (session_kind_abschluss) oder an einer Quest dieser Session (Q1).
+create function public.session_termin_gewaehlt(p_session_id uuid, p_student_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+  select exists (select 1 from public.session_kind_abschluss k where k.session_id = p_session_id
+                  and k.student_id = p_student_id and k.quest_termin is not null)
+      or exists (select 1 from public.quests q where q.session_id = p_session_id
+                  and q.student_id = p_student_id and q.termin is not null)
+$$;
+
 create function public.session_plan_checkout(p_session_id uuid, p_student_id uuid, p_testlauf boolean,
                                              p_aktuell text)
 returns jsonb
@@ -16,7 +30,7 @@ set search_path = public, pg_temp
 as $$
 declare
   v_n      int := public.session_wert_zahl(p_session_id, 'exit_aufgaben')::int;
-  v_quests boolean := coalesce((public.session_wert(p_session_id, 'home_quests_aktiv') #>> '{}')::boolean, false);
+  v_quests boolean := coalesce(public.home_quests_aktiv(p_session_id), false);
   v_e      int;
   v_r      int;
   v_erg    jsonb := '{}';
@@ -54,8 +68,7 @@ begin
   if v_e > 0 then
     v_erg := jsonb_build_object('exit_ergebnis', jsonb_build_object('richtig', v_r, 'gesamt', v_e));
   end if;
-  if v_quests and not exists (select 1 from public.session_kind_abschluss k where k.session_id = p_session_id
-                               and k.student_id = p_student_id and k.quest_termin is not null) then
+  if v_quests and not public.session_termin_gewaehlt(p_session_id, p_student_id) then
     return public.session_schritt('termin', 'checkout', null, null, null, false, null,
       'Check-out: Termin für die Home Quests wählen'
         || case when v_e > 0 then ' (Exit ' || v_r || ' von ' || v_e || ')' else '' end, 'termin', v_erg);
@@ -66,4 +79,5 @@ begin
 end;
 $$;
 
-revoke all on function public.session_plan_checkout(uuid, uuid, boolean, text) from public, anon, authenticated;
+revoke all on function public.session_plan_checkout(uuid, uuid, boolean, text), public.session_termin_gewaehlt(uuid, uuid)
+  from public, anon, authenticated;

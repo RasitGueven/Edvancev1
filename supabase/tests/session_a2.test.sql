@@ -23,7 +23,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(95);
+select plan(97);
 
 \ir session_a2_fixture.sql
 
@@ -71,12 +71,17 @@ select throws_ok(format('select session_naechster_schritt(%L, %L)', :'s1', :'k_e
 select pg_temp.act_as(:'ohne');
 select throws_ok(format('select session_naechster_schritt(%L, %L)', :'s1', :'k_emir'), '42501', null, '1 Konto ohne Profil');
 select is(pg_temp.vorschau(:'s1', :'k_emir') ->> 'vorschau', 'true', '1 Coach der Session: Vorschau');
+select ok(pg_temp.vorschau(:'s1', :'k_emir') ? 'grund', '1 Vorschau zeigt dem Coach den Grund');
 select pg_temp.act_as(:'admin');
 select is((session_naechster_schritt(:'s1', :'k_emir')) ->> 'vorschau', 'true', '1 Admin: Vorschau');
 
 -- ── 2) Phasen und 14) Vorschau ────────────────────────────────────────────
 select is(pg_temp.schritt(:'s1', 1) ->> 'grund_code', 'checkin_laeuft', '2 vor dem Check-in: warten');
 select pg_temp.checkin(:'s1', 1);
+select pg_temp.uhr(:'s1', 6);
+select ok(not (pg_temp.schritt_tablet(:'s1', 1) ?| array['grund', 'schwierigkeit']),
+          '1 Tablet bekommt weder Grund noch Stufe (kein Richtig/Falsch-Feedback, CLAUDE.md §6)');
+select pg_temp.antwort(:'s1', 1, true);
 create temp table zaehler as
   select (select count(*) from session_schritte) a, (select count(*) from session_ausgegeben) b,
          (select count(*) from session_ereignisse) c, (select count(*) from lernpfad_belege) d;
@@ -248,7 +253,7 @@ select is((coach_raum_live(:'s12') -> 'kinder' -> 0 -> 'mastery_kandidat' ->> 's
 select ok((coach_raum_live(:'s12') -> 'kinder' -> 0 -> 'schritt' ->> 'grund') is not null, 'V coach_raum_live: Grund des letzten Schritts');
 
 -- ── 15) Laufzeit ──────────────────────────────────────────────────────────
-insert into skills (skill_key, label, klasse_herkunft, fundament_tiefe) values ('zz_a2_g1', 'ZZ Gross', 8, 1);
+insert into skills (skill_key, label, klasse_herkunft, fundament_tiefe) values ('zz_a2_g1', 'ZZ Gross', 8, 2);
 insert into themen (thema_key, fach, klasse, stufe, label, sort) values ('zz_a2_gross', 'mathematik', 8, 'erste', 'ZZ Gross', 9206);
 insert into thema_einstieg (thema_key, skill_key) values ('zz_a2_gross', 'zz_a2_g1');
 insert into skill_thema (skill_key, thema_key) values ('zz_a2_g1', 'zz_a2_gross');
@@ -288,11 +293,13 @@ select is(lernpfad_coach_der_session(:'s12', :'k_kai'), false, 'X lernpfad_coach
 -- Stufe 4 setzt den Pfad tiefer (pfad_tiefer, anlass eingriff).
 select pg_temp.act_as(:'coach_a');
 insert into fehlbild_labels (slug, klartext, freigegeben_am) values ('zz_a2_fb', 'ZZ A2 Fehlbild', now());
-update lernpfad set stand_system = 'noch_nicht_sicher' where student_id = :'k_emir' and skill_key = 'zz_a2_v2';
+-- Gross arbeitet an g1 (Kernarbeit); g1 setzt v2 voraus, v2 ist noch nicht sicher.
+insert into skill_kante (skill_key, voraussetzt_skill_key) values ('zz_a2_g1', 'zz_a2_v2');
+update lernpfad set stand_system = 'noch_nicht_sicher' where student_id = :'k_gross' and skill_key = 'zz_a2_v2';
 select pg_temp.act_as(:'coach_a');
-select lives_ok(format($$select eingriff_notieren(%L, %L, 4, 'zz_a2_fb')$$, :'s1', :'k_emir'), 'V Stufe 4 notiert');
-select is((select anlass from lernpfad_protokoll where session_id = :'s1' and student_id = :'k_emir' and aktion = 'pfad_tiefer'),
-          'eingriff', 'V Stufe 4 ruft pfad_tiefer(anlass = eingriff)');
+select lives_ok(format($$select eingriff_notieren(%L, %L, 4, 'zz_a2_fb')$$, :'s15', :'k_gross'), 'V Stufe 4 notiert');
+select is((select anlass || ':' || skill_key from lernpfad_protokoll where session_id = :'s15' and student_id = :'k_gross'
+            and aktion = 'pfad_tiefer'), 'eingriff:zz_a2_v2', 'V Stufe 4 ruft pfad_tiefer(anlass = eingriff)');
 -- Tablet: Phase nicht selbst setzen; eigener Lernpfad; Quest-Termin der eigenen Quest.
 select pg_temp.act_as(pg_temp.tablet(1));
 select throws_ok(format($$select phase_setzen(%L, null, 'kern')$$, :'s15'), '42501', null, 'V Tablet setzt die Phase nicht selbst');

@@ -239,7 +239,8 @@ stable
 security definer
 set search_path = public, pg_temp
 as $$
-  select count(*) >= public.lernpfad_stellschraube('mastery_richtig_ohne_hinweis', p_session_id)
+  -- je Aufgabe, nicht je Teil (Consensus-Check Befund 2: MULTI_PART)
+  select count(distinct a.task_id) >= public.lernpfad_stellschraube('mastery_richtig_ohne_hinweis', p_session_id)
     from public.session_antworten a
     join public.tasks t on t.id = a.task_id
    where a.session_id = p_session_id and a.student_id = p_student_id and t.skill_key = p_skill_key
@@ -267,13 +268,13 @@ begin
   if f.fall in ('klassenarbeit', 'schulthema') then
     return query
       select z.reihenfolge, z.skill_key, z.label, z.rolle, z.stand,
-             not (z.stand in ('sicher', 'kandidat', 'gemeistert')
+             not coalesce(z.stand in ('sicher', 'kandidat', 'gemeistert')
                   or (z.rolle like 'voraussetzung%' and z.stand in ('noch_nicht_sicher', 'aktiv')
                       and l.stand_system_seit >= v_start
                       and not exists (select 1 from public.lernpfad_protokoll p
                                        where p.student_id = p_student_id and p.skill_key = z.skill_key
                                          and p.aktion = 'pfad_tiefer' and p.session_id = p_session_id))
-                  or public.session_heute_sicher(p_session_id, p_student_id, z.skill_key))
+                  or public.session_heute_sicher(p_session_id, p_student_id, z.skill_key), false)
         from public.ziel_fertigkeiten_core(p_student_id, f.thema_key) z
         left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = z.skill_key
        order by z.reihenfolge;

@@ -185,7 +185,8 @@ begin
   if e.stand = 'laeuft' or (e.stand is null and p_letzt.art = 'erklaerung' and p_letzt.skill_key = p_aktuell) then
     return public.session_schritt('erklaerung', 'kern', p_aktuell, null, 'gefuehrt', false, null,
       'Erklärsequenz ' || v_lab || coalesce(': Kernidee ' || e.kernidee_nr || ' von ' || e.kernideen
-                                            || case when e.runde > 1 then ', Runde ' || e.runde || ' (Variante ' || e.variante || ')' else '' end, ''),
+                                            || case when e.runde > 1 then ', Runde ' || e.runde || ' (Variante ' || e.variante || ')' else '' end,
+                                            ': noch nicht am Tablet begonnen'),
       'erklaerung_laeuft', jsonb_build_object('signale', v_sig));
   end if;
   if e.stand = 'signal' then

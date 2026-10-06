@@ -57,7 +57,8 @@ declare
     -- A2: am Tablet das Kind des aktiven Platzes in einer laufenden Session (offene-punkte-a1 10).
     (select st.student_id from public.session_tablets st
        join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
-      where st.geraet_id = auth.uid() and st.geloest_am is null));
+      where st.geraet_id = auth.uid() and st.geloest_am is null
+      order by st.zugewiesen_am desc limit 1));
 begin
   if v_student is null then
     raise exception 'mein_lernpfad: nur fuer Schuelerkonten' using errcode = '42501';
