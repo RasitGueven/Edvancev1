@@ -3,8 +3,7 @@
     "back": "Zurück",
     "eyebrow": "Lernstandsanalyse",
     "loadError": "Der Report konnte nicht geladen werden.",
-    "notFinished": "Diese Analyse läuft noch. Der Report ist vollständig, sobald {{name}} fertig ist.",
-    "untertitel": "Report"
+    "notFinished": "Diese Analyse läuft noch. Der Report ist vollständig, sobald {{name}} fertig ist."
   },
   "head": {
     "title": "Lernstandsanalyse",
