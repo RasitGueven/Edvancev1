@@ -3,7 +3,7 @@
 --   quest_termin_setzen  Coach der Session, Admin oder das Konto des Kindes (Tablet im
 --                        Check-out; die Tablet-Zuordnung baut R1, offener Punkt).
 --   quest_inhalt         Aufgaben MIT Loesungsweg zur Selbstkontrolle, nur fuer das Konto
---                        des Kindes und erst ab faellig_ab. Bewusste Ausnahme zu INV-6:
+--                        des Kindes, erst ab faellig_ab und nur solange offen. Bewusste Ausnahme zu INV-6:
 --                        die Selbstkontrolle braucht den Loesungsweg (Consensus-Check im PR).
 --   quest_erledigt       Status erledigt, XP genau einmal, Wochenserie. Nimmt keine
 --                        Antworten an und speichert kein richtig oder falsch.
@@ -24,13 +24,14 @@ declare
 begin
   select q.* into v_quest from public.quests q where q.id = p_quest_id for update;
   if not found then
-    raise exception 'quest_termin_setzen: Quest unbekannt' using errcode = '22023';
+    raise exception 'quest_termin_setzen: kein Zugriff' using errcode = '42501';
   end if;
   select cs.coach_id into v_coach from public.coaching_sessions cs where cs.id = v_quest.session_id;
 
   -- coalesce: ein null-Vergleich (kein Profil, kein Schuelerkonto) darf nie durchlassen.
   if not coalesce(public.get_my_role() = 'admin'
-                  or (public.get_my_role() = 'coach' and v_coach = auth.uid())
+                  or (public.get_my_role() = 'coach' and v_coach = auth.uid()
+                      and public.hat_zugang(v_quest.student_id))
                   or public.get_my_student_id() = v_quest.student_id, false) then
     raise exception 'quest_termin_setzen: nur Coach der Session, Admin oder das Kind' using errcode = '42501';
   end if;
@@ -69,15 +70,16 @@ declare
 begin
   select q.* into v_quest from public.quests q where q.id = p_quest_id;
   if not found then
-    raise exception 'quest_inhalt: Quest unbekannt' using errcode = '22023';
+    raise exception 'quest_inhalt: kein Zugriff' using errcode = '42501';
   end if;
   -- Nur das Konto des Kindes. Die Anmeldung zuhause mit Zugangscode kommt mit der
   -- Schueler-App (offener Punkt); Coach, Eltern und Admin bekommen hier nichts.
   if public.get_my_student_id() is distinct from v_quest.student_id then
     raise exception 'quest_inhalt: nur fuer das Kind dieser Quest' using errcode = '42501';
   end if;
-  if v_quest.status = 'verfallen' then
-    raise exception 'quest_inhalt: Quest ist verfallen' using errcode = '55000';
+  -- Den Loesungsweg gibt es nur, solange die Quest offen ist (Consensus-Check).
+  if v_quest.status <> 'offen' then
+    raise exception 'quest_inhalt: Quest ist nicht mehr offen' using errcode = '55000';
   end if;
   if v_quest.faellig_ab > (now() at time zone 'Europe/Berlin')::date then
     raise exception 'quest_inhalt: Quest ist erst ab % abrufbar', v_quest.faellig_ab using errcode = '55000';
@@ -112,7 +114,7 @@ declare
 begin
   select q.* into v_quest from public.quests q where q.id = p_quest_id for update;
   if not found then
-    raise exception 'quest_erledigt: Quest unbekannt' using errcode = '22023';
+    raise exception 'quest_erledigt: kein Zugriff' using errcode = '42501';
   end if;
   if public.get_my_student_id() is distinct from v_quest.student_id then
     raise exception 'quest_erledigt: nur fuer das Kind dieser Quest' using errcode = '42501';

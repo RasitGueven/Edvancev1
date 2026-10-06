@@ -120,14 +120,19 @@ declare
 begin
   select * into v_session from public.coaching_sessions where id = p_session_id;
   if not found then
-    raise exception 'quest_erzeugen: Session unbekannt' using errcode = '22023';
+    -- Nur Admin und System erfahren, dass es die Session nicht gibt (kein Existenz-Orakel).
+    if coalesce(public.ist_systemaufruf() or public.get_my_role() = 'admin', false) then
+      raise exception 'quest_erzeugen: Session unbekannt' using errcode = '22023';
+    end if;
+    raise exception 'quest_erzeugen: kein Zugriff' using errcode = '42501';
   end if;
 
   -- coalesce: ohne Profil liefert get_my_role() null, und "not null" liesse durch.
   if not coalesce(public.ist_systemaufruf()
                   or public.get_my_role() = 'admin'
-                  or (public.get_my_role() = 'coach' and v_session.coach_id = auth.uid()), false) then
-    raise exception 'quest_erzeugen: nur Coach der Session, Admin oder Systemaufruf' using errcode = '42501';
+                  or (public.get_my_role() = 'coach' and v_session.coach_id = auth.uid()
+                      and public.hat_zugang(p_student_id)), false) then
+    raise exception 'quest_erzeugen: nur Coach der Session (bei laufendem Vertrag), Admin oder Systemaufruf' using errcode = '42501';
   end if;
 
   -- FernUSG: solange die Clinic prueft, bleibt home_quests_aktiv aus. Dann legt nur ein
@@ -145,6 +150,9 @@ begin
   if coalesce(cardinality(p_skill_keys), 0) = 0 and p_ka_thema_key is null then
     raise exception 'quest_erzeugen: skill_keys oder ka_thema_key ist Pflicht' using errcode = '22023';
   end if;
+
+  -- Parallele Aufrufe fuer dasselbe Kind und dieselbe Session nacheinander.
+  perform pg_advisory_xact_lock(hashtextextended(p_session_id::text || p_student_id::text, 0));
 
   -- Schon erzeugt: bestehende Quests unveraendert zurueckgeben (wiederholbar).
   if exists (select 1 from public.quests q where q.session_id = p_session_id and q.student_id = p_student_id) then

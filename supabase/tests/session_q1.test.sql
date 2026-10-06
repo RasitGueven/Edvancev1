@@ -19,7 +19,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(43);
+select plan(49);
 
 \set admin_uid  'dddddddd-0071-4000-8000-000000000001'
 \set coach_uid  'dddddddd-0071-4000-8000-000000000002'
@@ -43,6 +43,17 @@ insert into students (profile_id, class_level) values (:'kind1_uid', 8), (:'kind
 select (select id from students where profile_id = :'kind1_uid') as k1,
        (select id from students where profile_id = :'kind2_uid') as k2,
        (select id from students where profile_id = :'kind3_uid') as k3 \gset
+
+-- Kind 1 hat einen laufenden Vertrag (hat_zugang), Kind 2 und 3 nicht.
+insert into leads (full_name, status) values ('Q1 Lead Kind Eins', 'vertrag');
+insert into vertraege (
+  lead_id, status, vertrag_status, abgeschlossen_at, abgeschlossen_am, abschluss_weg, unterschrieben_am,
+  student_id, tier_id, laufzeit_monate, preis_cents, einheiten, vertragsbeginn, vertrag_ende, widerruf_bis,
+  eltern_vorname, eltern_nachname, eltern_email, kind_vorname, kind_nachname, klasse, fach)
+select l.id, 'abgeschlossen', 'aktiv', now(), date '2026-07-20', 'vor_ort', date '2026-07-20',
+       :'k1', (select id from tiers order by name limit 1), 12, 38990, 38, date '2026-08-01', current_date + 200, date '2026-08-15',
+       'Q1', 'Eltern', 'q1-eltern@edvance.invalid', 'Q1', 'Kind', 8, 'Mathematik'
+  from leads l where l.full_name = 'Q1 Lead Kind Eins';
 
 -- Skills, Thema der Klassenarbeit, Aufgaben (Budget: 10 Minuten = 600 s).
 insert into skills (skill_key, label, fundament_tiefe, klasse_herkunft) values
@@ -107,8 +118,15 @@ select pg_temp.act_as(:'kind1_uid');
 select throws_ok(format($f$select * from quest_erzeugen(%L, %L, array['zz_q1_neu'])$f$, :'s1', :'k1'),
   '42501', null, 'quest_erzeugen: Schuelerkonto -> 42501');
 select pg_temp.act_as(:'coach_uid');
+select throws_ok(format($f$select * from quest_erzeugen(%L, %L, array['zz_q1_neu'])$f$, :'s3', :'k3'),
+  '42501', null, 'quest_erzeugen: Coach der Session, Kind ohne laufenden Vertrag -> 42501');
+select throws_ok(format($f$select * from quest_erzeugen(%L, %L, array['zz_q1_neu'])$f$, gen_random_uuid(), :'k1'),
+  '42501', null, 'quest_erzeugen: unbekannte Session -> 42501 fuer den Coach (kein Existenz-Orakel)');
 select throws_ok(format($f$select * from quest_erzeugen(%L, %L, array['zz_q1_neu'])$f$, :'s1', :'k1'),
   '55000', null, 'quest_erzeugen: Coach der Session, aber home_quests_aktiv = aus -> 55000');
+select pg_temp.act_as(:'admin_uid');
+select throws_ok(format($f$select * from quest_erzeugen(%L, %L, array['zz_q1_neu'])$f$, :'s1', :'k1'),
+  '55000', null, 'quest_erzeugen: auch Admin bei home_quests_aktiv = aus -> 55000');
 
 -- --- 1) A, B, KA ------------------------------------------------------------
 select pg_temp.als_system();
@@ -170,12 +188,16 @@ select throws_ok(format($f$select quest_termin_setzen(%L, '2026-09-03 18:00+02')
 select pg_temp.act_as(:'kind2_uid');
 select throws_ok(format($f$select quest_termin_setzen(%L, '2026-09-03 18:00+02')$f$, :'qa1'), '42501', null,
   'Termin: fremdes Kind -> 42501');
+select throws_ok(format($f$select quest_termin_setzen(%L, '2026-09-03 18:00+02')$f$, gen_random_uuid()), '42501', null,
+  'Termin: unbekannte Quest -> 42501');
 select pg_temp.act_as(:'kind1_uid');
 select throws_ok(format($f$select quest_termin_setzen(%L, '2026-09-02 18:00+02')$f$, :'qa1'), '22023', null,
   'Termin: vor faellig_ab -> 22023');
 select lives_ok(format($f$select quest_termin_setzen(%L, '2026-09-03 18:00+02')$f$, :'qa1'), 'Termin: das Kind setzt ihn');
 select pg_temp.act_as(:'coach_uid');
 select lives_ok(format($f$select quest_termin_setzen(%L, '2026-09-07 17:00+02')$f$, :'qb1'), 'Termin: der Coach der Session setzt ihn');
+select throws_ok(format($f$select quest_termin_setzen(%L, '2026-09-25 17:00+02')$f$,
+  (select quest_id from erg_k3b where art = 'A')), '42501', null, 'Termin: Coach, Kind ohne laufenden Vertrag -> 42501');
 
 -- --- 3) Inhalt ---------------------------------------------------------------
 select throws_ok(format($f$select * from quest_inhalt(%L)$f$, :'qa1'), '42501', null, '3: quest_inhalt fuer den Coach -> 42501');
@@ -213,6 +235,7 @@ select results_eq(format($f$select status, xp_neu, wochenserie from quest_erledi
   $$values ('erledigt'::text, 50, 1)$$, '4: erster Aufruf bucht quest_xp, Wochenserie beginnt');
 select results_eq(format($f$select status, xp_neu, wochenserie from quest_erledigt(%L)$f$, :'qa1'),
   $$values ('erledigt'::text, 0, 1)$$, '4: zweiter Aufruf bucht nichts');
+select throws_ok(format($f$select * from quest_inhalt(%L)$f$, :'qa1'), '55000', null, '3: nach erledigt kein Loesungsweg mehr');
 select results_eq(format($f$select status, xp_neu, wochenserie from quest_erledigt(%L)$f$, :'qb1'),
   $$values ('erledigt'::text, 50, 1)$$, '4: zweite Quest derselben Woche zaehlt die Serie nicht doppelt');
 
@@ -260,8 +283,8 @@ select throws_ok($$select * from eltern_quest_wochenstand('2026-09-01')$$, '4250
 select pg_temp.act_as(:'coach_uid');
 select throws_ok($$select * from eltern_quest_wochenstand('2026-09-01')$$, '42501', null, '7: Coach -> 42501');
 select pg_temp.act_as(:'admin_uid');
-select results_eq(format($f$select erledigt, offen from eltern_quest_wochenstand('2026-09-03') where student_id = %L$f$, :'k1'),
-  $$values (1, 0)$$, '7: Admin sieht je Kind erledigt und offen der Woche');
+select results_eq(format($f$select erledigt, offen, eltern_email from eltern_quest_wochenstand('2026-09-03') where student_id = %L$f$, :'k1'),
+  $$values (1, 0, 'q1-eltern@edvance.invalid'::text)$$, '7: Admin sieht je Kind erledigt und offen der Woche');
 
 -- --- Push-Token ---------------------------------------------------------------
 select pg_temp.act_as(:'coach_uid');
