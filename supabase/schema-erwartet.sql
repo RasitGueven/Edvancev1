@@ -296,6 +296,7 @@ declare
   b     record;
   v_nr  int;
   v_hin int;
+  v_skill text;
 begin
   select * into a from public.session_ausgegeben
    where session_id = p_session_id and student_id = t.student_id and task_id = p_task_id
@@ -324,6 +325,15 @@ begin
          fehlbild_slug, hinweisstufe_max, dauer_ms, phase, eingemischt, geraet_id, angemeldet_als)
   values (p_session_id, t.student_id, p_task_id, p_teil, v_nr, p_eingabe, b.ergebnis, b.fehlbild_slug, v_hin,
           p_dauer_ms, public.session_phase(p_session_id, t.student_id), a.eingemischt, t.geraet_id, auth.uid());
+
+  -- A2 (L): jede Antwort aus Warm-up, Kernarbeit und Check-out bucht einen Lernpfad-Beleg mit
+  -- Ergebnis und Hinweis-Nutzung. Testlaeufe buchen nie Belege (Entscheidung 27).
+  select tk.skill_key into v_skill from public.tasks tk where tk.id = p_task_id;
+  if v_skill is not null
+     and not coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false)
+     and public.session_phase(p_session_id, t.student_id) in ('warmup', 'kern', 'checkout') then
+    perform public.lernpfad_beleg_core(t.student_id, v_skill, p_session_id, b.ergebnis, v_hin > 0);
+  end if;
 
   return jsonb_build_object(
     'ergebnis', b.ergebnis,
@@ -533,8 +543,10 @@ begin
                   and student_id = p_student_id and geloest_am is null) then
     raise exception 'aufgabe_ausgeben: Kind hat kein Tablet' using errcode = 'P0001';
   end if;
-  if not exists (select 1 from public.tasks where id = p_task_id and status = 'ready') then
-    raise exception 'aufgabe_ausgeben: nur freigegebene Aufgaben (ready)' using errcode = 'P0001',
+  -- A2 (J): Pool der Session (Einsatz session, ready; im Testlauf auch ungepruefte ohne pruef_ausschluss).
+  if not public.session_im_pool(p_task_id,
+           coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false)) then
+    raise exception 'aufgabe_ausgeben: Aufgabe nicht im Pool der Session' using errcode = 'P0001',
       hint = 'nicht_ready';
   end if;
   insert into public.session_ausgegeben (session_id, student_id, task_id, phase, eingemischt, von)
@@ -831,7 +843,9 @@ begin
       'coach_name', (select p.full_name from public.profiles p where p.id = s.coach_id),
       'einstellungen', coalesce(s.einstellungen,
                         (select jsonb_object_agg(e.schluessel, e.wert) from public.session_einstellungen e)),
-      'mastery_bestaetigt', 0),
+      'mastery_bestaetigt', (select count(*) from public.lernpfad_protokoll p
+                              where p.session_id = s.id and p.aktion = 'mastery'
+                                and p.neu ->> 'stand_coach' = 'gemeistert')),
     'stand', clock_timestamp(),
     'kinder', v_kinder,
     'signale', v_sig);
@@ -1027,6 +1041,9 @@ CREATE FUNCTION public.eingriff_notieren(p_session_id uuid, p_student_id uuid, p
     AS $$
 declare
   v_slug text := nullif(btrim(coalesce(p_fehlbild_slug, '')), '');
+  v_skill text;
+  v_neu   text;
+  v_fehler text;
 begin
   perform public.session_kind_pruefen(p_session_id, p_student_id, 'eingriff_notieren');
   if p_stufe is null or p_stufe not between 1 and 4 then
@@ -1036,14 +1053,39 @@ begin
     raise exception 'eingriff_notieren: ab Stufe 3 ist das Fehlbild Pflicht' using errcode = '22023',
       hint = 'fehlbild_pflicht';
   end if;
+  -- A2 (Rasit 06.10.): Stufe 4 setzt den Pfad; das darf der Coach nur in der laufenden Session (bis
+  -- zum geplanten Ende plus 30 Minuten) oder am selben Tag nach dem Abschluss (lernpfad_coach_der_session).
+  if p_stufe = 4 and coalesce(public.get_my_role(), '') <> 'admin'
+     and not coalesce(public.lernpfad_coach_der_session(p_session_id, p_student_id), false) then
+    raise exception 'eingriff_notieren: Stufe 4 nur in der laufenden Session (bis 30 Minuten nach dem geplanten Ende) oder am selben Tag nach dem Abschluss'
+      using errcode = '42501';
+  end if;
   if v_slug is not null and not exists (select 1 from public.fehlbild_labels where slug = v_slug) then
     raise exception 'eingriff_notieren: unbekanntes Fehlbild %', v_slug using errcode = '22023';
   end if;
   perform public.session_ereignis(p_session_id, p_student_id, 'eingriff',
     jsonb_strip_nulls(jsonb_build_object('stufe', p_stufe, 'fehlbild_slug', v_slug)));
   if p_stufe = 4 then
+    -- A2 (M): Stufe 4 setzt den Pfad sofort tiefer, am Skill der aktuellen Aufgabe (bei einer
+    -- eingemischten Aufgabe am aktuellen Skill des Ziels). Findet pfad_tiefer keine offene
+    -- Voraussetzung, bleibt der Eingriff notiert und das Ereignis traegt den Grund.
+    select tk.skill_key into v_skill
+      from public.session_aktuelle_ausgabe(p_session_id, p_student_id) a
+      join public.tasks tk on tk.id = a.task_id
+     where not a.eingemischt;
+    v_skill := coalesce(v_skill, (select z.skill_key from public.session_zielliste(p_session_id, p_student_id) z
+                                   where z.offen order by z.reihenfolge limit 1));
+    begin
+      if v_skill is null then
+        raise exception 'kein aktueller Skill' using errcode = 'P0002';
+      end if;
+      v_neu := public.pfad_tiefer(p_student_id, v_skill, p_session_id, null, 'eingriff');
+    exception when sqlstate 'P0001' or sqlstate 'P0002' or sqlstate '22023' then
+      v_fehler := sqlerrm;
+    end;
     perform public.session_ereignis(p_session_id, p_student_id, 'entscheidung_pfad',
-      jsonb_build_object('entscheidung', 'tiefer', 'quelle', 'eingriff', 'fehlbild_slug', v_slug));
+      jsonb_strip_nulls(jsonb_build_object('entscheidung', 'tiefer', 'quelle', 'eingriff', 'fehlbild_slug', v_slug,
+                                           'skill_key', v_skill, 'voraussetzung', v_neu, 'fehler', v_fehler)));
   end if;
 end;
 $$;
@@ -1462,9 +1504,11 @@ declare
   v_var      text[];
   v_gezeigt  text[];
   v_wahl     text;
+  v_tl       boolean;
 begin
   perform public.erklaer_zugang(p_session_id, p_student_id);
   perform public.erklaer_sperren(p_session_id, p_student_id);
+  v_tl := coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false);
 
   select * into v_letzt from public.erklaer_fortschritt
    where session_id = p_session_id and student_id = p_student_id
@@ -1474,7 +1518,7 @@ begin
     raise exception 'erklaer_check_abgeben: nicht der offene Check' using errcode = 'P0001';
   end if;
   select * into v_k from public.erklaer_kernidee where id = v_letzt.kernidee_id;
-  if v_k.status <> 'freigegeben' or not (p_check_task_id = any (public.erklaer_checks(v_k.id))) then
+  if not public.erklaer_status_ok(v_k.status, v_tl) or not (p_check_task_id = any (public.erklaer_checks(v_k.id, v_tl))) then
     raise exception 'erklaer_check_abgeben: Check inzwischen nicht mehr freigegeben' using errcode = 'P0002';
   end if;
 
@@ -1484,21 +1528,26 @@ begin
     (session_id, student_id, kernidee_id, runde, variante, check_task_id, ergebnis, fehlbild_slug)
   values (p_session_id, p_student_id, v_k.id, v_letzt.runde, v_letzt.variante, p_check_task_id,
           case when (v_urteil ->> 'richtig')::boolean then 'richtig' else 'falsch' end, v_fb);
+  -- A2: Ereignis fuer raum_signale (Signal nach erklaerrunden_bis_signal falschen Checks je Kernidee).
+  perform public.session_ereignis(p_session_id, p_student_id, 'check',
+    jsonb_build_object('kernidee', v_k.id, 'ergebnis',
+                       case when (v_urteil ->> 'richtig')::boolean then 'richtig' else 'falsch' end,
+                       'runde', v_letzt.runde, 'skill_key', v_k.skill_key));
 
   -- Richtig: naechste Kernidee, sonst Uebergang ins Ueben. Kein Mastery-Signal.
   if (v_urteil ->> 'richtig')::boolean then
-    v_naechste := public.erklaer_naechste_kernidee(v_k.skill_key, v_k.nr);
+    v_naechste := public.erklaer_naechste_kernidee(v_k.skill_key, v_k.nr, v_tl);
     if v_naechste.id is null then
       return jsonb_build_object('aktion', 'weiter', 'uebergang', 'ueben');
     end if;
     return public.erklaer_zeigen(p_session_id, p_student_id, v_naechste,
-                                 (public.erklaer_varianten(v_naechste.id))[1], 1, 'weiter');
+                                 (public.erklaer_varianten(v_naechste.id, v_tl))[1], 1, 'weiter', v_tl);
   end if;
 
   -- Falsch: nach erklaerrunden_bis_signal Runden ein Signal an den Coach.
   if (select count(*) from public.erklaer_fortschritt
        where session_id = p_session_id and student_id = p_student_id
-         and kernidee_id = v_k.id and ergebnis = 'falsch') >= public.erklaer_runden_bis_signal() then
+         and kernidee_id = v_k.id and ergebnis = 'falsch') >= public.erklaer_runden_bis_signal(p_session_id) then
     insert into public.erklaer_fortschritt
       (session_id, student_id, kernidee_id, runde, variante, check_task_id, ergebnis, fehlbild_slug)
     values (p_session_id, p_student_id, v_k.id, v_letzt.runde, v_letzt.variante, p_check_task_id,
@@ -1507,14 +1556,14 @@ begin
   end if;
 
   -- Sonst eine andere Variante: passend zum Fehlbild, sonst die naechste ungezeigte.
-  v_var := public.erklaer_varianten(v_k.id);
+  v_var := public.erklaer_varianten(v_k.id, v_tl);
   select coalesce(array_agg(distinct variante), '{}') into v_gezeigt
     from public.erklaer_fortschritt
    where session_id = p_session_id and student_id = p_student_id
      and kernidee_id = v_k.id and ergebnis = 'gezeigt';
 
   select s.variante into v_wahl from public.erklaer_schritt s
-   where s.kernidee_id = v_k.id and s.art = 'erklaerung' and s.status = 'freigegeben'
+   where s.kernidee_id = v_k.id and s.art = 'erklaerung' and public.erklaer_status_ok(s.status, v_tl)
      and s.variante <> v_letzt.variante and v_fb is not null and v_fb = any (s.fehlbild_slugs)
    order by (s.variante = any (v_gezeigt)), s.variante limit 1;
   if v_wahl is null then
@@ -1524,7 +1573,7 @@ begin
   end if;
 
   return public.erklaer_zeigen(p_session_id, p_student_id, v_k,
-                               coalesce(v_wahl, v_letzt.variante), v_letzt.runde + 1, 'variante');
+                               coalesce(v_wahl, v_letzt.variante), v_letzt.runde + 1, 'variante', v_tl);
 end;
 $$;
 
@@ -1554,17 +1603,21 @@ $$;
 
 
 --
--- Name: erklaer_checks(uuid); Type: FUNCTION; Schema: public; Owner: -
+-- Name: erklaer_checks(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.erklaer_checks(p_kernidee_id uuid) RETURNS uuid[]
+CREATE FUNCTION public.erklaer_checks(p_kernidee_id uuid, p_testlauf boolean DEFAULT false) RETURNS uuid[]
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
   select coalesce(array_agg(c.task_id order by c.reihenfolge), '{}')
     from public.erklaer_check c
     join public.tasks t on t.id = c.task_id
-   where c.kernidee_id = p_kernidee_id and t.status = 'ready' and coalesce(t.is_active, true)
+   where c.kernidee_id = p_kernidee_id and coalesce(t.is_active, true)
+     and (t.status = 'ready'
+          or (coalesce(p_testlauf, false) and t.status in ('draft', 'review', 'rueckfrage')
+              and public.pruef_ausschluss(t.id) is null))
+     and 'check' = any (t.einsatz)
 $$;
 
 
@@ -1688,11 +1741,16 @@ CREATE FUNCTION public.erklaer_nachlesen(p_student_id uuid, p_skill_key text) RE
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  if not (coalesce(public.get_my_role(), '') = 'admin'
+  -- A2: NULL-sicher (Befund X0b); zusaetzlich das Tablet des Kindes in einer laufenden Session.
+  if not coalesce(coalesce(public.get_my_role(), '') = 'admin'
           or public.get_my_student_id() = p_student_id
           or exists (select 1 from public.session_students ss
                        join public.coaching_sessions cs on cs.id = ss.session_id
-                      where ss.student_id = p_student_id and cs.coach_id = auth.uid())) then
+                      where ss.student_id = p_student_id and cs.coach_id = auth.uid())
+          or exists (select 1 from public.session_tablets st
+                       join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
+                      where st.student_id = p_student_id and st.geraet_id = auth.uid() and st.geloest_am is null),
+          false) then
     raise exception 'erklaer_nachlesen: kein Zugriff' using errcode = '42501';
   end if;
 
@@ -1730,29 +1788,29 @@ CREATE TABLE public.erklaer_kernidee (
 
 
 --
--- Name: erklaer_naechste_kernidee(text, integer); Type: FUNCTION; Schema: public; Owner: -
+-- Name: erklaer_naechste_kernidee(text, integer, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.erklaer_naechste_kernidee(p_skill_key text, p_nach_nr integer) RETURNS public.erklaer_kernidee
+CREATE FUNCTION public.erklaer_naechste_kernidee(p_skill_key text, p_nach_nr integer, p_testlauf boolean DEFAULT false) RETURNS public.erklaer_kernidee
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
   select k.* from public.erklaer_kernidee k
-   where k.skill_key = p_skill_key and k.nr > p_nach_nr and k.status = 'freigegeben'
-     and cardinality(public.erklaer_varianten(k.id)) > 0
-     and cardinality(public.erklaer_checks(k.id)) > 0
+   where k.skill_key = p_skill_key and k.nr > p_nach_nr and public.erklaer_status_ok(k.status, p_testlauf)
+     and cardinality(public.erklaer_varianten(k.id, p_testlauf)) > 0
+     and cardinality(public.erklaer_checks(k.id, p_testlauf)) > 0
    order by k.nr limit 1
 $$;
 
 
 --
--- Name: erklaer_runden_bis_signal(); Type: FUNCTION; Schema: public; Owner: -
+-- Name: erklaer_runden_bis_signal(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.erklaer_runden_bis_signal() RETURNS integer
-    LANGUAGE sql IMMUTABLE
+CREATE FUNCTION public.erklaer_runden_bis_signal(p_session_id uuid) RETURNS integer
+    LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
-    AS $$ select 2 $$;
+    AS $$ select coalesce(public.session_wert_zahl(p_session_id, 'erklaerrunden_bis_signal')::int, 2) $$;
 
 
 --
@@ -1847,17 +1905,17 @@ $$;
 
 
 --
--- Name: erklaer_schritte_json(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: erklaer_schritte_json(uuid, text, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.erklaer_schritte_json(p_kernidee_id uuid, p_variante text) RETURNS jsonb
+CREATE FUNCTION public.erklaer_schritte_json(p_kernidee_id uuid, p_variante text, p_testlauf boolean DEFAULT false) RETURNS jsonb
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
   select coalesce(jsonb_agg(public.erklaer_schritt_json(s)
                             order by case s.art when 'erklaerung' then 1 else 2 end), '[]')
     from public.erklaer_schritt s
-   where s.kernidee_id = p_kernidee_id and s.variante = p_variante and s.status = 'freigegeben'
+   where s.kernidee_id = p_kernidee_id and s.variante = p_variante and public.erklaer_status_ok(s.status, p_testlauf)
 $$;
 
 
@@ -1884,9 +1942,11 @@ CREATE FUNCTION public.erklaer_start(p_session_id uuid, p_student_id uuid, p_ski
 declare
   v_letzt public.erklaer_fortschritt;
   v_k     public.erklaer_kernidee;
+  v_tl    boolean;
 begin
   perform public.erklaer_zugang(p_session_id, p_student_id);
   perform public.erklaer_sperren(p_session_id, p_student_id);
+  v_tl := coalesce((select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id), false);
 
   select f.* into v_letzt from public.erklaer_fortschritt f
     join public.erklaer_kernidee k on k.id = f.kernidee_id
@@ -1902,30 +1962,40 @@ begin
       return jsonb_build_object('aktion', 'weiter', 'uebergang', 'ueben');
     end if;
     -- Inzwischen nicht mehr freigegeben (Kernidee, Variante oder Check): nicht ausliefern.
-    if v_k.status <> 'freigegeben'
-       or not (v_letzt.variante = any (public.erklaer_varianten(v_k.id)))
-       or not (v_letzt.check_task_id = any (public.erklaer_checks(v_k.id))) then
+    if not public.erklaer_status_ok(v_k.status, v_tl)
+       or not (v_letzt.variante = any (public.erklaer_varianten(v_k.id, v_tl)))
+       or not (v_letzt.check_task_id = any (public.erklaer_checks(v_k.id, v_tl))) then
       raise exception 'erklaer_start: Erklaerung inzwischen nicht mehr freigegeben' using errcode = 'P0002';
     end if;
     return jsonb_build_object(
       'aktion', 'start',
       'kernidee', jsonb_build_object('nr', v_k.nr, 'titel', v_k.titel,
                     'von', (select count(*) from public.erklaer_kernidee k
-                             where k.skill_key = p_skill_key and k.status = 'freigegeben')),
+                             where k.skill_key = p_skill_key and public.erklaer_status_ok(k.status, v_tl))),
       'variante', v_letzt.variante, 'runde', v_letzt.runde,
-      'schritte', public.erklaer_schritte_json(v_k.id, v_letzt.variante),
+      'schritte', public.erklaer_schritte_json(v_k.id, v_letzt.variante, v_tl),
       'check', jsonb_build_object('task_id', v_letzt.check_task_id,
                                   'aufgabe', public.lsa_question_payload(v_letzt.check_task_id)));
   end if;
 
-  v_k := public.erklaer_naechste_kernidee(p_skill_key, 0);
+  v_k := public.erklaer_naechste_kernidee(p_skill_key, 0, v_tl);
   if v_k.id is null then
     raise exception 'erklaer_start: keine freigegebene Erklaerung fuer %', p_skill_key using errcode = 'P0002';
   end if;
   return public.erklaer_zeigen(p_session_id, p_student_id, v_k,
-                               (public.erklaer_varianten(v_k.id))[1], 1, 'start');
+                               (public.erklaer_varianten(v_k.id, v_tl))[1], 1, 'start', v_tl);
 end;
 $$;
+
+
+--
+-- Name: erklaer_status_ok(text, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.erklaer_status_ok(p_status text, p_testlauf boolean DEFAULT false) RETURNS boolean
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$ select p_status = 'freigegeben' or (coalesce(p_testlauf, false) and p_status in ('entwurf', 'geprueft')) $$;
 
 
 --
@@ -1988,16 +2058,16 @@ $$;
 
 
 --
--- Name: erklaer_varianten(uuid); Type: FUNCTION; Schema: public; Owner: -
+-- Name: erklaer_varianten(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.erklaer_varianten(p_kernidee_id uuid) RETURNS text[]
+CREATE FUNCTION public.erklaer_varianten(p_kernidee_id uuid, p_testlauf boolean DEFAULT false) RETURNS text[]
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
   select coalesce(array_agg(s.variante order by s.variante), '{}')
     from public.erklaer_schritt s
-   where s.kernidee_id = p_kernidee_id and s.art = 'erklaerung' and s.status = 'freigegeben'
+   where s.kernidee_id = p_kernidee_id and s.art = 'erklaerung' and public.erklaer_status_ok(s.status, p_testlauf)
 $$;
 
 
@@ -2017,15 +2087,15 @@ $$;
 
 
 --
--- Name: erklaer_zeigen(uuid, uuid, public.erklaer_kernidee, text, integer, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: erklaer_zeigen(uuid, uuid, public.erklaer_kernidee, text, integer, text, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.erklaer_zeigen(p_session_id uuid, p_student_id uuid, p_kernidee public.erklaer_kernidee, p_variante text, p_runde integer, p_aktion text) RETURNS jsonb
+CREATE FUNCTION public.erklaer_zeigen(p_session_id uuid, p_student_id uuid, p_kernidee public.erklaer_kernidee, p_variante text, p_runde integer, p_aktion text, p_testlauf boolean DEFAULT false) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_checks uuid[] := public.erklaer_checks(p_kernidee.id);
+  v_checks uuid[] := public.erklaer_checks(p_kernidee.id, p_testlauf);
   v_check  uuid;
 begin
   if cardinality(v_checks) = 0 or p_variante is null then
@@ -2042,10 +2112,10 @@ begin
     'kernidee', jsonb_build_object(
                   'nr', p_kernidee.nr, 'titel', p_kernidee.titel,
                   'von', (select count(*) from public.erklaer_kernidee k
-                           where k.skill_key = p_kernidee.skill_key and k.status = 'freigegeben')),
+                           where k.skill_key = p_kernidee.skill_key and public.erklaer_status_ok(k.status, p_testlauf))),
     'variante', p_variante,
     'runde',    p_runde,
-    'schritte', public.erklaer_schritte_json(p_kernidee.id, p_variante),
+    'schritte', public.erklaer_schritte_json(p_kernidee.id, p_variante, p_testlauf),
     'check',    jsonb_build_object('task_id', v_check,
                                    'aufgabe', public.lsa_question_payload(v_check)));
 end;
@@ -2061,11 +2131,18 @@ CREATE FUNCTION public.erklaer_zugang(p_session_id uuid, p_student_id uuid) RETU
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  if not (coalesce(public.get_my_role(), '') = 'admin'
+  -- A2: NULL-sicher (Befund X0b); zusaetzlich das Tablet des Kindes (offene-punkte-e1 6).
+  if not coalesce(coalesce(public.get_my_role(), '') = 'admin'
           or exists (select 1 from public.coaching_sessions cs
                       where cs.id = p_session_id and cs.coach_id = auth.uid())
-          or public.get_my_student_id() = p_student_id) then
+          or public.get_my_student_id() = p_student_id
+          or exists (select 1 from public.session_tablets st
+                      where st.session_id = p_session_id and st.student_id = p_student_id
+                        and st.geraet_id = auth.uid() and st.geloest_am is null), false) then
     raise exception 'erklaer: kein Zugriff auf diese Session' using errcode = '42501';
+  end if;
+  if not exists (select 1 from public.coaching_sessions cs where cs.id = p_session_id and cs.status = 'active') then
+    raise exception 'erklaer: Session laeuft nicht' using errcode = 'P0001';
   end if;
   if not exists (select 1 from public.session_students ss
                   where ss.session_id = p_session_id and ss.student_id = p_student_id
@@ -2401,6 +2478,11 @@ begin
                   and student_id = t.student_id and task_id = p_task_id) then
     raise exception 'hinweis_abrufen: Aufgabe wurde diesem Kind nicht gegeben' using errcode = 'P0001';
   end if;
+  -- A2 (K): Exit-Aufgaben im Check-out ohne Hinweise.
+  if exists (select 1 from public.session_schritte x where x.session_id = p_session_id
+              and x.student_id = t.student_id and x.task_id = p_task_id and x.art = 'exit') then
+    raise exception 'hinweis_abrufen: Exit-Aufgaben ohne Hinweise' using errcode = '22023', hint = 'exit_ohne_hinweis';
+  end if;
   if p_stufe is null or p_stufe < 1 or p_stufe > public.session_wert_zahl(p_session_id, 'hinweisstufen') then
     raise exception 'hinweis_abrufen: Stufe % ist nicht freigeschaltet', p_stufe using errcode = '22023';
   end if;
@@ -2559,14 +2641,14 @@ $$;
 
 
 --
--- Name: home_quests_aktiv(); Type: FUNCTION; Schema: public; Owner: -
+-- Name: home_quests_aktiv(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.home_quests_aktiv() RETURNS boolean
+CREATE FUNCTION public.home_quests_aktiv(p_session_id uuid DEFAULT NULL::uuid) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select lower(coalesce(public.quest_einstellung('home_quests_aktiv'), 'aus')) in ('an', 'true', '1', 'ja');
+  select lower(coalesce(public.quest_einstellung('home_quests_aktiv', p_session_id), 'aus')) in ('an', 'true', '1', 'ja');
 $$;
 
 
@@ -3129,7 +3211,7 @@ CREATE FUNCTION public.lernpfad_coach_der_session(p_session_id uuid, p_student_i
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select public.get_my_role() = 'coach'
+  select coalesce(public.get_my_role(), '') = 'coach'
      and exists (
        select 1
          from public.coaching_sessions cs
@@ -3137,6 +3219,13 @@ CREATE FUNCTION public.lernpfad_coach_der_session(p_session_id uuid, p_student_i
         where cs.id = p_session_id
           and cs.coach_id = auth.uid()
           and ss.student_id = p_student_id
+          -- A2 (Rasit 06.10., offene-punkte-a1 15): nur in der laufenden Session, laengstens bis zum
+          -- geplanten Ende plus 30 Minuten Nachbereitung, oder am selben Tag nach ihrem Abschluss
+          -- (Europe/Berlin). Geplantes Ende = scheduled_at + 60 Minuten: coaching_sessions hat keine
+          -- Dauer, die Session dauert 60 Minuten (Entscheidung 1, wie session_uhr_phase).
+          and ((cs.status = 'active' and now() <= cs.scheduled_at + interval '60 minutes' + interval '30 minutes')
+               or (cs.status = 'done'
+                   and (cs.beendet_am at time zone 'Europe/Berlin')::date = (now() at time zone 'Europe/Berlin')::date))
      );
 $$;
 
@@ -3149,7 +3238,7 @@ CREATE FUNCTION public.lernpfad_darf_lesen(p_student_id uuid) RETURNS boolean
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select case public.get_my_role()
+  select case coalesce(public.get_my_role(), '')
            when 'admin' then true
            when 'coach' then public.akte_aktiv(p_student_id)
            else false
@@ -3216,43 +3305,19 @@ $$;
 CREATE FUNCTION public.lernpfad_stellschraube(p_schluessel text, p_session_id uuid DEFAULT NULL::uuid) RETURNS numeric
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
-    AS $_$
+    AS $$
 declare
-  v_wert  text;
   v_start numeric := case p_schluessel
                        when 'mastery_abstand_sessions'     then 1
                        when 'mastery_richtig_ohne_hinweis' then 2
                      end;
 begin
-  if p_session_id is not null then
-    begin
-      select to_jsonb(cs) -> 'einstellungen' ->> p_schluessel
-        into v_wert
-        from public.coaching_sessions cs
-       where cs.id = p_session_id;
-    exception when others then
-      v_wert := null;
-    end;
-  end if;
-
-  if v_wert is null and to_regclass('public.session_einstellungen') is not null then
-    begin
-      execute 'select to_jsonb(e) ->> ''wert'' from public.session_einstellungen e
-                where to_jsonb(e) ->> ''schluessel'' = $1'
-         into v_wert
-        using p_schluessel;
-    exception when others then
-      v_wert := null;
-    end;
-  end if;
-
-  begin
-    return coalesce(v_wert::numeric, v_start);
-  exception when others then
-    return v_start;
-  end;
+  -- Snapshot der Session, vor dem Start (oder ohne Session) die Tabelle, sonst der Startwert.
+  return coalesce(public.session_wert_zahl(p_session_id, p_schluessel), v_start);
+exception when others then
+  return v_start;
 end;
-$_$;
+$$;
 
 
 --
@@ -5995,11 +6060,25 @@ CREATE FUNCTION public.mastery_vorschlaege(p_student_id uuid) RETURNS TABLE(skil
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-#variable_conflict use_column
 begin
-  if not (public.ist_systemaufruf() or public.lernpfad_darf_lesen(p_student_id)) then
+  if not (public.ist_systemaufruf() or coalesce(public.lernpfad_darf_lesen(p_student_id), false)) then
     raise exception 'mastery_vorschlaege: nur Admin oder Coach bei laufendem Vertrag' using errcode = '42501';
   end if;
+  return query select * from public.mastery_vorschlaege_core(p_student_id);
+end;
+$$;
+
+
+--
+-- Name: mastery_vorschlaege_core(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.mastery_vorschlaege_core(p_student_id uuid) RETURNS TABLE(skill_key text, label text, stand_coach text, coach_grund text, letzte_uebung_am timestamp with time zone)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
   return query
     select l.skill_key, s.label, l.stand_coach, l.coach_grund, l.letzte_uebung_am
       from public.lernpfad l
@@ -6021,7 +6100,12 @@ CREATE FUNCTION public.mein_lernpfad() RETURNS TABLE(skill_key text, label text,
     AS $$
 #variable_conflict use_column
 declare
-  v_student uuid := public.get_my_student_id();
+  v_student uuid := coalesce(public.get_my_student_id(),
+    -- A2: am Tablet das Kind des aktiven Platzes in einer laufenden Session (offene-punkte-a1 10).
+    (select st.student_id from public.session_tablets st
+       join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
+      where st.geraet_id = auth.uid() and st.geloest_am is null
+      order by st.zugewiesen_am desc limit 1));
 begin
   if v_student is null then
     raise exception 'mein_lernpfad: nur fuer Schuelerkonten' using errcode = '42501';
@@ -6048,11 +6132,25 @@ CREATE FUNCTION public.naechste_luecke(p_student_id uuid) RETURNS TABLE(skill_ke
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-#variable_conflict use_column
 begin
-  if not (public.ist_systemaufruf() or public.lernpfad_darf_lesen(p_student_id)) then
+  if not (public.ist_systemaufruf() or coalesce(public.lernpfad_darf_lesen(p_student_id), false)) then
     raise exception 'naechste_luecke: nur Admin oder Coach bei laufendem Vertrag' using errcode = '42501';
   end if;
+  return query select * from public.naechste_luecke_core(p_student_id);
+end;
+$$;
+
+
+--
+-- Name: naechste_luecke_core(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.naechste_luecke_core(p_student_id uuid) RETURNS TABLE(skill_key text, label text, thema_key text, stand_system text, quelle text)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
 
   return query
     select l.skill_key, s.label, st.thema_key, l.stand_system,
@@ -6246,13 +6344,34 @@ CREATE FUNCTION public.pfad_entscheiden(p_session_id uuid, p_student_id uuid, p_
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
+declare
+  v_sig  jsonb;
+  v_ziel text;
+  v_neu  text;
 begin
   perform public.session_kind_pruefen(p_session_id, p_student_id, 'pfad_entscheiden');
   if p_entscheidung is null or p_entscheidung not in ('tiefer', 'plan') then
     raise exception 'pfad_entscheiden: tiefer oder plan' using errcode = '22023';
   end if;
+  -- A2 (E): "tiefer" setzt den Pfad ueber pfad_tiefer (anlass warmup). Ziel-Skill und
+  -- Voraussetzung kommen aus dem juengsten Entscheidungssignal; p_skill_key waehlt eine andere
+  -- Voraussetzung. Ohne Signal: der aktuelle Skill des Ziels.
+  if p_entscheidung = 'tiefer' then
+    select e.payload into v_sig from public.session_ereignisse e
+     where e.session_id = p_session_id and e.student_id = p_student_id and e.typ = 'signal'
+       and e.payload ->> 'art' = 'entscheidung'
+     order by e.zeit desc, e.id desc limit 1;
+    v_ziel := coalesce(v_sig ->> 'ziel_skill_key',
+                       (select z.skill_key from public.session_zielliste(p_session_id, p_student_id) z
+                         where z.offen order by z.reihenfolge limit 1));
+    if v_ziel is null then
+      raise exception 'pfad_entscheiden: kein aktueller Skill' using errcode = 'P0002';
+    end if;
+    v_neu := public.pfad_tiefer(p_student_id, v_ziel, p_session_id, coalesce(p_skill_key, v_sig ->> 'skill_key'), 'warmup');
+  end if;
   perform public.session_ereignis(p_session_id, p_student_id, 'entscheidung_pfad',
-    jsonb_strip_nulls(jsonb_build_object('entscheidung', p_entscheidung, 'quelle', 'coach', 'skill_key', p_skill_key)));
+    jsonb_strip_nulls(jsonb_build_object('entscheidung', p_entscheidung, 'quelle', 'coach',
+                                         'skill_key', coalesce(v_neu, p_skill_key), 'statt', v_ziel)));
   perform public.session_ereignis(p_session_id, p_student_id, 'signal_erledigt',
                                   jsonb_build_object('art', 'entscheidung'));
 end;
@@ -6358,16 +6477,13 @@ begin
   if p_phase is null or p_phase not in ('checkin', 'warmup', 'kern', 'checkout') then
     raise exception 'phase_setzen: unbekannte Phase %', p_phase using errcode = '22023';
   end if;
-  if public.session_ist_coach(p_session_id) then
-    if not exists (select 1 from public.session_tablets where session_id = p_session_id
-                    and student_id = p_student_id and geloest_am is null) then
-      raise exception 'phase_setzen: Kind hat kein Tablet' using errcode = 'P0001';
-    end if;
-  else
-    v_kind := (public.session_tablet_platz(p_session_id, 'phase_setzen')).student_id;
-    if p_student_id is not null and p_student_id <> v_kind then
-      raise exception 'phase_setzen: nur der eigene Platz' using errcode = '42501';
-    end if;
+  -- A2 (C): die Phase eines Kindes ergibt sich aus der Uhr der Session; das Tablet setzt sie nicht
+  -- mehr selbst (offene-punkte-r1 27). Der Coach kann ein Phasen-Ereignis setzen, die Engine
+  -- richtet sich beim naechsten Schritt aber nach der Uhr (offene-punkte-a2).
+  perform public.session_coach_pruefen(p_session_id, 'phase_setzen');
+  if not exists (select 1 from public.session_tablets where session_id = p_session_id
+                  and student_id = p_student_id and geloest_am is null) then
+    raise exception 'phase_setzen: Kind hat kein Tablet' using errcode = 'P0001';
   end if;
   if public.session_phase(p_session_id, v_kind) is distinct from p_phase then
     perform public.session_ereignis(p_session_id, v_kind, 'phase_wechsel', jsonb_build_object('phase', p_phase));
@@ -8745,8 +8861,10 @@ CREATE FUNCTION public.quest_aufgaben_waehlen(p_quest_id uuid, p_student_id uuid
     SET search_path TO 'public', 'pg_temp'
     AS $$
 declare
-  v_budget   integer := (public.quest_einstellung_zahl('quest_minuten', 10) * 60)::integer;
-  v_anteil   numeric := least(greatest(public.quest_einstellung_zahl('mischanteil', 0.30), 0), 1);
+  v_budget   integer := (public.quest_einstellung_zahl('quest_minuten', 10,
+                  (select q.session_id from public.quests q where q.id = p_quest_id)) * 60)::integer;
+  v_anteil   numeric := least(greatest(public.quest_einstellung_zahl('mischanteil', 0.30,
+                  (select q.session_id from public.quests q where q.id = p_quest_id)), 0), 1);
   v_alt_max  integer;
   v_summe    integer := 0;
   v_gewaehlt uuid[]  := '{}';
@@ -8809,17 +8927,21 @@ $$;
 
 
 --
--- Name: quest_einstellung(text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: quest_einstellung(text, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.quest_einstellung(p_schluessel text) RETURNS text
+CREATE FUNCTION public.quest_einstellung(p_schluessel text, p_session_id uuid DEFAULT NULL::uuid) RETURNS text
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $_$
 declare
   v_wert text;
 begin
-  if to_regclass('public.session_einstellungen') is not null then
+  -- A2 (B): mit Session aus dem Snapshot.
+  if p_session_id is not null then
+    select cs.einstellungen ->> p_schluessel into v_wert from public.coaching_sessions cs where cs.id = p_session_id;
+  end if;
+  if v_wert is null and to_regclass('public.session_einstellungen') is not null then
     begin
       execute 'select wert::text from public.session_einstellungen where schluessel = $1'
          into v_wert using p_schluessel;
@@ -8842,15 +8964,15 @@ $_$;
 
 
 --
--- Name: quest_einstellung_zahl(text, numeric); Type: FUNCTION; Schema: public; Owner: -
+-- Name: quest_einstellung_zahl(text, numeric, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.quest_einstellung_zahl(p_schluessel text, p_rueckfall numeric) RETURNS numeric
+CREATE FUNCTION public.quest_einstellung_zahl(p_schluessel text, p_rueckfall numeric, p_session_id uuid DEFAULT NULL::uuid) RETURNS numeric
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  return coalesce(public.quest_einstellung(p_schluessel)::numeric, p_rueckfall);
+  return coalesce(public.quest_einstellung(p_schluessel, p_session_id)::numeric, p_rueckfall);
 exception when invalid_text_representation then
   return p_rueckfall;
 end;
@@ -8925,7 +9047,7 @@ begin
 
   -- XP fuers Bearbeiten, nie fuers Richtig-Haben. Gebucht wird ueber den Kern von xp_buchen
   -- (X0); der Schluessel quest:<id> bucht je Quest genau einmal, auch neben xp_gebucht.
-  v_xp := least(greatest(public.quest_einstellung_zahl('quest_xp', 50)::integer, 0), 1000);
+  v_xp := least(greatest(public.quest_einstellung_zahl('quest_xp', 50, v_quest.session_id)::integer, 0), 1000);
 
   update public.quests
      set status = 'erledigt', erledigt_am = now(), xp_gebucht = v_xp
@@ -8967,8 +9089,8 @@ declare
   v_session   public.coaching_sessions%rowtype;
   v_tag       date;
   v_naechste  date;
-  v_anzahl    integer := public.quest_einstellung_zahl('quests_pro_woche', 2)::integer;
-  v_abstand   integer := public.quest_einstellung_zahl('quest_a_abstand_tage', 2)::integer;
+  v_anzahl    integer := public.quest_einstellung_zahl('quests_pro_woche', 2, p_session_id)::integer;
+  v_abstand   integer := public.quest_einstellung_zahl('quest_a_abstand_tage', 2, p_session_id)::integer;
   v_a_tag     date;
   v_b_tag     date;
   v_ka        boolean;
@@ -8996,7 +9118,7 @@ begin
 
   -- FernUSG: solange die Clinic prueft, bleibt home_quests_aktiv aus. Dann legt nur ein
   -- Systemaufruf (Test, Durchlauf) Quests an, nie ein Coach aus dem Check-out.
-  if not public.home_quests_aktiv() and not public.ist_systemaufruf() then
+  if not public.home_quests_aktiv(p_session_id) and not public.ist_systemaufruf() then
     raise exception 'quest_erzeugen: Home Quests sind ausgeschaltet (home_quests_aktiv)' using errcode = '55000';
   end if;
 
@@ -9146,7 +9268,12 @@ begin
   if not coalesce(coalesce(public.get_my_role(), '') = 'admin'
                   or (coalesce(public.get_my_role(), '') = 'coach' and v_coach = auth.uid()
                       and public.hat_zugang(v_quest.student_id))
-                  or public.get_my_student_id() = v_quest.student_id, false) then
+                  or public.get_my_student_id() = v_quest.student_id
+                  -- A2: das Tablet des Kindes in der laufenden Session der Quest (offene-punkte-q1 5).
+                  or exists (select 1 from public.session_tablets st
+                               join public.coaching_sessions cs on cs.id = st.session_id and cs.status = 'active'
+                              where st.session_id = v_quest.session_id and st.student_id = v_quest.student_id
+                                and st.geraet_id = auth.uid() and st.geloest_am is null), false) then
     raise exception 'quest_termin_setzen: nur Coach der Session, Admin oder das Kind' using errcode = '42501';
   end if;
 
@@ -9293,13 +9420,14 @@ begin
     v_nid := null;
     begin
       v_text := (select notiz from public.session_kind_abschluss where session_id = p_session_id and student_id = k.student_id);
-      if v_text is not null then
+      -- A2: Testlaeufe schreiben nichts in die Akte (Entscheidung 27).
+      if v_text is not null and not s.testlauf then
         v_nid := public.notiz_anlegen(k.student_id, 'lernen', v_text);
       end if;
-      if (select flag_eltern from public.session_kind_abschluss where session_id = p_session_id and student_id = k.student_id) then
+      if not s.testlauf and (select flag_eltern from public.session_kind_abschluss where session_id = p_session_id and student_id = k.student_id) then
         perform public.notiz_anlegen(k.student_id, 'organisatorisch', 'Session ' || v_datum || ': Elternkontakt nötig');
       end if;
-      if (select flag_pfad from public.session_kind_abschluss where session_id = p_session_id and student_id = k.student_id) then
+      if not s.testlauf and (select flag_pfad from public.session_kind_abschluss where session_id = p_session_id and student_id = k.student_id) then
         perform public.notiz_anlegen(k.student_id, 'lernen', 'Session ' || v_datum || ': Pfad passt nicht');
       end if;
     exception when insufficient_privilege or no_data_found then
@@ -9309,7 +9437,7 @@ begin
 
     update public.session_kind_abschluss a
        set notiz_id = v_nid,
-           in_akte_am = case when v_ohne @> to_jsonb(k.student_id) then null else clock_timestamp() end,
+           in_akte_am = case when s.testlauf or v_ohne @> to_jsonb(k.student_id) then null else clock_timestamp() end,
            exit_ergebnis = coalesce(a.exit_ergebnis, (
              select jsonb_build_object('richtig', count(distinct r.task_id) filter (where r.ergebnis = 'richtig'),
                                        'gesamt', count(distinct r.task_id))
@@ -9332,7 +9460,11 @@ begin
              'entscheidungen_pfad', coalesce((select jsonb_agg(e.payload || jsonb_build_object('zeit', e.zeit) order by e.zeit)
                 from public.session_ereignisse e where e.session_id = p_session_id and e.student_id = k.student_id
                  and e.typ = 'entscheidung_pfad'), '[]'),
-             'mastery_entscheidungen', '[]'::jsonb),
+             'mastery_entscheidungen', coalesce((select jsonb_agg(jsonb_build_object('skill_key', p.skill_key,
+                  'entscheidung', p.neu ->> 'stand_coach', 'grund', p.grund, 'am', p.am) order by p.am)
+                from public.lernpfad_protokoll p where p.session_id = p_session_id
+                 and p.student_id = k.student_id and p.aktion = 'mastery'), '[]'::jsonb),
+             'testlauf', s.testlauf),
            aktualisiert_am = clock_timestamp(), aktualisiert_von = auth.uid()
      where a.session_id = p_session_id and a.student_id = k.student_id;
     v_n := v_n + 1;
@@ -9380,6 +9512,74 @@ CREATE FUNCTION public.session_aktuelle_ausgabe(p_session_id uuid, p_student_id 
   select * from public.session_ausgegeben
    where session_id = p_session_id and student_id = p_student_id
    order by zeit desc limit 1
+$$;
+
+
+--
+-- Name: session_aufgabe_stand(uuid, uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_aufgabe_stand(p_session_id uuid, p_student_id uuid, p_task_id uuid, OUT erledigt boolean, OUT erfolg boolean, OUT richtig boolean, OUT zeit timestamp with time zone) RETURNS record
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with t as (
+    select case when t.input_type = 'MULTI_PART' then greatest(jsonb_array_length(t.parts), 1) else 1 end as teile
+      from public.tasks t where t.id = p_task_id
+  ),
+  je_teil as (
+    select coalesce(a.teil, 0) as teil,
+           bool_or(a.ergebnis = 'richtig') as r,
+           bool_and(a.versuch_nr <> 1 or (a.ergebnis = 'richtig' and a.hinweisstufe_max = 0)) as e,
+           max(a.zeit) as z
+      from public.session_antworten a
+     where a.session_id = p_session_id and a.student_id = p_student_id and a.task_id = p_task_id
+     group by 1
+  )
+  select count(j.teil) >= t.teile,
+         count(j.teil) >= t.teile and coalesce(bool_and(j.e), false),
+         count(j.teil) >= t.teile and coalesce(bool_and(j.r), false),
+         max(j.z)
+    from t left join je_teil j on true
+   group by t.teile
+$$;
+
+
+--
+-- Name: session_aufgabe_waehlen(uuid, uuid, text, integer, boolean, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_aufgabe_waehlen(p_session_id uuid, p_student_id uuid, p_skill_key text, p_schwierigkeit integer, p_testlauf boolean, p_mit_loesungsweg boolean DEFAULT false, OUT task_id uuid, OUT difficulty integer) RETURNS record
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with benutzt as (
+    select a.task_id from public.session_ausgegeben a
+     where a.session_id = p_session_id and a.student_id = p_student_id
+    union
+    select s.task_id from public.session_schritte s
+     where s.student_id = p_student_id and s.task_id is not null
+       and (s.session_id = p_session_id or s.art = 'beispiel')
+  ),
+  gesehen as (
+    select x.task_id, max(x.zeit) as zuletzt from (
+      select a.task_id, a.zeit from public.session_ausgegeben a where a.student_id = p_student_id
+      union all
+      select s.task_id, s.zeit from public.session_schritte s where s.student_id = p_student_id and s.task_id is not null
+    ) x group by x.task_id
+  )
+  select t.id, public.session_schwierigkeit(t.difficulty, t.afb)
+    from public.tasks t
+    left join gesehen g on g.task_id = t.id
+   where t.skill_key = p_skill_key
+     and t.id not in (select b.task_id from benutzt b)
+     and public.session_im_pool(t.id, p_testlauf)
+     and (not p_mit_loesungsweg
+          or exists (select 1 from public.task_solutions ts where ts.task_id = t.id
+                      and nullif(btrim(ts.solution), '') is not null))
+   order by abs(public.session_schwierigkeit(t.difficulty, t.afb) - p_schwierigkeit),
+            (g.zuletzt is not null), g.zuletzt, t.id
+   limit 1
 $$;
 
 
@@ -9447,7 +9647,9 @@ begin
          ziel_thema_key = case coalesce(c.fall_coach, v_fall)
                             when 'klassenarbeit' then c.klassenarbeit_thema_key
                             when 'schulthema' then public.session_schulthema(p_student_id)
-                            else null end
+                            -- A2 (D): Lernpfad -> Thema der naechsten Luecke (nur Anzeige; die
+                            -- Engine nimmt im Fall Lernpfad naechste_luecke selbst).
+                            else (select n.thema_key from public.naechste_luecke_core(p_student_id) n limit 1) end
    where c.session_id = p_session_id and c.student_id = p_student_id;
 end;
 $$;
@@ -9533,6 +9735,56 @@ $$;
 
 
 --
+-- Name: session_erklaer_stand(uuid, uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_erklaer_stand(p_session_id uuid, p_student_id uuid, p_skill_key text, OUT stand text, OUT kernidee_nr integer, OUT kernideen integer, OUT runde integer, OUT variante text, OUT fehlbild_slug text, OUT zeit timestamp with time zone) RETURNS record
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case f.ergebnis
+           when 'richtig' then 'fertig'
+           when 'signal' then case when exists (
+               select 1 from public.session_ereignisse e
+                where e.session_id = p_session_id and e.student_id = p_student_id and e.typ = 'signal_erledigt'
+                  and e.payload ->> 'art' = 'haengt' and e.zeit > f.zeit) then 'signal_erledigt' else 'signal' end
+           else 'laeuft' end,
+         k.nr,
+         (select count(*)::int from public.erklaer_kernidee k2 where k2.skill_key = p_skill_key
+           and public.erklaer_status_ok(k2.status, (select cs.testlauf from public.coaching_sessions cs where cs.id = p_session_id))),
+         f.runde, f.variante,
+         (select f2.fehlbild_slug from public.erklaer_fortschritt f2 where f2.session_id = p_session_id
+           and f2.student_id = p_student_id and f2.kernidee_id = f.kernidee_id and f2.ergebnis = 'falsch'
+           order by f2.id desc limit 1),
+         f.zeit
+    from public.erklaer_fortschritt f
+    join public.erklaer_kernidee k on k.id = f.kernidee_id
+   where f.session_id = p_session_id and f.student_id = p_student_id and k.skill_key = p_skill_key
+   order by f.id desc
+   limit 1
+$$;
+
+
+--
+-- Name: session_fall(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_fall(p_session_id uuid, p_student_id uuid, OUT fall text, OUT thema_key text, OUT fall_gewaehlt text) RETURNS record
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when coalesce(c.fall_coach, c.fall_vorschlag) in ('klassenarbeit', 'schulthema')
+                   and c.ziel_thema_key is not null
+              then coalesce(c.fall_coach, c.fall_vorschlag) else 'lernpfad' end,
+         case when coalesce(c.fall_coach, c.fall_vorschlag) in ('klassenarbeit', 'schulthema')
+              then c.ziel_thema_key end,
+         coalesce(c.fall_coach, c.fall_vorschlag)
+    from (select 1) d
+    left join public.session_checkin c on c.session_id = p_session_id and c.student_id = p_student_id
+$$;
+
+
+--
 -- Name: session_fall_berechnen(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9601,9 +9853,26 @@ begin
       join public.coaching_sessions cs on cs.id = a.session_id
       cross join lateral (values ('eltern', a.flag_eltern and a.flag_eltern_erledigt_am is null),
                                  ('pfad', a.flag_pfad and a.flag_pfad_erledigt_am is null)) as f(flag, offen)
-     where a.in_akte_am is not null and f.offen
+     where a.in_akte_am is not null and f.offen and not cs.testlauf
      order by cs.scheduled_at, a.student_id, f.flag;
 end;
+$$;
+
+
+--
+-- Name: session_heute_sicher(uuid, uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_heute_sicher(p_session_id uuid, p_student_id uuid, p_skill_key text) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  -- je Aufgabe, nicht je Teil (Consensus-Check Befund 2: MULTI_PART)
+  select count(distinct a.task_id) >= public.lernpfad_stellschraube('mastery_richtig_ohne_hinweis', p_session_id)
+    from public.session_antworten a
+    join public.tasks t on t.id = a.task_id
+   where a.session_id = p_session_id and a.student_id = p_student_id and t.skill_key = p_skill_key
+     and a.ergebnis = 'richtig' and a.hinweisstufe_max = 0
 $$;
 
 
@@ -9650,6 +9919,33 @@ $$;
 
 
 --
+-- Name: session_im_pool(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_im_pool(p_task_id uuid, p_testlauf boolean DEFAULT false) RETURNS boolean
+    LANGUAGE sql STABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (
+    select 1
+      from public.tasks t
+     where t.id = p_task_id
+       and coalesce(t.is_active, false)
+       and not coalesce(t.is_tutorial, false)
+       and t.content_type = 'exercise'
+       and 'session' = any (t.einsatz)
+       and exists (select 1 from public.task_solutions s
+                    where s.task_id = t.id
+                      and public.lsa_has_answers(t.input_type, t.parts, s.correct_answers))
+       and (t.status = 'ready'
+            or (coalesce(p_testlauf, false)
+                and t.status in ('draft', 'review', 'rueckfrage')
+                and public.pruef_ausschluss(t.id) is null))
+  )
+$$;
+
+
+--
 -- Name: session_ist_coach(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9663,6 +9959,30 @@ CREATE FUNCTION public.session_ist_coach(p_session_id uuid) RETURNS boolean
                                where id = p_session_id and coach_id = auth.uid())
     else false
   end
+$$;
+
+
+--
+-- Name: session_kandidat_signale(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_kandidat_signale(p_session_id uuid, p_student_id uuid) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(jsonb_agg(jsonb_build_object('art', 'kandidat', 'skill_key', v.skill_key, 'label', v.label,
+                                               'grund', 'Mastery-Prüfung möglich: ' || v.label,
+                                               'grund_code', 'mastery_kandidat')), '[]')
+    from (
+      select m.skill_key, m.label
+        from public.mastery_vorschlaege_core(p_student_id) m
+       where not exists (select 1 from public.session_ereignisse e
+                          where e.session_id = p_session_id and e.student_id = p_student_id and e.typ = 'signal'
+                            and e.payload ->> 'art' = 'kandidat' and e.payload ->> 'skill_key' = m.skill_key)
+       limit greatest(0, public.session_wert_zahl(p_session_id, 'mastery_kandidaten_je_raum')::int
+                         - (select count(*) from public.session_ereignisse e
+                             where e.session_id = p_session_id and e.typ = 'signal' and e.payload ->> 'art' = 'kandidat'))
+    ) v
 $$;
 
 
@@ -9707,8 +10027,46 @@ CREATE FUNCTION public.session_kind_live(p_session_id uuid, p_student_id uuid) R
        and e.student_id = ss.student_id and e.typ = 'hinweis' and (e.payload ->> 'geliefert')::boolean),
     'letzte_eingabe_am', (select max(r.zeit) from public.session_antworten r
        where r.session_id = p_session_id and r.student_id = ss.student_id),
-    'mastery_kandidat', null,
-    'erklaersequenz', null)
+    'mastery_kandidat', (
+       select jsonb_build_object('skill_key', e.payload ->> 'skill_key',
+                'label', public.session_label(e.payload ->> 'skill_key'), 'seit', e.zeit,
+                'stand_coach', l.stand_coach,
+                'pruefung_vorhanden', exists (select 1 from public.skill_pruefung p
+                                               where p.skill_key = e.payload ->> 'skill_key' and p.status = 'freigegeben'))
+         from public.session_ereignisse e
+         left join public.lernpfad l on l.student_id = ss.student_id and l.skill_key = e.payload ->> 'skill_key'
+        where e.session_id = p_session_id and e.student_id = ss.student_id and e.typ = 'signal'
+          and e.payload ->> 'art' = 'kandidat'
+          and public.lernpfad_pruefung_faellig(ss.student_id, e.payload ->> 'skill_key')
+        order by e.zeit limit 1),
+    'erklaersequenz', (
+       select jsonb_build_object('skill_key', ek.skill_key, 'label', public.session_label(ek.skill_key),
+                'kernidee_nr', ek.nr, 'kernidee_titel', ek.titel,
+                'kernideen', (select count(*) from public.erklaer_kernidee k2
+                               where k2.skill_key = ek.skill_key
+                                 and public.erklaer_status_ok(k2.status, (select cs.testlauf from public.coaching_sessions cs
+                                                                           where cs.id = p_session_id))),
+                'kernideen_fertig', (select count(distinct f2.kernidee_id) from public.erklaer_fortschritt f2
+                                      join public.erklaer_kernidee k3 on k3.id = f2.kernidee_id
+                                     where f2.session_id = p_session_id and f2.student_id = ss.student_id
+                                       and k3.skill_key = ek.skill_key and f2.ergebnis = 'richtig'),
+                'runde', ef.runde, 'variante', ef.variante, 'stand', ef.ergebnis, 'zeit', ef.zeit,
+                'fehlbild_slug', (select f4.fehlbild_slug from public.erklaer_fortschritt f4
+                                   where f4.session_id = p_session_id and f4.student_id = ss.student_id
+                                     and f4.kernidee_id = ef.kernidee_id and f4.ergebnis = 'falsch'
+                                   order by f4.id desc limit 1))
+         from public.erklaer_fortschritt ef
+         join public.erklaer_kernidee ek on ek.id = ef.kernidee_id
+        where ef.session_id = p_session_id and ef.student_id = ss.student_id
+        order by ef.id desc limit 1),
+    'schritt', (
+       select jsonb_build_object('art', x.art, 'phase', x.phase, 'skill_key', x.skill_key,
+                'skill_label', case when x.skill_key is not null then public.session_label(x.skill_key) end,
+                'task_id', x.task_id, 'modus', x.modus, 'eingemischt', x.eingemischt,
+                'schwierigkeit', x.schwierigkeit, 'grund', x.grund, 'grund_code', x.grund_code, 'zeit', x.zeit)
+         from public.session_schritte x
+        where x.session_id = p_session_id and x.student_id = ss.student_id
+        order by x.id desc limit 1))
   from public.session_students ss
   join public.students s on s.id = ss.student_id
   left join public.session_tablets st on st.session_id = ss.session_id and st.student_id = ss.student_id
@@ -9752,6 +10110,18 @@ $$;
 
 
 --
+-- Name: session_label(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_label(p_skill_key text) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce((select s.label from public.skills s where s.skill_key = p_skill_key), p_skill_key)
+$$;
+
+
+--
 -- Name: session_lead_von_kind(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9763,6 +10133,189 @@ CREATE FUNCTION public.session_lead_von_kind(p_student_id uuid) RETURNS uuid
     (select s.lead_id from public.students s where s.id = p_student_id),
     (select l.id from public.leads l where l.converted_student_id = p_student_id
       order by l.konvertiert_am desc nulls last, l.created_at desc limit 1))
+$$;
+
+
+--
+-- Name: session_misch_kandidaten(uuid, uuid, text, text[], text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_misch_kandidaten(p_session_id uuid, p_student_id uuid, p_skill_key text, p_ziel_skills text[], p_ka_thema text) RETURNS TABLE(skill_key text, voraussetzung boolean, zuletzt timestamp with time zone)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with voraus as (
+    select distinct a.skill_key from unnest(p_ziel_skills) z(sk) cross join lateral public.lsa_abschluss(z.sk) a
+  )
+  select s.skill_key, s.skill_key in (select v.skill_key from voraus v),
+         greatest(s.zuletzt, (select max(a.zeit) from public.session_antworten a join public.tasks t on t.id = a.task_id
+                               where a.session_id = p_session_id and a.student_id = p_student_id
+                                 and t.skill_key = s.skill_key)) as zuletzt
+    from public.session_sichere_skills(p_student_id) s
+   where s.skill_key <> p_skill_key
+     and (p_ka_thema is null
+          or s.skill_key in (select st.skill_key from public.skill_thema st where st.thema_key = p_ka_thema
+                             union select te.skill_key from public.thema_einstieg te where te.thema_key = p_ka_thema))
+   order by 2 desc, 3 nulls first, 1
+$$;
+
+
+--
+-- Name: session_modus(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_modus(p_student_id uuid, p_skill_key text) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case when exists (
+    select 1 from public.session_antworten a join public.tasks t on t.id = a.task_id
+     where a.student_id = p_student_id and t.skill_key = p_skill_key
+       and a.ergebnis = 'richtig' and a.hinweisstufe_max = 0)
+  then 'selbststaendig' else 'gefuehrt' end
+$$;
+
+
+--
+-- Name: session_naechster_schritt(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_naechster_schritt(p_session_id uuid, p_student_id uuid DEFAULT NULL::uuid) RETURNS jsonb
+    LANGUAGE plpgsql SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  t       public.session_tablets;
+  v       jsonb;
+  v_letzt public.session_schritte;
+  v_sig   jsonb;
+begin
+  -- Vorschau: Coach der Session oder Admin. Bucht nichts.
+  if coalesce(public.session_ist_coach(p_session_id), false) then
+    if not exists (select 1 from public.session_students where session_id = p_session_id and student_id = p_student_id) then
+      raise exception 'session_naechster_schritt: Kind ist in dieser Session nicht gebucht' using errcode = 'P0002';
+    end if;
+    return public.session_schritt_oeffentlich(public.session_schritt_planen(p_session_id, p_student_id), true)
+           || jsonb_build_object('vorschau', true);
+  end if;
+
+  -- Tablet: das Kind ergibt sich aus dem Platz (42501 ohne Platz, also auch fuer fremde
+  -- Tablets, Schuelerkonten und Konten ohne Profil).
+  t := public.session_tablet_platz(p_session_id, 'session_naechster_schritt');
+  if p_student_id is not null and p_student_id <> t.student_id then
+    raise exception 'session_naechster_schritt: nur der eigene Platz' using errcode = '42501';
+  end if;
+  perform pg_advisory_xact_lock(hashtext('session_schritt:' || p_session_id::text || ':' || t.student_id::text));
+
+  v := public.session_schritt_planen(p_session_id, t.student_id);
+  if coalesce((v ->> 'offen')::boolean, false) then
+    return public.session_schritt_oeffentlich(v);
+  end if;
+
+  if v ->> 'phase' in ('warmup', 'kern', 'checkout')
+     and public.session_phase(p_session_id, t.student_id) is distinct from v ->> 'phase' then
+    perform public.session_ereignis(p_session_id, t.student_id, 'phase_wechsel',
+                                    jsonb_build_object('phase', v ->> 'phase'));
+  end if;
+
+  select * into v_letzt from public.session_schritte x
+   where x.session_id = p_session_id and x.student_id = t.student_id order by x.id desc limit 1;
+  -- Wiederholtes Warten bzw. dieselbe laufende Erklaerung wird nicht erneut eingetragen.
+  if not (v ->> 'art' in ('warten', 'erklaerung') and v_letzt.art = v ->> 'art'
+          and v_letzt.grund_code = v ->> 'grund_code'
+          and v_letzt.skill_key is not distinct from v ->> 'skill_key') then
+    insert into public.session_schritte (session_id, student_id, art, phase, skill_key, task_id, modus, eingemischt,
+           nach_beispiel, schwierigkeit, grund, grund_code)
+    values (p_session_id, t.student_id, v ->> 'art', v ->> 'phase', v ->> 'skill_key', (v ->> 'task_id')::uuid,
+            v ->> 'modus', coalesce((v ->> 'eingemischt')::boolean, false),
+            coalesce((v ->> 'nach_beispiel')::boolean, false), (v ->> 'schwierigkeit')::int,
+            v ->> 'grund', v ->> 'grund_code');
+  end if;
+
+  if v ->> 'art' in ('aufgabe', 'exit') then
+    insert into public.session_ausgegeben (session_id, student_id, task_id, phase, eingemischt, von)
+    values (p_session_id, t.student_id, (v ->> 'task_id')::uuid, v ->> 'phase',
+            coalesce((v ->> 'eingemischt')::boolean, false), auth.uid());
+  end if;
+
+  for v_sig in select * from jsonb_array_elements(coalesce(v -> 'signale', '[]')) loop
+    perform public.session_ereignis(p_session_id, t.student_id, 'signal', v_sig);
+  end loop;
+
+  if v ? 'exit_ergebnis' then
+    insert into public.session_kind_abschluss as k (session_id, student_id, exit_ergebnis, aktualisiert_von)
+    values (p_session_id, t.student_id, v -> 'exit_ergebnis', auth.uid())
+    on conflict (session_id, student_id) do update
+       set exit_ergebnis = excluded.exit_ergebnis, aktualisiert_am = clock_timestamp(), aktualisiert_von = auth.uid()
+     where k.exit_ergebnis is distinct from excluded.exit_ergebnis;
+  end if;
+
+  return public.session_schritt_oeffentlich(v);
+end;
+$$;
+
+
+--
+-- Name: session_niveau(uuid, uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_niveau(p_session_id uuid, p_student_id uuid, p_skill_key text, OUT niveau integer, OUT start integer, OUT aenderung integer, OUT quote text, OUT haengt_bei timestamp with time zone) RETURNS record
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_ziel numeric := public.session_wert_zahl(p_session_id, 'ziel_erfolgsquote');
+  v_buf  boolean[] := '{}';
+  v_n    int := 0;
+  v_q    numeric;
+  r      record;
+begin
+  select x.difficulty into start from (
+    select public.session_schwierigkeit(t.difficulty, t.afb) as difficulty, a.zeit
+      from public.session_antworten a join public.tasks t on t.id = a.task_id
+     where a.student_id = p_student_id and a.session_id <> p_session_id and t.skill_key = p_skill_key
+       and a.ergebnis = 'richtig'
+    union all
+    select public.session_schwierigkeit(t.difficulty, t.afb), lr.created_at
+      from public.lsa_responses lr
+      join public.lsa_sessions ls on ls.id = lr.session_id
+      join public.tasks t on t.id = lr.task_id
+     where (ls.student_id = p_student_id or ls.uebernommen_zu_student_id = p_student_id)
+       and not ls.testlauf and lr.correct and t.skill_key = p_skill_key
+  ) x order by x.zeit desc limit 1;
+  start := coalesce(start, 2);
+  niveau := start;
+  aenderung := 0;
+
+  -- Fenster der letzten fuenf erledigten Aufgaben seit der letzten Auswertung (Annahme H).
+  for r in
+    select st.erfolg, st.zeit
+      from public.session_ausgegeben a
+      join public.tasks t on t.id = a.task_id
+      cross join lateral public.session_aufgabe_stand(p_session_id, p_student_id, a.task_id) st
+     where a.session_id = p_session_id and a.student_id = p_student_id and t.skill_key = p_skill_key
+       and st.erledigt
+     order by st.zeit
+  loop
+    v_buf := v_buf || r.erfolg;
+    v_n := v_n + 1;
+    aenderung := 0;
+    quote := null;
+    if v_n >= 5 then
+      v_q := (select count(*) filter (where x) from unnest(v_buf[cardinality(v_buf) - 4:]) x)::numeric / 5;
+      quote := (v_q * 5)::int || ' von 5';
+      if v_q > v_ziel + 0.1 then
+        if niveau < 5 then niveau := niveau + 1; aenderung := 1; end if;
+        v_n := 0;
+      elsif v_q < v_ziel - 0.1 then
+        if niveau > 1 then niveau := niveau - 1; aenderung := -1;
+        else haengt_bei := r.zeit; aenderung := -2;
+        end if;
+        v_n := 0;
+      end if;
+    end if;
+  end loop;
+end;
 $$;
 
 
@@ -9796,6 +10349,356 @@ CREATE FUNCTION public.session_phase(p_session_id uuid, p_student_id uuid) RETUR
    where e.session_id = p_session_id and e.student_id = p_student_id and e.typ = 'phase_wechsel'
    order by e.zeit desc, e.id desc
    limit 1
+$$;
+
+
+--
+-- Name: session_plan_checkout(uuid, uuid, boolean, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_plan_checkout(p_session_id uuid, p_student_id uuid, p_testlauf boolean, p_aktuell text) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n      int := public.session_wert_zahl(p_session_id, 'exit_aufgaben')::int;
+  v_quests boolean := coalesce(public.home_quests_aktiv(p_session_id), false);
+  v_e      int;
+  v_r      int;
+  v_erg    jsonb := '{}';
+  c        record;
+  w        record;
+  v_niv    int;
+begin
+  select count(*), count(*) filter (where (public.session_aufgabe_stand(p_session_id, p_student_id, s.task_id)).richtig)
+    into v_e, v_r
+    from public.session_schritte s
+   where s.session_id = p_session_id and s.student_id = p_student_id and s.art = 'exit';
+
+  if v_e < v_n then
+    for c in
+      select x.skill_key from (
+        select s.skill_key, max(s.id) as zuletzt, 0 as rang from public.session_schritte s
+         where s.session_id = p_session_id and s.student_id = p_student_id and s.phase = 'kern'
+           and s.art = 'aufgabe' and not s.eingemischt and s.skill_key is not null
+         group by s.skill_key
+        union all
+        select p_aktuell, 0, 1 where p_aktuell is not null
+      ) x
+      order by x.rang, x.zuletzt desc
+    loop
+      v_niv := (public.session_niveau(p_session_id, p_student_id, c.skill_key)).niveau;
+      select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, c.skill_key, v_niv, p_testlauf);
+      if w.task_id is not null then
+        return public.session_schritt('exit', 'checkout', c.skill_key, w.task_id, 'selbststaendig', false, v_niv,
+          'Check-out: Exit-Aufgabe ' || (v_e + 1) || ' von ' || v_n || ' zu ' || public.session_label(c.skill_key)
+            || ', Stufe ' || v_niv || ', ohne Hinweise', 'exit');
+      end if;
+    end loop;
+  end if;
+
+  if v_e > 0 then
+    v_erg := jsonb_build_object('exit_ergebnis', jsonb_build_object('richtig', v_r, 'gesamt', v_e));
+  end if;
+  if v_quests and not public.session_termin_gewaehlt(p_session_id, p_student_id) then
+    return public.session_schritt('termin', 'checkout', null, null, null, false, null,
+      'Check-out: Termin für die Home Quests wählen'
+        || case when v_e > 0 then ' (Exit ' || v_r || ' von ' || v_e || ')' else '' end, 'termin', v_erg);
+  end if;
+  return public.session_schritt('fertig', 'checkout', null, null, null, false, null,
+    'Fertig für heute' || case when v_e > 0 then ': Exit ' || v_r || ' von ' || v_e || ' richtig'
+                               else ' (keine Exit-Aufgabe im Pool)' end, 'fertig', v_erg);
+end;
+$$;
+
+
+--
+-- Name: session_schritte; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.session_schritte (
+    id bigint NOT NULL,
+    session_id uuid NOT NULL,
+    student_id uuid NOT NULL,
+    art text NOT NULL,
+    phase text NOT NULL,
+    skill_key text,
+    task_id uuid,
+    modus text,
+    eingemischt boolean DEFAULT false NOT NULL,
+    nach_beispiel boolean DEFAULT false NOT NULL,
+    schwierigkeit smallint,
+    grund text NOT NULL,
+    grund_code text NOT NULL,
+    zeit timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
+    CONSTRAINT session_schritte_art_check CHECK ((art = ANY (ARRAY['erklaerung'::text, 'beispiel'::text, 'aufgabe'::text, 'erklaerung_angebot'::text, 'exit'::text, 'termin'::text, 'fertig'::text, 'warten'::text]))),
+    CONSTRAINT session_schritte_grund_check CHECK ((NULLIF(btrim(grund), ''::text) IS NOT NULL)),
+    CONSTRAINT session_schritte_modus_check CHECK ((modus = ANY (ARRAY['gefuehrt'::text, 'selbststaendig'::text]))),
+    CONSTRAINT session_schritte_phase_check CHECK ((phase = ANY (ARRAY['checkin'::text, 'warmup'::text, 'kern'::text, 'checkout'::text]))),
+    CONSTRAINT session_schritte_schwierigkeit_check CHECK (((schwierigkeit >= 1) AND (schwierigkeit <= 5)))
+);
+
+
+--
+-- Name: session_plan_kern(uuid, uuid, boolean, text, boolean, text[], text, text, text, public.session_schritte); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_plan_kern(p_session_id uuid, p_student_id uuid, p_testlauf boolean, p_aktuell text, p_vertiefung boolean, p_ziel_skills text[], p_ziel_label text, p_fall text, p_thema text, p_letzt public.session_schritte) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_lab    text := public.session_label(p_aktuell);
+  v_modus  text := public.session_modus(p_student_id, p_aktuell);
+  v_l      int := public.session_wert_zahl(p_session_id, 'loesungsbeispiele_vor_aufgabe')::int;
+  v_angeb  int := public.session_wert_zahl(p_session_id, 'erklaerung_anbieten_nach_fehlversuchen')::int;
+  v_misch  numeric := public.session_wert_zahl(p_session_id, 'mischanteil');
+  v_vorg   boolean := public.session_wert(p_session_id, 'erklaerung_bei_neuem_skill') #>> '{}' = 'vorgeschaltet';
+  v_seq    boolean := (public.erklaer_naechste_kernidee(p_aktuell, 0, p_testlauf)).id is not null;
+  e        record;
+  niv      record := public.session_niveau(p_session_id, p_student_id, p_aktuell);
+  v_sig    jsonb := '[]';
+  v_b      int;
+  v_a      int;
+  v_bsp    record;
+  v_seit   timestamptz;
+  v_fehl   int;
+  v_n      int;
+  c        record;
+  w        record;
+  v_grund  text;
+begin
+  select * into e from public.session_erklaer_stand(p_session_id, p_student_id, p_aktuell);
+  -- "haengt" (H): auf Stufe 1 und weiter unter der Zielquote, einmal je Auswertung.
+  if niv.haengt_bei is not null and not exists (
+       select 1 from public.session_ereignisse x where x.session_id = p_session_id and x.student_id = p_student_id
+          and x.typ = 'signal' and x.payload ->> 'grund_code' = 'haengt_niveau' and x.zeit > niv.haengt_bei) then
+    v_sig := jsonb_build_array(jsonb_build_object('art', 'haengt', 'skill_key', p_aktuell, 'grund_code', 'haengt_niveau',
+      'grund', 'hängt: ' || v_lab || ' auf Stufe 1 unter der Zielquote (' || coalesce(niv.quote, '') || ')'));
+  end if;
+
+  -- Erklaersequenz (F, E1): laeuft -> weiter in der Sequenz; Signal -> warten auf den Coach.
+  if e.stand = 'laeuft' or (e.stand is null and p_letzt.art = 'erklaerung' and p_letzt.skill_key = p_aktuell) then
+    return public.session_schritt('erklaerung', 'kern', p_aktuell, null, 'gefuehrt', false, null,
+      'Erklärsequenz ' || v_lab || coalesce(': Kernidee ' || e.kernidee_nr || ' von ' || e.kernideen
+                                            || case when e.runde > 1 then ', Runde ' || e.runde || ' (Variante ' || e.variante || ')' else '' end,
+                                            ': noch nicht am Tablet begonnen'),
+      'erklaerung_laeuft', jsonb_build_object('signale', v_sig));
+  end if;
+  if e.stand = 'signal' then
+    return public.session_schritt('warten', 'kern', p_aktuell, null, null, false, null,
+      'Erklärsequenz ' || v_lab || ': Signal an den Coach nach ' || e.runde || ' Runden', 'warten_erklaersignal',
+      jsonb_build_object('signale', v_sig));
+  end if;
+
+  -- Neuer Skill: keine Belege des Kindes ausserhalb dieser Session.
+  if not p_vertiefung
+     and not exists (select 1 from public.lernpfad_belege b where b.student_id = p_student_id
+                      and b.skill_key = p_aktuell and b.session_id <> p_session_id)
+     and not exists (select 1 from public.session_antworten a join public.tasks t on t.id = a.task_id
+                      where a.student_id = p_student_id and a.session_id <> p_session_id and t.skill_key = p_aktuell) then
+    if v_seq and not exists (select 1 from public.session_schritte s where s.session_id = p_session_id
+                              and s.student_id = p_student_id and s.skill_key = p_aktuell
+                              and s.art in ('erklaerung', 'erklaerung_angebot')) then
+      return public.session_schritt(case when v_vorg then 'erklaerung' else 'erklaerung_angebot' end, 'kern',
+        p_aktuell, null, 'gefuehrt', false, null,
+        'Neuer Skill ' || v_lab || ': ' || case when v_vorg then 'Erklärsequenz vorgeschaltet' else 'Erklärung angeboten' end,
+        case when v_vorg then 'neu_erklaerung' else 'neu_erklaerung_angebot' end,
+        jsonb_build_object('signale', v_sig, 'erklaerung_weg', 'sequenz'));
+    end if;
+    select count(*) filter (where s.art = 'beispiel'), count(*) filter (where s.art = 'aufgabe' and s.nach_beispiel)
+      into v_b, v_a
+      from public.session_schritte s
+     where s.session_id = p_session_id and s.student_id = p_student_id and s.skill_key = p_aktuell;
+    if v_a < v_l then
+      if v_b <= v_a then
+        select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_aktuell, niv.niveau, p_testlauf, true);
+        if w.task_id is not null then
+          return public.session_schritt('beispiel', 'kern', p_aktuell, w.task_id, 'gefuehrt', false,
+            coalesce(w.difficulty, niv.niveau),
+            'Neuer Skill ' || v_lab || ': Lösungsbeispiel ' || (v_b + 1) || ' von ' || v_l
+              || case when v_seq then '' else ' (keine Erklärung vorhanden)' end,
+            case when v_seq then 'neu_beispiel' else 'neu_beispiel_ohne_erklaerung' end,
+            jsonb_build_object('signale', v_sig));
+        end if;
+      else
+        select public.session_schwierigkeit(t.difficulty, t.afb) as difficulty, s.schwierigkeit into v_bsp
+          from public.session_schritte s left join public.tasks t on t.id = s.task_id
+         where s.session_id = p_session_id and s.student_id = p_student_id and s.skill_key = p_aktuell
+           and s.art = 'beispiel'
+         order by s.id desc limit 1;
+        select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_aktuell,
+               coalesce(v_bsp.difficulty, v_bsp.schwierigkeit, niv.niveau), p_testlauf);
+        if w.task_id is not null then
+          return public.session_schritt('aufgabe', 'kern', p_aktuell, w.task_id, 'gefuehrt', false,
+            coalesce(v_bsp.difficulty, v_bsp.schwierigkeit, niv.niveau),
+            'Neuer Skill ' || v_lab || ': ähnliche Aufgabe zum Lösungsbeispiel', 'neu_aehnliche_aufgabe',
+            jsonb_build_object('signale', v_sig, 'nach_beispiel', true));
+        end if;
+      end if;
+    end if;
+  end if;
+
+  -- "Nochmal erklaeren" (G): Fehlversuche in Folge seit dem letzten Angebot bzw. der Erklaerung.
+  select max(s.zeit) into v_seit from public.session_schritte s
+   where s.session_id = p_session_id and s.student_id = p_student_id and s.skill_key = p_aktuell
+     and s.art in ('erklaerung', 'erklaerung_angebot');
+  select count(*) into v_fehl
+    from public.session_antworten a join public.tasks t on t.id = a.task_id
+   where a.session_id = p_session_id and a.student_id = p_student_id and t.skill_key = p_aktuell
+     and a.ergebnis <> 'richtig' and a.zeit > coalesce(v_seit, '-infinity')
+     and a.zeit > coalesce((select max(r.zeit) from public.session_antworten r join public.tasks t2 on t2.id = r.task_id
+                             where r.session_id = p_session_id and r.student_id = p_student_id
+                               and t2.skill_key = p_aktuell and r.ergebnis = 'richtig'), '-infinity');
+  if v_seq and v_fehl >= v_angeb and p_letzt.art is distinct from 'erklaerung_angebot' then
+    return public.session_schritt('erklaerung_angebot', 'kern', p_aktuell, null, 'gefuehrt', false, null,
+      v_fehl || ' Fehlversuche in Folge bei ' || v_lab || ': nochmal erklären angeboten', 'erklaerung_angebot',
+      jsonb_build_object('signale', v_sig,
+                         'erklaerung_weg', case when e.stand is null then 'sequenz' else 'nachlesen' end));
+  end if;
+
+  -- Mischen (I): die n-te Uebungsaufgabe der Kernarbeit wird gemischt, wenn
+  -- floor((n+1)*m) > floor(n*m). Einfuehrungsaufgaben zaehlen nicht.
+  select count(*) into v_n from public.session_schritte s
+   where s.session_id = p_session_id and s.student_id = p_student_id and s.phase = 'kern'
+     and s.art = 'aufgabe' and not s.nach_beispiel;
+  if floor((v_n + 1) * v_misch) > floor(v_n * v_misch) then
+    for c in
+      select * from public.session_misch_kandidaten(p_session_id, p_student_id, p_aktuell, p_ziel_skills,
+                                                    case when p_fall = 'klassenarbeit' then p_thema end)
+    loop
+      select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, c.skill_key,
+             (public.session_niveau(p_session_id, p_student_id, c.skill_key)).niveau, p_testlauf);
+      if w.task_id is not null then
+        return public.session_schritt('aufgabe', 'kern', c.skill_key, w.task_id,
+          public.session_modus(p_student_id, c.skill_key), true,
+          (public.session_niveau(p_session_id, p_student_id, c.skill_key)).niveau,
+          'Eingemischt: ' || public.session_label(c.skill_key)
+            || case when c.zuletzt is null then ', noch nicht in einer Session geübt'
+                    else ', länger nicht geübt' end
+            || case when c.voraussetzung then ' (Voraussetzung von ' || coalesce(p_ziel_label, v_lab) || ')' else '' end,
+          'gemischt', jsonb_build_object('signale', v_sig));
+      end if;
+    end loop;
+  end if;
+
+  select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, p_aktuell, niv.niveau, p_testlauf);
+  if w.task_id is null then
+    return public.session_schritt('warten', 'kern', p_aktuell, null, null, false, niv.niveau,
+      'Keine passende Aufgabe im Pool für ' || v_lab, 'pool_leer', jsonb_build_object('signale', v_sig));
+  end if;
+  v_grund := case when p_vertiefung then 'Ziel erreicht, Vertiefung: ' else 'Kernarbeit: ' end || v_lab
+    || ', Stufe ' || niv.niveau
+    || case niv.aenderung when 1 then ', eine Stufe schwerer (' || niv.quote || ' ohne Hinweis richtig)'
+                          when -1 then ', eine Stufe leichter (' || niv.quote || ' ohne Hinweis richtig)'
+                          when -2 then ', bleibt auf Stufe 1 (' || niv.quote || ' ohne Hinweis richtig)'
+                          else '' end
+    || ', ' || case v_modus when 'gefuehrt' then 'geführt' else 'selbstständig' end;
+  return public.session_schritt('aufgabe', 'kern', p_aktuell, w.task_id, v_modus, false, niv.niveau, v_grund,
+    case when p_vertiefung then 'vertiefung' else 'kern' end, jsonb_build_object('signale', v_sig));
+end;
+$$;
+
+
+--
+-- Name: session_plan_warmup(uuid, uuid, boolean, text, text, text[], text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_plan_warmup(p_session_id uuid, p_student_id uuid, p_testlauf boolean, p_uhr text, p_aktuell text, p_ziel_skills text[], p_ziel_label text) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  v_n       int := public.session_wert_zahl(p_session_id, 'warmup_aufgaben')::int;
+  v_leicht  int := public.session_wert_zahl(p_session_id, 'warmup_leichter_stufen')::int;
+  v_fehl    int := public.session_wert_zahl(p_session_id, 'signal_fehlversuche')::int;
+  v_sig     jsonb := '[]';
+  v_fertig  int;
+  v_letzt   text;
+  v_voraus  text[];
+  c         record;
+  w         record;
+  v_niv     int;
+  v_grund   text;
+begin
+  v_voraus := array(select distinct a.skill_key from unnest(p_ziel_skills) z(sk)
+                     cross join lateral public.lsa_abschluss(z.sk) a);
+
+  -- Signal: Fehlversuche auf einer Voraussetzung des aktuellen Skills.
+  for c in
+    select t.skill_key, count(*) filter (where a.ergebnis <> 'richtig') as fehl
+      from public.session_antworten a join public.tasks t on t.id = a.task_id
+     where a.session_id = p_session_id and a.student_id = p_student_id and a.phase = 'warmup'
+     group by t.skill_key
+  loop
+    if c.fehl >= v_fehl and p_aktuell is not null
+       and c.skill_key in (select a.skill_key from public.lsa_abschluss(p_aktuell) a)
+       and not exists (select 1 from public.session_ereignisse e
+                        where e.session_id = p_session_id and e.student_id = p_student_id and e.typ = 'signal'
+                          and e.payload ->> 'art' = 'entscheidung' and e.payload ->> 'skill_key' = c.skill_key) then
+      v_sig := v_sig || jsonb_build_object('art', 'entscheidung', 'skill_key', c.skill_key, 'ziel_skill_key', p_aktuell,
+        'grund', 'Entscheidung: eine Stufe tiefer? ' || c.fehl || ' Fehlversuche bei ' || public.session_label(c.skill_key)
+                 || ' im Warm-up', 'grund_code', 'entscheidung_tiefer');
+    end if;
+  end loop;
+
+  select count(*), (array_agg(s.skill_key order by s.id desc))[1] into v_fertig, v_letzt
+    from public.session_schritte s
+   where s.session_id = p_session_id and s.student_id = p_student_id and s.phase = 'warmup' and s.art = 'aufgabe';
+
+  if v_fertig >= v_n then
+    if p_uhr in ('checkin', 'warmup')
+       and (jsonb_array_length(v_sig) > 0
+            or exists (select 1 from public.session_ereignisse e
+                        where e.session_id = p_session_id and e.student_id = p_student_id and e.typ = 'signal'
+                          and e.payload ->> 'art' = 'entscheidung'
+                          and not exists (select 1 from public.session_ereignisse x
+                                           where x.session_id = p_session_id and x.student_id = p_student_id
+                                             and x.typ = 'signal_erledigt' and x.payload ->> 'art' = 'entscheidung'
+                                             and x.zeit > e.zeit))) then
+      return public.session_schritt('warten', 'warmup', p_aktuell, null, null, false, null,
+        'Warm-up fertig: Entscheidung des Coaches offen (eine Stufe tiefer?)', 'warten_entscheidung',
+        jsonb_build_object('signale', v_sig));
+    end if;
+    return jsonb_build_object('signale', v_sig);
+  end if;
+
+  -- Kandidaten: sichere Skills und die Skills, die heute schon im Warm-up dran waren (ein Fehler im
+  -- Warm-up macht einen Skill im Lernpfad unsicher; das Warm-up bleibt trotzdem bei ihm).
+  for c in
+    select s.skill_key, s.quelle, s.zuletzt, s.skill_key = any (v_voraus) as voraus
+      from (select distinct on (u.skill_key) u.* from (
+              select ss.skill_key, ss.quelle, ss.zuletzt from public.session_sichere_skills(p_student_id) ss
+              union all
+              select x.skill_key, 'lernpfad', null from public.session_schritte x
+               where x.session_id = p_session_id and x.student_id = p_student_id and x.phase = 'warmup'
+                 and x.art = 'aufgabe') u
+            order by u.skill_key, u.zuletzt nulls last) s
+     where s.skill_key is distinct from p_aktuell
+     order by (s.skill_key = v_letzt) desc, (s.skill_key = any (v_voraus)) desc,
+              exists (select 1 from public.skill_kante k where k.skill_key = p_aktuell
+                       and k.voraussetzt_skill_key = s.skill_key) desc,
+              s.zuletzt nulls first, s.skill_key
+  loop
+    v_niv := greatest(1, (public.session_niveau(p_session_id, p_student_id, c.skill_key)).niveau - v_leicht);
+    select * into w from public.session_aufgabe_waehlen(p_session_id, p_student_id, c.skill_key, v_niv, p_testlauf);
+    if w.task_id is not null then
+      v_grund := 'Warm-up ' || (v_fertig + 1) || ' von ' || v_n || ': '
+        || case when c.voraus then 'Voraussetzung von ' || coalesce(p_ziel_label, public.session_label(p_aktuell))
+                when c.quelle = 'lsa' then public.session_label(c.skill_key) || ', sicher in der LSA'
+                else public.session_label(c.skill_key) || ', sicher aus früheren Sessions' end
+        || ', ' || case v_leicht when 0 then 'auf gleicher Stufe' when 1 then 'eine Stufe leichter'
+                                 else v_leicht || ' Stufen leichter' end;
+      return public.session_schritt('aufgabe', 'warmup', c.skill_key, w.task_id,
+        public.session_modus(p_student_id, c.skill_key), false, v_niv, v_grund,
+        case when c.voraus then 'warmup_voraussetzung' else 'warmup_sicher' end,
+        jsonb_build_object('signale', v_sig));
+    end if;
+  end loop;
+
+  -- Kein sicherer Skill mit Aufgaben: das Warm-up entfaellt.
+  return jsonb_build_object('signale', v_sig, 'ohne_warmup', true);
+end;
 $$;
 
 
@@ -9907,6 +10810,160 @@ $$;
 
 
 --
+-- Name: session_schritt(text, text, text, uuid, text, boolean, integer, text, text, jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_schritt(p_art text, p_phase text, p_skill_key text, p_task_id uuid, p_modus text, p_eingemischt boolean, p_schwierigkeit integer, p_grund text, p_grund_code text, p_extra jsonb DEFAULT '{}'::jsonb) RETURNS jsonb
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object('art', p_art, 'phase', p_phase, 'skill_key', p_skill_key, 'task_id', p_task_id,
+                            'modus', p_modus, 'eingemischt', coalesce(p_eingemischt, false),
+                            'schwierigkeit', p_schwierigkeit, 'grund', p_grund, 'grund_code', p_grund_code)
+         || coalesce(p_extra, '{}'::jsonb)
+$$;
+
+
+--
+-- Name: session_schritt_oeffentlich(jsonb, boolean); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_schritt_oeffentlich(p_schritt jsonb, p_coach boolean DEFAULT false) RETURNS jsonb
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select jsonb_build_object(
+           'art', p_schritt ->> 'art', 'phase', p_schritt ->> 'phase', 'skill_key', p_schritt ->> 'skill_key',
+           'skill_label', case when p_schritt ->> 'skill_key' is not null
+                               then public.session_label(p_schritt ->> 'skill_key') end,
+           'task_id', p_schritt ->> 'task_id', 'modus', p_schritt ->> 'modus',
+           'eingemischt', coalesce((p_schritt ->> 'eingemischt')::boolean, false),
+           'grund_code', p_schritt ->> 'grund_code',
+           'hinweise_erlaubt', p_schritt ->> 'art' = 'aufgabe',
+           'aufgabe', case when p_schritt ->> 'art' in ('aufgabe', 'exit', 'beispiel')
+                           then public.lsa_question_payload((p_schritt ->> 'task_id')::uuid) end)
+         || case when p_schritt ->> 'art' = 'beispiel' then jsonb_build_object('loesungsweg',
+              (select ts.solution from public.task_solutions ts where ts.task_id = (p_schritt ->> 'task_id')::uuid))
+            else '{}'::jsonb end
+         -- Grund und Stufe sind Coach-Wissen (Quoten, Fehlversuche, Exit-Ergebnis): nie ans Tablet
+         -- (CLAUDE.md §6, Consensus-Check Befund 1).
+         || case when p_coach then jsonb_build_object('grund', p_schritt ->> 'grund',
+                                                      'schwierigkeit', (p_schritt ->> 'schwierigkeit')::int)
+            else '{}'::jsonb end
+         || case when p_schritt ? 'erklaerung_weg' then jsonb_build_object('erklaerung_weg', p_schritt ->> 'erklaerung_weg')
+            else '{}'::jsonb end
+$$;
+
+
+--
+-- Name: session_schritt_planen(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_schritt_planen(p_session_id uuid, p_student_id uuid) RETURNS jsonb
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+declare
+  s        public.coaching_sessions;
+  v_letzt  public.session_schritte;
+  v_uhr    text;
+  f        record;
+  v_ziel   text[];
+  v_akt    text;
+  v_vert   boolean := false;
+  v_label  text;
+  v_kand   jsonb;
+  v_kern   jsonb;
+  v_alt    text;
+  v_alt_r  jsonb;
+  r        jsonb;
+begin
+  select * into s from public.coaching_sessions where id = p_session_id;
+  if s.status = 'done' then
+    return public.session_schritt('fertig', 'checkout', null, null, null, false, null,
+      'Session abgeschlossen', 'session_abgeschlossen');
+  elsif s.status is distinct from 'active' then
+    return public.session_schritt('warten', 'checkin', null, null, null, false, null,
+      'Session ist noch nicht gestartet', 'session_nicht_gestartet');
+  end if;
+  if not exists (select 1 from public.session_tablets t where t.session_id = p_session_id
+                  and t.student_id = p_student_id and t.geloest_am is null) then
+    return public.session_schritt('warten', 'checkin', null, null, null, false, null,
+      'Kind hat noch kein Tablet', 'kein_tablet');
+  end if;
+  if not exists (select 1 from public.session_checkin c where c.session_id = p_session_id
+                  and c.student_id = p_student_id and c.kind_am is not null) then
+    return public.session_schritt('warten', 'checkin', null, null, null, false, null,
+      'Check-in am Tablet läuft', 'checkin_laeuft');
+  end if;
+
+  select * into v_letzt from public.session_schritte x
+   where x.session_id = p_session_id and x.student_id = p_student_id order by x.id desc limit 1;
+
+  -- Offene Schritte kommen unveraendert wieder (kein neuer Eintrag).
+  if (v_letzt.art in ('aufgabe', 'exit')
+      and not coalesce((public.session_aufgabe_stand(p_session_id, p_student_id, v_letzt.task_id)).erledigt, false))
+     or v_letzt.art = 'fertig'
+     or (v_letzt.art = 'termin' and not public.session_termin_gewaehlt(p_session_id, p_student_id)) then
+    return public.session_schritt(v_letzt.art, v_letzt.phase, v_letzt.skill_key, v_letzt.task_id, v_letzt.modus,
+      v_letzt.eingemischt, v_letzt.schwierigkeit, v_letzt.grund, v_letzt.grund_code,
+      jsonb_build_object('offen', true, 'nach_beispiel', v_letzt.nach_beispiel));
+  end if;
+
+  v_uhr := public.session_uhr_phase(p_session_id);
+  v_kand := public.session_kandidat_signale(p_session_id, p_student_id);
+  f := public.session_fall(p_session_id, p_student_id);
+  v_label := (select th.label from public.themen th where th.thema_key = f.thema_key);
+
+  select array_agg(z.skill_key order by z.reihenfolge),
+         (array_agg(z.skill_key order by z.reihenfolge) filter (where z.offen))[1]
+    into v_ziel, v_akt
+    from public.session_zielliste(p_session_id, p_student_id) z;
+  if v_akt is null and cardinality(v_ziel) > 0 then
+    v_akt := v_ziel[cardinality(v_ziel)];
+    v_vert := true;
+  end if;
+
+  if v_uhr = 'checkout' or v_letzt.phase = 'checkout' then
+    r := public.session_plan_checkout(p_session_id, p_student_id, s.testlauf, v_akt);
+  else
+    if v_uhr in ('checkin', 'warmup') then
+      r := public.session_plan_warmup(p_session_id, p_student_id, s.testlauf, v_uhr, v_akt,
+                                      coalesce(v_ziel, '{}'), v_label);
+    end if;
+    if r ->> 'art' is null then
+      if v_akt is null then
+        r := public.session_schritt('warten', 'kern', null, null, null, false, null,
+          'Kein Ziel: kein Thema gewählt und keine Lücke im Lernpfad', 'kein_ziel',
+          jsonb_build_object('signale', coalesce(r -> 'signale', '[]')));
+      else
+        v_kern := public.session_plan_kern(p_session_id, p_student_id, s.testlauf, v_akt, v_vert,
+                                           coalesce(v_ziel, '{}'), v_label, f.fall, f.thema_key, v_letzt);
+        -- Consensus-Check Befund 3: Pool des aktuellen Skills leer -> naechster offener Skill des Ziels.
+        if v_kern ->> 'grund_code' = 'pool_leer' then
+          for v_alt in select z.skill_key from public.session_zielliste(p_session_id, p_student_id) z
+                        where z.offen and z.skill_key <> v_akt order by z.reihenfolge loop
+            v_alt_r := public.session_plan_kern(p_session_id, p_student_id, s.testlauf, v_alt, false,
+                         coalesce(v_ziel, '{}'), v_label, f.fall, f.thema_key, v_letzt);
+            if v_alt_r ->> 'grund_code' <> 'pool_leer' then
+              v_kern := v_alt_r || jsonb_build_object('grund', (v_alt_r ->> 'grund') || ' (keine Aufgabe mehr zu '
+                                                               || public.session_label(v_akt) || ')');
+              exit;
+            end if;
+          end loop;
+        end if;
+        r := v_kern || jsonb_build_object('signale', coalesce(r -> 'signale', '[]') || (v_kern -> 'signale'));
+      end if;
+    end if;
+  end if;
+
+  return r || jsonb_build_object('signale', coalesce(r -> 'signale', '[]') || v_kand,
+                                 'fall', f.fall, 'fall_gewaehlt', f.fall_gewaehlt, 'ziel_thema_key', f.thema_key);
+end;
+$$;
+
+
+--
 -- Name: session_schulthema(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9917,6 +10974,38 @@ CREATE FUNCTION public.session_schulthema(p_student_id uuid) RETURNS text
   select lt.thema_key from public.lead_themen lt
    where lt.lead_id = public.session_lead_von_kind(p_student_id) and lt.status = 'aktuell'
    order by lt.angelegt desc limit 1
+$$;
+
+
+--
+-- Name: session_schwierigkeit(integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_schwierigkeit(p_difficulty integer, p_afb text) RETURNS integer
+    LANGUAGE sql IMMUTABLE
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select coalesce(p_difficulty, case p_afb when 'I' then 2 when 'II' then 3 when 'III' then 4 else 2 end)
+$$;
+
+
+--
+-- Name: session_sichere_skills(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_sichere_skills(p_student_id uuid) RETURNS TABLE(skill_key text, zuletzt timestamp with time zone, quelle text)
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  with lp as (
+    select l.skill_key, l.letzte_uebung_am from public.lernpfad l
+     where l.student_id = p_student_id
+       and (l.stand_system in ('sicher', 'kandidat') or l.stand_coach = 'gemeistert')
+  )
+  select lp.skill_key, lp.letzte_uebung_am, 'lernpfad' from lp
+  union all
+  select u.skill_key, null::timestamptz, 'lsa' from public.lernpfad_lsa_urteile(p_student_id) u
+   where u.zustand = 'traegt' and not exists (select 1 from lp)
 $$;
 
 
@@ -10144,6 +11233,21 @@ $$;
 
 
 --
+-- Name: session_termin_gewaehlt(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_termin_gewaehlt(p_session_id uuid, p_student_id uuid) RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (select 1 from public.session_kind_abschluss k where k.session_id = p_session_id
+                  and k.student_id = p_student_id and k.quest_termin is not null)
+      or exists (select 1 from public.quests q where q.session_id = p_session_id
+                  and q.student_id = p_student_id and q.termin is not null)
+$$;
+
+
+--
 -- Name: session_testlauf_setzen(uuid, boolean); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -10160,6 +11264,29 @@ begin
     raise exception 'session_testlauf_setzen: Session nicht gefunden' using errcode = 'P0002';
   end if;
 end;
+$$;
+
+
+--
+-- Name: session_uhr_phase(uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_uhr_phase(p_session_id uuid) RETURNS text
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select case
+    when cs.gestartet_am is null then null
+    when now() < cs.gestartet_am + public.session_wert_zahl(cs.id, 'phase_checkin_min') * interval '1 minute'
+      then 'checkin'
+    when now() < cs.gestartet_am + (public.session_wert_zahl(cs.id, 'phase_checkin_min')
+                                   + public.session_wert_zahl(cs.id, 'phase_warmup_min')) * interval '1 minute'
+      then 'warmup'
+    when now() < cs.gestartet_am + (60 - public.session_wert_zahl(cs.id, 'phase_checkout_min')) * interval '1 minute'
+      then 'kern'
+    else 'checkout'
+  end
+    from public.coaching_sessions cs where cs.id = p_session_id
 $$;
 
 
@@ -10217,6 +11344,42 @@ CREATE FUNCTION public.session_wert_zahl(p_session_id uuid, p_schluessel text) R
     SET search_path TO 'public', 'pg_temp'
     AS $$
   select (public.session_wert(p_session_id, p_schluessel) #>> '{}')::numeric
+$$;
+
+
+--
+-- Name: session_zielliste(uuid, uuid); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.session_zielliste(p_session_id uuid, p_student_id uuid) RETURNS TABLE(reihenfolge integer, skill_key text, label text, rolle text, stand text, offen boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+declare
+  f       record := public.session_fall(p_session_id, p_student_id);
+  v_start timestamptz := (select gestartet_am from public.coaching_sessions where id = p_session_id);
+begin
+  if f.fall in ('klassenarbeit', 'schulthema') then
+    return query
+      select z.reihenfolge, z.skill_key, z.label, z.rolle, z.stand,
+             not coalesce(z.stand in ('sicher', 'kandidat', 'gemeistert')
+                  or (z.rolle like 'voraussetzung%' and z.stand in ('noch_nicht_sicher', 'aktiv')
+                      and l.stand_system_seit >= v_start
+                      and not exists (select 1 from public.lernpfad_protokoll p
+                                       where p.student_id = p_student_id and p.skill_key = z.skill_key
+                                         and p.aktion = 'pfad_tiefer' and p.session_id = p_session_id))
+                  or public.session_heute_sicher(p_session_id, p_student_id, z.skill_key), false)
+        from public.ziel_fertigkeiten_core(p_student_id, f.thema_key) z
+        left join public.lernpfad l on l.student_id = p_student_id and l.skill_key = z.skill_key
+       order by z.reihenfolge;
+  else
+    return query
+      select 1, n.skill_key, n.label, 'luecke'::text, coalesce(n.stand_system, 'noch_nicht_sicher'),
+             not public.session_heute_sicher(p_session_id, p_student_id, n.skill_key)
+        from public.naechste_luecke_core(p_student_id) n;
+  end if;
+end;
 $$;
 
 
@@ -12189,11 +13352,25 @@ CREATE FUNCTION public.ziel_fertigkeiten(p_student_id uuid, p_thema_key text) RE
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-#variable_conflict use_column
 begin
-  if not (public.ist_systemaufruf() or public.lernpfad_darf_lesen(p_student_id)) then
+  if not (public.ist_systemaufruf() or coalesce(public.lernpfad_darf_lesen(p_student_id), false)) then
     raise exception 'ziel_fertigkeiten: nur Admin oder Coach bei laufendem Vertrag' using errcode = '42501';
   end if;
+  return query select * from public.ziel_fertigkeiten_core(p_student_id, p_thema_key);
+end;
+$$;
+
+
+--
+-- Name: ziel_fertigkeiten_core(uuid, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ziel_fertigkeiten_core(p_student_id uuid, p_thema_key text) RETURNS TABLE(reihenfolge integer, skill_key text, label text, klasse_herkunft integer, rolle text, stand_system text, stand_coach text, stand text, pruefung_faellig boolean)
+    LANGUAGE plpgsql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+#variable_conflict use_column
+begin
   if not exists (select 1 from public.themen t where t.thema_key = p_thema_key) then
     raise exception 'ziel_fertigkeiten: Thema % unbekannt', p_thema_key using errcode = 'P0002';
   end if;
@@ -13388,6 +14565,20 @@ CREATE TABLE public.session_kind_abschluss (
     CONSTRAINT session_kind_abschluss_exit_ergebnis_check CHECK (((exit_ergebnis IS NULL) OR ((jsonb_typeof((exit_ergebnis -> 'richtig'::text)) = 'number'::text) AND (jsonb_typeof((exit_ergebnis -> 'gesamt'::text)) = 'number'::text)))),
     CONSTRAINT session_kind_abschluss_notiz_check CHECK (((notiz IS NULL) OR (NULLIF(btrim(notiz), ''::text) IS NOT NULL))),
     CONSTRAINT session_kind_abschluss_satz_text_check CHECK (((satz_text IS NULL) OR (NULLIF(btrim(satz_text), ''::text) IS NOT NULL)))
+);
+
+
+--
+-- Name: session_schritte_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.session_schritte ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.session_schritte_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
 );
 
 
@@ -14878,6 +16069,14 @@ ALTER TABLE ONLY public.session_kind_abschluss
 
 
 --
+-- Name: session_schritte session_schritte_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.session_schritte
+    ADD CONSTRAINT session_schritte_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: session_students session_students_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -15750,10 +16949,24 @@ CREATE INDEX session_antworten_kind_idx ON public.session_antworten USING btree 
 
 
 --
+-- Name: session_antworten_task_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX session_antworten_task_idx ON public.session_antworten USING btree (student_id, task_id);
+
+
+--
 -- Name: session_ausgegeben_kind_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX session_ausgegeben_kind_idx ON public.session_ausgegeben USING btree (session_id, student_id, zeit DESC);
+
+
+--
+-- Name: session_ausgegeben_kind_task_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX session_ausgegeben_kind_task_idx ON public.session_ausgegeben USING btree (student_id, task_id, zeit);
 
 
 --
@@ -15768,6 +16981,20 @@ CREATE INDEX session_einstellungen_protokoll_idx ON public.session_einstellungen
 --
 
 CREATE INDEX session_ereignisse_kind_idx ON public.session_ereignisse USING btree (session_id, student_id, typ, zeit);
+
+
+--
+-- Name: session_schritte_kind_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX session_schritte_kind_idx ON public.session_schritte USING btree (session_id, student_id, id DESC);
+
+
+--
+-- Name: session_schritte_task_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX session_schritte_task_idx ON public.session_schritte USING btree (student_id, task_id) WHERE (task_id IS NOT NULL);
 
 
 --
@@ -16202,6 +17429,13 @@ CREATE TRIGGER session_ausgegeben_nur_anhaengen BEFORE DELETE OR UPDATE ON publi
 --
 
 CREATE TRIGGER session_ereignisse_nur_anhaengen BEFORE DELETE OR UPDATE ON public.session_ereignisse FOR EACH ROW EXECUTE FUNCTION public.session_nur_anhaengen();
+
+
+--
+-- Name: session_schritte session_schritte_nur_anhaengen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER session_schritte_nur_anhaengen BEFORE DELETE OR UPDATE ON public.session_schritte FOR EACH ROW EXECUTE FUNCTION public.session_nur_anhaengen();
 
 
 --
@@ -17403,6 +18637,46 @@ ALTER TABLE ONLY public.session_kind_abschluss
 
 ALTER TABLE ONLY public.session_kind_abschluss
     ADD CONSTRAINT session_kind_abschluss_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: session_schritte session_schritte_session_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.session_schritte
+    ADD CONSTRAINT session_schritte_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.coaching_sessions(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: session_schritte session_schritte_session_id_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.session_schritte
+    ADD CONSTRAINT session_schritte_session_id_student_id_fkey FOREIGN KEY (session_id, student_id) REFERENCES public.session_students(session_id, student_id);
+
+
+--
+-- Name: session_schritte session_schritte_skill_key_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.session_schritte
+    ADD CONSTRAINT session_schritte_skill_key_fkey FOREIGN KEY (skill_key) REFERENCES public.skills(skill_key);
+
+
+--
+-- Name: session_schritte session_schritte_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.session_schritte
+    ADD CONSTRAINT session_schritte_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.students(id) ON DELETE CASCADE;
+
+
+--
+-- Name: session_schritte session_schritte_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.session_schritte
+    ADD CONSTRAINT session_schritte_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id);
 
 
 --
@@ -19243,6 +20517,12 @@ ALTER TABLE public.session_ereignisse ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.session_kind_abschluss ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: session_schritte; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.session_schritte ENABLE ROW LEVEL SECURITY;
 
 --
 -- Name: session_students; Type: ROW SECURITY; Schema: public; Owner: -
