@@ -214,6 +214,7 @@ begin
   update public.coaching_sessions
      set status = 'active', gestartet_am = now(), einstellungen = v_sn
    where id = p_session_id;
+  perform set_config('edvance.session_rpc', '', true);
   return v_sn;
 end;
 $$;
@@ -221,8 +222,34 @@ $$;
 comment on function public.session_starten(uuid) is
   'R1: Coach der Session oder Admin startet eine geplante Session (upcoming -> active) und friert die Stellschrauben ein.';
 
+-- Consensus-Check Befund 1: Die bestehenden Regeln coaching_sessions_coach_rw
+-- und session_students_coach_rw (FOR ALL) erlauben dem Coach DELETE. Ueber die
+-- Kaskade wuerden sonst Antworten und Ereignisse verschwinden. Deshalb loeschen
+-- eine Session mit Rohdaten nur Admin oder Systemaufruf (z. B. DSGVO-Loeschung).
+-- Den Schutz fuer session_students legt 20261007110500 an (braucht session_antworten).
+create function public.coaching_sessions_loeschschutz()
+returns trigger
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+begin
+  if not public.ist_systemaufruf() and coalesce(public.get_my_role(), '') <> 'admin'
+     and (old.status <> 'upcoming'
+          or exists (select 1 from public.session_ereignisse e where e.session_id = old.id)) then
+    raise exception 'coaching_sessions: eine gestartete Session loescht nur ein Admin' using errcode = '42501';
+  end if;
+  return old;
+end;
+$$;
+
+create trigger coaching_sessions_loeschschutz_trg
+  before delete on public.coaching_sessions
+  for each row execute function public.coaching_sessions_loeschschutz();
+
 revoke all on function
   public.session_rpc_markieren(), public.coaching_sessions_laufzustand_guard(),
+  public.coaching_sessions_loeschschutz(),
   public.session_nur_anhaengen(), public.session_ist_coach(uuid), public.session_coach_pruefen(uuid, text),
   public.session_wert(uuid, text), public.session_wert_zahl(uuid, text),
   public.session_ereignis(uuid, uuid, text, jsonb), public.session_phase(uuid, uuid),

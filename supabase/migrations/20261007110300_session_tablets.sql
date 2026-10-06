@@ -137,6 +137,9 @@ begin
     raise exception 'tablet_zuweisen: hoechstens 5 Kinder im Raum' using errcode = 'P0001', hint = 'raum_voll';
   end if;
 
+  if p_tablet_nr is null or p_tablet_nr not between 1 and 5 then
+    raise exception 'tablet_zuweisen: Tablet 1 bis 5' using errcode = '22023', hint = 'tablet_unbekannt';
+  end if;
   select profile_id into v_ger from public.platz_devices where tablet_nr = p_tablet_nr;
   if v_ger is null then
     raise exception 'tablet_zuweisen: Tablet % ist nicht eingerichtet', p_tablet_nr using errcode = 'P0002',

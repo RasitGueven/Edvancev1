@@ -170,5 +170,7 @@ $$;
 comment on function public.einstellung_setzen(text, jsonb, text) is
   'R1: setzt eine Stellschraube (nur Admin, Spanne geprueft, Grund Pflicht) und protokolliert alt/neu.';
 
+revoke all on function public.session_einstellung_gueltig(text, numeric, numeric, boolean, text[], jsonb)
+  from public, anon, authenticated;
 revoke all on function public.einstellung_setzen(text, jsonb, text) from public, anon, authenticated;
 grant execute on function public.einstellung_setzen(text, jsonb, text) to authenticated;

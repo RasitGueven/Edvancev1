@@ -58,6 +58,30 @@ create trigger session_ausgegeben_nur_anhaengen
   before update or delete on public.session_ausgegeben
   for each row execute function public.session_nur_anhaengen();
 
+-- Consensus-Check Befund 1, zweiter Teil: eine Buchung mit Rohdaten loescht
+-- nur Admin oder Systemaufruf (Kaskade auf Antworten/Ereignisse).
+create function public.session_students_loeschschutz()
+returns trigger
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+begin
+  if not public.ist_systemaufruf() and coalesce(public.get_my_role(), '') <> 'admin'
+     and (exists (select 1 from public.session_antworten a
+                   where a.session_id = old.session_id and a.student_id = old.student_id)
+          or exists (select 1 from public.session_ereignisse e
+                      where e.session_id = old.session_id and e.student_id = old.student_id)) then
+    raise exception 'session_students: eine Buchung mit Session-Daten loescht nur ein Admin' using errcode = '42501';
+  end if;
+  return old;
+end;
+$$;
+
+create trigger session_students_loeschschutz_trg
+  before delete on public.session_students
+  for each row execute function public.session_students_loeschschutz();
+
 alter table public.session_ausgegeben enable row level security;
 alter table public.session_antworten enable row level security;
 revoke all on public.session_ausgegeben, public.session_antworten from public, anon, authenticated;
@@ -226,10 +250,17 @@ begin
   if p_stufe is null or p_stufe < 1 or p_stufe > public.session_wert_zahl(p_session_id, 'hinweisstufen') then
     raise exception 'hinweis_abrufen: Stufe % ist nicht freigeschaltet', p_stufe using errcode = '22023';
   end if;
+  -- Prinzip der minimalen Hilfe (Entscheidung 11): Stufe n erst nach Stufe n-1.
+  if p_stufe > 1 and not exists (select 1 from public.session_ereignisse e
+       where e.session_id = p_session_id and e.student_id = t.student_id and e.typ = 'hinweis'
+         and e.payload ->> 'task_id' = p_task_id::text and (e.payload ->> 'stufe')::int = p_stufe - 1) then
+    raise exception 'hinweis_abrufen: erst Stufe %', p_stufe - 1 using errcode = '22023', hint = 'hinweis_reihenfolge';
+  end if;
 
   select h ->> 'text' into v_text
     from public.task_solutions s, jsonb_array_elements(s.hints) as e(h)
-   where s.task_id = p_task_id and (h ->> 'level')::int = p_stufe and h ->> 'status' = 'geprueft'
+   where s.task_id = p_task_id and h ->> 'level' = p_stufe::text and h ->> 'status' = 'geprueft'
+   order by h ->> 'text'
    limit 1;
 
   perform public.session_ereignis(p_session_id, t.student_id, 'hinweis',
@@ -272,7 +303,7 @@ end;
 $$;
 
 revoke all on function
-  public.session_aktuelle_ausgabe(uuid, uuid), public.session_bewerten(uuid, int, jsonb),
+  public.session_students_loeschschutz(), public.session_aktuelle_ausgabe(uuid, uuid), public.session_bewerten(uuid, int, jsonb),
   public.aufgabe_ausgeben(uuid, uuid, uuid, boolean), public.antwort_abgeben(uuid, uuid, int, jsonb, int),
   public.hinweis_abrufen(uuid, uuid, int), public.tablet_stand()
   from public, anon, authenticated;

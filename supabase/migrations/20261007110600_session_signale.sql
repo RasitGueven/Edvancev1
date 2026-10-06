@@ -155,7 +155,7 @@ $$;
 
 -- Meldet ein Signal, das nicht aus Antworten folgt (Mastery-Kandidat aus A1,
 -- Entscheidung "eine Stufe tiefer" nach dem Warm-up, Hinweis). Coach, Admin
--- oder Systemaufruf (P2-Funktionen).
+-- oder Systemaufruf (P2-Funktionen); 'kandidat' nur als Systemaufruf.
 create function public.signal_melden(p_session_id uuid, p_student_id uuid, p_art text, p_payload jsonb default '{}')
 returns void
 language plpgsql
@@ -169,6 +169,11 @@ begin
   end if;
   if p_art is null or p_art not in ('kandidat', 'entscheidung', 'hinweis') then
     raise exception 'signal_melden: unbekannte Art %', p_art using errcode = '22023';
+  end if;
+  -- Consensus-Check Befund 3: Mastery-Kandidaten entstehen nur aus den Kriterien
+  -- von Entscheidung 16 (A1), nie von Hand.
+  if p_art = 'kandidat' and not public.ist_systemaufruf() then
+    raise exception 'signal_melden: Mastery-Kandidaten meldet nur das System (A1)' using errcode = '42501';
   end if;
   perform public.session_ereignis(p_session_id, p_student_id, 'signal',
                                   coalesce(p_payload, '{}'::jsonb) || jsonb_build_object('art', p_art));
