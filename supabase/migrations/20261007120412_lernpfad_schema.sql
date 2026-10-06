@@ -243,8 +243,9 @@ create policy lernpfad_protokoll_lesen on public.lernpfad_protokoll
   for select to authenticated
   using (public.lernpfad_darf_lesen(student_id));
 
--- Entwuerfe sieht nur der Admin direkt; Coaches lesen ueber skill_pruefung_lesen
--- (nur freigegeben), Kinder gar nicht (Erwartung ist Coach-Wissen).
+-- Direkt liest nur der Admin (auch Entwuerfe). Coaches lesen ueber die
+-- Funktion skill_pruefung_lesen (nur freigegeben); Kinder gar nicht, denn die
+-- Erwartung ist Coach-Wissen.
 create policy skill_pruefung_admin_lesen on public.skill_pruefung
   for select to authenticated
   using (public.get_my_role() = 'admin');

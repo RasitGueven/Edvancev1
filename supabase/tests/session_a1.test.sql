@@ -30,7 +30,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(39);
+select plan(45);
 
 \set admin_uid  'a1a1a1a1-0001-4000-8000-000000000001'
 \set coach_uid  'a1a1a1a1-0001-4000-8000-000000000002'
@@ -42,6 +42,7 @@ select plan(39);
 \set s1         'a1a1a1a1-0005-4000-8000-000000000001'
 \set s2         'a1a1a1a1-0005-4000-8000-000000000002'
 \set sf         'a1a1a1a1-0005-4000-8000-000000000003'
+\set s3         'a1a1a1a1-0005-4000-8000-000000000004'
 \set ohne       'a1a1a1a1-0003-4000-8000-000000000002'
 
 insert into auth.users (id, email, instance_id, aud, role) values
@@ -94,9 +95,10 @@ values (:'lead_id', :'kind', 'abgeschlossen', 'aktiv',
 insert into coaching_sessions (id, coach_id, scheduled_at, status) values
   (:'s1', :'coach_uid', now() - interval '7 days', 'done'),
   (:'s2', :'coach_uid', now(), 'upcoming'),
-  (:'sf', :'fremd_uid', now(), 'upcoming');
+  (:'sf', :'fremd_uid', now(), 'upcoming'),
+  (:'s3', :'coach_uid', now() + interval '7 days', 'upcoming');
 insert into session_students (session_id, student_id, attendance) values
-  (:'s1', :'kind', 'present'), (:'s2', :'kind', 'planned');
+  (:'s1', :'kind', 'present'), (:'s2', :'kind', 'present'), (:'s3', :'kind', 'planned');
 set local session_replication_role = origin;
 
 insert into lsa_sessions (id, student_id, subject, grade, status, completed_at, modus)
@@ -212,6 +214,11 @@ select pg_temp.act_as(:'fremd_uid');
 select throws_ok(format($f$select public.lernpfad_beleg(%L, 'zz_a1_basis', %L, 'richtig', false)$f$, :'kind', :'s1'),
   '42501', NULL, '3: fremder Coach bucht keinen Beleg');
 
+select pg_temp.act_as(:'coach_uid');
+select throws_ok(format($f$select public.lernpfad_beleg(%L, 'zz_a1_basis', %L, 'richtig', false)$f$, :'kind', :'s3'),
+  'P0001', NULL, '3: kein Beleg aus einer Session, in der das Kind nicht anwesend ist (Entscheidung 4)');
+select pg_temp.act_as(:'fremd_uid');
+
 -- 4) Mastery-Entscheidung ----------------------------------------------------
 select throws_ok(format($f$select public.mastery_entscheiden(%L, 'zz_a1_vor', 'gemeistert', null, %L)$f$, :'kind', :'sf'),
   '42501', NULL, '4: fremder Coach (eigene Session ohne das Kind) → 42501');
@@ -265,6 +272,34 @@ select pg_temp.act_as(:'coach_uid');
 select results_eq($$select frage from public.skill_pruefung_lesen('zz_a1_vor')$$,
   $$values ('Frage frei'::text)$$,
   '7: nur freigegebene Pruefgespraeche, keine Entwuerfe');
+
+-- Rechte (Consensus-Check): interne Helfer nicht aufrufbar, kein Schreiben, nichts fuer anon
+select ok(not bool_or(has_function_privilege(r, f, 'execute')),
+  'Rechte: interne Helfer sind fuer anon und authenticated nicht aufrufbar')
+  from unnest(array['anon','authenticated']) r,
+       unnest(array['public.lernpfad_beleg_core(uuid,text,uuid,text,boolean)',
+                    'public.lernpfad_stellschraube(text,uuid)',
+                    'public.lernpfad_coach_der_session(uuid,uuid)',
+                    'public.lernpfad_lsa_urteile(uuid)']) f;
+select ok(not bool_or(has_function_privilege('anon', f, 'execute')),
+  'Rechte: anon ruft keine Lernpfad-Funktion auf')
+  from unnest(array['public.lernpfad_beleg(uuid,text,uuid,text,boolean)',
+                    'public.lernpfad_aus_lsa(uuid)', 'public.naechste_luecke(uuid)',
+                    'public.ziel_fertigkeiten(uuid,text)', 'public.pfad_tiefer(uuid,text,uuid,text)',
+                    'public.mastery_entscheiden(uuid,text,text,text,uuid)',
+                    'public.skill_pruefung_lesen(text)', 'public.mein_lernpfad()',
+                    'public.lernpfad_darf_lesen(uuid)']) f;
+select ok(not bool_or(has_table_privilege(r, t, p)),
+  'Rechte: kein INSERT/UPDATE/DELETE/TRUNCATE fuer anon und authenticated, kein SELECT fuer anon')
+  from unnest(array['public.lernpfad','public.lernpfad_belege','public.lernpfad_protokoll','public.skill_pruefung']) t,
+       (values ('anon','select'), ('anon','insert'), ('authenticated','insert'), ('authenticated','update'),
+               ('authenticated','delete'), ('authenticated','truncate')) as x(r, p);
+select pg_temp.act_as(:'coach_uid');
+set local role authenticated;
+select throws_ok($$insert into lernpfad (student_id, skill_key, quelle) values ('a1a1a1a1-0003-4000-8000-000000000001', 'zz_a1_thema2', 'coach')$$,
+  '42501', NULL, 'Rechte: Coach schreibt nicht direkt in lernpfad');
+select is((select count(*)::int from skill_pruefung), 0, 'Rechte: Coach liest skill_pruefung nicht direkt (nur ueber die Funktion)');
+reset role;
 
 select * from finish();
 rollback;

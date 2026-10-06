@@ -52,10 +52,12 @@ begin
   if not exists (select 1 from public.skills where skill_key = p_skill_key) then
     raise exception 'lernpfad_beleg: Skill % unbekannt', p_skill_key using errcode = 'P0002';
   end if;
-  -- Nur Sessions vor Ort, in denen das Kind gebucht ist (Entscheidung 4).
+  -- Nur Sessions vor Ort, in denen das Kind gebucht und anwesend ist
+  -- (Entscheidung 4; R1 setzt 'present' bei der Tablet-Zuweisung).
   if not exists (select 1 from public.session_students ss
-                  where ss.session_id = p_session_id and ss.student_id = p_student_id) then
-    raise exception 'lernpfad_beleg: Kind ist in dieser Session nicht gebucht' using errcode = 'P0001';
+                  where ss.session_id = p_session_id and ss.student_id = p_student_id
+                    and ss.attendance = 'present') then
+    raise exception 'lernpfad_beleg: Kind ist in dieser Session nicht anwesend' using errcode = 'P0001';
   end if;
 
   insert into public.lernpfad_belege (student_id, skill_key, session_id, ergebnis, hinweis_genutzt)
