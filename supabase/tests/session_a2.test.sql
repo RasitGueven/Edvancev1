@@ -23,7 +23,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(111);
+select plan(116);
 
 \ir session_a2_fixture.sql
 
@@ -335,14 +335,29 @@ values (:'coach_a', 'ZZ A2 heute', now() - interval '2 hours', 'done', now() - i
 returning id as s_heute \gset
 insert into coaching_sessions (coach_id, room, scheduled_at) values (:'coach_a', 'ZZ A2 morgen', now() + interval '1 day')
 returning id as s_morgen \gset
+-- Laufend, aber nicht abgeschlossen: geplanter Beginn vor 89 bzw. 91 Minuten (Ende + 30 = 90 Minuten).
+insert into coaching_sessions (coach_id, room, scheduled_at, status, gestartet_am)
+values (:'coach_a', 'ZZ A2 im Fenster', now() - interval '89 minutes', 'active', now() - interval '89 minutes')
+returning id as s_fenster \gset
+insert into coaching_sessions (coach_id, room, scheduled_at, status, gestartet_am)
+values (:'coach_a', 'ZZ A2 nach dem Fenster', now() - interval '91 minutes', 'active', now() - interval '91 minutes')
+returning id as s_vorbei \gset
 insert into session_students (session_id, student_id, attendance)
-select x, :'k_gross', 'present' from unnest(array[:'s_gestern', :'s_heute', :'s_morgen']::uuid[]) x;
+select x, :'k_gross', 'present' from unnest(array[:'s_gestern', :'s_heute', :'s_morgen', :'s_fenster', :'s_vorbei']::uuid[]) x;
 select set_config('request.jwt.claims', '', true);
 select pg_temp.act_as(:'coach_a');
 select ok(lernpfad_coach_der_session(:'s15', :'k_gross'), 'N laufende Session: Coach darf entscheiden');
 select ok(lernpfad_coach_der_session(:'s_heute', :'k_gross'), 'N am selben Tag nach dem Abschluss: Coach darf entscheiden');
 select ok(not lernpfad_coach_der_session(:'s_gestern', :'k_gross'), 'N Abschluss gestern: nicht mehr');
 select ok(not lernpfad_coach_der_session(:'s_morgen', :'k_gross'), 'N geplante Session: noch nicht');
+select ok(lernpfad_coach_der_session(:'s_fenster', :'k_gross'), 'N laufend, 29 Minuten nach dem geplanten Ende: noch im Fenster');
+select ok(not lernpfad_coach_der_session(:'s_vorbei', :'k_gross'), 'N laufend, 31 Minuten nach dem geplanten Ende: nicht mehr');
+select throws_ok(format($$select pfad_tiefer(%L, 'zz_a2_g1', %L)$$, :'k_gross', :'s_vorbei'), '42501', null,
+                 'N pfad_tiefer in nicht abgeschlossener Session nach dem Fenster -> 42501');
+select throws_ok(format($$select eingriff_notieren(%L, %L, 4, 'zz_a2_fb')$$, :'s_vorbei', :'k_gross'), '42501', null,
+                 'N Eingriff Stufe 4 nach dem Fenster -> 42501');
+select throws_ok(format($$select mastery_entscheiden(%L, 'zz_a2_v1', 'gemeistert', null, %L)$$, :'k_gross', :'s_vorbei'), '42501', null,
+                 'N mastery_entscheiden nach dem Fenster -> 42501');
 select throws_ok(format($$select pfad_tiefer(%L, 'zz_a2_g1', %L)$$, :'k_gross', :'s_gestern'), '42501', null,
                  'N pfad_tiefer nach dem Tag des Abschlusses -> 42501');
 select throws_ok(format($$select mastery_entscheiden(%L, 'zz_a2_v1', 'gemeistert', null, %L)$$, :'k_gross', :'s_morgen'), '42501', null,

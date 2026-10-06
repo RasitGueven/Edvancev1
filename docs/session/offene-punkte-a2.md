@@ -70,8 +70,13 @@ lassen. Jeder Punkt nennt die Stelle im Code.
     Bestätigungsaufruf wäre robuster; Entscheidung mit R2.
 
 16. **Zeitbindung der Coach-Entscheidungen (zweiter Consensus-Check, Commit 40e97ce, kein Blocker).**
-    - Eine Session, die nie abgeschlossen wird (`active`), bleibt unbegrenzt entscheidbar; es gibt keinen Timeout, der
-      sie schließt. Vorschlag: automatischer Abschluss oder Bindung auch an den Tag des Starts (C2/R1).
+    - **Erledigt (Rasit 06.10.):** „Laufend“ zählt nur bis zum geplanten Ende plus 30 Minuten Nachbereitung, danach nur
+      noch „heute abgeschlossen“. Geplantes Ende = `scheduled_at` + 60 Minuten: `coaching_sessions` hat keine Dauer-
+      oder End-Spalte (dbread 06.10.: Spaltenliste; `slots` hat nur `start_time`, 0 von 72 Sessions mit Slot), die
+      Dauer kommt aus Entscheidung 1 („Eine Session dauert 60 Minuten“), wie bei `session_uhr_phase`. Sollen Sessions
+      eine eigene Dauer bekommen, braucht es eine Spalte.
+    - **Offen für C2 (Rasit 06.10.):** Sessions, die nach ihrem Ende nicht abgeschlossen sind, auf der
+      Admin-Startseite und in der Coach-Sicht anzeigen.
     - `lernpfad_beleg` (manueller Beleg durch den Coach) hängt an derselben Bindung.
     - `erklaer_nachlesen` zeigt auch am Tablet im Testlauf nur freigegebene Inhalte (zuhause-Funktion, bewusst so).
 
@@ -112,7 +117,7 @@ Vorschau schreibt nichts, Lösungen nur beim Beispiel. Befunde und Umgang:
 | a1-4 Badges bei „gemeistert“ | A1 | entschieden (Rasit 06.10.): vorerst kein Abzeichen; offener Punkt für das Badge-System |
 | a1-9 Akte und Eltern auf `stand_coach` | A1 | offen: Funktionen der Schülerakte, nicht Session-Pakete |
 | a1-10 Kind am Tablet (`mein_lernpfad`) | A1 | erledigt |
-| a1-15 Session-Status bei Coach-Entscheidungen | A1 | erledigt (Rasit 06.10.): `mastery_entscheiden`, `pfad_tiefer` und Eingriff Stufe 4 nur in der laufenden Session des Kindes oder am selben Tag nach dem Abschluss (`lernpfad_coach_der_session`, `eingriff_notieren`); pgTAP N, A1-Fixture angepasst |
+| a1-15 Session-Status bei Coach-Entscheidungen | A1 | erledigt (Rasit 06.10.): `mastery_entscheiden`, `pfad_tiefer` und Eingriff Stufe 4 nur in der laufenden Session des Kindes (bis geplantes Ende + 30 Minuten) oder am selben Tag nach dem Abschluss (`lernpfad_coach_der_session`, `eingriff_notieren`); pgTAP N, A1-Fixture angepasst |
 | a1-17 Test: LSA-Testlauf erzeugt keine Lernpfad-Zeile | A1 | offen: kein Bestandteil dieses Auftrags, Filter greift laut A1 seit X0 |
 | e1-1 `erklaerrunden_bis_signal` | E1 | erledigt (Snapshot) |
 | e1-2 Einsatz `check` | E1 | erledigt (Filter in `erklaer_checks`, E1-Fixture angepasst) |

@@ -194,11 +194,11 @@ begin
     raise exception 'eingriff_notieren: ab Stufe 3 ist das Fehlbild Pflicht' using errcode = '22023',
       hint = 'fehlbild_pflicht';
   end if;
-  -- A2 (Rasit 06.10.): Stufe 4 setzt den Pfad; das darf der Coach nur in der laufenden Session oder
-  -- am selben Tag nach dem Abschluss (wie pfad_tiefer / lernpfad_coach_der_session).
+  -- A2 (Rasit 06.10.): Stufe 4 setzt den Pfad; das darf der Coach nur in der laufenden Session (bis
+  -- zum geplanten Ende plus 30 Minuten) oder am selben Tag nach dem Abschluss (lernpfad_coach_der_session).
   if p_stufe = 4 and coalesce(public.get_my_role(), '') <> 'admin'
      and not coalesce(public.lernpfad_coach_der_session(p_session_id, p_student_id), false) then
-    raise exception 'eingriff_notieren: Stufe 4 nur in der laufenden Session oder am selben Tag danach'
+    raise exception 'eingriff_notieren: Stufe 4 nur in der laufenden Session (bis 30 Minuten nach dem geplanten Ende) oder am selben Tag nach dem Abschluss'
       using errcode = '42501';
   end if;
   if v_slug is not null and not exists (select 1 from public.fehlbild_labels where slug = v_slug) then

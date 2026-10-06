@@ -3,7 +3,8 @@
 --
 -- Grundlage: Definitionen in Prod (pg_get_functiondef 06.10., identisch mit den Migrationen).
 --   lernpfad_coach_der_session, lernpfad_darf_lesen   NULL-sicher (Konto ohne Profil -> false);
---                          Coach-Entscheidungen nur in laufender Session oder am selben Tag danach.
+--                          Coach-Entscheidungen nur in laufender Session (bis geplantes Ende + 30 Min)
+--                          oder am selben Tag nach dem Abschluss.
 --   mein_lernpfad          auch vom Tablet des Kindes (Zuordnung ueber session_tablets).
 --   erklaer_zugang         NULL-sicher; Tablet des Kindes zugelassen; nur in einer laufenden Session.
 --   erklaer_nachlesen      NULL-sicher; Tablet des Kindes zugelassen ("nochmal erklaeren", G).
@@ -28,9 +29,11 @@ as $$
         where cs.id = p_session_id
           and cs.coach_id = auth.uid()
           and ss.student_id = p_student_id
-          -- A2 (Rasit 06.10., offene-punkte-a1 15): nur in der laufenden Session oder am selben Tag
-          -- nach ihrem Abschluss (Nachbereitung, Europe/Berlin).
-          and (cs.status = 'active'
+          -- A2 (Rasit 06.10., offene-punkte-a1 15): nur in der laufenden Session, laengstens bis zum
+          -- geplanten Ende plus 30 Minuten Nachbereitung, oder am selben Tag nach ihrem Abschluss
+          -- (Europe/Berlin). Geplantes Ende = scheduled_at + 60 Minuten: coaching_sessions hat keine
+          -- Dauer, die Session dauert 60 Minuten (Entscheidung 1, wie session_uhr_phase).
+          and ((cs.status = 'active' and now() <= cs.scheduled_at + interval '60 minutes' + interval '30 minutes')
                or (cs.status = 'done'
                    and (cs.beendet_am at time zone 'Europe/Berlin')::date = (now() at time zone 'Europe/Berlin')::date))
      );
