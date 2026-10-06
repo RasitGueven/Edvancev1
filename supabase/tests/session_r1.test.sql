@@ -350,7 +350,8 @@ select results_eq($$
            ('session_kind_abschluss', 'coaching_sessions', 'r'), ('session_kind_abschluss', 'students', 'c'),
            ('session_tablets', 'coaching_sessions', 'r'), ('session_tablets', 'students', 'c')$$,
   'Loeschregel: Lernverlauf an der Session restrict, am Kind cascade');
-select throws_ok(format('delete from coaching_sessions where id = %L', :'s'), '23001', null,
+-- restrict meldet Postgres 18 als 23001, Postgres 16 (CI) als 23503; die Meldung ist gleich.
+select throws_like(format('delete from coaching_sessions where id = %L', :'s'), '%violates%foreign key constraint%',
   'Loeschregel: auch ein Admin loescht keine Session mit Verlauf');
 select throws_ok(format('delete from session_students where session_id = %L and student_id = %L', :'s', :'k3'), '23503', null,
   'Loeschregel: eine Buchung mit Verlauf bleibt');
