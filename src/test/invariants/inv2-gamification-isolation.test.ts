@@ -8,8 +8,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
  * Treffer sind `parseQuestion`). Der reale Gamification-Abschluss-Pfad ist die
  * XP-Vergabe `awardXp` in src/lib/supabase/progress.ts. Diese Suite testet die
  * dahinterliegende Invariante direkt am realen Symbol: ein Gamification-Write
- * verändert AUSSCHLIESSLICH Gamification-Daten (xp_events) — niemals
- * student_competency_mastery, Mastery-Felder oder Lernpfad-Zustand.
+ * geht AUSSCHLIESSLICH über die RPC `xp_buchen` (seit X0 kein direkter
+ * Tabellen-Write mehr) — niemals student_competency_mastery, Mastery-Felder
+ * oder Lernpfad-Zustand.
  *
  * Server-seitig aktualisiert der Trigger `apply_xp_event` (Migration 019)
  * student_progress aus xp_events — der Client kann Totals nicht fälschen und
@@ -33,6 +34,7 @@ interface Builder {
 const { tracker, supabaseMock } = vi.hoisted(() => {
   const writes: { table: string; op: string; payload: unknown }[] = []
   const tables: string[] = []
+  const rpcs: { name: string; args: Record<string, unknown> }[] = []
 
   const makeBuilder = (table: string): Builder => {
     const rec = (op: string, payload: unknown): Builder => {
@@ -62,9 +64,13 @@ const { tracker, supabaseMock } = vi.hoisted(() => {
       tables.push(table)
       return makeBuilder(table)
     },
+    rpc: async (name: string, args: Record<string, unknown>): Promise<QueryResult> => {
+      rpcs.push({ name, args })
+      return { data: true, error: null }
+    },
   }
 
-  return { tracker: { writes, tables }, supabaseMock: { supabase } }
+  return { tracker: { writes, tables, rpcs }, supabaseMock: { supabase } }
 })
 
 vi.mock('@/lib/supabase/client', () => supabaseMock)
@@ -77,28 +83,36 @@ const FORBIDDEN_TABLES = ['student_competency_mastery', 'student_focus_areas', '
 beforeEach(() => {
   tracker.writes.length = 0
   tracker.tables.length = 0
+  tracker.rpcs.length = 0
 })
 
 describe('INV-2 — Gamification berührt keine Mastery-/Lernpfad-Daten', () => {
-  it('awardXp schreibt ausschließlich xp_events', async () => {
-    await awardXp('s1', 10, 'task_correct', 't1')
-    expect(tracker.tables).toEqual(['xp_events'])
-    expect(tracker.writes.map((w) => w.op)).toEqual(['insert'])
+  it('awardXp bucht ausschließlich über die RPC xp_buchen, ohne Tabellen-Write', async () => {
+    const r = await awardXp('s1', 10, 'task_correct', 'quest:q1', 't1')
+    expect(r).toEqual({ data: { gebucht: true }, error: null })
+    expect(tracker.rpcs.map((c) => c.name)).toEqual(['xp_buchen'])
+    expect(tracker.tables).toEqual([])
+    expect(tracker.writes).toEqual([])
   })
 
   it('berührt keine Mastery-/Lernpfad-Tabelle', async () => {
-    await awardXp('s1', 10, 'task_correct', 't1')
+    await awardXp('s1', 10, 'task_correct', 'quest:q1', 't1')
     for (const table of FORBIDDEN_TABLES) {
       expect(tracker.tables).not.toContain(table)
     }
   })
 
-  it('Payload enthält nur Gamification-Felder, keine Mastery-Felder', async () => {
-    await awardXp('s1', 10, 'task_correct', 't1')
-    const payload = tracker.writes[0]?.payload as Record<string, unknown>
-    expect(Object.keys(payload).sort()).toEqual(['reason', 'student_id', 'task_id', 'xp'])
-    expect(payload).not.toHaveProperty('mastered')
-    expect(payload).not.toHaveProperty('mastery')
-    expect(payload).not.toHaveProperty('level')
+  it('Argumente enthalten nur Gamification-Felder, keine Mastery-Felder', async () => {
+    await awardXp('s1', 10, 'task_correct', 'quest:q1', 't1')
+    const args = tracker.rpcs[0]?.args ?? {}
+    expect(Object.keys(args).sort()).toEqual([
+      'p_grund',
+      'p_schluessel',
+      'p_student_id',
+      'p_task_id',
+      'p_xp',
+    ])
+    expect(args).not.toHaveProperty('mastered')
+    expect(args).not.toHaveProperty('level')
   })
 })
